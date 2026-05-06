@@ -1,8 +1,13 @@
 import { mockUsers } from "../../data/mockUsers";
+import { supabase } from "../../lib/supabase";
 import { normalizeEmail, sanitizeText } from "../../utils/validators";
 import { trackEvent } from "../analytics/analyticsService";
 import { readStorage, removeStorage, storageKeys, writeStorage } from "../storage/storageService";
 import { getHomeForRole, normalizeRole, ROLES } from "../permissions/permissionService";
+
+const PROFILE_SELECT = "id, institution_id, name, email, role, status, avatar_url";
+const INACTIVE_ACCOUNT_MESSAGE = "Usuário sem permissão ativa. Contate a instituição.";
+const PROFILE_NOT_FOUND_MESSAGE = "Usuário autenticado, mas perfil não encontrado em public.users.";
 
 function getUsers() {
   const users = readStorage(storageKeys.users, null);
@@ -37,6 +42,76 @@ async function digestPassword(password, salt) {
 function publicUser(user) {
   const { passwordHash, passwordSalt, ...safeUser } = user;
   return safeUser;
+}
+
+function isActiveProfileStatus(status) {
+  return ["active", "ativo"].includes(String(status || "").toLowerCase());
+}
+
+function profileToAppUser(profile, authUser = null) {
+  const role = normalizeRole(profile.role);
+  const institutionId = profile.institution_id || profile.institutionId || "";
+
+  return normalizeUserRecord({
+    id: profile.id,
+    name: profile.name || authUser?.email?.split("@")[0] || "Usuário",
+    email: profile.email || authUser?.email || "",
+    role,
+    status: profile.status,
+    accountStatus: profile.status,
+    avatarUrl: profile.avatar_url || "",
+    avatar_url: profile.avatar_url || "",
+    institutionId,
+    institution_id: institutionId,
+    institution: profile.institution || (role === ROLES.SUPER_ADMIN ? "Aeternum Atlas" : "UPE Presidente Franco"),
+    course: role === ROLES.STUDENT ? "Medicina" : undefined,
+    semester: role === ROLES.STUDENT ? "Institucional" : undefined,
+    accessStatus: "acesso_institucional",
+    licenseStatus: "Ativa",
+    subscriptionStatus: "active",
+    subscriptionPlan: "Licença institucional"
+  });
+}
+
+function saveAuthProfile(user) {
+  writeStorage(storageKeys.authProfile, publicUser(user));
+  writeStorage(storageKeys.session, user.id);
+  return user;
+}
+
+function clearAuthProfile() {
+  removeStorage(storageKeys.authProfile);
+  removeStorage(storageKeys.session);
+}
+
+async function loadProfileForAuthUser(authUser) {
+  if (!authUser?.id) throw new Error(PROFILE_NOT_FOUND_MESSAGE);
+
+  const { data: profile, error: profileError } = await supabase
+    .from("users")
+    .select(PROFILE_SELECT)
+    .eq("id", authUser.id)
+    .single();
+
+  if (profileError || !profile) {
+    console.warn("Authenticated user profile was not found in public.users", {
+      userId: authUser.id,
+      error: profileError?.message
+    });
+    throw new Error(PROFILE_NOT_FOUND_MESSAGE);
+  }
+
+  console.log("Profile loaded");
+
+  if (!isActiveProfileStatus(profile.status)) {
+    console.warn("Authenticated user is not active", {
+      userId: authUser.id,
+      status: profile.status
+    });
+    throw new Error(INACTIVE_ACCOUNT_MESSAGE);
+  }
+
+  return profileToAppUser(profile, authUser);
 }
 
 function roleFromUserType(userType = "") {
@@ -113,32 +188,43 @@ export async function registerUser(payload) {
 }
 
 export async function loginUser(email, password) {
-  const users = getUsers();
-  const user = users.find(item => normalizeEmail(item.email) === normalizeEmail(email));
+  console.log("Login submit triggered");
+  console.log("Calling Supabase signInWithPassword");
 
-  if (!user) throw new Error("E-mail ou senha inválidos.");
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: normalizeEmail(email),
+    password
+  });
 
-  const passwordHash = await digestPassword(password, user.passwordSalt);
-  if (passwordHash !== user.passwordHash) throw new Error("E-mail ou senha inválidos.");
+  if (error) {
+    console.warn("Supabase auth sign-in failed", { message: error.message, status: error.status });
+    if (error.message?.toLowerCase().includes("invalid login credentials")) {
+      throw new Error("E-mail ou senha inválidos.");
+    }
+    throw new Error(error.message || "Não foi possível autenticar no Supabase.");
+  }
 
-  return createSession(user.id, users);
+  const authUser = data?.user;
+  if (!authUser) throw new Error("Não foi possível carregar o usuário autenticado.");
+
+  console.log("Supabase auth success");
+
+  try {
+    const user = await loadProfileForAuthUser(authUser);
+    saveAuthProfile(user);
+    trackEvent({ userId: user.id, institutionId: user.institutionId, role: user.role, eventType: "login" });
+    console.log("Login flow completed");
+    return publicUser(user);
+  } catch (profileError) {
+    await supabase.auth.signOut();
+    clearAuthProfile();
+    throw profileError;
+  }
 }
 
 export function loginDemoUser(role = ROLES.STUDENT) {
-  const normalizedRole = normalizeRole(role);
-  const users = getUsers();
-  const preferredId = normalizedRole === ROLES.TEACHER
-    ? "teacher-demo"
-    : normalizedRole === ROLES.SUPER_ADMIN
-      ? "super-admin-demo"
-      : normalizedRole === ROLES.INSTITUTION_ADMIN
-        ? "institution-admin-demo"
-        : "student-demo";
-  const user = users.find(item => item.id === preferredId) || users.find(item => item.role === normalizedRole);
-
-  if (!user) throw new Error("Usuário demo não encontrado.");
-
-  return createSession(user.id, users);
+  console.warn("Mock demo login blocked. Use a real Supabase Auth user instead.", { role });
+  throw new Error("Login demo desativado em produção. Use um usuário real do Supabase.");
 }
 
 function createSession(userId, users = getUsers()) {
@@ -154,17 +240,40 @@ function createSession(userId, users = getUsers()) {
   return publicUser(loggedUser);
 }
 
-export function logoutUser() {
+export async function logoutUser() {
   const user = getCurrentUser();
   if (user) trackEvent({ userId: user.id, institutionId: user.institutionId, role: user.role, eventType: "logout" });
-  removeStorage(storageKeys.session);
+  clearAuthProfile();
+  await supabase.auth.signOut();
 }
 
 export function getCurrentUser() {
+  const authProfile = readStorage(storageKeys.authProfile, null);
+  if (authProfile?.id) return publicUser(normalizeUserRecord(authProfile));
+
   const sessionId = readStorage(storageKeys.session, null);
   if (!sessionId) return null;
   const user = getUsers().find(item => item.id === sessionId);
   return user ? publicUser(user) : null;
+}
+
+export async function restoreAuthSession() {
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error || !data?.user) {
+    clearAuthProfile();
+    return null;
+  }
+
+  try {
+    const user = await loadProfileForAuthUser(data.user);
+    saveAuthProfile(user);
+    return publicUser(user);
+  } catch (error) {
+    console.warn("Stored Supabase session could not be restored", { message: error.message });
+    clearAuthProfile();
+    return null;
+  }
 }
 
 export function getSession() {

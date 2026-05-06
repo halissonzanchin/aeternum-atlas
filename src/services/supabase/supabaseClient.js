@@ -1,9 +1,11 @@
+import { supabase } from "../../lib/supabase";
+
 export const supabaseConfig = {
   url: import.meta.env?.VITE_SUPABASE_URL || "",
   anonKey: import.meta.env?.VITE_SUPABASE_ANON_KEY || ""
 };
 
-let injectedClient = null;
+let injectedClient = supabase;
 
 export function isSupabaseConfigured() {
   return Boolean(supabaseConfig.url && supabaseConfig.anonKey);
@@ -15,7 +17,7 @@ export function setSupabaseClient(client) {
 }
 
 export function getSupabaseClient() {
-  return injectedClient;
+  return injectedClient || supabase;
 }
 
 export function requireSupabaseClient() {

@@ -336,6 +336,7 @@ export default function Viewer({ id, user, navigate, notify, onLogout }) {
               onViewerAction={handleViewerAction}
               onViewerEvent={handleSketchfabEvent}
               onRequestAccess={() => navigate("/license")}
+              currentUser={user}
             />
           </div>
         </div>

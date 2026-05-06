@@ -3,7 +3,7 @@ import AeternumLogo from "../../components/AeternumLogo";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import LanguageSelector from "../../components/LanguageSelector";
-import { getRedirectPathForUser, loginDemoUser, loginUser } from "../../services/authService";
+import { getRedirectPathForUser, loginUser } from "../../services/authService";
 import { validateLogin } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
 
@@ -13,6 +13,7 @@ export default function Login({ navigate, onAuth }) {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function update(event) {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -20,27 +21,21 @@ export default function Login({ navigate, onAuth }) {
 
   async function submit(event) {
     event.preventDefault();
+    if (loading) return;
     const nextErrors = validateLogin(values);
     setErrors(nextErrors);
     setMessage("");
     if (Object.keys(nextErrors).length) return;
 
+    setLoading(true);
     try {
       const user = await loginUser(values.email, values.password);
       onAuth(user);
       navigate(getRedirectPathForUser(user));
     } catch (error) {
       setMessage(error.message || t("auth.invalidCredentials"));
-    }
-  }
-
-  function enterAsTeacherDemo() {
-    try {
-      const user = loginDemoUser("teacher");
-      onAuth(user);
-      navigate(getRedirectPathForUser(user));
-    } catch (error) {
-      setMessage(error.message || t("auth.invalidCredentials"));
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -57,24 +52,23 @@ export default function Login({ navigate, onAuth }) {
         <form className="mt-8 grid gap-5" onSubmit={submit}>
           <label className="field">
             <span>{t("auth.email")}</span>
-            <input name="email" value={values.email} onChange={update} />
+            <input name="email" type="email" value={values.email} onChange={update} autoComplete="email" />
             <small>{errors.email}</small>
           </label>
           <label className="field">
             <span>{t("auth.password")}</span>
             <div className="flex rounded-2xl border border-white/10 bg-blackDeep/60 focus-within:border-techTeal/70">
-              <input className="min-h-11 flex-1 border-0 bg-transparent px-4 outline-none" name="password" type={showPassword ? "text" : "password"} value={values.password} onChange={update} />
+              <input className="min-h-11 flex-1 border-0 bg-transparent px-4 outline-none" name="password" type={showPassword ? "text" : "password"} value={values.password} onChange={update} autoComplete="current-password" />
               <button type="button" className="px-4 text-sm font-bold text-techTeal" onClick={() => setShowPassword(!showPassword)}>{showPassword ? t("auth.hidePassword") : t("auth.showPassword")}</button>
             </div>
             <small>{errors.password}</small>
           </label>
           {message ? <p className="rounded-2xl border border-red-300/25 bg-red-400/10 p-3 text-sm text-red-100">{message}</p> : null}
-          <Button variant="teal" type="submit">{t("auth.loginShort")}</Button>
+          <Button variant="teal" type="submit" disabled={loading}>{loading ? t("common.loading") : t("auth.loginShort")}</Button>
         </form>
         <div className="mt-5 flex flex-wrap gap-3">
           <Button variant="ghost" onClick={() => setMessage(t("auth.recoveryPrepared"))}>{t("auth.forgotPassword")}</Button>
           <Button variant="outline" onClick={() => navigate("/register")}>{t("auth.newAccount")}</Button>
-          <Button variant="teal" onClick={enterAsTeacherDemo}>{t("auth.enterAsTeacherDemo")}</Button>
         </div>
       </Card>
     </main>

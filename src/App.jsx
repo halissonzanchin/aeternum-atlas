@@ -4,7 +4,7 @@ import AppLayout from "./components/Layout/AppLayout";
 import Modal from "./components/Modal/Modal";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Card from "./components/Card/Card";
-import { getCurrentUser, logoutUser } from "./services/authService";
+import { getCurrentUser, logoutUser, restoreAuthSession } from "./services/authService";
 import { isAdminPath, isPrivatePath } from "./utils/accessControl";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
@@ -61,6 +61,18 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    let mounted = true;
+
+    restoreAuthSession().then(restoredUser => {
+      if (mounted) setUser(restoredUser);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
     if (!toast) return undefined;
     const timer = window.setTimeout(() => setToast(""), 2600);
     return () => window.clearTimeout(timer);
@@ -80,8 +92,8 @@ export default function App() {
     setToast(message);
   }
 
-  function handleLogout() {
-    logoutUser();
+  async function handleLogout() {
+    await logoutUser();
     setUser(null);
     navigate("/");
   }

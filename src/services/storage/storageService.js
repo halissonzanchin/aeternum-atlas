@@ -7,6 +7,7 @@ export const storageKeys = {
   session: "aeternum.react.session",
   analyticsEvents: "aeternum_access_logs",
   accessLogs: "aeternum_access_logs",
+  authProfile: "aeternum.react.auth_profile",
   favorites: "aeternum_favorites",
   completedModels: "aeternum_completed_models",
   studyProgress: "aeternum_student_progress",
