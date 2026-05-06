@@ -17,6 +17,8 @@
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   isolation: isolate;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .aeternum-brand-logo--symbol,
@@ -183,6 +185,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 100%;
   min-width: 0;
 }
 
@@ -193,6 +196,7 @@
   letter-spacing: 0.22em;
   line-height: 1.08;
   white-space: nowrap;
+  max-width: 100%;
   background: linear-gradient(
     180deg,
     #fff3c4 0%,
@@ -389,6 +393,19 @@
   }
 }
 
+@media (max-width: 430px) {
+  .aeternum-brand-logo--horizontal,
+  .aeternum-logo--horizontal {
+    gap: 8px;
+  }
+
+  .aeternum-brand-logo--md .aeternum-brand-logo__symbol-wrap,
+  .aeternum-logo--md .aeternum-logo__symbol-wrap {
+    width: 46px;
+  }
+
+}
+
 @media (prefers-reduced-motion: reduce) {
   .aeternum-brand-logo,
   .aeternum-brand-logo *,
@@ -463,4 +480,64 @@
     0 0 8px rgba(255, 215, 106, 0.16),
     0 0 16px rgba(198, 168, 92, 0.08),
     inset 0 0 10px rgba(255, 215, 106, 0.07);
+}
+
+/* Responsive logo guard. Kept last to override older fixed size rules. */
+.aeternum-logo--full,
+.aeternum-brand-logo--full {
+  width: 100%;
+  max-width: 100%;
+}
+
+.aeternum-logo--full .aeternum-logo__symbol-wrap,
+.aeternum-brand-logo--full .aeternum-brand-logo__symbol-wrap {
+  width: min(70vw, 320px);
+  max-width: 100%;
+}
+
+.aeternum-logo--full .aeternum-logo__symbol,
+.aeternum-brand-logo--full .aeternum-brand-logo__symbol {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.aeternum-logo--full .aeternum-logo__name,
+.aeternum-brand-logo--full .aeternum-brand-logo__name {
+  max-width: min(100%, calc(100vw - 32px));
+  font-size: clamp(2.1rem, 12vw, 5.5rem);
+  letter-spacing: clamp(0.08em, 2vw, 0.22em);
+  line-height: 0.96;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: normal;
+  text-wrap: balance;
+}
+
+.aeternum-logo--full .aeternum-logo__subtitle,
+.aeternum-brand-logo--full .aeternum-brand-logo__subtitle {
+  max-width: min(100%, calc(100vw - 32px));
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 430px) {
+  .aeternum-brand-logo--full .aeternum-brand-logo__symbol-wrap,
+  .aeternum-logo--full .aeternum-logo__symbol-wrap {
+    width: min(68vw, 260px);
+  }
+
+  .aeternum-brand-logo--full .aeternum-brand-logo__name,
+  .aeternum-logo--full .aeternum-logo__name {
+    font-size: clamp(2.1rem, 10vw, 3.6rem);
+    letter-spacing: clamp(0.06em, 1.15vw, 0.16em);
+  }
+
+  .aeternum-brand-logo--full .aeternum-brand-logo__subtitle,
+  .aeternum-logo--full .aeternum-logo__subtitle {
+    font-size: clamp(0.72rem, 3vw, 0.92rem);
+    letter-spacing: clamp(0.08em, 1.6vw, 0.18em);
+  }
 }
