@@ -1,39 +1,25 @@
 import { getSubscriptionStatus } from "../services/subscriptionService";
+import {
+  canAccessModel as canAccessModelByPermission,
+  isAdminPath as isAdminRoutePath,
+  isAdminRole,
+  isPrivatePath as isPrivateRoutePath
+} from "../services/permissions/permissionService";
 
 export function isAdmin(user) {
-  return ["admin", "super_admin", "institution_admin"].includes(user?.role);
+  return isAdminRole(user);
 }
 
 export function canAccessModel(user, model) {
-  return Boolean(user && model?.isActive !== false && (user.accountStatus || "ativo") !== "bloqueado");
+  return canAccessModelByPermission(user, model);
 }
 
 export function isPrivatePath(path) {
-  return [
-    "/dashboard",
-    "/models",
-    "/viewer",
-    "/license",
-    "/profile",
-    "/settings",
-    "/history",
-    "/favorites",
-    "/teacher",
-    "/study-lists",
-    "/classes",
-    "/recommendations",
-    "/academic-reports",
-    "/institution-admin",
-    "/super-admin",
-    "/atlas",
-    "/radiology",
-    "/videos",
-    "/courses"
-  ].some(route => path === route || path.startsWith(`${route}/`));
+  return isPrivateRoutePath(path);
 }
 
 export function isAdminPath(path) {
-  return path === "/admin" || path.startsWith("/admin/") || path === "/institution-admin" || path.startsWith("/institution-admin/") || path === "/super-admin" || path.startsWith("/super-admin/");
+  return isAdminRoutePath(path);
 }
 
 export function accessSummary(user) {

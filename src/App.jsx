@@ -112,14 +112,14 @@ export default function App() {
     if (path === "/register") return <Register navigate={navigate} onAuth={setUser} />;
     if (path.startsWith("/viewer/")) {
       return (
-        <ProtectedRoute user={user} navigate={navigate}>
+        <ProtectedRoute user={user} path={path} navigate={navigate}>
           <Viewer id={path.split("/").pop()} user={user} navigate={navigate} notify={notify} onLogout={handleLogout} />
         </ProtectedRoute>
       );
     }
     if (path.startsWith("/teacher/viewer/")) {
       return (
-        <ProtectedRoute user={user} navigate={navigate}>
+        <ProtectedRoute user={user} path={path} navigate={navigate}>
           <Viewer id={path.split("/").pop()} user={user} navigate={navigate} notify={notify} onLogout={handleLogout} />
         </ProtectedRoute>
       );
@@ -129,7 +129,7 @@ export default function App() {
 
     if (isPrivatePath(path) || isAdminPath(path) || privatePage) {
       return (
-        <ProtectedRoute user={user} adminOnly={isAdminPath(path)} navigate={navigate}>
+        <ProtectedRoute user={user} adminOnly={isAdminPath(path)} path={path} navigate={navigate}>
           <AppLayout user={user} path={path} navigate={navigate} onLogout={handleLogout}>
             {privatePage || <NotFound navigate={navigate} />}
           </AppLayout>

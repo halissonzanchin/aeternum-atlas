@@ -3,16 +3,9 @@ import AeternumLogo from "../../components/AeternumLogo";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import LanguageSelector from "../../components/LanguageSelector";
-import { loginDemoUser, loginUser } from "../../services/authService";
+import { getRedirectPathForUser, loginDemoUser, loginUser } from "../../services/authService";
 import { validateLogin } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
-
-function homeForRole(role) {
-  if (role === "teacher" || role === "professor") return "/teacher/dashboard";
-  if (role === "institution_admin") return "/admin/dashboard";
-  if (role === "admin" || role === "super_admin") return "/super-admin";
-  return "/dashboard";
-}
 
 export default function Login({ navigate, onAuth }) {
   const { t } = useLanguage();
@@ -35,7 +28,7 @@ export default function Login({ navigate, onAuth }) {
     try {
       const user = await loginUser(values.email, values.password);
       onAuth(user);
-      navigate(homeForRole(user.role));
+      navigate(getRedirectPathForUser(user));
     } catch (error) {
       setMessage(error.message || t("auth.invalidCredentials"));
     }
@@ -45,7 +38,7 @@ export default function Login({ navigate, onAuth }) {
     try {
       const user = loginDemoUser("teacher");
       onAuth(user);
-      navigate(homeForRole(user.role));
+      navigate(getRedirectPathForUser(user));
     } catch (error) {
       setMessage(error.message || t("auth.invalidCredentials"));
     }
