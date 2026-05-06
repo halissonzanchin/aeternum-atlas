@@ -1,0 +1,228 @@
+.admin-alerts {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-alerts__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-alerts__item::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  margin-top: 5px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #ff6b6b;
+  box-shadow: 0 0 16px rgba(255, 107, 107, 0.35);
+}
+
+.admin-alerts__item h3 {
+  margin: 0;
+  color: #fff4d4;
+  font-size: 0.98rem;
+  font-weight: 850;
+}
+
+.admin-alerts__item p {
+  margin: 5px 0 0;
+  color: #aeb8c5;
+  line-height: 1.5;
+}
+
+.admin-alerts__item--warning::before {
+  background: #fbbf24;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.35);
+}
+
+.admin-alerts__item--danger {
+  border-color: rgba(255, 107, 107, 0.22);
+  background: rgba(255, 107, 107, 0.06);
+}
+
+.admin-alerts__empty {
+  padding: 16px 18px;
+  border-radius: 18px;
+  color: #bfeee8;
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.18);
+}
+
+.usage-line-chart {
+  min-width: 0;
+}
+
+.usage-line-chart__plot {
+  position: relative;
+  height: 270px;
+  margin-top: 14px;
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    radial-gradient(circle at 20% 0%, rgba(47, 184, 181, 0.14), transparent 38%),
+    rgba(5, 7, 10, 0.42);
+  background-size: 100% 25%, 14.285% 100%, auto, auto;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+}
+
+.usage-line-chart__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.usage-line-chart__axis {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 12px;
+  color: #8f9baa;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.license-bar {
+  display: grid;
+  gap: 14px;
+}
+
+.license-bar__meta {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.license-bar__meta span {
+  color: #aeb8c5;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.license-bar__meta strong {
+  color: #f5d98b;
+  font-family: Cinzel, Georgia, serif;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  line-height: 1;
+}
+
+.license-bar__track {
+  height: 18px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.license-bar__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2fb8b5, #f5d98b);
+  box-shadow: 0 0 22px rgba(47, 184, 181, 0.24);
+}
+
+.license-bar__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  color: #aeb8c5;
+  font-size: 0.88rem;
+}
+
+.license-bar__legend b {
+  color: #f5f5f5;
+}
+
+.platform-status {
+  display: grid;
+  gap: 16px;
+}
+
+.platform-status__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.platform-status__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 13px;
+  border-radius: 999px;
+  color: #cbf7dc;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.24);
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.platform-status__pill::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #4ade80;
+  box-shadow: 0 0 16px rgba(74, 222, 128, 0.42);
+}
+
+.platform-status__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.platform-status__metric {
+  min-width: 0;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+}
+
+.platform-status__metric span {
+  display: block;
+  color: #9aa5b1;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.platform-status__metric strong {
+  display: block;
+  margin-top: 8px;
+  color: #f5f5f5;
+  font-size: 1.25rem;
+}
+
+@media (max-width: 720px) {
+  .usage-line-chart__plot {
+    height: 220px;
+  }
+
+  .platform-status__top,
+  .license-bar__meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .platform-status__grid {
+    grid-template-columns: 1fr;
+  }
+}

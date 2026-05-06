@@ -1,0 +1,426 @@
+.aa-viewer-shell {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 28px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(43, 199, 199, 0.1), transparent 34%),
+    linear-gradient(145deg, rgba(10, 18, 24, 0.98), rgba(5, 7, 10, 0.98));
+  border: 1px solid rgba(198, 168, 92, 0.18);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+}
+
+.aa-viewer-header {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  padding: 22px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(9, 15, 22, 0.88);
+}
+
+.aa-viewer-kicker {
+  display: block;
+  margin-bottom: 8px;
+  color: #35d0cf;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.aa-viewer-header h2 {
+  margin: 0;
+  color: #f3ead2;
+  font-family: Cinzel, Georgia, serif;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  letter-spacing: 0.08em;
+}
+
+.aa-viewer-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: max-content;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: #dce7ee;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.aa-status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+}
+
+.aa-status-loading {
+  background: #d7b65a;
+  box-shadow: 0 0 16px rgba(215, 182, 90, 0.45);
+}
+
+.aa-status-ready {
+  background: #35d0cf;
+  box-shadow: 0 0 16px rgba(53, 208, 207, 0.45);
+}
+
+.aa-status-error {
+  background: #ff6b6b;
+  box-shadow: 0 0 16px rgba(255, 107, 107, 0.45);
+}
+
+.aa-sketchfab-stage {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 560px;
+  height: auto;
+  background: #05070a;
+  overflow: hidden;
+}
+
+.aa-sketchfab-iframe {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #05070a;
+}
+
+.aa-viewer-loading,
+.aa-viewer-error {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  text-align: center;
+  color: #dce7ee;
+  background:
+    radial-gradient(circle at center, rgba(53, 208, 207, 0.08), transparent 42%),
+    rgba(5, 7, 10, 0.95);
+}
+
+.aa-viewer-loading {
+  pointer-events: auto;
+}
+
+.aa-viewer-error {
+  color: #ffd0d0;
+}
+
+.aa-viewer-loading p,
+.aa-viewer-error p {
+  margin: 0;
+}
+
+.aa-viewer-loading a,
+.aa-viewer-error a {
+  display: inline-flex;
+  margin-top: 18px;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(53, 208, 207, 0.36);
+  background: rgba(53, 208, 207, 0.11);
+  padding: 0 18px;
+  color: #9ff3f1;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.viewer-canvas-panel.is-sketchfab-mode {
+  overflow: visible;
+  min-height: 100%;
+}
+
+.viewer-canvas-panel.is-sketchfab-mode .viewer-canvas--sketchfab {
+  flex: 1 1 auto;
+  min-height: 650px;
+  overflow: hidden;
+}
+
+.viewer-canvas-panel.is-sketchfab-mode .viewer-control-strip {
+  flex: 0 0 auto;
+  overflow: visible;
+}
+
+.aa-annotation-panel {
+  position: relative;
+  z-index: 2;
+  padding: 18px 22px 22px;
+  background: rgba(9, 15, 22, 0.92);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.aa-panel-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  color: #f3ead2;
+  font-weight: 900;
+}
+
+.aa-panel-title button {
+  border: 1px solid rgba(53, 208, 207, 0.35);
+  background: rgba(53, 208, 207, 0.1);
+  color: #9ff3f1;
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.aa-panel-title button:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.aa-empty {
+  margin: 0;
+  color: #9aa5b1;
+  line-height: 1.55;
+}
+
+.aa-annotation-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  max-height: 260px;
+  overflow: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+}
+
+.aa-annotation {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  color: #dce7ee;
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.aa-annotation:hover,
+.aa-annotation.active {
+  transform: translateY(-1px);
+  border-color: rgba(53, 208, 207, 0.38);
+  background: rgba(53, 208, 207, 0.1);
+}
+
+.aa-annotation-number {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(198, 168, 92, 0.16);
+  border: 1px solid rgba(198, 168, 92, 0.36);
+  color: #e7ca78;
+  font-weight: 900;
+}
+
+.aa-annotation strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+
+.aa-annotation small {
+  display: -webkit-box;
+  color: #aeb8c5;
+  line-height: 1.45;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.aa-viewer-actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 0 0;
+  overflow: visible;
+  background: transparent;
+  border-top: 0;
+}
+
+.aa-viewer-actions button,
+.aa-viewer-actions a {
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.055);
+  color: #dce7ee;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.aa-viewer-actions button:hover,
+.aa-viewer-actions a:hover {
+  border-color: rgba(53, 208, 207, 0.45);
+  background: rgba(53, 208, 207, 0.1);
+}
+
+.analytics-card,
+.aa-model-usage {
+  padding: 22px;
+  border-radius: 22px;
+  background: rgba(5, 7, 10, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+}
+
+.analytics-card h3,
+.aa-model-usage h3 {
+  margin: 0 0 16px;
+  color: #f3ead2;
+  font-family: Cinzel, Georgia, serif;
+  letter-spacing: 0.08em;
+}
+
+.analytics-card__grid,
+.aa-usage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.analytics-card__grid > div,
+.aa-usage-grid > * {
+  min-width: 0;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+}
+
+.analytics-card strong {
+  display: block;
+  color: #f3ead2;
+  font-size: clamp(1.5rem, 2vw, 2.1rem);
+  line-height: 1;
+}
+
+.analytics-card span {
+  display: block;
+  margin-top: 8px;
+  color: #aeb8c5;
+  font-weight: 700;
+}
+
+@media (max-width: 1368px) {
+  .aa-sketchfab-stage {
+    min-height: 500px;
+  }
+
+  .viewer-canvas-panel.is-sketchfab-mode .viewer-canvas--sketchfab {
+    min-height: 600px;
+  }
+}
+
+@media (max-width: 900px) {
+  .aa-viewer-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .aa-sketchfab-stage {
+    flex: none;
+    height: 68vh;
+    min-height: 440px;
+  }
+
+  .viewer-canvas-panel.is-sketchfab-mode .viewer-canvas--sketchfab {
+    min-height: 560px;
+  }
+
+  .analytics-card__grid,
+  .aa-usage-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .aa-viewer-shell {
+    border-radius: 18px;
+  }
+
+  .aa-viewer-header {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .aa-viewer-kicker {
+    margin-bottom: 6px;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+  }
+
+  .aa-viewer-header h2 {
+    font-size: clamp(1.05rem, 5.8vw, 1.35rem);
+    line-height: 1.18;
+    letter-spacing: 0.035em;
+  }
+
+  .aa-viewer-status {
+    padding: 8px 12px;
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+  }
+
+  .aa-sketchfab-stage {
+    height: 62vh;
+    min-height: 360px;
+  }
+
+  .viewer-canvas-panel.is-sketchfab-mode .viewer-canvas--sketchfab {
+    min-height: 430px;
+  }
+
+  .aa-annotation-panel,
+  .aa-viewer-actions {
+    padding: 14px;
+  }
+
+  .aa-panel-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .aa-panel-title button,
+  .aa-viewer-actions button,
+  .aa-viewer-actions a {
+    width: 100%;
+  }
+}

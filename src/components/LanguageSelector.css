@@ -1,0 +1,101 @@
+.language-selector {
+  position: relative;
+  z-index: 40;
+  display: inline-flex;
+}
+
+.language-selector__button {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid rgba(47, 184, 181, 0.28);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #f5f5f5;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.language-selector__button:hover,
+.language-selector__button:focus-visible {
+  border-color: rgba(47, 184, 181, 0.72);
+  box-shadow: 0 0 18px rgba(47, 184, 181, 0.14);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.language-selector__current {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.language-selector__menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 190px;
+  padding: 8px;
+  border: 1px solid rgba(198, 168, 92, 0.18);
+  border-radius: 16px;
+  background: rgba(10, 15, 24, 0.96);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
+}
+
+.language-selector__option {
+  width: 100%;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: rgba(245, 245, 245, 0.82);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.language-selector__option:hover,
+.language-selector__option:focus-visible {
+  background: rgba(47, 184, 181, 0.11);
+  color: #ffffff;
+  outline: none;
+}
+
+.language-selector__option.is-active {
+  background: rgba(198, 168, 92, 0.14);
+  color: #f5d98b;
+}
+
+.language-selector--compact .language-selector__current {
+  display: none;
+}
+
+.language-selector--compact .language-selector__button {
+  width: 42px;
+  padding: 0;
+  justify-content: center;
+}
+
+@media (max-width: 720px) {
+  .language-selector__current {
+    display: none;
+  }
+
+  .language-selector__button {
+    width: 42px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .language-selector__menu {
+    right: 0;
+    min-width: 178px;
+  }
+}

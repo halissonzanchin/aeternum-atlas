@@ -1,0 +1,466 @@
+.aeternum-brand-logo,
+.aeternum-logo {
+  --gold: #c6a85c;
+  --gold-light: #f5d98b;
+  --gold-glow: #ffd76a;
+  --dark: #0a0a0a;
+  --dark-blue: #0f172a;
+  --cyan: #2fb8b5;
+  --white: #f5f5f5;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--white);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.aeternum-brand-logo--symbol,
+.aeternum-logo--symbol {
+  gap: 0;
+}
+
+.aeternum-brand-logo--full,
+.aeternum-logo--full {
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+
+.aeternum-brand-logo--horizontal,
+.aeternum-logo--horizontal {
+  flex-direction: row;
+}
+
+.aeternum-brand-logo__symbol-wrap,
+.aeternum-logo__symbol-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  transform-origin: center;
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 420ms ease;
+}
+
+.aeternum-brand-logo__symbol,
+.aeternum-logo__symbol {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 3px rgba(255, 215, 106, 0.16))
+    drop-shadow(0 0 10px rgba(198, 168, 92, 0.08));
+  transition:
+    filter 380ms ease,
+    opacity 380ms ease,
+    transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.aeternum-brand-logo__aura,
+.aeternum-logo__aura {
+  position: absolute;
+  inset: -6%;
+  z-index: 0;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 45%,
+      rgba(245, 217, 139, 0.10) 0%,
+      rgba(198, 168, 92, 0.05) 34%,
+      rgba(47, 184, 181, 0.025) 52%,
+      transparent 72%);
+  opacity: 0.18;
+  filter: blur(6px);
+  transform: scale(0.96);
+  transition:
+    opacity 380ms ease,
+    transform 380ms ease,
+    filter 380ms ease;
+}
+
+.aeternum-brand-logo__orbit-glow,
+.aeternum-logo__orbit-glow {
+  position: absolute;
+  inset: 9%;
+  z-index: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 217, 139, 0.10);
+  box-shadow:
+    0 0 6px rgba(255, 215, 106, 0.08),
+    inset 0 0 8px rgba(255, 215, 106, 0.04);
+  opacity: 0.28;
+  transition:
+    opacity 380ms ease,
+    transform 520ms ease,
+    box-shadow 380ms ease;
+}
+
+.aeternum-brand-logo__symbol-wrap::after,
+.aeternum-logo__symbol-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  z-index: 3;
+  border-radius: 999px;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 42%,
+    rgba(255, 240, 190, 0.16) 50%,
+    transparent 58%,
+    transparent 100%
+  );
+  opacity: 0;
+  transform: translateX(-18%) rotate(8deg);
+  pointer-events: none;
+  transition:
+    opacity 320ms ease,
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  mix-blend-mode: screen;
+}
+
+.aeternum-brand-logo:hover .aeternum-brand-logo__symbol-wrap,
+.aeternum-brand-logo.is-active .aeternum-brand-logo__symbol-wrap,
+.aeternum-logo:hover .aeternum-logo__symbol-wrap,
+.aeternum-logo.is-active .aeternum-logo__symbol-wrap {
+  transform: scale(1.018);
+}
+
+.aeternum-brand-logo:hover .aeternum-brand-logo__symbol,
+.aeternum-brand-logo.is-active .aeternum-brand-logo__symbol,
+.aeternum-logo:hover .aeternum-logo__symbol,
+.aeternum-logo.is-active .aeternum-logo__symbol {
+  filter:
+    drop-shadow(0 0 5px rgba(255, 215, 106, 0.28))
+    drop-shadow(0 0 14px rgba(198, 168, 92, 0.16));
+}
+
+.aeternum-brand-logo:hover .aeternum-brand-logo__aura,
+.aeternum-brand-logo.is-active .aeternum-brand-logo__aura,
+.aeternum-logo:hover .aeternum-logo__aura,
+.aeternum-logo.is-active .aeternum-logo__aura {
+  opacity: 0.34;
+  transform: scale(1.01);
+  filter: blur(8px);
+}
+
+.aeternum-brand-logo:hover .aeternum-brand-logo__orbit-glow,
+.aeternum-brand-logo.is-active .aeternum-brand-logo__orbit-glow,
+.aeternum-logo:hover .aeternum-logo__orbit-glow,
+.aeternum-logo.is-active .aeternum-logo__orbit-glow {
+  opacity: 0.48;
+  transform: scale(1.006);
+  box-shadow:
+    0 0 8px rgba(255, 215, 106, 0.16),
+    0 0 16px rgba(198, 168, 92, 0.08),
+    inset 0 0 10px rgba(255, 215, 106, 0.07);
+}
+
+.aeternum-brand-logo:hover .aeternum-brand-logo__symbol-wrap::after,
+.aeternum-brand-logo.is-active .aeternum-brand-logo__symbol-wrap::after,
+.aeternum-logo:hover .aeternum-logo__symbol-wrap::after,
+.aeternum-logo.is-active .aeternum-logo__symbol-wrap::after {
+  opacity: 0.45;
+  transform: translateX(18%) rotate(8deg);
+}
+
+.aeternum-brand-logo:active .aeternum-brand-logo__symbol-wrap,
+.aeternum-logo:active .aeternum-logo__symbol-wrap {
+  transform: scale(0.995);
+}
+
+.aeternum-brand-logo__text,
+.aeternum-logo__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.aeternum-brand-logo__name,
+.aeternum-logo__name {
+  font-family: "Cinzel", "Trajan Pro", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  line-height: 1.08;
+  white-space: nowrap;
+  background: linear-gradient(
+    180deg,
+    #fff3c4 0%,
+    #f5d98b 30%,
+    #c6a85c 58%,
+    #765820 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow:
+    0 0 10px rgba(255, 215, 106, 0.12),
+    0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.aeternum-brand-logo__subtitle,
+.aeternum-logo__subtitle {
+  margin-top: 5px;
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  line-height: 1.1;
+  color: rgba(245, 217, 139, 0.82);
+  text-transform: uppercase;
+}
+
+.aeternum-brand-logo--sm .aeternum-brand-logo__symbol-wrap {
+  width: 42px;
+}
+
+.aeternum-brand-logo--md .aeternum-brand-logo__symbol-wrap {
+  width: 68px;
+}
+
+.aeternum-brand-logo--lg .aeternum-brand-logo__symbol-wrap {
+  width: 110px;
+}
+
+.aeternum-brand-logo--xl .aeternum-brand-logo__symbol-wrap {
+  width: 180px;
+}
+
+.aeternum-brand-logo--sm .aeternum-brand-logo__name {
+  font-size: 13px;
+}
+
+.aeternum-brand-logo--md .aeternum-brand-logo__name {
+  font-size: 18px;
+}
+
+.aeternum-brand-logo--lg .aeternum-brand-logo__name {
+  font-size: 28px;
+}
+
+.aeternum-brand-logo--xl .aeternum-brand-logo__name {
+  font-size: 48px;
+}
+
+.aeternum-brand-logo--sm .aeternum-brand-logo__subtitle {
+  font-size: 7px;
+}
+
+.aeternum-brand-logo--md .aeternum-brand-logo__subtitle {
+  font-size: 9px;
+}
+
+.aeternum-brand-logo--lg .aeternum-brand-logo__subtitle {
+  font-size: 12px;
+}
+
+.aeternum-brand-logo--xl .aeternum-brand-logo__subtitle {
+  font-size: 16px;
+}
+
+.aeternum-logo--sm .aeternum-logo__symbol-wrap {
+  width: 42px;
+}
+
+.aeternum-logo--md .aeternum-logo__symbol-wrap {
+  width: 68px;
+}
+
+.aeternum-logo--lg .aeternum-logo__symbol-wrap {
+  width: 110px;
+}
+
+.aeternum-logo--xl .aeternum-logo__symbol-wrap {
+  width: 180px;
+}
+
+.aeternum-logo--sm .aeternum-logo__name {
+  font-size: 13px;
+}
+
+.aeternum-logo--md .aeternum-logo__name {
+  font-size: 18px;
+}
+
+.aeternum-logo--lg .aeternum-logo__name {
+  font-size: 28px;
+}
+
+.aeternum-logo--xl .aeternum-logo__name {
+  font-size: 48px;
+}
+
+.aeternum-logo--sm .aeternum-logo__subtitle {
+  font-size: 7px;
+}
+
+.aeternum-logo--md .aeternum-logo__subtitle {
+  font-size: 9px;
+}
+
+.aeternum-logo--lg .aeternum-logo__subtitle {
+  font-size: 12px;
+}
+
+.aeternum-logo--xl .aeternum-logo__subtitle {
+  font-size: 16px;
+}
+
+.aeternum-brand-logo--light .aeternum-brand-logo__name {
+  text-shadow:
+    0 0 8px rgba(198, 168, 92, 0.18),
+    0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+.aeternum-brand-logo--light .aeternum-brand-logo__subtitle {
+  color: rgba(118, 88, 32, 0.86);
+}
+
+.aeternum-brand-logo--transparent {
+  background: transparent;
+}
+
+.aeternum-logo--light .aeternum-logo__name {
+  text-shadow:
+    0 0 8px rgba(198, 168, 92, 0.18),
+    0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+.aeternum-logo--light .aeternum-logo__subtitle {
+  color: rgba(118, 88, 32, 0.86);
+}
+
+.aeternum-logo--transparent {
+  background: transparent;
+}
+
+@media (max-width: 720px) {
+  .aeternum-brand-logo--horizontal {
+    gap: 10px;
+  }
+
+  .aeternum-brand-logo--md .aeternum-brand-logo__symbol-wrap {
+    width: 54px;
+  }
+
+  .aeternum-brand-logo--md .aeternum-brand-logo__name {
+    font-size: 14px;
+    letter-spacing: 0.16em;
+  }
+
+  .aeternum-brand-logo--lg .aeternum-brand-logo__name {
+    font-size: 21px;
+    letter-spacing: 0.16em;
+  }
+
+  .aeternum-brand-logo__subtitle {
+    letter-spacing: 0.18em;
+  }
+
+  .aeternum-logo--horizontal {
+    gap: 10px;
+  }
+
+  .aeternum-logo--md .aeternum-logo__symbol-wrap {
+    width: 54px;
+  }
+
+  .aeternum-logo--md .aeternum-logo__name {
+    font-size: 14px;
+    letter-spacing: 0.16em;
+  }
+
+  .aeternum-logo--lg .aeternum-logo__name {
+    font-size: 21px;
+    letter-spacing: 0.16em;
+  }
+
+  .aeternum-logo__subtitle {
+    letter-spacing: 0.18em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aeternum-brand-logo,
+  .aeternum-brand-logo *,
+  .aeternum-brand-logo:hover *,
+  .aeternum-brand-logo.is-active * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .aeternum-logo,
+  .aeternum-logo *,
+  .aeternum-logo:hover *,
+  .aeternum-logo.is-active * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Specificity guard against older logo styles still present in global CSS. */
+.aeternum-brand-logo.aeternum-logo .aeternum-logo__aura {
+  inset: -6%;
+  background:
+    radial-gradient(circle at 50% 45%,
+      rgba(245, 217, 139, 0.10) 0%,
+      rgba(198, 168, 92, 0.05) 34%,
+      rgba(47, 184, 181, 0.025) 52%,
+      transparent 72%);
+  opacity: 0.18;
+  filter: blur(6px);
+  transform: scale(0.96);
+}
+
+.aeternum-brand-logo.aeternum-logo .aeternum-logo__orbit-glow {
+  inset: 9%;
+  border-color: rgba(245, 217, 139, 0.10);
+  box-shadow:
+    0 0 6px rgba(255, 215, 106, 0.08),
+    inset 0 0 8px rgba(255, 215, 106, 0.04);
+  opacity: 0.28;
+}
+
+.aeternum-brand-logo.aeternum-logo .aeternum-logo__symbol {
+  filter:
+    drop-shadow(0 0 3px rgba(255, 215, 106, 0.16))
+    drop-shadow(0 0 10px rgba(198, 168, 92, 0.08));
+}
+
+.aeternum-brand-logo.aeternum-logo:hover .aeternum-logo__symbol-wrap,
+.aeternum-brand-logo.aeternum-logo.is-active .aeternum-logo__symbol-wrap {
+  transform: scale(1.018);
+}
+
+.aeternum-brand-logo.aeternum-logo:hover .aeternum-logo__symbol,
+.aeternum-brand-logo.aeternum-logo.is-active .aeternum-logo__symbol {
+  filter:
+    drop-shadow(0 0 5px rgba(255, 215, 106, 0.28))
+    drop-shadow(0 0 14px rgba(198, 168, 92, 0.16));
+}
+
+.aeternum-brand-logo.aeternum-logo:hover .aeternum-logo__aura,
+.aeternum-brand-logo.aeternum-logo.is-active .aeternum-logo__aura {
+  opacity: 0.34;
+  transform: scale(1.01);
+  filter: blur(8px);
+}
+
+.aeternum-brand-logo.aeternum-logo:hover .aeternum-logo__orbit-glow,
+.aeternum-brand-logo.aeternum-logo.is-active .aeternum-logo__orbit-glow {
+  opacity: 0.48;
+  transform: scale(1.006);
+  box-shadow:
+    0 0 8px rgba(255, 215, 106, 0.16),
+    0 0 16px rgba(198, 168, 92, 0.08),
+    inset 0 0 10px rgba(255, 215, 106, 0.07);
+}

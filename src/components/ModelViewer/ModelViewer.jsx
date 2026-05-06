@@ -1,0 +1,140 @@
+import LineIcon from "../icons/LineIcon";
+import ModelAnalyticsCard from "../viewer/ModelAnalyticsCard";
+import SketchfabApiViewer from "../viewer/SketchfabApiViewer";
+import { useLanguage } from "../../context/LanguageContext";
+
+function sketchfabEmbedUrl(model) {
+  const raw = model?.sketchfabEmbedUrl || model?.embedUrl || model?.sketchfab_embed_url || model?.sketchfabUrl || model?.sketchfab_url || "";
+  if (!raw) return "";
+  if (raw.includes("/embed")) return raw;
+  const sketchfabModelId = raw.match(/([a-f0-9]{32})/i)?.[1];
+  if (raw.includes("sketchfab.com") && sketchfabModelId) return `https://sketchfab.com/models/${sketchfabModelId}/embed`;
+  return raw;
+}
+
+function sketchfabModelUid(model, embedUrl) {
+  return model?.sketchfabUid || model?.sketchfab_uid || embedUrl?.match(/([a-f0-9]{32})/i)?.[1] || "";
+}
+
+function AnatomyPlaceholder({ structure, activePart, structures, onSelectStructure }) {
+  const { t } = useLanguage();
+  return (
+    <div className="viewer-placeholder" aria-label={t("viewer.anatomicalViewer")}>
+      <div className="anatomy-orbit orbit-one" />
+      <div className="anatomy-orbit orbit-two" />
+      <div className="anatomy-model">
+        <div className="anatomy-head" />
+        <div className="anatomy-spine" />
+        <div className="anatomy-ribs" />
+        <div className="anatomy-pelvis" />
+        <div className="anatomy-arm left" />
+        <div className="anatomy-arm right" />
+        <div className="anatomy-leg left" />
+        <div className="anatomy-leg right" />
+      </div>
+
+      {structures.slice(0, 5).map((item, index) => (
+        <button
+          key={item.id}
+          className={`structure-marker marker-${index + 1} ${item.name === structure.name ? "is-selected" : ""}`}
+          onClick={() => onSelectStructure(item)}
+        >
+          <span />
+          <strong>{item.name}</strong>
+        </button>
+      ))}
+
+      {activePart ? (
+        <div className="active-part-callout">
+          <span>{t("viewer.partHighlighted")}</span>
+          <strong>{activePart.name}</strong>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+export default function ModelViewer({
+  model,
+  structure,
+  structures = [],
+  activePart,
+  accessLocked,
+  onSelectStructure,
+  onViewerAction,
+  onViewerEvent,
+  onRequestAccess
+}) {
+  const { t } = useLanguage();
+  const embedUrl = sketchfabEmbedUrl(model);
+  const modelUid = sketchfabModelUid(model, embedUrl);
+  const externalUrl = model?.sketchfabModelUrl || model?.externalUrl || model?.shortUrl;
+  const actions = [
+    ...(embedUrl ? [["Abrir no Sketchfab", "viewer.openSketchfab", "fullscreen"]] : []),
+    ["Favoritar", "viewer.favorite", "favorite"],
+    ["Marcar como estudado", "viewer.markAsStudied", "check"],
+    ["Copiar link do modelo", "viewer.copyModelLink", "layers"],
+    ["Registrar acesso", "viewer.registerAccess", "check"],
+    ["Ver guia de estudo", "viewer.viewStudyGuide", "library"],
+    ["Voltar para biblioteca", "viewer.backToLibrary", "library"],
+    ["Reportar problema", "viewer.reportProblem", "help"]
+  ];
+
+  return (
+    <section className={`viewer-canvas-panel ${embedUrl ? "is-sketchfab-mode" : ""}`}>
+      {!embedUrl ? (
+        <div className="viewer-canvas-header">
+          <div>
+            <p className="viewer-eyebrow">{t("viewer.academicViewerEyebrow")}</p>
+            <h2>{model.title}</h2>
+          </div>
+          <div className="viewer-status-cluster">
+            <span className="viewer-status-chip">{t("viewer.integratedSketchfab")}</span>
+            <span className="viewer-status-chip gold">{t("viewer.academicContext")}</span>
+          </div>
+        </div>
+      ) : null}
+
+      <div className={`viewer-canvas ${embedUrl ? "viewer-canvas--sketchfab" : ""}`}>
+        {accessLocked ? (
+          <div className="viewer-locked-card">
+            <LineIcon name="lock" className="h-10 w-10 text-techTeal" />
+            <h3>{t("viewer.moduleNotContracted")}</h3>
+            <p>{t("viewer.moduleNotContractedText")}</p>
+            <button className="viewer-primary-button" onClick={onRequestAccess}>{t("viewer.requestAdmin")}</button>
+          </div>
+        ) : embedUrl ? (
+          <SketchfabApiViewer
+            title={model.shortTitle || model.title}
+            modelUid={modelUid}
+            embedUrl={embedUrl}
+            externalUrl={externalUrl}
+            onEvent={onViewerEvent}
+          />
+        ) : (
+          <AnatomyPlaceholder
+            structure={structure}
+            activePart={activePart}
+            structures={structures}
+            onSelectStructure={onSelectStructure}
+          />
+        )}
+      </div>
+
+      <div className={`viewer-control-strip ${embedUrl ? "aa-viewer-actions" : ""}`}>
+        {actions.map(([action, labelKey, icon]) => (
+          <button key={action} onClick={() => onViewerAction(action)} aria-label={t(labelKey)} data-tooltip={t(labelKey)}>
+            <LineIcon name={icon} className="h-4 w-4" />
+            <span>{t(labelKey)}</span>
+          </button>
+        ))}
+      </div>
+
+      {embedUrl ? (
+        <div className="mt-4">
+          <ModelAnalyticsCard modelId={model.id} />
+        </div>
+      ) : null}
+    </section>
+  );
+}
