@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
-import { updatePassword, updateUser } from "../../services/authService";
-import { normalizeEmail, sanitizeText } from "../../utils/validators";
-
-const userTypes = ["Estudante", "Professor", "Admin institucional"];
+import { updateCurrentUserPassword, updateCurrentUserProfile } from "../../services/authService";
+import { sanitizeText } from "../../utils/validators";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function Profile({ user, onAuth, notify }) {
+  const { t } = useLanguage();
   const [values, setValues] = useState({
     name: user.name || "",
     email: user.email || "",
@@ -15,7 +15,7 @@ export default function Profile({ user, onAuth, notify }) {
     semester: user.semester || "",
     studentRegistration: user.studentRegistration || "",
     country: user.country || "",
-    userType: user.userType || "Estudante",
+    userType: user.userType || user.role || "",
     language: "Português",
     password: ""
   });
@@ -26,27 +26,21 @@ export default function Profile({ user, onAuth, notify }) {
 
   async function submit(event) {
     event.preventDefault();
-    let updated = updateUser(user.id, {
-      name: sanitizeText(values.name),
-      email: normalizeEmail(values.email),
-      institution: sanitizeText(values.institution),
-      course: sanitizeText(values.course),
-      semester: sanitizeText(values.semester),
-      studentRegistration: sanitizeText(values.studentRegistration),
-      country: sanitizeText(values.country),
-      userType: sanitizeText(values.userType)
-    });
+    try {
+      const updated = await updateCurrentUserProfile(user.id, {
+        name: sanitizeText(values.name)
+      });
 
-    if (values.password) {
-      if (values.password.length < 8) {
-        notify("A senha precisa ter pelo menos 8 caracteres.");
-        return;
+      if (values.password) {
+        await updateCurrentUserPassword(values.password);
+        notify(t("auth.passwordUpdated"));
       }
-      updated = await updatePassword(user.id, values.password);
-    }
 
-    onAuth(updated);
-    notify("Perfil atualizado.");
+      onAuth(updated);
+      notify(t("auth.profileUpdated"));
+    } catch (error) {
+      notify(error.message || t("auth.profileUpdateError"));
+    }
   }
 
   return (
@@ -64,11 +58,11 @@ export default function Profile({ user, onAuth, notify }) {
           </label>
           <label className="field">
             <span>E-mail</span>
-            <input name="email" value={values.email} onChange={update} />
+            <input name="email" value={values.email} disabled />
           </label>
           <label className="field">
             <span>Instituição</span>
-            <input name="institution" value={values.institution} onChange={update} />
+            <input name="institution" value={values.institution} disabled />
           </label>
           <label className="field">
             <span>Curso</span>
@@ -88,7 +82,7 @@ export default function Profile({ user, onAuth, notify }) {
           </label>
           <label className="field">
             <span>Tipo de usuário</span>
-            <select name="userType" value={values.userType} onChange={update}>{userTypes.map(type => <option key={type}>{type}</option>)}</select>
+            <input name="userType" value={values.userType} disabled />
           </label>
           <label className="field">
             <span>Preferência de idioma</span>

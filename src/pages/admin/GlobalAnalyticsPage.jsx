@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Card from "../../components/Card/Card";
 import AnalyticsKpiGrid from "../../components/admin/analytics/AnalyticsKpiGrid";
 import BlockedAccessPanel from "../../components/admin/analytics/BlockedAccessPanel";
@@ -13,24 +13,46 @@ import PlatformIncidentsTable from "../../components/admin/analytics/PlatformInc
 import RealtimeStatusBadge from "../../components/admin/analytics/RealtimeStatusBadge";
 import ResponseTimeChart from "../../components/admin/analytics/ResponseTimeChart";
 import SystemStudyTimeChart from "../../components/admin/analytics/SystemStudyTimeChart";
-import {
-  blockedAccessLogs,
-  dailyAccessData,
-  developmentMetrics,
-  downtimeData,
-  globalAnalyticsSnapshot,
-  hourlyUsageData,
-  mostAccessedModelsData,
-  platformErrorsData,
-  platformIncidents,
-  responseTimeData,
-  systemStudyTimeData
-} from "../../data/mockGlobalAnalytics";
-import useRealtimeGlobalAnalytics from "../../hooks/useRealtimeGlobalAnalytics";
 import { formatNumber } from "../../utils/formatLocale";
 import "../../components/admin/analytics/analytics.css";
 
 const PERIODS = ["Hoje", "Últimos 7 dias", "Últimos 30 dias", "Este mês", "Personalizado"];
+
+const emptyAnalyticsSnapshot = {
+  activeUsersNow: 0,
+  accessesToday: 0,
+  accessesThisMonth: 0,
+  totalStudyHoursThisMonth: 0,
+  averageSessionMinutes: 0,
+  returningUserRate: 0,
+  modelCompletionRate: 0,
+  platformStatus: "sem dados",
+  uptimePercent: 0,
+  errorsThisMonth: 0,
+  blockedAccessAttempts: 0,
+  affectedUsers: 0,
+  totalDowntimeMinutes: 0,
+  lastIncident: null,
+  averageResponseTimeMs: 0,
+  sketchfabLoadErrors: 0,
+  loginErrors: 0,
+  reportExportErrors: 0,
+  routeErrors: 0,
+  lastUpdated: "Nenhum dado real"
+};
+
+const emptyDevelopmentMetrics = {
+  appVersion: "-",
+  environment: "-",
+  lastDeploy: "-",
+  buildStatus: "-",
+  averageViewerLoadTimeSeconds: 0,
+  frontendErrorRate: 0,
+  routeErrorRate: 0,
+  sketchfabFailureRate: 0,
+  exportFailureRate: 0,
+  averageMemoryUsageMb: 0
+};
 
 function csvValue(value) {
   return `"${String(value ?? "").replaceAll('"', '""')}"`;
@@ -49,9 +71,25 @@ function exportToCsv(filename, rows) {
   URL.revokeObjectURL(url);
 }
 
-export default function GlobalAnalyticsPage({ language = "pt", notify = () => {} }) {
-  const analytics = useRealtimeGlobalAnalytics(globalAnalyticsSnapshot);
+export default function GlobalAnalyticsPage({ language = "pt", notify = () => {}, dashboardData = null }) {
   const [period, setPeriod] = useState("Últimos 30 dias");
+  const dashboardAnalytics = ["supabase", "restricted"].includes(dashboardData?.source) ? dashboardData?.analytics : null;
+  const analytics = dashboardAnalytics?.snapshot || emptyAnalyticsSnapshot;
+  const dataSourceLabel = dashboardData?.source === "supabase"
+    ? "Supabase real"
+    : dashboardData?.source === "restricted"
+      ? "Tenant restrito"
+      : "Nenhum dado real";
+  const activeDailyAccessData = useMemo(() => dashboardAnalytics?.dailyAccessData || [], [dashboardAnalytics]);
+  const activeHourlyUsageData = useMemo(() => dashboardAnalytics?.hourlyUsageData || [], [dashboardAnalytics]);
+  const activeSystemStudyTimeData = useMemo(() => dashboardAnalytics?.systemStudyTimeData || [], [dashboardAnalytics]);
+  const activeMostAccessedModelsData = useMemo(() => dashboardAnalytics?.mostAccessedModelsData || [], [dashboardAnalytics]);
+  const activePlatformErrorsData = useMemo(() => dashboardAnalytics?.platformErrorsData || [], [dashboardAnalytics]);
+  const activeDowntimeData = useMemo(() => dashboardAnalytics?.downtimeData || [], [dashboardAnalytics]);
+  const activeResponseTimeData = useMemo(() => dashboardAnalytics?.responseTimeData || [], [dashboardAnalytics]);
+  const activePlatformIncidents = useMemo(() => dashboardAnalytics?.platformIncidents || [], [dashboardAnalytics]);
+  const activeBlockedAccessLogs = useMemo(() => dashboardAnalytics?.blockedAccessLogs || [], [dashboardAnalytics]);
+  const activeDevelopmentMetrics = dashboardAnalytics?.developmentMetrics || emptyDevelopmentMetrics;
   const number = value => formatNumber(value, language);
 
   function exportAnalyticsCsv() {
@@ -66,7 +104,8 @@ export default function GlobalAnalyticsPage({ language = "pt", notify = () => {}
       ["Conclusão de modelos", `${analytics.modelCompletionRate}%`],
       ["Status da plataforma", analytics.platformStatus],
       ["Uptime", `${analytics.uptimePercent}%`],
-      ["Erros no período", analytics.errorsThisMonth]
+      ["Erros no período", analytics.errorsThisMonth],
+      ["Fonte de dados", dataSourceLabel]
     ]);
     notify("Analytics exportado em CSV.");
   }
@@ -74,7 +113,7 @@ export default function GlobalAnalyticsPage({ language = "pt", notify = () => {}
   function exportIncidentsCsv() {
     exportToCsv("aeternum-incidentes.csv", [
       ["Data", "Horário", "Módulo afetado", "Tipo de erro", "Duração", "Usuários afetados", "Status", "Severidade", "Observação"],
-      ...platformIncidents.map(item => [item.date, item.time, item.module, item.errorType, `${item.durationMinutes} min`, item.affectedUsers, item.status, item.severity, item.note])
+      ...activePlatformIncidents.map(item => [item.date, item.time, item.module, item.errorType, `${item.durationMinutes} min`, item.affectedUsers, item.status, item.severity, item.note])
     ]);
     notify("Incidentes exportados em CSV.");
   }
@@ -93,7 +132,7 @@ export default function GlobalAnalyticsPage({ language = "pt", notify = () => {}
             Central de inteligência operacional para uso acadêmico, estabilidade técnica, incidentes, bloqueios de acesso e performance da plataforma Aeternum Atlas.
           </p>
         </div>
-        <RealtimeStatusBadge status={analytics.platformStatus} lastUpdated={analytics.lastUpdated} />
+        <RealtimeStatusBadge status={analytics.platformStatus} lastUpdated={`${dataSourceLabel} · ${analytics.lastUpdated}`} />
       </div>
 
       <div className="analytics-toolbar">
@@ -125,28 +164,28 @@ export default function GlobalAnalyticsPage({ language = "pt", notify = () => {}
               <h3>Acessos por dia</h3>
               <span>Acessos, usuários ativos e minutos de estudo</span>
             </div>
-            <DailyAccessChart data={dailyAccessData} formatNumber={number} />
+            <DailyAccessChart data={activeDailyAccessData} formatNumber={number} />
           </Card>
           <Card>
             <div className="analytics-card-heading">
               <h3>Acessos por hora</h3>
               <span>Identificação de horários de pico</span>
             </div>
-            <HourlyUsageChart data={hourlyUsageData} formatNumber={number} />
+            <HourlyUsageChart data={activeHourlyUsageData} formatNumber={number} />
           </Card>
           <Card>
             <div className="analytics-card-heading">
               <h3>Tempo por sistema anatômico</h3>
               <span>Horas acumuladas no mês</span>
             </div>
-            <SystemStudyTimeChart data={systemStudyTimeData} formatNumber={number} />
+            <SystemStudyTimeChart data={activeSystemStudyTimeData} formatNumber={number} />
           </Card>
           <Card>
             <div className="analytics-card-heading">
               <h3>Modelos mais acessados</h3>
               <span>Acessos, estudo, crescimento e conclusão</span>
             </div>
-            <MostAccessedModelsChart data={mostAccessedModelsData} formatNumber={number} />
+            <MostAccessedModelsChart data={activeMostAccessedModelsData} formatNumber={number} />
           </Card>
         </div>
       </div>
@@ -161,21 +200,21 @@ export default function GlobalAnalyticsPage({ language = "pt", notify = () => {}
             <h2>Erros por tipo</h2>
             <span>Login, Sketchfab, relatórios, rotas e timeout</span>
           </div>
-          <PlatformErrorsChart data={platformErrorsData} formatNumber={number} />
+          <PlatformErrorsChart data={activePlatformErrorsData} formatNumber={number} />
         </Card>
         <Card>
           <div className="analytics-card-heading">
             <h2>Downtime por data</h2>
             <span>Minutos de indisponibilidade</span>
           </div>
-          <DowntimeTimelineChart data={downtimeData} />
+          <DowntimeTimelineChart data={activeDowntimeData} />
         </Card>
         <Card>
           <div className="analytics-card-heading">
             <h2>Tempo médio de resposta</h2>
             <span>Performance técnica por horário</span>
           </div>
-          <ResponseTimeChart data={responseTimeData} />
+          <ResponseTimeChart data={activeResponseTimeData} />
         </Card>
       </div>
 
@@ -184,15 +223,15 @@ export default function GlobalAnalyticsPage({ language = "pt", notify = () => {}
           <h2>Log de incidentes</h2>
           <span>Instabilidades e impacto no período</span>
         </div>
-        <PlatformIncidentsTable incidents={platformIncidents} formatNumber={number} />
+        <PlatformIncidentsTable incidents={activePlatformIncidents} formatNumber={number} />
       </Card>
 
       <Card className="table-card p-5">
-        <BlockedAccessPanel logs={blockedAccessLogs} />
+        <BlockedAccessPanel logs={activeBlockedAccessLogs} />
       </Card>
 
       <Card>
-        <DevelopmentMetricsPanel metrics={developmentMetrics} />
+        <DevelopmentMetricsPanel metrics={activeDevelopmentMetrics} />
       </Card>
     </section>
   );

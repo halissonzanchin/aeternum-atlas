@@ -1,15 +1,13 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Card from "../../components/Card/Card";
 import AeternumLogo from "../../components/AeternumLogo";
 import LineIcon from "../../components/icons/LineIcon";
-import { mockModels } from "../../data/mockModels";
 import { institutionProfile } from "../../data/mockInstitutionalAnalytics";
 import { trackEvent } from "../../services/analyticsService";
-import { calculateStudentProgress, getProgressBySystem } from "../../services/progressService";
+import { calculateStudentProgress, getAccessLogs, getProgressBySystem } from "../../services/progressService";
+import { listModelsForUser } from "../../services/modelService";
 import { useLanguage } from "../../context/LanguageContext";
 import { translateModelSummary, translateTaxonomy } from "../../utils/modelI18n";
-
-const continueModelIds = ["coracao-humano-superficial", "abdome-cadaverico-3d", "cranio-humano-3d"];
 
 const studyTools = [
   {
@@ -25,8 +23,8 @@ const studyTools = [
     id: "flashcards",
     titleKey: "studentHome.tools.flashcards.title",
     descriptionKey: "studentHome.tools.flashcards.description",
-    statusKey: "studentHome.status.available",
-    statusTone: "available",
+    statusKey: "studentHome.status.inDevelopment",
+    statusTone: "development",
     icon: "library",
     path: "/flashcards"
   },
@@ -34,8 +32,8 @@ const studyTools = [
     id: "quizzes",
     titleKey: "studentHome.tools.quizzes.title",
     descriptionKey: "studentHome.tools.quizzes.description",
-    statusKey: "studentHome.status.inDevelopment",
-    statusTone: "development",
+    statusKey: "studentHome.status.available",
+    statusTone: "available",
     icon: "check",
     path: "/quizzes"
   },
@@ -43,8 +41,8 @@ const studyTools = [
     id: "summaries",
     titleKey: "studentHome.tools.summaries.title",
     descriptionKey: "studentHome.tools.summaries.description",
-    statusKey: "studentHome.status.inDevelopment",
-    statusTone: "development",
+    statusKey: "studentHome.status.soon",
+    statusTone: "soon",
     icon: "spark",
     path: "/summaries"
   },
@@ -52,8 +50,8 @@ const studyTools = [
     id: "guided-study",
     titleKey: "studentHome.tools.guidedStudy.title",
     descriptionKey: "studentHome.tools.guidedStudy.description",
-    statusKey: "studentHome.status.available",
-    statusTone: "available",
+    statusKey: "studentHome.status.inDevelopment",
+    statusTone: "development",
     icon: "layers",
     path: "/guided-study"
   },
@@ -61,8 +59,8 @@ const studyTools = [
     id: "ai-tutor",
     titleKey: "studentHome.tools.aiTutor.title",
     descriptionKey: "studentHome.tools.aiTutor.description",
-    statusKey: "studentHome.status.soon",
-    statusTone: "soon",
+    statusKey: "studentHome.status.inDevelopment",
+    statusTone: "development",
     icon: "help",
     path: "/ai-tutor"
   },
@@ -70,8 +68,8 @@ const studyTools = [
     id: "quick-review",
     titleKey: "studentHome.tools.quickReview.title",
     descriptionKey: "studentHome.tools.quickReview.description",
-    statusKey: "studentHome.status.available",
-    statusTone: "available",
+    statusKey: "studentHome.status.soon",
+    statusTone: "soon",
     icon: "reset",
     path: "/review"
   },
@@ -91,15 +89,13 @@ const recommendationCards = [
     id: "review-most-accessed",
     titleKey: "studentHome.recommendations.reviewMostAccessed",
     descriptionKey: "studentHome.recommendationDescriptions.reviewMostAccessed",
-    icon: "reset",
-    path: "/viewer/coracao-humano-superficial"
+    icon: "reset"
   },
   {
     id: "complete-started",
     titleKey: "studentHome.recommendations.completeStarted",
     descriptionKey: "studentHome.recommendationDescriptions.completeStarted",
-    icon: "check",
-    path: "/models/abdome-cadaverico-3d"
+    icon: "check"
   },
   {
     id: "quick-quiz",
@@ -154,7 +150,7 @@ function minutesLabel(minutes, t) {
 }
 
 function modelPath(model) {
-  return model.id === "coracao-humano-superficial" ? `/viewer/${model.id}` : `/models/${model.id}`;
+  return `/viewer/${model.slug || model.id}`;
 }
 
 function KpiCard({ icon, label, value, tone = "gold" }) {
@@ -327,9 +323,9 @@ function ProgressRow({ item }) {
   );
 }
 
-function ProfessorDashboard({ user, navigate }) {
+function ProfessorDashboard({ user, navigate, models, modelsLoading }) {
   const { t } = useLanguage();
-  const recommended = useMemo(() => mockModels.slice(0, 4), []);
+  const recommended = useMemo(() => models.slice(0, 4), [models]);
 
   useEffect(() => {
     trackEvent({ userId: user?.id, institutionId: user?.institutionId, role: user?.role, eventType: "open_dashboard" });
@@ -355,7 +351,7 @@ function ProfessorDashboard({ user, navigate }) {
       </div>
 
       <div className="kpi-grid mb-6">
-        <KpiCard icon="layers" label={t("professorDashboard.availableModels")} value={mockModels.length} tone="teal" />
+        <KpiCard icon="layers" label={t("professorDashboard.availableModels")} value={modelsLoading ? "..." : models.length} tone="teal" />
         <KpiCard icon="library" label={t("professorDashboard.studyLists")} value="6" />
         <KpiCard icon="check" label={t("professorDashboard.classes")} value="4" tone="teal" />
         <KpiCard icon="reset" label={t("professorDashboard.weeklyEngagement")} value="78%" />
@@ -393,7 +389,7 @@ function ProfessorDashboard({ user, navigate }) {
             {recommended.map(model => {
               const summary = translateModelSummary(model, t);
               return (
-                <button key={model.id} className="viewer-list-row" onClick={() => navigate(`/models/${model.id}`)}>
+                <button key={model.id} className="viewer-list-row" onClick={() => navigate(`/models/${model.slug || model.id}`)}>
                   <span className="module-icon"><LineIcon name="layers" /></span>
                   <span className="min-w-0 flex-1 text-left">
                     <strong>{summary.title}</strong>
@@ -402,13 +398,19 @@ function ProfessorDashboard({ user, navigate }) {
                 </button>
               );
             })}
+            {!modelsLoading && recommended.length === 0 ? (
+              <p className="text-sm text-textMuted">{t("models.emptyCatalog")}</p>
+            ) : null}
           </div>
         </Card>
 
         <Card className="premium-panel-card">
           <p className="viewer-eyebrow">{t("professorDashboard.classProgress")}</p>
           <div className="mt-4 grid gap-3">
-            {getProgressBySystem(user).slice(0, 4).map(item => <ProgressRow key={item.system} item={item} />)}
+            {getProgressBySystem(user, models).slice(0, 4).map(item => <ProgressRow key={item.system} item={item} />)}
+            {!modelsLoading && models.length === 0 ? (
+              <p className="text-sm text-textMuted">{t("models.emptyCatalog")}</p>
+            ) : null}
           </div>
         </Card>
 
@@ -433,17 +435,57 @@ function ProfessorDashboard({ user, navigate }) {
 
 export default function Dashboard({ user, navigate }) {
   const { t } = useLanguage();
-  const stats = calculateStudentProgress(user);
-  const recentModels = useMemo(() => continueModelIds.map(id => mockModels.find(model => model.id === id)).filter(Boolean), []);
-  const activeModels = useMemo(() => mockModels.filter(model => model.isActive !== false), []);
-  const studiedStructures = Math.max(stats.studiedModels * 4, 32);
+  const [models, setModels] = useState([]);
+  const [modelsLoading, setModelsLoading] = useState(true);
+  const stats = calculateStudentProgress(user, models);
+  const recentModels = useMemo(() => {
+    const modelsById = new Map(models.map(model => [model.id, model]));
+    const fromLogs = [];
+    const seen = new Set();
+
+    getAccessLogs(user).forEach(log => {
+      if (!log?.modelId || seen.has(log.modelId)) return;
+      const model = modelsById.get(log.modelId);
+      if (!model) return;
+      seen.add(log.modelId);
+      fromLogs.push(model);
+    });
+
+    return (fromLogs.length ? fromLogs : models).slice(0, 3);
+  }, [models, user]);
+  const activeModels = useMemo(() => models.filter(model => model.isActive !== false), [models]);
+  const studiedStructures = stats.studiedModels * 4;
+  const continueTarget = recentModels[0] ? modelPath(recentModels[0]) : "/models";
+  const recommendationPaths = useMemo(() => ({
+    "review-most-accessed": recentModels[0] ? modelPath(recentModels[0]) : "/models",
+    "complete-started": recentModels[1] ? `/models/${recentModels[1].id}` : "/models",
+    "quick-quiz": "/quizzes",
+    "generate-flashcards": "/flashcards"
+  }), [recentModels]);
+
+  useEffect(() => {
+    let mounted = true;
+    setModelsLoading(true);
+
+    listModelsForUser(user)
+      .then(items => {
+        if (mounted) setModels(items);
+      })
+      .finally(() => {
+        if (mounted) setModelsLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, [user]);
 
   useEffect(() => {
     trackEvent({ userId: user?.id, institutionId: user?.institutionId, role: user?.role, eventType: "open_dashboard" });
   }, [user?.id, user?.institutionId, user?.role]);
 
   if (user?.role === "professor") {
-    return <ProfessorDashboard user={user} navigate={navigate} />;
+    return <ProfessorDashboard user={user} navigate={navigate} models={models} modelsLoading={modelsLoading} />;
   }
 
   return (
@@ -458,7 +500,7 @@ export default function Dashboard({ user, navigate }) {
               <LineIcon name="layers" />
               {t("studentHome.actions.openModels")}
             </button>
-            <button className="viewer-secondary-button" onClick={() => navigate("/viewer/coracao-humano-superficial")}>
+            <button className="viewer-secondary-button" onClick={() => navigate(continueTarget)}>
               <LineIcon name="reset" />
               {t("studentHome.actions.continue")}
             </button>
@@ -477,7 +519,7 @@ export default function Dashboard({ user, navigate }) {
       </div>
 
       <div className="student-quick-grid">
-        <QuickMetricCard icon="layers" label={t("studentHome.quick.availableModels")} value={activeModels.length} hint={t("studentHome.quick.modelsHint")} tone="teal" />
+        <QuickMetricCard icon="layers" label={t("studentHome.quick.availableModels")} value={modelsLoading ? "..." : activeModels.length} hint={t("studentHome.quick.modelsHint")} tone="teal" />
         <QuickMetricCard icon="clock" label={t("studentHome.quick.totalStudyTime")} value={minutesLabel(stats.totalStudyMinutes, t)} hint={t("studentHome.quick.studyHint")} />
         <QuickMetricCard icon="check" label={t("studentHome.quick.studiedStructures")} value={studiedStructures} hint={t("studentHome.quick.structuresHint")} tone="teal" />
         <QuickMetricCard icon="spark" label={t("studentHome.quick.overallProgress")} value={`${stats.progressPercent}%`} hint={t("studentHome.quick.progressHint")} />
@@ -506,6 +548,11 @@ export default function Dashboard({ user, navigate }) {
         </div>
         <div className="continue-model-grid">
           {recentModels.map(model => <ContinueModelCard key={model.id} model={model} navigate={navigate} t={t} />)}
+          {!modelsLoading && recentModels.length === 0 ? (
+            <Card className="premium-panel-card">
+              <p className="text-sm text-textMuted">{t("models.emptyCatalog")}</p>
+            </Card>
+          ) : null}
         </div>
       </section>
 
@@ -521,7 +568,7 @@ export default function Dashboard({ user, navigate }) {
         </div>
         <div className="student-recommendation-grid">
           {recommendationCards.map(item => (
-            <button key={item.id} className="student-recommendation-card" onClick={() => navigate(item.path)}>
+            <button key={item.id} className="student-recommendation-card" onClick={() => navigate(recommendationPaths[item.id] || "/models")}>
               <span className="module-icon"><LineIcon name={item.icon} /></span>
               <strong>{t(item.titleKey)}</strong>
               <p>{t(item.descriptionKey)}</p>

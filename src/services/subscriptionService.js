@@ -1,4 +1,5 @@
 import { mockPlans } from "../data/mockPlans";
+import { getUserInstitutionId, isActiveUser, normalizeRole, ROLES } from "./permissions/permissionService";
 import { updateUser } from "./authService";
 
 export function getPlans() {
@@ -15,7 +16,9 @@ export function getSubscriptionStatus(user) {
 }
 
 export function hasInstitutionalAccess(user) {
-  return Boolean(user && (user.accountStatus || "ativo") !== "bloqueado");
+  if (!user || !isActiveUser(user)) return false;
+  if (normalizeRole(user.role) === ROLES.SUPER_ADMIN) return true;
+  return Boolean(getUserInstitutionId(user));
 }
 
 export function activateSubscription(user, plan, provider = "Mock Gateway") {

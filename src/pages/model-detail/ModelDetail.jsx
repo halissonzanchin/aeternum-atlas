@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
-import { getModelById } from "../../services/modelService";
+import { getModelByIdForUser } from "../../services/modelService";
 import { completeModel, favoriteModel, trackEvent } from "../../services/analyticsService";
 import { isFavoriteModel, isModelStudied } from "../../services/progressService";
 import { useLanguage } from "../../context/LanguageContext";
@@ -39,6 +39,10 @@ function guideOf(model, t) {
   ];
 }
 
+function modelRouteId(model) {
+  return model?.slug || model?.id;
+}
+
 function ListContent({ items = [], ordered = false }) {
   const Tag = ordered ? "ol" : "ul";
   return (
@@ -52,7 +56,8 @@ function ListContent({ items = [], ordered = false }) {
 
 export default function ModelDetail({ id, user, navigate }) {
   const { t } = useLanguage();
-  const model = getModelById(id);
+  const [model, setModel] = useState(null);
+  const [loading, setLoading] = useState(true);
   const localizedModel = useMemo(() => model ? translateModelSummary(model, t) : null, [model, t]);
   const [tab, setTab] = useState("overview");
   const [favorite, setFavorite] = useState(() => model ? isFavoriteModel(user, model.id) : false);
@@ -77,10 +82,41 @@ export default function ModelDetail({ id, user, navigate }) {
   }, [localizedModel, tab, t]);
 
   useEffect(() => {
-    if (model) {
+    let mounted = true;
+    setLoading(true);
+
+    getModelByIdForUser(id, user)
+      .then(item => {
+        if (mounted) setModel(item);
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, [id, user]);
+
+  useEffect(() => {
+    if (model?.id) {
       trackEvent({ userId: user?.id, institutionId: user?.institutionId, role: user?.role, modelId: model.id, eventType: "open_model_detail" });
     }
   }, [model?.id, user?.id, user?.institutionId, user?.role]);
+
+  useEffect(() => {
+    if (!model?.id) return;
+    setFavorite(isFavoriteModel(user, model.id));
+    setStudied(isModelStudied(user, model.id));
+  }, [model?.id, user]);
+
+  if (loading) {
+    return (
+      <Card>
+        <p className="text-textMuted">{t("models.catalogLoading")}</p>
+      </Card>
+    );
+  }
 
   if (!model) {
     return (
@@ -141,7 +177,7 @@ export default function ModelDetail({ id, user, navigate }) {
             <p><span className="block text-textMuted">{t("models.estimatedTime")}</span>{model.estimatedStudyTime}</p>
           </div>
           <div className="mt-6 grid gap-3">
-            <Button variant="teal" onClick={() => navigate(`/viewer/${model.id}`)}>{t("models.open3dViewer")}</Button>
+            <Button variant="teal" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}>{t("models.open3dViewer")}</Button>
             <Button variant={favorite ? "primary" : "outline"} onClick={handleFavorite}>{favorite ? t("models.favorited") : t("models.favorite")}</Button>
             <Button variant={studied ? "ghost" : "primary"} onClick={handleComplete}>{studied ? t("models.studyCompleted") : t("models.completeStudy")}</Button>
             <Button variant="ghost" onClick={() => navigate("/models")}>{t("models.backToLibrary")}</Button>

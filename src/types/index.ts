@@ -142,3 +142,62 @@ export interface StudyProgress {
   completedAt?: string;
   updatedAt: string;
 }
+
+export interface AcademicClass {
+  id: string;
+  institutionId: string;
+  teacherId: string;
+  name: string;
+  course?: string;
+  semester?: string;
+  status: "active" | "inactive" | "archived";
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TeacherStudyGuide {
+  id: string;
+  institutionId: string;
+  teacherId: string;
+  classId?: string;
+  title: string;
+  description?: string;
+  objectives: string[];
+  modelIds: string[];
+  dueDate?: string;
+  status: "draft" | "active" | "completed" | "archived";
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TeacherLessonPlan {
+  id: string;
+  institutionId: string;
+  teacherId: string;
+  classId?: string;
+  title: string;
+  scheduledFor?: string;
+  modelIds: string[];
+  keyStructures: string[];
+  objectives: string[];
+  notes?: string;
+  status: "planned" | "delivered" | "archived";
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TeacherAnatomicalNote {
+  id: string;
+  institutionId: string;
+  teacherId: string;
+  modelId?: string;
+  structure?: string;
+  noteType: "correction" | "didactic" | "clinical" | "legend" | "annotation";
+  description: string;
+  priority: "low" | "medium" | "high";
+  status: "open" | "in_review" | "resolved" | "archived";
+  visibility: "private" | "institution" | "admin";
+  createdAt: string;
+  updatedAt: string;
+}

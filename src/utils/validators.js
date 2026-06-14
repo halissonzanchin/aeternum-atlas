@@ -18,7 +18,7 @@ export function validateRegister(values) {
   if (!values.password || values.password.length < 8) errors.password = "A senha precisa ter no mínimo 8 caracteres.";
   if (values.confirmPassword !== values.password) errors.confirmPassword = "As senhas não conferem.";
   if (!sanitizeText(values.userType)) errors.userType = "Tipo de usuário obrigatório.";
-  if (!sanitizeText(values.institution)) errors.institution = "Instituição obrigatória.";
+  if (!sanitizeText(values.institutionId || values.institution)) errors.institution = "Instituição obrigatória.";
   if (!sanitizeText(values.course)) errors.course = "Curso obrigatório.";
   if (!sanitizeText(values.semester)) errors.semester = "Ano ou semestre obrigatório.";
   if (!sanitizeText(values.studentRegistration) && values.userType === "Estudante") errors.studentRegistration = "Matrícula ou R.A. obrigatório.";

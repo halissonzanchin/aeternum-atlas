@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import LineIcon from "../icons/LineIcon";
 import ModelAnalyticsCard from "../viewer/ModelAnalyticsCard";
 import SketchfabApiViewer from "../viewer/SketchfabApiViewer";
+import SecureContentGuard from "../security/SecureContentGuard";
 import { useLanguage } from "../../context/LanguageContext";
 import { getCurrentUserForModelAccess, logModelAccess } from "../../services/logModelAccess";
 
@@ -100,6 +101,13 @@ export default function ModelViewer({
   onSelectStructure,
   onViewerAction,
   onViewerEvent,
+  onAnnotationsLoad,
+  onAnnotationSelect,
+  annotationNavigationRequest,
+  annotationTooltipsHidden = false,
+  isFavorite = false,
+  isStudied = false,
+  isAccessRegistered = false,
   onRequestAccess,
   currentUser
 }) {
@@ -158,10 +166,34 @@ export default function ModelViewer({
     ["Marcar como estudado", "viewer.markAsStudied", "check"],
     ["Copiar link do modelo", "viewer.copyModelLink", "layers"],
     ["Registrar acesso", "viewer.registerAccess", "check"],
-    ["Ver guia de estudo", "viewer.viewStudyGuide", "library"],
+    ["Anotações", "viewer.notes", "note"],
+    ["Simulado Anatômico", "viewer.anatomicalQuiz", "clipboardCheck"],
+    ["Simulado Teórico", "viewer.theoreticalQuiz", "fileQuestion"],
     ["Voltar para biblioteca", "viewer.backToLibrary", "library"],
     ["Reportar problema", "viewer.reportProblem", "help"]
   ];
+
+  function actionStateClass(action) {
+    if (action === "Favoritar" && isFavorite) return "is-favorite-active";
+    if (action === "Marcar como estudado" && isStudied) return "is-studied-active";
+    if (action === "Registrar acesso" && isAccessRegistered) return "is-access-active";
+    return "";
+  }
+
+  function isActionPressed(action) {
+    if (action === "Favoritar") return isFavorite;
+    if (action === "Marcar como estudado") return isStudied;
+    if (action === "Registrar acesso") return isAccessRegistered;
+    return undefined;
+  }
+
+  function isActionIconFilled(action) {
+    return (
+      (action === "Favoritar" && isFavorite) ||
+      (action === "Marcar como estudado" && isStudied) ||
+      (action === "Registrar acesso" && isAccessRegistered)
+    );
+  }
 
   return (
     <section className={`viewer-canvas-panel ${embedUrl ? "is-sketchfab-mode" : ""}`}>
@@ -190,13 +222,19 @@ export default function ModelViewer({
             </button>
           </div>
         ) : embedUrl ? (
-          <SketchfabApiViewer
-            title={model.shortTitle || model.title}
-            modelUid={modelUid}
-            embedUrl={embedUrl}
-            externalUrl={externalUrl}
-            onEvent={onViewerEvent}
-          />
+          <SecureContentGuard user={currentUser} model={model}>
+            <SketchfabApiViewer
+              title={model.shortTitle || model.title}
+              modelUid={modelUid}
+              embedUrl={embedUrl}
+              externalUrl={externalUrl}
+              onEvent={onViewerEvent}
+              onAnnotationsLoad={onAnnotationsLoad}
+              onAnnotationSelect={onAnnotationSelect}
+              annotationNavigationRequest={annotationNavigationRequest}
+              annotationTooltipsHidden={annotationTooltipsHidden}
+            />
+          </SecureContentGuard>
         ) : (
           <AnatomyPlaceholder
             structure={structure}
@@ -211,6 +249,9 @@ export default function ModelViewer({
         {actions.map(([action, labelKey, icon]) => (
           <button
             key={action}
+            className={actionStateClass(action)}
+            data-viewer-action={action}
+            aria-pressed={isActionPressed(action)}
             onClick={async () => {
               if (action === "Registrar acesso") {
                 await registerSupabaseModelAccess("manual_button");
@@ -220,7 +261,7 @@ export default function ModelViewer({
             aria-label={t(labelKey)}
             data-tooltip={t(labelKey)}
           >
-            <LineIcon name={icon} className="h-4 w-4" />
+            <LineIcon name={icon} className="h-4 w-4" filled={isActionIconFilled(action)} />
             <span>{t(labelKey)}</span>
           </button>
         ))}

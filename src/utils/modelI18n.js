@@ -100,16 +100,18 @@ export function translateTaxonomy(value, t, group) {
 }
 
 export function translateModelField(model, field, t) {
-  if (!model?.id) return model?.[field] || "";
-  return translatedOrFallback(t, `modelData.${model.id}.${field}`, model[field] || "");
+  const translationKey = model?.slug || model?.id;
+  if (!translationKey) return model?.[field] || "";
+  return translatedOrFallback(t, `modelData.${translationKey}.${field}`, model[field] || "");
 }
 
 export function translateModelArray(model, field, t) {
-  if (!model?.id) return [];
-  const translated = t(`modelData.${model.id}.${field}`);
+  const translationKey = model?.slug || model?.id;
+  if (!translationKey) return [];
+  const translated = t(`modelData.${translationKey}.${field}`);
 
   if (Array.isArray(translated)) return translated;
-  if (translated && translated !== `modelData.${model.id}.${field}` && typeof translated !== "string") return translated;
+  if (translated && translated !== `modelData.${translationKey}.${field}` && typeof translated !== "string") return translated;
 
   return Array.isArray(model[field]) ? model[field] : [];
 }

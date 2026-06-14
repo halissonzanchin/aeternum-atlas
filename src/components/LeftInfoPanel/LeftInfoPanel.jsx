@@ -120,15 +120,26 @@ function PartsTab({ structure, activePart, onSelectPart, t }) {
   );
 }
 
-function ListTab({ items = [], empty, onClick }) {
+function ListTab({ items = [], empty, onClick, variant = "default", activeIndex = null }) {
   if (!items.length) return <p className="viewer-empty-state">{empty}</p>;
   return (
     <div className="space-y-2">
-      {items.map(item => {
+      {items.map((item, index) => {
         const label = typeof item === "string" ? item : item.name || item.plane || item.id;
+        const detail = typeof item === "string"
+          ? ""
+          : item.latinName || item.latin_name || item.description || item.plane || "";
         return (
-        <button key={label} className="viewer-list-row text-left" onClick={() => onClick?.(label)}>
-          <span>{label}</span>
+        <button
+          key={`${label}-${index}`}
+          className={`viewer-list-row text-left viewer-list-row--${variant} ${activeIndex === index ? "is-active" : ""}`}
+          onClick={() => onClick?.(item, index)}
+        >
+          <span className="viewer-list-index">{String(index + 1).padStart(2, "0")}</span>
+          <span className="viewer-list-copy">
+            <strong>{label}</strong>
+            {detail ? <small>{detail}</small> : null}
+          </span>
           <LineIcon name="chevron" className="h-4 w-4 text-techTeal" />
         </button>
         );
@@ -140,7 +151,7 @@ function ListTab({ items = [], empty, onClick }) {
 function studyGuide(model, t) {
   if (model?.studyGuide?.length) return model.studyGuide;
 
-  if (model?.id === "coracao-humano-superficial") {
+  if ((model?.slug || model?.id) === "coracao-humano-superficial") {
     return [
       "Inicie observando o coração em vista anterior.",
       "Gire o modelo para reconhecer ápice e base.",
@@ -163,7 +174,8 @@ function academicObjectives(model) {
   return model?.objectives?.length ? model.objectives : model?.learningObjectives || [];
 }
 
-function academicStructures(model, structure) {
+function academicStructures(model, structure, anatomicalStructures) {
+  if (anatomicalStructures?.length) return anatomicalStructures;
   if (model?.structures?.length) return model.structures;
   if (model?.relatedStructures?.length) return model.relatedStructures;
   return structure?.keyFeatures || structure?.features || [];
@@ -190,6 +202,9 @@ export default function LeftInfoPanel({
   activePart,
   onAction,
   onSelectPart,
+  anatomicalStructures,
+  activeAnatomicalIndex,
+  onSelectAnatomicalStructure,
   onClose,
   academicMode = false
 }) {
@@ -244,7 +259,13 @@ export default function LeftInfoPanel({
             <ListTab items={academicObjectives(model)} empty={t("viewer.emptyStates.noObjectives")} />
           ) : null}
           {activeTab === "Estruturas anatômicas" ? (
-            <ListTab items={academicStructures(model, structure)} empty={t("viewer.emptyStates.noAnatomicalStructures")} />
+            <ListTab
+              items={academicStructures(model, structure, anatomicalStructures)}
+              empty={t("viewer.emptyStates.noAnatomicalStructures")}
+              variant="anatomy"
+              activeIndex={activeAnatomicalIndex}
+              onClick={onSelectAnatomicalStructure}
+            />
           ) : null}
           {activeTab === "Correlações clínicas" ? (
             <ListTab items={academicClinicalNotes(model, structure)} empty={t("viewer.emptyStates.noClinicalCorrelations")} />

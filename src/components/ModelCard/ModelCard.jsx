@@ -19,6 +19,10 @@ function progressFor(user, model) {
   return model.progressPercent || 0;
 }
 
+function modelRouteId(model) {
+  return model?.slug || model?.id;
+}
+
 export default function ModelCard({ model, user, navigate }) {
   const { language, t } = useLanguage();
   const [favorite, setFavorite] = useState(() => isFavoriteModel(user, model.id));
@@ -77,8 +81,8 @@ export default function ModelCard({ model, user, navigate }) {
       </div>
 
       <div className="flex flex-wrap gap-2">
-        <Button variant="teal" onClick={() => navigate(`/viewer/${model.id}`)}>{t("models.openModel")}</Button>
-        <Button variant="outline" onClick={() => navigate(`/models/${model.id}`)}>{t("models.viewDetails")}</Button>
+        <Button variant="teal" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}>{t("models.openModel")}</Button>
+        <Button variant="outline" onClick={() => navigate(`/models/${modelRouteId(model)}`)}>{t("models.viewDetails")}</Button>
         <Button variant={favorite ? "primary" : "ghost"} className="min-h-10 px-4" onClick={handleFavorite}>
           {favorite ? t("models.favorited") : t("models.favorite")}
         </Button>

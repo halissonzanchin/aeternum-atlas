@@ -7,6 +7,23 @@ const DEFAULT_HEART_UID = "fd61a9605f4148a9b5274463f7adbcb5";
 const FALLBACK_NOTICE_MS = 8000;
 const VIEWER_READY_TIMEOUT_MS = 60000;
 
+function stripHtml(value = "") {
+  return String(value).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function normalizeAnnotation(annotation, index) {
+  const rawContent = annotation?.content?.raw || annotation?.content || "";
+  const renderedContent = annotation?.content?.rendered || "";
+
+  return {
+    id: annotation?.uid || `sketchfab-annotation-${index + 1}`,
+    uid: annotation?.uid || "",
+    index,
+    name: annotation?.name || `Annotation ${index + 1}`,
+    description: stripHtml(rawContent || renderedContent)
+  };
+}
+
 function loadSketchfabScript() {
   return new Promise((resolve, reject) => {
     if (window.Sketchfab) {
@@ -31,13 +48,32 @@ function loadSketchfabScript() {
   });
 }
 
+function callSketchfabApi(api, methodName, ...args) {
+  if (typeof api?.[methodName] !== "function") return;
+
+  try {
+    api[methodName](...args);
+  } catch {
+    // External viewer API can be unavailable during iframe transitions.
+  }
+}
+
+function hideAnnotationInfo(api, annotationIndex) {
+  callSketchfabApi(api, "hideAnnotationTooltip", annotationIndex);
+  callSketchfabApi(api, "unselectAnnotation");
+}
+
 export default function SketchfabApiViewer({
   modelUid = DEFAULT_HEART_UID,
   title,
   embedUrl,
   externalUrl,
+  children,
   onViewerReady,
   onAnnotationSelect,
+  onAnnotationsLoad,
+  annotationNavigationRequest,
+  annotationTooltipsHidden = false,
   onViewerError,
   onEvent
 }) {
@@ -157,6 +193,30 @@ export default function SketchfabApiViewer({
               });
 
               onViewerReady?.(api);
+
+              if (typeof api.getAnnotationList === "function") {
+                api.getAnnotationList((errorOrAnnotations, maybeAnnotations) => {
+                  if (!isMounted) return;
+
+                  const annotations = Array.isArray(errorOrAnnotations)
+                    ? errorOrAnnotations
+                    : maybeAnnotations;
+
+                  if (!Array.isArray(annotations)) return;
+
+                  const normalizedAnnotations = annotations
+                    .map(normalizeAnnotation)
+                    .filter(annotation => annotation.name);
+
+                  onAnnotationsLoad?.(normalizedAnnotations);
+                  onEvent?.({
+                    type: "annotation_list_loaded",
+                    modelUid,
+                    annotationCount: normalizedAnnotations.length,
+                    timestamp: new Date().toISOString()
+                  });
+                });
+              }
             });
 
             api.addEventListener("annotationSelect", index => {
@@ -217,6 +277,62 @@ export default function SketchfabApiViewer({
     };
   }, [modelUid]);
 
+  useEffect(() => {
+    const api = apiRef.current;
+    const annotationIndex = annotationNavigationRequest?.index;
+    const silent = Boolean(annotationNavigationRequest?.silent);
+
+    if (
+      status !== "ready" ||
+      !api ||
+      !Number.isInteger(annotationIndex) ||
+      typeof api.gotoAnnotation !== "function"
+    ) {
+      return;
+    }
+
+    onEvent?.({
+      type: "annotation_navigation_requested",
+      modelUid,
+      annotationIndex,
+      timestamp: new Date().toISOString()
+    });
+
+    if (silent) {
+      hideAnnotationInfo(api, annotationIndex);
+    }
+
+    api.gotoAnnotation(annotationIndex, { preventCameraAnimation: false }, error => {
+      if (!error && silent) {
+        window.setTimeout(() => hideAnnotationInfo(api, annotationIndex), 120);
+        window.setTimeout(() => hideAnnotationInfo(api, annotationIndex), 420);
+      }
+
+      onEvent?.({
+        type: error ? "annotation_navigation_failed" : "annotation_navigation_completed",
+        modelUid,
+        annotationIndex,
+        metadata: { silent },
+        error: error || undefined,
+        timestamp: new Date().toISOString()
+      });
+    });
+  }, [annotationNavigationRequest, modelUid, status]);
+
+  useEffect(() => {
+    const api = apiRef.current;
+
+    if (status !== "ready" || !api) return;
+
+    callSketchfabApi(api, annotationTooltipsHidden ? "hideAnnotationTooltips" : "showAnnotationTooltips");
+
+    onEvent?.({
+      type: annotationTooltipsHidden ? "annotation_tooltips_hidden" : "annotation_tooltips_visible",
+      modelUid,
+      timestamp: new Date().toISOString()
+    });
+  }, [annotationTooltipsHidden, modelUid, status]);
+
   return (
     <section className="aa-viewer-shell">
       <header className="aa-viewer-header">
@@ -270,6 +386,7 @@ export default function SketchfabApiViewer({
           web-share="true"
           className="aa-sketchfab-iframe"
         />
+        {children}
       </div>
     </section>
   );

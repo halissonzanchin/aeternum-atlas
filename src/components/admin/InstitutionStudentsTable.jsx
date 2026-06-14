@@ -23,7 +23,7 @@ function engagementMatches(student, engagement) {
 }
 
 export default function InstitutionStudentsTable({
-  students,
+  students = [],
   formatNumber,
   onOpenHistory,
   onOpenPerformance,
@@ -62,6 +62,10 @@ export default function InstitutionStudentsTable({
     setFilters(prev => ({ ...prev, [event.target.name]: event.target.value }));
   }
 
+  const emptyMessage = students.length
+    ? "Nenhum aluno encontrado com os filtros aplicados."
+    : "Nenhum aluno cadastrado ainda.";
+
   return (
     <div className="student-filter-panel">
       <div className="student-filter-grid">
@@ -95,11 +99,27 @@ export default function InstitutionStudentsTable({
       </div>
 
       <div className="student-table-meta">
-        {formatNumber(filteredStudents.length)} alunos encontrados na amostra administrativa.
+        {formatNumber(filteredStudents.length)} alunos encontrados.
       </div>
 
-      <div className="table-scroll">
-        <table className="admin-table text-left text-sm">
+      <div className="table-scroll student-table-scroll">
+        <table className="admin-table admin-students-table text-left text-sm">
+          <colgroup>
+            <col className="student-col-name" />
+            <col className="student-col-email" />
+            <col className="student-col-registration" />
+            <col className="student-col-course" />
+            <col className="student-col-semester" />
+            <col className="student-col-status" />
+            <col className="student-col-date" />
+            <col className="student-col-last-access" />
+            <col className="student-col-number" />
+            <col className="student-col-study-time" />
+            <col className="student-col-content" />
+            <col className="student-col-number" />
+            <col className="student-col-performance" />
+            <col className="student-col-actions" />
+          </colgroup>
           <thead>
             <tr>
               {[
@@ -157,6 +177,13 @@ export default function InstitutionStudentsTable({
                 </tr>
               );
             })}
+            {!filteredStudents.length ? (
+              <tr>
+                <td className="student-table-empty" colSpan={14}>
+                  {emptyMessage}
+                </td>
+              </tr>
+            ) : null}
           </tbody>
         </table>
       </div>

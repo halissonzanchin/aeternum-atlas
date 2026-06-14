@@ -86,6 +86,77 @@ create table if not exists public.platform_events (
   created_at timestamptz not null default now()
 );
 
+-- Camada operacional docente.
+-- Estas tabelas habilitam turmas, vínculos aluno-turma,
+-- guias de estudo, planos de aula e anotações anatômicas.
+create table if not exists public.academic_classes (
+  id uuid primary key default gen_random_uuid(),
+  institution_id uuid not null references public.institutions(id) on delete restrict,
+  teacher_id uuid not null references public.users(id) on delete restrict,
+  name text not null,
+  course text,
+  semester text,
+  status text not null default 'active' check (status in ('active', 'inactive', 'archived')),
+  notes text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.academic_class_students (
+  id uuid primary key default gen_random_uuid(),
+  institution_id uuid not null references public.institutions(id) on delete restrict,
+  class_id uuid not null references public.academic_classes(id) on delete restrict,
+  student_id uuid not null references public.users(id) on delete restrict,
+  created_at timestamptz not null default now(),
+  unique (class_id, student_id)
+);
+
+create table if not exists public.teacher_study_guides (
+  id uuid primary key default gen_random_uuid(),
+  institution_id uuid not null references public.institutions(id) on delete restrict,
+  teacher_id uuid not null references public.users(id) on delete restrict,
+  class_id uuid references public.academic_classes(id) on delete set null,
+  title text not null,
+  description text,
+  objectives jsonb not null default '[]'::jsonb,
+  model_ids jsonb not null default '[]'::jsonb,
+  due_date date,
+  status text not null default 'draft' check (status in ('draft', 'active', 'completed', 'archived')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.teacher_lesson_plans (
+  id uuid primary key default gen_random_uuid(),
+  institution_id uuid not null references public.institutions(id) on delete restrict,
+  teacher_id uuid not null references public.users(id) on delete restrict,
+  class_id uuid references public.academic_classes(id) on delete set null,
+  title text not null,
+  scheduled_for timestamptz,
+  model_ids jsonb not null default '[]'::jsonb,
+  key_structures jsonb not null default '[]'::jsonb,
+  objectives jsonb not null default '[]'::jsonb,
+  notes text,
+  status text not null default 'planned' check (status in ('planned', 'delivered', 'archived')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.teacher_anatomical_notes (
+  id uuid primary key default gen_random_uuid(),
+  institution_id uuid not null references public.institutions(id) on delete restrict,
+  teacher_id uuid not null references public.users(id) on delete restrict,
+  model_id uuid,
+  structure text,
+  note_type text not null default 'didactic' check (note_type in ('correction', 'didactic', 'clinical', 'legend', 'annotation')),
+  description text not null,
+  priority text not null default 'medium' check (priority in ('low', 'medium', 'high')),
+  status text not null default 'open' check (status in ('open', 'in_review', 'resolved', 'archived')),
+  visibility text not null default 'private' check (visibility in ('private', 'institution', 'admin')),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 create index if not exists favorite_models_institution_user_idx on public.favorite_models (institution_id, user_id);
 create index if not exists favorite_models_model_id_idx on public.favorite_models (model_id);
 create index if not exists model_annotations_institution_model_idx on public.model_annotations (institution_id, model_id);
@@ -96,6 +167,16 @@ create index if not exists subscriptions_institution_idx on public.subscriptions
 create index if not exists platform_events_institution_created_idx on public.platform_events (institution_id, created_at desc);
 create index if not exists platform_events_user_created_idx on public.platform_events (user_id, created_at desc);
 create index if not exists platform_events_event_type_idx on public.platform_events (event_type);
+create index if not exists academic_classes_institution_teacher_idx on public.academic_classes (institution_id, teacher_id);
+create index if not exists academic_classes_status_idx on public.academic_classes (status);
+create index if not exists academic_class_students_class_idx on public.academic_class_students (class_id);
+create index if not exists academic_class_students_student_idx on public.academic_class_students (student_id);
+create index if not exists teacher_study_guides_institution_teacher_idx on public.teacher_study_guides (institution_id, teacher_id);
+create index if not exists teacher_study_guides_class_idx on public.teacher_study_guides (class_id);
+create index if not exists teacher_lesson_plans_institution_teacher_idx on public.teacher_lesson_plans (institution_id, teacher_id);
+create index if not exists teacher_lesson_plans_class_idx on public.teacher_lesson_plans (class_id);
+create index if not exists teacher_anatomical_notes_institution_teacher_idx on public.teacher_anatomical_notes (institution_id, teacher_id);
+create index if not exists teacher_anatomical_notes_status_idx on public.teacher_anatomical_notes (status);
 
 do $$
 begin
@@ -110,6 +191,30 @@ begin
     before update on public.subscriptions
     for each row execute function public.set_updated_at();
   end if;
+
+  if not exists (select 1 from pg_trigger where tgname = 'set_updated_at_on_academic_classes') then
+    create trigger set_updated_at_on_academic_classes
+    before update on public.academic_classes
+    for each row execute function public.set_updated_at();
+  end if;
+
+  if not exists (select 1 from pg_trigger where tgname = 'set_updated_at_on_teacher_study_guides') then
+    create trigger set_updated_at_on_teacher_study_guides
+    before update on public.teacher_study_guides
+    for each row execute function public.set_updated_at();
+  end if;
+
+  if not exists (select 1 from pg_trigger where tgname = 'set_updated_at_on_teacher_lesson_plans') then
+    create trigger set_updated_at_on_teacher_lesson_plans
+    before update on public.teacher_lesson_plans
+    for each row execute function public.set_updated_at();
+  end if;
+
+  if not exists (select 1 from pg_trigger where tgname = 'set_updated_at_on_teacher_anatomical_notes') then
+    create trigger set_updated_at_on_teacher_anatomical_notes
+    before update on public.teacher_anatomical_notes
+    for each row execute function public.set_updated_at();
+  end if;
 end $$;
 
 alter table public.favorite_models enable row level security;
@@ -117,6 +222,11 @@ alter table public.model_annotations enable row level security;
 alter table public.study_sessions enable row level security;
 alter table public.subscriptions enable row level security;
 alter table public.platform_events enable row level security;
+alter table public.academic_classes enable row level security;
+alter table public.academic_class_students enable row level security;
+alter table public.teacher_study_guides enable row level security;
+alter table public.teacher_lesson_plans enable row level security;
+alter table public.teacher_anatomical_notes enable row level security;
 
 drop policy if exists "favorite_models_select_by_tenant" on public.favorite_models;
 create policy "favorite_models_select_by_tenant" on public.favorite_models
@@ -264,6 +374,248 @@ with check (
   and user_id = (select auth.uid())
   and institution_id = (select private.current_user_institution_id())
 );
+
+drop policy if exists "academic_classes_select_scoped" on public.academic_classes;
+create policy "academic_classes_select_scoped"
+on public.academic_classes
+for select to authenticated
+using (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+    )
+  )
+);
+
+drop policy if exists "academic_classes_manage_scoped" on public.academic_classes;
+create policy "academic_classes_manage_scoped"
+on public.academic_classes
+for all to authenticated
+using (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+    )
+  )
+)
+with check (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+    )
+  )
+);
+
+drop policy if exists "academic_class_students_select_scoped" on public.academic_class_students;
+create policy "academic_class_students_select_scoped"
+on public.academic_class_students
+for select to authenticated
+using (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      (select private.current_user_role()) = 'institution_admin'
+      or exists (
+        select 1
+        from public.academic_classes c
+        where c.id = academic_class_students.class_id
+          and c.teacher_id = (select auth.uid())
+          and c.institution_id = academic_class_students.institution_id
+      )
+    )
+  )
+);
+
+drop policy if exists "academic_class_students_manage_scoped" on public.academic_class_students;
+create policy "academic_class_students_manage_scoped"
+on public.academic_class_students
+for all to authenticated
+using (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      (select private.current_user_role()) = 'institution_admin'
+      or exists (
+        select 1
+        from public.academic_classes c
+        where c.id = academic_class_students.class_id
+          and c.teacher_id = (select auth.uid())
+          and c.institution_id = academic_class_students.institution_id
+      )
+    )
+  )
+)
+with check (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      (select private.current_user_role()) = 'institution_admin'
+      or exists (
+        select 1
+        from public.academic_classes c
+        where c.id = academic_class_students.class_id
+          and c.teacher_id = (select auth.uid())
+          and c.institution_id = academic_class_students.institution_id
+      )
+    )
+  )
+);
+
+drop policy if exists "teacher_study_guides_select_scoped" on public.teacher_study_guides;
+create policy "teacher_study_guides_select_scoped"
+on public.teacher_study_guides
+for select to authenticated
+using (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+    )
+  )
+);
+
+drop policy if exists "teacher_study_guides_manage_scoped" on public.teacher_study_guides;
+create policy "teacher_study_guides_manage_scoped"
+on public.teacher_study_guides
+for all to authenticated
+using (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+    )
+  )
+)
+with check (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+    )
+  )
+);
+
+drop policy if exists "teacher_lesson_plans_select_scoped" on public.teacher_lesson_plans;
+create policy "teacher_lesson_plans_select_scoped"
+on public.teacher_lesson_plans
+for select to authenticated
+using (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+    )
+  )
+);
+
+drop policy if exists "teacher_lesson_plans_manage_scoped" on public.teacher_lesson_plans;
+create policy "teacher_lesson_plans_manage_scoped"
+on public.teacher_lesson_plans
+for all to authenticated
+using (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+    )
+  )
+)
+with check (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+    )
+  )
+);
+
+drop policy if exists "teacher_anatomical_notes_select_scoped" on public.teacher_anatomical_notes;
+create policy "teacher_anatomical_notes_select_scoped"
+on public.teacher_anatomical_notes
+for select to authenticated
+using (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+      or visibility = 'institution'
+    )
+  )
+);
+
+drop policy if exists "teacher_anatomical_notes_manage_scoped" on public.teacher_anatomical_notes;
+create policy "teacher_anatomical_notes_manage_scoped"
+on public.teacher_anatomical_notes
+for all to authenticated
+using (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+    )
+  )
+)
+with check (
+  (select private.current_user_role()) = 'super_admin'
+  or (
+    (select private.current_user_status()) = 'active'
+    and institution_id = (select private.current_user_institution_id())
+    and (
+      teacher_id = (select auth.uid())
+      or (select private.current_user_role()) = 'institution_admin'
+    )
+  )
+);
+
+grant select, insert, update, delete on
+  public.academic_classes,
+  public.academic_class_students,
+  public.teacher_study_guides,
+  public.teacher_lesson_plans,
+  public.teacher_anatomical_notes
+to authenticated;
 
 -- =========================================================
 -- BLOCO 4: RBAC

@@ -20,6 +20,7 @@ import Settings from "./pages/settings/Settings";
 import Admin from "./pages/admin/Admin";
 import Teacher from "./pages/teacher/Teacher";
 import StudyAgendaPage from "./pages/student/StudyAgendaPage";
+import AnatomicalQuizzesPage from "./pages/student/AnatomicalQuizzesPage";
 import { canonicalSuperAdminPath, getAdminNavigationItemByPath } from "./config/adminNavigation";
 import { useLanguage } from "./context/LanguageContext";
 
@@ -51,6 +52,7 @@ export default function App() {
   const { t } = useLanguage();
   const [path, setPath] = useState(currentPath());
   const [user, setUser] = useState(() => getCurrentUser());
+  const [authReady, setAuthReady] = useState(false);
   const [modal, setModal] = useState(null);
   const [toast, setToast] = useState("");
 
@@ -63,9 +65,13 @@ export default function App() {
   useEffect(() => {
     let mounted = true;
 
-    restoreAuthSession().then(restoredUser => {
-      if (mounted) setUser(restoredUser);
-    });
+    restoreAuthSession()
+      .then(restoredUser => {
+        if (mounted) setUser(restoredUser);
+      })
+      .finally(() => {
+        if (mounted) setAuthReady(true);
+      });
 
     return () => {
       mounted = false;
@@ -122,6 +128,10 @@ export default function App() {
     if (path === "/") return <Home navigate={navigate} />;
     if (path === "/login") return <Login navigate={navigate} onAuth={setUser} />;
     if (path === "/register") return <Register navigate={navigate} onAuth={setUser} />;
+
+    if (!authReady && (isPrivatePath(path) || isAdminPath(path))) {
+      return <AuthBootstrap />;
+    }
     if (path.startsWith("/viewer/")) {
       return (
         <ProtectedRoute user={user} path={path} navigate={navigate}>
@@ -150,7 +160,7 @@ export default function App() {
     }
 
     return <NotFound navigate={navigate} />;
-  }, [path, user, t]);
+  }, [authReady, path, user, t]);
 
   return (
     <>
@@ -176,13 +186,27 @@ function RedirectTo({ to, replace }) {
   return null;
 }
 
+function AuthBootstrap() {
+  const { t } = useLanguage();
+
+  return (
+    <main className="grid min-h-screen place-items-center p-5">
+      <Card className="max-w-lg text-center">
+        <p className="eyebrow">{t("common.loading")}</p>
+        <h1 className="display-title">{t("common.sessionValidationTitle")}</h1>
+        <p className="mt-4 text-textMuted">{t("common.sessionValidationBody")}</p>
+      </Card>
+    </main>
+  );
+}
+
 function renderPrivatePage(path, context) {
   const { user, navigate, onAuth, notify, showInstitutionalModal, onLogout } = context;
 
   if (path === "/dashboard") {
     if (user?.role === "institution_admin") return <Admin section="overview" path={path} navigate={navigate} notify={notify} />;
     if (user?.role === "super_admin" || user?.role === "admin") return <Admin section="overview" path="/super-admin" navigate={navigate} notify={notify} />;
-    if (user?.role === "teacher" || user?.role === "professor") return <Teacher section="dashboard" navigate={navigate} />;
+    if (user?.role === "teacher" || user?.role === "professor") return <Teacher section="dashboard" user={user} navigate={navigate} />;
     return <Dashboard user={user} navigate={navigate} showInstitutionalModal={showInstitutionalModal} />;
   }
   if (path === "/models") return <Models user={user} navigate={navigate} onLocked={showInstitutionalModal} />;
@@ -195,7 +219,7 @@ function renderPrivatePage(path, context) {
   if (path === "/progress") return <SimpleModule titleKey="studentHome.evolutionTitle" textKey="studentHome.evolutionSubtitle" />;
   if (path === "/study-agenda") return <StudyAgendaPage navigate={navigate} />;
   if (path === "/flashcards") return <SimpleModule titleKey="studentHome.tools.flashcards.title" textKey="studentHome.tools.flashcards.description" />;
-  if (path === "/quizzes") return <SimpleModule titleKey="studentHome.tools.quizzes.title" textKey="studentHome.tools.quizzes.description" />;
+  if (path === "/quizzes") return <AnatomicalQuizzesPage navigate={navigate} />;
   if (path === "/summaries") return <SimpleModule titleKey="studentHome.tools.summaries.title" textKey="studentHome.tools.summaries.description" />;
   if (path === "/guided-study") return <SimpleModule titleKey="studentHome.tools.guidedStudy.title" textKey="studentHome.tools.guidedStudy.description" />;
   if (path === "/ai-tutor") return <SimpleModule titleKey="studentHome.tools.aiTutor.title" textKey="studentHome.tools.aiTutor.description" />;
@@ -208,14 +232,14 @@ function renderPrivatePage(path, context) {
   if (path === "/radiology") return <SimpleModule titleKey="modules.radiologyTitle" textKey="modules.radiologyText" />;
   if (path === "/videos") return <SimpleModule titleKey="modules.videosTitle" textKey="modules.videosText" />;
   if (path === "/courses") return <SimpleModule titleKey="modules.coursesTitle" textKey="modules.coursesText" />;
-  if (path === "/teacher" || path === "/teacher/dashboard") return <Teacher section="dashboard" navigate={navigate} />;
-  if (path === "/teacher/models") return <Teacher section="models" navigate={navigate} />;
+  if (path === "/teacher" || path === "/teacher/dashboard") return <Teacher section="dashboard" user={user} navigate={navigate} />;
+  if (path === "/teacher/models") return <Teacher section="models" user={user} navigate={navigate} />;
   if (path === "/teacher/atlas" || path.startsWith("/teacher/atlas/")) {
     const atlasPath = path.replace(/^\/teacher\/atlas/, "/atlas");
     const teacherAtlasNavigate = (to) => navigate(to.replace(/^\/atlas/, "/teacher/atlas"));
     return <Atlas path={atlasPath} navigate={teacherAtlasNavigate} />;
   }
-  if (path.startsWith("/teacher/")) return <Teacher section={path.split("/")[2] || "dashboard"} navigate={navigate} />;
+  if (path.startsWith("/teacher/")) return <Teacher section={path.split("/")[2] || "dashboard"} user={user} navigate={navigate} />;
   if (path === "/institution-admin") return <Admin section="overview" path={path} navigate={navigate} notify={notify} />;
   if (path.startsWith("/institution-admin/")) return <Admin section={path.split("/")[2] || "overview"} path={path} navigate={navigate} notify={notify} />;
   if (path === "/super-admin") return <Admin section="overview" path={path} navigate={navigate} notify={notify} />;

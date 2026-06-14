@@ -105,7 +105,7 @@ export default function InstitutionAdmin({ section = "overview", navigate, notif
           <h2 className="text-xl font-bold text-clinicalWhite">{t("institutionAdmin.mostAccessedModels")}</h2>
           <div className="mt-4 grid gap-3">
             {topAccessedModels.map((model, index) => (
-              <button key={model.id} className="viewer-list-row" onClick={() => navigate(`/viewer/${model.id}`)}>
+              <button key={model.id} className="viewer-list-row" onClick={() => navigate(`/viewer/${model.slug || model.id}`)}>
                 <span className="badge badge-teal">{index + 1}</span>
                 <span className="min-w-0 flex-1 text-left">
                   <strong>{model.title}</strong>

@@ -12,6 +12,8 @@ export const ROLE_HOME = {
   [ROLES.SUPER_ADMIN]: "/super-admin"
 };
 
+const ACTIVE_ACCOUNT_STATUSES = new Set(["active", "ativo"]);
+
 export const PERMISSIONS = {
   VIEW_STUDENT_DASHBOARD: "student.dashboard.view",
   VIEW_MODELS: "models.view",
@@ -105,12 +107,28 @@ export function isAdminRole(roleOrUser) {
   return [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN].includes(role);
 }
 
+export function isActiveUser(user) {
+  const status = String(user?.status || user?.accountStatus || "").toLowerCase();
+  return ACTIVE_ACCOUNT_STATUSES.has(status);
+}
+
+export function getUserInstitutionId(user) {
+  return user?.institution_id || user?.institutionId || null;
+}
+
+export function hasTenantScope(user) {
+  const role = normalizeRole(user?.role);
+  if (role === ROLES.SUPER_ADMIN) return true;
+  return Boolean(getUserInstitutionId(user));
+}
+
 export function isFinancialRole(roleOrUser) {
   const role = normalizeRole(typeof roleOrUser === "string" ? roleOrUser : roleOrUser?.role);
   return [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN].includes(role);
 }
 
 export function hasPermission(user, permission) {
+  if (!isActiveUser(user)) return false;
   const role = normalizeRole(user?.role);
   return ROLE_PERMISSIONS[role]?.includes(permission) || false;
 }
@@ -127,6 +145,8 @@ export function canAccessRoute(user, pathname) {
   if (!rule) return Boolean(user);
   if (rule.public) return true;
   if (!user) return false;
+  if (!isActiveUser(user)) return false;
+  if (!hasTenantScope(user)) return false;
 
   const role = normalizeRole(user.role);
   return rule.roles?.includes(role) || false;
@@ -162,17 +182,29 @@ export function getRouteFallback(user, pathname) {
 }
 
 export function canAccessModel(user, model) {
-  if (!user || model?.isActive === false) return false;
+  if (!user || !model || model?.isActive === false) return false;
+  if (!isActiveUser(user)) return false;
   if ((user.accountStatus || "ativo") === "bloqueado") return false;
-  if (!model?.institutionId) return true;
-  if (normalizeRole(user.role) === ROLES.SUPER_ADMIN) return true;
-  return model.institutionId === user.institutionId;
+
+  const role = normalizeRole(user.role);
+  const userInstitutionId = getUserInstitutionId(user);
+  const modelInstitutionId = model.institutionId || model.institution_id || null;
+
+  if (!modelInstitutionId) return false;
+  if (role === ROLES.SUPER_ADMIN) return true;
+  if (!userInstitutionId) return false;
+
+  return modelInstitutionId === userInstitutionId;
 }
 
-export function createTenantScope(user, institutionId = user?.institutionId) {
+export function createTenantScope(user, institutionId = getUserInstitutionId(user)) {
+  const role = normalizeRole(user?.role);
+  const userInstitutionId = getUserInstitutionId(user);
+  const requestedInstitutionId = institutionId || null;
+
   return {
-    institutionId: normalizeRole(user?.role) === ROLES.SUPER_ADMIN ? institutionId : user?.institutionId,
-    role: normalizeRole(user?.role),
+    institutionId: role === ROLES.SUPER_ADMIN ? requestedInstitutionId : userInstitutionId,
+    role,
     userId: user?.id || null
   };
 }
@@ -180,7 +212,7 @@ export function createTenantScope(user, institutionId = user?.institutionId) {
 export function assertTenantAccess(user, institutionId) {
   const role = normalizeRole(user?.role);
   if (role === ROLES.SUPER_ADMIN) return true;
-  if (user?.institutionId && user.institutionId === institutionId) return true;
+  if (getUserInstitutionId(user) && getUserInstitutionId(user) === institutionId) return true;
   throw new Error("Acesso negado ao tenant institucional solicitado.");
 }
 

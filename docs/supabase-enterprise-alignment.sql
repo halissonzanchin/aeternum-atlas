@@ -303,10 +303,28 @@ begin
   end if;
 
   if new.role is distinct from old.role
-     or new.status is distinct from old.status
      or new.institution_id is distinct from old.institution_id
      or new.email is distinct from old.email then
     raise exception 'Sensitive user fields cannot be changed directly by authenticated clients';
+  end if;
+
+  if new.status is distinct from old.status then
+    if old.role = 'student'
+       and new.role = 'student'
+       and old.status = 'pending'
+       and new.status in ('active', 'suspended')
+       and (
+         (select private.current_user_role()) = 'super_admin'
+         or (
+           (select private.current_user_role()) = 'institution_admin'
+           and (select private.current_user_status()) = 'active'
+           and old.institution_id = (select private.current_user_institution_id())
+         )
+       ) then
+      return new;
+    end if;
+
+    raise exception 'Sensitive user status changes require an institutional approval flow';
   end if;
 
   return new;
@@ -331,6 +349,16 @@ alter table public.audit_logs enable row level security;
 alter table public.model_access_logs enable row level security;
 
 drop policy if exists "institutions_select_by_tenant" on public.institutions;
+drop policy if exists "institutions_select_active_for_registration" on public.institutions;
+create policy "institutions_select_active_for_registration"
+on public.institutions
+for select
+to anon, authenticated
+using (
+  active = true
+  and coalesce(contract_status, 'active') in ('active', 'ativo', 'Ativa')
+);
+
 create policy "institutions_select_by_tenant"
 on public.institutions
 for select
@@ -359,8 +387,27 @@ using (
   )
 );
 
+drop policy if exists "users_insert_self_pending_registration" on public.users;
+create policy "users_insert_self_pending_registration"
+on public.users
+for insert
+to authenticated
+with check (
+  id = (select auth.uid())
+  and role = 'student'
+  and status = 'pending'
+  and institution_id is not null
+  and institution_id in (
+    select i.id
+    from public.institutions i
+    where i.active = true
+      and coalesce(i.contract_status, 'active') in ('active', 'ativo', 'Ativa')
+  )
+);
+
 drop policy if exists "users_update_self_or_admin" on public.users;
 drop policy if exists "users_update_self_limited" on public.users;
+drop policy if exists "users_update_pending_registration_by_admin" on public.users;
 create policy "users_update_self_limited"
 on public.users
 for update
@@ -372,6 +419,36 @@ using (
 with check (
   id = (select auth.uid())
   and institution_id is not distinct from (select private.current_user_institution_id())
+);
+
+create policy "users_update_pending_registration_by_admin"
+on public.users
+for update
+to authenticated
+using (
+  role = 'student'
+  and status = 'pending'
+  and (
+    (select private.current_user_role()) = 'super_admin'
+    or (
+      (select private.current_user_status()) = 'active'
+      and (select private.current_user_role()) = 'institution_admin'
+      and institution_id = (select private.current_user_institution_id())
+    )
+  )
+)
+with check (
+  role = 'student'
+  and status in ('active', 'suspended')
+  and institution_id is not null
+  and (
+    (select private.current_user_role()) = 'super_admin'
+    or (
+      (select private.current_user_status()) = 'active'
+      and (select private.current_user_role()) = 'institution_admin'
+      and institution_id = (select private.current_user_institution_id())
+    )
+  )
 );
 
 drop policy if exists "student_profiles_select_by_tenant" on public.student_profiles;
@@ -593,7 +670,13 @@ begin
   end;
 
   if requested_institution_id is not null
-     and not exists (select 1 from public.institutions where id = requested_institution_id) then
+     and not exists (
+       select 1
+       from public.institutions
+       where id = requested_institution_id
+         and active = true
+         and coalesce(contract_status, 'active') in ('active', 'ativo', 'Ativa')
+     ) then
     requested_institution_id := null;
   end if;
 

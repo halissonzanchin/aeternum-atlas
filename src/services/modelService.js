@@ -1,112 +1,136 @@
-import { anatomyCategories } from "../data/mockCategories";
-import { mockModels } from "../data/mockModels";
-import { slugify } from "../utils/formatters";
+import { supabase } from "../lib/supabase";
+import { getUserInstitutionId, normalizeRole, ROLES } from "./permissions/permissionService";
+import { isSupabaseConfigured } from "./supabase/supabaseClient";
 import { sanitizeText } from "../utils/validators";
-import { readStorage, storageKeys, writeStorage } from "./storage";
+import { findLocalModel, mergeCatalogWithLocalModels } from "../data/localModels";
 
-export function getCategories() {
-  const categories = readStorage(storageKeys.categories, null);
-  if (categories) return categories;
-  writeStorage(storageKeys.categories, anatomyCategories);
-  return anatomyCategories;
+const MODEL_SELECT = [
+  "id",
+  "institution_id",
+  "title",
+  "slug",
+  "anatomical_system",
+  "anatomical_region",
+  "sketchfab_url",
+  "embed_url",
+  "difficulty_level",
+  "tags",
+  "status",
+  "thumbnail_url",
+  "created_at"
+].join(", ");
+
+function activeModelStatus(status) {
+  return ["active", "ativo", "available", "disponivel", "disponível"].includes(String(status || "").toLowerCase());
 }
 
-export function saveCategory(category) {
-  const clean = sanitizeText(category);
-  if (!clean) return getCategories();
-  const categories = getCategories();
-  if (categories.some(item => item.toLowerCase() === clean.toLowerCase())) return categories;
-  const updated = [...categories, clean];
-  writeStorage(storageKeys.categories, updated);
-  return updated;
+function mapDifficultyLevel(level = "") {
+  const normalized = String(level || "").toLowerCase();
+  if (normalized === "advanced" || normalized === "avancado" || normalized === "avançado") return "Avançado";
+  if (normalized === "intermediate" || normalized === "intermediario" || normalized === "intermediário") return "Intermediário";
+  if (normalized === "basic" || normalized === "basico" || normalized === "básico") return "Básico";
+  return sanitizeText(level) || "Institucional";
 }
 
-export function getModels() {
-  const models = readStorage(storageKeys.models, null);
-  if (models) {
-    const storedModels = models.filter(model => model.id !== "coracao-humano");
-    const merged = [
-      ...storedModels.map(model => {
-        const seedModel = mockModels.find(item => item.id === model.id);
-        return normalizeModel(seedModel ? { ...seedModel, ...model } : model);
-      }),
-      ...mockModels.filter(model => !storedModels.some(stored => stored.id === model.id)).map(model => normalizeModel(model))
-    ];
-    writeStorage(storageKeys.models, merged);
-    return merged;
-  }
-  writeStorage(storageKeys.models, mockModels);
-  return mockModels;
+function normalizeTagArray(tags) {
+  if (Array.isArray(tags)) return tags.filter(Boolean);
+  if (typeof tags === "string") return tags.split(",").map(item => item.trim()).filter(Boolean);
+  return [];
 }
 
-export function getModelById(id) {
-  const normalizedId = id === "coracao-humano" ? "coracao-humano-superficial" : id;
-  return getModels().find(model => model.id === normalizedId);
-}
+export function normalizeSupabaseModel(record = {}) {
+  const tags = normalizeTagArray(record.tags);
+  const embedUrl = sanitizeText(record.embed_url || record.sketchfab_url);
+  const sketchfabUrl = sanitizeText(record.sketchfab_url || record.embed_url);
 
-export function saveModel(model) {
-  const models = getModels();
-  const id = model.id || slugify(model.title);
-  const normalized = normalizeModel({
-    ...model,
-    id,
-    accessCount: Number(model.accessCount || 0)
-  });
-
-  const exists = models.some(item => item.id === id);
-  const updated = exists ? models.map(item => item.id === id ? normalized : item) : [...models, normalized];
-  writeStorage(storageKeys.models, updated);
-  return normalized;
-}
-
-function normalizeModel(model) {
   return {
-    ...model,
-    title: sanitizeText(model.title),
-    description: sanitizeText(model.description),
-    category: sanitizeText(model.category),
-    region: sanitizeText(model.region || "Geral"),
-    system: sanitizeText(model.system || "Sistema esquelético"),
-    level: sanitizeText(model.level),
-    type: sanitizeText(model.type || "Modelo didático"),
-    viewerType: sanitizeText(model.viewerType || "sketchfab"),
-    coverImageUrl: sanitizeText(model.coverImageUrl),
-    sketchfabUrl: sanitizeText(model.sketchfabUrl),
-    sketchfabEmbedUrl: sanitizeText(model.sketchfabEmbedUrl),
-    sketchfabModelUrl: sanitizeText(model.sketchfabModelUrl),
-    embedUrl: sanitizeText(model.embedUrl || model.sketchfabEmbedUrl),
-    externalUrl: sanitizeText(model.externalUrl || model.shortUrl || model.sketchfabModelUrl),
-    shortUrl: sanitizeText(model.shortUrl),
-    shortTitle: sanitizeText(model.shortTitle),
-    access: "institutional",
-    status: sanitizeText(model.status || (model.isActive === false ? "inactive" : "active")),
-    estimatedStudyTime: sanitizeText(model.estimatedStudyTime),
-    author: sanitizeText(model.author),
-    provider: sanitizeText(model.provider),
-    isPremium: false,
-    isActive: model.isActive !== false,
-    accessCount: Number(model.accessCount || 0),
-    progressPercent: Number(model.progressPercent || 0),
-    overview: sanitizeText(model.overview || model.description),
-    reference: sanitizeText(model.reference),
-    objectives: Array.isArray(model.objectives) ? model.objectives : [],
-    structures: Array.isArray(model.structures) ? model.structures : [],
-    clinicalCorrelations: Array.isArray(model.clinicalCorrelations) ? model.clinicalCorrelations : [],
-    studyGuide: Array.isArray(model.studyGuide) ? model.studyGuide : [],
-    learningObjectives: Array.isArray(model.learningObjectives) ? model.learningObjectives : [],
-    relatedStructures: Array.isArray(model.relatedStructures) ? model.relatedStructures : [],
-    references: Array.isArray(model.references) ? model.references : []
+    id: record.id || record.slug || "",
+    slug: record.slug || record.id || "",
+    institutionId: record.institution_id || "",
+    institution_id: record.institution_id || "",
+    title: sanitizeText(record.title || "Modelo 3D"),
+    shortTitle: sanitizeText(record.title || "Modelo 3D"),
+    description: sanitizeText(tags[0] || ""),
+    category: sanitizeText(record.anatomical_region || "Institucional"),
+    region: sanitizeText(record.anatomical_region || "Institucional"),
+    system: sanitizeText(record.anatomical_system || "Sistema anatômico"),
+    level: mapDifficultyLevel(record.difficulty_level),
+    type: "Sketchfab / Escaneamento anatômico",
+    viewerType: "sketchfab",
+    coverImageUrl: sanitizeText(record.thumbnail_url),
+    thumbnailUrl: sanitizeText(record.thumbnail_url),
+    sketchfabUrl,
+    sketchfabEmbedUrl: embedUrl,
+    embedUrl,
+    externalUrl: sketchfabUrl,
+    estimatedStudyTime: "",
+    author: "",
+    provider: "Sketchfab",
+    status: activeModelStatus(record.status) ? "active" : sanitizeText(record.status || "inactive"),
+    isActive: activeModelStatus(record.status),
+    accessCount: 0,
+    progressPercent: 0,
+    overview: sanitizeText(tags[1] || tags[0] || ""),
+    reference: "",
+    objectives: [],
+    structures: [],
+    clinicalCorrelations: [],
+    studyGuide: [],
+    relatedStructures: [],
+    references: [],
+    createdAt: record.created_at || ""
   };
 }
 
-export function deleteModel(id) {
-  const updated = getModels().filter(model => model.id !== id);
-  writeStorage(storageKeys.models, updated);
-  return updated;
+async function loadModelsQuery(user, { includeInactive = false } = {}) {
+  if (!isSupabaseConfigured()) {
+    console.warn("[models] Supabase não configurado. Catálogo bloqueado por segurança.");
+    return [];
+  }
+
+  const role = normalizeRole(user?.role);
+  const institutionId = getUserInstitutionId(user);
+
+  if (role !== ROLES.SUPER_ADMIN && !institutionId) {
+    console.warn("[models] Consulta bloqueada: institution_id ausente para usuário institucional.");
+    return [];
+  }
+
+  let query = supabase.from("models_3d").select(MODEL_SELECT);
+
+  if (role !== ROLES.SUPER_ADMIN) {
+    query = query.eq("institution_id", institutionId);
+  }
+
+  const { data, error } = await query.order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("[models] Falha ao carregar models_3d.", error);
+    return [];
+  }
+
+  return (data || [])
+    .map(normalizeSupabaseModel)
+    .filter(model => includeInactive || model.isActive);
 }
 
-export function toggleModelStatus(id) {
-  const updated = getModels().map(model => model.id === id ? { ...model, isActive: !model.isActive } : model);
-  writeStorage(storageKeys.models, updated);
-  return updated.find(model => model.id === id);
+export async function listModelsForUser(user, options = {}) {
+  const models = await loadModelsQuery(user, options);
+  return mergeCatalogWithLocalModels(models, options);
+}
+
+export async function getModelByIdForUser(id, user, options = {}) {
+  const normalizedId = id === "coracao-humano" ? "coracao-humano-superficial" : id;
+  const models = await listModelsForUser(user, options);
+  return models.find(model => model.id === normalizedId || model.slug === normalizedId) || findLocalModel(normalizedId);
+}
+
+export function getModelFilterOptions(models = []) {
+  return {
+    categories: Array.from(new Set(models.map(model => model.category).filter(Boolean))),
+    systems: Array.from(new Set(models.map(model => model.system).filter(Boolean))),
+    regions: Array.from(new Set(models.map(model => model.region).filter(Boolean))),
+    levels: Array.from(new Set(models.map(model => model.level).filter(Boolean))),
+    types: Array.from(new Set(models.map(model => model.type).filter(Boolean)))
+  };
 }

@@ -9,10 +9,13 @@ export const storageKeys = {
   accessLogs: "aeternum_access_logs",
   authProfile: "aeternum.react.auth_profile",
   favorites: "aeternum_favorites",
+  modelNotes: "aeternum_model_notes",
   completedModels: "aeternum_completed_models",
   studyProgress: "aeternum_student_progress",
   studyAgenda: "aeternum_study_agenda",
-  reportExports: "aeternum.react.report_exports"
+  anatomicalQuizAttempts: "aeternum_anatomical_quiz_attempts",
+  reportExports: "aeternum.react.report_exports",
+  securityEvents: "aeternum.react.security_events"
 };
 
 function getLocalStorage() {

@@ -22,7 +22,9 @@ export const en = {
     status: "Status",
     progress: "Progress",
     minutes: "minutes",
-    today: "today"
+    today: "today",
+    sessionValidationTitle: "Validating session",
+    sessionValidationBody: "We are confirming your institutional access before opening this area."
   },
   language: {
     changeLanguage: "Change language",
@@ -105,22 +107,38 @@ export const en = {
     registerDescription: "Your account will be linked to the educational institution. Students are not billed individually.",
     recoveryPrepared: "Password recovery flow prepared for a future API.",
     createAccountError: "The account could not be created.",
-    invalidCredentials: "Invalid email or password."
+    invalidCredentials: "Invalid email or password.",
+    loadingInstitutions: "Loading institutions...",
+    selectInstitution: "Select an institution",
+    profileUpdated: "Profile updated.",
+    profileUpdateError: "The profile could not be updated.",
+    passwordUpdated: "Password updated.",
+    passwordUpdateError: "The password could not be updated."
   },
   publicHome: {
     ...pt.publicHome,
+    homeLabel: "Aeternum Atlas home",
+    featuredResourcesLabel: "Featured Aeternum Atlas resources",
     toolsLabel: "Public tools",
     search: "Search",
     notifications: "Notifications",
     help: "Help",
     eyebrow: "3D anatomical technology for advanced medical education",
+    cinematicSlogan: "3D anatomical technology for advanced medical education",
+    scrollCue: "Scroll to open the atlas",
+    openAtlas: "Open Atlas",
+    navAboutUs: "About us",
     subtitle: "3D Anatomical Library",
     description: "A customized academic platform for interactive access to 3D anatomical models, complementary content and secure digital collection management.",
+    heroDescription: "Explore the human body like never before. Interactive 3D models, a complete anatomical atlas, and exclusive content to elevate your knowledge.",
+    heroExploreAtlas: "Explore Atlas",
+    heroDemo: "View demo",
     institutionalAccessTitle: "Institutional academic access",
     institutionalAccessText: "Students registered by the institution access the full library without individual billing.",
     createAccessButton: "Create access",
     contentTitle: "Content",
     primaryModuleDescription: "Explore human structures in three dimensions with academic context and an integrated anatomical viewer.",
+    footer: "Aeternum Atlas © 2026 — Medical technology and 3D anatomy platform",
     modules: {
       atlas: "Anatomical maps organized by systems.",
       radiology: "Correlation with X-ray, CT, and MRI.",
@@ -128,6 +146,35 @@ export const en = {
       content: "Complementary review materials.",
       courses: "Structured study tracks.",
       library: "Favorites and study history."
+    },
+    heroFeatures: {
+      models: {
+        title: "3D Models",
+        description: "Interactive anatomy"
+      },
+      atlas: {
+        title: "Complete atlas",
+        description: "Systems and structures"
+      },
+      content: {
+        title: "Exclusive content",
+        description: "Academic curation"
+      },
+      access: {
+        title: "Secure access",
+        description: "For institutions and students"
+      },
+      study: {
+        title: "Study anywhere",
+        description: "Multiplatform access"
+      }
+    },
+    floatingCards: {
+      models3d: "3D anatomical models",
+      cadavericLibrary: "Digital cadaveric library",
+      quizzes: "Anatomical simulations",
+      institutionalAccess: "Institutional academic access",
+      exploration: "Interactive exploration"
     }
   },
   studentDashboard: {
@@ -230,8 +277,55 @@ export const en = {
         description: "Resume recent content in short active recall cycles."
       },
       anatomicalMap: {
-        title: "Anatomical map",
-        description: "Navigate real body regions and find related modules."
+        title: "Anatomical Atlas",
+        description: "Explore real anatomical systems, regions, and structures in an interactive three-dimensional medical atlas."
+      }
+    },
+    quizCatalog: {
+      eyebrow: "Academic catalog",
+      title: "Anatomical Quizzes",
+      description: "Access university-style assessments linked to the 3D models in your institutional library.",
+      available: "Available",
+      start: "Start quiz",
+      items: {
+        sagittal: {
+          title: "Sagittal Section of the Human Skull",
+          category: "Neuroanatomy",
+          description: "An anatomy assessment focused on topographic neuroanatomy in the median sagittal plane.",
+          topics: [
+            "Topographic anatomy",
+            "Median sagittal section",
+            "Ventricular system",
+            "Diencephalon",
+            "Brainstem",
+            "Cerebellum"
+          ]
+        },
+        heart: {
+          title: "Human Heart",
+          category: "Cardiovascular system",
+          description: "University-style quiz on topographic anatomy and external configuration of the heart.",
+          topics: [
+            "External configuration",
+            "Cardiac chambers",
+            "Valves",
+            "Anatomical relationships",
+            "Topographic cardiac anatomy"
+          ]
+        },
+        femaleReproductive: {
+          title: "Sagittal Section of the Female Reproductive System",
+          category: "Female reproductive system",
+          description: "An anatomy assessment on topographic relationships of the female pelvis in sagittal section.",
+          topics: [
+            "Female pelvis",
+            "Uterus and vagina",
+            "Pelvic relationships",
+            "Bladder and rectum",
+            "Perineum",
+            "Applied gynecologic anatomy"
+          ]
+        }
       }
     },
     continueEyebrow: "Resume study",
@@ -307,7 +401,23 @@ export const en = {
     },
     classes: {
       title: "Classes",
-      subtitle: "Track progress, study time, and recommended models for each linked class."
+      subtitle: "Track progress, study time, and recommended models for each linked class.",
+      formEyebrow: "Teacher operation",
+      createTitle: "Create new class",
+      createAction: "Create class",
+      createError: "The class could not be created.",
+      nameRequired: "Enter the class name.",
+      form: {
+        name: "Class name",
+        course: "Course",
+        semester: "Year/Semester",
+        notes: "Notes"
+      },
+      students: "Students",
+      averageProgress: "Average progress",
+      totalStudyTime: "Total study time",
+      lastActivity: "Last activity",
+      summaryFallback: "Class connected to the institution's real academic layer."
     },
     students: {
       title: "Class students",
@@ -325,17 +435,45 @@ export const en = {
     studyGuides: {
       title: "Study guides",
       subtitle: "Create routes with 3D models, learning objectives, and suggested deadlines.",
-      completedStudents: "students completed"
+      formEyebrow: "Teacher planning",
+      createTitle: "Create new study guide",
+      createError: "The study guide could not be created.",
+      titleRequired: "Enter the study guide title.",
+      noLinkedClass: "No linked class",
+      noModelsAvailable: "No institutional model is available to link.",
+      modelFallback: "Anatomical model",
+      objectivesHint: "Use one line for each learning objective.",
+      form: {
+        title: "Guide title",
+        class: "Linked class",
+        dueDate: "Suggested deadline",
+        status: "Status",
+        description: "Description",
+        objectives: "Learning objectives",
+        models: "Included 3D models"
+      },
+      completedStudents: "students completed",
+      descriptionFallback: "Teacher guide connected to the institutional academic layer.",
+      models: "Models",
+      objectives: "Objectives",
+      dueDate: "Due date"
     },
     lessons: {
       title: "My lessons",
       subtitle: "Prepare practical lessons with anatomical models, key structures, and teacher notes.",
       keyStructures: "Key structures",
-      objectives: "Objectives"
+      objectives: "Objectives",
+      modelCount: "Models",
+      structureCount: "Structures",
+      notesFallback: "Lesson plan connected to the institutional tenant."
     },
     notes: {
       title: "Anatomical notes",
-      subtitle: "Register corrections, clinical observations, teaching suggestions, and annotation improvements."
+      subtitle: "Register corrections, clinical observations, teaching suggestions, and annotation improvements.",
+      modelFallback: "Model not informed",
+      titleFallback: "Anatomical note",
+      descriptionFallback: "Teacher record without an additional description.",
+      typeFallback: "type not informed"
     },
     reports: {
       title: "Academic reports",
@@ -379,7 +517,62 @@ export const en = {
       progress: "progress",
       studyTime: "study time",
       lastActivity: "last activity",
-      notes: "notes"
+      notes: "notes",
+      classLabel: "Class",
+      unassignedClass: "No linked class"
+    },
+    statuses: {
+      draft: "Draft",
+      planned: "Planned",
+      active: "Active",
+      inactive: "Inactive",
+      completed: "Completed",
+      delivered: "Delivered",
+      open: "Open",
+      in_review: "In review",
+      resolved: "Resolved",
+      archived: "Archived",
+      closed: "Closed",
+      unknown: "Status not informed"
+    },
+    priorities: {
+      low: "Low",
+      medium: "Medium",
+      high: "High"
+    },
+    visibilities: {
+      private: "Private",
+      institution: "Institutional",
+      admin: "Administration only"
+    },
+    noteTypes: {
+      correction: "Anatomical correction",
+      didactic: "Teaching suggestion",
+      clinical: "Clinical observation",
+      legend: "Legend improvement",
+      annotation: "Annotation suggestion"
+    },
+    emptyStates: {
+      loadingTitle: "Loading teacher data",
+      modelsTitle: "Teacher library without models",
+      classesTitle: "Classes not configured yet",
+      studentsTitle: "No students available",
+      guidesTitle: "Study guides are not structured yet",
+      lessonsTitle: "Lessons have not been created yet",
+      notesTitle: "Teacher notes are not available yet",
+      reportsTitle: "Academic reports are being consolidated",
+      profileTitle: "Teacher profile unavailable",
+      profileDepartment: "Department not informed",
+      profileInstitution: "Institution not informed",
+      studentsLoading: "Loading real students linked to the current tenant.",
+      classes: "The classes layer does not yet have an operational table connected. The area stays ready without showing fictional data.",
+      students: "No real students were found for the institution linked to this teacher.",
+      guides: "Study guides will appear here once the corresponding academic table is connected.",
+      lessons: "Prepared lessons will appear here once the teacher operations layer is available.",
+      notes: "Anatomical observations will appear after the real notes repository is connected.",
+      reports: "There is not enough real volume yet, or the required structure is not ready to compose this report.",
+      restrictedTitle: "Teacher access restricted",
+      restricted: "The institutional scope for this teacher could not be validated."
     }
   },
   studyAgenda: {
@@ -549,6 +742,10 @@ export const en = {
     availableByInstitution: "Available through institution",
     heartModelTitle: "Human Heart — Superficial 3D Model",
     modelNotFound: "Model not found",
+    catalogLoading: "Loading the real model catalog...",
+    catalogLoadError: "The model catalog could not be loaded.",
+    emptyCatalog: "No institutional model is available right now.",
+    emptyFilteredCatalog: "No model matched the selected filters.",
     learningObjectives: "Learning objectives",
     clinicalCorrelations: "Clinical correlations",
     relatedStructures: "Related structures",
@@ -738,6 +935,36 @@ export const en = {
       ],
       clinicalNotes: "Useful for introduction to cardiac anatomy, spatial orientation of the heart, and correlation with imaging exams."
     },
+    "corte-sagital-cranio-humano-superficial": {
+      title: "Sagittal Section of the Human Skull — Superficial 3D Model",
+      shortTitle: "Sagittal Skull Section",
+      description: "Sagittal anatomical model of the human head, designed to study relationships among the brain, cranial cavities, and upper airways.",
+      overview: "This 3D model shows the human head in sagittal section, supporting topographic reading of encephalic, cranial, and aerodigestive structures.",
+      objectives: [
+        "Identify midline head structures in sagittal section.",
+        "Relate the brain, skull base, and adjacent cavities.",
+        "Understand the spatial orientation of the airways and oral cavity.",
+        "Support correlation with neuroanatomy and imaging."
+      ],
+      structures: ["Cerebelo", "Cuarto Ventrículo", "Cuña", "Cuerpo Calloso", "Hipófisis", "Giro Subcalloso:", "Hoz del Cerebro Anterior", "Médula Oblongada", "Mesencéfalo", "Giro Cingular"],
+      clinicalCorrelations: ["Introductory reading of median sections", "Neuroimaging correlation", "Topography of upper airways", "Applied skull-base anatomy"],
+      studyGuide: [
+        "Review the full sagittal plane before zooming in.",
+        "Locate the skull base and foramen magnum.",
+        "Compare brain position with the nasal and oral cavities.",
+        "Revise the major midline landmarks.",
+        "Use the annotations to consolidate the visual path."
+      ],
+      reference: "3D model hosted on Sketchfab. Author: H2N.Engenharia.",
+      relatedStructures: ["Cerebelo", "Cuarto Ventrículo", "Cuña", "Cuerpo Calloso", "Hipófisis", "Giro Subcalloso:", "Hoz del Cerebro Anterior", "Médula Oblongada", "Mesencéfalo", "Giro Cingular"],
+      references: ["3D model hosted on Sketchfab. Author: H2N.Engenharia.", "Gray's Anatomy", "Clinical Neuroanatomy"],
+      learningObjectives: [
+        "Interpret midline head anatomy in three dimensions.",
+        "Relate bony and neural structures visible in section.",
+        "Use the model as a bridge between gross anatomy and imaging."
+      ],
+      clinicalNotes: "Useful for introductory neuroanatomy classes, sagittal-plane review, and preparation for imaging correlation."
+    },
     "torax-cadaverico-3d": {
       title: "Cadaveric Thorax 3D",
       description: "Anatomical thorax scan showing relationships between the thoracic wall, lungs, heart, and mediastinum.",
@@ -796,6 +1023,30 @@ export const en = {
     reportProblem: "Report issue",
     registerAccess: "Log access",
     viewStudyGuide: "View study guide",
+    notes: "Notes",
+    security: {
+      ...pt.viewer.security,
+      session: "Session",
+      unknownUser: "Identified user",
+      noEmail: "email not provided",
+      noUserId: "no-id",
+      institutionalAccess: "Institutional access",
+      warningTitle: "Security notice",
+      printWarning: "Screenshots are not allowed on this platform. This attempt was registered for security.",
+      shortcutWarning: "This shortcut was blocked in protected content and the attempt was registered.",
+      rightClickWarning: "The context menu was blocked to protect this content.",
+      devtoolsWarning: "Inspection tools detected. The event was registered for security.",
+      protectedContent: "Protected content",
+      returnToWindow: "Return to the platform window to continue studying.",
+      policyEyebrow: "Protected academic content",
+      policyTitle: "Responsibility agreement",
+      policyBody: "This anatomical model is part of Aeternum Atlas institutional content. Access is individual, traceable, and intended only for authorized study.",
+      policyNoCapture: "Screenshots, recordings, redistribution, or external sharing are not permitted.",
+      policyTraceability: "The screen includes a personalized watermark with user, institution, date, session, and technical identifiers.",
+      policyInstitutionalUse: "Suspicious attempts may be logged for academic audit and institutional security.",
+      policyLimitations: "For technical reasons, no web platform can block 100% of external captures. Aeternum Atlas uses visual protection, individualized watermarking, and event logging to trace and deter misuse.",
+      acceptPolicy: "I accept and continue studying"
+    },
     resetVisual: "Reset view",
     openFullscreen: "Fullscreen",
     loadingModel: "Loading model",
@@ -880,6 +1131,18 @@ export const en = {
     supportTitle: "Anatomical support center",
     helpTitle: "Tips & Help",
     closeHelp: "Close help",
+    notesEyebrow: "Anatomy notebook",
+    notesTitle: "Model notes",
+    notesPlaceholder: "Write clinical observations, questions, reviewed structures, or points to study later...",
+    notesCharacters: "{{count}} characters",
+    notesUpdatedAt: "Saved on {{date}}",
+    notesNotSaved: "Not saved yet",
+    saveNotes: "Save notes",
+    exportNotesPdf: "Export PDF",
+    closeNotes: "Close notes",
+    notesSaved: "Notes saved on this device.",
+    notesEmpty: "Write a note before exporting the PDF.",
+    notesExported: "Notes PDF exported.",
     supportItems: {
       platformGuide: "Platform usage guide",
       study3d: "How to study with 3D models",

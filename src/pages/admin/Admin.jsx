@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import AdminAlerts from "../../components/admin/AdminAlerts";
@@ -11,33 +11,10 @@ import UsageLineChart from "../../components/admin/UsageLineChart";
 import { getAdminNavigationItems, isAdminRouteActive } from "../../config/adminNavigation";
 import { useLanguage } from "../../context/LanguageContext";
 import {
-  billingProjectionData,
-  billingScenarios,
-  dailyAccessData,
-  deviceSessions,
-  executiveReportObservations,
-  hourlyAccessData,
-  monthlyUsageEvolution,
-  mostAccessedModels,
-  overviewMetrics,
-  platformErrorData,
-  platformHealth,
-  platformIncidents,
-  studentAccessHistory,
-  studentRadarData,
-  systemUsageData,
-  upeInstitution
-} from "../../data/adminMockData";
-import {
-  defaultStudentHistory,
-  mockStudents as institutionStudents,
-  studentAccessHistory as institutionStudentAccessHistory,
-  studentEnrollmentStats,
-  studentGrowthData as institutionStudentGrowthData,
-  studentRadarData as institutionStudentRadarData,
-  studentWeeklyEvolution as institutionStudentWeeklyEvolution
-} from "../../data/mockStudents";
-import useRealtimeStudentGrowth from "../../hooks/useRealtimeStudentGrowth";
+  getRestrictedInstitutionDashboardData,
+  loadInstitutionDashboardData
+} from "../../services/admin/institutionDashboardService";
+import { reviewPendingUserRegistration } from "../../services/users/userService";
 import { formatCurrency, formatDate, formatNumber } from "../../utils/formatLocale";
 import GlobalAnalyticsPage from "./GlobalAnalyticsPage";
 import "./adminExecutive.css";
@@ -52,7 +29,7 @@ const copy = {
     billing: "Faturamento estimado",
     reports: "Relatórios",
     settings: "Configurações",
-    overviewText: "Resumo consolidado da operação UPE Presidente Franco, com capacidade, uso, saúde e valor institucional.",
+    overviewText: "Resumo consolidado da operação institucional real, com capacidade, uso, saúde e valor institucional.",
     institutionText: "Dados contratuais, acadêmicos e operacionais da instituição contratante.",
     studentsText: "Base completa de alunos, filtros, histórico individual, desempenho e crescimento de cadastros.",
     analyticsText: "Uso geral da plataforma, monitoramento operacional, instabilidades e comportamento acadêmico.",
@@ -155,7 +132,7 @@ const copy = {
     activeBilling: "Cobrança por aluno ativo",
     contractedBilling: "Cobrança por capacidade contratada",
     monthly: "Receita mensal estimada",
-    semester: "Receita semestral estimada",
+    semesterRevenue: "Receita semestral estimada",
     annual: "Receita anual estimada",
     maxCapacityRevenue: "Receita máxima pela capacidade",
     activeRegisteredDiff: "Diferença ativo vs cadastrado",
@@ -232,6 +209,60 @@ function money(value, language) {
   return formatCurrency(value, language, "BRL", { maximumFractionDigits: 0 });
 }
 
+const emptyInstitution = {
+  id: "",
+  name: "Nenhum dado encontrado",
+  displayName: "Nenhum dado encontrado",
+  abbreviation: "-",
+  campus: "-",
+  country: "-",
+  city: "-",
+  type: "-",
+  course: "-",
+  licenseStatus: "-",
+  billingModel: "-",
+  pricePerStudent: 0,
+  contractedCapacity: 0,
+  registeredStudents: 0,
+  activeStudents: 0,
+  inactiveStudents: 0,
+  pendingStudents: 0,
+  blockedStudents: 0,
+  noAccessLast30Days: 0,
+  licenseStart: "",
+  nextRenewal: "",
+  createdAt: "",
+  institutionalResponsible: "-",
+  administrativeEmail: "-",
+  contractNotes: "-"
+};
+
+const emptyOverviewMetrics = {
+  activeNow: 0,
+  accessesToday: 0,
+  accessesThisMonth: 0,
+  totalStudyHoursThisMonth: 0,
+  averageSessionMinutes: 0,
+  returnRate: 0,
+  completionRate: 0,
+  mostAccessedContent: "Nenhum dado encontrado",
+  peakHour: "-",
+  peakDay: "-"
+};
+
+const emptyPlatformHealth = {
+  status: "sem dados",
+  uptimePercent: 0,
+  incidentsThisMonth: 0,
+  totalDowntimeMinutes: 0,
+  affectedUsers: 0,
+  averageResponseTimeMs: 0,
+  sketchfabLoadErrors: 0,
+  loginErrors: 0,
+  reportExportErrors: 0,
+  lastIncident: "-"
+};
+
 function AdminSectionHeader({ eyebrow, title, text, actions }) {
   return (
     <div className="admin-section-header">
@@ -292,9 +323,10 @@ function HorizontalMetricList({ data, valueKey = "value", formatter = value => v
   );
 }
 
-function LicenseCapacityBar({ labels, language }) {
-  const available = upeInstitution.contractedCapacity - upeInstitution.registeredStudents;
-  const occupancy = (upeInstitution.registeredStudents / upeInstitution.contractedCapacity) * 100;
+function LicenseCapacityBar({ labels, language, institution }) {
+  const source = institution || {};
+  const available = Math.max((source.contractedCapacity || 0) - (source.registeredStudents || 0), 0);
+  const occupancy = source.contractedCapacity ? (source.registeredStudents / source.contractedCapacity) * 100 : 0;
   return (
     <Card className="admin-license-card">
       <div className="admin-card-heading">
@@ -302,12 +334,12 @@ function LicenseCapacityBar({ labels, language }) {
         <strong>{pct(occupancy)}</strong>
       </div>
       <div className="admin-license-track" aria-label={labels.licenseOccupancy}>
-        <div style={{ width: `${occupancy}%` }} />
+        <div style={{ width: `${Math.min(Math.max(occupancy, 0), 100)}%` }} />
       </div>
       <div className="admin-license-split">
-        <span>{labels.used}: {formatNumber(upeInstitution.registeredStudents, language)}</span>
+        <span>{labels.used}: {formatNumber(source.registeredStudents, language)}</span>
         <span>{labels.available}: {formatNumber(available, language)}</span>
-        <span>{labels.totalCapacity}: {formatNumber(upeInstitution.contractedCapacity, language)}</span>
+        <span>{labels.totalCapacity}: {formatNumber(source.contractedCapacity, language)}</span>
       </div>
     </Card>
   );
@@ -349,14 +381,14 @@ function StudentDetailModal({ student, labels, onClose, language }) {
         <div className="admin-modal-columns">
           <Card>
             <h3>{labels.academicPerformance}</h3>
-            <StudentRadarChart data={studentRadarData} />
+            <StudentRadarChart data={[]} />
           </Card>
           <Card className="table-card p-0">
             <div className="table-scroll">
               <table className="admin-table text-left text-sm">
                 <thead><tr>{[labels.date, labels.time, labels.eventType, labels.model, labels.duration, labels.action].map(item => <th key={item}>{item}</th>)}</tr></thead>
                 <tbody>
-                  {studentAccessHistory.map((event, index) => (
+                  {[].map((event, index) => (
                     <tr key={`${event.date}-${event.time}-${index}`}>
                       <td>{event.date}</td>
                       <td>{event.time}</td>
@@ -381,13 +413,42 @@ export default function Admin({ section = "overview", path = window.location.pat
   const labels = copy[language] || copy.pt;
   const current = sectionRoutes[section] || "overview";
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [dashboardData, setDashboardData] = useState(() => getRestrictedInstitutionDashboardData(null, "Carregando sessão administrativa."));
+  const [dashboardStatus, setDashboardStatus] = useState("loading");
+  const [selectedInstitutionId, setSelectedInstitutionId] = useState("");
   const navigationBase = path.startsWith("/admin") || path.startsWith("/institution-admin") ? "/admin" : "/super-admin";
   const topNavigationItems = getAdminNavigationItems(navigationBase);
+  const adminStudents = dashboardData?.students || [];
+  const studentHistoryByUser = dashboardData?.studentHistoryByUser || {};
+  const availableInstitutions = dashboardData?.institutions || [];
+  const isSuperAdminScope = ["super_admin", "admin"].includes(String(dashboardData?.raw?.profile?.role || "").toLowerCase());
+
+  useEffect(() => {
+    let mounted = true;
+
+    setDashboardStatus("loading");
+    loadInstitutionDashboardData({ institutionId: selectedInstitutionId || null })
+      .then(data => {
+        if (!mounted) return;
+        setDashboardData(data);
+        setDashboardStatus(data.source === "supabase" ? "connected" : "restricted");
+      })
+      .catch(error => {
+        console.warn("[admin-dashboard] Falha ao carregar dashboard real. Mantendo estado restrito.", error);
+        if (!mounted) return;
+        setDashboardData(getRestrictedInstitutionDashboardData(null, "Falha ao validar sessão/tenant administrativo."));
+        setDashboardStatus("restricted");
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, [selectedInstitutionId]);
 
   function exportStudentsCsv() {
-    downloadCsv("aeternum-upe-alunos.csv", [
+    downloadCsv("aeternum-alunos-institucionais.csv", [
       [labels.name, labels.email, labels.registration, labels.course, labels.semester, labels.status, labels.lastAccess, labels.totalAccesses, labels.totalStudyTimeStudent, labels.performance],
-      ...institutionStudents.map(student => [student.name, student.email, student.registration, student.course, student.semester, student.status, student.lastAccess, student.totalAccesses, student.totalStudyMinutes, `${student.performanceScore}%`])
+      ...adminStudents.map(student => [student.name, student.email, student.registration, student.course, student.semester, student.status, student.lastAccess, student.totalAccesses, student.totalStudyMinutes, `${student.performanceScore}%`])
     ]);
     notify(labels.csvExported);
   }
@@ -411,7 +472,7 @@ export default function Admin({ section = "overview", path = window.location.pat
   }
 
   function exportStudentHistoryCsv(student) {
-    const history = institutionStudentAccessHistory[student.id] || defaultStudentHistory;
+    const history = studentHistoryByUser[student.id] || [];
     downloadCsv(`aeternum-historico-${student.id}.csv`, [
       ["Data", "Horário", "Tipo de evento", "Conteúdo/modelo", "Duração", "Dispositivo", "Status"],
       ...history.map(event => [event.date, event.time, event.eventType, event.content, `${event.durationMinutes} min`, event.device, event.status])
@@ -425,6 +486,30 @@ export default function Admin({ section = "overview", path = window.location.pat
 
   function printReport() {
     window.print();
+  }
+
+  async function handlePendingRegistrationReview(student, decision) {
+    const institutionId = dashboardData?.institution?.id || student?.institutionId;
+
+    if (dashboardData?.source !== "supabase") {
+      notify("Aprovação real exige tenant Supabase validado.");
+      return;
+    }
+
+    try {
+      await reviewPendingUserRegistration({
+        studentId: student.id,
+        institutionId,
+        decision
+      });
+
+      notify(decision === "approve" ? "Cadastro aprovado com segurança." : "Cadastro rejeitado com segurança.");
+      const refreshed = await loadInstitutionDashboardData({ institutionId: selectedInstitutionId || null });
+      setDashboardData(refreshed);
+      setDashboardStatus(refreshed.source === "supabase" ? "connected" : "restricted");
+    } catch (error) {
+      notify(error.message || "Não foi possível revisar o cadastro pendente.");
+    }
   }
 
   return (
@@ -441,19 +526,41 @@ export default function Admin({ section = "overview", path = window.location.pat
         ))}
       </div>
 
-      {current === "overview" && <Overview labels={labels} language={language} />}
-      {current === "institution" && <Institution labels={labels} language={language} />}
-      {current === "students" && <Students labels={labels} language={language} notify={notify} onSelectStudent={setSelectedStudent} onExport={exportStudentsCsv} onExportStudent={exportStudentCsv} />}
-      {current === "analytics" && <GlobalAnalyticsPage language={language} notify={notify} />}
-      {current === "billing" && <Billing labels={labels} language={language} />}
-      {current === "reports" && <Reports labels={labels} language={language} onExport={exportStudentsCsv} onPrint={printReport} />}
+      <div className="admin-realdata-toolbar">
+        <span>
+          {dashboardStatus === "connected" ? "Supabase real" : dashboardStatus === "loading" ? "Carregando Supabase" : "Acesso restrito"}
+          {" · "}
+          {dashboardData?.reason || (dashboardData?.scope === "global" ? "escopo global" : dashboardData?.institution?.displayName || "tenant validado")}
+        </span>
+        {dashboardData?.source === "supabase" && isSuperAdminScope ? (
+          <select
+            value={selectedInstitutionId}
+            onChange={event => setSelectedInstitutionId(event.target.value)}
+            aria-label="Alternar instituição real"
+          >
+            <option value="">Todas as instituições reais</option>
+            {availableInstitutions.map(institution => (
+              <option key={institution.id} value={institution.id}>
+                {institution.displayName || institution.name || institution.id}
+              </option>
+            ))}
+          </select>
+        ) : null}
+      </div>
+
+      {current === "overview" && <Overview labels={labels} language={language} dashboardData={dashboardData} dashboardStatus={dashboardStatus} />}
+      {current === "institution" && <Institution labels={labels} language={language} dashboardData={dashboardData} />}
+      {current === "students" && <Students labels={labels} language={language} notify={notify} dashboardData={dashboardData} students={adminStudents} onSelectStudent={setSelectedStudent} onExport={exportStudentsCsv} onExportStudent={exportStudentCsv} onReviewPending={handlePendingRegistrationReview} />}
+      {current === "analytics" && <GlobalAnalyticsPage language={language} notify={notify} dashboardData={dashboardData} />}
+      {current === "billing" && <Billing labels={labels} language={language} dashboardData={dashboardData} />}
+      {current === "reports" && <Reports labels={labels} language={language} dashboardData={dashboardData} onExport={exportStudentsCsv} onPrint={printReport} />}
       {current === "settings" && <Settings labels={labels} />}
 
       <StudentHistoryModal
         student={selectedStudent}
-        history={selectedStudent ? institutionStudentAccessHistory[selectedStudent.id] || defaultStudentHistory : []}
-        weeklyEvolution={institutionStudentWeeklyEvolution}
-        radarData={institutionStudentRadarData}
+        history={selectedStudent ? studentHistoryByUser[selectedStudent.id] || [] : []}
+        weeklyEvolution={buildWeeklyEvolutionFromHistory(selectedStudent ? studentHistoryByUser[selectedStudent.id] || [] : [])}
+        radarData={buildStudentRadarData(selectedStudent)}
         onClose={() => setSelectedStudent(null)}
         onExportHistory={exportStudentHistoryCsv}
         onPrintStudent={printStudentAnalysis}
@@ -462,32 +569,41 @@ export default function Admin({ section = "overview", path = window.location.pat
   );
 }
 
-function Overview({ labels, language }) {
-  const registeredStudents = upeInstitution.registeredStudents;
-  const activeStudents = upeInstitution.activeStudents;
-  const inactiveStudents = upeInstitution.inactiveStudents;
-  const contractedCapacity = upeInstitution.contractedCapacity;
-  const pricePerStudent = upeInstitution.pricePerStudent;
-  const occupancyRate = (registeredStudents / contractedCapacity) * 100;
-  const estimatedRevenue = activeStudents * pricePerStudent;
-  const maxRevenue = contractedCapacity * pricePerStudent;
-  const lostRevenue = maxRevenue - estimatedRevenue;
-  const usageData = [
-    { day: "01", access: 120 },
-    { day: "02", access: 180 },
-    { day: "03", access: 160 },
-    { day: "04", access: 220 },
-    { day: "05", access: 280 },
-    { day: "06", access: 320 },
-    { day: "07", access: 290 }
-  ];
+function Overview({ labels, language, dashboardData, dashboardStatus }) {
+  const institution = dashboardData?.institution || emptyInstitution;
+  const stats = dashboardData?.stats || {};
+  const realtimeOverviewMetrics = dashboardData?.overviewMetrics || emptyOverviewMetrics;
+  const realtimeUsageData = dashboardData?.usageData || [];
+  const realtimeMostAccessedModels = dashboardData?.mostAccessedModels || [];
+  const realtimePlatformHealth = dashboardData?.platformHealth || emptyPlatformHealth;
+  const registeredStudents = stats.registeredStudents ?? institution.registeredStudents;
+  const activeStudents = stats.activeStudents ?? institution.activeStudents;
+  const inactiveStudents = stats.inactiveStudents ?? institution.inactiveStudents;
+  const contractedCapacity = stats.contractedCapacity ?? institution.contractedCapacity;
+  const pricePerStudent = institution.pricePerStudent || 0;
+  const occupancyRate = stats.occupancyRate ?? (contractedCapacity ? (registeredStudents / contractedCapacity) * 100 : 0);
+  const estimatedRevenue = stats.estimatedRevenue ?? activeStudents * pricePerStudent;
+  const maxRevenue = stats.maxRevenue ?? contractedCapacity * pricePerStudent;
+  const lostRevenue = stats.lostRevenue ?? maxRevenue - estimatedRevenue;
+  const dataSourceLabel = dashboardStatus === "connected"
+    ? "Supabase real"
+    : dashboardStatus === "loading"
+      ? "Carregando Supabase"
+      : dashboardStatus === "restricted"
+        ? "Tenant restrito"
+        : "Nenhum dado real";
 
   return (
     <>
-      <AdminSectionHeader eyebrow={labels.adminEyebrow} title={labels.overview} text={labels.overviewText} />
+      <AdminSectionHeader
+        eyebrow={labels.adminEyebrow}
+        title={labels.overview}
+        text={labels.overviewText}
+        actions={<span className="students-realtime-badge">{dataSourceLabel} · {new Date(dashboardData?.lastUpdated || Date.now()).toLocaleTimeString("pt-BR")}</span>}
+      />
       <div className="admin-kpi-grid">
         <AdminKpiCard label={labels.contractedCapacity} value={formatNumber(contractedCapacity, language)} detail={labels.studentsUnit} />
-        <AdminKpiCard label={labels.registeredStudents} value={formatNumber(registeredStudents, language)} detail="UPE Presidente Franco" tone="teal" />
+        <AdminKpiCard label={labels.registeredStudents} value={formatNumber(registeredStudents, language)} detail={institution.displayName || institution.name} tone="teal" />
         <AdminKpiCard label={labels.licenseOccupancy} value={pct(occupancyRate)} detail={`${formatNumber(registeredStudents, language)} / ${formatNumber(contractedCapacity, language)}`} />
         <AdminKpiCard label={labels.activeStudents} value={formatNumber(activeStudents, language)} detail="Base ativa faturável" tone="green" />
         <AdminKpiCard label={labels.inactiveStudents} value={formatNumber(inactiveStudents, language)} detail="Reativação recomendada" tone="amber" />
@@ -513,22 +629,27 @@ function Overview({ labels, language }) {
         <Card>
           <div className="admin-card-heading">
             <h2>{labels.weeklyUsage}</h2>
-            <span>{labels.accessesToday}: {formatNumber(overviewMetrics.accessesToday, language)}</span>
+            <span>{labels.accessesToday}: {formatNumber(realtimeOverviewMetrics.accessesToday, language)}</span>
           </div>
-          <UsageLineChart data={usageData} />
+          <UsageLineChart data={realtimeUsageData} />
         </Card>
         <Card>
           <div className="admin-card-heading">
             <h2>{labels.mostAccessedModels}</h2>
-            <span>{labels.completionRate}: {overviewMetrics.completionRate}%</span>
+            <span>{labels.completionRate}: {realtimeOverviewMetrics.completionRate}%</span>
           </div>
-          <HorizontalMetricList data={mostAccessedModels.map(item => ({ label: item.title, value: item.accesses, subtitle: `${item.studyHours}h` }))} formatter={value => formatNumber(value, language)} />
+          <HorizontalMetricList data={realtimeMostAccessedModels.map(item => ({ label: item.title, value: item.accesses, subtitle: `${item.studyHours}h` }))} formatter={value => formatNumber(value, language)} />
         </Card>
       </div>
 
       <div className="admin-two-columns">
         <Card>
-          <PlatformStatus status="online" uptime={99.8} downtime={18} lastIncident="2026-04-27" />
+          <PlatformStatus
+            status={realtimePlatformHealth.status}
+            uptime={realtimePlatformHealth.uptimePercent}
+            downtime={realtimePlatformHealth.totalDowntimeMinutes}
+            lastIncident={realtimePlatformHealth.lastIncident}
+          />
         </Card>
         <Card>
           <LicenseBar
@@ -543,29 +664,36 @@ function Overview({ labels, language }) {
   );
 }
 
-function Institution({ labels, language }) {
+function Institution({ labels, language, dashboardData }) {
+  const institution = dashboardData?.institution || emptyInstitution;
+  const stats = dashboardData?.stats || {};
+  const activeStudents = stats.activeStudents ?? institution.activeStudents;
+  const inactiveStudents = stats.inactiveStudents ?? institution.inactiveStudents;
+  const registeredStudents = stats.registeredStudents ?? institution.registeredStudents;
+  const estimatedMonthlyRevenue = stats.estimatedRevenue ?? activeStudents * institution.pricePerStudent;
+
   return (
     <>
       <AdminSectionHeader eyebrow={labels.adminEyebrow} title={labels.institution} text={labels.institutionText} />
       <div className="admin-two-columns">
         <Card>
-          <h2>{upeInstitution.name}</h2>
+          <h2>{institution.name}</h2>
           <dl className="admin-definition-grid">
             {[
-              ["Sigla", upeInstitution.abbreviation],
-              ["Campus", upeInstitution.campus],
-              ["País", upeInstitution.country],
-              ["Cidade", upeInstitution.city],
-              ["Tipo", upeInstitution.type],
-              ["Curso principal", upeInstitution.course],
-              [labels.licenseStatus, upeInstitution.licenseStatus],
-              [labels.billingModel, upeInstitution.billingModel],
-              [labels.unitValue, money(upeInstitution.pricePerStudent, language)],
-              [labels.licenseStart, formatDate(upeInstitution.licenseStart, language)],
-              [labels.nextRenewal, formatDate(upeInstitution.nextRenewal, language)],
-              [labels.responsible, upeInstitution.institutionalResponsible],
-              [labels.administrativeEmail, upeInstitution.administrativeEmail],
-              [labels.contractNotes, upeInstitution.contractNotes]
+              ["Sigla", institution.abbreviation],
+              ["Campus", institution.campus],
+              ["País", institution.country],
+              ["Cidade", institution.city],
+              ["Tipo", institution.type],
+              ["Curso principal", institution.course],
+              [labels.licenseStatus, institution.licenseStatus],
+              [labels.billingModel, institution.billingModel],
+              [labels.unitValue, money(institution.pricePerStudent, language)],
+              [labels.licenseStart, formatDate(institution.licenseStart || institution.createdAt, language)],
+              [labels.nextRenewal, formatDate(institution.nextRenewal, language)],
+              [labels.responsible, institution.institutionalResponsible],
+              [labels.administrativeEmail, institution.administrativeEmail],
+              [labels.contractNotes, institution.contractNotes]
             ].map(([term, description]) => (
               <div key={term}>
                 <dt>{term}</dt>
@@ -575,16 +703,16 @@ function Institution({ labels, language }) {
           </dl>
         </Card>
         <div className="admin-stack">
-          <LicenseCapacityBar labels={labels} language={language} />
+          <LicenseCapacityBar labels={labels} language={language} institution={{ ...institution, registeredStudents }} />
           <Card>
             <h2>{labels.studentStatus}</h2>
             <HorizontalMetricList
               data={[
-                { label: labels.activeStudents, value: upeInstitution.activeStudents },
-                { label: labels.inactiveStudents, value: upeInstitution.inactiveStudents },
-                { label: labels.pending, value: upeInstitution.pendingStudents },
-                { label: labels.blocked, value: upeInstitution.blockedStudents },
-                { label: labels.noAccessLast30, value: upeInstitution.noAccessLast30Days }
+                { label: labels.activeStudents, value: activeStudents },
+                { label: labels.inactiveStudents, value: inactiveStudents },
+                { label: labels.pending, value: institution.pendingStudents },
+                { label: labels.blocked, value: institution.blockedStudents },
+                { label: labels.noAccessLast30, value: institution.noAccessLast30Days }
               ]}
               formatter={value => formatNumber(value, language)}
             />
@@ -592,21 +720,147 @@ function Institution({ labels, language }) {
         </div>
       </div>
       <div className="admin-kpi-grid">
-        <AdminKpiCard label={labels.contractedCapacity} value={formatNumber(upeInstitution.contractedCapacity, language)} />
-        <AdminKpiCard label={labels.registeredStudents} value={formatNumber(upeInstitution.registeredStudents, language)} tone="teal" />
-        <AdminKpiCard label={labels.activeStudents} value={formatNumber(upeInstitution.activeStudents, language)} tone="green" />
-        <AdminKpiCard label={labels.unitValue} value={money(upeInstitution.pricePerStudent, language)} />
-        <AdminKpiCard label={labels.estimatedMonthlyRevenue} value={money(upeInstitution.activeStudents * upeInstitution.pricePerStudent, language)} />
-        <AdminKpiCard label={labels.nextRenewal} value={formatDate(upeInstitution.nextRenewal, language)} tone="amber" />
+        <AdminKpiCard label={labels.contractedCapacity} value={formatNumber(institution.contractedCapacity, language)} />
+        <AdminKpiCard label={labels.registeredStudents} value={formatNumber(registeredStudents, language)} tone="teal" />
+        <AdminKpiCard label={labels.activeStudents} value={formatNumber(activeStudents, language)} tone="green" />
+        <AdminKpiCard label={labels.unitValue} value={money(institution.pricePerStudent, language)} />
+        <AdminKpiCard label={labels.estimatedMonthlyRevenue} value={money(estimatedMonthlyRevenue, language)} />
+        <AdminKpiCard label={labels.nextRenewal} value={formatDate(institution.nextRenewal, language)} tone="amber" />
       </div>
     </>
   );
 }
 
-function Students({ labels, language, notify, onSelectStudent, onExport, onExportStudent }) {
-  const realtime = useRealtimeStudentGrowth(studentEnrollmentStats, institutionStudentGrowthData);
+function buildStudentGrowthFromRows(students, contractedCapacity) {
+  const monthlyTotals = new Map();
+  students.forEach(student => {
+    if (!student.createdAt) return;
+    const date = new Date(student.createdAt);
+    if (Number.isNaN(date.getTime())) return;
+    const period = date.toLocaleDateString("pt-BR", { month: "short" }).replace(".", "");
+    monthlyTotals.set(period, (monthlyTotals.get(period) || 0) + 1);
+  });
+
+  let accumulated = 0;
+  let previous = 0;
+  const chartData = Array.from(monthlyTotals.entries()).map(([period, newStudents]) => {
+    accumulated += newStudents;
+    const growthPercent = previous ? ((newStudents - previous) / previous) * 100 : 0;
+    previous = newStudents;
+    return { period, newStudents, accumulated, growthPercent };
+  });
+
+  const currentMonthStudents = chartData.at(-1)?.newStudents || 0;
+  const previousMonthStudents = chartData.at(-2)?.newStudents || Math.max(currentMonthStudents, 1);
+
+  return {
+    chartData,
+    newStudentsThisMonth: currentMonthStudents,
+    monthlyGrowthPercent: previousMonthStudents ? ((currentMonthStudents - previousMonthStudents) / previousMonthStudents) * 100 : 0,
+    remainingSlots: Math.max(contractedCapacity - students.length, 0)
+  };
+}
+
+function buildWeeklyEvolutionFromHistory(history = []) {
+  const buckets = new Map();
+
+  history.forEach(event => {
+    if (!event.date) return;
+    const date = new Date(event.date);
+    if (Number.isNaN(date.getTime())) return;
+    const startOfYear = new Date(date.getFullYear(), 0, 1);
+    const weekNumber = Math.max(1, Math.ceil((((date - startOfYear) / 86400000) + startOfYear.getDay() + 1) / 7));
+    const key = `Semana ${weekNumber}`;
+    const current = buckets.get(key) || {
+      week: key,
+      accesses: 0,
+      studyMinutes: 0,
+      completedModels: 0
+    };
+
+    current.accesses += 1;
+    current.studyMinutes += Number(event.durationMinutes) || 0;
+    if (String(event.status || "").toLowerCase().includes("conclu")) current.completedModels += 1;
+    buckets.set(key, current);
+  });
+
+  return Array.from(buckets.values()).slice(-4);
+}
+
+function buildStudentRadarData(student) {
+  if (!student) return [];
+
+  const totalAccesses = Number(student.totalAccesses) || 0;
+  const totalStudyMinutes = Number(student.totalStudyMinutes) || 0;
+  const studiedModels = Number(student.studiedModels) || 0;
+  const performance = Number(student.performanceScore) || 0;
+
+  return [
+    { subject: "Frequência", value: Math.min(100, totalAccesses * 3) },
+    { subject: "Tempo de estudo", value: Math.min(100, Math.round(totalStudyMinutes / 6)) },
+    { subject: "Modelos concluídos", value: Math.min(100, studiedModels * 10) },
+    { subject: "Diversidade", value: Math.min(100, (student.viewedContents?.length || studiedModels) * 12) },
+    { subject: "Interação 3D", value: Math.min(100, totalAccesses * 4) },
+    { subject: "Revisão", value: Math.min(100, Math.round(performance * 0.8)) },
+    { subject: "Engajamento", value: Math.min(100, performance) }
+  ];
+}
+
+function Students({ labels, language, notify, dashboardData, students, onSelectStudent, onExport, onExportStudent, onReviewPending }) {
+  const realStudents = ["restricted", "supabase"].includes(dashboardData?.source)
+    ? students || []
+    : [];
+  const stats = dashboardData?.stats || {};
+  const institution = dashboardData?.institution || emptyInstitution;
+  const isRealSource = dashboardData?.source === "supabase";
+  const isRestrictedSource = dashboardData?.source === "restricted";
+  const realGrowth = useMemo(() => buildStudentGrowthFromRows(realStudents, stats.contractedCapacity || institution.contractedCapacity || 0), [realStudents, stats.contractedCapacity, institution.contractedCapacity]);
+  const daysElapsedThisMonth = Math.max(new Date().getDate(), 1);
+  const averageDailyRegistrations = realGrowth.newStudentsThisMonth
+    ? Math.round(realGrowth.newStudentsThisMonth / daysElapsedThisMonth)
+    : 0;
+  const licenseFullForecast = averageDailyRegistrations > 0 && realGrowth.remainingSlots > 0
+    ? new Date(Date.now() + Math.ceil(realGrowth.remainingSlots / averageDailyRegistrations) * 24 * 60 * 60 * 1000).toLocaleDateString("pt-BR", { month: "short", year: "numeric" })
+    : "-";
+  const realtime = isRealSource ? {
+    registeredStudents: stats.registeredStudents ?? realStudents.length,
+    contractedCapacity: stats.contractedCapacity ?? institution.contractedCapacity,
+    activeStudents: stats.activeStudents ?? realStudents.filter(student => student.status === "ativo").length,
+    inactiveStudents: stats.inactiveStudents ?? realStudents.filter(student => student.status === "inativo").length,
+    occupancyRate: stats.occupancyRate ?? ((realStudents.length / (institution.contractedCapacity || 1)) * 100),
+    remainingSlots: realGrowth.remainingSlots,
+    newStudentsThisMonth: realGrowth.newStudentsThisMonth,
+    monthlyGrowthPercent: realGrowth.monthlyGrowthPercent,
+    chartData: realGrowth.chartData,
+    lastUpdated: new Date(dashboardData?.lastUpdated || Date.now()).toLocaleTimeString("pt-BR")
+  } : isRestrictedSource ? {
+    registeredStudents: 0,
+    contractedCapacity: 0,
+    activeStudents: 0,
+    inactiveStudents: 0,
+    occupancyRate: 0,
+    remainingSlots: 0,
+    newStudentsThisMonth: 0,
+    monthlyGrowthPercent: 0,
+    chartData: [],
+    lastUpdated: new Date(dashboardData?.lastUpdated || Date.now()).toLocaleTimeString("pt-BR")
+  } : {
+    registeredStudents: 0,
+    contractedCapacity: 0,
+    activeStudents: 0,
+    inactiveStudents: 0,
+    occupancyRate: 0,
+    remainingSlots: 0,
+    newStudentsThisMonth: 0,
+    monthlyGrowthPercent: 0,
+    chartData: [],
+    lastUpdated: new Date(dashboardData?.lastUpdated || Date.now()).toLocaleTimeString("pt-BR")
+  };
   const occupancyText = pct(realtime.occupancyRate);
-  const monthlyGrowthText = `+${realtime.monthlyGrowthPercent.toFixed(1).replace(".", ",")}%`;
+  const monthlyGrowthText = `${realtime.monthlyGrowthPercent >= 0 ? "+" : ""}${realtime.monthlyGrowthPercent.toFixed(1).replace(".", ",")}%`;
+  const pendingRegistrations = realStudents
+    .filter(student => ["pendente", "pending"].includes(String(student.status || "").toLowerCase()))
+    .slice(0, 8);
 
   function toggleStudentStatus(student) {
     const action = student.status === "bloqueado" ? "desbloqueio" : "bloqueio";
@@ -618,10 +872,10 @@ function Students({ labels, language, notify, onSelectStudent, onExport, onExpor
       <AdminSectionHeader
         eyebrow={labels.adminEyebrow}
         title={labels.students}
-        text={`${labels.studentsText} · ${studentEnrollmentStats.institutionName} · ${studentEnrollmentStats.campus}`}
+        text={`${labels.studentsText} · ${institution.displayName || institution.name || "Nenhum dado encontrado"}`}
         actions={
           <div className="student-table-actions">
-            <span className="students-realtime-badge">Atualizado agora · {realtime.lastUpdated}</span>
+            <span className="students-realtime-badge">{isRealSource ? "Supabase real" : isRestrictedSource ? "Tenant restrito" : "Nenhum dado real"} · {realtime.lastUpdated}</span>
             <button type="button" onClick={onExport}>Exportar lista de alunos CSV</button>
           </div>
         }
@@ -638,6 +892,51 @@ function Students({ labels, language, notify, onSelectStudent, onExport, onExpor
         <AdminKpiCard label="Crescimento mensal" value={monthlyGrowthText} detail="comparado ao período anterior" tone="green" />
       </div>
 
+      <Card className="table-card p-0">
+        <div className="p-5">
+          <div className="admin-card-heading">
+            <h2>Novos cadastros pendentes</h2>
+            <span>{formatNumber(pendingRegistrations.length, language)} aguardando aprovação institucional</span>
+          </div>
+
+          {pendingRegistrations.length ? (
+            <div className="table-scroll">
+              <table className="admin-table text-left text-sm">
+                <thead>
+                  <tr>
+                    {["Nome", "E-mail", "Matrícula/R.A.", "Curso", "Semestre", "Data de cadastro", "Ações"].map(item => <th key={item}>{item}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {pendingRegistrations.map(student => (
+                    <tr key={student.id}>
+                      <td>{student.name}</td>
+                      <td>{student.email}</td>
+                      <td>{student.registration}</td>
+                      <td>{student.course}</td>
+                      <td>{student.semester}</td>
+                      <td>{student.createdAt || "-"}</td>
+                      <td>
+                        <div className="student-row-actions">
+                          <button type="button" className="table-action" onClick={() => onReviewPending(student, "approve")}>
+                            Aprovar
+                          </button>
+                          <button type="button" className="table-action table-action--danger" onClick={() => onReviewPending(student, "reject")}>
+                            Rejeitar
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="text-sm text-textMuted">Nenhum cadastro pendente encontrado na instituição selecionada.</p>
+          )}
+        </div>
+      </Card>
+
       <div className="students-intelligence-grid">
         <Card>
           <div className="admin-card-heading">
@@ -649,7 +948,7 @@ function Students({ labels, language, notify, onSelectStudent, onExport, onExpor
         <Card>
           <div className="admin-card-heading">
             <h2>Resumo coletivo</h2>
-            <span>Capacidade UPE</span>
+            <span>{institution.displayName || institution.name || "Nenhum dado encontrado"}</span>
           </div>
           <LicenseBar
             registeredStudents={realtime.registeredStudents}
@@ -658,8 +957,8 @@ function Students({ labels, language, notify, onSelectStudent, onExport, onExpor
             formatNumber={value => formatNumber(value, language)}
           />
           <div className="admin-kpi-grid compact mt-5">
-            <AdminKpiCard label={labels.averageDailyRegistrations} value="49" tone="teal" />
-            <AdminKpiCard label={labels.licenseFullForecast} value="Maio/2026" tone="amber" />
+            <AdminKpiCard label={labels.averageDailyRegistrations} value={formatNumber(averageDailyRegistrations, language)} tone="teal" />
+            <AdminKpiCard label={labels.licenseFullForecast} value={licenseFullForecast} tone="amber" />
             <AdminKpiCard label={labels.remainingCapacity} value={formatNumber(realtime.remainingSlots, language)} />
           </div>
         </Card>
@@ -672,7 +971,7 @@ function Students({ labels, language, notify, onSelectStudent, onExport, onExpor
             <span>Busca, filtros, histórico, desempenho e exportação</span>
           </div>
           <InstitutionStudentsTable
-            students={institutionStudents}
+            students={realStudents}
             formatNumber={value => formatNumber(value, language)}
             onOpenHistory={onSelectStudent}
             onOpenPerformance={onSelectStudent}
@@ -686,6 +985,13 @@ function Students({ labels, language, notify, onSelectStudent, onExport, onExpor
 }
 
 function Analytics({ labels, language }) {
+  const overviewMetrics = emptyOverviewMetrics;
+  const dailyAccessData = [];
+  const hourlyAccessData = [];
+  const systemUsageData = [];
+  const deviceSessions = [];
+  const monthlyUsageEvolution = [];
+  const platformErrorData = [];
   return (
     <>
       <AdminSectionHeader eyebrow={labels.adminEyebrow} title={labels.analytics} text={labels.analyticsText} />
@@ -714,6 +1020,8 @@ function Analytics({ labels, language }) {
 }
 
 function PlatformHealthPanel({ labels, language }) {
+  const platformHealth = emptyPlatformHealth;
+  const platformIncidents = [];
   return (
     <Card className="admin-health-panel">
       <div className="admin-card-heading">
@@ -747,24 +1055,40 @@ function PlatformHealthPanel({ labels, language }) {
   );
 }
 
-function Billing({ labels, language }) {
-  const registeredBilling = upeInstitution.registeredStudents * upeInstitution.pricePerStudent;
-  const activeBilling = upeInstitution.activeStudents * upeInstitution.pricePerStudent;
-  const contractedBilling = upeInstitution.contractedCapacity * upeInstitution.pricePerStudent;
-  const annualRevenue = billingScenarios[2].annualRevenue;
+function Billing({ labels, language, dashboardData }) {
+  const institution = dashboardData?.institution || emptyInstitution;
+  const stats = dashboardData?.stats || {};
+  const registeredStudents = stats.registeredStudents ?? institution.registeredStudents;
+  const activeStudents = stats.activeStudents ?? institution.activeStudents;
+  const contractedCapacity = stats.contractedCapacity ?? institution.contractedCapacity;
+  const pricePerStudent = institution.pricePerStudent || 0;
+  const registeredBilling = registeredStudents * pricePerStudent;
+  const activeBilling = activeStudents * pricePerStudent;
+  const contractedBilling = contractedCapacity * pricePerStudent;
+  const annualRevenue = activeBilling * 12;
   const operationalCost = annualRevenue * 0.15;
   const ebitda = annualRevenue - operationalCost;
-  const ebitdaMargin = (ebitda / annualRevenue) * 100;
+  const ebitdaMargin = annualRevenue ? (ebitda / annualRevenue) * 100 : 0;
+  const billingScenarios = [
+    { name: labels.registeredStudents, activeStudents: registeredStudents, annualRevenue: registeredBilling * 12 },
+    { name: labels.activeStudents, activeStudents, annualRevenue: activeBilling * 12 },
+    { name: labels.contractedCapacity, activeStudents: contractedCapacity, annualRevenue: contractedBilling * 12 }
+  ];
+  const billingProjectionData = [
+    { period: labels.monthly, realistic: activeBilling },
+    { period: labels.semesterRevenue, realistic: activeBilling * 6 },
+    { period: labels.annual, realistic: activeBilling * 12 }
+  ];
   return (
     <>
       <AdminSectionHeader eyebrow={labels.adminEyebrow} title={labels.billing} text={labels.billingText} />
       <div className="admin-kpi-grid">
-        <AdminKpiCard label={labels.registeredBilling} value={money(registeredBilling, language)} detail={`${upeInstitution.registeredStudents} x R$ 50`} />
-        <AdminKpiCard label={labels.activeBilling} value={money(activeBilling, language)} detail={`${upeInstitution.activeStudents} x R$ 50`} tone="teal" />
-        <AdminKpiCard label={labels.contractedBilling} value={money(contractedBilling, language)} detail={`${upeInstitution.contractedCapacity} x R$ 50`} />
-        <AdminKpiCard label={labels.semester} value={money(activeBilling * 6, language)} />
+        <AdminKpiCard label={labels.registeredBilling} value={money(registeredBilling, language)} detail={`${registeredStudents} x ${money(pricePerStudent, language)}`} />
+        <AdminKpiCard label={labels.activeBilling} value={money(activeBilling, language)} detail={`${activeStudents} x ${money(pricePerStudent, language)}`} tone="teal" />
+        <AdminKpiCard label={labels.contractedBilling} value={money(contractedBilling, language)} detail={`${contractedCapacity} x ${money(pricePerStudent, language)}`} />
+        <AdminKpiCard label={labels.semesterRevenue} value={money(activeBilling * 6, language)} />
         <AdminKpiCard label={labels.annual} value={money(activeBilling * 12, language)} />
-        <AdminKpiCard label={labels.unusedPotential} value={money((upeInstitution.contractedCapacity - upeInstitution.activeStudents) * upeInstitution.pricePerStudent, language)} tone="amber" />
+        <AdminKpiCard label={labels.unusedPotential} value={money((contractedCapacity - activeStudents) * pricePerStudent, language)} tone="amber" />
       </div>
       <div className="admin-two-columns">
         <Card><h2>{labels.scenarios}</h2><HorizontalMetricList data={billingScenarios.map(item => ({ label: item.name, value: item.annualRevenue, subtitle: `${item.activeStudents} alunos` }))} formatter={value => money(value, language)} /></Card>
@@ -777,16 +1101,30 @@ function Billing({ labels, language }) {
           <AdminKpiCard label={labels.operationalCost} value={money(operationalCost, language)} tone="amber" />
           <AdminKpiCard label={labels.ebitda} value={money(ebitda, language)} tone="green" />
           <AdminKpiCard label={labels.ebitdaMargin} value={pct(ebitdaMargin)} tone="green" />
-          <AdminKpiCard label={labels.payback} value="4-6 meses" tone="teal" />
-          <AdminKpiCard label={labels.roi} value="> 300%" tone="green" />
-          <AdminKpiCard label={labels.expansionCapacity} value="Multi-campus" />
+          <AdminKpiCard label={labels.payback} value="-" tone="teal" />
+          <AdminKpiCard label={labels.roi} value="-" tone="green" />
+          <AdminKpiCard label={labels.expansionCapacity} value={dashboardData?.institutions?.length ? formatNumber(dashboardData.institutions.length, language) : "-"} />
         </div>
       </Card>
     </>
   );
 }
 
-function Reports({ labels, language, onExport, onPrint }) {
+function Reports({ labels, language, dashboardData, onExport, onPrint }) {
+  const institution = dashboardData?.institution || emptyInstitution;
+  const stats = dashboardData?.stats || {};
+  const realtimeOverviewMetrics = dashboardData?.overviewMetrics || emptyOverviewMetrics;
+  const realtimeMostAccessedModels = dashboardData?.mostAccessedModels || [];
+  const realtimePlatformHealth = dashboardData?.platformHealth || emptyPlatformHealth;
+  const platformErrorData = dashboardData?.analytics?.platformErrorsData || [];
+  const executiveReportObservations = dashboardData?.source === "supabase"
+    ? ["Relatório gerado exclusivamente com dados reais disponíveis no Supabase."]
+    : ["Nenhum dado real disponível para relatório executivo."];
+  const registeredStudents = stats.registeredStudents ?? institution.registeredStudents;
+  const activeStudents = stats.activeStudents ?? institution.activeStudents;
+  const contractedCapacity = stats.contractedCapacity ?? institution.contractedCapacity;
+  const estimatedMonthlyRevenue = stats.estimatedRevenue ?? activeStudents * institution.pricePerStudent;
+
   return (
     <section className="report-page">
       <AdminSectionHeader
@@ -803,23 +1141,25 @@ function Reports({ labels, language, onExport, onPrint }) {
       <Card className="report-card">
         <h2>{labels.reportFilters}</h2>
         <div className="admin-filter-grid">
-          <input type="date" aria-label={labels.initialPeriod} defaultValue="2026-04-01" />
-          <input type="date" aria-label={labels.finalPeriod} defaultValue="2026-04-30" />
+          <input type="date" aria-label={labels.initialPeriod} />
+          <input type="date" aria-label={labels.finalPeriod} />
           <select defaultValue="mensal"><option value="mensal">mensal</option><option value="semestral">semestral</option><option value="anual">anual</option></select>
-          <select defaultValue="upe"><option value="upe">UPE Presidente Franco</option></select>
+          <select value={institution.id || ""} onChange={() => {}}>
+            <option value={institution.id || ""}>{institution.displayName || institution.name || "Nenhum dado encontrado"}</option>
+          </select>
         </div>
       </Card>
       <div className="admin-kpi-grid">
-        <AdminKpiCard label={labels.contractedCapacity} value={formatNumber(upeInstitution.contractedCapacity, language)} />
-        <AdminKpiCard label={labels.registeredStudents} value={formatNumber(upeInstitution.registeredStudents, language)} />
-        <AdminKpiCard label={labels.activeStudents} value={formatNumber(upeInstitution.activeStudents, language)} tone="green" />
-        <AdminKpiCard label={labels.totalAccesses} value={formatNumber(overviewMetrics.accessesThisMonth, language)} />
-        <AdminKpiCard label={labels.totalStudyTime} value={`${formatNumber(overviewMetrics.totalStudyHoursThisMonth, language)}h`} />
-        <AdminKpiCard label={labels.estimatedMonthlyRevenue} value={money(upeInstitution.activeStudents * upeInstitution.pricePerStudent, language)} />
+        <AdminKpiCard label={labels.contractedCapacity} value={formatNumber(contractedCapacity, language)} />
+        <AdminKpiCard label={labels.registeredStudents} value={formatNumber(registeredStudents, language)} />
+        <AdminKpiCard label={labels.activeStudents} value={formatNumber(activeStudents, language)} tone="green" />
+        <AdminKpiCard label={labels.totalAccesses} value={formatNumber(realtimeOverviewMetrics.accessesThisMonth, language)} />
+        <AdminKpiCard label={labels.totalStudyTime} value={`${formatNumber(realtimeOverviewMetrics.totalStudyHoursThisMonth, language)}h`} />
+        <AdminKpiCard label={labels.estimatedMonthlyRevenue} value={money(estimatedMonthlyRevenue, language)} />
       </div>
       <div className="admin-two-columns">
-        <Card className="report-card"><h2>{labels.mostAccessedContent}</h2><HorizontalMetricList data={mostAccessedModels.map(item => ({ label: item.title, value: item.accesses }))} formatter={value => formatNumber(value, language)} /></Card>
-        <Card className="report-card"><h2>{labels.platformHealth}</h2><p className="admin-report-health">{platformHealth.status} · {platformHealth.uptimePercent}% uptime · {platformHealth.incidentsThisMonth} incidentes</p><HorizontalMetricList data={platformErrorData} formatter={value => formatNumber(value, language)} /></Card>
+        <Card className="report-card"><h2>{labels.mostAccessedContent}</h2><HorizontalMetricList data={realtimeMostAccessedModels.map(item => ({ label: item.title, value: item.accesses }))} formatter={value => formatNumber(value, language)} /></Card>
+        <Card className="report-card"><h2>{labels.platformHealth}</h2><p className="admin-report-health">{realtimePlatformHealth.status} · {realtimePlatformHealth.uptimePercent}% uptime · {realtimePlatformHealth.incidentsThisMonth} incidentes</p><HorizontalMetricList data={platformErrorData} formatter={value => formatNumber(value, language)} /></Card>
       </div>
       <Card className="report-card">
         <h2>{labels.observations}</h2>

@@ -100,8 +100,22 @@ create table if not exists public.platform_events (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.security_events (
+  id uuid primary key default gen_random_uuid(),
+  institution_id uuid references public.institutions(id) on delete cascade,
+  user_id uuid references auth.users(id) on delete set null,
+  event_type text not null,
+  model_id uuid references public.models_3d(id) on delete set null,
+  metadata jsonb not null default '{}'::jsonb,
+  user_agent text,
+  created_at timestamptz not null default now()
+);
+
 create index if not exists users_institution_role_idx on public.users(institution_id, role);
 create index if not exists models_3d_institution_idx on public.models_3d(institution_id);
 create index if not exists model_access_logs_institution_started_idx on public.model_access_logs(institution_id, started_at desc);
 create index if not exists study_agenda_user_date_idx on public.study_agenda(user_id, date);
 create index if not exists platform_events_institution_created_idx on public.platform_events(institution_id, created_at desc);
+create index if not exists security_events_institution_created_idx on public.security_events(institution_id, created_at desc);
+create index if not exists security_events_user_created_idx on public.security_events(user_id, created_at desc);
+create index if not exists security_events_model_created_idx on public.security_events(model_id, created_at desc);

@@ -33,6 +33,13 @@ export const atlasStructure = [
     status: "DISPONÍVEL",
     slug: "pescoco-e-cabeca",
     subcategories: []
+  },
+  {
+    title: "Anatomia de Pelve e Períneo",
+    description: "Relações topográficas da pelve, períneo e sistemas urogenitais.",
+    status: "DISPONÍVEL",
+    slug: "pelve-e-perineo",
+    subcategories: ["Sistema Reprodutor Feminino"]
   }
 ];
 

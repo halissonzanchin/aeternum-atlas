@@ -44,7 +44,8 @@
 
 .student-growth-chart__tabs button,
 .student-table-actions button,
-.student-modal-actions button {
+.student-modal-actions button,
+.admin-table .table-action {
   min-height: 38px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.11);
@@ -59,7 +60,8 @@
 .student-growth-chart__tabs button:hover,
 .student-growth-chart__tabs button.is-active,
 .student-table-actions button:hover,
-.student-modal-actions button:hover {
+.student-modal-actions button:hover,
+.admin-table .table-action:hover {
   border-color: rgba(47, 184, 181, 0.45);
   background: rgba(47, 184, 181, 0.12);
   color: #9ff3f1;
@@ -119,17 +121,24 @@
 .student-filter-panel {
   display: grid;
   gap: 16px;
+  min-width: 0;
+  width: 100%;
 }
 
 .student-filter-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: end;
   gap: 12px;
+  width: 100%;
+  min-width: 0;
 }
 
 .student-filter-grid input,
 .student-filter-grid select {
-  min-height: 44px;
+  width: 100%;
+  height: 46px;
+  min-height: 46px;
   min-width: 0;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -137,6 +146,7 @@
   color: #f5f5f5;
   padding: 0 13px;
   outline: none;
+  line-height: 1.2;
 }
 
 .student-filter-grid input:focus,
@@ -146,9 +156,97 @@
 }
 
 .student-table-meta {
+  display: flex;
+  align-items: center;
+  min-height: 24px;
   color: #aeb8c5;
   font-size: 0.9rem;
   font-weight: 750;
+}
+
+.student-table-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 18px;
+}
+
+.admin-table.admin-students-table {
+  width: 100%;
+  min-width: 1840px;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+
+.admin-table.admin-students-table th,
+.admin-table.admin-students-table td {
+  word-break: normal;
+  overflow-wrap: normal;
+  white-space: nowrap;
+  line-height: 1.35;
+}
+
+.admin-table.admin-students-table th {
+  vertical-align: middle;
+}
+
+.admin-table.admin-students-table td {
+  vertical-align: top;
+}
+
+.admin-table.admin-students-table td:nth-child(1),
+.admin-table.admin-students-table td:nth-child(4),
+.admin-table.admin-students-table td:nth-child(11) {
+  white-space: normal;
+}
+
+.admin-table.admin-students-table .student-col-name {
+  min-width: 220px;
+}
+
+.admin-table.admin-students-table .student-col-email {
+  min-width: 260px;
+}
+
+.admin-table.admin-students-table .student-col-registration {
+  min-width: 150px;
+}
+
+.admin-table.admin-students-table .student-col-course {
+  min-width: 150px;
+}
+
+.admin-table.admin-students-table .student-col-semester,
+.admin-table.admin-students-table .student-col-status,
+.admin-table.admin-students-table .student-col-date,
+.admin-table.admin-students-table .student-col-number,
+.admin-table.admin-students-table .student-col-study-time {
+  min-width: 130px;
+}
+
+.admin-table.admin-students-table .student-col-last-access {
+  min-width: 190px;
+}
+
+.admin-table.admin-students-table .student-col-content {
+  min-width: 300px;
+}
+
+.admin-table.admin-students-table .student-col-performance {
+  min-width: 220px;
+}
+
+.admin-table.admin-students-table .student-col-actions {
+  min-width: 360px;
+}
+
+.student-table-empty {
+  height: 96px;
+  text-align: center;
+  color: #aeb8c5;
+  font-weight: 800;
+  white-space: normal;
 }
 
 .student-status-badge,
@@ -196,7 +294,7 @@
 .student-performance-cell {
   display: grid;
   gap: 6px;
-  min-width: 150px;
+  min-width: 190px;
 }
 
 .student-performance-track {
@@ -216,7 +314,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  min-width: 260px;
+  min-width: 340px;
 }
 
 .student-row-actions button {
@@ -234,6 +332,19 @@
 .student-row-actions button:hover {
   border-color: rgba(47, 184, 181, 0.45);
   background: rgba(47, 184, 181, 0.12);
+}
+
+.student-row-actions .table-action--danger,
+.admin-table .table-action--danger {
+  border-color: rgba(248, 113, 113, 0.28);
+  color: #ffd0d0;
+}
+
+.student-row-actions .table-action--danger:hover,
+.admin-table .table-action--danger:hover {
+  border-color: rgba(248, 113, 113, 0.52);
+  background: rgba(248, 113, 113, 0.12);
+  color: #ffe2e2;
 }
 
 .student-history-modal {
@@ -343,6 +454,10 @@
 }
 
 @media (max-width: 720px) {
+  .student-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
   .student-history-modal {
     width: 100vw;
     max-height: 100vh;

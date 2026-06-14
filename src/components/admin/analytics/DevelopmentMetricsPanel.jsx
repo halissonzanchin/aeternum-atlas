@@ -11,7 +11,7 @@ export default function DevelopmentMetricsPanel({ metrics }) {
     ["Falhas de rota", `${metrics.routeErrorRate}%`],
     ["Falhas Sketchfab", `${metrics.sketchfabFailureRate}%`],
     ["Falhas de exportação", `${metrics.exportFailureRate}%`],
-    ["Memória média mockada", `${metrics.averageMemoryUsageMb} MB`]
+    ["Memória média observada", `${metrics.averageMemoryUsageMb} MB`]
   ];
 
   return (

@@ -22,7 +22,9 @@ export const es = {
     status: "Estado",
     progress: "Progreso",
     minutes: "minutos",
-    today: "hoy"
+    today: "hoy",
+    sessionValidationTitle: "Validando sesión",
+    sessionValidationBody: "Estamos confirmando su acceso institucional antes de abrir esta área."
   },
   language: {
     changeLanguage: "Cambiar idioma",
@@ -103,22 +105,38 @@ export const es = {
     registerDescription: "Tu cuenta estará vinculada a la institución educativa. El alumno no recibe cobro individual.",
     recoveryPrepared: "Flujo de recuperación preparado para una API futura.",
     createAccountError: "No fue posible crear la cuenta.",
-    invalidCredentials: "Correo o contraseña inválidos."
+    invalidCredentials: "Correo o contraseña inválidos.",
+    loadingInstitutions: "Cargando instituciones...",
+    selectInstitution: "Seleccione una institución",
+    profileUpdated: "Perfil actualizado.",
+    profileUpdateError: "No fue posible actualizar el perfil.",
+    passwordUpdated: "Contraseña actualizada.",
+    passwordUpdateError: "No fue posible actualizar la contraseña."
   },
   publicHome: {
     ...pt.publicHome,
+    homeLabel: "Inicio de Aeternum Atlas",
+    featuredResourcesLabel: "Recursos destacados de Aeternum Atlas",
     toolsLabel: "Herramientas públicas",
     search: "Buscar",
     notifications: "Notificaciones",
     help: "Ayuda",
     eyebrow: "Tecnología anatómica 3D para enseñanza médica avanzada",
+    cinematicSlogan: "Tecnología anatómica 3D para enseñanza médica avanzada",
+    scrollCue: "Desliza para abrir el atlas",
+    openAtlas: "Abrir Atlas",
+    navAboutUs: "Sobre nosotros",
     subtitle: "Biblioteca Anatómica 3D",
     description: "Una plataforma académica personalizada para acceso interactivo a modelos anatómicos 3D, contenidos complementarios y gestión segura del acervo digital.",
+    heroDescription: "Explora el cuerpo humano como nunca antes. Modelos 3D interactivos, atlas anatómico completo y contenidos exclusivos para elevar tu conocimiento.",
+    heroExploreAtlas: "Explorar Atlas",
+    heroDemo: "Ver demostración",
     institutionalAccessTitle: "Acceso académico institucional",
     institutionalAccessText: "Los alumnos registrados por la institución acceden a la biblioteca completa sin cobro individual.",
     createAccessButton: "Crear acceso",
     contentTitle: "Contenido",
     primaryModuleDescription: "Explora estructuras humanas en tres dimensiones con contexto académico y visualizador anatómico integrado.",
+    footer: "Aeternum Atlas © 2026 — Tecnología médica y plataforma de anatomía 3D",
     modules: {
       atlas: "Mapas anatómicos organizados por sistemas.",
       radiology: "Correlación con rayos X, TC y RM.",
@@ -126,6 +144,35 @@ export const es = {
       content: "Materiales complementarios de revisión.",
       courses: "Rutas estructuradas de estudio.",
       library: "Favoritos e historial de estudio."
+    },
+    heroFeatures: {
+      models: {
+        title: "Modelos 3D",
+        description: "Anatomía interactiva"
+      },
+      atlas: {
+        title: "Atlas completo",
+        description: "Sistemas y estructuras"
+      },
+      content: {
+        title: "Contenidos exclusivos",
+        description: "Curaduría académica"
+      },
+      access: {
+        title: "Acceso seguro",
+        description: "Para instituciones y alumnos"
+      },
+      study: {
+        title: "Estudia desde donde estés",
+        description: "Acceso multiplataforma"
+      }
+    },
+    floatingCards: {
+      models3d: "Modelos 3D anatómicos",
+      cadavericLibrary: "Biblioteca cadavérica digital",
+      quizzes: "Simulados anatómicos",
+      institutionalAccess: "Acceso académico institucional",
+      exploration: "Exploración interactiva"
     }
   },
   studentDashboard: {
@@ -228,8 +275,55 @@ export const es = {
         description: "Retoma contenidos recientes en ciclos cortos de memorización activa."
       },
       anatomicalMap: {
-        title: "Mapa anatómico",
-        description: "Navega por regiones reales del cuerpo y encuentra módulos relacionados."
+        title: "Atlas Anatómico",
+        description: "Explore sistemas, regiones y estructuras anatómicas reales en un atlas médico interactivo tridimensional."
+      }
+    },
+    quizCatalog: {
+      eyebrow: "Catálogo académico",
+      title: "Simulados Anatómicos",
+      description: "Acceda a evaluaciones universitarias vinculadas a los modelos 3D de su biblioteca institucional.",
+      available: "Disponible",
+      start: "Iniciar simulado",
+      items: {
+        sagittal: {
+          title: "Corte Sagital del Cráneo Humano",
+          category: "Neuroanatomía",
+          description: "Evaluación anatómica sobre neuroanatomía topográfica en el corte sagital mediano.",
+          topics: [
+            "Anatomía topográfica",
+            "Corte sagital mediano",
+            "Sistema ventricular",
+            "Diencéfalo",
+            "Tronco encefálico",
+            "Cerebelo"
+          ]
+        },
+        heart: {
+          title: "Corazón Humano",
+          category: "Sistema cardiovascular",
+          description: "Simulado universitario sobre anatomía topográfica y configuración externa del corazón.",
+          topics: [
+            "Configuración externa",
+            "Cavidades cardíacas",
+            "Válvulas",
+            "Relaciones anatómicas",
+            "Anatomía topográfica cardíaca"
+          ]
+        },
+        femaleReproductive: {
+          title: "Corte Sagital Sistema Reproductor Femenino",
+          category: "Sistema reproductor femenino",
+          description: "Evaluación anatómica sobre relaciones topográficas de la pelvis femenina en corte sagital.",
+          topics: [
+            "Pelvis femenina",
+            "Útero y vagina",
+            "Relaciones pélvicas",
+            "Vejiga y recto",
+            "Periné",
+            "Anatomía aplicada ginecológica"
+          ]
+        }
       }
     },
     continueEyebrow: "Retomar estudio",
@@ -305,7 +399,23 @@ export const es = {
     },
     classes: {
       title: "Clases",
-      subtitle: "Acompaña progreso, tiempo de estudio y modelos recomendados para cada clase vinculada."
+      subtitle: "Acompaña progreso, tiempo de estudio y modelos recomendados para cada clase vinculada.",
+      formEyebrow: "Operación docente",
+      createTitle: "Crear nueva clase",
+      createAction: "Crear clase",
+      createError: "No fue posible crear la clase.",
+      nameRequired: "Informe el nombre de la clase.",
+      form: {
+        name: "Nombre de la clase",
+        course: "Carrera",
+        semester: "Año/Semestre",
+        notes: "Observaciones"
+      },
+      students: "Alumnos",
+      averageProgress: "Progreso promedio",
+      totalStudyTime: "Tiempo total",
+      lastActivity: "Última actividad",
+      summaryFallback: "Clase conectada a la capa académica real de la institución."
     },
     students: {
       title: "Alumnos de las clases",
@@ -323,17 +433,45 @@ export const es = {
     studyGuides: {
       title: "Guías de estudio",
       subtitle: "Crea rutas con modelos 3D, objetivos de aprendizaje y plazos sugeridos.",
-      completedStudents: "alumnos completaron"
+      formEyebrow: "Planificación docente",
+      createTitle: "Crear nueva guía de estudio",
+      createError: "No fue posible crear la guía de estudio.",
+      titleRequired: "Informe el título de la guía.",
+      noLinkedClass: "Sin clase vinculada",
+      noModelsAvailable: "No hay modelos institucionales disponibles para vincular.",
+      modelFallback: "Modelo anatómico",
+      objectivesHint: "Use una línea para cada objetivo de aprendizaje.",
+      form: {
+        title: "Título de la guía",
+        class: "Clase vinculada",
+        dueDate: "Plazo sugerido",
+        status: "Estado",
+        description: "Descripción",
+        objectives: "Objetivos de aprendizaje",
+        models: "Modelos 3D incluidos"
+      },
+      completedStudents: "alumnos completaron",
+      descriptionFallback: "Guía docente conectada a la capa académica institucional.",
+      models: "Modelos",
+      objectives: "Objetivos",
+      dueDate: "Plazo"
     },
     lessons: {
       title: "Mis clases",
       subtitle: "Prepara clases prácticas con modelos anatómicos, estructuras clave y observaciones docentes.",
       keyStructures: "Estructuras clave",
-      objectives: "Objetivos"
+      objectives: "Objetivos",
+      modelCount: "Modelos",
+      structureCount: "Estructuras",
+      notesFallback: "Plan de clase conectado al tenant institucional."
     },
     notes: {
       title: "Anotaciones anatómicas",
-      subtitle: "Registra correcciones, observaciones clínicas, sugerencias didácticas y mejoras de annotations."
+      subtitle: "Registra correcciones, observaciones clínicas, sugerencias didácticas y mejoras de annotations.",
+      modelFallback: "Modelo no informado",
+      titleFallback: "Observación anatómica",
+      descriptionFallback: "Registro docente sin descripción complementaria.",
+      typeFallback: "tipo no informado"
     },
     reports: {
       title: "Reportes académicos",
@@ -377,7 +515,62 @@ export const es = {
       progress: "progreso",
       studyTime: "tiempo de estudio",
       lastActivity: "última actividad",
-      notes: "anotaciones"
+      notes: "anotaciones",
+      classLabel: "Clase",
+      unassignedClass: "Sin clase vinculada"
+    },
+    statuses: {
+      draft: "Borrador",
+      planned: "Planificada",
+      active: "Activa",
+      inactive: "Inactiva",
+      completed: "Completada",
+      delivered: "Dictada",
+      open: "Abierta",
+      in_review: "En revisión",
+      resolved: "Resuelta",
+      archived: "Archivada",
+      closed: "Cerrada",
+      unknown: "Estado no informado"
+    },
+    priorities: {
+      low: "Baja",
+      medium: "Media",
+      high: "Alta"
+    },
+    visibilities: {
+      private: "Privada",
+      institution: "Institucional",
+      admin: "Solo administración"
+    },
+    noteTypes: {
+      correction: "Corrección anatómica",
+      didactic: "Sugerencia didáctica",
+      clinical: "Observación clínica",
+      legend: "Mejora de leyenda",
+      annotation: "Sugerencia de annotation"
+    },
+    emptyStates: {
+      loadingTitle: "Cargando datos docentes",
+      modelsTitle: "Biblioteca docente sin modelos",
+      classesTitle: "Clases aún no configuradas",
+      studentsTitle: "No hay alumnos disponibles",
+      guidesTitle: "Las guías de estudio aún no están estructuradas",
+      lessonsTitle: "Las clases aún no fueron registradas",
+      notesTitle: "Las anotaciones docentes aún no están disponibles",
+      reportsTitle: "Los informes académicos están en consolidación",
+      profileTitle: "Perfil docente no disponible",
+      profileDepartment: "Departamento no informado",
+      profileInstitution: "Institución no informada",
+      studentsLoading: "Buscando alumnos reales vinculados al tenant actual.",
+      classes: "La capa de clases aún no posee una tabla operativa conectada. El área permanece lista sin mostrar datos ficticios.",
+      students: "No se encontraron alumnos reales para la institución vinculada al profesor.",
+      guides: "Las guías de estudio aparecerán aquí cuando la tabla académica correspondiente esté conectada.",
+      lessons: "Las clases preparadas se mostrarán aquí cuando la capa operativa docente esté disponible.",
+      notes: "Las observaciones anatómicas aparecerán después de conectar el repositorio real de anotaciones.",
+      reports: "Todavía no hay volumen real suficiente o la estructura necesaria para componer este informe.",
+      restrictedTitle: "Acceso docente restringido",
+      restricted: "No fue posible validar el alcance institucional de este profesor."
     }
   },
   studyAgenda: {
@@ -547,6 +740,10 @@ export const es = {
     availableByInstitution: "Disponible por la institución",
     heartModelTitle: "Corazón Humano — Modelo Superficial 3D",
     modelNotFound: "Modelo no encontrado",
+    catalogLoading: "Cargando el catálogo real de modelos...",
+    catalogLoadError: "No fue posible cargar el catálogo de modelos.",
+    emptyCatalog: "No hay modelos institucionales disponibles por el momento.",
+    emptyFilteredCatalog: "Ningún modelo coincide con los filtros aplicados.",
     learningObjectives: "Objetivos de aprendizaje",
     clinicalCorrelations: "Correlaciones clínicas",
     relatedStructures: "Estructuras relacionadas",
@@ -736,6 +933,36 @@ export const es = {
       ],
       clinicalNotes: "Útil para introducción a la anatomía cardíaca, orientación espacial del corazón y correlación con exámenes de imagen."
     },
+    "corte-sagital-cranio-humano-superficial": {
+      title: "Corte Sagital del Cráneo Humano — Modelo Superficial 3D",
+      shortTitle: "Corte Sagital del Cráneo",
+      description: "Modelo anatómico en corte sagital de la cabeza humana, ideal para estudiar relaciones entre encéfalo, cavidades craneales y vías aéreas superiores.",
+      overview: "Este modelo 3D presenta la cabeza humana en plano sagital y facilita la lectura topográfica de estructuras encefálicas, craneales y aerodigestivas.",
+      objectives: [
+        "Reconocer estructuras medias de la cabeza en corte sagital.",
+        "Relacionar encéfalo, base del cráneo y cavidades adyacentes.",
+        "Comprender la orientación espacial de las vías aéreas y la cavidad oral.",
+        "Apoyar la correlación con neuroanatomía e imagen."
+      ],
+      structures: ["Cerebelo", "Cuarto Ventrículo", "Cuña", "Cuerpo Calloso", "Hipófisis", "Giro Subcalloso:", "Hoz del Cerebro Anterior", "Médula Oblongada", "Mesencéfalo", "Giro Cingular"],
+      clinicalCorrelations: ["Lectura inicial de cortes medianos", "Correlación con neuroimagen", "Topografía de vías aéreas superiores", "Anatomía aplicada de la base del cráneo"],
+      studyGuide: [
+        "Observe primero el plano sagital completo.",
+        "Localice la base del cráneo y el foramen magno.",
+        "Compare la posición del encéfalo con las cavidades nasal y oral.",
+        "Revise los principales hitos anatómicos de la línea media.",
+        "Use las annotations para consolidar el recorrido visual."
+      ],
+      reference: "Modelo 3D alojado en Sketchfab. Autoría: H2N.Engenharia.",
+      relatedStructures: ["Cerebelo", "Cuarto Ventrículo", "Cuña", "Cuerpo Calloso", "Hipófisis", "Giro Subcalloso:", "Hoz del Cerebro Anterior", "Médula Oblongada", "Mesencéfalo", "Giro Cingular"],
+      references: ["Modelo 3D alojado en Sketchfab. Autoría: H2N.Engenharia.", "Gray's Anatomy", "Neuroanatomía Clínica"],
+      learningObjectives: [
+        "Interpretar la anatomía media de la cabeza en tres dimensiones.",
+        "Relacionar estructuras óseas y nerviosas visibles en el corte.",
+        "Usar el modelo como puente entre anatomía macroscópica e imagen."
+      ],
+      clinicalNotes: "Útil para clases introductorias de neuroanatomía, revisión de planos sagitales y preparación para correlación con imágenes."
+    },
     "torax-cadaverico-3d": {
       title: "Tórax Cadavérico 3D",
       description: "Escaneo anatómico del tórax con relaciones entre pared torácica, pulmones, corazón y mediastino.",
@@ -790,6 +1017,30 @@ export const es = {
     reportProblem: "Reportar problema",
     registerAccess: "Registrar acceso",
     viewStudyGuide: "Ver guía de estudio",
+    notes: "Anotaciones",
+    security: {
+      ...pt.viewer.security,
+      session: "Sesión",
+      unknownUser: "Usuario identificado",
+      noEmail: "e-mail no informado",
+      noUserId: "sin-id",
+      institutionalAccess: "Acceso institucional",
+      warningTitle: "Aviso de seguridad",
+      printWarning: "Las capturas de pantalla no están permitidas en esta plataforma. Este intento fue registrado por seguridad.",
+      shortcutWarning: "Este atajo fue bloqueado en contenido protegido y el intento fue registrado.",
+      rightClickWarning: "El menú contextual fue bloqueado para proteger este contenido.",
+      devtoolsWarning: "Herramientas de inspección detectadas. El evento fue registrado por seguridad.",
+      protectedContent: "Contenido protegido",
+      returnToWindow: "Regrese a la ventana de la plataforma para continuar el estudio.",
+      policyEyebrow: "Contenido académico protegido",
+      policyTitle: "Término de responsabilidad",
+      policyBody: "Este modelo anatómico forma parte del acervo institucional de Aeternum Atlas. El acceso es individual, rastreable y destinado solo al estudio autorizado.",
+      policyNoCapture: "No se permiten capturas, grabaciones, redistribución ni intercambio externo.",
+      policyTraceability: "La pantalla contiene una marca de agua personalizada con usuario, institución, fecha, sesión e identificadores técnicos.",
+      policyInstitutionalUse: "Los intentos sospechosos pueden registrarse para auditoría académica y seguridad institucional.",
+      policyLimitations: "Por razones técnicas, ninguna plataforma web puede impedir el 100% de las capturas externas. Aeternum Atlas utiliza protección visual, marca de agua individualizada y registro de eventos para rastrear y desalentar usos indebidos.",
+      acceptPolicy: "Acepto y continuar el estudio"
+    },
     loadingModel: "Cargando modelo",
     sketchfabConnected: "Sketchfab conectado",
     fallbackActive: "Fallback iframe activo",
@@ -872,6 +1123,18 @@ export const es = {
     supportTitle: "Central de soporte anatómico",
     helpTitle: "Consejos y ayuda",
     closeHelp: "Cerrar ayuda",
+    notesEyebrow: "Cuaderno anatómico",
+    notesTitle: "Anotaciones del modelo",
+    notesPlaceholder: "Escribe observaciones clínicas, dudas, estructuras revisadas o puntos para estudiar después...",
+    notesCharacters: "{{count}} caracteres",
+    notesUpdatedAt: "Guardado el {{date}}",
+    notesNotSaved: "Aún no guardado",
+    saveNotes: "Guardar anotaciones",
+    exportNotesPdf: "Exportar PDF",
+    closeNotes: "Cerrar anotaciones",
+    notesSaved: "Anotaciones guardadas en este dispositivo.",
+    notesEmpty: "Escribe una anotación antes de exportar el PDF.",
+    notesExported: "PDF de anotaciones exportado.",
     supportItems: {
       platformGuide: "Guía de uso de la plataforma",
       study3d: "Cómo estudiar con modelos 3D",

@@ -39,7 +39,12 @@ export async function runSupabaseQuery(queryFn, fallbackValue = null) {
 }
 
 export function createTenantFilter(institutionId) {
+  if (!institutionId) {
+    console.warn("institution_id ausente. Filtro multi-tenant bloqueado por segurança.");
+    return null;
+  }
+
   return {
-    institution_id: institutionId || "upe-presidente-franco"
+    institution_id: institutionId
   };
 }

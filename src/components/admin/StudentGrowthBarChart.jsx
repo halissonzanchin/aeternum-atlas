@@ -4,6 +4,7 @@ import "./adminStudents.css";
 const PERIODS = ["Diário", "Semanal", "Mensal", "Semestral", "Anual"];
 
 function transformData(data, period) {
+  if (data.length === 1 && data[0].period === "-") return data;
   if (period === "Mensal") return data;
   const multipliers = {
     "Diário": 0.08,
@@ -27,7 +28,8 @@ function transformData(data, period) {
 
 export default function StudentGrowthBarChart({ data, formatNumber }) {
   const [period, setPeriod] = useState("Mensal");
-  const chartData = useMemo(() => transformData(data, period), [data, period]);
+  const sourceData = data?.length ? data : [{ period: "-", newStudents: 0, accumulated: 0, growthPercent: 0 }];
+  const chartData = useMemo(() => transformData(sourceData, period), [sourceData, period]);
   const maxNew = Math.max(...chartData.map(item => item.newStudents), 1);
   const maxAccumulated = Math.max(...chartData.map(item => item.accumulated), 1);
   const width = 760;

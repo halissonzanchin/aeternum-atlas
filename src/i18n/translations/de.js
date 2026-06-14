@@ -22,7 +22,9 @@ export const de = {
     status: "Status",
     progress: "Fortschritt",
     minutes: "Minuten",
-    today: "heute"
+    today: "heute",
+    sessionValidationTitle: "Sitzung wird geprüft",
+    sessionValidationBody: "Wir bestätigen Ihren institutionellen Zugriff, bevor dieser Bereich geöffnet wird."
   },
   language: {
     changeLanguage: "Sprache ändern",
@@ -105,22 +107,38 @@ export const de = {
     registerDescription: "Ihr Konto wird mit der Bildungseinrichtung verknüpft. Studierende erhalten keine individuelle Rechnung.",
     recoveryPrepared: "Wiederherstellungsfluss für eine zukünftige API vorbereitet.",
     createAccountError: "Das Konto konnte nicht erstellt werden.",
-    invalidCredentials: "E-Mail oder Passwort ungültig."
+    invalidCredentials: "E-Mail oder Passwort ungültig.",
+    loadingInstitutions: "Institutionen werden geladen...",
+    selectInstitution: "Institution auswählen",
+    profileUpdated: "Profil aktualisiert.",
+    profileUpdateError: "Das Profil konnte nicht aktualisiert werden.",
+    passwordUpdated: "Passwort aktualisiert.",
+    passwordUpdateError: "Das Passwort konnte nicht aktualisiert werden."
   },
   publicHome: {
     ...pt.publicHome,
+    homeLabel: "Startseite von Aeternum Atlas",
+    featuredResourcesLabel: "Hervorgehobene Ressourcen von Aeternum Atlas",
     toolsLabel: "Öffentliche Werkzeuge",
     search: "Suchen",
     notifications: "Benachrichtigungen",
     help: "Hilfe",
     eyebrow: "3D-Anatomietechnologie für fortgeschrittene medizinische Ausbildung",
+    cinematicSlogan: "3D-Anatomietechnologie für fortgeschrittene medizinische Ausbildung",
+    scrollCue: "Scrollen, um den Atlas zu öffnen",
+    openAtlas: "Atlas öffnen",
+    navAboutUs: "Über uns",
     subtitle: "Anatomische 3D-Bibliothek",
     description: "Eine maßgeschneiderte akademische Plattform für den interaktiven Zugang zu anatomischen 3D-Modellen, ergänzenden Inhalten und sicherer Verwaltung der digitalen Sammlung.",
+    heroDescription: "Erkunden Sie den menschlichen Körper wie nie zuvor. Interaktive 3D-Modelle, ein vollständiger anatomischer Atlas und exklusive Inhalte für vertieftes Lernen.",
+    heroExploreAtlas: "Atlas erkunden",
+    heroDemo: "Demo ansehen",
     institutionalAccessTitle: "Institutioneller akademischer Zugang",
     institutionalAccessText: "Von der Institution registrierte Studierende erhalten Zugriff auf die vollständige Bibliothek ohne individuelle Abrechnung.",
     createAccessButton: "Zugang erstellen",
     contentTitle: "Inhalte",
     primaryModuleDescription: "Erkunden Sie menschliche Strukturen dreidimensional mit akademischem Kontext und integriertem Anatomie-Viewer.",
+    footer: "Aeternum Atlas © 2026 — Medizintechnologie und 3D-Anatomieplattform",
     modules: {
       atlas: "Nach Systemen organisierte anatomische Karten.",
       radiology: "Korrelation mit Röntgen, CT und MRT.",
@@ -128,6 +146,35 @@ export const de = {
       content: "Ergänzende Wiederholungsmaterialien.",
       courses: "Strukturierte Lernpfade.",
       library: "Favoriten und Lernverlauf."
+    },
+    heroFeatures: {
+      models: {
+        title: "3D-Modelle",
+        description: "Interaktive Anatomie"
+      },
+      atlas: {
+        title: "Vollständiger Atlas",
+        description: "Systeme und Strukturen"
+      },
+      content: {
+        title: "Exklusive Inhalte",
+        description: "Akademisch kuratiert"
+      },
+      access: {
+        title: "Sicherer Zugang",
+        description: "Für Institutionen und Studierende"
+      },
+      study: {
+        title: "Überall lernen",
+        description: "Plattformübergreifender Zugriff"
+      }
+    },
+    floatingCards: {
+      models3d: "Anatomische 3D-Modelle",
+      cadavericLibrary: "Digitale Kadaverbibliothek",
+      quizzes: "Anatomische Simulationen",
+      institutionalAccess: "Institutioneller akademischer Zugang",
+      exploration: "Interaktive Erkundung"
     }
   },
   studentDashboard: {
@@ -230,8 +277,55 @@ export const de = {
         description: "Greifen Sie aktuelle Inhalte in kurzen aktiven Wiederholungszyklen wieder auf."
       },
       anatomicalMap: {
-        title: "Anatomische Karte",
-        description: "Navigieren Sie durch reale Körperregionen und finden Sie passende Module."
+        title: "Anatomischer Atlas",
+        description: "Erkunden Sie reale anatomische Systeme, Regionen und Strukturen in einem interaktiven dreidimensionalen medizinischen Atlas."
+      }
+    },
+    quizCatalog: {
+      eyebrow: "Akademischer Katalog",
+      title: "Anatomische Simulationen",
+      description: "Greifen Sie auf universitäre Prüfungen zu, die mit den 3D-Modellen Ihrer institutionellen Bibliothek verknüpft sind.",
+      available: "Verfügbar",
+      start: "Simulation starten",
+      items: {
+        sagittal: {
+          title: "Sagittalschnitt des menschlichen Schädels",
+          category: "Neuroanatomie",
+          description: "Anatomische Prüfung zur topografischen Neuroanatomie im medianen Sagittalschnitt.",
+          topics: [
+            "Topografische Anatomie",
+            "Medianer Sagittalschnitt",
+            "Ventrikelsystem",
+            "Diencephalon",
+            "Hirnstamm",
+            "Kleinhirn"
+          ]
+        },
+        heart: {
+          title: "Menschliches Herz",
+          category: "Herz-Kreislauf-System",
+          description: "Universitäre Simulation zur topografischen Anatomie und äußeren Konfiguration des Herzens.",
+          topics: [
+            "Äußere Konfiguration",
+            "Herzhöhlen",
+            "Herzklappen",
+            "Anatomische Beziehungen",
+            "Topografische Herzanatomie"
+          ]
+        },
+        femaleReproductive: {
+          title: "Sagittalschnitt des weiblichen Fortpflanzungssystems",
+          category: "Weibliches Fortpflanzungssystem",
+          description: "Anatomische Prüfung zu topografischen Beziehungen des weiblichen Beckens im Sagittalschnitt.",
+          topics: [
+            "Weibliches Becken",
+            "Uterus und Vagina",
+            "Beckenbeziehungen",
+            "Blase und Rektum",
+            "Perineum",
+            "Angewandte gynäkologische Anatomie"
+          ]
+        }
       }
     },
     continueEyebrow: "Lernen fortsetzen",
@@ -307,7 +401,23 @@ export const de = {
     },
     classes: {
       title: "Kurse",
-      subtitle: "Verfolgen Sie Fortschritt, Lernzeit und empfohlene Modelle für jeden zugeordneten Kurs."
+      subtitle: "Verfolgen Sie Fortschritt, Lernzeit und empfohlene Modelle für jeden zugeordneten Kurs.",
+      formEyebrow: "Dozentenaktion",
+      createTitle: "Neuen Kurs erstellen",
+      createAction: "Kurs erstellen",
+      createError: "Der Kurs konnte nicht erstellt werden.",
+      nameRequired: "Bitte geben Sie den Kursnamen ein.",
+      form: {
+        name: "Kursname",
+        course: "Studiengang",
+        semester: "Jahr/Semester",
+        notes: "Notizen"
+      },
+      students: "Studierende",
+      averageProgress: "Durchschnittlicher Fortschritt",
+      totalStudyTime: "Gesamte Lernzeit",
+      lastActivity: "Letzte Aktivität",
+      summaryFallback: "Kurs, der mit der realen akademischen Ebene der Institution verbunden ist."
     },
     students: {
       title: "Studierende der Kurse",
@@ -325,17 +435,45 @@ export const de = {
     studyGuides: {
       title: "Lernleitfäden",
       subtitle: "Erstellen Sie Lernpfade mit 3D-Modellen, Lernzielen und empfohlenen Fristen.",
-      completedStudents: "Studierende abgeschlossen"
+      formEyebrow: "Dozentenplanung",
+      createTitle: "Neuen Lernleitfaden erstellen",
+      createError: "Der Lernleitfaden konnte nicht erstellt werden.",
+      titleRequired: "Bitte geben Sie den Titel des Lernleitfadens ein.",
+      noLinkedClass: "Kein Kurs verknüpft",
+      noModelsAvailable: "Es ist kein institutionelles Modell zum Verknüpfen verfügbar.",
+      modelFallback: "Anatomisches Modell",
+      objectivesHint: "Verwenden Sie eine Zeile pro Lernziel.",
+      form: {
+        title: "Titel des Leitfadens",
+        class: "Verknüpfter Kurs",
+        dueDate: "Empfohlene Frist",
+        status: "Status",
+        description: "Beschreibung",
+        objectives: "Lernziele",
+        models: "Enthaltene 3D-Modelle"
+      },
+      completedStudents: "Studierende abgeschlossen",
+      descriptionFallback: "Dozentenleitfaden, der mit der institutionellen akademischen Ebene verbunden ist.",
+      models: "Modelle",
+      objectives: "Ziele",
+      dueDate: "Frist"
     },
     lessons: {
       title: "Meine Lehrveranstaltungen",
       subtitle: "Bereiten Sie praktische Lehre mit anatomischen Modellen, Schlüsselstrukturen und Dozentennotizen vor.",
       keyStructures: "Schlüsselstrukturen",
-      objectives: "Ziele"
+      objectives: "Ziele",
+      modelCount: "Modelle",
+      structureCount: "Strukturen",
+      notesFallback: "Lehrplan, der mit dem institutionellen Tenant verbunden ist."
     },
     notes: {
       title: "Anatomische Notizen",
-      subtitle: "Erfassen Sie Korrekturen, klinische Beobachtungen, didaktische Vorschläge und Verbesserungen von Annotationen."
+      subtitle: "Erfassen Sie Korrekturen, klinische Beobachtungen, didaktische Vorschläge und Verbesserungen von Annotationen.",
+      modelFallback: "Modell nicht angegeben",
+      titleFallback: "Anatomische Notiz",
+      descriptionFallback: "Dozenteneintrag ohne ergänzende Beschreibung.",
+      typeFallback: "Typ nicht angegeben"
     },
     reports: {
       title: "Akademische Berichte",
@@ -379,7 +517,62 @@ export const de = {
       progress: "Fortschritt",
       studyTime: "Lernzeit",
       lastActivity: "letzte Aktivität",
-      notes: "Notizen"
+      notes: "Notizen",
+      classLabel: "Kurs",
+      unassignedClass: "Kein Kurs zugeordnet"
+    },
+    statuses: {
+      draft: "Entwurf",
+      planned: "Geplant",
+      active: "Aktiv",
+      inactive: "Inaktiv",
+      completed: "Abgeschlossen",
+      delivered: "Durchgeführt",
+      open: "Offen",
+      in_review: "In Prüfung",
+      resolved: "Erledigt",
+      archived: "Archiviert",
+      closed: "Geschlossen",
+      unknown: "Status nicht angegeben"
+    },
+    priorities: {
+      low: "Niedrig",
+      medium: "Mittel",
+      high: "Hoch"
+    },
+    visibilities: {
+      private: "Privat",
+      institution: "Institutionell",
+      admin: "Nur Administration"
+    },
+    noteTypes: {
+      correction: "Anatomische Korrektur",
+      didactic: "Didaktischer Vorschlag",
+      clinical: "Klinische Beobachtung",
+      legend: "Verbesserung der Legende",
+      annotation: "Vorschlag für Annotation"
+    },
+    emptyStates: {
+      loadingTitle: "Dozentendaten werden geladen",
+      modelsTitle: "Dozentenbibliothek ohne Modelle",
+      classesTitle: "Kurse noch nicht eingerichtet",
+      studentsTitle: "Keine Studierenden verfügbar",
+      guidesTitle: "Lernleitfäden sind noch nicht strukturiert",
+      lessonsTitle: "Lehrveranstaltungen wurden noch nicht erfasst",
+      notesTitle: "Dozentennotizen sind noch nicht verfügbar",
+      reportsTitle: "Akademische Berichte werden konsolidiert",
+      profileTitle: "Dozentenprofil nicht verfügbar",
+      profileDepartment: "Abteilung nicht angegeben",
+      profileInstitution: "Institution nicht angegeben",
+      studentsLoading: "Reale Studierende des aktuellen Tenants werden geladen.",
+      classes: "Die Kursebene besitzt noch keine angeschlossene operative Tabelle. Der Bereich bleibt bereit, ohne fiktive Daten anzuzeigen.",
+      students: "Für die mit diesem Dozenten verknüpfte Institution wurden keine realen Studierenden gefunden.",
+      guides: "Lernleitfäden erscheinen hier, sobald die entsprechende akademische Tabelle angebunden ist.",
+      lessons: "Vorbereitete Lehrveranstaltungen erscheinen hier, sobald die operative Dozentenebene verfügbar ist.",
+      notes: "Anatomische Beobachtungen erscheinen nach Anschluss des realen Notiz-Repositories.",
+      reports: "Es gibt noch nicht genügend reale Daten oder die nötige Struktur, um diesen Bericht zu erzeugen.",
+      restrictedTitle: "Dozentenzugriff eingeschränkt",
+      restricted: "Der institutionelle Geltungsbereich dieses Dozenten konnte nicht validiert werden."
     }
   },
   studyAgenda: {
@@ -549,6 +742,10 @@ export const de = {
     availableByInstitution: "Über die Institution verfügbar",
     heartModelTitle: "Menschliches Herz — Oberflächliches 3D-Modell",
     modelNotFound: "Modell nicht gefunden",
+    catalogLoading: "Der echte Modellkatalog wird geladen...",
+    catalogLoadError: "Der Modellkatalog konnte nicht geladen werden.",
+    emptyCatalog: "Derzeit ist kein institutionelles Modell verfügbar.",
+    emptyFilteredCatalog: "Kein Modell entspricht den gewählten Filtern.",
     learningObjectives: "Lernziele",
     clinicalCorrelations: "Klinische Korrelationen",
     relatedStructures: "Verwandte Strukturen",
@@ -738,6 +935,36 @@ export const de = {
       ],
       clinicalNotes: "Nützlich für die Einführung in die Herzanatomie, räumliche Orientierung des Herzens und Korrelation mit Bildgebungsuntersuchungen."
     },
+    "corte-sagital-cranio-humano-superficial": {
+      title: "Sagittalschnitt des menschlichen Schädels — Oberflächliches 3D-Modell",
+      shortTitle: "Sagittaler Schädelschnitt",
+      description: "Anatomisches Sagittalmodell des menschlichen Kopfes zum Studium der Beziehungen zwischen Gehirn, Schädelhöhlen und oberen Atemwegen.",
+      overview: "Dieses 3D-Modell zeigt den menschlichen Kopf in sagittaler Ebene und unterstützt die topografische Erfassung encephaler, kranialer und aerodigestiver Strukturen.",
+      objectives: [
+        "Mittige Kopfstrukturen im Sagittalschnitt erkennen.",
+        "Gehirn, Schädelbasis und benachbarte Hohlräume zueinander in Beziehung setzen.",
+        "Die räumliche Orientierung von Atemwegen und Mundhöhle verstehen.",
+        "Die Korrelation mit Neuroanatomie und Bildgebung unterstützen."
+      ],
+      structures: ["Cerebelo", "Cuarto Ventrículo", "Cuña", "Cuerpo Calloso", "Hipófisis", "Giro Subcalloso:", "Hoz del Cerebro Anterior", "Médula Oblongada", "Mesencéfalo", "Giro Cingular"],
+      clinicalCorrelations: ["Einstieg in die Beurteilung medianer Schnitte", "Korrelation mit Neurobildgebung", "Topografie der oberen Atemwege", "Angewandte Anatomie der Schädelbasis"],
+      studyGuide: [
+        "Betrachten Sie zunächst die gesamte sagittale Ebene.",
+        "Lokalisieren Sie Schädelbasis und Foramen magnum.",
+        "Vergleichen Sie die Lage des Gehirns mit Nasen- und Mundhöhle.",
+        "Wiederholen Sie die wichtigsten mittigen Landmarken.",
+        "Nutzen Sie die Annotationen zur Festigung des visuellen Ablaufs."
+      ],
+      reference: "3D-Modell auf Sketchfab gehostet. Autor: H2N.Engenharia.",
+      relatedStructures: ["Cerebelo", "Cuarto Ventrículo", "Cuña", "Cuerpo Calloso", "Hipófisis", "Giro Subcalloso:", "Hoz del Cerebro Anterior", "Médula Oblongada", "Mesencéfalo", "Giro Cingular"],
+      references: ["3D-Modell auf Sketchfab gehostet. Autor: H2N.Engenharia.", "Gray's Anatomy", "Klinische Neuroanatomie"],
+      learningObjectives: [
+        "Die mittige Kopfanatomie dreidimensional interpretieren.",
+        "Sichtbare knöcherne und neurale Strukturen im Schnitt verknüpfen.",
+        "Das Modell als Brücke zwischen makroskopischer Anatomie und Bildgebung nutzen."
+      ],
+      clinicalNotes: "Nützlich für einführende Neuroanatomie, die Wiederholung sagittaler Ebenen und die Vorbereitung auf Bildgebungskorrelation."
+    },
     "torax-cadaverico-3d": {
       title: "Kadaverischer Thorax 3D",
       description: "Anatomischer Thorax-Scan mit Beziehungen zwischen Thoraxwand, Lungen, Herz und Mediastinum.",
@@ -796,6 +1023,30 @@ export const de = {
     reportProblem: "Problem melden",
     registerAccess: "Zugriff registrieren",
     viewStudyGuide: "Lernleitfaden ansehen",
+    notes: "Notizen",
+    security: {
+      ...pt.viewer.security,
+      session: "Sitzung",
+      unknownUser: "Identifizierter Benutzer",
+      noEmail: "E-Mail nicht angegeben",
+      noUserId: "keine-id",
+      institutionalAccess: "Institutioneller Zugriff",
+      warningTitle: "Sicherheitshinweis",
+      printWarning: "Screenshots sind auf dieser Plattform nicht erlaubt. Dieser Versuch wurde aus Sicherheitsgründen protokolliert.",
+      shortcutWarning: "Diese Tastenkombination wurde in geschützten Inhalten blockiert und der Versuch protokolliert.",
+      rightClickWarning: "Das Kontextmenü wurde zum Schutz dieses Inhalts blockiert.",
+      devtoolsWarning: "Inspektionswerkzeuge erkannt. Das Ereignis wurde aus Sicherheitsgründen protokolliert.",
+      protectedContent: "Geschützter Inhalt",
+      returnToWindow: "Kehren Sie zum Plattformfenster zurück, um weiterzulernen.",
+      policyEyebrow: "Geschützter akademischer Inhalt",
+      policyTitle: "Nutzungsverantwortung",
+      policyBody: "Dieses anatomische Modell ist Teil des institutionellen Bestands von Aeternum Atlas. Der Zugriff ist individuell, nachverfolgbar und nur für autorisiertes Lernen bestimmt.",
+      policyNoCapture: "Screenshots, Aufzeichnungen, Weiterverteilung oder externes Teilen sind nicht gestattet.",
+      policyTraceability: "Der Bildschirm enthält ein personalisiertes Wasserzeichen mit Benutzer, Institution, Datum, Sitzung und technischen Kennungen.",
+      policyInstitutionalUse: "Verdächtige Versuche können für akademische Prüfungen und institutionelle Sicherheit protokolliert werden.",
+      policyLimitations: "Aus technischen Gründen kann keine Webplattform externe Aufnahmen zu 100% verhindern. Aeternum Atlas nutzt visuellen Schutz, individualisierte Wasserzeichen und Ereignisprotokolle, um Missbrauch nachzuverfolgen und einzudämmen.",
+      acceptPolicy: "Akzeptieren und weiterlernen"
+    },
     resetVisual: "Ansicht zurücksetzen",
     openFullscreen: "Vollbild",
     loadingModel: "Modell wird geladen",
@@ -880,6 +1131,18 @@ export const de = {
     supportTitle: "Anatomisches Support-Center",
     helpTitle: "Tipps & Hilfe",
     closeHelp: "Hilfe schließen",
+    notesEyebrow: "Anatomisches Notizbuch",
+    notesTitle: "Modellnotizen",
+    notesPlaceholder: "Notiere klinische Beobachtungen, Fragen, wiederholte Strukturen oder Punkte für später...",
+    notesCharacters: "{{count}} Zeichen",
+    notesUpdatedAt: "Gespeichert am {{date}}",
+    notesNotSaved: "Noch nicht gespeichert",
+    saveNotes: "Notizen speichern",
+    exportNotesPdf: "PDF exportieren",
+    closeNotes: "Notizen schließen",
+    notesSaved: "Notizen auf diesem Gerät gespeichert.",
+    notesEmpty: "Schreibe eine Notiz, bevor du das PDF exportierst.",
+    notesExported: "Notizen-PDF exportiert.",
     supportItems: {
       platformGuide: "Leitfaden zur Plattformnutzung",
       study3d: "Lernen mit 3D-Modellen",

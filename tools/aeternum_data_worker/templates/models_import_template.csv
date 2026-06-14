@@ -1,0 +1,2 @@
+institution_id,institution_slug,slug,title,anatomical_system,anatomical_region,sketchfab_url,embed_url,difficulty_level,tags,status,thumbnail_url
+,aeternum-test-university,exemplo-modelo-anatomico,Exemplo Modelo Anatômico 3D,Sistema anatômico,Região anatômica,https://sketchfab.com/3d-models/exemplo-00000000000000000000000000000000,https://sketchfab.com/models/00000000000000000000000000000000/embed,basic,"Tag principal|Resumo acadêmico",active,

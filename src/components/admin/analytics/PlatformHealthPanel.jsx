@@ -20,7 +20,7 @@ export default function PlatformHealthPanel({ analytics, formatNumber }) {
         <HealthCard label="Status atual" value={analytics.platformStatus} tone={analytics.platformStatus === "online" ? "green" : "amber"} />
         <HealthCard label="Uptime" value={`${analytics.uptimePercent}%`} tone="green" />
         <HealthCard label="Tempo fora do ar" value={`${analytics.totalDowntimeMinutes} min`} tone="amber" />
-        <HealthCard label="Incidentes no mês" value="2" tone="amber" />
+        <HealthCard label="Incidentes no mês" value={formatNumber(analytics.incidentsThisMonth || analytics.errorsThisMonth || 0)} tone="amber" />
         <HealthCard label="Usuários afetados" value={formatNumber(analytics.affectedUsers)} />
         <HealthCard label="Tempo médio de resposta" value={`${analytics.averageResponseTimeMs} ms`} tone="teal" />
         <HealthCard label="Erros de login" value={formatNumber(analytics.loginErrors)} tone="amber" />

@@ -1,15 +1,13 @@
-import { mockModels } from "../data/mockModels";
 import { readStorage, storageKeys, writeStorage } from "./storage";
 
-const DEFAULT_USER_ID = "student-demo";
-const DEFAULT_INSTITUTION_ID = "upe-presidente-franco";
+const ANONYMOUS_USER_ID = "anonymous";
 
 function userIdOf(user) {
-  return user?.id || DEFAULT_USER_ID;
+  return user?.id || ANONYMOUS_USER_ID;
 }
 
 function institutionIdOf(user) {
-  return user?.institutionId || DEFAULT_INSTITUTION_ID;
+  return user?.institutionId || user?.institution_id || null;
 }
 
 function nowIso() {
@@ -26,8 +24,7 @@ function uniqueByModel(items) {
   });
 }
 
-function estimatedMinutesForModel(modelId) {
-  const model = mockModels.find(item => item.id === modelId);
+function estimatedMinutesForModel(modelId, model = null) {
   const raw = model?.estimatedStudyTime || "";
   const matches = raw.match(/\d+/g)?.map(Number) || [];
   if (!matches.length) return 12;
@@ -80,7 +77,7 @@ export function isModelStudied(user, modelId) {
   return getCompletedModelIds(user).includes(modelId);
 }
 
-export function markModelAsStudied(user, modelId) {
+export function markModelAsStudied(user, modelId, model = null) {
   const completed = readStorage(storageKeys.completedModels, []);
   const completedAt = nowIso();
   const completedEntry = {
@@ -99,12 +96,34 @@ export function markModelAsStudied(user, modelId) {
     modelId,
     completed: true,
     progressPercent: 100,
-    studyMinutes: estimatedMinutesForModel(modelId),
+    studyMinutes: estimatedMinutesForModel(modelId, model),
     completedAt,
     lastAccessedAt: completedAt
   };
   writeStorage(storageKeys.studyProgress, uniqueByModel([progressEntry, ...progress]));
   return true;
+}
+
+export function unmarkModelAsStudied(user, modelId) {
+  const id = userIdOf(user);
+  const completed = readStorage(storageKeys.completedModels, [])
+    .filter(item => !(item.userId === id && item.modelId === modelId));
+  writeStorage(storageKeys.completedModels, completed);
+
+  const progress = readStorage(storageKeys.studyProgress, []);
+  const nextProgress = progress.map(item => {
+    if (!(item.userId === id && item.modelId === modelId)) return item;
+
+    return {
+      ...item,
+      completed: false,
+      completedAt: null,
+      progressPercent: item.lastAccessedAt ? Math.min(item.progressPercent || 35, 35) : 0
+    };
+  });
+
+  writeStorage(storageKeys.studyProgress, uniqueByModel(nextProgress));
+  return false;
 }
 
 export function trackModelAccess(user, modelId, metadata = {}) {
@@ -132,7 +151,7 @@ export function trackModelAccess(user, modelId, metadata = {}) {
     modelId,
     completed: Boolean(existing?.completed),
     progressPercent: existing?.completed ? 100 : Math.max(existing?.progressPercent || 0, 35),
-    studyMinutes: Math.max(existing?.studyMinutes || 0, estimatedMinutesForModel(modelId)),
+    studyMinutes: Math.max(existing?.studyMinutes || 0, estimatedMinutesForModel(modelId, metadata.model)),
     lastAccessedAt: log.createdAt
   };
   writeStorage(storageKeys.studyProgress, uniqueByModel([progressEntry, ...progress]));
@@ -141,42 +160,42 @@ export function trackModelAccess(user, modelId, metadata = {}) {
 
 export function getAccessLogs(user) {
   const logs = readStorage(storageKeys.accessLogs, []);
-  if (!user?.id) return logs;
-  return logs.filter(item => item.userId === user.id || item.userId === DEFAULT_USER_ID);
+  if (!user?.id) return [];
+  return logs.filter(item => item.userId === user.id);
 }
 
 export function getLastAccessLabel(user) {
   const logs = getAccessLogs(user);
-  if (!logs.length) return "Hoje às 14:32";
+  if (!logs.length) return "Sem acesso registrado";
   const last = new Date(logs[0].createdAt || logs[0].timestamp || Date.now());
   return last.toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
 }
 
-export function calculateStudentProgress(user) {
+export function calculateStudentProgress(user, models = []) {
   const completedIds = new Set(getCompletedModelIds(user));
   const favoriteIds = new Set(getFavoriteModelIds(user));
   const progressEntries = readStorage(storageKeys.studyProgress, []);
   const personalProgress = progressEntries.filter(item => item.userId === userIdOf(user));
-  const studiedModels = completedIds.size || 8;
-  const totalModels = mockModels.filter(model => model.isActive !== false).length || 1;
+  const studiedModels = completedIds.size;
+  const totalModels = models.filter(model => model.isActive !== false).length || 1;
   const progressPercent = Math.min(100, Math.round((studiedModels / Math.max(totalModels, 12)) * 100));
-  const totalStudyMinutes = personalProgress.reduce((sum, item) => sum + Number(item.studyMinutes || 0), 0) || 320;
+  const totalStudyMinutes = personalProgress.reduce((sum, item) => sum + Number(item.studyMinutes || 0), 0);
 
   return {
     studiedModels,
     totalStudyMinutes,
     lastAccess: getLastAccessLabel(user),
-    progressPercent: progressPercent || 42,
-    favorites: favoriteIds.size || 5,
-    studyStreakDays: 4
+    progressPercent,
+    favorites: favoriteIds.size,
+    studyStreakDays: 0
   };
 }
 
-export function getProgressBySystem(user) {
+export function getProgressBySystem(user, models = []) {
   const completedIds = new Set(getCompletedModelIds(user));
   const systems = new Map();
 
-  mockModels.forEach(model => {
+  models.forEach(model => {
     const key = model.system || "Sistema anatômico";
     const current = systems.get(key) || { system: key, studied: 0, total: 0, percent: 0 };
     current.total += 1;
@@ -190,7 +209,7 @@ export function getProgressBySystem(user) {
   }));
 }
 
-export function getFavoriteModels(user) {
+export function getFavoriteModels(user, models = []) {
   const ids = new Set(getFavoriteModelIds(user));
-  return mockModels.filter(model => ids.has(model.id)).slice(0, 6);
+  return models.filter(model => ids.has(model.id)).slice(0, 6);
 }

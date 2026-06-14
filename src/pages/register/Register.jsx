@@ -1,14 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import LanguageSelector from "../../components/LanguageSelector";
 import { registerUser } from "../../services/authService";
+import { listActivePublicRegistrationInstitutions } from "../../services/institutions/institutionService";
 import { validateRegister } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
 
 const userTypes = ["Estudante", "Professor", "Admin institucional"];
-const institutions = ["UPE Presidente Franco", "Universidade Demo", "Faculdade parceira"];
-
 export default function Register({ navigate, onAuth }) {
   const { t, availableLanguages } = useLanguage();
   const [values, setValues] = useState({
@@ -17,7 +16,8 @@ export default function Register({ navigate, onAuth }) {
     password: "",
     confirmPassword: "",
     userType: "Estudante",
-    institution: "UPE Presidente Franco",
+    institutionId: "",
+    institution: "",
     course: "",
     semester: "",
     studentRegistration: "",
@@ -27,25 +27,80 @@ export default function Register({ navigate, onAuth }) {
   });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("error");
+  const [loading, setLoading] = useState(false);
+  const [institutionOptions, setInstitutionOptions] = useState([]);
+  const [institutionsLoading, setInstitutionsLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+
+    listActivePublicRegistrationInstitutions()
+      .then(items => {
+        if (!mounted) return;
+        setInstitutionOptions(items);
+
+        const firstInstitution = items[0];
+        if (firstInstitution?.id) {
+          setValues(current => current.institutionId
+            ? current
+            : {
+                ...current,
+                institutionId: firstInstitution.id,
+                institution: firstInstitution.name
+              });
+        }
+      })
+      .finally(() => {
+        if (mounted) setInstitutionsLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   function update(event) {
     const { name, value, type, checked } = event.target;
+    if (name === "institutionId") {
+      const selectedInstitution = institutionOptions.find(item => item.id === value);
+      setValues({
+        ...values,
+        institutionId: value,
+        institution: selectedInstitution?.name || ""
+      });
+      return;
+    }
+
     setValues({ ...values, [name]: type === "checkbox" ? checked : value });
   }
 
   async function submit(event) {
     event.preventDefault();
+    if (loading) return;
     const nextErrors = validateRegister(values);
     setErrors(nextErrors);
     setMessage("");
+    setMessageType("error");
     if (Object.keys(nextErrors).length) return;
 
+    setLoading(true);
     try {
       const user = await registerUser(values);
+      if (user?.pendingApproval || user?.status === "pending") {
+        setMessageType("success");
+        setMessage("Cadastro enviado com sucesso. Sua conta ficou pendente para aprovação institucional.");
+        window.setTimeout(() => navigate("/login"), 1800);
+        return;
+      }
+
       onAuth(user);
       navigate("/dashboard");
     } catch (error) {
+      setMessageType("error");
       setMessage(error.message || t("auth.createAccountError"));
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -94,8 +149,11 @@ export default function Register({ navigate, onAuth }) {
 
           <label className="field">
             <span>{t("auth.institution")}</span>
-            <select name="institution" value={values.institution} onChange={update}>
-              {institutions.map(institution => <option key={institution}>{institution}</option>)}
+            <select name="institutionId" value={values.institutionId} onChange={update} disabled={institutionsLoading || !institutionOptions.length}>
+              <option value="">
+                {institutionsLoading ? t("auth.loadingInstitutions") : t("auth.selectInstitution")}
+              </option>
+              {institutionOptions.map(institution => <option key={institution.id} value={institution.id}>{institution.name}</option>)}
             </select>
             <small>{errors.institution}</small>
           </label>
@@ -138,10 +196,18 @@ export default function Register({ navigate, onAuth }) {
           </label>
 
           {errors.acceptTerms ? <p className="text-sm text-red-100 md:col-span-2">{errors.acceptTerms}</p> : null}
-          {message ? <p className="rounded-2xl border border-red-300/25 bg-red-400/10 p-3 text-sm text-red-100 md:col-span-2">{message}</p> : null}
+          {message ? (
+            <p className={`rounded-2xl border p-3 text-sm md:col-span-2 ${
+              messageType === "success"
+                ? "border-emerald-300/25 bg-emerald-400/10 text-emerald-100"
+                : "border-red-300/25 bg-red-400/10 text-red-100"
+            }`}>
+              {message}
+            </p>
+          ) : null}
 
           <div className="flex flex-wrap gap-3 md:col-span-2">
-            <Button variant="teal" type="submit">{t("auth.createInstitutionalAccess")}</Button>
+            <Button variant="teal" type="submit" disabled={loading}>{loading ? t("common.loading") : t("auth.createInstitutionalAccess")}</Button>
             <Button variant="outline" type="button" onClick={() => navigate("/login")}>{t("auth.alreadyHaveAccount")}</Button>
           </div>
         </form>

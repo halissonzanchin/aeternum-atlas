@@ -16,7 +16,12 @@ export const eventTypes = [
   "open_external_sketchfab",
   "favorite_model",
   "complete_model",
+  "uncomplete_model",
   "copy_model_link",
+  "save_model_notes",
+  "export_model_notes_pdf",
+  "start_anatomical_quiz",
+  "finish_anatomical_quiz",
   "open_report",
   "export_csv",
   "viewer_duration",
@@ -41,11 +46,13 @@ function eventId() {
 export function trackEvent({ userId, institutionId, role = "student", modelId = null, eventType, type, metadata = {}, timestamp = new Date().toISOString(), durationSeconds = null, ...extra }) {
   const resolvedEventType = eventType || type;
   if (!resolvedEventType) return null;
+  const resolvedUserId = userId || "anonymous";
+  const resolvedInstitutionId = institutionId || null;
 
   const event = {
     id: eventId(),
-    userId: userId || "anonymous",
-    institutionId: institutionId || "upe-presidente-franco",
+    userId: resolvedUserId,
+    institutionId: resolvedInstitutionId,
     role,
     modelId,
     eventType: resolvedEventType,
@@ -109,7 +116,7 @@ export function favoriteModel(user, model) {
 }
 
 export function completeModel(user, model) {
-  markModelAsStudied(user, model?.id);
+  markModelAsStudied(user, model?.id, model);
   trackEvent({
     userId: user?.id,
     institutionId: user?.institutionId,
@@ -128,11 +135,12 @@ export function getStudentMonthlyUsage(user) {
   const logs = getProgressAccessLogs(user);
   const totalLogins = logs.filter(item => item.eventType === "login" || item.action === "login").length || 12;
   const totalModelsOpened = logs.filter(item => item.modelId).length || 18;
+  const institutionId = user?.institutionId || user?.institution_id || null;
 
   return {
     id: `usage-${user?.id || "student-demo"}-2026-04`,
     userId: user?.id || "student-demo",
-    institutionId: user?.institutionId || "upe-presidente-franco",
+    institutionId,
     month: 4,
     year: 2026,
     totalLogins,
@@ -142,7 +150,9 @@ export function getStudentMonthlyUsage(user) {
   };
 }
 
-export function getInstitutionStats() {
+export function getInstitutionStats(institutionId) {
+  if (!institutionId) return null;
+
   return {
     ...institutionProfile,
     activeStudentsToday: institutionProfile.activeStudentsToday || institutionProfile.accessesToday,
@@ -150,15 +160,28 @@ export function getInstitutionStats() {
   };
 }
 
-export function getMostAccessedModels() {
+export function getMostAccessedModels(institutionId) {
+  if (!institutionId) return [];
   return topAccessedModels;
 }
 
-export function getInstitutionStudents() {
+export function getInstitutionStudents(institutionId) {
+  if (!institutionId) return [];
   return mockInstitutionStudents;
 }
 
-export function getRealtimeEventSnapshot(institutionId = "upe-presidente-franco") {
+export function getRealtimeEventSnapshot(institutionId) {
+  if (!institutionId) {
+    return {
+      institutionId: null,
+      activeUsersNow: 0,
+      eventsLastHour: 0,
+      viewerErrors: 0,
+      lastEventAt: null,
+      restricted: true
+    };
+  }
+
   const events = listAnalyticsEvents({ institutionId });
   const now = Date.now();
   const lastHour = events.filter(event => now - new Date(event.timestamp || event.createdAt).getTime() < 60 * 60 * 1000);

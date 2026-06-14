@@ -36,7 +36,11 @@ export function rowsToCsv(rows) {
   ].join("\n");
 }
 
-export function buildInstitutionExecutiveReport(institutionId = "upe-presidente-franco") {
+export function buildInstitutionExecutiveReport(institutionId) {
+  if (!institutionId) {
+    throw new Error("institution_id obrigatório para gerar relatório executivo institucional.");
+  }
+
   const metrics = getInstitutionMetrics(institutionId);
   const events = listAnalyticsEvents({ institutionId });
 

@@ -1,12 +1,17 @@
 import { listUsers, updateUser } from "../auth/authService";
 import { normalizeRole, ROLES } from "../permissions/permissionService";
 import { readStorage, storageKeys, writeStorage } from "../storage/storageService";
+import { supabase } from "../../lib/supabase";
 
-export function listInstitutionUsers(institutionId = "upe-presidente-franco") {
+export function listInstitutionUsers(institutionId) {
+  if (!institutionId) return [];
   return listUsers().filter(user => user.institutionId === institutionId);
 }
 
-export function listUsersByRole(role, institutionId = null) {
+export function listUsersByRole(role, institutionId = null, options = {}) {
+  const { allowGlobal = false } = options;
+  if (!institutionId && !allowGlobal) return [];
+
   const normalizedRole = normalizeRole(role);
   return listUsers().filter(user => {
     if (normalizeRole(user.role) !== normalizedRole) return false;
@@ -21,6 +26,38 @@ export function getUserById(userId) {
 
 export function setUserStatus(userId, status) {
   return updateUser(userId, { accountStatus: status, status, updatedAt: new Date().toISOString() });
+}
+
+export async function reviewPendingUserRegistration({ studentId, institutionId, decision }) {
+  if (!studentId) throw new Error("Aluno pendente não informado.");
+  if (!institutionId) throw new Error("institution_id obrigatório para revisar cadastro pendente.");
+
+  const nextStatus = decision === "approve" ? "active" : decision === "reject" ? "suspended" : null;
+  if (!nextStatus) throw new Error("Decisão inválida para cadastro pendente.");
+
+  const { data, error } = await supabase
+    .from("users")
+    .update({
+      status: nextStatus,
+      updated_at: new Date().toISOString()
+    })
+    .eq("id", studentId)
+    .eq("institution_id", institutionId)
+    .eq("role", ROLES.STUDENT)
+    .eq("status", "pending")
+    .select("id, institution_id, name, email, role, status, updated_at")
+    .maybeSingle();
+
+  if (error) {
+    console.error("Falha ao revisar cadastro pendente.", error);
+    throw new Error("Não foi possível revisar o cadastro. Verifique as policies RLS de aprovação institucional.");
+  }
+
+  if (!data?.id) {
+    throw new Error("Cadastro pendente não encontrado no tenant atual.");
+  }
+
+  return data;
 }
 
 export function getStudentProfile(userId) {
