@@ -1,11 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
 import Card from "../../components/Card/Card";
 import AeternumLogo from "../../components/AeternumLogo";
 import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
-import { trackEvent } from "../../services/analyticsService";
-import { calculateStudentProgress, getAccessLogs } from "../../services/progressService";
-import { listModelsForUser } from "../../services/modelService";
 
 import QuickMetricCard from "../../features/dashboard/components/QuickMetricCard";
 import StudyToolCard from "../../features/dashboard/components/StudyToolCard";
@@ -13,6 +9,7 @@ import ContinueModelCard from "../../features/dashboard/components/ContinueModel
 import EvolutionPanel from "../../features/dashboard/components/EvolutionPanel";
 import ProfessorDashboard from "../../features/dashboard/components/ProfessorDashboard";
 import { studyTools, recommendationCards } from "../../features/dashboard/data/constants";
+import { useDashboardData } from "../../features/dashboard/hooks/useDashboardData";
 
 function minutesLabel(minutes, t) {
   if (minutes >= 60) {
@@ -23,63 +20,18 @@ function minutesLabel(minutes, t) {
   return `${minutes} ${t("common.minutes")}`;
 }
 
-function modelPath(model) {
-  return `/viewer/${model.slug || model.id}`;
-}
-
 export default function Dashboard({ user, navigate }) {
   const { t } = useLanguage();
-  const [models, setModels] = useState([]);
-  const [modelsLoading, setModelsLoading] = useState(true);
-  const stats = calculateStudentProgress(user, models);
-  
-  const recentModels = useMemo(() => {
-    const modelsById = new Map(models.map(model => [model.id, model]));
-    const fromLogs = [];
-    const seen = new Set();
-
-    getAccessLogs(user).forEach(log => {
-      if (!log?.modelId || seen.has(log.modelId)) return;
-      const model = modelsById.get(log.modelId);
-      if (!model) return;
-      seen.add(log.modelId);
-      fromLogs.push(model);
-    });
-
-    return (fromLogs.length ? fromLogs : models).slice(0, 3);
-  }, [models, user]);
-  
-  const activeModels = useMemo(() => models.filter(model => model.isActive !== false), [models]);
-  const studiedStructures = stats.studiedModels * 4;
-  const continueTarget = recentModels[0] ? modelPath(recentModels[0]) : "/models";
-  
-  const recommendationPaths = useMemo(() => ({
-    "review-most-accessed": recentModels[0] ? modelPath(recentModels[0]) : "/models",
-    "complete-started": recentModels[1] ? `/models/${recentModels[1].id}` : "/models",
-    "quick-quiz": "/quizzes",
-    "generate-flashcards": "/flashcards"
-  }), [recentModels]);
-
-  useEffect(() => {
-    let mounted = true;
-    setModelsLoading(true);
-
-    listModelsForUser(user)
-      .then(items => {
-        if (mounted) setModels(items);
-      })
-      .finally(() => {
-        if (mounted) setModelsLoading(false);
-      });
-
-    return () => {
-      mounted = false;
-    };
-  }, [user]);
-
-  useEffect(() => {
-    trackEvent({ userId: user?.id, institutionId: user?.institutionId, role: user?.role, eventType: "open_dashboard" });
-  }, [user?.id, user?.institutionId, user?.role]);
+  const {
+    models,
+    modelsLoading,
+    stats,
+    recentModels,
+    activeModels,
+    studiedStructures,
+    continueTarget,
+    recommendationPaths
+  } = useDashboardData(user);
 
   if (user?.role === "professor") {
     return <ProfessorDashboard user={user} navigate={navigate} models={models} modelsLoading={modelsLoading} />;

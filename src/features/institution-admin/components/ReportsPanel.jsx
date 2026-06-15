@@ -3,9 +3,8 @@ import Button from "../../../components/Button/Button";
 import { useLanguage } from "../../../context/LanguageContext";
 import { formatNumber, formatCurrency } from "../../../utils/formatLocale";
 import { institutionProfile, institutionalReports } from "../../../data/mockInstitutionalAnalytics";
-import { trackEvent } from "../../../services/analyticsService";
-import { downloadCsv } from "../utils/exportCsv";
 import AdminTitle from "./AdminTitle";
+import { useInstitutionReports } from "../hooks/useInstitutionReports";
 
 function money(value, language) {
   return formatCurrency(value, language, "BRL", { maximumFractionDigits: 0 });
@@ -13,21 +12,7 @@ function money(value, language) {
 
 export default function ReportsPanel({ notify }) {
   const { language, t } = useLanguage();
-  function exportReport(kind) {
-    const rows = [
-      [t("reports.monthlyReport"), institutionProfile.referencePeriod],
-      [t("institutionAdmin.institution"), institutionProfile.name],
-      [t("license.registeredStudents"), institutionProfile.registeredStudents],
-      [t("license.activeStudents"), institutionProfile.activeStudentsThisMonth],
-      [t("reports.billableStudents"), institutionProfile.billableStudents],
-      [t("reports.totalAccesses"), institutionProfile.accessesThisMonth],
-      [t("institutionAdmin.totalStudyTime"), `${institutionProfile.totalStudyHoursThisMonth}h`],
-      [t("license.estimatedValue"), institutionProfile.estimatedMonthlyValue]
-    ];
-    if (kind === "csv") downloadCsv("aeternum-relatorio-mensal.csv", rows);
-    trackEvent({ eventType: kind === "csv" ? "export_csv" : "open_report", role: "institution_admin", institutionId: institutionProfile.id, metadata: { report: "monthly", format: kind } });
-    notify(kind === "csv" ? t("institutionAdmin.csvExported") : t("institutionAdmin.pdfExportPrepared"));
-  }
+  const { exportReport } = useInstitutionReports(notify);
 
   return (
     <>

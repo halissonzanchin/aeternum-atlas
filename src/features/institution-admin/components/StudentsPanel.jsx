@@ -1,29 +1,24 @@
 import { useState } from "react";
 import Card from "../../../components/Card/Card";
 import Button from "../../../components/Button/Button";
-import { useLanguage } from "../../../context/LanguageContext";
-import { mockInstitutionStudents, institutionProfile } from "../../../data/mockInstitutionalAnalytics";
-import { trackEvent } from "../../../services/analyticsService";
+import { useLanguage } from "../../../../context/LanguageContext";
+import { institutionProfile } from "../../../../data/mockInstitutionalAnalytics";
+import { trackEvent } from "../../../../services/analyticsService";
 import { downloadCsv } from "../utils/exportCsv";
+import { useStudentFilters } from "../hooks/useStudentFilters";
 import AdminTitle from "./AdminTitle";
 
 export default function StudentsPanel({ notify }) {
   const { t } = useLanguage();
-  const [query, setQuery] = useState("");
-  const [status, setStatus] = useState("Todos");
-  const [course, setCourse] = useState("Todos");
-  const [semester, setSemester] = useState("Todos");
-  const [activity, setActivity] = useState("Todos");
-  const courses = Array.from(new Set(mockInstitutionStudents.map(student => student.course).filter(Boolean)));
-  const semesters = Array.from(new Set(mockInstitutionStudents.map(student => student.semester).filter(Boolean)));
-  const visibleStudents = mockInstitutionStudents.filter(student => {
-    const matchesQuery = [student.name, student.email, student.registration].join(" ").toLowerCase().includes(query.toLowerCase());
-    const matchesStatus = status === "Todos" || student.status === status;
-    const matchesCourse = course === "Todos" || student.course === course;
-    const matchesSemester = semester === "Todos" || student.semester === semester;
-    const matchesActivity = activity === "Todos" || (activity === "ativo" ? student.totalAccesses > 0 : student.totalAccesses === 0);
-    return matchesQuery && matchesStatus && matchesCourse && matchesSemester && matchesActivity;
-  });
+  const {
+    query, setQuery,
+    status, setStatus,
+    course, setCourse,
+    semester, setSemester,
+    activity, setActivity,
+    courses, semesters,
+    visibleStudents
+  } = useStudentFilters();
 
   function exportStudents() {
     const rows = [
