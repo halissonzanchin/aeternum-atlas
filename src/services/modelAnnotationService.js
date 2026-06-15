@@ -30,7 +30,9 @@ export async function listModelAnnotations(modelId) {
     .order("annotation_index", { ascending: true });
 
   if (error) {
-    console.warn("[model_annotations] Cache de annotations indisponível.", error);
+    if (error.code !== "22P02") { // Ignore invalid input syntax for type uuid (slug passed)
+      console.warn("[model_annotations] Supabase error:", error.message);
+    }
     return localAnnotations;
   }
 

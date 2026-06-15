@@ -2,7 +2,7 @@ import { supabase } from "../lib/supabase";
 import { getUserInstitutionId, normalizeRole, ROLES } from "./permissions/permissionService";
 import { isSupabaseConfigured } from "./supabase/supabaseClient";
 import { sanitizeText } from "../utils/validators";
-import { findLocalModel, mergeCatalogWithLocalModels } from "../data/localModels";
+import { findLocalModel, mergeCatalogWithLocalModels, normalizeModelIdentifier } from "../data/localModels";
 
 const MODEL_SELECT = [
   "id",
@@ -120,9 +120,21 @@ export async function listModelsForUser(user, options = {}) {
 }
 
 export async function getModelByIdForUser(id, user, options = {}) {
-  const normalizedId = id === "coracao-humano" ? "coracao-humano-superficial" : id;
+  let normalizedId = id === "coracao-humano" ? "coracao-humano-superficial" : id;
+  normalizedId = normalizeModelIdentifier(normalizedId);
+  
   const models = await listModelsForUser(user, options);
-  return models.find(model => model.id === normalizedId || model.slug === normalizedId) || findLocalModel(normalizedId);
+  
+  return (
+    models.find(model => 
+      normalizeModelIdentifier(model.id) === normalizedId || 
+      normalizeModelIdentifier(model.slug) === normalizedId ||
+      model.id === id || 
+      model.slug === id
+    ) || 
+    findLocalModel(normalizedId) || 
+    findLocalModel(id)
+  );
 }
 
 export function getModelFilterOptions(models = []) {

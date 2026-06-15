@@ -235,19 +235,19 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
   const quiz = useMemo(() => getTheoreticalQuizForModel(model), [model]);
   const [state, setState] = useState(null);
   const [activeSectionId, setActiveSectionId] = useState("multiple");
-  const [timeRemaining, setTimeRemaining] = useState(quiz.timeLimitSeconds);
+  const [timeRemaining, setTimeRemaining] = useState(quiz?.timeLimitSeconds || 3600);
   const [examMode, setExamMode] = useState(false);
   const backdropRef = useRef(null);
 
-  const sections = quiz.sections;
-  const activeSection = sections.find(section => section.id === activeSectionId) || sections[0];
+  const sections = Array.isArray(quiz?.sections) ? quiz.sections : [];
+  const activeSection = sections.find(section => section.id === activeSectionId) || sections[0] || null;
   const answers = state?.answers || {};
   const revealed = state?.revealed || {};
   const completion = useMemo(() => getTotalCompletion(sections, answers, revealed), [answers, revealed, sections]);
   const completionPercentage = completion.total ? Math.round((completion.completed / completion.total) * 100) : 0;
   const result = state?.result;
   const isLocked = Boolean(result);
-  const modelTitle = quiz?.modelTitle || model?.title || "Corazón Humano - Modelo Superficial 3D";
+  const modelTitle = quiz?.modelTitle || model?.title || "Modelo Anatômico";
   const modalReady = Boolean(state);
 
   useEffect(() => {
@@ -317,7 +317,29 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
     backdropRef.current?.scrollTo({ top: 0, behavior: "auto" });
   }, [activeSectionId, modalReady, open]);
 
-  if (!open || !state) return null;
+  if (!open) return null;
+
+  if (!state || !sections.length || !activeSection) {
+    return (
+      <div className="theory-quiz-backdrop" role="dialog" aria-modal="true">
+        <section className="theory-quiz-shell">
+          <div className="theory-quiz-commandbar">
+            <div><p>Simulado Indisponível</p></div>
+            <button type="button" className="viewer-icon-button" onClick={onClose}>
+              <LineIcon name="close" />
+            </button>
+          </div>
+          <main className="theory-quiz-content grid place-items-center min-h-[400px]">
+            <div className="text-center">
+              <h2 className="text-2xl font-serif text-clinicalWhite mb-2">Simulado Teórico em Construção</h2>
+              <p className="text-textMuted">O questionário para este modelo ainda não está disponível.</p>
+              <button className="viewer-primary-button mt-6" onClick={onClose}>Voltar ao modelo</button>
+            </div>
+          </main>
+        </section>
+      </div>
+    );
+  }
 
   function updateAnswer(questionId, patch) {
     if (isLocked) return;

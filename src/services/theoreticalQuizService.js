@@ -926,7 +926,7 @@ const femaleTrueFalseQuestions = [
   id,
   topic,
   statement,
-  answer,
+  correctAnswer: answer,
   explanation: answer
     ? "La afirmación es verdadera según la disposición topográfica clásica de la pelvis femenina."
     : "La afirmación es falsa porque invierte o desplaza una relación anatómica fundamental del corte sagital femenino."
@@ -978,7 +978,15 @@ const femaleMatchingExercises = [
     correct: [0, 1, 2, 3, 4],
     explanation: "La anatomía topográfica fundamenta la exploración, imagen y razonamiento gineco-obstétrico."
   }
-];
+].map(exercise => ({
+  ...exercise,
+  options: exercise.right.map((answer, index) => ({ id: `${exercise.id}-opt-${index}`, text: answer })),
+  pairs: exercise.left.map((prompt, index) => ({
+    id: `${exercise.id}-pair-${index}`,
+    prompt,
+    correctOptionId: `${exercise.id}-opt-${index}`
+  }))
+}));
 
 const femaleShortQuestions = [
   ["female-short-01", "Anatomía topográfica", "Explique la importancia del corte sagital para estudiar la pelvis femenina.", "El corte sagital permite visualizar simultáneamente útero, vagina, vejiga, uretra, recto, conducto anal, pubis, sacro y periné, integrando relaciones espaciales difíciles de comprender en vistas planas aisladas."],
@@ -1047,24 +1055,23 @@ function isFemaleReproductiveModel(model = {}) {
     ...(Array.isArray(model?.structures) ? model.structures : [])
   ].filter(Boolean).join(" "));
 
+  if (model?.theoreticalQuizKey === "female-reproductive-sagittal") return true;
   if (searchable.includes("female reproductive sagittal")) return true;
-  if (searchable.includes("corte sagital sistema reprodutor feminino")) return true;
-  if (searchable.includes("corte sagital sistema reproductor femenino")) return true;
+  if (searchable.includes("corte sagital sistema reprodutor")) return true;
+  if (searchable.includes("corte sagital sistema reproductor")) return true;
 
   const hasFemaleReproductiveTerms = [
-    "sistema reprodutor feminino",
-    "sistema reproductor femenino",
+    "reprodutor feminino",
+    "reproductor femenino",
+    "reprodutor femenino", // Handle hybrid typo
+    "reproductor feminino", // Handle hybrid typo
     "pelve feminina",
     "pelvis femenina",
     "utero",
     "uterino",
-    "uterina",
     "vagina",
     "cervix",
     "ginecologia",
-    "ginecologica",
-    "reprodutor",
-    "reproductor",
     "feminino",
     "femenino"
   ].some(term => searchable.includes(term));

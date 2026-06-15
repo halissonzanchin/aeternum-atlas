@@ -41,7 +41,7 @@ export default function AnatomicalQuizModal({
   const hasQuestions = questions.length > 0;
   const timeLimit = quiz?.timeLimitSeconds || 300;
   const timeProgress = Math.max(0, Math.min(100, (timeRemaining / timeLimit) * 100));
-  const timerAngle = Math.round((timeProgress / 100) * 360);
+  const timerAngle = Math.round((1 - (timeRemaining / timeLimit)) * 360);
   const timerClass = timeRemaining <= 60 && !result ? "is-urgent" : "";
   const timerParts = getTimerParts(timeRemaining);
   const answeredCount = questions.filter(question => String(answers[question.id] || "").trim()).length;
