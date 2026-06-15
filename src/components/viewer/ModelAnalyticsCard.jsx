@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getModelAnalytics } from "../../services/analyticsService";
+import { getModelAnalytics } from "../../services/analytics/analyticsService";
 
 export default function ModelAnalyticsCard({ modelId }) {
   const [analytics, setAnalytics] = useState(() => getModelAnalytics(modelId));

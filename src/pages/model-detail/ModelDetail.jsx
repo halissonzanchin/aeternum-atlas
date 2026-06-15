@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import { getModelByIdForUser } from "../../services/modelService";
-import { completeModel, favoriteModel, trackEvent } from "../../services/analyticsService";
+import { completeModel, favoriteModel, trackEvent } from "../../services/analytics/analyticsService";
 import { isFavoriteModel, isModelStudied } from "../../services/progressService";
 import { useLanguage } from "../../context/LanguageContext";
 import { translateModelSummary } from "../../utils/modelI18n";

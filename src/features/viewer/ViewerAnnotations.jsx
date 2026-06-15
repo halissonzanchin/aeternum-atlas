@@ -1,6 +1,6 @@
 import { useViewer } from './ViewerContext';
 import { saveModelNote, exportModelNotePdf, getModelNote } from '../../services/modelNotesService';
-import { trackEvent } from '../../services/analyticsService';
+import { trackEvent } from '../../services/analytics/analyticsService';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import LineIcon from '../../components/icons/LineIcon';

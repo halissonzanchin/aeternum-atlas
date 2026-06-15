@@ -1,6 +1,6 @@
 import { useViewer } from './ViewerContext';
 import ModelViewer from '../../components/ModelViewer/ModelViewer';
-import { trackEvent } from '../../services/analyticsService';
+import { trackEvent } from '../../services/analytics/analyticsService';
 
 export default function ViewerSketchfab() {
   const {

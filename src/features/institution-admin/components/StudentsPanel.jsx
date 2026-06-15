@@ -3,7 +3,7 @@ import Card from "../../../components/Card/Card";
 import Button from "../../../components/Button/Button";
 import { useLanguage } from "../../../../context/LanguageContext";
 import { institutionProfile } from "../../../../data/mockInstitutionalAnalytics";
-import { trackEvent } from "../../../../services/analyticsService";
+import { trackEvent } from "../../../../services/analytics/analyticsService";
 import { downloadCsv } from "../utils/exportCsv";
 import { useStudentFilters } from "../hooks/useStudentFilters";
 import AdminTitle from "./AdminTitle";

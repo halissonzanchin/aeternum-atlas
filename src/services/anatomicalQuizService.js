@@ -1,5 +1,5 @@
 import { supabase } from "../lib/supabase";
-import { readStorage, storageKeys, writeStorage } from "./storage";
+import { readStorage, storageKeys, writeStorage } from "./storage/storageService";
 import { isSupabaseConfigured } from "./supabase/supabaseClient";
 
 const DEFAULT_TIME_LIMIT_SECONDS = 300;

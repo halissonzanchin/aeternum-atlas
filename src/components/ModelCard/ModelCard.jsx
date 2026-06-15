@@ -5,7 +5,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import { formatNumber } from "../../utils/formatLocale";
 import { translateModelSummary } from "../../utils/modelI18n";
 import { isFavoriteModel, isModelStudied, toggleFavoriteModel } from "../../services/progressService";
-import { trackEvent } from "../../services/analyticsService";
+import { trackEvent } from "../../services/analytics/analyticsService";
 
 function studyTime(model) {
   if (model.estimatedStudyTime) return model.estimatedStudyTime;

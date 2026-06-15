@@ -15,7 +15,7 @@ import LineIcon from "../../components/icons/LineIcon";
 import LanguageSelector from "../../components/LanguageSelector";
 import Card from "../../components/Card/Card";
 import { useLanguage } from "../../context/LanguageContext";
-import { trackEvent } from "../../services/analyticsService";
+import { trackEvent } from "../../services/analytics/analyticsService";
 
 function TopViewerBar({ model, structure, navigate, onToggleLeft }) {
   const { t } = useLanguage();

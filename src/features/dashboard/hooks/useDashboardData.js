@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { calculateStudentProgress, getAccessLogs } from "../../../services/progressService";
 import { listModelsForUser } from "../../../services/modelService";
-import { trackEvent } from "../../../services/analyticsService";
+import { trackEvent } from "../../../services/analytics/analyticsService";
 
 function modelPath(model) {
   return `/viewer/${model.slug || model.id}`;

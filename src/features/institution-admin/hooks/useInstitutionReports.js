@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { institutionProfile } from "../../../data/mockInstitutionalAnalytics";
-import { trackEvent } from "../../../services/analyticsService";
+import { trackEvent } from "../../../services/analytics/analyticsService";
 import { downloadCsv } from "../utils/exportCsv";
 import { useLanguage } from "../../../context/LanguageContext";
 

@@ -1,4 +1,4 @@
-import { readStorage, writeStorage } from "./storage";
+import { readStorage, writeStorage } from "./storage/storageService";
 
 const STORAGE_KEY = "aeternum_theoretical_quiz_progress";
 export const THEORETICAL_QUIZ_TIME_LIMIT_SECONDS = 90 * 60;

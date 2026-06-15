@@ -1,4 +1,4 @@
-import { readStorage, storageKeys, writeStorage } from "./storage";
+import { readStorage, storageKeys, writeStorage } from "./storage/storageService";
 
 const ANONYMOUS_USER_ID = "anonymous";
 

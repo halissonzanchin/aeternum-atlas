@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import ModelCard from "../../components/ModelCard/ModelCard";
 import Card from "../../components/Card/Card";
 import { getModelFilterOptions, listModelsForUser } from "../../services/modelService";
-import { trackEvent } from "../../services/analyticsService";
+import { trackEvent } from "../../services/analytics/analyticsService";
 import { useLanguage } from "../../context/LanguageContext";
 import { translatedSearchText, translateTaxonomy } from "../../utils/modelI18n";
 

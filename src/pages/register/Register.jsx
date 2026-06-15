@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import LanguageSelector from "../../components/LanguageSelector";
-import { registerUser } from "../../services/authService";
+import { registerUser } from "../../services/auth/authService";
 import { listActivePublicRegistrationInstitutions } from "../../services/institutions/institutionService";
 import { validateRegister } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";

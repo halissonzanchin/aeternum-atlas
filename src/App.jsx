@@ -4,7 +4,7 @@ import AppLayout from "./components/Layout/AppLayout";
 import Modal from "./components/Modal/Modal";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Card from "./components/Card/Card";
-import { getCurrentUser, logoutUser, restoreAuthSession } from "./services/authService";
+import { getCurrentUser, logoutUser, restoreAuthSession } from "./services/auth/authService";
 import { isAdminPath, isPrivatePath } from "./utils/accessControl";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";

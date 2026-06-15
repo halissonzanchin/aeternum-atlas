@@ -3,7 +3,7 @@ import AeternumLogo from "../../components/AeternumLogo";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import LanguageSelector from "../../components/LanguageSelector";
-import { getRedirectPathForUser, loginUser } from "../../services/authService";
+import { getRedirectPathForUser, loginUser } from "../../services/auth/authService";
 import { validateLogin } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
 

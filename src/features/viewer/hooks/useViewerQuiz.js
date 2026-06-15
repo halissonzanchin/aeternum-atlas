@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { trackEvent } from '../../../services/analyticsService';
+import { trackEvent } from '../../../services/analytics/analyticsService';
 import { getAnatomicalQuizForModel, gradeAnatomicalQuiz, recordAnatomicalQuizAttempt } from '../../../services/anatomicalQuizService';
 import { listModelAnnotations } from '../../../services/modelAnnotationService';
 import { useLanguage } from '../../../context/LanguageContext';

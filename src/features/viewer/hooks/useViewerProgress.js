@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { favoriteModel, completeModel, trackEvent } from '../../../services/analyticsService';
+import { favoriteModel, completeModel, trackEvent } from '../../../services/analytics/analyticsService';
 import { isFavoriteModel, isModelStudied, trackModelAccess, unmarkModelAsStudied } from '../../../services/progressService';
 import { useLanguage } from '../../../context/LanguageContext';
 

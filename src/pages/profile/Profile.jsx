@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
-import { updateCurrentUserPassword, updateCurrentUserProfile } from "../../services/authService";
+import { updateCurrentUserPassword, updateCurrentUserProfile } from "../../services/auth/authService";
 import { sanitizeText } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
 

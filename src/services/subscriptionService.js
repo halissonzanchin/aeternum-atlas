@@ -1,6 +1,6 @@
 import { mockPlans } from "../data/mockPlans";
 import { getUserInstitutionId, isActiveUser, normalizeRole, ROLES } from "./permissions/permissionService";
-import { updateUser } from "./authService";
+import { updateUser } from "./auth/authService";
 
 export function getPlans() {
   return mockPlans;

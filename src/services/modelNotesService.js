@@ -1,4 +1,4 @@
-import { readStorage, storageKeys, writeStorage } from "./storage";
+import { readStorage, storageKeys, writeStorage } from "./storage/storageService";
 
 const PDF_PAGE_WIDTH = 595;
 const PDF_PAGE_HEIGHT = 842;

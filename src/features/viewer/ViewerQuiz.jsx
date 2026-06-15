@@ -1,7 +1,7 @@
 import { useViewer } from './ViewerContext';
 import AnatomicalQuizModal from '../../components/AnatomicalQuiz/AnatomicalQuizModal';
 import TheoreticalQuizModal from '../../components/TheoreticalQuiz/TheoreticalQuizModal';
-import { trackEvent } from '../../services/analyticsService';
+import { trackEvent } from '../../services/analytics/analyticsService';
 
 export default function ViewerQuiz() {
   const {

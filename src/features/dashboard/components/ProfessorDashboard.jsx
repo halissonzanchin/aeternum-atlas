@@ -3,7 +3,7 @@ import AeternumLogo from "../../../components/AeternumLogo";
 import LineIcon from "../../../components/icons/LineIcon";
 import Card from "../../../components/Card/Card";
 import { useLanguage } from "../../../context/LanguageContext";
-import { trackEvent } from "../../../services/analyticsService";
+import { trackEvent } from "../../../services/analytics/analyticsService";
 import { getProgressBySystem } from "../../../services/progressService";
 import { translateModelSummary } from "../../../utils/modelI18n";
 import { institutionProfile } from "../../../data/mockInstitutionalAnalytics";
