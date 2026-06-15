@@ -1,4 +1,5 @@
 import { readStorage, storageKeys, writeStorage } from "./storage/storageService";
+import { getSupabaseClient, isSupabaseConfigured } from "./supabase/supabaseClient";
 
 const ANONYMOUS_USER_ID = "anonymous";
 
@@ -158,10 +159,37 @@ export function trackModelAccess(user, modelId, metadata = {}) {
   return log;
 }
 
+
 export function getAccessLogs(user) {
   const logs = readStorage(storageKeys.accessLogs, []);
   if (!user?.id) return [];
   return logs.filter(item => item.userId === user.id);
+}
+
+export async function fetchAccessLogs(user) {
+  if (!user?.id || !isSupabaseConfigured()) {
+    return getAccessLogs(user);
+  }
+  
+  const client = getSupabaseClient();
+  const { data, error } = await client
+    .from("model_access_logs")
+    .select("model_id, started_at, duration_minutes, action")
+    .eq("user_id", user.id)
+    .order("started_at", { ascending: false });
+
+  if (error || !data) {
+    console.warn("Fallback to local access logs", error);
+    return getAccessLogs(user);
+  }
+
+  // map to local format
+  return data.map(log => ({
+    modelId: log.model_id,
+    createdAt: log.started_at,
+    action: log.action || "open_model",
+    durationSeconds: log.duration_minutes ? log.duration_minutes * 60 : null
+  }));
 }
 
 export function getLastAccessLabel(user) {

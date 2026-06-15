@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { calculateStudentProgress, getAccessLogs } from "../../../services/progressService";
+import { calculateStudentProgress, fetchAccessLogs } from "../../../services/progressService";
 import { listModelsForUser } from "../../../services/modelService";
 import { trackEvent } from "../../../services/analytics/analyticsService";
 
@@ -10,14 +10,23 @@ function modelPath(model) {
 export function useDashboardData(user) {
   const [models, setModels] = useState([]);
   const [modelsLoading, setModelsLoading] = useState(true);
-  const stats = useMemo(() => calculateStudentProgress(user, models), [user, models]);
+  const [logs, setLogs] = useState([]);
+
+  // Stats can eventually be migrated to Supabase completely, for now we mix.
+  const stats = useMemo(() => {
+    const localStats = calculateStudentProgress(user, models);
+    return {
+      ...localStats,
+      totalAccesses: logs.length
+    };
+  }, [user, models, logs]);
   
   const recentModels = useMemo(() => {
     const modelsById = new Map(models.map(model => [model.id, model]));
     const fromLogs = [];
     const seen = new Set();
 
-    getAccessLogs(user).forEach(log => {
+    logs.forEach(log => {
       if (!log?.modelId || seen.has(log.modelId)) return;
       const model = modelsById.get(log.modelId);
       if (!model) return;
@@ -26,7 +35,7 @@ export function useDashboardData(user) {
     });
 
     return (fromLogs.length ? fromLogs : models).slice(0, 3);
-  }, [models, user]);
+  }, [models, logs]);
   
   const activeModels = useMemo(() => models.filter(model => model.isActive !== false), [models]);
   const studiedStructures = stats.studiedModels * 4;
@@ -43,13 +52,17 @@ export function useDashboardData(user) {
     let mounted = true;
     setModelsLoading(true);
 
-    listModelsForUser(user)
-      .then(items => {
-        if (mounted) setModels(items);
-      })
-      .finally(() => {
-        if (mounted) setModelsLoading(false);
-      });
+    Promise.all([
+      listModelsForUser(user),
+      fetchAccessLogs(user)
+    ]).then(([items, fetchedLogs]) => {
+      if (mounted) {
+        setModels(items);
+        setLogs(fetchedLogs || []);
+      }
+    }).finally(() => {
+      if (mounted) setModelsLoading(false);
+    });
 
     return () => {
       mounted = false;

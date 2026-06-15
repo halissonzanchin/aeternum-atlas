@@ -1,20 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { agendaEvents } from "../data/mockStudyAgenda";
-
-const STORAGE_KEY = "aeternum_study_agenda";
-
-function readAgendaStorage() {
-  try {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : agendaEvents;
-  } catch {
-    return agendaEvents;
-  }
-}
-
-function id() {
-  return `evt-${crypto.randomUUID?.() || Date.now()}`;
-}
+import { getCurrentUser } from "../services/auth/authService";
+import { fetchAgendaEvents, createAgendaEvent, updateAgendaEvent, deleteAgendaEvent } from "../services/studyAgendaService";
 
 export function formatAgendaDate(date) {
   const parsed = date instanceof Date ? date : new Date(`${date}T12:00:00`);
@@ -67,36 +53,54 @@ function repeatedDates(startDate, repeat) {
 }
 
 function sortEvents(events) {
-  return [...events].sort((a, b) => `${a.date} ${a.startTime}`.localeCompare(`${b.date} ${b.startTime}`));
+  return [...events].sort((a, b) => `${a.date} ${a.startTime || '00:00'}`.localeCompare(`${b.date} ${b.startTime || '00:00'}`));
 }
 
 export function useStudyAgenda() {
-  const [events, setEvents] = useState(() => sortEvents(readAgendaStorage()));
+  const user = getCurrentUser();
+  const [events, setEvents] = useState([]);
   const [selectedDate, setSelectedDate] = useState(() => parseAgendaDate(new Date()));
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
-  }, [events]);
+    let mounted = true;
+    setLoading(true);
+    fetchAgendaEvents(user).then(data => {
+      if (mounted) {
+        setEvents(sortEvents(data));
+        setLoading(false);
+      }
+    });
+    return () => { mounted = false; };
+  }, [user]);
 
-  function addEvent(event) {
+  async function addEvent(event) {
     const dates = repeatedDates(event.date, event.repeat);
-    const repeatGroupId = event.repeat && event.repeat !== "none" ? event.repeatGroupId || id() : null;
-    const nextEvents = dates.map((date, index) => ({
-      ...event,
-      id: index === 0 ? id() : id(),
-      date,
-      repeatGroupId,
-      createdAt: new Date().toISOString()
-    }));
-    setEvents(previous => sortEvents([...previous, ...nextEvents]));
+    const addedEvents = [];
+    
+    // Simplification for migration: Only creating first occurrence via supabase to avoid spam.
+    // If repeat exists, others fallback to local logic or loop creation.
+    for (const d of dates) {
+       const payload = { ...event, date: d };
+       const created = await createAgendaEvent(user, payload);
+       if (created) addedEvents.push(created);
+    }
+    
+    setEvents(previous => sortEvents([...previous, ...addedEvents]));
   }
 
-  function updateEvent(eventId, payload) {
-    setEvents(previous => sortEvents(previous.map(event => event.id === eventId ? { ...event, ...payload, updatedAt: new Date().toISOString() } : event)));
+  async function updateEvent(eventId, payload) {
+    const success = await updateAgendaEvent(user, eventId, payload);
+    if (success) {
+      setEvents(previous => sortEvents(previous.map(event => event.id === eventId ? { ...event, ...payload, updatedAt: new Date().toISOString() } : event)));
+    }
   }
 
-  function deleteEvent(eventId) {
-    setEvents(previous => previous.filter(event => event.id !== eventId));
+  async function deleteEventItem(eventId) {
+    const success = await deleteAgendaEvent(user, eventId);
+    if (success) {
+      setEvents(previous => previous.filter(event => event.id !== eventId));
+    }
   }
 
   function completeEvent(eventId) {
@@ -149,10 +153,11 @@ export function useStudyAgenda() {
     setSelectedDate,
     addEvent,
     updateEvent,
-    deleteEvent,
+    deleteEvent: deleteEventItem,
     completeEvent,
     getEventsByDate,
     getWeeklySummary,
-    getUpcomingReviews
+    getUpcomingReviews,
+    loading
   };
 }
