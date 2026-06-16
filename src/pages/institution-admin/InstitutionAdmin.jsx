@@ -10,6 +10,7 @@ import StudentsPanel from "../../features/institution-admin/components/StudentsP
 import AnalyticsPanel from "../../features/institution-admin/components/AnalyticsPanel";
 import ReportsPanel from "../../features/institution-admin/components/ReportsPanel";
 import LicenseSummaryPanel from "../../features/institution-admin/components/LicenseSummaryPanel";
+import ClassesPanel from "../../features/institution-admin/components/ClassesPanel";
 
 function money(value, language) {
   return formatCurrency(value, language, "BRL", { maximumFractionDigits: 0 });
@@ -20,6 +21,7 @@ export default function InstitutionAdmin({ section = "overview", navigate, notif
   const current = section === "dashboard" ? "overview" : section;
 
   if (current === "students") return <StudentsPanel notify={notify} />;
+  if (current === "classes") return <ClassesPanel />;
   if (current === "analytics" || current === "models") return <AnalyticsPanel />;
   if (current === "reports") return <ReportsPanel notify={notify} />;
   if (current === "license") return <LicenseSummaryPanel navigate={navigate} />;
