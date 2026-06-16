@@ -4,6 +4,8 @@ import LineIcon from "../../../components/icons/LineIcon";
 import { useTeacherDashboardAnalytics } from "../hooks/useTeacherDashboardAnalytics";
 import { useLanguage } from "../../../context/LanguageContext";
 
+import { downloadCsv } from "../../../services/export/csvExportService";
+
 function Kpi({ label, value, tone = "default" }) {
   const toneClasses = {
     teal: "text-techTeal",
@@ -47,11 +49,39 @@ export default function TeacherPedagogicalDashboard({ user }) {
 
   const formatMin = (sec) => sec ? `${Math.floor(sec / 60)} min` : "0 min";
 
+  const handleExport = () => {
+    if (!data.allStudents || data.allStudents.length === 0) {
+      alert("Nenhum dado disponível para exportação.");
+      return;
+    }
+
+    const rows = data.allStudents.map(student => ({
+      "Nome": student.name,
+      "Email": student.email,
+      "Turma": student.className,
+      "Média Geral": student.averageScore,
+      "Simulados Realizados": student.attempts,
+      "Tempo de Estudo": formatMin(student.totalDuration),
+      "Status Pedagógico": student.averageScore < Math.min(50, data.classAverage - 15) ? "Em Risco" : "Normal"
+    }));
+
+    const date = new Date().toISOString().split('T')[0];
+    downloadCsv(`aeternum-gradebook-${date}.csv`, rows);
+  };
+
   return (
     <div className="mt-8 flex flex-col gap-6">
-      <div>
-        <p className="viewer-eyebrow">Raio-X Acadêmico</p>
-        <h2 className="text-xl font-bold text-clinicalWhite">Desempenho da Turma</h2>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="viewer-eyebrow">Raio-X Acadêmico</p>
+          <h2 className="text-xl font-bold text-clinicalWhite">Desempenho da Turma</h2>
+        </div>
+        <button
+          onClick={handleExport}
+          className="flex items-center gap-2 rounded-lg bg-techTeal/10 px-4 py-2 text-sm font-medium text-techTeal hover:bg-techTeal/20 transition-colors"
+        >
+          <LineIcon name="download" className="h-4 w-4" /> Exportar CSV
+        </button>
       </div>
 
       <div className="kpi-grid">

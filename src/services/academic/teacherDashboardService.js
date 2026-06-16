@@ -32,7 +32,17 @@ export async function fetchTeacherDashboardAnalytics(institutionId, teacherId) {
     // 2. Buscar as tentativas anatômicas da instituição e filtrar por turma (se aplicável)
     let query = supabase
       .from("anatomical_quiz_attempts")
-      .select("id, user_id, class_id, model_id, score, percentage, duration_seconds")
+      .select(`
+        id, 
+        user_id, 
+        class_id, 
+        model_id, 
+        score, 
+        percentage, 
+        duration_seconds,
+        users ( id, name, email ),
+        academic_classes ( id, name )
+      `)
       .eq("institution_id", institutionId)
       .eq("status", "completed");
 
@@ -66,9 +76,20 @@ export async function fetchTeacherDashboardAnalytics(institutionId, teacherId) {
       totalDuration += (a.duration_seconds || 0);
 
       const uid = a.user_id || "unknown";
-      if (!studentStats[uid]) studentStats[uid] = { userId: uid, attempts: 0, totalScore: 0 };
+      if (!studentStats[uid]) {
+        studentStats[uid] = { 
+          userId: uid, 
+          name: a.users?.name || "Desconhecido",
+          email: a.users?.email || "sem-email",
+          className: a.academic_classes?.name || "Sem Turma",
+          attempts: 0, 
+          totalScore: 0, 
+          totalDuration: 0 
+        };
+      }
       studentStats[uid].attempts += 1;
       studentStats[uid].totalScore += (a.percentage || 0);
+      studentStats[uid].totalDuration += (a.duration_seconds || 0);
 
       const mid = a.model_id || "unknown";
       if (!modelStats[mid]) modelStats[mid] = { modelId: mid, attempts: 0, totalScore: 0 };
@@ -107,6 +128,7 @@ export async function fetchTeacherDashboardAnalytics(institutionId, teacherId) {
       studentRanking,
       topModels,
       bottomModels,
+      allStudents: rankedStudents,
       error: null
     };
   } catch (error) {
@@ -119,6 +141,7 @@ export async function fetchTeacherDashboardAnalytics(institutionId, teacherId) {
       studentRanking: [],
       topModels: [],
       bottomModels: [],
+      allStudents: [],
       error: error.message
     };
   }

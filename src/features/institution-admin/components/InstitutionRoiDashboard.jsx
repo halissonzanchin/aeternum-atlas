@@ -7,6 +7,8 @@ import { useLanguage } from "../../../context/LanguageContext";
 import AdminTitle from "./AdminTitle";
 import Kpi from "./Kpi";
 
+import { downloadCsv } from "../../../services/export/csvExportService";
+
 export default function InstitutionRoiDashboard() {
   const { data, loading } = useInstitutionRoi();
   const { language } = useLanguage();
@@ -43,9 +45,35 @@ export default function InstitutionRoiDashboard() {
     return `${hours.replace(".", ",")}h`;
   };
 
+  const handleExport = () => {
+    if (!data) {
+      alert("Nenhum dado disponível para exportação.");
+      return;
+    }
+
+    const rows = [{
+      "Horas de Estudo": formatHours(data.totalStudySeconds),
+      "Simulados Realizados": data.totalQuizzes,
+      "Alunos Ativos": data.activeStudents,
+      "Visualizações": data.totalViews,
+      "Engajamento": data.engagementLevel
+    }];
+
+    const date = new Date().toISOString().split('T')[0];
+    downloadCsv(`aeternum-roi-${date}.csv`, rows);
+  };
+
   return (
     <>
-      <AdminTitle title="ROI Institucional" text="Impacto acadêmico e economia de laboratório." />
+      <div className="flex items-start justify-between">
+        <AdminTitle title="ROI Institucional" text="Impacto acadêmico e economia de laboratório." />
+        <button
+          onClick={handleExport}
+          className="flex items-center gap-2 rounded-lg bg-techTeal/10 px-4 py-2 text-sm font-medium text-techTeal hover:bg-techTeal/20 transition-colors mt-2"
+        >
+          <LineIcon name="download" className="h-4 w-4" /> Exportar CSV
+        </button>
+      </div>
 
       {data.error && (
          <div className="mb-6 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-400">
