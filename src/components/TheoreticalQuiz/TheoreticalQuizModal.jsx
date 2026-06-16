@@ -8,6 +8,7 @@ import {
   gradeTheoreticalQuiz,
   isFillCorrect,
   loadTheoreticalQuizProgress,
+  recordTheoreticalQuizAttempt,
   saveTheoreticalQuizProgress,
   sectionCompletion
 } from "../../services/theoreticalQuizService";
@@ -279,7 +280,8 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
     };
 
     setState(nextState);
-    saveTheoreticalQuizProgress(model, user, nextState);
+    recordTheoreticalQuizAttempt({ quiz, model, user, state: nextState, result: nextResult })
+      .catch(err => console.warn("[TheoreticalQuizModal] Falha ao registrar simulado:", err));
     onCompleted?.(nextResult);
   }
 
@@ -302,7 +304,8 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
           result: nextResult
         };
         setState(nextState);
-        saveTheoreticalQuizProgress(model, user, nextState);
+        recordTheoreticalQuizAttempt({ quiz, model, user, state: nextState, result: nextResult })
+          .catch(err => console.warn("[TheoreticalQuizModal] Falha ao registrar simulado:", err));
         onCompleted?.(nextResult);
       }
     }

@@ -1,4 +1,6 @@
 import { readStorage, writeStorage } from "./storage/storageService";
+import { supabase } from "../lib/supabase";
+import { isSupabaseConfigured } from "./supabase/supabaseClient";
 
 const STORAGE_KEY = "aeternum_theoretical_quiz_progress";
 export const THEORETICAL_QUIZ_TIME_LIMIT_SECONDS = 90 * 60;
@@ -1357,4 +1359,140 @@ export function sectionCompletion(section, answers = {}, revealed = {}) {
     return false;
   }).length;
   return { completed, total: section.questions.length };
+}
+
+function userIdOf(user) {
+  return user?.id || user?.email || "anonymous";
+}
+
+function institutionIdOf(user, model) {
+  return user?.institutionId || user?.institution_id || model?.institutionId || model?.institution_id || null;
+}
+
+export async function recordTheoreticalQuizAttempt({ quiz, model, user, state, result }) {
+  // Always save local progress fallback
+  saveTheoreticalQuizProgress(model, user, { ...state, result });
+
+  if (!isSupabaseConfigured() || quiz?.source !== "supabase") {
+    return { data: result, error: null, persisted: "local" };
+  }
+
+  const institutionId = institutionIdOf(user, model);
+  const userId = userIdOf(user);
+  const classId = user?.classId || user?.class_id || null;
+
+  if (!quiz?.id || !model?.id || !institutionId || !userId || userId === "anonymous") {
+    return { data: result, error: null, persisted: "local" };
+  }
+
+  const { data: attempt, error: attemptError } = await supabase
+    .from("theoretical_quiz_attempts")
+    .insert({
+      quiz_id: quiz.id,
+      model_id: model.id,
+      user_id: userId,
+      institution_id: institutionId,
+      class_id: classId,
+      started_at: state.startedAt || new Date().toISOString(),
+      finished_at: result.finishedAt,
+      score: result.score,
+      total_questions: result.objectiveTotal,
+      percentage: result.percentage,
+      duration_seconds: result.durationSeconds,
+      status: "completed"
+    })
+    .select("id")
+    .single();
+
+  if (attemptError || !attempt?.id) {
+    console.warn("[theoretical_quiz_attempts] Registro remoto indisponível. Tentativa mantida localmente.", attemptError);
+    return { data: result, error: attemptError, persisted: "local" };
+  }
+
+  // Build answers payload
+  const answersPayload = [];
+  const answers = state?.answers || {};
+
+  quiz.sections.forEach(section => {
+    if (section.id === "multiple") {
+      section.questions.forEach(question => {
+        answersPayload.push({
+          attempt_id: attempt.id,
+          question_id: question.id,
+          student_answer: { selectedIndex: answers[question.id]?.selectedIndex },
+          is_correct: answers[question.id]?.selectedIndex === question.correctIndex
+        });
+      });
+    }
+
+    if (section.id === "truefalse") {
+      section.questions.forEach(question => {
+        answersPayload.push({
+          attempt_id: attempt.id,
+          question_id: question.id,
+          student_answer: { value: answers[question.id]?.value },
+          is_correct: answers[question.id]?.value === question.correctAnswer
+        });
+      });
+    }
+
+    if (section.id === "matching") {
+      section.questions.forEach(exercise => {
+        exercise.pairs.forEach(pair => {
+          const isCorrect = answers[exercise.id]?.pairs?.[pair.id] === pair.correctOptionId;
+          answersPayload.push({
+            attempt_id: attempt.id,
+            question_id: exercise.id, // Grouping matching under the exercise ID
+            student_answer: { pairId: pair.id, optionId: answers[exercise.id]?.pairs?.[pair.id] },
+            is_correct: isCorrect
+          });
+        });
+      });
+    }
+
+    if (section.id === "fill") {
+      section.questions.forEach(question => {
+        answersPayload.push({
+          attempt_id: attempt.id,
+          question_id: question.id,
+          student_answer: { value: answers[question.id]?.value },
+          is_correct: isFillCorrect(question, answers[question.id]?.value)
+        });
+      });
+    }
+
+    if (section.id === "short") {
+      section.questions.forEach(question => {
+        const text = answers[question.id]?.text || "";
+        answersPayload.push({
+          attempt_id: attempt.id,
+          question_id: question.id,
+          student_answer: { text },
+          is_correct: false // Needs manual grading later
+        });
+      });
+    }
+  });
+
+  if (answersPayload.length > 0) {
+    const { error: answersError } = await supabase
+      .from("theoretical_quiz_answers")
+      .insert(answersPayload);
+
+    if (answersError) {
+      console.warn("[theoretical_quiz_answers] Respostas remotas indisponíveis. Correção mantida localmente.", answersError);
+    }
+    
+    return {
+      data: { ...result, remoteAttemptId: attempt.id },
+      error: answersError || null,
+      persisted: answersError ? "local" : "supabase"
+    };
+  }
+
+  return {
+    data: { ...result, remoteAttemptId: attempt.id },
+    error: null,
+    persisted: "supabase"
+  };
 }

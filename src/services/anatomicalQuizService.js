@@ -249,6 +249,7 @@ export async function recordAnatomicalQuizAttempt({ quiz, model, user, result })
       model_id: model.id,
       user_id: userId,
       institution_id: institutionId,
+      class_id: user?.classId || user?.class_id || null,
       started_at: result.startedAt,
       finished_at: result.finishedAt,
       score: result.score,
