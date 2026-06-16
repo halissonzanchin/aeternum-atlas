@@ -10,6 +10,7 @@ import { institutionProfile } from "../../../data/mockInstitutionalAnalytics";
 import { professorCards } from "../data/constants";
 import KpiCard from "./KpiCard";
 import ProgressRow from "./ProgressRow";
+import TeacherPedagogicalDashboard from "./TeacherPedagogicalDashboard";
 
 export default function ProfessorDashboard({ user, navigate, models, modelsLoading }) {
   const { t } = useLanguage();
@@ -117,6 +118,8 @@ export default function ProfessorDashboard({ user, navigate, models, modelsLoadi
           </div>
         </Card>
       </div>
+
+      <TeacherPedagogicalDashboard user={user} />
     </section>
   );
 }
