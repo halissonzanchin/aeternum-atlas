@@ -38,6 +38,15 @@ export const adminNavigationItems = [
     aliases: ["/super-admin/institution-students", "/super-admin/alunos", "/admin/institution-students", "/admin/students", "/institution-admin/students"]
   },
   {
+    id: "import_students",
+    label: "Importar Alunos",
+    labelKey: "institutionAdmin.importStudents",
+    sidebarLabel: "Importar Alunos",
+    sidebarLabelKey: "institutionAdmin.importStudents",
+    path: "/super-admin/import-students",
+    aliases: ["/admin/import-students", "/institution-admin/import-students"]
+  },
+  {
     id: "analytics",
     label: "Analytics globais",
     labelKey: "superAdmin.globalAnalytics",
