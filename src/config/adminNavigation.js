@@ -4,6 +4,7 @@ const adminPathById = {
   students: "/admin/institution-students",
   analytics: "/admin/global-analytics",
   academic_analytics: "/admin/academic-analytics",
+  roi: "/admin/roi",
   billing: "/admin/estimated-billing",
   reports: "/admin/reports",
   settings: "/admin/settings"
@@ -48,6 +49,13 @@ export const adminNavigationItems = [
     labelKey: "institutionAdmin.academicAnalytics",
     path: "/super-admin/academic-analytics",
     aliases: ["/admin/academic-analytics", "/institution-admin/academic-analytics"]
+  },
+  {
+    id: "roi",
+    label: "ROI Institucional",
+    labelKey: "institutionAdmin.roi",
+    path: "/super-admin/roi",
+    aliases: ["/admin/roi", "/institution-admin/roi"]
   },
   {
     id: "billing",
