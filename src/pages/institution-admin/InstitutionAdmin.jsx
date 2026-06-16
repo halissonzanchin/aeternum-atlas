@@ -13,6 +13,7 @@ import LicenseSummaryPanel from "../../features/institution-admin/components/Lic
 import ClassesPanel from "../../features/institution-admin/components/ClassesPanel";
 import AcademicAnalyticsPanel from "../../features/institution-admin/components/AcademicAnalyticsPanel";
 import InstitutionRoiDashboard from "../../features/institution-admin/components/InstitutionRoiDashboard";
+import AnatomicalHeatmapPanel from "../../features/institution-admin/components/AnatomicalHeatmapPanel";
 
 function money(value, language) {
   return formatCurrency(value, language, "BRL", { maximumFractionDigits: 0 });
@@ -27,6 +28,7 @@ export default function InstitutionAdmin({ section = "overview", navigate, notif
   if (current === "analytics" || current === "models") return <AnalyticsPanel />;
   if (current === "academic_analytics") return <AcademicAnalyticsPanel />;
   if (current === "roi") return <InstitutionRoiDashboard />;
+  if (current === "heatmap") return <AnatomicalHeatmapPanel />;
   if (current === "reports") return <ReportsPanel notify={notify} />;
   if (current === "license") return <LicenseSummaryPanel navigate={navigate} />;
 

@@ -5,6 +5,7 @@ const adminPathById = {
   analytics: "/admin/global-analytics",
   academic_analytics: "/admin/academic-analytics",
   roi: "/admin/roi",
+  heatmap: "/admin/heatmap",
   billing: "/admin/estimated-billing",
   reports: "/admin/reports",
   settings: "/admin/settings"
@@ -56,6 +57,13 @@ export const adminNavigationItems = [
     labelKey: "institutionAdmin.roi",
     path: "/super-admin/roi",
     aliases: ["/admin/roi", "/institution-admin/roi"]
+  },
+  {
+    id: "heatmap",
+    label: "Heatmap Anatômico",
+    labelKey: "institutionAdmin.heatmap",
+    path: "/super-admin/heatmap",
+    aliases: ["/admin/heatmap", "/institution-admin/heatmap"]
   },
   {
     id: "billing",
