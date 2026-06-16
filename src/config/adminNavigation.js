@@ -3,6 +3,7 @@ const adminPathById = {
   institution: "/admin/institution",
   students: "/admin/institution-students",
   analytics: "/admin/global-analytics",
+  academic_analytics: "/admin/academic-analytics",
   billing: "/admin/estimated-billing",
   reports: "/admin/reports",
   settings: "/admin/settings"
@@ -40,6 +41,13 @@ export const adminNavigationItems = [
     labelKey: "superAdmin.globalAnalytics",
     path: "/super-admin/analytics",
     aliases: ["/super-admin/global-analytics", "/admin/global-analytics", "/admin/analytics", "/institution-admin/analytics"]
+  },
+  {
+    id: "academic_analytics",
+    label: "Analytics Acadêmico",
+    labelKey: "institutionAdmin.academicAnalytics",
+    path: "/super-admin/academic-analytics",
+    aliases: ["/admin/academic-analytics", "/institution-admin/academic-analytics"]
   },
   {
     id: "billing",
