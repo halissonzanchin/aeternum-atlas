@@ -144,22 +144,22 @@ export default function AcademicImportPanel() {
                  <strong className="block text-2xl text-white">{importResult.processed}</strong>
                </div>
                <div className="rounded-xl bg-premiumDark p-4 ring-1 ring-white/5">
-                 <small className="text-textMuted">Alunos Vinculados (Sucesso)</small>
+                 <small className="text-textMuted">Alunos Vínculados</small>
                  <strong className="block text-2xl text-techTeal">{importResult.linksCreated}</strong>
                </div>
                <div className="rounded-xl bg-premiumDark p-4 ring-1 ring-white/5">
-                 <small className="text-textMuted">Vínculos Já Existentes (Ignorados)</small>
-                 <strong className="block text-2xl text-white">{importResult.linksIgnored}</strong>
+                 <small className="text-textMuted">Convites Disparados</small>
+                 <strong className="block text-2xl text-blue-400">{importResult.usersCreated}</strong>
                </div>
                <div className="rounded-xl bg-red-500/10 p-4 ring-1 ring-red-500/30">
-                 <small className="text-red-400">Falhas / Não Cadastrados</small>
+                 <small className="text-red-400">Falhas / Erros</small>
                  <strong className="block text-2xl text-red-400">{importResult.errors.length}</strong>
                </div>
             </div>
 
             {importResult.errors.length > 0 && (
               <div className="flex items-center justify-between rounded-xl bg-red-500/10 p-4">
-                <span className="text-sm text-red-400">Houve falhas em alguns alunos (não possuem cadastro prévio).</span>
+                <span className="text-sm text-red-400">Houve falhas na importação de algumas linhas.</span>
                 <button
                   onClick={downloadErrors}
                   className="flex items-center gap-2 rounded-lg bg-red-500/20 px-4 py-2 text-sm font-medium text-red-400 hover:bg-red-500/30"

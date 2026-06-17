@@ -227,20 +227,71 @@ export async function executeImport(validRows, institutionId) {
   const existingUsersMap = new Map();
   existingUsers?.forEach(u => existingUsersMap.set(u.email.toLowerCase(), u.id));
 
-  // Remove rows without valid users
-  const rowsToProcess = [];
+  // Remove rows without valid users and collect missing users
+  let rowsToProcess = [];
+  const missingUsers = [];
+
   for (const row of validRows) {
     const userId = existingUsersMap.get(row.email);
     if (!userId) {
-      result.errors.push({
-        email: row.email,
-        name: row.name,
-        reason: "Aluno não cadastrado na plataforma. Necessita envio de convite/registro."
-      });
+      missingUsers.push(row);
     } else {
       row.userId = userId;
       rowsToProcess.push(row);
       result.usersExisting++;
+    }
+  }
+
+  // 1.5 Wire-Up Edge Function: Invitar usuarios inexistentes
+  if (missingUsers.length > 0) {
+    const { inviteUsersInBatches } = await import("./invitationClientService.js");
+    
+    // Tenta convidar
+    const inviteReport = await inviteUsersInBatches(institutionId, missingUsers);
+    
+    result.usersCreated = inviteReport.invited;
+    result.errors = [...result.errors, ...inviteReport.errors];
+
+    // Recarregar os usuarios caso a funcao edge tenha criado eles com sucesso
+    // A funcao Edge insere na public.users, entao podemos buscar os novos IDs
+    if (inviteReport.invited > 0 || inviteReport.already_exists > 0) {
+      const missingEmails = [...new Set(missingUsers.map(r => r.email))];
+      const { data: newUsers } = await supabase
+        .from("users")
+        .select("id, email")
+        .eq("institution_id", institutionId)
+        .in("email", missingEmails);
+        
+      newUsers?.forEach(u => existingUsersMap.set(u.email.toLowerCase(), u.id));
+
+      // Re-processar missingUsers
+      for (const row of missingUsers) {
+        const newlyCreatedId = existingUsersMap.get(row.email);
+        if (!newlyCreatedId) {
+           // Se apos rodar a function o user ainda nao ta no bd, de fato falhou
+           if (!inviteReport.errors.find(e => e.email === row.email)) {
+             result.errors.push({
+               email: row.email,
+               name: row.name,
+               reason: "Falha final: Aluno n\u00E3o cadastrado e Edge Function n\u00E3o conseguiu criar."
+             });
+           }
+        } else {
+          row.userId = newlyCreatedId;
+          rowsToProcess.push(row);
+        }
+      }
+    } else {
+      // Se falhou 100% ou Edge Function ta offline, manter fallback
+      for (const row of missingUsers) {
+        if (!inviteReport.errors.find(e => e.email === row.email)) {
+          result.errors.push({
+            email: row.email,
+            name: row.name,
+            reason: "Edge Function Fallback: Aluno n\u00E3o cadastrado."
+          });
+        }
+      }
     }
   }
 
