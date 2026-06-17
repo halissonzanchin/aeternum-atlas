@@ -228,3 +228,16 @@ FOR SELECT USING (
   auth.jwt()->>'role' = 'institution_admin' AND 
   institution_id = (auth.jwt()->>'institution_id')::uuid
 );
+
+-- ==============================================================================
+-- 10. SEED INICIAL DO PLANO B2B (Mestre)
+-- ==============================================================================
+
+INSERT INTO subscription_plans (name, price_per_seat, tier_code, features, active) 
+VALUES (
+  'Institutional License',
+  65.00,
+  'pro',
+  '{"has_academic_analytics": true, "has_heatmap": true}'::jsonb,
+  true
+);
