@@ -4,7 +4,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import { getAdminNavigationItems, isAdminRouteActive } from "../../config/adminNavigation";
 
 const studentMenu = [
-  ["/dashboard", "navigation.home"],
+  ["/student/home", "navigation.home"],
   ["/models", "navigation.models3d"],
   ["/atlas", "navigation.anatomicalAtlas"],
   ["/videos", "navigation.videos"],
@@ -13,6 +13,28 @@ const studentMenu = [
   ["/favorites", "navigation.favorites"],
   ["/profile", "navigation.profile"],
   ["/settings", "navigation.help"]
+];
+
+const institutionMenu = [
+  ["/institution/dashboard", "navigation.home"],
+  ...getAdminNavigationItems("/admin")
+];
+
+const rectorMenu = [
+  ["/rector/dashboard", "navigation.home"],
+  ["/rector/indicators", "Indicadores Institucionais"],
+  ["/rector/engagement", "Engajamento"],
+  ["/rector/utilization", "Utilização"],
+  ["/rector/roi", "ROI Acadêmico"]
+];
+
+const coordinatorMenu = [
+  ["/coordinator/dashboard", "navigation.home"],
+  ["/coordinator/professors", "Professores"],
+  ["/coordinator/classes", "Turmas"],
+  ["/coordinator/disciplines", "Disciplinas"],
+  ["/coordinator/heatmaps", "Heatmaps"],
+  ["/coordinator/risk", "Alunos em Risco"]
 ];
 
 const professorMenu = [
@@ -29,21 +51,27 @@ const professorMenu = [
   ["/settings", "navigation.help"]
 ];
 
-const institutionMenu = getAdminNavigationItems("/admin");
-const superAdminMenu = getAdminNavigationItems("/super-admin");
+const superAdminMenu = [
+  ["/admin/dashboard", "navigation.home"],
+  ...getAdminNavigationItems("/super-admin")
+];
 
 function menuForRole(role) {
   if (role === "institution_admin") return institutionMenu;
   if (role === "super_admin" || role === "admin") return superAdminMenu;
   if (role === "teacher" || role === "professor") return professorMenu;
+  if (role === "rector" || role === "reitor") return rectorMenu;
+  if (role === "coordinator" || role === "coordenador") return coordinatorMenu;
   return studentMenu;
 }
 
 function homeForRole(role) {
-  if (role === "institution_admin") return "/admin/dashboard";
-  if (role === "super_admin" || role === "admin") return "/super-admin";
-  if (role === "teacher" || role === "professor") return "/teacher/dashboard";
-  return "/dashboard";
+  if (role === "institution_admin") return "/institution/dashboard";
+  if (role === "super_admin" || role === "admin") return "/admin/dashboard";
+  if (role === "teacher" || role === "professor") return "/professor/dashboard";
+  if (role === "rector" || role === "reitor") return "/rector/dashboard";
+  if (role === "coordinator" || role === "coordenador") return "/coordinator/dashboard";
+  return "/student/home";
 }
 
 export default function Sidebar({ path, user, navigate, onLogout }) {

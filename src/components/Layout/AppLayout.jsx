@@ -4,7 +4,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import { getAdminNavigationItems, isAdminRouteActive } from "../../config/adminNavigation";
 
 const studentMenu = [
-  ["/dashboard", "navigation.home"],
+  ["/student/home", "navigation.home"],
   ["/models", "navigation.models"],
   ["/atlas", "navigation.anatomicalAtlas"],
   ["/videos", "navigation.videos"],
@@ -15,7 +15,27 @@ const studentMenu = [
   ["/settings", "navigation.help"]
 ];
 
-const institutionMenu = getAdminNavigationItems("/admin");
+const institutionMenu = [
+  ["/institution/dashboard", "navigation.home"],
+  ...getAdminNavigationItems("/admin")
+];
+
+const rectorMenu = [
+  ["/rector/dashboard", "navigation.home"],
+  ["/rector/indicators", "Indicadores Institucionais"],
+  ["/rector/engagement", "Engajamento"],
+  ["/rector/utilization", "Utilização"],
+  ["/rector/roi", "ROI Acadêmico"]
+];
+
+const coordinatorMenu = [
+  ["/coordinator/dashboard", "navigation.home"],
+  ["/coordinator/professors", "Professores"],
+  ["/coordinator/classes", "Turmas"],
+  ["/coordinator/disciplines", "Disciplinas"],
+  ["/coordinator/heatmaps", "Heatmaps"],
+  ["/coordinator/risk", "Alunos em Risco"]
+];
 
 const professorMenu = [
   ["/teacher/dashboard", "navigation.home"],
@@ -31,12 +51,17 @@ const professorMenu = [
   ["/settings", "navigation.help"]
 ];
 
-const superAdminMenu = getAdminNavigationItems("/super-admin");
+const superAdminMenu = [
+  ["/admin/dashboard", "navigation.home"],
+  ...getAdminNavigationItems("/super-admin")
+];
 
 function mobileMenuForRole(role) {
   if (role === "institution_admin") return institutionMenu;
   if (role === "super_admin" || role === "admin") return superAdminMenu;
   if (role === "teacher" || role === "professor") return professorMenu;
+  if (role === "rector" || role === "reitor") return rectorMenu;
+  if (role === "coordinator" || role === "coordenador") return coordinatorMenu;
   return studentMenu;
 }
 

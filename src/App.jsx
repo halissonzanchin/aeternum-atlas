@@ -18,6 +18,10 @@ import License from "./pages/license/License";
 import Profile from "./pages/profile/Profile";
 import Settings from "./pages/settings/Settings";
 import Admin from "./pages/admin/Admin";
+import SuperAdminDashboard from "./pages/admin/SuperAdminDashboard";
+import InstitutionDashboard from "./pages/institution/InstitutionDashboard";
+import RectorDashboard from "./pages/rector/RectorDashboard";
+import CoordinatorDashboard from "./pages/coordinator/CoordinatorDashboard";
 import Teacher from "./pages/teacher/Teacher";
 import StudyAgendaPage from "./pages/student/StudyAgendaPage";
 import AnatomicalQuizzesPage from "./pages/student/AnatomicalQuizzesPage";
@@ -204,11 +208,13 @@ function renderPrivatePage(path, context) {
   const { user, navigate, onAuth, notify, showInstitutionalModal, onLogout } = context;
 
   if (path === "/dashboard") {
-    if (user?.role === "institution_admin") return <Admin section="overview" path={path} navigate={navigate} notify={notify} />;
-    if (user?.role === "super_admin" || user?.role === "admin") return <Admin section="overview" path="/super-admin" navigate={navigate} notify={notify} />;
-    if (user?.role === "teacher" || user?.role === "professor") return <Teacher section="dashboard" user={user} navigate={navigate} />;
-    return <Dashboard user={user} navigate={navigate} showInstitutionalModal={showInstitutionalModal} />;
+    return <RedirectTo to="/student/home" replace={(to) => navigate(to)} />;
   }
+  if (path === "/student/home") return <Dashboard user={user} navigate={navigate} showInstitutionalModal={showInstitutionalModal} />;
+  if (path === "/rector/dashboard") return <RectorDashboard />;
+  if (path === "/coordinator/dashboard") return <CoordinatorDashboard />;
+  if (path === "/institution/dashboard") return <InstitutionDashboard />;
+  if (path === "/admin/dashboard") return <SuperAdminDashboard />;
   if (path === "/models") return <Models user={user} navigate={navigate} onLocked={showInstitutionalModal} />;
   if (path.startsWith("/models/")) return <ModelDetail id={path.split("/").pop()} user={user} navigate={navigate} />;
   if (path === "/license") return <License user={user} onAuth={onAuth} navigate={navigate} notify={notify} />;
@@ -232,8 +238,8 @@ function renderPrivatePage(path, context) {
   if (path === "/radiology") return <SimpleModule titleKey="modules.radiologyTitle" textKey="modules.radiologyText" />;
   if (path === "/videos") return <SimpleModule titleKey="modules.videosTitle" textKey="modules.videosText" />;
   if (path === "/courses") return <SimpleModule titleKey="modules.coursesTitle" textKey="modules.coursesText" />;
-  if (path === "/teacher" || path === "/teacher/dashboard") return <Teacher section="dashboard" user={user} navigate={navigate} />;
-  if (path === "/teacher/models") return <Teacher section="models" user={user} navigate={navigate} />;
+  if (path === "/teacher" || path === "/teacher/dashboard" || path === "/professor/dashboard") return <Teacher section="dashboard" user={user} navigate={navigate} />;
+  if (path === "/teacher/models" || path === "/professor/models") return <Teacher section="models" user={user} navigate={navigate} />;
   if (path === "/teacher/atlas" || path.startsWith("/teacher/atlas/")) {
     const atlasPath = path.replace(/^\/teacher\/atlas/, "/atlas");
     const teacherAtlasNavigate = (to) => navigate(to.replace(/^\/atlas/, "/teacher/atlas"));

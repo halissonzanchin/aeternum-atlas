@@ -1,15 +1,19 @@
 export const ROLES = {
   STUDENT: "student",
   TEACHER: "teacher",
+  COORDINATOR: "coordinator",
+  RECTOR: "rector",
   INSTITUTION_ADMIN: "institution_admin",
   SUPER_ADMIN: "super_admin"
 };
 
 export const ROLE_HOME = {
-  [ROLES.STUDENT]: "/dashboard",
-  [ROLES.TEACHER]: "/teacher/dashboard",
-  [ROLES.INSTITUTION_ADMIN]: "/super-admin",
-  [ROLES.SUPER_ADMIN]: "/super-admin"
+  [ROLES.STUDENT]: "/student/home",
+  [ROLES.TEACHER]: "/professor/dashboard",
+  [ROLES.COORDINATOR]: "/coordinator/dashboard",
+  [ROLES.RECTOR]: "/rector/dashboard",
+  [ROLES.INSTITUTION_ADMIN]: "/institution/dashboard",
+  [ROLES.SUPER_ADMIN]: "/admin/dashboard"
 };
 
 const ACTIVE_ACCOUNT_STATUSES = new Set(["active", "ativo"]);
@@ -57,6 +61,17 @@ export const ROLE_PERMISSIONS = {
     PERMISSIONS.VIEW_MODELS,
     PERMISSIONS.VIEW_MODEL_VIEWER
   ],
+  [ROLES.COORDINATOR]: [
+    PERMISSIONS.VIEW_INSTITUTION_DASHBOARD,
+    PERMISSIONS.VIEW_INSTITUTION_ANALYTICS,
+    PERMISSIONS.VIEW_MODELS,
+    PERMISSIONS.VIEW_MODEL_VIEWER
+  ],
+  [ROLES.RECTOR]: [
+    PERMISSIONS.VIEW_INSTITUTION_DASHBOARD,
+    PERMISSIONS.VIEW_INSTITUTION_ANALYTICS,
+    PERMISSIONS.VIEW_INSTITUTION_BILLING
+  ],
   [ROLES.SUPER_ADMIN]: Object.values(PERMISSIONS)
 };
 
@@ -64,13 +79,18 @@ export const routeAccessRules = [
   { prefix: "/", public: true, exact: true },
   { prefix: "/login", public: true },
   { prefix: "/register", public: true },
-  { prefix: "/dashboard", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
-  { prefix: "/models", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
-  { prefix: "/model", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
-  { prefix: "/viewer", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
-  { prefix: "/atlas", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
-  { prefix: "/videos", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
-  { prefix: "/courses", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
+  { prefix: "/dashboard", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
+  { prefix: "/student", roles: [ROLES.STUDENT] },
+  { prefix: "/professor", roles: [ROLES.TEACHER, ROLES.SUPER_ADMIN] },
+  { prefix: "/coordinator", roles: [ROLES.COORDINATOR, ROLES.SUPER_ADMIN] },
+  { prefix: "/rector", roles: [ROLES.RECTOR, ROLES.SUPER_ADMIN] },
+  { prefix: "/institution", roles: [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
+  { prefix: "/models", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
+  { prefix: "/model", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
+  { prefix: "/viewer", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
+  { prefix: "/atlas", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
+  { prefix: "/videos", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
+  { prefix: "/courses", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
   { prefix: "/history", roles: [ROLES.STUDENT] },
   { prefix: "/favorites", roles: [ROLES.STUDENT] },
   { prefix: "/progress", roles: [ROLES.STUDENT] },
@@ -81,8 +101,8 @@ export const routeAccessRules = [
   { prefix: "/guided-study", roles: [ROLES.STUDENT] },
   { prefix: "/ai-tutor", roles: [ROLES.STUDENT] },
   { prefix: "/review", roles: [ROLES.STUDENT] },
-  { prefix: "/profile", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
-  { prefix: "/settings", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
+  { prefix: "/profile", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
+  { prefix: "/settings", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
   { prefix: "/license", roles: [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
   { prefix: "/teacher", roles: [ROLES.TEACHER, ROLES.SUPER_ADMIN] },
   { prefix: "/institution-admin", roles: [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
@@ -94,6 +114,8 @@ export function normalizeRole(role) {
   if (role === "admin") return ROLES.SUPER_ADMIN;
   if (role === "professor") return ROLES.TEACHER;
   if (role === "institution") return ROLES.INSTITUTION_ADMIN;
+  if (role === "coordenador" || role === "coordinator") return ROLES.COORDINATOR;
+  if (role === "reitor" || role === "rector") return ROLES.RECTOR;
   return role || ROLES.STUDENT;
 }
 
