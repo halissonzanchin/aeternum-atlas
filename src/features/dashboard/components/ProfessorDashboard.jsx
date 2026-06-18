@@ -2,12 +2,21 @@ import React from "react";
 import Card from "../../../components/Card/Card";
 import LineIcon from "../../../components/icons/LineIcon";
 import { useLanguage } from "../../../context/LanguageContext";
+import { isUpeDemoMode, upeClassesList, upeQuizzesMetrics, upeStudentsMetrics, upeHeatmaps, upeRiskStudentsList } from "../../../demo/upe";
 
 export default function ProfessorDashboard() {
   const { t } = useLanguage();
+  const demoMode = isUpeDemoMode();
 
   // Static Data Contract for UPE Demo (Fase 6.2E.2)
-  const teachingOverview = {
+  const teachingOverview = demoMode ? {
+    activeClasses: 4, // upeClassesList for this professor
+    monitoredStudents: 128,
+    quizzesCreated: upeQuizzesMetrics.quizzesCreated,
+    activitiesCreated: upeQuizzesMetrics.activitiesCreated,
+    averageClassScore: upeQuizzesMetrics.globalAverageScore,
+    averageEngagementRate: 74
+  } : {
     activeClasses: 4,
     monitoredStudents: 128,
     quizzesCreated: 18,
@@ -16,21 +25,36 @@ export default function ProfessorDashboard() {
     averageEngagementRate: 74
   };
 
-  const classPerformance = [
+  const classPerformance = demoMode 
+    ? upeClassesList.slice(0, 4).map(c => ({
+        name: c.name,
+        averageScore: c.averageScore,
+        engagement: 80,
+        quizCompletion: 85,
+        trend: "+2%"
+      }))
+    : [
     { name: "Anatomia I — Turma A", averageScore: 82, engagement: 88, quizCompletion: 90, trend: "+2%" },
     { name: "Anatomia I — Turma B", averageScore: 68, engagement: 65, quizCompletion: 55, trend: "-5%" },
     { name: "Neuroanatomia — Turma C", averageScore: 75, engagement: 80, quizCompletion: 78, trend: "+1%" },
     { name: "Anatomia Topográfica — Turma D", averageScore: 71, engagement: 72, quizCompletion: 68, trend: "0%" }
   ];
 
-  const studentRiskMetrics = {
+  const studentRiskMetrics = demoMode ? {
+    atRisk: 12,
+    inactive: 7,
+    lowPerformance: 9,
+    engagementDrop: 6
+  } : {
     atRisk: 12,
     inactive: 7,
     lowPerformance: 9,
     engagementDrop: 6
   };
 
-  const riskStudentsList = [
+  const riskStudentsList = demoMode 
+    ? upeRiskStudentsList 
+    : [
     { name: "João Pedro Silva", class: "Turma B", reason: "Engajamento Zero", lastAccess: "10 dias atrás", action: "Enviar Alerta" },
     { name: "Mariana Costa", class: "Turma D", reason: "Nota < 40%", lastAccess: "Ontem", action: "Recomendar Trilha" },
     { name: "Lucas Almeida", class: "Turma B", reason: "Múltiplas Faltas", lastAccess: "7 dias atrás", action: "Contatar" },
@@ -38,7 +62,9 @@ export default function ProfessorDashboard() {
     { name: "Carlos Eduardo", class: "Turma A", reason: "Queda de Acesso", lastAccess: "5 dias atrás", action: "Notificar" }
   ];
 
-  const difficultyMap = [
+  const difficultyMap = demoMode 
+    ? upeHeatmaps.slice(0, 5) 
+    : [
     { structure: "Base do Crânio", difficultyScore: 88, averageAccuracy: 42, affectedStudents: 85, recommendedAction: "Abrir Cena 3D: Forames" },
     { structure: "Plexo Braquial", difficultyScore: 85, averageAccuracy: 45, affectedStudents: 78, recommendedAction: "Gerar Simulado Específico" },
     { structure: "Sistema Ventricular", difficultyScore: 80, averageAccuracy: 52, affectedStudents: 62, recommendedAction: "Atividade: Rota do LCR" },

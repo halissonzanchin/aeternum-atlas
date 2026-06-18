@@ -2,12 +2,25 @@ import React from "react";
 import Card from "../../components/Card/Card";
 import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
-
+import { isUpeDemoMode, upeStudentsMetrics, upeRoiMetrics, upeEngagementMetrics, upeProfessorsMetrics, upeCourseMetrics, upeHeatmaps } from "../../demo/upe";
 export default function RectorDashboard() {
   const { t } = useLanguage();
 
+  const demoMode = isUpeDemoMode();
+
   // Static Data Contract for UPE Demo (Fase 6.2C.2)
-  const metrics = {
+  const metrics = demoMode ? {
+    totalStudents: upeStudentsMetrics.total,
+    activeStudents: upeStudentsMetrics.active,
+    totalProfessors: upeProfessorsMetrics.total,
+    totalCourses: upeCourseMetrics.totalCourses,
+    totalStudyHours: upeRoiMetrics.totalStudyHours,
+    monthlyGrowth: upeEngagementMetrics.monthlyGrowthPercentage,
+    estimatedLabSavings: upeRoiMetrics.estimatedLabSavings,
+    averageScore: 82,
+    atRiskStudents: upeStudentsMetrics.atRisk,
+    recoveredStudents: upeStudentsMetrics.recovered
+  } : {
     totalStudents: 700,
     activeStudents: 650,
     totalProfessors: 42,
@@ -32,7 +45,9 @@ export default function RectorDashboard() {
     { name: "Crânio e Face", views: 2100 }
   ];
 
-  const hardestStructures = [
+  const hardestStructures = demoMode 
+    ? upeHeatmaps.slice(0, 3).map(h => ({ name: h.structure, errorRate: h.difficultyScore }))
+    : [
     { name: "Pares Cranianos", errorRate: 64 },
     { name: "Plexo Braquial", errorRate: 58 },
     { name: "Artérias da Base do Crânio", errorRate: 52 }

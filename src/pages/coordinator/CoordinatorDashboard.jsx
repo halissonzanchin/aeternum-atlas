@@ -2,12 +2,21 @@ import React from "react";
 import Card from "../../components/Card/Card";
 import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
+import { isUpeDemoMode, upeClassesMetrics, upeProfessorsMetrics, upeStudentsMetrics, upeEngagementMetrics, upeCourseMetrics, upeHeatmaps, upeInterventionCenterAlerts } from "../../demo/upe";
 
 export default function CoordinatorDashboard() {
   const { t } = useLanguage();
+  const demoMode = isUpeDemoMode();
 
   // Static Data Contract for UPE Demo (Fase 6.2D.2)
-  const healthMetrics = {
+  const healthMetrics = demoMode ? {
+    activeDisciplines: upeCourseMetrics.activeDisciplines,
+    activeProfessors: upeProfessorsMetrics.active,
+    activeStudents: upeStudentsMetrics.active,
+    classesAtRisk: 3,
+    averageApprovalRate: 82,
+    averageEngagementRate: upeEngagementMetrics.averageEngagementRate
+  } : {
     activeDisciplines: 6,
     activeProfessors: 15,
     activeStudents: 700,
@@ -16,7 +25,13 @@ export default function CoordinatorDashboard() {
     averageEngagementRate: 76
   };
 
-  const curriculumHeatmap = [
+  const curriculumHeatmap = demoMode 
+    ? upeHeatmaps.map(h => ({
+        structure: h.structure,
+        accuracy: h.averageAccuracy,
+        risk: h.averageAccuracy < 45 ? "critical" : h.averageAccuracy < 55 ? "high" : "medium"
+      }))
+    : [
     { structure: "Osteologia", accuracy: 58, risk: "medium" },
     { structure: "Neuroanatomia", accuracy: 52, risk: "high" },
     { structure: "Plexo Braquial", accuracy: 47, risk: "high" },
@@ -24,7 +39,12 @@ export default function CoordinatorDashboard() {
     { structure: "Sistema Ventricular", accuracy: 39, risk: "critical" }
   ];
 
-  const studentRiskMetrics = {
+  const studentRiskMetrics = demoMode ? {
+    atRisk: upeStudentsMetrics.atRisk,
+    inactive: upeStudentsMetrics.inactive,
+    lowPerformance: upeStudentsMetrics.lowPerformance,
+    recovered: upeStudentsMetrics.recovered
+  } : {
     atRisk: 47,
     inactive: 28,
     lowPerformance: 34,
@@ -39,7 +59,15 @@ export default function CoordinatorDashboard() {
     { name: "Dr. Fernando Rios", discipline: "Topográfica", engagement: 55, libraryUsage: 40, quizUsage: 30, score: 65 }
   ];
 
-  const alerts = [
+  const alerts = demoMode 
+    ? upeInterventionCenterAlerts.map((a, i) => ({
+        id: i + 1,
+        severity: a.priority === "alta" ? "high" : "medium",
+        target: a.type,
+        problem: a.description,
+        action: "Monitorar"
+      }))
+    : [
     { id: 1, severity: "critical", target: "Turma Medicina M4", problem: "Queda brusca de engajamento (30% abaixo da média).", action: "Convocar reunião com Dr. Fernando Rios." },
     { id: 2, severity: "high", target: "Base do Crânio (Tópico)", problem: "Taxa de erro superior a 55% em todas as turmas ativas.", action: "Recomendar Trilha de Revisão 3D guiada." },
     { id: 3, severity: "high", target: "28 Alunos Inativos", problem: "Nenhum login na plataforma há mais de 15 dias letivos.", action: "Acionar protocolo de prevenção à evasão (E-mail)." },
