@@ -11,3 +11,4 @@ export * from './heatmaps';
 export * from './quizzes';
 export * from './roi';
 export * from './alerts';
+export * from './studentMock';

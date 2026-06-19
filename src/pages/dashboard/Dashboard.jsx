@@ -10,6 +10,8 @@ import EvolutionPanel from "../../features/dashboard/components/EvolutionPanel";
 import ProfessorDashboard from "../../features/dashboard/components/ProfessorDashboard";
 import { studyTools, recommendationCards } from "../../features/dashboard/data/constants";
 import { useDashboardData } from "../../features/dashboard/hooks/useDashboardData";
+import { isUpeDemoMode } from "../../demo/upe";
+import UpeStudentDashboard from "../../features/dashboard/components/UpeStudentDashboard";
 
 function minutesLabel(minutes, t) {
   if (minutes >= 60) {
@@ -35,6 +37,10 @@ export default function Dashboard({ user, navigate }) {
 
   if (user?.role === "professor") {
     return <ProfessorDashboard user={user} navigate={navigate} models={models} modelsLoading={modelsLoading} />;
+  }
+
+  if (isUpeDemoMode() && user?.role !== "professor") {
+    return <UpeStudentDashboard navigate={navigate} />;
   }
 
   return (
