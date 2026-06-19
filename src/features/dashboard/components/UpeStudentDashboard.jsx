@@ -32,7 +32,9 @@ export default function UpeStudentDashboard({ navigate }) {
               Sua última atividade foi há {upeStudentProfile.lastActivityAt.replace('há ', '')}.
               Vamos retomar a dissecação de {upeStudentProfile.lastModelAccessed}?
             </p>
-            <button className="bg-techTeal hover:bg-techTeal/80 text-blackDeep font-bold px-6 py-3 rounded flex items-center space-x-2 transition shadow-[0_0_15px_rgba(45,212,191,0.3)]">
+            <button 
+              onClick={() => navigate("/viewer/skull_base")}
+              className="bg-techTeal hover:bg-techTeal/80 text-blackDeep font-bold px-6 py-3 rounded flex items-center space-x-2 transition shadow-[0_0_15px_rgba(45,212,191,0.3)]">
               <LineIcon name="play-circle" className="w-5 h-5" />
               <span>{upeStudentProfile.nextRecommendedAction}</span>
             </button>
@@ -128,12 +130,15 @@ export default function UpeStudentDashboard({ navigate }) {
               </p>
               <div className="space-y-3 relative z-10">
                 {upeIntelligentNextStep.steps.map((step, idx) => (
-                  <div key={idx} className="flex items-center space-x-3 text-sm text-slate-300">
+                  <button 
+                    key={idx} 
+                    onClick={() => idx === 0 ? navigate("/viewer/skull_base") : navigate("/quizzes")}
+                    className="flex items-center space-x-3 text-sm text-slate-300 w-full text-left hover:text-techTeal transition">
                     <div className="w-5 h-5 rounded-full border border-techTeal flex items-center justify-center text-[10px] text-techTeal flex-shrink-0">
                       {idx + 1}
                     </div>
                     <span>{step}</span>
-                  </div>
+                  </button>
                 ))}
               </div>
             </Card>
@@ -149,7 +154,10 @@ export default function UpeStudentDashboard({ navigate }) {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {upeRecommendedLibrary.slice(0, 4).map((model, idx) => (
-                <button key={idx} className="text-left bg-slate-900/50 border border-slate-800 p-4 rounded-xl hover:border-techTeal/40 hover:bg-slate-900 transition group flex items-center justify-between">
+                <button 
+                  key={idx} 
+                  onClick={() => navigate(`/viewer/${model.id}`)}
+                  className="text-left bg-slate-900/50 border border-slate-800 p-4 rounded-xl hover:border-techTeal/40 hover:bg-slate-900 transition group flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-clinicalWhite group-hover:text-techTeal transition">{model.name}</h3>
                     <p className="text-xs text-textMuted mt-1">{model.system}</p>
@@ -184,7 +192,9 @@ export default function UpeStudentDashboard({ navigate }) {
                       </div>
                     </div>
                     <div className="w-auto">
-                      <button className="text-xs bg-slate-800 hover:bg-slate-700 text-clinicalWhite px-3 py-1.5 rounded transition">
+                      <button 
+                        onClick={() => navigate("/models")}
+                        className="text-xs bg-slate-800 hover:bg-slate-700 text-clinicalWhite px-3 py-1.5 rounded transition">
                         Continuar
                       </button>
                     </div>
@@ -209,7 +219,9 @@ export default function UpeStudentDashboard({ navigate }) {
                     </div>
                     <span className="text-sm font-medium text-clinicalWhite">{quiz.name}</span>
                   </div>
-                  <button className="text-xs font-bold text-techTeal border border-techTeal/30 px-3 py-1.5 rounded hover:bg-techTeal/10 transition">
+                  <button 
+                    onClick={() => navigate("/quizzes")}
+                    className="text-xs font-bold text-techTeal border border-techTeal/30 px-3 py-1.5 rounded hover:bg-techTeal/10 transition">
                     Iniciar
                   </button>
                 </div>
