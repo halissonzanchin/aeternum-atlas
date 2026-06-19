@@ -12,3 +12,4 @@ export * from './quizzes';
 export * from './roi';
 export * from './alerts';
 export * from './studentMock';
+export * from './aiMock';

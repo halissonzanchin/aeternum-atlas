@@ -12,6 +12,7 @@ import {
   upeAcademicMessages, 
   upeIntelligentNextStep 
 } from "../../../demo/upe/studentMock";
+import AtlasAITutor from "./AtlasAITutor";
 
 export default function UpeStudentDashboard({ navigate }) {
   const { t } = useLanguage();
@@ -230,6 +231,9 @@ export default function UpeStudentDashboard({ navigate }) {
           </div>
         </div>
       </div>
+
+      {/* Inject Atlas AI Tutor Mock Component for Demo */}
+      <AtlasAITutor />
     </section>
   );
 }
