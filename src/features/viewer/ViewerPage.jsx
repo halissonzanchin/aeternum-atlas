@@ -85,7 +85,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
   const [nativeMarkers, setNativeMarkers] = useState([]);
 
   const progressState = useViewerProgress(modelState.model, user, setToast);
-  const quizState = useViewerQuiz(modelState.model, user, annotationsState, setToast, setLeftOpen);
+  const quizState = useViewerQuiz(modelState.model, user, annotationsState, setToast, setLeftOpen, nativeMarkers);
 
   useEffect(() => {
     if (!toast) return undefined;
@@ -101,6 +101,8 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
           setNativeMarkers(loadedMarkers);
         } else if (modelState.model.markers && modelState.model.markers.length > 0) {
           setNativeMarkers(modelState.model.markers);
+        } else if (modelState.initialStructure?.parts && modelState.initialStructure.parts.length > 0) {
+          setNativeMarkers(modelState.initialStructure.parts);
         }
       });
     }

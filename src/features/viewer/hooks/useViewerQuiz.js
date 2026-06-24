@@ -4,7 +4,7 @@ import { getAnatomicalQuizForModel, gradeAnatomicalQuiz, recordAnatomicalQuizAtt
 import { listModelAnnotations } from '../../../services/modelAnnotationService';
 import { useLanguage } from '../../../context/LanguageContext';
 
-export function useViewerQuiz(model, user, annotationsState, setToast, setLeftOpen) {
+export function useViewerQuiz(model, user, annotationsState, setToast, setLeftOpen, nativeMarkers = []) {
   const { t } = useLanguage();
   const [quizOpen, setQuizOpen] = useState(false);
   const [quizLoading, setQuizLoading] = useState(false);
@@ -112,6 +112,10 @@ export function useViewerQuiz(model, user, annotationsState, setToast, setLeftOp
           annotationsState.setSketchfabAnnotations(annotations);
           annotationsState.setActiveAnnotationIndex(current => Number.isInteger(current) ? current : 0);
         }
+      }
+
+      if (!annotations.length && nativeMarkers && nativeMarkers.length > 0) {
+        annotations = nativeMarkers;
       }
 
       const nextQuiz = await getAnatomicalQuizForModel({ model, user, annotations });

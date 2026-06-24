@@ -75,7 +75,7 @@ export function normalizeSupabaseModel(record = {}) {
   const embedUrl = sanitizeText(record.embed_url || record.sketchfab_url);
   const sketchfabUrl = sanitizeText(record.sketchfab_url || record.embed_url);
 
-  return {
+  return normalizeViewerModelAsset({
     id: record.id || record.slug || "",
     slug: record.slug || record.id || "",
     institutionId: record.institution_id || "",
@@ -111,12 +111,56 @@ export function normalizeSupabaseModel(record = {}) {
     relatedStructures: [],
     references: [],
     createdAt: record.created_at || ""
+  });
+}
+
+export function normalizeViewerModelAsset(model) {
+  let finalAssetUrl = 
+    model.model_url || 
+    model.modelUrl || 
+    model.asset_url || 
+    model.assetUrl || 
+    model.url || 
+    model.file_url || 
+    model.storage_url || 
+    model.metadata?.model_url || 
+    model.metadata?.asset_url || 
+    model.metadata?.native_model_url || 
+    model.metadata?.glb_url ||
+    model.atlasEngineModelUrl ||
+    model.atlasAssetObjectUrl ||
+    "";
+
+  let finalFormat = model.modelFormat || model.model_format || model.metadata?.model_format || "glb";
+  let finalViewerType = model.viewerType || model.viewer_type || "atlas-native";
+
+  if (model.slug === 'corte-sagital-cranio-humano-superficial' || model.id === 'corte-sagital-cranio-humano-superficial') {
+    if (!finalAssetUrl) {
+      finalAssetUrl = "/models/native/corte-sagital-cranio-humano-superficial.glb";
+    }
+    finalFormat = "glb";
+    finalViewerType = "atlas-native";
+    model.provider = "atlas_native";
+  }
+
+  return {
+    ...model,
+    modelUrl: finalAssetUrl,
+    model_url: finalAssetUrl,
+    assetUrl: finalAssetUrl,
+    asset_url: finalAssetUrl,
+    atlasAssetObjectUrl: finalAssetUrl,
+    atlasEngineModelUrl: finalAssetUrl,
+    modelFormat: finalFormat,
+    model_format: finalFormat,
+    viewerType: finalViewerType,
+    viewer_type: finalViewerType
   };
 }
 
 export function mapSupabaseModelToUIModel(record) {
   const asset = record.atlas_model_assets?.[0];
-  return {
+  return normalizeViewerModelAsset({
     id: record.id || record.slug || "",
     slug: record.slug || record.id || "",
     title: sanitizeText(record.title || "Modelo 3D"),
@@ -144,7 +188,7 @@ export function mapSupabaseModelToUIModel(record) {
     createdAt: record.created_at || "",
     archivedAt: record.archived_at || null,
     deletedAt: record.deleted_at || null
-  };
+  });
 }
 
 async function loadModelsQuery(user, options = {}) {
