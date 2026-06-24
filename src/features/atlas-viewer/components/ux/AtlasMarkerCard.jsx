@@ -21,7 +21,7 @@ export default function AtlasMarkerCard({ marker, index, isActive, onSelect }) {
         
         <div className="flex-1 min-w-0">
           <h4 className={`text-sm font-bold truncate transition-colors ${isActive ? 'text-techTeal' : 'text-slate-200 group-hover:text-white'}`}>
-            {marker.title || `Marcador ${index + 1}`}
+            {marker.title || marker.name || `Marcador ${index + 1}`}
           </h4>
           
           {(marker.structureName || marker.category) && (

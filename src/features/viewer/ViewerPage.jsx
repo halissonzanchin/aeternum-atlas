@@ -101,6 +101,8 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
           setNativeMarkers(loadedMarkers);
         } else if (modelState.model.markers && modelState.model.markers.length > 0) {
           setNativeMarkers(modelState.model.markers);
+        } else if (modelState.model.parts && modelState.model.parts.length > 0) {
+          setNativeMarkers(modelState.model.parts);
         } else if (modelState.initialStructure?.parts && modelState.initialStructure.parts.length > 0) {
           setNativeMarkers(modelState.initialStructure.parts);
         }
@@ -257,7 +259,6 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
                 <AnatomyLayerPanel />
               )}
               <AtlasAIViewerPanel />
-              <AnatomyKnowledgePanel activeMarkerId={activeMarkerId} />
             </>
           ) : (
             <ViewerSketchfab />
