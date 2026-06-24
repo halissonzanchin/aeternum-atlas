@@ -175,7 +175,8 @@ async function loadModelsQuery(user, options = {}) {
 
   if (!isSuper) {
     queryOld = queryOld.eq("institution_id", institutionId);
-    queryNew = queryNew.eq("institution_id", institutionId);
+    // Removed queryNew.eq("institution_id", institutionId) because atlas_models uses institution_availability JSONB
+    // queryNew = queryNew.contains("institution_availability", `["${institutionId}"]`); // Optional: If we want strict DB filtering
   }
 
   const [resOld, resNew] = await Promise.all([
@@ -185,11 +186,11 @@ async function loadModelsQuery(user, options = {}) {
 
   if (resOld.error) {
     console.error("[models] Falha ao carregar models_3d.", resOld.error);
-    throw new Error(`Erro ao carregar models_3d: ${resOld.error.message}`);
+    // Defensive fallback: do not throw, allow other sources to load
   }
   if (resNew.error) {
     console.error("[models] Falha ao carregar atlas_models.", resNew.error);
-    throw new Error(`Erro ao carregar atlas_models: ${resNew.error.message}`);
+    // Defensive fallback: do not throw, allow other sources to load
   }
 
   const oldModels = (resOld.data || []).map(normalizeSupabaseModel);
