@@ -76,7 +76,12 @@ export const mockStructures = [
   {
     id: "corte-sagital-cranio-humano-superficial",
     modelId: "corte-sagital-cranio-humano-superficial",
-    name: "Corte Sagital do Crânio Humano — Modelo Superficial 3D",
+    name: "Corte Sagital do Crânio Humano - Modelo Superficial 3D",
+    viewer_type: "atlas-native",
+    model_format: "glb",
+    model_url: "/models/native/corte-sagital-cranio-humano-superficial.glb",
+    status: "active",
+    atlasAssetStatus: "ready",
     latinName: "Sectio sagittalis cranii",
     system: "Sistema nervoso",
     region: "Cabeça e pescoço",

@@ -82,7 +82,7 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
     const fileSizeMB = file.size / (1024 * 1024);
 
     if (fileSizeMB > AssetUploadConstants.MAX_CLOUD_ASSET_UPLOAD_MB) {
-      alert("Arquivo excede limite rígido do sistema (2GB).");
+      alert("Arquivo muito grande. O upload de arquivos grandes requer suporte a TUS e limite configurado no Supabase.");
       setUploadStatus('Arquivo acima de 2GB');
       return;
     }
@@ -375,7 +375,7 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
                 <label htmlFor="atlas-asset-upload" className="cursor-pointer bg-white/10 hover:bg-white/20 text-clinicalWhite px-4 py-2 rounded transition-colors text-sm font-medium">
                   Selecionar ou arrastar arquivo 3D
                 </label>
-                <p className="text-xs text-textMuted mt-2">Limite: até 2GB em nuvem | Preview local até 100MB</p>
+                <p className="text-xs text-textMuted mt-2">Arquivos grandes exigem limite Supabase compatível e upload resumível/TUS.</p>
                 <p className="text-xs text-textMuted mt-1">Formatos suportados: GLB, GLTF, OBJ</p>
                 {uploadStatus && uploadStatus !== 'Upload concluído' && (
                   <p className={`text-xs mt-2 font-bold ${uploadStatus.includes('Erro') || uploadStatus.includes('Falha') ? 'text-red-400' : 'text-amber-500'}`}>{uploadStatus}</p>
