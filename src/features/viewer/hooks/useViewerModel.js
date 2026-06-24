@@ -61,6 +61,21 @@ export function useViewerModel(id, user) {
     let mounted = true;
     setLoading(true);
 
+    if (id === 'preview') {
+      try {
+        const previewModelRaw = localStorage.getItem('atlas_preview_model');
+        if (previewModelRaw) {
+          const previewModel = JSON.parse(previewModelRaw);
+          setRawModel(previewModel);
+          setAvailableModels([previewModel]);
+          setLoading(false);
+          return;
+        }
+      } catch (e) {
+        console.error("Failed to load preview model from local storage", e);
+      }
+    }
+
     Promise.all([
       getModelByIdForUser(id, user),
       listModelsForUser(user)

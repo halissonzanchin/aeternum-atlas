@@ -1,6 +1,8 @@
 import { supabase } from "../../lib/supabase";
 import { normalizeRole, ROLES } from "../permissions/permissionService";
 import { isSupabaseConfigured } from "../supabase/supabaseClient";
+import { isDemoPresentationAccount } from "../../demo/upe";
+import { buildDatasetDemoUpePayload } from "../../demo/upe/dataset";
 
 const ACTIVE_STATUSES = new Set(["active", "ativo"]);
 const STUDENT_ROLES = new Set(["student", "aluno"]);
@@ -84,8 +86,8 @@ function eventTypeLabel(action) {
     copy_model_link: "copiou link",
     view_study_guide: "abriu guia de estudo",
     report_problem: "reportou problema",
-    session_start: "início de sessão",
-    session_end: "fim de sessão"
+    session_start: "inÃ­cio de sessÃ£o",
+    session_end: "fim de sessÃ£o"
   };
   return labels[action] || action || "evento";
 }
@@ -94,7 +96,7 @@ async function safeSupabaseQuery(label, query, fallbackValue = null) {
   try {
     const { data, error, count } = await query;
     if (error) {
-      console.warn(`[admin-dashboard] ${label} não retornou dados reais.`, error.message);
+      console.warn(`[admin-dashboard] ${label} nÃ£o retornou dados reais.`, error.message);
       return { data: fallbackValue, count: null, error };
     }
 
@@ -196,7 +198,7 @@ async function getAuthenticatedProfile() {
     null
   );
 
-  logRealData("status da sessão Supabase", {
+  logRealData("status da sessÃ£o Supabase", {
     hasSession: Boolean(sessionData?.session),
     authUserId: sessionData?.session?.user?.id || null
   });
@@ -211,7 +213,7 @@ async function getAuthenticatedProfile() {
   if (authError || !authUser?.id) return null;
 
   const { data: profile } = await safeSupabaseQuery(
-    "public.users do usuário autenticado",
+    "public.users do usuÃ¡rio autenticado",
     supabase
       .from("users")
       .select("id, institution_id, name, email, role, status")
@@ -270,7 +272,7 @@ async function loadRealInstitutions() {
   );
 
   const institutions = Array.isArray(data) ? data.map(record => normalizeInstitution(record, "supabase")) : [];
-  logRealData("lista de instituições carregadas", {
+  logRealData("lista de instituiÃ§Ãµes carregadas", {
     source: "public.institutions",
     total: institutions.length,
     ids: institutions.map(institution => institution.id)
@@ -324,7 +326,7 @@ function resolveTenantScope({ profile, institutions, preferredInstitutionId }) {
       scope: "restricted",
       institution: null,
       institutionId,
-      reason: "Tenant institucional não encontrado no Supabase."
+      reason: "Tenant institucional nÃ£o encontrado no Supabase."
     };
   }
 
@@ -334,7 +336,7 @@ function resolveTenantScope({ profile, institutions, preferredInstitutionId }) {
       scope: "restricted",
       institution,
       institutionId,
-      reason: "Instituição inativa."
+      reason: "InstituiÃ§Ã£o inativa."
     };
   }
 
@@ -370,7 +372,7 @@ async function loadInstitutionRows(table, institutionId, select, options = {}) {
   const rows = Array.isArray(data) ? data : [];
 
   if (table === "users") {
-    logRealData("quantidade real de usuários", {
+    logRealData("quantidade real de usuÃ¡rios", {
       source: "public.users",
       institutionId: institutionId || null,
       total: count ?? rows.length
@@ -508,7 +510,7 @@ function buildSystemStudyTime(logs, models) {
 
   logs.forEach(log => {
     const model = modelById.get(log.model_id);
-    const system = model?.anatomical_system || "Não classificado";
+    const system = model?.anatomical_system || "NÃ£o classificado";
     totals.set(system, (totals.get(system) || 0) + numberOrZero(log.duration_seconds));
   });
 
@@ -585,10 +587,10 @@ function buildPlatformErrors(events) {
     let type = "Erro geral";
     if (value.includes("login")) type = "Login";
     else if (value.includes("sketchfab") || value.includes("viewer")) type = "Sketchfab";
-    else if (value.includes("report")) type = "Relatórios";
+    else if (value.includes("report")) type = "RelatÃ³rios";
     else if (value.includes("route") || value.includes("rota")) type = "Rotas";
     else if (value.includes("timeout")) type = "Timeout";
-    else if (value.includes("permission") || value.includes("blocked") || value.includes("permiss")) type = "Permissão";
+    else if (value.includes("permission") || value.includes("blocked") || value.includes("permiss")) type = "PermissÃ£o";
 
     errorBuckets.set(type, (errorBuckets.get(type) || 0) + 1);
   });
@@ -628,7 +630,7 @@ function buildIncidents(events) {
         durationMinutes: numberOrZero(metadata.durationMinutes || metadata.duration_minutes),
         affectedUsers: numberOrZero(metadata.affectedUsers || metadata.affected_users) || (event.user_id ? 1 : 0),
         status: metadata.status || "Registrado",
-        severity: metadata.severity || "Média",
+        severity: metadata.severity || "MÃ©dia",
         note: metadata.note || metadata.message || "Evento registrado em platform_events."
       };
     });
@@ -648,10 +650,10 @@ function buildBlockedAccessLogs(events, users) {
       return {
         id: event.id,
         date: datePart(event.created_at),
-        user: user.name || metadata.user || "Usuário",
+        user: user.name || metadata.user || "UsuÃ¡rio",
         email: user.email || metadata.email || "-",
         reason: metadata.reason || event.event_type || "Acesso bloqueado",
-        device: metadata.device || metadata.user_agent || "Dispositivo não informado",
+        device: metadata.device || metadata.user_agent || "Dispositivo nÃ£o informado",
         status: metadata.status || "Bloqueio registrado"
       };
     });
@@ -728,7 +730,7 @@ function buildStudentHistoryByUser({ students, logs, models }) {
         content: log.model_id ? titleByModel.get(log.model_id) || log.model_id : "-",
         durationMinutes: Math.round(numberOrZero(log.duration_seconds) / 60),
         device: log.device_type || log.metadata?.device || "Web",
-        status: "Concluído"
+        status: "ConcluÃ­do"
       }));
 
     history[student.id] = userLogs;
@@ -805,7 +807,7 @@ function buildDashboardPayload({
       : [];
   const displayInstitution = scope === "global"
     ? {
-        ...createEmptyInstitution(scopeInstitutions.length ? "Todas as instituições reais" : EMPTY_TEXT, "supabase"),
+        ...createEmptyInstitution(scopeInstitutions.length ? "Todas as instituiÃ§Ãµes reais" : EMPTY_TEXT, "supabase"),
         active: scopeInstitutions.some(institution => institution.active),
         contractStatus: "global",
         licenseStatus: "global"
@@ -955,7 +957,7 @@ export function getRestrictedInstitutionDashboardData(profile = null, reason = "
     lastUpdated: now.toISOString(),
     institutions: [],
     institution: {
-      ...createEmptyInstitution("Tenant institucional não configurado", "restricted"),
+      ...createEmptyInstitution("Tenant institucional nÃ£o configurado", "restricted"),
       id: profile?.institution_id || "",
       contractStatus: "restricted",
       licenseStatus: "restricted"
@@ -1003,23 +1005,28 @@ export function getRestrictedInstitutionDashboardData(profile = null, reason = "
 
 export async function loadInstitutionDashboardData({ institutionId } = {}) {
   if (!isSupabaseConfigured()) {
-    console.warn("[admin-dashboard] Supabase não configurado. Dashboard administrativo bloqueado por segurança.");
-    return getRestrictedInstitutionDashboardData(null, "Supabase não configurado.");
+    console.warn("[admin-dashboard] Supabase nÃ£o configurado. Dashboard administrativo bloqueado por seguranÃ§a.");
+    return getRestrictedInstitutionDashboardData(null, "Supabase nÃ£o configurado.");
   }
 
   const profile = await getAuthenticatedProfile();
+
+  if (profile?.email && isDemoPresentationAccount(profile.email)) {
+    return buildDemoUpePayload(profile);
+  }
+
   if (!profile?.id) {
-    return getRestrictedInstitutionDashboardData(null, "Usuário administrativo não autenticado.");
+    return getRestrictedInstitutionDashboardData(null, "UsuÃ¡rio administrativo nÃ£o autenticado.");
   }
 
   const normalizedRole = normalizeRole(profile.role);
   const validAdminRole = [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN].includes(normalizedRole);
   if (!validAdminRole || !isActiveStatus(profile.status)) {
-    return getRestrictedInstitutionDashboardData(profile, "Usuário sem role administrativa ativa.");
+    return getRestrictedInstitutionDashboardData(profile, "UsuÃ¡rio sem role administrativa ativa.");
   }
 
   if (!isSuperAdminProfile(profile) && !profile.institution_id) {
-    return getRestrictedInstitutionDashboardData(profile, "Usuário autenticado sem institution_id.");
+    return getRestrictedInstitutionDashboardData(profile, "UsuÃ¡rio autenticado sem institution_id.");
   }
 
   const allInstitutions = await loadRealInstitutions();
@@ -1030,7 +1037,7 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
   });
 
   if (scopeInfo.scope === "restricted") {
-    return getRestrictedInstitutionDashboardData(profile, scopeInfo.reason || "Tenant inválido.");
+    return getRestrictedInstitutionDashboardData(profile, scopeInfo.reason || "Tenant invÃ¡lido.");
   }
 
   const allowGlobal = scopeInfo.scope === "global" && scopeInfo.isSuperAdmin;
@@ -1077,3 +1084,24 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     profile
   });
 }
+
+function buildDemoUpePayload(profile) {
+  const datasetPayload = buildDatasetDemoUpePayload();
+  const isSuperAdmin = normalizeRole(profile?.role) === ROLES.SUPER_ADMIN;
+  
+  return {
+    ...datasetPayload,
+    scope: isSuperAdmin ? "global" : "tenant",
+    raw: {
+      profile,
+      institutions: [],
+      users: [],
+      profiles: [],
+      logs: [],
+      events: [],
+      views: []
+    }
+  };
+}
+
+

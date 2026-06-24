@@ -128,6 +128,7 @@ export function normalizeModelIdentifier(value) {
 
 export function findLocalModel(id) {
   const normalizedId = normalizeModelIdentifier(id);
+  
   return LOCAL_MODELS.find((model) => normalizeModelIdentifier(model.id) === normalizedId || normalizeModelIdentifier(model.slug) === normalizedId) || null;
 }
 

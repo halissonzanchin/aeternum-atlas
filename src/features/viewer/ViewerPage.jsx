@@ -6,6 +6,11 @@ import { useViewerProgress } from "./hooks/useViewerProgress";
 import { useViewerQuiz } from "./hooks/useViewerQuiz";
 
 import ViewerSketchfab from "./ViewerSketchfab";
+import AtlasViewerShell from "../atlas-viewer/components/ux/AtlasViewerShell";
+import AtlasAIViewerPanel from "../atlas-viewer/ai/AtlasAIViewerPanel";
+import AnatomyKnowledgePanel from "../atlas-knowledge-graph/AnatomyKnowledgePanel";
+import AnatomyLayerPanel from "../atlas-layers/AnatomyLayerPanel";
+import { atlasMarkersMock } from "../atlas-viewer/atlasMarkers.mock";
 import ViewerAnnotations from "./ViewerAnnotations";
 import ViewerQuiz from "./ViewerQuiz";
 import ViewerControls from "./ViewerControls";
@@ -16,6 +21,7 @@ import LanguageSelector from "../../components/LanguageSelector";
 import Card from "../../components/Card/Card";
 import { useLanguage } from "../../context/LanguageContext";
 import { trackEvent } from "../../services/analytics/analyticsService";
+import { atlasAssetStorageService } from "../../services/atlasAssetStorageService";
 
 function TopViewerBar({ model, structure, navigate, onToggleLeft }) {
   const { t } = useLanguage();
@@ -75,6 +81,8 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
+  const [activeMarkerId, setActiveMarkerId] = useState(null);
+  const [nativeMarkers, setNativeMarkers] = useState([]);
 
   const progressState = useViewerProgress(modelState.model, user, setToast);
   const quizState = useViewerQuiz(modelState.model, user, annotationsState, setToast, setLeftOpen);
@@ -84,6 +92,19 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     const timer = window.setTimeout(() => setToast(""), 2600);
     return () => window.clearTimeout(timer);
   }, [toast]);
+
+  useEffect(() => {
+    if (!modelState.model?.id) return;
+    if (modelState.model.viewerType === 'atlas-native' || modelState.model.viewer_engine === 'atlas' || modelState.model.viewer_engine === 'atlas-native') {
+      atlasAssetStorageService.loadAnnotations(modelState.model.id).then(loadedMarkers => {
+        if (loadedMarkers && loadedMarkers.length > 0) {
+          setNativeMarkers(loadedMarkers);
+        } else if (modelState.model.markers && modelState.model.markers.length > 0) {
+          setNativeMarkers(modelState.model.markers);
+        }
+      });
+    }
+  }, [modelState.model?.id, modelState.model?.viewerType, modelState.model?.viewer_engine]);
 
   function handleSelectStructure(structure) {
     if (!structure) return;
@@ -211,7 +232,32 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
 
         <main className={`viewer-stage viewer-layout ${leftOpen ? "" : "is-panel-collapsed"}`}>
           <ViewerSidebar />
-          <ViewerSketchfab />
+          {modelState.model.viewerType === 'atlas-native' || modelState.model.viewer_engine === 'atlas' || modelState.model.viewer_engine === 'atlas-native' ? (
+            <>
+              {(!modelState.model.atlasAssetObjectUrl && !modelState.model.atlasEngineModelUrl && !modelState.model.model_url) && (
+                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-blackDeep z-50 p-6">
+                    <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-6 max-w-md text-center">
+                       <h3 className="text-xl font-bold text-amber-400 mb-2">Arquivo 3D Ausente</h3>
+                       <p className="text-amber-200/80 mb-4 text-sm">Este modelo nativo ainda não possui um arquivo .glb/.obj vinculado, ou o link local temporário foi perdido após um refresh.</p>
+                       <p className="text-xs text-textMuted">Acesse o CMS para realizar o upload do Asset 3D.</p>
+                    </div>
+                 </div>
+              )}
+              <div className="absolute inset-0">
+                <AtlasViewerShell 
+                  modelUrl={modelState.model.atlasAssetObjectUrl || modelState.model.atlasEngineModelUrl || modelState.model.model_url || "/models/test-anatomy.glb"} 
+                  modelFormat={modelState.model.modelFormat || modelState.model.model_format || "glb"}
+                  markers={nativeMarkers.length > 0 ? nativeMarkers : atlasMarkersMock}
+                  onMarkerSelect={setActiveMarkerId}
+                />
+              </div>
+              <AnatomyLayerPanel />
+              <AtlasAIViewerPanel />
+              <AnatomyKnowledgePanel activeMarkerId={activeMarkerId} />
+            </>
+          ) : (
+            <ViewerSketchfab />
+          )}
           <ViewerControls />
         </main>
 

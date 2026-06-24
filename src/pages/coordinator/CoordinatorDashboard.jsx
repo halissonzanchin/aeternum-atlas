@@ -2,20 +2,22 @@ import React from "react";
 import Card from "../../components/Card/Card";
 import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
-import { isUpeDemoMode, upeClassesMetrics, upeProfessorsMetrics, upeStudentsMetrics, upeEngagementMetrics, upeCourseMetrics, upeHeatmaps, upeInterventionCenterAlerts } from "../../demo/upe";
+import { isUpeDemoMode, getExecutiveLayer } from "../../demo/upe";
 
-export default function CoordinatorDashboard() {
+export default function CoordinatorDashboard({ user }) {
   const { t } = useLanguage();
-  const demoMode = isUpeDemoMode();
+  const demoMode = isUpeDemoMode(user);
 
-  // Static Data Contract for UPE Demo (Fase 6.2D.2)
+  const coordinatorView = getExecutiveLayer().coordinator;
+
+  // Static Data Contract for UPE Demo
   const healthMetrics = demoMode ? {
-    activeDisciplines: upeCourseMetrics.activeDisciplines,
-    activeProfessors: upeProfessorsMetrics.active,
-    activeStudents: upeStudentsMetrics.active,
+    activeDisciplines: coordinatorView.performanceByCourse.length,
+    activeProfessors: 45,
+    activeStudents: 2410,
     classesAtRisk: 3,
-    averageApprovalRate: 82,
-    averageEngagementRate: upeEngagementMetrics.averageEngagementRate
+    averageApprovalRate: coordinatorView.performanceByCourse[0]?.avgScore || 82,
+    averageEngagementRate: coordinatorView.retentionTrend[0]?.value || 85
   } : {
     activeDisciplines: 6,
     activeProfessors: 15,
@@ -26,10 +28,10 @@ export default function CoordinatorDashboard() {
   };
 
   const curriculumHeatmap = demoMode 
-    ? upeHeatmaps.map(h => ({
+    ? getExecutiveLayer().professor.mostErroredStructures.map(h => ({
         structure: h.structure,
-        accuracy: h.averageAccuracy,
-        risk: h.averageAccuracy < 45 ? "critical" : h.averageAccuracy < 55 ? "high" : "medium"
+        accuracy: 100 - h.errorRate,
+        risk: h.errorRate > 55 ? "critical" : h.errorRate > 45 ? "high" : "medium"
       }))
     : [
     { structure: "Osteologia", accuracy: 58, risk: "medium" },
@@ -40,10 +42,10 @@ export default function CoordinatorDashboard() {
   ];
 
   const studentRiskMetrics = demoMode ? {
-    atRisk: upeStudentsMetrics.atRisk,
-    inactive: upeStudentsMetrics.inactive,
-    lowPerformance: upeStudentsMetrics.lowPerformance,
-    recovered: upeStudentsMetrics.recovered
+    atRisk: 47,
+    inactive: getExecutiveLayer().rector.institution.inactiveStudents,
+    lowPerformance: 34,
+    recovered: 31
   } : {
     atRisk: 47,
     inactive: 28,
@@ -60,13 +62,10 @@ export default function CoordinatorDashboard() {
   ];
 
   const alerts = demoMode 
-    ? upeInterventionCenterAlerts.map((a, i) => ({
-        id: i + 1,
-        severity: a.priority === "alta" ? "high" : "medium",
-        target: a.type,
-        problem: a.description,
-        action: "Monitorar"
-      }))
+    ? [
+        { id: 1, severity: "critical", target: "Plexo Braquial", problem: "Taxa de erro superior a 55% em simulados", action: "Tutoria guiada recomendada" },
+        { id: 2, severity: "high", target: "Neuroanatomia", problem: "Engajamento da turma de Odontologia em queda", action: "Revisão com professor" }
+      ]
     : [
     { id: 1, severity: "critical", target: "Turma Medicina M4", problem: "Queda brusca de engajamento (30% abaixo da média).", action: "Convocar reunião com Dr. Fernando Rios." },
     { id: 2, severity: "high", target: "Base do Crânio (Tópico)", problem: "Taxa de erro superior a 55% em todas as turmas ativas.", action: "Recomendar Trilha de Revisão 3D guiada." },

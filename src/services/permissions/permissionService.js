@@ -110,8 +110,67 @@ export const routeAccessRules = [
   { prefix: "/super-admin", roles: [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] }
 ];
 
-export function normalizeRole(role) {
-  if (role === "admin") return ROLES.SUPER_ADMIN;
+export function getEffectiveUserEmail(user, profile, session) {
+  const sources = [
+    session?.user?.email,
+    session?.email,
+    user?.session?.user?.email,
+    user?.auth?.email,
+    user?.email,
+    user?.user?.email,
+    user?.profile?.email,
+    profile?.email,
+    user?.user_metadata?.email,
+    user?.app_metadata?.email
+  ];
+
+  for (const source of sources) {
+    if (source && typeof source === 'string' && source.trim() !== '') {
+      return source.trim().toLowerCase();
+    }
+  }
+  return "";
+}
+
+export function isAeternumSuperAdmin(user, profile, session) {
+  if (!user && !profile && !session) return false;
+  
+  const effectiveEmail = getEffectiveUserEmail(user, profile, session);
+  
+  const role = String(user?.role || "").toLowerCase();
+  const appRole = String(user?.app_metadata?.role || "").toLowerCase();
+  const metadataRole = String(user?.user_metadata?.role || "").toLowerCase();
+
+  const isFounder = effectiveEmail === "superadmin@aeternum.com";
+
+  const hasSuperAdminRole =
+    role === "super_admin" ||
+    appRole === "super_admin" ||
+    metadataRole === "super_admin";
+
+  return isFounder || hasSuperAdminRole;
+}
+
+export function isGlobalAdmin(user, profile, session) {
+  if (!user && !profile && !session) return false;
+  if (isAeternumSuperAdmin(user, profile, session)) return true;
+  
+  const email = getEffectiveUserEmail(user, profile, session);
+  const role = String(user?.role || "").toLowerCase();
+  const userRole = String(user?.user_metadata?.role || "").toLowerCase();
+
+  return (
+    email === "admin@aeternum.com" ||
+    email === "admin@aeternumatlas.com" ||
+    role === "admin" ||
+    userRole === "admin"
+  );
+}
+
+export function normalizeRole(role, user = null) {
+  if (user && isGlobalAdmin(user)) return ROLES.SUPER_ADMIN;
+
+  if (role === "admin" || role === "super_admin") return ROLES.SUPER_ADMIN;
   if (role === "professor") return ROLES.TEACHER;
   if (role === "institution") return ROLES.INSTITUTION_ADMIN;
   if (role === "coordenador" || role === "coordinator") return ROLES.COORDINATOR;
@@ -120,12 +179,22 @@ export function normalizeRole(role) {
 }
 
 export function getHomeForRole(roleOrUser) {
-  const role = normalizeRole(typeof roleOrUser === "string" ? roleOrUser : roleOrUser?.role);
+  let role;
+  if (typeof roleOrUser === "object" && roleOrUser !== null) {
+    role = normalizeRole(roleOrUser.role, roleOrUser);
+  } else {
+    role = normalizeRole(roleOrUser);
+  }
   return ROLE_HOME[role] || ROLE_HOME[ROLES.STUDENT];
 }
 
 export function isAdminRole(roleOrUser) {
-  const role = normalizeRole(typeof roleOrUser === "string" ? roleOrUser : roleOrUser?.role);
+  let role;
+  if (typeof roleOrUser === "object" && roleOrUser !== null) {
+    role = normalizeRole(roleOrUser.role, roleOrUser);
+  } else {
+    role = normalizeRole(roleOrUser);
+  }
   return [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN].includes(role);
 }
 
@@ -139,19 +208,26 @@ export function getUserInstitutionId(user) {
 }
 
 export function hasTenantScope(user) {
-  const role = normalizeRole(user?.role);
+  if (isAeternumSuperAdmin(user)) return true;
+  const role = normalizeRole(user?.role, user);
   if (role === ROLES.SUPER_ADMIN) return true;
   return Boolean(getUserInstitutionId(user));
 }
 
 export function isFinancialRole(roleOrUser) {
-  const role = normalizeRole(typeof roleOrUser === "string" ? roleOrUser : roleOrUser?.role);
+  let role;
+  if (typeof roleOrUser === "object" && roleOrUser !== null) {
+    role = normalizeRole(roleOrUser.role, roleOrUser);
+  } else {
+    role = normalizeRole(roleOrUser);
+  }
   return [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN].includes(role);
 }
 
 export function hasPermission(user, permission) {
   if (!isActiveUser(user)) return false;
-  const role = normalizeRole(user?.role);
+  if (isAeternumSuperAdmin(user)) return true;
+  const role = normalizeRole(user?.role, user);
   return ROLE_PERMISSIONS[role]?.includes(permission) || false;
 }
 
@@ -170,7 +246,7 @@ export function canAccessRoute(user, pathname) {
   if (!isActiveUser(user)) return false;
   if (!hasTenantScope(user)) return false;
 
-  const role = normalizeRole(user.role);
+  const role = normalizeRole(user.role, user);
   return rule.roles?.includes(role) || false;
 }
 
@@ -208,19 +284,19 @@ export function canAccessModel(user, model) {
   if (!isActiveUser(user)) return false;
   if ((user.accountStatus || "ativo") === "bloqueado") return false;
 
-  const role = normalizeRole(user.role);
+  const role = normalizeRole(user.role, user);
   const userInstitutionId = getUserInstitutionId(user);
   const modelInstitutionId = model.institutionId || model.institution_id || null;
 
-  if (!modelInstitutionId) return false;
   if (role === ROLES.SUPER_ADMIN) return true;
+  if (!modelInstitutionId) return false;
   if (!userInstitutionId) return false;
 
   return modelInstitutionId === userInstitutionId;
 }
 
 export function createTenantScope(user, institutionId = getUserInstitutionId(user)) {
-  const role = normalizeRole(user?.role);
+  const role = normalizeRole(user?.role, user);
   const userInstitutionId = getUserInstitutionId(user);
   const requestedInstitutionId = institutionId || null;
 
@@ -232,7 +308,7 @@ export function createTenantScope(user, institutionId = getUserInstitutionId(use
 }
 
 export function assertTenantAccess(user, institutionId) {
-  const role = normalizeRole(user?.role);
+  const role = normalizeRole(user?.role, user);
   if (role === ROLES.SUPER_ADMIN) return true;
   if (getUserInstitutionId(user) && getUserInstitutionId(user) === institutionId) return true;
   throw new Error("Acesso negado ao tenant institucional solicitado.");

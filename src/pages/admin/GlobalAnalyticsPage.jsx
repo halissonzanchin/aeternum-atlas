@@ -73,13 +73,15 @@ function exportToCsv(filename, rows) {
 
 export default function GlobalAnalyticsPage({ language = "pt", notify = () => {}, dashboardData = null }) {
   const [period, setPeriod] = useState("Últimos 30 dias");
-  const dashboardAnalytics = ["supabase", "restricted"].includes(dashboardData?.source) ? dashboardData?.analytics : null;
+  const dashboardAnalytics = ["supabase", "restricted", "demo_upe"].includes(dashboardData?.source) ? dashboardData?.analytics : null;
   const analytics = dashboardAnalytics?.snapshot || emptyAnalyticsSnapshot;
   const dataSourceLabel = dashboardData?.source === "supabase"
     ? "Supabase real"
-    : dashboardData?.source === "restricted"
-      ? "Tenant restrito"
-      : "Nenhum dado real";
+    : dashboardData?.source === "demo_upe"
+      ? "MODO APRESENTAÇÃO (DEMO UPE)"
+      : dashboardData?.source === "restricted"
+        ? "Tenant restrito"
+        : "Nenhum dado real";
   const activeDailyAccessData = useMemo(() => dashboardAnalytics?.dailyAccessData || [], [dashboardAnalytics]);
   const activeHourlyUsageData = useMemo(() => dashboardAnalytics?.hourlyUsageData || [], [dashboardAnalytics]);
   const activeSystemStudyTimeData = useMemo(() => dashboardAnalytics?.systemStudyTimeData || [], [dashboardAnalytics]);

@@ -4,9 +4,9 @@ import LineIcon from "../../../components/icons/LineIcon";
 import { useLanguage } from "../../../context/LanguageContext";
 import { isUpeDemoMode, upeClassesList, upeQuizzesMetrics, upeStudentsMetrics, upeHeatmaps, upeRiskStudentsList } from "../../../demo/upe";
 
-export default function ProfessorDashboard() {
+export default function ProfessorDashboard({ user }) {
   const { t } = useLanguage();
-  const demoMode = isUpeDemoMode();
+  const demoMode = isUpeDemoMode(user);
 
   // Static Data Contract for UPE Demo (Fase 6.2E.2)
   const teachingOverview = demoMode ? {

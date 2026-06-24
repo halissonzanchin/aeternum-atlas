@@ -89,7 +89,12 @@ export default function Sidebar({ path, user, navigate, onLogout }) {
         {menu.map(item => {
           const isAdminItem = !Array.isArray(item);
           const href = isAdminItem ? item.path : item[0];
-          const label = isAdminItem ? t(item.sidebarLabelKey || item.labelKey) : t(item[1]);
+          const labelKey = item.sidebarLabelKey || item.labelKey || item.label || item.title || item.name;
+          const defaultLabel = item.sidebarLabel || item.label || item.title || item.name || 'Menu';
+          const translatedAdmin = labelKey ? t(labelKey) : defaultLabel;
+          const label = isAdminItem 
+            ? (translatedAdmin === labelKey ? defaultLabel : translatedAdmin) 
+            : (item[1] ? t(item[1]) : 'Menu');
           const active = isAdminItem
             ? isAdminRouteActive(path, item)
             : path === href || (href !== "/dashboard" && path.startsWith(`${href}/`));

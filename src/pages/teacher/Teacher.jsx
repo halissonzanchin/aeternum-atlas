@@ -5,6 +5,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import { loadTeacherDashboardData } from "../../services/teacher/teacherDashboardService";
 import { createTeacherClass, createTeacherStudyGuide } from "../../services/teacher/teacherAcademicService";
 import { translateModelSummary } from "../../utils/modelI18n";
+import { isUpeDemoMode, getExecutiveLayer } from "../../demo/upe";
 
 const sectionTitles = {
   dashboard: ["teacher.dashboard.title", "teacher.dashboard.subtitle"],
@@ -799,10 +800,78 @@ function ProfileSection({ data }) {
   );
 }
 
+function UpeTeacherDashboard({ navigate }) {
+  const { t } = useLanguage();
+  const executiveLayer = getExecutiveLayer();
+  const professor = executiveLayer.professor;
+
+  return (
+    <TeacherPageShell section="dashboard" profile={{ name: "Professor(a)", department: "Anatomia Humana", institution: "Universidad Privada del Este" }}>
+      <div className="teacher-kpi-grid">
+        <TeacherKpiCard icon="users" label="Alunos Vinculados" value={professor.classes.reduce((sum, c) => sum + c.students, 0)} tone="teal" />
+        <TeacherKpiCard icon="check" label="Engajamento Médio" value={`${professor.engagement.averageEngagement}%`} />
+        <TeacherKpiCard icon="clock" label="Média de Estudo" value={`${professor.engagement.averageStudyTimeMinutes} min/aluno`} />
+        <TeacherKpiCard icon="layers" label="Top Sistema" value={professor.topSystems[0]?.system || "-"} tone="teal" />
+      </div>
+
+      <div className="teacher-dashboard-grid">
+        <Card className="premium-panel-card">
+          <div className="teacher-section-title">
+            <h2>Turmas Vinculadas</h2>
+          </div>
+          <div className="teacher-class-list">
+            {professor.classes.map(item => (
+              <div key={item.id} className="teacher-class-card">
+                <span>{item.course}</span>
+                <strong>{item.name}</strong>
+                <small>{item.students} alunos · {item.performance}% de média</small>
+                <ProgressBar value={item.performance} />
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card className="premium-panel-card">
+          <div className="teacher-section-title">
+            <h2>Foco de Correção</h2>
+          </div>
+          <div className="teacher-focus-list">
+            {professor.mostErroredStructures.map(item => (
+              <div key={item.structure}>
+                <span>{item.structure}</span>
+                <strong className="text-alertWarning">{item.errorRate}% de erro</strong>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+
+      <Card className="premium-panel-card mt-8">
+        <div className="teacher-section-title">
+          <h2>Módulos Mais Estudados</h2>
+        </div>
+        <div className="teacher-ranking-list">
+          {professor.topSystems.map((sys, idx) => (
+            <div key={sys.system}>
+              <span>{idx + 1}</span>
+              <strong>{sys.system}</strong>
+              <small>{sys.studyHours}h estudadas</small>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </TeacherPageShell>
+  );
+}
+
 export default function Teacher({ section = "dashboard", navigate, user }) {
   const { t } = useLanguage();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  if (isUpeDemoMode(user) && section === "dashboard") {
+    return <UpeTeacherDashboard navigate={navigate} />;
+  }
 
   useEffect(() => {
     let mounted = true;

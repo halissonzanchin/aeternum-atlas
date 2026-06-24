@@ -27,7 +27,7 @@ export default function SuperAdmin({ user, navigate }) {
       .then(data => {
         if (!mounted) return;
         setDashboardData(data);
-        setStatus(data.source === "supabase" ? "connected" : "restricted");
+        setStatus(data.source === "supabase" ? "connected" : data.source === "demo_upe" ? "demo_upe" : "restricted");
       })
       .catch(error => {
         console.warn("[super-admin] Falha ao carregar dados reais.", error);
@@ -58,9 +58,11 @@ export default function SuperAdmin({ user, navigate }) {
   const mostAccessedModel = dashboardData?.mostAccessedModels?.[0]?.title || "Nenhum dado encontrado";
   const dataSourceLabel = status === "connected"
     ? "Supabase real"
-    : status === "loading"
-      ? "Carregando Supabase"
-      : "Acesso restrito";
+    : status === "demo_upe"
+      ? "MODO APRESENTAÇÃO (DEMO UPE)"
+      : status === "loading"
+        ? "Carregando Supabase"
+        : "Acesso restrito";
 
   return (
     <section className="fade-in-up">

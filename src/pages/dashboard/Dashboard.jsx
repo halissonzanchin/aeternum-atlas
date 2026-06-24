@@ -39,7 +39,7 @@ export default function Dashboard({ user, navigate }) {
     return <ProfessorDashboard user={user} navigate={navigate} models={models} modelsLoading={modelsLoading} />;
   }
 
-  if (isUpeDemoMode() && user?.role !== "professor") {
+  if (isUpeDemoMode(user) && user?.role !== "professor") {
     return <UpeStudentDashboard navigate={navigate} />;
   }
 

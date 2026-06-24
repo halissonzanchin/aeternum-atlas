@@ -18,7 +18,7 @@ export function useAnatomicalHeatmap() {
       }
 
       setLoading(true);
-      const result = await fetchAnatomicalHeatmap(institutionId);
+      const result = await fetchAnatomicalHeatmap(institutionId, user);
       
       if (mounted) {
         setData(result);

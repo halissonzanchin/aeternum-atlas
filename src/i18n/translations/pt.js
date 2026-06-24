@@ -1278,7 +1278,11 @@ export const pt = {
     currency: "Moeda",
     exports: "Exportações",
     exportsText: "Estrutura preparada para CSV, PDF e relatório mensal.",
-    openReports: "Abrir relatórios"
+    openReports: "Abrir relatórios",
+    importStudents: "Importação de Alunos",
+    academicAnalytics: "Analytics Acadêmicos",
+    roi: "ROI Institucional",
+    heatmap: "Mapa de Calor"
   },
   superAdmin: {
     restrictedArea: "Área restrita",
@@ -1290,6 +1294,7 @@ export const pt = {
     globalAnalytics: "Analytics globais",
     estimatedBilling: "Faturamento estimado",
     reports: "Relatórios",
+    models3d: "Modelos 3D",
     description: "Painel geral para gerir instituições, licenças, contratos e relatórios de faturamento B2B.",
     activeInstitutions: "Instituições ativas",
     implementingInstitutions: "Instituições em implantação",

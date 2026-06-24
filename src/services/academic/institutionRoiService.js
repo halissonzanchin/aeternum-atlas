@@ -1,7 +1,12 @@
 import { supabase } from "../../lib/supabase";
 import { isSupabaseConfigured } from "../supabase/supabaseClient";
+import { mockInstitutionRoi } from "../../demo/upe/dataset";
 
 export async function fetchInstitutionRoi(institutionId) {
+  if (import.meta.env.VITE_DEMO_MODE === 'upe' || institutionId === "upe-presidente-franco") {
+    return mockInstitutionRoi;
+  }
+
   if (!isSupabaseConfigured() || !institutionId) {
     return {
       totalViews: 0,

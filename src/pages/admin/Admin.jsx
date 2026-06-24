@@ -17,6 +17,14 @@ import {
 import { reviewPendingUserRegistration } from "../../services/users/userService";
 import { formatCurrency, formatDate, formatNumber } from "../../utils/formatLocale";
 import GlobalAnalyticsPage from "./GlobalAnalyticsPage";
+import Admin3DModelsPage from "../../features/admin-3d/Admin3DModelsPage";
+import AcademicAnalyticsPanel from "../../features/institution-admin/components/AcademicAnalyticsPanel";
+import InstitutionRoiDashboard from "../../features/institution-admin/components/InstitutionRoiDashboard";
+import AnatomicalHeatmapPanel from "../../features/institution-admin/components/AnatomicalHeatmapPanel";
+import AcademicImportPanel from "../../features/institution-admin/components/AcademicImportPanel";
+import AtlasViewerAnalyticsDashboard from "./AtlasViewerAnalyticsDashboard";
+import AtlasMigrationWorkbenchPage from "../../features/admin-3d/migration/AtlasMigrationWorkbenchPage";
+import { getExecutiveLayer } from "../../demo/upe";
 import "./adminExecutive.css";
 
 const copy = {
@@ -176,7 +184,19 @@ const sectionRoutes = {
   students: "students",
   "global-analytics": "analytics",
   analytics: "analytics",
-  models: "analytics",
+  "academic-analytics": "academic_analytics",
+  academic_analytics: "academic_analytics",
+  roi: "roi",
+  heatmap: "heatmap",
+  "import-students": "import_students",
+  import_students: "import_students",
+  "models-3d": "models_3d",
+  models_3d: "models_3d",
+  models: "models_3d",
+  "atlas-migration": "atlas_migration",
+  atlas_migration: "atlas_migration",
+  "viewer-analytics": "viewer_analytics",
+  viewer_analytics: "viewer_analytics",
   "estimated-billing": "billing",
   billing: "billing",
   license: "billing",
@@ -276,12 +296,19 @@ function AdminSectionHeader({ eyebrow, title, text, actions }) {
   );
 }
 
-function AdminKpiCard({ label, value, detail, tone = "gold" }) {
+function AdminKpiCard({ label, value, detail, tone = "gold", wide = false }) {
+  const isLongValue = String(value).length >= 10;
   return (
-    <Card className={`admin-kpi-card admin-kpi-card--${tone}`}>
-      <span>{label}</span>
-      <strong>{value}</strong>
-      {detail ? <small>{detail}</small> : null}
+    <Card className={`admin-kpi-card admin-kpi-card--${tone} flex flex-col justify-between ${wide ? 'md:col-span-2' : ''}`}>
+      <span className="text-sm font-medium">{label}</span>
+      <strong 
+        className={`w-full leading-tight font-bold ${wide ? '' : 'break-words'}`} 
+        style={{ fontSize: isLongValue && !wide ? 'clamp(1.15rem, 1.8vw, 1.8rem)' : undefined }}
+        title={value}
+      >
+        {value}
+      </strong>
+      {detail ? <small className="w-full text-xs text-textMuted mt-1 line-clamp-2" title={detail}>{detail}</small> : null}
     </Card>
   );
 }
@@ -408,7 +435,7 @@ function StudentDetailModal({ student, labels, onClose, language }) {
   );
 }
 
-export default function Admin({ section = "overview", path = window.location.pathname, navigate, notify = () => {} }) {
+export default function Admin({ user, section = "overview", path = window.location.pathname, navigate, notify = () => {} }) {
   const { language, t } = useLanguage();
   const labels = copy[language] || copy.pt;
   const current = sectionRoutes[section] || "overview";
@@ -422,6 +449,9 @@ export default function Admin({ section = "overview", path = window.location.pat
   const studentHistoryByUser = dashboardData?.studentHistoryByUser || {};
   const availableInstitutions = dashboardData?.institutions || [];
   const isSuperAdminScope = ["super_admin", "admin"].includes(String(dashboardData?.raw?.profile?.role || "").toLowerCase());
+  const realStudents = ["restricted", "supabase", "demo_upe"].includes(dashboardData?.source)
+    ? adminStudents || []
+    : [];
 
   useEffect(() => {
     let mounted = true;
@@ -431,7 +461,7 @@ export default function Admin({ section = "overview", path = window.location.pat
       .then(data => {
         if (!mounted) return;
         setDashboardData(data);
-        setDashboardStatus(data.source === "supabase" ? "connected" : "restricted");
+        setDashboardStatus(data.source === "supabase" ? "connected" : data.source === "demo_upe" ? "demo_upe" : "restricted");
       })
       .catch(error => {
         console.warn("[admin-dashboard] Falha ao carregar dashboard real. Mantendo estado restrito.", error);
@@ -506,7 +536,7 @@ export default function Admin({ section = "overview", path = window.location.pat
       notify(decision === "approve" ? "Cadastro aprovado com segurança." : "Cadastro rejeitado com segurança.");
       const refreshed = await loadInstitutionDashboardData({ institutionId: selectedInstitutionId || null });
       setDashboardData(refreshed);
-      setDashboardStatus(refreshed.source === "supabase" ? "connected" : "restricted");
+      setDashboardStatus(refreshed.source === "supabase" ? "connected" : refreshed.source === "demo_upe" ? "demo_upe" : "restricted");
     } catch (error) {
       notify(error.message || "Não foi possível revisar o cadastro pendente.");
     }
@@ -528,7 +558,7 @@ export default function Admin({ section = "overview", path = window.location.pat
 
       <div className="admin-realdata-toolbar">
         <span>
-          {dashboardStatus === "connected" ? "Supabase real" : dashboardStatus === "loading" ? "Carregando Supabase" : "Acesso restrito"}
+          {dashboardStatus === "connected" ? "Supabase real" : dashboardStatus === "demo_upe" ? "MODO APRESENTAÇÃO (DEMO UPE)" : dashboardStatus === "loading" ? "Carregando Supabase" : "Acesso restrito"}
           {" · "}
           {dashboardData?.reason || (dashboardData?.scope === "global" ? "escopo global" : dashboardData?.institution?.displayName || "tenant validado")}
         </span>
@@ -548,10 +578,17 @@ export default function Admin({ section = "overview", path = window.location.pat
         ) : null}
       </div>
 
-      {current === "overview" && <Overview labels={labels} language={language} dashboardData={dashboardData} dashboardStatus={dashboardStatus} />}
+      {current === "overview" && <Overview labels={labels} language={language} dashboardData={dashboardData} dashboardStatus={dashboardStatus} path={path} />}
       {current === "institution" && <Institution labels={labels} language={language} dashboardData={dashboardData} />}
-      {current === "students" && <Students labels={labels} language={language} notify={notify} dashboardData={dashboardData} students={adminStudents} onSelectStudent={setSelectedStudent} onExport={exportStudentsCsv} onExportStudent={exportStudentCsv} onReviewPending={handlePendingRegistrationReview} />}
+      {current === "students" && <Students labels={labels} language={language} notify={notify} dashboardData={dashboardData} students={realStudents} onSelectStudent={setSelectedStudent} onExport={exportStudentsCsv} onExportStudent={exportStudentCsv} onReviewPending={handlePendingRegistrationReview} />}
       {current === "analytics" && <GlobalAnalyticsPage language={language} notify={notify} dashboardData={dashboardData} />}
+      {current === "academic_analytics" && <AcademicAnalyticsPanel />}
+      {current === "roi" && <InstitutionRoiDashboard />}
+      {current === "heatmap" && <AnatomicalHeatmapPanel />}
+      {current === "import_students" && <AcademicImportPanel />}
+      {current === "models_3d" && <Admin3DModelsPage notify={notify} user={user} />}
+      {current === "atlas_migration" && <AtlasMigrationWorkbenchPage navigate={navigate} />}
+      {current === "viewer_analytics" && <AtlasViewerAnalyticsDashboard />}
       {current === "billing" && <Billing labels={labels} language={language} dashboardData={dashboardData} />}
       {current === "reports" && <Reports labels={labels} language={language} dashboardData={dashboardData} onExport={exportStudentsCsv} onPrint={printReport} />}
       {current === "settings" && <Settings labels={labels} />}
@@ -569,7 +606,11 @@ export default function Admin({ section = "overview", path = window.location.pat
   );
 }
 
-function Overview({ labels, language, dashboardData, dashboardStatus }) {
+function Overview({ labels, language, dashboardData, dashboardStatus, path }) {
+  if (dashboardStatus === "demo_upe" && path?.startsWith("/super-admin")) {
+    return <SuperAdminB2BOverview labels={labels} language={language} dashboardData={dashboardData} dashboardStatus={dashboardStatus} />;
+  }
+
   const institution = dashboardData?.institution || emptyInstitution;
   const stats = dashboardData?.stats || {};
   const realtimeOverviewMetrics = dashboardData?.overviewMetrics || emptyOverviewMetrics;
@@ -587,11 +628,13 @@ function Overview({ labels, language, dashboardData, dashboardStatus }) {
   const lostRevenue = stats.lostRevenue ?? maxRevenue - estimatedRevenue;
   const dataSourceLabel = dashboardStatus === "connected"
     ? "Supabase real"
-    : dashboardStatus === "loading"
-      ? "Carregando Supabase"
-      : dashboardStatus === "restricted"
-        ? "Tenant restrito"
-        : "Nenhum dado real";
+    : dashboardStatus === "demo_upe"
+      ? "MODO APRESENTAÇÃO (DEMO UPE)"
+      : dashboardStatus === "loading"
+        ? "Carregando Supabase"
+        : dashboardStatus === "restricted"
+          ? "Tenant restrito"
+          : "Nenhum dado real";
 
   return (
     <>
@@ -657,6 +700,95 @@ function Overview({ labels, language, dashboardData, dashboardStatus }) {
             contractedCapacity={contractedCapacity}
             occupancyRate={occupancyRate}
             formatNumber={value => formatNumber(value, language)}
+          />
+        </Card>
+      </div>
+    </>
+  );
+}
+
+function SuperAdminB2BOverview({ labels, language, dashboardData, dashboardStatus }) {
+  const executiveLayer = getExecutiveLayer() || {};
+  const superAdmin = executiveLayer.superAdmin || {};
+  const investor = executiveLayer.investor || {};
+
+  const financials = investor.financials || {};
+  const growthMetrics = superAdmin.growthMetrics || {};
+  const globalUsage = superAdmin.globalUsage || { studyHours: [], topModels: [] };
+  const marketShareRegions = investor.marketShare?.regions || [];
+  const expansion = investor.expansion || { targetMarkets: [] };
+
+  return (
+    <>
+      <AdminSectionHeader
+        eyebrow="Aeternum Atlas · Executive Console"
+        title="B2B SaaS Dashboard"
+        text="Visão estratégica global, saúde financeira, expansão territorial e performance B2B."
+        actions={<span className="students-realtime-badge">MODO APRESENTAÇÃO (DEMO UPE)</span>}
+      />
+      <div className="admin-kpi-grid">
+        <AdminKpiCard label="Receita Recorrente Mensal (MRR)" value={money(financials.mrr || 0, language)} detail={`+${financials.mrrGrowth || 0}% no último trimestre`} tone="green" />
+        <AdminKpiCard label="Receita Anual Estimada (ARR)" value={money(financials.arr || 0, language)} detail="Projeção anual" />
+        <AdminKpiCard label="Customer Acquisition Cost (CAC)" value={money(financials.cac || 0, language)} detail="Custo por instituição" tone="amber" />
+        <AdminKpiCard label="Lifetime Value (LTV)" value={money(financials.ltv || 0, language)} detail="Valor do ciclo de vida" tone="teal" />
+        <AdminKpiCard label="Universidades Ativas" value={growthMetrics.activeUniversities || 0} detail="Base LATAM" />
+        <AdminKpiCard label="Capacidade Ocupada" value={`${growthMetrics.occupancyRate || 0}%`} detail={`${growthMetrics.totalStudents || 0} alunos ativos`} />
+        <AdminKpiCard label="Saúde da Plataforma" value="99.9%" detail="Uptime últimos 30 dias" tone="green" />
+        <AdminKpiCard label="Taxa de Cancelamento (Churn)" value={`${financials.churnRate || 0}%`} detail="Anualizado" tone="teal" />
+      </div>
+
+      <div className="admin-two-columns">
+        <Card>
+          <div className="admin-card-heading">
+            <h2>Expansão LATAM (Market Share)</h2>
+            <span>Visão territorial</span>
+          </div>
+          <HorizontalMetricList 
+            data={marketShareRegions.map(r => ({ label: r.region, value: r.percentage, subtitle: 'Mercado' }))} 
+            formatter={v => `${v}%`} 
+          />
+        </Card>
+        <Card>
+          <div className="admin-card-heading">
+            <h2>Uso Global da Plataforma</h2>
+            <span>Horas estudadas</span>
+          </div>
+          <HorizontalMetricList 
+            data={(globalUsage.studyHours || []).map(s => ({ label: s.period, value: s.value }))} 
+            formatter={v => `${Number(v).toLocaleString(language)}h`} 
+          />
+        </Card>
+      </div>
+
+      <div className="admin-two-columns">
+        <Card>
+          <div className="admin-card-heading">
+            <h2>Pipeline de Oportunidades</h2>
+            <span>{expansion.pipelineValue || "R$ 0"} no funil</span>
+          </div>
+          <div className="admin-stack">
+            <div className="flex justify-between items-center p-3 bg-slate-800/50 rounded-lg">
+              <div>
+                <strong className="block text-clinicalWhite">Novos Mercados Alvo</strong>
+                <span className="text-xs text-textMuted">{(expansion.targetMarkets || []).join(", ")}</span>
+              </div>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-slate-800/50 rounded-lg">
+              <div>
+                <strong className="block text-clinicalWhite">Próximo Marco de Receita</strong>
+                <span className="text-xs text-textMuted">{expansion.nextRevenueMilestone || "-"}</span>
+              </div>
+            </div>
+          </div>
+        </Card>
+        <Card>
+          <div className="admin-card-heading">
+            <h2>Adoção de Modelos 3D</h2>
+            <span>Top 3 mais utilizados</span>
+          </div>
+          <HorizontalMetricList 
+            data={(globalUsage.topModels || []).map(m => ({ label: m.model, value: m.accesses }))} 
+            formatter={v => Number(v).toLocaleString(language)} 
           />
         </Card>
       </div>
@@ -807,7 +939,7 @@ function buildStudentRadarData(student) {
 }
 
 function Students({ labels, language, notify, dashboardData, students, onSelectStudent, onExport, onExportStudent, onReviewPending }) {
-  const realStudents = ["restricted", "supabase"].includes(dashboardData?.source)
+  const realStudents = ["restricted", "supabase", "demo_upe"].includes(dashboardData?.source)
     ? students || []
     : [];
   const stats = dashboardData?.stats || {};
@@ -822,15 +954,16 @@ function Students({ labels, language, notify, dashboardData, students, onSelectS
   const licenseFullForecast = averageDailyRegistrations > 0 && realGrowth.remainingSlots > 0
     ? new Date(Date.now() + Math.ceil(realGrowth.remainingSlots / averageDailyRegistrations) * 24 * 60 * 60 * 1000).toLocaleDateString("pt-BR", { month: "short", year: "numeric" })
     : "-";
-  const realtime = isRealSource ? {
+  const isDemoUpeSource = dashboardData?.source === "demo_upe";
+  const realtime = (isRealSource || isDemoUpeSource) ? {
     registeredStudents: stats.registeredStudents ?? realStudents.length,
     contractedCapacity: stats.contractedCapacity ?? institution.contractedCapacity,
     activeStudents: stats.activeStudents ?? realStudents.filter(student => student.status === "ativo").length,
     inactiveStudents: stats.inactiveStudents ?? realStudents.filter(student => student.status === "inativo").length,
     occupancyRate: stats.occupancyRate ?? ((realStudents.length / (institution.contractedCapacity || 1)) * 100),
-    remainingSlots: realGrowth.remainingSlots,
-    newStudentsThisMonth: realGrowth.newStudentsThisMonth,
-    monthlyGrowthPercent: realGrowth.monthlyGrowthPercent,
+    remainingSlots: stats.contractedCapacity ? stats.contractedCapacity - (stats.registeredStudents ?? 0) : realGrowth.remainingSlots,
+    newStudentsThisMonth: stats.newStudentsThisMonth ?? realGrowth.newStudentsThisMonth,
+    monthlyGrowthPercent: stats.monthlyGrowthPercent ?? realGrowth.monthlyGrowthPercent,
     chartData: realGrowth.chartData,
     lastUpdated: new Date(dashboardData?.lastUpdated || Date.now()).toLocaleTimeString("pt-BR")
   } : isRestrictedSource ? {
@@ -1097,9 +1230,9 @@ function Billing({ labels, language, dashboardData }) {
       <Card>
         <h2>{labels.strategicIndicators}</h2>
         <div className="admin-kpi-grid compact">
-          <AdminKpiCard label={labels.annualRevenue} value={money(annualRevenue, language)} />
-          <AdminKpiCard label={labels.operationalCost} value={money(operationalCost, language)} tone="amber" />
-          <AdminKpiCard label={labels.ebitda} value={money(ebitda, language)} tone="green" />
+          <AdminKpiCard label={labels.annualRevenue} value={money(annualRevenue, language)} wide />
+          <AdminKpiCard label={labels.operationalCost} value={money(operationalCost, language)} tone="amber" wide />
+          <AdminKpiCard label={labels.ebitda} value={money(ebitda, language)} tone="green" wide />
           <AdminKpiCard label={labels.ebitdaMargin} value={pct(ebitdaMargin)} tone="green" />
           <AdminKpiCard label={labels.payback} value="-" tone="teal" />
           <AdminKpiCard label={labels.roi} value="-" tone="green" />

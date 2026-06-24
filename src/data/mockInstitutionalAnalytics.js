@@ -14,7 +14,8 @@ export const institutionProfile = {
   contractType: "Licença acadêmica institucional",
   billingModel: "Aluno ativo mensal",
   pricePerRegisteredStudent: 35,
-  pricePerActiveStudent: 50,
+  pricePerStudent: 50,
+  contractedCapacity: 3000,
   licenseStatus: "ativa",
   licenseStart: "2026-01-12T12:00:00.000Z",
   licenseEnd: "2027-01-12T12:00:00.000Z",
@@ -58,11 +59,11 @@ export const weeklyActiveStudents = [
 ];
 
 export const topAccessedModels = [
-  { id: "coracao-humano-superficial", title: "Coração Humano — Modelo Superficial 3D", accesses: 2840, studyMinutes: 14800 },
-  { id: "cranio-humano-3d", title: "Crânio Humano 3D", accesses: 2360, studyMinutes: 12620 },
-  { id: "mandibula", title: "Mandíbula", accesses: 2185, studyMinutes: 10420 },
-  { id: "abdome-cadaverico-3d", title: "Sistema Digestório", accesses: 1680, studyMinutes: 9340 },
-  { id: "torax-cadaverico-3d", title: "Tórax Cadavérico", accesses: 1520, studyMinutes: 8960 }
+  { id: "coracao-humano-superficial", title: "Coração Humano — Modelo Superficial 3D", accesses: 2840, studyHours: 247 },
+  { id: "cranio-humano-3d", title: "Crânio Humano 3D", accesses: 2360, studyHours: 210 },
+  { id: "mandibula", title: "Mandíbula", accesses: 2185, studyHours: 173 },
+  { id: "abdome-cadaverico-3d", title: "Sistema Digestório", accesses: 1680, studyHours: 155 },
+  { id: "torax-cadaverico-3d", title: "Tórax Cadavérico", accesses: 1520, studyHours: 149 }
 ];
 
 export const courseDistribution = [

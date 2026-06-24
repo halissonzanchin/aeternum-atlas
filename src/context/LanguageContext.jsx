@@ -58,6 +58,7 @@ export function LanguageProvider({ children }) {
 }
 
 function getNestedValue(obj, path) {
+  if (!path || typeof path !== 'string') return undefined;
   return path.split(".").reduce((acc, part) => {
     if (acc && Object.prototype.hasOwnProperty.call(acc, part)) {
       return acc[part];

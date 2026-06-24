@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, lazy, Suspense } from "react";
 import Button from "./components/Button/Button";
 import AppLayout from "./components/Layout/AppLayout";
 import Modal from "./components/Modal/Modal";
@@ -27,6 +27,13 @@ import StudyAgendaPage from "./pages/student/StudyAgendaPage";
 import AnatomicalQuizzesPage from "./pages/student/AnatomicalQuizzesPage";
 import { canonicalSuperAdminPath, getAdminNavigationItemByPath } from "./config/adminNavigation";
 import { useLanguage } from "./context/LanguageContext";
+import AtlasViewerBridgePage from "./features/atlas-viewer/pages/AtlasViewerBridgePage";
+import AtlasMigrationDetailPage from "./features/admin-3d/migration/AtlasMigrationDetailPage";
+import AtlasCertificationPage from "./features/admin-3d/certification/AtlasCertificationPage";
+
+import AtlasCertificationPipelinePage from "./features/admin-3d/certification/AtlasCertificationPipelinePage";
+
+const AtlasNativeModelEditorPage = lazy(() => import('./features/admin-3d/AtlasNativeModelEditorPage'));
 
 function currentPath() {
   return window.location.pathname || "/";
@@ -50,6 +57,34 @@ function SimpleModule({ title, text, titleKey, textKey }) {
       </Card>
     </>
   );
+}
+
+class GlobalErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Global Error Caught:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: 20, color: 'white', backgroundColor: '#330000', minHeight: '100vh', fontFamily: 'sans-serif' }}>
+          <h2>Falha ao carregar painel administrativo</h2>
+          <pre style={{ whiteSpace: 'pre-wrap', marginTop: 20 }}>{this.state.error?.toString()}</pre>
+          <pre style={{ whiteSpace: 'pre-wrap', marginTop: 10, fontSize: '12px', color: '#ffaaaa' }}>{this.state.error?.stack}</pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
 }
 
 export default function App() {
@@ -136,6 +171,15 @@ export default function App() {
     if (!authReady && (isPrivatePath(path) || isAdminPath(path))) {
       return <AuthBootstrap />;
     }
+    if (path.startsWith("/atlas-viewer/")) {
+      return (
+        <ProtectedRoute user={user} path={path} navigate={navigate}>
+          <AppLayout user={user} path={path} navigate={navigate} onLogout={handleLogout}>
+            <AtlasViewerBridgePage id={path.split("/").pop()} navigate={navigate} />
+          </AppLayout>
+        </ProtectedRoute>
+      );
+    }
     if (path.startsWith("/viewer/")) {
       return (
         <ProtectedRoute user={user} path={path} navigate={navigate}>
@@ -167,7 +211,7 @@ export default function App() {
   }, [authReady, path, user, t]);
 
   return (
-    <>
+    <GlobalErrorBoundary>
       {content}
       <Modal
         open={Boolean(modal)}
@@ -178,7 +222,7 @@ export default function App() {
         {modal?.body}
       </Modal>
       {toast ? <div className="fixed bottom-5 right-5 z-50 max-w-sm rounded-2xl border border-techTeal/30 bg-navyDeep/95 p-4 text-sm text-clinicalWhite shadow-premium backdrop-blur-xl">{toast}</div> : null}
-    </>
+    </GlobalErrorBoundary>
   );
 }
 
@@ -211,8 +255,8 @@ function renderPrivatePage(path, context) {
     return <RedirectTo to="/student/home" replace={(to) => navigate(to)} />;
   }
   if (path === "/student/home") return <Dashboard user={user} navigate={navigate} showInstitutionalModal={showInstitutionalModal} />;
-  if (path === "/rector/dashboard") return <RectorDashboard />;
-  if (path === "/coordinator/dashboard") return <CoordinatorDashboard />;
+  if (path === "/rector/dashboard") return <RectorDashboard user={user} />;
+  if (path === "/coordinator/dashboard") return <CoordinatorDashboard user={user} />;
   if (path === "/institution/dashboard") return <InstitutionDashboard />;
   if (path === "/admin/dashboard") return <SuperAdminDashboard />;
   if (path === "/models") return <Models user={user} navigate={navigate} onLocked={showInstitutionalModal} />;
@@ -246,9 +290,42 @@ function renderPrivatePage(path, context) {
     return <Atlas path={atlasPath} navigate={teacherAtlasNavigate} />;
   }
   if (path.startsWith("/teacher/")) return <Teacher section={path.split("/")[2] || "dashboard"} user={user} navigate={navigate} />;
-  if (path === "/institution-admin") return <Admin section="overview" path={path} navigate={navigate} notify={notify} />;
-  if (path.startsWith("/institution-admin/")) return <Admin section={path.split("/")[2] || "overview"} path={path} navigate={navigate} notify={notify} />;
-  if (path === "/super-admin") return <Admin section="overview" path={path} navigate={navigate} notify={notify} />;
+  if (path === "/institution-admin") return <Admin user={user} section="overview" path={path} navigate={navigate} notify={notify} />;
+  if (path.startsWith("/institution-admin/")) return <Admin user={user} section={path.split("/")[2] || "overview"} path={path} navigate={navigate} notify={notify} />;
+  if (path === "/super-admin") return <Admin user={user} section="overview" path={path} navigate={navigate} notify={notify} />;
+  if (path.startsWith("/super-admin/models-3d/") && path.endsWith("/editor")) {
+    const modelId = path.split("/")[3];
+    return (
+      <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
+        <Suspense fallback={<div className="flex h-screen items-center justify-center bg-blackDeep text-white">Carregando Editor 3D...</div>}>
+          <AtlasNativeModelEditorPage modelId={modelId} navigate={navigate} />
+        </Suspense>
+      </ProtectedRoute>
+    );
+  }
+  if (path.startsWith("/super-admin/atlas-migration/") && path.split("/").length === 4) {
+    const modelId = path.split("/")[3];
+    return (
+      <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
+        <AtlasMigrationDetailPage modelId={modelId} navigate={navigate} />
+      </ProtectedRoute>
+    );
+  }
+  if (path === "/super-admin/atlas-certification") {
+    return (
+      <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
+        <AtlasCertificationPipelinePage navigate={navigate} />
+      </ProtectedRoute>
+    );
+  }
+  if (path.startsWith("/super-admin/atlas-certification/") && path.split("/").length === 4) {
+    const modelId = path.split("/")[3];
+    return (
+      <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
+        <AtlasCertificationPage modelId={modelId} navigate={navigate} />
+      </ProtectedRoute>
+    );
+  }
   if (path.startsWith("/super-admin/")) return <Admin section={path.split("/")[2] || "overview"} path={path} navigate={navigate} notify={notify} />;
   if ((path === "/admin" || path.startsWith("/admin/")) && !["super_admin", "admin", "institution_admin"].includes(user?.role)) {
     return <NotFound navigate={navigate} />;

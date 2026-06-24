@@ -1,0 +1,464 @@
+{
+  "source": "demo_upe",
+  "scope": "global",
+  "selectedInstitutionId": "upe-presidente-franco",
+  "lastUpdated": "2026-06-20T21:38:20.833Z",
+  "institutions": [
+    {
+      "id": "upe-presidente-franco",
+      "name": "UPE Presidente Franco",
+      "status": "Ativa",
+      "licenseStatus": "ativa",
+      "registeredStudents": 2960,
+      "activeStudentsThisMonth": 2410,
+      "estimatedMonthlyTotal": 120500,
+      "usageGrowthPercent": 18
+    },
+    {
+      "id": "faculdade-demo",
+      "name": "Faculdade Demo de Medicina",
+      "status": "Em implantação",
+      "licenseStatus": "Em implantação",
+      "registeredStudents": 1180,
+      "activeStudentsThisMonth": 760,
+      "estimatedMonthlyTotal": 38000,
+      "usageGrowthPercent": 9
+    }
+  ],
+  "institution": {
+    "id": "upe-presidente-franco",
+    "name": "UPE Presidente Franco",
+    "country": "Paraguai",
+    "city": "Presidente Franco",
+    "contractType": "Licença acadêmica institucional",
+    "billingModel": "Aluno ativo mensal",
+    "pricePerRegisteredStudent": 35,
+    "pricePerActiveStudent": 50,
+    "licenseStatus": "ativa",
+    "licenseStart": "2026-01-12T12:00:00.000Z",
+    "licenseEnd": "2027-01-12T12:00:00.000Z",
+    "registeredStudents": 2960,
+    "activeStudentsToday": 328,
+    "activeStudentsThisMonth": 2410,
+    "inactiveStudentsThisMonth": 550,
+    "accessesToday": 412,
+    "accessesLast7Days": 1840,
+    "accessesThisMonth": 12250,
+    "totalStudyHours": 4860,
+    "totalStudyHoursThisMonth": 4860,
+    "averageStudyMinutesPerStudent": 121,
+    "billableStudents": 2410,
+    "estimatedMonthlyTotal": 120500,
+    "estimatedMonthlyValue": 120500,
+    "currency": "BRL",
+    "referencePeriod": "Abril/2026",
+    "generatedAt": "2026-06-20T21:38:16.239Z",
+    "createdAt": "2026-01-12T12:00:00.000Z"
+  },
+  "stats": {
+    "contractedCapacity": 3000,
+    "registeredStudents": 2960,
+    "activeStudents": 2410,
+    "inactiveStudents": 550,
+    "occupancyRate": 99,
+    "estimatedRevenue": 120500,
+    "maxRevenue": 150000,
+    "lostRevenue": 29500
+  },
+  "overviewMetrics": {
+    "activeNow": 142,
+    "accessesToday": 412,
+    "accessesThisMonth": 12250,
+    "totalStudyHoursThisMonth": 4860,
+    "averageSessionMinutes": 45,
+    "returnRate": 85,
+    "completionRate": 60,
+    "mostAccessedContent": "Coração",
+    "peakHour": "14h",
+    "peakDay": "Qua"
+  },
+  "usageData": [
+    {
+      "date": "2026-05-22",
+      "accesses": 376,
+      "activeStudents": 256,
+      "studyMinutes": 5264
+    },
+    {
+      "date": "2026-05-23",
+      "accesses": 309,
+      "activeStudents": 210,
+      "studyMinutes": 4326
+    },
+    {
+      "date": "2026-05-24",
+      "accesses": 335,
+      "activeStudents": 228,
+      "studyMinutes": 4690
+    },
+    {
+      "date": "2026-05-25",
+      "accesses": 355,
+      "activeStudents": 241,
+      "studyMinutes": 4970
+    },
+    {
+      "date": "2026-05-26",
+      "accesses": 367,
+      "activeStudents": 250,
+      "studyMinutes": 5138
+    },
+    {
+      "date": "2026-05-27",
+      "accesses": 424,
+      "activeStudents": 288,
+      "studyMinutes": 5936
+    },
+    {
+      "date": "2026-05-28",
+      "accesses": 461,
+      "activeStudents": 313,
+      "studyMinutes": 6454
+    },
+    {
+      "date": "2026-05-29",
+      "accesses": 351,
+      "activeStudents": 239,
+      "studyMinutes": 4914
+    },
+    {
+      "date": "2026-05-30",
+      "accesses": 332,
+      "activeStudents": 226,
+      "studyMinutes": 4648
+    },
+    {
+      "date": "2026-05-31",
+      "accesses": 311,
+      "activeStudents": 211,
+      "studyMinutes": 4354
+    },
+    {
+      "date": "2026-06-01",
+      "accesses": 344,
+      "activeStudents": 234,
+      "studyMinutes": 4816
+    },
+    {
+      "date": "2026-06-02",
+      "accesses": 273,
+      "activeStudents": 186,
+      "studyMinutes": 3822
+    },
+    {
+      "date": "2026-06-03",
+      "accesses": 358,
+      "activeStudents": 243,
+      "studyMinutes": 5012
+    },
+    {
+      "date": "2026-06-04",
+      "accesses": 260,
+      "activeStudents": 177,
+      "studyMinutes": 3640
+    },
+    {
+      "date": "2026-06-05",
+      "accesses": 267,
+      "activeStudents": 182,
+      "studyMinutes": 3738
+    },
+    {
+      "date": "2026-06-06",
+      "accesses": 336,
+      "activeStudents": 228,
+      "studyMinutes": 4704
+    },
+    {
+      "date": "2026-06-07",
+      "accesses": 305,
+      "activeStudents": 207,
+      "studyMinutes": 4270
+    },
+    {
+      "date": "2026-06-08",
+      "accesses": 333,
+      "activeStudents": 226,
+      "studyMinutes": 4662
+    },
+    {
+      "date": "2026-06-09",
+      "accesses": 458,
+      "activeStudents": 311,
+      "studyMinutes": 6412
+    },
+    {
+      "date": "2026-06-10",
+      "accesses": 391,
+      "activeStudents": 266,
+      "studyMinutes": 5474
+    },
+    {
+      "date": "2026-06-11",
+      "accesses": 469,
+      "activeStudents": 319,
+      "studyMinutes": 6566
+    },
+    {
+      "date": "2026-06-12",
+      "accesses": 432,
+      "activeStudents": 294,
+      "studyMinutes": 6048
+    },
+    {
+      "date": "2026-06-13",
+      "accesses": 440,
+      "activeStudents": 299,
+      "studyMinutes": 6160
+    },
+    {
+      "date": "2026-06-14",
+      "accesses": 439,
+      "activeStudents": 299,
+      "studyMinutes": 6146
+    },
+    {
+      "date": "2026-06-15",
+      "accesses": 526,
+      "activeStudents": 358,
+      "studyMinutes": 7364
+    },
+    {
+      "date": "2026-06-16",
+      "accesses": 468,
+      "activeStudents": 318,
+      "studyMinutes": 6552
+    },
+    {
+      "date": "2026-06-17",
+      "accesses": 394,
+      "activeStudents": 268,
+      "studyMinutes": 5516
+    },
+    {
+      "date": "2026-06-18",
+      "accesses": 372,
+      "activeStudents": 253,
+      "studyMinutes": 5208
+    },
+    {
+      "date": "2026-06-19",
+      "accesses": 353,
+      "activeStudents": 240,
+      "studyMinutes": 4942
+    },
+    {
+      "date": "2026-06-20",
+      "accesses": 338,
+      "activeStudents": 230,
+      "studyMinutes": 4732
+    }
+  ],
+  "hourlyUsageData": [],
+  "systemStudyTimeData": [],
+  "mostAccessedModels": [
+    {
+      "id": "coracao-humano-superficial",
+      "title": "Coração Humano — Modelo Superficial 3D",
+      "accesses": 2840,
+      "studyMinutes": 14800
+    },
+    {
+      "id": "cranio-humano-3d",
+      "title": "Crânio Humano 3D",
+      "accesses": 2360,
+      "studyMinutes": 12620
+    },
+    {
+      "id": "mandibula",
+      "title": "Mandíbula",
+      "accesses": 2185,
+      "studyMinutes": 10420
+    },
+    {
+      "id": "abdome-cadaverico-3d",
+      "title": "Sistema Digestório",
+      "accesses": 1680,
+      "studyMinutes": 9340
+    },
+    {
+      "id": "torax-cadaverico-3d",
+      "title": "Tórax Cadavérico",
+      "accesses": 1520,
+      "studyMinutes": 8960
+    }
+  ],
+  "platformHealth": {
+    "status": "online",
+    "uptimePercent": 0,
+    "incidentsThisMonth": 0,
+    "totalDowntimeMinutes": 0,
+    "affectedUsers": 0,
+    "averageResponseTimeMs": 0,
+    "sketchfabLoadErrors": 0,
+    "loginErrors": 0,
+    "reportExportErrors": 0,
+    "routeErrors": 0,
+    "lastIncident": null
+  },
+  "platformErrorsData": [],
+  "platformIncidents": [],
+  "blockedAccessLogs": [],
+  "students": [
+    {
+      "id": "stu-001",
+      "name": "Ana Martínez",
+      "email": "ana.martinez@upe.edu.py",
+      "registration": "MED-2026-001",
+      "course": "Medicina",
+      "semester": "2º ano",
+      "status": "ativo",
+      "createdAt": "2026-04-01T10:00:00.000Z",
+      "lastAccessAt": "2026-04-29 18:42",
+      "totalAccesses": 42,
+      "modelsStudied": 8,
+      "studyMinutes": 320,
+      "lastAccess": "2026-04-29 18:42"
+    },
+    {
+      "id": "student-demo",
+      "name": "Estudante Demo",
+      "email": "demo@upe.edu.py",
+      "registration": "RA-2026-001",
+      "course": "Medicina",
+      "semester": "2º semestre",
+      "status": "ativo",
+      "createdAt": "2026-02-03T10:00:00.000Z",
+      "lastAccessAt": "2026-06-20",
+      "totalAccesses": 42,
+      "modelsStudied": 7,
+      "studyMinutes": 385,
+      "lastAccess": "2026-06-20"
+    },
+    {
+      "id": "ana-paula",
+      "name": "Ana Paula Martins",
+      "email": "ana.martins@upe.edu.py",
+      "registration": "RA-2026-104",
+      "course": "Medicina",
+      "semester": "4º semestre",
+      "status": "ativo",
+      "createdAt": "2026-01-18T11:20:00.000Z",
+      "lastAccessAt": "2026-06-19",
+      "totalAccesses": 78,
+      "modelsStudied": 14,
+      "studyMinutes": 690,
+      "lastAccess": "2026-06-19"
+    },
+    {
+      "id": "bruno-silva",
+      "name": "Bruno Silva",
+      "email": "bruno.silva@upe.edu.py",
+      "registration": "RA-2025-892",
+      "course": "Medicina",
+      "semester": "6º semestre",
+      "status": "ativo",
+      "createdAt": "2025-09-02T14:40:00.000Z",
+      "lastAccessAt": "2026-06-17",
+      "totalAccesses": 119,
+      "modelsStudied": 21,
+      "studyMinutes": 1035,
+      "lastAccess": "2026-06-17"
+    },
+    {
+      "id": "camila-rocha",
+      "name": "Camila Rocha",
+      "email": "camila.rocha@upe.edu.py",
+      "registration": "RA-2024-320",
+      "course": "Medicina",
+      "semester": "Internato",
+      "status": "inativo",
+      "createdAt": "2024-08-15T09:30:00.000Z",
+      "lastAccessAt": "2026-06-02",
+      "totalAccesses": 64,
+      "modelsStudied": 10,
+      "studyMinutes": 520,
+      "lastAccess": "2026-06-02"
+    },
+    {
+      "id": "diego-lima",
+      "name": "Diego Lima",
+      "email": "diego.lima@upe.edu.py",
+      "registration": "RA-2026-218",
+      "course": "Odontologia",
+      "semester": "1º semestre",
+      "status": "pendente",
+      "createdAt": "2026-04-12T16:05:00.000Z",
+      "lastAccessAt": null,
+      "totalAccesses": 0,
+      "modelsStudied": 0,
+      "studyMinutes": 0
+    }
+  ],
+  "studentHistoryByUser": {},
+  "raw": {
+    "profile": {
+      "id": "9137bd4c-c10b-402b-b665-9d1048ef1f5e",
+      "institution_id": "e607ea36-a9e6-463e-9860-56226959e47e",
+      "name": "Admin Aeternum",
+      "email": "admin@aeternumatlas.com",
+      "role": "super_admin",
+      "status": "active"
+    },
+    "institutions": [
+      {
+        "id": "upe-presidente-franco",
+        "name": "UPE Presidente Franco",
+        "status": "Ativa",
+        "licenseStatus": "ativa",
+        "registeredStudents": 2960,
+        "activeStudentsThisMonth": 2410,
+        "estimatedMonthlyTotal": 120500,
+        "usageGrowthPercent": 18
+      },
+      {
+        "id": "faculdade-demo",
+        "name": "Faculdade Demo de Medicina",
+        "status": "Em implantação",
+        "licenseStatus": "Em implantação",
+        "registeredStudents": 1180,
+        "activeStudentsThisMonth": 760,
+        "estimatedMonthlyTotal": 38000,
+        "usageGrowthPercent": 9
+      }
+    ],
+    "users": [],
+    "profiles": [],
+    "logs": [
+      "login",
+      "logout",
+      "open_dashboard",
+      "open_models_page",
+      "open_model_detail",
+      "open_model_viewer",
+      "open_external_sketchfab",
+      "favorite_model",
+      "complete_model",
+      "copy_model_link"
+    ],
+    "events": [
+      "login",
+      "logout",
+      "open_dashboard",
+      "open_models_page",
+      "open_model_detail",
+      "open_model_viewer",
+      "open_external_sketchfab",
+      "favorite_model",
+      "complete_model",
+      "copy_model_link"
+    ],
+    "models": [],
+    "views": {}
+  }
+}

@@ -1,7 +1,12 @@
 import { supabase } from "../../lib/supabase";
 import { isSupabaseConfigured } from "../supabase/supabaseClient";
+import { mockAcademicAnalytics } from "../../demo/upe/dataset";
 
-export async function fetchAcademicAnalytics(institutionId) {
+export async function fetchAcademicAnalytics(institutionId, userEmail = null) {
+  if (import.meta.env.VITE_DEMO_MODE === 'upe' || institutionId === "upe-presidente-franco") {
+    return mockAcademicAnalytics;
+  }
+
   // Fallback seguro se não houver Supabase configurado
   if (!isSupabaseConfigured() || !institutionId) {
     return {

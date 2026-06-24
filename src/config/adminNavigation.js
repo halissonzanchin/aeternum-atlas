@@ -6,6 +6,7 @@ const adminPathById = {
   academic_analytics: "/admin/academic-analytics",
   roi: "/admin/roi",
   heatmap: "/admin/heatmap",
+  models_3d: "/admin/models-3d",
   billing: "/admin/estimated-billing",
   reports: "/admin/reports",
   settings: "/admin/settings"
@@ -73,6 +74,41 @@ export const adminNavigationItems = [
     labelKey: "institutionAdmin.heatmap",
     path: "/super-admin/heatmap",
     aliases: ["/admin/heatmap", "/institution-admin/heatmap"]
+  },
+  {
+    id: "models_3d",
+    label: "Atlas CMS",
+    labelKey: "superAdmin.models3d",
+    path: "/super-admin/models-3d",
+    aliases: ["/admin/models-3d", "/institution-admin/models-3d"]
+  },
+  {
+    id: "atlas_migration",
+    label: "Migration Workbench",
+    labelKey: "superAdmin.atlasMigration",
+    path: "/super-admin/atlas-migration",
+    aliases: ["/admin/atlas-migration", "/institution-admin/atlas-migration"]
+  },
+  {
+    id: "viewer_analytics",
+    label: "Viewer Analytics",
+    labelKey: "superAdmin.viewerAnalytics",
+    path: "/super-admin/viewer-analytics",
+    aliases: ["/admin/viewer-analytics", "/institution-admin/viewer-analytics"]
+  },
+  {
+    id: "atlas_certification",
+    label: "Certification Pipeline",
+    labelKey: "superAdmin.atlasCertification",
+    path: "/super-admin/atlas-certification",
+    aliases: ["/admin/atlas-certification", "/institution-admin/atlas-certification"]
+  },
+  {
+    id: "digital_twins",
+    label: "Digital Twins",
+    labelKey: "superAdmin.digitalTwins",
+    path: "/super-admin/digital-twins",
+    aliases: ["/admin/digital-twins", "/institution-admin/digital-twins"]
   },
   {
     id: "billing",

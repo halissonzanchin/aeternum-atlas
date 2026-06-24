@@ -2,24 +2,26 @@ import React from "react";
 import Card from "../../components/Card/Card";
 import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
-import { isUpeDemoMode, upeStudentsMetrics, upeRoiMetrics, upeEngagementMetrics, upeProfessorsMetrics, upeCourseMetrics, upeHeatmaps } from "../../demo/upe";
-export default function RectorDashboard() {
-  const { t } = useLanguage();
+import { isUpeDemoMode, getExecutiveLayer } from "../../demo/upe";
 
-  const demoMode = isUpeDemoMode();
+export default function RectorDashboard({ user }) {
+  const { t } = useLanguage();
+  const demoMode = isUpeDemoMode(user);
+  
+  const rectorView = getExecutiveLayer().rector;
 
   // Static Data Contract for UPE Demo (Fase 6.2C.2)
   const metrics = demoMode ? {
-    totalStudents: upeStudentsMetrics.total,
-    activeStudents: upeStudentsMetrics.active,
-    totalProfessors: upeProfessorsMetrics.total,
-    totalCourses: upeCourseMetrics.totalCourses,
-    totalStudyHours: upeRoiMetrics.totalStudyHours,
-    monthlyGrowth: upeEngagementMetrics.monthlyGrowthPercentage,
-    estimatedLabSavings: upeRoiMetrics.estimatedLabSavings,
-    averageScore: 82,
-    atRiskStudents: upeStudentsMetrics.atRisk,
-    recoveredStudents: upeStudentsMetrics.recovered
+    totalStudents: rectorView.institution.contractedCapacity,
+    activeStudents: rectorView.institution.activeStudents,
+    totalProfessors: rectorView.hierarchy.roles.professors,
+    totalCourses: rectorView.hierarchy.courses.length,
+    totalStudyHours: 4860, // From academic layer
+    monthlyGrowth: 5.2,
+    estimatedLabSavings: rectorView.roi.estimatedLabSavings,
+    averageScore: rectorView.academicPerformance[0]?.avgScore || 82,
+    atRiskStudents: 47,
+    recoveredStudents: 31
   } : {
     totalStudents: 700,
     activeStudents: 650,
@@ -46,7 +48,7 @@ export default function RectorDashboard() {
   ];
 
   const hardestStructures = demoMode 
-    ? upeHeatmaps.slice(0, 3).map(h => ({ name: h.structure, errorRate: h.difficultyScore }))
+    ? getExecutiveLayer().professor.mostErroredStructures.slice(0, 3).map(h => ({ name: h.structure, errorRate: h.errorRate }))
     : [
     { name: "Pares Cranianos", errorRate: 64 },
     { name: "Plexo Braquial", errorRate: 58 },
