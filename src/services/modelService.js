@@ -328,9 +328,9 @@ export async function resolveModelIdentity(identifier, user = null, options = {}
         // Se precisar apenas ativos, podemos filtrar, mas getModelById costuma pegar tudo se for dono
       }
       
-      const { data, error } = await query.single();
+      const { data, error } = await query.maybeSingle();
       
-      if (!error && data) {
+      if (data) {
         const mappedModel = mapSupabaseModelToUIModel(data);
         // Força a exibição imediata do modelo obtido individualmente do banco (inclusive Rascunhos/Drafts)
         identity.modelRecord = applyOverrides(mappedModel);
@@ -342,6 +342,28 @@ export async function resolveModelIdentity(identifier, user = null, options = {}
         if (!isUuid) {
           identity.warnings.push(`Resolvedor invocado por slug (${identifier}). Recomenda-se migrar rota para UUID: ${data.id}`);
         }
+        
+        modelIdentityCache.set(identifier, identity);
+        return identity;
+      }
+      
+      // Fallback: search in legacy models_3d table
+      let queryOld = supabase.from('models_3d').select('*');
+      if (isUuid) {
+        queryOld = queryOld.eq('id', identifier);
+      } else {
+        queryOld = queryOld.eq('slug', normalizedIdentifier);
+      }
+      
+      const { data: dataOld } = await queryOld.maybeSingle();
+      if (dataOld) {
+        const mappedModelOld = normalizeSupabaseModel(dataOld);
+        identity.modelRecord = applyOverrides(mappedModelOld);
+        identity.modelUuid = dataOld.id;
+        identity.slug = dataOld.slug;
+        identity.source = 'supabase_legacy';
+        identity.isUuidResolved = true;
+        identity.isLegacy = true;
         
         modelIdentityCache.set(identifier, identity);
         return identity;
