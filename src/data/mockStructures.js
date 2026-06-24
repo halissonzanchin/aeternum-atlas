@@ -104,6 +104,8 @@ export const mockStructures = [
     clinicalNotes: "Relevante para correlação com neuroanatomia, anatomia de cabeça e pescoço e interpretação inicial de cortes medianos em imagem.",
     breadcrumb: ["Sistema Nervoso", "Cabeça e Pescoço", "Corte Sagital"],
     metadata: {
+      cameraPosition: [0.3, 1.3, 0.4],
+      cameraTarget: [0.0, 1.25, 0.0],
       legacy_annotations_backup: true,
       legacy_annotation_positions: null,
       legacy_annotation_source: "sketchfab",

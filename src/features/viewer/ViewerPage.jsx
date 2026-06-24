@@ -253,7 +253,9 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
                   onMarkerSelect={setActiveMarkerId}
                 />
               </div>
-              <AnatomyLayerPanel />
+              {(modelState.model.isSegmented || modelState.model.metadata?.segmented) && (
+                <AnatomyLayerPanel />
+              )}
               <AtlasAIViewerPanel />
               <AnatomyKnowledgePanel activeMarkerId={activeMarkerId} />
             </>

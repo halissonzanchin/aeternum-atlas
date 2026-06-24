@@ -37,13 +37,11 @@ export default function AtlasGLBLoader({ url, onModelClick }) {
           if (child.material) {
             const normalizeCadavericMaterial = (material) => {
               if (material.isMeshStandardMaterial || material.isMeshPhysicalMaterial) {
-                material.metalness = 0.0;
-                // Fix shiny default GLB materials, set roughness to realistic organic value
-                if (material.roughness < 0.4) {
-                  material.roughness = 0.75; 
-                }
+                material.metalness = 0.05;
+                material.roughness = 0.85; 
+                
                 if (!material.roughnessMap) {
-                   material.envMapIntensity = 0.5;
+                   material.envMapIntensity = 0.8;
                 }
                 material.needsUpdate = true;
                 normalizedMaterialCount++;

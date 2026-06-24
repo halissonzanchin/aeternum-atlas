@@ -4,9 +4,12 @@ import { useLanguage } from "../../context/LanguageContext";
 
 const defaultTabs = [
   "Informação",
+  "Marcadores",
+  "Anotações",
+  "Simulado Teórico",
+  "Simulado Prático",
   "Partes",
   "Superfícies",
-  "Marcadores",
   "Secções transversais",
   "Modelos",
   "Nervos",
@@ -19,6 +22,11 @@ const defaultTabs = [
 ];
 
 const academicTabs = [
+  "Informação",
+  "Marcadores",
+  "Anotações",
+  "Simulado Teórico",
+  "Simulado Prático",
   "Visão geral",
   "Objetivos",
   "Estruturas anatômicas",
@@ -287,6 +295,30 @@ export default function LeftInfoPanel({
           ) : null}
           {activeTab === "Marcadores" ? (
             <ListTab items={structure?.markers || []} empty={t("viewer.emptyStates.noMarkers")} onClick={item => onAction(`${t("viewer.markers")}: ${item}`)} />
+          ) : null}
+          {activeTab === "Anotações" ? (
+            <div className="viewer-info-block text-center mt-6">
+              <p className="mb-4 text-textMuted text-sm">Crie notas pessoais para estudo deste modelo anatômico.</p>
+              <button className="rounded-md bg-techTeal px-4 py-2 text-sm font-semibold text-blackDeep hover:bg-techTeal/90 transition-colors" onClick={() => onAction("Anotações")}>
+                Acessar Minhas Anotações
+              </button>
+            </div>
+          ) : null}
+          {activeTab === "Simulado Teórico" ? (
+            <div className="viewer-info-block text-center mt-6">
+              <p className="mb-4 text-textMuted text-sm">Teste seus conhecimentos com questões múltipla-escolha e verdadeiro ou falso.</p>
+              <button className="rounded-md bg-techTeal px-4 py-2 text-sm font-semibold text-blackDeep hover:bg-techTeal/90 transition-colors" onClick={() => onAction("Simulado Teórico")}>
+                Iniciar Simulado Teórico
+              </button>
+            </div>
+          ) : null}
+          {activeTab === "Simulado Prático" ? (
+            <div className="viewer-info-block text-center mt-6">
+              <p className="mb-4 text-textMuted text-sm">Identifique as estruturas no modelo 3D usando os marcadores oficiais.</p>
+              <button className="rounded-md bg-techTeal px-4 py-2 text-sm font-semibold text-blackDeep hover:bg-techTeal/90 transition-colors" onClick={() => onAction("Simulado Anatômico")}>
+                Iniciar Simulado Prático
+              </button>
+            </div>
           ) : null}
           {activeTab === "Secções transversais" ? (
             <ListTab items={structure?.sections || [t("viewer.planes.axial"), t("viewer.planes.coronal"), t("viewer.planes.sagittal")]} empty={t("viewer.emptyStates.noSections")} onClick={item => onAction(`${t("viewer.crossSections")}: ${item}`)} />
