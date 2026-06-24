@@ -71,10 +71,29 @@ export default function AtlasAIViewerPanel() {
       {!isOpen && (
         <button 
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 rounded-full bg-blackDeep border border-techTeal/40 shadow-[0_0_15px_rgba(45,212,191,0.2)] flex items-center justify-center hover:scale-105 hover:border-techTeal transition-all hover:shadow-[0_0_20px_rgba(45,212,191,0.4)]"
+          className="relative w-14 h-14 rounded-full group flex items-center justify-center focus:outline-none transition-transform hover:scale-105"
           title="Atlas AI Tutor"
+          aria-label="Open AI Tutor"
         >
-          <span className="text-techTeal font-bold text-lg">AI</span>
+          {/* Outer Breathing Halo */}
+          <div className="absolute inset-[-4px] rounded-full bg-gradient-to-tr from-techTeal/40 via-blue-500/20 to-purple-500/40 blur-md opacity-60 group-hover:opacity-100 group-hover:inset-[-6px] transition-all duration-700 animate-pulse" />
+          
+          {/* Core Orb Background with spinning gradient */}
+          <div className="absolute inset-0 rounded-full bg-[#0B0E14] overflow-hidden">
+            <div 
+              className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_280deg,rgba(35,210,179,0.8)_360deg)] opacity-70 group-hover:opacity-100 animate-spin transition-opacity duration-500" 
+              style={{ animationDuration: '4s' }} 
+            />
+            {/* Inner glass layer to soften the conic gradient */}
+            <div className="absolute inset-[2px] rounded-full bg-[#0B0E14]/80 backdrop-blur-sm" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-techTeal/10 to-transparent rounded-full mix-blend-screen" />
+          </div>
+
+          {/* Inner Glow and Border */}
+          <div className="absolute inset-0 rounded-full border border-white/20 shadow-[inset_0_0_15px_rgba(35,210,179,0.3)] group-hover:shadow-[inset_0_0_25px_rgba(35,210,179,0.6)] group-hover:border-techTeal/50 transition-all duration-500" />
+
+          {/* AI Text Content */}
+          <span className="relative text-techTeal font-black tracking-widest text-sm drop-shadow-[0_0_8px_rgba(35,210,179,0.8)] z-10 transition-transform group-hover:scale-110">AI</span>
         </button>
       )}
     </div>

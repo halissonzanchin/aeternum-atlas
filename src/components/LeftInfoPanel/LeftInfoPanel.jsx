@@ -4,68 +4,35 @@ import { useLanguage } from "../../context/LanguageContext";
 
 const defaultTabs = [
   "Informação",
-  "Marcadores",
   "Anotações",
   "Simulado Teórico",
   "Simulado Prático",
-  "Partes",
-  "Superfícies",
-  "Secções transversais",
-  "Modelos",
-  "Nervos",
-  "Artérias",
-  "Suturas",
-  "Craniometria",
-  "Tratamentos",
-  "Condições",
-  "Exercícios"
+  "Correlações clínicas",
+  "Objetivos",
+  "Guia de estudo",
+  "Referência"
 ];
 
 const academicTabs = [
   "Informação",
-  "Marcadores",
   "Anotações",
   "Simulado Teórico",
   "Simulado Prático",
-  "Visão geral",
-  "Objetivos",
-  "Estruturas anatômicas",
   "Correlações clínicas",
+  "Objetivos",
   "Guia de estudo",
   "Referência"
 ];
 
 const tabLabels = {
   "Informação": "viewer.information",
-  "Partes": "viewer.parts",
-  "Superfícies": "viewer.surfaces",
-  "Marcadores": "viewer.markers",
-  "Secções transversais": "viewer.crossSections",
-  "Modelos": "viewer.models",
-  "Visão geral": "viewer.overview",
   "Objetivos": "viewer.objectives",
-  "Estruturas anatômicas": "viewer.anatomicalStructures",
   "Correlações clínicas": "viewer.clinicalCorrelations",
   "Guia de estudo": "viewer.studyGuide",
-  "Referência": "viewer.reference",
-  Nervos: "viewer.extraTabs.nerves",
-  Artérias: "viewer.extraTabs.arteries",
-  Suturas: "viewer.extraTabs.sutures",
-  Craniometria: "viewer.extraTabs.craniometry",
-  Tratamentos: "viewer.extraTabs.treatments",
-  Condições: "viewer.extraTabs.conditions",
-  Exercícios: "viewer.extraTabs.exercises"
+  "Referência": "viewer.reference"
 };
 
-const tabFallbacks = {
-  Nervos: ["Nervo alveolar inferior", "Nervo mentual", "Nervo lingual"],
-  Artérias: ["Artéria alveolar inferior", "Artéria facial", "Artéria maxilar"],
-  Suturas: ["Sínfise mandibular", "Articulação temporomandibular", "Inserções ligamentares"],
-  Craniometria: ["Gônio", "Gnátio", "Pogônio", "Mentoniano"],
-  Tratamentos: ["Redução de fraturas", "Planejamento ortognático", "Bloqueio anestésico"],
-  Condições: ["Fratura mandibular", "Disfunção temporomandibular", "Alterações de oclusão"],
-  Exercícios: ["Identificar marcos ósseos", "Relacionar nervos e forames", "Correlacionar trauma e anatomia"]
-};
+const tabFallbacks = {};
 
 function valueOf(structure, key, fallback) {
   return structure?.[key] || structure?.[key.replace(/[A-Z]/g, match => `_${match.toLowerCase()}`)] || fallback;
@@ -248,9 +215,13 @@ export default function LeftInfoPanel({
           </div>
         ) : null}
 
-        <div className="viewer-tabs">
+        <div className="flex flex-col gap-1 px-4 py-2 border-b border-white/5 mb-4">
           {panelTabs.map(item => (
-            <button key={item} className={activeTab === item ? "is-active" : ""} onClick={() => setTab(item)}>
+            <button 
+              key={item} 
+              className={`text-left px-3 py-2 text-sm rounded-lg transition-all ${activeTab === item ? "bg-techTeal/10 text-techTeal font-bold" : "text-slate-400 hover:text-slate-200 hover:bg-white/5"}`} 
+              onClick={() => setTab(item)}
+            >
               {t(tabLabels[item] || item)}
             </button>
           ))}
@@ -289,13 +260,6 @@ export default function LeftInfoPanel({
             </div>
           ) : null}
           {activeTab === "Informação" ? <InformationTab structure={structure} t={t} /> : null}
-          {activeTab === "Partes" ? <PartsTab structure={structure} activePart={activePart} onSelectPart={onSelectPart} t={t} /> : null}
-          {activeTab === "Superfícies" ? (
-            <ListTab items={structure?.surfaces || []} empty={t("viewer.emptyStates.noSurfaces")} onClick={item => onAction(`${t("viewer.surfaces")}: ${item}`)} />
-          ) : null}
-          {activeTab === "Marcadores" ? (
-            <ListTab items={structure?.markers || []} empty={t("viewer.emptyStates.noMarkers")} onClick={item => onAction(`${t("viewer.markers")}: ${item}`)} />
-          ) : null}
           {activeTab === "Anotações" ? (
             <div className="viewer-info-block text-center mt-6">
               <p className="mb-4 text-textMuted text-sm">Crie notas pessoais para estudo deste modelo anatômico.</p>
@@ -319,23 +283,6 @@ export default function LeftInfoPanel({
                 Iniciar Simulado Prático
               </button>
             </div>
-          ) : null}
-          {activeTab === "Secções transversais" ? (
-            <ListTab items={structure?.sections || [t("viewer.planes.axial"), t("viewer.planes.coronal"), t("viewer.planes.sagittal")]} empty={t("viewer.emptyStates.noSections")} onClick={item => onAction(`${t("viewer.crossSections")}: ${item}`)} />
-          ) : null}
-          {activeTab === "Modelos" ? (
-            <div className="viewer-info-block">
-              <span>{t("viewer.models")}</span>
-              <p>{model?.title}</p>
-              <small className="mt-3 block text-textMuted">{t("viewer.viewerSwitchingPrepared")}</small>
-            </div>
-          ) : null}
-          {Object.keys(tabFallbacks).includes(activeTab) ? (
-            <ListTab
-              items={structure?.[activeTab.toLowerCase()] || tabFallbacks[activeTab]}
-              empty={`Nenhum item cadastrado em ${activeTab}.`}
-              onClick={item => onAction(`${activeTab}: ${item}`)}
-            />
           ) : null}
         </div>
       </aside>

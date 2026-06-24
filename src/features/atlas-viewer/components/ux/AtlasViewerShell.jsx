@@ -4,6 +4,7 @@ import AtlasViewerToolbar from './AtlasViewerToolbar';
 import AtlasMarkerPanel from './AtlasMarkerPanel';
 import { atlasViewerCommands } from '../../ai/atlasViewerCommands';
 import AtlasEducationalPanel from '../AtlasEducationalPanel';
+import { useViewer } from '../../../viewer/ViewerContext';
 
 export default function AtlasViewerShell({ 
   modelUrl, 
@@ -18,7 +19,7 @@ export default function AtlasViewerShell({
   
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [qualityPreset, setQualityPreset] = useState(initialQuality);
-  const [isMarkerPanelOpen, setIsMarkerPanelOpen] = useState(window.innerWidth > 1024);
+  const { markerOpen, setMarkerOpen } = useViewer();
   const [activeMarkerId, setActiveMarkerId] = useState(null);
   const [studyMode, setStudyMode] = useState(false);
   
@@ -53,7 +54,7 @@ export default function AtlasViewerShell({
     
     // Auto-open educational panel logic in study mode or general
     if (!studyMode && window.innerWidth <= 768) {
-      setIsMarkerPanelOpen(false); // hide list on mobile when selected
+      setMarkerOpen(false); // hide list on mobile when selected
     }
   }, [onMarkerSelect, studyMode]);
 
@@ -62,14 +63,14 @@ export default function AtlasViewerShell({
     if (process.env.NODE_ENV === 'development') {
       console.log(`[Atlas Viewer UX]
   - activeMarkerId: ${activeMarkerId}
-  - markerPanelOpen: ${isMarkerPanelOpen}
+  - markerPanelOpen: ${markerOpen}
   - fullscreenActive: ${isFullscreen}
   - studyMode: ${studyMode}
   - qualityPreset: ${qualityPreset}
   - markerCount: ${markers.length}
       `);
     }
-  }, [activeMarkerId, isMarkerPanelOpen, isFullscreen, studyMode, qualityPreset, markers.length]);
+  }, [activeMarkerId, markerOpen, isFullscreen, studyMode, qualityPreset, markers.length]);
 
   return (
     <div ref={containerRef} className="relative w-full h-full bg-[#0B0E14] overflow-hidden flex font-sans">
@@ -93,12 +94,12 @@ export default function AtlasViewerShell({
           toggleFullscreen={toggleFullscreen}
           qualityPreset={qualityPreset}
           setQualityPreset={setQualityPreset}
-          isMarkerPanelOpen={isMarkerPanelOpen}
-          toggleMarkerPanel={() => setIsMarkerPanelOpen(!isMarkerPanelOpen)}
+          isMarkerPanelOpen={markerOpen}
+          toggleMarkerPanel={() => setMarkerOpen(!markerOpen)}
           studyMode={studyMode}
           toggleStudyMode={() => {
             setStudyMode(!studyMode);
-            if (!studyMode) setIsMarkerPanelOpen(true); // force open markers in study mode
+            if (!studyMode) setMarkerOpen(true); // force open markers in study mode
           }}
         />
 
@@ -119,8 +120,8 @@ export default function AtlasViewerShell({
         markers={markers} 
         activeMarkerId={activeMarkerId}
         onSelectMarker={handleSelectMarker}
-        isOpen={isMarkerPanelOpen}
-        onClose={() => setIsMarkerPanelOpen(false)}
+        isOpen={markerOpen}
+        onClose={() => setMarkerOpen(false)}
       />
       
     </div>

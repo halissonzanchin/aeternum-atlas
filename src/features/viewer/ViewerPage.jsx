@@ -76,7 +76,21 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
   const annotationsState = useViewerAnnotations(modelState.model);
   
   const [toast, setToast] = useState("");
-  const [leftOpen, setLeftOpen] = useState(() => window.innerWidth >= 1180);
+  const [leftOpen, setLeftOpenState] = useState(false);
+  const [markerOpen, setMarkerOpenState] = useState(false);
+  
+  const setLeftOpen = (value) => {
+    const newVal = typeof value === 'function' ? value(leftOpen) : value;
+    if (newVal) setMarkerOpenState(false);
+    setLeftOpenState(newVal);
+  };
+  
+  const setMarkerOpen = (value) => {
+    const newVal = typeof value === 'function' ? value(markerOpen) : value;
+    if (newVal) setLeftOpenState(false);
+    setMarkerOpenState(newVal);
+  };
+  
   const [searchOpen, setSearchOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
@@ -211,6 +225,8 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     setToast,
     leftOpen,
     setLeftOpen,
+    markerOpen,
+    setMarkerOpen,
     searchOpen,
     setSearchOpen,
     settingsOpen,
