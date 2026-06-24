@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import Card from '../../../components/Card/Card';
 import Button from '../../../components/Button/Button';
 import { atlasViewerCommands } from './atlasViewerCommands';
-import { useViewerContext } from '../hooks/useViewerContext';
+import { useViewer } from '../../viewer/ViewerContext';
 
 export default function AtlasAIViewerPanel() {
   const [isOpen, setIsOpen] = useState(false);
-  const viewerContext = useViewerContext();
+  const viewerContext = useViewer();
 
   const handleCommand = (commandType, payload = null) => {
     switch (commandType) {
