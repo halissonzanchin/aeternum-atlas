@@ -145,7 +145,7 @@ const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = 'aut
   return (
     <div className="w-full h-full bg-blackDeep relative overflow-hidden flex-1">
       {/* HUD overlay minimal */}
-      <div className="absolute top-[24px] left-[24px] z-10 pointer-events-none">
+      <div className="absolute top-6 right-6 md:right-8 z-10 pointer-events-none hidden sm:block">
         <span className="bg-techTeal/10 backdrop-blur-md text-techTeal text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-md border border-techTeal/30 flex items-center gap-2 shadow-lg">
           <span className="w-1.5 h-1.5 rounded-full bg-techTeal animate-pulse"></span>
           Atlas Engine ({modelFormat.toUpperCase()})
