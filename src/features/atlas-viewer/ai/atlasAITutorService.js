@@ -114,13 +114,35 @@ export const atlasAITutorService = {
   // Local intent matcher based on keywords
   const normalized = message.toLowerCase().trim();
   
+  // Trilha commands
+  if (normalized.includes('iniciar trilha geral')) {
+    return {
+      text: "*(Modo Local)* Iniciando a Trilha: Visão Geral. Vamos começar pelo primeiro marcador.",
+      action: 'START_STUDY_PATH',
+      payload: 'GENERAL_OVERVIEW'
+    };
+  }
+  if (normalized.includes('iniciar trilha neuro') || normalized.includes('trilha mediana')) {
+    return {
+      text: "*(Modo Local)* Iniciando a Trilha: Neuroanatomia Mediana. Vamos começar pelo primeiro marcador.",
+      action: 'START_STUDY_PATH',
+      payload: 'NEURO_MEDIAN'
+    };
+  }
+  if (normalized.includes('próximo') || normalized.includes('proximo passo') || normalized.includes('avançar')) {
+    return {
+      text: "*(Modo Local)* Avançando para o próximo passo da trilha.",
+      action: 'NEXT_STUDY_STEP'
+    };
+  }
+
   if (normalized.includes('abrir guia') || normalized.includes('mostre o guia')) {
     return {
       text: "*(Modo Local)* Claro, vou abrir o Guia do modelo para você.",
       action: 'OPEN_GUIDE'
     };
   }
-  if (normalized.includes('abrir marcador') || normalized.includes('mostrar marcador') || normalized.includes('mostre os marcadores')) {
+  if (normalized.includes('abrir marcador') || normalized.includes('mostrar marcador') || normalized.includes('mostre os marcadores') || normalized.includes('ver marcadores')) {
     return {
       text: "*(Modo Local)* Vou abrir os Marcadores anatômicos oficiais deste modelo.",
       action: 'OPEN_MARKERS'
@@ -151,52 +173,49 @@ export const atlasAITutorService = {
     };
   }
 
-  const intent = detectIntent(message);
-  const structure = findStructureInContext(message, context);
-  
-  // Greeting
-  if (intent === 'greeting') {
-    return { text: `Olá! Sou o Aeternum AI Tutor (Modo Local). Estou aqui para te ajudar a estudar o modelo **${context.model?.title || 'atual'}**. Como posso ajudar hoje?` };
+  // 3. Marker Resolver logic
+  if (normalized.includes('mostre ') || normalized.includes('focar ') || normalized.includes('onde fica ') || normalized.includes('explique ')) {
+    const { resolveMarker } = await import('./atlasAITutorMarkerResolver');
+    const { match, alternatives } = resolveMarker(message, context.markers);
+    
+    if (match) {
+      if (normalized.includes('explique')) {
+         return {
+           text: `*(Modo Local)* O **${match.title || match.name}**${match.latinName ? ` (*${match.latinName}*)` : ''} é uma estrutura chave deste modelo. ${match.description || 'Para informações clínicas, recomendo abrir o painel.'}`,
+           action: 'FOCUS_MARKER',
+           payload: match.id || `marker-${match.title}`
+         };
+      }
+      return {
+        text: `*(Modo Local)* Encontrei o marcador **${match.title || match.name}**. Ainda não tenho controle automático completo da câmera neste viewer, mas abri os Marcadores para você localizar essa estrutura. Alternativamente, clique em Focar Marcador.`,
+        action: 'FOCUS_MARKER',
+        payload: match.id || `marker-${match.title}`
+      };
+    } else {
+       if (alternatives.length > 0) {
+          const altNames = alternatives.map(a => a.title || a.name).join(', ');
+          return {
+             text: `*(Modo Local)* Não encontrei exatamente o que pediu, mas temos estruturas parecidas: ${altNames}. Deseja ver os marcadores?`,
+             action: 'OPEN_MARKERS'
+          };
+       } else {
+          return {
+             text: `*(Modo Local)* Essa estrutura específica não está cadastrada nos marcadores deste modelo. Sugiro revisar os marcadores disponíveis.`,
+             action: 'OPEN_MARKERS'
+          };
+       }
+    }
   }
-  
-  // Explain specific structure
-  if (intent === 'explain' && structure) {
-    return { text: `*(Modo Local)* O **${structure.title || structure.name}**${structure.latinName ? ` (*${structure.latinName}*)` : ''} é uma estrutura chave deste modelo. ${structure.description || 'Selecione o marcador para ler os detalhes clínicos na barra lateral.'} Posso ajudar a localizá-lo se quiser.`, action: 'OPEN_MARKERS' };
-  }
-  
-  // Locate specific structure
-  if (intent === 'locate' && structure) {
+
+  // 4. Study Guide Intent
+  if (normalized.includes('como devo estudar') || normalized.includes('como estudar') || normalized.includes('revisão rápida') || normalized.includes('revisão')) {
     return { 
-      text: `*(Modo Local)* Encontrei a estrutura **${structure.title || structure.name}**. Nesta versão, eu posso abrir os marcadores para que você a encontre ou focar diretamente nela se o botão abaixo for acionado.`,
-      action: 'FOCUS_MARKER',
-      payload: structure.id || `marker-${structure.title}`
-    };
-  }
-  
-  // General study guide
-  if (intent === 'study_guide') {
-    return { 
-      text: `*(Modo Local)* Recomendo começar pelos marcadores principais, depois revisar o Guia e finalizar com o simulado prático. Posso abrir o guia de estudos para você dar o primeiro passo.`,
+      text: `*(Modo Local)* Recomendo começar pelas trilhas guiadas. Posso exibir as opções de Trilha de Estudo disponíveis baseadas nos marcadores reais deste modelo.`,
       action: 'SHOW_STUDY_PATH'
     };
   }
   
-  // Explain markers
-  if (intent === 'markers') {
-    return { text: "*(Modo Local)* Para usar os marcadores, clique no botão **Marcadores** na barra inferior central. Posso abri-los para você.", action: 'OPEN_MARKERS' };
-  }
-  
-  // Explain guide
-  if (intent === 'guide') {
-    return { text: "*(Modo Local)* Abra o painel do **Guia** clicando no botão na barra esquerda. Posso abrir o guia para você.", action: 'OPEN_GUIDE' };
-  }
-  
-  // Explain quiz
-  if (intent === 'quiz') {
-    return { text: "*(Modo Local)* Acesse os Simulados (Teórico ou Prático) pelo painel esquerdo para testar seus conhecimentos. Gostaria de iniciar o prático?", action: 'START_PRACTICAL_QUIZ' };
-  }
-  
   // Generic fallback
-  return { text: `*(Modo Local)* Estou usando o modo local do Tutor IA com base nos dados já cadastrados neste modelo. Posso te ajudar a explorar os marcadores anatômicos e o uso da plataforma. O que prefere fazer?` };
+  return { text: `*(Modo Local)* Estou usando o modo local do Tutor IA com base nos dados já cadastrados neste modelo. Posso te ajudar a explorar os marcadores anatômicos, criar trilhas de estudo e focar em estruturas. O que prefere fazer?` };
 }
 };

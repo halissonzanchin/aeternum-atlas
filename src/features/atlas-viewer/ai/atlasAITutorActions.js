@@ -14,7 +14,9 @@ export const TUTOR_ACTIONS = {
   FOCUS_MARKER: 'FOCUS_MARKER',
   START_THEORETICAL_QUIZ: 'START_THEORETICAL_QUIZ',
   START_PRACTICAL_QUIZ: 'START_PRACTICAL_QUIZ',
-  SHOW_STUDY_PATH: 'SHOW_STUDY_PATH'
+  SHOW_STUDY_PATH: 'SHOW_STUDY_PATH',
+  START_STUDY_PATH: 'START_STUDY_PATH',
+  NEXT_STUDY_STEP: 'NEXT_STUDY_STEP'
 };
 
 /**
@@ -69,7 +71,19 @@ export const actionDictionary = {
     id: TUTOR_ACTIONS.SHOW_STUDY_PATH,
     label: 'Ver Sequência de Estudo',
     description: 'Exibe a trilha recomendada na interface se disponível.',
-    autoExecute: false, // Could be true if we had a specific UI for it, but keeping safe.
+    autoExecute: false,
+  },
+  [TUTOR_ACTIONS.START_STUDY_PATH]: {
+    id: TUTOR_ACTIONS.START_STUDY_PATH,
+    label: 'Iniciar Trilha',
+    description: 'Inicia o modo guiado passo a passo.',
+    autoExecute: false,
+  },
+  [TUTOR_ACTIONS.NEXT_STUDY_STEP]: {
+    id: TUTOR_ACTIONS.NEXT_STUDY_STEP,
+    label: 'Próximo Passo',
+    description: 'Avança para a próxima estrutura na trilha.',
+    autoExecute: false,
   }
 };
 
@@ -130,6 +144,11 @@ export const executeTutorAction = (actionId, payload = null, viewerContext) => {
     case TUTOR_ACTIONS.SHOW_STUDY_PATH:
       // Stub behavior: Opens guide where study path usually resides
       viewerContext.setLeftOpen(true);
+      return true;
+
+    case TUTOR_ACTIONS.START_STUDY_PATH:
+    case TUTOR_ACTIONS.NEXT_STUDY_STEP:
+      // These actions are intercepted and managed locally by the AI Viewer Panel state
       return true;
 
     default:

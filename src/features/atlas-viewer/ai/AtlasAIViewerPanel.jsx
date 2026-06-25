@@ -20,6 +20,10 @@ export default function AtlasAIViewerPanel() {
   const [inputValue, setInputValue] = useState('');
   const [isThinking, setIsThinking] = useState(false);
   
+  // Study path state
+  const [activeStudyPath, setActiveStudyPath] = useState(null);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
   const viewerContext = useViewer();
   const messagesEndRef = useRef(null);
 
@@ -29,25 +33,6 @@ export default function AtlasAIViewerPanel() {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isThinking]);
-
-  const handleCommand = (commandType, payload = null) => {
-    switch (commandType) {
-      case 'focusMarker':
-        atlasViewerCommands.focusMarker(payload);
-        break;
-      case 'focusStructure':
-        atlasViewerCommands.focusStructure(payload);
-        break;
-      case 'resetCamera':
-        atlasViewerCommands.resetCamera();
-        break;
-      case 'openAnnotation':
-        atlasViewerCommands.openAnnotation(payload);
-        break;
-      default:
-        console.warn('Unknown AI command:', commandType);
-    }
-  };
 
   const handleSendMessage = async (textOverride = null) => {
     const text = textOverride || inputValue;
@@ -87,7 +72,79 @@ export default function AtlasAIViewerPanel() {
     }
   };
 
-  const handleActionClick = (actionId, payload) => {
+  const handleActionClick = async (actionId, payload) => {
+    // Intercept Study Path Logic
+    if (actionId === 'START_STUDY_PATH' || actionId === 'SHOW_STUDY_PATH') {
+      const { generateStudyPaths } = await import('./atlasAIStudyPaths');
+      const paths = generateStudyPaths(viewerContext.markers);
+      
+      if (!paths.length) {
+         setMessages(prev => [...prev, { id: Date.now().toString(), sender: 'ai', text: "Não há trilhas configuradas ou marcadores suficientes neste modelo." }]);
+         return;
+      }
+      
+      if (actionId === 'SHOW_STUDY_PATH') {
+         // User requested to see paths
+         const pathText = paths.map((p, i) => `**${i+1}. ${p.title}**\n${p.description}`).join('\n\n');
+         setMessages(prev => [...prev, { 
+           id: Date.now().toString(), 
+           sender: 'ai', 
+           text: `Encontrei as seguintes trilhas:\n\n${pathText}`,
+           action: 'START_STUDY_PATH',
+           payload: paths[0].id // Suggest the first one by default
+         }]);
+         return;
+      }
+
+      // START_STUDY_PATH
+      const chosenPath = paths.find(p => p.id === payload) || paths[0];
+      setActiveStudyPath(chosenPath);
+      setCurrentStepIndex(0);
+      
+      const firstStep = chosenPath.steps[0];
+      
+      setMessages(prev => [...prev, { 
+        id: Date.now().toString(), 
+        sender: 'ai', 
+        text: `Iniciando a trilha **${chosenPath.title}**.\n\nPasso 1: **${firstStep.title || firstStep.name}**\n${firstStep.description || ''}`,
+        action: 'NEXT_STUDY_STEP'
+      }]);
+      
+      // Auto-focus on first step if possible
+      executeTutorAction('FOCUS_MARKER', firstStep.id || `marker-${firstStep.title}`, viewerContext);
+      return;
+    }
+
+    if (actionId === 'NEXT_STUDY_STEP') {
+       if (!activeStudyPath) return;
+       
+       const nextIndex = currentStepIndex + 1;
+       if (nextIndex >= activeStudyPath.steps.length) {
+          setMessages(prev => [...prev, { 
+            id: Date.now().toString(), 
+            sender: 'ai', 
+            text: `Parabéns! Você completou a trilha **${activeStudyPath.title}**.`,
+            action: 'START_PRACTICAL_QUIZ'
+          }]);
+          setActiveStudyPath(null);
+          setCurrentStepIndex(0);
+          return;
+       }
+       
+       setCurrentStepIndex(nextIndex);
+       const step = activeStudyPath.steps[nextIndex];
+       
+       setMessages(prev => [...prev, { 
+         id: Date.now().toString(), 
+         sender: 'ai', 
+         text: `Passo ${nextIndex + 1}: **${step.title || step.name}**\n${step.description || ''}`,
+         action: 'NEXT_STUDY_STEP'
+       }]);
+       
+       executeTutorAction('FOCUS_MARKER', step.id || `marker-${step.title}`, viewerContext);
+       return;
+    }
+
     const success = executeTutorAction(actionId, payload, viewerContext);
     
     if (!success) {
