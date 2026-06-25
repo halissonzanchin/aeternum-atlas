@@ -51,7 +51,7 @@ export default function Dashboard({ user, navigate }) {
           <h1>{t("studentHome.title")}</h1>
           <p>{t("studentHome.subtitle")}</p>
           <div className="student-study-actions">
-            <button className="viewer-primary-button" onClick={() => navigate("/models")}>
+            <button className="viewer-primary-button invitation-to-act" onClick={() => navigate("/models")}>
               <LineIcon name="layers" />
               {t("studentHome.actions.openModels")}
             </button>

@@ -103,8 +103,11 @@ export default function Sidebar({ path, user, navigate, onLogout }) {
             <button
               key={`${href}-${label}`}
               onClick={() => navigate(href)}
-              className={`rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition hover:translate-x-0.5 hover:border-techTeal/30 hover:bg-techTeal/10 ${active ? "border-techTeal/40 bg-techTeal/10 text-clinicalWhite" : "border-transparent text-slate-300"}`}
+              className={`relative flex items-center overflow-hidden rounded-2xl px-4 py-3 text-left text-sm font-bold transition-all duration-300 hover:translate-x-1 ${active ? "bg-techTeal/10 text-clinicalWhite shadow-[inset_0_0_0_1px_rgba(47,184,181,0.3),0_4px_15px_rgba(47,184,181,0.1)]" : "text-slate-400 hover:bg-white/5 hover:text-slate-200 hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)]"}`}
             >
+              {active && (
+                <span className="absolute left-0 top-1/2 h-1/2 w-[3px] -translate-y-1/2 rounded-r-full bg-techTeal shadow-[0_0_10px_rgba(47,184,181,0.8)]" />
+              )}
               {label}
             </button>
           );
