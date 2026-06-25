@@ -1,12 +1,24 @@
 .aeternum-ai-orb-root {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  animation: aeternumOrbFloat 6s ease-in-out infinite;
-  /* Ensure root never clips the halo */
   overflow: visible;
+  border-radius: 25%;
+}
+
+/* Container Sizes */
+.aeternum-ai-orb-root.size-sm {
+  width: 44px;
+  height: 44px;
+}
+.aeternum-ai-orb-root.size-md {
+  width: 56px;
+  height: 56px;
+}
+.aeternum-ai-orb-root.size-lg {
+  width: 72px;
+  height: 72px;
 }
 
 .aeternum-ai-orb-root:hover {
@@ -17,221 +29,144 @@
   transform: scale(0.95);
 }
 
-.aeternum-ai-orb-button {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  display: block;
-}
-
-/* Halo - outside the clipping mask */
-.aeternum-ai-orb-halo {
-  position: absolute;
-  inset: -15px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(35,210,179,0.3) 0%, rgba(0,191,255,0.2) 40%, rgba(255,0,255,0.05) 70%, transparent 80%);
-  opacity: 0.6;
-  filter: blur(24px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  z-index: 0;
-  animation: aeternumOrbPulseGlow 5s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.aeternum-ai-orb-root:hover .aeternum-ai-orb-halo {
-  opacity: 1;
-  transform: scale(1.1);
-  background: radial-gradient(circle, rgba(35,210,179,0.5) 0%, rgba(0,191,255,0.3) 40%, rgba(255,0,255,0.1) 70%, transparent 80%);
-}
-
-/* Sphere - Always perfectly circular, clips the inner plasma */
-.aeternum-ai-orb-sphere {
+/* Inner Container */
+.aeternum-ai-orb-siri-container {
   position: absolute;
   inset: 0;
-  border-radius: 50%;
+  border-radius: 35%; /* Squircle */
   overflow: hidden;
-  z-index: 1;
-  background: radial-gradient(110% 110% at 30% 30%, rgba(20, 30, 48, 0.4) 0%, rgba(10, 15, 24, 0.8) 100%);
-  box-shadow: 
-    inset 0 0 20px rgba(35, 210, 179, 0.3),
-    inset 0 10px 15px rgba(255, 255, 255, 0.3),
-    inset 0 -10px 20px rgba(0, 0, 0, 0.6),
-    0 10px 30px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: #0a0a0a;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: translateZ(0); /* Force hardware acceleration */
+  transition: box-shadow 0.3s ease;
 }
 
-/* Plasma Base */
-.aeternum-ai-orb-plasma {
+/* State Listening & Thinking */
+.aeternum-ai-orb-root.state-listening .aeternum-ai-orb-siri-container {
+  box-shadow: 0 0 30px rgba(35, 210, 179, 0.5);
+}
+.aeternum-ai-orb-root.state-thinking .aeternum-ai-orb-siri-container {
+  box-shadow: 0 0 50px rgba(0, 191, 255, 0.6);
+  animation: aeternumSiriPulse 1.5s ease-in-out infinite alternate;
+}
+@keyframes aeternumSiriPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
+.siri-bg-base {
   position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(20, 30, 48, 0.8) 0%, rgba(10, 15, 24, 1) 100%);
+}
+
+.siri-blob {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  border-radius: 50%;
+  filter: blur(15px);
+  animation-duration: 12s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-direction: alternate;
   mix-blend-mode: screen;
-  filter: blur(18px);
-  will-change: transform, border-radius;
-  /* Liquid morphing happens only on the inner blobs so it doesn't break the sphere shape */
-  animation: aeternumOrbLiquidMorph 8s ease-in-out infinite alternate;
 }
 
-/* Cyan/Teal flow */
-.plasma-one {
-  width: 150%;
-  height: 150%;
-  top: -25%;
-  left: -25%;
-  background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(35,210,179,0.9) 120deg, transparent 240deg);
-  animation: aeternumOrbLiquidMorph 7s ease-in-out infinite alternate, atlasOrbSpin 10s linear infinite;
+/* 
+Colors replacing pink/red:
+Aeternum Cyan: #23D2B3
+Aeternum Deep Blue: #0066FF
+Aeternum Light Blue: #00BFFF
+Aeternum Purple (subtle): #8A2BE2
+*/
+
+/* 1. pink-top -> cyan-top */
+@keyframes siriBlob1 {
+  0% { transform: rotate(-360deg); background: radial-gradient(circle at 50% 20%, rgba(35, 210, 179, 0.8), transparent 50%); }
+  100% { transform: rotate(320deg); background: radial-gradient(circle at 50% 20%, rgba(0, 191, 255, 0.8), transparent 50%); }
+}
+.siri-blob-1 { animation-name: siriBlob1; }
+
+/* 2. pink-left -> blue-left */
+@keyframes siriBlob2 {
+  0% { transform: rotate(180deg); background: radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.8), transparent 50%); }
+  100% { transform: rotate(-360deg); background: radial-gradient(circle at 20% 50%, rgba(35, 210, 179, 0.8), transparent 50%); }
+}
+.siri-blob-2 { animation-name: siriBlob2; }
+
+/* 3. blue-middle -> deep-blue-middle */
+@keyframes siriBlob3 {
+  0% { transform: rotate3d(5, 0, 0, 75deg) rotate(420deg); background: radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.9), transparent 60%); }
+  100% { transform: rotate3d(1, 0, 0, 75deg) rotate(-360deg); background: radial-gradient(circle at 50% 50%, rgba(0, 191, 255, 0.9), transparent 60%); }
+}
+.siri-blob-3 { animation-name: siriBlob3; }
+
+/* 4. blue-right -> light-blue-right */
+@keyframes siriBlob4 {
+  0% { transform: rotate3d(1, 0, 15, 75deg) rotate(420deg); background: radial-gradient(circle at 80% 50%, rgba(0, 191, 255, 0.8), transparent 50%); }
+  100% { transform: rotate3d(1, 0, -5, 75deg) rotate(-360deg); background: radial-gradient(circle at 80% 50%, rgba(35, 210, 179, 0.8), transparent 50%); }
+}
+.siri-blob-4 { animation-name: siriBlob4; }
+
+/* 5. intersect */
+@keyframes siriBlob5 {
+  0% { transform: rotate3d(1, 1, 1, 15deg) rotate(-420deg); background: radial-gradient(circle at 40% 60%, rgba(138, 43, 226, 0.6), transparent 50%); }
+  100% { transform: rotate3d(1, 1, 1, 15deg) rotate(30deg); background: radial-gradient(circle at 40% 60%, rgba(35, 210, 179, 0.6), transparent 50%); }
+}
+.siri-blob-5 { animation-name: siriBlob5; }
+
+/* 6. green-right -> cyan-right */
+@keyframes siriBlob6 {
+  0% { transform: rotate(360deg); background: radial-gradient(circle at 80% 80%, rgba(35, 210, 179, 0.9), transparent 50%); }
+  100% { transform: rotate(-300deg); background: radial-gradient(circle at 80% 80%, rgba(0, 191, 255, 0.9), transparent 50%); }
+}
+.siri-blob-6 { animation-name: siriBlob6; }
+
+/* 7. green-left -> teal-left */
+@keyframes siriBlob7 {
+  0% { transform: rotate(-360deg); background: radial-gradient(circle at 20% 80%, rgba(0, 191, 255, 0.8), transparent 50%); }
+  100% { transform: rotate(360deg); background: radial-gradient(circle at 20% 80%, rgba(35, 210, 179, 0.8), transparent 50%); }
+}
+.siri-blob-7 { animation-name: siriBlob7; }
+
+/* 8. bottom-pink -> bottom-purple */
+@keyframes siriBlob8 {
+  0% { transform: rotate(-360deg); background: radial-gradient(circle at 50% 90%, rgba(138, 43, 226, 0.7), transparent 50%); }
+  100% { transform: rotate(400deg); background: radial-gradient(circle at 50% 90%, rgba(0, 102, 255, 0.7), transparent 50%); }
+}
+.siri-blob-8 { 
+  animation-name: siriBlob8; 
+  mix-blend-mode: overlay;
+  opacity: 0.6;
 }
 
-/* Violet/Magenta blob */
-.plasma-two {
-  width: 120%;
-  height: 120%;
-  top: 10%;
-  left: 10%;
-  background: radial-gradient(circle, rgba(255,0,255,0.7) 0%, rgba(138,43,226,0.5) 40%, transparent 80%);
-  animation: aeternumOrbLiquidMorph 9s ease-in-out infinite alternate-reverse, atlasOrbDrift 12s ease-in-out infinite alternate;
-}
-
-/* Deep Blue blob */
-.plasma-three {
-  width: 140%;
-  height: 140%;
-  top: -20%;
-  left: -30%;
-  background: radial-gradient(circle, rgba(0,242,254,0.7) 0%, rgba(0,102,255,0.4) 50%, transparent 80%);
-  animation: aeternumOrbLiquidMorph 8s ease-in-out infinite alternate, atlasOrbDrift 15s ease-in-out infinite alternate-reverse;
-}
-
-.aeternum-ai-orb-core {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 35%;
-  height: 35%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(200,255,250,0.8) 30%, transparent 70%);
-  mix-blend-mode: plus-lighter;
-  filter: blur(6px);
-  animation: atlasOrbPulse 5s ease-in-out infinite;
-  z-index: 2;
-}
-
-.aeternum-ai-orb-highlight {
+/* Highlight / Glossy effect */
+.siri-highlight {
   position: absolute;
   inset: 0;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.1) 30%, transparent 50%, rgba(255,255,255,0.05) 100%);
-  pointer-events: none;
-  z-index: 3;
-}
-
-.aeternum-ai-orb-rim {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  pointer-events: none;
-  z-index: 4;
-}
-
-.aeternum-ai-orb-label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  color: #fff;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  text-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(35,210,179,0.8);
+  border-radius: 35%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2), inset 0 20px 20px rgba(255, 255, 255, 0.1);
   pointer-events: none;
 }
 
-/* State Modifiers */
-.state-listening .aeternum-ai-orb-halo {
-  animation: atlasOrbListening 2s ease-out infinite;
-  background: radial-gradient(circle, rgba(35,210,179,0.6) 0%, rgba(0,102,255,0.4) 50%, transparent 80%);
+/* Speed modifiers for states */
+.aeternum-ai-orb-root.state-listening .siri-blob {
+  animation-duration: 6s;
 }
-.state-listening .plasma-one {
-  animation-duration: 4s, 3s;
+.aeternum-ai-orb-root.state-thinking .siri-blob {
+  animation-duration: 3s;
 }
-.state-listening .aeternum-ai-orb-core {
-  transform: translate(-50%, -50%) scale(1.2);
-  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(200,255,250,0.6) 50%, transparent 80%);
-}
-
-.state-thinking .plasma-one {
-  animation-duration: 4s, 1.5s;
-}
-.state-thinking .plasma-two {
-  animation-duration: 4s, 3s;
-}
-.state-thinking .plasma-three {
-  animation-duration: 4s, 4s;
-}
-.state-thinking .aeternum-ai-orb-core {
-  animation: atlasOrbThinking 1.5s ease-in-out infinite;
-}
-
-/* Animations */
-@keyframes aeternumOrbLiquidMorph {
-  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-  50% { border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%; }
-  100% { border-radius: 70% 30% 60% 40% / 70% 40% 30% 60%; }
-}
-
-@keyframes aeternumOrbFloat {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-3px) scale(1.01); }
-}
-
-@keyframes aeternumOrbPulseGlow {
-  0%, 100% { transform: scale(0.92); opacity: 0.35; }
-  50% { transform: scale(1.16); opacity: 0.55; }
-}
-
-@keyframes atlasOrbSpin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes atlasOrbDrift {
-  0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(10%, -10%) scale(1.1); }
-  66% { transform: translate(-5%, 15%) scale(0.95); }
-  100% { transform: translate(-10%, -5%) scale(1.05); }
-}
-
-@keyframes atlasOrbPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
-}
-
-@keyframes atlasOrbListening {
-  0% { transform: scale(0.8); opacity: 1; }
-  100% { transform: scale(1.8); opacity: 0; }
-}
-
-@keyframes atlasOrbThinking {
-  0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }
-  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+.aeternum-ai-orb-root.state-speaking .siri-blob {
+  animation-duration: 8s;
 }
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .aeternum-ai-orb-root,
-  .aeternum-ai-orb-halo,
-  .aeternum-ai-orb-plasma,
-  .plasma-one,
-  .plasma-two,
-  .plasma-three,
-  .aeternum-ai-orb-core {
+  .siri-blob, .aeternum-ai-orb-siri-container {
     animation: none !important;
-    border-radius: 50% !important;
   }
 }
