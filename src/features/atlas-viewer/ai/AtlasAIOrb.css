@@ -1,24 +1,36 @@
-.atlas-ai-orb-container {
+.aeternum-ai-orb-root {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  border-radius: 50%;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  outline: none;
   animation: aeternumOrbFloat 6s ease-in-out infinite;
+  /* Ensure root never clips the halo */
+  overflow: visible;
 }
 
-.atlas-ai-orb-container:hover {
+.aeternum-ai-orb-root:hover {
   transform: scale(1.05);
 }
 
-.atlas-ai-orb-container:active {
+.aeternum-ai-orb-root:active {
   transform: scale(0.95);
 }
 
-.orb-halo {
+.aeternum-ai-orb-button {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  display: block;
+}
+
+/* Halo - outside the clipping mask */
+.aeternum-ai-orb-halo {
   position: absolute;
   inset: -15px;
   border-radius: 50%;
@@ -28,68 +40,73 @@
   transition: opacity 0.5s ease, transform 0.5s ease;
   z-index: 0;
   animation: aeternumOrbPulseGlow 5s ease-in-out infinite;
+  pointer-events: none;
 }
 
-.atlas-ai-orb-container:hover .orb-halo {
+.aeternum-ai-orb-root:hover .aeternum-ai-orb-halo {
   opacity: 1;
   transform: scale(1.1);
   background: radial-gradient(circle, rgba(35,210,179,0.5) 0%, rgba(0,191,255,0.3) 40%, rgba(255,0,255,0.1) 70%, transparent 80%);
 }
 
-.orb-glass-shell {
-  position: relative;
+/* Sphere - Always perfectly circular, clips the inner plasma */
+.aeternum-ai-orb-sphere {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 1;
   background: radial-gradient(110% 110% at 30% 30%, rgba(20, 30, 48, 0.4) 0%, rgba(10, 15, 24, 0.8) 100%);
   box-shadow: 
     inset 0 0 20px rgba(35, 210, 179, 0.3),
     inset 0 10px 15px rgba(255, 255, 255, 0.3),
     inset 0 -10px 20px rgba(0, 0, 0, 0.6),
     0 10px 30px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-  z-index: 1;
-  border: 1px solid rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Plasma Base */
+.aeternum-ai-orb-plasma {
+  position: absolute;
+  mix-blend-mode: screen;
+  filter: blur(18px);
+  will-change: transform, border-radius;
+  /* Liquid morphing happens only on the inner blobs so it doesn't break the sphere shape */
   animation: aeternumOrbLiquidMorph 8s ease-in-out infinite alternate;
 }
 
-.orb-gradient {
-  position: absolute;
-  border-radius: 50%;
-  mix-blend-mode: screen;
-  filter: blur(18px);
-  will-change: transform;
-}
-
 /* Cyan/Teal flow */
-.orb-gradient-one {
+.plasma-one {
   width: 150%;
   height: 150%;
   top: -25%;
   left: -25%;
   background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(35,210,179,0.9) 120deg, transparent 240deg);
-  animation: atlasOrbSpin 10s linear infinite;
+  animation: aeternumOrbLiquidMorph 7s ease-in-out infinite alternate, atlasOrbSpin 10s linear infinite;
 }
 
 /* Violet/Magenta blob */
-.orb-gradient-two {
+.plasma-two {
   width: 120%;
   height: 120%;
   top: 10%;
   left: 10%;
   background: radial-gradient(circle, rgba(255,0,255,0.7) 0%, rgba(138,43,226,0.5) 40%, transparent 80%);
-  animation: atlasOrbDrift 12s ease-in-out infinite alternate;
+  animation: aeternumOrbLiquidMorph 9s ease-in-out infinite alternate-reverse, atlasOrbDrift 12s ease-in-out infinite alternate;
 }
 
 /* Deep Blue blob */
-.orb-gradient-three {
+.plasma-three {
   width: 140%;
   height: 140%;
   top: -20%;
   left: -30%;
   background: radial-gradient(circle, rgba(0,242,254,0.7) 0%, rgba(0,102,255,0.4) 50%, transparent 80%);
-  animation: atlasOrbDrift 15s ease-in-out infinite alternate-reverse;
+  animation: aeternumOrbLiquidMorph 8s ease-in-out infinite alternate, atlasOrbDrift 15s ease-in-out infinite alternate-reverse;
 }
 
-.orb-core {
+.aeternum-ai-orb-core {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -101,20 +118,33 @@
   mix-blend-mode: plus-lighter;
   filter: blur(6px);
   animation: atlasOrbPulse 5s ease-in-out infinite;
-}
-
-.orb-highlight {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.1) 30%, transparent 50%, rgba(255,255,255,0.05) 100%);
-  pointer-events: none;
   z-index: 2;
 }
 
-.orb-label {
+.aeternum-ai-orb-highlight {
   position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.1) 30%, transparent 50%, rgba(255,255,255,0.05) 100%);
+  pointer-events: none;
   z-index: 3;
+}
+
+.aeternum-ai-orb-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.aeternum-ai-orb-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
   color: #fff;
   font-weight: 900;
   letter-spacing: 0.1em;
@@ -123,28 +153,28 @@
 }
 
 /* State Modifiers */
-.state-listening .orb-halo {
+.state-listening .aeternum-ai-orb-halo {
   animation: atlasOrbListening 2s ease-out infinite;
   background: radial-gradient(circle, rgba(35,210,179,0.6) 0%, rgba(0,102,255,0.4) 50%, transparent 80%);
 }
-.state-listening .orb-gradient-one {
-  animation-duration: 3s;
+.state-listening .plasma-one {
+  animation-duration: 4s, 3s;
 }
-.state-listening .orb-core {
+.state-listening .aeternum-ai-orb-core {
   transform: translate(-50%, -50%) scale(1.2);
   background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(200,255,250,0.6) 50%, transparent 80%);
 }
 
-.state-thinking .orb-gradient-one {
-  animation-duration: 1.5s;
+.state-thinking .plasma-one {
+  animation-duration: 4s, 1.5s;
 }
-.state-thinking .orb-gradient-two {
-  animation-duration: 3s;
+.state-thinking .plasma-two {
+  animation-duration: 4s, 3s;
 }
-.state-thinking .orb-gradient-three {
-  animation-duration: 4s;
+.state-thinking .plasma-three {
+  animation-duration: 4s, 4s;
 }
-.state-thinking .orb-core {
+.state-thinking .aeternum-ai-orb-core {
   animation: atlasOrbThinking 1.5s ease-in-out infinite;
 }
 
@@ -194,14 +224,14 @@
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .atlas-ai-orb-container {
-    animation: none !important;
-  }
-  .orb-glass-shell {
+  .aeternum-ai-orb-root,
+  .aeternum-ai-orb-halo,
+  .aeternum-ai-orb-plasma,
+  .plasma-one,
+  .plasma-two,
+  .plasma-three,
+  .aeternum-ai-orb-core {
     animation: none !important;
     border-radius: 50% !important;
-  }
-  .orb-halo, .orb-gradient-one, .orb-gradient-two, .orb-gradient-three, .orb-core {
-    animation: none !important;
   }
 }

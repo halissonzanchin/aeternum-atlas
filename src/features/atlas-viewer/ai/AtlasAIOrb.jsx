@@ -21,21 +21,24 @@ export default function AtlasAIOrb({
   };
 
   return (
-    <button 
-      onClick={onClick}
-      className={`atlas-ai-orb-container state-${state} ${sizeClasses[size] || sizeClasses.md} ${className}`}
-      aria-label="Tutor IA"
-      title={label}
-    >
-      <div className="orb-halo" />
-      <div className="orb-glass-shell absolute inset-0">
-        <div className="orb-gradient orb-gradient-three" />
-        <div className="orb-gradient orb-gradient-two" />
-        <div className="orb-gradient orb-gradient-one" />
-        <div className="orb-core" />
-        <div className="orb-highlight" />
-      </div>
-      {label && <span className={`orb-label ${labelSizes[size] || labelSizes.md}`}>{label}</span>}
-    </button>
+    <div className={`aeternum-ai-orb-root state-${state} ${sizeClasses[size] || sizeClasses.md} ${className}`}>
+      <button 
+        onClick={onClick}
+        className="aeternum-ai-orb-button"
+        aria-label="Tutor IA"
+        title={label}
+      >
+        <span className="aeternum-ai-orb-halo" />
+        <span className="aeternum-ai-orb-sphere">
+          <span className="aeternum-ai-orb-plasma plasma-one" />
+          <span className="aeternum-ai-orb-plasma plasma-two" />
+          <span className="aeternum-ai-orb-plasma plasma-three" />
+          <span className="aeternum-ai-orb-core" />
+          <span className="aeternum-ai-orb-highlight" />
+          <span className="aeternum-ai-orb-rim" />
+          {label && <span className={`aeternum-ai-orb-label ${labelSizes[size] || labelSizes.md}`}>{label}</span>}
+        </span>
+      </button>
+    </div>
   );
 }
