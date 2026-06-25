@@ -60,7 +60,7 @@ export default function AtlasAIViewerPanel() {
 
     // Call local AI service
     try {
-      const responseText = await atlasAITutorService.processMessage(text, viewerContext);
+      const responseText = await atlasAITutorService.processMessage(text, viewerContext, messages);
       const aiMsg = { id: (Date.now() + 1).toString(), sender: 'ai', text: responseText };
       setMessages(prev => [...prev, aiMsg]);
     } catch (error) {

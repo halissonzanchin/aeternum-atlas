@@ -63,13 +63,45 @@ function findStructureInContext(message, context) {
 
 export const atlasAITutorService = {
   /**
-   * Process a user message against the local context
+   * Process a user message against the backend AI with local context as fallback
    * @param {string} message - The user's query
-   * @param {object} context - Viewer state (model, markers, active markers, etc)
+   * @param {object} context - Viewer state (model, markers, etc)
+   * @param {Array} history - Previous messages for context
    * @returns {Promise<string>} - The tutor's response
    */
-  async processMessage(message, context) {
-    // Simulate network delay for "thinking" effect
+  async processMessage(message, context, history = []) {
+    try {
+      // 1. Try to call the secure backend
+      const response = await fetch('/api/ai-tutor', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          question: message,
+          viewerContext: {
+            modelTitle: context.model?.title,
+            modelSlug: context.model?.slug,
+            description: context.model?.description,
+            markers: context.markers || [],
+            guideSections: context.guide || [],
+          },
+          history: history
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data.text;
+      }
+
+      // If backend explicitly says no API key, or other server errors, fallback gracefully
+      console.warn(`[AI Tutor] Backend unavailable (Status: ${response.status}). Falling back to local heuristic.`);
+    } catch (networkError) {
+      console.warn(`[AI Tutor] Network error reaching backend. Falling back to local heuristic.`, networkError);
+    }
+
+    // 2. Local Heuristic Fallback
     await delay(1200 + Math.random() * 800);
     
     const intent = detectIntent(message);
@@ -77,49 +109,40 @@ export const atlasAITutorService = {
     
     // Greeting
     if (intent === 'greeting') {
-      return `Olá! Sou o Aeternum AI Tutor. Estou aqui para te ajudar a estudar o modelo **${context.model?.title || 'atual'}**. Como posso ajudar hoje?`;
+      return `Olá! Sou o Aeternum AI Tutor (Modo Local). Estou aqui para te ajudar a estudar o modelo **${context.model?.title || 'atual'}**. Como posso ajudar hoje?`;
     }
     
     // Explain specific structure
     if (intent === 'explain' && structure) {
-      return `O **${structure.title || structure.name}**${structure.latinName ? ` (*${structure.latinName}*)` : ''} é uma estrutura chave deste modelo. ${structure.description || 'Para informações clínicas mais detalhadas, você pode selecioná-lo e abrir o painel lateral de Informações e Correlações Clínicas.'} Posso ajudar a localizá-lo se quiser.`;
+      return `*(Modo Local)* O **${structure.title || structure.name}**${structure.latinName ? ` (*${structure.latinName}*)` : ''} é uma estrutura chave deste modelo. ${structure.description || 'Selecione o marcador para ler os detalhes clínicos na barra lateral.'} Posso ajudar a localizá-lo se quiser.`;
     }
     
     // Locate specific structure
     if (intent === 'locate' && structure) {
-      return `Para focar no **${structure.title || structure.name}**, você pode clicar diretamente no marcador correspondente na interface 3D. Se precisar, posso emitir um comando para centralizar a câmera nele.`;
+      return `*(Modo Local)* Para focar no **${structure.title || structure.name}**, clique no marcador correspondente na interface 3D.`;
     }
     
     // General study guide
     if (intent === 'study_guide') {
-      const guide = context.model?.studyGuide;
-      if (guide && guide.length > 0) {
-        return `Para este modelo, recomendo seguir estes passos:\n\n${guide.map((step, i) => `${i + 1}. ${step}`).join('\n')}\n\nLembre-se de explorar a anatomia livremente com a câmera.`;
-      }
-      return `Para estudar o **${context.model?.title || 'modelo'}**, recomendo começar habilitando os Marcadores na barra inferior. Eles vão te guiar pelas estruturas essenciais. Depois, abra o Guia para ver as correlações clínicas.`;
+      return `*(Modo Local)* Para estudar o **${context.model?.title || 'modelo'}**, recomendo começar habilitando os Marcadores na barra inferior. Eles vão te guiar pelas estruturas essenciais. Depois, abra o Guia para ver as correlações clínicas.`;
     }
     
     // Explain markers
     if (intent === 'markers') {
-      return "Para usar os marcadores, clique no botão **Marcadores** na barra inferior central. Eles destacarão as estruturas anatômicas oficiais do modelo. Clique em qualquer marcador na tela 3D para focar a câmera e ler mais detalhes.";
+      return "*(Modo Local)* Para usar os marcadores, clique no botão **Marcadores** na barra inferior central. Eles destacarão as estruturas anatômicas oficiais do modelo.";
     }
     
     // Explain guide
     if (intent === 'guide') {
-      return "Você pode abrir o painel do **Guia** clicando no botão de 'Guia' ou 'Biblioteca' na barra esquerda. Lá você encontrará informações teóricas, nomenclatura anatômica e notas clínicas sobre o modelo que estamos visualizando.";
+      return "*(Modo Local)* Abra o painel do **Guia** clicando no botão na barra esquerda. Lá você encontrará informações teóricas sobre o modelo.";
     }
     
     // Explain quiz
     if (intent === 'quiz') {
-      return "Se quiser testar seus conhecimentos, você pode acessar os Simulados (Teórico ou Prático) pelo painel lateral esquerdo. No simulado prático, você deverá identificar as estruturas apontadas no modelo 3D.";
-    }
-    
-    // Default fallback (no structure found or unknown intent)
-    if (intent === 'explain' || intent === 'locate') {
-      return "Essa informação específica ainda não está cadastrada neste modelo ou eu não consegui identificar a estrutura mencionada. Posso te orientar com base nos marcadores e no guia disponíveis.";
+      return "*(Modo Local)* Acesse os Simulados (Teórico ou Prático) pelo painel esquerdo para testar seus conhecimentos.";
     }
     
     // Generic fallback
-    return `Essa informação ainda não está cadastrada neste modelo. Posso te ajudar a explorar o modelo atual (**${context.model?.title || 'Corte Sagital'}**), orientar sobre os marcadores anatômicos e o uso da plataforma. O que prefere fazer?`;
+    return `*(Modo Local)* Estou usando o modo local do Tutor IA com base nos dados já cadastrados neste modelo. Posso te ajudar a explorar os marcadores anatômicos e o uso da plataforma. O que prefere fazer?`;
   }
 };
