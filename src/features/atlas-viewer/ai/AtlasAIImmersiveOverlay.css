@@ -1,0 +1,113 @@
+.aeternum-ai-immersive-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: aeternumOverlayFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.aeternum-ai-backdrop-blur {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(10, 15, 24, 0.4) 0%, rgba(10, 15, 24, 0.8) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.5s ease;
+}
+
+.aeternum-ai-edge-aura {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 100px rgba(35, 210, 179, 0.15), inset 0 0 50px rgba(0, 191, 255, 0.1);
+  mix-blend-mode: screen;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+
+.aeternum-ai-edge-aura.secondary {
+  box-shadow: inset 0 0 150px rgba(0, 102, 255, 0.15);
+  animation: aeternumAuraPulse 6s ease-in-out infinite alternate;
+}
+
+.state-thinking .aeternum-ai-edge-aura.secondary {
+  animation: aeternumAuraPulseThinking 2s ease-in-out infinite alternate;
+  box-shadow: inset 0 0 200px rgba(35, 210, 179, 0.3);
+}
+
+.aeternum-ai-center-status {
+  position: relative;
+  z-index: 16;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: white;
+  pointer-events: none;
+  animation: aeternumStatusSlideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.aeternum-ai-center-status span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(35, 210, 179, 0.8);
+  margin-bottom: 8px;
+}
+
+.aeternum-ai-center-status strong {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+@keyframes aeternumOverlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes aeternumStatusSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes aeternumAuraPulse {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+@keyframes aeternumAuraPulseThinking {
+  0% { opacity: 0.6; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1.02); }
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .aeternum-ai-center-status strong {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .aeternum-ai-center-status {
+    display: none;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .aeternum-ai-edge-aura.secondary {
+    animation: none !important;
+  }
+  .aeternum-ai-immersive-overlay {
+    animation-duration: 0.1s !important;
+  }
+  .aeternum-ai-center-status {
+    animation-duration: 0.1s !important;
+  }
+}
