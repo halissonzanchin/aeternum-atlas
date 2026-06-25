@@ -15,7 +15,7 @@ export default function RightToolbar({ onAction }) {
   return (
     <aside className="right-toolbar" aria-label={t("settings.preferences.tools")}>
       {tools.map(([id, labelKey, icon]) => (
-        <button key={id} onClick={() => onAction(id)} title={t(labelKey)} aria-label={t(labelKey)} data-tooltip={t(labelKey)}>
+        <button key={id} onClick={() => onAction(id)} aria-label={t(labelKey)} data-tooltip={t(labelKey)}>
           <LineIcon name={icon} />
           <span>{t(labelKey)}</span>
         </button>

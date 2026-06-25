@@ -19,7 +19,6 @@ export default function AtlasMarker({ marker, isActive, onClick }) {
           onClick(marker);
         }}
         className={`relative flex items-center justify-center cursor-pointer group transition-all duration-300 ${isActive ? 'scale-125 z-50' : 'scale-75 hover:scale-100 z-10'}`}
-        title={marker.title}
         aria-label={`Visualizar marcador: ${marker.title}`}
       >
         {/* Pulsing Halo (only when active or hovered) */}

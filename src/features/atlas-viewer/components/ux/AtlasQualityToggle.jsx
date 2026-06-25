@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import AtlasTooltip from './AtlasTooltip';
+
 export default function AtlasQualityToggle({ qualityPreset, setQualityPreset }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -12,16 +14,18 @@ export default function AtlasQualityToggle({ qualityPreset, setQualityPreset }) 
   const currentOption = options.find(o => o.id === qualityPreset) || options[2];
 
   return (
-    <div className="relative group">
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        onBlur={() => setTimeout(() => setIsOpen(false), 200)}
-        className="h-10 px-3 rounded-lg bg-[#151A23]/90 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors shadow-lg gap-2"
-        aria-label="Qualidade de Renderização"
-      >
-        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={currentOption.icon} /></svg>
-        <span className="text-[10px] font-bold uppercase tracking-widest">{currentOption.label}</span>
-      </button>
+    <div className="relative">
+      <AtlasTooltip content="Qualidade" position="top">
+        <button 
+          onClick={() => setIsOpen(!isOpen)}
+          onBlur={() => setTimeout(() => setIsOpen(false), 200)}
+          className="h-10 px-3 rounded-lg bg-[#151A23]/90 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors shadow-lg gap-2"
+          aria-label="Qualidade de Renderização"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={currentOption.icon} /></svg>
+          <span className="text-[10px] font-bold uppercase tracking-widest">{currentOption.label}</span>
+        </button>
+      </AtlasTooltip>
 
       {isOpen && (
         <div className="absolute bottom-[calc(100%+8px)] right-0 bg-[#151A23] border border-white/10 rounded-lg shadow-2xl overflow-hidden flex flex-col w-36">
