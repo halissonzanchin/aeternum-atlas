@@ -35,6 +35,26 @@ export default function AtlasAIViewerPanel() {
     }
   }, [messages, isThinking]);
 
+  // Handle global immersive state classes on body
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('tutor-immersive-active');
+      if (isThinking) {
+        document.body.classList.add('tutor-immersive-thinking');
+      } else {
+        document.body.classList.remove('tutor-immersive-thinking');
+      }
+    } else {
+      document.body.classList.remove('tutor-immersive-active');
+      document.body.classList.remove('tutor-immersive-thinking');
+    }
+
+    return () => {
+      document.body.classList.remove('tutor-immersive-active');
+      document.body.classList.remove('tutor-immersive-thinking');
+    };
+  }, [isOpen, isThinking]);
+
   const handleSendMessage = async (textOverride = null) => {
     const text = textOverride || inputValue;
     if (!text.trim() || isThinking) return;
