@@ -25,7 +25,8 @@ const paths = {
   timer: "M10 2h4m-2 5v5l3 2m5-2a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-1.5-5.5 1.5-1.5",
   clipboardCheck: "M9 5h6M9 3h6v4H9V3ZM7 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2m-1 8-4 4-2-2",
   fileQuestion: "M6 3h9l3 3v15H6V3Zm8 0v4h4M10 11a2 2 0 1 1 3.3 1.5c-.8.5-1.3.95-1.3 1.8m0 3h.01",
-  menu: "M4 7h16M4 12h16M4 17h16"
+  menu: "M4 7h16M4 12h16M4 17h16",
+  send: "M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"
 };
 
 export default function LineIcon({ name, className = "h-5 w-5", strokeWidth = 1.8, filled = false }) {
