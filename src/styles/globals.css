@@ -14121,3 +14121,72 @@ button.cinematic-info-card {
     border-radius: 22px;
   }
 }
+
+/* PURPOSEFUL UX ANIMATIONS */
+
+/* 1. Typing Dots */
+@keyframes typing-dot-scale {
+  0%, 100% { transform: scale(0.6); opacity: 0.4; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+.typing-dot {
+  animation: typing-dot-scale 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, opacity;
+}
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* 2. Disapproving Shake (Error Feedback) */
+@keyframes disapproving-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.error-shake {
+  animation: disapproving-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* 3. Invitation to Act (Pulsing Glow) */
+@keyframes invitation-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(47, 184, 181, 0.6); }
+  70% { box-shadow: 0 0 0 12px rgba(47, 184, 181, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(47, 184, 181, 0); }
+}
+
+.invitation-to-act {
+  animation: invitation-pulse 2.5s infinite;
+}
+
+/* 4. Intrinsic Motivation / Celebration Particles */
+.celebration-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.aeternum-confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background-color: var(--tech-teal);
+  opacity: 0;
+  animation: confetti-fall 3s ease-out forwards;
+}
+
+.aeternum-confetti.gold { background-color: var(--aged-gold); }
+.aeternum-confetti.blue { background-color: #00BFFF; }
+.aeternum-confetti.circle { border-radius: 50%; }
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-10px) rotate(0deg) scale(0); opacity: 1; }
+  10% { transform: translateY(-80px) rotate(45deg) scale(1); }
+  100% { transform: translateY(100vh) rotate(720deg) scale(0.8); opacity: 0; }
+}

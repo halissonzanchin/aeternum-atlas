@@ -20,6 +20,8 @@ export default function AtlasAIViewerPanel() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isThinking, setIsThinking] = useState(false);
+  const [inputError, setInputError] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
   
   // Study path state
   const [activeStudyPath, setActiveStudyPath] = useState(null);
@@ -57,7 +59,14 @@ export default function AtlasAIViewerPanel() {
 
   const handleSendMessage = async (textOverride = null) => {
     const text = textOverride || inputValue;
-    if (!text.trim() || isThinking) return;
+    if (!text.trim()) {
+      if (!textOverride) {
+        setInputError(true);
+        setTimeout(() => setInputError(false), 400);
+      }
+      return;
+    }
+    if (isThinking) return;
 
     // Add user message
     const userMsg = { id: Date.now().toString(), sender: 'user', text };
@@ -141,6 +150,9 @@ export default function AtlasAIViewerPanel() {
        
        const nextIndex = currentStepIndex + 1;
        if (nextIndex >= activeStudyPath.steps.length) {
+          setShowConfetti(true);
+          setTimeout(() => setShowConfetti(false), 3500);
+          
           setMessages(prev => [...prev, { 
             id: Date.now().toString(), 
             sender: 'ai', 
@@ -199,6 +211,23 @@ export default function AtlasAIViewerPanel() {
   return (
     <>
       <AtlasAIImmersiveOverlay isActive={isOpen} state={orbState} />
+      
+      {showConfetti && (
+        <div className="celebration-container">
+          {[...Array(50)].map((_, i) => (
+            <div 
+              key={i} 
+              className={`aeternum-confetti ${Math.random() > 0.5 ? 'gold' : ''} ${Math.random() > 0.7 ? 'blue' : ''} ${Math.random() > 0.5 ? 'circle' : ''}`}
+              style={{
+                left: `${Math.random() * 100}vw`,
+                animationDelay: `${Math.random() * 0.5}s`,
+                transform: `scale(${Math.random() * 0.5 + 0.5})`
+              }}
+            />
+          ))}
+        </div>
+      )}
+
       <div className="absolute bottom-6 right-6 z-20 flex flex-col items-end gap-3 fade-in-up pointer-events-none">
         {isOpen && (
           <Card className="w-80 sm:w-96 max-h-[70vh] flex flex-col bg-blackDeep/95 backdrop-blur-xl border border-techTeal/30 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_20px_rgba(35,210,179,0.1)] animate-in slide-in-from-bottom-5 mb-2 pointer-events-auto rounded-2xl overflow-hidden">
@@ -243,7 +272,7 @@ export default function AtlasAIViewerPanel() {
                     {shouldRenderButton && (
                       <button 
                         onClick={() => handleActionClick(msg.action, msg.payload)}
-                        className="ml-2 flex items-center gap-1.5 px-3 py-1.5 bg-techTeal/20 hover:bg-techTeal/30 border border-techTeal/40 text-techTeal text-xs rounded-lg transition-colors cursor-pointer"
+                        className="ml-2 flex items-center gap-1.5 px-3 py-1.5 bg-techTeal/20 hover:bg-techTeal/30 border border-techTeal/40 text-techTeal text-xs rounded-lg transition-colors cursor-pointer invitation-to-act"
                       >
                         <LineIcon name="play" className="w-3 h-3" />
                         {actionDictionary[msg.action].label}
@@ -255,9 +284,10 @@ export default function AtlasAIViewerPanel() {
               
               {isThinking && (
                 <div className="flex justify-start">
-                  <div className="max-w-[85%] p-3 rounded-2xl rounded-tl-sm bg-techTeal/10 text-techTeal text-xs border border-techTeal/20 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-techTeal animate-ping"></span>
-                    Aeternum está analisando...
+                  <div className="max-w-[85%] px-4 py-3 rounded-2xl rounded-tl-sm bg-techTeal/10 text-techTeal text-xs border border-techTeal/20 flex items-center gap-1.5 shadow-[0_4px_15px_rgba(35,210,179,0.05)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-techTeal typing-dot"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-techTeal typing-dot"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-techTeal typing-dot"></span>
                   </div>
                 </div>
               )}
@@ -282,7 +312,7 @@ export default function AtlasAIViewerPanel() {
             {/* Input Area */}
             <div className="p-3 border-t border-white/10 bg-blackDeep/50 flex gap-2 items-end">
               <textarea
-                className="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-techTeal/50 focus:bg-white/10 resize-none transition-all scrollbar-thin"
+                className={`flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-techTeal/50 focus:bg-white/10 resize-none transition-all scrollbar-thin ${inputError ? 'error-shake border-red-500/50' : ''}`}
                 rows={1}
                 placeholder="Pergunte ao AI Tutor..."
                 value={inputValue}
