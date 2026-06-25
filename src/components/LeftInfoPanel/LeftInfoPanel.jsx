@@ -215,11 +215,11 @@ export default function LeftInfoPanel({
           </div>
         ) : null}
 
-        <div className="flex flex-col gap-1 px-4 py-2 border-b border-white/5 mb-4">
+        <div className="flex flex-row gap-2 px-4 py-3 border-b border-white/10 mb-2 overflow-x-auto flex-shrink-0 relative z-10 w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {panelTabs.map(item => (
             <button 
               key={item} 
-              className={`text-left px-3 py-2 text-sm rounded-lg transition-all ${activeTab === item ? "bg-techTeal/10 text-techTeal font-bold" : "text-slate-400 hover:text-slate-200 hover:bg-white/5"}`} 
+              className={`whitespace-nowrap px-4 py-1.5 text-xs tracking-wide rounded-full transition-all flex-shrink-0 ${activeTab === item ? "bg-techTeal/20 text-techTeal font-bold border border-techTeal/40 shadow-[0_0_12px_rgba(47,184,181,0.2)]" : "bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10"}`} 
               onClick={() => setTab(item)}
             >
               {t(tabLabels[item] || item)}
