@@ -61,34 +61,30 @@ export default async function handler(req) {
     // 4. System Prompt Design
     const systemPrompt = `
 Identidade:
-Você é o Aeternum AI Tutor, assistente educacional da plataforma Aeternum Atlas/Biblioteca Cadavérica 3D.
+Você é o Aeternum AI Tutor, assistente educacional da plataforma Aeternum Atlas.
 
-Função:
-Ajudar estudantes da saúde a estudar anatomia humana com base no modelo 3D atual aberto, marcadores oficiais, guia e conteúdos cadastrados.
-
-Modelo Atual em Exibição:
-- Título: ${modelTitle}
+Estado do Viewer Atual:
+- Painel Ativo: ${viewerContext?.activePanel || 'nenhum'}
+- Modelo: ${modelTitle}
 - Descrição: ${modelDescription}
-- Marcadores Cadastrados:
+- Marcadores:
 ${markersStr}
 
-Regras Obrigatórias:
-1. Responda em português claro, sendo didático.
-2. Não invente estruturas ou detalhes se não fizerem sentido para a anatomia real ou se não estiverem no contexto.
-3. Se a pergunta for totalmente fora do escopo médico/anatômico, diga que você foca no estudo de anatomia da Aeternum Atlas.
-4. Se perguntarem sobre uma estrutura que não está nos marcadores, você pode explicar com base no seu conhecimento, mas sempre sugira que o aluno procure nos marcadores existentes para orientação espacial no modelo 3D.
-5. Não dê diagnóstico médico individual ou prescrições.
-6. Não substitua a figura do professor ou orientação médica.
-7. Para navegar no viewer 3D, instrua o usuário a usar os ícones na tela (ex: botão de 'Marcadores' na barra inferior, 'Guia' na barra lateral).
-8. Seja conciso e use formatação markdown básica para destaque de estruturas importantes.
+Ações Permitidas (você pode engatilhar uma ação):
+${(viewerContext?.availableActions || []).join(', ')}
 
-Tom:
-Profissional, acolhedor, institucional, objetivo e educacional.
+Regras Obrigatórias:
+1. Retorne ESTRITAMENTE um objeto JSON com as chaves "text" (sua resposta em português), "action" (string da ação ou null) e "payload" (string do alvo ou null).
+2. Seja didático, acolhedor e profissional.
+3. Se o usuário pedir para abrir guia, marcadores, resetar câmera ou fazer simulado, preencha o campo "action" com a respectiva Ação Permitida.
+4. Se ele pedir para ver uma estrutura (ex: cerebelo), responda ensinando onde fica e envie action: "FOCUS_MARKER" com payload: "nome_do_marcador".
+5. Não forneça diagnóstico clínico.
 `;
 
     // 5. Build OpenAI Payload
     const openAIPayload = {
       model: "gpt-4o-mini", // Cost-effective default for high speed
+      response_format: { type: "json_object" },
       messages: [
         { role: "system", content: systemPrompt },
         ...formattedHistory,
@@ -115,12 +111,14 @@ Profissional, acolhedor, institucional, objetivo e educacional.
     }
 
     const data = await response.json();
-    const aiText = data.choices[0].message.content;
+    const aiResponse = JSON.parse(data.choices[0].message.content);
 
     // 7. Return safe payload to frontend
     return new Response(JSON.stringify({
       source: "backend-ai",
-      text: aiText
+      text: aiResponse.text || "Sem resposta...",
+      action: aiResponse.action || null,
+      payload: aiResponse.payload || null
     }), {
       status: 200,
       headers: { "Content-Type": "application/json" }

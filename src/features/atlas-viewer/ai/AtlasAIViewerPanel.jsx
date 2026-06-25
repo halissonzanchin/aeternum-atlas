@@ -6,6 +6,7 @@ import { useViewer } from '../../viewer/ViewerContext';
 import AtlasTooltip from '../components/ux/AtlasTooltip';
 import AtlasAIOrb from './AtlasAIOrb';
 import { atlasAITutorService } from './atlasAITutorService';
+import { actionDictionary, executeTutorAction } from './atlasAITutorActions';
 
 export default function AtlasAIViewerPanel() {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,15 +61,42 @@ export default function AtlasAIViewerPanel() {
 
     // Call local AI service
     try {
-      const responseText = await atlasAITutorService.processMessage(text, viewerContext, messages);
-      const aiMsg = { id: (Date.now() + 1).toString(), sender: 'ai', text: responseText };
+      const response = await atlasAITutorService.processMessage(text, viewerContext, messages);
+      const aiMsg = { 
+        id: (Date.now() + 1).toString(), 
+        sender: 'ai', 
+        text: response.text,
+        action: response.action,
+        payload: response.payload
+      };
       setMessages(prev => [...prev, aiMsg]);
+      
+      // Auto-execute check
+      if (response.action) {
+        const actionConfig = actionDictionary[response.action];
+        if (actionConfig && actionConfig.autoExecute) {
+          executeTutorAction(response.action, response.payload, viewerContext);
+        }
+      }
     } catch (error) {
       console.error("AI Tutor Error:", error);
       const errorMsg = { id: (Date.now() + 1).toString(), sender: 'ai', text: "Desculpe, ocorreu um erro ao processar sua solicitação." };
       setMessages(prev => [...prev, errorMsg]);
     } finally {
       setIsThinking(false);
+    }
+  };
+
+  const handleActionClick = (actionId, payload) => {
+    const success = executeTutorAction(actionId, payload, viewerContext);
+    
+    if (!success) {
+      const errorMsg = { 
+        id: Date.now().toString(), 
+        sender: 'ai', 
+        text: "Essa ação ainda não está disponível neste visualizador." 
+      };
+      setMessages(prev => [...prev, errorMsg]);
     }
   };
 
@@ -115,20 +143,35 @@ export default function AtlasAIViewerPanel() {
 
           {/* Messages Area */}
           <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-            {messages.map((msg) => (
-              <div key={msg.id} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div 
-                  className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${
-                    msg.sender === 'user' 
-                      ? 'bg-white/10 text-white rounded-tr-sm border border-white/5' 
-                      : 'bg-techTeal/10 text-clinicalWhite rounded-tl-sm border border-techTeal/20 shadow-[0_4px_15px_rgba(35,210,179,0.05)]'
-                  }`}
-                >
-                  {/* Basic markdown bold support for the simple response */}
-                  <span dangerouslySetInnerHTML={{ __html: msg.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>') }} />
+            {messages.map((msg) => {
+              const hasAction = msg.action && actionDictionary[msg.action];
+              const isAuto = hasAction && actionDictionary[msg.action].autoExecute;
+              const shouldRenderButton = hasAction && !isAuto;
+
+              return (
+                <div key={msg.id} className={`flex flex-col gap-2 ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
+                  <div 
+                    className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${
+                      msg.sender === 'user' 
+                        ? 'bg-white/10 text-white rounded-tr-sm border border-white/5' 
+                        : 'bg-techTeal/10 text-clinicalWhite rounded-tl-sm border border-techTeal/20 shadow-[0_4px_15px_rgba(35,210,179,0.05)]'
+                    }`}
+                  >
+                    <span dangerouslySetInnerHTML={{ __html: msg.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>') }} />
+                  </div>
+                  
+                  {shouldRenderButton && (
+                    <button 
+                      onClick={() => handleActionClick(msg.action, msg.payload)}
+                      className="ml-2 flex items-center gap-1.5 px-3 py-1.5 bg-techTeal/20 hover:bg-techTeal/30 border border-techTeal/40 text-techTeal text-xs rounded-lg transition-colors cursor-pointer"
+                    >
+                      <LineIcon name="play" className="w-3 h-3" />
+                      {actionDictionary[msg.action].label}
+                    </button>
+                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
             
             {isThinking && (
               <div className="flex justify-start">
