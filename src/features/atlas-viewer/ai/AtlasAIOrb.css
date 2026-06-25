@@ -1,0 +1,187 @@
+.atlas-ai-orb-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  outline: none;
+}
+
+.atlas-ai-orb-container:hover {
+  transform: scale(1.05);
+}
+
+.atlas-ai-orb-container:active {
+  transform: scale(0.95);
+}
+
+.orb-halo {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(35,210,179,0.3) 0%, rgba(138,43,226,0.15) 40%, transparent 70%);
+  opacity: 0.6;
+  filter: blur(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 0;
+  animation: atlasOrbBreath 6s ease-in-out infinite;
+}
+
+.atlas-ai-orb-container:hover .orb-halo {
+  opacity: 1;
+  transform: scale(1.1);
+  background: radial-gradient(circle, rgba(35,210,179,0.5) 0%, rgba(138,43,226,0.3) 40%, transparent 70%);
+}
+
+.orb-glass-shell {
+  position: relative;
+  border-radius: 50%;
+  background: radial-gradient(110% 110% at 30% 30%, rgba(20, 30, 48, 0.8) 0%, rgba(10, 15, 24, 0.95) 100%);
+  box-shadow: 
+    inset 0 0 20px rgba(35, 210, 179, 0.2),
+    inset 0 4px 10px rgba(255, 255, 255, 0.1),
+    0 10px 30px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.orb-gradient {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  filter: blur(12px);
+  will-change: transform;
+}
+
+/* Cyan/Teal flow */
+.orb-gradient-one {
+  width: 140%;
+  height: 140%;
+  top: -20%;
+  left: -20%;
+  background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(35,210,179,0.8) 90deg, transparent 180deg);
+  animation: atlasOrbSpin 8s linear infinite;
+}
+
+/* Violet/Magenta blob */
+.orb-gradient-two {
+  width: 100%;
+  height: 100%;
+  top: 20%;
+  left: 20%;
+  background: radial-gradient(circle, rgba(138,43,226,0.7) 0%, transparent 70%);
+  animation: atlasOrbDrift 10s ease-in-out infinite alternate;
+}
+
+/* Deep Blue blob */
+.orb-gradient-three {
+  width: 120%;
+  height: 120%;
+  top: -10%;
+  left: -30%;
+  background: radial-gradient(circle, rgba(0,102,255,0.6) 0%, transparent 70%);
+  animation: atlasOrbDrift 12s ease-in-out infinite alternate-reverse;
+}
+
+.orb-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(200,255,250,0.4) 40%, transparent 80%);
+  mix-blend-mode: plus-lighter;
+  filter: blur(4px);
+  animation: atlasOrbPulse 4s ease-in-out infinite;
+}
+
+.orb-highlight {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.05) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.orb-label {
+  position: absolute;
+  z-index: 3;
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px rgba(255,255,255,0.5), 0 0 20px rgba(35,210,179,0.8);
+  pointer-events: none;
+}
+
+/* State Modifiers */
+.state-listening .orb-halo {
+  animation: atlasOrbListening 2s ease-out infinite;
+  background: radial-gradient(circle, rgba(35,210,179,0.6) 0%, rgba(0,102,255,0.4) 50%, transparent 80%);
+}
+.state-listening .orb-gradient-one {
+  animation-duration: 3s;
+}
+.state-listening .orb-core {
+  transform: translate(-50%, -50%) scale(1.2);
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(200,255,250,0.6) 50%, transparent 80%);
+}
+
+.state-thinking .orb-gradient-one {
+  animation-duration: 1.5s;
+}
+.state-thinking .orb-gradient-two {
+  animation-duration: 3s;
+}
+.state-thinking .orb-gradient-three {
+  animation-duration: 4s;
+}
+.state-thinking .orb-core {
+  animation: atlasOrbThinking 1.5s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes atlasOrbBreath {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+}
+
+@keyframes atlasOrbSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes atlasOrbDrift {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(10%, -10%) scale(1.1); }
+  66% { transform: translate(-5%, 15%) scale(0.95); }
+  100% { transform: translate(-10%, -5%) scale(1.05); }
+}
+
+@keyframes atlasOrbPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+}
+
+@keyframes atlasOrbListening {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+@keyframes atlasOrbThinking {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .orb-halo, .orb-gradient-one, .orb-gradient-two, .orb-gradient-three, .orb-core {
+    animation: none !important;
+  }
+}

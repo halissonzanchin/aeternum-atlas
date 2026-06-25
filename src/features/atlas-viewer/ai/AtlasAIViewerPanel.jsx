@@ -4,6 +4,7 @@ import Button from '../../../components/Button/Button';
 import { atlasViewerCommands } from './atlasViewerCommands';
 import { useViewer } from '../../viewer/ViewerContext';
 import AtlasTooltip from '../components/ux/AtlasTooltip';
+import AtlasAIOrb from './AtlasAIOrb';
 
 export default function AtlasAIViewerPanel() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +33,7 @@ export default function AtlasAIViewerPanel() {
   return (
     <div className="absolute bottom-6 right-6 z-20 flex flex-col items-end gap-3 fade-in-up">
       {isOpen && (
-        <Card className="w-80 bg-blackDeep/90 backdrop-blur-md border border-techTeal/30 shadow-2xl shadow-techTeal/10 p-4 animate-in slide-in-from-bottom-5">
+        <Card className="w-80 bg-blackDeep/90 backdrop-blur-md border border-techTeal/30 shadow-2xl shadow-techTeal/10 p-4 animate-in slide-in-from-bottom-5 mb-2">
           <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-3">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-techTeal/20 flex items-center justify-center border border-techTeal/40">
@@ -69,35 +70,13 @@ export default function AtlasAIViewerPanel() {
         </Card>
       )}
 
-      {!isOpen && (
-        <AtlasTooltip content="Atlas AI Tutor" position="top">
-          <button 
-            onClick={() => setIsOpen(true)}
-            className="relative w-14 h-14 rounded-full group flex items-center justify-center focus:outline-none transition-transform hover:scale-105"
-            aria-label="Open AI Tutor"
-          >
-            {/* Outer Breathing Halo */}
-            <div className="absolute inset-[-4px] rounded-full bg-gradient-to-tr from-techTeal/40 via-blue-500/20 to-purple-500/40 blur-md opacity-60 group-hover:opacity-100 group-hover:inset-[-6px] transition-all duration-700 animate-pulse" />
-            
-            {/* Core Orb Background with spinning gradient */}
-            <div className="absolute inset-0 rounded-full bg-[#0B0E14] overflow-hidden">
-              <div 
-                className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_280deg,rgba(35,210,179,0.8)_360deg)] opacity-70 group-hover:opacity-100 animate-spin transition-opacity duration-500" 
-                style={{ animationDuration: '4s' }} 
-              />
-              {/* Inner glass layer to soften the conic gradient */}
-              <div className="absolute inset-[2px] rounded-full bg-[#0B0E14]/80 backdrop-blur-sm" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-techTeal/10 to-transparent rounded-full mix-blend-screen" />
-            </div>
-
-            {/* Inner Glow and Border */}
-            <div className="absolute inset-0 rounded-full border border-white/20 shadow-[inset_0_0_15px_rgba(35,210,179,0.3)] group-hover:shadow-[inset_0_0_25px_rgba(35,210,179,0.6)] group-hover:border-techTeal/50 transition-all duration-500" />
-
-            {/* AI Text Content */}
-            <span className="relative text-techTeal font-black tracking-widest text-sm drop-shadow-[0_0_8px_rgba(35,210,179,0.8)] z-10 transition-transform group-hover:scale-110">AI</span>
-          </button>
-        </AtlasTooltip>
-      )}
+      <AtlasTooltip content={isOpen ? "Fechar AI Tutor" : "Atlas AI Tutor"} position="top">
+        <AtlasAIOrb 
+          onClick={() => setIsOpen(!isOpen)} 
+          state={isOpen ? "listening" : "idle"}
+          size="md"
+        />
+      </AtlasTooltip>
     </div>
   );
 }
