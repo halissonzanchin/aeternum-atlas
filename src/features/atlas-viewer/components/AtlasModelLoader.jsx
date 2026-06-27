@@ -175,6 +175,14 @@ function ModelSceneProcessor({ scene, onLoaded, structureLayers, hiddenLayers, s
         }
         
         if (child.material) {
+          if (child.geometry && child.geometry.attributes && child.geometry.attributes.color) {
+            child.material = child.material.clone();
+            child.material.vertexColors = true;
+            child.material.roughness = 0.8;
+            child.material.metalness = 0.0;
+            child.material.needsUpdate = true;
+          }
+
           if (!child.userData.originalMaterial) {
             child.userData.originalMaterial = child.material.clone();
             child.userData.originalMaterial.side = THREE.DoubleSide;
