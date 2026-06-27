@@ -146,10 +146,10 @@ const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = 'aut
     <div className="w-full h-full bg-blackDeep relative overflow-hidden flex-1">
       {/* HUD overlay minimal */}
       <div className="absolute top-6 right-6 md:right-8 z-10 pointer-events-none hidden sm:block">
-        <span className="bg-techTeal/10 backdrop-blur-md text-techTeal text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-md border border-techTeal/30 flex items-center gap-2 shadow-lg">
-          <span className="w-1.5 h-1.5 rounded-full bg-techTeal animate-pulse"></span>
-          Atlas Engine ({modelFormat.toUpperCase()})
-          {editMode && <span className="ml-2 bg-amber-500 text-black px-1.5 py-0.5 rounded text-[9px]">EDIT</span>}
+        <span className="bg-techTeal/10 backdrop-blur-md text-techTeal text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-md border border-techTeal/30 flex items-center gap-2 shadow-lg atlas-nowrap-label max-w-[150px] md:max-w-none">
+          <span className="w-1.5 h-1.5 rounded-full bg-techTeal animate-pulse shrink-0"></span>
+          <span className="truncate">Atlas Engine ({modelFormat.toUpperCase()})</span>
+          {editMode && <span className="ml-2 bg-amber-500 text-black px-1.5 py-0.5 rounded text-[9px] shrink-0">EDIT</span>}
         </span>
       </div>
 

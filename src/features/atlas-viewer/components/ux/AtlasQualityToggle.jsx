@@ -23,7 +23,7 @@ export default function AtlasQualityToggle({ qualityPreset, setQualityPreset }) 
           aria-label="Qualidade de Renderização"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={currentOption.icon} /></svg>
-          <span className="text-[10px] font-bold uppercase tracking-widest">{currentOption.label}</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest hidden md:inline atlas-nowrap-label">{currentOption.label}</span>
         </button>
       </AtlasTooltip>
 

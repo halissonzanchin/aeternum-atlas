@@ -17,7 +17,7 @@ export default function AtlasAiChatPanel() {
       {aiChatHistory.length === 0 ? (
         <div className="flex-1 flex flex-col items-center justify-center text-center opacity-50">
           <LineIcon name="message-square" className="w-12 h-12 text-indigo-400 mb-4" />
-          <p className="text-sm text-clinicalWhite max-w-xs">
+          <p className="text-sm text-clinicalWhite max-w-xs atlas-text-safe atlas-text-balance">
             Nenhuma conversa ativa. Envie uma pergunta ou selecione uma sugestão do Tutor IA.
           </p>
         </div>
@@ -43,7 +43,7 @@ export default function AtlasAiChatPanel() {
                     </span>
                   </div>
                 )}
-                <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                <p className="text-sm whitespace-pre-wrap leading-relaxed atlas-text-safe atlas-fluid-body">{msg.content}</p>
               </div>
             </div>
           ))}
@@ -54,7 +54,7 @@ export default function AtlasAiChatPanel() {
                 <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce"></div>
                 <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
                 <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                <span className="text-xs ml-2">Processando contexto local...</span>
+                <span className="text-xs ml-2 atlas-nowrap-label">Processando contexto local...</span>
               </div>
             </div>
           )}

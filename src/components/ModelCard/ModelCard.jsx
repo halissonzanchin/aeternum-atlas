@@ -91,9 +91,9 @@ export default function ModelCard({ model, user, navigate }) {
       </div>
 
       <div>
-        <h3 className="text-xl font-bold text-clinicalWhite">{localizedModel.title}</h3>
-        <p className="mt-2 text-sm leading-6 text-textMuted">{localizedModel.description}</p>
-        <p className="mt-2 text-xs uppercase tracking-[0.12em] text-slate-500">{localizedModel.system} · {localizedModel.region}</p>
+        <h3 className="text-lg md:text-xl font-bold text-clinicalWhite atlas-text-safe line-clamp-2 md:line-clamp-1">{localizedModel.title}</h3>
+        <p className="mt-2 text-sm leading-6 text-textMuted line-clamp-3 md:line-clamp-2">{localizedModel.description}</p>
+        <p className="mt-2 text-xs uppercase tracking-[0.12em] text-slate-500 atlas-nowrap-label">{localizedModel.system} · {localizedModel.region}</p>
       </div>
 
       <div className="grid gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-sm text-slate-200">

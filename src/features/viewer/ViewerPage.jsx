@@ -54,7 +54,7 @@ function TopViewerBar({ model, structure, navigate, onToggleLeft }) {
             </span>
           ))}
         </div>
-        <div className="mt-1 truncate font-serif text-lg uppercase tracking-[0.18em] text-clinicalWhite">
+        <div className="mt-1 truncate font-serif text-sm md:text-lg uppercase tracking-widest md:tracking-[0.18em] text-clinicalWhite atlas-text-safe">
           {structure?.name || model.title}
         </div>
       </div>
@@ -193,9 +193,9 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
   if (modelState.loading) {
     return (
       <main className="grid min-h-screen place-items-center p-5">
-        <Card className="max-w-lg text-center">
-          <p className="eyebrow">{t("common.loading")}</p>
-          <h1 className="display-title">{t("models.catalogLoading")}</h1>
+        <Card className="max-w-lg text-center atlas-text-safe">
+          <p className="eyebrow atlas-nowrap-label">{t("common.loading")}</p>
+          <h1 className="atlas-empty-state-title mt-2">{t("models.catalogLoading")}</h1>
         </Card>
       </main>
     );
@@ -204,9 +204,9 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
   if (!modelState.model || !modelState.activeStructure) {
     return (
       <main className="grid min-h-screen place-items-center p-5">
-        <Card className="max-w-lg text-center">
-          <h1 className="display-title">{t("models.modelNotFound")}</h1>
-          <p className="mt-4 text-textMuted">{t("models.emptyCatalog")}</p>
+        <Card className="max-w-lg text-center atlas-text-safe">
+          <h1 className="atlas-empty-state-title">{t("models.modelNotFound")}</h1>
+          <p className="mt-4 text-textMuted atlas-empty-state-description">{t("models.emptyCatalog")}</p>
         </Card>
       </main>
     );

@@ -1,5 +1,18 @@
+export const CRANIAL_MODEL_SLUG = "corte-sagital-cranio-humano-superficial";
 export const FEMALE_REPRODUCTIVE_MODEL_SLUG = "corte-sagital-sistema-reprodutor-feminino";
 export const HEART_MODEL_SLUG = "coracao-edicao-morgue";
+
+const cranialKeywords = [
+  "corte sagital",
+  "crânio",
+  "humano",
+  "encéfalo",
+  "cérebro",
+  "anatomia da cabeça",
+  "neuroanatomia",
+  "sistema nervoso central",
+  "meninges"
+];
 
 const femaleStructures = [];
 const femaleKeywords = [
@@ -33,6 +46,67 @@ const heartKeywords = [
 ];
 
 export const LOCAL_MODELS = [
+  {
+    id: CRANIAL_MODEL_SLUG,
+    slug: CRANIAL_MODEL_SLUG,
+    institutionId: "",
+    institution_id: "",
+    title: "Corte Sagital do Crânio Humano — Modelo Superficial 3D",
+    shortTitle: "Crânio Humano",
+    description: "Modelo anatômico em corte sagital do crânio humano focando no encéfalo e estruturas superficiais, desenvolvido para o estudo de neuroanatomia.",
+    overview: "O modelo de Corte Sagital do Crânio Humano exibe as relações anatômicas entre a calvária, o encéfalo e as meninges em visão sagital.",
+    category: "Cabeça e Pescoço",
+    region: "Cabeça",
+    system: "Sistema Nervoso",
+    anatomical_system: "Sistema Nervoso Central",
+    anatomical_region: "Cabeça",
+    level: "Institucional",
+    type: "Atlas Native / Escaneamento Anatômico Real",
+    viewerType: "atlas-native",
+    modelFormat: "glb",
+    modelUrl: "/models/native/cranial-encephalon-sagittal-section-color-web.glb",
+    model_url: "/models/native/cranial-encephalon-sagittal-section-color-web.glb",
+    atlasEngineModelUrl: "/models/native/cranial-encephalon-sagittal-section-color-web.glb",
+    coverImageUrl: "",
+    thumbnailUrl: "",
+    sketchfabUrl: "",
+    sketchfabEmbedUrl: "",
+    embedUrl: "",
+    externalUrl: "",
+    estimatedStudyTime: "30 min",
+    author: "Aeternum Atlas",
+    provider: "atlas_native",
+    status: "active",
+    isActive: true,
+    accessCount: 0,
+    progressPercent: 0,
+    objectives: [
+      "Identificar o encéfalo em corte mediano.",
+      "Compreender a disposição das meninges.",
+      "Analisar o tronco encefálico e o cerebelo."
+    ],
+    structures: [],
+    relatedStructures: [],
+    clinicalCorrelations: [
+      "Traumatismo cranioencefálico",
+      "Hemorragias intracranianas",
+      "Tumores cerebrais"
+    ],
+    studyGuide: [
+      "Observe o telencéfalo e seus sulcos.",
+      "Localize o corpo caloso.",
+      "Identifique o diencéfalo e o tronco encefálico."
+    ],
+    reference: "Aeternum Atlas",
+    references: ["Netter Atlas de Anatomia Humana"],
+    tags: ["Sistema Nervoso", "Crânio", "Cérebro", ...cranialKeywords],
+    keywords: cranialKeywords,
+    anatomicalQuizTitle: "Simulado Anatômico - Crânio",
+    anatomicalQuizDescription: "Prática interativa de neuroanatomia.",
+    anatomicalQuizTimeLimitSeconds: 600,
+    theoreticalQuizKey: "cranio-sagital",
+    createdAt: "2026-05-25T00:00:00.000Z"
+  },
   {
     id: FEMALE_REPRODUCTIVE_MODEL_SLUG,
     slug: FEMALE_REPRODUCTIVE_MODEL_SLUG,

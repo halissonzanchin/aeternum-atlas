@@ -45,7 +45,7 @@ export default function AtlasAiTutorPanel({ tutorContext }) {
             <span className="text-[10px] uppercase tracking-widest text-indigo-400 font-bold block mb-0.5">
               Aeternum AI Tutor
             </span>
-            <h2 className="text-lg font-black text-white leading-tight">
+            <h2 className="text-lg font-black text-white leading-tight atlas-text-safe line-clamp-2 md:line-clamp-1">
               {tutorContext.structureName || tutorContext.structureId}
             </h2>
           </div>
@@ -53,10 +53,10 @@ export default function AtlasAiTutorPanel({ tutorContext }) {
       </div>
 
       {/* Navegação Interna do Tutor */}
-      <div className="flex px-2 border-b border-white/5 shrink-0">
+      <div className="flex px-2 border-b border-white/5 shrink-0 overflow-x-auto custom-scrollbar">
         <button 
           onClick={() => { setActiveTab('overview'); setAiTutorMode(false); }}
-          className={`flex-1 py-3 px-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
+          className={`flex-1 min-w-0 py-3 px-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider border-b-2 transition-colors truncate atlas-nowrap-label ${
             activeTab === 'overview' ? 'border-indigo-400 text-indigo-400' : 'border-transparent text-textMuted hover:text-white'
           }`}
         >
@@ -64,7 +64,7 @@ export default function AtlasAiTutorPanel({ tutorContext }) {
         </button>
         <button 
           onClick={() => { setActiveTab('chat'); setAiTutorMode(true); }}
-          className={`flex-1 py-3 px-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider border-b-2 transition-colors ${
+          className={`flex-1 min-w-0 py-3 px-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider border-b-2 transition-colors truncate atlas-nowrap-label ${
             activeTab === 'chat' ? 'border-indigo-400 text-indigo-400' : 'border-transparent text-textMuted hover:text-white'
           }`}
         >
@@ -72,12 +72,12 @@ export default function AtlasAiTutorPanel({ tutorContext }) {
         </button>
         <button 
           onClick={() => { setActiveTab('quiz'); setAiTutorMode(false); }}
-          className={`flex-1 py-3 px-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center justify-center gap-1 ${
+          className={`flex-1 min-w-0 py-3 px-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider border-b-2 transition-colors flex items-center justify-center gap-1 truncate atlas-nowrap-label ${
             activeTab === 'quiz' ? 'border-teal-400 text-teal-400' : 'border-transparent text-textMuted hover:text-white'
           }`}
         >
-          <LineIcon name="check-circle" className="w-3 h-3" />
-          Quiz Prático
+          <LineIcon name="check-circle" className="w-3 h-3 shrink-0" />
+          <span className="truncate">Quiz Prático</span>
         </button>
       </div>
 
@@ -179,7 +179,7 @@ export default function AtlasAiTutorPanel({ tutorContext }) {
                       setAiTutorMode(true);
                     }}
                     disabled={aiIsTyping}
-                    className="w-full text-left px-4 py-2.5 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 hover:border-indigo-500/40 rounded-xl text-xs text-indigo-200 transition-all disabled:opacity-50"
+                    className="w-full text-left px-4 py-2.5 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 hover:border-indigo-500/40 rounded-xl text-xs text-indigo-200 transition-all disabled:opacity-50 atlas-text-safe leading-relaxed"
                   >
                     "{q}"
                   </button>
@@ -195,7 +195,7 @@ export default function AtlasAiTutorPanel({ tutorContext }) {
               onChange={(e) => setInputText(e.target.value)}
               disabled={aiIsTyping}
               placeholder="Pergunte ao Tutor sobre essa estrutura..." 
-              className="w-full bg-white/5 border border-white/10 focus:border-indigo-500/50 rounded-xl pl-4 pr-12 py-3 text-sm text-white placeholder-textMuted focus:outline-none transition-colors disabled:opacity-50"
+              className="w-full bg-white/5 border border-white/10 focus:border-indigo-500/50 rounded-xl pl-4 pr-12 py-3 text-sm text-white placeholder-textMuted focus:outline-none transition-colors disabled:opacity-50 text-ellipsis overflow-hidden whitespace-nowrap"
             />
             <button 
               type="submit" 

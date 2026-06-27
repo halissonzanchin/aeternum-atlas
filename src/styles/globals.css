@@ -14178,6 +14178,201 @@ button.cinematic-info-card {
   opacity: 0;
   animation: confetti-fall 3s ease-out forwards;
 }
+.anatomical-quiz-card--pelvis::before {
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.06), transparent 36%),
+    radial-gradient(circle at 86% 16%, rgba(214, 183, 106, 0.16), transparent 30%),
+    radial-gradient(circle at 12% 88%, rgba(47, 184, 181, 0.12), transparent 34%);
+}
+
+.anatomical-quiz-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(47, 184, 181, 0.36);
+  box-shadow:
+    0 34px 96px rgba(0, 0, 0, 0.44),
+    0 0 26px rgba(47, 184, 181, 0.10);
+}
+
+.anatomical-quiz-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.anatomical-quiz-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.anatomical-quiz-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(47, 184, 181, 0.34);
+  border-radius: 18px;
+  background: rgba(47, 184, 181, 0.10);
+  color: #35d0cf;
+  box-shadow: inset 0 0 18px rgba(47, 184, 181, 0.08);
+}
+
+.anatomical-quiz-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.anatomical-quiz-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 16px;
+  border: 1px solid rgba(47, 184, 181, 0.34);
+  border-radius: 999px;
+  background: rgba(47, 184, 181, 0.13);
+  color: #d7fff7;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.anatomical-quiz-category {
+  margin: 0 0 10px;
+  color: #35d0cf;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.anatomical-quiz-card h2 {
+  margin: 0;
+  color: #f5f5f5;
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.anatomical-quiz-description {
+  margin: 14px 0 0;
+  color: #aeb8c5;
+  line-height: 1.65;
+}
+
+.anatomical-quiz-topics {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.anatomical-quiz-topics li {
+  position: relative;
+  padding-left: 22px;
+  color: #cfd7e3;
+  line-height: 1.45;
+}
+
+.anatomical-quiz-topics li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #35d0cf;
+  box-shadow: 0 0 14px rgba(53, 208, 207, 0.38);
+}
+
+.anatomical-quiz-card__button {
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 6px;
+  white-space: normal;
+}
+
+.anatomical-quiz-card__button svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 720px) {
+  .anatomical-quizzes-header h1 {
+    font-size: clamp(2.25rem, 13vw, 3.6rem);
+    letter-spacing: 0.04em;
+  }
+
+  .anatomical-quiz-catalog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .anatomical-quiz-card {
+    min-height: 0;
+    border-radius: 22px;
+  }
+}
+
+/* PURPOSEFUL UX ANIMATIONS */
+
+/* 1. Typing Dots */
+@keyframes typing-dot-scale {
+  0%, 100% { transform: scale(0.6); opacity: 0.4; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+.typing-dot {
+  animation: typing-dot-scale 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, opacity;
+}
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* 2. Disapproving Shake (Error Feedback) */
+@keyframes disapproving-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.error-shake {
+  animation: disapproving-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* 3. Invitation to Act (Pulsing Glow) */
+@keyframes invitation-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(47, 184, 181, 0.6); }
+  70% { box-shadow: 0 0 0 12px rgba(47, 184, 181, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(47, 184, 181, 0); }
+}
+
+.invitation-to-act {
+  animation: invitation-pulse 2.5s infinite;
+}
+
+/* 4. Intrinsic Motivation / Celebration Particles */
+.celebration-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.aeternum-confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background-color: var(--tech-teal);
+  opacity: 0;
+  animation: confetti-fall 3s ease-out forwards;
+}
 
 .aeternum-confetti.gold { background-color: var(--aged-gold); }
 .aeternum-confetti.blue { background-color: #00BFFF; }
@@ -14187,4 +14382,66 @@ button.cinematic-info-card {
   0% { transform: translateY(-10px) rotate(0deg) scale(0); opacity: 1; }
   10% { transform: translateY(-80px) rotate(45deg) scale(1); }
   100% { transform: translateY(100vh) rotate(720deg) scale(0.8); opacity: 0; }
+}
+
+/* FASE 8.11B: ADAPTIVE TYPOGRAPHY & OVERFLOW UTILITIES */
+@layer utilities {
+  .atlas-fluid-title {
+    font-size: clamp(1.25rem, 5vw, 2.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+  }
+
+  .atlas-fluid-heading {
+    font-size: clamp(1.125rem, 4vw, 1.75rem);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+  }
+
+  .atlas-fluid-body {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    line-height: 1.5;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .atlas-text-balance {
+    text-wrap: balance;
+  }
+
+  .atlas-text-safe {
+    word-break: normal;
+    overflow-wrap: break-word;
+    min-width: 0; /* Prevents flexbox/grid blowouts */
+    max-width: 100%;
+  }
+
+  .atlas-nowrap-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  .atlas-empty-state-title {
+    font-size: clamp(1.125rem, 3.5vw, 1.5rem);
+    font-weight: 700;
+    line-height: 1.3;
+    text-wrap: balance;
+    word-break: normal;
+    letter-spacing: -0.01em;
+  }
+
+  .atlas-empty-state-description {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    line-height: 1.5;
+    text-wrap: balance;
+    word-break: normal;
+  }
 }

@@ -10,10 +10,10 @@ export default function ContinueModelCard({ model, navigate, t }) {
 
   return (
     <article className="continue-model-card">
-      <div>
-        <span className="badge badge-teal">{summary.system}</span>
-        <h3>{summary.title}</h3>
-        <p className="continue-model-meta">{summary.region} · {model.estimatedStudyTime}</p>
+      <div className="atlas-text-safe">
+        <span className="badge badge-teal atlas-nowrap-label">{summary.system}</span>
+        <h3 className="atlas-fluid-heading line-clamp-2 md:line-clamp-1">{summary.title}</h3>
+        <p className="continue-model-meta atlas-nowrap-label">{summary.region} · {model.estimatedStudyTime}</p>
       </div>
       <div>
         <div className="continue-progress-label">

@@ -76,9 +76,9 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
         <header className="topbar">
           <div className="topbar-user">
             <div className="topbar-avatar">{user?.name?.[0] || "A"}</div>
-            <div className="topbar-user-text">
-              <h3>{user?.name}</h3>
-              <p>
+            <div className="topbar-user-text overflow-hidden">
+              <h3 className="truncate">{user?.name}</h3>
+              <p className="truncate">
                 {user?.institution || t("auth.institution")} · {user?.course || t("common.academicAccess")} · {t("common.institutionalAccess")}
               </p>
             </div>
@@ -89,7 +89,7 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
           </div>
         </header>
 
-        <nav className="mobile-nav lg:hidden">
+        <nav className="mobile-nav lg:hidden whitespace-nowrap overflow-x-auto custom-scrollbar">
           {mobileMenu.map(item => {
             const isAdminItem = !Array.isArray(item);
             const href = isAdminItem ? item.path : item[0];

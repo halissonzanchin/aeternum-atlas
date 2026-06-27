@@ -108,7 +108,7 @@ export default function Sidebar({ path, user, navigate, onLogout }) {
               {active && (
                 <span className="absolute left-0 top-1/2 h-1/2 w-[3px] -translate-y-1/2 rounded-r-full bg-techTeal shadow-[0_0_10px_rgba(47,184,181,0.8)]" />
               )}
-              {label}
+              <span className="truncate w-full atlas-nowrap-label">{label}</span>
             </button>
           );
         })}
