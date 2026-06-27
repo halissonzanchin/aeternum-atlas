@@ -766,8 +766,8 @@ export const pt = {
       advanced: "Avançado"
     },
     types: {
-      sketchfab: "Sketchfab",
-      sketchfabScan: "Sketchfab / Escaneamento anatômico",
+      Sketchfab: "Sketchfab",
+      atlasNativeScan: "Atlas Native / Escaneamento Anatômico Real",
       cadavericScan: "Escaneamento cadavérico",
       didacticModel: "Modelo didático",
       radiology: "Radiologia",

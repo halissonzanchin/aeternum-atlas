@@ -773,8 +773,7 @@ export const es = {
       advanced: "Avanzado"
     },
     types: {
-      sketchfab: "Sketchfab",
-      sketchfabScan: "Sketchfab / Escaneo anatómico",
+      atlasNativeScan: "Atlas Native / Modelo 3D Real",
       cadavericScan: "Escaneo cadavérico",
       didacticModel: "Modelo didáctico",
       radiology: "Radiología",

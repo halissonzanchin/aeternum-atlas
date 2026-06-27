@@ -5,7 +5,7 @@ const TAXONOMY_KEYS = {
     "Avançado": "advanced"
   },
   types: {
-    "Sketchfab / Escaneamento anatômico": "sketchfabScan",
+    "Atlas Native / Escaneamento Anatômico Real": "atlasNativeScan",
     "Escaneamento cadavérico": "cadavericScan",
     "Modelo didático": "didacticModel",
     "Radiologia": "radiology",

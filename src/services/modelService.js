@@ -87,7 +87,7 @@ export function normalizeSupabaseModel(record = {}) {
     region: sanitizeText(record.anatomical_region || "Institucional"),
     system: sanitizeText(record.anatomical_system || "Sistema anatômico"),
     level: mapDifficultyLevel(record.difficulty_level),
-    type: "Sketchfab / Escaneamento anatômico",
+    type: "Atlas Native / Escaneamento Anatômico Real",
     viewerType: "sketchfab",
     coverImageUrl: sanitizeText(record.thumbnail_url),
     thumbnailUrl: sanitizeText(record.thumbnail_url),
@@ -135,8 +135,8 @@ export function normalizeViewerModelAsset(model) {
   let finalViewerType = model.viewerType || model.viewer_type || "atlas-native";
 
   if (model.slug === 'corte-sagital-cranio-humano-superficial' || model.id === 'corte-sagital-cranio-humano-superficial') {
-    if (!finalAssetUrl || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial.glb")) {
-      finalAssetUrl = "/models/native/corte-sagital-cranio-humano-superficial-hq.glb";
+    if (!finalAssetUrl || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial.glb") || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial-hq.glb")) {
+      finalAssetUrl = "/models/native/cranial-encephalon-sagittal-section-hq.glb";
     }
     finalFormat = "glb";
     finalViewerType = "atlas-native";
