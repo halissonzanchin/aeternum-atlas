@@ -5353,7 +5353,7 @@ select:focus-visible {
   display: grid;
   grid-template-columns: minmax(280px, var(--viewer-side-panel-width)) minmax(0, 1fr) minmax(76px, var(--viewer-right-rail-width));
   gap: 18px;
-  height: calc(100vh - var(--viewer-topbar-height));
+  height: calc(100dvh - var(--viewer-topbar-height));
   min-height: 0;
   overflow: hidden;
   padding: 18px;
@@ -5466,7 +5466,7 @@ select:focus-visible {
   .viewer-stage {
     grid-template-columns: 1fr;
     height: auto;
-    min-height: calc(100vh - var(--viewer-topbar-height));
+    min-height: calc(100dvh - var(--viewer-topbar-height));
     overflow: visible;
     padding: 14px;
   }
