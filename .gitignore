@@ -42,3 +42,7 @@ Thumbs.db
 # 3D Assets Pipeline
 assets-pipeline/**/raw/
 assets-pipeline/**/working/
+
+assets-pipeline/**/raw/
+assets-pipeline/**/working/
+assets-pipeline/**/reports/

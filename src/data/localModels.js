@@ -1,29 +1,7 @@
 export const FEMALE_REPRODUCTIVE_MODEL_SLUG = "corte-sagital-sistema-reprodutor-feminino";
-export const FEMALE_REPRODUCTIVE_MODEL_UID = "1c8dbfa7ba8846afa3b4ef058df36753";
+export const HEART_MODEL_SLUG = "coracao-edicao-morgue";
 
-const femaleStructures = [
-  ["Útero", "Uterus", "Órgano muscular central de la pelvis femenina, situado entre la vejiga urinaria y el recto."],
-  ["Fondo uterino", "Fundus uteri", "Porción superior convexa del útero, localizada por encima de la entrada de las trompas uterinas."],
-  ["Cuerpo uterino", "Corpus uteri", "Segmento principal del útero, relacionado anteriormente con la vejiga y posteriormente con el recto."],
-  ["Cuello uterino / Cérvix", "Cervix uteri", "Porción inferior estrecha del útero que se proyecta hacia la vagina."],
-  ["Cavidad uterina", "Cavitas uteri", "Espacio interno del útero revestido por endometrio."],
-  ["Canal cervical", "Canalis cervicis uteri", "Conducto que comunica la cavidad uterina con la vagina."],
-  ["Vagina", "Vagina", "Conducto fibromuscular posterior a la uretra y anterior al recto."],
-  ["Canal vaginal", "Canalis vaginalis", "Trayecto anatómico de la vagina desde el cérvix hasta el vestíbulo."],
-  ["Vejiga urinaria", "Vesica urinaria", "Órgano urinario anterior al útero y a la vagina."],
-  ["Uretra femenina", "Urethra feminina", "Conducto corto que se extiende desde la vejiga hasta el vestíbulo vaginal."],
-  ["Recto", "Rectum", "Segmento distal del intestino grueso, posterior al útero y a la vagina."],
-  ["Conducto anal", "Canalis analis", "Porción terminal del tubo digestivo situada inferior al recto."],
-  ["Periné", "Perineum", "Región inferior de la pelvis que participa en el soporte de órganos pélvicos."],
-  ["Pubis", "Os pubis", "Referencia ósea anterior de la pelvis femenina."],
-  ["Sacro", "Os sacrum", "Referencia ósea posterior que delimita la cavidad pélvica."],
-  ["Cóccix", "Os coccygis", "Segmento óseo terminal de la columna vertebral, posterior al conducto anal."],
-  ["Ovario", "Ovarium", "Gónada femenina relacionada lateralmente con el útero."],
-  ["Trompa uterina", "Tuba uterina", "Conducto que comunica el entorno ovárico con la cavidad uterina."],
-  ["Fondo de saco vesicouterino", "Excavatio vesicouterina", "Receso peritoneal situado entre la vejiga urinaria y el útero."],
-  ["Fondo de saco rectouterino / Douglas", "Excavatio rectouterina", "Receso peritoneal profundo entre el útero y el recto."]
-];
-
+const femaleStructures = [];
 const femaleKeywords = [
   "corte sagital feminino",
   "sistema reprodutor feminino",
@@ -41,78 +19,161 @@ const femaleKeywords = [
   "recto"
 ];
 
+const heartKeywords = [
+  "coração",
+  "heart",
+  "sistema cardiovascular",
+  "morgue",
+  "peça cadavérica",
+  "ventrículo",
+  "átrio",
+  "vasos da base",
+  "aorta",
+  "anatomia cardíaca"
+];
+
 export const LOCAL_MODELS = [
   {
     id: FEMALE_REPRODUCTIVE_MODEL_SLUG,
     slug: FEMALE_REPRODUCTIVE_MODEL_SLUG,
     institutionId: "",
     institution_id: "",
-    title: "Corte Sagital Sistema Reprodutor Feminino",
+    title: "Corte Sagital do Sistema Reprodutor Feminino — Modelo 3D",
     shortTitle: "Sistema Reprodutor Feminino",
-    description: "Modelo anatômico em corte sagital para estudo topográfico da pelve feminina.",
-    overview:
-      "El modelo Corte Sagital del Sistema Reproductor Femenino permite observar las principales estructuras de la pelvis femenina y sus relaciones topográficas en una perspectiva anatómica profunda.",
-    category: "Pelve Feminina / Corte Sagital",
+    description: "Modelo anatômico tridimensional em corte sagital do sistema reprodutor feminino, voltado ao estudo das relações pélvicas, órgãos internos, estruturas de suporte e organização topográfica em plano mediano.",
+    overview: "O modelo Corte Sagital do Sistema Reprodutor Feminino permite observar as principais estruturas da pelve feminina e suas relações topográficas em uma perspectiva anatômica profunda.",
+    category: "Sistema Reprodutor Feminino",
     region: "Pelve e Períneo",
     system: "Sistema Reprodutor Feminino",
     anatomical_system: "Sistema Reprodutor Feminino",
     anatomical_region: "Pelve e Períneo",
-    level: "Intermediário",
-    type: "Sketchfab / Modelo 3D anatômico",
-    viewerType: "sketchfab",
+    level: "Institucional",
+    type: "Institucional",
+    viewerType: "atlas-native",
+    modelFormat: "glb",
+    modelUrl: "/models/native/female-reproductive-sagittal-section-hq.glb",
+    model_url: "/models/native/female-reproductive-sagittal-section-hq.glb",
+    atlasEngineModelUrl: "/models/native/female-reproductive-sagittal-section-hq.glb",
     coverImageUrl: "",
     thumbnailUrl: "",
-    sketchfabUid: FEMALE_REPRODUCTIVE_MODEL_UID,
-    sketchfabUrl: `https://sketchfab.com/3d-models/corte-sagital-sistema-reprodutor-femenino-${FEMALE_REPRODUCTIVE_MODEL_UID}`,
-    sketchfabEmbedUrl: `https://sketchfab.com/models/${FEMALE_REPRODUCTIVE_MODEL_UID}/embed`,
-    embedUrl: `https://sketchfab.com/models/${FEMALE_REPRODUCTIVE_MODEL_UID}/embed`,
-    externalUrl: `https://sketchfab.com/3d-models/corte-sagital-sistema-reprodutor-femenino-${FEMALE_REPRODUCTIVE_MODEL_UID}`,
+    sketchfabUrl: "",
+    sketchfabEmbedUrl: "",
+    embedUrl: "",
+    externalUrl: "",
     estimatedStudyTime: "35 min",
     author: "Aeternum Atlas - Ecossistema SAAS Educacional",
-    provider: "Sketchfab",
+    provider: "atlas_native",
     status: "active",
     isActive: true,
     accessCount: 0,
     progressPercent: 0,
     objectives: [
-      "Identificar las principales estructuras anatómicas del sistema reproductor femenino en corte sagital.",
-      "Comprender la relación topográfica entre útero, vejiga urinaria y recto.",
-      "Reconocer las porciones anatómicas del útero y del canal vaginal.",
-      "Analizar la disposición de los órganos pélvicos femeninos.",
-      "Relacionar la anatomía descriptiva con aplicaciones clínicas ginecológicas y obstétricas.",
-      "Favorecer el razonamiento espacial tridimensional del estudiante de Medicina."
+      "Identificar as principais estruturas anatômicas do sistema reprodutor feminino em corte sagital.",
+      "Compreender a relação topográfica entre útero, bexiga urinária e reto.",
+      "Reconhecer as porções anatômicas do útero e do canal vaginal.",
+      "Analisar a disposição dos órgãos pélvicos femininos.",
+      "Relacionar a anatomia descritiva com aplicações clínicas ginecológicas e obstétricas.",
+      "Favorecer o raciocínio espacial tridimensional."
     ],
-    structures: femaleStructures.map(([name]) => name),
-    relatedStructures: femaleStructures.map(([name]) => name),
+    structures: [],
+    relatedStructures: [],
     clinicalCorrelations: [
-      "Exploración ginecológica",
-      "Anatomía obstétrica",
-      "Fondo de saco de Douglas",
-      "Relación útero-vejiga-recto",
-      "Soporte del piso pélvico"
+      "Exploração ginecológica",
+      "Anatomia obstétrica",
+      "Fundo de saco de Douglas",
+      "Relação útero-bexiga-reto",
+      "Suporte do assoalho pélvico"
     ],
     studyGuide: [
-      "Observe primero la relación anteroposterior entre pubis, vejiga, útero, vagina, recto y sacro.",
-      "Localice el útero y diferencie fondo, cuerpo, cavidad uterina, cérvix y canal cervical.",
-      "Compare la posición de la vejiga urinaria con la pared anterior del útero y la uretra femenina.",
-      "Identifique la vagina y su relación con la uretra por delante y el recto por detrás.",
-      "Reconozca los fondos de saco vesicouterino y rectouterino como recesos peritoneales clave.",
-      "Integre las referencias óseas pubis, sacro y cóccix para comprender la orientación pélvica."
+      "Observe primeiro a relação anteroposterior entre púbis, bexiga, útero, vagina, reto e sacro.",
+      "Localize o útero e diferencie fundo, corpo, cavidade uterina, cérvix e canal cervical.",
+      "Compare a posição da bexiga urinária com a parede anterior do útero e a uretra feminina.",
+      "Identifique a vagina e sua relação com a uretra pela frente e o reto por trás.",
+      "Reconheça os fundos de saco vesicouterino e retouterino como recessos peritoneais chaves.",
+      "Integre as referências ósseas púbis, sacro e cóccix para compreender a orientação pélvica."
     ],
-    reference: "Modelo 3D hospedado no Sketchfab. Autoria: Aeternum Atlas - Ecossistema SAAS Educacional.",
+    reference: "Modelo anatômico 3D. Autoria: Aeternum Atlas - Ecossistema SAAS Educacional.",
     references: [
-      "Netter Atlas de Anatomía Humana",
-      "Schünke - Prometheus Atlas de Anatomía",
+      "Netter Atlas de Anatomia Humana",
+      "Schünke - Prometheus Atlas de Anatomia",
       "Gray's Anatomy",
       "Guanabara Koogan"
     ],
     tags: ["Sistema Reprodutor Feminino", "Pelve Feminina", "Corte Sagital", ...femaleKeywords],
     keywords: femaleKeywords,
-    anatomicalQuizTitle: "Simulado Anatómico - Corte Sagital Sistema Reproductor Femenino",
-    anatomicalQuizDescription:
-      "Práctica interactiva para identificar estructuras anatómicas del sistema reproductor femenino en corte sagital, reforzando la comprensión espacial y topográfica de la pelvis femenina.",
+    anatomicalQuizTitle: "Simulado Anatômico - Corte Sagital Sistema Reprodutor Feminino",
+    anatomicalQuizDescription: "Prática interativa para identificar estruturas anatômicas.",
     anatomicalQuizTimeLimitSeconds: 600,
     theoreticalQuizKey: "female-reproductive-sagittal",
+    createdAt: "2026-05-25T00:00:00.000Z"
+  },
+  {
+    id: HEART_MODEL_SLUG,
+    slug: HEART_MODEL_SLUG,
+    institutionId: "",
+    institution_id: "",
+    title: "Coração Humano — Edição Morgue 3D",
+    shortTitle: "Coração Humano",
+    description: "Modelo anatômico tridimensional do coração humano baseado em peça cadavérica real, voltado ao estudo morfológico externo e topográfico das câmaras, vasos da base e relações anatômicas principais.",
+    overview: "Modelo focado no estudo detalhado da morfologia cardíaca a partir de uma peça real escaneada.",
+    category: "Sistema Cardiovascular",
+    region: "Tórax",
+    system: "Sistema Cardiovascular",
+    anatomical_system: "Sistema Cardiovascular",
+    anatomical_region: "Tórax",
+    level: "Institucional",
+    type: "Institucional",
+    viewerType: "atlas-native",
+    modelFormat: "glb",
+    modelUrl: "/models/native/heart-morgue-edition-hq.glb",
+    model_url: "/models/native/heart-morgue-edition-hq.glb",
+    atlasEngineModelUrl: "/models/native/heart-morgue-edition-hq.glb",
+    coverImageUrl: "",
+    thumbnailUrl: "",
+    sketchfabUrl: "",
+    sketchfabEmbedUrl: "",
+    embedUrl: "",
+    externalUrl: "",
+    estimatedStudyTime: "30 min",
+    author: "Aeternum Atlas - Ecossistema SAAS Educacional",
+    provider: "atlas_native",
+    status: "active",
+    isActive: true,
+    accessCount: 0,
+    progressPercent: 0,
+    objectives: [
+      "Identificar o ápice e a base do coração.",
+      "Diferenciar as faces esternocostal, diafragmática e pulmonar.",
+      "Localizar os principais vasos da base (Aorta, Tronco Pulmonar, Veias Cavas).",
+      "Compreender a topografia das artérias coronárias e veias cardíacas nos sulcos principais."
+    ],
+    structures: [],
+    relatedStructures: [],
+    clinicalCorrelations: [
+      "Ausculta cardíaca",
+      "Infarto agudo do miocárdio",
+      "Insuficiência cardíaca",
+      "Cardiomegalias",
+      "Correlação radiográfica e ecocardiográfica"
+    ],
+    studyGuide: [
+      "Inicie localizando o ápice e a base para orientar o coração no espaço.",
+      "Observe a face esternocostal e identifique o ventrículo direito.",
+      "Rotacione para a face diafragmática e visualize a predominância do ventrículo esquerdo.",
+      "Analise os grandes vasos emergindo da base superiormente.",
+      "Siga os sulcos coronário e interventricular para localizar os trajetos vasculares principais."
+    ],
+    reference: "Modelo anatômico 3D de peça cadavérica real. Autoria: Aeternum Atlas - Ecossistema SAAS Educacional.",
+    references: [
+      "Netter Atlas de Anatomia Humana",
+      "Gray's Anatomy"
+    ],
+    tags: ["Sistema Cardiovascular", "Coração", "Tórax", ...heartKeywords],
+    keywords: heartKeywords,
+    anatomicalQuizTitle: "Simulado Anatômico - Coração Humano",
+    anatomicalQuizDescription: "Prática interativa de morfologia cardíaca.",
+    anatomicalQuizTimeLimitSeconds: 600,
+    theoreticalQuizKey: "heart-morgue",
     createdAt: "2026-05-25T00:00:00.000Z"
   }
 ];
@@ -151,21 +212,5 @@ export function mergeCatalogWithLocalModels(models = [], { includeInactive = fal
 }
 
 export function getLocalModelAnnotations(modelId) {
-  const model = findLocalModel(modelId);
-  if (!model) return [];
-
-  return femaleStructures.map(([name, latinName, description], index) => ({
-    id: `${model.slug}-annotation-${String(index + 1).padStart(2, "0")}`,
-    uid: "",
-    index,
-    name,
-    title: name,
-    latinName,
-    description,
-    acceptedAnswers: [name, latinName].filter(Boolean),
-    eye: null,
-    target: null,
-    position: null,
-    images: []
-  }));
+  return [];
 }
