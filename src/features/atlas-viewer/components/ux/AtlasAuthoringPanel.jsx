@@ -92,7 +92,7 @@ export default function AtlasAuthoringPanel() {
   };
 
   return (
-    <div className="absolute top-20 right-4 w-80 bg-black/90 backdrop-blur border border-techTeal/30 rounded-xl p-4 flex flex-col gap-4 text-sm z-[9999] shadow-2xl max-h-[85vh] overflow-y-auto">
+    <div className="absolute top-16 sm:top-20 right-4 w-[calc(100vw-2rem)] sm:w-80 bg-black/90 backdrop-blur border border-techTeal/30 rounded-xl p-4 flex flex-col gap-4 text-sm z-[9999] shadow-2xl max-h-[80dvh] overflow-y-auto custom-scrollbar">
       <div className="flex items-center justify-between border-b border-white/10 pb-2">
         <h2 className="text-techTeal font-bold uppercase tracking-wider text-xs flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-techTeal animate-pulse"></span>
@@ -110,7 +110,7 @@ export default function AtlasAuthoringPanel() {
               <span>Norm: {lastCapturedCoordinate.normal.map(n => n.toFixed(2)).join(', ')}</span>
             </div>
           ) : (
-            <p className="text-xs text-yellow-500/80 italic">Nenhuma coordenada capturada. (Shift + Clique)</p>
+            <p className="text-xs text-yellow-500/80 italic">Nenhuma coordenada capturada. <br/><span className="text-[10px] opacity-70">(Nota: Shift+Click requer teclado. No mobile, este recurso é limitado.)</span></p>
           )}
         </div>
 

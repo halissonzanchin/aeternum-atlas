@@ -34,19 +34,19 @@ function TopViewerBar({ model, structure, navigate, onToggleLeft }) {
           <LineIcon name="menu" />
           <span className="hidden sm:inline">{t("viewer.panel")}</span>
         </button>
-        <button className="viewer-soft-button" onClick={() => navigate("/dashboard")}>
+        <button className="viewer-soft-button" onClick={() => navigate("/dashboard")} aria-label={t("viewer.home")}>
           <LineIcon name="home" className="h-4 w-4" />
-          <span>{t("viewer.home")}</span>
+          <span className="hidden sm:inline">{t("viewer.home")}</span>
         </button>
-        <button className="viewer-soft-button" onClick={() => navigate("/models")}>
+        <button className="viewer-soft-button" onClick={() => navigate("/models")} aria-label={t("viewer.library")}>
           <LineIcon name="library" className="h-4 w-4" />
-          <span>{t("viewer.library")}</span>
+          <span className="hidden sm:inline">{t("viewer.library")}</span>
         </button>
         <span className="md:hidden"><LanguageSelector compact /></span>
       </div>
 
-      <div className="min-w-0 flex-1 px-2">
-        <div className="flex min-w-0 items-center gap-2 overflow-hidden text-xs uppercase tracking-[0.24em] text-textMuted">
+      <div className="min-w-0 flex-1 px-1 sm:px-2">
+        <div className="hidden sm:flex min-w-0 items-center gap-2 overflow-hidden text-xs uppercase tracking-[0.24em] text-textMuted">
           {breadcrumb.map((item, index) => (
             <span key={`${item}-${index}`} className="flex min-w-0 items-center gap-2">
               <span className={index === breadcrumb.length - 1 ? "truncate text-clinicalWhite" : "truncate"}>{item}</span>
@@ -54,15 +54,16 @@ function TopViewerBar({ model, structure, navigate, onToggleLeft }) {
             </span>
           ))}
         </div>
-        <div className="mt-1 truncate font-serif text-sm md:text-lg uppercase tracking-widest md:tracking-[0.18em] text-clinicalWhite atlas-text-safe">
+        <div className="mt-0 sm:mt-1 truncate font-serif text-sm md:text-lg uppercase tracking-widest md:tracking-[0.18em] text-clinicalWhite atlas-text-safe">
           {structure?.name || model.title}
         </div>
       </div>
 
-      <div className="hidden items-center gap-2 md:flex">
-        <LanguageSelector compact />
-        <span className="rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-selectionGreen">
-          {t("viewer.activeStructure")}
+      <div className="flex items-center gap-2">
+        <div className="hidden md:block"><LanguageSelector compact /></div>
+        <span className="rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-selectionGreen atlas-nowrap-label">
+          <span className="md:hidden">Ativa</span>
+          <span className="hidden md:inline">{t("viewer.activeStructure")}</span>
         </span>
       </div>
     </header>

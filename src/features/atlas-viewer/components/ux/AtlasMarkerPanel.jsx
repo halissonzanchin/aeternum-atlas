@@ -4,7 +4,7 @@ import AtlasMarkerCard from './AtlasMarkerCard';
 
 export default function AtlasMarkerPanel({ markers = [], activeMarkerId, onSelectMarker, isOpen, onClose }) {
   return (
-    <div className={`fixed inset-y-0 left-0 w-80 bg-[#0B0E14]/95 backdrop-blur-xl border-r border-white/5 shadow-2xl transition-transform duration-300 ease-in-out z-40 flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+    <div className={`fixed md:inset-y-0 md:left-0 md:bottom-auto bottom-0 left-0 right-0 md:w-80 w-full h-[75dvh] md:h-full bg-[#0B0E14]/95 backdrop-blur-xl border-t md:border-r md:border-t-0 border-white/5 shadow-2xl transition-transform duration-300 ease-in-out z-40 flex flex-col rounded-t-3xl md:rounded-none ${isOpen ? 'translate-y-0 md:translate-x-0 md:translate-y-0' : 'translate-y-full md:-translate-x-full md:translate-y-0'}`}>
       
       {/* Header */}
       <div className="flex items-center justify-between p-5 border-b border-white/5 shrink-0">

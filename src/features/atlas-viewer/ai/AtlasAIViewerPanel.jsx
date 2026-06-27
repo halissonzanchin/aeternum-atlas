@@ -228,9 +228,9 @@ export default function AtlasAIViewerPanel() {
         </div>
       )}
 
-      <div className="absolute bottom-6 right-6 z-20 flex flex-col items-end gap-3 fade-in-up pointer-events-none">
+      <div className="absolute bottom-[env(safe-area-inset-bottom,16px)] sm:bottom-6 right-2 sm:right-6 z-40 flex flex-col items-end gap-2 sm:gap-3 fade-in-up pointer-events-none max-w-full">
         {isOpen && (
-          <Card className="w-80 sm:w-96 max-h-[70vh] flex flex-col bg-blackDeep/95 backdrop-blur-xl border border-techTeal/30 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_20px_rgba(35,210,179,0.1)] animate-in slide-in-from-bottom-5 mb-2 pointer-events-auto rounded-2xl overflow-hidden">
+          <Card className="w-[calc(100vw-16px)] sm:w-96 h-[75dvh] sm:h-auto sm:max-h-[70dvh] flex flex-col bg-blackDeep/95 backdrop-blur-xl border border-techTeal/30 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_20px_rgba(35,210,179,0.1)] animate-in slide-in-from-bottom-5 mb-1 sm:mb-2 pointer-events-auto rounded-2xl overflow-hidden shrink-0">
             
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-white/10 bg-gradient-to-r from-techTeal/5 to-transparent">

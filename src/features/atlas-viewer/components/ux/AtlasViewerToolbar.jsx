@@ -16,7 +16,7 @@ export default function AtlasViewerToolbar({
   toggleStudyMode
 }) {
   return (
-    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 p-2 bg-[#0B0E14]/70 backdrop-blur-xl border border-white/10 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
+    <div className="absolute bottom-[env(safe-area-inset-bottom,16px)] sm:bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1 sm:gap-2 p-1.5 sm:p-2 bg-[#0B0E14]/70 backdrop-blur-xl border border-white/10 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] max-w-[95vw] overflow-x-auto overflow-y-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
       
       {/* Markers Toggle */}
       <AtlasTooltip content={isMarkerPanelOpen ? "Fechar marcadores" : "Abrir marcadores"} position="top">
