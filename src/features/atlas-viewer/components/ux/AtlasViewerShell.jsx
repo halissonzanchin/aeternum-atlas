@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import AtlasViewer from '../../AtlasViewer';
 import AtlasViewerToolbar from './AtlasViewerToolbar';
 import AtlasMarkerPanel from './AtlasMarkerPanel';
+import AtlasAuthoringPanel from './AtlasAuthoringPanel';
 import { atlasViewerCommands } from '../../ai/atlasViewerCommands';
 import AtlasEducationalPanel from '../AtlasEducationalPanel';
 import { useViewer } from '../../../viewer/ViewerContext';
@@ -124,6 +125,8 @@ export default function AtlasViewerShell({
         onClose={() => setMarkerOpen(false)}
       />
       
+      {/* Authoring Panel (conditional inside) */}
+      <AtlasAuthoringPanel />
     </div>
   );
 }

@@ -83,6 +83,31 @@ export function AtlasViewerProvider({ modelId, children }) {
   // 6. CAMERA HISTORY
   const [cameraHistory, setCameraHistory] = useState([]);
 
+  // 7. AUTHORING MODE (FASE 8.10B)
+  const isAuthoringMode = useMemo(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('authoring') === '1';
+    }
+    return false;
+  }, []);
+
+  const [draftMarkers, setDraftMarkers] = useState([]);
+  const [lastCapturedCoordinate, setLastCapturedCoordinate] = useState(null);
+
+  const handleCaptureCoordinate = (coordinateData) => {
+    setLastCapturedCoordinate(coordinateData);
+  };
+
+  const handleAddDraftMarker = (marker) => {
+    setDraftMarkers(prev => [...prev, marker]);
+    setLastCapturedCoordinate(null); // Limpar captura após salvar
+  };
+
+  const handleRemoveDraftMarker = (markerId) => {
+    setDraftMarkers(prev => prev.filter(m => m.id !== markerId));
+  };
+
   // Ações
   const handleResetCamera = () => {
     setSelectedAnnotation(null);
@@ -213,6 +238,14 @@ export function AtlasViewerProvider({ modelId, children }) {
     handleResetCamera,
     cameraHistory,
     handleCameraBack,
+
+    // AUTHORING MODE
+    isAuthoringMode,
+    draftMarkers,
+    lastCapturedCoordinate,
+    handleCaptureCoordinate,
+    handleAddDraftMarker,
+    handleRemoveDraftMarker,
 
     // AI CHAT
     aiChatHistory,

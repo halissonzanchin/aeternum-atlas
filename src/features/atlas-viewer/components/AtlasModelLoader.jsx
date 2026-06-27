@@ -22,7 +22,9 @@ export default function AtlasModelLoader() {
     handleModelError,
     layers: structureLayers,
     hiddenLayers,
-    selectedLayer
+    selectedLayer,
+    isAuthoringMode,
+    handleCaptureCoordinate
   } = useAtlasViewer();
   
   const [modelUrl, setModelUrl] = useState(null);
@@ -85,6 +87,8 @@ export default function AtlasModelLoader() {
           structureLayers={structureLayers}
           hiddenLayers={hiddenLayers}
           selectedLayer={selectedLayer}
+          isAuthoringMode={isAuthoringMode}
+          handleCaptureCoordinate={handleCaptureCoordinate}
         />
       ) : (
         <GltfModel 
@@ -94,13 +98,15 @@ export default function AtlasModelLoader() {
           structureLayers={structureLayers}
           hiddenLayers={hiddenLayers}
           selectedLayer={selectedLayer}
+          isAuthoringMode={isAuthoringMode}
+          handleCaptureCoordinate={handleCaptureCoordinate}
         />
       )}
     </Suspense>
   );
 }
 
-function GltfModel({ url, onLoaded, onError, structureLayers, hiddenLayers, selectedLayer }) {
+function GltfModel({ url, onLoaded, onError, structureLayers, hiddenLayers, selectedLayer, isAuthoringMode, handleCaptureCoordinate }) {
   try {
     const { scene } = useGLTF(url);
     return (
@@ -110,6 +116,8 @@ function GltfModel({ url, onLoaded, onError, structureLayers, hiddenLayers, sele
         structureLayers={structureLayers}
         hiddenLayers={hiddenLayers}
         selectedLayer={selectedLayer}
+        isAuthoringMode={isAuthoringMode}
+        handleCaptureCoordinate={handleCaptureCoordinate}
       />
     );
   } catch (err) {
@@ -121,7 +129,7 @@ function GltfModel({ url, onLoaded, onError, structureLayers, hiddenLayers, sele
   }
 }
 
-function ObjModel({ url, onLoaded, onError, structureLayers, hiddenLayers, selectedLayer }) {
+function ObjModel({ url, onLoaded, onError, structureLayers, hiddenLayers, selectedLayer, isAuthoringMode, handleCaptureCoordinate }) {
   try {
     const scene = useLoader(OBJLoader, url);
     return (
@@ -131,6 +139,8 @@ function ObjModel({ url, onLoaded, onError, structureLayers, hiddenLayers, selec
         structureLayers={structureLayers}
         hiddenLayers={hiddenLayers}
         selectedLayer={selectedLayer}
+        isAuthoringMode={isAuthoringMode}
+        handleCaptureCoordinate={handleCaptureCoordinate}
       />
     );
   } catch (err) {
@@ -142,7 +152,7 @@ function ObjModel({ url, onLoaded, onError, structureLayers, hiddenLayers, selec
   }
 }
 
-function ModelSceneProcessor({ scene, onLoaded, structureLayers, hiddenLayers, selectedLayer }) {
+function ModelSceneProcessor({ scene, onLoaded, structureLayers, hiddenLayers, selectedLayer, isAuthoringMode, handleCaptureCoordinate }) {
   useEffect(() => {
     if (scene) {
       onLoaded();
@@ -248,5 +258,25 @@ function ModelSceneProcessor({ scene, onLoaded, structureLayers, hiddenLayers, s
     }
   }, [scene]);
 
-  return <primitive object={scene} />;
+  const handlePointerDown = (e) => {
+    if (!isAuthoringMode) return;
+    
+    // O usuário DEVE segurar o botão Shift para evitar conflito com a rotação
+    if (!e.shiftKey) return;
+    
+    e.stopPropagation(); // Bloquear navegação
+    
+    // Converter de array do THREE para array padrão para facilitar salvar em JSON
+    const point = [e.point.x, e.point.y, e.point.z];
+    const normal = e.face?.normal ? [e.face.normal.x, e.face.normal.y, e.face.normal.z] : [0, 1, 0];
+    const cameraPos = [e.camera.position.x, e.camera.position.y, e.camera.position.z];
+    
+    handleCaptureCoordinate({
+      point,
+      normal,
+      cameraPos
+    });
+  };
+
+  return <primitive object={scene} onPointerDown={handlePointerDown} />;
 }

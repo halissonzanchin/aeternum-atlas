@@ -6,14 +6,19 @@ export default function AtlasAnnotationMarkers() {
   const { 
     annotations, 
     selectedAnnotation, 
-    handleSelectAnnotation 
+    handleSelectAnnotation,
+    draftMarkers,
+    isAuthoringMode
   } = useAtlasViewer();
 
-  if (!annotations || annotations.length === 0) return null;
+  const hasAnnotations = annotations && annotations.length > 0;
+  const hasDrafts = draftMarkers && draftMarkers.length > 0;
+
+  if (!hasAnnotations && !hasDrafts) return null;
 
   return (
     <>
-      {annotations.map((annotation, index) => {
+      {hasAnnotations && annotations.map((annotation, index) => {
         const isSelected = selectedAnnotation?.annotationId === annotation.annotationId;
 
         // Html from Drei allows placing normal DOM elements in the 3D space
@@ -52,6 +57,37 @@ export default function AtlasAnnotationMarkers() {
                 {annotation.title}
               </div>
             )}
+          </Html>
+        );
+      })}
+
+      {/* Render Draft Markers */}
+      {isAuthoringMode && hasDrafts && draftMarkers.map((draft, index) => {
+        return (
+          <Html
+            key={draft.id}
+            position={draft.position}
+            center
+            zIndexRange={[100, 0]}
+          >
+            <div 
+              className={`
+                cursor-pointer 
+                transition-all duration-300 
+                flex items-center justify-center 
+                rounded-full font-bold shadow-lg
+                border-2 border-dashed border-techTeal
+                backdrop-blur-sm
+                bg-techTeal/30 text-white w-6 h-6 text-xs
+                hover:bg-techTeal/60 hover:scale-110
+              `}
+              title={`${draft.label} - ${draft.anatomicalName}`}
+            >
+              D
+            </div>
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap bg-techTeal/20 backdrop-blur text-techTeal text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-techTeal/50 pointer-events-none">
+              {draft.label} (DRAFT)
+            </div>
           </Html>
         );
       })}
