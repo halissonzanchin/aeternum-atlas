@@ -198,13 +198,19 @@ export function mergeCatalogWithLocalModels(models = [], { includeInactive = fal
 
   models.forEach((model) => {
     if (includeInactive || model.isActive) {
-      bySlug.set(normalizeModelIdentifier(model.slug || model.id), model);
+      const normalized = normalizeModelIdentifier(model.slug || model.id);
+      // Ocultar modelo duplicado antigo do coração
+      if (normalized === 'coracao-humano-superficial') {
+        return;
+      }
+      bySlug.set(normalized, model);
     }
   });
 
   LOCAL_MODELS.forEach((model) => {
-    if ((includeInactive || model.isActive) && !bySlug.has(normalizeModelIdentifier(model.slug || model.id))) {
-      bySlug.set(normalizeModelIdentifier(model.slug || model.id), model);
+    const normalized = normalizeModelIdentifier(model.slug || model.id);
+    if ((includeInactive || model.isActive) && !bySlug.has(normalized)) {
+      bySlug.set(normalized, model);
     }
   });
 

@@ -23,6 +23,20 @@ function modelRouteId(model) {
   return model?.slug || model?.id;
 }
 
+function getPlaceholderStyle(slug) {
+  const hash = String(slug || "default").split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+  const colors = [
+    ["47,184,181", "198,168,92"],
+    ["139,92,246", "59,130,246"],
+    ["244,63,94", "249,115,22"],
+    ["16,185,129", "14,165,233"],
+  ];
+  const [c1, c2] = colors[hash % colors.length];
+  return {
+    backgroundImage: `radial-gradient(circle at 50% 30%, rgba(${c1},0.34), transparent 55%), linear-gradient(135deg, rgba(${c2},0.22), rgba(15,23,42,0.96))`
+  };
+}
+
 export default function ModelCard({ model, user, navigate }) {
   const { language, t } = useLanguage();
   const [favorite, setFavorite] = useState(() => isFavoriteModel(user, model.id));
@@ -43,15 +57,28 @@ export default function ModelCard({ model, user, navigate }) {
     });
   }
 
+  const thumbUrl = model.thumbnailUrl || model.coverImageUrl || model.thumbnail_url || model.cover_image_url;
+
   return (
     <Card as="article" className="model-card grid gap-4 overflow-hidden">
-      <div className="relative min-h-40 overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_50%_30%,rgba(47,184,181,0.34),transparent_55%),linear-gradient(135deg,rgba(198,168,92,0.22),rgba(15,23,42,0.96))]">
-        <div className="absolute inset-[22%] rounded-full border border-white/20 shadow-glow" />
-        <div className="absolute bottom-4 left-4 rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-selectionGreen">
+      <div className="relative min-h-40 overflow-hidden rounded-2xl" style={!thumbUrl ? getPlaceholderStyle(modelRouteId(model)) : {}}>
+        {thumbUrl ? (
+          <img src={thumbUrl} alt={localizedModel.title} className="absolute inset-0 h-full w-full object-cover" />
+        ) : (
+          <>
+            <div className="absolute inset-[22%] rounded-full border border-white/20 shadow-glow" />
+            <div className="absolute inset-0 flex items-center justify-center opacity-40">
+              <span className="text-6xl font-bold tracking-wider text-white mix-blend-overlay">
+                {(localizedModel.shortTitle || localizedModel.title || "M").charAt(0).toUpperCase()}
+              </span>
+            </div>
+          </>
+        )}
+        <div className="absolute bottom-4 left-4 rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-selectionGreen backdrop-blur-md">
           {t("common.available")}
         </div>
         {studied ? (
-          <div className="absolute right-4 top-4 rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-selectionGreen">
+          <div className="absolute right-4 top-4 rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-selectionGreen backdrop-blur-md">
             {t("studentDashboard.studied")}
           </div>
         ) : null}
