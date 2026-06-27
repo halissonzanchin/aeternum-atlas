@@ -61,56 +61,59 @@ export default function Models({ user, navigate }) {
 
   return (
     <>
-      <div className="page-title">
-        <p className="eyebrow">{t("models.eyebrow")}</p>
-        <h1 className="display-title">{t("models.title")}</h1>
-        <p className="mt-3 text-textMuted">
+      <div className="page-title atlas-text-safe">
+        <p className="eyebrow atlas-nowrap-label">{t("models.eyebrow")}</p>
+        <h1 className="atlas-fluid-title font-black text-clinicalWhite">{t("models.title")}</h1>
+        <p className="mt-3 text-textMuted atlas-fluid-body">
           {t("models.subtitle")}
         </p>
       </div>
 
-      <div className="mb-5 grid gap-3 md:grid-cols-2 xl:grid-cols-6">
-        <input className="min-h-11 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 text-clinicalWhite outline-none focus:border-techTeal/70" placeholder={t("models.searchModel")} value={query} onChange={event => setQuery(event.target.value)} />
-        <select className="min-h-11 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 text-clinicalWhite outline-none focus:border-techTeal/70" value={system} onChange={event => setSystem(event.target.value)}>
+      <div className="mb-5 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 w-full min-w-0">
+        <input className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 py-3 text-sm text-clinicalWhite outline-none focus:border-techTeal/70 text-ellipsis overflow-hidden whitespace-nowrap" placeholder={t("models.searchModel")} value={query} onChange={event => setQuery(event.target.value)} />
+        <select className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 py-3 text-sm text-clinicalWhite outline-none focus:border-techTeal/70 text-ellipsis overflow-hidden whitespace-nowrap" value={system} onChange={event => setSystem(event.target.value)}>
           <option value="Todos">{t("models.all")}</option>
           {filterOptions.systems.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "systems")}</option>)}
         </select>
-        <select className="min-h-11 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 text-clinicalWhite outline-none focus:border-techTeal/70" value={category} onChange={event => setCategory(event.target.value)}>
+        <select className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 py-3 text-sm text-clinicalWhite outline-none focus:border-techTeal/70 text-ellipsis overflow-hidden whitespace-nowrap" value={category} onChange={event => setCategory(event.target.value)}>
           <option value="Todas">{t("models.allFem")}</option>
           {filterOptions.categories.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "categories")}</option>)}
         </select>
-        <select className="min-h-11 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 text-clinicalWhite outline-none focus:border-techTeal/70" value={region} onChange={event => setRegion(event.target.value)}>
+        <select className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 py-3 text-sm text-clinicalWhite outline-none focus:border-techTeal/70 text-ellipsis overflow-hidden whitespace-nowrap" value={region} onChange={event => setRegion(event.target.value)}>
           <option value="Todas">{t("models.allFem")}</option>
           {filterOptions.regions.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "regions")}</option>)}
         </select>
-        <select className="min-h-11 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 text-clinicalWhite outline-none focus:border-techTeal/70" value={level} onChange={event => setLevel(event.target.value)}>
+        <select className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 py-3 text-sm text-clinicalWhite outline-none focus:border-techTeal/70 text-ellipsis overflow-hidden whitespace-nowrap" value={level} onChange={event => setLevel(event.target.value)}>
           <option value="Todos">{t("models.all")}</option>
           {filterOptions.levels.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "levels")}</option>)}
         </select>
-        <select className="min-h-11 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 text-clinicalWhite outline-none focus:border-techTeal/70" value={type} onChange={event => setType(event.target.value)}>
+        <select className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 py-3 text-sm text-clinicalWhite outline-none focus:border-techTeal/70 text-ellipsis overflow-hidden whitespace-nowrap" value={type} onChange={event => setType(event.target.value)}>
           <option value="Todos">{t("models.all")}</option>
           {filterOptions.types.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "types")}</option>)}
         </select>
       </div>
 
       {loading ? (
-        <Card>
-          <p className="text-textMuted">{t("models.catalogLoading")}</p>
+        <Card className="max-w-lg text-center atlas-text-safe mx-auto mt-10">
+          <p className="eyebrow atlas-nowrap-label">{t("common.loading")}</p>
+          <h1 className="atlas-empty-state-title mt-2">{t("models.catalogLoading")}</h1>
         </Card>
       ) : loadError ? (
-        <Card>
-          <p className="text-textMuted">{loadError}</p>
+        <Card className="max-w-lg text-center atlas-text-safe mx-auto mt-10">
+          <h1 className="atlas-empty-state-title text-red-400">{t("models.catalogLoadError") || loadError}</h1>
         </Card>
       ) : !models.length ? (
-        <Card>
-          <p className="text-textMuted">{t("models.emptyCatalog")}</p>
+        <Card className="max-w-lg text-center atlas-text-safe mx-auto mt-10">
+          <h1 className="atlas-empty-state-title">{t("models.emptyCatalog")}</h1>
+          <p className="mt-4 text-textMuted atlas-empty-state-description">{t("models.emptyCatalogSubtitle") || "Nenhum modelo disponível."}</p>
         </Card>
       ) : !filtered.length ? (
-        <Card>
-          <p className="text-textMuted">{t("models.emptyFilteredCatalog")}</p>
+        <Card className="max-w-lg text-center atlas-text-safe mx-auto mt-10">
+          <h1 className="atlas-empty-state-title">{t("models.emptyFilteredCatalog")}</h1>
+          <p className="mt-4 text-textMuted atlas-empty-state-description">Tente mudar os filtros de busca.</p>
         </Card>
       ) : (
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 w-full min-w-0">
           {filtered.map(model => <ModelCard key={model.id} model={model} user={user} navigate={navigate} />)}
         </div>
       )}

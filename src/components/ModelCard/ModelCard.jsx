@@ -60,8 +60,8 @@ export default function ModelCard({ model, user, navigate }) {
   const thumbUrl = model.thumbnailUrl || model.coverImageUrl || model.thumbnail_url || model.cover_image_url;
 
   return (
-    <Card as="article" className="model-card grid gap-4 overflow-hidden">
-      <div className="relative min-h-40 overflow-hidden rounded-2xl" style={!thumbUrl ? getPlaceholderStyle(modelRouteId(model)) : {}}>
+    <Card as="article" className="model-card grid gap-4 overflow-hidden w-full min-w-0">
+      <div className="relative min-h-32 md:min-h-40 overflow-hidden rounded-2xl w-full" style={!thumbUrl ? getPlaceholderStyle(modelRouteId(model)) : {}}>
         {thumbUrl ? (
           <img src={thumbUrl} alt={localizedModel.title} className="absolute inset-0 h-full w-full object-cover" />
         ) : (
@@ -84,10 +84,10 @@ export default function ModelCard({ model, user, navigate }) {
         ) : null}
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        <span className="badge badge-teal">{localizedModel.level}</span>
-        <span className="badge badge-active">{localizedModel.type}</span>
-        <span className="badge badge-gold">{t("models.availableByInstitution")}</span>
+      <div className="flex flex-wrap gap-2 w-full">
+        <span className="badge badge-teal atlas-nowrap-label text-[10px] md:text-xs">{localizedModel.level}</span>
+        <span className="badge badge-active atlas-nowrap-label text-[10px] md:text-xs">{localizedModel.type}</span>
+        <span className="badge badge-gold atlas-nowrap-label text-[10px] md:text-xs">{t("models.availableByInstitution")}</span>
       </div>
 
       <div>
@@ -102,15 +102,15 @@ export default function ModelCard({ model, user, navigate }) {
         <div className="flex justify-between gap-4"><span>{t("common.status")}</span><strong>{t("common.available")}</strong></div>
       </div>
 
-      <div>
-        <div className="mb-2 flex items-center justify-between text-xs text-textMuted"><span>{t("models.personalProgress")}</span><span>{progress}%</span></div>
-        <div className="h-2 rounded-full bg-white/10"><div className="h-2 rounded-full bg-techTeal" style={{ width: `${progress}%` }} /></div>
+      <div className="w-full">
+        <div className="mb-2 flex items-center justify-between text-[10px] md:text-xs text-textMuted atlas-nowrap-label"><span>{t("models.personalProgress")}</span><span>{progress}%</span></div>
+        <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden"><div className="h-2 rounded-full bg-techTeal" style={{ width: `${progress}%` }} /></div>
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        <Button variant="teal" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}>{t("models.openModel")}</Button>
-        <Button variant="outline" onClick={() => navigate(`/models/${modelRouteId(model)}`)}>{t("models.viewDetails")}</Button>
-        <Button variant={favorite ? "primary" : "ghost"} className="min-h-10 px-4" onClick={handleFavorite}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:flex-wrap gap-2 w-full">
+        <Button variant="teal" className="w-full lg:w-auto" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}>{t("models.openModel")}</Button>
+        <Button variant="outline" className="w-full lg:w-auto" onClick={() => navigate(`/models/${modelRouteId(model)}`)}>{t("models.viewDetails")}</Button>
+        <Button variant={favorite ? "primary" : "ghost"} className="min-h-10 px-4 w-full sm:col-span-2 lg:col-span-1 lg:w-auto" onClick={handleFavorite}>
           {favorite ? t("models.favorited") : t("models.favorite")}
         </Button>
       </div>
