@@ -61,7 +61,7 @@ export default function ModelCard({ model, user, navigate }) {
 
   return (
     <Card as="article" className="model-card grid gap-4 overflow-hidden w-full min-w-0">
-      <div className="relative min-h-32 md:min-h-40 overflow-hidden rounded-2xl w-full" style={!thumbUrl ? getPlaceholderStyle(modelRouteId(model)) : {}}>
+      <div className="relative min-h-[140px] md:min-h-40 overflow-hidden rounded-2xl w-full shrink-0" style={!thumbUrl ? getPlaceholderStyle(modelRouteId(model)) : {}}>
         {thumbUrl ? (
           <img src={thumbUrl} alt={localizedModel.title} className="absolute inset-0 h-full w-full object-cover" />
         ) : (
@@ -84,33 +84,38 @@ export default function ModelCard({ model, user, navigate }) {
         ) : null}
       </div>
 
-      <div className="flex flex-wrap gap-2 w-full">
-        <span className="badge badge-teal atlas-nowrap-label text-[10px] md:text-xs">{localizedModel.level}</span>
-        <span className="badge badge-active atlas-nowrap-label text-[10px] md:text-xs">{localizedModel.type}</span>
-        <span className="badge badge-gold atlas-nowrap-label text-[10px] md:text-xs">{t("models.availableByInstitution")}</span>
+      <div className="flex flex-wrap gap-2 w-full items-start">
+        <span className="badge badge-teal atlas-nowrap-label text-[10px] md:text-xs truncate max-w-full" title={localizedModel.level}>{localizedModel.level}</span>
+        <span className="badge badge-active atlas-nowrap-label text-[10px] md:text-xs truncate max-w-full" title={localizedModel.type}>
+          <span className="hidden sm:inline">{localizedModel.type}</span>
+          <span className="sm:hidden text-[10px]">ATLAS NATIVE</span>
+        </span>
+        <span className="badge badge-gold atlas-nowrap-label text-[10px] md:text-xs truncate max-w-full" title={t("models.availableByInstitution")}>{t("models.availableByInstitution")}</span>
       </div>
 
-      <div>
-        <h3 className="text-lg md:text-xl font-bold text-clinicalWhite atlas-text-safe line-clamp-2 md:line-clamp-1">{localizedModel.title}</h3>
-        <p className="mt-2 text-sm leading-6 text-textMuted line-clamp-3 md:line-clamp-2">{localizedModel.description}</p>
-        <p className="mt-2 text-xs uppercase tracking-[0.12em] text-slate-500 atlas-nowrap-label">{localizedModel.system} · {localizedModel.region}</p>
+      <div className="flex-1 flex flex-col min-w-0 w-full">
+        <h3 className="text-lg md:text-xl font-bold text-clinicalWhite atlas-text-safe line-clamp-2" title={localizedModel.title}>{localizedModel.title}</h3>
+        <p className="mt-2 text-sm leading-6 text-textMuted line-clamp-2 sm:line-clamp-3 md:line-clamp-2">{localizedModel.description}</p>
+        <p className="mt-2 text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 atlas-nowrap-label truncate w-full" title={`${localizedModel.system} · ${localizedModel.region}`}>
+          {localizedModel.system} &middot; {localizedModel.region}
+        </p>
       </div>
 
-      <div className="grid gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-sm text-slate-200">
-        <div className="flex justify-between gap-4"><span>{t("models.estimatedTime")}</span><strong>{studyTime(model)}</strong></div>
-        <div className="flex justify-between gap-4"><span>{t("models.accesses")}</span><strong>{formatNumber(model.accessCount || 0, language)}</strong></div>
-        <div className="flex justify-between gap-4"><span>{t("common.status")}</span><strong>{t("common.available")}</strong></div>
+      <div className="grid gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-sm text-slate-200 w-full min-w-0 mt-auto shrink-0">
+        <div className="flex justify-between gap-4 overflow-hidden"><span className="shrink-0 text-white/60">{t("models.estimatedTime")}</span><strong className="truncate text-right">{studyTime(model)}</strong></div>
+        <div className="flex justify-between gap-4 overflow-hidden"><span className="shrink-0 text-white/60">{t("models.accesses")}</span><strong className="truncate text-right">{formatNumber(model.accessCount || 0, language)}</strong></div>
+        <div className="flex justify-between gap-4 overflow-hidden"><span className="shrink-0 text-white/60">{t("common.status")}</span><strong className="truncate text-right text-selectionGreen">{t("common.available")}</strong></div>
       </div>
 
-      <div className="w-full">
+      <div className="w-full shrink-0">
         <div className="mb-2 flex items-center justify-between text-[10px] md:text-xs text-textMuted atlas-nowrap-label"><span>{t("models.personalProgress")}</span><span>{progress}%</span></div>
-        <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden"><div className="h-2 rounded-full bg-techTeal" style={{ width: `${progress}%` }} /></div>
+        <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden"><div className="h-2 rounded-full bg-techTeal transition-all duration-1000 ease-out" style={{ width: `${progress}%` }} /></div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row lg:flex-wrap gap-2 w-full">
-        <Button variant="teal" className="w-full lg:w-auto" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}>{t("models.openModel")}</Button>
-        <Button variant="outline" className="w-full lg:w-auto" onClick={() => navigate(`/models/${modelRouteId(model)}`)}>{t("models.viewDetails")}</Button>
-        <Button variant={favorite ? "primary" : "ghost"} className="min-h-10 px-4 w-full sm:col-span-2 lg:col-span-1 lg:w-auto" onClick={handleFavorite}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full shrink-0">
+        <Button variant="teal" className="w-full h-11" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}>{t("models.openModel")}</Button>
+        <Button variant="outline" className="w-full h-11" onClick={() => navigate(`/models/${modelRouteId(model)}`)}>{t("models.viewDetails")}</Button>
+        <Button variant={favorite ? "primary" : "ghost"} className="w-full h-10 sm:col-span-2 text-xs" onClick={handleFavorite}>
           {favorite ? t("models.favorited") : t("models.favorite")}
         </Button>
       </div>

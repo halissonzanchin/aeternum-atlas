@@ -297,7 +297,12 @@ function renderPrivatePage(path, context) {
     const modelId = path.split("/")[3];
     return (
       <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
-        <Suspense fallback={<div className="flex h-screen items-center justify-center bg-blackDeep text-white">Carregando Editor 3D...</div>}>
+        <Suspense fallback={
+          <div className="flex flex-col h-screen items-center justify-center bg-blackDeep text-white">
+            <div className="w-10 h-10 rounded-full border-t-2 border-r-2 border-techTeal animate-spin mb-4"></div>
+            <p className="text-sm font-bold text-techTeal uppercase tracking-widest text-center whitespace-nowrap">Carregando Ambiente</p>
+          </div>
+        }>
           <AtlasNativeModelEditorPage modelId={modelId} navigate={navigate} />
         </Suspense>
       </ProtectedRoute>

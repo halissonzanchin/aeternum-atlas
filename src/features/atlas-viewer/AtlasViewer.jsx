@@ -23,9 +23,10 @@ import { detectAtlasDeviceProfile } from '../../utils/deviceDetection';
 function LoaderFallback() {
   return (
     <Html center>
-      <div className="flex flex-col items-center justify-center p-4 bg-blackDeep/80 rounded-xl backdrop-blur-md border border-techTeal/30 w-48">
-        <div className="w-8 h-8 rounded-full border-t-2 border-r-2 border-techTeal animate-spin mb-3"></div>
-        <p className="text-sm font-bold text-techTeal uppercase tracking-widest text-center">Carregando</p>
+      <div className="flex flex-col items-center justify-center p-6 bg-blackDeep/60 rounded-2xl backdrop-blur-xl border border-white/10 w-auto min-w-[200px] shadow-2xl">
+        <div className="w-10 h-10 rounded-full border-t-2 border-r-2 border-techTeal animate-spin mb-4 shadow-[0_0_15px_rgba(71,184,181,0.5)]"></div>
+        <p className="text-sm font-bold text-techTeal uppercase tracking-widest text-center whitespace-nowrap">CARREGANDO</p>
+        <p className="text-[10px] text-white/50 uppercase tracking-widest mt-1 text-center whitespace-nowrap">Atlas Engine 3D</p>
       </div>
     </Html>
   );

@@ -111,6 +111,10 @@ button {
     @apply inline-flex min-h-7 items-center rounded-full border px-3 text-[0.72rem] font-black uppercase tracking-[0.08em];
   }
 
+  .atlas-badge-compact {
+    @apply inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] md:text-xs font-semibold uppercase tracking-wider backdrop-blur-md shrink-0;
+  }
+
   .badge-teal {
     @apply border-techTeal/30 bg-techTeal/10 text-[#bdfcf1];
   }

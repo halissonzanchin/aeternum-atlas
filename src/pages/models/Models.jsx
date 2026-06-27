@@ -113,7 +113,7 @@ export default function Models({ user, navigate }) {
           <p className="mt-4 text-textMuted atlas-empty-state-description">Tente mudar os filtros de busca.</p>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 w-full min-w-0">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-5 w-full min-w-0">
           {filtered.map(model => <ModelCard key={model.id} model={model} user={user} navigate={navigate} />)}
         </div>
       )}
