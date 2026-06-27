@@ -135,8 +135,8 @@ export function normalizeViewerModelAsset(model) {
   let finalViewerType = model.viewerType || model.viewer_type || "atlas-native";
 
   if (model.slug === 'corte-sagital-cranio-humano-superficial' || model.id === 'corte-sagital-cranio-humano-superficial') {
-    if (!finalAssetUrl || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial.glb") || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial-hq.glb")) {
-      finalAssetUrl = "/models/native/cranial-encephalon-sagittal-section-hq.glb";
+    if (!finalAssetUrl || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial.glb") || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial-hq.glb") || finalAssetUrl.includes("cranial-encephalon-sagittal-section-hq.glb")) {
+      finalAssetUrl = "/models/native/cranial-encephalon-sagittal-section-web.glb";
     }
     finalFormat = "glb";
     finalViewerType = "atlas-native";
