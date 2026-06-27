@@ -7,7 +7,9 @@ import { atlasViewerCommands } from '../../ai/atlasViewerCommands';
 import AtlasEducationalPanel from '../AtlasEducationalPanel';
 import { useViewer } from '../../../viewer/ViewerContext';
 
-export default function AtlasViewerShell({ 
+import { AtlasViewerProvider } from '../../context/AtlasViewerContext';
+
+function AtlasViewerShellContent({ 
   modelUrl, 
   modelLodManifest, 
   modelFormat = 'glb', 
@@ -128,5 +130,15 @@ export default function AtlasViewerShell({
       {/* Authoring Panel (conditional inside) */}
       <AtlasAuthoringPanel />
     </div>
+  );
+}
+
+export default function AtlasViewerShell(props) {
+  // O AtlasViewerShell atual é renderizado pela ViewerPage, que não possui o AtlasViewerProvider (nativo do Bridge).
+  // Para que o painel de autoria funcione sem crachar, envelopamos o shell em um provider.
+  return (
+    <AtlasViewerProvider modelId={null}>
+      <AtlasViewerShellContent {...props} />
+    </AtlasViewerProvider>
   );
 }
