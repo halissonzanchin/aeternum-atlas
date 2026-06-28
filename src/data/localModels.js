@@ -67,6 +67,10 @@ export const LOCAL_MODELS = [
     modelUrl: "/models/native/cranial-encephalon-sagittal-section-color-web.glb",
     model_url: "/models/native/cranial-encephalon-sagittal-section-color-web.glb",
     atlasEngineModelUrl: "/models/native/cranial-encephalon-sagittal-section-color-web.glb",
+    modelLodManifest: {
+      performance: "/models/native/cranial-encephalon-sagittal-section-color-web.glb",
+      balanced: "/models/native/cranial-encephalon-sagittal-section-balanced.glb"
+    },
     coverImageUrl: "",
     thumbnailUrl: "",
     sketchfabUrl: "",

@@ -37,12 +37,19 @@ export default function AtlasGLBLoader({ url, onModelClick }) {
           if (child.material) {
             const normalizeCadavericMaterial = (material) => {
               if (material.isMeshStandardMaterial || material.isMeshPhysicalMaterial) {
-                material.metalness = 0.05;
-                material.roughness = 0.85; 
+                material.metalness = 0.02; // A bit of scattering/specular reflection
+                material.roughness = 0.7; // 0.7 looks more wet/organic than 0.85
+                material.flatShading = false;
                 
                 if (!material.roughnessMap) {
-                   material.envMapIntensity = 0.8;
+                   material.envMapIntensity = 1.0;
                 }
+                
+                // Ensure vertex colors are respected if geometry has color
+                if (child.geometry && child.geometry.attributes && child.geometry.attributes.color) {
+                   material.vertexColors = true;
+                }
+                
                 material.needsUpdate = true;
                 normalizedMaterialCount++;
               }

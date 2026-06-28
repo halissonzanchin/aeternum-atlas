@@ -1,6 +1,6 @@
 import React, { Suspense, useRef, useState, useEffect, forwardRef, useImperativeHandle, useTransition, useCallback } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Html, Stats, Bounds, Center } from '@react-three/drei';
+import { OrbitControls, Html, Stats, Bounds, Center, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh';
 
@@ -46,7 +46,7 @@ function UnsupportedFormatFallback({ format }) {
   );
 }
 
-const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = 'auto', modelFormat = 'glb', markers = [], onMarkerSelect, onModelClick, editMode = false, activeTool = 'select', showStats = false, renderQualityPreset = 'clinical' }, ref) => {
+const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = null, modelFormat = 'glb', markers = [], onMarkerSelect, onModelClick, editMode = false, activeTool = 'select', showStats = false, renderQualityPreset = 'clinical' }, ref) => {
   const cameraControlsRef = useRef(null);
   const [activeMarkerId, setActiveMarkerId] = useState(null);
   
@@ -176,17 +176,20 @@ const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = 'aut
       >
         <color attach="background" args={['#15181E']} />
         
-        {/* Clinical Lighting Setup (Phase 8.4H) */}
-        <ambientLight intensity={0.5} />
+        {/* Photorealistic Lighting Setup (Phase 8.12A) */}
+        <ambientLight intensity={0.2} color="#ffffff" />
+        <hemisphereLight skyColor="#ffffff" groundColor="#444444" intensity={0.4} />
         
-        {/* Key Light: Front/Top/Right - Soft but clear */}
-        <directionalLight position={[5, 8, 5]} intensity={1.2} color="#ffffff" castShadow={false} />
+        {/* Key Light: Front/Top/Right - Strong and casts shadow */}
+        <directionalLight position={[5, 10, 7]} intensity={1.5} color="#ffffff" castShadow={false} />
         
         {/* Fill Light: Left/Bottom - Removes harsh shadows but maintains volume */}
-        <directionalLight position={[-5, 2, 5]} intensity={0.6} color="#e0e8ff" />
+        <directionalLight position={[-5, 5, -5]} intensity={0.5} color="#e2e8f0" />
         
-        {/* Rim Light (Optional): Back/Top - Soft outline, very subtle to avoid plastic look */}
+        {/* Rim Light: Back/Top - Soft outline */}
         <directionalLight position={[0, 5, -8]} intensity={0.3} color="#ffffff" />
+
+        <ContactShadows resolution={512} scale={10} blur={2} opacity={0.4} far={10} color="#000000" position={[0, -1.5, 0]} />
 
         <Suspense fallback={<LoaderFallback />}>
           <Bounds margin={1.2}>
@@ -195,7 +198,7 @@ const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = 'aut
                 {modelLodManifest && (
                   <AtlasLODManager 
                     manifest={modelLodManifest} 
-                    qualityMode={qualityMode} 
+                    qualityMode={qualityMode || renderQualityPreset} 
                     onLodUrlChange={handleLodChange} 
                   />
                 )}

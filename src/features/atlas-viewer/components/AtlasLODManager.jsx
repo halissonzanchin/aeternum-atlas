@@ -15,7 +15,24 @@ export function AtlasLODManager({ manifest, qualityMode = 'auto', onLodUrlChange
 
   // Set initial LOD level based on manifest
   useEffect(() => {
-    if (!manifest || !manifest.levels) return;
+    if (!manifest) return;
+    
+    // Direct tier mapping support for Phase 8.12A Quality Tiers
+    if (!manifest.levels && manifest[qualityMode]) {
+       onLodUrlChange(manifest[qualityMode]);
+       setCurrentLevel(qualityMode);
+       return;
+    }
+    
+    // Legacy / Complex LOD support
+    if (!manifest.levels) {
+       // Fallback to first available if direct match fails
+       const firstAvailable = Object.values(manifest)[0];
+       if (firstAvailable && typeof firstAvailable === 'string') {
+          onLodUrlChange(firstAvailable);
+       }
+       return;
+    }
     
     // Pick an initial safe level
     let initial = manifest.defaultLevel || 'medium';
@@ -26,7 +43,7 @@ export function AtlasLODManager({ manifest, qualityMode = 'auto', onLodUrlChange
       if (deviceProfile === 'high' && qualityMode === 'auto' && manifest.levels.high) initial = 'high';
     }
     
-    if (qualityMode === 'quality' && manifest.levels.high) initial = 'high';
+    if ((qualityMode === 'quality' || qualityMode === 'clinical') && manifest.levels.high) initial = 'high';
     if (qualityMode === 'performance' && manifest.levels.low) initial = 'low';
 
     setCurrentLevel(initial);
@@ -37,8 +54,8 @@ export function AtlasLODManager({ manifest, qualityMode = 'auto', onLodUrlChange
   let lastDistanceCheck = 0;
   
   useFrame(() => {
-    if (!manifest || !manifest.levels) return;
-    if (qualityMode === 'performance' || qualityMode === 'quality') return; // Locked modes
+    if (!manifest || !manifest.levels) return; // Skip distance LOD if using direct tiers
+    if (qualityMode === 'performance' || qualityMode === 'quality' || qualityMode === 'clinical' || qualityMode === 'balanced') return; // Locked modes
     
     // Throttle checks to 2 times a second
     const now = performance.now();
