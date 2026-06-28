@@ -132,6 +132,10 @@ export const LOCAL_MODELS = [
     modelUrl: "/models/native/female-reproductive-sagittal-section-hq.glb",
     model_url: "/models/native/female-reproductive-sagittal-section-hq.glb",
     atlasEngineModelUrl: "/models/native/female-reproductive-sagittal-section-hq.glb",
+    modelLodManifest: {
+      performance: "/models/native/female-reproductive-sagittal-section-hq.glb",
+      balanced: "/models/native/female-reproductive-sagittal-section-hq.glb"
+    },
     coverImageUrl: "",
     thumbnailUrl: "",
     sketchfabUrl: "",
@@ -206,6 +210,10 @@ export const LOCAL_MODELS = [
     modelUrl: "/models/native/heart-morgue-edition-hq.glb",
     model_url: "/models/native/heart-morgue-edition-hq.glb",
     atlasEngineModelUrl: "/models/native/heart-morgue-edition-hq.glb",
+    modelLodManifest: {
+      performance: "/models/native/heart-morgue-edition-hq.glb",
+      balanced: "/models/native/heart-morgue-edition-hq.glb"
+    },
     coverImageUrl: "",
     thumbnailUrl: "",
     sketchfabUrl: "",
