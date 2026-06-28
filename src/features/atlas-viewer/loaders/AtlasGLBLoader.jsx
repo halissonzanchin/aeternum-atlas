@@ -6,7 +6,7 @@ import { anatomyLayerService } from '../../atlas-layers/anatomyLayerService';
 import { setLayerVisibility } from '../layers/atlasMeshVisibilityController';
 import { auditMeshMapping } from '../debug/atlasMeshAudit';
 
-export default function AtlasGLBLoader({ url, onModelClick }) {
+export default function AtlasGLBLoader({ url, activePreset, onModelClick }) {
   // O construtor do useGLTF na v10+ do Drei suporta Draco (string) e ativa Meshopt internamente por default (se a lib estiver na stack).
   // TODO [Fase 8.4C]: Preparar suporte a KTX2/Basis para otimização de VRAM.
   const loadStart = React.useMemo(() => performance.now(), [url]);
@@ -37,12 +37,26 @@ export default function AtlasGLBLoader({ url, onModelClick }) {
           if (child.material) {
             const normalizeCadavericMaterial = (material) => {
               if (material.isMeshStandardMaterial || material.isMeshPhysicalMaterial) {
-                material.metalness = 0.02; // A bit of scattering/specular reflection
-                material.roughness = 0.7; // 0.7 looks more wet/organic than 0.85
-                material.flatShading = false;
-                
-                if (!material.roughnessMap) {
-                   material.envMapIntensity = 1.0;
+                if (activePreset && activePreset.material) {
+                  material.metalness = activePreset.material.metalness;
+                  material.roughness = activePreset.material.roughness;
+                  material.flatShading = activePreset.material.flatShading;
+                  
+                  if (!material.roughnessMap) {
+                     material.envMapIntensity = activePreset.material.envMapIntensity;
+                  }
+                  
+                  if (activePreset.material.doubleSide) {
+                     material.side = THREE.DoubleSide;
+                  }
+                } else {
+                  material.metalness = 0.02; // A bit of scattering/specular reflection
+                  material.roughness = 0.7; // 0.7 looks more wet/organic than 0.85
+                  material.flatShading = false;
+                  
+                  if (!material.roughnessMap) {
+                     material.envMapIntensity = 1.0;
+                  }
                 }
                 
                 // Ensure vertex colors are respected if geometry has color

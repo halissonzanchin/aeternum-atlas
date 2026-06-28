@@ -21,7 +21,7 @@ function AtlasViewerShellContent({
   const viewerRef = useRef(null);
   
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [qualityPreset, setQualityPreset] = useState(initialQuality);
+  const [renderMode, setRenderMode] = useState('anatomicalRealism');
   const { markerOpen, setMarkerOpen } = useViewer();
   const [activeMarkerId, setActiveMarkerId] = useState(null);
   const [studyMode, setStudyMode] = useState(false);
@@ -69,11 +69,11 @@ function AtlasViewerShellContent({
   - markerPanelOpen: ${markerOpen}
   - fullscreenActive: ${isFullscreen}
   - studyMode: ${studyMode}
-  - qualityPreset: ${qualityPreset}
+  - renderMode: ${renderMode}
   - markerCount: ${markers.length}
       `);
     }
-  }, [activeMarkerId, markerOpen, isFullscreen, studyMode, qualityPreset, markers.length]);
+  }, [activeMarkerId, markerOpen, isFullscreen, studyMode, renderMode, markers.length]);
 
   return (
     <div ref={containerRef} className="relative w-full h-full bg-[#0B0E14] overflow-hidden flex font-sans">
@@ -87,7 +87,10 @@ function AtlasViewerShellContent({
           modelFormat={modelFormat}
           markers={markers}
           onMarkerSelect={(id) => setActiveMarkerId(id)}
-          renderQualityPreset={qualityPreset}
+          renderMode={renderMode}
+          // The LOD tier can be separated from render mode. For now, Mobile Render Mode forces Performance LOD.
+          // Otherwise, we request 'balanced' (which AtlasLODManager will fallback to 'performance' if unavailable).
+          qualityMode={renderMode === 'performanceMobile' ? 'performance' : 'balanced'} 
           editMode={false} // Always false in Shell, editing happens in EditorPage
         />
 
@@ -95,8 +98,8 @@ function AtlasViewerShellContent({
         <AtlasViewerToolbar 
           isFullscreen={isFullscreen}
           toggleFullscreen={toggleFullscreen}
-          qualityPreset={qualityPreset}
-          setQualityPreset={setQualityPreset}
+          renderMode={renderMode}
+          setRenderMode={setRenderMode}
           isMarkerPanelOpen={markerOpen}
           toggleMarkerPanel={() => setMarkerOpen(!markerOpen)}
           studyMode={studyMode}

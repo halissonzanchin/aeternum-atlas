@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Html, Stats, Bounds, Center, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from 'three-mesh-bvh';
+import { ATLAS_RENDER_PRESETS } from './rendering/atlasRenderPresets';
 
 // Injeção Global Segura do BVH (Fase 8.4D)
 if (!THREE.BufferGeometry.prototype.computeBoundsTree) {
@@ -46,7 +47,7 @@ function UnsupportedFormatFallback({ format }) {
   );
 }
 
-const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = null, modelFormat = 'glb', markers = [], onMarkerSelect, onModelClick, editMode = false, activeTool = 'select', showStats = false, renderQualityPreset = 'clinical' }, ref) => {
+const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = null, modelFormat = 'glb', markers = [], onMarkerSelect, onModelClick, editMode = false, activeTool = 'select', showStats = false, renderMode = 'anatomicalRealism' }, ref) => {
   const cameraControlsRef = useRef(null);
   const [activeMarkerId, setActiveMarkerId] = useState(null);
   
@@ -77,14 +78,15 @@ const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = null
   - toneMapping: ACESFilmicToneMapping
   - exposure: ${renderQualityPreset === 'clinical' ? 1.0 : 1.2}
   - dpr: ${currentDpr.join(', ')}
-  - lightSetup: Clinical Tri-Point (Ambient 0.5, Key 1.2, Fill 0.6, Rim 0.3)
-  - environmentEnabled: false
   - estimatedDeviceProfile: ${profile}
       `);
     }
-  }, [renderQualityPreset]);
+  }, [renderMode]);
 
-  const effectiveUrl = modelLodManifest ? lodUrl : modelUrl;
+  const activePreset = ATLAS_RENDER_PRESETS[renderMode] || ATLAS_RENDER_PRESETS.anatomicalRealism;
+
+  // Resolve active URL
+  const effectiveUrl = useMemo(() => modelLodManifest ? lodUrl : modelUrl, [modelLodManifest, lodUrl, modelUrl]);
 
   const activeMarker = markers.find(m => m.id === activeMarkerId);
 
@@ -163,33 +165,30 @@ const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = null
       )}
 
       <Canvas
-        camera={{ position: [0, 0, 5], fov: 45, near: 0.0001, far: 10000 }}
+        camera={{ position: [0, 0, 5], fov: activePreset.camera.fov, near: 0.0001, far: 10000 }}
         gl={{ 
           antialias: true, 
           alpha: false, 
           logarithmicDepthBuffer: true,
           toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: renderQualityPreset === 'clinical' ? 1.0 : 1.2,
+          toneMappingExposure: activePreset.camera.toneMappingExposure,
           outputColorSpace: THREE.SRGBColorSpace
         }}
         dpr={dpr}
       >
-        <color attach="background" args={['#15181E']} />
+        <color attach="background" args={[activePreset.background]} />
         
-        {/* Photorealistic Lighting Setup (Phase 8.12A) */}
-        <ambientLight intensity={0.2} color="#ffffff" />
-        <hemisphereLight skyColor="#ffffff" groundColor="#444444" intensity={0.4} />
+        {/* Render Studio Lighting based on Preset */}
+        <ambientLight intensity={activePreset.lighting.ambientIntensity} color="#ffffff" />
+        <hemisphereLight skyColor={activePreset.lighting.hemisphereSky} groundColor={activePreset.lighting.hemisphereGround} intensity={activePreset.lighting.hemisphereIntensity} />
         
-        {/* Key Light: Front/Top/Right - Strong and casts shadow */}
-        <directionalLight position={[5, 10, 7]} intensity={1.5} color="#ffffff" castShadow={false} />
-        
-        {/* Fill Light: Left/Bottom - Removes harsh shadows but maintains volume */}
-        <directionalLight position={[-5, 5, -5]} intensity={0.5} color="#e2e8f0" />
-        
-        {/* Rim Light: Back/Top - Soft outline */}
-        <directionalLight position={[0, 5, -8]} intensity={0.3} color="#ffffff" />
+        <directionalLight position={[5, 10, 7]} intensity={activePreset.lighting.keyLightIntensity} color="#ffffff" castShadow={false} />
+        <directionalLight position={[-5, 5, -5]} intensity={activePreset.lighting.fillLightIntensity} color="#e2e8f0" />
+        <directionalLight position={[0, 5, -8]} intensity={activePreset.lighting.rimLightIntensity} color="#ffffff" />
 
-        <ContactShadows resolution={512} scale={10} blur={2} opacity={0.4} far={10} color="#000000" position={[0, -1.5, 0]} />
+        {activePreset.lighting.contactShadows && (
+          <ContactShadows resolution={512} scale={10} blur={2} opacity={0.4} far={10} color="#000000" position={[0, -1.5, 0]} />
+        )}
 
         <Suspense fallback={<LoaderFallback />}>
           <Bounds margin={1.2}>
@@ -198,11 +197,11 @@ const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = null
                 {modelLodManifest && (
                   <AtlasLODManager 
                     manifest={modelLodManifest} 
-                    qualityMode={qualityMode || renderQualityPreset} 
+                    qualityMode={qualityMode || renderMode} 
                     onLodUrlChange={handleLodChange} 
                   />
                 )}
-                {modelFormat.toLowerCase() === 'glb' && <AtlasGLBLoader url={effectiveUrl} onModelClick={editMode ? onModelClick : null} />}
+                {modelFormat.toLowerCase() === 'glb' && <AtlasGLBLoader url={effectiveUrl} activePreset={activePreset} onModelClick={editMode ? onModelClick : null} />}
                 {modelFormat.toLowerCase() === 'obj' && <AtlasOBJLoader url={effectiveUrl} onModelClick={editMode ? onModelClick : null} />}
               </AtlasModelErrorBoundary>
             </Center>

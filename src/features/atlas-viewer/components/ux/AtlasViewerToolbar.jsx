@@ -8,8 +8,8 @@ import AtlasTooltip from './AtlasTooltip';
 export default function AtlasViewerToolbar({ 
   isFullscreen, 
   toggleFullscreen, 
-  qualityPreset, 
-  setQualityPreset,
+  renderMode,
+  setRenderMode,
   isMarkerPanelOpen,
   toggleMarkerPanel,
   studyMode,
@@ -36,7 +36,7 @@ export default function AtlasViewerToolbar({
       <div className="w-px h-6 bg-white/10 mx-1"></div>
 
       {/* Quality */}
-      <AtlasQualityToggle qualityPreset={qualityPreset} setQualityPreset={setQualityPreset} />
+      <AtlasQualityToggle renderMode={renderMode} setRenderMode={setRenderMode} />
       
       <div className="w-px h-6 bg-white/10 mx-1"></div>
 
