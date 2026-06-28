@@ -113,6 +113,11 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
   const progressState = useViewerProgress(modelState.model, user, setToast);
   const quizState = useViewerQuiz(modelState.model, user, annotationsState, setToast, setLeftOpen, nativeMarkers);
 
+  const requestedEngine = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    return new URLSearchParams(window.location.search).get("engine");
+  }, []);
+
   useEffect(() => {
     if (!toast) return undefined;
     const timer = window.setTimeout(() => setToast(""), 2600);
@@ -252,11 +257,6 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     handleViewerAction
   };
 
-  const requestedEngine = useMemo(() => {
-    if (typeof window === "undefined") return null;
-    return new URLSearchParams(window.location.search).get("engine");
-  }, []);
-  
   const isSketchfabMode = requestedEngine === "sketchfab" || (!requestedEngine && modelState.model?.viewerEngine === "hybrid" && modelState.model?.embedUrl);
 
   return (
