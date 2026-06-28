@@ -14467,4 +14467,25 @@ button.cinematic-info-card {
     text-wrap: balance;
     word-break: normal;
   }
+
+  .atlas-card-safe {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .atlas-metric-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .atlas-badge-responsive {
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    min-width: 0;
+  }
 }

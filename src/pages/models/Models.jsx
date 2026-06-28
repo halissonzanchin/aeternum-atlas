@@ -69,7 +69,7 @@ export default function Models({ user, navigate }) {
         </p>
       </div>
 
-      <div className="mb-5 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 w-full min-w-0">
+      <div className="mb-5 grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-3 w-full min-w-0">
         <input className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 py-3 text-sm text-clinicalWhite outline-none focus:border-techTeal/70 text-ellipsis overflow-hidden whitespace-nowrap" placeholder={t("models.searchModel")} value={query} onChange={event => setQuery(event.target.value)} />
         <select className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 bg-blackDeep/60 px-4 py-3 text-sm text-clinicalWhite outline-none focus:border-techTeal/70 text-ellipsis overflow-hidden whitespace-nowrap" value={system} onChange={event => setSystem(event.target.value)}>
           <option value="Todos">{t("models.all")}</option>
@@ -113,7 +113,7 @@ export default function Models({ user, navigate }) {
           <p className="mt-4 text-textMuted atlas-empty-state-description">Tente mudar os filtros de busca.</p>
         </Card>
       ) : (
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-5 w-full min-w-0">
+        <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5 w-full min-w-0 max-w-full">
           {filtered.map(model => <ModelCard key={model.id} model={model} user={user} navigate={navigate} />)}
         </div>
       )}

@@ -1,46 +1,35 @@
-# Goal: FASE 8.13A — ATLAS ANNOTATION EXPERIENCE UPGRADE
+# Goal: FASE 8.11G — MODELS LIBRARY TEXT OVERFLOW AND CARD CONTAINMENT HOTFIX
 
-This phase aims to create a premium visual and interactive experience for anatomical annotations (pins) before capturing the definitive coordinates. It follows the Sketchfab conceptual reference, offering numbered pins, navigation, focus behavior, and distinct visual states. No database changes or final coordinates will be produced in this phase.
+This phase targets specific CSS overflow, layout truncation, and clipping issues on the `/models` page. We will strictly refine CSS constraints, grids, flex containers, and text truncations to ensure the library looks premium across all viewports without altering backend logic or 3D data.
 
 ## Proposed Changes
 
-### 1. Premium Visual States for Pins
-#### [MODIFY] `src/features/atlas-viewer/components/AtlasAnnotationMarkers.jsx`
-- Introduce conditional rendering for multiple states:
-  - **Approved**: Premium cyan/gold aesthetic.
-  - **Draft**: Teal with "D" and DRAFT tags.
-  - **Active**: Larger size with a glowing halo (`shadow-[0_0_15px_rgba(20,184,166,0.5)]`).
-  - **Hover**: Smooth scaling animation.
-- Implement numbering: If `marker.index` is missing, fallback to array `index + 1`.
+### 1. Main Layout & Page Container
+#### [MODIFY] `src/pages/models/Models.jsx`
+- **Filter Row:** Refactor the rigid `grid-cols-6` into an adaptive `grid-cols-[repeat(auto-fit,minmax(140px,1fr))]` or `flex-wrap` layout so selects never clip or overlap.
+- **Card Grid:** Improve the card grid from `minmax(320px, 1fr)` to `minmax(280px, 1fr)` to better accommodate 3 cards on standard desktop screens (1366px, 1440px) alongside the sidebar without triggering aggressive cropping. Add `min-w-0 max-w-full`.
 
-### 2. Premium Annotation Panel & Empty State
-#### [MODIFY] `src/features/atlas-viewer/components/ux/AtlasMarkerPanel.jsx`
-- Implement an elegant Empty State with glassmorphism when `markers.length === 0`.
-- Add a "Next/Previous" navigation header or footer to cycle through annotations.
-- If in `authoringMode`, concatenate `draftMarkers` with official `markers` so they appear in the same list but with a clear Draft label.
+### 2. ModelCard Refinements
+#### [MODIFY] `src/components/ModelCard/ModelCard.jsx`
+- **Root Element:** Enforce `min-w-0 max-w-full` on the card container so it never exceeds its grid cell.
+- **Badges:** Refine the badge labels based on breakpoints (e.g., hiding "ESCANEAMENTO ANATÔMICO REAL" on small screens) to prevent horizontal overflow.
+- **Titles & Description:** Add line-clamps and `min-w-0`.
+- **Metrics Grid:** Refactor the metrics (Time, Accesses, Status) to a structured `grid grid-cols-[1fr_auto]` layout. The labels will receive `min-w-0 truncate` while values receive `shrink-0 whitespace-nowrap text-right`, guaranteeing values like "10-15 min" are never clipped.
+- **Action Buttons:** Ensure buttons use `min-w-0` and scale appropriately on mobile/tablet without expanding beyond the card bounds.
 
-#### [MODIFY] `src/features/atlas-viewer/components/ux/AtlasMarkerCard.jsx`
-- Show the visual number corresponding to the pin.
-- Differentiate Draft items inside the list (e.g. dashed borders or "DRAFT" tag).
-
-### 3. Camera Focus & Next/Prev Navigation
-#### [MODIFY] `src/features/atlas-viewer/components/ux/AtlasMarkerPanel.jsx`
-- Add navigation logic: `handleNextMarker` and `handlePrevMarker`.
-- Utilize the existing `atlasViewerCommands.focusMarker(id)` to trigger smooth camera flights (already supported by `atlasCameraEngine`).
-
-### 4. Authoring Draft Integration
-#### [MODIFY] `src/features/atlas-viewer/context/AtlasViewerContext.jsx`
-- Ensure `draftMarkers` are properly exposed and manageable (they currently are, but we'll ensure they combine smoothly in the UI).
+### 3. CSS Utilities
+#### [MODIFY] `src/styles/globals.css`
+- Introduce safe-containment utility classes:
+  - `.atlas-card-safe` for general container bounds (`min-w-0 max-w-full overflow-hidden`).
+  - `.atlas-metric-row` for optimal label-value pairing (`display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.75rem;`).
 
 ## User Review Required
-> [!IMPORTANT]
-> The camera flight logic (`atlasCameraEngine.flyToMarker`) is already partially active from a previous iteration and works smoothly in most cases. I will hook the Next/Prev buttons to it directly. Do you approve this implementation strategy?
+> [!NOTE]
+> All changes are strictly frontend CSS/JSX layout refinements. The logic, translations, and backend connections remain untouched. Please approve the strategy so I can apply the hotfixes and validate the responsiveness on the requested viewports.
 
 ## Verification Plan
-1. Launch `http://127.0.0.1:5173/viewer/corte-sagital-cranio-humano-superficial?authoring=1`
-2. Create a few draft markers (Shift + Click).
-3. Verify they receive `D1`, `D2` numbering.
-4. Verify they appear in the Annotation Panel with an elegant Draft look.
-5. Verify Next/Prev buttons cycle through them and trigger camera flights.
-6. Verify Empty State when there are no markers.
-7. Verify responsiveness across Desktop and Mobile.
+1. Apply the CSS and layout changes.
+2. Run `npm run build` to ensure the build isn't broken.
+3. Validate `/models` across simulated responsive viewports (1920, 1440, 1366, 1024, 768, 390).
+4. Verify buttons (Open Model, View Details, Favorite) continue functioning.
+5. Create the official report artifact.

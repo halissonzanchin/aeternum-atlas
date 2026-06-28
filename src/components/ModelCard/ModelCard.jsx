@@ -60,7 +60,7 @@ export default function ModelCard({ model, user, navigate }) {
   const thumbUrl = model.thumbnailUrl || model.coverImageUrl || model.thumbnail_url || model.cover_image_url;
 
   return (
-    <Card as="article" className="model-card grid gap-4 overflow-hidden w-full min-w-0">
+    <Card as="article" className="model-card grid gap-4 overflow-hidden w-full atlas-card-safe">
       <div className="relative min-h-[140px] md:min-h-40 overflow-hidden rounded-2xl w-full shrink-0" style={!thumbUrl ? getPlaceholderStyle(modelRouteId(model)) : {}}>
         {thumbUrl ? (
           <img src={thumbUrl} alt={localizedModel.title} className="absolute inset-0 h-full w-full object-cover" />
@@ -84,13 +84,13 @@ export default function ModelCard({ model, user, navigate }) {
         ) : null}
       </div>
 
-      <div className="flex flex-wrap gap-2 w-full items-start">
-        <span className="badge badge-teal atlas-nowrap-label text-[10px] md:text-xs truncate max-w-full" title={localizedModel.level}>{localizedModel.level}</span>
-        <span className="badge badge-active atlas-nowrap-label text-[10px] md:text-xs truncate max-w-full" title={localizedModel.type}>
+      <div className="flex flex-wrap gap-2 w-full items-start min-w-0 shrink-0">
+        <span className="badge badge-teal atlas-badge-responsive text-[10px] md:text-xs" title={localizedModel.level}>{localizedModel.level}</span>
+        <span className="badge badge-active atlas-badge-responsive text-[10px] md:text-xs" title={localizedModel.type}>
           <span className="hidden sm:inline">{localizedModel.type}</span>
           <span className="sm:hidden text-[10px]">ATLAS NATIVE</span>
         </span>
-        <span className="badge badge-gold atlas-nowrap-label text-[10px] md:text-xs truncate max-w-full" title={t("models.availableByInstitution")}>{t("models.availableByInstitution")}</span>
+        <span className="badge badge-gold atlas-badge-responsive text-[10px] md:text-xs" title={t("models.availableByInstitution")}>{t("models.availableByInstitution")}</span>
       </div>
 
       <div className="flex-1 flex flex-col min-w-0 w-full">
@@ -102,21 +102,21 @@ export default function ModelCard({ model, user, navigate }) {
       </div>
 
       <div className="grid gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-sm text-slate-200 w-full min-w-0 mt-auto shrink-0">
-        <div className="flex justify-between gap-4 overflow-hidden"><span className="shrink-0 text-white/60">{t("models.estimatedTime")}</span><strong className="truncate text-right">{studyTime(model)}</strong></div>
-        <div className="flex justify-between gap-4 overflow-hidden"><span className="shrink-0 text-white/60">{t("models.accesses")}</span><strong className="truncate text-right">{formatNumber(model.accessCount || 0, language)}</strong></div>
-        <div className="flex justify-between gap-4 overflow-hidden"><span className="shrink-0 text-white/60">{t("common.status")}</span><strong className="truncate text-right text-selectionGreen">{t("common.available")}</strong></div>
+        <div className="atlas-metric-row"><span className="truncate text-white/60 min-w-0">{t("models.estimatedTime")}</span><strong className="shrink-0 whitespace-nowrap text-right">{studyTime(model)}</strong></div>
+        <div className="atlas-metric-row"><span className="truncate text-white/60 min-w-0">{t("models.accesses")}</span><strong className="shrink-0 whitespace-nowrap text-right">{formatNumber(model.accessCount || 0, language)}</strong></div>
+        <div className="atlas-metric-row"><span className="truncate text-white/60 min-w-0">{t("common.status")}</span><strong className="shrink-0 whitespace-nowrap text-right text-selectionGreen">{t("common.available")}</strong></div>
       </div>
 
-      <div className="w-full shrink-0">
-        <div className="mb-2 flex items-center justify-between text-[10px] md:text-xs text-textMuted atlas-nowrap-label"><span>{t("models.personalProgress")}</span><span>{progress}%</span></div>
+      <div className="w-full shrink-0 min-w-0">
+        <div className="mb-2 flex items-center justify-between text-[10px] md:text-xs text-textMuted atlas-nowrap-label"><span className="truncate min-w-0">{t("models.personalProgress")}</span><span className="shrink-0 ml-2">{progress}%</span></div>
         <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden"><div className="h-2 rounded-full bg-techTeal transition-all duration-1000 ease-out" style={{ width: `${progress}%` }} /></div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full shrink-0">
-        <Button variant="teal" className="w-full h-11" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}>{t("models.openModel")}</Button>
-        <Button variant="outline" className="w-full h-11" onClick={() => navigate(`/models/${modelRouteId(model)}`)}>{t("models.viewDetails")}</Button>
-        <Button variant={favorite ? "primary" : "ghost"} className="w-full h-10 sm:col-span-2 text-xs" onClick={handleFavorite}>
-          {favorite ? t("models.favorited") : t("models.favorite")}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full shrink-0 min-w-0">
+        <Button variant="teal" className="w-full h-11 min-w-0 shrink-0" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}><span className="truncate">{t("models.openModel")}</span></Button>
+        <Button variant="outline" className="w-full h-11 min-w-0 shrink-0" onClick={() => navigate(`/models/${modelRouteId(model)}`)}><span className="truncate">{t("models.viewDetails")}</span></Button>
+        <Button variant={favorite ? "primary" : "ghost"} className="w-full h-10 sm:col-span-2 text-xs min-w-0 shrink-0" onClick={handleFavorite}>
+          <span className="truncate">{favorite ? t("models.favorited") : t("models.favorite")}</span>
         </Button>
       </div>
     </Card>
