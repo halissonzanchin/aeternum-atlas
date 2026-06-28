@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import ViewerContext from "./ViewerContext";
 import { useViewerModel } from "./hooks/useViewerModel";
 import { useViewerAnnotations } from "./hooks/useViewerAnnotations";
@@ -23,7 +23,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import { trackEvent } from "../../services/analytics/analyticsService";
 import { atlasAssetStorageService } from "../../services/atlasAssetStorageService";
 
-function TopViewerBar({ model, structure, navigate, onToggleLeft }) {
+function TopViewerBar({ model, structure, navigate, onToggleLeft, isSketchfabMode }) {
   const { t } = useLanguage();
   const breadcrumb = structure?.breadcrumb?.length ? structure.breadcrumb : [model.system, model.region || model.category, structure?.name].filter(Boolean);
 
@@ -61,6 +61,17 @@ function TopViewerBar({ model, structure, navigate, onToggleLeft }) {
 
       <div className="flex items-center gap-2">
         <div className="hidden md:block"><LanguageSelector compact /></div>
+        {isSketchfabMode ? (
+          <span className="rounded-full border border-orange-500/30 bg-orange-500/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-orange-400 atlas-nowrap-label">
+            <span className="md:hidden">SKETCHFAB</span>
+            <span className="hidden md:inline">SKETCHFAB EMBED / FALLBACK TEMPORÁRIO</span>
+          </span>
+        ) : (
+          <span className="rounded-full border border-techTeal/30 bg-techTeal/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-techTeal atlas-nowrap-label">
+            <span className="md:hidden">ATLAS GLB</span>
+            <span className="hidden md:inline">ATLAS ENGINE (GLB)</span>
+          </span>
+        )}
         <span className="rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-selectionGreen atlas-nowrap-label">
           <span className="md:hidden">Ativa</span>
           <span className="hidden md:inline">{t("viewer.activeStructure")}</span>
@@ -241,6 +252,13 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     handleViewerAction
   };
 
+  const requestedEngine = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    return new URLSearchParams(window.location.search).get("engine");
+  }, []);
+  
+  const isSketchfabMode = requestedEngine === "sketchfab" || (!requestedEngine && modelState.model?.viewerEngine === "hybrid" && modelState.model?.embedUrl);
+
   return (
     <ViewerContext.Provider value={contextValue}>
       <div className="viewer-shell">
@@ -249,37 +267,36 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
           structure={modelState.activeStructure}
           navigate={navigate}
           onToggleLeft={() => setLeftOpen(value => !value)}
+          isSketchfabMode={isSketchfabMode}
         />
 
         <main className={`viewer-stage viewer-layout ${leftOpen ? "" : "is-panel-collapsed"}`}>
           <ViewerSidebar />
-          {modelState.model.viewerType === 'atlas-native' || modelState.model.viewer_engine === 'atlas' || modelState.model.viewer_engine === 'atlas-native' ? (
-            <>
-              {(!modelState.model.atlasAssetObjectUrl && !modelState.model.atlasEngineModelUrl && !modelState.model.model_url) && (
-                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-blackDeep z-50 p-6">
-                    <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-6 max-w-md text-center">
-                       <h3 className="text-xl font-bold text-amber-400 mb-2">Arquivo 3D Ausente</h3>
-                       <p className="text-amber-200/80 mb-4 text-sm">Este modelo nativo ainda não possui um arquivo .glb/.obj vinculado, ou o link local temporário foi perdido após um refresh.</p>
-                       <p className="text-xs text-textMuted">Acesse o CMS para realizar o upload do Asset 3D.</p>
-                    </div>
-                 </div>
-              )}
-              <div className="absolute inset-0">
-                <AtlasViewerShell 
-                  modelUrl={modelState.model.atlasAssetObjectUrl || modelState.model.atlasEngineModelUrl || modelState.model.model_url || "/models/test-anatomy.glb"} 
-                  modelFormat={modelState.model.modelFormat || modelState.model.model_format || "glb"}
-                  markers={nativeMarkers.length > 0 ? nativeMarkers : atlasMarkersMock}
-                  onMarkerSelect={setActiveMarkerId}
-                />
-              </div>
-              {(modelState.model.isSegmented || modelState.model.metadata?.segmented) && (
-                <AnatomyLayerPanel />
-              )}
-              <AtlasAIViewerPanel />
-            </>
-          ) : (
-            <ViewerSketchfab />
-          )}
+          <>
+            {(!modelState.model.atlasAssetObjectUrl && !modelState.model.atlasEngineModelUrl && !modelState.model.model_url && !isSketchfabMode) && (
+               <div className="absolute inset-0 flex flex-col items-center justify-center bg-blackDeep z-50 p-6">
+                  <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-6 max-w-md text-center">
+                     <h3 className="text-xl font-bold text-amber-400 mb-2">Arquivo 3D Ausente</h3>
+                     <p className="text-amber-200/80 mb-4 text-sm">Este modelo nativo ainda não possui um arquivo .glb/.obj vinculado, ou o link local temporário foi perdido após um refresh.</p>
+                     <p className="text-xs text-textMuted">Acesse o CMS para realizar o upload do Asset 3D.</p>
+                  </div>
+               </div>
+            )}
+            <div className="absolute inset-0">
+              <AtlasViewerShell 
+                modelUrl={modelState.model.atlasAssetObjectUrl || modelState.model.atlasEngineModelUrl || modelState.model.model_url || "/models/test-anatomy.glb"} 
+                modelFormat={modelState.model.modelFormat || modelState.model.model_format || "glb"}
+                markers={nativeMarkers.length > 0 ? nativeMarkers : atlasMarkersMock}
+                onMarkerSelect={setActiveMarkerId}
+                isSketchfabMode={isSketchfabMode}
+                model={modelState.model}
+              />
+            </div>
+            {(!isSketchfabMode && (modelState.model.isSegmented || modelState.model.metadata?.segmented)) && (
+              <AnatomyLayerPanel />
+            )}
+            {!isSketchfabMode && <AtlasAIViewerPanel />}
+          </>
           <ViewerControls />
         </main>
 

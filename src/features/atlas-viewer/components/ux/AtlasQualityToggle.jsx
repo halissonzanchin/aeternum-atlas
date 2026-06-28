@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import AtlasTooltip from './AtlasTooltip';
 
-export default function AtlasQualityToggle({ renderMode, setRenderMode }) {
+export default function AtlasQualityToggle({ renderMode, setRenderMode, disabled }) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Mapeia as opções do Render Studio
@@ -17,11 +17,15 @@ export default function AtlasQualityToggle({ renderMode, setRenderMode }) {
 
   return (
     <div className="relative">
-      <AtlasTooltip content="Qualidade" position="top">
+      <AtlasTooltip content={disabled ? "Recurso nativo (Indisponível no Sketchfab)" : "Qualidade"} position="top">
         <button 
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => { if (!disabled) setIsOpen(!isOpen); }}
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
-          className="h-10 px-3 rounded-lg bg-[#151A23]/90 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors shadow-lg gap-2"
+          className={`h-10 px-3 rounded-lg flex items-center justify-center transition-colors shadow-lg gap-2 ${
+            disabled 
+              ? 'bg-[#151A23]/50 border border-white/5 text-slate-600 cursor-not-allowed'
+              : 'bg-[#151A23]/90 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10'
+          }`}
           aria-label="Modo Visual"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={currentOption.icon} /></svg>

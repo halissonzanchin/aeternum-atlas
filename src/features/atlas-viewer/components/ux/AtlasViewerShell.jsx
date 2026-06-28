@@ -6,6 +6,7 @@ import AtlasAuthoringPanel from './AtlasAuthoringPanel';
 import { atlasViewerCommands } from '../../ai/atlasViewerCommands';
 import AtlasEducationalPanel from '../AtlasEducationalPanel';
 import { useViewer } from '../../../viewer/ViewerContext';
+import SketchfabApiViewer from '../../../../components/viewer/SketchfabApiViewer';
 
 import { AtlasViewerProvider } from '../../context/AtlasViewerContext';
 
@@ -15,7 +16,9 @@ function AtlasViewerShellContent({
   modelFormat = 'glb', 
   markers = [], 
   onMarkerSelect,
-  initialQuality = 'clinical'
+  initialQuality = 'clinical',
+  isSketchfabMode = false,
+  model = null
 }) {
   const containerRef = useRef(null);
   const viewerRef = useRef(null);
@@ -80,19 +83,30 @@ function AtlasViewerShellContent({
       
       {/* 3D Engine Core */}
       <div className="flex-1 relative">
-        <AtlasViewer 
-          ref={viewerRef}
-          modelUrl={modelUrl}
-          modelLodManifest={modelLodManifest}
-          modelFormat={modelFormat}
-          markers={markers}
-          onMarkerSelect={(id) => setActiveMarkerId(id)}
-          renderMode={renderMode}
-          // The LOD tier can be separated from render mode. For now, Mobile Render Mode forces Performance LOD.
-          // Otherwise, we request 'balanced' (which AtlasLODManager will fallback to 'performance' if unavailable).
-          qualityMode={renderMode === 'performanceMobile' ? 'performance' : 'balanced'} 
-          editMode={false} // Always false in Shell, editing happens in EditorPage
-        />
+        {isSketchfabMode && model ? (
+           <div className="absolute inset-0">
+             <SketchfabApiViewer 
+                title={model.shortTitle || model.title}
+                modelUid={model.sketchfabUid || model.sketchfab_uid || (model.embedUrl?.match(/([a-f0-9]{32})/i)?.[1])}
+                embedUrl={model.embedUrl || model.sketchfabEmbedUrl}
+                externalUrl={model.externalUrl}
+             />
+           </div>
+        ) : (
+          <AtlasViewer 
+            ref={viewerRef}
+            modelUrl={modelUrl}
+            modelLodManifest={modelLodManifest}
+            modelFormat={modelFormat}
+            markers={markers}
+            onMarkerSelect={(id) => setActiveMarkerId(id)}
+            renderMode={renderMode}
+            // The LOD tier can be separated from render mode. For now, Mobile Render Mode forces Performance LOD.
+            // Otherwise, we request 'balanced' (which AtlasLODManager will fallback to 'performance' if unavailable).
+            qualityMode={renderMode === 'performanceMobile' ? 'performance' : 'balanced'} 
+            editMode={false} // Always false in Shell, editing happens in EditorPage
+          />
+        )}
 
         {/* Toolbar */}
         <AtlasViewerToolbar 
@@ -102,6 +116,7 @@ function AtlasViewerShellContent({
           setRenderMode={setRenderMode}
           isMarkerPanelOpen={markerOpen}
           toggleMarkerPanel={() => setMarkerOpen(!markerOpen)}
+          isSketchfabMode={isSketchfabMode}
           studyMode={studyMode}
           toggleStudyMode={() => {
             setStudyMode(!studyMode);
@@ -110,7 +125,7 @@ function AtlasViewerShellContent({
         />
 
         {/* Floating Educational Content in Study Mode */}
-        {studyMode && activeMarker && (
+        {(!isSketchfabMode && studyMode && activeMarker) && (
           <div className="absolute top-6 right-6 z-20 w-80 shadow-2xl animate-fade-in-up">
             <AtlasEducationalPanel 
               marker={activeMarker} 
@@ -122,16 +137,18 @@ function AtlasViewerShellContent({
       </div>
 
       {/* Marker Panel Drawer */}
-      <AtlasMarkerPanel 
-        markers={markers} 
-        activeMarkerId={activeMarkerId}
-        onSelectMarker={handleSelectMarker}
-        isOpen={markerOpen}
-        onClose={() => setMarkerOpen(false)}
-      />
+      {!isSketchfabMode && (
+        <AtlasMarkerPanel 
+          markers={markers} 
+          activeMarkerId={activeMarkerId}
+          onSelectMarker={handleSelectMarker}
+          isOpen={markerOpen}
+          onClose={() => setMarkerOpen(false)}
+        />
+      )}
       
       {/* Authoring Panel (conditional inside) */}
-      <AtlasAuthoringPanel />
+      {!isSketchfabMode && <AtlasAuthoringPanel />}
     </div>
   );
 }
