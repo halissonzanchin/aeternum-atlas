@@ -1,6 +1,7 @@
 import { supabase } from '../lib/supabase';
 import { atlasAnnotationCmsService } from './atlasAnnotationCmsService';
 import { isValidUuid, isTemporaryModelId } from './modelService';
+import * as tus from 'tus-js-client';
 
 function requireValidUuid(modelId, operation) {
   if (isTemporaryModelId(modelId)) {
@@ -73,6 +74,88 @@ export const atlasAssetStorageService = {
 
     console.log(`[StorageService] URL gerada: ${urlData.publicUrl}`);
     return urlData.publicUrl;
+  },
+
+  /**
+   * Faz upload de um arquivo 3D massivo usando protocolo TUS (Upload Resumível)
+   * Evita timeouts de limite de request body da Vercel/Supabase
+   * @param {Object} options Opções do upload
+   * @returns {tus.Upload} Instância TUS para controle (abort/resume)
+   */
+  async uploadLargeAssetWithTus({ file, modelId, onProgress, onSuccess, onError }) {
+    if (!supabase) throw new Error('Supabase cliente não inicializado');
+    requireValidUuid(modelId, 'uploadLargeAssetWithTus');
+    
+    // Preparar paths
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${modelId}_${Date.now()}_source.${fileExt}`;
+    // Usar padrão de diretórios sugerido: native/cranial/source (para simplificar usaremos models/id/source/)
+    const filePath = `models/${modelId}/source/${fileName}`;
+
+    console.log(`[StorageService TUS] Iniciando upload resumível para bucket '${BUCKET_NAME}' no path '${filePath}'...`);
+
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError || !session) {
+      throw new Error("Sessão não encontrada. Usuário não está logado para realizar upload TUS.");
+    }
+
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !anonKey) {
+        throw new Error("Variaveis VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY inválidas.");
+    }
+
+    const endpoint = `${supabaseUrl}/storage/v1/upload/resumable`;
+
+    const upload = new tus.Upload(file, {
+      endpoint: endpoint,
+      retryDelays: [0, 3000, 5000, 10000, 20000],
+      headers: {
+        Authorization: `Bearer ${session.access_token}`,
+        apikey: anonKey
+      },
+      uploadDataDuringCreation: true,
+      removeFingerprintOnSuccess: true,
+      metadata: {
+        bucketName: BUCKET_NAME,
+        objectName: filePath,
+        contentType: file.type || 'application/octet-stream',
+        cacheControl: '3600',
+      },
+      chunkSize: 6 * 1024 * 1024, // 6MB
+      onError: function (error) {
+        console.error('[StorageService TUS] Falha no upload:', error);
+        if (onError) onError(error);
+      },
+      onProgress: function (bytesUploaded, bytesTotal) {
+        const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2);
+        if (onProgress) onProgress(bytesUploaded, bytesTotal, percentage);
+      },
+      onSuccess: function () {
+        console.log('[StorageService TUS] Upload físico TUS concluído.');
+        
+        const { data: urlData } = supabase.storage
+          .from(BUCKET_NAME)
+          .getPublicUrl(filePath);
+
+        if (!urlData || !urlData.publicUrl) {
+          if (onError) onError(new Error("Falha ao gerar URL pública após TUS."));
+          return;
+        }
+
+        console.log(`[StorageService TUS] URL gerada: ${urlData.publicUrl}`);
+        if (onSuccess) onSuccess(urlData.publicUrl, filePath);
+      }
+    });
+
+    upload.findPreviousUploads().then(function (previousUploads) {
+      if (previousUploads.length) {
+        upload.resumeFromPreviousUpload(previousUploads[0]);
+      }
+      upload.start();
+    });
+
+    return upload;
   },
 
   /**

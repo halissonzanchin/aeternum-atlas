@@ -12,6 +12,8 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
   const [showOverrideModal, setShowOverrideModal] = useState(false);
   const [overrideText, setOverrideText] = useState('');
   const [largeFileUploadError, setLargeFileUploadError] = useState(null);
+  const [tusProgress, setTusProgress] = useState(0);
+  const [tusStatus, setTusStatus] = useState('');
   
   useEffect(() => {
     const handleGlobalDragOver = (e) => {
@@ -85,32 +87,85 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
     if (fileSizeMB > AssetUploadConstants.MAX_CLOUD_ASSET_UPLOAD_MB) {
       setLargeFileUploadError({
         title: 'Limite do Bucket Excedido',
-        message: `O arquivo selecionado (${fileSizeMB.toFixed(2)} MB) excede o limite atual do bucket padrão.`,
-        instruction: 'Ajuste o limite do Supabase Storage ou use o pipeline HQ externo para arquivos pesados.'
+        message: `Arquivo acima do limite atual do Storage. Este GLB possui aproximadamente ${fileSizeMB.toFixed(2)} MB.`,
+        instruction: 'Ajuste o Global File Size Limit do Supabase Storage para permitir arquivos acima desse tamanho ou gere uma versão Balanced abaixo do limite atual.'
       });
       setUploadStatus('Arquivo acima do limite');
       return;
     }
 
+    const safeModelId = model.id || model.slug || `temp-${Date.now()}`;
+
     if (fileSizeMB > AssetUploadConstants.LARGE_ASSET_THRESHOLD_MB) {
-      setLargeFileUploadError({
-        title: 'Upload Resumível Necessário',
-        message: `O arquivo selecionado (${fileSizeMB.toFixed(2)} MB) é grande e exige a tecnologia TUS (Upload Resumível) para garantir estabilidade.`,
-        instruction: 'A infraestrutura para TUS está documentada na Fase 8.14B e será habilitada em breve. Para já, otimize o arquivo no Pipeline.'
-      });
-      setUploadStatus('Requer TUS upload');
+      try {
+        setIsUploading(true);
+        setUploadStatus('Iniciando TUS (Upload Resumível)...');
+        setTusStatus('Preparando');
+        setTusProgress(0);
+        
+        await atlasAssetStorageService.uploadLargeAssetWithTus({
+          file,
+          modelId: safeModelId,
+          onProgress: (bytesUploaded, bytesTotal, percentage) => {
+            setTusProgress(percentage);
+            setTusStatus(`Enviando: ${(bytesUploaded / (1024 * 1024)).toFixed(2)} MB / ${(bytesTotal / (1024 * 1024)).toFixed(2)} MB`);
+            setUploadStatus(`Enviando ${percentage}%`);
+          },
+          onSuccess: (publicUrl, storagePath) => {
+            setTusStatus('Concluído');
+            const now = new Date().toLocaleString();
+            
+            const currentManifest = model.modelLodManifest || {};
+            const updatedManifest = {
+              ...currentManifest,
+              source: {
+                url: publicUrl,
+                source: "storage",
+                sizeBytes: file.size,
+                format: ext,
+                adminOnly: true
+              }
+            };
+            
+            onChange({
+              ...model,
+              atlasAssetFileName: file.name,
+              atlasAssetFileType: file.type || `model/${ext}`,
+              atlasAssetFileSize: file.size,
+              atlasAssetStoragePath: storagePath,
+              modelLodManifest: updatedManifest,
+              atlasAssetStatus: 'ready',
+              modelFormat: ext,
+              atlasAssetUploadedAt: now,
+            });
+            setUploadStatus('Upload TUS concluído');
+            setIsUploading(false);
+          },
+          onError: (err) => {
+            throw err;
+          }
+        });
+      } catch (err) {
+        setIsUploading(false);
+        console.error("[Diagnostic] Falha no upload TUS:", err);
+        const errorMessage = err.message || JSON.stringify(err) || "Erro desconhecido";
+        setLargeFileUploadError({
+          title: 'Falha no Upload TUS',
+          message: `Ocorreu um erro no pipeline de upload resumível: ${errorMessage}`,
+          instruction: 'Verifique se o bucket está configurado para suportar arquivos grandes no Supabase.'
+        });
+        setUploadStatus(`Erro TUS: ${errorMessage}`);
+      }
       return;
     }
 
-    const safeModelId = model.id || model.slug || `temp-${Date.now()}`;
-
     try {
       setIsUploading(true);
-      setUploadStatus('Enviando para nuvem');
-      console.log(`[Diagnostic] Iniciando upload. Arquivo: ${file.name}, Tamanho: ${fileSizeMB.toFixed(2)}MB, Tipo: ${file.type}`);
+      setUploadStatus('Enviando para nuvem (Upload Simples)');
+      console.log(`[Diagnostic] Iniciando upload simples. Arquivo: ${file.name}, Tamanho: ${fileSizeMB.toFixed(2)}MB, Tipo: ${file.type}`);
       
       const publicUrl = await atlasAssetStorageService.uploadAsset(file, safeModelId);
-      console.log(`[Diagnostic] Upload concluído. URL Pública gerada: ${publicUrl}`);
+      console.log(`[Diagnostic] Upload simples concluído. URL: ${publicUrl}`);
       const now = new Date().toLocaleString();
 
       onChange({
@@ -118,7 +173,7 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
         atlasAssetFileName: file.name,
         atlasAssetFileType: file.type || `model/${ext}`,
         atlasAssetFileSize: file.size,
-        atlasAssetObjectUrl: publicUrl, // deprecated mas mantido por fallback
+        atlasAssetObjectUrl: publicUrl, // deprecated
         atlasAssetPublicUrl: publicUrl,
         atlasAssetStoragePath: `models/${safeModelId}/${file.name}`,
         atlasEngineModelUrl: publicUrl,
@@ -132,24 +187,14 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
       });
       setUploadStatus('Upload concluído');
     } catch (err) {
-      console.error("[Diagnostic] Falha no upload:", err);
+      console.error("[Diagnostic] Falha no upload simples:", err);
       const errorMessage = err.message || JSON.stringify(err) || "Erro desconhecido";
-      const detailedStatus = `Erro no upload: ${errorMessage} (Bucket: atlas-model-assets)`;
-      
-      if (fileSizeMB > AssetUploadConstants.LARGE_ASSET_THRESHOLD_MB) {
-        setLargeFileUploadError({
-          title: 'Falha no Upload TUS',
-          message: `Ocorreu um erro no pipeline de upload resumível: ${errorMessage}`,
-          instruction: 'Verifique se o bucket está configurado para suportar arquivos grandes no Supabase.'
-        });
-      } else {
-        setLargeFileUploadError({
-          title: 'Erro de Upload (Supabase)',
-          message: `A API retornou o seguinte erro: ${errorMessage}`,
-          instruction: "Verifique as permissões do bucket 'atlas-model-assets' e os limites de payload."
-        });
-      }
-      setUploadStatus(detailedStatus);
+      setLargeFileUploadError({
+        title: 'Erro de Upload (Supabase)',
+        message: `A API retornou o seguinte erro: ${errorMessage}`,
+        instruction: "Verifique as permissões do bucket 'atlas-model-assets' e os limites de payload."
+      });
+      setUploadStatus(`Erro no upload: ${errorMessage}`);
     } finally {
       setIsUploading(false);
     }
@@ -346,10 +391,20 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
                 </p>
               </div>
             ) : isUploading ? (
-              <div className="flex flex-col items-center justify-center p-6 border-2 border-white/10 rounded-md bg-black/30">
-                <div className="w-6 h-6 border-2 border-techTeal border-t-transparent rounded-full animate-spin mb-3"></div>
-                <p className="text-sm font-bold text-clinicalWhite uppercase">{uploadStatus || 'Enviando para Storage...'}</p>
-                <p className="text-xs text-textMuted mt-1">Por favor, aguarde.</p>
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-8 h-8 rounded-full border-4 border-techTeal border-t-transparent animate-spin"></div>
+                <span className="text-sm font-semibold text-clinicalWhite animate-pulse">{uploadStatus}</span>
+                {tusStatus && (
+                  <div className="flex flex-col items-center gap-1 mt-2 w-full max-w-xs">
+                    <span className="text-xs text-slate-400">{tusStatus}</span>
+                    <div className="w-full bg-white/10 rounded-full h-1.5 mt-1 overflow-hidden">
+                      <div 
+                        className="bg-amber-400 h-1.5 transition-all duration-300"
+                        style={{ width: `${tusProgress}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : model.atlasAssetStatus === 'ready' ? (
               <div className="flex justify-between items-center bg-techTeal/10 border border-techTeal/30 rounded-md p-3">
