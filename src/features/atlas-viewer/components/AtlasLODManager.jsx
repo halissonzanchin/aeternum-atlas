@@ -19,8 +19,12 @@ export function AtlasLODManager({ manifest, qualityMode = 'auto', onLodUrlChange
     
     // Direct tier mapping support for Phase 8.12A Quality Tiers
     if (!manifest.levels && manifest[qualityMode]) {
-       onLodUrlChange(manifest[qualityMode]);
-       setCurrentLevel(qualityMode);
+       const qualityEntry = manifest[qualityMode];
+       const targetUrl = typeof qualityEntry === 'object' ? qualityEntry.url : qualityEntry;
+       if (targetUrl) {
+         onLodUrlChange(targetUrl);
+         setCurrentLevel(qualityMode);
+       }
        return;
     }
     
@@ -28,8 +32,11 @@ export function AtlasLODManager({ manifest, qualityMode = 'auto', onLodUrlChange
     if (!manifest.levels) {
        // Fallback to first available if direct match fails
        const firstAvailable = Object.values(manifest)[0];
-       if (firstAvailable && typeof firstAvailable === 'string') {
-          onLodUrlChange(firstAvailable);
+       if (firstAvailable) {
+          const fallbackUrl = typeof firstAvailable === 'object' ? firstAvailable.url : firstAvailable;
+          if (fallbackUrl && typeof fallbackUrl === 'string') {
+            onLodUrlChange(fallbackUrl);
+          }
        }
        return;
     }
