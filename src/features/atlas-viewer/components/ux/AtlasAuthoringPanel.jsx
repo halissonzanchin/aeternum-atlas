@@ -103,14 +103,14 @@ export default function AtlasAuthoringPanel() {
 
       <div className="flex flex-col gap-2">
         <div className="bg-white/5 p-2 rounded border border-white/10">
-          <p className="text-[10px] text-white/50 mb-1 uppercase tracking-wider">Última Captura</p>
+          <p className="text-[10px] text-white/50 mb-1 uppercase tracking-wider">Última coordenada capturada</p>
           {lastCapturedCoordinate ? (
             <div className="text-xs text-white/80 font-mono flex flex-col gap-1">
               <span>Pos: {lastCapturedCoordinate.point.map(n => n.toFixed(2)).join(', ')}</span>
               <span>Norm: {lastCapturedCoordinate.normal.map(n => n.toFixed(2)).join(', ')}</span>
             </div>
           ) : (
-            <p className="text-xs text-yellow-500/80 italic">Nenhuma coordenada capturada. <br/><span className="text-[10px] opacity-70">(Nota: Shift+Click requer teclado. No mobile, este recurso é limitado.)</span></p>
+            <p className="text-xs text-yellow-500/80 italic">Segure Shift e clique na estrutura anatômica no modelo 3D para capturar a coordenada.<br/><span className="text-[10px] opacity-70">(Nota: Requer teclado físico.)</span></p>
           )}
         </div>
 
@@ -133,7 +133,7 @@ export default function AtlasAuthoringPanel() {
           disabled={!lastCapturedCoordinate}
           className="bg-techTeal/20 hover:bg-techTeal/30 text-techTeal border border-techTeal/50 py-2 rounded font-bold text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          ADICIONAR MARCADOR DRAFT
+          ADICIONE O MARCADOR DRAFT
         </button>
       </div>
 
