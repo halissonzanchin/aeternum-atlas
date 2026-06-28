@@ -72,6 +72,7 @@ function normalizeTagArray(tags) {
 
 export function normalizeSupabaseModel(record = {}) {
   const tags = normalizeTagArray(record.tags);
+  const localModel = findLocalModel(record.slug) || findLocalModel(record.id);
   const embedUrl = sanitizeText(record.embed_url || record.sketchfab_url);
   const sketchfabUrl = sanitizeText(record.sketchfab_url || record.embed_url);
 
@@ -110,7 +111,8 @@ export function normalizeSupabaseModel(record = {}) {
     studyGuide: [],
     relatedStructures: [],
     references: [],
-    createdAt: record.created_at || ""
+    createdAt: record.created_at || "",
+    modelLodManifest: localModel?.modelLodManifest || undefined
   });
 }
 
@@ -135,8 +137,8 @@ export function normalizeViewerModelAsset(model) {
   let finalViewerType = model.viewerType || model.viewer_type || "atlas-native";
 
   if (model.slug === 'corte-sagital-cranio-humano-superficial' || model.id === 'corte-sagital-cranio-humano-superficial') {
-    if (!finalAssetUrl || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial.glb") || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial-hq.glb") || finalAssetUrl.includes("cranial-encephalon-sagittal-section-hq.glb") || finalAssetUrl.includes("cranial-encephalon-sagittal-section-web.glb")) {
-      finalAssetUrl = "/models/native/cranial-encephalon-sagittal-section-color-web.glb";
+    if (!finalAssetUrl || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial.glb") || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial-hq.glb") || finalAssetUrl.includes("cranial-encephalon-sagittal-section-hq.glb") || finalAssetUrl.includes("cranial-encephalon-sagittal-section-web.glb") || finalAssetUrl.includes("cranial-encephalon-sagittal-section-color-web.glb")) {
+      finalAssetUrl = "/models/native/cranial-encephalon-realityscan-balanced.glb";
     }
     finalFormat = "glb";
     finalViewerType = "atlas-native";
@@ -160,6 +162,8 @@ export function normalizeViewerModelAsset(model) {
 
 export function mapSupabaseModelToUIModel(record) {
   const asset = record.atlas_model_assets?.[0];
+  const localModel = findLocalModel(record.slug) || findLocalModel(record.id);
+  
   return normalizeViewerModelAsset({
     id: record.id || record.slug || "",
     slug: record.slug || record.id || "",
@@ -187,7 +191,8 @@ export function mapSupabaseModelToUIModel(record) {
     estimatedStudyTime: record.estimated_time || "",
     createdAt: record.created_at || "",
     archivedAt: record.archived_at || null,
-    deletedAt: record.deleted_at || null
+    deletedAt: record.deleted_at || null,
+    modelLodManifest: localModel?.modelLodManifest || undefined
   });
 }
 
