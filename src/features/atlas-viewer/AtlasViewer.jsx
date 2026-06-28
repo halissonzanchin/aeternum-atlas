@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState, useEffect, forwardRef, useImperativeHandle, useTransition, useCallback } from 'react';
+import React, { Suspense, useRef, useState, useEffect, forwardRef, useImperativeHandle, useTransition, useCallback, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Html, Stats, Bounds, Center, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
@@ -74,9 +74,7 @@ const AtlasViewer = forwardRef(({ modelUrl, modelLodManifest, qualityMode = null
 
     if (process.env.NODE_ENV === 'development') {
       console.log(`[Atlas Viewer Rendering]
-  - preset: ${renderQualityPreset}
-  - toneMapping: ACESFilmicToneMapping
-  - exposure: ${renderQualityPreset === 'clinical' ? 1.0 : 1.2}
+  - renderMode: ${renderMode}
   - dpr: ${currentDpr.join(', ')}
   - estimatedDeviceProfile: ${profile}
       `);

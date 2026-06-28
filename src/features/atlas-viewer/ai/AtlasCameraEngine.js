@@ -125,8 +125,13 @@ class AtlasCameraEngine {
     // Direção da câmera pro marcador
     const direction = new THREE.Vector3().subVectors(currentCamPos, mPosVector).normalize();
     
-    // Se por acaso a direção der 0 (câmera dentro do marcador), usamos Z+
-    if (direction.lengthSq() === 0) direction.set(0, 0, 1);
+    // Se tivermos a normal (ex: draft marker recém criado), priorizamos afastar na direção da normal
+    if (marker.normal) {
+      direction.copy(new THREE.Vector3(...marker.normal)).normalize();
+    } else if (direction.lengthSq() === 0) {
+      // Se por acaso a direção der 0 (câmera dentro do marcador e sem normal), usamos Z+
+      direction.set(0, 0, 1);
+    }
 
     const targetFallbackCamPos = new THREE.Vector3().copy(mPosVector).add(direction.multiplyScalar(safeDistance));
 

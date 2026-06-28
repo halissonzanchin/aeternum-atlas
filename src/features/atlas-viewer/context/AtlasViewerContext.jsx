@@ -43,7 +43,7 @@ export function AtlasViewerProvider({ modelId, children }) {
   const analytics = useAtlasAnalytics(model ? modelId : null);
 
   const tutorContext = useMemo(() => {
-    if (selectedAnnotation) {
+    if (selectedAnnotation && !selectedAnnotation.isDraft) {
       return atlasAiTutorRegistry[selectedAnnotation.anatomicalStructure] || null;
     }
     if (selectedLayer) {
