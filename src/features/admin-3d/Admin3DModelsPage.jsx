@@ -194,13 +194,13 @@ export default function Admin3DModelsPage({ notify, user: propUser }) {
 
     let modelToSave = { ...selectedModel };
     
-    if (selectedModelId === 'new') {
+    if (selectedModelId === 'new' || (!selectedModelId.match(/^[0-9a-fA-F]{8}-/) && selectedModelId !== 'new')) {
       if (!modelToSave.title || modelToSave.title === 'Novo Modelo 3D') {
         notify('Dê um título real para salvar o modelo.');
         return;
       }
-      modelToSave.slug = normalizeModelIdentifier(modelToSave.title);
-      // Remove o ID provisório "new" para que o banco gere um UUID real v4
+      modelToSave.slug = modelToSave.slug || normalizeModelIdentifier(modelToSave.title);
+      // Remove o ID provisório (órfão ou new) para que o banco gere um UUID real v4
       delete modelToSave.id;
     }
 
