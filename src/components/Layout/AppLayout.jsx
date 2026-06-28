@@ -73,7 +73,7 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
     <div className="app-shell">
       <Sidebar user={user} path={path} navigate={navigate} onLogout={onLogout} />
       <main className="app-main">
-        <header className="topbar">
+        <header className="topbar atlas-liquid-glass-toolbar">
           <div className="topbar-user">
             <div className="topbar-avatar">{user?.name?.[0] || "A"}</div>
             <div className="topbar-user-text overflow-hidden">

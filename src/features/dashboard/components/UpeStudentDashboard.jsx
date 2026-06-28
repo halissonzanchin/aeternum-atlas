@@ -20,7 +20,8 @@ export default function UpeStudentDashboard({ navigate }) {
   return (
     <section className="premium-dashboard fade-in-up pb-12">
       {/* 1. Hero / Continue Studying */}
-      <div className="mb-8 relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-blackDeep border border-techTeal/20 p-8 shadow-lg shadow-techTeal/5">
+      <div className="mb-8 relative overflow-hidden atlas-liquid-glass atlas-liquid-glass-card border border-techTeal/20 p-8 shadow-lg shadow-techTeal/5">
+        <div className="atlas-liquid-highlight"></div>
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center">
           <div>
             <p className="text-techTeal font-medium uppercase tracking-wider text-xs mb-2">
@@ -72,23 +73,23 @@ export default function UpeStudentDashboard({ navigate }) {
 
       {/* 2. Progress Overview */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
-        <Card className="bg-blackDeep/60 border-slate-800 p-4 text-center hover:border-techTeal/30 transition">
+        <Card className="atlas-progress-liquid-card atlas-liquid-pressable p-4 text-center hover:border-techTeal/30">
           <p className="text-textMuted text-xs font-medium mb-1">Horas Acumuladas</p>
           <div className="text-2xl font-bold text-clinicalWhite">{upeStudentProgress.totalStudyHours}h</div>
         </Card>
-        <Card className="bg-blackDeep/60 border-slate-800 p-4 text-center hover:border-techTeal/30 transition">
+        <Card className="atlas-progress-liquid-card atlas-liquid-pressable p-4 text-center hover:border-techTeal/30">
           <p className="text-textMuted text-xs font-medium mb-1">Média Geral</p>
           <div className="text-2xl font-bold text-techTeal">{upeStudentProgress.averageScore}%</div>
         </Card>
-        <Card className="bg-blackDeep/60 border-slate-800 p-4 text-center hover:border-techTeal/30 transition">
+        <Card className="atlas-progress-liquid-card atlas-liquid-pressable p-4 text-center hover:border-techTeal/30">
           <p className="text-textMuted text-xs font-medium mb-1">Simulados</p>
           <div className="text-2xl font-bold text-clinicalWhite">{upeStudentProgress.completedQuizzes}</div>
         </Card>
-        <Card className="bg-alertSuccess/5 border-alertSuccess/20 p-4 text-center transition">
+        <Card className="atlas-progress-liquid-card atlas-liquid-pressable p-4 text-center !bg-alertSuccess/5 !border-alertSuccess/20 hover:!border-alertSuccess/40">
           <p className="text-alertSuccess/80 text-xs font-medium mb-1">Dominadas</p>
           <div className="text-2xl font-bold text-alertSuccess">{upeStudentProgress.masteredStructures}</div>
         </Card>
-        <Card className="bg-alertWarning/5 border-alertWarning/20 p-4 text-center transition">
+        <Card className="atlas-progress-liquid-card atlas-liquid-pressable p-4 text-center !bg-alertWarning/5 !border-alertWarning/20 hover:!border-alertWarning/40">
           <p className="text-alertWarning/80 text-xs font-medium mb-1">Foco Crítico</p>
           <div className="text-2xl font-bold text-alertWarning">{upeStudentProgress.criticalStructures}</div>
         </Card>
@@ -102,7 +103,7 @@ export default function UpeStudentDashboard({ navigate }) {
             <LineIcon name="target" className="w-5 h-5 mr-2 text-alertWarning" />
             Suas Dificuldades
           </h2>
-          <Card className="bg-blackDeep/40 border-slate-800 p-0 overflow-hidden">
+          <Card className="atlas-liquid-glass p-0 overflow-hidden">
             <div className="divide-y divide-slate-800">
               {upeCriticalStructures.map((struct, idx) => (
                 <div key={idx} className="p-3 hover:bg-slate-900/50 transition">
@@ -124,7 +125,7 @@ export default function UpeStudentDashboard({ navigate }) {
               <LineIcon name="cpu" className="w-5 h-5 mr-2 text-techTeal" />
               Plano de Resgate AI
             </h2>
-            <Card className="bg-techTeal/5 border-techTeal/20 relative overflow-hidden">
+            <Card className="atlas-liquid-glass border-techTeal/20 relative overflow-hidden">
               <div className="absolute -right-4 -top-4 text-techTeal/10"><LineIcon name="cpu" className="w-24 h-24" /></div>
               <p className="text-sm text-clinicalWhite mb-4 relative z-10">
                 Você teve baixo rendimento em <strong>{upeIntelligentNextStep.error}</strong>. Siga este roteiro:
@@ -158,7 +159,7 @@ export default function UpeStudentDashboard({ navigate }) {
                 <button 
                   key={idx} 
                   onClick={() => navigate(`/viewer/${model.id}`)}
-                  className="text-left bg-slate-900/50 border border-slate-800 p-4 rounded-xl hover:border-techTeal/40 hover:bg-slate-900 transition group flex items-center justify-between">
+                  className="text-left atlas-liquid-glass atlas-liquid-pressable p-4 rounded-xl hover:border-techTeal/40 transition group flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-clinicalWhite group-hover:text-techTeal transition">{model.name}</h3>
                     <p className="text-xs text-textMuted mt-1">{model.system}</p>
@@ -176,7 +177,7 @@ export default function UpeStudentDashboard({ navigate }) {
               <LineIcon name="map" className="w-5 h-5 mr-2 text-techTeal" />
               Trilhas de Estudo
             </h2>
-            <Card className="bg-blackDeep/40 border-slate-800 p-0 overflow-hidden">
+            <Card className="atlas-liquid-glass p-0 overflow-hidden">
               <div className="divide-y divide-slate-800">
                 {upeStudyPathways.map((path, idx) => (
                   <div key={idx} className="p-4 flex items-center justify-between hover:bg-slate-900/50 transition">
@@ -213,7 +214,7 @@ export default function UpeStudentDashboard({ navigate }) {
             </h2>
             <div className="space-y-3">
               {upePendingQuizzes.map((quiz, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 bg-slate-900/50 border border-slate-800 rounded-lg hover:border-slate-700 transition">
+                <div key={idx} className="flex items-center justify-between p-3 atlas-liquid-glass atlas-liquid-pressable rounded-lg hover:border-slate-700 transition">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center">
                       <LineIcon name="file-text" className="w-4 h-4 text-techTeal" />

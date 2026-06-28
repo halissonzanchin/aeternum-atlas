@@ -14,7 +14,7 @@ function Icon({ label, children }) {
 export default function Header({ navigate }) {
   const { t } = useLanguage();
   return (
-    <header className="sticky top-0 z-30 border-b border-agedGold/20 bg-blackDeep/80 backdrop-blur-2xl">
+    <header className="sticky top-0 z-30 atlas-liquid-glass-toolbar">
       <div className="mx-auto flex min-h-[78px] w-[min(1180px,calc(100%_-_40px))] flex-col items-stretch justify-between gap-4 py-4 sm:flex-row sm:items-center sm:py-0">
         <div className="flex min-w-0 items-center gap-4">
           <button onClick={() => navigate("/")} className="flex min-w-0 items-center gap-3" aria-label="Aeternum Atlas home">

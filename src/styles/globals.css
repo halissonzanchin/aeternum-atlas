@@ -14640,3 +14640,30 @@ button.cinematic-info-card {
     -webkit-backdrop-filter: blur(12px);
   }
 }
+
+@layer components {
+  .atlas-liquid-glass-toolbar {
+    background: rgba(10, 10, 10, 0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--atlas-glass-border);
+  }
+  .atlas-app-shell-liquid {
+    background: radial-gradient(circle at 50% 0%, rgba(47, 184, 181, 0.08), transparent 40%), linear-gradient(135deg, var(--black-deep) 0%, #05070b 44%, var(--navy-deep) 100%);
+  }
+  .atlas-progress-liquid-card {
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--atlas-glass-border);
+    border-radius: var(--atlas-glass-radius);
+  }
+  .atlas-liquid-pressable {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .atlas-liquid-pressable:active {
+    transform: scale(0.97);
+  }
+  .atlas-liquid-pressable:hover {
+    background: rgba(255,255,255,0.06);
+  }
+}

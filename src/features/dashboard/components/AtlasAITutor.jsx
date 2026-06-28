@@ -10,9 +10,10 @@ export default function AtlasAITutor() {
     <>
       {/* AI Floating Panel */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-96 max-h-[80vh] bg-blackDeep/95 border border-techTeal/30 rounded-2xl shadow-2xl backdrop-blur-xl z-50 flex flex-col overflow-hidden fade-in-up">
+        <div className="fixed bottom-24 right-6 w-96 max-h-[80vh] atlas-liquid-glass atlas-liquid-glass-panel !p-0 border-techTeal/30 shadow-[0_10px_40px_rgba(0,0,0,0.8)] z-50 flex flex-col overflow-hidden fade-in-up">
+          <div className="atlas-liquid-highlight"></div>
           {/* Header */}
-          <div className="bg-slate-900/80 p-4 border-b border-slate-800 flex justify-between items-center">
+          <div className="bg-slate-900/40 p-4 border-b border-white/10 flex justify-between items-center relative z-10">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 rounded-full bg-techTeal/20 flex items-center justify-center border border-techTeal/40">
                 <LineIcon name="cpu" className="w-4 h-4 text-techTeal" />
@@ -73,12 +74,12 @@ export default function AtlasAITutor() {
           </div>
 
           {/* Quick Actions Footer */}
-          <div className="p-4 border-t border-slate-800 bg-slate-900/50">
+          <div className="p-4 border-t border-white/10 bg-black/20 relative z-10">
             <p className="text-[10px] text-textMuted uppercase mb-2 font-medium tracking-wider">Ações Rápidas (RAG)</p>
             <div className="flex flex-wrap gap-2">
-              <button className="text-xs bg-slate-800 hover:bg-slate-700 text-clinicalWhite px-3 py-1.5 rounded-full border border-slate-700 transition">Estruturas relacionadas</button>
-              <button className="text-xs bg-slate-800 hover:bg-slate-700 text-clinicalWhite px-3 py-1.5 rounded-full border border-slate-700 transition">Importância clínica</button>
-              <button className="text-xs bg-slate-800 hover:bg-slate-700 text-clinicalWhite px-3 py-1.5 rounded-full border border-slate-700 transition flex items-center"><LineIcon name="file-text" className="w-3 h-3 mr-1" /> Gerar mini simulado</button>
+              <button className="text-xs atlas-liquid-glass-button px-3 py-1.5 flex items-center">Estruturas relacionadas</button>
+              <button className="text-xs atlas-liquid-glass-button px-3 py-1.5 flex items-center">Importância clínica</button>
+              <button className="text-xs atlas-liquid-glass-button px-3 py-1.5 flex items-center"><LineIcon name="file-text" className="w-3 h-3 mr-1" /> Gerar mini simulado</button>
               <button className="text-xs bg-techTeal/10 hover:bg-techTeal/20 text-techTeal px-3 py-1.5 rounded-full border border-techTeal/30 transition flex items-center"><LineIcon name="cpu" className="w-3 h-3 mr-1" /> Criar plano de revisão</button>
             </div>
           </div>
@@ -89,7 +90,7 @@ export default function AtlasAITutor() {
       {!isOpen && (
         <button 
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 flex items-center space-x-2 bg-blackDeep border border-techTeal p-3 rounded-full shadow-[0_0_20px_rgba(45,212,191,0.2)] hover:bg-slate-900 transition group hover:scale-105">
+          className="fixed bottom-6 right-6 z-50 flex items-center space-x-2 atlas-liquid-glass p-3 !rounded-full border border-techTeal/50 shadow-[0_0_20px_rgba(45,212,191,0.2)] hover:bg-techTeal/10 transition group hover:scale-105">
           <div className="w-10 h-10 rounded-full bg-techTeal/20 flex items-center justify-center relative">
             <LineIcon name="cpu" className="w-5 h-5 text-techTeal relative z-10" />
             <div className="absolute inset-0 rounded-full border border-techTeal/50 animate-ping opacity-20"></div>

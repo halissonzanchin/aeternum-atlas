@@ -79,7 +79,7 @@ export default function Sidebar({ path, user, navigate, onLogout }) {
   const menu = menuForRole(user?.role);
 
   return (
-    <aside className="app-sidebar hidden lg:flex">
+    <aside className="app-sidebar hidden lg:flex atlas-liquid-glass !rounded-none !border-y-0 !border-l-0 !border-r-white/10">
       <button onClick={() => navigate(homeForRole(user?.role))} className="sidebar-brand sidebar-brand--stacked text-left" aria-label={`${t("common.appName")} dashboard`}>
         <AeternumLogo variant="symbol" size="md" theme="dark" />
         <span className="sidebar-brand-title">AETERNUM ATLAS</span>
