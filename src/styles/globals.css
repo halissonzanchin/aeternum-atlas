@@ -14,6 +14,19 @@
   --viewer-topbar-height: 92px;
   --viewer-side-panel-width: 360px;
   --viewer-right-rail-width: 96px;
+
+  /* Aeternum Liquid Glass Tokens */
+  --atlas-glass-bg: rgba(255, 255, 255, 0.03);
+  --atlas-glass-border: rgba(255, 255, 255, 0.08);
+  --atlas-glass-highlight: rgba(255, 255, 255, 0.12);
+  --atlas-glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+  --atlas-glass-blur: 16px;
+  --atlas-glass-radius: 20px;
+  --atlas-liquid-cyan: rgba(47, 184, 181, 0.15);
+  --atlas-liquid-teal: rgba(74, 222, 128, 0.15);
+  --atlas-liquid-violet: rgba(139, 92, 246, 0.15);
+  --atlas-liquid-gold: rgba(198, 168, 92, 0.15);
+  --atlas-glass-thickness: 1px;
 }
 
 * {
@@ -14525,5 +14538,105 @@ button.cinematic-info-card {
     backdrop-filter: blur(12px);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     writing-mode: horizontal-tb;
+  }
+}
+
+@layer components {
+  /* --- Liquid Glass Utility Classes --- */
+  .atlas-liquid-glass {
+    background: var(--atlas-glass-bg);
+    backdrop-filter: blur(var(--atlas-glass-blur));
+    -webkit-backdrop-filter: blur(var(--atlas-glass-blur));
+    border: var(--atlas-glass-thickness) solid var(--atlas-glass-border);
+    box-shadow: var(--atlas-glass-shadow);
+    border-radius: var(--atlas-glass-radius);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .atlas-liquid-highlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 1px var(--atlas-glass-highlight);
+  }
+  
+  .atlas-liquid-glass-card {
+    border-radius: var(--atlas-glass-radius);
+    padding: 1.5rem;
+  }
+  
+  .atlas-liquid-glass-widget {
+    border-radius: 24px;
+    padding: 1rem;
+  }
+  
+  .atlas-liquid-glass-modal {
+    border-radius: 28px;
+    padding: 2rem;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .atlas-liquid-glass-badge {
+    border-radius: 999px;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .atlas-liquid-glass-panel {
+    border-radius: 20px;
+    padding: 16px;
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .atlas-liquid-glass-button {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    transition: all 200ms ease;
+  }
+  .atlas-liquid-glass-button:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+}
+
+/* Reduced motion and fallback support */
+@supports not (backdrop-filter: blur(16px)) {
+  .atlas-liquid-glass {
+    background: rgba(15, 23, 42, 0.85); /* Solid fallback for older browsers */
+  }
+  .atlas-liquid-glass-modal, .atlas-liquid-glass-panel {
+    background: rgba(10, 10, 10, 0.95);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atlas-liquid-glass, .atlas-liquid-glass-modal, .atlas-liquid-glass-button {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .atlas-liquid-glass {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .atlas-liquid-glass-modal {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 }

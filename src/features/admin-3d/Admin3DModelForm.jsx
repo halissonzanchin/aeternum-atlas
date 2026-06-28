@@ -547,7 +547,8 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setLargeFileUploadError(null)}
           ></div>
-          <div className="relative bg-[#151A23]/90 border border-white/10 rounded-2xl p-6 sm:p-8 max-w-lg w-full shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col gap-4 animate-scale-up">
+          <div className="relative p-6 sm:p-8 max-w-lg w-full flex flex-col gap-4 animate-scale-up atlas-liquid-glass atlas-liquid-glass-modal">
+            <div className="atlas-liquid-highlight"></div>
             {/* Ambient Glow */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none"></div>
             

@@ -60,7 +60,8 @@ export default function ModelCard({ model, user, navigate }) {
   const thumbUrl = model.thumbnailUrl || model.coverImageUrl || model.thumbnail_url || model.cover_image_url;
 
   return (
-    <Card as="article" className="model-card grid gap-4 overflow-hidden w-full atlas-card-safe">
+    <Card as="article" className="model-card grid gap-4 w-full atlas-card-safe atlas-liquid-glass atlas-liquid-glass-card">
+      <div className="atlas-liquid-highlight"></div>
       <div className="relative min-h-[140px] md:min-h-40 overflow-hidden rounded-2xl w-full shrink-0" style={!thumbUrl ? getPlaceholderStyle(modelRouteId(model)) : {}}>
         {thumbUrl ? (
           <img src={thumbUrl} alt={localizedModel.title} className="absolute inset-0 h-full w-full object-cover" />

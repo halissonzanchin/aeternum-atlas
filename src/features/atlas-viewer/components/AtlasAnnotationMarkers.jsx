@@ -85,12 +85,13 @@ function MarkerItem({ marker, index, isSelected, handleSelectAnnotation, isAutho
           <div 
             className={`
               absolute top-full left-1/2 -translate-x-1/2 mt-3
-              w-56 sm:w-64 bg-black/75 backdrop-blur-xl rounded-xl border border-white/10
+              w-56 sm:w-64 atlas-liquid-glass rounded-xl
               shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden animate-fade-in
               flex flex-col pointer-events-auto z-[60]
             `}
             onClick={(e) => e.stopPropagation()} 
           >
+            <div className="atlas-liquid-highlight"></div>
             {/* Accent Header Line */}
             <div className={`h-1 w-full ${isDraft ? 'bg-techTeal' : 'bg-amber-500'}`} />
             
