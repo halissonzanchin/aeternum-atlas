@@ -33,6 +33,9 @@ import AtlasCertificationPage from "./features/admin-3d/certification/AtlasCerti
 
 import AtlasCertificationPipelinePage from "./features/admin-3d/certification/AtlasCertificationPipelinePage";
 import LessonSandboxPage from "./features/lessons/LessonSandboxPage";
+import LessonLibraryPage from "./features/lessons/LessonLibraryPage";
+import LessonPlayerPage from "./features/lessons/LessonPlayerPage";
+import LessonAdminReviewPage from "./features/lessons/admin/LessonAdminReviewPage";
 
 const AtlasNativeModelEditorPage = lazy(() => import('./features/admin-3d/AtlasNativeModelEditorPage'));
 
@@ -281,7 +284,12 @@ function renderPrivatePage(path, context) {
   if (path === "/academic-reports") return <SimpleModule titleKey="modules.academicReportsTitle" textKey="modules.academicReportsText" />;
   if (path === "/atlas" || path.startsWith("/atlas/")) return <Atlas path={path} navigate={navigate} />;
   if (path === "/radiology") return <SimpleModule titleKey="modules.radiologyTitle" textKey="modules.radiologyText" />;
+  if (path === "/lessons") return <LessonLibraryPage navigate={navigate} />;
   if (path === "/lessons/sandbox") return <LessonSandboxPage />;
+  if (path.startsWith("/lessons/")) {
+    const slug = path.split("/")[2];
+    if (slug) return <LessonPlayerPage lessonSlug={slug} navigate={navigate} />;
+  }
   if (path === "/videos") return <SimpleModule titleKey="modules.videosTitle" textKey="modules.videosText" />;
   if (path === "/courses") return <SimpleModule titleKey="modules.coursesTitle" textKey="modules.coursesText" />;
   if (path === "/teacher" || path === "/teacher/dashboard" || path === "/professor/dashboard") return <Teacher section="dashboard" user={user} navigate={navigate} />;
@@ -330,6 +338,13 @@ function renderPrivatePage(path, context) {
     return (
       <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
         <AtlasCertificationPage modelId={modelId} navigate={navigate} />
+      </ProtectedRoute>
+    );
+  }
+  if (path === "/super-admin/lessons") {
+    return (
+      <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
+        <LessonAdminReviewPage navigate={navigate} />
       </ProtectedRoute>
     );
   }
