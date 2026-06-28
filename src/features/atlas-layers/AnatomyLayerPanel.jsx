@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Card from '../../components/Card/Card';
 import { anatomyLayerService } from './anatomyLayerService';
 
-export default function AnatomyLayerPanel() {
+export default function AnatomyLayerPanel({ isSketchfabMode }) {
   const [layers, setLayers] = useState([]);
 
   useEffect(() => {
@@ -49,7 +49,12 @@ export default function AnatomyLayerPanel() {
         </div>
 
         <div className="flex flex-col gap-2">
-          {layers.map(layer => (
+          {isSketchfabMode ? (
+            <div className="text-xs text-amber-400/90 leading-relaxed p-2 bg-amber-500/10 border border-amber-500/20 rounded-md">
+              <p className="font-bold mb-1">Sketchfab Mode Ativo</p>
+              <p>O controle de camadas anatômicas segmentadas requer o Atlas Native Engine para isolar as malhas originais.</p>
+            </div>
+          ) : layers.map(layer => (
             <div key={layer.id} className="flex items-center justify-between group">
               <button 
                 onClick={() => handleToggleLayer(layer.id)}

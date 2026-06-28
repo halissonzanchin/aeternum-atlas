@@ -4,7 +4,7 @@ import AtlasMarkerCard from './AtlasMarkerCard';
 import { useAtlasViewer } from '../../context/AtlasViewerContext';
 import { atlasViewerCommands } from '../../ai/atlasViewerCommands';
 
-export default function AtlasMarkerPanel({ markers = [], activeMarkerId, onSelectMarker, isOpen, onClose }) {
+export default function AtlasMarkerPanel({ markers = [], activeMarkerId, onSelectMarker, isOpen, onClose, isSketchfabMode }) {
   const { isAuthoringMode, draftMarkers } = useAtlasViewer();
 
   // Combine official markers and draft markers
@@ -79,18 +79,32 @@ export default function AtlasMarkerPanel({ markers = [], activeMarkerId, onSelec
       </div>
 
       {/* Stats/Info */}
-      <div className="px-5 py-3 bg-white/[0.02] border-b border-white/5 shrink-0 flex items-center justify-between">
-        <span className="text-xs text-slate-400">{allMarkers.length} marcadores</span>
-        {activeMarkerId && (
-          <span className="text-[10px] font-bold uppercase tracking-wider text-techTeal bg-techTeal/10 px-2 py-1 rounded">
-            Selecionado
-          </span>
-        )}
-      </div>
+      {!isSketchfabMode && (
+        <div className="px-5 py-3 bg-white/[0.02] border-b border-white/5 shrink-0 flex items-center justify-between">
+          <span className="text-xs text-slate-400">{allMarkers.length} marcadores</span>
+          {activeMarkerId && (
+            <span className="text-[10px] font-bold uppercase tracking-wider text-techTeal bg-techTeal/10 px-2 py-1 rounded">
+              Selecionado
+            </span>
+          )}
+        </div>
+      )}
 
       {/* List */}
       <div className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-2 relative">
-        {allMarkers.length === 0 ? (
+        {isSketchfabMode ? (
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+            <div className="w-16 h-16 rounded-full bg-techTeal/10 border border-techTeal/30 flex items-center justify-center mb-4 backdrop-blur-md shadow-2xl">
+              <LineIcon name="bookmark" className="w-6 h-6 text-techTeal" />
+            </div>
+            <h4 className="text-sm font-bold text-slate-200 mb-2 uppercase tracking-widest leading-relaxed">Modo Sketchfab Ativo</h4>
+            <div className="text-[12px] text-slate-400 space-y-3 leading-relaxed">
+              <p>Marcadores nativos da Aeternum estão disponíveis apenas no Atlas Native Engine.</p>
+              <p>As anotações visíveis atualmente pertencem diretamente ao <strong>Sketchfab Embed</strong>.</p>
+              <p className="text-techTeal/80 mt-2">Use <code className="bg-white/5 px-1 rounded">?engine=native</code> na URL para acessar a Engine Nativa e nossos marcadores autorais.</p>
+            </div>
+          </div>
+        ) : allMarkers.length === 0 ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
             <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 backdrop-blur-md shadow-2xl">
               <LineIcon name="bookmark" className="w-6 h-6 text-slate-500" />
@@ -101,13 +115,13 @@ export default function AtlasMarkerPanel({ markers = [], activeMarkerId, onSelec
             </p>
           </div>
         ) : (
-          allMarkers.map((marker, index) => (
-            <AtlasMarkerCard
-              key={marker.id || marker.annotationId}
+          allMarkers.map((marker, idx) => (
+            <AtlasMarkerCard 
+              key={marker.annotationId || marker.id || idx}
               marker={marker}
-              index={index}
-              isActive={activeMarkerId === marker.id || activeMarkerId === marker.annotationId}
-              onSelect={onSelectMarker}
+              index={idx}
+              isActive={(marker.annotationId && marker.annotationId === activeMarkerId) || marker.id === activeMarkerId}
+              onSelect={() => onSelectMarker(marker)}
             />
           ))
         )}

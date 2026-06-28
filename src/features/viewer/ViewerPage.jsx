@@ -309,10 +309,10 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
                 model={modelState.model}
               />
             </div>
-            {(!isSketchfabMode && (modelState.model.isSegmented || modelState.model.metadata?.segmented)) && (
-              <AnatomyLayerPanel />
+            {((modelState.model.isSegmented || modelState.model.metadata?.segmented)) && (
+              <AnatomyLayerPanel isSketchfabMode={isSketchfabMode} />
             )}
-            {!isSketchfabMode && <AtlasAIViewerPanel />}
+            <AtlasAIViewerPanel isSketchfabMode={isSketchfabMode} />
           </>
           <ViewerControls />
         </main>

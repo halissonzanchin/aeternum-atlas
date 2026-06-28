@@ -9,13 +9,15 @@ import AtlasAIImmersiveOverlay from './AtlasAIImmersiveOverlay';
 import { atlasAITutorService } from './atlasAITutorService';
 import { actionDictionary, executeTutorAction } from './atlasAITutorActions';
 
-export default function AtlasAIViewerPanel() {
+export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       id: 'welcome',
       sender: 'ai',
-      text: 'Olá, sou o Aeternum AI Tutor. Posso te ajudar a estudar este modelo, explicar marcadores anatômicos, orientar o uso do viewer e montar um caminho de revisão.'
+      text: isSketchfabMode 
+        ? 'Este modelo está sendo exibido via Sketchfab Embed temporário. O Tutor IA permanece disponível para orientação anatômica e estudo.' 
+        : 'Olá, sou o Aeternum AI Tutor. Posso te ajudar a estudar este modelo, explicar marcadores anatômicos, orientar o uso do viewer e montar um caminho de revisão.'
     }
   ]);
   const [inputValue, setInputValue] = useState('');

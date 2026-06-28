@@ -334,20 +334,15 @@ export default function SketchfabApiViewer({
   }, [annotationTooltipsHidden, modelUid, status]);
 
   return (
-    <section className="aa-viewer-shell">
-      <header className="aa-viewer-header">
-        <div>
-          <span className="aa-viewer-kicker">{t("viewer.academicViewer")}</span>
-          <h2>{viewerTitle}</h2>
-        </div>
-
-        <div className="aa-viewer-status">
-          <span className={`aa-status-dot aa-status-${status}`} />
+    <section className="aa-viewer-shell h-full w-full relative">
+      <div className="absolute top-4 right-4 z-50 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-2 pointer-events-none">
+        <span className={`w-2 h-2 rounded-full ${status === 'ready' ? 'bg-emerald-400' : status === 'error' ? 'bg-red-400' : 'bg-amber-400 animate-pulse'}`} />
+        <span className="text-xs font-medium text-white/90">
           {status === "loading" && t("viewer.loadingModel")}
           {status === "ready" && t("viewer.sketchfabConnected")}
           {status === "error" && (fallbackMode ? t("viewer.fallbackActive") : t("viewer.viewerError"))}
-        </div>
-      </header>
+        </span>
+      </div>
 
       <div className="aa-sketchfab-stage">
         {status === "loading" && (
@@ -384,7 +379,7 @@ export default function SketchfabApiViewer({
           execution-while-out-of-viewport="true"
           execution-while-not-rendered="true"
           web-share="true"
-          className="aa-sketchfab-iframe"
+          className="w-full h-full border-none absolute inset-0"
         />
         {children}
       </div>

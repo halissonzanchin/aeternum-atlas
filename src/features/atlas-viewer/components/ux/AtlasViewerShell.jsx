@@ -137,15 +137,14 @@ function AtlasViewerShellContent({
       </div>
 
       {/* Marker Panel Drawer */}
-      {!isSketchfabMode && (
-        <AtlasMarkerPanel 
-          markers={markers} 
-          activeMarkerId={activeMarkerId}
-          onSelectMarker={handleSelectMarker}
-          isOpen={markerOpen}
-          onClose={() => setMarkerOpen(false)}
-        />
-      )}
+      <AtlasMarkerPanel 
+        markers={markers} 
+        activeMarkerId={activeMarkerId}
+        onSelectMarker={handleSelectMarker}
+        isOpen={markerOpen}
+        onClose={() => setMarkerOpen(false)}
+        isSketchfabMode={isSketchfabMode}
+      />
       
       {/* Authoring Panel (conditional inside) */}
       {!isSketchfabMode && <AtlasAuthoringPanel />}
