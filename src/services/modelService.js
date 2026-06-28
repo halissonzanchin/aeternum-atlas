@@ -164,7 +164,7 @@ export function mapSupabaseModelToUIModel(record) {
   const asset = record.atlas_model_assets?.[0];
   const localModel = findLocalModel(record.slug) || findLocalModel(record.id);
   
-  return normalizeViewerModelAsset({
+  const uiModel = normalizeViewerModelAsset({
     id: record.id || record.slug || "",
     slug: record.slug || record.id || "",
     title: sanitizeText(record.title || "Modelo 3D"),
@@ -194,6 +194,23 @@ export function mapSupabaseModelToUIModel(record) {
     deletedAt: record.deleted_at || null,
     modelLodManifest: localModel?.modelLodManifest || undefined
   });
+
+  if (localModel && (localModel.slug === 'corte-sagital-cranio-humano-superficial' || localModel.id === 'corte-sagital-cranio-humano-superficial')) {
+    return {
+      ...uiModel,
+      viewerType: localModel.viewerType || uiModel.viewerType,
+      viewerEngine: localModel.viewerEngine,
+      defaultViewerEngine: localModel.defaultViewerEngine,
+      embedProvider: localModel.embedProvider,
+      embedUrl: localModel.embedUrl,
+      externalViewerLabel: localModel.externalViewerLabel,
+      nativeEngineAvailable: localModel.nativeEngineAvailable,
+      nativeFallbackAvailable: localModel.nativeFallbackAvailable,
+      modelLodManifest: localModel.modelLodManifest
+    };
+  }
+
+  return uiModel;
 }
 
 async function loadModelsQuery(user, options = {}) {

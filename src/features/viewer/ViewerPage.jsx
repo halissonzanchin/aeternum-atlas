@@ -113,7 +113,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
   const progressState = useViewerProgress(modelState.model, user, setToast);
   const quizState = useViewerQuiz(modelState.model, user, annotationsState, setToast, setLeftOpen, nativeMarkers);
 
-  const requestedEngine = useMemo(() => {
+  const engineParam = useMemo(() => {
     if (typeof window === "undefined") return null;
     return new URLSearchParams(window.location.search).get("engine");
   }, []);
@@ -257,7 +257,24 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     handleViewerAction
   };
 
-  const isSketchfabMode = requestedEngine === "sketchfab" || (!requestedEngine && modelState.model?.viewerEngine === "hybrid" && modelState.model?.embedUrl);
+  const hasSketchfabEmbed = 
+    modelState.model?.embedProvider === "sketchfab" && 
+    typeof modelState.model?.embedUrl === "string" && 
+    modelState.model.embedUrl.includes("sketchfab.com/models/") && 
+    modelState.model.embedUrl.includes("/embed");
+
+  const shouldUseSketchfab = 
+    hasSketchfabEmbed && 
+    engineParam !== "native" && 
+    (
+      engineParam === "sketchfab" || 
+      modelState.model?.defaultViewerEngine === "sketchfab" || 
+      modelState.model?.viewerEngine === "sketchfab" ||
+      modelState.model?.viewerType === "sketchfab" ||
+      modelState.model?.viewerEngine === "hybrid"
+    );
+
+  const isSketchfabMode = shouldUseSketchfab;
 
   return (
     <ViewerContext.Provider value={contextValue}>
