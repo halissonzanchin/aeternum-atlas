@@ -1040,7 +1040,7 @@ export const pt = {
     resetVisual: "Reset visual",
     openFullscreen: "Tela cheia",
     loadingModel: "Carregando modelo",
-    sketchfabConnected: "Sketchfab conectado",
+    sketchfabConnected: "Modelo conectado",
     fallbackActive: "Fallback iframe ativo",
     viewerError: "Erro no viewer",
     preparing3dExperience: "Preparando experiência 3D...",

@@ -166,6 +166,8 @@ export default function SketchfabApiViewer({
           ui_help: 0,
           ui_fullscreen: 0,
           ui_settings: 0,
+          ui_vr: 0,
+          ui_inspector: 0,
           ui_stop: 0,
           ui_watermark: 0,
           ui_watermark_link: 0,

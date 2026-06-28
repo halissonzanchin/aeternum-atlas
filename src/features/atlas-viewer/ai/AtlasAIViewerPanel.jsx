@@ -230,7 +230,9 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
         </div>
       )}
 
-      <div className="absolute bottom-[env(safe-area-inset-bottom,16px)] sm:bottom-6 right-2 sm:right-6 z-40 flex flex-col items-end gap-2 sm:gap-3 fade-in-up pointer-events-none max-w-full">
+      <div className={`fixed z-[60] transition-all duration-500 ease-in-out pointer-events-none flex flex-col items-end gap-3 ${
+        isOpen ? 'bottom-36 right-6 sm:bottom-36 sm:right-10' : 'bottom-32 right-6 sm:bottom-32 sm:right-6'
+      }`}>
         {isOpen && (
           <Card className="w-[calc(100vw-16px)] sm:w-96 h-[75dvh] sm:h-auto sm:max-h-[70dvh] flex flex-col bg-blackDeep/95 backdrop-blur-xl border border-techTeal/30 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_20px_rgba(35,210,179,0.1)] animate-in slide-in-from-bottom-5 mb-1 sm:mb-2 pointer-events-auto rounded-2xl overflow-hidden shrink-0">
             

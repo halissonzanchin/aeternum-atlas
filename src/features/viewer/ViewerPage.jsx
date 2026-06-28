@@ -62,9 +62,9 @@ function TopViewerBar({ model, structure, navigate, onToggleLeft, isSketchfabMod
       <div className="flex items-center gap-2">
         <div className="hidden md:block"><LanguageSelector compact /></div>
         {isSketchfabMode ? (
-          <span className="rounded-full border border-orange-500/30 bg-orange-500/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-orange-400 atlas-nowrap-label">
-            <span className="md:hidden">SKETCHFAB</span>
-            <span className="hidden md:inline">SKETCHFAB EMBED / FALLBACK TEMPORÁRIO</span>
+          <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-blue-400 atlas-nowrap-label">
+            <span className="md:hidden">MODELO</span>
+            <span className="hidden md:inline">VISUALIZAÇÃO CONECTADA</span>
           </span>
         ) : (
           <span className="rounded-full border border-techTeal/30 bg-techTeal/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-techTeal atlas-nowrap-label">
