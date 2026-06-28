@@ -14488,4 +14488,42 @@ button.cinematic-info-card {
     white-space: nowrap;
     min-width: 0;
   }
+
+  .atlas-viewer-state {
+    writing-mode: horizontal-tb;
+    word-break: normal;
+    overflow-wrap: normal;
+    white-space: normal;
+    min-width: 280px;
+    max-width: 90vw;
+    width: max-content;
+    text-align: center;
+  }
+
+  .atlas-viewer-state-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  .atlas-viewer-state-description {
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .atlas-viewer-error-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background-color: rgba(127, 29, 29, 0.9);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    writing-mode: horizontal-tb;
+  }
 }

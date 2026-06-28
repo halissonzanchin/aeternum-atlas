@@ -24,10 +24,10 @@ import { detectAtlasDeviceProfile } from '../../utils/deviceDetection';
 function LoaderFallback() {
   return (
     <Html center>
-      <div className="flex flex-col items-center justify-center p-6 bg-blackDeep/60 rounded-2xl backdrop-blur-xl border border-white/10 w-auto min-w-[200px] shadow-2xl">
+      <div className="flex flex-col items-center justify-center p-6 bg-blackDeep/60 rounded-2xl backdrop-blur-xl border border-white/10 shadow-2xl atlas-viewer-state">
         <div className="w-10 h-10 rounded-full border-t-2 border-r-2 border-techTeal animate-spin mb-4 shadow-[0_0_15px_rgba(71,184,181,0.5)]"></div>
-        <p className="text-sm font-bold text-techTeal uppercase tracking-widest text-center whitespace-nowrap">CARREGANDO</p>
-        <p className="text-[10px] text-white/50 uppercase tracking-widest mt-1 text-center whitespace-nowrap">Atlas Engine 3D</p>
+        <p className="text-techTeal atlas-viewer-state-title">CARREGANDO</p>
+        <p className="text-white/50 atlas-viewer-state-description mt-1">Atlas Engine 3D</p>
       </div>
     </Html>
   );
@@ -36,12 +36,12 @@ function LoaderFallback() {
 function UnsupportedFormatFallback({ format }) {
   return (
     <Html center>
-      <div className="flex flex-col items-center justify-center p-6 bg-red-900/80 rounded-xl backdrop-blur-md border border-red-500/50 w-64">
+      <div className="atlas-viewer-error-card atlas-viewer-state">
         <svg className="w-10 h-10 text-red-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
         </svg>
-        <p className="text-sm font-bold text-white uppercase tracking-widest text-center">Formato Inválido</p>
-        <p className="text-xs text-white/70 text-center mt-2">O formato "{format}" não é suportado pelo Atlas Engine.</p>
+        <p className="text-white atlas-viewer-state-title mb-2">Formato Inválido</p>
+        <p className="text-white/70 atlas-viewer-state-description">O formato "{format}" não é suportado pelo Atlas Engine.</p>
       </div>
     </Html>
   );
