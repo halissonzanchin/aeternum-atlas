@@ -98,7 +98,7 @@ export default function AtlasQuizPanel({ targetId }) {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 custom-scrollbar animate-fade-in flex flex-col">
+    <div className="flex-1 overflow-y-auto p-6 custom-scrollbar animate-fade-in flex flex-col atlas-quiz-liquid-shell relative">
       
       {/* Indicador de Progresso */}
       <div className="flex justify-between items-center mb-6">
@@ -108,7 +108,7 @@ export default function AtlasQuizPanel({ targetId }) {
               key={idx} 
               className={`h-1.5 w-6 rounded-full transition-colors ${
                 idx === currentQuizIndex 
-                  ? 'bg-teal-400' 
+                  ? 'bg-teal-400 atlas-quiz-progress-liquid' 
                   : idx < currentQuizIndex 
                     ? 'bg-teal-400/30' 
                     : 'bg-white/10'
@@ -124,17 +124,18 @@ export default function AtlasQuizPanel({ targetId }) {
       <div className="flex-1">
         
         {/* Cabeçalho da Questão */}
-        <div className="mb-6">
-          <div className="flex items-center gap-2 mb-2">
+        <div className="mb-6 atlas-liquid-glass atlas-liquid-glass-card p-5 relative overflow-hidden">
+          <div className="atlas-liquid-highlight"></div>
+          <div className="flex items-center gap-2 mb-3 relative z-10">
             <span className={`text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded ${
-              currentQuiz.difficultyLevel === 'Fácil' ? 'bg-green-500/20 text-green-400' :
-              currentQuiz.difficultyLevel === 'Difícil' ? 'bg-red-500/20 text-red-400' :
-              'bg-amber-500/20 text-amber-400'
+              currentQuiz.difficultyLevel === 'Fácil' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
+              currentQuiz.difficultyLevel === 'Difícil' ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
+              'bg-amber-500/20 text-amber-400 border border-amber-500/30'
             }`}>
               {currentQuiz.difficultyLevel}
             </span>
           </div>
-          <h3 className="text-lg font-bold text-white leading-snug">
+          <h3 className="text-lg font-bold text-white leading-snug relative z-10">
             {currentQuiz.question}
           </h3>
         </div>
@@ -145,36 +146,40 @@ export default function AtlasQuizPanel({ targetId }) {
             const isSelected = selectedOption === opt.id;
             const isCorrectAnswer = opt.id === currentQuiz.correctAnswer;
             
-            let bgClass = 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/30 text-white cursor-pointer';
+            let bgClass = 'atlas-quiz-answer-option text-white cursor-pointer';
+            let iconState = null;
             
             if (isAnswered) {
               if (isCorrectAnswer) {
-                bgClass = 'bg-green-500/20 border-green-500/50 text-green-100 cursor-default';
+                bgClass = 'atlas-quiz-answer-option atlas-quiz-answer-correct text-green-100 cursor-default atlas-quiz-answer-disabled';
+                iconState = 'correct';
               } else if (isSelected && !isCorrectAnswer) {
-                bgClass = 'bg-red-500/20 border-red-500/50 text-red-100 cursor-default';
+                bgClass = 'atlas-quiz-answer-option atlas-quiz-answer-incorrect text-red-100 cursor-default atlas-quiz-answer-disabled';
+                iconState = 'incorrect';
               } else {
-                bgClass = 'bg-white/5 border-white/5 text-textMuted cursor-default opacity-50';
+                bgClass = 'atlas-quiz-answer-option text-textMuted cursor-default atlas-quiz-answer-disabled';
               }
             } else if (isSelected) {
-              bgClass = 'bg-teal-500/20 border-teal-500/50 text-teal-100 cursor-pointer';
+              bgClass = 'atlas-quiz-answer-option atlas-quiz-answer-selected text-teal-100 cursor-pointer';
             }
 
             return (
-              <div 
+              <button 
                 key={opt.id}
                 onClick={() => handleSelectOption(opt.id)}
-                className={`p-4 rounded-xl border transition-all duration-300 flex items-start gap-3 ${bgClass}`}
+                disabled={isAnswered}
+                className={`w-full p-4 rounded-xl flex items-start gap-3 text-left ${bgClass}`}
               >
                 <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
-                  isAnswered && isCorrectAnswer ? 'bg-green-500 border-green-400' :
-                  isAnswered && isSelected && !isCorrectAnswer ? 'bg-red-500 border-red-400' :
+                  iconState === 'correct' ? 'bg-green-500 border-green-400' :
+                  iconState === 'incorrect' ? 'bg-red-500 border-red-400' :
                   isSelected && !isAnswered ? 'border-teal-400 bg-teal-400/20' : 'border-white/30'
                 }`}>
-                  {isAnswered && isCorrectAnswer && <LineIcon name="check" className="w-3 h-3 text-black" />}
-                  {isAnswered && isSelected && !isCorrectAnswer && <LineIcon name="x" className="w-3 h-3 text-black" />}
+                  {iconState === 'correct' && <LineIcon name="check" className="w-3 h-3 text-black" />}
+                  {iconState === 'incorrect' && <LineIcon name="x" className="w-3 h-3 text-black" />}
                 </div>
                 <span className="text-sm leading-relaxed">{opt.text}</span>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -182,12 +187,13 @@ export default function AtlasQuizPanel({ targetId }) {
         {/* Feedback / Explicação */}
         {isAnswered && (
           <div className="animate-fade-in-up mb-6">
-            <div className={`p-4 rounded-xl border ${selectedOption === currentQuiz.correctAnswer ? 'bg-green-500/10 border-green-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
-              <h4 className={`text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2 ${selectedOption === currentQuiz.correctAnswer ? 'text-green-400' : 'text-red-400'}`}>
+            <div className={`p-5 rounded-xl border atlas-liquid-glass relative overflow-hidden ${selectedOption === currentQuiz.correctAnswer ? 'bg-green-500/10 border-green-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
+              <div className="atlas-liquid-highlight"></div>
+              <h4 className={`text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2 relative z-10 ${selectedOption === currentQuiz.correctAnswer ? 'text-green-400' : 'text-red-400'}`}>
                 <LineIcon name={selectedOption === currentQuiz.correctAnswer ? "check-circle" : "alert-triangle"} className="w-4 h-4" />
                 {selectedOption === currentQuiz.correctAnswer ? 'Correto!' : 'Incorreto'}
               </h4>
-              <p className="text-sm text-clinicalWhite leading-relaxed">
+              <p className="text-sm text-clinicalWhite leading-relaxed relative z-10">
                 {currentQuiz.explanation}
               </p>
             </div>
@@ -195,40 +201,40 @@ export default function AtlasQuizPanel({ targetId }) {
         )}
       </div>
 
-      {/* Ações / Footer */}
       <div className="pt-4 border-t border-white/10 shrink-0">
         {!isAnswered ? (
           <button 
             onClick={handleSubmit}
             disabled={!selectedOption}
-            className="w-full py-3 bg-teal-500 hover:bg-teal-400 disabled:bg-white/5 disabled:text-textMuted text-black font-bold rounded-xl transition-colors disabled:cursor-not-allowed"
+            className="w-full py-3 atlas-liquid-glass-button bg-teal-500 hover:bg-teal-400 disabled:opacity-50 disabled:bg-white/5 disabled:text-textMuted text-black font-bold rounded-xl transition-colors disabled:cursor-not-allowed"
           >
             Confirmar Resposta
           </button>
         ) : !isLastQuestion ? (
           <button 
             onClick={handleNext}
-            className="w-full py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-colors"
+            className="w-full py-3 atlas-liquid-glass-button font-bold rounded-xl"
           >
             Próxima Questão
           </button>
         ) : (
-          <div className="p-4 bg-premiumDark rounded-xl border border-white/10 text-center animate-fade-in">
-            <h4 className="text-xs font-bold text-teal-400 uppercase tracking-widest mb-2">Quiz Concluído</h4>
-            <div className="flex justify-center gap-6 mb-4">
+          <div className="p-5 atlas-liquid-glass atlas-liquid-glass-card rounded-xl relative overflow-hidden text-center animate-fade-in">
+            <div className="atlas-liquid-highlight"></div>
+            <h4 className="text-xs font-bold text-teal-400 uppercase tracking-widest mb-4 relative z-10">Simulado Concluído</h4>
+            <div className="flex justify-center gap-6 mb-2 relative z-10">
               <div className="text-center">
-                <div className="text-2xl font-black text-green-400">{sessionStats.correct}</div>
-                <div className="text-[10px] text-textMuted uppercase">Acertos</div>
+                <div className="text-3xl font-black text-green-400 drop-shadow-md">{sessionStats.correct}</div>
+                <div className="text-[10px] text-textMuted uppercase mt-1">Acertos</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-black text-red-400">{sessionStats.incorrect}</div>
-                <div className="text-[10px] text-textMuted uppercase">Erros</div>
+                <div className="text-3xl font-black text-red-400 drop-shadow-md">{sessionStats.incorrect}</div>
+                <div className="text-[10px] text-textMuted uppercase mt-1">Erros</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-black text-white">
+                <div className="text-3xl font-black text-white drop-shadow-md">
                   {Math.round((sessionStats.correct / quizzes.length) * 100)}%
                 </div>
-                <div className="text-[10px] text-textMuted uppercase">Precisão</div>
+                <div className="text-[10px] text-textMuted uppercase mt-1">Precisão</div>
               </div>
             </div>
           </div>
