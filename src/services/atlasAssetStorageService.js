@@ -15,8 +15,8 @@ const BUCKET_NAME = 'atlas-model-assets';
 
 export const AssetUploadConstants = {
   MAX_LOCAL_TEST_UPLOAD_MB: 100,
-  MAX_CLOUD_ASSET_UPLOAD_MB: 2048,
-  LARGE_ASSET_THRESHOLD_MB: 100
+  MAX_CLOUD_ASSET_UPLOAD_MB: 50, // Limite conservador do bucket padrão (Free Tier Supabase)
+  LARGE_ASSET_THRESHOLD_MB: 6    // Arquivos acima de 6MB exigem/recomendam TUS Resumable Upload
 };
 
 export const TusUploadState = {

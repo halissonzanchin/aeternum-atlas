@@ -11,6 +11,7 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
   const [uploadStatus, setUploadStatus] = useState('');
   const [showOverrideModal, setShowOverrideModal] = useState(false);
   const [overrideText, setOverrideText] = useState('');
+  const [largeFileUploadError, setLargeFileUploadError] = useState(null);
   
   useEffect(() => {
     const handleGlobalDragOver = (e) => {
@@ -82,13 +83,23 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
     const fileSizeMB = file.size / (1024 * 1024);
 
     if (fileSizeMB > AssetUploadConstants.MAX_CLOUD_ASSET_UPLOAD_MB) {
-      alert("Arquivo muito grande. O upload de arquivos grandes requer suporte a TUS e limite configurado no Supabase.");
-      setUploadStatus('Arquivo acima de 2GB');
+      setLargeFileUploadError({
+        title: 'Limite do Bucket Excedido',
+        message: `O arquivo selecionado (${fileSizeMB.toFixed(2)} MB) excede o limite atual do bucket padrão.`,
+        instruction: 'Ajuste o limite do Supabase Storage ou use o pipeline HQ externo para arquivos pesados.'
+      });
+      setUploadStatus('Arquivo acima do limite');
       return;
     }
 
     if (fileSizeMB > AssetUploadConstants.LARGE_ASSET_THRESHOLD_MB) {
-      alert("Arquivo grande detectado. Upload em nuvem obrigatório. Preview local desativado para evitar travamento.");
+      setLargeFileUploadError({
+        title: 'Upload Resumível Necessário',
+        message: `O arquivo selecionado (${fileSizeMB.toFixed(2)} MB) é grande e exige a tecnologia TUS (Upload Resumível) para garantir estabilidade.`,
+        instruction: 'A infraestrutura para TUS está documentada na Fase 8.14B e será habilitada em breve. Para já, otimize o arquivo no Pipeline.'
+      });
+      setUploadStatus('Requer TUS upload');
+      return;
     }
 
     const safeModelId = model.id || model.slug || `temp-${Date.now()}`;
@@ -126,9 +137,17 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
       const detailedStatus = `Erro no upload: ${errorMessage} (Bucket: atlas-model-assets)`;
       
       if (fileSizeMB > AssetUploadConstants.LARGE_ASSET_THRESHOLD_MB) {
-        alert(`Este arquivo requer upload resumível/TUS. Pipeline preparado, integração TUS pendente.\nDetalhe do erro: ${errorMessage}`);
+        setLargeFileUploadError({
+          title: 'Falha no Upload TUS',
+          message: `Ocorreu um erro no pipeline de upload resumível: ${errorMessage}`,
+          instruction: 'Verifique se o bucket está configurado para suportar arquivos grandes no Supabase.'
+        });
       } else {
-        alert(`Erro real retornado pelo Supabase:\n${errorMessage}\n\nVerifique as permissões do bucket 'atlas-model-assets' e o status HTTP.`);
+        setLargeFileUploadError({
+          title: 'Erro de Upload (Supabase)',
+          message: `A API retornou o seguinte erro: ${errorMessage}`,
+          instruction: "Verifique as permissões do bucket 'atlas-model-assets' e os limites de payload."
+        });
       }
       setUploadStatus(detailedStatus);
     } finally {
@@ -466,6 +485,54 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
           </Card>
         </div>
       )}
+      {/* Renderização do Error Modal para Large Files (Glassmorphism Premium) */}
+      {largeFileUploadError && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={() => setLargeFileUploadError(null)}
+          ></div>
+          <div className="relative bg-[#151A23]/90 border border-white/10 rounded-2xl p-6 sm:p-8 max-w-lg w-full shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col gap-4 animate-scale-up">
+            {/* Ambient Glow */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none"></div>
+            
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center shrink-0">
+                <svg className="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-clinicalWhite">
+                {largeFileUploadError.title}
+              </h3>
+            </div>
+            
+            <p className="text-slate-300 text-sm leading-relaxed mt-2">
+              {largeFileUploadError.message}
+            </p>
+            
+            <div className="bg-black/50 border border-white/5 rounded-lg p-4 mt-2">
+              <p className="text-amber-500 text-xs font-semibold uppercase tracking-widest mb-1">
+                Ação Sugerida
+              </p>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                {largeFileUploadError.instruction}
+              </p>
+            </div>
+            
+            <div className="mt-4 flex justify-end">
+              <Button 
+                variant="primary" 
+                onClick={() => setLargeFileUploadError(null)}
+                className="bg-amber-500 hover:bg-amber-400 text-black font-bold"
+              >
+                Entendi
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </Card>
   );
 }
