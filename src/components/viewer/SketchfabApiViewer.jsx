@@ -160,11 +160,15 @@ export default function SketchfabApiViewer({
           autostart: 1,
           preload: 1,
           ui_infos: 0,
-          ui_controls: 1,
+          ui_controls: 0,
+          ui_annotations: 0,
+          ui_hint: 0,
+          ui_help: 0,
+          ui_fullscreen: 0,
+          ui_settings: 0,
           ui_stop: 0,
           ui_watermark: 0,
           ui_watermark_link: 0,
-          ui_annotations: 1,
           annotation: 0,
           success(api) {
             apiInitialized = true;

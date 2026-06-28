@@ -93,18 +93,22 @@ export default function AtlasMarkerPanel({ markers = [], activeMarkerId, onSelec
       {/* List */}
       <div className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-2 relative">
         {isSketchfabMode ? (
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-            <div className="w-16 h-16 rounded-full bg-techTeal/10 border border-techTeal/30 flex items-center justify-center mb-4 backdrop-blur-md shadow-2xl">
-              <LineIcon name="bookmark" className="w-6 h-6 text-techTeal" />
+          <div className="p-4 flex flex-col items-center justify-center h-full text-center fade-in-up">
+            <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-4">
+              <LineIcon name="bookmark" className="w-6 h-6 text-amber-500" />
             </div>
-            <h4 className="text-sm font-bold text-slate-200 mb-2 uppercase tracking-widest leading-relaxed">Modo Sketchfab Ativo</h4>
-            <div className="text-[12px] text-slate-400 space-y-3 leading-relaxed">
-              <p>Marcadores nativos da Aeternum estão disponíveis apenas no Atlas Native Engine.</p>
-              <p>As anotações visíveis atualmente pertencem diretamente ao <strong>Sketchfab Embed</strong>.</p>
-              <p className="text-techTeal/80 mt-2">Use <code className="bg-white/5 px-1 rounded">?engine=native</code> na URL para acessar a Engine Nativa e nossos marcadores autorais.</p>
-            </div>
+            <h3 className="text-sm font-bold text-amber-400 mb-2">Modo Sketchfab Ativo</h3>
+            <p className="text-xs text-white/60 mb-6 max-w-[200px] leading-relaxed">
+              Este modelo está sendo exibido via Sketchfab Embed. As anotações nativas da Aeternum ficam disponíveis no Atlas Native Engine. O painel permanece ativo para estudo, revisão e organização das estruturas.
+            </p>
+            <a 
+              href="?engine=native" 
+              className="px-4 py-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 rounded-lg text-amber-400 text-xs font-bold uppercase tracking-wider transition-colors"
+            >
+              Forçar Native Engine
+            </a>
           </div>
-        ) : allMarkers.length === 0 ? (
+        ) : (allMarkers.length === 0 ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
             <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 backdrop-blur-md shadow-2xl">
               <LineIcon name="bookmark" className="w-6 h-6 text-slate-500" />
@@ -124,7 +128,7 @@ export default function AtlasMarkerPanel({ markers = [], activeMarkerId, onSelec
               onSelect={() => onSelectMarker(marker)}
             />
           ))
-        )}
+        ))}
       </div>
     </div>
   );

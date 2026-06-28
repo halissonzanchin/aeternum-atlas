@@ -51,7 +51,9 @@ export default function ViewerControls() {
     setSettingsOpen,
     helpOpen,
     setHelpOpen,
-    handleViewerAction
+    handleViewerAction,
+    setLeftOpen,
+    setMarkerOpen
   } = useViewer();
 
   function handleRightAction(action) {
@@ -61,7 +63,19 @@ export default function ViewerControls() {
       library: () => navigate("/models"),
       settings: () => setSettingsOpen(true),
       guide: () => handleViewerAction("Ver guia de estudo"),
-      help: () => setHelpOpen(true)
+      help: () => setHelpOpen(true),
+      painel: () => setLeftOpen?.(v => !v) || document.querySelector('.viewer-topbar .viewer-soft-button')?.click(),
+      marcadores: () => setMarkerOpen?.(v => !v) || handleViewerAction("Marcadores"),
+      simulado: () => handleViewerAction("Simulado Teórico"),
+      tutor: () => document.querySelector('.aeternum-ai-orb-root')?.click(),
+      camadas: () => {
+         // Se não estiver visível (não for segmentado), exibe um aviso
+         if (!structures || structures.length === 0) {
+            setToast("Camadas nativas disponíveis apenas no Atlas Native Engine.");
+         } else {
+            setToast("Painel de camadas focado.");
+         }
+      }
     };
     actions[action]?.();
   }
