@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
+import { sketchfabBridge } from "../../services/sketchfabAnnotationBridge";
 import "./SketchfabApiViewer.css";
 
 const SKETCHFAB_API_URL = "https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js";
@@ -191,6 +192,9 @@ export default function SketchfabApiViewer({
               clearTimers();
               setStatus("ready");
               setShowFallbackLink(false);
+              
+              // NEW: Register API in the global bridge
+              sketchfabBridge.registerSketchfabApi(api);
 
               onEvent?.({
                 type: "viewer_ready",
@@ -214,6 +218,9 @@ export default function SketchfabApiViewer({
                     .map(normalizeAnnotation)
                     .filter(annotation => annotation.name);
 
+                  // NEW: Pass annotations to the bridge
+                  sketchfabBridge.setAnnotations(normalizedAnnotations);
+
                   onAnnotationsLoad?.(normalizedAnnotations);
                   onEvent?.({
                     type: "annotation_list_loaded",
@@ -227,6 +234,9 @@ export default function SketchfabApiViewer({
 
             api.addEventListener("annotationSelect", index => {
               if (!isMounted) return;
+              
+              // NEW: Forward annotation select to bridge
+              sketchfabBridge.triggerAnnotationSelect(index);
 
               onEvent?.({
                 type: "annotation_selected",

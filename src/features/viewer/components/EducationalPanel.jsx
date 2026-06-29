@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LineIcon from "../../../components/icons/LineIcon";
 import { useLanguage } from "../../../context/LanguageContext";
-
+import { sketchfabBridge } from "../../../services/sketchfabAnnotationBridge";
 const defaultTabs = [
   "Informação",
   "Anotações",
@@ -144,6 +144,32 @@ export default function EducationalPanel({
   const latin = structure?.latinName || structure?.latin_name || "Nomen anatomicum";
   const activeTab = defaultTabs.includes(tab) ? tab : defaultTabs[0];
 
+  const [sketchfabAnnotations, setSketchfabAnnotations] = useState([]);
+  const [activeSketchfabAnnotationIndex, setActiveSketchfabAnnotationIndex] = useState(-1);
+  const [sketchfabReady, setSketchfabReady] = useState(false);
+
+  useEffect(() => {
+    if (!isSketchfabMode) return;
+    
+    setSketchfabAnnotations(sketchfabBridge.getSketchfabAnnotations());
+    setSketchfabReady(sketchfabBridge.isSketchfabReady());
+
+    const unsubReady = sketchfabBridge.subscribeToSketchfabReady(() => setSketchfabReady(true));
+    const unsubAnnotations = sketchfabBridge.subscribe((annotations) => setSketchfabAnnotations(annotations));
+    const unsubSelect = sketchfabBridge.subscribeToAnnotationSelect((idx) => setActiveSketchfabAnnotationIndex(idx));
+
+    return () => {
+      unsubReady();
+      unsubAnnotations();
+      unsubSelect();
+    };
+  }, [isSketchfabMode]);
+
+  const handleSketchfabAnnotationClick = (index) => {
+    setActiveSketchfabAnnotationIndex(index);
+    sketchfabBridge.goToSketchfabAnnotation(index);
+  };
+
   return (
     <>
       {open ? <button className="fixed inset-0 z-[40] bg-blackDeep/40 backdrop-blur-sm lg:hidden animate-in fade-in" onClick={onClose} aria-label={t("settings.closeSettings")} /> : null}
@@ -179,8 +205,9 @@ export default function EducationalPanel({
           </div>
 
           {/* Segmented Tabs Premium */}
-          <div className="px-5 py-4 border-b border-white/5 shrink-0 bg-black/20">
-            <div className="flex flex-row gap-2 overflow-x-auto pb-1 relative z-10 w-full scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mask-horizontal-edges after:content-[''] after:w-4 after:shrink-0">
+          <div className="px-5 py-4 border-b border-white/5 shrink-0 bg-black/20 relative">
+            <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-black/20 to-transparent pointer-events-none z-20" />
+            <div className="flex flex-row gap-2 overflow-x-auto pb-1 relative z-10 w-full scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] after:content-[''] after:min-w-[3rem] after:shrink-0">
               {defaultTabs.map(item => (
                 <button 
                   key={item} 
@@ -189,7 +216,10 @@ export default function EducationalPanel({
                       ? "bg-techTeal text-blackDeep shadow-[0_0_15px_rgba(35,210,179,0.3)] scale-105 transform origin-center" 
                       : "bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 hover:border-white/20"
                   }`} 
-                  onClick={() => setTab(item)}
+                  onClick={(e) => {
+                    setTab(item);
+                    e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                  }}
                   aria-selected={activeTab === item}
                   role="tab"
                 >
@@ -257,20 +287,67 @@ export default function EducationalPanel({
               ) : null}
               
               {activeTab === "Simulado Prático" ? (
-                <div className="flex flex-col items-center justify-center text-center mt-4 p-6 atlas-liquid-glass-card rounded-xl border border-white/10 animate-in fade-in slide-in-from-bottom-2 duration-500 relative overflow-hidden">
+                <div className="flex flex-col items-center justify-center text-center mt-4 p-6 atlas-liquid-glass-card rounded-xl border border-techTeal/20 animate-in fade-in slide-in-from-bottom-2 duration-500 relative overflow-hidden">
                   <div className="absolute inset-0 bg-[url('/assets/noise.png')] opacity-10 mix-blend-overlay pointer-events-none" />
-                  <div className="w-12 h-12 rounded-full bg-white/5 border border-white/20 flex items-center justify-center mb-4">
-                    <LineIcon name="target" className="w-5 h-5 text-white/50" />
+                  <div className="w-12 h-12 rounded-full bg-techTeal/10 border border-techTeal/30 flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(35,210,179,0.15)]">
+                    <LineIcon name="target" className="w-5 h-5 text-techTeal" />
                   </div>
-                  <h3 className="text-lg font-bold text-white/80 mb-2">Em Preparação</h3>
-                  <p className="text-white/40 text-sm leading-relaxed max-w-[250px]">
-                    O simulado prático para identificação de estruturas no modelo 3D estará disponível em breve.
+                  <h3 className="text-lg font-bold text-white mb-2">Simulado Prático</h3>
+                  <p className="mb-6 text-white/60 text-sm leading-relaxed max-w-[250px]">
+                    Identifique as estruturas anatômicas diretamente no modelo 3D.
                   </p>
+                  <button 
+                    className="atlas-liquid-glass-button bg-techTeal/10 border border-techTeal/40 text-techTeal hover:bg-techTeal hover:text-blackDeep transition-all px-6 py-2.5 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(35,210,179,0.2)]" 
+                    onClick={() => onAction("Simulado Prático")}
+                  >
+                    Iniciar Simulado Prático
+                  </button>
                 </div>
               ) : null}
 
               {activeTab === "Guia de Estudo" ? (
-                <ListTab items={studyGuide(model, t)} empty={t("viewer.emptyStates.noStudyGuide", "Sem guia disponível.")} />
+                isSketchfabMode ? (
+                  <div className="space-y-2 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                    {!sketchfabReady ? (
+                      <div className="flex flex-col items-center justify-center p-8 text-center atlas-liquid-glass-card rounded-xl">
+                        <div className="w-6 h-6 border-2 border-white/20 border-t-techTeal rounded-full animate-spin mb-3" />
+                        <p className="text-sm text-white/50">Carregando marcações do modelo...</p>
+                      </div>
+                    ) : sketchfabAnnotations.length > 0 ? (
+                      sketchfabAnnotations.slice(0, 10).map((annotation, index) => (
+                        <button
+                          key={annotation.id}
+                          className={`w-full text-left p-4 rounded-xl border transition-all duration-300 flex items-start gap-3 ${
+                            activeSketchfabAnnotationIndex === index 
+                              ? "bg-techTeal/10 border-techTeal/30 shadow-[0_0_15px_rgba(35,210,179,0.15)] text-white" 
+                              : "atlas-liquid-glass-card border-white/5 hover:border-white/20 hover:bg-white/5 text-clinicalWhite/80"
+                          }`}
+                          onClick={() => handleSketchfabAnnotationClick(index)}
+                        >
+                          <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${activeSketchfabAnnotationIndex === index ? 'bg-techTeal text-blackDeep' : 'bg-white/10 text-white/50'}`}>
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <span className="flex-1 flex flex-col min-w-0">
+                            <strong className="text-sm font-medium">{annotation.name}</strong>
+                            {annotation.description ? (
+                              <small className="text-xs text-white/50 mt-1 line-clamp-2">{annotation.description}</small>
+                            ) : null}
+                            <span className={`text-[10px] uppercase tracking-widest font-bold mt-2 ${activeSketchfabAnnotationIndex === index ? 'text-techTeal' : 'text-white/30'}`}>
+                              {activeSketchfabAnnotationIndex === index ? 'Focando no modelo' : 'Focar no modelo'}
+                            </span>
+                          </span>
+                        </button>
+                      ))
+                    ) : (
+                      <div className="flex flex-col items-center justify-center p-8 text-center atlas-liquid-glass-card rounded-xl">
+                        <LineIcon name="alert-triangle" className="w-8 h-8 text-alertRed/50 mb-3" />
+                        <p className="text-sm text-white/50">Não foi possível carregar as marcações do Sketchfab. Tente novamente ou use o Atlas Native Engine.</p>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <ListTab items={studyGuide(model, t)} empty={t("viewer.emptyStates.noStudyGuide", "Sem guia disponível.")} />
+                )
               ) : null}
 
               {activeTab === "Correlações Clínicas" ? (

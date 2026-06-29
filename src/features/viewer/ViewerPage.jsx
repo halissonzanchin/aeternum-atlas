@@ -183,6 +183,10 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
       "Registrar acesso": progressState.handleRegisterAccess,
       "Anotações": () => setNotesOpen(true),
       "Simulado Anatômico": quizState.handleOpenAnatomicalQuiz,
+      "Simulado Prático": () => {
+        quizState.handleOpenAnatomicalQuiz();
+        setLeftOpen(false);
+      },
       "Simulado Teórico": () => {
         quizState.setTheoreticalQuizOpen(true);
         setLeftOpen(false);

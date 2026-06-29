@@ -14734,4 +14734,93 @@ button.cinematic-info-card {
     20%, 60% { transform: translateX(-4px); }
     40%, 80% { transform: translateX(4px); }
   }
+
+  /* --- PHASE 8.18A.9: iOS LIQUID GLASS OVERRIDES FOR SIMULATORS --- */
+  .theory-quiz-backdrop, .viewer-quiz-backdrop {
+    background: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
+
+  .theory-quiz-shell, .viewer-quiz-panel {
+    background: rgba(10, 10, 10, 0.7) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 28px !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .theory-quiz-commandbar,
+  .theory-institution-header,
+  .theory-quiz-sidebar,
+  .viewer-quiz-header,
+  .viewer-quiz-footer {
+    border-color: rgba(255, 255, 255, 0.05) !important;
+  }
+
+  .theory-question-card,
+  .theory-result-panel,
+  .viewer-quiz-question-view {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .theory-option, .viewer-quiz-option {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    transition: all 0.2s cubic-bezier(0.32, 0.72, 0, 1) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .theory-option:hover:not(:disabled), .viewer-quiz-option:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-1px) !important;
+    color: #fff !important;
+  }
+
+  .theory-option.is-selected, .viewer-quiz-option.is-selected {
+    background: rgba(47, 184, 181, 0.15) !important;
+    border-color: rgba(47, 184, 181, 0.5) !important;
+    box-shadow: 0 0 15px rgba(47, 184, 181, 0.2) !important;
+    color: #fff !important;
+  }
+
+  .theory-option.is-correct, .viewer-quiz-option.is-correct {
+    background: rgba(46, 213, 115, 0.15) !important;
+    border-color: rgba(46, 213, 115, 0.5) !important;
+    box-shadow: 0 0 15px rgba(46, 213, 115, 0.2) !important;
+    color: #fff !important;
+  }
+
+  .theory-option.is-incorrect, .viewer-quiz-option.is-incorrect {
+    background: rgba(255, 71, 87, 0.15) !important;
+    border-color: rgba(255, 71, 87, 0.5) !important;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.2) !important;
+    color: #fff !important;
+  }
+
+  .theory-timer-face, .viewer-quiz-timer-face {
+    background: rgba(20, 20, 20, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(12px) !important;
+  }
+  .theory-timer-scale span, .viewer-quiz-timer-scale span {
+    color: rgba(255,255,255,0.4) !important;
+  }
+  
+  .theory-link-button {
+    color: #2FB8B5 !important;
+    font-weight: 600 !important;
+  }
+
+  .theory-section-nav button.is-active {
+    background: rgba(47, 184, 181, 0.15) !important;
+    border-left-color: #2FB8B5 !important;
+    color: #fff !important;
+  }
 }
