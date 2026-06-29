@@ -1,5 +1,5 @@
 import { useViewer } from './ViewerContext';
-import LeftInfoPanel from '../../components/LeftInfoPanel/LeftInfoPanel';
+import EducationalPanel from './components/EducationalPanel';
 
 export default function ViewerSidebar() {
   const {
@@ -7,31 +7,20 @@ export default function ViewerSidebar() {
     setLeftOpen,
     activeStructure,
     model,
-    activePart,
     handleViewerAction,
-    handleSelectPart,
     annotations: {
-      anatomicalStructures,
-      activeAnnotationIndex,
-      handleSelectAnatomicalStructure,
       isSketchfabModel
     }
   } = useViewer();
 
   return (
-    <LeftInfoPanel
+    <EducationalPanel
       open={leftOpen}
       structure={activeStructure}
       model={model}
-      actions={[]}
-      activePart={activePart}
       onAction={handleViewerAction}
-      onSelectPart={handleSelectPart}
-      anatomicalStructures={anatomicalStructures}
-      activeAnatomicalIndex={activeAnnotationIndex}
-      onSelectAnatomicalStructure={handleSelectAnatomicalStructure}
       onClose={() => setLeftOpen(false)}
-      academicMode={isSketchfabModel}
+      isSketchfabMode={isSketchfabModel}
     />
   );
 }
