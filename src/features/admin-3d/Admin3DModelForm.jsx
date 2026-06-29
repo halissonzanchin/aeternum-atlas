@@ -291,79 +291,96 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-clinicalWhite">Viewer Engine</label>
-          <select 
-            value={model.viewerType || model.viewer_engine || 'sketchfab'}
-            onChange={(e) => handleChange('viewerType', e.target.value)}
-            className="bg-blackDeep border border-white/20 rounded-md px-3 py-2 text-clinicalWhite focus:outline-none focus:border-techTeal transition-colors"
-          >
-            <option value="atlas-native">Atlas Native (WebGL)</option>
-            <option value="sketchfab">Sketchfab (Legacy)</option>
-          </select>
-        </div>
+      <div className="mt-6 border-t border-white/10 pt-4">
+        <h3 className="text-lg font-bold text-clinicalWhite mb-4 flex items-center gap-2">
+          Motor de Visualização (Viewer Engine)
+          <span className="text-[10px] bg-white/10 text-white/60 px-2 py-0.5 rounded uppercase tracking-wider" title="Configurações em modo readonly local para testes. Requer migration no Supabase para salvar.">
+            BLOCKED_FOR_PERSISTENCE_PENDING_CMS_SCHEMA
+          </span>
+        </h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 bg-white/5 p-4 rounded-lg border border-white/10">
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-semibold text-clinicalWhite">Viewer Engine</label>
+            <select 
+              value={model.viewerEngine || model.viewerType || model.viewer_engine || 'hybrid'}
+              onChange={(e) => handleChange('viewerEngine', e.target.value)}
+              className="bg-blackDeep border border-white/20 rounded-md px-3 py-2 text-clinicalWhite focus:outline-none focus:border-techTeal transition-colors"
+            >
+              <option value="atlas-native">Atlas Native (WebGL)</option>
+              <option value="sketchfab">Sketchfab Embed</option>
+              <option value="hybrid">Hybrid</option>
+            </select>
+          </div>
 
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-clinicalWhite flex items-center justify-between">
-            Status
-            {gate.level === 'blocked' && (
-              <span className="text-[10px] text-red-400 uppercase tracking-widest bg-red-500/10 px-2 py-0.5 rounded">
-                Gate Bloqueado
-              </span>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-semibold text-clinicalWhite">Default para Estudante</label>
+            <select 
+              value={model.defaultViewerEngine || 'atlas-native'}
+              onChange={(e) => handleChange('defaultViewerEngine', e.target.value)}
+              className="bg-blackDeep border border-white/20 rounded-md px-3 py-2 text-clinicalWhite focus:outline-none focus:border-techTeal transition-colors"
+            >
+              <option value="atlas-native">Atlas Native</option>
+              <option value="sketchfab">Sketchfab</option>
+            </select>
+          </div>
+
+          <div className="flex flex-col gap-2 md:col-span-2">
+            <label className="text-sm font-semibold text-clinicalWhite">Sketchfab Embed URL (Opcional)</label>
+            <input 
+              type="text" 
+              value={model.embedUrl || model.sketchfabUrl || ''}
+              onChange={(e) => handleChange('embedUrl', e.target.value)}
+              className={`bg-blackDeep border rounded-md px-3 py-2 text-clinicalWhite focus:outline-none focus:border-techTeal transition-colors ${
+                 model.embedUrl && !model.embedUrl.includes('/embed') ? 'border-amber-500' : 'border-white/20'
+              }`}
+              placeholder="https://sketchfab.com/models/.../embed"
+            />
+            {model.embedUrl && !model.embedUrl.includes('/embed') && (
+               <p className="text-[10px] text-amber-500">Alerta: A URL deve terminar com /embed</p>
             )}
-          </label>
-          <select 
-            value={model.status}
-            onChange={(e) => handleChange('status', e.target.value)}
-            disabled={gate.level === 'blocked' || gate.level === 'override_required'}
-            className={`bg-blackDeep border rounded-md px-3 py-2 text-clinicalWhite focus:outline-none transition-colors ${
-              gate.level === 'blocked' || gate.level === 'override_required'
-                ? 'border-red-500/50 focus:border-red-500 opacity-70 cursor-not-allowed' 
-                : 'border-white/20 focus:border-techTeal'
-            }`}
-          >
-            <option value="draft">Rascunho (Draft)</option>
-            <option value="active">Ativo / Publicado</option>
-            <option value="published">Publicado</option>
-            <option value="inactive">Inativo</option>
-          </select>
-          {(gate.level === 'blocked' || gate.level === 'override_required') && !model.publication_override && (
-            <p className="text-[10px] text-red-400/80 leading-tight">
-              O Atlas Publication Gate bloqueou a alteração deste status para "Publicado".
-            </p>
-          )}
-        </div>
+            <p className="text-[10px] text-textMuted">Use apenas URL /embed do Sketchfab.</p>
+          </div>
 
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-clinicalWhite">Formato (Model Format)</label>
-          <select 
-            value={model.modelFormat || model.model_format || 'sketchfab'}
-            onChange={(e) => handleChange('modelFormat', e.target.value)}
-            className="bg-blackDeep border border-white/20 rounded-md px-3 py-2 text-clinicalWhite focus:outline-none focus:border-techTeal transition-colors"
-            disabled={(model.viewerType || model.viewer_engine) === 'sketchfab'}
-          >
-            <option value="glb">.glb (Binário Texturizado)</option>
-            <option value="obj">.obj (Malha Bruta)</option>
-            <option value="sketchfab">N/A (Sketchfab)</option>
-          </select>
-        </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-semibold text-clinicalWhite">Engine Status</label>
+            <select 
+              value={model.engineStatus || 'active'}
+              onChange={(e) => handleChange('engineStatus', e.target.value)}
+              className="bg-blackDeep border border-white/20 rounded-md px-3 py-2 text-clinicalWhite focus:outline-none focus:border-techTeal transition-colors"
+            >
+              <option value="active">Active</option>
+              <option value="fallback">Fallback</option>
+              <option value="experimental">Experimental</option>
+              <option value="deprecated">Deprecated</option>
+            </select>
+          </div>
+          
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-semibold text-clinicalWhite">Native Engine Status</label>
+            <div className="bg-blackDeep border border-white/10 rounded-md p-3 text-xs text-textMuted flex flex-col gap-1">
+              <div>Manifest: {model.modelLodManifest ? 'Sim' : 'Não'}</div>
+              <div>Performance LOD: {model.modelLodManifest?.performance?.url ? 'Sim' : 'Não'}</div>
+              <div>Balanced LOD: {model.modelLodManifest?.balanced?.url ? 'Sim' : 'Não'}</div>
+              <div>Source/HQ: {model.modelLodManifest?.hq?.url ? 'Sim' : 'Pendente'}</div>
+            </div>
+          </div>
+          
+          <div className="flex flex-col gap-2 md:col-span-2 pt-2 border-t border-white/10">
+            <label className="text-sm font-semibold text-clinicalWhite mb-1">Testes / Preview</label>
+            <div className="flex flex-wrap gap-2">
+              <a href={`/viewer/${model.slug || model.id}`} target="_blank" rel="noreferrer" className="bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded text-xs transition-colors">
+                Testar Padrão Estudante
+              </a>
+              <a href={`/viewer/${model.slug || model.id}?engine=sketchfab`} target="_blank" rel="noreferrer" className="bg-techTeal/10 hover:bg-techTeal/20 text-techTeal border border-techTeal/30 px-3 py-1.5 rounded text-xs transition-colors">
+                Testar Forçado: Sketchfab
+              </a>
+              <a href={`/viewer/${model.slug || model.id}?engine=native`} target="_blank" rel="noreferrer" className="bg-selectionGreen/10 hover:bg-selectionGreen/20 text-selectionGreen border border-selectionGreen/30 px-3 py-1.5 rounded text-xs transition-colors">
+                Testar Forçado: Native
+              </a>
+            </div>
+          </div>
 
-        <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-clinicalWhite">URL do Modelo (Manual/Storage)</label>
-          <input 
-            type="text" 
-            value={(model.viewerType || model.viewer_engine) === 'sketchfab' ? (model.sketchfabUrl || model.model_url || '') : (model.atlasAssetObjectUrl || model.atlasEngineModelUrl || model.model_url || '')}
-            onChange={(e) => {
-              if ((model.viewerType || model.viewer_engine) === 'sketchfab') {
-                handleChange('sketchfabUrl', e.target.value);
-              } else {
-                handleChange('atlasAssetObjectUrl', e.target.value);
-              }
-            }}
-            className="bg-blackDeep border border-white/20 rounded-md px-3 py-2 text-clinicalWhite focus:outline-none focus:border-techTeal transition-colors"
-            placeholder={(model.viewerType || model.viewer_engine) === 'sketchfab' ? "https://sketchfab.com/models/..." : "/models/file.glb ou URL Supabase"}
-          />
         </div>
       </div>
 

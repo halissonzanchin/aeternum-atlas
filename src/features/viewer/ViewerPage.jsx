@@ -22,6 +22,7 @@ import Card from "../../components/Card/Card";
 import { useLanguage } from "../../context/LanguageContext";
 import { trackEvent } from "../../services/analytics/analyticsService";
 import { atlasAssetStorageService } from "../../services/atlasAssetStorageService";
+import { shouldUseSketchfabEngine, getNativeEngineUrl } from "../../services/viewerEngineService";
 
 function TopViewerBar({ model, structure, navigate, onToggleLeft, isSketchfabMode }) {
   const { t } = useLanguage();
@@ -258,24 +259,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     handleViewerAction
   };
 
-  const hasSketchfabEmbed = 
-    modelState.model?.embedProvider === "sketchfab" && 
-    typeof modelState.model?.embedUrl === "string" && 
-    modelState.model.embedUrl.includes("sketchfab.com/models/") && 
-    modelState.model.embedUrl.includes("/embed");
-
-  const shouldUseSketchfab = 
-    hasSketchfabEmbed && 
-    engineParam !== "native" && 
-    (
-      engineParam === "sketchfab" || 
-      modelState.model?.defaultViewerEngine === "sketchfab" || 
-      modelState.model?.viewerEngine === "sketchfab" ||
-      modelState.model?.viewerType === "sketchfab" ||
-      modelState.model?.viewerEngine === "hybrid"
-    );
-
-  const isSketchfabMode = shouldUseSketchfab;
+  const isSketchfabMode = shouldUseSketchfabEngine(modelState.model, engineParam);
 
   return (
     <ViewerContext.Provider value={contextValue}>
@@ -291,7 +275,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
         <main className={`viewer-stage viewer-layout ${leftOpen ? "" : "is-panel-collapsed"}`}>
           <ViewerSidebar />
           <>
-            {(!modelState.model.atlasAssetObjectUrl && !modelState.model.atlasEngineModelUrl && !modelState.model.model_url && !isSketchfabMode) && (
+            {(!getNativeEngineUrl(modelState.model) && !isSketchfabMode) && (
                <div className="absolute inset-0 flex flex-col items-center justify-center bg-blackDeep z-50 p-6">
                   <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-6 max-w-md text-center">
                      <h3 className="text-xl font-bold text-amber-400 mb-2">Arquivo 3D Ausente</h3>
@@ -302,7 +286,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
             )}
             <div className="absolute inset-0">
               <AtlasViewerShell 
-                modelUrl={modelState.model.atlasAssetObjectUrl || modelState.model.atlasEngineModelUrl || modelState.model.model_url || "/models/test-anatomy.glb"} 
+                modelUrl={getNativeEngineUrl(modelState.model) || "/models/test-anatomy.glb"} 
                 modelFormat={modelState.model.modelFormat || modelState.model.model_format || "glb"}
                 markers={nativeMarkers.length > 0 ? nativeMarkers : atlasMarkersMock}
                 onMarkerSelect={setActiveMarkerId}
