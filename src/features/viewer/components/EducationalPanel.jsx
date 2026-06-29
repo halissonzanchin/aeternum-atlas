@@ -180,7 +180,7 @@ export default function EducationalPanel({
 
           {/* Segmented Tabs Premium */}
           <div className="px-5 py-4 border-b border-white/5 shrink-0 bg-black/20">
-            <div className="flex flex-row gap-2 overflow-x-auto pb-1 relative z-10 w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mask-horizontal-edges">
+            <div className="flex flex-row gap-2 overflow-x-auto pb-1 relative z-10 w-full scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mask-horizontal-edges after:content-[''] after:w-4 after:shrink-0">
               {defaultTabs.map(item => (
                 <button 
                   key={item} 
