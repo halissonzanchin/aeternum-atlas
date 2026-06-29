@@ -75,6 +75,14 @@ export default function ViewerControls() {
          } else {
             setToast("Painel de camadas focado.");
          }
+      },
+      native: () => {
+         setToast("Usar motor nativo para marcadores autorais, Render Studio e camadas completas.");
+         setTimeout(() => {
+           const url = new URL(window.location.href);
+           url.searchParams.set("engine", "native");
+           window.location.href = url.toString();
+         }, 1500);
       }
     };
     actions[action]?.();

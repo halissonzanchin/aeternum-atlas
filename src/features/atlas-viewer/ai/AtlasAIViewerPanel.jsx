@@ -31,6 +31,50 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
 
   const viewerContext = useViewer();
   const messagesEndRef = useRef(null);
+  
+  // Drag logic
+  const [position, setPosition] = useState(() => {
+    try {
+      const saved = localStorage.getItem('atlas_ai_orb_pos');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return { x: 0, y: 0 };
+  });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartPos = useRef({ x: 0, y: 0 });
+  const hasMoved = useRef(false);
+
+  const handlePointerDown = (e) => {
+    setIsDragging(true);
+    hasMoved.current = false;
+    dragStartPos.current = {
+      x: e.clientX - position.x,
+      y: e.clientY - position.y
+    };
+    e.target.setPointerCapture(e.pointerId);
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isDragging) return;
+    const newX = e.clientX - dragStartPos.current.x;
+    const newY = e.clientY - dragStartPos.current.y;
+    
+    if (Math.abs(newX - position.x) > 4 || Math.abs(newY - position.y) > 4) {
+      hasMoved.current = true;
+    }
+    setPosition({ x: newX, y: newY });
+  };
+
+  const handlePointerUp = (e) => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    e.target.releasePointerCapture(e.pointerId);
+    if (hasMoved.current) {
+      try {
+        localStorage.setItem('atlas_ai_orb_pos', JSON.stringify(position));
+      } catch (err) {}
+    }
+  };
 
   // Auto-scroll to bottom of messages
   useEffect(() => {
@@ -230,9 +274,14 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
         </div>
       )}
 
-      <div className={`fixed z-[60] transition-all duration-500 ease-in-out pointer-events-none flex flex-col items-end gap-3 ${
-        isOpen ? 'bottom-36 right-6 sm:bottom-36 sm:right-10' : 'bottom-32 right-6 sm:bottom-32 sm:right-6'
-      }`}>
+      <div 
+        className={`fixed z-[60] flex flex-col items-end gap-3 touch-none ${
+          isDragging ? 'pointer-events-auto cursor-grabbing' : 'pointer-events-none transition-all duration-500 ease-in-out'
+        } ${
+          isOpen ? 'bottom-[50%] right-6 sm:right-10 translate-y-1/2' : 'bottom-[50%] right-6 sm:right-6 translate-y-1/2'
+        }`}
+        style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
+      >
         {isOpen && (
           <Card className="w-[calc(100vw-16px)] sm:w-96 h-[75dvh] sm:h-auto sm:max-h-[70dvh] flex flex-col bg-blackDeep/95 backdrop-blur-xl border border-techTeal/30 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_20px_rgba(35,210,179,0.1)] animate-in slide-in-from-bottom-5 mb-1 sm:mb-2 pointer-events-auto rounded-2xl overflow-hidden shrink-0">
             
@@ -335,10 +384,22 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
           </Card>
         )}
 
-        <div className="pointer-events-auto">
+        <div 
+          className={`pointer-events-auto ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+        >
           <AtlasTooltip content={isOpen ? "Fechar AI Tutor" : "Atlas AI Tutor"} position="top">
             <AtlasAIOrb 
-              onClick={() => setIsOpen(!isOpen)} 
+              onClick={(e) => {
+                if (hasMoved.current) {
+                  hasMoved.current = false;
+                  return;
+                }
+                setIsOpen(!isOpen);
+              }} 
               state={orbState}
               size={isOpen ? "sm" : "md"}
             />

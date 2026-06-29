@@ -61,21 +61,18 @@ function TopViewerBar({ model, structure, navigate, onToggleLeft, isSketchfabMod
 
       <div className="flex items-center gap-2">
         <div className="hidden md:block"><LanguageSelector compact /></div>
-        {isSketchfabMode ? (
-          <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-blue-400 atlas-nowrap-label">
-            <span className="md:hidden">MODELO</span>
-            <span className="hidden md:inline">VISUALIZAÇÃO CONECTADA</span>
-          </span>
-        ) : (
-          <span className="rounded-full border border-techTeal/30 bg-techTeal/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-techTeal atlas-nowrap-label">
-            <span className="md:hidden">ATLAS GLB</span>
-            <span className="hidden md:inline">ATLAS ENGINE (GLB)</span>
-          </span>
+        {!isSketchfabMode && (
+          <>
+            <span className="rounded-full border border-techTeal/30 bg-techTeal/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-techTeal atlas-nowrap-label">
+              <span className="md:hidden">ATLAS GLB</span>
+              <span className="hidden md:inline">ATLAS ENGINE (GLB)</span>
+            </span>
+            <span className="rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-selectionGreen atlas-nowrap-label">
+              <span className="md:hidden">Ativa</span>
+              <span className="hidden md:inline">{t("viewer.activeStructure")}</span>
+            </span>
+          </>
         )}
-        <span className="rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-selectionGreen atlas-nowrap-label">
-          <span className="md:hidden">Ativa</span>
-          <span className="hidden md:inline">{t("viewer.activeStructure")}</span>
-        </span>
       </div>
     </header>
   );

@@ -9,6 +9,7 @@ const tools = [
   ["tutor", "Tutor IA", "cpu"],
   ["guide", "viewer.toolbar.guide", "library"],
   ["camadas", "Camadas", "layers"],
+  ["native", "Atlas Native Engine", "cpu"],
   ["search", "viewer.toolbar.search", "search"],
   ["library", "viewer.toolbar.library", "library"],
   ["settings", "viewer.toolbar.settings", "settings"],

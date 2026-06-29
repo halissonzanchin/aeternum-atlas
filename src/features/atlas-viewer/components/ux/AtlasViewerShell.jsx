@@ -109,20 +109,22 @@ function AtlasViewerShellContent({
         )}
 
         {/* Toolbar */}
-        <AtlasViewerToolbar 
-          isFullscreen={isFullscreen}
-          toggleFullscreen={toggleFullscreen}
-          renderMode={renderMode}
-          setRenderMode={setRenderMode}
-          isMarkerPanelOpen={markerOpen}
-          toggleMarkerPanel={() => setMarkerOpen(!markerOpen)}
-          isSketchfabMode={isSketchfabMode}
-          studyMode={studyMode}
-          toggleStudyMode={() => {
-            setStudyMode(!studyMode);
-            if (!studyMode) setMarkerOpen(true); // force open markers in study mode
-          }}
-        />
+        {!isSketchfabMode && (
+          <AtlasViewerToolbar 
+            isFullscreen={isFullscreen}
+            toggleFullscreen={toggleFullscreen}
+            renderMode={renderMode}
+            setRenderMode={setRenderMode}
+            isMarkerPanelOpen={markerOpen}
+            toggleMarkerPanel={() => setMarkerOpen(!markerOpen)}
+            isSketchfabMode={isSketchfabMode}
+            studyMode={studyMode}
+            toggleStudyMode={() => {
+              setStudyMode(!studyMode);
+              if (!studyMode) setMarkerOpen(true); // force open markers in study mode
+            }}
+          />
+        )}
 
         {/* Floating Educational Content in Study Mode */}
         {(!isSketchfabMode && studyMode && activeMarker) && (
