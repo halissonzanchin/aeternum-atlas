@@ -237,35 +237,62 @@ export default function EducationalPanel({
               {activeTab === "Informação" ? <InformationTab structure={structure} t={t} /> : null}
               
               {activeTab === "Anotações" ? (
-                <div className="flex flex-col items-center justify-center text-center mt-4 p-6 atlas-liquid-glass-card rounded-xl border border-techTeal/20 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                  <div className="w-12 h-12 rounded-full bg-techTeal/10 border border-techTeal/30 flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(35,210,179,0.15)]">
-                    <LineIcon name="pencil" className="w-5 h-5 text-techTeal" />
+                isSketchfabMode ? (
+                  <div className="space-y-2 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                    {!sketchfabReady ? (
+                      <div className="flex flex-col items-center justify-center p-8 text-center atlas-liquid-glass-card rounded-xl">
+                        <div className="w-6 h-6 border-2 border-white/20 border-t-techTeal rounded-full animate-spin mb-3" />
+                        <p className="text-sm text-white/50">Carregando marcações do modelo...</p>
+                      </div>
+                    ) : sketchfabAnnotations.length > 0 ? (
+                      sketchfabAnnotations.map((annotation, index) => (
+                        <button
+                          key={`anot-${annotation.id}`}
+                          className={`w-full text-left p-4 rounded-xl border transition-all duration-300 flex items-start gap-3 ${
+                            activeSketchfabAnnotationIndex === index 
+                              ? "bg-techTeal/10 border-techTeal/30 shadow-[0_0_15px_rgba(35,210,179,0.15)] text-white" 
+                              : "atlas-liquid-glass-card border-white/5 hover:border-white/20 hover:bg-white/5 text-clinicalWhite/80"
+                          }`}
+                          onClick={() => handleSketchfabAnnotationClick(index)}
+                        >
+                          <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${activeSketchfabAnnotationIndex === index ? 'bg-techTeal text-blackDeep' : 'bg-white/10 text-white/50'}`}>
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <span className="flex-1 flex flex-col min-w-0">
+                            <strong className="text-sm font-medium">{annotation.name}</strong>
+                            {annotation.description ? (
+                              <small className="text-xs text-white/50 mt-1 line-clamp-2">{annotation.description}</small>
+                            ) : null}
+                            <span className={`text-[10px] uppercase tracking-widest font-bold mt-2 ${activeSketchfabAnnotationIndex === index ? 'text-techTeal' : 'text-white/30'}`}>
+                              {activeSketchfabAnnotationIndex === index ? 'Focando no modelo' : 'Focar no modelo'}
+                            </span>
+                          </span>
+                        </button>
+                      ))
+                    ) : (
+                      <div className="flex flex-col items-center justify-center p-8 text-center atlas-liquid-glass-card rounded-xl">
+                        <LineIcon name="alert-triangle" className="w-8 h-8 text-alertRed/50 mb-3" />
+                        <p className="text-sm text-white/50">Não foi possível carregar as marcações do Sketchfab.</p>
+                      </div>
+                    )}
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">Anotações Pessoais</h3>
-                  
-                  {isSketchfabMode ? (
-                    <p className="mb-6 text-white/60 text-sm leading-relaxed">
-                      As anotações visíveis no modelo pertencem ao Sketchfab Embed. As anotações nativas da Aeternum ficam disponíveis no Atlas Native Engine.
-                    </p>
-                  ) : (
+                ) : (
+                  <div className="flex flex-col items-center justify-center text-center mt-4 p-6 atlas-liquid-glass-card rounded-xl border border-techTeal/20 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                    <div className="w-12 h-12 rounded-full bg-techTeal/10 border border-techTeal/30 flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(35,210,179,0.15)]">
+                      <LineIcon name="pencil" className="w-5 h-5 text-techTeal" />
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-2">Anotações Pessoais</h3>
                     <p className="mb-6 text-white/60 text-sm leading-relaxed">
                       Crie e organize suas notas para estudo deste modelo anatômico no ambiente nativo.
                     </p>
-                  )}
-                  
-                  <button 
-                    className="atlas-liquid-glass-button bg-techTeal/10 border border-techTeal/40 text-techTeal hover:bg-techTeal hover:text-blackDeep transition-all px-6 py-2.5 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(35,210,179,0.2)]" 
-                    onClick={() => {
-                      if (isSketchfabMode) {
-                        onAction("Atlas Native Engine");
-                      } else {
-                        onAction("Anotações");
-                      }
-                    }}
-                  >
-                    {isSketchfabMode ? "Abrir Atlas Native Engine" : "Acessar Minhas Anotações"}
-                  </button>
-                </div>
+                    <button 
+                      className="atlas-liquid-glass-button bg-techTeal/10 border border-techTeal/40 text-techTeal hover:bg-techTeal hover:text-blackDeep transition-all px-6 py-2.5 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(35,210,179,0.2)]" 
+                      onClick={() => onAction("Anotações")}
+                    >
+                      Acessar Minhas Anotações
+                    </button>
+                  </div>
+                )
               ) : null}
               
               {activeTab === "Simulado Teórico" ? (
@@ -314,7 +341,7 @@ export default function EducationalPanel({
                         <p className="text-sm text-white/50">Carregando marcações do modelo...</p>
                       </div>
                     ) : sketchfabAnnotations.length > 0 ? (
-                      sketchfabAnnotations.slice(0, 10).map((annotation, index) => (
+                      sketchfabAnnotations.map((annotation, index) => (
                         <button
                           key={annotation.id}
                           className={`w-full text-left p-4 rounded-xl border transition-all duration-300 flex items-start gap-3 ${

@@ -33,7 +33,7 @@ class SketchfabAnnotationBridge {
 
   goToSketchfabAnnotation(index) {
     if (!this.api || typeof this.api.gotoAnnotation !== "function") return;
-    this.api.gotoAnnotation(index, { preventCameraAnimation: false }, (err) => {
+    this.api.gotoAnnotation(index, { preventCameraAnimation: false, preventCameraMove: false }, (err) => {
       if (err) console.error("Error navigating to Sketchfab annotation", err);
     });
   }

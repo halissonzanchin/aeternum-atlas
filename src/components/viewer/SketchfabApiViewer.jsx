@@ -162,7 +162,7 @@ export default function SketchfabApiViewer({
           preload: 1,
           ui_infos: 0,
           ui_controls: 0,
-          ui_annotations: 0,
+          ui_annotations: 1, // TAREFA 2: Restaurar as anotações visuais
           ui_hint: 0,
           ui_help: 0,
           ui_fullscreen: 0,
@@ -172,7 +172,7 @@ export default function SketchfabApiViewer({
           ui_stop: 0,
           ui_watermark: 0,
           ui_watermark_link: 0,
-          annotation: 0,
+          // annotation: 0, // Removido para não forçar fechamento
           success(api) {
             apiInitialized = true;
             apiRef.current = api;

@@ -67,15 +67,25 @@ function buildQuestionsFromAnnotations(annotations = []) {
     .slice()
     .sort((a, b) => Number(a.index || 0) - Number(b.index || 0))
     .slice(0, MAX_QUIZ_QUESTIONS)
-    .map((annotation, index) => normalizeQuestion({
-      id: annotation.id || annotation.uid || `${annotation.name || "annotation"}-${index}`,
-      marker_number: index + 1,
-      correct_answer: annotation.name,
-      accepted_answers: [annotation.name],
-      anatomical_description: annotation.description || "",
-      annotation_index: Number.isInteger(annotation.index) ? annotation.index : index,
-      order_index: index
-    }, index))
+    .map((annotation, index) => {
+      const q = normalizeQuestion({
+        id: annotation.id || `sketchfab-annotation-${index}`,
+        marker_number: index + 1,
+        correct_answer: annotation.name,
+        accepted_answers: [annotation.name],
+        anatomical_description: annotation.description || "",
+        annotation_index: Number.isInteger(annotation.index) ? annotation.index : index,
+        order_index: index
+      }, index);
+      
+      return {
+        ...q,
+        label: `${String(index + 1).padStart(2, '0')} - ${annotation.name}`,
+        anatomicalName: annotation.name,
+        description: annotation.description || "",
+        source: "sketchfab"
+      };
+    })
     .filter(question => question.correctAnswer);
 }
 

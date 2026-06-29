@@ -55,6 +55,19 @@ export function buildSketchfabEmbedUrl(url, options = {}) {
     parsed.searchParams.set("autostart", "1");
     parsed.searchParams.set("ui_theme", "dark");
     parsed.searchParams.set("dnt", "1");
+    
+    // TAREFA 2 - Parâmetros Educacionais Aeternum
+    parsed.searchParams.set("ui_infos", "0");
+    parsed.searchParams.set("ui_controls", "0");
+    parsed.searchParams.set("ui_hint", "0");
+    parsed.searchParams.set("ui_help", "0");
+    parsed.searchParams.set("ui_fullscreen", "0");
+    parsed.searchParams.set("ui_settings", "0");
+    parsed.searchParams.set("ui_vr", "0");
+    parsed.searchParams.set("ui_inspector", "0");
+    parsed.searchParams.set("ui_watermark", "0");
+    parsed.searchParams.set("ui_annotations", "1"); // FUNDAMENTAL PARA O GUIA E SIMULADOS
+
     // Preserve any incoming options if needed
     for (const [key, value] of Object.entries(options)) {
       parsed.searchParams.set(key, value);
