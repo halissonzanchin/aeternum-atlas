@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import LineIcon from "../../../components/icons/LineIcon";
 import { useLanguage } from "../../../context/LanguageContext";
 import { sketchfabBridge } from "../../../services/sketchfabAnnotationBridge";
+import { getEnrichedMarker } from "../../../data/anatomicalMarkerLabels";
+
 const defaultTabs = [
   "Informação",
-  "Anotações",
+  "Marcações",
   "Simulado Teórico",
   "Simulado Prático",
   "Guia de Estudo",
@@ -15,7 +17,7 @@ const tabLabels = {
   "Informação": "viewer.information",
   "Guia de Estudo": "viewer.studyGuide",
   "Correlações Clínicas": "viewer.clinicalCorrelations",
-  "Anotações": "viewer.annotations",
+  "Marcações": "viewer.annotations",
   "Simulado Teórico": "viewer.theoreticalQuiz",
   "Simulado Prático": "viewer.practicalQuiz"
 };
@@ -111,7 +113,7 @@ function studyGuide(model, t) {
       "Gire o modelo para reconhecer ápice e base.",
       "Localize os grandes vasos.",
       "Observe as faces cardíacas.",
-      "Revise as anotações do modelo.",
+      "Revise as marcações do modelo.",
       "Marque o modelo como estudado ao finalizar."
     ];
   }
@@ -230,48 +232,51 @@ export default function EducationalPanel({
             <div className="relative z-10">
               {activeTab === "Informação" ? <InformationTab structure={structure} t={t} /> : null}
               
-              {activeTab === "Anotações" ? (
+              {activeTab === "Marcações" ? (
                 isSketchfabMode ? (
                   <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
                     <div className="mb-4">
                       <h3 className="text-lg font-bold text-white mb-1">Marcadores anatômicos do modelo</h3>
-                      <p className="text-sm text-white/60">Selecione um marcador para aproximar a visualização da estrutura correspondente no modelo 3D.</p>
+                      <p className="text-sm text-white/60">Selecione uma marcação para aproximar a visualização da estrutura correspondente no modelo 3D.</p>
                     </div>
                     <div className="space-y-2">
                     {!sketchfabReady ? (
                       <div className="flex flex-col items-center justify-center p-8 text-center atlas-liquid-glass-card rounded-xl">
                         <div className="w-6 h-6 border-2 border-white/20 border-t-techTeal rounded-full animate-spin mb-3" />
-                        <p className="text-sm text-white/50">Carregando marcadores anatômicos...</p>
+                        <p className="text-sm text-white/50">Carregando marcações anatômicas...</p>
                       </div>
                     ) : sketchfabAnnotations.length > 0 ? (
-                      sketchfabAnnotations.map((annotation, index) => (
-                        <button
-                          key={`anot-${annotation.id}`}
-                          className={`w-full text-left p-4 rounded-xl border transition-all duration-300 flex items-start gap-3 ${
-                            activeSketchfabAnnotationIndex === annotation.index 
-                              ? "bg-techTeal/10 border-techTeal/30 shadow-[0_0_15px_rgba(35,210,179,0.15)] text-white" 
-                              : "atlas-liquid-glass-card border-white/5 hover:border-white/20 hover:bg-white/5 text-clinicalWhite/80"
-                          }`}
-                          onClick={() => handleSketchfabAnnotationClick(annotation.index)}
-                        >
-                          <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${activeSketchfabAnnotationIndex === annotation.index ? 'bg-techTeal text-blackDeep' : 'bg-white/10 text-white/50'}`}>
-                            {String(annotation.index + 1).padStart(2, "0")}
-                          </span>
-                          <span className="flex-1 flex flex-col min-w-0">
-                            <strong className="text-sm font-medium">{annotation.name}</strong>
-                            {annotation.description ? (
-                              <small className="text-xs text-white/50 mt-1 line-clamp-2">{annotation.description}</small>
-                            ) : null}
-                            <span className={`text-[10px] uppercase tracking-widest font-bold mt-2 ${activeSketchfabAnnotationIndex === annotation.index ? 'text-techTeal' : 'text-white/30'}`}>
-                              {activeSketchfabAnnotationIndex === annotation.index ? 'Marcador ativo' : 'Ver no modelo'}
+                      sketchfabAnnotations.map((annotation, index) => {
+                        const enriched = getEnrichedMarker(model, annotation);
+                        return (
+                          <button
+                            key={`anot-${annotation.id}`}
+                            className={`w-full text-left p-4 rounded-xl border transition-all duration-300 flex items-start gap-3 ${
+                              activeSketchfabAnnotationIndex === annotation.index 
+                                ? "bg-techTeal/10 border-techTeal/30 shadow-[0_0_15px_rgba(35,210,179,0.15)] text-white" 
+                                : "atlas-liquid-glass-card border-white/5 hover:border-white/20 hover:bg-white/5 text-clinicalWhite/80"
+                            }`}
+                            onClick={() => handleSketchfabAnnotationClick(annotation.index)}
+                          >
+                            <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${activeSketchfabAnnotationIndex === annotation.index ? 'bg-techTeal text-blackDeep' : 'bg-white/10 text-white/50'}`}>
+                              {String(annotation.index + 1).padStart(2, "0")}
                             </span>
-                          </span>
-                        </button>
-                      ))
+                            <span className="flex-1 flex flex-col min-w-0">
+                              <strong className="text-sm font-medium">{enriched.name}</strong>
+                              {enriched.description ? (
+                                <small className="text-xs text-white/50 mt-1 line-clamp-2">{enriched.description}</small>
+                              ) : null}
+                              <span className={`text-[10px] uppercase tracking-widest font-bold mt-2 ${activeSketchfabAnnotationIndex === annotation.index ? 'text-techTeal' : 'text-white/30'}`}>
+                                {activeSketchfabAnnotationIndex === annotation.index ? 'Marcador ativo' : 'Ver no modelo'}
+                              </span>
+                            </span>
+                          </button>
+                        );
+                      })
                     ) : (
                       <div className="flex flex-col items-center justify-center p-8 text-center atlas-liquid-glass-card rounded-xl">
                         <LineIcon name="alert-triangle" className="w-8 h-8 text-alertRed/50 mb-3" />
-                        <p className="text-sm text-white/50">Nenhum marcador anatômico foi encontrado para este modelo.</p>
+                        <p className="text-sm text-white/50">Nenhuma marcação anatômica foi encontrada para este modelo.</p>
                       </div>
                     )}
                     </div>
@@ -283,11 +288,11 @@ export default function EducationalPanel({
                     </div>
                     <h3 className="text-lg font-bold text-white mb-2">Marcadores anatômicos do modelo</h3>
                     <p className="mb-6 text-white/60 text-sm leading-relaxed">
-                      Selecione um marcador para aproximar a visualização da estrutura correspondente no modelo 3D.
+                      Selecione uma marcação para aproximar a visualização da estrutura correspondente no modelo 3D.
                     </p>
                     <button 
                       className="atlas-liquid-glass-button bg-techTeal/10 border border-techTeal/40 text-techTeal hover:bg-techTeal hover:text-blackDeep transition-all px-6 py-2.5 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(35,210,179,0.2)]" 
-                      onClick={() => onAction("Anotações")}
+                      onClick={() => onAction("Marcações")}
                     >
                       
                     </button>
