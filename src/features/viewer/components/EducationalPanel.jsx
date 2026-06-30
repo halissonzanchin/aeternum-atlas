@@ -131,26 +131,36 @@ function academicClinicalNotes(model, structure) {
   return [];
 }
 
-export default function EducationalPanel({
-  open,
-  structure,
+export default function EducationalPanel({ 
+  open, 
+  onClose, 
+  structure, 
   model,
-  onAction,
-  onClose,
-  isSketchfabMode = false
+  onAction, 
+  isSketchfabMode = false,
+  annotationsState = {}
 }) {
   const { t } = useLanguage();
   const [tab, setTab] = useState("Informação");
   const latin = structure?.latinName || structure?.latin_name || "Nomen anatomicum";
   const activeTab = defaultTabs.includes(tab) ? tab : defaultTabs[0];
 
-  const sketchfabAnnotations = annotationsState?.sketchfabAnnotations || [];
-  const activeSketchfabAnnotationIndex = annotationsState?.activeAnnotationIndex ?? -1;
-  const sketchfabReady = annotationsState?.sketchfabReady || false;
+  const safeAnnotationsState = annotationsState || {};
+  
+  const sketchfabAnnotations = Array.isArray(safeAnnotationsState.sketchfabAnnotations) 
+    ? safeAnnotationsState.sketchfabAnnotations 
+    : [];
+    
+  const activeSketchfabAnnotationIndex = Number.isInteger(safeAnnotationsState.activeAnnotationIndex) 
+    ? safeAnnotationsState.activeAnnotationIndex 
+    : -1;
+    
+  const sketchfabReady = Boolean(safeAnnotationsState.sketchfabReady);
 
   const handleSketchfabAnnotationClick = (index) => {
-    if (annotationsState?.handleSketchfabAnnotationSelect) {
-      annotationsState.handleSketchfabAnnotationSelect(index);
+    if (!Number.isInteger(index) || index < 0) return;
+    if (typeof safeAnnotationsState.handleSketchfabAnnotationSelect === "function") {
+      safeAnnotationsState.handleSketchfabAnnotationSelect(index);
     }
   };
 
