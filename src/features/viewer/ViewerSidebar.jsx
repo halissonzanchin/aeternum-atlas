@@ -21,6 +21,7 @@ export default function ViewerSidebar() {
       onAction={handleViewerAction}
       onClose={() => setLeftOpen(false)}
       isSketchfabMode={isSketchfabModel}
+      annotationsState={useViewer().annotations}
     />
   );
 }

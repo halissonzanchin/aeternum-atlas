@@ -1,8 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import { listModelAnnotations } from '../../../services/modelAnnotationService';
+import { sketchfabBridge } from '../../../services/sketchfabAnnotationBridge';
 
 export function useViewerAnnotations(model) {
   const [sketchfabAnnotations, setSketchfabAnnotations] = useState([]);
+  const [sketchfabReady, setSketchfabReady] = useState(false);
   const [activeAnnotationIndex, setActiveAnnotationIndex] = useState(null);
   const [annotationNavigationRequest, setAnnotationNavigationRequest] = useState(null);
 
@@ -17,16 +19,24 @@ export function useViewerAnnotations(model) {
 
   useEffect(() => {
     if (!model?.id || !isSketchfabModel) return undefined;
-    let mounted = true;
 
-    listModelAnnotations(model.id).then(annotations => {
-      if (!mounted || !annotations.length) return;
+    setSketchfabAnnotations(sketchfabBridge.getSketchfabAnnotations());
+    setSketchfabReady(sketchfabBridge.isSketchfabReady());
+
+    const unsubReady = sketchfabBridge.subscribeToSketchfabReady(() => setSketchfabReady(true));
+
+    const unsubAnnotations = sketchfabBridge.subscribe((annotations) => {
       setSketchfabAnnotations(annotations);
-      setActiveAnnotationIndex(current => Number.isInteger(current) ? current : 0);
+    });
+
+    const unsubSelect = sketchfabBridge.subscribeToAnnotationSelect((idx) => {
+      setActiveAnnotationIndex(idx);
     });
 
     return () => {
-      mounted = false;
+      unsubReady();
+      unsubAnnotations();
+      unsubSelect();
     };
   }, [isSketchfabModel, model?.id]);
 
@@ -54,9 +64,11 @@ export function useViewerAnnotations(model) {
   function handleSketchfabAnnotationSelect(index) {
     if (!Number.isInteger(index) || index < 0) return;
     setActiveAnnotationIndex(index);
+    sketchfabBridge.goToSketchfabAnnotation(index);
   }
 
   return {
+    sketchfabReady,
     sketchfabAnnotations,
     activeAnnotationIndex,
     setActiveAnnotationIndex,
