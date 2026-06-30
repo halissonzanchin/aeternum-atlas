@@ -19,18 +19,22 @@ export const ANATOMICAL_MARKER_LABELS = {
   }
 };
 
-export function getEnrichedMarker(model, annotation) {
-  if (!model || !annotation) return annotation;
+export function getEnrichedMarker(model, annotation, index) {
+  if (!annotation) return null;
+  if (!model) return annotation;
   
   // Tentar encontrar o modelo por id, slug ou sketchfabUid
   const identifier = model.slug || model.sketchfabUid || model.id;
-  const mapping = ANATOMICAL_MARKER_LABELS[identifier];
+  const mapping = identifier ? ANATOMICAL_MARKER_LABELS[identifier] : null;
   
-  if (mapping && mapping[annotation.index]) {
+  // Usa o annotation.index se index não for passado
+  const targetIndex = Number.isInteger(index) ? index : annotation.index;
+  
+  if (mapping && Number.isInteger(targetIndex) && mapping[targetIndex]) {
     return {
       ...annotation,
-      name: mapping[annotation.index].title || annotation.name,
-      description: mapping[annotation.index].description || annotation.description
+      name: mapping[targetIndex].title || annotation.name,
+      description: mapping[targetIndex].description || annotation.description
     };
   }
   

@@ -90,7 +90,7 @@ function ListTab({ items = [], empty, onClick, variant = "default", activeIndex 
             onClick={() => onClick?.(item, index)}
           >
             <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${activeIndex === index ? 'bg-techTeal text-blackDeep' : 'bg-white/10 text-white/50'}`}>
-              {String(annotation.index + 1).padStart(2, "0")}
+              {String(index + 1).padStart(2, "0")}
             </span>
             <span className="flex-1 flex flex-col min-w-0">
               <strong className="text-sm font-medium truncate">{label}</strong>
@@ -147,11 +147,30 @@ export default function EducationalPanel({
   const latin = structure?.latinName || structure?.latin_name || "Nomen anatomicum";
   const activeTab = defaultTabs.includes(tab) ? tab : defaultTabs[0];
 
+
+  const safeStructure = structure || {};
   const safeAnnotationsState = annotationsState || {};
   
-  const sketchfabAnnotations = Array.isArray(safeAnnotationsState.sketchfabAnnotations) 
-    ? safeAnnotationsState.sketchfabAnnotations 
+  const safeClinicalCorrelations = Array.isArray(safeStructure.clinicalCorrelations)
+    ? safeStructure.clinicalCorrelations
+    : Array.isArray(safeStructure.clinical_correlations)
+      ? safeStructure.clinical_correlations
+      : Array.isArray(safeStructure.correlations)
+        ? safeStructure.correlations
+        : [];
+  
+  const safeStudyGuide = Array.isArray(safeStructure.studyGuide)
+    ? safeStructure.studyGuide
+    : Array.isArray(safeStructure.study_guide)
+      ? safeStructure.study_guide
+      : [];
+  
+  const safeMarkers = Array.isArray(safeAnnotationsState.sketchfabAnnotations)
+    ? safeAnnotationsState.sketchfabAnnotations
     : [];
+    
+  const sketchfabAnnotations = safeMarkers;
+
     
   const activeSketchfabAnnotationIndex = Number.isInteger(safeAnnotationsState.activeAnnotationIndex) 
     ? safeAnnotationsState.activeAnnotationIndex 
@@ -259,7 +278,7 @@ export default function EducationalPanel({
                             onClick={() => handleSketchfabAnnotationClick(annotation.index)}
                           >
                             <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${activeSketchfabAnnotationIndex === annotation.index ? 'bg-techTeal text-blackDeep' : 'bg-white/10 text-white/50'}`}>
-                              {String(annotation.index + 1).padStart(2, "0")}
+                              {String(index + 1).padStart(2, "0")}
                             </span>
                             <span className="flex-1 flex flex-col min-w-0">
                               <strong className="text-sm font-medium">{enriched.name}</strong>
@@ -338,54 +357,15 @@ export default function EducationalPanel({
               ) : null}
 
               {activeTab === "Guia de Estudo" ? (
-                isSketchfabMode ? (
-                  <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                    <div className="mb-4">
-                      <h3 className="text-lg font-bold text-white mb-1">Marcadores anatômicos do modelo</h3>
-                      <p className="text-sm text-white/60">Selecione um marcador para aproximar a visualização da estrutura correspondente no modelo 3D.</p>
-                    </div>
-                    <div className="space-y-2">
-                    {!sketchfabReady ? (
-                      <div className="flex flex-col items-center justify-center p-8 text-center atlas-liquid-glass-card rounded-xl">
-                        <div className="w-6 h-6 border-2 border-white/20 border-t-techTeal rounded-full animate-spin mb-3" />
-                        <p className="text-sm text-white/50">Carregando marcadores anatômicos...</p>
-                      </div>
-                    ) : sketchfabAnnotations.length > 0 ? (
-                      sketchfabAnnotations.map((annotation, index) => (
-                        <button
-                          key={annotation.id}
-                          className={`w-full text-left p-4 rounded-xl border transition-all duration-300 flex items-start gap-3 ${
-                            activeSketchfabAnnotationIndex === annotation.index 
-                              ? "bg-techTeal/10 border-techTeal/30 shadow-[0_0_15px_rgba(35,210,179,0.15)] text-white" 
-                              : "atlas-liquid-glass-card border-white/5 hover:border-white/20 hover:bg-white/5 text-clinicalWhite/80"
-                          }`}
-                          onClick={() => handleSketchfabAnnotationClick(annotation.index)}
-                        >
-                          <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${activeSketchfabAnnotationIndex === annotation.index ? 'bg-techTeal text-blackDeep' : 'bg-white/10 text-white/50'}`}>
-                            {String(annotation.index + 1).padStart(2, "0")}
-                          </span>
-                          <span className="flex-1 flex flex-col min-w-0">
-                            <strong className="text-sm font-medium">{annotation.name}</strong>
-                            {annotation.description ? (
-                              <small className="text-xs text-white/50 mt-1 line-clamp-2">{annotation.description}</small>
-                            ) : null}
-                            <span className={`text-[10px] uppercase tracking-widest font-bold mt-2 ${activeSketchfabAnnotationIndex === annotation.index ? 'text-techTeal' : 'text-white/30'}`}>
-                              {activeSketchfabAnnotationIndex === annotation.index ? 'Marcador ativo' : 'Ver no modelo'}
-                            </span>
-                          </span>
-                        </button>
-                      ))
-                    ) : (
-                      <div className="flex flex-col items-center justify-center p-8 text-center atlas-liquid-glass-card rounded-xl">
-                        <LineIcon name="alert-triangle" className="w-8 h-8 text-alertRed/50 mb-3" />
-                        <p className="text-sm text-white/50">Nenhum marcador anatômico foi encontrado para este modelo. Tente novamente.</p>
-                      </div>
-                    )}
-                    </div>
-                  </div>
-                ) : (
-                  <ListTab items={studyGuide(model, t)} empty={t("viewer.emptyStates.noStudyGuide", "Sem guia disponível.")} />
-                )
+                <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+                  {safeMarkers.length > 0 ? (
+                    <ListTab items={safeMarkers} onClick={(item) => typeof handleSketchfabAnnotationClick === 'function' ? handleSketchfabAnnotationClick(item.index) : null} />
+                  ) : safeStudyGuide.length > 0 ? (
+                    <ListTab items={safeStudyGuide} />
+                  ) : (
+                    <ListTab items={studyGuide(model, t)} empty="Guia de estudo em preparação para este modelo." />
+                  )}
+                </div>
               ) : null}
 
               {activeTab === "Correlações Clínicas" ? (
