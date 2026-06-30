@@ -111,7 +111,7 @@ function studyGuide(model, t) {
       "Gire o modelo para reconhecer ápice e base.",
       "Localize os grandes vasos.",
       "Observe as faces cardíacas.",
-      "Revise as anotações do Sketchfab.",
+      "Revise as anotações do modelo.",
       "Marque o modelo como estudado ao finalizar."
     ];
   }
@@ -272,7 +272,7 @@ export default function EducationalPanel({
                     ) : (
                       <div className="flex flex-col items-center justify-center p-8 text-center atlas-liquid-glass-card rounded-xl">
                         <LineIcon name="alert-triangle" className="w-8 h-8 text-alertRed/50 mb-3" />
-                        <p className="text-sm text-white/50">Não foi possível carregar as marcações do Sketchfab.</p>
+                        <p className="text-sm text-white/50">Não foi possível carregar as marcações do modelo.</p>
                       </div>
                     )}
                   </div>
@@ -368,7 +368,7 @@ export default function EducationalPanel({
                     ) : (
                       <div className="flex flex-col items-center justify-center p-8 text-center atlas-liquid-glass-card rounded-xl">
                         <LineIcon name="alert-triangle" className="w-8 h-8 text-alertRed/50 mb-3" />
-                        <p className="text-sm text-white/50">Não foi possível carregar as marcações do Sketchfab. Tente novamente.</p>
+                        <p className="text-sm text-white/50">Não foi possível carregar as marcações do modelo. Tente novamente.</p>
                       </div>
                     )}
                   </div>

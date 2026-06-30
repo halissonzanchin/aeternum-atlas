@@ -166,7 +166,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     const externalUrl = model.externalUrl || model.sketchfabModelUrl || model.shortUrl;
     
     const actions = {
-      "Abrir no Sketchfab": () => {
+      "Visualizador 3D Aeternum": () => {
         if (externalUrl) {
           trackEvent({ userId: user?.id, institutionId: user?.institutionId, modelId: model.id, eventType: "open_external_sketchfab" });
           window.open(externalUrl, "_blank", "noopener,noreferrer");

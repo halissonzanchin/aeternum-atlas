@@ -161,7 +161,7 @@ export default function ModelViewer({
   }
 
   const actions = [
-    ...(embedUrl ? [["Abrir no Sketchfab", "viewer.openSketchfab", "fullscreen"]] : []),
+    ...(embedUrl ? [["Visualizador 3D Aeternum", "viewer.openSketchfab", "fullscreen"]] : []),
     ["Favoritar", "viewer.favorite", "favorite"],
     ["Marcar como estudado", "viewer.markAsStudied", "check"],
     ["Copiar link do modelo", "viewer.copyModelLink", "layers"],

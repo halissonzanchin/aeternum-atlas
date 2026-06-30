@@ -88,7 +88,7 @@ export function normalizeSupabaseModel(record = {}) {
     region: sanitizeText(record.anatomical_region || "Institucional"),
     system: sanitizeText(record.anatomical_system || "Sistema anatômico"),
     level: mapDifficultyLevel(record.difficulty_level),
-    type: "SKETCHFAB 3D INTERATIVO",
+    type: "MODELO 3D INTERATIVO",
     viewerType: "sketchfab",
     coverImageUrl: sanitizeText(record.thumbnail_url),
     thumbnailUrl: sanitizeText(record.thumbnail_url),
