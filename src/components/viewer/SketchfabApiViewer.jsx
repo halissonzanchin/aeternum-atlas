@@ -4,7 +4,7 @@ import { sketchfabBridge } from "../../services/sketchfabAnnotationBridge";
 import "./SketchfabApiViewer.css";
 
 const SKETCHFAB_API_URL = "https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js";
-const DEFAULT_HEART_UID = "fd61a9605f4148a9b5274463f7adbcb5";
+const DEFAULT_HEART_UID = "d527b406b0dc430e888d0d016c02528a";
 const FALLBACK_NOTICE_MS = 8000;
 const VIEWER_READY_TIMEOUT_MS = 60000;
 
