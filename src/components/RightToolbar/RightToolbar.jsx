@@ -16,11 +16,15 @@ const tools = [
   ["help", "viewer.toolbar.help", "help"]
 ];
 
-export default function RightToolbar({ onAction }) {
+export default function RightToolbar({ onAction, user }) {
   const { t } = useLanguage();
+  
+  const isSuperAdmin = user?.role === 'super_admin';
+  const visibleTools = tools.filter(t => t[0] !== "native" || isSuperAdmin);
+  
   return (
     <aside className="right-toolbar" aria-label={t("settings.preferences.tools")}>
-      {tools.map(([id, labelKey, icon]) => (
+      {visibleTools.map(([id, labelKey, icon]) => (
         <button key={id} onClick={() => onAction(id)} aria-label={t(labelKey)} data-tooltip={t(labelKey)}>
           <LineIcon name={icon} />
           <span>{labelKey.includes('.') ? t(labelKey) : labelKey}</span>

@@ -89,7 +89,7 @@ export default function ModelCard({ model, user, navigate }) {
         <span className="badge badge-teal atlas-badge-responsive text-[10px] md:text-xs" title={localizedModel.level}>{localizedModel.level}</span>
         <span className="badge badge-active atlas-badge-responsive text-[10px] md:text-xs" title={localizedModel.type}>
           <span className="hidden sm:inline">{localizedModel.type}</span>
-          <span className="sm:hidden text-[10px]">ATLAS NATIVE</span>
+          <span className="sm:hidden text-[10px]">MODELO 3D</span>
         </span>
         <span className="badge badge-gold atlas-badge-responsive text-[10px] md:text-xs" title={t("models.availableByInstitution")}>{t("models.availableByInstitution")}</span>
       </div>

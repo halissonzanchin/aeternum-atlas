@@ -259,7 +259,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     handleViewerAction
   };
 
-  const isSketchfabMode = shouldUseSketchfabEngine(modelState.model, engineParam);
+  const isSketchfabMode = shouldUseSketchfabEngine(modelState.model, engineParam, user);
 
   return (
     <ViewerContext.Provider value={contextValue}>

@@ -90,7 +90,7 @@ export default function ViewerControls() {
 
   return (
     <>
-      <RightToolbar onAction={handleRightAction} />
+      <RightToolbar onAction={handleRightAction} user={user} />
 
       <SearchOverlay
         open={searchOpen}

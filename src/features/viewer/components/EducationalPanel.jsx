@@ -368,7 +368,7 @@ export default function EducationalPanel({
                     ) : (
                       <div className="flex flex-col items-center justify-center p-8 text-center atlas-liquid-glass-card rounded-xl">
                         <LineIcon name="alert-triangle" className="w-8 h-8 text-alertRed/50 mb-3" />
-                        <p className="text-sm text-white/50">Não foi possível carregar as marcações do Sketchfab. Tente novamente ou use o Atlas Native Engine.</p>
+                        <p className="text-sm text-white/50">Não foi possível carregar as marcações do Sketchfab. Tente novamente.</p>
                       </div>
                     )}
                   </div>

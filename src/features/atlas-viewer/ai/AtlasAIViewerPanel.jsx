@@ -16,8 +16,8 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
       id: 'welcome',
       sender: 'ai',
       text: isSketchfabMode 
-        ? 'Este modelo está sendo exibido via Sketchfab Embed temporário. O Tutor IA permanece disponível para orientação anatômica e estudo.' 
-        : 'Olá, sou o Aeternum AI Tutor. Posso te ajudar a estudar este modelo, explicar marcadores anatômicos, orientar o uso do viewer e montar um caminho de revisão.'
+        ? 'Olá, sou o Aeternum AI Tutor. Este modelo anatômico digital 3D Interativo está disponível. Posso te ajudar a estudá-lo, explicar marcadores anatômicos e montar um caminho de revisão.' 
+        : 'Olá, sou o Aeternum AI Tutor. Posso te ajudar a estudar este modelo nativo, explicar marcadores anatômicos, orientar o uso do viewer e montar um caminho de revisão.'
     }
   ]);
   const [inputValue, setInputValue] = useState('');

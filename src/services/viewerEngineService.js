@@ -78,25 +78,36 @@ export function buildSketchfabEmbedUrl(url, options = {}) {
   }
 }
 
-export function shouldUseSketchfabEngine(model, requestedEngine = null) {
+export function shouldUseSketchfabEngine(model, requestedEngine = null, user = null) {
   const config = normalizeViewerEngineConfig(model);
   if (!config) return false;
 
   const hasValidEmbed = config.embedProvider === "sketchfab" && validateSketchfabEmbedUrl(config.embedUrl);
   
-  if (requestedEngine === "native") return false;
-  if (requestedEngine === "sketchfab") return hasValidEmbed;
+  // REGRA: Governance Reset (Phase 8.18B.2R)
+  // Super Admin can use native engine if explicitly requested
+  const isSuperAdmin = user?.role === 'super_admin';
+  
+  if (!isSuperAdmin) {
+    // Non-Super Admins ALWAYS get Sketchfab if it has a valid embed, ignoring requestedEngine
+    if (hasValidEmbed) return true;
+  } else {
+    // Super Admin respects requestedEngine
+    if (requestedEngine === "native") return false;
+    if (requestedEngine === "sketchfab") return hasValidEmbed;
+  }
 
-  // Sem query, usa configuração do modelo
+  // Sem query ou query inválida, usa configuração do modelo
   if (config.defaultViewerEngine === "sketchfab" || config.viewerEngine === "sketchfab" || config.viewerEngine === "hybrid") {
     return hasValidEmbed;
   }
 
+  // Fallback seguro: se não tiver embed válido, tenta native
   return false;
 }
 
-export function shouldUseNativeEngine(model, requestedEngine = null) {
-  const isSketchfab = shouldUseSketchfabEngine(model, requestedEngine);
+export function shouldUseNativeEngine(model, requestedEngine = null, user = null) {
+  const isSketchfab = shouldUseSketchfabEngine(model, requestedEngine, user);
   return !isSketchfab;
 }
 
