@@ -8,7 +8,14 @@ export function useViewerAnnotations(model) {
   const [activeAnnotationIndex, setActiveAnnotationIndex] = useState(null);
   const [annotationNavigationRequest, setAnnotationNavigationRequest] = useState(null);
 
-  const isSketchfabModel = Boolean(model?.sketchfabEmbedUrl || model?.sketchfabUrl || model?.sketchfab_url);
+  const isSketchfabModel = Boolean(
+    model?.sketchfabEmbedUrl || 
+    model?.sketchfabUrl || 
+    model?.sketchfab_url || 
+    model?.viewerType === "sketchfab" || 
+    model?.viewerEngine === "sketchfab" || 
+    (model?.embedUrl && model.embedUrl.includes("sketchfab"))
+  );
 
   useEffect(() => {
     if (!model?.id) return;
