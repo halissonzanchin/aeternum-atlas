@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { listModelAnnotations } from '../../../services/modelAnnotationService';
 import { sketchfabBridge } from '../../../services/sketchfabAnnotationBridge';
-import { getEnrichedMarker } from '../../../data/anatomicalMarkerLabels';
 
 export function useViewerAnnotations(model) {
   const [sketchfabAnnotations, setSketchfabAnnotations] = useState([]);
@@ -22,13 +21,13 @@ export function useViewerAnnotations(model) {
     if (!model?.id || !isSketchfabModel) return undefined;
 
     const rawAnnotations = sketchfabBridge.getSketchfabAnnotations();
-    setSketchfabAnnotations(rawAnnotations.map(ann => getEnrichedMarker(model, ann)));
+    setSketchfabAnnotations(rawAnnotations);
     setSketchfabReady(sketchfabBridge.isSketchfabReady());
 
     const unsubReady = sketchfabBridge.subscribeToSketchfabReady(() => setSketchfabReady(true));
 
     const unsubAnnotations = sketchfabBridge.subscribe((annotations) => {
-      setSketchfabAnnotations(annotations.map(ann => getEnrichedMarker(model, ann)));
+      setSketchfabAnnotations(annotations);
     });
 
     const unsubSelect = sketchfabBridge.subscribeToAnnotationSelect((idx) => {

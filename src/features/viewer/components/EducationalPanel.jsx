@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import LineIcon from "../../../components/icons/LineIcon";
 import { useLanguage } from "../../../context/LanguageContext";
 import { sketchfabBridge } from "../../../services/sketchfabAnnotationBridge";
-import { getEnrichedMarker } from "../../../data/anatomicalMarkerLabels";
 
 const defaultTabs = [
   "Informação",
@@ -266,7 +265,6 @@ export default function EducationalPanel({
                       </div>
                     ) : sketchfabAnnotations.length > 0 ? (
                       sketchfabAnnotations.map((annotation, index) => {
-                        const enriched = getEnrichedMarker(model, annotation);
                         return (
                           <button
                             key={`anot-${annotation.id}`}
@@ -281,9 +279,9 @@ export default function EducationalPanel({
                               {String(index + 1).padStart(2, "0")}
                             </span>
                             <span className="flex-1 flex flex-col min-w-0">
-                              <strong className="text-sm font-medium">{enriched.name}</strong>
-                              {enriched.description ? (
-                                <small className="text-xs text-white/50 mt-1 line-clamp-2">{enriched.description}</small>
+                              <strong className="text-sm font-medium">{annotation.name}</strong>
+                              {annotation.description ? (
+                                <small className="text-xs text-white/50 mt-1 line-clamp-2">{annotation.description}</small>
                               ) : null}
                               <span className={`text-[10px] uppercase tracking-widest font-bold mt-2 ${activeSketchfabAnnotationIndex === annotation.index ? 'text-techTeal' : 'text-white/30'}`}>
                                 {activeSketchfabAnnotationIndex === annotation.index ? 'Marcador ativo' : 'Ver no modelo'}
