@@ -236,6 +236,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     annotations: annotationsState,
     progress: progressState,
     quiz: quizState,
+    markers: nativeMarkers,
     user,
     navigate,
     notify,

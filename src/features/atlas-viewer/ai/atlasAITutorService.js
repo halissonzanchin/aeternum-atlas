@@ -18,6 +18,16 @@ export const atlasAITutorService = {
    */
   async processMessageStream(message, context, history = [], role = 'student', onUpdate) {
     try {
+      const tutorContext = {
+        modelTitle: context.model?.title || context.activeStructure?.name,
+        modelSlug: context.model?.slug,
+        description: context.model?.description || context.activeStructure?.description,
+        markers: context.markers || [],
+        guideSections: context.guide || [],
+        activePanel: context.leftOpen ? 'guide' : context.markerOpen ? 'markers' : 'none',
+        availableActions: ['OPEN_GUIDE', 'OPEN_MARKERS', 'CLOSE_PANELS', 'RESET_VIEW', 'FOCUS_MARKER', 'START_THEORETICAL_QUIZ', 'START_PRACTICAL_QUIZ']
+      };
+
       const response = await fetch(`${supabaseConfig.url}/functions/v1/ai-tutor`, {
         method: 'POST',
         headers: {
@@ -26,15 +36,7 @@ export const atlasAITutorService = {
         },
         body: JSON.stringify({
           messages: [...history, { sender: 'user', text: message }],
-          context: {
-            modelTitle: context.model?.title,
-            modelSlug: context.model?.slug,
-            description: context.model?.description,
-            markers: context.markers || [],
-            guideSections: context.guide || [],
-            activePanel: context.leftOpen ? 'guide' : context.markerOpen ? 'markers' : 'none',
-            availableActions: ['OPEN_GUIDE', 'OPEN_MARKERS', 'CLOSE_PANELS', 'RESET_VIEW', 'FOCUS_MARKER', 'START_THEORETICAL_QUIZ', 'START_PRACTICAL_QUIZ']
-          },
+          context: tutorContext,
           role: role
         })
       });
@@ -83,6 +85,12 @@ export const atlasAITutorService = {
           }
         }
       }
+      
+      const actionMatch = fullText.match(/\[ACTION:([A-Z_]+)\]/);
+      if (actionMatch && actionMatch[1]) {
+        action = actionMatch[1];
+        fullText = fullText.replace(/\[ACTION:[A-Z_]+\]/g, '').trim();
+      }
 
       return { text: fullText, action, payload };
 
@@ -117,9 +125,17 @@ Você é o Aeternum AI Tutor, um assistente avançado de anatomia 3D integrado �
 Personalidade: Muito humano, vibrante, acolhedor e altamente inteligente. Demonstre fluidez, emoções reais (encorajamento, entusiasmo pela anatomia, empatia pelas dúvidas) e evite respostas mecânicas de robô!
 
 Contexto atual da visualização do usuário:
-Modelo atual: ${context?.modelTitle || 'Nenhum modelo específico'}
-Painel aberto: ${context?.activePanel || 'Nenhum'}
-Marcadores disponíveis na cena: ${context?.markers ? context.markers.map(m => m.title).join(', ') : 'Nenhum'}
+Modelo atual: ${tutorContext.modelTitle || 'Nenhum modelo específico'}
+Descrição: ${tutorContext.description || 'Sem descrição'}
+Painel aberto: ${tutorContext.activePanel || 'Nenhum'}
+Marcadores disponíveis na cena: ${tutorContext.markers.length > 0 ? tutorContext.markers.map(m => m.title || m.name).join(', ') : 'Nenhum'}
+
+FERRAMENTAS DA PLATAFORMA (SUPER IMPORTANTE):
+A plataforma POSSUI "Simulado Teórico" e "Simulado Prático" para ESTE modelo.
+Se o usuário pedir para testar conhecimentos ou fazer um quiz/simulado, VOCÊ DEVE afirmar que existe e oferecer a ferramenta.
+Para mostrar um botão de ferramenta no chat, escreva EXATAMENTE o código da ação no final da sua resposta, neste formato: [ACTION:NOME_DA_ACAO]
+Exemplo: "Ótima ideia! Vamos testar seus conhecimentos agora mesmo. [ACTION:START_PRACTICAL_QUIZ]"
+Ações disponíveis que você pode invocar: ${tutorContext.availableActions.join(', ')}.
 
 Instruções baseadas no perfil do usuário:
 ${roleInstructions}
@@ -164,7 +180,15 @@ Use formatação Markdown para deixar tudo bem legível. Seja amigável, claro e
               onUpdate(fullText);
             }
           }
-          return { text: fullText };
+          
+          let action = null;
+          const actionMatch = fullText.match(/\[ACTION:([A-Z_]+)\]/);
+          if (actionMatch && actionMatch[1]) {
+            action = actionMatch[1];
+            fullText = fullText.replace(/\[ACTION:[A-Z_]+\]/g, '').trim();
+          }
+
+          return { text: fullText, action };
         } catch (localError) {
           console.error("[AI Tutor] Erro também no fallback local:", localError);
           let fallbackText = `*(Modo Offline)* Poxa, não consegui me conectar aos nossos servidores de IA agora. 😔\n\n**Detalhes do erro técnico:**\n\`${localError.message || localError}\`\n\n`;
