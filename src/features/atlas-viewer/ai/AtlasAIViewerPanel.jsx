@@ -8,8 +8,10 @@ import AtlasAIOrb from './AtlasAIOrb';
 import AtlasAIImmersiveOverlay from './AtlasAIImmersiveOverlay';
 import { atlasAITutorService } from './atlasAITutorService';
 import { actionDictionary, executeTutorAction } from './atlasAITutorActions';
+import { useAuth } from '../../../context/AuthContext';
 
 export default function AtlasAIViewerPanel({ isSketchfabMode }) {
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -120,17 +122,33 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
     setInputValue('');
     setIsThinking(true);
 
-    // Call local AI service
+    // Prepare streaming AI message placeholder
+    const aiMsgId = (Date.now() + 1).toString();
+    setMessages(prev => [...prev, { id: aiMsgId, sender: 'ai', text: '', isStreaming: true }]);
+
     try {
-      const response = await atlasAITutorService.processMessage(text, viewerContext, messages);
-      const aiMsg = { 
-        id: (Date.now() + 1).toString(), 
-        sender: 'ai', 
-        text: response.text,
-        action: response.action,
-        payload: response.payload
-      };
-      setMessages(prev => [...prev, aiMsg]);
+      const response = await atlasAITutorService.processMessageStream(
+        text, 
+        viewerContext, 
+        messages, 
+        user?.role || 'student',
+        (chunkText) => {
+           setMessages(prev => prev.map(msg => 
+             msg.id === aiMsgId ? { ...msg, text: chunkText } : msg
+           ));
+        }
+      );
+      
+      // Finalize message with actions
+      setMessages(prev => prev.map(msg => 
+        msg.id === aiMsgId ? { 
+          ...msg, 
+          text: response.text, 
+          action: response.action, 
+          payload: response.payload, 
+          isStreaming: false 
+        } : msg
+      ));
       
       // Auto-execute check
       if (response.action) {
