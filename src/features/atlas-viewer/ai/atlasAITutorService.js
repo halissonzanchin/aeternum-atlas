@@ -128,7 +128,7 @@ Use formatação Markdown para deixar tudo bem legível. Seja amigável, claro e
 `;
 
           const generativeModel = genAI.getGenerativeModel({ 
-            model: "gemini-1.5-flash",
+            model: "gemini-flash-latest",
             systemInstruction: systemInstruction 
           });
 
@@ -167,11 +167,13 @@ Use formatação Markdown para deixar tudo bem legível. Seja amigável, claro e
           return { text: fullText };
         } catch (localError) {
           console.error("[AI Tutor] Erro também no fallback local:", localError);
+          let fallbackText = `*(Modo Offline)* Poxa, não consegui me conectar aos nossos servidores de IA agora. 😔\n\n**Detalhes do erro técnico:**\n\`${localError.message || localError}\`\n\n`;
+          return { text: fallbackText + "Você pode explorar os marcadores ou o guia de estudo disponíveis aqui no menu." };
         }
       }
 
-      // Fallback gracioso para modo offline simulado caso tudo falhe
-      let fallbackText = "*(Modo Offline)* Poxa, não consegui me conectar aos nossos servidores de IA agora. 😔 ";
+      // Fallback gracioso para modo offline simulado caso tudo falhe (sem API Key)
+      let fallbackText = "*(Modo Offline)* Poxa, não consegui me conectar aos nossos servidores de IA agora (Chave API ausente ou falha no servidor Principal). 😔 ";
       
       const normalized = message.toLowerCase().trim();
       if (normalized.includes('guia')) {

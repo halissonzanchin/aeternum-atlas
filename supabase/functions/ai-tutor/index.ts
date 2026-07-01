@@ -61,7 +61,7 @@ Use formatação Markdown. Seja amigável, claro e conciso.
     // We will inject the system prompt in the very first user message if history is short, or use systemInstruction feature of gemini API.
     // GoogleGenerativeAI supports systemInstruction directly.
     const generativeModel = genAI.getGenerativeModel({ 
-        model: "gemini-1.5-flash",
+        model: "gemini-flash-latest",
         systemInstruction: systemInstruction 
     });
 
