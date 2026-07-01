@@ -999,7 +999,7 @@ export const pt = {
     studyGuide: "Guia de estudo",
     reference: "Referência",
     information: "Informação",
-    annotations: "Anotações",
+    annotations: "Marcações",
     theoreticalQuiz: "Simulado Teórico",
     practicalQuiz: "Simulado Prático",
     parts: "Partes",

@@ -2,7 +2,6 @@ export const ANATOMICAL_MARKER_LABELS = {
   // O mapeamento utiliza preferencialmente o ID do modelo no Supabase ou Sketchfab UID
   // Adicione mappings para outros modelos conforme necessário.
   
-  // Exemplo de mapeamento pelo slug (pode ser ajustado para usar ID ou UID real)
   "corte-sagital-cranio-humano-superficial": {
     0: {
       title: "Cerebelo",
@@ -13,8 +12,36 @@ export const ANATOMICAL_MARKER_LABELS = {
       description: "Cavidade do sistema ventricular situada entre o tronco encefálico e o cerebelo."
     },
     2: {
-      title: "Corpo caloso",
-      description: "Comissura cerebral que conecta os hemisférios direito e esquerdo."
+      title: "Lobo Occipital",
+      description: "Centro de processamento visual do encéfalo, localizado na porção posterior do córtex."
+    },
+    3: {
+      title: "Corpo Caloso",
+      description: "Maior comissura cerebral, um feixe de fibras nervosas que conecta os hemisférios direito e esquerdo."
+    },
+    4: {
+      title: "Ponte",
+      description: "Porção intermediária do tronco encefálico, essencial para funções autonômicas e via de passagem de tratos."
+    },
+    5: {
+      title: "Tálamo",
+      description: "Estação retransmissora primária para informações sensoriais direcionadas ao córtex cerebral."
+    },
+    6: {
+      title: "Lobo Frontal",
+      description: "Responsável por funções executivas, planejamento, raciocínio e controle motor voluntário."
+    },
+    7: {
+      title: "Bulbo",
+      description: "A porção inferior do tronco encefálico (medula oblonga), controlando funções vitais como respiração e batimentos cardíacos."
+    },
+    8: {
+      title: "Mesencéfalo",
+      description: "Porção superior do tronco encefálico, envolvida no processamento de informações visuais, auditivas e controle motor."
+    },
+    9: {
+      title: "Giro do Cíngulo",
+      description: "Parte do sistema límbico, fundamental para o processamento de emoções, aprendizagem e memória."
     }
   }
 };
