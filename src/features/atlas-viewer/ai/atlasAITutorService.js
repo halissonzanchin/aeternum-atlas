@@ -17,16 +17,17 @@ export const atlasAITutorService = {
    * @returns {Promise<object>} - O objeto final com a resposta e possíveis ações
    */
   async processMessageStream(message, context, history = [], role = 'student', onUpdate) {
+    const tutorContext = {
+      modelTitle: context.model?.title || context.activeStructure?.name,
+      modelSlug: context.model?.slug,
+      description: context.model?.description || context.activeStructure?.description,
+      markers: context.markers || [],
+      guideSections: context.guide || [],
+      activePanel: context.leftOpen ? 'guide' : context.markerOpen ? 'markers' : 'none',
+      availableActions: ['OPEN_GUIDE', 'OPEN_MARKERS', 'CLOSE_PANELS', 'RESET_VIEW', 'FOCUS_MARKER', 'START_THEORETICAL_QUIZ', 'START_PRACTICAL_QUIZ']
+    };
+
     try {
-      const tutorContext = {
-        modelTitle: context.model?.title || context.activeStructure?.name,
-        modelSlug: context.model?.slug,
-        description: context.model?.description || context.activeStructure?.description,
-        markers: context.markers || [],
-        guideSections: context.guide || [],
-        activePanel: context.leftOpen ? 'guide' : context.markerOpen ? 'markers' : 'none',
-        availableActions: ['OPEN_GUIDE', 'OPEN_MARKERS', 'CLOSE_PANELS', 'RESET_VIEW', 'FOCUS_MARKER', 'START_THEORETICAL_QUIZ', 'START_PRACTICAL_QUIZ']
-      };
 
       const response = await fetch(`${supabaseConfig.url}/functions/v1/ai-tutor`, {
         method: 'POST',
