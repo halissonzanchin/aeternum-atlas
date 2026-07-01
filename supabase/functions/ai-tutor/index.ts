@@ -65,13 +65,27 @@ Use formatação Markdown. Seja amigável, claro e conciso.
         systemInstruction: systemInstruction 
     });
 
-    const formattedHistory = messages.slice(0, -1).map((msg: any) => ({
+    let formattedHistory = messages.slice(0, -1).map((msg: any) => ({
       role: msg.sender === 'user' ? 'user' : 'model',
       parts: [{ text: msg.text }]
     }));
 
+    // Gemini API requires history to start with 'user' and alternate
+    while (formattedHistory.length > 0 && formattedHistory[0].role === 'model') {
+      formattedHistory.shift();
+    }
+    
+    const sanitizedHistory = [];
+    for (const msg of formattedHistory) {
+      if (sanitizedHistory.length > 0 && sanitizedHistory[sanitizedHistory.length - 1].role === msg.role) {
+        sanitizedHistory[sanitizedHistory.length - 1].parts[0].text += '\n' + msg.parts[0].text;
+      } else {
+        sanitizedHistory.push(msg);
+      }
+    }
+
     const chat = generativeModel.startChat({
-      history: formattedHistory,
+      history: sanitizedHistory,
     });
 
     const lastMessage = messages[messages.length - 1];

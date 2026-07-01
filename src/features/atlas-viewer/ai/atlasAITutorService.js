@@ -4,6 +4,7 @@
  */
 
 import { supabaseConfig } from '../../../services/supabase/supabaseClient';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export const atlasAITutorService = {
   /**
@@ -86,19 +87,101 @@ export const atlasAITutorService = {
       return { text: fullText, action, payload };
 
     } catch (error) {
-      console.error("[AI Tutor] Erro ao chamar Edge Function:", error);
-      // Fallback gracioso para modo offline simulado
-      let fallbackText = "*(Modo Offline)* Infelizmente, não consegui me conectar ao servidor de IA no momento. ";
+      console.warn("[AI Tutor] Erro ao chamar Edge Function, tentando SDK local se disponível...", error);
+      
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      if (apiKey) {
+        try {
+          const genAI = new GoogleGenerativeAI(apiKey);
+          
+          let roleInstructions = "";
+          if (role === "teacher" || role === "admin" || role === "institution_admin") {
+            roleInstructions = `
+Você está falando com um PROFESSOR ou ADMINISTRADOR. 
+Seja um assistente incrivelmente prestativo, claro, inteligente e sempre com um toque humano. 
+Pode dar respostas diretas, listar gabaritos e ajudar a configurar aulas ou trilhas.
+Demonstre empatia e proatividade, como um colega de trabalho genial e entusiasmado.
+`;
+          } else {
+            roleInstructions = `
+Você está falando com um ESTUDANTE.
+Sua principal função é atuar como Tutor Socrático. Aja como um mentor incrivelmente humano, atencioso, que demonstra vida, fluidez e emoção!
+Mostre paixão por ensinar! NUNCA dê respostas diretas para quizzes ou avaliações.
+Inspire o estudante com dicas curiosas, perguntas instigantes e elogie o esforço dele. Ajude-o a encontrar a resposta anatômica por si mesmo.
+Incentive fortemente o uso do guia de estudo e dos simulados práticos e teóricos.
+`;
+          }
+      
+          const systemInstruction = `
+Você é o Aeternum AI Tutor, um assistente avançado de anatomia 3D integrado à plataforma Aeternum Atlas.
+Personalidade: Muito humano, vibrante, acolhedor e altamente inteligente. Demonstre fluidez, emoções reais (encorajamento, entusiasmo pela anatomia, empatia pelas dúvidas) e evite respostas mecânicas de robô!
+
+Contexto atual da visualização do usuário:
+Modelo atual: ${context?.modelTitle || 'Nenhum modelo específico'}
+Painel aberto: ${context?.activePanel || 'Nenhum'}
+Marcadores disponíveis na cena: ${context?.markers ? context.markers.map(m => m.title).join(', ') : 'Nenhum'}
+
+Instruções baseadas no perfil do usuário:
+${roleInstructions}
+
+Use formatação Markdown para deixar tudo bem legível. Seja amigável, claro e inspirador. 
+`;
+
+          const generativeModel = genAI.getGenerativeModel({ 
+            model: "gemini-1.5-flash",
+            systemInstruction: systemInstruction 
+          });
+
+          let formattedHistory = history.map(msg => ({
+            role: msg.sender === 'user' ? 'user' : 'model',
+            parts: [{ text: msg.text }]
+          }));
+
+          // Gemini API requires the history to start with 'user' and alternate roles.
+          // 1. Remove leading 'model' messages
+          while (formattedHistory.length > 0 && formattedHistory[0].role === 'model') {
+            formattedHistory.shift();
+          }
+          
+          // 2. Merge consecutive messages of the same role
+          const sanitizedHistory = [];
+          for (const msg of formattedHistory) {
+            if (sanitizedHistory.length > 0 && sanitizedHistory[sanitizedHistory.length - 1].role === msg.role) {
+              sanitizedHistory[sanitizedHistory.length - 1].parts[0].text += '\n' + msg.parts[0].text;
+            } else {
+              sanitizedHistory.push(msg);
+            }
+          }
+
+          const chat = generativeModel.startChat({ history: sanitizedHistory });
+          const result = await chat.sendMessageStream(message);
+
+          let fullText = '';
+          for await (const chunk of result.stream) {
+            const chunkText = chunk.text();
+            if (chunkText) {
+              fullText += chunkText;
+              onUpdate(fullText);
+            }
+          }
+          return { text: fullText };
+        } catch (localError) {
+          console.error("[AI Tutor] Erro também no fallback local:", localError);
+        }
+      }
+
+      // Fallback gracioso para modo offline simulado caso tudo falhe
+      let fallbackText = "*(Modo Offline)* Poxa, não consegui me conectar aos nossos servidores de IA agora. 😔 ";
       
       const normalized = message.toLowerCase().trim();
       if (normalized.includes('guia')) {
-        return { text: fallbackText + "Vou abrir o guia para você.", action: 'OPEN_GUIDE' };
+        return { text: fallbackText + "Mas não se preocupe, vou abrir o guia de estudo para você!", action: 'OPEN_GUIDE' };
       }
       if (normalized.includes('marcador')) {
-        return { text: fallbackText + "Vou abrir os marcadores.", action: 'OPEN_MARKERS' };
+        return { text: fallbackText + "Vou abrir os marcadores para você continuar explorando!", action: 'OPEN_MARKERS' };
       }
       
-      return { text: fallbackText + "Você pode explorar os marcadores ou o guia de estudo disponíveis na interface." };
+      return { text: fallbackText + "Você pode explorar os marcadores ou o guia de estudo disponíveis aqui no menu." };
     }
   }
 };
