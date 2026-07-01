@@ -338,13 +338,13 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
                           : 'bg-techTeal/10 text-clinicalWhite rounded-tl-sm border border-techTeal/20 shadow-[0_4px_15px_rgba(35,210,179,0.05)]'
                       }`}
                     >
-                      <ReactMarkdown 
-                        className={`prose prose-sm max-w-none prose-invert ${
+                      <div className={`prose prose-sm max-w-none prose-invert ${
                           msg.sender === 'user' ? 'text-white' : 'text-clinicalWhite'
-                        } [&>*:first-child]:mt-0 [&>*:last-child]:mb-0`}
-                      >
-                        {msg.text}
-                      </ReactMarkdown>
+                        } [&>*:first-child]:mt-0 [&>*:last-child]:mb-0`}>
+                        <ReactMarkdown>
+                          {msg.text}
+                        </ReactMarkdown>
+                      </div>
                     </div>
                     
                     {shouldRenderButton && (
