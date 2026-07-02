@@ -14736,7 +14736,7 @@ button.cinematic-info-card {
   }
 
   /* --- PHASE 8.18A.9: iOS LIQUID GLASS OVERRIDES FOR SIMULATORS --- */
-  .theory-quiz-backdrop, .viewer-quiz-backdrop {
+  .theory-quiz-backdrop {\n  background: rgba(0, 0, 0, 0.5) !important;\n  backdrop-filter: blur(12px) !important;\n  -webkit-backdrop-filter: blur(12px) !important;\n}\n\n.viewer-quiz-backdrop {\n  background: transparent !important;\n  backdrop-filter: none !important;\n  -webkit-backdrop-filter: none !important;\n}\n\n/* original theory-quiz-backdrop: */\n.old-theory-quiz-backdrop {
     background: rgba(0, 0, 0, 0.5) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
@@ -14824,3 +14824,4 @@ button.cinematic-info-card {
     color: #fff !important;
   }
 }
+\n.viewer-quiz-backdrop { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }\n\n.viewer-quiz-backdrop { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
