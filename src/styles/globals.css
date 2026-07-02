@@ -1004,92 +1004,54 @@ button {
   aspect-ratio: 1;
   place-items: center;
   border-radius: 999px;
-  background:
-    repeating-conic-gradient(from -90deg, rgba(255, 255, 255, 0.34) 0deg 1deg, transparent 1deg 6deg),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.06), transparent 58%),
-    rgba(24, 20, 17, 0.92);
+  background: rgba(18, 18, 20, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    inset 0 0 34px rgba(0, 0, 0, 0.62),
-    0 20px 42px rgba(0, 0, 0, 0.32);
+    0 20px 42px rgba(0, 0, 0, 0.45);
   isolation: isolate;
 }
 
 .viewer-quiz-timer-dial::before {
   content: "";
   position: absolute;
-  inset: 2.15rem;
+  inset: 1rem;
   z-index: 0;
   border-radius: inherit;
-  background: conic-gradient(from -90deg, #ff5a2a 0 var(--timer-angle), rgba(255, 255, 255, 0.08) var(--timer-angle) 360deg);
+  background: conic-gradient(from -90deg, rgba(255, 255, 255, 0.04) 0 var(--timer-angle), #ff5a2a var(--timer-angle) 360deg);
   box-shadow: 0 0 22px rgba(255, 90, 42, 0.18);
+  transition: background 0.2s linear;
 }
 
 .viewer-quiz-timer-dial::after {
   content: "";
   position: absolute;
-  inset: 3.1rem;
+  inset: 1.6rem;
   z-index: 1;
   border-radius: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background:
-    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.06), transparent 28%),
-    linear-gradient(180deg, rgba(34, 29, 26, 0.98), rgba(11, 10, 9, 0.98));
+  background: rgba(18, 18, 20, 0.95);
   box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
     inset 0 0 24px rgba(0, 0, 0, 0.48),
     0 8px 20px rgba(0, 0, 0, 0.36);
 }
 
 .viewer-quiz-timer-dial.is-urgent::before {
-  background: conic-gradient(from -90deg, #ef4444 0 var(--timer-angle), rgba(255, 255, 255, 0.08) var(--timer-angle) 360deg);
+  background: conic-gradient(from -90deg, rgba(255, 255, 255, 0.04) 0 var(--timer-angle), #ef4444 var(--timer-angle) 360deg);
   box-shadow: 0 0 26px rgba(239, 68, 68, 0.28);
-}
-
-.viewer-quiz-timer-scale {
-  position: absolute;
-  inset: 0.7rem;
-  z-index: 2;
-  color: rgba(244, 244, 245, 0.72);
-  font-size: 0.82rem;
-  font-weight: 700;
-  pointer-events: none;
-}
-
-.viewer-quiz-timer-scale span {
-  position: absolute;
-}
-
-.viewer-quiz-timer-scale span:nth-child(1) {
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-}
-
-.viewer-quiz-timer-scale span:nth-child(2) {
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.viewer-quiz-timer-scale span:nth-child(3) {
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.viewer-quiz-timer-scale span:nth-child(4) {
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .viewer-quiz-timer-face {
   position: relative;
   z-index: 3;
-  display: grid;
-  width: 5.4rem;
-  height: 5.4rem;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  width: 100%;
+  height: 100%;
   border-radius: 999px;
   color: #fff7e8;
   text-align: center;
@@ -1098,41 +1060,28 @@ button {
 .viewer-quiz-timer-face svg {
   color: #2fb8b5;
   filter: drop-shadow(0 0 8px rgba(47, 184, 181, 0.34));
+  margin-bottom: 0.2rem;
 }
 
 .viewer-quiz-timer-face strong {
-  margin-top: -0.1rem;
-  font-size: 1.55rem;
+  font-size: 2.1rem;
   line-height: 1;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .viewer-quiz-timer-face span {
-  margin-top: -0.25rem;
   color: #ffb020;
-  font-size: 1.1rem;
-  font-weight: 900;
-  letter-spacing: 0.06em;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .viewer-quiz-timer-dial.is-urgent .viewer-quiz-timer-face span,
 .viewer-quiz-timer-dial.is-urgent .viewer-quiz-timer-face svg {
   color: #f87171;
-}
-
-.viewer-quiz-timer-hand {
-  position: absolute;
-  left: 50%;
-  top: 0.9rem;
-  z-index: 4;
-  width: 0.34rem;
-  height: 2.35rem;
-  border-radius: 999px 999px 0.2rem 0.2rem;
-  background: linear-gradient(180deg, #fff7e8, #c8ced6);
-  transform: translateX(-50%) rotate(var(--timer-angle));
-  transform-origin: 50% calc(100% + 3.4rem);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.36);
-  transition: transform 240ms ease;
 }
 
 .viewer-quiz-status-grid {

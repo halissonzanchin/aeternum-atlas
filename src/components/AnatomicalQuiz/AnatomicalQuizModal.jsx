@@ -83,18 +83,11 @@ export default function AnatomicalQuizModal({
           <>
             <div className="viewer-quiz-dashboard">
               <div className={`viewer-quiz-timer-dial ${timerClass}`} style={{ "--timer-angle": `${timerAngle}deg` }}>
-                <div className="viewer-quiz-timer-scale" aria-hidden="true">
-                  <span>60</span>
-                  <span>15</span>
-                  <span>30</span>
-                  <span>45</span>
-                </div>
                 <div className="viewer-quiz-timer-face" aria-label={t("viewer.anatomicalQuizTimerLabel", { time: formatQuizTime(timeRemaining) })}>
                   <LineIcon name="timer" className="h-5 w-5" />
                   <strong>{timerParts.minutes}</strong>
                   <span>{timerParts.seconds}</span>
                 </div>
-                <span className="viewer-quiz-timer-hand" aria-hidden="true" />
               </div>
 
               <div className="viewer-quiz-status-grid">
@@ -153,7 +146,6 @@ export default function AnatomicalQuizModal({
                         className="viewer-quiz-question-number"
                         onClick={() => onQuestionNavigate?.(question)}
                         aria-label={t("viewer.anatomicalQuizNavigateMarker", { marker: question.markerLabel })}
-                        data-tooltip={t("viewer.anatomicalQuizNavigateMarker", { marker: question.markerLabel })}
                         disabled={Boolean(result)}
                       >
                         {question.markerLabel}
@@ -162,6 +154,7 @@ export default function AnatomicalQuizModal({
                         aria-label={t("viewer.anatomicalQuizAnswerLabel", { marker: question.markerLabel })}
                         value={answer}
                         onChange={event => onAnswerChange?.(question.id, event.target.value)}
+                        onFocus={() => onQuestionNavigate?.(question)}
                         placeholder={t("viewer.anatomicalQuizAnswerPlaceholder")}
                         disabled={Boolean(result)}
                         autoComplete="off"
