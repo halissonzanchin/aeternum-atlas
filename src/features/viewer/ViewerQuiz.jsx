@@ -22,6 +22,9 @@ export default function ViewerQuiz() {
       handleFinishAnatomicalQuiz,
       handleQuizAnswerChange,
       handleQuizQuestionNavigate
+    },
+    annotations: {
+      activeAnnotationIndex,
     }
   } = useViewer();
 
@@ -36,6 +39,7 @@ export default function ViewerQuiz() {
           answers={quizAnswers}
           result={quizResult}
           timeRemaining={quizTimeRemaining}
+          activeAnnotationIndex={activeAnnotationIndex}
           onAnswerChange={handleQuizAnswerChange}
           onQuestionNavigate={handleQuizQuestionNavigate}
           onClose={() => setQuizOpen(false)}
@@ -50,6 +54,7 @@ export default function ViewerQuiz() {
           model={model}
           user={user}
           onClose={() => setTheoreticalQuizOpen(false)}
+          onQuestionNavigate={handleQuizQuestionNavigate}
           onCompleted={result => {
             trackEvent({
               userId: user?.id,

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import LineIcon from "../icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
 
@@ -28,6 +29,7 @@ export default function AnatomicalQuizModal({
   answers = {},
   result = null,
   timeRemaining = 0,
+  activeAnnotationIndex = null,
   onAnswerChange,
   onQuestionNavigate,
   onClose,
@@ -35,6 +37,20 @@ export default function AnatomicalQuizModal({
   onRestart
 }) {
   const { t } = useLanguage();
+  const inputRefs = useRef([]);
+
+  useEffect(() => {
+    if (activeAnnotationIndex !== null && activeAnnotationIndex !== undefined && inputRefs.current) {
+      const questionIndex = (quiz?.questions || []).findIndex(q => q.markerNumber - 1 === activeAnnotationIndex);
+      if (questionIndex !== -1 && inputRefs.current[questionIndex]) {
+        // Prevent focusing if we just clicked the input (it already has focus)
+        if (document.activeElement !== inputRefs.current[questionIndex]) {
+          inputRefs.current[questionIndex].focus();
+        }
+      }
+    }
+  }, [activeAnnotationIndex, quiz?.questions]);
+
   if (!open) return null;
 
   const questions = quiz?.questions || [];
@@ -82,8 +98,19 @@ export default function AnatomicalQuizModal({
         {!loading && hasQuestions ? (
           <>
             <div className="viewer-quiz-dashboard">
-              <div className={`viewer-quiz-timer-dial ${timerClass}`} style={{ "--timer-angle": `${timerAngle}deg` }}>
-                <div className="viewer-quiz-timer-face" aria-label={t("viewer.anatomicalQuizTimerLabel", { time: formatQuizTime(timeRemaining) })}>
+              <div className={`viewer-quiz-timer-dial ${timerClass}`} aria-label={t("viewer.anatomicalQuizTimerLabel", { time: formatQuizTime(timeRemaining) })}>
+                <svg viewBox="0 0 100 100" className="viewer-quiz-timer-svg" aria-hidden="true">
+                  <circle cx="50" cy="50" r="46" className="viewer-quiz-timer-track" />
+                  <circle 
+                    cx="50" 
+                    cy="50" 
+                    r="46" 
+                    className="viewer-quiz-timer-progress" 
+                    strokeDasharray={2 * Math.PI * 46}
+                    strokeDashoffset={(1 - (timeRemaining / timeLimit)) * (2 * Math.PI * 46)}
+                  />
+                </svg>
+                <div className="viewer-quiz-timer-face">
                   <LineIcon name="timer" className="h-5 w-5" />
                   <strong>{timerParts.minutes}</strong>
                   <span>{timerParts.seconds}</span>
@@ -135,7 +162,7 @@ export default function AnatomicalQuizModal({
               }}
             >
               <div className="viewer-quiz-question-list">
-                {questions.map(question => {
+                {questions.map((question, index) => {
                   const correction = result?.corrections?.find(item => item.questionId === question.id);
                   const answer = answers[question.id] || "";
 
@@ -151,6 +178,7 @@ export default function AnatomicalQuizModal({
                         {question.markerLabel}
                       </button>
                       <input
+                        ref={el => (inputRefs.current[index] = el)}
                         aria-label={t("viewer.anatomicalQuizAnswerLabel", { marker: question.markerLabel })}
                         value={answer}
                         onChange={event => onAnswerChange?.(question.id, event.target.value)}

@@ -25,12 +25,24 @@ function AtlasViewerShellContent({
   
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [renderMode, setRenderMode] = useState('anatomicalRealism');
-  const { markerOpen, setMarkerOpen } = useViewer();
+  const { markerOpen, setMarkerOpen, annotations } = useViewer();
   const [activeMarkerId, setActiveMarkerId] = useState(null);
   const [studyMode, setStudyMode] = useState(false);
   
   const activeMarker = markers.find(m => m.id === activeMarkerId);
 
+  useEffect(() => {
+    const navReq = annotations?.annotationNavigationRequest;
+    if (navReq && typeof navReq.index === 'number') {
+      const targetMarker = markers[navReq.index];
+      if (targetMarker) {
+        setActiveMarkerId(targetMarker.id);
+        if (onMarkerSelect) onMarkerSelect(targetMarker.id);
+        atlasViewerCommands.focusMarker(targetMarker.id);
+      }
+    }
+  }, [annotations?.annotationNavigationRequest, markers, onMarkerSelect]);
+  
   // Fullscreen Management
   const toggleFullscreen = useCallback(() => {
     if (!document.fullscreenElement) {

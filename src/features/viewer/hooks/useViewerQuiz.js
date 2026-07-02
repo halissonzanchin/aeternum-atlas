@@ -165,10 +165,25 @@ export function useViewerQuiz(model, user, annotationsState, setToast, setLeftOp
   function handleQuizQuestionNavigate(question) {
     if (!question || quizResult) return;
 
-    const rawIndex = Number.isFinite(Number(question.annotationIndex))
-      ? Number(question.annotationIndex)
-      : Number(question.markerNumber) - 1;
-    const index = Math.trunc(rawIndex);
+    let index = -1;
+
+    if (Number.isFinite(Number(question.annotationIndex))) {
+      index = Math.trunc(Number(question.annotationIndex));
+    } else if (Number.isFinite(Number(question.markerNumber))) {
+      const targetMarkerNumber = Number(question.markerNumber);
+      const allAnnotations = annotationsState.sketchfabAnnotations?.length 
+        ? annotationsState.sketchfabAnnotations 
+        : nativeMarkers || [];
+
+      index = allAnnotations.findIndex((ann, i) => {
+        const annMarkerNum = Number(ann.markerNumber !== undefined ? ann.markerNumber : (ann.index !== undefined ? ann.index : (i + 1)));
+        return annMarkerNum === targetMarkerNumber;
+      });
+
+      if (index === -1) {
+        index = targetMarkerNumber - 1;
+      }
+    }
 
     if (!Number.isInteger(index) || index < 0) return;
 

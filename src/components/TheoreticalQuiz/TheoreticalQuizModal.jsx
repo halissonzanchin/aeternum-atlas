@@ -56,35 +56,87 @@ function normalizeStatusTone(isCorrect) {
 
 function TheoryTimer({ remaining, total }) {
   const progress = total ? Math.max(0, Math.min(1, remaining / total)) : 0;
-  const angle = Math.round(progress * 360);
-  const handAngle = Math.round((1 - progress) * 360);
   const urgent = remaining <= 60;
+
+  const size = 240;
+  const strokeWidth = 6;
+  const radius = (size - strokeWidth) / 2;
+  const circumference = radius * 2 * Math.PI;
+  const strokeDashoffset = circumference - progress * circumference;
 
   return (
     <div
-      className={`theory-timer ${urgent ? "is-urgent" : ""}`}
-      style={{
-        "--theory-timer-angle": `${angle}deg`,
-        "--theory-timer-hand": `${handAngle}deg`
-      }}
+      className={`theory-timer-fluid ${urgent ? "is-urgent" : ""}`}
       aria-label={`Tiempo restante ${formatClock(remaining)}`}
     >
-      <div className="theory-timer-ticks" aria-hidden="true">
-        {Array.from({ length: 60 }).map((_, index) => (
-          <span key={index} style={{ "--tick": index }} />
-        ))}
-      </div>
-      <div className="theory-timer-scale" aria-hidden="true">
-        <span>60</span>
-        <span>15</span>
-        <span>30</span>
-        <span>45</span>
-      </div>
-      <span className="theory-timer-hand" aria-hidden="true" />
+      <svg className="theory-timer-svg" width="100%" height="100%" viewBox={`0 0 ${size} ${size}`}>
+        <defs>
+          <linearGradient id="theoryTimerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ffb020" />
+            <stop offset="100%" stopColor="#ff5a2c" />
+          </linearGradient>
+          <linearGradient id="theoryTimerUrgent" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ef4444" />
+            <stop offset="100%" stopColor="#b91c1c" />
+          </linearGradient>
+          <filter id="theoryTimerGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+
+        <circle
+          className="theory-timer-track"
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          strokeWidth={strokeWidth}
+          fill="none"
+        />
+
+        <circle
+          className="theory-timer-progress"
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          strokeWidth={strokeWidth}
+          fill="none"
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeDashoffset}
+          filter="url(#theoryTimerGlow)"
+          transform={`rotate(-90 ${size / 2} ${size / 2})`}
+          style={{ transition: "stroke-dashoffset 1s linear" }}
+        />
+        
+        {Array.from({ length: 60 }).map((_, index) => {
+          const tickAngle = (index * 6 - 90) * (Math.PI / 180);
+          const innerRadius = radius - 16;
+          const outerRadius = index % 5 === 0 ? radius - 6 : radius - 10;
+          const x1 = size / 2 + Math.cos(tickAngle) * innerRadius;
+          const y1 = size / 2 + Math.sin(tickAngle) * innerRadius;
+          const x2 = size / 2 + Math.cos(tickAngle) * outerRadius;
+          const y2 = size / 2 + Math.sin(tickAngle) * outerRadius;
+          
+          return (
+            <line
+              key={index}
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              stroke="currentColor"
+              strokeWidth={index % 5 === 0 ? 2 : 1}
+              className={`theory-timer-tick ${index % 5 === 0 ? "is-major" : ""}`}
+            />
+          );
+        })}
+      </svg>
+
       <div className="theory-timer-face">
         <LineIcon name="timer" className="h-5 w-5" />
         <strong>{formatClock(remaining)}</strong>
-        <small>{urgent ? "Ultimo minuto" : "tiempo restante"}</small>
+        <small>{urgent ? "Último minuto" : "tiempo restante"}</small>
       </div>
     </div>
   );
@@ -232,7 +284,7 @@ function TheoryModelBadge({ type = "heart" }) {
   );
 }
 
-export default function TheoreticalQuizModal({ open, model, user, onClose, onCompleted }) {
+export default function TheoreticalQuizModal({ open, model, user, onClose, onCompleted, onQuestionNavigate }) {
   const quiz = useMemo(() => getTheoreticalQuizForModel(model), [model]);
   const [state, setState] = useState(null);
   const [activeSectionId, setActiveSectionId] = useState("multiple");
@@ -403,7 +455,15 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
           return (
             <article key={question.id} className={`theory-question-card ${status}`}>
               <div className="theory-question-heading">
-                <span>{pad2(index + 1)}</span>
+                <button
+                  type="button"
+                  className="theory-marker-btn"
+                  onClick={() => onQuestionNavigate?.({ markerNumber: index + 1 })}
+                  aria-label={`Ver marcador ${index + 1} no modelo 3D`}
+                  title={`Focar no marcador ${index + 1} do modelo 3D`}
+                >
+                  {pad2(index + 1)}
+                </button>
                 <div>
                   <small>{question.topic}</small>
                   <h3>{question.question}</h3>
@@ -469,7 +529,15 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
           return (
             <article key={question.id} className={`theory-question-card ${status}`}>
               <div className="theory-question-heading">
-                <span>{pad2(index + 1)}</span>
+                <button
+                  type="button"
+                  className="theory-marker-btn"
+                  onClick={() => onQuestionNavigate?.({ markerNumber: index + 1 })}
+                  aria-label={`Ver marcador ${index + 1} no modelo 3D`}
+                  title={`Focar no marcador ${index + 1} do modelo 3D`}
+                >
+                  {pad2(index + 1)}
+                </button>
                 <div>
                   <small>{question.topic}</small>
                   <h3>{question.statement}</h3>
@@ -520,7 +588,15 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
           return (
             <article key={exercise.id} className="theory-question-card theory-matching-card">
               <div className="theory-question-heading">
-                <span>{pad2(index + 1)}</span>
+                <button
+                  type="button"
+                  className="theory-marker-btn"
+                  onClick={() => onQuestionNavigate?.({ markerNumber: index + 1 })}
+                  aria-label={`Ver marcador ${index + 1} no modelo 3D`}
+                  title={`Focar no marcador ${index + 1} do modelo 3D`}
+                >
+                  {pad2(index + 1)}
+                </button>
                 <div>
                   <small>{exercise.topic}</small>
                   <h3>{exercise.title}</h3>
@@ -578,7 +654,15 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
           return (
             <article key={question.id} className="theory-question-card">
               <div className="theory-question-heading">
-                <span>{pad2(index + 1)}</span>
+                <button
+                  type="button"
+                  className="theory-marker-btn"
+                  onClick={() => onQuestionNavigate?.({ markerNumber: index + 1 })}
+                  aria-label={`Ver marcador ${index + 1} no modelo 3D`}
+                  title={`Focar no marcador ${index + 1} do modelo 3D`}
+                >
+                  {pad2(index + 1)}
+                </button>
                 <div>
                   <small>{question.topic}</small>
                   <h3>{question.question}</h3>
@@ -622,7 +706,15 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
           return (
             <article key={question.id} className={`theory-question-card ${status}`}>
               <div className="theory-question-heading">
-                <span>{pad2(index + 1)}</span>
+                <button
+                  type="button"
+                  className="theory-marker-btn"
+                  onClick={() => onQuestionNavigate?.({ markerNumber: index + 1 })}
+                  aria-label={`Ver marcador ${index + 1} no modelo 3D`}
+                  title={`Focar no marcador ${index + 1} do modelo 3D`}
+                >
+                  {pad2(index + 1)}
+                </button>
                 <div>
                   <small>{question.topic}</small>
                   <h3>{question.prompt}</h3>
