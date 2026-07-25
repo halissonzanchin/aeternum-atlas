@@ -111,6 +111,7 @@ export const routeAccessRules = [
 ];
 
 export function getEffectiveUserEmail(user, profile, session) {
+  // Apenas extrai para exibição, NÃO usar para controle de acesso!
   const sources = [
     session?.user?.email,
     session?.email,
@@ -119,9 +120,7 @@ export function getEffectiveUserEmail(user, profile, session) {
     user?.email,
     user?.user?.email,
     user?.profile?.email,
-    profile?.email,
-    user?.user_metadata?.email,
-    user?.app_metadata?.email
+    profile?.email
   ];
 
   for (const source of sources) {
@@ -135,36 +134,22 @@ export function getEffectiveUserEmail(user, profile, session) {
 export function isAeternumSuperAdmin(user, profile, session) {
   if (!user && !profile && !session) return false;
   
-  const effectiveEmail = getEffectiveUserEmail(user, profile, session);
-  
-  const role = String(user?.role || "").toLowerCase();
+  // Confiar apenas na role oficial do banco de dados (que costuma vir no payload do usuário na sessão)
+  // ou app_metadata (que é controlado por Admin API, não editável pelo usuário)
+  const role = String(user?.role || profile?.role || "").toLowerCase();
   const appRole = String(user?.app_metadata?.role || "").toLowerCase();
-  const metadataRole = String(user?.user_metadata?.role || "").toLowerCase();
 
-  const isFounder = effectiveEmail === "superadmin@aeternum.com";
-
-  const hasSuperAdminRole =
-    role === "super_admin" ||
-    appRole === "super_admin" ||
-    metadataRole === "super_admin";
-
-  return isFounder || hasSuperAdminRole;
+  return role === "super_admin" || appRole === "super_admin" || role === "founder" || appRole === "founder";
 }
 
 export function isGlobalAdmin(user, profile, session) {
   if (!user && !profile && !session) return false;
   if (isAeternumSuperAdmin(user, profile, session)) return true;
   
-  const email = getEffectiveUserEmail(user, profile, session);
-  const role = String(user?.role || "").toLowerCase();
-  const userRole = String(user?.user_metadata?.role || "").toLowerCase();
+  const role = String(user?.role || profile?.role || "").toLowerCase();
+  const appRole = String(user?.app_metadata?.role || "").toLowerCase();
 
-  return (
-    email === "admin@aeternum.com" ||
-    email === "admin@aeternumatlas.com" ||
-    role === "admin" ||
-    userRole === "admin"
-  );
+  return role === "admin" || appRole === "admin";
 }
 
 export function normalizeRole(role, user = null) {
