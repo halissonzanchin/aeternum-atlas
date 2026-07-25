@@ -213,6 +213,48 @@ export function mapSupabaseModelToUIModel(record) {
   return uiModel;
 }
 
+function applyVisibilityRules(query, user, options = {}) {
+  const { includeInactive = false, includeDeleted = false, skipInstitutionFilter = false } = options;
+  const role = normalizeRole(user?.role, user);
+  const institutionId = getUserInstitutionId(user);
+  
+  const isSuper = role === ROLES.SUPER_ADMIN || role === ROLES.FOUNDER || role === "super_admin";
+  const isAdmin = role === ROLES.ADMIN || role === ROLES.INSTITUTION_ADMIN || role === "admin" || role === "institution_admin";
+  const isTeacher = role === ROLES.TEACHER || role === "teacher";
+
+  // Admins globais ignoram restrições (exceto os excluídos que exigem includeDeleted)
+  if (!includeDeleted) {
+    query = query.is("deleted_at", null);
+  }
+
+  if (isSuper) {
+    return query;
+  }
+
+  // Se não for admin global, impõe a regra da instituição na tabela antiga
+  if (!skipInstitutionFilter && institutionId && typeof query.url === 'object' && query.url.toString().includes('models_3d')) {
+    query = query.eq("institution_id", institutionId);
+  }
+  
+  // Regra base de lixeira/arquivo: Aluno nunca vê arquivo. 
+  // Professores/Admins podem ver se "includeInactive" for true (CMS).
+  if (!includeInactive) {
+    query = query.is("archived_at", null);
+  }
+
+  // Regra de "Publicado/Ativo" para Alunos (não-admins e não-professores)
+  if (!isSuper && !isAdmin && !isTeacher) {
+    // Alunos nunca veem rascunhos. "active", "ativo", "available", "disponivel", "published".
+    query = query.in("status", ["active", "ativo", "available", "disponivel", "published"]);
+    
+    // Assegura remoção de arquivo e deleção (redundância de segurança)
+    query = query.is("archived_at", null);
+    query = query.is("deleted_at", null);
+  }
+
+  return query;
+}
+
 async function loadModelsQuery(user, options = {}) {
   const { includeInactive = false, includeDeleted = false } = options;
 
@@ -235,15 +277,8 @@ async function loadModelsQuery(user, options = {}) {
   let queryOld = supabase.from("models_3d").select(MODEL_SELECT);
   let queryNew = supabase.from("atlas_models").select("*, atlas_model_assets(asset_url, file_format, file_name, file_size, created_at)");
   
-  if (!includeDeleted) {
-    queryNew = queryNew.is("deleted_at", null); // Exclude permanently deleted by default
-  }
-
-  if (!isSuper) {
-    queryOld = queryOld.eq("institution_id", institutionId);
-    // Removed queryNew.eq("institution_id", institutionId) because atlas_models uses institution_availability JSONB
-    // queryNew = queryNew.contains("institution_availability", `["${institutionId}"]`); // Optional: If we want strict DB filtering
-  }
+  queryOld = applyVisibilityRules(queryOld, user, options);
+  queryNew = applyVisibilityRules(queryNew, user, options);
 
   const [resOld, resNew] = await Promise.all([
     queryOld.order("created_at", { ascending: false }),
@@ -390,15 +425,14 @@ export async function resolveModelIdentity(identifier, user = null, options = {}
         query = query.eq('slug', normalizedIdentifier);
       }
       
-      if (!options.includeInactive) {
-        // Se precisar apenas ativos, podemos filtrar, mas getModelById costuma pegar tudo se for dono
-      }
+      // Filtrar com regra global de visibilidade
+      query = applyVisibilityRules(query, user, options);
       
       const { data, error } = await query.maybeSingle();
       
       if (data) {
         const mappedModel = mapSupabaseModelToUIModel(data);
-        // Força a exibição imediata do modelo obtido individualmente do banco (inclusive Rascunhos/Drafts)
+        // Força a exibição imediata do modelo obtido individualmente do banco (inclusive Rascunhos/Drafts se autorizado)
         identity.modelRecord = applyOverrides(mappedModel);
         identity.modelUuid = data.id;
         identity.slug = data.slug;
@@ -420,6 +454,9 @@ export async function resolveModelIdentity(identifier, user = null, options = {}
       } else {
         queryOld = queryOld.eq('slug', normalizedIdentifier);
       }
+      
+      // Filtrar a tabela legada com a mesma regra de visibilidade
+      queryOld = applyVisibilityRules(queryOld, user, options);
       
       const { data: dataOld } = await queryOld.maybeSingle();
       if (dataOld) {
