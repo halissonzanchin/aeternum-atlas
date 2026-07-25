@@ -50,7 +50,7 @@ export const atlasAssetStorageService = {
 
     const { data, error } = await supabase.storage
       .from(BUCKET_NAME)
-      .upload(filePath, file, { upsert: true, cacheControl: '3600' });
+      .upload(filePath, file, { upsert: false, cacheControl: '3600' });
 
     if (error) {
       console.error('[StorageService] Erro no upload para o Supabase Storage:', error);

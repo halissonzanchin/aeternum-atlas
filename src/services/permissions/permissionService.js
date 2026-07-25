@@ -131,7 +131,13 @@ export function getEffectiveUserEmail(user, profile, session) {
   return "";
 }
 
-export function isAeternumSuperAdmin(user, profile, session) {
+/**
+ * NOTE: The following functions are strictly for UI visualization and UX (hiding/showing buttons).
+ * They are NOT security authorities. True authorization MUST be enforced by Row Level Security (RLS)
+ * or Backend RPCs. Do not rely on these to protect sensitive data.
+ */
+
+export function shouldShowSuperAdminControls(user, profile, session) {
   if (!user && !profile && !session) return false;
   
   // Confiar apenas na role oficial do banco de dados (que costuma vir no payload do usuário na sessão)
@@ -141,19 +147,23 @@ export function isAeternumSuperAdmin(user, profile, session) {
 
   return role === "super_admin" || appRole === "super_admin" || role === "founder" || appRole === "founder";
 }
+// Alias for backward compatibility. DEPRECATED: Use shouldShowSuperAdminControls instead.
+export const isAeternumSuperAdmin = shouldShowSuperAdminControls;
 
-export function isGlobalAdmin(user, profile, session) {
+export function shouldShowGlobalAdminControls(user, profile, session) {
   if (!user && !profile && !session) return false;
-  if (isAeternumSuperAdmin(user, profile, session)) return true;
+  if (shouldShowSuperAdminControls(user, profile, session)) return true;
   
   const role = String(user?.role || profile?.role || "").toLowerCase();
   const appRole = String(user?.app_metadata?.role || "").toLowerCase();
 
   return role === "admin" || appRole === "admin";
 }
+// Alias for backward compatibility. DEPRECATED: Use shouldShowGlobalAdminControls instead.
+export const isGlobalAdmin = shouldShowGlobalAdminControls;
 
 export function normalizeRole(role, user = null) {
-  if (user && isGlobalAdmin(user)) return ROLES.SUPER_ADMIN;
+  if (user && shouldShowGlobalAdminControls(user)) return ROLES.SUPER_ADMIN;
 
   if (role === "admin" || role === "super_admin") return ROLES.SUPER_ADMIN;
   if (role === "professor") return ROLES.TEACHER;
@@ -193,7 +203,7 @@ export function getUserInstitutionId(user) {
 }
 
 export function hasTenantScope(user) {
-  if (isAeternumSuperAdmin(user)) return true;
+  if (shouldShowSuperAdminControls(user)) return true;
   const role = normalizeRole(user?.role, user);
   if (role === ROLES.SUPER_ADMIN) return true;
   return Boolean(getUserInstitutionId(user));
@@ -211,7 +221,7 @@ export function isFinancialRole(roleOrUser) {
 
 export function hasPermission(user, permission) {
   if (!isActiveUser(user)) return false;
-  if (isAeternumSuperAdmin(user)) return true;
+  if (shouldShowSuperAdminControls(user)) return true;
   const role = normalizeRole(user?.role, user);
   return ROLE_PERMISSIONS[role]?.includes(permission) || false;
 }

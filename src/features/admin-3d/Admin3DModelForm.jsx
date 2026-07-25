@@ -384,7 +384,7 @@ export default function Admin3DModelForm({ model, onChange, user, isSuperAdmin }
         </div>
       </div>
 
-      {(model.viewerType || model.viewer_engine) !== 'sketchfab' && (
+      {(model.viewerType || model.viewer_engine) !== 'sketchfab' && isSuperAdmin && (
         <div className="mt-4 border-t border-white/10 pt-4">
           <div className="flex justify-between items-start mb-3">
             <div>

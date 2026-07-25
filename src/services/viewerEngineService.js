@@ -28,19 +28,31 @@ export function getDefaultViewerEngine(model) {
 
 export function validateSketchfabEmbedUrl(url) {
   if (!url || typeof url !== "string") return false;
-  // Bloqueio de injeções maliciosas
-  if (url.trim().toLowerCase().startsWith("javascript:")) return false;
-  if (url.trim().toLowerCase().startsWith("data:")) return false;
-  if (url.trim().toLowerCase().startsWith("blob:")) return false;
   
   try {
     const parsed = new URL(url);
+    
+    // Protocol must be HTTPS
+    if (parsed.protocol !== "https:") return false;
+    
+    // No credentials allowed
+    if (parsed.username || parsed.password) return false;
+    
+    // No non-standard ports
+    if (parsed.port && parsed.port !== "443") return false;
+    
+    // Hostname validation
     if (parsed.hostname !== "sketchfab.com" && parsed.hostname !== "www.sketchfab.com") {
       return false;
     }
-    if (!parsed.pathname.endsWith("/embed")) {
+    
+    // Strict pathname format: /models/{UID}/embed
+    // UID is typically a 32-character alphanumeric hash, but we allow 20-40 characters
+    const pathnameRegex = /^\/models\/[a-zA-Z0-9]{20,40}\/embed\/?$/;
+    if (!pathnameRegex.test(parsed.pathname)) {
       return false;
     }
+    
     return true;
   } catch (e) {
     return false;

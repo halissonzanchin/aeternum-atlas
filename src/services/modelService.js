@@ -213,7 +213,36 @@ export function mapSupabaseModelToUIModel(record) {
   return uiModel;
 }
 
-function applyVisibilityRules(query, user, options = {}) {
+// Regras de visibilidade exclusivas para a tabela moderna (atlas_models)
+function applyAtlasModelVisibilityRules(query, user, options = {}) {
+  const { includeInactive = false } = options;
+  const role = normalizeRole(user?.role, user);
+  const institutionId = getUserInstitutionId(user);
+  
+  const isSuper = role === ROLES.SUPER_ADMIN || role === ROLES.FOUNDER || role === "super_admin";
+  const isAdmin = role === ROLES.ADMIN || role === ROLES.INSTITUTION_ADMIN || role === "admin" || role === "institution_admin";
+  const isTeacher = role === ROLES.TEACHER || role === "teacher";
+
+  if (isSuper) {
+    return query;
+  }
+
+  // Alunos e professores regulares só veem publicados, admins institucionais também podem ver archived (via CMS includeInactive)
+  // Nota: A segurança real é garantida pelo banco de dados (RLS). Isso é apenas restrição de listagem de UI.
+  if (!isSuper && !isAdmin && !isTeacher) {
+    query = query.eq("status", "published");
+  } else if (!includeInactive && !isSuper) {
+    query = query.neq("status", "archived");
+  }
+
+  // institution_availability check é garantido via banco de dados JSONB, 
+  // no client-side a listagem já virá filtrada pela RLS.
+
+  return query;
+}
+
+// Regras de visibilidade exclusivas para a tabela legada (models_3d)
+function applyLegacyModelVisibilityRules(query, user, options = {}) {
   const { includeInactive = false, includeDeleted = false, skipInstitutionFilter = false } = options;
   const role = normalizeRole(user?.role, user);
   const institutionId = getUserInstitutionId(user);
@@ -222,7 +251,6 @@ function applyVisibilityRules(query, user, options = {}) {
   const isAdmin = role === ROLES.ADMIN || role === ROLES.INSTITUTION_ADMIN || role === "admin" || role === "institution_admin";
   const isTeacher = role === ROLES.TEACHER || role === "teacher";
 
-  // Admins globais ignoram restrições (exceto os excluídos que exigem includeDeleted)
   if (!includeDeleted) {
     query = query.is("deleted_at", null);
   }
@@ -231,23 +259,16 @@ function applyVisibilityRules(query, user, options = {}) {
     return query;
   }
 
-  // Se não for admin global, impõe a regra da instituição na tabela antiga
-  if (!skipInstitutionFilter && institutionId && typeof query.url === 'object' && query.url.toString().includes('models_3d')) {
+  if (!skipInstitutionFilter && institutionId) {
     query = query.eq("institution_id", institutionId);
   }
   
-  // Regra base de lixeira/arquivo: Aluno nunca vê arquivo. 
-  // Professores/Admins podem ver se "includeInactive" for true (CMS).
   if (!includeInactive) {
     query = query.is("archived_at", null);
   }
 
-  // Regra de "Publicado/Ativo" para Alunos (não-admins e não-professores)
   if (!isSuper && !isAdmin && !isTeacher) {
-    // Alunos nunca veem rascunhos. "active", "ativo", "available", "disponivel", "published".
     query = query.in("status", ["active", "ativo", "available", "disponivel", "published"]);
-    
-    // Assegura remoção de arquivo e deleção (redundância de segurança)
     query = query.is("archived_at", null);
     query = query.is("deleted_at", null);
   }
@@ -277,8 +298,8 @@ async function loadModelsQuery(user, options = {}) {
   let queryOld = supabase.from("models_3d").select(MODEL_SELECT);
   let queryNew = supabase.from("atlas_models").select("*, atlas_model_assets(asset_url, file_format, file_name, file_size, created_at)");
   
-  queryOld = applyVisibilityRules(queryOld, user, options);
-  queryNew = applyVisibilityRules(queryNew, user, options);
+  queryOld = applyLegacyModelVisibilityRules(queryOld, user, options);
+  queryNew = applyAtlasModelVisibilityRules(queryNew, user, options);
 
   const [resOld, resNew] = await Promise.all([
     queryOld.order("created_at", { ascending: false }),
@@ -426,7 +447,7 @@ export async function resolveModelIdentity(identifier, user = null, options = {}
       }
       
       // Filtrar com regra global de visibilidade
-      query = applyVisibilityRules(query, user, options);
+      query = applyAtlasModelVisibilityRules(query, user, options);
       
       const { data, error } = await query.maybeSingle();
       
@@ -456,7 +477,7 @@ export async function resolveModelIdentity(identifier, user = null, options = {}
       }
       
       // Filtrar a tabela legada com a mesma regra de visibilidade
-      queryOld = applyVisibilityRules(queryOld, user, options);
+      queryOld = applyLegacyModelVisibilityRules(queryOld, user, options);
       
       const { data: dataOld } = await queryOld.maybeSingle();
       if (dataOld) {
@@ -548,7 +569,7 @@ export async function archiveModel(modelId, user) {
   if (!isSupabaseConfigured()) throw new Error("Supabase não configurado.");
   
   const { error } = await supabase.from('atlas_models')
-    .update({ archived_at: new Date().toISOString() })
+    .update({ status: 'archived' })
     .eq('id', modelId);
     
   if (error) throw error;
@@ -557,7 +578,7 @@ export async function archiveModel(modelId, user) {
     model_id: modelId,
     user_id: user?.id,
     action: 'ARCHIVE',
-    changes: { archived_at: new Date().toISOString() }
+    changes: { status: 'archived' }
   });
   
   return true;
@@ -567,7 +588,7 @@ export async function restoreModel(modelId, user) {
   if (!isSupabaseConfigured()) throw new Error("Supabase não configurado.");
   
   const { error } = await supabase.from('atlas_models')
-    .update({ archived_at: null })
+    .update({ status: 'published' })
     .eq('id', modelId);
     
   if (error) throw error;
@@ -576,7 +597,7 @@ export async function restoreModel(modelId, user) {
     model_id: modelId,
     user_id: user?.id,
     action: 'RESTORE',
-    changes: { archived_at: null }
+    changes: { status: 'published' }
   });
   
   return true;
