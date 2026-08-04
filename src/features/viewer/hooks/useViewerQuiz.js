@@ -5,7 +5,7 @@ import { listModelAnnotations } from '../../../services/modelAnnotationService';
 import { useLanguage } from '../../../context/LanguageContext';
 import { recordLearningEvent } from '../../../services/learningTelemetryService';
 
-export function useViewerQuiz(model, user, annotationsState, setToast, setLeftOpen, nativeMarkers = []) {
+export function useViewerQuiz(model, user, annotationsState, setToast, nativeMarkers = []) {
   const { t } = useLanguage();
   const [quizOpen, setQuizOpen] = useState(false);
   const [quizLoading, setQuizLoading] = useState(false);
@@ -118,7 +118,6 @@ export function useViewerQuiz(model, user, annotationsState, setToast, setLeftOp
     setQuizAnswers({});
     quizAnswersRef.current = {};
     quizFinishLockRef.current = false;
-    setLeftOpen(false);
 
     try {
       let annotations = annotationsState.sketchfabAnnotations;

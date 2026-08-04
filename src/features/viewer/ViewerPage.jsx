@@ -9,7 +9,6 @@ import ViewerSketchfab from "./ViewerSketchfab";
 import AtlasAIViewerPanel from "../atlas-viewer/ai/AtlasAIViewerPanel";
 import ViewerAnnotations from "./ViewerAnnotations";
 import ViewerQuiz from "./ViewerQuiz";
-import ViewerSidebar from "./ViewerSidebar";
 
 import LineIcon from "../../components/icons/LineIcon";
 import LanguageSelector from "../../components/LanguageSelector";
@@ -18,17 +17,13 @@ import { useLanguage } from "../../context/LanguageContext";
 import { trackEvent } from "../../services/analytics/analyticsService";
 import { shouldUseSketchfabEngine } from "../../services/viewerEngineService";
 
-function TopViewerBar({ model, structure, navigate, onToggleLeft }) {
+function TopViewerBar({ model, structure, navigate }) {
   const { t } = useLanguage();
   const breadcrumb = structure?.breadcrumb?.length ? structure.breadcrumb : [model.system, model.region || model.category, structure?.name].filter(Boolean);
 
   return (
     <header className="viewer-topbar aog-toolbar">
       <div className="flex min-w-0 items-center gap-2">
-        <button className="viewer-soft-button aog-control" onClick={onToggleLeft} aria-label={t("viewer.togglePanel")}>
-          <LineIcon name="menu" />
-          <span className="hidden sm:inline">{t("viewer.panel")}</span>
-        </button>
         <button className="viewer-soft-button aog-control" onClick={() => navigate("/dashboard")} aria-label={t("viewer.home")}>
           <LineIcon name="home" className="h-4 w-4" />
           <span className="hidden sm:inline">{t("viewer.home")}</span>
@@ -68,14 +63,11 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
   const annotationsState = useViewerAnnotations(modelState.model);
   
   const [toast, setToast] = useState("");
-  const [leftOpen, setLeftOpenState] = useState(false);
-  const setLeftOpen = setLeftOpenState;
-  
   const [notesOpen, setNotesOpen] = useState(false);
   const [activeMarkerId, setActiveMarkerId] = useState(null);
 
   const progressState = useViewerProgress(modelState.model, user, setToast);
-  const quizState = useViewerQuiz(modelState.model, user, annotationsState, setToast, setLeftOpen, []);
+  const quizState = useViewerQuiz(modelState.model, user, annotationsState, setToast, []);
 
   useEffect(() => {
     if (!toast) return undefined;
@@ -87,7 +79,6 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     if (!structure) return;
     modelState.setActiveStructure(structure);
     modelState.setActivePart(null);
-    setLeftOpen(true);
     setToast(t("viewer.selectedStructure", { structure: structure.name }));
   }
 
@@ -130,11 +121,9 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
       "Simulado Anatômico": quizState.handleOpenAnatomicalQuiz,
       "Simulado Prático": () => {
         quizState.handleOpenAnatomicalQuiz();
-        setLeftOpen(false);
       },
       "Simulado Teórico": () => {
         quizState.setTheoreticalQuizOpen(true);
-        setLeftOpen(false);
         trackEvent({
           userId: user?.id,
           institutionId: user?.institutionId,
@@ -144,11 +133,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
         });
       },
       "Voltar para biblioteca": () => navigate("/models"),
-      "Reportar problema": () => setToast(t("viewer.reportRegistered")),
-      "Ver guia de estudo": () => {
-        setLeftOpen(true);
-        setToast(t("viewer.guideAvailable"))
-      }
+      "Reportar problema": () => setToast(t("viewer.reportRegistered"))
     };
     (actions[action] || (() => setToast(t("viewer.functionPrepared", { action }))))();
   }
@@ -187,8 +172,6 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     onLogout,
     toast,
     setToast,
-    leftOpen,
-    setLeftOpen,
     notesOpen,
     setNotesOpen,
     handleSelectStructure,
@@ -205,11 +188,9 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
           model={modelState.model}
           structure={modelState.activeStructure}
           navigate={navigate}
-          onToggleLeft={() => setLeftOpen(value => !value)}
         />
 
-        <main className={`viewer-stage viewer-layout ${leftOpen ? "" : "is-panel-collapsed"}`}>
-          <ViewerSidebar />
+        <main className="viewer-stage viewer-layout">
           <>
             {isSketchfabMode ? (
               <ViewerSketchfab />

@@ -7,8 +7,6 @@
 import { sketchfabBridge } from '../../../services/sketchfabAnnotationBridge';
 
 export const TUTOR_ACTIONS = {
-  OPEN_GUIDE: 'OPEN_GUIDE',
-  OPEN_MARKERS: 'OPEN_MARKERS',
   CLOSE_PANELS: 'CLOSE_PANELS',
   RESET_VIEW: 'RESET_VIEW',
   FOCUS_MARKER: 'FOCUS_MARKER',
@@ -25,22 +23,10 @@ export const TUTOR_ACTIONS = {
  * autoExecute: false -> Requer que o usuário clique no botão sugerido no chat
  */
 export const actionDictionary = {
-  [TUTOR_ACTIONS.OPEN_GUIDE]: {
-    id: TUTOR_ACTIONS.OPEN_GUIDE,
-    label: 'Abrir Guia',
-    description: 'Abre o painel lateral de guia de estudos e informações.',
-    autoExecute: true,
-  },
-  [TUTOR_ACTIONS.OPEN_MARKERS]: {
-    id: TUTOR_ACTIONS.OPEN_MARKERS,
-    label: 'Ver Marcadores',
-    description: 'Abre a barra inferior com os marcadores anatômicos.',
-    autoExecute: true,
-  },
   [TUTOR_ACTIONS.CLOSE_PANELS]: {
     id: TUTOR_ACTIONS.CLOSE_PANELS,
     label: 'Fechar Painéis',
-    description: 'Recolhe os painéis laterais e inferiores para limpar a tela.',
+    description: 'Recolhe os painéis para limpar a tela.',
     autoExecute: true,
   },
   [TUTOR_ACTIONS.RESET_VIEW]: {
@@ -97,16 +83,7 @@ export const executeTutorAction = (actionId, payload = null, viewerContext) => {
   }
 
   switch (actionId) {
-    case TUTOR_ACTIONS.OPEN_GUIDE:
-      viewerContext.setLeftOpen(true);
-      return true;
-      
-    case TUTOR_ACTIONS.OPEN_MARKERS:
-      viewerContext.setLeftOpen(true);
-      return true;
-      
     case TUTOR_ACTIONS.CLOSE_PANELS:
-      viewerContext.setLeftOpen(false);
       viewerContext.setSearchOpen?.(false);
       return true;
       
@@ -129,7 +106,6 @@ export const executeTutorAction = (actionId, payload = null, viewerContext) => {
 
     case TUTOR_ACTIONS.START_THEORETICAL_QUIZ:
       if (viewerContext.quiz && typeof viewerContext.quiz.setTheoreticalQuizOpen === 'function') {
-        viewerContext.setLeftOpen(false); // Close guide to focus on quiz
         viewerContext.quiz.setTheoreticalQuizOpen(true);
         return true;
       }
@@ -143,10 +119,6 @@ export const executeTutorAction = (actionId, payload = null, viewerContext) => {
       return false;
 
     case TUTOR_ACTIONS.SHOW_STUDY_PATH:
-      // Stub behavior: Opens guide where study path usually resides
-      viewerContext.setLeftOpen(true);
-      return true;
-
     case TUTOR_ACTIONS.START_STUDY_PATH:
     case TUTOR_ACTIONS.NEXT_STUDY_STEP:
       // These actions are intercepted and managed locally by the AI Viewer Panel state

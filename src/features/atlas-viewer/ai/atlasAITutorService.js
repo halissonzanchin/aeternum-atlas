@@ -24,9 +24,9 @@ function buildTutorContext(context = {}) {
       || null,
     markers: Array.isArray(context.markers) ? context.markers : [],
     guideSections: Array.isArray(context.guide) ? context.guide : [],
-    activePanel: context.leftOpen ? 'guide' : context.markerOpen ? 'markers' : 'none',
+    activePanel: context.markerOpen ? 'markers' : 'none',
     availableActions: model.id || activeStructure.id
-      ? ['OPEN_GUIDE', 'OPEN_MARKERS', 'CLOSE_PANELS', 'RESET_VIEW', 'FOCUS_MARKER', 'START_THEORETICAL_QUIZ', 'START_PRACTICAL_QUIZ']
+      ? ['CLOSE_PANELS', 'RESET_VIEW', 'FOCUS_MARKER', 'START_THEORETICAL_QUIZ', 'START_PRACTICAL_QUIZ']
       : []
   };
 }
@@ -128,14 +128,6 @@ export const atlasAITutorService = {
 
       // Fallback gracioso para modo offline simulado caso tudo falhe (sem API Key)
       let fallbackText = "*(Modo Offline)* O Tutor IA está temporariamente indisponível. Tente novamente em instantes. 😔 ";
-      
-      const normalized = message.toLowerCase().trim();
-      if (normalized.includes('guia')) {
-        return { text: fallbackText + "Mas não se preocupe, vou abrir o guia de estudo para você!", action: 'OPEN_GUIDE', mode: 'offline' };
-      }
-      if (normalized.includes('marcador')) {
-        return { text: fallbackText + "Vou abrir os marcadores para você continuar explorando!", action: 'OPEN_MARKERS', mode: 'offline' };
-      }
       
       return { text: fallbackText + "Sua pergunta foi preservada no histórico. Você pode continuar navegando e retomar a conversa em qualquer setor da plataforma.", mode: 'offline' };
     }
