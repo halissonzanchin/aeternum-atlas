@@ -145,7 +145,56 @@ export function InteractiveFlashcardDeck({ cards = [] }) {
 }
 
 /**
- * Parser para extrair blocos Mermaid ou Flashcards do texto e renderizar componentes ricos
+ * Renderizador de Tabelas Markdown Formatadas em Liquid Glass
+ */
+export function MarkdownTableRenderer({ markdownTable }) {
+  const lines = String(markdownTable || "").trim().split("\n").map(l => l.trim()).filter(Boolean);
+  if (lines.length < 2) return <pre>{markdownTable}</pre>;
+
+  const parseRow = (rowStr) => {
+    return rowStr
+      .split("|")
+      .map(cell => cell.trim())
+      .filter((_, idx, arr) => idx > 0 && idx < arr.length - 1);
+  };
+
+  const headerCells = parseRow(lines[0]);
+  const dataRows = lines.slice(2).map(parseRow);
+
+  if (!headerCells.length || !dataRows.length) {
+    return <pre className="whitespace-pre-wrap font-mono text-xs">{markdownTable}</pre>;
+  }
+
+  return (
+    <div className="atlas-ai-table-container my-3 overflow-x-auto rounded-xl border border-glassBorder/60 bg-blackDeep/80 shadow-2xl backdrop-blur-md">
+      <table className="w-full text-left text-xs text-clinicalWhite border-collapse">
+        <thead className="bg-surfaceDark/90 border-b border-glassBorder/60 text-amber-300 font-semibold uppercase tracking-wider">
+          <tr>
+            {headerCells.map((head, idx) => (
+              <th key={idx} className="p-3 border-r border-glassBorder/30 last:border-r-0 whitespace-nowrap">
+                {head}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-glassBorder/30">
+          {dataRows.map((row, rowIdx) => (
+            <tr key={rowIdx} className="hover:bg-amber-500/5 transition-colors">
+              {row.map((cell, cellIdx) => (
+                <td key={cellIdx} className="p-3 border-r border-glassBorder/20 last:border-r-0 text-textMuted/90">
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/**
+ * Parser para extrair blocos Mermaid, Flashcards ou Tabelas Markdown do texto e renderizar componentes ricos
  */
 export function RichContentParser({ text }) {
   const contentStr = String(text || "");
@@ -186,6 +235,24 @@ export function RichContentParser({ text }) {
         <>
           {cleanIntro ? <p className="mb-2 whitespace-pre-wrap">{cleanIntro}</p> : null}
           <InteractiveFlashcardDeck cards={flashcardMatches} />
+        </>
+      );
+    }
+  }
+
+  // Detectar tabelas markdown (contém | e linhas com |---|)
+  if (contentStr.includes("|") && /\|[\s-:]+\|/.test(contentStr)) {
+    const tableRegex = /(\|.+?\|\n\|[\s-:|]+\|\n(?:\|.+?\|\n?)+)/g;
+    const parts = contentStr.split(tableRegex);
+    if (parts.length > 1) {
+      return (
+        <>
+          {parts.map((part, index) => {
+            if (part.startsWith("|") && /\|[\s-:]+\|/.test(part)) {
+              return <MarkdownTableRenderer key={index} markdownTable={part} />;
+            }
+            return <p key={index} className="whitespace-pre-wrap">{part}</p>;
+          })}
         </>
       );
     }

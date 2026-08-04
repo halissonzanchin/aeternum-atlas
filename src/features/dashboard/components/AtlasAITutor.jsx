@@ -5,6 +5,7 @@ import AeternumGlassSurface from "../../../components/system/AeternumGlassSurfac
 import { useAtlasAITutorSession } from "../../../context/AtlasAITutorSessionContext";
 import AtlasAIConversation from "../../atlas-viewer/ai/AtlasAIConversation";
 import AtlasAIOrb from "../../atlas-viewer/ai/AtlasAIOrb";
+import NotebookLMToolModal from "../../atlas-viewer/ai/NotebookLMToolModal";
 import useDraggableTutorOrb, {
   getTutorPanelMorphStyle,
   getTutorPanelStyle
@@ -18,6 +19,8 @@ export default function AtlasAITutor({
   draggable = false
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [panelMode, setPanelMode] = useState("compact");
+  const [toolModalType, setToolModalType] = useState(null);
   const triggerRef = useRef(null);
   const context = useMemo(() => getAtlasTutorContext(path), [path]);
   const {
@@ -36,8 +39,6 @@ export default function AtlasAITutor({
   } = useDraggableTutorOrb({
     enabled: draggable,
     storageKey: "aeternum_atlas_native_tutor_orb_position",
-    // A posição inicial respeita a tab bar compacta. Depois do primeiro gesto,
-    // o hook continua permitindo toda a viewport, como definido pelo usuário.
     bottomInset: draggable && typeof window !== "undefined" && window.innerWidth <= 1023 ? 92 : 0
   });
 
@@ -65,7 +66,7 @@ export default function AtlasAITutor({
     bottom: "auto"
   } : undefined;
   const panelBaseStyle = draggable
-    ? getTutorPanelStyle(position, viewport)
+    ? getTutorPanelStyle(position, viewport, { panelMode })
     : {
         "--aog-morph-x": "168px",
         "--aog-morph-y": "280px"
@@ -85,15 +86,39 @@ export default function AtlasAITutor({
     window.requestAnimationFrame(() => triggerRef.current?.focus());
   };
 
-  const handleSendMessage = (text) => sendMessage({
-    text,
-    context: {
-      source: "platform",
-      route: path,
-      routeContext: context
-    },
-    contextLabel: context.structure
-  });
+  const handleSendMessage = (text) => {
+    if (panelMode === "compact" && text.length > 20) {
+      setPanelMode("expanded");
+    }
+    return sendMessage({
+      text,
+      context: {
+        source: "platform",
+        route: path,
+        routeContext: context
+      },
+      contextLabel: context.structure
+    });
+  };
+
+  const handleActionClick = (actionId) => {
+    if (actionId === 'GENERATE_STUDY_REPORT') {
+      setToolModalType('report');
+      return;
+    }
+    if (actionId === 'GENERATE_CUSTOM_QUIZ') {
+      setToolModalType('quiz');
+      return;
+    }
+    if (actionId === 'GENERATE_MIND_MAP') {
+      setToolModalType('mindmap');
+      return;
+    }
+    if (actionId === 'GENERATE_FLASHCARDS') {
+      setToolModalType('flashcards');
+      return;
+    }
+  };
 
   return createPortal(
     <>
@@ -103,7 +128,7 @@ export default function AtlasAITutor({
         <AeternumGlassSurface
           as="section"
           id="upe-ai-panel"
-          className={`upe-ai-panel aog-morph-panel${draggable ? " upe-ai-panel--positioned" : ""}`}
+          className={`upe-ai-panel aog-morph-panel${draggable ? " upe-ai-panel--positioned" : ""} ${panelMode === "expanded" ? "is-expanded" : ""}`}
           variant="regular"
           depth="substantial"
           role="dialog"
@@ -118,14 +143,25 @@ export default function AtlasAITutor({
               <h2 id="upe-ai-title">Atlas AI Tutor</h2>
               <p>{isThinking ? "Analisando sua pergunta…" : "Conversa sincronizada em toda a plataforma"}</p>
             </div>
-            <button
-              type="button"
-              className="upe-ai-panel__close"
-              aria-label="Fechar Atlas AI Tutor"
-              onClick={handleClose}
-            >
-              <LineIcon name="close" />
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                className="upe-ai-panel__close text-textMuted hover:text-amber-300 transition-colors"
+                aria-label={panelMode === "expanded" ? "Modo compacto" : "Modo expandido"}
+                title={panelMode === "expanded" ? "Recolher largura" : "Expandir para leitura ampla"}
+                onClick={() => setPanelMode((prev) => (prev === "expanded" ? "compact" : "expanded"))}
+              >
+                <LineIcon name={panelMode === "expanded" ? "minimize" : "maximize"} />
+              </button>
+              <button
+                type="button"
+                className="upe-ai-panel__close"
+                aria-label="Fechar Atlas AI Tutor"
+                onClick={handleClose}
+              >
+                <LineIcon name="close" />
+              </button>
+            </div>
           </header>
 
           <AtlasAIConversation
@@ -138,8 +174,22 @@ export default function AtlasAITutor({
             setDraft={setDraft}
             onSend={handleSendMessage}
             quickQuestions={context.quickActions}
+            onAction={handleActionClick}
           />
         </AeternumGlassSurface>
+      )}
+
+      {toolModalType && (
+        <NotebookLMToolModal
+          toolType={toolModalType}
+          currentStructure={context.structure || "Plataforma Aeternum Atlas"}
+          onClose={() => setToolModalType(null)}
+          onGenerate={(prompt) => {
+            setToolModalType(null);
+            setPanelMode("expanded");
+            handleSendMessage(prompt);
+          }}
+        />
       )}
 
       {isDragging ? <div className="upe-ai-orb-drag-surface" aria-hidden="true" /> : null}

@@ -105,7 +105,7 @@
   right: clamp(18px, 2vw, 30px);
   bottom: 116px;
   display: grid;
-  width: min(430px, calc(100vw - 36px));
+  width: min(460px, calc(100vw - 36px));
   max-height: none;
   grid-template-rows: auto minmax(0, 1fr) auto;
   overflow: hidden;
@@ -121,6 +121,11 @@
     0 0 70px rgba(39, 184, 177, 0.06);
   animation: upe-ai-panel-in 460ms cubic-bezier(0.18, 0.85, 0.22, 1) both;
   backdrop-filter: blur(36px) saturate(150%);
+  transition: width 380ms cubic-bezier(0.16, 1, 0.3, 1), transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.upe-ai-panel.is-expanded {
+  width: min(780px, calc(100vw - 36px));
 }
 
 .upe-ai-panel--positioned {
