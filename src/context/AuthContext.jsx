@@ -1,27 +1,19 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 
 const AuthContext = createContext({
-  user: {
-    id: "admin-demo",
-    institutionId: "upe-presidente-franco",
-    institution_id: "upe-presidente-franco",
-    role: "admin",
-    name: "Admin Aeternum"
-  }
+  user: null,
+  authenticated: false
 });
 
 export function useAuth() {
   return useContext(AuthContext);
 }
 
-export function AuthProvider({ children }) {
-  return <AuthContext.Provider value={{
-    user: {
-      id: "admin-demo",
-      institutionId: "upe-presidente-franco",
-      institution_id: "upe-presidente-franco",
-      role: "admin",
-      name: "Admin Aeternum"
-    }
-  }}>{children}</AuthContext.Provider>;
+export function AuthProvider({ children, user = null }) {
+  const value = useMemo(() => ({
+    user,
+    authenticated: Boolean(user?.id)
+  }), [user]);
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

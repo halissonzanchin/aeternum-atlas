@@ -1,31 +1,11 @@
-import { institutionProfile, mockInstitutions } from "../../data/mockInstitutionalAnalytics";
 import { supabase } from "../../lib/supabase";
 import { getUserInstitutionId, normalizeRole, ROLES } from "../permissions/permissionService";
 import { createLocalRepository, storageKeys } from "../storage/storageService";
 import { isSupabaseConfigured } from "../supabase/supabaseClient";
 
-const defaultInstitution = {
-  id: "upe-presidente-franco",
-  slug: "upe-presidente-franco",
-  name: "Universidad Privada del Este",
-  displayName: "UPE Presidente Franco",
-  country: "Paraguay",
-  city: "Presidente Franco",
-  active: true,
-  contractedCapacity: 3000,
-  activeStudents: 2410,
-  registeredStudents: 2960,
-  pricePerStudent: 50,
-  currency: "BRL",
-  contractStatus: "Ativa",
-  createdAt: "2026-04-01T00:00:00.000Z",
-  updatedAt: new Date().toISOString(),
-  ...institutionProfile
-};
-
 const institutionRepository = createLocalRepository({
   key: storageKeys.institutions,
-  seed: [defaultInstitution, ...mockInstitutions.filter(item => item.id !== defaultInstitution.id)]
+  seed: []
 });
 
 export function listInstitutions() {

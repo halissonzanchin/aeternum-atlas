@@ -3,7 +3,7 @@ import { isSupabaseConfigured } from "../supabase/supabaseClient";
 import { mockAcademicAnalytics } from "../../demo/upe/dataset";
 
 export async function fetchAcademicAnalytics(institutionId, userEmail = null) {
-  if (import.meta.env.VITE_DEMO_MODE === 'upe' || institutionId === "upe-presidente-franco") {
+  if (import.meta.env.DEV && import.meta.env.VITE_DEMO_MODE === 'upe') {
     return mockAcademicAnalytics;
   }
 

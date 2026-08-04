@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { favoriteModel, completeModel, trackEvent } from '../../../services/analytics/analyticsService';
-import { isFavoriteModel, isModelStudied, trackModelAccess, unmarkModelAsStudied } from '../../../services/progressService';
+import { isFavoriteModel, isModelStudied, unmarkModelAsStudied } from '../../../services/progressService';
 import { startTrackedLearningSession } from '../../../services/learningTelemetryService';
 import { useLanguage } from '../../../context/LanguageContext';
 
@@ -19,7 +19,6 @@ export function useViewerProgress(model, user, setToast) {
   useEffect(() => {
     if (!model?.id) return undefined;
     trackEvent({ userId: user?.id, institutionId: user?.institutionId, modelId: model.id, eventType: "open_model_viewer" });
-    trackModelAccess(user, model.id, { action: "open_model_viewer", model });
     const tracker = startTrackedLearningSession({
       user,
       scope: "viewer",
@@ -75,7 +74,6 @@ export function useViewerProgress(model, user, setToast) {
 
     if (nextAccessRegistered) {
       trackEvent({ userId: user?.id, institutionId: user?.institutionId, modelId: model.id, eventType: "open_model_viewer", metadata: { source: "manual_button" } });
-      trackModelAccess(user, model.id, { action: "open_model_viewer", model });
       setToast(t("viewer.accessRegistered"));
     } else {
       setToast(t("viewer.accessUnregistered"));

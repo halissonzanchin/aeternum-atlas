@@ -3,7 +3,7 @@
  * Serviço de inteligência artificial conectado à Supabase Edge Function (Gemini).
  */
 
-import { supabaseConfig } from '../../../services/supabase/supabaseClient';
+import { getSupabaseClient, supabaseConfig } from '../../../services/supabase/supabaseClient';
 
 function buildTutorContext(context = {}) {
   const routeContext = context.routeContext || context.tutorContext || {};
@@ -36,26 +36,30 @@ export const atlasAITutorService = {
    * Processa uma mensagem com suporte a streaming
    * @param {string} message - A mensagem do usuário
    * @param {object} context - O contexto do visualizador
-   * @param {Array} history - O histórico de mensagens
-   * @param {string} role - O papel do usuário (ex: 'student', 'teacher')
    * @param {function} onUpdate - Callback chamado a cada novo chunk de texto recebido
    * @returns {Promise<object>} - O objeto final com a resposta e possíveis ações
    */
-  async processMessageStream(message, context, history = [], role = 'student', onUpdate) {
+  async processMessageStream(message, context, onUpdate, conversationId = null) {
     const tutorContext = buildTutorContext(context);
 
     try {
+      const { data: sessionData, error: sessionError } = await getSupabaseClient().auth.getSession();
+      const accessToken = sessionData?.session?.access_token;
+      if (sessionError || !accessToken) {
+        throw new Error('Sessão autenticada necessária para usar o Tutor IA.');
+      }
 
       const response = await fetch(`${supabaseConfig.url}/functions/v1/ai-tutor`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabaseConfig.anonKey}`
+          'Authorization': `Bearer ${accessToken}`,
+          'apikey': supabaseConfig.anonKey
         },
         body: JSON.stringify({
-          messages: [...history, { sender: 'user', text: message }],
+          messages: [{ sender: 'user', text: message }],
           context: tutorContext,
-          role: role
+          conversationId
         })
       });
 
@@ -73,13 +77,16 @@ export const atlasAITutorService = {
       let fullText = '';
       let action = null;
       let payload = null;
+      let remoteConversationId = conversationId;
+      let pending = '';
 
       while (!done) {
         const { value, done: readerDone } = await reader.read();
         done = readerDone;
         if (value) {
-          const chunk = decoder.decode(value, { stream: true });
-          const lines = chunk.split('\n');
+          pending += decoder.decode(value, { stream: true });
+          const lines = pending.split('\n');
+          pending = lines.pop() || '';
           
           for (const line of lines) {
             if (line.startsWith('data: ')) {
@@ -88,17 +95,21 @@ export const atlasAITutorService = {
                 done = true;
                 break;
               }
+              let data;
               try {
-                const data = JSON.parse(dataStr);
-                if (data.text) {
-                  fullText += data.text;
-                  onUpdate?.(fullText);
-                }
-                if (data.action) action = data.action;
-                if (data.payload) payload = data.payload;
-              } catch (e) {
+                data = JSON.parse(dataStr);
+              } catch {
                 // Ignore parse errors on incomplete chunks
+                continue;
               }
+              if (data.error) throw new Error(data.error);
+              if (data.text) {
+                fullText += data.text;
+                onUpdate?.(fullText);
+              }
+              if (data.conversationId) remoteConversationId = data.conversationId;
+              if (data.action) action = data.action;
+              if (data.payload) payload = data.payload;
             }
           }
         }
@@ -110,7 +121,7 @@ export const atlasAITutorService = {
         fullText = fullText.replace(/\[ACTION:[A-Z_]+\]/g, '').trim();
       }
 
-      return { text: fullText, action, payload, mode: 'online' };
+      return { text: fullText, action, payload, conversationId: remoteConversationId, mode: 'online' };
 
     } catch (error) {
       console.error("[AI Tutor] Erro ao chamar Edge Function:", error);
