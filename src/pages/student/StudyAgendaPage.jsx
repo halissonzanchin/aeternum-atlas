@@ -38,7 +38,11 @@ export default function StudyAgendaPage({ navigate }) {
   }
 
   return (
-    <section className="study-agenda-page fade-in-up">
+    <section
+      className="study-agenda-page fade-in-up"
+      data-testid="a26-student-agenda"
+      data-a26-source="account-persisted"
+    >
       <header className="study-agenda-hero">
         <div>
           <p className="viewer-eyebrow">{t("studyAgenda.eyebrow")}</p>

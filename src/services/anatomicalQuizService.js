@@ -1,6 +1,7 @@
 import { supabase } from "../lib/supabase";
 import { readStorage, storageKeys, writeStorage } from "./storage/storageService";
 import { isSupabaseConfigured } from "./supabase/supabaseClient";
+import { recordLearningQuizResult } from "./learningTelemetryService";
 
 const DEFAULT_TIME_LIMIT_SECONDS = 300;
 const MAX_QUIZ_QUESTIONS = 10;
@@ -240,6 +241,7 @@ function writeLocalAttempt({ quiz, model, user, result }) {
 
 export async function recordAnatomicalQuizAttempt({ quiz, model, user, result }) {
   const localAttempt = writeLocalAttempt({ quiz, model, user, result });
+  recordLearningQuizResult({ user, model, quiz, result, quizType: "anatomical" });
 
   if (!isSupabaseConfigured() || quiz?.source !== "supabase") {
     return { data: localAttempt, error: null, persisted: "local" };

@@ -1,0 +1,23 @@
+ M src/i18n/translations/de.js
+ M src/i18n/translations/en.js
+ M src/i18n/translations/es.js
+ M src/i18n/translations/pt.js
+ M src/pages/home/Home.jsx
+ M src/pages/home/hero/AeternumHeroCore.jsx
+ M src/pages/home/hero/HeroCoreScene.jsx
+ M src/pages/home/hero/heroCoreConfig.js
+?? docs/AUDITORIA_COMPLETA_ACESSO_FUNCIONALIDADES_USUARIOS_AETERNUM_ATLAS.md
+?? docs/AUDITORIA_COMPLEMENTAR_EVIDENCIAS_ACESSO_FUNCIONALIDADES.md
+?? screenshots/
+?? scripts/audit_h5b_white_screen.mjs
+?? scripts/audit_visibility.mjs
+?? scripts/capture_h5b3_sequence.mjs
+?? src/pages/home/AtlasSolarSystem.jsx
+?? src/pages/home/AtlasSolarSystemPremium.css
+?? src/pages/home/HomePriorityFour.css
+?? src/pages/home/HomePriorityOne.css
+?? src/pages/home/HomePriorityThree.css
+?? src/pages/home/HomePriorityTwo.css
+?? src/pages/home/ParticleMeshBackground.css
+?? src/pages/home/ParticleMeshBackground.jsx
+?? user_inputs.txt

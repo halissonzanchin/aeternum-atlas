@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars -- o parser ESLint atual não contabiliza identificadores usados apenas em JSX */
 import AeternumLogo from "../AeternumLogo";
 import LineIcon from "../icons/LineIcon";
+import { A26Surface } from "../aeternum-26";
 import { useLanguage } from "../../context/LanguageContext";
 
 export default function AuthExperienceShell({ children, wide = false }) {
@@ -26,7 +28,13 @@ export default function AuthExperienceShell({ children, wide = false }) {
   return (
     <main className="atlas-auth-page">
       <div className={`atlas-auth-shell${wide ? " atlas-auth-shell--wide" : ""}`}>
-        <section className="atlas-auth-story" aria-label={t("common.appName")}>
+        <A26Surface
+          as="section"
+          material="regular"
+          className="atlas-auth-story"
+          aria-label={t("common.appName")}
+          data-testid="a26-auth-story"
+        >
           <div className="atlas-auth-brand">
             <AeternumLogo variant="symbol" size="md" theme="transparent" />
             <div>
@@ -60,7 +68,7 @@ export default function AuthExperienceShell({ children, wide = false }) {
             <strong>{t("auth.secureAccess")}</strong>
             <small>{t("common.academicAccess")}</small>
           </div>
-        </section>
+        </A26Surface>
 
         <div className="atlas-auth-panel-slot">
           {children}

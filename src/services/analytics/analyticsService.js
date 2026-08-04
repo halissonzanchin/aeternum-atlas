@@ -4,7 +4,7 @@ import {
   markModelAsStudied,
   toggleFavoriteModel
 } from "../progressService";
-import { readStorage, removeStorage, storageKeys, writeStorage } from "../storage/storageService";
+import { migrateLegacyTelemetryStorage, readStorage, removeStorage, storageKeys, writeStorage } from "../storage/storageService";
 
 export const eventTypes = [
   "login",
@@ -44,6 +44,7 @@ function eventId() {
 }
 
 export function trackEvent({ userId, institutionId, role = "student", modelId = null, eventType, type, metadata = {}, timestamp = new Date().toISOString(), durationSeconds = null, ...extra }) {
+  migrateLegacyTelemetryStorage();
   const resolvedEventType = eventType || type;
   if (!resolvedEventType) return null;
   const resolvedUserId = userId || "anonymous";
@@ -73,6 +74,7 @@ export function trackEvent({ userId, institutionId, role = "student", modelId = 
 }
 
 export function listAnalyticsEvents(filters = {}) {
+  migrateLegacyTelemetryStorage();
   const events = readStorage(storageKeys.analyticsEvents, []);
   return events.filter(event => {
     if (filters.institutionId && event.institutionId !== filters.institutionId) return false;
@@ -84,6 +86,7 @@ export function listAnalyticsEvents(filters = {}) {
 }
 
 export function clearAccessLogs() {
+  migrateLegacyTelemetryStorage();
   removeStorage(storageKeys.analyticsEvents);
 }
 

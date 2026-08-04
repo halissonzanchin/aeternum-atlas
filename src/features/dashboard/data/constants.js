@@ -73,53 +73,6 @@ export const studyTools = [
   }
 ];
 
-export const recommendationCards = [
-  {
-    id: "review-most-accessed",
-    titleKey: "studentHome.recommendations.reviewMostAccessed",
-    descriptionKey: "studentHome.recommendationDescriptions.reviewMostAccessed",
-    icon: "reset"
-  },
-  {
-    id: "complete-started",
-    titleKey: "studentHome.recommendations.completeStarted",
-    descriptionKey: "studentHome.recommendationDescriptions.completeStarted",
-    icon: "check"
-  },
-  {
-    id: "quick-quiz",
-    titleKey: "studentHome.recommendations.quickQuiz",
-    descriptionKey: "studentHome.recommendationDescriptions.quickQuiz",
-    icon: "spark",
-    path: "/quizzes"
-  },
-  {
-    id: "generate-flashcards",
-    titleKey: "studentHome.recommendations.generateFlashcards",
-    descriptionKey: "studentHome.recommendationDescriptions.generateFlashcards",
-    icon: "library",
-    path: "/flashcards"
-  }
-];
-
-export const weeklyStudyData = [
-  { dayKey: "studentHome.days.mon", minutes: 38 },
-  { dayKey: "studentHome.days.tue", minutes: 52 },
-  { dayKey: "studentHome.days.wed", minutes: 44 },
-  { dayKey: "studentHome.days.thu", minutes: 71 },
-  { dayKey: "studentHome.days.fri", minutes: 58 },
-  { dayKey: "studentHome.days.sat", minutes: 36 },
-  { dayKey: "studentHome.days.sun", minutes: 21 }
-];
-
-export const evolutionSystems = [
-  ["taxonomy.systems.cardiovascular", 82],
-  ["taxonomy.systems.skeletal", 68],
-  ["taxonomy.systems.digestive", 54],
-  ["taxonomy.systems.respiratory", 61],
-  ["taxonomy.systems.nervous", 46]
-];
-
 export const professorCards = [
   ["navigation.models3d", "professorDashboard.modelsText", "/models", "layers"],
   ["navigation.studyLists", "professorDashboard.studyListsText", "/study-lists", "library"],

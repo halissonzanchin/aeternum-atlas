@@ -1,9 +1,9 @@
 /* Premium direction: editorial clinical interface and quieter navigation. */
 @media (min-width: 1181px) {
   .cinematic-home .cinematic-public-header {
-    grid-template-columns: minmax(260px, 0.75fr) minmax(600px, 1.2fr) minmax(330px, 0.8fr);
-    gap: 28px;
-    padding-inline: clamp(34px, 3.2vw, 72px);
+    grid-template-columns: minmax(230px, 0.75fr) minmax(540px, 1.2fr) minmax(260px, 0.8fr);
+    gap: clamp(18px, 2vw, 28px);
+    padding-inline: clamp(24px, 2.7vw, 72px);
     background: rgba(1, 8, 11, 0.76);
   }
 
@@ -21,8 +21,11 @@
     position: relative;
     min-height: 44px;
     padding-inline: clamp(12px, 1.25vw, 22px);
-    border-radius: 0;
+    border-radius: var(--a26-radius-floating);
     color: rgba(235, 240, 238, 0.72);
+    background:
+      linear-gradient(145deg, rgb(255 255 255 / 0.075), transparent 36%),
+      rgb(5 24 29 / 0.34);
     font-size: 0.72rem;
     letter-spacing: 0.01em;
   }
@@ -43,7 +46,15 @@
   .cinematic-home .public-home-nav-button:hover,
   .cinematic-home .public-home-nav-button:focus-visible {
     color: #f2f6f4;
-    background: transparent;
+    border-color: rgb(92 232 223 / 0.38);
+    background:
+      linear-gradient(145deg, rgb(255 255 255 / 0.14), transparent 38%),
+      rgb(8 34 39 / 0.66);
+    box-shadow:
+      0 14px 34px rgb(0 0 0 / 0.24),
+      0 0 24px rgb(92 232 223 / 0.1),
+      inset 0 1px 0 rgb(255 255 255 / 0.18),
+      inset 0 -1px 0 rgb(223 197 127 / 0.64);
   }
 
   .cinematic-home .public-home-nav-button:hover::after,
@@ -63,7 +74,7 @@
   }
 
   .cinematic-home .public-actions > button {
-    min-height: 40px;
+    min-height: 44px;
     border-radius: 999px;
   }
 
@@ -79,7 +90,7 @@
     gap: clamp(58px, 7vw, 132px);
     width: min(90vw, 1720px);
     padding-top: 128px;
-    padding-bottom: 150px;
+    padding-bottom: 76px;
   }
 
   .cinematic-home .aeternum-hero-copy {

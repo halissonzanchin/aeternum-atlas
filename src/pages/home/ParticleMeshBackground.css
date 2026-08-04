@@ -8,6 +8,20 @@
     linear-gradient(135deg, #01070a 0%, #07181c 48%, #010608 100%);
 }
 
+.particle-mesh-shell--stellar::before {
+  position: absolute;
+  inset: -14%;
+  background:
+    radial-gradient(ellipse at 78% 42%, rgba(54, 137, 176, 0.16), transparent 31%),
+    radial-gradient(ellipse at 66% 61%, rgba(92, 71, 154, 0.085), transparent 28%),
+    radial-gradient(ellipse at 46% 78%, rgba(20, 132, 129, 0.09), transparent 34%);
+  opacity: 0.72;
+  transform: translate3d(0, 0, 0) scale(1.02);
+  animation: stellarNebulaDrift 24s ease-in-out infinite alternate;
+  pointer-events: none;
+  content: "";
+}
+
 .particle-mesh-canvas,
 .particle-mesh-vignette,
 .particle-mesh-scan {
@@ -20,7 +34,7 @@
 .particle-mesh-canvas {
   display: block;
   opacity: 1;
-  filter: none;
+  filter: saturate(112%) contrast(106%);
 }
 
 .particle-mesh-vignette {
@@ -32,12 +46,24 @@
 }
 
 .particle-mesh-scan {
-  opacity: 0;
+  opacity: 0.13;
   background:
-    linear-gradient(90deg, transparent 0%, rgba(127, 247, 244, 0.08) 50%, transparent 100%) 0 0 / 100% 1px no-repeat,
-    repeating-linear-gradient(180deg, transparent 0 7px, rgba(127, 247, 244, 0.018) 8px);
-  animation: particleMeshScan 10s linear infinite;
+    linear-gradient(90deg, transparent 0%, rgba(127, 247, 244, 0.1) 52%, transparent 100%) 0 0 / 100% 1px no-repeat,
+    repeating-linear-gradient(180deg, transparent 0 9px, rgba(127, 247, 244, 0.014) 10px);
+  animation: particleMeshScan 14s linear infinite;
   pointer-events: none;
+}
+
+@keyframes stellarNebulaDrift {
+  from {
+    opacity: 0.56;
+    transform: translate3d(-1.2%, 0.5%, 0) scale(1.02);
+  }
+
+  to {
+    opacity: 0.78;
+    transform: translate3d(1.4%, -0.8%, 0) scale(1.055);
+  }
 }
 
 @keyframes particleMeshScan {
@@ -52,7 +78,7 @@
 
 @media (max-width: 768px) {
   .particle-mesh-canvas {
-    opacity: 0.76;
+    opacity: 0.82;
   }
 
   .particle-mesh-vignette {
@@ -63,6 +89,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .particle-mesh-shell--stellar::before,
   .particle-mesh-scan {
     animation: none;
   }

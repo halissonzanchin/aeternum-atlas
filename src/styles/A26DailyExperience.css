@@ -1,0 +1,359 @@
+/* Fase 4 — experiência diária de Aluno e Professor.
+   Conteúdo persistente usa material opaco; o shell continua responsável pelos blurs reais. */
+
+.teacher-page,
+.study-agenda-page,
+.anatomical-quizzes-page {
+  width: min(100%, 1480px);
+  margin-inline: auto;
+  color: var(--a26-color-text);
+}
+
+.teacher-page {
+  padding: clamp(18px, 3vw, 42px);
+}
+
+.teacher-hero,
+.study-agenda-hero,
+.anatomical-quizzes-header {
+  position: relative;
+  margin: 0 0 26px;
+  padding: 0 0 26px;
+  border-bottom: 1px solid var(--a26-color-border);
+  background: transparent;
+}
+
+.teacher-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+}
+
+.teacher-hero h1,
+.study-agenda-hero h1,
+.anatomical-quizzes-header h1 {
+  margin: 6px 0 9px;
+  color: var(--a26-color-text);
+  font: 500 clamp(2rem, 4vw, 3.8rem)/1 var(--a26-type-display);
+  letter-spacing: -0.035em;
+}
+
+.teacher-hero > div:first-child > p:last-child,
+.study-agenda-hero > div > p:last-child,
+.anatomical-quizzes-header > span {
+  max-width: 760px;
+  color: var(--a26-color-text-muted);
+  font-size: clamp(0.94rem, 1.3vw, 1.04rem);
+  line-height: 1.65;
+}
+
+.teacher-profile-chip {
+  min-width: min(310px, 100%);
+  min-height: 94px;
+  padding: 17px 20px;
+  border: 1px solid var(--a26-color-border);
+  border-radius: var(--a26-radius-card);
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 0.055), transparent 36%),
+    var(--a26-material-opaque-bg);
+  box-shadow:
+    var(--a26-shadow-ambient),
+    inset 0 1px 0 rgb(255 255 255 / 0.1);
+}
+
+.teacher-profile-chip span,
+.teacher-profile-chip small {
+  overflow: hidden;
+  color: var(--a26-color-text-subtle);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.teacher-profile-chip strong {
+  overflow: hidden;
+  color: var(--a26-color-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.teacher-kpi-grid,
+.teacher-model-grid,
+.teacher-class-grid,
+.teacher-card-grid,
+.teacher-report-grid {
+  gap: 16px;
+}
+
+.teacher-kpi-card,
+.teacher-model-card,
+.teacher-class-detail-card,
+.teacher-resource-card,
+.teacher-page .premium-panel-card {
+  border: 1px solid var(--a26-color-border);
+  border-radius: var(--a26-radius-card);
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 0.045), transparent 32%),
+    var(--a26-material-opaque-bg);
+  box-shadow:
+    0 18px 48px rgb(0 0 0 / 0.2),
+    inset 0 1px 0 rgb(255 255 255 / 0.08);
+}
+
+.teacher-kpi-card {
+  min-height: 134px;
+}
+
+.teacher-kpi-card > span {
+  border: 1px solid rgb(92 232 223 / 0.18);
+  background: rgb(92 232 223 / 0.07);
+}
+
+.teacher-kpi-card strong {
+  font-family: var(--a26-type-display);
+  font-weight: 600;
+}
+
+.teacher-toolbar {
+  min-height: 68px;
+  margin: 0 0 18px;
+  padding: 10px;
+  border: 1px solid var(--a26-color-border);
+  border-radius: 22px;
+  background: rgb(255 255 255 / 0.025);
+}
+
+.teacher-page button:not([disabled]),
+.teacher-page a,
+.study-agenda-page button:not([disabled]),
+.anatomical-quizzes-page button:not([disabled]) {
+  cursor: pointer;
+}
+
+.teacher-page button,
+.teacher-page input:not([type="checkbox"]),
+.teacher-page select,
+.teacher-page textarea,
+.study-agenda-page button,
+.study-agenda-page input:not([type="checkbox"]),
+.study-agenda-page select,
+.study-agenda-page textarea,
+.anatomical-quizzes-page button {
+  min-height: 44px;
+}
+
+.study-agenda-page button[aria-label] {
+  min-width: 44px;
+}
+
+.teacher-page button:disabled {
+  cursor: not-allowed;
+  opacity: 0.46;
+}
+
+.teacher-section-title > button,
+.teacher-table-actions button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--a26-color-border);
+  border-radius: var(--a26-radius-floating);
+  color: var(--a26-color-text-muted);
+  background: rgb(255 255 255 / 0.025);
+}
+
+.teacher-page button:focus-visible,
+.teacher-page input:focus-visible,
+.teacher-page select:focus-visible,
+.teacher-page textarea:focus-visible,
+.study-agenda-page button:focus-visible,
+.study-agenda-page input:focus-visible,
+.study-agenda-page select:focus-visible,
+.study-agenda-page textarea:focus-visible,
+.anatomical-quizzes-page button:focus-visible {
+  outline: 2px solid var(--a26-color-teal);
+  outline-offset: 3px;
+}
+
+.teacher-table {
+  min-width: 980px;
+}
+
+.teacher-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #0b171b;
+}
+
+.teacher-table td {
+  border-color: rgb(218 251 248 / 0.075);
+}
+
+.teacher-page .a26-state {
+  min-height: 184px;
+}
+
+.teacher-page .a26-state__action {
+  margin-top: 16px;
+}
+
+.agenda-modal-backdrop {
+  background: rgb(0 5 7 / 0.78);
+}
+
+.agenda-task-modal {
+  border-color: var(--a26-color-border-strong);
+  border-radius: var(--a26-radius-panel);
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 0.07), transparent 30%),
+    var(--a26-material-substantial-bg);
+  box-shadow: var(--a26-shadow-elevated);
+}
+
+.agenda-task-modal header > button {
+  min-width: 88px;
+}
+
+.a26-teacher-form {
+  min-width: 0;
+}
+
+.a26-teacher-form .agenda-form-grid {
+  margin: 0;
+}
+
+.a26-teacher-form .field input,
+.a26-teacher-form .field select,
+.a26-teacher-form .field textarea {
+  border-color: var(--a26-color-border);
+  border-radius: 14px;
+  color: var(--a26-color-text);
+  background: rgb(1 9 12 / 0.58);
+}
+
+.teacher-guide-model-option {
+  min-height: 76px;
+}
+
+.teacher-profile-card__actions {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.study-agenda-page,
+.anatomical-quizzes-page {
+  padding: clamp(18px, 3vw, 42px);
+}
+
+.study-agenda-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+}
+
+.agenda-calendar,
+.agenda-day-panel,
+.weekly-study-summary,
+.upcoming-reviews,
+.agenda-task-card,
+.anatomical-quiz-card {
+  border-color: var(--a26-color-border);
+  border-radius: var(--a26-radius-card);
+  background-color: var(--a26-material-opaque-bg);
+  box-shadow:
+    0 18px 48px rgb(0 0 0 / 0.2),
+    inset 0 1px 0 rgb(255 255 255 / 0.08);
+}
+
+.agenda-floating-add {
+  width: 54px;
+  height: 54px;
+  min-height: 54px;
+  border-radius: 50%;
+  box-shadow:
+    0 16px 36px rgb(35 199 194 / 0.25),
+    inset 0 1px 0 rgb(255 255 255 / 0.44);
+}
+
+.anatomical-quizzes-header {
+  display: grid;
+  gap: 2px;
+}
+
+.anatomical-quiz-catalog-grid {
+  gap: 16px;
+}
+
+.anatomical-quiz-card {
+  min-height: 430px;
+  padding: clamp(20px, 2.4vw, 30px);
+}
+
+.anatomical-quiz-card__button {
+  width: 100%;
+  margin-top: auto;
+}
+
+@media (max-width: 1023px) {
+  .teacher-page,
+  .study-agenda-page,
+  .anatomical-quizzes-page {
+    padding-bottom: 112px;
+  }
+
+  .teacher-hero,
+  .study-agenda-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-profile-chip {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .teacher-page,
+  .study-agenda-page,
+  .anatomical-quizzes-page {
+    padding-inline: 14px;
+  }
+
+  .teacher-card-actions,
+  .teacher-toolbar {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-card-actions button,
+  .teacher-toolbar button,
+  .study-agenda-hero > button {
+    width: 100%;
+  }
+
+  .agenda-task-modal {
+    width: calc(100vw - 20px);
+    max-height: calc(100dvh - 20px);
+  }
+
+  .teacher-page .a26-state {
+    padding-right: 88px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .teacher-page *,
+  .study-agenda-page *,
+  .anatomical-quizzes-page * {
+    scroll-behavior: auto !important;
+  }
+}

@@ -12,6 +12,15 @@ const AeternumGlassSurface = forwardRef(function AeternumGlassSurface({
   ...props
 }, forwardedRef) {
   const surfaceRef = useRef(null);
+  const materialByVariant = {
+    clear: "clear",
+    regular: "regular",
+    prominent: "regular",
+    substantial: "substantial"
+  };
+  const a26Material = depth === "substantial"
+    ? "substantial"
+    : (materialByVariant[variant] || "regular");
 
   const assignRef = useCallback((node) => {
     surfaceRef.current = node;
@@ -45,6 +54,7 @@ const AeternumGlassSurface = forwardRef(function AeternumGlassSurface({
       ref={assignRef}
       className={[
         "aog-surface",
+        "a26-legacy-adapter",
         `aog-surface--${variant}`,
         `aog-surface--${depth}`,
         interactive ? "aog-surface--interactive" : "",
@@ -53,6 +63,9 @@ const AeternumGlassSurface = forwardRef(function AeternumGlassSurface({
       data-aog-variant={variant}
       data-aog-depth={depth}
       data-aog-interactive={interactive ? "true" : "false"}
+      data-a26-adapter=""
+      data-a26-material={a26Material}
+      data-a26-blur="true"
       onPointerMove={updateOpticalFocus}
       onPointerLeave={resetOpticalFocus}
       {...props}

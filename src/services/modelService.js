@@ -27,10 +27,9 @@ function applyOverrides(model) {
     return { 
       ...model, 
       ...override,
-      model_url: override.model_url || model.model_url,
-      atlasEngineModelUrl: override.atlasEngineModelUrl || model.atlasEngineModelUrl,
-      atlasAssetPublicUrl: override.atlasAssetPublicUrl || model.atlasAssetPublicUrl,
-      modelFormat: override.modelFormat || model.modelFormat
+      embedUrl: override.embedUrl || override.embed_url || model.embedUrl,
+      sketchfabEmbedUrl: override.sketchfabEmbedUrl || model.sketchfabEmbedUrl,
+      sketchfabUrl: override.sketchfabUrl || override.sketchfab_url || model.sketchfabUrl
     };
   }
   return model;
@@ -53,7 +52,7 @@ const MODEL_SELECT = [
 ].join(", ");
 
 function activeModelStatus(status) {
-  return ["active", "ativo", "available", "disponivel", "disponível"].includes(String(status || "").toLowerCase());
+  return ["active", "ativo", "available", "disponivel", "disponível", "published", "publicado"].includes(String(status || "").toLowerCase());
 }
 
 function mapDifficultyLevel(level = "") {
@@ -93,8 +92,6 @@ export function normalizeSupabaseModel(record = {}) {
     coverImageUrl: sanitizeText(record.thumbnail_url),
     thumbnailUrl: sanitizeText(record.thumbnail_url),
     sketchfabUrl,
-    sketchfabEmbedUrl: embedUrl,
-    embedUrl,
     externalUrl: sketchfabUrl,
     estimatedStudyTime: "",
     author: "",
@@ -112,56 +109,26 @@ export function normalizeSupabaseModel(record = {}) {
     relatedStructures: [],
     references: [],
     createdAt: record.created_at || "",
-    modelLodManifest: localModel?.modelLodManifest || undefined
+    catalogSource: "supabase",
+    embedUrl: embedUrl || localModel?.embedUrl || localModel?.sketchfabEmbedUrl || "",
+    sketchfabEmbedUrl: embedUrl || localModel?.sketchfabEmbedUrl || localModel?.embedUrl || ""
   });
 }
 
 export function normalizeViewerModelAsset(model) {
-  let finalAssetUrl = 
-    model.model_url || 
-    model.modelUrl || 
-    model.asset_url || 
-    model.assetUrl || 
-    model.url || 
-    model.file_url || 
-    model.storage_url || 
-    model.metadata?.model_url || 
-    model.metadata?.asset_url || 
-    model.metadata?.native_model_url || 
-    model.metadata?.glb_url ||
-    model.atlasEngineModelUrl ||
-    model.atlasAssetObjectUrl ||
-    "";
-
-  let finalFormat = model.modelFormat || model.model_format || model.metadata?.model_format || "glb";
-  let finalViewerType = model.viewerType || model.viewer_type || "atlas-native";
-
-  if (model.slug === 'corte-sagital-cranio-humano-superficial' || model.id === 'corte-sagital-cranio-humano-superficial') {
-    if (!finalAssetUrl || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial.glb") || finalAssetUrl.includes("corte-sagital-cranio-humano-superficial-hq.glb") || finalAssetUrl.includes("cranial-encephalon-sagittal-section-hq.glb") || finalAssetUrl.includes("cranial-encephalon-sagittal-section-web.glb") || finalAssetUrl.includes("cranial-encephalon-sagittal-section-color-web.glb")) {
-      finalAssetUrl = "/models/native/cranial-encephalon-realityscan-balanced.glb";
-    }
-    finalFormat = "glb";
-    finalViewerType = "atlas-native";
-    model.provider = "atlas_native";
-  }
-
   return {
     ...model,
-    modelUrl: finalAssetUrl,
-    model_url: finalAssetUrl,
-    assetUrl: finalAssetUrl,
-    asset_url: finalAssetUrl,
-    atlasAssetObjectUrl: finalAssetUrl,
-    atlasEngineModelUrl: finalAssetUrl,
-    modelFormat: finalFormat,
-    model_format: finalFormat,
-    viewerType: finalViewerType,
-    viewer_type: finalViewerType
+    provider: "sketchfab",
+    viewerType: "sketchfab",
+    viewer_type: "sketchfab",
+    viewerEngine: "sketchfab",
+    viewer_engine: "sketchfab",
+    defaultViewerEngine: "sketchfab",
+    embedProvider: "sketchfab"
   };
 }
 
 export function mapSupabaseModelToUIModel(record) {
-  const asset = record.atlas_model_assets?.[0];
   const localModel = findLocalModel(record.slug) || findLocalModel(record.id);
   
   const uiModel = normalizeViewerModelAsset({
@@ -174,25 +141,17 @@ export function mapSupabaseModelToUIModel(record) {
     region: sanitizeText(record.anatomical_region || "Institucional"),
     system: sanitizeText(record.anatomical_system || "Sistema anatômico"),
     level: mapDifficultyLevel(record.difficulty_level),
-    viewerType: record.viewer_type || "atlas-native",
-    modelFormat: asset?.file_format || "glb",
-    atlasEngineModelUrl: asset?.asset_url || "",
-    model_url: asset?.asset_url || "",
-    atlasAssetPublicUrl: asset?.asset_url || "",
-    atlasAssetObjectUrl: asset?.asset_url || "",
-    atlasAssetFileName: asset?.file_name || "",
-    atlasAssetFileSize: asset?.file_size || 0,
-    atlasAssetFileType: asset?.file_format ? `model/${asset.file_format}` : "",
-    atlasAssetStatus: asset ? 'ready' : undefined,
-    atlasAssetUploadedAt: asset?.created_at ? new Date(asset.created_at).toLocaleDateString() : "",
-    sketchfabUrl: sanitizeText(record.sketchfab_url),
+    viewerType: "sketchfab",
+    sketchfabUrl: sanitizeText(record.sketchfab_url || localModel?.sketchfabUrl),
+    sketchfabEmbedUrl: sanitizeText(record.embed_url || localModel?.sketchfabEmbedUrl || localModel?.embedUrl),
+    embedUrl: sanitizeText(record.embed_url || localModel?.embedUrl || localModel?.sketchfabEmbedUrl),
     status: activeModelStatus(record.status) ? "active" : sanitizeText(record.status || "inactive"),
     isActive: activeModelStatus(record.status),
     estimatedStudyTime: record.estimated_time || "",
     createdAt: record.created_at || "",
     archivedAt: record.archived_at || null,
     deletedAt: record.deleted_at || null,
-    modelLodManifest: localModel?.modelLodManifest || undefined
+    catalogSource: "supabase"
   });
 
   if (localModel && (localModel.slug === 'corte-sagital-cranio-humano-superficial' || localModel.id === 'corte-sagital-cranio-humano-superficial')) {
@@ -204,9 +163,8 @@ export function mapSupabaseModelToUIModel(record) {
       embedProvider: localModel.embedProvider,
       embedUrl: localModel.embedUrl,
       externalViewerLabel: localModel.externalViewerLabel,
-      nativeEngineAvailable: localModel.nativeEngineAvailable,
-      nativeFallbackAvailable: localModel.nativeFallbackAvailable,
-      modelLodManifest: localModel.modelLodManifest
+      sketchfabUrl: localModel.sketchfabUrl || uiModel.sketchfabUrl,
+      sketchfabEmbedUrl: localModel.sketchfabEmbedUrl || uiModel.sketchfabEmbedUrl
     };
   }
 
@@ -217,7 +175,6 @@ export function mapSupabaseModelToUIModel(record) {
 function applyAtlasModelVisibilityRules(query, user, options = {}) {
   const { includeInactive = false } = options;
   const role = normalizeRole(user?.role, user);
-  const institutionId = getUserInstitutionId(user);
   
   const isSuper = role === ROLES.SUPER_ADMIN || role === ROLES.FOUNDER || role === "super_admin";
   const isAdmin = role === ROLES.ADMIN || role === ROLES.INSTITUTION_ADMIN || role === "admin" || role === "institution_admin";
@@ -243,17 +200,13 @@ function applyAtlasModelVisibilityRules(query, user, options = {}) {
 
 // Regras de visibilidade exclusivas para a tabela legada (models_3d)
 function applyLegacyModelVisibilityRules(query, user, options = {}) {
-  const { includeInactive = false, includeDeleted = false, skipInstitutionFilter = false } = options;
+  const { includeInactive = false, skipInstitutionFilter = false } = options;
   const role = normalizeRole(user?.role, user);
   const institutionId = getUserInstitutionId(user);
   
   const isSuper = role === ROLES.SUPER_ADMIN || role === ROLES.FOUNDER || role === "super_admin";
   const isAdmin = role === ROLES.ADMIN || role === ROLES.INSTITUTION_ADMIN || role === "admin" || role === "institution_admin";
   const isTeacher = role === ROLES.TEACHER || role === "teacher";
-
-  if (!includeDeleted) {
-    query = query.is("deleted_at", null);
-  }
 
   if (isSuper) {
     return query;
@@ -264,20 +217,18 @@ function applyLegacyModelVisibilityRules(query, user, options = {}) {
   }
   
   if (!includeInactive) {
-    query = query.is("archived_at", null);
+    query = query.in("status", ["active", "ativo", "available", "disponivel", "published"]);
   }
 
   if (!isSuper && !isAdmin && !isTeacher) {
     query = query.in("status", ["active", "ativo", "available", "disponivel", "published"]);
-    query = query.is("archived_at", null);
-    query = query.is("deleted_at", null);
   }
 
   return query;
 }
 
 async function loadModelsQuery(user, options = {}) {
-  const { includeInactive = false, includeDeleted = false } = options;
+  const { includeInactive = false } = options;
 
   if (!isSupabaseConfigured()) {
     console.warn("[models] Supabase não configurado. Catálogo bloqueado por segurança.");
@@ -288,15 +239,13 @@ async function loadModelsQuery(user, options = {}) {
   const institutionId = getUserInstitutionId(user);
   const isSuper = role === ROLES.SUPER_ADMIN;
 
-  console.log("[Admin Models Load Debug] Query Iniciada", { role, isSuper, institutionId, includeInactive, includeDeleted });
-
   if (!isSuper && !institutionId) {
     console.warn("[models] Consulta bloqueada: institution_id ausente para usuário institucional.");
     return [];
   }
 
   let queryOld = supabase.from("models_3d").select(MODEL_SELECT);
-  let queryNew = supabase.from("atlas_models").select("*, atlas_model_assets(asset_url, file_format, file_name, file_size, created_at)");
+  let queryNew = supabase.from("atlas_models").select("*");
   
   queryOld = applyLegacyModelVisibilityRules(queryOld, user, options);
   queryNew = applyAtlasModelVisibilityRules(queryNew, user, options);
@@ -325,12 +274,7 @@ async function loadModelsQuery(user, options = {}) {
 
 export async function listModelsForUser(user, options = {}) {
   try {
-    const role = normalizeRole(user?.role, user);
-    console.log("[Admin Models Load Debug] Iniciando listModelsForUser", { userId: user?.id, email: user?.email, options, role });
-
     const models = await loadModelsQuery(user, options);
-    
-    console.log(`[Admin Models Load Debug] Query retornou ${models.length} modelos. Processando locais...`);
     const merged = mergeCatalogWithLocalModels(models, options);
     const finalModels = merged.map(applyOverrides);
 
@@ -343,16 +287,15 @@ export async function listModelsForUser(user, options = {}) {
         const isActive = modelData.status === 'active' || modelData.status === 'published';
         modelData.isActive = isActive;
         if (options.includeInactive || isActive) {
-          finalModels.push({ ...modelData, id, slug: id });
+          finalModels.push({ ...modelData, id, slug: id, catalogSource: modelData.catalogSource || "local_override" });
           existingIds.add(normalized);
         }
       }
     }
 
-    console.log(`[Admin Models Load Debug] Finalizado. Retornando ${finalModels.length} modelos finais.`);
     return finalModels;
   } catch (error) {
-    console.error("[Admin Models Load Debug] Erro Crítico em listModelsForUser:", error);
+    console.error("[models] Falha crítica ao consolidar o catálogo:", error);
     throw error;
   }
 }
@@ -437,7 +380,7 @@ export async function resolveModelIdentity(identifier, user = null, options = {}
   try {
     // 3. Buscar no Supabase (se online)
     if (isSupabaseConfigured()) {
-      let query = supabase.from('atlas_models').select('*, atlas_model_assets(asset_url, file_format)');
+      let query = supabase.from('atlas_models').select('*');
       
       // OBRIGATÓRIO: separar busca por UUID e busca por Slug
       if (isUuid) {

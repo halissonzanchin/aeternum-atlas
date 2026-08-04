@@ -5,8 +5,13 @@ export const storageKeys = {
   models: "aeternum.react.models",
   categories: "aeternum.react.categories",
   session: "aeternum.react.session",
-  analyticsEvents: "aeternum_access_logs",
-  accessLogs: "aeternum_access_logs",
+  legacyTelemetry: "aeternum_access_logs",
+  analyticsEvents: "aeternum_analytics_events_v2",
+  accessLogs: "aeternum_model_access_logs_v2",
+  learningSessions: "aeternum_learning_sessions_v2",
+  learningEvents: "aeternum_learning_events_v2",
+  learningQuizResults: "aeternum_learning_quiz_results_v2",
+  telemetryMigration: "aeternum_telemetry_migration_v2",
   authProfile: "aeternum.react.auth_profile",
   favorites: "aeternum_favorites",
   modelNotes: "aeternum_model_notes",
@@ -17,6 +22,16 @@ export const storageKeys = {
   reportExports: "aeternum.react.report_exports",
   securityEvents: "aeternum.react.security_events"
 };
+
+function mergeUniqueById(current = [], incoming = []) {
+  const seen = new Set();
+  return [...current, ...incoming].filter((item, index) => {
+    const key = item?.id || `${item?.userId || "anonymous"}:${item?.modelId || ""}:${item?.action || item?.eventType || ""}:${item?.createdAt || item?.startedAt || index}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
 
 function getLocalStorage() {
   if (typeof window === "undefined") return null;
@@ -47,6 +62,34 @@ export function removeStorage(key) {
   const storage = getLocalStorage();
   if (!storage) return;
   storage.removeItem(key);
+}
+
+export function migrateLegacyTelemetryStorage() {
+  const migration = readStorage(storageKeys.telemetryMigration, {});
+  if (migration?.splitKeysCompleted) return migration;
+
+  const legacy = readStorage(storageKeys.legacyTelemetry, []);
+  const items = Array.isArray(legacy) ? legacy : [];
+  const analytics = items.filter(item => String(item?.id || "").startsWith("evt-") || Boolean(item?.eventType));
+  const accessLogs = items.filter(item => {
+    if (String(item?.id || "").startsWith("log-")) return true;
+    return !item?.eventType && Boolean(item?.modelId) && Boolean(item?.action);
+  });
+
+  const currentAnalytics = readStorage(storageKeys.analyticsEvents, []);
+  const currentAccessLogs = readStorage(storageKeys.accessLogs, []);
+  writeStorage(storageKeys.analyticsEvents, mergeUniqueById(currentAnalytics, analytics).slice(0, 2000));
+  writeStorage(storageKeys.accessLogs, mergeUniqueById(currentAccessLogs, accessLogs).slice(0, 2000));
+
+  const completed = {
+    splitKeysCompleted: true,
+    completedAt: new Date().toISOString(),
+    analyticsMigrated: analytics.length,
+    accessLogsMigrated: accessLogs.length,
+    legacyPreserved: true
+  };
+  writeStorage(storageKeys.telemetryMigration, completed);
+  return completed;
 }
 
 export function clearStorageByPrefix(prefix) {

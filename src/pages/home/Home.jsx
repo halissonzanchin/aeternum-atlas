@@ -1,43 +1,23 @@
+/* eslint-disable no-unused-vars -- o parser ESLint atual não contabiliza identificadores usados apenas em JSX */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Button from "../../components/Button/Button";
 import AeternumLogo from "../../components/AeternumLogo";
 import LanguageSelector from "../../components/LanguageSelector";
 import LineIcon from "../../components/icons/LineIcon";
+import { A26Button, A26Card, A26Surface } from "../../components/aeternum-26";
 import { useLanguage } from "../../context/LanguageContext";
 import AtlasSolarSystem from "./AtlasSolarSystem";
 import ParticleMeshBackground from "./ParticleMeshBackground";
-import "./HeroParticleRemodel.css";
 import "./HomePriorityOne.css";
-import "./HomePriorityTwo.css";
 import "./HomePriorityThree.css";
 import "./HomePriorityFour.css";
 import "./AtlasSolarSystemPremium.css";
-
-const modules = [
-  ["navigation.anatomicalAtlas", "publicHome.modules.atlas", "library", "/atlas"],
-  ["navigation.videos", "publicHome.modules.videos", "camera", "/videos"],
-  ["publicHome.contentTitle", "publicHome.modules.content", "layers", "/courses"],
-  ["navigation.courses", "publicHome.modules.courses", "check", "/courses"],
-  ["viewer.library", "publicHome.modules.library", "favorite", "/models"]
-];
-
-const compactModules = [
-  ["navigation.models3d", "publicHome.primaryModuleDescription", "layers", "/models"],
-  ...modules
-];
-
-const heroFeatures = [
-  ["publicHome.heroFeatures.models.title", "publicHome.heroFeatures.models.description", "layers", "/models"],
-  ["publicHome.heroFeatures.atlas.title", "publicHome.heroFeatures.atlas.description", "library", "/atlas"],
-  ["publicHome.heroFeatures.content.title", "publicHome.heroFeatures.content.description", "note", "/courses"]
-];
 
 const headerNavItems = [
   ["navigation.models3d", "layers", "/models"],
   ["navigation.anatomicalAtlas", "library", "/atlas"],
   ["publicHome.contentTitle", "note", "/courses"],
   ["viewer.library", "favorite", "/models"],
-  ["publicHome.navAboutUs", "home", "#home-modules"]
+  ["publicHome.navAboutUs", "home", "#home-footer"]
 ];
 
 export default function Home({ navigate }) {
@@ -112,37 +92,6 @@ export default function Home({ navigate }) {
     };
   }, []);
 
-  useEffect(() => {
-    const revealItems = [...document.querySelectorAll("[data-home-reveal]")];
-    if (!revealItems.length) return undefined;
-
-    if (reducedMotionRef.current || !("IntersectionObserver" in window)) {
-      revealItems.forEach((item) => item.classList.add("is-visible"));
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-    );
-
-    revealItems.forEach((item) => observer.observe(item));
-    const revealFallback = window.setTimeout(() => {
-      revealItems.forEach((item) => item.classList.add("is-visible"));
-    }, 1400);
-
-    return () => {
-      window.clearTimeout(revealFallback);
-      observer.disconnect();
-    };
-  }, []);
-
   const handlePointerMove = useCallback((event) => {
     if (reducedMotionRef.current) {
       return;
@@ -214,18 +163,24 @@ export default function Home({ navigate }) {
   return (
     <>
       <main className="premium-page home-premium cinematic-home" style={cinematicStyle}>
-      <a className="p3-skip-link" href="#home-modules">{t("publicHome.skipToContent")}</a>
-      <header className={`premium-public-header cinematic-public-header${headerScrolled ? " is-scrolled" : ""}`}>
+      <a className="p3-skip-link" href="#home-hero">{t("publicHome.skipToContent")}</a>
+      <A26Surface
+        as="header"
+        material="regular"
+        className={`premium-public-header cinematic-public-header a26-public-header${headerScrolled ? " is-scrolled" : ""}`}
+        data-testid="a26-public-header"
+      >
         <button className="brand-lockup" onClick={() => navigate("/")} aria-label={t("publicHome.homeLabel")}>
           <AeternumLogo variant="horizontal" size="md" theme="transparent" />
         </button>
 
         <nav className="header-icon-cluster public-home-nav" aria-label={t("publicHome.toolsLabel")}>
           {headerNavItems.map(([labelKey, icon, target]) => (
-            <button
+            <A26Button
               key={labelKey}
-              type="button"
+              variant="liquid"
               className="public-home-nav-button"
+              icon={<LineIcon name={icon} />}
               onClick={() => {
                 if (target.startsWith("#")) {
                   document.querySelector(target)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -234,23 +189,27 @@ export default function Home({ navigate }) {
                 navigate(target);
               }}
             >
-              <LineIcon name={icon} />
-              <span>{t(labelKey)}</span>
-            </button>
+              {t(labelKey)}
+            </A26Button>
           ))}
         </nav>
 
         <div className="public-actions">
           <span className="public-desktop-language"><LanguageSelector compact /></span>
           <span className="public-mobile-language"><LanguageSelector compact /></span>
-          <Button variant="outline" onClick={() => navigate("/login")}>{t("auth.login").toUpperCase()}</Button>
-          <Button variant="teal" onClick={() => navigate("/register")}>{t("auth.register").toUpperCase()}</Button>
+          <A26Button variant="liquid" aria-label={t("auth.login")} onClick={() => navigate("/login")}>
+            <span className="public-login-full">{t("auth.login").toUpperCase()}</span>
+            <span className="public-login-short">{t("auth.loginShort").toUpperCase()}</span>
+          </A26Button>
+          <A26Button variant="primary" onClick={() => navigate("/register")}>{t("auth.register").toUpperCase()}</A26Button>
         </div>
-      </header>
+      </A26Surface>
 
       <section
+        id="home-hero"
         ref={heroRef}
         className="home-hero cinematic-home-hero aeternum-hero"
+        tabIndex="-1"
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
       >
@@ -274,79 +233,20 @@ export default function Home({ navigate }) {
                 {t("publicHome.heroExploreAtlas").toUpperCase()}
                 <LineIcon name="chevron" className="aeternum-hero-action-icon" />
               </button>
-              <button type="button" className="aeternum-hero-secondary" onClick={() => navigate("/models")}>
-                <LineIcon name="target" className="aeternum-hero-action-icon" />
-                {t("publicHome.heroDemo").toUpperCase()}
-              </button>
             </div>
           </div>
 
           <AtlasSolarSystem t={t} onExplore={(path = "/atlas") => navigate(path)} />
 
         </div>
-
-        <div className="aeternum-hero-feature-bar" aria-label={t("publicHome.featuredResourcesLabel")}>
-          {heroFeatures.map(([titleKey, descriptionKey, icon, path], index) => (
-            <button
-              type="button"
-              key={titleKey}
-              className="aeternum-hero-feature-card"
-              onClick={() => navigate(path)}
-              style={{ "--feature-delay": `${260 + index * 70}ms` }}
-            >
-              <span className="aeternum-hero-feature-icon">
-                <LineIcon name={icon} />
-              </span>
-              <span>
-                <strong>{t(titleKey)}</strong>
-                <small>{t(descriptionKey)}</small>
-              </span>
-            </button>
-          ))}
-        </div>
       </section>
 
-      <section id="home-modules" className="home-landing-modules" aria-label={t("publicHome.featuredResourcesLabel")}>
-        <header className="p2-section-heading p3-reveal" data-home-reveal>
-          <span>{t("publicHome.platformEyebrow")}</span>
-          <div>
-            <h2>{t("publicHome.platformTitle")}</h2>
-            <p>{t("publicHome.platformDescription")}</p>
-          </div>
-        </header>
-
-        <div className="p2-compact-directory p3-reveal" data-home-reveal>
-          {compactModules.map(([titleKey, descriptionKey, icon, path], index) => (
-            <button
-              key={`${titleKey}-${index}`}
-              className="p2-directory-card"
-              onClick={() => navigate(path)}
-              aria-label={`${t(titleKey)} — ${t(descriptionKey)}`}
-            >
-              <span className="p2-directory-number">{String(index + 1).padStart(2, "0")}</span>
-              <span className="p2-directory-icon" aria-hidden="true"><LineIcon name={icon} /></span>
-              <span className="p2-directory-copy">
-                <strong>{t(titleKey)}</strong>
-                <small>{t(descriptionKey)}</small>
-              </span>
-              <span className="p2-directory-arrow" aria-hidden="true"><LineIcon name="chevron" /></span>
-            </button>
-          ))}
-        </div>
-
-        <div className="p2-institutional-cta p3-reveal" data-home-reveal>
-          <div className="p2-institutional-mark" aria-hidden="true">
-            <LineIcon name="library" />
-          </div>
-          <div>
-            <span>{t("publicHome.institutionalAccessTitle").toUpperCase()}</span>
-            <p>{t("publicHome.institutionalAccessText")}</p>
-          </div>
-          <Button variant="teal" onClick={() => navigate("/register")}>{t("publicHome.createAccessButton").toUpperCase()}</Button>
-        </div>
-      </section>
-
-      <footer className="premium-footer p3-premium-footer">
+      <A26Card
+        id="home-footer"
+        as="footer"
+        className="premium-footer p3-premium-footer a26-public-footer"
+        data-testid="a26-public-footer"
+      >
         <button className="p3-footer-brand" onClick={() => navigate("/")} aria-label={t("publicHome.homeLabel")}>
           <AeternumLogo variant="horizontal" size="sm" theme="transparent" />
         </button>
@@ -360,7 +260,7 @@ export default function Home({ navigate }) {
           {t("publicHome.platformStatus")}
         </div>
         <p>{t("publicHome.footer")}</p>
-      </footer>
+      </A26Card>
       </main>
     </>
   );

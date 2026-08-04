@@ -1,128 +1,94 @@
 /**
- * Viewer Engine Service
- * Responsável por orquestrar a lógica de exibição, validação e configuração do motor 3D
- * do Aeternum Atlas (Atlas Native, Sketchfab Embed, Hybrid).
+ * Contrato único do visualizador Aeternum Atlas.
+ *
+ * O runtime público aceita somente embeds HTTPS do Sketchfab. Não existe
+ * fallback silencioso para outro motor: um modelo sem UID/embed válido deve
+ * aparecer como indisponível até que o CMS seja corrigido.
  */
 
-export function normalizeViewerEngineConfig(model) {
-  if (!model) return null;
-
-  return {
-    viewerEngine: model.viewerEngine || model.viewer_engine || model.viewerType || "atlas-native",
-    defaultViewerEngine: model.defaultViewerEngine || "atlas-native",
-    embedProvider: model.embedProvider || null,
-    embedUrl: model.embedUrl || null,
-    nativeEngineAvailable: typeof model.nativeEngineAvailable === "boolean" ? model.nativeEngineAvailable : true,
-    nativeFallbackAvailable: typeof model.nativeFallbackAvailable === "boolean" ? model.nativeFallbackAvailable : true,
-    modelLodManifest: model.modelLodManifest || null,
-    engineStatus: model.engineStatus || "active",
-    engineNotice: model.engineNotice || ""
-  };
-}
-
-export function getDefaultViewerEngine(model) {
-  const config = normalizeViewerEngineConfig(model);
-  if (!config) return "atlas-native";
-  return config.defaultViewerEngine || "atlas-native";
-}
+const SKETCHFAB_HOSTS = new Set(["sketchfab.com", "www.sketchfab.com"]);
+const SKETCHFAB_EMBED_PATH = /^\/models\/[a-zA-Z0-9]{20,40}\/embed\/?$/;
 
 export function validateSketchfabEmbedUrl(url) {
   if (!url || typeof url !== "string") return false;
-  
+
   try {
     const parsed = new URL(url);
-    
-    // Protocol must be HTTPS
-    if (parsed.protocol !== "https:") return false;
-    
-    // No credentials allowed
-    if (parsed.username || parsed.password) return false;
-    
-    // No non-standard ports
-    if (parsed.port && parsed.port !== "443") return false;
-    
-    // Hostname validation
-    if (parsed.hostname !== "sketchfab.com" && parsed.hostname !== "www.sketchfab.com") {
-      return false;
-    }
-    
-    // Strict pathname format: /models/{UID}/embed
-    // UID is typically a 32-character alphanumeric hash, but we allow 20-40 characters
-    const pathnameRegex = /^\/models\/[a-zA-Z0-9]{20,40}\/embed\/?$/;
-    if (!pathnameRegex.test(parsed.pathname)) {
-      return false;
-    }
-    
-    return true;
-  } catch (e) {
+    return parsed.protocol === "https:"
+      && !parsed.username
+      && !parsed.password
+      && (!parsed.port || parsed.port === "443")
+      && SKETCHFAB_HOSTS.has(parsed.hostname)
+      && SKETCHFAB_EMBED_PATH.test(parsed.pathname);
+  } catch {
     return false;
   }
 }
 
-export function buildSketchfabEmbedUrl(url, options = {}) {
-  if (!validateSketchfabEmbedUrl(url)) return null;
-  
-  try {
-    const parsed = new URL(url);
-    parsed.searchParams.set("autostart", "1");
-    parsed.searchParams.set("ui_theme", "dark");
-    parsed.searchParams.set("dnt", "1");
-    
-    // TAREFA 2 - Parâmetros Educacionais Aeternum
-    parsed.searchParams.set("ui_infos", "0");
-    parsed.searchParams.set("ui_controls", "0");
-    parsed.searchParams.set("ui_hint", "0");
-    parsed.searchParams.set("ui_help", "0");
-    parsed.searchParams.set("ui_fullscreen", "0");
-    parsed.searchParams.set("ui_settings", "0");
-    parsed.searchParams.set("ui_vr", "0");
-    parsed.searchParams.set("ui_inspector", "0");
-    parsed.searchParams.set("ui_watermark", "0");
-    parsed.searchParams.set("ui_annotations", "1"); // FUNDAMENTAL PARA O GUIA E SIMULADOS
+export function sketchfabUidFromModel(model) {
+  const explicitUid = model?.sketchfabUid || model?.sketchfab_uid;
+  if (explicitUid) return String(explicitUid);
 
-    // Preserve any incoming options if needed
-    for (const [key, value] of Object.entries(options)) {
-      parsed.searchParams.set(key, value);
-    }
-    return parsed.toString();
-  } catch (e) {
-    return null;
+  const candidates = [
+    model?.embedUrl,
+    model?.sketchfabEmbedUrl,
+    model?.embed_url,
+    model?.sketchfabUrl,
+    model?.sketchfab_url
+  ];
+
+  for (const candidate of candidates) {
+    const match = String(candidate || "").match(/(?:models|3d-models\/[^/]+)-?\/?([a-zA-Z0-9]{32})(?:\/embed)?/);
+    if (match?.[1]) return match[1];
+    const directMatch = String(candidate || "").match(/\/models\/([a-zA-Z0-9]{32})/);
+    if (directMatch?.[1]) return directMatch[1];
+    const suffixMatch = String(candidate || "").match(/-([a-zA-Z0-9]{32})(?:[/?#]|$)/);
+    if (suffixMatch?.[1]) return suffixMatch[1];
   }
+
+  return "";
+}
+
+export function canonicalSketchfabEmbedUrl(model) {
+  const candidates = [model?.embedUrl, model?.sketchfabEmbedUrl, model?.embed_url];
+  const validCandidate = candidates.find(validateSketchfabEmbedUrl);
+  if (validCandidate) return validCandidate;
+
+  const uid = sketchfabUidFromModel(model);
+  return uid ? `https://sketchfab.com/models/${uid}/embed` : null;
+}
+
+export function buildSketchfabEmbedUrl(modelOrUrl, options = {}) {
+  const baseUrl = typeof modelOrUrl === "string"
+    ? (validateSketchfabEmbedUrl(modelOrUrl) ? modelOrUrl : canonicalSketchfabEmbedUrl({ sketchfabUrl: modelOrUrl }))
+    : canonicalSketchfabEmbedUrl(modelOrUrl);
+
+  if (!baseUrl) return null;
+
+  const parsed = new URL(baseUrl);
+  const defaults = {
+    autostart: "1",
+    ui_theme: "dark",
+    dnt: "1",
+    ui_infos: "0",
+    ui_controls: "0",
+    ui_hint: "0",
+    ui_help: "0",
+    ui_fullscreen: "0",
+    ui_settings: "0",
+    ui_vr: "0",
+    ui_inspector: "0",
+    ui_watermark: "0",
+    ui_annotations: "1"
+  };
+
+  Object.entries({ ...defaults, ...options }).forEach(([key, value]) => {
+    parsed.searchParams.set(key, String(value));
+  });
+
+  return parsed.toString();
 }
 
 export function shouldUseSketchfabEngine(model) {
-  const config = normalizeViewerEngineConfig(model);
-  if (!config) return false;
-
-  const hasValidEmbed = config.embedProvider === "sketchfab" && validateSketchfabEmbedUrl(config.embedUrl);
-  const hasUid = !!(model?.sketchfabUid || model?.sketchfab_uid);
-  
-  // Sketchfab is the ONLY supported engine in production now.
-  return hasValidEmbed || hasUid;
-}
-
-export function shouldUseNativeEngine(model, requestedEngine = null, user = null) {
-  const isSketchfab = shouldUseSketchfabEngine(model, requestedEngine, user);
-  return !isSketchfab;
-}
-
-export function getEngineLabel(model, requestedEngine = null) {
-  if (shouldUseSketchfabEngine(model, requestedEngine)) {
-    return "Sketchfab Embed";
-  }
-  return "Atlas Native Engine";
-}
-
-export function getEngineModeSummary(model) {
-  const config = normalizeViewerEngineConfig(model);
-  if (!config) return "Desconhecido";
-
-  if (config.viewerEngine === "hybrid") return "Híbrido (Native + Sketchfab)";
-  if (config.viewerEngine === "sketchfab") return "Apenas Sketchfab Embed";
-  return "Exclusivo Atlas Native";
-}
-
-export function getNativeEngineUrl(model) {
-  if (!model) return null;
-  return model.atlasAssetObjectUrl || model.atlasEngineModelUrl || model.model_url || model.modelUrl || null;
+  return Boolean(canonicalSketchfabEmbedUrl(model));
 }

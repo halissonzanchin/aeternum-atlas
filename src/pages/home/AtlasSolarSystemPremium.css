@@ -1,21 +1,22 @@
 /* Minimal orbital navigator: one focal point, five modules, no decorative telemetry. */
 .cinematic-home .particle-mesh-shell {
   background:
-    radial-gradient(ellipse at 77% 48%, rgba(25, 121, 115, 0.2), transparent 30%),
-    linear-gradient(112deg, #010609 0%, #02090c 50%, #06171a 76%, #010608 100%);
+    radial-gradient(ellipse at 78% 46%, rgba(25, 135, 130, 0.24), transparent 31%),
+    radial-gradient(ellipse at 66% 66%, rgba(49, 70, 142, 0.095), transparent 34%),
+    linear-gradient(112deg, #010609 0%, #02090d 48%, #07191d 76%, #010608 100%);
 }
 
 .cinematic-home .particle-mesh-canvas {
-  opacity: 0.64;
+  opacity: 0.82;
   -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.55) 26%, rgba(0, 0, 0, 0.9) 54%, #000 74%, #000 100%);
   mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.55) 26%, rgba(0, 0, 0, 0.9) 54%, #000 74%, #000 100%);
 }
 
 .cinematic-home .particle-mesh-vignette {
   background:
-    linear-gradient(90deg, rgba(1, 6, 9, 0.82) 0%, rgba(1, 6, 9, 0.5) 31%, rgba(1, 6, 9, 0.08) 59%, transparent 80%),
-    linear-gradient(180deg, rgba(1, 6, 9, 0.64) 0%, transparent 20%, transparent 73%, rgba(1, 5, 7, 0.84) 100%),
-    radial-gradient(ellipse at 77% 48%, transparent 0%, transparent 29%, rgba(1, 5, 8, 0.18) 58%, rgba(1, 5, 8, 0.66) 100%);
+    linear-gradient(90deg, rgba(1, 6, 9, 0.86) 0%, rgba(1, 6, 9, 0.54) 29%, rgba(1, 6, 9, 0.1) 56%, transparent 78%),
+    linear-gradient(180deg, rgba(1, 6, 9, 0.62) 0%, transparent 20%, transparent 76%, rgba(1, 5, 7, 0.8) 100%),
+    radial-gradient(ellipse at 77% 48%, transparent 0%, transparent 32%, rgba(1, 5, 8, 0.13) 61%, rgba(1, 5, 8, 0.59) 100%);
 }
 
 .cinematic-home .p4-atlas-interface {
@@ -538,5 +539,145 @@
 
   .cinematic-home .p4-module-panel {
     animation: none;
+  }
+}
+
+/* Hero focus: the orbital navigator is the public product directory. */
+.cinematic-home #home-hero,
+.cinematic-home #home-footer {
+  scroll-margin-top: 92px;
+}
+
+.cinematic-home #home-hero:focus {
+  outline: none;
+}
+
+.cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero {
+  min-height: 100svh;
+  border-bottom: 1px solid rgba(111, 231, 226, 0.1);
+}
+
+.cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero > .aeternum-hero-content {
+  box-sizing: border-box;
+  min-height: 100svh;
+  padding-top: clamp(118px, 13vh, 148px);
+  padding-bottom: clamp(44px, 6vh, 68px);
+}
+
+.cinematic-home .p3-premium-footer.a26-public-footer {
+  min-height: 156px;
+  gap: 20px clamp(24px, 4vw, 60px);
+  padding-top: 28px;
+  padding-bottom: 18px;
+}
+
+.cinematic-home .p3-premium-footer.a26-public-footer > p {
+  padding-top: 16px;
+}
+
+@media (min-width: 769px) and (max-width: 1180px) {
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero {
+    min-height: max(680px, 100svh);
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero > .aeternum-hero-content {
+    display: grid;
+    width: min(94vw, 1100px);
+    min-height: max(680px, 100svh);
+    grid-template-columns: minmax(310px, 0.9fr) minmax(380px, 1.1fr);
+    gap: clamp(12px, 2.4vw, 30px);
+    padding: 112px 0 42px;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .aeternum-hero-copy {
+    width: 100%;
+    max-width: 540px;
+    justify-self: start;
+    text-align: left;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .aeternum-hero-copy p,
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .aeternum-hero-divider {
+    margin-inline: 0;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .aeternum-hero-actions {
+    justify-content: flex-start;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .aeternum-hero-copy h1 {
+    font-size: clamp(3.7rem, 7.4vw, 5.7rem);
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-atlas-interface {
+    display: block;
+    width: min(49vw, 480px);
+    justify-self: end;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-interface-orbit {
+    transform: translate(-50%, -50%) scale(0.84);
+  }
+}
+
+@media (max-width: 768px) {
+  .cinematic-home #home-hero,
+  .cinematic-home #home-footer {
+    scroll-margin-top: 76px;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero {
+    min-height: auto;
+    padding-bottom: 0;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero > .aeternum-hero-content {
+    display: flex;
+    width: min(92vw, 620px);
+    min-height: auto;
+    flex-direction: column;
+    gap: 18px;
+    padding: 104px 0 28px;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-atlas-interface {
+    display: block;
+    width: min(94vw, 380px);
+    margin-inline: auto;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-interface-orbit {
+    transform: translate(-50%, -50%) scale(0.72);
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-atlas-interface.has-selection .p4-interface-orbit {
+    left: 50%;
+    opacity: 0.16;
+    transform: translate(-50%, -50%) scale(0.68);
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-module-panel {
+    top: auto;
+    right: 4%;
+    bottom: 7%;
+    left: 4%;
+    width: auto;
+    min-height: 0;
+    padding: 22px 22px 20px;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-module-panel h3 {
+    max-width: 18ch;
+    margin-top: 14px;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-module-panel-action {
+    margin-top: 18px;
+  }
+
+  .cinematic-home .p3-premium-footer.a26-public-footer {
+    min-height: 0;
+    padding-top: 30px;
+    padding-bottom: 24px;
   }
 }

@@ -4,7 +4,7 @@
  * tem permissão para executar no Viewer.
  */
 
-import { atlasViewerCommands } from './atlasViewerCommands';
+import { sketchfabBridge } from '../../../services/sketchfabAnnotationBridge';
 
 export const TUTOR_ACTIONS = {
   OPEN_GUIDE: 'OPEN_GUIDE',
@@ -102,29 +102,30 @@ export const executeTutorAction = (actionId, payload = null, viewerContext) => {
       return true;
       
     case TUTOR_ACTIONS.OPEN_MARKERS:
-      viewerContext.setMarkerOpen(true);
+      viewerContext.setLeftOpen(true);
       return true;
       
     case TUTOR_ACTIONS.CLOSE_PANELS:
       viewerContext.setLeftOpen(false);
-      viewerContext.setMarkerOpen(false);
       viewerContext.setSearchOpen?.(false);
       return true;
       
     case TUTOR_ACTIONS.RESET_VIEW:
-      if (atlasViewerCommands && typeof atlasViewerCommands.resetCamera === 'function') {
-        atlasViewerCommands.resetCamera();
-        return true;
-      }
-      return false;
+      return sketchfabBridge.resetCamera();
 
     case TUTOR_ACTIONS.FOCUS_MARKER:
-      if (atlasViewerCommands && typeof atlasViewerCommands.focusMarker === 'function' && payload) {
-        // payload should be the marker ID or name mapping
-        atlasViewerCommands.focusMarker(payload);
-        return true;
+      if (!payload) return false;
+      {
+        const annotations = viewerContext.annotations?.sketchfabAnnotations || [];
+        const normalizedPayload = String(payload).toLocaleLowerCase('pt-BR');
+        const index = annotations.findIndex((annotation) => {
+          const values = [annotation?.id, annotation?.name, annotation?.title]
+            .filter(Boolean)
+            .map(value => String(value).toLocaleLowerCase('pt-BR'));
+          return values.some(value => value === normalizedPayload || value.includes(normalizedPayload));
+        });
+        return index >= 0 ? sketchfabBridge.goToSketchfabAnnotation(index) : false;
       }
-      return false;
 
     case TUTOR_ACTIONS.START_THEORETICAL_QUIZ:
       if (viewerContext.quiz && typeof viewerContext.quiz.setTheoreticalQuizOpen === 'function') {

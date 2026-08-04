@@ -3,6 +3,7 @@ import { trackEvent } from '../../../services/analytics/analyticsService';
 import { getAnatomicalQuizForModel, gradeAnatomicalQuiz, recordAnatomicalQuizAttempt } from '../../../services/anatomicalQuizService';
 import { listModelAnnotations } from '../../../services/modelAnnotationService';
 import { useLanguage } from '../../../context/LanguageContext';
+import { recordLearningEvent } from '../../../services/learningTelemetryService';
 
 export function useViewerQuiz(model, user, annotationsState, setToast, setLeftOpen, nativeMarkers = []) {
   const { t } = useLanguage();
@@ -17,6 +18,22 @@ export function useViewerQuiz(model, user, annotationsState, setToast, setLeftOp
 
   const quizAnswersRef = useRef({});
   const quizFinishLockRef = useRef(false);
+  const theoreticalOpenTrackedRef = useRef(false);
+
+  useEffect(() => {
+    if (!theoreticalQuizOpen) {
+      theoreticalOpenTrackedRef.current = false;
+      return;
+    }
+    if (theoreticalOpenTrackedRef.current || !model?.id) return;
+    theoreticalOpenTrackedRef.current = true;
+    recordLearningEvent({
+      user,
+      modelId: model.id,
+      eventType: "quiz_started",
+      eventData: { quizType: "theoretical" }
+    });
+  }, [model?.id, theoreticalQuizOpen, user]);
 
   useEffect(() => {
     if (!model?.id) {
@@ -142,6 +159,19 @@ export function useViewerQuiz(model, user, annotationsState, setToast, setLeftOp
           totalQuestions: nextQuiz.questions.length,
           timeLimitSeconds: nextQuiz.timeLimitSeconds
         }
+      });
+      recordLearningEvent({
+        user,
+        modelId: model.id,
+        eventType: "quiz_started",
+        eventData: {
+          quizId: nextQuiz.id,
+          quizType: "anatomical",
+          quizSource: nextQuiz.source,
+          totalQuestions: nextQuiz.questions.length,
+          timeLimitSeconds: nextQuiz.timeLimitSeconds
+        },
+        createdAt: startedAt
       });
     } catch (error) {
       console.error("[anatomical_quiz] Não foi possível iniciar o simulado.", error);

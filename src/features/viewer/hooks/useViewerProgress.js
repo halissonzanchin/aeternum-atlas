@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { favoriteModel, completeModel, trackEvent } from '../../../services/analytics/analyticsService';
 import { isFavoriteModel, isModelStudied, trackModelAccess, unmarkModelAsStudied } from '../../../services/progressService';
+import { startTrackedLearningSession } from '../../../services/learningTelemetryService';
 import { useLanguage } from '../../../context/LanguageContext';
 
 export function useViewerProgress(model, user, setToast) {
@@ -17,24 +18,27 @@ export function useViewerProgress(model, user, setToast) {
 
   useEffect(() => {
     if (!model?.id) return undefined;
-    const startedAt = Date.now();
     trackEvent({ userId: user?.id, institutionId: user?.institutionId, modelId: model.id, eventType: "open_model_viewer" });
     trackModelAccess(user, model.id, { action: "open_model_viewer", model });
+    const tracker = startTrackedLearningSession({
+      user,
+      scope: "viewer",
+      modelId: model.id
+    });
 
     return () => {
+      const session = tracker.stop("viewer_unmount");
       trackEvent({
         userId: user?.id,
         institutionId: user?.institutionId,
         modelId: model.id,
         eventType: "viewer_duration",
-        metadata: { durationSeconds: Math.max(1, Math.round((Date.now() - startedAt) / 1000)) }
-      });
-      trackModelAccess(user, model.id, {
-        action: "viewer_duration",
-        model,
-        startedAt: new Date(startedAt).toISOString(),
-        endedAt: new Date().toISOString(),
-        durationSeconds: Math.max(1, Math.round((Date.now() - startedAt) / 1000))
+        durationSeconds: Math.max(0, Number(session?.activeSeconds) || 0),
+        metadata: {
+          activeSeconds: Math.max(0, Number(session?.activeSeconds) || 0),
+          idleSeconds: Math.max(0, Number(session?.idleSeconds) || 0),
+          telemetrySessionId: session?.id || null
+        }
       });
     };
   }, [model?.id, user?.id, user?.institutionId]);

@@ -65,6 +65,19 @@ export const pt = {
     estimatedBilling: "Faturamento estimado",
     reports: "Relatórios"
   },
+  shell: {
+    primaryNavigation: "Navegação principal",
+    modules: "Módulos disponíveis",
+    searchShortcut: "Atalho de busca",
+    clearSearch: "Limpar busca",
+    searchResults: "Resultados da busca",
+    currentRoute: "Atual",
+    noSearchResults: "Nenhum módulo encontrado",
+    mobileNavigation: "Navegação móvel",
+    more: "Mais",
+    navigation: "Navegação",
+    route: "Rota atual"
+  },
   adminNavigation: {
     institutionStudents: "Alunos da instituição"
   },
@@ -125,7 +138,7 @@ export const pt = {
     title: "Aeternum Atlas",
     subtitle: "Biblioteca Anatômica 3D",
     description: "Uma plataforma acadêmica personalizada para acesso interativo a modelos anatômicos 3D, conteúdos complementares e gestão segura do acervo digital.",
-    heroDescription: "Explore o corpo humano como nunca antes. Modelos 3D interativos, atlas anatômico completo e conteúdos exclusivos para elevar o seu conhecimento.",
+    heroDescription: "Explore a anatomia humana com profundidade clínica, clareza e uma experiência de estudo verdadeiramente imersiva.",
     heroExploreAtlas: "Explorar Atlas",
     heroDemo: "Ver demonstração",
     institutionalAccessTitle: "Acesso acadêmico institucional",
@@ -137,7 +150,7 @@ export const pt = {
     platformTitle: "Uma plataforma. Todo o estudo anatômico.",
     platformDescription: "Do primeiro contato com uma estrutura à revisão avançada, reúna exploração 3D, atlas, aulas e trilhas de estudo em uma experiência contínua.",
     exploreResource: "Explorar recurso",
-    skipToContent: "Pular para os recursos",
+    skipToContent: "Pular para a experiência interativa",
     footerNavigationLabel: "Navegação do rodapé",
     platformStatus: "Plataforma acadêmica online",
     interfaceKicker: "Atlas / Sistemas",
@@ -244,12 +257,14 @@ export const pt = {
       availableModels: "Modelos 3D disponíveis",
       modelsHint: "Biblioteca ativa da instituição",
       totalStudyTime: "Tempo total de estudo",
-      studyHint: "Registro pessoal local",
-      studiedStructures: "Estruturas estudadas",
-      structuresHint: "Estimativa por modelos concluídos",
+      studyHint: "Tempo observado nas sessões do usuário",
+      completedModels: "Modelos concluídos",
+      completionsHint: "Conclusões registradas pelo estudante",
       overallProgress: "Progresso geral",
-      progressHint: "Baseado no avanço individual"
+      progressHint: "Modelos concluídos sobre o catálogo disponível"
     },
+    observedDataEmpty: "Ainda não há conclusões suficientes para calcular este indicador.",
+    observedReviewEmpty: "Nenhuma revisão pendente pode ser inferida com os dados atuais.",
     toolsEyebrow: "Rotina acadêmica",
     toolsTitle: "Ferramentas de estudo",
     toolsSubtitle: "Organize revisões, pratique perguntas e transforme modelos 3D em rotina acadêmica.",
@@ -784,7 +799,7 @@ export const pt = {
     },
     types: {
       Sketchfab: "Sketchfab",
-      atlasNativeScan: "Atlas Native / Escaneamento Anatômico Real",
+      atlasNativeScan: "Sketchfab / Escaneamento Anatômico Real",
       cadavericScan: "Escaneamento cadavérico",
       didacticModel: "Modelo didático",
       radiology: "Radiologia",
@@ -1028,7 +1043,7 @@ export const pt = {
     markers: "Marcadores",
     crossSections: "Secções transversais",
     models: "Modelos",
-    openSketchfab: "Abrir no visualizador externo",
+    openSketchfab: "Abrir no Sketchfab",
     favorite: "Favoritar",
     markAsStudied: "Marcar como estudado",
     copyModelLink: "Copiar link do modelo",
@@ -1037,7 +1052,6 @@ export const pt = {
     registerAccess: "Registrar acesso",
     viewStudyGuide: "Ver guia de estudo",
     anatomicalQuiz: "Simulado Anatômico",
-    theoreticalQuiz: "Simulado Teórico",
     notes: "Anotações",
     security: {
       session: "Sessão",
@@ -1227,6 +1241,12 @@ export const pt = {
       settings: "Ajustes",
       guide: "Guia",
       help: "Ajuda"
+    },
+    actionGroups: {
+      label: "Ações do modelo 3D",
+      model: "Modelo e progresso",
+      study: "Estudo e avaliação",
+      support: "Navegação e suporte"
     }
   },
   institutionAdmin: {
@@ -1308,6 +1328,21 @@ export const pt = {
     roi: "ROI Institucional",
     heatmap: "Mapa de Calor"
   },
+  governance: {
+    navigation: {
+      coordinatorDashboard: "Visão acadêmica",
+      professors: "Professores",
+      classes: "Turmas",
+      disciplines: "Disciplinas",
+      heatmaps: "Mapas de aprendizagem",
+      studentsAtRisk: "Alunos em atenção",
+      rectorDashboard: "Visão executiva",
+      institutionalIndicators: "Indicadores institucionais",
+      engagement: "Engajamento",
+      utilization: "Utilização",
+      academicRoi: "Retorno institucional"
+    }
+  },
   superAdmin: {
     restrictedArea: "Área restrita",
     restrictedText: "O super admin é reservado à equipe Aeternum Atlas.",
@@ -1319,6 +1354,11 @@ export const pt = {
     estimatedBilling: "Faturamento estimado",
     reports: "Relatórios",
     models3d: "Modelos 3D",
+    atlasMigration: "Bancada de migração",
+    viewerAnalytics: "Análises do visualizador",
+    atlasCertification: "Fluxo de certificação",
+    digitalTwins: "Gêmeos digitais",
+    aeternum26Foundation: "Fundação Aeternum 26",
     description: "Painel geral para gerir instituições, licenças, contratos e relatórios de faturamento B2B.",
     activeInstitutions: "Instituições ativas",
     implementingInstitutions: "Instituições em implantação",
@@ -1381,6 +1421,19 @@ export const pt = {
     },
     account: "Conta",
     academicProfile: "Perfil acadêmico",
+    professionalProfile: "Perfil profissional",
+    governanceProfile: "Perfil de governança",
+    institutionConfigured: "Instituição vinculada pela configuração do ambiente",
+    institutionMissing: "Instituição ainda não vinculada",
+    roles: {
+      student: "Estudante",
+      teacher: "Professor",
+      coordinator: "Coordenador",
+      rector: "Reitor",
+      institutionAdmin: "Administrador institucional",
+      admin: "Administrador",
+      superAdmin: "Superadministrador"
+    },
     endSession: "Encerrar sessão",
     notificationCenter: "Central de notificações",
     noNotifications: "Você não tem nenhuma notificação agora.",

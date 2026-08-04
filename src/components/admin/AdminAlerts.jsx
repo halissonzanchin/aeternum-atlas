@@ -1,6 +1,14 @@
 import "./adminDashboardWidgets.css";
 
-export default function AdminAlerts({ occupancyRate, inactiveStudents, lostRevenue, formatCurrency }) {
+export default function AdminAlerts({ occupancyRate, inactiveStudents, lostRevenue, formatCurrency, hasEvidence = true }) {
+  if (!hasEvidence) {
+    return (
+      <div className="admin-alerts__empty">
+        Sem base institucional suficiente para gerar alertas executivos.
+      </div>
+    );
+  }
+
   const alerts = [];
 
   if (occupancyRate > 95) {
@@ -28,7 +36,11 @@ export default function AdminAlerts({ occupancyRate, inactiveStudents, lostReven
   }
 
   if (!alerts.length) {
-    return <div className="admin-alerts__empty">Operação estável, sem alertas críticos neste momento.</div>;
+    return (
+      <div className="admin-alerts__empty">
+        Nenhum alerta de capacidade, inatividade ou receita foi identificado nos dados disponíveis.
+      </div>
+    );
   }
 
   return (

@@ -72,7 +72,6 @@ export function useViewerAnnotations(model) {
   function handleSketchfabAnnotationSelect(index) {
     if (!Number.isInteger(index) || index < 0) return;
     setActiveAnnotationIndex(index);
-    sketchfabBridge.goToSketchfabAnnotation(index);
   }
 
   return {

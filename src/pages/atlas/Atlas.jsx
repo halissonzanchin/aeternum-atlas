@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { atlasPathForItem, atlasStructure, atlasSubcategoryPath, findAtlasItemBySlug, slugifyAtlasLabel } from "../../data/atlasStructure";
 import { useLanguage } from "../../context/LanguageContext";
 import { translateTaxonomy } from "../../utils/modelI18n";
+import { A26Surface } from "../../components/aeternum-26";
 
 function atlasTitle(item, t) {
   return t(`atlas.modules.${item.slug}.title`);
@@ -24,10 +25,21 @@ function AtlasCard({ item, isActive, navigate, t }) {
   }
 
   return (
-    <article
+    <A26Surface
+      as="article"
+      material="regular"
+      interactive
       className={`atlas-card ${isActive ? "is-active" : ""}`}
       data-atlas-region={item.slug}
+      role="button"
+      tabIndex="0"
       onClick={openRegion}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openRegion();
+        }
+      }}
     >
       <span className="status-badge">{t("common.available")}</span>
 
@@ -51,7 +63,7 @@ function AtlasCard({ item, isActive, navigate, t }) {
           </div>
         )}
       </div>
-    </article>
+    </A26Surface>
   );
 }
 
@@ -72,7 +84,7 @@ export default function Atlas({ path = "/atlas", navigate }) {
       </div>
 
       {selectedItem && (
-        <div className="atlas-context-panel">
+        <A26Surface material="clear" tone="teal" className="atlas-context-panel">
           <span>{t("atlas.selectedRegion")}</span>
           <strong>{atlasTitle(selectedItem, t)}</strong>
           <p>
@@ -80,7 +92,7 @@ export default function Atlas({ path = "/atlas", navigate }) {
               ? t("atlas.subcategoryPrepared")
               : atlasDescription(selectedItem, t)}
           </p>
-        </div>
+        </A26Surface>
       )}
 
       <div className="atlas-grid">

@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState, lazy, Suspense } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Button from "./components/Button/Button";
 import AppLayout from "./components/Layout/AppLayout";
 import Modal from "./components/Modal/Modal";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import Card from "./components/Card/Card";
+import { A26Button, A26Card, A26ErrorState, A26LoadingState, A26Surface } from "./components/aeternum-26";
 import { getCurrentUser, logoutUser, restoreAuthSession } from "./services/auth/authService";
 import { isAdminPath, isPrivatePath } from "./utils/accessControl";
 import Home from "./pages/home/Home";
@@ -17,52 +17,27 @@ import Viewer from "./pages/viewer/Viewer";
 import License from "./pages/license/License";
 import Profile from "./pages/profile/Profile";
 import Settings from "./pages/settings/Settings";
-import Admin from "./pages/admin/Admin";
-import SuperAdminDashboard from "./pages/admin/SuperAdminDashboard";
-import InstitutionDashboard from "./pages/institution/InstitutionDashboard";
+import Admin from "./pages/administration/AdministrativeOperationsPage";
 import RectorDashboard from "./pages/rector/RectorDashboard";
 import CoordinatorDashboard from "./pages/coordinator/CoordinatorDashboard";
+import { governanceSectionFromPath } from "./config/governanceRoutes";
 import Teacher from "./pages/teacher/Teacher";
 import StudyAgendaPage from "./pages/student/StudyAgendaPage";
 import AnatomicalQuizzesPage from "./pages/student/AnatomicalQuizzesPage";
-import { canonicalSuperAdminPath, getAdminNavigationItemByPath } from "./config/adminNavigation";
+import StudentLearningPage from "./pages/student/StudentLearningPage";
+import { canonicalSuperAdminPath, getAdminNavigationItems, isAdminRouteActive } from "./config/adminNavigation";
 import { useLanguage } from "./context/LanguageContext";
-import AtlasViewerBridgePage from "./features/atlas-viewer/pages/AtlasViewerBridgePage";
-import AtlasMigrationDetailPage from "./features/admin-3d/migration/AtlasMigrationDetailPage";
-import AtlasCertificationPage from "./features/admin-3d/certification/AtlasCertificationPage";
 import AtlasAITutor from "./features/dashboard/components/AtlasAITutor";
 import { AtlasAITutorSessionProvider } from "./context/AtlasAITutorSessionContext";
+import { useAccountLearningSession } from "./hooks/useAccountLearningSession";
 
-import AtlasCertificationPipelinePage from "./features/admin-3d/certification/AtlasCertificationPipelinePage";
 import LessonSandboxPage from "./features/lessons/LessonSandboxPage";
 import LessonLibraryPage from "./features/lessons/LessonLibraryPage";
 import LessonPlayerPage from "./features/lessons/LessonPlayerPage";
 import LessonAdminReviewPage from "./features/lessons/admin/LessonAdminReviewPage";
 
-const AtlasNativeModelEditorPage = lazy(() => import('./features/admin-3d/AtlasNativeModelEditorPage'));
-
 function currentPath() {
   return window.location.pathname || "/";
-}
-
-function SimpleModule({ title, text, titleKey, textKey }) {
-  const { t } = useLanguage();
-  const resolvedTitle = titleKey ? t(titleKey) : title;
-  const resolvedText = textKey ? t(textKey) : text;
-  return (
-    <>
-      <div className="page-title">
-        <p className="eyebrow">{t("common.module")}</p>
-        <h1 className="display-title">{resolvedTitle}</h1>
-        <p className="mt-3 text-textMuted">{resolvedText}</p>
-      </div>
-      <Card className="max-w-3xl">
-        <span className="badge badge-active">{t("common.available")}</span>
-        <h2 className="mt-5 text-xl font-bold text-clinicalWhite">{resolvedTitle}</h2>
-        <p className="mt-3 text-textMuted">{resolvedText}</p>
-      </Card>
-    </>
-  );
 }
 
 class GlobalErrorBoundary extends React.Component {
@@ -82,11 +57,13 @@ class GlobalErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ padding: 20, color: 'white', backgroundColor: '#330000', minHeight: '100vh', fontFamily: 'sans-serif' }}>
-          <h2>Falha ao carregar painel administrativo</h2>
-          <pre style={{ whiteSpace: 'pre-wrap', marginTop: 20 }}>{this.state.error?.toString()}</pre>
-          <pre style={{ whiteSpace: 'pre-wrap', marginTop: 10, fontSize: '12px', color: '#ffaaaa' }}>{this.state.error?.stack}</pre>
-        </div>
+        <main className="a26-access-page" data-testid="a26-global-error">
+          <A26ErrorState
+            title="Não foi possível carregar esta área"
+            text="A interface preservou a sessão. Atualize a página para tentar novamente."
+            action={<A26Button variant="secondary" onClick={() => window.location.reload()}>Atualizar página</A26Button>}
+          />
+        </main>
       );
     }
     return this.props.children;
@@ -100,6 +77,9 @@ export default function App() {
   const [authReady, setAuthReady] = useState(false);
   const [modal, setModal] = useState(null);
   const [toast, setToast] = useState("");
+  const authEpochRef = useRef(0);
+
+  useAccountLearningSession(user, authReady);
 
   useEffect(() => {
     const onPopState = () => setPath(currentPath());
@@ -109,10 +89,11 @@ export default function App() {
 
   useEffect(() => {
     let mounted = true;
+    const restoreEpoch = authEpochRef.current;
 
     restoreAuthSession()
       .then(restoredUser => {
-        if (mounted) setUser(restoredUser);
+        if (mounted && authEpochRef.current === restoreEpoch) setUser(restoredUser);
       })
       .finally(() => {
         if (mounted) setAuthReady(true);
@@ -143,7 +124,13 @@ export default function App() {
     setToast(message);
   }
 
+  function handleAuth(nextUser) {
+    authEpochRef.current += 1;
+    setUser(nextUser);
+  }
+
   async function handleLogout() {
+    authEpochRef.current += 1;
     await logoutUser();
     setUser(null);
     navigate("/");
@@ -163,16 +150,17 @@ export default function App() {
       return <RedirectTo to={canonicalAdminPath} replace={replace} />;
     }
 
-    if ((user?.role === "super_admin" || user?.role === "admin") && (path === "/admin" || path.startsWith("/admin/"))) {
-      const canonicalItem = getAdminNavigationItemByPath(path);
+    if ((user?.role === "super_admin" || user?.role === "admin" || user?.role === "institution_admin") && (path === "/admin" || path.startsWith("/admin/"))) {
+      const basePath = user?.role === "super_admin" ? "/super-admin" : "/admin";
+      const canonicalItem = getAdminNavigationItems(basePath).find(item => isAdminRouteActive(path, item));
       if (canonicalItem?.path && canonicalItem.path !== path) {
         return <RedirectTo to={canonicalItem.path} replace={replace} />;
       }
     }
 
     if (path === "/") return <Home navigate={navigate} />;
-    if (path === "/login") return <Login navigate={navigate} onAuth={setUser} />;
-    if (path === "/register") return <Register navigate={navigate} onAuth={setUser} />;
+    if (path === "/login") return <Login navigate={navigate} onAuth={handleAuth} />;
+    if (path === "/register") return <Register navigate={navigate} onAuth={handleAuth} />;
 
     if (!authReady && (isPrivatePath(path) || isAdminPath(path))) {
       return <AuthBootstrap />;
@@ -180,9 +168,7 @@ export default function App() {
     if (path.startsWith("/atlas-viewer/")) {
       return (
         <ProtectedRoute user={user} path={path} navigate={navigate}>
-          <AppLayout user={user} path={path} navigate={navigate} onLogout={handleLogout}>
-            <AtlasViewerBridgePage id={path.split("/").pop()} navigate={navigate} />
-          </AppLayout>
+          <LegacyViewerRedirect id={path.split("/").pop()} replace={replace} />
         </ProtectedRoute>
       );
     }
@@ -201,7 +187,7 @@ export default function App() {
       );
     }
 
-    const privatePage = renderPrivatePage(path, { user, navigate, onAuth: setUser, notify, showInstitutionalModal, onLogout: handleLogout });
+    const privatePage = renderPrivatePage(path, { user, navigate, onAuth: handleAuth, notify, showInstitutionalModal, onLogout: handleLogout });
 
     if (isPrivatePath(path) || isAdminPath(path) || privatePage) {
       return (
@@ -218,8 +204,8 @@ export default function App() {
 
   const isPublicRoute = path === "/" || path === "/login" || path === "/register";
   const usesDedicatedViewerTutor = path.startsWith("/viewer/") || path.startsWith("/teacher/viewer/");
-  const usesNativeViewerTutor = path.startsWith("/atlas-viewer/");
-  const showGlobalTutor = authReady && Boolean(user) && !isPublicRoute && !usesDedicatedViewerTutor;
+  const usesLegacyViewerRedirect = path.startsWith("/atlas-viewer/");
+  const showGlobalTutor = authReady && Boolean(user) && !isPublicRoute && !usesDedicatedViewerTutor && !usesLegacyViewerRedirect;
   const tutorSessionIdentity = user?.id || user?.email || "anonymous";
 
   return (
@@ -227,11 +213,7 @@ export default function App() {
       <GlobalErrorBoundary>
         {content}
         {showGlobalTutor ? (
-          <AtlasAITutor
-            path={path}
-            sphereOnly={usesNativeViewerTutor}
-            draggable={usesNativeViewerTutor}
-          />
+          <AtlasAITutor path={path} />
         ) : null}
         <Modal
           open={Boolean(modal)}
@@ -241,7 +223,17 @@ export default function App() {
         >
           {modal?.body}
         </Modal>
-        {toast ? <div className="fixed bottom-5 right-5 z-50 max-w-sm rounded-2xl border border-techTeal/30 bg-navyDeep/95 p-4 text-sm text-clinicalWhite shadow-premium backdrop-blur-xl">{toast}</div> : null}
+        {toast ? (
+          <A26Surface
+            material="opaque"
+            tone="teal"
+            className="a26-toast"
+            role="status"
+            aria-live="polite"
+          >
+            {toast}
+          </A26Surface>
+        ) : null}
       </GlobalErrorBoundary>
     </AtlasAITutorSessionProvider>
   );
@@ -259,12 +251,11 @@ function AuthBootstrap() {
   const { t } = useLanguage();
 
   return (
-    <main className="grid min-h-screen place-items-center p-5">
-      <Card className="max-w-lg text-center">
-        <p className="eyebrow">{t("common.loading")}</p>
-        <h1 className="display-title">{t("common.sessionValidationTitle")}</h1>
-        <p className="mt-4 text-textMuted">{t("common.sessionValidationBody")}</p>
-      </Card>
+    <main className="a26-access-page" data-testid="a26-auth-bootstrap">
+      <A26LoadingState
+        title={t("common.sessionValidationTitle")}
+        text={t("common.sessionValidationBody")}
+      />
     </main>
   );
 }
@@ -276,39 +267,45 @@ function renderPrivatePage(path, context) {
     return <RedirectTo to="/student/home" replace={(to) => navigate(to)} />;
   }
   if (path === "/student/home") return <Dashboard user={user} navigate={navigate} showInstitutionalModal={showInstitutionalModal} />;
-  if (path === "/rector/dashboard") return <RectorDashboard user={user} />;
-  if (path === "/coordinator/dashboard") return <CoordinatorDashboard user={user} />;
-  if (path === "/institution/dashboard") return <InstitutionDashboard />;
-  if (path === "/admin/dashboard") return <SuperAdminDashboard />;
+  if (path.startsWith("/rector/")) {
+    const section = governanceSectionFromPath("rector", path);
+    if (section) return <RectorDashboard user={user} section={section} />;
+  }
+  if (path.startsWith("/coordinator/")) {
+    const section = governanceSectionFromPath("coordinator", path);
+    if (section) return <CoordinatorDashboard user={user} section={section} />;
+  }
+  if (path === "/institution/dashboard") return <Admin user={user} section="overview" path={path} navigate={navigate} notify={notify} />;
+  if (path === "/admin/dashboard") return <Admin user={user} section="overview" path={path} navigate={navigate} notify={notify} />;
   if (path === "/models") return <Models user={user} navigate={navigate} onLocked={showInstitutionalModal} />;
   if (path.startsWith("/models/")) return <ModelDetail id={path.split("/").pop()} user={user} navigate={navigate} />;
   if (path === "/license") return <License user={user} onAuth={onAuth} navigate={navigate} notify={notify} />;
   if (path === "/profile") return <Profile user={user} onAuth={onAuth} notify={notify} />;
   if (path === "/settings") return <Settings user={user} onLogout={onLogout} notify={notify} />;
-  if (path === "/history") return <SimpleModule titleKey="modules.historyTitle" textKey="modules.historyText" />;
-  if (path === "/favorites") return <SimpleModule titleKey="modules.favoritesTitle" textKey="modules.favoritesText" />;
-  if (path === "/progress") return <SimpleModule titleKey="studentHome.evolutionTitle" textKey="studentHome.evolutionSubtitle" />;
+  if (path === "/history") return <StudentLearningPage section="history" user={user} navigate={navigate} />;
+  if (path === "/favorites") return <StudentLearningPage section="favorites" user={user} navigate={navigate} />;
+  if (path === "/progress") return <StudentLearningPage section="progress" user={user} navigate={navigate} />;
   if (path === "/study-agenda") return <StudyAgendaPage navigate={navigate} />;
-  if (path === "/flashcards") return <SimpleModule titleKey="studentHome.tools.flashcards.title" textKey="studentHome.tools.flashcards.description" />;
+  if (path === "/flashcards") return <StudentLearningPage section="flashcards" user={user} navigate={navigate} />;
   if (path === "/quizzes") return <AnatomicalQuizzesPage navigate={navigate} />;
-  if (path === "/summaries") return <SimpleModule titleKey="studentHome.tools.summaries.title" textKey="studentHome.tools.summaries.description" />;
-  if (path === "/guided-study") return <SimpleModule titleKey="studentHome.tools.guidedStudy.title" textKey="studentHome.tools.guidedStudy.description" />;
-  if (path === "/ai-tutor") return <SimpleModule titleKey="studentHome.tools.aiTutor.title" textKey="studentHome.tools.aiTutor.description" />;
-  if (path === "/review") return <SimpleModule titleKey="studentHome.tools.quickReview.title" textKey="studentHome.tools.quickReview.description" />;
-  if (path === "/study-lists") return <SimpleModule titleKey="modules.studyListsTitle" textKey="modules.studyListsText" />;
-  if (path === "/classes") return <SimpleModule titleKey="modules.classesTitle" textKey="modules.classesText" />;
-  if (path === "/recommendations") return <SimpleModule titleKey="modules.recommendationsTitle" textKey="modules.recommendationsText" />;
-  if (path === "/academic-reports") return <SimpleModule titleKey="modules.academicReportsTitle" textKey="modules.academicReportsText" />;
+  if (path === "/summaries") return <StudentLearningPage section="summaries" user={user} navigate={navigate} />;
+  if (path === "/guided-study") return <StudentLearningPage section="guided-study" user={user} navigate={navigate} />;
+  if (path === "/ai-tutor") return <StudentLearningPage section="ai-tutor" user={user} navigate={navigate} />;
+  if (path === "/review") return <StudentLearningPage section="review" user={user} navigate={navigate} />;
+  if (path === "/study-lists") return <StudentLearningPage section="study-lists" user={user} navigate={navigate} />;
+  if (path === "/classes") return <StudentLearningPage section="classes" user={user} navigate={navigate} />;
+  if (path === "/recommendations") return <StudentLearningPage section="recommendations" user={user} navigate={navigate} />;
+  if (path === "/academic-reports") return <StudentLearningPage section="academic-reports" user={user} navigate={navigate} />;
   if (path === "/atlas" || path.startsWith("/atlas/")) return <Atlas path={path} navigate={navigate} />;
-  if (path === "/radiology") return <SimpleModule titleKey="modules.radiologyTitle" textKey="modules.radiologyText" />;
+  if (path === "/radiology") return <StudentLearningPage section="radiology" user={user} navigate={navigate} />;
   if (path === "/lessons") return <LessonLibraryPage navigate={navigate} />;
   if (path === "/lessons/sandbox") return <LessonSandboxPage />;
   if (path.startsWith("/lessons/")) {
     const slug = path.split("/")[2];
     if (slug) return <LessonPlayerPage lessonSlug={slug} navigate={navigate} />;
   }
-  if (path === "/videos") return <SimpleModule titleKey="modules.videosTitle" textKey="modules.videosText" />;
-  if (path === "/courses") return <SimpleModule titleKey="modules.coursesTitle" textKey="modules.coursesText" />;
+  if (path === "/videos") return <StudentLearningPage section="videos" user={user} navigate={navigate} />;
+  if (path === "/courses") return <StudentLearningPage section="courses" user={user} navigate={navigate} />;
   if (path === "/teacher" || path === "/teacher/dashboard" || path === "/professor/dashboard") return <Teacher section="dashboard" user={user} navigate={navigate} />;
   if (path === "/teacher/models" || path === "/professor/models") return <Teacher section="models" user={user} navigate={navigate} />;
   if (path === "/teacher/atlas" || path.startsWith("/teacher/atlas/")) {
@@ -320,44 +317,6 @@ function renderPrivatePage(path, context) {
   if (path === "/institution-admin") return <Admin user={user} section="overview" path={path} navigate={navigate} notify={notify} />;
   if (path.startsWith("/institution-admin/")) return <Admin user={user} section={path.split("/")[2] || "overview"} path={path} navigate={navigate} notify={notify} />;
   if (path === "/super-admin") return <Admin user={user} section="overview" path={path} navigate={navigate} notify={notify} />;
-  if (path.startsWith("/super-admin/models-3d/") && path.endsWith("/editor")) {
-    const modelId = path.split("/")[3];
-    return (
-      <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
-        <Suspense fallback={
-          <div className="flex flex-col h-screen items-center justify-center bg-blackDeep text-white">
-            <div className="w-10 h-10 rounded-full border-t-2 border-r-2 border-techTeal animate-spin mb-4"></div>
-            <p className="text-sm font-bold text-techTeal uppercase tracking-widest text-center whitespace-nowrap">Carregando Ambiente</p>
-          </div>
-        }>
-          <AtlasNativeModelEditorPage modelId={modelId} navigate={navigate} />
-        </Suspense>
-      </ProtectedRoute>
-    );
-  }
-  if (path.startsWith("/super-admin/atlas-migration/") && path.split("/").length === 4) {
-    const modelId = path.split("/")[3];
-    return (
-      <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
-        <AtlasMigrationDetailPage modelId={modelId} navigate={navigate} />
-      </ProtectedRoute>
-    );
-  }
-  if (path === "/super-admin/atlas-certification") {
-    return (
-      <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
-        <AtlasCertificationPipelinePage navigate={navigate} />
-      </ProtectedRoute>
-    );
-  }
-  if (path.startsWith("/super-admin/atlas-certification/") && path.split("/").length === 4) {
-    const modelId = path.split("/")[3];
-    return (
-      <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
-        <AtlasCertificationPage modelId={modelId} navigate={navigate} />
-      </ProtectedRoute>
-    );
-  }
   if (path === "/super-admin/lessons") {
     return (
       <ProtectedRoute user={user} adminOnly={true} path={path} navigate={navigate}>
@@ -365,24 +324,39 @@ function renderPrivatePage(path, context) {
       </ProtectedRoute>
     );
   }
-  if (path.startsWith("/super-admin/")) return <Admin section={path.split("/")[2] || "overview"} path={path} navigate={navigate} notify={notify} />;
+  if (path.startsWith("/super-admin/")) return <Admin user={user} section={path.split("/")[2] || "overview"} path={path} navigate={navigate} notify={notify} />;
   if ((path === "/admin" || path.startsWith("/admin/")) && !["super_admin", "admin", "institution_admin"].includes(user?.role)) {
     return <NotFound navigate={navigate} />;
   }
-  if (path === "/admin") return <Admin section="dashboard" path={path} navigate={navigate} notify={notify} />;
-  if (path.startsWith("/admin/")) return <Admin section={path.split("/")[2] || "dashboard"} path={path} navigate={navigate} notify={notify} />;
+  if (path === "/admin") return <Admin user={user} section="dashboard" path={path} navigate={navigate} notify={notify} />;
+  if (path.startsWith("/admin/")) return <Admin user={user} section={path.split("/")[2] || "dashboard"} path={path} navigate={navigate} notify={notify} />;
   return null;
 }
 
 function NotFound({ navigate }) {
   const { t } = useLanguage();
   return (
-    <main className="grid min-h-screen place-items-center p-5">
-      <Card className="max-w-lg text-center">
+    <main className="a26-access-page">
+      <A26Card className="a26-access-state">
         <h1 className="display-title">{t("errors.notFoundTitle")}</h1>
         <p className="mt-4 text-textMuted">{t("errors.notFoundText")}</p>
-        <Button className="mt-6" variant="primary" onClick={() => navigate("/")}>{t("navigation.home")}</Button>
-      </Card>
+        <A26Button variant="primary" onClick={() => navigate("/")}>{t("navigation.home")}</A26Button>
+      </A26Card>
     </main>
   );
+}
+
+const LEGACY_VIEWER_MODEL_MAP = {
+  "neuro-001-enc": "corte-sagital-cranio-humano-superficial",
+  "corte-sagital-encefalo": "corte-sagital-cranio-humano-superficial"
+};
+
+function LegacyViewerRedirect({ id, replace }) {
+  const destinationId = LEGACY_VIEWER_MODEL_MAP[id] || id;
+
+  useEffect(() => {
+    replace(`/viewer/${destinationId}`);
+  }, [destinationId, replace]);
+
+  return <AuthBootstrap />;
 }

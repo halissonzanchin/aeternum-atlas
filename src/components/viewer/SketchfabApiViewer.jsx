@@ -284,6 +284,7 @@ export default function SketchfabApiViewer({
     return () => {
       isMounted = false;
       clearTimers();
+      sketchfabBridge.unregisterSketchfabApi(apiRef.current);
 
       try {
         apiRef.current?.stop?.();
@@ -318,21 +319,35 @@ export default function SketchfabApiViewer({
       hideAnnotationInfo(api, annotationIndex);
     }
 
-    api.gotoAnnotation(annotationIndex, { preventCameraAnimation: false }, error => {
-      if (!error && silent) {
-        window.setTimeout(() => hideAnnotationInfo(api, annotationIndex), 120);
-        window.setTimeout(() => hideAnnotationInfo(api, annotationIndex), 420);
-      }
+    const accepted = sketchfabBridge.goToSketchfabAnnotation(annotationIndex, {
+      requestId: annotationNavigationRequest?.requestId,
+      viewerOptions: { preventCameraAnimation: false },
+      onComplete(error) {
+        if (!error && silent) {
+          window.setTimeout(() => hideAnnotationInfo(api, annotationIndex), 120);
+          window.setTimeout(() => hideAnnotationInfo(api, annotationIndex), 420);
+        }
 
+        onEvent?.({
+          type: error ? "annotation_navigation_failed" : "annotation_navigation_completed",
+          modelUid,
+          annotationIndex,
+          metadata: { silent },
+          error: error || undefined,
+          timestamp: new Date().toISOString()
+        });
+      }
+    });
+
+    if (!accepted) {
       onEvent?.({
-        type: error ? "annotation_navigation_failed" : "annotation_navigation_completed",
+        type: "annotation_navigation_coalesced",
         modelUid,
         annotationIndex,
         metadata: { silent },
-        error: error || undefined,
         timestamp: new Date().toISOString()
       });
-    });
+    }
   }, [annotationNavigationRequest, modelUid, status]);
 
   useEffect(() => {

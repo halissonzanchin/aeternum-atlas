@@ -29,7 +29,11 @@ export default function AnatomicalQuizzesPage({ navigate }) {
   const { t } = useLanguage();
 
   return (
-    <section className="anatomical-quizzes-page fade-in-up">
+    <section
+      className="anatomical-quizzes-page fade-in-up"
+      data-testid="a26-student-quizzes"
+      data-a26-source="institutional-catalog"
+    >
       <header className="anatomical-quizzes-header">
         <p className="viewer-eyebrow">{t("studentHome.quizCatalog.eyebrow")}</p>
         <h1>{t("studentHome.quizCatalog.title")}</h1>

@@ -2,15 +2,6 @@ import { atlasAITutorMock } from "../../../demo/upe/aiMock";
 
 const ROUTE_CONTEXTS = [
   {
-    matches: (path) => path.startsWith("/atlas-viewer/"),
-    structure: "Modelo Atlas 3D",
-    question: "Oriente minha exploração deste modelo anatômico.",
-    description: "O visualizador conecta geometria, marcadores e anotações em uma experiência de estudo espacial. Posso indicar uma sequência de exploração e esclarecer as relações apresentadas.",
-    clinicalImportance: "Explorar o modelo por objetivos e relações anatômicas evita navegação aleatória e fortalece a memória espacial.",
-    relatedStructures: ["Marcadores", "Camadas", "Anotações"],
-    quickActions: ["Explicar modelo", "Criar sequência", "Revisar marcadores"]
-  },
-  {
     matches: (path) => path === "/models",
     structure: "Biblioteca de Modelos 3D",
     question: "Ajude-me a escolher o próximo modelo para estudar.",

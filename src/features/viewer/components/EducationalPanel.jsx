@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import LineIcon from "../../../components/icons/LineIcon";
+import { A26Surface } from "../../../components/aeternum-26";
 import { useLanguage } from "../../../context/LanguageContext";
 import { sketchfabBridge } from "../../../services/sketchfabAnnotationBridge";
 
@@ -186,14 +187,18 @@ export default function EducationalPanel({
 
   return (
     <>
-      {open ? <button className="fixed inset-0 z-[40] bg-blackDeep/40 backdrop-blur-sm lg:hidden animate-in fade-in" onClick={onClose} aria-label={t("settings.closeSettings")} /> : null}
+      {open ? <button className="fixed inset-0 z-[40] bg-blackDeep/55 lg:hidden animate-in fade-in" onClick={onClose} aria-label={t("settings.closeSettings")} /> : null}
       
       <aside 
         className={`fixed top-0 left-0 h-[100dvh] w-full max-w-sm sm:max-w-md z-[50] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col pt-16 sm:pt-20 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex-1 flex flex-col mx-4 mb-24 sm:mb-6 mt-2 overflow-hidden rounded-2xl atlas-liquid-glass-panel border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.6)]">
+        <A26Surface
+          material="substantial"
+          tone="teal"
+          className="viewer-educational-panel flex-1 flex flex-col mx-4 mb-24 sm:mb-6 mt-2 overflow-hidden rounded-2xl"
+        >
           
           {/* Header Premium */}
           <div className="relative p-5 sm:p-6 border-b border-white/10 shrink-0">
@@ -209,7 +214,7 @@ export default function EducationalPanel({
                 <p className="text-sm italic text-white/50">{latin}</p>
               </div>
               <button 
-                className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all shrink-0" 
+                className="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all shrink-0"
                 onClick={onClose} 
                 aria-label={t("viewer.togglePanel")}
               >
@@ -225,7 +230,7 @@ export default function EducationalPanel({
               {defaultTabs.map(item => (
                 <button 
                   key={item} 
-                  className={`whitespace-nowrap px-4 py-2 text-[11px] font-semibold uppercase tracking-wider rounded-full transition-all duration-300 flex-shrink-0 ${
+                  className={`min-h-11 whitespace-nowrap px-4 py-2 text-[11px] font-semibold uppercase tracking-wider rounded-full transition-all duration-300 flex-shrink-0 ${
                     activeTab === item 
                       ? "bg-techTeal text-blackDeep shadow-[0_0_15px_rgba(35,210,179,0.3)] scale-105 transform origin-center" 
                       : "bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 hover:border-white/20"
@@ -337,7 +342,15 @@ export default function EducationalPanel({
               
               {activeTab === "Simulado Prático" ? (
                 <div className="flex flex-col items-center justify-center text-center mt-4 p-6 atlas-liquid-glass-card rounded-xl border border-techTeal/20 animate-in fade-in slide-in-from-bottom-2 duration-500 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-[url('/assets/noise.png')] opacity-10 mix-blend-overlay pointer-events-none" />
+                  <div
+                    className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none"
+                    aria-hidden="true"
+                    style={{
+                      backgroundImage:
+                        'radial-gradient(circle at 20% 28%, rgba(255,255,255,0.22) 0 0.6px, transparent 0.9px), radial-gradient(circle at 76% 64%, rgba(35,210,179,0.18) 0 0.7px, transparent 1px)',
+                      backgroundSize: '7px 7px, 11px 11px',
+                    }}
+                  />
                   <div className="w-12 h-12 rounded-full bg-techTeal/10 border border-techTeal/30 flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(35,210,179,0.15)]">
                     <LineIcon name="target" className="w-5 h-5 text-techTeal" />
                   </div>
@@ -386,7 +399,7 @@ export default function EducationalPanel({
             </div>
           </div>
           
-        </div>
+        </A26Surface>
       </aside>
     </>
   );

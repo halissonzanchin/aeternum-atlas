@@ -13,7 +13,7 @@
 
 .admin-section-tabs button {
   flex: 0 0 auto;
-  min-height: 42px;
+  min-height: 44px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.045);
@@ -29,6 +29,49 @@
   border-color: rgba(47, 184, 181, 0.48);
   background: rgba(47, 184, 181, 0.12);
   color: #8ff3ee;
+}
+
+.admin-realdata-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-realdata-toolbar > span,
+.admin-realdata-toolbar > select {
+  min-height: 44px;
+  border: 1px solid rgba(153, 240, 233, 0.14);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(92, 224, 214, 0.075), rgba(255, 255, 255, 0.018)),
+    rgba(3, 10, 14, 0.68);
+  color: #dbe8e7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px) saturate(125%);
+}
+
+.admin-realdata-toolbar > span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 16px;
+  color: rgba(177, 232, 228, 0.82);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.045em;
+}
+
+.admin-realdata-toolbar > select {
+  max-width: min(100%, 320px);
+  padding: 0 38px 0 16px;
+  font: inherit;
+  font-weight: 750;
+}
+
+@media (min-width: 1024px) {
+  .admin-section-tabs {
+    display: none;
+  }
 }
 
 .admin-section-header {

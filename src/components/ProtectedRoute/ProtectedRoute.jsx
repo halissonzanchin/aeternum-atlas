@@ -1,41 +1,81 @@
-import Button from "../Button/Button";
-import Card from "../Card/Card";
-import { canAccessRoute, getHomeForRole } from "../../services/permissions/permissionService";
+/* eslint-disable no-unused-vars -- o parser ESLint atual não contabiliza identificadores usados apenas em JSX */
+import { A26Button, A26Card } from "../aeternum-26";
+import {
+  canAccessRoute,
+  getHomeForRole,
+  normalizeRole
+} from "../../services/permissions/permissionService";
+
+const roleLabels = {
+  student: "Aluno",
+  teacher: "Professor",
+  coordinator: "Coordenação",
+  rector: "Reitoria",
+  institution_admin: "Administração institucional",
+  super_admin: "Superadministração"
+};
+
+function AccessState({ title, text, actionLabel, onAction, role = "visitante", path = "/" }) {
+  return (
+    <main
+      className="a26-access-page"
+      data-testid="a26-access-state"
+      data-a26-role={role}
+      data-a26-route={path}
+    >
+      <A26Card className="a26-access-state">
+        <span className="a26-kicker">Aeternum 26 · Acesso</span>
+        <small className="a26-access-state__identity">
+          {roleLabels[role] || role} · {path}
+        </small>
+        <h1>{title}</h1>
+        <p>{text}</p>
+        <A26Button variant="primary" onClick={onAction}>{actionLabel}</A26Button>
+      </A26Card>
+    </main>
+  );
+}
 
 export default function ProtectedRoute({ user, adminOnly = false, path = window.location.pathname, navigate, children }) {
+  const isSuperAdminArea = String(path || "").startsWith("/super-admin");
+
   if (!user) {
     return (
-      <main className="grid min-h-screen place-items-center p-5">
-        <Card className="max-w-lg text-center">
-          <h1 className="font-display text-4xl uppercase tracking-[0.08em] text-agedGold">Acesso protegido</h1>
-          <p className="mt-4 text-textMuted">Entre na sua conta para acessar a biblioteca anatômica 3D.</p>
-          <Button className="mt-6" variant="teal" onClick={() => navigate("/login")}>Iniciar sessão</Button>
-        </Card>
-      </main>
+      <AccessState
+        title="Acesso protegido"
+        text="Entre na sua conta para acessar a biblioteca anatômica 3D."
+        actionLabel="Iniciar sessão"
+        onAction={() => navigate("/login")}
+        path={path}
+      />
     );
   }
 
   if (adminOnly && !canAccessRoute(user, path)) {
     return (
-      <main className="grid min-h-screen place-items-center p-5">
-        <Card className="max-w-lg text-center">
-          <h1 className="font-display text-4xl uppercase tracking-[0.08em] text-agedGold">Área administrativa</h1>
-          <p className="mt-4 text-textMuted">Esta área é restrita à administração institucional.</p>
-          <Button className="mt-6" variant="outline" onClick={() => navigate(getHomeForRole(user))}>Voltar ao dashboard</Button>
-        </Card>
-      </main>
+      <AccessState
+        title={isSuperAdminArea ? "Superadministração" : "Área administrativa"}
+        text={isSuperAdminArea
+          ? "Esta área é restrita à Superadministração da plataforma."
+          : "Esta área é restrita à Administração institucional."}
+        actionLabel="Voltar ao dashboard"
+        onAction={() => navigate(getHomeForRole(user))}
+        role={normalizeRole(user?.role, user)}
+        path={path}
+      />
     );
   }
 
   if (!canAccessRoute(user, path)) {
     return (
-      <main className="grid min-h-screen place-items-center p-5">
-        <Card className="max-w-lg text-center">
-          <h1 className="font-display text-4xl uppercase tracking-[0.08em] text-agedGold">Acesso restrito</h1>
-          <p className="mt-4 text-textMuted">Seu perfil não possui permissão para acessar este módulo institucional.</p>
-          <Button className="mt-6" variant="outline" onClick={() => navigate(getHomeForRole(user))}>Ir para minha área</Button>
-        </Card>
-      </main>
+      <AccessState
+        title="Acesso restrito"
+        text="Seu perfil não possui permissão para acessar este módulo institucional."
+        actionLabel="Ir para minha área"
+        onAction={() => navigate(getHomeForRole(user))}
+        role={normalizeRole(user?.role, user)}
+        path={path}
+      />
     );
   }
 

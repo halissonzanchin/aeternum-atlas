@@ -1,9 +1,9 @@
+/* eslint-disable no-unused-vars -- o parser ESLint atual não contabiliza identificadores usados apenas em JSX */
 import { useEffect, useState } from "react";
 import AuthExperienceShell from "../../components/AuthExperienceShell/AuthExperienceShell";
-import Button from "../../components/Button/Button";
-import Card from "../../components/Card/Card";
 import LanguageSelector from "../../components/LanguageSelector";
-import { registerUser } from "../../services/auth/authService";
+import { A26Button, A26Card, A26Field } from "../../components/aeternum-26";
+import { getRedirectPathForUser, registerUser } from "../../services/auth/authService";
 import { listActivePublicRegistrationInstitutions } from "../../services/institutions/institutionService";
 import { validateRegister } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
@@ -99,7 +99,7 @@ export default function Register({ navigate, onAuth }) {
       }
 
       onAuth(user);
-      navigate("/dashboard");
+      navigate(getRedirectPathForUser(user));
     } catch (error) {
       setMessageType("error");
       setMessage(error.message || t("auth.createAccountError"));
@@ -110,7 +110,7 @@ export default function Register({ navigate, onAuth }) {
 
   return (
     <AuthExperienceShell wide>
-      <Card className="atlas-auth-card atlas-auth-card--registration w-full max-w-4xl" depth="substantial">
+      <A26Card className="atlas-auth-card atlas-auth-card--registration" data-testid="a26-register">
         <div className="atlas-auth-card__topline">
           <span>{t("auth.secureAccess")}</span>
           <LanguageSelector compact />
@@ -121,104 +121,58 @@ export default function Register({ navigate, onAuth }) {
           {t("auth.registerDescription")}
         </p>
 
-        <form className="mt-8 grid gap-5 md:grid-cols-2" onSubmit={submit}>
-          <label className="field">
-            <span>{t("auth.fullName")}</span>
-            <input name="name" value={values.name} onChange={update} autoComplete="name" />
-            <small>{errors.name}</small>
-          </label>
+        <form className="atlas-auth-form atlas-auth-form--registration" onSubmit={submit}>
+          <A26Field label={t("auth.fullName")} error={errors.name} name="name" value={values.name} onChange={update} autoComplete="name" />
+          <A26Field label={t("auth.academicEmail")} error={errors.email} name="email" type="email" value={values.email} onChange={update} autoComplete="email" />
+          <A26Field label={t("auth.password")} error={errors.password} name="password" type="password" value={values.password} onChange={update} autoComplete="new-password" />
+          <A26Field label={t("auth.confirmPassword")} error={errors.confirmPassword} name="confirmPassword" type="password" value={values.confirmPassword} onChange={update} autoComplete="new-password" />
 
-          <label className="field">
-            <span>{t("auth.academicEmail")}</span>
-            <input name="email" value={values.email} onChange={update} autoComplete="email" />
-            <small>{errors.email}</small>
-          </label>
-
-          <label className="field">
-            <span>{t("auth.password")}</span>
-            <input name="password" type="password" value={values.password} onChange={update} autoComplete="new-password" />
-            <small>{errors.password}</small>
-          </label>
-
-          <label className="field">
-            <span>{t("auth.confirmPassword")}</span>
-            <input name="confirmPassword" type="password" value={values.confirmPassword} onChange={update} autoComplete="new-password" />
-            <small>{errors.confirmPassword}</small>
-          </label>
-
-          <label className="field">
-            <span>{t("auth.userType")}</span>
-            <select name="userType" value={values.userType} onChange={update}>
+          <A26Field as="select" label={t("auth.userType")} error={errors.userType} name="userType" value={values.userType} onChange={update}>
               {userTypes.map(type => <option key={type}>{type}</option>)}
-            </select>
-            <small>{errors.userType}</small>
-          </label>
+          </A26Field>
 
-          <label className="field">
-            <span>{t("auth.institution")}</span>
-            <select name="institutionId" value={values.institutionId} onChange={update} disabled={institutionsLoading || !institutionOptions.length}>
+          <A26Field
+            as="select"
+            label={t("auth.institution")}
+            error={errors.institution}
+            name="institutionId"
+            value={values.institutionId}
+            onChange={update}
+            disabled={institutionsLoading || !institutionOptions.length}
+          >
               <option value="">
                 {institutionsLoading ? t("auth.loadingInstitutions") : t("auth.selectInstitution")}
               </option>
               {institutionOptions.map(institution => <option key={institution.id} value={institution.id}>{institution.name}</option>)}
-            </select>
-            <small>{errors.institution}</small>
-          </label>
+          </A26Field>
 
-          <label className="field">
-            <span>{t("auth.course")}</span>
-            <input name="course" value={values.course} onChange={update} placeholder="Medicina" />
-            <small>{errors.course}</small>
-          </label>
+          <A26Field label={t("auth.course")} error={errors.course} name="course" value={values.course} onChange={update} placeholder="Medicina" />
+          <A26Field label={t("auth.semester")} error={errors.semester} name="semester" value={values.semester} onChange={update} placeholder="2º semestre" />
+          <A26Field label={t("auth.studentRegistration")} error={errors.studentRegistration} name="studentRegistration" value={values.studentRegistration} onChange={update} placeholder="RA-2026-001" />
+          <A26Field label={t("auth.country")} name="country" value={values.country} onChange={update} />
 
-          <label className="field">
-            <span>{t("auth.semester")}</span>
-            <input name="semester" value={values.semester} onChange={update} placeholder="2º semestre" />
-            <small>{errors.semester}</small>
-          </label>
-
-          <label className="field">
-            <span>{t("auth.studentRegistration")}</span>
-            <input name="studentRegistration" value={values.studentRegistration} onChange={update} placeholder="RA-2026-001" />
-            <small>{errors.studentRegistration}</small>
-          </label>
-
-          <label className="field">
-            <span>{t("auth.country")}</span>
-            <input name="country" value={values.country} onChange={update} />
-            <small />
-          </label>
-
-          <label className="field md:col-span-2">
-            <span>{t("auth.preferredLanguage")}</span>
-            <select name="language" value={values.language} onChange={update}>
+          <A26Field as="select" className="atlas-auth-form__full" label={t("auth.preferredLanguage")} name="language" value={values.language} onChange={update}>
               {availableLanguages.map(item => <option key={item.code} value={item.code}>{item.nativeName}</option>)}
-            </select>
-            <small />
-          </label>
+          </A26Field>
 
-          <label className="flex gap-3 text-sm leading-6 text-slate-200 md:col-span-2">
-            <input className="mt-1" name="acceptTerms" type="checkbox" checked={values.acceptTerms} onChange={update} />
+          <label className="atlas-auth-consent atlas-auth-form__full">
+            <input name="acceptTerms" type="checkbox" checked={values.acceptTerms} onChange={update} />
             <span>{t("auth.acceptTerms")}</span>
           </label>
 
-          {errors.acceptTerms ? <p className="text-sm text-red-100 md:col-span-2">{errors.acceptTerms}</p> : null}
+          {errors.acceptTerms ? <p className="a26-field__error atlas-auth-form__full" role="alert">{errors.acceptTerms}</p> : null}
           {message ? (
-            <p className={`rounded-2xl border p-3 text-sm md:col-span-2 ${
-              messageType === "success"
-                ? "border-emerald-300/25 bg-emerald-400/10 text-emerald-100"
-                : "border-red-300/25 bg-red-400/10 text-red-100"
-            }`}>
+            <p className={`a26-auth-message atlas-auth-form__full ${messageType === "success" ? "is-success" : "is-error"}`} role="status">
               {message}
             </p>
           ) : null}
 
-          <div className="flex flex-wrap gap-3 md:col-span-2">
-            <Button variant="teal" type="submit" disabled={loading}>{loading ? t("common.loading") : t("auth.createInstitutionalAccess")}</Button>
-            <Button variant="outline" type="button" onClick={() => navigate("/login")}>{t("auth.alreadyHaveAccount")}</Button>
+          <div className="atlas-auth-actions atlas-auth-form__full">
+            <A26Button variant="primary" type="submit" loading={loading}>{t("auth.createInstitutionalAccess")}</A26Button>
+            <A26Button variant="liquid" type="button" onClick={() => navigate("/login")}>{t("auth.alreadyHaveAccount")}</A26Button>
           </div>
         </form>
-      </Card>
+      </A26Card>
     </AuthExperienceShell>
   );
 }

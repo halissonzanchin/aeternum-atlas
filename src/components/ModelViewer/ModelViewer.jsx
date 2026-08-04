@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import LineIcon from "../icons/LineIcon";
-import ModelAnalyticsCard from "../viewer/ModelAnalyticsCard";
 import SketchfabApiViewer from "../viewer/SketchfabApiViewer";
 import SecureContentGuard from "../security/SecureContentGuard";
+import { A26Button, A26Surface } from "../aeternum-26";
 import { useLanguage } from "../../context/LanguageContext";
 import { getCurrentUserForModelAccess, logModelAccess } from "../../services/logModelAccess";
 
@@ -161,16 +161,21 @@ export default function ModelViewer({
   }
 
   const actions = [
-    ...(embedUrl ? [["Visualizador 3D Aeternum", "viewer.openSketchfab", "fullscreen"]] : []),
-    ["Favoritar", "viewer.favorite", "favorite"],
-    ["Marcar como estudado", "viewer.markAsStudied", "check"],
-    ["Copiar link do modelo", "viewer.copyModelLink", "layers"],
-    ["Registrar acesso", "viewer.registerAccess", "check"],
-    ["Anotações", "viewer.notes", "note"],
-    ["Simulado Anatômico", "viewer.anatomicalQuiz", "clipboardCheck"],
-    ["Simulado Teórico", "viewer.theoreticalQuiz", "fileQuestion"],
-    ["Voltar para biblioteca", "viewer.backToLibrary", "library"],
-    ["Reportar problema", "viewer.reportProblem", "help"]
+    ...(embedUrl ? [{ action: "Visualizador 3D Aeternum", labelKey: "viewer.openSketchfab", icon: "fullscreen", group: "model" }] : []),
+    { action: "Favoritar", labelKey: "viewer.favorite", icon: "favorite", group: "model" },
+    { action: "Marcar como estudado", labelKey: "viewer.markAsStudied", icon: "check", group: "model" },
+    { action: "Copiar link do modelo", labelKey: "viewer.copyModelLink", icon: "layers", group: "model" },
+    { action: "Registrar acesso", labelKey: "viewer.registerAccess", icon: "check", group: "model" },
+    { action: "Anotações", labelKey: "viewer.notes", icon: "note", group: "study" },
+    { action: "Simulado Anatômico", labelKey: "viewer.anatomicalQuiz", icon: "clipboardCheck", group: "study" },
+    { action: "Simulado Teórico", labelKey: "viewer.theoreticalQuiz", icon: "fileQuestion", group: "study" },
+    { action: "Voltar para biblioteca", labelKey: "viewer.backToLibrary", icon: "library", group: "support" },
+    { action: "Reportar problema", labelKey: "viewer.reportProblem", icon: "help", group: "support", variant: "danger" }
+  ];
+  const actionGroups = [
+    { id: "model", label: t("viewer.actionGroups.model") },
+    { id: "study", label: t("viewer.actionGroups.study") },
+    { id: "support", label: t("viewer.actionGroups.support") }
   ];
 
   function actionStateClass(action) {
@@ -245,33 +250,49 @@ export default function ModelViewer({
         )}
       </div>
 
-      <div className={`viewer-control-strip ${embedUrl ? "aa-viewer-actions" : ""}`}>
-        {actions.map(([action, labelKey, icon]) => (
-          <button
-            key={action}
-            className={actionStateClass(action)}
-            data-viewer-action={action}
-            aria-pressed={isActionPressed(action)}
-            onClick={async () => {
-              if (action === "Registrar acesso") {
-                await registerSupabaseModelAccess("manual_button");
-              }
-              onViewerAction(action);
-            }}
-            aria-label={t(labelKey)}
-            data-tooltip={t(labelKey)}
-          >
-            <LineIcon name={icon} className="h-4 w-4" filled={isActionIconFilled(action)} />
-            <span>{t(labelKey)}</span>
-          </button>
-        ))}
-      </div>
+      <A26Surface
+        as="nav"
+        material="regular"
+        tone="teal"
+        className="viewer-control-strip viewer-model-actions"
+        aria-label={t("viewer.actionGroups.label")}
+      >
+        {actionGroups.map(group => {
+          const groupActions = actions.filter(item => item.group === group.id);
+          if (!groupActions.length) return null;
 
-      {embedUrl ? (
-        <div className="mt-4">
-          <ModelAnalyticsCard modelId={model.id} />
-        </div>
-      ) : null}
+          return (
+            <div className="viewer-model-actions__group" data-action-group={group.id} key={group.id}>
+              <span className="viewer-model-actions__label">{group.label}</span>
+              <div className="viewer-model-actions__controls">
+                {groupActions.map(({ action, labelKey, icon, variant }) => {
+                  const pressed = isActionPressed(action);
+                  return (
+                    <A26Button
+                      key={action}
+                      variant={pressed ? "primary" : (variant || "ghost")}
+                      className={actionStateClass(action)}
+                      data-viewer-action={action}
+                      aria-pressed={pressed}
+                      onClick={async () => {
+                        if (action === "Registrar acesso") {
+                          await registerSupabaseModelAccess("manual_button");
+                        }
+                        onViewerAction(action);
+                      }}
+                      aria-label={t(labelKey)}
+                      icon={<LineIcon name={icon} className="h-4 w-4" filled={isActionIconFilled(action)} />}
+                    >
+                      {t(labelKey)}
+                    </A26Button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </A26Surface>
+
     </section>
   );
 }

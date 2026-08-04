@@ -1,5 +1,7 @@
 .secure-content-guard {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   min-height: inherit;
@@ -11,9 +13,17 @@
 .secure-content-guard__body {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   width: 100%;
-  height: 100%;
+  min-height: inherit;
   transition: filter 180ms ease, opacity 180ms ease;
+}
+
+.secure-content-guard__body > * {
+  flex: 1 1 auto;
+  min-height: inherit;
 }
 
 .secure-watermark {

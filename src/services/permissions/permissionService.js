@@ -13,7 +13,7 @@ export const ROLE_HOME = {
   [ROLES.COORDINATOR]: "/coordinator/dashboard",
   [ROLES.RECTOR]: "/rector/dashboard",
   [ROLES.INSTITUTION_ADMIN]: "/institution/dashboard",
-  [ROLES.SUPER_ADMIN]: "/admin/dashboard"
+  [ROLES.SUPER_ADMIN]: "/super-admin"
 };
 
 const ACTIVE_ACCOUNT_STATUSES = new Set(["active", "ativo"]);
@@ -107,7 +107,7 @@ export const routeAccessRules = [
   { prefix: "/teacher", roles: [ROLES.TEACHER, ROLES.SUPER_ADMIN] },
   { prefix: "/institution-admin", roles: [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
   { prefix: "/admin", roles: [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
-  { prefix: "/super-admin", roles: [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] }
+  { prefix: "/super-admin", roles: [ROLES.SUPER_ADMIN] }
 ];
 
 export function getEffectiveUserEmail(user, profile, session) {
@@ -151,23 +151,17 @@ export function shouldShowSuperAdminControls(user, profile, session) {
 export const isAeternumSuperAdmin = shouldShowSuperAdminControls;
 
 export function shouldShowGlobalAdminControls(user, profile, session) {
-  if (!user && !profile && !session) return false;
-  if (shouldShowSuperAdminControls(user, profile, session)) return true;
-  
-  const role = String(user?.role || profile?.role || "").toLowerCase();
-  const appRole = String(user?.app_metadata?.role || "").toLowerCase();
-
-  return role === "admin" || appRole === "admin";
+  return shouldShowSuperAdminControls(user, profile, session);
 }
 // Alias for backward compatibility. DEPRECATED: Use shouldShowGlobalAdminControls instead.
 export const isGlobalAdmin = shouldShowGlobalAdminControls;
 
 export function normalizeRole(role, user = null) {
-  if (user && shouldShowGlobalAdminControls(user)) return ROLES.SUPER_ADMIN;
+  if (user && shouldShowSuperAdminControls(user)) return ROLES.SUPER_ADMIN;
 
-  if (role === "admin" || role === "super_admin") return ROLES.SUPER_ADMIN;
+  if (role === "super_admin") return ROLES.SUPER_ADMIN;
+  if (role === "admin" || role === "institution") return ROLES.INSTITUTION_ADMIN;
   if (role === "professor") return ROLES.TEACHER;
-  if (role === "institution") return ROLES.INSTITUTION_ADMIN;
   if (role === "coordenador" || role === "coordinator") return ROLES.COORDINATOR;
   if (role === "reitor" || role === "rector") return ROLES.RECTOR;
   return role || ROLES.STUDENT;

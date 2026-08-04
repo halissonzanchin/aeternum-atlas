@@ -7,7 +7,7 @@ export const anatomicalStructureRegistry = {
     linkedModelIds: ['neuro-001-enc', 'neuro-002-cx'],
     academicRiskCategory: 'Alto',
     compatibleViewerEngine: true,
-    future3DRoute: '/atlas-viewer/head'
+    future3DRoute: '/models'
   },
   face: {
     regionId: 'face',
@@ -17,7 +17,7 @@ export const anatomicalStructureRegistry = {
     linkedModelIds: ['osteo-001-face', 'osteo-003-forames'],
     academicRiskCategory: 'Crítico',
     compatibleViewerEngine: true,
-    future3DRoute: '/atlas-viewer/face'
+    future3DRoute: '/models'
   },
   neck: {
     regionId: 'neck',
@@ -27,7 +27,7 @@ export const anatomicalStructureRegistry = {
     linkedModelIds: ['musc-cervical-01'],
     academicRiskCategory: 'Alto',
     compatibleViewerEngine: true,
-    future3DRoute: '/atlas-viewer/neck'
+    future3DRoute: '/models'
   },
   chest: {
     regionId: 'chest',
@@ -37,7 +37,7 @@ export const anatomicalStructureRegistry = {
     linkedModelIds: ['resp-pulmao-01', 'cardio-coracao-01'],
     academicRiskCategory: 'Alto',
     compatibleViewerEngine: true,
-    future3DRoute: '/atlas-viewer/chest'
+    future3DRoute: '/models'
   },
   abdomen: {
     regionId: 'abdomen',
@@ -47,7 +47,7 @@ export const anatomicalStructureRegistry = {
     linkedModelIds: ['gastro-figado-01', 'gastro-estomago-01'],
     academicRiskCategory: 'Médio',
     compatibleViewerEngine: true,
-    future3DRoute: '/atlas-viewer/abdomen'
+    future3DRoute: '/models'
   },
   pelvis: {
     regionId: 'pelvis',
@@ -57,7 +57,7 @@ export const anatomicalStructureRegistry = {
     linkedModelIds: ['pelv-fem-01', 'pelv-masc-01'],
     academicRiskCategory: 'Crítico',
     compatibleViewerEngine: true,
-    future3DRoute: '/atlas-viewer/pelvis'
+    future3DRoute: '/models'
   },
   upper_limbs: {
     regionId: 'upper_limbs',
@@ -67,7 +67,7 @@ export const anatomicalStructureRegistry = {
     linkedModelIds: ['musc-braco-dir', 'musc-ombro-esq'],
     academicRiskCategory: 'Alto',
     compatibleViewerEngine: false,
-    future3DRoute: '/atlas-viewer/upper_limbs'
+    future3DRoute: '/models'
   },
   lower_limbs: {
     regionId: 'lower_limbs',
@@ -77,6 +77,6 @@ export const anatomicalStructureRegistry = {
     linkedModelIds: ['musc-coxa-dir', 'musc-perna-esq'],
     academicRiskCategory: 'Crítico',
     compatibleViewerEngine: true,
-    future3DRoute: '/atlas-viewer/lower_limbs'
+    future3DRoute: '/models'
   }
 };

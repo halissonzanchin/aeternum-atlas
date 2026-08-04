@@ -1,8 +1,8 @@
+/* eslint-disable no-unused-vars -- o parser ESLint atual não contabiliza identificadores usados apenas em JSX */
 import { useState } from "react";
 import AuthExperienceShell from "../../components/AuthExperienceShell/AuthExperienceShell";
-import Button from "../../components/Button/Button";
-import Card from "../../components/Card/Card";
 import LanguageSelector from "../../components/LanguageSelector";
+import { A26Button, A26Card, A26Field } from "../../components/aeternum-26";
 import { getRedirectPathForUser, loginUser } from "../../services/auth/authService";
 import { validateLogin } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
@@ -42,7 +42,13 @@ export default function Login({ navigate, onAuth }) {
 
   return (
     <AuthExperienceShell>
-      <Card className="atlas-auth-card w-full max-w-lg" depth="substantial">
+      <A26Card
+        material="regular"
+        tone="teal"
+        interactive
+        className="atlas-auth-card atlas-auth-card--login"
+        data-testid="a26-login"
+      >
         <div className="atlas-auth-card__topline">
           <span>{t("auth.secureAccess")}</span>
           <LanguageSelector compact />
@@ -50,28 +56,48 @@ export default function Login({ navigate, onAuth }) {
         <p className="eyebrow mt-8">{t("auth.accessAccount")}</p>
         <h1 className="display-title">{t("auth.loginShort")}</h1>
         <p className="mt-4 max-w-md text-textMuted">{t("auth.loginDescription")}</p>
-        <form className="mt-8 grid gap-5" onSubmit={submit}>
-          <label className="field">
-            <span>{t("auth.email")}</span>
-            <input name="email" type="email" value={values.email} onChange={update} autoComplete="email" />
-            <small>{errors.email}</small>
+        <form className="atlas-auth-form" onSubmit={submit}>
+          <A26Field
+            label={t("auth.email")}
+            error={errors.email}
+            name="email"
+            type="email"
+            value={values.email}
+            onChange={update}
+            autoComplete="email"
+          />
+          <label className="a26-field atlas-auth-password">
+            <span className="a26-field__label">{t("auth.password")}</span>
+            <input
+              className="a26-field__control"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              value={values.password}
+              onChange={update}
+              autoComplete="current-password"
+              aria-invalid={Boolean(errors.password)}
+            />
+            <button
+              type="button"
+              className="atlas-auth-password__toggle"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-pressed={showPassword}
+              aria-label={showPassword ? t("auth.hidePassword") : t("auth.showPassword")}
+            >
+              {showPassword ? t("auth.hidePassword") : t("auth.showPassword")}
+            </button>
+            {errors.password ? <small className="a26-field__error" role="alert">{errors.password}</small> : null}
           </label>
-          <label className="field">
-            <span>{t("auth.password")}</span>
-            <div className="atlas-auth-password-field flex rounded-2xl border border-white/10 bg-blackDeep/60 focus-within:border-techTeal/70">
-              <input className="min-h-11 flex-1 border-0 bg-transparent px-4 outline-none" name="password" type={showPassword ? "text" : "password"} value={values.password} onChange={update} autoComplete="current-password" />
-              <button type="button" className="px-4 text-sm font-bold text-techTeal" onClick={() => setShowPassword(!showPassword)}>{showPassword ? t("auth.hidePassword") : t("auth.showPassword")}</button>
-            </div>
-            <small>{errors.password}</small>
-          </label>
-          {message ? <p className="rounded-2xl border border-red-300/25 bg-red-400/10 p-3 text-sm text-red-100">{message}</p> : null}
-          <Button variant="teal" type="submit" disabled={loading}>{loading ? t("common.loading") : t("auth.loginShort")}</Button>
+          {message ? <p className="a26-auth-message is-error" role="alert">{message}</p> : null}
+          <A26Button className="atlas-auth-submit" variant="liquid" type="submit" loading={loading}>
+            {t("auth.loginShort")}
+          </A26Button>
         </form>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <Button variant="ghost" onClick={() => setMessage(t("auth.recoveryPrepared"))}>{t("auth.forgotPassword")}</Button>
-          <Button variant="outline" onClick={() => navigate("/register")}>{t("auth.newAccount")}</Button>
+        <div className="atlas-auth-actions">
+          <A26Button className="atlas-auth-secondary" variant="liquid" onClick={() => setMessage(t("auth.recoveryPrepared"))}>{t("auth.forgotPassword")}</A26Button>
+          <A26Button className="atlas-auth-secondary" variant="liquid" onClick={() => navigate("/register")}>{t("auth.newAccount")}</A26Button>
         </div>
-      </Card>
+      </A26Card>
     </AuthExperienceShell>
   );
 }

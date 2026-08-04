@@ -2,13 +2,12 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Card from '../../components/Card/Card';
 import Button from '../../components/Button/Button';
 import Admin3DModelForm from './Admin3DModelForm';
-import Admin3DMarkersEditor from './Admin3DMarkersEditor';
-import { listModelsForUser, saveModelOverride, archiveModel, restoreModel, deleteModelPermanently, isValidUuid } from '../../services/modelService';
+import { listModelsForUser, archiveModel, restoreModel, deleteModelPermanently, isValidUuid } from '../../services/modelService';
 import { normalizeModelIdentifier } from '../../data/localModels';
 import { useAuth } from '../../context/AuthContext';
 import { normalizeRole, ROLES, isAeternumSuperAdmin, getEffectiveUserEmail } from '../../services/permissions/permissionService';
 import { supabase } from '../../lib/supabase';
-import { validateAssetPublicationGate } from '../../services/atlasPublicationGateService';
+import { canonicalSketchfabEmbedUrl } from '../../services/viewerEngineService';
 
 export default function Admin3DModelsPage({ notify, user: propUser }) {
   const authContext = useAuth();
@@ -26,7 +25,9 @@ export default function Admin3DModelsPage({ notify, user: propUser }) {
           console.log("Cleaned up orphaned local models from cache.");
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      // Cache cleanup is best-effort; malformed local data must not block the CMS.
+    }
   }, []);
 
   
@@ -93,11 +94,13 @@ export default function Admin3DModelsPage({ notify, user: propUser }) {
     region: '',
     level: 'Intermediário',
     estimatedStudyTime: '',
-    viewerType: 'atlas-native',
-    modelFormat: 'glb',
+    viewerType: 'sketchfab',
+    viewerEngine: 'sketchfab',
+    defaultViewerEngine: 'sketchfab',
+    embedProvider: 'sketchfab',
     status: 'draft',
     sketchfabUrl: '',
-    atlasEngineModelUrl: '',
+    embedUrl: '',
     markers: []
   };
 
@@ -184,11 +187,6 @@ export default function Admin3DModelsPage({ notify, user: propUser }) {
     }
   };
 
-  const handleMarkersUpdate = (updatedMarkers) => {
-    if (!selectedModel) return;
-    handleModelUpdate({ ...selectedModel, markers: updatedMarkers });
-  };
-
   const handleSaveCMS = async () => {
     if (!selectedModel) return;
 
@@ -204,25 +202,28 @@ export default function Admin3DModelsPage({ notify, user: propUser }) {
       delete modelToSave.id;
     }
 
-    // Atlas Publication Gate
+    const canonicalEmbed = canonicalSketchfabEmbedUrl(modelToSave);
     if (modelToSave.status === 'published' || modelToSave.status === 'active') {
-      const gate = validateAssetPublicationGate(modelToSave, user, isSuperAdmin);
-      if (!gate.allowed && !modelToSave.publication_override) {
-        notify(`Bloqueio de Publicação: ${gate.reason || 'O modelo não cumpre os requisitos mínimos do QA.'}`);
+      if (!canonicalEmbed) {
+        notify('Bloqueio de publicação: configure um URL/UID válido do Sketchfab.');
         return;
       }
     }
+    modelToSave = {
+      ...modelToSave,
+      provider: 'sketchfab',
+      viewerType: 'sketchfab',
+      viewer_type: 'sketchfab',
+      viewerEngine: 'sketchfab',
+      viewer_engine: 'sketchfab',
+      defaultViewerEngine: 'sketchfab',
+      embedProvider: 'sketchfab',
+      embedUrl: canonicalEmbed || modelToSave.embedUrl || '',
+      sketchfabEmbedUrl: canonicalEmbed || modelToSave.sketchfabEmbedUrl || ''
+    };
 
     try {
-      const assetData = modelToSave.atlasAssetObjectUrl ? {
-        fileName: modelToSave.atlasAssetFileName,
-        filePath: `models/${modelToSave.slug || 'temp'}/${modelToSave.atlasAssetFileName}`,
-        fileFormat: modelToSave.atlasAssetFileType?.includes('glb') ? 'glb' : (modelToSave.atlasAssetFileType?.includes('obj') ? 'obj' : 'gltf'),
-        fileSize: modelToSave.atlasAssetFileSize,
-        fileUrl: modelToSave.atlasAssetObjectUrl
-      } : null;
-
-      const savedMetadata = await import('../../services/atlasAssetStorageService').then(m => m.atlasAssetStorageService.saveModelAndAssetMetadata(modelToSave, assetData));
+      const savedMetadata = await import('../../services/atlasAssetStorageService').then(m => m.atlasAssetStorageService.saveModelAndAssetMetadata(modelToSave, null));
       
       if (savedMetadata && savedMetadata.id) {
         notify(`Modelo "${modelToSave.title}" salvo com sucesso no CMS.`);
@@ -420,7 +421,7 @@ export default function Admin3DModelsPage({ notify, user: propUser }) {
                   </span>
                 </div>
                 <div className="text-xs text-textMuted flex items-center gap-2 mb-2">
-                  <span className="uppercase tracking-wider">{model.modelFormat || model.model_format || 'sketchfab'}</span>
+                  <span className="uppercase tracking-wider">Sketchfab</span>
                   <span className="w-1 h-1 rounded-full bg-white/20"></span>
                   <span>{model.viewerType || model.viewer_engine || 'sketchfab'}</span>
                 </div>
@@ -494,27 +495,11 @@ export default function Admin3DModelsPage({ notify, user: propUser }) {
                 isSuperAdmin={isSuperAdmin} 
               />
               
-              {(!selectedModel.viewerType || selectedModel.viewerType === 'sketchfab' || selectedModel.viewer_engine === 'sketchfab') ? (
-                <Admin3DMarkersEditor markers={selectedModel.markers || []} onChange={handleMarkersUpdate} />
-              ) : (
-                <Card className="flex flex-col items-center justify-center py-10 border-dashed border border-white/10 bg-blackDeep">
-                  <h3 className="text-lg font-bold text-clinicalWhite mb-2">Editor Visual 3D (Atlas Native)</h3>
-                  <p className="text-sm text-textMuted text-center max-w-md mb-6">O Atlas Engine possui um editor interativo de malha que permite clicar no modelo 3D para posicionar marcadores e salvar ângulos de câmera.</p>
-                  
-                  {(!selectedModel.id || !/^[0-9a-fA-F]{8}-/.test(selectedModel.id)) ? (
-                    <div className="bg-amber-500/10 border border-amber-500/30 text-amber-500 px-4 py-3 rounded text-sm text-center">
-                      Este modelo ainda não foi salvo no CMS com um UUID real.<br/>Salve antes de abrir o Editor 3D.
-                    </div>
-                  ) : (
-                    <Button variant="teal" onClick={() => {
-                      window.location.href = `/super-admin/models-3d/${selectedModel.id}/editor`;
-                    }}>
-                      <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-                      Abrir Editor 3D
-                    </Button>
-                  )}
-                </Card>
-              )}
+              <Card className="flex flex-col gap-2">
+                <span className="eyebrow">Anotações</span>
+                <h3 className="text-lg font-bold text-clinicalWhite">Gerenciadas no Sketchfab</h3>
+                <p className="text-sm text-textMuted">Os marcadores apresentados ao estudante são as anotações publicadas no próprio modelo. O CMS não mantém um segundo conjunto local divergente.</p>
+              </Card>
               
               <Card className="flex flex-col sm:flex-row justify-end items-center bg-blackDeep mt-2 gap-4">
                 <div className="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto">
@@ -552,7 +537,7 @@ export default function Admin3DModelsPage({ notify, user: propUser }) {
               </div>
             ) : !isValidUuid(selectedModelId) ? (
               <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded text-sm mb-6">
-                <strong>Modelo Nativo Protegido:</strong> Este é um modelo fixo do sistema (local slug: {selectedModelId}) e não pode ser excluído permanentemente do banco de dados na nuvem.
+                <strong>Modelo de referência local:</strong> Este registro fixo (slug: {selectedModelId}) não possui UUID persistido e não pode ser excluído do banco de dados.
               </div>
             ) : (
               <>

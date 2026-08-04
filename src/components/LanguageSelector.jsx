@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
+import { A26Surface } from "./aeternum-26";
 import "./LanguageSelector.css";
 
-export default function LanguageSelector({ compact = false }) {
+export default function LanguageSelector({ compact = false, onOpen }) {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
+  const triggerRef = useRef(null);
+  const menuRef = useRef(null);
   const { language, setLanguage, availableLanguages, t } = useLanguage();
   const currentLanguage = availableLanguages.find(item => item.code === language) || availableLanguages[0];
 
@@ -17,27 +20,71 @@ export default function LanguageSelector({ compact = false }) {
     return () => window.removeEventListener("pointerdown", handlePointerDown);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    window.requestAnimationFrame(() => {
+      const activeItem = menuRef.current?.querySelector(".is-active");
+      const firstItem = menuRef.current?.querySelector('[role="menuitem"]');
+      (activeItem || firstItem)?.focus();
+    });
+  }, [open]);
+
   function handleKeyDown(event) {
-    if (event.key === "Escape") setOpen(false);
+    if (event.key === "Escape") {
+      event.preventDefault();
+      setOpen(false);
+      window.requestAnimationFrame(() => triggerRef.current?.focus());
+      return;
+    }
+
+    if (!open || !["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+    const items = [...(menuRef.current?.querySelectorAll('[role="menuitem"]') || [])];
+    if (!items.length) return;
+    event.preventDefault();
+    const currentIndex = Math.max(0, items.indexOf(document.activeElement));
+    const nextIndex = event.key === "Home"
+      ? 0
+      : event.key === "End"
+        ? items.length - 1
+        : event.key === "ArrowDown"
+          ? (currentIndex + 1) % items.length
+          : (currentIndex - 1 + items.length) % items.length;
+    items[nextIndex]?.focus();
   }
 
   return (
     <div className={`language-selector ${compact ? "language-selector--compact" : ""}`} ref={wrapperRef} onKeyDown={handleKeyDown}>
-      <button
+      <A26Surface
+        ref={triggerRef}
+        as="button"
         type="button"
+        material="clear"
+        interactive
         className="language-selector__button"
-        onClick={() => setOpen(value => !value)}
+        onClick={() => {
+          const nextOpen = !open;
+          if (nextOpen) onOpen?.();
+          setOpen(nextOpen);
+        }}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label={t("language.changeLanguage")}
-        data-tooltip={t("language.changeLanguage")}
       >
-        <span aria-hidden="true">{currentLanguage.flag}</span>
+        <span className="language-selector__code" aria-hidden="true">
+          {currentLanguage.code.toUpperCase()}
+        </span>
         <span className="language-selector__current">{currentLanguage.nativeName}</span>
-      </button>
+      </A26Surface>
 
       {open ? (
-        <div className="language-selector__menu" role="menu">
+        <A26Surface
+          ref={menuRef}
+          material="regular"
+          className="language-selector__menu"
+          role="menu"
+          aria-label={t("language.changeLanguage")}
+          data-testid="a26-language-menu"
+        >
           {availableLanguages.map(item => (
             <button
               key={item.code}
@@ -49,11 +96,13 @@ export default function LanguageSelector({ compact = false }) {
                 setOpen(false);
               }}
             >
-              <span aria-hidden="true">{item.flag}</span>
+              <span className="language-selector__code" aria-hidden="true">
+                {item.code.toUpperCase()}
+              </span>
               <span>{item.nativeName}</span>
             </button>
           ))}
-        </div>
+        </A26Surface>
       ) : null}
     </div>
   );

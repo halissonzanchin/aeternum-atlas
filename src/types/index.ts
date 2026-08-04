@@ -2,7 +2,7 @@ export type AccessStatus = "acesso_institucional" | "active" | "inactive";
 export type CanonicalUserRole = "student" | "teacher" | "institution_admin" | "super_admin";
 export type LegacyUserRole = "professor" | "admin";
 export type UserRole = CanonicalUserRole | LegacyUserRole;
-export type ViewerType = "sketchfab" | "threejs";
+export type ViewerType = "sketchfab";
 export type ContractStatus = "active" | "inactive" | "implementation" | "suspended";
 
 export interface User {

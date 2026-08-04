@@ -69,6 +69,20 @@ export const en = {
     estimatedBilling: "Estimated billing",
     reports: "Reports"
   },
+  shell: {
+    ...pt.shell,
+    primaryNavigation: "Primary navigation",
+    modules: "Available modules",
+    searchShortcut: "Search shortcut",
+    clearSearch: "Clear search",
+    searchResults: "Search results",
+    currentRoute: "Current",
+    noSearchResults: "No module found",
+    mobileNavigation: "Mobile navigation",
+    more: "More",
+    navigation: "Navigation",
+    route: "Current route"
+  },
   adminNavigation: {
     institutionStudents: "Institution students"
   },
@@ -130,7 +144,7 @@ export const en = {
     navAboutUs: "About us",
     subtitle: "3D Anatomical Library",
     description: "A customized academic platform for interactive access to 3D anatomical models, complementary content and secure digital collection management.",
-    heroDescription: "Explore the human body like never before. Interactive 3D models, a complete anatomical atlas, and exclusive content to elevate your knowledge.",
+    heroDescription: "Explore human anatomy with clinical depth, clarity, and a truly immersive study experience.",
     heroExploreAtlas: "Explore Atlas",
     heroDemo: "View demo",
     institutionalAccessTitle: "Institutional academic access",
@@ -142,7 +156,7 @@ export const en = {
     platformTitle: "One platform. The complete anatomy study experience.",
     platformDescription: "From the first encounter with a structure to advanced review, bring 3D exploration, atlas, lessons, and study paths into one continuous experience.",
     exploreResource: "Explore resource",
-    skipToContent: "Skip to resources",
+    skipToContent: "Skip to the interactive experience",
     footerNavigationLabel: "Footer navigation",
     platformStatus: "Academic platform online",
     interfaceKicker: "Atlas / Systems",
@@ -250,12 +264,14 @@ export const en = {
       availableModels: "Available 3D models",
       modelsHint: "Active institutional library",
       totalStudyTime: "Total study time",
-      studyHint: "Local personal record",
-      studiedStructures: "Studied structures",
-      structuresHint: "Estimate from completed models",
+      studyHint: "Time observed in the user's sessions",
+      completedModels: "Completed models",
+      completionsHint: "Completions registered by the student",
       overallProgress: "Overall progress",
-      progressHint: "Based on individual advancement"
+      progressHint: "Completed models over the available catalogue"
     },
+    observedDataEmpty: "There are not enough completions to calculate this indicator yet.",
+    observedReviewEmpty: "No pending review can be inferred from the current data.",
     toolsEyebrow: "Academic routine",
     toolsTitle: "Study tools",
     toolsSubtitle: "Organize review sessions, practice questions, and turn 3D models into an academic routine.",
@@ -793,7 +809,7 @@ export const en = {
     },
     types: {
       Sketchfab: "Sketchfab",
-      atlasNativeScan: "Atlas Native / Real 3D Model",
+      atlasNativeScan: "Sketchfab / Real 3D Model",
       cadavericScan: "Cadaveric scan",
       didacticModel: "Didactic model",
       radiology: "Radiology",
@@ -1039,7 +1055,7 @@ export const en = {
     markers: "Markers",
     crossSections: "Cross sections",
     models: "Models",
-    openSketchfab: "Open in external viewer",
+    openSketchfab: "Open in Sketchfab",
     favorite: "Favorite",
     markAsStudied: "Mark as studied",
     copyModelLink: "Copy model link",
@@ -1195,6 +1211,12 @@ export const en = {
       settings: "Settings",
       guide: "Guide",
       help: "Help"
+    },
+    actionGroups: {
+      label: "3D model actions",
+      model: "Model and progress",
+      study: "Study and assessment",
+      support: "Navigation and support"
     }
   },
   institutionAdmin: {

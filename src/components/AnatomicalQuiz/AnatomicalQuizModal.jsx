@@ -38,6 +38,7 @@ export default function AnatomicalQuizModal({
 }) {
   const { t } = useLanguage();
   const inputRefs = useRef([]);
+  const suppressNextFocusNavigationRef = useRef(false);
 
   useEffect(() => {
     if (activeAnnotationIndex !== null && activeAnnotationIndex !== undefined && inputRefs.current) {
@@ -45,6 +46,7 @@ export default function AnatomicalQuizModal({
       if (questionIndex !== -1 && inputRefs.current[questionIndex]) {
         // Prevent focusing if we just clicked the input (it already has focus)
         if (document.activeElement !== inputRefs.current[questionIndex]) {
+          suppressNextFocusNavigationRef.current = true;
           inputRefs.current[questionIndex].focus();
         }
       }
@@ -74,7 +76,7 @@ export default function AnatomicalQuizModal({
           </div>
 
           <div className="viewer-quiz-header-actions">
-            <button type="button" className="viewer-icon-button" onClick={onClose} aria-label={t("viewer.closeAnatomicalQuiz")} data-tooltip={t("viewer.closeAnatomicalQuiz")}>
+            <button type="button" className="viewer-icon-button" onClick={onClose} aria-label={t("viewer.closeAnatomicalQuiz")}>
               <LineIcon name="close" />
             </button>
           </div>
@@ -182,7 +184,14 @@ export default function AnatomicalQuizModal({
                         aria-label={t("viewer.anatomicalQuizAnswerLabel", { marker: question.markerLabel })}
                         value={answer}
                         onChange={event => onAnswerChange?.(question.id, event.target.value)}
-                        onFocus={() => onQuestionNavigate?.(question)}
+                        onFocus={() => {
+                          if (suppressNextFocusNavigationRef.current) {
+                            suppressNextFocusNavigationRef.current = false;
+                            return;
+                          }
+
+                          onQuestionNavigate?.(question);
+                        }}
                         placeholder={t("viewer.anatomicalQuizAnswerPlaceholder")}
                         disabled={Boolean(result)}
                         autoComplete="off"

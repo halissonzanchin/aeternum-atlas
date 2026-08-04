@@ -12,7 +12,10 @@
   z-index: 1000;
   top: 12px;
   left: 16px;
+  min-height: 44px;
   padding: 11px 16px;
+  display: inline-flex;
+  align-items: center;
   border: 1px solid rgba(99, 231, 226, 0.45);
   border-radius: 10px;
   color: #effffd;
@@ -119,6 +122,7 @@
 }
 
 .cinematic-home .p3-footer-nav button {
+  min-height: 44px;
   padding: 7px 0;
   border: 0;
   color: rgba(226, 233, 232, 0.66);

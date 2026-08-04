@@ -86,8 +86,8 @@ function eventTypeLabel(action) {
     copy_model_link: "copiou link",
     view_study_guide: "abriu guia de estudo",
     report_problem: "reportou problema",
-    session_start: "inÃ­cio de sessÃ£o",
-    session_end: "fim de sessÃ£o"
+    session_start: "início de sessão",
+    session_end: "fim de sessão"
   };
   return labels[action] || action || "evento";
 }
@@ -96,7 +96,7 @@ async function safeSupabaseQuery(label, query, fallbackValue = null) {
   try {
     const { data, error, count } = await query;
     if (error) {
-      console.warn(`[admin-dashboard] ${label} nÃ£o retornou dados reais.`, error.message);
+      console.warn(`[admin-dashboard] ${label} não retornou dados reais.`, error.message);
       return { data: fallbackValue, count: null, error };
     }
 
@@ -198,7 +198,7 @@ async function getAuthenticatedProfile() {
     null
   );
 
-  logRealData("status da sessÃ£o Supabase", {
+  logRealData("status da sessão Supabase", {
     hasSession: Boolean(sessionData?.session),
     authUserId: sessionData?.session?.user?.id || null
   });
@@ -213,7 +213,7 @@ async function getAuthenticatedProfile() {
   if (authError || !authUser?.id) return null;
 
   const { data: profile } = await safeSupabaseQuery(
-    "public.users do usuÃ¡rio autenticado",
+    "public.users do usuário autenticado",
     supabase
       .from("users")
       .select("id, institution_id, name, email, role, status")
@@ -272,7 +272,7 @@ async function loadRealInstitutions() {
   );
 
   const institutions = Array.isArray(data) ? data.map(record => normalizeInstitution(record, "supabase")) : [];
-  logRealData("lista de instituiÃ§Ãµes carregadas", {
+  logRealData("lista de instituições carregadas", {
     source: "public.institutions",
     total: institutions.length,
     ids: institutions.map(institution => institution.id)
@@ -326,7 +326,7 @@ function resolveTenantScope({ profile, institutions, preferredInstitutionId }) {
       scope: "restricted",
       institution: null,
       institutionId,
-      reason: "Tenant institucional nÃ£o encontrado no Supabase."
+      reason: "Tenant institucional não encontrado no Supabase."
     };
   }
 
@@ -336,7 +336,7 @@ function resolveTenantScope({ profile, institutions, preferredInstitutionId }) {
       scope: "restricted",
       institution,
       institutionId,
-      reason: "InstituiÃ§Ã£o inativa."
+      reason: "Instituição inativa."
     };
   }
 
@@ -372,7 +372,7 @@ async function loadInstitutionRows(table, institutionId, select, options = {}) {
   const rows = Array.isArray(data) ? data : [];
 
   if (table === "users") {
-    logRealData("quantidade real de usuÃ¡rios", {
+    logRealData("quantidade real de usuários", {
       source: "public.users",
       institutionId: institutionId || null,
       total: count ?? rows.length
@@ -510,7 +510,7 @@ function buildSystemStudyTime(logs, models) {
 
   logs.forEach(log => {
     const model = modelById.get(log.model_id);
-    const system = model?.anatomical_system || "NÃ£o classificado";
+    const system = model?.anatomical_system || "Não classificado";
     totals.set(system, (totals.get(system) || 0) + numberOrZero(log.duration_seconds));
   });
 
@@ -587,10 +587,10 @@ function buildPlatformErrors(events) {
     let type = "Erro geral";
     if (value.includes("login")) type = "Login";
     else if (value.includes("sketchfab") || value.includes("viewer")) type = "Sketchfab";
-    else if (value.includes("report")) type = "RelatÃ³rios";
+    else if (value.includes("report")) type = "Relatórios";
     else if (value.includes("route") || value.includes("rota")) type = "Rotas";
     else if (value.includes("timeout")) type = "Timeout";
-    else if (value.includes("permission") || value.includes("blocked") || value.includes("permiss")) type = "PermissÃ£o";
+    else if (value.includes("permission") || value.includes("blocked") || value.includes("permiss")) type = "Permissão";
 
     errorBuckets.set(type, (errorBuckets.get(type) || 0) + 1);
   });
@@ -630,7 +630,7 @@ function buildIncidents(events) {
         durationMinutes: numberOrZero(metadata.durationMinutes || metadata.duration_minutes),
         affectedUsers: numberOrZero(metadata.affectedUsers || metadata.affected_users) || (event.user_id ? 1 : 0),
         status: metadata.status || "Registrado",
-        severity: metadata.severity || "MÃ©dia",
+        severity: metadata.severity || "Média",
         note: metadata.note || metadata.message || "Evento registrado em platform_events."
       };
     });
@@ -650,10 +650,10 @@ function buildBlockedAccessLogs(events, users) {
       return {
         id: event.id,
         date: datePart(event.created_at),
-        user: user.name || metadata.user || "UsuÃ¡rio",
+        user: user.name || metadata.user || "Usuário",
         email: user.email || metadata.email || "-",
         reason: metadata.reason || event.event_type || "Acesso bloqueado",
-        device: metadata.device || metadata.user_agent || "Dispositivo nÃ£o informado",
+        device: metadata.device || metadata.user_agent || "Dispositivo não informado",
         status: metadata.status || "Bloqueio registrado"
       };
     });
@@ -730,7 +730,7 @@ function buildStudentHistoryByUser({ students, logs, models }) {
         content: log.model_id ? titleByModel.get(log.model_id) || log.model_id : "-",
         durationMinutes: Math.round(numberOrZero(log.duration_seconds) / 60),
         device: log.device_type || log.metadata?.device || "Web",
-        status: "ConcluÃ­do"
+        status: "Concluído"
       }));
 
     history[student.id] = userLogs;
@@ -741,6 +741,10 @@ function buildStudentHistoryByUser({ students, logs, models }) {
 
 function buildPlatformHealth(events) {
   const currentMonthEvents = events.filter(event => isSameLocalMonth(toDate(event.created_at)));
+  if (!currentMonthEvents.length) {
+    return createEmptyPlatformHealth("sem dados");
+  }
+
   const errorEvents = currentMonthEvents.filter(event => {
     const value = `${event.event_type || ""} ${event.event_category || ""}`.toLowerCase();
     return value.includes("error") || value.includes("erro") || value.includes("fail") || value.includes("falha");
@@ -787,6 +791,32 @@ function calculateEstimatedRevenue({ institutions, activeStudentUsers }) {
   }, 0);
 }
 
+function buildGovernanceQuality({ profile, results, views }) {
+  const tables = Object.fromEntries(
+    Object.entries(results).map(([key, result]) => [
+      key,
+      {
+        rows: result?.rows?.length || 0,
+        state: result?.error ? "unavailable" : result?.rows?.length ? "observed" : "empty"
+      }
+    ])
+  );
+  const unavailable = Object.entries(tables)
+    .filter(([, item]) => item.state === "unavailable")
+    .map(([key]) => key);
+  const viewErrors = views?.viewErrors?.length || 0;
+  const role = normalizeRole(profile?.role);
+
+  return {
+    status: unavailable.length || viewErrors ? "partial" : "policy_scoped",
+    accessScope: role,
+    policyScoped: [ROLES.COORDINATOR, ROLES.RECTOR].includes(role),
+    unavailable,
+    viewErrors,
+    tables
+  };
+}
+
 function buildDashboardPayload({
   scope,
   selectedInstitution,
@@ -797,6 +827,10 @@ function buildDashboardPayload({
   events,
   models,
   views,
+  academicClasses = [],
+  classStudents = [],
+  academicSubjects = [],
+  quality,
   source,
   profile
 }) {
@@ -807,7 +841,7 @@ function buildDashboardPayload({
       : [];
   const displayInstitution = scope === "global"
     ? {
-        ...createEmptyInstitution(scopeInstitutions.length ? "Todas as instituiÃ§Ãµes reais" : EMPTY_TEXT, "supabase"),
+        ...createEmptyInstitution(scopeInstitutions.length ? "Todas as instituições reais" : EMPTY_TEXT, "supabase"),
         active: scopeInstitutions.some(institution => institution.active),
         contractStatus: "global",
         licenseStatus: "global"
@@ -893,6 +927,7 @@ function buildDashboardPayload({
     platformHealth: platformHealthData,
     students,
     studentHistoryByUser,
+    quality,
     analytics: {
       snapshot: {
         activeUsersNow: lastHourUsers || uniqueActiveUsers,
@@ -940,6 +975,9 @@ function buildDashboardPayload({
       events,
       models,
       views,
+      academicClasses,
+      classStudents,
+      academicSubjects,
       totalEvents
     }
   };
@@ -957,7 +995,7 @@ export function getRestrictedInstitutionDashboardData(profile = null, reason = "
     lastUpdated: now.toISOString(),
     institutions: [],
     institution: {
-      ...createEmptyInstitution("Tenant institucional nÃ£o configurado", "restricted"),
+      ...createEmptyInstitution("Tenant institucional não configurado", "restricted"),
       id: profile?.institution_id || "",
       contractStatus: "restricted",
       licenseStatus: "restricted"
@@ -989,6 +1027,14 @@ export function getRestrictedInstitutionDashboardData(profile = null, reason = "
     platformHealth: restrictedPlatformHealth,
     students: [],
     studentHistoryByUser: {},
+    quality: {
+      status: "restricted",
+      accessScope: normalizeRole(profile?.role),
+      policyScoped: true,
+      unavailable: [],
+      viewErrors: 0,
+      tables: {}
+    },
     analytics: createEmptyAnalytics(restrictedPlatformHealth),
     raw: {
       profile,
@@ -998,6 +1044,9 @@ export function getRestrictedInstitutionDashboardData(profile = null, reason = "
       logs: [],
       events: [],
       models: [],
+      academicClasses: [],
+      classStudents: [],
+      academicSubjects: [],
       views: {}
     }
   };
@@ -1005,8 +1054,8 @@ export function getRestrictedInstitutionDashboardData(profile = null, reason = "
 
 export async function loadInstitutionDashboardData({ institutionId } = {}) {
   if (!isSupabaseConfigured()) {
-    console.warn("[admin-dashboard] Supabase nÃ£o configurado. Dashboard administrativo bloqueado por seguranÃ§a.");
-    return getRestrictedInstitutionDashboardData(null, "Supabase nÃ£o configurado.");
+    console.warn("[admin-dashboard] Supabase não configurado. Dashboard administrativo bloqueado por segurança.");
+    return getRestrictedInstitutionDashboardData(null, "Supabase não configurado.");
   }
 
   const profile = await getAuthenticatedProfile();
@@ -1016,17 +1065,22 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
   }
 
   if (!profile?.id) {
-    return getRestrictedInstitutionDashboardData(null, "UsuÃ¡rio administrativo nÃ£o autenticado.");
+    return getRestrictedInstitutionDashboardData(null, "Usuário administrativo não autenticado.");
   }
 
   const normalizedRole = normalizeRole(profile.role);
-  const validAdminRole = [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN].includes(normalizedRole);
-  if (!validAdminRole || !isActiveStatus(profile.status)) {
-    return getRestrictedInstitutionDashboardData(profile, "UsuÃ¡rio sem role administrativa ativa.");
+  const validInstitutionalRole = [
+    ROLES.COORDINATOR,
+    ROLES.RECTOR,
+    ROLES.INSTITUTION_ADMIN,
+    ROLES.SUPER_ADMIN
+  ].includes(normalizedRole);
+  if (!validInstitutionalRole || !isActiveStatus(profile.status)) {
+    return getRestrictedInstitutionDashboardData(profile, "Usuário sem papel institucional ativo.");
   }
 
   if (!isSuperAdminProfile(profile) && !profile.institution_id) {
-    return getRestrictedInstitutionDashboardData(profile, "UsuÃ¡rio autenticado sem institution_id.");
+    return getRestrictedInstitutionDashboardData(profile, "Usuário autenticado sem institution_id.");
   }
 
   const allInstitutions = await loadRealInstitutions();
@@ -1037,7 +1091,7 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
   });
 
   if (scopeInfo.scope === "restricted") {
-    return getRestrictedInstitutionDashboardData(profile, scopeInfo.reason || "Tenant invÃ¡lido.");
+    return getRestrictedInstitutionDashboardData(profile, scopeInfo.reason || "Tenant inválido.");
   }
 
   const allowGlobal = scopeInfo.scope === "global" && scopeInfo.isSuperAdmin;
@@ -1062,13 +1116,40 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
   );
   const studentUserIds = usersResult.rows.filter(user => isStudentRole(user.role)).map(user => user.id);
 
-  const [profilesResult, logsResult, eventsResult, modelsResult, views] = await Promise.all([
+  const [
+    profilesResult,
+    logsResult,
+    eventsResult,
+    modelsResult,
+    classesResult,
+    classStudentsResult,
+    subjectsResult,
+    views
+  ] = await Promise.all([
     loadStudentProfilesByUsers(studentUserIds),
     loadInstitutionRows("model_access_logs", queryInstitutionId, "id, institution_id, user_id, model_id, action, duration_seconds, metadata, created_at", { allowGlobal, orderBy: "created_at", limit: 5000 }),
     loadInstitutionRows("platform_events", queryInstitutionId, "id, institution_id, user_id, event_type, event_category, metadata, created_at", { allowGlobal, orderBy: "created_at", limit: 2000 }),
     loadInstitutionRows("models_3d", queryInstitutionId, "id, institution_id, title, slug, anatomical_system, anatomical_region, status, created_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
+    loadInstitutionRows("academic_classes", queryInstitutionId, "id, institution_id, teacher_id, name, course, semester, status, created_at, updated_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
+    loadInstitutionRows("academic_class_students", queryInstitutionId, "id, institution_id, class_id, student_id, created_at", { allowGlobal, orderBy: "created_at", limit: 5000 }),
+    loadInstitutionRows("academic_subjects", queryInstitutionId, "id, institution_id, course_id, name, code, active, created_at, updated_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadAnalyticsViews(queryInstitutionId)
   ]);
+
+  const quality = buildGovernanceQuality({
+    profile,
+    views,
+    results: {
+      users: usersResult,
+      studentProfiles: profilesResult,
+      activityLogs: logsResult,
+      platformEvents: eventsResult,
+      models: modelsResult,
+      classes: classesResult,
+      classMemberships: classStudentsResult,
+      subjects: subjectsResult
+    }
+  });
 
   return buildDashboardPayload({
     scope: scopeInfo.scope,
@@ -1080,6 +1161,10 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     events: eventsResult.rows,
     models: modelsResult.rows,
     views,
+    academicClasses: classesResult.rows,
+    classStudents: classStudentsResult.rows,
+    academicSubjects: subjectsResult.rows,
+    quality,
     source: "supabase",
     profile
   });
@@ -1092,6 +1177,14 @@ function buildDemoUpePayload(profile) {
   return {
     ...datasetPayload,
     scope: isSuperAdmin ? "global" : "tenant",
+    quality: {
+      status: "demo",
+      accessScope: normalizeRole(profile?.role),
+      policyScoped: false,
+      unavailable: [],
+      viewErrors: 0,
+      tables: {}
+    },
     raw: {
       profile,
       institutions: [],
@@ -1099,6 +1192,9 @@ function buildDemoUpePayload(profile) {
       profiles: [],
       logs: [],
       events: [],
+      academicClasses: [],
+      classStudents: [],
+      academicSubjects: [],
       views: []
     }
   };

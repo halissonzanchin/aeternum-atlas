@@ -3,30 +3,50 @@ import "./ParticleMeshBackground.css";
 
 const RETURN_EASE = 0.145;
 const FRICTION = 0.925;
-const DESKTOP_PARTICLE_CAP = 11500;
-const COMPACT_PARTICLE_CAP = 6500;
+const DESKTOP_PARTICLE_CAP = 12000;
+const COMPACT_PARTICLE_CAP = 5200;
+const COMET_CYCLE = 19000;
 
 function seededUnit(column, row, salt = 0) {
   const value = Math.sin(column * 91.17 + row * 47.23 + salt * 13.91) * 43758.5453;
   return value - Math.floor(value);
 }
 
-function createParticle(x, y, column, row) {
+function createParticle(x, y, column, row, gap) {
   const sizeSeed = seededUnit(column, row, 1);
   const toneSeed = seededUnit(column, row, 2);
   const depth = seededUnit(column, row, 3);
-  const isHighlight = toneSeed > 0.972;
+  const twinkleSeed = seededUnit(column, row, 4);
+  const jitterX = (seededUnit(column, row, 5) - 0.5) * gap * 0.62;
+  const jitterY = (seededUnit(column, row, 6) - 0.5) * gap * 0.62;
+  const type = toneSeed > 0.992 ? "beacon" : toneSeed > 0.944 ? "star" : "mesh";
+  const particleX = x + jitterX;
+  const particleY = y + jitterY;
 
   return {
-    originX: x,
-    originY: y,
-    x,
-    y,
+    originX: particleX,
+    originY: particleY,
+    x: particleX,
+    y: particleY,
     vx: 0,
     vy: 0,
-    size: isHighlight ? 1.9 + sizeSeed * 1.25 : 0.58 + sizeSeed * 1.35,
+    size:
+      type === "beacon"
+        ? 3.1 + sizeSeed * 1.75
+        : type === "star"
+          ? 1.7 + sizeSeed * 1.85
+          : 0.76 + sizeSeed * 1.24,
     tone: toneSeed,
     depth,
+    type,
+    twinkle: 0,
+    twinklePhase: twinkleSeed * Math.PI * 2,
+    twinkleSpeed: 0.00048 + seededUnit(column, row, 7) * 0.00105,
+    driftPhase: seededUnit(column, row, 8) * Math.PI * 2,
+    driftSpeed: 0.00012 + seededUnit(column, row, 9) * 0.00022,
+    driftAmplitude: type === "mesh" ? 0 : 0.55 + depth * 1.35,
+    linkRight: seededUnit(column, row, 10) > 0.86,
+    linkDown: seededUnit(column, row, 11) > 0.9,
     proximity: 0
   };
 }
@@ -57,16 +77,17 @@ export default function ParticleMeshBackground() {
     let height = 0;
     let dpr = 1;
     let particles = [];
+    let rows = 0;
     let frameId = 0;
     let rendering = false;
     let isVisible = true;
     let previousTime = performance.now();
 
     const getGap = () => {
-      if (width <= 480) return 16;
-      if (width <= 820) return 15.5;
-      if (width <= 1280) return 15;
-      return 14;
+      if (width <= 480) return 15;
+      if (width <= 820) return 14.5;
+      if (width <= 1280) return 13.5;
+      return 12.8;
     };
 
     const getPointerRadius = () => {
@@ -80,7 +101,7 @@ export default function ParticleMeshBackground() {
       const adaptiveGap = Math.sqrt((width * height) / particleCap);
       const gap = Math.max(preferredGap, adaptiveGap);
       const columns = Math.ceil(width / gap) + 2;
-      const rows = Math.ceil(height / gap) + 2;
+      rows = Math.ceil(height / gap) + 2;
       const offsetX = (width - (columns - 1) * gap) / 2;
       const offsetY = (height - (rows - 1) * gap) / 2;
       const nextParticles = [];
@@ -92,7 +113,8 @@ export default function ParticleMeshBackground() {
               offsetX + column * gap,
               offsetY + row * gap,
               column,
-              row
+              row,
+              gap
             )
           );
         }
@@ -111,7 +133,7 @@ export default function ParticleMeshBackground() {
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
-      context.imageSmoothingEnabled = false;
+      context.imageSmoothingEnabled = true;
       buildField();
     };
 
@@ -156,31 +178,138 @@ export default function ParticleMeshBackground() {
       );
     };
 
+    const drawConnections = () => {
+      if (!particles.length || !rows) return;
+
+      context.save();
+      context.lineWidth = 0.52;
+      context.strokeStyle = "rgba(91, 211, 204, 0.072)";
+      context.beginPath();
+
+      for (let index = 0; index < particles.length; index += 1) {
+        const particle = particles[index];
+        const right = particle.linkRight ? particles[index + rows] : null;
+        const down = particle.linkDown && (index + 1) % rows !== 0 ? particles[index + 1] : null;
+
+        if (right) {
+          context.moveTo(particle.x, particle.y);
+          context.lineTo(right.x, right.y);
+        }
+
+        if (down) {
+          context.moveTo(particle.x, particle.y);
+          context.lineTo(down.x, down.y);
+        }
+      }
+
+      context.stroke();
+
+      if (pointer.active && !reducedMotionQuery.matches) {
+        context.lineWidth = 0.72;
+        context.strokeStyle = "rgba(117, 238, 230, 0.2)";
+        context.beginPath();
+
+        for (let index = 0; index < particles.length; index += 1) {
+          const particle = particles[index];
+          if (particle.proximity < 0.34) continue;
+
+          const right = particle.linkRight ? particles[index + rows] : null;
+          const down = particle.linkDown && (index + 1) % rows !== 0 ? particles[index + 1] : null;
+
+          if (right) {
+            context.moveTo(particle.x, particle.y);
+            context.lineTo(right.x, right.y);
+          }
+
+          if (down) {
+            context.moveTo(particle.x, particle.y);
+            context.lineTo(down.x, down.y);
+          }
+        }
+
+        context.stroke();
+      }
+
+      context.restore();
+    };
+
+    const drawComet = (time) => {
+      if (width <= 820 || reducedMotionQuery.matches) return;
+
+      const cycleProgress = (time % COMET_CYCLE) / COMET_CYCLE;
+      if (cycleProgress < 0.84) return;
+
+      const progress = (cycleProgress - 0.84) / 0.16;
+      const alpha = Math.sin(progress * Math.PI) * 0.38;
+      const x = width * (0.2 + progress * 0.56);
+      const y = height * (0.17 + progress * 0.16);
+      const tailX = x - width * 0.075;
+      const tailY = y + height * 0.045;
+      const streak = context.createLinearGradient(tailX, tailY, x, y);
+
+      streak.addColorStop(0, "rgba(103, 204, 226, 0)");
+      streak.addColorStop(0.7, `rgba(127, 239, 235, ${alpha * 0.54})`);
+      streak.addColorStop(1, `rgba(246, 228, 181, ${alpha})`);
+
+      context.save();
+      context.lineCap = "round";
+      context.lineWidth = 1.1;
+      context.strokeStyle = streak;
+      context.shadowBlur = 8;
+      context.shadowColor = `rgba(116, 232, 235, ${alpha * 0.7})`;
+      context.beginPath();
+      context.moveTo(tailX, tailY);
+      context.lineTo(x, y);
+      context.stroke();
+      context.restore();
+    };
+
     const drawParticle = (particle) => {
       const boost = particle.proximity * 0.18;
+      const pulse = 0.48 + particle.twinkle * 0.52;
       let fill;
 
-      if (particle.tone > 0.972) {
-        fill = `rgba(232, 204, 128, ${Math.min(1, 0.86 + boost)})`;
+      if (particle.type === "beacon") {
+        fill = `rgba(244, 220, 160, ${Math.min(1, 0.72 + pulse * 0.25 + boost)})`;
+      } else if (particle.type === "star" && particle.tone > 0.974) {
+        fill = `rgba(181, 204, 255, ${Math.min(1, 0.62 + pulse * 0.3 + boost)})`;
       } else if (particle.tone > 0.82) {
-        fill = `rgba(210, 255, 251, ${Math.min(1, 0.78 + boost)})`;
+        fill = `rgba(219, 255, 252, ${Math.min(1, 0.58 + pulse * 0.3 + boost)})`;
       } else {
-        const baseAlpha = 0.48 + particle.depth * 0.24;
+        const baseAlpha = 0.38 + particle.depth * 0.3;
         fill = `rgba(125, 229, 223, ${Math.min(0.96, baseAlpha + boost)})`;
       }
 
-      const renderSize = particle.size + particle.proximity * 0.65;
+      const renderSize =
+        particle.size * (particle.type === "mesh" ? 0.92 + pulse * 0.16 : 0.78 + pulse * 0.42) +
+        particle.proximity * 0.72;
       context.fillStyle = fill;
-      context.fillRect(
-        Math.round(particle.x - renderSize / 2),
-        Math.round(particle.y - renderSize / 2),
-        renderSize,
-        renderSize
-      );
+
+      if (particle.type === "mesh") {
+        context.fillRect(
+          Math.round(particle.x - renderSize / 2),
+          Math.round(particle.y - renderSize / 2),
+          renderSize,
+          renderSize
+        );
+        return;
+      }
+
+      context.save();
+      context.shadowBlur = particle.type === "beacon" ? 12 + pulse * 8 : 5 + pulse * 7;
+      context.shadowColor =
+        particle.type === "beacon"
+          ? `rgba(226, 199, 126, ${0.28 + pulse * 0.34})`
+          : `rgba(136, 232, 236, ${0.2 + pulse * 0.28})`;
+      context.beginPath();
+      context.arc(particle.x, particle.y, renderSize / 2, 0, Math.PI * 2);
+      context.fill();
+      context.restore();
     };
 
-    const updateParticle = (particle, delta) => {
+    const updateParticle = (particle, delta, time) => {
       particle.proximity = 0;
+      particle.twinkle = 0.5 + Math.sin(time * particle.twinkleSpeed + particle.twinklePhase) * 0.5;
 
       if (pointer.active && !reducedMotionQuery.matches) {
         const dx = pointer.x - particle.x;
@@ -200,8 +329,14 @@ export default function ParticleMeshBackground() {
 
       particle.vx *= Math.pow(FRICTION, delta);
       particle.vy *= Math.pow(FRICTION, delta);
-      particle.x += particle.vx + (particle.originX - particle.x) * RETURN_EASE * delta;
-      particle.y += particle.vy + (particle.originY - particle.y) * RETURN_EASE * delta;
+      const drift =
+        particle.driftAmplitude > 0 && !reducedMotionQuery.matches
+          ? Math.sin(time * particle.driftSpeed + particle.driftPhase) * particle.driftAmplitude
+          : 0;
+      const targetX = particle.originX + drift;
+      const targetY = particle.originY + drift * 0.56;
+      particle.x += particle.vx + (targetX - particle.x) * RETURN_EASE * delta;
+      particle.y += particle.vy + (targetY - particle.y) * RETURN_EASE * delta;
     };
 
     const render = (time) => {
@@ -217,7 +352,13 @@ export default function ParticleMeshBackground() {
       drawPointerHalo();
 
       for (const particle of particles) {
-        updateParticle(particle, delta);
+        updateParticle(particle, delta, time);
+      }
+
+      drawConnections();
+      drawComet(time);
+
+      for (const particle of particles) {
         drawParticle(particle);
       }
 
@@ -297,8 +438,8 @@ export default function ParticleMeshBackground() {
   }, []);
 
   return (
-    <div className="particle-mesh-shell" aria-hidden="true">
-      <canvas ref={canvasRef} className="particle-mesh-canvas" />
+    <div className="particle-mesh-shell particle-mesh-shell--stellar" aria-hidden="true">
+      <canvas ref={canvasRef} className="particle-mesh-canvas" data-particle-field="stellar-mesh" />
       <div className="particle-mesh-vignette" />
       <div className="particle-mesh-scan" />
     </div>

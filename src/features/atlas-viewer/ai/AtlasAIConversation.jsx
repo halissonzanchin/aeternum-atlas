@@ -7,14 +7,19 @@ function MessageText({ text }) {
   const lines = String(text || "").split("\n");
 
   return lines.map((line, lineIndex) => {
-    const fragments = line.split(/(\*\*[^*]+\*\*)/g);
+    const fragments = line.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
     return (
       <React.Fragment key={`${lineIndex}-${line}`}>
-        {fragments.map((fragment, fragmentIndex) => (
-          fragment.startsWith("**") && fragment.endsWith("**")
-            ? <strong key={`${fragmentIndex}-${fragment}`}>{fragment.slice(2, -2)}</strong>
-            : <React.Fragment key={`${fragmentIndex}-${fragment}`}>{fragment}</React.Fragment>
-        ))}
+        {fragments.map((fragment, fragmentIndex) => {
+          const key = `${fragmentIndex}-${fragment}`;
+          if (fragment.startsWith("**") && fragment.endsWith("**")) {
+            return <strong key={key}>{fragment.slice(2, -2)}</strong>;
+          }
+          if (fragment.startsWith("*") && fragment.endsWith("*")) {
+            return <em key={key}>{fragment.slice(1, -1)}</em>;
+          }
+          return <React.Fragment key={key}>{fragment}</React.Fragment>;
+        })}
         {lineIndex < lines.length - 1 ? <br /> : null}
       </React.Fragment>
     );
@@ -22,9 +27,6 @@ function MessageText({ text }) {
 }
 
 export default function AtlasAIConversation({
-  contextLabel = "Contexto atual",
-  contextTitle,
-  contextPrompt,
   messages,
   isThinking,
   draft,
@@ -52,15 +54,19 @@ export default function AtlasAIConversation({
     onSend(text);
   };
 
+  const latestAIMessageId = [...messages]
+    .reverse()
+    .find((message) => message.sender === "ai" && message.text)
+    ?.id;
+  const interactionState = isThinking
+    ? "is-thinking"
+    : draft.trim()
+      ? "has-draft"
+      : "is-listening";
+
   return (
     <>
       <div className="upe-ai-panel__body atlas-ai-conversation__body">
-        <div className="upe-ai-context atlas-viewer-ai-context">
-          <span>{contextLabel}</span>
-          <strong>{contextTitle}</strong>
-          <p>{contextPrompt}</p>
-        </div>
-
         <div className="atlas-viewer-ai-messages" aria-live="polite">
           {messages.map((message) => {
             if (!message.text && message.isStreaming) return null;
@@ -71,12 +77,32 @@ export default function AtlasAIConversation({
             return (
               <div
                 key={message.id}
-                className={`atlas-viewer-ai-message-row is-${message.sender}`}
+                className={[
+                  "atlas-viewer-ai-message-row",
+                  `is-${message.sender}`,
+                  message.id === latestAIMessageId ? "is-featured-ai" : "",
+                  message.sender === "ai" && message.id !== latestAIMessageId ? "is-history" : ""
+                ].filter(Boolean).join(" ")}
               >
                 {message.contextLabel ? (
                   <span className="atlas-ai-message-context">{message.contextLabel}</span>
                 ) : null}
-                <div className={`atlas-viewer-ai-message is-${message.sender}`}>
+                <div
+                  className={[
+                    "atlas-viewer-ai-message",
+                    `is-${message.sender}`,
+                    message.id === latestAIMessageId ? "is-featured" : ""
+                  ].filter(Boolean).join(" ")}
+                >
+                  {message.id === latestAIMessageId ? (
+                    <div className="atlas-ai-featured-response__meta">
+                      <span>
+                        <i aria-hidden="true" />
+                        Resposta do Atlas
+                      </span>
+                      <small>Contexto sincronizado</small>
+                    </div>
+                  ) : null}
                   <MessageText text={message.text} />
                 </div>
 
@@ -107,44 +133,65 @@ export default function AtlasAIConversation({
         </div>
       </div>
 
-      <footer className="upe-ai-panel__footer">
-        {!isThinking && quickQuestions.length ? (
-          <div className="upe-ai-quick-actions" aria-label="Sugestões do Atlas AI">
-            {quickQuestions.map((question) => (
-              <button
-                type="button"
-                key={question}
-                onClick={() => handleSend(question)}
-              >
-                {question}
-              </button>
-            ))}
-          </div>
-        ) : null}
+      <footer className={`upe-ai-panel__footer atlas-ai-live-dock ${interactionState}`}>
+        <div className="atlas-ai-live-dock__glass" aria-hidden="true">
+          <span className="atlas-ai-live-dock__caustic" />
+          <span className="atlas-ai-live-dock__filament filament-a" />
+          <span className="atlas-ai-live-dock__filament filament-b" />
+          <span className="atlas-ai-live-dock__filament filament-c" />
+          <span className="atlas-ai-live-dock__filament filament-d" />
+          <span className="atlas-ai-live-dock__intersection" />
+        </div>
 
-        <label className={`upe-ai-composer${inputError ? " has-error" : ""}`}>
-          <span className="sr-only">Pergunte ao Atlas AI Tutor</span>
-          <textarea
-            rows={1}
-            placeholder={placeholder}
-            value={draft}
-            onChange={(event) => setDraft(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" && !event.shiftKey) {
-                event.preventDefault();
-                handleSend();
-              }
-            }}
-          />
-          <button
-            type="button"
-            onClick={() => handleSend()}
-            disabled={!draft.trim() || isThinking}
-            aria-label="Enviar pergunta"
-          >
-            <LineIcon name="send" />
-          </button>
-        </label>
+        <div className="atlas-ai-live-dock__content">
+          {!isThinking && quickQuestions.length ? (
+            <div className="upe-ai-quick-actions" aria-label="Sugestões do Atlas AI">
+              {quickQuestions.map((question) => (
+                <button
+                  type="button"
+                  key={question}
+                  onClick={() => handleSend(question)}
+                >
+                  {question}
+                </button>
+              ))}
+            </div>
+          ) : isThinking ? (
+            <div className="atlas-ai-live-dock__status" aria-live="polite">
+              <span aria-hidden="true" />
+              O Atlas está compondo a resposta
+            </div>
+          ) : null}
+
+          <label className={`upe-ai-composer${inputError ? " has-error" : ""}`}>
+            <span className="sr-only">Pergunte ao Atlas AI Tutor</span>
+            <span className="atlas-ai-composer__signal" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            <textarea
+              rows={1}
+              placeholder={placeholder}
+              value={draft}
+              onChange={(event) => setDraft(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && !event.shiftKey) {
+                  event.preventDefault();
+                  handleSend();
+                }
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => handleSend()}
+              disabled={!draft.trim() || isThinking}
+              aria-label="Enviar pergunta"
+            >
+              <LineIcon name="send" />
+            </button>
+          </label>
+        </div>
       </footer>
     </>
   );

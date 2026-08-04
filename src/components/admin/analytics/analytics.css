@@ -20,7 +20,7 @@
 
 .analytics-toolbar button,
 .analytics-period-tabs button {
-  min-height: 40px;
+  min-height: 44px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.11);
   background: rgba(255, 255, 255, 0.045);

@@ -5,10 +5,22 @@ import "./SecureContentGuard.css";
 
 type SecureContentGuardProps = {
   children: React.ReactNode;
-  user?: any;
-  model?: any;
+  user?: GuardUser;
+  model?: Record<string, unknown>;
   enabled?: boolean;
   className?: string;
+};
+
+type GuardUser = {
+  id?: string;
+  name?: string;
+  fullName?: string;
+  email?: string;
+  institutionName?: string;
+  institution_name?: string;
+  institution?: string | { name?: string };
+  institutionId?: string;
+  institution_id?: string;
 };
 
 type WatermarkOffset = {
@@ -27,16 +39,19 @@ function createSessionId() {
   return `AET-${random.toUpperCase()}`;
 }
 
-function resolveUserDisplay(user: any, fallback: string) {
+function resolveUserDisplay(user: GuardUser | undefined, fallback: string) {
   return user?.name || user?.fullName || user?.email?.split("@")[0] || fallback;
 }
 
-function resolveInstitutionDisplay(user: any, fallback: string) {
+function resolveInstitutionDisplay(user: GuardUser | undefined, fallback: string) {
+  const institution = typeof user?.institution === "string"
+    ? user.institution
+    : user?.institution?.name;
+
   return (
     user?.institutionName ||
     user?.institution_name ||
-    user?.institution?.name ||
-    user?.institution ||
+    institution ||
     user?.institutionId ||
     user?.institution_id ||
     fallback
@@ -62,7 +77,7 @@ export default function SecureContentGuard({
   const [warningMessage, setWarningMessage] = useState("");
 
   const reportSecurityEvent = useCallback(
-    (eventType: string, metadata: Record<string, any> = {}, force = false) => {
+    (eventType: string, metadata: Record<string, unknown> = {}, force = false) => {
       if (!enabled) return;
 
       const now = Date.now();

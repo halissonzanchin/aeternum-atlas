@@ -1,5 +1,6 @@
 import Button from "../Button/Button";
 import Card from "../Card/Card";
+import LineIcon from "../icons/LineIcon";
 import { useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import { formatNumber } from "../../utils/formatLocale";
@@ -60,64 +61,66 @@ export default function ModelCard({ model, user, navigate }) {
   const thumbUrl = model.thumbnailUrl || model.coverImageUrl || model.thumbnail_url || model.cover_image_url;
 
   return (
-    <Card as="article" className="model-card grid gap-4 w-full atlas-card-safe atlas-liquid-glass atlas-liquid-glass-card">
-      <div className="atlas-liquid-highlight"></div>
-      <div className="relative min-h-[140px] md:min-h-40 overflow-hidden rounded-2xl w-full shrink-0" style={!thumbUrl ? getPlaceholderStyle(modelRouteId(model)) : {}}>
+    <Card as="article" interactive depth="standard" className="model-card model-card-aog grid gap-4 w-full atlas-card-safe">
+      <div className="model-card-aog__media" style={!thumbUrl ? getPlaceholderStyle(modelRouteId(model)) : {}}>
         {thumbUrl ? (
-          <img src={thumbUrl} alt={localizedModel.title} className="absolute inset-0 h-full w-full object-cover" />
+          <img src={thumbUrl} alt={localizedModel.title} />
         ) : (
           <>
-            <div className="absolute inset-[22%] rounded-full border border-white/20 shadow-glow" />
-            <div className="absolute inset-0 flex items-center justify-center opacity-40">
-              <span className="text-6xl font-bold tracking-wider text-white mix-blend-overlay">
+            <div className="model-card-aog__placeholder-ring" />
+            <div className="model-card-aog__placeholder-letter">
+              <span>
                 {(localizedModel.shortTitle || localizedModel.title || "M").charAt(0).toUpperCase()}
               </span>
             </div>
           </>
         )}
-        <div className="absolute bottom-4 left-4 rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-selectionGreen backdrop-blur-md">
+        <div className="model-card-aog__status">
           {t("common.available")}
         </div>
-        {studied ? (
-          <div className="absolute right-4 top-4 rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-selectionGreen backdrop-blur-md">
-            {t("studentDashboard.studied")}
-          </div>
-        ) : null}
+        <button
+          type="button"
+          className={`model-card-aog__favorite${favorite ? " is-active" : ""}`}
+          onClick={handleFavorite}
+          aria-label={favorite ? t("models.favorited") : t("models.favorite")}
+          aria-pressed={favorite}
+        >
+          <LineIcon name="favorite" />
+        </button>
       </div>
 
-      <div className="flex flex-wrap gap-2 w-full items-start min-w-0 shrink-0">
-        <span className="badge badge-teal atlas-badge-responsive text-[10px] md:text-xs" title={localizedModel.level}>{localizedModel.level}</span>
-        <span className="badge badge-active atlas-badge-responsive text-[10px] md:text-xs" title={localizedModel.type}>
-          <span className="hidden sm:inline">{localizedModel.type}</span>
-          <span className="sm:hidden text-[10px]">MODELO 3D</span>
-        </span>
-        <span className="badge badge-gold atlas-badge-responsive text-[10px] md:text-xs" title={t("models.availableByInstitution")}>{t("models.availableByInstitution")}</span>
-      </div>
-
-      <div className="flex-1 flex flex-col min-w-0 w-full">
+      <div className="model-card-aog__body">
+        <div className="model-card-aog__taxonomy">
+          <span title={localizedModel.level}>{localizedModel.level}</span>
+          <span aria-hidden="true">·</span>
+          <span title={localizedModel.type}>{localizedModel.type}</span>
+          {studied ? <strong>{t("studentDashboard.studied")}</strong> : null}
+        </div>
         <h3 className="text-lg md:text-xl font-bold text-clinicalWhite atlas-text-safe line-clamp-2" title={localizedModel.title}>{localizedModel.title}</h3>
-        <p className="mt-2 text-sm leading-6 text-textMuted line-clamp-2 sm:line-clamp-3 md:line-clamp-2">{localizedModel.description}</p>
-        <p className="mt-2 text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 atlas-nowrap-label truncate w-full" title={`${localizedModel.system} · ${localizedModel.region}`}>
+        <p className="model-card-aog__description">{localizedModel.description}</p>
+        <p className="model-card-aog__location" title={`${localizedModel.system} · ${localizedModel.region}`}>
           {localizedModel.system} &middot; {localizedModel.region}
         </p>
       </div>
 
-      <div className="grid gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-3 text-sm text-slate-200 w-full min-w-0 mt-auto shrink-0">
-        <div className="atlas-metric-row"><span className="truncate text-white/60 min-w-0">{t("models.estimatedTime")}</span><strong className="shrink-0 whitespace-nowrap text-right">{studyTime(model)}</strong></div>
-        <div className="atlas-metric-row"><span className="truncate text-white/60 min-w-0">{t("models.accesses")}</span><strong className="shrink-0 whitespace-nowrap text-right">{formatNumber(model.accessCount || 0, language)}</strong></div>
-        <div className="atlas-metric-row"><span className="truncate text-white/60 min-w-0">{t("common.status")}</span><strong className="shrink-0 whitespace-nowrap text-right text-selectionGreen">{t("common.available")}</strong></div>
+      <div className="model-card-aog__meta">
+        <span><LineIcon name="clock" /> {studyTime(model)}</span>
+        <span>{formatNumber(model.accessCount || 0, language)} {t("models.accesses").toLowerCase()}</span>
+        <span>{t("models.availableByInstitution")}</span>
       </div>
 
-      <div className="w-full shrink-0 min-w-0">
-        <div className="mb-2 flex items-center justify-between text-[10px] md:text-xs text-textMuted atlas-nowrap-label"><span className="truncate min-w-0">{t("models.personalProgress")}</span><span className="shrink-0 ml-2">{progress}%</span></div>
-        <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden"><div className="h-2 rounded-full bg-techTeal transition-all duration-1000 ease-out" style={{ width: `${progress}%` }} /></div>
+      <div className="model-card-aog__progress">
+        <div><span>{t("models.personalProgress")}</span><strong>{progress}%</strong></div>
+        <span className="model-card-aog__track"><i style={{ width: `${progress}%` }} /></span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full shrink-0 min-w-0">
-        <Button variant="teal" className="w-full h-11 min-w-0 shrink-0" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}><span className="truncate">{t("models.openModel")}</span></Button>
-        <Button variant="outline" className="w-full h-11 min-w-0 shrink-0" onClick={() => navigate(`/models/${modelRouteId(model)}`)}><span className="truncate">{t("models.viewDetails")}</span></Button>
-        <Button variant={favorite ? "primary" : "ghost"} className="w-full h-10 sm:col-span-2 text-xs min-w-0 shrink-0" onClick={handleFavorite}>
-          <span className="truncate">{favorite ? t("models.favorited") : t("models.favorite")}</span>
+      <div className="model-card-aog__actions">
+        <Button variant="teal" className="model-card-aog__primary" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}>
+          <span>{t("models.openModel")}</span>
+          <LineIcon name="chevron" />
+        </Button>
+        <Button variant="ghost" className="model-card-aog__secondary" onClick={() => navigate(`/models/${modelRouteId(model)}`)}>
+          <span>{t("models.viewDetails")}</span>
         </Button>
       </div>
     </Card>

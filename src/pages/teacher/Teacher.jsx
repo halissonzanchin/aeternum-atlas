@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import LineIcon from "../../components/icons/LineIcon";
+import { A26Button, A26EmptyState, A26LoadingState, A26Modal } from "../../components/aeternum-26";
 import { useLanguage } from "../../context/LanguageContext";
 import { loadTeacherDashboardData } from "../../services/teacher/teacherDashboardService";
 import { createTeacherClass, createTeacherStudyGuide } from "../../services/teacher/teacherAcademicService";
@@ -27,7 +28,12 @@ function TeacherPageShell({ section, profile, children }) {
   const institutionLabel = [profile?.institution, profile?.campus].filter(Boolean).join(" · ") || t("teacher.emptyStates.profileInstitution");
 
   return (
-    <section className="teacher-page fade-in-up">
+    <section
+      className="teacher-page fade-in-up"
+      data-testid="a26-teacher-experience"
+      data-a26-section={section}
+      data-a26-source="tenant-observed"
+    >
       <div className="teacher-hero">
         <div>
           <p className="viewer-eyebrow">{t("teacher.eyebrow")}</p>
@@ -84,13 +90,28 @@ function MiniBarChart({ data }) {
   );
 }
 
-function TeacherEmptyState({ title, text }) {
+function TeacherEmptyState({ title, text, actionLabel, onAction }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-      <h2 className="text-xl font-bold text-clinicalWhite">{title}</h2>
-      <p className="mt-3 text-sm leading-6 text-textMuted">{text}</p>
-    </div>
+    <A26EmptyState
+      title={title}
+      text={text}
+      action={actionLabel && onAction ? (
+        <A26Button variant="liquid" onClick={onAction}>{actionLabel}</A26Button>
+      ) : null}
+    />
   );
+}
+
+function downloadTeacherCsv(filename, rows) {
+  const csv = rows
+    .map(row => row.map(value => `"${String(value ?? "").replaceAll('"', '""')}"`).join(","))
+    .join("\n");
+  const url = URL.createObjectURL(new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
 }
 
 function defaultClassForm() {
@@ -123,16 +144,22 @@ function TeacherClassModal({ open, onClose, onSubmit, saving, error }) {
   }
 
   return (
-    <div className="agenda-modal-backdrop" role="presentation" onClick={onClose}>
-      <form className="agenda-task-modal" onSubmit={submit} onClick={event => event.stopPropagation()}>
-        <header>
-          <div>
-            <p className="viewer-eyebrow">{t("teacher.classes.formEyebrow")}</p>
-            <h2>{t("teacher.classes.createTitle")}</h2>
-          </div>
-          <button type="button" onClick={onClose}>{t("actions.close")}</button>
-        </header>
-
+    <A26Modal
+      open={open}
+      title={t("teacher.classes.createTitle")}
+      description={t("teacher.classes.formEyebrow")}
+      closeLabel={t("actions.close")}
+      onClose={onClose}
+      actions={(
+        <>
+          <A26Button variant="ghost" onClick={onClose}>{t("actions.cancel")}</A26Button>
+          <A26Button variant="primary" type="submit" form="teacher-class-form" loading={saving}>
+            {t("actions.save")}
+          </A26Button>
+        </>
+      )}
+    >
+      <form id="teacher-class-form" className="a26-teacher-form" onSubmit={submit}>
         <div className="agenda-form-grid">
           <label className="field">
             <span>{t("teacher.classes.form.name")}</span>
@@ -160,13 +187,8 @@ function TeacherClassModal({ open, onClose, onSubmit, saving, error }) {
         </div>
 
         {error ? <p className="teacher-form-error">{error}</p> : null}
-
-        <footer>
-          <button type="button" className="viewer-secondary-button" onClick={onClose}>{t("actions.cancel")}</button>
-          <button type="submit" className="viewer-primary-button" disabled={saving}>{saving ? t("common.loading") : t("actions.save")}</button>
-        </footer>
       </form>
-    </div>
+    </A26Modal>
   );
 }
 
@@ -214,16 +236,22 @@ function TeacherStudyGuideModal({ open, onClose, onSubmit, saving, error, classe
   }
 
   return (
-    <div className="agenda-modal-backdrop" role="presentation" onClick={onClose}>
-      <form className="agenda-task-modal" onSubmit={submit} onClick={event => event.stopPropagation()}>
-        <header>
-          <div>
-            <p className="viewer-eyebrow">{t("teacher.studyGuides.formEyebrow")}</p>
-            <h2>{t("teacher.studyGuides.createTitle")}</h2>
-          </div>
-          <button type="button" onClick={onClose}>{t("actions.close")}</button>
-        </header>
-
+    <A26Modal
+      open={open}
+      title={t("teacher.studyGuides.createTitle")}
+      description={t("teacher.studyGuides.formEyebrow")}
+      closeLabel={t("actions.close")}
+      onClose={onClose}
+      actions={(
+        <>
+          <A26Button variant="ghost" onClick={onClose}>{t("actions.cancel")}</A26Button>
+          <A26Button variant="primary" type="submit" form="teacher-guide-form" loading={saving}>
+            {t("actions.save")}
+          </A26Button>
+        </>
+      )}
+    >
+      <form id="teacher-guide-form" className="a26-teacher-form" onSubmit={submit}>
         <div className="agenda-form-grid">
           <label className="field">
             <span>{t("teacher.studyGuides.form.title")}</span>
@@ -280,13 +308,8 @@ function TeacherStudyGuideModal({ open, onClose, onSubmit, saving, error, classe
         </div>
 
         {error ? <p className="teacher-form-error">{error}</p> : null}
-
-        <footer>
-          <button type="button" className="viewer-secondary-button" onClick={onClose}>{t("actions.cancel")}</button>
-          <button type="submit" className="viewer-primary-button" disabled={saving}>{saving ? t("common.loading") : t("actions.save")}</button>
-        </footer>
       </form>
-    </div>
+    </A26Modal>
   );
 }
 
@@ -326,7 +349,7 @@ function DashboardSection({ navigate, data, loading }) {
   const lessons = data?.lessons || [];
   const notes = data?.notes || [];
   const modelRanking = data?.reports?.modelRanking || [];
-  const dashboardMostUsed = metrics.mostUsedModel || t("teacher.emptyStates.reports");
+  const dashboardMostUsed = metrics.mostUsedModel || "—";
   const nextLesson = lessons.find(lesson => {
     if (!lesson.scheduledFor) return false;
     const scheduledDate = new Date(lesson.scheduledFor);
@@ -368,6 +391,8 @@ function DashboardSection({ navigate, data, loading }) {
             <TeacherEmptyState
               title={t("teacher.emptyStates.classesTitle")}
               text={t("teacher.emptyStates.classes")}
+              actionLabel={t("teacher.classes.createAction")}
+              onAction={() => navigate("/teacher/classes")}
             />
           )}
         </Card>
@@ -394,7 +419,12 @@ function DashboardSection({ navigate, data, loading }) {
         </Card>
       </div>
       {!loading && modelRanking.length === 0 ? (
-        <TeacherEmptyState title={t("teacher.emptyStates.reportsTitle")} text={t("teacher.emptyStates.reports")} />
+        <TeacherEmptyState
+          title={t("teacher.emptyStates.reportsTitle")}
+          text={t("teacher.emptyStates.reports")}
+          actionLabel={t("teacher.actions.createGuide")}
+          onAction={() => navigate("/teacher/study-guides")}
+        />
       ) : null}
     </TeacherPageShell>
   );
@@ -429,10 +459,15 @@ function ModelsSection({ navigate, data, loading }) {
           );
         })}
         {loading ? (
-          <TeacherEmptyState title={t("teacher.emptyStates.loadingTitle")} text={t("models.catalogLoading")} />
+          <A26LoadingState title={t("teacher.emptyStates.loadingTitle")} text={t("models.catalogLoading")} />
         ) : null}
         {!loading && models.length === 0 ? (
-          <TeacherEmptyState title={t("teacher.emptyStates.modelsTitle")} text={t("models.emptyCatalog")} />
+          <TeacherEmptyState
+            title={t("teacher.emptyStates.modelsTitle")}
+            text={t("models.emptyCatalog")}
+            actionLabel={t("navigation.anatomicalAtlas")}
+            onAction={() => navigate("/teacher/atlas")}
+          />
         ) : null}
       </div>
     </TeacherPageShell>
@@ -499,7 +534,12 @@ function ClassesSection({ data, onCreateClass }) {
           ))}
         </div>
       ) : (
-        <TeacherEmptyState title={t("teacher.emptyStates.classesTitle")} text={t("teacher.emptyStates.classes")} />
+        <TeacherEmptyState
+          title={t("teacher.emptyStates.classesTitle")}
+          text={t("teacher.emptyStates.classes")}
+          actionLabel={t("teacher.classes.createAction")}
+          onAction={() => setModalOpen(true)}
+        />
       )}
       <TeacherClassModal
         open={modalOpen}
@@ -519,7 +559,7 @@ function formatStudentLastAccess(value) {
   return formatTeacherDate(value);
 }
 
-function StudentsSection({ data, loading }) {
+function StudentsSection({ data, loading, navigate }) {
   const { t } = useLanguage();
   const students = data?.students || [];
 
@@ -528,7 +568,30 @@ function StudentsSection({ data, loading }) {
       <Card className="premium-panel-card table-card">
         <div className="teacher-section-title">
           <h2>{t("teacher.students.tableTitle")}</h2>
-          <button>{t("teacher.actions.exportAcademicData")}</button>
+          <button
+            type="button"
+            disabled={!students.length}
+            onClick={() => downloadTeacherCsv("aeternum-alunos.csv", [
+              [
+                t("teacher.students.name"),
+                t("teacher.students.registration"),
+                t("teacher.students.class"),
+                t("teacher.students.lastAccess"),
+                t("teacher.students.studyTime"),
+                t("teacher.students.progress")
+              ],
+              ...students.map(student => [
+                student.name,
+                student.registration,
+                student.className,
+                formatStudentLastAccess(student.lastAccess),
+                student.totalStudyTime,
+                `${student.progress}%`
+              ])
+            ])}
+          >
+            {t("teacher.actions.exportAcademicData")}
+          </button>
         </div>
         <div className="table-scroll">
           <table className="admin-table teacher-table">
@@ -561,8 +624,8 @@ function StudentsSection({ data, loading }) {
                   <td><span className={`teacher-status teacher-status--${student.status}`}>{t(`status.${student.status}`)}</span></td>
                   <td>
                     <div className="teacher-table-actions">
-                      <button>{t("teacher.actions.viewHistory")}</button>
-                      <button>{t("teacher.actions.recommendModel")}</button>
+                      <button type="button" onClick={() => navigate("/teacher/reports")}>{t("teacher.actions.viewHistory")}</button>
+                      <button type="button" onClick={() => navigate("/teacher/models")}>{t("teacher.actions.recommendModel")}</button>
                     </div>
                   </td>
                 </tr>
@@ -571,10 +634,15 @@ function StudentsSection({ data, loading }) {
           </table>
         </div>
         {loading ? (
-          <TeacherEmptyState title={t("teacher.emptyStates.loadingTitle")} text={t("teacher.emptyStates.studentsLoading")} />
+          <A26LoadingState title={t("teacher.emptyStates.loadingTitle")} text={t("teacher.emptyStates.studentsLoading")} />
         ) : null}
         {!loading && students.length === 0 ? (
-          <TeacherEmptyState title={t("teacher.emptyStates.studentsTitle")} text={t("teacher.emptyStates.students")} />
+          <TeacherEmptyState
+            title={t("teacher.emptyStates.studentsTitle")}
+            text={t("teacher.emptyStates.students")}
+            actionLabel={t("teacher.actions.viewClasses")}
+            onAction={() => navigate("/teacher/classes")}
+          />
         ) : null}
       </Card>
     </TeacherPageShell>
@@ -613,7 +681,26 @@ function StudyGuidesSection({ data, onCreateGuide }) {
     <TeacherPageShell section="study-guides" profile={data?.profile}>
       <div className="teacher-toolbar">
         <button className="viewer-primary-button" onClick={() => setModalOpen(true)}>{t("teacher.actions.createGuide")}</button>
-        <button className="viewer-secondary-button">{t("teacher.actions.exportGuide")}</button>
+        <button
+          className="viewer-secondary-button"
+          disabled={!guides.length}
+          onClick={() => downloadTeacherCsv("aeternum-guias.csv", [
+            [
+              t("teacher.studyGuides.form.title"),
+              t("teacher.studyGuides.form.class"),
+              t("teacher.studyGuides.models"),
+              t("teacher.studyGuides.dueDate")
+            ],
+            ...guides.map(guide => [
+              guide.title,
+              guide.className || t("teacher.common.unassignedClass"),
+              guide.modelTitles.join(" · "),
+              formatTeacherDate(guide.dueDate)
+            ])
+          ])}
+        >
+          {t("teacher.actions.exportGuide")}
+        </button>
       </div>
       {guides.length ? (
         <div className="teacher-card-grid">
@@ -642,7 +729,12 @@ function StudyGuidesSection({ data, onCreateGuide }) {
           ))}
         </div>
       ) : (
-        <TeacherEmptyState title={t("teacher.emptyStates.guidesTitle")} text={t("teacher.emptyStates.guides")} />
+        <TeacherEmptyState
+          title={t("teacher.emptyStates.guidesTitle")}
+          text={t("teacher.emptyStates.guides")}
+          actionLabel={t("teacher.actions.createGuide")}
+          onAction={() => setModalOpen(true)}
+        />
       )}
       <TeacherStudyGuideModal
         open={modalOpen}
@@ -660,13 +752,13 @@ function StudyGuidesSection({ data, onCreateGuide }) {
   );
 }
 
-function LessonsSection({ data }) {
+function LessonsSection({ data, navigate }) {
   const { t } = useLanguage();
   const lessons = data?.lessons || [];
   return (
     <TeacherPageShell section="lessons" profile={data?.profile}>
       <div className="teacher-toolbar">
-        <button className="viewer-primary-button">{t("teacher.actions.createLesson")}</button>
+        <button className="viewer-primary-button" onClick={() => navigate("/lessons/sandbox")}>{t("teacher.actions.createLesson")}</button>
       </div>
       {lessons.length ? (
         <div className="teacher-card-grid">
@@ -695,19 +787,24 @@ function LessonsSection({ data }) {
           ))}
         </div>
       ) : (
-        <TeacherEmptyState title={t("teacher.emptyStates.lessonsTitle")} text={t("teacher.emptyStates.lessons")} />
+        <TeacherEmptyState
+          title={t("teacher.emptyStates.lessonsTitle")}
+          text={t("teacher.emptyStates.lessons")}
+          actionLabel={t("teacher.actions.createLesson")}
+          onAction={() => navigate("/lessons/sandbox")}
+        />
       )}
     </TeacherPageShell>
   );
 }
 
-function NotesSection({ data }) {
+function NotesSection({ data, navigate }) {
   const { t } = useLanguage();
   const notes = data?.notes || [];
   return (
     <TeacherPageShell section="anatomical-notes" profile={data?.profile}>
       <div className="teacher-toolbar">
-        <button className="viewer-primary-button">{t("teacher.actions.newNote")}</button>
+        <button className="viewer-primary-button" onClick={() => navigate("/teacher/models")}>{t("teacher.actions.newNote")}</button>
       </div>
       {notes.length ? (
         <div className="teacher-card-grid">
@@ -729,13 +826,18 @@ function NotesSection({ data }) {
           ))}
         </div>
       ) : (
-        <TeacherEmptyState title={t("teacher.emptyStates.notesTitle")} text={t("teacher.emptyStates.notes")} />
+        <TeacherEmptyState
+          title={t("teacher.emptyStates.notesTitle")}
+          text={t("teacher.emptyStates.notes")}
+          actionLabel={t("navigation.models3d")}
+          onAction={() => navigate("/teacher/models")}
+        />
       )}
     </TeacherPageShell>
   );
 }
 
-function ReportsSection({ data, loading }) {
+function ReportsSection({ data, loading, navigate }) {
   const { t } = useLanguage();
   const reports = data?.reports || {};
   const classStudyTime = reports.classStudyTime || [];
@@ -748,15 +850,36 @@ function ReportsSection({ data, loading }) {
       <div className="teacher-report-grid">
         <Card className="premium-panel-card">
           <h2>{t("teacher.reports.studyTimeByClass")}</h2>
-          {classStudyTime.length ? <MiniBarChart data={classStudyTime} /> : <TeacherEmptyState title={t("teacher.emptyStates.classesTitle")} text={t("teacher.emptyStates.classes")} />}
+          {classStudyTime.length ? <MiniBarChart data={classStudyTime} /> : (
+            <TeacherEmptyState
+              title={t("teacher.emptyStates.classesTitle")}
+              text={t("teacher.emptyStates.classes")}
+              actionLabel={t("teacher.actions.viewClasses")}
+              onAction={() => navigate("/teacher/classes")}
+            />
+          )}
         </Card>
         <Card className="premium-panel-card">
           <h2>{t("teacher.reports.weeklyEvolution")}</h2>
-          {weeklyEvolution.length ? <MiniBarChart data={weeklyEvolution} /> : <TeacherEmptyState title={t("teacher.emptyStates.reportsTitle")} text={t("teacher.emptyStates.reports")} />}
+          {weeklyEvolution.length ? <MiniBarChart data={weeklyEvolution} /> : (
+            <TeacherEmptyState
+              title={t("teacher.emptyStates.reportsTitle")}
+              text={t("teacher.emptyStates.reports")}
+              actionLabel={t("teacher.actions.createGuide")}
+              onAction={() => navigate("/teacher/study-guides")}
+            />
+          )}
         </Card>
         <Card className="premium-panel-card">
           <h2>{t("teacher.reports.systemPerformance")}</h2>
-          {systemPerformance.length ? <MiniBarChart data={systemPerformance} /> : <TeacherEmptyState title={t("teacher.emptyStates.reportsTitle")} text={t("teacher.emptyStates.reports")} />}
+          {systemPerformance.length ? <MiniBarChart data={systemPerformance} /> : (
+            <TeacherEmptyState
+              title={t("teacher.emptyStates.reportsTitle")}
+              text={t("teacher.emptyStates.reports")}
+              actionLabel={t("navigation.models3d")}
+              onAction={() => navigate("/teacher/models")}
+            />
+          )}
         </Card>
         <Card className="premium-panel-card">
           <h2>{t("teacher.reports.modelRanking")}</h2>
@@ -770,7 +893,12 @@ function ReportsSection({ data, loading }) {
             ))}
           </div>
           {!loading && modelRanking.length === 0 ? (
-            <TeacherEmptyState title={t("teacher.emptyStates.reportsTitle")} text={t("teacher.emptyStates.reports")} />
+            <TeacherEmptyState
+              title={t("teacher.emptyStates.reportsTitle")}
+              text={t("teacher.emptyStates.reports")}
+              actionLabel={t("navigation.models3d")}
+              onAction={() => navigate("/teacher/models")}
+            />
           ) : null}
         </Card>
       </div>
@@ -778,7 +906,7 @@ function ReportsSection({ data, loading }) {
   );
 }
 
-function ProfileSection({ data }) {
+function ProfileSection({ data, navigate }) {
   const { t } = useLanguage();
   const profile = data?.profile;
 
@@ -795,6 +923,14 @@ function ProfileSection({ data }) {
           </div>
         ) : null}
         <small>{t("teacher.profile.permissions")}</small>
+        <div className="teacher-profile-card__actions">
+          <A26Button variant="liquid" onClick={() => navigate("/settings")}>
+            {t("navigation.settings")}
+          </A26Button>
+          <A26Button variant="ghost" onClick={() => navigate("/teacher/models")}>
+            {t("navigation.models3d")}
+          </A26Button>
+        </div>
       </Card>
     </TeacherPageShell>
   );
@@ -913,11 +1049,11 @@ export default function Teacher({ section = "dashboard", navigate, user }) {
 
   if (section === "models") return <ModelsSection navigate={navigate} data={data} loading={loading} />;
   if (section === "classes") return <ClassesSection data={data} onCreateClass={handleCreateClass} />;
-  if (section === "students") return <StudentsSection data={data} loading={loading} />;
+  if (section === "students") return <StudentsSection data={data} loading={loading} navigate={navigate} />;
   if (section === "study-guides") return <StudyGuidesSection data={data} onCreateGuide={handleCreateStudyGuide} />;
-  if (section === "lessons" || section === "classes-plans") return <LessonsSection data={data} />;
-  if (section === "anatomical-notes") return <NotesSection data={data} />;
-  if (section === "reports") return <ReportsSection data={data} loading={loading} />;
-  if (section === "profile") return <ProfileSection data={data} />;
+  if (section === "lessons" || section === "classes-plans") return <LessonsSection data={data} navigate={navigate} />;
+  if (section === "anatomical-notes") return <NotesSection data={data} navigate={navigate} />;
+  if (section === "reports") return <ReportsSection data={data} loading={loading} navigate={navigate} />;
+  if (section === "profile") return <ProfileSection data={data} navigate={navigate} />;
   return <DashboardSection navigate={navigate} data={data} loading={loading} />;
 }

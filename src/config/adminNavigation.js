@@ -6,6 +6,7 @@ const adminPathById = {
   academic_analytics: "/admin/academic-analytics",
   roi: "/admin/roi",
   heatmap: "/admin/heatmap",
+  import_students: "/admin/import-students",
   models_3d: "/admin/models-3d",
   billing: "/admin/estimated-billing",
   reports: "/admin/reports",
@@ -83,29 +84,15 @@ export const adminNavigationItems = [
     aliases: ["/admin/models-3d", "/institution-admin/models-3d"]
   },
   {
-    id: "atlas_migration",
-    label: "Migration Workbench",
-    labelKey: "superAdmin.atlasMigration",
-    path: "/super-admin/atlas-migration",
-    aliases: ["/admin/atlas-migration", "/institution-admin/atlas-migration"]
-  },
-  {
     id: "viewer_analytics",
-    label: "Viewer Analytics",
+    label: "Análises do visualizador",
     labelKey: "superAdmin.viewerAnalytics",
     path: "/super-admin/viewer-analytics",
     aliases: ["/admin/viewer-analytics", "/institution-admin/viewer-analytics"]
   },
   {
-    id: "atlas_certification",
-    label: "Certification Pipeline",
-    labelKey: "superAdmin.atlasCertification",
-    path: "/super-admin/atlas-certification",
-    aliases: ["/admin/atlas-certification", "/institution-admin/atlas-certification"]
-  },
-  {
     id: "digital_twins",
-    label: "Digital Twins",
+    label: "Gêmeos digitais",
     labelKey: "superAdmin.digitalTwins",
     path: "/super-admin/digital-twins",
     aliases: ["/admin/digital-twins", "/institution-admin/digital-twins"]
@@ -135,10 +122,12 @@ export const adminNavigationItems = [
 
 export function getAdminNavigationItems(basePath = "/super-admin") {
   if (basePath === "/admin") {
-    return adminNavigationItems.map(item => ({
-      ...item,
-      path: adminPathById[item.id] || item.path
-    }));
+    return adminNavigationItems
+      .filter(item => Boolean(adminPathById[item.id]))
+      .map(item => ({
+        ...item,
+        path: adminPathById[item.id]
+      }));
   }
 
   return adminNavigationItems;

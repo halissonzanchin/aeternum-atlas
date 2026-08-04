@@ -13,6 +13,29 @@ const tabs = [
   ["about", "settings.tabs.about"]
 ];
 
+const roleLabelKeys = {
+  student: "settings.roles.student",
+  teacher: "settings.roles.teacher",
+  professor: "settings.roles.teacher",
+  coordinator: "settings.roles.coordinator",
+  coordenador: "settings.roles.coordinator",
+  rector: "settings.roles.rector",
+  reitor: "settings.roles.rector",
+  institution_admin: "settings.roles.institutionAdmin",
+  admin: "settings.roles.institutionAdmin",
+  super_admin: "settings.roles.superAdmin"
+};
+
+function settingsRole(user) {
+  return String(user?.role || "student").toLowerCase();
+}
+
+function profileTitleKey(role) {
+  if (role === "student") return "settings.academicProfile";
+  if (["teacher", "professor"].includes(role)) return "settings.professionalProfile";
+  return "settings.governanceProfile";
+}
+
 function ToggleSwitch({ checked, onChange, label }) {
   return (
     <button className={`toggle-switch ${checked ? "is-on" : ""}`} onClick={() => onChange(!checked)} aria-label={label} aria-pressed={checked}>
@@ -50,6 +73,11 @@ export default function SettingsPanel({ open = true, onClose, user, notify = () 
   });
 
   if (!open) return null;
+  const role = settingsRole(user);
+  const visibleTabs = role === "student"
+    ? tabs
+    : tabs.filter(([id]) => id !== "share");
+  const roleLabelKey = roleLabelKeys[role] || "settings.roles.student";
 
   const content = (
     <section className="settings-panel">
@@ -59,14 +87,14 @@ export default function SettingsPanel({ open = true, onClose, user, notify = () 
           <h2>{t("settings.panelTitle")}</h2>
         </div>
         {onClose ? (
-          <button className="viewer-icon-button" onClick={onClose} aria-label={t("settings.closeSettings")} data-tooltip={t("settings.closeSettings")}>
+          <button className="viewer-icon-button" onClick={onClose} aria-label={t("settings.closeSettings")}>
             <LineIcon name="close" />
           </button>
         ) : null}
       </div>
 
       <div className="viewer-tabs settings-tabs mt-5" role="tablist" aria-label={t("settings.title")}>
-        {tabs.map(([id, labelKey]) => (
+        {visibleTabs.map(([id, labelKey]) => (
           <button key={id} className={tab === id ? "is-active" : ""} onClick={() => setTab(id)} role="tab" aria-selected={tab === id}>
             {t(labelKey)}
           </button>
@@ -80,9 +108,14 @@ export default function SettingsPanel({ open = true, onClose, user, notify = () 
               <p>{user?.name || t("auth.userType")}</p>
               <small>{user?.email || t("common.academicAccess")}</small>
             </SettingCard>
-            <SettingCard title={t("settings.academicProfile")} icon="library">
-              <p>{user?.userType || user?.user_type || "Estudante"}</p>
-              <small>{user?.institution || t("auth.institution")}</small>
+            <SettingCard title={t(profileTitleKey(role))} icon="library">
+              <p>{t(roleLabelKey)}</p>
+              <small>
+                {user?.institution
+                  || (user?.institutionId || user?.institution_id
+                    ? t("settings.institutionConfigured")
+                    : t("settings.institutionMissing"))}
+              </small>
             </SettingCard>
             <button className="viewer-danger-button w-full" onClick={onLogout}>{t("settings.endSession")}</button>
           </>

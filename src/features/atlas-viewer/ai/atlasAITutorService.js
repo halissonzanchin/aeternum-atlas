@@ -4,6 +4,33 @@
  */
 
 import { supabaseConfig } from '../../../services/supabase/supabaseClient';
+
+function buildTutorContext(context = {}) {
+  const routeContext = context.routeContext || context.tutorContext || {};
+  const model = context.model || {};
+  const activeStructure = context.activeStructure || {};
+
+  return {
+    source: context.source || (model.id || activeStructure.id ? 'viewer-3d' : 'platform'),
+    currentRoute: context.route || null,
+    sectionTitle: routeContext.structure || context.sectionTitle || null,
+    sectionQuestion: routeContext.question || context.sectionQuestion || null,
+    modelTitle: model.title || activeStructure.name || routeContext.structure || context.modelTitle || null,
+    modelSlug: model.slug || context.modelSlug || null,
+    description: model.description
+      || activeStructure.description
+      || routeContext.answer?.description
+      || context.description
+      || null,
+    markers: Array.isArray(context.markers) ? context.markers : [],
+    guideSections: Array.isArray(context.guide) ? context.guide : [],
+    activePanel: context.leftOpen ? 'guide' : context.markerOpen ? 'markers' : 'none',
+    availableActions: model.id || activeStructure.id
+      ? ['OPEN_GUIDE', 'OPEN_MARKERS', 'CLOSE_PANELS', 'RESET_VIEW', 'FOCUS_MARKER', 'START_THEORETICAL_QUIZ', 'START_PRACTICAL_QUIZ']
+      : []
+  };
+}
+
 export const atlasAITutorService = {
   /**
    * Processa uma mensagem com suporte a streaming
@@ -15,15 +42,7 @@ export const atlasAITutorService = {
    * @returns {Promise<object>} - O objeto final com a resposta e possíveis ações
    */
   async processMessageStream(message, context, history = [], role = 'student', onUpdate) {
-    const tutorContext = {
-      modelTitle: context.model?.title || context.activeStructure?.name,
-      modelSlug: context.model?.slug,
-      description: context.model?.description || context.activeStructure?.description,
-      markers: context.markers || [],
-      guideSections: context.guide || [],
-      activePanel: context.leftOpen ? 'guide' : context.markerOpen ? 'markers' : 'none',
-      availableActions: ['OPEN_GUIDE', 'OPEN_MARKERS', 'CLOSE_PANELS', 'RESET_VIEW', 'FOCUS_MARKER', 'START_THEORETICAL_QUIZ', 'START_PRACTICAL_QUIZ']
-    };
+    const tutorContext = buildTutorContext(context);
 
     try {
 
@@ -73,7 +92,7 @@ export const atlasAITutorService = {
                 const data = JSON.parse(dataStr);
                 if (data.text) {
                   fullText += data.text;
-                  onUpdate(fullText);
+                  onUpdate?.(fullText);
                 }
                 if (data.action) action = data.action;
                 if (data.payload) payload = data.payload;
@@ -91,7 +110,7 @@ export const atlasAITutorService = {
         fullText = fullText.replace(/\[ACTION:[A-Z_]+\]/g, '').trim();
       }
 
-      return { text: fullText, action, payload };
+      return { text: fullText, action, payload, mode: 'online' };
 
     } catch (error) {
       console.error("[AI Tutor] Erro ao chamar Edge Function:", error);
@@ -101,13 +120,13 @@ export const atlasAITutorService = {
       
       const normalized = message.toLowerCase().trim();
       if (normalized.includes('guia')) {
-        return { text: fallbackText + "Mas não se preocupe, vou abrir o guia de estudo para você!", action: 'OPEN_GUIDE' };
+        return { text: fallbackText + "Mas não se preocupe, vou abrir o guia de estudo para você!", action: 'OPEN_GUIDE', mode: 'offline' };
       }
       if (normalized.includes('marcador')) {
-        return { text: fallbackText + "Vou abrir os marcadores para você continuar explorando!", action: 'OPEN_MARKERS' };
+        return { text: fallbackText + "Vou abrir os marcadores para você continuar explorando!", action: 'OPEN_MARKERS', mode: 'offline' };
       }
       
-      return { text: fallbackText + "Você pode explorar os marcadores ou o guia de estudo disponíveis aqui no menu." };
+      return { text: fallbackText + "Sua pergunta foi preservada no histórico. Você pode continuar navegando e retomar a conversa em qualquer setor da plataforma.", mode: 'offline' };
     }
   }
 };

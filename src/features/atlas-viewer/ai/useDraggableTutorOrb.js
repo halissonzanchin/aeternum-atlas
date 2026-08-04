@@ -70,7 +70,10 @@ function getSavedPosition(storageKey, viewport, orbSize, margin, rightInset = 0,
     if (saved) {
       const parsed = JSON.parse(saved);
       if (Number.isFinite(parsed?.xRatio) && Number.isFinite(parsed?.yRatio)) {
-        return positionFromRatios(parsed, viewport, orbSize, margin, rightInset, bottomInset);
+        // A posição escolhida pelo usuário ocupa toda a viewport. Os recuos
+        // laterais servem somente para a posição inicial, nunca para limitar
+        // a liberdade de reposicionamento da esfera.
+        return positionFromRatios(parsed, viewport, orbSize, margin);
       }
       return getDefaultPosition(viewport, orbSize, margin, rightInset, bottomInset);
     }
@@ -180,13 +183,11 @@ export default function useDraggableTutorOrb({
         positionRef.current,
         viewportRef.current,
         orbSize,
-        margin,
-        rightInset,
-        bottomInset
+        margin
       );
       viewportRef.current = nextViewport;
       setViewport(nextViewport);
-      updatePosition(positionFromRatios(relativePosition, nextViewport, orbSize, margin, rightInset, bottomInset));
+      updatePosition(positionFromRatios(relativePosition, nextViewport, orbSize, margin));
     };
 
     window.addEventListener("resize", handleResize);
@@ -216,6 +217,7 @@ export default function useDraggableTutorOrb({
     const drag = dragRef.current;
     if (!enabled || !drag || drag.pointerId !== event.pointerId) return;
 
+    if (event.cancelable) event.preventDefault();
     const deltaX = event.clientX - drag.pointerX;
     const deltaY = event.clientY - drag.pointerY;
     if (Math.hypot(deltaX, deltaY) > 5) movedRef.current = true;
@@ -223,28 +225,44 @@ export default function useDraggableTutorOrb({
     updatePosition(clampPosition({
       x: drag.originX + deltaX,
       y: drag.originY + deltaY
-    }, viewport, orbSize, margin, rightInset, bottomInset));
-  }, [bottomInset, enabled, margin, orbSize, rightInset, updatePosition, viewport]);
+    }, viewport, orbSize, margin));
+  }, [enabled, margin, orbSize, updatePosition, viewport]);
 
   const finishDrag = useCallback((event) => {
     const drag = dragRef.current;
     if (!enabled || !drag || drag.pointerId !== event.pointerId) return;
 
-    event.currentTarget.releasePointerCapture?.(event.pointerId);
     dragRef.current = null;
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
     setIsDragging(false);
 
     if (movedRef.current) {
       try {
         window.localStorage.setItem(storageKey, JSON.stringify({
           ...positionRef.current,
-          ...getRelativePosition(positionRef.current, viewportRef.current, orbSize, margin, rightInset, bottomInset)
+          ...getRelativePosition(positionRef.current, viewportRef.current, orbSize, margin)
         }));
       } catch {
         // O tutor permanece funcional mesmo quando o navegador bloqueia o storage.
       }
     }
-  }, [bottomInset, enabled, margin, orbSize, rightInset, storageKey]);
+  }, [enabled, margin, orbSize, storageKey]);
+
+  useEffect(() => {
+    if (!enabled || !isDragging) return undefined;
+
+    // O Viewer pode conter iframes 3D. Acompanhar o gesto pela janela inteira
+    // mantém o arraste contínuo mesmo quando o cursor atravessa esses elementos.
+    window.addEventListener("pointermove", onPointerMove, { passive: false });
+    window.addEventListener("pointerup", finishDrag);
+    window.addEventListener("pointercancel", finishDrag);
+
+    return () => {
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", finishDrag);
+      window.removeEventListener("pointercancel", finishDrag);
+    };
+  }, [enabled, finishDrag, isDragging, onPointerMove]);
 
   const consumeDragClick = useCallback(() => {
     if (!movedRef.current) return false;
@@ -261,7 +279,8 @@ export default function useDraggableTutorOrb({
       onPointerDown,
       onPointerMove,
       onPointerUp: finishDrag,
-      onPointerCancel: finishDrag
+      onPointerCancel: finishDrag,
+      onLostPointerCapture: finishDrag
     } : {}
   };
 }

@@ -7,6 +7,29 @@ import { getHomeForRole, normalizeRole, ROLES } from "../permissions/permissionS
 const PROFILE_SELECT = "id, institution_id, name, email, role, status, avatar_url";
 const INACTIVE_ACCOUNT_MESSAGE = "Usuário sem permissão ativa. Contate a instituição.";
 const PROFILE_NOT_FOUND_MESSAGE = "Usuário autenticado, mas perfil não encontrado em public.users.";
+const CONFIGURED_DEFAULT_INSTITUTION_ID = sanitizeText(import.meta.env.VITE_DEFAULT_INSTITUTION_ID || "");
+
+function resolveInstitutionContext(role, explicitInstitutionId = "") {
+  const explicit = sanitizeText(explicitInstitutionId);
+  if (explicit) {
+    return {
+      institutionId: explicit,
+      source: "profile"
+    };
+  }
+
+  if (role === ROLES.SUPER_ADMIN || !CONFIGURED_DEFAULT_INSTITUTION_ID) {
+    return {
+      institutionId: "",
+      source: role === ROLES.SUPER_ADMIN ? "global" : "missing"
+    };
+  }
+
+  return {
+    institutionId: CONFIGURED_DEFAULT_INSTITUTION_ID,
+    source: "configured_default"
+  };
+}
 
 function getUsers() {
   const users = readStorage(storageKeys.users, null);
@@ -47,7 +70,8 @@ function isActiveProfileStatus(status) {
 
 function profileToAppUser(profile, authUser = null) {
   const role = normalizeRole(profile.role);
-  const institutionId = profile.institution_id || profile.institutionId || "";
+  const institutionContext = resolveInstitutionContext(role, profile.institution_id || profile.institutionId);
+  const institutionId = institutionContext.institutionId;
 
   return normalizeUserRecord({
     id: profile.id,
@@ -60,6 +84,7 @@ function profileToAppUser(profile, authUser = null) {
     avatar_url: profile.avatar_url || "",
     institutionId,
     institution_id: institutionId,
+    institutionContextSource: institutionContext.source,
     institution: profile.institution || (role === ROLES.SUPER_ADMIN ? "Aeternum Atlas" : ""),
     course: role === ROLES.STUDENT ? "Medicina" : undefined,
     semester: role === ROLES.STUDENT ? "Institucional" : undefined,
@@ -104,10 +129,9 @@ async function loadProfileForAuthUser(authUser) {
     .single();
 
   if (profileError || !profile) {
-    console.warn("Authenticated user profile was not found in public.users", {
-      userId: authUser.id,
-      error: profileError?.message
-    });
+    console.warn(
+      `Authenticated user profile was not found in public.users: ${profileError?.message || "record unavailable"}`
+    );
     throw new Error(PROFILE_NOT_FOUND_MESSAGE);
   }
 
@@ -244,11 +268,14 @@ export function normalizeUserRecord(user) {
   );
   const defaultCourse = role === ROLES.SUPER_ADMIN ? "Gestão Aeternum" : role === ROLES.INSTITUTION_ADMIN ? "Gestão institucional" : "Medicina";
   const defaultSemester = role === ROLES.STUDENT ? "2º semestre" : "Institucional";
+  const institutionContext = resolveInstitutionContext(role, user.institutionId || user.institution_id);
 
   return {
     ...user,
     role,
-    institutionId: user.institutionId || user.institution_id || "",
+    institutionId: institutionContext.institutionId,
+    institution_id: institutionContext.institutionId,
+    institutionContextSource: user.institutionContextSource || institutionContext.source,
     course: role === ROLES.SUPER_ADMIN ? "Gestão Aeternum" : role === ROLES.INSTITUTION_ADMIN && user.course === "Medicina" ? defaultCourse : user.course || defaultCourse,
     semester: role !== ROLES.STUDENT && user.semester === "2º semestre" ? defaultSemester : user.semester || defaultSemester,
     studentRegistration: user.studentRegistration || user.student_registration || "",
@@ -428,7 +455,7 @@ export async function restoreAuthSession() {
     saveAuthProfile(user);
     return publicUser(user);
   } catch (error) {
-    console.warn("Stored Supabase session could not be restored", { message: error.message });
+    console.warn(`Stored Supabase session could not be restored: ${error.message}`);
     await supabase.auth.signOut();
     clearAuthProfile();
     return null;

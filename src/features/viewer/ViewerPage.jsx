@@ -7,11 +7,8 @@ import { useViewerQuiz } from "./hooks/useViewerQuiz";
 
 import ViewerSketchfab from "./ViewerSketchfab";
 import AtlasAIViewerPanel from "../atlas-viewer/ai/AtlasAIViewerPanel";
-import AnatomyKnowledgePanel from "../atlas-knowledge-graph/AnatomyKnowledgePanel";
-import AnatomyLayerPanel from "../atlas-layers/AnatomyLayerPanel";
 import ViewerAnnotations from "./ViewerAnnotations";
 import ViewerQuiz from "./ViewerQuiz";
-import ViewerControls from "./ViewerControls";
 import ViewerSidebar from "./ViewerSidebar";
 
 import LineIcon from "../../components/icons/LineIcon";
@@ -19,25 +16,24 @@ import LanguageSelector from "../../components/LanguageSelector";
 import Card from "../../components/Card/Card";
 import { useLanguage } from "../../context/LanguageContext";
 import { trackEvent } from "../../services/analytics/analyticsService";
-import { atlasAssetStorageService } from "../../services/atlasAssetStorageService";
 import { shouldUseSketchfabEngine } from "../../services/viewerEngineService";
 
-function TopViewerBar({ model, structure, navigate, onToggleLeft, isSketchfabMode }) {
+function TopViewerBar({ model, structure, navigate, onToggleLeft }) {
   const { t } = useLanguage();
   const breadcrumb = structure?.breadcrumb?.length ? structure.breadcrumb : [model.system, model.region || model.category, structure?.name].filter(Boolean);
 
   return (
-    <header className="viewer-topbar">
+    <header className="viewer-topbar aog-toolbar">
       <div className="flex min-w-0 items-center gap-2">
-        <button className="viewer-soft-button" onClick={onToggleLeft} aria-label={t("viewer.togglePanel")} data-tooltip={t("viewer.togglePanel")}>
+        <button className="viewer-soft-button aog-control" onClick={onToggleLeft} aria-label={t("viewer.togglePanel")}>
           <LineIcon name="menu" />
           <span className="hidden sm:inline">{t("viewer.panel")}</span>
         </button>
-        <button className="viewer-soft-button" onClick={() => navigate("/dashboard")} aria-label={t("viewer.home")}>
+        <button className="viewer-soft-button aog-control" onClick={() => navigate("/dashboard")} aria-label={t("viewer.home")}>
           <LineIcon name="home" className="h-4 w-4" />
           <span className="hidden sm:inline">{t("viewer.home")}</span>
         </button>
-        <button className="viewer-soft-button" onClick={() => navigate("/models")} aria-label={t("viewer.library")}>
+        <button className="viewer-soft-button aog-control" onClick={() => navigate("/models")} aria-label={t("viewer.library")}>
           <LineIcon name="library" className="h-4 w-4" />
           <span className="hidden sm:inline">{t("viewer.library")}</span>
         </button>
@@ -60,18 +56,6 @@ function TopViewerBar({ model, structure, navigate, onToggleLeft, isSketchfabMod
 
       <div className="flex items-center gap-2">
         <div className="hidden md:block"><LanguageSelector compact /></div>
-        {!isSketchfabMode && (
-          <>
-            <span className="rounded-full border border-techTeal/30 bg-techTeal/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-techTeal atlas-nowrap-label">
-              <span className="md:hidden">ATLAS GLB</span>
-              <span className="hidden md:inline">ATLAS ENGINE (GLB)</span>
-            </span>
-            <span className="rounded-full border border-selectionGreen/30 bg-selectionGreen/10 px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest sm:tracking-[0.18em] text-selectionGreen atlas-nowrap-label">
-              <span className="md:hidden">Ativa</span>
-              <span className="hidden md:inline">{t("viewer.activeStructure")}</span>
-            </span>
-          </>
-        )}
       </div>
     </header>
   );
@@ -85,54 +69,19 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
   
   const [toast, setToast] = useState("");
   const [leftOpen, setLeftOpenState] = useState(false);
-  const [markerOpen, setMarkerOpenState] = useState(false);
+  const setLeftOpen = setLeftOpenState;
   
-  const setLeftOpen = (value) => {
-    const newVal = typeof value === 'function' ? value(leftOpen) : value;
-    if (newVal) setMarkerOpenState(false);
-    setLeftOpenState(newVal);
-  };
-  
-  const setMarkerOpen = (value) => {
-    const newVal = typeof value === 'function' ? value(markerOpen) : value;
-    if (newVal) setLeftOpenState(false);
-    setMarkerOpenState(newVal);
-  };
-  
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
-  const [helpOpen, setHelpOpen] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
   const [activeMarkerId, setActiveMarkerId] = useState(null);
-  const [nativeMarkers, setNativeMarkers] = useState([]);
 
   const progressState = useViewerProgress(modelState.model, user, setToast);
-  const quizState = useViewerQuiz(modelState.model, user, annotationsState, setToast, setLeftOpen, nativeMarkers);
-
-  // Parâmetro ?engine foi depreciado. O visualizador funcional aceita apenas Sketchfab.
+  const quizState = useViewerQuiz(modelState.model, user, annotationsState, setToast, setLeftOpen, []);
 
   useEffect(() => {
     if (!toast) return undefined;
     const timer = window.setTimeout(() => setToast(""), 2600);
     return () => window.clearTimeout(timer);
   }, [toast]);
-
-  useEffect(() => {
-    if (!modelState.model?.id) return;
-    if (modelState.model.viewerType === 'atlas-native' || modelState.model.viewer_engine === 'atlas' || modelState.model.viewer_engine === 'atlas-native') {
-      atlasAssetStorageService.loadAnnotations(modelState.model.id).then(loadedMarkers => {
-        if (loadedMarkers && loadedMarkers.length > 0) {
-          setNativeMarkers(loadedMarkers);
-        } else if (modelState.model.markers && modelState.model.markers.length > 0) {
-          setNativeMarkers(modelState.model.markers);
-        } else if (modelState.model.parts && modelState.model.parts.length > 0) {
-          setNativeMarkers(modelState.model.parts);
-        } else if (modelState.initialStructure?.parts && modelState.initialStructure.parts.length > 0) {
-          setNativeMarkers(modelState.initialStructure.parts);
-        }
-      });
-    }
-  }, [modelState.model?.id, modelState.model?.viewerType, modelState.model?.viewer_engine]);
 
   function handleSelectStructure(structure) {
     if (!structure) return;
@@ -231,7 +180,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     annotations: annotationsState,
     progress: progressState,
     quiz: quizState,
-    markers: nativeMarkers,
+    markers: [],
     user,
     navigate,
     notify,
@@ -240,14 +189,6 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     setToast,
     leftOpen,
     setLeftOpen,
-    markerOpen,
-    setMarkerOpen,
-    searchOpen,
-    setSearchOpen,
-    settingsOpen,
-    setSettingsOpen,
-    helpOpen,
-    setHelpOpen,
     notesOpen,
     setNotesOpen,
     handleSelectStructure,
@@ -259,13 +200,12 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
 
   return (
     <ViewerContext.Provider value={contextValue}>
-      <div className="viewer-shell">
+      <div className="viewer-shell atlas-crystal-viewer">
         <TopViewerBar
           model={modelState.model}
           structure={modelState.activeStructure}
           navigate={navigate}
           onToggleLeft={() => setLeftOpen(value => !value)}
-          isSketchfabMode={isSketchfabMode}
         />
 
         <main className={`viewer-stage viewer-layout ${leftOpen ? "" : "is-panel-collapsed"}`}>
@@ -282,12 +222,8 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
                   </div>
                </div>
             )}
-            {((modelState.model.isSegmented || modelState.model.metadata?.segmented)) && (
-              <AnatomyLayerPanel isSketchfabMode={isSketchfabMode} />
-            )}
             <AtlasAIViewerPanel isSketchfabMode={isSketchfabMode} />
           </>
-          <ViewerControls />
         </main>
 
         <ViewerAnnotations />

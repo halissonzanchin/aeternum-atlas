@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import ModelCard from "../../components/ModelCard/ModelCard";
 import Card from "../../components/Card/Card";
+import Button from "../../components/Button/Button";
+import LineIcon from "../../components/icons/LineIcon";
+import AeternumGlassSurface from "../../components/system/AeternumGlassSurface";
 import { getModelFilterOptions, listModelsForUser } from "../../services/modelService";
 import { trackEvent } from "../../services/analytics/analyticsService";
 import { useLanguage } from "../../context/LanguageContext";
@@ -17,7 +20,12 @@ export default function Models({ user, navigate }) {
   const [models, setModels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const filterOptions = useMemo(() => getModelFilterOptions(models), [models]);
+  const catalogSources = useMemo(() => ({
+    institutional: models.filter(model => model.catalogSource === "supabase").length,
+    reference: models.filter(model => model.catalogSource !== "supabase").length
+  }), [models]);
 
   useEffect(() => {
     trackEvent({ userId: user?.id, institutionId: user?.institutionId, eventType: "open_models_page" });
@@ -59,46 +67,141 @@ export default function Models({ user, navigate }) {
     return matchesQuery && matchesCategory && matchesSystem && matchesRegion && matchesLevel && matchesType;
   }), [models, query, category, system, region, level, type, t]);
 
+  const activeFilterCount = [
+    category !== "Todas",
+    system !== "Todos",
+    region !== "Todas",
+    level !== "Todos",
+    type !== "Todos"
+  ].filter(Boolean).length;
+
+  const resetFilters = () => {
+    setQuery("");
+    setCategory("Todas");
+    setSystem("Todos");
+    setRegion("Todas");
+    setLevel("Todos");
+    setType("Todos");
+  };
+
   return (
-    <div className="premium-dashboard fade-in-up pb-12 relative min-h-screen">
-      <div className="mb-8 p-6 atlas-liquid-glass atlas-liquid-glass-card rounded-2xl border border-white/10 relative overflow-hidden flex flex-col md:flex-row justify-between md:items-center gap-4">
-        <div className="atlas-liquid-highlight"></div>
-        <div className="relative z-10">
-          <p className="text-techTeal font-medium uppercase tracking-wider text-xs mb-2">{t("models.eyebrow")}</p>
-          <h1 className="atlas-fluid-title font-black text-clinicalWhite mb-2">{t("models.title")}</h1>
-          <p className="text-textMuted text-sm max-w-2xl">
-            {t("models.subtitle")}
-          </p>
+    <div className="premium-dashboard models-page-aog fade-in-up pb-12 relative min-h-screen">
+      <AeternumGlassSurface className="models-hero-aog" variant="regular" depth="standard">
+        <div className="models-hero-aog__copy">
+          <p className="models-hero-aog__eyebrow">{t("models.eyebrow")}</p>
+          <h1>{t("models.title")}</h1>
+          <p>{t("models.subtitle")}</p>
         </div>
-        <div className="relative z-10 flex flex-col items-start md:items-end">
-          <span className="text-3xl font-bold text-techTeal">{models.length}</span>
-          <span className="text-[10px] text-textMuted uppercase tracking-wider">Modelos Disponíveis</span>
+        <div className="models-hero-aog__metric" aria-label={`${models.length} modelos disponíveis`}>
+          <strong>{models.length}</strong>
+          <span>Modelos disponíveis</span>
         </div>
+      </AeternumGlassSurface>
+
+      <div className="models-discovery-aog">
+        <AeternumGlassSurface className="models-search-aog" variant="clear" depth="subtle">
+          <LineIcon name="search" />
+          <input
+            placeholder={t("models.searchModel")}
+            value={query}
+            onChange={event => setQuery(event.target.value)}
+            aria-label={t("models.searchModel")}
+          />
+          {query ? (
+            <button type="button" onClick={() => setQuery("")} aria-label="Limpar busca">
+              <LineIcon name="close" />
+            </button>
+          ) : null}
+        </AeternumGlassSurface>
+
+        <Button
+          variant={filtersOpen || activeFilterCount ? "outline" : "ghost"}
+          className="models-filter-toggle"
+          onClick={() => setFiltersOpen(open => !open)}
+          aria-expanded={filtersOpen}
+          aria-controls="models-advanced-filters"
+        >
+          <LineIcon name="tools" />
+          <span>Filtros</span>
+          {activeFilterCount ? <strong>{activeFilterCount}</strong> : null}
+        </Button>
+
+        {filtersOpen ? (
+          <AeternumGlassSurface
+            id="models-advanced-filters"
+            className="models-filter-panel"
+            variant="regular"
+            depth="standard"
+          >
+            <div className="models-filter-panel__header">
+              <div>
+                <p>Refinar catálogo</p>
+                <span>Combine somente os critérios necessários.</span>
+              </div>
+              {activeFilterCount ? (
+                <button type="button" onClick={resetFilters}>Limpar filtros</button>
+              ) : null}
+            </div>
+            <div className="models-filter-grid">
+              <label>
+                <span>{t("models.system")}</span>
+                <select value={system} onChange={event => setSystem(event.target.value)}>
+                  <option value="Todos">{t("models.all")}</option>
+                  {filterOptions.systems.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "systems")}</option>)}
+                </select>
+              </label>
+              <label>
+                <span>Categoria</span>
+                <select value={category} onChange={event => setCategory(event.target.value)}>
+                  <option value="Todas">{t("models.allFem")}</option>
+                  {filterOptions.categories.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "categories")}</option>)}
+                </select>
+              </label>
+              <label>
+                <span>{t("models.region")}</span>
+                <select value={region} onChange={event => setRegion(event.target.value)}>
+                  <option value="Todas">{t("models.allFem")}</option>
+                  {filterOptions.regions.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "regions")}</option>)}
+                </select>
+              </label>
+              <label>
+                <span>Nível</span>
+                <select value={level} onChange={event => setLevel(event.target.value)}>
+                  <option value="Todos">{t("models.all")}</option>
+                  {filterOptions.levels.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "levels")}</option>)}
+                </select>
+              </label>
+              <label>
+                <span>Tipo</span>
+                <select value={type} onChange={event => setType(event.target.value)}>
+                  <option value="Todos">{t("models.all")}</option>
+                  {filterOptions.types.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "types")}</option>)}
+                </select>
+              </label>
+            </div>
+          </AeternumGlassSurface>
+        ) : null}
       </div>
 
-      <div className="mb-8 grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-3 w-full min-w-0">
-        <input className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 atlas-liquid-glass atlas-liquid-pressable px-4 py-3 text-sm text-clinicalWhite outline-none focus:bg-techTeal/5 focus:border-techTeal/50 text-ellipsis overflow-hidden whitespace-nowrap placeholder-slate-400" placeholder={t("models.searchModel")} value={query} onChange={event => setQuery(event.target.value)} />
-        <select className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 atlas-liquid-glass atlas-liquid-pressable px-4 py-3 text-sm text-clinicalWhite outline-none focus:bg-techTeal/5 focus:border-techTeal/50 text-ellipsis overflow-hidden whitespace-nowrap" value={system} onChange={event => setSystem(event.target.value)}>
-          <option value="Todos">{t("models.all")}</option>
-          {filterOptions.systems.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "systems")}</option>)}
-        </select>
-        <select className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 atlas-liquid-glass atlas-liquid-pressable px-4 py-3 text-sm text-clinicalWhite outline-none focus:bg-techTeal/5 focus:border-techTeal/50 text-ellipsis overflow-hidden whitespace-nowrap" value={category} onChange={event => setCategory(event.target.value)}>
-          <option value="Todas">{t("models.allFem")}</option>
-          {filterOptions.categories.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "categories")}</option>)}
-        </select>
-        <select className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 atlas-liquid-glass atlas-liquid-pressable px-4 py-3 text-sm text-clinicalWhite outline-none focus:bg-techTeal/5 focus:border-techTeal/50 text-ellipsis overflow-hidden whitespace-nowrap" value={region} onChange={event => setRegion(event.target.value)}>
-          <option value="Todas">{t("models.allFem")}</option>
-          {filterOptions.regions.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "regions")}</option>)}
-        </select>
-        <select className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 atlas-liquid-glass atlas-liquid-pressable px-4 py-3 text-sm text-clinicalWhite outline-none focus:bg-techTeal/5 focus:border-techTeal/50 text-ellipsis overflow-hidden whitespace-nowrap" value={level} onChange={event => setLevel(event.target.value)}>
-          <option value="Todos">{t("models.all")}</option>
-          {filterOptions.levels.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "levels")}</option>)}
-        </select>
-        <select className="min-h-12 w-full min-w-0 rounded-2xl border border-white/10 atlas-liquid-glass atlas-liquid-pressable px-4 py-3 text-sm text-clinicalWhite outline-none focus:bg-techTeal/5 focus:border-techTeal/50 text-ellipsis overflow-hidden whitespace-nowrap" value={type} onChange={event => setType(event.target.value)}>
-          <option value="Todos">{t("models.all")}</option>
-          {filterOptions.types.map(item => <option key={item} value={item}>{translateTaxonomy(item, t, "types")}</option>)}
-        </select>
-      </div>
+      {!loading && !loadError && models.length ? (
+        <>
+          {catalogSources.reference ? (
+            <div className="mb-4 flex flex-col gap-2 rounded-2xl border border-agedGold/20 bg-agedGold/[0.055] px-4 py-3 text-sm text-textMuted sm:flex-row sm:items-center sm:justify-between" role="status">
+              <span>
+                <strong className="text-agedGold">Origem do catálogo:</strong>{" "}
+                {catalogSources.institutional
+                  ? `${catalogSources.institutional} institucionais e ${catalogSources.reference} referências locais identificadas.`
+                  : `${catalogSources.reference} referências locais. Nenhum registro institucional foi retornado pela fonte atual.`}
+              </span>
+              <span className="text-xs font-bold uppercase tracking-wider text-agedGold">Fonte identificada</span>
+            </div>
+          ) : null}
+          <div className="models-results-aog" aria-live="polite">
+            <span>{filtered.length} {filtered.length === 1 ? "modelo encontrado" : "modelos encontrados"}</span>
+            {query || activeFilterCount ? <button type="button" onClick={resetFilters}>Restaurar catálogo</button> : null}
+          </div>
+        </>
+      ) : null}
 
       {loading ? (
         <Card className="max-w-lg text-center atlas-text-safe mx-auto mt-10 atlas-liquid-glass atlas-liquid-glass-card border-white/10">
@@ -119,7 +222,7 @@ export default function Models({ user, navigate }) {
           <div className="atlas-liquid-highlight"></div>
           <h1 className="atlas-empty-state-title relative z-10">{t("models.emptyFilteredCatalog")}</h1>
           <p className="mt-4 text-textMuted atlas-empty-state-description relative z-10">Tente mudar os filtros de busca para encontrar o que procura.</p>
-          <button onClick={() => { setQuery(""); setCategory("Todas"); setSystem("Todos"); setRegion("Todas"); setLevel("Todos"); setType("Todos"); }} className="mt-6 atlas-liquid-glass-button px-6 py-3 relative z-10 text-sm">Limpar Filtros</button>
+          <Button variant="outline" onClick={resetFilters} className="mt-6 relative z-10">Limpar filtros</Button>
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5 w-full min-w-0 max-w-full">

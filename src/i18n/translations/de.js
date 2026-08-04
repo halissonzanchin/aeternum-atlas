@@ -69,6 +69,20 @@ export const de = {
     estimatedBilling: "Geschätzte Abrechnung",
     reports: "Berichte"
   },
+  shell: {
+    ...pt.shell,
+    primaryNavigation: "Hauptnavigation",
+    modules: "Verfügbare Module",
+    searchShortcut: "Suchkürzel",
+    clearSearch: "Suche löschen",
+    searchResults: "Suchergebnisse",
+    currentRoute: "Aktuell",
+    noSearchResults: "Kein Modul gefunden",
+    mobileNavigation: "Mobile Navigation",
+    more: "Mehr",
+    navigation: "Navigation",
+    route: "Aktuelle Route"
+  },
   adminNavigation: {
     institutionStudents: "Studierende der Institution"
   },
@@ -130,7 +144,7 @@ export const de = {
     navAboutUs: "Über uns",
     subtitle: "Anatomische 3D-Bibliothek",
     description: "Eine maßgeschneiderte akademische Plattform für den interaktiven Zugang zu anatomischen 3D-Modellen, ergänzenden Inhalten und sicherer Verwaltung der digitalen Sammlung.",
-    heroDescription: "Erkunden Sie den menschlichen Körper wie nie zuvor. Interaktive 3D-Modelle, ein vollständiger anatomischer Atlas und exklusive Inhalte für vertieftes Lernen.",
+    heroDescription: "Entdecken Sie die menschliche Anatomie mit klinischer Tiefe, Klarheit und einem wirklich immersiven Lernerlebnis.",
     heroExploreAtlas: "Atlas erkunden",
     heroDemo: "Demo ansehen",
     institutionalAccessTitle: "Institutioneller akademischer Zugang",
@@ -142,7 +156,7 @@ export const de = {
     platformTitle: "Eine Plattform. Das gesamte Anatomiestudium.",
     platformDescription: "Vom ersten Kontakt mit einer Struktur bis zur vertieften Wiederholung verbindet die Plattform 3D-Erkundung, Atlas, Lektionen und Lernpfade in einer durchgängigen Erfahrung.",
     exploreResource: "Ressource erkunden",
-    skipToContent: "Zu den Ressourcen springen",
+    skipToContent: "Zur interaktiven Erfahrung springen",
     footerNavigationLabel: "Navigation in der Fußzeile",
     platformStatus: "Akademische Plattform online",
     interfaceKicker: "Atlas / Systeme",
@@ -250,12 +264,14 @@ export const de = {
       availableModels: "Verfügbare 3D-Modelle",
       modelsHint: "Aktive institutionelle Bibliothek",
       totalStudyTime: "Gesamte Lernzeit",
-      studyHint: "Lokaler persönlicher Verlauf",
-      studiedStructures: "Gelernte Strukturen",
-      structuresHint: "Schätzung aus abgeschlossenen Modellen",
+      studyHint: "In den Sitzungen des Benutzers beobachtete Zeit",
+      completedModels: "Abgeschlossene Modelle",
+      completionsHint: "Vom Studierenden registrierte Abschlüsse",
       overallProgress: "Gesamtfortschritt",
-      progressHint: "Basierend auf individuellem Fortschritt"
+      progressHint: "Abgeschlossene Modelle im verfügbaren Katalog"
     },
+    observedDataEmpty: "Es gibt noch nicht genügend Abschlüsse, um diesen Indikator zu berechnen.",
+    observedReviewEmpty: "Aus den aktuellen Daten kann keine ausstehende Wiederholung abgeleitet werden.",
     toolsEyebrow: "Akademische Routine",
     toolsTitle: "Lernwerkzeuge",
     toolsSubtitle: "Organisieren Sie Wiederholungen, üben Sie Fragen und integrieren Sie 3D-Modelle in Ihre akademische Routine.",
@@ -793,7 +809,7 @@ export const de = {
     },
     types: {
       Sketchfab: "Sketchfab",
-      atlasNativeScan: "Atlas Native / Echtes 3D-Modell",
+      atlasNativeScan: "Sketchfab / Echtes 3D-Modell",
       cadavericScan: "Kadaverischer Scan",
       didacticModel: "Didaktisches Modell",
       radiology: "Radiologie",
@@ -1036,7 +1052,7 @@ export const de = {
     markers: "Marker",
     crossSections: "Querschnitte",
     models: "Modelle",
-    openSketchfab: "In externem Viewer öffnen",
+    openSketchfab: "In Sketchfab öffnen",
     favorite: "Favorisieren",
     markAsStudied: "Als bearbeitet markieren",
     copyModelLink: "Modell-Link kopieren",
@@ -1192,6 +1208,12 @@ export const de = {
       settings: "Einstellungen",
       guide: "Leitfaden",
       help: "Hilfe"
+    },
+    actionGroups: {
+      label: "Aktionen des 3D-Modells",
+      model: "Modell und Fortschritt",
+      study: "Studium und Bewertung",
+      support: "Navigation und Support"
     }
   },
   institutionAdmin: {

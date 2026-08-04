@@ -216,6 +216,14 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .atlas-viewer-ai-orb-control.aog-morph-source.is-open {
+    pointer-events: none;
+    opacity: 0;
+    scale: 0.72;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .atlas-viewer-ai-orb-control {
     transition: none;

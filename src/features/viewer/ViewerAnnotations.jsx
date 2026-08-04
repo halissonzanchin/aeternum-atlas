@@ -31,7 +31,7 @@ function InnerNotesModal({ open, model, content, updatedAt, onChange, onClose, o
             <h2 id="viewer-notes-title" className="mt-2 text-2xl font-bold text-clinicalWhite">{t("viewer.notesTitle")}</h2>
             <p className="viewer-notes-model">{model?.title}</p>
           </div>
-          <button className="viewer-icon-button" onClick={onClose} aria-label={t("viewer.closeNotes")} data-tooltip={t("viewer.closeNotes")}>
+          <button className="viewer-icon-button" onClick={onClose} aria-label={t("viewer.closeNotes")}>
             <LineIcon name="close" />
           </button>
         </div>

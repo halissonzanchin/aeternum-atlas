@@ -5,11 +5,11 @@ export function isUpeDemoMode(user) {
 }
 
 const DEMO_ACCOUNTS = [
-  "admin@aeternumatlas.com",
-  "reitor@upe.edu.py",
-  "coordenador@upe.edu.py",
-  "professor@upe.edu.py",
-  "demo@upe.edu.py"
+  // "admin@aeternumatlas.com",
+  // "reitor@upe.edu.py",
+  // "coordenador@upe.edu.py",
+  // "professor@upe.edu.py",
+  // "demo@upe.edu.py"
 ];
 
 export function isDemoPresentationAccount(email) {
@@ -26,7 +26,6 @@ export * from './heatmaps';
 export * from './quizzes';
 export * from './roi';
 export * from './alerts';
-export * from './studentMock';
 export * from './aiMock';
 export * from './dataset';
 export * from './institutionalLayer';

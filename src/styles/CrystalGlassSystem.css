@@ -47,6 +47,7 @@
   outline-offset: 3px;
 }
 
+/* Ambient depth sits behind all application surfaces. */
 .atlas-crystal-app,
 .atlas-auth-page,
 .atlas-crystal-viewer {
@@ -74,6 +75,10 @@
   opacity: 0.75;
 }
 
+/*
+ * Core material. The highlight is deliberately restrained: glass should
+ * reveal hierarchy, not turn every card into a glossy decoration.
+ */
 .atlas-crystal-surface,
 .atlas-crystal-app :where(
     .premium-panel-card,
@@ -244,6 +249,7 @@
   }
 }
 
+/* Navigation material: a denser glass keeps text legible over moving content. */
 .atlas-crystal-toolbar,
 .atlas-crystal-mobile-nav,
 .atlas-crystal-sidebar,
@@ -294,6 +300,7 @@
   background: rgba(255, 255, 255, 0.055);
 }
 
+/* Controls use a thinner material than content surfaces. */
 .atlas-crystal-control,
 .atlas-crystal-app :where(
     .topbar-search,
@@ -399,6 +406,7 @@
   filter: saturate(0.35);
 }
 
+/* Input hierarchy and native controls. */
 .atlas-crystal-app :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea),
 .atlas-auth-page :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea),
 .atlas-crystal-viewer :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
@@ -435,6 +443,7 @@
   color-scheme: dark;
 }
 
+/* Login and registration become a focused piece of glass, not a floating card. */
 .atlas-auth-page {
   position: relative;
   overflow: hidden;
@@ -469,6 +478,7 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.13);
 }
 
+/* Public entry point: preserve its custom cinematic language, unify glass only. */
 .premium-public-header {
   border-bottom-color: rgba(220, 253, 251, 0.12);
 }
@@ -498,6 +508,7 @@
   backdrop-filter: blur(24px) saturate(138%);
 }
 
+/* Tables and information density: translucency on container, quiet rows. */
 .atlas-crystal-app :where(.admin-table, .teacher-table) {
   border-spacing: 0;
 }
@@ -524,6 +535,7 @@
   background: rgb(var(--crystal-cyan) / 0.055);
 }
 
+/* Modal/drawer material is stronger for focus and accessibility. */
 .atlas-crystal-overlay,
 .atlas-crystal-app :where(.admin-modal-backdrop, .agenda-modal-backdrop),
 .atlas-crystal-viewer :where(.viewer-modal-backdrop, .viewer-quiz-backdrop, .theory-quiz-backdrop) {
@@ -548,6 +560,7 @@
   backdrop-filter: blur(32px) saturate(145%);
 }
 
+/* Viewer HUD: glass framing stays outside the anatomical canvas. */
 .atlas-crystal-viewer .viewer-stage {
   background:
     radial-gradient(circle at 50% 22%, rgb(var(--crystal-cyan) / 0.075), transparent 32rem),
@@ -573,6 +586,7 @@
     rgba(7, 20, 26, 0.66);
 }
 
+/* Small details shared by icons and progress indicators. */
 .atlas-crystal-app :where(.topbar-avatar, .study-tool-icon, .teacher-kpi-card > span),
 .atlas-crystal-viewer :where(.viewer-icon-button, .atlas-icon-container) {
   border-color: rgb(var(--crystal-cyan) / 0.3);
@@ -590,6 +604,7 @@
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.38);
 }
 
+/* Graceful fallback when backdrop filtering is unavailable. */
 @supports not ((-webkit-backdrop-filter: blur(2px)) or (backdrop-filter: blur(2px))) {
   .atlas-crystal-surface,
   .atlas-crystal-toolbar,
@@ -629,6 +644,7 @@
   }
 }
 
+/* Notebook and tablet: lower GPU cost while keeping the material hierarchy. */
 @media (max-width: 1279px) {
   :root {
     --crystal-blur: 20px;
@@ -741,7 +757,7 @@
   }
 
   .atlas-crystal-mobile-nav button {
-    min-height: 40px;
+    min-height: 44px;
   }
 
   .atlas-crystal-app .page-content {
@@ -805,6 +821,7 @@
   }
 }
 
+/* Accessibility preferences take priority over the visual effect. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

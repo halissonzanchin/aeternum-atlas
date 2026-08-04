@@ -1,6 +1,7 @@
 import { useViewer } from './ViewerContext';
 import ModelViewer from '../../components/ModelViewer/ModelViewer';
 import { trackEvent } from '../../services/analytics/analyticsService';
+import { recordLearningEvent } from '../../services/learningTelemetryService';
 
 export default function ViewerSketchfab() {
   const {
@@ -23,19 +24,28 @@ export default function ViewerSketchfab() {
 
   function handleSketchfabEvent(event) {
     if (!model?.id) return;
+    const eventType = event.eventType || event.type;
+    const eventData = {
+      ...(event.metadata || {}),
+      modelUid: event.modelUid,
+      annotationIndex: event.annotationIndex,
+      annotationCount: event.annotationCount,
+      source: "sketchfab_viewer_api"
+    };
     trackEvent({
       ...event,
       userId: user?.id,
       institutionId: user?.institutionId,
       role: user?.role || "student",
       modelId: model.id,
-      eventType: event.eventType || event.type,
-      metadata: {
-        ...(event.metadata || {}),
-        modelUid: event.modelUid,
-        annotationIndex: event.annotationIndex,
-        source: "sketchfab_viewer_api"
-      }
+      eventType,
+      metadata: eventData
+    });
+    recordLearningEvent({
+      user,
+      modelId: model.id,
+      eventType,
+      eventData
     });
   }
 

@@ -41,7 +41,7 @@ export default function SuperAdmin({ user, navigate }) {
     };
   }, []);
 
-  if (!["super_admin", "admin"].includes(user?.role)) {
+  if (user?.role !== "super_admin") {
     return (
       <Card>
         <h1 className="display-title">{t("superAdmin.restrictedArea")}</h1>

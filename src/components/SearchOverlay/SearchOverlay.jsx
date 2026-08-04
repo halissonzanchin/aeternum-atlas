@@ -48,7 +48,7 @@ export default function SearchOverlay({ open, onClose, models = [], structures =
             <p className="viewer-eyebrow">{t("viewer.globalSearch")}</p>
             <h2>{t("viewer.findAnatomy")}</h2>
           </div>
-          <button className="viewer-icon-button" onClick={onClose} aria-label={t("viewer.closeSearch")} data-tooltip={t("viewer.closeSearch")}>
+          <button className="viewer-icon-button" onClick={onClose} aria-label={t("viewer.closeSearch")}>
             <LineIcon name="close" />
           </button>
         </div>

@@ -25,6 +25,7 @@ const Button = forwardRef(function Button({
   ...props
 }, forwardedRef) {
   const defaultType = Component === "button" && !props.type ? { type: "button" } : {};
+  const liquidAdapter = ["outline", "ghost"].includes(variant) ? "a26-liquid-button-adapter" : "";
 
   return (
     <AeternumGlassSurface
@@ -32,7 +33,7 @@ const Button = forwardRef(function Button({
       as={Component}
       variant={glassVariants[variant] || "clear"}
       interactive={!props.disabled}
-      className={`atlas-crystal-control inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-5 text-sm font-bold transition duration-200 disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`}
+      className={`atlas-crystal-control ${liquidAdapter} inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-5 text-sm font-bold transition duration-200 disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`}
       data-crystal-variant={variant}
       {...defaultType}
       {...props}

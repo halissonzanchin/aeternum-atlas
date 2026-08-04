@@ -13,7 +13,6 @@
   --text-muted: #a0a7b4;
   --viewer-topbar-height: 92px;
   --viewer-side-panel-width: 360px;
-  --viewer-right-rail-width: 96px;
 
   /* Aeternum Liquid Glass Tokens */
   --atlas-glass-bg: rgba(255, 255, 255, 0.03);
@@ -193,7 +192,7 @@ button {
 .viewer-stage {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(280px, var(--viewer-side-panel-width)) minmax(0, 1fr) minmax(76px, var(--viewer-right-rail-width));
+  grid-template-columns: minmax(280px, var(--viewer-side-panel-width)) minmax(0, 1fr);
   height: calc(100dvh - var(--viewer-topbar-height));
   min-height: 0;
   gap: 18px;
@@ -2685,7 +2684,6 @@ button {
 .viewer-list-row,
 .viewer-part-row,
 .viewer-search-result,
-.viewer-control-strip button,
 .right-toolbar button,
 .analytics-card__grid > div {
   position: relative;
@@ -2694,8 +2692,7 @@ button {
 
 .viewer-list-row::after,
 .viewer-part-row::after,
-.viewer-search-result::after,
-.viewer-control-strip button::after {
+.viewer-search-result::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -2727,8 +2724,7 @@ button {
 
 .viewer-list-row:hover::after,
 .viewer-part-row:hover::after,
-.viewer-search-result:hover::after,
-.viewer-control-strip button:hover::after {
+.viewer-search-result:hover::after {
   transform: translateX(130%);
 }
 
@@ -3852,7 +3848,7 @@ button {
 }
 
 .viewer-stage.is-panel-collapsed {
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .viewer-stage.is-panel-collapsed .left-info-panel {
@@ -3874,50 +3870,6 @@ button {
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 0.5rem;
-}
-
-[data-tooltip] {
-  position: relative;
-}
-
-[data-tooltip]::after {
-  pointer-events: none;
-  position: absolute;
-  left: 50%;
-  top: calc(100% + 0.5rem);
-  z-index: 120;
-  width: max-content;
-  max-width: 14rem;
-  transform: translateX(-50%) translateY(-4px);
-  border-radius: 0.6rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(10, 10, 10, 0.92);
-  padding: 0.4rem 0.55rem;
-  color: #f5f5f5;
-  content: attr(data-tooltip);
-  font-size: 0.72rem;
-  opacity: 0;
-  transition: opacity 160ms ease, transform 160ms ease;
-  white-space: normal;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.32);
-}
-
-[data-tooltip]:hover::after,
-[data-tooltip]:focus-visible::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-.right-toolbar [data-tooltip]::after {
-  left: auto;
-  right: calc(100% + 0.55rem);
-  top: 50%;
-  transform: translateY(-50%) translateX(4px);
-}
-
-.right-toolbar [data-tooltip]:hover::after,
-.right-toolbar [data-tooltip]:focus-visible::after {
-  transform: translateY(-50%) translateX(0);
 }
 
 button:focus-visible,
@@ -4653,9 +4605,6 @@ select:focus-visible {
     text-align: left;
   }
 
-  [data-tooltip]::after {
-    display: none;
-  }
 }
 
 /* Global app shell refinement: prevents cropped sidebars and page-wide overflow. */
@@ -4975,9 +4924,7 @@ select:focus-visible {
   margin-bottom: 20px;
   border-radius: 18px;
   border: 1px solid rgba(47, 184, 181, 0.2);
-  background:
-    radial-gradient(circle at 0% 0%, rgba(47, 184, 181, 0.12), transparent 34%),
-    rgba(15, 23, 42, 0.58);
+  background: transparent;
   padding: 18px 20px;
   box-shadow: 0 18px 52px rgba(0, 0, 0, 0.22);
 }
@@ -5019,8 +4966,7 @@ select:focus-visible {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 18px;
-  background: rgba(10, 10, 10, 0.4);
-  backdrop-filter: blur(20px);
+  background: transparent;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(47, 184, 181, 0.05);
   padding: 22px;
   cursor: pointer;
@@ -5280,7 +5226,7 @@ select:focus-visible {
 .viewer-layout,
 .viewer-stage {
   display: grid;
-  grid-template-columns: minmax(280px, var(--viewer-side-panel-width)) minmax(0, 1fr) minmax(76px, var(--viewer-right-rail-width));
+  grid-template-columns: minmax(280px, var(--viewer-side-panel-width)) minmax(0, 1fr);
   gap: 18px;
   height: calc(100dvh - var(--viewer-topbar-height));
   min-height: 0;
@@ -5320,7 +5266,7 @@ select:focus-visible {
 .right-toolbar {
   min-height: 0;
   height: 100%;
-  width: var(--viewer-right-rail-width);
+  width: 96px;
   overflow: hidden;
   align-self: stretch;
 }
@@ -5365,7 +5311,7 @@ select:focus-visible {
 
 .viewer-control-strip.aa-viewer-actions button,
 .viewer-control-strip.aa-viewer-actions a {
-  min-height: 42px;
+  min-height: 44px;
   white-space: normal;
 }
 
@@ -5965,6 +5911,78 @@ select:focus-visible {
   min-width: 0;
 }
 
+.student-system-evidence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-top: 8px;
+}
+
+.student-system-evidence small,
+.learning-period-total {
+  color: #8293a2;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.learning-source-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid rgba(53, 208, 207, 0.18);
+  border-radius: 999px;
+  background: rgba(4, 17, 20, 0.48);
+  color: #91a6b1 !important;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.learning-source-badge.is-synced {
+  border-color: rgba(74, 222, 128, 0.28);
+  color: #8ce5b0 !important;
+}
+
+.learning-period-switch {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(151, 225, 224, 0.16);
+  border-radius: 999px;
+  background: rgba(4, 14, 17, 0.58);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.learning-period-switch button {
+  min-width: 42px;
+  min-height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #8497a3;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.learning-period-switch button:hover,
+.learning-period-switch button:focus-visible {
+  color: #e9ffff;
+  outline: none;
+}
+
+.learning-period-switch button:focus-visible {
+  box-shadow: 0 0 0 2px rgba(53, 208, 207, 0.34);
+}
+
+.learning-period-switch button.is-active {
+  background: linear-gradient(135deg, rgba(53, 208, 207, 0.19), rgba(198, 168, 92, 0.11));
+  color: #eaffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 5px 14px rgba(0, 0, 0, 0.18);
+}
+
 .weekly-study-chart {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -5972,6 +5990,9 @@ select:focus-visible {
   align-items: end;
   min-height: 250px;
   margin-top: 20px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: thin;
 }
 
 .weekly-study-column {
@@ -6183,7 +6204,7 @@ select:focus-visible {
   margin: 10px 0 0;
   color: #c6a85c;
   font-family: Cinzel, Georgia, serif;
-  font-size: clamp(2rem, 4.8vw, 4.5rem);
+  font-size: clamp(2.25rem, 4vw, 3.9rem);
   font-weight: 600;
   letter-spacing: 0.07em;
   line-height: 1;
@@ -6301,6 +6322,10 @@ select:focus-visible {
   overflow-wrap: anywhere;
 }
 
+.teacher-kpi-card strong:only-child {
+  max-width: 100%;
+}
+
 .teacher-kpi-card--teal strong {
   color: #35d0cf;
 }
@@ -6343,7 +6368,7 @@ select:focus-visible {
 
 .teacher-section-title button,
 .teacher-table-actions button {
-  min-height: 36px;
+  min-height: 44px;
   border-radius: 999px;
   border: 1px solid rgba(47, 184, 181, 0.28);
   background: rgba(47, 184, 181, 0.08);
@@ -6483,7 +6508,7 @@ select:focus-visible {
 
 .teacher-card-actions button,
 .teacher-toolbar button {
-  min-height: 40px;
+  min-height: 44px;
   white-space: normal;
 }
 
@@ -7796,7 +7821,7 @@ textarea {
 
   .public-actions > button,
   .public-actions > a {
-    min-height: 40px;
+    min-height: 44px;
     padding-inline: 0.75rem;
     font-size: clamp(0.72rem, 2.8vw, 0.86rem);
     line-height: 1.15;
@@ -7874,7 +7899,7 @@ textarea {
 
   .public-actions > button,
   .public-actions > a {
-    min-height: 40px;
+    min-height: 44px;
     padding-inline: 0.65rem;
     font-size: 0.72rem;
   }

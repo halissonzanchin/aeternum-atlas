@@ -22,7 +22,6 @@ export default function BottomSystemBar({ systems = [], onToggleSystem }) {
           onClick={() => onToggleSystem(system)}
           aria-pressed={system.status === "active"}
           aria-label={`${t(`viewer.systems.${system.id}`)}: ${statusLabel(system.status, t)}`}
-          data-tooltip={`${t(`viewer.systems.${system.id}`)}: ${statusLabel(system.status, t)}`}
         >
           <span className="system-icon">
             <LineIcon name={system.status === "blocked" ? "lock" : "layers"} className="h-5 w-5" />

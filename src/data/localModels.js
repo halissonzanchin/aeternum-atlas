@@ -68,43 +68,14 @@ export const LOCAL_MODELS = [
     embedProvider: "sketchfab",
     embedUrl: "https://sketchfab.com/models/0145e302fd94453c8f7fb2817e45060e/embed",
     externalViewerLabel: "Sketchfab Embed",
-    nativeEngineAvailable: true,
-    nativeFallbackAvailable: true,
-    modelFormat: "glb",
-    modelUrl: "/models/native/cranial-encephalon-sagittal-section-color-web.glb",
-    model_url: "/models/native/cranial-encephalon-sagittal-section-color-web.glb",
-    atlasEngineModelUrl: "/models/native/cranial-encephalon-sagittal-section-color-web.glb",
-    modelLodManifest: {
-      performance: {
-        url: "/models/native/cranial-encephalon-realityscan-performance.glb",
-        source: "local",
-        format: "glb"
-      },
-      balanced: {
-        url: "/models/native/cranial-encephalon-realityscan-balanced.glb",
-        source: "local",
-        format: "glb"
-      },
-      hq: {
-        url: null,
-        source: "storage-pending",
-        format: "glb"
-      },
-      source: {
-        url: null,
-        source: "storage-pending",
-        adminOnly: true
-      }
-    },
     coverImageUrl: "",
     thumbnailUrl: "",
     sketchfabUrl: "https://sketchfab.com/models/0145e302fd94453c8f7fb2817e45060e",
     sketchfabEmbedUrl: "https://sketchfab.com/models/0145e302fd94453c8f7fb2817e45060e/embed",
-    embedUrl: "https://sketchfab.com/models/0145e302fd94453c8f7fb2817e45060e/embed",
     externalUrl: "",
     estimatedStudyTime: "30 min",
     author: "Aeternum Atlas",
-    provider: "atlas_native",
+    provider: "sketchfab",
     status: "active",
     isActive: true,
     accessCount: 0,
@@ -157,14 +128,6 @@ export const LOCAL_MODELS = [
     defaultViewerEngine: "sketchfab",
     embedProvider: "sketchfab",
     externalViewerLabel: "Sketchfab Embed",
-    modelFormat: "glb",
-    modelUrl: "/models/native/female-reproductive-sagittal-section-hq.glb",
-    model_url: "/models/native/female-reproductive-sagittal-section-hq.glb",
-    atlasEngineModelUrl: "/models/native/female-reproductive-sagittal-section-hq.glb",
-    modelLodManifest: {
-      performance: "/models/native/female-reproductive-sagittal-section-hq.glb",
-      balanced: "/models/native/female-reproductive-sagittal-section-hq.glb"
-    },
     coverImageUrl: "",
     thumbnailUrl: "",
     sketchfabUrl: "https://sketchfab.com/3d-models/corte-sagital-sistema-reprodutor-femenino-1c8dbfa7ba8846afa3b4ef058df36753",
@@ -241,14 +204,6 @@ export const LOCAL_MODELS = [
     defaultViewerEngine: "sketchfab",
     embedProvider: "sketchfab",
     externalViewerLabel: "Sketchfab Embed",
-    modelFormat: "glb",
-    modelUrl: "/models/native/heart-morgue-edition-hq.glb",
-    model_url: "/models/native/heart-morgue-edition-hq.glb",
-    atlasEngineModelUrl: "/models/native/heart-morgue-edition-hq.glb",
-    modelLodManifest: {
-      performance: "/models/native/heart-morgue-edition-hq.glb",
-      balanced: "/models/native/heart-morgue-edition-hq.glb"
-    },
     coverImageUrl: "",
     thumbnailUrl: "",
     sketchfabUrl: "https://sketchfab.com/3d-models/coracao-edicao-ii-morgue-d527b406b0dc430e888d0d016c02528a",
@@ -333,7 +288,10 @@ export function mergeCatalogWithLocalModels(models = [], { includeInactive = fal
   LOCAL_MODELS.forEach((model) => {
     const normalized = normalizeModelIdentifier(model.slug || model.id);
     if ((includeInactive || model.isActive) && !bySlug.has(normalized)) {
-      bySlug.set(normalized, model);
+      bySlug.set(normalized, {
+        ...model,
+        catalogSource: "local_reference"
+      });
     }
   });
 

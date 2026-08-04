@@ -1,12 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
 import { getModelByIdForUser, listModelsForUser } from '../../../services/modelService';
 import { translateModelSummary } from '../../../utils/modelI18n';
-import { getStructureForModel } from '../../../data/mockStructures';
 import { useLanguage } from '../../../context/LanguageContext';
 
 export function buildStructure(model, t) {
   if (!model) return null;
-  const structure = getStructureForModel(model.slug || model.id) || {};
+  const structure = {};
   
   const structuresSafe = Array.isArray(model.structures) ? model.structures : [];
   const relatedSafe = Array.isArray(model.relatedStructures) ? model.relatedStructures : [];

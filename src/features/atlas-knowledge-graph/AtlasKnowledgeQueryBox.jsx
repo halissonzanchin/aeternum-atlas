@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { anatomyGraphService } from './anatomyGraphService';
-import { atlasViewerCommands } from '../atlas-viewer/ai/atlasViewerCommands';
+import { sketchfabBridge } from '../../services/sketchfabAnnotationBridge';
 
 export default function AtlasKnowledgeQueryBox() {
   const [query, setQuery] = useState('');
@@ -16,7 +16,13 @@ export default function AtlasKnowledgeQueryBox() {
 
   const handleApplyCommand = () => {
     if (response?.suggestedViewerCommand?.markerId) {
-      atlasViewerCommands.focusMarker(response.suggestedViewerCommand.markerId);
+      const markerId = String(response.suggestedViewerCommand.markerId).toLocaleLowerCase('pt-BR');
+      const index = sketchfabBridge.getSketchfabAnnotations().findIndex(annotation => (
+        [annotation?.id, annotation?.name, annotation?.title]
+          .filter(Boolean)
+          .some(value => String(value).toLocaleLowerCase('pt-BR').includes(markerId))
+      ));
+      if (index >= 0) sketchfabBridge.goToSketchfabAnnotation(index);
     }
   };
 

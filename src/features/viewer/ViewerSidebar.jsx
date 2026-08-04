@@ -2,6 +2,7 @@ import { useViewer } from './ViewerContext';
 import EducationalPanel from './components/EducationalPanel';
 
 export default function ViewerSidebar() {
+  const viewer = useViewer();
   const {
     leftOpen,
     setLeftOpen,
@@ -11,7 +12,7 @@ export default function ViewerSidebar() {
     annotations: {
       isSketchfabModel
     }
-  } = useViewer();
+  } = viewer;
 
   return (
     <EducationalPanel
@@ -21,7 +22,7 @@ export default function ViewerSidebar() {
       onAction={handleViewerAction}
       onClose={() => setLeftOpen(false)}
       isSketchfabMode={isSketchfabModel}
-      annotationsState={useViewer().annotations}
+      annotationsState={viewer.annotations}
     />
   );
 }

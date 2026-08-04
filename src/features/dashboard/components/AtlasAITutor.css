@@ -85,6 +85,19 @@
     0 0 64px rgba(52, 206, 196, 0.22);
 }
 
+.upe-ai-orb-drag-surface {
+  position: fixed;
+  z-index: 69;
+  inset: 0;
+  cursor: grabbing;
+  touch-action: none;
+  user-select: none;
+}
+
+.atlas-viewer-ai-orb-drag-surface {
+  z-index: 91;
+}
+
 .upe-ai-panel {
   position: fixed;
   z-index: 69;
@@ -365,8 +378,14 @@
     padding-right: 9px;
   }
 
-  .upe-ai-trigger > span {
+  .upe-ai-trigger > span:last-child {
     display: none;
+  }
+
+  .upe-ai-trigger.aog-morph-source.is-open {
+    pointer-events: none;
+    opacity: 0;
+    scale: 0.72;
   }
 
   .upe-ai-panel {

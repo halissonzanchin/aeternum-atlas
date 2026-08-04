@@ -1,6 +1,7 @@
 import { readStorage, writeStorage } from "./storage/storageService";
 import { supabase } from "../lib/supabase";
 import { isSupabaseConfigured } from "./supabase/supabaseClient";
+import { recordLearningQuizResult } from "./learningTelemetryService";
 
 const STORAGE_KEY = "aeternum_theoretical_quiz_progress";
 export const THEORETICAL_QUIZ_TIME_LIMIT_SECONDS = 90 * 60;
@@ -1372,6 +1373,7 @@ function institutionIdOf(user, model) {
 export async function recordTheoreticalQuizAttempt({ quiz, model, user, state, result }) {
   // Always save local progress fallback
   saveTheoreticalQuizProgress(model, user, { ...state, result });
+  recordLearningQuizResult({ user, model, quiz, result, quizType: "theoretical" });
 
   if (!isSupabaseConfigured() || quiz?.source !== "supabase") {
     return { data: result, error: null, persisted: "local" };

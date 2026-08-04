@@ -1,103 +1,180 @@
-import React, { useState } from "react";
-import Card from "../../../components/Card/Card";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import LineIcon from "../../../components/icons/LineIcon";
-import { atlasAITutorMock } from "../../../demo/upe/aiMock";
+import AeternumGlassSurface from "../../../components/system/AeternumGlassSurface";
+import { useAtlasAITutorSession } from "../../../context/AtlasAITutorSessionContext";
+import AtlasAIConversation from "../../atlas-viewer/ai/AtlasAIConversation";
+import AtlasAIOrb from "../../atlas-viewer/ai/AtlasAIOrb";
+import useDraggableTutorOrb, {
+  getTutorPanelMorphStyle,
+  getTutorPanelStyle
+} from "../../atlas-viewer/ai/useDraggableTutorOrb";
+import { getAtlasTutorContext } from "./atlasAITutorContext";
+import "./AtlasAITutor.css";
 
-export default function AtlasAITutor() {
+export default function AtlasAITutor({
+  path = "/student/home",
+  sphereOnly = false,
+  draggable = false
+}) {
   const [isOpen, setIsOpen] = useState(false);
+  const triggerRef = useRef(null);
+  const context = useMemo(() => getAtlasTutorContext(path), [path]);
+  const {
+    messages,
+    draft,
+    setDraft,
+    isThinking,
+    sendMessage
+  } = useAtlasAITutorSession();
+  const {
+    position,
+    viewport,
+    isDragging,
+    consumeDragClick,
+    dragHandlers
+  } = useDraggableTutorOrb({
+    enabled: draggable,
+    storageKey: "aeternum_atlas_native_tutor_orb_position",
+    // A posição inicial respeita a tab bar compacta. Depois do primeiro gesto,
+    // o hook continua permitindo toda a viewport, como definido pelo usuário.
+    bottomInset: draggable && typeof window !== "undefined" && window.innerWidth <= 1023 ? 92 : 0
+  });
 
-  return (
+  useEffect(() => {
+    setIsOpen(false);
+  }, [path]);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const handleKeyDown = (event) => {
+      if (event.key !== "Escape") return;
+      setIsOpen(false);
+      window.requestAnimationFrame(() => triggerRef.current?.focus());
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  if (typeof document === "undefined") return null;
+
+  const triggerStyle = draggable ? {
+    top: position.y,
+    left: position.x,
+    right: "auto",
+    bottom: "auto"
+  } : undefined;
+  const panelBaseStyle = draggable
+    ? getTutorPanelStyle(position, viewport)
+    : {
+        "--aog-morph-x": "168px",
+        "--aog-morph-y": "280px"
+      };
+  const panelStyle = draggable
+    ? getTutorPanelMorphStyle(panelBaseStyle, position)
+    : panelBaseStyle;
+  const orbState = isThinking ? "thinking" : isOpen ? "listening" : "idle";
+
+  const handleTriggerClick = () => {
+    if (consumeDragClick()) return;
+    setIsOpen((open) => !open);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    window.requestAnimationFrame(() => triggerRef.current?.focus());
+  };
+
+  const handleSendMessage = (text) => sendMessage({
+    text,
+    context: {
+      source: "platform",
+      route: path,
+      routeContext: context
+    },
+    contextLabel: context.structure
+  });
+
+  return createPortal(
     <>
-      {/* AI Floating Panel */}
+      {isOpen ? <div className="aog-focus-dimmer" aria-hidden="true" /> : null}
+
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-96 max-h-[80vh] atlas-liquid-glass atlas-liquid-glass-panel !p-0 border-techTeal/30 shadow-[0_10px_40px_rgba(0,0,0,0.8)] z-50 flex flex-col overflow-hidden fade-in-up">
-          <div className="atlas-liquid-highlight"></div>
-          {/* Header */}
-          <div className="bg-slate-900/40 p-4 border-b border-white/10 flex justify-between items-center relative z-10">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-full bg-techTeal/20 flex items-center justify-center border border-techTeal/40">
-                <LineIcon name="cpu" className="w-4 h-4 text-techTeal" />
-              </div>
-              <div>
-                <h3 className="text-sm font-bold text-clinicalWhite">Atlas AI Tutor</h3>
-                <p className="text-[10px] text-techTeal tracking-wider uppercase">Conectado • {atlasAITutorMock.student}</p>
-              </div>
+        <AeternumGlassSurface
+          as="section"
+          id="upe-ai-panel"
+          className={`upe-ai-panel aog-morph-panel${draggable ? " upe-ai-panel--positioned" : ""}`}
+          variant="regular"
+          depth="substantial"
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby="upe-ai-title"
+          style={panelStyle}
+        >
+          <header className="upe-ai-panel__header">
+            <AtlasAIOrb state={orbState} size="sm" />
+            <div>
+              <span className="upe-ai-panel__eyebrow">Assistência contextual</span>
+              <h2 id="upe-ai-title">Atlas AI Tutor</h2>
+              <p>{isThinking ? "Analisando sua pergunta…" : "Conversa sincronizada em toda a plataforma"}</p>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-textMuted hover:text-clinicalWhite transition">
-              <LineIcon name="x" className="w-5 h-5" />
+            <button
+              type="button"
+              className="upe-ai-panel__close"
+              aria-label="Fechar Atlas AI Tutor"
+              onClick={handleClose}
+            >
+              <LineIcon name="close" />
             </button>
-          </div>
+          </header>
 
-          {/* Chat Body */}
-          <div className="p-4 overflow-y-auto flex-1 space-y-4">
-            
-            {/* User Message */}
-            <div className="flex flex-col items-end">
-              <div className="bg-slate-800 text-clinicalWhite text-sm p-3 rounded-2xl rounded-tr-sm max-w-[85%] border border-slate-700">
-                Contexto: <strong>{atlasAITutorMock.structure}</strong>
-                <br />
-                {atlasAITutorMock.question}
-              </div>
-            </div>
-
-            {/* AI Response */}
-            <div className="flex flex-col items-start">
-              <div className="bg-techTeal/5 text-clinicalWhite text-sm p-4 rounded-2xl rounded-tl-sm max-w-[95%] border border-techTeal/20 shadow-inner">
-                <p className="mb-3 leading-relaxed">{atlasAITutorMock.answer.description}</p>
-                
-                <div className="mb-3 bg-alertWarning/10 p-3 rounded-lg border border-alertWarning/20">
-                  <h4 className="text-alertWarning text-xs font-bold flex items-center mb-1">
-                    <LineIcon name="alert-triangle" className="w-3 h-3 mr-1" /> Importância Clínica
-                  </h4>
-                  <p className="text-xs text-slate-300">{atlasAITutorMock.answer.clinicalImportance}</p>
-                </div>
-
-                <div className="mb-3">
-                  <h4 className="text-techTeal text-xs font-bold mb-2">Estruturas Relacionadas</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {atlasAITutorMock.answer.relatedStructures.map((struct, i) => (
-                      <span key={i} className="text-[10px] bg-slate-800 px-2 py-1 rounded border border-slate-700">{struct}</span>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="text-techTeal text-xs font-bold mb-2">Plano de Revisão Automático</h4>
-                  <div className="space-y-1">
-                    {atlasAITutorMock.answer.suggestedReview.map((step, i) => (
-                      <p key={i} className="text-xs text-slate-300">• {step}</p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Actions Footer */}
-          <div className="p-4 border-t border-white/10 bg-black/20 relative z-10">
-            <p className="text-[10px] text-textMuted uppercase mb-2 font-medium tracking-wider">Ações Rápidas (RAG)</p>
-            <div className="flex flex-wrap gap-2">
-              <button className="text-xs atlas-liquid-glass-button px-3 py-1.5 flex items-center">Estruturas relacionadas</button>
-              <button className="text-xs atlas-liquid-glass-button px-3 py-1.5 flex items-center">Importância clínica</button>
-              <button className="text-xs atlas-liquid-glass-button px-3 py-1.5 flex items-center"><LineIcon name="file-text" className="w-3 h-3 mr-1" /> Gerar mini simulado</button>
-              <button className="text-xs bg-techTeal/10 hover:bg-techTeal/20 text-techTeal px-3 py-1.5 rounded-full border border-techTeal/30 transition flex items-center"><LineIcon name="cpu" className="w-3 h-3 mr-1" /> Criar plano de revisão</button>
-            </div>
-          </div>
-        </div>
+          <AtlasAIConversation
+            contextLabel="Contexto atual"
+            contextTitle={context.structure}
+            contextPrompt={context.question}
+            messages={messages}
+            isThinking={isThinking}
+            draft={draft}
+            setDraft={setDraft}
+            onSend={handleSendMessage}
+            quickQuestions={context.quickActions}
+          />
+        </AeternumGlassSurface>
       )}
 
-      {/* Floating Button Trigger */}
-      {!isOpen && (
-        <button 
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 z-50 flex items-center space-x-2 atlas-liquid-glass p-3 !rounded-full border border-techTeal/50 shadow-[0_0_20px_rgba(45,212,191,0.2)] hover:bg-techTeal/10 transition group hover:scale-105">
-          <div className="w-10 h-10 rounded-full bg-techTeal/20 flex items-center justify-center relative">
-            <LineIcon name="cpu" className="w-5 h-5 text-techTeal relative z-10" />
-            <div className="absolute inset-0 rounded-full border border-techTeal/50 animate-ping opacity-20"></div>
-          </div>
-          <span className="font-bold text-techTeal pr-4 text-sm group-hover:text-clinicalWhite transition">Atlas AI</span>
-        </button>
-      )}
-    </>
+      {isDragging ? <div className="upe-ai-orb-drag-surface" aria-hidden="true" /> : null}
+
+      <AeternumGlassSurface
+        ref={triggerRef}
+        as="button"
+        type="button"
+        variant={sphereOnly ? "clear" : "regular"}
+        depth="standard"
+        interactive
+        className={[
+          "upe-ai-trigger",
+          isOpen ? "is-open" : "",
+          "aog-morph-source",
+          sphereOnly ? "is-orb-only" : "",
+          draggable ? "is-draggable" : "",
+          isDragging ? "is-dragging" : ""
+        ].filter(Boolean).join(" ")}
+        aria-label={sphereOnly ? "Abrir Atlas AI Tutor. Arraste para reposicionar." : undefined}
+        aria-expanded={isOpen}
+        aria-controls="upe-ai-panel"
+        style={triggerStyle}
+        onClick={handleTriggerClick}
+        {...dragHandlers}
+      >
+        <AtlasAIOrb state={orbState} size={sphereOnly ? "lg" : "md"} />
+        {!sphereOnly && (
+          <span>
+            <strong>Atlas AI</strong>
+            <small>{isThinking ? "Analisando" : isOpen ? "Ouvindo" : "Tutor anatômico"}</small>
+          </span>
+        )}
+      </AeternumGlassSurface>
+    </>,
+    document.body
   );
 }
