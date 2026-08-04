@@ -1,3 +1,6 @@
+import { forwardRef } from "react";
+import AeternumGlassSurface from "../system/AeternumGlassSurface";
+
 const variants = {
   primary: "border-agedGold/50 bg-gradient-to-br from-[#f0daa0] via-agedGold to-[#8d7438] text-[#11100b]",
   teal: "border-techTeal/50 bg-gradient-to-br from-[#78efea] via-techTeal to-[#197f85] text-[#031112]",
@@ -6,16 +9,37 @@ const variants = {
   danger: "border-red-300/25 bg-red-400/10 text-red-100"
 };
 
-export default function Button({ as: Component = "button", variant = "ghost", className = "", children, ...props }) {
+const glassVariants = {
+  primary: "prominent",
+  teal: "prominent",
+  outline: "clear",
+  ghost: "clear",
+  danger: "regular"
+};
+
+const Button = forwardRef(function Button({
+  as: Component = "button",
+  variant = "ghost",
+  className = "",
+  children,
+  ...props
+}, forwardedRef) {
   const defaultType = Component === "button" && !props.type ? { type: "button" } : {};
 
   return (
-    <Component
-      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-5 text-sm font-bold transition duration-200 hover:-translate-y-0.5 hover:shadow-glow disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`}
+    <AeternumGlassSurface
+      ref={forwardedRef}
+      as={Component}
+      variant={glassVariants[variant] || "clear"}
+      interactive={!props.disabled}
+      className={`atlas-crystal-control inline-flex min-h-11 items-center justify-center gap-2 rounded-full border px-5 text-sm font-bold transition duration-200 disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`}
+      data-crystal-variant={variant}
       {...defaultType}
       {...props}
     >
       {children}
-    </Component>
+    </AeternumGlassSurface>
   );
-}
+});
+
+export default Button;

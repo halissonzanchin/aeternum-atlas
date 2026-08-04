@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AeternumLogo from "../../components/AeternumLogo";
+import AuthExperienceShell from "../../components/AuthExperienceShell/AuthExperienceShell";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import LanguageSelector from "../../components/LanguageSelector";
@@ -16,7 +16,8 @@ export default function Login({ navigate, onAuth }) {
   const [loading, setLoading] = useState(false);
 
   function update(event) {
-    setValues({ ...values, [event.target.name]: event.target.value });
+    const { name, value } = event.target;
+    setValues(current => ({ ...current, [name]: value }));
   }
 
   async function submit(event) {
@@ -40,15 +41,15 @@ export default function Login({ navigate, onAuth }) {
   }
 
   return (
-    <main className="grid min-h-screen place-items-center p-5">
-      <Card className="w-full max-w-lg">
-        <div className="mb-7 flex justify-center">
-          <AeternumLogo variant="symbol" size="lg" theme="transparent" />
+    <AuthExperienceShell>
+      <Card className="atlas-auth-card w-full max-w-lg" depth="substantial">
+        <div className="atlas-auth-card__topline">
+          <span>{t("auth.secureAccess")}</span>
+          <LanguageSelector compact />
         </div>
-        <div className="mb-4 flex justify-end"><LanguageSelector compact /></div>
-        <p className="eyebrow">{t("auth.secureAccess")}</p>
+        <p className="eyebrow mt-8">{t("auth.accessAccount")}</p>
         <h1 className="display-title">{t("auth.loginShort")}</h1>
-        <p className="mt-4 text-textMuted">{t("auth.loginDescription")}</p>
+        <p className="mt-4 max-w-md text-textMuted">{t("auth.loginDescription")}</p>
         <form className="mt-8 grid gap-5" onSubmit={submit}>
           <label className="field">
             <span>{t("auth.email")}</span>
@@ -57,7 +58,7 @@ export default function Login({ navigate, onAuth }) {
           </label>
           <label className="field">
             <span>{t("auth.password")}</span>
-            <div className="flex rounded-2xl border border-white/10 bg-blackDeep/60 focus-within:border-techTeal/70">
+            <div className="atlas-auth-password-field flex rounded-2xl border border-white/10 bg-blackDeep/60 focus-within:border-techTeal/70">
               <input className="min-h-11 flex-1 border-0 bg-transparent px-4 outline-none" name="password" type={showPassword ? "text" : "password"} value={values.password} onChange={update} autoComplete="current-password" />
               <button type="button" className="px-4 text-sm font-bold text-techTeal" onClick={() => setShowPassword(!showPassword)}>{showPassword ? t("auth.hidePassword") : t("auth.showPassword")}</button>
             </div>
@@ -71,6 +72,6 @@ export default function Login({ navigate, onAuth }) {
           <Button variant="outline" onClick={() => navigate("/register")}>{t("auth.newAccount")}</Button>
         </div>
       </Card>
-    </main>
+    </AuthExperienceShell>
   );
 }

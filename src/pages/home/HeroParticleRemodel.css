@@ -1,0 +1,225 @@
+/* Public hero remodel: the interactive mesh is the primary spatial system. */
+.cinematic-home .home-hero.cinematic-home-hero.aeternum-hero {
+  min-height: max(760px, 100svh);
+  background: #02080b;
+}
+
+.cinematic-home .aeternum-hero-background {
+  opacity: 1;
+  transform: none;
+}
+
+.cinematic-home .aeternum-hero::before {
+  z-index: 2;
+  opacity: 0.72;
+  background:
+    linear-gradient(90deg, rgba(127, 247, 244, 0.2), transparent 26%) top left / min(26vw, 420px) 1px no-repeat,
+    linear-gradient(180deg, rgba(214, 183, 106, 0.16), transparent 32%) top left / 1px min(34vh, 340px) no-repeat;
+}
+
+.cinematic-home .aeternum-hero::after {
+  z-index: 3;
+  background:
+    linear-gradient(180deg, rgba(1, 7, 10, 0.94) 0%, rgba(1, 7, 10, 0.5) 88px, transparent 190px),
+    linear-gradient(0deg, rgba(1, 6, 8, 0.9) 0%, rgba(1, 6, 8, 0.28) 18%, transparent 39%);
+}
+
+.cinematic-home .aeternum-hero-content {
+  z-index: 6;
+  width: min(92vw, 1680px);
+  min-height: max(700px, calc(100svh - 68px));
+  grid-template-columns: 1fr;
+  align-items: center;
+  padding: clamp(130px, 14vh, 170px) 0 clamp(156px, 17vh, 196px);
+}
+
+.cinematic-home .aeternum-hero-copy {
+  width: min(58vw, 760px);
+  max-width: 760px;
+}
+
+.cinematic-home .aeternum-hero-copy::before {
+  inset: -56px -80px -62px -48px;
+  border: 1px solid rgba(127, 247, 244, 0.08);
+  border-right-color: transparent;
+  background:
+    linear-gradient(115deg, rgba(3, 13, 17, 0.9), rgba(3, 13, 17, 0.34) 55%, transparent 82%);
+  box-shadow:
+    inset 1px 0 0 rgba(214, 183, 106, 0.14),
+    0 30px 90px rgba(0, 0, 0, 0.22);
+  filter: none;
+}
+
+.cinematic-home .aeternum-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(158, 239, 234, 0.74);
+}
+
+.cinematic-home .aeternum-hero-eyebrow::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7ff7f4;
+  box-shadow: 0 0 14px rgba(127, 247, 244, 0.78);
+  content: "";
+}
+
+.cinematic-home .aeternum-hero-divider {
+  width: min(240px, 52%);
+  opacity: 0.78;
+}
+
+.cinematic-home .aeternum-hero-copy h1 {
+  margin-top: clamp(22px, 3.2vh, 38px);
+  font-size: clamp(3.7rem, 6vw, 7.75rem);
+  line-height: 0.82;
+  letter-spacing: 0.07em;
+}
+
+.cinematic-home .aeternum-hero-copy h1 span:last-child {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(214, 183, 106, 0.88);
+  text-shadow: 0 0 32px rgba(214, 183, 106, 0.08);
+}
+
+.cinematic-home .aeternum-hero-copy p {
+  max-width: 590px;
+  margin-top: clamp(26px, 3.6vh, 38px);
+  padding-left: 18px;
+  border-left: 1px solid rgba(127, 247, 244, 0.22);
+  color: rgba(235, 245, 243, 0.76);
+  font-size: clamp(0.94rem, 1vw, 1.08rem);
+  line-height: 1.8;
+}
+
+.cinematic-home .aeternum-hero-actions {
+  margin-top: clamp(30px, 4vh, 44px);
+}
+
+.cinematic-home .aeternum-hero-primary,
+.cinematic-home .aeternum-hero-secondary {
+  min-height: 54px;
+  border-radius: 4px;
+}
+
+.cinematic-home .aeternum-hero-primary {
+  box-shadow:
+    0 14px 40px rgba(47, 184, 181, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.cinematic-home .aeternum-hero-feature-bar {
+  z-index: 8;
+  bottom: clamp(18px, 3vh, 34px);
+  width: min(92vw, 1680px);
+  border: 1px solid rgba(127, 247, 244, 0.09);
+  border-radius: 6px;
+  background: rgba(3, 13, 17, 0.7);
+  box-shadow:
+    0 20px 58px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(16px);
+}
+
+.cinematic-home .aeternum-hero-feature-card {
+  min-height: 92px;
+  border-right-color: rgba(127, 247, 244, 0.08);
+  background: transparent;
+}
+
+.cinematic-home .aeternum-hero-feature-card:hover,
+.cinematic-home .aeternum-hero-feature-card:focus-visible {
+  background: linear-gradient(180deg, rgba(127, 247, 244, 0.08), rgba(127, 247, 244, 0.025));
+}
+
+@media (max-width: 1180px) {
+  .cinematic-home .aeternum-hero-content {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 28px;
+    padding: 138px 0 190px;
+  }
+
+  .cinematic-home .aeternum-hero-copy {
+    width: min(86vw, 680px);
+    justify-self: center;
+    text-align: center;
+  }
+
+  .cinematic-home .aeternum-hero-copy::before {
+    inset: -36px -32px -42px;
+    border-right-color: rgba(127, 247, 244, 0.08);
+    background: rgba(3, 13, 17, 0.48);
+  }
+
+  .cinematic-home .aeternum-hero-eyebrow {
+    justify-content: center;
+  }
+
+  .cinematic-home .aeternum-hero-divider {
+    margin-inline: auto;
+  }
+
+  .cinematic-home .aeternum-hero-copy p {
+    margin-inline: auto;
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .cinematic-home .aeternum-hero-actions {
+    justify-content: center;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .cinematic-home .home-hero.cinematic-home-hero.aeternum-hero {
+    min-height: auto;
+  }
+
+  .cinematic-home .aeternum-hero-content {
+    width: min(90vw, 680px);
+    padding: 122px 0 260px;
+  }
+
+  .cinematic-home .aeternum-hero-copy::before {
+    inset: -26px -18px -32px;
+  }
+
+  .cinematic-home .aeternum-hero-copy h1 {
+    font-size: clamp(3rem, 15vw, 5.2rem);
+  }
+
+  .cinematic-home .aeternum-hero-copy p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .cinematic-home .aeternum-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .cinematic-home .aeternum-hero-primary,
+  .cinematic-home .aeternum-hero-secondary {
+    width: 100%;
+  }
+
+  .cinematic-home .aeternum-hero-feature-bar {
+    bottom: 18px;
+    width: min(90vw, 680px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cinematic-home .aeternum-hero-feature-card {
+    min-height: 88px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-home .aeternum-hero-background {
+    transform: none !important;
+  }
+}

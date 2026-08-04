@@ -1,0 +1,330 @@
+/* Priority 1: compact navigation, editorial hero and concise benefit strip. */
+.cinematic-home .cinematic-public-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: auto minmax(420px, 1fr) auto;
+  align-items: center;
+  gap: clamp(20px, 3vw, 52px);
+  width: 100%;
+  height: 92px;
+  min-height: 92px;
+  padding: 0 clamp(24px, 3.6vw, 68px);
+  border-bottom: 1px solid rgba(127, 247, 244, 0.12);
+  background: rgba(1, 8, 11, 0.84);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(22px) saturate(135%);
+}
+
+.cinematic-home .cinematic-public-header::after {
+  right: clamp(24px, 3.6vw, 68px);
+  bottom: 0;
+  left: clamp(24px, 3.6vw, 68px);
+  opacity: 0.62;
+}
+
+.cinematic-home .brand-lockup {
+  max-height: 72px;
+}
+
+.cinematic-home .brand-lockup .aeternum-logo {
+  gap: 12px;
+}
+
+.cinematic-home .brand-lockup .aeternum-logo--md .aeternum-logo__symbol-wrap {
+  width: 54px;
+}
+
+.cinematic-home .brand-lockup .aeternum-logo--md .aeternum-logo__name {
+  font-size: 0.9rem;
+  letter-spacing: 0.17em;
+}
+
+.cinematic-home .public-home-nav {
+  justify-self: center;
+  width: min(100%, 720px);
+  max-width: 720px;
+  min-height: 50px;
+  padding: 5px 7px;
+  border-color: rgba(127, 247, 244, 0.14);
+  background: rgba(4, 17, 21, 0.52);
+}
+
+.cinematic-home .public-home-nav-button {
+  min-height: 40px;
+  padding-inline: clamp(10px, 1vw, 16px);
+  font-size: 0.76rem;
+}
+
+.cinematic-home .public-actions {
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+.cinematic-home .public-actions > button {
+  min-height: 42px;
+  padding-inline: 17px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.cinematic-home .public-actions > button:last-child {
+  min-width: 132px;
+  box-shadow: 0 12px 30px rgba(47, 184, 181, 0.16);
+}
+
+.cinematic-home .home-hero.cinematic-home-hero.aeternum-hero {
+  min-height: max(720px, 100svh);
+}
+
+.cinematic-home .aeternum-hero-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  width: min(91vw, 1680px);
+  min-height: max(720px, 100svh);
+  padding: 132px 0 156px;
+}
+
+.cinematic-home .aeternum-hero-copy {
+  width: min(58vw, 750px);
+  max-width: 750px;
+}
+
+.cinematic-home .aeternum-hero-copy h1 {
+  font-size: clamp(3.9rem, 6vw, 7.35rem);
+  line-height: 0.84;
+}
+
+.cinematic-home .aeternum-hero-copy p {
+  max-width: 570px;
+}
+
+.cinematic-home .aeternum-hero-actions {
+  align-items: center;
+  gap: 14px;
+}
+
+.cinematic-home .aeternum-hero-primary {
+  min-width: 246px;
+}
+
+.cinematic-home .aeternum-hero-secondary {
+  min-width: 214px;
+  border-color: transparent;
+  background: rgba(3, 13, 17, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(127, 247, 244, 0.13);
+}
+
+.cinematic-home .aeternum-hero-secondary:hover,
+.cinematic-home .aeternum-hero-secondary:focus-visible {
+  border-color: transparent;
+  background: rgba(127, 247, 244, 0.07);
+  box-shadow: inset 0 0 0 1px rgba(127, 247, 244, 0.24);
+}
+
+.cinematic-home .aeternum-hero-feature-bar {
+  bottom: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(91vw, 1680px);
+  overflow: hidden;
+}
+
+.cinematic-home .aeternum-hero-feature-card {
+  min-height: 84px;
+  padding: 17px clamp(18px, 2vw, 32px);
+}
+
+.cinematic-home .aeternum-hero-feature-card:last-child {
+  border-right: 0;
+}
+
+@media (max-width: 1180px) {
+  .cinematic-home .cinematic-public-header {
+    grid-template-columns: auto 1fr;
+    gap: 18px;
+    height: 84px;
+    min-height: 84px;
+    padding-inline: 24px;
+  }
+
+  .cinematic-home .public-actions {
+    justify-self: end;
+  }
+
+  .cinematic-home .aeternum-hero-content {
+    padding-top: 124px;
+  }
+
+  .cinematic-home .aeternum-hero-copy {
+    width: min(76vw, 700px);
+    justify-self: center;
+    text-align: center;
+  }
+
+  .cinematic-home .aeternum-hero-copy p,
+  .cinematic-home .aeternum-hero-divider {
+    margin-inline: auto;
+  }
+
+  .cinematic-home .aeternum-hero-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .cinematic-home .cinematic-public-header {
+    position: sticky;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    height: 76px;
+    min-height: 76px;
+    padding: 8px 12px;
+  }
+
+  .cinematic-home .brand-lockup {
+    width: 44px;
+    max-width: 44px;
+    max-height: 58px;
+  }
+
+  .cinematic-home .brand-lockup .aeternum-logo--md .aeternum-logo__symbol-wrap {
+    width: 42px !important;
+  }
+
+  .cinematic-home .public-actions {
+    display: flex;
+    width: auto;
+    min-width: 0;
+    gap: 5px;
+  }
+
+  .cinematic-home .public-mobile-language {
+    flex: 0 0 38px;
+  }
+
+  .cinematic-home .public-actions > button {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 36px;
+    padding-inline: 9px;
+    font-size: 0.65rem;
+    line-height: 1;
+  }
+
+  .cinematic-home .public-actions > button:last-child {
+    grid-column: auto;
+    min-width: 0;
+  }
+
+  .cinematic-home .home-hero.cinematic-home-hero.aeternum-hero {
+    display: flex !important;
+    height: auto !important;
+    min-height: 0 !important;
+    flex-direction: column;
+    padding: 0 0 18px !important;
+  }
+
+  .cinematic-home .aeternum-hero-content {
+    display: flex;
+    width: min(92vw, 620px);
+    height: auto !important;
+    min-height: 0 !important;
+    align-items: center;
+    justify-content: center;
+    padding: 58px 0 44px !important;
+  }
+
+  .cinematic-home .aeternum-hero-copy {
+    width: 100%;
+    max-width: 620px;
+    text-align: center;
+  }
+
+  .cinematic-home .aeternum-hero-copy::before {
+    inset: -20px -10px -24px;
+  }
+
+  .cinematic-home .aeternum-hero-eyebrow {
+    justify-content: center;
+    max-width: 32ch;
+    margin-inline: auto;
+    line-height: 1.5;
+  }
+
+  .cinematic-home .aeternum-hero-divider {
+    margin-inline: auto;
+  }
+
+  .cinematic-home .aeternum-hero-copy h1 {
+    margin-top: 24px;
+    font-size: clamp(3rem, 15.5vw, 5rem);
+    line-height: 0.88;
+    letter-spacing: 0.045em;
+  }
+
+  .cinematic-home .aeternum-hero-copy p {
+    max-width: 34ch;
+    margin: 28px auto 0;
+    padding: 0;
+    border: 0;
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .cinematic-home .aeternum-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .cinematic-home .aeternum-hero-primary,
+  .cinematic-home .aeternum-hero-secondary {
+    width: 100%;
+    min-width: 0;
+    min-height: 50px;
+  }
+
+  .cinematic-home .aeternum-hero-feature-bar {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    width: calc(100% - 24px);
+    margin: 0 12px;
+    border-radius: 16px;
+    transform: none;
+  }
+
+  .cinematic-home .aeternum-hero-feature-card,
+  .cinematic-home .aeternum-hero-feature-card:nth-child(even),
+  .cinematic-home .aeternum-hero-feature-card:last-child {
+    min-height: 70px;
+    padding: 13px 17px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(127, 247, 244, 0.08);
+  }
+
+  .cinematic-home .aeternum-hero-feature-card:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 410px) {
+  .cinematic-home .public-mobile-language {
+    display: none;
+  }
+
+  .cinematic-home .public-actions > button {
+    font-size: 0.61rem;
+  }
+}

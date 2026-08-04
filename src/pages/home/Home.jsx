@@ -4,9 +4,14 @@ import AeternumLogo from "../../components/AeternumLogo";
 import LanguageSelector from "../../components/LanguageSelector";
 import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
-import { CinematicScrollIndicator } from "./CinematicHomeEffects";
-import SciFiHeroBackground from "./SciFiHeroBackground";
-import { VascularBackground } from "./VascularBackground";
+import AtlasSolarSystem from "./AtlasSolarSystem";
+import ParticleMeshBackground from "./ParticleMeshBackground";
+import "./HeroParticleRemodel.css";
+import "./HomePriorityOne.css";
+import "./HomePriorityTwo.css";
+import "./HomePriorityThree.css";
+import "./HomePriorityFour.css";
+import "./AtlasSolarSystemPremium.css";
 
 const modules = [
   ["navigation.anatomicalAtlas", "publicHome.modules.atlas", "library", "/atlas"],
@@ -16,12 +21,15 @@ const modules = [
   ["viewer.library", "publicHome.modules.library", "favorite", "/models"]
 ];
 
+const compactModules = [
+  ["navigation.models3d", "publicHome.primaryModuleDescription", "layers", "/models"],
+  ...modules
+];
+
 const heroFeatures = [
   ["publicHome.heroFeatures.models.title", "publicHome.heroFeatures.models.description", "layers", "/models"],
   ["publicHome.heroFeatures.atlas.title", "publicHome.heroFeatures.atlas.description", "library", "/atlas"],
-  ["publicHome.heroFeatures.content.title", "publicHome.heroFeatures.content.description", "note", "/courses"],
-  ["publicHome.heroFeatures.access.title", "publicHome.heroFeatures.access.description", "lock", "/register"],
-  ["publicHome.heroFeatures.study.title", "publicHome.heroFeatures.study.description", "target", "/models"]
+  ["publicHome.heroFeatures.content.title", "publicHome.heroFeatures.content.description", "note", "/courses"]
 ];
 
 const headerNavItems = [
@@ -37,8 +45,8 @@ export default function Home({ navigate }) {
   const heroRef = useRef(null);
   const reducedMotionRef = useRef(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [pageScrollProgress, setPageScrollProgress] = useState(0);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const [headerScrolled, setHeaderScrolled] = useState(false);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -91,28 +99,47 @@ export default function Home({ navigate }) {
 
   useEffect(() => {
     let frame = 0;
-
-    const updateScrollProgress = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const nextProgress = docHeight > 0 ? Math.round((scrollTop / docHeight) * 100) : 0;
-
-      setPageScrollProgress(Math.min(100, Math.max(0, nextProgress)));
-    };
-
-    const onScroll = () => {
+    const updateHeader = () => {
       window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(updateScrollProgress);
+      frame = window.requestAnimationFrame(() => setHeaderScrolled(window.scrollY > 36));
     };
 
-    updateScrollProgress();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
     return () => {
       window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("scroll", updateHeader);
+    };
+  }, []);
+
+  useEffect(() => {
+    const revealItems = [...document.querySelectorAll("[data-home-reveal]")];
+    if (!revealItems.length) return undefined;
+
+    if (reducedMotionRef.current || !("IntersectionObserver" in window)) {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+    const revealFallback = window.setTimeout(() => {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+    }, 1400);
+
+    return () => {
+      window.clearTimeout(revealFallback);
+      observer.disconnect();
     };
   }, []);
 
@@ -186,14 +213,9 @@ export default function Home({ navigate }) {
 
   return (
     <>
-      <CinematicScrollIndicator
-        label={t("publicHome.openAtlas")}
-        progress={pageScrollProgress}
-        onOpen={() => navigate("/models")}
-      />
-
       <main className="premium-page home-premium cinematic-home" style={cinematicStyle}>
-      <header className="premium-public-header cinematic-public-header">
+      <a className="p3-skip-link" href="#home-modules">{t("publicHome.skipToContent")}</a>
+      <header className={`premium-public-header cinematic-public-header${headerScrolled ? " is-scrolled" : ""}`}>
         <button className="brand-lockup" onClick={() => navigate("/")} aria-label={t("publicHome.homeLabel")}>
           <AeternumLogo variant="horizontal" size="md" theme="transparent" />
         </button>
@@ -233,8 +255,7 @@ export default function Home({ navigate }) {
         onPointerLeave={handlePointerLeave}
       >
         <div className="aeternum-hero-background" aria-hidden="true">
-          <SciFiHeroBackground />
-          <VascularBackground />
+          <ParticleMeshBackground />
           <div className="aeternum-hero-orb-glow" />
           <div className="aeternum-hero-floor-glow" />
         </div>
@@ -260,15 +281,8 @@ export default function Home({ navigate }) {
             </div>
           </div>
 
-          <div className="aeternum-hero-emblem-area" aria-label="Aeternum Atlas">
-            <div className="aeternum-emblem-ring">
-              <span className="aeternum-emblem-orbit aeternum-emblem-orbit-one" />
-              <span className="aeternum-emblem-orbit aeternum-emblem-orbit-two" />
-              <span className="aeternum-emblem-spark aeternum-emblem-spark-top" />
-              <span className="aeternum-emblem-spark aeternum-emblem-spark-bottom" />
-              <AeternumLogo variant="symbol" size="xl" theme="transparent" className="aeternum-hero-emblem" />
-            </div>
-          </div>
+          <AtlasSolarSystem t={t} onExplore={(path = "/atlas") => navigate(path)} />
+
         </div>
 
         <div className="aeternum-hero-feature-bar" aria-label={t("publicHome.featuredResourcesLabel")}>
@@ -293,51 +307,59 @@ export default function Home({ navigate }) {
       </section>
 
       <section id="home-modules" className="home-landing-modules" aria-label={t("publicHome.featuredResourcesLabel")}>
-        <div className="trial-banner fade-in-up" style={{ animationDelay: "90ms" }}>
+        <header className="p2-section-heading p3-reveal" data-home-reveal>
+          <span>{t("publicHome.platformEyebrow")}</span>
+          <div>
+            <h2>{t("publicHome.platformTitle")}</h2>
+            <p>{t("publicHome.platformDescription")}</p>
+          </div>
+        </header>
+
+        <div className="p2-compact-directory p3-reveal" data-home-reveal>
+          {compactModules.map(([titleKey, descriptionKey, icon, path], index) => (
+            <button
+              key={`${titleKey}-${index}`}
+              className="p2-directory-card"
+              onClick={() => navigate(path)}
+              aria-label={`${t(titleKey)} — ${t(descriptionKey)}`}
+            >
+              <span className="p2-directory-number">{String(index + 1).padStart(2, "0")}</span>
+              <span className="p2-directory-icon" aria-hidden="true"><LineIcon name={icon} /></span>
+              <span className="p2-directory-copy">
+                <strong>{t(titleKey)}</strong>
+                <small>{t(descriptionKey)}</small>
+              </span>
+              <span className="p2-directory-arrow" aria-hidden="true"><LineIcon name="chevron" /></span>
+            </button>
+          ))}
+        </div>
+
+        <div className="p2-institutional-cta p3-reveal" data-home-reveal>
+          <div className="p2-institutional-mark" aria-hidden="true">
+            <LineIcon name="library" />
+          </div>
           <div>
             <span>{t("publicHome.institutionalAccessTitle").toUpperCase()}</span>
             <p>{t("publicHome.institutionalAccessText")}</p>
           </div>
           <Button variant="teal" onClick={() => navigate("/register")}>{t("publicHome.createAccessButton").toUpperCase()}</Button>
         </div>
-
-        <div className="home-content-grid fade-in-up" style={{ animationDelay: "150ms" }}>
-          <button className="home-feature-card home-feature-primary" onClick={() => navigate("/models")}>
-            <div className="feature-visual">
-              <div className="body-silhouette" />
-              <div className="scan-ring ring-one" />
-              <div className="scan-ring ring-two" />
-            </div>
-            <div className="feature-content">
-              <span className="premium-badge teal">{t("common.moduleMain")}</span>
-              <h3>{t("navigation.models3d")}</h3>
-              <p>{t("publicHome.primaryModuleDescription")}</p>
-            </div>
-          </button>
-
-          <div className="home-module-grid">
-            {modules.map(([titleKey, descriptionKey, icon, path], index) => (
-              <button
-                key={titleKey}
-                className="home-feature-card"
-                onClick={() => navigate(path)}
-                aria-label={t(titleKey)}
-                style={{ "--module-delay": `${220 + index * 65}ms` }}
-              >
-                <span className="module-icon">
-                  <LineIcon name={icon} />
-                </span>
-                <span className="premium-badge teal">{t("common.available")}</span>
-                <h3>{t(titleKey)}</h3>
-                <p>{t(descriptionKey)}</p>
-              </button>
-            ))}
-          </div>
-        </div>
       </section>
 
-      <footer className="premium-footer">
-        {t("publicHome.footer")}
+      <footer className="premium-footer p3-premium-footer">
+        <button className="p3-footer-brand" onClick={() => navigate("/")} aria-label={t("publicHome.homeLabel")}>
+          <AeternumLogo variant="horizontal" size="sm" theme="transparent" />
+        </button>
+        <nav className="p3-footer-nav" aria-label={t("publicHome.footerNavigationLabel")}>
+          <button onClick={() => navigate("/models")}>{t("navigation.models3d")}</button>
+          <button onClick={() => navigate("/atlas")}>{t("navigation.anatomicalAtlas")}</button>
+          <button onClick={() => navigate("/courses")}>{t("navigation.courses")}</button>
+        </nav>
+        <div className="p3-footer-status">
+          <span aria-hidden="true" />
+          {t("publicHome.platformStatus")}
+        </div>
+        <p>{t("publicHome.footer")}</p>
       </footer>
       </main>
     </>

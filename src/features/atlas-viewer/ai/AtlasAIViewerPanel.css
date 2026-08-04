@@ -1,0 +1,223 @@
+.atlas-viewer-ai-orb-control {
+  position: fixed;
+  z-index: 92;
+  display: grid;
+  width: 64px;
+  height: 64px;
+  padding: 4px;
+  place-items: center;
+  border: 0;
+  border-radius: 22px;
+  background: transparent;
+  box-shadow: none;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: filter 220ms ease, scale 220ms ease;
+}
+
+.atlas-viewer-ai-orb-control:hover,
+.atlas-viewer-ai-orb-control:focus-visible {
+  outline: none;
+  scale: 1.035;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.52))
+    drop-shadow(0 0 16px rgba(50, 213, 202, 0.2));
+}
+
+.atlas-viewer-ai-orb-control:focus-visible {
+  box-shadow: 0 0 0 2px rgba(3, 13, 17, 0.96), 0 0 0 4px rgba(129, 241, 232, 0.68);
+}
+
+.atlas-viewer-ai-orb-control.is-dragging {
+  cursor: grabbing;
+  scale: 0.98;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.62))
+    drop-shadow(0 0 24px rgba(50, 213, 202, 0.28));
+}
+
+.atlas-viewer-ai-panel {
+  z-index: 91;
+}
+
+.atlas-viewer-ai-panel__body {
+  min-height: 0;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.atlas-viewer-ai-context {
+  width: min(88%, 340px);
+}
+
+.atlas-viewer-ai-messages {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: 13px;
+  overflow-y: auto;
+  padding: 2px 3px 4px;
+  scrollbar-color: rgba(103, 216, 208, 0.25) transparent;
+  scrollbar-width: thin;
+}
+
+.atlas-viewer-ai-message-row {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: flex-start;
+}
+
+.atlas-viewer-ai-message-row.is-user {
+  align-items: flex-end;
+}
+
+.atlas-viewer-ai-message {
+  max-width: 88%;
+  padding: 13px 14px;
+  border: 1px solid rgba(91, 218, 208, 0.16);
+  border-radius: 18px 18px 18px 6px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(60, 189, 181, 0.08), transparent 42%),
+    rgba(7, 27, 31, 0.78);
+  color: rgba(231, 239, 236, 0.83);
+  font-size: 0.75rem;
+  line-height: 1.58;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+}
+
+.atlas-viewer-ai-message.is-user {
+  border-color: rgba(255, 255, 255, 0.08);
+  border-radius: 18px 18px 6px;
+  background: rgba(255, 255, 255, 0.045);
+  color: rgba(245, 248, 247, 0.9);
+}
+
+.atlas-viewer-ai-message p,
+.atlas-viewer-ai-message ul,
+.atlas-viewer-ai-message ol {
+  margin: 0 0 8px;
+}
+
+.atlas-viewer-ai-message > :last-child,
+.atlas-viewer-ai-message p:last-child,
+.atlas-viewer-ai-message ul:last-child,
+.atlas-viewer-ai-message ol:last-child {
+  margin-bottom: 0;
+}
+
+.atlas-viewer-ai-message strong {
+  color: #f1f3ef;
+  font-weight: 720;
+}
+
+.atlas-viewer-ai-action {
+  display: inline-flex;
+  min-height: 30px;
+  padding: 0 11px;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(93, 223, 213, 0.28);
+  border-radius: 999px;
+  background: rgba(52, 187, 180, 0.09);
+  color: #79e3dc;
+  cursor: pointer;
+  font-size: 0.65rem;
+}
+
+.atlas-viewer-ai-action:hover,
+.atlas-viewer-ai-action:focus-visible {
+  border-color: rgba(108, 235, 225, 0.52);
+  background: rgba(52, 187, 180, 0.16);
+  outline: none;
+}
+
+.atlas-viewer-ai-action svg {
+  width: 13px;
+  height: 13px;
+}
+
+.atlas-viewer-ai-thinking {
+  display: inline-flex;
+  min-width: 64px;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 1px solid rgba(91, 218, 208, 0.16);
+  border-radius: 16px 16px 16px 6px;
+  background: rgba(7, 27, 31, 0.78);
+}
+
+.atlas-viewer-ai-thinking span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #68ddd5;
+}
+
+.upe-ai-composer textarea {
+  min-width: 0;
+  max-height: 92px;
+  resize: none;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #edf2ef;
+  font: inherit;
+  font-size: 0.73rem;
+  line-height: 1.45;
+}
+
+.upe-ai-composer textarea::placeholder {
+  color: rgba(176, 198, 195, 0.42);
+}
+
+.upe-ai-composer.has-error {
+  border-color: rgba(248, 113, 113, 0.45);
+  animation: atlas-ai-composer-shake 280ms ease;
+}
+
+.upe-ai-composer button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+@keyframes atlas-ai-composer-shake {
+  0%,
+  100% { transform: translateX(0); }
+  35% { transform: translateX(-4px); }
+  70% { transform: translateX(4px); }
+}
+
+@media (max-width: 720px) {
+  .atlas-viewer-ai-orb-control {
+    width: 60px;
+    height: 60px;
+    padding: 2px;
+    border-radius: 21px;
+  }
+
+  .atlas-viewer-ai-panel {
+    border-radius: 25px;
+  }
+
+  .atlas-viewer-ai-panel .upe-ai-panel__header {
+    padding: 16px;
+  }
+
+  .atlas-viewer-ai-panel .upe-ai-panel__body {
+    padding: 13px;
+  }
+
+  .atlas-viewer-ai-panel .upe-ai-panel__footer {
+    padding: 12px 13px 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atlas-viewer-ai-orb-control {
+    transition: none;
+  }
+}

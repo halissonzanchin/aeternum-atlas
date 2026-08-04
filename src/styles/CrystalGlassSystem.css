@@ -1,0 +1,890 @@
+/*
+ * Aeternum Crystal Glass
+ * Shared visual system inspired by iOS material hierarchy, adapted to the
+ * Aeternum dark anatomical identity. This layer intentionally loads after
+ * globals.css so legacy pages inherit the new material without local rewrites.
+ */
+
+:root {
+  --crystal-ink: #f7fbfb;
+  --crystal-muted: #a8b6bf;
+  --crystal-cyan: 47 205 202;
+  --crystal-gold: 214 184 104;
+  --crystal-green: 87 223 172;
+  --crystal-base: 4 10 14;
+  --crystal-surface: rgba(16, 28, 34, 0.58);
+  --crystal-surface-soft: rgba(17, 31, 38, 0.42);
+  --crystal-surface-strong: rgba(10, 20, 25, 0.82);
+  --crystal-border: rgba(213, 246, 245, 0.13);
+  --crystal-border-strong: rgba(117, 238, 231, 0.25);
+  --crystal-highlight: rgba(255, 255, 255, 0.2);
+  --crystal-highlight-soft: rgba(255, 255, 255, 0.075);
+  --crystal-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.36),
+    0 4px 16px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --crystal-shadow-hover:
+    0 30px 86px rgba(0, 0, 0, 0.42),
+    0 12px 32px rgba(16, 196, 191, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  --crystal-blur: 26px;
+  --crystal-saturation: 138%;
+  --crystal-radius-sm: 14px;
+  --crystal-radius-md: 20px;
+  --crystal-radius-lg: 28px;
+  --crystal-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --crystal-fast: 180ms;
+  --crystal-slow: 420ms;
+}
+
+::selection {
+  background: rgb(var(--crystal-cyan) / 0.28);
+  color: #ffffff;
+}
+
+:where(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid rgb(var(--crystal-cyan) / 0.88);
+  outline-offset: 3px;
+}
+
+.atlas-crystal-app,
+.atlas-auth-page,
+.atlas-crystal-viewer {
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 18% 4%, rgb(var(--crystal-cyan) / 0.12), transparent 34rem),
+    radial-gradient(ellipse at 90% 18%, rgb(var(--crystal-gold) / 0.09), transparent 36rem),
+    linear-gradient(145deg, #03070a 0%, #071117 52%, #04070b 100%);
+}
+
+.atlas-crystal-app::before,
+.atlas-auth-page::before,
+.atlas-crystal-viewer::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(144, 229, 226, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(144, 229, 226, 0.02) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at 62% 32%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse at 62% 32%, #000 0%, transparent 72%);
+  opacity: 0.75;
+}
+
+.atlas-crystal-surface,
+.atlas-crystal-app :where(
+    .premium-panel-card,
+    .kpi-card,
+    .dashboard-main-card,
+    .dashboard-module-card,
+    .study-tool-card,
+    .subscription-card,
+    .atlas-context-panel,
+    .atlas-card,
+    .teacher-hero,
+    .teacher-kpi-card,
+    .teacher-model-card,
+    .teacher-class-detail-card,
+    .teacher-resource-card,
+    .teacher-profile-card,
+    .admin-kpi-card,
+    .admin-health-panel,
+    .admin-license-card,
+    .report-card,
+    .table-card,
+    .agenda-task-card,
+    .institution-banner
+  ),
+.atlas-crystal-viewer :where(
+    .left-info-panel,
+    .viewer-canvas-panel,
+    .right-toolbar,
+    .bottom-system-bar,
+    .viewer-modal,
+    .settings-panel,
+    .viewer-search-drawer,
+    .atlas-liquid-glass-card,
+    .atlas-liquid-glass-panel
+  ) {
+  position: relative;
+  border-color: var(--crystal-border);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.075), transparent 42%),
+    radial-gradient(circle at 8% 0%, rgb(var(--crystal-cyan) / 0.09), transparent 44%),
+    var(--crystal-surface);
+  box-shadow: var(--crystal-shadow);
+  -webkit-backdrop-filter: blur(var(--crystal-blur)) saturate(var(--crystal-saturation));
+  backdrop-filter: blur(var(--crystal-blur)) saturate(var(--crystal-saturation));
+}
+
+.atlas-crystal-surface::before,
+.atlas-crystal-app :where(
+    .premium-panel-card,
+    .kpi-card,
+    .dashboard-main-card,
+    .dashboard-module-card,
+    .study-tool-card,
+    .subscription-card,
+    .atlas-context-panel,
+    .atlas-card,
+    .teacher-hero,
+    .teacher-kpi-card,
+    .teacher-model-card,
+    .teacher-class-detail-card,
+    .teacher-resource-card,
+    .teacher-profile-card,
+    .admin-kpi-card,
+    .admin-health-panel,
+    .admin-license-card,
+    .report-card,
+    .table-card,
+    .agenda-task-card,
+    .institution-banner
+  )::before,
+.atlas-crystal-viewer :where(
+    .left-info-panel,
+    .viewer-canvas-panel,
+    .right-toolbar,
+    .bottom-system-bar,
+    .viewer-modal,
+    .settings-panel,
+    .viewer-search-drawer
+  )::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, 0.14), transparent 15%, transparent 74%, rgb(var(--crystal-cyan) / 0.05)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 34%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+}
+
+.atlas-crystal-surface > *,
+.atlas-crystal-app :where(
+    .premium-panel-card,
+    .kpi-card,
+    .dashboard-main-card,
+    .dashboard-module-card,
+    .study-tool-card,
+    .subscription-card,
+    .atlas-context-panel,
+    .teacher-hero,
+    .teacher-kpi-card,
+    .teacher-model-card,
+    .teacher-class-detail-card,
+    .teacher-resource-card,
+    .teacher-profile-card,
+    .admin-kpi-card,
+    .admin-health-panel,
+    .admin-license-card,
+    .report-card,
+    .table-card,
+    .agenda-task-card,
+    .institution-banner
+  ) > *,
+.atlas-crystal-viewer :where(
+    .left-info-panel,
+    .viewer-canvas-panel,
+    .right-toolbar,
+    .bottom-system-bar,
+    .viewer-modal,
+    .settings-panel,
+    .viewer-search-drawer
+  ) > * {
+  position: relative;
+  z-index: 1;
+}
+
+.atlas-crystal-app :where(
+    .kpi-card,
+    .dashboard-module-card,
+    .study-tool-card,
+    .atlas-card,
+    .teacher-kpi-card,
+    .teacher-model-card,
+    .teacher-class-detail-card,
+    .teacher-resource-card,
+    .admin-kpi-card,
+    .report-card
+  ) {
+  transition:
+    transform var(--crystal-slow) var(--crystal-spring),
+    border-color var(--crystal-fast) ease,
+    box-shadow var(--crystal-slow) var(--crystal-spring),
+    background var(--crystal-slow) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .atlas-crystal-app :where(
+      .kpi-card,
+      .dashboard-module-card,
+      .study-tool-card,
+      .atlas-card,
+      .teacher-kpi-card,
+      .teacher-model-card,
+      .teacher-class-detail-card,
+      .teacher-resource-card,
+      .admin-kpi-card,
+      .report-card
+    ):hover {
+    transform: translateY(-3px);
+    border-color: var(--crystal-border-strong);
+    box-shadow: var(--crystal-shadow-hover);
+  }
+}
+
+.atlas-crystal-toolbar,
+.atlas-crystal-mobile-nav,
+.atlas-crystal-sidebar,
+.premium-public-header,
+.atlas-crystal-viewer .viewer-topbar {
+  border-color: var(--crystal-border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 46%),
+    rgba(5, 14, 19, 0.74);
+  box-shadow:
+    0 18px 48px rgba(0, 0, 0, 0.26),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.035);
+  -webkit-backdrop-filter: blur(calc(var(--crystal-blur) + 4px)) saturate(145%);
+  backdrop-filter: blur(calc(var(--crystal-blur) + 4px)) saturate(145%);
+}
+
+.atlas-crystal-toolbar {
+  min-height: 84px;
+}
+
+.atlas-crystal-sidebar {
+  background:
+    radial-gradient(circle at 40% 3%, rgb(var(--crystal-gold) / 0.1), transparent 16rem),
+    linear-gradient(180deg, rgba(14, 27, 36, 0.78), rgba(4, 10, 15, 0.9));
+  box-shadow:
+    24px 0 80px rgba(0, 0, 0, 0.34),
+    inset -1px 0 rgba(255, 255, 255, 0.045);
+}
+
+.atlas-crystal-sidebar .sidebar-brand {
+  border-bottom-color: rgb(var(--crystal-gold) / 0.18);
+}
+
+.atlas-crystal-sidebar .sidebar-nav button,
+.atlas-crystal-mobile-nav button {
+  border: 1px solid transparent;
+  transition:
+    color var(--crystal-fast) ease,
+    background var(--crystal-fast) ease,
+    border-color var(--crystal-fast) ease,
+    transform var(--crystal-slow) var(--crystal-spring),
+    box-shadow var(--crystal-fast) ease;
+}
+
+.atlas-crystal-sidebar .sidebar-nav button:hover,
+.atlas-crystal-mobile-nav button:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.atlas-crystal-control,
+.atlas-crystal-app :where(
+    .topbar-search,
+    .teacher-section-title button,
+    .teacher-table-actions button,
+    .teacher-toolbar button
+  ),
+.atlas-crystal-viewer :where(
+    .viewer-icon-button,
+    .viewer-soft-button,
+    .viewer-secondary-button,
+    .atlas-liquid-glass-button
+  ) {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(220, 253, 251, 0.15);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.025)),
+    rgba(11, 27, 34, 0.54);
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  transition:
+    transform var(--crystal-slow) var(--crystal-spring),
+    border-color var(--crystal-fast) ease,
+    box-shadow var(--crystal-fast) ease,
+    filter var(--crystal-fast) ease;
+}
+
+.atlas-crystal-control::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(112deg, rgba(255, 255, 255, 0.18), transparent 28%, transparent 72%, rgba(255, 255, 255, 0.04));
+  opacity: 0.7;
+}
+
+.atlas-crystal-control > * {
+  position: relative;
+  z-index: 1;
+}
+
+.atlas-crystal-control[data-crystal-variant="teal"] {
+  border-color: rgb(var(--crystal-cyan) / 0.48);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.32), transparent 34%),
+    linear-gradient(135deg, #78efea 0%, #35c9c5 46%, #208f92 100%);
+  color: #031112;
+  box-shadow:
+    0 14px 36px rgb(var(--crystal-cyan) / 0.19),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.atlas-crystal-control[data-crystal-variant="primary"] {
+  border-color: rgb(var(--crystal-gold) / 0.52);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.3), transparent 34%),
+    linear-gradient(135deg, #f0daa0 0%, #c6a85c 52%, #8d7438 100%);
+  color: #11100b;
+  box-shadow:
+    0 14px 36px rgb(var(--crystal-gold) / 0.17),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.atlas-crystal-control[data-crystal-variant="danger"] {
+  border-color: rgba(248, 113, 113, 0.3);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.09), transparent 38%),
+    rgba(127, 29, 29, 0.42);
+  color: #fee2e2;
+}
+
+.atlas-crystal-control:hover,
+.atlas-crystal-app :where(
+    .topbar-search,
+    .teacher-section-title button,
+    .teacher-table-actions button,
+    .teacher-toolbar button
+  ):hover,
+.atlas-crystal-viewer :where(
+    .viewer-icon-button,
+    .viewer-soft-button,
+    .viewer-secondary-button,
+    .atlas-liquid-glass-button
+  ):hover {
+  border-color: rgb(var(--crystal-cyan) / 0.42);
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.28),
+    0 0 22px rgb(var(--crystal-cyan) / 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.atlas-crystal-control:active,
+.atlas-crystal-viewer :where(.viewer-icon-button, .viewer-soft-button, .viewer-secondary-button):active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.atlas-crystal-control:disabled {
+  filter: saturate(0.35);
+}
+
+.atlas-crystal-app :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea),
+.atlas-auth-page :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea),
+.atlas-crystal-viewer :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  border: 1px solid rgba(220, 253, 251, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent),
+    rgba(3, 10, 14, 0.58);
+  color: var(--crystal-ink);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 8px 22px rgba(0, 0, 0, 0.15);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  transition:
+    border-color var(--crystal-fast) ease,
+    box-shadow var(--crystal-fast) ease,
+    background var(--crystal-fast) ease;
+}
+
+.atlas-crystal-app :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea):focus,
+.atlas-auth-page :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea):focus,
+.atlas-crystal-viewer :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea):focus {
+  border-color: rgb(var(--crystal-cyan) / 0.62);
+  background: rgba(5, 17, 22, 0.82);
+  box-shadow:
+    0 0 0 4px rgb(var(--crystal-cyan) / 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  outline: none;
+}
+
+.atlas-crystal-app select,
+.atlas-auth-page select,
+.atlas-crystal-viewer select {
+  color-scheme: dark;
+}
+
+.atlas-auth-page {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(20px, 5vw, 64px);
+}
+
+.atlas-auth-page::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  width: min(56vw, 760px);
+  aspect-ratio: 1;
+  right: -18vw;
+  bottom: -46%;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 38% 34%, rgba(255, 255, 255, 0.18), transparent 5%),
+    radial-gradient(circle at 50% 50%, rgb(var(--crystal-cyan) / 0.22), rgb(var(--crystal-cyan) / 0.035) 52%, transparent 70%);
+  filter: blur(2px);
+}
+
+.atlas-auth-page > .atlas-crystal-surface {
+  border-color: rgba(219, 250, 248, 0.17);
+  border-radius: clamp(24px, 3vw, 34px);
+  padding: clamp(22px, 4vw, 44px);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.09), transparent 34%),
+    rgba(8, 20, 27, 0.66);
+  box-shadow:
+    0 42px 110px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
+}
+
+.premium-public-header {
+  border-bottom-color: rgba(220, 253, 251, 0.12);
+}
+
+.premium-public-header.is-scrolled {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 60%),
+    rgba(4, 13, 18, 0.82);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.34);
+}
+
+.home-premium :where(
+    .home-feature-card,
+    .home-module-card,
+    .home-access-strip,
+    .hero-action-chip,
+    .hero-status-card
+  ) {
+  border-color: rgba(221, 253, 251, 0.12);
+  background:
+    linear-gradient(140deg, rgba(255, 255, 255, 0.07), transparent 42%),
+    rgba(7, 20, 26, 0.5);
+  box-shadow:
+    0 24px 74px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(24px) saturate(138%);
+  backdrop-filter: blur(24px) saturate(138%);
+}
+
+.atlas-crystal-app :where(.admin-table, .teacher-table) {
+  border-spacing: 0;
+}
+
+.atlas-crystal-app :where(.admin-table, .teacher-table) thead {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.atlas-crystal-app :where(.admin-table, .teacher-table) th {
+  color: rgba(226, 247, 246, 0.7);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.atlas-crystal-app :where(.admin-table, .teacher-table) td {
+  border-color: rgba(224, 251, 250, 0.075);
+}
+
+.atlas-crystal-app :where(.admin-table, .teacher-table) tbody tr {
+  transition: background var(--crystal-fast) ease;
+}
+
+.atlas-crystal-app :where(.admin-table, .teacher-table) tbody tr:hover {
+  background: rgb(var(--crystal-cyan) / 0.055);
+}
+
+.atlas-crystal-overlay,
+.atlas-crystal-app :where(.admin-modal-backdrop, .agenda-modal-backdrop),
+.atlas-crystal-viewer :where(.viewer-modal-backdrop, .viewer-quiz-backdrop, .theory-quiz-backdrop) {
+  background:
+    radial-gradient(circle at 50% 42%, rgb(var(--crystal-cyan) / 0.08), transparent 30rem),
+    rgba(0, 4, 7, 0.72);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  backdrop-filter: blur(18px) saturate(120%);
+}
+
+.atlas-crystal-dialog,
+.atlas-crystal-app :where(.admin-student-modal, .agenda-task-modal),
+.atlas-crystal-viewer :where(.viewer-modal, .viewer-quiz-card, .theory-quiz-shell) {
+  border-color: rgba(223, 252, 250, 0.17);
+  background:
+    linear-gradient(140deg, rgba(255, 255, 255, 0.085), transparent 38%),
+    rgba(8, 19, 25, 0.88);
+  box-shadow:
+    0 48px 130px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(32px) saturate(145%);
+  backdrop-filter: blur(32px) saturate(145%);
+}
+
+.atlas-crystal-viewer .viewer-stage {
+  background:
+    radial-gradient(circle at 50% 22%, rgb(var(--crystal-cyan) / 0.075), transparent 32rem),
+    transparent;
+}
+
+.atlas-crystal-viewer .viewer-canvas-panel {
+  overflow: hidden;
+  border-color: rgb(var(--crystal-cyan) / 0.17);
+}
+
+.atlas-crystal-viewer .viewer-primary-button {
+  border-color: rgba(179, 255, 242, 0.36);
+  background: linear-gradient(145deg, #76e9e2, #27b7b4 58%, #17797d);
+  box-shadow:
+    0 16px 38px rgb(var(--crystal-cyan) / 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.38);
+}
+
+.atlas-crystal-viewer .right-toolbar {
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.065), transparent 38%),
+    rgba(7, 20, 26, 0.66);
+}
+
+.atlas-crystal-app :where(.topbar-avatar, .study-tool-icon, .teacher-kpi-card > span),
+.atlas-crystal-viewer :where(.viewer-icon-button, .atlas-icon-container) {
+  border-color: rgb(var(--crystal-cyan) / 0.3);
+  background:
+    radial-gradient(circle at 32% 20%, rgba(255, 255, 255, 0.16), transparent 32%),
+    rgb(var(--crystal-cyan) / 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.atlas-crystal-app :where(.progress-track, .teacher-progress-track, .admin-bar-track) {
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  background: rgba(1, 7, 10, 0.58);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.38);
+}
+
+@supports not ((-webkit-backdrop-filter: blur(2px)) or (backdrop-filter: blur(2px))) {
+  .atlas-crystal-surface,
+  .atlas-crystal-toolbar,
+  .atlas-crystal-mobile-nav,
+  .atlas-crystal-sidebar,
+  .premium-public-header,
+  .atlas-crystal-viewer .viewer-topbar {
+    background-color: rgba(8, 20, 27, 0.97);
+  }
+
+  .atlas-crystal-app :where(
+      .premium-panel-card,
+      .kpi-card,
+      .dashboard-main-card,
+      .dashboard-module-card,
+      .study-tool-card,
+      .subscription-card,
+      .atlas-context-panel,
+      .atlas-card,
+      .teacher-hero,
+      .teacher-kpi-card,
+      .teacher-model-card,
+      .teacher-class-detail-card,
+      .teacher-resource-card,
+      .admin-kpi-card,
+      .report-card,
+      .table-card
+    ),
+  .atlas-crystal-viewer :where(
+      .left-info-panel,
+      .viewer-canvas-panel,
+      .right-toolbar,
+      .bottom-system-bar,
+      .viewer-modal
+    ) {
+    background-color: rgba(10, 24, 31, 0.96);
+  }
+}
+
+@media (max-width: 1279px) {
+  :root {
+    --crystal-blur: 20px;
+    --crystal-shadow:
+      0 18px 48px rgba(0, 0, 0, 0.34),
+      0 3px 12px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .atlas-crystal-app .page-content {
+    padding: 26px 24px 42px;
+  }
+
+  .atlas-crystal-toolbar {
+    padding-inline: 24px;
+  }
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --crystal-blur: 18px;
+    --crystal-radius-lg: 24px;
+  }
+
+  .atlas-crystal-app {
+    display: block;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .atlas-crystal-app .app-main {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .atlas-crystal-toolbar {
+    min-height: 76px;
+    padding: 14px 20px;
+  }
+
+  .atlas-crystal-toolbar .topbar-search {
+    width: min(360px, 42vw);
+    min-width: 180px;
+  }
+
+  .atlas-crystal-mobile-nav {
+    position: sticky;
+    top: 76px;
+    z-index: 18;
+  }
+
+  .atlas-crystal-app :where(.teacher-dashboard-grid, .teacher-report-grid, .admin-two-columns, .admin-chart-grid) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --crystal-blur: 12px;
+    --crystal-saturation: 120%;
+    --crystal-radius-md: 17px;
+    --crystal-shadow:
+      0 14px 34px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  }
+
+  .atlas-crystal-app::before,
+  .atlas-auth-page::before,
+  .atlas-crystal-viewer::before {
+    background-size: 44px 44px;
+    opacity: 0.46;
+  }
+
+  .atlas-crystal-toolbar {
+    min-height: 68px;
+    padding: 10px 14px;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .atlas-crystal-toolbar .topbar-avatar {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+    border-radius: 14px;
+  }
+
+  .atlas-crystal-toolbar .topbar-user {
+    width: auto;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .atlas-crystal-toolbar .topbar-actions {
+    width: auto;
+    flex: 0 0 auto;
+    align-items: center;
+  }
+
+  .atlas-crystal-toolbar .topbar-user-text p,
+  .atlas-crystal-toolbar .topbar-search {
+    display: none;
+  }
+
+  .atlas-crystal-mobile-nav {
+    top: 68px;
+    padding: 9px 12px;
+    scroll-padding-inline: 12px;
+  }
+
+  .atlas-crystal-mobile-nav button {
+    min-height: 40px;
+  }
+
+  .atlas-crystal-app .page-content {
+    padding: 20px 14px calc(34px + env(safe-area-inset-bottom));
+  }
+
+  .atlas-auth-page {
+    align-items: start;
+    padding:
+      max(18px, env(safe-area-inset-top))
+      14px
+      max(22px, env(safe-area-inset-bottom));
+  }
+
+  .atlas-auth-page > .atlas-crystal-surface {
+    border-radius: 24px;
+    padding: 20px;
+  }
+
+  .atlas-auth-page .display-title {
+    font-size: clamp(2rem, 12vw, 3.4rem);
+  }
+
+  .atlas-crystal-app :where(
+      .premium-panel-card,
+      .kpi-card,
+      .dashboard-main-card,
+      .dashboard-module-card,
+      .study-tool-card,
+      .subscription-card,
+      .atlas-context-panel,
+      .atlas-card,
+      .teacher-hero,
+      .teacher-kpi-card,
+      .teacher-model-card,
+      .teacher-class-detail-card,
+      .teacher-resource-card,
+      .admin-kpi-card,
+      .report-card,
+      .table-card
+    ) {
+    -webkit-backdrop-filter: blur(12px) saturate(116%);
+    backdrop-filter: blur(12px) saturate(116%);
+  }
+
+  .atlas-crystal-app .teacher-hero {
+    align-items: flex-start;
+    flex-direction: column;
+    border-radius: 24px;
+  }
+
+  .atlas-crystal-viewer .viewer-topbar {
+    min-height: 64px;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .atlas-crystal-viewer .viewer-stage {
+    gap: 10px;
+    padding: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+
+  .atlas-crystal-control,
+  .atlas-crystal-app :where(
+      .kpi-card,
+      .dashboard-module-card,
+      .study-tool-card,
+      .atlas-card,
+      .teacher-kpi-card,
+      .teacher-model-card,
+      .teacher-class-detail-card,
+      .teacher-resource-card,
+      .admin-kpi-card,
+      .report-card
+    ) {
+    transition-duration: 0.01ms !important;
+  }
+
+  .atlas-crystal-app :where(
+      .kpi-card,
+      .dashboard-module-card,
+      .study-tool-card,
+      .atlas-card,
+      .teacher-kpi-card,
+      .teacher-model-card,
+      .teacher-class-detail-card,
+      .teacher-resource-card,
+      .admin-kpi-card,
+      .report-card
+    ):hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .atlas-crystal-surface,
+  .atlas-crystal-toolbar,
+  .atlas-crystal-mobile-nav,
+  .atlas-crystal-sidebar,
+  .premium-public-header,
+  .atlas-crystal-viewer .viewer-topbar,
+  .atlas-crystal-app :where(
+      .premium-panel-card,
+      .kpi-card,
+      .dashboard-main-card,
+      .dashboard-module-card,
+      .study-tool-card,
+      .subscription-card,
+      .atlas-context-panel,
+      .atlas-card,
+      .teacher-hero,
+      .teacher-kpi-card,
+      .teacher-model-card,
+      .teacher-class-detail-card,
+      .teacher-resource-card,
+      .admin-kpi-card,
+      .report-card,
+      .table-card
+    ) {
+    background: rgb(9, 24, 31);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .atlas-crystal-surface,
+  .atlas-crystal-control,
+  .atlas-crystal-toolbar,
+  .atlas-crystal-mobile-nav,
+  .atlas-crystal-sidebar,
+  .atlas-crystal-viewer :where(.left-info-panel, .viewer-canvas-panel, .right-toolbar, .viewer-modal) {
+    border: 1px solid CanvasText;
+    background: Canvas;
+    color: CanvasText;
+    box-shadow: none;
+  }
+}

@@ -14,6 +14,9 @@ export default function AtlasAIOrb({ onClick, state = 'idle', size = 'md' }) {
         <div className="siri-blob siri-blob-6"></div>
         <div className="siri-blob siri-blob-7"></div>
         <div className="siri-blob siri-blob-8"></div>
+        <div className="siri-caustic"></div>
+        <div className="siri-atmosphere"></div>
+        <div className="siri-grain"></div>
         <div className="siri-highlight"></div>
       </div>
     </div>

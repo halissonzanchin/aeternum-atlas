@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AuthExperienceShell from "../../components/AuthExperienceShell/AuthExperienceShell";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import LanguageSelector from "../../components/LanguageSelector";
@@ -64,15 +65,18 @@ export default function Register({ navigate, onAuth }) {
     const { name, value, type, checked } = event.target;
     if (name === "institutionId") {
       const selectedInstitution = institutionOptions.find(item => item.id === value);
-      setValues({
-        ...values,
+      setValues(current => ({
+        ...current,
         institutionId: value,
         institution: selectedInstitution?.name || ""
-      });
+      }));
       return;
     }
 
-    setValues({ ...values, [name]: type === "checkbox" ? checked : value });
+    setValues(current => ({
+      ...current,
+      [name]: type === "checkbox" ? checked : value
+    }));
   }
 
   async function submit(event) {
@@ -105,9 +109,12 @@ export default function Register({ navigate, onAuth }) {
   }
 
   return (
-    <main className="grid min-h-screen place-items-center p-5">
-      <Card className="w-full max-w-4xl">
-        <div className="mb-4 flex justify-end"><LanguageSelector compact /></div>
+    <AuthExperienceShell wide>
+      <Card className="atlas-auth-card atlas-auth-card--registration w-full max-w-4xl" depth="substantial">
+        <div className="atlas-auth-card__topline">
+          <span>{t("auth.secureAccess")}</span>
+          <LanguageSelector compact />
+        </div>
         <p className="eyebrow">{t("auth.registerEyebrow")}</p>
         <h1 className="display-title">{t("auth.createAccess")}</h1>
         <p className="mt-3 max-w-2xl text-textMuted">
@@ -212,6 +219,6 @@ export default function Register({ navigate, onAuth }) {
           </div>
         </form>
       </Card>
-    </main>
+    </AuthExperienceShell>
   );
 }

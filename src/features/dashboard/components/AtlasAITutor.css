@@ -1,0 +1,393 @@
+.upe-ai-trigger {
+  position: fixed;
+  z-index: 70;
+  right: clamp(18px, 2vw, 30px);
+  bottom: clamp(18px, 2vw, 30px);
+  display: flex;
+  min-width: 168px;
+  min-height: 76px;
+  padding: 9px 17px 9px 10px;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(118, 229, 220, 0.22);
+  border-radius: 25px;
+  background:
+    linear-gradient(145deg, rgba(21, 41, 46, 0.82), rgba(4, 14, 18, 0.9));
+  color: #edf3f0;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 22px 58px rgba(0, 0, 0, 0.42),
+    0 0 42px rgba(52, 206, 196, 0.08);
+  backdrop-filter: blur(30px) saturate(145%);
+  transition: border-color 220ms ease, transform 300ms cubic-bezier(0.2, 0.85, 0.2, 1), box-shadow 260ms ease;
+}
+
+.upe-ai-trigger:hover,
+.upe-ai-trigger:focus-visible {
+  border-color: rgba(127, 239, 230, 0.46);
+  outline: none;
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 28px 68px rgba(0, 0, 0, 0.48),
+    0 0 52px rgba(52, 206, 196, 0.14);
+}
+
+.upe-ai-trigger > span {
+  display: grid;
+  gap: 3px;
+  text-align: left;
+}
+
+.upe-ai-trigger strong {
+  font-size: 0.86rem;
+  letter-spacing: -0.01em;
+}
+
+.upe-ai-trigger small {
+  color: rgba(157, 214, 209, 0.58);
+  font-size: 0.61rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.upe-ai-trigger.is-open {
+  border-color: rgba(113, 234, 224, 0.42);
+}
+
+.upe-ai-trigger.is-orb-only {
+  min-width: 84px;
+  min-height: 84px;
+  padding: 6px;
+  justify-content: center;
+  border-radius: 30px;
+  touch-action: none;
+  user-select: none;
+}
+
+.upe-ai-trigger.is-draggable {
+  cursor: grab;
+  transition: border-color 220ms ease, box-shadow 260ms ease;
+}
+
+.upe-ai-trigger.is-draggable:hover,
+.upe-ai-trigger.is-draggable:focus-visible {
+  transform: none;
+}
+
+.upe-ai-trigger.is-dragging {
+  cursor: grabbing;
+  border-color: rgba(127, 239, 230, 0.58);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 18px 52px rgba(0, 0, 0, 0.52),
+    0 0 64px rgba(52, 206, 196, 0.22);
+}
+
+.upe-ai-panel {
+  position: fixed;
+  z-index: 69;
+  top: 102px;
+  right: clamp(18px, 2vw, 30px);
+  bottom: 116px;
+  display: grid;
+  width: min(430px, calc(100vw - 36px));
+  max-height: none;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  border: 1px solid rgba(127, 223, 216, 0.18);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(49, 186, 180, 0.12), transparent 30%),
+    linear-gradient(155deg, rgba(15, 32, 37, 0.94), rgba(3, 12, 16, 0.965));
+  color: #ebefed;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.065),
+    0 38px 100px rgba(0, 0, 0, 0.58),
+    0 0 70px rgba(39, 184, 177, 0.06);
+  animation: upe-ai-panel-in 460ms cubic-bezier(0.18, 0.85, 0.22, 1) both;
+  backdrop-filter: blur(36px) saturate(150%);
+}
+
+.upe-ai-panel--positioned {
+  right: auto;
+  bottom: auto;
+}
+
+@keyframes upe-ai-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.upe-ai-panel__highlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.045), transparent 28%, transparent 72%);
+  pointer-events: none;
+}
+
+.upe-ai-panel__header {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 13px;
+  align-items: center;
+  padding: 20px 20px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.upe-ai-panel__header h2 {
+  margin: 3px 0 0;
+  color: #f2f1eb;
+  font-size: 1rem;
+  font-weight: 720;
+}
+
+.upe-ai-panel__header p {
+  margin: 4px 0 0;
+  color: rgba(177, 208, 204, 0.54);
+  font-size: 0.67rem;
+}
+
+.upe-ai-panel__eyebrow,
+.upe-ai-response__label,
+.upe-ai-context > span {
+  color: #5edbd4;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.upe-ai-panel__close {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.025);
+  color: rgba(218, 231, 228, 0.6);
+  cursor: pointer;
+}
+
+.upe-ai-panel__close:hover,
+.upe-ai-panel__close:focus-visible {
+  border-color: rgba(107, 222, 214, 0.32);
+  color: #f5f7f5;
+  outline: none;
+}
+
+.upe-ai-panel__close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.upe-ai-panel__body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  padding: 17px;
+  overflow-y: auto;
+}
+
+.upe-ai-context,
+.upe-ai-response {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 21px;
+}
+
+.upe-ai-context {
+  justify-self: end;
+  width: 82%;
+  padding: 14px 15px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.upe-ai-context strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+}
+
+.upe-ai-context p,
+.upe-ai-response > p {
+  margin: 7px 0 0;
+  color: rgba(225, 234, 231, 0.7);
+  font-size: 0.77rem;
+  line-height: 1.58;
+}
+
+.upe-ai-response {
+  padding: 17px;
+  border-color: rgba(97, 221, 212, 0.14);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(51, 181, 176, 0.08), transparent 35%),
+    rgba(7, 26, 30, 0.72);
+}
+
+.upe-ai-clinical-note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid rgba(218, 184, 94, 0.14);
+  border-radius: 15px;
+  background: rgba(176, 140, 56, 0.055);
+}
+
+.upe-ai-clinical-note > svg {
+  width: 16px;
+  height: 16px;
+  color: #d9bb68;
+}
+
+.upe-ai-clinical-note strong {
+  color: rgba(233, 209, 145, 0.88);
+  font-size: 0.68rem;
+}
+
+.upe-ai-clinical-note p {
+  margin: 4px 0 0;
+  color: rgba(221, 229, 226, 0.64);
+  font-size: 0.7rem;
+  line-height: 1.48;
+}
+
+.upe-ai-related,
+.upe-ai-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.upe-ai-related {
+  margin-top: 13px;
+}
+
+.upe-ai-related button,
+.upe-ai-quick-actions button {
+  min-height: 29px;
+  padding: 0 11px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(224, 234, 231, 0.72);
+  cursor: pointer;
+  font-size: 0.64rem;
+}
+
+.upe-ai-related button:hover,
+.upe-ai-related button:focus-visible,
+.upe-ai-quick-actions button:hover,
+.upe-ai-quick-actions button:focus-visible {
+  border-color: rgba(95, 221, 212, 0.28);
+  color: #d9f8f4;
+  outline: none;
+}
+
+.upe-ai-panel__footer {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  padding: 15px 17px 17px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(1, 8, 11, 0.34);
+}
+
+.upe-ai-composer {
+  display: grid;
+  min-height: 47px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 5px 6px 5px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.upe-ai-composer:focus-within {
+  border-color: rgba(97, 222, 213, 0.38);
+  box-shadow: 0 0 0 3px rgba(83, 210, 201, 0.045);
+}
+
+.upe-ai-composer input {
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #edf2ef;
+  font: inherit;
+  font-size: 0.73rem;
+}
+
+.upe-ai-composer input::placeholder {
+  color: rgba(176, 198, 195, 0.42);
+}
+
+.upe-ai-composer button {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #58ddd6, #2ba9a5);
+  color: #031012;
+  cursor: pointer;
+}
+
+.upe-ai-composer button svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 720px) {
+  .upe-ai-trigger {
+    right: 14px;
+    bottom: 14px;
+    min-width: 74px;
+    padding-right: 9px;
+  }
+
+  .upe-ai-trigger > span {
+    display: none;
+  }
+
+  .upe-ai-panel {
+    top: auto;
+    left: 12px;
+    right: 12px;
+    bottom: 102px;
+    width: auto;
+    max-height: calc(100dvh - 126px);
+    border-radius: 25px;
+  }
+
+  .upe-ai-panel--positioned {
+    right: auto;
+    bottom: auto;
+    width: calc(100vw - 32px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .upe-ai-panel {
+    animation: none;
+  }
+}

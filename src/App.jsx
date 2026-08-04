@@ -30,6 +30,8 @@ import { useLanguage } from "./context/LanguageContext";
 import AtlasViewerBridgePage from "./features/atlas-viewer/pages/AtlasViewerBridgePage";
 import AtlasMigrationDetailPage from "./features/admin-3d/migration/AtlasMigrationDetailPage";
 import AtlasCertificationPage from "./features/admin-3d/certification/AtlasCertificationPage";
+import AtlasAITutor from "./features/dashboard/components/AtlasAITutor";
+import { AtlasAITutorSessionProvider } from "./context/AtlasAITutorSessionContext";
 
 import AtlasCertificationPipelinePage from "./features/admin-3d/certification/AtlasCertificationPipelinePage";
 import LessonSandboxPage from "./features/lessons/LessonSandboxPage";
@@ -214,19 +216,34 @@ export default function App() {
     return <NotFound navigate={navigate} />;
   }, [authReady, path, user, t]);
 
+  const isPublicRoute = path === "/" || path === "/login" || path === "/register";
+  const usesDedicatedViewerTutor = path.startsWith("/viewer/") || path.startsWith("/teacher/viewer/");
+  const usesNativeViewerTutor = path.startsWith("/atlas-viewer/");
+  const showGlobalTutor = authReady && Boolean(user) && !isPublicRoute && !usesDedicatedViewerTutor;
+  const tutorSessionIdentity = user?.id || user?.email || "anonymous";
+
   return (
-    <GlobalErrorBoundary>
-      {content}
-      <Modal
-        open={Boolean(modal)}
-        title={modal?.title}
-        onClose={() => setModal(null)}
-        actions={<Button variant="teal" onClick={() => { setModal(null); navigate("/license"); }}>{modal?.action}</Button>}
-      >
-        {modal?.body}
-      </Modal>
-      {toast ? <div className="fixed bottom-5 right-5 z-50 max-w-sm rounded-2xl border border-techTeal/30 bg-navyDeep/95 p-4 text-sm text-clinicalWhite shadow-premium backdrop-blur-xl">{toast}</div> : null}
-    </GlobalErrorBoundary>
+    <AtlasAITutorSessionProvider key={tutorSessionIdentity} user={user}>
+      <GlobalErrorBoundary>
+        {content}
+        {showGlobalTutor ? (
+          <AtlasAITutor
+            path={path}
+            sphereOnly={usesNativeViewerTutor}
+            draggable={usesNativeViewerTutor}
+          />
+        ) : null}
+        <Modal
+          open={Boolean(modal)}
+          title={modal?.title}
+          onClose={() => setModal(null)}
+          actions={<Button variant="teal" onClick={() => { setModal(null); navigate("/license"); }}>{modal?.action}</Button>}
+        >
+          {modal?.body}
+        </Modal>
+        {toast ? <div className="fixed bottom-5 right-5 z-50 max-w-sm rounded-2xl border border-techTeal/30 bg-navyDeep/95 p-4 text-sm text-clinicalWhite shadow-premium backdrop-blur-xl">{toast}</div> : null}
+      </GlobalErrorBoundary>
+    </AtlasAITutorSessionProvider>
   );
 }
 

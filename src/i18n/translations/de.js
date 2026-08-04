@@ -138,6 +138,23 @@ export const de = {
     createAccessButton: "Zugang erstellen",
     contentTitle: "Inhalte",
     primaryModuleDescription: "Erkunden Sie menschliche Strukturen dreidimensional mit akademischem Kontext und integriertem Anatomie-Viewer.",
+    platformEyebrow: "Akademisches Ökosystem",
+    platformTitle: "Eine Plattform. Das gesamte Anatomiestudium.",
+    platformDescription: "Vom ersten Kontakt mit einer Struktur bis zur vertieften Wiederholung verbindet die Plattform 3D-Erkundung, Atlas, Lektionen und Lernpfade in einer durchgängigen Erfahrung.",
+    exploreResource: "Ressource erkunden",
+    skipToContent: "Zu den Ressourcen springen",
+    footerNavigationLabel: "Navigation in der Fußzeile",
+    platformStatus: "Akademische Plattform online",
+    interfaceKicker: "Atlas / Systeme",
+    interfaceTitle: "Anatomische Erkundung",
+    interfaceStatus: "Schnittstelle aktiv",
+    interfaceMetricModels: "Modelle",
+    interfaceMetricSystems: "Systeme",
+    interfaceMetricAccess: "Zugang",
+    closePlanet: "Zum Schließen erneut klicken",
+    orbitPaused: "Umlaufbahn pausiert",
+    exploreOrbits: "Modul auswählen",
+    corePrompt: "Anatomie erkunden",
     footer: "Aeternum Atlas © 2026 — Medizintechnologie und 3D-Anatomieplattform",
     modules: {
       atlas: "Nach Systemen organisierte anatomische Karten.",
@@ -876,6 +893,10 @@ export const de = {
       "pescoco-e-cabeca": {
         title: "Anatomie von Hals und Kopf",
         description: "Neurologische, muskuläre und knöcherne Strukturen der oberen Region."
+      },
+      "pelve-e-perineo": {
+        title: "Anatomie von Becken und Perineum",
+        description: "Topografische Beziehungen von Becken, Perineum und Urogenitalsystemen."
       }
     }
   },
