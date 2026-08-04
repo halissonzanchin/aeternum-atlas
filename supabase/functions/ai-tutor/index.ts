@@ -1,9 +1,4 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
-import {
-  GoogleGenerativeAI,
-  HarmBlockThreshold,
-  HarmCategory
-} from "npm:@google/generative-ai@0.24.1";
 import { createClient } from "npm:@supabase/supabase-js@2.105.4";
 
 const GEMINI_MODEL = "gemini-2.5-flash";
@@ -11,6 +6,12 @@ const MAX_REQUEST_BYTES = 64_000;
 const MAX_PROMPT_CHARACTERS = 4_000;
 const MAX_CONTEXT_CHARACTERS = 12_000;
 const MAX_HISTORY_MESSAGES = 24;
+const GEMINI_SAFETY_CATEGORIES = [
+  "HARM_CATEGORY_HARASSMENT",
+  "HARM_CATEGORY_HATE_SPEECH",
+  "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+  "HARM_CATEGORY_DANGEROUS_CONTENT"
+];
 
 type MessageRow = {
   role: "user" | "assistant";
@@ -109,6 +110,52 @@ function normalizedGeminiHistory(rows: MessageRow[]) {
     }
   }
   return history;
+}
+
+async function generateGeminiResponse(
+  apiKey: string,
+  role: string,
+  context: Record<string, unknown>,
+  history: ReturnType<typeof normalizedGeminiHistory>,
+  prompt: string
+) {
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(GEMINI_MODEL)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      system_instruction: {
+        parts: [{ text: systemInstruction(role, context) }]
+      },
+      contents: [
+        ...history,
+        { role: "user", parts: [{ text: prompt }] }
+      ],
+      generationConfig: { maxOutputTokens: 2_048 },
+      safetySettings: GEMINI_SAFETY_CATEGORIES.map((category) => ({
+        category,
+        threshold: "BLOCK_MEDIUM_AND_ABOVE"
+      }))
+    })
+  });
+
+  const body = await response.json().catch(() => ({})) as Record<string, unknown>;
+  if (!response.ok) {
+    const providerError = body.error && typeof body.error === "object"
+      ? body.error as Record<string, unknown>
+      : {};
+    const providerStatus = cleanText(providerError.status, 80) || "PROVIDER_ERROR";
+    throw new Error(`Gemini request failed (${response.status}/${providerStatus})`);
+  }
+
+  const candidates = Array.isArray(body.candidates) ? body.candidates as Array<Record<string, unknown>> : [];
+  const content = candidates[0]?.content && typeof candidates[0].content === "object"
+    ? candidates[0].content as Record<string, unknown>
+    : {};
+  const parts = Array.isArray(content.parts) ? content.parts as Array<Record<string, unknown>> : [];
+  const text = parts.map((part) => cleanText(part.text, 8_000)).join("").trim().slice(0, 8_000);
+  if (!text) throw new Error("Gemini returned an empty response");
+  return text;
 }
 
 serve(async (req) => {
@@ -235,33 +282,22 @@ serve(async (req) => {
   const orderedHistory = [...(persistedHistory || [])].reverse() as Array<MessageRow & { created_at: string }>;
   if (orderedHistory.at(-1)?.role === "user") orderedHistory.pop();
 
-  const genAI = new GoogleGenerativeAI(geminiKey);
-  const model = genAI.getGenerativeModel({
-    model: GEMINI_MODEL,
-    systemInstruction: systemInstruction(String(profile.role || "student"), context),
-    generationConfig: { maxOutputTokens: 2_048 },
-    safetySettings: [
-      HarmCategory.HARM_CATEGORY_HARASSMENT,
-      HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-      HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-      HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT
-    ].map((category) => ({ category, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE }))
-  });
-
   try {
-    const chat = model.startChat({ history: normalizedGeminiHistory(orderedHistory) });
-    const result = await chat.sendMessageStream(prompt);
+    const fullText = await generateGeminiResponse(
+      geminiKey,
+      String(profile.role || "student"),
+      context,
+      normalizedGeminiHistory(orderedHistory),
+      prompt
+    );
     const encoder = new TextEncoder();
-    let fullText = "";
 
     const stream = new ReadableStream({
       async start(controller) {
         try {
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ conversationId })}\n\n`));
-          for await (const chunk of result.stream) {
-            const text = chunk.text();
-            if (!text) continue;
-            fullText = `${fullText}${text}`.slice(0, 8_000);
+          for (let offset = 0; offset < fullText.length; offset += 240) {
+            const text = fullText.slice(offset, offset + 240);
             controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
           }
 
