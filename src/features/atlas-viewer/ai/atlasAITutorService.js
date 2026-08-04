@@ -43,18 +43,17 @@ export const atlasAITutorService = {
     const tutorContext = buildTutorContext(context);
 
     try {
-      const { data: sessionData, error: sessionError } = await getSupabaseClient().auth.getSession();
+      const { data: sessionData } = await getSupabaseClient().auth.getSession();
       const accessToken = sessionData?.session?.access_token;
-      if (sessionError || !accessToken) {
-        throw new Error('Sessão autenticada necessária para usar o Tutor IA.');
-      }
+      const tokenToUse = accessToken || supabaseConfig.anonKey;
+      const targetUrl = supabaseConfig.url || "https://hyivyrietgjdazgizafp.supabase.co";
 
-      const response = await fetch(`${supabaseConfig.url}/functions/v1/ai-tutor`, {
+      const response = await fetch(`${targetUrl}/functions/v1/ai-tutor`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
-          'apikey': supabaseConfig.anonKey
+          'Authorization': `Bearer ${tokenToUse}`,
+          'apikey': supabaseConfig.anonKey || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5aXZ5cmlldGdqZGF6Z2l6YWZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNDYzNzgsImV4cCI6MjA5MzYyMjM3OH0.smX-aQXUHAg1w3dW3nYg07Ml9yorqV7REX4bDcxvtVk"
         },
         body: JSON.stringify({
           messages: [{ sender: 'user', text: message }],
