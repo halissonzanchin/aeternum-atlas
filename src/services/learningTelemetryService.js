@@ -228,6 +228,13 @@ export async function fetchLearningTelemetry(user) {
 
   const client = getSupabaseClient();
   try {
+    const { error: reconcileError } = await client.rpc("reconcile_my_learning_sessions", {
+      stale_after: "00:03:00"
+    });
+    if (reconcileError && reconcileError.code !== "PGRST202") {
+      warnRemoteOnce("reconciliação de sessões", reconcileError);
+    }
+
     const [sessionsResult, eventsResult, quizResult] = await Promise.all([
       client
         .from("viewer_learning_sessions")

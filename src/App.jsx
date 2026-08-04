@@ -29,6 +29,7 @@ import { canonicalSuperAdminPath, getAdminNavigationItems, isAdminRouteActive } 
 import { useLanguage } from "./context/LanguageContext";
 import AtlasAITutor from "./features/dashboard/components/AtlasAITutor";
 import { AtlasAITutorSessionProvider } from "./context/AtlasAITutorSessionContext";
+import { AuthProvider } from "./context/AuthContext";
 import { useAccountLearningSession } from "./hooks/useAccountLearningSession";
 
 import LessonSandboxPage from "./features/lessons/LessonSandboxPage";
@@ -209,33 +210,35 @@ export default function App() {
   const tutorSessionIdentity = user?.id || user?.email || "anonymous";
 
   return (
-    <AtlasAITutorSessionProvider key={tutorSessionIdentity} user={user}>
-      <GlobalErrorBoundary>
-        {content}
-        {showGlobalTutor ? (
-          <AtlasAITutor path={path} />
-        ) : null}
-        <Modal
-          open={Boolean(modal)}
-          title={modal?.title}
-          onClose={() => setModal(null)}
-          actions={<Button variant="teal" onClick={() => { setModal(null); navigate("/license"); }}>{modal?.action}</Button>}
-        >
-          {modal?.body}
-        </Modal>
-        {toast ? (
-          <A26Surface
-            material="opaque"
-            tone="teal"
-            className="a26-toast"
-            role="status"
-            aria-live="polite"
+    <AuthProvider user={user}>
+      <AtlasAITutorSessionProvider key={tutorSessionIdentity} user={user}>
+        <GlobalErrorBoundary>
+          {content}
+          {showGlobalTutor ? (
+            <AtlasAITutor path={path} />
+          ) : null}
+          <Modal
+            open={Boolean(modal)}
+            title={modal?.title}
+            onClose={() => setModal(null)}
+            actions={<Button variant="teal" onClick={() => { setModal(null); navigate("/license"); }}>{modal?.action}</Button>}
           >
-            {toast}
-          </A26Surface>
-        ) : null}
-      </GlobalErrorBoundary>
-    </AtlasAITutorSessionProvider>
+            {modal?.body}
+          </Modal>
+          {toast ? (
+            <A26Surface
+              material="opaque"
+              tone="teal"
+              className="a26-toast"
+              role="status"
+              aria-live="polite"
+            >
+              {toast}
+            </A26Surface>
+          ) : null}
+        </GlobalErrorBoundary>
+      </AtlasAITutorSessionProvider>
+    </AuthProvider>
   );
 }
 

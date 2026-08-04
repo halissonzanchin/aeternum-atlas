@@ -1,0 +1,54 @@
+name: Supabase Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_production_release:
+        description: "Confirmar migrações e Edge Function no Supabase de produção"
+        required: true
+        type: boolean
+        default: false
+
+concurrency:
+  group: supabase-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  migrate-and-deploy:
+    if: ${{ inputs.confirm_production_release }}
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 20
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - name: Validate deployment credentials
+        shell: bash
+        run: |
+          test -n "$SUPABASE_ACCESS_TOKEN"
+          test -n "$SUPABASE_DB_PASSWORD"
+          test -n "$PROJECT_REF"
+      - name: Link production project
+        run: supabase link --project-ref "$PROJECT_REF" --password "$SUPABASE_DB_PASSWORD"
+      - name: Verify migration history and pending SQL
+        run: |
+          supabase migration list --linked
+          supabase db push --linked --dry-run --password "$SUPABASE_DB_PASSWORD"
+      - name: Apply pending migrations
+        run: supabase db push --linked --password "$SUPABASE_DB_PASSWORD"
+      - name: Deploy authenticated AI Tutor
+        run: supabase functions deploy ai-tutor --project-ref "$PROJECT_REF"
+      - name: Confirm required Edge Function secrets exist
+        shell: bash
+        run: |
+          supabase secrets list --project-ref "$PROJECT_REF" | grep -q GEMINI_API_KEY
+          supabase secrets list --project-ref "$PROJECT_REF" | grep -q AETERNUM_ALLOWED_ORIGINS

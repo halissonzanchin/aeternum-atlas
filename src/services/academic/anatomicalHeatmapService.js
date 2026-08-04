@@ -1,10 +1,9 @@
 import { supabase } from "../../lib/supabase";
 import { isSupabaseConfigured } from "../supabase/supabaseClient";
 import { mockAnatomicalHeatmap } from "../../demo/upe/dataset";
-import { isUpeDemoMode } from "../../demo/upe";
 
 export async function fetchAnatomicalHeatmap(institutionId, user = null) {
-  if (import.meta.env.VITE_DEMO_MODE === 'upe' || institutionId === "upe-presidente-franco" || (user && isUpeDemoMode(user))) {
+  if (import.meta.env.DEV && import.meta.env.VITE_DEMO_MODE === 'upe') {
     return mockAnatomicalHeatmap;
   }
 

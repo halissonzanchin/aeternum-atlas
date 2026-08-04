@@ -7,8 +7,6 @@ import { getHomeForRole, normalizeRole, ROLES } from "../permissions/permissionS
 const PROFILE_SELECT = "id, institution_id, name, email, role, status, avatar_url";
 const INACTIVE_ACCOUNT_MESSAGE = "Usuário sem permissão ativa. Contate a instituição.";
 const PROFILE_NOT_FOUND_MESSAGE = "Usuário autenticado, mas perfil não encontrado em public.users.";
-const CONFIGURED_DEFAULT_INSTITUTION_ID = sanitizeText(import.meta.env.VITE_DEFAULT_INSTITUTION_ID || "");
-
 function resolveInstitutionContext(role, explicitInstitutionId = "") {
   const explicit = sanitizeText(explicitInstitutionId);
   if (explicit) {
@@ -18,16 +16,9 @@ function resolveInstitutionContext(role, explicitInstitutionId = "") {
     };
   }
 
-  if (role === ROLES.SUPER_ADMIN || !CONFIGURED_DEFAULT_INSTITUTION_ID) {
-    return {
-      institutionId: "",
-      source: role === ROLES.SUPER_ADMIN ? "global" : "missing"
-    };
-  }
-
   return {
-    institutionId: CONFIGURED_DEFAULT_INSTITUTION_ID,
-    source: "configured_default"
+    institutionId: "",
+    source: role === ROLES.SUPER_ADMIN ? "global" : "missing"
   };
 }
 

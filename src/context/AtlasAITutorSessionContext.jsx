@@ -8,8 +8,9 @@ import React, {
   useState
 } from "react";
 import { atlasAITutorService } from "../features/atlas-viewer/ai/atlasAITutorService";
+import { getSupabaseClient, isSupabaseConfigured } from "../services/supabase/supabaseClient";
 
-const STORAGE_VERSION = 1;
+const STORAGE_VERSION = 2;
 const MAX_MESSAGES = 80;
 const DEFAULT_WELCOME_MESSAGE = {
   id: "atlas-ai-welcome",
@@ -52,17 +53,19 @@ function readStoredSession(storageKey) {
     return {
       messages: [DEFAULT_WELCOME_MESSAGE],
       draft: "",
-      connectionMode: "idle"
+      connectionMode: "idle",
+      conversationId: null
     };
   }
 
   try {
     const stored = JSON.parse(window.localStorage.getItem(storageKey) || "null");
-    if (stored?.version === STORAGE_VERSION) {
+    if (stored?.version >= 1 && stored?.version <= STORAGE_VERSION) {
       return {
         messages: normalizeStoredMessages(stored.messages),
         draft: typeof stored.draft === "string" ? stored.draft : "",
-        connectionMode: stored.connectionMode || "idle"
+        connectionMode: stored.connectionMode || "idle",
+        conversationId: typeof stored.conversationId === "string" ? stored.conversationId : null
       };
     }
   } catch {
@@ -72,7 +75,8 @@ function readStoredSession(storageKey) {
   return {
     messages: [DEFAULT_WELCOME_MESSAGE],
     draft: "",
-    connectionMode: "idle"
+    connectionMode: "idle",
+    conversationId: null
   };
 }
 
@@ -84,7 +88,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
   const [draft, setDraftState] = useState(initialSession.draft);
   const [isThinking, setIsThinking] = useState(false);
   const [connectionMode, setConnectionMode] = useState(initialSession.connectionMode);
-  const messagesRef = useRef(initialSession.messages);
+  const [conversationId, setConversationId] = useState(initialSession.conversationId);
   const draftRef = useRef(initialSession.draft);
   const thinkingRef = useRef(false);
 
@@ -94,7 +98,6 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         ? updater(currentMessages)
         : updater;
       const limitedMessages = nextMessages.slice(-MAX_MESSAGES);
-      messagesRef.current = limitedMessages;
       return limitedMessages;
     });
   }, []);
@@ -125,18 +128,64 @@ export function AtlasAITutorSessionProvider({ children, user }) {
     )));
   }, [commitMessages]);
 
+  useEffect(() => {
+    if (!user?.id || !isSupabaseConfigured()) return undefined;
+    let cancelled = false;
+
+    async function restoreRemoteConversation() {
+      const client = getSupabaseClient();
+      let remoteConversationId = conversationId;
+
+      if (!remoteConversationId) {
+        const { data: conversations, error: conversationError } = await client
+          .from("ai_conversations")
+          .select("id")
+          .eq("user_id", user.id)
+          .order("updated_at", { ascending: false })
+          .limit(1);
+        if (conversationError || !conversations?.[0]?.id || cancelled) return;
+        remoteConversationId = conversations[0].id;
+      }
+
+      const { data: remoteMessages, error: messagesError } = await client
+        .from("ai_messages")
+        .select("id, role, content, created_at")
+        .eq("conversation_id", remoteConversationId)
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: true })
+        .limit(MAX_MESSAGES - 1);
+
+      if (messagesError || cancelled) return;
+      setConversationId(remoteConversationId);
+      if (remoteMessages?.length) {
+        commitMessages([
+          DEFAULT_WELCOME_MESSAGE,
+          ...remoteMessages.map((message) => ({
+            id: message.id,
+            sender: message.role === "user" ? "user" : "ai",
+            text: message.content,
+            createdAt: message.created_at,
+            contextLabel: "Histórico sincronizado"
+          }))
+        ]);
+        setConnectionMode("online");
+      }
+    }
+
+    void restoreRemoteConversation();
+    return () => {
+      cancelled = true;
+    };
+  }, [commitMessages, conversationId, user?.id]);
+
   const sendMessage = useCallback(async ({
     text,
     context = {},
-    contextLabel = "Plataforma Aeternum Atlas",
-    role
+    contextLabel = "Plataforma Aeternum Atlas"
   } = {}) => {
     const normalizedText = String(text ?? draftRef.current).trim();
     if (!normalizedText || thinkingRef.current) return null;
 
-    const conversationHistory = messagesRef.current
-      .filter((message) => message.text?.trim() && !message.isStreaming)
-      .map(({ sender, text: historyText }) => ({ sender, text: historyText }));
     const createdAt = new Date().toISOString();
     const userMessage = {
       id: createMessageId("user"),
@@ -164,12 +213,11 @@ export function AtlasAITutorSessionProvider({ children, user }) {
       const response = await atlasAITutorService.processMessageStream(
         normalizedText,
         context,
-        conversationHistory,
-        role || user?.role || "student",
         (chunkText) => updateMessage(aiMessageId, {
           text: chunkText,
           isStreaming: true
-        })
+        }),
+        conversationId
       );
 
       updateMessage(aiMessageId, {
@@ -179,6 +227,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         isStreaming: false
       });
       setConnectionMode(response.mode || "online");
+      if (response.conversationId) setConversationId(response.conversationId);
       return response;
     } catch (error) {
       console.error("[Atlas AI Session] Falha inesperada:", error);
@@ -196,7 +245,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
       thinkingRef.current = false;
       setIsThinking(false);
     }
-  }, [commitMessages, setDraft, updateMessage, user?.role]);
+  }, [commitMessages, conversationId, setDraft, updateMessage]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -209,12 +258,13 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         version: STORAGE_VERSION,
         messages: persistentMessages,
         draft,
-        connectionMode
+        connectionMode,
+        conversationId
       }));
     } catch {
       // O histórico permanece em memória quando o storage do navegador está indisponível.
     }
-  }, [connectionMode, draft, messages, storageKey]);
+  }, [connectionMode, conversationId, draft, messages, storageKey]);
 
   const value = useMemo(() => ({
     user,
@@ -223,11 +273,13 @@ export function AtlasAITutorSessionProvider({ children, user }) {
     setDraft,
     isThinking,
     connectionMode,
+    conversationId,
     sendMessage,
     appendMessage
   }), [
     appendMessage,
     connectionMode,
+    conversationId,
     draft,
     isThinking,
     messages,
