@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import LineIcon from "../../../components/icons/LineIcon";
+import { RichContentParser } from "./NotebookLMRenderers";
 import "./AtlasAIViewerPanel.css";
 import "./AtlasAIConversation.css";
 
 function MessageText({ text }) {
+  const richRender = RichContentParser({ text });
+  if (richRender) return richRender;
+
   const lines = String(text || "").split("\n");
 
   return lines.map((line, lineIndex) => {
@@ -144,22 +148,31 @@ export default function AtlasAIConversation({
         </div>
 
         <div className="atlas-ai-live-dock__content">
-          {!isThinking && quickQuestions.length ? (
-            <div className="upe-ai-quick-actions" aria-label="Sugestões do Atlas AI">
-              {quickQuestions.map((question) => (
-                <button
-                  type="button"
-                  key={question}
-                  onClick={() => handleSend(question)}
-                >
-                  {question}
-                </button>
-              ))}
+          {!isThinking ? (
+            <div className="upe-ai-quick-actions flex-wrap gap-1" aria-label="Ferramentas NotebookLM & Sugestões">
+              <button type="button" onClick={() => handleSend("Gere um mapa mental hierárquico sobre este modelo anatômico")}>
+                🌳 Mapa mental
+              </button>
+              <button type="button" onClick={() => handleSend("Crie um relatório de resumo e guia de estudos sobre este modelo")}>
+                📝 Relatório
+              </button>
+              <button type="button" onClick={() => handleSend("Crie um teste personalizado de 5 perguntas com gabarito sobre este modelo")}>
+                🧪 Teste
+              </button>
+              <button type="button" onClick={() => handleSend("Gere 3 cartões didáticos (flashcards) com Frente e Verso para estudo ativo")}>
+                🎴 Flashcards
+              </button>
+              <button type="button" onClick={() => handleSend("Construa uma tabela anatômica completa de Origem, Inserção e Inervação")}>
+                📊 Tabela
+              </button>
+              <button type="button" onClick={() => handleSend("Gere um roteiro curto de resumo em áudio sobre este modelo")}>
+                🎙️ Áudio
+              </button>
             </div>
           ) : isThinking ? (
             <div className="atlas-ai-live-dock__status" aria-live="polite">
               <span aria-hidden="true" />
-              O Atlas está compondo a resposta
+              O Atlas está processando sua solicitação…
             </div>
           ) : null}
 
