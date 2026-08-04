@@ -14,7 +14,15 @@ export const TUTOR_ACTIONS = {
   START_PRACTICAL_QUIZ: 'START_PRACTICAL_QUIZ',
   SHOW_STUDY_PATH: 'SHOW_STUDY_PATH',
   START_STUDY_PATH: 'START_STUDY_PATH',
-  NEXT_STUDY_STEP: 'NEXT_STUDY_STEP'
+  NEXT_STUDY_STEP: 'NEXT_STUDY_STEP',
+  GENERATE_MIND_MAP: 'GENERATE_MIND_MAP',
+  GENERATE_STUDY_REPORT: 'GENERATE_STUDY_REPORT',
+  GENERATE_CUSTOM_QUIZ: 'GENERATE_CUSTOM_QUIZ',
+  GENERATE_FLASHCARDS: 'GENERATE_FLASHCARDS',
+  GENERATE_DATA_TABLE: 'GENERATE_DATA_TABLE',
+  GENERATE_AUDIO_SUMMARY: 'GENERATE_AUDIO_SUMMARY',
+  NAVIGATE_TO_DASHBOARD: 'NAVIGATE_TO_DASHBOARD',
+  NAVIGATE_TO_CATALOG: 'NAVIGATE_TO_CATALOG'
 };
 
 /**
@@ -70,6 +78,54 @@ export const actionDictionary = {
     label: 'Próximo Passo',
     description: 'Avança para a próxima estrutura na trilha.',
     autoExecute: false,
+  },
+  [TUTOR_ACTIONS.GENERATE_MIND_MAP]: {
+    id: TUTOR_ACTIONS.GENERATE_MIND_MAP,
+    label: 'Mapa Mental',
+    description: 'Gera um diagrama hierárquico em mapa mental sobre o conteúdo.',
+    autoExecute: false,
+  },
+  [TUTOR_ACTIONS.GENERATE_STUDY_REPORT]: {
+    id: TUTOR_ACTIONS.GENERATE_STUDY_REPORT,
+    label: 'Criar Relatório / Guia',
+    description: 'Gera um documento de resumo ou guia de estudo estruturado.',
+    autoExecute: false,
+  },
+  [TUTOR_ACTIONS.GENERATE_CUSTOM_QUIZ]: {
+    id: TUTOR_ACTIONS.GENERATE_CUSTOM_QUIZ,
+    label: 'Teste Personalizado',
+    description: 'Cria um teste sob medida por tema e nível de dificuldade.',
+    autoExecute: false,
+  },
+  [TUTOR_ACTIONS.GENERATE_FLASHCARDS]: {
+    id: TUTOR_ACTIONS.GENERATE_FLASHCARDS,
+    label: 'Cartões Didáticos',
+    description: 'Gera um deck de flashcards para memorização ativa.',
+    autoExecute: false,
+  },
+  [TUTOR_ACTIONS.GENERATE_DATA_TABLE]: {
+    id: TUTOR_ACTIONS.GENERATE_DATA_TABLE,
+    label: 'Tabela Anatômica',
+    description: 'Gera uma tabela detalhada com Origem, Inserção e Inervação.',
+    autoExecute: false,
+  },
+  [TUTOR_ACTIONS.GENERATE_AUDIO_SUMMARY]: {
+    id: TUTOR_ACTIONS.GENERATE_AUDIO_SUMMARY,
+    label: 'Resumo em Áudio',
+    description: 'Gera uma narração didática sobre a peça anatômica.',
+    autoExecute: false,
+  },
+  [TUTOR_ACTIONS.NAVIGATE_TO_DASHBOARD]: {
+    id: TUTOR_ACTIONS.NAVIGATE_TO_DASHBOARD,
+    label: 'Ir para o Meu Painel',
+    description: 'Navega para a página de evolução de estudos.',
+    autoExecute: false,
+  },
+  [TUTOR_ACTIONS.NAVIGATE_TO_CATALOG]: {
+    id: TUTOR_ACTIONS.NAVIGATE_TO_CATALOG,
+    label: 'Ver Catálogo 3D',
+    description: 'Navega para a biblioteca de modelos 3D.',
+    autoExecute: false,
   }
 };
 
@@ -118,10 +174,30 @@ export const executeTutorAction = (actionId, payload = null, viewerContext) => {
       }
       return false;
 
+    case TUTOR_ACTIONS.NAVIGATE_TO_DASHBOARD:
+      if (viewerContext.navigate) {
+        viewerContext.navigate('/dashboard');
+        return true;
+      }
+      return false;
+
+    case TUTOR_ACTIONS.NAVIGATE_TO_CATALOG:
+      if (viewerContext.navigate) {
+        viewerContext.navigate('/models');
+        return true;
+      }
+      return false;
+
     case TUTOR_ACTIONS.SHOW_STUDY_PATH:
     case TUTOR_ACTIONS.START_STUDY_PATH:
     case TUTOR_ACTIONS.NEXT_STUDY_STEP:
-      // These actions are intercepted and managed locally by the AI Viewer Panel state
+    case TUTOR_ACTIONS.GENERATE_MIND_MAP:
+    case TUTOR_ACTIONS.GENERATE_STUDY_REPORT:
+    case TUTOR_ACTIONS.GENERATE_CUSTOM_QUIZ:
+    case TUTOR_ACTIONS.GENERATE_FLASHCARDS:
+    case TUTOR_ACTIONS.GENERATE_DATA_TABLE:
+    case TUTOR_ACTIONS.GENERATE_AUDIO_SUMMARY:
+      // Managed by AI Conversation Panel
       return true;
 
     default:

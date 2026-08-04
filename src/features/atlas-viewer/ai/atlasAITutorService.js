@@ -26,8 +26,8 @@ function buildTutorContext(context = {}) {
     guideSections: Array.isArray(context.guide) ? context.guide : [],
     activePanel: context.markerOpen ? 'markers' : 'none',
     availableActions: model.id || activeStructure.id
-      ? ['CLOSE_PANELS', 'RESET_VIEW', 'FOCUS_MARKER', 'START_THEORETICAL_QUIZ', 'START_PRACTICAL_QUIZ']
-      : []
+      ? ['CLOSE_PANELS', 'RESET_VIEW', 'FOCUS_MARKER', 'START_THEORETICAL_QUIZ', 'START_PRACTICAL_QUIZ', 'GENERATE_MIND_MAP', 'GENERATE_STUDY_REPORT', 'GENERATE_CUSTOM_QUIZ', 'GENERATE_FLASHCARDS', 'GENERATE_DATA_TABLE', 'GENERATE_AUDIO_SUMMARY', 'NAVIGATE_TO_DASHBOARD', 'NAVIGATE_TO_CATALOG']
+      : ['NAVIGATE_TO_DASHBOARD', 'NAVIGATE_TO_CATALOG']
   };
 }
 
