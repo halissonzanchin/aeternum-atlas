@@ -114,10 +114,6 @@ export default function AtlasAITutor({
       setToolModalType('mindmap');
       return;
     }
-    if (actionId === 'GENERATE_FLASHCARDS') {
-      setToolModalType('flashcards');
-      return;
-    }
   };
 
   return createPortal(

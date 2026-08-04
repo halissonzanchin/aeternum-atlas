@@ -90,10 +90,6 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
       setToolModalType('mindmap');
       return;
     }
-    if (actionId === 'GENERATE_FLASHCARDS') {
-      setToolModalType('flashcards');
-      return;
-    }
 
     // Intercept Study Path Logic
     if (actionId === 'START_STUDY_PATH' || actionId === 'SHOW_STUDY_PATH') {

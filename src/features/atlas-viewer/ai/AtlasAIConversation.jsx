@@ -159,15 +159,6 @@ export default function AtlasAIConversation({
               <button type="button" onClick={() => onAction ? onAction('GENERATE_CUSTOM_QUIZ') : handleSend("Crie um teste personalizado de 5 perguntas com gabarito sobre este modelo")}>
                 🧪 Teste
               </button>
-              <button type="button" onClick={() => onAction ? onAction('GENERATE_FLASHCARDS') : handleSend("Gere 3 cartões didáticos (flashcards) com Frente e Verso para estudo ativo")}>
-                🎴 Flashcards
-              </button>
-              <button type="button" onClick={() => handleSend("Construa uma tabela anatômica detalhada de Origem, Inserção, Inervação e Ação sobre este modelo")}>
-                📊 Tabela
-              </button>
-              <button type="button" onClick={() => handleSend("Gere um roteiro curto de resumo em áudio e narração didática sobre este modelo")}>
-                🎙️ Áudio
-              </button>
             </div>
           ) : isThinking ? (
             <div className="atlas-ai-live-dock__status" aria-live="polite">

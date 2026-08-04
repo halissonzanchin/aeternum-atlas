@@ -17,10 +17,7 @@ export default function NotebookLMToolModal({
   const toolTitles = {
     report: "📝 Criar Relatório & Guia de Estudo",
     quiz: "🧪 Teste Personalizado (Simulado)",
-    mindmap: "🌳 Mapa Mental Anatômico",
-    infographic: "📊 Infográfico & Tabela Anatômica",
-    flashcards: "🎴 Cartões Didáticos (Flashcards)",
-    audio: "🎙️ Resumo em Áudio / Roteiro Narrado"
+    mindmap: "🌳 Mapa Mental Anatômico"
   };
 
   const handleGenerate = () => {
@@ -47,21 +44,9 @@ export default function NotebookLMToolModal({
       prompt = `Crie um Teste Personalizado com ${questionCount} perguntas no nível "${diffNames[difficulty]}" utilizando a fonte "${sourceLabel}". ${
         customTopic ? `Tema específico: "${customTopic}".` : ""
       } Inclua o gabarito comentado ao final.`;
-    } else if (toolType === "mindmap") {
+    } else {
       prompt = `Gere um Mapa Mental Anatômico em diagrama Mermaid hierárquico sob a fonte "${sourceLabel}". ${
         customTopic ? `Tópico focal: "${customTopic}".` : ""
-      }`;
-    } else if (toolType === "flashcards") {
-      prompt = `Gere um deck de 5 Cartões Didáticos (Flashcards com Frente e Verso) sobre a fonte "${sourceLabel}". ${
-        customTopic ? `Foco: "${customTopic}".` : ""
-      }`;
-    } else if (toolType === "infographic" || toolType === "table") {
-      prompt = `Construa uma Tabela Anatômica detalhada de Origem, Inserção, Inervação, Irrigação e Ação com a fonte "${sourceLabel}". ${
-        customTopic ? `Foco: "${customTopic}".` : ""
-      }`;
-    } else {
-      prompt = `Gere um Roteiro de Resumo em Áudio narrado sobre "${sourceLabel}". ${
-        customTopic ? `Tema: "${customTopic}".` : ""
       }`;
     }
 
