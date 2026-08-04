@@ -20,6 +20,8 @@ const VIEWER_BOTTOM_CONTROLS_INSET = 104;
 
 export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [panelMode, setPanelMode] = useState("compact");
+  const [toolModalType, setToolModalType] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const triggerRef = useRef(null);
   
@@ -54,6 +56,11 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   });
 
   const handleSendMessage = async (textOverride = null) => {
+    // Auto expand for long responses or tools
+    if (panelMode === "compact" && (textOverride || draft).length > 20) {
+      setPanelMode("expanded");
+    }
+
     const response = await sendMessage({
       text: textOverride ?? draft,
       context: viewerContext,
@@ -70,8 +77,27 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   };
 
   const handleActionClick = async (actionId, payload) => {
+    // Intercept NotebookLM Tool Modals
+    if (actionId === 'GENERATE_STUDY_REPORT') {
+      setToolModalType('report');
+      return;
+    }
+    if (actionId === 'GENERATE_CUSTOM_QUIZ') {
+      setToolModalType('quiz');
+      return;
+    }
+    if (actionId === 'GENERATE_MIND_MAP') {
+      setToolModalType('mindmap');
+      return;
+    }
+    if (actionId === 'GENERATE_FLASHCARDS') {
+      setToolModalType('flashcards');
+      return;
+    }
+
     // Intercept Study Path Logic
     if (actionId === 'START_STUDY_PATH' || actionId === 'SHOW_STUDY_PATH') {
+      setPanelMode("expanded");
       const { generateStudyPaths } = await import('./atlasAIStudyPaths');
       const paths = generateStudyPaths(viewerContext.markers);
       
@@ -85,7 +111,6 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
       }
       
       if (actionId === 'SHOW_STUDY_PATH') {
-         // User requested to see paths
          const pathText = paths.map((p, i) => `**${i+1}. ${p.title}**\n${p.description}`).join('\n\n');
          appendMessage({
            sender: 'ai', 
@@ -97,7 +122,6 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
          return;
       }
 
-      // START_STUDY_PATH
       const chosenPath = paths.find(p => p.id === payload) || paths[0];
       setActiveStudyPath(chosenPath);
       setCurrentStepIndex(0);
@@ -111,7 +135,6 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
         contextLabel: currentStructure
       });
       
-      // Auto-focus on first step if possible
       executeTutorAction('FOCUS_MARKER', firstStep.id || `marker-${firstStep.title}`, viewerContext);
       return;
     }
@@ -185,7 +208,7 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   useEffect(() => {
     if (!isOpen) return undefined;
     const handleKeyDown = (event) => {
-      if (event.key !== 'Escape') return;
+      if (event.key === 'Escape') return;
       handleClose();
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -197,7 +220,8 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   const panelStyle = getTutorPanelStyle(position, viewport, {
     orbSize: VIEWER_TUTOR_ORB_SIZE,
     width: 460,
-    maxHeight: 760
+    maxHeight: 760,
+    panelMode
   });
   const panelMorphStyle = getTutorPanelMorphStyle(panelStyle, position, {
     orbSize: VIEWER_TUTOR_ORB_SIZE
@@ -227,7 +251,7 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
         <AeternumGlassSurface
           as="section"
           id="atlas-viewer-ai-panel"
-          className="upe-ai-panel upe-ai-panel--positioned atlas-viewer-ai-panel aog-morph-panel"
+          className={`upe-ai-panel upe-ai-panel--positioned atlas-viewer-ai-panel aog-morph-panel ${panelMode === "expanded" ? "is-expanded" : ""}`}
           variant="regular"
           depth="substantial"
           role="dialog"
@@ -242,14 +266,25 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
               <h2 id="atlas-viewer-ai-title">Atlas AI Tutor</h2>
               <p>{isThinking ? "Analisando sua pergunta…" : "Conversa sincronizada em toda a plataforma"}</p>
             </div>
-            <button
-              type="button"
-              className="upe-ai-panel__close"
-              aria-label="Fechar Atlas AI Tutor"
-              onClick={handleClose}
-            >
-              <LineIcon name="close" />
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                className="upe-ai-panel__close text-textMuted hover:text-amber-300 transition-colors"
+                aria-label={panelMode === "expanded" ? "Modo compacto" : "Modo expandido"}
+                title={panelMode === "expanded" ? "Recolher largura" : "Expandir para leitura ampla"}
+                onClick={() => setPanelMode((prev) => (prev === "expanded" ? "compact" : "expanded"))}
+              >
+                <LineIcon name={panelMode === "expanded" ? "minimize" : "maximize"} />
+              </button>
+              <button
+                type="button"
+                className="upe-ai-panel__close"
+                aria-label="Fechar Atlas AI Tutor"
+                onClick={handleClose}
+              >
+                <LineIcon name="close" />
+              </button>
+            </div>
           </header>
 
           <AtlasAIConversation
@@ -272,6 +307,19 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
             placeholder="Pergunte sobre este modelo anatômico…"
           />
         </AeternumGlassSurface>
+      )}
+
+      {toolModalType && (
+        <NotebookLMToolModal
+          toolType={toolModalType}
+          currentStructure={currentStructure}
+          onClose={() => setToolModalType(null)}
+          onGenerate={(prompt) => {
+            setToolModalType(null);
+            setPanelMode("expanded");
+            handleSendMessage(prompt);
+          }}
+        />
       )}
 
       {isDragging ? (

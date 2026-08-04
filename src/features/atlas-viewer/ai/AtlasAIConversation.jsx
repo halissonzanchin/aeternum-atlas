@@ -150,22 +150,22 @@ export default function AtlasAIConversation({
         <div className="atlas-ai-live-dock__content">
           {!isThinking ? (
             <div className="upe-ai-quick-actions flex-wrap gap-1" aria-label="Ferramentas NotebookLM & Sugestões">
-              <button type="button" onClick={() => handleSend("Gere um mapa mental hierárquico sobre este modelo anatômico")}>
+              <button type="button" onClick={() => onAction ? onAction('GENERATE_MIND_MAP') : handleSend("Gere um mapa mental hierárquico sobre este modelo anatômico")}>
                 🌳 Mapa mental
               </button>
-              <button type="button" onClick={() => handleSend("Crie um relatório de resumo e guia de estudos sobre este modelo")}>
+              <button type="button" onClick={() => onAction ? onAction('GENERATE_STUDY_REPORT') : handleSend("Crie um relatório de resumo e guia de estudos sobre este modelo")}>
                 📝 Relatório
               </button>
-              <button type="button" onClick={() => handleSend("Crie um teste personalizado de 5 perguntas com gabarito sobre este modelo")}>
+              <button type="button" onClick={() => onAction ? onAction('GENERATE_CUSTOM_QUIZ') : handleSend("Crie um teste personalizado de 5 perguntas com gabarito sobre este modelo")}>
                 🧪 Teste
               </button>
-              <button type="button" onClick={() => handleSend("Gere 3 cartões didáticos (flashcards) com Frente e Verso para estudo ativo")}>
+              <button type="button" onClick={() => onAction ? onAction('GENERATE_FLASHCARDS') : handleSend("Gere 3 cartões didáticos (flashcards) com Frente e Verso para estudo ativo")}>
                 🎴 Flashcards
               </button>
-              <button type="button" onClick={() => handleSend("Construa uma tabela anatômica completa de Origem, Inserção e Inervação")}>
+              <button type="button" onClick={() => handleSend("Construa uma tabela anatômica detalhada de Origem, Inserção, Inervação e Ação sobre este modelo")}>
                 📊 Tabela
               </button>
-              <button type="button" onClick={() => handleSend("Gere um roteiro curto de resumo em áudio sobre este modelo")}>
+              <button type="button" onClick={() => handleSend("Gere um roteiro curto de resumo em áudio e narração didática sobre este modelo")}>
                 🎙️ Áudio
               </button>
             </div>

@@ -87,10 +87,13 @@ function getSavedPosition(storageKey, viewport, orbSize, margin, rightInset = 0,
 export function getTutorPanelStyle(
   position,
   viewport,
-  { orbSize = DEFAULT_ORB_SIZE, width = 430, maxHeight = 720, gap = 16, margin = 16 } = {}
+  { orbSize = DEFAULT_ORB_SIZE, width = 460, maxHeight = 760, gap = 16, margin = 16, panelMode = "compact" } = {}
 ) {
-  const panelWidth = Math.min(width, viewport.width - margin * 2);
-  const panelHeight = Math.min(maxHeight, viewport.height - margin * 2);
+  const targetWidth = panelMode === "expanded" ? 780 : width;
+  const targetMaxHeight = panelMode === "expanded" ? 820 : maxHeight;
+
+  const panelWidth = Math.min(targetWidth, viewport.width - margin * 2);
+  const panelHeight = Math.min(targetMaxHeight, viewport.height - margin * 2);
 
   if (viewport.width <= 720) {
     return {
