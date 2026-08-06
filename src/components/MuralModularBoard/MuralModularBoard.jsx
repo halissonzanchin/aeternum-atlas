@@ -7,8 +7,18 @@ const COLS = 7;
 const ROWS = 4;
 const TOTAL_CELLS = COLS * ROWS;
 const LOCAL_STORAGE_KEY = "aeternum-mural-notes-v1";
-
 const COLOR_KEYS = ["cyan", "amber", "coral", "violet", "mint"];
+
+// Frame Config for the 300-image Planetario loop
+const FRAME_CONFIG = {
+  folder: "/images/planetario/",
+  prefix: "ezgif-frame-",
+  extension: ".jpg",
+  firstFrame: 1,
+  frameCount: 300,
+  padding: 3,
+  fps: 24
+};
 
 // Deterministic cell type hash function (Math.sin pseudo-hash)
 function getCellGlassType(index) {
@@ -24,6 +34,11 @@ function getCoordLabel(index) {
 }
 
 export default function MuralModularBoard({ videoSrc = null }) {
+  const containerRef = useRef(null);
+  const canvasRef = useRef(null);
+  const imagesRef = useRef([]);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
   // Post-It state dictionary: { [cellIndex]: { title, content, color } }
   const [notes, setNotes] = useState(() => {
     try {
@@ -64,6 +79,120 @@ export default function MuralModularBoard({ videoSrc = null }) {
       console.warn("Could not save mural notes to localStorage:", e);
     }
   }, [notes]);
+
+  // Preload 300 images & Run Canvas RAF Delta-Time Loop
+  useEffect(() => {
+    let isMounted = true;
+    let loadedCount = 0;
+    const total = FRAME_CONFIG.frameCount;
+    const loadedImages = new Array(total);
+
+    // Preload loop
+    for (let i = 0; i < total; i++) {
+      const frameNum = (FRAME_CONFIG.firstFrame + i).toString().padStart(FRAME_CONFIG.padding, "0");
+      const src = `${FRAME_CONFIG.folder}${FRAME_CONFIG.prefix}${frameNum}${FRAME_CONFIG.extension}`;
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        if (!isMounted) return;
+        loadedCount++;
+        if (loadedCount === total) {
+          imagesRef.current = loadedImages;
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        if (!isMounted) return;
+        loadedCount++;
+        if (loadedCount === total) {
+          imagesRef.current = loadedImages;
+          setImagesLoaded(true);
+        }
+      };
+      loadedImages[i] = img;
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // RAF Animation Loop with Delta-Time & drawCover scaling
+  useEffect(() => {
+    if (!imagesLoaded || !canvasRef.current || !containerRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const container = containerRef.current;
+    const images = imagesRef.current;
+    const total = images.length;
+    if (!total || !ctx) return;
+
+    let animFrameId = null;
+    let currentFrame = 0;
+    let lastTs = performance.now();
+    let accMs = 0;
+    const frameIntervalMs = 1000 / FRAME_CONFIG.fps;
+
+    // Helper: drawCover (emulates object-fit: cover on canvas)
+    function drawCover(img) {
+      if (!img || !img.complete || !img.naturalWidth) return;
+
+      const cWidth = canvas.width;
+      const cHeight = canvas.height;
+      const iWidth = img.naturalWidth;
+      const iHeight = img.naturalHeight;
+
+      const scale = Math.max(cWidth / iWidth, cHeight / iHeight);
+      const renderW = iWidth * scale;
+      const renderH = iHeight * scale;
+      const offsetX = (cWidth - renderW) / 2;
+      const offsetY = (cHeight - renderH) / 2;
+
+      ctx.clearRect(0, 0, cWidth, cHeight);
+      ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+    }
+
+    function syncSize() {
+      const rect = container.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      drawCover(images[currentFrame]);
+    }
+
+    syncSize();
+
+    // ResizeObserver for zero-lag responsiveness
+    const resizeObserver = new ResizeObserver(() => {
+      syncSize();
+    });
+    resizeObserver.observe(container);
+
+    // Delta-time RAF loop
+    function loop(timestamp) {
+      const dt = timestamp - lastTs;
+      lastTs = timestamp;
+      accMs += dt;
+
+      if (accMs >= frameIntervalMs) {
+        accMs = accMs % frameIntervalMs;
+        currentFrame = (currentFrame + 1) % total;
+        drawCover(images[currentFrame]);
+      }
+
+      animFrameId = requestAnimationFrame(loop);
+    }
+
+    animFrameId = requestAnimationFrame(loop);
+
+    return () => {
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      resizeObserver.disconnect();
+    };
+  }, [imagesLoaded]);
 
   const activeNotesCount = useMemo(() => Object.keys(notes).length, [notes]);
 
@@ -157,8 +286,8 @@ export default function MuralModularBoard({ videoSrc = null }) {
 
   return (
     <div className="mural-board-wrapper fade-in-up">
-      <div className="notes-board">
-        {/* Layer 0: Background Video or Fallback Canvas Gradient */}
+      <div className="notes-board" ref={containerRef}>
+        {/* Layer 0: Background Canvas (Planetario 300 frames loop) or Video */}
         {videoSrc ? (
           <video
             className="notes-board__video"
@@ -170,12 +299,7 @@ export default function MuralModularBoard({ videoSrc = null }) {
             aria-hidden="true"
           />
         ) : (
-          <div
-            className="notes-board__video"
-            style={{
-              background: `radial-gradient(circle at 50% 40%, rgba(52, 206, 196, 0.22) 0%, rgba(15, 32, 37, 0.95) 75%), linear-gradient(135deg, #05080a 0%, #0a1216 100%)`
-            }}
-          />
+          <canvas ref={canvasRef} className="notes-board__canvas" />
         )}
 
         {/* Layer 1: Dark Glass Contrast Overlay */}
