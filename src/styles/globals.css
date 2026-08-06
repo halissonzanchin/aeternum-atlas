@@ -192,7 +192,7 @@ button {
 .viewer-stage {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(280px, var(--viewer-side-panel-width)) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
   height: calc(100dvh - var(--viewer-topbar-height));
   min-height: 0;
   gap: 18px;
@@ -5226,7 +5226,7 @@ select:focus-visible {
 .viewer-layout,
 .viewer-stage {
   display: grid;
-  grid-template-columns: minmax(280px, var(--viewer-side-panel-width)) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 18px;
   height: calc(100dvh - var(--viewer-topbar-height));
   min-height: 0;
@@ -5322,7 +5322,7 @@ select:focus-visible {
 @media (min-width: 1440px) {
   .viewer-layout,
   .viewer-stage {
-    grid-template-columns: 360px minmax(0, 1fr) 96px;
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .viewer-canvas-panel.is-sketchfab-mode .viewer-canvas--sketchfab {
