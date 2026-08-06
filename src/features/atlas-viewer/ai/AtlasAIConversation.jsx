@@ -20,11 +20,20 @@ function formatInlineText(line) {
 
 function normalizeTextSpacing(rawText) {
   let str = String(rawText || "");
-  // Break section headers (a. b. c. d. or Resumo Direto: Localização: Conexões: Funções Principais: Destaque:) into separate lines
-  str = str.replace(/([^\n])\s*([a-d]\.\s+|\bResumo Direto:|\bLocalização:|\bConexões:|\bFunções Principais:|\bDestaque:|\bDestaque Clínico:)/gi, "$1\n\n$2");
-  // Break numbered items (1. 2. 3.) into separate lines
+  
+  // Remove informal conversational filler openers
+  str = str.replace(/^(Okay,\s*vamos\s*direto\s*ao\s*ponto\.\s*|Com\s*certeza!\s*|Compreendo\s*que\s*[^.!]+[.!]\s*)/gi, "");
+
+  // Insert double newlines before section headers, questions, or key labels if squished inline
+  str = str.replace(
+    /([^\n])\s*([a-d]\.\s+|\bResumo Direto:|\bLocalização:|\bConexões:|\bFunções Principais:|\bFunções:|\bDestaque:|\bDestaque Clínico:|\bCuriosidade:|\bOnde está\?|\bCom o que se conecta\?|\bPara que serve\?|\bMedialmente:|\bLateralmente:|\bSuporte:|\bTransmissão de Forças:|\bProteção:)/gi,
+    "$1\n\n$2"
+  );
+
+  // Insert newline before numbered list items (1. 2. 3.)
   str = str.replace(/([^\n])\s*([1-9]\.\s+)/g, "$1\n$2");
-  return str;
+
+  return str.trim();
 }
 
 function MessageText({ text }) {

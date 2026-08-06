@@ -173,7 +173,7 @@ async function generateGeminiResponse(
     ? candidates[0].content as Record<string, unknown>
     : {};
   const parts = Array.isArray(content.parts) ? content.parts as Array<Record<string, unknown>> : [];
-  const text = parts.map((part) => cleanText(part.text, 8_000)).join("").trim().slice(0, 8_000);
+  const text = parts.map((part) => String(part.text || "")).join("").trim().slice(0, 8_000);
   if (!text) throw new Error("Gemini returned an empty response");
   return text;
 }
