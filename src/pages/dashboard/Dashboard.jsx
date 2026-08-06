@@ -7,6 +7,7 @@ import QuickMetricCard from "../../features/dashboard/components/QuickMetricCard
 import StudyToolCard from "../../features/dashboard/components/StudyToolCard";
 import ContinueModelCard from "../../features/dashboard/components/ContinueModelCard";
 import EvolutionPanel from "../../features/dashboard/components/EvolutionPanel";
+import MuralModularBoard from "../../components/MuralModularBoard/MuralModularBoard";
 import { A26Button, A26LoadingState } from "../../components/aeternum-26";
 import { studyTools } from "../../features/dashboard/data/constants";
 import { useDashboardData } from "../../features/dashboard/hooks/useDashboardData";
@@ -108,6 +109,8 @@ export default function Dashboard({ user, navigate }) {
           </div>
         </div>
       </div>
+
+      <MuralModularBoard />
 
       <div className="student-quick-grid upe-metrics">
         <QuickMetricCard icon="layers" label={t("studentHome.quick.availableModels")} value={modelsLoading ? "..." : activeModels.length} hint={t("studentHome.quick.modelsHint")} tone="teal" />
