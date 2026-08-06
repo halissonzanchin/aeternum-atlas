@@ -18,11 +18,21 @@ function formatInlineText(line) {
   });
 }
 
+function normalizeTextSpacing(rawText) {
+  let str = String(rawText || "");
+  // Break section headers (a. b. c. d. or Resumo Direto: Localização: Conexões: Funções Principais: Destaque:) into separate lines
+  str = str.replace(/([^\n])\s*([a-d]\.\s+|\bResumo Direto:|\bLocalização:|\bConexões:|\bFunções Principais:|\bDestaque:|\bDestaque Clínico:)/gi, "$1\n\n$2");
+  // Break numbered items (1. 2. 3.) into separate lines
+  str = str.replace(/([^\n])\s*([1-9]\.\s+)/g, "$1\n$2");
+  return str;
+}
+
 function MessageText({ text }) {
   const richRender = RichContentParser({ text });
   if (richRender) return richRender;
 
-  const rawLines = String(text || "").split("\n");
+  const normalized = normalizeTextSpacing(text);
+  const rawLines = normalized.split("\n");
   const blocks = [];
   let currentClinicalBlock = null;
 
