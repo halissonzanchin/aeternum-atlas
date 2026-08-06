@@ -46,7 +46,10 @@ function corsHeaders(req: Request) {
 }
 
 function cleanText(value: unknown, max: number) {
-  return String(value || "").replace(/[\u0000-\u001F\u007F]/g, " ").trim().slice(0, max);
+  return String(value || "")
+    .replace(/[\u0000-\u0009\u000B\u000C\u000E-\u001F\u007F]/g, " ")
+    .trim()
+    .slice(0, max);
 }
 
 function safeContext(value: unknown) {
