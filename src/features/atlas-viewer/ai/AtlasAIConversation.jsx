@@ -4,30 +4,144 @@ import { RichContentParser } from "./NotebookLMRenderers";
 import "./AtlasAIViewerPanel.css";
 import "./AtlasAIConversation.css";
 
+function formatInlineText(line) {
+  const fragments = String(line || "").split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
+  return fragments.map((fragment, fragmentIndex) => {
+    const key = `${fragmentIndex}-${fragment}`;
+    if (fragment.startsWith("**") && fragment.endsWith("**")) {
+      return <strong key={key} className="text-amber-300 font-semibold">{fragment.slice(2, -2)}</strong>;
+    }
+    if (fragment.startsWith("*") && fragment.endsWith("*")) {
+      return <em key={key} className="text-amber-200/90 italic">{fragment.slice(1, -1)}</em>;
+    }
+    return <React.Fragment key={key}>{fragment}</React.Fragment>;
+  });
+}
+
 function MessageText({ text }) {
   const richRender = RichContentParser({ text });
   if (richRender) return richRender;
 
-  const lines = String(text || "").split("\n");
+  const rawLines = String(text || "").split("\n");
+  const blocks = [];
+  let currentClinicalBlock = null;
 
-  return lines.map((line, lineIndex) => {
-    const fragments = line.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
-    return (
-      <React.Fragment key={`${lineIndex}-${line}`}>
-        {fragments.map((fragment, fragmentIndex) => {
-          const key = `${fragmentIndex}-${fragment}`;
-          if (fragment.startsWith("**") && fragment.endsWith("**")) {
-            return <strong key={key}>{fragment.slice(2, -2)}</strong>;
-          }
-          if (fragment.startsWith("*") && fragment.endsWith("*")) {
-            return <em key={key}>{fragment.slice(1, -1)}</em>;
-          }
-          return <React.Fragment key={key}>{fragment}</React.Fragment>;
-        })}
-        {lineIndex < lines.length - 1 ? <br /> : null}
-      </React.Fragment>
-    );
+  rawLines.forEach((line) => {
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      if (currentClinicalBlock) {
+        blocks.push(currentClinicalBlock);
+        currentClinicalBlock = null;
+      }
+      return;
+    }
+
+    if (/^Destaque Clínico:|^\*\*Destaque Clínico/i.test(trimmed) || /^🩺/i.test(trimmed)) {
+      if (currentClinicalBlock) blocks.push(currentClinicalBlock);
+      currentClinicalBlock = {
+        type: "clinical",
+        content: [trimmed]
+      };
+      return;
+    }
+
+    if (currentClinicalBlock) {
+      currentClinicalBlock.content.push(trimmed);
+      return;
+    }
+
+    if (trimmed.startsWith("###") || trimmed.startsWith("####") || trimmed.startsWith("##")) {
+      const level = trimmed.startsWith("####") ? 4 : trimmed.startsWith("###") ? 3 : 2;
+      const cleanHeading = trimmed.replace(/^#{2,4}\s*/, "").replace(/---/g, "").trim();
+      blocks.push({
+        type: "heading",
+        level,
+        text: cleanHeading
+      });
+      return;
+    }
+
+    if (trimmed === "---" || trimmed === "___" || trimmed === "***") {
+      blocks.push({ type: "divider" });
+      return;
+    }
+
+    const isNumbered = /^[0-9A-Za-z]+\.\s+/.test(trimmed) || /^[A-Z]\)\s+/.test(trimmed);
+    const isBullet = /^[•\-*]\s+/.test(trimmed);
+
+    if (isNumbered || isBullet) {
+      const match = trimmed.match(/^([0-9A-Za-z]+\.|[A-Z]\)|[•\-*])\s+(.*)/);
+      blocks.push({
+        type: "listItem",
+        badge: match ? match[1] : "•",
+        text: match ? match[2] : trimmed
+      });
+      return;
+    }
+
+    blocks.push({ type: "paragraph", text: trimmed });
   });
+
+  if (currentClinicalBlock) {
+    blocks.push(currentClinicalBlock);
+  }
+
+  return (
+    <div className="atlas-ai-formatted-response flex flex-col gap-2 text-xs leading-relaxed">
+      {blocks.map((block, idx) => {
+        if (block.type === "heading") {
+          return (
+            <h3 key={idx} className="atlas-ai-response-h3 text-agedGold font-bold text-sm mt-3 mb-1 border-b border-glassBorder/30 pb-1 flex items-center gap-1.5">
+              <span>📌</span>
+              <span>{formatInlineText(block.text)}</span>
+            </h3>
+          );
+        }
+
+        if (block.type === "divider") {
+          return <hr key={idx} className="atlas-ai-response-divider my-2 border-t border-glassBorder/40" />;
+        }
+
+        if (block.type === "clinical") {
+          return (
+            <div key={idx} className="atlas-ai-clinical-card my-2 p-3 bg-amber-500/10 border border-amber-400/40 rounded-xl backdrop-blur-md text-amber-100 shadow-lg">
+              <div className="flex items-center gap-1.5 font-bold text-amber-300 mb-1">
+                <span>🩺</span>
+                <span>Destaque Clínico</span>
+              </div>
+              <div className="text-xs text-amber-100/90 leading-normal">
+                {block.content.map((cLine, cIdx) => (
+                  <p key={cIdx} className="mb-1 last:mb-0">
+                    {formatInlineText(cLine.replace(/^Destaque Clínico:\s*/i, "").replace(/^🩺\s*/i, ""))}
+                  </p>
+                ))}
+              </div>
+            </div>
+          );
+        }
+
+        if (block.type === "listItem") {
+          return (
+            <div key={idx} className="atlas-ai-list-item flex items-start gap-2 pl-1 py-0.5">
+              <span className="atlas-ai-badge px-1.5 py-0.5 rounded bg-surfaceDark border border-glassBorder/50 text-amber-300 font-mono font-semibold text-[10px] shrink-0 mt-0.5">
+                {block.badge}
+              </span>
+              <div className="text-clinicalWhite/90">
+                {formatInlineText(block.text)}
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <p key={idx} className="atlas-ai-paragraph text-clinicalWhite/90 my-0.5">
+            {formatInlineText(block.text)}
+          </p>
+        );
+      })}
+    </div>
+  );
 }
 
 export default function AtlasAIConversation({
