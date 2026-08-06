@@ -81,10 +81,10 @@ export function useDashboardData(user) {
     completedModelIds
   }), [activeModels, completedModelIds, telemetry.events, telemetry.quizResults, telemetry.sessions]);
   const studySeriesByPeriod = useMemo(() => ({
-    week: buildStudySeries(telemetry.sessions, "week", { language }),
-    month: buildStudySeries(telemetry.sessions, "month", { language }),
-    year: buildStudySeries(telemetry.sessions, "year", { language })
-  }), [language, telemetry.sessions]);
+    week: buildStudySeries(telemetry.sessions, "week", { language, logs }),
+    month: buildStudySeries(telemetry.sessions, "month", { language, logs }),
+    year: buildStudySeries(telemetry.sessions, "year", { language, logs })
+  }), [language, logs, telemetry.sessions]);
   const weeklyStudyData = studySeriesByPeriod.week;
   const continueTarget = recentModels[0] ? modelPath(recentModels[0]) : "/models";
   

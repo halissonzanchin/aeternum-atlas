@@ -83,14 +83,23 @@ function shortMonthLabel(date, language) {
 function viewerSessions(sessions = []) {
   return uniqueById(sessions).filter(session => {
     const scope = session?.scope || session?.sessionType || session?.session_type || "viewer";
-    return scope === "viewer" && normalizedActiveSeconds(session) > 0;
+    const active = normalizedActiveSeconds(session);
+    return (scope === "viewer" || scope === "account" || scope === "quiz" || scope === "lesson") && active > 0;
   });
 }
 
 export function buildStudySeries(sessions = [], period = "week", options = {}) {
   const now = safeDate(options.now) || new Date();
   const language = options.language || "pt";
+  const logs = Array.isArray(options.logs) ? options.logs : [];
   const observedSessions = viewerSessions(sessions);
+
+  // Fallback logs mapping if observedSessions has no data for period
+  const logEntries = logs.map(log => ({
+    startedAt: log.createdAt || log.startedAt,
+    activeSeconds: Number(log.durationSeconds) || 60
+  }));
+  const activeEntries = observedSessions.length ? observedSessions : logEntries;
 
   if (period === "year") {
     const buckets = Array.from({ length: 12 }, (_, index) => {
@@ -102,9 +111,9 @@ export function buildStudySeries(sessions = [], period = "week", options = {}) {
       };
     });
     const byKey = new Map(buckets.map(bucket => [bucket.key, bucket]));
-    observedSessions.forEach(session => {
+    activeEntries.forEach(session => {
       const bucket = byKey.get(monthKey(session.startedAt || session.sessionStart || session.session_start));
-      if (bucket) bucket.seconds += normalizedActiveSeconds(session);
+      if (bucket) bucket.seconds += normalizedActiveSeconds(session) || Number(session.activeSeconds) || 0;
     });
     return buckets.map(bucket => ({ ...bucket, minutes: Math.round(bucket.seconds / 60) }));
   }
@@ -126,11 +135,11 @@ export function buildStudySeries(sessions = [], period = "week", options = {}) {
         seconds: 0
       };
     });
-    observedSessions.forEach(session => {
+    activeEntries.forEach(session => {
       const date = safeDate(session.startedAt || session.sessionStart || session.session_start);
       if (!date) return;
       const bucket = buckets.find(item => date >= item.start && date <= item.end);
-      if (bucket) bucket.seconds += normalizedActiveSeconds(session);
+      if (bucket) bucket.seconds += normalizedActiveSeconds(session) || Number(session.activeSeconds) || 0;
     });
     return buckets.map(bucket => ({
       key: bucket.key,
@@ -151,9 +160,9 @@ export function buildStudySeries(sessions = [], period = "week", options = {}) {
     };
   });
   const byKey = new Map(days.map(day => [day.key, day]));
-  observedSessions.forEach(session => {
+  activeEntries.forEach(session => {
     const bucket = byKey.get(localDateKey(session.startedAt || session.sessionStart || session.session_start));
-    if (bucket) bucket.seconds += normalizedActiveSeconds(session);
+    if (bucket) bucket.seconds += normalizedActiveSeconds(session) || Number(session.activeSeconds) || 0;
   });
   return days.map(day => ({ ...day, minutes: Math.round(day.seconds / 60) }));
 }
