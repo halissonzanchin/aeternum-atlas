@@ -323,7 +323,8 @@ export default function MuralModularBoard({ videoSrc = null }) {
 
   return (
     <div className="mural-board-wrapper fade-in-up">
-      <div className="notes-board" ref={containerRef}>
+      <div className="notes-board atlas-liquid-glass atlas-liquid-glass-card" ref={containerRef}>
+        <div className="atlas-liquid-highlight" />
         {/* Layer 0: Background Canvas (Planetario 300 frames loop) or Video */}
         {videoSrc ? (
           <video

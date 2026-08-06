@@ -10,12 +10,12 @@
   position: relative;
   width: 100%;
   min-height: 480px;
-  border-radius: 1.25rem;
+  border-radius: 1.5rem;
   overflow: hidden;
   isolation: isolate;
-  border: 1px solid rgba(127, 223, 216, 0.18);
-  box-shadow: 0 20px 50px rgba(0, 23, 21, 0.45);
-  background: #05080a;
+  border: 1px solid rgba(198, 168, 92, 0.22);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  background: rgba(10, 18, 22, 0.85);
 }
 
 /* Layer 0: Background Video / Canvas */

@@ -209,7 +209,12 @@ export function getLastAccessLabel(user) {
 export function calculateStudentProgress(user, models = [], accessLogs = getAccessLogs(user), learningSessions = []) {
   const completedIds = new Set(getCompletedModelIds(user));
   const favoriteIds = new Set(getFavoriteModelIds(user));
-  const studiedModels = completedIds.size;
+  const accessedModelIds = new Set([
+    ...completedIds,
+    ...accessLogs.map(log => log.modelId).filter(Boolean),
+    ...(Array.isArray(learningSessions) ? learningSessions.map(s => s.modelId).filter(Boolean) : [])
+  ]);
+  const studiedModels = Math.max(completedIds.size, accessedModelIds.size);
   const totalModels = models.filter(model => model.isActive !== false).length;
   const progressPercent = totalModels ? Math.min(100, Math.round((studiedModels / totalModels) * 100)) : 0;
   const observedSessions = Array.isArray(learningSessions) ? learningSessions : [];
