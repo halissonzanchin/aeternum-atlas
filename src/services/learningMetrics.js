@@ -35,11 +35,24 @@ function uniqueById(items = []) {
   });
 }
 
+export function extractSessionTimestamp(session) {
+  const raw = session?.startedAt || session?.started_at || session?.sessionStart || session?.session_start || session?.createdAt || session?.created_at || session?.lastHeartbeatAt || session?.last_heartbeat_at || session?.timestamp;
+  return safeDate(raw) || new Date();
+}
+
 export function normalizedActiveSeconds(session) {
   const active = Number(session?.activeSeconds ?? session?.active_seconds);
-  if (Number.isFinite(active) && active >= 0) return active;
+  if (Number.isFinite(active) && active > 0) return active;
   const duration = Number(session?.durationSeconds ?? session?.duration_seconds);
-  return Number.isFinite(duration) && duration >= 0 ? duration : 0;
+  if (Number.isFinite(duration) && duration > 0) return duration;
+
+  const start = extractSessionTimestamp(session);
+  const end = safeDate(session?.endedAt || session?.ended_at || session?.lastHeartbeatAt || session?.last_heartbeat_at || session?.session_end);
+  if (start && end && end.getTime() >= start.getTime()) {
+    const diffSec = Math.round((end.getTime() - start.getTime()) / 1000);
+    if (diffSec > 0) return diffSec;
+  }
+  return 0;
 }
 
 export function calculateLearningTotals(sessions = []) {
@@ -112,10 +125,13 @@ export function buildStudySeries(sessions = [], period = "week", options = {}) {
     });
     const byKey = new Map(buckets.map(bucket => [bucket.key, bucket]));
     activeEntries.forEach(session => {
-      const bucket = byKey.get(monthKey(session.startedAt || session.sessionStart || session.session_start));
+      const bucket = byKey.get(monthKey(extractSessionTimestamp(session)));
       if (bucket) bucket.seconds += normalizedActiveSeconds(session) || Number(session.activeSeconds) || 0;
     });
-    return buckets.map(bucket => ({ ...bucket, minutes: Math.round(bucket.seconds / 60) }));
+    return buckets.map(bucket => ({
+      ...bucket,
+      minutes: bucket.seconds > 0 ? Math.max(1, Math.round(bucket.seconds / 60)) : 0
+    }));
   }
 
   if (period === "month") {
@@ -136,7 +152,7 @@ export function buildStudySeries(sessions = [], period = "week", options = {}) {
       };
     });
     activeEntries.forEach(session => {
-      const date = safeDate(session.startedAt || session.sessionStart || session.session_start);
+      const date = extractSessionTimestamp(session);
       if (!date) return;
       const bucket = buckets.find(item => date >= item.start && date <= item.end);
       if (bucket) bucket.seconds += normalizedActiveSeconds(session) || Number(session.activeSeconds) || 0;
@@ -145,7 +161,7 @@ export function buildStudySeries(sessions = [], period = "week", options = {}) {
       key: bucket.key,
       label: bucket.label,
       seconds: bucket.seconds,
-      minutes: Math.round(bucket.seconds / 60)
+      minutes: bucket.seconds > 0 ? Math.max(1, Math.round(bucket.seconds / 60)) : 0
     }));
   }
 
@@ -161,10 +177,13 @@ export function buildStudySeries(sessions = [], period = "week", options = {}) {
   });
   const byKey = new Map(days.map(day => [day.key, day]));
   activeEntries.forEach(session => {
-    const bucket = byKey.get(localDateKey(session.startedAt || session.sessionStart || session.session_start));
+    const bucket = byKey.get(localDateKey(extractSessionTimestamp(session)));
     if (bucket) bucket.seconds += normalizedActiveSeconds(session) || Number(session.activeSeconds) || 0;
   });
-  return days.map(day => ({ ...day, minutes: Math.round(day.seconds / 60) }));
+  return days.map(day => ({
+    ...day,
+    minutes: day.seconds > 0 ? Math.max(1, Math.round(day.seconds / 60)) : 0
+  }));
 }
 
 function modelAliases(model) {
