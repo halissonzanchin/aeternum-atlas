@@ -381,38 +381,98 @@
   margin-top: 1.5rem;
 }
 
-/* Responsive Enhancements for Mobile, Tablet, Laptop, and Desktop 4K */
+/* Mobile Touch & Tap-to-Move Selection Badges */
+.notes-board__cell.is-mobile-selected {
+  border-color: #34cec4 !important;
+  box-shadow: 0 0 18px rgba(52, 206, 196, 0.7);
+  animation: pulse-selection 1.5s infinite alternate;
+}
 
-@media (max-width: 768px) {
-  .notes-board__header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-    padding: 1rem;
-  }
-  .notes-board__count-chip {
-    align-self: flex-start;
-  }
-  .notes-board__cell {
-    height: 110px;
+@keyframes pulse-selection {
+  from { box-shadow: 0 0 10px rgba(52, 206, 196, 0.4); }
+  to { box-shadow: 0 0 22px rgba(52, 206, 196, 0.9); }
+}
+
+.notes-board__touch-banner {
+  position: relative;
+  z-index: 3;
+  background: rgba(52, 206, 196, 0.15);
+  border-bottom: 1px solid rgba(52, 206, 196, 0.3);
+  padding: 0.5rem 1rem;
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 0.8rem;
+  color: #34cec4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notes-board__selected-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #34cec4;
+  background: rgba(52, 206, 196, 0.2);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.notes-board__mobile-cancel-btn {
+  background: rgba(232, 131, 111, 0.2);
+  border: 1px solid rgba(232, 131, 111, 0.4);
+  color: #e8836f;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+/* Responsive Enhancements for Mobile, iPhone 14 Pro Max, Tablet, and Desktop */
+
+@media (max-width: 1024px) {
+  .notes-board__grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .notes-board {
+    min-height: auto;
+  }
+  .notes-board__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 1rem;
+  }
+  .notes-board__title-group h3 {
+    font-size: 1rem;
+  }
+  .notes-board__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 0.85rem;
+  }
+  .notes-board__cell {
+    height: 108px;
+  }
+}
+
+@media (max-width: 440px) {
   .notes-board {
     border-radius: 0.85rem;
-    min-height: 380px;
   }
   .notes-board__grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 6px;
-    padding: 0.75rem;
+    padding: 0.65rem;
   }
   .notes-board__cell {
-    height: 96px;
+    height: 94px;
   }
   .notes-board__postit-title {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
   }
   .notes-board__postit-content {
     font-size: 0.65rem;

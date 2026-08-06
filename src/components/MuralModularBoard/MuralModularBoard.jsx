@@ -61,8 +61,12 @@ export default function MuralModularBoard({ videoSrc = null }) {
     };
   });
 
+  // Desktop Drag & Drop states
   const [draggedCellIndex, setDraggedCellIndex] = useState(null);
   const [dragOverCellIndex, setDragOverCellIndex] = useState(null);
+
+  // Touch / Tap-to-Move state for Smartphones & Tablets
+  const [selectedMobileIndex, setSelectedMobileIndex] = useState(null);
 
   // Modals state
   const [editingIndex, setEditingIndex] = useState(null);
@@ -87,7 +91,6 @@ export default function MuralModularBoard({ videoSrc = null }) {
     const total = FRAME_CONFIG.frameCount;
     const loadedImages = new Array(total);
 
-    // Preload loop
     for (let i = 0; i < total; i++) {
       const frameNum = (FRAME_CONFIG.firstFrame + i).toString().padStart(FRAME_CONFIG.padding, "0");
       const src = `${FRAME_CONFIG.folder}${FRAME_CONFIG.prefix}${frameNum}${FRAME_CONFIG.extension}`;
@@ -134,7 +137,6 @@ export default function MuralModularBoard({ videoSrc = null }) {
     let accMs = 0;
     const frameIntervalMs = 1000 / FRAME_CONFIG.fps;
 
-    // Helper: drawCover (emulates object-fit: cover on canvas)
     function drawCover(img) {
       if (!img || !img.complete || !img.naturalWidth) return;
 
@@ -165,13 +167,11 @@ export default function MuralModularBoard({ videoSrc = null }) {
 
     syncSize();
 
-    // ResizeObserver for zero-lag responsiveness
     const resizeObserver = new ResizeObserver(() => {
       syncSize();
     });
     resizeObserver.observe(container);
 
-    // Delta-time RAF loop
     function loop(timestamp) {
       const dt = timestamp - lastTs;
       lastTs = timestamp;
@@ -204,6 +204,7 @@ export default function MuralModularBoard({ videoSrc = null }) {
     setFormColor(existing ? existing.color : "cyan");
     setEditingIndex(index);
     setReadingIndex(null);
+    setSelectedMobileIndex(null);
   }
 
   function handleSaveNote() {
@@ -233,9 +234,64 @@ export default function MuralModularBoard({ videoSrc = null }) {
     });
     if (readingIndex === index) setReadingIndex(null);
     if (editingIndex === index) setEditingIndex(null);
+    if (selectedMobileIndex === index) setSelectedMobileIndex(null);
   }
 
-  // HTML5 Drag & Drop Swap Implementation
+  // Swap logic helper
+  function swapNotes(sourceIdx, targetIdx) {
+    if (sourceIdx === null || sourceIdx === targetIdx) return;
+
+    setNotes(prev => {
+      const updated = { ...prev };
+      const sourceNote = updated[sourceIdx];
+      const targetNote = updated[targetIdx];
+
+      if (sourceNote) {
+        updated[targetIdx] = sourceNote;
+      } else {
+        delete updated[targetIdx];
+      }
+
+      if (targetNote) {
+        updated[sourceIdx] = targetNote;
+      } else {
+        delete updated[sourceIdx];
+      }
+
+      return updated;
+    });
+  }
+
+  // Mobile Tap-to-Move & Click Handler
+  function handleCellClick(index) {
+    const note = notes[index];
+
+    // Case 1: No cell is currently selected for mobile tap-to-move
+    if (selectedMobileIndex === null) {
+      if (note) {
+        // Tap on occupied note: Select it for moving / reading
+        setSelectedMobileIndex(index);
+      } else {
+        // Tap on empty cell: Open creation modal
+        handleOpenCreate(index);
+      }
+      return;
+    }
+
+    // Case 2: A cell is already selected
+    if (selectedMobileIndex === index) {
+      // Tap on the same selected note again: Open read modal
+      setSelectedMobileIndex(null);
+      setReadingIndex(index);
+      return;
+    }
+
+    // Tap on a DIFFERENT cell: Execute Swap!
+    swapNotes(selectedMobileIndex, index);
+    setSelectedMobileIndex(null);
+  }
+
+  // HTML5 Drag & Drop Handlers (Desktop)
   function handleDragStart(e, index) {
     setDraggedCellIndex(index);
     e.dataTransfer.setData("text/plain", String(index));
@@ -261,26 +317,7 @@ export default function MuralModularBoard({ videoSrc = null }) {
     setDragOverCellIndex(null);
     if (draggedCellIndex === null || draggedCellIndex === targetIndex) return;
 
-    setNotes(prev => {
-      const updated = { ...prev };
-      const sourceNote = updated[draggedCellIndex];
-      const targetNote = updated[targetIndex];
-
-      if (sourceNote) {
-        updated[targetIndex] = sourceNote;
-      } else {
-        delete updated[targetIndex];
-      }
-
-      if (targetNote) {
-        updated[draggedCellIndex] = targetNote;
-      } else {
-        delete updated[draggedCellIndex];
-      }
-
-      return updated;
-    });
-
+    swapNotes(draggedCellIndex, targetIndex);
     setDraggedCellIndex(null);
   }
 
@@ -314,10 +351,30 @@ export default function MuralModularBoard({ videoSrc = null }) {
               <h3>Mural Modular de Estudo Anatômico</h3>
             </div>
           </div>
-          <span className="notes-board__count-chip">
-            {activeNotesCount} / {TOTAL_CELLS} NOTAS FIXADAS
-          </span>
+          <div className="flex items-center gap-2">
+            {selectedMobileIndex !== null ? (
+              <button
+                type="button"
+                className="notes-board__mobile-cancel-btn"
+                onClick={() => setSelectedMobileIndex(null)}
+              >
+                Cancelar Movimentação
+              </button>
+            ) : null}
+            <span className="notes-board__count-chip">
+              {activeNotesCount} / {TOTAL_CELLS} NOTAS FIXADAS
+            </span>
+          </div>
         </header>
+
+        {/* Mobile Tap-to-Move Instruction Banner */}
+        {selectedMobileIndex !== null ? (
+          <div className="notes-board__touch-banner">
+            <span>
+              💡 Nota <strong>[{getCoordLabel(selectedMobileIndex)}]</strong> selecionada. Toque em qualquer bloco para trocar de posição, ou toque nela novamente para abrir.
+            </span>
+          </div>
+        ) : null}
 
         {/* Layer 3: Grid Mesh */}
         <div className="notes-board__grid">
@@ -326,15 +383,19 @@ export default function MuralModularBoard({ videoSrc = null }) {
             const coord = getCoordLabel(index);
             const note = notes[index];
             const isDragOver = dragOverCellIndex === index;
+            const isMobileSelected = selectedMobileIndex === index;
 
             return (
               <div
                 key={index}
-                className={`notes-board__cell ${isDragOver ? "is-drag-over" : ""}`}
+                className={`notes-board__cell ${isDragOver ? "is-drag-over" : ""} ${
+                  isMobileSelected ? "is-mobile-selected" : ""
+                }`}
                 data-type={glassType}
                 onDragOver={e => handleDragOver(e, index)}
                 onDragLeave={e => handleDragLeave(e, index)}
                 onDrop={e => handleDrop(e, index)}
+                onClick={() => handleCellClick(index)}
               >
                 {note ? (
                   <div
@@ -342,7 +403,6 @@ export default function MuralModularBoard({ videoSrc = null }) {
                     data-color={note.color || "cyan"}
                     draggable
                     onDragStart={e => handleDragStart(e, index)}
-                    onClick={() => setReadingIndex(index)}
                   >
                     <span className="notes-board__postit-bar" />
                     <div className="notes-board__postit-header">
@@ -360,12 +420,15 @@ export default function MuralModularBoard({ videoSrc = null }) {
                       </button>
                     </div>
                     <p className="notes-board__postit-content">{note.content}</p>
-                    <span className="notes-board__coord" style={{ alignSelf: "flex-end", marginTop: "auto" }}>
-                      {coord}
-                    </span>
+                    <div className="flex items-center justify-between w-full mt-auto pt-1">
+                      <span className="notes-board__coord">{coord}</span>
+                      {isMobileSelected ? (
+                        <span className="notes-board__selected-tag">SELECIONADA</span>
+                      ) : null}
+                    </div>
                   </div>
                 ) : (
-                  <div className="notes-board__cell-empty" onClick={() => handleOpenCreate(index)}>
+                  <div className="notes-board__cell-empty">
                     <span className="notes-board__coord">{coord}</span>
                     <span className="notes-board__add-icon">+</span>
                   </div>
