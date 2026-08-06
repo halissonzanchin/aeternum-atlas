@@ -380,3 +380,46 @@
   gap: 0.75rem;
   margin-top: 1.5rem;
 }
+
+/* Responsive Enhancements for Mobile, Tablet, Laptop, and Desktop 4K */
+
+@media (max-width: 768px) {
+  .notes-board__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+  .notes-board__count-chip {
+    align-self: flex-start;
+  }
+  .notes-board__cell {
+    height: 110px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notes-board {
+    border-radius: 0.85rem;
+    min-height: 380px;
+  }
+  .notes-board__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    padding: 0.75rem;
+  }
+  .notes-board__cell {
+    height: 96px;
+  }
+  .notes-board__postit-title {
+    font-size: 0.75rem;
+  }
+  .notes-board__postit-content {
+    font-size: 0.65rem;
+    -webkit-line-clamp: 2;
+  }
+  .notes-board__modal {
+    padding: 1.25rem;
+    margin: 0 0.5rem;
+  }
+}
