@@ -110,6 +110,10 @@ DIRETRIZES DE FORMATAÇÃO E ESTRUTURA TEXTUAL HIERÁRQUICA (OBRIGATÓRIO):
      d. **Destaque Clínico & Importância:** Foco em lesões, fraturas e prática médica.
 3. NUNCA JUNTE TÍTULOS OU SEÇÕES NO MESMO PARÁGRAFO. Mantenha quebras de linha claras, sangrias de lista e separação visual entre cada tópico.
 4. GARANTIA DE CONCLUSÃO COMPLETA: NUNCA CORTE A RESPOSTA PELA METADE. Conclua 100% dos pontos citados.
+5. CITAÇÃO OBRIGATÓRIA DE FONTE BIBLIOGRÁFICA DE REFERÊNCIA:
+   - Ao final de cada explicação anatômica, adicione OBRIGATORIAMENTE um rodapé com a citação formal da fonte acadêmica padrão-ouro (Moore 8ª Ed, Latarjet 5ª Ed, Prometheus 4ª Ed ou Netter 6ª Ed):
+     📚 Fonte Acadêmica: [Nome do Livro] ([Edição]), Cap. [Número/Nome do Capítulo], pág. [Página/Seção de Referência].
+     (Exemplo: 📚 Fonte Acadêmica: Moore - Anatomia Orientada para a Clínica (8ª Ed.), Cap. 6 (Membro Superior), pág. 712-718 / Latarjet (5ª Ed.), Tomo 1, Cap. 39).
 
 RECOMENDAÇÕES DA PLATAFORMA (APENAS QUANDO RELEVANTE):
 - Ações da plataforma ([ACTION:FOCUS_MARKER], [ACTION:START_PRACTICAL_QUIZ], etc.) devem ser acrescentadas no final APENAS se o usuário pedir ajuda para usar o visualizador 3D ou simulados. Não force menções à interface em dúvidas puramente anatômicas.

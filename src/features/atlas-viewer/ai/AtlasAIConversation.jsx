@@ -178,6 +178,18 @@ function MessageText({ text }) {
           );
         }
 
+        if (block.type === "paragraph" && /^📚?\s*Fonte\s*(Acadêmica)?:/i.test(block.text)) {
+          return (
+            <div key={idx} className="atlas-ai-source-card my-2 p-2.5 bg-teal-950/40 border border-teal-500/40 rounded-xl backdrop-blur-md text-teal-200 text-[11px] flex items-center gap-2 shadow-md">
+              <span className="text-base shrink-0">📚</span>
+              <div>
+                <strong className="text-teal-300 font-bold block mb-0.5">Fonte Acadêmica de Referência:</strong>
+                <span>{formatInlineText(block.text.replace(/^📚?\s*Fonte\s*(Acadêmica)?:\s*/i, ""))}</span>
+              </div>
+            </div>
+          );
+        }
+
         return (
           <p key={idx} className="atlas-ai-paragraph text-clinicalWhite/90 my-0.5">
             {formatInlineText(block.text)}
