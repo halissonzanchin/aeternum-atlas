@@ -306,19 +306,7 @@ export default function AtlasAIConversation({
         </div>
 
         <div className="atlas-ai-live-dock__content">
-          {!isThinking ? (
-            <div className="upe-ai-quick-actions flex-wrap gap-1" aria-label="Ferramentas NotebookLM & Sugestões">
-              <button type="button" onClick={() => onAction ? onAction('GENERATE_MIND_MAP') : handleSend("Gere um mapa mental hierárquico sobre este modelo anatômico")}>
-                🌳 Mapa mental
-              </button>
-              <button type="button" onClick={() => onAction ? onAction('GENERATE_STUDY_REPORT') : handleSend("Crie um relatório de resumo e guia de estudos sobre este modelo")}>
-                📝 Relatório
-              </button>
-              <button type="button" onClick={() => onAction ? onAction('GENERATE_CUSTOM_QUIZ') : handleSend("Crie um teste personalizado de 5 perguntas com gabarito sobre este modelo")}>
-                🧪 Teste
-              </button>
-            </div>
-          ) : isThinking ? (
+          {isThinking ? (
             <div className="atlas-ai-live-dock__status" aria-live="polite">
               <span aria-hidden="true" />
               O Atlas está processando sua solicitação…
