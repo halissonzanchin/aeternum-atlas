@@ -13,6 +13,8 @@ import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
 import { useDashboardData } from "../../features/dashboard/hooks/useDashboardData";
 import { getFavoriteModels } from "../../services/progressService";
+import { useAtlasAITutorSession } from "../../context/AtlasAITutorSessionContext";
+import AtlasAIConversation from "../../features/atlas-viewer/ai/AtlasAIConversation";
 import "./StudentLearningPage.css";
 
 const sectionDefinitions = Object.freeze({
@@ -365,17 +367,7 @@ export default function StudentLearningPage({ section, user, navigate }) {
     }
 
     if (definition.kind === "tutor") {
-      return (
-        <A26Card className="a26-daily-tutor" tone="teal">
-          <span className="a26-daily-tutor__orb" aria-hidden="true" />
-          <div>
-            <span className="a26-kicker">Atlas AI</span>
-            <h2>{labels.tutorTitle}</h2>
-            <p>{labels.tutorBody}</p>
-          </div>
-          <A26Button variant="liquid" onClick={() => navigate("/student/home")}>{labels.continue}</A26Button>
-        </A26Card>
-      );
+      return <StudentAITutorStudio />;
     }
 
     if (definition.kind === "planned" || definition.kind === "unpublished") {
@@ -455,5 +447,91 @@ export default function StudentLearningPage({ section, user, navigate }) {
         {labels.dataNotice}
       </p>
     </section>
+  );
+}
+
+function StudentAITutorStudio() {
+  const { messages, draft, setDraft, isThinking, sendMessage, connectionMode } = useAtlasAITutorSession();
+  const [filterQuery, setFilterQuery] = useState("");
+
+  const filteredMessages = useMemo(() => {
+    if (!filterQuery.trim()) return messages;
+    const queryLower = filterQuery.toLowerCase();
+    return messages.filter(
+      (m) => m.text?.toLowerCase().includes(queryLower) || m.contextLabel?.toLowerCase().includes(queryLower)
+    );
+  }, [messages, filterQuery]);
+
+  const userQuestionsCount = useMemo(() => messages.filter((m) => m.sender === "user").length, [messages]);
+  const aiAnswersCount = useMemo(() => messages.filter((m) => m.sender === "ai").length, [messages]);
+
+  return (
+    <div className="a26-ai-tutor-studio-hub flex flex-col gap-6 w-full">
+      <div className="a26-daily-metrics">
+        <A26Metric
+          label="Diálogos Sincronizados"
+          value={`${userQuestionsCount} perguntas / ${aiAnswersCount} respostas`}
+          detail="Histórico Acadêmico Salvo nesta Conta"
+          tone="teal"
+        />
+        <A26Metric
+          label="Status da Sessão"
+          value={connectionMode === "online" ? "Supabase Cloud Ativo" : "Armazenamento Local"}
+          detail="Sincronização entre Dispositivos"
+          tone="gold"
+        />
+        <A26Metric
+          label="Base Anatômica RAG"
+          value="7 Livros Integrados"
+          detail="Prometheus, Netter, Latarjet & Cases"
+        />
+        <A26Metric
+          label="Formatação ABNT"
+          value="Ativa"
+          detail="Normas de Redação Médica"
+          tone="teal"
+        />
+      </div>
+
+      <A26Toolbar className="a26-daily-toolbar" label="Filtrar histórico de diálogos">
+        <A26Field
+          label="Pesquisar histórico de consultas"
+          value={filterQuery}
+          placeholder="Pesquisar por estrutura anatômica (ex: Clavícula, Plexo Braquial, Encefalo)..."
+          onChange={(event) => setFilterQuery(event.target.value)}
+        />
+        {filterQuery ? (
+          <A26Button variant="ghost" onClick={() => setFilterQuery("")}>
+            Limpar busca
+          </A26Button>
+        ) : null}
+      </A26Toolbar>
+
+      <A26Card className="a26-daily-tutor-hub-card p-4 sm:p-6 bg-glassCard/60 backdrop-blur-2xl border border-glassBorder/40 rounded-3xl shadow-2xl min-h-[680px] flex flex-col justify-between" tone="teal">
+        <header className="flex items-center justify-between pb-4 border-b border-glassBorder/30 mb-4">
+          <div className="flex items-center gap-3">
+            <span className="w-3 h-3 rounded-full bg-teal-400 animate-pulse shadow-glowTeal" />
+            <div>
+              <h2 className="text-base font-bold text-agedGold">Estúdio Completo de Diálogos do Tutor IA</h2>
+              <p className="text-xs text-textMuted">Histórico completo de perguntas, pesquisas e respostas médicas estruturadas</p>
+            </div>
+          </div>
+          <span className="text-xs text-teal-300 font-mono bg-teal-950/60 px-3 py-1.5 rounded-full border border-teal-500/30">
+            {messages.length} mensagens sincronizadas
+          </span>
+        </header>
+
+        <div className="a26-tutor-fullpage-chat flex-1 min-h-[500px] flex flex-col justify-between">
+          <AtlasAIConversation
+            messages={filteredMessages}
+            isThinking={isThinking}
+            draft={draft}
+            setDraft={setDraft}
+            onSend={(text) => sendMessage({ text, contextLabel: "Página Tutor IA" })}
+            placeholder="Digite sua dúvida anatômica para consultar a base oficial de livros médicos…"
+          />
+        </div>
+      </A26Card>
+    </div>
   );
 }
