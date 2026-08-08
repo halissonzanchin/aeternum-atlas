@@ -21,19 +21,25 @@ function formatInlineText(line) {
 function normalizeTextSpacing(rawText) {
   let str = String(rawText || "");
   
-  // 1. Strip ALL informal conversational intro phrases
-  str = str.replace(/^(Certo,\s*vamos\s*[^:]+:\s*|Okay,\s*vamos\s*[^:]+:\s*|Com\s*certeza!\s*|Compreendo\s*que\s*[^.!]+[.!]\s*)/gi, "");
+  // 1. Remove informal conversational filler openers
+  str = str.replace(/^(Excelente!|Compreendo|Certo|Okay|Com certeza!)[^.!]*[.!]?\s*/gi, "");
 
-  // 2. Insert double newlines before ANY inline question (e.g. "Onde fica?", "O que conecta?", "Para que serve?")
-  str = str.replace(/([^\n])\s*([A-Za-zÀ-ÿ][^.!?\n]{2,30}\?)/g, "$1\n\n$2\n");
+  // 2. Clean raw code markdown artifacts (---, ###, ####, **\n1.\n, dangling asterisks)
+  str = str.replace(/---/g, "\n\n");
+  str = str.replace(/#{2,4}\s*/g, "");
+  str = str.replace(/\*\*\s*\n?([0-9]+\.)\s*\n?/g, "$1 ");
+  str = str.replace(/\*/g, ""); // Remove stray developer code asterisks
 
-  // 3. Insert double newlines before section labels (a. b. c. d., Resumo Direto:, Localização:, Conexões:, Suporte:, Proteção:, Transmissão de Forças:, Detalhe Clínico:*)
+  // 3. Insert double newlines before standalone section labels (a. b. c. d. - REQUIRES SPACE BEFORE, NEVER INSIDE WORDS!)
+  str = str.replace(/(^|\n|\s)([a-d]\.\s+)/g, "$1\n\n$2");
+
+  // 4. Insert double newlines before section headers and questions
   str = str.replace(
-    /([^\n])\s*([a-d]\.\s+|\bResumo Direto:|\bLocalização:|\bConexões:|\bFunções Principais:|\bFunções:|\bDestaque:|\bDestaque Clínico:\*?|\bDetalhe Clínico:\*?|\bCuriosidade:\*?|\bMedialmente:|\bLateralmente:|\bSuporte:|\bTransmissão de Forças:|\bProteção:)/gi,
+    /([^\n])\s*(\bResumo Direto:|\bLocalização:|\bConexões:|\bFunções Principais:|\bFunções:|\bDestaque:|\bDestaque Clínico:|\bDetalhe Clínico:|\bCuriosidade:|\bExtremidades:|\bCorpo:|\bSíntese Funcional:|\bSuporte:|\bTransmissão de Forças:|\bProteção:)/gi,
     "$1\n\n$2"
   );
 
-  // 4. Insert newline before numbered list items (1. 2. 3.)
+  // 5. Insert newline before numbered list items (1. 2. 3.)
   str = str.replace(/([^\n])\s*([1-9]\.\s+)/g, "$1\n$2");
 
   return str.trim();
