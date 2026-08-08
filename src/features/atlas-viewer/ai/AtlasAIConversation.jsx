@@ -21,16 +21,19 @@ function formatInlineText(line) {
 function normalizeTextSpacing(rawText) {
   let str = String(rawText || "");
   
-  // Remove informal conversational filler openers
-  str = str.replace(/^(Okay,\s*vamos\s*direto\s*ao\s*ponto\.\s*|Com\s*certeza!\s*|Compreendo\s*que\s*[^.!]+[.!]\s*)/gi, "");
+  // 1. Strip ALL informal conversational intro phrases
+  str = str.replace(/^(Certo,\s*vamos\s*[^:]+:\s*|Okay,\s*vamos\s*[^:]+:\s*|Com\s*certeza!\s*|Compreendo\s*que\s*[^.!]+[.!]\s*)/gi, "");
 
-  // Insert double newlines before section headers, questions, or key labels if squished inline
+  // 2. Insert double newlines before ANY inline question (e.g. "Onde fica?", "O que conecta?", "Para que serve?")
+  str = str.replace(/([^\n])\s*([A-Za-zÀ-ÿ][^.!?\n]{2,30}\?)/g, "$1\n\n$2\n");
+
+  // 3. Insert double newlines before section labels (a. b. c. d., Resumo Direto:, Localização:, Conexões:, Suporte:, Proteção:, Transmissão de Forças:, Detalhe Clínico:*)
   str = str.replace(
-    /([^\n])\s*([a-d]\.\s+|\bResumo Direto:|\bLocalização:|\bConexões:|\bFunções Principais:|\bFunções:|\bDestaque:|\bDestaque Clínico:|\bCuriosidade:|\bOnde está\?|\bCom o que se conecta\?|\bPara que serve\?|\bMedialmente:|\bLateralmente:|\bSuporte:|\bTransmissão de Forças:|\bProteção:)/gi,
+    /([^\n])\s*([a-d]\.\s+|\bResumo Direto:|\bLocalização:|\bConexões:|\bFunções Principais:|\bFunções:|\bDestaque:|\bDestaque Clínico:\*?|\bDetalhe Clínico:\*?|\bCuriosidade:\*?|\bMedialmente:|\bLateralmente:|\bSuporte:|\bTransmissão de Forças:|\bProteção:)/gi,
     "$1\n\n$2"
   );
 
-  // Insert newline before numbered list items (1. 2. 3.)
+  // 4. Insert newline before numbered list items (1. 2. 3.)
   str = str.replace(/([^\n])\s*([1-9]\.\s+)/g, "$1\n$2");
 
   return str.trim();
@@ -56,7 +59,7 @@ function MessageText({ text }) {
       return;
     }
 
-    if (/^Destaque Clínico:|^\*\*Destaque Clínico/i.test(trimmed) || /^🩺/i.test(trimmed)) {
+    if (/^Destaque Clínico:|^Detalhe Clínico:|^\*\*Destaque Clínico|^\*\*Detalhe Clínico/i.test(trimmed) || /^🩺/i.test(trimmed)) {
       if (currentClinicalBlock) blocks.push(currentClinicalBlock);
       currentClinicalBlock = {
         type: "clinical",
@@ -67,6 +70,14 @@ function MessageText({ text }) {
 
     if (currentClinicalBlock) {
       currentClinicalBlock.content.push(trimmed);
+      return;
+    }
+
+    if (trimmed.endsWith("?") || /^[a-d]\.\s+/.test(trimmed)) {
+      blocks.push({
+        type: "subHeader",
+        text: trimmed
+      });
       return;
     }
 
@@ -109,6 +120,14 @@ function MessageText({ text }) {
   return (
     <div className="atlas-ai-formatted-response flex flex-col gap-2 text-xs leading-relaxed">
       {blocks.map((block, idx) => {
+        if (block.type === "subHeader") {
+          return (
+            <h4 key={idx} className="atlas-ai-abnt-subheader font-bold text-amber-300 text-xs mt-2.5 mb-1 block tracking-wide">
+              {formatInlineText(block.text)}
+            </h4>
+          );
+        }
+
         if (block.type === "heading") {
           return (
             <h3 key={idx} className="atlas-ai-response-h3 text-agedGold font-bold text-sm mt-3 mb-1 border-b border-glassBorder/30 pb-1 flex items-center gap-1.5">

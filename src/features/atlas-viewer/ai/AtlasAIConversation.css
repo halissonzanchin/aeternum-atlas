@@ -157,17 +157,30 @@
   margin-top: 7px;
 }
 
-/* Formatted Liquid Glass Response Typography & Layout */
+/* Formatted Liquid Glass Response Typography & Layout (Norma ABNT) */
 .atlas-ai-formatted-response {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  line-height: 1.62;
+  gap: 0.4rem;
+  line-height: 1.68;
 }
 
 .atlas-ai-formatted-response p {
-  margin: 0.25rem 0;
-  color: rgba(241, 247, 244, 0.92);
+  margin: 0.35rem 0;
+  color: rgba(241, 247, 244, 0.94);
+  text-indent: 1.25rem; /* Sangria de Parágrafo ABNT */
+  text-align: left;
+}
+
+.atlas-ai-abnt-subheader {
+  color: #f3d789 !important;
+  font-weight: 750 !important;
+  font-size: 0.78rem !important;
+  margin-top: 0.85rem !important;
+  margin-bottom: 0.2rem !important;
+  text-indent: 0 !important; /* Rótulo/Pergunta sem sangria em linha própria */
+  display: block !important;
+  letter-spacing: 0.02em;
 }
 
 .atlas-ai-response-h3 {
