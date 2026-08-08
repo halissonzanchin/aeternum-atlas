@@ -377,3 +377,28 @@
     transition: none;
   }
 }
+
+/* AI Tutor Studio Page - Liquid Glass Aesthetics (Aeternum 26 / iOS 27) */
+.a26-ai-tutor-studio-hub {
+  margin-top: 0.5rem;
+}
+
+.a26-ai-tutor-studio-toolbar {
+  background: rgba(14, 24, 26, 0.68) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(52, 206, 196, 0.22) !important;
+  border-radius: 20px !important;
+  padding: 1rem 1.25rem !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+.a26-daily-tutor-hub-card {
+  background: radial-gradient(120% 100% at 50% 0%, rgba(52, 206, 196, 0.09) 0%, rgba(10, 18, 20, 0.88) 100%),
+              rgba(12, 22, 24, 0.78) !important;
+  backdrop-filter: blur(32px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(200%) !important;
+  border: 1px solid rgba(52, 206, 196, 0.32) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+  border-radius: 28px !important;
+}

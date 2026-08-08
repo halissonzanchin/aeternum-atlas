@@ -464,40 +464,43 @@ function StudentAITutorStudio() {
 
   const userQuestionsCount = useMemo(() => messages.filter((m) => m.sender === "user").length, [messages]);
   const aiAnswersCount = useMemo(() => messages.filter((m) => m.sender === "ai").length, [messages]);
+  const totalDialogues = userQuestionsCount + aiAnswersCount;
 
   return (
     <div className="a26-ai-tutor-studio-hub flex flex-col gap-6 w-full">
+      {/* Metrics Row - Clean Numeric & Status Values aligned to Aeternum 26 */}
       <div className="a26-daily-metrics">
         <A26Metric
-          label="Diálogos Sincronizados"
-          value={`${userQuestionsCount} perguntas / ${aiAnswersCount} respostas`}
-          detail="Histórico Acadêmico Salvo nesta Conta"
+          label="Total de Diálogos"
+          value={totalDialogues}
+          detail={`${userQuestionsCount} perguntas / ${aiAnswersCount} respostas`}
           tone="teal"
         />
         <A26Metric
           label="Status da Sessão"
-          value={connectionMode === "online" ? "Supabase Cloud Ativo" : "Armazenamento Local"}
-          detail="Sincronização entre Dispositivos"
+          value={connectionMode === "online" ? "Nuvem" : "Local"}
+          detail="Sincronização via Supabase Cloud"
           tone="gold"
         />
         <A26Metric
-          label="Base Anatômica RAG"
-          value="7 Livros Integrados"
+          label="Base Anatômica"
+          value="7 Livros"
           detail="Prometheus, Netter, Latarjet & Cases"
         />
         <A26Metric
-          label="Formatação ABNT"
+          label="Norma ABNT"
           value="Ativa"
-          detail="Normas de Redação Médica"
+          detail="Sangrias & Destaques Médicos"
           tone="teal"
         />
       </div>
 
-      <A26Toolbar className="a26-daily-toolbar" label="Filtrar histórico de diálogos">
+      {/* Search & Filter Toolbar */}
+      <A26Toolbar className="a26-daily-toolbar a26-ai-tutor-studio-toolbar" label="Pesquisar histórico">
         <A26Field
-          label="Pesquisar histórico de consultas"
+          label="Filtrar histórico por termo anatômico"
           value={filterQuery}
-          placeholder="Pesquisar por estrutura anatômica (ex: Clavícula, Plexo Braquial, Encefalo)..."
+          placeholder="Busque por estrutura (ex: Clavícula, Plexo Braquial, Encéfalo)..."
           onChange={(event) => setFilterQuery(event.target.value)}
         />
         {filterQuery ? (
@@ -507,27 +510,36 @@ function StudentAITutorStudio() {
         ) : null}
       </A26Toolbar>
 
-      <A26Card className="a26-daily-tutor-hub-card p-4 sm:p-6 bg-glassCard/60 backdrop-blur-2xl border border-glassBorder/40 rounded-3xl shadow-2xl min-h-[680px] flex flex-col justify-between" tone="teal">
+      {/* Full Page Dedicated Chat Container - Liquid Glass Aesthetics */}
+      <A26Card className="a26-daily-tutor-hub-card p-4 sm:p-6 backdrop-blur-2xl border border-glassBorder/40 rounded-3xl shadow-2xl min-h-[680px] flex flex-col justify-between" tone="teal">
         <header className="flex items-center justify-between pb-4 border-b border-glassBorder/30 mb-4">
           <div className="flex items-center gap-3">
-            <span className="w-3 h-3 rounded-full bg-teal-400 animate-pulse shadow-glowTeal" />
+            <span className="w-3.5 h-3.5 rounded-full bg-teal-400 animate-pulse shadow-glowTeal" />
             <div>
-              <h2 className="text-base font-bold text-agedGold">Estúdio Completo de Diálogos do Tutor IA</h2>
-              <p className="text-xs text-textMuted">Histórico completo de perguntas, pesquisas e respostas médicas estruturadas</p>
+              <h2 className="text-base font-bold text-agedGold tracking-wide">Estúdio Completo de Diálogos do Tutor IA</h2>
+              <p className="text-xs text-textMuted">Histórico completo de perguntas, pesquisas e respostas médicas sincronizado em tempo real</p>
             </div>
           </div>
-          <span className="text-xs text-teal-300 font-mono bg-teal-950/60 px-3 py-1.5 rounded-full border border-teal-500/30">
-            {messages.length} mensagens sincronizadas
-          </span>
+          <div className="flex items-center gap-2">
+            {filterQuery ? (
+              <span className="text-xs text-amber-300 font-mono bg-amber-950/60 px-3 py-1.5 rounded-full border border-amber-500/30">
+                Filtrando: {filteredMessages.length} de {messages.length}
+              </span>
+            ) : (
+              <span className="text-xs text-teal-300 font-mono bg-teal-950/60 px-3 py-1.5 rounded-full border border-teal-500/30">
+                {messages.length} mensagens no histórico
+              </span>
+            )}
+          </div>
         </header>
 
-        <div className="a26-tutor-fullpage-chat flex-1 min-h-[500px] flex flex-col justify-between">
+        <div className="a26-tutor-fullpage-chat flex-1 min-h-[520px] flex flex-col justify-between">
           <AtlasAIConversation
             messages={filteredMessages}
             isThinking={isThinking}
             draft={draft}
             setDraft={setDraft}
-            onSend={(text) => sendMessage({ text, contextLabel: "Página Tutor IA" })}
+            onSend={(text) => sendMessage({ text, contextLabel: "Estúdio Tutor IA" })}
             placeholder="Digite sua dúvida anatômica para consultar a base oficial de livros médicos…"
           />
         </div>
