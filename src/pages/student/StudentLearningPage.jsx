@@ -466,6 +466,25 @@ function StudentAITutorStudio() {
   const aiAnswersCount = useMemo(() => messages.filter((m) => m.sender === "ai").length, [messages]);
   const totalDialogues = userQuestionsCount + aiAnswersCount;
 
+  // Extract Session Topics for Quick Filtering & Review Mapping
+  const sessionTopics = useMemo(() => {
+    const anatomicalTerms = [
+      "Clavícula", "Plexo Braquial", "Encéfalo", "Crânio", "Fêmur", "Coração",
+      "Membro Superior", "Coluna Vertebral", "Pelve", "Esterno", "Escápula", "Fígado"
+    ];
+    const fullText = messages.map((m) => m.text || "").join(" ");
+    return anatomicalTerms.filter((term) =>
+      fullText.toLowerCase().includes(term.toLowerCase())
+    );
+  }, [messages]);
+
+  const handleStartClinicalCase = () => {
+    sendMessage({
+      text: "Apresente 1 Caso Clínico Médico Socrático em 3 etapas (1. História Clínica do Paciente, 2. Pergunta Anatômica de Diagnóstico e 3. Gabarito Acadêmico com a citação do capítulo e página no Latarjet e Moore).",
+      contextLabel: "Caso Clínico Socrático"
+    });
+  };
+
   return (
     <div className="a26-ai-tutor-studio-hub flex flex-col gap-6 w-full">
       {/* Metrics Row - Clean Numeric & Status Values aligned to Aeternum 26 */}
@@ -495,24 +514,49 @@ function StudentAITutorStudio() {
         />
       </div>
 
-      {/* Search & Filter Toolbar */}
-      <A26Toolbar className="a26-daily-toolbar a26-ai-tutor-studio-toolbar" label="Pesquisar histórico">
-        <A26Field
-          label="Filtrar histórico por termo anatômico"
-          value={filterQuery}
-          placeholder="Busque por estrutura (ex: Clavícula, Plexo Braquial, Encéfalo)..."
-          onChange={(event) => setFilterQuery(event.target.value)}
-        />
-        {filterQuery ? (
-          <A26Button variant="ghost" onClick={() => setFilterQuery("")}>
-            Limpar busca
-          </A26Button>
+      {/* Search & Topic Tracking Toolbar */}
+      <div className="flex flex-col gap-3">
+        <A26Toolbar className="a26-daily-toolbar a26-ai-tutor-studio-toolbar" label="Pesquisar histórico">
+          <A26Field
+            label="Filtrar histórico por termo anatômico"
+            value={filterQuery}
+            placeholder="Busque por estrutura (ex: Clavícula, Plexo Braquial, Encéfalo)..."
+            onChange={(event) => setFilterQuery(event.target.value)}
+          />
+          {filterQuery ? (
+            <A26Button variant="ghost" onClick={() => setFilterQuery("")}>
+              Limpar busca
+            </A26Button>
+          ) : null}
+        </A26Toolbar>
+
+        {/* Dynamic Topic Tracking Pills */}
+        {sessionTopics.length > 0 ? (
+          <div className="flex items-center flex-wrap gap-2 px-1">
+            <span className="text-[11px] font-semibold text-textMuted uppercase tracking-wider">
+              Tópicos consultados nesta sessão:
+            </span>
+            {sessionTopics.map((topic) => (
+              <button
+                key={topic}
+                type="button"
+                onClick={() => setFilterQuery(filterQuery === topic ? "" : topic)}
+                className={`px-2.5 py-1 rounded-full text-xs font-mono transition-all border ${
+                  filterQuery === topic
+                    ? "bg-amber-400/20 border-amber-400 text-amber-200 shadow-glowGold"
+                    : "bg-surfaceDark/60 border-glassBorder/40 text-teal-300 hover:border-teal-400"
+                }`}
+              >
+                🏷️ {topic}
+              </button>
+            ))}
+          </div>
         ) : null}
-      </A26Toolbar>
+      </div>
 
       {/* Full Page Dedicated Chat Container - Liquid Glass Aesthetics */}
       <A26Card className="a26-daily-tutor-hub-card p-4 sm:p-6 backdrop-blur-2xl border border-glassBorder/40 rounded-3xl shadow-2xl min-h-[680px] flex flex-col justify-between" tone="teal">
-        <header className="flex items-center justify-between pb-4 border-b border-glassBorder/30 mb-4">
+        <header className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-glassBorder/30 mb-4">
           <div className="flex items-center gap-3">
             <span className="w-3.5 h-3.5 rounded-full bg-teal-400 animate-pulse shadow-glowTeal" />
             <div>
@@ -520,7 +564,15 @@ function StudentAITutorStudio() {
               <p className="text-xs text-textMuted">Histórico completo de perguntas, pesquisas e respostas médicas sincronizado em tempo real</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            <A26Button
+              variant="liquid"
+              onClick={handleStartClinicalCase}
+              icon={<LineIcon name="spark" />}
+              disabled={isThinking}
+            >
+              🩺 Gerar Caso Clínico Socrático
+            </A26Button>
             {filterQuery ? (
               <span className="text-xs text-amber-300 font-mono bg-amber-950/60 px-3 py-1.5 rounded-full border border-amber-500/30">
                 Filtrando: {filteredMessages.length} de {messages.length}
