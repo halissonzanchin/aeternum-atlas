@@ -141,14 +141,29 @@ body.a26-shell-mounted > .upe-ai-trigger.a26-surface:not(.is-draggable) {
   margin: 0 !important;
 }
 
-.upe-ai-trigger.is-orb-only.a26-surface {
-  background: var(--a26-material-clear-bg);
+.upe-ai-trigger.a26-surface {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease !important;
 }
 
-.upe-ai-panel.a26-surface {
-  background: var(--a26-material-substantial-bg);
+.upe-ai-trigger.a26-surface:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 24px rgba(52, 206, 196, 0.35) !important;
 }
 
+/* Micro-física de destaque para cards de estudo e recomendações */
+.a26-student-dashboard .study-tool-card,
+.model-card-aog.a26-card,
+.student-recommendation-card {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.a26-student-dashboard .study-tool-card:hover,
+.model-card-aog.a26-card:hover,
+.student-recommendation-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(92, 232, 223, 0.38) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.42), 0 0 20px rgba(52, 206, 196, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
 .upe-ai-panel__close.a26-button {
   width: 38px;
   min-width: 38px;
