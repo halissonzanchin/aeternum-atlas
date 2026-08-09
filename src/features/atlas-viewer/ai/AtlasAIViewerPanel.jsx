@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import LineIcon from '../../../components/icons/LineIcon';
-import AeternumGlassSurface from '../../../components/system/AeternumGlassSurface';
+import { A26IconButton, A26Surface } from '../../../components/aeternum-26';
 import { useAtlasAITutorSession } from '../../../context/AtlasAITutorSessionContext';
 import { useViewer } from '../../viewer/ViewerContext';
 import AtlasAIConversation from './AtlasAIConversation';
@@ -244,12 +244,12 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
       {isOpen ? <div className="aog-focus-dimmer aog-focus-dimmer--viewer" aria-hidden="true" /> : null}
 
       {isOpen && (
-        <AeternumGlassSurface
+        <A26Surface
           as="section"
           id="atlas-viewer-ai-panel"
           className={`upe-ai-panel upe-ai-panel--positioned atlas-viewer-ai-panel aog-morph-panel ${panelMode === "expanded" ? "is-expanded" : ""}`}
-          variant="regular"
-          depth="substantial"
+          material="substantial"
+          tone="teal"
           role="dialog"
           aria-modal="false"
           aria-labelledby="atlas-viewer-ai-title"
@@ -263,23 +263,18 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
               <p>{isThinking ? "Analisando sua pergunta…" : "Conversa sincronizada em toda a plataforma"}</p>
             </div>
             <div className="flex items-center gap-1">
-              <button
-                type="button"
+              <A26IconButton
                 className="upe-ai-panel__close text-textMuted hover:text-amber-300 transition-colors"
-                aria-label={panelMode === "expanded" ? "Modo compacto" : "Modo expandido"}
-                title={panelMode === "expanded" ? "Recolher largura" : "Expandir para leitura ampla"}
+                label={panelMode === "expanded" ? "Modo compacto" : "Modo expandido"}
+                icon={panelMode === "expanded" ? "minimize" : "maximize"}
                 onClick={() => setPanelMode((prev) => (prev === "expanded" ? "compact" : "expanded"))}
-              >
-                <LineIcon name={panelMode === "expanded" ? "minimize" : "maximize"} />
-              </button>
-              <button
-                type="button"
+              />
+              <A26IconButton
                 className="upe-ai-panel__close"
-                aria-label="Fechar Atlas AI Tutor"
+                label="Fechar Atlas AI Tutor"
+                icon="close"
                 onClick={handleClose}
-              >
-                <LineIcon name="close" />
-              </button>
+              />
             </div>
           </header>
 
@@ -302,7 +297,7 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
             }}
             placeholder="Pergunte sobre este modelo anatômico…"
           />
-        </AeternumGlassSurface>
+        </A26Surface>
       )}
 
       {toolModalType && (
