@@ -4974,30 +4974,16 @@ select:focus-visible {
 }
 
 .atlas-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.055) 48%, transparent 64%);
-  opacity: 0;
-  transform: translateX(-16%);
-  transition: opacity 260ms ease, transform 540ms ease;
+  display: none !important;
 }
 
 .atlas-card:hover,
 .atlas-card:focus-visible,
 .atlas-card.is-active {
   transform: translateY(-4px);
-  border-color: rgba(0, 255, 200, 0.2);
-  box-shadow: 0 0 20px rgba(0, 255, 200, 0.08), 0 24px 70px rgba(0, 0, 0, 0.28);
+  border-color: rgba(92, 232, 223, 0.4) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 24px rgba(52, 206, 196, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
   outline: none;
-}
-
-.atlas-card:hover::after,
-.atlas-card:focus-visible::after,
-.atlas-card.is-active::after {
-  opacity: 1;
-  transform: translateX(16%);
 }
 
 .atlas-card__body {

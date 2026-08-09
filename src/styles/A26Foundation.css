@@ -991,9 +991,11 @@ textarea.a26-field__control {
   text-align: center;
 }
 
-/* A faixa preserva o vidro do contêiner sem a antiga placa móvel sobre o texto. */
-.viewer-model-actions .a26-button > .a26-surface__refract {
-  display: none;
+/* A faixa e os cards preservam o vidro do contêiner sem a antiga placa móvel sobre o texto (Padrão Codex). */
+.viewer-model-actions .a26-button > .a26-surface__refract,
+.atlas-card > .a26-surface__refract,
+.a26-surface--interactive > .a26-surface__refract {
+  display: none !important;
 }
 
 .viewer-model-actions .a26-button--ghost {
