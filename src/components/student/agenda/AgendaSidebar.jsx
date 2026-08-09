@@ -106,11 +106,17 @@ export default function AgendaSidebar({
             <small>Halisson Zanchin (Sua Conta)</small>
           </div>
           <button
+            type="button"
             className={`a26-ios-toggle ${layersFilter.student ? "is-on" : ""}`}
             onClick={() => toggleLayer("student")}
             aria-label="Alternar agenda pessoal"
           >
-            <span className="a26-ios-toggle-knob" />
+            <span className="a26-ios-toggle-track">
+              <span className="a26-ios-toggle-glow" />
+              <span className="a26-ios-toggle-knob">
+                <span className="a26-knob-core" />
+              </span>
+            </span>
           </button>
         </div>
 
@@ -122,11 +128,17 @@ export default function AgendaSidebar({
             <small>Anatomia Humana & Dissecação</small>
           </div>
           <button
+            type="button"
             className={`a26-ios-toggle ${layersFilter.teacher ? "is-on" : ""}`}
             onClick={() => toggleLayer("teacher")}
             aria-label="Alternar agenda do Prof. Halisson"
           >
-            <span className="a26-ios-toggle-knob" />
+            <span className="a26-ios-toggle-track">
+              <span className="a26-ios-toggle-glow" />
+              <span className="a26-ios-toggle-knob">
+                <span className="a26-knob-core" />
+              </span>
+            </span>
           </button>
         </div>
 
@@ -138,11 +150,17 @@ export default function AgendaSidebar({
             <small>Neuroanatomia Clínica</small>
           </div>
           <button
+            type="button"
             className={`a26-ios-toggle ${layersFilter.teacher ? "is-on" : ""}`}
             onClick={() => toggleLayer("teacher")}
             aria-label="Alternar agenda da Profª. Mariana"
           >
-            <span className="a26-ios-toggle-knob" />
+            <span className="a26-ios-toggle-track">
+              <span className="a26-ios-toggle-glow" />
+              <span className="a26-ios-toggle-knob">
+                <span className="a26-knob-core" />
+              </span>
+            </span>
           </button>
         </div>
 
@@ -154,11 +172,17 @@ export default function AgendaSidebar({
             <small>Simulados & Avaliações Globais</small>
           </div>
           <button
+            type="button"
             className={`a26-ios-toggle ${layersFilter.institution ? "is-on" : ""}`}
             onClick={() => toggleLayer("institution")}
             aria-label="Alternar agenda da coordenação"
           >
-            <span className="a26-ios-toggle-knob" />
+            <span className="a26-ios-toggle-track">
+              <span className="a26-ios-toggle-glow" />
+              <span className="a26-ios-toggle-knob">
+                <span className="a26-knob-core" />
+              </span>
+            </span>
           </button>
         </div>
 
@@ -170,11 +194,17 @@ export default function AgendaSidebar({
             <small>Casos Clínicos Socráticos</small>
           </div>
           <button
+            type="button"
             className={`a26-ios-toggle ${layersFilter.ai_tutor ? "is-on" : ""}`}
             onClick={() => toggleLayer("ai_tutor")}
             aria-label="Alternar agenda do tutor IA"
           >
-            <span className="a26-ios-toggle-knob" />
+            <span className="a26-ios-toggle-track">
+              <span className="a26-ios-toggle-glow" />
+              <span className="a26-ios-toggle-knob">
+                <span className="a26-knob-core" />
+              </span>
+            </span>
           </button>
         </div>
       </div>

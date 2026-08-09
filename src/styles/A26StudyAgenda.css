@@ -353,41 +353,97 @@
   text-overflow: ellipsis;
 }
 
-/* LIQUID GLASS iOS 27 TOGGLE SWITCH */
+/* ==========================================================================
+   AUTHENTIC AETERNUM 26 / iOS 27 LIQUID GLASS TOGGLE SWITCH
+   ========================================================================== */
 .a26-ios-toggle {
-  width: 42px;
-  height: 24px;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  position: relative;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 0;
-  outline: none;
-  flex-shrink: 0;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 52px !important;
+  height: 28px !important;
+  min-width: 52px !important;
+  min-height: 28px !important;
+  max-width: 52px !important;
+  max-height: 28px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  user-select: none !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
-.a26-ios-toggle.is-on {
-  background: linear-gradient(135deg, #34cec4 0%, #10b981 100%);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 12px rgba(52, 206, 196, 0.45);
+.a26-ios-toggle-track {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 9999px !important;
+  background: rgba(14, 24, 26, 0.85) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-sizing: border-box !important;
+}
+
+.a26-ios-toggle-glow {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(135deg, #34cec4 0%, #10b981 100%) !important;
+  opacity: 0 !important;
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.a26-ios-toggle.is-on .a26-ios-toggle-track {
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 0 16px rgba(52, 206, 196, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+}
+
+.a26-ios-toggle.is-on .a26-ios-toggle-glow {
+  opacity: 1 !important;
 }
 
 .a26-ios-toggle-knob {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #ffffff;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(180deg, #ffffff 0%, #e2f8f6 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 #ffffff !important;
+  position: absolute !important;
+  left: 2px !important;
+  top: 1.5px !important;
+  transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  z-index: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.a26-knob-core {
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: rgba(52, 206, 196, 0.4) !important;
+  transition: background 0.28s ease !important;
 }
 
 .a26-ios-toggle.is-on .a26-ios-toggle-knob {
-  transform: translateX(18px);
+  transform: translateX(23px) !important;
+}
+
+.a26-ios-toggle.is-on .a26-knob-core {
+  background: #10b981 !important;
 }
 
 .a26-sidebar-system-select {
