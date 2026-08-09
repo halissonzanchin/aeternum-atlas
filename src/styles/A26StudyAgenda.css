@@ -22,10 +22,13 @@
 .study-agenda-hero h1 {
   margin: 18px 0 12px;
   color: #f3ead6;
-  font: 500 clamp(2.5rem, 5.3vw, 5.4rem)/0.98 var(--a26-type-display);
-  letter-spacing: 0.04em;
+  font: 500 clamp(2.5rem, 4.15vw, 4.55rem)/1 var(--a26-type-display);
+  letter-spacing: 0.03em;
   text-transform: uppercase;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  text-wrap: balance;
 }
 
 .study-agenda-hero p {
@@ -162,12 +165,21 @@
 
 .a26-weekly-quick-stats {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 138px), 1fr));
   gap: 10px;
   margin-bottom: 14px;
 }
-.a26-weekly-quick-stats .a26-metric { min-height: 112px; padding: 16px; }
+.a26-weekly-quick-stats .a26-metric { min-width: 0; min-height: 112px; padding: 14px; }
 .a26-weekly-quick-stats .a26-metric__value { font-size: 1.55rem; }
+.a26-weekly-quick-stats .a26-metric__label {
+  max-width: 100%;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  hyphens: none;
+}
 
 .a26-hourly-grid-container,
 .agenda-calendar,
@@ -321,7 +333,6 @@
   .a26-agenda-sidebar { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .a26-sidebar-create-btn { grid-column: 1 / -1; }
   .a26-sidebar-systems { grid-column: 1 / -1; }
-  .a26-weekly-quick-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 760px) {
@@ -335,14 +346,13 @@
   .a26-sidebar-create-btn,
   .a26-sidebar-systems { grid-column: auto; }
   .a26-agenda-view-container { padding: 10px; }
-  .a26-weekly-quick-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .a26-month-view-split { grid-template-columns: 1fr; }
   .agenda-form-grid { grid-template-columns: 1fr; }
   .agenda-form-wide { grid-column: auto; }
 }
 
 @media (max-width: 440px) {
-  .a26-weekly-quick-stats { grid-template-columns: 1fr; }
+  .a26-weekly-quick-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .a26-weekly-quick-stats .a26-metric { min-height: 90px; }
 }
 
