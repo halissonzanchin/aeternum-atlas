@@ -157,21 +157,7 @@
 }
 
 .a26-surface__refract {
-  inset: -36%;
-  background:
-    radial-gradient(circle at var(--a26-pointer-x) var(--a26-pointer-y), rgb(255 255 255 / 0.19), transparent 11%),
-    radial-gradient(circle at calc(var(--a26-pointer-x) + 8%) calc(var(--a26-pointer-y) + 10%), rgb(var(--a26-accent-rgb) / 0.12), transparent 28%);
-  filter: blur(18px);
-  mix-blend-mode: screen;
-  opacity: 0.5;
-  transform: translate3d(
-    calc((var(--a26-pointer-x) - 50%) * 0.025),
-    calc((var(--a26-pointer-y) - 50%) * 0.025),
-    0
-  );
-  transition:
-    opacity var(--a26-motion-response) ease,
-    transform var(--a26-motion-enter) var(--a26-motion-spring);
+  display: none !important;
 }
 
 .a26-surface__spectrum {

@@ -99,21 +99,7 @@
 }
 
 .aog-surface__lens {
-  inset: -45%;
-  border-radius: 46%;
-  background:
-    radial-gradient(circle at var(--aog-pointer-x) var(--aog-pointer-y), rgb(255 255 255 / 0.2), transparent 10%),
-    radial-gradient(circle at calc(var(--aog-pointer-x) + 7%) calc(var(--aog-pointer-y) + 12%), rgb(var(--aog-cyan) / 0.12), transparent 24%),
-    conic-gradient(from 210deg at 50% 50%, transparent, rgb(var(--aog-blue) / 0.08), transparent 38%, rgb(var(--aog-gold) / 0.055), transparent 66%);
-  filter: blur(16px);
-  mix-blend-mode: screen;
-  opacity: 0.52;
-  transform: translate3d(
-    calc((var(--aog-pointer-x) - 50%) * 0.035),
-    calc((var(--aog-pointer-y) - 50%) * 0.035),
-    0
-  );
-  transition: opacity 240ms ease, transform 420ms var(--aog-spring);
+  display: none !important;
 }
 
 .aog-surface__specular {
