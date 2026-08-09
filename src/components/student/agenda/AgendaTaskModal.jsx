@@ -10,6 +10,7 @@ import {
 } from "../../../data/studyAgendaCatalog";
 import { formatAgendaDate } from "../../../hooks/useStudyAgenda";
 import { useLanguage } from "../../../context/LanguageContext";
+import { A26Button, A26Surface } from "../../aeternum-26";
 
 function defaultForm(selectedDate) {
   return {
@@ -57,13 +58,20 @@ export default function AgendaTaskModal({ open, selectedDate, event, onClose, on
 
   return (
     <div className="agenda-modal-backdrop" role="presentation" onClick={onClose}>
-      <form className="agenda-task-modal" onSubmit={submit} onClick={(clickEvent) => clickEvent.stopPropagation()}>
+      <A26Surface
+        as="form"
+        material="substantial"
+        tone="teal"
+        className="agenda-task-modal"
+        onSubmit={submit}
+        onClick={(clickEvent) => clickEvent.stopPropagation()}
+      >
         <header>
           <div>
             <p className="viewer-eyebrow">{event ? t("studyAgenda.editActivity") : t("studyAgenda.newActivity")}</p>
             <h2>{event ? t("studyAgenda.editActivity") : t("studyAgenda.createActivity")}</h2>
           </div>
-          <button type="button" onClick={onClose}>{t("actions.close")}</button>
+          <A26Button type="button" variant="ghost" onClick={onClose}>{t("actions.close")}</A26Button>
         </header>
 
         <div className="agenda-form-grid">
@@ -133,10 +141,10 @@ export default function AgendaTaskModal({ open, selectedDate, event, onClose, on
         </div>
 
         <footer>
-          <button type="button" className="viewer-secondary-button" onClick={onClose}>{t("actions.cancel")}</button>
-          <button type="submit" className="viewer-primary-button">{t("actions.save")}</button>
+          <A26Button type="button" variant="ghost" onClick={onClose}>{t("actions.cancel")}</A26Button>
+          <A26Button type="submit" variant="primary">{t("actions.save")}</A26Button>
         </footer>
-      </form>
+      </A26Surface>
     </div>
   );
 }

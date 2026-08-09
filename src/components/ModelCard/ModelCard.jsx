@@ -1,6 +1,5 @@
-import Button from "../Button/Button";
-import Card from "../Card/Card";
 import LineIcon from "../icons/LineIcon";
+import { A26Button, A26Card, A26Surface } from "../aeternum-26";
 import { useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import { formatNumber } from "../../utils/formatLocale";
@@ -61,7 +60,7 @@ export default function ModelCard({ model, user, navigate }) {
   const thumbUrl = model.thumbnailUrl || model.coverImageUrl || model.thumbnail_url || model.cover_image_url;
 
   return (
-    <Card as="article" interactive depth="standard" className="model-card model-card-aog grid gap-4 w-full atlas-card-safe">
+    <A26Card as="article" material="regular" interactive tone="teal" className="model-card model-card-aog grid gap-4 w-full atlas-card-safe">
       <div className="model-card-aog__media" style={!thumbUrl ? getPlaceholderStyle(modelRouteId(model)) : {}}>
         {thumbUrl ? (
           <img src={thumbUrl} alt={localizedModel.title} />
@@ -78,7 +77,10 @@ export default function ModelCard({ model, user, navigate }) {
         <div className="model-card-aog__status">
           {t("common.available")}
         </div>
-        <button
+        <A26Surface
+          as="button"
+          material="clear"
+          interactive
           type="button"
           className={`model-card-aog__favorite${favorite ? " is-active" : ""}`}
           onClick={handleFavorite}
@@ -86,7 +88,7 @@ export default function ModelCard({ model, user, navigate }) {
           aria-pressed={favorite}
         >
           <LineIcon name="favorite" />
-        </button>
+        </A26Surface>
       </div>
 
       <div className="model-card-aog__body">
@@ -115,14 +117,14 @@ export default function ModelCard({ model, user, navigate }) {
       </div>
 
       <div className="model-card-aog__actions">
-        <Button variant="teal" className="model-card-aog__primary" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}>
+        <A26Button variant="primary" className="model-card-aog__primary" onClick={() => navigate(`/viewer/${modelRouteId(model)}`)}>
           <span>{t("models.openModel")}</span>
           <LineIcon name="chevron" />
-        </Button>
-        <Button variant="ghost" className="model-card-aog__secondary" onClick={() => navigate(`/models/${modelRouteId(model)}`)}>
+        </A26Button>
+        <A26Button variant="ghost" className="model-card-aog__secondary" onClick={() => navigate(`/models/${modelRouteId(model)}`)}>
           <span>{t("models.viewDetails")}</span>
-        </Button>
+        </A26Button>
       </div>
-    </Card>
+    </A26Card>
   );
 }

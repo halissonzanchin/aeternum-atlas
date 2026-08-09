@@ -1,5 +1,6 @@
 import LineIcon from "../../icons/LineIcon";
 import { useLanguage } from "../../../context/LanguageContext";
+import { A26Button, A26Surface } from "../../aeternum-26";
 
 export default function AgendaPopoverModal({ event, onClose, onComplete, onEdit, onDelete, navigate }) {
   const { t } = useLanguage();
@@ -19,7 +20,7 @@ export default function AgendaPopoverModal({ event, onClose, onComplete, onEdit,
 
   return (
     <div className="a26-popover-backdrop" onClick={onClose}>
-      <div className="a26-popover-card" onClick={(e) => e.stopPropagation()}>
+      <A26Surface material="substantial" tone="teal" className="a26-popover-card" onClick={(e) => e.stopPropagation()}>
         <header className="a26-popover-header">
           <div className="a26-popover-creator">
             <span className="a26-popover-avatar">
@@ -67,15 +68,16 @@ export default function AgendaPopoverModal({ event, onClose, onComplete, onEdit,
             <div className="a26-popover-3d-box">
               <span>Modelo 3D Vinculado:</span>
               <strong>{event.linkedModel}</strong>
-              <button className="a26-popover-3d-btn" onClick={handleOpen3D}>
+              <A26Button className="a26-popover-3d-btn" onClick={handleOpen3D}>
                 <span>👁️ Abrir Modelo 3D no Atlas</span>
-              </button>
+              </A26Button>
             </div>
           )}
         </div>
 
         <footer className="a26-popover-footer">
-          <button
+          <A26Button
+            variant={event.status === "completed" ? "primary" : "liquid"}
             className={`a26-popover-action-btn ${event.status === "completed" ? "is-active" : ""}`}
             onClick={() => {
               onComplete(event.id);
@@ -83,11 +85,12 @@ export default function AgendaPopoverModal({ event, onClose, onComplete, onEdit,
             }}
           >
             {event.status === "completed" ? "✓ Concluída" : "Marcar Concluída"}
-          </button>
+          </A26Button>
 
           {!isTeacher && !isInstitution && (
             <>
-              <button
+              <A26Button
+                variant="ghost"
                 className="a26-popover-action-btn"
                 onClick={() => {
                   onEdit(event);
@@ -95,8 +98,9 @@ export default function AgendaPopoverModal({ event, onClose, onComplete, onEdit,
                 }}
               >
                 Editar
-              </button>
-              <button
+              </A26Button>
+              <A26Button
+                variant="danger"
                 className="a26-popover-action-btn is-danger"
                 onClick={() => {
                   onDelete(event.id);
@@ -104,11 +108,11 @@ export default function AgendaPopoverModal({ event, onClose, onComplete, onEdit,
                 }}
               >
                 Excluir
-              </button>
+              </A26Button>
             </>
           )}
         </footer>
-      </div>
+      </A26Surface>
     </div>
   );
 }

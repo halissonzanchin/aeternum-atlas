@@ -1,984 +1,357 @@
-/* ==========================================================================
-   AETERNUM 26 / iOS 27 LIQUID GLASS STUDY AGENDA (REAL TEACHER SYNC)
-   ========================================================================== */
-
 .study-agenda-page {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  padding-bottom: 3rem;
+  display: grid;
+  gap: 24px;
+  width: min(100%, 1640px);
+  margin-inline: auto;
+  padding-bottom: 72px;
+  color: var(--a26-color-text);
 }
 
-/* --------------------------------------------------------------------------
-   1. HERO BANNER & SYNC BADGES
-   -------------------------------------------------------------------------- */
 .study-agenda-hero {
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: space-between;
-  gap: 1.25rem;
-  padding: 1.5rem 2rem;
-  background: radial-gradient(120% 100% at 50% 0%, rgba(52, 206, 196, 0.12) 0%, rgba(10, 18, 20, 0.92) 100%),
-              rgba(12, 22, 24, 0.82);
-  border: 1px solid rgba(52, 206, 196, 0.28);
-  border-radius: 24px;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  flex-wrap: wrap;
+  gap: 28px;
+  min-height: 250px;
+  padding: clamp(26px, 4vw, 50px);
+  border-radius: var(--a26-radius-panel);
 }
 
-.a26-hero-sync-badges {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.35rem;
-  flex-wrap: wrap;
-}
-
-.a26-hero-sync-badge {
-  font-size: 0.72rem;
-  font-weight: 750;
-  padding: 3px 12px;
-  border-radius: 9999px;
-  background: rgba(52, 206, 196, 0.16);
-  color: #34cec4;
-  border: 1px solid rgba(52, 206, 196, 0.3);
-}
-
-.a26-hero-sync-badge.is-teacher {
-  background: rgba(243, 215, 137, 0.16);
-  color: #f3d789;
-  border-color: rgba(243, 215, 137, 0.3);
-}
+.study-agenda-hero > div:first-of-type { min-width: 0; max-width: 900px; }
 
 .study-agenda-hero h1 {
-  font-family: var(--a26-type-display, serif);
-  font-size: 2.1rem;
-  font-weight: 700;
-  color: #f3d789;
-  letter-spacing: 0.02em;
-  line-height: 1.15;
-  margin: 0.15rem 0 0.35rem;
+  margin: 18px 0 12px;
+  color: #f3ead6;
+  font: 500 clamp(2.5rem, 5.3vw, 5.4rem)/0.98 var(--a26-type-display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .study-agenda-hero p {
-  color: rgba(241, 247, 244, 0.8);
-  font-size: 0.88rem;
-  max-width: 600px;
+  margin: 0;
+  max-width: 780px;
+  color: var(--a26-color-text-muted);
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  line-height: 1.6;
 }
+
+.a26-hero-sync-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.a26-hero-sync-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--a26-color-border);
+  border-radius: 999px;
+  color: var(--a26-color-text-subtle);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.a26-hero-sync-badge.is-active { color: var(--a26-color-success); border-color: rgb(114 223 160 / 0.3); }
 
 .a26-hero-actions {
   display: flex;
-  align-items: center;
-  gap: 0.85rem;
+  flex: 0 0 auto;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
 }
 
-.a26-main-mode-switcher {
-  display: flex;
-  background: rgba(6, 12, 14, 0.75);
-  padding: 4px;
-  border-radius: 9999px;
-  border: 1px solid rgba(52, 206, 196, 0.25);
-}
+.a26-main-mode-switcher { min-width: 280px; }
 
-.a26-main-mode-switcher button {
-  padding: 7px 16px;
-  border-radius: 9999px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: rgba(241, 247, 244, 0.75);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.a26-main-mode-switcher button.is-active {
-  background: rgba(52, 206, 196, 0.25);
-  color: #34cec4;
-  border: 1px solid rgba(52, 206, 196, 0.4);
-  box-shadow: 0 4px 14px rgba(52, 206, 196, 0.3);
-}
-
-.study-agenda-hero .viewer-primary-button {
-  background: linear-gradient(135deg, #34cec4 0%, #10b981 100%) !important;
-  color: #061314 !important;
-  font-weight: 750 !important;
-  font-size: 0.88rem !important;
-  padding: 0.75rem 1.4rem !important;
-  border-radius: 9999px !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  box-shadow: 0 8px 24px rgba(52, 206, 196, 0.35) !important;
-  white-space: nowrap;
-}
-
-/* --------------------------------------------------------------------------
-   2. MAIN GRID & SIDEBAR LAYOUT
-   -------------------------------------------------------------------------- */
 .study-agenda-main-grid {
   display: grid;
-  grid-template-columns: 310px minmax(0, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: minmax(270px, 320px) minmax(0, 1fr);
   align-items: start;
-  width: 100%;
-  box-sizing: border-box;
+  gap: 18px;
+  min-width: 0;
 }
 
-@media (max-width: 1100px) {
-  .study-agenda-main-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   3. LEFT SIDEBAR (MINI CALENDAR & REAL TEACHERS SYNC)
-   -------------------------------------------------------------------------- */
 .a26-agenda-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  background: rgba(14, 24, 26, 0.65);
-  border: 1px solid rgba(52, 206, 196, 0.22);
-  border-radius: 24px;
-  padding: 1.25rem;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-.a26-sidebar-create-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  padding: 0.8rem 1.2rem;
-  background: linear-gradient(135deg, #34cec4 0%, #10b981 100%);
-  color: #061314;
-  font-weight: 750;
-  font-size: 0.88rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 22px rgba(52, 206, 196, 0.35);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.a26-sidebar-create-btn:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 12px 28px rgba(52, 206, 196, 0.45);
-}
-
-.a26-sidebar-create-btn__icon {
-  font-size: 1.1rem;
-  line-height: 1;
-}
-
-/* MINI CALENDAR */
-.a26-mini-calendar {
-  background: rgba(8, 16, 18, 0.6);
-  border: 1px solid rgba(52, 206, 196, 0.18);
-  border-radius: 18px;
-  padding: 0.85rem;
-}
-
-.a26-mini-calendar__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.65rem;
-}
-
-.a26-mini-calendar__header strong {
-  font-size: 0.88rem;
-  color: #f3d789;
-  text-transform: capitalize;
-}
-
-.a26-mini-calendar__nav {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.a26-mini-calendar__nav button {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(52, 206, 196, 0.2);
-  color: #34cec4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.a26-mini-calendar__weekdays {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  font-size: 0.68rem;
-  font-weight: 750;
-  color: rgba(200, 230, 230, 0.6);
-  margin-bottom: 6px;
+  gap: 18px;
+  padding: 18px;
+  border-radius: var(--a26-radius-card);
+  position: sticky;
+  top: 18px;
 }
 
-.a26-mini-calendar__grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 3px;
-}
+.a26-sidebar-create-btn { width: 100%; }
+.a26-sidebar-create-btn__icon { font-size: 1.2rem; }
 
-.a26-mini-day {
-  aspect-ratio: 1 / 1;
-  border-radius: 8px;
-  background: transparent;
-  border: none;
-  color: #f1f7f4;
-  font-size: 0.78rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.a26-mini-day:hover {
-  background: rgba(52, 206, 196, 0.15);
-  color: #34cec4;
-}
-
-.a26-mini-day.is-outside {
-  opacity: 0.3;
-}
-
-.a26-mini-day.is-today {
-  border: 1px solid #34cec4;
-  color: #34cec4;
-}
-
-.a26-mini-day.is-selected {
-  background: #f3d789 !important;
-  color: #0c1618 !important;
-  font-weight: 750 !important;
-}
-
-/* REAL TEACHER & ACCOUNT CARDS */
+.a26-mini-calendar { padding: 16px; border-radius: var(--a26-radius-control); }
+.a26-mini-calendar__header,
 .a26-sidebar-section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.6rem;
+  gap: 12px;
 }
-
-.a26-sidebar-section-title {
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(200, 230, 230, 0.75);
-}
-
-.a26-sync-live-badge {
-  font-size: 0.65rem;
-  font-weight: 750;
-  color: #10b981;
-}
-
-.a26-sidebar-layers {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-}
-
-.a26-teacher-card {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.7rem 0.85rem;
-  background: rgba(8, 16, 18, 0.55);
-  border: 1px solid rgba(52, 206, 196, 0.18);
-  border-radius: 16px;
-  transition: all 0.2s ease;
-}
-
-.a26-teacher-card:hover {
-  background: rgba(52, 206, 196, 0.08);
-  border-color: rgba(52, 206, 196, 0.35);
-}
-
-.a26-teacher-card.is-active {
-  border-color: rgba(52, 206, 196, 0.3);
-}
-
-.a26-teacher-avatar {
-  font-size: 1.25rem;
-  width: 34px;
-  height: 34px;
+.a26-mini-calendar__header strong { color: var(--a26-color-gold); text-transform: capitalize; }
+.a26-mini-calendar__nav { display: flex; gap: 6px; }
+.a26-mini-calendar__nav button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--a26-color-border);
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  flex-shrink: 0;
+  color: var(--a26-color-teal);
+  background: rgb(255 255 255 / 0.035);
+  cursor: pointer;
 }
+.a26-mini-calendar__nav button:first-child svg { transform: rotate(180deg); }
+.a26-mini-calendar__weekdays,
+.a26-mini-calendar__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.a26-mini-calendar__weekdays { margin: 14px 0 7px; color: var(--a26-color-text-subtle); font-size: 0.65rem; font-weight: 800; text-align: center; }
+.a26-mini-day {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--a26-color-text-muted);
+  background: transparent;
+  cursor: pointer;
+}
+.a26-mini-day.is-outside { opacity: 0.28; }
+.a26-mini-day.is-today { color: var(--a26-color-teal); border-color: rgb(92 232 223 / 0.24); }
+.a26-mini-day.is-selected { color: #0a1517; border-color: rgb(255 255 255 / 0.5); background: var(--a26-color-gold); font-weight: 800; }
 
-.a26-teacher-info {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0;
-}
+.a26-sidebar-layers,
+.a26-sidebar-systems { display: grid; gap: 10px; }
+.a26-sidebar-section-title { margin: 0; color: var(--a26-color-text-muted); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.a26-sync-live-badge { color: var(--a26-color-teal); font-size: 0.66rem; font-weight: 800; text-transform: uppercase; }
+.a26-teacher-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 12px; border-radius: 15px; }
+.a26-teacher-avatar { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; background: rgb(255 255 255 / 0.05); }
+.a26-teacher-info { min-width: 0; }
+.a26-teacher-info strong,
+.a26-teacher-info small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.a26-teacher-info strong { color: var(--a26-color-text); font-size: 0.78rem; }
+.a26-teacher-info small { margin-top: 3px; color: var(--a26-color-text-subtle); font-size: 0.66rem; }
 
-.a26-teacher-info strong {
-  font-size: 0.8rem;
-  color: #f1f7f4;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.a26-teacher-info small {
-  font-size: 0.68rem;
-  color: rgba(241, 247, 244, 0.65);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* ==========================================================================
-   AUTHENTIC AETERNUM 26 / iOS 27 LIQUID GLASS TOGGLE SWITCH
-   ========================================================================== */
-.a26-ios-toggle {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
-  width: 52px !important;
-  height: 28px !important;
-  min-width: 52px !important;
-  min-height: 28px !important;
-  max-width: 52px !important;
-  max-height: 28px !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  cursor: pointer !important;
-  flex-shrink: 0 !important;
-  position: relative !important;
-  box-sizing: border-box !important;
-  user-select: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-
-.a26-ios-toggle-track {
-  display: flex !important;
-  align-items: center !important;
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 9999px !important;
-  background: rgba(14, 24, 26, 0.85) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.3) !important;
-  position: relative !important;
-  overflow: hidden !important;
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  box-sizing: border-box !important;
-}
-
-.a26-ios-toggle-glow {
-  position: absolute !important;
-  inset: 0 !important;
-  background: linear-gradient(135deg, #34cec4 0%, #10b981 100%) !important;
-  opacity: 0 !important;
-  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.a26-ios-toggle.is-on .a26-ios-toggle-track {
-  border-color: rgba(255, 255, 255, 0.45) !important;
-  box-shadow: 0 0 16px rgba(52, 206, 196, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
-}
-
-.a26-ios-toggle.is-on .a26-ios-toggle-glow {
-  opacity: 1 !important;
-}
-
-.a26-ios-toggle-knob {
-  width: 22px !important;
-  height: 22px !important;
-  min-width: 22px !important;
-  min-height: 22px !important;
-  border-radius: 50% !important;
-  background: linear-gradient(180deg, #ffffff 0%, #e2f8f6 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.9) !important;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 #ffffff !important;
-  position: absolute !important;
-  left: 2px !important;
-  top: 1.5px !important;
-  transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-  z-index: 2 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.a26-knob-core {
-  width: 6px !important;
-  height: 6px !important;
-  border-radius: 50% !important;
-  background: rgba(52, 206, 196, 0.4) !important;
-  transition: background 0.28s ease !important;
-}
-
-.a26-ios-toggle.is-on .a26-ios-toggle-knob {
-  transform: translateX(23px) !important;
-}
-
-.a26-ios-toggle.is-on .a26-knob-core {
-  background: #10b981 !important;
-}
+.a26-ios-toggle { display: inline-flex; width: 44px; height: 26px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.a26-ios-toggle-track { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; border: 1px solid var(--a26-color-border); border-radius: 999px; background: rgb(255 255 255 / 0.08); transition: background var(--a26-motion-response) ease; }
+.a26-ios-toggle.is-on .a26-ios-toggle-track { background: rgb(34 189 184 / 0.7); }
+.a26-ios-toggle-knob { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: #eefbfa; box-shadow: 0 2px 8px rgb(0 0 0 / 0.4); transition: transform var(--a26-motion-enter) var(--a26-motion-spring); }
+.a26-ios-toggle.is-on .a26-ios-toggle-knob { transform: translateX(18px); }
+.a26-ios-toggle-glow,
+.a26-knob-core { display: none; }
 
 .a26-sidebar-system-select {
   width: 100%;
-  background: rgba(8, 16, 18, 0.7);
-  border: 1px solid rgba(52, 206, 196, 0.25);
-  border-radius: 12px;
-  padding: 0.6rem 0.8rem;
-  color: #f1f7f4;
-  font-size: 0.82rem;
-  outline: none;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--a26-color-border);
+  border-radius: 13px;
+  color: var(--a26-color-text);
+  background: var(--a26-material-clear-bg);
 }
 
-/* --------------------------------------------------------------------------
-   4. MAIN HOURLY GRID VIEW
-   -------------------------------------------------------------------------- */
 .a26-agenda-view-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
   min-width: 0;
-  width: 100%;
+  padding: 16px;
+  border-radius: var(--a26-radius-card);
 }
 
-/* WEEKLY QUICK STATS BAR (COMPACT LIQUID GLASS) */
 .a26-weekly-quick-stats {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.a26-quick-stat-pill {
-  flex: 1;
-  min-width: 130px;
-  background: rgba(14, 24, 26, 0.65);
-  border: 1px solid rgba(52, 206, 196, 0.2);
-  border-radius: 16px;
-  padding: 0.65rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-}
-
-.a26-quick-stat-label {
-  font-size: 0.72rem;
-  font-weight: 750;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: rgba(200, 230, 230, 0.75);
-}
-
-.a26-quick-stat-val {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #f1f7f4;
-}
-
-.a26-quick-stat-val.is-teal { color: #34cec4; }
-.a26-quick-stat-val.is-gold { color: #f3d789; }
-
-.a26-month-view-split {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(340px, 1fr);
-  gap: 1.25rem;
-  align-items: start;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
 }
+.a26-weekly-quick-stats .a26-metric { min-height: 112px; padding: 16px; }
+.a26-weekly-quick-stats .a26-metric__value { font-size: 1.55rem; }
 
-@media (max-width: 1024px) {
-  .a26-month-view-split {
-    grid-template-columns: 1fr;
-  }
+.a26-hourly-grid-container,
+.agenda-calendar,
+.agenda-day-panel,
+.agenda-side-card {
+  border: 1px solid var(--a26-color-border);
+  border-radius: var(--a26-radius-card);
+  background: rgb(3 13 17 / 0.58);
 }
 
 .a26-hourly-grid-container {
-  background: rgba(14, 24, 26, 0.65);
-  border: 1px solid rgba(52, 206, 196, 0.22);
-  border-radius: 24px;
-  padding: 1.25rem;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  min-width: 0;
   overflow-x: auto;
-  max-height: calc(100vh - 240px);
+  overflow-y: hidden;
+  scrollbar-width: thin;
 }
 
-/* TOP BAR & TODAY BUTTON (GOOGLE CALENDAR PATTERN) */
+.a26-hourly-grid__top-bar,
+.a26-hourly-grid__header,
+.a26-all-day-row,
+.a26-hourly-grid__body { min-width: 940px; }
+
 .a26-hourly-grid__top-bar {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.6rem;
-  border-bottom: 1px solid rgba(52, 206, 196, 0.15);
+  gap: 14px;
+  min-height: 62px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--a26-color-border);
 }
+.a26-today-jump-btn { padding: 10px 15px; border: 1px solid rgb(92 232 223 / 0.3); border-radius: 999px; color: var(--a26-color-teal); background: rgb(92 232 223 / 0.06); cursor: pointer; }
+.a26-top-bar-divider { width: 1px; height: 28px; background: var(--a26-color-border); }
+.a26-top-bar-subtitle { color: var(--a26-color-text-muted); font-size: 0.85rem; font-weight: 700; }
 
-.a26-today-jump-btn {
-  background: rgba(52, 206, 196, 0.15);
-  border: 1px solid rgba(52, 206, 196, 0.35);
-  color: #34cec4;
-  padding: 4px 14px;
-  border-radius: 9999px;
-  font-size: 0.78rem;
-  font-weight: 750;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+.a26-hourly-grid__header { display: grid; grid-template-columns: 72px repeat(7, minmax(0, 1fr)); border-bottom: 1px solid var(--a26-color-border); }
+.a26-hourly-grid__time-col-header,
+.a26-hourly-grid__day-header { min-height: 66px; border: 0; border-right: 1px solid var(--a26-color-border); background: transparent; color: var(--a26-color-text-muted); }
+.a26-hourly-grid__time-col-header { display: grid; place-items: center; font-size: 0.66rem; font-weight: 800; text-transform: uppercase; }
+.a26-hourly-grid__day-header { display: grid; place-content: center; gap: 2px; cursor: pointer; }
+.a26-hourly-grid__day-header.is-selected { color: var(--a26-color-gold); background: rgb(223 197 127 / 0.06); }
+.a26-hourly-grid__day-header.is-today { color: var(--a26-color-teal); }
+.a26-hourly-grid__weekday { font-size: 0.67rem; font-weight: 800; text-transform: uppercase; }
+.a26-hourly-grid__daynum { font-size: 1.05rem; font-weight: 800; }
 
-.a26-today-jump-btn:hover {
-  background: rgba(52, 206, 196, 0.3);
-  transform: scale(1.04);
-}
+.a26-all-day-row { display: grid; grid-template-columns: 72px minmax(0, 1fr); min-height: 46px; border-bottom: 1px solid var(--a26-color-border); }
+.a26-all-day-label { display: grid; place-items: center; border-right: 1px solid var(--a26-color-border); color: var(--a26-color-gold); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; }
+.a26-all-day-columns { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.a26-all-day-cell { min-width: 0; padding: 5px; border-right: 1px solid var(--a26-color-border); }
+.a26-all-day-badge { overflow: hidden; padding: 5px 7px; border-radius: 8px; color: var(--a26-color-gold); background: rgb(223 197 127 / 0.09); font-size: 0.65rem; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
 
-.a26-top-bar-divider {
-  width: 1px;
-  height: 16px;
-  background: rgba(52, 206, 196, 0.25);
-}
+.a26-hourly-grid__body { position: relative; display: grid; grid-template-columns: 72px minmax(0, 1fr); min-height: 960px; }
+.a26-hourly-grid__time-sidebar { border-right: 1px solid var(--a26-color-border); }
+.a26-hourly-grid__time-slot { height: 64px; padding: 5px 8px 0 0; color: var(--a26-color-text-subtle); font: 0.66rem var(--a26-type-mono); text-align: right; }
+.a26-hourly-grid__columns { position: relative; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.a26-hourly-grid__day-column { position: relative; min-width: 0; border-right: 1px solid var(--a26-color-border); }
+.a26-hourly-grid__row-line { position: absolute; left: 0; right: 0; z-index: 0; border-top: 1px solid rgb(218 251 248 / 0.075); }
+.a26-hourly-grid__now-line { position: absolute; left: 0; right: 0; z-index: 4; height: 1px; background: var(--a26-color-teal); pointer-events: none; }
+.a26-hourly-grid__now-dot { position: absolute; left: -4px; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: var(--a26-color-teal); }
 
-.a26-top-bar-subtitle {
-  font-size: 0.78rem;
-  color: rgba(200, 230, 230, 0.75);
-  font-weight: 600;
-}
-
-/* ALL-DAY EVENTS ROW */
-.a26-all-day-row {
-  display: grid;
-  grid-template-columns: 55px minmax(0, 1fr);
-  gap: 6px;
-  margin-bottom: 0.75rem;
-  background: rgba(8, 16, 18, 0.4);
-  border-radius: 12px;
-  padding: 6px;
-  border: 1px solid rgba(52, 206, 196, 0.12);
-}
-
-.a26-all-day-label {
-  font-size: 0.65rem;
-  font-weight: 750;
-  color: rgba(243, 215, 137, 0.85);
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-}
-
-.a26-all-day-columns {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(100px, 1fr));
-  gap: 6px;
-}
-
-.a26-all-day-cell {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.a26-all-day-badge {
-  background: rgba(236, 72, 153, 0.22);
-  border: 1px solid rgba(236, 72, 153, 0.4);
-  color: #ffffff;
-  padding: 3px 6px;
-  border-radius: 8px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: all 0.2s ease;
-}
-
-.a26-all-day-badge:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.35);
-}
-
-.a26-hourly-grid__header {
-  display: grid;
-  grid-template-columns: 55px repeat(7, minmax(100px, 1fr));
-  gap: 6px;
-  margin-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(52, 206, 196, 0.2);
-  padding-bottom: 0.6rem;
-}
-
-.a26-hourly-grid__time-col-header {
-  font-size: 0.68rem;
-  font-weight: 750;
-  text-transform: uppercase;
-  color: rgba(200, 230, 230, 0.6);
-  display: flex;
-  align-items: center;
-}
-
-.a26-hourly-grid__day-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 5px 4px;
-  border-radius: 12px;
-  background: rgba(8, 16, 18, 0.5);
-  border: 1px solid rgba(52, 206, 196, 0.15);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.a26-hourly-grid__day-header.is-today {
-  border-color: #34cec4;
-  box-shadow: 0 0 12px rgba(52, 206, 196, 0.3);
-}
-
-.a26-hourly-grid__day-header.is-selected {
-  background: rgba(243, 215, 137, 0.15);
-  border-color: #f3d789;
-}
-
-.a26-hourly-grid__weekday {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  font-weight: 750;
-  color: rgba(200, 230, 230, 0.7);
-}
-
-.a26-hourly-grid__daynum {
-  font-size: 1.05rem;
-  font-weight: 750;
-  color: #f1f7f4;
-}
-
-.a26-hourly-grid__body {
-  display: grid;
-  grid-template-columns: 55px minmax(0, 1fr);
-  position: relative;
-  min-height: 960px; /* 15 hours * 64px */
-}
-
-.a26-hourly-grid__time-sidebar {
-  display: flex;
-  flex-direction: column;
-}
-
-.a26-hourly-grid__time-slot {
-  height: 64px;
-  font-size: 0.72rem;
-  font-family: monospace;
-  color: rgba(200, 230, 230, 0.65);
-}
-
-.a26-hourly-grid__columns {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(100px, 1fr));
-  gap: 6px;
-  position: relative;
-}
-
-.a26-hourly-grid__row-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: rgba(52, 206, 196, 0.1);
-  pointer-events: none;
-}
-
-.a26-hourly-grid__now-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: #ef4444;
-  box-shadow: 0 0 8px #ef4444;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.a26-hourly-grid__day-column {
-  position: relative;
-  height: 100%;
-  border-left: 1px solid rgba(52, 206, 196, 0.08);
-}
-
-/* EVENT BLOCKS IN HOURLY GRID */
 .a26-hourly-event-card {
   position: absolute;
-  left: 2px;
-  right: 2px;
-  border-radius: 12px;
-  padding: 6px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 5;
+  left: 4px;
+  right: 4px;
+  z-index: 3;
+  min-height: 32px;
   overflow: hidden;
+  padding: 7px;
+  border: 1px solid rgb(92 232 223 / 0.32);
+  border-radius: 10px;
+  color: var(--a26-color-text);
+  background: linear-gradient(145deg, rgb(27 91 92 / 0.78), rgb(4 32 38 / 0.9));
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.2), inset 0 1px 0 rgb(255 255 255 / 0.1);
+  cursor: pointer;
 }
+.a26-hourly-event-card.by-teacher { border-color: rgb(223 197 127 / 0.36); background: linear-gradient(145deg, rgb(94 72 30 / 0.76), rgb(34 27 12 / 0.9)); }
+.a26-hourly-event__header { display: flex; justify-content: space-between; gap: 6px; }
+.a26-hourly-event__time,
+.a26-hourly-event__system { color: var(--a26-color-text-muted); font-size: 0.62rem; }
+.a26-hourly-event__title { display: block; margin-top: 3px; font-size: 0.72rem; line-height: 1.2; }
+.a26-hourly-event__system { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.a26-hourly-event__model-tag { margin-top: 4px; color: var(--a26-color-teal); font-size: 0.6rem; }
 
-.a26-hourly-event-card:hover {
-  transform: translateY(-2px) scale(1.02);
-  z-index: 20;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-}
+.a26-month-view-split { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(290px, 0.85fr); gap: 16px; }
+.agenda-calendar,
+.agenda-day-panel { padding: 20px; }
+.agenda-calendar__toolbar,
+.agenda-day-panel__header { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.agenda-calendar__nav,
+.agenda-view-switcher { display: flex; gap: 8px; }
+.agenda-calendar button,
+.agenda-day-panel button,
+.agenda-task-card button { min-height: 38px; padding: 7px 11px; border: 1px solid var(--a26-color-border); border-radius: 12px; color: var(--a26-color-text); background: rgb(255 255 255 / 0.035); cursor: pointer; }
+.agenda-weekdays,
+.agenda-calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.agenda-weekdays { margin: 18px 0 7px; color: var(--a26-color-text-subtle); font-size: 0.68rem; font-weight: 800; text-align: center; }
+.agenda-day { min-height: 92px; padding: 8px; border: 1px solid var(--a26-color-border); border-radius: 12px; color: var(--a26-color-text); background: rgb(255 255 255 / 0.025); }
+.agenda-day-list { display: grid; gap: 12px; margin-top: 16px; }
+.agenda-task-card { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--a26-color-border); border-radius: 14px; background: rgb(255 255 255 / 0.025); }
+.agenda-task-card__header,
+.agenda-task-meta,
+.agenda-task-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.agenda-empty-state,
+.agenda-empty-text { color: var(--a26-color-text-subtle); }
+.agenda-side-card { padding: 16px; }
 
-.a26-hourly-event-card.by-student {
-  background: rgba(52, 206, 196, 0.18);
-  border-color: #34cec4;
-}
-
-.a26-hourly-event-card.by-teacher {
-  background: rgba(243, 215, 137, 0.22);
-  border-color: #f3d789;
-}
-
-.a26-hourly-event-card.by-institution {
-  background: rgba(236, 72, 153, 0.22);
-  border-color: #ec4899;
-}
-
-.a26-hourly-event-card.by-ai_tutor {
-  background: rgba(168, 85, 247, 0.22);
-  border-color: #a855f7;
-}
-
-.a26-hourly-event__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.a26-hourly-event__time {
-  font-size: 0.65rem;
-  font-family: monospace;
-  font-weight: 700;
-  color: #f1f7f4;
-}
-
-.a26-hourly-event__title {
-  font-size: 0.8rem;
-  font-weight: 750;
-  color: #ffffff;
-  line-height: 1.2;
-}
-
-.a26-hourly-event__system {
-  font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.a26-hourly-event__model-tag {
-  font-size: 0.6rem;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 1px 5px;
-  border-radius: 9999px;
-  width: fit-content;
-  color: #34cec4;
-}
-
-/* --------------------------------------------------------------------------
-   5. POPOVER MODAL FLOATING CARD
-   -------------------------------------------------------------------------- */
+.agenda-modal-backdrop,
 .a26-popover-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 99999;
-  background: rgba(4, 10, 12, 0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
+  z-index: var(--a26-z-modal);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(0 4 6 / 0.66);
 }
 
+.agenda-task-modal,
 .a26-popover-card {
-  background: radial-gradient(120% 100% at 50% 0%, rgba(52, 206, 196, 0.18) 0%, rgba(10, 18, 20, 0.95) 100%),
-              rgba(12, 22, 24, 0.9);
-  border: 1px solid rgba(52, 206, 196, 0.35);
-  border-radius: 28px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
-  width: 100%;
-  max-width: 480px;
-  padding: 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  width: min(100%, 720px);
+  max-height: min(88vh, 900px);
+  overflow-y: auto;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--a26-color-border-strong);
+  border-radius: var(--a26-radius-panel);
+  color: var(--a26-color-text);
+  background: var(--a26-material-substantial-bg);
+  box-shadow: var(--a26-shadow-elevated), inset 0 1px 0 rgb(255 255 255 / 0.12);
 }
 
-.a26-popover-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(52, 206, 196, 0.2);
-  padding-bottom: 0.75rem;
+.agenda-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.agenda-form-wide { grid-column: 1 / -1; }
+.agenda-task-modal .field { display: grid; gap: 7px; color: var(--a26-color-text-muted); }
+.agenda-task-modal input,
+.agenda-task-modal select,
+.agenda-task-modal textarea { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--a26-color-border); border-radius: 13px; color: var(--a26-color-text); background: rgb(2 12 16 / 0.72); }
+
+.a26-popover-header,
+.a26-popover-footer,
+.a26-popover-meta,
+.a26-popover-creator { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.a26-popover-body { display: grid; gap: 16px; margin-block: 20px; }
+.a26-popover-close,
+.a26-popover-action-btn,
+.a26-popover-3d-btn { min-height: 42px; padding: 9px 14px; border: 1px solid var(--a26-color-border); border-radius: 13px; color: var(--a26-color-text); background: rgb(255 255 255 / 0.04); cursor: pointer; }
+.a26-popover-action-btn.is-danger { color: var(--a26-color-danger); }
+
+@media (max-width: 1180px) {
+  .study-agenda-hero { align-items: start; flex-direction: column; }
+  .a26-hero-actions { width: 100%; justify-content: flex-start; }
+  .study-agenda-main-grid { grid-template-columns: 1fr; }
+  .a26-agenda-sidebar { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .a26-sidebar-create-btn { grid-column: 1 / -1; }
+  .a26-sidebar-systems { grid-column: 1 / -1; }
+  .a26-weekly-quick-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
-.a26-popover-creator {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+@media (max-width: 760px) {
+  .study-agenda-page { gap: 16px; padding-bottom: 40px; }
+  .study-agenda-hero { padding: 24px 20px; border-radius: 24px; }
+  .study-agenda-hero h1 { font-size: clamp(2.25rem, 13vw, 3.4rem); }
+  .a26-hero-actions { display: grid; grid-template-columns: 1fr; }
+  .a26-main-mode-switcher { min-width: 0; width: 100%; }
+  .a26-hero-actions .a26-button { width: 100%; }
+  .a26-agenda-sidebar { grid-template-columns: 1fr; }
+  .a26-sidebar-create-btn,
+  .a26-sidebar-systems { grid-column: auto; }
+  .a26-agenda-view-container { padding: 10px; }
+  .a26-weekly-quick-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .a26-month-view-split { grid-template-columns: 1fr; }
+  .agenda-form-grid { grid-template-columns: 1fr; }
+  .agenda-form-wide { grid-column: auto; }
 }
 
-.a26-popover-avatar {
-  font-size: 1.5rem;
+@media (max-width: 440px) {
+  .a26-weekly-quick-stats { grid-template-columns: 1fr; }
+  .a26-weekly-quick-stats .a26-metric { min-height: 90px; }
 }
 
-.a26-popover-creator strong {
-  font-size: 0.95rem;
-  color: #f3d789;
-}
-
-.a26-popover-creator small {
-  font-size: 0.75rem;
-  color: rgba(241, 247, 244, 0.7);
-  display: block;
-}
-
-.a26-popover-close {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(241, 247, 244, 0.8);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.a26-popover-title {
-  font-family: var(--a26-type-display, serif);
-  font-size: 1.35rem;
-  color: #ffffff;
-  margin-bottom: 0.4rem;
-}
-
-.a26-popover-time {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: #34cec4;
-  font-family: monospace;
-}
-
-.a26-popover-description {
-  font-size: 0.88rem;
-  color: rgba(241, 247, 244, 0.8);
-  line-height: 1.4;
-  margin-top: 0.5rem;
-}
-
-.a26-popover-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 0.75rem;
-}
-
-.a26-popover-tag {
-  background: rgba(52, 206, 196, 0.15);
-  color: #34cec4;
-  border: 1px solid rgba(52, 206, 196, 0.3);
-  padding: 3px 10px;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-}
-
-.a26-popover-3d-box {
-  background: rgba(8, 16, 18, 0.6);
-  border: 1px solid rgba(52, 206, 196, 0.25);
-  border-radius: 16px;
-  padding: 1rem;
-  margin-top: 0.85rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.a26-popover-3d-box span {
-  font-size: 0.72rem;
-  color: rgba(200, 230, 230, 0.7);
-}
-
-.a26-popover-3d-box strong {
-  font-size: 0.9rem;
-  color: #f3d789;
-}
-
-.a26-popover-3d-btn {
-  margin-top: 0.5rem;
-  background: linear-gradient(135deg, #34cec4 0%, #10b981 100%);
-  color: #061314;
-  font-weight: 750;
-  font-size: 0.85rem;
-  padding: 0.65rem 1.2rem;
-  border-radius: 9999px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.a26-popover-3d-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(52, 206, 196, 0.4);
-}
-
-.a26-popover-footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  border-top: 1px solid rgba(52, 206, 196, 0.2);
-  padding-top: 0.75rem;
-}
-
-.a26-popover-action-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(241, 247, 244, 0.8);
-  padding: 6px 14px;
-  border-radius: 9999px;
-  font-size: 0.82rem;
-  cursor: pointer;
-}
-
-.a26-popover-action-btn.is-active {
-  background: rgba(52, 206, 196, 0.2);
-  color: #34cec4;
-  border-color: #34cec4;
-}
-
-.a26-popover-action-btn.is-danger {
-  background: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-  border-color: rgba(239, 68, 68, 0.3);
-}
-
-.a26-agenda-summary-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+@media (prefers-reduced-motion: reduce) {
+  .study-agenda-page *,
+  .study-agenda-page *::before,
+  .study-agenda-page *::after {
+    animation-duration: 0.001ms;
+    animation-iteration-count: 1;
+    scroll-behavior: auto;
+  }
 }

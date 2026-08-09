@@ -1,5 +1,6 @@
 import LineIcon from "../../icons/LineIcon";
 import { useLanguage } from "../../../context/LanguageContext";
+import { A26Button, A26Card } from "../../aeternum-26";
 
 export default function AgendaTaskCard({ event, onComplete, onEdit, onDelete, navigate }) {
   const { t } = useLanguage();
@@ -10,7 +11,7 @@ export default function AgendaTaskCard({ event, onComplete, onEdit, onDelete, na
   }
 
   return (
-    <article className={`agenda-task-card agenda-task-card--${event.type} ${completed ? "is-completed" : ""}`}>
+    <A26Card as="article" material="clear" className={`agenda-task-card agenda-task-card--${event.type} ${completed ? "is-completed" : ""}`}>
       <div className="agenda-task-card__time">
         <LineIcon name="clock" />
         <span>{event.startTime} — {event.endTime}</span>
@@ -28,25 +29,25 @@ export default function AgendaTaskCard({ event, onComplete, onEdit, onDelete, na
           <span>{t("studyAgenda.priorityLabel", { priority: t(`studyAgenda.priorities.${event.priority}`) })}</span>
         </div>
         {event.linkedModel ? (
-          <button className="agenda-linked-model" onClick={openLinkedModel}>
+          <A26Button variant="ghost" className="agenda-linked-model" onClick={openLinkedModel}>
             <LineIcon name="layers" />
             {t("studyAgenda.linkedModel")}: {event.linkedModel}
-          </button>
+          </A26Button>
         ) : null}
       </div>
 
       <div className="agenda-task-actions">
-        <button type="button" disabled={completed} onClick={() => onComplete(event.id)}>
+        <A26Button type="button" variant="liquid" disabled={completed} onClick={() => onComplete(event.id)}>
           <LineIcon name="check" />
           {t("studyAgenda.complete")}
-        </button>
-        <button type="button" onClick={() => onEdit(event)}>
+        </A26Button>
+        <A26Button type="button" variant="ghost" onClick={() => onEdit(event)}>
           {t("studyAgenda.edit")}
-        </button>
-        <button type="button" className="danger" onClick={() => onDelete(event.id)}>
+        </A26Button>
+        <A26Button type="button" variant="danger" className="danger" onClick={() => onDelete(event.id)}>
           {t("studyAgenda.delete")}
-        </button>
+        </A26Button>
       </div>
-    </article>
+    </A26Card>
   );
 }

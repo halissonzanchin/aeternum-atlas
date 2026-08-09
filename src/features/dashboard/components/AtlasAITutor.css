@@ -19,7 +19,6 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.07),
     0 22px 58px rgba(0, 0, 0, 0.42),
     0 0 42px rgba(52, 206, 196, 0.08);
-  backdrop-filter: blur(30px) saturate(145%);
   transition: border-color 220ms ease, transform 300ms cubic-bezier(0.2, 0.85, 0.2, 1), box-shadow 260ms ease;
 }
 
@@ -120,7 +119,6 @@
     0 38px 100px rgba(0, 0, 0, 0.58),
     0 0 70px rgba(39, 184, 177, 0.06);
   animation: upe-ai-panel-in 460ms cubic-bezier(0.18, 0.85, 0.22, 1) both;
-  backdrop-filter: blur(36px) saturate(150%);
   transition: width 380ms cubic-bezier(0.16, 1, 0.3, 1), transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
