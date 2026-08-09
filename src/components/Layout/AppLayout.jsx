@@ -46,6 +46,19 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
   const overlayOpen = mobileNavigationOpen;
 
   useEffect(() => {
+    const root = document.documentElement;
+    const body = document.body;
+
+    root.classList.add("a26-shell-mounted");
+    body.classList.add("a26-shell-mounted");
+
+    return () => {
+      root.classList.remove("a26-shell-mounted");
+      body.classList.remove("a26-shell-mounted");
+    };
+  }, []);
+
+  useEffect(() => {
     const content = document.getElementById("a26-shell-content");
     content?.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [path]);
