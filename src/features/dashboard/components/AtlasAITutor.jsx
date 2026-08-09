@@ -50,7 +50,7 @@ export default function AtlasAITutor({
     const handleKeyDown = (event) => {
       if (event.key !== "Escape") return;
       setIsOpen(false);
-      window.requestAnimationFrame(() => triggerRef.current?.focus());
+      window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -82,7 +82,7 @@ export default function AtlasAITutor({
 
   const handleClose = () => {
     setIsOpen(false);
-    window.requestAnimationFrame(() => triggerRef.current?.focus());
+    window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
   };
 
   const handleSendMessage = (text) => {

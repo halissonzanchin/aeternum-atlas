@@ -114,8 +114,8 @@ body:has(.a26-shell) #root {
   transform: none;
 }
 
-/* Tutor persistente: a geometria e o estado vivo permanecem, mas o material
-   agora vem exclusivamente da fundação Aeternum 26. */
+/* Tutor persistente & Painel Flutuante:
+   Garantia estrita de overlay fixo sem deslocar o documento nem criar segunda rolagem. */
 .upe-ai-trigger.a26-surface:not(.is-draggable) {
   position: fixed !important;
   top: auto !important;
@@ -123,22 +123,9 @@ body:has(.a26-shell) #root {
   bottom: clamp(18px, 2vw, 30px) !important;
   left: auto !important;
   margin: 0 !important;
-  transform: none;
-  z-index: var(--a26-z-tutor) !important;
+  transform: none !important;
+  z-index: 99999 !important;
   background: var(--a26-material-regular-bg);
-}
-
-.upe-ai-trigger.a26-surface {
-  background: var(--a26-material-regular-bg);
-}
-
-body.a26-shell-mounted > .upe-ai-trigger.a26-surface:not(.is-draggable) {
-  position: fixed !important;
-  top: auto !important;
-  right: clamp(18px, 2vw, 30px) !important;
-  bottom: clamp(18px, 2vw, 30px) !important;
-  left: auto !important;
-  margin: 0 !important;
 }
 
 .upe-ai-trigger.a26-surface {
@@ -148,6 +135,27 @@ body.a26-shell-mounted > .upe-ai-trigger.a26-surface:not(.is-draggable) {
 .upe-ai-trigger.a26-surface:hover {
   transform: scale(1.05) !important;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 24px rgba(52, 206, 196, 0.35) !important;
+}
+
+#upe-ai-panel.upe-ai-panel,
+.upe-ai-panel {
+  position: fixed !important;
+  z-index: 99999 !important;
+  top: 102px !important;
+  right: clamp(18px, 2vw, 30px) !important;
+  bottom: 116px !important;
+  left: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+  width: min(460px, calc(100vw - 36px)) !important;
+  pointer-events: auto !important;
+}
+
+.aog-focus-dimmer {
+  position: fixed !important;
+  z-index: 99998 !important;
+  inset: 0 !important;
+  pointer-events: none !important;
 }
 
 /* Micro-física de destaque para cards de estudo e recomendações */
