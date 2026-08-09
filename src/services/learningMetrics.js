@@ -97,7 +97,7 @@ function viewerSessions(sessions = []) {
   return uniqueById(sessions).filter(session => {
     const scope = session?.scope || session?.sessionType || session?.session_type || "viewer";
     const active = normalizedActiveSeconds(session);
-    return (scope === "viewer" || scope === "account" || scope === "quiz" || scope === "lesson") && active > 0;
+    return scope === "viewer" && active > 0;
   });
 }
 

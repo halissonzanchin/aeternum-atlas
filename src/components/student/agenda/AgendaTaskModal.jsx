@@ -7,7 +7,7 @@ import {
   agendaReminders,
   agendaRepeats,
   agendaStatuses
-} from "../../../data/mockStudyAgenda";
+} from "../../../data/studyAgendaCatalog";
 import { formatAgendaDate } from "../../../hooks/useStudyAgenda";
 import { useLanguage } from "../../../context/LanguageContext";
 

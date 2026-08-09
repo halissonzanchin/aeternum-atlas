@@ -40,6 +40,23 @@ function formatMinutes(minutes) {
   return `${safeMinutes} min`;
 }
 
+function normalizeViewerSession(session) {
+  return {
+    id: session.id,
+    institution_id: session.institution_id,
+    user_id: session.user_id,
+    model_id: session.model_id,
+    action: "view_model",
+    duration_seconds: numberOrZero(session.active_seconds),
+    metadata: {
+      scope: session.scope || "viewer",
+      status: session.status || "completed",
+      idleSeconds: numberOrZero(session.idle_seconds)
+    },
+    created_at: session.session_start || session.created_at
+  };
+}
+
 async function safeQuery(label, query, fallback = null) {
   try {
     const { data, error } = await query;
@@ -486,12 +503,13 @@ export async function loadTeacherDashboardData(user) {
         )
       : [],
     safeQuery(
-      "public.model_access_logs",
+      "public.viewer_learning_sessions",
       supabase
-        .from("model_access_logs")
-        .select("id, institution_id, user_id, model_id, duration_seconds, created_at")
+        .from("viewer_learning_sessions")
+        .select("id, institution_id, user_id, model_id, scope, active_seconds, idle_seconds, status, session_start, created_at")
         .eq("institution_id", institutionId)
-        .order("created_at", { ascending: false })
+        .eq("scope", "viewer")
+        .order("session_start", { ascending: false })
         .limit(2500),
       []
     ),
@@ -510,7 +528,7 @@ export async function loadTeacherDashboardData(user) {
 
   const safeUsers = Array.isArray(studentUsers) ? studentUsers : [];
   const safeProfiles = Array.isArray(studentProfiles) ? studentProfiles : [];
-  const safeLogs = Array.isArray(logs) ? logs : [];
+  const safeLogs = Array.isArray(logs) ? logs.map(normalizeViewerSession) : [];
   const safeModels = Array.isArray(models) ? models : [];
   const students = buildStudents({ users: safeUsers, profiles: safeProfiles, logs: safeLogs, models: safeModels });
   const classes = buildClasses({

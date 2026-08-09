@@ -157,7 +157,7 @@
 }
 
 .a26-surface__refract {
-  display: none !important;
+  display: none;
 }
 
 .a26-surface__spectrum {
@@ -978,10 +978,13 @@ textarea.a26-field__control {
 }
 
 /* A faixa e os cards preservam o vidro do contêiner sem a antiga placa móvel sobre o texto (Padrão Codex). */
-.viewer-model-actions .a26-button > .a26-surface__refract,
+.viewer-model-actions .a26-button > .a26-surface__refract {
+  display: none;
+}
+
 .atlas-card > .a26-surface__refract,
 .a26-surface--interactive > .a26-surface__refract {
-  display: none !important;
+  display: none;
 }
 
 .viewer-model-actions .a26-button--ghost {

@@ -19,8 +19,9 @@ const PDF_BOOKS_DIR = path.join(ROOT_DIR, "knowledge_base", "pdf_books");
 const CHUNKS_OUTPUT_DIR = path.join(ROOT_DIR, "knowledge_base", "ingested_chunks");
 
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL || "https://hyivyrietgjdazgizafp.supabase.co";
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_EMBEDDING_MODEL = "gemini-embedding-2";
 
 const CHUNK_SIZE_CHARS = 800; // Tamanho ideal do trecho de conhecimento
 const OVERLAP_CHARS = 100;    // Sobreposição para manter continuidade do contexto
@@ -67,28 +68,38 @@ function chunkText(fullText, chunkSize = CHUNK_SIZE_CHARS, overlap = OVERLAP_CHA
  * Gera embedding de 768 dimensões via Google Gemini API
  */
 async function generateEmbedding(text, apiKey) {
-  if (!apiKey) return null;
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${apiKey}`;
+  if (!apiKey) throw new Error("GEMINI_API_KEY ausente.");
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_EMBEDDING_MODEL}:embedContent`;
 
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": apiKey
+      },
       body: JSON.stringify({
-        model: "models/text-embedding-004",
-        content: { parts: [{ text }] }
+        model: `models/${GEMINI_EMBEDDING_MODEL}`,
+        content: { parts: [{ text }] },
+        embedContentConfig: {
+          taskType: "RETRIEVAL_DOCUMENT",
+          outputDimensionality: 768,
+          autoTruncate: true
+        }
       })
     });
 
     if (!response.ok) {
-      return null;
+      throw new Error(`Gemini embedding falhou com HTTP ${response.status}.`);
     }
 
     const data = await response.json();
-    return data.embedding?.values || null;
+    if (!Array.isArray(data.embedding?.values) || data.embedding.values.length !== 768) {
+      throw new Error("Embedding Gemini inválido ou com dimensão inesperada.");
+    }
+    return data.embedding.values;
   } catch (err) {
-    console.warn("⚠️ Falha ao gerar embedding:", err.message);
-    return null;
+    throw new Error(`Falha ao gerar embedding: ${err.message}`);
   }
 }
 
@@ -118,7 +129,10 @@ async function run() {
   files.forEach((file, i) => console.log(`  ${i + 1}. ${file}`));
 
   let supabase = null;
-  if (!isDryRun && SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
+  if (!isDryRun && (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !GEMINI_API_KEY)) {
+    throw new Error("Ingestão remota exige SUPABASE_SERVICE_ROLE_KEY e GEMINI_API_KEY.");
+  }
+  if (!isDryRun) {
     supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
   }
 
@@ -154,7 +168,7 @@ async function run() {
 
           for (let j = 0; j < batch.length; j++) {
             const content = batch[j];
-            const embedding = GEMINI_API_KEY ? await generateEmbedding(content, GEMINI_API_KEY) : null;
+            const embedding = await generateEmbedding(content, GEMINI_API_KEY);
             records.push({
               book_title: bookTitle,
               chapter_title: `Trecho ${i + j + 1}`,
@@ -164,7 +178,9 @@ async function run() {
             });
           }
 
-          const { error } = await supabase.from("anatomical_knowledge_base").insert(records);
+          const { error } = await supabase
+            .from("anatomical_knowledge_base")
+            .upsert(records, { onConflict: "book_title,chunk_index" });
           if (error) {
             console.error(`   ❌ Erro no lote ${i / batchSize + 1}:`, error.message);
           } else {

@@ -169,7 +169,7 @@ export default function SettingsPanel({ open = true, onClose, user, notify = () 
               <span>{t("settings.redeemLicense")}</span>
               <input value={license} onChange={event => setLicense(event.target.value)} placeholder="AA-UNIVERSIDADE-2026" />
             </label>
-            <button className="viewer-primary-button mt-4" onClick={() => notify(license ? t("settings.codeValidated") : t("settings.informCode"))}>{t("settings.redeemCode")}</button>
+            <button className="viewer-primary-button mt-4" onClick={() => notify(license ? t("settings.codeUnavailable") : t("settings.informCode"))}>{t("settings.redeemCode")}</button>
           </SettingCard>
         ) : null}
 

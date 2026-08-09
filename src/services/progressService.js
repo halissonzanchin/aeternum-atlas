@@ -169,10 +169,11 @@ export async function fetchAccessLogs(user) {
   
   const client = getSupabaseClient();
   const { data, error } = await client
-    .from("model_access_logs")
-    .select("id, model_id, action, duration_seconds, created_at")
+    .from("viewer_learning_sessions")
+    .select("id, model_id, active_seconds, status, session_start")
     .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
+    .eq("scope", "viewer")
+    .order("session_start", { ascending: false });
 
   if (error || !data) {
     console.warn("Fallback to local access logs", error);
@@ -182,9 +183,10 @@ export async function fetchAccessLogs(user) {
   const remoteLogs = data.map(log => ({
     id: log.id,
     modelId: log.model_id,
-    createdAt: log.created_at,
-    action: log.action || "open_model",
-    durationSeconds: Number(log.duration_seconds || 0)
+    createdAt: log.session_start,
+    action: "view_model",
+    status: log.status || "completed",
+    durationSeconds: Number(log.active_seconds || 0)
   }));
   const localLogs = getAccessLogs(user);
   const seen = new Set();

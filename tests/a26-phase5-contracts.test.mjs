@@ -54,7 +54,8 @@ test("a experiência institucional declara papel, seção e origem", () => {
 test("a Fase 5 consulta a estrutura acadêmica e certifica cobertura", () => {
   assert.match(service, /loadInstitutionRows\("academic_classes"/);
   assert.match(service, /loadInstitutionRows\("academic_class_students"/);
-  assert.match(service, /loadInstitutionRows\("academic_subjects"/);
+  assert.doesNotMatch(service, /loadInstitutionRows\("academic_subjects"/);
+  assert.match(service, /academic_subjects não integra o esquema acadêmico autorizado atual/);
   assert.match(service, /function buildGovernanceQuality/);
   assert.match(service, /status: unavailable\.length \|\| viewErrors \? "partial" : "policy_scoped"/);
   assert.match(page, /CoverageDisclosure/);

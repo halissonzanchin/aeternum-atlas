@@ -146,13 +146,6 @@ export function administrationSourceState(data, status, error) {
       text: data?.reason || "A sessão não possui um tenant administrativo verificável."
     };
   }
-  if (data?.source === "demo_upe") {
-    return {
-      key: "demo",
-      label: "Dados de demonstração",
-      text: "Este ambiente usa uma camada de apresentação explicitamente rotulada."
-    };
-  }
   if (data?.quality?.status === "partial") {
     return {
       key: "partial",

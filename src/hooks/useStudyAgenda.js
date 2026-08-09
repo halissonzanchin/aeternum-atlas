@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { getCurrentUser } from "../services/auth/authService";
 import { fetchAgendaEvents, createAgendaEvent, updateAgendaEvent, deleteAgendaEvent } from "../services/studyAgendaService";
+import { useAuth } from "../context/AuthContext";
 
 export function formatAgendaDate(date) {
   const parsed = date instanceof Date ? date : new Date(`${date}T12:00:00`);
@@ -57,22 +57,26 @@ function sortEvents(events) {
 }
 
 export function useStudyAgenda() {
-  const user = getCurrentUser();
+  const { user } = useAuth();
   const [events, setEvents] = useState([]);
   const [selectedDate, setSelectedDate] = useState(() => parseAgendaDate(new Date()));
   const [loading, setLoading] = useState(true);
+  const [syncStatus, setSyncStatus] = useState("loading");
+  const [syncError, setSyncError] = useState(null);
 
   useEffect(() => {
     let mounted = true;
     setLoading(true);
-    fetchAgendaEvents(user).then(data => {
+    fetchAgendaEvents(user).then(result => {
       if (mounted) {
-        setEvents(sortEvents(data));
+        setEvents(sortEvents(result.events));
+        setSyncStatus(result.syncStatus);
+        setSyncError(result.error);
         setLoading(false);
       }
     });
     return () => { mounted = false; };
-  }, [user]);
+  }, [user?.id]);
 
   async function addEvent(event) {
     const dates = repeatedDates(event.date, event.repeat);
@@ -82,23 +86,29 @@ export function useStudyAgenda() {
     // If repeat exists, others fallback to local logic or loop creation.
     for (const d of dates) {
        const payload = { ...event, date: d };
-       const created = await createAgendaEvent(user, payload);
-       if (created) addedEvents.push(created);
+       const result = await createAgendaEvent(user, payload);
+       if (result.event) addedEvents.push(result.event);
+       setSyncStatus(result.syncStatus);
+       setSyncError(result.error);
     }
     
     setEvents(previous => sortEvents([...previous, ...addedEvents]));
   }
 
   async function updateEvent(eventId, payload) {
-    const success = await updateAgendaEvent(user, eventId, payload);
-    if (success) {
+    const result = await updateAgendaEvent(user, eventId, payload);
+    setSyncStatus(result.syncStatus);
+    setSyncError(result.error);
+    if (result.success) {
       setEvents(previous => sortEvents(previous.map(event => event.id === eventId ? { ...event, ...payload, updatedAt: new Date().toISOString() } : event)));
     }
   }
 
   async function deleteEventItem(eventId) {
-    const success = await deleteAgendaEvent(user, eventId);
-    if (success) {
+    const result = await deleteAgendaEvent(user, eventId);
+    setSyncStatus(result.syncStatus);
+    setSyncError(result.error);
+    if (result.success) {
       setEvents(previous => previous.filter(event => event.id !== eventId));
     }
   }
@@ -158,6 +168,8 @@ export function useStudyAgenda() {
     getEventsByDate,
     getWeeklySummary,
     getUpcomingReviews,
-    loading
+    loading,
+    syncStatus,
+    syncError
   };
 }

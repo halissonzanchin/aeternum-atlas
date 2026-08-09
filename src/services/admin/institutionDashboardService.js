@@ -1,8 +1,6 @@
 import { supabase } from "../../lib/supabase";
 import { normalizeRole, ROLES } from "../permissions/permissionService";
 import { isSupabaseConfigured } from "../supabase/supabaseClient";
-import { isDemoPresentationAccount } from "../../demo/upe";
-import { buildDatasetDemoUpePayload } from "../../demo/upe/dataset";
 
 const ACTIVE_STATUSES = new Set(["active", "ativo"]);
 const STUDENT_ROLES = new Set(["student", "aluno"]);
@@ -90,6 +88,23 @@ function eventTypeLabel(action) {
     session_end: "fim de sessão"
   };
   return labels[action] || action || "evento";
+}
+
+function normalizeViewerSession(session) {
+  return {
+    id: session.id,
+    institution_id: session.institution_id,
+    user_id: session.user_id,
+    model_id: session.model_id,
+    action: "view_model",
+    duration_seconds: numberOrZero(session.active_seconds),
+    metadata: {
+      scope: session.scope || "viewer",
+      status: session.status || "completed",
+      idleSeconds: numberOrZero(session.idle_seconds)
+    },
+    created_at: session.session_start || session.created_at
+  };
 }
 
 async function safeSupabaseQuery(label, query, fallbackValue = null) {
@@ -1060,10 +1075,6 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
 
   const profile = await getAuthenticatedProfile();
 
-  if (profile?.email && isDemoPresentationAccount(profile.email)) {
-    return buildDemoUpePayload(profile);
-  }
-
   if (!profile?.id) {
     return getRestrictedInstitutionDashboardData(null, "Usuário administrativo não autenticado.");
   }
@@ -1118,23 +1129,34 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
 
   const [
     profilesResult,
-    logsResult,
+    viewerSessionsResult,
     eventsResult,
     modelsResult,
     classesResult,
     classStudentsResult,
-    subjectsResult,
     views
   ] = await Promise.all([
     loadStudentProfilesByUsers(studentUserIds),
-    loadInstitutionRows("model_access_logs", queryInstitutionId, "id, institution_id, user_id, model_id, action, duration_seconds, metadata, created_at", { allowGlobal, orderBy: "created_at", limit: 5000 }),
+    loadInstitutionRows("viewer_learning_sessions", queryInstitutionId, "id, institution_id, user_id, model_id, scope, active_seconds, idle_seconds, status, session_start, created_at", { allowGlobal, orderBy: "session_start", limit: 5000 }),
     loadInstitutionRows("platform_events", queryInstitutionId, "id, institution_id, user_id, event_type, event_category, metadata, created_at", { allowGlobal, orderBy: "created_at", limit: 2000 }),
     loadInstitutionRows("models_3d", queryInstitutionId, "id, institution_id, title, slug, anatomical_system, anatomical_region, status, created_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadInstitutionRows("academic_classes", queryInstitutionId, "id, institution_id, teacher_id, name, course, semester, status, created_at, updated_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadInstitutionRows("academic_class_students", queryInstitutionId, "id, institution_id, class_id, student_id, created_at", { allowGlobal, orderBy: "created_at", limit: 5000 }),
-    loadInstitutionRows("academic_subjects", queryInstitutionId, "id, institution_id, course_id, name, code, active, created_at, updated_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadAnalyticsViews(queryInstitutionId)
   ]);
+
+  const subjectsResult = {
+    rows: [],
+    count: 0,
+    error: new Error("public.academic_subjects não integra o esquema acadêmico autorizado atual.")
+  };
+
+  const logsResult = {
+    ...viewerSessionsResult,
+    rows: viewerSessionsResult.rows
+      .filter(session => (session.scope || "viewer") === "viewer")
+      .map(normalizeViewerSession)
+  };
 
   const quality = buildGovernanceQuality({
     profile,
@@ -1168,36 +1190,6 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     source: "supabase",
     profile
   });
-}
-
-function buildDemoUpePayload(profile) {
-  const datasetPayload = buildDatasetDemoUpePayload();
-  const isSuperAdmin = normalizeRole(profile?.role) === ROLES.SUPER_ADMIN;
-  
-  return {
-    ...datasetPayload,
-    scope: isSuperAdmin ? "global" : "tenant",
-    quality: {
-      status: "demo",
-      accessScope: normalizeRole(profile?.role),
-      policyScoped: false,
-      unavailable: [],
-      viewErrors: 0,
-      tables: {}
-    },
-    raw: {
-      profile,
-      institutions: [],
-      users: [],
-      profiles: [],
-      logs: [],
-      events: [],
-      academicClasses: [],
-      classStudents: [],
-      academicSubjects: [],
-      views: []
-    }
-  };
 }
 
 

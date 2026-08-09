@@ -15,6 +15,10 @@ const telemetrySource = await readFile(
   new URL("../src/services/learningTelemetryService.js", import.meta.url),
   "utf8"
 );
+const authSource = await readFile(
+  new URL("../src/services/auth/authService.js", import.meta.url),
+  "utf8"
+);
 const viewerProgressSource = await readFile(
   new URL("../src/features/viewer/hooks/useViewerProgress.js", import.meta.url),
   "utf8"
@@ -115,6 +119,25 @@ test("o rastreador mede atividade, inatividade, visibilidade e heartbeat sem dup
   assert.match(telemetrySource, /idleSeconds/);
   assert.match(viewerProgressSource, /startTrackedLearningSession/);
   assert.doesNotMatch(viewerProgressSource, /trackModelAccess\([^)]*viewer_duration/);
+});
+
+test("eventos remotos aguardam a sessão-pai e preservam o log append-only", () => {
+  assert.match(telemetrySource, /await persistSessionRemote\(parentSession\)/);
+  assert.match(telemetrySource, /from\("viewer_learning_events"\)\.insert\(/);
+  assert.doesNotMatch(
+    telemetrySource,
+    /from\("viewer_learning_events"\)\.upsert\(/
+  );
+  assert.match(telemetrySource, /error\.code !== "23505"/);
+});
+
+test("logout encerra e sincroniza a sessão antes de invalidar o JWT", () => {
+  assert.match(telemetrySource, /finalizeTrackedLearningSessionsForUser/);
+  assert.match(telemetrySource, /Promise\.allSettled\(trackers\.map\(tracker => tracker\.waitForRemote\(\)\)\)/);
+  assert.match(
+    authSource,
+    /export async function logoutUser[\s\S]*await finalizeTrackedLearningSessionsForUser\(user\.id, "logout"\)[\s\S]*clearAuthProfile\(\)[\s\S]*await supabase\.auth\.signOut\(\)/
+  );
 });
 
 test("a migração cria telemetria canônica com RLS por usuário e leitura institucional", () => {
