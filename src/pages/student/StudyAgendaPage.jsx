@@ -10,6 +10,7 @@ import WeeklyStudySummary from "../../components/student/agenda/WeeklyStudySumma
 import { formatAgendaDate, useStudyAgenda } from "../../hooks/useStudyAgenda";
 import { useLanguage } from "../../context/LanguageContext";
 import { useAuth } from "../../context/AuthContext";
+import { A26Button, A26Card, A26Metric, A26SegmentedControl } from "../../components/aeternum-26";
 import "../../styles/A26StudyAgenda.css";
 
 export default function StudyAgendaPage({ navigate }) {
@@ -90,7 +91,7 @@ export default function StudyAgendaPage({ navigate }) {
       data-a26-source="account-persisted"
     >
       {/* Liquid Glass Hero Header */}
-      <header className="study-agenda-hero">
+      <A26Card as="header" material="substantial" tone="teal" className="study-agenda-hero">
         <div>
           <div className="a26-hero-sync-badges">
             <span className={`a26-hero-sync-badge ${agenda.syncStatus === "synced" ? "is-active" : ""}`}>
@@ -108,26 +109,20 @@ export default function StudyAgendaPage({ navigate }) {
 
         <div className="a26-hero-actions">
           {/* Main Display Switcher */}
-          <div className="a26-main-mode-switcher">
-            <button
-              className={displayMode === "hourly_week" ? "is-active" : ""}
-              onClick={() => setDisplayMode("hourly_week")}
-            >
-              📊 Grade Semanal
-            </button>
-            <button
-              className={displayMode === "month" ? "is-active" : ""}
-              onClick={() => setDisplayMode("month")}
-            >
-              📅 Mês
-            </button>
-          </div>
+          <A26SegmentedControl
+            className="a26-main-mode-switcher"
+            label="Visualização da agenda"
+            value={displayMode}
+            onChange={setDisplayMode}
+            options={[
+              { value: "hourly_week", label: "Grade semanal" },
+              { value: "month", label: "Mês" }
+            ]}
+          />
 
-          <button className="viewer-primary-button" onClick={openNewActivity}>
-            + Nova Atividade
-          </button>
+          <A26Button variant="primary" onClick={openNewActivity}>Nova atividade</A26Button>
         </div>
-      </header>
+      </A26Card>
 
       {/* Main Agenda Grid Layout */}
       <div className="study-agenda-main-grid">
@@ -146,31 +141,16 @@ export default function StudyAgendaPage({ navigate }) {
         />
 
         {/* Center Main View (Hourly Grid OR Month Calendar) */}
-        <main className="a26-agenda-view-container">
+        <A26Card as="main" material="clear" className="a26-agenda-view-container">
           {displayMode === "hourly_week" ? (
             <>
               {/* Compact Liquid Glass Summary Bar for Weekly Mode */}
-              <div className="a26-weekly-quick-stats">
-                <div className="a26-quick-stat-pill">
-                  <span className="a26-quick-stat-label">Programadas</span>
-                  <strong className="a26-quick-stat-val">{weeklySummary.scheduled}</strong>
-                </div>
-                <div className="a26-quick-stat-pill">
-                  <span className="a26-quick-stat-label">Concluídas</span>
-                  <strong className="a26-quick-stat-val is-teal">{weeklySummary.completed}</strong>
-                </div>
-                <div className="a26-quick-stat-pill">
-                  <span className="a26-quick-stat-label">Pendentes</span>
-                  <strong className="a26-quick-stat-val is-gold">{weeklySummary.pending}</strong>
-                </div>
-                <div className="a26-quick-stat-pill">
-                  <span className="a26-quick-stat-label">Tempo Planejado</span>
-                  <strong className="a26-quick-stat-val">{Math.round(weeklySummary.plannedMinutes / 60)}h</strong>
-                </div>
-                <div className="a26-quick-stat-pill is-rate">
-                  <span className="a26-quick-stat-label">Constância</span>
-                  <strong className="a26-quick-stat-val">{weeklySummary.completionRate}%</strong>
-                </div>
+              <div className="a26-weekly-quick-stats" aria-label="Resumo da semana">
+                <A26Metric label="Programadas" value={weeklySummary.scheduled} />
+                <A26Metric label="Concluídas" value={weeklySummary.completed} tone="teal" />
+                <A26Metric label="Pendentes" value={weeklySummary.pending} tone="gold" />
+                <A26Metric label="Tempo planejado" value={`${Math.round(weeklySummary.plannedMinutes / 60)}h`} />
+                <A26Metric label="Constância" value={`${weeklySummary.completionRate}%`} tone="teal" />
               </div>
 
               <AgendaHourlyGrid
@@ -202,7 +182,7 @@ export default function StudyAgendaPage({ navigate }) {
               </AgendaDayPanel>
             </div>
           )}
-        </main>
+        </A26Card>
       </div>
 
       {/* Floating Popover Event Modal */}

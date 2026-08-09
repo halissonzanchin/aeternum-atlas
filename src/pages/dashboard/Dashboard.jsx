@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Card from "../../components/Card/Card";
 import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
 
@@ -8,7 +7,7 @@ import StudyToolCard from "../../features/dashboard/components/StudyToolCard";
 import ContinueModelCard from "../../features/dashboard/components/ContinueModelCard";
 import EvolutionPanel from "../../features/dashboard/components/EvolutionPanel";
 import MuralModularBoard from "../../components/MuralModularBoard/MuralModularBoard";
-import { A26Button, A26LoadingState } from "../../components/aeternum-26";
+import { A26Button, A26Card, A26EmptyState, A26LoadingState, A26Surface } from "../../components/aeternum-26";
 import { studyTools } from "../../features/dashboard/data/constants";
 import { useDashboardData } from "../../features/dashboard/hooks/useDashboardData";
 import "../../features/dashboard/components/StudentDashboard.css";
@@ -59,9 +58,8 @@ export default function Dashboard({ user, navigate }) {
   const semesterLabel = user?.semester || "Acesso institucional";
 
   return (
-    <section className="student-study-home upe-student-dashboard premium-dashboard fade-in-up pb-12">
-      <div className="student-study-hero upe-student-hero atlas-liquid-glass atlas-liquid-glass-card">
-        <div className="atlas-liquid-highlight" />
+    <section className="student-study-home a26-student-dashboard fade-in-up pb-12" data-a26-source="account-observed">
+      <A26Card material="substantial" tone="teal" className="student-study-hero a26-student-hero">
         <div className="student-study-hero__content">
           <p className="viewer-eyebrow">{courseLabel} • {semesterLabel}</p>
           <h1>Olá, {firstName}</h1>
@@ -108,7 +106,7 @@ export default function Dashboard({ user, navigate }) {
             <span>Progresso</span>
           </div>
         </div>
-      </div>
+      </A26Card>
 
       <MuralModularBoard />
 
@@ -143,9 +141,7 @@ export default function Dashboard({ user, navigate }) {
         <div className="continue-model-grid">
           {recentModels.map(model => <ContinueModelCard key={model.id} model={model} navigate={navigate} t={t} />)}
           {!modelsLoading && recentModels.length === 0 ? (
-            <Card className="premium-panel-card">
-              <p className="text-sm text-textMuted">{t("models.emptyCatalog")}</p>
-            </Card>
+            <A26EmptyState title={t("models.emptyCatalog")} text={t("models.emptyCatalogSubtitle") || "Seu catálogo será exibido assim que a fonte institucional responder."} />
           ) : null}
         </div>
       </section>
@@ -169,19 +165,18 @@ export default function Dashboard({ user, navigate }) {
         </div>
         <div className="student-recommendation-grid">
           {observedRecommendations.map(item => (
-            <button key={item.id} className="student-recommendation-card" onClick={() => navigate(item.path)}>
+            <A26Surface as="button" type="button" material="regular" interactive tone="teal" key={item.id} className="student-recommendation-card" onClick={() => navigate(item.path)}>
               <span className="module-icon"><LineIcon name={item.icon} /></span>
               <strong>{item.title}</strong>
               <p>{item.description}</p>
               <small>{t("studentHome.actions.start")}</small>
-            </button>
+            </A26Surface>
           ))}
           {!modelsLoading && observedRecommendations.length === 0 ? (
-            <Card className="premium-panel-card">
-              <p className="text-sm text-textMuted">
-                Ainda não há histórico suficiente para gerar recomendações pessoais. Abra um modelo para iniciar sua trilha observada.
-              </p>
-            </Card>
+            <A26EmptyState
+              title="Recomendações em formação"
+              text="Ainda não há histórico suficiente para gerar recomendações pessoais. Abra um modelo para iniciar sua trilha observada."
+            />
           ) : null}
         </div>
       </section>

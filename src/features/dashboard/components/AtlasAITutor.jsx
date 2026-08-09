@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import LineIcon from "../../../components/icons/LineIcon";
-import AeternumGlassSurface from "../../../components/system/AeternumGlassSurface";
+import { A26IconButton, A26Surface } from "../../../components/aeternum-26";
 import { useAtlasAITutorSession } from "../../../context/AtlasAITutorSessionContext";
 import AtlasAIConversation from "../../atlas-viewer/ai/AtlasAIConversation";
 import AtlasAIOrb from "../../atlas-viewer/ai/AtlasAIOrb";
@@ -121,12 +120,12 @@ export default function AtlasAITutor({
       {isOpen ? <div className="aog-focus-dimmer" aria-hidden="true" /> : null}
 
       {isOpen && (
-        <AeternumGlassSurface
+        <A26Surface
           as="section"
           id="upe-ai-panel"
           className={`upe-ai-panel aog-morph-panel${draggable ? " upe-ai-panel--positioned" : ""} ${panelMode === "expanded" ? "is-expanded" : ""}`}
-          variant="regular"
-          depth="substantial"
+          material="substantial"
+          tone="teal"
           role="dialog"
           aria-modal="false"
           aria-labelledby="upe-ai-title"
@@ -140,23 +139,18 @@ export default function AtlasAITutor({
               <p>{isThinking ? "Analisando sua pergunta…" : "Conversa sincronizada em toda a plataforma"}</p>
             </div>
             <div className="flex items-center gap-1">
-              <button
-                type="button"
+              <A26IconButton
                 className="upe-ai-panel__close text-textMuted hover:text-amber-300 transition-colors"
-                aria-label={panelMode === "expanded" ? "Modo compacto" : "Modo expandido"}
-                title={panelMode === "expanded" ? "Recolher largura" : "Expandir para leitura ampla"}
+                label={panelMode === "expanded" ? "Modo compacto" : "Modo expandido"}
+                icon={panelMode === "expanded" ? "minimize" : "maximize"}
                 onClick={() => setPanelMode((prev) => (prev === "expanded" ? "compact" : "expanded"))}
-              >
-                <LineIcon name={panelMode === "expanded" ? "minimize" : "maximize"} />
-              </button>
-              <button
-                type="button"
+              />
+              <A26IconButton
                 className="upe-ai-panel__close"
-                aria-label="Fechar Atlas AI Tutor"
+                label="Fechar Atlas AI Tutor"
+                icon="close"
                 onClick={handleClose}
-              >
-                <LineIcon name="close" />
-              </button>
+              />
             </div>
           </header>
 
@@ -172,7 +166,7 @@ export default function AtlasAITutor({
             quickQuestions={context.quickActions}
             onAction={handleActionClick}
           />
-        </AeternumGlassSurface>
+        </A26Surface>
       )}
 
       {toolModalType && (
@@ -190,12 +184,12 @@ export default function AtlasAITutor({
 
       {isDragging ? <div className="upe-ai-orb-drag-surface" aria-hidden="true" /> : null}
 
-      <AeternumGlassSurface
+      <A26Surface
         ref={triggerRef}
         as="button"
         type="button"
-        variant={sphereOnly ? "clear" : "regular"}
-        depth="standard"
+        material={sphereOnly ? "clear" : "regular"}
+        tone="teal"
         interactive
         className={[
           "upe-ai-trigger",
@@ -219,7 +213,7 @@ export default function AtlasAITutor({
             <small>{isThinking ? "Analisando" : isOpen ? "Ouvindo" : "Tutor anatômico"}</small>
           </span>
         )}
-      </AeternumGlassSurface>
+      </A26Surface>
     </>,
     document.body
   );

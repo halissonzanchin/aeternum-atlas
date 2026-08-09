@@ -486,7 +486,7 @@ function StudentAITutorStudio() {
 
   // Combined active topic tags (Auto detected from real questions + User added)
   const activeTopics = useMemo(() => {
-    return Array.from(new Set([...autoSessionTopics, ...userTags]));
+    return Array.from(new Set([...autoSessionTopics, ...userTags])).slice(0, 8);
   }, [autoSessionTopics, userTags]);
 
   const handleRemoveTopic = (topicToRemove) => {
@@ -513,33 +513,19 @@ function StudentAITutorStudio() {
 
   return (
     <div className="a26-ai-tutor-studio-hub flex flex-col gap-5 w-full">
-      {/* Sleek Liquid Glass Metrics Grid (iOS 27 Balanced Typography - No Giant Letters) */}
       <div className="a26-liquid-metrics-grid">
-        <div className="a26-liquid-metric-card">
-          <span className="a26-liquid-metric-card__label">Total de Diálogos</span>
-          <span className="a26-liquid-metric-card__value is-teal">{totalDialogues}</span>
-          <span className="a26-liquid-metric-card__detail">{userQuestionsCount} perguntas / {aiAnswersCount} respostas</span>
-        </div>
-
-        <div className="a26-liquid-metric-card">
-          <span className="a26-liquid-metric-card__label">Status da Sessão</span>
-          <span className="a26-liquid-metric-card__value is-gold">
-            {connectionMode === "online" ? "Cloud Ativo" : "Local"}
-          </span>
-          <span className="a26-liquid-metric-card__detail">Sincronização via Supabase Cloud</span>
-        </div>
-
-        <div className="a26-liquid-metric-card">
-          <span className="a26-liquid-metric-card__label">Base Anatômica</span>
-          <span className="a26-liquid-metric-card__value">Verificada</span>
-          <span className="a26-liquid-metric-card__detail">Fontes exibidas somente quando recuperadas da base privada</span>
-        </div>
-
-        <div className="a26-liquid-metric-card">
-          <span className="a26-liquid-metric-card__label">Integridade das fontes</span>
-          <span className="a26-liquid-metric-card__value is-teal">Protegida</span>
-          <span className="a26-liquid-metric-card__detail">Sem capítulos, páginas ou referências fabricadas</span>
-        </div>
+        <A26Metric label="Histórico do diálogo" value={totalDialogues} detail={`${userQuestionsCount} perguntas · ${aiAnswersCount} respostas`} tone="teal" />
+        <A26Metric
+          label="Estado da sessão"
+          value={connectionMode === "online" ? "Sincronizada" : "Neste dispositivo"}
+          detail={connectionMode === "online" ? "Conversa associada à conta autenticada" : "Persistência remota indisponível nesta sessão"}
+          tone="gold"
+        />
+        <A26Metric
+          label="Fontes anatômicas"
+          value="Condicionais"
+          detail="Referências são exibidas somente quando recuperadas e presentes na resposta"
+        />
       </div>
 
       {/* Search & User-Controlled Topic Tags Toolbar */}
@@ -628,7 +614,7 @@ function StudentAITutorStudio() {
       </div>
 
       {/* Full Page Dedicated Chat Container - Liquid Glass Aesthetics */}
-      <A26Card className="a26-daily-tutor-hub-card p-4 sm:p-6 backdrop-blur-2xl border border-glassBorder/40 rounded-3xl shadow-2xl min-h-[680px] flex flex-col justify-between" tone="teal">
+      <A26Card material="substantial" className="a26-daily-tutor-hub-card" tone="teal">
         <header className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-glassBorder/30 mb-4">
           <div className="flex items-center gap-3">
             <span className="w-3.5 h-3.5 rounded-full bg-teal-400 animate-pulse shadow-glowTeal" />

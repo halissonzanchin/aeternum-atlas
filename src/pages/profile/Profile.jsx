@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Button from "../../components/Button/Button";
-import Card from "../../components/Card/Card";
+import { A26Button, A26Card, A26Field } from "../../components/aeternum-26";
 import { updateCurrentUserPassword, updateCurrentUserProfile } from "../../services/auth/authService";
 import { sanitizeText } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
@@ -44,61 +43,32 @@ export default function Profile({ user, onAuth, notify }) {
   }
 
   return (
-    <>
-      <div className="page-title">
-        <p className="eyebrow">Conta</p>
-        <h1 className="display-title">Perfil</h1>
-      </div>
+    <section className="a26-profile-page fade-in-up" data-a26-source="authenticated-account">
+      <header className="a26-profile-hero">
+        <p className="a26-kicker">Conta autenticada</p>
+        <h1>Perfil</h1>
+        <p>Gerencie os dados pessoais editáveis e revise as informações institucionais vinculadas à sua conta.</p>
+      </header>
 
-      <Card>
-        <form className="grid gap-5 md:grid-cols-2" onSubmit={submit}>
-          <label className="field">
-            <span>Nome</span>
-            <input name="name" value={values.name} onChange={update} />
-          </label>
-          <label className="field">
-            <span>E-mail</span>
-            <input name="email" value={values.email} disabled />
-          </label>
-          <label className="field">
-            <span>Instituição</span>
-            <input name="institution" value={values.institution} disabled />
-          </label>
-          <label className="field">
-            <span>Curso</span>
-            <input name="course" value={values.course} onChange={update} />
-          </label>
-          <label className="field">
-            <span>Ano/Semestre</span>
-            <input name="semester" value={values.semester} onChange={update} />
-          </label>
-          <label className="field">
-            <span>Matrícula/R.A.</span>
-            <input name="studentRegistration" value={values.studentRegistration} onChange={update} />
-          </label>
-          <label className="field">
-            <span>País</span>
-            <input name="country" value={values.country} onChange={update} />
-          </label>
-          <label className="field">
-            <span>Tipo de usuário</span>
-            <input name="userType" value={values.userType} disabled />
-          </label>
-          <label className="field">
-            <span>Preferência de idioma</span>
-            <select name="language" value={values.language} onChange={update}>
+      <A26Card material="substantial" tone="teal" className="a26-profile-card">
+        <form className="a26-profile-form" onSubmit={submit}>
+          <A26Field label="Nome" name="name" value={values.name} onChange={update} />
+          <A26Field label="E-mail" name="email" value={values.email} disabled hint="Identidade de acesso gerenciada pela conta." />
+          <A26Field label="Instituição" name="institution" value={values.institution} disabled />
+          <A26Field label="Curso" name="course" value={values.course} onChange={update} />
+          <A26Field label="Ano/Semestre" name="semester" value={values.semester} onChange={update} />
+          <A26Field label="Matrícula/R.A." name="studentRegistration" value={values.studentRegistration} onChange={update} />
+          <A26Field label="País" name="country" value={values.country} onChange={update} />
+          <A26Field label="Tipo de usuário" name="userType" value={values.userType} disabled />
+          <A26Field as="select" label="Preferência de idioma" name="language" value={values.language} onChange={update}>
               <option>Português</option>
               <option>Español</option>
               <option>English</option>
-            </select>
-          </label>
-          <label className="field md:col-span-2">
-            <span>Alterar senha</span>
-            <input name="password" type="password" value={values.password} onChange={update} placeholder="Opcional" />
-          </label>
-          <Button className="md:col-span-2 md:w-max" variant="teal" type="submit">Salvar perfil</Button>
+          </A26Field>
+          <A26Field className="a26-profile-form__wide" label="Alterar senha" name="password" type="password" value={values.password} onChange={update} placeholder="Opcional" hint="Deixe em branco para manter a senha atual." />
+          <A26Button className="a26-profile-form__submit" variant="primary" type="submit">Salvar perfil</A26Button>
         </form>
-      </Card>
-    </>
+      </A26Card>
+    </section>
   );
 }

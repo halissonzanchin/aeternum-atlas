@@ -1,9 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import ModelCard from "../../components/ModelCard/ModelCard";
-import Card from "../../components/Card/Card";
-import Button from "../../components/Button/Button";
 import LineIcon from "../../components/icons/LineIcon";
-import AeternumGlassSurface from "../../components/system/AeternumGlassSurface";
+import {
+  A26Button,
+  A26Card,
+  A26EmptyState,
+  A26ErrorState,
+  A26LoadingState,
+  A26Surface
+} from "../../components/aeternum-26";
 import { getModelFilterOptions, listModelsForUser } from "../../services/modelService";
 import { trackEvent } from "../../services/analytics/analyticsService";
 import { useLanguage } from "../../context/LanguageContext";
@@ -86,7 +91,7 @@ export default function Models({ user, navigate }) {
 
   return (
     <div className="premium-dashboard models-page-aog fade-in-up pb-12 relative min-h-screen">
-      <AeternumGlassSurface className="models-hero-aog" variant="regular" depth="standard">
+      <A26Card material="substantial" tone="teal" className="models-hero-aog a26-models-hero">
         <div className="models-hero-aog__copy">
           <p className="models-hero-aog__eyebrow">{t("models.eyebrow")}</p>
           <h1>{t("models.title")}</h1>
@@ -96,10 +101,10 @@ export default function Models({ user, navigate }) {
           <strong>{models.length}</strong>
           <span>Modelos disponíveis</span>
         </div>
-      </AeternumGlassSurface>
+      </A26Card>
 
       <div className="models-discovery-aog">
-        <AeternumGlassSurface className="models-search-aog" variant="clear" depth="subtle">
+        <A26Surface material="clear" tone="teal" className="models-search-aog">
           <LineIcon name="search" />
           <input
             placeholder={t("models.searchModel")}
@@ -112,9 +117,9 @@ export default function Models({ user, navigate }) {
               <LineIcon name="close" />
             </button>
           ) : null}
-        </AeternumGlassSurface>
+        </A26Surface>
 
-        <Button
+        <A26Button
           variant={filtersOpen || activeFilterCount ? "outline" : "ghost"}
           className="models-filter-toggle"
           onClick={() => setFiltersOpen(open => !open)}
@@ -124,14 +129,13 @@ export default function Models({ user, navigate }) {
           <LineIcon name="tools" />
           <span>Filtros</span>
           {activeFilterCount ? <strong>{activeFilterCount}</strong> : null}
-        </Button>
+        </A26Button>
 
         {filtersOpen ? (
-          <AeternumGlassSurface
+          <A26Card
             id="models-advanced-filters"
             className="models-filter-panel"
-            variant="regular"
-            depth="standard"
+            material="regular"
           >
             <div className="models-filter-panel__header">
               <div>
@@ -179,14 +183,14 @@ export default function Models({ user, navigate }) {
                 </select>
               </label>
             </div>
-          </AeternumGlassSurface>
+          </A26Card>
         ) : null}
       </div>
 
       {!loading && !loadError && models.length ? (
         <>
           {catalogSources.reference ? (
-            <div className="mb-4 flex flex-col gap-2 rounded-2xl border border-agedGold/20 bg-agedGold/[0.055] px-4 py-3 text-sm text-textMuted sm:flex-row sm:items-center sm:justify-between" role="status">
+            <A26Card as="div" material="clear" tone="gold" className="models-source-notice" role="status">
               <span>
                 <strong className="text-agedGold">Origem do catálogo:</strong>{" "}
                 {catalogSources.institutional
@@ -194,7 +198,7 @@ export default function Models({ user, navigate }) {
                   : `${catalogSources.reference} referências locais. Nenhum registro institucional foi retornado pela fonte atual.`}
               </span>
               <span className="text-xs font-bold uppercase tracking-wider text-agedGold">Fonte identificada</span>
-            </div>
+            </A26Card>
           ) : null}
           <div className="models-results-aog" aria-live="polite">
             <span>{filtered.length} {filtered.length === 1 ? "modelo encontrado" : "modelos encontrados"}</span>
@@ -204,26 +208,17 @@ export default function Models({ user, navigate }) {
       ) : null}
 
       {loading ? (
-        <Card className="max-w-lg text-center atlas-text-safe mx-auto mt-10 atlas-liquid-glass atlas-liquid-glass-card border-white/10">
-          <p className="eyebrow atlas-nowrap-label">{t("common.loading")}</p>
-          <h1 className="atlas-empty-state-title mt-2">{t("models.catalogLoading")}</h1>
-        </Card>
+        <A26LoadingState title={t("models.catalogLoading")} text="Validando a fonte institucional e preparando o catálogo anatômico." />
       ) : loadError ? (
-        <Card className="max-w-lg text-center atlas-text-safe mx-auto mt-10 atlas-liquid-glass atlas-liquid-glass-card border-red-500/20">
-          <h1 className="atlas-empty-state-title text-red-400">{t("models.catalogLoadError") || loadError}</h1>
-        </Card>
+        <A26ErrorState title={t("models.catalogLoadError") || loadError} text="O catálogo não pôde ser confirmado pela fonte atual." />
       ) : !models.length ? (
-        <Card className="max-w-lg text-center atlas-text-safe mx-auto mt-10 atlas-liquid-glass atlas-liquid-glass-card border-white/10">
-          <h1 className="atlas-empty-state-title">{t("models.emptyCatalog")}</h1>
-          <p className="mt-4 text-textMuted atlas-empty-state-description">{t("models.emptyCatalogSubtitle") || "Nenhum modelo disponível."}</p>
-        </Card>
+        <A26EmptyState title={t("models.emptyCatalog")} text={t("models.emptyCatalogSubtitle") || "Nenhum modelo disponível."} />
       ) : !filtered.length ? (
-        <Card className="max-w-lg text-center atlas-text-safe mx-auto mt-10 atlas-liquid-glass atlas-liquid-glass-card border-white/10 relative overflow-hidden">
-          <div className="atlas-liquid-highlight"></div>
-          <h1 className="atlas-empty-state-title relative z-10">{t("models.emptyFilteredCatalog")}</h1>
-          <p className="mt-4 text-textMuted atlas-empty-state-description relative z-10">Tente mudar os filtros de busca para encontrar o que procura.</p>
-          <Button variant="outline" onClick={resetFilters} className="mt-6 relative z-10">Limpar filtros</Button>
-        </Card>
+        <A26EmptyState
+          title={t("models.emptyFilteredCatalog")}
+          text="Tente mudar os filtros de busca para encontrar o que procura."
+          action={<A26Button variant="liquid" onClick={resetFilters}>Limpar filtros</A26Button>}
+        />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5 w-full min-w-0 max-w-full">
           {filtered.map(model => <ModelCard key={model.id} model={model} user={user} navigate={navigate} />)}

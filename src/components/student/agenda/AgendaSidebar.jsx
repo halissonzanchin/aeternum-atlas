@@ -2,6 +2,7 @@ import { useState } from "react";
 import LineIcon from "../../icons/LineIcon";
 import { formatAgendaDate, parseAgendaDate } from "../../../hooks/useStudyAgenda";
 import { useLanguage } from "../../../context/LanguageContext";
+import { A26Button, A26Card, A26Sidebar, A26Surface } from "../../aeternum-26";
 
 export default function AgendaSidebar({
   selectedDate,
@@ -65,15 +66,15 @@ export default function AgendaSidebar({
   }[syncStatus] || "Indisponível";
 
   return (
-    <aside className="a26-agenda-sidebar">
+    <A26Sidebar label="Filtros e calendário da agenda" className="a26-agenda-sidebar">
       {/* Quick Action Button */}
-      <button className="a26-sidebar-create-btn" onClick={onNewActivity}>
+      <A26Button variant="primary" className="a26-sidebar-create-btn" onClick={onNewActivity}>
         <span className="a26-sidebar-create-btn__icon">+</span>
         <span>Agendar Nova Atividade</span>
-      </button>
+      </A26Button>
 
       {/* Mini Calendar Navigation */}
-      <div className="a26-mini-calendar">
+      <A26Card material="clear" className="a26-mini-calendar">
         <div className="a26-mini-calendar__header">
           <strong>{miniTitle}</strong>
           <div className="a26-mini-calendar__nav">
@@ -109,7 +110,7 @@ export default function AgendaSidebar({
             );
           })}
         </div>
-      </div>
+      </A26Card>
 
       {/* Camadas derivadas exclusivamente dos eventos observados. */}
       <div className="a26-sidebar-layers">
@@ -118,7 +119,7 @@ export default function AgendaSidebar({
           <span className="a26-sync-live-badge">{syncLabel}</span>
         </div>
         {layerDescriptors.map((layer) => (
-          <div key={layer.key} className={`a26-teacher-card ${layersFilter[layer.key] ? "is-active" : ""}`}>
+          <A26Surface material="clear" tone={layersFilter[layer.key] ? "teal" : "neutral"} key={layer.key} className={`a26-teacher-card ${layersFilter[layer.key] ? "is-active" : ""}`}>
             <div className={`a26-teacher-avatar is-${layer.key}`}>{layer.icon}</div>
             <div className="a26-teacher-info">
               <strong>{layer.title}</strong>
@@ -135,7 +136,7 @@ export default function AgendaSidebar({
                 <span className="a26-ios-toggle-knob"><span className="a26-knob-core" /></span>
               </span>
             </button>
-          </div>
+          </A26Surface>
         ))}
       </div>
 
@@ -156,6 +157,6 @@ export default function AgendaSidebar({
           <option value="Cabeça e Pescoço">Cabeça e Pescoço</option>
         </select>
       </div>
-    </aside>
+    </A26Sidebar>
   );
 }

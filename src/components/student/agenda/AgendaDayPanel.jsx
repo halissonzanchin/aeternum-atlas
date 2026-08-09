@@ -1,5 +1,6 @@
 import AgendaTaskCard from "./AgendaTaskCard";
 import { useLanguage } from "../../../context/LanguageContext";
+import { A26Button, A26Sidebar } from "../../aeternum-26";
 
 function formatSelectedDate(date, language, t) {
   const today = new Date();
@@ -32,12 +33,12 @@ export default function AgendaDayPanel({
   const { language, t } = useLanguage();
 
   return (
-    <aside className="agenda-day-panel">
+    <A26Sidebar className="agenda-day-panel" label={t("studyAgenda.selectedDate")}>
       <div className="agenda-day-panel__header">
         <span>{t("studyAgenda.selectedDate")}</span>
         <h2>{formatSelectedDate(selectedDate, language, t)}</h2>
         <p>{t("studyAgenda.activitiesCount", { count: events.length })}</p>
-        <button className="viewer-primary-button" onClick={onNew}>{t("studyAgenda.newActivity")}</button>
+        <A26Button variant="primary" onClick={onNew}>{t("studyAgenda.newActivity")}</A26Button>
       </div>
 
       <div className="agenda-day-list">
@@ -54,12 +55,12 @@ export default function AgendaDayPanel({
           <div className="agenda-empty-state">
             <strong>{t("studyAgenda.noActivities")}</strong>
             <p>{t("studyAgenda.noActivitiesHint")}</p>
-            <button className="viewer-secondary-button" onClick={onNew}>{t("studyAgenda.createForDay")}</button>
+            <A26Button variant="ghost" onClick={onNew}>{t("studyAgenda.createForDay")}</A26Button>
           </div>
         )}
       </div>
 
       {children}
-    </aside>
+    </A26Sidebar>
   );
 }

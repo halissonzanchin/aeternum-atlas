@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import Card from "../../../components/Card/Card";
+import { A26Card, A26SegmentedControl } from "../../../components/aeternum-26";
 import WeeklyStudyChart from "./WeeklyStudyChart";
 
 function minutesLabel(minutes, t) {
@@ -54,7 +54,7 @@ export default function EvolutionPanel({ stats, systemProgress, studySeriesByPer
       </div>
 
       <div className="student-evolution-grid">
-        <Card className="premium-panel-card student-radar-card">
+        <A26Card material="regular" className="premium-panel-card student-radar-card">
           <div className="student-card-title-row">
             <h3>{t("studentHome.radarTitle")}</h3>
             <span className={`learning-source-badge ${telemetry?.synchronized ? "is-synced" : "is-local"}`}>{sourceLabel}</span>
@@ -86,36 +86,30 @@ export default function EvolutionPanel({ stats, systemProgress, studySeriesByPer
               {!observedSystems.length ? <p className="text-sm text-textMuted">{t("studentHome.observedDataEmpty")}</p> : null}
             </div>
           </div>
-        </Card>
+        </A26Card>
 
-        <Card className="premium-panel-card">
+        <A26Card material="regular" className="premium-panel-card">
           <div className="student-card-title-row">
             <div>
               <h3>{periodTitle}</h3>
               <small className="learning-period-total">{minutesLabel(selectedMinutes, t)} no período</small>
             </div>
-            <div className="learning-period-switch" role="group" aria-label="Período do tempo de estudo">
-              {[
-                ["week", "7D"],
-                ["month", "30D"],
-                ["year", "12M"]
-              ].map(([value, label]) => (
-                <button
-                  key={value}
-                  type="button"
-                  className={period === value ? "is-active" : ""}
-                  aria-pressed={period === value}
-                  onClick={() => setPeriod(value)}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
+            <A26SegmentedControl
+              className="learning-period-switch"
+              label="Período do tempo de estudo"
+              value={period}
+              onChange={setPeriod}
+              options={[
+                { value: "week", label: "7D" },
+                { value: "month", label: "30D" },
+                { value: "year", label: "12M" }
+              ]}
+            />
           </div>
           <WeeklyStudyChart data={selectedSeries} t={t} />
-        </Card>
+        </A26Card>
 
-        <Card className="premium-panel-card student-insights-card">
+        <A26Card material="regular" className="premium-panel-card student-insights-card">
           <div className="student-insights">
             <div>
               <h3>{t("studentHome.strengthsTitle")}</h3>
@@ -132,7 +126,7 @@ export default function EvolutionPanel({ stats, systemProgress, studySeriesByPer
               </ul>
             </div>
           </div>
-        </Card>
+        </A26Card>
       </div>
     </section>
   );
