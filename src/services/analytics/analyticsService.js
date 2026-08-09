@@ -1,4 +1,3 @@
-import { institutionProfile, mockInstitutionStudents, topAccessedModels } from "../../data/mockInstitutionalAnalytics";
 import {
   getAccessLogs as getProgressAccessLogs,
   markModelAsStudied,
@@ -132,45 +131,6 @@ export function completeModel(user, model) {
 
 export function getAccessLogs(user) {
   return getProgressAccessLogs(user);
-}
-
-export function getStudentMonthlyUsage(user) {
-  const logs = getProgressAccessLogs(user);
-  const totalLogins = logs.filter(item => item.eventType === "login" || item.action === "login").length || 12;
-  const totalModelsOpened = logs.filter(item => item.modelId).length || 18;
-  const institutionId = user?.institutionId || user?.institution_id || null;
-
-  return {
-    id: `usage-${user?.id || "student-demo"}-2026-04`,
-    userId: user?.id || "student-demo",
-    institutionId,
-    month: 4,
-    year: 2026,
-    totalLogins,
-    totalModelsOpened,
-    totalStudyMinutes: 320,
-    activeStatus: "ativo"
-  };
-}
-
-export function getInstitutionStats(institutionId) {
-  if (!institutionId) return null;
-
-  return {
-    ...institutionProfile,
-    activeStudentsToday: institutionProfile.activeStudentsToday || institutionProfile.accessesToday,
-    averageStudyMinutesPerStudent: institutionProfile.averageStudyMinutesPerStudent || 121
-  };
-}
-
-export function getMostAccessedModels(institutionId) {
-  if (!institutionId) return [];
-  return topAccessedModels;
-}
-
-export function getInstitutionStudents(institutionId) {
-  if (!institutionId) return [];
-  return mockInstitutionStudents;
 }
 
 export function getRealtimeEventSnapshot(institutionId) {

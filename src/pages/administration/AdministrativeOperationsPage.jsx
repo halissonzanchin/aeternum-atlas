@@ -22,7 +22,6 @@ import {
 } from "../../services/admin/institutionDashboardService";
 import { normalizeRole, ROLES } from "../../services/permissions/permissionService";
 import { reviewPendingUserRegistration } from "../../services/users/userService";
-import AcademicImportPanel from "../../features/institution-admin/components/AcademicImportPanel";
 import {
   administrationSourceState,
   createAdministrationAlerts,
@@ -41,7 +40,7 @@ const SECTION_META = {
   overview: ["Centro operacional", "Resumo, exceções e próximos passos com escopo verificável."],
   institution: ["Instituição", "Contrato, capacidade e responsáveis visíveis ao papel autenticado."],
   students: ["Alunos da instituição", "Cadastros, estados de acesso e atividade observada no tenant."],
-  import_students: ["Importar alunos", "Onboarding em lote com validação antes de qualquer gravação."],
+  import_students: ["Importar alunos", "Operação pausada até a publicação do contrato acadêmico canônico."],
   analytics: ["Analytics operacionais", "Uso, estabilidade e eventos derivados das fontes autorizadas."],
   academic_analytics: ["Analytics acadêmicos", "Sinais de aprendizagem disponíveis sem inferir resultados ausentes."],
   roi: ["Retorno institucional", "Base observável para decisão, sem transformar uso em retorno financeiro ou acadêmico."],
@@ -713,7 +712,7 @@ export default function AdministrativeOperationsPage({ user, section = "overview
   } else if (current === "digital_twins") {
     content = <DigitalTwinsSection scope={scope} />;
   } else if (current === "import_students") {
-    content = <div className="admin26-embedded-module"><AcademicImportPanel /></div>;
+    content = <><SectionHeader scope={scope} section={current} /><A26EmptyState title="Importação acadêmica pausada" text="O importador legado dependia de tabelas que não pertencem ao esquema autorizado atual. Nenhum arquivo será processado até a publicação do contrato acadêmico canônico." /></>;
   } else {
     content = <><SectionHeader scope={scope} section={current} /><A26EmptyState title="Módulo sem contrato ativo" text="A rota existe, mas ainda não possui uma operação verificável para este papel." /></>;
   }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import AgendaCalendar from "../../components/student/agenda/AgendaCalendar";
 import AgendaDayPanel from "../../components/student/agenda/AgendaDayPanel";
 import AgendaHourlyGrid from "../../components/student/agenda/AgendaHourlyGrid";
@@ -9,21 +9,18 @@ import UpcomingReviews from "../../components/student/agenda/UpcomingReviews";
 import WeeklyStudySummary from "../../components/student/agenda/WeeklyStudySummary";
 import { formatAgendaDate, useStudyAgenda } from "../../hooks/useStudyAgenda";
 import { useLanguage } from "../../context/LanguageContext";
+import { useAuth } from "../../context/AuthContext";
 import "../../styles/A26StudyAgenda.css";
 
 export default function StudyAgendaPage({ navigate }) {
   const { t } = useLanguage();
+  const { user } = useAuth();
   const agenda = useStudyAgenda();
 
   const [displayMode, setDisplayMode] = useState("hourly_week"); // 'hourly_week' | 'month' | 'day'
   const [modalOpen, setModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
   const [popoverEvent, setPopoverEvent] = useState(null);
-
-  // Set default initial view date to August 10, 2026 (active study week)
-  useEffect(() => {
-    agenda.setSelectedDate(new Date(2026, 7, 10));
-  }, []);
 
   // Synchronized layers filter
   const [layersFilter, setLayersFilter] = useState({
@@ -79,7 +76,7 @@ export default function StudyAgendaPage({ navigate }) {
         ...payload,
         date: payload.date || formatAgendaDate(agenda.selectedDate),
         createdByRole: "student",
-        creatorName: "Halisson Zanchin"
+        creatorName: user?.name || user?.email || "Usuário"
       });
     }
     setModalOpen(false);
@@ -96,8 +93,14 @@ export default function StudyAgendaPage({ navigate }) {
       <header className="study-agenda-hero">
         <div>
           <div className="a26-hero-sync-badges">
-            <span className="a26-hero-sync-badge is-active">🟢 Cloud Sincronizado</span>
-            <span className="a26-hero-sync-badge is-teacher">👨‍🏫 Prof. Dr. Halisson Zanchin Conectado</span>
+            <span className={`a26-hero-sync-badge ${agenda.syncStatus === "synced" ? "is-active" : ""}`}>
+              {agenda.syncStatus === "synced" && "Sincronizado com a conta"}
+              {agenda.syncStatus === "pending" && "Sincronização pendente"}
+              {agenda.syncStatus === "local" && "Disponível somente neste dispositivo"}
+              {agenda.syncStatus === "auth-required" && "Sessão necessária"}
+              {agenda.syncStatus === "loading" && "Verificando sincronização"}
+            </span>
+            {agenda.syncError && <span className="a26-hero-sync-badge">Última alteração preservada localmente</span>}
           </div>
           <h1>{t("studyAgenda.title")}</h1>
           <p>Agenda acadêmica interconectada: sincronize sua rotina com seus professores, simulados e o Tutor IA.</p>
@@ -137,6 +140,9 @@ export default function StudyAgendaPage({ navigate }) {
           selectedSystem={selectedSystem}
           setSelectedSystem={setSelectedSystem}
           onNewActivity={openNewActivity}
+          user={user}
+          events={agenda.events}
+          syncStatus={agenda.syncStatus}
         />
 
         {/* Center Main View (Hourly Grid OR Month Calendar) */}

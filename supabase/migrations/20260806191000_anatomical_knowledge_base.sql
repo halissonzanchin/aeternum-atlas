@@ -1,63 +1,74 @@
--- Supabase Migration: Base de Conhecimento Vetorial para Livros de Anatomia (RAG)
+-- AETERNUM 26.1 — BASE VETORIAL PRIVADA DO TUTOR IA
+-- O navegador nunca consulta os livros diretamente. A Edge Function autenticada
+-- recupera somente trechos verificados através do papel service_role.
 
--- 1. Ativar extensão de vetores (pgvector)
-create extension if not exists vector;
+CREATE EXTENSION IF NOT EXISTS vector WITH SCHEMA extensions;
 
--- 2. Tabela de Conhecimento Médico-Anatômico
-create table if not exists public.anatomical_knowledge_base (
-  id uuid primary key default gen_random_uuid(),
-  book_title text not null,
-  chapter_title text,
-  page_number integer,
-  chunk_index integer,
-  content text not null,
-  metadata jsonb default '{}'::jsonb,
-  embedding vector(768),
-  created_at timestamp with time zone default now()
+CREATE TABLE IF NOT EXISTS public.anatomical_knowledge_base (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  book_title TEXT NOT NULL,
+  chapter_title TEXT,
+  page_number INTEGER CHECK (page_number IS NULL OR page_number > 0),
+  chunk_index INTEGER NOT NULL CHECK (chunk_index >= 0),
+  content TEXT NOT NULL CHECK (char_length(content) BETWEEN 40 AND 12000),
+  metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+  embedding extensions.vector(768) NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Indexação vetorial HNSW para busca por similaridade em milissegundos
-create index if not exists idx_anatomical_knowledge_embedding 
-on public.anatomical_knowledge_base 
-using hnsw (embedding vector_cosine_ops);
+CREATE UNIQUE INDEX IF NOT EXISTS anatomical_knowledge_book_chunk_uidx
+  ON public.anatomical_knowledge_base (book_title, chunk_index);
+CREATE INDEX IF NOT EXISTS anatomical_knowledge_embedding_hnsw_idx
+  ON public.anatomical_knowledge_base
+  USING hnsw (embedding extensions.vector_cosine_ops);
+CREATE INDEX IF NOT EXISTS anatomical_knowledge_book_idx
+  ON public.anatomical_knowledge_base (book_title);
 
--- Indexação por título de livro
-create index if not exists idx_anatomical_knowledge_book 
-on public.anatomical_knowledge_base (book_title);
-
--- 3. Função RPC para busca semântica por similaridade de cosseno
-create or replace function public.match_anatomical_knowledge (
-  query_embedding vector(768),
-  match_threshold float default 0.45,
-  match_count int default 4
+CREATE OR REPLACE FUNCTION public.match_anatomical_knowledge(
+  query_embedding extensions.vector(768),
+  match_threshold DOUBLE PRECISION DEFAULT 0.52,
+  match_count INTEGER DEFAULT 6
 )
-returns table (
-  id uuid,
-  book_title text,
-  chapter_title text,
-  page_number integer,
-  content text,
-  similarity float
+RETURNS TABLE (
+  id UUID,
+  book_title TEXT,
+  chapter_title TEXT,
+  page_number INTEGER,
+  content TEXT,
+  similarity DOUBLE PRECISION
 )
-language sql stable
-as $$
-  select
-    id,
-    book_title,
-    chapter_title,
-    page_number,
-    content,
-    1 - (public.anatomical_knowledge_base.embedding <=> query_embedding) as similarity
-  from public.anatomical_knowledge_base
-  where 1 - (public.anatomical_knowledge_base.embedding <=> query_embedding) > match_threshold
-  order by similarity desc
-  limit match_count;
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public, extensions, pg_temp
+AS $$
+  SELECT
+    knowledge.id,
+    knowledge.book_title,
+    knowledge.chapter_title,
+    knowledge.page_number,
+    knowledge.content,
+    (1 - (knowledge.embedding <=> query_embedding))::DOUBLE PRECISION AS similarity
+  FROM public.anatomical_knowledge_base AS knowledge
+  WHERE (1 - (knowledge.embedding <=> query_embedding)) > LEAST(GREATEST(match_threshold, 0), 1)
+  ORDER BY knowledge.embedding <=> query_embedding
+  LIMIT LEAST(GREATEST(match_count, 1), 12);
 $$;
 
--- Permissões RLS
-alter table public.anatomical_knowledge_base enable row level security;
+ALTER TABLE public.anatomical_knowledge_base ENABLE ROW LEVEL SECURITY;
 
-create policy "Leitura pública autorizada de conhecimento anatômico"
-  on public.anatomical_knowledge_base
-  for select
-  using (true);
+DROP POLICY IF EXISTS "Leitura pública autorizada de conhecimento anatômico"
+  ON public.anatomical_knowledge_base;
+DROP POLICY IF EXISTS "Authenticated users can read anatomical knowledge"
+  ON public.anatomical_knowledge_base;
+
+REVOKE ALL ON public.anatomical_knowledge_base FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.match_anatomical_knowledge(extensions.vector, DOUBLE PRECISION, INTEGER)
+  FROM PUBLIC, anon, authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.anatomical_knowledge_base TO service_role;
+GRANT EXECUTE ON FUNCTION public.match_anatomical_knowledge(extensions.vector, DOUBLE PRECISION, INTEGER)
+  TO service_role;
+
+COMMENT ON TABLE public.anatomical_knowledge_base IS
+  'Trechos anatômicos privados usados exclusivamente pelo Tutor IA autenticado do Aeternum 26.1.';

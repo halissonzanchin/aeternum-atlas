@@ -3,6 +3,7 @@ import { normalizeEmail, sanitizeText } from "../../utils/validators";
 import { trackEvent } from "../analytics/analyticsService";
 import { readStorage, removeStorage, storageKeys, writeStorage } from "../storage/storageService";
 import { getHomeForRole, normalizeRole, ROLES } from "../permissions/permissionService";
+import { finalizeTrackedLearningSessionsForUser } from "../learningTelemetryService";
 
 const PROFILE_SELECT = "id, institution_id, name, email, role, status, avatar_url";
 const INACTIVE_ACCOUNT_MESSAGE = "Usuário sem permissão ativa. Contate a instituição.";
@@ -402,11 +403,6 @@ export async function loginUser(email, password) {
   }
 }
 
-export function loginDemoUser(role = ROLES.STUDENT) {
-  console.warn("Mock demo login blocked. Use a real Supabase Auth user instead.", { role });
-  throw new Error("Login demo desativado em produção. Use um usuário real do Supabase.");
-}
-
 function createSession(userId, users = getUsers()) {
   const loginAt = new Date().toISOString();
   const normalizedUsers = users.map(item => item.id === userId
@@ -422,7 +418,10 @@ function createSession(userId, users = getUsers()) {
 
 export async function logoutUser() {
   const user = getCurrentUser();
-  if (user) trackEvent({ userId: user.id, institutionId: user.institutionId, role: user.role, eventType: "logout" });
+  if (user) {
+    trackEvent({ userId: user.id, institutionId: user.institutionId, role: user.role, eventType: "logout" });
+    await finalizeTrackedLearningSessionsForUser(user.id, "logout");
+  }
   clearAuthProfile();
   await supabase.auth.signOut();
 }

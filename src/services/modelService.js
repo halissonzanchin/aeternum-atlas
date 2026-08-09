@@ -2,38 +2,7 @@ import { supabase } from "../lib/supabase";
 import { getUserInstitutionId, normalizeRole, ROLES } from "./permissions/permissionService";
 import { isSupabaseConfigured } from "./supabase/supabaseClient";
 import { sanitizeText } from "../utils/validators";
-import { findLocalModel, mergeCatalogWithLocalModels, normalizeModelIdentifier } from "../data/localModels";
-
-export function getModelOverrides() {
-  try {
-    const data = localStorage.getItem("atlas_cms_overrides");
-    if (data) return JSON.parse(data);
-  } catch (e) {
-    console.error("Failed to parse CMS overrides", e);
-  }
-  return {};
-}
-
-export function saveModelOverride(modelId, overrideData) {
-  const overrides = getModelOverrides();
-  overrides[modelId] = { ...overrides[modelId], ...overrideData };
-  localStorage.setItem("atlas_cms_overrides", JSON.stringify(overrides));
-}
-
-function applyOverrides(model) {
-  const overrides = getModelOverrides();
-  if (overrides[model.id]) {
-    const override = overrides[model.id];
-    return { 
-      ...model, 
-      ...override,
-      embedUrl: override.embedUrl || override.embed_url || model.embedUrl,
-      sketchfabEmbedUrl: override.sketchfabEmbedUrl || model.sketchfabEmbedUrl,
-      sketchfabUrl: override.sketchfabUrl || override.sketchfab_url || model.sketchfabUrl
-    };
-  }
-  return model;
-}
+import { findLocalModel, normalizeModelIdentifier } from "../data/localModels";
 
 const MODEL_SELECT = [
   "id",
@@ -274,26 +243,7 @@ async function loadModelsQuery(user, options = {}) {
 
 export async function listModelsForUser(user, options = {}) {
   try {
-    const models = await loadModelsQuery(user, options);
-    const merged = mergeCatalogWithLocalModels(models, options);
-    const finalModels = merged.map(applyOverrides);
-
-    const overrides = getModelOverrides();
-    const existingIds = new Set(finalModels.map(m => normalizeModelIdentifier(m.id)));
-
-    for (const [id, modelData] of Object.entries(overrides)) {
-      const normalized = normalizeModelIdentifier(id);
-      if (!existingIds.has(normalized)) {
-        const isActive = modelData.status === 'active' || modelData.status === 'published';
-        modelData.isActive = isActive;
-        if (options.includeInactive || isActive) {
-          finalModels.push({ ...modelData, id, slug: id, catalogSource: modelData.catalogSource || "local_override" });
-          existingIds.add(normalized);
-        }
-      }
-    }
-
-    return finalModels;
+    return await loadModelsQuery(user, options);
   } catch (error) {
     console.error("[models] Falha crítica ao consolidar o catálogo:", error);
     throw error;
@@ -397,7 +347,7 @@ export async function resolveModelIdentity(identifier, user = null, options = {}
       if (data) {
         const mappedModel = mapSupabaseModelToUIModel(data);
         // Força a exibição imediata do modelo obtido individualmente do banco (inclusive Rascunhos/Drafts se autorizado)
-        identity.modelRecord = applyOverrides(mappedModel);
+        identity.modelRecord = mappedModel;
         identity.modelUuid = data.id;
         identity.slug = data.slug;
         identity.source = 'supabase';
@@ -425,7 +375,7 @@ export async function resolveModelIdentity(identifier, user = null, options = {}
       const { data: dataOld } = await queryOld.maybeSingle();
       if (dataOld) {
         const mappedModelOld = normalizeSupabaseModel(dataOld);
-        identity.modelRecord = applyOverrides(mappedModelOld);
+        identity.modelRecord = mappedModelOld;
         identity.modelUuid = dataOld.id;
         identity.slug = dataOld.slug;
         identity.source = 'supabase_legacy';
@@ -437,38 +387,7 @@ export async function resolveModelIdentity(identifier, user = null, options = {}
       }
     }
 
-    // 4. Fallback Local (Overrides/Mocked)
-    const localFallback = findLocalModel(normalizedIdentifier) || findLocalModel(identifier);
-    if (localFallback) {
-      identity.modelRecord = applyOverrides(localFallback);
-      // Se o ID local for UUID, fechou. Senão, é órfão/legacy.
-      if (isValidUuid(localFallback.id)) {
-        identity.modelUuid = localFallback.id;
-        identity.isUuidResolved = true;
-      } else {
-        identity.isLegacy = true;
-        identity.warnings.push("Modelo legado local carregado sem UUID v4.");
-      }
-      identity.slug = localFallback.slug || normalizedIdentifier;
-      identity.source = 'local';
-      
-      modelIdentityCache.set(identifier, identity);
-      return identity;
-    }
-
-    // 5. Fallback Overrides fixos (Legacy/Static)
-    const overrides = getModelOverrides();
-    if (overrides[normalizedIdentifier] || overrides[identifier]) {
-      const modelData = overrides[normalizedIdentifier] || overrides[identifier];
-      identity.modelRecord = { ...modelData, id: identifier, slug: normalizedIdentifier };
-      identity.slug = normalizedIdentifier;
-      identity.source = 'mock';
-      identity.isLegacy = true;
-      identity.warnings.push("Fallback estático acionado.");
-      
-      modelIdentityCache.set(identifier, identity);
-      return identity;
-    }
+    identity.warnings.push("Modelo não encontrado no catálogo autorizado do Supabase.");
 
   } catch (err) {
     console.error("[resolveModelIdentity] Erro:", err);

@@ -11,7 +11,7 @@
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "test:a26-glass": "node scripts/check-a26-glass-contract.mjs",
     "test:p0": "node scripts/check-supabase-p0-contracts.mjs",
-    "test:contracts": "node --test tests/route-contracts.test.mjs tests/a26-foundation-contracts.test.mjs tests/a26-shell-contracts.test.mjs tests/a26-phase4-contracts.test.mjs tests/a26-phase5-contracts.test.mjs tests/a26-phase6-contracts.test.mjs tests/sketchfab-navigation-contracts.test.mjs tests/learning-telemetry-contracts.test.mjs"
+    "test:contracts": "node --test tests/route-contracts.test.mjs tests/a26-foundation-contracts.test.mjs tests/a26-shell-contracts.test.mjs tests/a26-phase4-contracts.test.mjs tests/a26-phase5-contracts.test.mjs tests/a26-phase6-contracts.test.mjs tests/sketchfab-navigation-contracts.test.mjs tests/learning-telemetry-contracts.test.mjs tests/study-agenda-contracts.test.mjs"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

@@ -133,7 +133,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
         });
       },
       "Voltar para biblioteca": () => navigate("/models"),
-      "Reportar problema": () => setToast(t("viewer.reportRegistered"))
+      "Reportar problema": () => setToast(t("viewer.reportUnavailable"))
     };
     (actions[action] || (() => setToast(t("viewer.functionPrepared", { action }))))();
   }

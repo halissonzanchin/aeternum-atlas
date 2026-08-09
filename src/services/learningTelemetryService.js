@@ -11,6 +11,7 @@ export const DEFAULT_IDLE_TIMEOUT_MS = 90_000;
 export const DEFAULT_HEARTBEAT_MS = 15_000;
 
 const remoteWarnings = new Set();
+const activeTrackedSessions = new Map();
 
 function nowIso() {
   return new Date().toISOString();
@@ -353,7 +354,16 @@ function activeViewerSession(userId, modelId) {
 async function persistEventRemote(event) {
   if (!event?.userId || !isSupabaseConfigured()) return false;
   try {
-    const { error } = await getSupabaseClient().from("viewer_learning_events").upsert({
+    if (event.sessionId) {
+      const parentSession = readStorage(storageKeys.learningSessions, [])
+        .find(session => session.id === event.sessionId);
+      if (parentSession) {
+        const sessionPersisted = await persistSessionRemote(parentSession);
+        if (!sessionPersisted) return false;
+      }
+    }
+
+    const { error } = await getSupabaseClient().from("viewer_learning_events").insert({
       id: event.id,
       user_id: event.userId,
       institution_id: event.institutionId,
@@ -362,8 +372,8 @@ async function persistEventRemote(event) {
       event_type: event.eventType,
       event_data: event.eventData || {},
       created_at: event.createdAt
-    }, { onConflict: "id" });
-    if (error) throw error;
+    });
+    if (error && error.code !== "23505") throw error;
     return true;
   } catch (error) {
     warnRemoteOnce("sincronização de eventos", error);
@@ -389,7 +399,11 @@ export function recordLearningEvent({ user, sessionId = null, modelId = null, ev
     syncStatus: "local"
   };
   saveEvents([event, ...readStorage(storageKeys.learningEvents, [])], { reason: eventType, eventId: event.id });
-  void persistEventRemote(event);
+  const remoteSyncPromise = persistEventRemote(event);
+  Object.defineProperty(event, "remoteSyncPromise", {
+    value: remoteSyncPromise,
+    enumerable: false
+  });
   return event;
 }
 
@@ -426,18 +440,20 @@ async function persistQuizResultRemote(result) {
 export function recordLearningQuizResult({ user, model, quiz, result, quizType = "anatomical" }) {
   if (!userIdOf(user) || !result) return null;
   migrateLegacyLearningTelemetry();
+  const modelId = model?.id || quiz?.modelId || result.modelId || null;
+  const quizId = quiz?.id || result.quizId || `${quizType}-${modelId || "unscoped"}`;
   const quizResult = {
     id: result.id || createUuid(),
     userId: userIdOf(user),
     institutionId: institutionIdOf(user),
-    modelId: model?.id || quiz?.modelId || null,
-    quizId: quiz?.id || result.quizId || null,
+    modelId,
+    quizId,
     quizType,
     status: result.status || "completed",
     score: Number(result.score ?? result.correctAnswers) || 0,
     totalQuestions: Number(result.totalQuestions ?? result.objectiveTotal) || 0,
     percentage: Number(result.percentage) || 0,
-    durationSeconds: Number(result.durationSeconds) || 0,
+    durationSeconds: Number(result.durationSeconds ?? result.timeSpent ?? result.time_spent) || 0,
     startedAt: result.startedAt || null,
     finishedAt: result.finishedAt || nowIso(),
     syncStatus: "local"
@@ -470,7 +486,13 @@ export function startTrackedLearningSession({
   heartbeatMs = DEFAULT_HEARTBEAT_MS
 }) {
   if (!userIdOf(user) || typeof window === "undefined" || typeof document === "undefined") {
-    return { id: null, stop: () => null, flush: () => null, getSession: () => null };
+    return {
+      id: null,
+      stop: () => null,
+      flush: () => null,
+      getSession: () => null,
+      waitForRemote: () => Promise.resolve(false)
+    };
   }
 
   let session = createSession({ user, scope, modelId });
@@ -479,6 +501,7 @@ export function startTrackedLearningSession({
   let lastTickAt = Date.now();
   let lastActivityAt = lastTickAt;
   let lastRemoteSyncAt = 0;
+  let remoteStopPromise = Promise.resolve(false);
 
   recordLearningEvent({
     user,
@@ -553,7 +576,7 @@ export function startTrackedLearningSession({
       status: "completed",
       endedReason: reason
     }) || { ...session, status: "completed", endedReason: reason, endedAt: nowIso() };
-    recordLearningEvent({
+    const endedEvent = recordLearningEvent({
       user,
       sessionId: session.id,
       modelId,
@@ -565,7 +588,8 @@ export function startTrackedLearningSession({
         idleSeconds: session.idleSeconds
       }
     });
-    void persistSessionRemote(session);
+    remoteStopPromise = endedEvent?.remoteSyncPromise || persistSessionRemote(session);
+    activeTrackedSessions.delete(session.id);
     window.clearInterval(interval);
     document.removeEventListener("visibilitychange", handleVisibilityChange);
     window.removeEventListener("pointerdown", handleActivity);
@@ -588,11 +612,23 @@ export function startTrackedLearningSession({
   window.addEventListener("wheel", handleActivity, { passive: true });
   window.addEventListener("pagehide", handlePageHide);
 
-  return {
+  const tracker = {
     id: session.id,
     stop,
     flush,
-    getSession: () => session
+    getSession: () => session,
+    waitForRemote: () => remoteStopPromise
   };
+  activeTrackedSessions.set(session.id, tracker);
+  return tracker;
+}
+
+export async function finalizeTrackedLearningSessionsForUser(userId, reason = "logout") {
+  if (!userId) return 0;
+  const trackers = Array.from(activeTrackedSessions.values())
+    .filter(tracker => tracker.getSession()?.userId === userId);
+  trackers.forEach(tracker => tracker.stop(reason));
+  await Promise.allSettled(trackers.map(tracker => tracker.waitForRemote()));
+  return trackers.length;
 }
 

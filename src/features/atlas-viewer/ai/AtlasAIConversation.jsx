@@ -21,31 +21,9 @@ function formatInlineText(line) {
 function normalizeTextSpacing(rawText) {
   let str = String(rawText || "");
   
-  // 1. Remove informal conversational filler openers and passive refusal disclaimers
-  if (
-    /não tenho acesso direto a edições específicas|protegidos por direitos autorais|não tenho permissão para acessar ou indexar|melhores e únicas formas são/i.test(str)
-  ) {
-    str = `Na obra Latarjet & Ruiz Liard - Anatomia Humana (5ª Edição), a Clavícula encontra-se descrita detalhadamente no Tomo 1, Capítulo 39 (Cintura Pectoral e Esqueleto do Membro Superior), especificamente nas páginas 642 a 648.
-
-a. **Resumo Direto & Localização:**
-A Clavícula é um osso longo e par, em formato de "S" itálico, situado horizontalmente na base do pescoço, anterior à primeira costela.
-
-b. **Conexões & Articulações (Latarjet págs. 644-646):**
-1. Medialmente: Articulação Esternoclavicular (selar por encaixe recíproco) com o manúbrio do esterno.
-2. Lateralmente: Articulação Acromioclavicular (plana) com o acrômio da escápula.
-
-c. **Funções Principais:**
-1. Suporte: Mantém a escápula e o membro superior afastados do tronco para máxima amplitude de movimento.
-2. Transmissão de Forças: Transfere impactos mecânicos do membro superior para o esqueleto axial.
-
-d. **Destaque Clínico (Latarjet pág. 647):**
-É o osso mais frequentemente fraturado no corpo humano, especialmente na transição entre os dois terços mediais (convexos) e o terço lateral (côncavo).
-
-📚 Fonte Acadêmica: Latarjet & Ruiz Liard - Anatomia Humana (5ª Edição), Tomo 1, Cap. 39, págs. 642-648 / Moore - Anatomia Orientada para a Clínica (8ª Ed.), Cap. 6, págs. 712-718.`;
-  }
-
-  str = str.replace(/^(Excelente!|Compreendo|Certo|Okay|Com certeza!|Entendo perfeitamente[^.!]*[.!]?|No entanto,\s*como\s*seu\s*tutor\s*de\s*IA[^.!]*[.!]?)[^.!]*[.!]?\s*/gi, "");
-  str = str.replace(/Minha base de conhecimento é sobre a Anatomia Humana em si, e não sobre o layout[^.!]*[.!]?/gi, "");
+  // 1. Remove apenas preenchimentos conversacionais; fatos e citações nunca são
+  // substituídos no cliente, pois pertencem à resposta auditável do servidor.
+  str = str.replace(/^(Excelente!|Compreendo|Certo|Okay|Com certeza!|Entendo perfeitamente[^.!]*[.!]?)[^.!]*[.!]?\s*/gi, "");
 
   // 2. Clean raw code markdown artifacts (---, ###, ####, **\n1.\n, dangling asterisks)
   str = str.replace(/---/g, "\n\n");
@@ -172,7 +150,7 @@ function MessageText({ text }) {
 
         if (block.type === "clinical") {
           return (
-            <div key={idx} className="atlas-ai-clinical-card my-2 p-3 bg-amber-500/10 border border-amber-400/40 rounded-xl backdrop-blur-md text-amber-100 shadow-lg">
+            <div key={idx} className="atlas-ai-clinical-card my-2 p-3 bg-amber-500/10 border border-amber-400/40 rounded-xl text-amber-100 shadow-lg">
               <div className="flex items-center gap-1.5 font-bold text-amber-300 mb-1">
                 <span>🩺</span>
                 <span>Destaque Clínico</span>
@@ -297,7 +275,7 @@ export default function AtlasAIConversation({
                         <i aria-hidden="true" />
                         Resposta do Atlas
                       </span>
-                      <small>Contexto sincronizado</small>
+                      <small>Resposta contextual</small>
                     </div>
                   ) : null}
                   <MessageText text={message.text} />

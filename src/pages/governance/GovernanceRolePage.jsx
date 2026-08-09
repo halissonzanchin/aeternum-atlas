@@ -123,14 +123,6 @@ function sourceState(data, error) {
     };
   }
 
-  if (data?.source === "demo_upe") {
-    return {
-      tone: "demo",
-      label: "Dados de demonstração",
-      text: "Os valores pertencem ao ambiente de demonstração explicitamente identificado."
-    };
-  }
-
   if (data?.quality?.status === "partial") {
     return {
       tone: "warning",
@@ -612,7 +604,7 @@ function CoordinatorSection({
     return (
       <GovernanceTable
         title="Disciplinas"
-        description="Hierarquia acadêmica retornada por public.academic_subjects."
+        description="Hierarquia curricular aguardando um contrato acadêmico canônico."
         rows={rows}
         columns={[
           { key: "name", label: "Disciplina" },
@@ -620,8 +612,8 @@ function CoordinatorSection({
           { key: "displayStatus", label: "Status" },
           { key: "created_at", label: "Criada em", render: (row) => dateTime(row.created_at) }
         ]}
-        emptyTitle="Nenhuma disciplina visível"
-        emptyText="A hierarquia acadêmica retornou zero disciplinas; nenhum catálogo fictício foi inserido."
+        emptyTitle="Fonte de disciplinas não publicada"
+        emptyText="public.academic_subjects não integra o esquema autorizado atual; nenhum catálogo fictício foi inserido."
         onViewSource={onViewSource}
         onInspect={(row) => onInspect(detailFor(row.name || "Disciplina", "Registro curricular observado", {
           Código: row.code,
@@ -871,11 +863,7 @@ export default function GovernanceRolePage({ user, section = "dashboard", role: 
   const snapshot = useMemo(() => createGovernancePeriodSnapshot(data, period), [data, period]);
   const alerts = useMemo(() => createGovernanceAlerts(role, data, snapshot), [data, role, snapshot]);
   const source = useMemo(() => sourceState(data, error), [data, error]);
-  const sourceLabel = data?.source === "supabase"
-    ? "tenant-observed"
-    : data?.source === "demo_upe"
-      ? "demo-declared"
-      : "restricted";
+  const sourceLabel = data?.source === "supabase" ? "tenant-observed" : "restricted";
 
   return (
     <section

@@ -45,7 +45,7 @@ jobs:
           supabase db push --linked --dry-run --password "$SUPABASE_DB_PASSWORD"
       - name: Apply pending migrations
         run: supabase db push --linked --password "$SUPABASE_DB_PASSWORD"
-      - name: Deploy authenticated AI Tutor
+      - name: Deploy AI Tutor with handler-enforced JWT
         run: supabase functions deploy ai-tutor --project-ref "$PROJECT_REF"
       - name: Confirm required Edge Function secrets exist
         shell: bash

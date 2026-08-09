@@ -506,7 +506,7 @@ function StudentAITutorStudio() {
 
   const handleStartClinicalCase = () => {
     sendMessage({
-      text: "Apresente 1 Caso Clínico Médico Socrático em 3 etapas (1. História Clínica do Paciente, 2. Pergunta Anatômica de Diagnóstico e 3. Gabarito Acadêmico com a citação do capítulo e página no Latarjet e Moore).",
+      text: "Apresente 1 Caso Clínico Médico Socrático em 3 etapas (1. História Clínica do Paciente, 2. Pergunta Anatômica de Diagnóstico e 3. Gabarito Acadêmico). Use somente fontes recuperadas e verificáveis da base privada; se não houver fonte disponível, informe isso claramente e não invente capítulo ou página.",
       contextLabel: "Caso Clínico Socrático"
     });
   };
@@ -531,14 +531,14 @@ function StudentAITutorStudio() {
 
         <div className="a26-liquid-metric-card">
           <span className="a26-liquid-metric-card__label">Base Anatômica</span>
-          <span className="a26-liquid-metric-card__value">14 Livros</span>
-          <span className="a26-liquid-metric-card__detail">Latarjet, Moore, Prometheus, Snell, Yokochi & McMinn</span>
+          <span className="a26-liquid-metric-card__value">Verificada</span>
+          <span className="a26-liquid-metric-card__detail">Fontes exibidas somente quando recuperadas da base privada</span>
         </div>
 
         <div className="a26-liquid-metric-card">
-          <span className="a26-liquid-metric-card__label">Norma ABNT</span>
-          <span className="a26-liquid-metric-card__value is-teal">Ativa</span>
-          <span className="a26-liquid-metric-card__detail">Sangrias & Destaques Médicos</span>
+          <span className="a26-liquid-metric-card__label">Integridade das fontes</span>
+          <span className="a26-liquid-metric-card__value is-teal">Protegida</span>
+          <span className="a26-liquid-metric-card__detail">Sem capítulos, páginas ou referências fabricadas</span>
         </div>
       </div>
 

@@ -1,5 +1,3 @@
-import { atlasAITutorMock } from "../../../demo/upe/aiMock";
-
 const ROUTE_CONTEXTS = [
   {
     matches: (path) => path === "/models",
@@ -106,7 +104,13 @@ export function getAtlasTutorContext(path = "/student/home") {
   const routeContext = ROUTE_CONTEXTS.find((item) => item.matches(path));
   if (!routeContext) {
     return {
-      ...atlasAITutorMock,
+      structure: "Aeternum Atlas",
+      question: "Oriente meu próximo passo nesta área.",
+      answer: {
+        description: "Posso explicar a área atual, relacionar recursos disponíveis e sugerir um próximo passo sem presumir dados que não estejam registrados.",
+        clinicalImportance: "Uma orientação contextual reduz navegação improdutiva e mantém o estudo alinhado aos dados observáveis da conta.",
+        relatedStructures: ["Modelos 3D", "Simulados", "Agenda de estudo"]
+      },
       quickActions: ["Explicar contexto", "Criar revisão", "Próximo passo"]
     };
   }

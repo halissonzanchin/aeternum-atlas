@@ -11,7 +11,7 @@ export default function ViewerSketchfab() {
     activePart,
     user,
     navigate,
-    progress: { favorite, studied, accessRegistered, handleRegisterAccess },
+    progress: { favorite, studied, accessRegistered },
     annotations: {
       handleAnnotationsLoad,
       handleSketchfabAnnotationSelect,

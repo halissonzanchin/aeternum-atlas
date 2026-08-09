@@ -1,10 +1,8 @@
-import { useEffect, useRef } from "react";
 import LineIcon from "../icons/LineIcon";
 import SketchfabApiViewer from "../viewer/SketchfabApiViewer";
 import SecureContentGuard from "../security/SecureContentGuard";
 import { A26Button, A26Surface } from "../aeternum-26";
 import { useLanguage } from "../../context/LanguageContext";
-import { getCurrentUserForModelAccess, logModelAccess } from "../../services/logModelAccess";
 
 function sketchfabEmbedUrl(model) {
   const raw =
@@ -32,20 +30,6 @@ function sketchfabModelUid(model, embedUrl) {
     model?.sketchfabUid ||
     model?.sketchfab_uid ||
     embedUrl?.match(/([a-f0-9]{32})/i)?.[1] ||
-    ""
-  );
-}
-
-function databaseModelId(model) {
-  return (
-    model?.supabaseModelId ||
-    model?.supabase_model_id ||
-    model?.modelUuid ||
-    model?.model_uuid ||
-    model?.model_id ||
-    model?.sketchfabUid ||
-    model?.sketchfab_uid ||
-    model?.id ||
     ""
   );
 }
@@ -112,53 +96,10 @@ export default function ModelViewer({
   currentUser
 }) {
   const { t } = useLanguage();
-  const initialAccessLoggedRef = useRef(null);
 
   const embedUrl = sketchfabEmbedUrl(model);
   const modelUid = sketchfabModelUid(model, embedUrl);
   const externalUrl = model?.sketchfabModelUrl || model?.externalUrl || model?.shortUrl;
-
-  useEffect(() => {
-    if (!model?.id || accessLocked) return;
-    const accessKey = `${currentUser?.id || "supabase-auth"}:${model.id}`;
-    if (initialAccessLoggedRef.current === accessKey) return;
-
-    registerSupabaseModelAccess("initial_view").then(result => {
-      if (!result.error) initialAccessLoggedRef.current = accessKey;
-    });
-  }, [accessLocked, currentUser?.id, currentUser?.institution_id, currentUser?.institutionId, model?.id]);
-
-  async function registerSupabaseModelAccess(source = "manual_button") {
-    if (!model?.id) {
-      console.warn("[model_access_logs] model_id ausente.");
-      return { data: null, error: new Error("model_id ausente") };
-    }
-
-    const accessUser = await getCurrentUserForModelAccess(currentUser);
-
-    if (!accessUser?.id) {
-      console.warn("[model_access_logs] Usuário não autenticado; insert cancelado.");
-      return { data: null, error: new Error("Usuário não autenticado") };
-    }
-
-    if (!accessUser.institution_id) {
-      console.warn("[model_access_logs] institution_id ausente; insert cancelado.");
-      return { data: null, error: new Error("institution_id ausente") };
-    }
-
-    return logModelAccess({
-      institution_id: accessUser.institution_id,
-      user_id: accessUser.id,
-      model_id: databaseModelId(model),
-      action: "view_model",
-      duration_seconds: 0
-    }).then(result => {
-      if (result.error) {
-        console.error(`[model_access_logs] Falha ao registrar acesso (${source}).`, result.error);
-      }
-      return result;
-    });
-  }
 
   const actions = [
     ...(embedUrl ? [{ action: "Visualizador 3D Aeternum", labelKey: "viewer.openSketchfab", icon: "fullscreen", group: "model" }] : []),
@@ -274,12 +215,7 @@ export default function ModelViewer({
                       className={actionStateClass(action)}
                       data-viewer-action={action}
                       aria-pressed={pressed}
-                      onClick={async () => {
-                        if (action === "Registrar acesso") {
-                          await registerSupabaseModelAccess("manual_button");
-                        }
-                        onViewerAction(action);
-                      }}
+                      onClick={() => onViewerAction(action)}
                       aria-label={t(labelKey)}
                       icon={<LineIcon name={icon} className="h-4 w-4" filled={isActionIconFilled(action)} />}
                     >
