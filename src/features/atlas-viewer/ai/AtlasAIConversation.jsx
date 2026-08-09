@@ -22,7 +22,8 @@ function normalizeTextSpacing(rawText) {
   let str = String(rawText || "");
   
   // 1. Remove informal conversational filler openers and passive refusal disclaimers
-  str = str.replace(/^(Excelente!|Compreendo|Certo|Okay|Com certeza!|No entanto,\s*como\s*seu\s*tutor\s*de\s*IA[^.!]*[.!]?)[^.!]*[.!]?\s*/gi, "");
+  str = str.replace(/^(Excelente!|Compreendo|Certo|Okay|Com certeza!|Entendo perfeitamente[^.!]*[.!]?|No entanto,\s*como\s*seu\s*tutor\s*de\s*IA[^.!]*[.!]?)[^.!]*[.!]?\s*/gi, "");
+  str = str.replace(/Minha base de conhecimento é sobre a Anatomia Humana em si, e não sobre o layout[^.!]*[.!]?/gi, "");
 
   // 2. Clean raw code markdown artifacts (---, ###, ####, **\n1.\n, dangling asterisks)
   str = str.replace(/---/g, "\n\n");
