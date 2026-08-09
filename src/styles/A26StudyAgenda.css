@@ -1,0 +1,635 @@
+/* ==========================================================================
+   AETERNUM 26 / iOS 27 LIQUID GLASS STUDY AGENDA (AGENDA DE ESTUDO)
+   ========================================================================== */
+
+.study-agenda-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  padding-bottom: 3rem;
+}
+
+/* --------------------------------------------------------------------------
+   1. HERO BANNER
+   -------------------------------------------------------------------------- */
+.study-agenda-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.75rem 2rem;
+  background: radial-gradient(120% 100% at 50% 0%, rgba(52, 206, 196, 0.12) 0%, rgba(10, 18, 20, 0.88) 100%),
+              rgba(12, 22, 24, 0.75);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: 1px solid rgba(52, 206, 196, 0.3);
+  border-radius: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.study-agenda-hero h1 {
+  font-family: var(--a26-type-display, serif);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #f3d789;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  margin: 0.2rem 0 0.4rem;
+}
+
+.study-agenda-hero p {
+  color: rgba(241, 247, 244, 0.75);
+  font-size: 0.92rem;
+  max-width: 680px;
+}
+
+.study-agenda-hero .viewer-primary-button {
+  background: linear-gradient(135deg, #34cec4 0%, #10b981 100%) !important;
+  color: #061314 !important;
+  font-weight: 750 !important;
+  font-size: 0.9rem !important;
+  padding: 0.85rem 1.6rem !important;
+  border-radius: 9999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 8px 25px rgba(52, 206, 196, 0.35) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.study-agenda-hero .viewer-primary-button:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 12px 32px rgba(52, 206, 196, 0.5) !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. MAIN LAYOUT GRID
+   -------------------------------------------------------------------------- */
+.study-agenda-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(360px, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .study-agenda-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. CALENDAR SECTION
+   -------------------------------------------------------------------------- */
+.agenda-calendar {
+  background: rgba(14, 24, 26, 0.65);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(52, 206, 196, 0.22);
+  border-radius: 28px;
+  padding: 1.5rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.agenda-calendar__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.agenda-view-switcher {
+  display: flex;
+  background: rgba(8, 14, 16, 0.7);
+  padding: 4px;
+  border-radius: 9999px;
+  border: 1px solid rgba(52, 206, 196, 0.2);
+}
+
+.agenda-view-switcher button {
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: rgba(241, 247, 244, 0.7);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.agenda-view-switcher button.is-active {
+  background: rgba(52, 206, 196, 0.22);
+  color: #34cec4;
+  border: 1px solid rgba(52, 206, 196, 0.4);
+  box-shadow: 0 4px 12px rgba(52, 206, 196, 0.25);
+}
+
+.agenda-calendar__nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.agenda-calendar__nav strong {
+  font-family: var(--a26-type-display, serif);
+  font-size: 1.25rem;
+  color: #f3d789;
+  text-transform: capitalize;
+  min-width: 170px;
+  text-align: center;
+}
+
+.agenda-calendar__nav button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(52, 206, 196, 0.25);
+  color: #34cec4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.agenda-calendar__nav button:hover {
+  background: rgba(52, 206, 196, 0.2);
+  transform: scale(1.08);
+}
+
+/* WEEKDAYS HEADER */
+.agenda-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(200, 230, 230, 0.65);
+  padding: 0.5rem 0;
+}
+
+/* CALENDAR GRID CELLS */
+.agenda-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.agenda-day-cell {
+  aspect-ratio: 1 / 1;
+  min-height: 72px;
+  background: rgba(10, 18, 20, 0.5);
+  border: 1px solid rgba(52, 206, 196, 0.14);
+  border-radius: 16px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.agenda-day-cell:hover {
+  border-color: rgba(52, 206, 196, 0.4);
+  background: rgba(52, 206, 196, 0.08);
+  transform: translateY(-2px);
+}
+
+.agenda-day-cell.is-outside {
+  opacity: 0.3;
+}
+
+.agenda-day-cell.is-today {
+  border-color: #34cec4 !important;
+  box-shadow: 0 0 16px rgba(52, 206, 196, 0.35), inset 0 0 12px rgba(52, 206, 196, 0.15) !important;
+}
+
+.agenda-day-cell.is-selected {
+  background: rgba(243, 215, 137, 0.12) !important;
+  border-color: #f3d789 !important;
+  box-shadow: 0 0 20px rgba(243, 215, 137, 0.3) !important;
+}
+
+.agenda-day-cell span {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f1f7f4;
+}
+
+.agenda-day-cell.is-today span {
+  color: #34cec4;
+}
+
+.agenda-day-cell.is-selected span {
+  color: #f3d789;
+}
+
+.agenda-day-markers {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.agenda-marker {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.agenda-marker--study { background: #34cec4; box-shadow: 0 0 6px #34cec4; }
+.agenda-marker--review { background: #f3d789; box-shadow: 0 0 6px #f3d789; }
+.agenda-marker--quiz { background: #ec4899; box-shadow: 0 0 6px #ec4899; }
+.agenda-marker--exam { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
+
+.agenda-day-markers small {
+  font-size: 0.65rem;
+  color: rgba(241, 247, 244, 0.6);
+  margin-left: auto;
+}
+
+/* --------------------------------------------------------------------------
+   4. DAY PANEL & TASK CARDS
+   -------------------------------------------------------------------------- */
+.agenda-day-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.agenda-day-panel__header {
+  background: rgba(14, 24, 26, 0.7);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(52, 206, 196, 0.25);
+  border-radius: 24px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.agenda-day-panel__header span {
+  font-size: 0.7rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(200, 230, 230, 0.7);
+}
+
+.agenda-day-panel__header h2 {
+  font-family: var(--a26-type-display, serif);
+  font-size: 1.4rem;
+  color: #f3d789;
+}
+
+.agenda-day-panel__header p {
+  font-size: 0.82rem;
+  color: rgba(241, 247, 244, 0.7);
+}
+
+.agenda-day-panel__header .viewer-primary-button {
+  margin-top: 0.5rem;
+  align-self: start;
+  background: rgba(52, 206, 196, 0.2) !important;
+  color: #34cec4 !important;
+  border: 1px solid rgba(52, 206, 196, 0.4) !important;
+  border-radius: 9999px !important;
+  padding: 0.5rem 1.2rem !important;
+  font-size: 0.82rem !important;
+  font-weight: 650 !important;
+  cursor: pointer;
+  transition: all 0.2s ease !important;
+}
+
+.agenda-day-panel__header .viewer-primary-button:hover {
+  background: rgba(52, 206, 196, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* TASK CARDS */
+.agenda-day-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.agenda-task-card {
+  background: rgba(12, 22, 24, 0.75);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(52, 206, 196, 0.2);
+  border-radius: 20px;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.agenda-task-card:hover {
+  border-color: rgba(52, 206, 196, 0.4);
+  transform: translateY(-2px);
+}
+
+.agenda-task-card.is-completed {
+  opacity: 0.6;
+}
+
+.agenda-task-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.agenda-task-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f1f7f4;
+}
+
+.agenda-task-card__time {
+  font-size: 0.78rem;
+  font-family: monospace;
+  color: #34cec4;
+  background: rgba(52, 206, 196, 0.12);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  border: 1px solid rgba(52, 206, 196, 0.25);
+}
+
+/* EMPTY STATE */
+.agenda-empty-state {
+  background: rgba(14, 24, 26, 0.5);
+  backdrop-filter: blur(16px);
+  border: 1px dashed rgba(52, 206, 196, 0.25);
+  border-radius: 24px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.agenda-empty-state strong {
+  color: #f3d789;
+  font-size: 1rem;
+}
+
+.agenda-empty-state p {
+  color: rgba(241, 247, 244, 0.65);
+  font-size: 0.82rem;
+  max-width: 300px;
+}
+
+.agenda-empty-state .viewer-secondary-button {
+  margin-top: 0.5rem;
+  background: rgba(52, 206, 196, 0.15) !important;
+  color: #34cec4 !important;
+  border: 1px solid rgba(52, 206, 196, 0.3) !important;
+  border-radius: 9999px !important;
+  padding: 0.5rem 1.25rem !important;
+  font-size: 0.8rem !important;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   5. WEEKLY SUMMARY & UPCOMING REVIEWS
+   -------------------------------------------------------------------------- */
+.agenda-side-card {
+  background: rgba(14, 24, 26, 0.65);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(52, 206, 196, 0.22);
+  border-radius: 24px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.agenda-side-card__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.agenda-side-card__title h3 {
+  font-family: var(--a26-type-display, serif);
+  font-size: 1.15rem;
+  color: #f3d789;
+}
+
+.weekly-summary-badge {
+  font-size: 0.78rem;
+  font-weight: 750;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  background: rgba(52, 206, 196, 0.2);
+  color: #34cec4;
+  border: 1px solid rgba(52, 206, 196, 0.35);
+}
+
+.weekly-summary-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.weekly-summary-track span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #f3d789 0%, #34cec4 100%);
+  border-radius: 9999px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.weekly-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.weekly-summary-grid div {
+  background: rgba(10, 18, 20, 0.5);
+  border: 1px solid rgba(52, 206, 196, 0.15);
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.weekly-summary-grid div strong {
+  font-size: 1.2rem;
+  font-weight: 750;
+  color: #f1f7f4;
+}
+
+.weekly-summary-grid div span {
+  font-size: 0.7rem;
+  color: rgba(200, 230, 230, 0.65);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   6. TASK MODAL (CRIAR / EDITAR ATIVIDADE - LIQUID GLASS FLOAT)
+   -------------------------------------------------------------------------- */
+.agenda-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(4, 10, 12, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.agenda-task-modal {
+  background: radial-gradient(120% 100% at 50% 0%, rgba(52, 206, 196, 0.14) 0%, rgba(10, 18, 20, 0.94) 100%),
+              rgba(12, 22, 24, 0.88);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(52, 206, 196, 0.35);
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.agenda-task-modal header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(52, 206, 196, 0.2);
+}
+
+.agenda-task-modal header h2 {
+  font-family: var(--a26-type-display, serif);
+  font-size: 1.6rem;
+  color: #f3d789;
+}
+
+.agenda-task-modal header button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(241, 247, 244, 0.8);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.agenda-task-modal header button:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.agenda-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .agenda-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.agenda-form-grid .field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.agenda-form-grid .field span {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(200, 230, 230, 0.75);
+}
+
+.agenda-form-grid input,
+.agenda-form-grid select,
+.agenda-form-grid textarea {
+  background: rgba(8, 16, 18, 0.7);
+  border: 1px solid rgba(52, 206, 196, 0.25);
+  border-radius: 14px;
+  padding: 0.65rem 0.9rem;
+  color: #f1f7f4;
+  font-size: 0.88rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.agenda-form-grid input:focus,
+.agenda-form-grid select:focus,
+.agenda-form-grid textarea:focus {
+  border-color: #34cec4;
+  box-shadow: 0 0 12px rgba(52, 206, 196, 0.3);
+}
+
+.agenda-form-wide {
+  grid-column: 1 / -1;
+}
+
+.agenda-task-modal footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(52, 206, 196, 0.2);
+}
+
+.agenda-task-modal footer .viewer-secondary-button {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(241, 247, 244, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 9999px !important;
+  padding: 0.65rem 1.4rem !important;
+  font-size: 0.85rem !important;
+  cursor: pointer;
+}
+
+.agenda-task-modal footer .viewer-primary-button {
+  background: linear-gradient(135deg, #34cec4 0%, #10b981 100%) !important;
+  color: #061314 !important;
+  font-weight: 750 !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 9999px !important;
+  padding: 0.65rem 1.6rem !important;
+  font-size: 0.85rem !important;
+  box-shadow: 0 6px 20px rgba(52, 206, 196, 0.35) !important;
+  cursor: pointer;
+}
+
+/* FLOATING ADD BUTTON */
+.agenda-floating-add {
+  display: none;
+}

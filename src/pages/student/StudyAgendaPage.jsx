@@ -6,6 +6,7 @@ import UpcomingReviews from "../../components/student/agenda/UpcomingReviews";
 import WeeklyStudySummary from "../../components/student/agenda/WeeklyStudySummary";
 import { formatAgendaDate, useStudyAgenda } from "../../hooks/useStudyAgenda";
 import { useLanguage } from "../../context/LanguageContext";
+import "../../styles/A26StudyAgenda.css";
 
 export default function StudyAgendaPage({ navigate }) {
   const { t } = useLanguage();
