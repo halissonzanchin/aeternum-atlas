@@ -531,8 +531,8 @@ function StudentAITutorStudio() {
 
         <div className="a26-liquid-metric-card">
           <span className="a26-liquid-metric-card__label">Base Anatômica</span>
-          <span className="a26-liquid-metric-card__value">7 Livros</span>
-          <span className="a26-liquid-metric-card__detail">Prometheus, Netter, Latarjet & Cases</span>
+          <span className="a26-liquid-metric-card__value">14 Livros</span>
+          <span className="a26-liquid-metric-card__detail">Latarjet, Moore, Prometheus, Snell, Yokochi & McMinn</span>
         </div>
 
         <div className="a26-liquid-metric-card">
