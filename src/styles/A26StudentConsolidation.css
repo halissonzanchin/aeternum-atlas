@@ -147,8 +147,13 @@ body:has(.a26-shell) #root {
   left: auto !important;
   margin: 0 !important;
   transform: none !important;
-  width: min(460px, calc(100vw - 36px)) !important;
+  width: min(460px, calc(100vw - 36px));
   pointer-events: auto !important;
+}
+
+#upe-ai-panel.upe-ai-panel.is-expanded,
+.upe-ai-panel.is-expanded {
+  width: min(780px, calc(100vw - 36px)) !important;
 }
 
 #atlas-viewer-ai-panel.upe-ai-panel--positioned,
