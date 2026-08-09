@@ -10,7 +10,15 @@ function id() {
 function readLocalStorage() {
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : agendaEvents;
+    if (!stored) return agendaEvents;
+    const parsed = JSON.parse(stored);
+    // If stored data is from old structure without August 2026 events, refresh with new enriched mock data
+    const hasAugustEvents = parsed.some(e => String(e.id).includes("aug"));
+    if (!hasAugustEvents) {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(agendaEvents));
+      return agendaEvents;
+    }
+    return parsed;
   } catch {
     return agendaEvents;
   }

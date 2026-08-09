@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import AgendaCalendar from "../../components/student/agenda/AgendaCalendar";
 import AgendaDayPanel from "../../components/student/agenda/AgendaDayPanel";
 import AgendaHourlyGrid from "../../components/student/agenda/AgendaHourlyGrid";
@@ -19,6 +19,11 @@ export default function StudyAgendaPage({ navigate }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
   const [popoverEvent, setPopoverEvent] = useState(null);
+
+  // Set default initial view date to August 10, 2026 (active study week)
+  useEffect(() => {
+    agenda.setSelectedDate(new Date(2026, 7, 10));
+  }, []);
 
   // Synchronized layers filter
   const [layersFilter, setLayersFilter] = useState({

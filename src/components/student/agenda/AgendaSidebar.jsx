@@ -12,7 +12,7 @@ export default function AgendaSidebar({
   setSelectedSystem,
   onNewActivity
 }) {
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
   const [miniCursor, setMiniCursor] = useState(() => parseAgendaDate(selectedDate));
 
   function shiftMiniMonth(amount) {
@@ -30,7 +30,7 @@ export default function AgendaSidebar({
     }));
   }
 
-  // Generate 42 days for mini calendar
+  // Generate 35 days for mini calendar
   const firstOfMonth = new Date(miniCursor.getFullYear(), miniCursor.getMonth(), 1);
   const startDay = firstOfMonth.getDay();
   const startDate = new Date(firstOfMonth);
@@ -49,7 +49,7 @@ export default function AgendaSidebar({
       {/* Quick Action Button */}
       <button className="a26-sidebar-create-btn" onClick={onNewActivity}>
         <span className="a26-sidebar-create-btn__icon">+</span>
-        <span>Nova Atividade</span>
+        <span>Agendar Nova Atividade</span>
       </button>
 
       {/* Mini Calendar Navigation */}
@@ -57,8 +57,8 @@ export default function AgendaSidebar({
         <div className="a26-mini-calendar__header">
           <strong>{miniTitle}</strong>
           <div className="a26-mini-calendar__nav">
-            <button onClick={() => shiftMiniMonth(-1)}><LineIcon name="chevron" /></button>
-            <button onClick={() => shiftMiniMonth(1)}><LineIcon name="chevron" /></button>
+            <button onClick={() => shiftMiniMonth(-1)} aria-label="Mês anterior"><LineIcon name="chevron" /></button>
+            <button onClick={() => shiftMiniMonth(1)} aria-label="Próximo mês"><LineIcon name="chevron" /></button>
           </div>
         </div>
 
@@ -91,66 +91,97 @@ export default function AgendaSidebar({
         </div>
       </div>
 
-      {/* Synchronized Layers Filters */}
+      {/* Synchronized Real Teachers & Accounts */}
       <div className="a26-sidebar-layers">
-        <h4 className="a26-sidebar-section-title">Camadas da Agenda</h4>
+        <div className="a26-sidebar-section-header">
+          <h4 className="a26-sidebar-section-title">Professores & Contas Conectadas</h4>
+          <span className="a26-sync-live-badge">🟢 Tempo Real</span>
+        </div>
         
-        <label className="a26-layer-toggle is-student">
-          <input
-            type="checkbox"
-            checked={Boolean(layersFilter.student)}
-            onChange={() => toggleLayer("student")}
-          />
-          <span className="a26-layer-indicator is-student" />
-          <div className="a26-layer-info">
+        {/* Personal Student Account */}
+        <div className={`a26-teacher-card ${layersFilter.student ? "is-active" : ""}`}>
+          <div className="a26-teacher-avatar is-student">👤</div>
+          <div className="a26-teacher-info">
             <strong>Minha Agenda Pessoal</strong>
-            <small>Halisson (Você)</small>
+            <small>Halisson Zanchin (Sua Conta)</small>
           </div>
-        </label>
+          <button
+            className={`a26-ios-toggle ${layersFilter.student ? "is-on" : ""}`}
+            onClick={() => toggleLayer("student")}
+            aria-label="Alternar agenda pessoal"
+          >
+            <span className="a26-ios-toggle-knob" />
+          </button>
+        </div>
 
-        <label className="a26-layer-toggle is-teacher">
-          <input
-            type="checkbox"
-            checked={Boolean(layersFilter.teacher)}
-            onChange={() => toggleLayer("teacher")}
-          />
-          <span className="a26-layer-indicator is-teacher" />
-          <div className="a26-layer-info">
-            <strong>Professores Sincronizados</strong>
-            <small>Prof. Dr. Halisson / Dra. Mariana</small>
+        {/* Real Professor 1 */}
+        <div className={`a26-teacher-card ${layersFilter.teacher ? "is-active" : ""}`}>
+          <div className="a26-teacher-avatar is-teacher">👨‍🏫</div>
+          <div className="a26-teacher-info">
+            <strong>Prof. Dr. Halisson Zanchin</strong>
+            <small>Anatomia Humana & Dissecação</small>
           </div>
-        </label>
+          <button
+            className={`a26-ios-toggle ${layersFilter.teacher ? "is-on" : ""}`}
+            onClick={() => toggleLayer("teacher")}
+            aria-label="Alternar agenda do Prof. Halisson"
+          >
+            <span className="a26-ios-toggle-knob" />
+          </button>
+        </div>
 
-        <label className="a26-layer-toggle is-institution">
-          <input
-            type="checkbox"
-            checked={Boolean(layersFilter.institution)}
-            onChange={() => toggleLayer("institution")}
-          />
-          <span className="a26-layer-indicator is-institution" />
-          <div className="a26-layer-info">
-            <strong>Simulados & Avaliações</strong>
-            <small>Coordenação de Medicina</small>
+        {/* Real Professor 2 */}
+        <div className={`a26-teacher-card ${layersFilter.teacher ? "is-active" : ""}`}>
+          <div className="a26-teacher-avatar is-teacher">👩‍🏫</div>
+          <div className="a26-teacher-info">
+            <strong>Profª. Dra. Mariana Lima</strong>
+            <small>Neuroanatomia Clínica</small>
           </div>
-        </label>
+          <button
+            className={`a26-ios-toggle ${layersFilter.teacher ? "is-on" : ""}`}
+            onClick={() => toggleLayer("teacher")}
+            aria-label="Alternar agenda da Profª. Mariana"
+          >
+            <span className="a26-ios-toggle-knob" />
+          </button>
+        </div>
 
-        <label className="a26-layer-toggle is-ai-tutor">
-          <input
-            type="checkbox"
-            checked={Boolean(layersFilter.ai_tutor)}
-            onChange={() => toggleLayer("ai_tutor")}
-          />
-          <span className="a26-layer-indicator is-ai-tutor" />
-          <div className="a26-layer-info">
-            <strong>Recomendações Tutor IA</strong>
+        {/* Institution Coordination */}
+        <div className={`a26-teacher-card ${layersFilter.institution ? "is-active" : ""}`}>
+          <div className="a26-teacher-avatar is-institution">🏛️</div>
+          <div className="a26-teacher-info">
+            <strong>Coordenação de Medicina</strong>
+            <small>Simulados & Avaliações Globais</small>
+          </div>
+          <button
+            className={`a26-ios-toggle ${layersFilter.institution ? "is-on" : ""}`}
+            onClick={() => toggleLayer("institution")}
+            aria-label="Alternar agenda da coordenação"
+          >
+            <span className="a26-ios-toggle-knob" />
+          </button>
+        </div>
+
+        {/* AI Tutor Preceptor */}
+        <div className={`a26-teacher-card ${layersFilter.ai_tutor ? "is-active" : ""}`}>
+          <div className="a26-teacher-avatar is-ai-tutor">🤖</div>
+          <div className="a26-teacher-info">
+            <strong>Atlas AI Preceptor</strong>
             <small>Casos Clínicos Socráticos</small>
           </div>
-        </label>
+          <button
+            className={`a26-ios-toggle ${layersFilter.ai_tutor ? "is-on" : ""}`}
+            onClick={() => toggleLayer("ai_tutor")}
+            aria-label="Alternar agenda do tutor IA"
+          >
+            <span className="a26-ios-toggle-knob" />
+          </button>
+        </div>
       </div>
 
       {/* Anatomical System Filter */}
       <div className="a26-sidebar-systems">
-        <h4 className="a26-sidebar-section-title">Filtrar por Sistema</h4>
+        <h4 className="a26-sidebar-section-title">Filtrar por Sistema Anatômico</h4>
         <select
           value={selectedSystem}
           onChange={(e) => setSelectedSystem(e.target.value)}

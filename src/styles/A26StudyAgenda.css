@@ -1,13 +1,16 @@
 /* ==========================================================================
-   AETERNUM 26 / iOS 27 LIQUID GLASS STUDY AGENDA (SYNCHRONIZED MULTI-LAYER)
+   AETERNUM 26 / iOS 27 LIQUID GLASS STUDY AGENDA (REAL TEACHER SYNC)
    ========================================================================== */
 
 .study-agenda-page {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
   width: 100%;
-  padding-bottom: 4rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-bottom: 3rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -17,15 +20,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  padding: 1.75rem 2rem;
-  background: radial-gradient(120% 100% at 50% 0%, rgba(52, 206, 196, 0.14) 0%, rgba(10, 18, 20, 0.9) 100%),
-              rgba(12, 22, 24, 0.8);
+  gap: 1.25rem;
+  padding: 1.5rem 2rem;
+  background: radial-gradient(120% 100% at 50% 0%, rgba(52, 206, 196, 0.12) 0%, rgba(10, 18, 20, 0.92) 100%),
+              rgba(12, 22, 24, 0.82);
   backdrop-filter: blur(32px) saturate(200%);
   -webkit-backdrop-filter: blur(32px) saturate(200%);
-  border: 1px solid rgba(52, 206, 196, 0.35);
-  border-radius: 28px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(52, 206, 196, 0.28);
+  border-radius: 24px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   flex-wrap: wrap;
 }
 
@@ -33,7 +36,7 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
   flex-wrap: wrap;
 }
 
@@ -42,36 +45,38 @@
   font-weight: 750;
   padding: 3px 12px;
   border-radius: 9999px;
-  background: rgba(52, 206, 196, 0.18);
+  background: rgba(52, 206, 196, 0.16);
   color: #34cec4;
-  border: 1px solid rgba(52, 206, 196, 0.35);
+  border: 1px solid rgba(52, 206, 196, 0.3);
 }
 
 .a26-hero-sync-badge.is-teacher {
-  background: rgba(243, 215, 137, 0.18);
+  background: rgba(243, 215, 137, 0.16);
   color: #f3d789;
-  border-color: rgba(243, 215, 137, 0.35);
+  border-color: rgba(243, 215, 137, 0.3);
 }
 
 .study-agenda-hero h1 {
   font-family: var(--a26-type-display, serif);
-  font-size: 2.15rem;
+  font-size: 2.1rem;
   font-weight: 700;
   color: #f3d789;
   letter-spacing: 0.02em;
-  margin: 0.2rem 0 0.4rem;
+  line-height: 1.15;
+  margin: 0.15rem 0 0.35rem;
 }
 
 .study-agenda-hero p {
   color: rgba(241, 247, 244, 0.8);
-  font-size: 0.92rem;
-  max-width: 640px;
+  font-size: 0.88rem;
+  max-width: 600px;
 }
 
 .a26-hero-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.85rem;
+  flex-wrap: wrap;
 }
 
 .a26-main-mode-switcher {
@@ -83,7 +88,7 @@
 }
 
 .a26-main-mode-switcher button {
-  padding: 8px 18px;
+  padding: 7px 16px;
   border-radius: 9999px;
   font-size: 0.82rem;
   font-weight: 700;
@@ -92,6 +97,7 @@
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .a26-main-mode-switcher button.is-active {
@@ -101,14 +107,28 @@
   box-shadow: 0 4px 14px rgba(52, 206, 196, 0.3);
 }
 
+.study-agenda-hero .viewer-primary-button {
+  background: linear-gradient(135deg, #34cec4 0%, #10b981 100%) !important;
+  color: #061314 !important;
+  font-weight: 750 !important;
+  font-size: 0.88rem !important;
+  padding: 0.75rem 1.4rem !important;
+  border-radius: 9999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 8px 24px rgba(52, 206, 196, 0.35) !important;
+  white-space: nowrap;
+}
+
 /* --------------------------------------------------------------------------
    2. MAIN GRID & SIDEBAR LAYOUT
    -------------------------------------------------------------------------- */
 .study-agenda-main-grid {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: 310px minmax(0, 1fr);
+  gap: 1.25rem;
   align-items: start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 1100px) {
@@ -118,17 +138,19 @@
 }
 
 /* --------------------------------------------------------------------------
-   3. LEFT SIDEBAR (MINI CALENDAR & LAYER FILTERS)
+   3. LEFT SIDEBAR (MINI CALENDAR & REAL TEACHERS SYNC)
    -------------------------------------------------------------------------- */
 .a26-agenda-sidebar {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  background: rgba(14, 24, 26, 0.7);
+  background: rgba(14, 24, 26, 0.65);
   backdrop-filter: blur(28px) saturate(180%);
-  border: 1px solid rgba(52, 206, 196, 0.25);
-  border-radius: 28px;
+  border: 1px solid rgba(52, 206, 196, 0.22);
+  border-radius: 24px;
   padding: 1.25rem;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .a26-sidebar-create-btn {
@@ -137,25 +159,25 @@
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  padding: 0.85rem 1.2rem;
+  padding: 0.8rem 1.2rem;
   background: linear-gradient(135deg, #34cec4 0%, #10b981 100%);
   color: #061314;
   font-weight: 750;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   border-radius: 9999px;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 24px rgba(52, 206, 196, 0.35);
+  box-shadow: 0 8px 22px rgba(52, 206, 196, 0.35);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .a26-sidebar-create-btn:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(52, 206, 196, 0.45);
+  box-shadow: 0 12px 28px rgba(52, 206, 196, 0.45);
 }
 
 .a26-sidebar-create-btn__icon {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1;
 }
 
@@ -163,19 +185,19 @@
 .a26-mini-calendar {
   background: rgba(8, 16, 18, 0.6);
   border: 1px solid rgba(52, 206, 196, 0.18);
-  border-radius: 20px;
-  padding: 1rem;
+  border-radius: 18px;
+  padding: 0.85rem;
 }
 
 .a26-mini-calendar__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
 }
 
 .a26-mini-calendar__header strong {
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   color: #f3d789;
   text-transform: capitalize;
 }
@@ -187,8 +209,8 @@
 }
 
 .a26-mini-calendar__nav button {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(52, 206, 196, 0.2);
@@ -212,12 +234,12 @@
 .a26-mini-calendar__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: 3px;
 }
 
 .a26-mini-day {
   aspect-ratio: 1 / 1;
-  border-radius: 10px;
+  border-radius: 8px;
   background: transparent;
   border: none;
   color: #f1f7f4;
@@ -247,69 +269,125 @@
   font-weight: 750 !important;
 }
 
-/* SYNCHRONIZED LAYERS TOGGLES */
+/* REAL TEACHER & ACCOUNT CARDS */
+.a26-sidebar-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
 .a26-sidebar-section-title {
   font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(200, 230, 230, 0.7);
-  margin-bottom: 0.6rem;
+  color: rgba(200, 230, 230, 0.75);
+}
+
+.a26-sync-live-badge {
+  font-size: 0.65rem;
+  font-weight: 750;
+  color: #10b981;
 }
 
 .a26-sidebar-layers {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.65rem;
 }
 
-.a26-layer-toggle {
+.a26-teacher-card {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.6rem 0.8rem;
-  background: rgba(8, 16, 18, 0.5);
-  border: 1px solid rgba(52, 206, 196, 0.15);
-  border-radius: 14px;
-  cursor: pointer;
+  padding: 0.7rem 0.85rem;
+  background: rgba(8, 16, 18, 0.55);
+  border: 1px solid rgba(52, 206, 196, 0.18);
+  border-radius: 16px;
   transition: all 0.2s ease;
 }
 
-.a26-layer-toggle:hover {
+.a26-teacher-card:hover {
   background: rgba(52, 206, 196, 0.08);
+  border-color: rgba(52, 206, 196, 0.35);
+}
+
+.a26-teacher-card.is-active {
   border-color: rgba(52, 206, 196, 0.3);
 }
 
-.a26-layer-toggle input[type="checkbox"] {
-  accent-color: #34cec4;
-  width: 16px;
-  height: 16px;
-}
-
-.a26-layer-indicator {
-  width: 10px;
-  height: 10px;
+.a26-teacher-avatar {
+  font-size: 1.25rem;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
 }
 
-.a26-layer-indicator.is-student { background: #34cec4; box-shadow: 0 0 8px #34cec4; }
-.a26-layer-indicator.is-teacher { background: #f3d789; box-shadow: 0 0 8px #f3d789; }
-.a26-layer-indicator.is-institution { background: #ec4899; box-shadow: 0 0 8px #ec4899; }
-.a26-layer-indicator.is-ai-tutor { background: #a855f7; box-shadow: 0 0 8px #a855f7; }
-
-.a26-layer-info {
+.a26-teacher-info {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 0;
 }
 
-.a26-layer-info strong {
-  font-size: 0.82rem;
+.a26-teacher-info strong {
+  font-size: 0.8rem;
   color: #f1f7f4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.a26-layer-info small {
+.a26-teacher-info small {
   font-size: 0.68rem;
-  color: rgba(241, 247, 244, 0.6);
+  color: rgba(241, 247, 244, 0.65);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* LIQUID GLASS iOS 27 TOGGLE SWITCH */
+.a26-ios-toggle {
+  width: 42px;
+  height: 24px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  outline: none;
+  flex-shrink: 0;
+}
+
+.a26-ios-toggle.is-on {
+  background: linear-gradient(135deg, #34cec4 0%, #10b981 100%);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 12px rgba(52, 206, 196, 0.45);
+}
+
+.a26-ios-toggle-knob {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.a26-ios-toggle.is-on .a26-ios-toggle-knob {
+  transform: translateX(18px);
 }
 
 .a26-sidebar-system-select {
@@ -329,30 +407,33 @@
 .a26-agenda-view-container {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
+  min-width: 0;
+  width: 100%;
 }
 
 .a26-hourly-grid-container {
-  background: rgba(14, 24, 26, 0.7);
+  background: rgba(14, 24, 26, 0.65);
   backdrop-filter: blur(28px) saturate(180%);
-  border: 1px solid rgba(52, 206, 196, 0.25);
-  border-radius: 28px;
+  border: 1px solid rgba(52, 206, 196, 0.22);
+  border-radius: 24px;
   padding: 1.25rem;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
   overflow-x: auto;
+  max-height: calc(100vh - 240px);
 }
 
 .a26-hourly-grid__header {
   display: grid;
-  grid-template-columns: 60px repeat(7, minmax(110px, 1fr));
-  gap: 8px;
-  margin-bottom: 0.85rem;
+  grid-template-columns: 55px repeat(7, minmax(100px, 1fr));
+  gap: 6px;
+  margin-bottom: 0.75rem;
   border-bottom: 1px solid rgba(52, 206, 196, 0.2);
   padding-bottom: 0.6rem;
 }
 
 .a26-hourly-grid__time-col-header {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 750;
   text-transform: uppercase;
   color: rgba(200, 230, 230, 0.6);
@@ -364,8 +445,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 6px 4px;
-  border-radius: 14px;
+  padding: 5px 4px;
+  border-radius: 12px;
   background: rgba(8, 16, 18, 0.5);
   border: 1px solid rgba(52, 206, 196, 0.15);
   cursor: pointer;
@@ -383,21 +464,21 @@
 }
 
 .a26-hourly-grid__weekday {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
   font-weight: 750;
   color: rgba(200, 230, 230, 0.7);
 }
 
 .a26-hourly-grid__daynum {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 750;
   color: #f1f7f4;
 }
 
 .a26-hourly-grid__body {
   display: grid;
-  grid-template-columns: 60px minmax(0, 1fr);
+  grid-template-columns: 55px minmax(0, 1fr);
   position: relative;
   min-height: 960px; /* 15 hours * 64px */
 }
@@ -409,15 +490,15 @@
 
 .a26-hourly-grid__time-slot {
   height: 64px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-family: monospace;
   color: rgba(200, 230, 230, 0.65);
 }
 
 .a26-hourly-grid__columns {
   display: grid;
-  grid-template-columns: repeat(7, minmax(110px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(7, minmax(100px, 1fr));
+  gap: 6px;
   position: relative;
 }
 
@@ -453,7 +534,7 @@
   left: 2px;
   right: 2px;
   border-radius: 12px;
-  padding: 8px 10px;
+  padding: 6px 8px;
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
@@ -498,28 +579,28 @@
 }
 
 .a26-hourly-event__time {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-family: monospace;
   font-weight: 700;
   color: #f1f7f4;
 }
 
 .a26-hourly-event__title {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 750;
   color: #ffffff;
   line-height: 1.2;
 }
 
 .a26-hourly-event__system {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   color: rgba(255, 255, 255, 0.8);
 }
 
 .a26-hourly-event__model-tag {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   background: rgba(0, 0, 0, 0.4);
-  padding: 1px 6px;
+  padding: 1px 5px;
   border-radius: 9999px;
   width: fit-content;
   color: #34cec4;
