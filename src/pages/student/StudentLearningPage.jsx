@@ -453,6 +453,9 @@ export default function StudentLearningPage({ section, user, navigate }) {
 function StudentAITutorStudio() {
   const { messages, draft, setDraft, isThinking, sendMessage, connectionMode } = useAtlasAITutorSession();
   const [filterQuery, setFilterQuery] = useState("");
+  const [userTags, setUserTags] = useState([]);
+  const [showAddTagInput, setShowAddTagInput] = useState(false);
+  const [newTagInput, setNewTagInput] = useState("");
 
   const filteredMessages = useMemo(() => {
     if (!filterQuery.trim()) return messages;
@@ -466,17 +469,40 @@ function StudentAITutorStudio() {
   const aiAnswersCount = useMemo(() => messages.filter((m) => m.sender === "ai").length, [messages]);
   const totalDialogues = userQuestionsCount + aiAnswersCount;
 
-  // Extract Session Topics for Quick Filtering & Review Mapping
-  const sessionTopics = useMemo(() => {
-    const anatomicalTerms = [
-      "Clavícula", "Plexo Braquial", "Encéfalo", "Crânio", "Fêmur", "Coração",
-      "Membro Superior", "Coluna Vertebral", "Pelve", "Esterno", "Escápula", "Fígado"
-    ];
-    const fullText = messages.map((m) => m.text || "").join(" ");
-    return anatomicalTerms.filter((term) =>
-      fullText.toLowerCase().includes(term.toLowerCase())
+  // Extract ONLY topics that were ACTUALLY mentioned by the user in this session
+  const autoSessionTopics = useMemo(() => {
+    const userTexts = messages
+      .filter((m) => m.sender === "user")
+      .map((m) => m.text || "")
+      .join(" ");
+    
+    // Extract key capitalized medical terms or unique words
+    const words = userTexts.match(/\b[A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-záéíóúâêôãõç]{3,}\b/g) || [];
+    const unique = Array.from(new Set(words)).filter(
+      (w) => !["Como", "Qual", "Sobre", "Para", "Onde", "Saber", "Gostaria", "Explique", "Apresente"].includes(w)
     );
+    return unique.slice(0, 8);
   }, [messages]);
+
+  // Combined active topic tags (Auto detected from real questions + User added)
+  const activeTopics = useMemo(() => {
+    return Array.from(new Set([...autoSessionTopics, ...userTags]));
+  }, [autoSessionTopics, userTags]);
+
+  const handleRemoveTopic = (topicToRemove) => {
+    setUserTags((prev) => prev.filter((t) => t !== topicToRemove));
+    if (filterQuery === topicToRemove) setFilterQuery("");
+  };
+
+  const handleAddCustomTag = (e) => {
+    e.preventDefault();
+    const tag = newTagInput.trim();
+    if (tag && !userTags.includes(tag)) {
+      setUserTags((prev) => [...prev, tag]);
+    }
+    setNewTagInput("");
+    setShowAddTagInput(false);
+  };
 
   const handleStartClinicalCase = () => {
     sendMessage({
@@ -486,41 +512,43 @@ function StudentAITutorStudio() {
   };
 
   return (
-    <div className="a26-ai-tutor-studio-hub flex flex-col gap-6 w-full">
-      {/* Metrics Row - Clean Numeric & Status Values aligned to Aeternum 26 */}
-      <div className="a26-daily-metrics">
-        <A26Metric
-          label="Total de Diálogos"
-          value={totalDialogues}
-          detail={`${userQuestionsCount} perguntas / ${aiAnswersCount} respostas`}
-          tone="teal"
-        />
-        <A26Metric
-          label="Status da Sessão"
-          value={connectionMode === "online" ? "Nuvem" : "Local"}
-          detail="Sincronização via Supabase Cloud"
-          tone="gold"
-        />
-        <A26Metric
-          label="Base Anatômica"
-          value="7 Livros"
-          detail="Prometheus, Netter, Latarjet & Cases"
-        />
-        <A26Metric
-          label="Norma ABNT"
-          value="Ativa"
-          detail="Sangrias & Destaques Médicos"
-          tone="teal"
-        />
+    <div className="a26-ai-tutor-studio-hub flex flex-col gap-5 w-full">
+      {/* Sleek Liquid Glass Metrics Grid (iOS 27 Balanced Typography - No Giant Letters) */}
+      <div className="a26-liquid-metrics-grid">
+        <div className="a26-liquid-metric-card">
+          <span className="a26-liquid-metric-card__label">Total de Diálogos</span>
+          <span className="a26-liquid-metric-card__value is-teal">{totalDialogues}</span>
+          <span className="a26-liquid-metric-card__detail">{userQuestionsCount} perguntas / {aiAnswersCount} respostas</span>
+        </div>
+
+        <div className="a26-liquid-metric-card">
+          <span className="a26-liquid-metric-card__label">Status da Sessão</span>
+          <span className="a26-liquid-metric-card__value is-gold">
+            {connectionMode === "online" ? "Cloud Ativo" : "Local"}
+          </span>
+          <span className="a26-liquid-metric-card__detail">Sincronização via Supabase Cloud</span>
+        </div>
+
+        <div className="a26-liquid-metric-card">
+          <span className="a26-liquid-metric-card__label">Base Anatômica</span>
+          <span className="a26-liquid-metric-card__value">7 Livros</span>
+          <span className="a26-liquid-metric-card__detail">Prometheus, Netter, Latarjet & Cases</span>
+        </div>
+
+        <div className="a26-liquid-metric-card">
+          <span className="a26-liquid-metric-card__label">Norma ABNT</span>
+          <span className="a26-liquid-metric-card__value is-teal">Ativa</span>
+          <span className="a26-liquid-metric-card__detail">Sangrias & Destaques Médicos</span>
+        </div>
       </div>
 
-      {/* Search & Topic Tracking Toolbar */}
+      {/* Search & User-Controlled Topic Tags Toolbar */}
       <div className="flex flex-col gap-3">
         <A26Toolbar className="a26-daily-toolbar a26-ai-tutor-studio-toolbar" label="Pesquisar histórico">
           <A26Field
-            label="Filtrar histórico por termo anatômico"
+            label="Filtrar histórico de consultas por palavra-chave"
             value={filterQuery}
-            placeholder="Busque por estrutura (ex: Clavícula, Plexo Braquial, Encéfalo)..."
+            placeholder="Digite para buscar nas conversas (ex: Clavícula, Plexo, Fratura)..."
             onChange={(event) => setFilterQuery(event.target.value)}
           />
           {filterQuery ? (
@@ -530,28 +558,73 @@ function StudentAITutorStudio() {
           ) : null}
         </A26Toolbar>
 
-        {/* Dynamic Topic Tracking Pills */}
-        {sessionTopics.length > 0 ? (
-          <div className="flex items-center flex-wrap gap-2 px-1">
-            <span className="text-[11px] font-semibold text-textMuted uppercase tracking-wider">
-              Tópicos consultados nesta sessão:
-            </span>
-            {sessionTopics.map((topic) => (
+        {/* User-Controlled Dynamic Topic Tags (Add & Remove) */}
+        <div className="flex items-center flex-wrap gap-2 px-1">
+          <span className="text-[11px] font-semibold text-textMuted uppercase tracking-wider flex items-center gap-1">
+            <span>🏷️</span> Tags de Estudo da Sessão:
+          </span>
+
+          {activeTopics.map((topic) => (
+            <div
+              key={topic}
+              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono transition-all border ${
+                filterQuery === topic
+                  ? "bg-amber-400/25 border-amber-400 text-amber-200 shadow-glowGold"
+                  : "bg-surfaceDark/70 border-glassBorder/50 text-teal-200 hover:border-teal-400"
+              }`}
+            >
               <button
-                key={topic}
                 type="button"
                 onClick={() => setFilterQuery(filterQuery === topic ? "" : topic)}
-                className={`px-2.5 py-1 rounded-full text-xs font-mono transition-all border ${
-                  filterQuery === topic
-                    ? "bg-amber-400/20 border-amber-400 text-amber-200 shadow-glowGold"
-                    : "bg-surfaceDark/60 border-glassBorder/40 text-teal-300 hover:border-teal-400"
-                }`}
+                className="hover:underline"
               >
-                🏷️ {topic}
+                {topic}
               </button>
-            ))}
-          </div>
-        ) : null}
+              <button
+                type="button"
+                onClick={() => handleRemoveTopic(topic)}
+                className="text-textMuted hover:text-red-400 text-xs px-0.5 ml-1 transition-colors"
+                title="Remover tag"
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+
+          {showAddTagInput ? (
+            <form onSubmit={handleAddCustomTag} className="inline-flex items-center gap-1">
+              <input
+                type="text"
+                value={newTagInput}
+                onChange={(e) => setNewTagInput(e.target.value)}
+                placeholder="Nome da tag..."
+                className="px-2.5 py-0.5 rounded-full text-xs bg-surfaceDark border border-teal-500/50 text-teal-200 outline-none w-28"
+                autoFocus
+              />
+              <button
+                type="submit"
+                className="text-xs px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/40 hover:bg-teal-500/40"
+              >
+                +
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowAddTagInput(false)}
+                className="text-xs text-textMuted hover:text-white px-1"
+              >
+                ✕
+              </button>
+            </form>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setShowAddTagInput(true)}
+              className="px-2.5 py-1 rounded-full text-xs font-mono text-teal-300/80 border border-dashed border-teal-500/40 hover:border-teal-400 hover:text-teal-200 transition-all bg-teal-950/20"
+            >
+              + Adicionar Tag
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Full Page Dedicated Chat Container - Liquid Glass Aesthetics */}

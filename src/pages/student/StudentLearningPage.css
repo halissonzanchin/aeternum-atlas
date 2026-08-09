@@ -383,6 +383,60 @@
   margin-top: 0.5rem;
 }
 
+.a26-liquid-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.a26-liquid-metric-card {
+  padding: 16px 20px;
+  background: rgba(14, 26, 28, 0.68);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(52, 206, 196, 0.24);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: all 0.2s ease;
+}
+
+.a26-liquid-metric-card:hover {
+  border-color: rgba(52, 206, 196, 0.45);
+  transform: translateY(-2px);
+}
+
+.a26-liquid-metric-card__label {
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(200, 230, 230, 0.72);
+}
+
+.a26-liquid-metric-card__value {
+  font-size: 1.45rem;
+  font-weight: 750;
+  color: #f1f7f4;
+  line-height: 1.2;
+}
+
+.a26-liquid-metric-card__value.is-gold {
+  color: #f3d789;
+}
+
+.a26-liquid-metric-card__value.is-teal {
+  color: #34cec4;
+}
+
+.a26-liquid-metric-card__detail {
+  font-size: 0.75rem;
+  color: rgba(241, 247, 244, 0.65);
+  margin-top: 2px;
+}
+
 .a26-ai-tutor-studio-toolbar {
   background: rgba(14, 24, 26, 0.68) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
@@ -401,4 +455,16 @@
   border: 1px solid rgba(52, 206, 196, 0.32) !important;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
   border-radius: 28px !important;
+}
+
+@media (max-width: 1024px) {
+  .a26-liquid-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .a26-liquid-metrics-grid {
+    grid-template-columns: 1fr;
+  }
 }
