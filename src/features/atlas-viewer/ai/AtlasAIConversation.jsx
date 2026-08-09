@@ -21,8 +21,8 @@ function formatInlineText(line) {
 function normalizeTextSpacing(rawText) {
   let str = String(rawText || "");
   
-  // 1. Remove informal conversational filler openers
-  str = str.replace(/^(Excelente!|Compreendo|Certo|Okay|Com certeza!)[^.!]*[.!]?\s*/gi, "");
+  // 1. Remove informal conversational filler openers and passive refusal disclaimers
+  str = str.replace(/^(Excelente!|Compreendo|Certo|Okay|Com certeza!|No entanto,\s*como\s*seu\s*tutor\s*de\s*IA[^.!]*[.!]?)[^.!]*[.!]?\s*/gi, "");
 
   // 2. Clean raw code markdown artifacts (---, ###, ####, **\n1.\n, dangling asterisks)
   str = str.replace(/---/g, "\n\n");
