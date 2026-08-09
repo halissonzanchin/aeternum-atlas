@@ -46,6 +46,11 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
   const overlayOpen = mobileNavigationOpen;
 
   useEffect(() => {
+    const content = document.getElementById("a26-shell-content");
+    content?.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [path]);
+
+  useEffect(() => {
     const onKeyDown = (event) => {
       const target = event.target;
       const isTyping = target instanceof HTMLInputElement
