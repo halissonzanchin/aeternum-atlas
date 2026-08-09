@@ -142,35 +142,60 @@ export default function StudyAgendaPage({ navigate }) {
         {/* Center Main View (Hourly Grid OR Month Calendar) */}
         <main className="a26-agenda-view-container">
           {displayMode === "hourly_week" ? (
-            <AgendaHourlyGrid
-              eventsByDate={filteredEventsMap}
-              selectedDate={agenda.selectedDate}
-              setSelectedDate={agenda.setSelectedDate}
-              onSelectEvent={(evt) => setPopoverEvent(evt)}
-              onNewActivity={openNewActivity}
-            />
-          ) : (
-            <AgendaCalendar
-              eventsByDate={filteredEventsMap}
-              selectedDate={agenda.selectedDate}
-              setSelectedDate={agenda.setSelectedDate}
-            />
-          )}
+            <>
+              {/* Compact Liquid Glass Summary Bar for Weekly Mode */}
+              <div className="a26-weekly-quick-stats">
+                <div className="a26-quick-stat-pill">
+                  <span className="a26-quick-stat-label">Programadas</span>
+                  <strong className="a26-quick-stat-val">{weeklySummary.scheduled}</strong>
+                </div>
+                <div className="a26-quick-stat-pill">
+                  <span className="a26-quick-stat-label">Concluídas</span>
+                  <strong className="a26-quick-stat-val is-teal">{weeklySummary.completed}</strong>
+                </div>
+                <div className="a26-quick-stat-pill">
+                  <span className="a26-quick-stat-label">Pendentes</span>
+                  <strong className="a26-quick-stat-val is-gold">{weeklySummary.pending}</strong>
+                </div>
+                <div className="a26-quick-stat-pill">
+                  <span className="a26-quick-stat-label">Tempo Planejado</span>
+                  <strong className="a26-quick-stat-val">{Math.round(weeklySummary.plannedMinutes / 60)}h</strong>
+                </div>
+                <div className="a26-quick-stat-pill is-rate">
+                  <span className="a26-quick-stat-label">Constância</span>
+                  <strong className="a26-quick-stat-val">{weeklySummary.completionRate}%</strong>
+                </div>
+              </div>
 
-          {/* Side Summary & Reviews Stack */}
-          <div className="a26-agenda-summary-stack">
-            <AgendaDayPanel
-              selectedDate={agenda.selectedDate}
-              events={selectedEvents}
-              onNew={openNewActivity}
-              onEdit={openEditActivity}
-              onDelete={agenda.deleteEvent}
-              onComplete={agenda.completeEvent}
-              navigate={navigate}
-            />
-            <WeeklyStudySummary summary={weeklySummary} />
-            <UpcomingReviews reviews={upcomingReviews} navigate={navigate} />
-          </div>
+              <AgendaHourlyGrid
+                eventsByDate={filteredEventsMap}
+                selectedDate={agenda.selectedDate}
+                setSelectedDate={agenda.setSelectedDate}
+                onSelectEvent={(evt) => setPopoverEvent(evt)}
+                onNewActivity={openNewActivity}
+              />
+            </>
+          ) : (
+            <div className="a26-month-view-split">
+              <AgendaCalendar
+                eventsByDate={filteredEventsMap}
+                selectedDate={agenda.selectedDate}
+                setSelectedDate={agenda.setSelectedDate}
+              />
+              <AgendaDayPanel
+                selectedDate={agenda.selectedDate}
+                events={selectedEvents}
+                onNew={openNewActivity}
+                onEdit={openEditActivity}
+                onDelete={agenda.deleteEvent}
+                onComplete={agenda.completeEvent}
+                navigate={navigate}
+              >
+                <WeeklyStudySummary summary={weeklySummary} />
+                <UpcomingReviews reviews={upcomingReviews} navigate={navigate} />
+              </AgendaDayPanel>
+            </div>
+          )}
         </main>
       </div>
 
