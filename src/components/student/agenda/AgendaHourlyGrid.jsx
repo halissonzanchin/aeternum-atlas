@@ -55,7 +55,18 @@ export default function AgendaHourlyGrid({ eventsByDate, selectedDate, setSelect
 
   return (
     <div className="a26-hourly-grid-container">
-      {/* Weekday Header Columns */}
+      {/* Weekday Header Columns & All-Day Slot (Google Calendar Pattern) */}
+      <div className="a26-hourly-grid__top-bar">
+        <button
+          className="a26-today-jump-btn"
+          onClick={() => setSelectedDate(new Date())}
+        >
+          <span>🎯 Hoje</span>
+        </button>
+        <span className="a26-top-bar-divider" />
+        <span className="a26-top-bar-subtitle">Semana Acadêmica & Simulados</span>
+      </div>
+
       <div className="a26-hourly-grid__header">
         <div className="a26-hourly-grid__time-col-header">Horário</div>
         {weekDays.map(day => {
@@ -81,6 +92,31 @@ export default function AgendaHourlyGrid({ eventsByDate, selectedDate, setSelect
             </button>
           );
         })}
+      </div>
+
+      {/* All-Day Events Slot Row */}
+      <div className="a26-all-day-row">
+        <div className="a26-all-day-label">Dia Todo</div>
+        <div className="a26-all-day-columns">
+          {weekDays.map(day => {
+            const dateKey = formatAgendaDate(day);
+            const dayEvents = (eventsByDate.get(dateKey) || []).filter(e => e.type === "exam" || e.priority === "urgent");
+
+            return (
+              <div key={dateKey} className="a26-all-day-cell">
+                {dayEvents.map(evt => (
+                  <div
+                    key={evt.id}
+                    className="a26-all-day-badge"
+                    onClick={() => onSelectEvent(evt)}
+                  >
+                    <span>🏛️ {evt.title}</span>
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Hourly Grid Body */}
