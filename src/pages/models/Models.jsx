@@ -97,10 +97,10 @@ export default function Models({ user, navigate }) {
           <h1>{t("models.title")}</h1>
           <p>{t("models.subtitle")}</p>
         </div>
-        <div className="models-hero-aog__metric" aria-label={`${models.length} modelos disponíveis`}>
-          <strong>{models.length}</strong>
-          <span>Modelos disponíveis</span>
-        </div>
+        <A26Surface material="clear" tone="gold" className="models-hero-aog__badge" aria-label={`${models.length} modelos disponíveis`}>
+          <strong className="models-hero-aog__badge-value">{models.length}</strong>
+          <span className="models-hero-aog__badge-label">Modelos disponíveis</span>
+        </A26Surface>
       </A26Card>
 
       <div className="models-discovery-aog">

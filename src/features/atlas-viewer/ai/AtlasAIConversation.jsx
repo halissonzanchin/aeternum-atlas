@@ -216,7 +216,10 @@ export default function AtlasAIConversation({
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const parentContainer = messagesEndRef.current?.parentElement;
+    if (parentContainer) {
+      parentContainer.scrollTop = parentContainer.scrollHeight;
+    }
   }, [isThinking, messages]);
 
   const handleSend = (textOverride) => {

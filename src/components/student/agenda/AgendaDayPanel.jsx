@@ -35,10 +35,10 @@ export default function AgendaDayPanel({
   return (
     <A26Sidebar className="agenda-day-panel" label={t("studyAgenda.selectedDate")}>
       <div className="agenda-day-panel__header">
-        <span>{t("studyAgenda.selectedDate")}</span>
-        <h2>{formatSelectedDate(selectedDate, language, t)}</h2>
-        <p>{t("studyAgenda.activitiesCount", { count: events.length })}</p>
-        <A26Button variant="primary" onClick={onNew}>{t("studyAgenda.newActivity")}</A26Button>
+        <span className="agenda-day-panel__eyebrow">{t("studyAgenda.selectedDate")}</span>
+        <h2 className="agenda-day-panel__title">{formatSelectedDate(selectedDate, language, t)}</h2>
+        <p className="agenda-day-panel__subtitle">{t("studyAgenda.activitiesCount", { count: events.length })}</p>
+        <A26Button variant="primary" className="agenda-day-panel__btn" onClick={onNew}>{t("studyAgenda.newActivity")}</A26Button>
       </div>
 
       <div className="agenda-day-list">

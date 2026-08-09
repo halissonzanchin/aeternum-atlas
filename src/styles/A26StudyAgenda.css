@@ -262,16 +262,55 @@
 .a26-hourly-event__system { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .a26-hourly-event__model-tag { margin-top: 4px; color: var(--a26-color-teal); font-size: 0.6rem; }
 
-.a26-month-view-split { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(290px, 0.85fr); gap: 16px; }
+.a26-month-view-split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr); gap: 18px; }
 .agenda-calendar,
-.agenda-day-panel { padding: 20px; }
-.agenda-calendar__toolbar,
-.agenda-day-panel__header { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.agenda-day-panel { padding: 20px; min-width: 0; }
+.agenda-calendar__toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.agenda-day-panel__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--a26-color-border);
+}
+.agenda-day-panel__eyebrow {
+  color: var(--a26-color-teal);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.agenda-day-panel__title {
+  margin: 0;
+  color: var(--a26-color-gold);
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.agenda-day-panel__subtitle {
+  margin: 0;
+  color: var(--a26-color-text-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.agenda-day-panel__btn {
+  width: 100%;
+  margin-top: 4px;
+  white-space: nowrap;
+}
 .agenda-calendar__nav,
 .agenda-view-switcher { display: flex; gap: 8px; }
 .agenda-calendar button,
 .agenda-day-panel button,
-.agenda-task-card button { min-height: 38px; padding: 7px 11px; border: 1px solid var(--a26-color-border); border-radius: 12px; color: var(--a26-color-text); background: rgb(255 255 255 / 0.035); cursor: pointer; }
+.agenda-task-card button { min-height: 38px; padding: 7px 14px; border: 1px solid var(--a26-color-border); border-radius: 12px; color: var(--a26-color-text); background: rgb(255 255 255 / 0.035); cursor: pointer; white-space: nowrap; }
 .agenda-weekdays,
 .agenda-calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
 .agenda-weekdays { margin: 18px 0 7px; color: var(--a26-color-text-subtle); font-size: 0.68rem; font-weight: 800; text-align: center; }
