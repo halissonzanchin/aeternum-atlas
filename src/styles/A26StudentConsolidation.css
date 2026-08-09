@@ -137,8 +137,8 @@ body:has(.a26-shell) #root {
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 24px rgba(52, 206, 196, 0.35) !important;
 }
 
-#upe-ai-panel.upe-ai-panel,
-.upe-ai-panel {
+#upe-ai-panel.upe-ai-panel:not(.upe-ai-panel--positioned),
+.upe-ai-panel:not(.upe-ai-panel--positioned) {
   position: fixed !important;
   z-index: 99999 !important;
   top: 102px !important;
@@ -148,6 +148,14 @@ body:has(.a26-shell) #root {
   margin: 0 !important;
   transform: none !important;
   width: min(460px, calc(100vw - 36px)) !important;
+  pointer-events: auto !important;
+}
+
+#atlas-viewer-ai-panel.upe-ai-panel--positioned,
+.upe-ai-panel.upe-ai-panel--positioned {
+  position: fixed !important;
+  z-index: 99999 !important;
+  margin: 0 !important;
   pointer-events: auto !important;
 }
 
