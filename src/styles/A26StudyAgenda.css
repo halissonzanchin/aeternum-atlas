@@ -347,8 +347,38 @@
 .a26-hourly-grid__columns { position: relative; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .a26-hourly-grid__day-column { position: relative; min-width: 0; border-right: 1px solid var(--a26-color-border); }
 .a26-hourly-grid__row-line { position: absolute; left: 0; right: 0; z-index: 0; border-top: 1px solid rgb(218 251 248 / 0.075); }
-.a26-hourly-grid__now-line { position: absolute; left: 0; right: 0; z-index: 4; height: 1px; background: var(--a26-color-teal); pointer-events: none; }
-.a26-hourly-grid__now-dot { position: absolute; left: -4px; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: var(--a26-color-teal); }
+.a26-hourly-grid__now-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 8;
+  height: 2px;
+  background: var(--a26-color-teal);
+  box-shadow: 0 0 10px rgba(92, 232, 223, 0.7);
+  pointer-events: none;
+}
+.a26-hourly-grid__now-dot {
+  position: absolute;
+  left: -5px;
+  top: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--a26-color-teal);
+  box-shadow: 0 0 10px rgba(92, 232, 223, 0.9);
+}
+.a26-hourly-grid__now-time {
+  position: absolute;
+  left: -58px;
+  top: -9px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: var(--a26-color-teal);
+  color: #041215;
+  font: 700 0.65rem var(--a26-type-mono);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
 
 .a26-hourly-event-card {
   position: absolute;

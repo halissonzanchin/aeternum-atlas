@@ -17,8 +17,8 @@ function getEventStyle(event) {
   const duration = Math.max(30, endMins - startMins);
   
   const startOffset = startMins - 7 * 60; // 07:00 baseline
-  const topPx = Math.max(0, (startOffset / 60) * 48);
-  const heightPx = (duration / 60) * 48;
+  const topPx = Math.max(0, (startOffset / 60) * 64);
+  const heightPx = (duration / 60) * 64;
 
   return {
     top: `${topPx}px`,
@@ -29,11 +29,18 @@ function getEventStyle(event) {
 export default function AgendaHourlyGrid({ eventsByDate, selectedDate, setSelectedDate, onSelectEvent, onNewActivity }) {
   const { language, t } = useLanguage();
   const containerRef = useRef(null);
+  const [now, setNow] = useState(() => new Date());
+
+  // Real-time time ticker (updates every 30s)
+  useEffect(() => {
+    const timer = setInterval(() => setNow(new Date()), 30000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Auto scroll to 8:00 AM on mount or view change
   useEffect(() => {
     if (containerRef.current) {
-      containerRef.current.scrollTop = 48; // 1 hour offset (08:00 AM)
+      containerRef.current.scrollTop = 64; // 1 hour offset (08:00 AM)
     }
   }, []);
 
@@ -55,11 +62,11 @@ export default function AgendaHourlyGrid({ eventsByDate, selectedDate, setSelect
 
   const todayStr = formatAgendaDate(new Date());
 
-  // Current time line position
-  const now = new Date();
+  // Current time line position (Dynamic & Accurate to 64px/hour)
   const nowMinutes = now.getHours() * 60 + now.getMinutes();
   const showNowLine = nowMinutes >= 7 * 60 && nowMinutes <= 22 * 60;
-  const nowTopPx = ((nowMinutes - 7 * 60) / 60) * 48;
+  const nowTopPx = ((nowMinutes - 7 * 60) / 60) * 64;
+  const nowTimeFormatted = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
 
   return (
     <div ref={containerRef} className="a26-hourly-grid-container">
@@ -152,6 +159,7 @@ export default function AgendaHourlyGrid({ eventsByDate, selectedDate, setSelect
           {showNowLine && (
             <div className="a26-hourly-grid__now-line" style={{ top: `${nowTopPx}px` }}>
               <span className="a26-hourly-grid__now-dot" />
+              <span className="a26-hourly-grid__now-time">{nowTimeFormatted}</span>
             </div>
           )}
 

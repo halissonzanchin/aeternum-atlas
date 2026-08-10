@@ -140,24 +140,6 @@ export default function AgendaSidebar({
           </A26Surface>
         ))}
       </div>
-
-      {/* Anatomical System Filter */}
-      <div className="a26-sidebar-systems">
-        <h4 className="a26-sidebar-section-title">Filtrar por Sistema Anatômico</h4>
-        <select
-          value={selectedSystem}
-          onChange={(e) => setSelectedSystem(e.target.value)}
-          className="a26-sidebar-system-select"
-        >
-          <option value="all">Todos os Sistemas Anatômicos</option>
-          <option value="Cardiovascular">Cardiovascular</option>
-          <option value="Membro Superior">Membro Superior</option>
-          <option value="Sistema nervoso">Sistema Nervoso</option>
-          <option value="Tórax">Tórax</option>
-          <option value="Abdome">Abdome</option>
-          <option value="Cabeça e Pescoço">Cabeça e Pescoço</option>
-        </select>
-      </div>
     </A26Sidebar>
   );
 }
