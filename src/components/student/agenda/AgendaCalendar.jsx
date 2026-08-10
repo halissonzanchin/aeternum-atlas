@@ -105,7 +105,7 @@ export default function AgendaCalendar({ eventsByDate, selectedDate, setSelected
               const dayEvents = eventsByDate.get(key) || [];
               const outside = viewMode === "month" && day.getMonth() !== cursor.getMonth();
               return (
-                <button
+                <div
                   key={key}
                   className={[
                     "agenda-day-cell",
@@ -116,14 +116,24 @@ export default function AgendaCalendar({ eventsByDate, selectedDate, setSelected
                   ].join(" ")}
                   onClick={() => selectDay(day)}
                 >
-                  <span>{String(day.getDate()).padStart(2, "0")}</span>
+                  <span className="agenda-day-cell__num">{String(day.getDate()).padStart(2, "0")}</span>
                   {dayEvents.length ? (
-                    <div className="agenda-day-markers">
-                      {dayEvents.slice(0, 3).map(event => <i key={event.id} className={`agenda-marker agenda-marker--${event.type}`} />)}
-                      <small>{t("studyAgenda.eventsShort", { count: dayEvents.length })}</small>
+                    <div className="agenda-day-event-chips">
+                      {dayEvents.slice(0, 2).map((event) => {
+                        const roleClass = event.createdByRole ? `by-${event.createdByRole}` : "by-student";
+                        return (
+                          <div key={event.id} className={`agenda-event-chip ${roleClass}`} title={`${event.startTime || ""} ${event.title}`}>
+                            <span className="agenda-event-chip__time">{event.startTime || ""}</span>
+                            <span className="agenda-event-chip__title">{event.title}</span>
+                          </div>
+                        );
+                      })}
+                      {dayEvents.length > 2 && (
+                        <span className="agenda-event-chip-more">+{dayEvents.length - 2} mais</span>
+                      )}
                     </div>
                   ) : null}
-                </button>
+                </div>
               );
             })}
           </div>

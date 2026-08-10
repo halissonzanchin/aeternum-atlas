@@ -90,9 +90,9 @@ export default function StudyAgendaPage({ navigate }) {
       data-testid="a26-student-agenda"
       data-a26-source="account-persisted"
     >
-      {/* Liquid Glass Hero Header */}
-      <A26Card as="header" material="substantial" tone="teal" className="study-agenda-hero">
-        <div>
+      {/* Google Calendar Style Unified Top Header Bar */}
+      <A26Card as="header" material="substantial" tone="teal" className="study-agenda-top-bar">
+        <div className="study-agenda-top-bar__left">
           <div className="a26-hero-sync-badges">
             <span className={`a26-hero-sync-badge ${agenda.syncStatus === "synced" ? "is-active" : ""}`}>
               {agenda.syncStatus === "synced" && "Sincronizado com a conta"}
@@ -101,30 +101,27 @@ export default function StudyAgendaPage({ navigate }) {
               {agenda.syncStatus === "auth-required" && "Sessão necessária"}
               {agenda.syncStatus === "loading" && "Verificando sincronização"}
             </span>
-            {agenda.syncError && <span className="a26-hero-sync-badge">Última alteração preservada localmente</span>}
           </div>
           <h1>{t("studyAgenda.title")}</h1>
-          <p>Agenda acadêmica interconectada: sincronize sua rotina com seus professores, simulados e o Tutor IA.</p>
         </div>
 
         <div className="a26-hero-actions">
-          {/* Main Display Switcher */}
+          {/* Main Display Switcher (Google Calendar Pattern: Mês | Semana | Dia) */}
           <A26SegmentedControl
             className="a26-main-mode-switcher"
             label="Visualização da agenda"
             value={displayMode}
             onChange={setDisplayMode}
             options={[
+              { value: "month", label: "Mês" },
               { value: "hourly_week", label: "Grade semanal" },
-              { value: "month", label: "Mês" }
+              { value: "day", label: "Dia" }
             ]}
           />
-
-          <A26Button variant="primary" onClick={openNewActivity}>Nova atividade</A26Button>
         </div>
       </A26Card>
 
-      {/* Main Agenda Grid Layout */}
+      {/* Main Agenda Grid Layout (Sidebar 270px + Main Workspace 100%) */}
       <div className="study-agenda-main-grid">
         {/* Left Sidebar Filters & Mini Calendar */}
         <AgendaSidebar
@@ -140,47 +137,62 @@ export default function StudyAgendaPage({ navigate }) {
           syncStatus={agenda.syncStatus}
         />
 
-        {/* Center Main View (Hourly Grid OR Month Calendar) */}
+        {/* Center Main Workspace (100% Full Width Active View) */}
         <A26Card as="main" material="clear" className="a26-agenda-view-container">
-          {displayMode === "hourly_week" ? (
-            <>
-              {/* Compact Liquid Glass Summary Bar for Weekly Mode */}
-              <div className="a26-weekly-quick-stats" aria-label="Resumo da semana">
-                <A26Metric label="Programadas" value={weeklySummary.scheduled} icon={<LineIcon name="note" />} />
-                <A26Metric label="Concluídas" value={weeklySummary.completed} tone="teal" icon={<LineIcon name="check" />} />
-                <A26Metric label="Pendentes" value={weeklySummary.pending} tone="gold" icon={<LineIcon name="clock" />} />
-                <A26Metric label="Tempo planejado" value={`${Math.round(weeklySummary.plannedMinutes / 60)}h`} icon={<LineIcon name="timer" />} />
-                <A26Metric label="Constância" value={`${weeklySummary.completionRate}%`} tone="teal" icon={<LineIcon name="target" />} />
-              </div>
+          {/* Compact Liquid Glass Summary Bar */}
+          <div className="a26-weekly-quick-stats" aria-label="Resumo da semana">
+            <A26Metric label="Programadas" value={weeklySummary.scheduled} icon={<LineIcon name="note" />} />
+            <A26Metric label="Concluídas" value={weeklySummary.completed} tone="teal" icon={<LineIcon name="check" />} />
+            <A26Metric label="Pendentes" value={weeklySummary.pending} tone="gold" icon={<LineIcon name="clock" />} />
+            <A26Metric label="Tempo planejado" value={`${Math.round(weeklySummary.plannedMinutes / 60)}h`} icon={<LineIcon name="timer" />} />
+            <A26Metric label="Constância" value={`${weeklySummary.completionRate}%`} tone="teal" icon={<LineIcon name="target" />} />
+          </div>
 
-              <AgendaHourlyGrid
-                eventsByDate={filteredEventsMap}
-                selectedDate={agenda.selectedDate}
-                setSelectedDate={agenda.setSelectedDate}
-                onSelectEvent={(evt) => setPopoverEvent(evt)}
-                onNewActivity={openNewActivity}
-              />
-            </>
-          ) : (
-            <div className="a26-month-view-split">
+          {displayMode === "hourly_week" ? (
+            <AgendaHourlyGrid
+              eventsByDate={filteredEventsMap}
+              selectedDate={agenda.selectedDate}
+              setSelectedDate={agenda.setSelectedDate}
+              onSelectEvent={(evt) => setPopoverEvent(evt)}
+              onNewActivity={openNewActivity}
+            />
+          ) : displayMode === "month" ? (
+            <div className="a26-month-view-container">
               <AgendaCalendar
                 eventsByDate={filteredEventsMap}
                 selectedDate={agenda.selectedDate}
                 setSelectedDate={agenda.setSelectedDate}
               />
-              <AgendaDayPanel
-                selectedDate={agenda.selectedDate}
-                events={selectedEvents}
-                onNew={openNewActivity}
-                onEdit={openEditActivity}
-                onDelete={agenda.deleteEvent}
-                onComplete={agenda.completeEvent}
-                navigate={navigate}
-              >
-                <WeeklyStudySummary summary={weeklySummary} />
-                <UpcomingReviews reviews={upcomingReviews} navigate={navigate} />
-              </AgendaDayPanel>
+              {selectedEvents.length > 0 && (
+                <div className="a26-day-panel-drawer">
+                  <AgendaDayPanel
+                    selectedDate={agenda.selectedDate}
+                    events={selectedEvents}
+                    onNew={openNewActivity}
+                    onEdit={openEditActivity}
+                    onDelete={agenda.deleteEvent}
+                    onComplete={agenda.completeEvent}
+                    navigate={navigate}
+                  >
+                    <WeeklyStudySummary summary={weeklySummary} />
+                    <UpcomingReviews reviews={upcomingReviews} navigate={navigate} />
+                  </AgendaDayPanel>
+                </div>
+              )}
             </div>
+          ) : (
+            <AgendaDayPanel
+              selectedDate={agenda.selectedDate}
+              events={selectedEvents}
+              onNew={openNewActivity}
+              onEdit={openEditActivity}
+              onDelete={agenda.deleteEvent}
+              onComplete={agenda.completeEvent}
+              navigate={navigate}
+            >
+              <WeeklyStudySummary summary={weeklySummary} />
+              <UpcomingReviews reviews={upcomingReviews} navigate={navigate} />
+            </AgendaDayPanel>
           )}
         </A26Card>
       </div>

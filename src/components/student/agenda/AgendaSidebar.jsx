@@ -67,6 +67,12 @@ export default function AgendaSidebar({
 
   return (
     <A26Sidebar label="Filtros e calendário da agenda" className="a26-agenda-sidebar">
+      {/* Primary Action Button (Google Calendar "+ Criar" Pattern) */}
+      <A26Button variant="primary" className="a26-sidebar-create-btn" onClick={onNewActivity}>
+        <span className="a26-sidebar-create-btn__icon">+</span>
+        <span>Agendar Nova Atividade</span>
+      </A26Button>
+
       {/* Mini Calendar Navigation */}
       <A26Card material="clear" className="a26-mini-calendar">
         <div className="a26-mini-calendar__header">

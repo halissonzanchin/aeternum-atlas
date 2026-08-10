@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import LineIcon from "../../icons/LineIcon";
 import { formatAgendaDate, parseAgendaDate } from "../../../hooks/useStudyAgenda";
 import { useLanguage } from "../../../context/LanguageContext";
@@ -17,8 +17,8 @@ function getEventStyle(event) {
   const duration = Math.max(30, endMins - startMins);
   
   const startOffset = startMins - 7 * 60; // 07:00 baseline
-  const topPx = Math.max(0, (startOffset / 60) * 64);
-  const heightPx = (duration / 60) * 64;
+  const topPx = Math.max(0, (startOffset / 60) * 48);
+  const heightPx = (duration / 60) * 48;
 
   return {
     top: `${topPx}px`,
@@ -28,7 +28,14 @@ function getEventStyle(event) {
 
 export default function AgendaHourlyGrid({ eventsByDate, selectedDate, setSelectedDate, onSelectEvent, onNewActivity }) {
   const { language, t } = useLanguage();
-  const [activePopover, setActivePopover] = useState(null);
+  const containerRef = useRef(null);
+
+  // Auto scroll to 8:00 AM on mount or view change
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = 48; // 1 hour offset (08:00 AM)
+    }
+  }, []);
 
   // Compute week dates (Monday to Sunday)
   const weekDays = useMemo(() => {
@@ -54,7 +61,7 @@ export default function AgendaHourlyGrid({ eventsByDate, selectedDate, setSelect
   const nowTopPx = ((nowMinutes - 7 * 60) / 60) * 64;
 
   return (
-    <div className="a26-hourly-grid-container">
+    <div ref={containerRef} className="a26-hourly-grid-container">
       {/* Weekday Header Columns & All-Day Slot (Google Calendar Pattern) */}
       <div className="a26-hourly-grid__top-bar">
         <button
