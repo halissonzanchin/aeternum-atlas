@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
 import { useAtlasAITutorSession } from "../../context/AtlasAITutorSessionContext";
@@ -12,6 +12,12 @@ import {
   A26Toolbar
 } from "../../components/aeternum-26";
 import { generateAnatomicalFlashcards } from "../../services/ai/flashcardGenerationService";
+import {
+  recordCardReview,
+  getSavedDecks,
+  saveDeckToCollection,
+  scheduleFlashcardStudyEvent
+} from "../../services/ai/flashcardSpacedRepetitionService";
 import "../../styles/AnatomicalFlashcards.css";
 
 const QUICK_TOPIC_CHIPS = [
@@ -26,6 +32,7 @@ const QUICK_TOPIC_CHIPS = [
 export default function AnatomicalFlashcardsPage({ user, navigate }) {
   const { language, t } = useLanguage();
   const { sendMessage } = useAtlasAITutorSession();
+  const userId = user?.id || "student-default";
 
   // Generator Config State (NotebookLM Pattern)
   const [topicInput, setTopicInput] = useState("Fêmur");
@@ -41,7 +48,42 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
   const [sessionResults, setSessionResults] = useState([]); // [{ card, result: "correct" | "wrong" }]
   const [isFinished, setIsFinished] = useState(false);
 
+  // Saved Decks Collection State
+  const [savedDecks, setSavedDecks] = useState([]);
+  const [isDeckSaved, setIsDeckSaved] = useState(false);
+  const [scheduledNotice, setScheduledNotice] = useState("");
+
   const currentCard = activeDeck?.cards?.[currentIndex];
+
+  // Load saved decks on mount
+  useEffect(() => {
+    setSavedDecks(getSavedDecks(userId));
+  }, [userId]);
+
+  // Keyboard Hotkeys Listener (Anki Style: Space = Flip, 1 = Wrong, 2 = Correct, E = Explain)
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (!activeDeck || isFinished) return;
+      if (["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
+
+      if (e.code === "Space" || e.code === "Enter") {
+        e.preventDefault();
+        setIsFlipped(prev => !prev);
+      } else if (e.key === "1" || e.code === "ArrowLeft") {
+        e.preventDefault();
+        handleRateCard("wrong");
+      } else if (e.key === "2" || e.code === "ArrowRight") {
+        e.preventDefault();
+        handleRateCard("correct");
+      } else if (e.key === "e" || e.key === "E") {
+        e.preventDefault();
+        if (currentCard) handleExplainWithAI(currentCard);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeDeck, currentIndex, isFinished, currentCard]);
 
   async function handleGenerateDeck(customTopic) {
     const selectedTopic = customTopic || topicInput;
@@ -50,6 +92,8 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
     setSessionResults([]);
     setCurrentIndex(0);
     setIsFlipped(false);
+    setIsDeckSaved(false);
+    setScheduledNotice("");
 
     try {
       const generated = await generateAnatomicalFlashcards({
@@ -69,192 +113,254 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
   function handleRateCard(result) {
     if (!currentCard) return;
 
+    // Record SuperMemo SM-2 Spaced Repetition Rating
+    recordCardReview(userId, currentCard.id, result === "correct" ? "good" : "again");
+
     setFeedbackState(result);
-    const newResults = [...sessionResults, { card: currentCard, result }];
-    setSessionResults(newResults);
+    setSessionResults(prev => [...prev, { card: currentCard, result }]);
 
     setTimeout(() => {
       setFeedbackState(null);
       setIsFlipped(false);
 
-      if (currentIndex + 1 < activeDeck.cards.length) {
+      if (currentIndex < activeDeck.cards.length - 1) {
         setCurrentIndex(prev => prev + 1);
       } else {
         setIsFinished(true);
-        syncTutorMemory(newResults);
+        saveMemoryToTutorSession([...sessionResults, { card: currentCard, result }]);
       }
-    }, 650);
+    }, 450);
   }
 
-  function syncTutorMemory(results) {
-    const correct = results.filter(r => r.result === "correct");
-    const wrong = results.filter(r => r.result === "wrong");
-    const rate = Math.round((correct.length / results.length) * 100);
+  function saveMemoryToTutorSession(results) {
+    const correctCount = results.filter(r => r.result === "correct").length;
+    const wrongCount = results.length - correctCount;
+    const rate = Math.round((correctCount / (results.length || 1)) * 100);
 
-    const weakTopics = Array.from(new Set(wrong.map(r => r.card.topic)));
-    const strongTopics = Array.from(new Set(correct.map(r => r.card.topic)));
-
-    // Send high-priority memory update message to Tutor AI
-    const memoryMessage = `[MEMÓRIA DO ESTUDANTE ACUMULADA]: O aluno concluiu o baralho "${activeDeck?.title}" com ${rate}% de acertos. Tópicos dominados: ${strongTopics.join(", ") || "Nenhum"}. Tópicos de reforço urgente: ${weakTopics.join(", ") || "Nenhum"}.`;
+    const memoryPayload = {
+      timestamp: new Date().toISOString(),
+      deckTitle: activeDeck?.title,
+      totalCards: results.length,
+      correctCount,
+      wrongCount,
+      rate,
+      masteredTopics: results.filter(r => r.result === "correct").map(r => r.card.topic),
+      reviewTopics: results.filter(r => r.result === "wrong").map(r => r.card.topic)
+    };
 
     try {
-      window.localStorage.setItem(`aeternum_student_flashcard_memory:${user?.id || "user"}`, JSON.stringify({
-        lastDeck: activeDeck?.title,
-        accuracy: rate,
-        weakTopics,
-        strongTopics,
-        timestamp: new Date().toISOString()
-      }));
-    } catch {
-      // Ignorar indisponibilidade do storage
+      localStorage.setItem(`aeternum_student_flashcard_memory:${userId}`, JSON.stringify(memoryPayload));
+      sendMessage(
+        `[SISTEMA DE MEMÓRIA 360°]: O estudante concluiu a sessão de Flashcards "${activeDeck?.title}" com ${rate}% de acerto (${correctCount} acertos, ${wrongCount} erros). Tópicos para reforçar: ${memoryPayload.reviewTopics.join(", ") || "Nenhum"}.`,
+        { silent: true }
+      );
+    } catch (err) {
+      console.warn("Erro ao salvar memória do aluno:", err);
     }
   }
 
+  function handleSaveCurrentDeck() {
+    if (!activeDeck) return;
+    const success = saveDeckToCollection(userId, activeDeck);
+    if (success) {
+      setIsDeckSaved(true);
+      setSavedDecks(getSavedDecks(userId));
+    }
+  }
+
+  function handleScheduleReview(intervalDays = 1) {
+    const evt = scheduleFlashcardStudyEvent(activeDeck?.title || topicInput, intervalDays);
+    if (evt) {
+      setScheduledNotice(`✅ Revisão agendada na sua Agenda de Estudos para ${evt.date} às ${evt.time}!`);
+    }
+  }
+
+  function handleLoadSavedDeck(deck) {
+    setActiveDeck(deck);
+    setCurrentIndex(0);
+    setIsFlipped(false);
+    setIsFinished(false);
+    setSessionResults([]);
+    setIsDeckSaved(true);
+  }
+
   function handleExplainWithAI(card) {
-    const promptText = `Explique em detalhes a estrutura anatômica "${card.back}" abordada no flashcard: "${card.front}". Cite as fontes da literatura médica (Moore, Sobotta, Netter).`;
-    sendMessage({
-      text: promptText,
-      contextLabel: `Flashcard: ${card.topic}`
-    });
+    if (!card) return;
+    sendMessage(`Estou estudando o Flashcard de Anatomia sobre "${card.topic}". Pergunta: "${card.front}". Resposta: "${card.back}". Pode me explicar com detalhes anatômicos e clínicos como se eu estivesse em uma aula prática?`);
   }
 
   function handleRestartWrongOnly() {
     const wrongCards = sessionResults.filter(r => r.result === "wrong").map(r => r.card);
     if (!wrongCards.length) return;
 
-    setActiveDeck(prev => ({
-      ...prev,
+    setActiveDeck({
+      ...activeDeck,
+      title: `${activeDeck.title} (Reforço)`,
       cards: wrongCards
-    }));
+    });
     setCurrentIndex(0);
-    setSessionResults([]);
-    setIsFinished(false);
     setIsFlipped(false);
+    setIsFinished(false);
+    setSessionResults([]);
   }
 
   const performanceStats = useMemo(() => {
-    if (!sessionResults.length) return { correct: 0, wrong: 0, rate: 0 };
+    if (!sessionResults.length) return { rate: 0, correct: 0, wrong: 0 };
     const correct = sessionResults.filter(r => r.result === "correct").length;
-    const wrong = sessionResults.filter(r => r.result === "wrong").length;
+    const wrong = sessionResults.length - correct;
     const rate = Math.round((correct / sessionResults.length) * 100);
-    return { correct, wrong, rate };
+    return { rate, correct, wrong };
   }, [sessionResults]);
 
   const masteredTopics = useMemo(() => {
-    const correct = sessionResults.filter(r => r.result === "correct").map(r => r.card.topic);
-    return Array.from(new Set(correct));
+    return Array.from(new Set(sessionResults.filter(r => r.result === "correct").map(r => r.card.topic)));
   }, [sessionResults]);
 
   const reviewTopics = useMemo(() => {
-    const wrong = sessionResults.filter(r => r.result === "wrong").map(r => r.card.topic);
-    return Array.from(new Set(wrong));
+    return Array.from(new Set(sessionResults.filter(r => r.result === "wrong").map(r => r.card.topic)));
   }, [sessionResults]);
 
   return (
-    <div className="a26-flashcards-page fade-in-up" data-testid="a26-flashcards-module">
-      {/* Top Hero Banner */}
-      <A26Card material="substantial" tone="teal" className="a26-flashcards-hero">
+    <div className="a26-flashcards-container">
+      {/* Header */}
+      <A26Toolbar className="a26-flashcards-toolbar">
         <div>
-          <span className="a26-kicker">Revisão Ativa & Repetição Espaçada RAG</span>
-          <h1>Flashcards Anatômicos Inteligentes</h1>
-          <p>Sintetize baralhos didáticos a partir dos 14 livros oficiais da anatomia médica e sincronize seu desempenho com o Tutor IA.</p>
+          <span className="a26-kicker">Revisão Ativa & Repetição Espaçada SM-2</span>
+          <h1 className="text-2xl font-bold text-agedGold">Flashcards Anatômicos Inteligentes</h1>
+          <p className="text-xs text-textMuted mt-0.5">
+            Sintetize baralhos didáticos a partir dos 14 livros oficiais da anatomia médica e sincronize seu desempenho com o Tutor IA.
+          </p>
         </div>
+
         {activeDeck && (
-          <A26Button variant="liquid" icon={<LineIcon name="reset" />} onClick={() => setActiveDeck(null)}>
+          <A26Button variant="liquid" onClick={() => setActiveDeck(null)} icon={<LineIcon name="reset" />}>
             Novo Baralho
           </A26Button>
         )}
-      </A26Card>
+      </A26Toolbar>
 
-      {/* Mode 1: Generator Form (NotebookLM Pattern) */}
+      {/* Mode 1: Generator Modal & Config (NotebookLM Pattern) */}
       {!activeDeck && (
-        <A26Card material="clear" className="a26-flashcard-config-card">
-          <div className="a26-config-row">
-            <div className="a26-config-group">
-              <label>Número de cards</label>
+        <A26Surface material="liquid" className="a26-generator-surface p-6 space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="text-xs uppercase tracking-wider text-agedGold font-semibold block mb-2">
+                Número de Cards
+              </label>
               <A26SegmentedControl
+                options={[
+                  { label: "Menos (~5)", value: "few" },
+                  { label: "Padrão (~10)", value: "standard" },
+                  { label: "Mais (~20)", value: "many" }
+                ]}
                 value={cardCount}
                 onChange={setCardCount}
-                options={[
-                  { value: "few", label: "Menos (~5)" },
-                  { value: "standard", label: "Padrão (~10)" },
-                  { value: "many", label: "Mais (~20)" }
-                ]}
               />
             </div>
 
-            <div className="a26-config-group">
-              <label>Nível de dificuldade</label>
+            <div>
+              <label className="text-xs uppercase tracking-wider text-agedGold font-semibold block mb-2">
+                Nível de Dificuldade
+              </label>
               <A26SegmentedControl
+                options={[
+                  { label: "Fácil", value: "Fácil" },
+                  { label: "Médio (padrão)", value: "Médio" },
+                  { label: "Difícil", value: "Difícil" }
+                ]}
                 value={difficulty}
                 onChange={setDifficulty}
-                options={[
-                  { value: "Fácil", label: "Fácil" },
-                  { value: "Médio", label: "Médio (padrão)" },
-                  { value: "Difícil", label: "Difícil" }
-                ]}
               />
             </div>
           </div>
 
-          <div className="a26-config-group">
-            <label>Qual deve ser o tema?</label>
+          <div>
+            <label className="text-xs uppercase tracking-wider text-agedGold font-semibold block mb-2">
+              Qual deve ser o tema?
+            </label>
             <A26Field
               value={topicInput}
-              placeholder="Digite o tema exato (ex: Vascularização do Coração, Pares Cranianos)..."
               onChange={e => setTopicInput(e.target.value)}
+              placeholder="Digite o assunto (ex: Vértebras Cervicais, Fêmur, Artéria Coronária...)"
+              className="w-full"
             />
-            <div className="a26-topic-chips">
-              {QUICK_TOPIC_CHIPS.map(chip => (
-                <button
-                  key={chip}
-                  type="button"
-                  className="a26-topic-chip"
-                  onClick={() => {
-                    const clean = chip.replace(/^\+\s*/, "");
-                    setTopicInput(clean);
-                    handleGenerateDeck(clean);
-                  }}
-                >
-                  {chip}
-                </button>
-              ))}
-            </div>
           </div>
 
-          <div className="flex justify-end mt-4">
+          <div className="a26-chips-wrapper flex flex-wrap gap-2">
+            {QUICK_TOPIC_CHIPS.map(chip => (
+              <button
+                key={chip}
+                type="button"
+                className="a26-quick-chip"
+                onClick={() => {
+                  const cleaned = chip.replace(/^\+\s*/, "");
+                  setTopicInput(cleaned);
+                  handleGenerateDeck(cleaned);
+                }}
+              >
+                {chip}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-end gap-3 pt-2">
             <A26Button
               variant="primary"
-              disabled={isGenerating || !topicInput.trim()}
               onClick={() => handleGenerateDeck()}
+              loading={isGenerating}
               icon={<LineIcon name="spark" />}
             >
-              {isGenerating ? "Consultando RAG de Livros..." : "Gerar Baralho de Flashcards"}
+              {isGenerating ? "Sintetizando RAG..." : "Gerar Baralho de Flashcards"}
             </A26Button>
           </div>
-        </A26Card>
+
+          {/* Saved Decks Section */}
+          {savedDecks.length > 0 && (
+            <div className="pt-6 border-t border-glassBorder/40">
+              <span className="a26-kicker">Sua Coleção Pessoal</span>
+              <h3 className="text-base font-bold text-agedGold mb-3">Meus Baralhos Salvos ({savedDecks.length})</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {savedDecks.map(deck => (
+                  <div
+                    key={deck.id || deck.title}
+                    className="p-3 bg-glassSurface/50 border border-glassBorder rounded-xl hover:border-emerald-500/50 cursor-pointer transition"
+                    onClick={() => handleLoadSavedDeck(deck)}
+                  >
+                    <h4 className="text-sm font-semibold text-textMain line-clamp-1">{deck.title}</h4>
+                    <span className="text-[11px] text-emerald-400">{deck.cards?.length} cards · {deck.difficulty}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </A26Surface>
       )}
 
-      {/* Mode 2: Deck Player (Anki + NotebookLM Pattern) */}
+      {/* Mode 2: Interactive 3D Player (Anki Pattern with Image Occlusion & Hotkeys) */}
       {activeDeck && !isFinished && currentCard && (
-        <div className="a26-flashcard-stage">
-          {/* Deck Header & Citation */}
-          <div className="flex items-center justify-between w-full px-2">
+        <div className="a26-flashcard-player-container">
+          <div className="a26-player-meta flex items-center justify-between">
             <div>
               <h2 className="text-lg font-bold text-agedGold">{activeDeck.title}</h2>
               <span className="text-xs text-textMuted">Fonte RAG: {currentCard.sourceCitation}</span>
             </div>
-            <span className="a26-flashcard-count">
-              {currentIndex + 1} / {activeDeck.cards.length}
-            </span>
+            <div className="flex items-center gap-3">
+              {!isDeckSaved && (
+                <A26Button variant="ghost" onClick={handleSaveCurrentDeck} icon={<LineIcon name="bookmark" />}>
+                  ⭐ Salvar Baralho
+                </A26Button>
+              )}
+              <span className="a26-card-counter font-mono text-sm">
+                {currentIndex + 1} / {activeDeck.cards.length}
+              </span>
+            </div>
           </div>
 
-          {/* 3D Flippable Flashcard */}
+          {/* 3D Flip Card Container */}
           <div
             className={`a26-flashcard-3d-wrapper ${isFlipped ? "is-flipped" : ""}`}
             onClick={() => setIsFlipped(!isFlipped)}
           >
-            {/* Feedback Swipe Overlays */}
             {feedbackState === "correct" && (
               <div className="a26-feedback-overlay is-correct">
                 <span>Entendido! ✓</span>
@@ -266,21 +372,27 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
               </div>
             )}
 
-            {/* Front Side - Minimal & Clean (NotebookLM Pattern) */}
+            {/* Front Side - Minimal & Clean with Image Occlusion Mask */}
             <div className="a26-flashcard-face a26-flashcard-face--front">
               <div className="a26-flashcard-header">
                 <span className="a26-kicker">Frente</span>
                 <span className="a26-flashcard-citation">{currentCard.topic}</span>
               </div>
 
-              <div className="a26-flashcard-body">
+              <div className="a26-flashcard-body relative">
                 {currentCard.imageUrl && (
-                  <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
+                  <div className="relative inline-block mx-auto">
+                    <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
+                    {/* Image Occlusion Mask Badge */}
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-emerald-950/90 text-emerald-300 text-[10px] font-mono px-3 py-1 rounded-full border border-emerald-500/50 shadow-lg backdrop-blur-md">
+                      👁️ [ ? ] Ocultar Rótulo — Clique para Revelar
+                    </div>
+                  </div>
                 )}
                 <p className="a26-flashcard-text">{currentCard.front}</p>
               </div>
 
-              <span className="a26-flashcard-hint">Veja a resposta</span>
+              <span className="a26-flashcard-hint">Veja a resposta (ou Pressione Espaço)</span>
             </div>
 
             {/* Back Side - Direct Answer & Tutor AI Action */}
@@ -304,58 +416,65 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
                   }}
                   icon={<LineIcon name="spark" />}
                 >
-                  ✨ Explicar com Tutor IA
+                  ✨ Explicar com Tutor IA (E)
                 </A26Button>
               </div>
             </div>
           </div>
 
-          {/* Anki Rating Buttons */}
-          <div className="a26-anki-controls">
-            <button
-              type="button"
-              className="a26-anki-btn"
-              onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
-              disabled={currentIndex === 0}
-            >
-              ‹
-            </button>
+          {/* Anki Rating Controls */}
+          <div className="a26-anki-controls flex flex-col items-center gap-3 mt-4">
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                className="a26-anki-btn"
+                onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
+                disabled={currentIndex === 0}
+              >
+                ‹
+              </button>
 
-            <button
-              type="button"
-              className="a26-anki-btn is-wrong"
-              onClick={() => handleRateCard("wrong")}
-            >
-              ✕ Errei
-            </button>
+              <button
+                type="button"
+                className="a26-anki-btn is-wrong"
+                onClick={() => handleRateCard("wrong")}
+              >
+                ✕ Errei (1)
+              </button>
 
-            <button
-              type="button"
-              className="a26-anki-btn is-correct"
-              onClick={() => handleRateCard("correct")}
-            >
-              ✓ Acertei
-            </button>
+              <button
+                type="button"
+                className="a26-anki-btn is-correct"
+                onClick={() => handleRateCard("correct")}
+              >
+                ✓ Acertei (2)
+              </button>
 
-            <button
-              type="button"
-              className="a26-anki-btn"
-              onClick={() => setCurrentIndex(prev => Math.min(activeDeck.cards.length - 1, prev + 1))}
-              disabled={currentIndex === activeDeck.cards.length - 1}
-            >
-              ›
-            </button>
+              <button
+                type="button"
+                className="a26-anki-btn"
+                onClick={() => setCurrentIndex(prev => Math.min(activeDeck.cards.length - 1, prev + 1))}
+                disabled={currentIndex === activeDeck.cards.length - 1}
+              >
+                ›
+              </button>
+            </div>
+
+            {/* Quick Keyboard Hotkeys Bar */}
+            <div className="text-[11px] font-mono text-textMuted bg-glassSurface/40 px-4 py-1.5 rounded-full border border-glassBorder/40">
+              ⌨️ Atalhos: <span className="text-emerald-400 font-bold">[Espaço]</span> Virar · <span className="text-rose-400 font-bold">[1]</span> Errei · <span className="text-emerald-400 font-bold">[2]</span> Acertei · <span className="text-agedGold font-bold">[E]</span> Tutor IA
+            </div>
           </div>
         </div>
       )}
 
-      {/* Mode 3: Performance Results Report & Tutor AI Sync */}
+      {/* Mode 3: Performance Results Report & Spaced Repetition Agenda Sync */}
       {isFinished && (
         <A26Card material="substantial" tone="teal" className="a26-performance-report-card">
-          <span className="a26-kicker">Relatório de Desempenho e Domínio</span>
+          <span className="a26-kicker">Relatório de Desempenho e Repetição Espaçada SM-2</span>
           <h2 className="text-2xl font-bold text-agedGold">Baralho Concluído!</h2>
           <p className="text-sm text-textMuted max-w-xl mx-auto">
-            Os dados deste teste foram gravados na memória da sua conta e sincronizados com o Tutor IA.
+            Os dados deste teste foram gravados na memória da sua conta e o intervalo de repetição espaçada foi atualizado.
           </p>
 
           <div className="a26-report-metrics-grid">
@@ -388,12 +507,23 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-4 mt-6">
+          {scheduledNotice && (
+            <div className="p-3 bg-emerald-950/80 border border-emerald-500/50 rounded-xl text-xs font-mono text-emerald-300 text-center my-4">
+              {scheduledNotice}
+            </div>
+          )}
+
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             {performanceStats.wrong > 0 && (
               <A26Button variant="primary" onClick={handleRestartWrongOnly} icon={<LineIcon name="reset" />}>
                 🔄 Repetir Apenas os Errados ({performanceStats.wrong})
               </A26Button>
             )}
+
+            <A26Button variant="ghost" onClick={() => handleScheduleReview(1)} icon={<LineIcon name="calendar" />}>
+              📅 Agendar Revisão em 24h na Agenda
+            </A26Button>
+
             <A26Button variant="liquid" onClick={() => setActiveDeck(null)}>
               ✨ Criar Novo Baralho
             </A26Button>
