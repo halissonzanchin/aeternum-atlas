@@ -1,0 +1,337 @@
+/* Anatomical Flashcards Liquid Glass & 3D Anki Aesthetics */
+
+.a26-flashcards-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-bottom: 40px;
+  color: var(--a26-color-text);
+}
+
+.a26-flashcards-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 32px;
+  border-radius: var(--a26-radius-panel);
+}
+
+.a26-flashcards-hero h1 {
+  margin: 4px 0 0;
+  color: var(--a26-color-gold);
+  font: 700 2rem/1.2 var(--a26-type-display);
+}
+
+.a26-flashcards-hero p {
+  margin: 6px 0 0;
+  color: var(--a26-color-text-muted);
+  font-size: 0.95rem;
+}
+
+/* Generator Modal (NotebookLM Pattern) */
+.a26-flashcard-config-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  border-radius: var(--a26-radius-card);
+}
+
+.a26-config-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+}
+
+.a26-config-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.a26-config-group label {
+  color: var(--a26-color-text-subtle);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.a26-topic-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.a26-topic-chip {
+  padding: 6px 12px;
+  border: 1px solid var(--a26-color-border);
+  border-radius: 999px;
+  color: var(--a26-color-teal);
+  background: rgba(92, 232, 223, 0.06);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.a26-topic-chip:hover {
+  background: rgba(92, 232, 223, 0.18);
+  border-color: rgba(92, 232, 223, 0.4);
+  transform: translateY(-1px);
+}
+
+/* 3D Flashcard Player Container (Anki + NotebookLM) */
+.a26-flashcard-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  perspective: 1200px;
+}
+
+.a26-flashcard-3d-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 380px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.a26-flashcard-3d-wrapper.is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* Flashcard Front & Back Sides */
+.a26-flashcard-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 32px;
+  border-radius: 24px;
+  background: rgb(6 21 27 / 0.85);
+  border: 1px solid rgba(92, 232, 223, 0.25);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.a26-flashcard-face--back {
+  transform: rotateY(180deg);
+  border-color: rgba(223, 197, 127, 0.35);
+  background: rgb(15 23 26 / 0.92);
+}
+
+.a26-flashcard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.a26-flashcard-count {
+  font: 700 0.85rem var(--a26-type-mono);
+  color: var(--a26-color-text-subtle);
+}
+
+.a26-flashcard-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  margin-block: auto;
+}
+
+.a26-flashcard-text {
+  margin: 0;
+  color: var(--a26-color-text);
+  font: 600 1.35rem/1.4 var(--a26-type-sans);
+}
+
+.a26-flashcard-img {
+  max-height: 180px;
+  width: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.a26-flashcard-citation {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(223, 197, 127, 0.08);
+  border: 1px solid rgba(223, 197, 127, 0.25);
+  color: var(--a26-color-gold);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.a26-flashcard-hint {
+  color: var(--a26-color-text-subtle);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* Feedback Animations (Anki Swipe Overlay) */
+.a26-feedback-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  border-radius: 24px;
+  font: 800 1.8rem var(--a26-type-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  animation: popFeedback 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.a26-feedback-overlay.is-correct {
+  background: rgba(52, 211, 153, 0.25);
+  color: #6ee7b7;
+  border: 2px solid #34d399;
+  box-shadow: 0 0 40px rgba(52, 211, 153, 0.4);
+}
+
+.a26-feedback-overlay.is-wrong {
+  background: rgba(248, 113, 113, 0.25);
+  color: #fca5a5;
+  border: 2px solid #f87171;
+  box-shadow: 0 0 40px rgba(248, 113, 113, 0.4);
+}
+
+@keyframes popFeedback {
+  0% { opacity: 0; transform: scale(0.85) rotate(-3deg); }
+  40% { opacity: 1; transform: scale(1.05) rotate(2deg); }
+  100% { opacity: 0; transform: scale(1) rotate(0deg); }
+}
+
+/* Anki Player Footer Controls */
+.a26-anki-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.a26-anki-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--a26-color-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--a26-color-text);
+}
+
+.a26-anki-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.a26-anki-btn.is-wrong {
+  color: #fca5a5;
+  border-color: rgba(248, 113, 113, 0.35);
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.a26-anki-btn.is-wrong:hover {
+  background: rgba(248, 113, 113, 0.22);
+  border-color: #f87171;
+  box-shadow: 0 0 20px rgba(248, 113, 113, 0.3);
+}
+
+.a26-anki-btn.is-correct {
+  color: #6ee7b7;
+  border-color: rgba(52, 211, 153, 0.35);
+  background: rgba(52, 211, 153, 0.1);
+}
+
+.a26-anki-btn.is-correct:hover {
+  background: rgba(52, 211, 153, 0.22);
+  border-color: #34d399;
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.3);
+}
+
+/* Performance Results Report Screen */
+.a26-performance-report-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px;
+  border-radius: var(--a26-radius-panel);
+  text-align: center;
+}
+
+.a26-report-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-block: 16px;
+}
+
+.a26-topics-mastery-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  text-align: left;
+}
+
+.a26-topic-column {
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--a26-color-border);
+}
+
+.a26-topic-column.is-strong { border-color: rgba(52, 211, 153, 0.3); }
+.a26-topic-column.is-weak { border-color: rgba(248, 113, 113, 0.3); }
+
+.a26-topic-column h3 {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.a26-topic-column.is-strong h3 { color: #6ee7b7; }
+.a26-topic-column.is-weak h3 { color: #fca5a5; }
+
+.a26-topic-column ul {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--a26-color-text-muted);
+}

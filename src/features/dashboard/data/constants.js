@@ -12,8 +12,8 @@ export const studyTools = [
     id: "flashcards",
     titleKey: "studentHome.tools.flashcards.title",
     descriptionKey: "studentHome.tools.flashcards.description",
-    statusKey: "studentHome.status.inDevelopment",
-    statusTone: "development",
+    statusKey: "studentHome.status.available",
+    statusTone: "available",
     icon: "library",
     path: "/flashcards"
   },
