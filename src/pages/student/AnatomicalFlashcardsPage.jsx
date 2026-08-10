@@ -222,12 +222,14 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
 
   return (
     <div className="a26-flashcards-container">
-      {/* Header */}
-      <A26Toolbar className="a26-flashcards-toolbar">
+      {/* Hero Header - Liquid Glass Aeternum 26.1 */}
+      <A26Surface material="liquid" className="a26-flashcards-hero">
         <div>
           <span className="a26-kicker">Revisão Ativa & Repetição Espaçada SM-2</span>
-          <h1 className="text-2xl font-bold text-agedGold">Flashcards Anatômicos Inteligentes</h1>
-          <p className="text-xs text-textMuted mt-0.5">
+          <h1 className="text-2xl md:text-3xl font-bold text-agedGold tracking-tight mt-1">
+            Flashcards Anatômicos Inteligentes
+          </h1>
+          <p className="text-xs md:text-sm text-textMuted mt-1">
             Sintetize baralhos didáticos a partir dos 14 livros oficiais da anatomia médica e sincronize seu desempenho com o Tutor IA.
           </p>
         </div>
@@ -237,7 +239,7 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
             Novo Baralho
           </A26Button>
         )}
-      </A26Toolbar>
+      </A26Surface>
 
       {/* Mode 1: Generator Modal & Config (NotebookLM Pattern) */}
       {!activeDeck && (
