@@ -266,7 +266,7 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
               </div>
             )}
 
-            {/* Front Side */}
+            {/* Front Side - Minimal & Clean (NotebookLM Pattern) */}
             <div className="a26-flashcard-face a26-flashcard-face--front">
               <div className="a26-flashcard-header">
                 <span className="a26-kicker">Frente</span>
@@ -275,20 +275,15 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
 
               <div className="a26-flashcard-body">
                 {currentCard.imageUrl && (
-                  <div className="flex flex-col items-center gap-1.5">
-                    <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
-                    <span className="text-[10px] font-mono text-emerald-300 bg-emerald-950/70 px-2.5 py-0.5 rounded-full border border-emerald-500/40">
-                      📄 Prancha Anatômica Autêntica (PDF: {currentCard.pdfImageMeta?.book || currentCard.sourceCitation})
-                    </span>
-                  </div>
+                  <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
                 )}
                 <p className="a26-flashcard-text">{currentCard.front}</p>
               </div>
 
-              <span className="a26-flashcard-hint">🔄 Clique no cartão para ver a resposta</span>
+              <span className="a26-flashcard-hint">Veja a resposta</span>
             </div>
 
-            {/* Back Side */}
+            {/* Back Side - Direct Answer & Tutor AI Action */}
             <div className="a26-flashcard-face a26-flashcard-face--back">
               <div className="a26-flashcard-header">
                 <span className="a26-kicker text-agedGold">Verso · Resposta</span>
@@ -296,10 +291,7 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
               </div>
 
               <div className="a26-flashcard-body">
-                <p className="a26-flashcard-text text-teal-300">{currentCard.back}</p>
-                {currentCard.explanation && (
-                  <p className="text-xs text-textMuted max-w-lg mt-2">{currentCard.explanation}</p>
-                )}
+                <p className="a26-flashcard-text text-teal-300 font-bold text-xl">{currentCard.back}</p>
               </div>
 
               <div className="flex items-center justify-between w-full">
