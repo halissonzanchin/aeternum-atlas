@@ -39,123 +39,58 @@ function localeFor(language) {
 
 export default function AgendaCalendar({ eventsByDate, selectedDate, setSelectedDate }) {
   const { language, t } = useLanguage();
-  const [viewMode, setViewMode] = useState(() => window.innerWidth <= 640 ? "week" : "month");
-  const [cursor, setCursor] = useState(() => parseAgendaDate(selectedDate || new Date()));
-  const locale = localeFor(language);
+  const safeSelected = selectedDate ? parseAgendaDate(selectedDate) : new Date();
 
   const days = useMemo(() => {
-    const safeCursor = cursor && !isNaN(cursor.getTime()) ? cursor : new Date();
-    const safeSelected = selectedDate ? parseAgendaDate(selectedDate) : new Date();
-    if (viewMode === "month") return monthDays(safeCursor);
-    if (viewMode === "week") return Array.from({ length: 7 }, (_, index) => addDays(startOfWeek(safeSelected), index));
-    return [safeSelected];
-  }, [cursor, selectedDate, viewMode]);
-
-  function shift(direction) {
-    if (viewMode === "month") setCursor(current => addMonths(current, direction));
-    if (viewMode === "week") {
-      const next = addDays(selectedDate, direction * 7);
-      setSelectedDate(next);
-      setCursor(next);
-    }
-    if (viewMode === "day") {
-      const next = addDays(selectedDate, direction);
-      setSelectedDate(next);
-      setCursor(next);
-    }
-  }
+    return monthDays(safeSelected);
+  }, [safeSelected]);
 
   function selectDay(day) {
     setSelectedDate(day);
-    setCursor(day);
   }
-
-  const title = viewMode === "month"
-    ? new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" }).format(cursor)
-    : viewMode === "week"
-      ? t("studyAgenda.weekOf", { date: new Intl.DateTimeFormat(locale, { day: "2-digit", month: "2-digit" }).format(startOfWeek(selectedDate)) })
-      : new Intl.DateTimeFormat(locale, { weekday: "long", day: "2-digit", month: "long" }).format(selectedDate);
 
   return (
     <section className="agenda-calendar">
-      <div className="agenda-calendar__toolbar">
-        <div className="agenda-view-switcher">
-          {viewModes.map(mode => (
-            <button
-              key={mode}
-              className={viewMode === mode ? "is-active" : ""}
-              onClick={() => setViewMode(mode)}
-            >
-              {t(`studyAgenda.views.${mode}`)}
-            </button>
-          ))}
-        </div>
-        <div className="agenda-calendar__nav">
-          <button onClick={() => shift(-1)} aria-label={t("actions.back")}><LineIcon name="chevron" /></button>
-          <strong>{title}</strong>
-          <button onClick={() => shift(1)} aria-label={t("actions.open")}><LineIcon name="chevron" /></button>
-        </div>
+      <div className="agenda-weekdays">
+        {["sun", "mon", "tue", "wed", "thu", "fri", "sat"].map(day => <span key={day}>{t(`studyAgenda.weekdays.${day}`)}</span>)}
       </div>
-
-      {viewMode !== "day" ? (
-        <>
-          <div className="agenda-weekdays">
-            {["sun", "mon", "tue", "wed", "thu", "fri", "sat"].map(day => <span key={day}>{t(`studyAgenda.weekdays.${day}`)}</span>)}
-          </div>
-          <div className={`agenda-calendar-grid agenda-calendar-grid--${viewMode}`}>
-            {days.map(day => {
-              const key = formatAgendaDate(day);
-              const dayEvents = (eventsByDate && typeof eventsByDate.get === 'function') ? (eventsByDate.get(key) || []) : [];
-              const outside = viewMode === "month" && day.getMonth() !== cursor.getMonth();
-              return (
-                <div
-                  key={key}
-                  className={[
-                    "agenda-day-cell",
-                    outside ? "is-outside" : "",
-                    sameDate(day, new Date()) ? "is-today" : "",
-                    sameDate(day, selectedDate) ? "is-selected" : "",
-                    dayEvents.length ? "has-events" : ""
-                  ].join(" ")}
-                  onClick={() => selectDay(day)}
-                >
-                  <span className="agenda-day-cell__num">{String(day.getDate()).padStart(2, "0")}</span>
-                  {dayEvents.length ? (
-                    <div className="agenda-day-event-chips">
-                      {dayEvents.slice(0, 2).map((event) => {
-                        const roleClass = event.createdByRole ? `by-${event.createdByRole}` : "by-student";
-                        return (
-                          <div key={event.id} className={`agenda-event-chip ${roleClass}`} title={`${event.startTime || ""} ${event.title}`}>
-                            <span className="agenda-event-chip__time">{event.startTime || ""}</span>
-                            <span className="agenda-event-chip__title">{event.title}</span>
-                          </div>
-                        );
-                      })}
-                      {dayEvents.length > 2 && (
-                        <span className="agenda-event-chip-more">+{dayEvents.length - 2} mais</span>
-                      )}
-                    </div>
-                  ) : null}
-                </div>
-              );
-            })}
-          </div>
-        </>
-      ) : (
-        <div className="agenda-day-focus">
-          {(eventsByDate.get(formatAgendaDate(selectedDate)) || []).length ? (
-            (eventsByDate.get(formatAgendaDate(selectedDate)) || []).map(event => (
-              <button key={event.id} className={`agenda-day-focus-item agenda-day-focus-item--${event.type}`}>
-                <span>{event.startTime} — {event.endTime}</span>
-                <strong>{event.title}</strong>
-                <small>{event.anatomicalSystem}</small>
-              </button>
-            ))
-          ) : (
-            <p>{t("studyAgenda.noActivities")}</p>
-          )}
-        </div>
-      )}
+      <div className="agenda-calendar-grid agenda-calendar-grid--month">
+        {days.map(day => {
+          const key = formatAgendaDate(day);
+          const dayEvents = (eventsByDate && typeof eventsByDate.get === 'function') ? (eventsByDate.get(key) || []) : [];
+          const outside = day.getMonth() !== safeSelected.getMonth();
+          return (
+            <div
+              key={key}
+              className={[
+                "agenda-day-cell",
+                outside ? "is-outside" : "",
+                sameDate(day, new Date()) ? "is-today" : "",
+                sameDate(day, selectedDate) ? "is-selected" : "",
+                dayEvents.length ? "has-events" : ""
+              ].join(" ")}
+              onClick={() => selectDay(day)}
+            >
+              <div className="agenda-day-cell__top">
+                <span className="agenda-day-cell__number">{day.getDate()}</span>
+              </div>
+              <div className="agenda-day-cell__chips">
+                {dayEvents.slice(0, 3).map(evt => (
+                  <div key={evt.id} className={`agenda-event-chip agenda-event-chip--${evt.createdByRole || "student"}`}>
+                    <span className="agenda-event-chip__time">{evt.startTime || "09:00"}</span>
+                    <span className="agenda-event-chip__title">{evt.title}</span>
+                  </div>
+                ))}
+                {dayEvents.length > 3 && (
+                  <div className="agenda-event-chip agenda-event-chip--more">
+                    +{dayEvents.length - 3} mais
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </section>
   );
 }

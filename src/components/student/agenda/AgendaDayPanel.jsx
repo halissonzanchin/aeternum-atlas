@@ -27,41 +27,44 @@ export default function AgendaDayPanel({
   onEdit,
   onDelete,
   onComplete,
-  navigate,
-  children
+  navigate
 }) {
   const { language, t } = useLanguage();
   const safeEvents = Array.isArray(events) ? events : [];
 
   return (
-    <A26Sidebar className="agenda-day-panel" label={t("studyAgenda.selectedDate")}>
-      <div className="agenda-day-panel__header">
-        <span className="agenda-day-panel__eyebrow">{t("studyAgenda.selectedDate")}</span>
-        <h2 className="agenda-day-panel__title">{formatSelectedDate(selectedDate, language, t)}</h2>
-        <p className="agenda-day-panel__subtitle">{t("studyAgenda.activitiesCount", { count: safeEvents.length })}</p>
-        <A26Button variant="primary" className="agenda-day-panel__btn" onClick={onNew}>{t("studyAgenda.newActivity")}</A26Button>
+    <div className="agenda-day-full-workspace">
+      <div className="agenda-day-full-header">
+        <div>
+          <span className="agenda-day-panel__eyebrow">{t("studyAgenda.selectedDate")}</span>
+          <h2 className="agenda-day-panel__title">{formatSelectedDate(selectedDate, language, t)}</h2>
+          <p className="agenda-day-panel__subtitle">{t("studyAgenda.activitiesCount", { count: safeEvents.length })}</p>
+        </div>
+        <A26Button variant="primary" onClick={onNew}>+ Nova Atividade</A26Button>
       </div>
 
-      <div className="agenda-day-list">
-        {safeEvents.length ? safeEvents.map(event => (
-          <AgendaTaskCard
-            key={event.id}
-            event={event}
-            onComplete={onComplete}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            navigate={navigate}
-          />
-        )) : (
-          <div className="agenda-empty-state">
+      <div className="agenda-day-full-list">
+        {safeEvents.length ? (
+          <div className="agenda-day-grid-tasks">
+            {safeEvents.map(event => (
+              <AgendaTaskCard
+                key={event.id}
+                event={event}
+                onComplete={onComplete}
+                onEdit={onEdit}
+                onDelete={onDelete}
+                navigate={navigate}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="agenda-empty-state agenda-empty-state--full">
             <strong>{t("studyAgenda.noActivities")}</strong>
             <p>{t("studyAgenda.noActivitiesHint")}</p>
-            <A26Button variant="ghost" onClick={onNew}>{t("studyAgenda.createForDay")}</A26Button>
+            <A26Button variant="secondary" onClick={onNew}>{t("studyAgenda.createForDay")}</A26Button>
           </div>
         )}
       </div>
-
-      {children}
-    </A26Sidebar>
+    </div>
   );
 }

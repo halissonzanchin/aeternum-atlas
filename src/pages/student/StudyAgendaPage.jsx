@@ -8,18 +8,18 @@ import AgendaTaskModal from "../../components/student/agenda/AgendaTaskModal";
 import UpcomingReviews from "../../components/student/agenda/UpcomingReviews";
 import WeeklyStudySummary from "../../components/student/agenda/WeeklyStudySummary";
 import LineIcon from "../../components/icons/LineIcon";
-import { formatAgendaDate, useStudyAgenda } from "../../hooks/useStudyAgenda";
+import { formatAgendaDate, parseAgendaDate, useStudyAgenda } from "../../hooks/useStudyAgenda";
 import { useLanguage } from "../../context/LanguageContext";
 import { useAuth } from "../../context/AuthContext";
 import { A26Button, A26Card, A26Metric, A26SegmentedControl } from "../../components/aeternum-26";
 import "../../styles/A26StudyAgenda.css";
 
 export default function StudyAgendaPage({ navigate }) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const { user } = useAuth();
   const agenda = useStudyAgenda();
 
-  const [displayMode, setDisplayMode] = useState("hourly_week"); // 'hourly_week' | 'month' | 'day'
+  const [displayMode, setDisplayMode] = useState("month"); // 'month' | 'hourly_week' | 'day'
   const [modalOpen, setModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState(null);
   const [popoverEvent, setPopoverEvent] = useState(null);
@@ -33,6 +33,43 @@ export default function StudyAgendaPage({ navigate }) {
   });
 
   const [selectedSystem, setSelectedSystem] = useState("all");
+
+  function shiftDate(direction) {
+    const curr = parseAgendaDate(agenda.selectedDate);
+    if (displayMode === "month") {
+      const next = new Date(curr);
+      next.setMonth(next.getMonth() + direction);
+      agenda.setSelectedDate(next);
+    } else if (displayMode === "hourly_week") {
+      const next = new Date(curr);
+      next.setDate(next.getDate() + direction * 7);
+      agenda.setSelectedDate(next);
+    } else {
+      const next = new Date(curr);
+      next.setDate(next.getDate() + direction);
+      agenda.setSelectedDate(next);
+    }
+  }
+
+  const headerTitle = useMemo(() => {
+    const safeSelected = parseAgendaDate(agenda.selectedDate);
+    const localeMap = { pt: "pt-BR", es: "es-ES", en: "en-US", de: "de-DE" };
+    const loc = localeMap[language] || "pt-BR";
+    if (displayMode === "month") {
+      const monthStr = new Intl.DateTimeFormat(loc, { month: "long", year: "numeric" }).format(safeSelected);
+      return monthStr.charAt(0).toUpperCase() + monthStr.slice(1);
+    }
+    if (displayMode === "hourly_week") {
+      const day = safeSelected.getDay();
+      const diff = safeSelected.getDate() - day + (day === 0 ? -6 : 1);
+      const start = new Date(safeSelected);
+      start.setDate(diff);
+      const startStr = new Intl.DateTimeFormat(loc, { day: "2-digit", month: "short" }).format(start);
+      return `Semana de ${startStr}`;
+    }
+    const dayStr = new Intl.DateTimeFormat(loc, { weekday: "long", day: "2-digit", month: "long", year: "numeric" }).format(safeSelected);
+    return dayStr.charAt(0).toUpperCase() + dayStr.slice(1);
+  }, [agenda.selectedDate, displayMode, language]);
 
   // Filter events based on active layers & anatomical system
   const filteredEventsMap = useMemo(() => {
@@ -110,16 +147,22 @@ export default function StudyAgendaPage({ navigate }) {
       {/* Google Calendar Style Unified Top Header Bar */}
       <A26Card as="header" material="substantial" tone="teal" className="study-agenda-top-bar">
         <div className="study-agenda-top-bar__left">
-          <div className="a26-hero-sync-badges">
-            <span className={`a26-hero-sync-badge ${agenda.syncStatus === "synced" ? "is-active" : ""}`}>
-              {agenda.syncStatus === "synced" && "Sincronizado com a conta"}
-              {agenda.syncStatus === "pending" && "Sincronização pendente"}
-              {agenda.syncStatus === "local" && "Disponível somente neste dispositivo"}
-              {agenda.syncStatus === "auth-required" && "Sessão necessária"}
-              {agenda.syncStatus === "loading" && "Verificando sincronização"}
-            </span>
+          <A26Button
+            variant="secondary"
+            className="a26-today-btn"
+            onClick={() => agenda.setSelectedDate(new Date())}
+          >
+            🎯 Hoje
+          </A26Button>
+          <div className="a26-calendar-nav-arrows">
+            <button className="a26-nav-arrow" onClick={() => shiftDate(-1)} aria-label="Anterior">
+              ‹
+            </button>
+            <button className="a26-nav-arrow" onClick={() => shiftDate(1)} aria-label="Próximo">
+              ›
+            </button>
           </div>
-          <h1>{t("studyAgenda.title")}</h1>
+          <h1 className="a26-header-month-title">{headerTitle}</h1>
         </div>
 
         <div className="a26-hero-actions">
