@@ -1,13 +1,12 @@
 .study-agenda-page {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   width: min(100%, 1680px);
-  height: calc(100vh - 105px);
+  min-height: 100%;
   margin-inline: auto;
-  padding-bottom: 10px;
+  padding-bottom: 32px;
   color: var(--a26-color-text);
-  overflow: hidden;
 }
 
 .study-agenda-top-bar {
@@ -18,7 +17,6 @@
   min-height: 54px;
   padding: 8px 20px;
   border-radius: var(--a26-radius-panel);
-  flex: 0 0 auto;
 }
 
 .study-agenda-top-bar__left {
@@ -94,29 +92,25 @@
 
 .study-agenda-main-grid {
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
-  align-items: stretch;
-  gap: 14px;
+  grid-template-columns: 270px minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
   min-width: 0;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
+  width: 100%;
 }
 
 .a26-agenda-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 14px;
+  gap: 14px;
+  padding: 16px;
   border-radius: var(--a26-radius-card);
-  height: 100%;
-  overflow-y: auto;
 }
 
 .a26-sidebar-create-btn { width: 100%; }
 .a26-sidebar-create-btn__icon { font-size: 1.2rem; }
 
-.a26-mini-calendar { padding: 12px; border-radius: var(--a26-radius-control); }
+.a26-mini-calendar { padding: 14px; border-radius: var(--a26-radius-control); }
 .a26-mini-calendar__header,
 .a26-sidebar-section-header {
   display: flex;
@@ -457,19 +451,15 @@
 .agenda-calendar-grid--month {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  grid-template-rows: repeat(5, minmax(0, 1fr));
   gap: 6px;
-  flex: 1;
-  min-height: 0;
-  height: 100%;
+  width: 100%;
 }
 
 .agenda-day-cell {
   display: flex;
   flex-direction: column;
-  min-height: 0;
-  height: 100%;
-  padding: 6px 8px;
+  min-height: 104px;
+  padding: 8px;
   border: 1px solid var(--a26-color-border);
   border-radius: 12px;
   background: rgb(255 255 255 / 0.025);

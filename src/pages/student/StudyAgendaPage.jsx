@@ -199,13 +199,33 @@ export default function StudyAgendaPage({ navigate }) {
 
         {/* Center Main Workspace (100% Full Width Active View) */}
         <A26Card as="main" material="clear" className="a26-agenda-view-container">
-          {/* Compact Liquid Glass Summary Bar */}
-          <div className="a26-weekly-quick-stats" aria-label="Resumo da semana">
-            <A26Metric label="Programadas" value={weeklySummary.scheduled} icon={<LineIcon name="note" />} />
-            <A26Metric label="Concluídas" value={weeklySummary.completed} tone="teal" icon={<LineIcon name="check" />} />
-            <A26Metric label="Pendentes" value={weeklySummary.pending} tone="gold" icon={<LineIcon name="clock" />} />
-            <A26Metric label="Tempo planejado" value={`${Math.round(weeklySummary.plannedMinutes / 60)}h`} icon={<LineIcon name="timer" />} />
-            <A26Metric label="Constância" value={`${weeklySummary.completionRate}%`} tone="teal" icon={<LineIcon name="target" />} />
+          {/* Ultra-Compact Inline Quick Stats Ribbon */}
+          <div className="a26-weekly-quick-ribbon" aria-label="Resumo da semana">
+            <span className="a26-stat-pill">
+              <LineIcon name="note" />
+              <span>Programadas:</span>
+              <strong>{weeklySummary.scheduled}</strong>
+            </span>
+            <span className="a26-stat-pill is-teal">
+              <LineIcon name="check" />
+              <span>Concluídas:</span>
+              <strong>{weeklySummary.completed}</strong>
+            </span>
+            <span className="a26-stat-pill is-gold">
+              <LineIcon name="clock" />
+              <span>Pendentes:</span>
+              <strong>{weeklySummary.pending}</strong>
+            </span>
+            <span className="a26-stat-pill">
+              <LineIcon name="timer" />
+              <span>Tempo planejado:</span>
+              <strong>{Math.round(weeklySummary.plannedMinutes / 60)}h</strong>
+            </span>
+            <span className="a26-stat-pill is-teal">
+              <LineIcon name="target" />
+              <span>Constância:</span>
+              <strong>{weeklySummary.completionRate}%</strong>
+            </span>
           </div>
 
           {displayMode === "hourly_week" ? (
