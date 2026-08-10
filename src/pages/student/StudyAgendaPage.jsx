@@ -7,6 +7,7 @@ import AgendaSidebar from "../../components/student/agenda/AgendaSidebar";
 import AgendaTaskModal from "../../components/student/agenda/AgendaTaskModal";
 import UpcomingReviews from "../../components/student/agenda/UpcomingReviews";
 import WeeklyStudySummary from "../../components/student/agenda/WeeklyStudySummary";
+import LineIcon from "../../components/icons/LineIcon";
 import { formatAgendaDate, useStudyAgenda } from "../../hooks/useStudyAgenda";
 import { useLanguage } from "../../context/LanguageContext";
 import { useAuth } from "../../context/AuthContext";
