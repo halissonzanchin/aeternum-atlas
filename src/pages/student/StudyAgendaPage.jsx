@@ -36,28 +36,44 @@ export default function StudyAgendaPage({ navigate }) {
   // Filter events based on active layers & anatomical system
   const filteredEventsMap = useMemo(() => {
     const map = new Map();
-    agenda.events.forEach(evt => {
+    const eventList = Array.isArray(agenda?.events) ? agenda.events : [];
+    eventList.forEach(evt => {
+      if (!evt) return;
       const role = evt.createdByRole || "student";
-      if (!layersFilter[role]) return;
+      if (layersFilter && !layersFilter[role]) return;
 
       if (selectedSystem !== "all" && evt.anatomicalSystem !== selectedSystem) {
         return;
       }
 
       const key = evt.date;
-      if (!map.has(key)) map.set(key, []);
-      map.get(key).push(evt);
+      if (key) {
+        if (!map.has(key)) map.set(key, []);
+        map.get(key).push(evt);
+      }
     });
     return map;
-  }, [agenda.events, layersFilter, selectedSystem]);
+  }, [agenda?.events, layersFilter, selectedSystem]);
 
   const selectedEvents = useMemo(() => {
+    if (!agenda?.selectedDate) return [];
     const key = formatAgendaDate(agenda.selectedDate);
     return filteredEventsMap.get(key) || [];
-  }, [filteredEventsMap, agenda.selectedDate]);
+  }, [filteredEventsMap, agenda?.selectedDate]);
 
-  const weeklySummary = useMemo(() => agenda.getWeeklySummary(), [agenda.events, agenda.selectedDate]);
-  const upcomingReviews = useMemo(() => agenda.getUpcomingReviews(), [agenda.events]);
+  const weeklySummary = useMemo(() => {
+    if (typeof agenda?.getWeeklySummary === 'function') {
+      return agenda.getWeeklySummary();
+    }
+    return { scheduled: 0, completed: 0, pending: 0, plannedMinutes: 0, completionRate: 0 };
+  }, [agenda]);
+
+  const upcomingReviews = useMemo(() => {
+    if (typeof agenda?.getUpcomingReviews === 'function') {
+      return agenda.getUpcomingReviews();
+    }
+    return [];
+  }, [agenda]);
 
   function openNewActivity() {
     setEditingEvent(null);

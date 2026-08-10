@@ -40,12 +40,15 @@ function localeFor(language) {
 export default function AgendaCalendar({ eventsByDate, selectedDate, setSelectedDate }) {
   const { language, t } = useLanguage();
   const [viewMode, setViewMode] = useState(() => window.innerWidth <= 640 ? "week" : "month");
-  const [cursor, setCursor] = useState(() => parseAgendaDate(selectedDate));
+  const [cursor, setCursor] = useState(() => parseAgendaDate(selectedDate || new Date()));
   const locale = localeFor(language);
+
   const days = useMemo(() => {
-    if (viewMode === "month") return monthDays(cursor);
-    if (viewMode === "week") return Array.from({ length: 7 }, (_, index) => addDays(startOfWeek(selectedDate), index));
-    return [parseAgendaDate(selectedDate)];
+    const safeCursor = cursor && !isNaN(cursor.getTime()) ? cursor : new Date();
+    const safeSelected = selectedDate ? parseAgendaDate(selectedDate) : new Date();
+    if (viewMode === "month") return monthDays(safeCursor);
+    if (viewMode === "week") return Array.from({ length: 7 }, (_, index) => addDays(startOfWeek(safeSelected), index));
+    return [safeSelected];
   }, [cursor, selectedDate, viewMode]);
 
   function shift(direction) {
@@ -102,7 +105,7 @@ export default function AgendaCalendar({ eventsByDate, selectedDate, setSelected
           <div className={`agenda-calendar-grid agenda-calendar-grid--${viewMode}`}>
             {days.map(day => {
               const key = formatAgendaDate(day);
-              const dayEvents = eventsByDate.get(key) || [];
+              const dayEvents = (eventsByDate && typeof eventsByDate.get === 'function') ? (eventsByDate.get(key) || []) : [];
               const outside = viewMode === "month" && day.getMonth() !== cursor.getMonth();
               return (
                 <div
