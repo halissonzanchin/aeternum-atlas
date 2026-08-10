@@ -61,9 +61,15 @@ class GlobalErrorBoundary extends React.Component {
         <main className="a26-access-page" data-testid="a26-global-error">
           <A26ErrorState
             title="Não foi possível carregar esta área"
-            text="A interface preservou a sessão. Atualize a página para tentar novamente."
+            text={this.state.error?.message || "A interface preservou a sessão. Atualize a página para tentar novamente."}
             action={<A26Button variant="secondary" onClick={() => window.location.reload()}>Atualizar página</A26Button>}
           />
+          {this.state.error?.stack && (
+            <details style={{ maxWidth: '720px', margin: '16px auto', padding: '12px', background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#f87171', fontSize: '11px', textAlign: 'left' }}>
+              <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>Ver detalhes do erro técnico</summary>
+              <pre style={{ marginTop: '8px', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{this.state.error.stack}</pre>
+            </details>
+          )}
         </main>
       );
     }

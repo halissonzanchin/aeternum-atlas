@@ -3,7 +3,19 @@ import { fetchAgendaEvents, createAgendaEvent, updateAgendaEvent, deleteAgendaEv
 import { useAuth } from "../context/AuthContext";
 
 export function formatAgendaDate(date) {
-  const parsed = date instanceof Date ? date : new Date(`${date}T12:00:00`);
+  if (!date) {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  }
+  let parsed;
+  if (date instanceof Date) {
+    parsed = isNaN(date.getTime()) ? new Date() : date;
+  } else {
+    const str = String(date).trim();
+    if (!str || str === "undefined" || str === "null") parsed = new Date();
+    else parsed = new Date(str.includes("T") ? str : `${str}T12:00:00`);
+    if (isNaN(parsed.getTime())) parsed = new Date();
+  }
   const year = parsed.getFullYear();
   const month = String(parsed.getMonth() + 1).padStart(2, "0");
   const day = String(parsed.getDate()).padStart(2, "0");
@@ -11,8 +23,14 @@ export function formatAgendaDate(date) {
 }
 
 export function parseAgendaDate(date) {
-  if (date instanceof Date) return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12);
-  return new Date(`${date}T12:00:00`);
+  if (!date) return new Date();
+  if (date instanceof Date) {
+    return isNaN(date.getTime()) ? new Date() : new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12);
+  }
+  const str = String(date).trim();
+  if (!str || str === "undefined" || str === "null") return new Date();
+  const parsed = new Date(str.includes("T") ? str : `${str}T12:00:00`);
+  return isNaN(parsed.getTime()) ? new Date() : parsed;
 }
 
 function startOfWeek(date) {

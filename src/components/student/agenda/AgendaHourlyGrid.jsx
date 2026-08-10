@@ -41,13 +41,14 @@ export default function AgendaHourlyGrid({ eventsByDate, selectedDate, setSelect
   const weekDays = useMemo(() => {
     const curr = parseAgendaDate(selectedDate);
     const first = new Date(curr);
-    const dayOfWeek = first.getDay();
-    const diff = first.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Monday baseline
-    first.setDate(diff);
+    const safeFirst = isNaN(first.getTime()) ? new Date() : first;
+    const dayOfWeek = safeFirst.getDay();
+    const diff = safeFirst.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Monday baseline
+    safeFirst.setDate(diff);
 
     return Array.from({ length: 7 }, (_, i) => {
-      const d = new Date(first);
-      d.setDate(first.getDate() + i);
+      const d = new Date(safeFirst);
+      d.setDate(safeFirst.getDate() + i);
       return d;
     });
   }, [selectedDate]);
@@ -58,7 +59,7 @@ export default function AgendaHourlyGrid({ eventsByDate, selectedDate, setSelect
   const now = new Date();
   const nowMinutes = now.getHours() * 60 + now.getMinutes();
   const showNowLine = nowMinutes >= 7 * 60 && nowMinutes <= 22 * 60;
-  const nowTopPx = ((nowMinutes - 7 * 60) / 60) * 64;
+  const nowTopPx = ((nowMinutes - 7 * 60) / 60) * 48;
 
   return (
     <div ref={containerRef} className="a26-hourly-grid-container">
@@ -81,8 +82,13 @@ export default function AgendaHourlyGrid({ eventsByDate, selectedDate, setSelect
           const isToday = dateKey === todayStr;
           const isSelected = dateKey === formatAgendaDate(selectedDate);
 
-          const weekdayName = new Intl.DateTimeFormat(language === "pt" ? "pt-BR" : "en-US", { weekday: "short" }).format(day);
-          const dayNum = String(day.getDate()).padStart(2, "0");
+          let weekdayName = "";
+          try {
+            weekdayName = new Intl.DateTimeFormat(language === "pt" ? "pt-BR" : "en-US", { weekday: "short" }).format(day);
+          } catch {
+            weekdayName = "—";
+          }
+          const dayNum = day instanceof Date && !isNaN(day.getTime()) ? String(day.getDate()).padStart(2, "0") : "--";
 
           return (
             <button
