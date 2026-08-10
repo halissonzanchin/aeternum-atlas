@@ -28,9 +28,9 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
   const { sendMessage } = useAtlasAITutorSession();
 
   // Generator Config State (NotebookLM Pattern)
-  const [topicInput, setTopicInput] = useState("Vascularização do Coração");
-  const [cardCount, setCardCount] = useState("standard"); // few | standard | many
-  const [difficulty, setDifficulty] = useState("Médio");
+  const [topicInput, setTopicInput] = useState("Fêmur");
+  const [cardCount, setCardCount] = useState("many"); // few | standard | many
+  const [difficulty, setDifficulty] = useState("Difícil");
   const [isGenerating, setIsGenerating] = useState(false);
 
   // Deck & Player State (Anki Pattern)
