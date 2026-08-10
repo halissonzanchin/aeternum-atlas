@@ -120,6 +120,18 @@ export function saveDeckToCollection(userId = "default", deck) {
   }
 }
 
+export function deleteDeckFromCollection(userId = "default", deckIdOrTitle = "") {
+  try {
+    const saved = getSavedDecks(userId);
+    const filtered = saved.filter(d => d.id !== deckIdOrTitle && d.title !== deckIdOrTitle);
+    localStorage.setItem(`aeternum_saved_flashcard_decks:${userId}`, JSON.stringify(filtered));
+    return filtered;
+  } catch (err) {
+    console.warn("Erro ao excluir baralho da coleção:", err);
+    return getSavedDecks(userId);
+  }
+}
+
 export function scheduleFlashcardStudyEvent(topicTitle = "", intervalDays = 1) {
   try {
     const raw = localStorage.getItem("aeternum_study_events");

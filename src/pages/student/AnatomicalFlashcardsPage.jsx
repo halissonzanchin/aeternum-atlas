@@ -16,6 +16,7 @@ import {
   recordCardReview,
   getSavedDecks,
   saveDeckToCollection,
+  deleteDeckFromCollection,
   scheduleFlashcardStudyEvent
 } from "../../services/ai/flashcardSpacedRepetitionService";
 import "../../styles/AnatomicalFlashcards.css";
@@ -166,6 +167,14 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
       setIsDeckSaved(true);
       setSavedDecks(getSavedDecks(userId));
     }
+  }
+
+  function handleDeleteSavedDeck(deck) {
+    if (!deck) return;
+    const updated = deleteDeckFromCollection(userId, deck.id || deck.title);
+    setSavedDecks(updated);
+    setScheduledNotice(`🗑️ Baralho "${deck.title}" removido da sua coleção!`);
+    setTimeout(() => setScheduledNotice(""), 3500);
   }
 
   function handleScheduleReview(intervalDays = 1) {
@@ -326,11 +335,24 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
                 {savedDecks.map(deck => (
                   <div
                     key={deck.id || deck.title}
-                    className="p-3 bg-glassSurface/50 border border-glassBorder rounded-xl hover:border-emerald-500/50 cursor-pointer transition"
+                    className="p-3 bg-glassSurface/50 border border-glassBorder rounded-xl hover:border-emerald-500/50 cursor-pointer transition flex items-center justify-between group"
                     onClick={() => handleLoadSavedDeck(deck)}
                   >
-                    <h4 className="text-sm font-semibold text-textMain line-clamp-1">{deck.title}</h4>
-                    <span className="text-[11px] text-emerald-400">{deck.cards?.length} cards · {deck.difficulty}</span>
+                    <div>
+                      <h4 className="text-sm font-semibold text-textMain line-clamp-1">{deck.title}</h4>
+                      <span className="text-[11px] text-emerald-400">{deck.cards?.length} cards · {deck.difficulty}</span>
+                    </div>
+                    <button
+                      type="button"
+                      title="Excluir baralho da coleção"
+                      className="p-1.5 text-textMuted hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteSavedDeck(deck);
+                      }}
+                    >
+                      <LineIcon name="trash" />
+                    </button>
                   </div>
                 ))}
               </div>
