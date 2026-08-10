@@ -22,7 +22,7 @@ function formatSelectedDate(date, language, t) {
 
 export default function AgendaDayPanel({
   selectedDate,
-  events,
+  events = [],
   onNew,
   onEdit,
   onDelete,
@@ -31,18 +31,19 @@ export default function AgendaDayPanel({
   children
 }) {
   const { language, t } = useLanguage();
+  const safeEvents = Array.isArray(events) ? events : [];
 
   return (
     <A26Sidebar className="agenda-day-panel" label={t("studyAgenda.selectedDate")}>
       <div className="agenda-day-panel__header">
         <span className="agenda-day-panel__eyebrow">{t("studyAgenda.selectedDate")}</span>
         <h2 className="agenda-day-panel__title">{formatSelectedDate(selectedDate, language, t)}</h2>
-        <p className="agenda-day-panel__subtitle">{t("studyAgenda.activitiesCount", { count: events.length })}</p>
+        <p className="agenda-day-panel__subtitle">{t("studyAgenda.activitiesCount", { count: safeEvents.length })}</p>
         <A26Button variant="primary" className="agenda-day-panel__btn" onClick={onNew}>{t("studyAgenda.newActivity")}</A26Button>
       </div>
 
       <div className="agenda-day-list">
-        {events.length ? events.map(event => (
+        {safeEvents.length ? safeEvents.map(event => (
           <AgendaTaskCard
             key={event.id}
             event={event}
