@@ -146,11 +146,11 @@ export default function StudyAgendaPage({ navigate }) {
             <>
               {/* Compact Liquid Glass Summary Bar for Weekly Mode */}
               <div className="a26-weekly-quick-stats" aria-label="Resumo da semana">
-                <A26Metric label="Programadas" value={weeklySummary.scheduled} />
-                <A26Metric label="Concluídas" value={weeklySummary.completed} tone="teal" />
-                <A26Metric label="Pendentes" value={weeklySummary.pending} tone="gold" />
-                <A26Metric label="Tempo planejado" value={`${Math.round(weeklySummary.plannedMinutes / 60)}h`} />
-                <A26Metric label="Constância" value={`${weeklySummary.completionRate}%`} tone="teal" />
+                <A26Metric label="Programadas" value={weeklySummary.scheduled} icon={<LineIcon name="note" />} />
+                <A26Metric label="Concluídas" value={weeklySummary.completed} tone="teal" icon={<LineIcon name="check" />} />
+                <A26Metric label="Pendentes" value={weeklySummary.pending} tone="gold" icon={<LineIcon name="clock" />} />
+                <A26Metric label="Tempo planejado" value={`${Math.round(weeklySummary.plannedMinutes / 60)}h`} icon={<LineIcon name="timer" />} />
+                <A26Metric label="Constância" value={`${weeklySummary.completionRate}%`} tone="teal" icon={<LineIcon name="target" />} />
               </div>
 
               <AgendaHourlyGrid
