@@ -46,6 +46,21 @@ export default function AtlasAITutor({
   }, [path]);
 
   useEffect(() => {
+    const handleOpenTutorEvent = (e) => {
+      setIsOpen(true);
+      setPanelMode("expanded");
+      if (e.detail?.prompt) {
+        sendMessage({
+          text: e.detail.prompt,
+          context: { source: "flashcards", route: path }
+        });
+      }
+    };
+    window.addEventListener("aeternum:open-tutor", handleOpenTutorEvent);
+    return () => window.removeEventListener("aeternum:open-tutor", handleOpenTutorEvent);
+  }, [path, sendMessage]);
+
+  useEffect(() => {
     if (!isOpen) return undefined;
     const handleKeyDown = (event) => {
       if (event.key !== "Escape") return;

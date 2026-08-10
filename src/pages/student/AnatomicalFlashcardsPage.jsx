@@ -186,7 +186,8 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
 
   function handleExplainWithAI(card) {
     if (!card) return;
-    sendMessage(`Estou estudando o Flashcard de Anatomia sobre "${card.topic}". Pergunta: "${card.front}". Resposta: "${card.back}". Pode me explicar com detalhes anatômicos e clínicos como se eu estivesse em uma aula prática?`);
+    const prompt = `Estou estudando o Flashcard de Anatomia sobre "${card.topic}". Pergunta: "${card.front}". Resposta: "${card.back}". Pode me explicar com detalhes anatômicos e clínicos como se eu estivesse em uma aula prática?`;
+    window.dispatchEvent(new CustomEvent("aeternum:open-tutor", { detail: { prompt } }));
   }
 
   function handleRestartWrongOnly() {
@@ -358,23 +359,25 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
             </div>
           </div>
 
-          {/* 3D Flip Card Container */}
-          <div
-            className={`a26-flashcard-3d-wrapper ${isFlipped ? "is-flipped" : ""}`}
-            onClick={() => setIsFlipped(!isFlipped)}
-          >
+          {/* 3D Stage Container with Standalone Feedback Overlay */}
+          <div className="relative w-full">
             {feedbackState === "correct" && (
-              <div className="a26-feedback-overlay is-correct">
+              <div className="a26-feedback-overlay is-correct pointer-events-none z-50">
                 <span>Entendido! ✓</span>
               </div>
             )}
             {feedbackState === "wrong" && (
-              <div className="a26-feedback-overlay is-wrong">
+              <div className="a26-feedback-overlay is-wrong pointer-events-none z-50">
                 <span>Você consegue da próxima vez ✕</span>
               </div>
             )}
 
-            {/* Front Side - Minimal & Clean (NotebookLM Pattern) */}
+            {/* 3D Flip Card Container */}
+            <div
+              className={`a26-flashcard-3d-wrapper ${isFlipped ? "is-flipped" : ""}`}
+              onClick={() => setIsFlipped(!isFlipped)}
+            >
+              {/* Front Side - Minimal & Clean (NotebookLM Pattern) */}
             <div className="a26-flashcard-face a26-flashcard-face--front">
               <div className="a26-flashcard-header">
                 <span className="a26-kicker">Frente</span>
@@ -417,8 +420,9 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Anki Rating Controls */}
+        {/* Anki Rating Controls */}
           <div className="a26-anki-controls flex items-center justify-center gap-3 mt-4">
             <button
               type="button"
