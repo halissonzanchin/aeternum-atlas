@@ -3,43 +3,45 @@
  * Garante correspondência temática estrita (Strict Topic Matching) e suporte a imagens opcionais.
  */
 
-// Categorized assets index
+// Categorized assets index with verified anatomical image ranges
 const CATEGORIZED_PDF_IMAGES = {
-  "femur": Array.from({ length: 60 }, (_, i) => ({
+  // Plates 12 to 60 of Latarjet Tomo 2 are strictly Femur, Hip, Knee and Lower Limb Osteology
+  "femur": Array.from({ length: 48 }, (_, i) => ({
     id: `pdf-img-lower-femur-${i + 1}`,
-    book: "Latarjet - Anatomia Humana (Tomo 2: Membro Inferior e Fêmur)",
+    book: "Latarjet - Anatomia Humana (Tomo 2: Osteologia e Artrologia do Fêmur e Membro Inferior)",
     system: "Membro Inferior / Fêmur",
     categoryKey: "femur",
-    src: `/pdf-medical-illustrations/lower-limb-femur/latarjet_lower_plate_${String(i + 1).padStart(3, "0")}.jpg`,
+    src: `/pdf-medical-illustrations/lower-limb-femur/latarjet_lower_plate_${String(12 + i).padStart(3, "0")}.jpg`,
     isOriginalPdfExtract: true
   })),
-  "spine-neck": Array.from({ length: 60 }, (_, i) => ({
+  "spine-neck": Array.from({ length: 50 }, (_, i) => ({
     id: `pdf-img-spine-neck-${i + 1}`,
     book: "Sobotta - Atlas de Anatomia Humana (Vol. 1: Cabeça, Pescoço e Coluna Vertebral)",
     system: "Coluna Vertebral / Pescoço",
     categoryKey: "spine-neck",
-    src: `/pdf-medical-illustrations/spine-neck/sobotta_spine_neck_plate_${String(i + 1).padStart(3, "0")}.jpg`,
+    src: `/pdf-medical-illustrations/spine-neck/sobotta_spine_neck_plate_${String(10 + i).padStart(3, "0")}.jpg`,
     isOriginalPdfExtract: true
   })),
-  "neuroanatomy": Array.from({ length: 60 }, (_, i) => ({
+  "neuroanatomy": Array.from({ length: 50 }, (_, i) => ({
     id: `pdf-img-neuro-${i + 1}`,
     book: "FRETES - Neuroanatomia Encefalo Medular & Snell",
     system: "Neuroanatomia / Encéfalo",
     categoryKey: "neuroanatomy",
-    src: `/pdf-medical-illustrations/neuroanatomy/fretes_neuro_plate_${String(i + 1).padStart(3, "0")}.jpg`,
+    src: `/pdf-medical-illustrations/neuroanatomy/fretes_neuro_plate_${String(10 + i).padStart(3, "0")}.jpg`,
     isOriginalPdfExtract: true
   })),
-  "upper-limb": Array.from({ length: 60 }, tom => ({
-    id: `pdf-img-upper-limb-${tom + 1}`,
+  "upper-limb": Array.from({ length: 50 }, (_, i) => ({
+    id: `pdf-img-upper-limb-${i + 1}`,
     book: "Latarjet - Anatomia Humana (Tomo 1: Membro Superior e Plexo Braquial)",
     system: "Membro Superior / Plexo Braquial",
     categoryKey: "upper-limb",
-    src: `/pdf-medical-illustrations/upper-limb/latarjet_upper_plate_${String(tom + 1).padStart(3, "0")}.jpg`,
+    src: `/pdf-medical-illustrations/upper-limb/latarjet_upper_plate_${String(10 + i).padStart(3, "0")}.jpg`,
     isOriginalPdfExtract: true
   })),
-  "cardiovascular": Array.from({ length: 20 }, (_, i) => ({
+  // Netter plates 180 to 220 are strictly Heart, Coronary Arteries and Cardiac Valves
+  "cardiovascular": Array.from({ length: 30 }, (_, i) => ({
     id: `pdf-img-cardio-${i + 1}`,
-    book: "Sobotta - Atlas de Anatomia Humana (Vol. 2: Tórax & Coração)",
+    book: "Netter - Atlas de Anatomia Humana (Pranchas 180-210: Irrigação Coronariana)",
     system: "Cardiovascular / Coração",
     categoryKey: "cardiovascular",
     src: `/pdf-medical-illustrations/netter-unlabeled/netter_unlabeled_plate_${String(180 + i).padStart(3, "0")}.jpg`,

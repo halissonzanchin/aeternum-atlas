@@ -374,27 +374,21 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
               </div>
             )}
 
-            {/* Front Side - Minimal & Clean with Image Occlusion Mask */}
+            {/* Front Side - Minimal & Clean (NotebookLM Pattern) */}
             <div className="a26-flashcard-face a26-flashcard-face--front">
               <div className="a26-flashcard-header">
                 <span className="a26-kicker">Frente</span>
                 <span className="a26-flashcard-citation">{currentCard.topic}</span>
               </div>
 
-              <div className="a26-flashcard-body relative">
+              <div className="a26-flashcard-body">
                 {currentCard.imageUrl && (
-                  <div className="relative inline-block mx-auto">
-                    <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
-                    {/* Image Occlusion Mask Badge */}
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-emerald-950/90 text-emerald-300 text-[10px] font-mono px-3 py-1 rounded-full border border-emerald-500/50 shadow-lg backdrop-blur-md">
-                      👁️ [ ? ] Ocultar Rótulo — Clique para Revelar
-                    </div>
-                  </div>
+                  <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
                 )}
                 <p className="a26-flashcard-text">{currentCard.front}</p>
               </div>
 
-              <span className="a26-flashcard-hint">Veja a resposta (ou Pressione Espaço)</span>
+              <span className="a26-flashcard-hint">Veja a resposta</span>
             </div>
 
             {/* Back Side - Direct Answer & Tutor AI Action */}
@@ -418,54 +412,47 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
                   }}
                   icon={<LineIcon name="spark" />}
                 >
-                  ✨ Explicar com Tutor IA (E)
+                  ✨ Explicar com Tutor IA
                 </A26Button>
               </div>
             </div>
           </div>
 
           {/* Anki Rating Controls */}
-          <div className="a26-anki-controls flex flex-col items-center gap-3 mt-4">
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                className="a26-anki-btn"
-                onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
-                disabled={currentIndex === 0}
-              >
-                ‹
-              </button>
+          <div className="a26-anki-controls flex items-center justify-center gap-3 mt-4">
+            <button
+              type="button"
+              className="a26-anki-btn"
+              onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
+              disabled={currentIndex === 0}
+            >
+              ‹
+            </button>
 
-              <button
-                type="button"
-                className="a26-anki-btn is-wrong"
-                onClick={() => handleRateCard("wrong")}
-              >
-                ✕ Errei (1)
-              </button>
+            <button
+              type="button"
+              className="a26-anki-btn is-wrong"
+              onClick={() => handleRateCard("wrong")}
+            >
+              ✕ Errei
+            </button>
 
-              <button
-                type="button"
-                className="a26-anki-btn is-correct"
-                onClick={() => handleRateCard("correct")}
-              >
-                ✓ Acertei (2)
-              </button>
+            <button
+              type="button"
+              className="a26-anki-btn is-correct"
+              onClick={() => handleRateCard("correct")}
+            >
+              ✓ Acertei
+            </button>
 
-              <button
-                type="button"
-                className="a26-anki-btn"
-                onClick={() => setCurrentIndex(prev => Math.min(activeDeck.cards.length - 1, prev + 1))}
-                disabled={currentIndex === activeDeck.cards.length - 1}
-              >
-                ›
-              </button>
-            </div>
-
-            {/* Quick Keyboard Hotkeys Bar */}
-            <div className="text-[11px] font-mono text-textMuted bg-glassSurface/40 px-4 py-1.5 rounded-full border border-glassBorder/40">
-              ⌨️ Atalhos: <span className="text-emerald-400 font-bold">[Espaço]</span> Virar · <span className="text-rose-400 font-bold">[1]</span> Errei · <span className="text-emerald-400 font-bold">[2]</span> Acertei · <span className="text-agedGold font-bold">[E]</span> Tutor IA
-            </div>
+            <button
+              type="button"
+              className="a26-anki-btn"
+              onClick={() => setCurrentIndex(prev => Math.min(activeDeck.cards.length - 1, prev + 1))}
+              disabled={currentIndex === activeDeck.cards.length - 1}
+            >
+              ›
+            </button>
           </div>
         </div>
       )}
