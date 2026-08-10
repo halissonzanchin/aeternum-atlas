@@ -13,8 +13,12 @@ const ANATOMICAL_RAG_DECK_LIBRARY = [
         front: "Qual artéria coronária é responsável pela irrigação da maior parte do Ventrículo Esquerdo e do Nó Sinoatrial em 60% dos indivíduos?",
         back: "Artéria Coronária Direita (ACD)",
         sourceCitation: "Moore - Anatomia Orientada para a Clínica, Cap. 3 (Coração), pág. 142",
-        imageUrl: PDF_MEDICAL_IMAGE_REGISTRY[0].fallbackSrc,
-        pdfImageMeta: PDF_MEDICAL_IMAGE_REGISTRY[0],
+        imageUrl: "/pdf-medical-illustrations/netter-unlabeled/netter_unlabeled_plate_184.jpg",
+        pdfImageMeta: {
+          book: "Netter - Atlas de Anatomia Humana (Pranchas sem Etiquetas)",
+          page: 184,
+          figure: "Prancha Anatômica Netter Sem Etiquetas #184 - Irrigação Coronariana"
+        },
         explanation: "A Artéria Coronária Direita origina-se do seio coronário direito e em 60% dos corações supre o Nó SA. Origina também a artéria marginal direita e o ramo interventricular posterior."
       },
       {
@@ -22,9 +26,13 @@ const ANATOMICAL_RAG_DECK_LIBRARY = [
         topic: "Ramos Interventriculares",
         front: "Preencha a lacuna: A artéria interventricular anterior (descendente anterior) é ramo direto da ____ e desce pelo sulco interventricular anterior até o ápice.",
         back: "Artéria Coronária Esquerda (ACE)",
-        sourceCitation: "Sobotta - Atlas de Anatomia Humana, Vol. 2, pág. 184",
-        imageUrl: PDF_MEDICAL_IMAGE_REGISTRY[1].fallbackSrc,
-        pdfImageMeta: PDF_MEDICAL_IMAGE_REGISTRY[1],
+        sourceCitation: "Netter - Atlas de Anatomia Humana (Pranchas sem Etiquetas), pág. 210",
+        imageUrl: "/pdf-medical-illustrations/netter-unlabeled/netter_unlabeled_plate_210.jpg",
+        pdfImageMeta: {
+          book: "Netter - Atlas de Anatomia Humana (Pranchas sem Etiquetas)",
+          page: 210,
+          figure: "Prancha Anatômica Netter Sem Etiquetas #210 - Ramos Interventriculares"
+        },
         explanation: "A Artéria Coronária Esquerda (ACE) divide-se em ramo circumflexo e ramo interventricular anterior (DA), que irriga os dois terços anteriores do septo interventricular."
       },
       {
@@ -32,8 +40,13 @@ const ANATOMICAL_RAG_DECK_LIBRARY = [
         topic: "Drenagem Venosa Cardíaca",
         front: "Qual a principal veia cardíaca que corre junto com o ramo interventricular anterior e deságua no Seio Coronário?",
         back: "Veia Cardíaca Magna (Grande Veia Cardíaca)",
-        sourceCitation: "Netter - Atlas de Anatomia Humana, Prancha 210",
-        imageUrl: null,
+        sourceCitation: "Netter - Atlas de Anatomia Humana (Pranchas sem Etiquetas), pág. 212",
+        imageUrl: "/pdf-medical-illustrations/netter-unlabeled/netter_unlabeled_plate_212.jpg",
+        pdfImageMeta: {
+          book: "Netter - Atlas de Anatomia Humana (Pranchas sem Etiquetas)",
+          page: 212,
+          figure: "Prancha Anatômica Netter Sem Etiquetas #212 - Veia Cardíaca Magna"
+        },
         explanation: "A Veia Cardíaca Magna inicia-se no ápice do coração, ascende pelo sulco interventricular anterior e contorna o lado esquerdo para tributar no Seio Coronário."
       }
     ]
@@ -171,15 +184,15 @@ function parseCardsFromRagText(text, topic, difficulty, count) {
     const back = backMatch ? backMatch[1].trim() : `Conceito fundamental de ${topic} descrito na literatura médica.`;
     const sourceCitation = sourceMatch ? sourceMatch[1].trim() : `Tratado de Anatomia Humana, Cap. ${idx + 1}`;
 
-    const pdfImage = findPdfImageForTopic(topic);
+    const pdfImage = findPdfImageForTopic(topic, "", idx);
 
     cards.push({
       id: `fc-rag-gen-${idx + 1}-${Date.now()}`,
       topic: topic,
       front: front.replace(/^[:\s-]+/, ""),
       back: back.replace(/^[:\s-]+/, ""),
-      sourceCitation,
-      imageUrl: pdfImage ? pdfImage.fallbackSrc : null,
+      sourceCitation: pdfImage?.book || sourceCitation,
+      imageUrl: pdfImage ? pdfImage.src : null,
       pdfImageMeta: pdfImage || null,
       explanation: block.slice(0, 300)
     });
