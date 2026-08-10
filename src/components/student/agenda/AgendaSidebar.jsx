@@ -46,7 +46,8 @@ export default function AgendaSidebar({
     return d;
   });
 
-  const miniTitle = new Intl.DateTimeFormat(language === "pt" ? "pt-BR" : "en-US", { month: "long", year: "numeric" }).format(miniCursor);
+  const rawTitle = new Intl.DateTimeFormat(language === "pt" ? "pt-BR" : "en-US", { month: "long", year: "numeric" }).format(miniCursor);
+  const miniTitle = rawTitle.charAt(0).toUpperCase() + rawTitle.slice(1);
   const layerDescriptors = [
     { key: "student", icon: "👤", title: "Minha agenda pessoal", detail: user?.name || user?.email || "Conta autenticada" },
     { key: "teacher", icon: "👨‍🏫", title: "Atividades de professores", detail: "Compartilhadas pela equipe docente" },

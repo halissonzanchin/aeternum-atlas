@@ -111,26 +111,44 @@
 .a26-sidebar-create-btn__icon { font-size: 1.2rem; }
 
 .a26-mini-calendar { padding: 14px; border-radius: var(--a26-radius-control); }
-.a26-mini-calendar__header,
+.a26-mini-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 32px;
+}
 .a26-sidebar-section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
-.a26-mini-calendar__header strong { color: var(--a26-color-gold); text-transform: capitalize; }
-.a26-mini-calendar__nav { display: flex; gap: 6px; }
+.a26-mini-calendar__header strong {
+  color: var(--a26-color-text);
+  font-family: var(--a26-type-sans, inherit);
+  font-size: 0.92rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-transform: none;
+}
+.a26-mini-calendar__nav { display: flex; align-items: center; gap: 2px; }
 .a26-mini-calendar__nav button {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   padding: 0;
-  border: 1px solid var(--a26-color-border);
+  border: 0;
   border-radius: 50%;
-  color: var(--a26-color-teal);
-  background: rgb(255 255 255 / 0.035);
+  color: var(--a26-color-text-muted);
+  background: transparent;
   cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.a26-mini-calendar__nav button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--a26-color-teal);
 }
 .a26-mini-calendar__nav button:first-child svg { transform: rotate(180deg); }
 .a26-mini-calendar__weekdays,
