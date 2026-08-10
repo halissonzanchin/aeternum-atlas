@@ -21,12 +21,12 @@ import {
 import "../../styles/AnatomicalFlashcards.css";
 
 const QUICK_TOPIC_CHIPS = [
+  "+ Clavícula e Ombro",
+  "+ Úmero e Braço",
   "+ Vértebras Cervicais",
   "+ Fêmur e Osteologia",
   "+ Vascularização do Coração",
-  "+ Pares Cranianos",
-  "+ Plexo Braquial e Membro Superior",
-  "+ Encéfalo e Neuroanatomia"
+  "+ Pares Cranianos"
 ];
 
 export default function AnatomicalFlashcardsPage({ user, navigate }) {

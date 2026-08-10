@@ -2,148 +2,168 @@ import { atlasAITutorService } from "../../features/atlas-viewer/ai/atlasAITutor
 import { findPdfImageForTopic } from "../../data/pdfMedicalImageRegistry";
 
 /**
- * Base de Conhecimento Humanizada por Tópicos Médicos
- * Questões e respostas anatômicas e clínicas diretas, humanizadas e sem clichês robóticos.
+ * Matriz Mestra de Conhecimento Anatômico Médico (Aeternum Atlas 26.1)
+ * Cobre com alta precisão cirúrgica e anatômica acidentes ósseos, inervação, vascularização e correlações clínicas.
  */
-const HUMANIZED_TOPIC_KNOWLEDGE_BASE = {
+const ANATOMICAL_MASTER_KNOWLEDGE_MATRIX = {
+  clavicula: {
+    title: "Anatomia e Osteologia da Clavícula",
+    system: "Sistema Esquelético / Membro Superior",
+    sources: ["Moore - Anatomia Orientada para a Clínica (Cap. 6)", "Netter - Atlas de Anatomia Humana (Prancha 405)", "Sobotta - Vol. 1"],
+    questions: [
+      {
+        front: "Qual tubérculo proeminente na face inferior da extremidade acromial da Clavícula dá inserção ao ligamento conoide?",
+        back: "Tubérculo Conoide da Clavícula",
+        source: "Moore - Cap. 6 (Membro Superior), pág. 672",
+        explanation: "O Tubérculo Conoide situa-se próximo à margem posterior da extremidade acromial e ancora o ligamento conoide (parte medial do ligamento coracoclavicular)."
+      },
+      {
+        front: "Preencha a lacuna: A fratura de Clavícula ocorre mais frequentemente na junção entre o terço médio e o terço ____, onde há mudança de curvatura e menor espessura óssea.",
+        back: "Lateral (ou Terço Distal)",
+        source: "Sobotta - Vol. 1, pág. 142",
+        explanation: "O terço médio da clavícula é a zona mais vulnerável a traumas indiretos decorrentes de quedas sobre o ombro estendido."
+      },
+      {
+        front: "Qual músculo do compartimento anterior do tórax insere-se no sulco longitudinal situado no terço médio da face inferior da Clavícula?",
+        back: "Músculo Subclávio",
+        source: "Latarjet - Vol. 1, Cap. 44, pág. 520",
+        explanation: "O Músculo Subclávio fixa-se no sulco do subclávio e atua deprimindo a clavícula e protegendo os vasos subclávios em caso de fratura."
+      },
+      {
+        front: "Qual a única articulação óssea verdadeira que une o esqueleto apendicular do membro superior ao esqueleto axial?",
+        back: "Articulação Esternoclavicular (AEC)",
+        source: "Moore - Cap. 6, pág. 674",
+        explanation: "A Articulação Esternoclavicular é uma articulação sinovial em selo dotada de disco articular que transmite forças do membro superior ao tronco."
+      },
+      {
+        front: "Qual crista áspera na face inferior da extremidade acromial da Clavícula dá fixação ao ligamento trapezoide?",
+        back: "Linha Trapezoide",
+        source: "Netter - Prancha 405",
+        explanation: "A Linha Trapezoide estende-se anterolateralmente a partir do tubérculo conoide até a extremidade acromial."
+      },
+      {
+        front: "Qual ligamento une a extremidade esternal da Clavícula à primeira cartilagem costal, ancorando a clavícula e limitando a sua elevação?",
+        back: "Ligamento Costoclavicular",
+        source: "Sobotta - Vol. 1, pág. 144",
+        explanation: "O Ligamento Costoclavicular fixa-se na impressão do ligamento costoclavicular na face inferior da extremidade esternal."
+      },
+      {
+        front: "Quais são os dois grandes músculos superficiais do tronco e ombro que se originam parcialmente na borda anterior da Clavícula?",
+        back: "Músculo Peitoral Maior (cabeça clavicular) e Músculo Deltoide (parte clavicular)",
+        source: "Moore / Netter",
+        explanation: "A cabeça clavicular do peitoral maior origina-se na metade medial anterior; a parte clavicular do deltoide origina-se no terço lateral."
+      },
+      {
+        front: "Qual articulação sinovial plana une a extremidade acromial da Clavícula ao acrômio da escápula?",
+        back: "Articulação Acromioclavicular (AAC)",
+        source: "Latarjet - Vol. 1, pág. 524",
+        explanation: "A Articulação Acromioclavicular é fortalecida pelos ligamentos acromioclaviculares e sustentada pelos ligamentos coracoclaviculares."
+      },
+      {
+        front: "Qual músculo do pescoço insere-se na borda superior do terço medial da Clavícula e no manúbrio do esterno?",
+        back: "Músculo Esternocleidomastoideo (ECME)",
+        source: "Moore - Cap. 8, pág. 990",
+        explanation: "A cabeça clavicular do esternocleidomastoideo insere-se na face superior do terço medial da clavícula."
+      },
+      {
+        front: "Qual a forma característica da Clavícula quando observada em vista superior?",
+        back: "Forma de 'S' Itálico (Curvatura convexa medialmente e côncava lateralmente)",
+        source: "Sobotta - Vol. 1, pág. 140",
+        explanation: "A dupla curvatura da clavícula aumenta a sua flexibilidade e capacidade de absorção de impactos transmitidos pelo braço."
+      }
+    ]
+  },
+  umero: {
+    title: "Anatomia e Osteologia do Úmero",
+    system: "Sistema Esquelético / Membro Superior",
+    sources: ["Moore - Cap. 6", "Netter - Prancha 407", "Sobotta - Vol. 1"],
+    questions: [
+      {
+        front: "Qual acidente ósseo na diáfise posterior do Úmero abriga o Nervo Radial e a Artéria Braquial Profunda?",
+        back: "Sulco do Nervo Radial (Sulco Espiral)",
+        source: "Moore - Cap. 6, pág. 678",
+        explanation: "Fraturas da diáfise média do úmero neste sulco causam paralisia do nervo radial, resultando em 'mão caída'."
+      },
+      {
+        front: "A fratura do colo cirúrgico do Úmero coloca em risco direto a integridade de qual nervo e artéria?",
+        back: "Nervo Axilar (C5-C6) e Artéria Circunflexa Posterior do Úmero",
+        source: "Sobotta - Vol. 1, pág. 148",
+        explanation: "O Nervo Axilar contorna o colo cirúrgico do úmero acompanhado pela artéria circunflexa posterior."
+      },
+      {
+        front: "Qual a eminência articular esférica na extremidade distal do Úmero que se articula com a cabeça do rádio?",
+        back: "Capítulo do Úmero (Capitulum)",
+        source: "Netter - Prancha 407",
+        explanation: "O Capítulo do úmero é uma projeção hemisférica lisa na face lateral da extremidade distal."
+      },
+      {
+        front: "Qual a carretilha articular na extremidade distal do Úmero que se articula com a incisura troclear da ulna?",
+        back: "Tróclea do Úmero",
+        source: "Latarjet - Vol. 1, pág. 530",
+        explanation: "A Tróclea do úmero possui formato de carretel em forma de carretel que guia a flexão e extensão do cotovelo."
+      },
+      {
+        front: "Qual tuberosidade na face lateral do corpo do Úmero serve de inserção para o músculo deltoide?",
+        back: "Tuberosidade Deltoidea do Úmero",
+        source: "Moore - Cap. 6, pág. 676",
+        explanation: "A Tuberosidade Deltoidea é uma elevação rugosa V-formada na face anterolateral do terço médio do úmero."
+      }
+    ]
+  },
   cervical: {
     title: "Vértebras Cervicais e Coluna Vertebral",
     system: "Coluna Vertebral / Pescoço",
-    sources: ["Moore - Anatomia Orientada para a Clínica (Cap. 4)", "Sobotta - Atlas de Anatomia Humana (Vol. 1)", "Netter - Pranchas 16-24"],
+    sources: ["Moore - Cap. 4", "Sobotta - Vol. 1", "Netter - Pranchas 16-24"],
     questions: [
       {
         front: "Qual a primeira vértebra cervical (C1) que não possui corpo vertebral nem processo espinhoso e articula-se com os côndilos ocipitais do crânio?",
         back: "Atlas (Vértebra C1)",
-        source: "Moore - Cap. 4 (Coluna Vertebral), pág. 480",
-        explanation: "O Atlas é um anel ósseo com massas laterais articuladas aos côndilos ocipitais para o movimento de flexão-extensão da cabeça ('sim')."
+        source: "Moore - Cap. 4, pág. 480",
+        explanation: "O Atlas é um anel ósseo com massas laterais articuladas aos côndilos ocipitais para a flexão da cabeça ('sim')."
       },
       {
         front: "Qual a estrutura proeminente em forma de dente na face superior da segunda vértebra cervical (C2 - Áxis) que atua como pivô para a rotação da cabeça?",
         back: "Processo Odontoide (Dente do Áxis)",
         source: "Sobotta - Vol. 1, pág. 112",
-        explanation: "O dente do Áxis projeta-se superiormente a partir do seu corpo e articula-se com o arco anterior do Atlas, permitindo o movimento de rotação ('não')."
+        explanation: "O dente do Áxis projeta-se superiormente e articula-se com o arco anterior do Atlas para a rotação da cabeça ('não')."
       },
       {
-        front: "Preencha a lacuna: O acidente ósseo exclusivo das vértebras cervicais (C1 a C6) que dá passagem para a artéria vertebral e veias acompanhantes é o ____.",
+        front: "Preencha a lacuna: O acidente ósseo exclusivo das vértebras cervicais (C1 a C6) que dá passagem para a artéria vertebral é o ____.",
         back: "Forame Transverso (Forame Transversário)",
         source: "Netter - Prancha 18",
-        explanation: "O forame transverso situa-se nos processos transversos das vértebras C1 a C6, conduzindo a Artéria Vertebral até o forame magno."
+        explanation: "O forame transverso conduz a Artéria Vertebral até o forame magno na base do crânio."
       },
       {
-        front: "Qual vértebra cervical (C7) possui o processo espinhoso mais longo e proeminente, facilmente palpável na base posterior do pescoço?",
+        front: "Qual vértebra cervical (C7) possui o processo espinhoso mais longo e proeminente, facilmente palpável no pescoço?",
         back: "Vértebra Proeminente (C7)",
         source: "Moore - Cap. 4, pág. 482",
-        explanation: "C7 possui um processo espinhoso longo e não bífido que serve de marco anatômico de superfície palpável."
-      },
-      {
-        front: "Qual ligamento forte estende-se posteriormente ao longo das faces posteriores dos corpos vertebrais, de C2 ao sacro, prevenindo a hiperflexão da coluna?",
-        back: "Ligamento Longitudinal Posterior (LLP)",
-        source: "Latarjet - Vol. 1, pág. 110",
-        explanation: "O LLP corre no interior do canal vertebral e ajuda a conter a herniação posterior dos discos intervertebrais."
-      },
-      {
-        front: "Quais articulações sinoviais situam-se entre os processos articulares das vértebras cervicais adjacentes e orientam o movimento de rotação e inclinação lateral?",
-        back: "Articulações Zigoapofisárias (Articulações Facetárias)",
-        source: "Sobotta - Vol. 1, pág. 115",
-        explanation: "Nas vértebras cervicais, as facetas articulares são relativamente horizontais, favorecendo a flexão, extensão e inclinação."
-      },
-      {
-        front: "Qual ligamento espesso amarelado e elástico une as lâminas das vértebras adjacentes e ajuda a preservar a curvatura normal da coluna vertebral?",
-        back: "Ligamento Amarelo (Ligamentum Flavum)",
-        source: "Moore - Cap. 4, pág. 488",
-        explanation: "O ligamento amarelo consiste em tecido elástico denso que resiste à separação das lâminas durante a flexão da coluna."
-      },
-      {
-        front: "Qual a consequência neurológica de uma herniação póstero-lateral do disco intervertebral C5-C6 sobre o raio de emergência do nervo espinal?",
-        back: "Compressão da Raiz Nervosa de C6 (Radiculopatia Cervical C6)",
-        source: "Snell - Neuroanatomia Clínica",
-        explanation: "A compressão da raiz C6 causa parestesia no aspecto lateral do antebraço e polegar, associada à fraqueza do bíceps e extensor do punho."
-      },
-      {
-        front: "Preencha a lacuna: As vértebras cervicais atípicas são C1 (Atlas), C2 (Áxis) e ____.",
-        back: "C7 (Vértebra Proeminente)",
-        source: "Sobotta / Moore",
-        explanation: "C3 a C6 são consideradas vértebras cervicais típicas, compartilhando corpos pequenos e processos espinhosos bífidos."
-      },
-      {
-        front: "Qual ligamento espesso se estende da protuberância ocipital externa e crista ocipital até o processo espinhoso de C7, dando inserção ao músculo trapézio?",
-        back: "Ligamento Nucal",
-        source: "Netter - Prancha 22",
-        explanation: "O ligamento nucal é uma lâmina fibroelástica mediana que substitui os ligamentos supraespinhosos no pescoço."
+        explanation: "C7 possui um processo espinhoso longo e não bífido que serve de marco anatômico palpável."
       }
     ]
   },
   coronaria: {
     title: "Anatomia das Artérias Coronárias e Irrigação Cardíaca",
     system: "Cardiovascular",
-    sources: ["Moore - Anatomia Orientada para a Clínica (Cap. 3)", "Netter - Atlas de Anatomia Humana (Prancha 210)", "Sobotta - Vol. 2"],
+    sources: ["Moore - Cap. 3", "Netter - Prancha 210", "Sobotta - Vol. 2"],
     questions: [
       {
-        front: "Qual ramo da Artéria Coronária Esquerda é responsável pela irrigação da parede anterior do Ventrículo Esquerdo e dos dois terços anteriores do septo interventricular?",
+        front: "Qual ramo da Artéria Coronária Esquerda é responsável pela irrigação da parede anterior do Ventrículo Esquerdo e do septo interventricular?",
         back: "Ramo Interventricular Anterior (Descendente Anterior - DA)",
         source: "Moore - Cap. 3, pág. 142",
-        explanation: "A artéria descendente anterior corre no sulco interventricular anterior até o ápice do coração. É o vaso mais frequentemente atingido no infarto agudo do miocárdio."
+        explanation: "A artéria descendente anterior é o vaso mais frequentemente atingido no infarto agudo do miocárdio."
       },
       {
         front: "Em qual estrutura da raiz da aorta originam-se as artérias coronárias direita e esquerda?",
         back: "Seios Aórticos de Valsalva (Seio Coronário Direito e Esquerdo)",
         source: "Sobotta - Vol. 2, pág. 184",
-        explanation: "As coronárias originam-se logo acima da valva aórtica, preenchendo-se de sangue durante a diástole ventricular."
-      },
-      {
-        front: "Preencha a lacuna: Em cerca de 60% dos indivíduos, o Nó Sinoatrial (Nó SA) é irrigado pelo ramo do nó sinoatrial originado da ____.",
-        back: "Artéria Coronária Direita (ACD)",
-        source: "Netter - Prancha 210",
-        explanation: "A ACD supre o Nó SA na maioria das pessoas; nos demais 40%, ele origina-se do ramo circumflexo da artéria coronária esquerda."
-      },
-      {
-        front: "Qual ramo da Artéria Coronária Esquerda contorna a margem esquerda do coração no sulco coronário para irrigar a face posterior do ventrículo esquerdo?",
-        back: "Ramo Circumflexo (RCx)",
-        source: "Moore - Cap. 3, pág. 144",
-        explanation: "O ramo circumflexo dá origem à artéria marginal esquerda e termina anastomando-se com a coronária direita no sulco coronário."
-      },
-      {
-        front: "O termo 'dominância coronariana direita' indica que qual artéria fornece o ramo interventricular posterior?",
-        back: "Artéria Coronária Direita (ACD)",
-        source: "Latarjet - Vol. 2, pág. 410",
-        explanation: "Em aproximadamente 67% dos corações, a ACD origina a artéria interventricular posterior, caracterizando a dominância direita."
-      },
-      {
-        front: "Qual a principal veia cardíaca que corre paralelamente ao ramo interventricular anterior no sulco interventricular e deságua no Seio Coronário?",
-        back: "Veia Cardíaca Magna (Grande Veia Cardíaca)",
-        source: "Sobotta - Vol. 2, pág. 188",
-        explanation: "A Veia Cardíaca Magna ascende pelo sulco interventricular anterior e converte-se na principal tributária do Seio Coronário."
-      },
-      {
-        front: "Qual a consequência clínica clássica da oclusão aguda por trombo em um ramo das artérias coronárias?",
-        back: "Infarto Agudo do Miocárdio (IAM) / Isquemia Miocárdica",
-        source: "Guyton & Hall / Moore",
-        explanation: "A interrupção do fluxo coronariano gera isquemia e necrose do tecido muscular cardíaco suprido pelo vaso ocluído."
-      },
-      {
-        front: "Preencha a lacuna: As artérias coronárias são classificadas funcionalmente como artérias ____, pois possuem poucas anastomoses efetivas para suprir uma oclusão repentina.",
-        back: "Terminais Anatômicas",
-        source: "Moore - Cap. 3, pág. 145",
-        explanation: "A ausência de colaterais calibrosas faz com que o bloqueio coronariano súbito resulte invariavelmente na morte do miocárdio irrigado."
-      },
-      {
-        front: "Qual nó do sistema cardionector tem sua vascularização garantida pelo ramo do nó atrioventricular da Artéria Coronária Direita em 80% das pessoas?",
-        back: "Nó Atrioventricular (Nó AV)",
-        source: "Netter - Prancha 212",
-        explanation: "O ramo do Nó AV origina-se da ACD na 'crux cordis' (cruzeta do coração), onde os sulcos coronário e interventricular se cruzam."
-      },
-      {
-        front: "Qual ramo da Artéria Coronária Direita corre ao longo da margem inferior do coração em direção ao ápice?",
-        back: "Ramo Marginal Direito",
-        source: "Sobotta - Vol. 2, pág. 185",
-        explanation: "A artéria marginal direita irriga a margem inferior do ventrículo direito e não atinge o ápice em todos os indivíduos."
+        explanation: "As coronárias originam-se logo acima da valva aórtica, preenchendo-se durante a diástole."
       }
     ]
   },
   femur: {
     title: "Anatomia e Osteologia do Fêmur",
     system: "Sistema Esquelético / Membro Inferior",
-    sources: ["Moore - Anatomia Orientada para a Clínica (Cap. 7)", "Netter - Atlas de Anatomia Humana (Prancha 472)", "Sobotta - Vol. 2"],
+    sources: ["Moore - Cap. 7", "Netter - Prancha 472", "Sobotta - Vol. 2"],
     questions: [
       {
         front: "Qual a grande projeção óssea na extremidade proximal lateral do Fêmur que dá inserção aos músculos glúteo médio e glúteo mínimo?",
@@ -162,48 +182,6 @@ const HUMANIZED_TOPIC_KNOWLEDGE_BASE = {
         back: "Linha Áspera do Fêmur",
         source: "Latarjet - Vol. 2, pág. 910",
         explanation: "A Linha Áspera divide-se superiormente em tuberosidade glútea e linha pectínea."
-      },
-      {
-        front: "Qual depressão na cabeça do Fêmur dá fixação ao ligamento da cabeça do fêmur que conduz a artéria obturatória?",
-        back: "Fóvea da Cabeça do Fêmur (Fovea Capitis)",
-        source: "Netter - Prancha 470",
-        explanation: "A Fóvea abriga o ligamento redondo responsável por parte da nutrição da cabeça femoral."
-      },
-      {
-        front: "Qual artéria atravessa o hiato dos adutores no terço distal do Fêmur para se tornar a Artéria Poplítea?",
-        back: "Artéria Femoral",
-        source: "Moore - Cap. 7, pág. 712",
-        explanation: "A Artéria Femoral cruza o canal dos adutores e passa ao compartimento posterior como Artéria Poplítea."
-      },
-      {
-        front: "Quais são as duas superfícies articulares convexas na extremidade distal do Fêmur que se articulam com os platôs tibiais?",
-        back: "Côndilos Femurais (Medial e Lateral)",
-        source: "Sobotta - Vol. 2, pág. 244",
-        explanation: "Os côndilos femurais articulam-se com a tíbia e os meniscos no joelho."
-      },
-      {
-        front: "Qual crista une os trocanteres maior e menor na face posterior do Fêmur?",
-        back: "Crista Intertrocantérica",
-        source: "Latarjet - Vol. 2, pág. 912",
-        explanation: "A Crista Intertrocantérica situa-se na face posterior entre os dois trocanteres."
-      },
-      {
-        front: "Qual projeção cônica póstero-medial no Fêmur dá inserção ao músculo iliopsoas?",
-        back: "Trocanter Menor do Fêmur",
-        source: "Netter - Prancha 472",
-        explanation: "O Trocanter Menor é o ponto de inserção do principal flexor do quadril."
-      },
-      {
-        front: "Qual o maior e mais resistente osso longo do corpo humano?",
-        back: "Fêmur",
-        source: "Moore / Guyton",
-        explanation: "O Fêmur transmite o peso do tronco aos membros inferiores."
-      },
-      {
-        front: "Qual superfície articular anterior na extremidade distal do Fêmur se articula com a Patela?",
-        back: "Face Patelar do Fêmur (Tróclea Femoral)",
-        source: "Sobotta - Vol. 2, pág. 246",
-        explanation: "A Face Patelar permite o deslizamento da patela na extensão do joelho."
       }
     ]
   }
@@ -220,26 +198,26 @@ export async function generateAnatomicalFlashcards({
   const cleanTopic = String(topic || "").trim();
   const lowerTopic = cleanTopic.toLowerCase();
 
-  // 1. Match Direct Humanized Knowledge Base (ex: "Vértebras Cervicais", "Artéria Coronária", "Fêmur")
-  const kbKey = Object.keys(HUMANIZED_TOPIC_KNOWLEDGE_BASE).find(key => 
+  // 1. Match Direct Master Medical Knowledge Matrix
+  const kbKey = Object.keys(ANATOMICAL_MASTER_KNOWLEDGE_MATRIX).find(key => 
     lowerTopic.includes(key) || key.includes(lowerTopic) ||
+    (key === "clavicula" && (lowerTopic.includes("clavíc") || lowerTopic.includes("clavic"))) ||
+    (key === "umero" && (lowerTopic.includes("úmer") || lowerTopic.includes("umer"))) ||
     (key === "cervical" && (lowerTopic.includes("vértebra") || lowerTopic.includes("vertebra") || lowerTopic.includes("cervic") || lowerTopic.includes("coluna"))) ||
     (key === "coronaria" && (lowerTopic.includes("coronár") || lowerTopic.includes("coronaria") || lowerTopic.includes("coração"))) ||
     (key === "femur" && (lowerTopic.includes("fêmur") || lowerTopic.includes("femur")))
   );
 
   if (kbKey) {
-    const kbData = HUMANIZED_TOPIC_KNOWLEDGE_BASE[kbKey];
+    const kbData = ANATOMICAL_MASTER_KNOWLEDGE_MATRIX[kbKey];
     const baseQuestions = kbData.questions;
 
     const generatedCards = Array.from({ length: count }, (_, idx) => {
       const q = baseQuestions[idx % baseQuestions.length];
-
-      // STRICT STYLED IMAGE SEARCH: Assign image SELECTIVELY (only 50% of cards get an image, strictly matched!)
       const pdfImg = findPdfImageForTopic(cleanTopic, kbData.system, idx);
 
       return {
-        id: `fc-human-${kbKey}-${idx + 1}-${Date.now()}`,
+        id: `fc-master-${kbKey}-${idx + 1}-${Date.now()}`,
         topic: cleanTopic || kbData.title,
         front: q.front,
         back: q.back,
@@ -258,13 +236,13 @@ export async function generateAnatomicalFlashcards({
     };
   }
 
-  // 2. Try RAG Query via Tutor AI for any custom topic
+  // 2. Try Querying Tutor AI RAG Engine for Any Custom Structure
   if (cleanTopic) {
     try {
-      const ragPrompt = `Gere exatamente ${count} perguntas anatômicas humanizadas e diretas sobre o tema "${cleanTopic}" com dificuldade ${difficulty}. Para cada card forneça: Pergunta humanizada sem numeração, Resposta direta e objetiva, Fonte médica (livro e capítulo). Não use linguagem robótica nem rótulos genéricos.`;
+      const ragPrompt = `Gere exatamente ${count} perguntas de anatomia médica cirúrgica e osteológica de alto nível sobre "${cleanTopic}" com dificuldade ${difficulty}. Forneça: Pergunta médica direta sobre acidentes ósseos ou correlação clínica, Resposta precisa em poucas palavras (sem clichês de suporte geral), Fonte do livro oficial (Moore, Sobotta ou Netter).`;
       const response = await atlasAITutorService.queryTutor({
         prompt: ragPrompt,
-        contextLabel: `Flashcards RAG Humanizado: ${cleanTopic}`
+        contextLabel: `Flashcards RAG Mestre: ${cleanTopic}`
       });
 
       if (response && response.text) {
@@ -279,46 +257,46 @@ export async function generateAnatomicalFlashcards({
         }
       }
     } catch (err) {
-      console.warn("RAG Humanized Flashcard Synthesis fallback to template:", err);
+      console.warn("RAG Master Synthesis fallback to dynamic generator:", err);
     }
   }
 
-  // 3. Humanized Dynamic Generator for any custom medical topic with STRICT SELECTIVE IMAGE MATCHING
-  const humanizedDynamicCards = Array.from({ length: count }, (_, idx) => {
+  // 3. Dynamic RAG Medical Generator for ANY Custom Topic with Strict Specific Questions
+  const dynamicMedicalCards = Array.from({ length: count }, (_, idx) => {
     const cardNum = idx + 1;
-    // Strict selective image matching (Returns NULL if no strict category exists for custom topic)
     const pdfImg = findPdfImageForTopic(cleanTopic, "", idx);
-    
-    const humanTemplates = [
+
+    // Deep specific questions based on clinical anatomy standards
+    const deepQuestions = [
       {
-        front: `Qual a principal função anatômica e localização da estrutura principal em "${cleanTopic}"?`,
-        back: `Localiza-se na região anatômica correspondente a ${cleanTopic}, desempenhando papel estrutural e funcional de suporte.`
+        front: `Qual acidente ósseo ou marco anatômico de superfície no osso/estrutura "${cleanTopic}" serve de inserção para o músculo primário da região?`,
+        back: `Tuberosidade ou crista rugosa da região de ${cleanTopic} descrita nos tratados de osteologia.`
       },
       {
-        front: `Preencha a lacuna: Em termos de irrigação e drenagem, a estrutura principal de ____ conecta-se aos grandes vasos circundantes.`,
-        back: `Conexões vasculares diretas da região de ${cleanTopic} descritas nos atlas anatômicos.`
+        front: `Qual a principal artéria responsável pelo suprimento sanguíneo direto da região de "${cleanTopic}"?`,
+        back: `Ramos arteriais diretos e vascularização periosteal da região de ${cleanTopic}.`
       },
       {
-        front: `Qual a principal correlação clínica em caso de lesão, fratura ou compressão envolvendo a região de "${cleanTopic}"?`,
-        back: `Déficit funcional, limitação de mobilidade ou alteração de sensibilidade no dermatomo/miótomo correspondente.`
+        front: `Qual nervo de emergência do plexo local cruza adjacente à estrutura "${cleanTopic}" e pode ser lesado em fraturas ou traumas locais?`,
+        back: `Ramo nervoso sensitivo e motor adjacente à região de ${cleanTopic}.`
       },
       {
-        front: `Quais são as principais estruturas vizinhas e limites anatômicos da região de "${cleanTopic}"?`,
-        back: `Limites anterior, posterior, medial e lateral descritos na anatomia topográfica médica.`
+        front: `Qual articulação sinovial liga o elemento "${cleanTopic}" ao esqueleto adjacente?`,
+        back: `Articulação sinovial anatômica de conexão de ${cleanTopic}.`
       }
     ];
 
-    const tpl = humanTemplates[(idx % humanTemplates.length)];
+    const q = deepQuestions[idx % deepQuestions.length];
 
     return {
-      id: `fc-human-dyn-${cleanTopic}-${cardNum}-${Date.now()}`,
+      id: `fc-master-dyn-${cleanTopic}-${cardNum}-${Date.now()}`,
       topic: cleanTopic || "Anatomia Humana",
-      front: tpl.front,
-      back: tpl.back,
-      sourceCitation: pdfImg?.book || "Tratado de Anatomia Humana (Netter / Moore)",
+      front: q.front,
+      back: q.back,
+      sourceCitation: pdfImg?.book || "Tratado de Anatomia Humana (Moore / Sobotta / Netter)",
       imageUrl: pdfImg ? pdfImg.src : null,
       pdfImageMeta: pdfImg || null,
-      explanation: `Revisão anatômica didática focada no tema "${cleanTopic}".`
+      explanation: `Estudo focado no tema "${cleanTopic}".`
     };
   });
 
@@ -326,7 +304,7 @@ export async function generateAnatomicalFlashcards({
     title: `Flashcards: ${cleanTopic || "Anatomia Humana"}`,
     difficulty,
     sources: ["Netter - Atlas de Anatomia Humana", "Moore - Anatomia Orientada para a Clínica"],
-    cards: humanizedDynamicCards
+    cards: dynamicMedicalCards
   };
 }
 
@@ -341,11 +319,10 @@ function parseCardsFromRagText(text, topic, difficulty, count) {
     const backMatch = block.match(/(?:Verso|Resposta|A:)\s*([^\n]+)/i);
     const sourceMatch = block.match(/(?:Fonte|Citação|Livro:)\s*([^\n]+)/i);
 
-    const front = frontMatch ? frontMatch[1].trim() : `Sobre ${topic}: Qual o aspecto funcional ou anatômico da estrutura ${idx + 1}?`;
-    const back = backMatch ? backMatch[1].trim() : `Estrutura e correlação clínica descrita na literatura médica.`;
+    const front = frontMatch ? frontMatch[1].trim() : `Sobre ${topic}: Qual o acidente ósseo ou estrutura principal da região ${idx + 1}?`;
+    const back = backMatch ? backMatch[1].trim() : `Estrutura médica correspondente descrita na literatura.`;
     const sourceCitation = sourceMatch ? sourceMatch[1].trim() : `Tratado de Anatomia Humana (Netter / Moore)`;
 
-    // STRICT SELECTIVE IMAGE MATCHING (Returns NULL if no strict category exists for topic)
     const pdfImg = findPdfImageForTopic(topic, "", idx);
 
     cards.push({
@@ -361,13 +338,4 @@ function parseCardsFromRagText(text, topic, difficulty, count) {
   });
 
   return cards;
-}
-
-function hashCode(str = "") {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = (hash << 5) - hash + str.charCodeAt(i);
-    hash |= 0;
-  }
-  return Math.abs(hash);
 }
