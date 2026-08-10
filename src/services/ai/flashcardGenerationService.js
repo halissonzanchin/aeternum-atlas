@@ -1,11 +1,78 @@
 import { atlasAITutorService } from "../../features/atlas-viewer/ai/atlasAITutorService";
-import { PDF_MEDICAL_IMAGE_REGISTRY, NETTER_UNLABELED_PLATES, findPdfImageForTopic } from "../../data/pdfMedicalImageRegistry";
+import { findPdfImageForTopic } from "../../data/pdfMedicalImageRegistry";
 
 /**
  * Base de Conhecimento Humanizada por Tópicos Médicos
  * Questões e respostas anatômicas e clínicas diretas, humanizadas e sem clichês robóticos.
  */
 const HUMANIZED_TOPIC_KNOWLEDGE_BASE = {
+  cervical: {
+    title: "Vértebras Cervicais e Coluna Vertebral",
+    system: "Coluna Vertebral / Pescoço",
+    sources: ["Moore - Anatomia Orientada para a Clínica (Cap. 4)", "Sobotta - Atlas de Anatomia Humana (Vol. 1)", "Netter - Pranchas 16-24"],
+    questions: [
+      {
+        front: "Qual a primeira vértebra cervical (C1) que não possui corpo vertebral nem processo espinhoso e articula-se com os côndilos ocipitais do crânio?",
+        back: "Atlas (Vértebra C1)",
+        source: "Moore - Cap. 4 (Coluna Vertebral), pág. 480",
+        explanation: "O Atlas é um anel ósseo com massas laterais articuladas aos côndilos ocipitais para o movimento de flexão-extensão da cabeça ('sim')."
+      },
+      {
+        front: "Qual a estrutura proeminente em forma de dente na face superior da segunda vértebra cervical (C2 - Áxis) que atua como pivô para a rotação da cabeça?",
+        back: "Processo Odontoide (Dente do Áxis)",
+        source: "Sobotta - Vol. 1, pág. 112",
+        explanation: "O dente do Áxis projeta-se superiormente a partir do seu corpo e articula-se com o arco anterior do Atlas, permitindo o movimento de rotação ('não')."
+      },
+      {
+        front: "Preencha a lacuna: O acidente ósseo exclusivo das vértebras cervicais (C1 a C6) que dá passagem para a artéria vertebral e veias acompanhantes é o ____.",
+        back: "Forame Transverso (Forame Transversário)",
+        source: "Netter - Prancha 18",
+        explanation: "O forame transverso situa-se nos processos transversos das vértebras C1 a C6, conduzindo a Artéria Vertebral até o forame magno."
+      },
+      {
+        front: "Qual vértebra cervical (C7) possui o processo espinhoso mais longo e proeminente, facilmente palpável na base posterior do pescoço?",
+        back: "Vértebra Proeminente (C7)",
+        source: "Moore - Cap. 4, pág. 482",
+        explanation: "C7 possui um processo espinhoso longo e não bífido que serve de marco anatômico de superfície palpável."
+      },
+      {
+        front: "Qual ligamento forte estende-se posteriormente ao longo das faces posteriores dos corpos vertebrais, de C2 ao sacro, prevenindo a hiperflexão da coluna?",
+        back: "Ligamento Longitudinal Posterior (LLP)",
+        source: "Latarjet - Vol. 1, pág. 110",
+        explanation: "O LLP corre no interior do canal vertebral e ajuda a conter a herniação posterior dos discos intervertebrais."
+      },
+      {
+        front: "Quais articulações sinoviais situam-se entre os processos articulares das vértebras cervicais adjacentes e orientam o movimento de rotação e inclinação lateral?",
+        back: "Articulações Zigoapofisárias (Articulações Facetárias)",
+        source: "Sobotta - Vol. 1, pág. 115",
+        explanation: "Nas vértebras cervicais, as facetas articulares são relativamente horizontais, favorecendo a flexão, extensão e inclinação."
+      },
+      {
+        front: "Qual ligamento espesso amarelado e elástico une as lâminas das vértebras adjacentes e ajuda a preservar a curvatura normal da coluna vertebral?",
+        back: "Ligamento Amarelo (Ligamentum Flavum)",
+        source: "Moore - Cap. 4, pág. 488",
+        explanation: "O ligamento amarelo consiste em tecido elástico denso que resiste à separação das lâminas durante a flexão da coluna."
+      },
+      {
+        front: "Qual a consequência neurológica de uma herniação póstero-lateral do disco intervertebral C5-C6 sobre o raio de emergência do nervo espinal?",
+        back: "Compressão da Raiz Nervosa de C6 (Radiculopatia Cervical C6)",
+        source: "Snell - Neuroanatomia Clínica",
+        explanation: "A compressão da raiz C6 causa parestesia no aspecto lateral do antebraço e polegar, associada à fraqueza do bíceps e extensor do punho."
+      },
+      {
+        front: "Preencha a lacuna: As vértebras cervicais atípicas são C1 (Atlas), C2 (Áxis) e ____.",
+        back: "C7 (Vértebra Proeminente)",
+        source: "Sobotta / Moore",
+        explanation: "C3 a C6 são consideradas vértebras cervicais típicas, compartilhando corpos pequenos e processos espinhosos bífidos."
+      },
+      {
+        front: "Qual ligamento espesso se estende da protuberância ocipital externa e crista ocipital até o processo espinhoso de C7, dando inserção ao músculo trapézio?",
+        back: "Ligamento Nucal",
+        source: "Netter - Prancha 22",
+        explanation: "O ligamento nucal é uma lâmina fibroelástica mediana que substitui os ligamentos supraespinhosos no pescoço."
+      }
+    ]
+  },
   coronaria: {
     title: "Anatomia das Artérias Coronárias e Irrigação Cardíaca",
     system: "Cardiovascular",
@@ -153,20 +220,23 @@ export async function generateAnatomicalFlashcards({
   const cleanTopic = String(topic || "").trim();
   const lowerTopic = cleanTopic.toLowerCase();
 
-  // 1. Match Direct Humanized Knowledge Base (ex: "Artéria Coronária", "Coronária", "Fêmur")
+  // 1. Match Direct Humanized Knowledge Base (ex: "Vértebras Cervicais", "Artéria Coronária", "Fêmur")
   const kbKey = Object.keys(HUMANIZED_TOPIC_KNOWLEDGE_BASE).find(key => 
     lowerTopic.includes(key) || key.includes(lowerTopic) ||
+    (key === "cervical" && (lowerTopic.includes("vértebra") || lowerTopic.includes("vertebra") || lowerTopic.includes("cervic") || lowerTopic.includes("coluna"))) ||
     (key === "coronaria" && (lowerTopic.includes("coronár") || lowerTopic.includes("coronaria") || lowerTopic.includes("coração"))) ||
     (key === "femur" && (lowerTopic.includes("fêmur") || lowerTopic.includes("femur")))
   );
 
   if (kbKey) {
     const kbData = HUMANIZED_TOPIC_KNOWLEDGE_BASE[kbKey];
-    // Replicate / extend questions to meet exact count requested (e.g. 20 cards)
     const baseQuestions = kbData.questions;
+
     const generatedCards = Array.from({ length: count }, (_, idx) => {
       const q = baseQuestions[idx % baseQuestions.length];
-      const pdfImg = NETTER_UNLABELED_PLATES[(idx * 19 + hashCode(cleanTopic)) % NETTER_UNLABELED_PLATES.length];
+
+      // STRICT STYLED IMAGE SEARCH: Assign image SELECTIVELY (only 50% of cards get an image, strictly matched!)
+      const pdfImg = findPdfImageForTopic(cleanTopic, kbData.system, idx);
 
       return {
         id: `fc-human-${kbKey}-${idx + 1}-${Date.now()}`,
@@ -213,15 +283,15 @@ export async function generateAnatomicalFlashcards({
     }
   }
 
-  // 3. Humanized Dynamic Generator for any custom medical topic
+  // 3. Humanized Dynamic Generator for any custom medical topic with STRICT SELECTIVE IMAGE MATCHING
   const humanizedDynamicCards = Array.from({ length: count }, (_, idx) => {
     const cardNum = idx + 1;
-    const pdfImg = NETTER_UNLABELED_PLATES[(idx * 29 + hashCode(cleanTopic)) % NETTER_UNLABELED_PLATES.length];
+    // Strict selective image matching (Returns NULL if no strict category exists for custom topic)
+    const pdfImg = findPdfImageForTopic(cleanTopic, "", idx);
     
-    // Humanized question templates without robotic markers
     const humanTemplates = [
       {
-        front: `Qual a principal função anatômica e localização da estrutura em estudo em "${cleanTopic}"?`,
+        front: `Qual a principal função anatômica e localização da estrutura principal em "${cleanTopic}"?`,
         back: `Localiza-se na região anatômica correspondente a ${cleanTopic}, desempenhando papel estrutural e funcional de suporte.`
       },
       {
@@ -245,7 +315,7 @@ export async function generateAnatomicalFlashcards({
       topic: cleanTopic || "Anatomia Humana",
       front: tpl.front,
       back: tpl.back,
-      sourceCitation: pdfImg?.book || "Netter - Atlas de Anatomia Humana",
+      sourceCitation: pdfImg?.book || "Tratado de Anatomia Humana (Netter / Moore)",
       imageUrl: pdfImg ? pdfImg.src : null,
       pdfImageMeta: pdfImg || null,
       explanation: `Revisão anatômica didática focada no tema "${cleanTopic}".`
@@ -275,6 +345,7 @@ function parseCardsFromRagText(text, topic, difficulty, count) {
     const back = backMatch ? backMatch[1].trim() : `Estrutura e correlação clínica descrita na literatura médica.`;
     const sourceCitation = sourceMatch ? sourceMatch[1].trim() : `Tratado de Anatomia Humana (Netter / Moore)`;
 
+    // STRICT SELECTIVE IMAGE MATCHING (Returns NULL if no strict category exists for topic)
     const pdfImg = findPdfImageForTopic(topic, "", idx);
 
     cards.push({

@@ -15,12 +15,12 @@ import { generateAnatomicalFlashcards } from "../../services/ai/flashcardGenerat
 import "../../styles/AnatomicalFlashcards.css";
 
 const QUICK_TOPIC_CHIPS = [
+  "+ Vértebras Cervicais",
+  "+ Fêmur e Osteologia",
   "+ Vascularização do Coração",
   "+ Pares Cranianos",
   "+ Plexo Braquial e Membro Superior",
-  "+ Ramos da Artéria Subclávia",
-  "+ Sistema Nervoso Central",
-  "+ Osteologia do Crânio"
+  "+ Encéfalo e Neuroanatomia"
 ];
 
 export default function AnatomicalFlashcardsPage({ user, navigate }) {
