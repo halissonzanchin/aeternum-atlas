@@ -275,7 +275,12 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
 
               <div className="a26-flashcard-body">
                 {currentCard.imageUrl && (
-                  <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
+                  <div className="flex flex-col items-center gap-1.5">
+                    <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
+                    <span className="text-[10px] font-mono text-emerald-300 bg-emerald-950/70 px-2.5 py-0.5 rounded-full border border-emerald-500/40">
+                      📄 Prancha Anatômica Autêntica (PDF: {currentCard.pdfImageMeta?.book || currentCard.sourceCitation})
+                    </span>
+                  </div>
                 )}
                 <p className="a26-flashcard-text">{currentCard.front}</p>
               </div>

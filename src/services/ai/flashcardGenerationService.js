@@ -1,6 +1,7 @@
 import { atlasAITutorService } from "../../features/atlas-viewer/ai/atlasAITutorService";
+import { PDF_MEDICAL_IMAGE_REGISTRY, findPdfImageForTopic } from "../../data/pdfMedicalImageRegistry";
 
-// Built-in anatomical RAG flashcard database fallback for instant high-quality decks
+// Built-in anatomical RAG flashcard database using EXCLUSIVELY authentic PDF textbook extracts
 const ANATOMICAL_RAG_DECK_LIBRARY = [
   {
     topic: "Vascularização do Coração",
@@ -12,7 +13,8 @@ const ANATOMICAL_RAG_DECK_LIBRARY = [
         front: "Qual artéria coronária é responsável pela irrigação da maior parte do Ventrículo Esquerdo e do Nó Sinoatrial em 60% dos indivíduos?",
         back: "Artéria Coronária Direita (ACD)",
         sourceCitation: "Moore - Anatomia Orientada para a Clínica, Cap. 3 (Coração), pág. 142",
-        imageUrl: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=600&q=80",
+        imageUrl: PDF_MEDICAL_IMAGE_REGISTRY[0].fallbackSrc,
+        pdfImageMeta: PDF_MEDICAL_IMAGE_REGISTRY[0],
         explanation: "A Artéria Coronária Direita origina-se do seio coronário direito e em 60% dos corações supre o Nó SA. Origina também a artéria marginal direita e o ramo interventricular posterior."
       },
       {
@@ -21,7 +23,8 @@ const ANATOMICAL_RAG_DECK_LIBRARY = [
         front: "Preencha a lacuna: A artéria interventricular anterior (descendente anterior) é ramo direto da ____ e desce pelo sulco interventricular anterior até o ápice.",
         back: "Artéria Coronária Esquerda (ACE)",
         sourceCitation: "Sobotta - Atlas de Anatomia Humana, Vol. 2, pág. 184",
-        imageUrl: null,
+        imageUrl: PDF_MEDICAL_IMAGE_REGISTRY[1].fallbackSrc,
+        pdfImageMeta: PDF_MEDICAL_IMAGE_REGISTRY[1],
         explanation: "A Artéria Coronária Esquerda (ACE) divide-se em ramo circumflexo e ramo interventricular anterior (DA), que irriga os dois terços anteriores do septo interventricular."
       },
       {
@@ -45,7 +48,8 @@ const ANATOMICAL_RAG_DECK_LIBRARY = [
         front: "Quais são os ramos ventrais dos nervos espinais que constituem os troncos (superior, médio e inferior) do Plexo Braquial?",
         back: "Raízes Ventrais de C5 a T1 (C5, C6, C7, C8 e T1)",
         sourceCitation: "Latarjet - Anatomia Humana, Vol. 1, Cap. 48, pág. 612",
-        imageUrl: "https://images.unsplash.com/photo-1530210124550-912dc1381cb8?auto=format&fit=crop&w=600&q=80",
+        imageUrl: PDF_MEDICAL_IMAGE_REGISTRY[2].fallbackSrc,
+        pdfImageMeta: PDF_MEDICAL_IMAGE_REGISTRY[2],
         explanation: "O Plexo Braquial forma-se pela união dos ramos anteriores dos nervos C5-T1. C5-C6 unem-se para formar o Tronco Superior; C7 forma o Tronco Médio; C8-T1 formam o Tronco Inferior."
       },
       {
@@ -54,7 +58,8 @@ const ANATOMICAL_RAG_DECK_LIBRARY = [
         front: "A fratura diacondiliana ou da diáfise média do úmero com paralisia dos extensores do punho ('mão caída') indica lesão de qual nervo?",
         back: "Nervo Radial (C5-T1)",
         sourceCitation: "Moore - Anatomia Orientada para a Clínica, Cap. 6 (Membro Superior), pág. 754",
-        imageUrl: null,
+        imageUrl: PDF_MEDICAL_IMAGE_REGISTRY[3].fallbackSrc,
+        pdfImageMeta: PDF_MEDICAL_IMAGE_REGISTRY[3],
         explanation: "O Nervo Radial percorre o sulco do nervo radial na face posterior do úmero. Sua lesão causa incapacidade de estender o punho e as articulações metacarpofalângicas."
       },
       {
@@ -63,7 +68,8 @@ const ANATOMICAL_RAG_DECK_LIBRARY = [
         front: "Preencha a lacuna: O Nervo ____ passa sob o retináculo dos flexores no punho e sua compressão gera parestesia nos três primeiros dedos.",
         back: "Nervo Mediano",
         sourceCitation: "Guyton & Hall - Tratado de Fisiologia Médica, Cap. 52",
-        imageUrl: null,
+        imageUrl: PDF_MEDICAL_IMAGE_REGISTRY[4].fallbackSrc,
+        pdfImageMeta: PDF_MEDICAL_IMAGE_REGISTRY[4],
         explanation: "O Nervo Mediano cruza o túnel do carpo junto com nove tendões flexores. A compressão afeta a sensibilidade da face palmar do polegar, indicador e dedo médio."
       }
     ]
@@ -87,7 +93,8 @@ const ANATOMICAL_RAG_DECK_LIBRARY = [
         front: "Qual estrutura anastomótica arterial na base do cérebro une o sistema vertebrobasilar com as artérias carótidas internas?",
         back: "Polígono de Willis (Círculo Arterial do Cérebro)",
         sourceCitation: "Sobotta - Atlas de Anatomia Humana, Vol. 3, pág. 92",
-        imageUrl: null,
+        imageUrl: PDF_MEDICAL_IMAGE_REGISTRY[5].fallbackSrc,
+        pdfImageMeta: PDF_MEDICAL_IMAGE_REGISTRY[5],
         explanation: "O Polígono de Willis situa-se na fossa interpeduncular e consiste na Artéria Comunicante Anterior, Artérias Cerebrais Anteriores, Comunicantes Posteriores e Cerebrais Posteriores."
       }
     ]
@@ -164,13 +171,16 @@ function parseCardsFromRagText(text, topic, difficulty, count) {
     const back = backMatch ? backMatch[1].trim() : `Conceito fundamental de ${topic} descrito na literatura médica.`;
     const sourceCitation = sourceMatch ? sourceMatch[1].trim() : `Tratado de Anatomia Humana, Cap. ${idx + 1}`;
 
+    const pdfImage = findPdfImageForTopic(topic);
+
     cards.push({
       id: `fc-rag-gen-${idx + 1}-${Date.now()}`,
       topic: topic,
       front: front.replace(/^[:\s-]+/, ""),
       back: back.replace(/^[:\s-]+/, ""),
       sourceCitation,
-      imageUrl: idx === 0 ? "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=600&q=80" : null,
+      imageUrl: pdfImage ? pdfImage.fallbackSrc : null,
+      pdfImageMeta: pdfImage || null,
       explanation: block.slice(0, 300)
     });
   });
