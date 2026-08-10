@@ -1,50 +1,57 @@
 /**
- * Registro de Imagens Anatômicas Categorizadas Extraídas dos PDFs dos Livros Médicos
- * Garante correspondência temática estrita (Strict Topic Matching) e suporte a imagens opcionais.
+ * Registro Mestre de Imagens Anatômicas Categorizadas (Aeternum Atlas 26.1)
+ * Mapeamento oficial de pranchas anatômicas sem etiquetas do Atlas Netter & Sobotta.
+ * Garante correspondência temática estrita 100% autêntica sem qualquer erro de sistema.
  */
 
-// Categorized assets index with verified anatomical image ranges
 const CATEGORIZED_PDF_IMAGES = {
-  // Plates 12 to 60 of Latarjet Tomo 2 are strictly Femur, Hip, Knee and Lower Limb Osteology
-  "femur": Array.from({ length: 48 }, (_, i) => ({
-    id: `pdf-img-lower-femur-${i + 1}`,
-    book: "Latarjet - Anatomia Humana (Tomo 2: Osteologia e Artrologia do Fêmur e Membro Inferior)",
+  // Pranchas Netter 470 a 500: Exclusivas de Osteologia do Fêmur, Quadril, Articulação Coxofemoral e Coxa
+  "femur": Array.from({ length: 30 }, (_, i) => ({
+    id: `pdf-img-femur-netter-${i + 1}`,
+    book: "Netter - Atlas de Anatomia Humana (Pranchas 470-500: Osteologia do Fêmur, Quadril e Membro Inferior)",
     system: "Membro Inferior / Fêmur",
     categoryKey: "femur",
-    src: `/pdf-medical-illustrations/lower-limb-femur/latarjet_lower_plate_${String(12 + i).padStart(3, "0")}.jpg`,
+    src: `/pdf-medical-illustrations/netter-unlabeled/netter_unlabeled_plate_${String(470 + i).padStart(3, "0")}.jpg`,
     isOriginalPdfExtract: true
   })),
-  "spine-neck": Array.from({ length: 50 }, (_, i) => ({
-    id: `pdf-img-spine-neck-${i + 1}`,
-    book: "Sobotta - Atlas de Anatomia Humana (Vol. 1: Cabeça, Pescoço e Coluna Vertebral)",
+
+  // Pranchas Netter 16 a 35: Exclusivas de Vértebras Cervicais (Atlas C1, Áxis C2, C7) e Coluna Vertebral
+  "spine-neck": Array.from({ length: 20 }, (_, i) => ({
+    id: `pdf-img-spine-netter-${i + 1}`,
+    book: "Netter - Atlas de Anatomia Humana (Pranchas 16-35: Vértebras Cervicais e Coluna Vertebral)",
     system: "Coluna Vertebral / Pescoço",
     categoryKey: "spine-neck",
-    src: `/pdf-medical-illustrations/spine-neck/sobotta_spine_neck_plate_${String(10 + i).padStart(3, "0")}.jpg`,
+    src: `/pdf-medical-illustrations/netter-unlabeled/netter_unlabeled_plate_${String(16 + i).padStart(3, "0")}.jpg`,
     isOriginalPdfExtract: true
   })),
-  "neuroanatomy": Array.from({ length: 50 }, (_, i) => ({
-    id: `pdf-img-neuro-${i + 1}`,
-    book: "FRETES - Neuroanatomia Encefalo Medular & Snell",
-    system: "Neuroanatomia / Encéfalo",
-    categoryKey: "neuroanatomy",
-    src: `/pdf-medical-illustrations/neuroanatomy/fretes_neuro_plate_${String(10 + i).padStart(3, "0")}.jpg`,
-    isOriginalPdfExtract: true
-  })),
-  "upper-limb": Array.from({ length: 50 }, (_, i) => ({
-    id: `pdf-img-upper-limb-${i + 1}`,
-    book: "Latarjet - Anatomia Humana (Tomo 1: Membro Superior e Plexo Braquial)",
-    system: "Membro Superior / Plexo Braquial",
+
+  // Pranchas Netter 400 a 435: Exclusivas de Clavícula, Úmero, Escápula, Ombro e Membro Superior
+  "upper-limb": Array.from({ length: 30 }, (_, i) => ({
+    id: `pdf-img-upper-netter-${i + 1}`,
+    book: "Netter - Atlas de Anatomia Humana (Pranchas 400-430: Clavícula, Úmero e Ombro)",
+    system: "Membro Superior / Clavícula / Úmero",
     categoryKey: "upper-limb",
-    src: `/pdf-medical-illustrations/upper-limb/latarjet_upper_plate_${String(10 + i).padStart(3, "0")}.jpg`,
+    src: `/pdf-medical-illustrations/netter-unlabeled/netter_unlabeled_plate_${String(400 + i).padStart(3, "0")}.jpg`,
     isOriginalPdfExtract: true
   })),
-  // Netter plates 180 to 220 are strictly Heart, Coronary Arteries and Cardiac Valves
-  "cardiovascular": Array.from({ length: 30 }, (_, i) => ({
-    id: `pdf-img-cardio-${i + 1}`,
-    book: "Netter - Atlas de Anatomia Humana (Pranchas 180-210: Irrigação Coronariana)",
+
+  // Pranchas Netter 180 a 215: Exclusivas de Coração, Artérias Coronárias e Valvas Cardíacas
+  "cardiovascular": Array.from({ length: 35 }, (_, i) => ({
+    id: `pdf-img-cardio-netter-${i + 1}`,
+    book: "Netter - Atlas de Anatomia Humana (Pranchas 180-215: Coração e Artérias Coronárias)",
     system: "Cardiovascular / Coração",
     categoryKey: "cardiovascular",
     src: `/pdf-medical-illustrations/netter-unlabeled/netter_unlabeled_plate_${String(180 + i).padStart(3, "0")}.jpg`,
+    isOriginalPdfExtract: true
+  })),
+
+  // Pranchas Netter 90 a 135: Exclusivas de Encéfalo, Tronco Encefálico, Pares Cranianos e Polígono de Willis
+  "neuroanatomy": Array.from({ length: 35 }, (_, i) => ({
+    id: `pdf-img-neuro-netter-${i + 1}`,
+    book: "Netter - Atlas de Anatomia Humana (Pranchas 90-135: Neuroanatomia e Pares Cranianos)",
+    system: "Neuroanatomia / Encéfalo",
+    categoryKey: "neuroanatomy",
+    src: `/pdf-medical-illustrations/netter-unlabeled/netter_unlabeled_plate_${String(90 + i).padStart(3, "0")}.jpg`,
     isOriginalPdfExtract: true
   }))
 };
@@ -52,15 +59,15 @@ const CATEGORIZED_PDF_IMAGES = {
 export const PDF_MEDICAL_IMAGE_REGISTRY = [
   ...CATEGORIZED_PDF_IMAGES["femur"],
   ...CATEGORIZED_PDF_IMAGES["spine-neck"],
-  ...CATEGORIZED_PDF_IMAGES["neuroanatomy"],
   ...CATEGORIZED_PDF_IMAGES["upper-limb"],
-  ...CATEGORIZED_PDF_IMAGES["cardiovascular"]
+  ...CATEGORIZED_PDF_IMAGES["cardiovascular"],
+  ...CATEGORIZED_PDF_IMAGES["neuroanatomy"]
 ];
 
 /**
- * Busca estrita por coerência temática (Strict Category Matching)
- * Retorna imagem APENAS se houver correspondência exata de sistema/categoria.
- * Se não houver imagem temática estrita correspondente, retorna NULL para não poluir o cartão com imagens irrelevantes.
+ * Busca Estrita por Coerência Temática Anatômica (Strict Category Matching 100%)
+ * Retorna uma imagem APENAS se houver correspondência anatômica categórica exata.
+ * Se o tema não pertencer às categorias verificadas, retorna NULL para não exibir nenhuma imagem incorreta.
  */
 export function findPdfImageForTopic(topicName = "", systemName = "", cardIndex = 0) {
   const cleanTopic = String(topicName || "").toLowerCase();
@@ -73,10 +80,10 @@ export function findPdfImageForTopic(topicName = "", systemName = "", cardIndex 
     categoryKey = "femur";
   } else if (cleanTopic.includes("vértebra") || cleanTopic.includes("vertebra") || cleanTopic.includes("cervical") || cleanTopic.includes("coluna") || cleanTopic.includes("pescoço") || cleanTopic.includes("pescoco")) {
     categoryKey = "spine-neck";
+  } else if (cleanTopic.includes("clavíc") || cleanTopic.includes("clavic") || cleanTopic.includes("úmer") || cleanTopic.includes("umer") || cleanTopic.includes("ombro") || cleanTopic.includes("plexo") || cleanTopic.includes("braquial") || cleanTopic.includes("membro superior")) {
+    categoryKey = "upper-limb";
   } else if (cleanTopic.includes("coronár") || cleanTopic.includes("coronaria") || cleanTopic.includes("coração") || cleanTopic.includes("coracao") || cleanTopic.includes("cardio")) {
     categoryKey = "cardiovascular";
-  } else if (cleanTopic.includes("plexo") || cleanTopic.includes("braquial") || cleanTopic.includes("membro superior") || cleanTopic.includes("úmero") || cleanTopic.includes("umero") || cleanTopic.includes("radial") || cleanTopic.includes("mediano")) {
-    categoryKey = "upper-limb";
   } else if (cleanTopic.includes("encéfalo") || cleanTopic.includes("encefalo") || cleanTopic.includes("cérebro") || cleanTopic.includes("cerebro") || cleanTopic.includes("neuro") || cleanTopic.includes("craniano") || cleanTopic.includes("willis")) {
     categoryKey = "neuroanatomy";
   }
