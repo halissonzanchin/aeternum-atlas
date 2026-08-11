@@ -1,3 +1,5 @@
+import { LOCAL_MODELS } from "./localModels";
+
 export const agendaEventTypes = ["study", "review", "exam", "task", "class", "note"];
 export const agendaPriorities = ["low", "medium", "high"];
 export const agendaStatuses = ["pending", "completed", "missed"];
@@ -16,10 +18,8 @@ export const agendaAnatomicalSystems = [
   "Sistema nervoso"
 ];
 
-export const agendaModelOptions = [
-  { label: "Coração Humano — Modelo Superficial 3D", route: "/viewer/coracao-humano-superficial" },
-  { label: "Abdome Cadavérico 3D", route: "/viewer/abdome-cadaverico-3d" },
-  { label: "Crânio Humano 3D", route: "/viewer/cranio-humano-3d" },
-  { label: "Mandíbula", route: "/viewer/mandibula" },
-  { label: "Membro Superior 3D", route: "/atlas/membro-superior" }
-];
+// Dynamically mapped from real 3D models in LOCAL_MODELS to guarantee 100% real data
+export const agendaModelOptions = LOCAL_MODELS.map(model => ({
+  label: model.title,
+  route: `/viewer/${model.slug}`
+}));
