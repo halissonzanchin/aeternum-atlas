@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   agendaAnatomicalSystems,
   agendaEventTypes,
@@ -10,7 +10,9 @@ import {
 } from "../../../data/studyAgendaCatalog";
 import { formatAgendaDate } from "../../../hooks/useStudyAgenda";
 import { useLanguage } from "../../../context/LanguageContext";
+import { useAuth } from "../../../context/AuthContext";
 import { A26Button, A26Surface } from "../../aeternum-26";
+import { getSavedDecks } from "../../../services/ai/flashcardSpacedRepetitionService";
 
 function defaultForm(selectedDate) {
   return {
@@ -24,6 +26,8 @@ function defaultForm(selectedDate) {
     anatomicalSystem: "Cardiovascular",
     linkedModel: "",
     linkedModelRoute: "",
+    linkedFlashcardDeck: "",
+    linkedFlashcardRoute: "/flashcards",
     status: "pending",
     repeat: "none",
     reminder: "none"
@@ -32,7 +36,15 @@ function defaultForm(selectedDate) {
 
 export default function AgendaTaskModal({ open, selectedDate, event, onClose, onSubmit }) {
   const { t } = useLanguage();
+  const { user } = useAuth();
+  const userId = user?.id || "student-default";
   const [form, setForm] = useState(() => defaultForm(selectedDate));
+
+  // Dynamically fetch live saved flashcard decks (automatically syncs with deletions)
+  const savedFlashcardDecks = useMemo(() => {
+    if (!open) return [];
+    return getSavedDecks(userId);
+  }, [open, userId]);
 
   useEffect(() => {
     if (!open) return;
@@ -66,10 +78,10 @@ export default function AgendaTaskModal({ open, selectedDate, event, onClose, on
         onSubmit={submit}
         onClick={(clickEvent) => clickEvent.stopPropagation()}
       >
-        <header>
+        <header className="agenda-modal-header">
           <div>
             <p className="viewer-eyebrow">{event ? t("studyAgenda.editActivity") : t("studyAgenda.newActivity")}</p>
-            <h2>{event ? t("studyAgenda.editActivity") : t("studyAgenda.createActivity")}</h2>
+            <h2 className="text-xl font-bold text-agedGold">{event ? t("studyAgenda.editActivity") : t("studyAgenda.createActivity")}</h2>
           </div>
           <A26Button type="button" variant="ghost" onClick={onClose}>{t("actions.close")}</A26Button>
         </header>
@@ -77,7 +89,7 @@ export default function AgendaTaskModal({ open, selectedDate, event, onClose, on
         <div className="agenda-form-grid">
           <label className="field">
             <span>{t("studyAgenda.form.title")}</span>
-            <input value={form.title} onChange={(inputEvent) => update("title", inputEvent.target.value)} />
+            <input value={form.title} onChange={(inputEvent) => update("title", inputEvent.target.value)} required />
           </label>
           <label className="field">
             <span>{t("studyAgenda.form.date")}</span>
@@ -116,6 +128,20 @@ export default function AgendaTaskModal({ open, selectedDate, event, onClose, on
               {agendaModelOptions.map(option => <option key={option.label} value={option.label}>{option.label}</option>)}
             </select>
           </label>
+
+          {/* Flashcard Deck Selector - Synced live with saved decks */}
+          <label className="field">
+            <span className="text-emerald-400 font-semibold">🎴 Baralho de Flashcards Relacionado</span>
+            <select value={form.linkedFlashcardDeck || ""} onChange={(inputEvent) => update("linkedFlashcardDeck", inputEvent.target.value)}>
+              <option value="">Sem baralho de flashcards vinculado</option>
+              {savedFlashcardDecks.map(deck => (
+                <option key={deck.id || deck.title} value={deck.title}>
+                  {deck.title} ({deck.cards?.length || 0} cards)
+                </option>
+              ))}
+            </select>
+          </label>
+
           <label className="field">
             <span>{t("common.status")}</span>
             <select value={form.status} onChange={(inputEvent) => update("status", inputEvent.target.value)}>
@@ -134,13 +160,14 @@ export default function AgendaTaskModal({ open, selectedDate, event, onClose, on
               {agendaReminders.map(reminder => <option key={reminder} value={reminder}>{t(`studyAgenda.reminders.${reminder}`)}</option>)}
             </select>
           </label>
+
           <label className="field agenda-form-wide">
             <span>{t("studyAgenda.form.description")}</span>
-            <textarea value={form.description} onChange={(inputEvent) => update("description", inputEvent.target.value)} />
+            <textarea value={form.description} rows={2} onChange={(inputEvent) => update("description", inputEvent.target.value)} />
           </label>
         </div>
 
-        <footer>
+        <footer className="agenda-modal-footer">
           <A26Button type="button" variant="ghost" onClick={onClose}>{t("actions.cancel")}</A26Button>
           <A26Button type="submit" variant="primary">{t("actions.save")}</A26Button>
         </footer>

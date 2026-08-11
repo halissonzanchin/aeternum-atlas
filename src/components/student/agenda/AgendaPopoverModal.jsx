@@ -73,6 +73,22 @@ export default function AgendaPopoverModal({ event, onClose, onComplete, onEdit,
               </A26Button>
             </div>
           )}
+
+          {event.linkedFlashcardDeck && (
+            <div className="a26-popover-3d-box border-emerald-500/30 bg-emerald-950/20">
+              <span>Baralho de Flashcards Vinculado:</span>
+              <strong className="text-emerald-300">🎴 {event.linkedFlashcardDeck}</strong>
+              <A26Button
+                className="a26-popover-3d-btn text-emerald-300 border-emerald-500/40"
+                onClick={() => {
+                  if (navigate) navigate(event.linkedFlashcardRoute || "/flashcards");
+                  onClose();
+                }}
+              >
+                <span>🎴 Praticar Baralho de Flashcards ➔</span>
+              </A26Button>
+            </div>
+          )}
         </div>
 
         <footer className="a26-popover-footer">
