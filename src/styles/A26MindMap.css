@@ -15,6 +15,27 @@
   color: var(--a26-color-text, #eef3f4);
   border-radius: var(--a26-radius-panel, 18px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: grid-template-columns 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.a26-mindmap-page.sidebar-collapsed {
+  grid-template-columns: 0px 1fr;
+}
+
+/* Fullscreen Focus Mode (Maximizar Ecrã com Foco Total & Fundo Escuro) */
+.a26-mindmap-page.is-fullscreen {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999999 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  border: none !important;
+  background: #05080a !important;
+}
+
+.a26-mindmap-page.is-fullscreen .mindmap-canvas-wrap {
+  border-radius: 0 !important;
 }
 
 @media (max-width: 900px) {
@@ -29,15 +50,21 @@
 .mindmap-sidebar {
   display: flex;
   flex-direction: column;
+  width: 320px;
+  min-width: 320px;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(6, 10, 12, 0.75);
   backdrop-filter: blur(16px);
   z-index: 10;
-  transition: transform 0.25s ease, margin-left 0.25s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), width 0.3s cubic-bezier(0.16, 1, 0.3, 1), min-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .mindmap-sidebar.collapsed {
-  margin-left: -320px;
+  transform: translateX(-100%);
+  width: 0;
+  min-width: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .mindmap-sidebar-head {
@@ -99,24 +126,23 @@
 .mindmap-outline-box label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #556166;
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 6px;
-  display: block;
 }
 
 textarea.mindmap-outline-input {
   flex: 1;
   width: 100%;
-  resize: none;
-  background: rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
-  color: #eef3f4;
+  color: #a7b8be;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11.5px;
   line-height: 1.6;
+  resize: none;
   padding: 12px;
   outline: none;
   transition: border-color 0.15s ease;
@@ -184,139 +210,171 @@ textarea.mindmap-outline-input:focus {
   gap: 10px;
 }
 
-.topbar-export-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .toggle-sidebar-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
+  background: rgba(10, 16, 20, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(10, 14, 16, 0.82);
-  backdrop-filter: blur(12px);
-  color: #93a4aa;
+  color: #4fd8c9;
+  border-radius: 9px;
+  padding: 8px 12px;
+  font-size: 14px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  transition: all 0.15s ease;
+  backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
 }
 
 .toggle-sidebar-btn:hover {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(79, 216, 201, 0.15);
+  border-color: #4fd8c9;
+}
+
+.topbar-export-group {
+  display: flex;
+  gap: 8px;
 }
 
 .export-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 9px;
+  background: rgba(10, 16, 20, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(10, 14, 16, 0.82);
-  backdrop-filter: blur(12px);
-  color: #e2e8f0;
+  color: #fff;
+  border-radius: 9px;
+  padding: 8px 14px;
+  font-family: 'Inter', sans-serif;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s ease;
+  backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
 }
 
 .export-btn:hover {
-  color: #4fd8c9;
+  background: rgba(255, 255, 255, 0.12);
   border-color: #4fd8c9;
-  background: rgba(79, 216, 201, 0.15);
-  box-shadow: 0 0 12px rgba(79, 216, 201, 0.2);
+  color: #4fd8c9;
 }
 
 .zoom-controls {
   display: flex;
-  gap: 6px;
+  gap: 4px;
+  background: rgba(10, 16, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 9px;
+  padding: 3px;
+  backdrop-filter: blur(12px);
 }
 
 .zoom-controls button {
-  width: 36px;
-  height: 36px;
-  border-radius: 9px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(10, 14, 16, 0.82);
-  backdrop-filter: blur(12px);
-  color: #93a4aa;
+  background: transparent;
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s ease;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+  transition: background 0.15s ease;
 }
 
 .zoom-controls button:hover {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.1);
+  color: #4fd8c9;
 }
 
+.zoom-controls button.active-fullscreen {
+  background: rgba(79, 216, 201, 0.25);
+  color: #4fd8c9;
+}
+
+/* Bottom Hint Bar */
 .mindmap-hint {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  z-index: 10;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(5, 8, 10, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 6px 16px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: #64748b;
-  background: rgba(8, 12, 14, 0.75);
-  backdrop-filter: blur(10px);
-  padding: 8px 14px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  line-height: 1.5;
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.55);
   pointer-events: none;
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
 }
 
-/* D3 SVG Elements Styling */
-.link {
+/* Selected Node Clinical Drawer */
+.mindmap-node-drawer {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 310px;
+  background: rgba(8, 14, 18, 0.92);
+  border: 1px solid rgba(79, 216, 201, 0.3);
+  border-radius: 14px;
+  padding: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  z-index: 15;
+}
+
+/* D3 Node & Link SVG Styles */
+svg#canvas .link {
   fill: none;
   stroke-width: 2px;
-  opacity: 0.65;
-  transition: stroke 0.2s ease, stroke-width 0.2s ease;
+  stroke-linecap: round;
+  opacity: 0.7;
+  transition: stroke 0.3s ease, opacity 0.3s ease;
 }
 
-.node {
+svg#canvas .link:hover {
+  opacity: 1;
+  stroke-width: 2.8px;
+}
+
+svg#canvas .node {
   cursor: pointer;
 }
 
-.node-box {
-  stroke-width: 1.4px;
-  transition: filter 0.18s ease, transform 0.18s ease;
+svg#canvas .node-box {
+  transition: all 0.2s ease;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
 }
 
-.node:hover .node-box {
-  filter: brightness(1.3) drop-shadow(0 0 10px currentColor);
+svg#canvas .node:hover .node-box {
+  stroke-width: 2.2px;
+  filter: drop-shadow(0 6px 18px rgba(79, 216, 201, 0.3));
 }
 
-.node-label {
+svg#canvas .node-label {
   font-family: 'Inter', sans-serif;
-  fill: #f1f5f9;
-  dominant-baseline: middle;
+  fill: #ffffff;
   pointer-events: none;
+  user-select: none;
+  dominant-baseline: middle;
 }
 
-.node-root .node-label {
+svg#canvas .node-root .node-label {
   font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
   fill: #ffffff;
 }
 
-.fold-dot {
-  fill: rgba(6, 10, 12, 0.95);
+svg#canvas .fold-dot {
+  fill: rgba(5, 8, 10, 0.95);
   stroke-width: 1.6px;
+  transition: transform 0.2s ease;
 }
 
-.fold-count {
+svg#canvas .fold-indicator {
+  cursor: pointer;
+}
+
+svg#canvas .fold-indicator:hover .fold-dot {
+  transform: scale(1.18);
+}
+
+svg#canvas .fold-count {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9.5px;
   font-weight: 700;
@@ -324,44 +382,4 @@ textarea.mindmap-outline-input:focus {
   text-anchor: middle;
   dominant-baseline: middle;
   pointer-events: none;
-}
-
-/* Node Detail Drawer */
-.mindmap-node-drawer {
-  position: absolute;
-  top: 68px;
-  right: 20px;
-  width: 330px;
-  padding: 20px;
-  border-radius: 16px;
-  background: rgba(10, 16, 20, 0.94);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(79, 216, 201, 0.35);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-  z-index: 30;
-}
-
-/* Print CSS for Clean PDF Export */
-@media print {
-  body * {
-    visibility: hidden !important;
-  }
-  .mindmap-canvas-wrap,
-  .mindmap-canvas-wrap #canvas,
-  .mindmap-canvas-wrap #canvas * {
-    visibility: visible !important;
-  }
-  .mindmap-canvas-wrap {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    background: #090e12 !important;
-  }
-  .mindmap-topbar,
-  .mindmap-sidebar,
-  .mindmap-hint,
-  .mindmap-node-drawer {
-    display: none !important;
-  }
 }

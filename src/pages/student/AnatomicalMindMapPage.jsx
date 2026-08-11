@@ -104,11 +104,13 @@ function countDescendants(children) {
 export default function AnatomicalMindMapPage({ user, navigate }) {
   const [outlineText, setOutlineText] = useState(DEFAULT_OUTLINE);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeNode, setActiveNode] = useState(null);
 
   const svgRef = useRef(null);
+  const canvasWrapRef = useRef(null);
   const gZoomRef = useRef(null);
   const gLinksRef = useRef(null);
   const gNodesRef = useRef(null);
@@ -116,27 +118,66 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const rootDataRef = useRef(null);
   const nodeIdSeqRef = useRef(0);
 
-  const fitToView = () => {
+  const fitToView = (duration = 450) => {
     if (!gZoomRef.current || !svgRef.current) return;
     try {
       const bounds = gZoomRef.current.node().getBBox();
       const svgEl = svgRef.current;
-      const W = svgEl.clientWidth || 900;
-      const H = svgEl.clientHeight || 650;
+      const rect = svgEl.getBoundingClientRect();
+      const W = rect.width || svgEl.clientWidth || 900;
+      const H = rect.height || svgEl.clientHeight || 650;
       if (bounds.width === 0 || bounds.height === 0) return;
 
-      const scale = Math.min(1.5, 0.85 / Math.max(bounds.width / W, bounds.height / H));
+      const padding = 60;
+      const scale = Math.min(1.4, Math.max(0.35, 0.88 / Math.max((bounds.width + padding * 2) / W, (bounds.height + padding * 2) / H)));
       const tx = W / 2 - scale * (bounds.x + bounds.width / 2);
       const ty = H / 2 - scale * (bounds.y + bounds.height / 2);
 
       d3.select(svgEl)
         .transition()
-        .duration(450)
+        .duration(duration)
         .call(zoomBehaviorRef.current.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
     } catch (e) {
       console.warn("fitToView calc", e);
     }
   };
+
+  // Re-fit view smoothly when sidebar collapses or expands
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fitToView(350);
+    }, 320);
+    return () => clearTimeout(timer);
+  }, [sidebarCollapsed]);
+
+  // Re-fit view when entering or exiting full screen mode
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fitToView(350);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [isFullscreen]);
+
+  // Escape key listener to exit full screen mode
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && isFullscreen) {
+        setIsFullscreen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isFullscreen]);
+
+  // ResizeObserver on canvas container element to keep view perfectly centered on window resize
+  useEffect(() => {
+    if (!canvasWrapRef.current) return;
+    const observer = new ResizeObserver(() => {
+      fitToView(150);
+    });
+    observer.observe(canvasWrapRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const updateTree = (source) => {
     if (!rootDataRef.current || !gZoomRef.current) return;
@@ -301,7 +342,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
     rootDataRef.current = r;
     updateTree(r);
-    setTimeout(fitToView, 120);
+    setTimeout(() => fitToView(450), 120);
   };
 
   // Initialize D3 Canvas
@@ -374,7 +415,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     };
     expand(rootDataRef.current);
     updateTree(rootDataRef.current);
-    setTimeout(fitToView, 340);
+    setTimeout(() => fitToView(450), 340);
   };
 
   const handleCollapseAll = () => {
@@ -388,7 +429,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     };
     (rootDataRef.current.children || []).forEach(collapse);
     updateTree(rootDataRef.current);
-    setTimeout(fitToView, 340);
+    setTimeout(() => fitToView(450), 340);
   };
 
   // Ultra-High Resolution 2x Retina PNG Export Engine
@@ -478,7 +519,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   };
 
   return (
-    <div className="a26-mindmap-page fade-in-up">
+    <div className={`a26-mindmap-page fade-in-up ${sidebarCollapsed ? "sidebar-collapsed" : ""} ${isFullscreen ? "is-fullscreen" : ""}`}>
       {/* Sidebar Outline Editor */}
       <aside className={`mindmap-sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
         <div className="mindmap-sidebar-head">
@@ -529,19 +570,19 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       </aside>
 
       {/* Main Canvas Container */}
-      <main className="mindmap-canvas-wrap">
-        {/* Topbar & Clean Export Actions (NO ICONS) */}
+      <main className="mindmap-canvas-wrap" ref={canvasWrapRef}>
+        {/* Topbar & Clean Export Actions */}
         <div className="mindmap-topbar">
           <div className="topbar-left-group">
             <button
               className="toggle-sidebar-btn"
               onClick={() => setSidebarCollapsed((v) => !v)}
-              title="Mostrar/ocultar painel"
+              title={sidebarCollapsed ? "Mostrar painel lateral" : "Ocultar painel lateral"}
             >
               ☰
             </button>
 
-            {/* Clean Export Buttons without icons */}
+            {/* Clean Export Buttons */}
             <div className="topbar-export-group">
               <button className="export-btn" onClick={handleExportPNG} title="Exportar como Imagem (PNG)">
                 Imagem (PNG)
@@ -555,18 +596,25 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
           <div className="zoom-controls">
             <button
               onClick={() => d3.select(svgRef.current).transition().duration(200).call(zoomBehaviorRef.current.scaleBy, 1.3)}
-              title="Aproximar"
+              title="Aproximar zoom"
             >
               +
             </button>
             <button
               onClick={() => d3.select(svgRef.current).transition().duration(200).call(zoomBehaviorRef.current.scaleBy, 1 / 1.3)}
-              title="Afastar"
+              title="Afastar zoom"
             >
               −
             </button>
-            <button onClick={fitToView} title="Centralizar">
+            <button onClick={() => fitToView(450)} title="Centralizar vista">
               ⤢
+            </button>
+            <button
+              className={isFullscreen ? "active-fullscreen" : ""}
+              onClick={() => setIsFullscreen((prev) => !prev)}
+              title={isFullscreen ? "Sair da Tela Cheia (Esc)" : "Maximizar Tela Cheia (Foco Total)"}
+            >
+              {isFullscreen ? "🗗" : "⛶"}
             </button>
           </div>
         </div>
@@ -575,7 +623,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         <svg id="canvas" ref={svgRef} />
 
         <div className="mindmap-hint">
-          arraste para mover · roda do mouse para zoom · clique num nó para recolher/expandir os filhos · atualiza sozinho 1s depois de você parar de digitar
+          {isFullscreen ? "Pressione Esc para sair da tela cheia · " : ""}arraste para mover · roda do mouse para zoom · clique num nó para recolher/expandir os filhos
         </div>
 
         {/* Selected Node Clinical Drawer */}
