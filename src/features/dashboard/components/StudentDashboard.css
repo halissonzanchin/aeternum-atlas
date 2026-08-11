@@ -174,7 +174,12 @@
   line-height: 1.6;
 }
 
-.study-tools-grid,
+.study-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
 .continue-model-grid,
 .student-recommendation-grid {
   display: grid;

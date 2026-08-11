@@ -36,15 +36,6 @@ export const studyTools = [
     path: "/quizzes"
   },
   {
-    id: "reports",
-    titleKey: "studentHome.tools.reports.title",
-    descriptionKey: "studentHome.tools.reports.description",
-    statusKey: "studentHome.status.available",
-    statusTone: "available",
-    icon: "reset",
-    path: "/progress"
-  },
-  {
     id: "mind-map",
     titleKey: "studentHome.tools.mindMap.title",
     descriptionKey: "studentHome.tools.mindMap.description",
@@ -52,15 +43,6 @@ export const studyTools = [
     statusTone: "available",
     icon: "layers",
     path: "/models"
-  },
-  {
-    id: "summaries",
-    titleKey: "studentHome.tools.summaries.title",
-    descriptionKey: "studentHome.tools.summaries.description",
-    statusKey: "studentHome.status.soon",
-    statusTone: "soon",
-    icon: "spark",
-    path: "/summaries"
   },
   {
     id: "ai-tutor",
