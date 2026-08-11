@@ -390,10 +390,9 @@
 .learning-period-total { color: var(--a26-color-text-subtle); }
 
 .student-radar-layout {
-  display: grid;
-  grid-template-columns: minmax(150px, 0.55fr) minmax(0, 1.45fr);
-  align-items: center;
-  gap: 28px;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .student-radar-visual {

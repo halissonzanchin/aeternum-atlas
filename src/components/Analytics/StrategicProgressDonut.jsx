@@ -5,6 +5,7 @@ const PILLARS_CONFIG = [
   {
     id: "models3d",
     name: "Modelos 3D & Estruturas",
+    description: "Exploração de estruturas 3D (meta: 48h ativas)",
     color: "#4fd8c9",
     gradient: ["#4fd8c9", "#2bb3a5"],
     unit: "horas 3D",
@@ -14,6 +15,7 @@ const PILLARS_CONFIG = [
   {
     id: "flashcards",
     name: "Flashcards Anatômicos",
+    description: "Revisão e memorização ativa (meta: 100 cards)",
     color: "#a78bfa",
     gradient: ["#a78bfa", "#7c5dfa"],
     unit: "cards revisados",
@@ -23,15 +25,17 @@ const PILLARS_CONFIG = [
   {
     id: "quizzes",
     name: "Simulados & Casos Clínicos",
+    description: "Exames anatômicos e teóricos com 100% de acerto",
     color: "#e8836f",
     gradient: ["#e8836f", "#d95f47"],
     unit: "simulados concluídos",
-    target: 6, // 2 per model across 3 models
+    target: 6,
     icon: "check"
   },
   {
     id: "tutor",
     name: "Tutor IA & Síntese",
+    description: "Consultas de síntese ao Tutor IA (meta: 500 perguntas)",
     color: "#e9b872",
     gradient: ["#e9b872", "#c99245"],
     unit: "perguntas realizadas",
@@ -101,13 +105,14 @@ export default function StrategicProgressDonut({
       { ...PILLARS_CONFIG[3], value: `${tutorQuestionsCount} / 500`, percent: p4Percent, rawValue: tutorQuestionsCount }
     ];
 
-    const overallPercent = Math.min(100, Math.round((p1Percent + p2Percent + p3Percent + p4Percent) / 4));
+    const overallPercent = Math.round((p1Percent + p2Percent + p3Percent + p4Percent) / 4);
 
     return { items, overallPercent };
   }, [totalStudyMinutes, flashcardsReviewed, completedQuizzesCount, totalQuizzesTarget, tutorQuestionsCount]);
 
   const activePillar = useMemo(() => {
-    return pillarData.items.find((item) => item.id === hoveredPillarId) || null;
+    if (!hoveredPillarId) return null;
+    return pillarData.items.find(p => p.id === hoveredPillarId) || null;
   }, [hoveredPillarId, pillarData.items]);
 
   // Sector Angle Specs: 4 sectors, 6 deg gap between each
@@ -168,7 +173,9 @@ export default function StrategicProgressDonut({
                 className="donut-sector-path"
                 onMouseEnter={() => setHoveredPillarId(sector.id)}
                 onMouseLeave={() => setHoveredPillarId(null)}
-              />
+              >
+                <title>{`${sector.name}: ${sector.percent}% (${sector.value} ${sector.unit})`}</title>
+              </path>
             );
           })}
 
@@ -240,10 +247,14 @@ export default function StrategicProgressDonut({
               onMouseLeave={() => setHoveredPillarId(null)}
             >
               <div className="pillar-legend-head">
-                <span className="pillar-dot" style={{ background: pillar.color, boxShadow: `0 0 8px ${pillar.color}` }} />
-                <span className="pillar-name">{pillar.name}</span>
+                <div className="pillar-title-wrap">
+                  <span className="pillar-dot" style={{ background: pillar.color, boxShadow: `0 0 8px ${pillar.color}` }} />
+                  <span className="pillar-name">{pillar.name}</span>
+                </div>
                 <span className="pillar-percent" style={{ color: pillar.color }}>{pillar.percent}%</span>
               </div>
+
+              <p className="pillar-description">{pillar.description}</p>
 
               <div className="pillar-track-bg">
                 <div
