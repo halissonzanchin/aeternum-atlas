@@ -75,6 +75,15 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
     return () => window.clearTimeout(timer);
   }, [toast]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined" && modelState.model?.id) {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("mode") === "theoretical-quiz" || params.get("quiz") === "theoretical") {
+        quizState.setTheoreticalQuizOpen(true);
+      }
+    }
+  }, [modelState.model?.id]);
+
   function handleSelectStructure(structure) {
     if (!structure) return;
     modelState.setActiveStructure(structure);
