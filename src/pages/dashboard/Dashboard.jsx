@@ -51,10 +51,42 @@ export default function Dashboard({ user, navigate }) {
   }, [telemetry.events]);
 
   const completedQuizzesCount = useMemo(() => {
-    const fromTelemetry = (telemetry.quizResults || []).filter(q => q.status === "completed" || q.score >= 0).length;
-    const fromStats = (stats.studiedModels || 0) * 2;
-    return Math.max(fromTelemetry, Math.min(fromStats, (activeModels.length || 3) * 2));
-  }, [telemetry.quizResults, stats.studiedModels, activeModels.length]);
+    const attemptsFromTelemetry = telemetry.quizResults || [];
+    let localAnatomicalAttempts = [];
+    try {
+      const saved = localStorage.getItem("aeternum_anatomical_quiz_attempts");
+      if (saved) localAnatomicalAttempts = JSON.parse(saved);
+    } catch (e) {}
+
+    // Track unique (modelId + quizType) pairs that achieved 100% score (zero errors)
+    const perfectQuizKeys = new Set();
+
+    attemptsFromTelemetry.forEach(q => {
+      const score = Number(q.score ?? q.correct_answers);
+      const total = Number(q.totalQuestions ?? q.total_questions);
+      const pct = Number(q.percentage ?? q.accuracy);
+      const isPerfect = pct === 100 || (score > 0 && score === total);
+      const modelId = q.modelId || q.model_id;
+      const quizType = q.quizType || q.quiz_type || "anatomical";
+      if (isPerfect && modelId) {
+        perfectQuizKeys.add(`${modelId}:${quizType}`);
+      }
+    });
+
+    localAnatomicalAttempts.forEach(q => {
+      const score = Number(q.result?.score ?? q.score);
+      const total = Number(q.result?.totalQuestions ?? q.totalQuestions);
+      const pct = Number(q.result?.percentage ?? q.percentage);
+      const isPerfect = pct === 100 || (score > 0 && score === total);
+      const modelId = q.modelId || q.model?.id;
+      const quizType = q.quizType || "anatomical";
+      if (isPerfect && modelId) {
+        perfectQuizKeys.add(`${modelId}:${quizType}`);
+      }
+    });
+
+    return perfectQuizKeys.size;
+  }, [telemetry.quizResults]);
 
   const tutorQuestionsCount = useMemo(() => {
     try {
