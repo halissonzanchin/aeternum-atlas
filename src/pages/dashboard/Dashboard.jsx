@@ -147,15 +147,6 @@ export default function Dashboard({ user, navigate }) {
             </A26Button>
           </div>
         </div>
-
-        {/* New Coherent Hero Academic Status & Gauge Widget */}
-        <HeroAcademicStatusWidget
-          progressPercent={stats.progressPercent || 0}
-          studiedModels={stats.studiedModels || 0}
-          totalModels={activeModels.length || 3}
-          totalStudyMinutes={stats.totalStudyMinutes || 0}
-          completedQuizzesCount={completedQuizzesCount}
-        />
       </A26Card>
 
       <MuralModularBoard />
