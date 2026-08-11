@@ -46,6 +46,7 @@ export function buildStructure(model, t) {
 
 export function useViewerModel(id, user) {
   const { t } = useLanguage();
+  const cleanId = useMemo(() => (typeof id === "string" ? id.split("?")[0] : id), [id]);
   const [rawModel, setRawModel] = useState(null);
   const [availableModels, setAvailableModels] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,7 +61,7 @@ export function useViewerModel(id, user) {
     let mounted = true;
     setLoading(true);
 
-    if (id === 'preview') {
+    if (cleanId === 'preview') {
       try {
         const previewModelRaw = localStorage.getItem('atlas_preview_model');
         if (previewModelRaw) {
@@ -76,7 +77,7 @@ export function useViewerModel(id, user) {
     }
 
     Promise.all([
-      getModelByIdForUser(id, user),
+      getModelByIdForUser(cleanId, user),
       listModelsForUser(user)
     ])
       .then(([modelRecord, models]) => {

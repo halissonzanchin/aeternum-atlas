@@ -182,16 +182,18 @@ export default function App() {
       );
     }
     if (path.startsWith("/viewer/")) {
+      const viewerId = path.replace("/viewer/", "").split("?")[0];
       return (
         <ProtectedRoute user={user} path={path} navigate={navigate}>
-          <Viewer id={path.split("/").pop()} user={user} navigate={navigate} notify={notify} onLogout={handleLogout} />
+          <Viewer id={viewerId} user={user} navigate={navigate} notify={notify} onLogout={handleLogout} />
         </ProtectedRoute>
       );
     }
     if (path.startsWith("/teacher/viewer/")) {
+      const viewerId = path.replace("/teacher/viewer/", "").split("?")[0];
       return (
         <ProtectedRoute user={user} path={path} navigate={navigate}>
-          <Viewer id={path.split("/").pop()} user={user} navigate={navigate} notify={notify} onLogout={handleLogout} />
+          <Viewer id={viewerId} user={user} navigate={navigate} notify={notify} onLogout={handleLogout} />
         </ProtectedRoute>
       );
     }

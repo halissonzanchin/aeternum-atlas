@@ -257,7 +257,8 @@ export const LOCAL_MODELS = [
 ];
 
 export function normalizeModelIdentifier(value) {
-  return String(value || "")
+  const cleanValue = String(value || "").split("?")[0].split("#")[0];
+  return cleanValue
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
