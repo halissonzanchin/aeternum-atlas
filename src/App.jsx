@@ -25,6 +25,7 @@ import Teacher from "./pages/teacher/Teacher";
 import StudyAgendaPage from "./pages/student/StudyAgendaPage";
 import AnatomicalQuizzesPage from "./pages/student/AnatomicalQuizzesPage";
 import AnatomicalFlashcardsPage from "./pages/student/AnatomicalFlashcardsPage";
+import AnatomicalMindMapPage from "./pages/student/AnatomicalMindMapPage";
 import StudentLearningPage from "./pages/student/StudentLearningPage";
 import { canonicalSuperAdminPath, getAdminNavigationItems, isAdminRouteActive } from "./config/adminNavigation";
 import { useLanguage } from "./context/LanguageContext";
@@ -298,6 +299,7 @@ function renderPrivatePage(path, context) {
   if (path === "/study-agenda") return <StudyAgendaPage navigate={navigate} />;
   if (path === "/flashcards") return <AnatomicalFlashcardsPage user={user} navigate={navigate} />;
   if (path === "/quizzes") return <AnatomicalQuizzesPage navigate={navigate} />;
+  if (path === "/mind-map" || path === "/student/mind-map") return <AnatomicalMindMapPage user={user} navigate={navigate} />;
   if (path === "/summaries") return <StudentLearningPage section="summaries" user={user} navigate={navigate} />;
   if (path === "/guided-study") return <StudentLearningPage section="guided-study" user={user} navigate={navigate} />;
   if (path === "/ai-tutor") return <StudentLearningPage section="ai-tutor" user={user} navigate={navigate} />;

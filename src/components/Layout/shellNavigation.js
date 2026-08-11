@@ -55,6 +55,7 @@ const secondaryRouteKeys = Object.freeze({
   "/study-agenda": "studentHome.tools.agenda.title",
   "/flashcards": "studentHome.tools.flashcards.title",
   "/quizzes": "studentHome.tools.quizzes.title",
+  "/mind-map": "studentHome.tools.mindMap.title",
   "/summaries": "studentHome.tools.summaries.title",
   "/guided-study": "studentHome.tools.guidedStudy.title",
   "/ai-tutor": "studentHome.tools.aiTutor.title",

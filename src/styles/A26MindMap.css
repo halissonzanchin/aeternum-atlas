@@ -1,0 +1,322 @@
+/* Aeternum 26.1 — Obsidian-Style Anatomical Mind Map Engine */
+
+.a26-mindmap-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: min(100%, 1600px);
+  margin-inline: auto;
+  padding-bottom: 48px;
+  color: var(--a26-color-text);
+}
+
+.mindmap-hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px 32px;
+  border-radius: var(--a26-radius-panel);
+  background: linear-gradient(135deg, rgba(79, 216, 201, 0.08) 0%, rgba(167, 139, 250, 0.05) 100%);
+  border: 1px solid rgba(79, 216, 201, 0.2);
+}
+
+.mindmap-hero__content h1 {
+  margin: 0;
+  font: 700 clamp(1.8rem, 3vw, 2.6rem)/1.1 var(--a26-type-display);
+  background: linear-gradient(100deg, #ffffff 10%, #4fd8c9 50%, #e9b872 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.mindmap-hero__content p {
+  margin: 8px 0 0;
+  color: var(--a26-color-text-muted);
+  font-size: 1.05rem;
+}
+
+.mindmap-hero__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Preset selector bar */
+.mindmap-presets {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+  scrollbar-width: thin;
+}
+
+.mindmap-preset-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--glass-clear-border, rgba(255, 255, 255, 0.12));
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--a26-color-text-muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.mindmap-preset-chip:hover {
+  background: rgba(79, 216, 201, 0.08);
+  border-color: rgba(79, 216, 201, 0.3);
+  color: #fff;
+}
+
+.mindmap-preset-chip.is-active {
+  background: rgba(79, 216, 201, 0.18);
+  border-color: #4fd8c9;
+  color: #4fd8c9;
+  box-shadow: 0 0 12px rgba(79, 216, 201, 0.25);
+}
+
+/* Custom Generator Bar */
+.mindmap-generator-bar {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(10, 18, 22, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.mindmap-generator-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.mindmap-generator-input:focus {
+  border-color: #4fd8c9;
+}
+
+/* Canvas Viewport */
+.mindmap-viewport {
+  position: relative;
+  width: 100%;
+  height: 680px;
+  border-radius: 18px;
+  background: #05080a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8);
+}
+
+/* Grid background dot texture */
+.mindmap-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+/* SVG Connection Lines Layer */
+.mindmap-svg-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.mindmap-path {
+  fill: none;
+  stroke-width: 2px;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.mindmap-path.pulse {
+  stroke-dasharray: 6 6;
+  animation: mindmapDash 20s linear infinite;
+}
+
+@keyframes mindmapDash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+/* Obsidian Canvas Mode: Group Boxes & Nodes */
+.mindmap-canvas-container {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  transform-origin: 50% 50%;
+  transition: transform 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+.obsidian-group-box {
+  position: absolute;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  padding: 16px;
+  pointer-events: none;
+}
+
+.obsidian-group-label {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: var(--a26-type-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.obsidian-group-label--cyan { background: rgba(79, 216, 201, 0.15); color: #4fd8c9; border: 1px solid rgba(79, 216, 201, 0.3); }
+.obsidian-group-label--amber { background: rgba(233, 184, 114, 0.15); color: #e9b872; border: 1px solid rgba(233, 184, 114, 0.3); }
+.obsidian-group-label--mint { background: rgba(127, 217, 154, 0.15); color: #7fd99a; border: 1px solid rgba(127, 217, 154, 0.3); }
+.obsidian-group-label--violet { background: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3); }
+
+.obsidian-node-card {
+  position: absolute;
+  width: 260px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(12, 18, 22, 0.88);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 4;
+}
+
+.obsidian-node-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(79, 216, 201, 0.5);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(79, 216, 201, 0.2);
+}
+
+.obsidian-node-card.is-root {
+  width: 290px;
+  border-color: #4fd8c9;
+  background: linear-gradient(145deg, rgba(16, 32, 36, 0.95), rgba(10, 18, 22, 0.95));
+  box-shadow: 0 0 30px rgba(79, 216, 201, 0.3);
+}
+
+.obsidian-node-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.obsidian-node-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.obsidian-node-tag--root { background: #4fd8c9; color: #04211d; }
+.obsidian-node-tag--structure { background: rgba(233, 184, 114, 0.2); color: #e9b872; }
+.obsidian-node-tag--clinical { background: rgba(127, 217, 154, 0.2); color: #7fd99a; }
+.obsidian-node-tag--concept { background: rgba(167, 139, 250, 0.2); color: #a78bfa; }
+
+.obsidian-node-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.35;
+}
+
+.obsidian-node-body {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--a26-color-text-muted);
+  line-height: 1.5;
+}
+
+.obsidian-node-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Obsidian Graph View Constellation Mode */
+.graph-view-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+/* Floating Overlay Toolbar for Canvas Controls */
+.mindmap-floating-toolbar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 30px;
+  background: rgba(8, 14, 18, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+/* Detail Popover Panel */
+.mindmap-detail-drawer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 340px;
+  max-height: calc(100% - 40px);
+  overflow-y: auto;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(10, 16, 20, 0.94);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(79, 216, 201, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  z-index: 12;
+}
+
+@media (max-width: 900px) {
+  .mindmap-viewport {
+    height: 520px;
+  }
+  .mindmap-detail-drawer {
+    position: fixed;
+    inset: auto 12px 12px 12px;
+    width: auto;
+    max-height: 50vh;
+  }
+}

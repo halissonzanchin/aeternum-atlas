@@ -97,6 +97,7 @@ export const routeAccessRules = [
   { prefix: "/study-agenda", roles: [ROLES.STUDENT] },
   { prefix: "/flashcards", roles: [ROLES.STUDENT] },
   { prefix: "/quizzes", roles: [ROLES.STUDENT] },
+  { prefix: "/mind-map", roles: [ROLES.STUDENT] },
   { prefix: "/summaries", roles: [ROLES.STUDENT] },
   { prefix: "/guided-study", roles: [ROLES.STUDENT] },
   { prefix: "/ai-tutor", roles: [ROLES.STUDENT] },

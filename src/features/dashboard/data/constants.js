@@ -42,7 +42,7 @@ export const studyTools = [
     statusKey: "studentHome.status.available",
     statusTone: "available",
     icon: "layers",
-    path: "/models"
+    path: "/mind-map"
   },
   {
     id: "ai-tutor",
