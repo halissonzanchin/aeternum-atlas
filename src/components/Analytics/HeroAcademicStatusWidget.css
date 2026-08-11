@@ -1,0 +1,108 @@
+/* Hero Academic Status Widget — Liquid Glass 26.1 */
+
+.hero-status-widget-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: rgba(10, 16, 20, 0.55);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(79, 216, 201, 0.16);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(79, 216, 201, 0.05);
+  flex-shrink: 0;
+  max-width: 240px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.hero-status-widget-card:hover {
+  border-color: rgba(79, 216, 201, 0.32);
+  transform: translateY(-2px);
+}
+
+.hero-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(79, 216, 201, 0.08);
+  border: 1px solid rgba(79, 216, 201, 0.2);
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4fd8c9;
+  box-shadow: 0 0 8px #4fd8c9;
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.badge-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #4fd8c9;
+  text-transform: uppercase;
+}
+
+.hero-gauge-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+}
+
+.hero-gauge-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hero-status-metrics-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.hero-mini-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.stat-val {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.stat-lbl {
+  font-family: 'Inter', sans-serif;
+  font-size: 8.5px;
+  color: var(--a26-color-text-subtle, rgba(255, 255, 255, 0.55));
+  margin-top: 1px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.1);
+}

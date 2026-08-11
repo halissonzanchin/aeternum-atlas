@@ -8,6 +8,7 @@ import ContinueModelCard from "../../features/dashboard/components/ContinueModel
 import EvolutionPanel from "../../features/dashboard/components/EvolutionPanel";
 import MuralModularBoard from "../../components/MuralModularBoard/MuralModularBoard";
 import StrategicProgressDonut from "../../components/Analytics/StrategicProgressDonut";
+import HeroAcademicStatusWidget from "../../components/Analytics/HeroAcademicStatusWidget";
 import { A26Button, A26Card, A26EmptyState, A26LoadingState, A26Surface } from "../../components/aeternum-26";
 import { studyTools } from "../../features/dashboard/data/constants";
 import { useDashboardData } from "../../features/dashboard/hooks/useDashboardData";
@@ -147,34 +148,14 @@ export default function Dashboard({ user, navigate }) {
           </div>
         </div>
 
-        <div className="student-study-hero__visual upe-progress-orbit" aria-label={`Progresso geral: ${stats.progressPercent}%`}>
-          <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120" aria-hidden="true">
-            <circle cx="60" cy="60" r="50" stroke="rgba(255, 255, 255, 0.07)" strokeWidth="7" fill="none" />
-            <circle cx="60" cy="60" r="42" stroke="rgba(79, 216, 201, 0.18)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
-            <circle
-              cx="60"
-              cy="60"
-              r="50"
-              stroke="url(#liquidProgressGradient)"
-              strokeWidth="7.5"
-              strokeLinecap="round"
-              fill="none"
-              strokeDasharray="314.16"
-              strokeDashoffset={314.16 - (314.16 * Math.min(100, stats.progressPercent || 0)) / 100}
-              style={{ transition: "stroke-dashoffset 1s ease-in-out" }}
-            />
-            <defs>
-              <linearGradient id="liquidProgressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#4fd8c9" />
-                <stop offset="100%" stopColor="#a78bfa" />
-              </linearGradient>
-            </defs>
-          </svg>
-          <div className="progress-center-label">
-            <strong className="progress-value-num">{stats.progressPercent}%</strong>
-            <span className="progress-kicker-text">PROGRESSO GERAL</span>
-          </div>
-        </div>
+        {/* New Coherent Hero Academic Status & Gauge Widget */}
+        <HeroAcademicStatusWidget
+          progressPercent={stats.progressPercent || 0}
+          studiedModels={stats.studiedModels || 0}
+          totalModels={activeModels.length || 3}
+          totalStudyMinutes={stats.totalStudyMinutes || 0}
+          completedQuizzesCount={completedQuizzesCount}
+        />
       </A26Card>
 
       <MuralModularBoard />
