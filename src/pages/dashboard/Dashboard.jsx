@@ -147,14 +147,34 @@ export default function Dashboard({ user, navigate }) {
           </div>
         </div>
 
-        {/* Strategic Multi-Segment Exploded Liquid Glass Donut Chart */}
-        <StrategicProgressDonut
-          totalStudyMinutes={stats.totalStudyMinutes || 0}
-          flashcardsReviewed={flashcardsReviewed}
-          completedQuizzesCount={completedQuizzesCount}
-          totalQuizzesTarget={(activeModels.length || 3) * 2}
-          tutorQuestionsCount={tutorQuestionsCount}
-        />
+        <div className="student-study-hero__visual upe-progress-orbit" aria-label={`Progresso geral: ${stats.progressPercent}%`}>
+          <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="50" stroke="rgba(255, 255, 255, 0.07)" strokeWidth="7" fill="none" />
+            <circle cx="60" cy="60" r="42" stroke="rgba(79, 216, 201, 0.18)" strokeWidth="1.5" strokeDasharray="4 4" fill="none" />
+            <circle
+              cx="60"
+              cy="60"
+              r="50"
+              stroke="url(#liquidProgressGradient)"
+              strokeWidth="7.5"
+              strokeLinecap="round"
+              fill="none"
+              strokeDasharray="314.16"
+              strokeDashoffset={314.16 - (314.16 * Math.min(100, stats.progressPercent || 0)) / 100}
+              style={{ transition: "stroke-dashoffset 1s ease-in-out" }}
+            />
+            <defs>
+              <linearGradient id="liquidProgressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#4fd8c9" />
+                <stop offset="100%" stopColor="#a78bfa" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div className="progress-center-label">
+            <strong className="progress-value-num">{stats.progressPercent}%</strong>
+            <span className="progress-kicker-text">PROGRESSO GERAL</span>
+          </div>
+        </div>
       </A26Card>
 
       <MuralModularBoard />
@@ -202,6 +222,10 @@ export default function Dashboard({ user, navigate }) {
         weeklyStudyData={weeklyStudyData}
         telemetry={telemetry}
         t={t}
+        flashcardsReviewed={flashcardsReviewed}
+        completedQuizzesCount={completedQuizzesCount}
+        totalQuizzesTarget={(activeModels.length || 3) * 2}
+        tutorQuestionsCount={tutorQuestionsCount}
       />
 
       <section className="student-section">

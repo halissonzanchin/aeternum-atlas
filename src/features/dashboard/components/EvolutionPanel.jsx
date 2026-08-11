@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { A26Card, A26SegmentedControl } from "../../../components/aeternum-26";
 import WeeklyStudyChart from "./WeeklyStudyChart";
+import StrategicProgressDonut from "../../../components/Analytics/StrategicProgressDonut";
 
 function minutesLabel(minutes, t) {
   if (minutes >= 60) {
@@ -17,7 +18,18 @@ function metricLabel(item) {
   return "Modelos concluídos";
 }
 
-export default function EvolutionPanel({ stats, systemProgress, studySeriesByPeriod, weeklyStudyData, telemetry, t }) {
+export default function EvolutionPanel({
+  stats,
+  systemProgress,
+  studySeriesByPeriod,
+  weeklyStudyData,
+  telemetry,
+  t,
+  flashcardsReviewed = 0,
+  completedQuizzesCount = 0,
+  totalQuizzesTarget = 6,
+  tutorQuestionsCount = 0
+}) {
   const [period, setPeriod] = useState("week");
   const selectedSeries = studySeriesByPeriod?.[period] || weeklyStudyData || [];
   const selectedMinutes = useMemo(
@@ -60,11 +72,13 @@ export default function EvolutionPanel({ stats, systemProgress, studySeriesByPer
             <span className={`learning-source-badge ${telemetry?.synchronized ? "is-synced" : "is-local"}`}>{sourceLabel}</span>
           </div>
           <div className="student-radar-layout">
-            <div className="student-radar-visual">
-              <span className="student-radar-ring ring-one" />
-              <span className="student-radar-ring ring-two" />
-              <span className="student-radar-core">{stats.progressPercent}%</span>
-            </div>
+            <StrategicProgressDonut
+              totalStudyMinutes={stats.totalStudyMinutes || 0}
+              flashcardsReviewed={flashcardsReviewed}
+              completedQuizzesCount={completedQuizzesCount}
+              totalQuizzesTarget={totalQuizzesTarget}
+              tutorQuestionsCount={tutorQuestionsCount}
+            />
             <div className="student-radar-bars">
               {observedSystems.map(item => (
                 <div key={item.system} className="student-system-row">
