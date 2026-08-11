@@ -18,24 +18,6 @@ export const studyTools = [
     path: "/flashcards"
   },
   {
-    id: "quizzes",
-    titleKey: "studentHome.tools.quizzes.title",
-    descriptionKey: "studentHome.tools.quizzes.description",
-    statusKey: "studentHome.status.available",
-    statusTone: "available",
-    icon: "check",
-    path: "/quizzes"
-  },
-  {
-    id: "theoretical-quizzes",
-    titleKey: "studentHome.tools.theoreticalQuizzes.title",
-    descriptionKey: "studentHome.tools.theoreticalQuizzes.description",
-    statusKey: "studentHome.status.available",
-    statusTone: "available",
-    icon: "spark",
-    path: "/quizzes"
-  },
-  {
     id: "mind-map",
     titleKey: "studentHome.tools.mindMap.title",
     descriptionKey: "studentHome.tools.mindMap.description",
