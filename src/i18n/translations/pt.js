@@ -284,25 +284,25 @@ export const pt = {
         title: "Simulados anatômicos",
         description: "Teste reconhecimento anatômico e consolide pontos de prova."
       },
+      theoreticalQuizzes: {
+        title: "Simulado Teórico",
+        description: "Pratique questões teóricas estruturadas de múltipla escolha e casos clínicos anatômicos."
+      },
+      reports: {
+        title: "Relatórios",
+        description: "Acompanhe seu desempenho acadêmico, evolução por sistema e métricas de estudo."
+      },
+      mindMap: {
+        title: "Mapa Mental",
+        description: "Visualize conexões esquemáticas tridimensionais e hierarquias de conceitos anatômicos."
+      },
       summaries: {
         title: "Resumos inteligentes",
         description: "Transforme conteúdos estudados em sínteses objetivas para revisão."
       },
-      guidedStudy: {
-        title: "Estudo guiado",
-        description: "Siga trilhas por região anatômica, sistema e nível de complexidade."
-      },
       aiTutor: {
         title: "Tutor IA",
         description: "Receba apoio contextual para dúvidas anatômicas e planejamento de revisão."
-      },
-      quickReview: {
-        title: "Revisão rápida",
-        description: "Retome conteúdos recentes em ciclos curtos de memorização ativa."
-      },
-      anatomicalMap: {
-        title: "Atlas Anatômico",
-        description: "Explore sistemas, regiões e estruturas anatômicas reais em um atlas médico interativo tridimensional."
       }
     },
     quizCatalog: {

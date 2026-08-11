@@ -27,6 +27,33 @@ export const studyTools = [
     path: "/quizzes"
   },
   {
+    id: "theoretical-quizzes",
+    titleKey: "studentHome.tools.theoreticalQuizzes.title",
+    descriptionKey: "studentHome.tools.theoreticalQuizzes.description",
+    statusKey: "studentHome.status.available",
+    statusTone: "available",
+    icon: "spark",
+    path: "/quizzes"
+  },
+  {
+    id: "reports",
+    titleKey: "studentHome.tools.reports.title",
+    descriptionKey: "studentHome.tools.reports.description",
+    statusKey: "studentHome.status.available",
+    statusTone: "available",
+    icon: "reset",
+    path: "/progress"
+  },
+  {
+    id: "mind-map",
+    titleKey: "studentHome.tools.mindMap.title",
+    descriptionKey: "studentHome.tools.mindMap.description",
+    statusKey: "studentHome.status.available",
+    statusTone: "available",
+    icon: "layers",
+    path: "/models"
+  },
+  {
     id: "summaries",
     titleKey: "studentHome.tools.summaries.title",
     descriptionKey: "studentHome.tools.summaries.description",
@@ -36,40 +63,13 @@ export const studyTools = [
     path: "/summaries"
   },
   {
-    id: "guided-study",
-    titleKey: "studentHome.tools.guidedStudy.title",
-    descriptionKey: "studentHome.tools.guidedStudy.description",
-    statusKey: "studentHome.status.inDevelopment",
-    statusTone: "development",
-    icon: "layers",
-    path: "/guided-study"
-  },
-  {
     id: "ai-tutor",
     titleKey: "studentHome.tools.aiTutor.title",
     descriptionKey: "studentHome.tools.aiTutor.description",
-    statusKey: "studentHome.status.inDevelopment",
-    statusTone: "development",
-    icon: "help",
-    path: "/ai-tutor"
-  },
-  {
-    id: "quick-review",
-    titleKey: "studentHome.tools.quickReview.title",
-    descriptionKey: "studentHome.tools.quickReview.description",
-    statusKey: "studentHome.status.soon",
-    statusTone: "soon",
-    icon: "reset",
-    path: "/review"
-  },
-  {
-    id: "anatomical-map",
-    titleKey: "studentHome.tools.anatomicalMap.title",
-    descriptionKey: "studentHome.tools.anatomicalMap.description",
     statusKey: "studentHome.status.available",
     statusTone: "available",
-    icon: "search",
-    path: "/atlas"
+    icon: "help",
+    path: "/ai-tutor"
   }
 ];
 
