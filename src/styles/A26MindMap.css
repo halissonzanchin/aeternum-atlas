@@ -1,226 +1,350 @@
-/* Aeternum 26.1 — Obsidian Mind Elixir Engine Styles */
-@import "mind-elixir/style.css";
+/* Aeternum 26.1 — D3.js Obsidian Mindmap Engine Styles */
 
 .a26-mindmap-page {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  height: calc(100vh - 90px);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 15% 10%, #0d2a26 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 90%, #241a34 0%, transparent 50%),
+    linear-gradient(160deg, #05080a 0%, #0a1216 100%);
+  color: var(--a26-color-text, #eef3f4);
+  border-radius: var(--a26-radius-panel, 18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 900px) {
+  .a26-mindmap-page {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 80vh;
+  }
+}
+
+/* Sidebar Outline Box */
+.mindmap-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: min(100%, 1600px);
-  margin-inline: auto;
-  padding-bottom: 48px;
-  color: var(--a26-color-text);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(6, 10, 12, 0.65);
+  backdrop-filter: blur(14px);
+  z-index: 10;
+  transition: transform 0.25s ease, margin-left 0.25s ease;
 }
 
-.mindmap-hero {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 24px 30px;
-  border-radius: var(--a26-radius-panel);
-  background: linear-gradient(135deg, rgba(79, 216, 201, 0.08) 0%, rgba(167, 139, 250, 0.05) 100%);
-  border: 1px solid rgba(79, 216, 201, 0.2);
+.mindmap-sidebar.collapsed {
+  margin-left: -340px;
 }
 
-.mindmap-hero__content h1 {
-  margin: 0;
-  font: 700 clamp(1.8rem, 2.8vw, 2.4rem)/1.1 var(--a26-type-display);
+.mindmap-sidebar-head {
+  padding: 20px 20px 12px;
+}
+
+.mindmap-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #4fd8c9;
+  opacity: 0.85;
+  margin: 0 0 6px;
+}
+
+.mindmap-sidebar-head h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  line-height: 1.25;
   background: linear-gradient(100deg, #ffffff 10%, #4fd8c9 50%, #e9b872 90%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
 }
 
-.mindmap-hero__content p {
-  margin: 6px 0 0;
-  color: var(--a26-color-text-muted);
-  font-size: 0.98rem;
+.mindmap-sidebar-head p {
+  font-size: 11.5px;
+  color: #93a4aa;
+  line-height: 1.5;
+  margin: 0;
 }
 
-.mindmap-hero__controls {
+.mindmap-preset-bar {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-/* Preset Selector Bar */
-.mindmap-presets {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  gap: 6px;
   overflow-x: auto;
-  padding: 4px 0 8px;
-  scrollbar-width: thin;
+  padding: 8px 20px;
+  scrollbar-width: none;
 }
 
-.mindmap-preset-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--a26-color-text-muted);
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease;
+.mindmap-preset-bar::-webkit-scrollbar {
+  display: none;
 }
 
-.mindmap-preset-chip:hover {
-  background: rgba(79, 216, 201, 0.08);
-  border-color: rgba(79, 216, 201, 0.3);
-  color: #fff;
-}
-
-.mindmap-preset-chip.is-active {
-  background: rgba(79, 216, 201, 0.18);
-  border-color: #4fd8c9;
-  color: #4fd8c9;
-  box-shadow: 0 0 12px rgba(79, 216, 201, 0.25);
-}
-
-/* Generator & Markdown Editor Bar */
-.mindmap-generator-bar {
-  display: flex;
-  gap: 10px;
-  padding: 14px;
+.mindmap-chip {
+  padding: 6px 12px;
   border-radius: 14px;
-  background: rgba(10, 18, 22, 0.7);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  color: #93a4aa;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.mindmap-generator-input {
+.mindmap-chip:hover {
+  color: #fff;
+  border-color: rgba(79, 216, 201, 0.4);
+  background: rgba(79, 216, 201, 0.08);
+}
+
+.mindmap-chip.is-active {
+  color: #4fd8c9;
+  border-color: #4fd8c9;
+  background: rgba(79, 216, 201, 0.18);
+}
+
+.mindmap-outline-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 20px;
+  min-height: 0;
+}
+
+.mindmap-outline-box label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #556166;
+  margin-bottom: 6px;
+  display: block;
+}
+
+textarea.mindmap-outline-input {
+  flex: 1;
+  width: 100%;
+  resize: none;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  color: #eef3f4;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.65;
+  padding: 12px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+textarea.mindmap-outline-input:focus {
+  border-color: #4fd8c9;
+}
+
+.mindmap-sidebar-actions {
+  padding: 12px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mindmap-btn-row {
+  display: flex;
+  gap: 8px;
+}
+
+.mindmap-btn-row > * {
+  flex: 1;
+}
+
+/* AI Generator input in sidebar */
+.mindmap-ai-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.mindmap-ai-input {
   flex: 1;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  padding: 10px 16px;
+  border-radius: 8px;
+  padding: 8px 12px;
   color: #fff;
-  font-size: 0.95rem;
+  font-size: 12px;
   outline: none;
-  transition: border-color 0.2s ease;
 }
 
-.mindmap-generator-input:focus {
+.mindmap-ai-input:focus {
   border-color: #4fd8c9;
 }
 
-/* Mind Elixir Container Viewport */
-.mindmap-viewport {
+/* Canvas Area */
+.mindmap-canvas-wrap {
   position: relative;
   width: 100%;
-  height: 680px;
-  border-radius: 18px;
-  background: #090e12;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  height: 100%;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(0, 0, 0, 0.8);
 }
 
-/* Mind Elixir Core Container */
-.mindmap-elixir-container {
+#canvas {
   width: 100%;
   height: 100%;
+  cursor: grab;
 }
 
-/* Custom MindElixir Dark Theme Overrides for Aeternum Glass */
-.mindmap-elixir-container .mind-elixir {
-  background: transparent !important;
+#canvas:active {
+  cursor: grabbing;
 }
 
-.mindmap-elixir-container me-tpc {
-  background: rgba(18, 26, 32, 0.9) !important;
-  border: 1px solid rgba(79, 216, 201, 0.3) !important;
-  border-radius: 10px !important;
-  color: #ffffff !important;
-  font-family: var(--a26-type-body) !important;
-  font-weight: 600 !important;
-  padding: 8px 14px !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
-  transition: all 0.2s ease !important;
-}
-
-.mindmap-elixir-container me-root > me-tpc {
-  background: linear-gradient(135deg, rgba(79, 216, 201, 0.25), rgba(167, 139, 250, 0.2)) !important;
-  border: 2px solid #4fd8c9 !important;
-  font-size: 1.15rem !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 25px rgba(79, 216, 201, 0.35) !important;
-}
-
-.mindmap-elixir-container me-tpc:hover {
-  border-color: #4fd8c9 !important;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(79, 216, 201, 0.25) !important;
-}
-
-.mindmap-elixir-container .mind-elixir-toolbar {
-  background: rgba(10, 16, 20, 0.88) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(12px) !important;
-  color: #fff !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
-}
-
-/* Detail Drawer */
-.mindmap-detail-drawer {
+/* Topbar & Zoom controls */
+.mindmap-topbar {
   position: absolute;
-  top: 20px;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.mindmap-topbar > * {
+  pointer-events: auto;
+}
+
+.toggle-sidebar-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(10, 14, 16, 0.75);
+  backdrop-filter: blur(10px);
+  color: #93a4aa;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  transition: all 0.15s ease;
+}
+
+.toggle-sidebar-btn:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.zoom-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.zoom-controls button {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(10, 14, 16, 0.75);
+  backdrop-filter: blur(10px);
+  color: #93a4aa;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.zoom-controls button:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.mindmap-hint {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 10;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: #556166;
+  background: rgba(10, 14, 16, 0.65);
+  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  line-height: 1.6;
+  pointer-events: none;
+}
+
+/* D3 Elements Styling */
+.link {
+  fill: none;
+  stroke-width: 1.8px;
+  opacity: 0.65;
+  transition: stroke 0.2s ease, stroke-width 0.2s ease;
+}
+
+.node {
+  cursor: pointer;
+}
+
+.node-box {
+  stroke-width: 1.2px;
+  transition: filter 0.18s ease, transform 0.18s ease;
+}
+
+.node:hover .node-box {
+  filter: brightness(1.35) drop-shadow(0 0 8px currentColor);
+}
+
+.node-label {
+  font-family: 'Inter', sans-serif;
+  fill: #eef3f4;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+.node-root .node-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  fill: #ffffff;
+}
+
+.fold-dot {
+  fill: rgba(5, 8, 10, 0.92);
+  stroke-width: 1.5px;
+}
+
+.fold-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  fill: #eef3f4;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+/* Node Detail Drawer */
+.mindmap-node-drawer {
+  position: absolute;
+  top: 65px;
   right: 20px;
-  width: 350px;
-  max-height: calc(100% - 40px);
-  overflow-y: auto;
-  padding: 22px;
+  width: 330px;
+  padding: 20px;
   border-radius: 16px;
   background: rgba(10, 16, 20, 0.94);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(79, 216, 201, 0.35);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-  z-index: 100;
-}
-
-/* Markdown Textarea Drawer Toggle */
-.mindmap-markdown-drawer {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 16px;
-  border-radius: 14px;
-  background: rgba(12, 18, 22, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.mindmap-markdown-textarea {
-  width: 100%;
-  height: 140px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  padding: 12px;
-  color: #4fd8c9;
-  font-family: var(--a26-type-mono, monospace);
-  font-size: 0.88rem;
-  resize: vertical;
-  outline: none;
-}
-
-@media (max-width: 900px) {
-  .mindmap-viewport {
-    height: 520px;
-  }
-  .mindmap-detail-drawer {
-    position: fixed;
-    inset: auto 12px 12px 12px;
-    width: auto;
-    max-height: 50vh;
-  }
+  z-index: 30;
 }
