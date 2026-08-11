@@ -110,7 +110,7 @@ export default function StrategicProgressDonut({
     return pillarData.items.find((item) => item.id === hoveredPillarId) || null;
   }, [hoveredPillarId, pillarData.items]);
 
-  // Sector Angle Specs: 4 sectors, 4 deg gap between each
+  // Sector Angle Specs: 4 sectors, 6 deg gap between each
   // Total usable = 360 - (4 * 6) = 336 deg -> 84 deg per sector
   const sectors = useMemo(() => {
     const gap = 6;
@@ -138,6 +138,10 @@ export default function StrategicProgressDonut({
                 <stop offset="100%" stopColor={p.gradient[1]} />
               </linearGradient>
             ))}
+            <linearGradient id="centerTextGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="100%" stopColor="#4fd8c9" />
+            </linearGradient>
             <filter id="donutGlow" x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur stdDeviation="3" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
@@ -145,13 +149,13 @@ export default function StrategicProgressDonut({
           </defs>
 
           {/* Background Ring Track */}
-          <circle cx="80" cy="80" r="55" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" fill="none" />
+          <circle cx="80" cy="80" r="56" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" fill="none" />
           <circle cx="80" cy="80" r="38" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" fill="none" />
 
           {/* 4 Exploded Donut Sectors */}
           {sectors.map((sector) => {
             const isHovered = hoveredPillarId === sector.id;
-            const explodeOffset = isHovered ? 6 : 0;
+            const explodeOffset = isHovered ? 5 : 0;
             const pathData = makeArcPath(80, 80, 39, 58, sector.startAngle, sector.endAngle, explodeOffset);
 
             return (
@@ -159,7 +163,7 @@ export default function StrategicProgressDonut({
                 key={sector.id}
                 d={pathData}
                 fill={`url(#grad-${sector.id})`}
-                opacity={hoveredPillarId ? (isHovered ? 1 : 0.45) : 0.9}
+                opacity={hoveredPillarId ? (isHovered ? 1 : 0.4) : 0.9}
                 filter={isHovered ? "url(#donutGlow)" : undefined}
                 className="donut-sector-path"
                 onMouseEnter={() => setHoveredPillarId(sector.id)}
@@ -167,24 +171,61 @@ export default function StrategicProgressDonut({
               />
             );
           })}
-        </svg>
 
-        {/* Center Label (Displays Composite Progress or Active Sector Metric) */}
-        <div className="strategic-donut-center">
+          {/* Locked SVG Center Text (Zero Overlap / Mathematically Aligned) */}
           {activePillar ? (
-            <div className="center-active-view fade-in-up">
-              <span className="center-active-value" style={{ color: activePillar.color }}>
+            <g textAnchor="middle" style={{ pointerEvents: "none" }}>
+              <text
+                x="80"
+                y="72"
+                fill={activePillar.color}
+                fontSize="20"
+                fontWeight="700"
+                fontFamily="'Space Grotesk', 'Inter', sans-serif"
+                dominantBaseline="central"
+              >
                 {activePillar.percent}%
-              </span>
-              <span className="center-active-sub">{activePillar.value}</span>
-            </div>
+              </text>
+              <text
+                x="80"
+                y="89"
+                fill="rgba(255, 255, 255, 0.9)"
+                fontSize="8.5"
+                fontFamily="'JetBrains Mono', monospace"
+                dominantBaseline="central"
+              >
+                {activePillar.value}
+              </text>
+            </g>
           ) : (
-            <div className="center-default-view">
-              <span className="center-overall-value">{pillarData.overallPercent}%</span>
-              <span className="center-overall-kicker">PROGRESSO GERAL</span>
-            </div>
+            <g textAnchor="middle" style={{ pointerEvents: "none" }}>
+              <text
+                x="80"
+                y="72"
+                fill="url(#centerTextGrad)"
+                fontSize="21"
+                fontWeight="700"
+                fontFamily="'Space Grotesk', 'Inter', sans-serif"
+                dominantBaseline="central"
+              >
+                {pillarData.overallPercent}%
+              </text>
+              <text
+                x="80"
+                y="89"
+                fill="#4fd8c9"
+                fontSize="7.2"
+                fontWeight="700"
+                letterSpacing="0.8"
+                fontFamily="'JetBrains Mono', monospace"
+                opacity="0.95"
+                dominantBaseline="central"
+              >
+                PROGRESSO GERAL
+              </text>
+            </g>
           )}
-        </div>
+        </svg>
       </div>
 
       {/* Strategic Pillars Legend Grid */}
@@ -199,7 +240,7 @@ export default function StrategicProgressDonut({
               onMouseLeave={() => setHoveredPillarId(null)}
             >
               <div className="pillar-legend-head">
-                <span className="pillar-dot" style={{ background: pillar.color, boxShadow: `0 0 10px ${pillar.color}` }} />
+                <span className="pillar-dot" style={{ background: pillar.color, boxShadow: `0 0 8px ${pillar.color}` }} />
                 <span className="pillar-name">{pillar.name}</span>
                 <span className="pillar-percent" style={{ color: pillar.color }}>{pillar.percent}%</span>
               </div>

@@ -7,17 +7,20 @@
 }
 
 .a26-student-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: clamp(24px, 4vw, 56px);
+  gap: clamp(24px, 3vw, 48px);
   min-height: 330px;
-  padding: clamp(28px, 3.4vw, 50px);
+  padding: clamp(24px, 3vw, 44px);
   border-radius: var(--a26-radius-panel);
+  box-sizing: border-box;
 }
 
 .student-study-hero__content {
-  max-width: 920px;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 800px;
 }
 
 .viewer-eyebrow {

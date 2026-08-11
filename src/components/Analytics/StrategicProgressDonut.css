@@ -1,26 +1,34 @@
 /* Strategic Exploded Progress Donut Styles — Liquid Glass Aeternum 26.1 */
 
 .strategic-donut-container {
-  display: grid;
-  grid-template-columns: auto minmax(200px, 250px);
+  display: flex;
   align-items: center;
   gap: 16px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 410px;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 1160px) {
   .strategic-donut-container {
-    grid-template-columns: 1fr;
-    justify-items: center;
+    max-width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .strategic-donut-container {
+    flex-direction: column;
+    align-items: center;
     gap: 14px;
   }
 }
 
 .strategic-donut-visual {
   position: relative;
-  width: 145px;
-  height: 145px;
+  width: 140px;
+  height: 140px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -44,121 +52,58 @@
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
 }
 
-.strategic-donut-center {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  pointer-events: none;
-  border-radius: 50%;
-  padding: 4px;
-}
-
-.center-default-view {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-}
-
-.center-overall-value {
-  font-family: 'Space Grotesk', 'Inter', sans-serif;
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  background: linear-gradient(120deg, #ffffff 10%, #4fd8c9 90%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.center-overall-kicker {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 7.5px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #4fd8c9;
-  opacity: 0.9;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.center-active-view {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-}
-
-.center-active-value {
-  font-family: 'Space Grotesk', 'Inter', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.center-active-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 8.5px;
-  color: rgba(255, 255, 255, 0.88);
-  white-space: nowrap;
-}
-
 /* Strategic Pillars Legend Grid */
 .strategic-pillars-legend {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  width: 100%;
+  gap: 6px;
+  flex: 1 1 auto;
   min-width: 0;
+  box-sizing: border-box;
 }
 
 .pillar-legend-item {
   display: flex;
   flex-direction: column;
   gap: 3px;
-  padding: 6px 10px;
+  padding: 5px 9px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.07);
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
   min-width: 0;
+  box-sizing: border-box;
 }
 
 .pillar-legend-item:hover,
 .pillar-legend-item.is-active {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 255, 255, 0.18);
-  transform: translateX(3px);
 }
 
 .pillar-legend-head {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 6px;
   min-width: 0;
+  width: 100%;
 }
 
 .pillar-dot {
-  width: 7px;
-  height: 7px;
+  width: 6.5px;
+  height: 6.5px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
 .pillar-name {
   font-family: 'Inter', sans-serif;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
   color: #eef3f4;
-  flex: 1;
+  flex: 1 1 auto;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -167,9 +112,10 @@
 
 .pillar-percent {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 700;
   flex-shrink: 0;
+  margin-left: 4px;
 }
 
 .pillar-track-bg {
@@ -188,7 +134,7 @@
 
 .pillar-value-detail {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9.5px;
+  font-size: 9px;
   color: var(--a26-color-text-subtle, rgba(255, 255, 255, 0.55));
   white-space: nowrap;
   overflow: hidden;
