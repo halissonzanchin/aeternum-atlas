@@ -1,8 +1,8 @@
-/* Aeternum 26.1 — D3.js Obsidian Mindmap Engine Styles */
+/* Aeternum 26.1 — Fluid D3.js Obsidian Mindmap Engine Styles */
 
 .a26-mindmap-page {
   display: grid;
-  grid-template-columns: 340px 1fr;
+  grid-template-columns: 320px 1fr;
   height: calc(100vh - 90px);
   width: 100%;
   margin: 0;
@@ -30,18 +30,18 @@
   display: flex;
   flex-direction: column;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(6, 10, 12, 0.65);
-  backdrop-filter: blur(14px);
+  background: rgba(6, 10, 12, 0.7);
+  backdrop-filter: blur(16px);
   z-index: 10;
   transition: transform 0.25s ease, margin-left 0.25s ease;
 }
 
 .mindmap-sidebar.collapsed {
-  margin-left: -340px;
+  margin-left: -320px;
 }
 
 .mindmap-sidebar-head {
-  padding: 20px 20px 12px;
+  padding: 18px 18px 10px;
 }
 
 .mindmap-eyebrow {
@@ -58,63 +58,58 @@
   font-family: 'Space Grotesk', sans-serif;
   font-size: 18px;
   font-weight: 700;
-  margin: 0 0 6px;
-  line-height: 1.25;
+  margin: 0;
+  line-height: 1.2;
   background: linear-gradient(100deg, #ffffff 10%, #4fd8c9 50%, #e9b872 90%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.mindmap-sidebar-head p {
-  font-size: 11.5px;
-  color: #93a4aa;
-  line-height: 1.5;
-  margin: 0;
-}
-
+/* Preset Chips 2x2 Clean Grid */
 .mindmap-preset-bar {
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  padding: 8px 20px;
-  scrollbar-width: none;
-}
-
-.mindmap-preset-bar::-webkit-scrollbar {
-  display: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px 18px;
 }
 
 .mindmap-chip {
-  padding: 6px 12px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #93a4aa;
-  font-size: 11px;
+  font-size: 0.76rem;
   font-weight: 600;
-  white-space: nowrap;
+  text-align: center;
   cursor: pointer;
-  transition: all 0.15s ease;
+  white-space: normal;
+  line-height: 1.35;
+  transition: all 0.18s ease;
 }
 
 .mindmap-chip:hover {
   color: #fff;
   border-color: rgba(79, 216, 201, 0.4);
-  background: rgba(79, 216, 201, 0.08);
+  background: rgba(79, 216, 201, 0.1);
 }
 
 .mindmap-chip.is-active {
   color: #4fd8c9;
   border-color: #4fd8c9;
   background: rgba(79, 216, 201, 0.18);
+  box-shadow: 0 0 12px rgba(79, 216, 201, 0.2);
 }
 
 .mindmap-outline-box {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 12px 20px;
+  padding: 10px 18px;
   min-height: 0;
 }
 
@@ -132,13 +127,13 @@ textarea.mindmap-outline-input {
   flex: 1;
   width: 100%;
   resize: none;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 9px;
+  border-radius: 10px;
   color: #eef3f4;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  line-height: 1.65;
+  font-size: 11.5px;
+  line-height: 1.6;
   padding: 12px;
   outline: none;
   transition: border-color 0.15s ease;
@@ -149,7 +144,7 @@ textarea.mindmap-outline-input:focus {
 }
 
 .mindmap-sidebar-actions {
-  padding: 12px 20px 20px;
+  padding: 12px 18px 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -164,11 +159,11 @@ textarea.mindmap-outline-input:focus {
   flex: 1;
 }
 
-/* AI Generator input in sidebar */
+/* AI Generator bar */
 .mindmap-ai-bar {
   display: flex;
   gap: 6px;
-  margin-bottom: 8px;
+  padding: 0 18px 6px;
 }
 
 .mindmap-ai-input {
@@ -223,24 +218,24 @@ textarea.mindmap-outline-input:focus {
 }
 
 .toggle-sidebar-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 9px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(10, 14, 16, 0.75);
-  backdrop-filter: blur(10px);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 14, 16, 0.82);
+  backdrop-filter: blur(12px);
   color: #93a4aa;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 16px;
   transition: all 0.15s ease;
 }
 
 .toggle-sidebar-btn:hover {
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .zoom-controls {
@@ -249,15 +244,15 @@ textarea.mindmap-outline-input:focus {
 }
 
 .zoom-controls button {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(10, 14, 16, 0.75);
-  backdrop-filter: blur(10px);
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 14, 16, 0.82);
+  backdrop-filter: blur(12px);
   color: #93a4aa;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -266,7 +261,7 @@ textarea.mindmap-outline-input:focus {
 
 .zoom-controls button:hover {
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .mindmap-hint {
@@ -275,21 +270,21 @@ textarea.mindmap-outline-input:focus {
   left: 16px;
   z-index: 10;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
-  color: #556166;
-  background: rgba(10, 14, 16, 0.65);
-  backdrop-filter: blur(8px);
+  font-size: 10px;
+  color: #64748b;
+  background: rgba(8, 12, 14, 0.75);
+  backdrop-filter: blur(10px);
   padding: 8px 14px;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  line-height: 1.6;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  line-height: 1.5;
   pointer-events: none;
 }
 
-/* D3 Elements Styling */
+/* D3 SVG Elements Styling */
 .link {
   fill: none;
-  stroke-width: 1.8px;
+  stroke-width: 2px;
   opacity: 0.65;
   transition: stroke 0.2s ease, stroke-width 0.2s ease;
 }
@@ -299,17 +294,17 @@ textarea.mindmap-outline-input:focus {
 }
 
 .node-box {
-  stroke-width: 1.2px;
+  stroke-width: 1.4px;
   transition: filter 0.18s ease, transform 0.18s ease;
 }
 
 .node:hover .node-box {
-  filter: brightness(1.35) drop-shadow(0 0 8px currentColor);
+  filter: brightness(1.3) drop-shadow(0 0 10px currentColor);
 }
 
 .node-label {
   font-family: 'Inter', sans-serif;
-  fill: #eef3f4;
+  fill: #f1f5f9;
   dominant-baseline: middle;
   pointer-events: none;
 }
@@ -321,14 +316,15 @@ textarea.mindmap-outline-input:focus {
 }
 
 .fold-dot {
-  fill: rgba(5, 8, 10, 0.92);
-  stroke-width: 1.5px;
+  fill: rgba(6, 10, 12, 0.95);
+  stroke-width: 1.6px;
 }
 
 .fold-count {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  fill: #eef3f4;
+  font-size: 9.5px;
+  font-weight: 700;
+  fill: #ffffff;
   text-anchor: middle;
   dominant-baseline: middle;
   pointer-events: none;
@@ -337,7 +333,7 @@ textarea.mindmap-outline-input:focus {
 /* Node Detail Drawer */
 .mindmap-node-drawer {
   position: absolute;
-  top: 65px;
+  top: 68px;
   right: 20px;
   width: 330px;
   padding: 20px;

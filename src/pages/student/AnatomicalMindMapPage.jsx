@@ -33,23 +33,20 @@ const ANATOMICAL_OUTLINE_PRESETS = [
     id: "snc",
     label: "🧠 Sistema Nervoso Central",
     modelPath: "/viewer/corte-sagital-cranio-humano-superficial",
-    text: `Sistema Nervoso
- Sistema Nervoso Central
-  Encéfalo
-   Cérebro (Giro Pré e Pós-Central)
-   Núcleos da Base (Caudado e Putamen)
-   Sistema Límbico (Hipocampo e Amígdala)
-   Cerebelo (Coordenação e Equilíbrio)
-   Tronco Encefálico (Mesencéfalo, Ponte e Bulbo)
-  Medula Espinhal
-   Vias Motoras Corticoespinais
-   Vias Sensoriais Espinotalâmicas
+    text: `Sistema Nervoso Central
+ Encéfalo & Telencéfalo
+  Cérebro (Giro Pré e Pós-Central)
+  Núcleos da Base (Caudado e Putamen)
+  Sistema Límbico (Hipocampo e Amígdala)
+  Cerebelo (Coordenação e Equilíbrio)
+  Tronco Encefálico (Mesencéfalo, Ponte e Bulbo)
+ Medula Espinhal & Vias
+  Vias Motoras Corticoespinais
+  Vias Sensoriais Espinotalâmicas
  Sistema Nervoso Periférico
   Nervos Cranianos (I ao XII Pares)
   Nervos Espinhais
-  Sistema Nervoso Autônomo
-   Simpático (Toracolombar)
-   Parassimpático (Craniossacral)
+  Sistema Nervoso Autônomo (Simpático e Parassimpático)
  Neuroclínica & AVC
   AVC Isquêmico da Artéria Cerebral Média
   Neuralgia do Trigêmeo`
@@ -62,8 +59,8 @@ const ANATOMICAL_OUTLINE_PRESETS = [
  Epífise Proximal
   Cabeça do Fémur & Fóvea Capitis
   Colo do Fémur (Carga Biomecânica)
-  Trocânter Maior (Inserção do Glúteo Médio)
-  Trocânter Menor (Inserção do Iliopsoas)
+  Trocânter Maior (Glúteo Médio)
+  Trocânter Menor (Iliopsoas)
  Diáfise & Corpo Femural
   Linha Áspera (Inserção dos Adutores)
   Tuberosidade Glútea
@@ -100,7 +97,6 @@ function parseOutline(text) {
   rawLines.forEach((line) => {
     if (line.trim().length === 0) return;
 
-    // Handle space indentation or markdown syntax (# or -)
     const mdHeader = line.match(/^(#{1,6})\s+(.*)/);
     const mdList = line.match(/^(\s*)(?:[-*+]|\d+\.)\s+(.*)/);
 
@@ -142,7 +138,7 @@ function parseOutline(text) {
 }
 
 function estimateWidth(text) {
-  return Math.min(240, Math.max(50, text.length * 6.8 + 28));
+  return Math.min(290, Math.max(75, text.length * 7.5 + 32));
 }
 
 function assignColors(node, color) {
@@ -190,13 +186,13 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       const H = svgEl.clientHeight || 650;
       if (bounds.width === 0 || bounds.height === 0) return;
 
-      const scale = Math.min(1.8, 0.88 / Math.max(bounds.width / W, bounds.height / H));
+      const scale = Math.min(1.5, 0.85 / Math.max(bounds.width / W, bounds.height / H));
       const tx = W / 2 - scale * (bounds.x + bounds.width / 2);
       const ty = H / 2 - scale * (bounds.y + bounds.height / 2);
 
       d3.select(svgEl)
         .transition()
-        .duration(400)
+        .duration(450)
         .call(zoomBehaviorRef.current.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
     } catch (e) {
       console.warn("fitToView calc", e);
@@ -206,11 +202,12 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const updateTree = (source) => {
     if (!rootDataRef.current || !gZoomRef.current) return;
     const duration = 320;
-    const dx = 32;
-    const dy = 220;
+
+    // Generous gaps to eliminate node box and text overlaps
+    const dx = 56;  // Vertical gap between siblings
+    const dy = 320; // Horizontal step between depth columns
 
     const treeLayout = d3.tree().nodeSize([dx, dy]);
-    const diagonal = d3.linkHorizontal().x((d) => d.y).y((d) => d.x);
 
     const root = rootDataRef.current;
     const nodes = root.descendants().reverse();
@@ -221,6 +218,16 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
     const transition = gZoomRef.current.transition().duration(duration);
 
+    // Exact Bezier path connecting parent right-edge to child left-edge cleanly
+    const calcLinkPath = (d) => {
+      const sourceX = d.source.y + (d.source.depth === 0 ? d.source.w / 2 : d.source.w);
+      const sourceY = d.source.x;
+      const targetX = d.target.y - 6;
+      const targetY = d.target.x;
+      const mx = (sourceX + targetX) / 2;
+      return `M ${sourceX},${sourceY} C ${mx},${sourceY} ${mx},${targetY} ${targetX},${targetY}`;
+    };
+
     /* ---- Links ---- */
     const link = gLinksRef.current.selectAll("path.link").data(links, (d) => d.target.id);
 
@@ -230,14 +237,14 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       .attr("class", "link")
       .attr("stroke", (d) => d.target.color || "#4fd8c9")
       .attr("d", () => {
-        const o = { x: source.x0 ?? 0, y: source.y0 ?? 0 };
-        return diagonal({ source: o, target: o });
+        const o = { x: source.x0 ?? 0, y: source.y0 ?? 0, depth: source.depth, w: source.w };
+        return calcLinkPath({ source: o, target: o });
       });
 
     link
       .merge(linkEnter)
       .transition(transition)
-      .attr("d", diagonal)
+      .attr("d", calcLinkPath)
       .attr("stroke", (d) => d.target.color || "#4fd8c9");
 
     link
@@ -245,8 +252,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       .transition(transition)
       .remove()
       .attr("d", () => {
-        const o = { x: source.x, y: source.y };
-        return diagonal({ source: o, target: o });
+        const o = { x: source.x, y: source.y, depth: source.depth, w: source.w };
+        return calcLinkPath({ source: o, target: o });
       });
 
     /* ---- Nodes ---- */
@@ -278,34 +285,37 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       .append("rect")
       .attr("class", "node-box")
       .attr("x", (d) => (d.depth === 0 ? -d.w / 2 : -6))
-      .attr("y", -15)
-      .attr("width", (d) => (d.depth === 0 ? d.w : d.w + 6))
-      .attr("height", 30)
-      .attr("rx", 9)
+      .attr("y", -17)
+      .attr("width", (d) => (d.depth === 0 ? d.w : d.w + 14))
+      .attr("height", 34)
+      .attr("rx", 10)
       .attr("fill", (d) =>
         d.depth === 0
-          ? `color-mix(in srgb, ${d.color} 26%, rgba(10,14,16,0.85))`
-          : `color-mix(in srgb, ${d.color} 14%, rgba(10,14,16,0.7))`
+          ? `color-mix(in srgb, ${d.color} 28%, rgba(10,16,20,0.9))`
+          : `color-mix(in srgb, ${d.color} 16%, rgba(10,16,20,0.8))`
       )
       .attr("stroke", (d) => d.color)
-      .attr("stroke-opacity", (d) => (d.depth === 0 ? 0.85 : 0.45));
+      .attr("stroke-width", (d) => (d.depth === 0 ? 2 : 1.4))
+      .attr("stroke-opacity", (d) => (d.depth === 0 ? 0.9 : 0.6));
 
     nodeEnter
       .append("text")
       .attr("class", "node-label")
-      .attr("x", (d) => (d.depth === 0 ? 0 : 0))
+      .attr("x", (d) => (d.depth === 0 ? 0 : 4))
+      .attr("y", 1)
       .attr("text-anchor", (d) => (d.depth === 0 ? "middle" : "start"))
-      .attr("font-size", (d) => (d.depth === 0 ? 13.5 : 12))
+      .attr("font-size", (d) => (d.depth === 0 ? 14 : 12.5))
+      .attr("font-weight", (d) => (d.depth === 0 ? 700 : 500))
       .text((d) => d.data.name);
 
     // Fold indicator group for collapsed nodes
     const foldGroup = nodeEnter
       .append("g")
       .attr("class", "fold-indicator")
-      .attr("transform", (d) => `translate(${d.w + 6},0)`)
+      .attr("transform", (d) => `translate(${d.depth === 0 ? d.w / 2 + 12 : d.w + 16},0)`)
       .style("display", (d) => (d._children ? null : "none"));
 
-    foldGroup.append("circle").attr("class", "fold-dot").attr("r", 8).attr("stroke", (d) => d.color);
+    foldGroup.append("circle").attr("class", "fold-dot").attr("r", 9).attr("stroke", (d) => d.color);
     foldGroup.append("text").attr("class", "fold-count").text((d) => (d._children ? countDescendants(d._children) : ""));
 
     const nodeUpdate = node
@@ -315,7 +325,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       .attr("fill-opacity", 1);
 
     nodeUpdate.select(".fold-indicator")
-      .attr("transform", (d) => `translate(${d.w + 6},0)`)
+      .attr("transform", (d) => `translate(${d.depth === 0 ? d.w / 2 + 12 : d.w + 16},0)`)
       .style("display", (d) => (d._children ? null : "none"));
 
     nodeUpdate.select(".fold-count").text((d) => (d._children ? countDescendants(d._children) : ""));
@@ -353,7 +363,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
     rootDataRef.current = r;
     updateTree(r);
-    setTimeout(fitToView, 60);
+    setTimeout(fitToView, 120);
   };
 
   // Initialize D3 Canvas
@@ -457,12 +467,9 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         <div className="mindmap-sidebar-head">
           <p className="mindmap-eyebrow">Motor · Estilo Obsidian Mindmap</p>
           <h1>Mapa Mental</h1>
-          <p>
-            Sem símbolos — só espaços. Primeira linha sem espaço = tema central. <b>1 espaço</b> = título, <b>2 espaços</b> = subtítulo, <b>3 espaços</b> = item de lista.
-          </p>
         </div>
 
-        {/* Preset Chips */}
+        {/* Preset Chips Clean 2x2 Grid */}
         <div className="mindmap-preset-bar">
           {ANATOMICAL_OUTLINE_PRESETS.map((preset) => (
             <button
@@ -476,20 +483,18 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         </div>
 
         {/* AI Generator Input */}
-        <div className="px-5 pt-2">
-          <div className="mindmap-ai-bar">
-            <input
-              type="text"
-              className="mindmap-ai-input"
-              placeholder="Gerar esboço com IA (ex: Sistema Renal...)"
-              value={aiPrompt}
-              onChange={(e) => setAiPrompt(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleGenerateAI()}
-            />
-            <A26Button variant="primary" className="btn-sm" onClick={handleGenerateAI} disabled={isGenerating}>
-              {isGenerating ? "..." : "Gerar"}
-            </A26Button>
-          </div>
+        <div className="mindmap-ai-bar">
+          <input
+            type="text"
+            className="mindmap-ai-input"
+            placeholder="Esboço IA (ex: Sistema Renal...)"
+            value={aiPrompt}
+            onChange={(e) => setAiPrompt(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleGenerateAI()}
+          />
+          <A26Button variant="primary" className="btn-sm" onClick={handleGenerateAI} disabled={isGenerating}>
+            {isGenerating ? "..." : "Gerar"}
+          </A26Button>
         </div>
 
         {/* Outline Textarea */}
