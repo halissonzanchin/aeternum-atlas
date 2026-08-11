@@ -79,26 +79,6 @@ export default function EvolutionPanel({
               totalQuizzesTarget={totalQuizzesTarget}
               tutorQuestionsCount={tutorQuestionsCount}
             />
-            <div className="student-radar-bars">
-              {observedSystems.map(item => (
-                <div key={item.system} className="student-system-row">
-                  <div>
-                    <span>{item.system}</span>
-                    <strong>{item.percent}%</strong>
-                  </div>
-                  <div className="student-progress-track">
-                    <span style={{ width: `${item.percent}%` }} />
-                  </div>
-                  <div className="student-system-evidence">
-                    <small>{metricLabel(item)}</small>
-                    <small>{minutesLabel(item.studyMinutes, t)} ativos</small>
-                    {item.annotationTotal > 0 ? <small>{item.annotationViewed}/{item.annotationTotal} marcações</small> : null}
-                    {item.quizAttempts > 0 ? <small>{item.quizAttempts} simulado{item.quizAttempts === 1 ? "" : "s"}</small> : null}
-                  </div>
-                </div>
-              ))}
-              {!observedSystems.length ? <p className="text-sm text-textMuted">{t("studentHome.observedDataEmpty")}</p> : null}
-            </div>
           </div>
         </A26Card>
 
