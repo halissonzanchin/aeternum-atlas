@@ -151,13 +151,6 @@ export default function Dashboard({ user, navigate }) {
 
       <MuralModularBoard />
 
-      <div className="student-quick-grid upe-metrics">
-        <QuickMetricCard icon="layers" label={t("studentHome.quick.availableModels")} value={modelsLoading ? "..." : activeModels.length} hint={t("studentHome.quick.modelsHint")} tone="teal" />
-        <QuickMetricCard icon="clock" label={t("studentHome.quick.totalStudyTime")} value={minutesLabel(stats.totalStudyMinutes, t)} hint={t("studentHome.quick.studyHint")} />
-        <QuickMetricCard icon="check" label={t("studentHome.quick.completedModels")} value={stats.studiedModels} hint={t("studentHome.quick.completionsHint")} tone="teal" />
-        <QuickMetricCard icon="spark" label={t("studentHome.quick.overallProgress")} value={`${stats.progressPercent}%`} hint={t("studentHome.quick.progressHint")} />
-      </div>
-
       <section className="student-section">
         <div className="student-section-header">
           <div>
