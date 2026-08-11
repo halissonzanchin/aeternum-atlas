@@ -346,7 +346,6 @@ export default function MuralModularBoard({ videoSrc = null }) {
         {/* Board Header */}
         <header className="notes-board__header">
           <div className="notes-board__title-group">
-            <LineIcon name="spark" className="h-5 w-5 text-agedGold" />
             <div>
               <p className="notes-board__eyebrow">ESTUDO AUTÔNOMO • ANOTAÇÕES DENSAS</p>
               <h3>Mural Modular de Estudo Anatômico</h3>

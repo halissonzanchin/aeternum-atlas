@@ -63,38 +63,52 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: clamp(170px, 18vw, 240px);
+  width: 145px;
+  height: 145px;
   aspect-ratio: 1;
   justify-self: end;
   border-radius: 50%;
-  background: radial-gradient(circle, rgb(92 232 223 / 0.1), transparent 67%);
+  background: radial-gradient(circle, rgba(79, 216, 201, 0.14) 0%, transparent 70%);
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(79, 216, 201, 0.08);
 }
 
 .student-study-hero__visual svg {
-  width: 72%;
-  height: 72%;
-  filter: drop-shadow(0 0 18px rgb(92 232 223 / 0.18));
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 12px rgba(79, 216, 201, 0.35));
 }
 
-.student-study-hero__visual > div {
+.progress-center-label {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  pointer-events: none;
 }
 
-.student-study-hero__visual strong {
-  font: 600 clamp(2rem, 4vw, 3.35rem)/1 var(--a26-type-display);
-  color: #f7ecd2;
+.progress-value-num {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, #ffffff 10%, #4fd8c9 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.student-study-hero__visual span {
-  margin-top: 5px;
-  color: var(--a26-color-text-subtle);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
+.progress-kicker-text {
+  margin-top: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #4fd8c9;
+  opacity: 0.9;
   text-transform: uppercase;
 }
 
@@ -123,8 +137,18 @@
 
 .student-quick-value {
   display: block;
-  color: #f7ecd2;
-  font: 700 clamp(1.85rem, 2.6vw, 2.6rem)/1 var(--a26-type-display);
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: clamp(1.45rem, 2.1vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, #ffffff 20%, #4fd8c9 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .student-quick-label {
