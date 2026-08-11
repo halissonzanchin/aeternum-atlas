@@ -70,8 +70,17 @@ function parseOutline(text) {
   return root;
 }
 
-function estimateWidth(text) {
-  return Math.min(290, Math.max(75, text.length * 7.5 + 32));
+// Canvas Text Width Measurement to fit dynamic text length with 100% precision
+const measurementCanvas = typeof document !== "undefined" ? document.createElement("canvas") : null;
+const measurementCtx = measurementCanvas ? measurementCanvas.getContext("2d") : null;
+
+function estimateWidth(text, depth = 1) {
+  if (measurementCtx) {
+    measurementCtx.font = depth === 0 ? "700 14px 'Space Grotesk', 'Inter', sans-serif" : "500 12.5px 'Inter', sans-serif";
+    const measured = measurementCtx.measureText(text).width;
+    return Math.max(90, Math.ceil(measured) + (depth === 0 ? 48 : 34));
+  }
+  return Math.max(90, Math.ceil(text.length * (depth === 0 ? 9.5 : 8.2)) + (depth === 0 ? 48 : 34));
 }
 
 function assignColors(node, color) {
@@ -133,7 +142,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     if (!rootDataRef.current || !gZoomRef.current) return;
     const duration = 320;
     const dx = 56;
-    const dy = 320;
+    const dy = 340;
 
     const treeLayout = d3.tree().nodeSize([dx, dy]);
 
@@ -213,7 +222,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       .attr("class", "node-box")
       .attr("x", (d) => (d.depth === 0 ? -d.w / 2 : -6))
       .attr("y", -17)
-      .attr("width", (d) => (d.depth === 0 ? d.w : d.w + 14))
+      .attr("width", (d) => (d.depth === 0 ? d.w : d.w + 12))
       .attr("height", 34)
       .attr("rx", 10)
       .attr("fill", (d) =>
@@ -228,7 +237,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     nodeEnter
       .append("text")
       .attr("class", "node-label")
-      .attr("x", (d) => (d.depth === 0 ? 0 : 4))
+      .attr("x", (d) => (d.depth === 0 ? 0 : 10))
       .attr("y", 1)
       .attr("text-anchor", (d) => (d.depth === 0 ? "middle" : "start"))
       .attr("font-size", (d) => (d.depth === 0 ? 14 : 12.5))
@@ -250,6 +259,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       .transition(transition)
       .attr("transform", (d) => `translate(${d.y},${d.x})`)
       .attr("fill-opacity", 1);
+
+    nodeUpdate.select(".node-box").attr("width", (d) => (d.depth === 0 ? d.w : d.w + 12));
 
     nodeUpdate.select(".fold-indicator")
       .attr("transform", (d) => `translate(${d.depth === 0 ? d.w / 2 + 12 : d.w + 16},0)`)
@@ -282,7 +293,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     r.y0 = 0;
     r.each((d) => {
       d.id = nodeIdSeqRef.current++;
-      d.w = estimateWidth(d.data.name);
+      d.w = estimateWidth(d.data.name, d.depth);
     });
 
     r.color = "#4fd8c9";
@@ -380,19 +391,55 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     setTimeout(fitToView, 340);
   };
 
-  // High Resolution PNG Export
+  // Ultra-High Resolution 2x Retina PNG Export Engine
   const handleExportPNG = () => {
     if (!svgRef.current) return;
     const svgEl = svgRef.current;
     const bounds = gZoomRef.current ? gZoomRef.current.node().getBBox() : { width: svgEl.clientWidth, height: svgEl.clientHeight };
 
     const svgClone = svgEl.cloneNode(true);
-    const canvasWidth = Math.max(1400, Math.ceil(bounds.width + 160));
-    const canvasHeight = Math.max(900, Math.ceil(bounds.height + 160));
+    const margin = 80;
+    const exportWidth = Math.max(1600, Math.ceil(bounds.width + margin * 2));
+    const exportHeight = Math.max(1000, Math.ceil(bounds.height + margin * 2));
 
-    svgClone.setAttribute("width", canvasWidth);
-    svgClone.setAttribute("height", canvasHeight);
+    // Reset zoom transform on SVG clone to center bounds cleanly
+    const zoomGroup = svgClone.querySelector(".zoom-group");
+    if (zoomGroup) {
+      const tx = margin - bounds.x;
+      const ty = margin - bounds.y;
+      zoomGroup.setAttribute("transform", `translate(${tx}, ${ty}) scale(1)`);
+    }
+
+    svgClone.setAttribute("width", exportWidth);
+    svgClone.setAttribute("height", exportHeight);
+    svgClone.setAttribute("viewBox", `0 0 ${exportWidth} ${exportHeight}`);
     svgClone.style.background = "#05080a";
+
+    // Embed Google Fonts & explicit SVG styling in clone header
+    const styleElem = document.createElement("style");
+    styleElem.textContent = `
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+      .link { fill: none; stroke-width: 2.2px; opacity: 0.8; }
+      .node-box { stroke-width: 1.6px; }
+      .node-label { font-family: 'Inter', sans-serif; fill: #ffffff; dominant-baseline: middle; }
+      .node-root .node-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; fill: #ffffff; }
+      .fold-dot { fill: rgba(5,8,10,0.95); stroke-width: 1.6px; }
+      .fold-count { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+    `;
+    svgClone.insertBefore(styleElem, svgClone.firstChild);
+
+    // Resolve node colors to explicit dark fills so canvas drawImage rasterization is ultra crisp
+    const nodes = svgClone.querySelectorAll(".node");
+    nodes.forEach((n) => {
+      const box = n.querySelector(".node-box");
+      if (box) {
+        const strokeColor = box.getAttribute("stroke") || "#4fd8c9";
+        const isRoot = n.classList.contains("node-root");
+        box.setAttribute("fill", isRoot ? "#0d2626" : "#0d161a");
+        box.setAttribute("stroke", strokeColor);
+        box.setAttribute("stroke-width", isRoot ? "2.5" : "1.6");
+      }
+    });
 
     const serializer = new XMLSerializer();
     const svgString = serializer.serializeToString(svgClone);
@@ -402,16 +449,18 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
     const img = new Image();
     img.onload = () => {
+      const scaleFactor = 2; // 2x High-DPI Retina
       const canvas = document.createElement("canvas");
-      canvas.width = canvasWidth;
-      canvas.height = canvasHeight;
+      canvas.width = exportWidth * scaleFactor;
+      canvas.height = exportHeight * scaleFactor;
       const ctx = canvas.getContext("2d");
 
+      ctx.scale(scaleFactor, scaleFactor);
       ctx.fillStyle = "#05080a";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 40, 40);
+      ctx.fillRect(0, 0, exportWidth, exportHeight);
+      ctx.drawImage(img, 0, 0, exportWidth, exportHeight);
 
-      const pngURL = canvas.toDataURL("image/png");
+      const pngURL = canvas.toDataURL("image/png", 1.0);
       const link = document.createElement("a");
       link.href = pngURL;
       link.download = `mapa-mental-aeternum-atlas.png`;
@@ -481,7 +530,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
       {/* Main Canvas Container */}
       <main className="mindmap-canvas-wrap">
-        {/* Topbar & Export Actions */}
+        {/* Topbar & Clean Export Actions (NO ICONS) */}
         <div className="mindmap-topbar">
           <div className="topbar-left-group">
             <button
@@ -492,13 +541,13 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
               ☰
             </button>
 
-            {/* Export Buttons */}
+            {/* Clean Export Buttons without icons */}
             <div className="topbar-export-group">
               <button className="export-btn" onClick={handleExportPNG} title="Exportar como Imagem (PNG)">
-                🖼️ Imagem (PNG)
+                Imagem (PNG)
               </button>
               <button className="export-btn" onClick={handleExportPDF} title="Imprimir ou Salvar em PDF">
-                📄 Exportar PDF
+                Exportar PDF
               </button>
             </div>
           </div>
