@@ -4,28 +4,28 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(20px, 3vw, 44px);
+  gap: clamp(16px, 2.5vw, 32px);
   width: 100%;
   box-sizing: border-box;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 900px) {
   .strategic-donut-container {
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    gap: 20px;
   }
 }
 
 .strategic-donut-visual {
   position: relative;
-  width: 175px;
-  height: 175px;
+  width: 145px;
+  height: 145px;
   display: grid;
   place-items: center;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(79, 216, 201, 0.12) 0%, transparent 72%);
-  box-shadow: 0 0 35px rgba(0, 0, 0, 0.45), inset 0 0 20px rgba(79, 216, 201, 0.08);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(79, 216, 201, 0.08);
   flex-shrink: 0;
 }
 
@@ -41,45 +41,40 @@
 }
 
 .donut-sector-path:hover {
-  filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.65));
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.65));
 }
 
-/* Strategic Pillars Legend Grid (Spacious 2x2 Grid) */
+/* Strategic Pillars Legend Stack (Clean Horizontal Cards) */
 .strategic-pillars-legend {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1 1 0%;
+  min-width: 220px;
   width: 100%;
   box-sizing: border-box;
-}
-
-@media (max-width: 680px) {
-  .strategic-pillars-legend {
-    grid-template-columns: 1fr;
-  }
 }
 
 .pillar-legend-item {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 6px;
-  padding: 12px 15px;
-  border-radius: 14px;
+  gap: 4px;
+  padding: 8px 12px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   cursor: pointer;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .pillar-legend-item:hover,
 .pillar-legend-item.is-active {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(79, 216, 201, 0.3);
-  transform: translateY(-2px);
+  transform: translateX(2px);
 }
 
 .pillar-legend-head {
@@ -93,43 +88,41 @@
 .pillar-title-wrap {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   min-width: 0;
 }
 
 .pillar-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
 .pillar-name {
   font-family: 'Inter', sans-serif;
-  font-size: 13px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #ffffff;
-  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pillar-description {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  color: var(--a26-color-text-subtle, rgba(255, 255, 255, 0.6));
-  margin: 2px 0 4px;
-  line-height: 1.35;
+  display: none; /* Hide multi-line text to keep horizontal row clean & prevent text squishing */
 }
 
 .pillar-percent {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 14px;
+  font-size: 12.5px;
   font-weight: 700;
   flex-shrink: 0;
 }
 
 .pillar-track-bg {
   width: 100%;
-  height: 5px;
+  height: 4px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
@@ -143,6 +136,9 @@
 
 .pillar-value-detail {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
+  font-size: 9.5px;
   color: var(--a26-color-text-subtle, rgba(255, 255, 255, 0.65));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
