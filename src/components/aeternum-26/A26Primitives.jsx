@@ -129,12 +129,11 @@ export function A26Card({
   );
 }
 
-export function A26Metric({ label, value = "—", detail, trend, icon, tone = "neutral", className = "" }) {
+export function A26Metric({ label, value = "—", detail, trend, tone = "neutral", className = "" }) {
   return (
     <A26Card className={joinClasses("a26-metric", className)} tone={tone}>
       <div className="a26-metric__top">
         <span className="a26-metric__label">{label}</span>
-        {icon ? <span className="a26-metric__icon">{icon}</span> : null}
       </div>
       <strong className="a26-metric__value">{value}</strong>
       {detail ? <span className="a26-metric__detail">{detail}</span> : null}

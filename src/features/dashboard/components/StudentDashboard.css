@@ -105,57 +105,44 @@
 }
 
 .student-quick-card {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 16px;
-  min-height: 148px;
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 140px;
+  padding: 22px 24px;
   border-radius: var(--a26-radius-card);
 }
 
-.student-quick-icon,
-.study-tool-icon,
-.module-icon {
-  display: grid;
-  place-items: center;
-  width: 54px;
-  height: 54px;
-  flex: 0 0 auto;
-  border: 1px solid rgb(92 232 223 / 0.28);
-  border-radius: 17px;
-  color: var(--a26-color-teal);
-  background: rgb(92 232 223 / 0.07);
+.student-quick-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
 }
 
-.student-quick-icon--gold {
-  color: var(--a26-color-gold);
-  border-color: rgb(223 197 127 / 0.28);
-  background: rgb(223 197 127 / 0.07);
-}
-
-.student-quick-icon svg,
-.study-tool-icon svg,
-.module-icon svg {
-  width: 24px;
-  height: 24px;
-}
-
-.student-quick-card strong {
+.student-quick-value {
   display: block;
   color: #f7ecd2;
-  font: 650 clamp(1.65rem, 2.4vw, 2.35rem)/1.05 var(--a26-type-body);
+  font: 700 clamp(1.85rem, 2.6vw, 2.6rem)/1 var(--a26-type-display);
 }
 
-.student-quick-card p,
-.student-quick-card small {
+.student-quick-label {
   display: block;
-  margin: 7px 0 0;
-  color: var(--a26-color-text-muted);
-  line-height: 1.45;
+  margin-top: 6px;
+  color: var(--a26-color-text);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
 }
 
-.student-quick-card small { color: var(--a26-color-text-subtle); }
+.student-quick-hint {
+  display: block;
+  margin-top: 4px;
+  color: var(--a26-color-text-subtle);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
 
 .student-section {
   display: grid;
@@ -195,27 +182,28 @@
   gap: 16px;
 }
 
-.study-tool-card,
-.student-recommendation-card {
-  display: grid;
-  grid-template-rows: auto auto auto 1fr;
-  align-content: start;
+.study-tool-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 14px;
-  min-height: 260px;
+  min-height: 220px;
   padding: 24px;
   border-radius: var(--a26-radius-card);
   text-align: left;
   cursor: pointer;
 }
 
+.study-tool-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+
 .study-tool-status {
-  position: static;
-  inset: auto;
-  align-self: start;
-  transform: none;
-  width: max-content;
-  max-width: 100%;
-  padding: 5px 10px;
+  padding: 5px 12px;
   border: 1px solid var(--a26-color-border);
   border-radius: var(--a26-radius-floating);
   color: var(--a26-color-text-muted);
@@ -223,6 +211,23 @@
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.study-tool-card strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--a26-color-text);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.study-tool-card p {
+  display: block;
+  margin-top: 4px;
+  color: var(--a26-color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
 }
 
 .study-tool-status--teal { color: var(--a26-color-teal); border-color: rgb(92 232 223 / 0.3); }
