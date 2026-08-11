@@ -1,0 +1,180 @@
+/* Strategic Exploded Progress Donut Styles — Liquid Glass Aeternum 26.1 */
+
+.strategic-donut-container {
+  display: grid;
+  grid-template-columns: auto minmax(240px, 320px);
+  align-items: center;
+  gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .strategic-donut-container {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+
+.strategic-donut-visual {
+  position: relative;
+  width: 175px;
+  height: 175px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 216, 201, 0.12) 0%, transparent 72%);
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(79, 216, 201, 0.08);
+}
+
+.strategic-donut-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.donut-sector-path {
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.25s ease;
+}
+
+.donut-sector-path:hover {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.strategic-donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.center-default-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center-overall-value {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, #ffffff 10%, #4fd8c9 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.center-overall-kicker {
+  margin-top: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #4fd8c9;
+  opacity: 0.9;
+  text-transform: uppercase;
+}
+
+.center-active-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.center-active-value {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.center-active-sub {
+  margin-top: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+}
+
+/* Strategic Pillars Legend Grid */
+.strategic-pillars-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.pillar-legend-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.pillar-legend-item:hover,
+.pillar-legend-item.is-active {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateX(4px);
+}
+
+.pillar-legend-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pillar-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pillar-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #eef3f4;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pillar-percent {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.pillar-track-bg {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.pillar-track-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s ease-in-out;
+}
+
+.pillar-value-detail {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--a26-color-text-subtle, rgba(255, 255, 255, 0.5));
+}

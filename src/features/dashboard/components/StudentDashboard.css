@@ -8,9 +8,9 @@
 
 .a26-student-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(180px, 260px);
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: clamp(24px, 5vw, 72px);
+  gap: clamp(24px, 4vw, 56px);
   min-height: 330px;
   padding: clamp(28px, 3.4vw, 50px);
   border-radius: var(--a26-radius-panel);
