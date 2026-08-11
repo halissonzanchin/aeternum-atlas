@@ -5,12 +5,7 @@ import "../../styles/A26MindMap.css";
 
 const COLORS = ["#4fd8c9", "#a78bfa", "#e8836f", "#e9b872", "#7fd99a", "#e895c2"];
 
-const ANATOMICAL_OUTLINE_PRESETS = [
-  {
-    id: "cardio",
-    label: "🫀 Sistema Cardiovascular",
-    modelPath: "/viewer/coracao-edicao-morgue",
-    text: `Sistema Cardiovascular
+const DEFAULT_OUTLINE = `Sistema Cardiovascular
  Sistema Nervoso Autónomo Cardiaco
   Nó Sinoatrial (Marcapasso Natural)
   Nó Atrioventricular & Feixe de His
@@ -27,69 +22,7 @@ const ANATOMICAL_OUTLINE_PRESETS = [
  Correlações Clínicas & Patologias
   Infarto Agudo do Miocárdio (IAM por Oclusão Coronária)
   Angina de Peito & Isquemia Miocárdica
-  Estenose Válvular Aórtica & Insuficiência Cardíaca`
-  },
-  {
-    id: "snc",
-    label: "🧠 Sistema Nervoso Central",
-    modelPath: "/viewer/corte-sagital-cranio-humano-superficial",
-    text: `Sistema Nervoso Central
- Encéfalo & Telencéfalo
-  Cérebro (Giro Pré e Pós-Central)
-  Núcleos da Base (Caudado e Putamen)
-  Sistema Límbico (Hipocampo e Amígdala)
-  Cerebelo (Coordenação e Equilíbrio)
-  Tronco Encefálico (Mesencéfalo, Ponte e Bulbo)
- Medula Espinhal & Vias
-  Vias Motoras Corticoespinais
-  Vias Sensoriais Espinotalâmicas
- Sistema Nervoso Periférico
-  Nervos Cranianos (I ao XII Pares)
-  Nervos Espinhais
-  Sistema Nervoso Autônomo (Simpático e Parassimpático)
- Neuroclínica & AVC
-  AVC Isquêmico da Artéria Cerebral Média
-  Neuralgia do Trigêmeo`
-  },
-  {
-    id: "femur",
-    label: "🦴 Fémur & Osteologia",
-    modelPath: "/viewer/corte-sagital-cranio-humano-superficial",
-    text: `Osteologia do Fémur
- Epífise Proximal
-  Cabeça do Fémur & Fóvea Capitis
-  Colo do Fémur (Carga Biomecânica)
-  Trocânter Maior (Glúteo Médio)
-  Trocânter Menor (Iliopsoas)
- Diáfise & Corpo Femural
-  Linha Áspera (Inserção dos Adutores)
-  Tuberosidade Glútea
- Epífise Distal & Joelho
-  Côndilos Medial e Lateral
-  Fossa Intercondilar (Inserção do LCA e LCP)
- Traumatologia & Cirurgia
-  Fratura de Colo Femural (Risco de Necrose Avascular)
-  Artroplastia Total de Quadril`
-  },
-  {
-    id: "respiratorio",
-    label: "🫁 Aparelho Respiratório",
-    modelPath: "/viewer/coracao-edicao-morgue",
-    text: `Aparelho Respiratório
- Vias Aéreas Condução
-  Laringe & Cartilagem Cricoide
-  Traqueia & Carina Traqueal
-  Brônquios Principais Direito e Esquerdo
- Parênquima Pulmonar
-  Lobos Pulmonares (3 Direitos, 2 Esquerdos)
-  Alvéolos & Barreira Hemato-Gasosa
-  Cavidade Pleural (Pleura Visceral e Parietal)
- Fisiologia & Clínica
-  Ventilação Pulmonar & Troca de Gases
-  Pneumotórax (Colapso por Ar Pleural)
-  Enfisema Pulmonar & DPOC`
-  }
-];
+  Estenose Válvular Aórtica & Insuficiência Cardíaca`;
 
 function parseOutline(text) {
   const rawLines = text.split("\n").map((l) => l.replace(/\r$/, "").replace(/\t/g, " "));
@@ -160,8 +93,7 @@ function countDescendants(children) {
 }
 
 export default function AnatomicalMindMapPage({ user, navigate }) {
-  const [selectedPresetId, setSelectedPresetId] = useState("cardio");
-  const [outlineText, setOutlineText] = useState(ANATOMICAL_OUTLINE_PRESETS[0].text);
+  const [outlineText, setOutlineText] = useState(DEFAULT_OUTLINE);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -174,8 +106,6 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const zoomBehaviorRef = useRef(null);
   const rootDataRef = useRef(null);
   const nodeIdSeqRef = useRef(0);
-
-  const activePreset = ANATOMICAL_OUTLINE_PRESETS.find((p) => p.id === selectedPresetId) || ANATOMICAL_OUTLINE_PRESETS[0];
 
   const fitToView = () => {
     if (!gZoomRef.current || !svgRef.current) return;
@@ -202,10 +132,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const updateTree = (source) => {
     if (!rootDataRef.current || !gZoomRef.current) return;
     const duration = 320;
-
-    // Generous gaps to eliminate node box and text overlaps
-    const dx = 56;  // Vertical gap between siblings
-    const dy = 320; // Horizontal step between depth columns
+    const dx = 56;
+    const dy = 320;
 
     const treeLayout = d3.tree().nodeSize([dx, dy]);
 
@@ -218,7 +146,6 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
     const transition = gZoomRef.current.transition().duration(duration);
 
-    // Exact Bezier path connecting parent right-edge to child left-edge cleanly
     const calcLinkPath = (d) => {
       const sourceX = d.source.y + (d.source.depth === 0 ? d.source.w / 2 : d.source.w);
       const sourceY = d.source.x;
@@ -402,12 +329,6 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     return () => clearTimeout(timer);
   }, [outlineText]);
 
-  const handlePresetSelect = (preset) => {
-    setSelectedPresetId(preset.id);
-    setOutlineText(preset.text);
-    setActiveNode(null);
-  };
-
   const handleGenerateAI = () => {
     if (!aiPrompt.trim()) return;
     setIsGenerating(true);
@@ -427,7 +348,6 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   Achados de Imagem Radiológica (TC / RM)`;
 
       setOutlineText(generatedText);
-      setSelectedPresetId("custom");
       setIsGenerating(false);
     }, 500);
   };
@@ -460,6 +380,54 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     setTimeout(fitToView, 340);
   };
 
+  // High Resolution PNG Export
+  const handleExportPNG = () => {
+    if (!svgRef.current) return;
+    const svgEl = svgRef.current;
+    const bounds = gZoomRef.current ? gZoomRef.current.node().getBBox() : { width: svgEl.clientWidth, height: svgEl.clientHeight };
+
+    const svgClone = svgEl.cloneNode(true);
+    const canvasWidth = Math.max(1400, Math.ceil(bounds.width + 160));
+    const canvasHeight = Math.max(900, Math.ceil(bounds.height + 160));
+
+    svgClone.setAttribute("width", canvasWidth);
+    svgClone.setAttribute("height", canvasHeight);
+    svgClone.style.background = "#05080a";
+
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(svgClone);
+    const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+    const URL = window.URL || window.webkitURL || window;
+    const blobURL = URL.createObjectURL(svgBlob);
+
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "#05080a";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 40, 40);
+
+      const pngURL = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = pngURL;
+      link.download = `mapa-mental-aeternum-atlas.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobURL);
+    };
+    img.src = blobURL;
+  };
+
+  // PDF Print Export
+  const handleExportPDF = () => {
+    window.print();
+  };
+
   return (
     <div className="a26-mindmap-page fade-in-up">
       {/* Sidebar Outline Editor */}
@@ -467,19 +435,6 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         <div className="mindmap-sidebar-head">
           <p className="mindmap-eyebrow">Motor · Estilo Obsidian Mindmap</p>
           <h1>Mapa Mental</h1>
-        </div>
-
-        {/* Preset Chips Clean 2x2 Grid */}
-        <div className="mindmap-preset-bar">
-          {ANATOMICAL_OUTLINE_PRESETS.map((preset) => (
-            <button
-              key={preset.id}
-              className={`mindmap-chip ${selectedPresetId === preset.id ? "is-active" : ""}`}
-              onClick={() => handlePresetSelect(preset)}
-            >
-              {preset.label}
-            </button>
-          ))}
         </div>
 
         {/* AI Generator Input */}
@@ -526,15 +481,28 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
       {/* Main Canvas Container */}
       <main className="mindmap-canvas-wrap">
-        {/* Topbar & Zoom Controls */}
+        {/* Topbar & Export Actions */}
         <div className="mindmap-topbar">
-          <button
-            className="toggle-sidebar-btn"
-            onClick={() => setSidebarCollapsed((v) => !v)}
-            title="Mostrar/ocultar painel"
-          >
-            ☰
-          </button>
+          <div className="topbar-left-group">
+            <button
+              className="toggle-sidebar-btn"
+              onClick={() => setSidebarCollapsed((v) => !v)}
+              title="Mostrar/ocultar painel"
+            >
+              ☰
+            </button>
+
+            {/* Export Buttons */}
+            <div className="topbar-export-group">
+              <button className="export-btn" onClick={handleExportPNG} title="Exportar como Imagem (PNG)">
+                🖼️ Imagem (PNG)
+              </button>
+              <button className="export-btn" onClick={handleExportPDF} title="Imprimir ou Salvar em PDF">
+                📄 Exportar PDF
+              </button>
+            </div>
+          </div>
+
           <div className="zoom-controls">
             <button
               onClick={() => d3.select(svgRef.current).transition().duration(200).call(zoomBehaviorRef.current.scaleBy, 1.3)}
@@ -581,14 +549,9 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
             </p>
 
             <div className="flex flex-col gap-2 pt-3 border-t border-slate-700/50">
-              {activePreset.modelPath ? (
-                <A26Button
-                  variant="primary"
-                  onClick={() => navigate(activePreset.modelPath)}
-                >
-                  🫀 Abrir Modelo 3D no Atlas
-                </A26Button>
-              ) : null}
+              <A26Button variant="primary" onClick={() => navigate("/viewer/coracao-edicao-morgue")}>
+                🫀 Abrir Modelo 3D no Atlas
+              </A26Button>
               <A26Button variant="secondary" onClick={() => navigate("/flashcards")}>
                 🎴 Praticar Flashcards Relacionados
               </A26Button>

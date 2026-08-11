@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: column;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(6, 10, 12, 0.7);
+  background: rgba(6, 10, 12, 0.75);
   backdrop-filter: blur(16px);
   z-index: 10;
   transition: transform 0.25s ease, margin-left 0.25s ease;
@@ -66,43 +66,26 @@
   color: transparent;
 }
 
-/* Preset Chips 2x2 Clean Grid */
-.mindmap-preset-bar {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  padding: 10px 18px;
-}
-
-.mindmap-chip {
+/* AI Generator input */
+.mindmap-ai-bar {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 10px;
-  border-radius: 10px;
+  gap: 6px;
+  padding: 10px 18px 6px;
+}
+
+.mindmap-ai-input {
+  flex: 1;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #93a4aa;
-  font-size: 0.76rem;
-  font-weight: 600;
-  text-align: center;
-  cursor: pointer;
-  white-space: normal;
-  line-height: 1.35;
-  transition: all 0.18s ease;
-}
-
-.mindmap-chip:hover {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 8px 12px;
   color: #fff;
-  border-color: rgba(79, 216, 201, 0.4);
-  background: rgba(79, 216, 201, 0.1);
+  font-size: 12px;
+  outline: none;
 }
 
-.mindmap-chip.is-active {
-  color: #4fd8c9;
+.mindmap-ai-input:focus {
   border-color: #4fd8c9;
-  background: rgba(79, 216, 201, 0.18);
-  box-shadow: 0 0 12px rgba(79, 216, 201, 0.2);
 }
 
 .mindmap-outline-box {
@@ -127,7 +110,7 @@ textarea.mindmap-outline-input {
   flex: 1;
   width: 100%;
   resize: none;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   color: #eef3f4;
@@ -159,28 +142,6 @@ textarea.mindmap-outline-input:focus {
   flex: 1;
 }
 
-/* AI Generator bar */
-.mindmap-ai-bar {
-  display: flex;
-  gap: 6px;
-  padding: 0 18px 6px;
-}
-
-.mindmap-ai-input {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  padding: 8px 12px;
-  color: #fff;
-  font-size: 12px;
-  outline: none;
-}
-
-.mindmap-ai-input:focus {
-  border-color: #4fd8c9;
-}
-
 /* Canvas Area */
 .mindmap-canvas-wrap {
   position: relative;
@@ -199,7 +160,7 @@ textarea.mindmap-outline-input:focus {
   cursor: grabbing;
 }
 
-/* Topbar & Zoom controls */
+/* Topbar & Export Action Controls */
 .mindmap-topbar {
   position: absolute;
   top: 16px;
@@ -215,6 +176,18 @@ textarea.mindmap-outline-input:focus {
 
 .mindmap-topbar > * {
   pointer-events: auto;
+}
+
+.topbar-left-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-export-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toggle-sidebar-btn {
@@ -236,6 +209,29 @@ textarea.mindmap-outline-input:focus {
 .toggle-sidebar-btn:hover {
   color: #fff;
   border-color: rgba(255, 255, 255, 0.35);
+}
+
+.export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(10, 14, 16, 0.82);
+  backdrop-filter: blur(12px);
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.export-btn:hover {
+  color: #4fd8c9;
+  border-color: #4fd8c9;
+  background: rgba(79, 216, 201, 0.15);
+  box-shadow: 0 0 12px rgba(79, 216, 201, 0.2);
 }
 
 .zoom-controls {
@@ -343,4 +339,29 @@ textarea.mindmap-outline-input:focus {
   border: 1px solid rgba(79, 216, 201, 0.35);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
   z-index: 30;
+}
+
+/* Print CSS for Clean PDF Export */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  .mindmap-canvas-wrap,
+  .mindmap-canvas-wrap #canvas,
+  .mindmap-canvas-wrap #canvas * {
+    visibility: visible !important;
+  }
+  .mindmap-canvas-wrap {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: #090e12 !important;
+  }
+  .mindmap-topbar,
+  .mindmap-sidebar,
+  .mindmap-hint,
+  .mindmap-node-drawer {
+    display: none !important;
+  }
 }
