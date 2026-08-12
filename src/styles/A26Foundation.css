@@ -260,6 +260,60 @@
   overflow-wrap: normal !important;
 }
 
+.a26-button__content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap !important;
+  flex-shrink: 0;
+}
+
+.a26-button svg,
+.a26-button .a26-icon {
+  flex-shrink: 0 !important;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Model Card Action Buttons Responsive Layout */
+.model-card-aog__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+  box-sizing: border-box;
+}
+
+.model-card-aog__actions .a26-button {
+  flex: 1 1 0%;
+  min-width: 0;
+  padding: 0 12px;
+  font-size: 0.8rem;
+  white-space: nowrap !important;
+}
+
+.model-card-aog__actions .model-card-aog__primary {
+  flex: 1.2 1 0%;
+}
+
+.model-card-aog__actions .model-card-aog__secondary {
+  flex: 1 1 0%;
+}
+
+@media (max-width: 480px) {
+  .model-card-aog__actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .model-card-aog__actions .a26-button {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
 .a26-button--primary {
   --a26-material-border: rgb(210 255 251 / 0.38);
   background:

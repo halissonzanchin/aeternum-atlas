@@ -37,7 +37,7 @@ export const A26Button = forwardRef(function A26Button({
       {...props}
     >
       {loading ? <span className="a26-spinner" aria-hidden="true" /> : icon}
-      <span>{children}</span>
+      <span className="a26-button__content">{children}</span>
     </A26Surface>
   );
 });
