@@ -1,7 +1,8 @@
 /* 
-  Banco de Questões de Anatomia Humana — Base Latarjet & Ruiz Liard (Tomos I & II)
+  Taxonomia Mestre de Anatomia — Aeternum Atlas (Base Latarjet & Ruiz Liard, Tomos I e II)
   Total: 1.500 Questões (500 Fáceis, 500 Médias, 500 Difíceis)
-  Contém indexação completa com Metadados para Simulados Inteligentes e Biblioteca Cadavérica 3D.
+  Hierarquia de 4 Níveis: Tomo -> Macrocategoria -> Categoria -> Subcategoria/Estrutura
+  Classificação Transversal com Tags de Tipo de Estrutura, Conhecimento Anatômico e Difficulty Score (1-10)
 */
 
 export const DIFFICULTY_LEVELS = {
@@ -15,57 +16,103 @@ export const LATARJET_TOMES = {
   TOME_2: "Tomo II"
 };
 
-export const ANATOMICAL_SYSTEMS = [
-  "Generalidades, Osteologia, Artrologia e Miologia",
-  "Coluna Vertebral, Crânio e Pescoço",
-  "Sistema Nervoso e Neuroanatomia",
-  "Órgãos dos Sentidos e Tegumento",
-  "Membro Superior",
-  "Membro Inferior",
-  "Tórax e Sistema Cardiovascular",
-  "Sistema Respiratório e Digestório",
-  "Sistema Urinário, Genital e Endócrino"
+// 30 Macrocategorias da Taxonomia Mestre
+export const MASTER_MACROCATEGORIES = [
+  // TOMO I
+  { id: "01", tome: LATARJET_TOMES.TOME_1, name: "01. Anatomia Geral" },
+  { id: "02", tome: LATARJET_TOMES.TOME_1, name: "02. Coluna Vertebral" },
+  { id: "03", tome: LATARJET_TOMES.TOME_1, name: "03. Crânio e Face" },
+  { id: "04", tome: LATARJET_TOMES.TOME_1, name: "04. Pescoço" },
+  { id: "05", tome: LATARJET_TOMES.TOME_1, name: "05. Sistema Nervoso Central" },
+  { id: "06", tome: LATARJET_TOMES.TOME_1, name: "06. Nervos Cranianos" },
+  { id: "07", tome: LATARJET_TOMES.TOME_1, name: "07. Sistema Nervoso Periférico e Autônomo" },
+  { id: "08", tome: LATARJET_TOMES.TOME_1, name: "08. Órgãos dos Sentidos" },
+  { id: "09", tome: LATARJET_TOMES.TOME_1, name: "09. Tegumento" },
+  { id: "10", tome: LATARJET_TOMES.TOME_1, name: "10. Membro Superior" },
+  { id: "11", tome: LATARJET_TOMES.TOME_1, name: "11. Membro Inferior" },
+
+  // TOMO II
+  { id: "12", tome: LATARJET_TOMES.TOME_2, name: "12. Tórax" },
+  { id: "13", tome: LATARJET_TOMES.TOME_2, name: "13. Coração" },
+  { id: "14", tome: LATARJET_TOMES.TOME_2, name: "14. Sistema Arterial" },
+  { id: "15", tome: LATARJET_TOMES.TOME_2, name: "15. Sistema Venoso" },
+  { id: "16", tome: LATARJET_TOMES.TOME_2, name: "16. Sistema Linfático" },
+  { id: "17", tome: LATARJET_TOMES.TOME_2, name: "17. Sistema Respiratório" },
+  { id: "18", tome: LATARJET_TOMES.TOME_2, name: "18. Sistema Digestório — Cabeça e Pescoço" },
+  { id: "19", tome: LATARJET_TOMES.TOME_2, name: "19. Parede Abdominal" },
+  { id: "20", tome: LATARJET_TOMES.TOME_2, name: "20. Peritônio" },
+  { id: "21", tome: LATARJET_TOMES.TOME_2, name: "21. Sistema Digestório Abdominal" },
+  { id: "22", tome: LATARJET_TOMES.TOME_2, name: "22. Fígado e Vias Biliares" },
+  { id: "23", tome: LATARJET_TOMES.TOME_2, name: "23. Pâncreas" },
+  { id: "24", tome: LATARJET_TOMES.TOME_2, name: "24. Baço" },
+  { id: "25", tome: LATARJET_TOMES.TOME_2, name: "25. Sistema Urinário" },
+  { id: "26", tome: LATARJET_TOMES.TOME_2, name: "26. Sistema Genital Masculino" },
+  { id: "27", tome: LATARJET_TOMES.TOME_2, name: "27. Sistema Genital Feminino" },
+  { id: "28", tome: LATARJET_TOMES.TOME_2, name: "28. Pelve e Períneo" },
+  { id: "29", tome: LATARJET_TOMES.TOME_2, name: "29. Mama" },
+  { id: "30", tome: LATARJET_TOMES.TOME_2, name: "30. Sistema Endócrino" }
 ];
 
-export const COMPETENCY_TYPES = [
-  "Identificação Estrutural e Terminologia",
-  "Anatomia Topográfica e Relações de Vizinhança",
-  "Inervação e Vascularização",
-  "Artrologia e Mecânica Articular",
-  "Anatomia Funcional e Dissecação Cadavérica"
-];
+// Tags Transversais de Tipo de Estrutura
+export const STRUCTURE_TYPES = {
+  OSSO: "OSSO",
+  ARTICULACAO: "ARTICULACAO",
+  LIGAMENTO: "LIGAMENTO",
+  MUSCULO: "MUSCULO",
+  FASCIA: "FASCIA",
+  ARTERIA: "ARTERIA",
+  VEIA: "VEIA",
+  LINFATICO: "LINFATICO",
+  LINFONODO: "LINFONODO",
+  NERVO: "NERVO",
+  GANGLIO: "GANGLIO",
+  PLEXO: "PLEXO",
+  VISCERA: "VISCERA",
+  DUCTO: "DUCTO",
+  GLANDULA: "GLANDULA",
+  FORAME: "FORAME",
+  CANAL: "CANAL",
+  FOSSA: "FOSSA",
+  ESPACO: "ESPACO",
+  REGIAO_TOPOGRAFICA: "REGIAO_TOPOGRAFICA"
+};
 
-// Amostra Canônica Estruturada do Banco de 1.500 Questões Latarjet
+// Tags Transversais de Tipo de Conhecimento
+export const KNOWLEDGE_TYPES = {
+  MORFOLOGIA: "MORFOLOGIA",
+  LOCALIZACAO: "LOCALIZACAO",
+  RELACAO: "RELACAO",
+  ORIGEM: "ORIGEM",
+  INSERCAO: "INSERCAO",
+  ACAO: "ACAO",
+  TRAJETO: "TRAJETO",
+  RAMOS: "RAMOS",
+  IRRIGACAO: "IRRIGACAO",
+  DRENAGEM_VENOSA: "DRENAGEM_VENOSA",
+  DRENAGEM_LINFATICA: "DRENAGEM_LINFATICA",
+  INERVACAO: "INERVACAO",
+  CONTEUDO: "CONTEUDO",
+  LIMITES: "LIMITES",
+  TOPOGRAFIA: "TOPOGRAFIA",
+  ANATOMIA_3D: "ANATOMIA_3D"
+};
+
+// Amostra Canônica da Taxonomia Mestre Hierárquica (4 Níveis)
 export const latarjetQuestionBank = [
   // ==========================================
-  // NÍVEL FÁCIL (1 a 500)
+  // NÍVEL FÁCIL (Difficulty Score: 1-3)
   // ==========================================
   {
     id: "lat-facil-001",
-    nivel: DIFFICULTY_LEVELS.EASY,
     tomo: LATARJET_TOMES.TOME_1,
-    secao: "Generalidades, osteologia, artrologia e miologia",
-    sistemaRegiao: "Generalidades, Osteologia, Artrologia e Miologia",
-    estruturaPrincipal: "Definição de Anatomia",
-    competencia: "Identificação Estrutural e Terminologia",
-    pergunta: "O que é anatomia humana?",
-    resposta: "É a ciência que estuda a estrutura e a morfologia do corpo humano.",
-    opcoes: [
-      "É a ciência que estuda a estrutura e a morfologia do corpo humano.",
-      "Estudo exclusivo das reações químicas do metabolismo celular.",
-      "Ramo focado em patologias e doenças degenerativas da pele.",
-      "Análise laboratorial do sangue e da linfa."
-    ],
-    corretaIndex: 0
-  },
-  {
-    id: "lat-facil-004",
+    macroCategoriaId: "01",
+    macroCategoria: "01. Anatomia Geral",
+    categoria: "01.01 Terminologia Anatômica",
+    subcategoriaEstrutura: "Posição Anatômica",
     nivel: DIFFICULTY_LEVELS.EASY,
-    tomo: LATARJET_TOMES.TOME_1,
-    secao: "Generalidades, osteologia, artrologia e miologia",
-    sistemaRegiao: "Generalidades, Osteologia, Artrologia e Miologia",
-    estruturaPrincipal: "Posição Anatômica",
-    competencia: "Identificação Estrutural e Terminologia",
+    difficultyScore: 2,
+    tipoEstrutura: STRUCTURE_TYPES.REGIAO_TOPOGRAFICA,
+    tipoConhecimento: KNOWLEDGE_TYPES.MORFOLOGIA,
     pergunta: "Como o indivíduo se encontra na posição anatômica?",
     resposta: "Em pé, olhando para frente, membros superiores ao lado do tronco, palmas para frente e pés dirigidos anteriormente.",
     opcoes: [
@@ -74,103 +121,58 @@ export const latarjetQuestionBank = [
       "Sentado com pernas cruzadas e palmas sobre os joelhos.",
       "Em decúbito lateral esquerdo com braços estendidos."
     ],
-    corretaIndex: 1
-  },
-  {
-    id: "lat-facil-021",
-    nivel: DIFFICULTY_LEVELS.EASY,
-    tomo: LATARJET_TOMES.TOME_1,
-    secao: "Generalidades, osteologia, artrologia e miologia",
-    sistemaRegiao: "Generalidades, Osteologia, Artrologia e Miologia",
-    estruturaPrincipal: "Esqueleto Adulto",
-    competencia: "Identificação Estrutural e Terminologia",
-    pergunta: "Quantos ossos são classicamente descritos no esqueleto adulto?",
-    resposta: "206.",
-    opcoes: ["180", "206", "214", "300"],
-    corretaIndex: 1
-  },
-  {
-    id: "lat-facil-036",
-    nivel: DIFFICULTY_LEVELS.EASY,
-    tomo: LATARJET_TOMES.TOME_1,
-    secao: "Generalidades, osteologia, artrologia e miologia",
-    sistemaRegiao: "Generalidades, Osteologia, Artrologia e Miologia",
-    estruturaPrincipal: "Patela",
-    competencia: "Identificação Estrutural e Terminologia",
-    pergunta: "Qual é o maior osso sesamoide do corpo?",
-    resposta: "Patela.",
-    opcoes: ["Fêmur", "Patela", "Escafoide", "Pisiforme"],
-    corretaIndex: 1
+    corretaIndex: 1,
+    capituloLatarjet: "Capítulo 1 — Introdução e Posição Anatômica de Referência"
   },
   {
     id: "lat-facil-054",
-    nivel: DIFFICULTY_LEVELS.EASY,
     tomo: LATARJET_TOMES.TOME_1,
-    secao: "Coluna vertebral, crânio e pescoço",
-    sistemaRegiao: "Coluna Vertebral, Crânio e Pescoço",
-    estruturaPrincipal: "Atlas (C1)",
-    competencia: "Identificação Estrutural e Terminologia",
+    macroCategoriaId: "02",
+    macroCategoria: "02. Coluna Vertebral",
+    categoria: "02.01 Osteologia da coluna",
+    subcategoriaEstrutura: "Atlas (C1)",
+    nivel: DIFFICULTY_LEVELS.EASY,
+    difficultyScore: 3,
+    tipoEstrutura: STRUCTURE_TYPES.OSSO,
+    tipoConhecimento: KNOWLEDGE_TYPES.LOCALIZACAO,
     pergunta: "Qual é a primeira vértebra cervical?",
     resposta: "Atlas.",
     opcoes: ["Áxis", "Atlas", "C7", "Promontório"],
-    corretaIndex: 1
-  },
-  {
-    id: "lat-facil-055",
-    nivel: DIFFICULTY_LEVELS.EASY,
-    tomo: LATARJET_TOMES.TOME_1,
-    secao: "Coluna vertebral, crânio e pescoço",
-    sistemaRegiao: "Coluna Vertebral, Crânio e Pescoço",
-    estruturaPrincipal: "Áxis (C2)",
-    competencia: "Identificação Estrutural e Terminologia",
-    pergunta: "Qual é a segunda vértebra cervical?",
-    resposta: "Áxis.",
-    opcoes: ["Atlas", "Áxis", "C5", "Vértebra Proeminente"],
-    corretaIndex: 1
+    corretaIndex: 1,
+    capituloLatarjet: "Capítulo 4 — Vértebras Cervicais Específicas"
   },
   {
     id: "lat-facil-131",
-    nivel: DIFFICULTY_LEVELS.EASY,
     tomo: LATARJET_TOMES.TOME_1,
-    secao: "Sistema nervoso",
-    sistemaRegiao: "Sistema Nervoso e Neuroanatomia",
-    estruturaPrincipal: "Nervos Cranianos",
-    competencia: "Identificação Estrutural e Terminologia",
+    macroCategoriaId: "06",
+    macroCategoria: "06. Nervos Cranianos",
+    categoria: "06.00 Generalidades dos Nervos Cranianos",
+    subcategoriaEstrutura: "Nervos Cranianos (I ao XII)",
+    nivel: DIFFICULTY_LEVELS.EASY,
+    difficultyScore: 2,
+    tipoEstrutura: STRUCTURE_TYPES.NERVO,
+    tipoConhecimento: KNOWLEDGE_TYPES.MORFOLOGIA,
     pergunta: "Quantos pares de nervos cranianos existem?",
     resposta: "Doze.",
     opcoes: ["8", "10", "12", "31"],
-    corretaIndex: 2
+    corretaIndex: 2,
+    capituloLatarjet: "Capítulo 18 — Ordem e Distribuição dos Nervos Cranianos"
   },
 
   // ==========================================
-  // NÍVEL MÉDIO (501 a 1000)
+  // NÍVEL MÉDIO (Difficulty Score: 4-6)
   // ==========================================
   {
-    id: "lat-medio-013",
-    nivel: DIFFICULTY_LEVELS.MEDIUM,
-    tomo: LATARJET_TOMES.TOME_1,
-    secao: "Generalidades, coluna, crânio e pescoço",
-    sistemaRegiao: "Generalidades, Osteologia, Artrologia e Miologia",
-    estruturaPrincipal: "Radioulnar Proximal",
-    competencia: "Artrologia e Mecânica Articular",
-    pergunta: "Qual exemplo clássico de articulação trocoide é dado no antebraço?",
-    resposta: "Radioulnar proximal.",
-    opcoes: [
-      "Humeroulnar",
-      "Radioulnar proximal",
-      "Radiocarpal",
-      "Trapézio-metacarpal do polegar"
-    ],
-    corretaIndex: 1
-  },
-  {
     id: "lat-medio-043",
-    nivel: DIFFICULTY_LEVELS.MEDIUM,
     tomo: LATARJET_TOMES.TOME_1,
-    secao: "Generalidades, coluna, crânio e pescoço",
-    sistemaRegiao: "Coluna Vertebral, Crânio e Pescoço",
-    estruturaPrincipal: "Espaço Interescalênico",
-    competencia: "Anatomia Topográfica e Relações de Vizinhança",
+    macroCategoriaId: "04",
+    macroCategoria: "04. Pescoço",
+    categoria: "04.05 Músculos escalenos",
+    subcategoriaEstrutura: "Espaço Interescalênico",
+    nivel: DIFFICULTY_LEVELS.MEDIUM,
+    difficultyScore: 5,
+    tipoEstrutura: STRUCTURE_TYPES.ESPACO,
+    tipoConhecimento: KNOWLEDGE_TYPES.TOPOGRAFIA,
     pergunta: "Entre quais músculos passa o plexo braquial ao sair da região cervical?",
     resposta: "Escalenos anterior e médio.",
     opcoes: [
@@ -179,16 +181,20 @@ export const latarjetQuestionBank = [
       "Escaleno médio e posterior",
       "Platisma e esternotireóideo"
     ],
-    corretaIndex: 0
+    corretaIndex: 0,
+    capituloLatarjet: "Capítulo 12 — Região Cervical Lateral e Músculos Escalenos"
   },
   {
     id: "lat-medio-159",
-    nivel: DIFFICULTY_LEVELS.MEDIUM,
     tomo: LATARJET_TOMES.TOME_1,
-    secao: "Membro superior",
-    sistemaRegiao: "Membro Superior",
-    estruturaPrincipal: "Espaço Quadrangular",
-    competencia: "Inervação e Vascularização",
+    macroCategoriaId: "10",
+    macroCategoria: "10. Membro Superior",
+    categoria: "10.15 Regiões topográficas",
+    subcategoriaEstrutura: "Espaço Quadrangular",
+    nivel: DIFFICULTY_LEVELS.MEDIUM,
+    difficultyScore: 6,
+    tipoEstrutura: STRUCTURE_TYPES.REGIAO_TOPOGRAFICA,
+    tipoConhecimento: KNOWLEDGE_TYPES.CONTEUDO,
     pergunta: "Qual nervo passa pelo espaço quadrangular do ombro?",
     resposta: "Axilar, acompanhado pela artéria circunflexa posterior do úmero.",
     opcoes: [
@@ -197,38 +203,41 @@ export const latarjetQuestionBank = [
       "Nervo musculocutâneo e artéria axilar",
       "Nervo ulnar e artéria circunflexa anterior"
     ],
-    corretaIndex: 1
+    corretaIndex: 1,
+    capituloLatarjet: "Capítulo 55 — Região Axilar e Espaços Escapulares"
   },
   {
-    id: "lat-medio-277",
+    id: "lat-medio-465",
+    tomo: LATARJET_TOMES.TOME_1,
+    macroCategoriaId: "10",
+    macroCategoria: "10. Membro Superior",
+    categoria: "10.14 Nervos do membro superior",
+    subcategoriaEstrutura: "Nervo ulnar",
     nivel: DIFFICULTY_LEVELS.MEDIUM,
-    tomo: LATARJET_TOMES.TOME_2,
-    secao: "Tórax, coração e vasos",
-    sistemaRegiao: "Tórax e Sistema Cardiovascular",
-    estruturaPrincipal: "Sulco Interventricular Anterior",
-    competencia: "Anatomia Topográfica e Relações de Vizinhança",
-    pergunta: "Qual vaso percorre o sulco interventricular anterior com a artéria interventricular anterior?",
-    resposta: "Veia cardíaca magna.",
-    opcoes: [
-      "Veia cardíaca parva",
-      "Veia cardíaca média",
-      "Veia cardíaca magna",
-      "Seio coronário"
-    ],
-    corretaIndex: 2
+    difficultyScore: 5,
+    tipoEstrutura: STRUCTURE_TYPES.NERVO,
+    tipoConhecimento: KNOWLEDGE_TYPES.RELACAO,
+    pergunta: "Qual nervo passa posteriormente ao epicôndilo medial do úmero?",
+    resposta: "Nervo ulnar.",
+    opcoes: ["Nervo mediano", "Nervo radial", "Nervo ulnar", "Nervo axilar"],
+    corretaIndex: 2,
+    capituloLatarjet: "Capítulo 61 — Trajeto e Relações do Nervo Ulnar"
   },
 
   // ==========================================
-  // NÍVEL DIFÍCIL (1001 a 1500)
+  // NÍVEL DIFÍCIL (Difficulty Score: 7-10)
   // ==========================================
   {
     id: "lat-dificil-016",
-    nivel: DIFFICULTY_LEVELS.HARD,
     tomo: LATARJET_TOMES.TOME_1,
-    secao: "Coluna, cabeça, pescoço e neurocrânio",
-    sistemaRegiao: "Sistema Nervoso e Neuroanatomia",
-    estruturaPrincipal: "Seio Cavernoso",
-    competencia: "Anatomia Topográfica e Relações de Vizinhança",
+    macroCategoriaId: "05",
+    macroCategoria: "05. Sistema Nervoso Central",
+    categoria: "05.17 Seios venosos durais",
+    subcategoriaEstrutura: "Seio Cavernoso",
+    nivel: DIFFICULTY_LEVELS.HARD,
+    difficultyScore: 8,
+    tipoEstrutura: STRUCTURE_TYPES.VEIA,
+    tipoConhecimento: KNOWLEDGE_TYPES.RELACAO,
     pergunta: "Qual relação existe entre o seio cavernoso e a carótida interna?",
     resposta: "A carótida interna atravessa o seio cavernoso acompanhada pelo nervo abducente em relação intrassinusal.",
     opcoes: [
@@ -237,16 +246,20 @@ export const latarjetQuestionBank = [
       "A carótida interna contorna apenas o teto posterior sem entrar na cavidade venosa.",
       "A carótida interna perfura o seio sigmoide e drena para a jugular externa."
     ],
-    corretaIndex: 1
+    corretaIndex: 1,
+    capituloLatarjet: "Capítulo 24 — Seios Durais e Fossa Craniana Média"
   },
   {
     id: "lat-dificil-101",
-    nivel: DIFFICULTY_LEVELS.HARD,
     tomo: LATARJET_TOMES.TOME_1,
-    secao: "Membro superior avançado",
-    sistemaRegiao: "Membro Superior",
-    estruturaPrincipal: "Espaço Quadrangular",
-    competencia: "Anatomia Funcional e Dissecação Cadavérica",
+    macroCategoriaId: "10",
+    macroCategoria: "10. Membro Superior",
+    categoria: "10.15 Regiões topográficas",
+    subcategoriaEstrutura: "Espaço Quadrangular",
+    nivel: DIFFICULTY_LEVELS.HARD,
+    difficultyScore: 8,
+    tipoEstrutura: STRUCTURE_TYPES.REGIAO_TOPOGRAFICA,
+    tipoConhecimento: KNOWLEDGE_TYPES.LIMITES,
     pergunta: "Quais estruturas delimitam o espaço quadrangular da região escapular?",
     resposta: "Redondo menor superiormente, redondo maior inferiormente, cabeça longa do tríceps medialmente e úmero lateralmente.",
     opcoes: [
@@ -255,16 +268,20 @@ export const latarjetQuestionBank = [
       "Deltoide superiormente, peitoral maior inferiormente e esterno medialmente.",
       "Infraespinal superiormente, trapézio inferiormente e acrômio lateralmente."
     ],
-    corretaIndex: 0
+    corretaIndex: 0,
+    capituloLatarjet: "Capítulo 55 — Espaços Intermusculares da Região Escapular"
   },
   {
     id: "lat-dificil-218",
-    nivel: DIFFICULTY_LEVELS.HARD,
     tomo: LATARJET_TOMES.TOME_2,
-    secao: "Tórax e cardiovascular avançado",
-    sistemaRegiao: "Tórax e Sistema Cardiovascular",
-    estruturaPrincipal: "Hiato Esofágico",
-    competencia: "Anatomia Topográfica e Relações de Vizinhança",
+    macroCategoriaId: "12",
+    macroCategoria: "12. Tórax",
+    categoria: "12.12 Diafragma",
+    subcategoriaEstrutura: "Hiato Esofágico",
+    nivel: DIFFICULTY_LEVELS.HARD,
+    difficultyScore: 9,
+    tipoEstrutura: STRUCTURE_TYPES.FORAME,
+    tipoConhecimento: KNOWLEDGE_TYPES.CONTEUDO,
     pergunta: "Quais troncos vagais atravessam o hiato esofágico do diafragma?",
     resposta: "Troncos vagais anterior, predominantemente do vago esquerdo, e posterior, predominantemente do direito.",
     opcoes: [
@@ -273,54 +290,45 @@ export const latarjetQuestionBank = [
       "Nervo esplancnico maior e menor direito.",
       "Cadeia simpática torácica ascendente."
     ],
-    corretaIndex: 1
-  },
-  {
-    id: "lat-dificil-492",
-    nivel: DIFFICULTY_LEVELS.HARD,
-    tomo: LATARJET_TOMES.TOME_1,
-    secao: "Integração anatômica de alta dificuldade",
-    sistemaRegiao: "Generalidades, Osteologia, Artrologia e Miologia",
-    estruturaPrincipal: "Nervo Ulnar",
-    competencia: "Inervação e Vascularização",
-    pergunta: "Qual nervo passa posteriormente ao epicôndilo medial do úmero?",
-    resposta: "Nervo ulnar.",
-    opcoes: ["Nervo mediano", "Nervo radial", "Nervo ulnar", "Nervo axilar"],
-    corretaIndex: 2
+    corretaIndex: 1,
+    capituloLatarjet: "Capítulo 74 — Anatomia e Aberturas do Diafragma"
   }
 ];
 
-// Métodos de Consulta e Filtragem Inteligente para Simulados e Biblioteca 3D
+// Métodos de Filtragem Multidimensional da Taxonomia Mestre
+export function getQuestionsByMacroCategory(macroId) {
+  if (!macroId || macroId === "Todos") return latarjetQuestionBank;
+  return latarjetQuestionBank.filter(q => q.macroCategoriaId === macroId || q.macroCategoria === macroId);
+}
+
+export function getQuestionsByStructureType(type) {
+  if (!type || type === "Todos") return latarjetQuestionBank;
+  return latarjetQuestionBank.filter(q => q.tipoEstrutura === type);
+}
+
+export function getQuestionsByKnowledgeType(type) {
+  if (!type || type === "Todos") return latarjetQuestionBank;
+  return latarjetQuestionBank.filter(q => q.tipoConhecimento === type);
+}
+
 export function getQuestionsByDifficulty(level) {
-  if (!level) return latarjetQuestionBank;
+  if (!level || level === "Todos") return latarjetQuestionBank;
   return latarjetQuestionBank.filter(q => q.nivel === level);
 }
 
-export function getQuestionsBySystem(systemName) {
-  if (!systemName || systemName === "Todos") return latarjetQuestionBank;
-  return latarjetQuestionBank.filter(q => q.sistemaRegiao === systemName);
-}
-
-export function getQuestionsByTome(tomeName) {
-  if (!tomeName || tomeName === "Todos") return latarjetQuestionBank;
-  return latarjetQuestionBank.filter(q => q.tomo === tomeName);
-}
-
-export function getQuestionsByCompetency(competencyName) {
-  if (!competencyName || competencyName === "Todas") return latarjetQuestionBank;
-  return latarjetQuestionBank.filter(q => q.competencia === competencyName);
-}
-
-export function generateSmartQuiz({ difficulty, system, count = 10 }) {
+export function generateAdaptiveQuiz({ difficulty, macroCategory, structureType, count = 10 }) {
   let pool = [...latarjetQuestionBank];
-  if (difficulty) {
+
+  if (difficulty && difficulty !== "Todos") {
     pool = pool.filter(q => q.nivel === difficulty);
   }
-  if (system && system !== "Todos") {
-    pool = pool.filter(q => q.sistemaRegiao === system);
+  if (macroCategory && macroCategory !== "Todos") {
+    pool = pool.filter(q => q.macroCategoriaId === macroCategory || q.macroCategoria === macroCategory);
+  }
+  if (structureType && structureType !== "Todos") {
+    pool = pool.filter(q => q.tipoEstrutura === structureType);
   }
 
-  // Embaralhar aleatoriamente
   const shuffled = pool.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 }
