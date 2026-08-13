@@ -54,7 +54,6 @@
   min-width: 320px;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(6, 10, 12, 0.75);
-  backdrop-filter: blur(16px);
   z-index: 10;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), width 0.3s cubic-bezier(0.16, 1, 0.3, 1), min-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -218,7 +217,6 @@ textarea.mindmap-outline-input:focus {
   padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
-  backdrop-filter: blur(12px);
   transition: all 0.2s ease;
 }
 
@@ -242,7 +240,6 @@ textarea.mindmap-outline-input:focus {
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  backdrop-filter: blur(12px);
   transition: all 0.2s ease;
 }
 
@@ -259,7 +256,6 @@ textarea.mindmap-outline-input:focus {
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 9px;
   padding: 3px;
-  backdrop-filter: blur(12px);
 }
 
 .zoom-controls button {
@@ -300,7 +296,6 @@ textarea.mindmap-outline-input:focus {
   font-size: 10.5px;
   color: rgba(255, 255, 255, 0.55);
   pointer-events: none;
-  backdrop-filter: blur(10px);
   white-space: nowrap;
 }
 
@@ -314,7 +309,6 @@ textarea.mindmap-outline-input:focus {
   border: 1px solid rgba(79, 216, 201, 0.3);
   border-radius: 14px;
   padding: 16px;
-  backdrop-filter: blur(20px);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
   z-index: 15;
 }

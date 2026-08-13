@@ -254,10 +254,10 @@
   font-weight: 750;
   letter-spacing: 0.01em;
   cursor: pointer;
-  white-space: nowrap !important;
-  flex-shrink: 0 !important;
-  word-break: normal !important;
-  overflow-wrap: normal !important;
+  white-space: nowrap;
+  flex-shrink: 0;
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 .a26-button__content {
@@ -265,13 +265,13 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  white-space: nowrap !important;
+  white-space: nowrap;
   flex-shrink: 0;
 }
 
 .a26-button svg,
 .a26-button .a26-icon {
-  flex-shrink: 0 !important;
+  flex-shrink: 0;
   display: inline-block;
   vertical-align: middle;
 }
@@ -291,7 +291,7 @@
   min-width: 0;
   padding: 0 12px;
   font-size: 0.8rem;
-  white-space: nowrap !important;
+  white-space: nowrap;
 }
 
 .model-card-aog__actions .model-card-aog__primary {

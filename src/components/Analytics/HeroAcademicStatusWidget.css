@@ -8,7 +8,6 @@
   padding: 16px 20px;
   border-radius: 18px;
   background: rgba(10, 16, 20, 0.55);
-  backdrop-filter: blur(16px);
   border: 1px solid rgba(79, 216, 201, 0.16);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 0 15px rgba(79, 216, 201, 0.05);
   flex-shrink: 0;

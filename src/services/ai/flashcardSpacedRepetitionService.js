@@ -4,6 +4,56 @@
  */
 
 const STORAGE_KEY_PREFIX = "aeternum_flashcard_sm2_data";
+const SAVED_DECK_VERSION = 2;
+
+function normalizeText(value = "") {
+  return String(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function normalizeSavedDeck(deck, deckIndex = 0) {
+  if (!deck || !Array.isArray(deck.cards)) return null;
+
+  const seenQuestions = new Set();
+  const seenAnswers = new Set();
+  const cards = deck.cards.reduce((result, card, cardIndex) => {
+    const front = String(card?.front || "").trim();
+    const back = String(card?.back || "").trim();
+    const questionKey = normalizeText(front);
+    const answerKey = normalizeText(back);
+    if (!questionKey || !answerKey || seenQuestions.has(questionKey) || seenAnswers.has(answerKey)) {
+      return result;
+    }
+
+    seenQuestions.add(questionKey);
+    seenAnswers.add(answerKey);
+    result.push({
+      ...card,
+      id: card.id || `legacy-card-${deckIndex}-${cardIndex}`,
+      front,
+      back,
+      difficulty: card.difficulty || deck.difficulty || "Médio",
+      sourceCitation: card.origin === "curated" || card.origin === "tutor"
+        ? card.sourceCitation
+        : "Baralho salvo anteriormente",
+      origin: card.origin || "legacy",
+      imageUrl: card.imageVerified === true ? card.imageUrl : undefined
+    });
+    return result;
+  }, []);
+
+  if (!cards.length) return null;
+  return {
+    ...deck,
+    id: deck.id || `legacy-deck-${deckIndex}`,
+    version: SAVED_DECK_VERSION,
+    cards
+  };
+}
 
 export function getCardRepetitionData(userId = "default", cardId = "") {
   try {
@@ -88,8 +138,18 @@ function getDefaultCardData(cardId) {
 
 export function getSavedDecks(userId = "default") {
   try {
-    const raw = localStorage.getItem(`aeternum_saved_flashcard_decks:${userId}`);
-    return raw ? JSON.parse(raw) : [];
+    const key = `aeternum_saved_flashcard_decks:${userId}`;
+    const raw = localStorage.getItem(key);
+    const parsed = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(parsed)) return [];
+
+    const normalized = parsed
+      .map(normalizeSavedDeck)
+      .filter(Boolean);
+    if (JSON.stringify(parsed) !== JSON.stringify(normalized)) {
+      localStorage.setItem(key, JSON.stringify(normalized));
+    }
+    return normalized;
   } catch (err) {
     return [];
   }
@@ -103,6 +163,7 @@ export function saveDeckToCollection(userId = "default", deck) {
     const updatedDeck = {
       ...deck,
       id: deck.id || `saved-deck-${Date.now()}`,
+      version: SAVED_DECK_VERSION,
       savedAt: new Date().toISOString()
     };
 
@@ -142,7 +203,7 @@ export function scheduleFlashcardStudyEvent(topicTitle = "", intervalDays = 1) {
 
     const newEvent = {
       id: `evt-flashcard-${Date.now()}`,
-      title: `Revisão Espaçada RAG: ${topicTitle}`,
+      title: `Revisão Espaçada: ${topicTitle}`,
       date: targetDate.toISOString().split("T")[0],
       time: "09:00",
       category: "Revisão Espaçada",

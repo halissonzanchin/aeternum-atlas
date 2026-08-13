@@ -52,7 +52,12 @@ export default function AtlasAITutor({
       if (e.detail?.prompt) {
         sendMessage({
           text: e.detail.prompt,
-          context: { source: "flashcards", route: path }
+          context: {
+            source: "flashcards",
+            route: path,
+            ...(e.detail.context || {})
+          },
+          contextLabel: e.detail.contextLabel || "Flashcards anatômicos"
         });
       }
     };
