@@ -36,6 +36,8 @@ function mapToAppEvent(row) {
     anatomicalSystem: row.anatomical_system || row.anatomicalSystem || "Geral",
     linkedModel: row.linked_model || row.linkedModel || "",
     linkedModelRoute: row.linked_model_route || row.linkedModelRoute || "",
+    linkedFlashcardDeck: row.linked_flashcard_deck || row.linkedFlashcardDeck || "",
+    linkedFlashcardRoute: row.linked_flashcard_route || row.linkedFlashcardRoute || "/flashcards",
     reminder: row.reminder || "none",
     status: row.status || "pending",
     createdByRole: row.created_by_role || row.createdByRole || "student",
@@ -66,6 +68,8 @@ function mapToDatabaseEvent(user, event) {
     anatomical_system: event.anatomicalSystem || "Geral",
     linked_model: event.linkedModel || null,
     linked_model_route: event.linkedModelRoute || null,
+    linked_flashcard_deck: event.linkedFlashcardDeck || null,
+    linked_flashcard_route: event.linkedFlashcardRoute || null,
     reminder: event.reminder || "none",
     status: event.status || "pending",
     is_shared_with_students: Boolean(event.isShared),
@@ -176,6 +180,8 @@ export async function updateAgendaEvent(user, eventId, payload) {
     anatomicalSystem: "anatomical_system",
     linkedModel: "linked_model",
     linkedModelRoute: "linked_model_route",
+    linkedFlashcardDeck: "linked_flashcard_deck",
+    linkedFlashcardRoute: "linked_flashcard_route",
     reminder: "reminder",
     status: "status"
   };

@@ -3,6 +3,7 @@ import LineIcon from "../../icons/LineIcon";
 import { formatAgendaDate, parseAgendaDate } from "../../../hooks/useStudyAgenda";
 import { useLanguage } from "../../../context/LanguageContext";
 import { A26Button, A26Card, A26Sidebar, A26Surface } from "../../aeternum-26";
+import { agendaAnatomicalSystems } from "../../../data/studyAgendaCatalog";
 
 export default function AgendaSidebar({
   selectedDate,
@@ -112,6 +113,25 @@ export default function AgendaSidebar({
           })}
         </div>
       </A26Card>
+
+      <div className="a26-sidebar-systems">
+        <div className="a26-sidebar-section-header">
+          <h4 className="a26-sidebar-section-title">Foco anatômico</h4>
+          {selectedSystem !== "all" ? <span className="a26-filter-active">Filtro ativo</span> : null}
+        </div>
+        <label className="a26-sidebar-filter-label" htmlFor="agenda-system-filter">
+          Sistema exibido
+        </label>
+        <select
+          id="agenda-system-filter"
+          className="a26-sidebar-system-select"
+          value={selectedSystem}
+          onChange={(event) => setSelectedSystem(event.target.value)}
+        >
+          <option value="all">Todos os sistemas</option>
+          {agendaAnatomicalSystems.map((system) => <option key={system} value={system}>{system}</option>)}
+        </select>
+      </div>
 
       {/* Camadas derivadas exclusivamente dos eventos observados. */}
       <div className="a26-sidebar-layers">

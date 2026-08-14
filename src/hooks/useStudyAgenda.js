@@ -108,7 +108,7 @@ export function useStudyAgenda() {
   }, [user?.id]);
 
   async function addEvent(event) {
-    if (!event) return;
+    if (!event) return { success: false, error: "Atividade inválida." };
     const dates = repeatedDates(event.date || formatAgendaDate(new Date()), event.repeat);
     const addedEvents = [];
     
@@ -121,16 +121,22 @@ export function useStudyAgenda() {
     }
     
     setEvents(previous => sortEvents([...(Array.isArray(previous) ? previous : []), ...addedEvents]));
+    return {
+      success: addedEvents.length === dates.length,
+      events: addedEvents,
+      error: addedEvents.length === dates.length ? null : "Não foi possível salvar todas as ocorrências."
+    };
   }
 
   async function updateEvent(eventId, payload) {
-    if (!eventId) return;
+    if (!eventId) return { success: false, error: "Atividade inválida." };
     const result = await updateAgendaEvent(user, eventId, payload);
     if (result?.syncStatus) setSyncStatus(result.syncStatus);
     if (result?.error) setSyncError(result.error);
     if (result?.success) {
       setEvents(previous => sortEvents((Array.isArray(previous) ? previous : []).map(event => event?.id === eventId ? { ...event, ...payload, updatedAt: new Date().toISOString() } : event)));
     }
+    return result;
   }
 
   async function deleteEventItem(eventId) {

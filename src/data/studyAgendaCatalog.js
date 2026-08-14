@@ -21,5 +21,6 @@ export const agendaAnatomicalSystems = [
 // Dynamically mapped from real 3D models in LOCAL_MODELS to guarantee 100% real data
 export const agendaModelOptions = LOCAL_MODELS.map(model => ({
   label: model.title,
-  route: `/viewer/${model.slug}`
+  route: `/viewer/${model.slug}`,
+  system: model.anatomical_system || model.system || "Geral"
 }));

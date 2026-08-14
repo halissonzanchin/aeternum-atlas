@@ -1,6 +1,7 @@
 import LineIcon from "../../icons/LineIcon";
 import { useLanguage } from "../../../context/LanguageContext";
 import { A26Button, A26Surface } from "../../aeternum-26";
+import { openAgendaEventInTutor } from "../../../services/agendaTutorContext";
 
 export default function AgendaPopoverModal({ event, onClose, onComplete, onEdit, onDelete, navigate }) {
   const { t } = useLanguage();
@@ -159,6 +160,15 @@ export default function AgendaPopoverModal({ event, onClose, onComplete, onEdit,
 
         {/* Footer Actions */}
         <footer className="a26-popover-footer flex items-center justify-end gap-3 pt-4 mt-5 border-t border-glassBorder/40">
+          <A26Button
+            variant="ghost"
+            onClick={() => {
+              openAgendaEventInTutor(event);
+              onClose();
+            }}
+          >
+            ✦ Planejar com Tutor
+          </A26Button>
           <A26Button
             variant={event.status === "completed" ? "primary" : "liquid"}
             onClick={() => {

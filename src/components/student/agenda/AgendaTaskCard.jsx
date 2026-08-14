@@ -1,6 +1,7 @@
 import LineIcon from "../../icons/LineIcon";
 import { useLanguage } from "../../../context/LanguageContext";
 import { A26Button, A26Card } from "../../aeternum-26";
+import { openAgendaEventInTutor } from "../../../services/agendaTutorContext";
 
 export default function AgendaTaskCard({ event, onComplete, onEdit, onDelete, navigate }) {
   const { t } = useLanguage();
@@ -68,6 +69,9 @@ export default function AgendaTaskCard({ event, onComplete, onEdit, onDelete, na
         </A26Button>
         <A26Button type="button" variant="ghost" onClick={() => onEdit(event)}>
           ✏️ Editar
+        </A26Button>
+        <A26Button type="button" variant="ghost" onClick={() => openAgendaEventInTutor(event)}>
+          ✦ Planejar com Tutor
         </A26Button>
         <A26Button type="button" variant="danger" onClick={() => onDelete(event.id)}>
           🗑️ Excluir

@@ -27,7 +27,8 @@ export default function AgendaDayPanel({
   onEdit,
   onDelete,
   onComplete,
-  navigate
+  navigate,
+  children
 }) {
   const { language, t } = useLanguage();
   const safeEvents = Array.isArray(events) ? events : [];
@@ -65,6 +66,7 @@ export default function AgendaDayPanel({
           </div>
         )}
       </div>
+      {children ? <div className="agenda-day-insights">{children}</div> : null}
     </div>
   );
 }
