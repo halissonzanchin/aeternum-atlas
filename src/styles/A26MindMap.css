@@ -37,10 +37,11 @@
 
 .mindmap-sidebar {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  display: grid;
+  grid-template-rows: auto auto minmax(5.5rem, 1fr) auto;
+  gap: clamp(0.65rem, 1.2vh, 1rem);
   min-width: 0;
+  min-height: 0;
   height: 100%;
   padding: 1.1rem;
   overflow: hidden;
@@ -135,30 +136,40 @@
 }
 
 .mindmap-outline-box {
-  flex: 1 1 auto;
-  min-height: 12rem;
+  min-width: 0;
+  min-height: 0;
   overflow: hidden;
 }
 
 .mindmap-outline-box .a26-field {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 0;
   height: 100%;
+  overflow: hidden;
 }
 
 .mindmap-outline-box textarea.a26-field__control {
-  min-height: 12rem;
+  min-height: 0;
   height: 100%;
+  overflow: auto;
   resize: none;
   white-space: pre;
   tab-size: 1;
   color: #d7e1e2;
   font: 500 0.73rem/1.65 "JetBrains Mono", Consolas, monospace;
   background: rgba(1, 10, 13, 0.68);
+  scrollbar-gutter: stable;
   scrollbar-color: rgba(82, 216, 205, 0.48) transparent;
 }
 
 .mindmap-sidebar-actions {
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: 0.65rem;
+  min-width: 0;
+  min-height: 0;
 }
 
 .mindmap-sidebar-actions > .a26-button {
@@ -397,6 +408,7 @@
   }
 
   .mindmap-sidebar {
+    grid-template-rows: auto auto auto auto;
     height: auto;
     max-height: none;
   }
