@@ -163,6 +163,13 @@
   transform: rotateY(180deg);
 }
 
+.a26-flashcard-tutor-action {
+  position: absolute;
+  right: clamp(24px, 4vw, 38px);
+  bottom: clamp(24px, 4vw, 38px);
+  z-index: 12;
+}
+
 .a26-flashcard-header {
   display: flex;
   align-items: center;

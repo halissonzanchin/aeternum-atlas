@@ -487,21 +487,20 @@ export default function AnatomicalFlashcardsPage({ user }) {
                 {currentCard.explanation ? <p className="a26-flashcard-explanation">{currentCard.explanation}</p> : null}
               </div>
 
-              <div className="flex items-center justify-between w-full">
-                <span className="a26-flashcard-hint">Avalie seu conhecimento abaixo</span>
-                <A26Button
-                  variant="ghost"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleExplainWithAI(currentCard);
-                  }}
-                  icon={<LineIcon name="spark" />}
-                >
-                  ✨ Explicar com Tutor IA
-                </A26Button>
-              </div>
+              <span className="a26-flashcard-hint">Avalie seu conhecimento abaixo</span>
             </A26Surface>
           </div>
+
+          {isFlipped ? (
+            <A26Button
+              variant="ghost"
+              className="a26-flashcard-tutor-action"
+              onClick={() => handleExplainWithAI(currentCard)}
+              icon={<LineIcon name="spark" />}
+            >
+              ✨ Explicar com Tutor IA
+            </A26Button>
+          ) : null}
         </div>
 
         {/* Anki Rating Controls */}
