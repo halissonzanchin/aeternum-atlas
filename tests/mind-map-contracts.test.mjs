@@ -88,6 +88,13 @@ test("interface usa os materiais oficiais A26 e contém responsividade sem overf
   assert.doesNotMatch(cssSource, /material-["']?liquid/);
 });
 
+test("editor lateral mantém as ações visíveis e limita a rolagem ao esboço", () => {
+  assert.match(cssSource, /\.mindmap-sidebar\s*\{[\s\S]*?grid-template-rows:\s*auto auto minmax\(5\.5rem, 1fr\) auto/);
+  assert.match(cssSource, /\.mindmap-outline-box\s*\{[\s\S]*?min-height:\s*0;[\s\S]*?overflow:\s*hidden/);
+  assert.match(cssSource, /\.mindmap-outline-box textarea\.a26-field__control\s*\{[\s\S]*?overflow:\s*auto/);
+  assert.match(cssSource, /\.mindmap-sidebar-actions\s*\{[\s\S]*?z-index:\s*2/);
+});
+
 test("Tutor aplica protocolo específico do mapa mental no servidor", () => {
   assert.match(edgeSource, /context\.source === "mind-map"/);
   assert.match(edgeSource, /Modo de saída — Mapa Mental Anatômico/);
