@@ -31,7 +31,7 @@ const QUICK_TOPIC_CHIPS = [
 ];
 
 export default function AnatomicalFlashcardsPage({ user }) {
-  const { connectionMode } = useAtlasAITutorSession();
+  const { connectionMode, openTutor } = useAtlasAITutorSession();
   const userId = user?.id || "student-default";
 
   // Generator Config State (NotebookLM Pattern)
@@ -221,20 +221,18 @@ export default function AnatomicalFlashcardsPage({ user }) {
   function handleExplainWithAI(card) {
     if (!card) return;
     const prompt = `Estou estudando o Flashcard de Anatomia sobre "${card.topic}". Pergunta: "${card.front}". Resposta: "${card.back}". Pode me explicar com detalhes anatômicos e clínicos como se eu estivesse em uma aula prática?`;
-    window.dispatchEvent(new CustomEvent("aeternum:open-tutor", {
-      detail: {
-        prompt,
-        context: {
-          source: "flashcards",
-          route: "/flashcards",
-          topic: card.topic,
-          difficulty: card.difficulty || activeDeck?.difficulty,
-          cardId: card.id,
-          learningObjective: card.learningObjective || null
-        },
-        contextLabel: `Flashcards · ${card.topic}`
-      }
-    }));
+    openTutor({
+      prompt,
+      context: {
+        source: "flashcards",
+        route: "/flashcards",
+        topic: card.topic,
+        difficulty: card.difficulty || activeDeck?.difficulty,
+        cardId: card.id,
+        learningObjective: card.learningObjective || null
+      },
+      contextLabel: `Flashcards · ${card.topic}`
+    });
   }
 
   function handleRestartWrongOnly() {
