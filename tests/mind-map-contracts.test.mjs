@@ -8,10 +8,11 @@ import {
 } from "../src/services/ai/mindMapGenerationService.js";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
-const [pageSource, cssSource, edgeSource] = await Promise.all([
+const [pageSource, cssSource, edgeSource, primitivesSource] = await Promise.all([
   read("src/pages/student/AnatomicalMindMapPage.jsx"),
   read("src/styles/A26MindMap.css"),
-  read("supabase/functions/ai-tutor/index.ts")
+  read("supabase/functions/ai-tutor/index.ts"),
+  read("src/components/aeternum-26/A26Primitives.jsx")
 ]);
 
 test("normalizador aceita Markdown controlado e produz uma árvore segura e única", () => {
@@ -93,6 +94,24 @@ test("editor lateral mantém as ações visíveis e limita a rolagem ao esboço"
   assert.match(cssSource, /\.mindmap-outline-box\s*\{[\s\S]*?min-height:\s*0;[\s\S]*?overflow:\s*hidden/);
   assert.match(cssSource, /\.mindmap-outline-box textarea\.a26-field__control\s*\{[\s\S]*?overflow:\s*auto/);
   assert.match(cssSource, /\.mindmap-sidebar-actions\s*\{[\s\S]*?z-index:\s*2/);
+});
+
+test("estrutura editável oferece editor ampliado sem redimensionar o canvas", () => {
+  assert.match(pageSource, /isOutlineEditorOpen/);
+  assert.match(pageSource, /aria-haspopup="dialog"/);
+  assert.match(pageSource, />\s*Ampliar\s*</);
+  assert.match(pageSource, /className="mindmap-editor-modal"/);
+  assert.match(pageSource, />\s*Aplicar e renderizar\s*</);
+  assert.match(cssSource, /\.a26-modal\.mindmap-editor-modal\s*\{[\s\S]*?width:\s*min\(58rem, calc\(100vw - 2rem\)\)/);
+  assert.match(cssSource, /\.mindmap-expanded-editor textarea\.a26-field__control\s*\{[\s\S]*?min-height:\s*clamp\(20rem, 52dvh, 34rem\)/);
+});
+
+test("modal mantém o editor focado durante alterações sucessivas", () => {
+  assert.match(primitivesSource, /const onCloseRef = useRef\(onClose\)/);
+  assert.match(primitivesSource, /onCloseRef\.current\?\.\(\)/);
+  assert.match(primitivesSource, /}, \[open\]\);/);
+  assert.match(primitivesSource, /createPortal\(\(/);
+  assert.match(primitivesSource, /\), document\.body\)/);
 });
 
 test("Tutor aplica protocolo específico do mapa mental no servidor", () => {

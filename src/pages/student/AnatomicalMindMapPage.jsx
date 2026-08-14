@@ -4,6 +4,7 @@ import {
   A26Button,
   A26Field,
   A26IconButton,
+  A26Modal,
   A26Sidebar,
   A26Surface,
   A26Toolbar
@@ -113,6 +114,7 @@ function countDescendants(children) {
 
 export default function AnatomicalMindMapPage({ user, navigate }) {
   const [outlineText, setOutlineText] = useState(DEFAULT_OUTLINE);
+  const [isOutlineEditorOpen, setIsOutlineEditorOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
@@ -581,14 +583,33 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         </A26Surface>
 
         <div className="mindmap-outline-box">
-          <A26Field
-            as="textarea"
-            label="Estrutura editável"
-            hint="Um espaço adicional representa um novo nível hierárquico."
+          <div className="mindmap-outline-heading">
+            <div>
+              <strong id="mindmap-outline-label">Estrutura editável</strong>
+              <span>Prévia compacta do esboço</span>
+            </div>
+            <A26Button
+              variant="secondary"
+              className="mindmap-outline-expand"
+              icon={<LineIcon name="fullscreen" className="h-4 w-4" />}
+              aria-haspopup="dialog"
+              aria-expanded={isOutlineEditorOpen}
+              onClick={() => setIsOutlineEditorOpen(true)}
+            >
+              Ampliar
+            </A26Button>
+          </div>
+          <textarea
+            className="a26-field__control"
+            aria-labelledby="mindmap-outline-label"
+            aria-describedby="mindmap-outline-hint"
             spellCheck="false"
             value={outlineText}
             onChange={(e) => setOutlineText(e.target.value)}
           />
+          <small id="mindmap-outline-hint" className="a26-field__hint">
+            Um espaço adicional representa um novo nível hierárquico.
+          </small>
         </div>
 
         <div className="mindmap-sidebar-actions">
@@ -681,6 +702,43 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
           </A26Surface>
         ) : null}
       </A26Surface>
+
+      <A26Modal
+        open={isOutlineEditorOpen}
+        title="Estrutura editável"
+        description="Edite o esboço hierárquico com mais espaço. As alterações permanecem sincronizadas com a prévia lateral."
+        className="mindmap-editor-modal"
+        closeLabel="Fechar editor ampliado"
+        onClose={() => setIsOutlineEditorOpen(false)}
+        actions={(
+          <>
+            <A26Button variant="secondary" onClick={() => setIsOutlineEditorOpen(false)}>
+              Concluir edição
+            </A26Button>
+            <A26Button
+              variant="primary"
+              icon={<LineIcon name="layers" className="h-5 w-5" />}
+              onClick={() => {
+                renderFromOutline();
+                setIsOutlineEditorOpen(false);
+              }}
+            >
+              Aplicar e renderizar
+            </A26Button>
+          </>
+        )}
+      >
+        <div className="mindmap-expanded-editor">
+          <A26Field
+            as="textarea"
+            label="Esboço hierárquico"
+            hint="Use um espaço adicional no início da linha para criar cada novo nível hierárquico."
+            spellCheck="false"
+            value={outlineText}
+            onChange={(e) => setOutlineText(e.target.value)}
+          />
+        </div>
+      </A26Modal>
     </div>
   );
 }

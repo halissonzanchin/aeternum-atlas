@@ -119,8 +119,7 @@
   box-shadow: 0 0 0.85rem rgba(101, 227, 173, 0.66);
 }
 
-.mindmap-ai-composer .a26-field,
-.mindmap-outline-box .a26-field {
+.mindmap-ai-composer .a26-field {
   gap: 0.42rem;
 }
 
@@ -136,17 +135,47 @@
 }
 
 .mindmap-outline-box {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 0.48rem;
   min-width: 0;
   min-height: 0;
   overflow: hidden;
 }
 
-.mindmap-outline-box .a26-field {
+.mindmap-outline-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.mindmap-outline-heading > div {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  min-height: 0;
-  height: 100%;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.mindmap-outline-heading strong {
+  color: var(--a26-text-primary, #f4f7f7);
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.mindmap-outline-heading span {
   overflow: hidden;
+  color: var(--a26-text-tertiary, #7f9297);
+  font-size: 0.66rem;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mindmap-outline-expand.a26-button {
+  min-height: 2rem;
+  padding-inline: 0.62rem;
+  font-size: 0.69rem;
 }
 
 .mindmap-outline-box textarea.a26-field__control {
@@ -161,6 +190,46 @@
   background: rgba(1, 10, 13, 0.68);
   scrollbar-gutter: stable;
   scrollbar-color: rgba(82, 216, 205, 0.48) transparent;
+}
+
+.mindmap-outline-box .a26-field__hint {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.a26-modal.mindmap-editor-modal {
+  width: min(58rem, calc(100vw - 2rem));
+  max-height: min(52rem, calc(100dvh - 2rem));
+  overflow-y: auto;
+}
+
+.mindmap-editor-modal .a26-modal__content {
+  min-height: 0;
+}
+
+.mindmap-expanded-editor,
+.mindmap-expanded-editor .a26-field {
+  display: grid;
+  min-height: 0;
+}
+
+.mindmap-expanded-editor .a26-field {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 0.55rem;
+}
+
+.mindmap-expanded-editor textarea.a26-field__control {
+  width: 100%;
+  min-height: clamp(20rem, 52dvh, 34rem);
+  resize: vertical;
+  white-space: pre;
+  tab-size: 1;
+  color: #e5eeee;
+  font: 500 0.88rem/1.7 "JetBrains Mono", Consolas, monospace;
+  background: rgba(1, 10, 13, 0.72);
+  scrollbar-gutter: stable;
+  scrollbar-color: rgba(82, 216, 205, 0.55) transparent;
 }
 
 .mindmap-sidebar-actions {
@@ -420,6 +489,10 @@
   .mindmap-outline-box,
   .mindmap-outline-box textarea.a26-field__control {
     min-height: 13rem;
+  }
+
+  .a26-modal.mindmap-editor-modal {
+    width: min(100%, calc(100vw - 1.5rem));
   }
 
   .mindmap-canvas-wrap {
