@@ -1,6 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import { A26Button } from "../../components/aeternum-26";
+import {
+  A26Button,
+  A26Field,
+  A26IconButton,
+  A26Sidebar,
+  A26Surface,
+  A26Toolbar
+} from "../../components/aeternum-26";
+import LineIcon from "../../components/icons/LineIcon";
+import { useAtlasAITutorSession } from "../../context/AtlasAITutorSessionContext";
+import { generateAuthenticatedMindMap } from "../../services/ai/mindMapGenerationService";
 import "../../styles/A26MindMap.css";
 
 const COLORS = ["#4fd8c9", "#a78bfa", "#e8836f", "#e9b872", "#7fd99a", "#e895c2"];
@@ -107,7 +117,10 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [generationError, setGenerationError] = useState("");
+  const [generationNotice, setGenerationNotice] = useState("");
   const [activeNode, setActiveNode] = useState(null);
+  const { sendMessage, openTutor, connectionMode } = useAtlasAITutorSession();
 
   const svgRef = useRef(null);
   const canvasWrapRef = useRef(null);
@@ -381,27 +394,39 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     return () => clearTimeout(timer);
   }, [outlineText]);
 
-  const handleGenerateAI = () => {
+  const handleGenerateAI = async () => {
     if (!aiPrompt.trim()) return;
     setIsGenerating(true);
+    setGenerationError("");
+    setGenerationNotice("");
 
-    setTimeout(() => {
-      const topic = aiPrompt.trim();
-      const generatedText = `${topic}
- Anatomia & Fundamentos Estruturais
-  Acidentes Anatômicos Principais de ${topic}
-  Irrigação Arterial & Drenagem Venosa
-  Inervação & Relações Sintópicas Adjacentes
- Topografia & Segmentação
-  Segmentação Anterior e Posterior de ${topic}
-  Fáscias de Revestimento & Bainhas Vasculares
- Correlações Clínicas & Casos de Prova
-  Principais Patologias e Síndromes de ${topic}
-  Achados de Imagem Radiológica (TC / RM)`;
-
-      setOutlineText(generatedText);
+    try {
+      const result = await generateAuthenticatedMindMap({
+        topic: aiPrompt,
+        sendTutorMessage: sendMessage
+      });
+      setOutlineText(result.outline);
+      setGenerationNotice("Mapa gerado pelo Tutor IA e vinculado ao seu histórico autenticado.");
+    } catch (error) {
+      setGenerationError(error?.message || "Não foi possível gerar o mapa com o Tutor IA.");
+    } finally {
       setIsGenerating(false);
-    }, 500);
+    }
+  };
+
+  const handleExplainNode = () => {
+    if (!activeNode?.data?.name) return;
+    openTutor({
+      prompt: `Explique o nó anatômico “${activeNode.data.name}” no contexto do mapa “${rootDataRef.current?.data?.name || "Mapa mental anatômico"}”. Relacione estrutura, função e uma aplicação clínica, sem abrir painéis legados.`,
+      context: {
+        source: "mind-map",
+        route: "/mind-map",
+        sectionTitle: activeNode.data.name,
+        sectionQuestion: "Explicar nó selecionado no mapa mental",
+        availableActions: []
+      },
+      contextLabel: `Mapa mental · ${activeNode.data.name}`
+    });
   };
 
   const handleExpandAll = () => {
@@ -520,42 +545,54 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
   return (
     <div className={`a26-mindmap-page fade-in-up ${sidebarCollapsed ? "sidebar-collapsed" : ""} ${isFullscreen ? "is-fullscreen" : ""}`}>
-      {/* Sidebar Outline Editor */}
-      <aside className={`mindmap-sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
+      <A26Sidebar label="Editor do mapa mental" className={`mindmap-sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
         <div className="mindmap-sidebar-head">
-          <p className="mindmap-eyebrow">Motor · Estilo Obsidian Mindmap</p>
+          <p className="mindmap-eyebrow">Atlas de raciocínio · Tutor autenticado</p>
           <h1>Mapa Mental</h1>
+          <p>Transforme um tema anatômico em relações visuais editáveis sem perder o controle do esboço.</p>
         </div>
 
-        {/* AI Generator Input */}
-        <div className="mindmap-ai-bar">
-          <input
-            type="text"
-            className="mindmap-ai-input"
+        <A26Surface material="clear" tone="teal" className="mindmap-ai-composer">
+          <div className="mindmap-ai-composer__status">
+            <span className={`mindmap-status-dot is-${connectionMode || "offline"}`} aria-hidden="true" />
+            <span>{connectionMode === "online" ? "Tutor IA autenticado" : "Tutor IA requer conexão"}</span>
+          </div>
+          <A26Field
+            label="Tema anatômico"
             placeholder="Esboço IA (ex: Sistema Renal...)"
             value={aiPrompt}
             onChange={(e) => setAiPrompt(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleGenerateAI()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !isGenerating) void handleGenerateAI();
+            }}
+            error={generationError}
+            hint={!generationError ? "A geração fica vinculada ao histórico seguro do Tutor IA." : undefined}
           />
-          <A26Button variant="primary" className="btn-sm" onClick={handleGenerateAI} disabled={isGenerating}>
-            {isGenerating ? "..." : "Gerar"}
+          <A26Button
+            variant="primary"
+            icon={<LineIcon name="spark" className="h-5 w-5" />}
+            onClick={() => void handleGenerateAI()}
+            disabled={isGenerating || aiPrompt.trim().length < 3}
+            loading={isGenerating}
+          >
+            {isGenerating ? "Estruturando" : "Gerar com Tutor IA"}
           </A26Button>
-        </div>
+          {generationNotice ? <p className="mindmap-generation-notice" role="status">{generationNotice}</p> : null}
+        </A26Surface>
 
-        {/* Outline Textarea */}
         <div className="mindmap-outline-box">
-          <label>Esboço (indentação por espaço)</label>
-          <textarea
-            className="mindmap-outline-input"
+          <A26Field
+            as="textarea"
+            label="Estrutura editável"
+            hint="Um espaço adicional representa um novo nível hierárquico."
             spellCheck="false"
             value={outlineText}
             onChange={(e) => setOutlineText(e.target.value)}
           />
         </div>
 
-        {/* Actions */}
         <div className="mindmap-sidebar-actions">
-          <A26Button variant="primary" onClick={renderFromOutline}>
+          <A26Button variant="primary" icon={<LineIcon name="layers" className="h-5 w-5" />} onClick={renderFromOutline}>
             Renderizar mapa
           </A26Button>
           <div className="mindmap-btn-row">
@@ -567,98 +604,83 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
             </A26Button>
           </div>
         </div>
-      </aside>
+      </A26Sidebar>
 
-      {/* Main Canvas Container */}
-      <main className="mindmap-canvas-wrap" ref={canvasWrapRef}>
-        {/* Topbar & Clean Export Actions */}
-        <div className="mindmap-topbar">
+      <A26Surface as="main" material="regular" tone="teal" className="mindmap-canvas-wrap" ref={canvasWrapRef}>
+        <A26Toolbar label="Ferramentas do mapa mental" className="mindmap-topbar">
           <div className="topbar-left-group">
-            <button
-              className="toggle-sidebar-btn"
+            <A26IconButton
+              label={sidebarCollapsed ? "Mostrar editor" : "Ocultar editor"}
+              icon="menu"
               onClick={() => setSidebarCollapsed((v) => !v)}
-              title={sidebarCollapsed ? "Mostrar painel lateral" : "Ocultar painel lateral"}
-            >
-              ☰
-            </button>
-
-            {/* Clean Export Buttons */}
+            />
             <div className="topbar-export-group">
-              <button className="export-btn" onClick={handleExportPNG} title="Exportar como Imagem (PNG)">
+              <A26Button variant="secondary" onClick={handleExportPNG} title="Exportar como Imagem PNG">
                 Imagem (PNG)
-              </button>
-              <button className="export-btn" onClick={handleExportPDF} title="Imprimir ou Salvar em PDF">
+              </A26Button>
+              <A26Button variant="secondary" onClick={handleExportPDF} title="Imprimir ou salvar em PDF">
                 Exportar PDF
-              </button>
+              </A26Button>
             </div>
           </div>
 
           <div className="zoom-controls">
-            <button
+            <A26Button variant="liquid" aria-label="Aproximar zoom"
               onClick={() => d3.select(svgRef.current).transition().duration(200).call(zoomBehaviorRef.current.scaleBy, 1.3)}
-              title="Aproximar zoom"
             >
               +
-            </button>
-            <button
+            </A26Button>
+            <A26Button variant="liquid" aria-label="Afastar zoom"
               onClick={() => d3.select(svgRef.current).transition().duration(200).call(zoomBehaviorRef.current.scaleBy, 1 / 1.3)}
-              title="Afastar zoom"
             >
               −
-            </button>
-            <button onClick={() => fitToView(450)} title="Centralizar vista">
-              ⤢
-            </button>
-            <button
+            </A26Button>
+            <A26IconButton label="Centralizar vista" icon="reset" onClick={() => fitToView(450)} />
+            <A26IconButton
+              label={isFullscreen ? "Sair da tela cheia" : "Usar tela cheia"}
+              icon="fullscreen"
               className={isFullscreen ? "active-fullscreen" : ""}
               onClick={() => setIsFullscreen((prev) => !prev)}
-              title={isFullscreen ? "Sair da Tela Cheia (Esc)" : "Maximizar Tela Cheia (Foco Total)"}
-            >
-              {isFullscreen ? "🗗" : "⛶"}
-            </button>
+            />
           </div>
-        </div>
+        </A26Toolbar>
 
-        {/* D3 SVG Canvas */}
-        <svg id="canvas" ref={svgRef} />
+        <div className="mindmap-canvas-stage">
+          <svg id="canvas" ref={svgRef} role="img" aria-label="Mapa mental anatômico interativo" />
+        </div>
 
         <div className="mindmap-hint">
           {isFullscreen ? "Pressione Esc para sair da tela cheia · " : ""}arraste para mover · roda do mouse para zoom · clique num nó para recolher/expandir os filhos
         </div>
 
-        {/* Selected Node Clinical Drawer */}
         {activeNode ? (
-          <aside className="mindmap-node-drawer fade-in-up">
-            <div className="flex justify-between items-center mb-3">
-              <span className="text-xs font-bold text-cyan-400 uppercase tracking-widest">
-                Nó Selecionado
-              </span>
-              <button
-                className="text-slate-400 hover:text-white text-lg font-bold"
-                onClick={() => setActiveNode(null)}
-              >
-                ×
-              </button>
+          <A26Surface as="aside" material="substantial" tone="teal" className="mindmap-node-drawer fade-in-up">
+            <div className="mindmap-node-drawer__head">
+              <span>Nó selecionado</span>
+              <A26IconButton label="Fechar detalhes do nó" icon="close" onClick={() => setActiveNode(null)} />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">{activeNode.data.name}</h3>
-            <p className="text-xs text-slate-400 mb-4">
+            <h3>{activeNode.data.name}</h3>
+            <p className="mindmap-node-meta">
               Nível {activeNode.depth} · {activeNode.children ? `${activeNode.children.length} filhos diretos` : activeNode._children ? `${countDescendants(activeNode._children)} filhos recolhidos` : "Nó folha"}
             </p>
 
-            <div className="flex flex-col gap-2 pt-3 border-t border-slate-700/50">
-              <A26Button variant="primary" onClick={() => navigate("/viewer/coracao-edicao-morgue")}>
-                🫀 Abrir Modelo 3D no Atlas
+            <div className="mindmap-node-actions">
+              <A26Button variant="primary" icon={<LineIcon name="spark" className="h-5 w-5" />} onClick={handleExplainNode}>
+                Explicar com Tutor IA
+              </A26Button>
+              <A26Button variant="secondary" icon={<LineIcon name="layers" className="h-5 w-5" />} onClick={() => navigate("/models")}>
+                Explorar modelos 3D
               </A26Button>
               <A26Button variant="secondary" onClick={() => navigate("/flashcards")}>
-                🎴 Praticar Flashcards Relacionados
+                Praticar com flashcards
               </A26Button>
               <A26Button variant="secondary" onClick={() => navigate("/quizzes")}>
-                📝 Simulado deste Tópico
+                Abrir simulados
               </A26Button>
             </div>
-          </aside>
+          </A26Surface>
         ) : null}
-      </main>
+      </A26Surface>
     </div>
   );
 }

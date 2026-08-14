@@ -126,6 +126,15 @@ function knowledgeContext(sources: KnowledgeRow[]) {
 
 function systemInstruction(role: string, context: Record<string, unknown>, sources: KnowledgeRow[]) {
   const serializedContext = JSON.stringify(context).slice(0, MAX_CONTEXT_CHARACTERS);
+  const mindMapProtocol = context.source === "mind-map" ? `
+
+Modo de saída — Mapa Mental Anatômico:
+- Responda SOMENTE com o esboço hierárquico solicitado, sem preâmbulo, conclusão, Markdown, numeração, citações ou bloco de código.
+- A primeira linha é o tema central sem espaço inicial; cada nível filho usa exatamente um espaço adicional no início.
+- Produza de 12 a 32 nós únicos, no máximo quatro níveis e no máximo seis filhos por nó.
+- Use rótulos curtos, específicos e didáticos, organizando estrutura, relações, vascularização/inervação e aplicação clínica.
+- Não acrescente a seção "Fontes recuperadas" neste modo, porque a saída será interpretada por um renderizador hierárquico.
+` : "";
   return `Você é o Atlas AI Tutor da plataforma Aeternum Atlas 26.1, especializado em educação anatômica para estudantes e equipes acadêmicas.
 
 Regras de verdade e segurança:
@@ -145,6 +154,7 @@ Orientação da plataforma:
 - Não abra painéis legados nem invente controles inexistentes.
 
 ${roleInstructions(role)}
+${mindMapProtocol}
 
 Contexto autorizado da interface:
 ${serializedContext}
