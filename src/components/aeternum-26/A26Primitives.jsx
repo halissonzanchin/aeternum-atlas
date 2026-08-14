@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars -- o parser ESLint atual não contabiliza identificadores usados apenas em JSX */
 import { forwardRef, useEffect, useId, useRef } from "react";
+import { createPortal } from "react-dom";
 import LineIcon from "../icons/LineIcon";
 import A26Surface from "./A26Surface";
 
@@ -202,11 +203,16 @@ export function A26SegmentedControl({ label, options, value, onChange, className
   );
 }
 
-export function A26Modal({ open, title, description, children, actions, onClose, closeLabel = "Fechar" }) {
+export function A26Modal({ open, title, description, children, actions, onClose, closeLabel = "Fechar", className = "" }) {
   const titleId = useId();
   const descriptionId = useId();
   const dialogRef = useRef(null);
   const previousFocusRef = useRef(null);
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -222,7 +228,7 @@ export function A26Modal({ open, title, description, children, actions, onClose,
     const onKeyDown = (event) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        onClose?.();
+        onCloseRef.current?.();
         return;
       }
       if (event.key !== "Tab" || !focusable?.length) return;
@@ -243,11 +249,11 @@ export function A26Modal({ open, title, description, children, actions, onClose,
       document.body.style.overflow = previousOverflow;
       previousFocusRef.current?.focus?.();
     };
-  }, [onClose, open]);
+  }, [open]);
 
   if (!open) return null;
 
-  return (
+  return createPortal((
     <div
       className="a26-modal-backdrop"
       onMouseDown={(event) => {
@@ -258,7 +264,7 @@ export function A26Modal({ open, title, description, children, actions, onClose,
         ref={dialogRef}
         as="section"
         material="substantial"
-        className="a26-modal"
+        className={joinClasses("a26-modal", className)}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
@@ -276,7 +282,7 @@ export function A26Modal({ open, title, description, children, actions, onClose,
         {actions ? <footer className="a26-modal__actions">{actions}</footer> : null}
       </A26Surface>
     </div>
-  );
+  ), document.body);
 }
 
 export function A26Popover({ open, label, children, onClose, className = "" }) {

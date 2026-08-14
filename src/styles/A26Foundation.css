@@ -57,7 +57,8 @@
   --a26-z-navigation: 40;
   --a26-z-overlay: 70;
   --a26-z-tutor: 80;
-  --a26-z-modal: 100;
+  /* Dialogs modais devem cobrir inclusive o Tutor IA legado (z-index 99999). */
+  --a26-z-modal: 100000;
 
   /* Pontes temporárias para tokens legados. */
   --atlas-glass-bg: var(--a26-material-regular-bg);
