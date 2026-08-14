@@ -123,19 +123,22 @@ export default function StudyAgendaPage({ navigate }) {
     setModalOpen(true);
   }
 
-  function submitActivity(payload) {
+  async function submitActivity(payload) {
+    let result;
     if (editingEvent) {
-      agenda.updateEvent(editingEvent.id, payload);
+      result = await agenda.updateEvent(editingEvent.id, payload);
     } else {
-      agenda.addEvent({
+      result = await agenda.addEvent({
         ...payload,
         date: payload.date || formatAgendaDate(agenda.selectedDate),
         createdByRole: "student",
         creatorName: user?.name || user?.email || "Usuário"
       });
     }
+    if (result?.success === false) return result;
     setModalOpen(false);
     setEditingEvent(null);
+    return result || { success: true };
   }
 
   return (
@@ -163,6 +166,12 @@ export default function StudyAgendaPage({ navigate }) {
             </button>
           </div>
           <h1 className="a26-header-month-title">{headerTitle}</h1>
+          <div className="a26-hero-sync-badges" aria-label="Estado da agenda">
+            <span className={`a26-hero-sync-badge ${agenda.syncStatus === "synced" ? "is-active" : ""}`}>
+              {agenda.syncStatus === "synced" ? "Conta sincronizada" : agenda.syncStatus === "pending" ? "Sincronização pendente" : "Agenda local"}
+            </span>
+            <span className="a26-hero-sync-badge">{agenda.events.length} atividades</span>
+          </div>
         </div>
 
         <div className="a26-hero-actions">
@@ -180,6 +189,14 @@ export default function StudyAgendaPage({ navigate }) {
           />
         </div>
       </A26Card>
+
+      <div className="a26-weekly-quick-stats" aria-label="Resumo semanal real">
+        <A26Metric label="Programadas" value={weeklySummary.scheduled} icon={<LineIcon name="clipboardCheck" />} />
+        <A26Metric label="Concluídas" value={weeklySummary.completed} icon={<LineIcon name="check" />} />
+        <A26Metric label="Pendentes" value={weeklySummary.pending} icon={<LineIcon name="clock" />} />
+        <A26Metric label="Tempo planejado" value={`${Math.round(weeklySummary.plannedMinutes / 60)}h ${weeklySummary.plannedMinutes % 60}m`} icon={<LineIcon name="clock" />} />
+        <A26Metric label="Constância" value={`${weeklySummary.completionRate}%`} icon={<LineIcon name="spark" />} />
+      </div>
 
       {/* Main Agenda Grid Layout (Sidebar 270px + Main Workspace 100%) */}
       <div className="study-agenda-main-grid">
@@ -215,8 +232,7 @@ export default function StudyAgendaPage({ navigate }) {
                 selectedDate={agenda.selectedDate}
                 setSelectedDate={agenda.setSelectedDate}
               />
-              {selectedEvents.length > 0 && (
-                <div className="a26-day-panel-drawer">
+              <div className="a26-day-panel-drawer">
                   <AgendaDayPanel
                     selectedDate={agenda.selectedDate}
                     events={selectedEvents}
@@ -229,8 +245,7 @@ export default function StudyAgendaPage({ navigate }) {
                     <WeeklyStudySummary summary={weeklySummary} />
                     <UpcomingReviews reviews={upcomingReviews} navigate={navigate} />
                   </AgendaDayPanel>
-                </div>
-              )}
+              </div>
             </div>
           ) : (
             <AgendaDayPanel
