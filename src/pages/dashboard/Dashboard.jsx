@@ -47,7 +47,9 @@ export default function Dashboard({ user, navigate }) {
         if (Array.isArray(parsed)) return parsed.length;
         if (typeof parsed === "object") return Object.keys(parsed).length;
       }
-    } catch (e) {}
+    } catch {
+      // Dados locais inválidos não devem bloquear as métricas sincronizadas.
+    }
     return (telemetry.events || []).filter(e => e.eventType === "flashcard_review" || e.eventType === "flashcard_answer").length || 0;
   }, [telemetry.events]);
 
@@ -57,7 +59,9 @@ export default function Dashboard({ user, navigate }) {
     try {
       const saved = localStorage.getItem("aeternum_anatomical_quiz_attempts");
       if (saved) localAnatomicalAttempts = JSON.parse(saved);
-    } catch (e) {}
+    } catch {
+      // Tentativas locais corrompidas são ignoradas em favor da telemetria válida.
+    }
 
     // Track unique (modelId + quizType) pairs that achieved 100% score (zero errors)
     const perfectQuizKeys = new Set();
@@ -96,7 +100,9 @@ export default function Dashboard({ user, navigate }) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) return parsed.filter(m => m.sender === "user" || m.role === "user").length;
       }
-    } catch (e) {}
+    } catch {
+      // Histórico local inválido não deve interromper o dashboard.
+    }
     return (telemetry.events || []).filter(e => e.eventType === "tutor_question" || e.eventType === "ai_query").length || 0;
   }, [telemetry.events]);
 

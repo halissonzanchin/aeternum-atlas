@@ -89,6 +89,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
   const [isThinking, setIsThinking] = useState(false);
   const [connectionMode, setConnectionMode] = useState(initialSession.connectionMode);
   const [conversationId, setConversationId] = useState(initialSession.conversationId);
+  const [tutorRequest, setTutorRequest] = useState(null);
   const draftRef = useRef(initialSession.draft);
   const thinkingRef = useRef(false);
 
@@ -121,6 +122,21 @@ export function AtlasAITutorSessionProvider({ children, user }) {
     commitMessages((currentMessages) => [...currentMessages, normalizedMessage]);
     return normalizedMessage;
   }, [commitMessages]);
+
+  const openTutor = useCallback((request = {}) => {
+    setTutorRequest({
+      id: createMessageId("tutor-request"),
+      prompt: String(request.prompt || "").trim(),
+      context: request.context || {},
+      contextLabel: request.contextLabel || "Plataforma Aeternum Atlas"
+    });
+  }, []);
+
+  const consumeTutorRequest = useCallback((requestId) => {
+    setTutorRequest((currentRequest) => (
+      currentRequest?.id === requestId ? null : currentRequest
+    ));
+  }, []);
 
   const updateMessage = useCallback((messageId, patch) => {
     commitMessages((currentMessages) => currentMessages.map((message) => (
@@ -275,16 +291,22 @@ export function AtlasAITutorSessionProvider({ children, user }) {
     connectionMode,
     conversationId,
     sendMessage,
-    appendMessage
+    appendMessage,
+    tutorRequest,
+    openTutor,
+    consumeTutorRequest
   }), [
     appendMessage,
+    consumeTutorRequest,
     connectionMode,
     conversationId,
     draft,
     isThinking,
     messages,
+    openTutor,
     sendMessage,
     setDraft,
+    tutorRequest,
     user
   ]);
 

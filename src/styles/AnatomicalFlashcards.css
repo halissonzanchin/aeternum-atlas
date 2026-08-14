@@ -1,13 +1,12 @@
-/* Anatomical Flashcards Liquid Glass & 3D Anki Aesthetics (Aeternum 26.1) */
+/* Flashcards Anatômicos — Aeternum 26.1 */
 
 .a26-flashcards-container {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  width: 100%;
-  max-width: 1280px;
+  gap: clamp(18px, 2.2vw, 28px);
+  width: min(100%, 1280px);
   margin-inline: auto;
-  padding-bottom: 40px;
+  padding-bottom: 48px;
   color: var(--a26-color-text);
 }
 
@@ -16,101 +15,159 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 24px 32px;
-  border-radius: var(--a26-radius-panel, 20px);
-  background: linear-gradient(135deg, rgba(8, 28, 34, 0.85) 0%, rgba(5, 18, 22, 0.95) 100%);
-  border: 1px solid rgba(92, 232, 223, 0.2);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  padding: clamp(22px, 3vw, 36px);
+  min-height: 136px;
 }
 
-/* Generator Surface (NotebookLM Pattern) */
+.a26-flashcards-hero h1 {
+  margin: 6px 0 4px;
+  font-family: var(--a26-font-display, Georgia, serif);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: .98;
+  font-weight: 500;
+  color: var(--a26-color-gold-soft, #dfc57f);
+  text-wrap: balance;
+}
+
+.a26-flashcards-hero p {
+  max-width: 780px;
+  line-height: 1.55;
+}
+
 .a26-generator-surface {
-  border-radius: 20px;
-  background: rgba(6, 21, 26, 0.75);
-  border: 1px solid rgba(92, 232, 223, 0.15);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
+  display: grid;
+  gap: 24px;
+  padding: clamp(22px, 3vw, 34px);
 }
 
-/* Quick Chips (Aeternum 26.1 Aesthetics) */
+.a26-flashcard-trustline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  color: var(--a26-color-text-muted);
+  font-size: .78rem;
+}
+
+.a26-flashcard-trustline strong {
+  color: var(--a26-color-text-bright);
+}
+
+.a26-flashcard-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d5b765;
+  box-shadow: 0 0 14px rgba(213, 183, 101, .55);
+}
+
+.a26-flashcard-status-dot.is-online {
+  background: #5ce8df;
+  box-shadow: 0 0 14px rgba(92, 232, 223, .62);
+}
+
 .a26-chips-wrapper {
-  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.a26-quick-chip {
-  padding: 8px 16px;
-  border-radius: 12px;
-  background: rgba(13, 38, 44, 0.6);
-  border: 1px solid rgba(92, 232, 223, 0.25);
-  color: #5ce8df;
-  font-size: 0.82rem;
-  font-weight: 600;
+.a26-quick-chip.a26-button {
+  min-height: 38px;
+  padding: 7px 13px;
+  font-size: .8rem;
+}
+
+.a26-generation-message {
+  margin: 0;
+  padding: 11px 14px;
+  border-inline-start: 2px solid rgba(92, 232, 223, .7);
+  color: var(--a26-color-text-muted);
+  background: rgba(92, 232, 223, .045);
+  font-size: .8rem;
+  line-height: 1.5;
+}
+
+.a26-generation-message.is-error {
+  border-color: rgba(251, 113, 133, .8);
+  color: #fda4af;
+  background: rgba(244, 63, 94, .06);
+}
+
+.a26-saved-deck {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(10px);
 }
 
-.a26-quick-chip:hover {
-  background: rgba(92, 232, 223, 0.15);
-  border-color: rgba(92, 232, 223, 0.6);
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(92, 232, 223, 0.2);
-}
-
-/* 3D Flashcard Player Container (Anki + NotebookLM) */
 .a26-flashcard-player-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  max-width: 800px;
+  gap: 18px;
+  width: min(100%, 860px);
   margin-inline: auto;
 }
 
 .a26-player-meta {
-  padding: 12px 20px;
-  border-radius: 14px;
-  background: rgba(9, 29, 35, 0.6);
-  border: 1px solid rgba(92, 232, 223, 0.15);
-  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  padding: 12px 18px;
+}
+
+.a26-player-meta h2 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--a26-color-gold-soft, #dfc57f);
 }
 
 .a26-flashcard-3d-wrapper {
   position: relative;
   width: 100%;
-  min-height: 400px;
+  min-height: 430px;
   cursor: pointer;
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform .58s cubic-bezier(.16, 1, .3, 1);
+  outline: none;
+}
+
+.a26-flashcard-3d-wrapper:focus-visible {
+  border-radius: 26px;
+  box-shadow: 0 0 0 3px rgba(92, 232, 223, .3);
 }
 
 .a26-flashcard-3d-wrapper.is-flipped {
   transform: rotateY(180deg);
 }
 
-/* Flashcard Front & Back Sides */
 .a26-flashcard-face {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 32px;
-  border-radius: 24px;
-  background: linear-gradient(160deg, rgba(8, 28, 34, 0.92) 0%, rgba(4, 15, 19, 0.96) 100%);
-  border: 1px solid rgba(92, 232, 223, 0.25);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  gap: 24px;
+  padding: clamp(24px, 4vw, 38px);
+  border-radius: 26px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  overflow: hidden;
 }
 
 .a26-flashcard-face--back {
   transform: rotateY(180deg);
-  border-color: rgba(223, 197, 127, 0.35);
-  background: linear-gradient(160deg, rgba(16, 26, 28, 0.94) 0%, rgba(8, 14, 16, 0.98) 100%);
+}
+
+.a26-flashcard-tutor-action {
+  position: absolute;
+  right: clamp(24px, 4vw, 38px);
+  bottom: clamp(24px, 4vw, 38px);
+  z-index: 12;
 }
 
 .a26-flashcard-header {
@@ -120,154 +177,204 @@
   gap: 12px;
 }
 
+.a26-flashcard-citation {
+  color: var(--a26-color-text-muted);
+  font-size: .78rem;
+  text-align: right;
+}
+
 .a26-flashcard-body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 20px;
-  margin-block: auto;
+  gap: 15px;
   width: 100%;
+  margin-block: auto;
 }
 
 .a26-flashcard-img {
-  max-height: 220px;
+  max-width: min(100%, 360px);
+  max-height: 210px;
   object-fit: contain;
-  border-radius: 12px;
-  border: 1px solid rgba(92, 232, 223, 0.3);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  border: 1px solid rgba(92, 232, 223, .24);
 }
 
 .a26-flashcard-text {
-  font-size: 1.15rem;
-  line-height: 1.5;
-  color: var(--a26-color-text-bright, #ffffff);
-  font-weight: 500;
-  max-width: 640px;
+  max-width: 680px;
+  margin: 0;
+  font-size: clamp(1.08rem, 2vw, 1.35rem);
+  line-height: 1.48;
+  color: var(--a26-color-text-bright, #fff);
+  font-weight: 650;
+  text-wrap: balance;
+}
+
+.a26-flashcard-explanation {
+  max-width: 660px;
+  margin: 0;
+  color: var(--a26-color-text-muted);
+  font-size: .9rem;
+  line-height: 1.55;
 }
 
 .a26-flashcard-hint {
-  font-size: 0.75rem;
-  color: var(--a26-color-text-muted, #7ea3a6);
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  color: var(--a26-color-text-muted);
+  font-size: .72rem;
+  letter-spacing: .05em;
 }
 
-/* Feedback Overlay */
 .a26-feedback-overlay {
   position: absolute;
-  inset: 0;
   z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 24px;
-  font-size: 1.8rem;
-  font-weight: 700;
-  backdrop-filter: blur(8px);
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: max-content;
+  max-width: calc(100% - 48px);
+  min-height: 54px;
+  padding: 13px 20px;
+  border: 1px solid;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 750;
   pointer-events: none;
-  animation: fadeIn 0.2s ease;
+  animation: a26-flashcard-feedback-in .22s ease both;
 }
 
 .a26-feedback-overlay.is-correct {
-  background: rgba(16, 185, 129, 0.25);
-  color: #34d399;
-  border: 2px solid #10b981;
+  color: #6ee7b7;
+  background: rgba(3, 31, 25, .94);
+  border-color: rgba(52, 211, 153, .7);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, .42), 0 0 24px rgba(16, 185, 129, .15);
 }
 
 .a26-feedback-overlay.is-wrong {
-  background: rgba(244, 63, 94, 0.25);
-  color: #fb7185;
-  border: 2px solid #f43f5e;
+  color: #fda4af;
+  background: rgba(40, 8, 18, .94);
+  border-color: rgba(251, 113, 133, .72);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, .42), 0 0 24px rgba(244, 63, 94, .13);
 }
 
-/* Anki Rating Controls */
 .a26-anki-controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: max-content;
+  max-width: 100%;
+  margin-inline: auto;
+  padding: 8px;
 }
 
-.a26-anki-btn {
-  padding: 10px 24px;
-  border-radius: 14px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid rgba(92, 232, 223, 0.2);
-  background: rgba(10, 30, 36, 0.8);
-  color: #ffffff;
+.a26-anki-controls .a26-button:first-child,
+.a26-anki-controls .a26-button:last-child {
+  min-width: 48px;
 }
 
-.a26-anki-btn.is-correct {
-  background: rgba(16, 185, 129, 0.15);
-  border-color: rgba(16, 185, 129, 0.4);
-  color: #34d399;
-}
-
-.a26-anki-btn.is-correct:hover {
-  background: rgba(16, 185, 129, 0.3);
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
-}
-
-.a26-anki-btn.is-wrong {
-  background: rgba(244, 63, 94, 0.15);
-  border-color: rgba(244, 63, 94, 0.4);
-  color: #fb7185;
-}
-
-.a26-anki-btn.is-wrong:hover {
-  background: rgba(244, 63, 94, 0.3);
-  box-shadow: 0 0 20px rgba(244, 63, 94, 0.3);
-}
-
-/* Performance Report */
 .a26-performance-report-card {
-  padding: 32px;
+  padding: clamp(24px, 4vw, 38px);
   text-align: center;
-  border-radius: 20px;
 }
 
 .a26-report-metrics-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
   margin-block: 24px;
 }
 
 .a26-topics-mastery-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  text-align: left;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
   margin-top: 20px;
+  text-align: left;
 }
 
 .a26-topic-column {
-  padding: 16px;
-  border-radius: 14px;
-  background: rgba(6, 20, 24, 0.6);
-  border: 1px solid rgba(92, 232, 223, 0.15);
+  padding: 18px;
+  border: 1px solid rgba(92, 232, 223, .13);
+  border-radius: 16px;
+  background: rgba(2, 15, 18, .45);
 }
 
 .a26-topic-column h3 {
-  font-size: 0.85rem;
-  font-weight: 700;
-  margin-bottom: 10px;
+  margin: 0 0 10px;
+  font-size: .85rem;
 }
 
 .a26-topic-column ul {
-  list-style: none;
-  padding: 0;
   margin: 0;
-  font-size: 0.8rem;
+  padding: 0;
+  list-style: none;
   color: var(--a26-color-text-muted);
+  font-size: .8rem;
 }
 
-.a26-topic-column li {
-  margin-bottom: 6px;
+.a26-topic-column li + li {
+  margin-top: 6px;
+}
+
+@keyframes a26-flashcard-feedback-in {
+  from { opacity: 0; transform: translate(-50%, -45%) scale(.94); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@media (max-width: 760px) {
+  .a26-flashcards-hero,
+  .a26-player-meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .a26-flashcard-3d-wrapper {
+    min-height: 500px;
+  }
+
+  .a26-flashcard-header,
+  .a26-topics-mastery-list {
+    grid-template-columns: 1fr;
+  }
+
+  .a26-flashcard-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .a26-flashcard-citation {
+    text-align: left;
+  }
+
+  .a26-report-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .a26-flashcards-container {
+    gap: 16px;
+    padding-bottom: 28px;
+  }
+
+  .a26-flashcard-face {
+    padding: 21px;
+  }
+
+  .a26-anki-controls {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .a26-flashcard-3d-wrapper,
+  .a26-feedback-overlay {
+    transition: none;
+    animation: none;
+  }
 }

@@ -48,9 +48,20 @@ function allowedOrigins() {
   ])];
 }
 
+function isAllowedOrigin(origin: string) {
+  if (allowedOrigins().includes(origin)) return true;
+  try {
+    const url = new URL(origin);
+    return url.protocol === "https:"
+      && /^aeternum-atlas-[a-z0-9-]+-aeternum-atlas\.vercel\.app$/i.test(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
 function corsHeaders(req: Request) {
   const origin = req.headers.get("origin") || "";
-  const acceptedOrigin = allowedOrigins().includes(origin) ? origin : "";
+  const acceptedOrigin = isAllowedOrigin(origin) ? origin : "";
   return {
     "Access-Control-Allow-Origin": acceptedOrigin,
     "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",

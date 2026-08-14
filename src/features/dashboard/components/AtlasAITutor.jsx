@@ -27,7 +27,9 @@ export default function AtlasAITutor({
     draft,
     setDraft,
     isThinking,
-    sendMessage
+    sendMessage,
+    tutorRequest,
+    consumeTutorRequest
   } = useAtlasAITutorSession();
   const {
     position,
@@ -52,13 +54,36 @@ export default function AtlasAITutor({
       if (e.detail?.prompt) {
         sendMessage({
           text: e.detail.prompt,
-          context: { source: "flashcards", route: path }
+          context: {
+            source: "flashcards",
+            route: path,
+            ...(e.detail.context || {})
+          },
+          contextLabel: e.detail.contextLabel || "Flashcards anatômicos"
         });
       }
     };
     window.addEventListener("aeternum:open-tutor", handleOpenTutorEvent);
     return () => window.removeEventListener("aeternum:open-tutor", handleOpenTutorEvent);
   }, [path, sendMessage]);
+
+  useEffect(() => {
+    if (!tutorRequest) return;
+    setIsOpen(true);
+    setPanelMode("expanded");
+    if (tutorRequest.prompt) {
+      void sendMessage({
+        text: tutorRequest.prompt,
+        context: {
+          source: "platform",
+          route: path,
+          ...(tutorRequest.context || {})
+        },
+        contextLabel: tutorRequest.contextLabel
+      });
+    }
+    consumeTutorRequest(tutorRequest.id);
+  }, [consumeTutorRequest, path, sendMessage, tutorRequest]);
 
   useEffect(() => {
     if (!isOpen) return undefined;

@@ -1,6 +1,5 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import LineIcon from "../../components/icons/LineIcon";
-import { useLanguage } from "../../context/LanguageContext";
 import { useAtlasAITutorSession } from "../../context/AtlasAITutorSessionContext";
 import {
   A26Button,
@@ -19,20 +18,20 @@ import {
   deleteDeckFromCollection,
   scheduleFlashcardStudyEvent
 } from "../../services/ai/flashcardSpacedRepetitionService";
+import { recordLearningEvent } from "../../services/learningTelemetryService";
 import "../../styles/AnatomicalFlashcards.css";
 
 const QUICK_TOPIC_CHIPS = [
-  "+ Clavícula e Ombro",
-  "+ Úmero e Braço",
-  "+ Vértebras Cervicais",
-  "+ Fêmur e Osteologia",
-  "+ Vascularização do Coração",
-  "+ Pares Cranianos"
+  "Clavícula e Ombro",
+  "Úmero e Braço",
+  "Vértebras Cervicais",
+  "Fêmur e Osteologia",
+  "Vascularização do Coração",
+  "Pares Cranianos"
 ];
 
-export default function AnatomicalFlashcardsPage({ user, navigate }) {
-  const { language, t } = useLanguage();
-  const { sendMessage } = useAtlasAITutorSession();
+export default function AnatomicalFlashcardsPage({ user }) {
+  const { connectionMode, openTutor } = useAtlasAITutorSession();
   const userId = user?.id || "student-default";
 
   // Generator Config State (NotebookLM Pattern)
@@ -40,6 +39,8 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
   const [cardCount, setCardCount] = useState("many"); // few | standard | many
   const [difficulty, setDifficulty] = useState("Difícil");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [generationError, setGenerationError] = useState("");
+  const [generationNotice, setGenerationNotice] = useState("");
 
   // Deck & Player State (Anki Pattern)
   const [activeDeck, setActiveDeck] = useState(null);
@@ -84,11 +85,17 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeDeck, currentIndex, isFinished, currentCard]);
+  }, [activeDeck, currentIndex, isFinished, currentCard, feedbackState]);
 
   async function handleGenerateDeck(customTopic) {
     const selectedTopic = customTopic || topicInput;
+    if (!String(selectedTopic || "").trim()) {
+      setGenerationError("Informe um tema anatômico antes de gerar o baralho.");
+      return;
+    }
     setIsGenerating(true);
+    setGenerationError("");
+    setGenerationNotice("");
     setIsFinished(false);
     setSessionResults([]);
     setCurrentIndex(0);
@@ -101,21 +108,38 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
         topic: selectedTopic,
         difficulty,
         cardCount,
-        includeImages: true
+        includeImages: false
       });
       setActiveDeck(generated);
+      setGenerationNotice(generated.generationNotice || "");
     } catch (err) {
-      console.error("Erro ao gerar flashcards RAG:", err);
+      console.error("Erro ao gerar flashcards:", err);
+      setGenerationError(err?.message || "Não foi possível gerar o baralho agora.");
     } finally {
       setIsGenerating(false);
     }
   }
 
-  function handleRateCard(result) {
-    if (!currentCard) return;
+  const handleRateCard = useCallback((result) => {
+    if (!currentCard || feedbackState) return;
 
     // Record SuperMemo SM-2 Spaced Repetition Rating
     recordCardReview(userId, currentCard.id, result === "correct" ? "good" : "again");
+    recordLearningEvent({
+      user,
+      eventType: "flashcard_reviewed",
+      eventData: {
+        deckId: activeDeck?.id || null,
+        deckTitle: activeDeck?.title || null,
+        cardId: currentCard.id,
+        topic: currentCard.topic,
+        difficulty: currentCard.difficulty || activeDeck?.difficulty,
+        learningObjective: currentCard.learningObjective || null,
+        result,
+        cardIndex: currentIndex,
+        totalCards: activeDeck?.cards?.length || 0
+      }
+    });
 
     setFeedbackState(result);
     setSessionResults(prev => [...prev, { card: currentCard, result }]);
@@ -128,12 +152,12 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
         setCurrentIndex(prev => prev + 1);
       } else {
         setIsFinished(true);
-        saveMemoryToTutorSession([...sessionResults, { card: currentCard, result }]);
+        saveSessionMemory([...sessionResults, { card: currentCard, result }]);
       }
     }, 450);
-  }
+  }, [activeDeck, currentCard, currentIndex, feedbackState, sessionResults, user, userId]);
 
-  function saveMemoryToTutorSession(results) {
+  function saveSessionMemory(results) {
     const correctCount = results.filter(r => r.result === "correct").length;
     const wrongCount = results.length - correctCount;
     const rate = Math.round((correctCount / (results.length || 1)) * 100);
@@ -151,10 +175,11 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
 
     try {
       localStorage.setItem(`aeternum_student_flashcard_memory:${userId}`, JSON.stringify(memoryPayload));
-      sendMessage(
-        `[SISTEMA DE MEMÓRIA 360°]: O estudante concluiu a sessão de Flashcards "${activeDeck?.title}" com ${rate}% de acerto (${correctCount} acertos, ${wrongCount} erros). Tópicos para reforçar: ${memoryPayload.reviewTopics.join(", ") || "Nenhum"}.`,
-        { silent: true }
-      );
+      recordLearningEvent({
+        user,
+        eventType: "flashcard_deck_completed",
+        eventData: memoryPayload
+      });
     } catch (err) {
       console.warn("Erro ao salvar memória do aluno:", err);
     }
@@ -196,7 +221,18 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
   function handleExplainWithAI(card) {
     if (!card) return;
     const prompt = `Estou estudando o Flashcard de Anatomia sobre "${card.topic}". Pergunta: "${card.front}". Resposta: "${card.back}". Pode me explicar com detalhes anatômicos e clínicos como se eu estivesse em uma aula prática?`;
-    window.dispatchEvent(new CustomEvent("aeternum:open-tutor", { detail: { prompt } }));
+    openTutor({
+      prompt,
+      context: {
+        source: "flashcards",
+        route: "/flashcards",
+        topic: card.topic,
+        difficulty: card.difficulty || activeDeck?.difficulty,
+        cardId: card.id,
+        learningObjective: card.learningObjective || null
+      },
+      contextLabel: `Flashcards · ${card.topic}`
+    });
   }
 
   function handleRestartWrongOnly() {
@@ -233,14 +269,14 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
   return (
     <div className="a26-flashcards-container">
       {/* Hero Header - Liquid Glass Aeternum 26.1 */}
-      <A26Surface material="liquid" className="a26-flashcards-hero">
+      <A26Surface material="regular" tone="teal" className="a26-flashcards-hero">
         <div>
           <span className="a26-kicker">Revisão Ativa & Repetição Espaçada SM-2</span>
           <h1 className="text-2xl md:text-3xl font-bold text-agedGold tracking-tight mt-1">
             Flashcards Anatômicos Inteligentes
           </h1>
           <p className="text-xs md:text-sm text-textMuted mt-1">
-            Sintetize baralhos didáticos a partir dos 14 livros oficiais da anatomia médica e sincronize seu desempenho com o Tutor IA.
+            Combine um banco anatômico curado, repetição espaçada e o Tutor IA autenticado em baralhos sem perguntas duplicadas.
           </p>
         </div>
 
@@ -253,7 +289,12 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
 
       {/* Mode 1: Generator Modal & Config (NotebookLM Pattern) */}
       {!activeDeck && (
-        <A26Surface material="liquid" className="a26-generator-surface p-6 space-y-6">
+        <A26Surface material="regular" className="a26-generator-surface p-6 space-y-6">
+          <div className="a26-flashcard-trustline" aria-live="polite">
+            <span className={`a26-flashcard-status-dot is-${connectionMode || "offline"}`} aria-hidden="true" />
+            <strong>Banco curado disponível</strong>
+            <span>{connectionMode === "online" ? "Tutor IA online para temas personalizados" : "Tutor IA indisponível; temas curados continuam funcionando"}</span>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="text-xs uppercase tracking-wider text-agedGold font-semibold block mb-2">
@@ -261,9 +302,9 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
               </label>
               <A26SegmentedControl
                 options={[
-                  { label: "Menos (~5)", value: "few" },
-                  { label: "Padrão (~10)", value: "standard" },
-                  { label: "Mais (~20)", value: "many" }
+                  { label: "Até 5", value: "few" },
+                  { label: "Até 10", value: "standard" },
+                  { label: "Até 20", value: "many" }
                 ]}
                 value={cardCount}
                 onChange={setCardCount}
@@ -291,29 +332,34 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
               Qual deve ser o tema?
             </label>
             <A26Field
+              label="Tema anatômico"
               value={topicInput}
               onChange={e => setTopicInput(e.target.value)}
               placeholder="Digite o assunto (ex: Vértebras Cervicais, Fêmur, Artéria Coronária...)"
+              error={generationError || undefined}
               className="w-full"
             />
           </div>
 
           <div className="a26-chips-wrapper flex flex-wrap gap-2">
             {QUICK_TOPIC_CHIPS.map(chip => (
-              <button
+              <A26Button
                 key={chip}
                 type="button"
+                variant="ghost"
                 className="a26-quick-chip"
                 onClick={() => {
-                  const cleaned = chip.replace(/^\+\s*/, "");
-                  setTopicInput(cleaned);
-                  handleGenerateDeck(cleaned);
+                  setTopicInput(chip);
+                  handleGenerateDeck(chip);
                 }}
               >
-                {chip}
-              </button>
+                + {chip}
+              </A26Button>
             ))}
           </div>
+
+          {generationError ? <p className="a26-generation-message is-error" role="alert">{generationError}</p> : null}
+          {generationNotice ? <p className="a26-generation-message" aria-live="polite">{generationNotice}</p> : null}
 
           <div className="flex items-center justify-end gap-3 pt-2">
             <A26Button
@@ -322,7 +368,7 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
               loading={isGenerating}
               icon={<LineIcon name="spark" />}
             >
-              {isGenerating ? "Sintetizando RAG..." : "Gerar Baralho de Flashcards"}
+              {isGenerating ? "Preparando questões únicas..." : "Gerar baralho"}
             </A26Button>
           </div>
 
@@ -333,9 +379,11 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
               <h3 className="text-base font-bold text-agedGold mb-3">Meus Baralhos Salvos ({savedDecks.length})</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {savedDecks.map(deck => (
-                  <div
+                  <A26Card
                     key={deck.id || deck.title}
-                    className="p-3 bg-glassSurface/50 border border-glassBorder rounded-xl hover:border-emerald-500/50 cursor-pointer transition flex items-center justify-between group"
+                    material="clear"
+                    interactive
+                    className="a26-saved-deck"
                     onClick={() => handleLoadSavedDeck(deck)}
                   >
                     <div>
@@ -353,7 +401,7 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
                     >
                       <LineIcon name="trash" />
                     </button>
-                  </div>
+                  </A26Card>
                 ))}
               </div>
             </div>
@@ -364,10 +412,10 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
       {/* Mode 2: Interactive 3D Player (Anki Pattern with Image Occlusion & Hotkeys) */}
       {activeDeck && !isFinished && currentCard && (
         <div className="a26-flashcard-player-container">
-          <div className="a26-player-meta flex items-center justify-between">
+          <A26Toolbar label="Informações do baralho" className="a26-player-meta">
             <div>
               <h2 className="text-lg font-bold text-agedGold">{activeDeck.title}</h2>
-              <span className="text-xs text-textMuted">Fonte RAG: {currentCard.sourceCitation}</span>
+              <span className="text-xs text-textMuted">Origem: {currentCard.sourceCitation}</span>
             </div>
             <div className="flex items-center gap-3">
               {!isDeckSaved && (
@@ -379,7 +427,9 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
                 {currentIndex + 1} / {activeDeck.cards.length}
               </span>
             </div>
-          </div>
+          </A26Toolbar>
+
+          {generationNotice ? <p className="a26-generation-message" aria-live="polite">{generationNotice}</p> : null}
 
           {/* 3D Stage Container with Standalone Feedback Overlay */}
           <div className="relative w-full">
@@ -398,9 +448,18 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
             <div
               className={`a26-flashcard-3d-wrapper ${isFlipped ? "is-flipped" : ""}`}
               onClick={() => setIsFlipped(!isFlipped)}
+              onKeyDown={(event) => {
+                if (["Enter", " "].includes(event.key)) {
+                  event.preventDefault();
+                  setIsFlipped(prev => !prev);
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label={isFlipped ? "Mostrar pergunta" : "Mostrar resposta"}
             >
               {/* Front Side - Minimal & Clean (NotebookLM Pattern) */}
-            <div className="a26-flashcard-face a26-flashcard-face--front">
+            <A26Surface material="regular" tone="teal" className="a26-flashcard-face a26-flashcard-face--front">
               <div className="a26-flashcard-header">
                 <span className="a26-kicker">Frente</span>
                 <span className="a26-flashcard-citation">{currentCard.topic}</span>
@@ -414,10 +473,10 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
               </div>
 
               <span className="a26-flashcard-hint">Veja a resposta</span>
-            </div>
+            </A26Surface>
 
             {/* Back Side - Direct Answer & Tutor AI Action */}
-            <div className="a26-flashcard-face a26-flashcard-face--back">
+            <A26Surface material="regular" tone="gold" className="a26-flashcard-face a26-flashcard-face--back">
               <div className="a26-flashcard-header">
                 <span className="a26-kicker text-agedGold">Verso · Resposta</span>
                 <span className="a26-flashcard-citation">{currentCard.sourceCitation}</span>
@@ -425,61 +484,65 @@ export default function AnatomicalFlashcardsPage({ user, navigate }) {
 
               <div className="a26-flashcard-body">
                 <p className="a26-flashcard-text text-teal-300 font-bold text-xl">{currentCard.back}</p>
+                {currentCard.explanation ? <p className="a26-flashcard-explanation">{currentCard.explanation}</p> : null}
               </div>
 
-              <div className="flex items-center justify-between w-full">
-                <span className="a26-flashcard-hint">Avalie seu conhecimento abaixo</span>
-                <A26Button
-                  variant="ghost"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleExplainWithAI(currentCard);
-                  }}
-                  icon={<LineIcon name="spark" />}
-                >
-                  ✨ Explicar com Tutor IA
-                </A26Button>
-              </div>
-            </div>
+              <span className="a26-flashcard-hint">Avalie seu conhecimento abaixo</span>
+            </A26Surface>
           </div>
+
+          {isFlipped ? (
+            <A26Button
+              variant="ghost"
+              className="a26-flashcard-tutor-action"
+              onClick={() => handleExplainWithAI(currentCard)}
+              icon={<LineIcon name="spark" />}
+            >
+              ✨ Explicar com Tutor IA
+            </A26Button>
+          ) : null}
         </div>
 
         {/* Anki Rating Controls */}
-          <div className="a26-anki-controls flex items-center justify-center gap-3 mt-4">
-            <button
+          <A26Toolbar label="Avaliação do cartão" className="a26-anki-controls">
+            <A26Button
               type="button"
-              className="a26-anki-btn"
+              variant="ghost"
+              aria-label="Cartão anterior"
               onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
               disabled={currentIndex === 0}
             >
               ‹
-            </button>
+            </A26Button>
 
-            <button
+            <A26Button
               type="button"
-              className="a26-anki-btn is-wrong"
+              variant="danger"
               onClick={() => handleRateCard("wrong")}
+              disabled={Boolean(feedbackState)}
             >
               ✕ Errei
-            </button>
+            </A26Button>
 
-            <button
+            <A26Button
               type="button"
-              className="a26-anki-btn is-correct"
+              variant="liquid"
               onClick={() => handleRateCard("correct")}
+              disabled={Boolean(feedbackState)}
             >
               ✓ Acertei
-            </button>
+            </A26Button>
 
-            <button
+            <A26Button
               type="button"
-              className="a26-anki-btn"
+              variant="ghost"
+              aria-label="Próximo cartão"
               onClick={() => setCurrentIndex(prev => Math.min(activeDeck.cards.length - 1, prev + 1))}
               disabled={currentIndex === activeDeck.cards.length - 1}
             >
               ›
-            </button>
-          </div>
+            </A26Button>
+          </A26Toolbar>
         </div>
       )}
 
