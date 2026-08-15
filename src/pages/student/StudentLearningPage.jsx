@@ -15,6 +15,7 @@ import { useDashboardData } from "../../features/dashboard/hooks/useDashboardDat
 import { getFavoriteModels } from "../../services/progressService";
 import { useAtlasAITutorSession } from "../../context/AtlasAITutorSessionContext";
 import AtlasAIConversation from "../../features/atlas-viewer/ai/AtlasAIConversation";
+import SocraticClinicalCaseModal from "../../features/dashboard/components/SocraticClinicalCaseModal";
 import "./StudentLearningPage.css";
 
 const sectionDefinitions = Object.freeze({
@@ -504,10 +505,12 @@ function StudentAITutorStudio() {
     setShowAddTagInput(false);
   };
 
-  const handleStartClinicalCase = () => {
+  const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
+
+  const handleStartClinicalCasePrompt = ({ prompt, specialtyLabel, difficultyLabel }) => {
     sendMessage({
-      text: "Apresente 1 Caso Clínico Médico Socrático em 3 etapas (1. História Clínica do Paciente, 2. Pergunta Anatômica de Diagnóstico e 3. Gabarito Acadêmico). Use somente fontes recuperadas e verificáveis da base privada; se não houver fonte disponível, informe isso claramente e não invente capítulo ou página.",
-      contextLabel: "Caso Clínico Socrático"
+      text: prompt,
+      contextLabel: `Caso Socrático · ${specialtyLabel} (${difficultyLabel})`
     });
   };
 
@@ -626,7 +629,7 @@ function StudentAITutorStudio() {
           <div className="flex items-center gap-3">
             <A26Button
               variant="liquid"
-              onClick={handleStartClinicalCase}
+              onClick={() => setIsCaseModalOpen(true)}
               disabled={isThinking}
             >
               Gerar Caso Clínico Socrático
@@ -654,6 +657,12 @@ function StudentAITutorStudio() {
           />
         </div>
       </A26Card>
+
+      <SocraticClinicalCaseModal
+        isOpen={isCaseModalOpen}
+        onClose={() => setIsCaseModalOpen(false)}
+        onStartCase={handleStartClinicalCasePrompt}
+      />
     </div>
   );
 }
