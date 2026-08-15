@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import LineIcon from "../../../components/icons/LineIcon";
 import { RichContentParser } from "./NotebookLMRenderers";
+import SpatialAIGuidanceCard from "./SpatialAIGuidanceCard";
 import "./AtlasAIViewerPanel.css";
 import "./AtlasAIConversation.css";
 
@@ -282,6 +283,9 @@ export default function AtlasAIConversation({
                     </div>
                   ) : null}
                   <MessageText text={message.text} />
+                  {message.sender === "ai" && (
+                    <SpatialAIGuidanceCard text={message.text} currentPath={typeof window !== "undefined" ? window.location.pathname : ""} />
+                  )}
                 </div>
 
                 {actionLabel && onAction ? (

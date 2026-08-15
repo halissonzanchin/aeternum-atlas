@@ -2,7 +2,7 @@ import { supabase } from "../lib/supabase";
 import { getUserInstitutionId, normalizeRole, ROLES } from "./permissions/permissionService";
 import { isSupabaseConfigured } from "./supabase/supabaseClient";
 import { sanitizeText } from "../utils/validators";
-import { findLocalModel, normalizeModelIdentifier } from "../data/localModels";
+import { findLocalModel, mergeCatalogWithLocalModels, normalizeModelIdentifier } from "../data/localModels";
 
 const MODEL_SELECT = [
   "id",
@@ -237,8 +237,9 @@ async function loadModelsQuery(user, options = {}) {
   const newModels = (resNew.data || []).map(mapSupabaseModelToUIModel);
 
   const allModels = [...newModels, ...oldModels];
+  const mergedModels = mergeCatalogWithLocalModels(allModels, options);
 
-  return allModels.filter(model => includeInactive || model.isActive);
+  return mergedModels.filter(model => includeInactive || model.isActive);
 }
 
 export async function listModelsForUser(user, options = {}) {
