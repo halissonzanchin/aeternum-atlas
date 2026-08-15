@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import LineIcon from "../../../components/icons/LineIcon";
 import { A26Button } from "../../../components/aeternum-26";
+import "./SocraticClinicalCaseModal.css";
 
 const SPECIALTIES = [
-  { id: "ortopedia", label: "Ortopedia & Traumatologia", icon: "activity", desc: "Fraturas, articulações, tendões e lesões de membros" },
-  { id: "neurologia", label: "Neurologia & Neurocirurgia", icon: "spark", desc: "Plexos nervosos, nervos cranianos e SNC" },
-  { id: "cirurgia", label: "Cirurgia Geral & Anatomia Topográfica", icon: "layers", desc: "Parede abdominal, triângulos anatômicos e vísceras" },
-  { id: "cardiologia", label: "Cardiologia & Sistema Vascular", icon: "heart", desc: "Vascularização cardíaca, aorta e grandes vasos" },
-  { id: "ginecologia", label: "Ginecologia & Anatomia Pélvica", icon: "compass", desc: "Pelve feminina, assoalho pélvico e retroperitônio" }
+  { id: "ortopedia", label: "Ortopedia & Traumatologia", desc: "Fraturas, articulações, tendões e lesões de membros" },
+  { id: "neurologia", label: "Neurologia & Neurocirurgia", desc: "Plexos nervosos, nervos cranianos e SNC" },
+  { id: "cirurgia", label: "Cirurgia Geral & Anatomia Topográfica", desc: "Parede abdominal, triângulos anatômicos e vísceras" },
+  { id: "cardiologia", label: "Cardiologia & Sistema Vascular", desc: "Vascularização cardíaca, aorta e grandes vasos" },
+  { id: "ginecologia", label: "Ginecologia & Anatomia Pélvica", desc: "Pelve feminina, assoalho pélvico e retroperitônio" }
 ];
 
 const DIFFICULTY_LEVELS = [
@@ -52,44 +53,38 @@ export default function SocraticClinicalCaseModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-blackDeep/80 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-xl p-6 bg-surfaceDark/95 border border-glassBorder rounded-2xl shadow-2xl backdrop-blur-xl text-clinicalWhite space-y-5">
+    <div className="a26-socratic-modal-backdrop" onClick={onClose}>
+      <div className="a26-socratic-modal-card" onClick={(e) => e.stopPropagation()}>
         {/* Modal Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-glassBorder/40">
+        <div className="a26-socratic-modal-header">
           <div>
-            <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest block">Simulador de Medicina Socrática</span>
-            <h3 className="text-lg font-bold text-agedGold font-serif">Gerar Caso Clínico Interativo</h3>
+            <span className="a26-socratic-modal-kicker">Simulador de Medicina Socrática</span>
+            <h3 className="a26-socratic-modal-title">Gerar Caso Clínico Interativo</h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-textMuted hover:text-white hover:bg-white/10 transition-all"
+            style={{ background: 'transparent', border: 0, color: '#94a3b8', cursor: 'pointer' }}
           >
             <LineIcon name="close" className="w-5 h-5" />
           </button>
         </div>
 
         {/* Modal Body */}
-        <div className="space-y-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* 1. Escolha da Especialidade */}
           <div>
-            <label className="block text-xs uppercase tracking-wider text-amber-300 font-semibold mb-2">
-              1. Selecionar Especialidade Médica:
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <span className="a26-socratic-section-title">1. Selecionar Especialidade Médica:</span>
+            <div className="a26-socratic-grid">
               {SPECIALTIES.map((spec) => (
                 <button
                   key={spec.id}
                   type="button"
                   onClick={() => setSpecialty(spec.id)}
-                  className={`p-3 text-left rounded-xl border text-xs transition-all ${
-                    specialty === spec.id
-                      ? "bg-amber-500/20 border-amber-400 text-white font-bold shadow-glowGold"
-                      : "bg-blackDeep/40 border-glassBorder/40 text-textMuted hover:border-glassBorder hover:text-white"
-                  }`}
+                  className={`a26-socratic-choice-btn ${specialty === spec.id ? "is-selected" : ""}`}
                 >
-                  <div className="font-semibold text-clinicalWhite">{spec.label}</div>
-                  <div className="text-[10px] text-textMuted mt-0.5">{spec.desc}</div>
+                  <div className="a26-socratic-choice-title">{spec.label}</div>
+                  <div className="a26-socratic-choice-desc">{spec.desc}</div>
                 </button>
               ))}
             </div>
@@ -97,26 +92,20 @@ export default function SocraticClinicalCaseModal({
 
           {/* 2. Escolha da Dificuldade */}
           <div>
-            <label className="block text-xs uppercase tracking-wider text-amber-300 font-semibold mb-2">
-              2. Nível de Complexidade Acadêmica:
-            </label>
-            <div className="space-y-2">
+            <span className="a26-socratic-section-title">2. Nível de Complexidade Acadêmica:</span>
+            <div className="a26-socratic-diff-stack">
               {DIFFICULTY_LEVELS.map((diff) => (
                 <button
                   key={diff.id}
                   type="button"
                   onClick={() => setDifficulty(diff.id)}
-                  className={`w-full p-2.5 text-left rounded-xl border text-xs transition-all flex items-center justify-between ${
-                    difficulty === diff.id
-                      ? "bg-teal-500/20 border-teal-400 text-white font-bold shadow-glowTeal"
-                      : "bg-blackDeep/40 border-glassBorder/40 text-textMuted hover:border-glassBorder hover:text-white"
-                  }`}
+                  className={`a26-socratic-diff-btn ${difficulty === diff.id ? "is-selected" : ""}`}
                 >
                   <div>
-                    <span className="font-semibold text-clinicalWhite block">{diff.label}</span>
-                    <span className="text-[10px] text-textMuted">{diff.desc}</span>
+                    <span className="a26-socratic-choice-title">{diff.label}</span>
+                    <span className="a26-socratic-choice-desc" style={{ display: 'block' }}>{diff.desc}</span>
                   </div>
-                  {difficulty === diff.id ? <span className="text-teal-300 text-sm font-bold">✓</span> : null}
+                  {difficulty === diff.id ? <span style={{ color: '#5ce8df', fontWeight: 'bold' }}>✓</span> : null}
                 </button>
               ))}
             </div>
@@ -124,23 +113,23 @@ export default function SocraticClinicalCaseModal({
 
           {/* 3. Vínculo com Modelo 3D se disponível */}
           {currentModelTitle && (
-            <div className="p-3 bg-teal-950/40 border border-teal-500/40 rounded-xl flex items-center justify-between">
+            <div className="a26-socratic-link-card">
               <div>
-                <span className="text-xs font-bold text-teal-300 block">Vincular ao Modelo 3D Atual</span>
-                <span className="text-[11px] text-textMuted">{currentModelTitle}</span>
+                <span style={{ fontWeight: 'bold', display: 'block' }}>Vincular ao Modelo 3D Atual</span>
+                <span style={{ fontSize: '11px', color: '#94a3b8' }}>{currentModelTitle}</span>
               </div>
               <input
                 type="checkbox"
                 checked={useCurrentModel}
                 onChange={(e) => setUseCurrentModel(e.target.checked)}
-                className="w-4 h-4 accent-teal-400 cursor-pointer"
+                style={{ width: '16px', height: '16px', cursor: 'pointer' }}
               />
             </div>
           )}
         </div>
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-end gap-3 pt-3 border-t border-glassBorder/40">
+        <div className="a26-socratic-footer">
           <A26Button variant="ghost" onClick={onClose}>
             Cancelar
           </A26Button>
