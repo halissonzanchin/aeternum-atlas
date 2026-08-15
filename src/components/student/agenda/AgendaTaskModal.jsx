@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
+import { createPortal } from "react-dom";
 import {
   agendaAnatomicalSystems,
   agendaEventTypes,
@@ -112,7 +113,7 @@ export default function AgendaTaskModal({ open, selectedDate, event, onClose, on
     }
   }
 
-  return (
+  const modal = (
     <div
       className="agenda-modal-backdrop"
       role="presentation"
@@ -265,4 +266,6 @@ export default function AgendaTaskModal({ open, selectedDate, event, onClose, on
       </A26Surface>
     </div>
   );
+
+  return createPortal(modal, document.body);
 }

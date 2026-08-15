@@ -75,6 +75,11 @@ test("activity creation validates chronology and waits for persistence", () => {
   assert.match(taskModal, /Salvando/);
 });
 
+test("activity modal escapes animated page containers on compact viewports", () => {
+  assert.match(taskModal, /createPortal/);
+  assert.match(taskModal, /createPortal\(modal, document\.body\)/);
+});
+
 test("agenda exposes anatomical filtering and visible daily insights", () => {
   assert.match(sidebar, /agendaAnatomicalSystems/);
   assert.match(sidebar, /selectedSystem/);
