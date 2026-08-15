@@ -17,6 +17,7 @@ import {
   roleTranslationKey,
   shellNavigationForRole
 } from "./shellNavigation";
+import { searchGlobalContent } from "../../services/globalSearchService";
 
 export default function AppLayout({ user, path, navigate, onLogout, children }) {
   const { t } = useLanguage();
@@ -37,11 +38,20 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
   const currentRoute = useMemo(() => currentShellRoute(items, path, t), [items, path, t]);
   const roleLabel = t(roleTranslationKey(user?.role));
   const profileItem = items.find(item => item.href.includes("profile"));
-  const normalizedQuery = query.trim().toLocaleLowerCase();
-  const searchOpen = searchExpanded || Boolean(query);
-  const searchResults = normalizedQuery
-    ? items.filter(item => item.label.toLocaleLowerCase().includes(normalizedQuery)).slice(0, 6)
-    : [];
+  const normalizedQuery = query.trim();
+  const searchOpen = searchExpanded || Boolean(normalizedQuery);
+  
+  const searchCategorizedResults = useMemo(
+    () => searchGlobalContent(normalizedQuery, items),
+    [normalizedQuery, items]
+  );
+
+  const hasAnyResults = Boolean(
+    searchCategorizedResults.models.length ||
+    searchCategorizedResults.structures.length ||
+    searchCategorizedResults.questionTopics.length ||
+    searchCategorizedResults.navigation.length
+  );
   const mobilePrimaryItems = items.slice(0, 3);
   const overlayOpen = mobileNavigationOpen;
 
@@ -95,12 +105,15 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
       if (!controlsRef.current?.contains(event.target)) {
         setNotificationsOpen(false);
         setProfileOpen(false);
+        if (!query.trim()) {
+          setSearchExpanded(false);
+        }
       }
     };
 
     document.addEventListener("pointerdown", onPointerDown);
     return () => document.removeEventListener("pointerdown", onPointerDown);
-  }, []);
+  }, [query]);
 
   function goTo(href) {
     setQuery("");
@@ -149,11 +162,6 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
             <div
               className={`a26-shell__search${searchOpen ? " is-expanded" : ""}`}
               role="search"
-              onBlur={(event) => {
-                if (!event.currentTarget.contains(event.relatedTarget) && !query.trim()) {
-                  setSearchExpanded(false);
-                }
-              }}
             >
               {searchOpen ? (
                 <>
@@ -172,17 +180,15 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
                     placeholder={t("common.searchPlaceholder")}
                   />
                   <kbd aria-label={t("shell.searchShortcut")}>/</kbd>
-                  {normalizedQuery ? (
-                    <A26IconButton
-                      label={t("shell.clearSearch")}
-                      icon="close"
-                      variant="ghost"
-                      onClick={() => {
-                        setQuery("");
-                        searchRef.current?.focus();
-                      }}
-                    />
-                  ) : null}
+                  <A26IconButton
+                    label={t("shell.clearSearch")}
+                    icon="close"
+                    variant="ghost"
+                    onClick={() => {
+                      setQuery("");
+                      setSearchExpanded(false);
+                    }}
+                  />
                 </>
               ) : (
                 <A26IconButton
@@ -204,22 +210,104 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
                   role="listbox"
                   aria-label={t("shell.searchResults")}
                 >
-                  {searchResults.length ? searchResults.map(item => (
-                    <button
-                      key={item.href}
-                      type="button"
-                      role="option"
-                      aria-selected={item.active}
-                      onClick={() => goTo(item.href)}
-                    >
-                      <LineIcon name={item.icon} className="h-4 w-4" />
-                      <span>{item.label}</span>
-                      {item.active ? <small>{t("shell.currentRoute")}</small> : null}
-                    </button>
-                  )) : (
+                  {hasAnyResults ? (
+                    <>
+                      {searchCategorizedResults.models.length ? (
+                        <div className="a26-shell__search-group">
+                          <div className="a26-shell__search-group-title">
+                            <LineIcon name="layers" className="h-3.5 w-3.5" />
+                            <span>Modelos 3D Cadavéricos</span>
+                          </div>
+                          {searchCategorizedResults.models.map(item => (
+                            <button
+                              key={`model-${item.id}`}
+                              type="button"
+                              role="option"
+                              onClick={() => goTo(item.href)}
+                            >
+                              <LineIcon name={item.icon} className="h-4 w-4 text-techTeal" />
+                              <div className="a26-shell__search-item-info">
+                                <span className="a26-shell__search-item-title">{item.title}</span>
+                                <span className="a26-shell__search-item-subtitle">{item.subtitle}</span>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      ) : null}
+
+                      {searchCategorizedResults.structures.length ? (
+                        <div className="a26-shell__search-group">
+                          <div className="a26-shell__search-group-title">
+                            <LineIcon name="activity" className="h-3.5 w-3.5" />
+                            <span>Estruturas Anatômicas</span>
+                          </div>
+                          {searchCategorizedResults.structures.map(item => (
+                            <button
+                              key={`struct-${item.id}`}
+                              type="button"
+                              role="option"
+                              onClick={() => goTo(item.href)}
+                            >
+                              <LineIcon name={item.icon} className="h-4 w-4 text-a26Gold" />
+                              <div className="a26-shell__search-item-info">
+                                <span className="a26-shell__search-item-title">{item.title}</span>
+                                <span className="a26-shell__search-item-subtitle">{item.subtitle}</span>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      ) : null}
+
+                      {searchCategorizedResults.questionTopics.length ? (
+                        <div className="a26-shell__search-group">
+                          <div className="a26-shell__search-group-title">
+                            <LineIcon name="book" className="h-3.5 w-3.5" />
+                            <span>Banco Latarjet & Questões</span>
+                          </div>
+                          {searchCategorizedResults.questionTopics.map(item => (
+                            <button
+                              key={`topic-${item.id}`}
+                              type="button"
+                              role="option"
+                              onClick={() => goTo(item.href)}
+                            >
+                              <LineIcon name={item.icon} className="h-4 w-4 text-techTeal" />
+                              <div className="a26-shell__search-item-info">
+                                <span className="a26-shell__search-item-title">{item.title}</span>
+                                <span className="a26-shell__search-item-subtitle">{item.subtitle}</span>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      ) : null}
+
+                      {searchCategorizedResults.navigation.length ? (
+                        <div className="a26-shell__search-group">
+                          <div className="a26-shell__search-group-title">
+                            <LineIcon name="compass" className="h-3.5 w-3.5" />
+                            <span>Ferramentas & Páginas</span>
+                          </div>
+                          {searchCategorizedResults.navigation.map(item => (
+                            <button
+                              key={`nav-${item.href}`}
+                              type="button"
+                              role="option"
+                              onClick={() => goTo(item.href)}
+                            >
+                              <LineIcon name={item.icon} className="h-4 w-4 text-white/70" />
+                              <div className="a26-shell__search-item-info">
+                                <span className="a26-shell__search-item-title">{item.title}</span>
+                                <span className="a26-shell__search-item-subtitle">{item.subtitle}</span>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      ) : null}
+                    </>
+                  ) : (
                     <div className="a26-shell__search-empty">
                       <LineIcon name="search" className="h-5 w-5" />
-                      <span>{t("shell.noSearchResults")}</span>
+                      <span>Nenhum conteúdo anatômico ou página encontrada para &quot;{normalizedQuery}&quot;</span>
                     </div>
                   )}
                 </A26Surface>
