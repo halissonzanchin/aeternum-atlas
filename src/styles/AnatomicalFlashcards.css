@@ -163,11 +163,33 @@
   transform: rotateY(180deg);
 }
 
-.a26-flashcard-tutor-action {
-  position: absolute;
-  right: clamp(24px, 4vw, 38px);
-  bottom: clamp(24px, 4vw, 38px);
-  z-index: 12;
+.a26-flashcard-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding-top: 14px;
+  border-top: 1px solid rgba(155, 245, 237, 0.12);
+  margin-top: auto;
+  z-index: 5;
+}
+
+.a26-flashcard-tutor-btn.a26-button {
+  min-height: 36px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  white-space: nowrap;
+  background: linear-gradient(135deg, rgba(92, 232, 223, 0.18), rgba(213, 183, 101, 0.14));
+  border: 1px solid rgba(92, 232, 223, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+
+.a26-flashcard-tutor-btn.a26-button:hover {
+  background: linear-gradient(135deg, rgba(92, 232, 223, 0.32), rgba(213, 183, 101, 0.25));
+  border-color: rgba(92, 232, 223, 0.6);
+  transform: translateY(-1px);
 }
 
 .a26-flashcard-header {

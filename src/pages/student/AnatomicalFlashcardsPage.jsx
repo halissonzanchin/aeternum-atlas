@@ -458,50 +458,56 @@ export default function AnatomicalFlashcardsPage({ user }) {
               tabIndex={0}
               aria-label={isFlipped ? "Mostrar pergunta" : "Mostrar resposta"}
             >
-              {/* Front Side - Minimal & Clean (NotebookLM Pattern) */}
-            <A26Surface material="regular" tone="teal" className="a26-flashcard-face a26-flashcard-face--front">
-              <div className="a26-flashcard-header">
-                <span className="a26-kicker">Frente</span>
-                <span className="a26-flashcard-citation">{currentCard.topic}</span>
-              </div>
+                {/* Front Side - Minimal & Clean (NotebookLM Pattern) */}
+              <A26Surface material="regular" tone="teal" className="a26-flashcard-face a26-flashcard-face--front">
+                <div className="a26-flashcard-header">
+                  <span className="a26-kicker">Frente</span>
+                  <span className="a26-flashcard-citation">{currentCard.topic}</span>
+                </div>
 
-              <div className="a26-flashcard-body">
-                {currentCard.imageUrl && (
-                  <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
-                )}
-                <p className="a26-flashcard-text">{currentCard.front}</p>
-              </div>
+                <div className="a26-flashcard-body">
+                  {currentCard.imageUrl && (
+                    <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
+                  )}
+                  <p className="a26-flashcard-text">{currentCard.front}</p>
+                </div>
 
-              <span className="a26-flashcard-hint">Veja a resposta</span>
-            </A26Surface>
+                <div className="a26-flashcard-footer">
+                  <span className="a26-flashcard-hint">Veja a resposta (Clique ou Espaço)</span>
+                </div>
+              </A26Surface>
 
-            {/* Back Side - Direct Answer & Tutor AI Action */}
-            <A26Surface material="regular" tone="gold" className="a26-flashcard-face a26-flashcard-face--back">
-              <div className="a26-flashcard-header">
-                <span className="a26-kicker text-agedGold">Verso · Resposta</span>
-                <span className="a26-flashcard-citation">{currentCard.sourceCitation}</span>
-              </div>
+              {/* Back Side - Direct Answer & Tutor AI Action */}
+              <A26Surface material="regular" tone="gold" className="a26-flashcard-face a26-flashcard-face--back">
+                <div className="a26-flashcard-header">
+                  <span className="a26-kicker text-agedGold">Verso · Resposta</span>
+                  <span className="a26-flashcard-citation">{currentCard.sourceCitation}</span>
+                </div>
 
-              <div className="a26-flashcard-body">
-                <p className="a26-flashcard-text text-teal-300 font-bold text-xl">{currentCard.back}</p>
-                {currentCard.explanation ? <p className="a26-flashcard-explanation">{currentCard.explanation}</p> : null}
-              </div>
+                <div className="a26-flashcard-body">
+                  <p className="a26-flashcard-text text-teal-300 font-bold text-xl">{currentCard.back}</p>
+                  {currentCard.explanation ? <p className="a26-flashcard-explanation">{currentCard.explanation}</p> : null}
+                </div>
 
-              <span className="a26-flashcard-hint">Avalie seu conhecimento abaixo</span>
-            </A26Surface>
+                <div className="a26-flashcard-footer">
+                  <span className="a26-flashcard-hint">Avalie seu conhecimento abaixo</span>
+                  <A26Button
+                    type="button"
+                    variant="liquid"
+                    size="sm"
+                    className="a26-flashcard-tutor-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleExplainWithAI(currentCard);
+                    }}
+                    icon={<LineIcon name="spark" />}
+                  >
+                    ✨ Explicar com Tutor IA
+                  </A26Button>
+                </div>
+              </A26Surface>
+            </div>
           </div>
-
-          {isFlipped ? (
-            <A26Button
-              variant="ghost"
-              className="a26-flashcard-tutor-action"
-              onClick={() => handleExplainWithAI(currentCard)}
-              icon={<LineIcon name="spark" />}
-            >
-              ✨ Explicar com Tutor IA
-            </A26Button>
-          ) : null}
-        </div>
 
         {/* Anki Rating Controls */}
           <A26Toolbar label="Avaliação do cartão" className="a26-anki-controls">
