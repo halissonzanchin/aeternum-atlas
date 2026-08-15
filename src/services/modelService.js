@@ -388,7 +388,24 @@ export async function resolveModelIdentity(identifier, user = null, options = {}
       }
     }
 
-    identity.warnings.push("Modelo não encontrado no catálogo autorizado do Supabase.");
+    // 4. Fallback para Catálogo Local de Referência (garante que modelos como o Reprodutor Feminino abram 100% das vezes)
+    const localModel = findLocalModel(identifier) || findLocalModel(normalizedIdentifier);
+    if (localModel) {
+      const mappedLocal = normalizeViewerModelAsset({
+        ...localModel,
+        catalogSource: "local_reference"
+      });
+      identity.modelRecord = mappedLocal;
+      identity.modelUuid = localModel.id || localModel.slug;
+      identity.slug = localModel.slug || localModel.id;
+      identity.source = "local_reference";
+      identity.isUuidResolved = false;
+
+      modelIdentityCache.set(identifier, identity);
+      return identity;
+    }
+
+    identity.warnings.push("Modelo não encontrado no catálogo autorizado do Supabase nem no catálogo local.");
 
   } catch (err) {
     console.error("[resolveModelIdentity] Erro:", err);
