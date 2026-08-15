@@ -25,6 +25,7 @@ function buildTutorContext(context = {}) {
       || null,
     markers: Array.isArray(context.markers) ? context.markers : [],
     activePanel: context.markerOpen ? 'markers' : 'none',
+    knowledgeGraphPrompt: context.knowledgeGraphPrompt || null,
     availableActions: model.id || activeStructure.id
       ? [
         'CLOSE_PANELS',

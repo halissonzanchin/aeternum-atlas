@@ -226,9 +226,23 @@ export function AtlasAITutorSessionProvider({ children, user }) {
     setIsThinking(true);
 
     try {
+      // Grafo de Conhecimento Anatômico - Injeção Dinâmica de Contexto Relacional Latarjet
+      let graphContextPrompt = "";
+      try {
+        const { buildGraphContextPrompt } = await import("../services/ai/anatomicalKnowledgeGraphService");
+        graphContextPrompt = buildGraphContextPrompt(normalizedText);
+      } catch (e) {
+        console.warn("[KnowledgeGraph] Grafo indisponível nesta requisição", e);
+      }
+
+      const enrichedContext = {
+        ...context,
+        knowledgeGraphPrompt: graphContextPrompt || null
+      };
+
       const response = await atlasAITutorService.processMessageStream(
         normalizedText,
-        context,
+        enrichedContext,
         (chunkText) => updateMessage(aiMessageId, {
           text: chunkText,
           isStreaming: true
