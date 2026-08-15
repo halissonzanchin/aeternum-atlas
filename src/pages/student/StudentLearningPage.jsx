@@ -627,10 +627,9 @@ function StudentAITutorStudio() {
             <A26Button
               variant="liquid"
               onClick={handleStartClinicalCase}
-              icon={<LineIcon name="spark" />}
               disabled={isThinking}
             >
-              🩺 Gerar Caso Clínico Socrático
+              Gerar Caso Clínico Socrático
             </A26Button>
             {filterQuery ? (
               <span className="text-xs text-amber-300 font-mono bg-amber-950/60 px-3 py-1.5 rounded-full border border-amber-500/30">
