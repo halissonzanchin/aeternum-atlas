@@ -272,31 +272,78 @@ export function findLocalModel(id) {
   return LOCAL_MODELS.find((model) => normalizeModelIdentifier(model.id) === normalizedId || normalizeModelIdentifier(model.slug) === normalizedId) || null;
 }
 
+export function getCanonicalModelFamilyKey(model) {
+  if (!model) return "unknown";
+  const title = String(model.title || model.shortTitle || "").toLowerCase();
+  const slug = String(model.slug || model.id || "").toLowerCase();
+
+  if (
+    title.includes("crânio") ||
+    title.includes("cranio") ||
+    slug.includes("cranio") ||
+    slug.includes("cranial")
+  ) {
+    return CRANIAL_MODEL_SLUG;
+  }
+
+  if (
+    title.includes("reprodutor feminino") ||
+    title.includes("ginecologia") ||
+    slug.includes("reprodutor-feminino") ||
+    slug.includes("female-reproductive")
+  ) {
+    return FEMALE_REPRODUCTIVE_MODEL_SLUG;
+  }
+
+  if (
+    title.includes("coração") ||
+    title.includes("coracao") ||
+    slug.includes("coracao") ||
+    slug.includes("heart")
+  ) {
+    return HEART_MODEL_SLUG;
+  }
+
+  return normalizeModelIdentifier(slug || title);
+}
+
 export function mergeCatalogWithLocalModels(models = [], { includeInactive = false } = {}) {
-  const bySlug = new Map();
+  const canonicalMap = new Map();
 
-  models.forEach((model) => {
-    if (includeInactive || model.isActive) {
-      const normalized = normalizeModelIdentifier(model.slug || model.id);
-      // Ocultar modelo duplicado antigo do coração
-      if (normalized === 'coracao-humano-superficial') {
-        return;
-      }
-      bySlug.set(normalized, model);
-    }
+  // 1. Inserir primeiro os modelos locais canônicos padrão (garante integridade completa dos 3 modelos)
+  LOCAL_MODELS.forEach((localModel) => {
+    const familyKey = getCanonicalModelFamilyKey(localModel);
+    canonicalMap.set(familyKey, {
+      ...localModel,
+      catalogSource: "local_reference"
+    });
   });
 
-  LOCAL_MODELS.forEach((model) => {
-    const normalized = normalizeModelIdentifier(model.slug || model.id);
-    if ((includeInactive || model.isActive) && !bySlug.has(normalized)) {
-      bySlug.set(normalized, {
-        ...model,
-        catalogSource: "local_reference"
+  // 2. Mesclar registros do Supabase, enriquecendo o modelo canônico correspondente sem duplicar
+  (models || []).forEach((remoteModel) => {
+    if (!includeInactive && remoteModel.isActive === false) return;
+
+    const familyKey = getCanonicalModelFamilyKey(remoteModel);
+    const existing = canonicalMap.get(familyKey);
+
+    if (existing) {
+      canonicalMap.set(familyKey, {
+        ...existing,
+        id: existing.id || remoteModel.id,
+        slug: existing.slug || remoteModel.slug,
+        embedUrl: remoteModel.embedUrl || remoteModel.sketchfabEmbedUrl || existing.embedUrl,
+        sketchfabEmbedUrl: remoteModel.sketchfabEmbedUrl || remoteModel.embedUrl || existing.sketchfabEmbedUrl,
+        sketchfabUrl: remoteModel.sketchfabUrl || existing.sketchfabUrl,
+        thumbnailUrl: remoteModel.thumbnailUrl || existing.thumbnailUrl,
+        coverImageUrl: remoteModel.coverImageUrl || existing.coverImageUrl,
+        catalogSource: remoteModel.catalogSource || "supabase"
       });
+    } else {
+      canonicalMap.set(familyKey, remoteModel);
     }
   });
 
-  return Array.from(bySlug.values());
+  return Array.from(canonicalMap.values());
 }
 
 export function getLocalModelAnnotations(modelId) {
