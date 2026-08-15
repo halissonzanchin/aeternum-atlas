@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import LineIcon from "../../../components/icons/LineIcon";
 import { A26Button } from "../../../components/aeternum-26";
 import "./SocraticClinicalCaseModal.css";
@@ -27,7 +28,7 @@ export default function SocraticClinicalCaseModal({
   const [difficulty, setDifficulty] = useState("clinico");
   const [useCurrentModel, setUseCurrentModel] = useState(Boolean(currentModelTitle));
 
-  if (!isOpen) return null;
+  if (!isOpen || typeof document === "undefined") return null;
 
   const handleGenerate = () => {
     const specObj = SPECIALTIES.find(s => s.id === specialty);
@@ -52,7 +53,7 @@ export default function SocraticClinicalCaseModal({
     onClose();
   };
 
-  return (
+  return createPortal(
     <div className="a26-socratic-modal-backdrop" onClick={onClose}>
       <div className="a26-socratic-modal-card" onClick={(e) => e.stopPropagation()}>
         {/* Modal Header */}
@@ -138,6 +139,7 @@ export default function SocraticClinicalCaseModal({
           </A26Button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

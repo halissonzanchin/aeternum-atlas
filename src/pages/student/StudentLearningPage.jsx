@@ -470,7 +470,7 @@ function StudentAITutorStudio() {
   const aiAnswersCount = useMemo(() => messages.filter((m) => m.sender === "ai").length, [messages]);
   const totalDialogues = userQuestionsCount + aiAnswersCount;
 
-  // Extract ONLY topics that were ACTUALLY mentioned by the user in this session
+  // Extract ONLY real anatomical topics mentioned by the user in this session
   const autoSessionTopics = useMemo(() => {
     const userTexts = messages
       .filter((m) => m.sender === "user")
@@ -479,9 +479,12 @@ function StudentAITutorStudio() {
     
     // Extract key capitalized medical terms or unique words
     const words = userTexts.match(/\b[A-ZÁÉÍÓÚÂÊÔÃÕÇ][a-záéíóúâêôãõç]{3,}\b/g) || [];
-    const unique = Array.from(new Set(words)).filter(
-      (w) => !["Como", "Qual", "Sobre", "Para", "Onde", "Saber", "Gostaria", "Explique", "Apresente"].includes(w)
-    );
+    const stopWords = [
+      "Próximo", "Crie", "Gere", "Criar", "Relatório", "Documento", "Resumo", "Geral", 
+      "Atue", "Estrutura", "Fase", "Caso", "Socrático", "Médico", "Pergunta", "Resposta", 
+      "Como", "Qual", "Sobre", "Para", "Onde", "Saber", "Gostaria", "Explique", "Apresente"
+    ];
+    const unique = Array.from(new Set(words)).filter((w) => !stopWords.includes(w));
     return unique.slice(0, 8);
   }, [messages]);
 
@@ -508,6 +511,7 @@ function StudentAITutorStudio() {
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
 
   const handleStartClinicalCasePrompt = ({ prompt, specialtyLabel, difficultyLabel }) => {
+    setFilterQuery("");
     sendMessage({
       text: prompt,
       contextLabel: `Caso Socrático · ${specialtyLabel} (${difficultyLabel})`
@@ -622,8 +626,8 @@ function StudentAITutorStudio() {
           <div className="flex items-center gap-3">
             <span className="w-3.5 h-3.5 rounded-full bg-teal-400 animate-pulse shadow-glowTeal" />
             <div>
-              <h2 className="text-base font-bold text-agedGold tracking-wide">Estúdio Completo de Diálogos do Tutor IA</h2>
-              <p className="text-xs text-textMuted">Histórico completo de perguntas, pesquisas e respostas médicas sincronizado em tempo real</p>
+              <h2 style={{ color: '#f3d789', fontSize: '1rem', fontWeight: 700, letterSpacing: '0.025em', margin: 0 }}>Estúdio Completo de Diálogos do Tutor IA</h2>
+              <p style={{ color: 'rgba(218, 251, 248, 0.75)', fontSize: '0.75rem', margin: '2px 0 0' }}>Histórico completo de perguntas, pesquisas e respostas médicas sincronizado em tempo real</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
