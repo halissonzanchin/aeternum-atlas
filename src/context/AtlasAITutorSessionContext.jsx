@@ -7,11 +7,14 @@ import React, {
   useRef,
   useState
 } from "react";
-import { atlasAITutorService } from "../features/atlas-viewer/ai/atlasAITutorService";
+import {
+  atlasAITutorService,
+  sanitizeTutorDisplayText
+} from "../features/atlas-viewer/ai/atlasAITutorService";
 import { getSupabaseClient, isSupabaseConfigured } from "../services/supabase/supabaseClient";
 
 const STORAGE_VERSION = 2;
-const MAX_MESSAGES = 80;
+const MAX_MESSAGES = 160;
 const DEFAULT_WELCOME_MESSAGE = {
   id: "atlas-ai-welcome",
   sender: "ai",
@@ -38,7 +41,9 @@ function normalizeStoredMessages(messages) {
     .map((message) => ({
       id: message.id || createMessageId(message.sender || "message"),
       sender: message.sender === "user" ? "user" : "ai",
-      text: message.text,
+      text: message.sender === "user"
+        ? message.text
+        : sanitizeTutorDisplayText(message.text),
       action: message.action || null,
       payload: message.payload ?? null,
       contextLabel: message.contextLabel || null,
@@ -113,7 +118,9 @@ export function AtlasAITutorSessionProvider({ children, user }) {
     const normalizedMessage = {
       id: message.id || createMessageId(message.sender || "message"),
       sender: message.sender === "user" ? "user" : "ai",
-      text: message.text || "",
+      text: message.sender === "user"
+        ? message.text || ""
+        : sanitizeTutorDisplayText(message.text),
       action: message.action || null,
       payload: message.payload ?? null,
       contextLabel: message.contextLabel || null,
@@ -168,7 +175,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         .select("id, role, content, created_at")
         .eq("conversation_id", remoteConversationId)
         .eq("user_id", user.id)
-        .order("created_at", { ascending: true })
+        .order("created_at", { ascending: false })
         .limit(MAX_MESSAGES - 1);
 
       if (messagesError || cancelled) return;
@@ -176,10 +183,12 @@ export function AtlasAITutorSessionProvider({ children, user }) {
       if (remoteMessages?.length) {
         commitMessages([
           DEFAULT_WELCOME_MESSAGE,
-          ...remoteMessages.map((message) => ({
+          ...remoteMessages.slice().reverse().map((message) => ({
             id: message.id,
             sender: message.role === "user" ? "user" : "ai",
-            text: message.content,
+            text: message.role === "user"
+              ? message.content
+              : sanitizeTutorDisplayText(message.content),
             createdAt: message.created_at,
             contextLabel: "Histórico sincronizado"
           }))
@@ -244,14 +253,14 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         normalizedText,
         enrichedContext,
         (chunkText) => updateMessage(aiMessageId, {
-          text: chunkText,
+          text: sanitizeTutorDisplayText(chunkText),
           isStreaming: true
         }),
         conversationId
       );
 
       updateMessage(aiMessageId, {
-        text: response.text,
+        text: sanitizeTutorDisplayText(response.text),
         action: response.action || null,
         payload: response.payload ?? null,
         isStreaming: false

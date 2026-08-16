@@ -28,6 +28,11 @@ const dashboard = await readFile(new URL("../src/pages/dashboard/Dashboard.jsx",
 const dashboardHook = await readFile(new URL("../src/features/dashboard/hooks/useDashboardData.js", import.meta.url), "utf8");
 const modelViewer = await readFile(new URL("../src/components/ModelViewer/ModelViewer.jsx", import.meta.url), "utf8");
 const analyticsService = await readFile(new URL("../src/services/analytics/analyticsService.js", import.meta.url), "utf8");
+const weeklyStudyChart = await readFile(new URL("../src/features/dashboard/components/WeeklyStudyChart.jsx", import.meta.url), "utf8");
+const progressDonut = await readFile(new URL("../src/components/Analytics/StrategicProgressDonut.jsx", import.meta.url), "utf8");
+const tutorSession = await readFile(new URL("../src/context/AtlasAITutorSessionContext.jsx", import.meta.url), "utf8");
+const tutorService = await readFile(new URL("../src/features/atlas-viewer/ai/atlasAITutorService.js", import.meta.url), "utf8");
+const dashboardCss = await readFile(new URL("../src/features/dashboard/components/StudentDashboard.css", import.meta.url), "utf8");
 
 const institutionAdmin = {
   id: "admin-contract",
@@ -196,4 +201,31 @@ test("a composição administrativa é responsiva, tátil e sem blur direto", ()
   assert.doesNotMatch(css, /(?:-webkit-)?backdrop-filter\s*:/);
   assert.match(foundationCss, /\.a26-button\s*\{[\s\S]*?min-height:\s*44px/);
   assert.match(css, /\.admin26-embedded-module button,[\s\S]*?min-height:\s*44px/);
+});
+
+test("Minha evolução preserva períodos legíveis e progresso proporcional aos dados", () => {
+  assert.match(weeklyStudyChart, /const MAX_VISIBLE_BARS = 12/);
+  assert.match(weeklyStudyChart, /function aggregateStudySeries\(data = \[\]\)/);
+  assert.match(weeklyStudyChart, /const renderedData = aggregateStudySeries\(data\)/);
+  assert.match(weeklyStudyChart, /gridTemplateColumns:\s*`repeat\(\$\{Math\.max\(renderedData\.length, 1\)\}, minmax\(0, 1fr\)\)`/);
+  assert.match(progressDonut, /className="donut-sector-track"/);
+  assert.match(progressDonut, /const activeEndAngle = sector\.startAngle \+ \(\(sector\.endAngle - sector\.startAngle\) \* sector\.percent\) \/ 100/);
+  assert.match(dashboardCss, /\.learning-period-switch\s*\{[\s\S]*?grid-template-columns:\s*repeat\(3, minmax\(0, 1fr\)\)/);
+});
+
+test("o histórico do Tutor é cronológico, ampliado e não exibe comandos internos", () => {
+  assert.match(tutorSession, /const MAX_MESSAGES = 160/);
+  assert.match(tutorSession, /\.order\(["']created_at["'], \{ ascending: false \}\)/);
+  assert.match(tutorSession, /remoteMessages\.slice\(\)\.reverse\(\)/);
+  assert.match(tutorSession, /sanitizeTutorDisplayText/);
+  assert.match(tutorService, /export function sanitizeTutorDisplayText/);
+  assert.match(tutorService, /ACTION_TOKEN_PATTERN/);
+  assert.match(tutorService, /PARTIAL_ACTION_TOKEN_PATTERN/);
+});
+
+test("o Viewer recebe o contêiner Liquid Glass sem reposicionar o token Atlas AI", () => {
+  assert.match(foundationCss, /\.atlas-crystal-viewer \.viewer-canvas-panel\.is-sketchfab-mode\s*\{/);
+  assert.match(foundationCss, /\.atlas-crystal-viewer \.viewer-control-strip\.viewer-model-actions\s*\{/);
+  assert.match(foundationCss, /\.atlas-crystal-viewer \.aa-viewer-shell\s*\{/);
+  assert.doesNotMatch(foundationCss, /\.atlas-crystal-viewer[^\n{]*(?:ai-orb|atlas-ai-token|atlas-ai-orb|ai-tutor-fab)[^{]*\{/i);
 });

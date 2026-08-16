@@ -6,6 +6,16 @@
 
 import { getSupabaseClient, supabaseConfig } from '../../../services/supabase/supabaseClient';
 
+const ACTION_TOKEN_PATTERN = /\[ACTION:([A-Z_]+)\]/g;
+const PARTIAL_ACTION_TOKEN_PATTERN = /\[ACTION(?::[A-Z_]*)?$/i;
+
+export function sanitizeTutorDisplayText(text) {
+  return String(text || '')
+    .replace(ACTION_TOKEN_PATTERN, '')
+    .replace(PARTIAL_ACTION_TOKEN_PATTERN, '')
+    .trim();
+}
+
 function buildTutorContext(context = {}) {
   const routeContext = context.routeContext || context.tutorContext || {};
   const model = context.model || {};
@@ -120,7 +130,7 @@ export const atlasAITutorService = {
           if (data.error) throw new Error(data.error);
           if (data.text) {
             fullText += data.text;
-            onUpdate?.(fullText);
+            onUpdate?.(sanitizeTutorDisplayText(fullText));
           }
           if (data.conversationId) remoteConversationId = data.conversationId;
           if (data.action) action = data.action;
@@ -131,8 +141,9 @@ export const atlasAITutorService = {
       const actionMatch = fullText.match(/\[ACTION:([A-Z_]+)\]/);
       if (actionMatch?.[1]) {
         action = actionMatch[1];
-        fullText = fullText.replace(/\[ACTION:[A-Z_]+\]/g, '').trim();
       }
+
+      fullText = sanitizeTutorDisplayText(fullText);
 
       return { text: fullText, action, payload, conversationId: remoteConversationId, mode: 'online' };
     } catch (error) {

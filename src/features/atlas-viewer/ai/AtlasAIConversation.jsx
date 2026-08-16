@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import LineIcon from "../../../components/icons/LineIcon";
 import { RichContentParser } from "./NotebookLMRenderers";
 import SpatialAIGuidanceCard from "./SpatialAIGuidanceCard";
+import { sanitizeTutorDisplayText } from "./atlasAITutorService";
 import "./AtlasAIViewerPanel.css";
 import "./AtlasAIConversation.css";
 
@@ -48,10 +49,11 @@ function normalizeTextSpacing(rawText) {
 }
 
 function MessageText({ text }) {
-  const richRender = RichContentParser({ text });
+  const displayText = sanitizeTutorDisplayText(text);
+  const richRender = RichContentParser({ text: displayText });
   if (richRender) return richRender;
 
-  const normalized = normalizeTextSpacing(text);
+  const normalized = normalizeTextSpacing(displayText);
   const rawLines = normalized.split("\n");
   const blocks = [];
   let currentClinicalBlock = null;
@@ -284,7 +286,10 @@ export default function AtlasAIConversation({
                   ) : null}
                   <MessageText text={message.text} />
                   {message.sender === "ai" && (
-                    <SpatialAIGuidanceCard text={message.text} currentPath={typeof window !== "undefined" ? window.location.pathname : ""} />
+                    <SpatialAIGuidanceCard
+                      text={sanitizeTutorDisplayText(message.text)}
+                      currentPath={typeof window !== "undefined" ? window.location.pathname : ""}
+                    />
                   )}
                 </div>
 

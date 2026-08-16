@@ -6,7 +6,7 @@
   color: var(--a26-color-text);
 }
 
-.a26-student-hero {
+.a26-student-dashboard .student-study-hero.a26-student-hero {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,13 +19,13 @@
 }
 
 .student-study-hero__content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  justify-items: center;
+  align-content: center;
   width: 100%;
   max-width: 980px;
   margin-inline: auto;
+  text-align: center;
 }
 
 .viewer-eyebrow {
@@ -39,7 +39,8 @@
 .student-study-hero h1 {
   margin: 0;
   width: 100%;
-  font: 600 clamp(3rem, 5.2vw, 5.4rem)/1.05 var(--a26-type-display);
+  max-width: 940px;
+  font: 600 clamp(2.85rem, 4.7vw, 5rem)/1.05 var(--a26-type-display);
   letter-spacing: 0.03em;
   text-transform: uppercase;
   text-align: center;
@@ -62,31 +63,32 @@
   text-align: center;
 }
 
-.student-study-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.a26-student-dashboard .student-study-hero__content .student-study-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: center;
   gap: 10px;
   margin-top: 28px;
-  width: 100%;
+  width: min(100%, 880px);
+  max-width: 880px;
 }
 
-.student-study-actions .a26-button {
+.a26-student-dashboard .student-study-hero__content .student-study-actions .a26-button {
+  width: 100%;
+  min-width: 0;
   padding: 0 16px;
   font-size: 0.84rem;
   white-space: nowrap !important;
 }
 
 @media (max-width: 768px) {
-  .student-study-actions {
-    flex-direction: column;
-    align-items: stretch;
+  .a26-student-dashboard .student-study-hero__content .student-study-actions {
+    grid-template-columns: 1fr;
     max-width: 360px;
     margin-inline: auto;
   }
 
-  .student-study-actions .a26-button {
+  .a26-student-dashboard .student-study-hero__content .student-study-actions .a26-button {
     width: 100%;
   }
 }
@@ -446,9 +448,23 @@
   display: grid;
   gap: 8px;
   min-height: 280px;
-  overflow-x: auto;
+  min-width: 0;
+  overflow-x: clip;
   padding: 14px 2px 0;
   scrollbar-width: thin;
+}
+
+.learning-period-switch {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(100%, 220px);
+  max-width: 100%;
+  overflow: clip;
+}
+
+.learning-period-switch button {
+  min-width: 0;
+  white-space: nowrap;
 }
 
 .weekly-study-column { display: grid; grid-template-rows: 1fr auto auto; gap: 7px; text-align: center; min-width: 0; }
@@ -477,10 +493,48 @@
 }
 
 @media (max-width: 620px) {
-  .a26-student-dashboard { gap: 30px; }
-  .a26-student-hero { padding: 24px 20px; border-radius: 24px; }
-  .student-study-actions { display: grid; grid-template-columns: 1fr; }
-  .student-study-actions .a26-button { width: 100%; }
+  .a26-student-dashboard {
+    gap: 30px;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    overflow-x: clip;
+  }
+
+  .a26-student-dashboard .student-study-hero.a26-student-hero {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 24px 16px;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .a26-student-dashboard .student-study-hero__content,
+  .a26-student-dashboard .student-study-hero__content > p:not(.viewer-eyebrow),
+  .a26-student-dashboard .student-study-hero__content .student-study-actions {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .a26-shell .a26-student-dashboard .student-study-hero h1 {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    font-size: clamp(2.2rem, 11vw, 3rem);
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  .a26-student-dashboard .student-study-hero__content .student-study-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .a26-student-dashboard .student-study-hero__content .student-study-actions .a26-button {
+    width: 100%;
+    max-width: 100%;
+  }
   .student-quick-grid,
   .study-tools-grid,
   .continue-model-grid,
