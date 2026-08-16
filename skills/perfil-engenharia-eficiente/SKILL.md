@@ -1,25 +1,48 @@
 ---
 name: perfil-engenharia-eficiente
 description: |
-  Skill de Metodologia de Engenharia Híbrida (Antigravity + Codex).
-  Combina a agilidade de pair-programming e o diagnóstico empírico do Antigravity
-  com o rigor de contratos, governança visual e deploy triplo do Codex.
+  Skill de Metodologia de Engenharia Híbrida Supremacia (Antigravity + Codex).
+  Combina a velocidade de pareamento interativo e o diagnóstico empírico do Antigravity
+  com o rigor de contratos, taxonomia de evidências, matriz responsiva e deploy triplo do Codex.
   Garante velocidade de entrega moderada (15-30 min), zero regressões e alta precisão.
 ---
 
 # ⚡ Perfil de Engenharia Eficiente (Método Híbrido Antigravity + Codex)
 
-Esta Skill estabelece o protocolo de engenharia de software de alta precisão para o desenvolvimento no **Aeternum Atlas**. Ela funde a velocidade, o diagnóstico empírico e a transparência do **Antigravity** com a suíte estrita de testes de contrato, governança de design system e esteira de deploy triplo do **Codex**.
+Esta Skill define o protocolo oficial de engenharia de software para o desenvolvimento no **Aeternum Atlas**. Ela integra a agilidade, transparência e velocidade diagnóstica do **Antigravity** com a governança de design, taxonomia de evidências e esteira de deploy triplo do **Codex**.
 
 ---
 
-## 🎯 5 Princípios Fundamentais do Método Híbrido
+## 🎯 7 Diretrizes de Ouro do Método Híbrido
 
-1. **Velocidade Moderada & Focada (15 a 30 min):** Ciclos de entrega curtos sem entrar em loops repetitivos de compactação de contexto.
-2. **Diagnóstico Empírico Transparente:** Leitura direta de logs, tracebacks e código autoritativo. Proibido tentar adivinhar a causa de falhas sem evidência empírica.
-3. **Contratos Invioláveis & Zero Regressão:** Respeito absoluto às restrições de UX/UI congeladas pelo usuário (ex: posicionamento de tokens, WCAG AA).
-4. **Governança de Design System (Aeternum 26.1):** Uso estrito dos tokens e superfícies da fundação visual sem adição de estilos ad-hoc proibidos (ex: sem `backdrop-filter` direto fora da fundação).
-5. **Esteira de Release Sincronizada (Deploy Triplo):** Sincronização automatizada e verificada entre Supabase Edge Functions, GitHub `main` e Vercel Produção.
+1. **Velocidade Moderada & Focada (15 a 30 min):** Ciclos de entrega objetivos sem loops de compactação de contexto.
+2. **Verdade Funcional baseada em Evidências:** Uma funcionalidade só é considerada pronta com evidência observável (código, rede, RLS, banco, console e visualização).
+3. **Cadeia de Investigação em Profundidade:**
+   * *Tutor IA:* `interface → sessão → JWT → Edge Function → contexto → Gemini → resposta → persistência → histórico`
+   * *Viewer 3D:* `catálogo → autorização → modelo → provider → Sketchfab → eventos → telemetria → progresso`
+4. **Preservação de Trabalho & Estado Git:** Checagem rigorosa de `git status` antes de editar. Proibido sobrepor alterações paralelas ou executar operações destrutivas.
+5. **Governança de Design System Aeternum 26.1:** Uso estrito das 7 camadas de Liquid Glass sem CSS ad-hoc proibido (ex: sem `backdrop-filter` direto fora da fundação).
+6. **Matriz Responsiva Obrigatória:** Validação contínua nas 4 resoluções chave: Desktop (1920x1080), Notebook (1366x768), Tablet (768x1024) e Mobile (390x844).
+7. **Esteira de Release Sincronizada (Deploy Triplo):** Sincronização automatizada entre Supabase Edge Functions, GitHub `main` e Vercel Produção.
+
+---
+
+## 📊 Taxonomia de Evidências e Estados
+
+Toda análise e entrega deve separar honestamente os estados:
+
+### Estados de Diagnóstico:
+* **Confirmado:** Comprovado diretamente nesta execução.
+* **Relatado:** Presente em descrição sem validação atual.
+* **Inferido:** Conclusão técnica plausível aguardando confirmação.
+* **Pendente:** Aguardando implementação ou verificação.
+* **Bloqueado:** Depende de credencial ou serviço externo.
+
+### Estados de Funcionalidade:
+`FUNCIONAL` | `FUNCIONAL_COM_RESTRIÇÕES` | `PARCIAL` | `MOCK` | `SOMENTE_INTERFACE` | `QUEBRADO`
+
+### Níveis de Lançamento (Definition of Done):
+`Concluído Localmente` $\rightarrow$ `Concluído no Repositório` $\rightarrow$ `Publicado` $\rightarrow$ `Validado em Produção`
 
 ---
 
@@ -27,40 +50,40 @@ Esta Skill estabelece o protocolo de engenharia de software de alta precisão pa
 
 ```mermaid
 graph TD
-    A[Fase 1: Diagnóstico Cirúrgico Empírico] --> B[Fase 2: Pre-Flight Check & Restrições Invioláveis]
+    A[Fase 1: Enquadramento & Diagnóstico Empírico] --> B[Fase 2: Pre-Flight Check & Matriz Responsiva]
     B --> C[Fase 3: Desenvolvimento Pareado Focado]
     C --> D[Fase 4: Validação de Regressão & Governança]
     D --> E[Fase 5: Release Sincronizada Tripla]
 ```
 
-### 🔍 Estágio 1: Diagnóstico Cirúrgico Empírico (Antigravity Speed)
-* Inspecionar rapidamente os arquivos, componentes e tracebacks de erro.
-* Nunca induzir hipóteses sem logs concretos ou código autoritativo.
-* Manter o consumo de contexto enxuto para evitar perda de memória e loops de re-leitura.
+### 🔍 Estágio 1: Enquadramento & Diagnóstico Empírico (Antigravity Speed)
+* Identificar objetivo, áreas afetadas, critérios de aceite e riscos.
+* Rastrear a causa raiz na cadeia completa de serviços (frontend → backend → Supabase).
+* Limitar o consumo de tokens para evitar perda de memória recente.
 
-### 🛡️ Estágio 2: Pre-Flight Check & Restrições (Codex Rigor)
-* Executar a suíte prévia de testes (`npm run test:contracts`) para estabelecer a linha de base.
-* Mapear explicitamente os elementos de interface congelados pelo usuário.
-* Verificar se a tarefa impacta Supabase, componentes React, CSS ou Edge Functions.
+### 🛡️ Estágio 2: Pre-Flight Check & Matriz Responsiva (Codex Rigor)
+* Executar a suíte prévia de testes (`npm run test:contracts`).
+* Mapear explicitamente as restrições de UX/UI congeladas pelo usuário (ex: posição do token do Tutor IA).
+* Conferir regras de layout para as 4 resoluções obrigatórias (Desktop, Notebook, Tablet, Mobile).
 
 ### ⚡ Estágio 3: Desenvolvimento Pareado Focado (Hybrid Pair-Programming)
-* Aplicar edições cirúrgicas e limpas nos arquivos necessários.
-* Utilizar padrões de alta resiliência (ex: `createPortal` para modais, fallbacks locais para resiliência).
-* Reportar ao usuário o progresso de forma incremental e transparente.
+* Aplicar alterações cirúrgicas reutilizando componentes e tokens Aeternum 26.1.
+* Tratar estados de *loading*, *vazio*, *erro* e *sucesso*.
+* Manter o usuário informado de forma transparente e contínua.
 
 ### 🧪 Estágio 4: Validação Estrita de Qualidade & Governança (Codex Quality Bar)
 * Executar o build de produção: `npm run build`.
-* Checar conformidade contra regras de governança visual e acessibilidade.
+* Validar que nenhum texto rompe, sobrepõe ou ultrapassa sua superfície.
 * Garantir a aprovação de 100% dos testes de contrato (`npm run test:contracts`).
 
 ### 🚀 Estágio 5: Release Sincronizada Tripla (Triple Deploy)
-* **Supabase:** Deploy de Edge Functions remotas (se houver alterações no servidor).
+* **Supabase:** Deploy de Edge Functions remotas (ex: `supabase functions deploy ai-tutor`).
 * **GitHub:** Commit padronizado e push limpo para a branch `main`.
-* **Vercel:** Confirmação do deploy em produção e verificação das URLs públicas oficiais.
+* **Vercel:** Confirmação do deploy no domínio oficial e teste de produção pós-publicação.
 
 ---
 
-## 🛠️ Comandos de Validação e Qualidade
+## 🛠️ Comandos de Qualidade e Publicação
 
 ```bash
 # 1. Executar suíte de contratos de qualidade
