@@ -2,10 +2,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import LineIcon from '../../../components/icons/LineIcon';
 import { A26IconButton, A26Surface } from '../../../components/aeternum-26';
+import { useLanguage } from '../../../context/LanguageContext';
 import { useAtlasAITutorSession } from '../../../context/AtlasAITutorSessionContext';
 import { useViewer } from '../../viewer/ViewerContext';
 import AtlasAIConversation from './AtlasAIConversation';
 import AtlasAIOrb from './AtlasAIOrb';
+import NotebookLMToolModal from './NotebookLMToolModal';
 import { actionDictionary, executeTutorAction } from './atlasAITutorActions';
 import useDraggableTutorOrb, {
   getTutorPanelMorphStyle,
@@ -19,6 +21,7 @@ const VIEWER_TOOLBAR_INSET = 24;
 const VIEWER_BOTTOM_CONTROLS_INSET = 104;
 
 export default function AtlasAIViewerPanel({ isSketchfabMode }) {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [panelMode, setPanelMode] = useState("compact");
   const [toolModalType, setToolModalType] = useState(null);
@@ -40,7 +43,9 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
     setDraft,
     isThinking,
     sendMessage,
-    appendMessage
+    appendMessage,
+    tutorRequest,
+    consumeTutorRequest
   } = useAtlasAITutorSession();
   const {
     position,
@@ -54,6 +59,42 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
     rightInset: VIEWER_TOOLBAR_INSET,
     bottomInset: VIEWER_BOTTOM_CONTROLS_INSET
   });
+
+  useEffect(() => {
+    const handleOpenTutorEvent = (e) => {
+      setIsOpen(true);
+      setPanelMode("expanded");
+      if (e.detail?.prompt) {
+        sendMessage({
+          text: e.detail.prompt,
+          context: {
+            source: "viewer-3d",
+            ...(e.detail.context || {})
+          },
+          contextLabel: e.detail.contextLabel || currentStructure
+        });
+      }
+    };
+    window.addEventListener("aeternum:open-tutor", handleOpenTutorEvent);
+    return () => window.removeEventListener("aeternum:open-tutor", handleOpenTutorEvent);
+  }, [currentStructure, sendMessage]);
+
+  useEffect(() => {
+    if (!tutorRequest) return;
+    setIsOpen(true);
+    setPanelMode("expanded");
+    if (tutorRequest.prompt) {
+      void sendMessage({
+        text: tutorRequest.prompt,
+        context: {
+          source: "viewer-3d",
+          ...(tutorRequest.context || {})
+        },
+        contextLabel: tutorRequest.contextLabel
+      });
+    }
+    consumeTutorRequest(tutorRequest.id);
+  }, [consumeTutorRequest, sendMessage, tutorRequest]);
 
   const handleSendMessage = async (textOverride = null) => {
     // Auto expand for long responses or tools
@@ -191,7 +232,8 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   if (isOpen) orbState = 'listening';
   if (isThinking) orbState = 'thinking';
 
-  const handleOrbClick = () => {
+  const handleOrbClick = (e) => {
+    e?.stopPropagation?.();
     if (consumeDragClick()) return;
     setIsOpen((open) => !open);
   };
@@ -204,7 +246,7 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   useEffect(() => {
     if (!isOpen) return undefined;
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') return;
+      if (event.key !== 'Escape') return;
       handleClose();
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -241,7 +283,7 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
         </div>
       )}
 
-      {isOpen ? <div className="aog-focus-dimmer aog-focus-dimmer--viewer" aria-hidden="true" /> : null}
+      {isOpen ? <div className="aog-focus-dimmer aog-focus-dimmer--viewer" aria-hidden="true" onClick={handleClose} /> : null}
 
       {isOpen && (
         <A26Surface
@@ -258,20 +300,20 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
           <header className="upe-ai-panel__header">
             <AtlasAIOrb state={orbState} size="sm" />
             <div>
-              <span className="upe-ai-panel__eyebrow">Assistência contextual</span>
-              <h2 id="atlas-viewer-ai-title">Atlas AI Tutor</h2>
-              <p>{isThinking ? "Analisando sua pergunta…" : "Conversa sincronizada em toda a plataforma"}</p>
+              <span className="upe-ai-panel__eyebrow">{t("tutor.contextualAssistance", { defaultValue: "Assistência contextual" })}</span>
+              <h2 id="atlas-viewer-ai-title">{t("tutor.title", { defaultValue: "Atlas AI Tutor" })}</h2>
+              <p>{isThinking ? t("tutor.analyzingQuestion", { defaultValue: "Analisando sua pergunta…" }) : t("tutor.synchronizedConversation", { defaultValue: "Conversa sincronizada em toda a plataforma" })}</p>
             </div>
             <div className="flex items-center gap-1">
               <A26IconButton
                 className="upe-ai-panel__close text-textMuted hover:text-amber-300 transition-colors"
-                label={panelMode === "expanded" ? "Modo compacto" : "Modo expandido"}
+                label={panelMode === "expanded" ? t("tutor.compactMode", { defaultValue: "Modo compacto" }) : t("tutor.expandedMode", { defaultValue: "Modo expandido" })}
                 icon={panelMode === "expanded" ? "minimize" : "maximize"}
                 onClick={() => setPanelMode((prev) => (prev === "expanded" ? "compact" : "expanded"))}
               />
               <A26IconButton
                 className="upe-ai-panel__close"
-                label="Fechar Atlas AI Tutor"
+                label={t("tutor.close", { defaultValue: "Fechar Atlas AI Tutor" })}
                 icon="close"
                 onClick={handleClose}
               />

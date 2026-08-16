@@ -203,7 +203,7 @@ export default function useDraggableTutorOrb({
 
   const onPointerDown = useCallback((event) => {
     if (!enabled) return;
-    event.preventDefault();
+    if (event.button !== undefined && event.button !== 0) return;
     movedRef.current = false;
     dragRef.current = {
       pointerId: event.pointerId,
@@ -212,7 +212,11 @@ export default function useDraggableTutorOrb({
       originX: positionRef.current.x,
       originY: positionRef.current.y
     };
-    event.currentTarget.setPointerCapture?.(event.pointerId);
+    try {
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+    } catch {
+      // Ignora erro caso o elemento não suporte capture no ambiente atual
+    }
     setIsDragging(true);
   }, [enabled]);
 
@@ -220,15 +224,19 @@ export default function useDraggableTutorOrb({
     const drag = dragRef.current;
     if (!enabled || !drag || drag.pointerId !== event.pointerId) return;
 
-    if (event.cancelable) event.preventDefault();
     const deltaX = event.clientX - drag.pointerX;
     const deltaY = event.clientY - drag.pointerY;
-    if (Math.hypot(deltaX, deltaY) > 5) movedRef.current = true;
+    if (Math.hypot(deltaX, deltaY) > 5) {
+      movedRef.current = true;
+      if (event.cancelable) event.preventDefault();
+    }
 
-    updatePosition(clampPosition({
-      x: drag.originX + deltaX,
-      y: drag.originY + deltaY
-    }, viewport, orbSize, margin));
+    if (movedRef.current) {
+      updatePosition(clampPosition({
+        x: drag.originX + deltaX,
+        y: drag.originY + deltaY
+      }, viewport, orbSize, margin));
+    }
   }, [enabled, margin, orbSize, updatePosition, viewport]);
 
   const finishDrag = useCallback((event) => {
@@ -236,7 +244,11 @@ export default function useDraggableTutorOrb({
     if (!enabled || !drag || drag.pointerId !== event.pointerId) return;
 
     dragRef.current = null;
-    event.currentTarget.releasePointerCapture?.(event.pointerId);
+    try {
+      event.currentTarget.releasePointerCapture?.(event.pointerId);
+    } catch {
+      // Ignora erro caso capture já tenha sido liberado
+    }
     setIsDragging(false);
 
     if (movedRef.current) {
