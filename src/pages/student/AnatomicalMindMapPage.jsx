@@ -115,7 +115,7 @@ function countDescendants(children) {
 export default function AnatomicalMindMapPage({ user, navigate }) {
   const [outlineText, setOutlineText] = useState(DEFAULT_OUTLINE);
   const [isOutlineEditorOpen, setIsOutlineEditorOpen] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => typeof window !== "undefined" && window.innerWidth <= 880);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -636,11 +636,13 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
               onClick={() => setSidebarCollapsed((v) => !v)}
             />
             <div className="topbar-export-group">
-              <A26Button variant="secondary" onClick={handleExportPNG} title="Exportar como Imagem PNG">
-                Imagem (PNG)
+              <A26Button variant="secondary" onClick={handleExportPNG} title="Exportar como Imagem PNG" className="topbar-export-btn">
+                <span className="export-btn-full">Imagem (PNG)</span>
+                <span className="export-btn-short">PNG</span>
               </A26Button>
-              <A26Button variant="secondary" onClick={handleExportPDF} title="Imprimir ou salvar em PDF">
-                Exportar PDF
+              <A26Button variant="secondary" onClick={handleExportPDF} title="Imprimir ou salvar em PDF" className="topbar-export-btn">
+                <span className="export-btn-full">Exportar PDF</span>
+                <span className="export-btn-short">PDF</span>
               </A26Button>
             </div>
           </div>

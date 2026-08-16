@@ -467,12 +467,17 @@
   }
 }
 
+.export-btn-short {
+  display: none;
+}
+
 @media (max-width: 880px) {
   .a26-mindmap-page {
     display: flex;
     flex-direction: column;
     height: auto;
-    min-height: calc(100dvh - 8rem);
+    min-height: calc(100dvh - 7rem);
+    padding: 0;
     overflow: visible;
   }
 
@@ -480,6 +485,7 @@
     grid-template-rows: auto auto auto auto;
     height: auto;
     max-height: none;
+    margin-bottom: 0.75rem;
   }
 
   .mindmap-sidebar.collapsed {
@@ -489,6 +495,8 @@
   .mindmap-outline-box,
   .mindmap-outline-box textarea.a26-field__control {
     min-height: 13rem;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   .a26-modal.mindmap-editor-modal {
@@ -496,48 +504,75 @@
   }
 
   .mindmap-canvas-wrap {
-    height: min(72rem, calc(100dvh - 7rem));
-    min-height: 42rem;
+    height: calc(100dvh - 8rem);
+    min-height: 32rem;
+    border-radius: 1.25rem;
+    margin: 0;
+    width: 100%;
   }
 
   .mindmap-topbar {
-    align-items: flex-start;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin: 0.45rem;
+    padding: 0.35rem 0.45rem;
+    gap: 0.4rem;
+  }
+
+  .mindmap-topbar::-webkit-scrollbar {
+    display: none;
   }
 
   .topbar-left-group {
-    flex: 1 1 100%;
+    flex: 0 1 auto;
+    gap: 0.35rem;
+  }
+
+  .topbar-export-group {
+    gap: 0.35rem;
+  }
+
+  .export-btn-full {
+    display: none;
+  }
+
+  .export-btn-short {
+    display: inline;
+  }
+
+  .topbar-export-group .a26-button {
+    padding-inline: 0.55rem;
+    min-height: 2.2rem;
+    font-size: 0.72rem;
   }
 
   .zoom-controls {
+    flex: 0 0 auto;
     margin-left: auto;
+    gap: 0.25rem;
+  }
+
+  .zoom-controls > .a26-button:not(.a26-icon-button),
+  .zoom-controls > .a26-icon-button {
+    width: 2.2rem;
+    min-width: 2.2rem;
+    height: 2.2rem;
+    min-height: 2.2rem;
+    font-size: 0.95rem;
   }
 }
 
 @media (max-width: 560px) {
   .a26-mindmap-page {
-    padding: 0.45rem;
+    padding: 0;
   }
 
   .mindmap-sidebar,
   .mindmap-canvas-wrap {
-    border-radius: 1.25rem;
-  }
-
-  .topbar-export-group .a26-button {
-    width: 2.6rem;
-    overflow: hidden;
-    color: transparent;
-  }
-
-  .topbar-export-group .a26-button:first-child::after {
-    content: "PNG";
-    color: #f4f7f7;
-  }
-
-  .topbar-export-group .a26-button:last-child::after {
-    content: "PDF";
-    color: #f4f7f7;
+    border-radius: 1.1rem;
   }
 
   .mindmap-hint {
@@ -546,6 +581,9 @@
 
   .mindmap-node-drawer {
     bottom: 1rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    width: auto;
   }
 }
 

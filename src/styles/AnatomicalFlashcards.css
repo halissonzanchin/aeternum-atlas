@@ -117,13 +117,16 @@
   justify-content: space-between;
   gap: 18px;
   width: 100%;
-  padding: 12px 18px;
+  padding: 14px 20px;
+  border-radius: 20px;
 }
 
 .a26-player-meta h2 {
   margin: 0;
-  font-size: 1rem;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
   color: var(--a26-color-gold-soft, #dfc57f);
+  word-break: break-word;
+  line-height: 1.35;
 }
 
 .a26-flashcard-3d-wrapper {
@@ -349,14 +352,37 @@
 }
 
 @media (max-width: 760px) {
-  .a26-flashcards-hero,
-  .a26-player-meta {
+  .a26-flashcards-hero {
     align-items: flex-start;
     flex-direction: column;
+    padding: 20px 16px;
+    border-radius: 22px;
+  }
+
+  .a26-player-meta {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 14px 16px;
+    border-radius: 18px;
+    gap: 10px;
+  }
+
+  .a26-player-meta > div:first-child {
+    width: 100%;
+  }
+
+  .a26-player-meta h2 {
+    font-size: 1.02rem;
+    word-break: break-word;
+  }
+
+  .a26-player-meta .flex.items-center.gap-3 {
+    justify-content: space-between;
+    width: 100%;
   }
 
   .a26-flashcard-3d-wrapper {
-    min-height: 500px;
+    min-height: 440px;
   }
 
   .a26-flashcard-header,
@@ -380,16 +406,23 @@
 
 @media (max-width: 480px) {
   .a26-flashcards-container {
-    gap: 16px;
+    gap: 14px;
     padding-bottom: 28px;
   }
 
   .a26-flashcard-face {
-    padding: 21px;
+    padding: 18px 16px;
+    border-radius: 20px;
   }
 
   .a26-anki-controls {
     width: 100%;
+    gap: 8px;
+  }
+
+  .a26-anki-controls .a26-button {
+    font-size: 0.76rem;
+    padding-inline: 8px;
   }
 }
 
