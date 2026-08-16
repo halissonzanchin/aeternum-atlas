@@ -133,9 +133,14 @@ export default function StrategicProgressDonut({
 
   return (
     <div className="strategic-donut-container">
-      {/* Interactive Exploded SVG Donut */}
+      {/* Interactive Liquid Glass progress donut */}
       <div className="strategic-donut-visual">
-        <svg viewBox="0 0 160 160" className="strategic-donut-svg">
+        <svg
+          viewBox="0 0 160 160"
+          className="strategic-donut-svg"
+          role="img"
+          aria-label={`Progresso acadêmico geral: ${pillarData.overallPercent}%`}
+        >
           <defs>
             {PILLARS_CONFIG.map((p) => (
               <linearGradient key={p.id} id={`grad-${p.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
@@ -157,25 +162,31 @@ export default function StrategicProgressDonut({
           <circle cx="80" cy="80" r="56" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" fill="none" />
           <circle cx="80" cy="80" r="38" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="1" fill="none" />
 
-          {/* 4 Exploded Donut Sectors */}
+          {/* Each pillar keeps a quiet track and fills only its real percentage. */}
           {sectors.map((sector) => {
             const isHovered = hoveredPillarId === sector.id;
-            const explodeOffset = isHovered ? 5 : 0;
-            const pathData = makeArcPath(80, 80, 39, 58, sector.startAngle, sector.endAngle, explodeOffset);
+            const explodeOffset = isHovered ? 1.5 : 0;
+            const trackPath = makeArcPath(80, 80, 39, 58, sector.startAngle, sector.endAngle, explodeOffset);
+            const activeEndAngle = sector.startAngle + ((sector.endAngle - sector.startAngle) * sector.percent) / 100;
 
             return (
-              <path
+              <g
                 key={sector.id}
-                d={pathData}
-                fill={`url(#grad-${sector.id})`}
-                opacity={hoveredPillarId ? (isHovered ? 1 : 0.4) : 0.9}
-                filter={isHovered ? "url(#donutGlow)" : undefined}
-                className="donut-sector-path"
                 onMouseEnter={() => setHoveredPillarId(sector.id)}
                 onMouseLeave={() => setHoveredPillarId(null)}
               >
-                <title>{`${sector.name}: ${sector.percent}% (${sector.value} ${sector.unit})`}</title>
-              </path>
+                <path d={trackPath} className="donut-sector-track" />
+                {sector.percent > 0 ? (
+                  <path
+                    d={makeArcPath(80, 80, 39, 58, sector.startAngle, activeEndAngle, explodeOffset)}
+                    fill={`url(#grad-${sector.id})`}
+                    opacity={hoveredPillarId ? (isHovered ? 1 : 0.48) : 0.94}
+                    filter={isHovered ? "url(#donutGlow)" : undefined}
+                    className="donut-sector-path"
+                  />
+                ) : null}
+                <title>{`${sector.name}: ${sector.percent}% (${sector.value})`}</title>
+              </g>
             );
           })}
 
@@ -265,7 +276,7 @@ export default function StrategicProgressDonut({
                   }}
                 />
               </div>
-              <span className="pillar-value-detail">{pillar.value} {pillar.unit}</span>
+              <span className="pillar-value-detail">{pillar.value}</span>
             </div>
           );
         })}

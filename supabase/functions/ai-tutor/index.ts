@@ -78,6 +78,13 @@ function cleanText(value: unknown, max: number) {
     .slice(0, max);
 }
 
+function sanitizeAssistantContent(value: string) {
+  return value
+    .replace(/\[ACTION:[A-Z_]+\]/g, "")
+    .replace(/\[ACTION(?::[A-Z_]*)?$/i, "")
+    .trim();
+}
+
 function safeContext(value: unknown) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const source = value as Record<string, unknown>;
@@ -388,12 +395,13 @@ Deno.serve(async (req) => {
       normalizedGeminiHistory(orderedHistory),
       prompt
     );
+    const persistedText = sanitizeAssistantContent(fullText);
 
     const { error: assistantMessageError } = await adminClient.from("ai_messages").insert({
       conversation_id: conversationId,
       user_id: userId,
       role: "assistant",
-      content: fullText,
+      content: persistedText,
       metadata: {
         model: GEMINI_MODEL,
         embeddingModel: GEMINI_EMBEDDING_MODEL,
@@ -418,7 +426,7 @@ Deno.serve(async (req) => {
       event_type: "generation_completed",
       model_name: GEMINI_MODEL,
       input_characters: prompt.length,
-      output_characters: fullText.length,
+      output_characters: persistedText.length,
       success: true,
       metadata: { retrievedSourceCount: sources.length, embeddingModel: GEMINI_EMBEDDING_MODEL }
     });
