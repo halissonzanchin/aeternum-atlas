@@ -1,4 +1,4 @@
-import { pt } from "./pt";
+import { pt } from "./pt.js";
 
 export const en = {
   ...pt,
@@ -290,6 +290,18 @@ export const en = {
       quizzes: {
         title: "Anatomy quizzes",
         description: "Test anatomical recognition and consolidate exam-relevant points."
+      },
+      theoreticalQuizzes: {
+        title: "Theoretical Quiz",
+        description: "Practice structured multiple-choice questions and clinical anatomical cases."
+      },
+      reports: {
+        title: "Reports",
+        description: "Track your academic performance, progress by anatomical system, and study metrics."
+      },
+      mindMap: {
+        title: "Mind Map",
+        description: "Visualize three-dimensional schematic connections and hierarchies of anatomical concepts."
       },
       summaries: {
         title: "Smart summaries",
@@ -884,17 +896,29 @@ export const en = {
   atlas: {
     ...pt.atlas,
     pageDescription: "Anatomical structure organized by real body regions, prepared for study tracks, 3D models, and module assessment.",
-    selectedRegion: "Selected region",
+    selectedRegion: "Selected Region",
     subcategoryPrepared: "Subcategory prepared for future connection with content, 3D models, and specific learning tracks.",
     subcategoriesOf: "Subcategories of {{title}}",
+    linkedModelBadge: "3D Model",
+    linkedModelCount: "{{count}} Linked 3D Model",
+    linkedModelsTitle: "3D Models Linked to {{region}}:",
+    expandingStructure: "Structure expanding — 3D models in development by Aeternum team.",
     modules: {
+      cabeca: {
+        title: "Head Anatomy",
+        description: "Neuroanatomy, encephalon, cranial cavity, and head structures."
+      },
+      pescoco: {
+        title: "Neck Anatomy",
+        description: "Cervical region, vascular, muscular, and visceral structures."
+      },
       "membro-superior": {
         title: "Upper Limb Anatomy",
         description: "Upper limb structures with functional and clinical focus."
       },
-      "membro-inferior": {
-        title: "Lower Limb Anatomy",
-        description: "Anatomical study of locomotion and body support."
+      tronco: {
+        title: "Trunk Anatomy",
+        description: "Vertebral column, back, and posterior trunk musculature."
       },
       torax: {
         title: "Thorax Anatomy",
@@ -904,15 +928,43 @@ export const en = {
         title: "Abdomen Anatomy",
         description: "Visceral organs and abdominal anatomical relationships."
       },
-      "pescoco-e-cabeca": {
-        title: "Neck and Head Anatomy",
-        description: "Neurological, muscular, and skeletal structures of the upper region."
-      },
       "pelve-e-perineo": {
         title: "Pelvis and Perineum Anatomy",
-        description: "Topographic relationships of the pelvis, perineum, and urogenital systems."
+        description: "Topographic relationships of the pelvis, perineum, and reproductive system."
+      },
+      "membro-inferior": {
+        title: "Lower Limb Anatomy",
+        description: "Anatomical study of locomotion and body support."
       }
     }
+  },
+  socraticModal: {
+    kicker: "Socratic Medicine Simulator",
+    title: "Generate Interactive Clinical Case",
+    selectSpecialty: "1. Select Medical Specialty:",
+    selectDifficulty: "2. Academic Complexity Level:",
+    linkModel: "Link to Current 3D Model",
+    cancel: "Cancel",
+    start: "Start Clinical Case Simulation",
+    specialties: {
+      ortopedia: { label: "Orthopedics & Traumatology", desc: "Fractures, joints, tendons, and limb injuries" },
+      neurologia: { label: "Neurology & Neurosurgery", desc: "Nerve plexuses, cranial nerves, and CNS" },
+      cirurgia: { label: "General Surgery & Topographic Anatomy", desc: "Abdominal wall, anatomical triangles, and viscera" },
+      cardiologia: { label: "Cardiology & Vascular System", desc: "Cardiac vascularization, aorta, and great vessels" },
+      ginecologia: { label: "Gynecology & Pelvic Anatomy", desc: "Female pelvis, pelvic floor, and retroperitoneum" }
+    },
+    difficulties: {
+      basico: { label: "Basic Cycle (1st - 4th Semester)", desc: "Anatomical identification, landmarks, and direct relations" },
+      clinico: { label: "Clinical Cycle (5th - 8th Semester)", desc: "Pathophysiology, physical exams, and imaging findings" },
+      avancado: { label: "Internship & Residency", desc: "Complex differential diagnosis and anatomical variations" }
+    }
+  },
+  spatialAI: {
+    title: "Spatial AI Spatial Control",
+    badge: "Mapped 3D Model",
+    guideToViewer: "Guide to 3D Model",
+    openedInSession: "3D Model open in this session",
+    selectMarker: "Select Marker to Highlight (Spatial Focus):"
   },
   modelData: {
     "cranio-humano-3d": {
@@ -1181,6 +1233,51 @@ export const en = {
     notesSaved: "Notes saved on this device.",
     notesEmpty: "Write a note before exporting the PDF.",
     notesExported: "Notes PDF exported.",
+    partHighlighted: "Highlighted part",
+    highlightedPart: "{{part}} highlighted on the model.",
+    selectedStructure: "{{structure}} selected.",
+    visualRestored: "View restored.",
+    externalLinkMissing: "External link not registered for this model.",
+    favoriteAdded: "Model added to local favorites.",
+    favoriteRemoved: "Model removed from favorites.",
+    modelCompleted: "Model marked as studied.",
+    modelUnmarked: "Model unmarked as studied.",
+    linkCopied: "Model link copied.",
+    accessRegistered: "Access logged in local analytics.",
+    accessUnregistered: "Access log unmarked for this session.",
+    anatomicalQuiz: "Anatomical Quiz",
+    theoreticalQuiz: "Theoretical Quiz",
+    practicalQuiz: "Practical Quiz",
+    anatomicalQuizEyebrow: "Practical assessment",
+    anatomicalQuizTitle: "Anatomical Quiz",
+    anatomicalQuizPreparing: "Preparing anatomical quiz...",
+    anatomicalQuizUnavailable: "Quiz unavailable for this model.",
+    anatomicalQuizUnavailableHint: "Sync anatomical annotations or register questions in Supabase to unlock assessment.",
+    anatomicalQuizMarkers: "Numbered quiz markers",
+    anatomicalQuizTimerLabel: "Remaining time: {{time}}",
+    anatomicalQuizQuestionCount: "Questions",
+    anatomicalQuizAnsweredCount: "Answered",
+    anatomicalQuizTimeLimit: "Total time",
+    anatomicalQuizAnswerPlaceholder: "Anatomical name",
+    anatomicalQuizAnswerLabel: "Answer for marker {{marker}}",
+    anatomicalQuizNavigateMarker: "Locate marker {{marker}} in 3D model",
+    anatomicalQuizScore: "Result",
+    anatomicalQuizPercentage: "Performance",
+    anatomicalQuizDuration: "Time used",
+    anatomicalQuizCorrect: "Correct: {{answer}}",
+    anatomicalQuizIncorrect: "Incorrect. Your answer: {{student}}. Correct: {{answer}}",
+    anatomicalQuizBlankAnswer: "blank",
+    anatomicalQuizFinish: "Finish quiz",
+    anatomicalQuizRetry: "Retake quiz",
+    closeAnatomicalQuiz: "Close quiz",
+    anatomicalQuizCompleted: "Quiz finished: {{score}}/{{total}} correct ({{percentage}}%).",
+    anatomicalQuizStartError: "Unable to start quiz right now.",
+    guideAvailable: "Study guide available in academic panel.",
+    reportUnavailable: "Support channel is not integrated yet. No report was sent.",
+    layerToggled: "{{system}}: anatomical layer toggled.",
+    layerUnavailable: "Layer not contracted for this institutional module.",
+    layerDisabled: "System disabled for this model.",
+    functionPrepared: "{{action}}: function prepared for 3D viewer integration.",
     supportItems: {
       platformGuide: "Platform usage guide",
       study3d: "How to study with 3D models",

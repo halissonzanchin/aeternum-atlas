@@ -1,4 +1,4 @@
-import { pt } from "./pt";
+import { pt } from "./pt.js";
 
 export const es = {
   ...pt,
@@ -288,6 +288,18 @@ export const es = {
       quizzes: {
         title: "Simulados anatómicos",
         description: "Prueba el reconocimiento anatómico y consolida puntos de evaluación."
+      },
+      theoreticalQuizzes: {
+        title: "Simulado Teórico",
+        description: "Practica preguntas teóricas estructuradas de opción múltiple y casos clínicos anatómicos."
+      },
+      reports: {
+        title: "Informes",
+        description: "Monitorea tu rendimiento académico, evolución por sistema y métricas de estudio."
+      },
+      mindMap: {
+        title: "Mapa Mental",
+        description: "Visualiza conexiones esquemáticas tridimensionales y jerarquías de conceptos anatómicos."
       },
       summaries: {
         title: "Resúmenes inteligentes",
@@ -804,6 +816,7 @@ export const es = {
       advanced: "Avanzado"
     },
     types: {
+      Sketchfab: "Sketchfab",
       atlasNativeScan: "Sketchfab / Modelo 3D Real",
       cadavericScan: "Escaneo cadavérico",
       didacticModel: "Modelo didáctico",
@@ -881,17 +894,29 @@ export const es = {
   atlas: {
     ...pt.atlas,
     pageDescription: "Estructura anatómica organizada por regiones reales, preparada para rutas de estudio, modelos 3D y evaluación por módulo.",
-    selectedRegion: "Región seleccionada",
+    selectedRegion: "Región Seleccionada",
     subcategoryPrepared: "Subcategoría preparada para conexión futura con contenidos, modelos 3D y rutas específicas.",
     subcategoriesOf: "Subcategorías de {{title}}",
+    linkedModelBadge: "Modelo 3D",
+    linkedModelCount: "{{count}} Modelo 3D Vinculado",
+    linkedModelsTitle: "Modelos 3D Vinculados a {{region}}:",
+    expandingStructure: "Estructura en expansión — modelos 3D en desarrollo por el equipo Aeternum.",
     modules: {
+      cabeca: {
+        title: "Anatomía de la Cabeza",
+        description: "Neuroanatomía, encéfalo, cavidad craneal y estructuras de la cabeza."
+      },
+      pescoco: {
+        title: "Anatomía del Cuello",
+        description: "Región cervical, estructuras vasculares, musculares y viscerales."
+      },
       "membro-superior": {
         title: "Anatomía de Miembro Superior",
         description: "Estructuras del miembro superior con enfoque funcional y clínico."
       },
-      "membro-inferior": {
-        title: "Anatomía de Miembro Inferior",
-        description: "Estudio anatómico de la locomoción y el soporte corporal."
+      tronco: {
+        title: "Anatomía del Tronco",
+        description: "Columna vertebral, dorso y musculatura posterior del tronco."
       },
       torax: {
         title: "Anatomía del Tórax",
@@ -901,15 +926,43 @@ export const es = {
         title: "Anatomía del Abdomen",
         description: "Órganos viscerales y relaciones anatómicas abdominales."
       },
-      "pescoco-e-cabeca": {
-        title: "Anatomía de Cuello y Cabeza",
-        description: "Estructuras neurológicas, musculares y óseas de la región superior."
-      },
       "pelve-e-perineo": {
         title: "Anatomía de Pelvis y Periné",
-        description: "Relaciones topográficas de la pelvis, el periné y los sistemas urogenitales."
+        description: "Relaciones topográficas de la pelvis, periné y sistema reproductor."
+      },
+      "membro-inferior": {
+        title: "Anatomía de Miembro Inferior",
+        description: "Estudio anatómico de la locomoción y el soporte corporal."
       }
     }
+  },
+  socraticModal: {
+    kicker: "Simulador de Medicina Socrática",
+    title: "Generar Caso Clínico Interactivo",
+    selectSpecialty: "1. Seleccionar Especialidad Médica:",
+    selectDifficulty: "2. Nivel de Complejidad Académica:",
+    linkModel: "Vincular al Modelo 3D Actual",
+    cancel: "Cancelar",
+    start: "Iniciar Simulación de Caso Clínico",
+    specialties: {
+      ortopedia: { label: "Ortopedia y Traumatología", desc: "Fracturas, articulaciones, tendones y lesiones de miembros" },
+      neurologia: { label: "Neurología y Neurocirugía", desc: "Plexos nerviosos, pares craneales y SNC" },
+      cirurgia: { label: "Cirugía General y Anatomía Topográfica", desc: "Pared abdominal, triángulos anatómicos y vísceras" },
+      cardiologia: { label: "Cardiología y Sistema Vascular", desc: "Vascularización cardíaca, aorta y grandes vasos" },
+      ginecologia: { label: "Ginecología y Anatomía Pélvica", desc: "Pelvis femenina, suelo pélvico y retroperitoneo" }
+    },
+    difficulties: {
+      basico: { label: "Ciclo Básico (1º - 4º Semestre)", desc: "Identificación anatómica, puntos de referencia y relaciones directas" },
+      clinico: { label: "Ciclo Clínico (5º - 8º Semestre)", desc: "Fisiopatología, exámenes físicos y hallazgos de imagen" },
+      avancado: { label: "Internado y Residencia", desc: "Diagnóstico diferencial complejo y variaciones anatómicas" }
+    }
+  },
+  spatialAI: {
+    title: "Control Espacial Spatial AI",
+    badge: "Modelo 3D Mapeado",
+    guideToViewer: "Guiar al Modelo 3D",
+    openedInSession: "Modelo 3D abierto en esta sesión",
+    selectMarker: "Seleccionar Marcador para Destacar (Spatial Focus):"
   },
   modelData: {
     "cranio-humano-3d": {
@@ -1172,6 +1225,51 @@ export const es = {
     notesSaved: "Anotaciones guardadas en este dispositivo.",
     notesEmpty: "Escribe una anotación antes de exportar el PDF.",
     notesExported: "PDF de anotaciones exportado.",
+    partHighlighted: "Parte destacada",
+    highlightedPart: "{{part}} destacada en el modelo.",
+    selectedStructure: "{{structure}} seleccionada.",
+    visualRestored: "Visualización restaurada.",
+    externalLinkMissing: "Enlace externo no registrado para este modelo.",
+    favoriteAdded: "Modelo añadido a favoritos locales.",
+    favoriteRemoved: "Modelo eliminado de favoritos.",
+    modelCompleted: "Modelo marcado como estudiado.",
+    modelUnmarked: "Modelo desmarcado como estudiado.",
+    linkCopied: "Enlace del modelo copiado.",
+    accessRegistered: "Acceso registrado en las analíticas locales.",
+    accessUnregistered: "Registro de acceso desmarcado en esta sesión.",
+    anatomicalQuiz: "Simulado Anatómico",
+    theoreticalQuiz: "Simulado Teórico",
+    practicalQuiz: "Simulado Práctico",
+    anatomicalQuizEyebrow: "Evaluación práctica",
+    anatomicalQuizTitle: "Simulado Anatómico",
+    anatomicalQuizPreparing: "Preparando simulado anatómico...",
+    anatomicalQuizUnavailable: "Simulado no disponible para este modelo.",
+    anatomicalQuizUnavailableHint: "Sincroniza las notas anatómicas o registra preguntas en Supabase para habilitar la evaluación.",
+    anatomicalQuizMarkers: "Marcadores numéricos del simulado",
+    anatomicalQuizTimerLabel: "Tiempo restante: {{time}}",
+    anatomicalQuizQuestionCount: "Preguntas",
+    anatomicalQuizAnsweredCount: "Respondidas",
+    anatomicalQuizTimeLimit: "Tiempo total",
+    anatomicalQuizAnswerPlaceholder: "Nombre anatómico",
+    anatomicalQuizAnswerLabel: "Respuesta para el marcador {{marker}}",
+    anatomicalQuizNavigateMarker: "Localizar marcador {{marker}} en el modelo 3D",
+    anatomicalQuizScore: "Resultado",
+    anatomicalQuizPercentage: "Aprovechamiento",
+    anatomicalQuizDuration: "Tiempo utilizado",
+    anatomicalQuizCorrect: "Correcto: {{answer}}",
+    anatomicalQuizIncorrect: "Incorrecto. Tu respuesta: {{student}}. Correcto: {{answer}}",
+    anatomicalQuizBlankAnswer: "en blanco",
+    anatomicalQuizFinish: "Finalizar simulado",
+    anatomicalQuizRetry: "Reintentar simulado",
+    closeAnatomicalQuiz: "Cerrar simulado",
+    anatomicalQuizCompleted: "Simulado finalizado: {{score}}/{{total}} aciertos ({{percentage}}%).",
+    anatomicalQuizStartError: "No fue posible iniciar el simulado ahora.",
+    guideAvailable: "Guía de estudio disponible en el panel académico.",
+    reportUnavailable: "El canal de soporte aún no está integrado. No se envió ningún reporte.",
+    layerToggled: "{{system}}: capa anatómica alternada.",
+    layerUnavailable: "Capa no contratada para este módulo institucional.",
+    layerDisabled: "Sistema desactivado para este modelo.",
+    functionPrepared: "{{action}}: función preparada para integración con el visor 3D.",
     supportItems: {
       platformGuide: "Guía de uso de la plataforma",
       study3d: "Cómo estudiar con modelos 3D",

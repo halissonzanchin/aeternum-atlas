@@ -1,4 +1,4 @@
-import { pt } from "./pt";
+import { pt } from "./pt.js";
 
 export const de = {
   ...pt,
@@ -290,6 +290,18 @@ export const de = {
       quizzes: {
         title: "Anatomische Tests",
         description: "Trainieren Sie anatomisches Erkennen und festigen Sie prüfungsrelevante Punkte."
+      },
+      theoreticalQuizzes: {
+        title: "Theoretische Simulation",
+        description: "Üben Sie strukturierte Multiple-Choice-Fragen und klinisch-anatomische Fälle."
+      },
+      reports: {
+        title: "Berichte",
+        description: "Verfolgen Sie Ihre akademische Leistung, Entwicklung nach System und Lernmetriken."
+      },
+      mindMap: {
+        title: "Mindmap",
+        description: "Visualisieren Sie dreidimensionale schematische Verbindungen und Hierarchien anatomischer Konzepte."
       },
       summaries: {
         title: "Intelligente Zusammenfassungen",
@@ -887,14 +899,26 @@ export const de = {
     selectedRegion: "Ausgewählte Region",
     subcategoryPrepared: "Unterkategorie für zukünftige Verbindung mit Inhalten, 3D-Modellen und spezifischen Lernpfaden vorbereitet.",
     subcategoriesOf: "Unterkategorien von {{title}}",
+    linkedModelBadge: "3D-Modell",
+    linkedModelCount: "{{count}} Verknüpftes 3D-Modell",
+    linkedModelsTitle: "Mit {{region}} verknüpfte 3D-Modelle:",
+    expandingStructure: "Struktur im Aufbau — 3D-Modelle in Entwicklung durch das Aeternum-Team.",
     modules: {
+      cabeca: {
+        title: "Anatomie des Kopfes",
+        description: "Neuroanatomie, Gehirn, Schädelhöhle und Kopfstrukturen."
+      },
+      pescoco: {
+        title: "Anatomie des Halses",
+        description: "Zervikale Region, vaskuläre, muskuläre und viszerale Strukturen."
+      },
       "membro-superior": {
         title: "Anatomie der oberen Extremität",
         description: "Strukturen der oberen Extremität mit funktionellem und klinischem Fokus."
       },
-      "membro-inferior": {
-        title: "Anatomie der unteren Extremität",
-        description: "Anatomische Untersuchung von Fortbewegung und Körperstütze."
+      tronco: {
+        title: "Anatomie des Rumpfes",
+        description: "Wirbelsäule, Rücken und hintere Rumpfmuskulatur."
       },
       torax: {
         title: "Anatomie des Thorax",
@@ -904,15 +928,43 @@ export const de = {
         title: "Anatomie des Abdomens",
         description: "Viszerale Organe und abdominale anatomische Beziehungen."
       },
-      "pescoco-e-cabeca": {
-        title: "Anatomie von Hals und Kopf",
-        description: "Neurologische, muskuläre und knöcherne Strukturen der oberen Region."
-      },
       "pelve-e-perineo": {
         title: "Anatomie von Becken und Perineum",
-        description: "Topografische Beziehungen von Becken, Perineum und Urogenitalsystemen."
+        description: "Topografische Beziehungen von Becken, Perineum und Fortpflanzungssystem."
+      },
+      "membro-inferior": {
+        title: "Anatomie der unteren Extremität",
+        description: "Anatomische Untersuchung von Fortbewegung und Körperstütze."
       }
     }
+  },
+  socraticModal: {
+    kicker: "Sokratischer Medizinsimulator",
+    title: "Interaktiven klinischen Fall generieren",
+    selectSpecialty: "1. Medizinisches Fachgebiet wählen:",
+    selectDifficulty: "2. Akademischer Komplexitätsgrad:",
+    linkModel: "Mit aktuellem 3D-Modell verknüpfen",
+    cancel: "Abbrechen",
+    start: "Simulation des klinischen Falls starten",
+    specialties: {
+      ortopedia: { label: "Orthopädie & Traumatologie", desc: "Frakturen, Gelenke, Sehnen und Verletzungen der Gliedmaßen" },
+      neurologia: { label: "Neurologie & Neurochirurgie", desc: "Nervenplexus, Hirnnerven und ZNS" },
+      cirurgia: { label: "Allgemeinchirurgie & Topografische Anatomie", desc: "Bauchwand, anatomische Dreiecke und Eingeweide" },
+      cardiologia: { label: "Kardiologie & Gefäßsystem", desc: "Kardiale Vaskularisation, Aorta und große Gefäße" },
+      ginecologia: { label: "Gynäkologie & Beckenanatomie", desc: "Weibliches Becken, Beckenboden und Retroperitoneum" }
+    },
+    difficulties: {
+      basico: { label: "Grundstudium (1. - 4. Semester)", desc: "Anatomische Identifikation, Landmarken und direkte Beziehungen" },
+      clinico: { label: "Klinischer Studienabschnitt (5. - 8. Semester)", desc: "Pathophysiologie, körperliche Untersuchung und Bildgebungsbefunde" },
+      avancado: { label: "Praktisches Jahr & Assistenzarztzeit", desc: "Komplexe Differenzialdiagnostik und anatomische Variationen" }
+    }
+  },
+  spatialAI: {
+    title: "Räumliche Steuerung Spatial AI",
+    badge: "3D-Modell kartiert",
+    guideToViewer: "Zum 3D-Modell führen",
+    openedInSession: "3D-Modell in dieser Sitzung geöffnet",
+    selectMarker: "Markierung zum Hervorheben auswählen (Spatial Focus):"
   },
   modelData: {
     "cranio-humano-3d": {
@@ -1178,6 +1230,51 @@ export const de = {
     notesSaved: "Notizen auf diesem Gerät gespeichert.",
     notesEmpty: "Schreibe eine Notiz, bevor du das PDF exportierst.",
     notesExported: "Notizen-PDF exportiert.",
+    partHighlighted: "Teil hervorgehoben",
+    highlightedPart: "{{part}} im Modell hervorgehoben.",
+    selectedStructure: "{{structure}} ausgewählt.",
+    visualRestored: "Ansicht wiederhergestellt.",
+    externalLinkMissing: "Externer Link für dieses Modell nicht registriert.",
+    favoriteAdded: "Modell zu lokalen Favoriten hinzugefügt.",
+    favoriteRemoved: "Modell aus Favoriten entfernt.",
+    modelCompleted: "Modell als gelernt markiert.",
+    modelUnmarked: "Modell-Lernstatus zurückgesetzt.",
+    linkCopied: "Modell-Link kopiert.",
+    accessRegistered: "Zugriff in lokaler Statistik protokolliert.",
+    accessUnregistered: "Zugriffsprotokoll für diese Sitzung abgewählt.",
+    anatomicalQuiz: "Anatomische Simulation",
+    theoreticalQuiz: "Theoretische Simulation",
+    practicalQuiz: "Praktische Simulation",
+    anatomicalQuizEyebrow: "Praktische Bewertung",
+    anatomicalQuizTitle: "Anatomische Simulation",
+    anatomicalQuizPreparing: "Anatomische Simulation wird vorbereitet...",
+    anatomicalQuizUnavailable: "Simulation für dieses Modell nicht verfügbar.",
+    anatomicalQuizUnavailableHint: "Synchronisieren Sie anatomische Notizen oder erfassen Sie Fragen in Supabase, um die Bewertung freizuschalten.",
+    anatomicalQuizMarkers: "Nummerierte Simulationsmarkierungen",
+    anatomicalQuizTimerLabel: "Verbleibende Zeit: {{time}}",
+    anatomicalQuizQuestionCount: "Fragen",
+    anatomicalQuizAnsweredCount: "Beantwortet",
+    anatomicalQuizTimeLimit: "Gesamtzeit",
+    anatomicalQuizAnswerPlaceholder: "Anatomischer Name",
+    anatomicalQuizAnswerLabel: "Antwort für Markierung {{marker}}",
+    anatomicalQuizNavigateMarker: "Markierung {{marker}} im 3D-Modell lokalisieren",
+    anatomicalQuizScore: "Ergebnis",
+    anatomicalQuizPercentage: "Leistungsquote",
+    anatomicalQuizDuration: "Benötigte Zeit",
+    anatomicalQuizCorrect: "Richtig: {{answer}}",
+    anatomicalQuizIncorrect: "Falsch. Ihre Antwort: {{student}}. Richtig: {{answer}}",
+    anatomicalQuizBlankAnswer: "leer",
+    anatomicalQuizFinish: "Simulation beenden",
+    anatomicalQuizRetry: "Simulation wiederholen",
+    closeAnatomicalQuiz: "Simulation schließen",
+    anatomicalQuizCompleted: "Simulation beendet: {{score}}/{{total}} Treffer ({{percentage}}%).",
+    anatomicalQuizStartError: "Simulation konnte jetzt nicht gestartet werden.",
+    guideAvailable: "Leitfaden im akademischen Panel verfügbar.",
+    reportUnavailable: "Supportkanal ist noch nicht integriert. Es wurde keine Meldung gesendet.",
+    layerToggled: "{{system}}: anatomische Schicht umgeschaltet.",
+    layerUnavailable: "Schicht für dieses institutionelle Modul nicht beauftragt.",
+    layerDisabled: "System für dieses Modell deaktiviert.",
+    functionPrepared: "{{action}}: Funktion für 3D-Viewer-Integration vorbereitet.",
     supportItems: {
       platformGuide: "Leitfaden zur Plattformnutzung",
       study3d: "Lernen mit 3D-Modellen",

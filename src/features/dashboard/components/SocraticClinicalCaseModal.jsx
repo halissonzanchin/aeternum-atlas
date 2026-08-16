@@ -2,21 +2,11 @@ import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import LineIcon from "../../../components/icons/LineIcon";
 import { A26Button } from "../../../components/aeternum-26";
+import { useLanguage } from "../../../context/LanguageContext";
 import "./SocraticClinicalCaseModal.css";
 
-const SPECIALTIES = [
-  { id: "ortopedia", label: "Ortopedia & Traumatologia", desc: "Fraturas, articulações, tendões e lesões de membros" },
-  { id: "neurologia", label: "Neurologia & Neurocirurgia", desc: "Plexos nervosos, nervos cranianos e SNC" },
-  { id: "cirurgia", label: "Cirurgia Geral & Anatomia Topográfica", desc: "Parede abdominal, triângulos anatômicos e vísceras" },
-  { id: "cardiologia", label: "Cardiologia & Sistema Vascular", desc: "Vascularização cardíaca, aorta e grandes vasos" },
-  { id: "ginecologia", label: "Ginecologia & Anatomia Pélvica", desc: "Pelve feminina, assoalho pélvico e retroperitônio" }
-];
-
-const DIFFICULTY_LEVELS = [
-  { id: "basico", label: "Ciclo Básico (1º - 4º Semestre)", desc: "Identificação anatômica, marcos e relações diretas" },
-  { id: "clinico", label: "Ciclo Clínico (5º - 8º Semestre)", desc: "Fisiopatologia, exames físicos e achados de imagem" },
-  { id: "avancado", label: "Internato & Residência", desc: "Diagnóstico diferencial complexo e variações anatômicas" }
-];
+const SPECIALTY_KEYS = ["ortopedia", "neurologia", "cirurgia", "cardiologia", "ginecologia"];
+const DIFFICULTY_KEYS = ["basico", "clinico", "avancado"];
 
 export default function SocraticClinicalCaseModal({
   isOpen,
@@ -24,6 +14,7 @@ export default function SocraticClinicalCaseModal({
   onStartCase,
   currentModelTitle = null
 }) {
+  const { t } = useLanguage();
   const [specialty, setSpecialty] = useState("ortopedia");
   const [difficulty, setDifficulty] = useState("clinico");
   const [useCurrentModel, setUseCurrentModel] = useState(Boolean(currentModelTitle));
@@ -31,10 +22,10 @@ export default function SocraticClinicalCaseModal({
   if (!isOpen || typeof document === "undefined") return null;
 
   const handleGenerate = () => {
-    const specObj = SPECIALTIES.find(s => s.id === specialty);
-    const diffObj = DIFFICULTY_LEVELS.find(d => d.id === difficulty);
+    const specLabel = t(`socraticModal.specialties.${specialty}.label`);
+    const diffLabel = t(`socraticModal.difficulties.${difficulty}.label`);
 
-    let promptText = `Atue como um Preceptor Médico Socrático de Anatomia Humana. Gere 1 CASO CLÍNICO MÉDICO SOCRÁTICO focado em ${specObj.label} no nível "${diffObj.label}".\n\n`;
+    let promptText = `Atue como um Preceptor Médico Socrático de Anatomia Humana. Gere 1 CASO CLÍNICO MÉDICO SOCRÁTICO focado em ${specLabel} no nível "${diffLabel}".\n\n`;
 
     if (useCurrentModel && currentModelTitle) {
       promptText += `O caso DEVE ser estritamente relacionado à estrutura anatômica do modelo 3D atual: "${currentModelTitle}".\n\n`;
@@ -47,8 +38,8 @@ export default function SocraticClinicalCaseModal({
 
     onStartCase({
       prompt: promptText,
-      specialtyLabel: specObj.label,
-      difficultyLabel: diffObj.label
+      specialtyLabel: specLabel,
+      difficultyLabel: diffLabel
     });
     onClose();
   };
@@ -59,12 +50,13 @@ export default function SocraticClinicalCaseModal({
         {/* Modal Header */}
         <div className="a26-socratic-modal-header">
           <div>
-            <span className="a26-socratic-modal-kicker">Simulador de Medicina Socrática</span>
-            <h3 className="a26-socratic-modal-title">Gerar Caso Clínico Interativo</h3>
+            <span className="a26-socratic-modal-kicker">{t("socraticModal.kicker")}</span>
+            <h3 className="a26-socratic-modal-title">{t("socraticModal.title")}</h3>
           </div>
           <button
             type="button"
             onClick={onClose}
+            aria-label={t("actions.close")}
             style={{ background: 'transparent', border: 0, color: '#94a3b8', cursor: 'pointer' }}
           >
             <LineIcon name="close" className="w-5 h-5" />
@@ -75,17 +67,17 @@ export default function SocraticClinicalCaseModal({
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {/* 1. Escolha da Especialidade */}
           <div>
-            <span className="a26-socratic-section-title">1. Selecionar Especialidade Médica:</span>
+            <span className="a26-socratic-section-title">{t("socraticModal.selectSpecialty")}</span>
             <div className="a26-socratic-grid">
-              {SPECIALTIES.map((spec) => (
+              {SPECIALTY_KEYS.map((specKey) => (
                 <button
-                  key={spec.id}
+                  key={specKey}
                   type="button"
-                  onClick={() => setSpecialty(spec.id)}
-                  className={`a26-socratic-choice-btn ${specialty === spec.id ? "is-selected" : ""}`}
+                  onClick={() => setSpecialty(specKey)}
+                  className={`a26-socratic-choice-btn ${specialty === specKey ? "is-selected" : ""}`}
                 >
-                  <div className="a26-socratic-choice-title">{spec.label}</div>
-                  <div className="a26-socratic-choice-desc">{spec.desc}</div>
+                  <div className="a26-socratic-choice-title">{t(`socraticModal.specialties.${specKey}.label`)}</div>
+                  <div className="a26-socratic-choice-desc">{t(`socraticModal.specialties.${specKey}.desc`)}</div>
                 </button>
               ))}
             </div>
@@ -93,20 +85,22 @@ export default function SocraticClinicalCaseModal({
 
           {/* 2. Escolha da Dificuldade */}
           <div>
-            <span className="a26-socratic-section-title">2. Nível de Complexidade Acadêmica:</span>
+            <span className="a26-socratic-section-title">{t("socraticModal.selectDifficulty")}</span>
             <div className="a26-socratic-diff-stack">
-              {DIFFICULTY_LEVELS.map((diff) => (
+              {DIFFICULTY_KEYS.map((diffKey) => (
                 <button
-                  key={diff.id}
+                  key={diffKey}
                   type="button"
-                  onClick={() => setDifficulty(diff.id)}
-                  className={`a26-socratic-diff-btn ${difficulty === diff.id ? "is-selected" : ""}`}
+                  onClick={() => setDifficulty(diffKey)}
+                  className={`a26-socratic-diff-btn ${difficulty === diffKey ? "is-selected" : ""}`}
                 >
                   <div>
-                    <span className="a26-socratic-choice-title">{diff.label}</span>
-                    <span className="a26-socratic-choice-desc" style={{ display: 'block' }}>{diff.desc}</span>
+                    <span className="a26-socratic-choice-title">{t(`socraticModal.difficulties.${diffKey}.label`)}</span>
+                    <span className="a26-socratic-choice-desc" style={{ display: 'block' }}>
+                      {t(`socraticModal.difficulties.${diffKey}.desc`)}
+                    </span>
                   </div>
-                  {difficulty === diff.id ? <span style={{ color: '#5ce8df', fontWeight: 'bold' }}>✓</span> : null}
+                  {difficulty === diffKey ? <span style={{ color: '#5ce8df', fontWeight: 'bold' }}>✓</span> : null}
                 </button>
               ))}
             </div>
@@ -116,7 +110,7 @@ export default function SocraticClinicalCaseModal({
           {currentModelTitle && (
             <div className="a26-socratic-link-card">
               <div>
-                <span style={{ fontWeight: 'bold', display: 'block' }}>Vincular ao Modelo 3D Atual</span>
+                <span style={{ fontWeight: 'bold', display: 'block' }}>{t("socraticModal.linkModel")}</span>
                 <span style={{ fontSize: '11px', color: '#94a3b8' }}>{currentModelTitle}</span>
               </div>
               <input
@@ -132,10 +126,10 @@ export default function SocraticClinicalCaseModal({
         {/* Modal Footer */}
         <div className="a26-socratic-footer">
           <A26Button variant="ghost" onClick={onClose}>
-            Cancelar
+            {t("socraticModal.cancel")}
           </A26Button>
           <A26Button variant="liquid" onClick={handleGenerate}>
-            Iniciar Simulação de Caso Clínico
+            {t("socraticModal.start")}
           </A26Button>
         </div>
       </div>

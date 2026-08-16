@@ -1,12 +1,13 @@
 import React from "react";
 import LineIcon from "../../../components/icons/LineIcon";
 import { LOCAL_MODELS } from "../../../data/localModels";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const SPATIAL_MAPPINGS = [
   {
     slug: "corte-sagital-cranio-humano-superficial",
     modelTitle: "Corte Sagital do Crânio Humano — Modelo Superficial 3D",
-    keywords: ["crânio", "cranio", "cabeça", "cabeca", "encéfalo", "encefalo", "cérebro", "cerebro", "neuroanatomia", "meninges", "corpo caloso"],
+    keywords: ["crânio", "cranio", "cabeça", "cabeca", "encéfalo", "encefalo", "cérebro", "cerebro", "neuroanatomia", "meninges", "corpo caloso", "skull", "head", "brain", "cráneo", "cabeza", "schädel", "kopf", "gehirn"],
     markers: [
       { id: "m1", label: "Telencéfalo & Córtex", index: 0 },
       { id: "m2", label: "Corpo Caloso", index: 1 },
@@ -17,7 +18,7 @@ const SPATIAL_MAPPINGS = [
   {
     slug: "corte-sagital-sistema-reprodutor-feminino",
     modelTitle: "Corte Sagital do Sistema Reprodutor Feminino — Modelo 3D",
-    keywords: ["reprodutor feminino", "útero", "utero", "vagina", "cérvix", "cervix", "ginecologia", "pelve feminina", "douglas", "ovário", "ovario"],
+    keywords: ["reprodutor feminino", "útero", "utero", "vagina", "cérvix", "cervix", "ginecologia", "pelve feminina", "douglas", "ovário", "ovario", "female reproductive", "uterus", "pelvis", "sistema reproductor femenino", "útero", "weibliches fortpflanzungssystem", "gebiermutter", "becken"],
     markers: [
       { id: "f1", label: "Útero & Cavidade Uterina", index: 0 },
       { id: "f2", label: "Bexiga Urinária", index: 1 },
@@ -28,7 +29,7 @@ const SPATIAL_MAPPINGS = [
   {
     slug: "coracao-edicao-morgue",
     modelTitle: "Coração Humano — Edição Morgue 3D",
-    keywords: ["coração", "coracao", "cardíaca", "cardiaca", "cardiovascular", "ventrículo", "ventriculo", "átrio", "atrio", "aorta", "miocárdio"],
+    keywords: ["coração", "coracao", "cardíaca", "cardiaca", "cardiovascular", "ventrículo", "ventriculo", "átrio", "atrio", "aorta", "miocárdio", "heart", "cardiac", "corazón", "herz", "kardiovaskulär"],
     markers: [
       { id: "h1", label: "Ápice Cardíaco", index: 0 },
       { id: "h2", label: "Ventrículo Esquerdo", index: 1 },
@@ -39,6 +40,7 @@ const SPATIAL_MAPPINGS = [
 ];
 
 export default function SpatialAIGuidanceCard({ text, currentPath = "" }) {
+  const { t } = useLanguage();
   if (!text || typeof text !== "string") return null;
 
   const lowerText = text.toLowerCase();
@@ -75,10 +77,10 @@ export default function SpatialAIGuidanceCard({ text, currentPath = "" }) {
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1.5 font-bold text-xs text-teal-300">
           <span className="text-sm">🧊</span>
-          <span>Controle Espacial Spatial AI</span>
+          <span>{t("spatialAI.title")}</span>
         </div>
         <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-200 border border-teal-500/30">
-          Modelo 3D Mapeado
+          {t("spatialAI.badge")}
         </span>
       </div>
 
@@ -95,18 +97,18 @@ export default function SpatialAIGuidanceCard({ text, currentPath = "" }) {
             className="px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-teal-500 to-teal-600 text-blackDeep hover:brightness-110 transition-all flex items-center gap-1.5 shadow-md"
           >
             <LineIcon name="play" className="w-3.5 h-3.5" />
-            <span>Guiar para o Modelo 3D</span>
+            <span>{t("spatialAI.guideToViewer")}</span>
           </button>
         ) : (
           <span className="text-[11px] text-amber-300 font-semibold flex items-center gap-1">
-            <span>👁️</span> Modelo 3D aberto nesta sessão
+            <span>👁️</span> {t("spatialAI.openedInSession")}
           </span>
         )}
 
         {/* Lista de Marcadores Anatômicos Interativos */}
         <div className="w-full pt-1">
           <span className="text-[10px] uppercase tracking-wider text-textMuted block mb-1.5 font-semibold">
-            📍 Selecionar Marcador para Destacar (Spatial Focus):
+            {t("spatialAI.selectMarker")}
           </span>
           <div className="flex flex-wrap gap-1.5">
             {matchedMapping.markers.map((marker) => (

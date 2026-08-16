@@ -53,7 +53,7 @@ function AtlasCard({ item, isActive, navigate, t }) {
         <span className="status-badge">{t("common.available")}</span>
         {hasLinkedModels && (
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-teal-500/20 text-teal-300 border border-teal-500/30 flex items-center gap-1 font-semibold">
-            <span>🧊</span> Modelo 3D
+            <span>🧊</span> {t("atlas.linkedModelBadge")}
           </span>
         )}
       </div>
@@ -110,7 +110,7 @@ export default function Atlas({ path = "/atlas", user, navigate }) {
             <div className="flex items-center justify-between gap-4 flex-wrap">
               <div>
                 <span className="text-xs uppercase tracking-wider text-teal-400 font-bold block mb-1">
-                  Região Selecionada
+                  {t("atlas.selectedRegion")}
                 </span>
                 <strong className="text-xl text-white font-serif">{atlasTitle(selectedItem, t)}</strong>
                 <p className="text-sm text-textMuted mt-1">
@@ -123,11 +123,11 @@ export default function Atlas({ path = "/atlas", user, navigate }) {
               {linkedModels.length > 0 ? (
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-semibold">
                   <LineIcon name="box" className="w-4 h-4" />
-                  <span>{linkedModels.length} Modelo 3D Vinculado</span>
+                  <span>{t("atlas.linkedModelCount", { count: linkedModels.length })}</span>
                 </div>
               ) : (
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-surfaceDark/60 border border-glassBorder/40 text-textMuted text-xs">
-                  <span>Estrutura em expansão</span>
+                  <span>{t("atlas.expandingStructure")}</span>
                 </div>
               )}
             </div>
@@ -138,7 +138,7 @@ export default function Atlas({ path = "/atlas", user, navigate }) {
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-sm font-bold text-teal-300">
                 <LineIcon name="play" className="w-4 h-4" />
-                <span>Modelos 3D Vinculados a {atlasTitle(selectedItem, t)}:</span>
+                <span>{t("atlas.linkedModelsTitle", { region: atlasTitle(selectedItem, t) })}</span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {linkedModels.map((model) => (
@@ -148,7 +148,7 @@ export default function Atlas({ path = "/atlas", user, navigate }) {
             </div>
           ) : (
             <div className="p-4 rounded-xl bg-surfaceDark/40 border border-glassBorder/30 text-textMuted text-xs text-center">
-              📍 Os modelos 3D desta região estão em desenvolvimento pela equipe Aeternum. Escolha outra região com modelos vinculados (Cabeça, Tórax, Pelve) para explorar.
+              {t("atlas.expandingStructure")}
             </div>
           )}
         </div>

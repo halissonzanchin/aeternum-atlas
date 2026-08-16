@@ -873,17 +873,29 @@ export const pt = {
   },
   atlas: {
     pageDescription: "Estrutura anatômica organizada por regiões reais, preparada para trilhas de estudo, modelos 3D e avaliação por módulo.",
-    selectedRegion: "Região selecionada",
+    selectedRegion: "Região Selecionada",
     subcategoryPrepared: "Subcategoria pronta para conexão futura com conteúdos, modelos 3D e trilhas específicas.",
     subcategoriesOf: "Subcategorias de {{title}}",
+    linkedModelBadge: "Modelo 3D",
+    linkedModelCount: "{{count}} Modelo 3D Vinculado",
+    linkedModelsTitle: "Modelos 3D Vinculados a {{region}}:",
+    expandingStructure: "Estrutura em expansão — modelos 3D em desenvolvimento pela equipe Aeternum.",
     modules: {
+      cabeca: {
+        title: "Anatomia da Cabeça",
+        description: "Neuroanatomia, encéfalo, cavidade craniana e estruturas da cabeça."
+      },
+      pescoco: {
+        title: "Anatomia do Pescoço",
+        description: "Região cervical, estruturas vasculares, musculares e viscerais."
+      },
       "membro-superior": {
-        title: "Anatomia de Membro Superior",
+        title: "Anatomia de Membros Superiores",
         description: "Estruturas do membro superior com foco funcional e clínico."
       },
-      "membro-inferior": {
-        title: "Anatomia de Membro Inferior",
-        description: "Estudo anatômico da locomoção e sustentação corporal."
+      tronco: {
+        title: "Anatomia do Tronco",
+        description: "Coluna vertebral, dorso e musculatura posterior do tronco."
       },
       torax: {
         title: "Anatomia de Tórax",
@@ -893,15 +905,43 @@ export const pt = {
         title: "Anatomia de Abdômen",
         description: "Órgãos viscerais e relações anatômicas abdominais."
       },
-      "pescoco-e-cabeca": {
-        title: "Anatomia de Pescoço e Cabeça",
-        description: "Estruturas neurológicas, musculares e ósseas da região superior."
-      },
       "pelve-e-perineo": {
         title: "Anatomia de Pelve e Períneo",
-        description: "Relações topográficas da pelve, períneo e sistemas urogenitais."
+        description: "Relações topográficas da pelve, períneo e sistema reprodutor."
+      },
+      "membro-inferior": {
+        title: "Anatomia de Membros Inferiores",
+        description: "Estudo anatômico da locomoção e sustentação corporal."
       }
     }
+  },
+  socraticModal: {
+    kicker: "Simulador de Medicina Socrática",
+    title: "Gerar Caso Clínico Interativo",
+    selectSpecialty: "1. Selecionar Especialidade Médica:",
+    selectDifficulty: "2. Nível de Complexidade Acadêmica:",
+    linkModel: "Vincular ao Modelo 3D Atual",
+    cancel: "Cancelar",
+    start: "Iniciar Simulação de Caso Clínico",
+    specialties: {
+      ortopedia: { label: "Ortopedia & Traumatologia", desc: "Fraturas, articulações, tendões e lesões de membros" },
+      neurologia: { label: "Neurologia & Neurocirurgia", desc: "Plexos nervosos, nervos cranianos e SNC" },
+      cirurgia: { label: "Cirurgia Geral & Anatomia Topográfica", desc: "Parede abdominal, triângulos anatômicos e vísceras" },
+      cardiologia: { label: "Cardiologia & Sistema Vascular", desc: "Vascularização cardíaca, aorta e grandes vasos" },
+      ginecologia: { label: "Ginecologia & Anatomia Pélvica", desc: "Pelve feminina, assoalho pélvico e retroperitônio" }
+    },
+    difficulties: {
+      basico: { label: "Ciclo Básico (1º - 4º Semestre)", desc: "Identificação anatômica, marcos e relações diretas" },
+      clinico: { label: "Ciclo Clínico (5º - 8º Semestre)", desc: "Fisiopatologia, exames físicos e achados de imagem" },
+      avancado: { label: "Internato & Residência", desc: "Diagnóstico diferencial complexo e variações anatômicas" }
+    }
+  },
+  spatialAI: {
+    title: "Controle Espacial Spatial AI",
+    badge: "Modelo 3D Mapeado",
+    guideToViewer: "Guiar para o Modelo 3D",
+    openedInSession: "Modelo 3D aberto nesta sessão",
+    selectMarker: "Selecionar Marcador para Destacar (Spatial Focus):"
   },
   modelData: {
     "cranio-humano-3d": {
