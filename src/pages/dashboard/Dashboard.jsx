@@ -120,20 +120,20 @@ export default function Dashboard({ user, navigate }) {
     return <A26LoadingState title="Abrindo área docente" text="Carregando os dados observados do professor." />;
   }
 
-  const firstName = String(user?.name || "Estudante").trim().split(/\s+/)[0];
+  const firstName = String(user?.name || t("settings.roles.student", { defaultValue: "Estudante" })).trim().split(/\s+/)[0];
   const recentModel = recentModels[0];
-  const courseLabel = user?.course || "Medicina";
-  const semesterLabel = user?.semester || "Acesso institucional";
+  const courseLabel = user?.course || t("studentHome.medicineDefault", { defaultValue: "Medicina" });
+  const semesterLabel = user?.semester || t("studentHome.institutionalDefault", { defaultValue: "Institucional" });
 
   return (
     <section className="student-study-home a26-student-dashboard fade-in-up pb-12" data-a26-source="account-observed">
       <A26Card material="substantial" tone="teal" className="student-study-hero a26-student-hero">
         <div className="student-study-hero__content">
           <p className="viewer-eyebrow">{courseLabel} • {semesterLabel}</p>
-          <h1>Olá, {firstName}</h1>
+          <h1>{t("studentHome.greeting", { name: firstName })}</h1>
           <p>
             {recentModel
-              ? `Continue sua exploração em ${recentModel.shortTitle || recentModel.title}.`
+              ? t("studentHome.continueExploration", { model: recentModel.shortTitle || recentModel.title })
               : t("studentHome.subtitle")}
           </p>
           <div className="student-study-actions">

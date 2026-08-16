@@ -153,7 +153,7 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
               <strong>{currentRoute.label}</strong>
               <small>
                 {user?.institution
-                  || (user?.institutionId || user?.institution_id ? "Tenant institucional vinculado" : t("settings.institutionMissing"))}
+                  || (user?.institutionId || user?.institution_id ? t("settings.tenantLinked", { defaultValue: "Tenant institucional vinculado" }) : t("settings.institutionMissing"))}
               </small>
             </div>
           </div>

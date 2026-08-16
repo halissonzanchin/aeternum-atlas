@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import LineIcon from "../../../components/icons/LineIcon";
+import { useLanguage } from "../../../context/LanguageContext";
 import { RichContentParser } from "./NotebookLMRenderers";
 import SpatialAIGuidanceCard from "./SpatialAIGuidanceCard";
 import { sanitizeTutorDisplayText } from "./atlasAITutorService";
@@ -213,8 +214,10 @@ export default function AtlasAIConversation({
   quickQuestions = [],
   onAction,
   resolveActionLabel,
-  placeholder = "Pergunte sobre anatomia, revisão ou desempenho…"
+  placeholder
 }) {
+  const { t } = useLanguage();
+  const activePlaceholder = placeholder || t("tutor.defaultPlaceholder", { defaultValue: "Pergunte sobre anatomia, revisão ou desempenho…" });
   const [inputError, setInputError] = useState(false);
   const messagesEndRef = useRef(null);
 
@@ -279,9 +282,9 @@ export default function AtlasAIConversation({
                     <div className="atlas-ai-featured-response__meta">
                       <span>
                         <i aria-hidden="true" />
-                        Resposta do Atlas
+                        {t("tutor.atlasResponse", { defaultValue: "Resposta do Atlas" })}
                       </span>
-                      <small>Resposta contextual</small>
+                      <small>{t("tutor.contextualResponse", { defaultValue: "Resposta contextual" })}</small>
                     </div>
                   ) : null}
                   <MessageText text={message.text} />
@@ -309,7 +312,7 @@ export default function AtlasAIConversation({
 
           {isThinking && (
             <div className="atlas-viewer-ai-message-row is-ai">
-              <div className="atlas-viewer-ai-thinking" aria-label="Atlas AI está analisando">
+              <div className="atlas-viewer-ai-thinking" aria-label={t("tutor.analyzing", { defaultValue: "Atlas AI está analisando" })}>
                 <span className="typing-dot" />
                 <span className="typing-dot" />
                 <span className="typing-dot" />
@@ -334,12 +337,12 @@ export default function AtlasAIConversation({
           {isThinking ? (
             <div className="atlas-ai-live-dock__status" aria-live="polite">
               <span aria-hidden="true" />
-              O Atlas está processando sua solicitação…
+              {t("tutor.processingRequest", { defaultValue: "O Atlas está processando sua solicitação…" })}
             </div>
           ) : null}
 
           <label className={`upe-ai-composer${inputError ? " has-error" : ""}`}>
-            <span className="sr-only">Pergunte ao Atlas AI Tutor</span>
+            <span className="sr-only">{t("tutor.askAriaLabel", { defaultValue: "Pergunte ao Atlas AI Tutor" })}</span>
             <span className="atlas-ai-composer__signal" aria-hidden="true">
               <i />
               <i />
@@ -347,7 +350,7 @@ export default function AtlasAIConversation({
             </span>
             <textarea
               rows={1}
-              placeholder={placeholder}
+              placeholder={activePlaceholder}
               value={draft}
               onChange={(event) => setDraft(event.target.value)}
               onKeyDown={(event) => {
@@ -361,7 +364,7 @@ export default function AtlasAIConversation({
               type="button"
               onClick={() => handleSend()}
               disabled={!draft.trim() || isThinking}
-              aria-label="Enviar pergunta"
+              aria-label={t("tutor.sendQuestion", { defaultValue: "Enviar pergunta" })}
             >
               <LineIcon name="send" />
             </button>

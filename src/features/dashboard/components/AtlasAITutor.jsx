@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { A26IconButton, A26Surface } from "../../../components/aeternum-26";
+import { useLanguage } from "../../../context/LanguageContext";
 import { useAtlasAITutorSession } from "../../../context/AtlasAITutorSessionContext";
 import AtlasAIConversation from "../../atlas-viewer/ai/AtlasAIConversation";
 import AtlasAIOrb from "../../atlas-viewer/ai/AtlasAIOrb";
@@ -17,6 +18,7 @@ export default function AtlasAITutor({
   sphereOnly = false,
   draggable = false
 }) {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [panelMode, setPanelMode] = useState("compact");
   const [toolModalType, setToolModalType] = useState(null);
@@ -174,20 +176,20 @@ export default function AtlasAITutor({
           <header className="upe-ai-panel__header">
             <AtlasAIOrb state={orbState} size="sm" />
             <div>
-              <span className="upe-ai-panel__eyebrow">Assistência contextual</span>
-              <h2 id="upe-ai-title">Atlas AI Tutor</h2>
-              <p>{isThinking ? "Analisando sua pergunta…" : "Conversa sincronizada em toda a plataforma"}</p>
+              <span className="upe-ai-panel__eyebrow">{t("tutor.contextualAssistance", { defaultValue: "Assistência contextual" })}</span>
+              <h2 id="upe-ai-title">{t("tutor.title", { defaultValue: "Atlas AI Tutor" })}</h2>
+              <p>{isThinking ? t("tutor.analyzingQuestion", { defaultValue: "Analisando sua pergunta…" }) : t("tutor.synchronizedConversation", { defaultValue: "Conversa sincronizada em toda a plataforma" })}</p>
             </div>
             <div className="flex items-center gap-1">
               <A26IconButton
                 className="upe-ai-panel__close text-textMuted hover:text-amber-300 transition-colors"
-                label={panelMode === "expanded" ? "Modo compacto" : "Modo expandido"}
+                label={panelMode === "expanded" ? t("tutor.compactMode", { defaultValue: "Modo compacto" }) : t("tutor.expandedMode", { defaultValue: "Modo expandido" })}
                 icon={panelMode === "expanded" ? "minimize" : "maximize"}
                 onClick={() => setPanelMode((prev) => (prev === "expanded" ? "compact" : "expanded"))}
               />
               <A26IconButton
                 className="upe-ai-panel__close"
-                label="Fechar Atlas AI Tutor"
+                label={t("tutor.close", { defaultValue: "Fechar Atlas AI Tutor" })}
                 icon="close"
                 onClick={handleClose}
               />
@@ -195,7 +197,7 @@ export default function AtlasAITutor({
           </header>
 
           <AtlasAIConversation
-            contextLabel="Contexto atual"
+            contextLabel={t("tutor.currentContext", { defaultValue: "Contexto atual" })}
             contextTitle={context.structure}
             contextPrompt={context.question}
             messages={messages}
@@ -239,7 +241,7 @@ export default function AtlasAITutor({
           draggable ? "is-draggable" : "",
           isDragging ? "is-dragging" : ""
         ].filter(Boolean).join(" ")}
-        aria-label={sphereOnly ? "Abrir Atlas AI Tutor. Arraste para reposicionar." : undefined}
+        aria-label={sphereOnly ? `${t("tutor.title", { defaultValue: "Atlas AI Tutor" })}. ${t("tutor.tagline", { defaultValue: "Tutor anatômico" })}` : undefined}
         aria-expanded={isOpen}
         aria-controls="upe-ai-panel"
         style={triggerStyle}
@@ -250,7 +252,7 @@ export default function AtlasAITutor({
         {!sphereOnly && (
           <span>
             <strong>Atlas AI</strong>
-            <small>{isThinking ? "Analisando" : isOpen ? "Ouvindo" : "Tutor anatômico"}</small>
+            <small>{isThinking ? t("tutor.stateAnalyzing", { defaultValue: "Analisando" }) : isOpen ? t("tutor.stateListening", { defaultValue: "Ouvindo" }) : t("tutor.stateAnatomicalTutor", { defaultValue: "Tutor anatômico" })}</small>
           </span>
         )}
       </A26Surface>

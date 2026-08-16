@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { A26Button } from "../aeternum-26";
 import LineIcon from "../icons/LineIcon";
+import { useLanguage } from "../../context/LanguageContext";
 import "./MuralModularBoard.css";
 
 const COLS = 7;
@@ -34,6 +35,7 @@ function getCoordLabel(index) {
 }
 
 export default function MuralModularBoard({ videoSrc = null }) {
+  const { t } = useLanguage();
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const imagesRef = useRef([]);
@@ -347,8 +349,8 @@ export default function MuralModularBoard({ videoSrc = null }) {
         <header className="notes-board__header">
           <div className="notes-board__title-group">
             <div>
-              <p className="notes-board__eyebrow">ESTUDO AUTÔNOMO • ANOTAÇÕES DENSAS</p>
-              <h3>Mural Modular de Estudo Anatômico</h3>
+              <p className="notes-board__eyebrow">{t("muralModular.eyebrow", { defaultValue: "ESTUDO AUTÔNOMO • ANOTAÇÕES DENSAS" })}</p>
+              <h3>{t("muralModular.title", { defaultValue: "Mural Modular de Estudo Anatômico" })}</h3>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -358,11 +360,11 @@ export default function MuralModularBoard({ videoSrc = null }) {
                 className="notes-board__mobile-cancel-btn"
                 onClick={() => setSelectedMobileIndex(null)}
               >
-                Cancelar Movimentação
+                {t("muralModular.cancelMove", { defaultValue: "Cancelar Movimentação" })}
               </button>
             ) : null}
             <span className="notes-board__count-chip">
-              {activeNotesCount} / {TOTAL_CELLS} NOTAS FIXADAS
+              {t("muralModular.pinnedNotesCount", { count: activeNotesCount, total: TOTAL_CELLS, defaultValue: `${activeNotesCount} / ${TOTAL_CELLS} NOTAS FIXADAS` })}
             </span>
           </div>
         </header>
@@ -371,7 +373,7 @@ export default function MuralModularBoard({ videoSrc = null }) {
         {selectedMobileIndex !== null ? (
           <div className="notes-board__touch-banner">
             <span>
-              💡 Nota <strong>[{getCoordLabel(selectedMobileIndex)}]</strong> selecionada. Toque em qualquer bloco para trocar de posição, ou toque nela novamente para abrir.
+              {t("muralModular.touchBanner", { coord: getCoordLabel(selectedMobileIndex), defaultValue: `💡 Nota [${getCoordLabel(selectedMobileIndex)}] selecionada. Toque em qualquer bloco para trocar de posição, ou toque nela novamente para abrir.` })}
             </span>
           </div>
         ) : null}
@@ -410,7 +412,7 @@ export default function MuralModularBoard({ videoSrc = null }) {
                       <button
                         type="button"
                         className="notes-board__postit-delete"
-                        title="Excluir Nota"
+                        title={t("muralModular.delete", { defaultValue: "Excluir Nota" })}
                         onClick={e => {
                           e.stopPropagation();
                           handleDeleteNote(index);
@@ -423,7 +425,7 @@ export default function MuralModularBoard({ videoSrc = null }) {
                     <div className="flex items-center justify-between w-full mt-auto pt-1">
                       <span className="notes-board__coord">{coord}</span>
                       {isMobileSelected ? (
-                        <span className="notes-board__selected-tag">SELECIONADA</span>
+                        <span className="notes-board__selected-tag">{t("muralModular.selected", { defaultValue: "SELECIONADA" })}</span>
                       ) : null}
                     </div>
                   </div>
@@ -443,14 +445,18 @@ export default function MuralModularBoard({ videoSrc = null }) {
       {editingIndex !== null ? (
         <div className="notes-board__modal-overlay" onClick={() => setEditingIndex(null)}>
           <div className="notes-board__modal" onClick={e => e.stopPropagation()}>
-            <h4>{notes[editingIndex] ? "Editar Post-It" : `Novo Post-It [Bloco ${getCoordLabel(editingIndex)}]`}</h4>
+            <h4>
+              {notes[editingIndex]
+                ? t("muralModular.editPostit", { defaultValue: "Editar Post-It" })
+                : t("muralModular.newPostit", { coord: getCoordLabel(editingIndex), defaultValue: `Novo Post-It [Bloco ${getCoordLabel(editingIndex)}]` })}
+            </h4>
 
             <div className="notes-board__field">
-              <label>Título Curto</label>
+              <label>{t("muralModular.shortTitleLabel", { defaultValue: "Título Curto" })}</label>
               <input
                 type="text"
                 value={formTitle}
-                placeholder="Ex: ORIGEM DO MÚSCULO BÍCEPS"
+                placeholder={t("muralModular.shortTitlePlaceholder", { defaultValue: "Ex: ORIGEM DO MÚSCULO BÍCEPS" })}
                 onChange={e => setFormTitle(e.target.value)}
                 maxLength={45}
                 autoFocus
@@ -458,17 +464,17 @@ export default function MuralModularBoard({ videoSrc = null }) {
             </div>
 
             <div className="notes-board__field">
-              <label>Anotação / Resumo</label>
+              <label>{t("muralModular.contentLabel", { defaultValue: "Anotação / Resumo" })}</label>
               <textarea
                 rows={4}
                 value={formContent}
-                placeholder="Descreva detalhes anatômicos, pontos turísticos de revisão ou observações de simulado..."
+                placeholder={t("muralModular.contentPlaceholder", { defaultValue: "Descreva detalhes anatômicos, pontos turísticos de revisão ou observações de simulado..." })}
                 onChange={e => setFormContent(e.target.value)}
               />
             </div>
 
             <div className="notes-board__field">
-              <label>Tonalidade do Vidro</label>
+              <label>{t("muralModular.glassToneLabel", { defaultValue: "Tonalidade do Vidro" })}</label>
               <div className="notes-board__colors">
                 {COLOR_KEYS.map(key => (
                   <button
@@ -484,10 +490,10 @@ export default function MuralModularBoard({ videoSrc = null }) {
 
             <div className="notes-board__modal-actions">
               <A26Button variant="ghost" onClick={() => setEditingIndex(null)}>
-                Cancelar
+                {t("muralModular.cancel", { defaultValue: "Cancelar" })}
               </A26Button>
               <A26Button variant="primary" onClick={handleSaveNote}>
-                Salvar Nota
+                {t("muralModular.saveNote", { defaultValue: "Salvar Nota" })}
               </A26Button>
             </div>
           </div>
@@ -500,7 +506,7 @@ export default function MuralModularBoard({ videoSrc = null }) {
           <div className="notes-board__modal" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-3">
               <span className="notes-board__eyebrow">
-                BLOCO {getCoordLabel(readingIndex)} • POST-IT ACADÊMICO
+                {t("muralModular.academicPostit", { coord: getCoordLabel(readingIndex), defaultValue: `BLOCO ${getCoordLabel(readingIndex)} • POST-IT ACADÊMICO` })}
               </span>
               <button
                 type="button"
@@ -518,14 +524,14 @@ export default function MuralModularBoard({ videoSrc = null }) {
 
             <div className="notes-board__modal-actions" style={{ justifyContent: "space-between" }}>
               <A26Button variant="ghost" onClick={() => handleDeleteNote(readingIndex)}>
-                Excluir
+                {t("muralModular.delete", { defaultValue: "Excluir" })}
               </A26Button>
               <div className="flex gap-2">
                 <A26Button variant="liquid" onClick={() => handleOpenCreate(readingIndex)}>
-                  Editar
+                  {t("muralModular.edit", { defaultValue: "Editar" })}
                 </A26Button>
                 <A26Button variant="primary" onClick={() => setReadingIndex(null)}>
-                  Fechar
+                  {t("muralModular.close", { defaultValue: "Fechar" })}
                 </A26Button>
               </div>
             </div>
