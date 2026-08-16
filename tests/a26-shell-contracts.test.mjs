@@ -116,7 +116,7 @@ test("keyboard and language contracts are explicit", () => {
 });
 
 test("topbar controls keep fixed dimensions and floating menus out of layout flow", () => {
-  assert.match(appLayout, /const searchOpen = searchExpanded \|\| Boolean\(query\)/);
+  assert.match(appLayout, /const searchOpen = searchExpanded \|\| Boolean\(normalizedQuery\)/);
   assert.match(appLayout, /a26-shell__search-trigger/);
   assert.match(appLayout, /searchRef\.current\?\.blur\(\)/);
   assert.match(languageSelector, /material="clear"/);
