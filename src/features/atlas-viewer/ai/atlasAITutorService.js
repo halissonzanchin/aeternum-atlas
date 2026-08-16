@@ -24,6 +24,9 @@ function buildTutorContext(context = {}) {
   return {
     source: context.source || (model.id || activeStructure.id ? 'viewer-3d' : 'platform'),
     currentRoute: context.route || null,
+    userName: context.userName || context.user?.name || null,
+    userFirstName: context.userFirstName || (context.userName ? String(context.userName).split(/\s+/)[0] : (context.user?.name ? String(context.user.name).split(/\s+/)[0] : null)),
+    userRole: context.userRole || context.user?.role || context.role || 'student',
     sectionTitle: routeContext.structure || context.sectionTitle || null,
     sectionQuestion: routeContext.question || context.sectionQuestion || null,
     modelTitle: model.title || activeStructure.name || routeContext.structure || context.modelTitle || null,

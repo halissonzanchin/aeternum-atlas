@@ -111,11 +111,16 @@ function safeContext(value: unknown) {
   };
 }
 
-function roleInstructions(role: string) {
+function roleInstructions(role: string, name = "") {
+  const firstName = cleanText(name, 80).split(/\s+/)[0] || "";
+  const namePersonalization = firstName
+    ? ` O nome da pessoa usuária é ${firstName}. Sempre que pertinente em cumprimentos, inícios de resposta ou reforços didáticos, chame-a gentilmente pelo primeiro nome (${firstName}) para manter um diálogo acolhedor, exclusivo e humanizado.`
+    : "";
+
   if (["teacher", "professor", "admin", "institution_admin", "coordinator", "coordenador", "rector", "reitor", "super_admin"].includes(role)) {
-    return "O usuário integra a equipe acadêmica. Responda profissionalmente sem expor dados pessoais, conversas ou resultados de terceiros.";
+    return `O usuário integra a equipe acadêmica.${namePersonalization} Responda profissionalmente sem expor dados pessoais, conversas ou resultados de terceiros.`;
   }
-  return "O usuário é estudante. Atue como tutor socrático: em avaliações ativas, ofereça pistas e raciocínio, nunca o gabarito direto.";
+  return `O usuário é estudante.${namePersonalization} Atue como tutor socrático: lembre-se do nome do estudante para personalizar o acompanhamento pedagógico, e em avaliações ativas ofereça pistas e raciocínio, nunca o gabarito direto.`;
 }
 
 function knowledgeContext(sources: KnowledgeRow[]) {
@@ -131,7 +136,7 @@ function knowledgeContext(sources: KnowledgeRow[]) {
   }).join("\n\n");
 }
 
-function systemInstruction(role: string, context: Record<string, unknown>, sources: KnowledgeRow[]) {
+function systemInstruction(role: string, context: Record<string, unknown>, sources: KnowledgeRow[], name = "") {
   const serializedContext = JSON.stringify(context).slice(0, MAX_CONTEXT_CHARACTERS);
   const mindMapProtocol = context.source === "mind-map" ? `
 
@@ -160,7 +165,7 @@ Orientação da plataforma:
 - Para orientar navegação, use apenas ações listadas em availableActions. Uma ação deve aparecer no fim como [ACTION:NOME_DA_ACAO].
 - Não abra painéis legados nem invente controles inexistentes.
 
-${roleInstructions(role)}
+${roleInstructions(role, name)}
 ${mindMapProtocol}
 
 Contexto autorizado da interface:
@@ -239,14 +244,15 @@ async function generateGeminiResponse(
   context: Record<string, unknown>,
   sources: KnowledgeRow[],
   history: ReturnType<typeof normalizedGeminiHistory>,
-  prompt: string
+  prompt: string,
+  userName: string = ""
 ) {
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(GEMINI_MODEL)}:generateContent?key=${encodeURIComponent(apiKey)}`;
   const response = await fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      systemInstruction: { parts: [{ text: systemInstruction(role, context, sources) }] },
+      systemInstruction: { parts: [{ text: systemInstruction(role, context, sources, userName) }] },
       contents: [...history, { role: "user", parts: [{ text: prompt }] }],
       generationConfig: { maxOutputTokens: 4_096 },
       safetySettings: GEMINI_SAFETY_CATEGORIES.map((category) => ({
@@ -309,7 +315,7 @@ Deno.serve(async (req) => {
 
   const { data: profile, error: profileError } = await adminClient
     .from("users")
-    .select("id, institution_id, role, status")
+    .select("id, institution_id, role, status, name")
     .eq("id", userId)
     .maybeSingle();
   if (profileError || !profile || !["active", "ativo"].includes(String(profile.status))) {
@@ -393,7 +399,8 @@ Deno.serve(async (req) => {
       context,
       sources,
       normalizedGeminiHistory(orderedHistory),
-      prompt
+      prompt,
+      String(profile.name || "")
     );
     const persistedText = sanitizeAssistantContent(fullText);
 

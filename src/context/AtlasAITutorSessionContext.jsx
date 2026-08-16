@@ -7,6 +7,7 @@ import React, {
   useRef,
   useState
 } from "react";
+import { useLanguage } from "./LanguageContext";
 import {
   atlasAITutorService,
   sanitizeTutorDisplayText
@@ -15,11 +16,26 @@ import { getSupabaseClient, isSupabaseConfigured } from "../services/supabase/su
 
 const STORAGE_VERSION = 2;
 const MAX_MESSAGES = 160;
-const DEFAULT_WELCOME_MESSAGE = {
-  id: "atlas-ai-welcome",
-  sender: "ai",
-  text: "Olá, sou o Aeternum AI Tutor. Esta conversa acompanha você por toda a plataforma. Posso explicar estruturas, relacionar conteúdos e manter a continuidade do seu estudo entre o Atlas, a biblioteca e os modelos 3D."
-};
+
+export function buildPersonalizedWelcomeMessage(user, t = null) {
+  const firstName = String(user?.name || "").trim().split(/\s+/)[0] || "";
+  let text = "";
+  if (t) {
+    text = firstName
+      ? t("tutor.welcomeGreeting", { name: firstName, defaultValue: `Olá, ${firstName}! Sou o Atlas AI Tutor. Esta conversa acompanha você por toda a plataforma. Posso explicar estruturas, relacionar conteúdos e manter a continuidade do seu estudo entre o Atlas, a biblioteca e os modelos 3D.` })
+      : t("tutor.welcomeGreetingGeneric", { defaultValue: "Olá! Sou o Atlas AI Tutor. Esta conversa acompanha você por toda a plataforma. Posso explicar estruturas, relacionar conteúdos e manter a continuidade do seu estudo entre o Atlas, a biblioteca e os modelos 3D." });
+  } else {
+    text = firstName
+      ? `Olá, ${firstName}! Sou o Atlas AI Tutor. Esta conversa acompanha você por toda a plataforma. Posso explicar estruturas, relacionar conteúdos e manter a continuidade do seu estudo entre o Atlas, a biblioteca e os modelos 3D.`
+      : "Olá, sou o Atlas AI Tutor. Esta conversa acompanha você por toda a plataforma. Posso explicar estruturas, relacionar conteúdos e manter a continuidade do seu estudo entre o Atlas, a biblioteca e os modelos 3D.";
+  }
+
+  return {
+    id: "atlas-ai-welcome",
+    sender: "ai",
+    text
+  };
+}
 
 const AtlasAITutorSessionContext = createContext(null);
 
@@ -30,33 +46,40 @@ function createMessageId(prefix) {
   return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-function normalizeStoredMessages(messages) {
+function normalizeStoredMessages(messages, welcomeMessage) {
+  const fallbackWelcome = welcomeMessage || buildPersonalizedWelcomeMessage(null);
   if (!Array.isArray(messages) || messages.length === 0) {
-    return [DEFAULT_WELCOME_MESSAGE];
+    return [fallbackWelcome];
   }
 
   const normalized = messages
     .filter((message) => message && typeof message.text === "string" && message.text.trim())
     .slice(-MAX_MESSAGES)
-    .map((message) => ({
-      id: message.id || createMessageId(message.sender || "message"),
-      sender: message.sender === "user" ? "user" : "ai",
-      text: message.sender === "user"
-        ? message.text
-        : sanitizeTutorDisplayText(message.text),
-      action: message.action || null,
-      payload: message.payload ?? null,
-      contextLabel: message.contextLabel || null,
-      createdAt: message.createdAt || null
-    }));
+    .map((message) => {
+      const isWelcome = message.id === "atlas-ai-welcome";
+      return {
+        id: message.id || createMessageId(message.sender || "message"),
+        sender: message.sender === "user" ? "user" : "ai",
+        text: isWelcome && welcomeMessage
+          ? welcomeMessage.text
+          : message.sender === "user"
+            ? message.text
+            : sanitizeTutorDisplayText(message.text),
+        action: message.action || null,
+        payload: message.payload ?? null,
+        contextLabel: message.contextLabel || null,
+        createdAt: message.createdAt || null
+      };
+    });
 
-  return normalized.length ? normalized : [DEFAULT_WELCOME_MESSAGE];
+  return normalized.length ? normalized : [fallbackWelcome];
 }
 
-function readStoredSession(storageKey) {
+function readStoredSession(storageKey, welcomeMessage) {
+  const fallbackWelcome = welcomeMessage || buildPersonalizedWelcomeMessage(null);
   if (typeof window === "undefined") {
     return {
-      messages: [DEFAULT_WELCOME_MESSAGE],
+      messages: [fallbackWelcome],
       draft: "",
       connectionMode: "idle",
       conversationId: null
@@ -67,7 +90,7 @@ function readStoredSession(storageKey) {
     const stored = JSON.parse(window.localStorage.getItem(storageKey) || "null");
     if (stored?.version >= 1 && stored?.version <= STORAGE_VERSION) {
       return {
-        messages: normalizeStoredMessages(stored.messages),
+        messages: normalizeStoredMessages(stored.messages, welcomeMessage),
         draft: typeof stored.draft === "string" ? stored.draft : "",
         connectionMode: stored.connectionMode || "idle",
         conversationId: typeof stored.conversationId === "string" ? stored.conversationId : null
@@ -78,7 +101,7 @@ function readStoredSession(storageKey) {
   }
 
   return {
-    messages: [DEFAULT_WELCOME_MESSAGE],
+    messages: [fallbackWelcome],
     draft: "",
     connectionMode: "idle",
     conversationId: null
@@ -86,9 +109,11 @@ function readStoredSession(storageKey) {
 }
 
 export function AtlasAITutorSessionProvider({ children, user }) {
+  const { t } = useLanguage();
   const identity = user?.id || user?.email || "anonymous";
   const storageKey = `aeternum_atlas_ai_session:${identity}`;
-  const initialSession = useMemo(() => readStoredSession(storageKey), [storageKey]);
+  const personalizedWelcome = useMemo(() => buildPersonalizedWelcomeMessage(user, t), [user?.name, t]);
+  const initialSession = useMemo(() => readStoredSession(storageKey, personalizedWelcome), [storageKey, personalizedWelcome]);
   const [messages, setMessages] = useState(initialSession.messages);
   const [draft, setDraftState] = useState(initialSession.draft);
   const [isThinking, setIsThinking] = useState(false);
@@ -97,6 +122,18 @@ export function AtlasAITutorSessionProvider({ children, user }) {
   const [tutorRequest, setTutorRequest] = useState(null);
   const draftRef = useRef(initialSession.draft);
   const thinkingRef = useRef(false);
+
+  useEffect(() => {
+    setMessages((currentMessages) => {
+      if (!Array.isArray(currentMessages) || currentMessages.length === 0) {
+        return [personalizedWelcome];
+      }
+      if (currentMessages[0]?.id === "atlas-ai-welcome" && currentMessages[0]?.text !== personalizedWelcome.text) {
+        return [{ ...currentMessages[0], text: personalizedWelcome.text }, ...currentMessages.slice(1)];
+      }
+      return currentMessages;
+    });
+  }, [personalizedWelcome]);
 
   const commitMessages = useCallback((updater) => {
     setMessages((currentMessages) => {
@@ -182,7 +219,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
       setConversationId(remoteConversationId);
       if (remoteMessages?.length) {
         commitMessages([
-          DEFAULT_WELCOME_MESSAGE,
+          personalizedWelcome,
           ...remoteMessages.slice().reverse().map((message) => ({
             id: message.id,
             sender: message.role === "user" ? "user" : "ai",
@@ -201,7 +238,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
     return () => {
       cancelled = true;
     };
-  }, [commitMessages, conversationId, user?.id]);
+  }, [commitMessages, conversationId, personalizedWelcome, user?.id]);
 
   const sendMessage = useCallback(async ({
     text,
@@ -244,8 +281,12 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         console.warn("[KnowledgeGraph] Grafo indisponível nesta requisição", e);
       }
 
+      const firstName = String(user?.name || "").trim().split(/\s+/)[0] || "";
       const enrichedContext = {
         ...context,
+        userName: user?.name || null,
+        userFirstName: firstName || null,
+        userRole: user?.role || "student",
         knowledgeGraphPrompt: graphContextPrompt || null
       };
 

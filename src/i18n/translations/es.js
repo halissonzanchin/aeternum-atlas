@@ -1714,6 +1714,8 @@ export const es = {
     "askAriaLabel": "Pregunte al Tutor Atlas AI",
     "defaultPlaceholder": "Pregunte sobre anatomía, repaso o rendimiento…",
     "sendQuestion": "Enviar pregunta",
-    "currentContext": "Contexto actual"
+    "currentContext": "Contexto actual",
+    "welcomeGreeting": "¡Hola, {{name}}! Soy el Atlas AI Tutor. Esta conversación te acompaña por toda la plataforma. Puedo explicar estructuras, relacionar contenidos y mantener la continuidad de tu estudio entre el Atlas, la biblioteca y los modelos 3D.",
+    "welcomeGreetingGeneric": "¡Hola! Soy el Atlas AI Tutor. Esta conversación te acompaña por toda la plataforma. Puedo explicar estructuras, relacionar contenidos y mantener la continuidad de tu estudio entre el Atlas, la biblioteca y los modelos 3D."
   }
 };
