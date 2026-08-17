@@ -1,6 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import LineIcon from "../icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
+import {
+  extractAnatomicalErrorsToCards,
+  convertErrorsToStudyDeckAndSchedule
+} from "../../services/ai/quizErrorToFlashcardsService";
 
 function formatQuizTime(seconds) {
   const safeSeconds = Math.max(0, Number(seconds) || 0);
@@ -24,6 +28,7 @@ function resultTone(isCorrect) {
 export default function AnatomicalQuizModal({
   open,
   model,
+  user,
   quiz,
   loading = false,
   answers = {},
@@ -39,6 +44,41 @@ export default function AnatomicalQuizModal({
   const { t } = useLanguage();
   const inputRefs = useRef([]);
   const suppressNextFocusNavigationRef = useRef(false);
+  const [isGeneratingFlashcards, setIsGeneratingFlashcards] = useState(false);
+  const [flashcardNotice, setFlashcardNotice] = useState("");
+
+  const errorCards = useMemo(() => {
+    if (!result) return [];
+    return extractAnatomicalErrorsToCards(quiz, answers, result, model);
+  }, [quiz, answers, result, model]);
+
+  async function handleCreateFlashcardsFromErrors() {
+    if (!errorCards.length || isGeneratingFlashcards) return;
+    setIsGeneratingFlashcards(true);
+    setFlashcardNotice("");
+
+    try {
+      const res = await convertErrorsToStudyDeckAndSchedule({
+        user,
+        deckTitle: `Marcações 3D: ${model?.title || quiz?.title || "Modelo Anatômico"}`,
+        cards: errorCards,
+        modelId: model?.id,
+        modelTitle: model?.title,
+        intervalDays: 1
+      });
+
+      if (res?.deck) {
+        setFlashcardNotice(`✅ Baralho com ${res.cardCount} marcações criado e agendado na Agenda!`);
+      } else {
+        setFlashcardNotice("⚠️ Não foi possível gerar os flashcards.");
+      }
+    } catch (err) {
+      console.warn("Erro ao gerar flashcards:", err);
+      setFlashcardNotice("⚠️ Erro ao agendar na Agenda.");
+    } finally {
+      setIsGeneratingFlashcards(false);
+    }
+  }
 
   useEffect(() => {
     if (activeAnnotationIndex !== null && activeAnnotationIndex !== undefined && inputRefs.current) {
@@ -140,20 +180,39 @@ export default function AnatomicalQuizModal({
             </div>
 
             {result ? (
-              <div className="viewer-quiz-result-summary">
-                <div>
-                  <span>{t("viewer.anatomicalQuizScore")}</span>
-                  <strong>{result.score}/{result.totalQuestions}</strong>
+              <>
+                <div className="viewer-quiz-result-summary">
+                  <div>
+                    <span>{t("viewer.anatomicalQuizScore")}</span>
+                    <strong>{result.score}/{result.totalQuestions}</strong>
+                  </div>
+                  <div>
+                    <span>{t("viewer.anatomicalQuizPercentage")}</span>
+                    <strong>{result.percentage}%</strong>
+                  </div>
+                  <div>
+                    <span>{t("viewer.anatomicalQuizDuration")}</span>
+                    <strong>{formatQuizTime(result.durationSeconds)}</strong>
+                  </div>
                 </div>
-                <div>
-                  <span>{t("viewer.anatomicalQuizPercentage")}</span>
-                  <strong>{result.percentage}%</strong>
-                </div>
-                <div>
-                  <span>{t("viewer.anatomicalQuizDuration")}</span>
-                  <strong>{formatQuizTime(result.durationSeconds)}</strong>
-                </div>
-              </div>
+
+                {errorCards.length > 0 ? (
+                  <div className="viewer-quiz-error-reinforcement">
+                    <button
+                      type="button"
+                      className="viewer-primary-button viewer-quiz-error-btn"
+                      onClick={handleCreateFlashcardsFromErrors}
+                      disabled={isGeneratingFlashcards}
+                    >
+                      <LineIcon name="note" className="h-4 w-4" />
+                      {isGeneratingFlashcards ? "Criando baralho e agendando..." : `Transformar ${errorCards.length} ${errorCards.length === 1 ? "Erro" : "Erros"} em Flashcards & Agendar`}
+                    </button>
+                    {flashcardNotice ? (
+                      <span className="viewer-quiz-error-notice" role="status">{flashcardNotice}</span>
+                    ) : null}
+                  </div>
+                ) : null}
+              </>
             ) : null}
 
             <form

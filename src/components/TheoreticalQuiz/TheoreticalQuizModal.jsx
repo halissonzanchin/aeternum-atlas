@@ -12,6 +12,10 @@ import {
   saveTheoreticalQuizProgress,
   sectionCompletion
 } from "../../services/theoreticalQuizService";
+import {
+  extractTheoreticalErrorsToCards,
+  convertErrorsToStudyDeckAndSchedule
+} from "../../services/ai/quizErrorToFlashcardsService";
 
 function pad2(value) {
   return String(value).padStart(2, "0");
@@ -290,6 +294,8 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
   const [activeSectionId, setActiveSectionId] = useState("multiple");
   const [timeRemaining, setTimeRemaining] = useState(quiz?.timeLimitSeconds || 3600);
   const [examMode, setExamMode] = useState(false);
+  const [isGeneratingFlashcards, setIsGeneratingFlashcards] = useState(false);
+  const [flashcardNotice, setFlashcardNotice] = useState("");
   const backdropRef = useRef(null);
 
   const sections = Array.isArray(quiz?.sections) ? quiz.sections : [];
@@ -302,6 +308,39 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
   const isLocked = Boolean(result);
   const modelTitle = quiz?.modelTitle || model?.title || "Modelo Anatômico";
   const modalReady = Boolean(state);
+
+  const errorCards = useMemo(() => {
+    if (!result) return [];
+    return extractTheoreticalErrorsToCards(quiz, answers, result, model);
+  }, [quiz, answers, result, model]);
+
+  async function handleCreateFlashcardsFromErrors() {
+    if (!errorCards.length || isGeneratingFlashcards) return;
+    setIsGeneratingFlashcards(true);
+    setFlashcardNotice("");
+
+    try {
+      const res = await convertErrorsToStudyDeckAndSchedule({
+        user,
+        deckTitle: `${model?.title || quiz?.title || "Simulado"}`,
+        cards: errorCards,
+        modelId: model?.id,
+        modelTitle: model?.title,
+        intervalDays: 1
+      });
+
+      if (res?.deck) {
+        setFlashcardNotice(`✅ Baralho com ${res.cardCount} erros criado e revisão agendada na sua Agenda de Estudos!`);
+      } else {
+        setFlashcardNotice("⚠️ Não foi possível gerar os flashcards.");
+      }
+    } catch (err) {
+      console.warn("Erro ao gerar flashcards a partir dos erros:", err);
+      setFlashcardNotice("⚠️ Erro ao sincronizar com a Agenda de Estudos.");
+    } finally {
+      setIsGeneratingFlashcards(false);
+    }
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -889,6 +928,42 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
                     </article>
                   ))}
                 </div>
+
+                {errorCards.length > 0 ? (
+                  <div className="theory-error-reinforcement-card" data-testid="theory-error-reinforcement">
+                    <div className="theory-error-reinforcement-info">
+                      <div className="theory-error-icon-badge">
+                        <LineIcon name="clipboardCheck" className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <strong>Ciclo do Erro Integrado ({errorCards.length} {errorCards.length === 1 ? "questão para reforço" : "questões para reforço"})</strong>
+                        <p>Transforme suas dúvidas em flashcards com repetição espaçada SM-2 e sincronize automaticamente com a sua Agenda de Estudos.</p>
+                      </div>
+                    </div>
+
+                    <div className="theory-error-reinforcement-actions">
+                      <button
+                        type="button"
+                        className="viewer-primary-button theory-error-cta-btn"
+                        onClick={handleCreateFlashcardsFromErrors}
+                        disabled={isGeneratingFlashcards}
+                      >
+                        <LineIcon name="note" className="h-4 w-4" />
+                        {isGeneratingFlashcards ? "Criando e agendando..." : "Transformar Erros em Flashcards & Agendar"}
+                      </button>
+                    </div>
+
+                    {flashcardNotice ? (
+                      <div className="theory-error-notice" role="status">
+                        <span>{flashcardNotice}</span>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : (
+                  <div className="theory-perfect-score-card">
+                    <span>🏆 Desempenho Impecável! 100% de aproveitamento neste simulado anatômico.</span>
+                  </div>
+                )}
               </section>
             ) : null}
 

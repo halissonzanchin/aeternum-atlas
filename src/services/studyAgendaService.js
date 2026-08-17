@@ -1,4 +1,4 @@
-import { getSupabaseClient, isSupabaseConfigured } from "./supabase/supabaseClient";
+import { getSupabaseClient, isSupabaseConfigured } from "./supabase/supabaseClient.js";
 
 const STORAGE_PREFIX = "aeternum_study_agenda_v2";
 
