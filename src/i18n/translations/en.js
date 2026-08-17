@@ -1856,6 +1856,9 @@ export const en = {
     "scheduleReview": "Schedule Next Review",
     "trustlineCurated": "Curated bank available",
     "trustlineOnline": "AI Tutor online for custom topics",
-    "trustlineOffline": "AI Tutor unavailable; curated topics continue to work"
+    "trustlineOffline": "AI Tutor unavailable; curated topics continue to work",
+    "sourcePrefix": "Source:",
+    "frontSide": "Front",
+    "backSide": "Back"
   }
 };

@@ -1856,6 +1856,9 @@ export const de = {
     "scheduleReview": "Nächste Wiederholung planen",
     "trustlineCurated": "Kuratierte Fragensammlung verfügbar",
     "trustlineOnline": "KI-Tutor online für benutzerdefinierte Themen",
-    "trustlineOffline": "KI-Tutor offline; kuratierte Themen funktionieren weiterhin"
+    "trustlineOffline": "KI-Tutor offline; kuratierte Themen funktionieren weiterhin",
+    "sourcePrefix": "Quelle:",
+    "frontSide": "Vorderseite",
+    "backSide": "Rückseite"
   }
 };

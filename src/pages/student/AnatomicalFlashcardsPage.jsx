@@ -22,22 +22,56 @@ import {
 import { recordLearningEvent } from "../../services/learningTelemetryService";
 import "../../styles/AnatomicalFlashcards.css";
 
-const QUICK_TOPIC_CHIPS = [
-  "Clavícula e Ombro",
-  "Úmero e Braço",
-  "Vértebras Cervicais",
-  "Fêmur e Osteologia",
-  "Vascularização do Coração",
-  "Pares Cranianos"
-];
+const QUICK_TOPIC_CHIPS_BY_LANG = {
+  pt: [
+    "Clavícula e Ombro",
+    "Úmero e Braço",
+    "Vértebras Cervicais",
+    "Fêmur e Osteologia",
+    "Vascularização do Coração",
+    "Pares Cranianos"
+  ],
+  es: [
+    "Clavícula y Hombro",
+    "Húmero y Brazo",
+    "Vértebras Cervicales",
+    "Fémur y Osteología",
+    "Vascularización del Corazón",
+    "Pares Craneales"
+  ],
+  en: [
+    "Clavicle and Shoulder",
+    "Humerus and Arm",
+    "Cervical Vertebrae",
+    "Femur and Osteology",
+    "Heart Vascularization",
+    "Cranial Nerves"
+  ],
+  de: [
+    "Schlüsselbein und Schulter",
+    "Oberarmknochen und Arm",
+    "Halswirbel",
+    "Femur und Osteologie",
+    "Herzgefäßversorgung",
+    "Hirnnerven"
+  ]
+};
+
+const DEFAULT_TOPIC_BY_LANG = {
+  pt: "Clavícula e Ombro",
+  es: "Clavícula y Hombro",
+  en: "Clavicle and Shoulder",
+  de: "Schlüsselbein und Schulter"
+};
 
 export default function AnatomicalFlashcardsPage({ user }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const langKey = ["pt", "es", "en", "de"].includes(language) ? language : "pt";
   const { connectionMode, openTutor } = useAtlasAITutorSession();
   const userId = user?.id || "student-default";
 
   // Generator Config State (NotebookLM Pattern)
-  const [topicInput, setTopicInput] = useState("Fêmur");
+  const [topicInput, setTopicInput] = useState(() => DEFAULT_TOPIC_BY_LANG[langKey] || "Clavícula e Ombro");
   const [cardCount, setCardCount] = useState("many"); // few | standard | many
   const [difficulty, setDifficulty] = useState("Difícil");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -57,7 +91,21 @@ export default function AnatomicalFlashcardsPage({ user }) {
   const [isDeckSaved, setIsDeckSaved] = useState(false);
   const [scheduledNotice, setScheduledNotice] = useState("");
 
+  const quickTopicChips = QUICK_TOPIC_CHIPS_BY_LANG[langKey] || QUICK_TOPIC_CHIPS_BY_LANG.pt;
   const currentCard = activeDeck?.cards?.[currentIndex];
+
+  // Update default topic when language switches if not actively studying a deck
+  useEffect(() => {
+    if (!activeDeck) {
+      setTopicInput((prev) => {
+        const allDefaults = Object.values(DEFAULT_TOPIC_BY_LANG);
+        if (allDefaults.includes(prev)) {
+          return DEFAULT_TOPIC_BY_LANG[langKey] || DEFAULT_TOPIC_BY_LANG.pt;
+        }
+        return prev;
+      });
+    }
+  }, [langKey, activeDeck]);
 
   // Load saved decks on mount
   useEffect(() => {
@@ -92,7 +140,13 @@ export default function AnatomicalFlashcardsPage({ user }) {
   async function handleGenerateDeck(customTopic) {
     const selectedTopic = customTopic || topicInput;
     if (!String(selectedTopic || "").trim()) {
-      setGenerationError("Informe um tema anatômico antes de gerar o baralho.");
+      const errorMsg = {
+        pt: "Informe um tema anatômico antes de gerar o baralho.",
+        es: "Ingresa un tema anatómico antes de generar la baraja.",
+        en: "Please enter an anatomical topic before generating the deck.",
+        de: "Bitte geben Sie ein anatomisches Thema ein, bevor Sie das Deck generieren."
+      };
+      setGenerationError(errorMsg[langKey] || errorMsg.pt);
       return;
     }
     setIsGenerating(true);
@@ -110,7 +164,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
         topic: selectedTopic,
         difficulty,
         cardCount,
-        includeImages: false
+        language: langKey
       });
       setActiveDeck(generated);
       setGenerationNotice(generated.generationNotice || "");
@@ -122,92 +176,104 @@ export default function AnatomicalFlashcardsPage({ user }) {
     }
   }
 
-  const handleRateCard = useCallback((result) => {
+  const handleRateCard = useCallback((rating) => {
     if (!currentCard || feedbackState) return;
 
-    // Record SuperMemo SM-2 Spaced Repetition Rating
-    recordCardReview(userId, currentCard.id, result === "correct" ? "good" : "again");
+    // Trigger visual punch feedback
+    setFeedbackState(rating);
+
+    // Save SM-2 Spaced Repetition Progress
+    recordCardReview({
+      userId,
+      cardId: currentCard.id,
+      rating,
+      topic: currentCard.topic,
+      difficulty: currentCard.difficulty || activeDeck?.difficulty
+    });
+
+    // Record learning event telemetry
     recordLearningEvent({
       user,
       eventType: "flashcard_reviewed",
       eventData: {
-        deckId: activeDeck?.id || null,
-        deckTitle: activeDeck?.title || null,
         cardId: currentCard.id,
         topic: currentCard.topic,
+        rating,
         difficulty: currentCard.difficulty || activeDeck?.difficulty,
-        learningObjective: currentCard.learningObjective || null,
-        result,
-        cardIndex: currentIndex,
-        totalCards: activeDeck?.cards?.length || 0
+        source: currentCard.sourceCitation
       }
     });
 
-    setFeedbackState(result);
-    setSessionResults(prev => [...prev, { card: currentCard, result }]);
+    const newResult = { card: currentCard, result: rating };
+    const updatedResults = [...sessionResults, newResult];
+    setSessionResults(updatedResults);
 
+    // Animate to next card after 320ms feedback delay
     setTimeout(() => {
       setFeedbackState(null);
       setIsFlipped(false);
 
-      if (currentIndex < activeDeck.cards.length - 1) {
+      if (currentIndex + 1 < activeDeck.cards.length) {
         setCurrentIndex(prev => prev + 1);
       } else {
         setIsFinished(true);
-        saveSessionMemory([...sessionResults, { card: currentCard, result }]);
+        // Telemetry on deck completion
+        const correctCount = updatedResults.filter(r => r.result === "correct").length;
+        const total = updatedResults.length;
+        recordLearningEvent({
+          user,
+          eventType: "flashcard_deck_completed",
+          eventData: {
+            deckTitle: activeDeck.title,
+            topic: activeDeck.topic,
+            totalCards: total,
+            correctCount,
+            scorePercent: total ? Math.round((correctCount / total) * 100) : 0
+          }
+        });
       }
-    }, 450);
-  }, [activeDeck, currentCard, currentIndex, feedbackState, sessionResults, user, userId]);
-
-  function saveSessionMemory(results) {
-    const correctCount = results.filter(r => r.result === "correct").length;
-    const wrongCount = results.length - correctCount;
-    const rate = Math.round((correctCount / (results.length || 1)) * 100);
-
-    const memoryPayload = {
-      timestamp: new Date().toISOString(),
-      deckTitle: activeDeck?.title,
-      totalCards: results.length,
-      correctCount,
-      wrongCount,
-      rate,
-      masteredTopics: results.filter(r => r.result === "correct").map(r => r.card.topic),
-      reviewTopics: results.filter(r => r.result === "wrong").map(r => r.card.topic)
-    };
-
-    try {
-      localStorage.setItem(`aeternum_student_flashcard_memory:${userId}`, JSON.stringify(memoryPayload));
-      recordLearningEvent({
-        user,
-        eventType: "flashcard_deck_completed",
-        eventData: memoryPayload
-      });
-    } catch (err) {
-      console.warn("Erro ao salvar memória do aluno:", err);
-    }
-  }
+    }, 320);
+  }, [currentCard, feedbackState, userId, activeDeck, user, sessionResults, currentIndex]);
 
   function handleSaveCurrentDeck() {
     if (!activeDeck) return;
-    const success = saveDeckToCollection(userId, activeDeck);
-    if (success) {
-      setIsDeckSaved(true);
-      setSavedDecks(getSavedDecks(userId));
-    }
+    const updated = saveDeckToCollection(userId, activeDeck);
+    setSavedDecks(updated);
+    setIsDeckSaved(true);
+    const saveNotice = {
+      pt: `⭐ Baralho "${activeDeck.title}" salvo na sua coleção permanente!`,
+      es: `⭐ ¡Baraja "${activeDeck.title}" guardada en tu colección permanente!`,
+      en: `⭐ Deck "${activeDeck.title}" saved to your permanent collection!`,
+      de: `⭐ Deck "${activeDeck.title}" in Ihrer dauerhaften Sammlung gespeichert!`
+    };
+    setScheduledNotice(saveNotice[langKey] || saveNotice.pt);
+    setTimeout(() => setScheduledNotice(""), 3500);
   }
 
   function handleDeleteSavedDeck(deck) {
     if (!deck) return;
     const updated = deleteDeckFromCollection(userId, deck.id || deck.title);
     setSavedDecks(updated);
-    setScheduledNotice(`🗑️ Baralho "${deck.title}" removido da sua coleção!`);
+    const deleteNotice = {
+      pt: `🗑️ Baralho "${deck.title}" removido da sua coleção!`,
+      es: `🗑️ ¡Baraja "${deck.title}" eliminada de tu colección!`,
+      en: `🗑️ Deck "${deck.title}" removed from your collection!`,
+      de: `🗑️ Deck "${deck.title}" aus Ihrer Sammlung entfernt!`
+    };
+    setScheduledNotice(deleteNotice[langKey] || deleteNotice.pt);
     setTimeout(() => setScheduledNotice(""), 3500);
   }
 
   function handleScheduleReview(intervalDays = 1) {
     const evt = scheduleFlashcardStudyEvent(activeDeck?.title || topicInput, intervalDays);
     if (evt) {
-      setScheduledNotice(`✅ Revisão agendada na sua Agenda de Estudos para ${evt.date} às ${evt.time}!`);
+      const schNotice = {
+        pt: `✅ Revisão agendada na sua Agenda de Estudos para ${evt.date} às ${evt.time}!`,
+        es: `✅ ¡Repaso programado en tu Agenda de Estudio para el ${evt.date} a las ${evt.time}!`,
+        en: `✅ Review scheduled in your Study Agenda for ${evt.date} at ${evt.time}!`,
+        de: `✅ Wiederholung in Ihrem Studienplan für ${evt.date} um ${evt.time} geplant!`
+      };
+      setScheduledNotice(schNotice[langKey] || schNotice.pt);
     }
   }
 
@@ -222,7 +288,13 @@ export default function AnatomicalFlashcardsPage({ user }) {
 
   function handleExplainWithAI(card) {
     if (!card) return;
-    const prompt = `Estou estudando o Flashcard de Anatomia sobre "${card.topic}". Pergunta: "${card.front}". Resposta: "${card.back}". Pode me explicar com detalhes anatômicos e clínicos como se eu estivesse em uma aula prática?`;
+    const promptMap = {
+      pt: `Estou estudando o Flashcard de Anatomia sobre "${card.topic}". Pergunta: "${card.front}". Resposta: "${card.back}". Pode me explicar com detalhes anatômicos e clínicos como se eu estivesse em uma aula prática?`,
+      es: `Estoy estudiando el Flashcard de Anatomía sobre "${card.topic}". Pregunta: "${card.front}". Respuesta: "${card.back}". ¿Podrías explicarme con detalles anatómicos y clínicos como si estuviéramos en una clase práctica?`,
+      en: `I am studying the Anatomy Flashcard on "${card.topic}". Question: "${card.front}". Answer: "${card.back}". Could you explain this with anatomical and clinical details as if in a practical anatomy lab?`,
+      de: `Ich lerne mit der Anatomie-Karteikarte über "${card.topic}". Frage: "${card.front}". Antwort: "${card.back}". Könnten Sie mir das mit anatomischen und klinischen Details wie in einem praktischen Präparierkurs erklären?`
+    };
+    const prompt = promptMap[langKey] || promptMap.pt;
     openTutor({
       prompt,
       context: {
@@ -231,7 +303,8 @@ export default function AnatomicalFlashcardsPage({ user }) {
         topic: card.topic,
         difficulty: card.difficulty || activeDeck?.difficulty,
         cardId: card.id,
-        learningObjective: card.learningObjective || null
+        learningObjective: card.learningObjective || null,
+        language: langKey
       },
       contextLabel: `Flashcards · ${card.topic}`
     });
@@ -241,9 +314,16 @@ export default function AnatomicalFlashcardsPage({ user }) {
     const wrongCards = sessionResults.filter(r => r.result === "wrong").map(r => r.card);
     if (!wrongCards.length) return;
 
+    const suffixMap = {
+      pt: "(Reforço)",
+      es: "(Refuerzo)",
+      en: "(Review)",
+      de: "(Wiederholung)"
+    };
+
     setActiveDeck({
       ...activeDeck,
-      title: `${activeDeck.title} (Reforço)`,
+      title: `${activeDeck.title} ${suffixMap[langKey] || suffixMap.pt}`,
       cards: wrongCards
     });
     setCurrentIndex(0);
@@ -344,7 +424,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
           </div>
 
           <div className="a26-chips-wrapper flex flex-wrap gap-2">
-            {QUICK_TOPIC_CHIPS.map(chip => (
+            {quickTopicChips.map(chip => (
               <A26Button
                 key={chip}
                 type="button"
@@ -417,7 +497,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
           <A26Toolbar label={t("flashcards.title", { defaultValue: "Informações do baralho" })} className="a26-player-meta">
             <div>
               <h2 className="text-lg font-bold text-agedGold">{activeDeck.title}</h2>
-              <span className="text-xs text-textMuted">{t("studentHome.tools.flashcards.sourcePrefix", { defaultValue: "Origem:" })} {currentCard.sourceCitation}</span>
+              <span className="text-xs text-textMuted">{t("flashcards.sourcePrefix", { defaultValue: "Origem:" })} {currentCard.sourceCitation}</span>
             </div>
             <div className="flex items-center gap-3">
               {!isDeckSaved && (
@@ -460,10 +540,10 @@ export default function AnatomicalFlashcardsPage({ user }) {
               tabIndex={0}
               aria-label={isFlipped ? t("flashcards.hideAnswer", { defaultValue: "Mostrar pergunta" }) : t("flashcards.showAnswer", { defaultValue: "Mostrar resposta" })}
             >
-                {/* Front Side - Minimal & Clean (NotebookLM Pattern) */}
+              {/* Front Side - Minimal & Clean (NotebookLM Pattern) */}
               <A26Surface material="regular" tone="teal" className="a26-flashcard-face a26-flashcard-face--front">
                 <div className="a26-flashcard-header">
-                  <span className="a26-kicker">{t("studentHome.tools.flashcards.frontSide", { defaultValue: "Frente" })}</span>
+                  <span className="a26-kicker">{t("flashcards.frontSide", { defaultValue: "Frente" })}</span>
                   <span className="a26-flashcard-citation">{currentCard.topic}</span>
                 </div>
 
@@ -482,7 +562,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
               {/* Back Side - Direct Answer & Tutor AI Action */}
               <A26Surface material="regular" tone="gold" className="a26-flashcard-face a26-flashcard-face--back">
                 <div className="a26-flashcard-header">
-                  <span className="a26-kicker text-agedGold">{t("flashcards.showAnswer", { defaultValue: "Verso · Resposta" })}</span>
+                  <span className="a26-kicker text-agedGold">{t("flashcards.backSide", { defaultValue: "Verso · Resposta" })}</span>
                   <span className="a26-flashcard-citation">{currentCard.sourceCitation}</span>
                 </div>
 
@@ -511,7 +591,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
             </div>
           </div>
 
-        {/* Anki Rating Controls */}
+          {/* Anki Rating Controls */}
           <A26Toolbar label={t("flashcards.title", { defaultValue: "Avaliação do cartão" })} className="a26-anki-controls">
             <A26Button
               type="button"

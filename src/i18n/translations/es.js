@@ -1856,6 +1856,9 @@ export const es = {
     "scheduleReview": "Programar Próximo Repaso",
     "trustlineCurated": "Banco curado disponible",
     "trustlineOnline": "Tutor IA en línea para temas personalizados",
-    "trustlineOffline": "Tutor IA no disponible; los temas curados siguen funcionando"
+    "trustlineOffline": "Tutor IA no disponible; los temas curados siguen funcionando",
+    "sourcePrefix": "Origen:",
+    "frontSide": "Frente",
+    "backSide": "Reverso"
   }
 };

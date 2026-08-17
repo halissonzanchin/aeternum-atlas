@@ -1842,6 +1842,9 @@ export const pt = {
     "scheduleReview": "Agendar Próxima Revisão",
     "trustlineCurated": "Banco curado disponível",
     "trustlineOnline": "Tutor IA online para temas personalizados",
-    "trustlineOffline": "Tutor IA indisponível; temas curados continuam funcionando"
+    "trustlineOffline": "Tutor IA indisponível; temas curados continuam funcionando",
+    "sourcePrefix": "Origem:",
+    "frontSide": "Frente",
+    "backSide": "Verso"
   }
 };
