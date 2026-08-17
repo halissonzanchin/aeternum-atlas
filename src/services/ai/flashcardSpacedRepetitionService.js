@@ -1,7 +1,5 @@
-/**
- * Motor de Repetição Espaçada SM-2 (SuperMemo / Anki Spaced Repetition Algorithm)
- * Calcula fatores de facilidade (Ease Factor - EF), intervalos e datas de próxima revisão.
- */
+import { createAgendaEvent } from "../studyAgendaService.js";
+import { getSupabaseClient } from "../supabase/supabaseClient.js";
 
 const STORAGE_KEY_PREFIX = "aeternum_flashcard_sm2_data";
 const SAVED_DECK_VERSION = 2;
@@ -193,29 +191,60 @@ export function deleteDeckFromCollection(userId = "default", deckIdOrTitle = "")
   }
 }
 
-export function scheduleFlashcardStudyEvent(topicTitle = "", intervalDays = 1) {
+export async function scheduleFlashcardStudyEvent(user, topicTitle = "", intervalDays = 1) {
   try {
-    const raw = localStorage.getItem("aeternum_study_events");
-    const events = raw ? JSON.parse(raw) : [];
-    
     const targetDate = new Date();
     targetDate.setDate(targetDate.getDate() + intervalDays);
+    const dateStr = targetDate.toISOString().split("T")[0];
 
-    const newEvent = {
+    const payload = {
+      title: `Revisão Espaçada: ${topicTitle}`,
+      description: `Sessão de repetição espaçada agendada automaticamente pelo motor SM-2 para o tema ${topicTitle}.`,
+      date: dateStr,
+      startTime: "09:00",
+      endTime: "10:00",
+      type: "flashcards",
+      priority: "medium",
+      anatomicalSystem: "Geral",
+      linkedFlashcardDeck: topicTitle,
+      linkedFlashcardRoute: "/flashcards",
+      reminder: "15min",
+      status: "pending"
+    };
+
+    let currentUser = user;
+    if (!currentUser?.id) {
+      const { data } = await getSupabaseClient().auth.getSession();
+      if (data?.session?.user) {
+        currentUser = data.session.user;
+      }
+    }
+
+    if (currentUser?.id) {
+      const { event, error } = await createAgendaEvent(currentUser, payload);
+      if (event) {
+        return {
+          ...event,
+          date: dateStr,
+          time: event.startTime || "09:00"
+        };
+      }
+      if (error) {
+        console.warn("Falha ao criar evento remoto na agenda:", error);
+      }
+    }
+
+    // Fallback estruturado
+    return {
       id: `evt-flashcard-${Date.now()}`,
       title: `Revisão Espaçada: ${topicTitle}`,
-      date: targetDate.toISOString().split("T")[0],
+      date: dateStr,
       time: "09:00",
-      category: "Revisão Espaçada",
-      system: "Flashcards",
+      type: "flashcards",
       location: "/flashcards",
       description: `Sessão de repetição espaçada agendada automaticamente pelo motor SM-2 para o tema ${topicTitle}.`,
       status: "pending"
     };
-
-    events.unshift(newEvent);
-    localStorage.setItem("aeternum_study_events", JSON.stringify(events));
-    return newEvent;
   } catch (err) {
     console.warn("Erro ao agendar evento de estudo:", err);
     return null;

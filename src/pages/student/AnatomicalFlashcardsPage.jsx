@@ -264,16 +264,18 @@ export default function AnatomicalFlashcardsPage({ user }) {
     setTimeout(() => setScheduledNotice(""), 3500);
   }
 
-  function handleScheduleReview(intervalDays = 1) {
-    const evt = scheduleFlashcardStudyEvent(activeDeck?.title || topicInput, intervalDays);
+  async function handleScheduleReview(intervalDays = 1) {
+    const topic = activeDeck?.title || topicInput;
+    const evt = await scheduleFlashcardStudyEvent(user, topic, intervalDays);
     if (evt) {
       const schNotice = {
-        pt: `✅ Revisão agendada na sua Agenda de Estudos para ${evt.date} às ${evt.time}!`,
-        es: `✅ ¡Repaso programado en tu Agenda de Estudio para el ${evt.date} a las ${evt.time}!`,
-        en: `✅ Review scheduled in your Study Agenda for ${evt.date} at ${evt.time}!`,
-        de: `✅ Wiederholung in Ihrem Studienplan für ${evt.date} um ${evt.time} geplant!`
+        pt: `✅ Revisão agendada na sua Agenda de Estudos para ${evt.date} às ${evt.time || evt.startTime || "09:00"}!`,
+        es: `✅ ¡Repaso programado en tu Agenda de Estudio para el ${evt.date} a las ${evt.time || evt.startTime || "09:00"}!`,
+        en: `✅ Review scheduled in your Study Agenda for ${evt.date} at ${evt.time || evt.startTime || "09:00"}!`,
+        de: `✅ Wiederholung in Ihrem Studienplan für ${evt.date} um ${evt.time || evt.startTime || "09:00"} geplant!`
       };
       setScheduledNotice(schNotice[langKey] || schNotice.pt);
+      setTimeout(() => setScheduledNotice(""), 4500);
     }
   }
 
