@@ -1,0 +1,502 @@
+/* ==========================================================================
+   Aeternum 26.1 Liquid Glass — Teacher Academic Experience & Dashboard
+   ========================================================================== */
+
+.teacher-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem 1rem;
+  color: var(--aeternum-text-primary, #f4f2ea);
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .teacher-page {
+    padding: 2rem 2rem 4rem 2rem;
+    gap: 2rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Hero Section & Profile Chip (Liquid Glass 7-Layer Depth)
+   -------------------------------------------------------------------------- */
+.teacher-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem 1.5rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    135deg,
+    rgba(92, 232, 226, 0.08),
+    rgba(8, 26, 32, 0.65) 45%,
+    rgba(4, 14, 18, 0.85)
+  );
+  border: 1px solid rgba(126, 222, 218, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(92, 232, 226, 0.06),
+    0 18px 45px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .teacher-hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 2.25rem;
+  }
+}
+
+.teacher-hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.teacher-hero-kicker {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--aeternum-teal-400, #5ce8e2);
+}
+
+.teacher-hero-title {
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--aeternum-gold-400, #d9b965);
+  margin: 0;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .teacher-hero-title {
+    font-size: 2.25rem;
+  }
+}
+
+.teacher-hero-subtitle {
+  font-size: 0.875rem;
+  color: rgba(244, 242, 234, 0.7);
+  max-width: 600px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.teacher-profile-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  background: rgba(6, 20, 26, 0.6);
+  border: 1px solid rgba(217, 185, 101, 0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  min-width: 220px;
+}
+
+.teacher-profile-chip-dept {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--aeternum-gold-400, #d9b965);
+}
+
+.teacher-profile-chip-name {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.teacher-profile-chip-inst {
+  font-size: 0.75rem;
+  color: rgba(244, 242, 234, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   KPI Metric Grid
+   -------------------------------------------------------------------------- */
+.teacher-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 1100px) {
+  .teacher-kpi-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.teacher-kpi-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.25rem;
+  border-radius: 1rem;
+  background: linear-gradient(
+    145deg,
+    rgba(16, 40, 48, 0.4),
+    rgba(6, 18, 22, 0.7) 60%
+  );
+  border: 1px solid rgba(126, 222, 218, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 12px 28px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.teacher-kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(92, 232, 226, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 16px 36px rgba(0, 0, 0, 0.35);
+}
+
+.teacher-kpi-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 0.75rem;
+  background: rgba(92, 232, 226, 0.12);
+  border: 1px solid rgba(92, 232, 226, 0.25);
+  color: var(--aeternum-teal-400, #5ce8e2);
+  flex-shrink: 0;
+}
+
+.teacher-kpi-card--gold .teacher-kpi-icon {
+  background: rgba(217, 185, 101, 0.12);
+  border-color: rgba(217, 185, 101, 0.25);
+  color: var(--aeternum-gold-400, #d9b965);
+}
+
+.teacher-kpi-data {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.teacher-kpi-value {
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.teacher-kpi-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(244, 242, 234, 0.65);
+}
+
+/* --------------------------------------------------------------------------
+   Interactive Glass Sections & Cards
+   -------------------------------------------------------------------------- */
+.teacher-section-card {
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    145deg,
+    rgba(10, 28, 36, 0.45),
+    rgba(4, 14, 18, 0.75) 60%
+  );
+  border: 1px solid rgba(126, 222, 218, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 16px 36px rgba(0, 0, 0, 0.28);
+}
+
+.teacher-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .teacher-section-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.teacher-section-title {
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--aeternum-gold-400, #d9b965);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Data Tables (Students, Classes, Reports)
+   -------------------------------------------------------------------------- */
+.teacher-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 0.875rem;
+  border: 1px solid rgba(126, 222, 218, 0.12);
+  background: rgba(4, 12, 16, 0.6);
+}
+
+.teacher-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.8125rem;
+}
+
+.teacher-data-table th {
+  padding: 0.875rem 1rem;
+  background: rgba(10, 28, 36, 0.75);
+  color: var(--aeternum-gold-400, #d9b965);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid rgba(126, 222, 218, 0.15);
+  white-space: nowrap;
+}
+
+.teacher-data-table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid rgba(126, 222, 218, 0.08);
+  color: var(--aeternum-text-primary, #f4f2ea);
+  vertical-align: middle;
+}
+
+.teacher-data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.teacher-data-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.teacher-data-table tbody tr:hover {
+  background: rgba(92, 232, 226, 0.05);
+}
+
+.teacher-student-name {
+  font-weight: 600;
+  color: #fff;
+}
+
+.teacher-student-email {
+  font-size: 0.6875rem;
+  color: rgba(244, 242, 234, 0.5);
+}
+
+.teacher-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.teacher-status-pill--active {
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #4ade80;
+}
+
+.teacher-status-pill--inactive {
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  color: #fb7185;
+}
+
+/* --------------------------------------------------------------------------
+   Class Cards Grid
+   -------------------------------------------------------------------------- */
+.teacher-classes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.teacher-class-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    145deg,
+    rgba(12, 34, 42, 0.5),
+    rgba(5, 16, 20, 0.8)
+  );
+  border: 1px solid rgba(126, 222, 218, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 14px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.teacher-class-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(92, 232, 226, 0.35);
+}
+
+.teacher-class-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.teacher-class-card-title {
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--aeternum-gold-400, #d9b965);
+  margin: 0;
+}
+
+.teacher-class-card-sub {
+  font-size: 0.75rem;
+  color: rgba(244, 242, 234, 0.6);
+  margin-top: 0.2rem;
+}
+
+.teacher-class-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: rgba(4, 14, 18, 0.6);
+  border: 1px solid rgba(126, 222, 218, 0.08);
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.teacher-class-stat-val {
+  font-family: var(--font-mono, monospace);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--aeternum-teal-400, #5ce8e2);
+}
+
+.teacher-class-stat-lbl {
+  font-size: 0.6875rem;
+  color: rgba(244, 242, 234, 0.55);
+}
+
+.teacher-class-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Student Dossier Modal & Drawer
+   -------------------------------------------------------------------------- */
+.teacher-student-dossier {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.teacher-dossier-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: rgba(92, 232, 226, 0.08);
+  border: 1px solid rgba(92, 232, 226, 0.2);
+}
+
+.teacher-dossier-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5ce8e2, #0d9488);
+  color: #041418;
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
+.teacher-dossier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.teacher-dossier-item {
+  padding: 0.875rem;
+  border-radius: 0.75rem;
+  background: rgba(6, 20, 26, 0.5);
+  border: 1px solid rgba(126, 222, 218, 0.1);
+  text-align: center;
+}
+
+.teacher-dossier-item strong {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 1.125rem;
+  color: var(--aeternum-gold-400, #d9b965);
+}
+
+.teacher-dossier-item span {
+  font-size: 0.6875rem;
+  color: rgba(244, 242, 234, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   Student Enrollment Selector Checklist
+   -------------------------------------------------------------------------- */
+.teacher-enrollment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 0.5rem 0;
+}
+
+.teacher-enrollment-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(8, 24, 30, 0.6);
+  border: 1px solid rgba(126, 222, 218, 0.1);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.teacher-enrollment-item.is-enrolled {
+  border-color: rgba(92, 232, 226, 0.35);
+  background: rgba(92, 232, 226, 0.08);
+}
