@@ -452,6 +452,7 @@ export default function StudentLearningPage({ section, user, navigate }) {
 }
 
 function StudentAITutorStudio() {
+  const { t } = useLanguage();
   const { messages, draft, setDraft, isThinking, sendMessage, connectionMode } = useAtlasAITutorSession();
   const [filterQuery, setFilterQuery] = useState("");
   const [userTags, setUserTags] = useState([]);
@@ -494,7 +495,7 @@ function StudentAITutorStudio() {
   }, [autoSessionTopics, userTags]);
 
   const handleRemoveTopic = (topicToRemove) => {
-    setUserTags((prev) => prev.filter((t) => t !== topicToRemove));
+    setUserTags((prev) => prev.filter((tagItem) => tagItem !== topicToRemove));
     if (filterQuery === topicToRemove) setFilterQuery("");
   };
 
