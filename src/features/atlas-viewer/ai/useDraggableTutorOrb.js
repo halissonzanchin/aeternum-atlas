@@ -179,25 +179,36 @@ export default function useDraggableTutorOrb({
 
   useEffect(() => {
     if (!enabled) return undefined;
+    let resizeTimer = null;
 
     const handleResize = () => {
-      const nextViewport = getViewport();
-      const relativePosition = getRelativePosition(
-        positionRef.current,
-        viewportRef.current,
-        orbSize,
-        margin
-      );
-      viewportRef.current = nextViewport;
-      setViewport(nextViewport);
-      updatePosition(positionFromRatios(relativePosition, nextViewport, orbSize, margin));
+      if (resizeTimer) return;
+      resizeTimer = window.requestAnimationFrame(() => {
+        resizeTimer = null;
+        const nextViewport = getViewport();
+        if (
+          Math.abs(nextViewport.width - viewportRef.current.width) < 2 &&
+          Math.abs(nextViewport.height - viewportRef.current.height) < 10
+        ) {
+          return;
+        }
+
+        const relativePosition = getRelativePosition(
+          positionRef.current,
+          viewportRef.current,
+          orbSize,
+          margin
+        );
+        viewportRef.current = nextViewport;
+        setViewport(nextViewport);
+        updatePosition(positionFromRatios(relativePosition, nextViewport, orbSize, margin));
+      });
     };
 
     window.addEventListener("resize", handleResize);
-    window.visualViewport?.addEventListener("resize", handleResize);
     return () => {
+      if (resizeTimer) window.cancelAnimationFrame(resizeTimer);
       window.removeEventListener("resize", handleResize);
-      window.visualViewport?.removeEventListener("resize", handleResize);
     };
   }, [bottomInset, enabled, margin, orbSize, rightInset, updatePosition]);
 

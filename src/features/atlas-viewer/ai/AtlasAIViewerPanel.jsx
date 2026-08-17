@@ -238,16 +238,20 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
     setIsOpen((open) => !open);
   };
 
-  const handleClose = useCallback(() => {
+  const handleClose = useCallback((triggerSource = "pointer") => {
     setIsOpen(false);
-    window.requestAnimationFrame(() => triggerRef.current?.focus());
+    if (triggerSource === "keyboard") {
+      window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
+    } else {
+      triggerRef.current?.blur?.();
+    }
   }, []);
 
   useEffect(() => {
     if (!isOpen) return undefined;
     const handleKeyDown = (event) => {
       if (event.key !== 'Escape') return;
-      handleClose();
+      handleClose("keyboard");
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);

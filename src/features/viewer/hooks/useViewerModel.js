@@ -92,7 +92,7 @@ export function useViewerModel(id, user) {
     return () => {
       mounted = false;
     };
-  }, [id, user]);
+  }, [cleanId, user?.id, user?.institutionId]);
 
   useEffect(() => {
     setActiveStructure(initialStructure);

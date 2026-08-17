@@ -390,20 +390,42 @@ export default function AtlasAIOrb({
   }, [normalizedIntensity, normalizedState]);
 
   useEffect(() => {
+    // For small size (e.g. headers), use high-performance SVG/CSS renderer to save GPU WebGL context slots on mobile
+    if (size === "sm") {
+      setRenderer("fallback");
+      return undefined;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return undefined;
 
+    let disposed = false;
+    let animationFrame = 0;
+
+    const handleContextLost = (event) => {
+      event.preventDefault();
+      disposed = true;
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      setRenderer("fallback");
+    };
+
+    canvas.addEventListener("webglcontextlost", handleContextLost, { passive: false });
+
     const gl = canvas.getContext("webgl", {
       alpha: true,
-      antialias: true,
+      antialias: false,
       depth: false,
+      stencil: false,
+      preserveDrawingBuffer: false,
       premultipliedAlpha: true,
       powerPreference: "high-performance"
     });
 
     if (!gl) {
       setRenderer("fallback");
-      return undefined;
+      return () => {
+        canvas.removeEventListener("webglcontextlost", handleContextLost);
+      };
     }
 
     let program;
@@ -412,7 +434,9 @@ export default function AtlasAIOrb({
     } catch (error) {
       console.warn("[Atlas AI Orb] WebGL indisponível; usando fallback.", error);
       setRenderer("fallback");
-      return undefined;
+      return () => {
+        canvas.removeEventListener("webglcontextlost", handleContextLost);
+      };
     }
 
     const positionBuffer = gl.createBuffer();
@@ -431,8 +455,6 @@ export default function AtlasAIOrb({
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     let reducedMotion = reducedMotionQuery.matches;
     let isIntersecting = true;
-    let animationFrame = 0;
-    let disposed = false;
 
     gl.useProgram(program);
     gl.enableVertexAttribArray(positionLocation);
@@ -441,6 +463,7 @@ export default function AtlasAIOrb({
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
     const resizeCanvas = () => {
+      if (disposed || !canvas) return;
       const bounds = canvas.getBoundingClientRect();
       const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
       const width = Math.max(1, Math.round(bounds.width * pixelRatio));
@@ -452,10 +475,12 @@ export default function AtlasAIOrb({
       gl.viewport(0, 0, width, height);
     };
 
+    // Initial resize once on mount
+    resizeCanvas();
+
     const draw = (timestamp = 0) => {
       animationFrame = 0;
       if (disposed) return;
-      resizeCanvas();
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.useProgram(program);
@@ -477,8 +502,12 @@ export default function AtlasAIOrb({
     };
     requestDrawRef.current = requestDraw;
 
-    const resizeObserver = new ResizeObserver(requestDraw);
+    const resizeObserver = new ResizeObserver(() => {
+      resizeCanvas();
+      requestDraw();
+    });
     resizeObserver.observe(canvas);
+
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       isIntersecting = entry?.isIntersecting ?? true;
       if (isIntersecting) requestDraw();
@@ -501,15 +530,20 @@ export default function AtlasAIOrb({
     return () => {
       disposed = true;
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      canvas.removeEventListener("webglcontextlost", handleContextLost);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       reducedMotionQuery.removeEventListener?.("change", handleReducedMotionChange);
       requestDrawRef.current = () => {};
-      gl.deleteBuffer(positionBuffer);
-      gl.deleteProgram(program);
+      try {
+        gl.deleteBuffer(positionBuffer);
+        gl.deleteProgram(program);
+      } catch {
+        // Silent teardown
+      }
     };
-  }, []);
+  }, [size]);
 
   return (
     <span

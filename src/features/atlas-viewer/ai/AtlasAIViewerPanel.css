@@ -7,7 +7,7 @@
   padding: 4px;
   place-items: center;
   border: 0;
-  border-radius: 22px;
+  border-radius: 50%;
   background: transparent;
   box-shadow: none;
   cursor: grab;
@@ -18,16 +18,17 @@
   transition: filter 220ms ease, scale 220ms ease;
 }
 
-.atlas-viewer-ai-orb-control:hover,
-.atlas-viewer-ai-orb-control:focus-visible {
+.atlas-viewer-ai-orb-control:hover {
   outline: none;
   scale: 1.035;
   filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.52))
     drop-shadow(0 0 16px rgba(50, 213, 202, 0.2));
 }
 
+.atlas-viewer-ai-orb-control:focus,
 .atlas-viewer-ai-orb-control:focus-visible {
-  box-shadow: 0 0 0 2px rgba(3, 13, 17, 0.96), 0 0 0 4px rgba(129, 241, 232, 0.68);
+  outline: none;
+  box-shadow: none;
 }
 
 .atlas-viewer-ai-orb-control.is-dragging {
