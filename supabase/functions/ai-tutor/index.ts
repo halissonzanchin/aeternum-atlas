@@ -35,12 +35,15 @@ function jsonResponse(body: Record<string, unknown>, status: number, headers: He
 }
 
 function allowedOrigins() {
-  const configured = (Deno.env.get("AETERNUM_ALLOWED_ORIGINS") || "https://aeternum-atlas.vercel.app")
+  const configured = (Deno.env.get("AETERNUM_ALLOWED_ORIGINS") || "https://aeternum-atlas.vercel.app,https://www.aeternumatlas.com,https://aeternumatlas.com")
     .split(",")
     .map((origin) => origin.trim())
     .filter(Boolean);
   return [...new Set([
     ...configured,
+    "https://aeternumatlas.com",
+    "https://www.aeternumatlas.com",
+    "https://aeternum-atlas.vercel.app",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:5174",
@@ -49,11 +52,18 @@ function allowedOrigins() {
 }
 
 function isAllowedOrigin(origin: string) {
+  if (!origin) return false;
   if (allowedOrigins().includes(origin)) return true;
   try {
     const url = new URL(origin);
-    return url.protocol === "https:"
-      && /^aeternum-atlas-[a-z0-9-]+-aeternum-atlas\.vercel\.app$/i.test(url.hostname);
+    if (url.protocol === "https:") {
+      if (url.hostname === "aeternumatlas.com" || url.hostname === "www.aeternumatlas.com" || url.hostname.endsWith(".aeternumatlas.com")) return true;
+      if (url.hostname === "aeternum-atlas.vercel.app" || url.hostname.endsWith(".vercel.app")) return true;
+    }
+    if (url.protocol === "http:" && (url.hostname === "localhost" || url.hostname === "127.0.0.1")) {
+      return true;
+    }
+    return false;
   } catch {
     return false;
   }
