@@ -385,6 +385,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
     zoomBehaviorRef.current = zoomBehavior;
     svg.call(zoomBehavior);
+    svg.on("click", () => setActiveNode(null));
 
     renderFromOutline();
   }, []);
