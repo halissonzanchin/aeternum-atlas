@@ -10,6 +10,7 @@ import {
   A26Toolbar
 } from "../../components/aeternum-26";
 import LineIcon from "../../components/icons/LineIcon";
+import { useLanguage } from "../../context/LanguageContext";
 import { useAtlasAITutorSession } from "../../context/AtlasAITutorSessionContext";
 import { generateAuthenticatedMindMap } from "../../services/ai/mindMapGenerationService";
 import "../../styles/A26MindMap.css";
@@ -113,6 +114,7 @@ function countDescendants(children) {
 }
 
 export default function AnatomicalMindMapPage({ user, navigate }) {
+  const { t } = useLanguage();
   const [outlineText, setOutlineText] = useState(DEFAULT_OUTLINE);
   const [isOutlineEditorOpen, setIsOutlineEditorOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => typeof window !== "undefined" && window.innerWidth <= 880);
@@ -547,28 +549,28 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
   return (
     <div className={`a26-mindmap-page fade-in-up ${sidebarCollapsed ? "sidebar-collapsed" : ""} ${isFullscreen ? "is-fullscreen" : ""}`}>
-      <A26Sidebar label="Editor do mapa mental" className={`mindmap-sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
+      <A26Sidebar label={t("mindMap.title", { defaultValue: "Editor do mapa mental" })} className={`mindmap-sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
         <div className="mindmap-sidebar-head">
-          <p className="mindmap-eyebrow">Atlas de raciocínio · Tutor autenticado</p>
-          <h1>Mapa Mental</h1>
-          <p>Transforme um tema anatômico em relações visuais editáveis sem perder o controle do esboço.</p>
+          <p className="mindmap-eyebrow">{t("mindMap.eyebrow", { defaultValue: "Atlas de raciocínio · Tutor autenticado" })}</p>
+          <h1>{t("mindMap.title", { defaultValue: "Mapa Mental" })}</h1>
+          <p>{t("mindMap.subtitle", { defaultValue: "Transforme um tema anatômico em relações visuais editáveis sem perder o controle do esboço." })}</p>
         </div>
 
         <A26Surface material="clear" tone="teal" className="mindmap-ai-composer">
           <div className="mindmap-ai-composer__status">
             <span className={`mindmap-status-dot is-${connectionMode || "offline"}`} aria-hidden="true" />
-            <span>{connectionMode === "online" ? "Tutor IA autenticado" : "Tutor IA requer conexão"}</span>
+            <span>{connectionMode === "online" ? t("mindMap.tutorOnline", { defaultValue: "Tutor IA autenticado" }) : t("mindMap.tutorOffline", { defaultValue: "Tutor IA requer conexão" })}</span>
           </div>
           <A26Field
-            label="Tema anatômico"
-            placeholder="Esboço IA (ex: Sistema Renal...)"
+            label={t("mindMap.topicLabel", { defaultValue: "Tema anatômico" })}
+            placeholder={t("mindMap.topicPlaceholder", { defaultValue: "Esboço IA (ex: Sistema Renal...)" })}
             value={aiPrompt}
             onChange={(e) => setAiPrompt(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !isGenerating) void handleGenerateAI();
             }}
             error={generationError}
-            hint={!generationError ? "A geração fica vinculada ao histórico seguro do Tutor IA." : undefined}
+            hint={!generationError ? t("mindMap.topicHint", { defaultValue: "A geração fica vinculada ao histórico seguro do Tutor IA." }) : undefined}
           />
           <A26Button
             variant="primary"
@@ -577,7 +579,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
             disabled={isGenerating || aiPrompt.trim().length < 3}
             loading={isGenerating}
           >
-            {isGenerating ? "Estruturando" : "Gerar com Tutor IA"}
+            {isGenerating ? t("mindMap.structuring", { defaultValue: "Estruturando" }) : t("mindMap.generateButton", { defaultValue: "Gerar com Tutor IA" })}
           </A26Button>
           {generationNotice ? <p className="mindmap-generation-notice" role="status">{generationNotice}</p> : null}
         </A26Surface>
@@ -585,8 +587,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         <div className="mindmap-outline-box">
           <div className="mindmap-outline-heading">
             <div>
-              <strong id="mindmap-outline-label">Estrutura editável</strong>
-              <span>Prévia compacta do esboço</span>
+              <strong id="mindmap-outline-label">{t("mindMap.editableStructure", { defaultValue: "Estrutura editável" })}</strong>
+              <span>{t("mindMap.compactPreview", { defaultValue: "Prévia compacta do esboço" })}</span>
             </div>
             <A26Button
               variant="secondary"
@@ -596,7 +598,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
               aria-expanded={isOutlineEditorOpen}
               onClick={() => setIsOutlineEditorOpen(true)}
             >
-              Ampliar
+              {t("mindMap.expandButton", { defaultValue: "Ampliar" })}
             </A26Button>
           </div>
           <textarea
@@ -608,40 +610,40 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
             onChange={(e) => setOutlineText(e.target.value)}
           />
           <small id="mindmap-outline-hint" className="a26-field__hint">
-            Um espaço adicional representa um novo nível hierárquico.
+            {t("mindMap.outlineHint", { defaultValue: "Um espaço adicional representa um novo nível hierárquico." })}
           </small>
         </div>
 
         <div className="mindmap-sidebar-actions">
           <A26Button variant="primary" icon={<LineIcon name="layers" className="h-5 w-5" />} onClick={renderFromOutline}>
-            Renderizar mapa
+            {t("mindMap.renderMap", { defaultValue: "Renderizar mapa" })}
           </A26Button>
           <div className="mindmap-btn-row">
             <A26Button variant="secondary" onClick={handleExpandAll}>
-              Expandir tudo
+              {t("mindMap.expandAll", { defaultValue: "Expandir tudo" })}
             </A26Button>
             <A26Button variant="secondary" onClick={handleCollapseAll}>
-              Recolher tudo
+              {t("mindMap.collapseAll", { defaultValue: "Recolher tudo" })}
             </A26Button>
           </div>
         </div>
       </A26Sidebar>
 
       <A26Surface as="main" material="regular" tone="teal" className="mindmap-canvas-wrap" ref={canvasWrapRef}>
-        <A26Toolbar label="Ferramentas do mapa mental" className="mindmap-topbar">
+        <A26Toolbar label={t("mindMap.title", { defaultValue: "Ferramentas do mapa mental" })} className="mindmap-topbar">
           <div className="topbar-left-group">
             <A26IconButton
-              label={sidebarCollapsed ? "Mostrar editor" : "Ocultar editor"}
+              label={sidebarCollapsed ? t("mindMap.showEditor", { defaultValue: "Mostrar editor" }) : t("mindMap.hideEditor", { defaultValue: "Ocultar editor" })}
               icon="menu"
               onClick={() => setSidebarCollapsed((v) => !v)}
             />
             <div className="topbar-export-group">
-              <A26Button variant="secondary" onClick={handleExportPNG} title="Exportar como Imagem PNG" className="topbar-export-btn">
-                <span className="export-btn-full">Imagem (PNG)</span>
+              <A26Button variant="secondary" onClick={handleExportPNG} title={t("mindMap.exportPng", { defaultValue: "Imagem (PNG)" })} className="topbar-export-btn">
+                <span className="export-btn-full">{t("mindMap.exportPng", { defaultValue: "Imagem (PNG)" })}</span>
                 <span className="export-btn-short">PNG</span>
               </A26Button>
-              <A26Button variant="secondary" onClick={handleExportPDF} title="Imprimir ou salvar em PDF" className="topbar-export-btn">
-                <span className="export-btn-full">Exportar PDF</span>
+              <A26Button variant="secondary" onClick={handleExportPDF} title={t("mindMap.exportPdf", { defaultValue: "Exportar PDF" })} className="topbar-export-btn">
+                <span className="export-btn-full">{t("mindMap.exportPdf", { defaultValue: "Exportar PDF" })}</span>
                 <span className="export-btn-short">PDF</span>
               </A26Button>
             </div>
@@ -658,9 +660,9 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
             >
               −
             </A26Button>
-            <A26IconButton label="Centralizar vista" icon="reset" onClick={() => fitToView(450)} />
+            <A26IconButton label={t("mindMap.centerView", { defaultValue: "Centralizar vista" })} icon="reset" onClick={() => fitToView(450)} />
             <A26IconButton
-              label={isFullscreen ? "Sair da tela cheia" : "Usar tela cheia"}
+              label={isFullscreen ? t("mindMap.exitFullscreen", { defaultValue: "Sair da tela cheia" }) : t("mindMap.enterFullscreen", { defaultValue: "Usar tela cheia" })}
               icon="fullscreen"
               className={isFullscreen ? "active-fullscreen" : ""}
               onClick={() => setIsFullscreen((prev) => !prev)}
@@ -673,32 +675,32 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         </div>
 
         <div className="mindmap-hint">
-          {isFullscreen ? "Pressione Esc para sair da tela cheia · " : ""}arraste para mover · roda do mouse para zoom · clique num nó para recolher/expandir os filhos
+          {isFullscreen ? t("mindMap.fullscreenExitHint", { defaultValue: "Pressione Esc para sair da tela cheia · " }) : ""}{t("mindMap.canvasHint", { defaultValue: "arraste para mover · roda do mouse para zoom · clique num nó para recolher/expandir os filhos" })}
         </div>
 
         {activeNode ? (
           <A26Surface as="aside" material="substantial" tone="teal" className="mindmap-node-drawer fade-in-up">
             <div className="mindmap-node-drawer__head">
-              <span>Nó selecionado</span>
-              <A26IconButton label="Fechar detalhes do nó" icon="close" onClick={() => setActiveNode(null)} />
+              <span>{t("mindMap.selectedNode", { defaultValue: "Nó selecionado" })}</span>
+              <A26IconButton label={t("mindMap.closeNodeDetails", { defaultValue: "Fechar detalhes do nó" })} icon="close" onClick={() => setActiveNode(null)} />
             </div>
             <h3>{activeNode.data.name}</h3>
             <p className="mindmap-node-meta">
-              Nível {activeNode.depth} · {activeNode.children ? `${activeNode.children.length} filhos diretos` : activeNode._children ? `${countDescendants(activeNode._children)} filhos recolhidos` : "Nó folha"}
+              {t("mindMap.level", { defaultValue: "Nível" })} {activeNode.depth} · {activeNode.children ? t("mindMap.directChildren", { count: activeNode.children.length, defaultValue: `${activeNode.children.length} filhos diretos` }) : activeNode._children ? t("mindMap.collapsedChildren", { count: countDescendants(activeNode._children), defaultValue: `${countDescendants(activeNode._children)} filhos recolhidos` }) : t("mindMap.leafNode", { defaultValue: "Nó folha" })}
             </p>
 
             <div className="mindmap-node-actions">
               <A26Button variant="primary" icon={<LineIcon name="spark" className="h-5 w-5" />} onClick={handleExplainNode}>
-                Explicar com Tutor IA
+                {t("mindMap.explainWithAi", { defaultValue: "Explicar com Tutor IA" })}
               </A26Button>
               <A26Button variant="secondary" icon={<LineIcon name="layers" className="h-5 w-5" />} onClick={() => navigate("/models")}>
-                Explorar modelos 3D
+                {t("mindMap.explore3dModels", { defaultValue: "Explorar modelos 3D" })}
               </A26Button>
               <A26Button variant="secondary" onClick={() => navigate("/flashcards")}>
-                Praticar com flashcards
+                {t("mindMap.practiceFlashcards", { defaultValue: "Praticar com flashcards" })}
               </A26Button>
               <A26Button variant="secondary" onClick={() => navigate("/quizzes")}>
-                Abrir simulados
+                {t("mindMap.openQuizzes", { defaultValue: "Abrir simulados" })}
               </A26Button>
             </div>
           </A26Surface>
@@ -707,15 +709,15 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
       <A26Modal
         open={isOutlineEditorOpen}
-        title="Estrutura editável"
-        description="Edite o esboço hierárquico com mais espaço. As alterações permanecem sincronizadas com a prévia lateral."
+        title={t("mindMap.editorModalTitle", { defaultValue: "Estrutura editável" })}
+        description={t("mindMap.editorModalDescription", { defaultValue: "Edite o esboço hierárquico com mais espaço. As alterações permanecem sincronizadas com a prévia lateral." })}
         className="mindmap-editor-modal"
-        closeLabel="Fechar editor ampliado"
+        closeLabel={t("mindMap.finishEditing", { defaultValue: "Fechar editor ampliado" })}
         onClose={() => setIsOutlineEditorOpen(false)}
         actions={(
           <>
             <A26Button variant="secondary" onClick={() => setIsOutlineEditorOpen(false)}>
-              Concluir edição
+              {t("mindMap.finishEditing", { defaultValue: "Concluir edição" })}
             </A26Button>
             <A26Button
               variant="primary"
@@ -725,7 +727,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
                 setIsOutlineEditorOpen(false);
               }}
             >
-              Aplicar e renderizar
+              {t("mindMap.applyAndRender", { defaultValue: "Aplicar e renderizar" })}
             </A26Button>
           </>
         )}
@@ -733,8 +735,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         <div className="mindmap-expanded-editor">
           <A26Field
             as="textarea"
-            label="Esboço hierárquico"
-            hint="Use um espaço adicional no início da linha para criar cada novo nível hierárquico."
+            label={t("mindMap.hierarchicalOutline", { defaultValue: "Esboço hierárquico" })}
+            hint={t("mindMap.hierarchicalOutlineHint", { defaultValue: "Use um espaço adicional no início da linha para criar cada novo nível hierárquico." })}
             spellCheck="false"
             value={outlineText}
             onChange={(e) => setOutlineText(e.target.value)}

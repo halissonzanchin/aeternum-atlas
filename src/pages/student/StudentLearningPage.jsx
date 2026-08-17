@@ -521,32 +521,37 @@ function StudentAITutorStudio() {
   return (
     <div className="a26-ai-tutor-studio-hub flex flex-col gap-5 w-full">
       <div className="a26-liquid-metrics-grid">
-        <A26Metric label="Histórico do diálogo" value={totalDialogues} detail={`${userQuestionsCount} perguntas · ${aiAnswersCount} respostas`} tone="teal" />
         <A26Metric
-          label="Estado da sessão"
-          value={connectionMode === "online" ? "Sincronizada" : "Neste dispositivo"}
-          detail={connectionMode === "online" ? "Conversa associada à conta autenticada" : "Persistência remota indisponível nesta sessão"}
+          label={t("aiTutorStudio.dialogueHistory", { defaultValue: "Histórico do diálogo" })}
+          value={totalDialogues}
+          detail={t("aiTutorStudio.dialogueDetail", { questions: userQuestionsCount, answers: aiAnswersCount, defaultValue: `${userQuestionsCount} perguntas · ${aiAnswersCount} respostas` })}
+          tone="teal"
+        />
+        <A26Metric
+          label={t("aiTutorStudio.sessionState", { defaultValue: "Estado da sessão" })}
+          value={connectionMode === "online" ? t("aiTutorStudio.sessionSynchronized", { defaultValue: "Sincronizada" }) : t("aiTutorStudio.sessionLocal", { defaultValue: "Neste dispositivo" })}
+          detail={connectionMode === "online" ? t("aiTutorStudio.sessionSyncedDetail", { defaultValue: "Conversa associada à conta autenticada" }) : t("aiTutorStudio.sessionLocalDetail", { defaultValue: "Persistência remota indisponível nesta sessão" })}
           tone="gold"
         />
         <A26Metric
-          label="Fontes anatômicas"
-          value="Condicionais"
-          detail="Referências são exibidas somente quando recuperadas e presentes na resposta"
+          label={t("aiTutorStudio.sourcesMetric", { defaultValue: "Fontes anatômicas" })}
+          value={t("aiTutorStudio.sourcesConditional", { defaultValue: "Condicionais" })}
+          detail={t("aiTutorStudio.sourcesDetail", { defaultValue: "Referências são exibidas somente quando recuperadas e presentes na resposta" })}
         />
       </div>
 
       {/* Search & User-Controlled Topic Tags Toolbar */}
       <div className="flex flex-col gap-3">
-        <A26Toolbar className="a26-daily-toolbar a26-ai-tutor-studio-toolbar" label="Pesquisar histórico">
+        <A26Toolbar className="a26-daily-toolbar a26-ai-tutor-studio-toolbar" label={t("aiTutorStudio.searchLabel", { defaultValue: "Pesquisar histórico" })}>
           <A26Field
-            label="Filtrar histórico de consultas por palavra-chave"
+            label={t("aiTutorStudio.filterFieldLabel", { defaultValue: "Filtrar histórico de consultas por palavra-chave" })}
             value={filterQuery}
-            placeholder="Digite para buscar nas conversas (ex: Clavícula, Plexo, Fratura)..."
+            placeholder={t("aiTutorStudio.filterPlaceholder", { defaultValue: "Digite para buscar nas conversas (ex: Clavícula, Plexo, Fratura)..." })}
             onChange={(event) => setFilterQuery(event.target.value)}
           />
           {filterQuery ? (
             <A26Button variant="ghost" onClick={() => setFilterQuery("")}>
-              Limpar busca
+              {t("aiTutorStudio.clearSearch", { defaultValue: "Limpar busca" })}
             </A26Button>
           ) : null}
         </A26Toolbar>
@@ -554,7 +559,7 @@ function StudentAITutorStudio() {
         {/* User-Controlled Dynamic Topic Tags (Add & Remove) */}
         <div className="flex items-center flex-wrap gap-2 px-1">
           <span className="text-[11px] font-semibold text-textMuted uppercase tracking-wider flex items-center gap-1">
-            <span>🏷️</span> Tags de Estudo da Sessão:
+            <span>🏷️</span> {t("aiTutorStudio.sessionTags", { defaultValue: "Tags de Estudo da Sessão:" })}
           </span>
 
           {activeTopics.map((topic) => (
@@ -577,7 +582,7 @@ function StudentAITutorStudio() {
                 type="button"
                 onClick={() => handleRemoveTopic(topic)}
                 className="text-textMuted hover:text-red-400 text-xs px-0.5 ml-1 transition-colors"
-                title="Remover tag"
+                title={t("aiTutorStudio.removeTag", { defaultValue: "Remover tag" })}
               >
                 ✕
               </button>
@@ -590,7 +595,7 @@ function StudentAITutorStudio() {
                 type="text"
                 value={newTagInput}
                 onChange={(e) => setNewTagInput(e.target.value)}
-                placeholder="Nome da tag..."
+                placeholder={t("aiTutorStudio.tagNamePlaceholder", { defaultValue: "Nome da tag..." })}
                 className="px-2.5 py-0.5 rounded-full text-xs bg-surfaceDark border border-teal-500/50 text-teal-200 outline-none w-28"
                 autoFocus
               />
@@ -614,7 +619,7 @@ function StudentAITutorStudio() {
               onClick={() => setShowAddTagInput(true)}
               className="px-2.5 py-1 rounded-full text-xs font-mono text-teal-300/80 border border-dashed border-teal-500/40 hover:border-teal-400 hover:text-teal-200 transition-all bg-teal-950/20"
             >
-              + Adicionar Tag
+              {t("aiTutorStudio.addTag", { defaultValue: "+ Adicionar Tag" })}
             </button>
           )}
         </div>
@@ -626,8 +631,12 @@ function StudentAITutorStudio() {
           <div className="flex items-center gap-3">
             <span className="w-3.5 h-3.5 rounded-full bg-teal-400 animate-pulse shadow-glowTeal" />
             <div>
-              <h2 style={{ color: '#f3d789', fontSize: '1rem', fontWeight: 700, letterSpacing: '0.025em', margin: 0 }}>Estúdio Completo de Diálogos do Tutor IA</h2>
-              <p style={{ color: 'rgba(218, 251, 248, 0.75)', fontSize: '0.75rem', margin: '2px 0 0' }}>Histórico completo de perguntas, pesquisas e respostas médicas sincronizado em tempo real</p>
+              <h2 style={{ color: '#f3d789', fontSize: '1rem', fontWeight: 700, letterSpacing: '0.025em', margin: 0 }}>
+                {t("aiTutorStudio.title", { defaultValue: "Estúdio Completo de Diálogos do Tutor IA" })}
+              </h2>
+              <p style={{ color: 'rgba(218, 251, 248, 0.75)', fontSize: '0.75rem', margin: '2px 0 0' }}>
+                {t("aiTutorStudio.subtitle", { defaultValue: "Histórico completo de perguntas, pesquisas e respostas médicas sincronizado em tempo real" })}
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -636,15 +645,15 @@ function StudentAITutorStudio() {
               onClick={() => setIsCaseModalOpen(true)}
               disabled={isThinking}
             >
-              Gerar Caso Clínico Socrático
+              {t("aiTutorStudio.generateClinicalCase", { defaultValue: "Gerar Caso Clínico Socrático" })}
             </A26Button>
             {filterQuery ? (
               <span className="text-xs text-amber-300 font-mono bg-amber-950/60 px-3 py-1.5 rounded-full border border-amber-500/30">
-                Filtrando: {filteredMessages.length} de {messages.length}
+                {t("aiTutorStudio.filteringCount", { filtered: filteredMessages.length, total: messages.length, defaultValue: `Filtrando: ${filteredMessages.length} de ${messages.length}` })}
               </span>
             ) : (
               <span className="text-xs text-teal-300 font-mono bg-teal-950/60 px-3 py-1.5 rounded-full border border-teal-500/30">
-                {messages.length} mensagens no histórico
+                {t("aiTutorStudio.historyMessagesCount", { count: messages.length, defaultValue: `${messages.length} mensagens no histórico` })}
               </span>
             )}
           </div>
@@ -656,8 +665,8 @@ function StudentAITutorStudio() {
             isThinking={isThinking}
             draft={draft}
             setDraft={setDraft}
-            onSend={(text) => sendMessage({ text, contextLabel: "Estúdio Tutor IA" })}
-            placeholder="Digite sua dúvida anatômica para consultar a base oficial de livros médicos…"
+            onSend={(text) => sendMessage({ text, contextLabel: t("aiTutorStudio.studioContextLabel", { defaultValue: "Estúdio Tutor IA" }) })}
+            placeholder={t("aiTutorStudio.askQuestionPlaceholder", { defaultValue: "Digite sua dúvida anatômica para consultar a base oficial de livros médicos…" })}
           />
         </div>
       </A26Card>

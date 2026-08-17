@@ -65,11 +65,11 @@ export default function StudyAgendaPage({ navigate }) {
       const start = new Date(safeSelected);
       start.setDate(diff);
       const startStr = new Intl.DateTimeFormat(loc, { day: "2-digit", month: "short" }).format(start);
-      return `Semana de ${startStr}`;
+      return t("agenda.weekOf", { start: startStr, defaultValue: `Semana de ${startStr}` });
     }
     const dayStr = new Intl.DateTimeFormat(loc, { weekday: "long", day: "2-digit", month: "long", year: "numeric" }).format(safeSelected);
     return dayStr.charAt(0).toUpperCase() + dayStr.slice(1);
-  }, [agenda.selectedDate, displayMode, language]);
+  }, [agenda.selectedDate, displayMode, language, t]);
 
   // Filter events based on active layers & anatomical system
   const filteredEventsMap = useMemo(() => {
@@ -155,22 +155,22 @@ export default function StudyAgendaPage({ navigate }) {
             className="a26-today-btn"
             onClick={() => agenda.setSelectedDate(new Date())}
           >
-            🎯 Hoje
+            🎯 {t("agenda.today", { defaultValue: "Hoje" })}
           </A26Button>
           <div className="a26-calendar-nav-arrows">
-            <button className="a26-nav-arrow" onClick={() => shiftDate(-1)} aria-label="Anterior">
+            <button className="a26-nav-arrow" onClick={() => shiftDate(-1)} aria-label={t("agenda.previous", { defaultValue: "Anterior" })}>
               ‹
             </button>
-            <button className="a26-nav-arrow" onClick={() => shiftDate(1)} aria-label="Próximo">
+            <button className="a26-nav-arrow" onClick={() => shiftDate(1)} aria-label={t("agenda.next", { defaultValue: "Próximo" })}>
               ›
             </button>
           </div>
           <h1 className="a26-header-month-title">{headerTitle}</h1>
           <div className="a26-hero-sync-badges" aria-label="Estado da agenda">
             <span className={`a26-hero-sync-badge ${agenda.syncStatus === "synced" ? "is-active" : ""}`}>
-              {agenda.syncStatus === "synced" ? "Conta sincronizada" : agenda.syncStatus === "pending" ? "Sincronização pendente" : "Agenda local"}
+              {agenda.syncStatus === "synced" ? t("agenda.accountSynced", { defaultValue: "Conta sincronizada" }) : agenda.syncStatus === "pending" ? t("agenda.syncPending", { defaultValue: "Sincronização pendente" }) : t("agenda.localAgenda", { defaultValue: "Agenda local" })}
             </span>
-            <span className="a26-hero-sync-badge">{agenda.events.length} atividades</span>
+            <span className="a26-hero-sync-badge">{t("agenda.activitiesCount", { count: agenda.events.length, defaultValue: `${agenda.events.length} atividades` })}</span>
           </div>
         </div>
 
@@ -178,24 +178,24 @@ export default function StudyAgendaPage({ navigate }) {
           {/* Main Display Switcher (Google Calendar Pattern: Mês | Semana | Dia) */}
           <A26SegmentedControl
             className="a26-main-mode-switcher"
-            label="Visualização da agenda"
+            label={t("agenda.viewSwitcherLabel", { defaultValue: "Visualização da agenda" })}
             value={displayMode}
             onChange={setDisplayMode}
             options={[
-              { value: "month", label: "Mês" },
-              { value: "hourly_week", label: "Grade semanal" },
-              { value: "day", label: "Dia" }
+              { value: "month", label: t("agenda.monthView", { defaultValue: "Mês" }) },
+              { value: "hourly_week", label: t("agenda.weekView", { defaultValue: "Grade semanal" }) },
+              { value: "day", label: t("agenda.dayView", { defaultValue: "Dia" }) }
             ]}
           />
         </div>
       </A26Card>
 
       <div className="a26-weekly-quick-stats" aria-label="Resumo semanal real">
-        <A26Metric label="Programadas" value={weeklySummary.scheduled} icon={<LineIcon name="clipboardCheck" />} />
-        <A26Metric label="Concluídas" value={weeklySummary.completed} icon={<LineIcon name="check" />} />
-        <A26Metric label="Pendentes" value={weeklySummary.pending} icon={<LineIcon name="clock" />} />
-        <A26Metric label="Tempo planejado" value={`${Math.round(weeklySummary.plannedMinutes / 60)}h ${weeklySummary.plannedMinutes % 60}m`} icon={<LineIcon name="clock" />} />
-        <A26Metric label="Constância" value={`${weeklySummary.completionRate}%`} icon={<LineIcon name="spark" />} />
+        <A26Metric label={t("agenda.scheduledMetric", { defaultValue: "Programadas" })} value={weeklySummary.scheduled} icon={<LineIcon name="clipboardCheck" />} />
+        <A26Metric label={t("agenda.completedMetric", { defaultValue: "Concluídas" })} value={weeklySummary.completed} icon={<LineIcon name="check" />} />
+        <A26Metric label={t("agenda.pendingMetric", { defaultValue: "Pendentes" })} value={weeklySummary.pending} icon={<LineIcon name="clock" />} />
+        <A26Metric label={t("agenda.plannedTimeMetric", { defaultValue: "Tempo planejado" })} value={`${Math.round(weeklySummary.plannedMinutes / 60)}h ${weeklySummary.plannedMinutes % 60}m`} icon={<LineIcon name="clock" />} />
+        <A26Metric label={t("agenda.consistencyMetric", { defaultValue: "Constância" })} value={`${weeklySummary.completionRate}%`} icon={<LineIcon name="spark" />} />
       </div>
 
       {/* Main Agenda Grid Layout (Sidebar 270px + Main Workspace 100%) */}
