@@ -56,6 +56,22 @@
   transform: translateX(-1rem) scale(0.98);
 }
 
+.mindmap-sidebar > .mindmap-sidebar-head {
+  grid-row: 1;
+}
+
+.mindmap-sidebar > .mindmap-ai-composer {
+  grid-row: 2;
+}
+
+.mindmap-sidebar > .mindmap-outline-box {
+  grid-row: 3;
+}
+
+.mindmap-sidebar > .mindmap-sidebar-actions {
+  grid-row: 4;
+}
+
 .mindmap-sidebar-head {
   display: grid;
   gap: 0.35rem;
@@ -261,6 +277,18 @@
   border-radius: 1.75rem;
 }
 
+.mindmap-canvas-wrap > .mindmap-topbar {
+  grid-row: 1;
+}
+
+.mindmap-canvas-wrap > .mindmap-canvas-stage {
+  grid-row: 2;
+}
+
+.mindmap-canvas-wrap > .mindmap-hint {
+  grid-row: 3;
+}
+
 .mindmap-canvas-wrap::after {
   content: "";
   position: absolute;
@@ -332,6 +360,8 @@
   min-height: 31rem;
   overflow: visible;
   touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #canvas .link {
@@ -345,6 +375,8 @@
 #canvas .node {
   cursor: pointer;
   outline: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #canvas .node-box {
@@ -361,6 +393,8 @@
   dominant-baseline: middle;
   pointer-events: none;
   text-rendering: geometricPrecision;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #canvas .fold-dot {
@@ -373,6 +407,8 @@
   font: 700 0.58rem "JetBrains Mono", monospace;
   text-anchor: middle;
   dominant-baseline: middle;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .mindmap-hint {

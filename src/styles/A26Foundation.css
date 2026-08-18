@@ -194,9 +194,12 @@ body.a26-theme-light,
 .a26-surface__specular,
 .a26-surface__grain {
   position: absolute;
+  inset: 0;
   z-index: 1;
   pointer-events: none;
   border-radius: inherit;
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
 }
 
 .a26-surface__refract {
