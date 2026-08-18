@@ -1066,3 +1066,498 @@
     scroll-behavior: auto;
   }
 }
+
+/* ============================================================
+   AETERNUM 26.1 LIGHT LIQUID GLASS (iOS 27) STUDY AGENDA
+   ============================================================ */
+
+.a26-theme-light .study-agenda-top-bar {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 253, 0.88)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06), inset 0 1.5px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-header-month-title {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-nav-arrow {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  color: #0f766e !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+}
+
+.a26-theme-light .a26-nav-arrow:hover {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+}
+
+.a26-theme-light .a26-hero-sync-badge {
+  background: rgba(180, 83, 9, 0.1) !important;
+  border: 1px solid rgba(180, 83, 9, 0.3) !important;
+  color: #92400e !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .a26-hero-sync-badge.is-active {
+  background: rgba(5, 150, 105, 0.1) !important;
+  border: 1px solid rgba(5, 150, 105, 0.3) !important;
+  color: #065f46 !important;
+}
+
+.a26-theme-light .a26-agenda-hero-badge {
+  background: rgba(15, 118, 110, 0.1) !important;
+  border: 1px solid rgba(15, 118, 110, 0.3) !important;
+  color: #0f766e !important;
+  font-weight: 800 !important;
+}
+
+/* Quick Metrics */
+.a26-theme-light .a26-weekly-quick-stats .a26-metric {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(246, 250, 252, 0.88)) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-weekly-quick-stats .a26-metric:hover {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+  box-shadow: 0 14px 34px rgba(15, 118, 110, 0.12), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-weekly-quick-stats .a26-metric__label {
+  color: #475569 !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .a26-weekly-quick-stats .a26-metric__value {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-metric__icon {
+  background: rgba(15, 118, 110, 0.1) !important;
+  color: #0f766e !important;
+}
+
+/* Sidebar Widgets & Mini-Calendar */
+.a26-theme-light .a26-agenda-sidebar > div,
+.a26-theme-light .a26-sidebar-card,
+.a26-theme-light .agenda-side-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 253, 0.90)) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-sidebar-system-select {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(148, 163, 184, 0.4) !important;
+  color: #0f172a !important;
+  font-weight: 600 !important;
+}
+
+.a26-theme-light .a26-sidebar-filter-label {
+  color: #0f766e !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .a26-teacher-info strong {
+  color: #0f172a !important;
+}
+
+.a26-theme-light .a26-teacher-info small {
+  color: #64748b !important;
+}
+
+.a26-theme-light .a26-ios-toggle-track {
+  background: rgba(203, 213, 225, 0.8) !important;
+  border-color: rgba(148, 163, 184, 0.4) !important;
+}
+
+.a26-theme-light .a26-ios-toggle.is-on .a26-ios-toggle-track {
+  background: #0d9488 !important;
+}
+
+.a26-theme-light .a26-ios-toggle-knob {
+  background: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.2) !important;
+}
+
+/* Month Calendar Grid */
+.a26-theme-light .agenda-calendar {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 253, 0.90)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08), inset 0 1.5px 0 #ffffff !important;
+}
+
+.a26-theme-light .agenda-weekdays {
+  color: #0f766e !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .agenda-day-cell {
+  background: rgba(255, 255, 255, 0.82) !important;
+  border: 1px solid rgba(148, 163, 184, 0.28) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .agenda-day-cell:hover {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.12), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .agenda-day-cell.is-outside {
+  opacity: 0.38 !important;
+  background: rgba(241, 245, 249, 0.5) !important;
+}
+
+.a26-theme-light .agenda-day-cell__number {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .agenda-day-cell.is-today .agenda-day-cell__number {
+  background: #0d9488 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.35) !important;
+}
+
+.a26-theme-light .agenda-day-cell.is-selected {
+  border-color: #0f766e !important;
+  background: rgba(15, 118, 110, 0.08) !important;
+  box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2) !important;
+}
+
+.a26-theme-light .agenda-event-chip--student {
+  background: rgba(15, 118, 110, 0.12) !important;
+  color: #0f766e !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .agenda-event-chip--teacher {
+  background: rgba(180, 83, 9, 0.12) !important;
+  color: #92400e !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .agenda-event-chip--institution {
+  background: rgba(124, 58, 237, 0.12) !important;
+  color: #6d28d9 !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .agenda-event-chip--ai_tutor {
+  background: rgba(5, 150, 105, 0.12) !important;
+  color: #047857 !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .agenda-event-chip--more {
+  background: rgba(100, 116, 139, 0.12) !important;
+  color: #334155 !important;
+}
+
+/* Weekly Hourly Grid */
+.a26-theme-light .a26-hourly-grid-container {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 253, 0.90)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08), inset 0 1.5px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-hourly-grid__top-bar {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-bottom-color: rgba(148, 163, 184, 0.28) !important;
+}
+
+.a26-theme-light .a26-top-bar-subtitle {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-hourly-grid__time-col-header,
+.a26-theme-light .a26-hourly-grid__day-header {
+  border-right-color: rgba(148, 163, 184, 0.25) !important;
+  color: #334155 !important;
+}
+
+.a26-theme-light .a26-hourly-grid__day-header:hover {
+  background: rgba(15, 118, 110, 0.05) !important;
+}
+
+.a26-theme-light .a26-hourly-grid__day-header.is-selected {
+  background: rgba(15, 118, 110, 0.08) !important;
+  color: #0f766e !important;
+}
+
+.a26-theme-light .a26-hourly-grid__day-header.is-today {
+  color: #0d9488 !important;
+}
+
+.a26-theme-light .a26-hourly-grid__daynum {
+  color: #0f172a !important;
+}
+
+.a26-theme-light .a26-all-day-row {
+  border-bottom-color: rgba(148, 163, 184, 0.25) !important;
+}
+
+.a26-theme-light .a26-all-day-label,
+.a26-theme-light .a26-all-day-cell {
+  border-right-color: rgba(148, 163, 184, 0.25) !important;
+}
+
+.a26-theme-light .a26-all-day-label {
+  color: #0f766e !important;
+}
+
+.a26-theme-light .a26-all-day-badge {
+  background: rgba(15, 118, 110, 0.12) !important;
+  color: #0f766e !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-hourly-grid__time-sidebar {
+  border-right-color: rgba(148, 163, 184, 0.25) !important;
+}
+
+.a26-theme-light .a26-hourly-grid__time-slot {
+  color: #64748b !important;
+  font-weight: 600 !important;
+}
+
+.a26-theme-light .a26-hourly-grid__day-column {
+  border-right-color: rgba(148, 163, 184, 0.25) !important;
+}
+
+.a26-theme-light .a26-hourly-grid__row-line {
+  border-top-color: rgba(148, 163, 184, 0.18) !important;
+}
+
+.a26-theme-light .a26-hourly-event-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(240, 248, 250, 0.94)) !important;
+  border: 1px solid rgba(13, 148, 136, 0.35) !important;
+  border-left: 4px solid #0d9488 !important;
+  color: #0f172a !important;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-hourly-event-card:hover {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+  box-shadow: 0 12px 28px rgba(15, 118, 110, 0.15) !important;
+}
+
+.a26-theme-light .a26-hourly-event__title {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-hourly-event__time {
+  color: #0f766e !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-hourly-event__system {
+  color: #475569 !important;
+}
+
+/* Day Panel & Task Cards */
+.a26-theme-light .agenda-day-panel {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 253, 0.90)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08), inset 0 1.5px 0 #ffffff !important;
+}
+
+.a26-theme-light .agenda-day-panel__header {
+  border-bottom-color: rgba(148, 163, 184, 0.28) !important;
+}
+
+.a26-theme-light .agenda-day-panel__eyebrow {
+  color: #0f766e !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .agenda-day-panel__title {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .agenda-day-panel__subtitle {
+  color: #475569 !important;
+}
+
+.a26-theme-light .agenda-task-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(246, 250, 252, 0.92)) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .agenda-task-card__header h3 {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .agenda-task-card p,
+.a26-theme-light .agenda-task-card .agenda-task-description {
+  color: #334155 !important;
+  font-weight: 500 !important;
+}
+
+.a26-theme-light .agenda-task-meta span {
+  background: rgba(241, 245, 249, 0.95) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  color: #334155 !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .agenda-task-actions {
+  border-top-color: rgba(148, 163, 184, 0.25) !important;
+}
+
+.a26-theme-light .agenda-task-actions .a26-button {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+  border-radius: 12px !important;
+}
+
+.a26-theme-light .agenda-task-actions .a26-button:hover {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+  color: #0f766e !important;
+}
+
+.a26-theme-light .agenda-task-actions .a26-button--primary {
+  background: linear-gradient(135deg, #0d9488, #0f766e) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.a26-theme-light .agenda-linked-action-btn,
+.a26-theme-light .agenda-task-card .a26-button--liquid {
+  background: rgba(15, 118, 110, 0.1) !important;
+  border: 1px solid rgba(15, 118, 110, 0.35) !important;
+  color: #0f766e !important;
+  font-weight: 700 !important;
+}
+
+/* Bottom Insights Cards (Resumo da Semana & Próximas Revisões) */
+.a26-theme-light .agenda-day-insights .agenda-side-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 253, 0.90)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08), inset 0 1.5px 0 #ffffff !important;
+}
+
+.a26-theme-light .agenda-side-card__title h3 {
+  color: #0f172a !important;
+  font-family: Cinzel, Georgia, serif !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 0.06em !important;
+}
+
+.a26-theme-light .weekly-summary-badge {
+  color: #0f766e !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .weekly-summary-track {
+  background: rgba(148, 163, 184, 0.2) !important;
+}
+
+.a26-theme-light .weekly-summary-grid strong {
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .weekly-summary-grid span {
+  color: #64748b !important;
+  font-weight: 600 !important;
+}
+
+.a26-theme-light .upcoming-review-item {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  border-radius: 14px !important;
+  color: #0f172a !important;
+}
+
+.a26-theme-light .upcoming-review-item:hover {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+  box-shadow: 0 6px 18px rgba(15, 118, 110, 0.1) !important;
+}
+
+.a26-theme-light .upcoming-review-item strong {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .agenda-empty-text,
+.a26-theme-light .agenda-empty-state {
+  color: #64748b !important;
+  font-weight: 500 !important;
+}
+
+/* Mini Calendar Light Rules */
+.a26-theme-light .a26-mini-calendar {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 253, 0.90)) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-mini-calendar__header strong {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-mini-calendar__nav button {
+  background: rgba(241, 245, 249, 0.9) !important;
+  color: #0f766e !important;
+}
+
+.a26-theme-light .a26-mini-calendar__nav button:hover {
+  background: #ffffff !important;
+}
+
+.a26-theme-light .a26-mini-calendar__weekdays {
+  color: #0f766e !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .a26-mini-day {
+  color: #334155 !important;
+  font-weight: 600 !important;
+}
+
+.a26-theme-light .a26-mini-day:hover {
+  background: rgba(15, 118, 110, 0.08) !important;
+  color: #0f766e !important;
+}
+
+.a26-theme-light .a26-mini-day.is-today {
+  color: #0d9488 !important;
+  border-color: rgba(13, 148, 136, 0.4) !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .a26-mini-day.is-selected {
+  background: #0d9488 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.35) !important;
+}
+
