@@ -57,33 +57,39 @@ function normalizeStatusTone(isCorrect) {
   return "";
 }
 
-function TheoryTimer({ remaining, total }) {
-  const progress = total ? Math.max(0, Math.min(1, remaining / total)) : 0;
-  const urgent = remaining <= 60;
+function TheoryTimer({ remaining, total, examMode = false }) {
+  const safeTotal = total || 3600;
+  const elapsed = Math.max(0, safeTotal - (remaining || 0));
+  const elapsedRatio = Math.min(1, Math.max(0, elapsed / safeTotal));
+  const urgent = (remaining || 0) <= 60;
 
-  const size = 240;
-  const strokeWidth = 6;
+  const size = 220;
+  const strokeWidth = 7;
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
-  const strokeDashoffset = circumference - progress * circumference;
+  const strokeDashoffset = circumference * (1 - elapsedRatio);
 
   return (
     <div
-      className={`theory-timer-fluid ${urgent ? "is-urgent" : ""}`}
-      aria-label={`Tiempo restante ${formatClock(remaining)}`}
+      className={`theory-timer-fluid ${urgent ? "is-urgent" : ""} ${examMode ? "is-exam" : ""}`}
+      aria-label={`Tiempo restante ${formatClock(remaining)} de ${formatLongTime(safeTotal)}`}
     >
-      <svg className="theory-timer-svg" width="100%" height="100%" viewBox={`0 0 ${size} ${size}`}>
+      <svg className="theory-timer-svg" width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <defs>
-          <linearGradient id="theoryTimerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="theoryTimerGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#ffb020" />
             <stop offset="100%" stopColor="#ff5a2c" />
           </linearGradient>
+          <linearGradient id="theoryTimerGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#0d9488" />
+            <stop offset="100%" stopColor="#06b6d4" />
+          </linearGradient>
           <linearGradient id="theoryTimerUrgent" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#ef4444" />
-            <stop offset="100%" stopColor="#b91c1c" />
+            <stop offset="100%" stopColor="#dc2626" />
           </linearGradient>
           <filter id="theoryTimerGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feGaussianBlur stdDeviation="3.5" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
@@ -103,19 +109,20 @@ function TheoryTimer({ remaining, total }) {
           cy={size / 2}
           r={radius}
           strokeWidth={strokeWidth}
+          stroke={urgent ? "url(#theoryTimerUrgent)" : examMode ? "url(#theoryTimerGradientLight)" : "url(#theoryTimerGradientDark)"}
           fill="none"
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
           filter="url(#theoryTimerGlow)"
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
-          style={{ transition: "stroke-dashoffset 1s linear" }}
+          style={{ transition: "stroke-dashoffset 1s linear, stroke 0.3s ease" }}
         />
         
         {Array.from({ length: 60 }).map((_, index) => {
           const tickAngle = (index * 6 - 90) * (Math.PI / 180);
-          const innerRadius = radius - 16;
-          const outerRadius = index % 5 === 0 ? radius - 6 : radius - 10;
+          const innerRadius = radius - 14;
+          const outerRadius = index % 5 === 0 ? radius - 5 : radius - 8;
           const x1 = size / 2 + Math.cos(tickAngle) * innerRadius;
           const y1 = size / 2 + Math.sin(tickAngle) * innerRadius;
           const x2 = size / 2 + Math.cos(tickAngle) * outerRadius;
@@ -772,7 +779,7 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
 
         <div className="theory-quiz-body">
           <aside className="theory-quiz-sidebar">
-            <TheoryTimer remaining={timeRemaining} total={quiz.timeLimitSeconds} />
+            <TheoryTimer remaining={timeRemaining} total={quiz.timeLimitSeconds} examMode={examMode} />
 
             <div className="theory-quick-stats">
               <div>
