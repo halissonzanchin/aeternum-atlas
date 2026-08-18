@@ -433,3 +433,191 @@
     animation: none;
   }
 }
+
+/* ============================================================
+   AETERNUM 26.1 LIGHT LIQUID GLASS (iOS 27) FLASHCARDS
+   ============================================================ */
+
+.a26-theme-light .a26-flashcards-hero {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 253, 0.88)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06), inset 0 1.5px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-flashcards-hero h1,
+.a26-theme-light .a26-flashcards-hero .text-agedGold {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-flashcards-hero p,
+.a26-theme-light .a26-flashcards-hero .text-textMuted {
+  color: #475569 !important;
+}
+
+.a26-theme-light .a26-flashcards-hero .a26-kicker {
+  color: #0f766e !important;
+  font-weight: 800 !important;
+}
+
+/* Generator Surface */
+.a26-theme-light .a26-generator-surface {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 253, 0.90)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08), inset 0 1.5px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-generator-surface label,
+.a26-theme-light .a26-generator-surface .text-agedGold {
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .a26-flashcard-trustline {
+  color: #475569 !important;
+}
+
+.a26-theme-light .a26-flashcard-trustline strong {
+  color: #0f172a !important;
+}
+
+.a26-theme-light .a26-quick-chip.a26-button {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  color: #0f172a !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+}
+
+.a26-theme-light .a26-quick-chip.a26-button:hover {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+  color: #0f766e !important;
+  box-shadow: 0 6px 18px rgba(15, 118, 110, 0.12) !important;
+}
+
+.a26-theme-light .a26-generation-message {
+  background: rgba(15, 118, 110, 0.08) !important;
+  border-inline-start-color: #0f766e !important;
+  color: #0f766e !important;
+  font-weight: 600 !important;
+}
+
+.a26-theme-light .a26-generation-message.is-error {
+  background: rgba(244, 63, 94, 0.08) !important;
+  border-inline-start-color: #e11d48 !important;
+  color: #be123c !important;
+}
+
+/* Saved Decks */
+.a26-theme-light .a26-saved-deck {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  border-radius: 16px !important;
+  color: #0f172a !important;
+}
+
+.a26-theme-light .a26-saved-deck:hover {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+  box-shadow: 0 6px 18px rgba(15, 118, 110, 0.1) !important;
+}
+
+/* Flashcard Player & 3D Cards */
+.a26-theme-light .a26-player-meta {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-player-meta h2,
+.a26-theme-light .a26-player-meta .text-agedGold {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-flashcard-face {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(244, 250, 253, 0.94)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 26px !important;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1), inset 0 2px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-flashcard-text {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-flashcard-explanation {
+  color: #334155 !important;
+}
+
+.a26-theme-light .a26-flashcard-citation {
+  color: #64748b !important;
+  font-weight: 600 !important;
+}
+
+.a26-theme-light .a26-flashcard-hint {
+  color: #64748b !important;
+}
+
+.a26-theme-light .a26-flashcard-footer {
+  border-top-color: rgba(148, 163, 184, 0.28) !important;
+}
+
+.a26-theme-light .a26-flashcard-tutor-btn.a26-button {
+  background: rgba(15, 118, 110, 0.1) !important;
+  border: 1px solid rgba(15, 118, 110, 0.35) !important;
+  color: #0f766e !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+}
+
+.a26-theme-light .a26-flashcard-tutor-btn.a26-button:hover {
+  background: #0f766e !important;
+  color: #ffffff !important;
+}
+
+.a26-theme-light .a26-feedback-overlay.is-correct {
+  color: #065f46 !important;
+  background: rgba(236, 253, 245, 0.96) !important;
+  border-color: #059669 !important;
+  box-shadow: 0 16px 44px rgba(5, 150, 105, 0.2) !important;
+}
+
+.a26-theme-light .a26-feedback-overlay.is-wrong {
+  color: #9f1239 !important;
+  background: rgba(255, 241, 242, 0.96) !important;
+  border-color: #e11d48 !important;
+  box-shadow: 0 16px 44px rgba(225, 29, 72, 0.2) !important;
+}
+
+/* Performance Report */
+.a26-theme-light .a26-performance-report-card {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 253, 0.90)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08), inset 0 1.5px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-topic-column {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  border-radius: 16px !important;
+}
+
+.a26-theme-light .a26-topic-column h3 {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-topic-column ul {
+  color: #334155 !important;
+}
+
