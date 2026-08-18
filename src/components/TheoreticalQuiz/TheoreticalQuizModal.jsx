@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import AeternumLogo from "../AeternumLogo";
 import LineIcon from "../icons/LineIcon";
 import {
   clearTheoreticalQuizProgress,
@@ -214,79 +213,7 @@ function ResultRadar({ data = [] }) {
   return <canvas className="theory-radar" ref={canvasRef} aria-label="Grafico radar de desempeno tematico" />;
 }
 
-function TheoryModelBadge({ type = "heart" }) {
-  if (type === "brain") {
-    return (
-      <div className="theory-brain-badge" aria-hidden="true">
-        <svg viewBox="0 0 180 140" className="theory-brain-svg">
-          <path
-            className="theory-brain-outline"
-            d="M34 83 C18 52 38 20 73 18 C96 3 132 17 143 43 C165 51 165 88 140 99 C125 122 88 123 68 110 C51 113 38 102 34 83 Z"
-          />
-          <path
-            className="theory-brain-callosum"
-            d="M55 69 C72 43 111 42 132 63 C116 60 94 61 78 72 C69 78 61 78 55 69 Z"
-          />
-          <path
-            className="theory-brain-ventricle"
-            d="M78 76 C87 68 105 67 116 75 C106 77 94 83 88 93"
-          />
-          <path
-            className="theory-brain-cerebellum"
-            d="M112 92 C127 83 145 88 150 101 C142 117 117 117 104 106 C103 100 106 96 112 92 Z"
-          />
-          <path
-            className="theory-brain-stem"
-            d="M98 94 C95 107 99 122 111 134"
-          />
-          <path
-            className="theory-brain-sulci"
-            d="M49 51 C62 43 76 41 90 44 M42 70 C57 62 68 62 82 66 M96 35 C112 36 126 43 136 55 M119 82 C133 76 145 78 154 88"
-          />
-          <circle className="theory-brain-marker" cx="88" cy="73" r="4" />
-          <circle className="theory-brain-marker" cx="126" cy="97" r="3" />
-        </svg>
-      </div>
-    );
-  }
 
-  if (type === "pelvis") {
-    return (
-      <div className="theory-pelvis-badge" aria-hidden="true">
-        <svg viewBox="0 0 180 140" className="theory-pelvis-svg">
-          <path
-            className="theory-pelvis-bone"
-            d="M35 28 C20 54 22 97 53 116 C68 125 80 111 76 94 C70 70 71 54 89 43 C107 54 110 70 104 94 C100 111 112 125 127 116 C158 97 160 54 145 28 C130 47 113 55 89 55 C65 55 50 47 35 28 Z"
-          />
-          <path
-            className="theory-uterus-main"
-            d="M78 38 C73 50 75 62 88 68 C101 62 104 50 99 38 C94 31 83 31 78 38 Z"
-          />
-          <path className="theory-uterus-cavity" d="M88 69 C86 83 86 94 88 111" />
-          <path className="theory-vagina-canal" d="M80 85 C82 103 84 119 88 132 C92 119 94 103 96 85" />
-          <path className="theory-pelvis-axis" d="M28 98 C54 86 70 83 88 84 C106 83 126 87 152 98" />
-          <circle className="theory-ovary-marker" cx="62" cy="60" r="5" />
-          <circle className="theory-ovary-marker" cx="114" cy="60" r="5" />
-        </svg>
-      </div>
-    );
-  }
-
-  return (
-    <div className="theory-heart-badge" aria-hidden="true">
-      <svg viewBox="0 0 160 180" className="theory-heart-svg">
-        <path className="theory-heart-vessel theory-heart-vessel-blue" d="M58 40 C52 20 63 8 78 19 C90 29 82 52 70 68" />
-        <path className="theory-heart-vessel theory-heart-vessel-blue" d="M94 41 C99 18 120 9 130 24 C139 38 124 55 105 67" />
-        <path className="theory-heart-vessel theory-heart-vessel-red" d="M76 39 C83 11 106 8 113 30 C118 46 103 61 88 74" />
-        <path className="theory-heart-vessel theory-heart-vessel-red" d="M111 58 C133 50 151 56 154 72 C139 72 125 76 113 86" />
-        <path className="theory-heart-back" d="M38 58 C27 66 19 82 21 101 C24 126 42 151 72 166 C94 148 106 117 101 91 C97 71 80 56 59 58 Z" />
-        <path className="theory-heart-main" d="M63 57 C75 45 95 44 111 56 C132 72 134 103 121 128 C108 154 82 171 70 174 C48 158 29 139 23 113 C16 80 34 56 63 57 Z" />
-        <path className="theory-heart-highlight" d="M52 82 C41 98 45 126 65 145" />
-        <path className="theory-heart-fold" d="M96 70 C83 85 78 113 82 149" />
-      </svg>
-    </div>
-  );
-}
 
 export default function TheoreticalQuizModal({ open, model, user, onClose, onCompleted, onQuestionNavigate }) {
   const quiz = useMemo(() => getTheoreticalQuizForModel(model), [model]);
@@ -824,13 +751,10 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
         </div>
 
         <header className="theory-institution-header">
-          <div className="theory-school-seal">
-            <AeternumLogo variant="symbol" size="sm" theme="transparent" className="theory-school-logo" />
-          </div>
-          <div>
+          <div className="theory-institution-titles">
             <p className="theory-university">UNIVERSIDAD PRIVADA DEL ESTE</p>
-            <p>FACULTAD DE CIENCIAS MÉDICAS - Prof. Dr. Manuel Riveros</p>
-            <p>Sede Presidente Franco</p>
+            <p className="theory-faculty">FACULTAD DE CIENCIAS MÉDICAS - Prof. Dr. Manuel Riveros</p>
+            <p className="theory-campus">Sede Presidente Franco</p>
             <h1 id="theory-quiz-title">PRUEBA DE ANATOMÍA TOPOGRÁFICA Y DESCRIPTIVA</h1>
             <strong>{quiz.subtitle}</strong>
             <span>{quiz.course}</span>
@@ -907,7 +831,10 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
                 <p>Avaliação vinculada ao modelo 3D</p>
                 <h2>{modelTitle}</h2>
               </div>
-              <TheoryModelBadge type={quiz.visualType} />
+              <div className="theory-model-glass-chip">
+                <LineIcon name="cube" className="h-4 w-4" />
+                <span>Modelo 3D Interativo</span>
+              </div>
             </div>
 
             {result ? (
