@@ -2,13 +2,15 @@
 import { useState } from "react";
 import AuthExperienceShell from "../../components/AuthExperienceShell/AuthExperienceShell";
 import LanguageSelector from "../../components/LanguageSelector";
-import { A26Button, A26Card, A26Field } from "../../components/aeternum-26";
+import { A26Button, A26Card, A26Field, A26IconButton } from "../../components/aeternum-26";
 import { getRedirectPathForUser, loginUser } from "../../services/auth/authService";
 import { validateLogin } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Login({ navigate, onAuth }) {
   const { t } = useLanguage();
+  const { toggleTheme, isLight } = useTheme();
   const [values, setValues] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
@@ -51,7 +53,16 @@ export default function Login({ navigate, onAuth }) {
       >
         <div className="atlas-auth-card__topline">
           <span>{t("auth.secureAccess")}</span>
-          <LanguageSelector compact />
+          <div className="atlas-auth-card__topline-actions flex items-center gap-2">
+            <A26IconButton
+              label={isLight ? "Alternar para Dark Liquid Glass (Modo Escuro)" : "Alternar para Light Liquid Glass (Modo Claro)"}
+              icon={isLight ? "moon" : "sun"}
+              className="atlas-auth-theme-toggle"
+              aria-label={isLight ? "Alternar para Dark Liquid Glass (Modo Escuro)" : "Alternar para Light Liquid Glass (Modo Claro)"}
+              onClick={toggleTheme}
+            />
+            <LanguageSelector compact />
+          </div>
         </div>
         <p className="eyebrow mt-8">{t("auth.accessAccount")}</p>
         <h1 className="display-title">{t("auth.loginShort")}</h1>
