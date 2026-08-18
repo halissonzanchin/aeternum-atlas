@@ -257,7 +257,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       .enter()
       .append("g")
       .attr("class", (d) => "node" + (d.depth === 0 ? " node-root" : ""))
-      .attr("transform", () => `translate(${source.y0 ?? 0},${source.x0 ?? 0})`)
+      .attr("transform", () => `translate(${source.y0 ?? 0},${source.x0 ?? 0}) scale(0.01)`)
       .attr("fill-opacity", 0)
       .on("click", (event, d) => {
         event.stopPropagation();
@@ -272,6 +272,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
             d._children = null;
           }
           updateTree(d);
+          setTimeout(() => fitToView(450), 340);
         }
       });
 
@@ -315,10 +316,12 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     const nodeUpdate = node
       .merge(nodeEnter)
       .transition(transition)
-      .attr("transform", (d) => `translate(${d.y},${d.x})`)
+      .attr("transform", (d) => `translate(${d.y},${d.x}) scale(1)`)
       .attr("fill-opacity", 1);
 
-    nodeUpdate.select(".node-box").attr("width", (d) => (d.depth === 0 ? d.w : d.w + 12));
+    nodeUpdate.select(".node-box")
+      .attr("x", (d) => (d.depth === 0 ? -d.w / 2 : -6))
+      .attr("width", (d) => (d.depth === 0 ? d.w : d.w + 12));
 
     nodeUpdate.select(".fold-indicator")
       .attr("transform", (d) => `translate(${d.depth === 0 ? d.w / 2 + 12 : d.w + 16},0)`)
@@ -330,7 +333,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       .exit()
       .transition(transition)
       .remove()
-      .attr("transform", () => `translate(${source.y},${source.x})`)
+      .attr("transform", () => `translate(${source.y},${source.x}) scale(0.01)`)
       .attr("fill-opacity", 0);
 
     root.eachBefore((d) => {
