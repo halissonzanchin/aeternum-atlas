@@ -216,8 +216,9 @@ export default function StrategicProgressDonut({
               </text>
             </g>
           ) : (
-            <g textAnchor="middle" style={{ pointerEvents: "none" }}>
+            <g className="donut-center-metric" textAnchor="middle" style={{ pointerEvents: "none" }}>
               <text
+                className="donut-number"
                 x="80"
                 y="72"
                 fill="url(#centerTextGrad)"
@@ -229,6 +230,7 @@ export default function StrategicProgressDonut({
                 {pillarData.overallPercent}%
               </text>
               <text
+                className="donut-sublabel"
                 x="80"
                 y="89"
                 fill="#4fd8c9"

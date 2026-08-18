@@ -480,73 +480,106 @@
   }
 }
 
-/* Light Liquid Glass Mural */
+/* Light Liquid Glass Mural — iOS 27 Crystal Finish */
 .a26-theme-light .notes-board {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 252, 0.88));
-  border-color: rgba(148, 163, 184, 0.35);
-  box-shadow: 0 16px 45px rgba(15, 23, 42, 0.07), inset 0 1px 0 #ffffff;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(244, 250, 253, 0.90) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08), inset 0 1.5px 0 #ffffff !important;
+}
+
+.a26-theme-light .notes-board__canvas,
+.a26-theme-light .notes-board__video {
+  opacity: 0.22 !important;
+  mix-blend-mode: multiply !important;
+  filter: saturate(150%) brightness(1.1) !important;
 }
 
 .a26-theme-light .notes-board__overlay {
-  background: radial-gradient(circle at 50% 30%, rgba(240, 248, 250, 0.3) 0%, rgba(238, 246, 250, 0.6) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(238, 246, 250, 0.90) 100%) !important;
+  backdrop-filter: blur(28px) !important;
+  -webkit-backdrop-filter: blur(28px) !important;
 }
 
 .a26-theme-light .notes-board__header {
-  background: rgba(255, 255, 255, 0.85);
-  border-bottom-color: rgba(148, 163, 184, 0.3);
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.28) !important;
 }
 
 .a26-theme-light .notes-board__title-group h3 {
-  color: #0f172a;
+  color: #0f172a !important;
+  font-weight: 700 !important;
 }
 
 .a26-theme-light .notes-board__eyebrow {
-  color: #b45309;
+  color: #b45309 !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .notes-board__count-chip {
+  background: rgba(15, 118, 110, 0.12) !important;
+  color: #0f766e !important;
+  border-color: rgba(15, 118, 110, 0.3) !important;
+  font-weight: 800 !important;
 }
 
 .a26-theme-light .notes-board__cell {
-  background: rgba(255, 255, 255, 0.6);
-  border-color: rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.82) !important;
+  border: 1px solid rgba(148, 163, 184, 0.28) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .notes-board__cell:hover {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.12), inset 0 1px 0 #ffffff !important;
 }
 
 .a26-theme-light .notes-board__cell-coord {
-  color: #64748b;
-  font-weight: 700;
+  color: #64748b !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .notes-board__add-icon {
+  color: #0f766e !important;
+  font-weight: 800 !important;
 }
 
 .a26-theme-light .notes-board__postit {
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08), inset 0 1px 0 #ffffff;
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08), inset 0 1px 0 #ffffff !important;
 }
 
 .a26-theme-light .notes-board__postit[data-color="cyan"] {
-  background: color-mix(in srgb, #0d9488 12%, rgba(255, 255, 255, 0.96));
-  border-color: rgba(13, 148, 136, 0.35);
+  background: color-mix(in srgb, #0d9488 12%, rgba(255, 255, 255, 0.98)) !important;
+  border-color: rgba(13, 148, 136, 0.35) !important;
 }
 .a26-theme-light .notes-board__postit[data-color="amber"] {
-  background: color-mix(in srgb, #d97706 12%, rgba(255, 255, 255, 0.96));
-  border-color: rgba(217, 119, 6, 0.35);
+  background: color-mix(in srgb, #d97706 14%, rgba(255, 255, 255, 0.98)) !important;
+  border-color: rgba(217, 119, 6, 0.35) !important;
 }
 .a26-theme-light .notes-board__postit[data-color="coral"] {
-  background: color-mix(in srgb, #e11d48 12%, rgba(255, 255, 255, 0.96));
-  border-color: rgba(225, 29, 72, 0.35);
+  background: color-mix(in srgb, #e11d48 12%, rgba(255, 255, 255, 0.98)) !important;
+  border-color: rgba(225, 29, 72, 0.35) !important;
 }
 .a26-theme-light .notes-board__postit[data-color="violet"] {
-  background: color-mix(in srgb, #7c3aed 12%, rgba(255, 255, 255, 0.96));
-  border-color: rgba(124, 58, 237, 0.35);
+  background: color-mix(in srgb, #7c3aed 12%, rgba(255, 255, 255, 0.98)) !important;
+  border-color: rgba(124, 58, 237, 0.35) !important;
 }
 .a26-theme-light .notes-board__postit[data-color="mint"] {
-  background: color-mix(in srgb, #059669 12%, rgba(255, 255, 255, 0.96));
-  border-color: rgba(5, 150, 105, 0.35);
+  background: color-mix(in srgb, #059669 12%, rgba(255, 255, 255, 0.98)) !important;
+  border-color: rgba(5, 150, 105, 0.35) !important;
 }
 
 .a26-theme-light .notes-board__postit-title {
-  color: #0f172a;
-  font-weight: 700;
+  color: #0f172a !important;
+  font-weight: 700 !important;
 }
 
 .a26-theme-light .notes-board__postit-content {
-  color: #334155;
+  color: #334155 !important;
 }
 
 
