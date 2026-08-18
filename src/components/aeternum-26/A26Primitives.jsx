@@ -366,3 +366,54 @@ export function A26TutorSurface({ state = "ready", title = "Atlas AI Tutor", chi
     </A26Surface>
   );
 }
+
+/**
+ * A26LiquidLens — Physical Optical Lens Primitive
+ * Implements Fisheye Magnification (2.1x), Chromatic Caustics (30%) and Blinn-Phong Specular
+ */
+export function A26LiquidLens({
+  radius = 210,
+  magnification = 2.1,
+  distortion = 0.55,
+  chromatic = 0.02,
+  interactive = true,
+  className = "",
+  style = {},
+  children,
+  ...props
+}) {
+  const lensRef = useRef(null);
+
+  const handlePointerMove = (event) => {
+    if (!interactive || !lensRef.current) return;
+    const bounds = lensRef.current.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / Math.max(bounds.width, 1)) * 100;
+    const y = ((event.clientY - bounds.top) / Math.max(bounds.height, 1)) * 100;
+    lensRef.current.style.setProperty("--a26-pointer-x", `${Math.max(0, Math.min(100, x))}%`);
+    lensRef.current.style.setProperty("--a26-pointer-y", `${Math.max(0, Math.min(100, y))}%`);
+  };
+
+  return (
+    <div
+      ref={lensRef}
+      className={joinClasses("a26-liquid-lens", className)}
+      style={{
+        "--a26-lens-radius": `${radius}px`,
+        "--a26-lens-magnification": magnification,
+        "--a26-lens-distortion": distortion,
+        "--a26-lens-chromatic": chromatic,
+        ...style
+      }}
+      onPointerMove={handlePointerMove}
+      data-a26-lens="true"
+      {...props}
+    >
+      <span className="a26-lens__caustic-rim" aria-hidden="true" />
+      <span className="a26-lens__specular-spot" aria-hidden="true" />
+      <div className="a26-lens__body">
+        {children}
+      </div>
+    </div>
+  );
+}
+

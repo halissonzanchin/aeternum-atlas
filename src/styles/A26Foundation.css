@@ -200,16 +200,20 @@ body.a26-theme-light,
 }
 
 .a26-surface__refract {
-  display: none;
+  inset: 0;
+  background: radial-gradient(circle at var(--a26-pointer-x) var(--a26-pointer-y), rgb(var(--a26-accent-rgb) / 0.08) 0%, transparent 65%);
+  mix-blend-mode: overlay;
+  opacity: 0.65;
+  pointer-events: none;
 }
 
 .a26-surface__spectrum {
   inset: 0;
   background:
-    linear-gradient(110deg, transparent 12%, rgb(78 172 255 / 0.055), transparent 38%),
-    linear-gradient(250deg, transparent 58%, rgb(223 197 127 / 0.05), transparent 88%);
+    linear-gradient(110deg, transparent 10%, rgb(255 80 80 / 0.035) 22%, rgb(78 172 255 / 0.055) 38%, transparent 48%),
+    linear-gradient(250deg, transparent 52%, rgb(80 230 180 / 0.04) 66%, rgb(223 197 127 / 0.05) 82%, transparent 92%);
   mix-blend-mode: screen;
-  opacity: 0.56;
+  opacity: 0.68;
 }
 
 .a26-surface__specular {
@@ -218,19 +222,24 @@ body.a26-theme-light,
   background:
     conic-gradient(
       from 205deg at var(--a26-pointer-x) var(--a26-pointer-y),
-      rgb(255 255 255 / 0.68),
-      rgb(var(--a26-accent-rgb) / 0.22) 14%,
+      rgb(255 255 255 / 0.78),
+      rgb(var(--a26-accent-rgb) / 0.28) 14%,
       transparent 30%,
       transparent 70%,
-      rgb(223 197 127 / 0.16) 90%,
-      rgb(255 255 255 / 0.58)
+      rgb(223 197 127 / 0.22) 90%,
+      rgb(255 255 255 / 0.68)
+    ),
+    radial-gradient(
+      circle at var(--a26-pointer-x) var(--a26-pointer-y),
+      rgb(255 255 255 / 0.28) 0%,
+      transparent 45%
     );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  opacity: 0.6;
+  opacity: 0.68;
 }
 
 .a26-surface__grain {
@@ -256,14 +265,15 @@ body.a26-theme-light,
   border-color: rgb(var(--a26-accent-rgb) / 0.42);
   box-shadow:
     var(--a26-material-shadow),
-    0 0 32px rgb(var(--a26-accent-rgb) / 0.1),
-    inset 0 1px 0 rgb(255 255 255 / 0.17);
-  transform: translateY(-1px);
+    0 0 32px rgb(var(--a26-accent-rgb) / 0.12),
+    inset 0 1.5px 0 rgb(255 255 255 / 0.35);
+  transform: translateY(-1.5px);
 }
 
 .a26-surface--interactive:active {
-  filter: brightness(1.06);
-  transform: translateY(0) scale(0.985);
+  filter: brightness(1.08);
+  transform: translateY(0) scale(0.978);
+  transition-duration: 90ms;
 }
 
 .a26-surface--interactive:focus-visible,
@@ -531,6 +541,58 @@ body.a26-theme-light,
 .a26-card {
   border-radius: var(--a26-radius-card);
   padding: var(--a26-space-6);
+}
+
+/* ============================================================
+   AETERNUM 26.1 PHYSICAL LIQUID GLASS LENS ENGINE
+   ============================================================ */
+
+.a26-liquid-lens {
+  --a26-lens-radius: 210px;
+  --a26-lens-magnification: 2.1;
+  --a26-lens-distortion: 0.55;
+  --a26-lens-chromatic: 0.02;
+  --a26-pointer-x: 50%;
+  --a26-pointer-y: 50%;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  border-radius: var(--a26-radius-card);
+  overflow: clip;
+  transition: transform var(--a26-motion-enter) var(--a26-motion-spring), box-shadow var(--a26-motion-response) ease;
+}
+
+.a26-lens__caustic-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(circle at var(--a26-pointer-x) var(--a26-pointer-y), transparent 55%, rgb(92 232 223 / 0.14) 82%, rgb(255 80 80 / 0.08) 96%),
+    conic-gradient(from 180deg at var(--a26-pointer-x) var(--a26-pointer-y), rgb(255 100 100 / 0.08), rgb(80 230 180 / 0.08) 33%, rgb(78 172 255 / 0.12) 66%, rgb(255 100 100 / 0.08));
+  mix-blend-mode: screen;
+  opacity: 0.72;
+}
+
+.a26-lens__specular-spot {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(circle at var(--a26-pointer-x) var(--a26-pointer-y), rgb(255 255 255 / 0.45) 0%, transparent 42%);
+  mix-blend-mode: soft-light;
+  opacity: 0.85;
+}
+
+.a26-lens__body {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
 }
 
 .a26-metric {

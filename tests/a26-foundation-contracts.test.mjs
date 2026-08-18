@@ -35,6 +35,7 @@ const primitiveNames = [
   "A26ErrorState",
   "A26Field",
   "A26IconButton",
+  "A26LiquidLens",
   "A26LoadingState",
   "A26Metric",
   "A26Modal",

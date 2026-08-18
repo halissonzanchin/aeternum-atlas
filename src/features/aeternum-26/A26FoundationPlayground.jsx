@@ -9,6 +9,7 @@ import {
   A26ErrorState,
   A26Field,
   A26IconButton,
+  A26LiquidLens,
   A26LoadingState,
   A26Metric,
   A26Modal,
@@ -224,7 +225,7 @@ export default function A26FoundationPlayground() {
         <header className="a26-playground__section-header">
           <div>
             <span className="a26-kicker">Entidade compartilhada</span>
-            <h2 id="a26-tutor-title">Tutor Atlas AI</h2>
+            <h2 id="a26-tutor-title">Tutor Atlas AI & Lente Física</h2>
           </div>
           <span>Substantial somente quando aberto</span>
         </header>
@@ -237,10 +238,12 @@ export default function A26FoundationPlayground() {
             </>
           }
         >
-          <p>
-            A superfície concentra a assistência ativa sem adicionar blur aos
-            cartões de conteúdo internos.
-          </p>
+          <A26LiquidLens magnification={2.1} distortion={0.55}>
+            <p>
+              A superfície concentra a assistência ativa e a lente física de refração
+              óptica de cristal sem adicionar blur aos cartões de conteúdo internos.
+            </p>
+          </A26LiquidLens>
         </A26TutorSurface>
       </section>
 
