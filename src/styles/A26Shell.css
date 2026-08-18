@@ -1836,26 +1836,152 @@ body:has(.atlas-auth-page) #root {
   color: #0f766e !important;
 }
 
-.a26-theme-light .atlas-auth-panel-slot {
-  background: transparent !important;
-}
-
-.a26-theme-light .atlas-auth-card--login.a26-surface {
+.a26-theme-light .atlas-auth-card--login.a26-surface,
+.a26-theme-light .atlas-auth-card--registration.a26-surface {
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(244, 250, 253, 0.92)) !important;
-  border-color: rgba(255, 255, 255, 0.95) !important;
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(244, 250, 253, 0.94)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
   box-shadow:
-    0 20px 60px rgba(15, 23, 42, 0.06),
+    0 24px 64px rgba(15, 23, 42, 0.08),
+    0 4px 16px rgba(15, 23, 42, 0.03),
     inset 0 1.5px 0 #ffffff !important;
 }
 
-.a26-theme-light .atlas-auth-card--login.a26-surface::after {
+.a26-theme-light .atlas-auth-card--login.a26-surface::after,
+.a26-theme-light .atlas-auth-card--registration.a26-surface::after {
   display: none !important;
+}
+
+.a26-theme-light .atlas-auth-card--login .a26-field__label,
+.a26-theme-light .atlas-auth-card--registration .a26-field__label,
+.a26-theme-light .atlas-auth-form label,
+.a26-theme-light .atlas-auth-form .a26-field__label {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.a26-theme-light .atlas-auth-card--login .a26-field__control,
+.a26-theme-light .atlas-auth-card--registration .a26-field__control,
+.a26-theme-light .atlas-auth-form input,
+.a26-theme-light .atlas-auth-form select,
+.a26-theme-light .atlas-auth-form textarea {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1.5px solid rgba(148, 163, 184, 0.45) !important;
+  color: #0f172a !important;
+  box-shadow:
+    inset 0 1px 2px rgba(15, 23, 42, 0.04),
+    0 1px 2px rgba(15, 23, 42, 0.02) !important;
+}
+
+.a26-theme-light .atlas-auth-card--login .a26-field__control:hover,
+.a26-theme-light .atlas-auth-card--registration .a26-field__control:hover,
+.a26-theme-light .atlas-auth-form input:hover,
+.a26-theme-light .atlas-auth-form select:hover {
+  border-color: #0f766e !important;
+  background: #ffffff !important;
+}
+
+.a26-theme-light .atlas-auth-card--login .a26-field__control:focus,
+.a26-theme-light .atlas-auth-card--registration .a26-field__control:focus,
+.a26-theme-light .atlas-auth-form input:focus,
+.a26-theme-light .atlas-auth-form select:focus {
+  border-color: #0f766e !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow:
+    0 0 0 3px rgba(15, 118, 110, 0.18),
+    inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .atlas-auth-card--login .a26-field__control::placeholder,
+.a26-theme-light .atlas-auth-card--registration .a26-field__control::placeholder,
+.a26-theme-light .atlas-auth-form input::placeholder {
+  color: #94a3b8 !important;
+}
+
+.a26-theme-light .atlas-auth-card--login .a26-field__control:-webkit-autofill,
+.a26-theme-light .atlas-auth-card--login .a26-field__control:-webkit-autofill:hover,
+.a26-theme-light .atlas-auth-card--login .a26-field__control:-webkit-autofill:focus {
+  box-shadow:
+    inset 0 0 0 1000px #ffffff,
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  -webkit-text-fill-color: #0f172a !important;
+  caret-color: #0f766e !important;
+}
+
+.a26-theme-light .atlas-auth-card--login .atlas-auth-submit,
+.a26-theme-light .atlas-auth-card--registration .atlas-auth-submit,
+.a26-theme-light .atlas-auth-form button[type="submit"] {
+  background: linear-gradient(135deg, #0d9488, #0f766e) !important;
+  border: 1px solid #0f766e !important;
+  color: #ffffff !important;
+  font-weight: 750 !important;
+  box-shadow:
+    0 10px 24px rgba(15, 118, 110, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.a26-theme-light .atlas-auth-card--login .atlas-auth-submit:hover,
+.a26-theme-light .atlas-auth-card--registration .atlas-auth-submit:hover,
+.a26-theme-light .atlas-auth-form button[type="submit"]:hover {
+  background: linear-gradient(135deg, #14b8a6, #0d9488) !important;
+  box-shadow:
+    0 12px 28px rgba(15, 118, 110, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+}
+
+.a26-theme-light .atlas-auth-card--login .atlas-auth-secondary,
+.a26-theme-light .atlas-auth-card--registration .atlas-auth-secondary,
+.a26-theme-light .atlas-auth-actions .a26-button:not([type="submit"]) {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(148, 163, 184, 0.4) !important;
+  color: #0f766e !important;
+  font-weight: 700 !important;
+  box-shadow:
+    0 2px 8px rgba(15, 23, 42, 0.04),
+    inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .atlas-auth-card--login .atlas-auth-secondary:hover,
+.a26-theme-light .atlas-auth-card--registration .atlas-auth-secondary:hover,
+.a26-theme-light .atlas-auth-actions .a26-button:not([type="submit"]):hover {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+  color: #0d9488 !important;
+  box-shadow:
+    0 4px 14px rgba(15, 118, 110, 0.15),
+    inset 0 1px 0 #ffffff !important;
 }
 
 .a26-theme-light .atlas-auth-password__toggle {
   background: rgba(15, 118, 110, 0.08) !important;
   color: #0f766e !important;
+  border: 1px solid rgba(15, 118, 110, 0.2) !important;
+}
+
+.a26-theme-light .atlas-auth-password__toggle:hover {
+  background: rgba(15, 118, 110, 0.14) !important;
+  color: #0d9488 !important;
+  border-color: #0f766e !important;
+}
+
+.a26-theme-light .atlas-auth-card p {
+  color: #475569 !important;
+}
+
+.a26-theme-light .atlas-auth-card .eyebrow {
+  color: #0f766e !important;
+  font-weight: 750 !important;
+}
+
+.a26-theme-light .atlas-auth-card .display-title {
+  color: #0f172a !important;
+}
+
+.a26-theme-light .atlas-auth-card__topline > span {
+  color: #0f766e !important;
+  font-weight: 800 !important;
 }
 
 .atlas-auth-theme-toggle.a26-icon-button {
@@ -1888,7 +2014,29 @@ body:has(.atlas-auth-page) #root {
   box-shadow: 0 2px 8px rgba(15, 118, 110, 0.2);
 }
 
-/* Ensure cinematic home header and nav ALWAYS preserve dark cosmic liquid glass */
+.a26-theme-light .atlas-auth-card .language-selector .language-selector__button.a26-surface,
+.a26-theme-light .atlas-auth-card .language-selector__code {
+  color: #0f766e !important;
+  border-color: rgba(15, 118, 110, 0.28) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+.a26-theme-light .atlas-auth-card .language-selector .language-selector__menu.a26-surface {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12) !important;
+}
+
+.a26-theme-light .atlas-auth-card .language-selector__option {
+  color: #334155 !important;
+}
+
+.a26-theme-light .atlas-auth-card .language-selector__option:hover {
+  background: rgba(15, 118, 110, 0.1) !important;
+  color: #0f766e !important;
+}
+
+/* Ensure cinematic home header, nav AND language menu ALWAYS preserve dark cosmic liquid glass */
 .cinematic-home .cinematic-public-header,
 .cinematic-home .premium-public-header {
   background:
@@ -1912,6 +2060,34 @@ body:has(.atlas-auth-page) #root {
   background: rgba(94, 227, 216, 0.12) !important;
   color: #5ee3d8 !important;
   box-shadow: none !important;
+}
+
+.cinematic-home .language-selector .language-selector__button.a26-surface {
+  border-color: rgba(94, 227, 216, 0.28) !important;
+  background: rgba(2, 10, 14, 0.72) !important;
+  color: #f5f5f5 !important;
+}
+
+.cinematic-home .language-selector .language-selector__menu.a26-surface {
+  background: rgba(4, 15, 20, 0.96) !important;
+  border: 1px solid rgba(94, 227, 216, 0.28) !important;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.65) !important;
+}
+
+.cinematic-home .language-selector__option {
+  color: rgba(226, 232, 240, 0.85) !important;
+}
+
+.cinematic-home .language-selector__option:hover,
+.cinematic-home .language-selector__option:focus-visible {
+  background: rgba(94, 227, 216, 0.14) !important;
+  color: #ffffff !important;
+  outline-color: #5ee3d8 !important;
+}
+
+.cinematic-home .language-selector__option.is-active {
+  background: rgba(223, 197, 127, 0.18) !important;
+  color: #f5d98b !important;
 }
 
 
