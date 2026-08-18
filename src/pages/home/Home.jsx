@@ -29,6 +29,26 @@ export default function Home({ navigate }) {
   const [headerScrolled, setHeaderScrolled] = useState(false);
 
   useEffect(() => {
+    const root = document.documentElement;
+    const body = document.body;
+    const hadLightTheme = root.classList.contains("a26-theme-light");
+
+    root.classList.remove("a26-theme-light");
+    root.classList.add("a26-theme-dark");
+    body.classList.remove("a26-theme-light");
+    body.classList.add("a26-theme-dark");
+
+    return () => {
+      if (hadLightTheme) {
+        root.classList.remove("a26-theme-dark");
+        root.classList.add("a26-theme-light");
+        body.classList.remove("a26-theme-dark");
+        body.classList.add("a26-theme-light");
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const syncPreference = () => {
       reducedMotionRef.current = media.matches;
