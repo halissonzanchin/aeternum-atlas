@@ -555,39 +555,90 @@
   }
 }
 
-/* Light Liquid Glass Dashboard */
+/* ============================================================
+   AETERNUM 26.1 LIGHT LIQUID GLASS (iOS 27) DASHBOARD
+   ============================================================ */
+
+.a26-theme-light .a26-student-dashboard .student-study-hero.a26-student-hero {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.90) 0%, rgba(246, 250, 253, 0.82) 48%, rgba(238, 246, 250, 0.88) 100%),
+    var(--a26-material-regular-bg);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 16px 45px rgba(15, 23, 42, 0.07),
+    inset 0 1.5px 0 #ffffff,
+    inset 0 -1px 0 rgba(148, 163, 184, 0.2);
+  --a26-material-blur: 32px;
+  --a26-material-saturation: 190%;
+}
+
 .a26-theme-light .student-study-hero h1 {
-  background: linear-gradient(100deg, #0a1d21 2%, #0f766e 45%, #a16207 85%);
+  background: linear-gradient(100deg, #0f172a 0%, #0f766e 45%, #92400e 90%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  text-shadow: none;
 }
 
 .a26-theme-light .student-study-hero__content > p:not(.viewer-eyebrow) {
-  color: #1f3a40;
+  color: #334155;
+  font-weight: 500;
 }
 
 .a26-theme-light .viewer-eyebrow {
   color: #0f766e;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+/* Action Buttons within Hero */
+.a26-theme-light .student-study-actions .a26-button {
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05), inset 0 1px 0 #ffffff;
+  font-weight: 600;
+}
+
+.a26-theme-light .student-study-actions .a26-button:first-child {
+  background: linear-gradient(135deg, #0d9488, #0f766e);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(15, 118, 110, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  font-weight: 700;
+}
+
+.a26-theme-light .student-study-actions .a26-button:first-child:hover {
+  background: linear-gradient(135deg, #0f766e, #115e59);
+  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.35);
+  color: #ffffff;
+}
+
+.a26-theme-light .student-study-actions .a26-button:not(:first-child):hover {
+  background: #ffffff;
+  border-color: #0f766e;
+  color: #0f766e;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
 }
 
 .a26-theme-light .student-section-header h2 {
-  color: #0a1d21;
+  color: #0f172a;
 }
 
 .a26-theme-light .student-section-header p {
-  color: #4b6b72;
+  color: #64748b;
 }
 
 .a26-theme-light .student-quick-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 251, 0.90));
-  border-color: rgba(15, 118, 110, 0.16);
-  color: #0a1d21;
-  box-shadow: 0 10px 30px rgba(10, 45, 52, 0.07);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 251, 0.88));
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  color: #0f172a;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), inset 0 1px 0 #ffffff;
 }
 
 .a26-theme-light .student-quick-card:hover {
-  border-color: rgba(13, 148, 136, 0.35);
-  box-shadow: 0 16px 40px rgba(10, 45, 52, 0.12);
+  border-color: rgba(15, 118, 110, 0.4);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.1);
 }
+
 

@@ -72,33 +72,36 @@
 html.a26-theme-light,
 body.a26-theme-light,
 .a26-theme-light {
-  --a26-color-canvas: #f2f7f9;
-  --a26-color-canvas-raised: #ffffff;
-  --a26-color-surface: #ffffff;
-  --a26-color-surface-strong: #f4f9fb;
-  --a26-color-text: #0a1d21;
-  --a26-color-text-muted: #1f3a40;
-  --a26-color-text-subtle: #4b6b72;
-  --a26-color-teal: #0d9488;
-  --a26-color-teal-strong: #0f766e;
-  --a26-color-gold: #a16207;
-  --a26-color-danger: #ef4444;
+  /* Fundo Branco-Gelo (Soft Ice-Slate Canvas - Pixelbook inspiration) */
+  --a26-color-canvas: #e8eef3;
+  --a26-color-canvas-raised: #dfe7ed;
+  --a26-color-surface: rgba(255, 255, 255, 0.85);
+  --a26-color-surface-strong: rgba(255, 255, 255, 0.95);
+  --a26-color-text: #0f172a;
+  --a26-color-text-muted: #334155;
+  --a26-color-text-subtle: #64748b;
+  --a26-color-teal: #0f766e;
+  --a26-color-teal-strong: #115e59;
+  --a26-color-gold: #b45309;
+  --a26-color-danger: #dc2626;
   --a26-color-warning: #d97706;
-  --a26-color-success: #10b981;
-  --a26-color-border: rgb(15 118 110 / 0.16);
-  --a26-color-border-strong: rgb(15 118 110 / 0.32);
+  --a26-color-success: #059669;
+  --a26-color-border: rgba(148, 163, 184, 0.35);
+  --a26-color-border-strong: rgba(100, 116, 139, 0.45);
 
-  --a26-material-clear-bg: rgb(255 255 255 / 0.76);
-  --a26-material-regular-bg: rgb(255 255 255 / 0.90);
-  --a26-material-substantial-bg: rgb(246 251 252 / 0.96);
-  --a26-material-opaque-bg: #ffffff;
-  --a26-material-clear-blur: 16px;
-  --a26-material-regular-blur: 24px;
-  --a26-material-substantial-blur: 32px;
+  /* Materiais de Vidro Líquido Translúcido (iOS 27) */
+  --a26-material-clear-bg: rgba(255, 255, 255, 0.65);
+  --a26-material-regular-bg: rgba(255, 255, 255, 0.82);
+  --a26-material-substantial-bg: rgba(255, 255, 255, 0.92);
+  --a26-material-opaque-bg: #f8fafc;
+  --a26-material-clear-blur: 20px;
+  --a26-material-regular-blur: 28px;
+  --a26-material-substantial-blur: 36px;
 
-  --a26-shadow-ambient: 0 12px 36px rgb(10 45 52 / 0.08);
-  --a26-shadow-elevated: 0 24px 60px rgb(10 45 52 / 0.14);
-  --a26-shadow-focus: 0 0 0 3px rgb(13 148 136 / 0.28), 0 0 28px rgb(13 148 136 / 0.16);
+  /* Sombras Ópticas Difusas em Camadas */
+  --a26-shadow-ambient: 0 10px 30px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+  --a26-shadow-elevated: 0 20px 50px rgba(15, 23, 42, 0.09), 0 4px 12px rgba(15, 23, 42, 0.05);
+  --a26-shadow-focus: 0 0 0 3px rgba(15, 118, 110, 0.25), 0 0 24px rgba(15, 118, 110, 0.15);
 
   --atlas-glass-bg: var(--a26-material-regular-bg);
   --atlas-glass-border: var(--a26-color-border);

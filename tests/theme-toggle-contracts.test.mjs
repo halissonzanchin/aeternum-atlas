@@ -28,10 +28,10 @@ test("AppLayout integrates Theme Toggle button in Topbar", () => {
 
 test("A26Foundation defines Light Liquid Glass tokens", () => {
   const file = fs.readFileSync(path.join(root, "src/styles/A26Foundation.css"), "utf8");
-  assert.match(file, /.a26-theme-light/);
-  assert.match(file, /--a26-color-canvas:/);
-  assert.match(file, /--a26-color-text: #0a1d21/);
-  assert.match(file, /--a26-color-teal: #0d9488/);
+  assert.match(file, /\.a26-theme-light/);
+  assert.match(file, /--a26-color-canvas:\s*#e8eef3/);
+  assert.match(file, /--a26-color-text:\s*#0f172a/);
+  assert.match(file, /--a26-color-teal:\s*#0f766e/);
 });
 
 test("A26Shell defines Light Liquid Glass layout styling", () => {
