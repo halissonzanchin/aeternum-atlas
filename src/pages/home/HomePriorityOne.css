@@ -20,18 +20,25 @@
 }
 
 .cinematic-home .cinematic-public-header::after {
-  right: clamp(24px, 3.6vw, 68px);
-  bottom: 0;
-  left: clamp(24px, 3.6vw, 68px);
-  opacity: 0.62;
+  display: none !important;
 }
 
 .cinematic-home .brand-lockup {
+  border: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
   max-height: 72px;
+  padding: 0;
+  cursor: pointer;
 }
 
 .cinematic-home .brand-lockup .aeternum-logo {
   gap: 12px;
+  border: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .cinematic-home .brand-lockup .aeternum-logo--md .aeternum-logo__symbol-wrap {
