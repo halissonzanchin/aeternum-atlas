@@ -121,7 +121,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--a26-color-text, #ffffff);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -160,3 +160,43 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* Light Liquid Glass Donut */
+.a26-theme-light .strategic-donut-visual {
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.95), transparent 40%),
+    radial-gradient(circle, rgba(15, 118, 110, 0.08) 0%, rgba(238, 246, 250, 0.9) 65%);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06), inset 0 1px 0 #ffffff;
+}
+
+.a26-theme-light .donut-sector-track {
+  fill: rgba(148, 163, 184, 0.15);
+  stroke: rgba(148, 163, 184, 0.25);
+}
+
+.a26-theme-light .pillar-legend-item {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 249, 251, 0.88));
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04), inset 0 1px 0 #ffffff;
+}
+
+.a26-theme-light .pillar-legend-item:hover,
+.a26-theme-light .pillar-legend-item.is-active {
+  background: linear-gradient(135deg, #ffffff, rgba(238, 246, 249, 0.95));
+  border-color: #0f766e;
+  box-shadow: 0 6px 18px rgba(15, 118, 110, 0.12);
+}
+
+.a26-theme-light .pillar-name {
+  color: #0f172a;
+}
+
+.a26-theme-light .pillar-track-bg {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.a26-theme-light .pillar-value-detail {
+  color: #64748b;
+}
+

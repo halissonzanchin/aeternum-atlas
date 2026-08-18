@@ -622,11 +622,13 @@
 }
 
 .a26-theme-light .student-section-header h2 {
-  color: #0f172a;
+  color: #0f172a !important;
+  text-shadow: none;
 }
 
-.a26-theme-light .student-section-header p {
-  color: #64748b;
+.a26-theme-light .student-section-header p,
+.a26-theme-light .student-section-header span {
+  color: #475569 !important;
 }
 
 .a26-theme-light .student-quick-card {
@@ -640,5 +642,171 @@
   border-color: rgba(15, 118, 110, 0.4);
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.1);
 }
+
+/* Study Tool Cards (Ferramentas de Estudo) */
+.a26-theme-light .study-tool-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(246, 250, 252, 0.88)) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .study-tool-card:hover {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+  box-shadow: 0 14px 34px rgba(15, 118, 110, 0.12), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .study-tool-card strong {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .study-tool-card p {
+  color: #475569 !important;
+}
+
+.a26-theme-light .study-tool-status--available {
+  background: rgba(5, 150, 105, 0.12) !important;
+  border: 1px solid rgba(5, 150, 105, 0.35) !important;
+  color: #065f46 !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .study-tool-status--development {
+  background: rgba(180, 83, 9, 0.12) !important;
+  border: 1px solid rgba(180, 83, 9, 0.35) !important;
+  color: #92400e !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .study-tool-status--soon {
+  background: rgba(100, 116, 139, 0.12) !important;
+  border: 1px solid rgba(100, 116, 139, 0.35) !important;
+  color: #334155 !important;
+  font-weight: 800 !important;
+}
+
+/* Continue Model Cards (Continuar Estudando) */
+.a26-theme-light .continue-model-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(246, 250, 252, 0.88)) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .continue-model-card:hover {
+  border-color: #0f766e !important;
+  box-shadow: 0 14px 34px rgba(15, 118, 110, 0.12) !important;
+}
+
+.a26-theme-light .continue-model-card h3,
+.a26-theme-light .continue-model-card .atlas-fluid-heading {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .continue-model-meta,
+.a26-theme-light .continue-progress-label span {
+  color: #475569 !important;
+}
+
+.a26-theme-light .continue-progress-label strong {
+  color: #0f172a !important;
+}
+
+.a26-theme-light .badge-teal,
+.a26-theme-light .continue-model-card .badge-teal {
+  background: rgba(15, 118, 110, 0.12) !important;
+  border: 1px solid rgba(15, 118, 110, 0.35) !important;
+  color: #0f766e !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .student-progress-track {
+  background: rgba(148, 163, 184, 0.22) !important;
+}
+
+/* Recommended Cards (Recomendado para Você) */
+.a26-theme-light .student-recommendation-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(246, 250, 252, 0.88)) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .student-recommendation-card strong,
+.a26-theme-light .student-recommendation-card h3 {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .student-recommendation-card p {
+  color: #475569 !important;
+}
+
+.a26-theme-light .student-recommendation-card small,
+.a26-theme-light .student-recommendation-card .a26-kicker-action {
+  color: #0f766e !important;
+  font-weight: 800 !important;
+}
+
+/* Evolution Panel Cards (Minha Evolução & Insights) */
+.a26-theme-light .student-evolution-grid > .a26-card,
+.a26-theme-light .student-evolution-grid .premium-panel-card,
+.a26-theme-light .student-radar-card,
+.a26-theme-light .student-insights-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(246, 250, 252, 0.88)) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), inset 0 1px 0 #ffffff !important;
+  color: #0f172a !important;
+}
+
+.a26-theme-light .student-card-title-row h3,
+.a26-theme-light .student-insights h3 {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .learning-source-badge {
+  background: rgba(180, 83, 9, 0.1) !important;
+  border: 1px solid rgba(180, 83, 9, 0.3) !important;
+  color: #92400e !important;
+  font-weight: 800 !important;
+}
+
+.a26-theme-light .learning-source-badge.is-synced {
+  background: rgba(5, 150, 105, 0.1) !important;
+  border: 1px solid rgba(5, 150, 105, 0.3) !important;
+  color: #065f46 !important;
+}
+
+.a26-theme-light .learning-period-total {
+  color: #64748b !important;
+}
+
+.a26-theme-light .weekly-study-bar-wrap {
+  background: rgba(148, 163, 184, 0.15) !important;
+}
+
+.a26-theme-light .weekly-study-column strong {
+  color: #0f172a !important;
+}
+
+.a26-theme-light .weekly-study-column small {
+  color: #64748b !important;
+}
+
+.a26-theme-light .student-insights > div {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(240, 246, 250, 0.85)) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .student-insights ul {
+  color: #334155 !important;
+}
+
+.a26-theme-light .student-insights ul li {
+  color: #334155 !important;
+}
+
 
 

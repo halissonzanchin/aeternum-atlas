@@ -482,34 +482,71 @@
 
 /* Light Liquid Glass Mural */
 .a26-theme-light .notes-board {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(15, 118, 110, 0.2);
-  box-shadow: 0 20px 60px rgba(10, 45, 52, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 252, 0.88));
+  border-color: rgba(148, 163, 184, 0.35);
+  box-shadow: 0 16px 45px rgba(15, 23, 42, 0.07), inset 0 1px 0 #ffffff;
 }
 
 .a26-theme-light .notes-board__overlay {
-  background: radial-gradient(circle at 50% 30%, rgba(240, 248, 250, 0.4) 0%, rgba(240, 248, 250, 0.8) 100%);
+  background: radial-gradient(circle at 50% 30%, rgba(240, 248, 250, 0.3) 0%, rgba(238, 246, 250, 0.6) 100%);
 }
 
 .a26-theme-light .notes-board__header {
-  background: rgba(255, 255, 255, 0.7);
-  border-bottom-color: rgba(15, 118, 110, 0.14);
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom-color: rgba(148, 163, 184, 0.3);
 }
 
 .a26-theme-light .notes-board__title-group h3 {
-  color: #0a1d21;
+  color: #0f172a;
 }
 
 .a26-theme-light .notes-board__eyebrow {
-  color: #a16207;
+  color: #b45309;
 }
 
 .a26-theme-light .notes-board__cell {
-  background: rgba(240, 248, 250, 0.6);
-  border-color: rgba(15, 118, 110, 0.15);
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(148, 163, 184, 0.25);
 }
 
 .a26-theme-light .notes-board__cell-coord {
-  color: #4b6b72;
+  color: #64748b;
+  font-weight: 700;
 }
+
+.a26-theme-light .notes-board__postit {
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08), inset 0 1px 0 #ffffff;
+}
+
+.a26-theme-light .notes-board__postit[data-color="cyan"] {
+  background: color-mix(in srgb, #0d9488 12%, rgba(255, 255, 255, 0.96));
+  border-color: rgba(13, 148, 136, 0.35);
+}
+.a26-theme-light .notes-board__postit[data-color="amber"] {
+  background: color-mix(in srgb, #d97706 12%, rgba(255, 255, 255, 0.96));
+  border-color: rgba(217, 119, 6, 0.35);
+}
+.a26-theme-light .notes-board__postit[data-color="coral"] {
+  background: color-mix(in srgb, #e11d48 12%, rgba(255, 255, 255, 0.96));
+  border-color: rgba(225, 29, 72, 0.35);
+}
+.a26-theme-light .notes-board__postit[data-color="violet"] {
+  background: color-mix(in srgb, #7c3aed 12%, rgba(255, 255, 255, 0.96));
+  border-color: rgba(124, 58, 237, 0.35);
+}
+.a26-theme-light .notes-board__postit[data-color="mint"] {
+  background: color-mix(in srgb, #059669 12%, rgba(255, 255, 255, 0.96));
+  border-color: rgba(5, 150, 105, 0.35);
+}
+
+.a26-theme-light .notes-board__postit-title {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.a26-theme-light .notes-board__postit-content {
+  color: #334155;
+}
+
 
