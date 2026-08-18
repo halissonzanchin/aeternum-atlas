@@ -12,6 +12,7 @@ import {
   A26TabBar
 } from "../aeternum-26";
 import { useLanguage } from "../../context/LanguageContext";
+import { useTheme } from "../../context/ThemeContext";
 import {
   currentShellRoute,
   roleTranslationKey,
@@ -21,6 +22,7 @@ import { searchGlobalContent } from "../../services/globalSearchService";
 
 export default function AppLayout({ user, path, navigate, onLogout, children }) {
   const { t } = useLanguage();
+  const { theme, toggleTheme, isLight } = useTheme();
   const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -339,6 +341,14 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
                 <p>{t("settings.notificationText")}</p>
               </A26Popover>
             </div>
+
+            <A26IconButton
+              label={isLight ? "Alternar para Dark Liquid Glass (Modo Escuro)" : "Alternar para Light Liquid Glass (Modo Claro)"}
+              icon={isLight ? "moon" : "sun"}
+              className="a26-shell__theme-toggle"
+              aria-label={isLight ? "Alternar para Dark Liquid Glass (Modo Escuro)" : "Alternar para Light Liquid Glass (Modo Claro)"}
+              onClick={toggleTheme}
+            />
 
             <LanguageSelector
               compact

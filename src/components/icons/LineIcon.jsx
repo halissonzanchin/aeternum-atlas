@@ -27,7 +27,9 @@ const paths = {
   clipboardCheck: "M9 5h6M9 3h6v4H9V3ZM7 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2m-1 8-4 4-2-2",
   fileQuestion: "M6 3h9l3 3v15H6V3Zm8 0v4h4M10 11a2 2 0 1 1 3.3 1.5c-.8.5-1.3.95-1.3 1.8m0 3h.01",
   menu: "M4 7h16M4 12h16M4 17h16",
-  send: "M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"
+  send: "M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z",
+  sun: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364-.707-.707M6.343 6.343l-.707-.707m12.728 0-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z",
+  moon: "M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
 };
 
 export default function LineIcon({ name, className = "h-5 w-5", strokeWidth = 1.8, filled = false }) {

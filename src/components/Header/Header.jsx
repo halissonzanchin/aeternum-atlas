@@ -1,11 +1,13 @@
 import AeternumLogo from "../AeternumLogo";
 import Button from "../Button/Button";
 import LanguageSelector from "../LanguageSelector";
+import LineIcon from "../icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
+import { useTheme } from "../../context/ThemeContext";
 
-function Icon({ label, children }) {
+function Icon({ label, onClick, children }) {
   return (
-    <button aria-label={label} className="grid size-10 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-clinicalWhite transition hover:-translate-y-0.5 hover:border-techTeal/50 hover:text-techTeal hover:shadow-glow">
+    <button onClick={onClick} aria-label={label} className="grid size-10 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-clinicalWhite transition hover:-translate-y-0.5 hover:border-techTeal/50 hover:text-techTeal hover:shadow-glow">
       {children}
     </button>
   );
@@ -13,6 +15,7 @@ function Icon({ label, children }) {
 
 export default function Header({ navigate }) {
   const { t } = useLanguage();
+  const { isLight, toggleTheme } = useTheme();
   return (
     <header className="sticky top-0 z-30 atlas-liquid-glass-toolbar">
       <div className="mx-auto flex min-h-[78px] w-[min(1180px,calc(100%_-_40px))] flex-col items-stretch justify-between gap-4 py-4 sm:flex-row sm:items-center sm:py-0">
@@ -24,6 +27,9 @@ export default function Header({ navigate }) {
             <Icon label={t("publicHome.search")}>⌕</Icon>
             <Icon label={t("publicHome.notifications")}>•</Icon>
             <Icon label={t("publicHome.help")}>?</Icon>
+            <Icon label={isLight ? "Dark Mode" : "Light Mode"} onClick={toggleTheme}>
+              <LineIcon name={isLight ? "moon" : "sun"} className="h-4 w-4" />
+            </Icon>
             <LanguageSelector compact />
           </div>
         </div>

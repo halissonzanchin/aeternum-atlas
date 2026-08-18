@@ -1595,3 +1595,160 @@ body:has(.atlas-auth-page) #root {
     transition-duration: 0.01ms;
   }
 }
+
+/* ============================================================
+   AETERNUM 26.1 LIGHT LIQUID GLASS (iOS 27) SHELL THEME
+   ============================================================ */
+
+.a26-theme-light .a26-shell {
+  color: var(--a26-color-text);
+  background:
+    radial-gradient(circle at 88% 4%, rgb(13 148 136 / 0.12), transparent 28rem),
+    linear-gradient(145deg, #f0f6f8 0%, #e3eff1 52%, #f5fafb 100%);
+}
+
+.a26-theme-light .a26-shell__sidebar {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(244, 250, 251, 0.88)),
+    var(--a26-material-regular-bg);
+  border-color: rgba(15, 118, 110, 0.16);
+  --a26-material-shadow: 14px 0 50px rgb(10 45 52 / 0.08);
+}
+
+.a26-theme-light .a26-shell__brand {
+  border-bottom-color: rgba(15, 118, 110, 0.14);
+}
+
+.a26-theme-light .a26-shell__brand-copy strong {
+  color: #042f2e;
+}
+
+.a26-theme-light .a26-shell__brand-copy small,
+.a26-theme-light .a26-shell__sidebar-identity small {
+  color: #0f766e;
+}
+
+.a26-theme-light .a26-shell__sidebar-nav button,
+.a26-theme-light .a26-shell__mobile-menu button {
+  color: #1f3a40;
+}
+
+.a26-theme-light .a26-shell__sidebar-nav button:hover,
+.a26-theme-light .a26-shell__mobile-menu button:hover {
+  border-color: rgba(13, 148, 136, 0.28);
+  background: rgba(13, 148, 136, 0.08);
+  color: #042f2e;
+}
+
+.a26-theme-light .a26-shell__sidebar-nav button.is-active,
+.a26-theme-light .a26-shell__mobile-menu button.is-active {
+  border-color: rgba(13, 148, 136, 0.4);
+  background:
+    linear-gradient(90deg, rgba(13, 148, 136, 0.16), rgba(13, 148, 136, 0.04));
+  color: #042f2e;
+  box-shadow: inset 3px 0 0 #0d9488;
+}
+
+.a26-theme-light .a26-shell__sidebar-footer {
+  border-top-color: rgba(15, 118, 110, 0.14);
+}
+
+.a26-theme-light .a26-shell__topbar {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(245, 250, 251, 0.90));
+  border-bottom-color: rgba(15, 118, 110, 0.14);
+  box-shadow: 0 4px 20px rgb(10 45 52 / 0.06);
+}
+
+.a26-theme-light .a26-shell__avatar {
+  background: linear-gradient(135deg, #0d9488, #0f766e);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+}
+
+.a26-theme-light .a26-shell__role {
+  color: #0f766e;
+}
+
+.a26-theme-light .a26-shell__context strong {
+  color: #0a1d21;
+}
+
+.a26-theme-light .a26-shell__context small {
+  color: #4b6b72;
+}
+
+.a26-theme-light .a26-shell__search input {
+  background: rgba(255, 255, 255, 0.9);
+  color: #0a1d21;
+  border-color: rgba(15, 118, 110, 0.2);
+}
+
+.a26-theme-light .a26-shell__search input::placeholder {
+  color: #718a90;
+}
+
+.a26-theme-light .a26-shell__search kbd {
+  background: rgba(15, 118, 110, 0.1);
+  color: #0f766e;
+  border-color: rgba(15, 118, 110, 0.2);
+}
+
+.a26-theme-light .a26-shell__search-results {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(242, 248, 250, 0.94));
+  border-color: rgba(15, 118, 110, 0.22);
+  color: #0a1d21;
+  box-shadow: 0 20px 60px rgba(10, 45, 52, 0.15);
+}
+
+.a26-theme-light .a26-shell__search-group-title {
+  color: #0f766e;
+  border-bottom-color: rgba(15, 118, 110, 0.12);
+}
+
+.a26-theme-light .a26-shell__search-results button {
+  color: #0a1d21;
+}
+
+.a26-theme-light .a26-shell__search-results button:hover {
+  background: rgba(13, 148, 136, 0.08);
+}
+
+.a26-theme-light .a26-shell__search-item-title {
+  color: #0a1d21;
+}
+
+.a26-theme-light .a26-shell__search-item-subtitle {
+  color: #4b6b72;
+}
+
+.a26-theme-light .a26-shell__popover {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(242, 248, 250, 0.95));
+  border-color: rgba(15, 118, 110, 0.2);
+  color: #0a1d21;
+  box-shadow: 0 24px 60px rgba(10, 45, 52, 0.14);
+}
+
+.a26-theme-light .a26-shell__popover h2 {
+  color: #0a1d21;
+}
+
+.a26-theme-light .a26-shell__popover p {
+  color: #4b6b72;
+}
+
+.a26-theme-light .a26-shell__bottom-nav {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(245, 250, 251, 0.88));
+  border-color: rgba(15, 118, 110, 0.2);
+  box-shadow: 0 10px 30px rgba(10, 45, 52, 0.12);
+}
+
+.a26-theme-light .a26-shell__bottom-nav button {
+  color: #1f3a40;
+}
+
+.a26-theme-light .a26-shell__bottom-nav button.is-active {
+  color: #0d9488;
+}
+

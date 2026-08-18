@@ -68,6 +68,45 @@
   --atlas-glass-blur: var(--a26-material-regular-blur);
 }
 
+:root.a26-theme-light,
+html.a26-theme-light,
+body.a26-theme-light,
+.a26-theme-light {
+  --a26-color-canvas: #f2f7f9;
+  --a26-color-canvas-raised: #ffffff;
+  --a26-color-surface: #ffffff;
+  --a26-color-surface-strong: #f4f9fb;
+  --a26-color-text: #0a1d21;
+  --a26-color-text-muted: #1f3a40;
+  --a26-color-text-subtle: #4b6b72;
+  --a26-color-teal: #0d9488;
+  --a26-color-teal-strong: #0f766e;
+  --a26-color-gold: #a16207;
+  --a26-color-danger: #ef4444;
+  --a26-color-warning: #d97706;
+  --a26-color-success: #10b981;
+  --a26-color-border: rgb(15 118 110 / 0.16);
+  --a26-color-border-strong: rgb(15 118 110 / 0.32);
+
+  --a26-material-clear-bg: rgb(255 255 255 / 0.76);
+  --a26-material-regular-bg: rgb(255 255 255 / 0.90);
+  --a26-material-substantial-bg: rgb(246 251 252 / 0.96);
+  --a26-material-opaque-bg: #ffffff;
+  --a26-material-clear-blur: 16px;
+  --a26-material-regular-blur: 24px;
+  --a26-material-substantial-blur: 32px;
+
+  --a26-shadow-ambient: 0 12px 36px rgb(10 45 52 / 0.08);
+  --a26-shadow-elevated: 0 24px 60px rgb(10 45 52 / 0.14);
+  --a26-shadow-focus: 0 0 0 3px rgb(13 148 136 / 0.28), 0 0 28px rgb(13 148 136 / 0.16);
+
+  --atlas-glass-bg: var(--a26-material-regular-bg);
+  --atlas-glass-border: var(--a26-color-border);
+  --atlas-glass-shadow: var(--a26-shadow-ambient);
+  --atlas-glass-radius: var(--a26-radius-card);
+  --atlas-glass-blur: var(--a26-material-regular-blur);
+}
+
 .a26-surface {
   --a26-pointer-x: 24%;
   --a26-pointer-y: 8%;

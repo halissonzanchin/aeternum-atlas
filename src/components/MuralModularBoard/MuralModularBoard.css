@@ -479,3 +479,37 @@
     margin: 0 0.5rem;
   }
 }
+
+/* Light Liquid Glass Mural */
+.a26-theme-light .notes-board {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(15, 118, 110, 0.2);
+  box-shadow: 0 20px 60px rgba(10, 45, 52, 0.1);
+}
+
+.a26-theme-light .notes-board__overlay {
+  background: radial-gradient(circle at 50% 30%, rgba(240, 248, 250, 0.4) 0%, rgba(240, 248, 250, 0.8) 100%);
+}
+
+.a26-theme-light .notes-board__header {
+  background: rgba(255, 255, 255, 0.7);
+  border-bottom-color: rgba(15, 118, 110, 0.14);
+}
+
+.a26-theme-light .notes-board__title-group h3 {
+  color: #0a1d21;
+}
+
+.a26-theme-light .notes-board__eyebrow {
+  color: #a16207;
+}
+
+.a26-theme-light .notes-board__cell {
+  background: rgba(240, 248, 250, 0.6);
+  border-color: rgba(15, 118, 110, 0.15);
+}
+
+.a26-theme-light .notes-board__cell-coord {
+  color: #4b6b72;
+}
+
