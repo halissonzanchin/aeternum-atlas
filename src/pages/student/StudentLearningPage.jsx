@@ -566,9 +566,9 @@ function StudentAITutorStudio() {
           {activeTopics.map((topic) => (
             <div
               key={topic}
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono transition-all border ${
+              className={`a26-tutor-tag inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono transition-all border ${
                 filterQuery === topic
-                  ? "bg-amber-400/25 border-amber-400 text-amber-200 shadow-glowGold"
+                  ? "a26-tutor-tag--active bg-amber-400/25 border-amber-400 text-amber-200 shadow-glowGold"
                   : "bg-surfaceDark/70 border-glassBorder/50 text-teal-200 hover:border-teal-400"
               }`}
             >
@@ -618,7 +618,7 @@ function StudentAITutorStudio() {
             <button
               type="button"
               onClick={() => setShowAddTagInput(true)}
-              className="px-2.5 py-1 rounded-full text-xs font-mono text-teal-300/80 border border-dashed border-teal-500/40 hover:border-teal-400 hover:text-teal-200 transition-all bg-teal-950/20"
+              className="a26-tutor-add-tag-btn px-2.5 py-1 rounded-full text-xs font-mono text-teal-300/80 border border-dashed border-teal-500/40 hover:border-teal-400 hover:text-teal-200 transition-all bg-teal-950/20"
             >
               {t("aiTutorStudio.addTag", { defaultValue: "+ Adicionar Tag" })}
             </button>
@@ -632,10 +632,10 @@ function StudentAITutorStudio() {
           <div className="flex items-center gap-3">
             <span className="w-3.5 h-3.5 rounded-full bg-teal-400 animate-pulse shadow-glowTeal" />
             <div>
-              <h2 style={{ color: '#f3d789', fontSize: '1rem', fontWeight: 700, letterSpacing: '0.025em', margin: 0 }}>
+              <h2 className="a26-tutor-hub__title">
                 {t("aiTutorStudio.title", { defaultValue: "Estúdio Completo de Diálogos do Tutor IA" })}
               </h2>
-              <p style={{ color: 'rgba(218, 251, 248, 0.75)', fontSize: '0.75rem', margin: '2px 0 0' }}>
+              <p className="a26-tutor-hub__subtitle">
                 {t("aiTutorStudio.subtitle", { defaultValue: "Histórico completo de perguntas, pesquisas e respostas médicas sincronizado em tempo real" })}
               </p>
             </div>
@@ -649,11 +649,11 @@ function StudentAITutorStudio() {
               {t("aiTutorStudio.generateClinicalCase", { defaultValue: "Gerar Caso Clínico Socrático" })}
             </A26Button>
             {filterQuery ? (
-              <span className="text-xs text-amber-300 font-mono bg-amber-950/60 px-3 py-1.5 rounded-full border border-amber-500/30">
+              <span className="a26-tutor-count-badge text-xs text-amber-300 font-mono bg-amber-950/60 px-3 py-1.5 rounded-full border border-amber-500/30">
                 {t("aiTutorStudio.filteringCount", { filtered: filteredMessages.length, total: messages.length, defaultValue: `Filtrando: ${filteredMessages.length} de ${messages.length}` })}
               </span>
             ) : (
-              <span className="text-xs text-teal-300 font-mono bg-teal-950/60 px-3 py-1.5 rounded-full border border-teal-500/30">
+              <span className="a26-tutor-count-badge text-xs text-teal-300 font-mono bg-teal-950/60 px-3 py-1.5 rounded-full border border-teal-500/30">
                 {t("aiTutorStudio.historyMessagesCount", { count: messages.length, defaultValue: `${messages.length} mensagens no histórico` })}
               </span>
             )}

@@ -678,3 +678,264 @@
     transition: none;
   }
 }
+
+/* ============================================================
+   AETERNUM 26.1 LIGHT LIQUID GLASS (iOS 27) ATLAI AI CONVERSATION
+   ============================================================ */
+
+.a26-theme-light .atlas-ai-message-context {
+  color: #0f766e !important;
+  font-weight: 800 !important;
+}
+
+/* Tutor AI Message Bubble (White Liquid Glass) */
+.a26-theme-light .atlas-viewer-ai-message {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(244, 250, 253, 0.94)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  color: #1e293b !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .atlas-viewer-ai-message.is-featured {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(244, 250, 253, 0.95)) !important;
+  border-color: rgba(255, 255, 255, 0.95) !important;
+  color: #0f172a !important;
+  box-shadow:
+    inset 0 1.5px 0 #ffffff,
+    0 18px 45px rgba(15, 23, 42, 0.08),
+    0 0 35px rgba(13, 148, 136, 0.05) !important;
+}
+
+.a26-theme-light .atlas-viewer-ai-message.is-featured::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(13, 148, 136, 0.3),
+    rgba(13, 148, 136, 0.6),
+    rgba(124, 58, 237, 0.25),
+    transparent
+  ) !important;
+}
+
+/* User Message Bubble (Vibrant Teal Capsule) */
+.a26-theme-light .atlas-viewer-ai-message.is-user {
+  background: linear-gradient(135deg, #0d9488, #0f766e) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(13, 148, 136, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.a26-theme-light .atlas-viewer-ai-message.is-user strong {
+  color: #ffffff !important;
+  font-weight: 750 !important;
+}
+
+.a26-theme-light .atlas-viewer-ai-message.is-user p {
+  color: #ffffff !important;
+}
+
+/* Meta Labels */
+.a26-theme-light .atlas-ai-featured-response__meta {
+  color: #0f766e !important;
+}
+
+.a26-theme-light .atlas-ai-featured-response__meta i {
+  background: #0d9488 !important;
+  box-shadow: 0 0 10px rgba(13, 148, 136, 0.6) !important;
+}
+
+.a26-theme-light .atlas-ai-featured-response__meta small {
+  color: #64748b !important;
+}
+
+/* Typography in Tutor Response */
+.a26-theme-light .atlas-ai-formatted-response p {
+  color: #334155 !important;
+}
+
+.a26-theme-light .atlas-ai-abnt-subheader {
+  color: #0f766e !important;
+  font-weight: 750 !important;
+}
+
+.a26-theme-light .atlas-ai-response-h3 {
+  color: #0f172a !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25) !important;
+}
+
+.a26-theme-light .atlas-ai-list-item {
+  background: rgba(241, 245, 249, 0.75) !important;
+  border: 1px solid rgba(203, 213, 225, 0.65) !important;
+  color: #0f172a !important;
+}
+
+.a26-theme-light .atlas-ai-list-item:hover {
+  border-color: #0f766e !important;
+}
+
+.a26-theme-light .atlas-ai-badge {
+  background: #0f766e !important;
+  border-color: #0f766e !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .atlas-ai-clinical-card {
+  background: rgba(254, 243, 199, 0.65) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+  color: #78350f !important;
+}
+
+.a26-theme-light .atlas-ai-clinical-card div {
+  color: #78350f !important;
+}
+
+.a26-theme-light .atlas-ai-clinical-card p {
+  color: #92400e !important;
+}
+
+.a26-theme-light .atlas-ai-source-card {
+  background: rgba(204, 251, 241, 0.75) !important;
+  border: 1px solid rgba(13, 148, 136, 0.35) !important;
+  color: #0f766e !important;
+}
+
+.a26-theme-light .atlas-ai-source-card strong {
+  color: #0f766e !important;
+}
+
+.a26-theme-light .atlas-ai-source-card span {
+  color: #134e4a !important;
+}
+
+/* Action Invitations & Thinking Indicator */
+.a26-theme-light .atlas-viewer-ai-action {
+  background: rgba(240, 253, 250, 0.95) !important;
+  border: 1px solid rgba(13, 148, 136, 0.4) !important;
+  color: #0f766e !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+}
+
+.a26-theme-light .atlas-viewer-ai-action:hover {
+  background: #ffffff !important;
+  border-color: #0d9488 !important;
+  color: #0d9488 !important;
+}
+
+.a26-theme-light .atlas-viewer-ai-thinking {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
+}
+
+.a26-theme-light .atlas-viewer-ai-thinking span {
+  background: #0d9488 !important;
+}
+
+/* Bottom Live Dock & Prompt Composer */
+.a26-theme-light .atlas-ai-live-dock::before {
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.95), rgba(244, 250, 253, 0.92)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow:
+    inset 0 1.5px 0 #ffffff,
+    0 -10px 30px rgba(15, 23, 42, 0.05) !important;
+}
+
+.a26-theme-light .atlas-ai-live-dock__status {
+  color: #0f766e !important;
+  font-weight: 600 !important;
+}
+
+.a26-theme-light .atlas-ai-live-dock__status > span {
+  background: #0d9488 !important;
+  box-shadow: 0 0 10px rgba(13, 148, 136, 0.6) !important;
+}
+
+.a26-theme-light .upe-ai-composer {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+}
+
+.a26-theme-light .upe-ai-composer:focus-within {
+  border-color: #0d9488 !important;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12) !important;
+}
+
+.a26-theme-light .upe-ai-composer textarea,
+.a26-theme-light .upe-ai-composer input {
+  color: #0f172a !important;
+  font-weight: 500 !important;
+}
+
+.a26-theme-light .upe-ai-composer textarea::placeholder,
+.a26-theme-light .upe-ai-composer input::placeholder {
+  color: #64748b !important;
+}
+
+.a26-theme-light .upe-ai-composer button {
+  background: linear-gradient(135deg, #0d9488, #0f766e) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3) !important;
+}
+
+.a26-theme-light .upe-ai-composer button:hover {
+  filter: brightness(1.1) !important;
+}
+
+/* Spatial AI Guidance Card (Light Liquid Glass) */
+.a26-theme-light .a26-spatial-guidance-card {
+  background:
+    linear-gradient(135deg, rgba(240, 253, 250, 0.96), rgba(204, 251, 241, 0.88)) !important;
+  border: 1px solid rgba(13, 148, 136, 0.3) !important;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05), inset 0 1px 0 #ffffff !important;
+  color: #0f172a !important;
+}
+
+.a26-theme-light .a26-spatial-guidance-card__title {
+  color: #0f766e !important;
+  font-weight: 750 !important;
+}
+
+.a26-theme-light .a26-spatial-guidance-card__badge {
+  background: rgba(13, 148, 136, 0.15) !important;
+  border-color: rgba(13, 148, 136, 0.35) !important;
+  color: #0f766e !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-spatial-guidance-card__model-title {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+}
+
+.a26-theme-light .a26-spatial-guidance-card__guide-btn {
+  background: linear-gradient(135deg, #0d9488, #0f766e) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.25) !important;
+}
+
+.a26-theme-light .a26-spatial-guidance-card__marker-label {
+  color: #475569 !important;
+  font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-spatial-guidance-card__marker-btn {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03) !important;
+  font-weight: 600 !important;
+}
+
+.a26-theme-light .a26-spatial-guidance-card__marker-btn:hover {
+  background: #ffffff !important;
+  border-color: #0d9488 !important;
+  color: #0d9488 !important;
+}
+
+

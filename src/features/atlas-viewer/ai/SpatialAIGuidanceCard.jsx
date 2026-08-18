@@ -73,18 +73,18 @@ export default function SpatialAIGuidanceCard({ text, currentPath = "" }) {
   };
 
   return (
-    <div className="my-2.5 p-3 bg-gradient-to-r from-teal-950/60 to-blackDeep/80 border border-teal-500/40 rounded-xl backdrop-blur-md text-clinicalWhite shadow-lg space-y-2.5">
+    <div className="a26-spatial-guidance-card my-2.5 p-3 bg-gradient-to-r from-teal-950/60 to-blackDeep/80 border border-teal-500/40 rounded-xl backdrop-blur-md text-clinicalWhite shadow-lg space-y-2.5">
       <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-1.5 font-bold text-xs text-teal-300">
+        <div className="flex items-center gap-1.5 font-bold text-xs text-teal-300 a26-spatial-guidance-card__title">
           <span className="text-sm">🧊</span>
           <span>{t("spatialAI.title")}</span>
         </div>
-        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-200 border border-teal-500/30">
+        <span className="a26-spatial-guidance-card__badge text-[10px] font-mono px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-200 border border-teal-500/30">
           {t("spatialAI.badge")}
         </span>
       </div>
 
-      <p className="text-xs text-teal-100/90 font-medium">
+      <p className="a26-spatial-guidance-card__model-title text-xs text-teal-100/90 font-medium">
         {matchedMapping.modelTitle}
       </p>
 
@@ -94,7 +94,7 @@ export default function SpatialAIGuidanceCard({ text, currentPath = "" }) {
           <button
             type="button"
             onClick={handleOpenViewer}
-            className="px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-teal-500 to-teal-600 text-blackDeep hover:brightness-110 transition-all flex items-center gap-1.5 shadow-md"
+            className="a26-spatial-guidance-card__guide-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-teal-500 to-teal-600 text-blackDeep hover:brightness-110 transition-all flex items-center gap-1.5 shadow-md"
           >
             <LineIcon name="play" className="w-3.5 h-3.5" />
             <span>{t("spatialAI.guideToViewer")}</span>
@@ -107,7 +107,7 @@ export default function SpatialAIGuidanceCard({ text, currentPath = "" }) {
 
         {/* Lista de Marcadores Anatômicos Interativos */}
         <div className="w-full pt-1">
-          <span className="text-[10px] uppercase tracking-wider text-textMuted block mb-1.5 font-semibold">
+          <span className="a26-spatial-guidance-card__marker-label text-[10px] uppercase tracking-wider text-textMuted block mb-1.5 font-semibold">
             {t("spatialAI.selectMarker")}
           </span>
           <div className="flex flex-wrap gap-1.5">
@@ -116,7 +116,7 @@ export default function SpatialAIGuidanceCard({ text, currentPath = "" }) {
                 key={marker.id}
                 type="button"
                 onClick={() => handleFocusMarker(marker)}
-                className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-surfaceDark/80 border border-glassBorder/50 text-teal-200 hover:border-teal-400 hover:text-white transition-all hover:bg-teal-500/20"
+                className="a26-spatial-guidance-card__marker-btn px-2.5 py-1 rounded-md text-[11px] font-mono bg-surfaceDark/80 border border-glassBorder/50 text-teal-200 hover:border-teal-400 hover:text-white transition-all hover:bg-teal-500/20"
               >
                 📍 {marker.label}
               </button>
@@ -127,3 +127,4 @@ export default function SpatialAIGuidanceCard({ text, currentPath = "" }) {
     </div>
   );
 }
+
