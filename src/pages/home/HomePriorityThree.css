@@ -94,7 +94,9 @@
   align-items: center;
   min-height: 196px;
   padding: 38px clamp(24px, 5vw, 76px) 26px;
-  border-top: 1px solid rgba(111, 231, 226, 0.13);
+  border: 0 !important;
+  border-top: 1px solid rgba(111, 231, 226, 0.13) !important;
+  border-radius: 36px 36px 0 0;
   background:
     radial-gradient(circle at 8% 20%, rgba(38, 145, 142, 0.1), transparent 24%),
     #02080b;
@@ -105,13 +107,19 @@
   justify-self: start;
   width: min(100%, 260px);
   padding: 0;
-  border: 0;
-  background: transparent;
+  border: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
   cursor: pointer;
 }
 
 .cinematic-home .p3-footer-brand .aeternum-logo {
   justify-content: flex-start;
+  border: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .cinematic-home .p3-footer-nav {

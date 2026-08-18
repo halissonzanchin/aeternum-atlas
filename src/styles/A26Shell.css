@@ -555,6 +555,32 @@
   opacity: 0.26;
 }
 
+.cinematic-home .a26-public-header > .a26-surface__specular,
+.cinematic-home .a26-public-header > .a26-surface__spectrum,
+.cinematic-home .a26-public-footer > .a26-surface__specular,
+.cinematic-home .a26-public-footer > .a26-surface__spectrum,
+.cinematic-home .p3-premium-footer > .a26-surface__specular,
+.cinematic-home .p3-premium-footer > .a26-surface__spectrum {
+  display: none !important;
+}
+
+.cinematic-home .brand-lockup,
+.cinematic-home .p3-footer-brand {
+  border: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.cinematic-home .brand-lockup .aeternum-logo,
+.cinematic-home .p3-footer-brand .aeternum-logo {
+  border: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 .cinematic-home .a26-public-header .language-selector__menu {
   z-index: calc(var(--a26-z-navigation) + 12);
 }
