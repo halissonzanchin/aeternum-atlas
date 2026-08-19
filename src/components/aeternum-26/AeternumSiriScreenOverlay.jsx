@@ -256,7 +256,13 @@ export default function AeternumSiriScreenOverlay({
           <div className="a26-voice-hud-card">
             <div className="a26-voice-hud-header">
               <div className="a26-voice-tutor-badge">
-                <span className="a26-voice-tutor-flag">{activeTutor.flag}</span>
+                <span
+                  className="a26-voice-tutor-flag-pill"
+                  style={{ background: activeTutor.badgeGradient }}
+                  aria-label={activeTutor.country}
+                >
+                  {activeTutor.countryCode}
+                </span>
                 <div className="a26-voice-tutor-info">
                   <strong className="a26-voice-tutor-name">{activeTutor.name}</strong>
                   <small className="a26-voice-tutor-role">{activeTutor.role}</small>

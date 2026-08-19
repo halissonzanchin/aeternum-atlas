@@ -1,53 +1,63 @@
 /**
  * Aeternum Vita Voice AI — Multi-Tutor Voice Engine
- * Real-time Speech-to-Text, LLM Orchestration, and Vocal Synthesis
- * Seamlessly integrated into Aeternum Atlas Apple Intelligence Mode.
+ * High-Fidelity Deepgram Aura-2 & LiveKit Neural Audio Pipeline
+ * Native Multi-Tutor Architecture: Eduardo 🇧🇷, Antonia 🇪🇸, Ariana 🇺🇸, Fabian 🇩🇪
  */
+
+import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig";
 
 export const AETERNUM_VITA_TUTORS = {
   pt: {
     id: "eduardo",
     name: "Eduardo",
-    flag: "🇧🇷",
+    countryCode: "BR",
     country: "Brasil",
     langCode: "pt-BR",
     gender: "masculino",
+    deepgramModel: null,
     role: "Mentor de Voz em Português",
-    greeting: "Olá! Sou o Eduardo, seu tutor em português. Em que posso te guiar nos estudos anatômicos hoje?",
-    promptDirective: "Você é o Eduardo, mentor de anatomia do Aeternum Vita. Responda em Português do Brasil de forma calorosa, clara e direta, em exatamente UMA ou DUAS frases faladas concisas sem Markdown ou listas."
+    badgeGradient: "linear-gradient(135deg, #009c3b 0%, #ffdf00 50%, #002776 100%)",
+    greeting: "Olá! Seja muito bem-vindo ao Aeternum Vita. Eu sou o Eduardo, seu mentor em português do Brasil. Como posso guiar seus estudos anatômicos hoje?",
+    promptDirective: "Você é o Eduardo, mentor oficial de anatomia do Aeternum Vita. Responda em Português do Brasil de forma calorosa, acolhedora, com dicção nativa e natural, em exatamente UMA ou DUAS frases faladas concisas e diretas sem Markdown ou listas."
   },
   es: {
     id: "antonia",
     name: "Antonia",
-    flag: "🇪🇸",
-    country: "Latam / España",
+    countryCode: "ES",
+    country: "Argentina / España",
     langCode: "es-ES",
     gender: "femenino",
+    deepgramModel: "aura-2-antonia-es",
     role: "Mentora de Voz en Español",
-    greeting: "¡Hola! Soy Antonia, tu mentora en español. ¿Qué estructura anatómica deseas explorar hoy?",
-    promptDirective: "Eres Antonia, mentora de anatomía de Aeternum Vita. Responde en español nativo de forma empática y clara, en exactamente UNA o DOS frases habladas concisas sin Markdown ni listas."
+    badgeGradient: "linear-gradient(135deg, #aa151b 0%, #f1bf00 50%, #aa151b 100%)",
+    greeting: "¡Hola! Te doy una cálida bienvenida a Aeternum Vita. Soy Antonia, tu mentora nativa en español. ¿Qué estructura anatómica deseas explorar hoy?",
+    promptDirective: "Eres Antonia, mentora oficial de anatomía de Aeternum Vita. Responde en español nativo con voz clara y empática, en exactamente UNA o DOS frases habladas concisas sin Markdown ni listas."
   },
   en: {
     id: "ariana",
     name: "Ariana",
-    flag: "🇺🇸",
+    countryCode: "US",
     country: "United States",
     langCode: "en-US",
     gender: "female",
+    deepgramModel: "aura-2-thalia-en",
     role: "English Voice Mentor",
-    greeting: "Hello! I'm Ariana, your English anatomy tutor. What structure or concept would you like to review?",
-    promptDirective: "You are Ariana, anatomy mentor of Aeternum Vita. Respond in natural native English in exactly ONE or TWO concise spoken sentences without Markdown or bullet points."
+    badgeGradient: "linear-gradient(135deg, #0a3161 0%, #ffffff 50%, #b31942 100%)",
+    greeting: "Hello and welcome to Aeternum Vita! I am Ariana, your native English anatomy mentor. How can I guide your journey today?",
+    promptDirective: "You are Ariana, official anatomy mentor of Aeternum Vita. Respond in natural native American English in exactly ONE or TWO concise spoken sentences without Markdown or bullet points."
   },
   de: {
     id: "fabian",
     name: "Fabian",
-    flag: "🇩🇪",
+    countryCode: "DE",
     country: "Deutschland",
     langCode: "de-DE",
     gender: "männlich",
+    deepgramModel: "aura-2-fabian-de",
     role: "Deutscher Sprach-Mentor",
-    greeting: "Hallo! Ich bin Fabian, dein Anatomie-Tutor auf Deutsch. Welches Thema möchtest du heute vertiefen?",
-    promptDirective: "Du bist Fabian, Anatomie-Mentor von Aeternum Vita. Antworte auf natürlichem Hochdeutsch in genau EINEM oder ZWEI prägnanten gesprochenen Sätzen ohne Markdown oder Listen."
+    badgeGradient: "linear-gradient(135deg, #000000 0%, #dd0000 50%, #ffce00 100%)",
+    greeting: "Hallo und herzlich willkommen bei Aeternum Vita! Ich bin Fabian, dein Anatomie-Mentor auf Deutsch. Wie kann ich dir heute helfen?",
+    promptDirective: "Du bist Fabian, offizieller Anatomie-Mentor von Aeternum Vita. Antworte auf natürlichem Hochdeutsch in genau EINEM oder ZWEI prägnanten gesprochenen Sätzen ohne Markdown oder Listen."
   }
 };
 
@@ -60,8 +70,8 @@ class AeternumVitaVoiceEngine {
   constructor() {
     this.activeSession = null;
     this.recognition = null;
+    this.audioElement = null;
     this.synthesis = typeof window !== "undefined" ? window.speechSynthesis : null;
-    this.currentUtterance = null;
     this.silenceTimer = null;
     this.isListening = false;
     this.isSpeaking = false;
@@ -78,99 +88,152 @@ class AeternumVitaVoiceEngine {
     }
   }
 
-  getBestVoiceForTutor(tutor) {
-    if (!this.cachedVoices.length && this.synthesis) {
-      this.cachedVoices = this.synthesis.getVoices() || [];
-    }
-
-    const langPrefix = tutor.langCode.slice(0, 2).toLowerCase();
-    const isMale = tutor.gender === "masculino" || tutor.gender === "männlich";
-
-    // 1. Exact match with lang and preferred gender
-    const matchedVoices = this.cachedVoices.filter((v) =>
-      v.lang.toLowerCase().startsWith(langPrefix)
-    );
-
-    if (matchedVoices.length > 0) {
-      // Find natural or neural voices
-      const premiumVoice = matchedVoices.find((v) =>
-        /natural|neural|premium|enhanced/i.test(v.name)
-      );
-      if (premiumVoice) return premiumVoice;
-
-      if (isMale) {
-        const maleVoice = matchedVoices.find((v) =>
-          /male|homem|hombre|mann|david|jorge|daniel|stefan|george/i.test(v.name)
-        );
-        if (maleVoice) return maleVoice;
-      } else {
-        const femaleVoice = matchedVoices.find((v) =>
-          /female|mulher|mujer|frau|luciana|monica|helena|zira|samantha|victoria/i.test(v.name)
-        );
-        if (femaleVoice) return femaleVoice;
-      }
-
-      return matchedVoices[0];
-    }
-
-    return null;
-  }
-
-  async speak(text, tutor, onStart, onEnd) {
-    if (!this.synthesis) {
-      onEnd?.();
-      return;
-    }
-
-    this.synthesis.cancel();
-    const cleanText = String(text || "")
+  cleanTextForSpeech(text) {
+    return String(text || "")
       .replace(/\[ACTION:[^\]]+\]/g, "")
       .replace(/[*_#`~>]/g, "")
+      .replace(/\s+/g, " ")
       .trim();
+  }
 
+  /**
+   * High-Definition Audio Synthesis
+   * Uses Deepgram Aura-2 Direct API (Aeternum Vita standard) for studio audio,
+   * with seamless Web Speech fallback.
+   */
+  async speak(text, tutor, onStart, onEnd) {
+    this.stopSpeaking();
+
+    const cleanText = this.cleanTextForSpeech(text);
     if (!cleanText) {
       onEnd?.();
       return;
     }
 
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.lang = tutor.langCode;
-    utterance.rate = 1.02;
-    utterance.pitch = tutor.gender === "masculino" || tutor.gender === "männlich" ? 0.96 : 1.04;
+    // 1. Try Deepgram Aura-2 Neural Audio if tutor has a Deepgram model
+    if (tutor.deepgramModel && VITA_VOICE_CONFIG.deepgramApiKey) {
+      try {
+        const response = await fetch(
+          `https://api.deepgram.com/v1/speak?model=${tutor.deepgramModel}&encoding=mp3`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Token ${VITA_VOICE_CONFIG.deepgramApiKey}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ text: cleanText })
+          }
+        );
 
-    const voice = this.getBestVoiceForTutor(tutor);
-    if (voice) {
-      utterance.voice = voice;
+        if (response.ok) {
+          const blob = await response.blob();
+          const audioUrl = URL.createObjectURL(blob);
+          const audio = new Audio(audioUrl);
+          this.audioElement = audio;
+
+          audio.onplay = () => {
+            this.isSpeaking = true;
+            onStart?.();
+          };
+
+          audio.onended = () => {
+            this.isSpeaking = false;
+            this.audioElement = null;
+            URL.revokeObjectURL(audioUrl);
+            onEnd?.();
+          };
+
+          audio.onerror = () => {
+            this.isSpeaking = false;
+            this.audioElement = null;
+            URL.revokeObjectURL(audioUrl);
+            this.speakFallback(cleanText, tutor, onStart, onEnd);
+          };
+
+          await audio.play();
+          return;
+        }
+      } catch (err) {
+        console.warn("Deepgram Aura-2 synthesis error, falling back:", err);
+      }
     }
 
-    utterance.onstart = () => {
-      this.isSpeaking = true;
-      onStart?.();
-    };
+    // 2. Fallback to SpeechSynthesis
+    this.speakFallback(cleanText, tutor, onStart, onEnd);
+  }
 
-    utterance.onend = () => {
-      this.isSpeaking = false;
-      this.currentUtterance = null;
+  speakFallback(cleanText, tutor, onStart, onEnd) {
+    if (!this.synthesis) {
       onEnd?.();
-    };
+      return;
+    }
 
-    utterance.onerror = (e) => {
-      console.warn("TTS Error:", e);
+    try {
+      this.synthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.lang = tutor.langCode;
+      utterance.rate = 1.0;
+      utterance.pitch = tutor.gender === "masculino" || tutor.gender === "männlich" ? 0.96 : 1.04;
+
+      if (!this.cachedVoices.length) {
+        this.cachedVoices = this.synthesis.getVoices() || [];
+      }
+
+      const langPrefix = tutor.langCode.slice(0, 2).toLowerCase();
+      const isMale = tutor.gender === "masculino" || tutor.gender === "männlich";
+      const matched = this.cachedVoices.filter((v) =>
+        v.lang.toLowerCase().startsWith(langPrefix)
+      );
+
+      if (matched.length > 0) {
+        const premium = matched.find((v) => /natural|neural|google|microsoft|premium/i.test(v.name));
+        if (premium) {
+          utterance.voice = premium;
+        } else {
+          const genderMatch = matched.find((v) =>
+            isMale ? /male|homem|mann|david|jorge|daniel|stefan/i.test(v.name) : /female|mulher|mujer|frau|luciana|monica|helena|zira|samantha/i.test(v.name)
+          );
+          utterance.voice = genderMatch || matched[0];
+        }
+      }
+
+      utterance.onstart = () => {
+        this.isSpeaking = true;
+        onStart?.();
+      };
+
+      utterance.onend = () => {
+        this.isSpeaking = false;
+        onEnd?.();
+      };
+
+      utterance.onerror = () => {
+        this.isSpeaking = false;
+        onEnd?.();
+      };
+
+      this.synthesis.speak(utterance);
+    } catch (e) {
+      console.warn("SpeechSynthesis error:", e);
       this.isSpeaking = false;
-      this.currentUtterance = null;
       onEnd?.();
-    };
-
-    this.currentUtterance = utterance;
-    this.synthesis.speak(utterance);
+    }
   }
 
   stopSpeaking() {
+    if (this.audioElement) {
+      try {
+        this.audioElement.pause();
+        this.audioElement.currentTime = 0;
+      } catch {}
+      this.audioElement = null;
+    }
     if (this.synthesis) {
-      this.synthesis.cancel();
+      try {
+        this.synthesis.cancel();
+      } catch {}
     }
     this.isSpeaking = false;
-    this.currentUtterance = null;
   }
 
   startListening(tutor, onInterimResult, onFinalResult, onError) {
@@ -180,16 +243,12 @@ class AeternumVitaVoiceEngine {
         : null;
 
     if (!SpeechRecognition) {
-      onError?.("Navegador não suporta Web Speech Recognition.");
+      onError?.("Navegador não suporta captação de voz direta.");
       return;
     }
 
     try {
-      if (this.recognition) {
-        try {
-          this.recognition.abort();
-        } catch {}
-      }
+      this.stopListening();
 
       const rec = new SpeechRecognition();
       rec.lang = tutor.langCode;
@@ -202,27 +261,24 @@ class AeternumVitaVoiceEngine {
       rec.onresult = (event) => {
         let interim = "";
         for (let i = event.resultIndex; i < event.results.length; ++i) {
-          const transcriptPiece = event.results[i][0].transcript;
+          const piece = event.results[i][0].transcript;
           if (event.results[i].isFinal) {
-            finalTranscript += (finalTranscript ? " " : "") + transcriptPiece;
+            finalTranscript += (finalTranscript ? " " : "") + piece;
           } else {
-            interim += transcriptPiece;
+            interim += piece;
           }
         }
 
         const currentText = (finalTranscript + (interim ? " " + interim : "")).trim();
         onInterimResult?.(currentText);
 
-        // Reset silence timer on user voice activity
         if (this.silenceTimer) clearTimeout(this.silenceTimer);
         if (currentText && currentText.length > 2) {
           this.silenceTimer = setTimeout(() => {
-            if (finalTranscript || interim) {
-              const fullSpeech = (finalTranscript + " " + interim).trim();
-              if (fullSpeech) {
-                finalTranscript = "";
-                onFinalResult?.(fullSpeech);
-              }
+            const fullSpeech = (finalTranscript + " " + interim).trim();
+            if (fullSpeech) {
+              finalTranscript = "";
+              onFinalResult?.(fullSpeech);
             }
           }, 1400);
         }
@@ -240,7 +296,6 @@ class AeternumVitaVoiceEngine {
 
       rec.onend = () => {
         this.isListening = false;
-        // Auto restart recognition if session is active and not currently speaking
         if (this.activeSession && !this.isSpeaking) {
           try {
             rec.start();
@@ -291,7 +346,7 @@ class AeternumVitaVoiceEngine {
       text: tutor.greeting
     });
 
-    // Speak initial greeting from the language's native tutor
+    // Speak initial greeting of the native tutor with Deepgram Aura-2 / Studio Audio
     this.speak(
       tutor.greeting,
       tutor,

@@ -338,7 +338,24 @@ export default function AtlasAITutor({
         </div>
         {!sphereOnly && (
           <span>
-            <strong>Atlas AI • {activeTutor.name} {activeTutor.flag}</strong>
+            <strong style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+              Atlas AI • {activeTutor.name}
+              <span
+                style={{
+                  background: activeTutor.badgeGradient,
+                  color: "#ffffff",
+                  fontSize: "0.55rem",
+                  fontWeight: 800,
+                  padding: "1px 5px",
+                  borderRadius: "6px",
+                  letterSpacing: "0.04em",
+                  textShadow: "0 1px 2px rgba(0,0,0,0.8)",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.4)"
+                }}
+              >
+                {activeTutor.countryCode}
+              </span>
+            </strong>
             <small>{isSiriActive ? `${activeTutor.name} (Modo de Voz)` : isThinking ? t("tutor.stateAnalyzing", { defaultValue: "Analisando" }) : isOpen ? t("tutor.stateListening", { defaultValue: "Ouvindo" }) : `${activeTutor.role}`}</small>
           </span>
         )}
