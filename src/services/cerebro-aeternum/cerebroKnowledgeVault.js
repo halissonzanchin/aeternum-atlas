@@ -259,7 +259,7 @@ export const CEREBRO_MENTORSHIP_NODES = {
   rotina_organizacao: {
     id: "rotina_organizacao",
     category: CEREBRO_CATEGORIES.STUDY_COACHING,
-    synonyms: ["rotina", "organizar", "tempo", "cronograma", "como estudar", "planejar", "metodo", "pomodoro", "horario", "planificar", "routine", "schedule"],
+    synonyms: ["rotina", "rutina", "organizar", "organizo", "organizacion", "organização", "tempo", "cronograma", "como estudar", "como organizar", "planejar", "planificar", "metodo", "pomodoro", "horario", "routine", "schedule", "estudio"],
     responses: {
       pt: "Veja bem, a melhor estratégia é estudar em blocos focados de vinte e cinco minutos, alternando teoria e visualização 3D. Quer que montemos um cronograma semanal ou prefere definir a meta de hoje?",
       es: "¡Te comprendo muy bien! La clave es estudiar en bloques de veinticinco minutos con pausas cortas para consolidar la memoria. ¿Prefieres que organicemos un plan semanal o que elijamos el tema de hoy?",

@@ -9,7 +9,7 @@
  * Hardware-Level Half-Duplex Isolation & Complete Mic Release on Session Exit
  */
 
-import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig";
+import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig.js";
 
 export const AETERNUM_VITA_TUTORS = {
   pt: {

@@ -104,17 +104,23 @@ class CerebroAeternumEngine {
     const q = this.normalize(rawQ);
     const lang = String(language || "pt").slice(0, 2).toLowerCase();
 
-    // 1. Verificar se a pergunta é uma resposta a um sub-tópico do nó ativo anteriormente
+    // 1. Mentoria, Coaching e Psicologia têm prioridade sobre tópicos anatômicos anteriores
+    const mentorship = this.findMentorshipNode(q);
+    if (mentorship) {
+      this.lastActiveTopic = null; // reset active topic when student asks for coaching
+      const resp = mentorship.responses?.[lang] || mentorship.responses?.pt;
+      if (resp) return resp;
+    }
+
+    // 2. Se o usuário mencionou uma nova estrutura anatômica primária
     let activeNode = this.lastActiveTopic ? this.findKnowledgeNode(this.lastActiveTopic) : null;
-    
-    // Se o usuário mencionou uma nova estrutura primária, trocamos o activeNode
     const directNode = this.findKnowledgeNode(q);
     if (directNode) {
       activeNode = directNode;
       this.lastActiveTopic = directNode.id;
     }
 
-    // 2. Se temos um nó ativo, procurar nos seus sub-tópicos
+    // 3. Se temos um nó ativo, procurar nos seus sub-tópicos (músculos, ligamentos, vascularização)
     if (activeNode && Array.isArray(activeNode.subTopics)) {
       for (const sub of activeNode.subTopics) {
         if (this.containsAny(q, sub.synonyms)) {
@@ -123,8 +129,6 @@ class CerebroAeternumEngine {
         }
       }
     }
-
-    const mentorship = this.findMentorshipNode(q);
 
     // =========================================================================
     // MODO 1: PESQUISA TEXTUAL PROFUNDA (Atlas AI)
@@ -157,12 +161,6 @@ ${pearls ? `**🩺 Correlações Clínicas & Cirúrgicas (Latarjet):**\n${pearls
     // =========================================================================
     // MODO 2: TUTORES DE VOZ (Aeternum Vita — Oral & Humanizado)
     // =========================================================================
-
-    // Mentoria emocional ou coaching
-    if (mentorship) {
-      const resp = mentorship.responses?.[lang] || mentorship.responses?.pt;
-      if (resp) return resp;
-    }
 
     // Resumo vocal do nó anatômico
     if (activeNode && activeNode.voiceSummary) {
