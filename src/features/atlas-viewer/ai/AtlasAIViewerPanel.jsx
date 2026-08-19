@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import LineIcon from '../../../components/icons/LineIcon';
-import { A26IconButton, A26Surface } from '../../../components/aeternum-26';
+import { A26IconButton, A26Surface, AeternumSiriScreenOverlay } from '../../../components/aeternum-26';
 import { useLanguage } from '../../../context/LanguageContext';
 import { useAtlasAITutorSession } from '../../../context/AtlasAITutorSessionContext';
 import { useViewer } from '../../viewer/ViewerContext';
@@ -23,9 +23,13 @@ const VIEWER_BOTTOM_CONTROLS_INSET = 104;
 export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const [isSiriActive, setIsSiriActive] = useState(false);
   const [panelMode, setPanelMode] = useState("compact");
   const [toolModalType, setToolModalType] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [isCharging, setIsCharging] = useState(false);
+  const holdTimerRef = useRef(null);
+  const didTriggerHoldRef = useRef(false);
   const triggerRef = useRef(null);
   
   // Study path state
@@ -228,18 +232,61 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   ];
 
   // Determine Orb State
-  let orbState = 'idle';
-  if (isOpen) orbState = 'listening';
-  if (isThinking) orbState = 'thinking';
+  const orbState = isThinking ? 'thinking' : (isSiriActive || isCharging) ? 'listening' : isOpen ? 'focus' : 'idle';
+
+  const handlePointerDown = (e) => {
+    if (isDragging) return;
+    didTriggerHoldRef.current = false;
+    setIsCharging(true);
+
+    if (holdTimerRef.current) {
+      clearTimeout(holdTimerRef.current);
+    }
+
+    holdTimerRef.current = setTimeout(() => {
+      didTriggerHoldRef.current = true;
+      setIsCharging(false);
+      setIsSiriActive((prev) => {
+        const next = !prev;
+        if (next) {
+          setIsOpen(false);
+        }
+        return next;
+      });
+      if (typeof navigator !== "undefined" && navigator.vibrate) {
+        navigator.vibrate([30, 40, 70]);
+      }
+    }, 550);
+  };
+
+  const handlePointerUpOrLeave = () => {
+    if (holdTimerRef.current) {
+      clearTimeout(holdTimerRef.current);
+      holdTimerRef.current = null;
+    }
+    setIsCharging(false);
+  };
 
   const handleOrbClick = (e) => {
     e?.stopPropagation?.();
     if (consumeDragClick()) return;
+    if (didTriggerHoldRef.current) {
+      didTriggerHoldRef.current = false;
+      return;
+    }
+
+    if (isSiriActive) {
+      setIsSiriActive(false);
+      return;
+    }
+
     setIsOpen((open) => !open);
   };
 
   const handleClose = useCallback((triggerSource = "pointer") => {
     setIsOpen(false);
+    setIsSiriActive(false);
+    setIsCharging(false);
     if (triggerSource === "keyboard") {
       window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
     } else {
@@ -248,14 +295,14 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   }, []);
 
   useEffect(() => {
-    if (!isOpen) return undefined;
+    if (!isOpen && !isSiriActive) return undefined;
     const handleKeyDown = (event) => {
       if (event.key !== 'Escape') return;
       handleClose("keyboard");
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleClose, isOpen]);
+  }, [handleClose, isOpen, isSiriActive]);
 
   if (typeof document === 'undefined') return null;
 
@@ -271,6 +318,12 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
 
   return createPortal(
     <>
+      <AeternumSiriScreenOverlay
+        active={isSiriActive}
+        state={orbState}
+        onDeactivate={() => setIsSiriActive(false)}
+      />
+
       {showConfetti && (
         <div className="celebration-container">
           {[...Array(50)].map((_, i) => (
@@ -287,9 +340,9 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
         </div>
       )}
 
-      {isOpen ? <div className="aog-focus-dimmer aog-focus-dimmer--viewer" aria-hidden="true" onClick={handleClose} /> : null}
+      {isOpen && !isSiriActive ? <div className="aog-focus-dimmer aog-focus-dimmer--viewer" aria-hidden="true" onClick={handleClose} /> : null}
 
-      {isOpen && (
+      {isOpen && !isSiriActive && (
         <A26Surface
           as="section"
           id="atlas-viewer-ai-panel"
@@ -369,22 +422,28 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
       <button
         ref={triggerRef}
         type="button"
-        className={`atlas-viewer-ai-orb-control aog-morph-source${isOpen ? " is-open" : ""}${isDragging ? " is-dragging" : ""}`}
+        className={`atlas-viewer-ai-orb-control aog-morph-source${isOpen ? " is-open" : ""}${isDragging ? " is-dragging" : ""}${isSiriActive ? " is-siri-active" : ""}`}
         style={{
           top: position.y,
           left: position.x
         }}
-        aria-label="Atlas AI Tutor. Clique para abrir ou arraste para reposicionar."
+        aria-label="Atlas AI Tutor. Clique para abrir, segure para modo de voz ou arraste para reposicionar."
         aria-expanded={isOpen}
         aria-controls="atlas-viewer-ai-panel"
         title="Atlas AI Tutor"
         onClick={handleOrbClick}
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUpOrLeave}
+        onPointerLeave={handlePointerUpOrLeave}
         {...dragHandlers}
       >
-        <AtlasAIOrb
-          state={orbState}
-          size="md"
-        />
+        {(isCharging || isSiriActive) && <div className="a26-tutor-charging-aura" aria-hidden="true" />}
+        <div className={isSiriActive ? "a26-orb--vibrating" : ""}>
+          <AtlasAIOrb
+            state={orbState}
+            size="md"
+          />
+        </div>
       </button>
     </>,
     document.body
