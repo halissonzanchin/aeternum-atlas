@@ -1,21 +1,119 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useLanguage } from "../../context/LanguageContext";
+import { aeternumVitaVoiceService, getTutorForLanguage } from "../../services/voice/aeternumVitaVoiceService";
+import { atlasAITutorService } from "../../features/atlas-viewer/ai/atlasAITutorService";
+import LineIcon from "../icons/LineIcon";
 import "./AeternumSiriScreenOverlay.css";
 
 /**
- * Aeternum 26.1 Apple Intelligence Screen Glow
- * Official AppleIntelligenceForSwiftUI (Alessio Rubicini) Soft-Diffusion Architecture.
- * Subtle, ethereal, feather-soft pastel perimeter glow with zero hard lines.
+ * Aeternum 26.1 Apple Intelligence Screen Glow & Aeternum Vita Voice Multi-Tutor
+ * Resolves native voice tutor by platform language:
+ * - pt -> Eduardo 🇧🇷
+ * - es -> Antonia 🇪🇸
+ * - en -> Ariana 🇺🇸
+ * - de -> Fabian 🇩🇪
  */
 export default function AeternumSiriScreenOverlay({
   active = false,
-  state = "idle"
+  state = "idle",
+  context = {},
+  onDeactivate
 }) {
+  const { language } = useLanguage();
   const canvasRef = useRef(null);
   const animFrameRef = useRef(null);
   const opacityRef = useRef(0);
   const startTimeRef = useRef(Date.now());
 
+  const [activeTutor, setActiveTutor] = useState(() => getTutorForLanguage(language));
+  const [voiceStatus, setVoiceStatus] = useState("idle"); // 'listening' | 'thinking' | 'speaking'
+  const [userSubtitle, setUserSubtitle] = useState("");
+  const [tutorSubtitle, setTutorSubtitle] = useState("");
+
+  // Update tutor if language changes while active
+  useEffect(() => {
+    setActiveTutor(getTutorForLanguage(language));
+  }, [language]);
+
+  // Handle Voice Session Lifecycle
+  useEffect(() => {
+    if (!active) {
+      aeternumVitaVoiceService.stopSession();
+      setVoiceStatus("idle");
+      setUserSubtitle("");
+      setTutorSubtitle("");
+      return;
+    }
+
+    const tutor = getTutorForLanguage(language);
+    setActiveTutor(tutor);
+    setUserSubtitle("");
+    setTutorSubtitle(tutor.greeting);
+
+    aeternumVitaVoiceService.startSession({
+      language,
+      onStatusChange: ({ status, text }) => {
+        setVoiceStatus(status);
+        if (text) setTutorSubtitle(text);
+      },
+      onTranscript: ({ text, isFinal }) => {
+        setUserSubtitle(text);
+      },
+      onTutorReply: async (userQuestion, currentTutor) => {
+        setVoiceStatus("thinking");
+        try {
+          let fullReply = "";
+          const streamContext = {
+            ...context,
+            tutorPromptDirective: currentTutor.promptDirective,
+            language
+          };
+
+          await atlasAITutorService.processMessageStream(
+            userQuestion,
+            streamContext,
+            ({ text }) => {
+              fullReply = text;
+              setTutorSubtitle(text);
+            }
+          );
+
+          if (fullReply) {
+            setVoiceStatus("speaking");
+            await aeternumVitaVoiceService.speak(
+              fullReply,
+              currentTutor,
+              () => setVoiceStatus("speaking"),
+              () => {
+                setVoiceStatus("listening");
+                aeternumVitaVoiceService.startListening(
+                  currentTutor,
+                  (interim) => setUserSubtitle(interim.text || interim),
+                  (finalSpeech) => {
+                    setUserSubtitle(finalSpeech.text || finalSpeech);
+                    // Next turn
+                  }
+                );
+              }
+            );
+          }
+        } catch (err) {
+          console.warn("Voice AI processing error:", err);
+          setVoiceStatus("listening");
+        }
+      },
+      onError: (err) => {
+        console.warn("Voice session error:", err);
+      }
+    });
+
+    return () => {
+      aeternumVitaVoiceService.stopSession();
+    };
+  }, [active, language]);
+
+  // Render Apple Intelligence Diffused Border
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -34,18 +132,18 @@ export default function AeternumSiriScreenOverlay({
     resize();
     window.addEventListener("resize", resize);
 
-    const drawRoundedRect = (context, x, y, width, height, radius) => {
-      context.beginPath();
-      context.moveTo(x + radius, y);
-      context.lineTo(x + width - radius, y);
-      context.quadraticCurveTo(x + width, y, x + width, y + radius);
-      context.lineTo(x + width, y + height - radius);
-      context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-      context.lineTo(x + radius, y + height);
-      context.quadraticCurveTo(x, y + height, x, y + height - radius);
-      context.lineTo(x, y + radius);
-      context.quadraticCurveTo(x, y, x + radius, y);
-      context.closePath();
+    const drawRoundedRect = (context2d, x, y, width, height, radius) => {
+      context2d.beginPath();
+      context2d.moveTo(x + radius, y);
+      context2d.lineTo(x + width - radius, y);
+      context2d.quadraticCurveTo(x + width, y, x + width, y + radius);
+      context2d.lineTo(x + width, y + height - radius);
+      context2d.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      context2d.lineTo(x + radius, y + height);
+      context2d.quadraticCurveTo(x, y + height, x, y + height - radius);
+      context2d.lineTo(x, y + radius);
+      context2d.quadraticCurveTo(x, y, x + radius, y);
+      context2d.closePath();
     };
 
     const render = () => {
@@ -66,13 +164,11 @@ export default function AeternumSiriScreenOverlay({
         ctx.clearRect(0, 0, w, h);
 
         const t = (Date.now() - startTimeRef.current) * 0.001;
-        const phase = t * (state === "thinking" ? 0.95 : state === "speaking" ? 0.75 : 0.55);
+        const phase = t * (voiceStatus === "thinking" ? 1.0 : voiceStatus === "speaking" ? 0.8 : 0.55);
 
-        // Sweeping angle oscillation from AppleIntelligenceForSwiftUI
         const angleDeg = Math.sin(phase * 1.2) * 120 + 180;
         const angleRad = (angleDeg * Math.PI) / 180;
 
-        // Subtle Pastel Apple Intelligence Color Spectrum
         const baseHues = [275, 320, 345, 38, 235, 192, 290];
         const colors = baseHues.map((baseHue, i) => {
           const shift = Math.sin(phase * 0.8 + (i / 7.0) * Math.PI * 2) * 14;
@@ -82,7 +178,6 @@ export default function AeternumSiriScreenOverlay({
           return `hsla(${hue}, ${sat}%, ${light}%, 0.95)`;
         });
 
-        // Create Conic Gradient with dynamic angle
         let gradient;
         if (ctx.createConicGradient) {
           gradient = ctx.createConicGradient(angleRad, cx, cy);
@@ -104,7 +199,7 @@ export default function AeternumSiriScreenOverlay({
 
         ctx.strokeStyle = gradient;
 
-        // Layer 3: Ambient Deep Bloom (Very soft wide diffusion)
+        // Layer 3: Ambient Deep Bloom
         ctx.save();
         ctx.filter = `blur(${38 * dpr}px)`;
         ctx.lineWidth = 50 * dpr;
@@ -122,7 +217,7 @@ export default function AeternumSiriScreenOverlay({
         ctx.stroke();
         ctx.restore();
 
-        // Layer 1: Primary Soft Inner Glow (Gentle feathered border)
+        // Layer 1: Primary Soft Inner Glow
         ctx.save();
         ctx.filter = `blur(${7 * dpr}px)`;
         ctx.lineWidth = 12 * dpr;
@@ -144,16 +239,71 @@ export default function AeternumSiriScreenOverlay({
       window.removeEventListener("resize", resize);
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
-  }, [active, state]);
+  }, [active, voiceStatus]);
 
   if (typeof document === "undefined") return null;
 
   return createPortal(
     <div
       className={`a26-siri-screen-overlay ${active ? "is-active" : ""}`}
-      aria-hidden="true"
+      aria-hidden={!active}
     >
       <canvas ref={canvasRef} className="a26-siri-canvas" />
+
+      {/* Aeternum Vita Multi-Tutor Liquid Glass Voice HUD */}
+      {active && (
+        <div className="a26-voice-hud-container" onClick={(e) => e.stopPropagation()}>
+          <div className="a26-voice-hud-card">
+            <div className="a26-voice-hud-header">
+              <div className="a26-voice-tutor-badge">
+                <span className="a26-voice-tutor-flag">{activeTutor.flag}</span>
+                <div className="a26-voice-tutor-info">
+                  <strong className="a26-voice-tutor-name">{activeTutor.name}</strong>
+                  <small className="a26-voice-tutor-role">{activeTutor.role}</small>
+                </div>
+              </div>
+
+              <div className="a26-voice-status-indicator">
+                <span className={`a26-voice-status-dot ${voiceStatus}`} />
+                <span className="a26-voice-status-label">
+                  {voiceStatus === "listening"
+                    ? "Ouvindo você…"
+                    : voiceStatus === "thinking"
+                    ? "Analisando pergunta…"
+                    : "Falando…"}
+                </span>
+              </div>
+
+              <button
+                type="button"
+                className="a26-voice-hud-close"
+                onClick={onDeactivate}
+                title="Encerrar Modo de Voz (ESC)"
+                aria-label="Encerrar sessão de voz"
+              >
+                <LineIcon name="close" className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Live Subtitle Transcript */}
+            <div className="a26-voice-transcript-area">
+              {userSubtitle ? (
+                <div className="a26-voice-bubble user">
+                  <span className="a26-voice-bubble-label">Você:</span>
+                  <p className="a26-voice-bubble-text">{userSubtitle}</p>
+                </div>
+              ) : null}
+
+              {tutorSubtitle ? (
+                <div className="a26-voice-bubble tutor">
+                  <span className="a26-voice-bubble-label">{activeTutor.name}:</span>
+                  <p className="a26-voice-bubble-text">{tutorSubtitle}</p>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      )}
     </div>,
     document.body
   );

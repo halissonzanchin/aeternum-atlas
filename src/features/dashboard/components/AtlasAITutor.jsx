@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { A26IconButton, A26Surface, AeternumSiriScreenOverlay } from "../../../components/aeternum-26";
 import { useLanguage } from "../../../context/LanguageContext";
 import { useAtlasAITutorSession } from "../../../context/AtlasAITutorSessionContext";
+import { getTutorForLanguage } from "../../../services/voice/aeternumVitaVoiceService";
 import AtlasAIConversation from "../../atlas-viewer/ai/AtlasAIConversation";
 import AtlasAIOrb from "../../atlas-viewer/ai/AtlasAIOrb";
 import NotebookLMToolModal from "../../atlas-viewer/ai/NotebookLMToolModal";
@@ -18,7 +19,8 @@ export default function AtlasAITutor({
   sphereOnly = false,
   draggable = false
 }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const activeTutor = useMemo(() => getTutorForLanguage(language), [language]);
   const [isOpen, setIsOpen] = useState(false);
   const [isSiriActive, setIsSiriActive] = useState(false);
   const [panelMode, setPanelMode] = useState("compact");
@@ -227,6 +229,11 @@ export default function AtlasAITutor({
       <AeternumSiriScreenOverlay
         active={isSiriActive}
         state={orbState}
+        context={{
+          source: "platform",
+          route: path,
+          routeContext: context
+        }}
         onDeactivate={() => setIsSiriActive(false)}
       />
 
@@ -331,8 +338,8 @@ export default function AtlasAITutor({
         </div>
         {!sphereOnly && (
           <span>
-            <strong>Atlas AI</strong>
-            <small>{isSiriActive ? "Ouvindo (Siri Mode)" : isThinking ? t("tutor.stateAnalyzing", { defaultValue: "Analisando" }) : isOpen ? t("tutor.stateListening", { defaultValue: "Ouvindo" }) : t("tutor.stateAnatomicalTutor", { defaultValue: "Tutor anatômico" })}</small>
+            <strong>Atlas AI • {activeTutor.name} {activeTutor.flag}</strong>
+            <small>{isSiriActive ? `${activeTutor.name} (Modo de Voz)` : isThinking ? t("tutor.stateAnalyzing", { defaultValue: "Analisando" }) : isOpen ? t("tutor.stateListening", { defaultValue: "Ouvindo" }) : `${activeTutor.role}`}</small>
           </span>
         )}
       </A26Surface>

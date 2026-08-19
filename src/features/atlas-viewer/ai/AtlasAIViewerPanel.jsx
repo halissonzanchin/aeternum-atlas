@@ -333,6 +333,14 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
       <AeternumSiriScreenOverlay
         active={isSiriActive}
         state={orbState}
+        context={{
+          source: "viewer-3d",
+          model,
+          activeStructure,
+          markers,
+          markerOpen,
+          routeContext
+        }}
         onDeactivate={() => setIsSiriActive(false)}
       />
 
