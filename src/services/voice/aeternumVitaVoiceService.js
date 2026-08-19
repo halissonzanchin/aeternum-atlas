@@ -17,7 +17,6 @@ export const AETERNUM_VITA_TUTORS = {
     country: "Brasil",
     langCode: "pt-BR",
     gender: "masculino",
-    neuralEngine: "pt-br-heitor",
     role: "Mentor de Voz em Português",
     badgeGradient: "linear-gradient(135deg, #009c3b 0%, #ffdf00 50%, #002776 100%)",
     greeting: "Olá! Sou o Heitor, seu mentor de anatomia. Como posso ajudar seus estudos hoje?",
@@ -75,9 +74,21 @@ class AeternumVitaVoiceEngine {
     this.recognition = null;
     this.audioElement = null;
     this.audioCtx = null;
+    this.synthesis = typeof window !== "undefined" ? window.speechSynthesis : null;
     this.silenceTimer = null;
     this.isListening = false;
     this.isSpeaking = false;
+    this.cachedVoices = [];
+
+    if (this.synthesis) {
+      const loadVoices = () => {
+        this.cachedVoices = this.synthesis.getVoices() || [];
+      };
+      loadVoices();
+      if (this.synthesis.onvoiceschanged !== undefined) {
+        this.synthesis.onvoiceschanged = loadVoices;
+      }
+    }
   }
 
   unlockAudio() {
@@ -103,11 +114,7 @@ class AeternumVitaVoiceEngine {
   }
 
   /**
-   * Studio Neural Audio Synthesis
-   * - Heitor (pt-BR): Native Brazilian Portuguese Neural Engine
-   * - Antonia (es-ES): Deepgram Aura-2 Direct
-   * - Ariana (en-US): Deepgram Aura-2 Direct
-   * - Fabian (de-DE): Deepgram Aura-2 Direct
+   * High-Definition Audio Synthesis via Deepgram Aura-2 Direct API & Neural Engines
    */
   async speak(text, tutor, onStart, onEnd) {
     this.stopSpeaking();
@@ -119,7 +126,7 @@ class AeternumVitaVoiceEngine {
       return;
     }
 
-    // 1. Deepgram Aura-2 Direct API (for Antonia, Ariana, Fabian)
+    // 1. Deepgram Aura-2 Direct API (Antonia, Ariana, Fabian)
     if (tutor.deepgramModel && VITA_VOICE_CONFIG.deepgramApiKey) {
       try {
         const response = await fetch(
@@ -136,7 +143,36 @@ class AeternumVitaVoiceEngine {
 
         if (response.ok) {
           const blob = await response.blob();
-          await this.playAudioBlob(blob, onStart, onEnd);
+          const audioUrl = URL.createObjectURL(blob);
+          const audio = new Audio(audioUrl);
+          this.audioElement = audio;
+
+          audio.onplay = () => {
+            this.isSpeaking = true;
+            onStart?.();
+          };
+
+          audio.onended = () => {
+            this.isSpeaking = false;
+            this.audioElement = null;
+            URL.revokeObjectURL(audioUrl);
+            onEnd?.();
+          };
+
+          audio.onerror = () => {
+            this.isSpeaking = false;
+            this.audioElement = null;
+            URL.revokeObjectURL(audioUrl);
+            this.speakFallback(cleanText, tutor, onStart, onEnd);
+          };
+
+          const playPromise = audio.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((playErr) => {
+              console.warn("Audio autoplay notice:", playErr);
+              this.speakFallback(cleanText, tutor, onStart, onEnd);
+            });
+          }
           return;
         }
       } catch (err) {
@@ -144,53 +180,73 @@ class AeternumVitaVoiceEngine {
       }
     }
 
-    // 2. Dedicated Brazilian Portuguese Neural Engine (Heitor pt-BR)
-    try {
-      const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(cleanText)}&tl=pt-BR&total=1&idx=0&textlen=${cleanText.length}&client=tw-ob`;
-      const response = await fetch(url);
-      if (response.ok) {
-        const blob = await response.blob();
-        await this.playAudioBlob(blob, onStart, onEnd);
-        return;
-      }
-    } catch (e) {
-      console.warn("Heitor pt-BR neural audio notice:", e);
-    }
-
-    // 3. Fallback
-    onEnd?.();
+    // 2. Direct Brazilian Portuguese Audio & Fallback (Heitor pt-BR)
+    this.speakFallback(cleanText, tutor, onStart, onEnd);
   }
 
-  async playAudioBlob(blob, onStart, onEnd) {
-    const audioUrl = URL.createObjectURL(blob);
-    const audio = new Audio(audioUrl);
-    this.audioElement = audio;
-
-    audio.onplay = () => {
-      this.isSpeaking = true;
-      onStart?.();
-    };
-
-    audio.onended = () => {
-      this.isSpeaking = false;
-      this.audioElement = null;
-      URL.revokeObjectURL(audioUrl);
+  speakFallback(cleanText, tutor, onStart, onEnd) {
+    if (!this.synthesis) {
       onEnd?.();
-    };
+      return;
+    }
 
-    audio.onerror = () => {
-      this.isSpeaking = false;
-      this.audioElement = null;
-      URL.revokeObjectURL(audioUrl);
-      onEnd?.();
-    };
+    try {
+      this.synthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.lang = tutor.langCode; // pt-BR, es-ES, en-US, de-DE
 
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise.catch((playErr) => {
-        console.warn("Audio autoplay notice:", playErr);
+      // Heitor pt-BR: Warm, resonant, clear Brazilian male voice
+      if (tutor.id === "eduardo" || tutor.name === "Heitor") {
+        utterance.rate = 1.0;
+        utterance.pitch = 0.94;
+      } else if (tutor.gender === "masculino" || tutor.gender === "männlich") {
+        utterance.rate = 1.0;
+        utterance.pitch = 0.95;
+      } else {
+        utterance.rate = 1.02;
+        utterance.pitch = 1.04;
+      }
+
+      if (!this.cachedVoices.length) {
+        this.cachedVoices = this.synthesis.getVoices() || [];
+      }
+
+      const langPrefix = tutor.langCode.slice(0, 2).toLowerCase();
+      const isMale = tutor.gender === "masculino" || tutor.gender === "männlich";
+
+      // Filter exclusively voices matching the tutor's exact language
+      const matched = this.cachedVoices.filter((v) =>
+        v.lang.toLowerCase().replace("_", "-").startsWith(langPrefix)
+      );
+
+      if (matched.length > 0) {
+        const heitorMatch = matched.find((v) =>
+          /heitor|daniel|fábio|fabio|antonio|antônio|felipe|ricardo|lucas|jorge|male|homem/i.test(v.name)
+        );
+        const premium = matched.find((v) => /natural|neural|google|microsoft/i.test(v.name));
+        utterance.voice = (isMale ? heitorMatch : null) || premium || matched[0];
+      }
+
+      utterance.onstart = () => {
+        this.isSpeaking = true;
+        onStart?.();
+      };
+
+      utterance.onended = () => {
+        this.isSpeaking = false;
         onEnd?.();
-      });
+      };
+
+      utterance.onerror = () => {
+        this.isSpeaking = false;
+        onEnd?.();
+      };
+
+      this.synthesis.speak(utterance);
+    } catch (e) {
+      console.warn("SpeechSynthesis notice:", e);
+      this.isSpeaking = false;
+      onEnd?.();
     }
   }
 
@@ -201,6 +257,11 @@ class AeternumVitaVoiceEngine {
         this.audioElement.currentTime = 0;
       } catch {}
       this.audioElement = null;
+    }
+    if (this.synthesis) {
+      try {
+        this.synthesis.cancel();
+      } catch {}
     }
     this.isSpeaking = false;
   }
