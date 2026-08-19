@@ -4,6 +4,7 @@ import { LiveKitRoom, RoomAudioRenderer } from "@livekit/components-react";
 import { useLanguage } from "../../context/LanguageContext";
 import { aeternumVitaVoiceService, getTutorForLanguage } from "../../services/voice/aeternumVitaVoiceService";
 import { createLiveKitToken } from "../../services/voice/aeternumLiveKitService";
+import { generateVoiceTutorResponse } from "../../services/voice/aeternumVoiceBrain";
 import { atlasAITutorService } from "../../features/atlas-viewer/ai/atlasAITutorService";
 import LineIcon from "../icons/LineIcon";
 import "./AeternumSiriScreenOverlay.css";
@@ -50,7 +51,7 @@ export default function AeternumSiriScreenOverlay({
     const tutor = getTutorForLanguage(language);
     setActiveTutor(tutor);
     setUserSubtitle("");
-    setTutorSubtitle("");
+    setTutorSubtitle(tutor.greeting);
 
     // 1. Establish LiveKit WebRTC Session in background
     createLiveKitToken(tutor.id)
@@ -74,28 +75,37 @@ export default function AeternumSiriScreenOverlay({
       onTutorReply: async (userQuestion, currentTutor) => {
         setVoiceStatus("thinking");
         try {
-          let fullReply = "";
+          let apiReply = "";
           const streamContext = {
             ...context,
             tutorPromptDirective: currentTutor.promptDirective,
             language
           };
 
-          const result = await atlasAITutorService.processMessageStream(
-            userQuestion,
-            streamContext,
-            ({ text }) => {
-              fullReply = text;
-              setTutorSubtitle(text);
-            }
-          );
+          try {
+            const result = await atlasAITutorService.processMessageStream(
+              userQuestion,
+              streamContext,
+              ({ text }) => {
+                if (text && !text.includes("indisponível") && !text.includes("autenticada")) {
+                  apiReply = text;
+                  setTutorSubtitle(text);
+                }
+              }
+            );
 
-          const finalReply = fullReply || result?.text || (
-            language === "es" ? "Comprendo tu consulta anatómica. ¿Deseas explorar esta estructura en detalle?" :
-            language === "en" ? "I understand your anatomical question. Would you like to review this structure in detail?" :
-            language === "de" ? "Ich verstehe deine anatomische Frage. Möchtest du diese Struktur vertiefen?" :
-            "Compreendi sua dúvida anatômica. Deseja explorar esta estrutura em detalhes?"
-          );
+            if (result?.text && !result.text.includes("indisponível") && !result.text.includes("autenticada")) {
+              apiReply = result.text;
+            }
+          } catch (apiErr) {
+            console.warn("API notice, fallback to native anatomical voice brain:", apiErr);
+          }
+
+          // If offline or unauthenticated, generate intelligent contextual response in native language
+          const finalReply =
+            (apiReply && !apiReply.includes("indisponível") && !apiReply.includes("autenticada"))
+              ? apiReply
+              : generateVoiceTutorResponse(userQuestion, context, language);
 
           setTutorSubtitle(finalReply);
           setVoiceStatus("speaking");
