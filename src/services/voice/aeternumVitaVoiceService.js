@@ -1,10 +1,10 @@
 /**
  * Aeternum Vita Voice AI — Multi-Tutor Voice Engine
- * Studio Neural Audio Pipeline for All Tutors:
- * - Heitor 🇧🇷 (Português do Brasil - Voz Masculina Natural)
- * - Antonia 🇪🇸 (Español Nativo - Deepgram Aura-2 Direct)
- * - Ariana 🇺🇸 (English US - Deepgram Aura-2 Direct)
- * - Fabian 🇩🇪 (Deutsch - Deepgram Aura-2 Direct)
+ * Humanized Persona Architecture (Specification 26.1):
+ * - Eduardo 🇧🇷 (Mentor Sênior, Sábio & Acolhedor - Barítono Encorpado)
+ * - Antonia 🇪🇸 (Mentora Empática & Expressiva - Deepgram Aura-2 Direct)
+ * - Ariana 🇺🇸 (Mentora Dinâmica & Inspiradora - Deepgram Aura-2 Direct)
+ * - Fabian 🇩🇪 (Mentor Acadêmico & Preciso - Deepgram Aura-2 Direct)
  */
 
 import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig";
@@ -12,15 +12,15 @@ import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig";
 export const AETERNUM_VITA_TUTORS = {
   pt: {
     id: "eduardo",
-    name: "Heitor",
+    name: "Eduardo",
     countryCode: "BR",
     country: "Brasil",
     langCode: "pt-BR",
     gender: "masculino",
-    role: "Mentor de Voz em Português",
+    role: "Mentor Sênior em Português",
     badgeGradient: "linear-gradient(135deg, #009c3b 0%, #ffdf00 50%, #002776 100%)",
-    greeting: "Olá! Sou o Heitor, seu mentor de anatomia. Como posso ajudar seus estudos hoje?",
-    promptDirective: "Você é o Heitor, mentor oficial de anatomia do Aeternum Atlas. Responda em Português do Brasil de forma clara, acolhedora, com dicção nativa e natural, em exatamente UMA ou DUAS frases faladas concisas e diretas sem Markdown ou listas."
+    greeting: "Olá! Seja muito bem-vindo ao Aeternum Atlas. Eu sou o Eduardo, seu mentor de anatomia. Como posso guiar seus estudos hoje?",
+    promptDirective: "Você é o Eduardo, mentor sênior e acolhedor de anatomia do Aeternum Atlas. Responda em Português do Brasil com postura de sábio conselheiro, paciência inabalável e calor humano. Use exatamente UMA ou DUAS frases faladas concisas (máximo 140 caracteres), insira vírgulas estratégicas para pausas respiratórias, escreva números por extenso e termine SEMPRE com apenas UMA pergunta aberta e curta. NUNCA use Markdown ou emojis."
   },
   es: {
     id: "antonia",
@@ -30,10 +30,10 @@ export const AETERNUM_VITA_TUTORS = {
     langCode: "es-ES",
     gender: "femenino",
     deepgramModel: "aura-2-antonia-es",
-    role: "Mentora de Voz en Español",
+    role: "Mentora Empática en Español",
     badgeGradient: "linear-gradient(135deg, #aa151b 0%, #f1bf00 50%, #aa151b 100%)",
-    greeting: "¡Hola! Soy Antonia, tu mentora de anatomía. ¿Qué estructura deseas explorar hoy?",
-    promptDirective: "Eres Antonia, mentora oficial de anatomía de Aeternum Atlas. Responde en español nativo con voz clara y empática, en exactamente UNA o DOS frases habladas concisas sin Markdown ni listas."
+    greeting: "¡Hola! Te doy una cálida bienvenida a Aeternum Atlas. Soy Antonia, tu mentora en español. ¿Qué estructura anatómica deseas explorar hoy?",
+    promptDirective: "Eres Antonia, mentora empática, dinámica y cálida de Aeternum Atlas. Responde en español nativo con entusiasmo genuino y proximidad. Usa exactamente UNA o DOS frases habladas concisas (máximo 140 caracteres), pausas respiratorias con comas, números por extenso y concluye SIEMPRE con UNA sola pregunta abierta y corta. NUNCA uses Markdown ni emojis."
   },
   en: {
     id: "ariana",
@@ -43,10 +43,10 @@ export const AETERNUM_VITA_TUTORS = {
     langCode: "en-US",
     gender: "female",
     deepgramModel: "aura-2-thalia-en",
-    role: "English Voice Mentor",
+    role: "Dynamic English Mentor",
     badgeGradient: "linear-gradient(135deg, #0a3161 0%, #ffffff 50%, #b31942 100%)",
-    greeting: "Hello! I am Ariana, your anatomy mentor. How can I guide your studies today?",
-    promptDirective: "You are Ariana, official anatomy mentor of Aeternum Atlas. Respond in natural native American English in exactly ONE or TWO concise spoken sentences without Markdown or bullet points."
+    greeting: "Hello and welcome to Aeternum Atlas! I am Ariana, your anatomy mentor. How can I guide your journey today?",
+    promptDirective: "You are Ariana, dynamic and inspiring anatomy mentor of Aeternum Atlas. Respond in natural native American English with growth mindset energy and clear articulation. Use exactly ONE or TWO concise spoken sentences (max 140 chars), commas for micro-breathing, write numbers in full words, and ALWAYS close with exactly ONE short open question. NEVER use Markdown or emojis."
   },
   de: {
     id: "fabian",
@@ -56,10 +56,10 @@ export const AETERNUM_VITA_TUTORS = {
     langCode: "de-DE",
     gender: "männlich",
     deepgramModel: "aura-2-fabian-de",
-    role: "Deutscher Sprach-Mentor",
+    role: "Strukturierter Deutscher Mentor",
     badgeGradient: "linear-gradient(135deg, #000000 0%, #dd0000 50%, #ffce00 100%)",
-    greeting: "Hallo! Ich bin Fabian, dein Anatomie-Mentor. Wie kann ich dir heute helfen?",
-    promptDirective: "Du bist Fabian, offizieller Anatomie-Mentor von Aeternum Atlas. Antworte auf natürlichem Hochdeutsch in genau EINEM oder ZWEI prägnanten gesprochenen Sätzen ohne Markdown oder Listen."
+    greeting: "Hallo und herzlich willkommen bei Aeternum Atlas! Ich bin Fabian, dein Anatomie-Mentor. Wie kann ich dir heute helfen?",
+    promptDirective: "Du bist Fabian, akademischer und strukturierter Anatomie-Mentor von Aeternum Atlas. Antworte auf natürlichem Hochdeutsch mit logischer Klarheit, Ruhe und Respekt. Verwende genau EINEN oder ZWEI prägnante gesprochene Sätze (max. 140 Zeichen), Kommas für Atempausen, Zahlen ausgeschrieben und schließe IMMER mit genau EINER kurzen offenen Frage ab. NIEMALS Markdown oder Emojis."
   }
 };
 
@@ -180,7 +180,7 @@ class AeternumVitaVoiceEngine {
       }
     }
 
-    // 2. Direct Brazilian Portuguese Audio & Fallback (Heitor pt-BR)
+    // 2. Direct Brazilian Portuguese Audio & Fallback (Eduardo pt-BR)
     this.speakFallback(cleanText, tutor, onStart, onEnd);
   }
 
@@ -195,10 +195,10 @@ class AeternumVitaVoiceEngine {
       const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = tutor.langCode; // pt-BR, es-ES, en-US, de-DE
 
-      // Heitor pt-BR: Warm, resonant, clear Brazilian male voice
-      if (tutor.id === "eduardo" || tutor.name === "Heitor") {
-        utterance.rate = 1.0;
-        utterance.pitch = 0.94;
+      // Eduardo pt-BR: Warm, resonant, deep Brazilian baritone
+      if (tutor.id === "eduardo") {
+        utterance.rate = 0.98;
+        utterance.pitch = 0.92;
       } else if (tutor.gender === "masculino" || tutor.gender === "männlich") {
         utterance.rate = 1.0;
         utterance.pitch = 0.95;
@@ -220,11 +220,11 @@ class AeternumVitaVoiceEngine {
       );
 
       if (matched.length > 0) {
-        const heitorMatch = matched.find((v) =>
-          /heitor|daniel|fábio|fabio|antonio|antônio|felipe|ricardo|lucas|jorge|male|homem/i.test(v.name)
+        const eduardoMatch = matched.find((v) =>
+          /eduardo|daniel|fábio|fabio|antonio|antônio|felipe|ricardo|lucas|jorge|male|homem/i.test(v.name)
         );
         const premium = matched.find((v) => /natural|neural|google|microsoft/i.test(v.name));
-        utterance.voice = (isMale ? heitorMatch : null) || premium || matched[0];
+        utterance.voice = (isMale ? eduardoMatch : null) || premium || matched[0];
       }
 
       utterance.onstart = () => {
