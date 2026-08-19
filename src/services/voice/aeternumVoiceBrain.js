@@ -1,69 +1,130 @@
 /**
  * Aeternum Voice AI Brain
  * Multilingual Anatomical Conversational Intelligence for Voice Mentors:
- * Eduardo (pt-BR), Antonia (es), Ariana (en), Fabian (de)
+ * Eduardo / Heitor (pt-BR), Antonia (es), Ariana (en), Fabian (de)
  */
 
 export function generateVoiceTutorResponse(question, context = {}, language = "pt") {
-  const q = String(question || "").toLowerCase();
+  const q = String(question || "").toLowerCase().trim();
   const lang = String(language || "pt").slice(0, 2).toLowerCase();
   const structure = context.structure || context.modelTitle || context.model?.title || "";
 
+  // Helper matching without greedy collisions
+  const hasWord = (...words) => words.some((w) => q.includes(w));
+
+  // ==========================================
   // 1. ESPAÑOL (Antonia 🇪🇸)
+  // ==========================================
   if (lang === "es") {
-    if (q.includes("ayuda") || q.includes("ayudar") || q.includes("hacer") || q.includes("hola") || q.includes("como podes") || q.includes("cómo podés")) {
-      return "¡Hola! Puedo guiarte paso a paso en el análisis de cualquier estructura anatómica, explicarte su fisiología y evaluar tus conocimientos. ¿Qué parte deseas examinar hoy?";
+    // Clavícula / Huesos / Esqueleto
+    if (hasWord("clavicula", "clavícula", "hombro", "escapula", "escápula")) {
+      return "La clavícula actúa como un puntal mecánico que conecta el esternón con el acromion de la escápula, transmitiendo fuerzas del miembro superior hacia el esqueleto axial. ¿Quieres repasar sus caras o ligamentos articulares?";
     }
-    if (q.includes("corazon") || q.includes("corazón") || q.includes("cardiac") || q.includes("cardíac") || structure.toLowerCase().includes("coraç") || structure.toLowerCase().includes("heart")) {
-      return "El corazón humano funciona como una bomba muscular de cuatro cavidades: dos aurículas receptoras y dos ventrículos eyectores, irrigados por las arterias coronarias. ¿Deseas repasar el ciclo cardíaco o su vascularización?";
+    if (hasWord("femur", "fémur", "tibia", "pelvis", "cadera", "hueso", "esqueleto")) {
+      return "El fémur es el hueso más largo y resistente del cuerpo humano, articulando proximalmente en el acetábulo y distalmente en la meseta tibial. ¿Deseas analizar la articulación coxofemoral o la rodilla?";
     }
-    if (q.includes("cerebro") || q.includes("encefalo") || q.includes("encéfalo") || q.includes("cranial")) {
-      return "El encéfalo coordina las funciones superiores y se divide en cerebro, cerebelo y tronco encefálico, con irrigación principal por el polígono de Willis. ¿Quieres profundizar en algún lóbulo en específico?";
+    // Corazón / Vascular
+    if (hasWord("corazon", "corazón", "cardiac", "cardíac", "ventriculo", "ventrículo", "auricula", "aurícula", "valvula", "válvula")) {
+      return "El corazón funciona como una bomba tetracameral que impulsa la sangre sistémica a través del ventrículo izquierdo y la pulmonar mediante el ventrículo derecho. ¿Quieres revisar las valvas cardíacas o las arterias coronarias?";
     }
-    if (q.includes("arteria") || q.includes("arterias") || q.includes("vaso") || q.includes("sangre")) {
-      return "Las arterias transportan sangre oxigenada bajo alta presión desde el corazón hacia los tejidos periféricos mediante una túnica media elástica y muscular. ¿Quieres ver una rama arterial específica?";
+    if (hasWord("arteria", "arterias", "aorta", "vena", "vaso", "sangre", "flujo")) {
+      return "Las arterias transportan sangre bajo alta presión asistidas por túnicas elásticas y musculares, mientras las venas utilizan válvulas antirretorno. ¿Deseas examinar una rama vascular específica?";
     }
-    return `Entiendo tu consulta sobre ${structure ? structure : "anatomía"}. Es fundamental comprender sus relaciones anatómicas y su función clínica principal. ¿Deseas que profundicemos en este punto?`;
+    // Encéfalo / Sistema Nervioso
+    if (hasWord("cerebro", "encefalo", "encéfalo", "cranial", "craneo", "cráneo", "neurona", "nervio")) {
+      return "El encéfalo centraliza las funciones motoras, sensitivas y superiores, organizado en hemisferios cerebrales, cerebelo y tronco encefálico, nutrido por el polígono de Willis. ¿Quieres explorar algún par craneal o lóbulo?";
+    }
+    // Pulmón / Respiratorio
+    if (hasWord("pulmon", "pulmón", "respirat", "alveolo", "alvéolo", "traquea", "tráquea", "bronquio")) {
+      return "Los pulmones realizan la hematosis mediante el intercambio gaseoso alvéolo-capilar, con tres lóbulos en el derecho y dos en el izquierdo. ¿Deseas detallar la mecánica ventilatoria o el árbol bronquial?";
+    }
+    // Saludos / Ayuda general
+    if (hasWord("hola", "buen dia", "buenas", "que tal", "qué tal", "como estas", "cómo estás") && q.length < 35) {
+      return "¡Hola! Soy Antonia, tu mentora de anatomía. Puedo explicarte cualquier órgano, músculo, vaso sanguíneo o vía fisiológica. ¿Qué estructura anatómica deseas explorar ahora?";
+    }
+    if (hasWord("ayuda", "ayudar", "que podes", "qué podés", "como funciona", "cómo funciona") && q.length < 40) {
+      return "Puedo guiarte paso a paso en el análisis de cualquier estructura anatómica 3D, explicarte su fisiología y evaluar tus conocimientos. ¿Por dónde empezamos?";
+    }
+
+    return `Entendido. En la estructura anatómica ${structure ? `de ${structure}` : "en estudio"}, es fundamental observar sus relaciones de contigüidad, su inervación y su vascularización. ¿Deseas que entremos en detalles morfológicos?`;
   }
 
+  // ==========================================
   // 2. ENGLISH (Ariana 🇺🇸)
+  // ==========================================
   if (lang === "en") {
-    if (q.includes("help") || q.includes("hello") || q.includes("hi") || q.includes("what can you do") || q.includes("how can you")) {
-      return "Hello! I can guide your exploration of 3D anatomical structures, explain clinical physiology, and test your knowledge. What structure would you like to inspect today?";
+    if (hasWord("clavicle", "collarbone", "shoulder", "scapula")) {
+      return "The clavicle serves as a rigid mechanical strut connecting the sternum to the acromion of the scapula, transmitting upper limb forces to the axial skeleton. Would you like to review its articular facets or ligaments?";
     }
-    if (q.includes("heart") || q.includes("cardiac") || q.includes("coronary")) {
-      return "The human heart operates as a four-chambered muscular pump with high-pressure systemic output and low-pressure pulmonary transit. Would you like to review the cardiac cycle or coronary anatomy?";
+    if (hasWord("femur", "bone", "skeleton", "hip", "knee", "pelvis")) {
+      return "The femur is the longest and strongest human bone, articulating proximally at the acetabulum and distally with the tibial plateau. Would you like to analyze its blood supply or biomechanics?";
     }
-    if (q.includes("brain") || q.includes("head") || q.includes("cranial") || q.includes("neuron")) {
-      return "The human brain integrates neural circuits across the cerebral cortex, cerebellum, and brainstem, primarily supplied by the Circle of Willis. Which region would you like to review?";
+    if (hasWord("heart", "cardiac", "ventricle", "atrium", "valve", "coronary")) {
+      return "The human heart operates as a synchronized four-chambered pump, routing systemic output via the left ventricle and pulmonary flow through the right ventricle. Would you like to explore the cardiac cycle or coronary branches?";
     }
-    return `I received your question regarding ${structure || "human anatomy"}. Understanding the structural hierarchy and functional relevance is key. Would you like to dive deeper?`;
+    if (hasWord("brain", "head", "cranial", "neuron", "nerve", "cortex")) {
+      return "The brain coordinates sensorimotor and cognitive functions across the cerebral cortex, cerebellum, and brainstem, supplied by the Circle of Willis. Which lobe or cranial nerve would you like to review?";
+    }
+    if (hasWord("lung", "respiratory", "alveoli", "trachea", "bronchial")) {
+      return "The lungs facilitate gas exchange across the alveolar-capillary membrane, organized into three lobes on the right and two on the left. Shall we review ventilation mechanics or pulmonary vasculature?";
+    }
+    if (hasWord("hello", "hi", "hey", "how are you") && q.length < 30) {
+      return "Hello! I am Ariana, your anatomy mentor. I can explain any organ, vessel, nerve, or physiological pathway. What would you like to explore today?";
+    }
+    if (hasWord("help", "what can you do", "how can you help") && q.length < 40) {
+      return "I can guide your 3D anatomical exploration, clarify clinical physiology, and test your knowledge with high-yield concepts. Where shall we begin?";
+    }
+
+    return `I understand your question regarding ${structure || "this anatomical structure"}. Spatial orientation, vascular supply, and clinical correlations are paramount here. Would you like to explore this in detail?`;
   }
 
+  // ==========================================
   // 3. DEUTSCH (Fabian 🇩🇪)
+  // ==========================================
   if (lang === "de") {
-    if (q.includes("hilfe") || q.includes("helfen") || q.includes("hallo") || q.includes("was kannst")) {
-      return "Hallo! Ich kann dich durch anatomische 3D-Strukturen führen, physiologische Zusammenhänge erklären und dein Wissen vertiefen. Welches Organ möchtest du heute analysieren?";
+    if (hasWord("clavicula", "schlüsselbein", "schulter", "skapula")) {
+      return "Die Clavicula fungiert als mechanische Knochenstütze zwischen dem Sternum und dem Acromion der Scapula und leitet Kräfte der oberen Extremität auf das Rumpfskelett ab. Möchtest du die Gelenke oder Bandstrukturen vertiefen?";
     }
-    if (q.includes("herz") || q.includes("kardio") || q.includes("ventrikel")) {
-      return "Das menschliche Herz arbeitet als muskuläre Vier-Kammer-Pumpe, bestehend aus zwei Vorhöfen und zwei Ventrikeln. Möchtest du die Koronargefäße oder den Erregungsablauf wiederholen?";
+    if (hasWord("herz", "kardio", "ventrikel", "vorhof", "klappe", "koronar")) {
+      return "Das Herz arbeitet als viergliedrige Muskelpumpe mit dem linken Ventrikel für den Körperkreislauf und dem rechten Ventrikel für den Lungenkreislauf. Möchtest du die Erregungsleitung oder die Koronargefäße wiederholen?";
     }
-    return `Ich verstehe deine Frage zur ${structure || "Anatomie"}. Die räumliche Orientierung und die Gefäßversorgung sind hierbei zentral. Möchtest du diesen Bereich genauer betrachten?`;
+    if (hasWord("gehirn", "hirn", "kranial", "nerv", "enzephalon")) {
+      return "Das Gehirn gliedert sich in Großhirn, Kleinhirn und Hirnstamm und wird arteriell über den Circulus arteriosus cerebri versorgt. Welchen Bereich möchtest du genauer analysieren?";
+    }
+    if (hasWord("hallo", "guten tag", "hi", "wie geht") && q.length < 30) {
+      return "Hallo! Ich bin Fabian, dein Anatomie-Mentor. Ich kann dich durch 3D-Strukturen führen und physiologische Abläufe erklären. Womit möchtest du heute beginnen?";
+    }
+
+    return `Ich verstehe deine Frage zur ${structure || "Anatomie"}. Die räumliche Lage und die Gefäßversorgung sind hierbei zentral. Möchtest du diesen Bereich vertiefen?`;
   }
 
-  // 4. PORTUGUÊS (Eduardo 🇧🇷)
-  if (q.includes("ajuda") || q.includes("ajudar") || q.includes("olá") || q.includes("ola") || q.includes("como você pode") || q.includes("como pode")) {
-    return "Olá! Posso guiá-lo detalhadamente no estudo de qualquer estrutura anatômica em 3D, esclarecer a fisiologia e testar seus conhecimentos. O que você gostaria de explorar hoje?";
+  // ==========================================
+  // 4. PORTUGUÊS (Eduardo / Heitor 🇧🇷)
+  // ==========================================
+  if (hasWord("clavicula", "clavícula", "ombro", "escápula", "escapula")) {
+    return "A clavícula atua como uma haste óssea mecânica entre o manúbrio do esterno e o acrômio da escápula, transmitindo forças do membro superior para o esqueleto axial. Gostaria de rever as inserções musculares ou os ligamentos articulares?";
   }
-  if (q.includes("coração") || q.includes("coracao") || q.includes("cardíac") || q.includes("cardiac") || q.includes("valva") || q.includes("ventrículo")) {
-    return "O coração humano é uma bomba muscular oca com quatro cavidades: átrios direito e esquerdo, e ventrículos direito e esquerdo, nutrido pelas artérias coronárias. Gostaria de rever a circulação ou o sistema de condução?";
+  if (hasWord("fêmur", "femur", "tíbia", "tibia", "osso", "esqueleto", "quadril", "joelho")) {
+    return "O fêmur é o osso mais longo e resistente do esqueleto humano, articulando-se proximalmente no acetábulo e distalmente no platô tibial. Quer aprofundar na vascularização da cabeça femoral ou na biomecânica?";
   }
-  if (q.includes("cérebro") || q.includes("cerebro") || q.includes("encéfalo") || q.includes("encefalo") || q.includes("cranial")) {
-    return "O encéfalo é o centro de controle do sistema nervoso, composto por telencéfalo, cerebelo e tronco encefálico, vascularizado pelo polígono de Willis. Quer aprofundar em algum hemisfério ou lobo?";
+  if (hasWord("coração", "coracao", "cardíac", "cardiac", "ventrículo", "ventriculo", "átrio", "atrio", "valva", "válvula", "coronária", "coronaria")) {
+    return "O coração funciona como uma bomba oca de quatro cavidades que ejeta sangue oxigenado para a circulação sistêmica pelo ventrículo esquerdo e sangue venoso pelo ventrículo direito. Deseja rever o ciclo cardíaco ou a irrigação coronariana?";
   }
-  if (q.includes("artéria") || q.includes("arteria") || q.includes("veia") || q.includes("vaso")) {
-    return "Os vasos arteriais conduzem o fluxo sob alta pressão com espessamento elástico e muscular, enquanto as veias utilizam valvas para o retorno venoso. Deseja visualizar uma ramificação específica no modelo?";
+  if (hasWord("artéria", "arteria", "aorta", "veia", "vaso", "sangue", "circulação", "circulacao")) {
+    return "As artérias conduzem o sangue sob alta pressão com espessas camadas elásticas e musculares, enquanto as veias utilizam valvas para o retorno venoso. Deseja analisar uma ramificação vascular específica?";
+  }
+  if (hasWord("cérebro", "cerebro", "encéfalo", "encefalo", "cranial", "crânio", "cranio", "nervo", "neurônio", "neuronio")) {
+    return "O encéfalo coordena todas as funções superiores e motoras, dividido em telencéfalo, diencéfalo, cerebelo e tronco encefálico, nutrido pelo polígono de Willis. Gostaria de explorar um lobo específico ou os pares cranianos?";
+  }
+  if (hasWord("pulmão", "pulmao", "respirat", "alvéolo", "alveolo", "traqueia", "traquéia", "brônquio", "bronquio")) {
+    return "Os pulmões realizam a hematose nas membranas alvéolo-capilares, divididos em três lobos no pulmão direito e dois no pulmão esquerdo. Gostaria de rever a árvore brônquica ou a mecânica respiratória?";
+  }
+  if (hasWord("olá", "ola", "oi", "bom dia", "boa tarde", "tudo bem") && q.length < 30) {
+    return "Olá! Sou o Eduardo, seu mentor de anatomia. Posso guiá-lo no estudo de qualquer órgão, músculo, vaso ou via clínica. O que você gostaria de explorar hoje?";
+  }
+  if (hasWord("ajuda", "ajudar", "como você pode", "como pode", "o que você faz", "o que faz") && q.length < 40) {
+    return "Posso guiá-lo passo a passo no estudo de qualquer estrutura anatômica em 3D, explicar a fisiologia e testar seus conhecimentos. Por onde você deseja começar?";
   }
 
-  return `Compreendi sua dúvida sobre ${structure || "esta estrutura anatômica"}. É essencial correlacionar sua localização anatômica com as implicações funcionais na prática médica. Deseja aprofundar este ponto agora?`;
+  return `Compreendi sua pergunta sobre ${structure ? `o estudo de ${structure}` : "esta estrutura anatômica"}. É essencial correlacionar a topografia anatômica com suas aplicações clínicas e funcionais. Deseja detalhar este ponto agora?`;
 }

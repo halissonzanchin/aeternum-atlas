@@ -1,7 +1,7 @@
 /**
  * Aeternum Vita Voice AI — Multi-Tutor Voice Engine
  * High-Fidelity Deepgram Aura-2 & Neural Audio Pipeline
- * Native Multi-Tutor Architecture: Eduardo 🇧🇷, Antonia 🇪🇸, Ariana 🇺🇸, Fabian 🇩🇪
+ * Native Multi-Tutor Architecture: Heitor 🇧🇷, Antonia 🇪🇸, Ariana 🇺🇸, Fabian 🇩🇪
  */
 
 import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig";
@@ -9,16 +9,16 @@ import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig";
 export const AETERNUM_VITA_TUTORS = {
   pt: {
     id: "eduardo",
-    name: "Eduardo",
+    name: "Heitor",
     countryCode: "BR",
     country: "Brasil",
     langCode: "pt-BR",
     gender: "masculino",
-    deepgramModel: null, // Uses dedicated pt-BR Brazilian Baritone Neural Audio Engine
+    deepgramModel: null, // Uses dedicated pt-BR Heitor / Brazilian Baritone Neural Engine
     role: "Mentor de Voz em Português",
     badgeGradient: "linear-gradient(135deg, #009c3b 0%, #ffdf00 50%, #002776 100%)",
-    greeting: "Olá! Sou o Eduardo, seu mentor de anatomia. Como posso ajudar seus estudos hoje?",
-    promptDirective: "Você é o Eduardo, mentor oficial de anatomia do Aeternum Atlas. Responda em Português do Brasil de forma clara, acolhedora, com dicção nativa e natural, em exatamente UMA ou DUAS frases faladas concisas e diretas sem Markdown ou listas."
+    greeting: "Olá! Sou o Heitor, seu mentor de anatomia. Como posso ajudar seus estudos hoje?",
+    promptDirective: "Você é o Heitor, mentor oficial de anatomia do Aeternum Atlas. Responda em Português do Brasil de forma clara, acolhedora, com dicção nativa e natural, em exatamente UMA ou DUAS frases faladas concisas e diretas sem Markdown ou listas."
   },
   es: {
     id: "antonia",
@@ -124,7 +124,7 @@ class AeternumVitaVoiceEngine {
       return;
     }
 
-    // 1. Deepgram Aura-2 Direct API (for Antonia, Ariana, Fabian)
+    // 1. Deepgram Aura-2 Direct API (Antonia, Ariana, Fabian)
     if (tutor.deepgramModel && VITA_VOICE_CONFIG.deepgramApiKey) {
       try {
         const response = await fetch(
@@ -167,7 +167,7 @@ class AeternumVitaVoiceEngine {
           const playPromise = audio.play();
           if (playPromise !== undefined) {
             playPromise.catch((playErr) => {
-              console.warn("Audio autoplay policy notice:", playErr);
+              console.warn("Audio autoplay notice:", playErr);
               this.speakFallback(cleanText, tutor, onStart, onEnd);
             });
           }
@@ -178,7 +178,7 @@ class AeternumVitaVoiceEngine {
       }
     }
 
-    // 2. Dedicated Brazilian Baritone Engine (for Eduardo) & Fallback
+    // 2. Dedicated Brazilian Baritone Engine (Heitor pt-BR)
     this.speakFallback(cleanText, tutor, onStart, onEnd);
   }
 
@@ -193,13 +193,13 @@ class AeternumVitaVoiceEngine {
       const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = tutor.langCode; // pt-BR, es-ES, en-US, de-DE
 
-      // Eduardo pt-BR: Deep, rich baritone timbre with calm cadence
+      // Heitor pt-BR: Warm, resonant, clear Brazilian male voice
       if (tutor.id === "eduardo") {
-        utterance.rate = 0.98;
-        utterance.pitch = 0.88;
+        utterance.rate = 1.0;
+        utterance.pitch = 0.92;
       } else if (tutor.gender === "masculino" || tutor.gender === "männlich") {
         utterance.rate = 1.0;
-        utterance.pitch = 0.94;
+        utterance.pitch = 0.95;
       } else {
         utterance.rate = 1.02;
         utterance.pitch = 1.04;
@@ -212,21 +212,17 @@ class AeternumVitaVoiceEngine {
       const langPrefix = tutor.langCode.slice(0, 2).toLowerCase();
       const isMale = tutor.gender === "masculino" || tutor.gender === "männlich";
 
-      // Filter exclusively voices in the requested language
+      // Filter exclusively voices matching the tutor's exact language
       const matched = this.cachedVoices.filter((v) =>
         v.lang.toLowerCase().replace("_", "-").startsWith(langPrefix)
       );
 
       if (matched.length > 0) {
-        // Look for dedicated native natural / neural voices
-        const naturalPtBr = matched.find((v) =>
-          isMale
-            ? /daniel|fabio|fábio|antonio|antônio|felipe|ricardo|lucas|jorge|male|homem/i.test(v.name)
-            : /francisca|yara|leticia|letícia|maria|luciana|monica|helena|female|mulher/i.test(v.name)
+        const heitorMatch = matched.find((v) =>
+          /heitor|daniel|fábio|fabio|antonio|antônio|felipe|ricardo|lucas|jorge|male|homem/i.test(v.name)
         );
-
         const premium = matched.find((v) => /natural|neural|google|microsoft/i.test(v.name));
-        utterance.voice = naturalPtBr || premium || matched[0];
+        utterance.voice = (isMale ? heitorMatch : null) || premium || matched[0];
       }
 
       utterance.onstart = () => {
@@ -321,7 +317,7 @@ class AeternumVitaVoiceEngine {
               this.stopListening();
               onFinalResult?.(fullSpeech);
             }
-          }, 950);
+          }, 850);
         }
       };
 
@@ -366,6 +362,18 @@ class AeternumVitaVoiceEngine {
     this.isListening = false;
   }
 
+  /**
+   * Resumes continuous conversational listening loop after each tutor reply
+   */
+  resumeListening(tutor, onInterimResult, onFinalResult, onError) {
+    if (!this.activeSession) return;
+    this.stopSpeaking();
+    this.startListening(tutor, onInterimResult, onFinalResult, onError);
+  }
+
+  /**
+   * Starts session with introductory greeting and continuous turn-taking
+   */
   startSession({
     language = "pt",
     onStatusChange,

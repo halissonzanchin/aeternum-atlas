@@ -73,70 +73,75 @@ export default function AeternumSiriScreenOverlay({
         setUserSubtitle(text);
       },
       onTutorReply: async (userQuestion, currentTutor) => {
-        setVoiceStatus("thinking");
-        try {
-          let apiReply = "";
-          const streamContext = {
-            ...context,
-            tutorPromptDirective: currentTutor.promptDirective,
-            language
-          };
-
+        const handleTurn = async (questionText, tutor) => {
+          setVoiceStatus("thinking");
           try {
-            const result = await atlasAITutorService.processMessageStream(
-              userQuestion,
-              streamContext,
-              ({ text }) => {
-                if (text && !text.includes("indisponível") && !text.includes("autenticada")) {
-                  apiReply = text;
-                  setTutorSubtitle(text);
-                }
-              }
-            );
+            let apiReply = "";
+            const streamContext = {
+              ...context,
+              tutorPromptDirective: tutor.promptDirective,
+              language
+            };
 
-            if (result?.text && !result.text.includes("indisponível") && !result.text.includes("autenticada")) {
-              apiReply = result.text;
-            }
-          } catch (apiErr) {
-            console.warn("API notice, fallback to native anatomical voice brain:", apiErr);
-          }
-
-          // If offline or unauthenticated, generate intelligent contextual response in native language
-          const finalReply =
-            (apiReply && !apiReply.includes("indisponível") && !apiReply.includes("autenticada"))
-              ? apiReply
-              : generateVoiceTutorResponse(userQuestion, context, language);
-
-          setTutorSubtitle(finalReply);
-          setVoiceStatus("speaking");
-          await aeternumVitaVoiceService.speak(
-            finalReply,
-            currentTutor,
-            () => setVoiceStatus("speaking"),
-            () => {
-              setVoiceStatus("listening");
-              aeternumVitaVoiceService.startListening(
-                currentTutor,
-                (interim) => setUserSubtitle(interim.text || interim),
-                (finalSpeech) => {
-                  const speechText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
-                  setUserSubtitle(speechText);
+            try {
+              const result = await atlasAITutorService.processMessageStream(
+                questionText,
+                streamContext,
+                ({ text }) => {
+                  if (text && !text.includes("indisponível") && !text.includes("autenticada")) {
+                    apiReply = text;
+                    setTutorSubtitle(text);
+                  }
                 }
               );
+
+              if (result?.text && !result.text.includes("indisponível") && !result.text.includes("autenticada")) {
+                apiReply = result.text;
+              }
+            } catch (apiErr) {
+              console.warn("API notice, fallback to native anatomical voice brain:", apiErr);
             }
-          );
-        } catch (err) {
-          console.warn("Voice AI processing notice:", err);
-          setVoiceStatus("listening");
-          aeternumVitaVoiceService.startListening(
-            currentTutor,
-            (interim) => setUserSubtitle(interim.text || interim),
-            (finalSpeech) => {
-              const speechText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
-              setUserSubtitle(speechText);
-            }
-          );
-        }
+
+            const finalReply =
+              (apiReply && !apiReply.includes("indisponível") && !apiReply.includes("autenticada"))
+                ? apiReply
+                : generateVoiceTutorResponse(questionText, context, language);
+
+            setTutorSubtitle(finalReply);
+            setVoiceStatus("speaking");
+            await aeternumVitaVoiceService.speak(
+              finalReply,
+              tutor,
+              () => setVoiceStatus("speaking"),
+              () => {
+                setVoiceStatus("listening");
+                aeternumVitaVoiceService.startListening(
+                  tutor,
+                  (interim) => setUserSubtitle(typeof interim === "string" ? interim : interim.text),
+                  (finalSpeech) => {
+                    const nextText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
+                    setUserSubtitle(nextText);
+                    handleTurn(nextText, tutor);
+                  }
+                );
+              }
+            );
+          } catch (err) {
+            console.warn("Voice AI processing notice:", err);
+            setVoiceStatus("listening");
+            aeternumVitaVoiceService.startListening(
+              tutor,
+              (interim) => setUserSubtitle(typeof interim === "string" ? interim : interim.text),
+              (finalSpeech) => {
+                const nextText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
+                setUserSubtitle(nextText);
+                handleTurn(nextText, tutor);
+              }
+            );
+          }
+        };
+
+        handleTurn(userQuestion, currentTutor);
       },
       onError: (err) => {
         console.warn("Voice session error:", err);
