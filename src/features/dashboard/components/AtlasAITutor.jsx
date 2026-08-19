@@ -126,7 +126,7 @@ export default function AtlasAITutor({
   const orbState = isThinking ? "thinking" : (isSiriActive || isCharging) ? "listening" : isOpen ? "focus" : "idle";
 
   const handlePointerDown = (e) => {
-    if (isDragging) return;
+    dragHandlers.onPointerDown?.(e);
     didTriggerHoldRef.current = false;
     setIsCharging(true);
 
@@ -150,12 +150,24 @@ export default function AtlasAITutor({
     }, 550);
   };
 
-  const handlePointerUpOrLeave = () => {
+  const handlePointerUpOrLeave = (e) => {
+    if (e?.type === "pointerup") {
+      dragHandlers.onPointerUp?.(e);
+    }
     if (holdTimerRef.current) {
       clearTimeout(holdTimerRef.current);
       holdTimerRef.current = null;
     }
     setIsCharging(false);
+  };
+
+  const handlePointerMove = (e) => {
+    dragHandlers.onPointerMove?.(e);
+    if (isDragging && holdTimerRef.current) {
+      clearTimeout(holdTimerRef.current);
+      holdTimerRef.current = null;
+      setIsCharging(false);
+    }
   };
 
   const handleTriggerClick = () => {
@@ -308,9 +320,10 @@ export default function AtlasAITutor({
         style={triggerStyle}
         onClick={handleTriggerClick}
         onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUpOrLeave}
         onPointerLeave={handlePointerUpOrLeave}
-        {...dragHandlers}
+        onPointerCancel={handlePointerUpOrLeave}
       >
         {(isCharging || isSiriActive) && <div className="a26-tutor-charging-aura" aria-hidden="true" />}
         <div className={isSiriActive ? "a26-orb--vibrating" : ""}>
