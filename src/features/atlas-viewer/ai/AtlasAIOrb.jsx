@@ -1,189 +1,23 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import "./AtlasAIOrb.css";
 
-const STATE_INDEX = {
-  idle: 0,
-  focus: 1,
-  active: 1,
-  listening: 2,
-  thinking: 3,
-  speaking: 4,
-  success: 5,
-  offline: 6,
-  error: 7
-};
-
 const STATE_INTENSITY = {
-  idle: 0.85,
-  focus: 0.95,
-  active: 0.95,
+  idle: 0.75,
+  focus: 0.9,
+  active: 0.9,
   listening: 1.0,
   thinking: 1.0,
   speaking: 1.0,
   success: 0.9,
-  offline: 0.65,
+  offline: 0.5,
   error: 0.8
 };
 
-const VERTEX_SHADER = `
-  attribute vec2 a_position;
-
-  void main() {
-    gl_Position = vec4(a_position, 0.0, 1.0);
-  }
-`;
-
-const FRAGMENT_SHADER = `
-  precision highp float;
-
-  uniform vec2 u_resolution;
-  uniform float u_time;
-  uniform float u_state;
-  uniform float u_intensity;
-
-  const float PI = 3.141592653589793;
-
-  float hash(vec2 p) {
-    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
-  }
-
-  void main() {
-    float shortestSide = min(u_resolution.x, u_resolution.y);
-    vec2 p = (gl_FragCoord.xy - u_resolution * 0.5) / (shortestSide * 0.5);
-    float radius = length(p);
-    float edgeSoftness = max(0.006, 2.0 / shortestSide);
-    float sphereMask = 1.0 - smoothstep(0.985 - edgeSoftness, 1.0, radius);
-
-    if (sphereMask <= 0.001) {
-      gl_FragColor = vec4(0.0);
-      return;
-    }
-
-    float z = sqrt(max(0.0, 1.0 - radius * radius));
-    float fresnel = pow(1.0 - z, 2.8);
-    float energyLevel = clamp(u_intensity, 0.0, 1.0);
-
-    // Speed and state reactivity
-    float speed = 1.15;
-    if (u_state > 0.5 && u_state < 1.5) speed = 1.45;
-    if (u_state > 1.5 && u_state < 2.5) speed = 1.85;
-    if (u_state > 2.5 && u_state < 3.5) speed = 2.25;
-    if (u_state > 3.5 && u_state < 4.5) speed = 2.05;
-
-    float t = u_time * speed;
-
-    // 1. Siddhant Mehta Official Orb Vertical Multi-Gradient
-    // Bottom: Mint/Cyan -> Middle: Azure/Purple -> Top: Coral/Pink
-    vec3 cMint   = vec3(0.18, 0.96, 0.72); // #2ef0b8
-    vec3 cCyan   = vec3(0.00, 0.82, 1.00); // #00d2ff
-    vec3 cBlue   = vec3(0.00, 0.48, 1.00); // #007aff
-    vec3 cPurple = vec3(0.58, 0.28, 0.98); // #9446fa
-    vec3 cPink   = vec3(1.00, 0.25, 0.55); // #ff408d
-
-    // Vertical gradient coordinates with gentle fluid distortion
-    float yGrad = (p.y + 1.0) * 0.5;
-    float fluidDistort = 0.08 * sin(p.x * 3.4 + t * 1.2) + 0.04 * cos(p.y * 4.2 - t * 0.9);
-    yGrad = clamp(yGrad + fluidDistort, 0.0, 1.0);
-
-    vec3 baseColor;
-    if (yGrad < 0.25) {
-      baseColor = mix(cMint, cCyan, yGrad / 0.25);
-    } else if (yGrad < 0.5) {
-      baseColor = mix(cCyan, cBlue, (yGrad - 0.25) / 0.25);
-    } else if (yGrad < 0.75) {
-      baseColor = mix(cBlue, cPurple, (yGrad - 0.5) / 0.25);
-    } else {
-      baseColor = mix(cPurple, cPink, (yGrad - 0.75) / 0.25);
-    }
-
-    // 2. Wavy Blob Views & Rotating Core Glows (from WavyBlobView & RotatingGlowView)
-    float angle = atan(p.y, p.x);
-    float blob1 = sin(angle * 3.0 + t * 1.75 + length(p) * 2.5);
-    float blob2 = cos(angle * 4.0 - t * 1.35 + length(p) * 3.2);
-    float internalBlob = smoothstep(-0.2, 0.8, blob1 * 0.6 + blob2 * 0.5);
-
-    vec3 blobGlow = mix(baseColor, vec3(1.0), 0.55) * internalBlob * (0.45 + 0.4 * energyLevel);
-
-    // 3. Floating Sparkle Particles (from ParticlesView)
-    float particles = 0.0;
-    for (int i = 0; i < 8; i++) {
-      float fi = float(i);
-      vec2 partPos = vec2(
-        sin(fi * 1.73 + t * 0.38 + hash(vec2(fi, 1.0)) * 6.28) * 0.62,
-        cos(fi * 2.41 + t * 0.44 + hash(vec2(fi, 2.0)) * 6.28) * 0.62
-      );
-      float d = length(p - partPos);
-      float twinkle = 0.5 + 0.5 * sin(t * 3.2 + fi * 2.1);
-      particles += exp(-d * 42.0) * twinkle * (0.7 + 0.3 * energyLevel);
-      // Diamond flare spike
-      float spike = exp(-abs(p.x - partPos.x) * 60.0) * exp(-abs(p.y - partPos.y) * 12.0) +
-                    exp(-abs(p.y - partPos.y) * 60.0) * exp(-abs(p.x - partPos.x) * 12.0);
-      particles += spike * twinkle * 0.45;
-    }
-
-    // 4. Glossy Specular Glass Reflection (Upper Crescent Highlight)
-    vec2 specPos = p - vec2(-0.28, 0.28);
-    float specDist = length(vec2(specPos.x * 1.35, specPos.y * 0.95));
-    float glassGloss = smoothstep(0.48, 0.04, specDist) * smoothstep(0.96, 0.35, length(p));
-    vec3 glossHighlight = vec3(1.0, 1.0, 1.0) * glassGloss * 0.92;
-
-    // Secondary subtle lower rim reflection
-    vec2 subSpecPos = p - vec2(0.35, -0.42);
-    float subSpecDist = length(vec2(subSpecPos.x * 1.2, subSpecPos.y * 1.5));
-    float subGloss = smoothstep(0.32, 0.05, subSpecDist);
-    vec3 subHighlight = mix(cMint, vec3(1.0), 0.7) * subGloss * 0.35;
-
-    // Outer Rim Fresnel Lighting
-    float rimLight = pow(fresnel, 2.2) * (0.55 + 0.35 * energyLevel);
-    vec3 rimColor = mix(vec3(1.0), baseColor, 0.3) * rimLight;
-
-    // Composition
-    vec3 finalColor = baseColor + blobGlow + vec3(particles) + glossHighlight + subHighlight + rimColor;
-    finalColor = clamp(finalColor, 0.0, 1.0);
-
-    float alpha = sphereMask;
-    gl_FragColor = vec4(finalColor * alpha, alpha);
-  }
-`;
-
-function compileShader(gl, type, source) {
-  const shader = gl.createShader(type);
-  gl.shaderSource(shader, source);
-  gl.compileShader(shader);
-
-  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    const error = gl.getShaderInfoLog(shader);
-    gl.deleteShader(shader);
-    throw new Error(error || "Falha ao compilar o material do Atlas AI.");
-  }
-
-  return shader;
-}
-
-function createProgram(gl) {
-  const vertexShader = compileShader(gl, gl.VERTEX_SHADER, VERTEX_SHADER);
-  const fragmentShader = compileShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER);
-  const program = gl.createProgram();
-
-  gl.attachShader(program, vertexShader);
-  gl.attachShader(program, fragmentShader);
-  gl.linkProgram(program);
-  gl.deleteShader(vertexShader);
-  gl.deleteShader(fragmentShader);
-
-  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    const error = gl.getProgramInfoLog(program);
-    gl.deleteProgram(program);
-    throw new Error(error || "Falha ao preparar o material do Atlas AI.");
-  }
-
-  return program;
-}
-
-function clampVal(value, minimum, maximum) {
-  return Math.min(maximum, Math.max(minimum, value));
-}
-
+/**
+ * Aeternum 26.1 — Crystal Minimal Orb with iOS 9 Siri Light Waves
+ * Combines the crystal glass aesthetics of Minimal Orb (metasidd/Orb)
+ * with the mathematical harmonic ribbon waveforms of iOS 9 (kopiro/siriwave).
+ */
 export default function AtlasAIOrb({
   onClick,
   state = "idle",
@@ -192,177 +26,261 @@ export default function AtlasAIOrb({
   className = ""
 }) {
   const canvasRef = useRef(null);
+  const animFrameRef = useRef(null);
   const reactId = useId();
-  const refractionFilterId = `atlas-ai-orb-refraction-${reactId.replace(/:/g, "")}`;
-  const visualStateRef = useRef({
-    state: STATE_INDEX.idle,
-    intensity: STATE_INTENSITY.idle
-  });
-  const requestDrawRef = useRef(() => {});
-  const [renderer, setRenderer] = useState("pending");
-  const normalizedState = Object.prototype.hasOwnProperty.call(STATE_INDEX, state)
+
+  const normalizedState = Object.prototype.hasOwnProperty.call(STATE_INTENSITY, state)
     ? state
     : "idle";
-  const normalizedIntensity = clampVal(
+
+  const targetIntensity = clampVal(
     Number.isFinite(intensity) ? intensity : STATE_INTENSITY[normalizedState],
     0,
     1
   );
 
+  const stateRef = useRef({
+    state: normalizedState,
+    intensity: targetIntensity
+  });
+
   useEffect(() => {
-    visualStateRef.current = {
-      state: STATE_INDEX[normalizedState] ?? STATE_INDEX.idle,
-      intensity: normalizedIntensity
+    stateRef.current = {
+      state: normalizedState,
+      intensity: targetIntensity
     };
-    requestDrawRef.current();
-  }, [normalizedIntensity, normalizedState]);
+  }, [normalizedState, targetIntensity]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return undefined;
+    if (!canvas) return;
 
-    let gl;
-    let program;
-    let positionBuffer;
-    let animationFrame = 0;
-    let disposed = false;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    const handleContextLost = (event) => {
-      event.preventDefault();
-      setRenderer("fallback");
+    let isRunning = true;
+    let time = 0;
+
+    const resize = () => {
+      const bounds = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = Math.max(1, Math.round((bounds.width || 56) * dpr));
+      const h = Math.max(1, Math.round((bounds.height || 56) * dpr));
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+      }
     };
 
-    try {
-      gl = canvas.getContext("webgl", {
-        alpha: true,
-        antialias: true,
-        depth: false,
-        stencil: false,
-        premultipliedAlpha: true,
-        preserveDrawingBuffer: false
+    resize();
+    window.addEventListener("resize", resize);
+
+    // iOS 9 Ribbon Definitions: Blue, Red/Magenta, Green/Mint, and White Support Line
+    const ribbons = [
+      {
+        // Cyan / Blue Ribbon
+        color: "0, 130, 255",
+        speed: 1.0,
+        width: 1.8,
+        offset: 0.0,
+        phase: 0.0,
+        verse: 1
+      },
+      {
+        // Rose / Magenta Ribbon
+        color: "255, 45, 110",
+        speed: 1.25,
+        width: 2.2,
+        offset: 1.4,
+        phase: 1.2,
+        verse: -1
+      },
+      {
+        // Mint / Turquoise Ribbon
+        color: "46, 230, 168",
+        speed: 0.85,
+        width: 1.6,
+        offset: -1.2,
+        phase: 2.4,
+        verse: 1
+      }
+    ];
+
+    // Cauchy Global Attenuation Function: (K / (K + x^2))^K
+    const ATT_K = 4.0;
+    const globalAtt = (x) => {
+      const denom = ATT_K + x * x;
+      return Math.pow(ATT_K / denom, ATT_K);
+    };
+
+    const render = () => {
+      if (!isRunning) return;
+
+      const w = canvas.width;
+      const h = canvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+      const radius = Math.min(w, h) * 0.47;
+
+      ctx.clearRect(0, 0, w, h);
+
+      const currentState = stateRef.current.state;
+      const currentIntensity = stateRef.current.intensity;
+
+      // Speed modulation according to state
+      let speedMult = 1.0;
+      let ampMult = 1.0;
+
+      if (currentState === "listening") {
+        speedMult = 1.6;
+        ampMult = 1.25;
+      } else if (currentState === "thinking") {
+        speedMult = 2.4;
+        ampMult = 1.1;
+      } else if (currentState === "speaking") {
+        speedMult = 1.8;
+        ampMult = 1.35;
+      }
+
+      time += 0.024 * speedMult;
+
+      ctx.save();
+
+      // Circular clipping for the crystal sphere
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.clip();
+
+      // 1. Crystal Translucent Volumetric Base (Minimal Crystal Style)
+      const baseGrad = ctx.createRadialGradient(
+        cx - radius * 0.25,
+        cy - radius * 0.3,
+        radius * 0.05,
+        cx,
+        cy,
+        radius
+      );
+      baseGrad.addColorStop(0, "rgba(255, 255, 255, 0.18)");
+      baseGrad.addColorStop(0.55, "rgba(220, 240, 255, 0.06)");
+      baseGrad.addColorStop(0.88, "rgba(180, 215, 245, 0.12)");
+      baseGrad.addColorStop(1, "rgba(160, 200, 235, 0.22)");
+
+      ctx.fillStyle = baseGrad;
+      ctx.fill();
+
+      // 2. iOS 9 Harmonic Light Ribbons (siriwave)
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+
+      const GRAPH_POINTS = 48;
+      const waveWidth = radius * 1.85;
+      const maxWaveHeight = radius * 0.42 * ampMult * currentIntensity;
+
+      // Draw each colored wave ribbon
+      ribbons.forEach((ribbon, rIdx) => {
+        const ribbonPhase = time * ribbon.speed + ribbon.phase;
+
+        // Draw upper and lower wave lobes
+        for (const sign of [1, -1]) {
+          ctx.beginPath();
+
+          for (let i = -GRAPH_POINTS; i <= GRAPH_POINTS; i++) {
+            const normalizedX = (i / GRAPH_POINTS) * 2.8; // range approx -2.8 to 2.8
+            const screenX = cx + (i / GRAPH_POINTS) * (waveWidth / 2);
+
+            const harmonicX = (normalizedX / ribbon.width) - ribbon.offset;
+            const sineWave = Math.sin(ribbon.verse * harmonicX * 2.4 - ribbonPhase);
+            const secondaryHarmonic = 0.25 * Math.sin(harmonicX * 4.8 + time * 1.4);
+            const envelope = globalAtt(normalizedX * 1.4);
+
+            const waveY = (sineWave + secondaryHarmonic) * envelope * maxWaveHeight * 0.95;
+            const screenY = cy - sign * waveY;
+
+            if (i === -GRAPH_POINTS) {
+              ctx.moveTo(screenX, screenY);
+            } else {
+              ctx.lineTo(screenX, screenY);
+            }
+          }
+
+          ctx.closePath();
+
+          // Smooth gradient fill for each feather
+          const featherGrad = ctx.createLinearGradient(cx - waveWidth / 2, cy, cx + waveWidth / 2, cy);
+          featherGrad.addColorStop(0, `rgba(${ribbon.color}, 0)`);
+          featherGrad.addColorStop(0.2, `rgba(${ribbon.color}, 0.55)`);
+          featherGrad.addColorStop(0.5, `rgba(${ribbon.color}, 0.85)`);
+          featherGrad.addColorStop(0.8, `rgba(${ribbon.color}, 0.55)`);
+          featherGrad.addColorStop(1, `rgba(${ribbon.color}, 0)`);
+
+          ctx.fillStyle = featherGrad;
+          ctx.fill();
+        }
       });
 
-      if (!gl) {
-        setRenderer("fallback");
-        return undefined;
-      }
+      // 3. Central White Laser Support Beam
+      const beamGrad = ctx.createLinearGradient(cx - waveWidth / 2, cy, cx + waveWidth / 2, cy);
+      beamGrad.addColorStop(0, "rgba(255, 255, 255, 0)");
+      beamGrad.addColorStop(0.25, "rgba(255, 255, 255, 0.75)");
+      beamGrad.addColorStop(0.5, "rgba(255, 255, 255, 0.95)");
+      beamGrad.addColorStop(0.75, "rgba(255, 255, 255, 0.75)");
+      beamGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
 
-      canvas.addEventListener("webglcontextlost", handleContextLost, false);
-      program = createProgram(gl);
-      positionBuffer = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-      gl.bufferData(
-        gl.ARRAY_BUFFER,
-        new Float32Array([
-          -1, -1,
-           1, -1,
-          -1,  1,
-          -1,  1,
-           1, -1,
-           1,  1
-        ]),
-        gl.STATIC_DRAW
+      ctx.beginPath();
+      for (let i = -GRAPH_POINTS; i <= GRAPH_POINTS; i++) {
+        const normalizedX = (i / GRAPH_POINTS) * 2.8;
+        const screenX = cx + (i / GRAPH_POINTS) * (waveWidth / 2);
+        const centerWave = 0.12 * maxWaveHeight * Math.sin(normalizedX * 3.2 - time * 2.0) * globalAtt(normalizedX * 1.6);
+        const screenY = cy + centerWave;
+
+        if (i === -GRAPH_POINTS) {
+          ctx.moveTo(screenX, screenY);
+        } else {
+          ctx.lineTo(screenX, screenY);
+        }
+      }
+      ctx.strokeStyle = beamGrad;
+      ctx.lineWidth = Math.max(1.2, radius * 0.04);
+      ctx.stroke();
+
+      ctx.restore(); // Restore from compositeOperation
+
+      // 4. Glossy Specular Crescent Glass Reflection (Minimal Orb)
+      const glossGrad = ctx.createRadialGradient(
+        cx - radius * 0.32,
+        cy - radius * 0.35,
+        0,
+        cx - radius * 0.32,
+        cy - radius * 0.35,
+        radius * 0.8
       );
-    } catch (error) {
-      console.error(error);
-      setRenderer("fallback");
-      return undefined;
-    }
+      glossGrad.addColorStop(0, "rgba(255, 255, 255, 0.92)");
+      glossGrad.addColorStop(0.22, "rgba(255, 255, 255, 0.38)");
+      glossGrad.addColorStop(0.55, "rgba(255, 255, 255, 0)");
 
-    const positionLocation = gl.getAttribLocation(program, "a_position");
-    const resolutionLocation = gl.getUniformLocation(program, "u_resolution");
-    const timeLocation = gl.getUniformLocation(program, "u_time");
-    const stateLocation = gl.getUniformLocation(program, "u_state");
-    const intensityLocation = gl.getUniformLocation(program, "u_intensity");
-    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let reducedMotion = reducedMotionQuery.matches;
-    let isIntersecting = true;
+      ctx.fillStyle = glossGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.fill();
 
-    gl.useProgram(program);
-    gl.enableVertexAttribArray(positionLocation);
-    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+      // 5. Crystal Rim Glow (Fresnel Caustic Stroke)
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius - 0.5, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.75)";
+      ctx.lineWidth = Math.max(1, radius * 0.035);
+      ctx.stroke();
 
-    const resizeCanvas = () => {
-      if (disposed || !canvas) return;
-      const bounds = canvas.getBoundingClientRect();
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-      const width = Math.max(1, Math.round(bounds.width * pixelRatio));
-      const height = Math.max(1, Math.round(bounds.height * pixelRatio));
-      if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = width;
-        canvas.height = height;
-      }
-      gl.viewport(0, 0, width, height);
+      ctx.restore(); // Restore clipping
+
+      animFrameRef.current = requestAnimationFrame(render);
     };
 
-    resizeCanvas();
-
-    const draw = (timestamp = 0) => {
-      animationFrame = 0;
-      if (disposed) return;
-      gl.clearColor(0, 0, 0, 0);
-      gl.clear(gl.COLOR_BUFFER_BIT);
-      gl.useProgram(program);
-      gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
-      gl.uniform1f(timeLocation, reducedMotion ? 2.1 : timestamp * 0.001);
-      gl.uniform1f(stateLocation, visualStateRef.current.state);
-      gl.uniform1f(intensityLocation, visualStateRef.current.intensity);
-      gl.drawArrays(gl.TRIANGLES, 0, 6);
-
-      if (!reducedMotion && isIntersecting && !document.hidden) {
-        animationFrame = window.requestAnimationFrame(draw);
-      }
-    };
-
-    const requestDraw = () => {
-      if (!animationFrame && !disposed) {
-        animationFrame = window.requestAnimationFrame(draw);
-      }
-    };
-    requestDrawRef.current = requestDraw;
-
-    const resizeObserver = new ResizeObserver(() => {
-      resizeCanvas();
-      requestDraw();
-    });
-    resizeObserver.observe(canvas);
-
-    const intersectionObserver = new IntersectionObserver(([entry]) => {
-      isIntersecting = entry?.isIntersecting ?? true;
-      if (isIntersecting) requestDraw();
-    }, { rootMargin: "80px" });
-    intersectionObserver.observe(canvas);
-
-    const handleVisibilityChange = () => {
-      if (!document.hidden) requestDraw();
-    };
-    const handleReducedMotionChange = (event) => {
-      reducedMotion = event.matches;
-      requestDraw();
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    reducedMotionQuery.addEventListener?.("change", handleReducedMotionChange);
-    setRenderer("webgl");
-    requestDraw();
+    render();
 
     return () => {
-      disposed = true;
-      if (animationFrame) window.cancelAnimationFrame(animationFrame);
-      canvas.removeEventListener("webglcontextlost", handleContextLost);
-      resizeObserver.disconnect();
-      intersectionObserver.disconnect();
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      reducedMotionQuery.removeEventListener?.("change", handleReducedMotionChange);
-      requestDrawRef.current = () => {};
-      try {
-        gl.deleteBuffer(positionBuffer);
-        gl.deleteProgram(program);
-      } catch {
-        // Teardown
-      }
+      isRunning = false;
+      window.removeEventListener("resize", resize);
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
   }, [size]);
 
@@ -370,12 +288,11 @@ export default function AtlasAIOrb({
     <span
       className={[
         "aeternum-ai-orb-root",
+        "is-crystal-minimal",
         `state-${normalizedState}`,
         `size-${size}`,
         className
       ].filter(Boolean).join(" ")}
-      data-renderer={renderer}
-      data-state={normalizedState}
       onClick={onClick}
       aria-hidden="true"
     >
@@ -384,4 +301,8 @@ export default function AtlasAIOrb({
       <span className="atlas-ai-orb__rim" />
     </span>
   );
+}
+
+function clampVal(value, minimum, maximum) {
+  return Math.min(maximum, Math.max(minimum, value));
 }
