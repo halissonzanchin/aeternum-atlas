@@ -325,7 +325,7 @@ export default function AtlasAITutor({
         onPointerLeave={handlePointerUpOrLeave}
         onPointerCancel={handlePointerUpOrLeave}
       >
-        {(isCharging || isSiriActive) && <div className="a26-tutor-charging-aura" aria-hidden="true" />}
+        {isCharging && <div className="a26-tutor-charging-aura" aria-hidden="true" />}
         <div className={isSiriActive ? "a26-orb--vibrating" : ""}>
           <AtlasAIOrb state={orbState} size={sphereOnly ? "lg" : "md"} />
         </div>
