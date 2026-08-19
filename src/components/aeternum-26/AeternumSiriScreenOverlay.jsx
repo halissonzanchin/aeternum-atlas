@@ -9,7 +9,7 @@ import "./AeternumSiriScreenOverlay.css";
 
 /**
  * Aeternum 26.1 Apple Intelligence Screen Glow & Aeternum Vita Voice Multi-Tutor
- * High-Fidelity Single-Engine Audio Architecture with Anti-Echo Guard
+ * High-Fidelity Single-Engine Audio Architecture with Clean Turn-Taking
  * Personas: Eduardo 🇧🇷, Antonia 🇪🇸, Ariana 🇺🇸, Fabian 🇩🇪
  */
 export default function AeternumSiriScreenOverlay({
@@ -49,7 +49,7 @@ export default function AeternumSiriScreenOverlay({
     setUserSubtitle("");
     setTutorSubtitle(tutor.greeting);
 
-    // Start Unified Multi-Tutor Voice Engine with Dynamic Turn-Taking & Echo Cancellation
+    // Start Unified Multi-Tutor Voice Engine with Dynamic Turn-Taking
     aeternumVitaVoiceService.startSession({
       language,
       onStatusChange: ({ status, text }) => {
@@ -57,15 +57,12 @@ export default function AeternumSiriScreenOverlay({
         if (text) setTutorSubtitle(text);
       },
       onTranscript: ({ text, isFinal }) => {
-        if (!aeternumVitaVoiceService.isAcousticEcho(text)) {
-          setUserSubtitle(text);
-        }
+        if (text) setUserSubtitle(text);
       },
       onTutorReply: async (userQuestion, currentTutor) => {
         const handleTurn = async (questionText, tutor) => {
-          if (!questionText || aeternumVitaVoiceService.isAcousticEcho(questionText)) {
-            return;
-          }
+          const cleanQ = String(questionText || "").trim();
+          if (!cleanQ) return;
 
           setVoiceStatus("thinking");
           try {
@@ -78,7 +75,7 @@ export default function AeternumSiriScreenOverlay({
 
             try {
               const result = await atlasAITutorService.processMessageStream(
-                questionText,
+                cleanQ,
                 streamContext,
                 ({ text }) => {
                   if (text && !text.includes("indisponível") && !text.includes("autenticada")) {
@@ -98,7 +95,7 @@ export default function AeternumSiriScreenOverlay({
             const finalReply =
               (apiReply && !apiReply.includes("indisponível") && !apiReply.includes("autenticada"))
                 ? apiReply
-                : await generateDynamicVoiceResponse(questionText, context, language);
+                : await generateDynamicVoiceResponse(cleanQ, context, language);
 
             setTutorSubtitle(finalReply);
             setVoiceStatus("speaking");
@@ -112,13 +109,11 @@ export default function AeternumSiriScreenOverlay({
                   tutor,
                   (interim) => {
                     const text = typeof interim === "string" ? interim : interim.text;
-                    if (!aeternumVitaVoiceService.isAcousticEcho(text)) {
-                      setUserSubtitle(text);
-                    }
+                    if (text) setUserSubtitle(text);
                   },
                   (finalSpeech) => {
                     const nextText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
-                    if (nextText && !aeternumVitaVoiceService.isAcousticEcho(nextText)) {
+                    if (nextText && nextText.trim()) {
                       setUserSubtitle(nextText);
                       handleTurn(nextText, tutor);
                     }
@@ -133,13 +128,11 @@ export default function AeternumSiriScreenOverlay({
               tutor,
               (interim) => {
                 const text = typeof interim === "string" ? interim : interim.text;
-                if (!aeternumVitaVoiceService.isAcousticEcho(text)) {
-                  setUserSubtitle(text);
-                }
+                if (text) setUserSubtitle(text);
               },
               (finalSpeech) => {
                 const nextText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
-                if (nextText && !aeternumVitaVoiceService.isAcousticEcho(nextText)) {
+                if (nextText && nextText.trim()) {
                   setUserSubtitle(nextText);
                   handleTurn(nextText, tutor);
                 }

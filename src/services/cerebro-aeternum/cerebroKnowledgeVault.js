@@ -16,8 +16,7 @@ export const CEREBRO_CATEGORIES = {
 };
 
 /**
- * Registro de Nós de Conhecimento do Cérebro Aeternum
- * Pode ser alimentado dinamicamente em tempo de execução ou via banco de dados
+ * Registro de Nós de Conhecimento do Cérebro Aeternum com Sub-Tópicos Multi-Turno
  */
 export const CEREBRO_KNOWLEDGE_NODES = {
   clavicula: {
@@ -36,30 +35,44 @@ export const CEREBRO_KNOWLEDGE_NODES = {
       en: "The only bony attachment between the upper limb and the axial skeleton, forming an italic 'S' shape.",
       de: "Einzige knöcherne Verbindung zwischen der oberen Extremität und dem Rumpfskelett in S-Form."
     },
-    vascularSupply: {
-      pt: "Artérias supraescapular e toracoacromial, com íntima relação inferior aos grandes vasos subclávios.",
-      es: "Arterias supraescapular y toracoacromial, con íntima relación inferior a los grandes vasos subclavios.",
-      en: "Suprascapular and thoracoacromial arteries, in close proximity to subclavian vessels.",
-      de: "Arteria suprascapularis und thoracoacromialis mit direkter Lage über den Subclavia-Gefäßen."
-    },
-    innervationAndMuscles: {
-      pt: "Nervos supraclaviculares; inserções do músculo peitoral maior, deltoide, trapézio e subclávio.",
-      es: "Nervios supraclaviculares; inserciones de pectoral mayor, deltoides, trapecio y subclavio.",
-      en: "Supraclavicular nerves; attachments for pectoralis major, deltoid, trapezius, and subclavius.",
-      de: "Nervi supraclaviculares; Ansätze für M. pectoralis major, M. deltoideus, M. trapezius und M. subclavius."
-    },
-    clinicalPearls: {
-      pt: "Fraturas ocorrem mais comumente no terço médio (80%), com risco de compressão do plexo braquial e artéria subclávia.",
-      es: "Las fracturas ocurren principalmente en el tercio medio (80%), con riesgo de compresión del plexo braquial y vasos subclavios.",
-      en: "Fractures most frequently occur at the middle third (80%), risking brachial plexus and subclavian compression.",
-      de: "Frakturen treten meist im mittleren Drittel auf (80%), mit Risiko für Plexus brachialis und Gefäßkompression."
-    },
     voiceSummary: {
-      pt: "A clavícula funciona como uma haste de sustentação mecânica que projeta o ombro lateralmente e protege os vasos subclávios. Deseja analisar os ligamentos coracoclaviculares ou os músculos peitoral e deltoide?",
+      pt: "A clavícula funciona como uma haste de sustentação mecânica que projeta o ombro lateralmente e protege os vasos subclávios. Deseja analisar os ligamentos coracoclaviculares ou os músculos que se inserem nela?",
       es: "La clavícula es el único puente óseo que une el brazo con el tórax, protegiendo los grandes vasos subclavios. ¿Quieres que veamos sus ligamentos coracoclaviculares o los músculos que se insertan en ella?",
       en: "The clavicle acts as a mechanical strut transmitting upper limb forces to the axial skeleton while protecting the subclavian vessels. Would you like to review its ligaments or muscular attachments?",
       de: "Die Clavicula stabilisiert den Schultergürtel als einzige knöcherne Verbindung zum Rumpf und schützt die großen Subclavia-Gefäße. Möchtest du die Bandstrukturen oder die Muskelansätze vertiefen?"
-    }
+    },
+    subTopics: [
+      {
+        id: "musculos",
+        synonyms: ["musculo", "músculo", "musculos", "músculos", "los musculos", "los músculos", "os musculos", "os músculos", "deltoide", "peitoral", "trapezio", "insercoes", "inserções", "muscles"],
+        responses: {
+          pt: "Na clavícula inserem-se medialmente o peitoral maior e o esternocleidomastoideo, e lateralmente o deltoide e o trapézio. Gostaria de analisar a ação do músculo deltoide na elevação do braço ou os ligamentos?",
+          es: "En la clavícula se insertan medialmente el pectoral mayor y el esternocleidomastoideo, y lateralmente el deltoides y el trapecio. ¿Deseas analizar la acción del deltoides al elevar el brazo o los ligamentos?",
+          en: "The clavicle provides muscular attachments for pectoralis major and sternocleidomastoid medially, and deltoid and trapezius laterally. Shall we review deltoid mechanics during arm abduction or the ligaments?",
+          de: "An der Clavicula inserieren medial M. pectoralis major und M. sternocleidomastoideus, lateral M. deltoideus und M. trapezius. Wollen wir die Hebefunktion des Deltoideus oder die Bandstrukturen besprechen?"
+        }
+      },
+      {
+        id: "ligamentos",
+        synonyms: ["ligamento", "ligamentos", "los ligamentos", "os ligamentos", "coracoclavicular", "conoide", "trapezoide", "acromioclavicular", "ligaments"],
+        responses: {
+          pt: "Os ligamentos conoide e trapezoide unem a clavícula ao processo coracoide da escápula, garantindo estabilidade suspensória ao ombro. Deseja revisar o mecanismo das luxações acromioclaviculares ou a vascularização?",
+          es: "Los ligamentos conoide y trapezoide unen la clavícula a la apófisis coracoides de la escápula, garantizando la suspensión del hombro. ¿Revisamos las luxaciones acromioclaviculares o la irrigación?",
+          en: "The conoid and trapezoid ligaments anchor the clavicle to the scapular coracoid process, providing primary suspensory stability. Shall we examine acromioclavicular dislocations or blood supply?",
+          de: "Das Ligamentum conoideum und trapezoideum fixieren die Clavicula am Processus coracoideus der Scapula. Wollen wir Schultereckgelenksluxationen oder die Blutversorgung besprechen?"
+        }
+      },
+      {
+        id: "vascularizacao",
+        synonyms: ["vascularizacao", "vascularização", "irrigacao", "irrigação", "la irrigacion", "la irrigación", "a irrigacao", "a irrigação", "vasos", "los vasos", "os vasos", "arteria", "artéria", "las arterias", "as arterias", "subclavia", "subclávia", "blood supply", "vessels"],
+        responses: {
+          pt: "Inferiormente à clavícula passam a artéria e a veia subclávias, separadas pelo músculo escaleno anterior. Deseja ver a relação com o plexo braquial ou as fraturas ósseas?",
+          es: "Por debajo de la clavícula transitan los vasos subclavios, separados por el músculo escaleno anterior. ¿Quieres ver la relación con el plexo braquial o las fracturas óseas?",
+          en: "The subclavian artery and vein run immediately inferior to the clavicle, separated by the anterior scalene muscle. Shall we explore the brachial plexus relationship or clavicular fractures?",
+          de: "Unter der Clavicula verlaufen die Vasa subclavia, getrennt durch den Musculus scalenus anterior. Sollen wir die Beziehung zum Plexus brachialis oder Frakturen betrachten?"
+        }
+      }
+    ]
   },
 
   coracao: {
@@ -78,24 +91,44 @@ export const CEREBRO_KNOWLEDGE_NODES = {
       en: "Four-chambered muscular organ located in the middle mediastinum, enclosed by the pericardium.",
       de: "Vierkammrige muskuläre Hohlorganpumpe im mittleren Mediastinum, umgeben vom Perikard."
     },
-    vascularSupply: {
-      pt: "Irrigação pelas artérias coronárias direita e esquerda durante a diástole ventricular.",
-      es: "Irrigación por arterias coronarias derecha e izquierda durante la diástole ventricular.",
-      en: "Perfusion through right and left coronary arteries arising from aortic sinuses during diastole.",
-      de: "Versorgung über die rechte und linke Koronararterie während der Diastole."
-    },
-    clinicalPearls: {
-      pt: "A artéria descendente anterior (ramo interventricular anterior) é o vaso mais frequentemente ocluído no infarto agudo do miocárdio.",
-      es: "La arteria descendente anterior es el vaso que se ocluye con mayor frecuencia en el infarto agudo de miocardio.",
-      en: "The left anterior descending (LAD) artery is the most commonly occluded vessel in myocardial infarction.",
-      de: "Der Ramus interventricularis anterior (RIVA) ist das am häufigsten verschlossene Gefäß beim Myokardinfarkt."
-    },
     voiceSummary: {
       pt: "O coração bombeia o débito cardíaco para todo o corpo e se nutre em diástole pelas artérias coronárias direita e esquerda. Faz sentido para você revermos a irrigação coronariana ou o ciclo cardíaco?",
       es: "El corazón bombea sangre a todo el organismo y sus propias paredes se irrigan en diástole por las arterias coronarias. ¿Te gustaría profundizar en el ciclo cardíaco o en las ramas coronarias?",
       en: "The heart functions as a synchronized four-chambered pump perfused during diastole by coronary branches. Would you like to explore coronary anatomy or the cardiac cycle?",
       de: "Das Herz arbeitet als muskuläre Pumpe, deren Myokard in der Diastole über die Koronararterien versorgt wird. Sollen wir die Herzkranzgefäße oder das Reizleitungssystem besprechen?"
-    }
+    },
+    subTopics: [
+      {
+        id: "coronarias",
+        synonyms: ["coronaria", "coronárias", "irrigacao", "irrigação", "descendente anterior", "circunflexa", "infarto", "arterias"],
+        responses: {
+          pt: "A coronária esquerda emite o ramo descendente anterior e circunflexo, enquanto a direita irriga o ventrículo direito e nó sinusal em noventa por cento dos casos. Deseja aprofundar nos territórios de infarto ou nas valvas cardíacas?",
+          es: "La coronaria izquierda origina la descendente anterior y la circunfleja, mientras la derecha nutre el ventrículo derecho y el nódulo sinusal. ¿Profundizamos en los territorios de infarto o en las válvulas?",
+          en: "The left coronary artery branches into LAD and circumflex, while the right supplies the RV and SA node in ninety percent of cases. Shall we explore infarct territories or cardiac valves?",
+          de: "Die linke Koronararterie teilt sich in RIVA und RCX, während die rechte den rechten Ventrikel und Sinusknoten versorgt. Wollen wir Infarktareale oder die Herzklappen besprechen?"
+        }
+      },
+      {
+        id: "valvulas",
+        synonyms: ["valva", "valvas", "valvula", "válvulas", "mitral", "aortica", "tricuspide", "pulmonar", "valves"],
+        responses: {
+          pt: "As valvas atrioventriculares e semilunares garantem o fluxo unidirecional do sangue, prevenindo o refluxo durante a sístole. Deseja analisar os focos de ausculta cardíaca ou o sistema de condução?",
+          es: "Las válvulas auriculoventriculares y semilunares aseguran el flujo unidireccional de la sangre evitando el reflujo sistólico. ¿Analizamos los focos de auscultación cardíaca o el sistema de conducción?",
+          en: "The atrioventricular and semilunar valves ensure unidirectional blood flow, preventing systolic regurgitation. Shall we review cardiac auscultation points or the conduction system?",
+          de: "Die Atrioventrikular- und Semilunarklappen sichern den gerichteten Blutfluss und verhindern den Rückstrom. Wollen wir die Auskultationspunkte oder das Reizleitungssystem ansehen?"
+        }
+      },
+      {
+        id: "conducao",
+        synonyms: ["conducao", "condução", "eletrico", "elétrico", "sinusal", "marcapasso", "purkinje", "his"],
+        responses: {
+          pt: "O estímulo elétrico nasce no nó sinoatrial, viaja pelo nó atrioventricular e se propaga pelo feixe de His e fibras de Purkinje. Quer correlacionar com o eletrocardiograma ou com o ciclo cardíaco?",
+          es: "El impulso eléctrico nace en el nódulo sinoauricular, pasa al nódulo auriculoventricular y se propaga por el haz de His. ¿Lo correlacionamos con el electrocardiograma o con el ciclo cardíaco?",
+          en: "The electrical impulse initiates at the SA node, transits the AV node, and propagates through the bundle of His and Purkinje fibers. Shall we correlate with the ECG or cardiac cycle?",
+          de: "Der Erregungsimpuls entsteht im Sinusknoten, durchläuft den AV-Knoten und breitet sich über das His-Bündel aus. Wollen wir das EKG oder den Herzzyklus besprechen?"
+        }
+      }
+    ]
   },
 
   sistema_linfatico: {

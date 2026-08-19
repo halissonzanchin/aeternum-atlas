@@ -12,7 +12,6 @@ import {
 class CerebroAeternumEngine {
   constructor() {
     this.customKnowledgeVault = new Map();
-    this.conversationHistory = [];
     this.lastActiveTopic = null;
   }
 
@@ -31,7 +30,6 @@ class CerebroAeternumEngine {
 
   /**
    * Alimenta o Cérebro Aeternum com novos conhecimentos continuamente
-   * (Pode ser chamado dinamicamente com novos capítulos, artigos e flashcards)
    */
   alimentarCerebro({
     id,
@@ -42,7 +40,8 @@ class CerebroAeternumEngine {
     vascularSupply,
     innervationAndMuscles,
     clinicalPearls,
-    voiceSummary
+    voiceSummary,
+    subTopics = []
   }) {
     if (!id) return false;
     const node = {
@@ -54,7 +53,8 @@ class CerebroAeternumEngine {
       vascularSupply: typeof vascularSupply === "string" ? { pt: vascularSupply, es: vascularSupply, en: vascularSupply, de: vascularSupply } : vascularSupply,
       innervationAndMuscles: typeof innervationAndMuscles === "string" ? { pt: innervationAndMuscles, es: innervationAndMuscles, en: innervationAndMuscles, de: innervationAndMuscles } : innervationAndMuscles,
       clinicalPearls: typeof clinicalPearls === "string" ? { pt: clinicalPearls, es: clinicalPearls, en: clinicalPearls, de: clinicalPearls } : clinicalPearls,
-      voiceSummary: typeof voiceSummary === "string" ? { pt: voiceSummary, es: voiceSummary, en: voiceSummary, de: voiceSummary } : voiceSummary
+      voiceSummary: typeof voiceSummary === "string" ? { pt: voiceSummary, es: voiceSummary, en: voiceSummary, de: voiceSummary } : voiceSummary,
+      subTopics
     };
     this.customKnowledgeVault.set(id, node);
     return true;
@@ -66,14 +66,12 @@ class CerebroAeternumEngine {
   findKnowledgeNode(query) {
     const q = this.normalize(query);
 
-    // 1. Check custom ingested vault first
     for (const [_, node] of this.customKnowledgeVault) {
       if (this.containsAny(q, node.synonyms)) {
         return node;
       }
     }
 
-    // 2. Check standard knowledge nodes
     for (const key in CEREBRO_KNOWLEDGE_NODES) {
       const node = CEREBRO_KNOWLEDGE_NODES[key];
       if (this.containsAny(q, node.synonyms)) {
@@ -100,51 +98,48 @@ class CerebroAeternumEngine {
 
   /**
    * Consulta o Cérebro Aeternum
-   * @param {Object} params
-   * @param {string} params.query - Pergunta ou desabafo do aluno
-   * @param {'voice' | 'research'} params.mode - Modo de saída (voz concisa ou pesquisa aprofundada)
-   * @param {string} params.language - pt, es, en, de
-   * @param {Object} params.context - Dados da tela atual e modelo 3D
    */
   consultar({ query, mode = "voice", language = "pt", context = {} }) {
     const rawQ = String(query || "").trim();
     const q = this.normalize(rawQ);
     const lang = String(language || "pt").slice(0, 2).toLowerCase();
 
-    // Check for continuation requests ("fale mais", "continue", "y qué más")
-    const isContinuation = this.containsAny(q, [
-      "fale mais", "mais sobre", "continue", "prossiga", "alem disso", "além disso",
-      "hablemos mas", "hablemos más", "mas sobre", "más sobre", "continua", "sigue",
-      "tell me more", "more about", "continue", "go on", "what else",
-      "mehr daruber", "mehr darüber", "weiter", "erzahle mehr"
-    ]);
-
-    let node = this.findKnowledgeNode(q);
-    if (isContinuation && !node && this.lastActiveTopic) {
-      node = this.findKnowledgeNode(this.lastActiveTopic);
+    // 1. Verificar se a pergunta é uma resposta a um sub-tópico do nó ativo anteriormente
+    let activeNode = this.lastActiveTopic ? this.findKnowledgeNode(this.lastActiveTopic) : null;
+    
+    // Se o usuário mencionou uma nova estrutura primária, trocamos o activeNode
+    const directNode = this.findKnowledgeNode(q);
+    if (directNode) {
+      activeNode = directNode;
+      this.lastActiveTopic = directNode.id;
     }
 
-    if (node) {
-      this.lastActiveTopic = node.id;
+    // 2. Se temos um nó ativo, procurar nos seus sub-tópicos
+    if (activeNode && Array.isArray(activeNode.subTopics)) {
+      for (const sub of activeNode.subTopics) {
+        if (this.containsAny(q, sub.synonyms)) {
+          const subResp = sub.responses?.[lang] || sub.responses?.pt;
+          if (subResp) return subResp;
+        }
+      }
     }
 
     const mentorship = this.findMentorshipNode(q);
 
     // =========================================================================
-    // MODO 1: RESPOSTA PARA PESQUISA PROFUNDA (Atlas AI Textual / Pesquisa)
+    // MODO 1: PESQUISA TEXTUAL PROFUNDA (Atlas AI)
     // =========================================================================
-    if (mode === "research") {
-      if (node) {
-        const title = node.title?.[lang] || node.title?.pt || node.id;
-        const concept = node.coreConcept?.[lang] || node.coreConcept?.pt || "";
-        const vascular = node.vascularSupply?.[lang] || node.vascularSupply?.pt || "";
-        const innervation = node.innervationAndMuscles?.[lang] || node.innervationAndMuscles?.pt || "";
-        const pearls = node.clinicalPearls?.[lang] || node.clinicalPearls?.pt || "";
+    if (mode === "research" && activeNode) {
+      const title = activeNode.title?.[lang] || activeNode.title?.pt || activeNode.id;
+      const concept = activeNode.coreConcept?.[lang] || activeNode.coreConcept?.pt || "";
+      const vascular = activeNode.vascularSupply?.[lang] || activeNode.vascularSupply?.pt || "";
+      const innervation = activeNode.innervationAndMuscles?.[lang] || activeNode.innervationAndMuscles?.pt || "";
+      const pearls = activeNode.clinicalPearls?.[lang] || activeNode.clinicalPearls?.pt || "";
 
-        return {
-          title,
-          category: node.category,
-          markdown: `### 🔬 ${title}
+      return {
+        title,
+        category: activeNode.category,
+        markdown: `### 🔬 ${title}
 
 **Conceito Anatômico Fundamental:**
 ${concept}
@@ -155,28 +150,27 @@ ${pearls ? `**🩺 Correlações Clínicas & Cirúrgicas (Latarjet):**\n${pearls
 
 ---
 💡 *Dica de Estudo Aeternum:* Utilize a visualização 3D e teste seus conhecimentos com o simulado anatômico desta estrutura.`,
-          node
-        };
-      }
+        node: activeNode
+      };
     }
 
     // =========================================================================
-    // MODO 2: RESPOSTA PARA OS TUTORES DE VOZ (Aeternum Vita — Oral & Humanizado)
+    // MODO 2: TUTORES DE VOZ (Aeternum Vita — Oral & Humanizado)
     // =========================================================================
 
-    // 1. Se for acolhimento emocional ou coaching de estudos:
+    // Mentoria emocional ou coaching
     if (mentorship) {
       const resp = mentorship.responses?.[lang] || mentorship.responses?.pt;
       if (resp) return resp;
     }
 
-    // 2. Se for conhecimento anatômico/clínico estruturado:
-    if (node && node.voiceSummary) {
-      const resp = node.voiceSummary?.[lang] || node.voiceSummary?.pt;
+    // Resumo vocal do nó anatômico
+    if (activeNode && activeNode.voiceSummary) {
+      const resp = activeNode.voiceSummary?.[lang] || activeNode.voiceSummary?.pt;
       if (resp) return resp;
     }
 
-    // 3. Respostas adaptativas por idioma quando for pergunta aberta:
+    // Respostas abertas por idioma
     if (lang === "es") {
       if (this.containsAny(q, ["hola", "buen dia", "buenas", "como estas"]) && q.length < 25) {
         return "¡Hola! Te doy una cálida bienvenida. Soy Antonia, tu mentora y compañera de estudio. ¿Cómo te sientes hoy y en qué te puedo colaborar?";
@@ -206,9 +200,6 @@ ${pearls ? `**🩺 Correlações Clínicas & Cirúrgicas (Latarjet):**\n${pearls
     return "Entendo perfeitamente o seu ponto. Estou aqui tanto para apoiar na compreensão anatômica e clínica quanto para ajudar a organizar seus estudos. Por qual tema ou dúvida você gostaria de começar agora?";
   }
 
-  /**
-   * Retorna estatísticas de conhecimento do Cérebro Aeternum
-   */
   obterEstatisticas() {
     const totalPadrao = Object.keys(CEREBRO_KNOWLEDGE_NODES).length;
     const totalMentor = Object.keys(CEREBRO_MENTORSHIP_NODES).length;

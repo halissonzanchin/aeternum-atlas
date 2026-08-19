@@ -6,7 +6,7 @@
  * - Ariana 🇺🇸 (Mentora Dinâmica & Inspiradora - Deepgram Aura-2 Direct)
  * - Fabian 🇩🇪 (Mentor Acadêmico & Preciso - Deepgram Aura-2 Direct)
  *
- * Built-in Full-Duplex Echo Cancellation & Half-Duplex Mutual Exclusion Guard
+ * Hardware-Level Half-Duplex Isolation & Complete Mic Release on Session Exit
  */
 
 import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig";
@@ -74,6 +74,7 @@ class AeternumVitaVoiceEngine {
   constructor() {
     this.activeSession = null;
     this.recognition = null;
+    this.mediaStream = null;
     this.audioElement = null;
     this.audioCtx = null;
     this.synthesis = typeof window !== "undefined" ? window.speechSynthesis : null;
@@ -81,8 +82,6 @@ class AeternumVitaVoiceEngine {
     this.isListening = false;
     this.isSpeaking = false;
     this.cachedVoices = [];
-    this.lastSpokenText = "";
-    this.lastSpokenTime = 0;
 
     if (this.synthesis) {
       const loadVoices = () => {
@@ -117,37 +116,22 @@ class AeternumVitaVoiceEngine {
       .trim();
   }
 
-  /**
-   * Checks if captured audio is an acoustic echo of tutor's recent speech
-   */
-  isAcousticEcho(transcript) {
-    if (!transcript || !this.lastSpokenText) return false;
-    const now = Date.now();
-    if (now - this.lastSpokenTime > 9000) return false; // expired
-
-    const cleanInput = transcript.toLowerCase().replace(/[^a-z0-9]/gi, " ").trim();
-    const cleanTutor = this.lastSpokenText.toLowerCase().replace(/[^a-z0-9]/gi, " ").trim();
-
-    if (!cleanInput || !cleanTutor) return false;
-
-    // Check direct substring
-    if (cleanTutor.includes(cleanInput) && cleanInput.length > 8) return true;
-    if (cleanInput.includes(cleanTutor)) return true;
-
-    // Check word overlap ratio
-    const inputWords = cleanInput.split(/\s+/).filter((w) => w.length > 3);
-    if (!inputWords.length) return false;
-    const matchedWords = inputWords.filter((w) => cleanTutor.includes(w));
-    const overlapRatio = matchedWords.length / inputWords.length;
-
-    return overlapRatio >= 0.55;
+  releaseMicrophoneStream() {
+    if (this.mediaStream) {
+      try {
+        this.mediaStream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      } catch {}
+      this.mediaStream = null;
+    }
   }
 
   /**
    * High-Definition Audio Synthesis with Strict Half-Duplex Mic Muting
    */
   async speak(text, tutor, onStart, onEnd) {
-    // 1. Immediately mute and abort microphone to prevent self-hearing echo
+    // 1. Immediately mute and abort microphone before playing any audio
     this.stopListening();
     this.stopSpeaking();
     this.unlockAudio();
@@ -158,13 +142,10 @@ class AeternumVitaVoiceEngine {
       return;
     }
 
-    this.lastSpokenText = cleanText;
-    this.lastSpokenTime = Date.now();
     this.isSpeaking = true;
 
     const finalizeSpeech = () => {
       this.isSpeaking = false;
-      this.lastSpokenTime = Date.now();
       // Cool-off grace period (450ms) to allow room speaker reverb to clear
       setTimeout(() => {
         if (this.activeSession && !this.isSpeaking) {
@@ -196,7 +177,7 @@ class AeternumVitaVoiceEngine {
 
           audio.onplay = () => {
             this.isSpeaking = true;
-            this.stopListening(); // double-check mic is off
+            this.stopListening();
             onStart?.();
           };
 
@@ -309,7 +290,7 @@ class AeternumVitaVoiceEngine {
   }
 
   async startListening(tutor, onInterimResult, onFinalResult, onError) {
-    if (this.isSpeaking) return; // Never start listening while tutor is speaking
+    if (this.isSpeaking || !this.activeSession) return;
 
     const SpeechRecognition =
       typeof window !== "undefined"
@@ -324,9 +305,9 @@ class AeternumVitaVoiceEngine {
     try {
       this.stopListening();
 
-      if (navigator?.mediaDevices?.getUserMedia) {
+      if (navigator?.mediaDevices?.getUserMedia && !this.mediaStream) {
         try {
-          await navigator.mediaDevices.getUserMedia({ audio: true });
+          this.mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
         } catch (permErr) {
           console.warn("Mic permission prompt:", permErr);
         }
@@ -341,7 +322,7 @@ class AeternumVitaVoiceEngine {
       let finalTranscript = "";
 
       rec.onresult = (event) => {
-        if (this.isSpeaking) return; // Discard immediately if tutor started speaking
+        if (this.isSpeaking || !this.activeSession) return;
 
         let interim = "";
         for (let i = event.resultIndex; i < event.results.length; ++i) {
@@ -354,26 +335,21 @@ class AeternumVitaVoiceEngine {
         }
 
         const currentText = (finalTranscript + (interim ? " " + interim : "")).trim();
-
-        // Echo filter on interim text
-        if (this.isAcousticEcho(currentText)) return;
-
         onInterimResult?.(currentText);
 
         if (this.silenceTimer) clearTimeout(this.silenceTimer);
 
-        // Human conversational pause: 1800ms gives the student time to think and pause naturally
-        if (currentText && currentText.length >= 2) {
+        // Human conversational pause (1600ms): captures full responses naturally
+        if (currentText && currentText.length >= 1) {
           this.silenceTimer = setTimeout(() => {
             const fullSpeech = (finalTranscript + " " + interim).trim();
             finalTranscript = "";
             this.stopListening();
 
-            // Guard against self-hearing echo loop
-            if (fullSpeech && !this.isAcousticEcho(fullSpeech)) {
+            if (fullSpeech && this.activeSession) {
               onFinalResult?.(fullSpeech);
             }
-          }, 1800);
+          }, 1600);
         }
       };
 
@@ -389,6 +365,7 @@ class AeternumVitaVoiceEngine {
 
       rec.onend = () => {
         this.isListening = false;
+        // Only restart if the user has NOT closed the voice session and tutor is not speaking
         if (this.activeSession && !this.isSpeaking) {
           try {
             rec.start();
@@ -478,10 +455,14 @@ class AeternumVitaVoiceEngine {
     return tutor;
   }
 
+  /**
+   * Completely ends voice session, stops speech synthesis and releases microphone hardware
+   */
   stopSession() {
     this.activeSession = null;
     this.stopListening();
     this.stopSpeaking();
+    this.releaseMicrophoneStream();
   }
 }
 
