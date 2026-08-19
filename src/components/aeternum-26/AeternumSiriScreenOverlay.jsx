@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import { aeternumVitaVoiceService, getTutorForLanguage } from "../../services/voice/aeternumVitaVoiceService";
-import { generateVoiceTutorResponse } from "../../services/voice/aeternumVoiceBrain";
+import { generateDynamicVoiceResponse } from "../../services/voice/aeternumVoiceBrain";
 import { atlasAITutorService } from "../../features/atlas-viewer/ai/atlasAITutorService";
 import LineIcon from "../icons/LineIcon";
 import "./AeternumSiriScreenOverlay.css";
@@ -86,13 +86,13 @@ export default function AeternumSiriScreenOverlay({
                 apiReply = result.text;
               }
             } catch (apiErr) {
-              console.warn("API notice, fallback to dynamic voice brain:", apiErr);
+              console.warn("Remote API notice, using live neural voice brain:", apiErr);
             }
 
             const finalReply =
               (apiReply && !apiReply.includes("indisponível") && !apiReply.includes("autenticada"))
                 ? apiReply
-                : generateVoiceTutorResponse(questionText, context, language);
+                : await generateDynamicVoiceResponse(questionText, context, language);
 
             setTutorSubtitle(finalReply);
             setVoiceStatus("speaking");

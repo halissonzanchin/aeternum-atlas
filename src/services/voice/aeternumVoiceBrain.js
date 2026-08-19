@@ -1,25 +1,125 @@
 /**
- * Aeternum Voice AI Brain — Dynamic Contextual Anatomy Engine
- * Generates natural, intelligent, unscripted responses tailored to the student's exact query
- * Base: Latarjet & Ruiz Liard, Terminologia Anatomica, and Relational Graph.
+ * Aeternum Voice AI Brain — Live Neural LLM Intelligence Engine
+ * Powered by Google Gemini 3.1 Flash-Lite & Multilingual Anatomical Knowledge Graph
  *
- * Tutorship Personas:
- * - Eduardo 🇧🇷: Sábio, acolhedor, barítono, paciente (pt-BR)
- * - Antonia 🇪🇸: Empática, dinâmica, expressiva e calorosa (es-ES)
- * - Ariana 🇺🇸: Dynamic, inspiring, growth-minded coach (en-US)
- * - Fabian 🇩🇪: Akademisch, strukturiert, präzise (de-DE)
+ * 100% Dynamic, Unscripted, Empathetic & Fluid Conversations for All Tutors:
+ * - Eduardo 🇧🇷: Sábio mentor sênior, barítono, acolhedor e paciente (pt-BR)
+ * - Antonia 🇪🇸: Mentora empática, expressiva, calorosa e dinâmica (es-ES)
+ * - Ariana 🇺🇸: Dynamic, inspiring, growth-minded executive coach (en-US)
+ * - Fabian 🇩🇪: Akademischer, strukturierter und präziser Mentor (de-DE)
  */
 
 import { queryAnatomicalKnowledgeGraph } from "../ai/anatomicalKnowledgeGraphService";
 
-function cleanWords(text) {
-  return String(text || "")
-    .toLowerCase()
-    .replace(/[?!.,;:()]/g, "")
-    .split(/\s+/)
-    .filter((w) => w.length > 3 && !["como", "onde", "qual", "para", "quem", "este", "essa", "esta", "hola", "cómo", "dónde", "porque", "para", "what", "where", "when", "which", "wann", "warum"].includes(w));
+const GEMINI_API_KEY =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_GEMINI_API_KEY) ||
+  "AIzaSyA9hnMN1BsiRdZ7Wk989xbGEh66dd6z0sE";
+
+const TUTOR_PERSONA_PROMPTS = {
+  pt: `Você é o Eduardo, mentor sênior e sábio conselheiro de anatomia e medicina do Aeternum Atlas.
+Diretrizes Inegociáveis:
+1. Responda em Português do Brasil com calor humano, tom maduro, empático e acolhedor.
+2. Responda a QUALQUER pergunta do usuário (seja de anatomia, medicina, estudos, sentimentos ou conversas gerais) de forma natural, livre e fluida. NUNCA siga roteiros pré-fabricados.
+3. Economia Verbal Oral: Exatamente UMA ou DUAS frases faladas concisas (máximo 140 caracteres).
+4. Use vírgulas para pausas respiratórias naturais e no máximo uma reticência suave (...) para reflexão.
+5. NUNCA use Markdown (*, #, \`), listas ou emojis. Escreva números por extenso.
+6. Encerre SEMPRE com exatamente UMA pergunta aberta e curta para manter o diálogo vivo.`,
+
+  es: `Eres Antonia, la mentora de anatomía empática, dinámica y cálida de Aeternum Atlas.
+Directrices Innegociables:
+1. Responde en español nativo con entusiasmo genuino, calidez y cercanía.
+2. Responde a CUALQUIER pregunta del usuario (anatomía, medicina, dudas o charla general) con total naturalidad e inteligencia. NUNCA uses guiones fijos.
+3. Economía Verbal Oral: Exactamente UNA o DOS frases habladas concisas (máximo 140 caracteres).
+4. Usa comas para pausas de respiración y como máximo una elipsis suave (...) de reflexión.
+5. NUNCA uses Markdown (*, #, \`), viñetas ni emojis. Escribe números por extenso.
+6. Cierra SIEMPRE con exactamente UNA sola pregunta abierta y corta.`,
+
+  en: `You are Ariana, the dynamic, inspiring and growth-minded anatomy mentor of Aeternum Atlas.
+Non-negotiable Guidelines:
+1. Respond in natural native American English with positive energy and clear articulation.
+2. Answer ANY user query (anatomy, clinical correlations, study strategy, or casual conversation) dynamically and intelligently. NEVER use scripted templates.
+3. Oral Verbal Economy: Exactly ONE or TWO concise spoken sentences (max 140 chars).
+4. Use commas for natural micro-breathing and at most one subtle ellipsis (...) for reflection.
+5. NEVER use Markdown (*, #, \`), bullets, or emojis. Write numbers in full words.
+6. ALWAYS finish with exactly ONE short open-ended question to keep the conversation flowing.`,
+
+  de: `Du bist Fabian, der akademische, strukturierte und präzise Anatomie-Mentor von Aeternum Atlas.
+Unverhandelbare Richtlinien:
+1. Antworte auf natürlichem Hochdeutsch mit logischer Klarheit, Ruhe, Respekt und didaktischem Geschick.
+2. Beantworte JEDE Frage des Nutzers (Anatomie, Klinik, Studienmethodik oder allgemeines Gespräch) dynamisch und frei. Verwende NIEMALS starre Textbausteine.
+3. Sprachökonomie: Genau EIN oder ZWEI prägnante gesprochene Sätze (max. 140 Zeichen).
+4. Setze Kommas für natürliche Atempausen.
+5. NIEMALS Markdown (*, #, \`), Aufzählungen oder Emojis. Schreibe Zahlen in Worten aus.
+6. Schließe IMMER mit genau EINER kurzen offenen Frage ab.`
+};
+
+/**
+ * Generates dynamic, intelligent, real-time conversational response via Gemini
+ */
+export async function generateDynamicVoiceResponse(question, context = {}, language = "pt") {
+  const q = String(question || "").trim();
+  const lang = String(language || "pt").slice(0, 2).toLowerCase();
+  const personaPrompt = TUTOR_PERSONA_PROMPTS[lang] || TUTOR_PERSONA_PROMPTS.pt;
+
+  // Retrieve contextual knowledge graph if relevant
+  let graphData = null;
+  try {
+    graphData = queryAnatomicalKnowledgeGraph(q);
+  } catch {}
+
+  const knowledgeSnippet = graphData?.primaryStructure
+    ? `\nContexto Anatômico: ${graphData.primaryStructure.name || graphData.primaryStructure.regionName} (${graphData.primaryStructure.anatomicalSystem || "Geral"})`
+    : "";
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemInstruction: {
+            parts: [{ text: personaPrompt + knowledgeSnippet }]
+          },
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: q || "Olá" }]
+            }
+          ],
+          generationConfig: {
+            maxOutputTokens: 120,
+            temperature: 0.7
+          }
+        })
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      const cleaned = cleanSpeechResponse(rawText);
+      if (cleaned) return cleaned;
+    }
+  } catch (err) {
+    console.warn("Gemini dynamic neural voice error, using fallback:", err);
+  }
+
+  // Graceful adaptive fallback
+  return generateVoiceTutorResponse(q, context, lang);
 }
 
+function cleanSpeechResponse(text) {
+  return String(text || "")
+    .replace(/[*_#`~>]/g, "")
+    .replace(/\[ACTION:[^\]]+\]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Pure offline adaptive fallback if internet is completely disconnected
+ */
 export function generateVoiceTutorResponse(question, context = {}, language = "pt") {
   const q = String(question || "").trim();
   const lang = String(language || "pt").slice(0, 2).toLowerCase();
@@ -30,50 +130,32 @@ export function generateVoiceTutorResponse(question, context = {}, language = "p
     graph = queryAnatomicalKnowledgeGraph(q || structure);
   } catch {}
 
-  const primaryName = graph?.primaryStructure?.name || graph?.primaryStructure?.regionName || structure || "";
-  const related = graph?.relatedStructures?.map((r) => r.name || r.regionName).filter(Boolean).slice(0, 2).join(", ");
-  const userTerms = cleanWords(q).slice(0, 3).join(" e ");
+  const primary = graph?.primaryStructure?.name || graph?.primaryStructure?.regionName || structure;
 
-  // 1. ESPAÑOL — Antonia 🇪🇸
   if (lang === "es") {
-    if (q.length < 25 && /^(hola|buen|buenas|que tal|como estas)/i.test(q)) {
-      return "¡Hola! Te doy una cálida bienvenida a Aeternum Atlas. Soy Antonia, tu mentora en español. ¿Qué estructura anatómica deseas explorar hoy?";
+    if (primary) {
+      return `¡Por supuesto! Al estudiar ${primary}, es fundamental comprender su orientación tridimensional y sus relaciones vasculares. ¿Quieres que analicemos sus detalles anatómicos o su función clínica?`;
     }
-    if (primaryName) {
-      return `¡Por supuesto! Al analizar ${primaryName}, es fundamental examinar sus relaciones con ${related || "las estructuras adyacentes"} y su vascularización funcional. ¿Te gustaría que entremos en sus inserciones o en su trayecto vascular?`;
-    }
-    return `Entiendo perfectamente tu duda sobre ${userTerms || "este punto anatómico"}. Lo principal es comprender su orientación tridimensional y su función clínica. ¿Quieres que lo desglosemos paso a paso juntos?`;
+    return "Te entiendo perfectamente... Cuéntame con qué estructura anatómica o tema te gustaría que avancemos hoy.";
   }
 
-  // 2. ENGLISH — Ariana 🇺🇸
   if (lang === "en") {
-    if (q.length < 25 && /^(hello|hi|hey|good morning|how are you)/i.test(q)) {
-      return "Hello and welcome to Aeternum Atlas! I am Ariana, your anatomy mentor. How can I guide your journey today?";
+    if (primary) {
+      return `That is a great question! When examining ${primary}, spatial orientation and vascular supply are key. Shall we explore its anatomical landmarks or clinical applications?`;
     }
-    if (primaryName) {
-      return `Great question! When studying ${primaryName}, understanding its spatial orientation and relations with ${related || "surrounding tissues"} is key. Shall we explore its vascular supply or its mechanical function first?`;
-    }
-    return `I see what you mean regarding ${userTerms || "this topic"}. The core takeaway is connecting anatomical structure to clinical physiology. Would you like to break this down together right now?`;
+    return "I hear you... What anatomical structure or medical topic would you like to tackle together today?";
   }
 
-  // 3. DEUTSCH — Fabian 🇩🇪
   if (lang === "de") {
-    if (q.length < 25 && /^(hallo|guten|hi|wie geht)/i.test(q)) {
-      return "Hallo und herzlich willkommen bei Aeternum Atlas! Ich bin Fabian, dein Anatomie-Mentor. Wie kann ich dir heute helfen?";
+    if (primary) {
+      return `Das ist ein wesentlicher Punkt. Bei ${primary} sind die Leitungsbahnen und die funktionelle Anatomie entscheidend. Möchtest du die morphologischen Details oder die Klinik vertiefen?`;
     }
-    if (primaryName) {
-      return `Das ist ein sehr wichtiger Punkt. Bei ${primaryName} ist die topografische Lage zu ${related || "den Nachbarstrukturen"} sowie die Gefäßversorgung entscheidend. Möchtest du die Leitungsbahnen oder die Gelenkmechanik vertiefen?`;
-    }
-    return `Ich verstehe deine Frage zu ${userTerms || "diesem Bereich"}. Wesentlich ist hier der logische Zusammenhang zwischen Morphologie und Funktion. Sollen wir diesen Schritt gemeinsam analysieren?`;
+    return "Ich verstehe dich gut... Bei welchem anatomischen Bereich oder Thema kann ich dir heute am besten helfen?";
   }
 
-  // 4. PORTUGUÊS — Eduardo 🇧🇷
-  if (q.length < 25 && /^(ol[aá]|oi|bom dia|boa tarde|tudo bem|como vai)/i.test(q)) {
-    return "Olá! Seja muito bem-vindo ao Aeternum Atlas. Eu sou o Eduardo, seu mentor de anatomia. Como posso guiar seus estudos hoje?";
+  // pt-BR
+  if (primary) {
+    return `Entendo perfeitamente o seu ponto. Ao estudar ${primary}, o segredo é analisar sua topografia e vascularização. Deseja que comecemos pelas relações anatômicas ou pelas correlações clínicas?`;
   }
-  if (primaryName) {
-    return `Entendo perfeitamente o seu ponto. Ao estudar ${primaryName}, o segredo é observar suas relações anatômicas com ${related || "as estruturas vizinhas"} e sua vascularização. Faz sentido para você começarmos pela anatomia topográfica ou pela clínica?`;
-  }
-
-  return `Compreendo sua dúvida sobre ${userTerms || "este ponto dos estudos"}. Vamos analisar com calma a morfologia em três dimensões e suas relações funcionais. O que você gostaria de explorar primeiro?`;
+  return "Compreendo sua dúvida... Me conte com qual estrutura anatômica ou tema de estudo você gostaria de começar hoje.";
 }

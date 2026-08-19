@@ -114,7 +114,7 @@ class AeternumVitaVoiceEngine {
   }
 
   /**
-   * High-Definition Audio Synthesis via Deepgram Aura-2 Direct API & Neural Engines
+   * High-Definition Audio Synthesis via Deepgram Aura-2 Direct API & Neural Audio Pipeline
    */
   async speak(text, tutor, onStart, onEnd) {
     this.stopSpeaking();
@@ -197,8 +197,8 @@ class AeternumVitaVoiceEngine {
 
       // Eduardo pt-BR: Warm, resonant, deep Brazilian baritone
       if (tutor.id === "eduardo") {
-        utterance.rate = 0.98;
-        utterance.pitch = 0.92;
+        utterance.rate = 0.96;
+        utterance.pitch = 0.90;
       } else if (tutor.gender === "masculino" || tutor.gender === "männlich") {
         utterance.rate = 1.0;
         utterance.pitch = 0.95;
@@ -311,15 +311,16 @@ class AeternumVitaVoiceEngine {
         onInterimResult?.(currentText);
 
         if (this.silenceTimer) clearTimeout(this.silenceTimer);
+        // Humanized conversational pause threshold: 1800ms allows the user to pause, breathe and finish thoughts
         if (currentText && currentText.length >= 2) {
           this.silenceTimer = setTimeout(() => {
             const fullSpeech = (finalTranscript + " " + interim).trim();
-            if (fullSpeech) {
+            if (fullSpeech && fullSpeech.length >= 2) {
               finalTranscript = "";
               this.stopListening();
               onFinalResult?.(fullSpeech);
             }
-          }, 850);
+          }, 1800);
         }
       };
 
