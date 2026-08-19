@@ -1,4 +1,5 @@
 export { default as A26Surface } from "./A26Surface";
+export { default as AeternumSiriScreenOverlay } from "./AeternumSiriScreenOverlay";
 export {
   A26Button,
   A26Card,
@@ -18,3 +19,4 @@ export {
   A26Toolbar,
   A26TutorSurface
 } from "./A26Primitives";
+

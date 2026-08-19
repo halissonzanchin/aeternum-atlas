@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { A26IconButton, A26Surface } from "../../../components/aeternum-26";
+import { A26IconButton, A26Surface, AeternumSiriScreenOverlay } from "../../../components/aeternum-26";
 import { useLanguage } from "../../../context/LanguageContext";
 import { useAtlasAITutorSession } from "../../../context/AtlasAITutorSessionContext";
 import AtlasAIConversation from "../../atlas-viewer/ai/AtlasAIConversation";
@@ -22,6 +22,9 @@ export default function AtlasAITutor({
   const [isOpen, setIsOpen] = useState(false);
   const [panelMode, setPanelMode] = useState("compact");
   const [toolModalType, setToolModalType] = useState(null);
+  const [isCharging, setIsCharging] = useState(false);
+  const holdTimerRef = useRef(null);
+  const didTriggerHoldRef = useRef(false);
   const triggerRef = useRef(null);
   const context = useMemo(() => getAtlasTutorContext(path), [path]);
   const {
@@ -115,15 +118,48 @@ export default function AtlasAITutor({
   const panelStyle = draggable
     ? getTutorPanelMorphStyle(panelBaseStyle, position)
     : panelBaseStyle;
-  const orbState = isThinking ? "thinking" : isOpen ? "listening" : "idle";
+  const orbState = isThinking ? "thinking" : isCharging ? "focus" : isOpen ? "listening" : "idle";
+
+  const handlePointerDown = (e) => {
+    if (isDragging) return;
+    didTriggerHoldRef.current = false;
+    setIsCharging(true);
+
+    if (holdTimerRef.current) {
+      clearTimeout(holdTimerRef.current);
+    }
+
+    holdTimerRef.current = setTimeout(() => {
+      didTriggerHoldRef.current = true;
+      setIsCharging(false);
+      setIsOpen(true);
+      setPanelMode("expanded");
+      if (typeof navigator !== "undefined" && navigator.vibrate) {
+        navigator.vibrate([30, 40, 70]);
+      }
+    }, 550);
+  };
+
+  const handlePointerUpOrLeave = () => {
+    if (holdTimerRef.current) {
+      clearTimeout(holdTimerRef.current);
+      holdTimerRef.current = null;
+    }
+    setIsCharging(false);
+  };
 
   const handleTriggerClick = () => {
     if (consumeDragClick()) return;
+    if (didTriggerHoldRef.current) {
+      didTriggerHoldRef.current = false;
+      return;
+    }
     setIsOpen((open) => !open);
   };
 
   const handleClose = () => {
     setIsOpen(false);
+    setIsCharging(false);
     window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
   };
 
@@ -159,6 +195,12 @@ export default function AtlasAITutor({
 
   return createPortal(
     <>
+      <AeternumSiriScreenOverlay
+        active={isOpen}
+        isCharging={isCharging}
+        state={orbState}
+      />
+
       {isOpen ? <div className="aog-focus-dimmer" aria-hidden="true" /> : null}
 
       {isOpen && (
@@ -236,6 +278,7 @@ export default function AtlasAITutor({
         className={[
           "upe-ai-trigger",
           isOpen ? "is-open" : "",
+          isCharging ? "is-charging" : "",
           "aog-morph-source",
           sphereOnly ? "is-orb-only" : "",
           draggable ? "is-draggable" : "",
@@ -246,8 +289,12 @@ export default function AtlasAITutor({
         aria-controls="upe-ai-panel"
         style={triggerStyle}
         onClick={handleTriggerClick}
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUpOrLeave}
+        onPointerLeave={handlePointerUpOrLeave}
         {...dragHandlers}
       >
+        {isCharging && <div className="a26-tutor-charging-aura" aria-hidden="true" />}
         <AtlasAIOrb state={orbState} size={sphereOnly ? "lg" : "md"} />
         {!sphereOnly && (
           <span>
