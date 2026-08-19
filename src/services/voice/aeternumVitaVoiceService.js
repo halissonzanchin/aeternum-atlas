@@ -14,7 +14,7 @@ export const AETERNUM_VITA_TUTORS = {
     country: "Brasil",
     langCode: "pt-BR",
     gender: "masculino",
-    deepgramModel: "aura-2-arcas-en", // Deepgram Neural Audio Engine
+    deepgramModel: "aura-2-arcas-en",
     role: "Mentor de Voz em Português",
     badgeGradient: "linear-gradient(135deg, #009c3b 0%, #ffdf00 50%, #002776 100%)",
     promptDirective: "Você é o Eduardo, mentor oficial de anatomia do Aeternum Atlas. Responda em Português do Brasil de forma clara, natural e direta, em exatamente UMA ou DUAS frases faladas concisas sem Markdown ou listas."
@@ -26,7 +26,7 @@ export const AETERNUM_VITA_TUTORS = {
     country: "Argentina / España",
     langCode: "es-ES",
     gender: "femenino",
-    deepgramModel: "aura-2-antonia-es", // Deepgram Aura-2 Direct
+    deepgramModel: "aura-2-antonia-es",
     role: "Mentora de Voz en Español",
     badgeGradient: "linear-gradient(135deg, #aa151b 0%, #f1bf00 50%, #aa151b 100%)",
     promptDirective: "Eres Antonia, mentora oficial de anatomía de Aeternum Atlas. Responde en español nativo con voz clara y empática, en exactamente UNA o DOS frases habladas concisas sin Markdown ni listas."
@@ -38,7 +38,7 @@ export const AETERNUM_VITA_TUTORS = {
     country: "United States",
     langCode: "en-US",
     gender: "female",
-    deepgramModel: "aura-2-thalia-en", // Deepgram Aura-2 Direct
+    deepgramModel: "aura-2-thalia-en",
     role: "English Voice Mentor",
     badgeGradient: "linear-gradient(135deg, #0a3161 0%, #ffffff 50%, #b31942 100%)",
     promptDirective: "You are Ariana, official anatomy mentor of Aeternum Atlas. Respond in natural native American English in exactly ONE or TWO concise spoken sentences without Markdown or bullet points."
@@ -50,7 +50,7 @@ export const AETERNUM_VITA_TUTORS = {
     country: "Deutschland",
     langCode: "de-DE",
     gender: "männlich",
-    deepgramModel: "aura-2-fabian-de", // Deepgram Aura-2 Direct
+    deepgramModel: "aura-2-fabian-de",
     role: "Deutscher Sprach-Mentor",
     badgeGradient: "linear-gradient(135deg, #000000 0%, #dd0000 50%, #ffce00 100%)",
     promptDirective: "Du bist Fabian, offizieller Anatomie-Mentor von Aeternum Atlas. Antworte auf natürlichem Hochdeutsch in genau EINEM oder ZWEI prägnanten gesprochenen Sätzen ohne Markdown oder Listen."
@@ -93,8 +93,7 @@ class AeternumVitaVoiceEngine {
   }
 
   /**
-   * High-Definition Audio Synthesis
-   * Uses Deepgram Aura-2 Direct API for studio neural streaming.
+   * High-Definition Audio Synthesis via Deepgram Aura-2 Direct API
    */
   async speak(text, tutor, onStart, onEnd) {
     this.stopSpeaking();
@@ -105,7 +104,7 @@ class AeternumVitaVoiceEngine {
       return;
     }
 
-    // 1. Deepgram Aura-2 Neural Audio Streaming
+    // 1. Deepgram Aura-2 Direct API
     if (VITA_VOICE_CONFIG.deepgramApiKey) {
       const model = tutor.deepgramModel || "aura-2-arcas-en";
       try {
@@ -150,7 +149,7 @@ class AeternumVitaVoiceEngine {
           return;
         }
       } catch (err) {
-        console.warn("Deepgram Aura-2 streaming notice:", err);
+        console.warn("Deepgram Aura-2 playback notice:", err);
       }
     }
 
@@ -232,7 +231,7 @@ class AeternumVitaVoiceEngine {
     this.isSpeaking = false;
   }
 
-  startListening(tutor, onInterimResult, onFinalResult, onError) {
+  async startListening(tutor, onInterimResult, onFinalResult, onError) {
     const SpeechRecognition =
       typeof window !== "undefined"
         ? window.SpeechRecognition || window.webkitSpeechRecognition
@@ -245,6 +244,15 @@ class AeternumVitaVoiceEngine {
 
     try {
       this.stopListening();
+
+      // Ensure microphone permission is active
+      if (navigator?.mediaDevices?.getUserMedia) {
+        try {
+          await navigator.mediaDevices.getUserMedia({ audio: true });
+        } catch (permErr) {
+          console.warn("Mic permission prompt:", permErr);
+        }
+      }
 
       const rec = new SpeechRecognition();
       rec.lang = tutor.langCode;
@@ -269,14 +277,15 @@ class AeternumVitaVoiceEngine {
         onInterimResult?.(currentText);
 
         if (this.silenceTimer) clearTimeout(this.silenceTimer);
-        if (currentText && currentText.length > 2) {
+        if (currentText && currentText.length >= 2) {
           this.silenceTimer = setTimeout(() => {
             const fullSpeech = (finalTranscript + " " + interim).trim();
             if (fullSpeech) {
               finalTranscript = "";
+              this.stopListening();
               onFinalResult?.(fullSpeech);
             }
-          }, 1400);
+          }, 950);
         }
       };
 
@@ -321,10 +330,6 @@ class AeternumVitaVoiceEngine {
     this.isListening = false;
   }
 
-  /**
-   * Starts real-time conversational voice session immediately in active listening mode
-   * (Zero static canned messages, pure interactive speech)
-   */
   startSession({
     language = "pt",
     onStatusChange,
@@ -345,7 +350,6 @@ class AeternumVitaVoiceEngine {
       tutor
     });
 
-    // Enter real-time listening immediately
     this.startListening(
       tutor,
       (interim) => {

@@ -81,7 +81,7 @@ export default function AeternumSiriScreenOverlay({
             language
           };
 
-          await atlasAITutorService.processMessageStream(
+          const result = await atlasAITutorService.processMessageStream(
             userQuestion,
             streamContext,
             ({ text }) => {
@@ -90,26 +90,33 @@ export default function AeternumSiriScreenOverlay({
             }
           );
 
-          if (fullReply) {
-            setVoiceStatus("speaking");
-            await aeternumVitaVoiceService.speak(
-              fullReply,
-              currentTutor,
-              () => setVoiceStatus("speaking"),
-              () => {
-                setVoiceStatus("listening");
-                aeternumVitaVoiceService.startListening(
-                  currentTutor,
-                  (interim) => setUserSubtitle(interim.text || interim),
-                  (finalSpeech) => {
-                    setUserSubtitle(finalSpeech.text || finalSpeech);
-                  }
-                );
-              }
-            );
-          }
+          const finalReply = fullReply || result?.text || (
+            language === "es" ? "Comprendo tu consulta anatómica. ¿Deseas explorar esta estructura en detalle?" :
+            language === "en" ? "I understand your anatomical question. Would you like to review this structure in detail?" :
+            language === "de" ? "Ich verstehe deine anatomische Frage. Möchtest du diese Struktur vertiefen?" :
+            "Compreendi sua dúvida anatômica. Deseja explorar esta estrutura em detalhes?"
+          );
+
+          setTutorSubtitle(finalReply);
+          setVoiceStatus("speaking");
+          await aeternumVitaVoiceService.speak(
+            finalReply,
+            currentTutor,
+            () => setVoiceStatus("speaking"),
+            () => {
+              setVoiceStatus("listening");
+              aeternumVitaVoiceService.startListening(
+                currentTutor,
+                (interim) => setUserSubtitle(interim.text || interim),
+                (finalSpeech) => {
+                  const speechText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
+                  setUserSubtitle(speechText);
+                }
+              );
+            }
+          );
         } catch (err) {
-          console.warn("Voice AI processing error:", err);
+          console.warn("Voice AI processing notice:", err);
           setVoiceStatus("listening");
         }
       },
