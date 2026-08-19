@@ -118,6 +118,14 @@ export default function AeternumSiriScreenOverlay({
         } catch (err) {
           console.warn("Voice AI processing notice:", err);
           setVoiceStatus("listening");
+          aeternumVitaVoiceService.startListening(
+            currentTutor,
+            (interim) => setUserSubtitle(interim.text || interim),
+            (finalSpeech) => {
+              const speechText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
+              setUserSubtitle(speechText);
+            }
+          );
         }
       },
       onError: (err) => {

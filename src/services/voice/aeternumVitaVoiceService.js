@@ -17,7 +17,8 @@ export const AETERNUM_VITA_TUTORS = {
     deepgramModel: "aura-2-arcas-en",
     role: "Mentor de Voz em Português",
     badgeGradient: "linear-gradient(135deg, #009c3b 0%, #ffdf00 50%, #002776 100%)",
-    promptDirective: "Você é o Eduardo, mentor oficial de anatomia do Aeternum Atlas. Responda em Português do Brasil de forma clara, natural e direta, em exatamente UMA ou DUAS frases faladas concisas sem Markdown ou listas."
+    greeting: "Olá! Sou o Eduardo, seu mentor de anatomia. Como posso ajudar seus estudos hoje?",
+    promptDirective: "Você é o Eduardo, mentor oficial de anatomia do Aeternum Atlas. Responda em Português do Brasil de forma clara, acolhedora, com dicção nativa e natural, em exatamente UMA ou DUAS frases faladas concisas e diretas sem Markdown ou listas."
   },
   es: {
     id: "antonia",
@@ -29,6 +30,7 @@ export const AETERNUM_VITA_TUTORS = {
     deepgramModel: "aura-2-antonia-es",
     role: "Mentora de Voz en Español",
     badgeGradient: "linear-gradient(135deg, #aa151b 0%, #f1bf00 50%, #aa151b 100%)",
+    greeting: "¡Hola! Soy Antonia, tu mentora de anatomía. ¿Qué estructura deseas explorar hoy?",
     promptDirective: "Eres Antonia, mentora oficial de anatomía de Aeternum Atlas. Responde en español nativo con voz clara y empática, en exactamente UNA o DOS frases habladas concisas sin Markdown ni listas."
   },
   en: {
@@ -41,6 +43,7 @@ export const AETERNUM_VITA_TUTORS = {
     deepgramModel: "aura-2-thalia-en",
     role: "English Voice Mentor",
     badgeGradient: "linear-gradient(135deg, #0a3161 0%, #ffffff 50%, #b31942 100%)",
+    greeting: "Hello! I am Ariana, your anatomy mentor. How can I guide your studies today?",
     promptDirective: "You are Ariana, official anatomy mentor of Aeternum Atlas. Respond in natural native American English in exactly ONE or TWO concise spoken sentences without Markdown or bullet points."
   },
   de: {
@@ -53,6 +56,7 @@ export const AETERNUM_VITA_TUTORS = {
     deepgramModel: "aura-2-fabian-de",
     role: "Deutscher Sprach-Mentor",
     badgeGradient: "linear-gradient(135deg, #000000 0%, #dd0000 50%, #ffce00 100%)",
+    greeting: "Hallo! Ich bin Fabian, dein Anatomie-Mentor. Wie kann ich dir heute helfen?",
     promptDirective: "Du bist Fabian, offizieller Anatomie-Mentor von Aeternum Atlas. Antworte auf natürlichem Hochdeutsch in genau EINEM oder ZWEI prägnanten gesprochenen Sätzen ohne Markdown oder Listen."
   }
 };
@@ -67,6 +71,7 @@ class AeternumVitaVoiceEngine {
     this.activeSession = null;
     this.recognition = null;
     this.audioElement = null;
+    this.audioCtx = null;
     this.synthesis = typeof window !== "undefined" ? window.speechSynthesis : null;
     this.silenceTimer = null;
     this.isListening = false;
@@ -84,6 +89,23 @@ class AeternumVitaVoiceEngine {
     }
   }
 
+  /**
+   * Unlock Web Audio context on user touch/click gesture
+   */
+  unlockAudio() {
+    try {
+      if (typeof window !== "undefined") {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass && !this.audioCtx) {
+          this.audioCtx = new AudioContextClass();
+        }
+        if (this.audioCtx && this.audioCtx.state === "suspended") {
+          this.audioCtx.resume();
+        }
+      }
+    } catch {}
+  }
+
   cleanTextForSpeech(text) {
     return String(text || "")
       .replace(/\[ACTION:[^\]]+\]/g, "")
@@ -97,6 +119,7 @@ class AeternumVitaVoiceEngine {
    */
   async speak(text, tutor, onStart, onEnd) {
     this.stopSpeaking();
+    this.unlockAudio();
 
     const cleanText = this.cleanTextForSpeech(text);
     if (!cleanText) {
@@ -145,11 +168,17 @@ class AeternumVitaVoiceEngine {
             this.speakFallback(cleanText, tutor, onStart, onEnd);
           };
 
-          await audio.play();
+          const playPromise = audio.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((playErr) => {
+              console.warn("Audio autoplay policy notice:", playErr);
+              this.speakFallback(cleanText, tutor, onStart, onEnd);
+            });
+          }
           return;
         }
       } catch (err) {
-        console.warn("Deepgram Aura-2 playback notice:", err);
+        console.warn("Deepgram Aura-2 direct API notice:", err);
       }
     }
 
@@ -330,6 +359,9 @@ class AeternumVitaVoiceEngine {
     this.isListening = false;
   }
 
+  /**
+   * Starts real-time conversational voice session with warm introductory greeting
+   */
   startSession({
     language = "pt",
     onStatusChange,
@@ -338,6 +370,7 @@ class AeternumVitaVoiceEngine {
     onError
   }) {
     this.stopSession();
+    this.unlockAudio();
 
     const tutor = getTutorForLanguage(language);
     this.activeSession = {
@@ -345,21 +378,44 @@ class AeternumVitaVoiceEngine {
       language
     };
 
+    // 1. Speak greeting first in studio neural audio
     onStatusChange?.({
-      status: "listening",
-      tutor
+      status: "speaking",
+      tutor,
+      text: tutor.greeting
     });
 
-    this.startListening(
+    this.speak(
+      tutor.greeting,
       tutor,
-      (interim) => {
-        onTranscript?.({ text: interim, isFinal: false });
+      () => {
+        onStatusChange?.({
+          status: "speaking",
+          tutor,
+          text: tutor.greeting
+        });
       },
-      (finalSpeech) => {
-        onTranscript?.({ text: finalSpeech, isFinal: true });
-        onTutorReply?.(finalSpeech, tutor);
-      },
-      onError
+      () => {
+        // 2. Once greeting finishes, start listening immediately
+        if (!this.activeSession) return;
+        onStatusChange?.({
+          status: "listening",
+          tutor,
+          text: ""
+        });
+
+        this.startListening(
+          tutor,
+          (interim) => {
+            onTranscript?.({ text: interim, isFinal: false });
+          },
+          (finalSpeech) => {
+            onTranscript?.({ text: finalSpeech, isFinal: true });
+            onTutorReply?.(finalSpeech, tutor);
+          },
+          onError
+        );
+      }
     );
 
     return tutor;
