@@ -14,14 +14,14 @@ const STATE_INDEX = {
 };
 
 const STATE_INTENSITY = {
-  idle: 0.72,
-  focus: 0.86,
-  active: 0.86,
-  listening: 0.98,
-  thinking: 1,
-  speaking: 0.96,
+  idle: 0.85,
+  focus: 0.95,
+  active: 0.95,
+  listening: 1.0,
+  thinking: 1.0,
+  speaking: 1.0,
   success: 0.9,
-  offline: 0.72,
+  offline: 0.65,
   error: 0.8
 };
 
@@ -43,31 +43,16 @@ const FRAGMENT_SHADER = `
 
   const float PI = 3.141592653589793;
 
-  vec3 hsv2rgb(vec3 c) {
-    vec3 rgb = clamp(
-      abs(mod(c.x * 6.0 + vec3(0.0, 4.0, 2.0), 6.0) - 3.0) - 1.0,
-      0.0,
-      1.0
-    );
-    rgb = rgb * rgb * (3.0 - 2.0 * rgb);
-    return c.z * mix(vec3(1.0), rgb, c.y);
-  }
-
-  float hash21(vec2 p) {
+  float hash(vec2 p) {
     return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
-  }
-
-  float softOrb(vec2 p, vec2 center, float density) {
-    vec2 delta = p - center;
-    return exp(-dot(delta, delta) * density);
   }
 
   void main() {
     float shortestSide = min(u_resolution.x, u_resolution.y);
     vec2 p = (gl_FragCoord.xy - u_resolution * 0.5) / (shortestSide * 0.5);
     float radius = length(p);
-    float edgeSoftness = max(0.007, 2.0 / shortestSide);
-    float sphereMask = 1.0 - smoothstep(0.982 - edgeSoftness, 1.0, radius);
+    float edgeSoftness = max(0.006, 2.0 / shortestSide);
+    float sphereMask = 1.0 - smoothstep(0.985 - edgeSoftness, 1.0, radius);
 
     if (sphereMask <= 0.001) {
       gl_FragColor = vec4(0.0);
@@ -75,246 +60,89 @@ const FRAGMENT_SHADER = `
     }
 
     float z = sqrt(max(0.0, 1.0 - radius * radius));
-    float fresnel = pow(1.0 - z, 2.55);
+    float fresnel = pow(1.0 - z, 2.8);
     float energyLevel = clamp(u_intensity, 0.0, 1.0);
 
-    float speed = 1.52;
-    if (u_state > 0.5 && u_state < 1.5) speed = 1.78;
-    if (u_state > 1.5 && u_state < 2.5) speed = 2.12;
-    if (u_state > 2.5 && u_state < 3.5) speed = 2.55;
-    if (u_state > 3.5 && u_state < 4.5) speed = 2.32;
-    if (u_state > 4.5 && u_state < 5.5) speed = 1.86;
-    if (u_state > 5.5 && u_state < 6.5) speed = 1.28;
-    if (u_state > 6.5) speed = 1.62;
+    // Speed and state reactivity
+    float speed = 1.15;
+    if (u_state > 0.5 && u_state < 1.5) speed = 1.45;
+    if (u_state > 1.5 && u_state < 2.5) speed = 1.85;
+    if (u_state > 2.5 && u_state < 3.5) speed = 2.25;
+    if (u_state > 3.5 && u_state < 4.5) speed = 2.05;
 
-    float phase = u_time * speed;
-    float slowPhase = u_time * 0.47;
-    float phaseA = phase * 1.18 + 0.32 * sin(slowPhase * 1.1);
-    float phaseB = phase * 1.63 + 0.38 * sin(slowPhase * 0.73 + 1.7);
-    float phaseC = phase * 1.05 + 0.29 * sin(slowPhase * 1.34 + 3.0);
-    float phaseD = phase * 1.92 + 0.35 * sin(slowPhase * 0.91 + 4.2);
-    float breath = 0.82 + 0.18 * sin(phase * 0.88);
-    float voicePulse = 1.0;
-    if (u_state > 1.5 && u_state < 2.5) {
-      voicePulse = 0.86 + 0.14 * sin(phase * 5.4);
-    }
-    if (u_state > 3.5 && u_state < 4.5) {
-      voicePulse = 0.82 + 0.18 * sin(phase * 6.8);
-    }
+    float t = u_time * speed;
 
-    float flowX =
-      p.x +
-      0.065 * sin(p.y * 3.2 + phaseC * 0.74) +
-      0.026 * sin(p.y * 7.1 - phaseD * 0.48);
-    float flowY =
-      p.y +
-      0.018 * sin(p.x * 5.4 - phaseB * 0.68) +
-      0.012 * cos(p.x * 9.2 + phaseA * 0.42);
+    // 1. Siddhant Mehta Official Orb Vertical Multi-Gradient
+    // Bottom: Mint/Cyan -> Middle: Azure/Purple -> Top: Coral/Pink
+    vec3 cMint   = vec3(0.18, 0.96, 0.72); // #2ef0b8
+    vec3 cCyan   = vec3(0.00, 0.82, 1.00); // #00d2ff
+    vec3 cBlue   = vec3(0.00, 0.48, 1.00); // #007aff
+    vec3 cPurple = vec3(0.58, 0.28, 0.98); // #9446fa
+    vec3 cPink   = vec3(1.00, 0.25, 0.55); // #ff408d
 
-    float primaryWave =
-      0.016 * sin(slowPhase * 1.7) +
-      0.118 * sin(flowX * 2.45 + phaseA * 1.06) +
-      0.019 * sin(flowX * 6.2 - phaseC * 0.62);
-    float secondaryWave =
-      -0.096 +
-      0.112 * sin(flowX * 2.08 - phaseB * 0.92 + 1.48) +
-      0.016 * sin(flowX * 5.8 + phaseD * 0.4) +
-      0.018 * flowX * sin(slowPhase * 1.4);
-    float tertiaryWave =
-      0.098 +
-      0.106 * sin(flowX * 2.72 + phaseC * 0.98 + 2.18) +
-      0.015 * cos(flowX * 6.7 - phaseA * 0.5) -
-      0.017 * flowX * cos(slowPhase * 1.1);
-    float fourthWave =
-      -0.018 +
-      0.09 * sin(flowX * 3.18 - phaseD * 0.86 + 4.05) +
-      0.014 * cos(flowX * 7.2 + phaseB * 0.48) +
-      0.015 * sin(slowPhase * 2.2);
+    // Vertical gradient coordinates with gentle fluid distortion
+    float yGrad = (p.y + 1.0) * 0.5;
+    float fluidDistort = 0.08 * sin(p.x * 3.4 + t * 1.2) + 0.04 * cos(p.y * 4.2 - t * 0.9);
+    yGrad = clamp(yGrad + fluidDistort, 0.0, 1.0);
 
-    float primaryDistance = abs(flowY - primaryWave);
-    float secondaryDistance = abs(flowY - secondaryWave);
-    float tertiaryDistance = abs(flowY - tertiaryWave);
-    float fourthDistance = abs(flowY - fourthWave);
-    float coreWidth = mix(0.023, 0.04, energyLevel) * voicePulse;
-    float primaryCore = exp(-pow(primaryDistance / coreWidth, 2.0));
-    float secondaryCore = exp(-pow(secondaryDistance / (coreWidth * 0.92), 2.0));
-    float tertiaryCore = exp(-pow(tertiaryDistance / (coreWidth * 0.78), 2.0));
-    float fourthCore = exp(-pow(fourthDistance / (coreWidth * 0.7), 2.0));
-    float primaryGlow = exp(-pow(primaryDistance / mix(0.16, 0.245, energyLevel), 2.0));
-    float secondaryGlow = exp(-pow(secondaryDistance / mix(0.145, 0.22, energyLevel), 2.0));
-    float tertiaryGlow = exp(-pow(tertiaryDistance / mix(0.125, 0.195, energyLevel), 2.0));
-    float fourthGlow = exp(-pow(fourthDistance / mix(0.11, 0.17, energyLevel), 2.0));
-
-    float primaryHue = fract(0.01 + flowX * 0.035 + phaseA * 0.014);
-    float secondaryHue = fract(0.09 - flowX * 0.025 - phaseB * 0.009);
-    float tertiaryHue = fract(0.49 + flowX * 0.032 + phaseC * 0.012);
-    float fourthHue = fract(0.64 - flowX * 0.028 + phaseD * 0.007);
-    vec3 spectrum = hsv2rgb(vec3(primaryHue, 0.93, 1.0));
-    vec3 secondSpectrum = hsv2rgb(vec3(secondaryHue, 0.91, 1.0));
-    vec3 thirdSpectrum = hsv2rgb(vec3(tertiaryHue, 0.88, 1.0));
-    vec3 fourthSpectrum = hsv2rgb(vec3(fourthHue, 0.9, 1.0));
-    vec3 hotWhite = vec3(1.0, 0.985, 0.93);
-
-    float travelA = 0.64 + 0.36 * sin(flowX * 8.7 - phaseA * 4.4);
-    float travelB = 0.62 + 0.38 * sin(flowX * 7.2 + phaseB * 3.8 + 1.7);
-    float travelC = 0.68 + 0.32 * sin(flowX * 10.4 - phaseC * 5.1 + 3.1);
-    float travelD = 0.64 + 0.36 * sin(flowX * 12.1 + phaseD * 4.7 + 4.4);
-
-    vec2 driftA = vec2(
-      -0.32 + 0.19 * sin(phaseA * 0.76),
-      -0.02 + 0.16 * cos(phaseC * 0.62)
-    );
-    vec2 driftB = vec2(
-      0.33 + 0.17 * cos(phaseB * 0.58),
-      0.03 + 0.15 * sin(phaseD * 0.71)
-    );
-    vec2 driftC = vec2(
-      0.02 + 0.22 * sin(phaseC * 0.41 + 2.0),
-      -0.2 + 0.12 * cos(phaseA * 0.53)
-    );
-    float auroraA = softOrb(p, driftA, 5.8);
-    float auroraB = softOrb(p, driftB, 6.4);
-    float auroraC = softOrb(p, driftC, 7.2);
-    vec3 internalAurora =
-       hsv2rgb(vec3(fract(primaryHue + 0.08), 0.92, 1.0)) * auroraA +
-       hsv2rgb(vec3(fract(primaryHue + 0.45), 0.88, 1.0)) * auroraB +
-       hsv2rgb(vec3(fract(primaryHue + 0.78), 0.84, 0.92)) * auroraC;
-    internalAurora *= (0.1 + 0.165 * energyLevel) * breath;
-
-    float lowerGlass = 1.0 - smoothstep(-0.9, 0.26, p.y);
-    float upperGlass = smoothstep(-0.18, 0.92, p.y);
-    vec3 upperTint = vec3(0.052, 0.068, 0.079);
-    vec3 lowerTint = vec3(0.09, 0.102, 0.11);
-    vec3 base = mix(upperTint, lowerTint, lowerGlass * 0.48);
-    base *= mix(1.0, 0.88, upperGlass);
-    base += vec3(0.052, 0.08, 0.1) * (1.0 - z);
-
-    vec2 surfaceNormal = p / max(radius, 0.001);
-    vec2 keyLight = normalize(vec2(-0.72, 0.69));
-    vec2 anisotropicNormal = normalize(vec2(surfaceNormal.x * 0.82, surfaceNormal.y));
-    float keyCatch = max(dot(anisotropicNormal, keyLight), 0.0);
-    float kickCatch = max(dot(anisotropicNormal, -keyLight), 0.0);
-    float key2 = keyCatch * keyCatch;
-    float key4 = key2 * key2;
-    float key8 = key4 * key4;
-    float keySpecular = key8 * key8;
-    float kick2 = kickCatch * kickCatch;
-    float kick4 = kick2 * kick2;
-    float kickSpecular = kick4 * kick4;
-    float edgeFactor = smoothstep(0.56, 0.985, radius);
-    float specularStrength = 1.45 + 0.35 * energyLevel;
-    base += vec3(0.96, 0.99, 1.0) * keySpecular * edgeFactor * specularStrength;
-    base += vec3(0.7, 0.88, 1.0) * kickSpecular * edgeFactor * 0.48;
-
-    vec2 surfaceTangent = vec2(-surfaceNormal.y, surfaceNormal.x);
-    float dispersionAxis = dot(surfaceTangent, keyLight);
-    float dispersionEdge = pow(max(fresnel, 0.0), 0.72) * edgeFactor;
-    vec3 dispersionColor = vec3(
-      max(dispersionAxis, 0.0),
-      0.12 * (1.0 - abs(dispersionAxis)),
-      max(-dispersionAxis, 0.0)
-    );
-    base += dispersionColor * dispersionEdge * (0.16 + 0.08 * energyLevel);
-
-    vec2 topHighlightPosition = p - vec2(-0.34, 0.55);
-    float topHighlight = exp(-dot(topHighlightPosition, topHighlightPosition) * 29.0);
-    float lowerReflection = exp(
-      -pow((p.y + 0.5 + 0.055 * sin(p.x * 3.2 + phase * 0.36)) / 0.25, 2.0)
-    );
-    base += vec3(0.8, 0.9, 0.96) * topHighlight * 0.16;
-    base += vec3(0.42, 0.34, 0.28) * lowerReflection * (0.028 + fresnel * 0.052);
-
-    float interiorFade = smoothstep(1.0, 0.7, radius);
-    vec3 energy =
-      spectrum * primaryGlow * travelA * (0.92 + 1.52 * energyLevel) +
-      secondSpectrum * secondaryGlow * travelB * (0.7 + 1.18 * energyLevel) +
-      thirdSpectrum * tertiaryGlow * travelC * (0.5 + 0.92 * energyLevel) +
-      fourthSpectrum * fourthGlow * travelD * (0.38 + 0.76 * energyLevel);
-    energy += mix(spectrum, hotWhite, 0.44) * primaryCore * travelA * (2.2 + 1.8 * energyLevel);
-    energy += mix(secondSpectrum, hotWhite, 0.36) * secondaryCore * travelB * (1.45 + 1.36 * energyLevel);
-    energy += mix(thirdSpectrum, hotWhite, 0.3) * tertiaryCore * travelC * (0.96 + 1.02 * energyLevel);
-    energy += mix(fourthSpectrum, hotWhite, 0.26) * fourthCore * travelD * (0.72 + 0.86 * energyLevel);
-
-    float crossAB = sqrt(primaryCore * secondaryCore);
-    float crossAC = sqrt(primaryCore * tertiaryCore);
-    float crossAD = sqrt(primaryCore * fourthCore);
-    float crossBC = sqrt(secondaryCore * tertiaryCore);
-    float crossBD = sqrt(secondaryCore * fourthCore);
-    float crossCD = sqrt(tertiaryCore * fourthCore);
-    float strongestCross = max(
-      max(max(crossAB, crossAC), max(crossAD, crossBC)),
-      max(crossBD, crossCD)
-    );
-    float intersectionCore = smoothstep(0.26, 0.82, strongestCross);
-    float haloAB = primaryGlow * secondaryGlow;
-    float haloAC = primaryGlow * tertiaryGlow;
-    float haloAD = primaryGlow * fourthGlow;
-    float haloBC = secondaryGlow * tertiaryGlow;
-    float haloBD = secondaryGlow * fourthGlow;
-    float haloCD = tertiaryGlow * fourthGlow;
-    float intersectionHalo = max(
-      max(max(haloAB, haloAC), max(haloAD, haloBC)),
-      max(haloBD, haloCD)
-    );
-    float crossWeight = crossAB + crossAC + crossAD + crossBC + crossBD + crossCD;
-    float crossingPulse =
-      0.68 +
-      0.32 * sin(flowX * 11.5 - phaseB * 2.3 + phaseD * 0.74);
-    vec3 interactionSpectrum = (
-      mix(spectrum, secondSpectrum, 0.5) * crossAB +
-      mix(spectrum, thirdSpectrum, 0.5) * crossAC +
-      mix(spectrum, fourthSpectrum, 0.5) * crossAD +
-      mix(secondSpectrum, thirdSpectrum, 0.5) * crossBC +
-      mix(secondSpectrum, fourthSpectrum, 0.5) * crossBD +
-      mix(thirdSpectrum, fourthSpectrum, 0.5) * crossCD
-    ) / max(crossWeight, 0.001);
-    energy +=
-      interactionSpectrum *
-      intersectionHalo *
-      crossingPulse *
-      (0.78 + 1.28 * energyLevel);
-    energy +=
-      hotWhite *
-      intersectionCore *
-      crossingPulse *
-      (1.55 + 2.65 * energyLevel) *
-      breath;
-    energy = energy * interiorFade + internalAurora * interiorFade;
-
-    if (u_state > 4.5 && u_state < 5.5) {
-      energy += vec3(1.0, 0.79, 0.32) * primaryGlow * 0.22;
-    }
-    if (u_state > 5.5 && u_state < 6.5) {
-      energy = mix(energy, energy + vec3(1.0, 0.62, 0.2) * primaryCore, 0.12);
-    }
-    if (u_state > 6.5) {
-      energy = mix(energy, energy + vec3(1.0, 0.16, 0.28) * primaryGlow, 0.28);
+    vec3 baseColor;
+    if (yGrad < 0.25) {
+      baseColor = mix(cMint, cCyan, yGrad / 0.25);
+    } else if (yGrad < 0.5) {
+      baseColor = mix(cCyan, cBlue, (yGrad - 0.25) / 0.25);
+    } else if (yGrad < 0.75) {
+      baseColor = mix(cBlue, cPurple, (yGrad - 0.5) / 0.25);
+    } else {
+      baseColor = mix(cPurple, cPink, (yGrad - 0.75) / 0.25);
     }
 
-    float rimHue = fract(0.58 + atan(p.y, p.x) / (2.0 * PI) + phase * 0.04);
-    vec3 rimSpectrum = hsv2rgb(vec3(rimHue, 0.62, 1.0));
-    vec3 rim = mix(vec3(0.86, 0.94, 0.98), rimSpectrum, 0.3);
-    base += rim * fresnel * (0.22 + 0.3 * energyLevel);
-    base += vec3(0.98, 0.995, 1.0) * pow(fresnel, 5.0) * 0.28;
+    // 2. Wavy Blob Views & Rotating Core Glows (from WavyBlobView & RotatingGlowView)
+    float angle = atan(p.y, p.x);
+    float blob1 = sin(angle * 3.0 + t * 1.75 + length(p) * 2.5);
+    float blob2 = cos(angle * 4.0 - t * 1.35 + length(p) * 3.2);
+    float internalBlob = smoothstep(-0.2, 0.8, blob1 * 0.6 + blob2 * 0.5);
 
-    float grain = hash21(gl_FragCoord.xy + floor(u_time * 10.0));
-    vec3 color = base + energy;
-    color += (grain - 0.5) * 0.008;
-    color = 1.0 - exp(-color * 1.18);
-    color = pow(max(color, 0.0), vec3(0.9));
+    vec3 blobGlow = mix(baseColor, vec3(1.0), 0.55) * internalBlob * (0.45 + 0.4 * energyLevel);
 
-    float strongestGlow = max(max(primaryGlow, secondaryGlow), max(tertiaryGlow, fourthGlow));
-    float strongestCore = max(max(primaryCore, secondaryCore), max(tertiaryCore, fourthCore));
-    float energyOpacity = clamp(
-      strongestGlow * 0.18 +
-      strongestCore * 0.25 +
-      intersectionCore * 0.2,
-      0.0,
-      0.34
-    );
-    float glassOpacity = mix(0.16, 0.5, fresnel) + energyOpacity;
-    glassOpacity = clamp(glassOpacity, 0.0, 0.8) * sphereMask;
-    gl_FragColor = vec4(color * glassOpacity, glassOpacity);
+    // 3. Floating Sparkle Particles (from ParticlesView)
+    float particles = 0.0;
+    for (int i = 0; i < 8; i++) {
+      float fi = float(i);
+      vec2 partPos = vec2(
+        sin(fi * 1.73 + t * 0.38 + hash(vec2(fi, 1.0)) * 6.28) * 0.62,
+        cos(fi * 2.41 + t * 0.44 + hash(vec2(fi, 2.0)) * 6.28) * 0.62
+      );
+      float d = length(p - partPos);
+      float twinkle = 0.5 + 0.5 * sin(t * 3.2 + fi * 2.1);
+      particles += exp(-d * 42.0) * twinkle * (0.7 + 0.3 * energyLevel);
+      // Diamond flare spike
+      float spike = exp(-abs(p.x - partPos.x) * 60.0) * exp(-abs(p.y - partPos.y) * 12.0) +
+                    exp(-abs(p.y - partPos.y) * 60.0) * exp(-abs(p.x - partPos.x) * 12.0);
+      particles += spike * twinkle * 0.45;
+    }
+
+    // 4. Glossy Specular Glass Reflection (Upper Crescent Highlight)
+    vec2 specPos = p - vec2(-0.28, 0.28);
+    float specDist = length(vec2(specPos.x * 1.35, specPos.y * 0.95));
+    float glassGloss = smoothstep(0.48, 0.04, specDist) * smoothstep(0.96, 0.35, length(p));
+    vec3 glossHighlight = vec3(1.0, 1.0, 1.0) * glassGloss * 0.92;
+
+    // Secondary subtle lower rim reflection
+    vec2 subSpecPos = p - vec2(0.35, -0.42);
+    float subSpecDist = length(vec2(subSpecPos.x * 1.2, subSpecPos.y * 1.5));
+    float subGloss = smoothstep(0.32, 0.05, subSpecDist);
+    vec3 subHighlight = mix(cMint, vec3(1.0), 0.7) * subGloss * 0.35;
+
+    // Outer Rim Fresnel Lighting
+    float rimLight = pow(fresnel, 2.2) * (0.55 + 0.35 * energyLevel);
+    vec3 rimColor = mix(vec3(1.0), baseColor, 0.3) * rimLight;
+
+    // Composition
+    vec3 finalColor = baseColor + blobGlow + vec3(particles) + glossHighlight + subHighlight + rimColor;
+    finalColor = clamp(finalColor, 0.0, 1.0);
+
+    float alpha = sphereMask;
+    gl_FragColor = vec4(finalColor * alpha, alpha);
   }
 `;
 
@@ -352,7 +180,7 @@ function createProgram(gl) {
   return program;
 }
 
-function clamp(value, minimum, maximum) {
+function clampVal(value, minimum, maximum) {
   return Math.min(maximum, Math.max(minimum, value));
 }
 
@@ -375,7 +203,7 @@ export default function AtlasAIOrb({
   const normalizedState = Object.prototype.hasOwnProperty.call(STATE_INDEX, state)
     ? state
     : "idle";
-  const normalizedIntensity = clamp(
+  const normalizedIntensity = clampVal(
     Number.isFinite(intensity) ? intensity : STATE_INTENSITY[normalizedState],
     0,
     1
@@ -383,69 +211,63 @@ export default function AtlasAIOrb({
 
   useEffect(() => {
     visualStateRef.current = {
-      state: STATE_INDEX[normalizedState],
+      state: STATE_INDEX[normalizedState] ?? STATE_INDEX.idle,
       intensity: normalizedIntensity
     };
     requestDrawRef.current();
   }, [normalizedIntensity, normalizedState]);
 
   useEffect(() => {
-    // For small size (e.g. headers), use high-performance SVG/CSS renderer to save GPU WebGL context slots on mobile
-    if (size === "sm") {
-      setRenderer("fallback");
-      return undefined;
-    }
-
     const canvas = canvasRef.current;
     if (!canvas) return undefined;
 
-    let disposed = false;
+    let gl;
+    let program;
+    let positionBuffer;
     let animationFrame = 0;
+    let disposed = false;
 
     const handleContextLost = (event) => {
       event.preventDefault();
-      disposed = true;
-      if (animationFrame) window.cancelAnimationFrame(animationFrame);
       setRenderer("fallback");
     };
 
-    canvas.addEventListener("webglcontextlost", handleContextLost, { passive: false });
-
-    const gl = canvas.getContext("webgl", {
-      alpha: true,
-      antialias: false,
-      depth: false,
-      stencil: false,
-      preserveDrawingBuffer: false,
-      premultipliedAlpha: true,
-      powerPreference: "high-performance"
-    });
-
-    if (!gl) {
-      setRenderer("fallback");
-      return () => {
-        canvas.removeEventListener("webglcontextlost", handleContextLost);
-      };
-    }
-
-    let program;
     try {
-      program = createProgram(gl);
-    } catch (error) {
-      console.warn("[Atlas AI Orb] WebGL indisponível; usando fallback.", error);
-      setRenderer("fallback");
-      return () => {
-        canvas.removeEventListener("webglcontextlost", handleContextLost);
-      };
-    }
+      gl = canvas.getContext("webgl", {
+        alpha: true,
+        antialias: true,
+        depth: false,
+        stencil: false,
+        premultipliedAlpha: true,
+        preserveDrawingBuffer: false
+      });
 
-    const positionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
-      gl.STATIC_DRAW
-    );
+      if (!gl) {
+        setRenderer("fallback");
+        return undefined;
+      }
+
+      canvas.addEventListener("webglcontextlost", handleContextLost, false);
+      program = createProgram(gl);
+      positionBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([
+          -1, -1,
+           1, -1,
+          -1,  1,
+          -1,  1,
+           1, -1,
+           1,  1
+        ]),
+        gl.STATIC_DRAW
+      );
+    } catch (error) {
+      console.error(error);
+      setRenderer("fallback");
+      return undefined;
+    }
 
     const positionLocation = gl.getAttribLocation(program, "a_position");
     const resolutionLocation = gl.getUniformLocation(program, "u_resolution");
@@ -475,7 +297,6 @@ export default function AtlasAIOrb({
       gl.viewport(0, 0, width, height);
     };
 
-    // Initial resize once on mount
     resizeCanvas();
 
     const draw = (timestamp = 0) => {
@@ -540,7 +361,7 @@ export default function AtlasAIOrb({
         gl.deleteBuffer(positionBuffer);
         gl.deleteProgram(program);
       } catch {
-        // Silent teardown
+        // Teardown
       }
     };
   }, [size]);
@@ -555,55 +376,9 @@ export default function AtlasAIOrb({
       ].filter(Boolean).join(" ")}
       data-renderer={renderer}
       data-state={normalizedState}
-      style={{
-        "--atlas-orb-refraction-filter": `url(#${refractionFilterId})`
-      }}
       onClick={onClick}
       aria-hidden="true"
     >
-      <svg
-        className="atlas-ai-orb__filter-defs"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <filter
-          id={refractionFilterId}
-          x="-35%"
-          y="-35%"
-          width="170%"
-          height="170%"
-          colorInterpolationFilters="sRGB"
-        >
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.012 0.019"
-            numOctaves="2"
-            seed="11"
-            result="refractionNoise"
-          >
-            <animate
-              attributeName="baseFrequency"
-              dur="5.6s"
-              values="0.012 0.019;0.019 0.011;0.012 0.019"
-              repeatCount="indefinite"
-            />
-          </feTurbulence>
-          <feGaussianBlur
-            in="refractionNoise"
-            stdDeviation="0.42"
-            result="softRefractionNoise"
-          />
-          <feDisplacementMap
-            in="SourceGraphic"
-            in2="softRefractionNoise"
-            scale="16"
-            xChannelSelector="R"
-            yChannelSelector="B"
-          />
-        </filter>
-      </svg>
-      <span className="atlas-ai-orb__refraction" />
-      <span className="atlas-ai-orb__fallback" />
       <canvas ref={canvasRef} className="atlas-ai-orb__canvas" />
       <span className="atlas-ai-orb__lens" />
       <span className="atlas-ai-orb__rim" />
