@@ -4,8 +4,8 @@ import "./AeternumSiriScreenOverlay.css";
 
 /**
  * Aeternum 26.1 Apple Intelligence Screen Glow
- * Direct high-performance implementation of AppleIntelligenceForSwiftUI (Alessio Rubicini)
- * Mathematical conic gradient angle oscillation and dynamic harmonic color spectrum.
+ * Official AppleIntelligenceForSwiftUI (Alessio Rubicini) Soft-Diffusion Architecture.
+ * Subtle, ethereal, feather-soft pastel perimeter glow with zero hard lines.
  */
 export default function AeternumSiriScreenOverlay({
   active = false,
@@ -52,11 +52,11 @@ export default function AeternumSiriScreenOverlay({
       if (!isRunning) return;
 
       const targetOpacity = active ? 1.0 : 0.0;
-      opacityRef.current += (targetOpacity - opacityRef.current) * 0.14;
+      opacityRef.current += (targetOpacity - opacityRef.current) * 0.12;
 
       const currentOpacity = opacityRef.current;
 
-      if (currentOpacity > 0.005) {
+      if (currentOpacity > 0.003) {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         const w = canvas.width;
         const h = canvas.height;
@@ -66,18 +66,20 @@ export default function AeternumSiriScreenOverlay({
         ctx.clearRect(0, 0, w, h);
 
         const t = (Date.now() - startTimeRef.current) * 0.001;
-        const phase = t * (state === "thinking" ? 1.4 : state === "speaking" ? 1.1 : 0.85);
+        const phase = t * (state === "thinking" ? 0.95 : state === "speaking" ? 0.75 : 0.55);
 
         // Sweeping angle oscillation from AppleIntelligenceForSwiftUI
         const angleDeg = Math.sin(phase * 1.2) * 120 + 180;
         const angleRad = (angleDeg * Math.PI) / 180;
 
-        // Dynamic 7-color harmonic spectrum from AppleIntelligenceForSwiftUI
-        const colors = [0, 1, 2, 3, 4, 5, 6].map((i) => {
-          const base = i / 6.0;
-          const hue = ((base + Math.sin(phase * 0.9 + base * Math.PI * 2) * 0.08) % 1 + 1) % 1;
-          const sat = (0.82 + 0.15 * Math.sin(phase * 0.7 + base * Math.PI)) * 100;
-          return `hsl(${hue * 360}, ${sat}%, 62%)`;
+        // Subtle Pastel Apple Intelligence Color Spectrum
+        const baseHues = [275, 320, 345, 38, 235, 192, 290];
+        const colors = baseHues.map((baseHue, i) => {
+          const shift = Math.sin(phase * 0.8 + (i / 7.0) * Math.PI * 2) * 14;
+          const hue = (baseHue + shift + 360) % 360;
+          const sat = 78 + 12 * Math.sin(phase * 0.6 + i);
+          const light = 68 + 6 * Math.sin(phase * 0.5 + i * 0.7);
+          return `hsla(${hue}, ${sat}%, ${light}%, 0.95)`;
         });
 
         // Create Conic Gradient with dynamic angle
@@ -85,55 +87,46 @@ export default function AeternumSiriScreenOverlay({
         if (ctx.createConicGradient) {
           gradient = ctx.createConicGradient(angleRad, cx, cy);
           colors.forEach((c, idx) => {
-            gradient.addColorStop(idx / 6, c);
+            gradient.addColorStop(idx / (colors.length - 1), c);
           });
           gradient.addColorStop(1, colors[0]);
         } else {
           gradient = ctx.createLinearGradient(0, 0, w, h);
           colors.forEach((c, idx) => {
-            gradient.addColorStop(idx / 6, c);
+            gradient.addColorStop(idx / (colors.length - 1), c);
           });
         }
 
-        const margin = 6 * dpr;
-        const cornerRadius = Math.max(16 * dpr, Math.min(w, h) * 0.035);
+        const margin = 2 * dpr;
+        const cornerRadius = Math.max(20 * dpr, Math.min(w, h) * 0.038);
         const rw = w - margin * 2;
         const rh = h - margin * 2;
 
         ctx.strokeStyle = gradient;
 
-        // Layer 3: Tertiary Wide Diffusion Glow
+        // Layer 3: Ambient Deep Bloom (Very soft wide diffusion)
         ctx.save();
-        ctx.filter = `blur(${28 * dpr}px)`;
-        ctx.lineWidth = 42 * dpr;
-        ctx.globalAlpha = (0.28 + 0.08 * Math.sin(phase * 0.7)) * currentOpacity;
+        ctx.filter = `blur(${38 * dpr}px)`;
+        ctx.lineWidth = 50 * dpr;
+        ctx.globalAlpha = (0.22 + 0.06 * Math.sin(phase * 0.7)) * currentOpacity;
         drawRoundedRect(ctx, margin, margin, rw, rh, cornerRadius);
         ctx.stroke();
         ctx.restore();
 
-        // Layer 2: Secondary Caustic Glow
+        // Layer 2: Secondary Caustic Diffusion
         ctx.save();
-        ctx.filter = `blur(${10 * dpr}px)`;
-        ctx.lineWidth = 18 * dpr;
-        ctx.globalAlpha = (0.55 + 0.12 * Math.sin(phase * 0.9)) * currentOpacity;
+        ctx.filter = `blur(${16 * dpr}px)`;
+        ctx.lineWidth = 24 * dpr;
+        ctx.globalAlpha = (0.36 + 0.08 * Math.sin(phase * 0.9)) * currentOpacity;
         drawRoundedRect(ctx, margin, margin, rw, rh, cornerRadius);
         ctx.stroke();
         ctx.restore();
 
-        // Layer 1: Primary Colored Border
+        // Layer 1: Primary Soft Inner Glow (Gentle feathered border)
         ctx.save();
-        ctx.filter = `blur(${4 * dpr}px)`;
-        ctx.lineWidth = 8 * dpr;
-        ctx.globalAlpha = (0.85 + 0.15 * Math.sin(phase * 1.1)) * currentOpacity;
-        drawRoundedRect(ctx, margin, margin, rw, rh, cornerRadius);
-        ctx.stroke();
-        ctx.restore();
-
-        // Layer 0: Sharp Crisp Laser Edge
-        ctx.save();
-        ctx.filter = "none";
-        ctx.lineWidth = 2.5 * dpr;
-        ctx.globalAlpha = 0.95 * currentOpacity;
+        ctx.filter = `blur(${7 * dpr}px)`;
+        ctx.lineWidth = 12 * dpr;
+        ctx.globalAlpha = (0.52 + 0.1 * Math.sin(phase * 1.1)) * currentOpacity;
         drawRoundedRect(ctx, margin, margin, rw, rh, cornerRadius);
         ctx.stroke();
         ctx.restore();
