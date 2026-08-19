@@ -1,6 +1,7 @@
 /**
  * Cérebro Aeternum — Motor Central de Inteligência & Consciência Médica
  * Alimenta tanto os Tutores de Voz (Aeternum Vita) quanto o Atlas AI (Pesquisa & Estudo Textual)
+ * 100% Humanizado, Proativo, Empático e Adaptativo.
  */
 
 import {
@@ -13,6 +14,7 @@ class CerebroAeternumEngine {
   constructor() {
     this.customKnowledgeVault = new Map();
     this.lastActiveTopic = null;
+    this.interactionCount = 0;
   }
 
   normalize(text) {
@@ -60,9 +62,6 @@ class CerebroAeternumEngine {
     return true;
   }
 
-  /**
-   * Identifica o nó de conhecimento correspondente à pergunta do usuário
-   */
   findKnowledgeNode(query) {
     const q = this.normalize(query);
 
@@ -82,9 +81,6 @@ class CerebroAeternumEngine {
     return null;
   }
 
-  /**
-   * Identifica nós de mentoria emocional, psicológica ou coaching de rotina
-   */
   findMentorshipNode(query) {
     const q = this.normalize(query);
     for (const key in CEREBRO_MENTORSHIP_NODES) {
@@ -97,6 +93,81 @@ class CerebroAeternumEngine {
   }
 
   /**
+   * Resposta Proativa, Humanizada e Empática para Conversas Gerais
+   */
+  generateHumanConversationResponse(q, lang) {
+    this.interactionCount++;
+
+    // 1. Saudações e Cumprimentos
+    if (this.containsAny(q, ["hola", "buen dia", "buenas", "ola", "oi", "bom dia", "boa tarde", "hello", "hi", "hey", "hallo", "guten tag"])) {
+      if (lang === "es") {
+        return "¡Hola! Qué alegría saludarte hoy. Soy Antonia, tu compañera y mentora aquí en el atlas. ¿Cómo va tu día de estudio y qué podemos explorar juntos?";
+      }
+      if (lang === "en") {
+        return "Hello! It is fantastic to connect with you today. I am Ariana, your mentor and study coach. How is your day going and what shall we dive into?";
+      }
+      if (lang === "de") {
+        return "Hallo! Schön, dich zu hören. Ich bin Fabian, dein Studienmentor. Wie läuft dein Tag und welches Thema gehen wir heute gemeinsam an?";
+      }
+      return "Olá! Que satisfação falar com você hoje. Eu sou o Eduardo, seu mentor e conselheiro de estudos. Como está seu dia e em que posso te apoiar agora?";
+    }
+
+    // 2. Perguntas sobre como o tutor está ou sentimentos mútuos
+    if (this.containsAny(q, ["como estas", "como te sientes", "como vai", "tudo bem", "como voce esta", "how are you", "wie geht"])) {
+      if (lang === "es") {
+        return "¡Estoy con toda la energía y lista para acompañarte! Me encanta cuando nos tomamos este momento para aprender juntos. ¿Cómo te sientes tú hoy con tus metas de estudio?";
+      }
+      if (lang === "en") {
+        return "I am feeling energized and ready to guide your learning journey! How are you feeling today and how is your study flow going?";
+      }
+      if (lang === "de") {
+        return "Mir geht es ausgezeichnet, vielen Dank! Ich freue mich darauf, dich heute zu begleiten. Wie fühlst du dich und womit möchten wir starten?";
+      }
+      return "Estou ótimo e muito motivado para caminharmos juntos nos seus estudos! Como você está se sentindo hoje com a sua rotina?";
+    }
+
+    // 3. Agradecimentos e Elogios
+    if (this.containsAny(q, ["gracias", "muchas gracias", "obrigado", "obrigada", "valeu", "excelente", "genial", "thank you", "thanks", "danke"])) {
+      if (lang === "es") {
+        return "¡Es todo un gusto ayudarte! Estoy aquí precisamente para que sientas ese respaldo en cada paso. ¿Qué otra duda o tema te gustaría que repasemos?";
+      }
+      if (lang === "en") {
+        return "You are very welcome! That is exactly what I am here for. What other concept or question would you like to tackle together?";
+      }
+      if (lang === "de") {
+        return "Sehr gerne! Genau dafür bin ich da. Welchen weiteren Aspekt oder welche Frage möchtest du als Nächstes besprechen?";
+      }
+      return "O prazer é todo meu! Fico muito feliz em poder te apoiar nesse processo. Qual o próximo ponto ou dúvida que você gostaria de ver?";
+    }
+
+    // 4. Desabafo sobre Medicina, Cansaço ou Desafio Geral
+    if (this.containsAny(q, ["dificil", "pesado", "cansador", "cansado", "agobiado", "estres", "ansiedad", "medicina", "hospital", "prova", "examen"])) {
+      if (lang === "es") {
+        return "Te entiendo de corazón... El camino médico exige muchísimo de nosotros y es totalmente válido sentirse así. ¿Prefieres que hagamos una pausa suave o que revisemos un caso clínico inspirador?";
+      }
+      if (lang === "en") {
+        return "I truly understand how demanding medical studies can be, and it is completely normal to feel this pressure. Would you like to take a light breath or look at an inspiring clinical case?";
+      }
+      if (lang === "de") {
+        return "Ich verstehe dich gut, das Medizinstudium verlangt enorme Ausdauer. Wollen wir eine kurze Pause machen oder uns einem motivierenden klinischen Fall widmen?";
+      }
+      return "Eu compreendo perfeitamente de coração... A jornada na medicina é intensa e esse cansaço faz parte do processo. Que tal darmos uma respirada com calma ou vermos algo mais leve agora?";
+    }
+
+    // 5. Resposta Geral Adaptativa & Proativa
+    if (lang === "es") {
+      return "Te escucho con total atención. Además de la anatomía, me importa mucho cómo te sientes y cómo organizas tus días. Cuéntame, ¿qué tienes en mente o qué necesitas resolver ahora mismo?";
+    }
+    if (lang === "en") {
+      return "I am listening closely! Beyond anatomy, I care about your study flow and well-being. Tell me, what is on your mind or what would you like to achieve right now?";
+    }
+    if (lang === "de") {
+      return "Ich höre dir aufmerksam zu. Neben der reinen Anatomie liegt mir dein Studienerfolg am Herzen. Was beschäftigt dich gerade oder wobei kann ich dich unterstützen?";
+    }
+    return "Estou te ouvindo com total atenção. Além da anatomia, me importo muito com seu bem-estar e seu ritmo de estudos. Me conte, o que você tem em mente ou precisa resolver agora?";
+  }
+
+  /**
    * Consulta o Cérebro Aeternum
    */
   consultar({ query, mode = "voice", language = "pt", context = {} }) {
@@ -104,15 +175,15 @@ class CerebroAeternumEngine {
     const q = this.normalize(rawQ);
     const lang = String(language || "pt").slice(0, 2).toLowerCase();
 
-    // 1. Mentoria, Coaching e Psicologia têm prioridade sobre tópicos anatômicos anteriores
+    // 1. Se for uma pergunta de mentoria, coaching ou rotina:
     const mentorship = this.findMentorshipNode(q);
     if (mentorship) {
-      this.lastActiveTopic = null; // reset active topic when student asks for coaching
+      this.lastActiveTopic = null;
       const resp = mentorship.responses?.[lang] || mentorship.responses?.pt;
       if (resp) return resp;
     }
 
-    // 2. Se o usuário mencionou uma nova estrutura anatômica primária
+    // 2. Se o usuário mencionou uma nova estrutura primária:
     let activeNode = this.lastActiveTopic ? this.findKnowledgeNode(this.lastActiveTopic) : null;
     const directNode = this.findKnowledgeNode(q);
     if (directNode) {
@@ -120,7 +191,7 @@ class CerebroAeternumEngine {
       this.lastActiveTopic = directNode.id;
     }
 
-    // 3. Se temos um nó ativo, procurar nos seus sub-tópicos (músculos, ligamentos, vascularização)
+    // 3. Se temos um nó ativo, procurar nos seus sub-tópicos (músculos, ligamentos, vasos, valvas):
     if (activeNode && Array.isArray(activeNode.subTopics)) {
       for (const sub of activeNode.subTopics) {
         if (this.containsAny(q, sub.synonyms)) {
@@ -159,43 +230,17 @@ ${pearls ? `**🩺 Correlações Clínicas & Cirúrgicas (Latarjet):**\n${pearls
     }
 
     // =========================================================================
-    // MODO 2: TUTORES DE VOZ (Aeternum Vita — Oral & Humanizado)
+    // MODO 2: TUTORES DE VOZ (Aeternum Vita)
     // =========================================================================
 
-    // Resumo vocal do nó anatômico
-    if (activeNode && activeNode.voiceSummary) {
-      const resp = activeNode.voiceSummary?.[lang] || activeNode.voiceSummary?.pt;
+    // Se o usuário falou especificamente de um nó anatômico novo
+    if (directNode && directNode.voiceSummary) {
+      const resp = directNode.voiceSummary?.[lang] || directNode.voiceSummary?.pt;
       if (resp) return resp;
     }
 
-    // Respostas abertas por idioma
-    if (lang === "es") {
-      if (this.containsAny(q, ["hola", "buen dia", "buenas", "como estas"]) && q.length < 25) {
-        return "¡Hola! Te doy una cálida bienvenida. Soy Antonia, tu mentora y compañera de estudio. ¿Cómo te sientes hoy y en qué te puedo colaborar?";
-      }
-      return "Te entiendo perfectamente... Estoy aquí para ayudarte tanto con la teoría anatómica como para guiar tu rutina de estudio. ¿Qué tema o duda te gustaría que resolvamos ahora?";
-    }
-
-    if (lang === "en") {
-      if (this.containsAny(q, ["hello", "hi", "hey", "how are you"]) && q.length < 25) {
-        return "Hello and welcome! I am Ariana, your mentor and study coach. How are you feeling today and what would you like to accomplish?";
-      }
-      return "I hear you loud and clear! I am here to support your clinical knowledge, study routine, and learning mindset. What would you like to focus on next?";
-    }
-
-    if (lang === "de") {
-      if (this.containsAny(q, ["hallo", "guten tag", "hi", "wie geht"]) && q.length < 25) {
-        return "Hallo und herzlich willkommen! Ich bin Fabian, dein Studienmentor und Anatomiebegleiter. Wie fühlst du dich heute und womit starten wir?";
-      }
-      return "Ich verstehe dich sehr gut. Ich unterstütze dich bei der Organisation deines Lernens ebenso wie bei anatomischen Fragestellungen. Womit wollen wir weitermachen?";
-    }
-
-    // Português (Eduardo)
-    if (this.containsAny(q, ["ola", "oi", "bom dia", "boa tarde", "tudo bem", "como vai"]) && q.length < 25) {
-      return "Olá! Seja muito bem-vindo. Eu sou o Eduardo, seu mentor e companheiro de jornada nos estudos. Como você está se sentindo hoje e em que posso apoiá-lo?";
-    }
-
-    return "Entendo perfeitamente o seu ponto. Estou aqui tanto para apoiar na compreensão anatômica e clínica quanto para ajudar a organizar seus estudos. Por qual tema ou dúvida você gostaria de começar agora?";
+    // Se não for anatômico, gerar resposta humanizada, proativa e acolhedora
+    return this.generateHumanConversationResponse(q, lang);
   }
 
   obterEstatisticas() {

@@ -62,7 +62,7 @@ export default function AeternumSiriScreenOverlay({
       onTutorReply: async (userQuestion, currentTutor) => {
         const handleTurn = async (questionText, tutor) => {
           const cleanQ = String(questionText || "").trim();
-          if (!cleanQ) return;
+          if (!cleanQ || aeternumVitaVoiceService.isAcousticEcho(cleanQ)) return;
 
           setVoiceStatus("thinking");
           try {

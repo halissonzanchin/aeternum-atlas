@@ -6,7 +6,7 @@
  * - Ariana 🇺🇸 (Mentora Dinâmica & Inspiradora - Deepgram Aura-2 Direct)
  * - Fabian 🇩🇪 (Mentor Acadêmico & Preciso - Deepgram Aura-2 Direct)
  *
- * Hardware-Level Half-Duplex Isolation & Complete Mic Release on Session Exit
+ * Full-Duplex Speaker Isolation Guard & Long-Echo Cancellation
  */
 
 import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig.js";
@@ -35,7 +35,7 @@ export const AETERNUM_VITA_TUTORS = {
     role: "Mentora Empática en Español",
     badgeGradient: "linear-gradient(135deg, #aa151b 0%, #f1bf00 50%, #aa151b 100%)",
     greeting: "¡Hola! Te doy una cálida bienvenida a Aeternum Atlas. Soy Antonia, tu mentora en español. ¿Qué estructura anatómica deseas explorar hoy?",
-    promptDirective: "Eres Antonia, mentora empática, dinámica y cálida de Aeternum Atlas. Responde en español nativo con entusiasmo genuino y proximidad. Usa exactamente UNA o DOS frases habladas concisas (máximo 140 caracteres), pausas respiratorias con comas, números por extenso y concluye SIEMPRE con UNA sola pregunta abierta y corta. NUNCA uses Markdown ni emojis."
+    promptDirective: "Eres Antonia, mentora empática, dinámica y cálida de Aeternum Atlas. Responde en español nativo con entusiasmo genuino y proximidad. Usa exactamente UNA o DOS frases habladas concisas (máximo 140 caracteres), pausas respiratorias con comas, números por extenso e concluye SIEMPRE con UNA sola pregunta abierta y corta. NUNCA uses Markdown ni emojis."
   },
   en: {
     id: "ariana",
@@ -82,6 +82,8 @@ class AeternumVitaVoiceEngine {
     this.isListening = false;
     this.isSpeaking = false;
     this.cachedVoices = [];
+    this.lastSpokenText = "";
+    this.lastSpokenTime = 0;
 
     if (this.synthesis) {
       const loadVoices = () => {
@@ -128,10 +130,33 @@ class AeternumVitaVoiceEngine {
   }
 
   /**
-   * High-Definition Audio Synthesis with Strict Half-Duplex Mic Muting
+   * Identifica se o áudio capturado é o eco acústico da fala completa do tutor
+   */
+  isAcousticEcho(transcript) {
+    if (!transcript || !this.lastSpokenText) return false;
+    const now = Date.now();
+    if (now - this.lastSpokenTime > 12000) return false; // expirado
+
+    const cleanInput = transcript.toLowerCase().replace(/[^a-z0-9]/gi, " ").trim();
+    const cleanTutor = this.lastSpokenText.toLowerCase().replace(/[^a-z0-9]/gi, " ").trim();
+
+    if (!cleanInput || !cleanTutor) return false;
+
+    // Respostas curtas (< 24 caracteres) como "los músculos", "os ligamentos", "sim" NUNCA são descartadas
+    if (cleanInput.length < 24) return false;
+
+    // Se o input for longo e coincidir com a frase que o tutor acabou de falar pelos alto-falantes, é eco
+    if (cleanTutor.includes(cleanInput) || cleanInput.includes(cleanTutor)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Síntese Vocal de Estúdio com Isolamento Half-Duplex Físico
    */
   async speak(text, tutor, onStart, onEnd) {
-    // 1. Immediately mute and abort microphone before playing any audio
     this.stopListening();
     this.stopSpeaking();
     this.unlockAudio();
@@ -142,16 +167,19 @@ class AeternumVitaVoiceEngine {
       return;
     }
 
+    this.lastSpokenText = cleanText;
+    this.lastSpokenTime = Date.now();
     this.isSpeaking = true;
 
     const finalizeSpeech = () => {
       this.isSpeaking = false;
-      // Cool-off grace period (450ms) to allow room speaker reverb to clear
+      this.lastSpokenTime = Date.now();
+      // Grace period de 650ms para dispersar toda a reverberação do alto-falante
       setTimeout(() => {
         if (this.activeSession && !this.isSpeaking) {
           onEnd?.();
         }
-      }, 450);
+      }, 650);
     };
 
     // 1. Deepgram Aura-2 Direct API (Antonia, Ariana, Fabian)
@@ -211,9 +239,9 @@ class AeternumVitaVoiceEngine {
     this.speakFallback(cleanText, tutor, onStart, finalizeSpeech);
   }
 
-  speakFallback(cleanText, tutor, onStart, onEnd) {
+  speakFallback(cleanText, tutor, onStart, finalizeCallback) {
     if (!this.synthesis) {
-      onEnd?.();
+      finalizeCallback?.();
       return;
     }
 
@@ -259,17 +287,17 @@ class AeternumVitaVoiceEngine {
       };
 
       utterance.onend = () => {
-        onEnd?.();
+        finalizeCallback?.();
       };
 
       utterance.onerror = () => {
-        onEnd?.();
+        finalizeCallback?.();
       };
 
       this.synthesis.speak(utterance);
     } catch (e) {
       console.warn("SpeechSynthesis notice:", e);
-      onEnd?.();
+      finalizeCallback?.();
     }
   }
 
@@ -335,18 +363,21 @@ class AeternumVitaVoiceEngine {
         }
 
         const currentText = (finalTranscript + (interim ? " " + interim : "")).trim();
+
+        // Se for eco acústico da fala completa do tutor, descartar
+        if (this.isAcousticEcho(currentText)) return;
+
         onInterimResult?.(currentText);
 
         if (this.silenceTimer) clearTimeout(this.silenceTimer);
 
-        // Human conversational pause (1600ms): captures full responses naturally
         if (currentText && currentText.length >= 1) {
           this.silenceTimer = setTimeout(() => {
             const fullSpeech = (finalTranscript + " " + interim).trim();
             finalTranscript = "";
             this.stopListening();
 
-            if (fullSpeech && this.activeSession) {
+            if (fullSpeech && this.activeSession && !this.isAcousticEcho(fullSpeech)) {
               onFinalResult?.(fullSpeech);
             }
           }, 1600);
@@ -365,7 +396,6 @@ class AeternumVitaVoiceEngine {
 
       rec.onend = () => {
         this.isListening = false;
-        // Only restart if the user has NOT closed the voice session and tutor is not speaking
         if (this.activeSession && !this.isSpeaking) {
           try {
             rec.start();
@@ -396,7 +426,7 @@ class AeternumVitaVoiceEngine {
   }
 
   /**
-   * Starts session with introductory greeting and continuous turn-taking
+   * Inicia sessão com saudação dinâmica
    */
   startSession({
     language = "pt",
@@ -456,7 +486,7 @@ class AeternumVitaVoiceEngine {
   }
 
   /**
-   * Completely ends voice session, stops speech synthesis and releases microphone hardware
+   * Encerra completamente o modo de voz e desliga o microfone físico
    */
   stopSession() {
     this.activeSession = null;
