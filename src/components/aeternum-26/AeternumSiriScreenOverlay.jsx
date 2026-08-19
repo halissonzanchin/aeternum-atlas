@@ -50,7 +50,7 @@ export default function AeternumSiriScreenOverlay({
     const tutor = getTutorForLanguage(language);
     setActiveTutor(tutor);
     setUserSubtitle("");
-    setTutorSubtitle(tutor.greeting);
+    setTutorSubtitle("");
 
     // 1. Establish LiveKit WebRTC Session in background
     createLiveKitToken(tutor.id)

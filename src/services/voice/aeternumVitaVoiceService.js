@@ -14,11 +14,10 @@ export const AETERNUM_VITA_TUTORS = {
     country: "Brasil",
     langCode: "pt-BR",
     gender: "masculino",
-    deepgramModel: null,
+    deepgramModel: "aura-2-arcas-en", // Deepgram Neural Audio Engine
     role: "Mentor de Voz em Português",
     badgeGradient: "linear-gradient(135deg, #009c3b 0%, #ffdf00 50%, #002776 100%)",
-    greeting: "Olá! Seja muito bem-vindo ao Aeternum Vita. Eu sou o Eduardo, seu mentor em português do Brasil. Como posso guiar seus estudos anatômicos hoje?",
-    promptDirective: "Você é o Eduardo, mentor oficial de anatomia do Aeternum Vita. Responda em Português do Brasil de forma calorosa, acolhedora, com dicção nativa e natural, em exatamente UMA ou DUAS frases faladas concisas e diretas sem Markdown ou listas."
+    promptDirective: "Você é o Eduardo, mentor oficial de anatomia do Aeternum Atlas. Responda em Português do Brasil de forma clara, natural e direta, em exatamente UMA ou DUAS frases faladas concisas sem Markdown ou listas."
   },
   es: {
     id: "antonia",
@@ -27,11 +26,10 @@ export const AETERNUM_VITA_TUTORS = {
     country: "Argentina / España",
     langCode: "es-ES",
     gender: "femenino",
-    deepgramModel: "aura-2-antonia-es",
+    deepgramModel: "aura-2-antonia-es", // Deepgram Aura-2 Direct
     role: "Mentora de Voz en Español",
     badgeGradient: "linear-gradient(135deg, #aa151b 0%, #f1bf00 50%, #aa151b 100%)",
-    greeting: "¡Hola! Te doy una cálida bienvenida a Aeternum Vita. Soy Antonia, tu mentora nativa en español. ¿Qué estructura anatómica deseas explorar hoy?",
-    promptDirective: "Eres Antonia, mentora oficial de anatomía de Aeternum Vita. Responde en español nativo con voz clara y empática, en exactamente UNA o DOS frases habladas concisas sin Markdown ni listas."
+    promptDirective: "Eres Antonia, mentora oficial de anatomía de Aeternum Atlas. Responde en español nativo con voz clara y empática, en exactamente UNA o DOS frases habladas concisas sin Markdown ni listas."
   },
   en: {
     id: "ariana",
@@ -40,11 +38,10 @@ export const AETERNUM_VITA_TUTORS = {
     country: "United States",
     langCode: "en-US",
     gender: "female",
-    deepgramModel: "aura-2-thalia-en",
+    deepgramModel: "aura-2-thalia-en", // Deepgram Aura-2 Direct
     role: "English Voice Mentor",
     badgeGradient: "linear-gradient(135deg, #0a3161 0%, #ffffff 50%, #b31942 100%)",
-    greeting: "Hello and welcome to Aeternum Vita! I am Ariana, your native English anatomy mentor. How can I guide your journey today?",
-    promptDirective: "You are Ariana, official anatomy mentor of Aeternum Vita. Respond in natural native American English in exactly ONE or TWO concise spoken sentences without Markdown or bullet points."
+    promptDirective: "You are Ariana, official anatomy mentor of Aeternum Atlas. Respond in natural native American English in exactly ONE or TWO concise spoken sentences without Markdown or bullet points."
   },
   de: {
     id: "fabian",
@@ -53,11 +50,10 @@ export const AETERNUM_VITA_TUTORS = {
     country: "Deutschland",
     langCode: "de-DE",
     gender: "männlich",
-    deepgramModel: "aura-2-fabian-de",
+    deepgramModel: "aura-2-fabian-de", // Deepgram Aura-2 Direct
     role: "Deutscher Sprach-Mentor",
     badgeGradient: "linear-gradient(135deg, #000000 0%, #dd0000 50%, #ffce00 100%)",
-    greeting: "Hallo und herzlich willkommen bei Aeternum Vita! Ich bin Fabian, dein Anatomie-Mentor auf Deutsch. Wie kann ich dir heute helfen?",
-    promptDirective: "Du bist Fabian, offizieller Anatomie-Mentor von Aeternum Vita. Antworte auf natürlichem Hochdeutsch in genau EINEM oder ZWEI prägnanten gesprochenen Sätzen ohne Markdown oder Listen."
+    promptDirective: "Du bist Fabian, offizieller Anatomie-Mentor von Aeternum Atlas. Antworte auf natürlichem Hochdeutsch in genau EINEM oder ZWEI prägnanten gesprochenen Sätzen ohne Markdown oder Listen."
   }
 };
 
@@ -98,8 +94,7 @@ class AeternumVitaVoiceEngine {
 
   /**
    * High-Definition Audio Synthesis
-   * Uses Deepgram Aura-2 Direct API (Aeternum Vita standard) for studio audio,
-   * with seamless Web Speech fallback.
+   * Uses Deepgram Aura-2 Direct API for studio neural streaming.
    */
   async speak(text, tutor, onStart, onEnd) {
     this.stopSpeaking();
@@ -110,11 +105,12 @@ class AeternumVitaVoiceEngine {
       return;
     }
 
-    // 1. Try Deepgram Aura-2 Neural Audio if tutor has a Deepgram model
-    if (tutor.deepgramModel && VITA_VOICE_CONFIG.deepgramApiKey) {
+    // 1. Deepgram Aura-2 Neural Audio Streaming
+    if (VITA_VOICE_CONFIG.deepgramApiKey) {
+      const model = tutor.deepgramModel || "aura-2-arcas-en";
       try {
         const response = await fetch(
-          `https://api.deepgram.com/v1/speak?model=${tutor.deepgramModel}&encoding=mp3`,
+          `https://api.deepgram.com/v1/speak?model=${model}&encoding=mp3`,
           {
             method: "POST",
             headers: {
@@ -154,11 +150,11 @@ class AeternumVitaVoiceEngine {
           return;
         }
       } catch (err) {
-        console.warn("Deepgram Aura-2 synthesis error, falling back:", err);
+        console.warn("Deepgram Aura-2 streaming notice:", err);
       }
     }
 
-    // 2. Fallback to SpeechSynthesis
+    // 2. Fallback
     this.speakFallback(cleanText, tutor, onStart, onEnd);
   }
 
@@ -214,7 +210,7 @@ class AeternumVitaVoiceEngine {
 
       this.synthesis.speak(utterance);
     } catch (e) {
-      console.warn("SpeechSynthesis error:", e);
+      console.warn("SpeechSynthesis notice:", e);
       this.isSpeaking = false;
       onEnd?.();
     }
@@ -286,7 +282,7 @@ class AeternumVitaVoiceEngine {
 
       rec.onerror = (event) => {
         if (event.error === "no-speech" || event.error === "aborted") return;
-        console.warn("STT Error:", event.error);
+        console.warn("STT notice:", event.error);
         onError?.(event.error);
       };
 
@@ -306,7 +302,7 @@ class AeternumVitaVoiceEngine {
       this.recognition = rec;
       rec.start();
     } catch (err) {
-      console.warn("Failed to start SpeechRecognition:", err);
+      console.warn("SpeechRecognition notice:", err);
       onError?.(err?.message || "Falha no microfone");
     }
   }
@@ -325,6 +321,10 @@ class AeternumVitaVoiceEngine {
     this.isListening = false;
   }
 
+  /**
+   * Starts real-time conversational voice session immediately in active listening mode
+   * (Zero static canned messages, pure interactive speech)
+   */
   startSession({
     language = "pt",
     onStatusChange,
@@ -341,33 +341,21 @@ class AeternumVitaVoiceEngine {
     };
 
     onStatusChange?.({
-      status: "speaking_greeting",
-      tutor,
-      text: tutor.greeting
+      status: "listening",
+      tutor
     });
 
-    // Speak initial greeting of the native tutor with Deepgram Aura-2 / Studio Audio
-    this.speak(
-      tutor.greeting,
+    // Enter real-time listening immediately
+    this.startListening(
       tutor,
-      () => {
-        onStatusChange?.({ status: "speaking", tutor, text: tutor.greeting });
+      (interim) => {
+        onTranscript?.({ text: interim, isFinal: false });
       },
-      () => {
-        if (!this.activeSession) return;
-        onStatusChange?.({ status: "listening", tutor });
-        this.startListening(
-          tutor,
-          (interim) => {
-            onTranscript?.({ text: interim, isFinal: false });
-          },
-          (finalSpeech) => {
-            onTranscript?.({ text: finalSpeech, isFinal: true });
-            onTutorReply?.(finalSpeech, tutor);
-          },
-          onError
-        );
-      }
+      (finalSpeech) => {
+        onTranscript?.({ text: finalSpeech, isFinal: true });
+        onTutorReply?.(finalSpeech, tutor);
+      },
+      onError
     );
 
     return tutor;
