@@ -5,6 +5,8 @@
  * - Antonia 🇪🇸 (Mentora Empática & Expressiva - Deepgram Aura-2 Direct)
  * - Ariana 🇺🇸 (Mentora Dinâmica & Inspiradora - Deepgram Aura-2 Direct)
  * - Fabian 🇩🇪 (Mentor Acadêmico & Preciso - Deepgram Aura-2 Direct)
+ *
+ * Built-in Full-Duplex Echo Cancellation & Half-Duplex Mutual Exclusion Guard
  */
 
 import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig";
@@ -79,6 +81,8 @@ class AeternumVitaVoiceEngine {
     this.isListening = false;
     this.isSpeaking = false;
     this.cachedVoices = [];
+    this.lastSpokenText = "";
+    this.lastSpokenTime = 0;
 
     if (this.synthesis) {
       const loadVoices = () => {
@@ -114,9 +118,37 @@ class AeternumVitaVoiceEngine {
   }
 
   /**
-   * High-Definition Audio Synthesis via Deepgram Aura-2 Direct API & Neural Audio Pipeline
+   * Checks if captured audio is an acoustic echo of tutor's recent speech
+   */
+  isAcousticEcho(transcript) {
+    if (!transcript || !this.lastSpokenText) return false;
+    const now = Date.now();
+    if (now - this.lastSpokenTime > 9000) return false; // expired
+
+    const cleanInput = transcript.toLowerCase().replace(/[^a-z0-9]/gi, " ").trim();
+    const cleanTutor = this.lastSpokenText.toLowerCase().replace(/[^a-z0-9]/gi, " ").trim();
+
+    if (!cleanInput || !cleanTutor) return false;
+
+    // Check direct substring
+    if (cleanTutor.includes(cleanInput) && cleanInput.length > 8) return true;
+    if (cleanInput.includes(cleanTutor)) return true;
+
+    // Check word overlap ratio
+    const inputWords = cleanInput.split(/\s+/).filter((w) => w.length > 3);
+    if (!inputWords.length) return false;
+    const matchedWords = inputWords.filter((w) => cleanTutor.includes(w));
+    const overlapRatio = matchedWords.length / inputWords.length;
+
+    return overlapRatio >= 0.55;
+  }
+
+  /**
+   * High-Definition Audio Synthesis with Strict Half-Duplex Mic Muting
    */
   async speak(text, tutor, onStart, onEnd) {
+    // 1. Immediately mute and abort microphone to prevent self-hearing echo
+    this.stopListening();
     this.stopSpeaking();
     this.unlockAudio();
 
@@ -125,6 +157,21 @@ class AeternumVitaVoiceEngine {
       onEnd?.();
       return;
     }
+
+    this.lastSpokenText = cleanText;
+    this.lastSpokenTime = Date.now();
+    this.isSpeaking = true;
+
+    const finalizeSpeech = () => {
+      this.isSpeaking = false;
+      this.lastSpokenTime = Date.now();
+      // Cool-off grace period (450ms) to allow room speaker reverb to clear
+      setTimeout(() => {
+        if (this.activeSession && !this.isSpeaking) {
+          onEnd?.();
+        }
+      }, 450);
+    };
 
     // 1. Deepgram Aura-2 Direct API (Antonia, Ariana, Fabian)
     if (tutor.deepgramModel && VITA_VOICE_CONFIG.deepgramApiKey) {
@@ -149,28 +196,27 @@ class AeternumVitaVoiceEngine {
 
           audio.onplay = () => {
             this.isSpeaking = true;
+            this.stopListening(); // double-check mic is off
             onStart?.();
           };
 
           audio.onended = () => {
-            this.isSpeaking = false;
             this.audioElement = null;
             URL.revokeObjectURL(audioUrl);
-            onEnd?.();
+            finalizeSpeech();
           };
 
           audio.onerror = () => {
-            this.isSpeaking = false;
             this.audioElement = null;
             URL.revokeObjectURL(audioUrl);
-            this.speakFallback(cleanText, tutor, onStart, onEnd);
+            this.speakFallback(cleanText, tutor, onStart, finalizeSpeech);
           };
 
           const playPromise = audio.play();
           if (playPromise !== undefined) {
             playPromise.catch((playErr) => {
               console.warn("Audio autoplay notice:", playErr);
-              this.speakFallback(cleanText, tutor, onStart, onEnd);
+              this.speakFallback(cleanText, tutor, onStart, finalizeSpeech);
             });
           }
           return;
@@ -181,7 +227,7 @@ class AeternumVitaVoiceEngine {
     }
 
     // 2. Direct Brazilian Portuguese Audio & Fallback (Eduardo pt-BR)
-    this.speakFallback(cleanText, tutor, onStart, onEnd);
+    this.speakFallback(cleanText, tutor, onStart, finalizeSpeech);
   }
 
   speakFallback(cleanText, tutor, onStart, onEnd) {
@@ -193,9 +239,8 @@ class AeternumVitaVoiceEngine {
     try {
       this.synthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.lang = tutor.langCode; // pt-BR, es-ES, en-US, de-DE
+      utterance.lang = tutor.langCode;
 
-      // Eduardo pt-BR: Warm, resonant, deep Brazilian baritone
       if (tutor.id === "eduardo") {
         utterance.rate = 0.96;
         utterance.pitch = 0.90;
@@ -214,7 +259,6 @@ class AeternumVitaVoiceEngine {
       const langPrefix = tutor.langCode.slice(0, 2).toLowerCase();
       const isMale = tutor.gender === "masculino" || tutor.gender === "männlich";
 
-      // Filter exclusively voices matching the tutor's exact language
       const matched = this.cachedVoices.filter((v) =>
         v.lang.toLowerCase().replace("_", "-").startsWith(langPrefix)
       );
@@ -229,23 +273,21 @@ class AeternumVitaVoiceEngine {
 
       utterance.onstart = () => {
         this.isSpeaking = true;
+        this.stopListening();
         onStart?.();
       };
 
-      utterance.onended = () => {
-        this.isSpeaking = false;
+      utterance.onend = () => {
         onEnd?.();
       };
 
       utterance.onerror = () => {
-        this.isSpeaking = false;
         onEnd?.();
       };
 
       this.synthesis.speak(utterance);
     } catch (e) {
       console.warn("SpeechSynthesis notice:", e);
-      this.isSpeaking = false;
       onEnd?.();
     }
   }
@@ -267,6 +309,8 @@ class AeternumVitaVoiceEngine {
   }
 
   async startListening(tutor, onInterimResult, onFinalResult, onError) {
+    if (this.isSpeaking) return; // Never start listening while tutor is speaking
+
     const SpeechRecognition =
       typeof window !== "undefined"
         ? window.SpeechRecognition || window.webkitSpeechRecognition
@@ -297,6 +341,8 @@ class AeternumVitaVoiceEngine {
       let finalTranscript = "";
 
       rec.onresult = (event) => {
+        if (this.isSpeaking) return; // Discard immediately if tutor started speaking
+
         let interim = "";
         for (let i = event.resultIndex; i < event.results.length; ++i) {
           const piece = event.results[i][0].transcript;
@@ -308,16 +354,23 @@ class AeternumVitaVoiceEngine {
         }
 
         const currentText = (finalTranscript + (interim ? " " + interim : "")).trim();
+
+        // Echo filter on interim text
+        if (this.isAcousticEcho(currentText)) return;
+
         onInterimResult?.(currentText);
 
         if (this.silenceTimer) clearTimeout(this.silenceTimer);
-        // Humanized conversational pause threshold: 1800ms allows the user to pause, breathe and finish thoughts
+
+        // Human conversational pause: 1800ms gives the student time to think and pause naturally
         if (currentText && currentText.length >= 2) {
           this.silenceTimer = setTimeout(() => {
             const fullSpeech = (finalTranscript + " " + interim).trim();
-            if (fullSpeech && fullSpeech.length >= 2) {
-              finalTranscript = "";
-              this.stopListening();
+            finalTranscript = "";
+            this.stopListening();
+
+            // Guard against self-hearing echo loop
+            if (fullSpeech && !this.isAcousticEcho(fullSpeech)) {
               onFinalResult?.(fullSpeech);
             }
           }, 1800);

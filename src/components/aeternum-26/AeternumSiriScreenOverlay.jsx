@@ -9,7 +9,7 @@ import "./AeternumSiriScreenOverlay.css";
 
 /**
  * Aeternum 26.1 Apple Intelligence Screen Glow & Aeternum Vita Voice Multi-Tutor
- * High-Fidelity Single-Engine Audio Architecture (Zero Overlapping Voices)
+ * High-Fidelity Single-Engine Audio Architecture with Anti-Echo Guard
  * Personas: Eduardo 🇧🇷, Antonia 🇪🇸, Ariana 🇺🇸, Fabian 🇩🇪
  */
 export default function AeternumSiriScreenOverlay({
@@ -49,7 +49,7 @@ export default function AeternumSiriScreenOverlay({
     setUserSubtitle("");
     setTutorSubtitle(tutor.greeting);
 
-    // Start Unified Multi-Tutor Voice Engine with Dynamic Turn-Taking
+    // Start Unified Multi-Tutor Voice Engine with Dynamic Turn-Taking & Echo Cancellation
     aeternumVitaVoiceService.startSession({
       language,
       onStatusChange: ({ status, text }) => {
@@ -57,10 +57,16 @@ export default function AeternumSiriScreenOverlay({
         if (text) setTutorSubtitle(text);
       },
       onTranscript: ({ text, isFinal }) => {
-        setUserSubtitle(text);
+        if (!aeternumVitaVoiceService.isAcousticEcho(text)) {
+          setUserSubtitle(text);
+        }
       },
       onTutorReply: async (userQuestion, currentTutor) => {
         const handleTurn = async (questionText, tutor) => {
+          if (!questionText || aeternumVitaVoiceService.isAcousticEcho(questionText)) {
+            return;
+          }
+
           setVoiceStatus("thinking");
           try {
             let apiReply = "";
@@ -104,11 +110,18 @@ export default function AeternumSiriScreenOverlay({
                 setVoiceStatus("listening");
                 aeternumVitaVoiceService.startListening(
                   tutor,
-                  (interim) => setUserSubtitle(typeof interim === "string" ? interim : interim.text),
+                  (interim) => {
+                    const text = typeof interim === "string" ? interim : interim.text;
+                    if (!aeternumVitaVoiceService.isAcousticEcho(text)) {
+                      setUserSubtitle(text);
+                    }
+                  },
                   (finalSpeech) => {
                     const nextText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
-                    setUserSubtitle(nextText);
-                    handleTurn(nextText, tutor);
+                    if (nextText && !aeternumVitaVoiceService.isAcousticEcho(nextText)) {
+                      setUserSubtitle(nextText);
+                      handleTurn(nextText, tutor);
+                    }
                   }
                 );
               }
@@ -118,11 +131,18 @@ export default function AeternumSiriScreenOverlay({
             setVoiceStatus("listening");
             aeternumVitaVoiceService.startListening(
               tutor,
-              (interim) => setUserSubtitle(typeof interim === "string" ? interim : interim.text),
+              (interim) => {
+                const text = typeof interim === "string" ? interim : interim.text;
+                if (!aeternumVitaVoiceService.isAcousticEcho(text)) {
+                  setUserSubtitle(text);
+                }
+              },
               (finalSpeech) => {
                 const nextText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
-                setUserSubtitle(nextText);
-                handleTurn(nextText, tutor);
+                if (nextText && !aeternumVitaVoiceService.isAcousticEcho(nextText)) {
+                  setUserSubtitle(nextText);
+                  handleTurn(nextText, tutor);
+                }
               }
             );
           }
