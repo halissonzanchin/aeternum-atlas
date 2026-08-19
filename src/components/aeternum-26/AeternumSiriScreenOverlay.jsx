@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { LiveKitRoom, RoomAudioRenderer } from "@livekit/components-react";
 import { useLanguage } from "../../context/LanguageContext";
 import { aeternumVitaVoiceService, getTutorForLanguage } from "../../services/voice/aeternumVitaVoiceService";
-import { createLiveKitToken } from "../../services/voice/aeternumLiveKitService";
 import { generateVoiceTutorResponse } from "../../services/voice/aeternumVoiceBrain";
 import { atlasAITutorService } from "../../features/atlas-viewer/ai/atlasAITutorService";
 import LineIcon from "../icons/LineIcon";
@@ -11,8 +9,8 @@ import "./AeternumSiriScreenOverlay.css";
 
 /**
  * Aeternum 26.1 Apple Intelligence Screen Glow & Aeternum Vita Voice Multi-Tutor
- * High-Fidelity Deepgram Aura-2 & LiveKit WebRTC Streaming Engine
- * Native Multi-Tutor Architecture: Eduardo 🇧🇷, Antonia 🇪🇸, Ariana 🇺🇸, Fabian 🇩🇪
+ * High-Fidelity Single-Engine Audio Architecture (Zero Overlapping Voices)
+ * Personas: Eduardo 🇧🇷, Antonia 🇪🇸, Ariana 🇺🇸, Fabian 🇩🇪
  */
 export default function AeternumSiriScreenOverlay({
   active = false,
@@ -30,7 +28,6 @@ export default function AeternumSiriScreenOverlay({
   const [voiceStatus, setVoiceStatus] = useState("idle"); // 'listening' | 'thinking' | 'speaking'
   const [userSubtitle, setUserSubtitle] = useState("");
   const [tutorSubtitle, setTutorSubtitle] = useState("");
-  const [livekitConnection, setLivekitConnection] = useState(null);
 
   // Update tutor if language changes
   useEffect(() => {
@@ -44,7 +41,6 @@ export default function AeternumSiriScreenOverlay({
       setVoiceStatus("idle");
       setUserSubtitle("");
       setTutorSubtitle("");
-      setLivekitConnection(null);
       return;
     }
 
@@ -53,16 +49,7 @@ export default function AeternumSiriScreenOverlay({
     setUserSubtitle("");
     setTutorSubtitle(tutor.greeting);
 
-    // 1. Establish LiveKit WebRTC Session in background
-    createLiveKitToken(tutor.id)
-      .then((conn) => {
-        setLivekitConnection(conn);
-      })
-      .catch((err) => {
-        console.warn("LiveKit token generation notice:", err);
-      });
-
-    // 2. Start Multi-Tutor Voice Engine with Direct Deepgram Aura-2 / Studio Audio
+    // Start Unified Multi-Tutor Voice Engine with Dynamic Turn-Taking
     aeternumVitaVoiceService.startSession({
       language,
       onStatusChange: ({ status, text }) => {
@@ -99,7 +86,7 @@ export default function AeternumSiriScreenOverlay({
                 apiReply = result.text;
               }
             } catch (apiErr) {
-              console.warn("API notice, fallback to native anatomical voice brain:", apiErr);
+              console.warn("API notice, fallback to dynamic voice brain:", apiErr);
             }
 
             const finalReply =
@@ -289,19 +276,6 @@ export default function AeternumSiriScreenOverlay({
       aria-hidden={!active}
     >
       <canvas ref={canvasRef} className="a26-siri-canvas" />
-
-      {/* LiveKit Cloud WebRTC Audio Session */}
-      {active && livekitConnection?.token ? (
-        <LiveKitRoom
-          serverUrl={livekitConnection.serverUrl}
-          token={livekitConnection.token}
-          connect={true}
-          audio={true}
-          video={false}
-        >
-          <RoomAudioRenderer />
-        </LiveKitRoom>
-      ) : null}
 
       {/* Aeternum Vita Multi-Tutor Liquid Glass Voice HUD */}
       {active && (
