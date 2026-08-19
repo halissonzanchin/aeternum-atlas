@@ -20,6 +20,7 @@ export default function AtlasAITutor({
 }) {
   const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const [isSiriActive, setIsSiriActive] = useState(false);
   const [panelMode, setPanelMode] = useState("compact");
   const [toolModalType, setToolModalType] = useState(null);
   const [isCharging, setIsCharging] = useState(false);
@@ -50,10 +51,12 @@ export default function AtlasAITutor({
 
   useEffect(() => {
     setIsOpen(false);
+    setIsSiriActive(false);
   }, [path]);
 
   useEffect(() => {
     const handleOpenTutorEvent = (e) => {
+      setIsSiriActive(false);
       setIsOpen(true);
       setPanelMode("expanded");
       if (e.detail?.prompt) {
@@ -74,6 +77,7 @@ export default function AtlasAITutor({
 
   useEffect(() => {
     if (!tutorRequest) return;
+    setIsSiriActive(false);
     setIsOpen(true);
     setPanelMode("expanded");
     if (tutorRequest.prompt) {
@@ -91,15 +95,16 @@ export default function AtlasAITutor({
   }, [consumeTutorRequest, path, sendMessage, tutorRequest]);
 
   useEffect(() => {
-    if (!isOpen) return undefined;
+    if (!isOpen && !isSiriActive) return undefined;
     const handleKeyDown = (event) => {
       if (event.key !== "Escape") return;
       setIsOpen(false);
+      setIsSiriActive(false);
       window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, isSiriActive]);
 
   if (typeof document === "undefined") return null;
 
@@ -118,7 +123,7 @@ export default function AtlasAITutor({
   const panelStyle = draggable
     ? getTutorPanelMorphStyle(panelBaseStyle, position)
     : panelBaseStyle;
-  const orbState = isThinking ? "thinking" : isCharging ? "focus" : isOpen ? "listening" : "idle";
+  const orbState = isThinking ? "thinking" : (isSiriActive || isCharging) ? "listening" : isOpen ? "focus" : "idle";
 
   const handlePointerDown = (e) => {
     if (isDragging) return;
@@ -132,8 +137,13 @@ export default function AtlasAITutor({
     holdTimerRef.current = setTimeout(() => {
       didTriggerHoldRef.current = true;
       setIsCharging(false);
-      setIsOpen(true);
-      setPanelMode("expanded");
+      setIsSiriActive((prev) => {
+        const next = !prev;
+        if (next) {
+          setIsOpen(false);
+        }
+        return next;
+      });
       if (typeof navigator !== "undefined" && navigator.vibrate) {
         navigator.vibrate([30, 40, 70]);
       }
@@ -154,11 +164,18 @@ export default function AtlasAITutor({
       didTriggerHoldRef.current = false;
       return;
     }
+
+    if (isSiriActive) {
+      setIsSiriActive(false);
+      return;
+    }
+
     setIsOpen((open) => !open);
   };
 
   const handleClose = () => {
     setIsOpen(false);
+    setIsSiriActive(false);
     setIsCharging(false);
     window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
   };
@@ -196,14 +213,14 @@ export default function AtlasAITutor({
   return createPortal(
     <>
       <AeternumSiriScreenOverlay
-        active={isOpen}
-        isCharging={isCharging}
+        active={isSiriActive}
         state={orbState}
+        onDeactivate={() => setIsSiriActive(false)}
       />
 
-      {isOpen ? <div className="aog-focus-dimmer" aria-hidden="true" /> : null}
+      {isOpen && !isSiriActive ? <div className="aog-focus-dimmer" aria-hidden="true" /> : null}
 
-      {isOpen && (
+      {isOpen && !isSiriActive && (
         <A26Surface
           as="section"
           id="upe-ai-panel"
@@ -279,6 +296,7 @@ export default function AtlasAITutor({
           "upe-ai-trigger",
           isOpen ? "is-open" : "",
           isCharging ? "is-charging" : "",
+          isSiriActive ? "is-siri-active" : "",
           "aog-morph-source",
           sphereOnly ? "is-orb-only" : "",
           draggable ? "is-draggable" : "",
@@ -294,12 +312,14 @@ export default function AtlasAITutor({
         onPointerLeave={handlePointerUpOrLeave}
         {...dragHandlers}
       >
-        {isCharging && <div className="a26-tutor-charging-aura" aria-hidden="true" />}
-        <AtlasAIOrb state={orbState} size={sphereOnly ? "lg" : "md"} />
+        {(isCharging || isSiriActive) && <div className="a26-tutor-charging-aura" aria-hidden="true" />}
+        <div className={isSiriActive ? "a26-orb--vibrating" : ""}>
+          <AtlasAIOrb state={orbState} size={sphereOnly ? "lg" : "md"} />
+        </div>
         {!sphereOnly && (
           <span>
             <strong>Atlas AI</strong>
-            <small>{isThinking ? t("tutor.stateAnalyzing", { defaultValue: "Analisando" }) : isOpen ? t("tutor.stateListening", { defaultValue: "Ouvindo" }) : t("tutor.stateAnatomicalTutor", { defaultValue: "Tutor anatômico" })}</small>
+            <small>{isSiriActive ? "Ouvindo (Siri Mode)" : isThinking ? t("tutor.stateAnalyzing", { defaultValue: "Analisando" }) : isOpen ? t("tutor.stateListening", { defaultValue: "Ouvindo" }) : t("tutor.stateAnatomicalTutor", { defaultValue: "Tutor anatômico" })}</small>
           </span>
         )}
       </A26Surface>

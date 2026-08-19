@@ -1,6 +1,6 @@
 /* ==========================================================================
    AETERNUM 26.1 — SIRI / APPLE INTELLIGENCE FULLSCREEN LIVING SCREEN OVERLAY
-   Organic chromatic edge glow, harmonic border waves and fluid caustics.
+   Exact WebGL Mesh Gradient, Harmonic Wave Border and Living Center Prompts
    ========================================================================== */
 
 .a26-siri-screen-overlay {
@@ -12,166 +12,97 @@
   z-index: 99990;
   overflow: hidden;
   opacity: 0;
-  transform: scale(1.02);
-  transition: opacity 360ms cubic-bezier(0.16, 1, 0.3, 1), transform 480ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1);
   isolation: isolate;
 }
 
 .a26-siri-screen-overlay.is-active {
   opacity: 1;
-  transform: scale(1);
+  pointer-events: auto;
 }
 
-.a26-siri-screen-overlay.is-charging {
-  opacity: 0.75;
-  transform: scale(1.01);
-}
-
-/* Ambient Cinematic Scrim Vignette */
-.a26-siri-screen__scrim {
+.a26-siri-canvas {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(2, 8, 12, 0.22) 0%, rgba(1, 5, 8, 0.68) 100%);
-  -webkit-backdrop-filter: saturate(140%) brightness(0.92);
-  backdrop-filter: saturate(140%) brightness(0.92);
-  opacity: 0.85;
-  transition: opacity 400ms ease;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-/* Dynamic Multi-Chromatic Mesh Gradient Rim */
-.a26-siri-screen__mesh {
+.a26-siri-center-prompt {
   position: absolute;
-  inset: -20px;
-  background:
-    radial-gradient(circle at 10% 10%, #ff007a, transparent 38%),
-    radial-gradient(circle at 90% 10%, #00f2fe, transparent 40%),
-    radial-gradient(circle at 85% 90%, #9d4edd, transparent 42%),
-    radial-gradient(circle at 15% 85%, #ffb703, transparent 38%),
-    radial-gradient(circle at 50% 0%, #00f5d4, transparent 36%),
-    radial-gradient(circle at 50% 100%, #f72585, transparent 36%),
-    conic-gradient(from 0deg at 50% 50%, #00f2fe, #ff007a, #ffb703, #00f5d4, #7209b7, #00f2fe);
-  filter: blur(34px) saturate(220%);
-  opacity: 0.88;
-  mix-blend-mode: screen;
-  animation: a26SiriMeshRotate 12s linear infinite;
-  mask-image: radial-gradient(ellipse at center, transparent 62%, black 92%);
-  -webkit-mask-image: radial-gradient(ellipse at center, transparent 62%, black 92%);
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  cursor: pointer;
+  animation: a26SiriPromptFade 450ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes a26SiriMeshRotate {
+@keyframes a26SiriPromptFade {
   0% {
-    transform: rotate(0deg) scale(1.05);
-    filter: blur(34px) saturate(220%) hue-rotate(0deg);
+    opacity: 0;
+    transform: translate(-50%, -44%) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.a26-siri-center-prompt span {
+  font-family: var(--a26-type-display, "Cinzel", serif);
+  font-size: clamp(24px, 3.6vw, 42px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 45%, #f472b6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 40px rgba(165, 243, 252, 0.45);
+}
+
+.a26-siri-center-prompt p {
+  margin: 0;
+  color: rgba(241, 245, 249, 0.88);
+  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Vibrating Glowing Aura on Orb Trigger while Siri is Active */
+.a26-orb--vibrating {
+  animation: a26OrbVibrate 1.4s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 28px rgba(94, 227, 216, 0.95)) drop-shadow(0 0 54px rgba(244, 114, 182, 0.75));
+}
+
+@keyframes a26OrbVibrate {
+  0% {
+    transform: scale(1.08) rotate(-2deg);
+    filter: drop-shadow(0 0 24px rgba(94, 227, 216, 0.8)) drop-shadow(0 0 44px rgba(244, 114, 182, 0.6));
   }
   50% {
-    transform: rotate(180deg) scale(1.15);
-    filter: blur(40px) saturate(260%) hue-rotate(180deg);
+    transform: scale(1.18) rotate(2deg);
+    filter: drop-shadow(0 0 38px rgba(94, 227, 216, 1)) drop-shadow(0 0 68px rgba(251, 191, 36, 0.8));
   }
   100% {
-    transform: rotate(360deg) scale(1.05);
-    filter: blur(34px) saturate(220%) hue-rotate(360deg);
+    transform: scale(1.12) rotate(-1deg);
+    filter: drop-shadow(0 0 32px rgba(244, 114, 182, 0.95)) drop-shadow(0 0 58px rgba(94, 227, 216, 0.85));
   }
 }
 
-/* Inner Harmonic Sinusoidal Wave Perimeter */
-.a26-siri-screen__wave-border {
-  position: absolute;
-  inset: 0;
-  border-radius: clamp(16px, 3.5vw, 44px);
-  margin: clamp(4px, 1.2vw, 16px);
-  box-shadow:
-    inset 0 0 0 2.5px rgba(255, 255, 255, 0.95),
-    inset 0 0 24px rgba(255, 255, 255, 0.8),
-    inset 0 0 55px rgba(94, 227, 216, 0.85),
-    inset 0 0 95px rgba(247, 37, 133, 0.65),
-    inset 0 0 150px rgba(114, 9, 183, 0.45);
-  animation: a26SiriBorderPulse 3.8s ease-in-out infinite alternate;
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-@keyframes a26SiriBorderPulse {
-  0% {
-    box-shadow:
-      inset 0 0 0 2px rgba(255, 255, 255, 0.9),
-      inset 0 0 18px rgba(255, 255, 255, 0.7),
-      inset 0 0 45px rgba(94, 227, 216, 0.75),
-      inset 0 0 80px rgba(247, 37, 133, 0.55),
-      inset 0 0 130px rgba(114, 9, 183, 0.35);
-    transform: scale(0.998);
-  }
-  100% {
-    box-shadow:
-      inset 0 0 0 3.5px rgba(255, 255, 255, 1),
-      inset 0 0 32px rgba(255, 255, 255, 0.9),
-      inset 0 0 70px rgba(94, 227, 216, 0.95),
-      inset 0 0 120px rgba(247, 37, 133, 0.8),
-      inset 0 0 180px rgba(255, 183, 3, 0.55);
-    transform: scale(1.002);
-  }
-}
-
-/* State Modulations: Listening, Thinking, Speaking */
-.a26-siri-screen-overlay.state-listening .a26-siri-screen__wave-border {
-  animation-duration: 2.2s;
-  box-shadow:
-    inset 0 0 0 3px rgba(255, 255, 255, 1),
-    inset 0 0 35px rgba(94, 227, 216, 0.95),
-    inset 0 0 85px rgba(0, 245, 212, 0.8),
-    inset 0 0 140px rgba(247, 37, 133, 0.6);
-}
-
-.a26-siri-screen-overlay.state-thinking .a26-siri-screen__wave-border {
-  animation: a26SiriThinkingPulse 1.8s ease-in-out infinite alternate;
-}
-
-@keyframes a26SiriThinkingPulse {
-  0% {
-    box-shadow:
-      inset 0 0 0 3px rgba(255, 255, 255, 0.9),
-      inset 0 0 30px rgba(255, 183, 3, 0.9),
-      inset 0 0 75px rgba(247, 37, 133, 0.8),
-      inset 0 0 130px rgba(114, 9, 183, 0.6);
-  }
-  100% {
-    box-shadow:
-      inset 0 0 0 4px rgba(255, 255, 255, 1),
-      inset 0 0 45px rgba(94, 227, 216, 1),
-      inset 0 0 100px rgba(0, 242, 254, 0.9),
-      inset 0 0 160px rgba(255, 0, 122, 0.7);
-  }
-}
-
-.a26-siri-screen-overlay.state-speaking .a26-siri-screen__wave-border {
-  animation: a26SiriSpeakingPulse 1.4s ease-in-out infinite alternate;
-}
-
-@keyframes a26SiriSpeakingPulse {
-  0% {
-    box-shadow:
-      inset 0 0 0 2.5px rgba(255, 255, 255, 0.95),
-      inset 0 0 28px rgba(94, 227, 216, 0.9),
-      inset 0 0 65px rgba(255, 183, 3, 0.8);
-    transform: scale(0.997);
-  }
-  100% {
-    box-shadow:
-      inset 0 0 0 4px rgba(255, 255, 255, 1),
-      inset 0 0 48px rgba(247, 37, 133, 0.95),
-      inset 0 0 110px rgba(0, 245, 212, 0.85);
-    transform: scale(1.003);
-  }
-}
-
-/* Charging Hold Aura Around The Origin Orb */
 .a26-tutor-charging-aura {
   position: absolute;
-  inset: -28px;
+  inset: -32px;
   border-radius: 999px;
   background:
-    radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(94, 227, 216, 0.65) 42%, rgba(247, 37, 133, 0.4) 75%, transparent 100%);
+    radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(94, 227, 216, 0.7) 42%, rgba(244, 114, 182, 0.5) 75%, transparent 100%);
   filter: blur(14px);
-  animation: a26ChargingAuraPulse 600ms cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+  animation: a26ChargingAuraPulse 550ms cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
   pointer-events: none;
   z-index: 2;
 }
@@ -183,32 +114,12 @@
   }
   60% {
     opacity: 1;
-    transform: scale(1.45);
+    transform: scale(1.5);
     filter: blur(18px) saturate(240%);
   }
   100% {
     opacity: 1;
-    transform: scale(2.1);
+    transform: scale(2.2);
     filter: blur(24px) saturate(280%);
   }
-}
-
-/* Light Theme Adaptation: Soft luminous iridescence with pristine specular contrast */
-.a26-theme-light .a26-siri-screen__scrim {
-  background: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(240, 246, 250, 0.2) 0%, rgba(200, 220, 235, 0.45) 100%);
-  -webkit-backdrop-filter: saturate(160%) brightness(1.04);
-  backdrop-filter: saturate(160%) brightness(1.04);
-}
-
-.a26-theme-light .a26-siri-screen__mesh {
-  opacity: 0.78;
-  mix-blend-mode: multiply;
-}
-
-.a26-theme-light .a26-siri-screen__wave-border {
-  box-shadow:
-    inset 0 0 0 2.5px rgba(255, 255, 255, 1),
-    inset 0 0 24px rgba(15, 118, 110, 0.5),
-    inset 0 0 55px rgba(13, 148, 136, 0.4),
-    inset 0 0 95px rgba(147, 51, 234, 0.3);
 }
