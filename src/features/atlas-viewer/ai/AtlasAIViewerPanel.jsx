@@ -37,8 +37,13 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const viewerContext = useViewer();
-  const currentStructure = viewerContext.activeStructure?.name
-    || viewerContext.model?.title
+  const model = viewerContext?.model;
+  const activeStructure = viewerContext?.activeStructure;
+  const markers = viewerContext?.markers || [];
+  const markerOpen = viewerContext?.markerOpen || false;
+  const routeContext = viewerContext?.routeContext || null;
+  const currentStructure = activeStructure?.name
+    || model?.title
     || 'Modelo anatômico 3D';
   const {
     user,
