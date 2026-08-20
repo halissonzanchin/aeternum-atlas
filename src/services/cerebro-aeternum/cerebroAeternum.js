@@ -244,6 +244,50 @@ class CerebroAeternumEngine {
   }
 
   /**
+   * Resposta Vocal 100% Humanizada, Fluida e Empática para Tutores de Voz (Aeternum Vita)
+   * Sem símbolos, sem Markdown, sem títulos de seção, com cadência natural falada
+   */
+  gerarRespostaVocalHumanizada(node, directTopic, q, lang = "pt") {
+    if (node) {
+      if (node.voiceSummary) {
+        const resp = node.voiceSummary[lang] || node.voiceSummary.pt;
+        if (resp) return resp;
+      }
+
+      const title = node.title?.[lang] || node.title?.pt || node.id;
+      const concept = node.coreConcept?.[lang] || node.coreConcept?.pt || "";
+
+      if (lang === "es") {
+        return `${title}: ${concept} ¿Te gustaría que profundicemos en su vascularización o en sus relaciones musculares y clínicas?`;
+      }
+      if (lang === "en") {
+        return `${title}: ${concept} Would you like us to explore its vascular supply or its clinical and muscular relations?`;
+      }
+      if (lang === "de") {
+        return `${title}: ${concept} Möchtest du die Gefäßversorgung oder die klinischen Beziehungen vertiefen?`;
+      }
+      return `${title}: ${concept} Deseja que aprofundemos na irrigação vascular ou nas relações musculares e clínicas?`;
+    }
+
+    // Se for uma estrutura genérica mencionada pelo usuário
+    if (directTopic && directTopic.length > 2) {
+      const cap = directTopic.charAt(0).toUpperCase() + directTopic.slice(1);
+      if (lang === "es") {
+        return `Excelente tema. ${cap} es una estructura anatómica fundamental. ¿Qué aspecto específico deseas repasar ahora: sus límites topográficos, irrigación o inserciones?`;
+      }
+      if (lang === "en") {
+        return `Great topic. ${cap} is a key anatomical structure. Which specific aspect would you like to review: its landmarks, blood supply, or muscular attachments?`;
+      }
+      if (lang === "de") {
+        return `Sehr gutes Thema. ${cap} ist eine wichtige anatomische Struktur. Welchen Bereich möchtest du besprechen: topografische Grenzen, Gefäße oder Muskeln?`;
+      }
+      return `Excelente tema. ${cap} é uma estrutura anatômica fundamental. Qual aspecto específico você gostaria de revisar agora: limites topográficos, irrigação ou inserções musculares?`;
+    }
+
+    return this.generateHumanConversationResponse(q, lang);
+  }
+
+  /**
    * Consulta o Cérebro Aeternum
    */
   consultar({ query, mode = "voice", language = "pt", context = {} }) {
@@ -288,20 +332,35 @@ class CerebroAeternumEngine {
       this.lastActiveTopic = directNode.id;
     }
 
-    // 3. Se temos um nó ativo, procurar nos seus sub-tópicos (músculos, ligamentos, vasos, valvas):
-    if (activeNode && Array.isArray(activeNode.subTopics)) {
-      for (const sub of activeNode.subTopics) {
-        if (this.containsAny(q, sub.synonyms)) {
-          const subResp = sub.responses?.[lang] || sub.responses?.pt;
-          if (subResp) return subResp;
+    // =========================================================================
+    // MODO 2: TUTORES DE VOZ (Aeternum Vita) — 100% HUMANIZADO E CONVERSACIONAL
+    // =========================================================================
+    if (mode === "voice") {
+      // Se temos um nó ativo, verificar se o usuário perguntou sobre sub-tópico (músculos, ligamentos, vasos):
+      if (activeNode && Array.isArray(activeNode.subTopics)) {
+        for (const sub of activeNode.subTopics) {
+          if (this.containsAny(q, sub.synonyms)) {
+            const subResp = sub.responses?.[lang] || sub.responses?.pt;
+            if (subResp) return subResp;
+          }
         }
       }
+
+      if (activeNode) {
+        return this.gerarRespostaVocalHumanizada(activeNode, null, q, lang);
+      }
+
+      if (directNode) {
+        return this.gerarRespostaVocalHumanizada(directNode, null, q, lang);
+      }
+
+      return this.generateHumanConversationResponse(q, lang);
     }
 
     // =========================================================================
-    // MODO 1: PESQUISA TEXTUAL PROFUNDA (Atlas AI)
+    // MODO 1: PESQUISA TEXTUAL ACADÊMICA (Atlas AI)
     // =========================================================================
-    if (mode === "research" && activeNode) {
+    if (activeNode) {
       const title = activeNode.title?.[lang] || activeNode.title?.pt || activeNode.id;
       const concept = activeNode.coreConcept?.[lang] || activeNode.coreConcept?.pt || "";
       const vascular = activeNode.vascularSupply?.[lang] || activeNode.vascularSupply?.pt || "";
@@ -326,17 +385,6 @@ ${pearls ? `**🩺 Correlações Clínicas & Cirúrgicas (Latarjet):**\n${pearls
       };
     }
 
-    // =========================================================================
-    // MODO 2: TUTORES DE VOZ (Aeternum Vita)
-    // =========================================================================
-
-    // Se o usuário falou especificamente de um nó anatômico novo
-    if (directNode && directNode.voiceSummary) {
-      const resp = directNode.voiceSummary?.[lang] || directNode.voiceSummary?.pt;
-      if (resp) return resp;
-    }
-
-    // Se não for anatômico, gerar resposta humanizada, proativa e acolhedora
     return this.generateHumanConversationResponse(q, lang);
   }
 

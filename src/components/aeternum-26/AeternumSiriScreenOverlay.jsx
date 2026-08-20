@@ -69,6 +69,8 @@ export default function AeternumSiriScreenOverlay({
             let apiReply = "";
             const streamContext = {
               ...context,
+              source: "voice",
+              mode: "voice",
               tutorPromptDirective: tutor.promptDirective,
               language
             };
@@ -79,24 +81,26 @@ export default function AeternumSiriScreenOverlay({
                 streamContext,
                 ({ text }) => {
                   if (text && !text.includes("indisponível") && !text.includes("autenticada")) {
-                    apiReply = text;
-                    setTutorSubtitle(text);
+                    const cleanChunk = aeternumVitaVoiceService.cleanTextForSpeech(text);
+                    apiReply = cleanChunk;
+                    setTutorSubtitle(cleanChunk);
                   }
                 }
               );
 
               if (result?.text && !result.text.includes("indisponível") && !result.text.includes("autenticada")) {
-                apiReply = result.text;
+                apiReply = aeternumVitaVoiceService.cleanTextForSpeech(result.text);
               }
             } catch (apiErr) {
               console.warn("Remote API notice, using live neural voice brain:", apiErr);
             }
 
-            const finalReply =
+            const rawFinalReply =
               (apiReply && !apiReply.includes("indisponível") && !apiReply.includes("autenticada"))
                 ? apiReply
-                : await generateDynamicVoiceResponse(cleanQ, context, language);
+                : await generateDynamicVoiceResponse(cleanQ, streamContext, language);
 
+            const finalReply = aeternumVitaVoiceService.cleanTextForSpeech(rawFinalReply);
             setTutorSubtitle(finalReply);
             setVoiceStatus("speaking");
             await aeternumVitaVoiceService.speak(

@@ -23,9 +23,12 @@ function buildTutorContext(context = {}) {
   const routeContext = context.routeContext || context.tutorContext || {};
   const model = context.model || {};
   const activeStructure = context.activeStructure || {};
+  const isVoice = context.source === 'voice' || context.mode === 'voice' || Boolean(context.tutorPromptDirective);
 
   return {
     source: context.source || (model.id || activeStructure.id ? 'viewer-3d' : 'platform'),
+    mode: isVoice ? 'voice' : (context.mode || 'research'),
+    tutorPromptDirective: context.tutorPromptDirective || null,
     currentRoute: context.route || null,
     userName: context.userName || context.user?.name || null,
     userFirstName: context.userFirstName || (context.userName ? String(context.userName).split(/\s+/)[0] : (context.user?.name ? String(context.user.name).split(/\s+/)[0] : null)),
@@ -64,14 +67,20 @@ function buildTutorContext(context = {}) {
 }
 
 async function streamLocalCerebroResponse(message, tutorContext, onUpdate, conversationId) {
+  const isVoiceMode = tutorContext.mode === "voice" || tutorContext.source === "voice" || Boolean(tutorContext.tutorPromptDirective);
   const rawResult = cerebroAeternum.consultar({
     query: message,
-    mode: "research",
+    mode: isVoiceMode ? "voice" : "research",
     language: tutorContext.language || "pt",
     context: tutorContext
   });
 
-  const fullText = typeof rawResult === "string" ? rawResult : rawResult?.markdown || message;
+  const fullText = typeof rawResult === "string"
+    ? rawResult
+    : (isVoiceMode
+      ? (rawResult?.voiceSummary || rawResult?.text || rawResult?.markdown || message)
+      : (rawResult?.markdown || rawResult?.text || message));
+
   const words = fullText.split(" ");
   let accumulated = "";
 
