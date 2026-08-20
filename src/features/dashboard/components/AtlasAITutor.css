@@ -55,6 +55,13 @@
   border-color: rgba(113, 234, 224, 0.42);
 }
 
+.upe-ai-trigger.is-siri-active {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.88);
+  transition: opacity 240ms ease, transform 240ms ease;
+}
+
 .upe-ai-trigger.is-orb-only {
   min-width: 84px;
   min-height: 84px;

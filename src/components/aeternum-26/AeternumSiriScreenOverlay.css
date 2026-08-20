@@ -302,7 +302,7 @@
 
 @media (max-width: 768px) {
   .a26-voice-hud-container {
-    bottom: 96px; /* Positioned above the bottom-right Tutor Orb */
+    bottom: clamp(16px, 4vw, 24px);
     left: 50%;
     transform: translateX(-50%);
     width: calc(100vw - 24px);
@@ -310,8 +310,8 @@
   }
 
   .a26-voice-hud-card {
-    padding: 12px 14px;
-    border-radius: 20px;
+    padding: 14px 16px;
+    border-radius: 22px;
     gap: 10px;
   }
 
@@ -320,24 +320,24 @@
   }
 
   .a26-voice-tutor-name {
-    font-size: 0.86rem;
+    font-size: 0.88rem;
   }
 
   .a26-voice-tutor-role {
-    font-size: 0.65rem;
-  }
-
-  .a26-voice-status-indicator {
-    padding: 3px 8px;
     font-size: 0.68rem;
   }
 
+  .a26-voice-status-indicator {
+    padding: 4px 10px;
+    font-size: 0.70rem;
+  }
+
   .a26-voice-transcript-area {
-    max-height: 140px;
+    max-height: 130px;
   }
 
   .a26-voice-bubble {
-    padding: 6px 10px;
+    padding: 7px 10px;
     font-size: 0.78rem;
   }
 }

@@ -153,7 +153,7 @@ export default function AeternumSiriScreenOverlay({
     };
   }, [active, language]);
 
-  // Render Apple Intelligence Soft-Diffusion Border
+  // Render Apple Intelligence Soft-Diffusion Border (Calibrated, Elegant & Non-Intrusive)
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -204,18 +204,19 @@ export default function AeternumSiriScreenOverlay({
         ctx.clearRect(0, 0, w, h);
 
         const t = (Date.now() - startTimeRef.current) * 0.001;
-        const phase = t * (voiceStatus === "thinking" ? 1.0 : voiceStatus === "speaking" ? 0.8 : 0.55);
+        const phase = t * (voiceStatus === "thinking" ? 0.9 : voiceStatus === "speaking" ? 0.7 : 0.45);
 
-        const angleDeg = Math.sin(phase * 1.2) * 120 + 180;
+        const angleDeg = Math.sin(phase * 0.9) * 90 + 180;
         const angleRad = (angleDeg * Math.PI) / 180;
 
-        const baseHues = [275, 320, 345, 38, 235, 192, 290];
+        // Calibrated Liquid Glass Palette: Soft Teal, Azure, Cyan, Opalescent Violet
+        const baseHues = [174, 192, 215, 245, 270, 190, 174];
         const colors = baseHues.map((baseHue, i) => {
-          const shift = Math.sin(phase * 0.8 + (i / 7.0) * Math.PI * 2) * 14;
+          const shift = Math.sin(phase * 0.6 + (i / 7.0) * Math.PI * 2) * 8;
           const hue = (baseHue + shift + 360) % 360;
-          const sat = 78 + 12 * Math.sin(phase * 0.6 + i);
-          const light = 68 + 6 * Math.sin(phase * 0.5 + i * 0.7);
-          return `hsla(${hue}, ${sat}%, ${light}%, 0.95)`;
+          const sat = 52 + 8 * Math.sin(phase * 0.4 + i);
+          const light = 62 + 4 * Math.sin(phase * 0.3 + i * 0.6);
+          return `hsla(${hue}, ${sat}%, ${light}%, 0.45)`;
         });
 
         let gradient;
@@ -233,35 +234,35 @@ export default function AeternumSiriScreenOverlay({
         }
 
         const margin = 2 * dpr;
-        const cornerRadius = Math.max(20 * dpr, Math.min(w, h) * 0.038);
+        const cornerRadius = Math.max(16 * dpr, Math.min(w, h) * 0.032);
         const rw = w - margin * 2;
         const rh = h - margin * 2;
 
         ctx.strokeStyle = gradient;
 
-        // Layer 3: Ambient Deep Bloom
+        // Layer 3: Ambient Soft Bloom (Subtle, non-glaring)
         ctx.save();
-        ctx.filter = `blur(${38 * dpr}px)`;
-        ctx.lineWidth = 50 * dpr;
-        ctx.globalAlpha = (0.22 + 0.06 * Math.sin(phase * 0.7)) * currentOpacity;
+        ctx.filter = `blur(${20 * dpr}px)`;
+        ctx.lineWidth = 14 * dpr;
+        ctx.globalAlpha = (0.08 + 0.03 * Math.sin(phase * 0.7)) * currentOpacity;
         drawRoundedRect(ctx, margin, margin, rw, rh, cornerRadius);
         ctx.stroke();
         ctx.restore();
 
         // Layer 2: Secondary Caustic Diffusion
         ctx.save();
-        ctx.filter = `blur(${16 * dpr}px)`;
-        ctx.lineWidth = 24 * dpr;
-        ctx.globalAlpha = (0.36 + 0.08 * Math.sin(phase * 0.9)) * currentOpacity;
+        ctx.filter = `blur(${8 * dpr}px)`;
+        ctx.lineWidth = 6 * dpr;
+        ctx.globalAlpha = (0.14 + 0.04 * Math.sin(phase * 0.9)) * currentOpacity;
         drawRoundedRect(ctx, margin, margin, rw, rh, cornerRadius);
         ctx.stroke();
         ctx.restore();
 
-        // Layer 1: Primary Soft Inner Glow
+        // Layer 1: Primary Crisp Inner Luminescent Edge
         ctx.save();
-        ctx.filter = `blur(${7 * dpr}px)`;
-        ctx.lineWidth = 12 * dpr;
-        ctx.globalAlpha = (0.52 + 0.1 * Math.sin(phase * 1.1)) * currentOpacity;
+        ctx.filter = `blur(${3 * dpr}px)`;
+        ctx.lineWidth = 2 * dpr;
+        ctx.globalAlpha = (0.22 + 0.05 * Math.sin(phase * 1.1)) * currentOpacity;
         drawRoundedRect(ctx, margin, margin, rw, rh, cornerRadius);
         ctx.stroke();
         ctx.restore();
