@@ -74,21 +74,6 @@ export default function AnatomicalQuizzesPage({ navigate }) {
             key={quiz.id}
             className={`anatomical-quiz-card anatomical-quiz-card--${quiz.accent}`}
           >
-            {quiz.image && (
-              <div className="anatomical-quiz-card__media-wrap">
-                <img
-                  src={quiz.image}
-                  alt={quiz.title}
-                  className="anatomical-quiz-card__img"
-                  loading="lazy"
-                />
-                <span className="anatomical-quiz-3d-badge">
-                  <LineIcon name="cube" className="w-3.5 h-3.5 inline mr-1" />
-                  3D INTERATIVO
-                </span>
-              </div>
-            )}
-
             <div className="anatomical-quiz-card__top">
               <span className="anatomical-quiz-icon">
                 <LineIcon name={quiz.icon} />

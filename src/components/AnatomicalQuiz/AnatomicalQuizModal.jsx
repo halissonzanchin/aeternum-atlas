@@ -122,20 +122,6 @@ export default function AnatomicalQuizModal({
           </div>
         </div>
 
-        {(model?.thumbnailUrl || model?.coverImageUrl) && (
-          <div className="viewer-quiz-model-banner">
-            <img
-              src={model.thumbnailUrl || model.coverImageUrl}
-              alt={model.title || "Modelo 3D"}
-              className="viewer-quiz-model-thumb"
-            />
-            <div className="viewer-quiz-model-badge-float">
-              <LineIcon name="cube" className="w-3.5 h-3.5 inline mr-1" />
-              <span>{model.system || "Modelo 3D Interativo"}</span>
-            </div>
-          </div>
-        )}
-
         {loading ? (
           <div className="viewer-quiz-empty">
             <LineIcon name="target" className="h-8 w-8" />

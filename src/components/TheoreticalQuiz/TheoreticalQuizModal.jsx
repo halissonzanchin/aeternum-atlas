@@ -768,20 +768,6 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
           </div>
         </header>
 
-        {(model?.thumbnailUrl || model?.coverImageUrl) && (
-          <div className="viewer-quiz-model-banner">
-            <img
-              src={model.thumbnailUrl || model.coverImageUrl}
-              alt={model.title || "Modelo 3D"}
-              className="viewer-quiz-model-thumb"
-            />
-            <div className="viewer-quiz-model-badge-float">
-              <LineIcon name="cube" className="w-3.5 h-3.5 inline mr-1" />
-              <span>{model.title || "Modelo 3D Interativo"}</span>
-            </div>
-          </div>
-        )}
-
         <div className="theory-exam-fields" aria-label="Campos institucionales de la prueba">
           {["Fecha", "Nombre", "Turno", "Matrícula"].map(label => (
             <label key={label}>
