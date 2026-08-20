@@ -538,12 +538,20 @@
 /* Modal/drawer material is stronger for focus and accessibility. */
 .atlas-crystal-overlay,
 .atlas-crystal-app :where(.admin-modal-backdrop, .agenda-modal-backdrop),
-.atlas-crystal-viewer :where(.viewer-modal-backdrop, .viewer-quiz-backdrop, .theory-quiz-backdrop) {
+.atlas-crystal-viewer :where(.viewer-modal-backdrop, .theory-quiz-backdrop) {
   background:
     radial-gradient(circle at 50% 42%, rgb(var(--crystal-cyan) / 0.08), transparent 30rem),
     rgba(0, 4, 7, 0.72);
   -webkit-backdrop-filter: blur(18px) saturate(120%);
   backdrop-filter: blur(18px) saturate(120%);
+}
+
+.atlas-crystal-viewer .viewer-quiz-backdrop,
+.viewer-quiz-backdrop {
+  background: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  pointer-events: none !important;
 }
 
 .atlas-crystal-dialog,
