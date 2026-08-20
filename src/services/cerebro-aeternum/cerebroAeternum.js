@@ -168,12 +168,109 @@ class CerebroAeternumEngine {
   }
 
   /**
+   * Gerador Inteligente de Mapa Mental Anatômico
+   * Cria esboços perfeitamente hierárquicos, ricos e estruturados para o tema solicitado
+   */
+  gerarMapaMentalAnatomico(topic, lang = "pt") {
+    const cleanTopic = String(topic || "Estrutura Anatômica").trim();
+    const node = this.findKnowledgeNode(cleanTopic);
+
+    if (node) {
+      const title = node.title?.[lang] || node.title?.pt || cleanTopic;
+      const sub = node.subTopics || [];
+      const lines = [title];
+
+      // 1. Morfologia e Fundamento Estrutural
+      lines.push(" Morfologia & Fundamento Estrutural");
+      lines.push(`  Conceito: ${node.coreConcept?.[lang] || node.coreConcept?.pt || "Organização Anatômica"}`);
+      lines.push("  Posição Anatômica e Relações Topográficas");
+      lines.push("  Acidentes Anatômicos & Vistas Descritivas");
+
+      // 2. Subtópicos específicos (Músculos, Ligamentos, Válvulas, etc.)
+      if (sub.length > 0) {
+        lines.push(" Inserções, Ligamentos & Dinâmica Funcional");
+        sub.forEach((s) => {
+          const subTitle = s.id ? s.id.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()) : "Estrutura";
+          lines.push(`  ${subTitle}`);
+          lines.push(`   ${s.responses?.[lang]?.slice(0, 75) || s.responses?.pt?.slice(0, 75) || "Detalhe Anátomo-Funcional"}`);
+        });
+      }
+
+      // 3. Irrigação & Vascularização
+      if (node.vascularSupply) {
+        lines.push(" Vascularização & Drenagem Linfática");
+        lines.push(`  ${node.vascularSupply?.[lang]?.slice(0, 80) || node.vascularSupply?.pt?.slice(0, 80)}`);
+        lines.push("  Drenagem Venosa e Vias de Retorno");
+      }
+
+      // 4. Inervação
+      if (node.innervationAndMuscles) {
+        lines.push(" Inervação & Controle Neural");
+        lines.push(`  ${node.innervationAndMuscles?.[lang]?.slice(0, 80) || node.innervationAndMuscles?.pt?.slice(0, 80)}`);
+      }
+
+      // 5. Correlações Clínicas & Cirúrgicas (Latarjet)
+      if (node.clinicalPearls) {
+        lines.push(" Correlações Clínicas & Cirúrgicas (Latarjet)");
+        lines.push(`  ${node.clinicalPearls?.[lang]?.slice(0, 85) || node.clinicalPearls?.pt?.slice(0, 85)}`);
+        lines.push("  Pontos de Fragilidade e Aplicações Cirúrgicas");
+      }
+
+      return lines.join("\n");
+    }
+
+    // Gerador universal para qualquer termo anatômico livre digitado pelo usuário
+    const capitalized = cleanTopic.charAt(0).toUpperCase() + cleanTopic.slice(1);
+    return `${capitalized}
+ Morfologia & Fundamento Estrutural
+  Posição Anatômica e Limites Topográficos
+  Divisões e Porções Principais
+  Relações Espaciais com Estruturas Vizinhas
+ Relações Musculares & Dinâmica
+  Inserções Musculares e Fáscias de Revestimento
+  Ação Biomecânica e Amplitude de Movimento
+  Ligamentos de Reforço e Cápsula Articular
+ Irrigação, Drenagem & Linfáticos
+  Ramos Arteriais Principais
+  Plexos Venosos e Vias de Retorno
+  Cadeias Linfáticas Regionais
+ Inervação & Vias Condutoras
+  Ramos Nervosos Sensitivos e Motores
+  Controle Autônomo e Reflexos Locais
+ Correlações Clínicas & Cirúrgicas (Latarjet)
+  Pontos de Fragilidade e Lesões Típicas
+  Sinais Semiológicos e Exames de Imagem
+  Considerações Anatômicas para Procedimentos`;
+  }
+
+  /**
    * Consulta o Cérebro Aeternum
    */
   consultar({ query, mode = "voice", language = "pt", context = {} }) {
     const rawQ = String(query || "").trim();
     const q = this.normalize(rawQ);
     const lang = String(language || "pt").slice(0, 2).toLowerCase();
+
+    // 0. Se for geração de Mapa Mental:
+    const isMindMap = context.source === "mind-map" || q.includes("mapa mental") || rawQ.includes("TEMA:");
+    if (isMindMap) {
+      let targetTopic = context.sectionTitle || "";
+      if (!targetTopic) {
+        const match = rawQ.match(/TEMA:\s*(.+)/i);
+        if (match && match[1]) {
+          targetTopic = match[1].trim();
+        } else {
+          targetTopic = rawQ.replace(/Crie um mapa mental.*?TEMA:\s*/is, "").trim();
+        }
+      }
+      if (!targetTopic || targetTopic.length < 2) targetTopic = "Estrutura Anatômica";
+
+      const node = this.findKnowledgeNode(targetTopic);
+      if (node) {
+        this.lastActiveTopic = node.id;
+      }
+      return this.gerarMapaMentalAnatomico(targetTopic, lang);
+    }
 
     // 1. Se for uma pergunta de mentoria, coaching ou rotina:
     const mentorship = this.findMentorshipNode(q);

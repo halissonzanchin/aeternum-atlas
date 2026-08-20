@@ -643,10 +643,12 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
             />
             <div className="topbar-export-group">
               <A26Button variant="secondary" onClick={handleExportPNG} title={t("mindMap.exportPng", { defaultValue: "Imagem (PNG)" })} className="topbar-export-btn">
+                <LineIcon name="image" className="h-3.5 w-3.5 mr-1 inline" />
                 <span className="export-btn-full">{t("mindMap.exportPng", { defaultValue: "Imagem (PNG)" })}</span>
                 <span className="export-btn-short">PNG</span>
               </A26Button>
               <A26Button variant="secondary" onClick={handleExportPDF} title={t("mindMap.exportPdf", { defaultValue: "Exportar PDF" })} className="topbar-export-btn">
+                <LineIcon name="download" className="h-3.5 w-3.5 mr-1 inline" />
                 <span className="export-btn-full">{t("mindMap.exportPdf", { defaultValue: "Exportar PDF" })}</span>
                 <span className="export-btn-short">PDF</span>
               </A26Button>

@@ -2,12 +2,12 @@
   --mindmap-teal: #61ede4;
   --mindmap-gold: #ddbd73;
   display: grid;
-  grid-template-columns: minmax(19rem, 23rem) minmax(0, 1fr);
-  gap: 0.9rem;
+  grid-template-columns: minmax(310px, 355px) minmax(0, 1fr);
+  gap: 0.65rem;
   width: 100%;
   min-width: 0;
-  height: clamp(43rem, calc(100dvh - 10.5rem), 68rem);
-  padding: 0.75rem;
+  height: clamp(43rem, calc(100dvh - 6.5rem), 72rem);
+  padding: 0.5rem;
   overflow: hidden;
   color: var(--a26-text-primary, #f4f7f7);
   background:
@@ -39,15 +39,15 @@
   position: relative;
   display: grid;
   grid-template-rows: auto auto minmax(5.5rem, 1fr) auto;
-  gap: clamp(0.65rem, 1.2vh, 1rem);
+  gap: clamp(0.5rem, 1vh, 0.85rem);
   min-width: 0;
   min-height: 0;
   height: 100%;
   max-height: 100%;
   box-sizing: border-box;
-  padding: 1.1rem;
+  padding: 1rem;
   overflow: hidden;
-  border-radius: 1.75rem;
+  border-radius: 1.5rem;
   transition: opacity 220ms ease, transform 260ms cubic-bezier(.2,.8,.2,1), padding 220ms ease;
 }
 
@@ -311,32 +311,47 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.8rem;
-  margin: 0.72rem;
-  padding: 0.42rem;
+  gap: 0.5rem;
+  margin: 0.5rem;
+  padding: 0.35rem 0.55rem;
   border-radius: 1.2rem;
+  flex-wrap: nowrap;
 }
 
-.topbar-left-group,
-.topbar-export-group,
-.zoom-controls {
+.topbar-left-group {
   display: flex;
   align-items: center;
-  gap: 0.42rem;
+  gap: 0.35rem;
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+.topbar-export-group {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
   min-width: 0;
 }
 
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 0 0 auto;
+}
+
 .mindmap-topbar .a26-button {
-  min-height: 2.55rem;
-  padding-inline: 0.82rem;
+  min-height: 2.35rem;
+  padding-inline: 0.65rem;
   white-space: nowrap;
 }
 
 .zoom-controls > .a26-button:not(.a26-icon-button) {
-  width: 2.55rem;
-  min-width: 2.55rem;
+  width: 2.35rem;
+  min-width: 2.35rem;
   padding: 0;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
 }
 
 .active-fullscreen {
@@ -499,14 +514,34 @@
   padding: 0.75rem;
 }
 
-@media (max-width: 1120px) {
-  .a26-mindmap-page {
-    grid-template-columns: minmax(17.5rem, 20rem) minmax(0, 1fr);
+@media (max-width: 1280px) {
+  .export-btn-full {
+    display: none !important;
+  }
+
+  .export-btn-short {
+    display: inline !important;
   }
 
   .topbar-export-group .a26-button {
-    font-size: 0.73rem;
-    padding-inline: 0.62rem;
+    font-size: 0.76rem;
+    padding-inline: 0.5rem;
+    min-height: 2.25rem;
+  }
+
+  .mindmap-topbar {
+    gap: 0.35rem;
+    margin: 0.35rem;
+    padding: 0.28rem 0.4rem;
+  }
+
+  .zoom-controls > .a26-button:not(.a26-icon-button),
+  .zoom-controls > .a26-icon-button {
+    width: 2.25rem;
+    min-width: 2.25rem;
+    height: 2.25rem;
+    min-height: 2.25rem;
+    font-size: 0.95rem;
   }
 }
 
