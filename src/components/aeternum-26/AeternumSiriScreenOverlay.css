@@ -112,10 +112,10 @@
   border-radius: 24px;
   background:
     radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.12) 0%, transparent 65%),
-    rgba(10, 24, 30, 0.72);
+    rgba(10, 24, 30, 0.76);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  backdrop-filter: blur(28px) saturate(190%);
   box-shadow:
     0 16px 40px rgba(0, 0, 0, 0.55),
     0 0 24px rgba(46, 213, 202, 0.14),
@@ -133,7 +133,7 @@
 .a26-voice-tutor-badge {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .a26-voice-tutor-flag-pill {
@@ -186,6 +186,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.74rem;
   color: rgba(230, 245, 245, 0.88);
+  white-space: nowrap;
 }
 
 .a26-voice-status-dot {
@@ -223,18 +224,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.75);
   cursor: pointer;
   transition: all 180ms ease;
+  flex-shrink: 0;
 }
 
 .a26-voice-hud-close:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.2);
   color: #ffffff;
   transform: scale(1.08);
 }
@@ -291,4 +293,51 @@
 .a26-voice-bubble-text {
   margin: 0;
   flex: 1;
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS (iOS / Android Screen Layout)
+   The Voice HUD card sits CLEANLY ABOVE the Tutor Orb on compact viewports
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .a26-voice-hud-container {
+    bottom: 96px; /* Positioned above the bottom-right Tutor Orb */
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+  }
+
+  .a26-voice-hud-card {
+    padding: 12px 14px;
+    border-radius: 20px;
+    gap: 10px;
+  }
+
+  .a26-voice-hud-header {
+    gap: 8px;
+  }
+
+  .a26-voice-tutor-name {
+    font-size: 0.86rem;
+  }
+
+  .a26-voice-tutor-role {
+    font-size: 0.65rem;
+  }
+
+  .a26-voice-status-indicator {
+    padding: 3px 8px;
+    font-size: 0.68rem;
+  }
+
+  .a26-voice-transcript-area {
+    max-height: 140px;
+  }
+
+  .a26-voice-bubble {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
 }

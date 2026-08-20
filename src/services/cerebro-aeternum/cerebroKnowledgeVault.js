@@ -1,23 +1,18 @@
 /**
- * Cérebro Aeternum — Cofre de Conhecimento Dinâmico & Ingestão Contínua
- * Base de Conhecimento Multidimensional (Anatomia, Semiologia, Cirurgia, Fisiologia, Psicologia e Coaching)
+ * Cérebro Aeternum — Base de Conhecimento Estruturada & Consciência Médica
+ * Contém nós de Anatomia (Latarjet/Netter), Fisiologia, Psicologia e Coaching de Estudos
  */
 
 export const CEREBRO_CATEGORIES = {
-  OSTEOLOGY: "osteologia_artrologia",
-  ANGIOLOGY: "angiologia_vascular",
-  MYOLOGY: "miologia_biomecanica",
-  NEUROLOGY: "neuroanatomia_pares_cranianos",
-  SPLANCHNOLOGY: "esplancnologia_visceras",
-  LYMPHATIC: "sistema_linfatico_imunologia",
-  CLINICAL_SURGERY: "clinica_cirurgia",
-  PSYCHOLOGY_EMOTIONAL: "psicologia_apoio_emocional",
-  STUDY_COACHING: "coaching_metodologia_estudo"
+  OSTEOLOGY: "osteologia",
+  ANGIOLOGY: "angiologia",
+  NEUROLOGY: "neurologia",
+  SPLANCHNOLOGY: "esplancnologia",
+  LYMPHATICS: "linfatico",
+  PSYCHOLOGY_EMOTIONAL: "psicologia_emocional",
+  STUDY_COACHING: "coaching_estudo"
 };
 
-/**
- * Registro de Nós de Conhecimento do Cérebro Aeternum com Sub-Tópicos Multi-Turno
- */
 export const CEREBRO_KNOWLEDGE_NODES = {
   clavicula: {
     id: "clavicula",
@@ -25,237 +20,285 @@ export const CEREBRO_KNOWLEDGE_NODES = {
     title: {
       pt: "Clavícula e Cíngulo do Membro Superior",
       es: "Clavícula y Cintura Escapular",
-      en: "Clavicle and Pectoral Girdle",
+      en: "Clavicle and Shoulder Girdle",
       de: "Clavicula und Schultergürtel"
     },
-    synonyms: ["clavicula", "clavícula", "clavicle", "collarbone", "acromion", "omoplata", "escapula", "hombro", "ombro", "shoulder"],
+    synonyms: ["clavicula", "clavícula", "clavicle", "schlüsselbein"],
     coreConcept: {
-      pt: "Única união óssea real entre o membro superior e o esqueleto axial, com formato em 'S' itálico.",
-      es: "Única unión ósea real entre el miembro superior y el esqueleto axial, con forma de 'S' itálica.",
-      en: "The only bony attachment between the upper limb and the axial skeleton, forming an italic 'S' shape.",
-      de: "Einzige knöcherne Verbindung zwischen der oberen Extremität und dem Rumpfskelett in S-Form."
+      pt: "Osso longo em formato de 'S' itálico que conecta o membro superior ao esqueleto axial através da articulação esternoclavicular.",
+      es: "Hueso largo con forma de 'S' itálica que une el miembro superior al esqueleto axial mediante la articulación esternoclavicular.",
+      en: "Long S-shaped bone that anchors the upper limb to the axial skeleton via the sternoclavicular joint.",
+      de: "S-förmiger Röhrenknochen, der die obere Extremität über das Sternoklavikulargelenk mit dem Rumpfskelett verbindet."
+    },
+    vascularSupply: {
+      pt: "Irrigação primária por ramos da artéria supraescapular e artéria toracoacromial; drenagem para a veia subclávia.",
+      es: "Irrigación por ramas de la arteria supraescapular y toracoacromial; drena hacia la vena subclavia.",
+      en: "Supplied by branches of the suprascapular and thoracoacromial arteries; drained by the subclavian vein.",
+      de: "Versorgung über Äste der A. suprascapularis und A. thoracoacromialis; Abfluss in die V. subclavia."
+    },
+    innervationAndMuscles: {
+      pt: "Nervos supraclaviculares (C3-C4). Fixações musculares: peitoral maior, deltoide, trapézio e esternocleidomastoideo.",
+      es: "Nervios supraclaviculares (C3-C4). Inserciones: pectoral mayor, deltoides, trapecio y esternocleidomastoideo.",
+      en: "Supraclavicular nerves (C3-C4). Muscle attachments: pectoralis major, deltoid, trapezius, and sternocleidomastoid.",
+      de: "Nn. supraclaviculares (C3-C4). Muskelansätze: M. pectoralis major, M. deltoideus, M. trapezius und M. sternocleidomastoideus."
+    },
+    clinicalPearls: {
+      pt: "Fraturas ocorrem tipicamente no terço médio (80%), com risco anatômico direto para os vasos subclávios e tronco do plexo braquial.",
+      es: "Las fracturas ocurren típicamente en el tercio medio (80%), con riesgo de lesión de los vasos subclavios y el plexo braquial.",
+      en: "Fractures most frequently involve the middle third (80%), presenting risk to underlying subclavian vessels and brachial plexus.",
+      de: "Frakturen betreffen typischerweise das mittlere Drittel (80%), mit Gefährdung der Vasa subclavia und des Plexus brachialis."
     },
     voiceSummary: {
-      pt: "A clavícula funciona como uma haste de sustentação mecânica que projeta o ombro lateralmente e protege os vasos subclávios. Deseja analisar os ligamentos coracoclaviculares ou os músculos que se inserem nela?",
+      pt: "A clavícula é a única ponte óssea entre o braço e o tórax, protegendo os grandes vasos subclávios. Deseja aprofundar nos ligamentos ou nos músculos que se inserem nela?",
       es: "La clavícula es el único puente óseo que une el brazo con el tórax, protegiendo los grandes vasos subclavios. ¿Quieres que veamos sus ligamentos coracoclaviculares o los músculos que se insertan en ella?",
-      en: "The clavicle acts as a mechanical strut transmitting upper limb forces to the axial skeleton while protecting the subclavian vessels. Would you like to review its ligaments or muscular attachments?",
-      de: "Die Clavicula stabilisiert den Schultergürtel als einzige knöcherne Verbindung zum Rumpf und schützt die großen Subclavia-Gefäße. Möchtest du die Bandstrukturen oder die Muskelansätze vertiefen?"
+      en: "The clavicle is the sole bony bridge connecting the arm to the thorax, shielding the subclavian vessels. Would you like to explore its ligaments or muscular attachments?",
+      de: "Die Clavicula ist die einzige knöcherne Verbindung zwischen Arm und Rumpf und schützt die Vasa subclavia. Wollen wir ihre Bänder oder die ansetzenden Muskeln besprechen?"
     },
     subTopics: [
       {
         id: "musculos",
-        synonyms: ["musculo", "músculo", "musculos", "músculos", "los musculos", "los músculos", "os musculos", "os músculos", "deltoide", "peitoral", "trapezio", "insercoes", "inserções", "muscles"],
+        synonyms: ["musculo", "músculo", "musculos", "músculos", "pectoral", "peitoral", "deltoide", "deltoides", "trapezio", "trapézio", "trapecio"],
         responses: {
-          pt: "Na clavícula inserem-se medialmente o peitoral maior e o esternocleidomastoideo, e lateralmente o deltoide e o trapézio. Gostaria de analisar a ação do músculo deltoide na elevação do braço ou os ligamentos?",
+          pt: "Na clavícula inserem-se medialmente o peitoral maior e o esternocleidomastoideo, e lateralmente o deltoide e o trapézio. Deseja analisar a biomecânica do deltoide na elevação do braço ou os ligamentos?",
           es: "En la clavícula se insertan medialmente el pectoral mayor y el esternocleidomastoideo, y lateralmente el deltoides y el trapecio. ¿Deseas analizar la acción del deltoides al elevar el brazo o los ligamentos?",
-          en: "The clavicle provides muscular attachments for pectoralis major and sternocleidomastoid medially, and deltoid and trapezius laterally. Shall we review deltoid mechanics during arm abduction or the ligaments?",
-          de: "An der Clavicula inserieren medial M. pectoralis major und M. sternocleidomastoideus, lateral M. deltoideus und M. trapezius. Wollen wir die Hebefunktion des Deltoideus oder die Bandstrukturen besprechen?"
+          en: "The clavicle anchors the pectoralis major and sternocleidomastoid medially, and the deltoid and trapezius laterally. Shall we review deltoid biomechanics or the ligaments?",
+          de: "An der Clavicula inserieren medial der M. pectoralis major und M. sternocleidomastoideus, lateral der M. deltoideus und M. trapezius. Wollen wir die Biomechanik oder die Bänder vertiefen?"
         }
       },
       {
         id: "ligamentos",
-        synonyms: ["ligamento", "ligamentos", "los ligamentos", "os ligamentos", "coracoclavicular", "conoide", "trapezoide", "acromioclavicular", "ligaments"],
+        synonyms: ["ligamento", "ligamentos", "conoide", "conóide", "conoides", "trapezoide", "coracoclavicular", "acromioclavicular"],
         responses: {
-          pt: "Os ligamentos conoide e trapezoide unem a clavícula ao processo coracoide da escápula, garantindo estabilidade suspensória ao ombro. Deseja revisar o mecanismo das luxações acromioclaviculares ou a vascularização?",
+          pt: "Os ligamentos conoide e trapezoide unem a clavícula ao processo coracoide da escápula, garantindo a suspensão do ombro. Deseja revisar as luxações acromioclaviculares ou a irrigação?",
           es: "Los ligamentos conoide y trapezoide unen la clavícula a la apófisis coracoides de la escápula, garantizando la suspensión del hombro. ¿Revisamos las luxaciones acromioclaviculares o la irrigación?",
-          en: "The conoid and trapezoid ligaments anchor the clavicle to the scapular coracoid process, providing primary suspensory stability. Shall we examine acromioclavicular dislocations or blood supply?",
-          de: "Das Ligamentum conoideum und trapezoideum fixieren die Clavicula am Processus coracoideus der Scapula. Wollen wir Schultereckgelenksluxationen oder die Blutversorgung besprechen?"
+          en: "The conoid and trapezoid ligaments bind the clavicle to the scapular coracoid process, supporting shoulder suspension. Shall we look at acromioclavicular dislocations or vascular supply?",
+          de: "Die Ligg. conoideum und trapezoideum sichern die Verbindung zum Processus coracoideus und stabilisieren den Schultergürtel. Wollen wir Luxationen oder Gefäßbeziehungen ansehen?"
         }
       },
       {
-        id: "vascularizacao",
-        synonyms: ["vascularizacao", "vascularização", "irrigacao", "irrigação", "la irrigacion", "la irrigación", "a irrigacao", "a irrigação", "vasos", "los vasos", "os vasos", "arteria", "artéria", "las arterias", "as arterias", "subclavia", "subclávia", "blood supply", "vessels"],
+        id: "irrigacao_vasos",
+        synonyms: ["irrigacao", "irrigação", "irrigacion", "irrigación", "vasos", "arteria", "artéria", "veia", "subclavia", "subclávia", "plexo braquial"],
         responses: {
-          pt: "Inferiormente à clavícula passam a artéria e a veia subclávias, separadas pelo músculo escaleno anterior. Deseja ver a relação com o plexo braquial ou as fraturas ósseas?",
+          pt: "Por baixo da clavícula transitam os vasos subclávios, protegidos pelo músculo subclávio e separados pelo escaleno anterior. Quer ver a relação com o plexo braquial ou fraturas?",
           es: "Por debajo de la clavícula transitan los vasos subclavios, separados por el músculo escaleno anterior. ¿Quieres ver la relación con el plexo braquial o las fracturas óseas?",
-          en: "The subclavian artery and vein run immediately inferior to the clavicle, separated by the anterior scalene muscle. Shall we explore the brachial plexus relationship or clavicular fractures?",
-          de: "Unter der Clavicula verlaufen die Vasa subclavia, getrennt durch den Musculus scalenus anterior. Sollen wir die Beziehung zum Plexus brachialis oder Frakturen betrachten?"
+          en: "Beneath the clavicle pass the subclavian vessels and brachial plexus, shielded by the subclavius muscle. Shall we review brachial plexus branches or clinical fracture risks?",
+          de: "Unterhalb der Clavicula verlaufen die Vasa subclavia und der Plexus brachialis. Möchtest du Gefäßbeziehungen oder klinische Frakturrisiken besprechen?"
         }
       }
     ]
   },
 
-  coracao: {
-    id: "coracao",
+  coracao_sistema_cardiovascular: {
+    id: "coracao_sistema_cardiovascular",
     category: CEREBRO_CATEGORIES.ANGIOLOGY,
     title: {
-      pt: "Coração e Circulação Coronariana",
-      es: "Corazón y Circulación Coronaria",
-      en: "Heart and Coronary Circulation",
-      de: "Herz und Koronarkreislauf"
+      pt: "Coração e Sistema Cardiovascular Central",
+      es: "Corazón y Sistema Cardiovascular Central",
+      en: "Heart and Central Cardiovascular System",
+      de: "Herz und zentrales Herz-Kreislauf-System"
     },
-    synonyms: ["coracao", "coração", "corazon", "corazón", "heart", "herz", "miocardio", "cardiaco", "valva", "valvula", "aorta"],
+    synonyms: ["coracao", "coração", "corazon", "corazón", "heart", "herz", "miocardio", "valva", "valvula"],
     coreConcept: {
-      pt: "Bomba muscular oca de quatro cavidades situada no mediastino médio, envolvida pelo pericárdio fibroseroso.",
-      es: "Bomba muscular hueca de cuatro cavidades en el mediastino medio, envuelta por el pericardio.",
-      en: "Four-chambered muscular organ located in the middle mediastinum, enclosed by the pericardium.",
-      de: "Vierkammrige muskuläre Hohlorganpumpe im mittleren Mediastinum, umgeben vom Perikard."
+      pt: "Bomba muscular oca com quatro câmaras (dois átrios e dois ventrículos) localizada no mediastino médio, responsável pelo débito cardíaco sistêmico e pulmonar.",
+      es: "Bomba muscular hueca de cuatro cavidades en el mediastino medio que impulsa el gasto cardíaco hacia la circulación sistémica y pulmonar.",
+      en: "Hollow muscular four-chambered pump within the middle mediastinum driving systemic and pulmonary circulation.",
+      de: "Vierkammrige muskuläre Hohlorganpumpe im mittleren Mediastinum zur Aufrechterhaltung des Körper- und Lungenkreislaufs."
+    },
+    vascularSupply: {
+      pt: "Artérias coronárias direita e esquerda originadas nos seios aórticos de Valsalva; drenagem pelo seio coronário no átrio direito.",
+      es: "Arterias coronarias derecha e izquierda originadas en los senos aórticos de Valsalva; drenaje por el seno coronario al atrio derecho.",
+      en: "Right and left coronary arteries arising from Valsalva aortic sinuses; venous drainage into the right atrium via coronary sinus.",
+      de: "A. coronaria dextra und sinistra aus den Sinus aortae; venöser Rückstrom über den Sinus coronarius in das rechte Atrium."
+    },
+    innervationAndMuscles: {
+      pt: "Plexo cardíaco autonômico (simpático T1-T4 e parassimpático via nervo vago X). Miocárdio ventricular especializado na contração sincronizada.",
+      es: "Plexo cardíaco autonómico (simpático T1-T4 y parasimpático por nervio vago X). Miocardio adaptado a la contracción sincrónica.",
+      en: "Autonomic cardiac plexus (sympathetic T1-T4 and parasympathetic via vagus nerve CN X). Specialized syncytial myocardium.",
+      de: "Plexus cardiacus (Sympathikus T1-T4 und Parasympathikus via N. vagus). Myokard mit synchronisierter Kontraktion."
+    },
+    clinicalPearls: {
+      pt: "Oclusão aguda do ramo interventricular anterior (DA) é a causa mais prevalente de infarto transmural da parede anterior e septo.",
+      es: "La oclusión aguda de la arteria descendente anterior es la causa más frecuente de infarto agudo de miocardio en la pared anterior.",
+      en: "Acute occlusion of the anterior interventricular (LAD) branch is the most frequent cause of transmural anterior wall infarction.",
+      de: "Akuter Verschluss des R. interventricularis anterior (RIVA/LAD) ist die häufigste Ursache eines Vorderwandinfarkts."
     },
     voiceSummary: {
-      pt: "O coração bombeia o débito cardíaco para todo o corpo e se nutre em diástole pelas artérias coronárias direita e esquerda. Faz sentido para você revermos a irrigação coronariana ou o ciclo cardíaco?",
-      es: "El corazón bombea sangre a todo el organismo y sus propias paredes se irrigan en diástole por las arterias coronarias. ¿Te gustaría profundizar en el ciclo cardíaco o en las ramas coronarias?",
-      en: "The heart functions as a synchronized four-chambered pump perfused during diastole by coronary branches. Would you like to explore coronary anatomy or the cardiac cycle?",
-      de: "Das Herz arbeitet als muskuläre Pumpe, deren Myokard in der Diastole über die Koronararterien versorgt wird. Sollen wir die Herzkranzgefäße oder das Reizleitungssystem besprechen?"
+      pt: "O coração bombeia cerca de cinco litros de sangue por minuto através de quatro câmaras sincronizadas. Deseja focar nas artérias coronárias ou no sistema de valvas?",
+      es: "El corazón bombea sangre mediante cuatro cavidades reguladas por valvas unidireccionales y el sistema de conducción. ¿Quieres revisar las coronarias o las valvas cardíacas?",
+      en: "The heart pumps approximately five liters of blood per minute through four synchronized chambers. Would you like to review coronary arteries or cardiac valves?",
+      de: "Das Herz pumpt kontinuierlich Blut durch vier Kammern, gesteuert durch Herzklappen und das Erregungsleitungssystem. Wollen wir Klappen oder Koronargefäße besprechen?"
     },
     subTopics: [
       {
-        id: "coronarias",
-        synonyms: ["coronaria", "coronárias", "irrigacao", "irrigação", "descendente anterior", "circunflexa", "infarto", "arterias"],
+        id: "valvas",
+        synonyms: ["valva", "valvas", "valvula", "valvulas", "mitral", "tricuspide", "tricúspide", "aortica", "aórtica", "pulmonar"],
         responses: {
-          pt: "A coronária esquerda emite o ramo descendente anterior e circunflexo, enquanto a direita irriga o ventrículo direito e nó sinusal em noventa por cento dos casos. Deseja aprofundar nos territórios de infarto ou nas valvas cardíacas?",
-          es: "La coronaria izquierda origina la descendente anterior y la circunfleja, mientras la derecha nutre el ventrículo derecho y el nódulo sinusal. ¿Profundizamos en los territorios de infarto o en las válvulas?",
-          en: "The left coronary artery branches into LAD and circumflex, while the right supplies the RV and SA node in ninety percent of cases. Shall we explore infarct territories or cardiac valves?",
-          de: "Die linke Koronararterie teilt sich in RIVA und RCX, während die rechte den rechten Ventrikel und Sinusknoten versorgt. Wollen wir Infarktareale oder die Herzklappen besprechen?"
-        }
-      },
-      {
-        id: "valvulas",
-        synonyms: ["valva", "valvas", "valvula", "válvulas", "mitral", "aortica", "tricuspide", "pulmonar", "valves"],
-        responses: {
-          pt: "As valvas atrioventriculares e semilunares garantem o fluxo unidirecional do sangue, prevenindo o refluxo durante a sístole. Deseja analisar os focos de ausculta cardíaca ou o sistema de condução?",
-          es: "Las válvulas auriculoventriculares y semilunares aseguran el flujo unidireccional de la sangre evitando el reflujo sistólico. ¿Analizamos los focos de auscultación cardíaca o el sistema de conducción?",
-          en: "The atrioventricular and semilunar valves ensure unidirectional blood flow, preventing systolic regurgitation. Shall we review cardiac auscultation points or the conduction system?",
-          de: "Die Atrioventrikular- und Semilunarklappen sichern den gerichteten Blutfluss und verhindern den Rückstrom. Wollen wir die Auskultationspunkte oder das Reizleitungssystem ansehen?"
+          pt: "As valvas atrioventriculares (mitral e tricúspide) e semilunares (aórtica e pulmonar) garantem o fluxo unidirecional sem regurgitação. Quer que analisemos as cordas tendíneas ou o sopro cardíaco?",
+          es: "Las valvas atrioventriculares (mitral y tricúspide) y semilunares (aórtica y pulmonar) impiden el reflujo sanguíneo. ¿Quieres profundizar en las cuerdas tendinosas o en los soplos cardíacos?",
+          en: "The atrioventricular (mitral, tricuspid) and semilunar (aortic, pulmonary) valves enforce unidirectional blood flow. Shall we examine chordae tendineae or clinical murmurs?",
+          de: "Die Segelklappen (Mitral-, Trikuspidalklappe) und Taschenklappen (Aorten-, Pulmonalklappe) sichern den unidirektionalen Blutfluss. Wollen wir Sehnenfäden oder Herzgeräusche ansehen?"
         }
       },
       {
         id: "conducao",
-        synonyms: ["conducao", "condução", "eletrico", "elétrico", "sinusal", "marcapasso", "purkinje", "his"],
+        synonyms: ["conducao", "condução", "conduccion", "conducción", "eletrica", "elétrica", "sinoatrial", "atrioventricular", "feixe de his", "purkinje"],
         responses: {
-          pt: "O estímulo elétrico nasce no nó sinoatrial, viaja pelo nó atrioventricular e se propaga pelo feixe de His e fibras de Purkinje. Quer correlacionar com o eletrocardiograma ou com o ciclo cardíaco?",
-          es: "El impulso eléctrico nace en el nódulo sinoauricular, pasa al nódulo auriculoventricular y se propaga por el haz de His. ¿Lo correlacionamos con el electrocardiograma o con el ciclo cardíaco?",
-          en: "The electrical impulse initiates at the SA node, transits the AV node, and propagates through the bundle of His and Purkinje fibers. Shall we correlate with the ECG or cardiac cycle?",
-          de: "Der Erregungsimpuls entsteht im Sinusknoten, durchläuft den AV-Knoten und breitet sich über das His-Bündel aus. Wollen wir das EKG oder den Herzzyklus besprechen?"
+          pt: "O estímulo elétrico nasce no nó sinoatrial, passa pelo nó atrioventricular, feixe de His e fibras de Purkinje. Quer ver como isso se reflete nas ondas do eletrocardiograma?",
+          es: "El impulso eléctrico nace en el nódulo sinoauricular, transita por el nódulo atrioventricular, haz de His y fibras de Purkinje. ¿Revisamos su correlación con el electrocardiograma?",
+          en: "Electrical excitation originates at the SA node, traverses the AV node, bundle of His, and Purkinje fibers. Shall we relate this to ECG waveforms?",
+          de: "Die Erregung entsteht im Sinusknoten, zieht über den AV-Knoten, das His-Bündel und die Purkinje-Fasern. Wollen wir den Bezug zum EKG besprechen?"
+        }
+      },
+      {
+        id: "coronarias",
+        synonyms: ["coronaria", "coronárias", "coronarias", "irrigacao coronariana", "descendente anterior", "circunflexa"],
+        responses: {
+          pt: "A coronária esquerda se bifurca em descendente anterior e circunflexa, enquanto a direita irriga a parede inferior e nó SA. Deseja revisar a dominância coronariana ou os infartos?",
+          es: "La coronaria izquierda se divide en descendente anterior y circunfleja, mientras la derecha nutre la cara inferior. ¿Deseas analizar la dominancia cardíaca o el infarto agudo?",
+          en: "The left coronary artery bifurcates into the LAD and circumflex branches, while the right supplies the inferior wall. Shall we discuss coronary dominance or myocardial infarction?",
+          de: "Die linke Koronararterie teilt sich in RIVA und RCX, während die rechte den Hinterwandbereich versorgt. Wollen wir Versorgungstypen oder Infarktmuster vertiefen?"
         }
       }
     ]
   },
 
-  sistema_linfatico: {
-    id: "sistema_linfatico",
-    category: CEREBRO_CATEGORIES.LYMPHATIC,
-    title: {
-      pt: "Sistema Linfático e Cadeias Ganglionares",
-      es: "Sistema Linfático y Cadenas Ganglionares",
-      en: "Lymphatic System and Lymph Node Chains",
-      de: "Lymphatisches System und Lymphknotenstationen"
-    },
-    synonyms: ["linfatico", "linfático", "ganglio", "gânglio", "linfonodo", "linfa", "ducto toracico", "baco", "bazo", "spleen"],
-    coreConcept: {
-      pt: "Rede de capilares, vasos e linfonodos responsável pela drenagem do líquido intersticial e vigilância imunológica.",
-      es: "Red de vasos y ganglios encargada del drenaje del líquido intersticial y la vigilancia inmunitaria.",
-      en: "Network of vessels and nodes responsible for interstitial fluid drainage and immune surveillance.",
-      de: "Gefäß- und Knotensystem zur Drainage der interstitiellen Flüssigkeit und Immunabwehr."
-    },
-    voiceSummary: {
-      pt: "A irrigação arterial conduz oxigênio sob alta pressão, enquanto a rede de gânglios linfáticos filtra impurezas e atua na defesa imunológica. Quer explorar as cadeias de linfonodos ou os troncos arteriais?",
-      es: "La irrigación nutre los tejidos bajo alta presión, mientras los vasos y ganglios linfáticos filtran la linfa y defienden el organismo. ¿Deseas repasar las cadenas ganglionares axilares o las arterias principales?",
-      en: "Arterial circulation delivers oxygen under pressure, while lymph nodes filter pathogens and immune cells. Shall we examine axillary lymph node groups or main arterial trunks?",
-      de: "Arterien versorgen das Gewebe unter Druck, während Lymphknoten als biologische Filterstationen der Immunabwehr dienen. Wollen wir die axillären Lymphknoten oder die Hauptarterien besprechen?"
-    }
-  },
-
-  encefalo_willis: {
-    id: "encefalo_willis",
-    category: CEREBRO_CATEGORIES.NEUROLOGY,
-    title: {
-      pt: "Encéfalo e Polígono Arterial de Willis",
-      es: "Encéfalo y Polígono Arterial de Willis",
-      en: "Brain and Arterial Circle of Willis",
-      de: "Gehirn und Circulus arteriosus cerebri (Willis)"
-    },
-    synonyms: ["encefalo", "encéfalo", "cerebro", "cérebro", "brain", "willis", "carotida", "carótida", "pares cranianos", "nervios craneales"],
-    coreConcept: {
-      pt: "Anel anastomótico arterial na base do cérebro unindo os sistemas carotídeo interno e vertebrobasilar.",
-      es: "Anillo anastomótico arterial en la base del cerebro que une los sistemas carotídeo y vertebrobasilar.",
-      en: "Arterial anastomotic ring at the skull base uniting carotid and vertebrobasilar circulations.",
-      de: "Arterieller Anastomosenring an der Schädelbasis zwischen Karotis- und Vertebrobasilarissystem."
-    },
-    voiceSummary: {
-      pt: "O encéfalo coordena todas as funções vitais e motoras, nutrido pelo polígono de Willis com anastomoses carótido-basilares. O que você gostaria de explorar: os doze pares cranianos ou as áreas do córtex?",
-      es: "El encéfalo centraliza nuestras funciones y se nutre a través del polígono arterial de Willis. ¿Quieres explorar los doce pares craneales o la irrigación cerebral?",
-      en: "The brain coordinates cognitive and motor systems, perfused by the Circle of Willis anastomoses. Would you like to explore the twelve cranial nerves or cerebral arterial branches?",
-      de: "Das Gehirn wird über den Circulus arteriosus Willisii aus Karotis- und Vertebralisstromgebieten versorgt. Wollen wir die zwölf Hirnnerven oder die kortikalen Areale vertiefen?"
-    }
-  },
-
-  femur_quadril: {
-    id: "femur_quadril",
+  femur_membro_inferior: {
+    id: "femur_membro_inferior",
     category: CEREBRO_CATEGORIES.OSTEOLOGY,
     title: {
-      pt: "Fêmur e Articulação Coxofemoral",
+      pt: "Fêmur e Articulação do Quadril",
       es: "Fémur y Articulación Coxofemoral",
       en: "Femur and Hip Joint",
       de: "Femur und Hüftgelenk"
     },
-    synonyms: ["femur", "fêmur", "quadril", "cadera", "hip", "acetabulo", "joelho", "rodilla", "trocanter"],
+    synonyms: ["femur", "fêmur", "quadril", "trocanter", "coxofemoral", "thigh"],
     coreConcept: {
-      pt: "Maior e mais resistente osso do corpo humano, transmitindo carga do quadril para a tíbia.",
-      es: "Hueso más largo y resistente del cuerpo humano, transmitiendo carga de la cadera a la tibia.",
-      en: "Longest and strongest bone in the human body, bearing weight between pelvis and tibia.",
-      de: "Längster und stärkster Röhrenknochen des menschlichen Körpers, Kraftüberträger vom Becken zur Tibia."
+      pt: "O osso mais longo, volumoso e resistente do corpo humano, projetado para sustentação de carga e locomoção bípede.",
+      es: "El hueso más largo, voluminoso y resistente del cuerpo humano, diseñado para soporte de peso y marcha.",
+      en: "The longest, heaviest, and strongest bone in the human body, optimized for weight transmission and bipedal gait.",
+      de: "Längster, schwerster und stärkster Röhrenknochen des menschlichen Körpers zur Lastübertragung beim aufrechten Gang."
     },
     voiceSummary: {
-      pt: "O fêmur é a principal viga de carga do membro inferior, nutrido pelas artérias circunflexas femorais e apoiado no acetábulo. Gostaria de rever a articulação coxofemoral ou os ligamentos do joelho?",
-      es: "El fémur soporta todo el peso corporal transmitiéndolo a la tibia, irrigado por las arterias circunflejas femorales. ¿Revisamos la articulación de la cadera o los ligamentos de la rodilla?",
-      en: "The femur serves as the primary weight-bearing column of the lower limb, supplied by femoral circumflex branches. Shall we review the hip joint or knee ligaments?",
-      de: "Das Femur überträgt die Last vom Becken auf die Tibia, versorgt über die Arteriae circumflexae femoris. Wollen wir das Hüftgelenk oder die Kniebänder ansehen?"
+      pt: "O fêmur transmite o peso da pelve para a tíbia através de um ângulo colo-diáfise de cento e vinte e seis graus. Deseja focar no colo femoral ou nas inserções do trocânter?",
+      es: "El fémur transmite el peso corporal hacia la tibia con un ángulo cérvico-diafisario de ciento veintiséis grados. ¿Quieres ver el cuello femoral o las inserciones en los trocánteres?",
+      en: "The femur transmits body weight to the tibia with a normal neck-shaft angle of one hundred and twenty-six degrees. Shall we explore the femoral neck or trochanteric attachments?",
+      de: "Das Femur leitet das Körpergewicht auf die Tibia weiter mit einem physiologischen Schenkelhalswinkel von einhundertsechsundzwanzig Grad. Wollen wir den Schenkelhals oder die Trochanteren vertiefen?"
     }
   },
 
-  visceras_abdominais: {
-    id: "visceras_abdominais",
-    category: CEREBRO_CATEGORIES.SPLANCHNOLOGY,
+  encefalo_sistema_nervoso: {
+    id: "encefalo_sistema_nervoso",
+    category: CEREBRO_CATEGORIES.NEUROLOGY,
     title: {
-      pt: "Vísceras Abdominais e Tronco Celíaco",
-      es: "Vísceras Abdominales y Tronco Celíaco",
-      en: "Abdominal Viscera and Celiac Trunk",
-      de: "Bauchorgane und Truncus coeliacus"
+      pt: "Encéfalo e Polígono de Willis",
+      es: "Encéfalo y Polígono de Willis",
+      en: "Brain and Circle of Willis",
+      de: "Gehirn und Circulus arteriosus cerebri"
     },
-    synonyms: ["viscera", "víscera", "figado", "fígado", "higado", "hígado", "pancreas", "pâncreas", "estomago", "estômago", "veia porta", "peritonio"],
+    synonyms: ["cerebro", "cérebro", "encefalo", "encéfalo", "brain", "gehirn", "willis", "meninge"],
     coreConcept: {
-      pt: "Órgãos do trato digestivo e glândulas anexas organizados nas cavidades peritoneal e retroperitoneal.",
-      es: "Órganos del tracto digestivo y glándulas anexas organizados en las cavidades peritoneal y retroperitoneal.",
-      en: "Digestive organs and glands arranged within peritoneal and retroperitoneal compartments.",
-      de: "Verdauungsorgane und Drüsen im Peritoneal- und Retroperitonealraum."
+      pt: "Centro supremo de integração sensorial, controle motor, homeostase e cognição abrigado na caixa craniana.",
+      es: "Centro de integración sensorial, control motor voluntario, homeostasis y cognición superior alojado en el cráneo.",
+      en: "Master organ for sensory integration, motor coordination, cognitive processing, and homeostasis inside the cranium.",
+      de: "Zentrales Integrationsorgan für Sensorik, Motorik, Kognition und vegetative Regulation im Neurokranium."
     },
     voiceSummary: {
-      pt: "Os órgãos abdominais recebem sangue do tronco celíaco e convergem seu fluxo venoso para a veia porta hepática. Deseja analisar a segmentação do fígado ou a topografia das vísceras?",
-      es: "Los órganos abdominales se nutren del tronco celíaco y drenan hacia la vena porta hepática. ¿Quieres analizar la segmentación hepática o la disposición de las vísceras?",
-      en: "Abdominal organs are perfused by the celiac trunk and drain into the hepatic portal system. Would you like to analyze liver segmentation or visceral topography?",
-      de: "Die Bauchorgane werden über den Truncus coeliacus versorgt und drainieren in die Pfortader. Wollen wir die Lebersegmente oder die Organlage besprechen?"
-    }
-  },
-
-  pulmao_respiratorio: {
-    id: "pulmao_respiratorio",
-    category: CEREBRO_CATEGORIES.SPLANCHNOLOGY,
-    title: {
-      pt: "Pulmões e Árvore Traqueobrônquica",
-      es: "Pulmones y Árbol Traqueobronquial",
-      en: "Lungs and Tracheobronchial Tree",
-      de: "Lungen und Tracheobronchialbaum"
-    },
-    synonyms: ["pulmao", "pulmão", "pulmon", "pulmón", "lung", "lunge", "bronquio", "diafragma", "pleura", "alveolo"],
-    coreConcept: {
-      pt: "Órgãos essenciais da respiração localizados na cavidade torácica, divididos em lobos e segmentos broncopulmonares.",
-      es: "Órganos de la respiración en la cavidad torácica, divididos en lóbulos y segmentos broncopulmonares.",
-      en: "Essential respiratory organs in the thoracic cavity divided into lobes and bronchopulmonary segments.",
-      de: "Atmungsorgane in der Pleurahöhle, gegliedert in Lappen und bronchopulmonale Segmente."
-    },
-    voiceSummary: {
-      pt: "Os pulmões realizam a hematose nos alvéolos com o auxílio do músculo diafragma, divididos em três lobos à direita e dois à esquerda. Deseja focar na árvore brônquica ou na mecânica ventilatória?",
-      es: "Los pulmones realizan el intercambio gaseoso alveolar gracias al diafragma, con tres lóbulos a la derecha y dos a la izquierda. ¿Deseas enfocarte en el árbol bronquial o en la ventilación?",
-      en: "The lungs carry out alveolar gas exchange driven by the diaphragm, with three lobes on the right and two on the left. Shall we focus on the bronchial tree or mechanics of breathing?",
-      de: "Die Lunge ermöglicht den Gasaustausch in den Alveolen mithilfe des Zwerchfells, dreilappig rechts und zweilappig links. Wollen wir den Bronchialbaum oder die Atemmechanik vertiefen?"
+      pt: "O encéfalo consome vinte por cento do oxigênio corporal e é irrigado pelo polígono arterial de Willis. Deseja explorar as artérias cerebrais ou os lobos corticais?",
+      es: "El encéfalo consume el veinte por ciento del oxígeno corporal y recibe sangre del círculo arterial de Willis. ¿Quieres ver las arterias cerebrales o los lóbulos corticales?",
+      en: "The brain utilizes twenty percent of resting cardiac output and is perfused by the Circle of Willis. Would you like to analyze cerebral arteries or cortical lobes?",
+      de: "Das Gehirn verbraucht zwanzig Prozent des Sauerstoffs und wird durch den Circulus arteriosus Willisii versorgt. Wollen wir die Hirnarterien oder die Kortexlappen besprechen?"
     }
   }
 };
 
 /**
- * Registros de Psicologia, Mentoria e Coaching de Estudos
+ * Registros de Mentoria, Psicologia, Coaching de Estudos e Diálogo Humano Natural
  */
 export const CEREBRO_MENTORSHIP_NODES = {
+  como_funciona: {
+    id: "como_funciona",
+    category: CEREBRO_CATEGORIES.STUDY_COACHING,
+    synonyms: ["como funcionas", "como voce funciona", "como você funciona", "explicame como funcionas", "me explica como você funciona", "como tu funcionas", "como você trabalha", "how do you work", "wie funktionierst du", "que haces tu", "o que voce faz exatamente"],
+    responses: {
+      pt: "Tudo ótimo, obrigado! Olha, eu sou seu mentor e estou aqui para te orientar de forma simples e direta no Aeternum Vita. Gostaria de saber algo específico sobre o sistema?",
+      es: "Todo muy bien, gracias. Mira, soy tu mentora y estoy aquí para orientarte de forma sencilla y directa sobre Aeternum Vita. ¿Te gustaría saber algo específico sobre el sistema?",
+      en: "Everything is great, thank you! I am your mentor and I am here to guide you simply and directly through Aeternum Vita. Would you like to know something specific about the system?",
+      de: "Alles bestens, danke! Ich bin dein Mentor und begleite dich einfach und direkt durch Aeternum Vita. Möchtest du etwas Bestimmtes über das System wissen?"
+    }
+  },
+
+  multidisciplinar_escopo: {
+    id: "multidisciplinar_escopo",
+    category: CEREBRO_CATEGORIES.STUDY_COACHING,
+    synonyms: ["anatomia ou psicologia", "anatomia o psicologia", "rutina del dia a dia", "rotina do dia a dia", "resolver isso", "podes resolver eso", "pode resolver isso", "can you solve that", "anatomia e rotina", "psicologia e estudo"],
+    responses: {
+      pt: "Com certeza! Posso te ajudar a organizar sua rotina e orientar em anatomia, psicologia ou metodologia de estudo. Só me dizer por onde quer começar: o que é mais urgente para você hoje?",
+      es: "Claro que sí, puedo ayudarte a organizar tu rutina y darte orientación en anatomía, psicología o estudio. Solo dime por dónde quieres empezar, ¿qué es lo que más te urge resolver hoy?",
+      en: "Absolutely! I can help you organize your routine and guide you across anatomy, mindset, and study strategies. Just tell me where you would like to begin: what is most urgent for you today?",
+      de: "Selbstverständlich! Ich helfe dir bei deiner Lernorganisation und berate dich in Anatomie, Psychologie und Studienalltag. Womit möchtest du starten?"
+    }
+  },
+
+  organizar_agenda: {
+    id: "organizar_agenda",
+    category: CEREBRO_CATEGORIES.STUDY_COACHING,
+    synonyms: ["organizar agenda", "organizar mi agenda", "organizar minha agenda", "organizar cronograma", "organizar horario", "organize my schedule", "organizar el tiempo", "organizar o tempo"],
+    responses: {
+      pt: "Com certeza! O ideal é priorizar suas tarefas mais importantes no início do dia. Você prefere organizar seu tempo por blocos de horários ou por uma lista de pendências?",
+      es: "Por supuesto, lo ideal es priorizar tus tareas más importantes al inicio del día. ¿Prefieres organizar tu tiempo por bloques horarios o por una lista de pendientes?",
+      en: "Of course! The key is prioritizing your most critical tasks early in the day. Do you prefer time-blocking or a structured to-do checklist?",
+      de: "Natürlich! Am besten priorisierst du die wichtigsten Aufgaben zu Beginn des Tages. Bevorzugst du Zeitblöcke oder eine strukturierte Aufgabenliste?"
+    }
+  },
+
+  lista_pendentes: {
+    id: "lista_pendentes",
+    category: CEREBRO_CATEGORIES.STUDY_COACHING,
+    synonyms: ["lista de pendientes", "lista de pendencias", "lista de pendências", "lista de tarefas", "to-do list", "pendientes", "pendencias", "por uma lista"],
+    responses: {
+      pt: "Perfeito! Então anote tudo o que tem para fazer e marque com alta prioridade o que for mais urgente. Quer que eu te ajude a estruturar essa lista agora mesmo?",
+      es: "Perfecto, entonces anota todo lo que tienes que hacer y marca con una prioridad alta lo más urgente. ¿Quieres que te ayude a redactar esa lista ahora mismo?",
+      en: "Perfect! Write down everything you need to do and flag the most urgent tasks with high priority. Would you like me to help you draft that list right now?",
+      de: "Perfekt! Notiere alle anstehenden Aufgaben und markiere das Dringendste mit hoher Priorität. Soll ich dir jetzt beim Erstellen dieser Liste helfen?"
+    }
+  },
+
+  sentido_da_vida: {
+    id: "sentido_da_vida",
+    category: CEREBRO_CATEGORIES.PSYCHOLOGY_EMOTIONAL,
+    synonyms: ["sentido de la vida", "sentido da vida", "proposito", "propósito", "meaning of life", "sinn des lebens", "por que existimos", "qual o sentido"],
+    responses: {
+      pt: "É um tema profundo, mas geralmente se encontra no equilíbrio entre evoluir pessoalmente e cuidar do próximo. Você sente que tem um propósito claro neste momento?",
+      es: "Es un tema profundo, pero generalmente se encuentra en el equilibrio entre crecer personalmente y ayudar a los demás. ¿Tú sientes que tienes algún propósito claro en este momento?",
+      en: "That is a profound topic, but it usually lies in the balance between personal growth and helping others. Do you feel you have a clear purpose right now?",
+      de: "Das ist ein tiefgründiges Thema. Oft liegt der Sinn im Gleichgewicht zwischen persönlichem Wachstum und dem Dienst an anderen. Hast du derzeit ein klares Ziel vor Augen?"
+    }
+  },
+
+  elogio_voz: {
+    id: "elogio_voz",
+    category: CEREBRO_CATEGORIES.PSYCHOLOGY_EMOTIONAL,
+    synonyms: ["me encanta tu voz", "adoro sua voz", "gostei da sua voz", "sua voz e incrivel", "sua voz é incrível", "tu voz es increible", "tu voz es increíble", "love your voice", "tolle stimme", "bela voz"],
+    responses: {
+      pt: "Muito obrigado! Fico muito feliz que tenha gostado. É um grande prazer te acompanhar nessa jornada. Quer continuar conversando sobre algum tema em especial?",
+      es: "Muchísimas gracias, me alegra mucho que te guste. Es un placer acompañarte, ¿seguimos charlando sobre algún tema en particular?",
+      en: "Thank you so much, I am thrilled to hear that! It is a true pleasure to guide you. Shall we continue exploring a particular topic?",
+      de: "Vielen herzlichen Dank, das freut mich sehr! Es ist mir eine Freude, dich zu begleiten. Wollen wir über ein bestimmtes Thema weitersprechen?"
+    }
+  },
+
+  confirmacao_pronto: {
+    id: "confirmacao_pronto",
+    category: CEREBRO_CATEGORIES.STUDY_COACHING,
+    synonyms: ["perfecto", "perfeito", "genial", "combinado", "otimo", "ótimo", "bueno", "excelente", "tudo bem", "ok", "vale", "fechado"],
+    responses: {
+      pt: "Excelente! Fico totalmente atento para o que você precisar. Em que mais posso te apoiar agora?",
+      es: "Genial, entonces quedo atenta a lo que necesites. ¿En qué más te puedo apoyar ahora?",
+      en: "Awesome, I am right here for whatever you need. What else can I support you with right now?",
+      de: "Hervorragend, ich stehe dir jederzeit zur Seite. Wobei kann ich dich jetzt noch unterstützen?"
+    }
+  },
+
   rotina_organizacao: {
     id: "rotina_organizacao",
     category: CEREBRO_CATEGORIES.STUDY_COACHING,

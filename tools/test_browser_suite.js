@@ -102,17 +102,21 @@ async function runBrowserTestSuite() {
     console.log('\n[3/6] Testando Diálogo Multi-Turno da Antonia (Espanhol)...');
     const { cerebroAeternum } = await import('../src/services/cerebro-aeternum/cerebroAeternum.js');
     
-    const r1 = cerebroAeternum.consultar({ query: 'me gustaría hablar de la clavícula', language: 'es' });
-    const r2 = cerebroAeternum.consultar({ query: 'los músculos', language: 'es' });
-    const r3 = cerebroAeternum.consultar({ query: 'los ligamentos', language: 'es' });
-    const r4 = cerebroAeternum.consultar({ query: 'la irrigación', language: 'es' });
-    const r5 = cerebroAeternum.consultar({ query: 'como organizo mi rutina de estudio?', language: 'es' });
+    const r1 = cerebroAeternum.consultar({ query: 'Hola, ¿todo bien? ¿Podés explicarme cómo funcionas?', language: 'es' });
+    const r2 = cerebroAeternum.consultar({ query: 'Bueno, explícame, si quiero saber sobre un tema de anatomía o un tema de psicología, o un tema de mi rutina del día a día, podés resolver eso.', language: 'es' });
+    const r3 = cerebroAeternum.consultar({ query: '¿Podemos hablar un poco sobre cómo puedo organizar mi agenda?', language: 'es' });
+    const r4 = cerebroAeternum.consultar({ query: 'Puede ser por una lista de pendientes.', language: 'es' });
+    const r5 = cerebroAeternum.consultar({ query: '¿Me puedes explicar un poco cómo funciona el sentido de la vida?', language: 'es' });
+    const r6 = cerebroAeternum.consultar({ query: 'Me encanta tu voz, es increíble.', language: 'es' });
+    const r7 = cerebroAeternum.consultar({ query: 'Perfecto.', language: 'es' });
 
-    assert(r1.includes('clavícula') || r1.includes('puente óseo'), 'Turno 1 (Clavícula ES) gerou resposta correta.');
-    assert(r2.includes('pectoral mayor') || r2.includes('deltoides'), 'Turno 2 (Músculos ES) manteve o contexto sem travar.');
-    assert(r3.includes('conoide') || r3.includes('trapezoide'), 'Turno 3 (Ligamentos ES) aprofundou nas conexões.');
-    assert(r4.includes('subclavios') || r4.includes('vasos'), 'Turno 4 (Irrigação ES) manteve a sequência lógica.');
-    assert(r5.includes('veinticinco minutos') || r5.includes('bloques'), 'Modo Coach/Rotina orienta metodologia de estudos.');
+    assert(r1.includes('mentora') && r1.includes('Aeternum Vita'), 'Turno 1 (Como funciona ES) gerou resposta acolhedora.');
+    assert(r2.includes('organizar tu rutina') && r2.includes('orientación'), 'Turno 2 (Escopo multidisciplinar ES) explicou capacidades.');
+    assert(r3.includes('priorizar') && r3.includes('bloques horarios'), 'Turno 3 (Organizar agenda ES) propôs metodologia.');
+    assert(r4.includes('lista') && r4.includes('urgente'), 'Turno 4 (Lista de pendências ES) aprofundou na execução.');
+    assert(r5.includes('profundo') && r5.includes('crecer personalmente'), 'Turno 5 (Sentido da vida ES) abordou filosofia com empatia.');
+    assert(r6.includes('mucho que te guste') || r6.includes('gracias'), 'Turno 6 (Elogio à voz ES) respondeu calorosamente.');
+    assert(r7.includes('atenta') || r7.includes('apoyar'), 'Turno 7 (Confirmação ES) manteve prontidão ativa.');
 
     // ----------------------------------------------------
     // TESTE 4: Teste Multi-Turno em Português (Eduardo)
