@@ -1,6 +1,6 @@
 /**
  * Cérebro Aeternum — Base de Conhecimento Estruturada & Consciência Médica
- * Contém nós de Anatomia (Latarjet/Netter), Fisiologia, Psicologia e Coaching de Estudos
+ * Contém nós de Anatomia (Latarjet/Netter/Moore), Fisiologia, Psicologia e Coaching de Estudos
  */
 
 export const CEREBRO_CATEGORIES = {
@@ -8,6 +8,7 @@ export const CEREBRO_CATEGORIES = {
   ANGIOLOGY: "angiologia",
   NEUROLOGY: "neurologia",
   SPLANCHNOLOGY: "esplancnologia",
+  RESPIRATORY: "respiratorio",
   LYMPHATICS: "linfatico",
   PSYCHOLOGY_EMOTIONAL: "psicologia_emocional",
   STUDY_COACHING: "coaching_estudo"
@@ -23,7 +24,7 @@ export const CEREBRO_KNOWLEDGE_NODES = {
       en: "Clavicle and Shoulder Girdle",
       de: "Clavicula und Schultergürtel"
     },
-    synonyms: ["clavicula", "clavícula", "clavicle", "schlüsselbein"],
+    synonyms: ["clavicula", "clavícula", "clavicle", "schlüsselbein", "cintura escapular", "cingulo"],
     coreConcept: {
       pt: "Osso longo em formato de 'S' itálico que conecta o membro superior ao esqueleto axial através da articulação esternoclavicular.",
       es: "Hueso largo con forma de 'S' itálica que une el miembro superior al esqueleto axial mediante la articulación esternoclavicular.",
@@ -57,7 +58,7 @@ export const CEREBRO_KNOWLEDGE_NODES = {
     subTopics: [
       {
         id: "musculos",
-        synonyms: ["musculo", "músculo", "musculos", "músculos", "pectoral", "peitoral", "deltoide", "deltoides", "trapezio", "trapézio", "trapecio"],
+        synonyms: ["musculo", "músculo", "musculos", "músculos", "pectoral", "peitoral", "deltoide", "deltoides", "trapezio", "trapézio", "trapecio", "elevam o braco", "elevar el brazo"],
         responses: {
           pt: "Na clavícula inserem-se medialmente o peitoral maior e o esternocleidomastoideo, e lateralmente o deltoide e o trapézio. Deseja analisar a biomecânica do deltoide na elevação do braço ou os ligamentos?",
           es: "En la clavícula se insertan medialmente el pectoral mayor y el esternocleidomastoideo, y lateralmente el deltoides y el trapecio. ¿Deseas analizar la acción del deltoides al elevar el brazo o los ligamentos?",
@@ -92,12 +93,16 @@ export const CEREBRO_KNOWLEDGE_NODES = {
     id: "coracao_sistema_cardiovascular",
     category: CEREBRO_CATEGORIES.ANGIOLOGY,
     title: {
-      pt: "Coração e Sistema Cardiovascular Central",
-      es: "Corazón y Sistema Cardiovascular Central",
-      en: "Heart and Central Cardiovascular System",
-      de: "Herz und zentrales Herz-Kreislauf-System"
+      pt: "Coração, Valvas e Artérias Coronárias",
+      es: "Corazón, Valvas y Arterias Coronarias",
+      en: "Heart, Valves and Coronary Arteries",
+      de: "Herz, Klappen und Koronararterien"
     },
-    synonyms: ["coracao", "coração", "corazon", "corazón", "heart", "herz", "miocardio", "valva", "valvula"],
+    synonyms: [
+      "coracao", "coração", "corazon", "corazón", "heart", "herz", "miocardio", "valva", "valvas", "valvula",
+      "coronaria", "coronárias", "coronarias", "descendente anterior", "circunflexa", "infarto", "oclusao",
+      "eletrocardiograma", "conducao eletrica", "debito cardiaco"
+    ],
     coreConcept: {
       pt: "Bomba muscular oca com quatro câmaras (dois átrios e dois ventrículos) localizada no mediastino médio, responsável pelo débito cardíaco sistêmico e pulmonar.",
       es: "Bomba muscular hueca de cuatro cavidades en el mediastino medio que impulsa el gasto cardíaco hacia la circulación sistémica y pulmonar.",
@@ -123,7 +128,7 @@ export const CEREBRO_KNOWLEDGE_NODES = {
       de: "Akuter Verschluss des R. interventricularis anterior (RIVA/LAD) ist die häufigste Ursache eines Vorderwandinfarkts."
     },
     voiceSummary: {
-      pt: "O coração bombeia cerca de cinco litros de sangue por minuto através de quatro câmaras sincronizadas. Deseja focar nas artérias coronárias ou no sistema de valvas?",
+      pt: "O coração bombeia cerca de cinco litros de sangue por minuto através de quatro câmaras sincronizadas. Deseja focar nas artérias coronárias e infarto ou no sistema de valvas?",
       es: "El corazón bombea sangre mediante cuatro cavidades reguladas por valvas unidireccionales y el sistema de conducción. ¿Quieres revisar las coronarias o las valvas cardíacas?",
       en: "The heart pumps approximately five liters of blood per minute through four synchronized chambers. Would you like to review coronary arteries or cardiac valves?",
       de: "Das Herz pumpt kontinuierlich Blut durch vier Kammern, gesteuert durch Herzklappen und das Erregungsleitungssystem. Wollen wir Klappen oder Koronargefäße besprechen?"
@@ -151,15 +156,63 @@ export const CEREBRO_KNOWLEDGE_NODES = {
       },
       {
         id: "coronarias",
-        synonyms: ["coronaria", "coronárias", "coronarias", "irrigacao coronariana", "descendente anterior", "circunflexa"],
+        synonyms: ["coronaria", "coronárias", "coronarias", "irrigacao coronariana", "descendente anterior", "circunflexa", "oclusao", "infarto", "isquemia"],
         responses: {
-          pt: "A coronária esquerda se bifurca em descendente anterior e circunflexa, enquanto a direita irriga a parede inferior e nó SA. Deseja revisar a dominância coronariana ou os infartos?",
-          es: "La coronaria izquierda se divide en descendente anterior y circunfleja, mientras la derecha nutre la cara inferior. ¿Deseas analizar la dominancia cardíaca o el infarto agudo?",
-          en: "The left coronary artery bifurcates into the LAD and circumflex branches, while the right supplies the inferior wall. Shall we discuss coronary dominance or myocardial infarction?",
-          de: "Die linke Koronararterie teilt sich in RIVA und RCX, während die rechte den Hinterwandbereich versorgt. Wollen wir Versorgungstypen oder Infarktmuster vertiefen?"
+          pt: "A oclusão da artéria descendente anterior causa infarto na parede anterior e septo interventricular, comprometendo o feixe de condução. Deseja revisar a dominância coronariana ou os ramos diagonais?",
+          es: "La oclusión de la arteria descendente anterior genera infarto en la pared anterior y el tabique interventricular. ¿Deseas analizar la dominancia coronaria o las ramas diagonales?",
+          en: "Occlusion of the anterior descending artery precipitates anterior wall and interventricular septum infarction. Would you like to review coronary dominance or diagonal branches?",
+          de: "Der Verschluss des RIVA führt zu einem Vorderwand- und Septuminfarkt mit Gefahr von Erregungsleitungsstörungen. Wollen wir Versorgungstypen oder Diagonaläste vertiefen?"
         }
       }
     ]
+  },
+
+  pulmao_respiratorio: {
+    id: "pulmao_respiratorio",
+    category: CEREBRO_CATEGORIES.RESPIRATORY,
+    title: {
+      pt: "Pulmões, Hematose e Árvore Traqueobrônquica",
+      es: "Pulmones, Hematosis y Árbol Traqueobronquial",
+      en: "Lungs, Gas Exchange and Tracheobronchial Tree",
+      de: "Lungen, Gasaustausch und Tracheobronchialbaum"
+    },
+    synonyms: ["pulmao", "pulmão", "pulmon", "pulmón", "lung", "lunge", "bronquio", "diafragma", "pleura", "alveolo", "hematose", "hematosis", "respiracao", "respiração", "respiratorio"],
+    coreConcept: {
+      pt: "Órgãos essenciais da hematose na cavidade torácica, promovendo troca gasosa alveolar através do gradiente de pressão gerado pelo músculo diafragma (nervo frênico C3-C5).",
+      es: "Órganos esenciales para el intercambio gaseoso alveolar impulsados por el diafragma inervado por el nervio frénico.",
+      en: "Essential organs of alveolar gas exchange driven by negative intrathoracic pressure created by the phrenic-innervated diaphragm.",
+      de: "Atmungsorgane zum alveolären Gasaustausch, angetrieben durch den vom N. phrenicus innervierten Zwerchfellmuskel."
+    },
+    voiceSummary: {
+      pt: "Na hematose pulmonar, o oxigênio cruza a membrana alvéolo-capilar por difusão passiva enquanto o diafragma expande o gradiente torácico. Deseja aprofundar na árvore brônquica ou na mecânica ventilatória?",
+      es: "En la hematosis pulmonar, el oxígeno cruza la membrana alvéolo-capilar mientras el diafragma genera la presión negativa torácica. ¿Deseas enfocarte en el árbol bronquial o en la ventilación?",
+      en: "During alveolar gas exchange, oxygen diffuses across the blood-air barrier while the diaphragm generates thoracic negative pressure. Shall we focus on the bronchial tree or mechanics of breathing?",
+      de: "Beim Gasaustausch diffundiert Sauerstoff über die alveolokapilläre Membran, angetrieben durch die Zwerchfellkontraktion. Wollen wir den Bronchialbaum oder die Atemmechanik vertiefen?"
+    }
+  },
+
+  visceras_abdominais_tronco_celiaco: {
+    id: "visceras_abdominais_tronco_celiaco",
+    category: CEREBRO_CATEGORIES.SPLANCHNOLOGY,
+    title: {
+      pt: "Vísceras Abdominais e Tronco Celíaco",
+      es: "Vísceras Abdominales y Tronco Celíaco",
+      en: "Abdominal Viscera and Celiac Trunk",
+      de: "Bauchorgane und Truncus coeliacus"
+    },
+    synonyms: ["viscera", "víscera", "figado", "fígado", "higado", "hígado", "pancreas", "pâncreas", "estomago", "estômago", "veia porta", "peritonio", "tronco celiaco", "tronco celíaco"],
+    coreConcept: {
+      pt: "Órgãos do trato digestivo e glândulas anexas organizados nas cavidades peritoneal e retroperitoneal, nutridos pelos três troncos aórticos ímpares.",
+      es: "Órganos del aparato digestivo nutridos por los tres troncos aórticos impares (celíaco, mesentérica superior e inferior).",
+      en: "Digestive viscera and glands perfused by the three midline aortic trunks (celiac, SMA, and IMA).",
+      de: "Abdominale Hohlorgane und Drüsen, versorgt über die unpaaren Aortenäste (Truncus coeliacus, AMS, AMI)."
+    },
+    voiceSummary: {
+      pt: "As vísceras abdominais são nutridas pelo tronco celíaco e artérias mesentéricas, drenando para a veia porta hepática. Deseja analisar a segmentação do fígado ou a topografia do estômago?",
+      es: "Los órganos abdominales se nutren del tronco celíaco y drenan hacia la vena porta hepática. ¿Quieres analizar la segmentación hepática o la anatomía gástrica?",
+      en: "Abdominal organs are perfused by the celiac and mesenteric trunks, draining into the hepatic portal system. Would you like to analyze liver segmentation or gastric vasculature?",
+      de: "Die Bauchorgane werden über den Truncus coeliacus versorgt und drainieren in die Pfortader. Wollen wir die Lebersegmente oder die Magengefäße besprechen?"
+    }
   },
 
   femur_membro_inferior: {
@@ -195,7 +248,7 @@ export const CEREBRO_KNOWLEDGE_NODES = {
       en: "Brain and Circle of Willis",
       de: "Gehirn und Circulus arteriosus cerebri"
     },
-    synonyms: ["cerebro", "cérebro", "encefalo", "encéfalo", "brain", "gehirn", "willis", "meninge"],
+    synonyms: ["cerebro", "cérebro", "encefalo", "encéfalo", "brain", "gehirn", "willis", "meninge", "poligono de willis", "polígono de willis", "irrigacao do cerebro"],
     coreConcept: {
       pt: "Centro supremo de integração sensorial, controle motor, homeostase e cognição abrigado na caixa craniana.",
       es: "Centro de integración sensorial, control motor voluntario, homeostasis y cognición superior alojado en el cráneo.",
@@ -314,7 +367,7 @@ export const CEREBRO_MENTORSHIP_NODES = {
   apoio_emocional_ansiedade: {
     id: "apoio_emocional_ansiedade",
     category: CEREBRO_CATEGORIES.PSYCHOLOGY_EMOTIONAL,
-    synonyms: ["cansado", "perdido", "dificil", "medo", "estresse", "ansiedade", "desmotivado", "sobrecarregado", "nao consigo", "agobiado", "abrumado", "tired", "stressed"],
+    synonyms: ["cansado", "perdido", "dificil", "medo", "estresse", "estressado", "ansiedade", "desmotivado", "sobrecarregado", "nao consigo", "agobiado", "abrumado", "tired", "stressed"],
     responses: {
       pt: "Fique tranquilo, a jornada na medicina é intensa e esse sentimento faz parte do crescimento. Estou aqui para caminhar ao seu lado com calma. Que tal vermos um ponto simples e prático agora?",
       es: "Respira hondo, es completamente normal sentirse así en medicina. Estoy aquí para acompañarte paso a paso sin prisas. ¿Te gustaría que hagamos una pausa o que veamos un ejemplo sencillo juntos?",
