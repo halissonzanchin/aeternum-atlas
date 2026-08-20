@@ -16,6 +16,7 @@ const THEORETICAL_QUIZ_CATALOG = [
     ],
     icon: "target",
     accent: "neuro",
+    image: "/images/models/cranial-sagittal-3d.svg",
     path: "/viewer/corte-sagital-cranio-humano-superficial?mode=theoretical-quiz"
   },
   {
@@ -31,6 +32,7 @@ const THEORETICAL_QUIZ_CATALOG = [
     ],
     icon: "clipboardCheck",
     accent: "cardio",
+    image: "/images/models/heart-morgue-3d.svg",
     path: "/viewer/coracao-edicao-morgue?mode=theoretical-quiz"
   },
   {
@@ -46,6 +48,7 @@ const THEORETICAL_QUIZ_CATALOG = [
     ],
     icon: "target",
     accent: "pelvis",
+    image: "/images/models/female-reproductive-3d.svg",
     path: "/viewer/corte-sagital-sistema-reprodutor-feminino?mode=theoretical-quiz"
   }
 ];
@@ -71,6 +74,21 @@ export default function AnatomicalQuizzesPage({ navigate }) {
             key={quiz.id}
             className={`anatomical-quiz-card anatomical-quiz-card--${quiz.accent}`}
           >
+            {quiz.image && (
+              <div className="anatomical-quiz-card__media-wrap">
+                <img
+                  src={quiz.image}
+                  alt={quiz.title}
+                  className="anatomical-quiz-card__img"
+                  loading="lazy"
+                />
+                <span className="anatomical-quiz-3d-badge">
+                  <LineIcon name="cube" className="w-3.5 h-3.5 inline mr-1" />
+                  3D INTERATIVO
+                </span>
+              </div>
+            )}
+
             <div className="anatomical-quiz-card__top">
               <span className="anatomical-quiz-icon">
                 <LineIcon name={quiz.icon} />
