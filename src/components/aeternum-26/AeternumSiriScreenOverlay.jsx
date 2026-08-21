@@ -213,14 +213,14 @@ export default function AeternumSiriScreenOverlay({
         const angleDeg = Math.sin(phase * 0.9) * 90 + 180;
         const angleRad = (angleDeg * Math.PI) / 180;
 
-        // Calibrated Liquid Glass Palette: Soft Teal, Azure, Cyan, Opalescent Violet
-        const baseHues = [174, 192, 215, 245, 270, 190, 174];
+        // Calibrated Liquid Glass Chromatic Palette: Vibrant Teal, Cyan, Azure, Electric Violet, Magenta, Opalescent Cyan
+        const baseHues = [174, 196, 220, 260, 290, 210, 174];
         const colors = baseHues.map((baseHue, i) => {
-          const shift = Math.sin(phase * 0.6 + (i / 7.0) * Math.PI * 2) * 8;
+          const shift = Math.sin(phase * 0.7 + (i / 7.0) * Math.PI * 2) * 12;
           const hue = (baseHue + shift + 360) % 360;
-          const sat = 52 + 8 * Math.sin(phase * 0.4 + i);
-          const light = 62 + 4 * Math.sin(phase * 0.3 + i * 0.6);
-          return `hsla(${hue}, ${sat}%, ${light}%, 0.45)`;
+          const sat = 82 + 12 * Math.sin(phase * 0.5 + i);
+          const light = 60 + 8 * Math.sin(phase * 0.4 + i * 0.6);
+          return `hsla(${hue}, ${sat}%, ${light}%, 0.88)`;
         });
 
         let gradient;
@@ -244,29 +244,29 @@ export default function AeternumSiriScreenOverlay({
 
         ctx.strokeStyle = gradient;
 
-        // Layer 3: Ambient Soft Bloom (Subtle, non-glaring)
+        // Layer 3: Wide Ambient Bloom Aura (Deep Immersion)
         ctx.save();
-        ctx.filter = `blur(${20 * dpr}px)`;
-        ctx.lineWidth = 14 * dpr;
-        ctx.globalAlpha = (0.08 + 0.03 * Math.sin(phase * 0.7)) * currentOpacity;
+        ctx.filter = `blur(${24 * dpr}px)`;
+        ctx.lineWidth = 28 * dpr;
+        ctx.globalAlpha = (0.32 + 0.08 * Math.sin(phase * 0.7)) * currentOpacity;
         drawRoundedRect(ctx, margin, margin, rw, rh, cornerRadius);
         ctx.stroke();
         ctx.restore();
 
-        // Layer 2: Secondary Caustic Diffusion
+        // Layer 2: Secondary Caustic Fluid Refraction Beam
         ctx.save();
         ctx.filter = `blur(${8 * dpr}px)`;
-        ctx.lineWidth = 6 * dpr;
-        ctx.globalAlpha = (0.14 + 0.04 * Math.sin(phase * 0.9)) * currentOpacity;
+        ctx.lineWidth = 10 * dpr;
+        ctx.globalAlpha = (0.55 + 0.12 * Math.sin(phase * 0.9)) * currentOpacity;
         drawRoundedRect(ctx, margin, margin, rw, rh, cornerRadius);
         ctx.stroke();
         ctx.restore();
 
-        // Layer 1: Primary Crisp Inner Luminescent Edge
+        // Layer 1: Primary Crisp Luminescent Perimeter Edge
         ctx.save();
-        ctx.filter = `blur(${3 * dpr}px)`;
-        ctx.lineWidth = 2 * dpr;
-        ctx.globalAlpha = (0.22 + 0.05 * Math.sin(phase * 1.1)) * currentOpacity;
+        ctx.filter = `blur(${2 * dpr}px)`;
+        ctx.lineWidth = 3.5 * dpr;
+        ctx.globalAlpha = (0.85 + 0.15 * Math.sin(phase * 1.1)) * currentOpacity;
         drawRoundedRect(ctx, margin, margin, rw, rh, cornerRadius);
         ctx.stroke();
         ctx.restore();
