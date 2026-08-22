@@ -401,11 +401,22 @@ class CerebroAeternumVitaEngine {
       }
       this.saveStudentMemory(userId, { recentTopics: [directNode.id] });
 
+      // 1. Verifica PRIMEIRO se o estudante perguntou sobre um aspecto/subtópico específico (caras, bordas, músculos, ligamentos, vasos, etc.)
+      if (Array.isArray(directNode.subTopics)) {
+        for (const sub of directNode.subTopics) {
+          if (this.containsAny(q, sub.synonyms)) {
+            const subResp = sub.spokenAnswers?.[lang] || sub.spokenAnswers?.pt;
+            if (subResp) return this.cleanSpokenCadence(subResp);
+          }
+        }
+      }
+
+      // 2. Se não mencionou nenhum subtópico específico, retorna a visão geral do nó
       const resp = directNode.spokenAnswers?.[lang] || directNode.spokenAnswers?.pt;
       if (resp) return this.cleanSpokenCadence(resp);
     }
 
-    // Subtópicos no Nó Ativo (Músculos, Ligamentos, Vasos)
+    // Subtópicos no Nó Ativo (para perguntas subsequentes sem repetir o nome do órgão)
     if (activeNode && Array.isArray(activeNode.subTopics)) {
       for (const sub of activeNode.subTopics) {
         if (this.containsAny(q, sub.synonyms)) {

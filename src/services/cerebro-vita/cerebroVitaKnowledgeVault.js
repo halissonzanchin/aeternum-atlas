@@ -35,6 +35,21 @@ export const VITA_KNOWLEDGE_NODES = {
     },
     subTopics: [
       {
+        id: "caras_bordas_extremidades",
+        synonyms: [
+          "cara", "caras", "borde", "bordes", "face", "faces", "borda", "bordas", "boards",
+          "quantas caras", "quantos bordes", "quantas faces", "quantas bordas", "quantos lados",
+          "extremidade", "extremidades", "extremidad", "esternal", "acromial",
+          "sulco subclavio", "tuberculo conoide", "linha trapezoidea", "acidentes", "morfologia"
+        ],
+        spokenAnswers: {
+          pt: "Anatomicamente, a clavícula possui duas faces — superior e inferior —, duas bordas — anterior e posterior — e duas extremidades — esternal e acromial. Na face inferior destacam-se o sulco do músculo subclávio e o tubérculo conoide. Deseja aprofundar nos músculos ou nos ligamentos agora?",
+          es: "Anatómicamente, la clavícula presenta dos caras — superior e inferior —, dos bordes — anterior y posterior — y dos extremidades — esternal y acromial. En la cara inferior destacan el surco subclavio y el tubérculo conoideo. ¿Quieres profundizar en los músculos o ligamentos?",
+          en: "Anatomically, the clavicle features two surfaces — superior and inferior —, two borders — anterior and posterior —, and two ends — sternal and acromial. The inferior surface features the subclavian groove and conoid tubercle. Shall we explore the muscle attachments or ligaments next?",
+          de: "Anatomisch besitzt die Clavicula zwei Flächen — superior und inferior —, zwei Ränder — anterior und posterior — und zwei Enden — sternal und akromial. An der Unterseite liegen der Sulcus subclavius und das Tuberculum conoideum. Möchtest du Muskeln oder Bänder besprechen?"
+        }
+      },
+      {
         id: "musculos",
         synonyms: ["musculo", "músculo", "musculos", "músculos", "pectoral", "peitoral", "deltoide", "deltoides", "trapezio", "trapézio", "trapecio"],
         spokenAnswers: {

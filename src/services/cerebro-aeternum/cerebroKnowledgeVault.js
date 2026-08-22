@@ -57,6 +57,16 @@ export const CEREBRO_KNOWLEDGE_NODES = {
     },
     subTopics: [
       {
+        id: "caras_bordas_extremidades",
+        synonyms: ["cara", "caras", "borde", "bordes", "face", "faces", "borda", "bordas", "boards", "quantas caras", "quantos bordes", "quantas faces", "quantas bordas", "extremidade", "extremidades", "esternal", "acromial", "morfologia"],
+        responses: {
+          pt: "A clavícula apresenta classicamente duas faces (superior e inferior), duas bordas (anterior e posterior) e duas extremidades (esternal/medial e acromial/lateral). Na face inferior encontram-se o sulco do subclávio e a tuberosidade para os ligamentos coracoclaviculares.",
+          es: "La clavícula presenta clásicamente dos caras (superior e inferior), dos bordes (anterior y posterior) y dos extremidades (esternal y acromial). En la cara inferior se encuentran el canal subclavio y las rugosidades para los ligamentos coracoclaviculares.",
+          en: "The clavicle characteristically presents two surfaces (superior and inferior), two borders (anterior and posterior), and two ends (sternal and acromial). The inferior surface contains the subclavian groove and tuberosities for coracoclavicular ligaments.",
+          de: "Die Clavicula besitzt zwei Flächen (superior und inferior), zwei Ränder (anterior und posterior) und zwei Enden (extremitas sternalis und acromialis)."
+        }
+      },
+      {
         id: "musculos",
         synonyms: ["musculo", "músculo", "musculos", "músculos", "pectoral", "peitoral", "deltoide", "deltoides", "trapezio", "trapézio", "trapecio", "elevam o braco", "elevar el brazo"],
         responses: {
