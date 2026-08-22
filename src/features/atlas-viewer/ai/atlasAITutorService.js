@@ -7,7 +7,8 @@
  */
 
 import { getSupabaseClient, supabaseConfig } from '../../../services/supabase/supabaseClient';
-import { cerebroAeternum } from '../../../services/cerebro-aeternum/cerebroAeternum';
+import { cerebroAtlasAI, cerebroAeternum } from '../../../services/cerebro-aeternum/cerebroAeternum';
+import { cerebroAeternumVita } from '../../../services/cerebro-vita/cerebroAeternumVita';
 
 const ACTION_TOKEN_PATTERN = /\[ACTION:([A-Z_]+)\]/g;
 const PARTIAL_ACTION_TOKEN_PATTERN = /\[ACTION(?::[A-Z_]*)?$/i;
@@ -68,12 +69,23 @@ function buildTutorContext(context = {}) {
 
 async function streamLocalCerebroResponse(message, tutorContext, onUpdate, conversationId) {
   const isVoiceMode = tutorContext.mode === "voice" || tutorContext.source === "voice" || Boolean(tutorContext.tutorPromptDirective);
-  const rawResult = cerebroAeternum.consultar({
-    query: message,
-    mode: isVoiceMode ? "voice" : "research",
-    language: tutorContext.language || "pt",
-    context: tutorContext
-  });
+  
+  let rawResult;
+  if (isVoiceMode) {
+    rawResult = cerebroAeternumVita.consultar({
+      query: message,
+      language: tutorContext.language || "pt",
+      persona: tutorContext.persona || null,
+      context: tutorContext
+    });
+  } else {
+    rawResult = cerebroAtlasAI.consultar({
+      query: message,
+      mode: "research",
+      language: tutorContext.language || "pt",
+      context: tutorContext
+    });
+  }
 
   const fullText = typeof rawResult === "string"
     ? rawResult

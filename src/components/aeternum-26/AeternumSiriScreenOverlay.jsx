@@ -66,41 +66,18 @@ export default function AeternumSiriScreenOverlay({
 
           setVoiceStatus("thinking");
           try {
-            let apiReply = "";
             const streamContext = {
               ...context,
               source: "voice",
               mode: "voice",
+              persona: tutor.id,
               tutorPromptDirective: tutor.promptDirective,
               language
             };
 
-            try {
-              const result = await atlasAITutorService.processMessageStream(
-                cleanQ,
-                streamContext,
-                ({ text }) => {
-                  if (text && !text.includes("indisponível") && !text.includes("autenticada")) {
-                    const cleanChunk = aeternumVitaVoiceService.cleanTextForSpeech(text);
-                    apiReply = cleanChunk;
-                    setTutorSubtitle(cleanChunk);
-                  }
-                }
-              );
-
-              if (result?.text && !result.text.includes("indisponível") && !result.text.includes("autenticada")) {
-                apiReply = aeternumVitaVoiceService.cleanTextForSpeech(result.text);
-              }
-            } catch (apiErr) {
-              console.warn("Remote API notice, using live neural voice brain:", apiErr);
-            }
-
-            const rawFinalReply =
-              (apiReply && !apiReply.includes("indisponível") && !apiReply.includes("autenticada"))
-                ? apiReply
-                : await generateDynamicVoiceResponse(cleanQ, streamContext, language);
-
+            const rawFinalReply = await generateDynamicVoiceResponse(cleanQ, streamContext, language);
             const finalReply = aeternumVitaVoiceService.cleanTextForSpeech(rawFinalReply);
+
             setTutorSubtitle(finalReply);
             setVoiceStatus("speaking");
             await aeternumVitaVoiceService.speak(

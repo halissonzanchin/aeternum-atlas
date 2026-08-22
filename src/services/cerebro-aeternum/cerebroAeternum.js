@@ -9,6 +9,7 @@ import {
   CEREBRO_KNOWLEDGE_NODES,
   CEREBRO_MENTORSHIP_NODES
 } from "./cerebroKnowledgeVault.js";
+import { cerebroAeternumVita } from "../cerebro-vita/cerebroAeternumVita.js";
 
 class CerebroAeternumEngine {
   constructor() {
@@ -333,32 +334,19 @@ class CerebroAeternumEngine {
     }
 
     // =========================================================================
-    // MODO 2: TUTORES DE VOZ (Aeternum Vita) — 100% HUMANIZADO E CONVERSACIONAL
+    // MODO 2: TUTORES DE VOZ (Aeternum Vita) — CÉREBRO AETERNUM VITA
     // =========================================================================
     if (mode === "voice") {
-      // Se temos um nó ativo, verificar se o usuário perguntou sobre sub-tópico (músculos, ligamentos, vasos):
-      if (activeNode && Array.isArray(activeNode.subTopics)) {
-        for (const sub of activeNode.subTopics) {
-          if (this.containsAny(q, sub.synonyms)) {
-            const subResp = sub.responses?.[lang] || sub.responses?.pt;
-            if (subResp) return subResp;
-          }
-        }
-      }
-
-      if (activeNode) {
-        return this.gerarRespostaVocalHumanizada(activeNode, null, q, lang);
-      }
-
-      if (directNode) {
-        return this.gerarRespostaVocalHumanizada(directNode, null, q, lang);
-      }
-
-      return this.generateHumanConversationResponse(q, lang);
+      return cerebroAeternumVita.consultar({
+        query: rawQ,
+        language: lang,
+        persona: context.persona || null,
+        context
+      });
     }
 
     // =========================================================================
-    // MODO 1: PESQUISA TEXTUAL ACADÊMICA (Atlas AI)
+    // MODO 1: PESQUISA TEXTUAL ACADÊMICA & PLATAFORMA (CÉREBRO ATLAS IA)
     // =========================================================================
     if (activeNode) {
       const title = activeNode.title?.[lang] || activeNode.title?.pt || activeNode.id;
@@ -403,3 +391,5 @@ ${pearls ? `**🩺 Correlações Clínicas & Cirúrgicas (Latarjet):**\n${pearls
 }
 
 export const cerebroAeternum = new CerebroAeternumEngine();
+export const cerebroAtlasAI = cerebroAeternum;
+

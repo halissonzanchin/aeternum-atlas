@@ -1,16 +1,16 @@
 /**
- * Aeternum Voice AI Brain — Powered by Cérebro Aeternum
+ * Aeternum Voice AI Brain — Powered by Cérebro Aeternum Vita
  * Conecta os Tutores de Voz (Eduardo 🇧🇷, Antonia 🇪🇸, Ariana 🇺🇸, Fabian 🇩🇪)
- * diretamente ao Cérebro Aeternum com respostas humanizadas, empáticas e concisas.
+ * diretamente ao Cérebro Aeternum Vita com respostas humanizadas, empáticas e concisas.
  */
 
-import { cerebroAeternum } from "../cerebro-aeternum/cerebroAeternum.js";
+import { cerebroAeternumVita } from "../cerebro-vita/cerebroAeternumVita.js";
 
 export function generateVoiceTutorResponse(question, context = {}, language = "pt") {
-  return cerebroAeternum.consultar({
+  return cerebroAeternumVita.consultar({
     query: question,
-    mode: "voice",
     language,
+    persona: context.persona || null,
     context
   });
 }
