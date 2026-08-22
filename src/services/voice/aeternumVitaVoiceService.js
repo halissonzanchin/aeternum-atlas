@@ -10,6 +10,7 @@
  */
 
 import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig.js";
+import { cerebroAeternumVita } from "../cerebro-vita/cerebroAeternumVita.js";
 
 export const AETERNUM_VITA_TUTORS = {
   pt: {
@@ -559,6 +560,8 @@ class AeternumVitaVoiceEngine {
    */
   startSession({
     language = "pt",
+    userId = "default",
+    userName = "",
     onStatusChange,
     onTranscript,
     onTutorReply,
@@ -570,23 +573,32 @@ class AeternumVitaVoiceEngine {
     const tutor = getTutorForLanguage(language);
     this.activeSession = {
       tutor,
-      language
+      language,
+      userId,
+      userName
     };
+
+    const greeting = cerebroAeternumVita.generatePersonalizedGreeting({
+      userId,
+      language,
+      persona: tutor.id,
+      userName
+    });
 
     onStatusChange?.({
       status: "speaking",
       tutor,
-      text: tutor.greeting
+      text: greeting
     });
 
     this.speak(
-      tutor.greeting,
+      greeting,
       tutor,
       () => {
         onStatusChange?.({
           status: "speaking",
           tutor,
-          text: tutor.greeting
+          text: greeting
         });
       },
       () => {

@@ -242,3 +242,157 @@ export const VITA_MENTORSHIP_MODULES = {
     }
   }
 };
+
+/**
+ * Banco de Sabatinas Orais Interativas (OSCE / VIVA Voce)
+ * 3 Perguntas progressivas por sistema com validação semântica de palavras-chave.
+ */
+export const VITA_ORAL_QUIZZES = {
+  clavicula: {
+    id: "clavicula",
+    topicName: "Clavícula e Cíngulo do Membro Superior",
+    synonyms: ["clavicula", "clavícula", "ombro", "clavicle", "hombro", "schlüsselbein"],
+    questions: [
+      {
+        index: 1,
+        question: {
+          pt: "Primeira pergunta: Quais são os dois ligamentos que unem o processo coracoide à clavícula e qual deles tem posição mais medial?",
+          es: "Primera pregunta: ¿Cuáles son los dos ligamentos que unen la apófisis coracoides a la clavícula y cuál de ellos es más medial?",
+          en: "First question: Which two ligaments bind the coracoid process to the clavicle, and which one is located more medially?",
+          de: "Erste Frage: Welche zwei Bänder verbinden den Processus coracoideus mit der Clavicula und welches liegt medialer?"
+        },
+        expectedKeywords: ["conoide", "trapezoide", "conóide", "conoid", "trapezoid", "medial"],
+        correctFeedback: {
+          pt: "Excelente precisão anatômica! O ligamento conoide é medial e o trapezoide é lateral.",
+          es: "¡Excelente precisión anatómica! El ligamento conoide es medial y el trapezoide es lateral.",
+          en: "Spot on! The conoid ligament is medial and triangular, while the trapezoid is lateral.",
+          de: "Ausgezeichnet! Das Ligamentum conoideum liegt medial und das trapezoideum lateral."
+        },
+        constructiveHint: {
+          pt: "Lembre-se dos ligamentos coracoclaviculares: o conoide é medial e o trapezoide é lateral.",
+          es: "Recuerda los ligamentos coracoclaviculares: el conoide es medial y el trapezoide es lateral.",
+          en: "Keep in mind the coracoclavicular ligaments: conoid is medial, trapezoid is lateral.",
+          de: "Merke dir: Das Ligamentum conoideum ist medial, das Ligamentum trapezoideum lateral."
+        }
+      },
+      {
+        index: 2,
+        question: {
+          pt: "Segunda pergunta: Em uma fratura do terço médio da clavícula, quais grandes vasos e estruturas nervosas passam logo abaixo do osso e correm risco de lesão?",
+          es: "Segunda pregunta: En una fractura del tercio medio de la clavícula, ¿qué grandes vasos y nervios pasan justo debajo del hueso y corren riesgo?",
+          en: "Second question: In a middle-third clavicular fracture, which major vessels and nerve trunks run beneath the bone and are at risk?",
+          de: "Zweite Frage: Welche großen Gefäße und Nervenstränge verlaufen unter dem mittleren Drittel der Clavicula und sind bei Frakturen gefährdet?"
+        },
+        expectedKeywords: ["subclavia", "subclávia", "subclavian", "plexo", "braquial", "brachial"],
+        correctFeedback: {
+          pt: "Perfeito! A artéria e veia subclávias e os troncos do plexo braquial passam no espaço retroclavicular.",
+          es: "¡Perfecto! La arteria y vena subclavias y los troncos del plexo braquial pasan por el espacio retroclavicular.",
+          en: "Brilliant! The subclavian artery, subclavian vein, and brachial plexus trunks pass directly beneath.",
+          de: "Perfekt! Die Vena und Arteria subclavia sowie die Trunci des Plexus brachialis verlaufen direkt darunter."
+        },
+        constructiveHint: {
+          pt: "As estruturas vitais sob o terço médio são os vasos subclávios e os troncos do plexo braquial.",
+          es: "Las estructuras clave bajo el tercio medio son los vasos subclavios y el plexo braquial.",
+          en: "The critical structures underneath are the subclavian vessels and the brachial plexus trunks.",
+          de: "Die entscheidenden Strukturen darunter sind die Subclavia-Gefäße und der Plexus brachialis."
+        }
+      },
+      {
+        index: 3,
+        question: {
+          pt: "Terceira pergunta para fechar: Quais dois músculos principais se inserem no terço lateral da clavícula?",
+          es: "Tercera pregunta: ¿Cuáles son los dos músculos principales que se insertan en el tercio lateral de la clavícula?",
+          en: "Final question: Which two primary muscles attach to the lateral third of the clavicle?",
+          de: "Dritte Frage: Welche zwei Hauptmuskeln inserieren am lateralen Drittel der Clavicula?"
+        },
+        expectedKeywords: ["deltoide", "deltoides", "trapezio", "trapézio", "trapecio", "deltoid", "trapezius"],
+        correctFeedback: {
+          pt: "Sensacional! O deltoide se insere na borda anterior e o trapézio na borda posterior do terço lateral.",
+          es: "¡Sensacional! El deltoides se inserta en el borde anterior y el trapecio en el posterior.",
+          en: "Outstanding! The deltoid attaches anteriorly and the trapezius posteriorly on the lateral third.",
+          de: "Hervorragend! Der Musculus deltoideus inseriert ventral und der Trapezius dorsal."
+        },
+        constructiveHint: {
+          pt: "No terço lateral inserem-se o deltoide anteriormente e o trapézio posteriormente.",
+          es: "En el tercio lateral se insertan el deltoides adelante y el trapecio atrás.",
+          en: "On the lateral third, remember the deltoid anteriorly and the trapezius posteriorly.",
+          de: "Am lateralen Drittel sitzen der Deltoideus vorne und der Trapezius hinten."
+        }
+      }
+    ]
+  },
+
+  coracao: {
+    id: "coracao",
+    topicName: "Coração e Vasos Coronários",
+    synonyms: ["coracao", "coração", "corazon", "corazón", "heart", "herz", "cardiovascular", "coronaria", "coronárias"],
+    questions: [
+      {
+        index: 1,
+        question: {
+          pt: "Primeira pergunta: De onde se originam as artérias coronárias direita e esquerda na base da aorta?",
+          es: "Primera pregunta: ¿De dónde se originan exactamente las arterias coronarias derecha e izquierda en la base aórtica?",
+          en: "First question: From which exact structures at the aortic base do the right and left coronary arteries arise?",
+          de: "Erste Frage: Wo genau an der Aortenbasis entspringen die rechte und linke Koronararterie?"
+        },
+        expectedKeywords: ["seio", "seios", "aortico", "aórtico", "valsalva", "sinus", "aorta"],
+        correctFeedback: {
+          pt: "Exato! Elas nascem nos seios aórticos direito e esquerdo, logo acima das cúspides da valva aórtica.",
+          es: "¡Exacto! Nacen en los senos aórticos derecho e izquierdo, justo sobre las valvas semilunares.",
+          en: "Spot on! They arise from the right and left aortic sinuses of Valsalva above the semilunar cusps.",
+          de: "Genau! Sie entspringen aus dem Sinus aortae dexter und sinister oberhalb der Aortenklappe."
+        },
+        constructiveHint: {
+          pt: "As coronárias nascem nos seios aórticos de Valsalva na raiz da aorta ascendente.",
+          es: "Las coronarias nacen en los senos aórticos de Valsalva en la raíz de la aorta.",
+          en: "The coronary arteries branch from the aortic sinuses of Valsalva at the aortic root.",
+          de: "Die Koronararterien entspringen aus den Sinus aortae an der Aortenwurzel."
+        }
+      },
+      {
+        index: 2,
+        question: {
+          pt: "Segunda pergunta: Qual o marcapasso fisiológico do coração e onde ele se localiza no átrio direito?",
+          es: "Segunda pregunta: ¿Cuál es el marcapasos natural del corazón y dónde se ubica en la aurícula derecha?",
+          en: "Second question: What is the physiological pacemaker of the heart, and where is it located in the right atrium?",
+          de: "Zweite Frage: Was ist der physiologische Schrittmacher des Herzens und wo im rechten Vorhof liegt er?"
+        },
+        expectedKeywords: ["sinoatrial", "sinusal", "cava", "superior", "crista", "terminal"],
+        correctFeedback: {
+          pt: "Perfeito! O nó sinoatrial localiza-se na junção entre a veia cava superior e o átrio direito.",
+          es: "¡Perfecto! El nodo sinoauricular está en la unión de la vena cava superior con la aurícula derecha.",
+          en: "Brilliant! The sinoatrial node sits at the junction of the superior vena cava and the right atrium.",
+          de: "Perfekt! Der Sinusknoten liegt an der Mündung der Vena cava superior in das rechte Atrium."
+        },
+        constructiveHint: {
+          pt: "O marcapasso é o nó sinoatrial, localizado próximo à desembocadura da veia cava superior.",
+          es: "El marcapasos es el nodo sinoauricular, junto a la desembocadura de la vena cava superior.",
+          en: "The primary pacemaker is the sinoatrial node, located near the superior vena cava opening.",
+          de: "Der Schrittmacher ist der Sinusknoten nahe der Einmündung der oberen Hohlvene."
+        }
+      },
+      {
+        index: 3,
+        question: {
+          pt: "Terceira pergunta: Quais são os dois ramos principais originados da bifurcação da artéria coronária esquerda?",
+          es: "Tercera pregunta: ¿Cuáles son las dos ramas principales que se originan de la bifurcación de la coronaria izquierda?",
+          en: "Final question: What are the two main branches that arise from the bifurcation of the left main coronary artery?",
+          de: "Dritte Frage: Welche zwei Hauptäste entspringen aus der Aufzweigung der linken Koronararterie?"
+        },
+        expectedKeywords: ["interventricular", "anterior", "descendente", "circunflexa", "circunfleja", "circumflex", "lad"],
+        correctFeedback: {
+          pt: "Sensacional! A coronária esquerda se divide na artéria interventricular anterior e na artéria circunflexa.",
+          es: "¡Sensacional! La coronaria izquierda se divide en la interventricular anterior y la arteria circunfleja.",
+          en: "Outstanding! The left coronary artery divides into the anterior interventricular and the circumflex artery.",
+          de: "Hervorragend! Die linke Koronararterie teilt sich in den Ramus interventricularis anterior und Circumflexus."
+        },
+        constructiveHint: {
+          pt: "Os dois ramos são a artéria interventricular anterior e a artéria circunflexa.",
+          es: "Las dos ramas son la interventricular anterior y la circunfleja.",
+          en: "The two branches are the anterior interventricular (LAD) and the circumflex branch.",
+          de: "Die beiden Äste sind der Ramus interventricularis anterior und der Ramus circumflexus."
+        }
+      }
+    ]
+  }
+};
