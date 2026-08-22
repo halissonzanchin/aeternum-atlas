@@ -9,6 +9,7 @@
 import { getSupabaseClient, supabaseConfig } from '../../../services/supabase/supabaseClient';
 import { cerebroAtlasAI, cerebroAeternum } from '../../../services/cerebro-aeternum/cerebroAeternum';
 import { cerebroAeternumVita } from '../../../services/cerebro-vita/cerebroAeternumVita';
+import { aeternumBehaviorOrchestrator } from '../../../services/ai/aeternumBehaviorOrchestrator';
 
 const ACTION_TOKEN_PATTERN = /\[ACTION:([A-Z_]+)\]/g;
 const PARTIAL_ACTION_TOKEN_PATTERN = /\[ACTION(?::[A-Z_]*)?$/i;
@@ -26,10 +27,21 @@ function buildTutorContext(context = {}) {
   const activeStructure = context.activeStructure || {};
   const isVoice = context.source === 'voice' || context.mode === 'voice' || Boolean(context.tutorPromptDirective);
 
+  let behaviorDirective = context.tutorPromptDirective || null;
+  if (!behaviorDirective) {
+    const behaviorState = aeternumBehaviorOrchestrator.evaluateState({
+      userId: context.userId || context.user?.id || 'default',
+      query: context.sectionTitle || model.title || '',
+      context,
+      brainType: isVoice ? 'vita' : 'atlas'
+    });
+    behaviorDirective = aeternumBehaviorOrchestrator.buildBehaviorDirective(behaviorState, context.persona || 'eduardo');
+  }
+
   return {
     source: context.source || (model.id || activeStructure.id ? 'viewer-3d' : 'platform'),
     mode: isVoice ? 'voice' : (context.mode || 'research'),
-    tutorPromptDirective: context.tutorPromptDirective || null,
+    tutorPromptDirective: behaviorDirective,
     currentRoute: context.route || null,
     userName: context.userName || context.user?.name || null,
     userFirstName: context.userFirstName || (context.userName ? String(context.userName).split(/\s+/)[0] : (context.user?.name ? String(context.user.name).split(/\s+/)[0] : null)),
