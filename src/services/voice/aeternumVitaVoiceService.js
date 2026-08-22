@@ -19,6 +19,7 @@ export const AETERNUM_VITA_TUTORS = {
     country: "Brasil",
     langCode: "pt-BR",
     gender: "masculino",
+    cartesiaVoiceId: "a0e99841-438c-4a64-b679-ae501e7d6091", // Cartesia Sonic-3 Barítono Acolhedor Nativo
     role: "Mentor Sênior em Português",
     badgeGradient: "linear-gradient(135deg, #009c3b 0%, #ffdf00 50%, #002776 100%)",
     greeting: "Olá! Seja muito bem-vindo ao Aeternum Atlas. Eu sou o Eduardo, seu mentor de anatomia. Como posso guiar seus estudos hoje?",
@@ -78,20 +79,19 @@ class AeternumVitaVoiceEngine {
     this.audioElement = null;
     this.audioCtx = null;
     this.synthesis = typeof window !== "undefined" ? window.speechSynthesis : null;
-    this.silenceTimer = null;
-    this.isListening = false;
-    this.isSpeaking = false;
     this.cachedVoices = [];
+    this.isSpeaking = false;
+    this.isListening = false;
     this.lastSpokenText = "";
     this.lastSpokenTime = 0;
+    this.turnDebounceTimer = null;
 
-    if (this.synthesis) {
-      const loadVoices = () => {
-        this.cachedVoices = this.synthesis.getVoices() || [];
-      };
-      loadVoices();
+    if (typeof window !== "undefined" && this.synthesis) {
+      this.cachedVoices = this.synthesis.getVoices() || [];
       if (this.synthesis.onvoiceschanged !== undefined) {
-        this.synthesis.onvoiceschanged = loadVoices;
+        this.synthesis.onvoiceschanged = () => {
+          this.cachedVoices = this.synthesis.getVoices() || [];
+        };
       }
     }
   }
@@ -108,6 +108,52 @@ class AeternumVitaVoiceEngine {
         }
       }
     } catch {}
+  }
+
+  oralizeTextForSpeech(text, lang = "pt") {
+    let s = String(text || "");
+    if (lang === "pt") {
+      s = s
+        .replace(/\b3D\b/gi, "três dê")
+        .replace(/\b2D\b/gi, "dois dê")
+        .replace(/\b1º\b/g, "primeiro")
+        .replace(/\b2º\b/g, "segundo")
+        .replace(/\b3º\b/g, "terceiro")
+        .replace(/\b1\b/g, "um")
+        .replace(/\b2\b/g, "dois")
+        .replace(/\b3\b/g, "três")
+        .replace(/\b4\b/g, "quatro")
+        .replace(/\b5\b/g, "cinco")
+        .replace(/\b6\b/g, "seis")
+        .replace(/\b7\b/g, "sete")
+        .replace(/\b8\b/g, "oito")
+        .replace(/\b9\b/g, "nove")
+        .replace(/\b10\b/g, "dez")
+        .replace(/\b20\b/g, "vinte")
+        .replace(/\b24\b/g, "vinte e quatro")
+        .replace(/\b30\b/g, "trinta")
+        .replace(/\b60\b/g, "sessenta")
+        .replace(/\b100\b/g, "cem")
+        .replace(/\bC3-C4\b/gi, "C três a C quatro")
+        .replace(/\bC5-T1\b/gi, "C cinco a T um")
+        .replace(/\bECG\b/gi, "eletrocardiograma")
+        .replace(/\bSTT\b/gi, "reconhecimento de voz")
+        .replace(/\bTTS\b/gi, "síntese de áudio")
+        .replace(/\bLatarjet\b/gi, "Latarjê");
+    } else if (lang === "es") {
+      s = s
+        .replace(/\b3D\b/gi, "tres de")
+        .replace(/\b2D\b/gi, "dos de")
+        .replace(/\b1\b/g, "uno")
+        .replace(/\b2\b/g, "dos")
+        .replace(/\b3\b/g, "tres")
+        .replace(/\b4\b/g, "cuatro")
+        .replace(/\b5\b/g, "cinco")
+        .replace(/\b10\b/g, "diez")
+        .replace(/\b20\b/g, "veinte")
+        .replace(/\bECG\b/gi, "electrocardiograma");
+    }
+    return s;
   }
 
   cleanTextForSpeech(text) {
@@ -131,23 +177,18 @@ class AeternumVitaVoiceEngine {
     }
   }
 
-  /**
-   * Identifica se o áudio capturado é o eco acústico da fala completa do tutor
-   */
   isAcousticEcho(transcript) {
     if (!transcript || !this.lastSpokenText) return false;
     const now = Date.now();
-    if (now - this.lastSpokenTime > 12000) return false; // expirado
+    if (now - this.lastSpokenTime > 12000) return false;
 
     const cleanInput = transcript.toLowerCase().replace(/[^a-z0-9]/gi, " ").trim();
     const cleanTutor = this.lastSpokenText.toLowerCase().replace(/[^a-z0-9]/gi, " ").trim();
 
     if (!cleanInput || !cleanTutor) return false;
 
-    // Respostas curtas (< 24 caracteres) como "los músculos", "os ligamentos", "sim" NUNCA são descartadas
     if (cleanInput.length < 24) return false;
 
-    // Se o input for longo e coincidir com a frase que o tutor acabou de falar pelos alto-falantes, é eco
     if (cleanTutor.includes(cleanInput) || cleanInput.includes(cleanTutor)) {
       return true;
     }
@@ -156,14 +197,17 @@ class AeternumVitaVoiceEngine {
   }
 
   /**
-   * Síntese Vocal de Estúdio com Isolamento Half-Duplex Físico
+   * Síntese Vocal de Estúdio com Cartesia Sonic-3 (Eduardo pt-BR) & Deepgram Aura-2 Direct
    */
   async speak(text, tutor, onStart, onEnd) {
     this.stopListening();
     this.stopSpeaking();
     this.unlockAudio();
 
-    const cleanText = this.cleanTextForSpeech(text);
+    const rawClean = this.cleanTextForSpeech(text);
+    const langKey = (tutor.langCode || "pt").slice(0, 2).toLowerCase();
+    const cleanText = this.oralizeTextForSpeech(rawClean, langKey);
+
     if (!cleanText) {
       onEnd?.();
       return;
@@ -176,7 +220,6 @@ class AeternumVitaVoiceEngine {
     const finalizeSpeech = () => {
       this.isSpeaking = false;
       this.lastSpokenTime = Date.now();
-      // Grace period de 650ms para dispersar toda a reverberação do alto-falante
       setTimeout(() => {
         if (this.activeSession && !this.isSpeaking) {
           onEnd?.();
@@ -184,7 +227,71 @@ class AeternumVitaVoiceEngine {
       }, 650);
     };
 
-    // 1. Deepgram Aura-2 Direct API (Antonia, Ariana, Fabian)
+    // 1. Cartesia Sonic-3 Direct Neural Streaming TTS (Eduardo pt-BR / Multilingual Baritone)
+    if (tutor.cartesiaVoiceId && VITA_VOICE_CONFIG.cartesiaApiKey) {
+      try {
+        const cartesiaResp = await fetch("https://api.cartesia.ai/tts/bytes", {
+          method: "POST",
+          headers: {
+            "X-API-Key": VITA_VOICE_CONFIG.cartesiaApiKey,
+            "Cartesia-Version": "2024-06-10",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            model_id: "sonic-multilingual",
+            transcript: cleanText,
+            voice: {
+              mode: "id",
+              id: tutor.cartesiaVoiceId
+            },
+            output_format: {
+              container: "mp3",
+              encoding: "mp3",
+              sample_rate: 44100
+            },
+            language: langKey
+          })
+        });
+
+        if (cartesiaResp.ok) {
+          const blob = await cartesiaResp.blob();
+          const audioUrl = URL.createObjectURL(blob);
+          const audio = new Audio(audioUrl);
+          this.audioElement = audio;
+
+          audio.onplay = () => {
+            this.isSpeaking = true;
+            this.stopListening();
+            onStart?.();
+          };
+
+          audio.onended = () => {
+            this.audioElement = null;
+            URL.revokeObjectURL(audioUrl);
+            finalizeSpeech();
+          };
+
+          audio.onerror = () => {
+            this.audioElement = null;
+            URL.revokeObjectURL(audioUrl);
+            this.speakFallback(cleanText, tutor, onStart, finalizeSpeech);
+          };
+
+          const playPromise = audio.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((playErr) => {
+              console.warn("Cartesia audio autoplay notice:", playErr);
+              this.speakFallback(cleanText, tutor, onStart, finalizeSpeech);
+            });
+          }
+          return;
+        }
+      } catch (cartesiaErr) {
+        console.warn("Cartesia Sonic-3 direct API notice:", cartesiaErr);
+      }
+    }
+
+    // 2. Deepgram Aura-2 Direct API (Antonia, Ariana, Fabian)
     if (tutor.deepgramModel && VITA_VOICE_CONFIG.deepgramApiKey) {
       try {
         const response = await fetch(
@@ -237,7 +344,7 @@ class AeternumVitaVoiceEngine {
       }
     }
 
-    // 2. Direct Brazilian Portuguese Audio & Fallback (Eduardo pt-BR)
+    // 3. Fallback com Vozes Neurais do Navegador
     this.speakFallback(cleanText, tutor, onStart, finalizeSpeech);
   }
 
