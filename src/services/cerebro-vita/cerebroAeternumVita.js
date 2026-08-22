@@ -360,28 +360,7 @@ class CerebroAeternumVitaEngine {
       if (resp) return this.cleanSpokenCadence(resp);
     }
 
-    // Estrutura anatômica geral informada
-    if (rawQ.length > 2 && !q.includes("como") && !q.includes("ola") && !q.includes("hola")) {
-      const words = rawQ.split(/\s+/);
-      const possibleTopic = words.slice(0, 3).join(" ");
-      const cap = possibleTopic.charAt(0).toUpperCase() + possibleTopic.slice(1);
-      const hook = this.getRandomHook(tutorKey);
-
-      this.saveStudentMemory(userId, { recentTopics: [this.normalize(possibleTopic)] });
-
-      if (lang === "es") {
-        return `${hook} ${cap} es una estructura anatómica fundamental. ¿Qué aspecto específico deseas repasar ahora: sus relaciones topográficas, irrigación o inserciones?`;
-      }
-      if (lang === "en") {
-        return `${hook} ${cap} is a key anatomical structure. Which specific aspect would you like to review: its anatomical landmarks, blood supply, or attachments?`;
-      }
-      if (lang === "de") {
-        return `${hook} ${cap} ist eine wichtige anatomische Struktur. Welchen Bereich möchtest du besprechen: topografische Grenzen, Gefäße oder Muskeln?`;
-      }
-      return `${hook} ${cap} é uma estrutura anatômica fundamental. Qual aspecto específico você gostaria de revisar agora: limites topográficos, irrigação ou inserções musculares?`;
-    }
-
-    // Resposta Conversacional Padrão Acolhedora
+    // 4. Resposta Conversacional Padrão Acolhedora e Humanizada
     return this.cleanSpokenCadence(this.generateHumanConversationResponse(q, lang, tutorKey));
   }
 

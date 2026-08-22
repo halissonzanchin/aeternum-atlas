@@ -388,11 +388,29 @@ class AeternumVitaVoiceEngine {
       );
 
       if (matched.length > 0) {
-        const eduardoMatch = matched.find((v) =>
-          /eduardo|daniel|fábio|fabio|antonio|antônio|felipe|ricardo|lucas|jorge|male|homem/i.test(v.name)
+        // Filtra e descarta vozes robóticas antigas do Desktop (SAPI 5 antigo)
+        const nonRobotic = matched.filter((v) => !v.name.toLowerCase().includes("desktop"));
+        const candidatePool = nonRobotic.length > 0 ? nonRobotic : matched;
+
+        // Procura por vozes neurais / naturais / online / Google
+        const neuralVoices = candidatePool.filter((v) =>
+          /natural|neural|online|google/i.test(v.name)
         );
-        const premium = matched.find((v) => /natural|neural|google|microsoft/i.test(v.name));
-        utterance.voice = (isMale ? eduardoMatch : null) || premium || matched[0];
+        const maleNeural = neuralVoices.find((v) =>
+          /antonio|antônio|felipe|eduardo|daniel|fábio|fabio|ricardo|lucas|jorge|male|homem|alvaro|jorge/i.test(v.name)
+        );
+        const femaleNeural = neuralVoices.find((v) =>
+          /francisca|luciana|maria|helena|leticia|letícia|female|mulher|elena|laura/i.test(v.name)
+        );
+        const fallbackMale = candidatePool.find((v) =>
+          /antonio|antônio|felipe|eduardo|daniel|fábio|fabio|ricardo|lucas|jorge|male|homem/i.test(v.name)
+        );
+
+        if (isMale) {
+          utterance.voice = maleNeural || fallbackMale || neuralVoices[0] || candidatePool[0];
+        } else {
+          utterance.voice = femaleNeural || neuralVoices[0] || candidatePool[0];
+        }
       }
 
       utterance.onstart = () => {
