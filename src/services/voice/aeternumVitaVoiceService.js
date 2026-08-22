@@ -359,15 +359,20 @@ class AeternumVitaVoiceEngine {
       const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = tutor.langCode;
 
+      // Modulação Emocional de Prosódia Contextual
+      const isAffection = /puxa|lindo|obrigado de coração|ay, qué lindo|warmly|thank you so much/i.test(cleanText);
+      const isAnxiety = /fique tranquilo|respira fundo|tranquilo, respira|stay centered|calma/i.test(cleanText);
+      const isVictory = /que notícia maravilhosa|parabéns|qué alegría|congratulations|fantastische nachricht/i.test(cleanText);
+
       if (tutor.id === "eduardo") {
-        utterance.rate = 0.96;
-        utterance.pitch = 0.90;
+        utterance.rate = isAnxiety ? 0.92 : isVictory ? 1.04 : isAffection ? 0.96 : 0.98;
+        utterance.pitch = isAnxiety ? 0.92 : isVictory ? 1.02 : isAffection ? 0.98 : 0.95;
       } else if (tutor.gender === "masculino" || tutor.gender === "männlich") {
-        utterance.rate = 1.0;
-        utterance.pitch = 0.95;
+        utterance.rate = isAnxiety ? 0.94 : isVictory ? 1.05 : 1.0;
+        utterance.pitch = isAnxiety ? 0.92 : isVictory ? 1.02 : 0.96;
       } else {
-        utterance.rate = 1.02;
-        utterance.pitch = 1.04;
+        utterance.rate = isAnxiety ? 0.95 : isVictory ? 1.06 : isAffection ? 1.0 : 1.02;
+        utterance.pitch = isAnxiety ? 0.98 : isVictory ? 1.08 : isAffection ? 1.05 : 1.04;
       }
 
       if (!this.cachedVoices.length) {

@@ -127,6 +127,69 @@ export const VITA_KNOWLEDGE_NODES = {
 };
 
 export const VITA_MENTORSHIP_MODULES = {
+  elogios_e_afeto: {
+    id: "elogios_e_afeto",
+    synonyms: [
+      "sua voz e bonita", "sua voz é bonita", "adorei sua voz", "gostei da sua voz", "sua voz e linda",
+      "sua voz é calma", "transmite paz", "sua voz transmite paz", "voce e incrivel", "você é incrível",
+      "tu voz es hermosa", "me encanta tu voz", "tu voz transmite paz", "eres increible", "eres increíble",
+      "i love your voice", "your voice is amazing", "you are incredible", "your voice is so soothing",
+      "deine stimme ist schoen", "deine stimme ist toll", "du bist grossartig"
+    ],
+    responses: {
+      pt: "Puxa, muito obrigado de coração! Ouvir isso de você aquece a alma. Fico imensamente feliz em saber que a minha voz te traz essa tranquilidade. O que você gostaria de explorar comigo agora?",
+      es: "¡Ay, qué lindo lo que me dices! Muchísimas gracias de corazón. Me alegra tanto que mi voz te acompañe con calidez y paz en tus estudios. ¿Qué tema te gustaría que veamos juntos hoy?",
+      en: "Oh, thank you so much! That truly warms my heart, and I am so glad my voice brings you calm and clarity. What would you like us to dive into next?",
+      de: "Vielen herzlichen Dank! Das freut mich wirklich sehr zu hören. Womit kann ich dich heute beim Lernen unterstützen?"
+    }
+  },
+
+  ansiedade_e_medo: {
+    id: "ansiedade_e_medo",
+    synonyms: [
+      "estou nervoso", "estou nervosa", "nervoso com a prova", "nervosa com a prova", "medo da prova",
+      "vou reprovar", "muito ansioso", "muito ansiosa", "ansiedade", "preocupado com o exame",
+      "estoy nervioso", "estoy nerviosa", "nervioso por el examen", "miedo del examen", "voy a reprobar", "voy a suspender",
+      "anxious about exam", "nervous about exam", "scared", "fear of failing", "pruefungsangst", "nervos"
+    ],
+    responses: {
+      pt: "Fique tranquilo, respire fundo com calma. É absolutamente natural sentir esse frio na barriga antes da prova, mas você já construiu uma base sólida de estudo. Que tal repassarmos os pontos principais com calma agora?",
+      es: "Tranquilo, respira hondo. Es completamente normal sentir nervios antes del examen, pero has dedicado mucho esfuerzo y constancia. ¿Qué te parece si repasamos con calma los puntos clave?",
+      en: "Take a deep breath and stay centered. It is totally natural to feel butterflies before an exam, but you have put in the work. How about we review the core high-yield points together right now?",
+      de: "Atme tief durch. Es ist völlig normal, vor Prüfungen nervös zu sein. Wollen wir die wichtigsten Punkte ganz in Ruhe wiederholen?"
+    }
+  },
+
+  vitoria_e_conquista: {
+    id: "vitoria_e_conquista",
+    synonyms: [
+      "passei na prova", "passei", "consegui", "tirei dez", "aprovei", "deu tudo certo", "fui aprovado", "fui aprovada",
+      "aprobe el examen", "aprobé", "lo logre", "lo logré", "saque diez", "aprobe", "todo salio bien",
+      "i passed", "i nailed it", "i did it", "got an a", "bestanden", "geschafft"
+    ],
+    responses: {
+      pt: "Que notícia maravilhosa! Meus parabéns de coração! Todo o seu esforço, noites de estudo e dedicação valeram a pena. Me conta, como você está se sentindo com essa grande conquista?",
+      es: "¡Qué alegría tan inmensa! ¡Muchísimas felicidades de corazón! Todo tu esfuerzo, desvelo y constancia han dado sus frutos. ¿Cómo te sientes con este gran logro?",
+      en: "That is absolutely incredible news! Huge congratulations! All your hard work and late-night study sessions truly paid off. How are you feeling right now?",
+      de: "Was für eine fantastische Nachricht! Herzlichen Glückwunsch! Dein Fleiß hat sich voll ausgezahlt. Wie fühlst du dich mit diesem großartigen Erfolg?"
+    }
+  },
+
+  gratidao_espelhamento: {
+    id: "gratidao_espelhamento",
+    synonyms: [
+      "muito obrigado por me ajudar", "agradeco muito", "voce me ajudou muito", "obrigado pelo carinho",
+      "gracias por ayudarme", "muchas gracias por tu ayuda", "te agradezco mucho", "gracias por tu carino",
+      "thank you for helping me", "thank you so much", "i appreciate you", "danke fuer deine hilfe"
+    ],
+    responses: {
+      pt: "Eu que agradeço pela confiança e pelo carinho. É uma honra ser seu mentor e estar com você a cada passo dessa jornada médica. Qual o nosso próximo objetivo de estudo?",
+      es: "Al contrario, te agradezco a ti por tu confianza y cariño. Es un honor ser tu mentora y acompañarte en cada paso de tu camino médico. ¿Cuál es nuestro siguiente tema de estudio?",
+      en: "It is truly my pleasure and an absolute honor to be your mentor on this medical journey. Thank you for your trust. What is our next study focus?",
+      de: "Ich danke dir für dein Vertrauen. Es ist mir eine Ehre, dich auf deinem medizinischen Weg zu begleiten. Was schauen wir uns als Nächstes an?"
+    }
+  },
+
   rotina_organizacao: {
     id: "rotina_organizacao",
     synonyms: [
