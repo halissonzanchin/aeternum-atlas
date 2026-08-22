@@ -185,9 +185,55 @@ class CerebroAeternumVitaEngine {
     return hooks[Math.floor(Math.random() * hooks.length)];
   }
 
+  getTimeGreeting(lang = "pt") {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) {
+      if (lang === "es") return "¡Que tengas un excelente día de estudio!";
+      if (lang === "en") return "Have a wonderful day of studying!";
+      if (lang === "de") return "Hab einen erfolgreichen Lerntag!";
+      return "Tenha um excelente dia de estudos!";
+    }
+    if (hour >= 12 && hour < 18) {
+      if (lang === "es") return "¡Que tengas una linda tarde y buen descanso!";
+      if (lang === "en") return "Have a great afternoon and enjoy your rest!";
+      if (lang === "de") return "Hab einen schönen Nachmittag und erhol dich gut!";
+      return "Tenha uma ótima tarde e bom descanso!";
+    }
+    if (lang === "es") return "¡Descansa mucho y que tengas muy buenas noches!";
+    if (lang === "en") return "Get plenty of rest and have a wonderful night!";
+    if (lang === "de") return "Ruh dich gut aus und hab eine gute Nacht!";
+    return "Descanse bastante e tenha uma excelente noite de sono!";
+  }
+
+  isFarewell(q) {
+    const farewellWords = [
+      "vamos parar", "parar por aqui", "por hoje", "tchau", "ate mais", "até mais",
+      "boa noite", "bom descanso", "vou descansar", "vou dormir", "encerrar",
+      "obrigado pelo dialogo", "obrigado pela conversa", "obrigado pelo tempo",
+      "adios", "hasta luego", "hasta pronto", "buenas noches", "descansar", "terminar",
+      "bye", "goodbye", "good night", "stop here", "see you", "tschüss", "gute nacht", "bis bald"
+    ];
+    return farewellWords.some((w) => q.includes(w));
+  }
+
   generateHumanConversationResponse(query, lang = "pt", persona = "eduardo") {
     const q = this.normalize(query);
     const hook = this.getRandomHook(persona);
+    const timeGreeting = this.getTimeGreeting(lang);
+
+    // 1. Encerramento / Despedida com inteligência temporal e humana
+    if (this.isFarewell(q)) {
+      if (lang === "es") {
+        return `¡Entendido! Fue un verdadero placer acompañarte en tu estudio hoy. ${timeGreeting} ¡Hasta la próxima, aquí estaré para ti!`;
+      }
+      if (lang === "en") {
+        return `Sounds great! You did a fantastic job today. ${timeGreeting} Whenever you are ready to resume, I will be right here!`;
+      }
+      if (lang === "de") {
+        return `Alles klar! Es war mir eine Freude, dich heute zu begleiten. ${timeGreeting} Bis zum nächsten Mal!`;
+      }
+      return `Combinado! Foi um prazer imenso estudar com você hoje. ${timeGreeting} Sempre que quiser retomar, estarei aqui por você!`;
+    }
 
     if (lang === "es") {
       if (q.includes("gracias") || q.includes("muchas gracias") || q.includes("genial")) {
@@ -316,7 +362,7 @@ class CerebroAeternumVitaEngine {
     }
 
     // ========================================================================
-    // B. DIÁLOGOS DE MENTORIA, AFETO E APOIO EMOCIONAL
+    // B. DIÁLOGOS DE MENTORIA, DESPEDIDAS, AFETO E APOIO EMOCIONAL
     // ========================================================================
     const mentorship = this.findMentorshipNode(q);
     if (mentorship) {
@@ -324,8 +370,20 @@ class CerebroAeternumVitaEngine {
         this.tutorMemories[tutorKey].activeTopic = null;
         this.tutorMemories[tutorKey].turnsCount += 1;
       }
+      // Se for módulo de despedida, adiciona o cumprimento de horário
+      if (mentorship.id === "despedida_encerramento") {
+        return this.cleanSpokenCadence(this.generateHumanConversationResponse(q, lang, tutorKey));
+      }
       const resp = mentorship.responses?.[lang] || mentorship.responses?.pt;
       if (resp) return this.cleanSpokenCadence(resp);
+    }
+
+    // Se o usuário está se despedindo ou encerrando o diálogo
+    if (this.isFarewell(q)) {
+      if (this.tutorMemories[tutorKey]) {
+        this.tutorMemories[tutorKey].activeTopic = null;
+      }
+      return this.cleanSpokenCadence(this.generateHumanConversationResponse(q, lang, tutorKey));
     }
 
     // ========================================================================
@@ -342,6 +400,9 @@ class CerebroAeternumVitaEngine {
         this.tutorMemories[tutorKey].turnsCount += 1;
       }
       this.saveStudentMemory(userId, { recentTopics: [directNode.id] });
+
+      const resp = directNode.spokenAnswers?.[lang] || directNode.spokenAnswers?.pt;
+      if (resp) return this.cleanSpokenCadence(resp);
     }
 
     // Subtópicos no Nó Ativo (Músculos, Ligamentos, Vasos)
@@ -354,10 +415,9 @@ class CerebroAeternumVitaEngine {
       }
     }
 
-    // Resposta do Nó Anatômico Ativo
-    if (activeNode && activeNode.spokenAnswers) {
-      const resp = activeNode.spokenAnswers[lang] || activeNode.spokenAnswers.pt;
-      if (resp) return this.cleanSpokenCadence(resp);
+    // Se a consulta não menciona diretamente nem o nó nem um subtópico, limpa o nó ativo
+    if (this.tutorMemories[tutorKey]) {
+      this.tutorMemories[tutorKey].activeTopic = null;
     }
 
     // 4. Resposta Conversacional Padrão Acolhedora e Humanizada

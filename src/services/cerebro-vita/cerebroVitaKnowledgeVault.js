@@ -127,6 +127,24 @@ export const VITA_KNOWLEDGE_NODES = {
 };
 
 export const VITA_MENTORSHIP_MODULES = {
+  despedida_encerramento: {
+    id: "despedida_encerramento",
+    synonyms: [
+      "vamos parar por aqui", "parar por aqui", "por hoje e so", "por hoje é só", "tchau", "tchau eduardo", "tchau antonia",
+      "ate mais", "até mais", "boa noite", "bom descanso", "vou descansar", "vou dormir", "vamos encerrar",
+      "encerrar", "obrigado pelo dialogo", "obrigado pela conversa", "obrigado pela aula", "valeu pelo dialogo",
+      "adios", "hasta luego", "hasta pronto", "buenas noches", "descansar", "terminar por hoy", "gracias por la charla",
+      "bye", "goodbye", "good night", "lets stop here", "see you later", "take care", "thanks for the chat",
+      "tschüss", "gute nacht", "bis bald", "feierabend", "fuer heute reichts"
+    ],
+    responses: {
+      pt: "Combinado! Foi um prazer imenso estudar com você hoje. Descanse bastante e recarregue as energias. Quando quiser continuar, estarei aqui por você!",
+      es: "¡Entendido! Fue un verdadero placer acompañarte en tus estudios hoy. Descansa mucho y recarga energías. ¡Hasta la próxima, aquí estaré para ti!",
+      en: "Sounds great! You did an amazing job today. Get some well-deserved rest, and I will be right here whenever you want to resume!",
+      de: "Alles klar! Es war mir eine große Freude, dich heute zu begleiten. Ruh dich gut aus und bis zum nächsten Mal!"
+    }
+  },
+
   elogios_e_afeto: {
     id: "elogios_e_afeto",
     synonyms: [
