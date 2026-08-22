@@ -75,39 +75,62 @@ class CerebroAeternumVitaEngine {
     return null;
   }
 
+  getPersonaHooks(tutorKey = "eduardo") {
+    switch (tutorKey) {
+      case "antonia":
+        return ["¡Por supuesto!", "Mira,", "Te entiendo perfectamente,", "¡Qué interessante!", "¡Totalmente!"];
+      case "ariana":
+        return ["Definitely!", "I hear you!", "That makes total sense,", "Great question!", "I love that point,"];
+      case "fabian":
+        return ["Ganz genau.", "Sehr gut.", "Ich verstehe vollkommen.", "Lass uns das Schritt für Schritt betrachten:"];
+      case "eduardo":
+      default:
+        return ["Com certeza,", "Veja bem,", "Entendo perfeitamente,", "Excelente ponto,", "Fique tranquilo,"];
+    }
+  }
+
+  getRandomHook(tutorKey = "eduardo") {
+    const hooks = this.getPersonaHooks(tutorKey);
+    return hooks[Math.floor(Math.random() * hooks.length)];
+  }
+
   generateHumanConversationResponse(query, lang = "pt", persona = "eduardo") {
     const q = this.normalize(query);
+    const hook = this.getRandomHook(persona);
 
     if (lang === "es") {
       if (q.includes("gracias") || q.includes("muchas gracias") || q.includes("genial")) {
-        return "¡De nada! Me alegra mucho acompañarte. ¿Hay algún otro punto o estructura que quieras repasar ahora?";
+        return `${hook} ¡De nada! Me alegra mucho acompañarte en tu estudio. ¿Hay algún otro punto anatómico que quieras repasar ahora?`;
       }
-      return "¡Excelente! Estoy aquí para acompañarte en tu estudio. ¿Te gustaría explorar alguna estructura anatómica o prefieres que revisemos tu plan de repaso?";
+      return `${hook} Estoy aquí para acompañarte en tu preparación médica. ¿Te gustaría explorar alguna estructura anatómica o prefieres que organicemos tu rutina de repaso?`;
     }
 
     if (lang === "en") {
       if (q.includes("thank") || q.includes("thanks") || q.includes("awesome") || q.includes("great")) {
-        return "You are very welcome! I am thrilled to help you master this. Is there any specific anatomical landmark you want to tackle next?";
+        return `${hook} You are very welcome! I am thrilled to help you master this. Is there any specific anatomical landmark you want to tackle next?`;
       }
-      return "Awesome! I am right here with you. Would you like to dive into a specific anatomical structure, or shall we organize your study goals for today?";
+      return `${hook} I am right here with you. Would you like to dive into a specific anatomical structure, or shall we organize your study goals for today?`;
     }
 
     if (lang === "de") {
       if (q.includes("danke") || q.includes("vielen dank") || q.includes("super")) {
-        return "Sehr gerne! Es freut mich, dich zu begleiten. Gibt es eine weitere anatomische Struktur, die du heute besprechen möchtest?";
+        return `${hook} Sehr gerne! Es freut mich, dich zu begleiten. Gibt es eine weitere anatomische Struktur, die du heute besprechen möchtest?`;
       }
-      return "Sehr gut! Ich begleite dich gerne bei deinem Anatomiestudium. Möchtest du eine bestimmte Struktur ansehen oder deine Lernroutine planen?";
+      return `${hook} Ich begleite dich gerne bei deinem Anatomiestudium. Möchtest du eine bestimmte Struktur ansehen oder deine Lernroutine planen?`;
     }
 
     if (q.includes("obrigado") || q.includes("obrigada") || q.includes("valeu") || q.includes("show")) {
-      return "Por nada! Fico muito feliz em caminhar ao seu lado nos seus estudos. Deseja revisar mais alguma estrutura anatômica agora?";
+      return `${hook} fico muito feliz em caminhar ao seu lado nos seus estudos de medicina. Deseja revisar mais alguma estrutura anatômica agora?`;
     }
-    return "Excelente! Estou aqui para guiar seus passos. Deseja explorar uma estrutura anatômica específica ou quer que organizemos sua rotina de estudos?";
+    return `${hook} estou aqui para guiar seus passos. Deseja explorar uma estrutura anatômica específica ou quer que organizemos sua rotina de estudos?`;
   }
 
   /**
    * Consulta principal do Cérebro Aeternum Vita
-   * Retorna SEMPRE uma string falada natural, calorosa e fluida.
+   * Retorna SEMPRE uma string falada natural, calorosa e fluida seguindo a Fórmula de 3 Etapas:
+   * 1. Gancho de Escuta Ativa (2-4 palavras)
+   * 2. Núcleo Conceitual Oral (1-2 frases curtas)
+   * 3. Ponte de Engajamento (1 pergunta aberta)
    */
   consultar({ query, language = "pt", persona = null, context = {} }) {
     const rawQ = String(query || "").trim();
@@ -164,17 +187,18 @@ class CerebroAeternumVitaEngine {
       const words = rawQ.split(/\s+/);
       const possibleTopic = words.slice(0, 3).join(" ");
       const cap = possibleTopic.charAt(0).toUpperCase() + possibleTopic.slice(1);
+      const hook = this.getRandomHook(tutorKey);
 
       if (lang === "es") {
-        return `Excelente tema. ${cap} es una estructura anatómica fundamental. ¿Qué aspecto específico deseas repasar ahora: sus relaciones topográficas, irrigación o inserciones?`;
+        return `${hook} ${cap} es una estructura anatómica fundamental. ¿Qué aspecto específico deseas repasar ahora: sus relaciones topográficas, irrigación o inserciones?`;
       }
       if (lang === "en") {
-        return `Great topic. ${cap} is a key anatomical structure. Which specific aspect would you like to review: its anatomical landmarks, blood supply, or attachments?`;
+        return `${hook} ${cap} is a key anatomical structure. Which specific aspect would you like to review: its anatomical landmarks, blood supply, or attachments?`;
       }
       if (lang === "de") {
-        return `Sehr gutes Thema. ${cap} ist eine wichtige anatomische Struktur. Welchen Bereich möchtest du besprechen: topografische Grenzen, Gefäße oder Muskeln?`;
+        return `${hook} ${cap} ist eine wichtige anatomische Struktur. Welchen Bereich möchtest du besprechen: topografische Grenzen, Gefäße oder Muskeln?`;
       }
-      return `Excelente tema. ${cap} é uma estrutura anatômica fundamental. Qual aspecto específico você gostaria de revisar agora: limites topográficos, irrigação ou inserções musculares?`;
+      return `${hook} ${cap} é uma estrutura anatômica fundamental. Qual aspecto específico você gostaria de revisar agora: limites topográficos, irrigação ou inserções musculares?`;
     }
 
     // 6. Resposta Conversacional Padrão Acolhedora

@@ -459,7 +459,7 @@ class AeternumVitaVoiceEngine {
       let finalTranscript = "";
 
       rec.onresult = (event) => {
-        if (this.isSpeaking || !this.activeSession) return;
+        if (!this.activeSession) return;
 
         let interim = "";
         for (let i = event.resultIndex; i < event.results.length; ++i) {
@@ -473,12 +473,27 @@ class AeternumVitaVoiceEngine {
 
         const currentText = (finalTranscript + (interim ? " " + interim : "")).trim();
 
-        // Se for eco acústico da fala completa do tutor, descartar
+        // 1. Descartar eco acústico da fala completa do tutor
         if (this.isAcousticEcho(currentText)) return;
+
+        // 2. Interrupção Inteligente (Adaptive Barge-In)
+        // Se o usuário começar a falar enquanto o tutor reproduz áudio, corta o áudio imediatamente
+        if (this.isSpeaking && currentText.length >= 3) {
+          this.stopSpeaking();
+          onInterimResult?.(currentText);
+        }
 
         onInterimResult?.(currentText);
 
         if (this.silenceTimer) clearTimeout(this.silenceTimer);
+
+        // 3. Turn Detection Calibrado por Idioma (EOU — End of Utterance)
+        const langCode = (tutor.langCode || "pt").slice(0, 2).toLowerCase();
+        const silenceThreshold =
+          langCode === "pt" ? 665 :
+          langCode === "es" ? 590 :
+          langCode === "en" ? 560 :
+          langCode === "de" ? 495 : 600;
 
         if (currentText && currentText.length >= 1) {
           this.silenceTimer = setTimeout(() => {
@@ -489,7 +504,7 @@ class AeternumVitaVoiceEngine {
             if (fullSpeech && this.activeSession && !this.isAcousticEcho(fullSpeech)) {
               onFinalResult?.(fullSpeech);
             }
-          }, 1600);
+          }, silenceThreshold);
         }
       };
 
