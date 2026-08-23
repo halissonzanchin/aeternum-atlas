@@ -6,10 +6,10 @@
  * raciocínio clínico Latarjet e diálogo humanizado em todas as contas.
  */
 
-import { getSupabaseClient, supabaseConfig } from '../../../services/supabase/supabaseClient';
-import { cerebroAtlasAI, cerebroAeternum } from '../../../services/cerebro-aeternum/cerebroAeternum';
-import { cerebroAeternumVita } from '../../../services/cerebro-vita/cerebroAeternumVita';
-import { aeternumBehaviorOrchestrator } from '../../../services/ai/aeternumBehaviorOrchestrator';
+import { getSupabaseClient, supabaseConfig } from '../../../services/supabase/supabaseClient.js';
+import { cerebroAtlasAI, cerebroAeternum } from '../../../services/cerebro-aeternum/cerebroAeternum.js';
+import { cerebroAeternumVita } from '../../../services/cerebro-vita/cerebroAeternumVita.js';
+import { aeternumBehaviorOrchestrator } from '../../../services/ai/aeternumBehaviorOrchestrator.js';
 
 const ACTION_TOKEN_PATTERN = /\[ACTION:([A-Z_]+)\]/g;
 const PARTIAL_ACTION_TOKEN_PATTERN = /\[ACTION(?::[A-Z_]*)?$/i;
@@ -131,10 +131,15 @@ export const atlasAITutorService = {
 
     try {
       const client = getSupabaseClient();
-      const { data: sessionData, error: sessionError } = await client.auth.getSession();
-      const accessToken = sessionData?.session?.access_token;
+      let accessToken = null;
+      if (client?.auth) {
+        try {
+          const { data: sessionData, error: sessionError } = await client.auth.getSession();
+          if (!sessionError) accessToken = sessionData?.session?.access_token;
+        } catch {}
+      }
 
-      if (!sessionError && accessToken && supabaseConfig.url && supabaseConfig.anonKey) {
+      if (accessToken && supabaseConfig.url && supabaseConfig.anonKey) {
         const response = await fetch(`${supabaseConfig.url}/functions/v1/ai-tutor`, {
           method: 'POST',
           headers: {

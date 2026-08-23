@@ -23,6 +23,70 @@ export const VITA_TOPIC_CATEGORIES = {
 };
 
 export const VITA_KNOWLEDGE_NODES = {
+  esterno: {
+    id: "esterno",
+    category: VITA_TOPIC_CATEGORIES.OSTEOLOGY,
+    synonyms: ["esterno", "esternon", "sternum", "brustbein", "peito", "torax osseo"],
+    spokenAnswers: {
+      pt: "O esterno é um osso plano localizado na linha média anterior do tórax, dividido em três partes: manúbrio, corpo e processo xifoide. Deseja analisar o ângulo esternal de Louis ou as fixações das costelas?",
+      es: "El esternón es un hueso plano situado en la línea media anterior del tórax, dividido en manubrio, cuerpo y apófisis xifoides. ¿Quieres que veamos el ángulo de Louis o las uniones con las costillas?",
+      en: "The sternum is a flat bone in the anterior midline of the thorax, comprising the manubrium, body, and xiphoid process. Shall we review the sternal angle of Louis or rib attachments?",
+      de: "Das Sternum ist ein platter Knochen in der vorderen Thoraxwand, bestehend aus Manubrium, Corpus und Processus xiphoideus. Wollen wir den Angulus sterni besprechen?"
+    },
+    subTopics: [
+      {
+        id: "partes_anatomicas",
+        synonyms: ["partes", "divisao", "divisoes", "manubrio", "corpo", "xifoide", "processo xifoide", "apofise", "quais partes", "tres partes", "quais sao as partes"],
+        spokenAnswers: {
+          pt: "O esterno é composto por três partes fundamentais: superiormente o manúbrio, no meio o corpo e inferiormente o processo xifoide. Quer ver como o manúbrio se une ao corpo formando o ângulo esternal?",
+          es: "El esternón consta de tres porciones: superiormente el manubrio, en el centro el cuerpo y abajo la apófisis xifoides. ¿Deseas analizar la unión manubrioesternal?",
+          en: "The sternum consists of three primary parts: the manubrium superiorly, the body in the middle, and the xiphoid process inferiorly. Shall we examine the sternal angle connecting them?",
+          de: "Das Sternum gliedert sich in drei Teile: oben das Manubrium, in der Mitte das Corpus und unten den Processus xiphoideus."
+        }
+      },
+      {
+        id: "angulo_esternal",
+        synonyms: ["angulo esternal", "angulo de louis", "angulo", "louis", "articulacao manubrioesternal", "manubrioesternal", "t4", "t5", "segunda costela", "2 costela"],
+        spokenAnswers: {
+          pt: "O ângulo esternal, ou ângulo de Louis, é a junção entre o manúbrio e o corpo do esterno. Ele marca exatamente o nível da segunda cartilagem costal e do disco T4-T5, sendo a principal referência clínica para contagem de costelas. Ficou claro esse conceito?",
+          es: "El ángulo esternal, o ángulo de Louis, es la unión entre el manubrio y el cuerpo del esternón. Marca el nivel del segundo cartílago costal y de T4-T5, siendo clave para contar costillas. ¿Quedó claro este concepto?",
+          en: "The sternal angle, or angle of Louis, is the junction between the manubrium and sternal body. It precisely marks the second costal cartilage and T4-T5 disc, serving as the landmark for counting ribs.",
+          de: "Der Angulus sterni (Louis-Winkel) ist die Verbindung zwischen Manubrium und Corpus sterni auf Höhe der 2. Rippe und T4-T5."
+        }
+      },
+      {
+        id: "explicacao_analogia",
+        synonyms: ["explica de outro jeito", "nao entendi", "ainda nao entendi", "outra forma", "analogia", "como assim", "me perdi", "simplifica"],
+        spokenAnswers: {
+          pt: "Vamos visualizar de forma bem prática: coloque a ponta dos dedos na base do seu pescoço e desça cerca de quatro centímetros pelo peito. Você vai sentir um relevo ósseo saliente em degrau: esse é o ângulo de Louis! Quer tentar sentir e continuar?",
+          es: "Imaginémoslo de forma muy práctica: pon tus dedos en la base del cuello y baja unos cuatro centímetros sobre el pecho. Sentirás un relieve óseo palpable: ese es el ángulo de Louis. ¿Te hace más sentido así?",
+          en: "Let us picture it practically: touch the base of your neck and slide your fingers about two inches down your chest. You will feel a distinct bony ridge: that is the sternal angle of Louis.",
+          de: "Ganz praktisch: Taste vom Halsansatz etwa fünf Zentimeter nach unten, bis du eine tastbare Kante spürst. Das ist der Angulus sterni."
+        }
+      },
+      {
+        id: "correcao_erro_xifoide",
+        synonyms: ["corpo e processo xifoide", "corpo e xifoide", "fica entre o corpo e o xifoide", "fica entre o corpo e o processo xifoide", "abaixo do corpo"],
+        spokenAnswers: {
+          pt: "Quase! Você localizou a extremidade inferior. O ângulo de Louis fica no topo, entre o manúbrio e o corpo. Na parte de baixo, entre o corpo e o xifoide, temos a articulação xifoesternal. Percebeu a diferença entre as duas extremidades?",
+          es: "¡Casi! Localizaste el extremo inferior. El ángulo de Louis está arriba, uniendo el manubrio y el cuerpo. Abajo, entre el cuerpo y la xifoides, está la articulación xifoesternal. ¿Notas la diferencia?",
+          en: "Almost! You pinpointed the lower end. The sternal angle is at the top, between the manubrium and body. Below, between the body and xiphoid, sits the xiphisternal joint.",
+          de: "Fast! Der Angulus sterni liegt oben zwischen Manubrium und Corpus. Unten liegt die Symphysis xiphosternalis."
+        }
+      },
+      {
+        id: "articulacoes_costais",
+        synonyms: ["costelas", "cartilagens", "incisuras", "clavicula e esterno", "articulacao esternoclavicular"],
+        spokenAnswers: {
+          pt: "Nas incisuras laterais do esterno articulam-se as sete primeiras cartilagens costais verdadeiras, e no topo do manúbrio ocorre a articulação esternoclavicular. Deseja ver a relação com a caixa torácica?",
+          es: "En los bordes laterales del esternón se articulan los primeros siete cartílagos costales, y en el manubrio la articulación esternoclavicular. ¿Quieres relacionarlo con la caja torácica?",
+          en: "The lateral borders of the sternum articulate with the first seven true costal cartilages, and the manubrium connects with the clavicle at the sternoclavicular joint.",
+          de: "An den Rändern artikulieren die ersten sieben Rippenknorpel, und am Manubrium liegt die Articulatio sternoclavicularis."
+        }
+      }
+    ]
+  },
+
   clavicula: {
     id: "clavicula",
     category: VITA_TOPIC_CATEGORIES.OSTEOLOGY,

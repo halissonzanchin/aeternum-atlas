@@ -53,8 +53,13 @@ class CerebroAeternumVitaEngine {
 
   containsAny(query, synonyms) {
     if (!Array.isArray(synonyms)) return false;
+    const words = query.split(/\s+/);
     return synonyms.some((syn) => {
       const normalizedSyn = this.normalize(syn);
+      if (!normalizedSyn) return false;
+      if (normalizedSyn.length <= 3) {
+        return words.includes(normalizedSyn);
+      }
       return query.includes(normalizedSyn);
     });
   }
@@ -387,7 +392,7 @@ class CerebroAeternumVitaEngine {
     }
 
     // ========================================================================
-    // C. CONSULTAS ANATÔMICAS ESPECIALIZADAS COM MEMÓRIA
+    // C. TRATAMENTO DE AUTOCORREÇÃO, HESITAÇÃO & CONFUSÃO EM VOZ
     // ========================================================================
     let activeTopic = this.tutorMemories[tutorKey]?.activeTopic;
     let activeNode = activeTopic ? this.findKnowledgeNode(activeTopic) : null;
@@ -400,14 +405,80 @@ class CerebroAeternumVitaEngine {
         this.tutorMemories[tutorKey].turnsCount += 1;
       }
       this.saveStudentMemory(userId, { recentTopics: [directNode.id] });
+    }
 
-      // 1. Verifica PRIMEIRO se o estudante perguntou sobre um aspecto/subtópico específico (caras, bordas, músculos, ligamentos, vasos, etc.)
-      if (Array.isArray(directNode.subTopics)) {
-        for (const sub of directNode.subTopics) {
-          if (this.containsAny(q, sub.synonyms)) {
-            const subResp = sub.spokenAnswers?.[lang] || sub.spokenAnswers?.pt;
-            if (subResp) return this.cleanSpokenCadence(subResp);
+    // 1. Autocorreção do estudante (Ex: "É o corpo... não, espera... o manúbrio")
+    if (q.includes("espera") || q.includes("ou melhor") || q.includes("na verdade")) {
+      const correctedPart = q.replace(/.*(?:espera|ou melhor|na verdade)\s*/i, "").trim();
+      if (correctedPart.includes("manubrio")) {
+        return this.cleanSpokenCadence("Excelente autocorreção! É exatamente o manúbrio. O manúbrio é a porção superior do esterno que se une ao corpo formando o ângulo de Louis. Deseja ver as costelas que se articulam nele?");
+      }
+      if (correctedPart.includes("corpo")) {
+        return this.cleanSpokenCadence("Isso mesmo! Perfeita autocorreção. O corpo é a porção média alongada do esterno.");
+      }
+      if (correctedPart.includes("xifoide")) {
+        return this.cleanSpokenCadence("Exato! Muito bem corrigido: o processo xifoide é a ponta cartilaginosa inferior do esterno.");
+      }
+    }
+
+    // 2. Detecção de Dúvida / Mudança de Estratégia Pedagógica (Ex: "Não entendi", "Explica de outro jeito")
+    if (q.includes("nao entendi") || q.includes("ainda nao entendi") || q.includes("explica de outro jeito") || q.includes("como assim") || q.includes("simplifica")) {
+      if (activeNode && Array.isArray(activeNode.subTopics)) {
+        // Se a pergunta menciona especificamente o ângulo esternal no turno de dúvida
+        if (q.includes("angulo") || q.includes("louis")) {
+          const angSub = activeNode.subTopics.find((s) => s.id === "angulo_esternal");
+          if (angSub) {
+            const angResp = angSub.spokenAnswers?.[lang] || angSub.spokenAnswers?.pt;
+            if (angResp) return this.cleanSpokenCadence(angResp);
           }
+        }
+
+        // Alternância inteligente de analogias: 1º Palpação clínica, 2º Imagem mental da gravata
+        if (this.tutorMemories[tutorKey]?.lastStrategy === "palpacao" || q.includes("outro jeito") || q.includes("outra forma")) {
+          if (this.tutorMemories[tutorKey]) this.tutorMemories[tutorKey].lastStrategy = "gravata";
+          return this.cleanSpokenCadence("Pense no esterno como uma gravata clássica: o manúbrio é o nó da gravata no topo, o corpo é a faixa longa no meio, e o ângulo de Louis é exatamente a dobra saliente entre o nó e a faixa. Conseguiu visualizar essa imagem?");
+        }
+
+        if (this.tutorMemories[tutorKey]) this.tutorMemories[tutorKey].lastStrategy = "palpacao";
+        const altSub = activeNode.subTopics.find((s) => s.id === "explicacao_analogia");
+        if (altSub) {
+          const altResp = altSub.spokenAnswers?.[lang] || altSub.spokenAnswers?.pt;
+          if (altResp) return this.cleanSpokenCadence(altResp);
+        }
+      }
+    }
+
+    // ========================================================================
+    // D. CONSULTAS ANATÔMICAS ESPECIALIZADAS COM MEMÓRIA
+    // ========================================================================
+    if (directNode) {
+      activeNode = directNode;
+      if (this.tutorMemories[tutorKey]) {
+        this.tutorMemories[tutorKey].activeTopic = directNode.id;
+        this.tutorMemories[tutorKey].turnsCount += 1;
+      }
+      this.saveStudentMemory(userId, { recentTopics: [directNode.id] });
+
+      // 1. Verifica PRIMEIRO se o estudante perguntou sobre um aspecto/subtópico específico (caras, bordas, músculos, ligamentos, vasos, correções de erro, etc.)
+      if (Array.isArray(directNode.subTopics)) {
+        let bestSub = null;
+        let longestMatchLength = 0;
+
+        for (const sub of directNode.subTopics) {
+          if (Array.isArray(sub.synonyms)) {
+            for (const syn of sub.synonyms) {
+              const normSyn = this.normalize(syn);
+              if (this.containsAny(q, [normSyn]) && normSyn.length > longestMatchLength) {
+                longestMatchLength = normSyn.length;
+                bestSub = sub;
+              }
+            }
+          }
+        }
+
+        if (bestSub) {
+          const subResp = bestSub.spokenAnswers?.[lang] || bestSub.spokenAnswers?.pt;
+          if (subResp) return this.cleanSpokenCadence(subResp);
         }
       }
 
@@ -418,11 +489,24 @@ class CerebroAeternumVitaEngine {
 
     // Subtópicos no Nó Ativo (para perguntas subsequentes sem repetir o nome do órgão)
     if (activeNode && Array.isArray(activeNode.subTopics)) {
+      let bestSub = null;
+      let longestMatchLength = 0;
+
       for (const sub of activeNode.subTopics) {
-        if (this.containsAny(q, sub.synonyms)) {
-          const subResp = sub.spokenAnswers?.[lang] || sub.spokenAnswers?.pt;
-          if (subResp) return this.cleanSpokenCadence(subResp);
+        if (Array.isArray(sub.synonyms)) {
+          for (const syn of sub.synonyms) {
+            const normSyn = this.normalize(syn);
+            if (this.containsAny(q, [normSyn]) && normSyn.length > longestMatchLength) {
+              longestMatchLength = normSyn.length;
+              bestSub = sub;
+            }
+          }
         }
+      }
+
+      if (bestSub) {
+        const subResp = bestSub.spokenAnswers?.[lang] || bestSub.spokenAnswers?.pt;
+        if (subResp) return this.cleanSpokenCadence(subResp);
       }
     }
 

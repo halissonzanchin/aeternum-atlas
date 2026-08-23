@@ -1,8 +1,8 @@
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../../lib/supabase.ts";
 
 export const supabaseConfig = {
-  url: import.meta.env?.VITE_SUPABASE_URL || "",
-  anonKey: import.meta.env?.VITE_SUPABASE_ANON_KEY || ""
+  url: (typeof import.meta !== "undefined" && import.meta.env?.VITE_SUPABASE_URL) || (typeof process !== "undefined" && process.env?.VITE_SUPABASE_URL) || "",
+  anonKey: (typeof import.meta !== "undefined" && import.meta.env?.VITE_SUPABASE_ANON_KEY) || (typeof process !== "undefined" && process.env?.VITE_SUPABASE_ANON_KEY) || ""
 };
 
 let injectedClient = supabase;

@@ -1,4 +1,4 @@
-﻿export const SOCRATIC_LEVELS = Object.freeze({
+export const SOCRATIC_LEVELS = Object.freeze({
   S0_DIRECT: 'S0_DIRECT',
   S1_HOOK: 'S1_HOOK',
   S2_GUIDED: 'S2_GUIDED',
@@ -68,7 +68,7 @@ export class AeternumBehaviorOrchestrator {
       return CONVERSATIONAL_INTENTS.STUDY_ROUTINE;
     }
 
-    if (/fala comigo|fala eduardo|oi|ola|tudo bem|como vai|quem e voce|hola|buen dia|hello|hi/i.test(q)) {
+    if (/\b(fala comigo|fala eduardo|fala antonia|oi|ola|tudo bem|como vai|quem e voce|hola|buen dia|hello|hi)\b/i.test(q)) {
       return CONVERSATIONAL_INTENTS.CASUAL_CHAT;
     }
 
