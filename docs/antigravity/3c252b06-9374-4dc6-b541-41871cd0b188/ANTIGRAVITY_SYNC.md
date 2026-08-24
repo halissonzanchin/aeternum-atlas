@@ -4,6 +4,55 @@
 
 ---
 
+## [2026-08-24 15:20] — Fase 1.3: Vault Privilege Hardening Gate (P0 Hardening)
+
+### Solicitação recebida
+Executar a Fase 1.3 (Vault Privilege Hardening Gate):
+1. Restringir EXECUTE da função `public.get_system_secret(text)` revogando explicitamente privilégios de PUBLIC, anon e authenticated, mantendo apenas service_role e postgres.
+2. Fixar search_path (`SET search_path = public, vault, pg_temp`) para prevenção de ataques de hijacking em funções SECURITY DEFINER.
+3. Adicionar allowlist estrita de segredos permitidos (`LIVEKIT_PUBLIC_URL`, `LIVEKIT_URL`, `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET`).
+4. Executar testes comprovando que anon e authenticated recebem `42501 permission denied` e que o voice-token (via service_role) continua emitindo tokens (HTTP 201).
+5. Registrar transparentemente no histórico que na versão anterior a RPC estava indevidamente herdando permissão de execução via PUBLIC/anon/authenticated.
+
+### Análise
+A auditoria independente do ChatGPT detectou corretamente que a função `public.get_system_secret(text)`, criada como SECURITY DEFINER no schema `public`, herdou a concessão padrão de EXECUTE atribuída ao pseudo-papel `PUBLIC` no PostgreSQL, permitindo que clientes anon e authenticated pudessem invocá-la via RPC.
+
+### Decisão tomada
+- Aplicada migração SQL revogando todos os privilégios de PUBLIC, anon e authenticated.
+- search_path explicitamente fixado em `public, vault, pg_temp`.
+- Implementada allowlist estrita rejeitando com exceção 42501 qualquer chave não autorizada.
+- Concessão de EXECUTE mantida exclusivamente para `service_role` e `postgres`.
+
+### Arquivos modificados
+- supabase/migrations/202608240002_vault_privilege_hardening.sql
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/CURRENT_STATE.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/TEST_HISTORY.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/ANTIGRAVITY_SYNC.md
+
+### Infraestrutura alterada
+- Supabase PostgreSQL: Função `public.get_system_secret(text)` blindada com ACLs restritas.
+
+### Banco de dados
+- Privilégios confirmados via `has_function_privilege`:
+  - `anon`: FALSE
+  - `authenticated`: FALSE
+  - `service_role`: TRUE
+  - `postgres`: TRUE
+
+### Testes executados
+- Anon chamando RPC get_system_secret -> HTTP 401 (42501 permission denied) (PASS)
+- Authenticated chamando RPC get_system_secret -> HTTP 403 (42501 permission denied) (PASS)
+- voice-token v7 com JWT válido via service_role -> HTTP 201 Created (PASS)
+- voice-token v7 sem JWT -> HTTP 401 Unauthorized (PASS)
+- ai-tutor v17 com JWT válido -> HTTP 200 OK (PASS)
+
+### Resultado
+PASS (Fase 1.3 VAULT HARDENING VERIFIED)
+
+---
+
+
+
 ## [2026-08-24 15:15] — Fase 1.2: Production Source-of-Truth & Fail-Closed Gate
 
 ### Solicitação recebida

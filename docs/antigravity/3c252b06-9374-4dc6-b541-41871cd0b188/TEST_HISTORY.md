@@ -2,6 +2,31 @@
 
 ---
 
+## Teste 004 — Hardening de Privilégios do Vault (Fase 1.3)
+
+Data: 2026-08-24 15:19 BRT  
+Ambiente: Supabase PostgreSQL & Edge Functions (`hyivyrietgjdazgizafp`)
+
+### Verificação de Privilégios no Banco (has_function_privilege):
+- `anon` EXECUTE: **FALSE** ✅
+- `authenticated` EXECUTE: **FALSE** ✅
+- `service_role` EXECUTE: **TRUE** ✅
+- `postgres` EXECUTE: **TRUE** ✅
+
+### Cenários de Invocação de API:
+1. `POST /rest/v1/rpc/get_system_secret` (Anon) -> **HTTP 401 (42501 permission denied)** ✅
+2. `POST /rest/v1/rpc/get_system_secret` (Authenticated Student) -> **HTTP 403 (42501 permission denied)** ✅
+3. `POST /functions/v1/voice-token` (JWT Válido via service_role) -> **HTTP 201 Created** ✅
+4. `POST /functions/v1/voice-token` (Sem JWT) -> **HTTP 401 Unauthorized** ✅
+5. `POST /functions/v1/ai-tutor` (JWT Válido) -> **HTTP 200 OK** ✅
+
+### Resultado
+PASS (100% Blindado contra Acesso Externo a Segredos)
+
+---
+
+
+
 ## Teste 001 — Matriz de Validação de Segurança P0 (Bloqueio Negativo de Anônimos)
 
 Data: 2026-08-24 14:05 BRT  

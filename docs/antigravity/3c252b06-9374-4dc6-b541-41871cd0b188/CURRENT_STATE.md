@@ -91,6 +91,7 @@ AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 
 - voice-token exige JWT: YES (HTTP 401 para anônimos / HTTP 201 para autenticado)
 - voice-token credenciais default: NÃO (Eliminadas integralmente; resolução fail-closed via Vault/Env)
+- get_system_secret ACL: RESTRICTED (anon=FALSE, authenticated=FALSE, service_role=TRUE)
 - voice-token profile check: FAIL-CLOSED (503/403 em caso de erro ou perfil ausente)
 - voice-token rate limit: FAIL-CLOSED (503 em caso de erro no RPC)
 - ai-tutor exige JWT: YES (HTTP 401 para anônimos / HTTP 200 para autenticado)
