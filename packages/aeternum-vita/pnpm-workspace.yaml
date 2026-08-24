@@ -1,0 +1,5 @@
+packages:
+  - 'apps/*'
+allowBuilds:
+  '@livekit/local-inference': true
+  esbuild: true

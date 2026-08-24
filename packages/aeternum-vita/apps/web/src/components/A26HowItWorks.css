@@ -1,0 +1,209 @@
+/* ==========================================================================
+   A26HowItWorks — Decomposição da Arquitetura do Sistema de Voz
+   ========================================================================== */
+
+.a26-how-it-works {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto 120px;
+}
+
+.a26-how-heading {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.a26-how-heading h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--a26-color-text);
+  margin: 8px 0 14px;
+}
+
+.a26-how-heading p {
+  color: var(--a26-color-text-secondary);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.a26-architecture-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.a26-arch-card {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.arch-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.arch-card-header > span {
+  color: var(--a26-accent-teal);
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.arch-card-header code {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(var(--a26-accent-teal-rgb) / 0.1);
+  border: 1px solid rgba(var(--a26-accent-teal-rgb) / 0.25);
+  color: var(--a26-accent-teal);
+  font-size: 11px;
+}
+
+.a26-arch-card h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--a26-color-text);
+  margin-bottom: 6px;
+}
+
+.a26-arch-card strong {
+  color: var(--a26-accent-gold);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 14px;
+}
+
+.a26-arch-card p {
+  color: var(--a26-color-text-secondary);
+  font-size: 14px;
+  line-height: 1.65;
+  margin-top: auto;
+}
+
+.a26-runtime-flow {
+  margin-top: 24px;
+  padding: 36px 32px;
+}
+
+.flow-title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--a26-border-glass);
+  padding-bottom: 24px;
+}
+
+.flow-title-row h3 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--a26-color-text);
+  margin-top: 6px;
+}
+
+.model-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.model-badges span {
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--a26-border-glass);
+  color: var(--a26-color-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.a26-flow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 32px 0 28px;
+  list-style: none;
+}
+
+.a26-flow-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.step-num {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(var(--a26-accent-teal-rgb) / 0.25), rgba(var(--a26-accent-teal-rgb) / 0.08));
+  border: 1px solid rgba(var(--a26-accent-teal-rgb) / 0.35);
+  color: var(--a26-accent-teal);
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.step-content strong {
+  display: block;
+  font-size: 14px;
+  color: var(--a26-color-text);
+  margin-bottom: 4px;
+}
+
+.step-content small {
+  display: block;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--a26-color-text-secondary);
+}
+
+.a26-security-footer {
+  padding-top: 20px;
+  border-top: 1px solid var(--a26-border-glass);
+  color: var(--a26-color-text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.a26-security-footer strong {
+  color: var(--a26-color-text);
+}
+
+@media (max-width: 960px) {
+  .a26-architecture-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .a26-flow-steps {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .a26-how-it-works {
+    width: min(100% - 32px, 1200px);
+    margin-bottom: 80px;
+  }
+
+  .a26-flow-steps {
+    grid-template-columns: 1fr;
+    row-gap: 18px;
+  }
+
+  .flow-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

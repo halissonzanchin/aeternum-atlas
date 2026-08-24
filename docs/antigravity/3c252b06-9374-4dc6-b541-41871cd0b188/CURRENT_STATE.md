@@ -1,9 +1,11 @@
 # AETERNUM ATLAS — ESTADO ATUAL
 
-Última auditoria: 2026-08-24 14:45 BRT
+Última auditoria: 2026-08-24 15:15 BRT
 Conversation ID: 3c252b06-9374-4dc6-b541-41871cd0b188
-RUNTIME_BASELINE_SHA: ec60b3346d5c64bf2e5352c3c6f2df3e2b172a6b
-SUPABASE_EDGE_VERSIONS: voice-token v4 (ACTIVE), ai-tutor v17 (ACTIVE)
+ATLAS_APP_RUNTIME_SHA: 4263540e10dc4c9f131a31d9a0dca9ba81c1c1f5
+AETERNUM_VITA_RUNTIME_SHA: bc1ebb4999fc9906631fc3a9775f0a0bb7ef549f
+VOICE_TOKEN_RUNTIME_VERSION: v7 (ACTIVE - Fail-Closed, Vault Secret Resolver)
+AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 
 ---
 
@@ -55,11 +57,11 @@ SUPABASE_EDGE_VERSIONS: voice-token v4 (ACTIVE), ai-tutor v17 (ACTIVE)
 
 ### RAG
 - Provider: Supabase PostgreSQL (hyivyrietgjdazgizafp)
-- Tabela: vita_anatomical_knowledge (~20.302 chunks, 12 fontes/livros canônicos)
+- Tabela: vita_anatomical_knowledge (20.302 chunks indexados para PostgreSQL Full Text Search lexical)
 - Current retrieval: PostgreSQL Full Text Search / lexical ranking (to_tsvector, websearch_to_tsquery, ts_rank_cd via match_vita_anatomical_knowledge)
 - Future planned: Hybrid lexical + vector embeddings (768d) + reranking
 - Base em memória de voz: 17 tópicos enciclopédicos estruturados em TypeScript (anatomical-knowledge.ts)
-- Status: ACTIVE / LEXICAL VERIFIED
+- Status: ACTIVE / LEXICAL FTS VERIFIED
 
 ### Memory
 - Provider: Supabase PostgreSQL
@@ -85,14 +87,17 @@ SUPABASE_EDGE_VERSIONS: voice-token v4 (ACTIVE), ai-tutor v17 (ACTIVE)
 
 ---
 
-## 2. Segurança & Governança (P0 — VERIFIED)
+## 2. Segurança & Governança (P0 — VERIFIED & FAIL-CLOSED)
 
 - voice-token exige JWT: YES (HTTP 401 para anônimos / HTTP 201 para autenticado)
+- voice-token credenciais default: NÃO (Eliminadas integralmente; resolução fail-closed via Vault/Env)
+- voice-token profile check: FAIL-CLOSED (503/403 em caso de erro ou perfil ausente)
+- voice-token rate limit: FAIL-CLOSED (503 em caso de erro no RPC)
 - ai-tutor exige JWT: YES (HTTP 401 para anônimos / HTTP 200 para autenticado)
-- guest permitido: NO (100% bloqueado em v4 e v17)
+- guest permitido: NO (100% bloqueado em v7 e v17)
 - RLS: ACTIVE
 - Rate Limiting: ACTIVE (consume_voice_rate_limit, consume_ai_rate_limit)
-- Auditoria de Secrets no bundle: 0 segredos privados em src/
+- Auditoria de Secrets no bundle: 0 segredos privados em src/ e packages/
 
 ---
 

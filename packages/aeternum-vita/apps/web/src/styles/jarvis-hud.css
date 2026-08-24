@@ -1,0 +1,700 @@
+/* ==========================================================================
+   J.A.R.V.I.S. OS // HOLOGRAPHIC HUD DESIGN SYSTEM
+   Stark Industries Cybernetic Interface - Aeternum Vita Version
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
+
+:root {
+  --jarvis-cyan: #00f0ff;
+  --jarvis-cyan-glow: rgba(0, 240, 255, 0.45);
+  --jarvis-cyan-dim: rgba(0, 240, 255, 0.15);
+  --jarvis-blue: #0077fe;
+  --jarvis-blue-deep: #03132e;
+  --jarvis-bg-base: #020712;
+  --jarvis-bg-surface: rgba(4, 18, 41, 0.75);
+  --jarvis-bg-card: rgba(3, 20, 48, 0.6);
+  --jarvis-border: rgba(0, 240, 255, 0.3);
+  --jarvis-border-bright: rgba(0, 240, 255, 0.85);
+  --jarvis-text-primary: #e6f9ff;
+  --jarvis-text-dim: #70a6cf;
+  --jarvis-text-muted: #3d6a94;
+  --jarvis-alert-red: #ff3366;
+  --jarvis-alert-amber: #ffaa00;
+  
+  --font-hud: 'Orbitron', -apple-system, sans-serif;
+  --font-tech: 'Rajdhani', -apple-system, sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+}
+
+/* Base Body and Layout */
+body {
+  background-color: var(--jarvis-bg-base);
+  color: var(--jarvis-text-primary);
+  font-family: var(--font-tech);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 50% 40%, rgba(0, 119, 254, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 80% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 40%),
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+}
+
+/* Holographic Scanlines Overlay */
+.jarvis-scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 240, 255, 0.025) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.01),
+    rgba(0, 255, 0, 0.005),
+    rgba(0, 0, 255, 0.01)
+  );
+  background-size: 100% 3px, 6px 100%;
+  opacity: 0.85;
+}
+
+/* Master Cockpit Layout */
+.jarvis-cockpit {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 1rem 1.5rem;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+}
+
+/* Header HUD Bar */
+.jarvis-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--jarvis-bg-surface);
+  border: 1px solid var(--jarvis-border);
+  border-left: 4px solid var(--jarvis-cyan);
+  border-right: 4px solid var(--jarvis-cyan);
+  border-radius: 4px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15), inset 0 0 15px rgba(0, 240, 255, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.jarvis-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.jarvis-brand-logo {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--jarvis-cyan);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px var(--jarvis-cyan-glow);
+  position: relative;
+}
+
+.jarvis-brand-logo::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: var(--jarvis-cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--jarvis-cyan);
+}
+
+.jarvis-title {
+  font-family: var(--font-hud);
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--jarvis-cyan);
+  text-shadow: 0 0 10px var(--jarvis-cyan-glow);
+  margin: 0;
+}
+
+.jarvis-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--jarvis-text-dim);
+  letter-spacing: 1px;
+}
+
+.jarvis-telemetry-cluster {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.jarvis-telemetry-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.jarvis-telemetry-label {
+  color: var(--jarvis-text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+
+.jarvis-telemetry-val {
+  color: var(--jarvis-cyan);
+  font-weight: 600;
+  text-shadow: 0 0 6px var(--jarvis-cyan-glow);
+}
+
+.jarvis-live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--jarvis-cyan);
+  border-radius: 50%;
+  margin-right: 6px;
+  box-shadow: 0 0 8px var(--jarvis-cyan);
+  animation: jarvis-pulse 1.5s infinite ease-in-out;
+}
+
+/* Main Grid: Left HUD, Center Reactor, Right Terminal */
+.jarvis-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr 380px;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+@media (max-width: 1200px) {
+  .jarvis-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cybernetic HUD Panel Container */
+.jarvis-panel {
+  background: var(--jarvis-bg-surface);
+  border: 1px solid var(--jarvis-border);
+  border-radius: 6px;
+  padding: 1.25rem;
+  backdrop-filter: blur(16px);
+  position: relative;
+  box-shadow: 0 0 25px rgba(0, 15, 40, 0.7), inset 0 0 15px rgba(0, 240, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+/* HUD Corner Brackets */
+.jarvis-panel::before,
+.jarvis-panel::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--jarvis-cyan);
+  pointer-events: none;
+}
+
+.jarvis-panel::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--jarvis-cyan);
+  border-left: 2px solid var(--jarvis-cyan);
+}
+
+.jarvis-panel::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--jarvis-cyan);
+  border-right: 2px solid var(--jarvis-cyan);
+}
+
+.jarvis-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--jarvis-border);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.jarvis-panel-title {
+  font-family: var(--font-hud);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--jarvis-cyan);
+  letter-spacing: 1.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jarvis-panel-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--jarvis-text-muted);
+  background: rgba(0, 240, 255, 0.08);
+  padding: 2px 6px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+/* ==========================================================================
+   ARC REACTOR 3D HOLOGRAPHIC CORE
+   ========================================================================== */
+
+.jarvis-reactor-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 480px;
+}
+
+.jarvis-reactor-wrapper {
+  width: 380px;
+  height: 380px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Outer Tech Reticle Ring */
+.jarvis-reactor-outer-ring {
+  position: absolute;
+  inset: 0;
+  border: 2px dashed rgba(0, 240, 255, 0.4);
+  border-radius: 50%;
+  animation: jarvis-rotate-cw 40s linear infinite;
+}
+
+.jarvis-reactor-outer-ring::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: var(--jarvis-cyan);
+  border-bottom-color: var(--jarvis-cyan);
+}
+
+/* Middle Segmented Induction Ring */
+.jarvis-reactor-mid-ring {
+  position: absolute;
+  inset: 30px;
+  border: 3px solid rgba(0, 240, 255, 0.6);
+  border-radius: 50%;
+  box-shadow: 0 0 25px var(--jarvis-cyan-glow), inset 0 0 20px var(--jarvis-cyan-glow);
+  animation: jarvis-rotate-ccw 25s linear infinite;
+}
+
+.jarvis-reactor-inductors {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jarvis-inductor-node {
+  position: absolute;
+  width: 14px;
+  height: 6px;
+  background: var(--jarvis-cyan);
+  box-shadow: 0 0 12px var(--jarvis-cyan);
+  border-radius: 2px;
+}
+
+/* Inner Holographic Triangle */
+.jarvis-reactor-triangle-container {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jarvis-reactor-triangle {
+  width: 190px;
+  height: 190px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(50% 0%, 100% 87%, 0% 87%);
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.25) 0%, rgba(0, 119, 254, 0.5) 100%);
+  border: 2px solid var(--jarvis-cyan);
+  box-shadow: 0 0 35px var(--jarvis-cyan-glow);
+  transform: rotate(180deg);
+  animation: jarvis-triangle-pulse 3s infinite ease-in-out;
+}
+
+.jarvis-reactor-triangle-inner {
+  width: 130px;
+  height: 130px;
+  clip-path: polygon(50% 0%, 100% 87%, 0% 87%);
+  background: radial-gradient(circle at 50% 50%, #ffffff 0%, var(--jarvis-cyan) 60%, rgba(0, 119, 254, 0.8) 100%);
+  box-shadow: 0 0 45px #00f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jarvis-reactor-core-orb {
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 30px #ffffff, 0 0 60px var(--jarvis-cyan);
+  transform: rotate(180deg); /* invert back */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Reactor States */
+.state-speaking .jarvis-reactor-mid-ring {
+  animation: jarvis-rotate-ccw 6s linear infinite;
+  box-shadow: 0 0 45px var(--jarvis-cyan), inset 0 0 35px var(--jarvis-cyan);
+}
+
+.state-speaking .jarvis-reactor-core-orb {
+  animation: jarvis-core-discharge 0.4s infinite alternate ease-in-out;
+}
+
+.state-listening .jarvis-reactor-triangle {
+  animation: jarvis-listening-pulse 1s infinite alternate ease-in-out;
+}
+
+.state-listening .jarvis-reactor-outer-ring {
+  border-color: #38bdf8;
+  animation: jarvis-rotate-cw 12s linear infinite;
+}
+
+/* Reactor HUD Status Label */
+.jarvis-status-banner {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.jarvis-status-pill {
+  font-family: var(--font-hud);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 6px 18px;
+  border-radius: 20px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid var(--jarvis-cyan);
+  box-shadow: 0 0 15px var(--jarvis-cyan-glow);
+  color: #ffffff;
+}
+
+.jarvis-status-desc {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--jarvis-text-dim);
+}
+
+/* ==========================================================================
+   HOLOGRAPHIC PROTOCOL (TUTOR) SELECTOR
+   ========================================================================== */
+
+.jarvis-protocol-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.jarvis-protocol-card {
+  background: var(--jarvis-bg-card);
+  border: 1px solid var(--jarvis-border);
+  border-radius: 4px;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.jarvis-protocol-card:hover {
+  background: rgba(0, 240, 255, 0.12);
+  border-color: var(--jarvis-border-bright);
+  transform: translateX(4px);
+  box-shadow: 0 0 15px var(--jarvis-cyan-glow);
+}
+
+.jarvis-protocol-card.active {
+  background: rgba(0, 240, 255, 0.18);
+  border-color: var(--jarvis-cyan);
+  border-left: 4px solid var(--jarvis-cyan);
+  box-shadow: 0 0 20px var(--jarvis-cyan-glow);
+}
+
+.jarvis-protocol-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.jarvis-protocol-flag {
+  font-size: 1.5rem;
+}
+
+.jarvis-protocol-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.jarvis-protocol-name {
+  font-family: var(--font-hud);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.jarvis-protocol-lang {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--jarvis-cyan);
+}
+
+.jarvis-protocol-meta {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--jarvis-text-muted);
+}
+
+.jarvis-protocol-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 2px;
+  border: 1px solid var(--jarvis-border);
+  color: var(--jarvis-text-dim);
+}
+
+.jarvis-protocol-card.active .jarvis-protocol-badge {
+  background: var(--jarvis-cyan);
+  color: #020712;
+  border-color: var(--jarvis-cyan);
+  box-shadow: 0 0 8px var(--jarvis-cyan);
+}
+
+/* ==========================================================================
+   HOLOGRAPHIC TRANSCRIPT & TELEMETRY TERMINAL
+   ========================================================================== */
+
+.jarvis-transcript-feed {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding-right: 0.5rem;
+  font-family: var(--font-mono);
+}
+
+.jarvis-transcript-feed::-webkit-scrollbar {
+  width: 4px;
+}
+
+.jarvis-transcript-feed::-webkit-scrollbar-thumb {
+  background: var(--jarvis-cyan);
+  border-radius: 2px;
+  box-shadow: 0 0 6px var(--jarvis-cyan);
+}
+
+.jarvis-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  position: relative;
+  animation: jarvis-fade-in 0.3s ease;
+}
+
+.jarvis-bubble-user {
+  background: rgba(0, 119, 254, 0.2);
+  border: 1px solid rgba(0, 119, 254, 0.4);
+  border-left: 3px solid #0077fe;
+  align-self: flex-end;
+  color: #bde0fe;
+}
+
+.jarvis-bubble-agent {
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-left: 3px solid var(--jarvis-cyan);
+  align-self: flex-start;
+  color: #ffffff;
+}
+
+.jarvis-bubble-speaker {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--jarvis-cyan);
+  letter-spacing: 1px;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Audio Equalizer Visualizer */
+.jarvis-eq-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 24px;
+  padding: 0.5rem 0;
+}
+
+.jarvis-eq-bar {
+  width: 4px;
+  background: var(--jarvis-cyan);
+  border-radius: 1px;
+  box-shadow: 0 0 6px var(--jarvis-cyan);
+  animation: jarvis-eq-bounce 0.8s infinite ease-in-out alternate;
+}
+
+/* Interactive Futuristic Control Buttons */
+.jarvis-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--jarvis-bg-surface);
+  border: 1px solid var(--jarvis-border);
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+}
+
+.jarvis-btn {
+  font-family: var(--font-hud);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 0.85rem 1.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.jarvis-btn-primary {
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.8) 0%, rgba(0, 119, 254, 0.9) 100%);
+  color: #020712;
+  border: 1px solid var(--jarvis-cyan);
+  box-shadow: 0 0 20px var(--jarvis-cyan-glow);
+}
+
+.jarvis-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px var(--jarvis-cyan);
+}
+
+.jarvis-btn-secondary {
+  background: rgba(3, 20, 48, 0.8);
+  color: var(--jarvis-text-primary);
+  border: 1px solid var(--jarvis-border);
+}
+
+.jarvis-btn-secondary:hover {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: var(--jarvis-cyan);
+}
+
+.jarvis-btn-danger {
+  background: rgba(255, 51, 102, 0.15);
+  color: #ff6688;
+  border: 1px solid rgba(255, 51, 102, 0.4);
+}
+
+.jarvis-btn-danger:hover {
+  background: rgba(255, 51, 102, 0.35);
+  border-color: var(--jarvis-alert-red);
+  box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+}
+
+/* ==========================================================================
+   KEYFRAME ANIMATIONS
+   ========================================================================== */
+
+@keyframes jarvis-rotate-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes jarvis-rotate-ccw {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes jarvis-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes jarvis-triangle-pulse {
+  0%, 100% {
+    box-shadow: 0 0 25px var(--jarvis-cyan-glow);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: 0 0 50px var(--jarvis-cyan);
+    filter: brightness(1.25);
+  }
+}
+
+@keyframes jarvis-listening-pulse {
+  0% { transform: rotate(180deg) scale(0.96); filter: drop-shadow(0 0 10px #38bdf8); }
+  100% { transform: rotate(180deg) scale(1.04); filter: drop-shadow(0 0 35px var(--jarvis-cyan)); }
+}
+
+@keyframes jarvis-core-discharge {
+  0% { transform: rotate(180deg) scale(0.92); box-shadow: 0 0 20px #ffffff; }
+  100% { transform: rotate(180deg) scale(1.12); box-shadow: 0 0 50px #ffffff, 0 0 80px var(--jarvis-cyan); }
+}
+
+@keyframes jarvis-eq-bounce {
+  0% { height: 4px; }
+  100% { height: 24px; }
+}
+
+@keyframes jarvis-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}

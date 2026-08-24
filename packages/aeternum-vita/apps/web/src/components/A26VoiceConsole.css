@@ -1,0 +1,161 @@
+/* ==========================================================================
+   A26VoiceConsole — Painel Interativo de Vidro Líquido
+   ========================================================================== */
+
+.a26-voice-console {
+  display: flex;
+  padding: 48px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  min-height: 690px;
+}
+
+.console-header {
+  max-width: 580px;
+  position: relative;
+  z-index: 2;
+}
+
+.a26-eyebrow {
+  display: inline-block;
+  color: var(--a26-accent-teal);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.console-header h1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(32px, 3.8vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+  color: var(--a26-color-text);
+  margin-bottom: 14px;
+}
+
+.console-header p {
+  color: var(--a26-color-text-secondary);
+  font-size: 15px;
+  line-height: 1.65;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.console-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--a26-border-glass);
+  color: var(--a26-color-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--a26-color-text-subtle);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+.status-dot.state-listening {
+  background: var(--a26-accent-emerald);
+  box-shadow: 0 0 0 4px rgba(80, 217, 150, 0.25);
+}
+
+.status-dot.state-thinking {
+  background: var(--a26-accent-gold);
+  box-shadow: 0 0 0 4px rgba(217, 185, 101, 0.25);
+}
+
+.status-dot.state-speaking {
+  background: var(--a26-orb-speaking);
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.25);
+}
+
+.status-dot.state-connecting,
+.status-dot.state-initializing,
+.status-dot.state-pre-connect-buffering {
+  background: var(--a26-accent-teal);
+  box-shadow: 0 0 0 4px rgba(var(--a26-accent-teal-rgb) / 0.25);
+  animation: blink 1s ease-in-out infinite;
+}
+
+.status-dot.state-failed {
+  background: var(--a26-accent-danger);
+  box-shadow: 0 0 0 4px rgba(var(--a26-accent-danger-rgb) / 0.25);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.a26-error-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: min(100%, 500px);
+  margin: 16px 0;
+  padding: 14px 20px;
+  border: 1px solid rgba(var(--a26-accent-danger-rgb) / 0.3);
+  border-radius: 18px;
+  background: rgba(var(--a26-accent-danger-rgb) / 0.1);
+  color: var(--a26-color-text);
+  font-size: 13px;
+  text-align: left;
+}
+
+.a26-error-card strong {
+  color: var(--a26-accent-danger);
+  font-size: 14px;
+}
+
+.console-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+  gap: 16px;
+  width: 100%;
+}
+
+.active-actions-wrapper {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.privacy-badge {
+  color: var(--a26-color-text-subtle);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 640px) {
+  .a26-voice-console {
+    padding: 36px 20px;
+    min-height: auto;
+  }
+
+  .active-actions-wrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .active-actions-wrapper .a26-pill-button {
+    width: 100%;
+  }
+}

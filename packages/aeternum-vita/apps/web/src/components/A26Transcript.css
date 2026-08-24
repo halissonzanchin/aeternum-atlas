@@ -1,0 +1,158 @@
+/* ==========================================================================
+   A26Transcript — Painel de Transcrição com Vidro Líquido
+   ========================================================================== */
+
+.a26-transcript-panel {
+  display: flex;
+  height: 690px;
+  flex-direction: column;
+}
+
+.a26-transcript-header {
+  display: flex;
+  padding: 28px 32px 20px;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--a26-border-glass);
+}
+
+.a26-transcript-header h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--a26-color-text);
+  margin-top: 4px;
+}
+
+.a26-message-badge {
+  display: grid;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  place-items: center;
+  border-radius: 10px;
+  border: 1px solid var(--a26-border-glass);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--a26-accent-teal);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.a26-transcript-scroll {
+  display: flex;
+  min-height: 0;
+  padding: 24px 28px 32px;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  scrollbar-color: var(--a26-border-glass) transparent;
+  scrollbar-width: thin;
+}
+
+.a26-transcript-empty {
+  display: flex;
+  max-width: 260px;
+  margin: auto;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  color: var(--a26-color-text-muted);
+}
+
+.empty-icon-lens {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 18px;
+  border: 1px solid var(--a26-border-glass);
+  background: var(--a26-bg-lens);
+  color: var(--a26-accent-teal);
+  font-family: 'Manrope', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  box-shadow: var(--a26-specular-bevel);
+}
+
+.a26-transcript-empty p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.a26-bubble-message {
+  max-width: 86%;
+  animation: fadeInBubble 220ms ease-out forwards;
+}
+
+@keyframes fadeInBubble {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bubble-speaker-label {
+  display: block;
+  margin: 0 0 6px 6px;
+  color: var(--a26-color-text-subtle);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.a26-bubble-message p {
+  padding: 14px 18px;
+  border-radius: 6px 20px 20px 20px;
+  font-size: 14px;
+  line-height: 1.58;
+  border: 1px solid var(--a26-border-glass);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--a26-color-text-secondary);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.a26-bubble-message.message-user {
+  align-self: flex-end;
+}
+
+.a26-bubble-message.message-user .bubble-speaker-label {
+  text-align: right;
+  margin-right: 6px;
+}
+
+.a26-bubble-message.message-user p {
+  border-radius: 20px 6px 20px 20px;
+  border-color: rgba(var(--a26-accent-teal-rgb) / 0.35);
+  background: linear-gradient(135deg, rgba(var(--a26-accent-teal-rgb) / 0.16), rgba(var(--a26-accent-teal-rgb) / 0.05));
+  color: var(--a26-color-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 16px rgba(var(--a26-accent-teal-rgb) / 0.12);
+}
+
+@media (max-width: 960px) {
+  .a26-transcript-panel {
+    height: 520px;
+  }
+}
+
+@media (max-width: 640px) {
+  .a26-transcript-panel {
+    height: 480px;
+    border-radius: 24px;
+  }
+
+  .a26-transcript-header {
+    padding: 22px 20px 16px;
+  }
+
+  .a26-transcript-scroll {
+    padding: 18px 18px 24px;
+  }
+}

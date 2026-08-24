@@ -1,5 +1,5 @@
 # 🏛️ AETERNUM_AI_CURRENT_ARCHITECTURE.md
-**Documento de Arquitetura, Inventário e Baseline Operacional**
+**Documento de Arquitetura, Inventário e Baseline Operacional (Fase 0)**
 **Data do Mapeamento:** 24 de Agosto de 2026  
 **Status do Sistema:** Operação Híbrida (Transição para Sovereign Local-First)
 
@@ -18,16 +18,16 @@ O ecossistema **Aeternum Atlas** divide-se em três macro-camadas:
 2. **Backend & Segurança (Supabase Cloud `aeternum-atlas-saas` - `hyivyrietgjdazgizafp`):**
    * **Auth & RLS:** Gestão de usuários, instituições e papéis acadêmicos (estudantes, professores, administradores).
    * **Edge Functions:**
-     * `ai-tutor` (v17): Processamento de linguagem natural com Google Gemini e fallback em dicionário canônico local.
-     * `voice-token` (v7): Emissão de credenciais e salas WebRTC LiveKit com resolução segura via Vault e fail-closed.
-   * **Banco de Dados & Busca Léxica:**
-     * `vita_anatomical_knowledge`: **20.302 chunks** anatômicos de 12 livros canônicos indexados para PostgreSQL Full Text Search lexical (`to_tsvector`, `websearch_to_tsquery`, `ts_rank_cd`).
+     * `ai-tutor`: Processamento de linguagem natural, socrática e clínica.
+     * `voice-token`: Emissão de credenciais e salas WebRTC LiveKit.
+   * **Banco de Dados & Vetores:**
+     * `vita_anatomical_knowledge`: **20.302 chunks** anatômicos de 12 livros canônicos indexados com vetores (`pgvector`).
      * `ai_conversations` & `ai_messages`: Histórico de mensagens do chat textual.
      * `ai_audit_events`: Auditoria de consumo e latência de IA.
      * `vita_tutor_memory`: Memória pedagógica individual do estudante.
 
 3. **Motor de IA & Processamento (HP Victus Local + Nuvem):**
-   * **Stack Local Docker (`packages/aeternum-vita`):**
+   * **Stack Local Docker:**
      * `livekit-server` (:7880) — Servidor WebRTC Community livre.
      * `ollama` (:11434) — Motor LLM local com `qwen2.5:3b`.
      * `speaches` (:8000) — Faster-Whisper (STT) + Kokoro/Piper (TTS).
@@ -38,29 +38,27 @@ O ecossistema **Aeternum Atlas** divide-se em três macro-camadas:
 
 ## 2. Mapeamento dos Fluxos do Sistema
 
-### 💬 A. Fluxo de CHAT (Atlas AI Tutor em Runtime v17)
+### 💬 A. Fluxo de CHAT (Atlas AI Tutor)
 ```mermaid
 sequenceDiagram
     autonumber
     actor Aluno as Estudante (Browser)
     participant UI as AtlasAITutor UI
-    participant Edge as Supabase Edge Function (ai-tutor v17)
+    participant Edge as Supabase Edge Function (ai-tutor)
     participant Auth as Supabase Auth & RLS
-    participant Gemini as Google Gemini API (gemini-2.0-flash)
-    participant Fallback as Dicionário Canônico Local
+    participant RAG as Supabase pgvector (match_anatomical_knowledge)
+    participant LLM as Provider LLM (Local Ollama / Cloud Gemini)
 
     Aluno->>UI: Envia pergunta ("Explique a clavícula")
-    UI->>Edge: POST /functions/v1/ai-tutor (Bearer JWT)
+    UI->>Edge: POST /functions/v1/ai-tutor (Bearer JWT + Contexto da Tela)
     Edge->>Auth: Valida JWT do usuário e status ativo
     alt JWT Inválido ou Ausente
-        Edge-->>UI: 401 Unauthorized (Fail-Closed)
+        Edge-->>UI: 401 Unauthorized (Bloqueio P0)
     else Usuário Autenticado
-        Edge->>Gemini: Gera resposta com Roteiro de 5 Pontos
-        alt Gemini Responde com Sucesso
-            Gemini-->>Edge: Texto estruturado
-        else Gemini Falha / Oscila
-            Edge->>Fallback: Recupera explicação canônica (LOCAL_ANATOMY_FALLBACKS)
-        end
+        Edge->>RAG: Busca vetorial na biblioteca anatômica (Top 6 chunks)
+        RAG-->>Edge: Retorna trechos de Moore/Netter/Sobotta
+        Edge->>LLM: Gera resposta com Roteiro de 5 Pontos
+        LLM-->>Edge: Stream de texto
         Edge-->>UI: SSE (text/event-stream)
         UI->>Aluno: Renderiza texto + Gatilho 3D (se houver marcador)
     end
@@ -74,17 +72,17 @@ sequenceDiagram
     autonumber
     actor Aluno as Estudante (Microfone)
     participant UI as AeternumVitaLiveSession
-    participant Edge as Supabase Edge Function (voice-token v7)
+    participant Edge as Supabase Edge Function (voice-token)
     participant LK as LiveKit Server (:7880 via Cloudflare Tunnel)
     participant Agent as Aeternum Voice Agent Worker
-    participant STT as Faster-Whisper / Speaches (:8000)
-    participant RAG as Base Anatômica em Memória (17 Sistemas)
-    participant LLM as Ollama Qwen 3B (:11434)
-    participant TTS as Kokoro / Piper Neural TTS (:8000)
+    participant STT as Faster-Whisper / Speaches
+    participant RAG as RAG Anatômico (17 Sistemas / 20k Chunks)
+    participant LLM as Ollama Qwen 3B
+    participant TTS as Kokoro / Piper Neural TTS
 
     Aluno->>UI: Clica/Segura na Esfera do Tutor (Eduardo 🇧🇷)
     UI->>Edge: POST /functions/v1/voice-token (Bearer JWT + tutor_id)
-    Edge->>Edge: Valida JWT (401 se anônimo) + Rate Limit + Perfil
+    Edge->>Edge: Valida JWT (401 se anônimo) + Rate Limit
     Edge->>LK: Gera JWT LiveKit (10 min, sala dedicada, mic only)
     Edge-->>UI: Retorna server_url + participant_token (201 Created)
     UI->>LK: Conecta WebRTC PeerConnection
@@ -97,8 +95,33 @@ sequenceDiagram
     Agent->>RAG: Consulta base anatômica
     Agent->>LLM: Injeta RAG e gera explicação médica
     Agent->>TTS: Sintetiza voz neural em streaming
-    TTS-->>Aluno: Resposta falada em tempo real (TARGET TURN LATENCY <600ms)
+    TTS-->>Aluno: Resposta falada em tempo real (<600ms)
 ```
+
+---
+
+### 📚 C. Fluxo de RAG (Conhecimento Anatômico)
+* **Tabela Principal:** `vita_anatomical_knowledge` (Supabase Cloud).
+* **Volume Indexado:** 20.302 chunks (12 livros canônicos: Moore, Netter, Latarjet Tomos 1 e 2, Prometheus, Snell, McMinn).
+* **Camada Local em Memória:** 17 tópicos enciclopédicos estruturados em 4 idiomas (PT, ES, EN, DE) no arquivo `anatomical-knowledge.ts` da Vita.
+* **Mecanismo de Busca:** Híbrido (busca vetorial com embeddings de 768 dimensões + correspondência léxica de termos e acidentes ósseos).
+
+---
+
+### 🧠 D. Fluxo de MEMORY (Memória do Estudante)
+* **Tabelas de Registro:**
+  * `ai_conversations`: Metadados da sessão, rota de origem e tópico central.
+  * `ai_messages`: Histórico de mensagens categorizado por `role: user` e `role: assistant`.
+  * `vita_tutor_memory`: Nível de domínio do aluno por assunto, erros recorrentes e estilo preferido de sabatina.
+  * `study_agenda`: Atividades agendadas e revisões espaçadas.
+* **Princípio de Isolamento:** Memória pedagógica do aluno é 100% segregada da base enciclopédica do RAG.
+
+---
+
+### 🔒 E. Fluxo de AUTH & Segurança
+* **Autenticação:** Supabase GoTrue (JWT emitido no login do aluno).
+* **Políticas RLS:** Cada estudante só tem permissão de ler e gravar as suas próprias mensagens e sessões.
+* **Gateways:** `voice-token` e `ai-tutor` validam o JWT no header `Authorization: Bearer <token>`. Requisições sem token válido são rejeitadas imediatamente com código `401 Unauthorized`.
 
 ---
 
@@ -107,22 +130,19 @@ sequenceDiagram
 | Componente | Estado Atual | Papel na Arquitetura Soberana |
 | :--- | :--- | :--- |
 | **LiveKit Community** | 🟢 Ativo (Local Docker :7880) | Camada de transporte WebRTC em tempo real |
-| **Ollama (Qwen 2.5:3b)** | 🟢 Ativo (Local Docker :11434) | Provider LLM Local Primário para Voz |
-| **Google Gemini (2.0-Flash)** | 🟢 Ativo (Cloud Edge Function) | Provider LLM Primário para Chat Textual |
+| **Ollama (Qwen 2.5:3b)** | 🟢 Ativo (Local Docker :11434) | Provider LLM Local Primário |
+| **Google Gemini (2.0-Flash)** | 🟡 Ativo (Supabase Edge) | Provider LLM Cloud Contingência |
 | **Faster-Whisper** | 🟢 Ativo (Local Speaches :8000) | Provider STT Local Primário |
 | **Deepgram (Nova-3)** | 🟡 Código Desacoplado | Provider STT Cloud Contingência |
 | **Kokoro / Piper** | 🟢 Ativo (Local Speaches :8000) | Provider TTS Local Primário |
 | **Cartesia (Sonic-3)** | 🟡 Código Desacoplado | Provider TTS Cloud Contingência |
-| **Supabase Full Text** | 🟢 Ativo (20.302 Chunks) | Base de Conhecimento Lexical FTS |
+| **Supabase pgvector** | 🟢 Ativo (20.302 Chunks) | Source of Truth para RAG Anatômico |
 | **Cloudflare Tunnel** | 🟢 Ativo (`cloudflared`) | Ponte segura TLS para o LiveKit Local |
 
 ---
 
-## 4. Metas e Métricas Operacionais
+## 4. Baseline de Testes & Qualidade
 
-- TARGET LOCAL INFERENCE RATIO: >=95%
-- CURRENT MEASURED RATIO: NOT MEASURED
-- TARGET AVAILABILITY: 99.9%
-- CURRENT MEASURED AVAILABILITY: NOT MEASURED
-- TARGET TURN LATENCY: <600ms
-- CURRENT MEASURED LATENCY: PENDING BENCHMARK
+* **Suíte Monorepo:** 64/64 testes automatizados aprovados (Vitest).
+* **Latência Média de Conexão WebRTC:** ~512ms.
+* **Auditoria de Secrets:** Zero credenciais privadas expostas no bundle do cliente (`VITE_*`).

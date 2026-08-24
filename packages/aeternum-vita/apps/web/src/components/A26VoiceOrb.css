@@ -1,0 +1,205 @@
+/* ==========================================================================
+   Aeternum 26.1 Spectral Voice Orb — Physical 3D Optical Lens
+   ========================================================================== */
+
+.a26-spectral-orb {
+  position: relative;
+  display: grid;
+  width: 180px;
+  height: 180px;
+  margin: 36px 0 24px;
+  place-items: center;
+  user-select: none;
+}
+
+/* Camada 4: Cáusticas Periféricas & Halo Espectral */
+.a26-orb-caustics {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(var(--a26-accent-teal-rgb) / 0.42),
+    rgba(var(--a26-accent-gold-rgb) / 0.15) 50%,
+    transparent 72%
+  );
+  filter: blur(16px);
+  opacity: 0.6;
+  transform: scale(0.95);
+  transition: opacity 300ms ease, transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+/* Camada 3: Corpo da Lente Física 3D */
+.a26-orb-lens-body {
+  position: relative;
+  display: grid;
+  width: 120px;
+  height: 120px;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 40px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.04) 100%),
+    linear-gradient(145deg, rgba(var(--a26-accent-teal-rgb) / 0.22), rgba(var(--a26-accent-teal-rgb) / 0.05)),
+    rgba(10, 18, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    var(--a26-specular-bevel),
+    0 24px 60px rgba(0, 0, 0, 0.48),
+    0 0 30px rgba(var(--a26-accent-teal-rgb) / 0.28);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  transform: rotate(45deg);
+  transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+
+/* Anel Especular Polarizado */
+.a26-specular-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 40px;
+  background: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.5) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Núcleo do Orb */
+.a26-orb-core {
+  transform: rotate(-45deg);
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 58px;
+}
+
+.a26-orb-sparkle {
+  width: 44px;
+  height: 44px;
+  color: var(--a26-accent-teal);
+  filter: drop-shadow(0 0 16px rgba(var(--a26-accent-teal-rgb) / 0.75));
+  transition: transform 250ms ease, color 250ms ease;
+}
+
+/* Visualizador de Áudio */
+.a26-orb-core .lk-audio-visualizer {
+  width: 72px;
+  height: 52px;
+  gap: 5px;
+}
+
+.a26-orb-core .lk-audio-bar {
+  min-width: 4px;
+  border-radius: 9999px;
+  background: rgba(var(--a26-accent-teal-rgb) / 0.3);
+  transition: height 80ms ease, background-color 150ms ease;
+}
+
+.a26-orb-core .lk-audio-bar.lk-highlighted,
+.a26-orb-core .lk-audio-bar[data-lk-highlighted='true'] {
+  background: var(--a26-accent-teal);
+  box-shadow: 0 0 14px rgba(var(--a26-accent-teal-rgb) / 0.85);
+}
+
+/* Estados Dinâmicos do Orb */
+
+/* 1. Listening */
+.a26-spectral-orb.state-listening .a26-orb-caustics {
+  opacity: 0.9;
+  background: radial-gradient(
+    circle,
+    rgba(80, 217, 150, 0.55),
+    rgba(var(--a26-accent-teal-rgb) / 0.2) 60%,
+    transparent 75%
+  );
+  transform: scale(1.1);
+  animation: orb-breathe 2.4s ease-in-out infinite;
+}
+
+.a26-spectral-orb.state-listening .a26-orb-lens-body {
+  border-color: rgba(80, 217, 150, 0.65);
+  box-shadow: var(--a26-specular-bevel), 0 0 40px rgba(80, 217, 150, 0.4);
+}
+
+/* 2. Thinking */
+.a26-spectral-orb.state-thinking .a26-orb-caustics {
+  opacity: 1;
+  background: radial-gradient(
+    circle,
+    rgba(var(--a26-accent-gold-rgb) / 0.6),
+    rgba(var(--a26-accent-teal-rgb) / 0.25) 55%,
+    transparent 75%
+  );
+  transform: scale(1.18);
+  animation: orb-spin-glow 2s linear infinite;
+}
+
+.a26-spectral-orb.state-thinking .a26-orb-lens-body {
+  border-color: rgba(var(--a26-accent-gold-rgb) / 0.7);
+  box-shadow: var(--a26-specular-bevel), 0 0 45px rgba(var(--a26-accent-gold-rgb) / 0.45);
+}
+
+/* 3. Speaking */
+.a26-spectral-orb.state-speaking .a26-orb-caustics {
+  opacity: 1;
+  background: radial-gradient(
+    circle,
+    rgba(96, 165, 250, 0.6),
+    rgba(var(--a26-accent-teal-rgb) / 0.3) 60%,
+    transparent 78%
+  );
+  transform: scale(1.22);
+  animation: orb-pulse-active 1.6s ease-in-out infinite;
+}
+
+.a26-spectral-orb.state-speaking .a26-orb-lens-body {
+  border-color: rgba(96, 165, 250, 0.75);
+  box-shadow: var(--a26-specular-bevel), 0 0 50px rgba(96, 165, 250, 0.5);
+}
+
+/* 4. Failed */
+.a26-spectral-orb.state-failed .a26-orb-caustics {
+  opacity: 0.8;
+  background: radial-gradient(
+    circle,
+    rgba(var(--a26-accent-danger-rgb) / 0.55),
+    transparent 70%
+  );
+}
+
+.a26-spectral-orb.state-failed .a26-orb-lens-body {
+  border-color: rgba(var(--a26-accent-danger-rgb) / 0.6);
+}
+
+@keyframes orb-breathe {
+  0%, 100% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+@keyframes orb-spin-glow {
+  0% {
+    transform: scale(1.12) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.22) rotate(180deg);
+  }
+  100% {
+    transform: scale(1.12) rotate(360deg);
+  }
+}
+
+@keyframes orb-pulse-active {
+  0%, 100% {
+    transform: scale(1.15);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.28);
+    opacity: 1;
+  }
+}

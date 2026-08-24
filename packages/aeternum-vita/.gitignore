@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build artifacts
+dist/
+build/
+coverage/
+supabase/.temp/
+
+# Environment files
+.env.local
+.env.*.local
+*.env
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Reference
+_reference_realtime_ai/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Executables & Binaries
+tools/*.exe
+*.exe
+*.zip
+*.crt
+.env
+.env.*
+!.env.example

@@ -1,0 +1,184 @@
+name: aeternum-vita
+
+services:
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - livekit-redis:/data
+    restart: unless-stopped
+
+  livekit:
+    image: livekit/livekit-server:v1.13.5
+    environment:
+      LIVEKIT_CONFIG: |
+        port: 7880
+        bind_addresses:
+          - 0.0.0.0
+        redis:
+          address: redis:6379
+        rtc:
+          tcp_port: 7881
+          port_range_start: 50000
+          port_range_end: 50100
+          use_external_ip: false
+        keys:
+          ${LIVEKIT_API_KEY:?Configure LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET:?Configure LIVEKIT_API_SECRET}
+    ports:
+      - "7880:7880"
+      - "7881:7881"
+      - "50000-50100:50000-50100/udp"
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:0.32.5
+    gpus: all
+    volumes:
+      - ollama-models:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    restart: unless-stopped
+
+  ollama-model-init:
+    image: ollama/ollama:0.32.5
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        OLLAMA_HOST=http://ollama:11434 ollama pull
+        ${LOCAL_LLM_MODEL:-qwen3:4b}
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    volumes:
+      - ollama-models:/root/.ollama
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: "no"
+
+  speech:
+    image: ghcr.io/speaches-ai/speaches:0.8.3-cpu
+    environment:
+      API_KEY: ${LOCAL_SPEECH_API_KEY:?Configure LOCAL_SPEECH_API_KEY}
+      ENABLE_UI: "false"
+    volumes:
+      - speech-models:/home/ubuntu/.cache/huggingface/hub
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import os,urllib.request; r=urllib.request.Request('http://127.0.0.1:8000/health',headers={'Authorization':'Bearer '+os.environ.get('API_KEY','')}); urllib.request.urlopen(r,timeout=3)",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 15s
+    restart: unless-stopped
+
+  speech-model-init:
+    image: curlimages/curl:8.16.0
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        curl --fail --retry 5 -X POST
+        -H "Authorization: Bearer ${LOCAL_SPEECH_API_KEY}"
+        http://speech:8000/v1/models/${LOCAL_STT_MODEL:-Systran/faster-whisper-small}
+        && curl --fail --retry 5 -X POST
+        -H "Authorization: Bearer ${LOCAL_SPEECH_API_KEY}"
+        http://speech:8000/v1/models/${LOCAL_TTS_MODEL:-speaches-ai/Kokoro-82M-v1.0-ONNX}
+        && curl --fail --retry 5 -X POST
+        -H "Authorization: Bearer ${LOCAL_SPEECH_API_KEY}"
+        http://speech:8000/v1/models/${LOCAL_TTS_MODEL_DE:-speaches-ai/piper-de_DE-thorsten-high}
+    depends_on:
+      speech:
+        condition: service_healthy
+    restart: "no"
+
+  token-server:
+    build:
+      context: .
+      dockerfile: apps/token-server/Dockerfile
+    env_file:
+      - path: .env.local
+        required: false
+    environment:
+      LIVEKIT_URL: ws://livekit:7880
+      LIVEKIT_PUBLIC_URL: ${LIVEKIT_PUBLIC_URL:-ws://localhost:7880}
+      TOKEN_SERVER_PORT: 3001
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:8080}
+    expose:
+      - "3001"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3001/healthz').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    depends_on:
+      livekit:
+        condition: service_started
+    restart: unless-stopped
+
+  agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - path: .env.local
+        required: false
+    environment:
+      LIVEKIT_URL: ws://livekit:7880
+      LOCAL_LLM_BASE_URL: http://ollama:11434/v1
+      LOCAL_SPEECH_BASE_URL: http://speech:8000/v1
+    depends_on:
+      livekit:
+        condition: service_started
+      ollama:
+        condition: service_healthy
+      speech:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      TOKEN_API_UPSTREAM: http://token-server:3001
+    ports:
+      - "8080:8080"
+    depends_on:
+      token-server:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://127.0.0.1:8080/healthz",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  livekit-redis:
+  ollama-models:
+  speech-models:
