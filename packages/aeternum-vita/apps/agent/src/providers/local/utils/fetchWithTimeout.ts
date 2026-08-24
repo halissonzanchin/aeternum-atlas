@@ -109,6 +109,60 @@ export function createExecutionCoordinator(
   };
 }
 
+export async function nextWithExecutionCoordinator<T>(
+  iterator: AsyncIterator<T>,
+  coordinator: ExecutionCoordinator
+): Promise<IteratorResult<T>> {
+  coordinator.checkAborted();
+
+  if (coordinator.signal.aborted) {
+    try {
+      if (typeof iterator.return === "function") {
+        await iterator.return();
+      }
+    } catch {
+      // ignore return cleanup error
+    }
+    coordinator.checkAborted();
+  }
+
+  let abortHandler: (() => void) | undefined;
+
+  const abortPromise = new Promise<never>((_, reject) => {
+    abortHandler = () => {
+      try {
+        if (typeof iterator.return === "function") {
+          iterator.return().catch(() => {});
+        }
+      } catch {
+        // ignore
+      }
+      try {
+        coordinator.checkAborted();
+      } catch (err) {
+        reject(err);
+      }
+    };
+    coordinator.signal.addEventListener("abort", abortHandler, { once: true });
+  });
+
+  const nextPromise = iterator.next();
+  // Anexar no-op catch para evitar unhandled promise rejection caso o abort vença primeiro
+  nextPromise.then(
+    () => {},
+    () => {}
+  );
+
+  try {
+    const result = await Promise.race([nextPromise, abortPromise]);
+    return result;
+  } finally {
+    if (abortHandler) {
+      coordinator.signal.removeEventListener("abort", abortHandler);
+    }
+  }
+}
+
 export async function executeProviderFetchSession(
   url: string,
   options: ProviderFetchOptions,

@@ -191,7 +191,7 @@ describe.skipIf(!isIntegrationEnabled)(
       it("TTS stream real com cancelamento explícito", async () => {
         const controller = new AbortController();
         const stream = tts.streamSynthesis(
-          { text: "Explicação anatômica detalhada do sistema musculoesquelético.", voiceProfileId: "pt-br-warm-male-01", language: "pt-BR" },
+          { text: "Explicação anatômica detalhada do sistema musculoesquelético.", voiceProfileId: "pt-br-warm-male-01", language: "pt-BR", audioFormat: "pcm" },
           { requestId: "live-tts-stream-cancel", signal: controller.signal }
         );
 

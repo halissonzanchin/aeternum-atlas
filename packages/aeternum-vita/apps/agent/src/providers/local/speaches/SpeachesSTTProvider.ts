@@ -3,6 +3,7 @@ import {
   STTRequest,
   STTResponse,
   STTStreamChunk,
+  AeternumAudioFormat,
   ProviderMetadata,
   HealthResult,
   ProviderExecutionContext,
@@ -11,7 +12,8 @@ import {
 import {
   executeProviderJson,
   executeProviderFetchSession,
-  createExecutionCoordinator
+  createExecutionCoordinator,
+  nextWithExecutionCoordinator
 } from "../utils/fetchWithTimeout.ts";
 import { buildProviderUrl } from "../utils/url.ts";
 import { pcmToWav } from "../utils/audio.ts";
@@ -130,29 +132,63 @@ export class SpeachesSTTProvider implements STTProvider {
     }
   }
 
+  private validatePcmSampleRate(sampleRate?: number): number {
+    if (
+      sampleRate === undefined ||
+      sampleRate === null ||
+      typeof sampleRate !== "number" ||
+      isNaN(sampleRate) ||
+      !Number.isFinite(sampleRate) ||
+      !Number.isInteger(sampleRate) ||
+      sampleRate < 8000 ||
+      sampleRate > 48000
+    ) {
+      throw new ProviderInvalidResponseError(
+        `Para formato 'pcm', o campo 'sampleRate' é obrigatório e deve ser um número inteiro entre 8000 e 48000 Hz. Recebido: ${sampleRate}`,
+        this.metadata.id
+      );
+    }
+    return sampleRate;
+  }
+
   private buildAudioPayload(request: STTRequest, stream = false): FormData {
-    const format = request.audioFormat || "wav";
+    const format = (request.audioFormat || "wav").toLowerCase() as AeternumAudioFormat;
     let audioBytes = request.audioBuffer;
     let mimeType = "audio/wav";
     let fileName = "audio.wav";
 
-    if (format === "pcm") {
-      // Exige sampleRate explícito e encapsula como WAV PCM16LE mono
-      if (!request.sampleRate) {
+    switch (format) {
+      case "pcm":
+        this.validatePcmSampleRate(request.sampleRate);
+        audioBytes = pcmToWav(request.audioBuffer, request.sampleRate, 1, 16);
+        mimeType = "audio/wav";
+        fileName = "audio.wav";
+        break;
+      case "wav":
+        mimeType = "audio/wav";
+        fileName = "audio.wav";
+        break;
+      case "mp3":
+        mimeType = "audio/mpeg";
+        fileName = "audio.mp3";
+        break;
+      case "flac":
+        mimeType = "audio/flac";
+        fileName = "audio.flac";
+        break;
+      case "ogg":
+        mimeType = "audio/ogg";
+        fileName = "audio.ogg";
+        break;
+      case "webm":
+        mimeType = "audio/webm";
+        fileName = "audio.webm";
+        break;
+      default:
         throw new ProviderInvalidResponseError(
-          "Para áudio no formato 'pcm', o campo 'sampleRate' é obrigatório.",
+          `Formato de áudio '${format}' não suportado para transcrição STT. Formatos suportados: pcm, wav, mp3, flac, ogg, webm.`,
           this.metadata.id
         );
-      }
-      audioBytes = pcmToWav(request.audioBuffer, request.sampleRate, 1, 16);
-      mimeType = "audio/wav";
-      fileName = "audio.wav";
-    } else if (format === "webm") {
-      mimeType = "audio/webm";
-      fileName = "audio.webm";
-    } else if (format === "ogg") {
-      mimeType = "audio/ogg";
-      fileName = "audio.ogg";
     }
 
     const formData = new FormData();
@@ -216,16 +252,20 @@ export class SpeachesSTTProvider implements STTProvider {
     context?: ProviderExecutionContext
   ): AsyncIterable<STTStreamChunk> {
     const coordinator = createExecutionCoordinator(this.metadata.id, context);
-
     const chunks: Uint8Array[] = [];
+    const iterator = audioStream[Symbol.asyncIterator]();
+
     try {
-      for await (const chunk of audioStream) {
-        coordinator.checkAborted();
-        chunks.push(chunk);
+      while (true) {
+        const { value, done } = await nextWithExecutionCoordinator(iterator, coordinator);
+        if (done) break;
+        if (value && value.length > 0) {
+          chunks.push(value);
+        }
       }
     } catch (err) {
       coordinator.cleanup();
-      coordinator.handleError(err);
+      throw coordinator.handleError(err);
     }
 
     const totalLength = chunks.reduce((acc, c) => acc + c.length, 0);

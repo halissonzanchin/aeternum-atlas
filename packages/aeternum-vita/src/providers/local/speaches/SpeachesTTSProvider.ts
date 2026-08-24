@@ -19,10 +19,11 @@ export interface SpeachesTTSConfig {
   registry?: VoiceProfileRegistry;
 }
 
-const SUPPORTED_FORMATS = new Set<AeternumAudioFormat>(["pcm", "wav", "mp3", "flac"]);
-
 export class SpeachesTTSProvider implements TTSProvider {
   public readonly metadata: ProviderMetadata;
+  public readonly supportedSynthesizeFormats: readonly AeternumAudioFormat[] = ["pcm", "mp3", "wav", "flac"];
+  public readonly supportedStreamFormats: readonly AeternumAudioFormat[] = ["pcm", "mp3"];
+
   private readonly baseUrl: string;
   private readonly apiKey?: string;
   private readonly registry: VoiceProfileRegistry;
@@ -102,19 +103,41 @@ export class SpeachesTTSProvider implements TTSProvider {
     }
   }
 
-  private validateAndBuildPayload(request: TTSRequest) {
+  private validateAndBuildPayload(request: TTSRequest, isStreaming = false) {
     const profile = this.registry.require(request.voiceProfileId);
     const requestedFormat = (request.audioFormat ?? profile.format ?? "pcm").toLowerCase() as AeternumAudioFormat;
 
-    if (!SUPPORTED_FORMATS.has(requestedFormat)) {
-      throw new ProviderInvalidResponseError(
-        `Formato de áudio '${requestedFormat}' não é suportado pelo Speaches TTS. Formatos suportados: pcm, wav, mp3, flac.`,
-        this.metadata.id
-      );
+    if (isStreaming) {
+      if (!this.supportedStreamFormats.includes(requestedFormat)) {
+        if (this.supportedSynthesizeFormats.includes(requestedFormat)) {
+          throw new ProviderInvalidResponseError(
+            `Formato '${requestedFormat}' é suportado apenas para síntese completa (synthesize), não para streaming progressivo (streamSynthesis). Formatos suportados para stream: ${this.supportedStreamFormats.join(", ")}.`,
+            this.metadata.id
+          );
+        }
+        throw new ProviderInvalidResponseError(
+          `Formato de áudio '${requestedFormat}' não é suportado pelo Speaches TTS. Formatos suportados para stream: ${this.supportedStreamFormats.join(", ")}.`,
+          this.metadata.id
+        );
+      }
+    } else {
+      if (!this.supportedSynthesizeFormats.includes(requestedFormat)) {
+        throw new ProviderInvalidResponseError(
+          `Formato de áudio '${requestedFormat}' não é suportado para síntese pelo Speaches TTS. Formatos suportados: ${this.supportedSynthesizeFormats.join(", ")}.`,
+          this.metadata.id
+        );
+      }
     }
 
     const effectiveSampleRate = request.sampleRate ?? profile.sampleRate;
-    if (typeof effectiveSampleRate !== "number" || effectiveSampleRate < 8000 || effectiveSampleRate > 48000) {
+    if (
+      typeof effectiveSampleRate !== "number" ||
+      isNaN(effectiveSampleRate) ||
+      !Number.isFinite(effectiveSampleRate) ||
+      !Number.isInteger(effectiveSampleRate) ||
+      effectiveSampleRate < 8000 ||
+      effectiveSampleRate > 48000
+    ) {
       throw new ProviderInvalidResponseError(
         `Taxa de amostragem de ${effectiveSampleRate}Hz fora do limite suportado pelo Speaches (8000–48000Hz).`,
         this.metadata.id
@@ -136,7 +159,7 @@ export class SpeachesTTSProvider implements TTSProvider {
   async synthesize(request: TTSRequest, context?: ProviderExecutionContext): Promise<TTSResponse> {
     const start = performance.now();
     const url = buildProviderUrl(this.baseUrl, "/v1/audio/speech");
-    const { profile, payload, effectiveSampleRate, requestedFormat } = this.validateAndBuildPayload(request);
+    const { profile, payload, effectiveSampleRate, requestedFormat } = this.validateAndBuildPayload(request, false);
 
     const headers: Record<string, string> = {
       "Content-Type": "application/json"
@@ -170,7 +193,7 @@ export class SpeachesTTSProvider implements TTSProvider {
 
   async *streamSynthesis(request: TTSRequest, context?: ProviderExecutionContext): AsyncIterable<TTSStreamChunk> {
     const url = buildProviderUrl(this.baseUrl, "/v1/audio/speech");
-    const { payload } = this.validateAndBuildPayload(request);
+    const { payload } = this.validateAndBuildPayload(request, true);
 
     const headers: Record<string, string> = {
       "Content-Type": "application/json"

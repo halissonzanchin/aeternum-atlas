@@ -6,9 +6,18 @@ export function pcmToWav(
   channels = 1,
   bitDepth = 16
 ): Uint8Array {
-  if (!sampleRate || sampleRate <= 0) {
+  if (
+    sampleRate === undefined ||
+    sampleRate === null ||
+    typeof sampleRate !== "number" ||
+    isNaN(sampleRate) ||
+    !Number.isFinite(sampleRate) ||
+    !Number.isInteger(sampleRate) ||
+    sampleRate < 8000 ||
+    sampleRate > 48000
+  ) {
     throw new ProviderInvalidResponseError(
-      "Para áudio no formato 'pcm', o campo 'sampleRate' é obrigatório e deve ser maior que zero.",
+      `Taxa de amostragem inválida para PCM: ${sampleRate}. Deve ser um número inteiro entre 8000 e 48000 Hz.`,
       "audio-encoder"
     );
   }
