@@ -4,6 +4,71 @@
 
 ---
 
+## [2026-08-24 15:35] — Fase 2A: Aeternum AI Provider Contracts
+
+### Solicitação recebida
+Executar a Fase 2A (Aeternum AI Provider Contracts):
+1. Criar camada formal de contratos e tipos independentes de fornecedores específicos em `packages/aeternum-vita/src/providers/`.
+2. Definir interfaces `LLMProvider`, `STTProvider`, `TTSProvider`, `RAGProvider`, `MemoryProvider`, `HealthProvider` e `BaseProvider`.
+3. Definir hierarquia de erros canônicos (`ProviderUnavailableError`, `ProviderTimeoutError`, `ProviderAuthenticationError`, `ProviderRateLimitError`, `ProviderInvalidResponseError`).
+4. Criar fake providers para testes unitários (`FakeLLMProvider`, `FakeSTTProvider`, `FakeTTSProvider`, `FakeRAGProvider`, `FakeMemoryProvider`).
+5. Criar suíte de testes de contratos e documentação formal em `AETERNUM_PROVIDER_CONTRACTS.md`.
+6. Garantir zero alteração nos runtimes de produção e zero acoplamento de personas/pedagogia nos providers.
+
+### Análise
+A criação dos contratos de provedor estabelece a fronteira arquitetural entre infraestrutura de computação e inteligência pedagógica. Os contratos não importam nenhum SDK externo, tornando o ecossistema pronto para alternar entre Ollama local, vLLM em GPU dedicada ou contingência em nuvem.
+
+### Decisão tomada
+- Estruturadas as pastas `src/providers/types/`, `src/providers/contracts/` e `src/providers/testing/`.
+- Implementada a suíte `provider_contracts.test.ts` com 10 cenários cobrindo geração, streaming, áudio, RAG com scores obrigatórios, memória segregada e erros canônicos.
+- Documentados todos os contratos em `AETERNUM_PROVIDER_CONTRACTS.md`.
+
+### Arquivos modificados / criados
+- packages/aeternum-vita/src/providers/types/common.ts
+- packages/aeternum-vita/src/providers/types/errors.ts
+- packages/aeternum-vita/src/providers/types/llm.ts
+- packages/aeternum-vita/src/providers/types/speech.ts
+- packages/aeternum-vita/src/providers/types/rag.ts
+- packages/aeternum-vita/src/providers/types/memory.ts
+- packages/aeternum-vita/src/providers/types/health.ts
+- packages/aeternum-vita/src/providers/contracts/BaseProvider.ts
+- packages/aeternum-vita/src/providers/contracts/LLMProvider.ts
+- packages/aeternum-vita/src/providers/contracts/STTProvider.ts
+- packages/aeternum-vita/src/providers/contracts/TTSProvider.ts
+- packages/aeternum-vita/src/providers/contracts/RAGProvider.ts
+- packages/aeternum-vita/src/providers/contracts/MemoryProvider.ts
+- packages/aeternum-vita/src/providers/contracts/HealthProvider.ts
+- packages/aeternum-vita/src/providers/testing/FakeLLMProvider.ts
+- packages/aeternum-vita/src/providers/testing/FakeSTTProvider.ts
+- packages/aeternum-vita/src/providers/testing/FakeTTSProvider.ts
+- packages/aeternum-vita/src/providers/testing/FakeRAGProvider.ts
+- packages/aeternum-vita/src/providers/testing/FakeMemoryProvider.ts
+- packages/aeternum-vita/src/providers/__tests__/provider_contracts.test.ts
+- packages/aeternum-vita/docs/AETERNUM_PROVIDER_CONTRACTS.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/CURRENT_STATE.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/TEST_HISTORY.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/ANTIGRAVITY_SYNC.md
+
+### Infraestrutura alterada
+- Nenhuma (Zero runtime impact).
+
+### Banco de dados
+- Nenhum.
+
+### Testes executados
+- Suíte de contratos de providers: 10/10 testes aprovados (PASS).
+- Suíte completa do agente: 54/54 testes aprovados (PASS).
+- Suíte global do monorepo: 74/74 testes aprovados (PASS).
+
+### Resultado
+PASS (Fase 2A PROVIDER CONTRACTS VERIFIED)
+
+### Status da arquitetura
+- Contratos de Provider: CRIADOS & TESTADOS
+- Runtime em Produção: PRESERVADO & INTACTO (Zero Regressão)
+
+---
+
 ## [2026-08-24 15:20] — Fase 1.3: Vault Privilege Hardening Gate (P0 Hardening)
 
 ### Solicitação recebida

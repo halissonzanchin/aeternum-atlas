@@ -20,7 +20,8 @@ AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 - Status: ACTIVE / ENFORCED
 
 ### AI Gateway
-- Status: PLANNED (Fase 2 em estruturação)
+- Status: IN PROGRESS (Fase 2A Concluída: Contratos e Interfaces Criados)
+- Contracts: packages/aeternum-vita/src/providers/contracts/ (LLMProvider, STTProvider, TTSProvider, RAGProvider, MemoryProvider, HealthProvider)
 - Porta reservada: localhost:8081
 - Portas dos serviços internos:
   - LiveKit Server: 7880

@@ -2,6 +2,34 @@
 
 ---
 
+## Teste 005 — Suíte de Testes de Contratos de Providers (Fase 2A)
+
+Data: 2026-08-24 15:30 BRT  
+Ambiente: `packages/aeternum-vita/apps/agent` (Vitest)
+
+### Cenários Executados:
+1. LLMProvider: geração de resposta com tipagem e metadados canônicos -> **PASS** ✅
+2. LLMProvider: streaming assíncrono de chunks -> **PASS** ✅
+3. LLMProvider: reporte de status de saúde canônico (HEALTHY/UNAVAILABLE) -> **PASS** ✅
+4. STTProvider: transcrição de áudio com metadados e confiança -> **PASS** ✅
+5. STTProvider: streaming de transcrição parcial e final -> **PASS** ✅
+6. TTSProvider: síntese de voz com formato de áudio especificado -> **PASS** ✅
+7. TTSProvider: streaming de áudio sintetizado -> **PASS** ✅
+8. RAGProvider: retorno estruturado com método de recuperação e citação obrigatória -> **PASS** ✅
+9. MemoryProvider: isolamento do contexto do estudante sem contaminação enciclopédica -> **PASS** ✅
+10. Canonical Errors: instanciação de erros com código canônico e providerId -> **PASS** ✅
+
+### Métricas Globais do Monorepo:
+- `apps/agent`: 54 testes aprovados (7 arquivos)
+- `apps/token-server`: 6 testes aprovados (2 arquivos)
+- `apps/web`: 14 testes aprovados (3 arquivos)
+- **Total: 74/74 testes aprovados (100% Green)**
+
+### Resultado
+PASS
+
+---
+
 ## Teste 004 — Hardening de Privilégios do Vault (Fase 1.3)
 
 Data: 2026-08-24 15:19 BRT  
