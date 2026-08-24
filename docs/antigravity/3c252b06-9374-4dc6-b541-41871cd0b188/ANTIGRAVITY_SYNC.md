@@ -70,7 +70,7 @@ PASS
 - Monorepo tests: 44 passed (apps/agent), 6 passed (apps/token-server), 14 passed (apps/web). Total 64 passed.
 
 ### Commit
-SHA: 8ae88ec
+SHA: e0d3a17c0d644fc87d6f5f6606c3a321dcbcdefb
 Mensagem: docs: add Aeternum Sovereign AI architecture inventory (Phase 0) and security P0 baseline
 
 ### Riscos encontrados
