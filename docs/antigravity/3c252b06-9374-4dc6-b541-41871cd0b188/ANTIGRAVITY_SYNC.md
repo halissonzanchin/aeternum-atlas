@@ -4,6 +4,60 @@
 
 ---
 
+## [2026-08-24 19:20] — Fase 2B.2: Cloud Provider Adapters
+
+### Solicitação recebida
+Executar a Fase 2B.2 (Cloud Provider Adapters):
+1. **GeminiLLMProvider (Google Cloud)**:
+   - Implementa o contrato canônico `LLMProvider` (`generate`, `stream`, `health`).
+   - Mapeia `LLMRequest` para a API REST/SSE v1beta do Google Gemini (`gemini-2.0-flash` default) com cabeçalho `x-goog-api-key`.
+   - `health()` consulta `/v1beta/models/{model}` com custo zero de tokens.
+   - Streaming SSE progressivo com cancelamento (`AbortSignal`) e suporte a `finishReason` e métricas de `usage`.
+   - Zero dependência e zero acoplamento com o `ai-tutor v17` legado de produção (permanece ativo em paralelo).
+2. **DeepgramSTTProvider (Deepgram Nova-3)**:
+   - Implementa o contrato canônico `STTProvider` (`transcribe`, `streamTranscription`, `health`).
+   - Suporte a batch transcription com múltiplos formatos (`wav`, `mp3`, `flac`, `ogg`, `webm`, `pcm` encapsulado com validação 8000–48000Hz).
+   - Suporte a `medicalContextHints` traduzidos para query params `keywords={hint}` do Deepgram.
+   - `health()` consulta `/v1/projects` com custo zero de áudio.
+3. **CartesiaTTSProvider (Cartesia Sonic API)**:
+   - Implementa o contrato canônico `TTSProvider` (`synthesize`, `streamSynthesis`, `health`).
+   - Resolução de voz desacoplada via `VoiceProfileRegistry.resolveTarget(voiceProfileId, "cartesia")`, mapeando para UUIDs nativos do Cartesia.
+   - `health()` consulta `/voices` com custo zero de áudio.
+   - Suporte a formatos (`pcm`, `wav`, `mp3`) e rejeição fail-fast de formatos não suportados (`ogg`).
+4. **Cloud Voice Profile Mapping**:
+   - `VoiceProfileRegistry` estendido para arquitetura multi-target (`targets: Record<string, ProviderVoiceTarget>`), mantendo estável a identidade de voz (`pt-br-warm-male-01`) e separando Persona != Voice Profile != Cartesia Voice ID.
+5. **Custo & Segurança**:
+   - Zero secrets hardcoded no código ou repositório. Variáveis de ambiente configuráveis (`GEMINI_API_KEY`, `DEEPGRAM_API_KEY`, `CARTESIA_API_KEY`).
+   - Suíte unitária 100% mockada (0 chamadas a APIs pagas no CI / default).
+   - Flag de integração opt-in (`RUN_CLOUD_PROVIDER_INTEGRATION=true`) com smoke tests mínimos em áudio/texto sintético e sem dados reais de alunos.
+6. **Governança & Zero Runtime Changes**:
+   - Commit A (Implementação & Testes): `3a580e9afd7968a4e67373b761a2bf6cf0ec9861`
+   - Zero alteração no runtime de produção (Supabase ai-tutor v17, voice-token v7, frontend, LiveKit, agent Docker ativo).
+   - Status: `IMPLEMENTED / PENDING CHATGPT AUDIT`.
+
+### Arquivos criados / modificados
+- packages/aeternum-vita/src/providers/voice/VoiceProfileRegistry.ts
+- packages/aeternum-vita/src/providers/cloud/gemini/GeminiLLMProvider.ts
+- packages/aeternum-vita/src/providers/cloud/deepgram/DeepgramSTTProvider.ts
+- packages/aeternum-vita/src/providers/cloud/cartesia/CartesiaTTSProvider.ts
+- packages/aeternum-vita/src/providers/cloud/index.ts
+- packages/aeternum-vita/src/providers/index.ts
+- packages/aeternum-vita/src/providers/__tests__/cloud_providers.test.ts
+- packages/aeternum-vita/src/providers/__tests__/cloud_providers.integration.test.ts
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/ANTIGRAVITY_SYNC.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/TEST_HISTORY.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/CURRENT_STATE.md
+
+### Testes executados
+- TypeScript Typecheck (`tsc --noEmit`): **PASS (0 erros)**
+- Suíte Unitária do Monorepo: **127 passed (100% Green)**
+- Suíte de Integração Local no HP Victus (`local_providers.integration.test.ts`): **10/10 passed (100% Green)**
+
+### Resultado
+PASS (Fase 2B.2 IMPLEMENTED / PENDING CHATGPT AUDIT)
+
+---
+
 ## [2026-08-24 18:45] — Fase 2B.1.4: Pre-Router Final Micro-Gate
 
 ### Solicitação recebida

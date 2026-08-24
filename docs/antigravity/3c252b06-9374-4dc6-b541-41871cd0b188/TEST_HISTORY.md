@@ -2,6 +2,44 @@
 
 ---
 
+## Teste 012 — Validação de Cloud Provider Adapters & Multi-Target Voice Registry (Fase 2B.2)
+
+Data: 2026-08-24 19:20 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest)
+
+### 1. Verificação Estática & Tipagem (tsc --noEmit):
+- `apps/agent`: **PASS (0 erros)** ✅
+- `apps/token-server`: **PASS (0 erros)** ✅
+- `apps/web`: **PASS (0 erros)** ✅
+
+### 2. Suíte Unitária (Vitest Mocks - 127 Testes no Monorepo - 100% Green):
+- **VoiceProfileRegistry**: Mapeamento multi-target Speaches (pm_alex) vs Cartesia (a0e99841-438c-4a64-b679-ae501e7d6091): **PASS** ✅
+- **GeminiLLMProvider**:
+  - Health: DEGRADED (sem key), HEALTHY (200 sem custo de tokens): **PASS** ✅
+  - Generate: Mapeamento de texto, system instruction, tokens de usage, finishReason: **PASS** ✅
+  - Error Normalization: 401/403 -> `ProviderAuthenticationError`, 429 -> `ProviderRateLimitError` com `retryAfter`, 503 -> `ProviderUnavailableError`: **PASS** ✅
+  - Stream: Consumo SSE progressivo de deltas e cancelamento por `AbortSignal` -> `ProviderCancelledError`: **PASS** ✅
+- **DeepgramSTTProvider**:
+  - Health: DEGRADED (sem key), HEALTHY (200 sem custo de áudio): **PASS** ✅
+  - Transcribe: Mapeamento de texto, confiança, timestamps por palavra e hints médicos (`keywords`): **PASS** ✅
+  - Formatos: Validação de WAV, MP3, FLAC, OGG, WEBM e PCM com sampleRate (8000–48000Hz): **PASS** ✅
+  - Stream: Coleta assíncrona e emissão de transcrição final: **PASS** ✅
+- **CartesiaTTSProvider**:
+  - Health: DEGRADED (sem key), HEALTHY (200 sem custo de áudio): **PASS** ✅
+  - Synthesize: Resolução de target Cartesia, envio de payload estruturado, sampleRate e áudio binário: **PASS** ✅
+  - Formatos: Aceitação de PCM, WAV, MP3 e rejeição fail-fast de OGG: **PASS** ✅
+  - Stream: Streaming progressivo de chunks binários de áudio: **PASS** ✅
+
+### 3. Suíte de Integração Local no HP Victus (10/10 Testes Executados):
+- Ollama Health, Generate, Stream, Cancel: **PASS** ✅
+- Speaches STT Health, Batch, SSE Output: **PASS** ✅
+- Speaches TTS Health, Synthesize (24kHz & 16kHz), Stream Cancel: **PASS** ✅
+
+### Resultado
+PASS (127/127 Testes Unitários & 10/10 Testes Locais Aprovados)
+
+---
+
 ## Teste 011 — Validação Pre-Router Final Micro-Gate & Integração HP Victus (Fase 2B.1.4)
 
 Data: 2026-08-24 18:45 BRT  

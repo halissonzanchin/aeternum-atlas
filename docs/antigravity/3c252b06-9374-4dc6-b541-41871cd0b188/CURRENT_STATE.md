@@ -1,10 +1,10 @@
 # AETERNUM ATLAS — ESTADO ATUAL
 
-Última auditoria / atualização: 2026-08-24 18:45 BRT
+Última auditoria / atualização: 2026-08-24 19:20 BRT
 Conversation ID: 3c252b06-9374-4dc6-b541-41871cd0b188
-ATLAS_SOURCE_SHA: 633332d11782e2ba6f333afd56bbb5384ba9277e
+ATLAS_SOURCE_SHA: 3a580e9afd7968a4e67373b761a2bf6cf0ec9861
 ATLAS_PROD_DEPLOY_SHA: UNKNOWN / NOT VERIFIED
-PROVIDER_ADAPTER_SHA: 633332d11782e2ba6f333afd56bbb5384ba9277e
+PROVIDER_ADAPTER_SHA: 3a580e9afd7968a4e67373b761a2bf6cf0ec9861
 LEGACY_VITA_RUNTIME_SHA: UNKNOWN / NOT VERIFIED
 VOICE_TOKEN_RUNTIME_VERSION: v7 (ACTIVE - Fail-Closed, Vault Secret Resolver)
 AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
@@ -23,11 +23,10 @@ AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 
 ### AI Gateway
 - Status: PLANNED / NOT IMPLEMENTED
-- Provider Layer: IMPLEMENTED / PENDING CHATGPT AUDIT (Fase 2B.1.4 Concluída: Pre-Router Final Micro-Gate)
+- Provider Layer Local: VERIFIED (OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider)
+- Cloud Provider Layer: IMPLEMENTED / PENDING CHATGPT AUDIT (GeminiLLMProvider, DeepgramSTTProvider, CartesiaTTSProvider)
 - Provider Router: PLANNED / NOT IMPLEMENTED
-- Novos Provider Adapters: CODE PRESENT / TESTED / NOT WIRED (OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider, VoiceProfileRegistry)
-- Legacy Vita Local Runtime: ACTIVE (Inalterado em produção)
-- Local Providers: OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider, VoiceProfileRegistry
+- Voice Registry: VoiceProfileRegistry (Multi-target: Speaches + Cartesia com identidades canônicas estáveis)
 - Contracts: packages/aeternum-vita/src/providers/contracts/ (LLMProvider, STTProvider, TTSProvider, RAGProvider, MemoryProvider, ProviderHealthMonitor)
 - Execution Context: ProviderExecutionContext (AbortSignal, Barge-in, Tracing)
 - Error Taxonomy: ProviderUnavailableError, ProviderTimeoutError, ProviderCancelledError, ProviderRateLimitError, ProviderInvalidResponseError
@@ -50,20 +49,21 @@ AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
   - Local/Cloud: Local (HP Victus)
   - Fallback: Gemma / Gemini (código desacoplado)
   - Status: IMPLEMENTED / ACTIVE (Local)
+- Cloud Adapter Preparado: GeminiLLMProvider (Google Cloud API v1beta)
 
 ### STT
 - Provider Primário: Faster-Whisper (via Speaches Docker :8000)
 - Modelo: faster-whisper-medium / small
 - Local/Cloud: Local (HP Victus)
-- Fallback: Deepgram Nova-3 (código desacoplado)
 - Status: IMPLEMENTED / ACTIVE (Local)
+- Cloud Adapter Preparado: DeepgramSTTProvider (Deepgram Nova-3 API v1)
 
 ### TTS
 - Provider Primário: Kokoro-82M & Piper (via Speaches Docker :8000)
 - Modelo: Kokoro v0.19 / Piper
 - Local/Cloud: Local (HP Victus)
-- Fallback: Cartesia Sonic-3 / Deepgram Aura-2 (código desacoplado)
 - Status: IMPLEMENTED / ACTIVE (Local)
+- Cloud Adapter Preparado: CartesiaTTSProvider (Cartesia Sonic API 2024-06-10)
 
 ### RAG
 - Provider: Supabase PostgreSQL (hyivyrietgjdazgizafp)
@@ -117,7 +117,7 @@ AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 | Fase 1.3 | Vault Hardening & Security Definer Enforcement | VERIFIED |
 | Fase 2A | Aeternum AI Provider Contracts | VERIFIED |
 | Fase 2A.1 | Provider Contract Hardening Gate | VERIFIED |
-| Fase 2B.1.4 | Pre-Router Final Micro-Gate | IMPLEMENTED / PENDING CHATGPT AUDIT |
-| Fase 2B.2 | Cloud Inference Providers | PLANNED |
+| Fase 2B.1.4 | Pre-Router Final Micro-Gate (Local Providers) | VERIFIED |
+| Fase 2B.2 | Cloud Provider Adapters | IMPLEMENTED / PENDING CHATGPT AUDIT |
 | Fase 2C | Provider Router & Fallback Policy Engine | PLANNED |
 | Fase 2D | Aeternum AI Gateway Service | PLANNED |
