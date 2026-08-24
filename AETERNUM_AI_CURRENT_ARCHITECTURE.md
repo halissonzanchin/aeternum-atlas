@@ -21,7 +21,7 @@ O ecossistema **Aeternum Atlas** divide-se em três macro-camadas:
      * `ai-tutor`: Processamento de linguagem natural, socrática e clínica.
      * `voice-token`: Emissão de credenciais e salas WebRTC LiveKit.
    * **Banco de Dados & Vetores:**
-     * `vita_anatomical_knowledge`: **20.302 chunks** anatômicos de 12 livros canônicos indexados com vetores (`pgvector`).
+     * `vita_anatomical_knowledge`: **20.302 chunks** anatômicos de 12 livros canônicos indexados com vetores (`Full Text Search (FTS)`).
      * `ai_conversations` & `ai_messages`: Histórico de mensagens do chat textual.
      * `ai_audit_events`: Auditoria de consumo e latência de IA.
      * `vita_tutor_memory`: Memória pedagógica individual do estudante.
@@ -46,7 +46,7 @@ sequenceDiagram
     participant UI as AtlasAITutor UI
     participant Edge as Supabase Edge Function (ai-tutor)
     participant Auth as Supabase Auth & RLS
-    participant RAG as Supabase pgvector (match_anatomical_knowledge)
+    participant RAG as Supabase Full Text Search (match_vita_anatomical_knowledge)
     participant LLM as Provider LLM (Local Ollama / Cloud Gemini)
 
     Aluno->>UI: Envia pergunta ("Explique a clavícula")
@@ -55,7 +55,7 @@ sequenceDiagram
     alt JWT Inválido ou Ausente
         Edge-->>UI: 401 Unauthorized (Bloqueio P0)
     else Usuário Autenticado
-        Edge->>RAG: Busca vetorial na biblioteca anatômica (Top 6 chunks)
+        Edge->>RAG: Busca léxica Full Text Search na biblioteca anatômica
         RAG-->>Edge: Retorna trechos de Moore/Netter/Sobotta
         Edge->>LLM: Gera resposta com Roteiro de 5 Pontos
         LLM-->>Edge: Stream de texto
@@ -104,7 +104,7 @@ sequenceDiagram
 * **Tabela Principal:** `vita_anatomical_knowledge` (Supabase Cloud).
 * **Volume Indexado:** 20.302 chunks (12 livros canônicos: Moore, Netter, Latarjet Tomos 1 e 2, Prometheus, Snell, McMinn).
 * **Camada Local em Memória:** 17 tópicos enciclopédicos estruturados em 4 idiomas (PT, ES, EN, DE) no arquivo `anatomical-knowledge.ts` da Vita.
-* **Mecanismo de Busca:** Híbrido (busca vetorial com embeddings de 768 dimensões + correspondência léxica de termos e acidentes ósseos).
+* **Mecanismo de Busca:** Híbrido (busca vetorial com Full Text Search (to_tsvector, websearch_to_tsquery, ts_rank_cd) — Planejado: Híbrido Vetorial + Reranking de termos e acidentes ósseos).
 
 ---
 
@@ -136,7 +136,7 @@ sequenceDiagram
 | **Deepgram (Nova-3)** | 🟡 Código Desacoplado | Provider STT Cloud Contingência |
 | **Kokoro / Piper** | 🟢 Ativo (Local Speaches :8000) | Provider TTS Local Primário |
 | **Cartesia (Sonic-3)** | 🟡 Código Desacoplado | Provider TTS Cloud Contingência |
-| **Supabase pgvector** | 🟢 Ativo (20.302 Chunks) | Source of Truth para RAG Anatômico |
+| **Supabase Full Text Search (FTS)** | 🟢 Ativo (20.302 Chunks) | Source of Truth para RAG Anatômico |
 | **Cloudflare Tunnel** | 🟢 Ativo (`cloudflared`) | Ponte segura TLS para o LiveKit Local |
 
 ---
