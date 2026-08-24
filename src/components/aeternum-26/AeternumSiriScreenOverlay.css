@@ -64,6 +64,14 @@
   z-index: 2;
 }
 
+.a26-vita-livekit-room {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
 /* Subtle Physical Vibration on Orb Trigger while Siri Mode is Active */
 .a26-orb--vibrating {
   animation: a26OrbVibrate 1.8s ease-in-out infinite alternate;
@@ -251,6 +259,17 @@
   animation: a26StatusBlink 0.6s infinite ease-in-out;
 }
 
+.a26-voice-status-dot.connecting {
+  background: #a78bfa;
+  box-shadow: 0 0 8px #a78bfa;
+  animation: a26StatusBlink 0.8s infinite ease-in-out;
+}
+
+.a26-voice-status-dot.error {
+  background: #fb7185;
+  box-shadow: 0 0 8px #fb7185;
+}
+
 @keyframes a26StatusBlink {
   0%, 100% { opacity: 0.4; transform: scale(0.9); }
   50% { opacity: 1; transform: scale(1.25); }
@@ -317,6 +336,12 @@
   background: rgba(46, 213, 202, 0.09);
   border: 1px solid rgba(46, 213, 202, 0.2);
   color: #ffffff;
+}
+
+.a26-voice-bubble.error {
+  background: rgba(251, 113, 133, 0.1);
+  border: 1px solid rgba(251, 113, 133, 0.28);
+  color: #ffe4e6;
 }
 
 .a26-voice-bubble-label {

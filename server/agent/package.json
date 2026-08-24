@@ -6,12 +6,19 @@
   "scripts": {
     "dev": "node --use-system-ca src/main.ts dev",
     "start": "node --use-system-ca src/main.ts start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:behavior": "node --test src/behavior/session-state.test.ts src/knowledge/vita-knowledge.test.ts src/knowledge/emergency-vita-llm.test.ts"
   },
   "dependencies": {
-    "@livekit/agents": "^1.5.0",
+    "@livekit/agents": "1.6.4",
+    "@livekit/agents-plugin-google": "1.6.4",
     "@livekit/plugins-ai-coustics": "^0.2.14",
     "@livekit/rtc-node": "^0.13.31",
+    "@supabase/supabase-js": "^2.105.4",
     "dotenv": "^17.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "typescript": "^5.7.2"
   }
 }

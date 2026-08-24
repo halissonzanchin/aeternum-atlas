@@ -41,6 +41,23 @@ class DirectDeepgramChunkedStream extends tts.ChunkedStream {
     // 20ms frame of 24kHz mono 16-bit PCM = 24000 * 0.02 * 2 bytes = 960 bytes (480 samples)
     const chunkSize = 960;
     let buffer = Buffer.alloc(0);
+    let pendingFrame: AudioFrame | null = null;
+
+    const makeFrame = (pcmBytes: Buffer) => {
+      const sampleCount = Math.floor(pcmBytes.length / 2);
+      const samples = new Int16Array(sampleCount);
+      for (let index = 0; index < sampleCount; index += 1) {
+        samples[index] = pcmBytes.readInt16LE(index * 2);
+      }
+      return new AudioFrame(samples, sampleRate, numChannels, sampleCount);
+    };
+
+    const queueFrame = (frame: AudioFrame) => {
+      if (pendingFrame) {
+        this.queue.put({ requestId, segmentId, frame: pendingFrame, final: false });
+      }
+      pendingFrame = frame;
+    };
 
     while (true) {
       const { done, value } = await reader.read();
@@ -50,36 +67,16 @@ class DirectDeepgramChunkedStream extends tts.ChunkedStream {
           const chunk = buffer.subarray(0, chunkSize);
           buffer = buffer.subarray(chunkSize);
 
-          const frame = new AudioFrame(
-            new Uint8Array(chunk),
-            sampleRate,
-            numChannels,
-            chunkSize / 2
-          );
-
-          this.queue.put({
-            requestId,
-            segmentId,
-            frame,
-            final: false
-          });
+          queueFrame(makeFrame(chunk));
         }
       }
 
       if (done) {
-        if (buffer.length > 0) {
-          const frame = new AudioFrame(
-            new Uint8Array(buffer),
-            sampleRate,
-            numChannels,
-            buffer.length / 2
-          );
-          this.queue.put({
-            requestId,
-            segmentId,
-            frame,
-            final: true
-          });
+        if (buffer.length >= 2) {
+          queueFrame(makeFrame(buffer.subarray(0, buffer.length - (buffer.length % 2))));
+        }
+        if (pendingFrame) {
+          this.queue.put({ requestId, segmentId, frame: pendingFrame, final: true });
         }
         break;
       }
@@ -96,7 +93,11 @@ export class DirectDeepgramTTS extends tts.TTS {
   constructor(model: string = "aura-2-antonia-es", apiKey?: string) {
     super(24000, 1, { streaming: false });
     this.#model = model;
-    this.#apiKey = apiKey || process.env.DEEPGRAM_API_KEY || "578cc8e2294e0b01fad0afc13f85e799dfa270df";
+    const resolvedApiKey = apiKey?.trim() || process.env.DEEPGRAM_API_KEY?.trim();
+    if (!resolvedApiKey) {
+      throw new Error("DEEPGRAM_API_KEY is required for DirectDeepgramTTS");
+    }
+    this.#apiKey = resolvedApiKey;
     this.#adapter = new tts.StreamAdapter(this, new tokenize.basic.SentenceTokenizer());
   }
 

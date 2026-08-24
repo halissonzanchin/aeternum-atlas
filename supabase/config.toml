@@ -11,3 +11,9 @@ entrypoint = "./functions/ai-tutor/index.ts"
 # Specifies static files to be bundled with the function. Supports glob patterns.
 # For example, if you want to serve static HTML pages in your function:
 # static_files = [ "./functions/ai-tutor/*.html" ]
+
+[functions.voice-token]
+enabled = true
+# O handler responde ao preflight e valida o JWT Supabase em todo POST.
+verify_jwt = false
+entrypoint = "./functions/voice-token/index.ts"

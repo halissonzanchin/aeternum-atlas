@@ -1,5 +1,11 @@
-import { Agent, dedent, inference, tts, voice, type JobContext } from "@livekit/agents";
+import { Agent, dedent, inference, llm, tts, voice, type JobContext } from "@livekit/agents";
+import * as google from "@livekit/agents-plugin-google";
 import { DirectDeepgramTTS } from "./deepgram-tts.ts";
+import { buildPedagogyDirective } from "./behavior/pedagogy-policy.ts";
+import { VitaSessionStateMachine } from "./behavior/session-state.ts";
+import { VitaMemoryStore } from "./behavior/vita-memory-store.ts";
+import { buildVitaKnowledgeDirective, VitaKnowledgeRetriever } from "./knowledge/vita-knowledge.ts";
+import { EmergencyVitaLLM } from "./knowledge/emergency-vita-llm.ts";
 
 export type TutorId = "eduardo" | "antonia" | "ariana" | "fabian";
 
@@ -29,13 +35,15 @@ export interface TutorConfig {
 }
 
 const basePerformanceInstructions = dedent`
-  DIRETRIZ DE PERFORMANCE E FLUIDEZ (ZERO TRAVAMENTOS):
-  - Mantenha respostas ÁGEIS, DIRETAS e NATURAIS: exatamente UMA a DUAS frases concisas por turno.
-  - NUNCA gere parágrafos longos, dissertações ou listas extensas. Respostas curtas garantem áudio imediato e sem engasgos.
+  DIRETRIZ DE PERFORMANCE, HUMANIZAÇÃO E FLUIDEZ:
+  - Mantenha respostas ágeis, diretas e naturais. Para dúvidas anatômicas complexas, entregue de quatro a oito frases oralizáveis e organize o aprofundamento em camadas.
+  - Não gere dissertações nem listas extensas. Priorize precisão anatômica, uma sequência didática clara e um próximo passo por turno.
   - Fale com voz relaxada, usando vírgulas para respiro e no máximo uma reticência suave (...) por turno.
-  - Responda SEMPRE em texto puro e oralizável. NUNCA use Markdown, asteriscos, negrito ou emojis.
+  - Responda sempre em texto puro e oralizável. Nunca use Markdown, asteriscos, negrito ou emojis.
   - Escreva números e siglas por extenso.
-  - Finalize com apenas UMA pergunta curta para manter o diálogo vivo e interativo.
+  - Não faça uma pergunta ao final por hábito. Pergunte somente quando isso avançar o objetivo pedagógico indicado pela política dinâmica do turno.
+  - Não use elogios genéricos. Reconheça progresso apenas quando o estudante demonstrar compreensão ou raciocínio.
+  - Não invente livros, páginas, autores ou citações. Diferencie explicação educacional de diagnóstico individual.
 `;
 
 export const TUTOR_CONFIGS: Record<TutorId, TutorConfig> = {
@@ -52,7 +60,7 @@ export const TUTOR_CONFIGS: Record<TutorId, TutorConfig> = {
       language: "pt-BR"
     },
     llm: {
-      model: "google/gemini-3.1-flash-lite"
+      model: "google/gemma-4-31b-it"
     },
     tts: {
       provider: "cartesia",
@@ -85,7 +93,7 @@ export const TUTOR_CONFIGS: Record<TutorId, TutorConfig> = {
       language: "es"
     },
     llm: {
-      model: "google/gemini-3.1-flash-lite"
+      model: "google/gemma-4-31b-it"
     },
     tts: {
       provider: "deepgram",
@@ -117,7 +125,7 @@ export const TUTOR_CONFIGS: Record<TutorId, TutorConfig> = {
       language: "en"
     },
     llm: {
-      model: "google/gemini-3.1-flash-lite"
+      model: "google/gemma-4-31b-it"
     },
     tts: {
       provider: "cartesia",
@@ -149,7 +157,7 @@ export const TUTOR_CONFIGS: Record<TutorId, TutorConfig> = {
       language: "de"
     },
     llm: {
-      model: "google/gemini-3.1-flash-lite"
+      model: "google/gemma-4-31b-it"
     },
     tts: {
       provider: "deepgram",
@@ -176,10 +184,33 @@ export const getTutorConfig = (tutorId: TutorId = "eduardo"): TutorConfig => {
 
 export const createTutorTTS = (tutorId: TutorId = "eduardo"): tts.TTS => {
   const config = getTutorConfig(tutorId);
-  if (config.tts.provider === "deepgram") {
+  if (config.tts.provider === "deepgram" && process.env.DEEPGRAM_API_KEY?.trim()) {
     return new DirectDeepgramTTS(config.tts.voice);
   }
   return new inference.TTS(config.tts as any);
+};
+
+export const createTutorLLM = (config: TutorConfig): llm.LLM => {
+  const googleApiKey = process.env.GOOGLE_API_KEY?.trim() || process.env.GOOGLE_GENAI_API_KEY?.trim();
+  const primary = googleApiKey
+    ? new google.LLM({
+        apiKey: googleApiKey,
+        model: process.env.VITA_GEMINI_MODEL?.trim() || "gemini-2.5-flash-lite",
+        temperature: 0.25,
+        maxOutputTokens: 700
+      })
+    : new inference.LLM({
+        model: process.env.VITA_INFERENCE_LLM_MODEL?.trim() || config.llm.model,
+        modelOptions: { max_completion_tokens: 700 }
+      });
+
+  return new llm.FallbackAdapter({
+    llms: [primary, new EmergencyVitaLLM()],
+    attemptTimeout: 12,
+    maxRetryPerLLM: 0,
+    retryInterval: 0.25,
+    retryOnChunkSent: false
+  });
 };
 
 export const resolveTutorFromJobContext = (context: JobContext): TutorId => {
@@ -223,13 +254,66 @@ export const resolveTutorFromJobContext = (context: JobContext): TutorId => {
   return "eduardo";
 };
 
-export const createTutorAgent = (tutorId: TutorId = "eduardo"): Agent => {
+export const resolveUserIdFromJobContext = (context: JobContext): string | null => {
+  const metadataValues = [
+    context.job?.room?.metadata,
+    context.job?.metadata,
+    context.room?.metadata
+  ];
+  for (const metadata of metadataValues) {
+    if (!metadata) continue;
+    try {
+      const parsed = typeof metadata === "string" ? JSON.parse(metadata) : metadata;
+      const userId = String(parsed?.userId || "");
+      if (/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(userId)) {
+        return userId;
+      }
+    } catch {
+      // Ignore malformed room metadata; memory stays session-local.
+    }
+  }
+  return null;
+};
+
+export const createTutorAgent = (tutorId: TutorId = "eduardo", userId: string | null = null): Agent => {
   const config = getTutorConfig(tutorId);
+  const sessionState = new VitaSessionStateMachine();
+  const memoryStore = new VitaMemoryStore(userId, tutorId);
+  const knowledgeRetriever = new VitaKnowledgeRetriever();
 
   return Agent.create({
     id: `mentor-${config.id}`,
     instructions: config.instructions,
-    llm: new inference.LLM(config.llm)
+    llm: createTutorLLM(config),
+    onEnter: async () => {
+      const persistedState = await memoryStore.load();
+      if (persistedState) sessionState.restore(persistedState);
+    },
+    onUserTurnCompleted: async (_context, chatCtx, newMessage) => {
+      const userText = newMessage.textContent || "";
+      const snapshot = sessionState.observe(userText);
+      const knowledgeSources = await knowledgeRetriever.retrieve(userText);
+      chatCtx.items = chatCtx.items.filter((item) => !(
+        item.type === "message" && (
+          item.extra?.aeternumVitaDynamicPolicy === true
+          || item.extra?.aeternumVitaKnowledge === true
+        )
+      ));
+      chatCtx.addMessage({
+        role: "developer",
+        content: buildPedagogyDirective(snapshot, config.languageName),
+        extra: { aeternumVitaDynamicPolicy: true }
+      });
+      chatCtx.addMessage({
+        role: "developer",
+        content: buildVitaKnowledgeDirective(knowledgeSources, config.languageName),
+        extra: {
+          aeternumVitaKnowledge: true,
+          sourceCount: knowledgeSources.length
+        }
+      });
+      await memoryStore.save(sessionState.serialize());
+    }
   });
 };
 
@@ -241,7 +325,25 @@ export const createTutorSession = (tutorId: TutorId = "eduardo"): voice.AgentSes
     tts: createTutorTTS(tutorId),
     turnHandling: {
       turnDetection: new inference.TurnDetector(),
-      preemptiveGeneration: { enabled: false }
+      endpointing: {
+        mode: "dynamic",
+        minDelay: 350,
+        maxDelay: 2_200
+      },
+      interruption: {
+        enabled: true,
+        mode: "adaptive",
+        minDuration: 300,
+        minWords: 1,
+        falseInterruptionTimeout: 1_600,
+        resumeFalseInterruption: true
+      },
+      preemptiveGeneration: {
+        enabled: true,
+        preemptiveTts: false,
+        maxSpeechDuration: 10_000,
+        maxRetries: 3
+      }
     }
   });
 };

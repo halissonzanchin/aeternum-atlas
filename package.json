@@ -9,9 +9,11 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "knowledge:ingest:vita": "node tools/scripts/ingest_anatomy_books.js",
+    "knowledge:ocr:vita": "node tools/scripts/ocr_anatomy_pilot.js",
     "test:a26-glass": "node scripts/check-a26-glass-contract.mjs",
     "test:p0": "node scripts/check-supabase-p0-contracts.mjs",
-    "test:contracts": "node --test tests/route-contracts.test.mjs tests/a26-foundation-contracts.test.mjs tests/a26-shell-contracts.test.mjs tests/a26-phase4-contracts.test.mjs tests/a26-phase5-contracts.test.mjs tests/a26-phase6-contracts.test.mjs tests/sketchfab-navigation-contracts.test.mjs tests/learning-telemetry-contracts.test.mjs tests/study-agenda-contracts.test.mjs tests/flashcard-contracts.test.mjs tests/mind-map-contracts.test.mjs tests/quiz-error-to-flashcard-contracts.test.mjs tests/theme-toggle-contracts.test.mjs tests/a26-physical-liquid-glass-contracts.test.mjs"
+    "test:contracts": "node --test tests/route-contracts.test.mjs tests/a26-foundation-contracts.test.mjs tests/a26-shell-contracts.test.mjs tests/a26-phase4-contracts.test.mjs tests/a26-phase5-contracts.test.mjs tests/a26-phase6-contracts.test.mjs tests/sketchfab-navigation-contracts.test.mjs tests/learning-telemetry-contracts.test.mjs tests/study-agenda-contracts.test.mjs tests/flashcard-contracts.test.mjs tests/mind-map-contracts.test.mjs tests/quiz-error-to-flashcard-contracts.test.mjs tests/theme-toggle-contracts.test.mjs tests/a26-physical-liquid-glass-contracts.test.mjs tests/vita-isolation-contracts.test.mjs tests/vita-ocr-pipeline.test.mjs"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

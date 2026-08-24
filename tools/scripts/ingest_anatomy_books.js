@@ -1,14 +1,21 @@
 /**
- * ingest_anatomy_books.js
- * Script de ingestão e vetorização de livros de anatomia em PDF (RAG).
- * 
+ * Ingestão textual privada dos PDFs para a Aeternum Vita.
+ *
+ * O script preserva a página física do PDF, cria trechos idempotentes e envia
+ * apenas ao projeto Supabase do Aeternum Atlas. Nenhum conteúdo é transmitido
+ * a provedores externos de embedding.
+ *
  * Uso:
- *   node tools/scripts/ingest_anatomy_books.js [--dry-run]
+ *   node tools/scripts/ingest_anatomy_books.js --dry-run
+ *   node tools/scripts/ingest_anatomy_books.js
+ *   node tools/scripts/ingest_anatomy_books.js --book=Moore
+ *   node tools/scripts/ingest_anatomy_books.js --book=Moore --limit-pages=20
  */
 
-import fs from "fs";
-import path from "path";
-import { createRequire } from "module";
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { createRequire } from "node:module";
 import { createClient } from "@supabase/supabase-js";
 
 const require = createRequire(import.meta.url);
@@ -16,189 +23,155 @@ const { PDFParse } = require("pdf-parse");
 
 const ROOT_DIR = process.cwd();
 const PDF_BOOKS_DIR = path.join(ROOT_DIR, "knowledge_base", "pdf_books");
-const CHUNKS_OUTPUT_DIR = path.join(ROOT_DIR, "knowledge_base", "ingested_chunks");
+const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || "https://hyivyrietgjdazgizafp.supabase.co";
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
+const CHUNK_SIZE_CHARACTERS = 1_200;
+const OVERLAP_CHARACTERS = 180;
+const UPSERT_BATCH_SIZE = 150;
 
-const SUPABASE_URL = process.env.VITE_SUPABASE_URL || "https://hyivyrietgjdazgizafp.supabase.co";
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_EMBEDDING_MODEL = "gemini-embedding-2";
-
-const CHUNK_SIZE_CHARS = 800; // Tamanho ideal do trecho de conhecimento
-const OVERLAP_CHARS = 100;    // Sobreposição para manter continuidade do contexto
-
-function ensureDirectory(dirPath) {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
+function argumentValue(name) {
+  const prefix = `--${name}=`;
+  return process.argv.find((argument) => argument.startsWith(prefix))?.slice(prefix.length) || "";
 }
 
 function cleanText(text) {
   return String(text || "")
+    .replace(/[\u0000-\u0009\u000B\u000C\u000E-\u001F\u007F]/g, " ")
     .replace(/\s+/g, " ")
-    .replace(/[\u0000-\u001F\u007F]/g, " ")
     .trim();
 }
 
-function chunkText(fullText, chunkSize = CHUNK_SIZE_CHARS, overlap = OVERLAP_CHARS) {
+function chunkPage(text) {
+  const normalized = cleanText(text);
   const chunks = [];
-  let startIndex = 0;
+  let start = 0;
 
-  while (startIndex < fullText.length) {
-    let endIndex = startIndex + chunkSize;
-    if (endIndex < fullText.length) {
-      const spaceIndex = fullText.lastIndexOf(" ", endIndex);
-      if (spaceIndex > startIndex) {
-        endIndex = spaceIndex;
-      }
+  while (start < normalized.length) {
+    let end = Math.min(start + CHUNK_SIZE_CHARACTERS, normalized.length);
+    if (end < normalized.length) {
+      const sentenceBoundary = Math.max(
+        normalized.lastIndexOf(". ", end),
+        normalized.lastIndexOf("; ", end),
+        normalized.lastIndexOf(": ", end)
+      );
+      const wordBoundary = normalized.lastIndexOf(" ", end);
+      const boundary = sentenceBoundary > start + 500 ? sentenceBoundary + 1 : wordBoundary;
+      if (boundary > start) end = boundary;
     }
 
-    const chunkContent = cleanText(fullText.slice(startIndex, endIndex));
-    if (chunkContent.length > 50) { // Ignorar chunks curtos demais ou vazios
-      chunks.push(chunkContent);
-    }
-
-    startIndex = endIndex - overlap;
-    if (startIndex >= fullText.length) break;
+    const content = normalized.slice(start, end).trim();
+    if (content.length >= 40) chunks.push(content);
+    if (end >= normalized.length) break;
+    const nextStart = Math.max(end - OVERLAP_CHARACTERS, start + 1);
+    start = nextStart;
   }
-
   return chunks;
 }
 
-/**
- * Gera embedding de 768 dimensões via Google Gemini API
- */
-async function generateEmbedding(text, apiKey) {
-  if (!apiKey) throw new Error("GEMINI_API_KEY ausente.");
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_EMBEDDING_MODEL}:embedContent`;
+function sha256(buffer) {
+  return crypto.createHash("sha256").update(buffer).digest("hex");
+}
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": apiKey
-      },
-      body: JSON.stringify({
-        model: `models/${GEMINI_EMBEDDING_MODEL}`,
-        content: { parts: [{ text }] },
-        embedContentConfig: {
-          taskType: "RETRIEVAL_DOCUMENT",
-          outputDimensionality: 768,
-          autoTruncate: true
-        }
-      })
+function bookTitle(fileName) {
+  return path.basename(fileName, path.extname(fileName))
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function buildRecords(parseResult, fileName, sourceHash, pageLimit) {
+  const pages = Array.isArray(parseResult.pages) ? parseResult.pages : [];
+  const selectedPages = pageLimit > 0 ? pages.slice(0, pageLimit) : pages;
+  const title = bookTitle(fileName);
+  const records = [];
+
+  for (const page of selectedPages) {
+    const pageNumber = Number(page.num);
+    if (!Number.isInteger(pageNumber) || pageNumber <= 0) continue;
+    const chunks = chunkPage(page.text);
+    chunks.forEach((content, chunkIndex) => {
+      records.push({
+        book_title: title,
+        source_file: fileName,
+        source_sha256: sourceHash,
+        page_number: pageNumber,
+        chunk_index: chunkIndex,
+        content,
+        metadata: {
+          corpus: "aeternum-vita",
+          pageKind: "pdf-physical-page",
+          ingestionVersion: 2
+        },
+        updated_at: new Date().toISOString()
+      });
     });
-
-    if (!response.ok) {
-      throw new Error(`Gemini embedding falhou com HTTP ${response.status}.`);
-    }
-
-    const data = await response.json();
-    if (!Array.isArray(data.embedding?.values) || data.embedding.values.length !== 768) {
-      throw new Error("Embedding Gemini inválido ou com dimensão inesperada.");
-    }
-    return data.embedding.values;
-  } catch (err) {
-    throw new Error(`Falha ao gerar embedding: ${err.message}`);
   }
+  return records;
+}
+
+async function ingestBook(supabase, records) {
+  let ingested = 0;
+  for (let index = 0; index < records.length; index += UPSERT_BATCH_SIZE) {
+    const batch = records.slice(index, index + UPSERT_BATCH_SIZE);
+    const { error } = await supabase
+      .from("vita_anatomical_knowledge")
+      .upsert(batch, { onConflict: "source_sha256,page_number,chunk_index" });
+    if (error) throw new Error(`Supabase recusou o lote ${Math.floor(index / UPSERT_BATCH_SIZE) + 1}: ${error.message}`);
+    ingested += batch.length;
+    process.stdout.write(`   Enviados ${ingested}/${records.length} trechos\r`);
+  }
+  if (records.length) process.stdout.write("\n");
+  return ingested;
 }
 
 async function run() {
-  const isDryRun = process.argv.includes("--dry-run");
-  console.log("=================================================");
-  console.log("📚 AETERNUM ATLAS - INGESTÃO DE LIVROS EM PDF");
-  console.log("=================================================");
-  console.log(`Pasta de livros: ${PDF_BOOKS_DIR}`);
-  console.log(`Modo Dry-Run (apenas simulação local): ${isDryRun ? "SIM" : "NÃO"}`);
+  const dryRun = process.argv.includes("--dry-run");
+  const bookFilter = cleanText(argumentValue("book")).toLocaleLowerCase();
+  const pageLimit = Math.max(0, Number.parseInt(argumentValue("limit-pages"), 10) || 0);
 
-  if (!fs.existsSync(PDF_BOOKS_DIR)) {
-    console.error(`❌ Pasta ${PDF_BOOKS_DIR} não foi encontrada.`);
-    process.exit(1);
+  if (!fs.existsSync(PDF_BOOKS_DIR)) throw new Error(`Pasta de livros ausente: ${PDF_BOOKS_DIR}`);
+  const files = fs.readdirSync(PDF_BOOKS_DIR)
+    .filter((file) => file.toLocaleLowerCase().endsWith(".pdf"))
+    .filter((file) => !bookFilter || file.toLocaleLowerCase().includes(bookFilter));
+  if (!files.length) throw new Error("Nenhum PDF corresponde ao filtro informado.");
+  if (!dryRun && (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY)) {
+    throw new Error("A ingestão remota exige SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY no ambiente do processo.");
   }
 
-  ensureDirectory(CHUNKS_OUTPUT_DIR);
+  const supabase = dryRun ? null : createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+    auth: { persistSession: false, autoRefreshToken: false }
+  });
+  let totalChunks = 0;
+  let uniqueBooks = 0;
+  const sourceHashes = new Set();
 
-  const files = fs.readdirSync(PDF_BOOKS_DIR).filter(f => f.toLowerCase().endsWith(".pdf"));
-
-  if (!files.length) {
-    console.log("⚠️ Nenhum arquivo .pdf encontrado na pasta knowledge_base/pdf_books/.");
-    process.exit(0);
-  }
-
-  console.log(`\nFound ${files.length} PDF files for processing:`);
-  files.forEach((file, i) => console.log(`  ${i + 1}. ${file}`));
-
-  let supabase = null;
-  if (!isDryRun && (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !GEMINI_API_KEY)) {
-    throw new Error("Ingestão remota exige SUPABASE_SERVICE_ROLE_KEY e GEMINI_API_KEY.");
-  }
-  if (!isDryRun) {
-    supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
-  }
-
-  let totalChunksIngested = 0;
-
+  console.log(`Aeternum Vita — ${files.length} arquivo(s) PDF encontrado(s), modo ${dryRun ? "dry-run" : "ingestão privada"}.`);
   for (const fileName of files) {
     const filePath = path.join(PDF_BOOKS_DIR, fileName);
-    const bookTitle = path.basename(fileName, ".pdf").replace(/_/g, " ").replace(/-/g, " ");
-
-    console.log(`\n📖 Processando: "${fileName}"...`);
     const fileBuffer = fs.readFileSync(filePath);
+    const sourceHash = sha256(fileBuffer);
+    if (sourceHashes.has(sourceHash)) {
+      console.log(`\n${fileName}: cópia binária já processada; ignorada.`);
+      continue;
+    }
+    sourceHashes.add(sourceHash);
+    uniqueBooks += 1;
+    const parser = new PDFParse({ data: fileBuffer });
 
     try {
-      const parser = new PDFParse({ data: fileBuffer });
-      const parseResult = await parser.getText();
-      const extractedText = cleanText(parseResult.text || parseResult);
-
-      console.log(`   Caracteres extraídos: ${extractedText.length}`);
-
-      const chunks = chunkText(extractedText);
-      console.log(`   Dividido em ${chunks.length} trechos conceituais.`);
-
-      const bookOutputJson = path.join(CHUNKS_OUTPUT_DIR, `${path.basename(fileName, ".pdf")}_chunks.json`);
-      fs.writeFileSync(bookOutputJson, JSON.stringify(chunks, null, 2));
-      console.log(`   💾 Trechos gravados em cache local: ${path.basename(bookOutputJson)}`);
-
-      if (!isDryRun && supabase) {
-        console.log(`   🚀 Enviando trechos para o Supabase (vector table)...`);
-        const batchSize = 25;
-        for (let i = 0; i < chunks.length; i += batchSize) {
-          const batch = chunks.slice(i, i + batchSize);
-          const records = [];
-
-          for (let j = 0; j < batch.length; j++) {
-            const content = batch[j];
-            const embedding = await generateEmbedding(content, GEMINI_API_KEY);
-            records.push({
-              book_title: bookTitle,
-              chapter_title: `Trecho ${i + j + 1}`,
-              chunk_index: i + j + 1,
-              content,
-              embedding
-            });
-          }
-
-          const { error } = await supabase
-            .from("anatomical_knowledge_base")
-            .upsert(records, { onConflict: "book_title,chunk_index" });
-          if (error) {
-            console.error(`   ❌ Erro no lote ${i / batchSize + 1}:`, error.message);
-          } else {
-            totalChunksIngested += records.length;
-            process.stdout.write(`   ✓ Ingeridos ${Math.min(i + batchSize, chunks.length)}/${chunks.length} trechos...\r`);
-          }
-        }
-        console.log("\n   ✅ Ingestão do livro concluída no banco de dados!");
-      }
-
-    } catch (pdfErr) {
-      console.error(`❌ Erro ao ler PDF "${fileName}":`, pdfErr.message);
+      const parseResult = await parser.getText(pageLimit > 0 ? { first: pageLimit } : undefined);
+      const records = buildRecords(parseResult, fileName, sourceHash, pageLimit);
+      console.log(`\n${fileName}: ${parseResult.pages?.length || 0} páginas, ${records.length} trechos.`);
+      totalChunks += dryRun ? records.length : await ingestBook(supabase, records);
+    } finally {
+      await parser.destroy();
     }
   }
 
-  console.log("\n=================================================");
-  console.log(`🎉 PROCESSO CONCLUÍDO! Total de trechos processados: ${totalChunksIngested}`);
-  console.log("=================================================");
+  console.log(`\nConcluído: ${uniqueBooks} PDFs únicos e ${totalChunks} trechos ${dryRun ? "preparados" : "ingeridos"}.`);
 }
 
-run();
+run().catch((error) => {
+  console.error(`Falha na ingestão da Aeternum Vita: ${error instanceof Error ? error.message : error}`);
+  process.exitCode = 1;
+});

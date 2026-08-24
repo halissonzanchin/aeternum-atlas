@@ -142,6 +142,16 @@ export const VITA_KNOWLEDGE_NODES = {
           en: "Beneath the clavicle pass the subclavian vessels and brachial plexus. Fractures occur most commonly in the middle third. Would you like to review the clinical implications?",
           de: "Unter der Clavicula verlaufen die Vasa subclavia und der Plexus brachialis. Frakturen treten am häufigsten im mittleren Drittel auf. Wollen wir die klinischen Aspekte besprechen?"
         }
+      },
+      {
+        id: "articulacoes_clavicula",
+        synonyms: ["articula", "articulacao", "articulação", "articulacoes", "articulações", "com quais ossos", "quais ossos se articula", "com quem se articula", "con que huesos", "articulaciones", "ossos se articula"],
+        spokenAnswers: {
+          pt: "A clavícula articula-se medialmente com o manúbrio do esterno na articulação esternoclavicular, e lateralmente com o acrômio da escápula na articulação acromioclavicular. Quer ver os ligamentos que estabilizam essas junções?",
+          es: "La clavícula se articula medialmente con el manubrio esternal en la articulación esternoclavicular, y lateralmente con el acromion de la escápula en la articulación acromioclavicular. ¿Deseas ver los ligamentos estabilizadores?",
+          en: "The clavicle articulates medially with the sternal manubrium at the sternoclavicular joint, and laterally with the scapular acromion at the acromioclavicular joint. Shall we review their stabilizing ligaments?",
+          de: "Die Clavicula artikuliert medial mit dem Manubrium sterni im Sternoklavikulargelenk und lateral mit dem Acromion im Akromioklavikulargelenk."
+        }
       }
     ]
   },
@@ -202,6 +212,50 @@ export const VITA_KNOWLEDGE_NODES = {
       en: "In the female pelvis, the uterus lies between the bladder anteriorly and the rectum posteriorly, creating the rectouterine pouch of Douglas. Shall we explore the uterine artery blood supply?",
       de: "Im weiblichen Becken liegt der Uterus zwischen Harnblase und Rektum und bildet den Douglas-Raum. Möchtest du die Gefäßversorgung über die Arteria uterina besprechen?"
     }
+  },
+
+  escapula: {
+    id: "escapula",
+    category: VITA_TOPIC_CATEGORIES.OSTEOLOGY,
+    synonyms: ["escapula", "escápula", "omoplata", "scapula", "schulterblatt", "fossa supraespinhal", "fossa infraespinhal", "acromio", "acrômio", "acromion", "processo coracoide", "glenoide"],
+    spokenAnswers: {
+      pt: "A escápula é um osso plano e triangular localizado na face posterolateral do tórax, que serve de ancoragem móvel para o membro superior. Deseja estudar a espinha da escápula, a cavidade glenoide ou os músculos do manguito rotador?",
+      es: "La escápula es un hueso plano y triangular situado en la parte posterolateral del tórax, base del miembro superior. ¿Quieres estudiar la espina de la escápula, la cavidad glenoidea o los músculos del manguito rotador?",
+      en: "The scapula is a flat, triangular bone on the posterolateral thorax, providing the mobile foundation for the upper limb. Shall we explore the scapular spine, the glenoid cavity, or rotator cuff muscles?",
+      de: "Die Scapula ist ein platter, dreieckiger Knochen an der posterolateralen Thoraxwand. Wollen wir die Spina scapulae, die Cavitas glenoidalis oder die Rotatorenmanschette besprechen?"
+    },
+    subTopics: [
+      {
+        id: "espinha_e_acromio",
+        synonyms: ["espinha", "espinha da escapula", "espinha da escápula", "espina", "spine", "acromio", "acrômio", "acromion", "onde termina", "fossa supraespinhal", "fossa infraespinhal"],
+        spokenAnswers: {
+          pt: "A espinha da escápula é uma crista óssea proeminente na face posterior que divide o osso em fossa supraespinhal e infraespinhal, terminando lateralmente no acrômio. Deseja ver como o acrômio se articula com a clavícula?",
+          es: "La espina de la escápula es una prominente cresta en la cara posterior que divide la fosa supraespinosa de la infraespinosa, culminando lateralmente en el acromion. ¿Vemos cómo se articula con la clavícula?",
+          en: "The scapular spine is a prominent posterior ridge dividing the supraspinous and infraspinous fossae, projecting laterally to form the acromion. Shall we check its articulation with the clavicle?",
+          de: "Die Spina scapulae teilt die Fossa supraspinata von der Infraspinata und geht lateral in das Acromion über."
+        }
+      },
+      {
+        id: "cavidade_glenoide_e_coracoide",
+        synonyms: ["cavidade glenoide", "glenoide", "cavidad glenoidea", "glenoid", "processo coracoide", "apofisis coracoides", "coracoides", "labrum"],
+        spokenAnswers: {
+          pt: "No ângulo lateral encontramos a cavidade glenoide, que se articula com a cabeça do úmero, e superiormente o processo coracoide em forma de bico. Deseja analisar a articulação glenoumeral ou as inserções musculares?",
+          es: "En el ángulo lateral encontramos la cavidad glenoidea, que se articula con la cabeza humeral, y arriba la apófisis coracoides. ¿Analizamos la articulación glenohumeral o las inserciones?",
+          en: "At the lateral angle lies the glenoid cavity, articulating with the humeral head, and the hook-like coracoid process superiorly. Shall we review the glenohumeral joint or muscle attachments?",
+          de: "Am lateralen Winkel liegt die Cavitas glenoidalis für den Humeruskopf und kranial der Processus coracoideus."
+        }
+      },
+      {
+        id: "manguito_rotador",
+        synonyms: ["manguito", "manguito rotador", "supraespinhal", "infraespinhal", "redondo menor", "subescapular", "rotator cuff"],
+        spokenAnswers: {
+          pt: "Na escápula originam-se os quatro músculos do manguito rotador: supraespinhal, infraespinhal, redondo menor e subescapular, que abraçam e estabilizam o ombro. Quer ver as ações de rotação ou as lesões mais comuns?",
+          es: "En la escápula se originan los cuatro músculos del manguito de los rotadores: supraespinoso, infraespinoso, redondo menor y subescapular. ¿Revisamos sus movimientos o lesiones comunes?",
+          en: "The scapula gives origin to all four rotator cuff muscles: supraspinatus, infraspinatus, teres minor, and subscapularis, stabilizing the glenohumeral joint. Shall we review their biomechanics or tears?",
+          de: "An der Scapula entspringen die vier Muskeln der Rotatorenmanschette: Supraspinatus, Infraspinatus, Teres minor und Subscapularis."
+        }
+      }
+    ]
   }
 };
 

@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { A26IconButton, A26Surface, AeternumSiriScreenOverlay } from "../../../components/aeternum-26";
 import { useLanguage } from "../../../context/LanguageContext";
 import { useAtlasAITutorSession } from "../../../context/AtlasAITutorSessionContext";
-import { getTutorForLanguage } from "../../../services/voice/aeternumVitaVoiceService";
+import { getTutorForLanguage } from "../../../services/voice/aeternumTutorCatalog";
 import AtlasAIConversation from "../../atlas-viewer/ai/AtlasAIConversation";
 import AtlasAIOrb from "../../atlas-viewer/ai/AtlasAIOrb";
 import NotebookLMToolModal from "../../atlas-viewer/ai/NotebookLMToolModal";

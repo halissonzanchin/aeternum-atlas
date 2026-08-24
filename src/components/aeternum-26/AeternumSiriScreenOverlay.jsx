@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLanguage } from "../../context/LanguageContext";
-import { aeternumVitaVoiceService, getTutorForLanguage } from "../../services/voice/aeternumVitaVoiceService";
-import { generateDynamicVoiceResponse } from "../../services/voice/aeternumVoiceBrain";
-import { atlasAITutorService } from "../../features/atlas-viewer/ai/atlasAITutorService";
+import { getTutorForLanguage } from "../../services/voice/aeternumTutorCatalog";
 import LineIcon from "../icons/LineIcon";
+import AeternumVitaLiveSession from "./AeternumVitaLiveSession";
 import "./AeternumSiriScreenOverlay.css";
 
 /**
@@ -14,8 +13,6 @@ import "./AeternumSiriScreenOverlay.css";
  */
 export default function AeternumSiriScreenOverlay({
   active = false,
-  state = "idle",
-  context = {},
   onDeactivate
 }) {
   const { language } = useLanguage();
@@ -28,19 +25,20 @@ export default function AeternumSiriScreenOverlay({
   const [voiceStatus, setVoiceStatus] = useState("idle"); // 'listening' | 'thinking' | 'speaking'
   const [userSubtitle, setUserSubtitle] = useState("");
   const [tutorSubtitle, setTutorSubtitle] = useState("");
+  const [voiceError, setVoiceError] = useState("");
 
   // Update tutor if language changes
   useEffect(() => {
     setActiveTutor(getTutorForLanguage(language));
   }, [language]);
 
-  // Handle Voice Session Lifecycle
+  // Reset the Vita-only presentation state on session boundaries.
   useEffect(() => {
     if (!active) {
-      aeternumVitaVoiceService.stopSession();
       setVoiceStatus("idle");
       setUserSubtitle("");
       setTutorSubtitle("");
+      setVoiceError("");
       return;
     }
 
@@ -48,90 +46,8 @@ export default function AeternumSiriScreenOverlay({
     setActiveTutor(tutor);
     setUserSubtitle("");
     setTutorSubtitle(tutor.greeting);
-
-    // Start Unified Multi-Tutor Voice Engine with Dynamic Turn-Taking
-    aeternumVitaVoiceService.startSession({
-      language,
-      onStatusChange: ({ status, text }) => {
-        setVoiceStatus(status);
-        if (text) setTutorSubtitle(text);
-      },
-      onTranscript: ({ text, isFinal }) => {
-        if (text) setUserSubtitle(text);
-      },
-      onTutorReply: async (userQuestion, currentTutor) => {
-        const handleTurn = async (questionText, tutor) => {
-          const cleanQ = String(questionText || "").trim();
-          if (!cleanQ || aeternumVitaVoiceService.isAcousticEcho(cleanQ)) return;
-
-          setVoiceStatus("thinking");
-          try {
-            const streamContext = {
-              ...context,
-              source: "voice",
-              mode: "voice",
-              persona: tutor.id,
-              tutorPromptDirective: tutor.promptDirective,
-              language
-            };
-
-            const rawFinalReply = await generateDynamicVoiceResponse(cleanQ, streamContext, language);
-            const finalReply = aeternumVitaVoiceService.cleanTextForSpeech(rawFinalReply);
-
-            setTutorSubtitle(finalReply);
-            setVoiceStatus("speaking");
-            await aeternumVitaVoiceService.speak(
-              finalReply,
-              tutor,
-              () => setVoiceStatus("speaking"),
-              () => {
-                setVoiceStatus("listening");
-                aeternumVitaVoiceService.startListening(
-                  tutor,
-                  (interim) => {
-                    const text = typeof interim === "string" ? interim : interim.text;
-                    if (text) setUserSubtitle(text);
-                  },
-                  (finalSpeech) => {
-                    const nextText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
-                    if (nextText && nextText.trim()) {
-                      setUserSubtitle(nextText);
-                      handleTurn(nextText, tutor);
-                    }
-                  }
-                );
-              }
-            );
-          } catch (err) {
-            console.warn("Voice AI processing notice:", err);
-            setVoiceStatus("listening");
-            aeternumVitaVoiceService.startListening(
-              tutor,
-              (interim) => {
-                const text = typeof interim === "string" ? interim : interim.text;
-                if (text) setUserSubtitle(text);
-              },
-              (finalSpeech) => {
-                const nextText = typeof finalSpeech === "string" ? finalSpeech : finalSpeech.text;
-                if (nextText && nextText.trim()) {
-                  setUserSubtitle(nextText);
-                  handleTurn(nextText, tutor);
-                }
-              }
-            );
-          }
-        };
-
-        handleTurn(userQuestion, currentTutor);
-      },
-      onError: (err) => {
-        console.warn("Voice session error:", err);
-      }
-    });
-
-    return () => {
-      aeternumVitaVoiceService.stopSession();
-    };
+    setVoiceError("");
+    setVoiceStatus("connecting");
   }, [active, language]);
 
   // Render Apple Intelligence Soft-Diffusion Border (Calibrated, Elegant & Non-Intrusive)
@@ -272,6 +188,19 @@ export default function AeternumSiriScreenOverlay({
     >
       <canvas ref={canvasRef} className="a26-siri-canvas" />
 
+      <AeternumVitaLiveSession
+        active={active}
+        tutorId={activeTutor.id}
+        onStatusChange={setVoiceStatus}
+        onUserTranscript={setUserSubtitle}
+        onTutorTranscript={setTutorSubtitle}
+        onError={(error) => {
+          console.warn("Aeternum Vita LiveKit session error:", error);
+          setVoiceError(error?.message || "Não foi possível iniciar a voz.");
+          setVoiceStatus("error");
+        }}
+      />
+
       {/* Aeternum Vita Multi-Tutor Liquid Glass Voice HUD */}
       {active && (
         <div className="a26-voice-hud-container" onClick={(e) => e.stopPropagation()}>
@@ -298,7 +227,11 @@ export default function AeternumSiriScreenOverlay({
                     ? "Ouvindo você…"
                     : voiceStatus === "thinking"
                     ? "Analisando pergunta…"
-                    : "Falando…"}
+                    : voiceStatus === "speaking"
+                    ? "Falando…"
+                    : voiceStatus === "error"
+                    ? "Voz indisponível"
+                    : "Conectando…"}
                 </span>
               </div>
 
@@ -315,6 +248,13 @@ export default function AeternumSiriScreenOverlay({
 
             {/* Live Subtitle Transcript */}
             <div className="a26-voice-transcript-area">
+              {voiceError ? (
+                <div className="a26-voice-bubble error" role="alert">
+                  <span className="a26-voice-bubble-label">Vita:</span>
+                  <p className="a26-voice-bubble-text">{voiceError}</p>
+                </div>
+              ) : null}
+
               {userSubtitle ? (
                 <div className="a26-voice-bubble user">
                   <span className="a26-voice-bubble-label">Você:</span>

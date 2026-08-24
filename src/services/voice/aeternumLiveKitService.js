@@ -1,86 +1,77 @@
-/**
- * Aeternum LiveKit Service
- * Direct WebRTC Client & JWT Generator for LiveKit Cloud Gateway
- * wss://aeternum-atlas-0c2hve13.livekit.cloud
- */
+import {
+  getSupabaseClient,
+  isSupabaseConfigured,
+  supabaseConfig
+} from "../supabase/supabaseClient.js";
 
-import { VITA_VOICE_CONFIG } from "./aeternumVitaConfig";
+const ALLOWED_TUTORS = new Set(["eduardo", "antonia", "ariana", "fabian"]);
 
-function base64UrlEncode(str) {
-  const base64 = btoa(str);
-  return base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-}
-
-function bufferToBase64Url(buffer) {
-  const bytes = new Uint8Array(buffer);
-  let binary = "";
-  for (let i = 0; i < bytes.byteLength; i++) {
-    binary += String.fromCharCode(bytes[i]);
+export function createVitaSessionKey() {
+  if (!globalThis.crypto?.randomUUID) {
+    throw new Error("Este navegador não oferece geração segura de identificadores de sessão.");
   }
-  return base64UrlEncode(binary);
+  return globalThis.crypto.randomUUID();
+}
+
+function connectionError(message, code) {
+  const error = new Error(message);
+  error.code = code;
+  return error;
 }
 
 /**
- * Generate LiveKit JWT AccessToken directly via Web Crypto API
+ * Requests short-lived LiveKit credentials from the authenticated server edge.
+ * No provider credential or signing operation is ever performed in the browser.
  */
-export async function createLiveKitToken(tutorId = "eduardo") {
-  const apiKey = VITA_VOICE_CONFIG.livekitApiKey;
-  const apiSecret = VITA_VOICE_CONFIG.livekitApiSecret;
-  const agentName = VITA_VOICE_CONFIG.livekitAgentName;
+export async function requestVitaConnection({ tutorId, idempotencyKey, signal } = {}) {
+  const normalizedTutor = String(tutorId || "eduardo").toLowerCase();
+  if (!ALLOWED_TUTORS.has(normalizedTutor)) {
+    throw connectionError("Tutor de voz inválido.", "INVALID_TUTOR");
+  }
 
-  const now = Math.floor(Date.now() / 1000);
-  const roomId = `aeternum-sala-${tutorId}-${Math.random().toString(36).slice(2, 10)}`;
-  const identity = `estudante-${tutorId}-${Math.random().toString(36).slice(2, 10)}`;
+  if (!idempotencyKey) {
+    throw connectionError("Identificador de sessão de voz ausente.", "MISSING_IDEMPOTENCY_KEY");
+  }
 
-  const header = { alg: "HS256", typ: "JWT" };
-  const payload = {
-    exp: now + 900,
-    nbf: now - 5,
-    iat: now,
-    iss: apiKey,
-    sub: identity,
-    name: "Estudante Aeternum",
-    metadata: JSON.stringify({ tutorId }),
-    video: {
-      roomJoin: true,
-      room: roomId,
-      canPublish: true,
-      canPublishSources: ["microphone"],
-      canSubscribe: true,
-      canPublishData: true
+  if (!isSupabaseConfigured()) {
+    throw connectionError("A conexão segura da Aeternum Vita não está configurada.", "VOICE_NOT_CONFIGURED");
+  }
+
+  const client = getSupabaseClient();
+  const { data, error } = await client.auth.getSession();
+  const accessToken = data?.session?.access_token;
+  if (error || !accessToken) {
+    throw connectionError("Entre em sua conta para iniciar uma sessão de voz.", "VOICE_AUTH_REQUIRED");
+  }
+
+  const response = await fetch(`${supabaseConfig.url}/functions/v1/voice-token`, {
+    method: "POST",
+    signal,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      apikey: supabaseConfig.anonKey,
+      "Content-Type": "application/json",
+      "Idempotency-Key": idempotencyKey
     },
-    roomConfig: {
-      agents: [{ agentName }]
-    }
-  };
+    body: JSON.stringify({ tutor_id: normalizedTutor })
+  });
 
-  const headerEncoded = base64UrlEncode(JSON.stringify(header));
-  const payloadEncoded = base64UrlEncode(JSON.stringify(payload));
-  const dataToSign = `${headerEncoded}.${payloadEncoded}`;
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw connectionError(
+      payload?.error || "Não foi possível iniciar a sessão de voz.",
+      payload?.code || `VOICE_TOKEN_${response.status}`
+    );
+  }
 
-  const enc = new TextEncoder();
-  const key = await window.crypto.subtle.importKey(
-    "raw",
-    enc.encode(apiSecret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"]
-  );
-
-  const signature = await window.crypto.subtle.sign(
-    "HMAC",
-    key,
-    enc.encode(dataToSign)
-  );
-
-  const signatureEncoded = bufferToBase64Url(signature);
-  const jwt = `${dataToSign}.${signatureEncoded}`;
+  if (!payload.server_url || !payload.participant_token) {
+    throw connectionError("O servidor de voz devolveu uma resposta incompleta.", "INVALID_VOICE_TOKEN_RESPONSE");
+  }
 
   return {
-    serverUrl: VITA_VOICE_CONFIG.livekitUrl,
-    token: jwt,
-    roomId,
-    identity,
-    tutorId
+    serverUrl: payload.server_url,
+    token: payload.participant_token,
+    roomName: payload.room_name,
+    tutorId: payload.tutor_id
   };
 }

@@ -39,6 +39,9 @@ Thumbs.db
 .certs/
 .vercel
 
+# Supabase CLI local state
+supabase/.temp/
+
 # 3D Assets Pipeline
 assets-pipeline/**/raw/
 assets-pipeline/**/working/

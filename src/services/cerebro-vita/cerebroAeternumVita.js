@@ -237,34 +237,34 @@ class CerebroAeternumVitaEngine {
       if (lang === "de") {
         return `Alles klar! Es war mir eine Freude, dich heute zu begleiten. ${timeGreeting} Bis zum nächsten Mal!`;
       }
-      return `Combinado! Foi um prazer imenso estudar com você hoje. ${timeGreeting} Sempre que quiser retomar, estarei aqui por você!`;
+      return `Combinado! Foi um prazer imenso estudar com você hoje. ${timeGreeting} Até a próxima, estarei sempre por aqui para te apoiar!`;
     }
 
     if (lang === "es") {
       if (q.includes("gracias") || q.includes("muchas gracias") || q.includes("genial")) {
         return `${hook} ¡De nada! Me alegra mucho acompañarte en tu estudio. ¿Hay algún otro punto anatómico que quieras repasar ahora?`;
       }
-      return `${hook} Estoy aquí para acompañarte en tu preparación médica. ¿Te gustaría explorar alguna estructura anatómica o prefieres que organicemos tu rutina de repaso?`;
+      return `${hook} ¡Excelente punto anatómico para estudiar! Podemos analizar su localización, accidentes principales o relaciones clínicas. ¿Te gustaría comenzar por la morfología general o por las inserciones musculares?`;
     }
 
     if (lang === "en") {
       if (q.includes("thank") || q.includes("thanks") || q.includes("awesome") || q.includes("great")) {
         return `${hook} You are very welcome! I am thrilled to help you master this. Is there any specific anatomical landmark you want to tackle next?`;
       }
-      return `${hook} I am right here with you. Would you like to dive into a specific anatomical structure, or shall we organize your study goals for today?`;
+      return `${hook} That is an excellent anatomical topic to explore! We can examine its location, primary landmarks, or clinical relations. Would you like to begin with its general morphology or muscular attachments?`;
     }
 
     if (lang === "de") {
       if (q.includes("danke") || q.includes("vielen dank") || q.includes("super")) {
         return `${hook} Sehr gerne! Es freut mich, dich zu begleiten. Gibt es eine weitere anatomische Struktur, die du heute besprechen möchtest?`;
       }
-      return `${hook} Ich begleite dich gerne bei deinem Anatomiestudium. Möchtest du eine bestimmte Struktur ansehen oder deine Lernroutine planen?`;
+      return `${hook} Das ist ein hervorragendes anatomisches Thema! Wir können die topografische Lage, wichtige Leitstrukturen oder klinische Bezüge analysieren. Möchtest du mit der Morphologie oder den Muskelansätzen starten?`;
     }
 
     if (q.includes("obrigado") || q.includes("obrigada") || q.includes("valeu") || q.includes("show")) {
       return `${hook} fico muito feliz em caminhar ao seu lado nos seus estudos de medicina. Deseja revisar mais alguma estrutura anatômica agora?`;
     }
-    return `${hook} estou aqui para guiar seus passos. Deseja explorar uma estrutura anatômica específica ou quer que organizemos sua rotina de estudos?`;
+    return `${hook} excelente ponto anatômico para explorarmos! Podemos analisar a sua localização, acidentes anatômicos principais ou relações neurovasculares. Você gostaria de começar pela morfologia geral ou pelas inserções musculares?`;
   }
 
   /**

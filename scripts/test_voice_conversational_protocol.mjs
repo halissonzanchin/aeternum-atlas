@@ -31,4 +31,29 @@ async function runScenarioEsterno() {
   await runConversationalTurn("Acho que por hoje chega, muito obrigado pelo diálogo.", 8);
 }
 
-runScenarioEsterno().catch(console.error);
+async function runScenarioClavicula() {
+  console.log("\n============================================================");
+  console.log("CENÁRIO 2: PROTOCOLO DE TESTE CONVERSACIONAL — CLAVÍCULA");
+  console.log("============================================================");
+  
+  await runConversationalTurn("Quantas caras e quantos bordes tem anatomicamente a clavícula?", 1);
+  await runConversationalTurn("E quais acidentes anatômicos encontramos na face inferior?", 2);
+  await runConversationalTurn("Com quais ossos ela se articula?", 3);
+}
+
+async function runScenarioEscapula() {
+  console.log("\n============================================================");
+  console.log("CENÁRIO 3: PROTOCOLO DE TESTE CONVERSACIONAL — ESCÁPULA");
+  console.log("============================================================");
+  
+  await runConversationalTurn("Vamos estudar a escápula.", 1);
+  await runConversationalTurn("O que é a espinha da escápula e onde ela termina?", 2);
+}
+
+async function main() {
+  await runScenarioEsterno();
+  await runScenarioClavicula();
+  await runScenarioEscapula();
+}
+
+main().catch(console.error);
