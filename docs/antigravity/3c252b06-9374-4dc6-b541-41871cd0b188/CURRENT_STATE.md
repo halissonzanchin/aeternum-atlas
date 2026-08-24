@@ -2,7 +2,10 @@
 
 Última auditoria: 2026-08-24 15:15 BRT
 Conversation ID: 3c252b06-9374-4dc6-b541-41871cd0b188
-ATLAS_APP_RUNTIME_SHA: 4263540e10dc4c9f131a31d9a0dca9ba81c1c1f5
+ATLAS_SOURCE_SHA: 49c88eff648b41b42b1ef277ab0c82ce8f5e05d1
+ATLAS_PROD_DEPLOY_SHA: UNKNOWN / NOT VERIFIED
+PROVIDER_ADAPTER_SHA: 49c88eff648b41b42b1ef277ab0c82ce8f5e05d1
+LEGACY_VITA_RUNTIME_SHA: 49c88eff648b41b42b1ef277ab0c82ce8f5e05d1
 AETERNUM_VITA_RUNTIME_SHA: bc1ebb4999fc9906631fc3a9775f0a0bb7ef549f
 VOICE_TOKEN_RUNTIME_VERSION: v7 (ACTIVE - Fail-Closed, Vault Secret Resolver)
 AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
@@ -20,7 +23,9 @@ AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 - Status: ACTIVE / ENFORCED
 
 ### AI Gateway
-- Status: IMPLEMENTED / PENDING CHATGPT AUDIT (Fase 2B.1.2 Concluída: Stream Semantics & Capability Truth)
+- Status: IMPLEMENTED / PENDING CHATGPT AUDIT (Fase 2B.1.3 Concluída: Final Adapter Semantics & Evidence Gate)
+- Novos Provider Adapters: CODE PRESENT / TESTED / NOT WIRED (OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider, VoiceProfileRegistry)
+- Legacy Vita Local Runtime: ACTIVE (Inalterado em produção)
 - Novos Provider Adapters: CODE PRESENT / TESTED / NOT WIRED (OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider, VoiceProfileRegistry)
 - Legacy Vita Local Runtime: ACTIVE (Inalterado em produção)
 - Local Providers: OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider, VoiceProfileRegistry

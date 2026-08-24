@@ -1,9 +1,18 @@
+import { ProviderInvalidResponseError } from "../../types/index.ts";
+
 export function pcmToWav(
   pcmData: Uint8Array,
-  sampleRate = 16000,
+  sampleRate?: number,
   channels = 1,
   bitDepth = 16
 ): Uint8Array {
+  if (!sampleRate || sampleRate <= 0) {
+    throw new ProviderInvalidResponseError(
+      "Para áudio no formato 'pcm', o campo 'sampleRate' é obrigatório e deve ser maior que zero.",
+      "audio-encoder"
+    );
+  }
+
   const bytesPerSample = bitDepth / 8;
   const blockAlign = channels * bytesPerSample;
   const byteRate = sampleRate * blockAlign;

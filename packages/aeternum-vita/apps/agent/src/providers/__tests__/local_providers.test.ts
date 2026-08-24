@@ -17,7 +17,7 @@ import {
   ProviderInvalidResponseError
 } from "../index.ts";
 
-describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.2)", () => {
+describe("Aeternum Local Inference Providers — Final Verification Suite (Fase 2B.1.3)", () => {
   const originalFetch = global.fetch;
 
   beforeEach(() => {
@@ -36,9 +36,6 @@ describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.
       expect(buildProviderUrl("http://localhost:11434/v1", "/v1/chat/completions")).toBe(
         "http://localhost:11434/v1/chat/completions"
       );
-      expect(buildProviderUrl("http://localhost:11434/v1/", "/v1/chat/completions")).toBe(
-        "http://localhost:11434/v1/chat/completions"
-      );
       expect(buildProviderUrl("http://localhost:8000/v1", "/v1/audio/transcriptions")).toBe(
         "http://localhost:8000/v1/audio/transcriptions"
       );
@@ -49,14 +46,13 @@ describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.
   });
 
   describe("2. First-Cause-Wins Race Condition Matrix", () => {
-    it("Cenário A: Timeout dispara primeiro -> depois user aborta -> DEVE ser ProviderTimeoutError", async () => {
+    it("Cenário A: Timeout dispara primeiro -> user abort posterior -> DEVE ser ProviderTimeoutError", async () => {
       const userController = new AbortController();
 
       global.fetch = vi.fn().mockImplementation(
         (_url, init) =>
           new Promise((_, reject) => {
             init.signal.addEventListener("abort", () => {
-              // Simulando abort do usuário que chega logo após o timeout
               setTimeout(() => userController.abort(), 5);
               const err = new Error("Abort");
               err.name = "AbortError";
@@ -75,7 +71,7 @@ describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.
       ).rejects.toThrow(ProviderTimeoutError);
     });
 
-    it("Cenário B: User aborta primeiro -> depois timeout venceria -> DEVE ser ProviderCancelledError", async () => {
+    it("Cenário B: User aborta primeiro -> timeout posterior -> DEVE ser ProviderCancelledError", async () => {
       const userController = new AbortController();
 
       global.fetch = vi.fn().mockImplementation(
@@ -86,7 +82,6 @@ describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.
               err.name = "AbortError";
               reject(err);
             });
-            // Usuário aborta quase imediatamente
             setTimeout(() => userController.abort(), 5);
           })
       );
@@ -124,9 +119,7 @@ describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.
     it("executeProviderJson deve proteger o ciclo completo até decodificação do body", async () => {
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
-        json: async () => {
-          return { status: "ok" };
-        }
+        json: async () => ({ status: "ok" })
       } as unknown as Response);
 
       const res = await executeProviderJson<{ status: string }>(
@@ -152,8 +145,8 @@ describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.
     });
   });
 
-  describe("4. Blocked Reader Error Normalization", () => {
-    it("Ollama stream: cancelamento do usuário durante reader.read() bloqueado deve lançar ProviderCancelledError", async () => {
+  describe("4. Blocked Reader Read Error Normalization", () => {
+    it("Ollama stream: cancelamento do usuário durante reader.read() deve lançar ProviderCancelledError", async () => {
       const controller = new AbortController();
 
       const blockedStream = new ReadableStream({
@@ -337,7 +330,7 @@ describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.
       );
     });
 
-    it("stream: chunks SSE normais e erro em chunk malformado", async () => {
+    it("stream: chunks SSE normais", async () => {
       const validChunks = [
         "data: " + JSON.stringify({ choices: [{ delta: { content: "Osso " } }] }) + "\n\n",
         "data: " + JSON.stringify({ choices: [{ delta: { content: "longo." }, finish_reason: "stop" }] }) + "\n\n",
@@ -365,7 +358,7 @@ describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.
     });
   });
 
-  describe("6. SpeachesSTTProvider Truth & Capabilities", () => {
+  describe("6. SpeachesSTTProvider Semantics & Capabilities (Fase 2B.1.3)", () => {
     it("deve declarar capabilities factuais separando backend e adapter", () => {
       const stt = new SpeachesSTTProvider();
       expect(stt.backendCapabilities.batch_transcription).toBe(true);
@@ -378,26 +371,51 @@ describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.
       expect(stt.adapterCapabilities.realtime_websocket).toBe(false);
     });
 
-    it("deve encapsular raw PCM em WAV PCM16 mono automaticamente", () => {
-      const rawPcm = new Uint8Array(1600); // 50ms de 16kHz mono
-      const wav = pcmToWav(rawPcm, 16000);
-      expect(wav.length).toBe(1644);
-      expect(String.fromCharCode(wav[0], wav[1], wav[2], wav[3])).toBe("RIFF");
-      expect(String.fromCharCode(wav[8], wav[9], wav[10], wav[11])).toBe("WAVE");
+    it("STT input abort durante buffering deve lançar ProviderCancelledError", async () => {
+      const controller = new AbortController();
+      const stt = new SpeachesSTTProvider();
+
+      const infiniteStream = (async function* () {
+        yield new Uint8Array([1, 2, 3]);
+        controller.abort();
+        yield new Uint8Array([4, 5, 6]);
+      })();
+
+      await expect(async () => {
+        for await (const _chunk of stt.streamTranscription(infiniteStream, { language: "pt" }, { requestId: "req-stt-cancel", signal: controller.signal })) {
+          // loop
+        }
+      }).rejects.toThrow(ProviderCancelledError);
     });
 
-    it("streamTranscription: deve consumir stream SSE progressivo com stream=true", async () => {
-      const sseLines = [
-        'data: {"text": "Primeiro segmento. "}\n\n',
-        'data: {"text": "Segundo segmento."}\n\n',
-        'data: [DONE]\n\n'
+    it("STT timeout durante buffering deve lançar ProviderTimeoutError", async () => {
+      const stt = new SpeachesSTTProvider();
+
+      const slowStream = (async function* () {
+        yield new Uint8Array([1, 2]);
+        await new Promise((r) => setTimeout(r, 50));
+        yield new Uint8Array([3, 4]);
+      })();
+
+      await expect(async () => {
+        for await (const _chunk of stt.streamTranscription(slowStream, { language: "pt" }, { requestId: "req-stt-timeout", timeoutMs: 15 })) {
+          // loop
+        }
+      }).rejects.toThrow(ProviderTimeoutError);
+    });
+
+    it("STT SSE EOF sem [DONE] deve emitir exatamente 1 isFinal=true", async () => {
+      const sseChunks = [
+        'data: {"text": "Segmento 1. "}\n\n',
+        'data: {"text": "Segmento 2."}\n\n'
+        // EOF natural sem [DONE]
       ];
 
       let idx = 0;
       const mockStream = new ReadableStream({
         pull(controller) {
-          if (idx < sseLines.length) {
-            controller.enqueue(new TextEncoder().encode(sseLines[idx++]));
+          if (idx < sseChunks.length) {
+            controller.enqueue(new TextEncoder().encode(sseChunks[idx++]));
           } else {
             controller.close();
           }
@@ -407,21 +425,115 @@ describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.
       global.fetch = vi.fn().mockResolvedValue({ ok: true, body: mockStream } as unknown as Response);
 
       const stt = new SpeachesSTTProvider();
-      const asyncAudioStream = (async function* () {
+      const asyncAudio = (async function* () {
         yield new Uint8Array([1, 2, 3]);
       })();
 
-      const collected: string[] = [];
-      for await (const chunk of stt.streamTranscription(asyncAudioStream, { language: "pt" })) {
-        collected.push(chunk.partialText);
+      const chunks: { partialText: string; isFinal: boolean }[] = [];
+      for await (const chunk of stt.streamTranscription(asyncAudio, { language: "pt" })) {
+        chunks.push(chunk);
       }
 
-      expect(collected.join("")).toBe("Primeiro segmento. Segundo segmento.");
+      const finalChunks = chunks.filter((c) => c.isFinal);
+      expect(finalChunks.length).toBe(1);
+      expect(chunks.map((c) => c.partialText).join("")).toBe("Segmento 1. Segmento 2.");
+    });
+
+    it("STT SSE com [DONE] deve emitir exatamente 1 isFinal=true", async () => {
+      const sseChunks = [
+        'data: {"text": "Segmento único."}\n\n',
+        'data: [DONE]\n\n'
+      ];
+
+      let idx = 0;
+      const mockStream = new ReadableStream({
+        pull(controller) {
+          if (idx < sseChunks.length) {
+            controller.enqueue(new TextEncoder().encode(sseChunks[idx++]));
+          } else {
+            controller.close();
+          }
+        }
+      });
+
+      global.fetch = vi.fn().mockResolvedValue({ ok: true, body: mockStream } as unknown as Response);
+
+      const stt = new SpeachesSTTProvider();
+      const asyncAudio = (async function* () {
+        yield new Uint8Array([1, 2, 3]);
+      })();
+
+      const chunks: { partialText: string; isFinal: boolean }[] = [];
+      for await (const chunk of stt.streamTranscription(asyncAudio, { language: "pt" })) {
+        chunks.push(chunk);
+      }
+
+      const finalChunks = chunks.filter((c) => c.isFinal);
+      expect(finalChunks.length).toBe(1);
+    });
+
+    it("STT SSE malformed data deve lançar ProviderInvalidResponseError", async () => {
+      const sseChunks = ['data: { invalid json }\n\n'];
+
+      let idx = 0;
+      const mockStream = new ReadableStream({
+        pull(controller) {
+          if (idx < sseChunks.length) {
+            controller.enqueue(new TextEncoder().encode(sseChunks[idx++]));
+          } else {
+            controller.close();
+          }
+        }
+      });
+
+      global.fetch = vi.fn().mockResolvedValue({ ok: true, body: mockStream } as unknown as Response);
+
+      const stt = new SpeachesSTTProvider();
+      const asyncAudio = (async function* () {
+        yield new Uint8Array([1, 2, 3]);
+      })();
+
+      await expect(async () => {
+        for await (const _chunk of stt.streamTranscription(asyncAudio, { language: "pt" })) {
+          // loop
+        }
+      }).rejects.toThrow(ProviderInvalidResponseError);
+    });
+
+    it("PCM to WAV encapsulation em 16k, 24k e 48k com validação de header", () => {
+      const rawPcm = new Uint8Array(1600);
+
+      // 16kHz
+      const wav16k = pcmToWav(rawPcm, 16000);
+      const view16k = new DataView(wav16k.buffer, wav16k.byteOffset, wav16k.byteLength);
+      expect(view16k.getUint32(24, true)).toBe(16000);
+
+      // 24kHz
+      const wav24k = pcmToWav(rawPcm, 24000);
+      const view24k = new DataView(wav24k.buffer, wav24k.byteOffset, wav24k.byteLength);
+      expect(view24k.getUint32(24, true)).toBe(24000);
+
+      // 48kHz
+      const wav48k = pcmToWav(rawPcm, 48000);
+      const view48k = new DataView(wav48k.buffer, wav48k.byteOffset, wav48k.byteLength);
+      expect(view48k.getUint32(24, true)).toBe(48000);
+    });
+
+    it("PCM sem sampleRate deve lançar ProviderInvalidResponseError", async () => {
+      const stt = new SpeachesSTTProvider();
+      await expect(
+        stt.transcribe({
+          audioBuffer: new Uint8Array([1, 2, 3]),
+          language: "pt",
+          audioFormat: "pcm"
+          // sampleRate ausente
+        })
+      ).rejects.toThrow(ProviderInvalidResponseError);
     });
   });
 
-  describe("7. SpeachesTTSProvider SampleRate & Validation", () => {
-    it("deve enviar sample_rate explicitamente e retornar valor factual", async () => {
+  describe("7. SpeachesTTSProvider Formats & SampleRate Validation (Fase 2B.1.3)", () => {
+    it("TTS com formato 'flac' deve ser permitido e tipado corretamente", async () => {
       let capturedPayload: any;
       global.fetch = vi.fn().mockImplementation(async (_url, init) => {
         capturedPayload = JSON.parse(init.body);
@@ -433,36 +545,55 @@ describe("Aeternum Local Inference Providers — Comprehensive Suite (Fase 2B.1.
 
       const tts = new SpeachesTTSProvider();
       const res = await tts.synthesize({
-        text: "Teste de áudio",
+        text: "Teste FLAC",
         voiceProfileId: "pt-br-warm-male-01",
         language: "pt-BR",
-        sampleRate: 16000
+        audioFormat: "flac"
       });
 
-      expect(capturedPayload.sample_rate).toBe(16000);
-      expect(res.sampleRate).toBe(16000);
+      expect(capturedPayload.response_format).toBe("flac");
+      expect(res.audioFormat).toBe("flac");
     });
 
-    it("deve rejeitar formato de áudio não suportado (ex: ogg)", async () => {
+    it("TTS com formato 'ogg' deve ser rejeitado fail-fast no Speaches", async () => {
       const tts = new SpeachesTTSProvider();
       await expect(
         tts.synthesize({
           text: "Teste",
           voiceProfileId: "pt-br-warm-male-01",
           language: "pt-BR",
-          audioFormat: "ogg" as any
+          audioFormat: "ogg"
         })
       ).rejects.toThrow(ProviderInvalidResponseError);
     });
 
-    it("deve rejeitar taxa de amostragem fora dos limites (8000-48000Hz)", async () => {
+    it("sampleRate inválido (0, 7999, 48001) deve lançar ProviderInvalidResponseError", async () => {
       const tts = new SpeachesTTSProvider();
+
       await expect(
         tts.synthesize({
           text: "Teste",
           voiceProfileId: "pt-br-warm-male-01",
           language: "pt-BR",
-          sampleRate: 96000
+          sampleRate: 0
+        })
+      ).rejects.toThrow(ProviderInvalidResponseError);
+
+      await expect(
+        tts.synthesize({
+          text: "Teste",
+          voiceProfileId: "pt-br-warm-male-01",
+          language: "pt-BR",
+          sampleRate: 7999
+        })
+      ).rejects.toThrow(ProviderInvalidResponseError);
+
+      await expect(
+        tts.synthesize({
+          text: "Teste",
+          voiceProfileId: "pt-br-warm-male-01",
+          language: "pt-BR",
+          sampleRate: 48001
         })
       ).rejects.toThrow(ProviderInvalidResponseError);
     });

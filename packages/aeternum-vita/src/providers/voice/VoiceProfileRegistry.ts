@@ -1,15 +1,15 @@
-import { ProviderInvalidResponseError } from "../types/index.ts";
+import { ProviderInvalidResponseError, AeternumAudioFormat } from "../types/index.ts";
 
 export interface VoiceProfile {
-  id: string; // Ex: "pt-br-warm-male-01"
+  id: string;
   name: string;
   language: string;
   gender: "male" | "female" | "neutral";
   providerId: "speaches" | string;
-  modelId: string; // Ex: "speaches-ai/Kokoro-82M-v1.0-ONNX"
-  nativeVoiceId: string; // Ex: "pm_alex"
+  modelId: string;
+  nativeVoiceId: string;
   sampleRate: number;
-  format: "pcm" | "wav" | "mp3" | "flac";
+  format: AeternumAudioFormat;
   speed?: number;
 }
 

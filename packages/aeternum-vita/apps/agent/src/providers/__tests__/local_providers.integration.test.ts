@@ -77,13 +77,14 @@ describe.skipIf(!isIntegrationEnabled)(
         console.log(`[LIVE OLLAMA STREAM] Latência: ${duration}ms | Chunks: ${chunks.length}`);
       }, 30000);
 
-      it("stream cancelamento / barge-in enquanto aguarda", async () => {
+      it("stream cancelamento / barge-in com asserção explícita", async () => {
         const controller = new AbortController();
         const stream = ollama.stream(
           { messages: [{ role: "user", content: "Explique a tíbia em 3 parágrafos." }] },
           { requestId: "live-stream-cancel", signal: controller.signal }
         );
 
+        let cancelled = false;
         const chunks: string[] = [];
         try {
           for await (const chunk of stream) {
@@ -93,11 +94,14 @@ describe.skipIf(!isIntegrationEnabled)(
             }
           }
         } catch (err) {
-          expect(err).toBeInstanceOf(ProviderCancelledError);
+          if (err instanceof ProviderCancelledError) {
+            cancelled = true;
+          }
         }
 
+        expect(cancelled).toBe(true);
         expect(chunks.length).toBeGreaterThanOrEqual(1);
-        console.log(`[LIVE OLLAMA STREAM CANCEL] Tokens recebidos antes do barge-in: ${chunks.length}`);
+        console.log(`[LIVE OLLAMA STREAM CANCEL] Cancelamento confirmado. Chunks recebidos: ${chunks.length}`);
       }, 30000);
     });
 
@@ -129,7 +133,8 @@ describe.skipIf(!isIntegrationEnabled)(
         const res = await stt.transcribe({
           audioBuffer: fixture,
           language: "pt",
-          audioFormat: "wav"
+          audioFormat: "wav",
+          sampleRate: 16000
         });
         const duration = Math.round(performance.now() - start);
 
@@ -137,19 +142,22 @@ describe.skipIf(!isIntegrationEnabled)(
         console.log(`[LIVE SPEACHES STT BATCH] Latência: ${duration}ms | Transcrição: '${res.text}'`);
       }, 30000);
 
-      it("STT SSE output com stream=true", async () => {
+      it("STT SSE output com stream=true e asserção de isFinal único", async () => {
         const fixture = createSyntheticWav();
         const asyncAudio = (async function* () {
           yield fixture;
         })();
 
         const start = performance.now();
-        const chunks: string[] = [];
-        for await (const chunk of stt.streamTranscription(asyncAudio, { language: "pt" })) {
-          if (chunk.partialText) chunks.push(chunk.partialText);
+        const chunks: { partialText: string; isFinal: boolean }[] = [];
+        for await (const chunk of stt.streamTranscription(asyncAudio, { language: "pt", sampleRate: 16000 })) {
+          chunks.push(chunk);
         }
         const duration = Math.round(performance.now() - start);
-        console.log(`[LIVE SPEACHES STT SSE] Latência: ${duration}ms | Chunks recebidos: ${chunks.length}`);
+
+        const finals = chunks.filter((c) => c.isFinal);
+        expect(finals.length).toBe(1);
+        console.log(`[LIVE SPEACHES STT SSE] Latência: ${duration}ms | Chunks: ${chunks.length} | isFinal único: OK`);
       }, 30000);
 
       it("TTS synthesize real com Kokoro (pm_alex)", async () => {
@@ -180,13 +188,14 @@ describe.skipIf(!isIntegrationEnabled)(
         console.log(`[LIVE SPEACHES TTS 16kHz] Latência: ${duration}ms | SampleRate: ${res.sampleRate}`);
       }, 30000);
 
-      it("TTS stream real com cancelamento", async () => {
+      it("TTS stream real com cancelamento explícito", async () => {
         const controller = new AbortController();
         const stream = tts.streamSynthesis(
           { text: "Explicação anatômica detalhada do sistema musculoesquelético.", voiceProfileId: "pt-br-warm-male-01", language: "pt-BR" },
           { requestId: "live-tts-stream-cancel", signal: controller.signal }
         );
 
+        let cancelled = false;
         let chunksCount = 0;
         try {
           for await (const chunk of stream) {
@@ -196,10 +205,13 @@ describe.skipIf(!isIntegrationEnabled)(
             }
           }
         } catch (err) {
-          expect(err).toBeInstanceOf(ProviderCancelledError);
+          if (err instanceof ProviderCancelledError) {
+            cancelled = true;
+          }
         }
 
-        console.log(`[LIVE SPEACHES TTS STREAM CANCEL] Chunks recebidos antes do abort: ${chunksCount}`);
+        expect(cancelled).toBe(true);
+        console.log(`[LIVE SPEACHES TTS STREAM CANCEL] Cancelamento confirmado. Chunks recebidos: ${chunksCount}`);
       }, 30000);
     });
   }

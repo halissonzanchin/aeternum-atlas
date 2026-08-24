@@ -1,5 +1,7 @@
 import { LatencyMetrics } from "./common.ts";
 
+export type AeternumAudioFormat = "pcm" | "wav" | "mp3" | "flac" | "ogg" | "webm";
+
 export interface STTWordTimestamp {
   word: string;
   startMs: number;
@@ -11,7 +13,7 @@ export interface STTRequest {
   audioBuffer: Uint8Array;
   language: string;
   sampleRate?: number;
-  audioFormat?: "pcm" | "wav" | "ogg" | "webm";
+  audioFormat?: AeternumAudioFormat;
   medicalContextHints?: string[];
 }
 
@@ -36,12 +38,12 @@ export interface TTSRequest {
   language: string;
   speed?: number;
   sampleRate?: number;
-  audioFormat?: "pcm" | "wav" | "mp3" | "ogg";
+  audioFormat?: AeternumAudioFormat;
 }
 
 export interface TTSResponse {
   audioBuffer: Uint8Array;
-  audioFormat: "pcm" | "wav" | "mp3" | "ogg";
+  audioFormat: AeternumAudioFormat;
   sampleRate: number;
   providerId: string;
   modelId: string;

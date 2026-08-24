@@ -15,6 +15,14 @@ export interface ProviderFetchOptions extends RequestInit {
   timeoutMs?: number;
 }
 
+export interface ExecutionCoordinator {
+  signal: AbortSignal;
+  checkAborted: () => void;
+  cleanup: () => void;
+  getCause: () => TerminationCause;
+  handleError: (error: unknown) => never;
+}
+
 export interface ProviderFetchSession {
   response: Response;
   cleanup: () => void;
@@ -23,12 +31,11 @@ export interface ProviderFetchSession {
   handleStreamReadError: (error: unknown) => never;
 }
 
-export async function executeProviderFetchSession(
-  url: string,
-  options: ProviderFetchOptions,
+export function createExecutionCoordinator(
   providerId: string,
-  context?: ProviderExecutionContext
-): Promise<ProviderFetchSession> {
+  context?: ProviderExecutionContext,
+  defaultTimeoutMs?: number
+): ExecutionCoordinator {
   const controller = new AbortController();
   const state: { cause: TerminationCause } = { cause: "NONE" };
   let timeoutId: NodeJS.Timeout | undefined;
@@ -47,7 +54,7 @@ export async function executeProviderFetchSession(
     context.signal.addEventListener("abort", onUserAbort, { once: true });
   }
 
-  const timeoutMs = context?.timeoutMs || options.timeoutMs;
+  const timeoutMs = context?.timeoutMs ?? defaultTimeoutMs;
   if (timeoutMs && timeoutMs > 0) {
     timeoutId = setTimeout(() => {
       if (state.cause === "NONE") {
@@ -76,7 +83,7 @@ export async function executeProviderFetchSession(
     }
   };
 
-  const handleStreamReadError = (error: unknown): never => {
+  const handleError = (error: unknown): never => {
     checkAborted();
     if (error instanceof AeternumProviderError) {
       throw error;
@@ -88,19 +95,37 @@ export async function executeProviderFetchSession(
       throw new ProviderCancelledError("Stream abortado pelo usuário.", providerId);
     }
     throw new ProviderUnavailableError(
-      `Falha na leitura do stream: ${(error as Error)?.message || String(error)}`,
+      `Falha durante a operação: ${(error as Error)?.message || String(error)}`,
       providerId
     );
   };
 
+  return {
+    signal: controller.signal,
+    checkAborted,
+    cleanup,
+    getCause: () => state.cause,
+    handleError
+  };
+}
+
+export async function executeProviderFetchSession(
+  url: string,
+  options: ProviderFetchOptions,
+  providerId: string,
+  context?: ProviderExecutionContext,
+  existingCoordinator?: ExecutionCoordinator
+): Promise<ProviderFetchSession> {
+  const coordinator = existingCoordinator || createExecutionCoordinator(providerId, context, options.timeoutMs);
+
   try {
     const res = await fetch(url, {
       ...options,
-      signal: controller.signal
+      signal: coordinator.signal
     });
 
     if (!res.ok) {
-      cleanup();
+      coordinator.cleanup();
       if (res.status === 401 || res.status === 403) {
         throw new ProviderAuthenticationError(`Falha de autenticação no provider [HTTP ${res.status}]`, providerId);
       }
@@ -116,30 +141,14 @@ export async function executeProviderFetchSession(
 
     return {
       response: res,
-      cleanup,
-      checkAborted,
-      getCause: () => state.cause,
-      handleStreamReadError
+      cleanup: coordinator.cleanup,
+      checkAborted: coordinator.checkAborted,
+      getCause: coordinator.getCause,
+      handleStreamReadError: coordinator.handleError
     };
   } catch (error) {
-    cleanup();
-
-    if (error instanceof AeternumProviderError) {
-      throw error;
-    }
-
-    if (state.cause === "USER_CANCELLED") {
-      throw new ProviderCancelledError("Operação abortada por cancelamento.", providerId);
-    }
-
-    if (state.cause === "TIMEOUT") {
-      throw new ProviderTimeoutError(`Tempo limite de ${timeoutMs}ms excedido na requisição.`, providerId);
-    }
-
-    throw new ProviderUnavailableError(
-      `Falha de conexão com provider: ${(error as Error)?.message || String(error)}`,
-      providerId
-    );
+    coordinator.cleanup();
+    throw coordinator.handleError(error);
   }
 }
 

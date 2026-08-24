@@ -2,6 +2,50 @@
 
 ---
 
+## Teste 010 — Validação Final de Semântica de Adapters & Integração Completa (Fase 2B.1.3)
+
+Data: 2026-08-24 17:20 BRT  
+Ambiente: HP Victus (Docker: Ollama 0.32.5, Speaches 0.8.3-cpu)
+
+### 1. Verificação Estática & Tipagem (tsc --noEmit):
+- `apps/agent`: **PASS (0 erros)** ✅
+- `apps/token-server`: **PASS (0 erros)** ✅
+- `apps/web`: **PASS (0 erros)** ✅
+
+### 2. Suíte Unitária (Vitest Mocks - 105 Testes no Monorepo):
+- Base URL normalizada (com e sem `/v1`): **PASS** ✅
+- First Cause Wins - Corrida A (Timeout vence -> abort posterior = `ProviderTimeoutError`): **PASS** ✅
+- First Cause Wins - Corrida B (Abort vence -> timeout posterior = `ProviderCancelledError`): **PASS** ✅
+- Non-Stream Deadline Coverage (`executeProviderJson`, `executeProviderBinary`): **PASS** ✅
+- Blocked Reader Error Normalization (Ollama stream abort/timeout & Speaches TTS stream abort): **PASS** ✅
+- STT input abort durante buffering -> `ProviderCancelledError`: **PASS** ✅
+- STT timeout durante buffering -> `ProviderTimeoutError`: **PASS** ✅
+- STT SSE EOF sem `[DONE]` -> exatamente 1 `isFinal=true`: **PASS** ✅
+- STT SSE com `[DONE]` -> exatamente 1 `isFinal=true`: **PASS** ✅
+- STT SSE malformed data -> `ProviderInvalidResponseError`: **PASS** ✅
+- PCM 16k, 24k, 48k WAV header validation: **PASS** ✅
+- PCM sem sampleRate -> erro explícito: **PASS** ✅
+- TTS formato FLAC -> suportado e tipado: **PASS** ✅
+- TTS formato OGG -> rejeitado fail-fast no Speaches: **PASS** ✅
+- TTS sampleRate inválido (0, 7999, 48001) -> erro explícito: **PASS** ✅
+
+### 3. Suíte de Integração Real no HP Victus (10/10 Testes Executados):
+1. **Ollama Health**: **PASS** (33ms, modelo: `qwen2.5:3b`, status: `HEALTHY`) ✅
+2. **Ollama Generate (Qwen 2.5:3b)**: **PASS** (442ms, resposta: `"Eterna"`) ✅
+3. **Ollama Stream Normal (20 tokens)**: **PASS** (446ms, 20 chunks recebidos) ✅
+4. **Ollama Stream Cancellation (Barge-In)**: **PASS** (180ms, asserção explícita de `ProviderCancelledError` confirmada) ✅
+5. **Speaches STT & TTS Health**: **PASS** (39ms, status: `HEALTHY`) ✅
+6. **Speaches STT Batch (Fixture Sintético)**: **PASS** (102ms) ✅
+7. **Speaches STT SSE Output (stream=true)**: **PASS** (103ms, stream decodificado e asserção de exatamente 1 `isFinal=true` confirmada) ✅
+8. **Speaches TTS Synthesize (Kokoro pm_alex 24kHz)**: **PASS** (692ms, 83.968 bytes) ✅
+9. **Speaches TTS Synthesize (Custom 16kHz)**: **PASS** (684ms, sample_rate 16000 factual) ✅
+10. **Speaches TTS Stream Cancellation (Barge-In)**: **PASS** (1144ms, asserção explícita de `ProviderCancelledError` confirmada) ✅
+
+### Resultado
+PASS (10/10 Testes de Integração & 105/105 Testes Unitários Aprovados)
+
+---
+
 ## Teste 009 — Validação de Stream Semantics, Capability Truth & Integração HP Victus (Fase 2B.1.2)
 
 Data: 2026-08-24 17:10 BRT  

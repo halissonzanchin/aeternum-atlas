@@ -4,6 +4,47 @@
 
 ---
 
+## [2026-08-24 17:20] — Fase 2B.1.3: Final Adapter Semantics & Evidence Gate
+
+### Solicitação recebida
+Executar a Fase 2B.1.3 (Final Adapter Semantics & Evidence Gate):
+1. **STT Input Cancellation**: Corrigido `streamTranscription()` para mapear cancelamento durante o buffering de áudio para `ProviderCancelledError` (nunca `ProviderInvalidResponseError`).
+2. **STT Operation Deadline**: O deadline (`timeoutMs`) agora protege a operação completa desde o início da coleta/buffering do stream até a conclusão da resposta SSE (`createExecutionCoordinator`). Se ocorrer timeout durante o buffering -> `ProviderTimeoutError`. Se ocorrer abort -> `ProviderCancelledError`. First Cause Wins estritamente mantido.
+3. **STT SSE EOF Semantics**: Suporte nativo ao encerramento por EOF do Speaches v0.8.3 sem depender da linha `data: [DONE]`. Quando o stream termina, emite exatamente um `STTStreamChunk { partialText: "", isFinal: true }` (sem duplicações).
+4. **STT SSE Malformed Data**: Linhas `data: ` com JSON corrompido/inválido lançam determinística e imediatamente `ProviderInvalidResponseError`.
+5. **PCM Canônico Aeternum**: Definido formalmente como PCM16LE mono com `sampleRate` obrigatório. Quando `audioFormat = "pcm"`, exige `sampleRate` explícito e encapsula em cabeçalho WAV padrão via `pcmToWav(request.audioBuffer, request.sampleRate, 1, 16)`.
+6. **TTS Formats & Types (`AeternumAudioFormat`)**: Criado tipo unificado `"pcm" | "wav" | "mp3" | "flac" | "ogg" | "webm"`. SpeachesTTSProvider aceita `pcm`, `wav`, `mp3` e `flac`, rejeitando `ogg` fail-fast com `ProviderInvalidResponseError`.
+7. **Sample Rate Nullish**: Utilizada a semântica `request.sampleRate ?? profile.sampleRate` e validação estrita no intervalo 8000–48000Hz (rejeitando 0, 7999 e 48001).
+8. **Cobertura de Testes**:
+   - 85 testes unitários no `apps/agent` (105 no monorepo).
+   - Suíte de 10 testes de integração reais no HP Victus executada integralmente (`RUN_LOCAL_PROVIDER_INTEGRATION=true`) com asserções explícitas de cancelamento e `isFinal: true` único.
+9. **Governança & Zero Runtime Wiring**:
+   - Runtime de produção, Supabase, Vercel, LiveKit e contêineres ativos intactos.
+   - Status: `IMPLEMENTED / PENDING CHATGPT AUDIT`.
+
+### Arquivos modificados / criados
+- packages/aeternum-vita/src/providers/types/speech.ts
+- packages/aeternum-vita/src/providers/local/utils/audio.ts
+- packages/aeternum-vita/src/providers/local/utils/fetchWithTimeout.ts
+- packages/aeternum-vita/src/providers/local/speaches/SpeachesSTTProvider.ts
+- packages/aeternum-vita/src/providers/local/speaches/SpeachesTTSProvider.ts
+- packages/aeternum-vita/src/providers/voice/VoiceProfileRegistry.ts
+- packages/aeternum-vita/src/providers/__tests__/local_providers.test.ts
+- packages/aeternum-vita/src/providers/__tests__/local_providers.integration.test.ts
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/ANTIGRAVITY_SYNC.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/TEST_HISTORY.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/CURRENT_STATE.md
+
+### Testes executados
+- TypeScript Typecheck (`tsc --noEmit`): **PASS (0 erros)**
+- Suíte Unitária do Monorepo: **105 passed (100% Green)**
+- Suíte de Integração Real no HP Victus (`local_providers.integration.test.ts`): **10/10 passed (100% Green)**
+
+### Resultado
+PASS (Fase 2B.1.3 IMPLEMENTED / PENDING CHATGPT AUDIT)
+
+---
+
 ## [2026-08-24 17:10] — Fase 2B.1.2: Stream Semantics & Capability Truth Gate
 
 ### Solicitação recebida

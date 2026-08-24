@@ -8,7 +8,11 @@ import {
   ProviderExecutionContext,
   ProviderInvalidResponseError
 } from "../../types/index.ts";
-import { executeProviderJson, executeProviderFetchSession } from "../utils/fetchWithTimeout.ts";
+import {
+  executeProviderJson,
+  executeProviderFetchSession,
+  createExecutionCoordinator
+} from "../utils/fetchWithTimeout.ts";
 import { buildProviderUrl } from "../utils/url.ts";
 import { pcmToWav } from "../utils/audio.ts";
 
@@ -133,8 +137,14 @@ export class SpeachesSTTProvider implements STTProvider {
     let fileName = "audio.wav";
 
     if (format === "pcm") {
-      // Encapsula PCM como WAV PCM16 mono para eliminar ambiguidade
-      audioBytes = pcmToWav(request.audioBuffer, 16000);
+      // Exige sampleRate explícito e encapsula como WAV PCM16LE mono
+      if (!request.sampleRate) {
+        throw new ProviderInvalidResponseError(
+          "Para áudio no formato 'pcm', o campo 'sampleRate' é obrigatório.",
+          this.metadata.id
+        );
+      }
+      audioBytes = pcmToWav(request.audioBuffer, request.sampleRate, 1, 16);
       mimeType = "audio/wav";
       fileName = "audio.wav";
     } else if (format === "webm") {
@@ -205,12 +215,17 @@ export class SpeachesSTTProvider implements STTProvider {
     options: Omit<STTRequest, "audioBuffer">,
     context?: ProviderExecutionContext
   ): AsyncIterable<STTStreamChunk> {
+    const coordinator = createExecutionCoordinator(this.metadata.id, context);
+
     const chunks: Uint8Array[] = [];
-    for await (const chunk of audioStream) {
-      if (context?.signal?.aborted) {
-        throw new ProviderInvalidResponseError("Stream de entrada abortado.", this.metadata.id);
+    try {
+      for await (const chunk of audioStream) {
+        coordinator.checkAborted();
+        chunks.push(chunk);
       }
-      chunks.push(chunk);
+    } catch (err) {
+      coordinator.cleanup();
+      coordinator.handleError(err);
     }
 
     const totalLength = chunks.reduce((acc, c) => acc + c.length, 0);
@@ -227,39 +242,54 @@ export class SpeachesSTTProvider implements STTProvider {
     const headers: Record<string, string> = {};
     if (this.apiKey) headers["Authorization"] = `Bearer ${this.apiKey}`;
 
-    const session = await executeProviderFetchSession(
-      url,
-      {
-        method: "POST",
-        headers,
-        body: formData
-      },
-      this.metadata.id,
-      context
-    );
+    let session;
+    try {
+      session = await executeProviderFetchSession(
+        url,
+        {
+          method: "POST",
+          headers,
+          body: formData
+        },
+        this.metadata.id,
+        context,
+        coordinator
+      );
+    } catch (err) {
+      coordinator.cleanup();
+      throw err;
+    }
 
     const res = session.response;
     if (!res.body) {
       session.cleanup();
+      coordinator.cleanup();
       throw new ProviderInvalidResponseError("Stream body vazio no Speaches STT.", this.metadata.id);
     }
 
     const reader = res.body.getReader();
     const decoder = new TextDecoder("utf-8");
     let buffer = "";
+    let finalEmitted = false;
 
     try {
       while (true) {
         session.checkAborted();
 
-        let readResult: { done: boolean; value?: Uint8Array } = { done: false };
+        let readResult = { done: false, value: undefined as Uint8Array | undefined };
         try {
           readResult = await reader.read();
         } catch (err) {
           session.handleStreamReadError(err);
         }
 
-        if (readResult.done) break;
+        if (readResult.done) {
+          if (!finalEmitted) {
+            yield { partialText: "", isFinal: true };
+            finalEmitted = true;
+          }
+          return;
+        }
 
         buffer += decoder.decode(readResult.value, { stream: true });
         const lines = buffer.split("\n");
@@ -268,25 +298,33 @@ export class SpeachesSTTProvider implements STTProvider {
         for (const line of lines) {
           const trimmed = line.trim();
           if (!trimmed || trimmed.startsWith(":")) continue;
+          if (trimmed === "data: [DONE]") {
+            if (!finalEmitted) {
+              yield { partialText: "", isFinal: true };
+              finalEmitted = true;
+            }
+            return;
+          }
           if (trimmed.startsWith("data: ")) {
             const jsonStr = trimmed.slice(6);
-            if (jsonStr === "[DONE]") {
-              yield { partialText: "", isFinal: true };
-              return;
-            }
+            let parsed: any;
             try {
-              const parsed = JSON.parse(jsonStr);
-              if (parsed?.text) {
-                yield { partialText: parsed.text, isFinal: false };
-              }
+              parsed = JSON.parse(jsonStr);
             } catch {
-              // Ignore partial chunk parsing failure in SSE
+              throw new ProviderInvalidResponseError(
+                `Chunk SSE inválido ou corrompido no Speaches STT: ${jsonStr.slice(0, 50)}`,
+                this.metadata.id
+              );
+            }
+            if (parsed?.text) {
+              yield { partialText: parsed.text, isFinal: false };
             }
           }
         }
       }
     } finally {
       session.cleanup();
+      coordinator.cleanup();
       reader.releaseLock();
     }
   }

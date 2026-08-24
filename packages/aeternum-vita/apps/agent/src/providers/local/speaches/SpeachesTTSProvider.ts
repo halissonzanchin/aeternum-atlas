@@ -3,6 +3,7 @@ import {
   TTSRequest,
   TTSResponse,
   TTSStreamChunk,
+  AeternumAudioFormat,
   ProviderMetadata,
   HealthResult,
   ProviderExecutionContext,
@@ -18,7 +19,7 @@ export interface SpeachesTTSConfig {
   registry?: VoiceProfileRegistry;
 }
 
-const SUPPORTED_FORMATS = new Set(["mp3", "flac", "wav", "pcm"]);
+const SUPPORTED_FORMATS = new Set<AeternumAudioFormat>(["pcm", "wav", "mp3", "flac"]);
 
 export class SpeachesTTSProvider implements TTSProvider {
   public readonly metadata: ProviderMetadata;
@@ -103,19 +104,19 @@ export class SpeachesTTSProvider implements TTSProvider {
 
   private validateAndBuildPayload(request: TTSRequest) {
     const profile = this.registry.require(request.voiceProfileId);
-    const requestedFormat = (request.audioFormat || profile.format || "pcm").toLowerCase();
+    const requestedFormat = (request.audioFormat ?? profile.format ?? "pcm").toLowerCase() as AeternumAudioFormat;
 
     if (!SUPPORTED_FORMATS.has(requestedFormat)) {
       throw new ProviderInvalidResponseError(
-        `Formato de áudio '${requestedFormat}' não é suportado pelo Speaches TTS. Formatos suportados: mp3, flac, wav, pcm.`,
+        `Formato de áudio '${requestedFormat}' não é suportado pelo Speaches TTS. Formatos suportados: pcm, wav, mp3, flac.`,
         this.metadata.id
       );
     }
 
-    const effectiveSampleRate = request.sampleRate || profile.sampleRate || 24000;
-    if (effectiveSampleRate < 8000 || effectiveSampleRate > 48000) {
+    const effectiveSampleRate = request.sampleRate ?? profile.sampleRate;
+    if (typeof effectiveSampleRate !== "number" || effectiveSampleRate < 8000 || effectiveSampleRate > 48000) {
       throw new ProviderInvalidResponseError(
-        `Taxa de amostragem de ${effectiveSampleRate}Hz fora do limite suportado (8000–48000Hz).`,
+        `Taxa de amostragem de ${effectiveSampleRate}Hz fora do limite suportado pelo Speaches (8000–48000Hz).`,
         this.metadata.id
       );
     }
@@ -125,7 +126,7 @@ export class SpeachesTTSProvider implements TTSProvider {
       input: request.text,
       voice: profile.nativeVoiceId,
       response_format: requestedFormat,
-      speed: request.speed || profile.speed || 1.0,
+      speed: request.speed ?? profile.speed ?? 1.0,
       sample_rate: effectiveSampleRate
     };
 
@@ -157,7 +158,7 @@ export class SpeachesTTSProvider implements TTSProvider {
 
     return {
       audioBuffer: audioBytes,
-      audioFormat: requestedFormat as "pcm" | "wav" | "mp3" | "ogg",
+      audioFormat: requestedFormat,
       sampleRate: effectiveSampleRate,
       providerId: this.metadata.id,
       modelId: profile.modelId,
@@ -199,7 +200,7 @@ export class SpeachesTTSProvider implements TTSProvider {
       while (true) {
         session.checkAborted();
 
-        let readResult: { done: boolean; value?: Uint8Array } = { done: false };
+        let readResult = { done: false, value: undefined as Uint8Array | undefined };
         try {
           readResult = await reader.read();
         } catch (err) {
