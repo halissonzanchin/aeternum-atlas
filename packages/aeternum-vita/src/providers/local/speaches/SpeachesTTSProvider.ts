@@ -10,7 +10,8 @@ import {
   ProviderCancelledError
 } from "../../types/index.ts";
 import { VoiceProfileRegistry } from "../../voice/VoiceProfileRegistry.ts";
-import { executeProviderFetch } from "../utils/fetchWithTimeout.ts";
+import { executeProviderFetch, executeProviderFetchSession } from "../utils/fetchWithTimeout.ts";
+import { buildProviderUrl } from "../utils/url.ts";
 
 export interface SpeachesTTSConfig {
   baseUrl?: string;
@@ -25,7 +26,7 @@ export class SpeachesTTSProvider implements TTSProvider {
   private readonly registry: VoiceProfileRegistry;
 
   constructor(config: SpeachesTTSConfig = {}) {
-    this.baseUrl = (config.baseUrl || "http://localhost:8000").replace(/\/+$/, "");
+    this.baseUrl = config.baseUrl || "http://localhost:8000";
     this.apiKey = config.apiKey;
     this.registry = config.registry || new VoiceProfileRegistry(true);
 
@@ -41,16 +42,12 @@ export class SpeachesTTSProvider implements TTSProvider {
 
   async health(context?: ProviderExecutionContext): Promise<HealthResult> {
     const start = performance.now();
+    const url = buildProviderUrl(this.baseUrl, "/v1/models");
     try {
       const headers: Record<string, string> = {};
       if (this.apiKey) headers["Authorization"] = `Bearer ${this.apiKey}`;
 
-      const res = await executeProviderFetch(
-        `${this.baseUrl}/v1/models`,
-        { method: "GET", headers },
-        this.metadata.id,
-        context
-      );
+      const res = await executeProviderFetch(url, { method: "GET", headers }, this.metadata.id, context);
       const data = (await res.json()) as { data?: Array<{ id?: string }> };
       const latencyMs = Math.round(performance.now() - start);
 
@@ -58,17 +55,19 @@ export class SpeachesTTSProvider implements TTSProvider {
         ? data.data.map((m) => m.id || "")
         : [];
 
-      const ttsFound = models.some((m) => m.includes("Kokoro") || m.includes("piper") || m.includes("tts"));
+      const profiles = this.registry.listAll();
+      const unavailableProfiles = profiles.filter((p) => !models.includes(p.modelId));
 
-      if (!ttsFound) {
+      if (unavailableProfiles.length > 0) {
         return {
           providerId: this.metadata.id,
           status: "DEGRADED",
           latencyMs,
           timestamp: new Date().toISOString(),
           details: {
-            tts_available: false,
-            available_models_count: models.length
+            available_profile_count: profiles.length - unavailableProfiles.length,
+            unavailable_profile_count: unavailableProfiles.length,
+            unavailable_profile_ids: unavailableProfiles.map((p) => p.id).join(", ")
           }
         };
       }
@@ -79,8 +78,8 @@ export class SpeachesTTSProvider implements TTSProvider {
         latencyMs,
         timestamp: new Date().toISOString(),
         details: {
-          tts_available: true,
-          available_models_count: models.length
+          available_profile_count: profiles.length,
+          unavailable_profile_count: 0
         }
       };
     } catch {
@@ -91,7 +90,7 @@ export class SpeachesTTSProvider implements TTSProvider {
         timestamp: new Date().toISOString(),
         details: {
           error: "Speaches TTS service unreachable",
-          baseUrl: this.baseUrl
+          target_url: url
         }
       };
     }
@@ -99,6 +98,7 @@ export class SpeachesTTSProvider implements TTSProvider {
 
   async synthesize(request: TTSRequest, context?: ProviderExecutionContext): Promise<TTSResponse> {
     const start = performance.now();
+    const url = buildProviderUrl(this.baseUrl, "/v1/audio/speech");
     const profile = this.registry.require(request.voiceProfileId);
 
     const payload = {
@@ -115,7 +115,7 @@ export class SpeachesTTSProvider implements TTSProvider {
     if (this.apiKey) headers["Authorization"] = `Bearer ${this.apiKey}`;
 
     const res = await executeProviderFetch(
-      `${this.baseUrl}/v1/audio/speech`,
+      url,
       {
         method: "POST",
         headers,
@@ -137,7 +137,7 @@ export class SpeachesTTSProvider implements TTSProvider {
     return {
       audioBuffer: new Uint8Array(arrayBuffer),
       audioFormat: (request.audioFormat || profile.format || "pcm") as "pcm" | "wav" | "mp3" | "ogg",
-      sampleRate: request.sampleRate || profile.sampleRate || 24000,
+      sampleRate: profile.sampleRate,
       providerId: this.metadata.id,
       modelId: profile.modelId,
       latency: {
@@ -147,6 +147,7 @@ export class SpeachesTTSProvider implements TTSProvider {
   }
 
   async *streamSynthesis(request: TTSRequest, context?: ProviderExecutionContext): AsyncIterable<TTSStreamChunk> {
+    const url = buildProviderUrl(this.baseUrl, "/v1/audio/speech");
     const profile = this.registry.require(request.voiceProfileId);
 
     const payload = {
@@ -162,8 +163,8 @@ export class SpeachesTTSProvider implements TTSProvider {
     };
     if (this.apiKey) headers["Authorization"] = `Bearer ${this.apiKey}`;
 
-    const res = await executeProviderFetch(
-      `${this.baseUrl}/v1/audio/speech`,
+    const session = await executeProviderFetchSession(
+      url,
       {
         method: "POST",
         headers,
@@ -173,7 +174,9 @@ export class SpeachesTTSProvider implements TTSProvider {
       context
     );
 
+    const res = session.response;
     if (!res.body) {
+      session.cleanup();
       throw new ProviderInvalidResponseError("Corpo de streaming vazio do TTS.", this.metadata.id);
     }
 
@@ -181,9 +184,7 @@ export class SpeachesTTSProvider implements TTSProvider {
 
     try {
       while (true) {
-        if (context?.signal?.aborted) {
-          throw new ProviderCancelledError("Streaming de áudio interrompido por barge-in.", this.metadata.id);
-        }
+        session.checkAborted();
 
         const { value, done } = await reader.read();
         if (done) break;
@@ -200,6 +201,7 @@ export class SpeachesTTSProvider implements TTSProvider {
         isFinal: true
       };
     } finally {
+      session.cleanup();
       reader.releaseLock();
     }
   }

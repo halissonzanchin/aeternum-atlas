@@ -4,6 +4,58 @@
 
 ---
 
+## [2026-08-24 16:55] — Fase 2B.1.1: Local Provider Correctness Gate
+
+### Solicitação recebida
+Executar a Fase 2B.1.1 (Local Provider Correctness Gate):
+1. **Base URL Normalization**: Criado `buildProviderUrl` para normalizar URLs sem duplicar `/v1` (ex: `http://localhost:11434` ou `http://localhost:11434/v1` -> `http://localhost:11434/v1/chat/completions`).
+2. **Remoção de Secrets Hardcoded**: Removida qualquer chave default nos testes de integração. Utilizado `process.env.LOCAL_SPEECH_API_KEY` / `SPEACHES_API_KEY` de forma segura e fail-safe.
+3. **First Cause Wins & Session Timeout**: Implementado `executeProviderFetchSession` com máquina de estados imutável (`NONE`, `USER_CANCELLED`, `TIMEOUT`). Se o cancelamento do usuário ocorrer primeiro -> sempre `ProviderCancelledError`; se o timeout ocorrer primeiro -> sempre `ProviderTimeoutError`. O timeout cobre todo o ciclo de vida da leitura de stream.
+4. **Cleanup de Event Listeners**: `cleanup()` explícito remove listeners de `AbortSignal` e timers sem vazamento de recursos.
+5. **STT Streaming Capability & Confidence**:
+   - Capability factual registrada: `batch_transcription: true`, `streamed_transcription_output: false`, `live_audio_input: false`, `websocket_realtime: false`.
+   - `confidence`: Retorna `undefined` quando ausente do Speaches (zero fabricação de scores).
+   - `MIME / Arquivos`: Mapeamento correto de extensões e tipos para `wav` (`audio/wav`), `webm` (`audio/webm`), `ogg` (`audio/ogg`) e `pcm` (`application/octet-stream`).
+   - `Health STT`: Exige presença exata de `this.modelId` no catálogo de modelos.
+6. **TTS Profile Health & SampleRate**:
+   - `Health TTS`: Itera todos os perfis registrados no `VoiceProfileRegistry` e marca `DEGRADED` com lista de perfis indisponíveis se algum modelo nativo (ex: Piper) estiver ausente.
+   - `sampleRate`: Retorna o sample rate factual do modelo/perfil (ex: 24000 para Kokoro, 22050 para Piper).
+7. **Ollama Malformed SSE Handling**: Eventos `data: ` com JSON inválido lançam `ProviderInvalidResponseError`.
+8. **Suítes de Teste Expandidas**:
+   - Unit tests: 68 testes no agent (11 testes específicos de correctness e hardening dos providers locais).
+   - Live integration tests: 6 testes executados contra Ollama 0.32.5 (`qwen2.5:3b`) e Speaches 0.8.3 (`faster-whisper-small`, `Kokoro-82M`) no HP Victus (100% PASS).
+9. **Zero Runtime Wiring**: Sem alterações no Agent ativo, Supabase, Vercel ou LiveKit.
+
+### Arquivos modificados / criados
+- packages/aeternum-vita/src/providers/local/utils/url.ts
+- packages/aeternum-vita/src/providers/local/utils/fetchWithTimeout.ts
+- packages/aeternum-vita/src/providers/local/ollama/OllamaLLMProvider.ts
+- packages/aeternum-vita/src/providers/local/speaches/SpeachesSTTProvider.ts
+- packages/aeternum-vita/src/providers/local/speaches/SpeachesTTSProvider.ts
+- packages/aeternum-vita/src/providers/voice/VoiceProfileRegistry.ts
+- packages/aeternum-vita/src/providers/local/index.ts
+- packages/aeternum-vita/src/providers/__tests__/local_providers.test.ts
+- packages/aeternum-vita/src/providers/__tests__/local_providers.integration.test.ts
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/ANTIGRAVITY_SYNC.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/TEST_HISTORY.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/CURRENT_STATE.md
+
+### Testes executados
+- TypeScript Typecheck (`tsc --noEmit`): **PASS (0 erros)**
+- Suíte Unitária do Monorepo: **88 passed (100% Green)**
+- Suíte de Integração Real no HP Victus (`RUN_LOCAL_PROVIDER_INTEGRATION=true`): **6/6 passed (100% Green)**
+  - Ollama health: PASS (36ms)
+  - Ollama generate: PASS (605ms) -> `"Aeterno"`
+  - Ollama stream cancellation: PASS (2 tokens antes de barge-in)
+  - Speaches STT & TTS health: PASS (37ms)
+  - Speaches STT batch com fixture sintético: PASS (96ms)
+  - Speaches TTS synthesize real com Kokoro pm_alex: PASS (550ms, 83968 bytes)
+
+### Resultado
+PASS (Fase 2B.1.1 LOCAL PROVIDER CORRECTNESS IMPLEMENTED)
+
+---
+
 ## [2026-08-24 16:30] — Fase 2B.1: Local Inference Providers
 
 ### Solicitação recebida

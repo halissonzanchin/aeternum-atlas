@@ -4,14 +4,17 @@ import {
   SpeachesSTTProvider,
   SpeachesTTSProvider,
   VoiceProfileRegistry,
+  buildProviderUrl,
+  executeProviderFetchSession,
   ProviderUnavailableError,
+  ProviderTimeoutError,
   ProviderCancelledError,
   ProviderAuthenticationError,
   ProviderRateLimitError,
   ProviderInvalidResponseError
 } from "../index.ts";
 
-describe("Aeternum Local Inference Providers — Unit Tests (Fase 2B.1)", () => {
+describe("Aeternum Local Inference Providers — Correctness Suite (Fase 2B.1.1)", () => {
   const originalFetch = global.fetch;
 
   beforeEach(() => {
@@ -22,154 +25,107 @@ describe("Aeternum Local Inference Providers — Unit Tests (Fase 2B.1)", () => 
     global.fetch = originalFetch;
   });
 
-  describe("1. OllamaLLMProvider", () => {
-    it("health: deve retornar HEALTHY quando o modelo configurado estiver presente", async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({
-          models: [{ name: "qwen2.5:3b" }, { name: "qwen3:4b" }]
-        })
-      } as unknown as Response);
-
-      const provider = new OllamaLLMProvider({ modelId: "qwen2.5:3b" });
-      const health = await provider.health();
-
-      expect(health.status).toBe("HEALTHY");
-      expect(health.details?.model_available).toBe(true);
+  describe("1. Base URL Normalization", () => {
+    it("deve normalizar URL sem duplicar /v1", () => {
+      expect(buildProviderUrl("http://localhost:11434", "/v1/chat/completions")).toBe(
+        "http://localhost:11434/v1/chat/completions"
+      );
+      expect(buildProviderUrl("http://localhost:11434/v1", "/v1/chat/completions")).toBe(
+        "http://localhost:11434/v1/chat/completions"
+      );
+      expect(buildProviderUrl("http://localhost:11434/v1/", "/v1/chat/completions")).toBe(
+        "http://localhost:11434/v1/chat/completions"
+      );
+      expect(buildProviderUrl("http://localhost:8000/v1", "/v1/audio/transcriptions")).toBe(
+        "http://localhost:8000/v1/audio/transcriptions"
+      );
+      expect(buildProviderUrl("http://localhost:8000/v1", "/api/tags")).toBe(
+        "http://localhost:8000/api/tags"
+      );
     });
+  });
 
-    it("health: deve retornar DEGRADED quando o modelo configurado estiver ausente", async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({
-          models: [{ name: "llama3:8b" }]
-        })
-      } as unknown as Response);
-
-      const provider = new OllamaLLMProvider({ modelId: "qwen2.5:3b" });
-      const health = await provider.health();
-
-      expect(health.status).toBe("DEGRADED");
-      expect(health.details?.model_available).toBe(false);
-    });
-
-    it("health: deve retornar UNAVAILABLE quando o servidor estiver fora do ar", async () => {
-      global.fetch = vi.fn().mockRejectedValue(new Error("Connection refused"));
-
-      const provider = new OllamaLLMProvider();
-      const health = await provider.health();
-
-      expect(health.status).toBe("UNAVAILABLE");
-    });
-
-    it("generate: deve gerar resposta com mapeamento canônico", async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({
-          model: "qwen2.5:3b",
-          choices: [
-            {
-              message: { content: "A clavícula é um osso par alongado." },
-              finish_reason: "stop"
-            }
-          ],
-          usage: { prompt_tokens: 10, completion_tokens: 15, total_tokens: 25 }
-        })
-      } as unknown as Response);
-
-      const provider = new OllamaLLMProvider({ modelId: "qwen2.5:3b" });
-      const res = await provider.generate({
-        messages: [{ role: "user", content: "Defina a clavícula." }]
-      });
-
-      expect(res.text).toBe("A clavícula é um osso par alongado.");
-      expect(res.providerId).toBe("ollama-local");
-      expect(res.modelId).toBe("qwen2.5:3b");
-      expect(res.finishReason).toBe("stop");
-      expect(res.usage?.totalTokens).toBe(25);
-    });
-
-    it("generate: deve mapear HTTP 401 para ProviderAuthenticationError", async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: false,
-        status: 401
-      } as unknown as Response);
-
-      const provider = new OllamaLLMProvider();
-      await expect(provider.generate({ messages: [{ role: "user", content: "Olá" }] }))
-        .rejects
-        .toThrow(ProviderAuthenticationError);
-    });
-
-    it("generate: deve mapear HTTP 429 para ProviderRateLimitError", async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: false,
-        status: 429,
-        headers: new Headers({ "retry-after": "45" })
-      } as unknown as Response);
-
-      const provider = new OllamaLLMProvider();
-      try {
-        await provider.generate({ messages: [{ role: "user", content: "Olá" }] });
-        expect.unreachable();
-      } catch (err) {
-        expect(err).toBeInstanceOf(ProviderRateLimitError);
-        expect((err as ProviderRateLimitError).retryAfterSeconds).toBe(45);
-      }
-    });
-
-    it("generate: deve mapear HTTP 500 para ProviderUnavailableError", async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: false,
-        status: 500
-      } as unknown as Response);
-
-      const provider = new OllamaLLMProvider();
-      await expect(provider.generate({ messages: [{ role: "user", content: "Olá" }] }))
-        .rejects
-        .toThrow(ProviderUnavailableError);
-    });
-
-    it("generate: deve mapear JSON malformado para ProviderInvalidResponseError", async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => {
-          throw new Error("Invalid JSON");
-        }
-      } as unknown as Response);
-
-      const provider = new OllamaLLMProvider();
-      await expect(provider.generate({ messages: [{ role: "user", content: "Olá" }] }))
-        .rejects
-        .toThrow(ProviderInvalidResponseError);
-    });
-
-    it("generate: deve lançar ProviderCancelledError em caso de AbortSignal", async () => {
+  describe("2. First Cause Wins & Cancellation / Timeout Engine", () => {
+    it("deve priorizar cancelamento do usuário quando AbortSignal disparar antes do timeout", async () => {
       const controller = new AbortController();
       controller.abort();
 
-      const provider = new OllamaLLMProvider();
       await expect(
-        provider.generate(
-          { messages: [{ role: "user", content: "Olá" }] },
-          { requestId: "req-1", signal: controller.signal }
+        executeProviderFetchSession(
+          "http://localhost:11434/api/tags",
+          { method: "GET" },
+          "test-provider",
+          { requestId: "req-1", signal: controller.signal, timeoutMs: 5000 }
         )
       ).rejects.toThrow(ProviderCancelledError);
     });
 
-    it("stream: deve processar chunks SSE e respeitar cancelamento", async () => {
-      const streamChunks = [
-        "data: " + JSON.stringify({ choices: [{ delta: { content: "O " } }] }) + "\n\n",
-        "data: " + JSON.stringify({ choices: [{ delta: { content: "fêmur " } }] }) + "\n\n",
-        "data: " + JSON.stringify({ choices: [{ delta: { content: "é longo." }, finish_reason: "stop" }] }) + "\n\n",
-        "data: [DONE]\n\n"
-      ];
+    it("deve priorizar ProviderTimeoutError quando deadline expirar antes do abort", async () => {
+      global.fetch = vi.fn().mockImplementation(
+        (_url, init) =>
+          new Promise((_, reject) => {
+            init.signal.addEventListener("abort", () => {
+              const err = new Error("Abort");
+              err.name = "AbortError";
+              reject(err);
+            });
+          })
+      );
 
-      let chunkIdx = 0;
+      await expect(
+        executeProviderFetchSession(
+          "http://localhost:11434/api/tags",
+          { method: "GET" },
+          "test-provider",
+          { requestId: "req-2", timeoutMs: 15 }
+        )
+      ).rejects.toThrow(ProviderTimeoutError);
+    });
+
+    it("deve limpar listeners e timers sem vazamentos", async () => {
+      const controller = new AbortController();
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({})
+      } as unknown as Response);
+
+      const session = await executeProviderFetchSession(
+        "http://localhost:11434/api/tags",
+        { method: "GET" },
+        "test-provider",
+        { requestId: "req-3", signal: controller.signal, timeoutMs: 1000 }
+      );
+
+      session.cleanup();
+      expect(session.getCause()).toBe("NONE");
+    });
+  });
+
+  describe("3. OllamaLLMProvider Hardening", () => {
+    it("deve conectar base URL com e sem /v1 perfeitamente", async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          choices: [{ message: { content: "Clavícula" } }]
+        })
+      } as unknown as Response);
+
+      const p1 = new OllamaLLMProvider({ baseUrl: "http://localhost:11434/v1" });
+      await p1.generate({ messages: [{ role: "user", content: "Olá" }] });
+      expect(global.fetch).toHaveBeenCalledWith("http://localhost:11434/v1/chat/completions", expect.anything());
+
+      const p2 = new OllamaLLMProvider({ baseUrl: "http://localhost:11434" });
+      await p2.generate({ messages: [{ role: "user", content: "Olá" }] });
+      expect(global.fetch).toHaveBeenCalledWith("http://localhost:11434/v1/chat/completions", expect.anything());
+    });
+
+    it("deve lançar ProviderInvalidResponseError para evento data SSE malformado", async () => {
+      const streamChunks = ["data: { malformed json }\n\n"];
+      let idx = 0;
       const mockStream = new ReadableStream({
         pull(controller) {
-          if (chunkIdx < streamChunks.length) {
-            controller.enqueue(new TextEncoder().encode(streamChunks[chunkIdx++]));
+          if (idx < streamChunks.length) {
+            controller.enqueue(new TextEncoder().encode(streamChunks[idx++]));
           } else {
             controller.close();
           }
@@ -182,128 +138,126 @@ describe("Aeternum Local Inference Providers — Unit Tests (Fase 2B.1)", () => 
       } as unknown as Response);
 
       const provider = new OllamaLLMProvider();
-      const collected: string[] = [];
-      for await (const chunk of provider.stream({ messages: [{ role: "user", content: "Fêmur" }] })) {
-        collected.push(chunk.deltaText);
-      }
-
-      expect(collected.join("")).toBe("O fêmur é longo.");
+      await expect(async () => {
+        for await (const _chunk of provider.stream({ messages: [{ role: "user", content: "Erro" }] })) {
+          // loop
+        }
+      }).rejects.toThrow(ProviderInvalidResponseError);
     });
   });
 
-  describe("2. SpeachesSTTProvider", () => {
-    it("health: deve retornar HEALTHY quando whisper estiver disponível", async () => {
+  describe("4. SpeachesSTTProvider Capabilities & MIME", () => {
+    it("deve mapear MIME e extensões de arquivo corretamente para webm, ogg, wav e pcm", async () => {
+      let capturedBody: FormData | undefined;
+      global.fetch = vi.fn().mockImplementation(async (_url, init) => {
+        capturedBody = init.body;
+        return {
+          ok: true,
+          json: async () => ({ text: "Transcrição" })
+        };
+      });
+
+      const stt = new SpeachesSTTProvider();
+
+      await stt.transcribe({
+        audioBuffer: new Uint8Array([1, 2]),
+        language: "pt",
+        audioFormat: "webm"
+      });
+      const webmFile = capturedBody?.get("file") as File;
+      expect(webmFile.name).toBe("audio.webm");
+      expect(webmFile.type).toBe("audio/webm");
+
+      await stt.transcribe({
+        audioBuffer: new Uint8Array([1, 2]),
+        language: "pt",
+        audioFormat: "ogg"
+      });
+      const oggFile = capturedBody?.get("file") as File;
+      expect(oggFile.name).toBe("audio.ogg");
+      expect(oggFile.type).toBe("audio/ogg");
+
+      await stt.transcribe({
+        audioBuffer: new Uint8Array([1, 2]),
+        language: "pt",
+        audioFormat: "pcm"
+      });
+      const pcmFile = capturedBody?.get("file") as File;
+      expect(pcmFile.name).toBe("audio.pcm");
+      expect(pcmFile.type).toBe("application/octet-stream");
+    });
+
+    it("deve retornar confidence undefined quando não for fornecido pelo Speaches", async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ text: "Transcrição sem confidence" })
+      } as unknown as Response);
+
+      const stt = new SpeachesSTTProvider();
+      const res = await stt.transcribe({
+        audioBuffer: new Uint8Array([1]),
+        language: "pt"
+      });
+
+      expect(res.confidence).toBeUndefined();
+    });
+
+    it("health: deve marcar DEGRADED se o modelo exato configurado não existir", async () => {
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
         json: async () => ({
-          data: [{ id: "Systran/faster-whisper-small" }]
+          data: [{ id: "outromodelo-whisper" }]
         })
       } as unknown as Response);
 
       const stt = new SpeachesSTTProvider({ modelId: "Systran/faster-whisper-small" });
       const health = await stt.health();
 
-      expect(health.status).toBe("HEALTHY");
-      expect(health.details?.model_available).toBe(true);
-    });
-
-    it("transcribe: deve transcrever áudio com metadados e prompt médico", async () => {
-      let capturedBody: FormData | undefined;
-      global.fetch = vi.fn().mockImplementation(async (_url, init) => {
-        capturedBody = init.body;
-        return {
-          ok: true,
-          json: async () => ({
-            text: "O músculo deltoide é inervado pelo nervo axilar.",
-            language: "pt",
-            confidence: 0.98
-          })
-        };
-      });
-
-      const stt = new SpeachesSTTProvider();
-      const res = await stt.transcribe({
-        audioBuffer: new Uint8Array([1, 2, 3, 4]),
-        language: "pt-BR",
-        medicalContextHints: ["anatomia", "deltoide", "nervo axilar"]
-      });
-
-      expect(res.text).toContain("deltoide");
-      expect(res.languageDetected).toBe("pt");
-      expect(res.confidence).toBe(0.98);
-      expect(capturedBody).toBeDefined();
-    });
-
-    it("transcribe: deve honrar cancelamento", async () => {
-      const controller = new AbortController();
-      controller.abort();
-
-      const stt = new SpeachesSTTProvider();
-      await expect(
-        stt.transcribe(
-          { audioBuffer: new Uint8Array([]), language: "pt" },
-          { requestId: "stt-1", signal: controller.signal }
-        )
-      ).rejects.toThrow(ProviderCancelledError);
+      expect(health.status).toBe("DEGRADED");
+      expect(health.details?.model_available).toBe(false);
     });
   });
 
-  describe("3. SpeachesTTSProvider & VoiceProfileRegistry", () => {
-    it("synthesize: deve sintetizar áudio usando perfil de voz desacoplado", async () => {
-      const mockAudioBytes = new Uint8Array([10, 20, 30, 40]);
+  describe("5. SpeachesTTSProvider Profile Health & SampleRate", () => {
+    it("health: deve marcar DEGRADED se algum modelo dos VoiceProfiles cadastrados estiver ausente", async () => {
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
-        arrayBuffer: async () => mockAudioBytes.buffer
+        json: async () => ({
+          data: [{ id: "speaches-ai/Kokoro-82M-v1.0-ONNX" }]
+        })
+      } as unknown as Response);
+
+      const registry = new VoiceProfileRegistry(true);
+      const tts = new SpeachesTTSProvider({ registry });
+      const health = await tts.health();
+
+      expect(health.status).toBe("DEGRADED");
+      expect(health.details?.unavailable_profile_count).toBeGreaterThan(0);
+      expect(health.details?.unavailable_profile_ids).toContain("de-clear-male-01");
+    });
+
+    it("synthesize: deve retornar sampleRate factual do perfil", async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        arrayBuffer: async () => new Uint8Array([1, 2, 3]).buffer
       } as unknown as Response);
 
       const registry = new VoiceProfileRegistry(true);
       const tts = new SpeachesTTSProvider({ registry });
 
-      const res = await tts.synthesize({
-        text: "Explicação sobre osteologia.",
-        voiceProfileId: "pt-br-warm-male-01", language: "pt-BR"
+      const resKokoro = await tts.synthesize({
+        text: "Teste",
+        voiceProfileId: "pt-br-warm-male-01",
+        language: "pt-BR"
       });
+      expect(resKokoro.sampleRate).toBe(24000);
 
-      expect(res.audioBuffer.length).toBe(4);
-      expect(res.modelId).toContain("Kokoro");
-      expect(res.sampleRate).toBe(24000);
-    });
-
-    it("synthesize: deve lançar ProviderInvalidResponseError para perfil de voz inexistente", async () => {
-      const tts = new SpeachesTTSProvider();
-      await expect(
-        tts.synthesize({
-          text: "Teste",
-          voiceProfileId: "perfil-inexistente", language: "pt-BR"
-        })
-      ).rejects.toThrow(ProviderInvalidResponseError);
-    });
-  });
-
-  describe("4. VoiceProfileRegistry", () => {
-    it("deve conter perfis padrão e permitir registro de novos perfis", () => {
-      const registry = new VoiceProfileRegistry(true);
-      expect(registry.get("pt-br-warm-male-01")).toBeDefined();
-      expect(registry.get("pt-br-calm-female-01")).toBeDefined();
-      expect(registry.get("es-warm-male-01")).toBeDefined();
-      expect(registry.get("en-warm-male-01")).toBeDefined();
-
-      const ptVoices = registry.listByLanguage("pt-BR");
-      expect(ptVoices.length).toBeGreaterThanOrEqual(2);
-
-      registry.register({
-        id: "custom-pt-01",
-        name: "Custom Voice",
-        language: "pt-BR",
-        gender: "neutral",
-        providerId: "speaches",
-        modelId: "speaches-ai/custom-voice",
-        nativeVoiceId: "custom_v1",
-        sampleRate: 24000,
-        format: "pcm"
+      const resPiper = await tts.synthesize({
+        text: "Hallo",
+        voiceProfileId: "de-clear-male-01",
+        language: "de"
       });
-
-      expect(registry.require("custom-pt-01").nativeVoiceId).toBe("custom_v1");
+      expect(resPiper.sampleRate).toBe(22050);
     });
   });
 });

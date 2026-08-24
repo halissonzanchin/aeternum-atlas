@@ -9,7 +9,8 @@ import {
   ProviderInvalidResponseError,
   ProviderCancelledError
 } from "../../types/index.ts";
-import { executeProviderFetch } from "../utils/fetchWithTimeout.ts";
+import { executeProviderFetch, executeProviderFetchSession } from "../utils/fetchWithTimeout.ts";
+import { buildProviderUrl } from "../utils/url.ts";
 
 export interface OllamaProviderConfig {
   baseUrl?: string;
@@ -26,7 +27,7 @@ export class OllamaLLMProvider implements LLMProvider {
   private readonly apiKey?: string;
 
   constructor(config: OllamaProviderConfig = {}) {
-    this.baseUrl = (config.baseUrl || "http://localhost:11434").replace(/\/+$/, "");
+    this.baseUrl = config.baseUrl || "http://localhost:11434";
     this.modelId = config.modelId || "qwen2.5:3b";
     this.defaultTemperature = config.defaultTemperature ?? 0.7;
     this.apiKey = config.apiKey;
@@ -43,13 +44,9 @@ export class OllamaLLMProvider implements LLMProvider {
 
   async health(context?: ProviderExecutionContext): Promise<HealthResult> {
     const start = performance.now();
+    const url = buildProviderUrl(this.baseUrl, "/api/tags");
     try {
-      const res = await executeProviderFetch(
-        `${this.baseUrl}/api/tags`,
-        { method: "GET" },
-        this.metadata.id,
-        context
-      );
+      const res = await executeProviderFetch(url, { method: "GET" }, this.metadata.id, context);
       const data = (await res.json()) as { models?: Array<{ name?: string }> };
       const latencyMs = Math.round(performance.now() - start);
 
@@ -94,7 +91,7 @@ export class OllamaLLMProvider implements LLMProvider {
         timestamp: new Date().toISOString(),
         details: {
           error: "Ollama service unreachable",
-          baseUrl: this.baseUrl
+          target_url: url
         }
       };
     }
@@ -102,6 +99,7 @@ export class OllamaLLMProvider implements LLMProvider {
 
   async generate(request: LLMRequest, context?: ProviderExecutionContext): Promise<LLMResponse> {
     const start = performance.now();
+    const url = buildProviderUrl(this.baseUrl, "/v1/chat/completions");
 
     const messages = [];
     if (request.systemInstruction) {
@@ -129,7 +127,7 @@ export class OllamaLLMProvider implements LLMProvider {
     }
 
     const res = await executeProviderFetch(
-      `${this.baseUrl}/v1/chat/completions`,
+      url,
       {
         method: "POST",
         headers,
@@ -179,6 +177,8 @@ export class OllamaLLMProvider implements LLMProvider {
   }
 
   async *stream(request: LLMRequest, context?: ProviderExecutionContext): AsyncIterable<LLMStreamChunk> {
+    const url = buildProviderUrl(this.baseUrl, "/v1/chat/completions");
+
     const messages = [];
     if (request.systemInstruction) {
       messages.push({ role: "system", content: request.systemInstruction });
@@ -204,8 +204,8 @@ export class OllamaLLMProvider implements LLMProvider {
       headers["Authorization"] = `Bearer ${this.apiKey}`;
     }
 
-    const res = await executeProviderFetch(
-      `${this.baseUrl}/v1/chat/completions`,
+    const session = await executeProviderFetchSession(
+      url,
       {
         method: "POST",
         headers,
@@ -215,7 +215,9 @@ export class OllamaLLMProvider implements LLMProvider {
       context
     );
 
+    const res = session.response;
     if (!res.body) {
+      session.cleanup();
       throw new ProviderInvalidResponseError("Stream body vazio recebido do Ollama.", this.metadata.id);
     }
 
@@ -225,9 +227,7 @@ export class OllamaLLMProvider implements LLMProvider {
 
     try {
       while (true) {
-        if (context?.signal?.aborted) {
-          throw new ProviderCancelledError("Stream de LLM cancelado pelo usuário.", this.metadata.id);
-        }
+        session.checkAborted();
 
         const { value, done } = await reader.read();
         if (done) break;
@@ -245,28 +245,33 @@ export class OllamaLLMProvider implements LLMProvider {
           }
           if (trimmed.startsWith("data: ")) {
             const jsonStr = trimmed.slice(6);
+            let parsed: any;
             try {
-              const parsed = JSON.parse(jsonStr);
-              const delta = parsed?.choices?.[0]?.delta?.content || "";
-              const finish = parsed?.choices?.[0]?.finish_reason;
-              if (delta) {
-                yield { deltaText: delta, isComplete: false };
-              }
-              if (finish) {
-                yield {
-                  deltaText: "",
-                  isComplete: true,
-                  finishReason: finish === "length" ? "length" : "stop"
-                };
-                return;
-              }
+              parsed = JSON.parse(jsonStr);
             } catch {
-              // Ignore malformed chunk lines
+              throw new ProviderInvalidResponseError(
+                `Chunk SSE inválido no stream do Ollama: ${jsonStr.slice(0, 50)}`,
+                this.metadata.id
+              );
+            }
+            const delta = parsed?.choices?.[0]?.delta?.content || "";
+            const finish = parsed?.choices?.[0]?.finish_reason;
+            if (delta) {
+              yield { deltaText: delta, isComplete: false };
+            }
+            if (finish) {
+              yield {
+                deltaText: "",
+                isComplete: true,
+                finishReason: finish === "length" ? "length" : "stop"
+              };
+              return;
             }
           }
         }
       }
     } finally {
+      session.cleanup();
       reader.releaseLock();
     }
   }

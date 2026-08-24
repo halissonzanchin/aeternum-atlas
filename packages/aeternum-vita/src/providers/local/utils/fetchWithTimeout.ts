@@ -9,40 +9,71 @@ import {
   ProviderExecutionContext
 } from "../../types/index.ts";
 
+export type TerminationCause = "NONE" | "USER_CANCELLED" | "TIMEOUT";
+
 export interface ProviderFetchOptions extends RequestInit {
   timeoutMs?: number;
 }
 
-export async function executeProviderFetch(
+export interface ProviderFetchSession {
+  response: Response;
+  cleanup: () => void;
+  checkAborted: () => void;
+  getCause: () => TerminationCause;
+}
+
+export async function executeProviderFetchSession(
   url: string,
   options: ProviderFetchOptions,
   providerId: string,
   context?: ProviderExecutionContext
-): Promise<Response> {
+): Promise<ProviderFetchSession> {
   const controller = new AbortController();
-  let timedOut = false;
+  const state: { cause: TerminationCause } = { cause: "NONE" };
   let timeoutId: NodeJS.Timeout | undefined;
+
+  const onUserAbort = () => {
+    if (state.cause === "NONE") {
+      state.cause = "USER_CANCELLED";
+      controller.abort("USER_CANCELLED");
+    }
+  };
 
   if (context?.signal) {
     if (context.signal.aborted) {
       throw new ProviderCancelledError("Operação cancelada antes do início.", providerId);
     }
-    context.signal.addEventListener(
-      "abort",
-      () => {
-        controller.abort("USER_CANCELLED");
-      },
-      { once: true }
-    );
+    context.signal.addEventListener("abort", onUserAbort, { once: true });
   }
 
   const timeoutMs = context?.timeoutMs || options.timeoutMs;
   if (timeoutMs && timeoutMs > 0) {
     timeoutId = setTimeout(() => {
-      timedOut = true;
-      controller.abort("TIMEOUT");
+      if (state.cause === "NONE") {
+        state.cause = "TIMEOUT";
+        controller.abort("TIMEOUT");
+      }
     }, timeoutMs);
   }
+
+  const cleanup = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = undefined;
+    }
+    if (context?.signal) {
+      context.signal.removeEventListener("abort", onUserAbort);
+    }
+  };
+
+  const checkAborted = () => {
+    if (state.cause === "USER_CANCELLED" || context?.signal?.aborted) {
+      throw new ProviderCancelledError("Operação abortada por sinal de cancelamento do usuário.", providerId);
+    }
+    if (state.cause === "TIMEOUT") {
+      throw new ProviderTimeoutError(`Tempo limite de ${timeoutMs}ms excedido na requisição.`, providerId);
+    }
+  };
 
   try {
     const res = await fetch(url, {
@@ -50,9 +81,8 @@ export async function executeProviderFetch(
       signal: controller.signal
     });
 
-    if (timeoutId) clearTimeout(timeoutId);
-
     if (!res.ok) {
+      cleanup();
       if (res.status === 401 || res.status === 403) {
         throw new ProviderAuthenticationError(`Falha de autenticação no provider [HTTP ${res.status}]`, providerId);
       }
@@ -66,24 +96,25 @@ export async function executeProviderFetch(
       throw new ProviderInvalidResponseError(`Resposta inesperada do provider [HTTP ${res.status}]`, providerId);
     }
 
-    return res;
+    return {
+      response: res,
+      cleanup,
+      checkAborted,
+      getCause: () => state.cause
+    };
   } catch (error) {
-    if (timeoutId) clearTimeout(timeoutId);
+    cleanup();
 
     if (error instanceof AeternumProviderError) {
       throw error;
     }
 
-    if (timedOut || controller.signal.reason === "TIMEOUT") {
-      throw new ProviderTimeoutError(`Tempo limite de ${timeoutMs}ms excedido na requisição.`, providerId);
+    if (state.cause === "USER_CANCELLED" || context?.signal?.aborted) {
+      throw new ProviderCancelledError("Operação abortada por cancelamento.", providerId);
     }
 
-    if (
-      context?.signal?.aborted ||
-      controller.signal.reason === "USER_CANCELLED" ||
-      (error as Error)?.name === "AbortError"
-    ) {
-      throw new ProviderCancelledError("Operação abortada por sinal de cancelamento.", providerId);
+    if (state.cause === "TIMEOUT") {
+      throw new ProviderTimeoutError(`Tempo limite de ${timeoutMs}ms excedido na requisição.`, providerId);
     }
 
     throw new ProviderUnavailableError(
@@ -91,4 +122,15 @@ export async function executeProviderFetch(
       providerId
     );
   }
+}
+
+export async function executeProviderFetch(
+  url: string,
+  options: ProviderFetchOptions,
+  providerId: string,
+  context?: ProviderExecutionContext
+): Promise<Response> {
+  const session = await executeProviderFetchSession(url, options, providerId, context);
+  session.cleanup();
+  return session.response;
 }

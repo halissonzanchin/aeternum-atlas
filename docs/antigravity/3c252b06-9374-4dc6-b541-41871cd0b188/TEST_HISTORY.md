@@ -2,6 +2,40 @@
 
 ---
 
+## Teste 008 — Suíte de Correção & Integração Local Real no HP Victus (Fase 2B.1.1)
+
+Data: 2026-08-24 16:55 BRT  
+Ambiente: HP Victus (Docker: Ollama 0.32.5, Speaches 0.8.3-cpu)
+
+### 1. Verificação de Tipagem Estática (tsc --noEmit):
+- `apps/agent`: **PASS (0 erros)** ✅
+- `apps/token-server`: **PASS (0 erros)** ✅
+- `apps/web`: **PASS (0 erros)** ✅
+
+### 2. Suíte Unitária (Vitest Mocks):
+- Base URL normalizada (com e sem `/v1`): **PASS** ✅
+- First Cause Wins (User Abort priorizado vs Timeout priorizado): **PASS** ✅
+- Listener & Timer cleanup (zero leaks): **PASS** ✅
+- Ollama SSE malformado -> `ProviderInvalidResponseError`: **PASS** ✅
+- Speaches STT MIME mapping (`wav`, `webm`, `ogg`, `pcm`): **PASS** ✅
+- Speaches STT confidence ausente -> `undefined`: **PASS** ✅
+- Speaches STT health com modelo ausente -> `DEGRADED`: **PASS** ✅
+- Speaches TTS health por disponibilidade de perfis -> `DEGRADED`: **PASS** ✅
+- Speaches TTS sampleRate factual do modelo: **PASS** ✅
+
+### 3. Suíte de Integração Real no HP Victus (`RUN_LOCAL_PROVIDER_INTEGRATION=true`):
+1. **Ollama Local Health Check**: **PASS** (36ms, modelo: `qwen2.5:3b`, status: `HEALTHY`) ✅
+2. **Ollama Local LLM Generate**: **PASS** (605ms, resposta: `"Aeterno"`, tokens: prompt 15 / completion 2) ✅
+3. **Ollama Local LLM Stream Cancellation (Barge-In)**: **PASS** (2 tokens lidos antes de `AbortSignal` imediato, lançando `ProviderCancelledError`) ✅
+4. **Speaches STT & TTS Health Check**: **PASS** (37ms, modelos: `Systran/faster-whisper-small`, `speaches-ai/Kokoro-82M-v1.0-ONNX`, status: `HEALTHY`) ✅
+5. **Speaches STT Batch (Fixture Sintético de Onda Senoidal 16kHz)**: **PASS** (96ms, áudio sintético seguro de 32KB processado com sucesso) ✅
+6. **Speaches TTS Synthesize (Kokoro pm_alex - Masculino PT-BR)**: **PASS** (550ms, 83.968 bytes de PCM 24kHz sintetizados) ✅
+
+### Resultado
+PASS
+
+---
+
 ## Teste 007 — Validação de Provedores Locais & Typecheck Estrito (Fase 2B.1)
 
 Data: 2026-08-24 16:30 BRT  
