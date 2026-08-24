@@ -1,12 +1,11 @@
 # AETERNUM ATLAS — ESTADO ATUAL
 
-Última auditoria: 2026-08-24 15:15 BRT
+Última auditoria / atualização: 2026-08-24 18:45 BRT
 Conversation ID: 3c252b06-9374-4dc6-b541-41871cd0b188
-ATLAS_SOURCE_SHA: 49c88eff648b41b42b1ef277ab0c82ce8f5e05d1
+ATLAS_SOURCE_SHA: 633332d11782e2ba6f333afd56bbb5384ba9277e
 ATLAS_PROD_DEPLOY_SHA: UNKNOWN / NOT VERIFIED
-PROVIDER_ADAPTER_SHA: 49c88eff648b41b42b1ef277ab0c82ce8f5e05d1
-LEGACY_VITA_RUNTIME_SHA: 49c88eff648b41b42b1ef277ab0c82ce8f5e05d1
-AETERNUM_VITA_RUNTIME_SHA: bc1ebb4999fc9906631fc3a9775f0a0bb7ef549f
+PROVIDER_ADAPTER_SHA: 633332d11782e2ba6f333afd56bbb5384ba9277e
+LEGACY_VITA_RUNTIME_SHA: UNKNOWN / NOT VERIFIED
 VOICE_TOKEN_RUNTIME_VERSION: v7 (ACTIVE - Fail-Closed, Vault Secret Resolver)
 AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 
@@ -23,9 +22,9 @@ AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 - Status: ACTIVE / ENFORCED
 
 ### AI Gateway
-- Status: IMPLEMENTED / PENDING CHATGPT AUDIT (Fase 2B.1.3 Concluída: Final Adapter Semantics & Evidence Gate)
-- Novos Provider Adapters: CODE PRESENT / TESTED / NOT WIRED (OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider, VoiceProfileRegistry)
-- Legacy Vita Local Runtime: ACTIVE (Inalterado em produção)
+- Status: PLANNED / NOT IMPLEMENTED
+- Provider Layer: IMPLEMENTED / PENDING CHATGPT AUDIT (Fase 2B.1.4 Concluída: Pre-Router Final Micro-Gate)
+- Provider Router: PLANNED / NOT IMPLEMENTED
 - Novos Provider Adapters: CODE PRESENT / TESTED / NOT WIRED (OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider, VoiceProfileRegistry)
 - Legacy Vita Local Runtime: ACTIVE (Inalterado em produção)
 - Local Providers: OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider, VoiceProfileRegistry
@@ -98,39 +97,27 @@ AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 
 ---
 
-## 2. Segurança & Governança (P0 — VERIFIED & FAIL-CLOSED)
+## 2. Inventário de Edge Functions (Supabase)
 
-- voice-token exige JWT: YES (HTTP 401 para anônimos / HTTP 201 para autenticado)
-- voice-token credenciais default: NÃO (Eliminadas integralmente; resolução fail-closed via Vault/Env)
-- get_system_secret ACL: RESTRICTED (anon=FALSE, authenticated=FALSE, service_role=TRUE)
-- voice-token profile check: FAIL-CLOSED (503/403 em caso de erro ou perfil ausente)
-- voice-token rate limit: FAIL-CLOSED (503 em caso de erro no RPC)
-- ai-tutor exige JWT: YES (HTTP 401 para anônimos / HTTP 200 para autenticado)
-- guest permitido: NO (100% bloqueado em v7 e v17)
-- RLS: ACTIVE
-- Rate Limiting: ACTIVE (consume_voice_rate_limit, consume_ai_rate_limit)
-- Auditoria de Secrets no bundle: 0 segredos privados em src/ e packages/
+| Função | Versão | Status | Autenticação | Segredos |
+|---|---|---|---|---|
+| `voice-token` | v7 | ACTIVE / VERIFIED | Bearer JWT (Supabase Auth) | Vault / Env |
+| `ai-tutor` | v17 | ACTIVE / VERIFIED | Bearer JWT (Supabase Auth) | Vault / Env |
 
 ---
 
-## 3. Metas e Métricas Operacionais
+## 3. Matriz de Auditoria do Protocolo (Conversation ID: 3c252b06-9374-4dc6-b541-41871cd0b188)
 
-- TARGET LOCAL INFERENCE RATIO: >=95%
-- CURRENT MEASURED RATIO: NOT MEASURED (Aguardando telemetria)
-- TARGET AVAILABILITY: 99.9%
-- CURRENT MEASURED AVAILABILITY: NOT MEASURED
-- TARGET TURN LATENCY: <600ms
-- CURRENT MEASURED LATENCY: PENDING BENCHMARK
-
----
-
-## 4. Provider Status
-
-| Serviço | Provider | Local/Cloud | Código Presente | Serviço em Execução | Ativo em Produção | Papel / Fallback |
-|---|---|---|:---:|:---:|:---:|---|
-| LLM (Texto) | Google Gemini | Cloud | SIM | SIM | SIM | Primário (Chat/Viewer) |
-| LLM (Voz) | Ollama Qwen 3B | Local | SIM | SIM | SIM (Local) | Primário Vita Local |
-| STT | Faster-Whisper | Local | SIM | SIM | SIM (Local) | Primário Vita Local |
-| TTS | Kokoro / Piper | Local | SIM | SIM | SIM (Local) | Primário Vita Local |
-| RAG | Supabase Full Text | Cloud DB | SIM | SIM | SIM | Lexical FTS (20k chunks)|
-| LiveKit | Community | Local | SIM | SIM | SIM | Transporte WebRTC |
+| Fase | Título | Status |
+|---|---|---|
+| Fase 0 | Reconhecimento e Alinhamento | VERIFIED |
+| Fase 1 | Baseline & Freeze de Produção | VERIFIED |
+| Fase 1.1 | Audit Correction Gate | VERIFIED |
+| Fase 1.2 | Production Source-of-Truth & Fail-Closed Gate | VERIFIED |
+| Fase 1.3 | Vault Hardening & Security Definer Enforcement | VERIFIED |
+| Fase 2A | Aeternum AI Provider Contracts | VERIFIED |
+| Fase 2A.1 | Provider Contract Hardening Gate | VERIFIED |
+| Fase 2B.1.4 | Pre-Router Final Micro-Gate | IMPLEMENTED / PENDING CHATGPT AUDIT |
+| Fase 2B.2 | Cloud Inference Providers | PLANNED |
+| Fase 2C | Provider Router & Fallback Policy Engine | PLANNED |
+| Fase 2D | Aeternum AI Gateway Service | PLANNED |

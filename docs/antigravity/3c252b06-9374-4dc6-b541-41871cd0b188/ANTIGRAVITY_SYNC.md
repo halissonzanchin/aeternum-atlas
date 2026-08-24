@@ -4,6 +4,60 @@
 
 ---
 
+## [2026-08-24 18:45] — Fase 2B.1.4: Pre-Router Final Micro-Gate
+
+### Solicitação recebida
+Executar a Fase 2B.1.4 (Pre-Router Final Micro-Gate):
+1. **STT Stalled Input Iteration (nextWithExecutionCoordinator)**:
+   - Criado helper `nextWithExecutionCoordinator` que compete diretamente `iterator.next()` contra o abort/timeout do `ExecutionCoordinator`.
+   - Se o input iterator travar/pendurar indefinidamente, o timeout (`timeoutMs`) ou o cancelamento do usuário (`AbortSignal`) encerram a operação prontamente (em dezenas de ms), acionando `iterator.return()` e prevenindo rejeições órfãs/unhandled.
+2. **STT Audio Formats & MIME Mapping Truth**:
+   - Mapeamento estrito e explícito de todos os formatos do contrato `AeternumAudioFormat`:
+     - `wav`: `audio/wav` (`audio.wav`)
+     - `mp3`: `audio/mpeg` (`audio.mp3`)
+     - `flac`: `audio/flac` (`audio.flac`)
+     - `webm`: `audio/webm` (`audio.webm`)
+     - `ogg`: `audio/ogg` (`audio.ogg`)
+     - `pcm`: encapsulado para WAV PCM16LE mono com `sampleRate` obrigatório.
+3. **PCM Sample Rate Strict Validation**:
+   - Validação de número inteiro positivo no intervalo `8000 <= sampleRate <= 48000`. Rejeita `0`, negativos, `NaN`, `Infinity`, `7999`, `48001` e decimais com `ProviderInvalidResponseError`.
+4. **TTS Streamability Truth (Synthesize vs Stream Formats)**:
+   - `supportedSynthesizeFormats`: `["pcm", "mp3", "wav", "flac"]`
+   - `supportedStreamFormats`: `["pcm", "mp3"]` (alinhado com o backend Speaches v0.8.3 onde WAV e FLAC são non-streamable).
+   - `streamSynthesis()` rejeita `wav` e `flac` fail-fast com `ProviderInvalidResponseError`, explicando a diferença de capacidades entre síntese completa e streaming progressivo.
+5. **Cobertura de Testes**:
+   - Suíte unitária monorepo: **106 passed (100% Green)**
+   - Suíte de integração real no HP Victus (`local_providers.integration.test.ts`): **10/10 passed (100% Green)**
+6. **Governança & Two-Commit Workflow**:
+   - Commit A (Implementação & Testes): `633332d11782e2ba6f333afd56bbb5384ba9277e`
+   - `PROVIDER_ADAPTER_SHA`: apontando comprovadamente para o Commit A.
+   - `AI GATEWAY`: `PLANNED / NOT IMPLEMENTED`
+   - `PROVIDER ROUTER`: `PLANNED / NOT IMPLEMENTED`
+   - `PROVIDER LAYER`: `IMPLEMENTED / PENDING CHATGPT AUDIT`
+   - `ATLAS_PROD_DEPLOY_SHA` e `LEGACY_VITA_RUNTIME_SHA`: marcados como `UNKNOWN / NOT VERIFIED`.
+   - Zero alteração no runtime de produção.
+
+### Arquivos modificados
+- packages/aeternum-vita/src/providers/local/utils/audio.ts
+- packages/aeternum-vita/src/providers/local/utils/fetchWithTimeout.ts
+- packages/aeternum-vita/src/providers/local/speaches/SpeachesSTTProvider.ts
+- packages/aeternum-vita/src/providers/local/speaches/SpeachesTTSProvider.ts
+- packages/aeternum-vita/src/providers/__tests__/local_providers.test.ts
+- packages/aeternum-vita/src/providers/__tests__/local_providers.integration.test.ts
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/ANTIGRAVITY_SYNC.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/TEST_HISTORY.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/CURRENT_STATE.md
+
+### Testes executados
+- TypeScript Typecheck (`tsc --noEmit`): **PASS (0 erros)**
+- Suíte Unitária do Monorepo: **106 passed (100% Green)**
+- Suíte de Integração Real no HP Victus: **10/10 passed (100% Green)**
+
+### Resultado
+PASS (Fase 2B.1.4 IMPLEMENTED / PENDING CHATGPT AUDIT)
+
+---
+
 ## [2026-08-24 17:20] — Fase 2B.1.3: Final Adapter Semantics & Evidence Gate
 
 ### Solicitação recebida

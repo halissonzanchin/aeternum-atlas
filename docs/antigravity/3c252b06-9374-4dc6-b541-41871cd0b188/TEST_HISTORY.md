@@ -2,6 +2,45 @@
 
 ---
 
+## Teste 011 — Validação Pre-Router Final Micro-Gate & Integração HP Victus (Fase 2B.1.4)
+
+Data: 2026-08-24 18:45 BRT  
+Ambiente: HP Victus (Docker: Ollama 0.32.5, Speaches 0.8.3-cpu)
+
+### 1. Verificação Estática & Tipagem (tsc --noEmit):
+- `apps/agent`: **PASS (0 erros)** ✅
+- `apps/token-server`: **PASS (0 erros)** ✅
+- `apps/web`: **PASS (0 erros)** ✅
+
+### 2. Suíte Unitária (Vitest Mocks - 106 Testes no Monorepo):
+- STT Stalled Input: Timeout durante `next()` pendurado -> `ProviderTimeoutError` em <50ms: **PASS** ✅
+- STT Stalled Input: AbortSignal durante `next()` pendurado -> `ProviderCancelledError`: **PASS** ✅
+- STT Formats & MIME: MP3 (`audio/mpeg`), FLAC (`audio/flac`), WAV (`audio/wav`), WEBM (`audio/webm`), OGG (`audio/ogg`), PCM (encapsulado): **PASS** ✅
+- PCM SampleRate Validation: 16k/24k/48k WAV header correto, rejeição de 0, negativos, NaN, Infinity, 7999, 48001, decimais: **PASS** ✅
+- TTS Synthesize Formats: FLAC, WAV, MP3, PCM aceitos: **PASS** ✅
+- TTS Stream Formats: PCM, MP3 aceitos: **PASS** ✅
+- TTS Stream Fail-Fast: WAV e FLAC rejeitados em `streamSynthesis()` com erro explicativo: **PASS** ✅
+- TTS OGG: Rejeitado fail-fast em synthesize e stream: **PASS** ✅
+- Base URL normalizada, First Cause Wins A & B, Deadlines de não-stream, Blocked reader read: **PASS** ✅
+- Ollama Health, Generate, Stream e Speaches STT SSE EOF/Done/Malformed: **PASS** ✅
+
+### 3. Suíte de Integração Real no HP Victus (10/10 Testes Executados):
+1. **Ollama Health**: **PASS** (35ms, modelo: `qwen2.5:3b`, status: `HEALTHY`) ✅
+2. **Ollama Generate (Qwen 2.5:3b)**: **PASS** (2821ms, resposta: `"Eterno"`) ✅
+3. **Ollama Stream Normal (19 chunks)**: **PASS** (417ms) ✅
+4. **Ollama Stream Cancellation (Barge-In)**: **PASS** (184ms, asserção explícita de `ProviderCancelledError` confirmada) ✅
+5. **Speaches STT & TTS Health**: **PASS** (35ms, status: `HEALTHY`) ✅
+6. **Speaches STT Batch (Fixture Sintético)**: **PASS** (1474ms) ✅
+7. **Speaches STT SSE Output (stream=true)**: **PASS** (92ms, stream decodificado e asserção de exatamente 1 `isFinal=true` confirmada) ✅
+8. **Speaches TTS Synthesize (Kokoro pm_alex 24kHz)**: **PASS** (1533ms, 83.968 bytes) ✅
+9. **Speaches TTS Synthesize (Custom 16kHz)**: **PASS** (625ms, sample_rate 16000 factual) ✅
+10. **Speaches TTS Stream Cancellation (Barge-In)**: **PASS** (1150ms, asserção explícita de `ProviderCancelledError` confirmada) ✅
+
+### Resultado
+PASS (10/10 Testes de Integração & 106/106 Testes Unitários Aprovados)
+
+---
+
 ## Teste 010 — Validação Final de Semântica de Adapters & Integração Completa (Fase 2B.1.3)
 
 Data: 2026-08-24 17:20 BRT  
