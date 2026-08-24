@@ -6,11 +6,10 @@ import {
   ProviderMetadata,
   HealthResult,
   ProviderExecutionContext,
-  ProviderInvalidResponseError,
-  ProviderCancelledError
+  ProviderInvalidResponseError
 } from "../../types/index.ts";
 import { VoiceProfileRegistry } from "../../voice/VoiceProfileRegistry.ts";
-import { executeProviderFetch, executeProviderFetchSession } from "../utils/fetchWithTimeout.ts";
+import { executeProviderJson, executeProviderBinary, executeProviderFetchSession } from "../utils/fetchWithTimeout.ts";
 import { buildProviderUrl } from "../utils/url.ts";
 
 export interface SpeachesTTSConfig {
@@ -18,6 +17,8 @@ export interface SpeachesTTSConfig {
   apiKey?: string;
   registry?: VoiceProfileRegistry;
 }
+
+const SUPPORTED_FORMATS = new Set(["mp3", "flac", "wav", "pcm"]);
 
 export class SpeachesTTSProvider implements TTSProvider {
   public readonly metadata: ProviderMetadata;
@@ -47,8 +48,12 @@ export class SpeachesTTSProvider implements TTSProvider {
       const headers: Record<string, string> = {};
       if (this.apiKey) headers["Authorization"] = `Bearer ${this.apiKey}`;
 
-      const res = await executeProviderFetch(url, { method: "GET", headers }, this.metadata.id, context);
-      const data = (await res.json()) as { data?: Array<{ id?: string }> };
+      const data = await executeProviderJson<{ data?: Array<{ id?: string }> }>(
+        url,
+        { method: "GET", headers },
+        this.metadata.id,
+        context
+      );
       const latencyMs = Math.round(performance.now() - start);
 
       const models: string[] = Array.isArray(data?.data)
@@ -96,25 +101,48 @@ export class SpeachesTTSProvider implements TTSProvider {
     }
   }
 
-  async synthesize(request: TTSRequest, context?: ProviderExecutionContext): Promise<TTSResponse> {
-    const start = performance.now();
-    const url = buildProviderUrl(this.baseUrl, "/v1/audio/speech");
+  private validateAndBuildPayload(request: TTSRequest) {
     const profile = this.registry.require(request.voiceProfileId);
+    const requestedFormat = (request.audioFormat || profile.format || "pcm").toLowerCase();
+
+    if (!SUPPORTED_FORMATS.has(requestedFormat)) {
+      throw new ProviderInvalidResponseError(
+        `Formato de áudio '${requestedFormat}' não é suportado pelo Speaches TTS. Formatos suportados: mp3, flac, wav, pcm.`,
+        this.metadata.id
+      );
+    }
+
+    const effectiveSampleRate = request.sampleRate || profile.sampleRate || 24000;
+    if (effectiveSampleRate < 8000 || effectiveSampleRate > 48000) {
+      throw new ProviderInvalidResponseError(
+        `Taxa de amostragem de ${effectiveSampleRate}Hz fora do limite suportado (8000–48000Hz).`,
+        this.metadata.id
+      );
+    }
 
     const payload = {
       model: profile.modelId,
       input: request.text,
       voice: profile.nativeVoiceId,
-      response_format: request.audioFormat || profile.format || "pcm",
-      speed: request.speed || profile.speed || 1.0
+      response_format: requestedFormat,
+      speed: request.speed || profile.speed || 1.0,
+      sample_rate: effectiveSampleRate
     };
+
+    return { profile, payload, effectiveSampleRate, requestedFormat };
+  }
+
+  async synthesize(request: TTSRequest, context?: ProviderExecutionContext): Promise<TTSResponse> {
+    const start = performance.now();
+    const url = buildProviderUrl(this.baseUrl, "/v1/audio/speech");
+    const { profile, payload, effectiveSampleRate, requestedFormat } = this.validateAndBuildPayload(request);
 
     const headers: Record<string, string> = {
       "Content-Type": "application/json"
     };
     if (this.apiKey) headers["Authorization"] = `Bearer ${this.apiKey}`;
 
-    const res = await executeProviderFetch(
+    const audioBytes = await executeProviderBinary(
       url,
       {
         method: "POST",
@@ -125,19 +153,12 @@ export class SpeachesTTSProvider implements TTSProvider {
       context
     );
 
-    let arrayBuffer: ArrayBuffer;
-    try {
-      arrayBuffer = await res.arrayBuffer();
-    } catch {
-      throw new ProviderInvalidResponseError("Falha ao decodificar áudio da resposta TTS.", this.metadata.id);
-    }
-
     const totalDurationMs = Math.round(performance.now() - start);
 
     return {
-      audioBuffer: new Uint8Array(arrayBuffer),
-      audioFormat: (request.audioFormat || profile.format || "pcm") as "pcm" | "wav" | "mp3" | "ogg",
-      sampleRate: profile.sampleRate,
+      audioBuffer: audioBytes,
+      audioFormat: requestedFormat as "pcm" | "wav" | "mp3" | "ogg",
+      sampleRate: effectiveSampleRate,
       providerId: this.metadata.id,
       modelId: profile.modelId,
       latency: {
@@ -148,15 +169,7 @@ export class SpeachesTTSProvider implements TTSProvider {
 
   async *streamSynthesis(request: TTSRequest, context?: ProviderExecutionContext): AsyncIterable<TTSStreamChunk> {
     const url = buildProviderUrl(this.baseUrl, "/v1/audio/speech");
-    const profile = this.registry.require(request.voiceProfileId);
-
-    const payload = {
-      model: profile.modelId,
-      input: request.text,
-      voice: profile.nativeVoiceId,
-      response_format: request.audioFormat || profile.format || "pcm",
-      speed: request.speed || profile.speed || 1.0
-    };
+    const { payload } = this.validateAndBuildPayload(request);
 
     const headers: Record<string, string> = {
       "Content-Type": "application/json"
@@ -186,12 +199,18 @@ export class SpeachesTTSProvider implements TTSProvider {
       while (true) {
         session.checkAborted();
 
-        const { value, done } = await reader.read();
-        if (done) break;
+        let readResult: { done: boolean; value?: Uint8Array } = { done: false };
+        try {
+          readResult = await reader.read();
+        } catch (err) {
+          session.handleStreamReadError(err);
+        }
 
-        if (value && value.length > 0) {
+        if (readResult.done) break;
+
+        if (readResult.value && readResult.value.length > 0) {
           yield {
-            audioChunk: value,
+            audioChunk: readResult.value,
             isFinal: false
           };
         }

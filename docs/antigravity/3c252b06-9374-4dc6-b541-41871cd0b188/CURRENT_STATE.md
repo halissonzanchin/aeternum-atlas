@@ -20,7 +20,9 @@ AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 - Status: ACTIVE / ENFORCED
 
 ### AI Gateway
-- Status: IN PROGRESS (Fase 2B.1.1 Concluída: Local Provider Correctness & Hardening Verificado)
+- Status: IMPLEMENTED / PENDING CHATGPT AUDIT (Fase 2B.1.2 Concluída: Stream Semantics & Capability Truth)
+- Novos Provider Adapters: CODE PRESENT / TESTED / NOT WIRED (OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider, VoiceProfileRegistry)
+- Legacy Vita Local Runtime: ACTIVE (Inalterado em produção)
 - Local Providers: OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider, VoiceProfileRegistry
 - Contracts: packages/aeternum-vita/src/providers/contracts/ (LLMProvider, STTProvider, TTSProvider, RAGProvider, MemoryProvider, ProviderHealthMonitor)
 - Execution Context: ProviderExecutionContext (AbortSignal, Barge-in, Tracing)

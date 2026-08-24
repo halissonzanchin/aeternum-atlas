@@ -9,7 +9,7 @@ export interface VoiceProfile {
   modelId: string; // Ex: "speaches-ai/Kokoro-82M-v1.0-ONNX"
   nativeVoiceId: string; // Ex: "pm_alex"
   sampleRate: number;
-  format: "pcm" | "wav" | "mp3" | "ogg";
+  format: "pcm" | "wav" | "mp3" | "flac";
   speed?: number;
 }
 

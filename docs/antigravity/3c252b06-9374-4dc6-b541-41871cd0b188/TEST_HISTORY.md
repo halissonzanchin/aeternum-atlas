@@ -2,6 +2,39 @@
 
 ---
 
+## Teste 009 — Validação de Stream Semantics, Capability Truth & Integração HP Victus (Fase 2B.1.2)
+
+Data: 2026-08-24 17:10 BRT  
+Ambiente: HP Victus (Docker: Ollama 0.32.5, Speaches 0.8.3-cpu)
+
+### 1. Verificação Estática & Tipagem (tsc --noEmit):
+- `apps/agent`: **PASS (0 erros)** ✅
+- `apps/token-server`: **PASS (0 erros)** ✅
+- `apps/web`: **PASS (0 erros)** ✅
+
+### 2. Suíte Unitária (Vitest Mocks - 100 Testes no Monorepo):
+- Base URL normalizada (com e sem `/v1`): **PASS** ✅
+- First Cause Wins - Corrida A (Timeout vence -> abort posterior = `ProviderTimeoutError`): **PASS** ✅
+- First Cause Wins - Corrida B (Abort vence -> timeout posterior = `ProviderCancelledError`): **PASS** ✅
+- Non-Stream Deadline Coverage (`executeProviderJson`, `executeProviderBinary`): **PASS** ✅
+- Blocked Reader Read Error Normalization (Abort -> `ProviderCancelledError`, Timeout -> `ProviderTimeoutError`): **PASS** ✅
+- Ollama: Health (Healthy/Degraded/Unavailable), Generate (200/401/429/500/Invalid JSON), Stream SSE: **PASS** ✅
+- Speaches STT: Capability truth, PCM-to-WAV encapsulation, Streamed SSE output parsing: **PASS** ✅
+- Speaches TTS: Custom sample_rate (8000-48000Hz), Unsupported format rejection (ogg -> 422 handled): **PASS** ✅
+
+### 3. Suíte de Integração Real no HP Victus (`RUN_LOCAL_PROVIDER_INTEGRATION=true`):
+1. **Ollama Local Health**: **PASS** (36ms, status: `HEALTHY`) ✅
+2. **Ollama Local Generate (Qwen 2.5:3b)**: **PASS** (3525ms, resposta: `"Aeterno"`) ✅
+3. **Ollama Stream Cancellation (Barge-In)**: **PASS** (2 tokens capturados antes do abort) ✅
+4. **Speaches STT & TTS Health**: **PASS** (37ms, status: `HEALTHY`) ✅
+5. **Speaches STT Batch (Fixture Sintético)**: **PASS** (1941ms) ✅
+6. **Speaches TTS Synthesize (Kokoro pm_alex 24kHz)**: **PASS** (1847ms, 83.968 bytes de áudio) ✅
+
+### Resultado
+PASS (Fase 2B.1.2 Concluída com Sucesso)
+
+---
+
 ## Teste 008 — Suíte de Correção & Integração Local Real no HP Victus (Fase 2B.1.1)
 
 Data: 2026-08-24 16:55 BRT  

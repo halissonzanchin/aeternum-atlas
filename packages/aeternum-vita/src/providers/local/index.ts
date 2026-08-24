@@ -1,3 +1,4 @@
+export * from "./utils/audio.ts";
 export * from "./utils/url.ts";
 export * from "./utils/fetchWithTimeout.ts";
 export * from "./ollama/OllamaLLMProvider.ts";

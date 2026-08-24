@@ -4,6 +4,53 @@
 
 ---
 
+## [2026-08-24 17:10] — Fase 2B.1.2: Stream Semantics & Capability Truth Gate
+
+### Solicitação recebida
+Executar a Fase 2B.1.2 (Stream Semantics & Capability Truth Gate):
+1. **First-Cause-Wins Correção Final**: `checkAborted()` usa estritamente `state.cause` (`USER_CANCELLED` ou `TIMEOUT`) como fonte autoritativa, sem permitir que cancelamento posterior do usuário sobrescreva timeout expirado. Matriz de corrida A e B testada unitariamente.
+2. **Body Stream Error Normalization**: No Ollama streaming e Speaches TTS streaming, erros de `reader.read()` (como `AbortError` ou `DOMException`) são interceptados por `handleStreamReadError()` e mapeados canonicamente para `ProviderCancelledError` ou `ProviderTimeoutError`. Zero erro cru vaza para a aplicação.
+3. **Deadline de Não-Stream Completo**: Criados os helpers `executeProviderJson` e `executeProviderBinary` que mantêm o deadline de timeout ativo durante todo o ciclo de consumo do corpo da resposta (`res.json()` e `res.arrayBuffer()`).
+4. **Speaches Backend vs Adapter Capabilities Truth**:
+   - Backend Speaches v0.8.3 catalogado com precisão: `batch_transcription: true`, `streamed_transcription_output: true`, `realtime_websocket: true`.
+   - Adapter Aeternum: `batch_transcription: true`, `streamed_transcription_output: true` (via multipart com `stream=true` e leitura SSE), com `live_audio_input: false` e `realtime_websocket: false` documentados explicitamente como `PLANNED / NOT IMPLEMENTED` para futura camada de voz.
+5. **PCM STT Encapsulation**: Utilitário `pcmToWav()` encapsula áudios PCM em cabeçalho WAV padrão (PCM16 mono 16kHz) eliminando ambiguidade de dados binários crus.
+6. **TTS Sample Rate & Format Capabilities**:
+   - `sample_rate` é enviado de forma parametrizada e validada (8000–48000Hz).
+   - Formatos validados contra lista suportada do backend Speaches (`mp3`, `flac`, `wav`, `pcm`), rejeitando formatos inválidos com erro explícito.
+7. **Restauração e Expansão da Cobertura de Testes**:
+   - 80 testes unitários no `apps/agent` (100 no monorepo), cobrindo todos os cenários de health, generate, 401, 403, 429, 500, stream, abort/timeout bloqueado e matriz de corrida.
+   - Suíte de integração real no HP Victus (`RUN_LOCAL_PROVIDER_INTEGRATION=true`) executada com sucesso (100% Green).
+8. **Governança & Zero Runtime Wiring**:
+   - Runtime de produção, Supabase, Vercel, LiveKit e contêineres ativos intactos.
+   - Status: `IMPLEMENTED / PENDING CHATGPT AUDIT`.
+   - `LEGACY TEST CREDENTIAL ROTATED: NOT_APPLICABLE`.
+
+### Arquivos modificados / criados
+- packages/aeternum-vita/src/providers/local/utils/audio.ts
+- packages/aeternum-vita/src/providers/local/utils/url.ts
+- packages/aeternum-vita/src/providers/local/utils/fetchWithTimeout.ts
+- packages/aeternum-vita/src/providers/local/ollama/OllamaLLMProvider.ts
+- packages/aeternum-vita/src/providers/local/speaches/SpeachesSTTProvider.ts
+- packages/aeternum-vita/src/providers/local/speaches/SpeachesTTSProvider.ts
+- packages/aeternum-vita/src/providers/voice/VoiceProfileRegistry.ts
+- packages/aeternum-vita/src/providers/local/index.ts
+- packages/aeternum-vita/src/providers/__tests__/local_providers.test.ts
+- packages/aeternum-vita/src/providers/__tests__/local_providers.integration.test.ts
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/ANTIGRAVITY_SYNC.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/TEST_HISTORY.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/CURRENT_STATE.md
+
+### Testes executados
+- TypeScript Typecheck (`tsc --noEmit`): **PASS (0 erros)**
+- Suíte Unitária do Monorepo: **100 passed (100% Green)**
+- Suíte de Integração Real no HP Victus: **6/6 passed (100% Green)**
+
+### Resultado
+PASS (Fase 2B.1.2 IMPLEMENTED / PENDING CHATGPT AUDIT)
+
+---
+
 ## [2026-08-24 16:55] — Fase 2B.1.1: Local Provider Correctness Gate
 
 ### Solicitação recebida

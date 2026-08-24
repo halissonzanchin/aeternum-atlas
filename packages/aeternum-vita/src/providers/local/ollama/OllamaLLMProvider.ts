@@ -6,10 +6,9 @@ import {
   ProviderMetadata,
   HealthResult,
   ProviderExecutionContext,
-  ProviderInvalidResponseError,
-  ProviderCancelledError
+  ProviderInvalidResponseError
 } from "../../types/index.ts";
-import { executeProviderFetch, executeProviderFetchSession } from "../utils/fetchWithTimeout.ts";
+import { executeProviderJson, executeProviderFetchSession } from "../utils/fetchWithTimeout.ts";
 import { buildProviderUrl } from "../utils/url.ts";
 
 export interface OllamaProviderConfig {
@@ -46,8 +45,12 @@ export class OllamaLLMProvider implements LLMProvider {
     const start = performance.now();
     const url = buildProviderUrl(this.baseUrl, "/api/tags");
     try {
-      const res = await executeProviderFetch(url, { method: "GET" }, this.metadata.id, context);
-      const data = (await res.json()) as { models?: Array<{ name?: string }> };
+      const data = await executeProviderJson<{ models?: Array<{ name?: string }> }>(
+        url,
+        { method: "GET" },
+        this.metadata.id,
+        context
+      );
       const latencyMs = Math.round(performance.now() - start);
 
       const models: string[] = Array.isArray(data?.models)
@@ -126,7 +129,7 @@ export class OllamaLLMProvider implements LLMProvider {
       headers["Authorization"] = `Bearer ${this.apiKey}`;
     }
 
-    const res = await executeProviderFetch(
+    const data = await executeProviderJson<any>(
       url,
       {
         method: "POST",
@@ -136,13 +139,6 @@ export class OllamaLLMProvider implements LLMProvider {
       this.metadata.id,
       context
     );
-
-    let data: any;
-    try {
-      data = await res.json();
-    } catch {
-      throw new ProviderInvalidResponseError("Resposta JSON inválida recebida do Ollama.", this.metadata.id);
-    }
 
     const choice = data?.choices?.[0];
     if (!choice || typeof choice.message?.content !== "string") {
@@ -229,10 +225,16 @@ export class OllamaLLMProvider implements LLMProvider {
       while (true) {
         session.checkAborted();
 
-        const { value, done } = await reader.read();
-        if (done) break;
+        let readResult: { done: boolean; value?: Uint8Array } = { done: false };
+        try {
+          readResult = await reader.read();
+        } catch (err) {
+          session.handleStreamReadError(err);
+        }
 
-        buffer += decoder.decode(value, { stream: true });
+        if (readResult.done) break;
+
+        buffer += decoder.decode(readResult.value, { stream: true });
         const lines = buffer.split("\n");
         buffer = lines.pop() || "";
 

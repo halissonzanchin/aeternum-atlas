@@ -20,6 +20,7 @@ export interface ProviderFetchSession {
   cleanup: () => void;
   checkAborted: () => void;
   getCause: () => TerminationCause;
+  handleStreamReadError: (error: unknown) => never;
 }
 
 export async function executeProviderFetchSession(
@@ -67,12 +68,29 @@ export async function executeProviderFetchSession(
   };
 
   const checkAborted = () => {
-    if (state.cause === "USER_CANCELLED" || context?.signal?.aborted) {
-      throw new ProviderCancelledError("Operação abortada por sinal de cancelamento do usuário.", providerId);
+    if (state.cause === "USER_CANCELLED") {
+      throw new ProviderCancelledError("Operação abortada por cancelamento do usuário.", providerId);
     }
     if (state.cause === "TIMEOUT") {
       throw new ProviderTimeoutError(`Tempo limite de ${timeoutMs}ms excedido na requisição.`, providerId);
     }
+  };
+
+  const handleStreamReadError = (error: unknown): never => {
+    checkAborted();
+    if (error instanceof AeternumProviderError) {
+      throw error;
+    }
+    if ((error as Error)?.name === "AbortError" || (error as Error)?.name === "DOMException") {
+      if (state.cause === "TIMEOUT") {
+        throw new ProviderTimeoutError(`Tempo limite de ${timeoutMs}ms excedido na leitura do stream.`, providerId);
+      }
+      throw new ProviderCancelledError("Stream abortado pelo usuário.", providerId);
+    }
+    throw new ProviderUnavailableError(
+      `Falha na leitura do stream: ${(error as Error)?.message || String(error)}`,
+      providerId
+    );
   };
 
   try {
@@ -100,7 +118,8 @@ export async function executeProviderFetchSession(
       response: res,
       cleanup,
       checkAborted,
-      getCause: () => state.cause
+      getCause: () => state.cause,
+      handleStreamReadError
     };
   } catch (error) {
     cleanup();
@@ -109,7 +128,7 @@ export async function executeProviderFetchSession(
       throw error;
     }
 
-    if (state.cause === "USER_CANCELLED" || context?.signal?.aborted) {
+    if (state.cause === "USER_CANCELLED") {
       throw new ProviderCancelledError("Operação abortada por cancelamento.", providerId);
     }
 
@@ -124,13 +143,48 @@ export async function executeProviderFetchSession(
   }
 }
 
-export async function executeProviderFetch(
+export async function executeProviderJson<T = any>(
   url: string,
   options: ProviderFetchOptions,
   providerId: string,
   context?: ProviderExecutionContext
-): Promise<Response> {
+): Promise<T> {
   const session = await executeProviderFetchSession(url, options, providerId, context);
-  session.cleanup();
-  return session.response;
+  try {
+    const data = await session.response.json();
+    session.checkAborted();
+    return data as T;
+  } catch (err) {
+    session.checkAborted();
+    if (err instanceof AeternumProviderError) throw err;
+    throw new ProviderInvalidResponseError(
+      `Falha ao decodificar JSON do provider: ${(err as Error)?.message || String(err)}`,
+      providerId
+    );
+  } finally {
+    session.cleanup();
+  }
+}
+
+export async function executeProviderBinary(
+  url: string,
+  options: ProviderFetchOptions,
+  providerId: string,
+  context?: ProviderExecutionContext
+): Promise<Uint8Array> {
+  const session = await executeProviderFetchSession(url, options, providerId, context);
+  try {
+    const arrayBuffer = await session.response.arrayBuffer();
+    session.checkAborted();
+    return new Uint8Array(arrayBuffer);
+  } catch (err) {
+    session.checkAborted();
+    if (err instanceof AeternumProviderError) throw err;
+    throw new ProviderInvalidResponseError(
+      `Falha ao ler dados binários do provider: ${(err as Error)?.message || String(err)}`,
+      providerId
+    );
+  } finally {
+    session.cleanup();
+  }
 }

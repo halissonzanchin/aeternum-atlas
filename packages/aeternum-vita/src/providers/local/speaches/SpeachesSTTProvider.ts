@@ -6,17 +6,23 @@ import {
   ProviderMetadata,
   HealthResult,
   ProviderExecutionContext,
-  ProviderInvalidResponseError,
-  ProviderCancelledError
+  ProviderInvalidResponseError
 } from "../../types/index.ts";
-import { executeProviderFetch } from "../utils/fetchWithTimeout.ts";
+import { executeProviderJson, executeProviderFetchSession } from "../utils/fetchWithTimeout.ts";
 import { buildProviderUrl } from "../utils/url.ts";
+import { pcmToWav } from "../utils/audio.ts";
 
-export interface STTCapabilities {
+export interface SpeachesBackendCapabilities {
+  batch_transcription: boolean;
+  streamed_transcription_output: boolean;
+  realtime_websocket: boolean;
+}
+
+export interface SpeachesAdapterCapabilities {
   batch_transcription: boolean;
   streamed_transcription_output: boolean;
   live_audio_input: boolean;
-  websocket_realtime: boolean;
+  realtime_websocket: boolean;
 }
 
 export interface SpeachesSTTConfig {
@@ -27,11 +33,18 @@ export interface SpeachesSTTConfig {
 
 export class SpeachesSTTProvider implements STTProvider {
   public readonly metadata: ProviderMetadata;
-  public readonly capabilities: STTCapabilities = {
+
+  public readonly backendCapabilities: SpeachesBackendCapabilities = {
     batch_transcription: true,
-    streamed_transcription_output: false,
-    live_audio_input: false,
-    websocket_realtime: false
+    streamed_transcription_output: true,
+    realtime_websocket: true
+  };
+
+  public readonly adapterCapabilities: SpeachesAdapterCapabilities = {
+    batch_transcription: true,
+    streamed_transcription_output: true,
+    live_audio_input: false, // PLANNED / NOT IMPLEMENTED (future realtime voice layer)
+    realtime_websocket: false // PLANNED / NOT IMPLEMENTED
   };
 
   private readonly baseUrl: string;
@@ -60,8 +73,12 @@ export class SpeachesSTTProvider implements STTProvider {
       const headers: Record<string, string> = {};
       if (this.apiKey) headers["Authorization"] = `Bearer ${this.apiKey}`;
 
-      const res = await executeProviderFetch(url, { method: "GET", headers }, this.metadata.id, context);
-      const data = (await res.json()) as { data?: Array<{ id?: string }> };
+      const data = await executeProviderJson<{ data?: Array<{ id?: string }> }>(
+        url,
+        { method: "GET", headers },
+        this.metadata.id,
+        context
+      );
       const latencyMs = Math.round(performance.now() - start);
 
       const models: string[] = Array.isArray(data?.data)
@@ -109,30 +126,33 @@ export class SpeachesSTTProvider implements STTProvider {
     }
   }
 
-  async transcribe(request: STTRequest, context?: ProviderExecutionContext): Promise<STTResponse> {
-    const start = performance.now();
-    const url = buildProviderUrl(this.baseUrl, "/v1/audio/transcriptions");
-
+  private buildAudioPayload(request: STTRequest, stream = false): FormData {
     const format = request.audioFormat || "wav";
+    let audioBytes = request.audioBuffer;
     let mimeType = "audio/wav";
     let fileName = "audio.wav";
 
-    if (format === "webm") {
+    if (format === "pcm") {
+      // Encapsula PCM como WAV PCM16 mono para eliminar ambiguidade
+      audioBytes = pcmToWav(request.audioBuffer, 16000);
+      mimeType = "audio/wav";
+      fileName = "audio.wav";
+    } else if (format === "webm") {
       mimeType = "audio/webm";
       fileName = "audio.webm";
     } else if (format === "ogg") {
       mimeType = "audio/ogg";
       fileName = "audio.ogg";
-    } else if (format === "pcm") {
-      mimeType = "application/octet-stream";
-      fileName = "audio.pcm";
     }
 
     const formData = new FormData();
-    const blob = new Blob([request.audioBuffer], { type: mimeType });
+    const blob = new Blob([audioBytes], { type: mimeType });
     formData.append("file", blob, fileName);
     formData.append("model", this.modelId);
 
+    if (stream) {
+      formData.append("stream", "true");
+    }
     if (request.language) {
       formData.append("language", request.language.split("-")[0]);
     }
@@ -140,10 +160,18 @@ export class SpeachesSTTProvider implements STTProvider {
       formData.append("prompt", request.medicalContextHints.join(", "));
     }
 
+    return formData;
+  }
+
+  async transcribe(request: STTRequest, context?: ProviderExecutionContext): Promise<STTResponse> {
+    const start = performance.now();
+    const url = buildProviderUrl(this.baseUrl, "/v1/audio/transcriptions");
+    const formData = this.buildAudioPayload(request, false);
+
     const headers: Record<string, string> = {};
     if (this.apiKey) headers["Authorization"] = `Bearer ${this.apiKey}`;
 
-    const res = await executeProviderFetch(
+    const data = await executeProviderJson<any>(
       url,
       {
         method: "POST",
@@ -153,13 +181,6 @@ export class SpeachesSTTProvider implements STTProvider {
       this.metadata.id,
       context
     );
-
-    let data: any;
-    try {
-      data = await res.json();
-    } catch {
-      throw new ProviderInvalidResponseError("Resposta JSON inválida do Speaches STT.", this.metadata.id);
-    }
 
     if (typeof data?.text !== "string") {
       throw new ProviderInvalidResponseError("Campo 'text' ausente na resposta de transcrição.", this.metadata.id);
@@ -187,7 +208,7 @@ export class SpeachesSTTProvider implements STTProvider {
     const chunks: Uint8Array[] = [];
     for await (const chunk of audioStream) {
       if (context?.signal?.aborted) {
-        throw new ProviderCancelledError("Stream de transcrição cancelado.", this.metadata.id);
+        throw new ProviderInvalidResponseError("Stream de entrada abortado.", this.metadata.id);
       }
       chunks.push(chunk);
     }
@@ -200,10 +221,73 @@ export class SpeachesSTTProvider implements STTProvider {
       offset += c.length;
     }
 
-    const result = await this.transcribe({ ...options, audioBuffer: merged }, context);
-    yield {
-      partialText: result.text,
-      isFinal: true
-    };
+    const url = buildProviderUrl(this.baseUrl, "/v1/audio/transcriptions");
+    const formData = this.buildAudioPayload({ ...options, audioBuffer: merged }, true);
+
+    const headers: Record<string, string> = {};
+    if (this.apiKey) headers["Authorization"] = `Bearer ${this.apiKey}`;
+
+    const session = await executeProviderFetchSession(
+      url,
+      {
+        method: "POST",
+        headers,
+        body: formData
+      },
+      this.metadata.id,
+      context
+    );
+
+    const res = session.response;
+    if (!res.body) {
+      session.cleanup();
+      throw new ProviderInvalidResponseError("Stream body vazio no Speaches STT.", this.metadata.id);
+    }
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let buffer = "";
+
+    try {
+      while (true) {
+        session.checkAborted();
+
+        let readResult: { done: boolean; value?: Uint8Array } = { done: false };
+        try {
+          readResult = await reader.read();
+        } catch (err) {
+          session.handleStreamReadError(err);
+        }
+
+        if (readResult.done) break;
+
+        buffer += decoder.decode(readResult.value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed || trimmed.startsWith(":")) continue;
+          if (trimmed.startsWith("data: ")) {
+            const jsonStr = trimmed.slice(6);
+            if (jsonStr === "[DONE]") {
+              yield { partialText: "", isFinal: true };
+              return;
+            }
+            try {
+              const parsed = JSON.parse(jsonStr);
+              if (parsed?.text) {
+                yield { partialText: parsed.text, isFinal: false };
+              }
+            } catch {
+              // Ignore partial chunk parsing failure in SSE
+            }
+          }
+        }
+      }
+    } finally {
+      session.cleanup();
+      reader.releaseLock();
+    }
   }
 }

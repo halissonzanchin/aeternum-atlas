@@ -63,11 +63,25 @@ describe.skipIf(!isIntegrationEnabled)(
         console.log(`[LIVE OLLAMA GENERATE] Latência: ${duration}ms | Resposta: ${res.text.trim()}`);
       }, 30000);
 
-      it("stream real com cancelamento / barge-in", async () => {
+      it("stream normal com Qwen 2.5:3b", async () => {
+        const chunks: string[] = [];
+        const start = performance.now();
+        for await (const chunk of ollama.stream({
+          messages: [{ role: "user", content: "Diga 3 ossos do braço." }],
+          maxTokens: 20
+        })) {
+          if (chunk.deltaText) chunks.push(chunk.deltaText);
+        }
+        const duration = Math.round(performance.now() - start);
+        expect(chunks.length).toBeGreaterThan(0);
+        console.log(`[LIVE OLLAMA STREAM] Latência: ${duration}ms | Chunks: ${chunks.length}`);
+      }, 30000);
+
+      it("stream cancelamento / barge-in enquanto aguarda", async () => {
         const controller = new AbortController();
         const stream = ollama.stream(
           { messages: [{ role: "user", content: "Explique a tíbia em 3 parágrafos." }] },
-          { requestId: "live-stream-1", signal: controller.signal }
+          { requestId: "live-stream-cancel", signal: controller.signal }
         );
 
         const chunks: string[] = [];
@@ -120,7 +134,22 @@ describe.skipIf(!isIntegrationEnabled)(
         const duration = Math.round(performance.now() - start);
 
         expect(res.providerId).toBe("speaches-stt-local");
-        console.log(`[LIVE SPEACHES STT] Latência: ${duration}ms | Transcrição: '${res.text}'`);
+        console.log(`[LIVE SPEACHES STT BATCH] Latência: ${duration}ms | Transcrição: '${res.text}'`);
+      }, 30000);
+
+      it("STT SSE output com stream=true", async () => {
+        const fixture = createSyntheticWav();
+        const asyncAudio = (async function* () {
+          yield fixture;
+        })();
+
+        const start = performance.now();
+        const chunks: string[] = [];
+        for await (const chunk of stt.streamTranscription(asyncAudio, { language: "pt" })) {
+          if (chunk.partialText) chunks.push(chunk.partialText);
+        }
+        const duration = Math.round(performance.now() - start);
+        console.log(`[LIVE SPEACHES STT SSE] Latência: ${duration}ms | Chunks recebidos: ${chunks.length}`);
       }, 30000);
 
       it("TTS synthesize real com Kokoro (pm_alex)", async () => {
@@ -134,7 +163,43 @@ describe.skipIf(!isIntegrationEnabled)(
 
         expect(res.audioBuffer.length).toBeGreaterThan(0);
         expect(res.sampleRate).toBe(24000);
-        console.log(`[LIVE SPEACHES TTS] Latência: ${duration}ms | Bytes de áudio: ${res.audioBuffer.length}`);
+        console.log(`[LIVE SPEACHES TTS SYNTH] Latência: ${duration}ms | Bytes: ${res.audioBuffer.length}`);
+      }, 30000);
+
+      it("TTS synthesize real com sample_rate custom (16000Hz)", async () => {
+        const start = performance.now();
+        const res = await tts.synthesize({
+          text: "Teste 16kHz.",
+          voiceProfileId: "pt-br-warm-male-01",
+          language: "pt-BR",
+          sampleRate: 16000
+        });
+        const duration = Math.round(performance.now() - start);
+
+        expect(res.sampleRate).toBe(16000);
+        console.log(`[LIVE SPEACHES TTS 16kHz] Latência: ${duration}ms | SampleRate: ${res.sampleRate}`);
+      }, 30000);
+
+      it("TTS stream real com cancelamento", async () => {
+        const controller = new AbortController();
+        const stream = tts.streamSynthesis(
+          { text: "Explicação anatômica detalhada do sistema musculoesquelético.", voiceProfileId: "pt-br-warm-male-01", language: "pt-BR" },
+          { requestId: "live-tts-stream-cancel", signal: controller.signal }
+        );
+
+        let chunksCount = 0;
+        try {
+          for await (const chunk of stream) {
+            if (chunk.audioChunk.length > 0) chunksCount++;
+            if (chunksCount >= 2) {
+              controller.abort();
+            }
+          }
+        } catch (err) {
+          expect(err).toBeInstanceOf(ProviderCancelledError);
+        }
+
+        console.log(`[LIVE SPEACHES TTS STREAM CANCEL] Chunks recebidos antes do abort: ${chunksCount}`);
       }, 30000);
     });
   }
