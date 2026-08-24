@@ -4,6 +4,71 @@
 
 ---
 
+## [2026-08-24 15:50] — Fase 2A.1: Provider Contract Hardening Gate
+
+### Solicitação recebida
+Executar a Fase 2A.1 (Provider Contract Hardening Gate):
+1. Introduzir `ProviderExecutionContext` com `requestId`, `traceId`, `timeoutMs`, `metadata` e `signal: AbortSignal` para suporte a cancelamento/barge-in.
+2. Adicionar erro canônico `ProviderCancelledError` (`PROVIDER_CANCELLED`).
+3. Normalizar erros nos Fake Providers para lançar classes canônicas Aeternum (`ProviderUnavailableError`, `ProviderTimeoutError`, `ProviderRateLimitError`, `ProviderCancelledError`).
+4. Ajustar `finishReason` do LLM para remover `error`/`timeout` e usar `stop | length | content_filter | unknown`.
+5. Remover `memory` de `RetrievalMethod` do RAG (preservando segregação estrita entre RAG e Memória).
+6. Definir `RAGChunk.score` como normalizado entre `0.0` e `1.0` (com `rawScore?: number` opcional).
+7. Renomear `voiceId` para `voiceProfileId` desacoplado de personas de tutores (`Tutor Persona != Voice Profile != Native Provider Voice ID`).
+8. Limpar nomes de fornecedores dos Fake Providers para torná-los 100% vendor-neutral.
+9. Renomear `HealthProvider` para `ProviderHealthMonitor` e remover `HEALTH` de `ProviderType`.
+10. Executar typecheck (`npx tsc --noEmit` -> PASS) e suíte de testes (57/57 agent, 77/77 monorepo -> PASS).
+
+### Análise
+A auditoria independente do ChatGPT refinou a robustez dos contratos com foco em controle de concorrência (barge-in via AbortSignal), normalização precisa de erros e scores, e desacoplamento semântico entre vozes e personas.
+
+### Decisão tomada
+- Tipos, contratos, fakes e testes atualizados com suporte a `ProviderExecutionContext` e cancelamento síncrono/assíncrono.
+- Documentação `AETERNUM_PROVIDER_CONTRACTS.md` atualizada com status `IMPLEMENTED / PENDING CHATGPT AUDIT`.
+
+### Arquivos modificados
+- packages/aeternum-vita/src/providers/types/common.ts
+- packages/aeternum-vita/src/providers/types/errors.ts
+- packages/aeternum-vita/src/providers/types/llm.ts
+- packages/aeternum-vita/src/providers/types/speech.ts
+- packages/aeternum-vita/src/providers/types/rag.ts
+- packages/aeternum-vita/src/providers/types/health.ts
+- packages/aeternum-vita/src/providers/contracts/BaseProvider.ts
+- packages/aeternum-vita/src/providers/contracts/LLMProvider.ts
+- packages/aeternum-vita/src/providers/contracts/STTProvider.ts
+- packages/aeternum-vita/src/providers/contracts/TTSProvider.ts
+- packages/aeternum-vita/src/providers/contracts/RAGProvider.ts
+- packages/aeternum-vita/src/providers/contracts/MemoryProvider.ts
+- packages/aeternum-vita/src/providers/contracts/ProviderHealthMonitor.ts
+- packages/aeternum-vita/src/providers/testing/FakeLLMProvider.ts
+- packages/aeternum-vita/src/providers/testing/FakeSTTProvider.ts
+- packages/aeternum-vita/src/providers/testing/FakeTTSProvider.ts
+- packages/aeternum-vita/src/providers/testing/FakeRAGProvider.ts
+- packages/aeternum-vita/src/providers/testing/FakeMemoryProvider.ts
+- packages/aeternum-vita/src/providers/testing/FakeHealthMonitor.ts
+- packages/aeternum-vita/src/providers/__tests__/provider_contracts.test.ts
+- packages/aeternum-vita/docs/AETERNUM_PROVIDER_CONTRACTS.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/CURRENT_STATE.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/TEST_HISTORY.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/ANTIGRAVITY_SYNC.md
+
+### Infraestrutura alterada
+- Nenhuma (Zero runtime changes).
+
+### Banco de dados
+- Nenhum.
+
+### Testes executados
+- TypeScript Typecheck (`tsc --noEmit`): **PASS (0 erros)**
+- Suíte de contratos `provider_contracts.test.ts`: **13/13 testes aprovados (PASS)**
+- Suíte completa do agente: **57/57 testes aprovados (PASS)**
+- Suíte global do monorepo: **77/77 testes aprovados (PASS)**
+
+### Resultado
+PASS (Fase 2A.1 CONTRACT HARDENING VERIFIED)
+
+---
+
 ## [2026-08-24 15:35] — Fase 2A: Aeternum AI Provider Contracts
 
 ### Solicitação recebida

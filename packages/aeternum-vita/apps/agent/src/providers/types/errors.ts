@@ -20,6 +20,10 @@ export class ProviderTimeoutError extends AeternumProviderError {
   public readonly code = "PROVIDER_TIMEOUT";
 }
 
+export class ProviderCancelledError extends AeternumProviderError {
+  public readonly code = "PROVIDER_CANCELLED";
+}
+
 export class ProviderAuthenticationError extends AeternumProviderError {
   public readonly code = "PROVIDER_AUTH_ERROR";
 }

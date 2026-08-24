@@ -2,6 +2,42 @@
 
 ---
 
+## Teste 006 — Hardening de Contratos de Providers & Typecheck (Fase 2A.1)
+
+Data: 2026-08-24 15:50 BRT  
+Ambiente: `packages/aeternum-vita` (TypeScript & Vitest)
+
+### Verificação de Tipagem Estática (tsc --noEmit):
+- `apps/agent`: **PASS (0 erros)** ✅
+- `apps/token-server`: **PASS (0 erros)** ✅
+- `apps/web`: **PASS (0 erros)** ✅
+
+### Suíte de Contratos (provider_contracts.test.ts):
+1. LLMProvider: geração com tipagem canônica e finishReason sem error/timeout -> **PASS** ✅
+2. LLMProvider: propagação de ProviderUnavailableError -> **PASS** ✅
+3. LLMProvider: propagação de ProviderTimeoutError -> **PASS** ✅
+4. LLMProvider: propagação de ProviderRateLimitError com retryAfterSeconds -> **PASS** ✅
+5. LLMProvider: cancelamento via AbortSignal no ProviderExecutionContext -> **PASS** ✅
+6. LLMProvider: interrupção de stream em caso de barge-in -> **PASS** ✅
+7. STTProvider: transcrição de áudio com metadados canônicos -> **PASS** ✅
+8. STTProvider: abort de transcrição via AbortSignal -> **PASS** ✅
+9. TTSProvider: síntese de voz usando voiceProfileId desacoplado -> **PASS** ✅
+10. TTSProvider: abort de streaming de voz em caso de barge-in -> **PASS** ✅
+11. RAGProvider: retorno de score normalizado (0..1) e método sem memory -> **PASS** ✅
+12. MemoryProvider: isolamento da memória do aluno e suporte a cancelamento -> **PASS** ✅
+13. ProviderHealthMonitor: monitoramento de múltiplos provedores -> **PASS** ✅
+
+### Métricas Globais do Monorepo:
+- `apps/agent`: 57 testes aprovados (7 arquivos)
+- `apps/token-server`: 6 testes aprovados (2 arquivos)
+- `apps/web`: 14 testes aprovados (3 arquivos)
+- **Total: 77/77 testes aprovados (100% Green)**
+
+### Resultado
+PASS
+
+---
+
 ## Teste 005 — Suíte de Testes de Contratos de Providers (Fase 2A)
 
 Data: 2026-08-24 15:30 BRT  

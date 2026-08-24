@@ -21,7 +21,9 @@ AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 
 ### AI Gateway
 - Status: IN PROGRESS (Fase 2A Concluída: Contratos e Interfaces Criados)
-- Contracts: packages/aeternum-vita/src/providers/contracts/ (LLMProvider, STTProvider, TTSProvider, RAGProvider, MemoryProvider, HealthProvider)
+- Contracts: packages/aeternum-vita/src/providers/contracts/ (LLMProvider, STTProvider, TTSProvider, RAGProvider, MemoryProvider, ProviderHealthMonitor)
+- Execution Context: ProviderExecutionContext (AbortSignal, Barge-in, Tracing)
+- Error Taxonomy: ProviderUnavailableError, ProviderTimeoutError, ProviderCancelledError, ProviderRateLimitError, ProviderInvalidResponseError
 - Porta reservada: localhost:8081
 - Portas dos serviços internos:
   - LiveKit Server: 7880

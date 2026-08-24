@@ -3,3 +3,4 @@ export * from "./FakeSTTProvider.ts";
 export * from "./FakeTTSProvider.ts";
 export * from "./FakeRAGProvider.ts";
 export * from "./FakeMemoryProvider.ts";
+export * from "./FakeHealthMonitor.ts";

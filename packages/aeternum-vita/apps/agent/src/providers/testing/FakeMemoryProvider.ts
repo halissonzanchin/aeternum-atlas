@@ -1,29 +1,41 @@
 import { MemoryProvider } from "../contracts/MemoryProvider.ts";
-import { StudentContext, InteractionRecord, MasteryUpdate, LearningProfile, ProviderMetadata, HealthResult } from "../types/index.ts";
+import {
+  StudentContext,
+  InteractionRecord,
+  MasteryUpdate,
+  LearningProfile,
+  ProviderMetadata,
+  HealthResult,
+  ProviderExecutionContext,
+  ProviderCancelledError,
+  ProviderUnavailableError
+} from "../types/index.ts";
 
 export class FakeMemoryProvider implements MemoryProvider {
   public readonly metadata: ProviderMetadata = {
     id: "fake-memory",
-    name: "Fake Student Memory Provider",
+    name: "Fake Memory Provider",
     type: "MEMORY",
     location: "LOCAL",
     version: "1.0.0"
   };
 
-  public shouldFail = false;
+  public failureMode?: "unavailable";
   private memoryStore = new Map<string, InteractionRecord[]>();
 
-  async health(): Promise<HealthResult> {
+  async health(_context?: ProviderExecutionContext): Promise<HealthResult> {
     return {
       providerId: this.metadata.id,
-      status: this.shouldFail ? "UNAVAILABLE" : "HEALTHY",
+      status: this.failureMode === "unavailable" ? "UNAVAILABLE" : "HEALTHY",
       latencyMs: 5,
       timestamp: new Date().toISOString()
     };
   }
 
-  async getStudentContext(studentId: string): Promise<StudentContext> {
-    if (this.shouldFail) throw new Error("Fake Memory context failure");
+  async getStudentContext(studentId: string, context?: ProviderExecutionContext): Promise<StudentContext> {
+    if (context?.signal?.aborted) throw new ProviderCancelledError("Cancelado.", this.metadata.id);
+    if (this.failureMode === "unavailable") throw new ProviderUnavailableError("Memória indisponível.", this.metadata.id);
+
     return {
       studentId,
       profile: {
@@ -37,19 +49,24 @@ export class FakeMemoryProvider implements MemoryProvider {
     };
   }
 
-  async saveInteraction(record: InteractionRecord): Promise<void> {
-    if (this.shouldFail) throw new Error("Fake Memory save failure");
+  async saveInteraction(record: InteractionRecord, context?: ProviderExecutionContext): Promise<void> {
+    if (context?.signal?.aborted) throw new ProviderCancelledError("Cancelado.", this.metadata.id);
+    if (this.failureMode === "unavailable") throw new ProviderUnavailableError("Memória indisponível.", this.metadata.id);
+
     const records = this.memoryStore.get(record.studentId) || [];
     records.push(record);
     this.memoryStore.set(record.studentId, records);
   }
 
-  async updateMastery(_update: MasteryUpdate): Promise<void> {
-    if (this.shouldFail) throw new Error("Fake Memory update failure");
+  async updateMastery(_update: MasteryUpdate, context?: ProviderExecutionContext): Promise<void> {
+    if (context?.signal?.aborted) throw new ProviderCancelledError("Cancelado.", this.metadata.id);
+    if (this.failureMode === "unavailable") throw new ProviderUnavailableError("Memória indisponível.", this.metadata.id);
   }
 
-  async getLearningProfile(studentId: string): Promise<LearningProfile> {
-    if (this.shouldFail) throw new Error("Fake Memory profile failure");
+  async getLearningProfile(studentId: string, context?: ProviderExecutionContext): Promise<LearningProfile> {
+    if (context?.signal?.aborted) throw new ProviderCancelledError("Cancelado.", this.metadata.id);
+    if (this.failureMode === "unavailable") throw new ProviderUnavailableError("Memória indisponível.", this.metadata.id);
+
     return {
       studentId,
       preferredLanguage: "pt-BR",

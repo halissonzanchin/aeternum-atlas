@@ -1,20 +1,31 @@
 import { LLMProvider } from "../contracts/LLMProvider.ts";
-import { LLMRequest, LLMResponse, LLMStreamChunk, ProviderMetadata, HealthResult } from "../types/index.ts";
+import {
+  LLMRequest,
+  LLMResponse,
+  LLMStreamChunk,
+  ProviderMetadata,
+  HealthResult,
+  ProviderExecutionContext,
+  ProviderCancelledError,
+  ProviderUnavailableError,
+  ProviderTimeoutError,
+  ProviderRateLimitError
+} from "../types/index.ts";
 
 export class FakeLLMProvider implements LLMProvider {
   public readonly metadata: ProviderMetadata = {
     id: "fake-llm",
-    name: "Fake LLM Test Provider",
+    name: "Fake LLM Provider",
     type: "LLM",
     location: "LOCAL",
     version: "1.0.0"
   };
 
-  public shouldFail = false;
+  public failureMode?: "unavailable" | "timeout" | "rate_limit";
   public mockText = "Resposta simulada do modelo de teste.";
 
-  async health(): Promise<HealthResult> {
-    if (this.shouldFail) {
+  async health(_context?: ProviderExecutionContext): Promise<HealthResult> {
+    if (this.failureMode === "unavailable") {
       return {
         providerId: this.metadata.id,
         status: "UNAVAILABLE",
@@ -31,15 +42,25 @@ export class FakeLLMProvider implements LLMProvider {
     };
   }
 
-  async generate(request: LLMRequest): Promise<LLMResponse> {
-    if (this.shouldFail) {
-      throw new Error("Fake LLM generation failure");
+  async generate(request: LLMRequest, context?: ProviderExecutionContext): Promise<LLMResponse> {
+    if (context?.signal?.aborted) {
+      throw new ProviderCancelledError("Geração cancelada por AbortSignal.", this.metadata.id);
     }
+    if (this.failureMode === "unavailable") {
+      throw new ProviderUnavailableError("Servidor de LLM indisponível.", this.metadata.id);
+    }
+    if (this.failureMode === "timeout") {
+      throw new ProviderTimeoutError("Tempo limite de geração excedido.", this.metadata.id);
+    }
+    if (this.failureMode === "rate_limit") {
+      throw new ProviderRateLimitError("Limite de requisições atingido.", this.metadata.id, 30);
+    }
+
     const lastMsg = request.messages.at(-1)?.content || "";
     return {
       text: `${this.mockText} Echo: ${lastMsg}`,
       providerId: this.metadata.id,
-      modelId: "fake-qwen-3b",
+      modelId: "fake-llm-model",
       finishReason: "stop",
       usage: {
         promptTokens: 15,
@@ -53,12 +74,19 @@ export class FakeLLMProvider implements LLMProvider {
     };
   }
 
-  async *stream(request: LLMRequest): AsyncIterable<LLMStreamChunk> {
-    if (this.shouldFail) {
-      throw new Error("Fake LLM stream failure");
+  async *stream(request: LLMRequest, context?: ProviderExecutionContext): AsyncIterable<LLMStreamChunk> {
+    if (context?.signal?.aborted) {
+      throw new ProviderCancelledError("Stream cancelado antes de iniciar.", this.metadata.id);
     }
+    if (this.failureMode === "unavailable") {
+      throw new ProviderUnavailableError("Servidor de LLM indisponível.", this.metadata.id);
+    }
+
     const words = this.mockText.split(" ");
     for (let i = 0; i < words.length; i++) {
+      if (context?.signal?.aborted) {
+        throw new ProviderCancelledError("Stream interrompido por AbortSignal.", this.metadata.id);
+      }
       yield {
         deltaText: words[i] + (i < words.length - 1 ? " " : ""),
         isComplete: i === words.length - 1,

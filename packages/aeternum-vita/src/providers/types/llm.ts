@@ -18,11 +18,13 @@ export interface LLMRequest {
   metadata?: Record<string, unknown>;
 }
 
+export type LLMFinishReason = "stop" | "length" | "content_filter" | "unknown";
+
 export interface LLMResponse {
   text: string;
   providerId: string;
   modelId: string;
-  finishReason: "stop" | "length" | "timeout" | "error" | "content_filter";
+  finishReason: LLMFinishReason;
   usage?: TokenUsage;
   latency?: LatencyMetrics;
   metadata?: Record<string, unknown>;
@@ -31,6 +33,6 @@ export interface LLMResponse {
 export interface LLMStreamChunk {
   deltaText: string;
   isComplete: boolean;
-  finishReason?: "stop" | "length" | "timeout" | "error" | "content_filter";
+  finishReason?: LLMFinishReason;
   usage?: TokenUsage;
 }

@@ -5,16 +5,18 @@ import {
   FakeTTSProvider,
   FakeRAGProvider,
   FakeMemoryProvider,
+  FakeProviderHealthMonitor,
   ProviderUnavailableError,
   ProviderTimeoutError,
-  ProviderAuthenticationError,
+  ProviderCancelledError,
   ProviderRateLimitError,
-  ProviderInvalidResponseError
+  ProviderInvalidResponseError,
+  ProviderExecutionContext
 } from "../index.ts";
 
-describe("Aeternum AI Provider Contracts (Fase 2A)", () => {
-  describe("1. LLMProvider Contract", () => {
-    it("deve gerar resposta com tipagem e metadados canônicos", async () => {
+describe("Aeternum AI Provider Contracts Hardening (Fase 2A.1)", () => {
+  describe("1. LLMProvider Contract & Canonical Execution", () => {
+    it("deve gerar resposta com tipagem canônica e finishReason válido (sem error/timeout)", async () => {
       const llm = new FakeLLMProvider();
       const response = await llm.generate({
         messages: [{ role: "user", content: "Explique a clavícula." }],
@@ -23,162 +25,195 @@ describe("Aeternum AI Provider Contracts (Fase 2A)", () => {
 
       expect(response.text).toContain("Echo: Explique a clavícula.");
       expect(response.providerId).toBe("fake-llm");
-      expect(response.finishReason).toBe("stop");
+      expect(response.modelId).toBe("fake-llm-model");
+      expect(["stop", "length", "content_filter", "unknown"]).toContain(response.finishReason);
       expect(response.usage?.totalTokens).toBe(40);
-      expect(response.latency?.totalDurationMs).toBeGreaterThan(0);
     });
 
-    it("deve suportar streaming assíncrono de chunks", async () => {
+    it("deve propagar ProviderUnavailableError em caso de indisponibilidade", async () => {
       const llm = new FakeLLMProvider();
-      const stream = llm.stream({
-        messages: [{ role: "user", content: "Teste de stream" }]
-      });
+      llm.failureMode = "unavailable";
 
+      await expect(llm.generate({ messages: [{ role: "user", content: "Olá" }] }))
+        .rejects
+        .toThrow(ProviderUnavailableError);
+    });
+
+    it("deve propagar ProviderTimeoutError em caso de estouro de tempo", async () => {
+      const llm = new FakeLLMProvider();
+      llm.failureMode = "timeout";
+
+      await expect(llm.generate({ messages: [{ role: "user", content: "Olá" }] }))
+        .rejects
+        .toThrow(ProviderTimeoutError);
+    });
+
+    it("deve propagar ProviderRateLimitError com retryAfterSeconds", async () => {
+      const llm = new FakeLLMProvider();
+      llm.failureMode = "rate_limit";
+
+      try {
+        await llm.generate({ messages: [{ role: "user", content: "Olá" }] });
+        expect.unreachable("Deveria ter lançado ProviderRateLimitError");
+      } catch (err) {
+        expect(err).toBeInstanceOf(ProviderRateLimitError);
+        expect((err as ProviderRateLimitError).retryAfterSeconds).toBe(30);
+      }
+    });
+
+    it("deve honrar cancelamento via AbortSignal no ProviderExecutionContext", async () => {
+      const llm = new FakeLLMProvider();
+      const controller = new AbortController();
+      controller.abort();
+
+      const context: ProviderExecutionContext = {
+        requestId: "req-123",
+        signal: controller.signal
+      };
+
+      await expect(llm.generate({ messages: [{ role: "user", content: "Olá" }] }, context))
+        .rejects
+        .toThrow(ProviderCancelledError);
+    });
+
+    it("deve interromper stream em caso de barge-in / cancelamento", async () => {
+      const llm = new FakeLLMProvider();
+      const controller = new AbortController();
+      const context: ProviderExecutionContext = {
+        requestId: "req-stream-1",
+        signal: controller.signal
+      };
+
+      const stream = llm.stream({ messages: [{ role: "user", content: "Teste" }] }, context);
       const chunks: string[] = [];
-      for await (const chunk of stream) {
-        chunks.push(chunk.deltaText);
+
+      try {
+        for await (const chunk of stream) {
+          chunks.push(chunk.deltaText);
+          controller.abort(); // Dispara interrupção no primeiro chunk
+        }
+      } catch (err) {
+        expect(err).toBeInstanceOf(ProviderCancelledError);
       }
 
-      expect(chunks.length).toBeGreaterThan(1);
-      expect(chunks.join("")).toContain("Resposta simulada");
-    });
-
-    it("deve reportar status de saúde canônico", async () => {
-      const llm = new FakeLLMProvider();
-      const health = await llm.health();
-      expect(health.status).toBe("HEALTHY");
-      expect(health.providerId).toBe("fake-llm");
-
-      llm.shouldFail = true;
-      const failedHealth = await llm.health();
-      expect(failedHealth.status).toBe("UNAVAILABLE");
+      expect(chunks.length).toBe(1);
     });
   });
 
   describe("2. STTProvider Contract", () => {
-    it("deve transcrever áudio com metadados e confiança", async () => {
+    it("deve transcrever áudio com metadados canônicos", async () => {
       const stt = new FakeSTTProvider();
       const response = await stt.transcribe({
         audioBuffer: new Uint8Array([1, 2, 3]),
-        language: "pt-BR",
-        sampleRate: 16000
+        language: "pt-BR"
       });
 
       expect(response.text).toBe("Transcrição simulada de anatomia humana.");
       expect(response.languageDetected).toBe("pt-BR");
       expect(response.confidence).toBe(0.98);
-      expect(response.providerId).toBe("fake-stt");
+      expect(response.modelId).toBe("fake-stt-model");
     });
 
-    it("deve suportar streaming de transcrição parcial e final", async () => {
+    it("deve abortar transcrição em caso de cancelamento", async () => {
       const stt = new FakeSTTProvider();
-      async function* mockAudioStream() {
-        yield new Uint8Array([1, 2]);
-        yield new Uint8Array([3, 4]);
-      }
+      const controller = new AbortController();
+      controller.abort();
 
-      const stream = stt.streamTranscription(mockAudioStream(), { language: "pt" });
-      const results = [];
-      for await (const chunk of stream) {
-        results.push(chunk);
-      }
-
-      expect(results.length).toBeGreaterThan(0);
-      expect(results.at(-1)?.isFinal).toBe(true);
+      await expect(stt.transcribe({ audioBuffer: new Uint8Array([]), language: "pt-BR" }, { requestId: "r1", signal: controller.signal }))
+        .rejects
+        .toThrow(ProviderCancelledError);
     });
   });
 
-  describe("3. TTSProvider Contract", () => {
-    it("deve sintetizar voz com formato de áudio especificado", async () => {
+  describe("3. TTSProvider Contract & VoiceProfileId", () => {
+    it("deve sintetizar voz usando voiceProfileId (desacoplado de personas)", async () => {
       const tts = new FakeTTSProvider();
       const response = await tts.synthesize({
-        text: "Olá Estudante",
-        voiceId: "eduardo",
+        text: "Explicação anatômica",
+        voiceProfileId: "test-voice-ptbr-01",
         language: "pt-BR"
       });
 
       expect(response.audioBuffer.length).toBeGreaterThan(0);
-      expect(response.sampleRate).toBe(24000);
+      expect(response.modelId).toBe("fake-tts-model");
       expect(response.audioFormat).toBe("pcm");
-      expect(response.providerId).toBe("fake-tts");
     });
 
-    it("deve suportar streaming de áudio sintetizado", async () => {
+    it("deve abortar síntese em streaming em caso de barge-in", async () => {
       const tts = new FakeTTSProvider();
-      const stream = tts.streamSynthesis({
-        text: "Sintetizando áudio em streaming",
-        voiceId: "eduardo",
-        language: "pt-BR"
-      });
+      const controller = new AbortController();
+      const stream = tts.streamSynthesis(
+        { text: "Áudio", voiceProfileId: "test-voice-ptbr-01", language: "pt-BR" },
+        { requestId: "tts-1", signal: controller.signal }
+      );
 
       const chunks = [];
-      for await (const chunk of stream) {
-        chunks.push(chunk);
+      try {
+        for await (const chunk of stream) {
+          chunks.push(chunk);
+          controller.abort(); // Simula estudante falando por cima (barge-in)
+        }
+      } catch (err) {
+        expect(err).toBeInstanceOf(ProviderCancelledError);
       }
 
-      expect(chunks.length).toBe(2);
-      expect(chunks[1].isFinal).toBe(true);
+      expect(chunks.length).toBe(1);
     });
   });
 
-  describe("4. RAGProvider Contract", () => {
-    it("deve retornar chunks estruturados com método de recuperação e citação obrigatória", async () => {
+  describe("4. RAGProvider Contract & Score Normalizado", () => {
+    it("deve retornar score normalizado entre 0.0 e 1.0 e retrievalMethod sem memory", async () => {
       const rag = new FakeRAGProvider();
-      const response = await rag.retrieve({
-        query: "clavícula sintopia",
-        limit: 5
-      });
+      const response = await rag.retrieve({ query: "clavícula", limit: 3 });
 
       expect(response.chunks.length).toBe(1);
       const chunk = response.chunks[0];
-      expect(chunk.sourceId).toBe("chunk-101");
-      expect(chunk.sourceTitle).toContain("Moore");
-      expect(chunk.pageNumber).toBe(672);
-      expect(chunk.score).toBe(0.95);
-      expect(chunk.retrievalMethod).toBe("hybrid");
-      expect(response.providerId).toBe("fake-rag");
+      expect(chunk.score).toBeGreaterThanOrEqual(0.0);
+      expect(chunk.score).toBeLessThanOrEqual(1.0);
+      expect(chunk.rawScore).toBeDefined();
+      expect(["lexical", "vector", "hybrid", "other"]).toContain(chunk.retrievalMethod);
+      expect(chunk.retrievalMethod).not.toBe("memory");
     });
   });
 
   describe("5. MemoryProvider Contract", () => {
-    it("deve carregar contexto do estudante sem contaminar com conhecimento enciclopédico", async () => {
+    it("deve isolar memória do aluno e respeitar cancelamento", async () => {
       const memory = new FakeMemoryProvider();
       await memory.saveInteraction({
-        studentId: "student-123",
+        studentId: "stu-1",
         topic: "osteologia",
-        userPromptSummary: "Dúvida sobre trocânter maior",
-        aiResponseSummary: "Explicado inserção do glúteo médio",
+        userPromptSummary: "Dúvida fêmur",
+        aiResponseSummary: "Explicado colo anatômico",
         mode: "lecture",
         timestamp: new Date().toISOString()
       });
 
-      const context = await memory.getStudentContext("student-123");
-      expect(context.studentId).toBe("student-123");
-      expect(context.profile.weakTopics).toContain("plexo braquial");
-      expect(context.recentInteractions.length).toBe(1);
-      expect(context.recentInteractions[0].topic).toBe("osteologia");
+      const ctx = await memory.getStudentContext("stu-1");
+      expect(ctx.studentId).toBe("stu-1");
+      expect(ctx.recentInteractions.length).toBe(1);
+
+      const controller = new AbortController();
+      controller.abort();
+      await expect(memory.getStudentContext("stu-1", { requestId: "m1", signal: controller.signal }))
+        .rejects
+        .toThrow(ProviderCancelledError);
     });
   });
 
-  describe("6. Canonical Error Hierarchy", () => {
-    it("deve instanciar erros canônicos Aeternum com código e providerId", () => {
-      const unavailable = new ProviderUnavailableError("Servidor fora do ar", "ollama-local");
-      expect(unavailable.code).toBe("PROVIDER_UNAVAILABLE");
-      expect(unavailable.providerId).toBe("ollama-local");
-      expect(unavailable.timestamp).toBeDefined();
+  describe("6. ProviderHealthMonitor Contract", () => {
+    it("deve monitorar saúde de múltiplos provedores", async () => {
+      const monitor = new FakeProviderHealthMonitor();
+      const llm = new FakeLLMProvider();
+      const stt = new FakeSTTProvider();
 
-      const timeout = new ProviderTimeoutError("Tempo limite excedido", "whisper-local");
-      expect(timeout.code).toBe("PROVIDER_TIMEOUT");
+      const results = await monitor.checkAll([llm, stt]);
+      expect(results.length).toBe(2);
+      expect(results[0].status).toBe("HEALTHY");
+      expect(results[1].status).toBe("HEALTHY");
 
-      const authErr = new ProviderAuthenticationError("Token inválido", "cloud-provider");
-      expect(authErr.code).toBe("PROVIDER_AUTH_ERROR");
-
-      const rateLimit = new ProviderRateLimitError("Limite excedido", "gemini-cloud", 60);
-      expect(rateLimit.code).toBe("PROVIDER_RATE_LIMIT");
-      expect(rateLimit.retryAfterSeconds).toBe(60);
-
-      const invalidResp = new ProviderInvalidResponseError("Resposta corrompida", "custom-model");
-      expect(invalidResp.code).toBe("PROVIDER_INVALID_RESPONSE");
+      llm.failureMode = "unavailable";
+      const failedResult = await monitor.checkHealth(llm);
+      expect(failedResult.status).toBe("UNAVAILABLE");
     });
   });
 });

@@ -1,6 +1,6 @@
-import { ProviderMetadata, HealthResult } from "../types/index.ts";
+import { ProviderMetadata, HealthResult, ProviderExecutionContext } from "../types/index.ts";
 
 export interface BaseProvider {
   readonly metadata: ProviderMetadata;
-  health(): Promise<HealthResult>;
+  health(context?: ProviderExecutionContext): Promise<HealthResult>;
 }

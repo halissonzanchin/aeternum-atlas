@@ -1,4 +1,4 @@
-export type RetrievalMethod = "lexical" | "vector" | "hybrid" | "memory" | "other";
+export type RetrievalMethod = "lexical" | "vector" | "hybrid" | "other";
 
 export interface RAGRequest {
   query: string;
@@ -18,7 +18,8 @@ export interface RAGChunk {
   pageNumber?: number;
   chapterTitle?: string;
   content: string;
-  score: number;
+  score: number; // Score normalizado [0.0 - 1.0]
+  rawScore?: number; // Score bruto original do motor de busca
   retrievalMethod: RetrievalMethod;
   metadata?: Record<string, unknown>;
 }

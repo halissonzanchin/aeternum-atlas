@@ -32,7 +32,7 @@ export interface STTStreamChunk {
 
 export interface TTSRequest {
   text: string;
-  voiceId: string;
+  voiceProfileId: string;
   language: string;
   speed?: number;
   sampleRate?: number;

@@ -1,6 +1,6 @@
 export type ProviderLocation = "LOCAL" | "CLOUD" | "HYBRID";
 
-export type ProviderType = "LLM" | "STT" | "TTS" | "RAG" | "MEMORY" | "HEALTH";
+export type ProviderType = "LLM" | "STT" | "TTS" | "RAG" | "MEMORY";
 
 export interface ProviderMetadata {
   id: string;
@@ -21,4 +21,12 @@ export interface LatencyMetrics {
   totalDurationMs: number;
   timeToFirstTokenMs?: number;
   timeToFirstByteMs?: number;
+}
+
+export interface ProviderExecutionContext {
+  requestId: string;
+  traceId?: string;
+  signal?: AbortSignal;
+  timeoutMs?: number;
+  metadata?: Record<string, unknown>;
 }
