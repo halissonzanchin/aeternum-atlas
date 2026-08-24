@@ -20,7 +20,8 @@ AI_TUTOR_RUNTIME_VERSION: v17 (ACTIVE - Fail-Closed)
 - Status: ACTIVE / ENFORCED
 
 ### AI Gateway
-- Status: IN PROGRESS (Fase 2A Concluída: Contratos e Interfaces Criados)
+- Status: IN PROGRESS (Fase 2B.1 Concluída: Provedores Locais Criados)
+- Local Providers: OllamaLLMProvider, SpeachesSTTProvider, SpeachesTTSProvider, VoiceProfileRegistry
 - Contracts: packages/aeternum-vita/src/providers/contracts/ (LLMProvider, STTProvider, TTSProvider, RAGProvider, MemoryProvider, ProviderHealthMonitor)
 - Execution Context: ProviderExecutionContext (AbortSignal, Barge-in, Tracing)
 - Error Taxonomy: ProviderUnavailableError, ProviderTimeoutError, ProviderCancelledError, ProviderRateLimitError, ProviderInvalidResponseError

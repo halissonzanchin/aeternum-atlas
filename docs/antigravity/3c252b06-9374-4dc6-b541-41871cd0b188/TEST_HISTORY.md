@@ -2,6 +2,45 @@
 
 ---
 
+## Teste 007 — Validação de Provedores Locais & Typecheck Estrito (Fase 2B.1)
+
+Data: 2026-08-24 16:30 BRT  
+Ambiente: `packages/aeternum-vita` (TypeScript & Vitest)
+
+### Verificação de Tipagem Estática (tsc --noEmit):
+- `apps/agent`: **PASS (0 erros)** ✅
+- `apps/token-server`: **PASS (0 erros)** ✅
+- `apps/web`: **PASS (0 erros)** ✅
+
+### Suíte de Provedores Locais (local_providers.test.ts):
+1. Ollama: health retorna HEALTHY com modelo presente -> **PASS** ✅
+2. Ollama: health retorna DEGRADED com modelo ausente -> **PASS** ✅
+3. Ollama: health retorna UNAVAILABLE com servidor offline -> **PASS** ✅
+4. Ollama: generate gera resposta com mapeamento canônico -> **PASS** ✅
+5. Ollama: generate mapeia 401 para ProviderAuthenticationError -> **PASS** ✅
+6. Ollama: generate mapeia 429 para ProviderRateLimitError -> **PASS** ✅
+7. Ollama: generate mapeia 500 para ProviderUnavailableError -> **PASS** ✅
+8. Ollama: generate mapeia JSON inválido para ProviderInvalidResponseError -> **PASS** ✅
+9. Ollama: generate honra cancelamento via AbortSignal -> **PASS** ✅
+10. Ollama: stream processa chunks SSE e respeita cancelamento -> **PASS** ✅
+11. Speaches STT: health retorna HEALTHY com whisper presente -> **PASS** ✅
+12. Speaches STT: transcribe gera transcrição com prompt médico -> **PASS** ✅
+13. Speaches STT: transcribe honra cancelamento -> **PASS** ✅
+14. Speaches TTS: synthesize sintetiza áudio com VoiceProfileRegistry -> **PASS** ✅
+15. Speaches TTS: synthesize lança erro para perfil inexistente -> **PASS** ✅
+16. VoiceProfileRegistry: mapeia perfis canônicos e permite novos registros -> **PASS** ✅
+
+### Métricas Globais do Monorepo:
+- `apps/agent`: 73 testes aprovados (8 arquivos) + 1 suíte de integração opt-in
+- `apps/token-server`: 6 testes aprovados (2 arquivos)
+- `apps/web`: 14 testes aprovados (3 arquivos)
+- **Total: 93/93 testes aprovados (100% Green)**
+
+### Resultado
+PASS
+
+---
+
 ## Teste 006 — Hardening de Contratos de Providers & Typecheck (Fase 2A.1)
 
 Data: 2026-08-24 15:50 BRT  

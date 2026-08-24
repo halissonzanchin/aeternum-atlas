@@ -4,6 +4,65 @@
 
 ---
 
+## [2026-08-24 16:30] — Fase 2B.1: Local Inference Providers
+
+### Solicitação recebida
+Executar a Fase 2B.1 (Local Inference Providers):
+1. Inspecionar as APIs reais no HP Victus (Ollama 0.32.5 com qwen2.5:3b / qwen3:4b e Speaches 0.8.3 com Faster-Whisper small e Kokoro-82M / Piper).
+2. Implementar provedores locais concretos desacoplados:
+   - `OllamaLLMProvider` (implementa `LLMProvider` com endpoints OpenAI-compatible `/v1/chat/completions`, streaming real e health check).
+   - `SpeachesSTTProvider` (implementa `STTProvider` com `/v1/audio/transcriptions`, multipart/form-data e hints médicos em prompt).
+   - `SpeachesTTSProvider` (implementa `TTSProvider` com `/v1/audio/speech` e suporte a streaming/barge-in).
+   - `VoiceProfileRegistry` (registro canônico mapeando perfis de voz para modelos e vozes nativas, preservando a regra: Persona != Voice Profile != Native Voice ID).
+3. Implementar normalização de erros canônicos e suporte unificado a `AbortSignal` e `timeoutMs` via utilitário `executeProviderFetch`.
+4. Criar suíte de testes unitários (16 novos testes com mocks de fetch) e teste de integração opt-in (`RUN_LOCAL_PROVIDER_INTEGRATION=true`).
+5. Garantir zero alteração de runtime (sem wiring com o agente ativo, sem alterações no Supabase, Vercel, LiveKit ou Docker).
+
+### Análise
+A inspeção empírica revelou:
+- Ollama: versão 0.32.5 com modelos `qwen2.5:3b` e `qwen3:4b` ativos.
+- Speaches: versão 0.8.3 com Faster-Whisper small e Kokoro-82M ONNX (`pm_alex`, `pf_dora`, etc.) e Piper (`thorsten`).
+Os provedores locais foram desenvolvidos de forma pura e estrita aos contratos estabelecidos na Fase 2A.1.
+
+### Decisão tomada
+- Desenvolvidos os módulos em `src/providers/local/` e `src/providers/voice/`.
+- Tipagem estrita validada via `tsc --noEmit` (0 erros).
+- Suíte de 16 novos testes unitários adicionada, elevando a cobertura do agente para 73 testes unitários aprovados (e 93 no monorepo).
+- Variáveis de ambiente legadas (`LOCAL_TTS_VOICE_EDUARDO`, etc.) preservadas no `.env.example` para compatibilidade operacional do runtime atual.
+
+### Arquivos modificados / criados
+- packages/aeternum-vita/src/providers/local/utils/fetchWithTimeout.ts
+- packages/aeternum-vita/src/providers/local/ollama/OllamaLLMProvider.ts
+- packages/aeternum-vita/src/providers/local/speaches/SpeachesSTTProvider.ts
+- packages/aeternum-vita/src/providers/local/speaches/SpeachesTTSProvider.ts
+- packages/aeternum-vita/src/providers/voice/VoiceProfileRegistry.ts
+- packages/aeternum-vita/src/providers/local/index.ts
+- packages/aeternum-vita/src/providers/voice/index.ts
+- packages/aeternum-vita/src/providers/index.ts
+- packages/aeternum-vita/src/providers/__tests__/local_providers.test.ts
+- packages/aeternum-vita/src/providers/__tests__/local_providers.integration.test.ts
+- packages/aeternum-vita/docs/AETERNUM_PROVIDER_CONTRACTS.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/CURRENT_STATE.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/TEST_HISTORY.md
+- docs/antigravity/3c252b06-9374-4dc6-b541-41871cd0b188/ANTIGRAVITY_SYNC.md
+
+### Infraestrutura alterada
+- Nenhuma (Zero runtime impact).
+
+### Banco de dados
+- Nenhum.
+
+### Testes executados
+- TypeScript Typecheck (`tsc --noEmit`): **PASS (0 erros)**
+- Suíte unitária de local providers (`local_providers.test.ts`): **16/16 aprovados (PASS)**
+- Suíte completa do agente: **73 unit tests aprovados + 2 skipped opt-in (PASS)**
+- Suíte global do monorepo: **93/93 unit tests aprovados (100% Green)**
+
+### Resultado
+PASS (Fase 2B.1 LOCAL PROVIDERS IMPLEMENTED)
+
+---
+
 ## [2026-08-24 15:50] — Fase 2A.1: Provider Contract Hardening Gate
 
 ### Solicitação recebida
