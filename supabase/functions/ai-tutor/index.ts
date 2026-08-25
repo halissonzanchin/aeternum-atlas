@@ -7,7 +7,7 @@ const FALLBACK_MODELS = (Deno.env.get("VITA_GEMINI_FALLBACK_MODELS") || "gemini-
   .filter(Boolean);
 
 const ACTIVE_GEMINI_MODELS = [...new Set([PRIMARY_MODEL, ...FALLBACK_MODELS])];
-const GEMINI_EMBEDDING_MODEL = (Deno.env.get("VITA_GEMINI_EMBEDDING_MODEL") || "text-embedding-004").trim();
+const GEMINI_EMBEDDING_MODEL = (Deno.env.get("VITA_GEMINI_EMBEDDING_MODEL") || "gemini-embedding-2").trim();
 
 const MAX_REQUEST_BYTES = 64_000;
 const MAX_PROMPT_CHARACTERS = 4_000;
@@ -259,7 +259,7 @@ function extractSearchTerms(prompt: string): string {
 
 async function generateEmbedding(apiKey: string, prompt: string) {
   try {
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_EMBEDDING_MODEL}:embedContent?key=${encodeURIComponent(apiKey)}`;
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(GEMINI_EMBEDDING_MODEL)}:embedContent?key=${encodeURIComponent(apiKey)}`;
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
@@ -267,13 +267,8 @@ async function generateEmbedding(apiKey: string, prompt: string) {
         "x-goog-api-key": apiKey
       },
       body: JSON.stringify({
-        model: `models/${GEMINI_EMBEDDING_MODEL}`,
         content: { parts: [{ text: prompt }] },
-        embedContentConfig: {
-          taskType: "RETRIEVAL_QUERY",
-          outputDimensionality: 768,
-          autoTruncate: true
-        }
+        outputDimensionality: 768
       })
     });
     if (!response.ok) return null;
@@ -364,7 +359,7 @@ async function callGemini(
   history: ReturnType<typeof normalizedGeminiHistory>,
   prompt: string,
   userName: string = ""
-): Promise<{ result: GeminiCallResult | null; errorCategory?: string; httpStatus?: number; errorSnippet?: string }> {
+): Promise<{ result: GeminiCallResult | null; errorCategory?: string; httpStatus?: number; providerStatus?: string }> {
   for (const model of ACTIVE_GEMINI_MODELS) {
     const start = performance.now();
     try {
@@ -405,14 +400,22 @@ async function callGemini(
         }
       } else {
         const status = res.status;
-        const category = status === 400 ? "payload_error" : status === 401 || status === 403 ? "auth_error" : status === 429 ? "quota_error" : "provider_error";
-        return { result: null, errorCategory: category, httpStatus: status, errorSnippet: `HTTP ${status}` };
+        const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
+        const errObj = errJson?.error as Record<string, unknown> | undefined;
+        const providerStatus = String(errObj?.status || `HTTP_${status}`);
+        const category = status === 400 ? "payload_error" : (status === 401 || status === 403) ? "auth_error" : status === 429 ? "quota_error" : "provider_error";
+        return {
+          result: null,
+          errorCategory: category,
+          httpStatus: status,
+          providerStatus
+        };
       }
-    } catch (err) {
-      return { result: null, errorCategory: "network_error", httpStatus: 0, errorSnippet: (err as Error)?.message || "fetch_failed" };
+    } catch {
+      return { result: null, errorCategory: "network_error", httpStatus: 0, providerStatus: "FETCH_FAILED" };
     }
   }
-  return { result: null, errorCategory: "all_models_exhausted", httpStatus: 500 };
+  return { result: null, errorCategory: "all_models_exhausted", httpStatus: 500, providerStatus: "MODELS_EXHAUSTED" };
 }
 
 Deno.serve(async (req) => {
@@ -571,10 +574,11 @@ Deno.serve(async (req) => {
   let latencyMs = 0;
   let diagCategory = "none";
   let diagStatus = 200;
+  let diagProviderStatus = "none";
 
   // 1. Tenta gerar via Gemini oficial (se configurado)
   if (geminiKey) {
-    const { result, errorCategory, httpStatus } = await callGemini(
+    const { result, errorCategory, httpStatus, providerStatus } = await callGemini(
       geminiKey,
       String(profile.role || "student"),
       context,
@@ -592,10 +596,12 @@ Deno.serve(async (req) => {
     } else {
       diagCategory = errorCategory || "provider_failure";
       diagStatus = httpStatus || 500;
+      diagProviderStatus = providerStatus || "ERROR";
     }
   } else {
     diagCategory = "key_not_configured";
     diagStatus = 503;
+    diagProviderStatus = "MISSING_KEY";
   }
 
   // 2. Fallback resiliente com base anatômica se Gemini falhar
@@ -629,6 +635,7 @@ Deno.serve(async (req) => {
         provider: actualProvider,
         fallbackUsed,
         retrievalMethod: ragMethod,
+        embeddingModel: GEMINI_EMBEDDING_MODEL,
         retrievedSources: sources.map((source) => ({
           bookTitle: source.book_title,
           chapterTitle: source.chapter_title,
@@ -659,8 +666,11 @@ Deno.serve(async (req) => {
         latency_ms: latencyMs,
         retrievedSourceCount: sources.length,
         retrievalMethod: ragMethod,
+        embedding_model: GEMINI_EMBEDDING_MODEL,
+        credential_source: geminiKey ? "SUPABASE_SECRETS (GEMINI_API_KEY)" : "NONE",
         diagCategory: diagCategory !== "none" ? diagCategory : undefined,
-        diagStatus: diagStatus !== 200 ? diagStatus : undefined
+        diagStatus: diagStatus !== 200 ? diagStatus : undefined,
+        providerStatus: diagProviderStatus !== "none" ? diagProviderStatus : undefined
       }
     });
   } catch (dbErr) {
@@ -672,7 +682,7 @@ Deno.serve(async (req) => {
   const stream = new ReadableStream({
     start(controller) {
       controller.enqueue(
-        encoder.encode(`data: ${JSON.stringify({ conversationId, source: actualProvider, model: actualModel, fallbackUsed, latencyMs, retrievalCount: sources.length })}\n\n`)
+        encoder.encode(`data: ${JSON.stringify({ conversationId, source: actualProvider, model: actualModel, fallbackUsed, latencyMs, retrievalCount: sources.length, retrievalMethod: ragMethod })}\n\n`)
       );
       for (let offset = 0; offset < persistedText.slice(0, 4000).length; offset += 200) {
         controller.enqueue(
