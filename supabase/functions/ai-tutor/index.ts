@@ -359,7 +359,7 @@ async function callGemini(
   history: ReturnType<typeof normalizedGeminiHistory>,
   prompt: string,
   userName: string = ""
-): Promise<{ result: GeminiCallResult | null; errorCategory?: string; httpStatus?: number; providerStatus?: string }> {
+): Promise<{ result: GeminiCallResult | null; errorCategory?: string; httpStatus?: number; providerStatus?: string; providerReason?: string }> {
   for (const model of ACTIVE_GEMINI_MODELS) {
     const start = performance.now();
     try {
@@ -403,12 +403,16 @@ async function callGemini(
         const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
         const errObj = errJson?.error as Record<string, unknown> | undefined;
         const providerStatus = String(errObj?.status || `HTTP_${status}`);
+        const details = Array.isArray(errObj?.details) ? errObj.details : [];
+        const firstDetail = (details[0] && typeof details[0] === "object") ? details[0] as Record<string, unknown> : {};
+        const providerReason = cleanText(firstDetail?.reason || errObj?.message || "", 80);
         const category = status === 400 ? "payload_error" : (status === 401 || status === 403) ? "auth_error" : status === 429 ? "quota_error" : "provider_error";
         return {
           result: null,
           errorCategory: category,
           httpStatus: status,
-          providerStatus
+          providerStatus,
+          providerReason: providerReason || undefined
         };
       }
     } catch {
@@ -454,12 +458,14 @@ Deno.serve(async (req) => {
   const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
   const anonKey = Deno.env.get("SUPABASE_ANON_KEY") || "";
   const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
-  const geminiKey = (
+  let geminiKey = (
     Deno.env.get("GEMINI_API_KEY") ||
     Deno.env.get("VITA_GEMINI_API_KEY") ||
     Deno.env.get("GOOGLE_API_KEY") ||
     ""
   ).trim();
+
+  let credentialSource = geminiKey ? "SUPABASE_SECRETS (GEMINI_API_KEY)" : "NONE";
 
   if (!supabaseUrl || !anonKey || !serviceRoleKey) {
     return jsonResponse({ error: "Configuração do servidor incompleta.", code: "SERVER_CONFIG_ERROR" }, 503, cors);
@@ -479,6 +485,24 @@ Deno.serve(async (req) => {
   const adminClient = createClient(supabaseUrl, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false }
   });
+
+  // Fallback para Vault caso a chave não esteja no environment
+  if (!geminiKey) {
+    try {
+      const { data: vaultSecret } = await adminClient
+        .from("decrypted_secrets")
+        .select("decrypted_secret")
+        .eq("name", "GEMINI_API_KEY")
+        .schema("vault")
+        .maybeSingle();
+      if (vaultSecret?.decrypted_secret) {
+        geminiKey = String(vaultSecret.decrypted_secret).trim();
+        credentialSource = "SUPABASE_VAULT (GEMINI_API_KEY)";
+      }
+    } catch {
+      // continua com credentialSource atual
+    }
+  }
 
   const { data: profile, error: profileError } = await adminClient
     .from("users")
@@ -575,10 +599,11 @@ Deno.serve(async (req) => {
   let diagCategory = "none";
   let diagStatus = 200;
   let diagProviderStatus = "none";
+  let diagProviderReason = "";
 
   // 1. Tenta gerar via Gemini oficial (se configurado)
   if (geminiKey) {
-    const { result, errorCategory, httpStatus, providerStatus } = await callGemini(
+    const { result, errorCategory, httpStatus, providerStatus, providerReason } = await callGemini(
       geminiKey,
       String(profile.role || "student"),
       context,
@@ -597,6 +622,7 @@ Deno.serve(async (req) => {
       diagCategory = errorCategory || "provider_failure";
       diagStatus = httpStatus || 500;
       diagProviderStatus = providerStatus || "ERROR";
+      diagProviderReason = providerReason || "";
     }
   } else {
     diagCategory = "key_not_configured";
@@ -667,10 +693,11 @@ Deno.serve(async (req) => {
         retrievedSourceCount: sources.length,
         retrievalMethod: ragMethod,
         embedding_model: GEMINI_EMBEDDING_MODEL,
-        credential_source: geminiKey ? "SUPABASE_SECRETS (GEMINI_API_KEY)" : "NONE",
+        credential_source: credentialSource,
         diagCategory: diagCategory !== "none" ? diagCategory : undefined,
         diagStatus: diagStatus !== 200 ? diagStatus : undefined,
-        providerStatus: diagProviderStatus !== "none" ? diagProviderStatus : undefined
+        providerStatus: diagProviderStatus !== "none" ? diagProviderStatus : undefined,
+        providerReason: diagProviderReason || undefined
       }
     });
   } catch (dbErr) {
