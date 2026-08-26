@@ -14,6 +14,9 @@ const MAX_PROMPT_CHARACTERS = 4_000;
 const MAX_CONTEXT_CHARACTERS = 12_000;
 const MAX_HISTORY_MESSAGES = 24;
 const MAX_KNOWLEDGE_RESULTS = 6;
+const GEMINI_GENERATE_TIMEOUT_MS = 20_000;
+const GEMINI_EMBED_TIMEOUT_MS = 3_000;
+const GEMINI_PROBE_TIMEOUT_MS = 10_000;
 
 const GEMINI_SAFETY_CATEGORIES = [
   "HARM_CATEGORY_HARASSMENT",
@@ -257,9 +260,35 @@ function extractSearchTerms(prompt: string): string {
   return tokens.length > 0 ? tokens.join(" ") : prompt;
 }
 
+function classifyNetworkError(err: unknown): { errorName: string; networkCause: string } {
+  const errorName = (err && typeof err === "object" && "name" in err) ? String(err.name) : "Error";
+  const errCode = (err && typeof err === "object" && "code" in err) ? String((err as any).code).toUpperCase() : "";
+
+  if (errorName === "TimeoutError" || errorName === "AbortError" || errCode.includes("TIMEOUT")) {
+    return { errorName, networkCause: "TIMEOUT" };
+  }
+  if (errCode.includes("ENOTFOUND") || errCode.includes("EAI_AGAIN") || errCode.includes("DNS")) {
+    return { errorName, networkCause: "DNS_FAILURE" };
+  }
+  if (errCode.includes("TLS") || errCode.includes("CERT") || errCode.includes("UNABLE_TO_VERIFY")) {
+    return { errorName, networkCause: "TLS_FAILURE" };
+  }
+  if (errCode.includes("ECONNRESET") || errCode.includes("RESET")) {
+    return { errorName, networkCause: "CONNECTION_RESET" };
+  }
+  if (errCode.includes("ECONNREFUSED") || errCode.includes("REFUSED")) {
+    return { errorName, networkCause: "CONNECTION_REFUSED" };
+  }
+  if (errorName === "TypeError") {
+    return { errorName, networkCause: "FETCH_FAILED" };
+  }
+  return { errorName, networkCause: "UNKNOWN_NETWORK" };
+}
+
 async function generateEmbedding(apiKey: string, prompt: string) {
   try {
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(GEMINI_EMBEDDING_MODEL)}:embedContent?key=${encodeURIComponent(apiKey)}`;
+    // URL limpa sem query string de secret; credencial SOMENTE via x-goog-api-key
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(GEMINI_EMBEDDING_MODEL)}:embedContent`;
     const response = await fetch(endpoint, {
       method: "POST",
       headers: {
@@ -269,7 +298,8 @@ async function generateEmbedding(apiKey: string, prompt: string) {
       body: JSON.stringify({
         content: { parts: [{ text: prompt }] },
         outputDimensionality: 768
-      })
+      }),
+      signal: AbortSignal.timeout(GEMINI_EMBED_TIMEOUT_MS)
     });
     if (!response.ok) return null;
     const body = await response.json().catch(() => ({})) as Record<string, unknown>;
@@ -288,7 +318,7 @@ async function retrieveKnowledge(
   prompt: string
 ): Promise<{ sources: KnowledgeRow[]; method: string }> {
   try {
-    // 1. Tenta busca vetorial se embedding estiver disponível
+    // 1. Tenta busca vetorial se embedding estiver disponível (timeout restrito a 3s para nunca bloquear)
     if (apiKey) {
       const embedding = await generateEmbedding(apiKey, prompt);
       if (embedding?.length) {
@@ -388,6 +418,68 @@ function mapCanonicalProviderReason(status: number, errObj: Record<string, unkno
   return "UNKNOWN";
 }
 
+async function probeGeminiConnectivity(apiKey: string): Promise<{
+  stage: string;
+  status: number;
+  latencyMs: number;
+  providerStatus: string;
+  canonicalErrorClass: string;
+  success: boolean;
+}> {
+  const start = performance.now();
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent`;
+  try {
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": apiKey
+      },
+      body: JSON.stringify({
+        contents: [{ role: "user", parts: [{ text: "Ping" }] }],
+        generationConfig: { maxOutputTokens: 10 }
+      }),
+      signal: AbortSignal.timeout(GEMINI_PROBE_TIMEOUT_MS)
+    });
+
+    const latencyMs = Math.round(performance.now() - start);
+    if (res.ok) {
+      return {
+        stage: "generation_connectivity_probe",
+        status: res.status,
+        latencyMs,
+        providerStatus: "OK",
+        canonicalErrorClass: "NONE",
+        success: true
+      };
+    }
+
+    const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
+    const errObj = errJson?.error as Record<string, unknown> | undefined;
+    const providerStatus = String(errObj?.status || `HTTP_${res.status}`);
+    const canonicalReason = mapCanonicalProviderReason(res.status, errObj);
+    return {
+      stage: "generation_connectivity_probe",
+      status: res.status,
+      latencyMs,
+      providerStatus,
+      canonicalErrorClass: canonicalReason,
+      success: false
+    };
+  } catch (err: unknown) {
+    const latencyMs = Math.round(performance.now() - start);
+    const { networkCause } = classifyNetworkError(err);
+    return {
+      stage: "generation_connectivity_probe",
+      status: networkCause === "TIMEOUT" ? 504 : 0,
+      latencyMs,
+      providerStatus: networkCause,
+      canonicalErrorClass: networkCause,
+      success: false
+    };
+  }
+}
+
 async function callGemini(
   apiKey: string,
   role: string,
@@ -400,7 +492,8 @@ async function callGemini(
   for (const model of ACTIVE_GEMINI_MODELS) {
     const start = performance.now();
     try {
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+      // URL limpa sem query string de secret; credencial SOMENTE via x-goog-api-key
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
       const sysInstructionText = systemInstruction(role, context, sources, userName);
 
       const res = await fetch(endpoint, {
@@ -419,7 +512,8 @@ async function callGemini(
             category,
             threshold: "BLOCK_MEDIUM_AND_ABOVE"
           }))
-        })
+        }),
+        signal: AbortSignal.timeout(GEMINI_GENERATE_TIMEOUT_MS)
       });
 
       if (res.ok) {
@@ -450,8 +544,15 @@ async function callGemini(
           providerReason
         };
       }
-    } catch {
-      return { result: null, errorCategory: "network_error", httpStatus: 0, providerStatus: "FETCH_FAILED", providerReason: "PROVIDER_UNAVAILABLE" };
+    } catch (err: unknown) {
+      const { errorName, networkCause } = classifyNetworkError(err);
+      return {
+        result: null,
+        errorCategory: networkCause === "TIMEOUT" ? "timeout_error" : "network_error",
+        httpStatus: networkCause === "TIMEOUT" ? 504 : 0,
+        providerStatus: networkCause,
+        providerReason: networkCause
+      };
     }
   }
   return { result: null, errorCategory: "all_models_exhausted", httpStatus: 500, providerStatus: "MODELS_EXHAUSTED", providerReason: "PROVIDER_UNAVAILABLE" };
@@ -553,6 +654,28 @@ Deno.serve(async (req) => {
     payload = await req.json();
   } catch {
     return jsonResponse({ error: "Corpo JSON inválido." }, 400, cors);
+  }
+
+  // Probe isolado de conectividade (sem RAG, history, context)
+  if (payload.probe === "connectivity") {
+    if (!geminiKey) {
+      return jsonResponse({
+        stage: "generation_connectivity_probe",
+        status: 503,
+        latencyMs: 0,
+        providerStatus: "MISSING_KEY",
+        canonicalErrorClass: "API_KEY_INVALID",
+        credential_present: false,
+        credential_source: credentialSource
+      }, 503, cors);
+    }
+    const probeResult = await probeGeminiConnectivity(geminiKey);
+    return jsonResponse({
+      ...probeResult,
+      credential_present: credentialPresent,
+      credential_source: credentialSource,
+      model: "gemini-3.7-flash"
+    }, probeResult.success ? 200 : (probeResult.status || 500), cors);
   }
 
   const messages = Array.isArray(payload.messages) ? payload.messages : [];
