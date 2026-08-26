@@ -364,8 +364,14 @@ function mapCanonicalProviderReason(status: number, errObj: Record<string, unkno
   if (status === 401 || (status === 403 && rawReason.includes("INVALID"))) {
     return "API_KEY_INVALID";
   }
-  if (status === 403 && rawReason.includes("BLOCKED")) {
+  if (status === 403 && (rawReason.includes("BLOCKED") || rawMsg.includes("blocked"))) {
     return "API_KEY_SERVICE_BLOCKED";
+  }
+  if (rawReason.includes("BILLING") || rawMsg.includes("billing")) {
+    return "BILLING_REQUIRED";
+  }
+  if (status === 404 || rawStatus === "NOT_FOUND" || rawReason.includes("MODEL") || rawMsg.includes("model not found")) {
+    return "MODEL_NOT_AVAILABLE";
   }
   if (status === 403 || rawStatus === "PERMISSION_DENIED") {
     return "PERMISSION_DENIED";
@@ -494,6 +500,7 @@ Deno.serve(async (req) => {
     ""
   ).trim();
 
+  const credentialPresent = Boolean(geminiKey);
   const credentialSource = geminiKey ? "SUPABASE_SECRETS (GEMINI_API_KEY)" : "NONE";
 
   if (!supabaseUrl || !anonKey || !serviceRoleKey) {
@@ -705,6 +712,7 @@ Deno.serve(async (req) => {
         retrievedSourceCount: sources.length,
         retrievalMethod: ragMethod,
         embedding_model: GEMINI_EMBEDDING_MODEL,
+        credential_present: credentialPresent,
         credential_source: credentialSource,
         diagCategory: diagCategory !== "none" ? diagCategory : undefined,
         diagStatus: diagStatus !== 200 ? diagStatus : undefined,
