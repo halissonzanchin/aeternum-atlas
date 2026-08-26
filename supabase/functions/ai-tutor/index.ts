@@ -14,7 +14,7 @@ const MAX_PROMPT_CHARACTERS = 4_000;
 const MAX_CONTEXT_CHARACTERS = 12_000;
 const MAX_HISTORY_MESSAGES = 24;
 const MAX_KNOWLEDGE_RESULTS = 6;
-const GEMINI_GENERATE_TIMEOUT_MS = 20_000;
+const GEMINI_GENERATE_TIMEOUT_MS = 30_000;
 const GEMINI_EMBED_TIMEOUT_MS = 3_000;
 const GEMINI_MODELS_GET_TIMEOUT_MS = 5_000;
 
@@ -478,7 +478,7 @@ async function probeGeminiModelsGet(apiKey: string): Promise<{
   }
 }
 
-// Minimal Generation Probe com thinkingBudget = 0 (latência mínima)
+// Minimal Generation Probe (com prompt atômico sem configs pesadas)
 async function probeGeminiMinimalGeneration(apiKey: string): Promise<{
   stage: string;
   status: number;
@@ -498,13 +498,7 @@ async function probeGeminiMinimalGeneration(apiKey: string): Promise<{
         "x-goog-api-key": apiKey
       },
       body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: "Responda apenas 'OK'." }] }],
-        generationConfig: {
-          thinkingConfig: {
-            thinkingBudget: 0
-          },
-          maxOutputTokens: 64
-        }
+        contents: [{ parts: [{ text: "Diga 1." }] }]
       }),
       signal: AbortSignal.timeout(GEMINI_GENERATE_TIMEOUT_MS)
     });
@@ -577,9 +571,6 @@ async function callGemini(
           systemInstruction: { parts: [{ text: sysInstructionText }] },
           contents: [...history, { role: "user", parts: [{ text: prompt }] }],
           generationConfig: {
-            thinkingConfig: {
-              thinkingBudget: 0
-            },
             maxOutputTokens: 4096
           },
           safetySettings: GEMINI_SAFETY_CATEGORIES.map((category) => ({
@@ -752,7 +743,7 @@ Deno.serve(async (req) => {
     }, probeResult.success ? 200 : (probeResult.status || 500), cors);
   }
 
-  // Probe 2: Minimal Generation Probe com thinkingBudget = 0
+  // Probe 2: Minimal Generation Probe
   if (payload.probe === "minimal_generation") {
     if (!geminiKey) {
       return jsonResponse({
