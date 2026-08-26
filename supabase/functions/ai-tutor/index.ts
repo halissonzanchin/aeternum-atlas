@@ -16,7 +16,7 @@ const MAX_HISTORY_MESSAGES = 24;
 const MAX_KNOWLEDGE_RESULTS = 6;
 const GEMINI_GENERATE_TIMEOUT_MS = 20_000;
 const GEMINI_EMBED_TIMEOUT_MS = 3_000;
-const GEMINI_PROBE_TIMEOUT_MS = 10_000;
+const GEMINI_MODELS_GET_TIMEOUT_MS = 5_000;
 
 const GEMINI_SAFETY_CATEGORIES = [
   "HARM_CATEGORY_HARASSMENT",
@@ -287,7 +287,6 @@ function classifyNetworkError(err: unknown): { errorName: string; networkCause: 
 
 async function generateEmbedding(apiKey: string, prompt: string) {
   try {
-    // URL limpa sem query string de secret; credencial SOMENTE via x-goog-api-key
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(GEMINI_EMBEDDING_MODEL)}:embedContent`;
     const response = await fetch(endpoint, {
       method: "POST",
@@ -318,7 +317,7 @@ async function retrieveKnowledge(
   prompt: string
 ): Promise<{ sources: KnowledgeRow[]; method: string }> {
   try {
-    // 1. Tenta busca vetorial se embedding estiver disponível (timeout restrito a 3s para nunca bloquear)
+    // 1. Tenta busca vetorial se embedding estiver disponível (timeout 3s não bloqueante)
     if (apiKey) {
       const embedding = await generateEmbedding(apiKey, prompt);
       if (embedding?.length) {
@@ -418,12 +417,75 @@ function mapCanonicalProviderReason(status: number, errObj: Record<string, unkno
   return "UNKNOWN";
 }
 
-async function probeGeminiConnectivity(apiKey: string): Promise<{
+// True Connectivity Probe: GET /v1beta/models/gemini-3.7-flash (SEM inferência)
+async function probeGeminiModelsGet(apiKey: string): Promise<{
   stage: string;
   status: number;
   latencyMs: number;
   providerStatus: string;
   canonicalErrorClass: string;
+  modelName?: string;
+  success: boolean;
+}> {
+  const start = performance.now();
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash`;
+  try {
+    const res = await fetch(endpoint, {
+      method: "GET",
+      headers: {
+        "x-goog-api-key": apiKey
+      },
+      signal: AbortSignal.timeout(GEMINI_MODELS_GET_TIMEOUT_MS)
+    });
+
+    const latencyMs = Math.round(performance.now() - start);
+    if (res.ok) {
+      const data = await res.json().catch(() => ({})) as Record<string, unknown>;
+      return {
+        stage: "models_get_connectivity_probe",
+        status: res.status,
+        latencyMs,
+        providerStatus: "OK",
+        canonicalErrorClass: "NONE",
+        modelName: String(data?.name || "gemini-3.7-flash"),
+        success: true
+      };
+    }
+
+    const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
+    const errObj = errJson?.error as Record<string, unknown> | undefined;
+    const providerStatus = String(errObj?.status || `HTTP_${res.status}`);
+    const canonicalReason = mapCanonicalProviderReason(res.status, errObj);
+    return {
+      stage: "models_get_connectivity_probe",
+      status: res.status,
+      latencyMs,
+      providerStatus,
+      canonicalErrorClass: canonicalReason,
+      success: false
+    };
+  } catch (err: unknown) {
+    const latencyMs = Math.round(performance.now() - start);
+    const { networkCause } = classifyNetworkError(err);
+    return {
+      stage: "models_get_connectivity_probe",
+      status: networkCause === "TIMEOUT" ? 504 : 0,
+      latencyMs,
+      providerStatus: networkCause,
+      canonicalErrorClass: networkCause,
+      success: false
+    };
+  }
+}
+
+// Minimal Generation Probe com thinkingBudget = 0 (latência mínima)
+async function probeGeminiMinimalGeneration(apiKey: string): Promise<{
+  stage: string;
+  status: number;
+  latencyMs: number;
+  providerStatus: string;
+  canonicalErrorClass: string;
+  hasText: boolean;
   success: boolean;
 }> {
   const start = performance.now();
@@ -436,20 +498,28 @@ async function probeGeminiConnectivity(apiKey: string): Promise<{
         "x-goog-api-key": apiKey
       },
       body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: "Ping" }] }],
-        generationConfig: { maxOutputTokens: 10 }
+        contents: [{ role: "user", parts: [{ text: "Responda apenas 'OK'." }] }],
+        generationConfig: {
+          thinkingConfig: {
+            thinkingBudget: 0
+          },
+          maxOutputTokens: 64
+        }
       }),
-      signal: AbortSignal.timeout(GEMINI_PROBE_TIMEOUT_MS)
+      signal: AbortSignal.timeout(GEMINI_GENERATE_TIMEOUT_MS)
     });
 
     const latencyMs = Math.round(performance.now() - start);
     if (res.ok) {
+      const data = await res.json().catch(() => ({})) as Record<string, unknown>;
+      const text = (data as any)?.candidates?.[0]?.content?.parts?.[0]?.text || "";
       return {
-        stage: "generation_connectivity_probe",
+        stage: "minimal_generation_probe",
         status: res.status,
         latencyMs,
         providerStatus: "OK",
         canonicalErrorClass: "NONE",
+        hasText: Boolean(text && text.trim().length > 0),
         success: true
       };
     }
@@ -459,22 +529,24 @@ async function probeGeminiConnectivity(apiKey: string): Promise<{
     const providerStatus = String(errObj?.status || `HTTP_${res.status}`);
     const canonicalReason = mapCanonicalProviderReason(res.status, errObj);
     return {
-      stage: "generation_connectivity_probe",
+      stage: "minimal_generation_probe",
       status: res.status,
       latencyMs,
       providerStatus,
       canonicalErrorClass: canonicalReason,
+      hasText: false,
       success: false
     };
   } catch (err: unknown) {
     const latencyMs = Math.round(performance.now() - start);
     const { networkCause } = classifyNetworkError(err);
     return {
-      stage: "generation_connectivity_probe",
+      stage: "minimal_generation_probe",
       status: networkCause === "TIMEOUT" ? 504 : 0,
       latencyMs,
       providerStatus: networkCause,
       canonicalErrorClass: networkCause,
+      hasText: false,
       success: false
     };
   }
@@ -492,7 +564,6 @@ async function callGemini(
   for (const model of ACTIVE_GEMINI_MODELS) {
     const start = performance.now();
     try {
-      // URL limpa sem query string de secret; credencial SOMENTE via x-goog-api-key
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
       const sysInstructionText = systemInstruction(role, context, sources, userName);
 
@@ -506,6 +577,9 @@ async function callGemini(
           systemInstruction: { parts: [{ text: sysInstructionText }] },
           contents: [...history, { role: "user", parts: [{ text: prompt }] }],
           generationConfig: {
+            thinkingConfig: {
+              thinkingBudget: 0
+            },
             maxOutputTokens: 4096
           },
           safetySettings: GEMINI_SAFETY_CATEGORIES.map((category) => ({
@@ -545,7 +619,7 @@ async function callGemini(
         };
       }
     } catch (err: unknown) {
-      const { errorName, networkCause } = classifyNetworkError(err);
+      const { networkCause } = classifyNetworkError(err);
       return {
         result: null,
         errorCategory: networkCause === "TIMEOUT" ? "timeout_error" : "network_error",
@@ -656,11 +730,11 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: "Corpo JSON inválido." }, 400, cors);
   }
 
-  // Probe isolado de conectividade (sem RAG, history, context)
-  if (payload.probe === "connectivity") {
+  // Probe 1: True models.get Connectivity Probe (GET v1beta/models/gemini-3.7-flash)
+  if (payload.probe === "connectivity" || payload.probe === "models_get") {
     if (!geminiKey) {
       return jsonResponse({
-        stage: "generation_connectivity_probe",
+        stage: "models_get_connectivity_probe",
         status: 503,
         latencyMs: 0,
         providerStatus: "MISSING_KEY",
@@ -669,7 +743,29 @@ Deno.serve(async (req) => {
         credential_source: credentialSource
       }, 503, cors);
     }
-    const probeResult = await probeGeminiConnectivity(geminiKey);
+    const probeResult = await probeGeminiModelsGet(geminiKey);
+    return jsonResponse({
+      ...probeResult,
+      credential_present: credentialPresent,
+      credential_source: credentialSource,
+      model: "gemini-3.7-flash"
+    }, probeResult.success ? 200 : (probeResult.status || 500), cors);
+  }
+
+  // Probe 2: Minimal Generation Probe com thinkingBudget = 0
+  if (payload.probe === "minimal_generation") {
+    if (!geminiKey) {
+      return jsonResponse({
+        stage: "minimal_generation_probe",
+        status: 503,
+        latencyMs: 0,
+        providerStatus: "MISSING_KEY",
+        canonicalErrorClass: "API_KEY_INVALID",
+        credential_present: false,
+        credential_source: credentialSource
+      }, 503, cors);
+    }
+    const probeResult = await probeGeminiMinimalGeneration(geminiKey);
     return jsonResponse({
       ...probeResult,
       credential_present: credentialPresent,
