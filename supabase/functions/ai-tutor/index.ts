@@ -351,6 +351,37 @@ interface GeminiCallResult {
   latencyMs: number;
 }
 
+function mapCanonicalProviderReason(status: number, errObj: Record<string, unknown> | undefined): string {
+  const rawStatus = String(errObj?.status || "").toUpperCase();
+  const rawMsg = String(errObj?.message || "").toLowerCase();
+  const details = Array.isArray(errObj?.details) ? errObj.details : [];
+  const firstDetail = (details[0] && typeof details[0] === "object") ? details[0] as Record<string, unknown> : {};
+  const rawReason = String(firstDetail?.reason || "").toUpperCase();
+
+  if (rawMsg.includes("leaked") || rawReason.includes("LEAKED")) {
+    return "API_KEY_REPORTED_LEAKED";
+  }
+  if (status === 401 || (status === 403 && rawReason.includes("INVALID"))) {
+    return "API_KEY_INVALID";
+  }
+  if (status === 403 && rawReason.includes("BLOCKED")) {
+    return "API_KEY_SERVICE_BLOCKED";
+  }
+  if (status === 403 || rawStatus === "PERMISSION_DENIED") {
+    return "PERMISSION_DENIED";
+  }
+  if (status === 429 || rawStatus === "RESOURCE_EXHAUSTED") {
+    return "QUOTA_EXCEEDED";
+  }
+  if (status === 400 || rawStatus === "INVALID_ARGUMENT") {
+    return "PAYLOAD_INVALID";
+  }
+  if (status >= 500 || rawStatus === "UNAVAILABLE") {
+    return "PROVIDER_UNAVAILABLE";
+  }
+  return "UNKNOWN";
+}
+
 async function callGemini(
   apiKey: string,
   role: string,
@@ -403,23 +434,21 @@ async function callGemini(
         const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
         const errObj = errJson?.error as Record<string, unknown> | undefined;
         const providerStatus = String(errObj?.status || `HTTP_${status}`);
-        const details = Array.isArray(errObj?.details) ? errObj.details : [];
-        const firstDetail = (details[0] && typeof details[0] === "object") ? details[0] as Record<string, unknown> : {};
-        const providerReason = cleanText(firstDetail?.reason || errObj?.message || "", 80);
+        const providerReason = mapCanonicalProviderReason(status, errObj);
         const category = status === 400 ? "payload_error" : (status === 401 || status === 403) ? "auth_error" : status === 429 ? "quota_error" : "provider_error";
         return {
           result: null,
           errorCategory: category,
           httpStatus: status,
           providerStatus,
-          providerReason: providerReason || undefined
+          providerReason
         };
       }
     } catch {
-      return { result: null, errorCategory: "network_error", httpStatus: 0, providerStatus: "FETCH_FAILED" };
+      return { result: null, errorCategory: "network_error", httpStatus: 0, providerStatus: "FETCH_FAILED", providerReason: "PROVIDER_UNAVAILABLE" };
     }
   }
-  return { result: null, errorCategory: "all_models_exhausted", httpStatus: 500, providerStatus: "MODELS_EXHAUSTED" };
+  return { result: null, errorCategory: "all_models_exhausted", httpStatus: 500, providerStatus: "MODELS_EXHAUSTED", providerReason: "PROVIDER_UNAVAILABLE" };
 }
 
 Deno.serve(async (req) => {
@@ -458,14 +487,14 @@ Deno.serve(async (req) => {
   const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
   const anonKey = Deno.env.get("SUPABASE_ANON_KEY") || "";
   const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
-  let geminiKey = (
+  const geminiKey = (
     Deno.env.get("GEMINI_API_KEY") ||
     Deno.env.get("VITA_GEMINI_API_KEY") ||
     Deno.env.get("GOOGLE_API_KEY") ||
     ""
   ).trim();
 
-  let credentialSource = geminiKey ? "SUPABASE_SECRETS (GEMINI_API_KEY)" : "NONE";
+  const credentialSource = geminiKey ? "SUPABASE_SECRETS (GEMINI_API_KEY)" : "NONE";
 
   if (!supabaseUrl || !anonKey || !serviceRoleKey) {
     return jsonResponse({ error: "Configuração do servidor incompleta.", code: "SERVER_CONFIG_ERROR" }, 503, cors);
@@ -485,24 +514,6 @@ Deno.serve(async (req) => {
   const adminClient = createClient(supabaseUrl, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false }
   });
-
-  // Fallback para Vault caso a chave não esteja no environment
-  if (!geminiKey) {
-    try {
-      const { data: vaultSecret } = await adminClient
-        .from("decrypted_secrets")
-        .select("decrypted_secret")
-        .eq("name", "GEMINI_API_KEY")
-        .schema("vault")
-        .maybeSingle();
-      if (vaultSecret?.decrypted_secret) {
-        geminiKey = String(vaultSecret.decrypted_secret).trim();
-        credentialSource = "SUPABASE_VAULT (GEMINI_API_KEY)";
-      }
-    } catch {
-      // continua com credentialSource atual
-    }
-  }
 
   const { data: profile, error: profileError } = await adminClient
     .from("users")
@@ -622,12 +633,13 @@ Deno.serve(async (req) => {
       diagCategory = errorCategory || "provider_failure";
       diagStatus = httpStatus || 500;
       diagProviderStatus = providerStatus || "ERROR";
-      diagProviderReason = providerReason || "";
+      diagProviderReason = providerReason || "UNKNOWN";
     }
   } else {
     diagCategory = "key_not_configured";
     diagStatus = 503;
     diagProviderStatus = "MISSING_KEY";
+    diagProviderReason = "API_KEY_INVALID";
   }
 
   // 2. Fallback resiliente com base anatômica se Gemini falhar
