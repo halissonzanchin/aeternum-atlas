@@ -116,3 +116,47 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9)
 
 ### Resultado
 PASS (137/137 Testes Unitários de Provedores Aprovados | Zero Erros de Tipagem)
+
+---
+
+## Teste 015 — Correção Final dos Contratos de Provedores de Nuvem (Fase 2B.2.1 Final Cloud Provider Correction Gate)
+
+Data: 2026-08-27 14:48 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9)
+
+### 1. Verificação Estática & Tipagem (`tsc --noEmit`):
+- `packages/aeternum-vita`: **PASS (0 erros)** ✅
+
+### 2. Suíte Unitária Completa dos Provedores (140 Testes 100% Green):
+- **GeminiLLMProvider**:
+  - Remoção de sampling obsoleto para 3.x (sem temperature/top_p/top_k, thinkingLevel: low preservado): **PASS** ✅
+  - Contrato determinístico de systemInstruction (mesclagem de request.systemInstruction + role=system): **PASS** ✅
+  - Normalização canônica de finishReason ("stop", "length", "content_filter", "unknown"): **PASS** ✅
+  - Prevenção de vazamento de Thought (Testes A, B, C, D):
+    - Teste A (apenas thought part): Lança ProviderInvalidResponseError: **PASS** ✅
+    - Teste B (múltiplas thought parts): Lança ProviderInvalidResponseError: **PASS** ✅
+    - Teste C (thought + texto normal): Extrai apenas texto normal sem vazar thought: **PASS** ✅
+    - Teste D (stream com thought parts): Nunca emite thought strings em deltaText: **PASS** ✅
+  - Matriz de Erros: 400, 401/403, 404, 429, 500/502/503/504, timeout, AbortSignal: **PASS** ✅
+- **DeepgramSTTProvider**:
+  - Keyterms: `nova-3` utiliza `keyterm`; modelos não-Nova-3 não utilizam `keyterm`: **PASS** ✅
+  - Streaming Truth: `capabilities.realtime_streaming: false` e `streamTranscription()` com fail-fast explícito: **PASS** ✅
+  - Batch Transcription & PCM validation: **PASS** ✅
+  - Matriz de Erros: 401, 429, 500: **PASS** ✅
+- **CartesiaTTSProvider**:
+  - Cartesia-Version alinhado para `2026-08-14`: **PASS** ✅
+  - Autenticação via `Authorization: Bearer <key>` (removido X-API-Key): **PASS** ✅
+  - Payload moderno `voice: { id }` sem legado `mode: "id"`: **PASS** ✅
+  - Synthesize & Stream binário real: **PASS** ✅
+  - Matriz de Erros: 401, 429, 500: **PASS** ✅
+- **Regressões Locais & Contratos (84 testes)**:
+  - `local_providers.test.ts` & `provider_contracts.test.ts`: **PASS** ✅
+
+### 3. Smoke Test de Provedores de Nuvem:
+- `LIVE_GEMINI`: BLOCKED_BY_MISSING_CREDENTIAL no ambiente local Node (Produção `ai-tutor v38` permanece com Gemini 3.7 live test PASS comprovado no P0.1.1).
+- `LIVE_DEEPGRAM`: BLOCKED_BY_MISSING_CREDENTIAL no ambiente local Node.
+- `LIVE_CARTESIA`: BLOCKED_BY_MISSING_CREDENTIAL no ambiente local Node.
+- Chamadas pagas efetuadas: **0**.
+
+### Resultado
+PASS (140/140 Testes Unitários de Provedores Aprovados | Zero Erros de Tipagem | Zero Regressões)

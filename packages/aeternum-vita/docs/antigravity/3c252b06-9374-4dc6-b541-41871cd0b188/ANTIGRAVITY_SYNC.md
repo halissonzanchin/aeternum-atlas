@@ -121,3 +121,28 @@ FALLBACK: CONFIGURED
   5. `fetchWithTimeout.ts`: Tratamento robusto para status 400 (`ProviderInvalidResponseError`), 404 (`ProviderUnavailableError`) e navegação segura para headers.
 - **Produção:** Intocada (`ai-tutor v38` e `voice-token v8` inalterados).
 - **Próxima Fase:** 2C Provider Router (BLOQUEADA aguardando auditoria do ChatGPT).
+
+---
+
+## [2026-08-27 14:48] — Fase 2B.2.1 Final Cloud Provider Correction Gate
+
+### Ações e Resultados Factuais
+- **Fase:** 2B.2.1 — Final Cloud Provider Correction Gate
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+- **Modificações Realizadas:**
+  1. `GeminiLLMProvider.ts`:
+     - Removidos parâmetros obsoletos de sampling (`temperature`, `top_p`, `top_k`) para modelos Gemini 3.x.
+     - Suporte determinístico a `request.systemInstruction` e mesclagem de mensagens `role: "system"`.
+     - Normalização canônica de `finishReason` (`"stop"`, `"length"`, `"content_filter"`, `"unknown"`) aplicada a `generate()` e `stream()`.
+     - Prevenção rigorosa de vazamento de partes de pensamento (`thought=true`) em geração e streaming (validação com suíte de testes A, B, C, D).
+  2. `DeepgramSTTProvider.ts`:
+     - Parâmetro `keyterm` restrito ao modelo `nova-3`. Modelos não-Nova-3 não utilizam `keyterm`.
+     - `streamTranscription()` implementa fail-fast explícito declarando `capabilities.realtime_streaming = false`.
+  3. `CartesiaTTSProvider.ts`:
+     - Atualizada versão de API para `2026-08-14`.
+     - Autenticação padronizada para `Authorization: Bearer <key>` (removido `X-API-Key`).
+     - Payload atualizado para schema moderno `voice: { id: nativeVoiceId }` sem o campo legado `mode: "id"`.
+     - Modelo padrão fixado em `sonic-3`.
+  4. `cloud_providers.test.ts`: Atualizado para validar estritamente todos os novos contratos.
+- **Produção:** Intocada (`ai-tutor v38` e `voice-token v8` inalterados).
+- **Próxima Fase:** 2C Provider Router (BLOQUEADA aguardando auditoria do ChatGPT).

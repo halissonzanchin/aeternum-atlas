@@ -3,6 +3,7 @@ import {
   LLMRequest,
   LLMResponse,
   LLMStreamChunk,
+  LLMFinishReason,
   ProviderMetadata,
   HealthResult,
   ProviderExecutionContext,
@@ -16,6 +17,24 @@ export interface GeminiLLMConfig {
   modelId?: string;
   baseUrl?: string;
   apiVersion?: string;
+}
+
+export function normalizeGeminiFinishReason(rawReason?: string): LLMFinishReason {
+  if (!rawReason) return "unknown";
+  const upper = rawReason.toUpperCase();
+  if (upper === "STOP") return "stop";
+  if (upper === "MAX_TOKENS") return "length";
+  if (
+    upper === "SAFETY" ||
+    upper === "RECITATION" ||
+    upper === "BLOCKLIST" ||
+    upper === "PROHIBITED_CONTENT" ||
+    upper === "SPII" ||
+    upper === "OTHER"
+  ) {
+    return "content_filter";
+  }
+  return "unknown";
 }
 
 export class GeminiLLMProvider implements LLMProvider {
@@ -37,7 +56,7 @@ export class GeminiLLMProvider implements LLMProvider {
       type: "LLM",
       location: "CLOUD",
       version: "1.0.0",
-      description: "Cloud LLM adapter for Google Gemini API (v1beta) with zero token-cost health check and model-aware thinking config"
+      description: "Cloud LLM adapter for Google Gemini API (v1beta) with zero token-cost health check and model-aware config"
     };
   }
 
@@ -110,11 +129,18 @@ export class GeminiLLMProvider implements LLMProvider {
 
   private buildPayload(request: LLMRequest) {
     const contents: Array<{ role: string; parts: Array<{ text: string }> }> = [];
-    let systemInstruction: { parts: Array<{ text: string }> } | undefined;
+    const systemParts: string[] = [];
+
+    // Deterministic systemInstruction handling (merges request.systemInstruction and role=system messages)
+    if (request.systemInstruction && request.systemInstruction.trim()) {
+      systemParts.push(request.systemInstruction.trim());
+    }
 
     for (const msg of request.messages) {
       if (msg.role === "system") {
-        systemInstruction = { parts: [{ text: msg.content }] };
+        if (msg.content && msg.content.trim()) {
+          systemParts.push(msg.content.trim());
+        }
       } else {
         contents.push({
           role: msg.role === "assistant" ? "model" : "user",
@@ -127,15 +153,30 @@ export class GeminiLLMProvider implements LLMProvider {
       contents.push({ role: "user", parts: [{ text: "" }] });
     }
 
-    const generationConfig: Record<string, any> = {};
-    if (typeof request.temperature === "number") generationConfig.temperature = request.temperature;
-    if (typeof request.maxTokens === "number") generationConfig.maxOutputTokens = request.maxTokens;
+    const systemInstruction = systemParts.length > 0
+      ? { parts: [{ text: systemParts.join("\n\n") }] }
+      : undefined;
 
-    // Model-aware thinking config for Gemini 3.7 Flash
-    if (this.modelId.includes("3.7") || this.modelId.includes("thinking")) {
+    const isGemini3 = this.modelId.includes("3.") || this.modelId.includes("3-") || this.modelId.includes("3_");
+    const generationConfig: Record<string, any> = {};
+
+    if (typeof request.maxTokens === "number") {
+      generationConfig.maxOutputTokens = request.maxTokens;
+    }
+
+    if (isGemini3) {
+      // Gemini 3.x: DO NOT send deprecated sampling parameters (temperature, top_p, top_k)
       generationConfig.thinkingConfig = {
         thinkingLevel: "low"
       };
+    } else {
+      // Older model families (e.g. 2.0 / 1.5): pass temperature/topP if provided
+      if (typeof request.temperature === "number") {
+        generationConfig.temperature = request.temperature;
+      }
+      if (typeof request.topP === "number") {
+        generationConfig.topP = request.topP;
+      }
     }
 
     return {
@@ -178,12 +219,14 @@ export class GeminiLLMProvider implements LLMProvider {
       throw new ProviderInvalidResponseError("Resposta estrutural inválida do Gemini: parte textual ausente.", this.metadata.id);
     }
 
+    // STRICT NON-LEAKAGE OF THOUGHT PARTS: thought=true MUST NEVER become response.text
     const nonThoughtParts = parts.filter((p: any) => !p?.thought && typeof p?.text === "string");
-    const textPart = nonThoughtParts.length > 0
-      ? nonThoughtParts.map((p: any) => p.text).join("\n\n").trim()
-      : (typeof parts.at(-1)?.text === "string" ? parts.at(-1).text.trim() : "");
+    if (nonThoughtParts.length === 0) {
+      throw new ProviderInvalidResponseError("Resposta estrutural inválida do Gemini: nenhuma parte de texto gerado encontrada (apenas thought parts).", this.metadata.id);
+    }
 
-    if (typeof textPart !== "string" || textPart.length === 0) {
+    const textPart = nonThoughtParts.map((p: any) => p.text).join("\n\n").trim();
+    if (textPart.length === 0) {
       throw new ProviderInvalidResponseError("Resposta textual vazia retornada pelo Gemini.", this.metadata.id);
     }
 
@@ -197,7 +240,7 @@ export class GeminiLLMProvider implements LLMProvider {
       text: textPart,
       providerId: this.metadata.id,
       modelId: this.modelId,
-      finishReason: candidate?.finishReason || "stop",
+      finishReason: normalizeGeminiFinishReason(candidate?.finishReason),
       usage: totalTokens !== undefined ? {
         promptTokens: promptTokens || 0,
         completionTokens: completionTokens || 0,
@@ -280,20 +323,20 @@ export class GeminiLLMProvider implements LLMProvider {
             const parts = candidate?.content?.parts;
             let textDelta = "";
             if (Array.isArray(parts)) {
+              // STRICT: Only extract non-thought parts, never leak thought strings
               const nonThoughtParts = parts.filter((p: any) => !p?.thought && typeof p?.text === "string");
               if (nonThoughtParts.length > 0) {
                 textDelta = nonThoughtParts.map((p: any) => p.text).join("");
-              } else if (typeof parts.at(-1)?.text === "string") {
-                textDelta = parts.at(-1).text;
               }
             }
-            const finishReason = candidate?.finishReason;
+            const rawFinishReason = candidate?.finishReason;
+            const finishReason = rawFinishReason ? normalizeGeminiFinishReason(rawFinishReason) : undefined;
 
             if (textDelta || finishReason) {
               yield {
                 deltaText: textDelta,
                 isComplete: Boolean(finishReason),
-                finishReason: finishReason || undefined
+                finishReason
               };
             }
           }

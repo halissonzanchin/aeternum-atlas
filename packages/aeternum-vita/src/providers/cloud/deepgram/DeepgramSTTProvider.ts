@@ -10,11 +10,7 @@ import {
   ProviderAuthenticationError,
   AeternumAudioFormat
 } from "../../types/index.ts";
-import {
-  executeProviderJson,
-  createExecutionCoordinator,
-  nextWithExecutionCoordinator
-} from "../../local/utils/fetchWithTimeout.ts";
+import { executeProviderJson } from "../../local/utils/fetchWithTimeout.ts";
 import { pcmToWav } from "../../local/utils/audio.ts";
 
 export interface DeepgramSTTConfig {
@@ -179,10 +175,12 @@ export class DeepgramSTTProvider implements STTProvider {
     if (request.language) {
       params.set("language", request.language.split("-")[0]);
     }
+    // Keyterm is Nova-3 specific; non-Nova-3 models must NOT use keyterm
     if (request.medicalContextHints && request.medicalContextHints.length > 0) {
-      const paramName = this.modelId.includes("nova-3") || this.modelId.includes("nova-2") ? "keyterm" : "keywords";
-      for (const hint of request.medicalContextHints) {
-        if (hint.trim()) params.append(paramName, hint.trim());
+      if (this.modelId.includes("nova-3") || this.modelId.includes("nova-3-")) {
+        for (const hint of request.medicalContextHints) {
+          if (hint.trim()) params.append("keyterm", hint.trim());
+        }
       }
     }
     return `${this.baseUrl}/${this.apiVersion}/listen?${params.toString()}`;
@@ -243,40 +241,14 @@ export class DeepgramSTTProvider implements STTProvider {
   }
 
   async *streamTranscription(
-    audioStream: AsyncIterable<Uint8Array>,
-    options: Omit<STTRequest, "audioBuffer">,
-    context?: ProviderExecutionContext
+    _audioStream: AsyncIterable<Uint8Array>,
+    _options: Omit<STTRequest, "audioBuffer">,
+    _context?: ProviderExecutionContext
   ): AsyncIterable<STTStreamChunk> {
-    // Adapter REST opera em agregação de chunks de áudio; streaming realtime é declarado false nas capacidades
-    const coordinator = createExecutionCoordinator(this.metadata.id, context);
-    const chunks: Uint8Array[] = [];
-    const iterator = audioStream[Symbol.asyncIterator]();
-
-    try {
-      while (true) {
-        const { value, done } = await nextWithExecutionCoordinator(iterator, coordinator);
-        if (done) break;
-        if (value && value.length > 0) {
-          chunks.push(value);
-        }
-      }
-    } catch (err) {
-      coordinator.cleanup();
-      throw coordinator.handleError(err);
-    }
-
-    const totalLength = chunks.reduce((acc, c) => acc + c.length, 0);
-    const merged = new Uint8Array(totalLength);
-    let offset = 0;
-    for (const c of chunks) {
-      merged.set(c, offset);
-      offset += c.length;
-    }
-
-    const response = await this.transcribe({ ...options, audioBuffer: merged }, context);
-    yield {
-      partialText: response.text,
-      isFinal: true
-    };
+    // Fail-fast with explicit unsupported capability error (capabilities.realtime_streaming = false)
+    throw new ProviderInvalidResponseError(
+      "Deepgram realtime streaming via WebSocket não é suportado neste adapter REST (capabilities.realtime_streaming=false). Utilize transcribe() para processamento batch.",
+      this.metadata.id
+    );
   }
 }

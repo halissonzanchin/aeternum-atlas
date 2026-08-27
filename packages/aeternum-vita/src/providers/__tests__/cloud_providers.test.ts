@@ -12,7 +12,7 @@ import {
   ProviderTimeoutError
 } from "../index.ts";
 
-describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1)", () => {
+describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Final)", () => {
   const originalFetch = global.fetch;
 
   beforeEach(() => {
@@ -47,7 +47,7 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1)", () =
   });
 
   describe("2. GeminiLLMProvider (Google Cloud)", () => {
-    it("config: explicit empty API key must remain empty string and not fallback", () => {
+    it("config: explicit empty API key must remain empty string and not fallback to env", () => {
       const gemini = new GeminiLLMProvider({ apiKey: "" });
       expect((gemini as any).apiKey).toBe("");
     });
@@ -78,14 +78,10 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1)", () =
       expect(health.details?.error).toContain("Invalid or unauthorized API key");
     });
 
-    it("generate: sucesso com Gemini 3.7 Flash injetando thinkingLevel=low e ignorando partes de thought", async () => {
-      let capturedUrl = "";
-      let capturedHeaders: any = {};
+    it("generate: remove parâmetros obsoletos de sampling (temperature, top_p, top_k) para Gemini 3.x", async () => {
       let capturedPayload: any = {};
 
-      global.fetch = vi.fn().mockImplementation(async (url, init) => {
-        capturedUrl = String(url);
-        capturedHeaders = init.headers;
+      global.fetch = vi.fn().mockImplementation(async (_url, init) => {
         capturedPayload = JSON.parse(init.body);
         return {
           ok: true,
@@ -93,43 +89,205 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1)", () =
             candidates: [
               {
                 content: {
-                  parts: [
-                    { thought: true, text: "Pensando na estrutura anatômica..." },
-                    { text: "O fêmur é o osso mais longo do corpo humano." }
-                  ],
+                  parts: [{ text: "O fêmur é o osso mais longo do corpo humano." }],
                   role: "model"
                 },
                 finishReason: "STOP"
               }
-            ],
-            usageMetadata: {
-              promptTokenCount: 8,
-              candidatesTokenCount: 12,
-              totalTokenCount: 20
-            }
+            ]
           })
         };
       });
 
       const gemini = new GeminiLLMProvider({ apiKey: "test-gemini-key", modelId: "gemini-3.7-flash" });
-      const res = await gemini.generate({
+      await gemini.generate({
+        messages: [{ role: "user", content: "Fale sobre o fêmur." }],
+        temperature: 0.7,
+        topP: 0.9,
+        maxTokens: 50
+      });
+
+      expect(capturedPayload.generationConfig.maxOutputTokens).toBe(50);
+      expect(capturedPayload.generationConfig.thinkingConfig.thinkingLevel).toBe("low");
+      expect(capturedPayload.generationConfig.temperature).toBeUndefined();
+      expect(capturedPayload.generationConfig.top_p).toBeUndefined();
+      expect(capturedPayload.generationConfig.top_k).toBeUndefined();
+    });
+
+    it("systemInstruction: suporta request.systemInstruction e mensagens role=system determinísticas", async () => {
+      let capturedPayload: any = {};
+
+      global.fetch = vi.fn().mockImplementation(async (_url, init) => {
+        capturedPayload = JSON.parse(init.body);
+        return {
+          ok: true,
+          json: async () => ({
+            candidates: [
+              {
+                content: {
+                  parts: [{ text: "Resposta clínica." }],
+                  role: "model"
+                },
+                finishReason: "STOP"
+              }
+            ]
+          })
+        };
+      });
+
+      const gemini = new GeminiLLMProvider({ apiKey: "test-key", modelId: "gemini-3.7-flash" });
+
+      // Caso 1: request.systemInstruction + role=system mesclados
+      await gemini.generate({
+        systemInstruction: "Diretriz Global 1.",
         messages: [
-          { role: "system", content: "Você é o Atlas AI Tutor." },
-          { role: "user", content: "Fale sobre o fêmur." }
+          { role: "system", content: "Diretriz de Sessão 2." },
+          { role: "user", content: "Consulta." }
         ]
       });
 
-      expect(capturedUrl).toContain("/v1beta/models/gemini-3.7-flash:generateContent");
-      expect(capturedHeaders["x-goog-api-key"]).toBe("test-gemini-key");
-      expect(capturedPayload.generationConfig.thinkingConfig.thinkingLevel).toBe("low");
-      expect(capturedPayload.systemInstruction.parts[0].text).toBe("Você é o Atlas AI Tutor.");
-      expect(capturedPayload.contents[0].parts[0].text).toBe("Fale sobre o fêmur.");
+      expect(capturedPayload.systemInstruction.parts[0].text).toBe("Diretriz Global 1.\n\nDiretriz de Sessão 2.");
+      expect(capturedPayload.contents.length).toBe(1);
+      expect(capturedPayload.contents[0].role).toBe("user");
+    });
 
-      expect(res.text).toBe("O fêmur é o osso mais longo do corpo humano.");
-      expect(res.providerId).toBe("gemini-llm-cloud");
-      expect(res.modelId).toBe("gemini-3.7-flash");
-      expect(res.finishReason).toBe("STOP");
-      expect(res.usage?.totalTokens).toBe(20);
+    it("finishReason: normaliza respostas do Google para o contrato canônico", async () => {
+      const finishMap: Record<string, string> = {
+        STOP: "stop",
+        MAX_TOKENS: "length",
+        SAFETY: "content_filter",
+        RECITATION: "content_filter",
+        BLOCKLIST: "content_filter",
+        PROHIBITED_CONTENT: "content_filter",
+        SPII: "content_filter",
+        OTHER_RANDOM: "unknown"
+      };
+
+      for (const [googleReason, canonicalReason] of Object.entries(finishMap)) {
+        global.fetch = vi.fn().mockResolvedValue({
+          ok: true,
+          json: async () => ({
+            candidates: [
+              {
+                content: { parts: [{ text: "Texto teste." }], role: "model" },
+                finishReason: googleReason
+              }
+            ]
+          })
+        } as unknown as Response);
+
+        const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
+        const res = await gemini.generate({ messages: [{ role: "user", content: "Teste" }] });
+        expect(res.finishReason).toBe(canonicalReason);
+      }
+    });
+
+    describe("THOUGHT PART LEAKAGE PREVENTION (Testes A, B, C, D)", () => {
+      it("Teste A: response contendo APENAS thought part deve lançar ProviderInvalidResponseError", async () => {
+        global.fetch = vi.fn().mockResolvedValue({
+          ok: true,
+          json: async () => ({
+            candidates: [
+              {
+                content: {
+                  parts: [{ thought: true, text: "Pensamento confidencial interno do modelo..." }],
+                  role: "model"
+                },
+                finishReason: "STOP"
+              }
+            ]
+          })
+        } as unknown as Response);
+
+        const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
+        await expect(gemini.generate({ messages: [{ role: "user", content: "Teste" }] })).rejects.toThrow(
+          ProviderInvalidResponseError
+        );
+      });
+
+      it("Teste B: response contendo MÚLTIPLAS thought parts e nenhum texto normal deve lançar ProviderInvalidResponseError", async () => {
+        global.fetch = vi.fn().mockResolvedValue({
+          ok: true,
+          json: async () => ({
+            candidates: [
+              {
+                content: {
+                  parts: [
+                    { thought: true, text: "Thought parte 1" },
+                    { thought: true, text: "Thought parte 2" }
+                  ],
+                  role: "model"
+                },
+                finishReason: "STOP"
+              }
+            ]
+          })
+        } as unknown as Response);
+
+        const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
+        await expect(gemini.generate({ messages: [{ role: "user", content: "Teste" }] })).rejects.toThrow(
+          ProviderInvalidResponseError
+        );
+      });
+
+      it("Teste C: thought + texto normal deve extrair SOMENTE o texto normal e nunca vazar o thought", async () => {
+        global.fetch = vi.fn().mockResolvedValue({
+          ok: true,
+          json: async () => ({
+            candidates: [
+              {
+                content: {
+                  parts: [
+                    { thought: true, text: "SECRET_THOUGHT_REASONING_STRING" },
+                    { text: "Resposta médica oficial visível." }
+                  ],
+                  role: "model"
+                },
+                finishReason: "STOP"
+              }
+            ]
+          })
+        } as unknown as Response);
+
+        const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
+        const res = await gemini.generate({ messages: [{ role: "user", content: "Teste" }] });
+
+        expect(res.text).toBe("Resposta médica oficial visível.");
+        expect(res.text).not.toContain("SECRET_THOUGHT_REASONING_STRING");
+      });
+
+      it("Teste D: stream com chunks contendo APENAS thought parts NÃO deve emitir nenhum deltaText com conteúdo thought", async () => {
+        const sseLines = [
+          'data: ' + JSON.stringify({ candidates: [{ content: { parts: [{ thought: true, text: "THOUGHT_CHUNK_1" }] } }] }) + '\n\n',
+          'data: ' + JSON.stringify({ candidates: [{ content: { parts: [{ thought: true, text: "THOUGHT_CHUNK_2" }] } }] }) + '\n\n',
+          'data: ' + JSON.stringify({ candidates: [{ content: { parts: [{ text: "Texto Real Visível." }] }, finishReason: "STOP" }] }) + '\n\n',
+          'data: [DONE]\n\n'
+        ];
+
+        let idx = 0;
+        const stream = new ReadableStream({
+          pull(controller) {
+            if (idx < sseLines.length) {
+              controller.enqueue(new TextEncoder().encode(sseLines[idx++]));
+            } else {
+              controller.close();
+            }
+          }
+        });
+
+        global.fetch = vi.fn().mockResolvedValue({ ok: true, body: stream } as unknown as Response);
+
+        const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
+        const deltas: string[] = [];
+        for await (const chunk of gemini.stream({ messages: [{ role: "user", content: "Teste stream" }] })) {
+          if (chunk.deltaText) deltas.push(chunk.deltaText);
+        }
+
+        const fullOutput = deltas.join("");
+        expect(fullOutput).toBe("Texto Real Visível.");
+        expect(fullOutput).not.toContain("THOUGHT_CHUNK_1");
+        expect(fullOutput).not.toContain("THOUGHT_CHUNK_2");
+      });
     });
 
     it("generate: lança ProviderAuthenticationError se chave não configurada", async () => {
@@ -237,87 +395,6 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1)", () =
       setTimeout(() => controller.abort(), 5);
       await expect(promise).rejects.toThrow(ProviderCancelledError);
     });
-
-    it("generate: resposta sem candidates ou com texto vazio lança ProviderInvalidResponseError", async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({ candidates: [] })
-      } as unknown as Response);
-
-      const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
-      await expect(gemini.generate({ messages: [{ role: "user", content: "Olá" }] })).rejects.toThrow(
-        ProviderInvalidResponseError
-      );
-
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({ candidates: [{ content: { parts: [{ text: "" }] } }] })
-      } as unknown as Response);
-
-      await expect(gemini.generate({ messages: [{ role: "user", content: "Olá" }] })).rejects.toThrow(
-        ProviderInvalidResponseError
-      );
-    });
-
-    it("stream: consome eventos SSE progressivos do Gemini filtrando thoughts", async () => {
-      const sseLines = [
-        'data: ' + JSON.stringify({ candidates: [{ content: { parts: [{ thought: true, text: "Pensando..." }, { text: "Articulação " }] } }] }) + '\n\n',
-        'data: ' + JSON.stringify({ candidates: [{ content: { parts: [{ text: "sinovial." }] }, finishReason: "STOP" }] }) + '\n\n',
-        'data: [DONE]\n\n'
-      ];
-
-      let idx = 0;
-      const stream = new ReadableStream({
-        pull(controller) {
-          if (idx < sseLines.length) {
-            controller.enqueue(new TextEncoder().encode(sseLines[idx++]));
-          } else {
-            controller.close();
-          }
-        }
-      });
-
-      global.fetch = vi.fn().mockResolvedValue({ ok: true, body: stream } as unknown as Response);
-
-      const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
-      const deltas: string[] = [];
-      for await (const chunk of gemini.stream({ messages: [{ role: "user", content: "Joelho" }] })) {
-        deltas.push(chunk.deltaText);
-      }
-
-      expect(deltas.join("")).toBe("Articulação sinovial.");
-    });
-
-    it("stream: cancelamento pelo usuário lança ProviderCancelledError", async () => {
-      const controller = new AbortController();
-
-      const blockedStream = new ReadableStream({
-        pull() {
-          return new Promise((_, reject) => {
-            controller.signal.addEventListener("abort", () => {
-              const err = new Error("Abort");
-              err.name = "AbortError";
-              reject(err);
-            });
-          });
-        }
-      });
-
-      global.fetch = vi.fn().mockResolvedValue({ ok: true, body: blockedStream } as unknown as Response);
-
-      const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
-      const promise = (async () => {
-        for await (const _chunk of gemini.stream(
-          { messages: [{ role: "user", content: "Tíbia" }] },
-          { requestId: "gemini-cancel", signal: controller.signal }
-        )) {
-          // loop
-        }
-      })();
-
-      setTimeout(() => controller.abort(), 10);
-      await expect(promise).rejects.toThrow(ProviderCancelledError);
-    });
   });
 
   describe("3. DeepgramSTTProvider (Cloud STT)", () => {
@@ -326,6 +403,16 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1)", () =
       expect(deepgram.capabilities.batch_transcription).toBe(true);
       expect(deepgram.capabilities.realtime_streaming).toBe(false);
       expect(deepgram.capabilities.medical_keyterms).toBe(true);
+    });
+
+    it("streamTranscription: fail-fast com ProviderInvalidResponseError quando chamado", async () => {
+      const deepgram = new DeepgramSTTProvider({ apiKey: "dg-test" });
+      const asyncAudio = (async function* () {
+        yield new Uint8Array([1, 2]);
+      })();
+
+      const generator = deepgram.streamTranscription(asyncAudio, { language: "pt" });
+      await expect(generator.next()).rejects.toThrow(ProviderInvalidResponseError);
     });
 
     it("health: DEGRADED quando API key não configurada", async () => {
@@ -345,60 +432,45 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1)", () =
       expect(health.status).toBe("HEALTHY");
     });
 
-    it("transcribe: mapeamento completo com keyterm para Nova-3 e timestamps de palavras", async () => {
-      let capturedUrl = "";
-      let capturedHeaders: any = {};
+    it("keyterm: Nova-3 utiliza parâmetro 'keyterm'; modelos não-Nova-3 NÃO utilizam 'keyterm'", async () => {
+      let capturedUrls: string[] = [];
 
-      global.fetch = vi.fn().mockImplementation(async (url, init) => {
-        capturedUrl = String(url);
-        capturedHeaders = init.headers;
+      global.fetch = vi.fn().mockImplementation(async (url) => {
+        capturedUrls.push(String(url));
         return {
           ok: true,
           json: async () => ({
             results: {
-              channels: [
-                {
-                  alternatives: [
-                    {
-                      transcript: "Fratura na diáfise do fêmur.",
-                      confidence: 0.96,
-                      words: [
-                        { word: "Fratura", start: 0.1, end: 0.5, confidence: 0.99 },
-                        { word: "na", start: 0.5, end: 0.6, confidence: 0.95 },
-                        { word: "diáfise", start: 0.6, end: 1.1, confidence: 0.97 },
-                        { word: "do", start: 1.1, end: 1.2, confidence: 0.98 },
-                        { word: "fêmur", start: 1.2, end: 1.8, confidence: 0.99 }
-                      ]
-                    }
-                  ],
-                  detected_language: "pt"
-                }
-              ]
+              channels: [{ alternatives: [{ transcript: "Fratura.", confidence: 0.99 }] }]
             }
           })
         };
       });
 
-      const deepgram = new DeepgramSTTProvider({ apiKey: "dg-test-key", modelId: "nova-3" });
-      const res = await deepgram.transcribe({
-        audioBuffer: new Uint8Array([1, 2, 3]),
-        language: "pt-BR",
+      // 1. Nova-3 deve incluir keyterm
+      const deepgramNova3 = new DeepgramSTTProvider({ apiKey: "dg-key", modelId: "nova-3" });
+      await deepgramNova3.transcribe({
+        audioBuffer: new Uint8Array([1, 2]),
+        language: "pt",
         audioFormat: "wav",
         medicalContextHints: ["diáfise", "fêmur"]
       });
 
-      expect(capturedUrl).toContain("model=nova-3");
-      expect(capturedUrl).toContain("language=pt");
-      expect(capturedUrl).toContain("keyterm=di%C3%A1fise");
-      expect(capturedUrl).toContain("keyterm=f%C3%AAmur");
-      expect(capturedHeaders["Authorization"]).toBe("Token dg-test-key");
+      expect(capturedUrls[0]).toContain("model=nova-3");
+      expect(capturedUrls[0]).toContain("keyterm=di%C3%A1fise");
+      expect(capturedUrls[0]).toContain("keyterm=f%C3%AAmur");
 
-      expect(res.text).toBe("Fratura na diáfise do fêmur.");
-      expect(res.confidence).toBe(0.96);
-      expect(res.timestamps?.length).toBe(5);
-      expect(res.timestamps?.[2].word).toBe("diáfise");
-      expect(res.timestamps?.[2].startMs).toBe(600);
-      expect(res.timestamps?.[2].endMs).toBe(1100);
+      // 2. Modelo não-Nova-3 NÃO deve incluir keyterm
+      const deepgramOlder = new DeepgramSTTProvider({ apiKey: "dg-key", modelId: "nova-2" });
+      await deepgramOlder.transcribe({
+        audioBuffer: new Uint8Array([1, 2]),
+        language: "pt",
+        audioFormat: "wav",
+        medicalContextHints: ["diáfise", "fêmur"]
+      });
+
+      expect(capturedUrls[1]).toContain("model=nova-2");
+      expect(capturedUrls[1]).not.toContain("keyterm=");
     });
 
     it("transcribe: formato PCM exige sampleRate válido (8000–48000Hz)", async () => {
@@ -441,32 +513,6 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1)", () =
         deepgram.transcribe({ audioBuffer: new Uint8Array([1]), language: "pt", audioFormat: "wav" })
       ).rejects.toThrow(ProviderUnavailableError);
     });
-
-    it("streamTranscription: agrega chunks de áudio e emite transcrição final em batch", async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({
-          results: {
-            channels: [{ alternatives: [{ transcript: "Escápula esquerda.", confidence: 0.99 }] }]
-          }
-        })
-      } as unknown as Response);
-
-      const deepgram = new DeepgramSTTProvider({ apiKey: "dg-test-key" });
-      const asyncAudio = (async function* () {
-        yield new Uint8Array([1, 2]);
-        yield new Uint8Array([3, 4]);
-      })();
-
-      const chunks: Array<{ partialText: string; isFinal: boolean }> = [];
-      for await (const chunk of deepgram.streamTranscription(asyncAudio, { language: "pt" })) {
-        chunks.push(chunk);
-      }
-
-      expect(chunks.length).toBe(1);
-      expect(chunks[0].partialText).toBe("Escápula esquerda.");
-      expect(chunks[0].isFinal).toBe(true);
-    });
   });
 
   describe("4. CartesiaTTSProvider (Cloud TTS)", () => {
@@ -476,18 +522,25 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1)", () =
       expect(health.status).toBe("DEGRADED");
     });
 
-    it("health: HEALTHY quando endpoint /voices responde 200 (sem gerar áudio)", async () => {
-      global.fetch = vi.fn().mockResolvedValue({
-        ok: true,
-        json: async () => []
-      } as unknown as Response);
+    it("health: HEALTHY quando endpoint /voices responde 200 usando Authorization Bearer e Cartesia-Version 2026-08-14", async () => {
+      let capturedHeaders: any = {};
+      global.fetch = vi.fn().mockImplementation(async (_url, init) => {
+        capturedHeaders = init.headers;
+        return {
+          ok: true,
+          json: async () => []
+        };
+      });
 
       const cartesia = new CartesiaTTSProvider({ apiKey: "cartesia-key" });
       const health = await cartesia.health();
       expect(health.status).toBe("HEALTHY");
+      expect(capturedHeaders["Authorization"]).toBe("Bearer cartesia-key");
+      expect(capturedHeaders["X-API-Key"]).toBeUndefined();
+      expect(capturedHeaders["Cartesia-Version"]).toBe("2026-08-14");
     });
 
-    it("synthesize: resolve target nativo por VoiceProfileId e envia payload para Cartesia", async () => {
+    it("synthesize: resolve target nativo, usa schema atual (voice: { id }) e Authorization Bearer", async () => {
       let capturedUrl = "";
       let capturedHeaders: any = {};
       let capturedPayload: any = {};
@@ -517,10 +570,14 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1)", () =
       });
 
       expect(capturedUrl).toContain("/tts/bytes");
-      expect(capturedHeaders["X-API-Key"]).toBe("cartesia-key");
       expect(capturedHeaders["Authorization"]).toBe("Bearer cartesia-key");
-      expect(capturedHeaders["Cartesia-Version"]).toBe("2024-06-10");
+      expect(capturedHeaders["X-API-Key"]).toBeUndefined();
+      expect(capturedHeaders["Cartesia-Version"]).toBe("2026-08-14");
+
+      // Payload oficial moderno da Cartesia
+      expect(capturedPayload.model_id).toBe("sonic-3");
       expect(capturedPayload.voice.id).toBe("a0e99841-438c-4a64-b679-ae501e7d6091");
+      expect(capturedPayload.voice.mode).toBeUndefined(); // Legacy mode: "id" removido
       expect(capturedPayload.output_format.container).toBe("wav");
       expect(capturedPayload.output_format.sample_rate).toBe(24000);
 

@@ -15,6 +15,9 @@ EMBEDDING_768_STATUS=PASS
 RAG_CURRENT_METHOD=postgresql-fts
 LAST_VERIFIED_RAG_RETRIEVAL=6
 CONTEXTUAL_RETRIEVAL=IMPLEMENTED / TESTED with factual result
+LIVE_GEMINI_ADAPTER=BLOCKED_BY_MISSING_CREDENTIAL (Local node env; Production ai-tutor v38 is LIVE PASS)
+LIVE_DEEPGRAM_ADAPTER=BLOCKED_BY_MISSING_CREDENTIAL
+LIVE_CARTESIA_ADAPTER=BLOCKED_BY_MISSING_CREDENTIAL
 Provider Router=PLANNED / BLOCKED UNTIL 2B.2.1 VERIFIED
 AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 
@@ -23,7 +26,7 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 ## 1. Status de Governança e Portões
 - **P0.1.1 — Sovereign Inference & Cloud Recovery Gate:** VERIFIED (ai-tutor v38, voice-token v8, Gemini 3.7 & 2.5 homologados, RAG contextualizado).
 - **Fase 2B.2 — Cloud Provider Layer:** IMPLEMENTED / CORRECTIONS REQUIRED.
-- **Fase 2B.2.1 — Cloud Provider Correctness Gate:** IMPLEMENTED / PENDING CHATGPT AUDIT.
+- **Fase 2B.2.1 — Final Cloud Provider Correction Gate:** IMPLEMENTED / PENDING CHATGPT AUDIT.
 - **Provider Router:** PLANNED / BLOCKED UNTIL 2B.2.1 VERIFIED.
 - **AI Gateway:** PLANNED / BLOCKED UNTIL ROUTER VERIFIED.
 
@@ -47,27 +50,27 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 ### Cloud Provider Adapters (Fase 2B.2.1 — packages/aeternum-vita)
 - **GeminiLLMProvider**:
   - Modelo Primário: `gemini-3.7-flash`
-  - Payload Model-Aware: `thinkingConfig: { thinkingLevel: "low" }` para 3.7
-  - Semântica de Config: `apiKey !== undefined` estrito
-  - Parsing de Candidatos: Filtro de partes `thought: true`
-  - Autenticação: Header `x-goog-api-key` estrito
-  - Matriz de Erros: 400 (`ProviderInvalidResponseError`), 401/403 (`ProviderAuthenticationError`), 404 (`ProviderUnavailableError`), 429 (`ProviderRateLimitError`), 5xx (`ProviderUnavailableError`), timeout (`ProviderTimeoutError`), cancelamento (`ProviderCancelledError`)
-  - Status: **100% Green (Vitest Unit Suite)**
+  - Sampling: Parâmetros obsoletos (`temperature`, `top_p`, `top_k`) removidos para Gemini 3.x; `thinkingConfig: { thinkingLevel: "low" }` e `maxOutputTokens` preservados.
+  - System Instruction: Suporte determinístico e mesclagem de `request.systemInstruction` com mensagens de `role: "system"`.
+  - Normalização de FinishReason: Mapeamento canônico (`"stop"`, `"length"`, `"content_filter"`, `"unknown"`) idêntico em `generate()` e `stream()`.
+  - Prevenção de Thought Leakage: Partes com `thought: true` estritamente filtradas; respostas apenas com thought parts lançam `ProviderInvalidResponseError` e stream nunca emite conteúdo thought como delta.
+  - Autenticação: Header `x-goog-api-key` estrito.
+  - Semântica de Config: `apiKey !== undefined` estrito.
+  - Status: **100% Green (140 Testes Vitest)**
 - **DeepgramSTTProvider**:
   - Modelo Primário: `nova-3`
-  - Medical Hints: Parâmetro moderno `keyterm` para Nova-3/Nova-2
-  - Streaming Truth: `capabilities.realtime_streaming = false`
-  - Formatos: WAV, MP3, FLAC, OGG, WEBM, PCM (validação 8000–48000Hz)
-  - Matriz de Erros: 401, 429, 5xx, timeout, AbortSignal
-  - Status: **100% Green (Vitest Unit Suite)**
+  - Medical Keyterms: Parâmetro moderno `keyterm` utilizado estritamente para `nova-3`; modelos não-Nova-3 não utilizam `keyterm`.
+  - Streaming Truth: `capabilities.realtime_streaming = false` com método `streamTranscription()` executando fail-fast explícito.
+  - Formatos: WAV, MP3, FLAC, OGG, WEBM, PCM (validação 8000–48000Hz).
+  - Status: **100% Green (140 Testes Vitest)**
 - **CartesiaTTSProvider**:
-  - Modelo Primário: `sonic-3` (atualizado a partir de `sonic-multilingual`)
-  - Autenticação: Headers `X-API-Key` e `Authorization: Bearer`
-  - Voice Mapping: `VoiceProfileRegistry` mapeia identidades canônicas estáveis para IDs nativos
-  - Formatos: PCM, WAV, MP3
-  - Streaming: Leitura real de stream binário de bytes
-  - Matriz de Erros: 401, 429, 5xx, network, timeout, cancelamento
-  - Status: **100% Green (Vitest Unit Suite)**
+  - API Version: `2026-08-14`
+  - Autenticação: `Authorization: Bearer <api_key>` (header legado `X-API-Key` removido).
+  - Modelo Primário: `sonic-3` (pin explícito de produção).
+  - Payload Schema: Schema moderno `voice: { id: nativeVoiceId }` (removido legado `mode: "id"`).
+  - Formatos: PCM, WAV, MP3.
+  - Streaming: Leitura real de stream binário de bytes.
+  - Status: **100% Green (140 Testes Vitest)**
 
 ### Local Stack (HP Victus)
 - LiveKit Server: :7880 (Community Edition)
