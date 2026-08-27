@@ -662,3 +662,26 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
      - Estados factuais de credenciais registrados com precisão (`BLOCKED_BY_MISSING_CREDENTIAL` para o ambiente local Node).
 - **Produção:** Intocada (`ai-tutor v38` e `voice-token v8` inalterados).
 - **Próxima Fase:** 2C Provider Router (BLOQUEADA aguardando auditoria do ChatGPT).
+
+---
+
+## [2026-08-27 16:02] — 2B.2.1 SECURE CREDENTIAL PRESENCE AUDIT
+
+### Execution Environment
+- **Platform:** Windows (HP Victus / PowerShell / Node.js 24)
+- **Node/Vitest environment checked:** YES (`packages/aeternum-vita` runtime context)
+
+### Factual Credential Presence
+- **GEMINI_API_KEY:** REMOTE_ONLY (Configurada no Supabase Secrets para a Edge Function `ai-tutor v38`, porém não disponível no processo local Node/Vitest)
+- **DEEPGRAM_API_KEY:** MISSING
+- **CARTESIA_API_KEY:** MISSING
+
+### Summary
+- **ALL_THREE_READY:** NO
+- **Credential values displayed:** NO
+- **Partial credentials displayed:** NO
+- **Secrets modified:** NO
+- **Production modified:** NO
+- **ai-tutor:** v38 unchanged
+- **voice-token:** v8 unchanged
+- **Status:** PENDING CHATGPT AUDIT
