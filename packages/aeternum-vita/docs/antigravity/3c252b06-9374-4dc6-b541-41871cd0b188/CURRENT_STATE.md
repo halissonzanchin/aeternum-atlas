@@ -26,7 +26,7 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 ## 1. Status de Governança e Portões
 - **P0.1.1 — Sovereign Inference & Cloud Recovery Gate:** VERIFIED (ai-tutor v38, voice-token v8, Gemini 3.7 & 2.5 homologados, RAG contextualizado).
 - **Fase 2B.2 — Cloud Provider Layer:** IMPLEMENTED / CORRECTIONS REQUIRED.
-- **Fase 2B.2.1 — Live Validation Gate:** IMPLEMENTED / PENDING CHATGPT AUDIT.
+- **Fase 2B.2.1 — Live Validation Finalization Gate:** IMPLEMENTED / PENDING CHATGPT AUDIT.
 - **Provider Router:** PLANNED / BLOCKED UNTIL 2B.2.1 VERIFIED.
 - **AI Gateway:** PLANNED / BLOCKED UNTIL ROUTER VERIFIED.
 
@@ -52,8 +52,8 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
   - Modelo Primário: `gemini-3.7-flash`
   - Sampling: Parâmetros obsoletos (`temperature`, `top_p`, `top_k`) removidos para Gemini 3.x; `thinkingConfig: { thinkingLevel: "low" }` e `maxOutputTokens` preservados.
   - System Instruction: Suporte determinístico e mesclagem de `request.systemInstruction` com mensagens de `role: "system"`.
-  - Normalização de FinishReason: Mapeamento canônico estrito (`SAFETY`, `RECITATION`, `LANGUAGE`, `BLOCKLIST`, `PROHIBITED_CONTENT`, `SPII`, `IMAGE_SAFETY`, `IMAGE_PROHIBITED_CONTENT`, `IMAGE_RECITATION`, `ESCALATION` $ightarrow$ `"content_filter"`; `MAX_TOKENS` $ightarrow$ `"length"`; `STOP` $ightarrow$ `"stop"`; `OTHER`, `MALFORMED_*` $ightarrow$ `"unknown"`) idêntico em `generate()` e `stream()`.
-  - Prevenção de Thought Leakage: Partes com `thought: true` estritamente filtradas; respostas apenas com thought parts lançam `ProviderInvalidResponseError` e stream nunca emite conteúdo thought como delta.
+  - Normalização de FinishReason: Mapeamento canônico estrito idêntico em `generate()` e `stream()`.
+  - Prevenção de Thought Leakage: Partes com `thought: true` estritamente filtradas (Testes A, B, C, D 100% Green).
   - Autenticação: Header `x-goog-api-key` estrito.
   - Semântica de Config: `apiKey !== undefined` estrito.
   - Testes de Integração Live: Logging exclusivo de metadados (`provider`, `model`, `success`, `latency`, `textLength`), sem vazar texto gerado.
@@ -62,16 +62,16 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
   - Modelo Primário: `nova-3`
   - Medical Keyterms: Parâmetro moderno `keyterm` utilizado estritamente para `nova-3`; modelos não-Nova-3 não utilizam `keyterm`.
   - Streaming Truth: `capabilities.realtime_streaming = false` com método `streamTranscription()` executando fail-fast explícito.
-  - Testes de Integração Live: Fixture de fala sintética dedicada (`synthetic_speech_aeternum_atlas.wav`) com envoltória multi-formante simulando fala articulada. Logging exclusivo de metadados (`provider`, `model`, `success`, `latency`, `textLength`), sem vazar transcrição.
+  - Testes de Integração Live: Fixture obrigatória de fala sintética (`synthetic_speech_aeternum_atlas.wav`) com fail-fast estrito se ausente e asserção mandatória de `textLength > 0`. Logging exclusivo de metadados.
   - Formatos: WAV, MP3, FLAC, OGG, WEBM, PCM (validação 8000–48000Hz).
   - Status: **100% Green (141 Testes Vitest)**
 - **CartesiaTTSProvider**:
   - API Version: `2026-08-14`
   - Autenticação: `Authorization: Bearer <api_key>` (removido `X-API-Key`).
   - Modelo Primário: `sonic-3` (pin explícito de produção como escolha estável de compatibilidade).
-  - Voice Schema: `voice: "<native-voice-id>"` (string direta conforme schema oficial 2026-08-14, sem objeto `{ id }` ou `mode`).
+  - Voice Schema: `voice: "<native-voice-id>"` (string direta conforme schema oficial 2026-08-14).
   - Output Format: Discriminado por container (`raw`, `wav`, `mp3`).
-  - Testes de Integração Live: Logging exclusivo de metadados (`provider`, `model`, `success`, `latency`, `audioBytes`), sem persistência indevida.
+  - Testes de Integração Live: Logging exclusivo de metadados (`provider`, `model`, `success`, `latency`, `audioBytes`).
   - Formatos: PCM, WAV, MP3.
   - Streaming: Leitura real de stream binário de bytes.
   - Status: **100% Green (141 Testes Vitest)**

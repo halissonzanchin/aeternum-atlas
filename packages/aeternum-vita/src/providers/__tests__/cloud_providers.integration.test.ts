@@ -14,26 +14,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixturePath = path.join(__dirname, "fixtures", "synthetic_speech_aeternum_atlas.wav");
 
 function loadSpeechFixture(): Uint8Array {
-  if (fs.existsSync(fixturePath)) {
-    return new Uint8Array(fs.readFileSync(fixturePath));
+  if (!fs.existsSync(fixturePath)) {
+    throw new Error(
+      `[FATAL] Fixture de fala obrigatória não encontrada em: ${fixturePath}. A fixture 'synthetic_speech_aeternum_atlas.wav' é mandante para homologação e não pode sofrer fallback silencioso.`
+    );
   }
-  const sampleRate = 16000;
-  const numSamples = sampleRate * 1;
-  const buffer = Buffer.alloc(44 + numSamples * 2);
-  buffer.write("RIFF", 0);
-  buffer.writeUInt32LE(36 + numSamples * 2, 4);
-  buffer.write("WAVE", 8);
-  buffer.write("fmt ", 12);
-  buffer.writeUInt32LE(16, 16);
-  buffer.writeUInt16LE(1, 20);
-  buffer.writeUInt16LE(1, 22);
-  buffer.writeUInt32LE(sampleRate, 24);
-  buffer.writeUInt32LE(sampleRate * 2, 28);
-  buffer.writeUInt16LE(2, 32);
-  buffer.writeUInt16LE(16, 34);
-  buffer.write("data", 36);
-  buffer.writeUInt32LE(numSamples * 2, 40);
-  return new Uint8Array(buffer);
+  return new Uint8Array(fs.readFileSync(fixturePath));
 }
 
 describe.skipIf(!isCloudIntegrationEnabled)(
@@ -52,7 +38,7 @@ describe.skipIf(!isCloudIntegrationEnabled)(
 
         expect(res.providerId).toBe("gemini-llm-cloud");
         expect(res.modelId).toBe("gemini-3.7-flash");
-        expect(res.text.length).toBeGreaterThan(0);
+        expect(res.text.trim().length).toBeGreaterThan(0);
 
         // LOGGING SEGURO: Apenas metadados, sem vazar texto gerado
         console.log(
@@ -83,6 +69,7 @@ describe.skipIf(!isCloudIntegrationEnabled)(
 
         expect(res.providerId).toBe("deepgram-stt-cloud");
         expect(res.modelId).toBe("nova-3");
+        expect(res.text.trim().length).toBeGreaterThan(0);
 
         // LOGGING SEGURO: Apenas metadados, sem vazar texto transcrito
         console.log(

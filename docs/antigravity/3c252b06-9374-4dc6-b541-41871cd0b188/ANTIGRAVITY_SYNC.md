@@ -646,3 +646,19 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
      - Estados factuais de credenciais registrados com precisão (`BLOCKED_BY_MISSING_CREDENTIAL` para o ambiente local, sem farsa de PASS).
 - **Produção:** Intocada (`ai-tutor v38` e `voice-token v8` inalterados).
 - **Próxima Fase:** 2C Provider Router (BLOQUEADA aguardando auditoria do ChatGPT).
+
+---
+
+## [2026-08-27 15:32] — Fase 2B.2.1 Live Validation Finalization Gate
+
+### Ações e Resultados Factuais
+- **Fase:** 2B.2.1 — Live Validation Finalization Gate
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+- **Modificações Realizadas:**
+  1. `cloud_providers.integration.test.ts`:
+     - Adicionada asserção mandatória `expect(res.text.trim().length).toBeGreaterThan(0)` para o teste live do Deepgram.
+     - Corrigida a semântica de carregamento da fixture (`loadSpeechFixture` lança erro fatal explicito se a fixture de fala sintética estiver ausente).
+  2. Documentação e Auditoria:
+     - Estados factuais de credenciais registrados com precisão (`BLOCKED_BY_MISSING_CREDENTIAL` para o ambiente local Node).
+- **Produção:** Intocada (`ai-tutor v38` e `voice-token v8` inalterados).
+- **Próxima Fase:** 2C Provider Router (BLOQUEADA aguardando auditoria do ChatGPT).
