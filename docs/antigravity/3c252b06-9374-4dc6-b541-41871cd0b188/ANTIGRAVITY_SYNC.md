@@ -685,3 +685,25 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **ai-tutor:** v38 unchanged
 - **voice-token:** v8 unchanged
 - **Status:** PENDING CHATGPT AUDIT
+
+---
+
+## [2026-08-27 19:00] — 2B.2.1 SECURE LOCAL PROVISIONING RESOLUTION
+
+### Environment & Integration
+- **Platform:** Windows (HP Victus / PowerShell / Node.js 24)
+- **Selected Secret Mechanism:** Arquivo local git-ignored (`packages/aeternum-vita/.env.cloud.local` ou `.env.local`) e suporte a variáveis de sessão PowerShell (`$env:VAR`).
+- **Gitignore Protection:** PASS (Confirmado via `git check-ignore`).
+- **Vitest Environment Loading:** PASS (`loadLocalCloudEnv` integrado em `cloud_providers.integration.test.ts`).
+
+### Prepared Credential Slots
+- **GEMINI_API_KEY:** Slot preparado (`process.env.GEMINI_API_KEY`). Status: REMOTE_ONLY (Aguardando entrada manual do usuário no HP Victus).
+- **DEEPGRAM_API_KEY:** Slot preparado (`process.env.DEEPGRAM_API_KEY`). Status: MISSING (Usuário deve criar a chave na plataforma e inserir localmente).
+- **CARTESIA_API_KEY:** Slot preparado (`process.env.CARTESIA_API_KEY`). Status: MISSING (Usuário deve criar a chave na plataforma e inserir localmente).
+
+### Security & Governance
+- **Secrets in Git:** ZERO
+- **Secrets in Docs:** ZERO
+- **Live Calls Executed:** 0
+- **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

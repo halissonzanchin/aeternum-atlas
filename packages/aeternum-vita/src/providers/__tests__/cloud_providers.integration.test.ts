@@ -8,9 +8,36 @@ import {
   CartesiaTTSProvider
 } from "../index.ts";
 
-const isCloudIntegrationEnabled = process.env.RUN_CLOUD_PROVIDER_INTEGRATION === "true";
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+function loadLocalCloudEnv(): void {
+  const envFiles = [
+    path.join(__dirname, "..", "..", "..", ".env.cloud.local"),
+    path.join(__dirname, "..", "..", "..", ".env.local"),
+    path.join(__dirname, "..", "..", "..", ".env")
+  ];
+  for (const envFile of envFiles) {
+    if (fs.existsSync(envFile)) {
+      const content = fs.readFileSync(envFile, "utf8");
+      for (const line of content.split("\n")) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith("#")) continue;
+        const idx = trimmed.indexOf("=");
+        if (idx > 0) {
+          const key = trimmed.slice(0, idx).trim();
+          const val = trimmed.slice(idx + 1).trim().replace(/^["']|["']$/g, "");
+          if (!process.env[key] && val.length > 0) {
+            process.env[key] = val;
+          }
+        }
+      }
+    }
+  }
+}
+
+loadLocalCloudEnv();
+
+const isCloudIntegrationEnabled = process.env.RUN_CLOUD_PROVIDER_INTEGRATION === "true";
 const fixturePath = path.join(__dirname, "fixtures", "synthetic_speech_aeternum_atlas.wav");
 
 function loadSpeechFixture(): Uint8Array {

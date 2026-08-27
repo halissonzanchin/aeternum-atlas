@@ -15,6 +15,7 @@ EMBEDDING_768_STATUS=PASS
 RAG_CURRENT_METHOD=postgresql-fts
 LAST_VERIFIED_RAG_RETRIEVAL=6
 CONTEXTUAL_RETRIEVAL=IMPLEMENTED / TESTED with factual result
+LOCAL_SECRET_PROVISIONING_MECHANISM=READY (Git-ignored .env.cloud.local & Session-scoped PowerShell)
 LIVE_GEMINI_ADAPTER=BLOCKED_BY_MISSING_CREDENTIAL (Local node env; Production ai-tutor v38 is LIVE PASS)
 LIVE_DEEPGRAM_ADAPTER=BLOCKED_BY_MISSING_CREDENTIAL
 LIVE_CARTESIA_ADAPTER=BLOCKED_BY_MISSING_CREDENTIAL
@@ -26,7 +27,7 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 ## 1. Status de Governança e Portões
 - **P0.1.1 — Sovereign Inference & Cloud Recovery Gate:** VERIFIED (ai-tutor v38, voice-token v8, Gemini 3.7 & 2.5 homologados, RAG contextualizado).
 - **Fase 2B.2 — Cloud Provider Layer:** IMPLEMENTED / CORRECTIONS REQUIRED.
-- **Fase 2B.2.1 — Live Validation Finalization Gate:** IMPLEMENTED / PENDING CHATGPT AUDIT.
+- **Fase 2B.2.1 — Secure Local Provisioning Resolution Gate:** IMPLEMENTED / PENDING CHATGPT AUDIT.
 - **Provider Router:** PLANNED / BLOCKED UNTIL 2B.2.1 VERIFIED.
 - **AI Gateway:** PLANNED / BLOCKED UNTIL ROUTER VERIFIED.
 
