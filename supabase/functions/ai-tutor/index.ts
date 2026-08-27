@@ -1,12 +1,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2.105.4";
 
 const PRIMARY_MODEL = (Deno.env.get("VITA_GEMINI_MODEL") || "gemini-3.7-flash").trim();
-const FALLBACK_MODELS = (Deno.env.get("VITA_GEMINI_FALLBACK_MODELS") || "gemini-2.5-flash,gemini-2.5-pro")
-  .split(",")
-  .map((m) => m.trim())
-  .filter(Boolean);
-
-const ACTIVE_GEMINI_MODELS = [...new Set([PRIMARY_MODEL, ...FALLBACK_MODELS])];
+const CLOUD_FALLBACK_MODEL = (Deno.env.get("VITA_GEMINI_FALLBACK_MODEL") || "gemini-2.5-flash").trim();
 const GEMINI_EMBEDDING_MODEL = (Deno.env.get("VITA_GEMINI_EMBEDDING_MODEL") || "gemini-embedding-2").trim();
 
 const MAX_REQUEST_BYTES = 64_000;
@@ -39,6 +34,13 @@ type KnowledgeRow = {
   similarity?: number;
   lexical_rank?: number;
 };
+
+interface AttemptRecord {
+  model: string;
+  status: number;
+  canonicalReason: string;
+  latencyMs: number;
+}
 
 const LOCAL_ANATOMY_FALLBACKS: Record<string, { title: string; text: string; sources: string }> = {
   radial: {
@@ -374,12 +376,6 @@ function matchLocalFallback(prompt: string, sources: KnowledgeRow[]): string | n
   return null;
 }
 
-interface GeminiCallResult {
-  text: string;
-  model: string;
-  latencyMs: number;
-}
-
 function mapCanonicalProviderReason(status: number, errObj: Record<string, unknown> | undefined): string {
   const rawStatus = String(errObj?.status || "").toUpperCase();
   const rawMsg = String(errObj?.message || "").toLowerCase();
@@ -417,65 +413,23 @@ function mapCanonicalProviderReason(status: number, errObj: Record<string, unkno
   return "UNKNOWN";
 }
 
-// True Connectivity Probe: GET /v1beta/models/gemini-3.7-flash (SEM inferência)
-async function probeGeminiModelsGet(apiKey: string): Promise<{
-  stage: string;
-  status: number;
-  latencyMs: number;
-  providerStatus: string;
-  canonicalErrorClass: string;
-  modelName?: string;
-  success: boolean;
-}> {
-  const start = performance.now();
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash`;
-  try {
-    const res = await fetch(endpoint, {
-      method: "GET",
-      headers: {
-        "x-goog-api-key": apiKey
-      },
-      signal: AbortSignal.timeout(GEMINI_MODELS_GET_TIMEOUT_MS)
-    });
-
-    const latencyMs = Math.round(performance.now() - start);
-    if (res.ok) {
-      const data = await res.json().catch(() => ({})) as Record<string, unknown>;
-      return {
-        stage: "models_get_connectivity_probe",
-        status: res.status,
-        latencyMs,
-        providerStatus: "OK",
-        canonicalErrorClass: "NONE",
-        modelName: String(data?.name || "gemini-3.7-flash"),
-        success: true
-      };
-    }
-
-    const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
-    const errObj = errJson?.error as Record<string, unknown> | undefined;
-    const providerStatus = String(errObj?.status || `HTTP_${res.status}`);
-    const canonicalReason = mapCanonicalProviderReason(res.status, errObj);
-    return {
-      stage: "models_get_connectivity_probe",
-      status: res.status,
-      latencyMs,
-      providerStatus,
-      canonicalErrorClass: canonicalReason,
-      success: false
-    };
-  } catch (err: unknown) {
-    const latencyMs = Math.round(performance.now() - start);
-    const { networkCause } = classifyNetworkError(err);
-    return {
-      stage: "models_get_connectivity_probe",
-      status: networkCause === "TIMEOUT" ? 504 : 0,
-      latencyMs,
-      providerStatus: networkCause,
-      canonicalErrorClass: networkCause,
-      success: false
-    };
+function isRecoverableModelError(status: number, canonicalReason: string): boolean {
+  if ([429, 500, 502, 503, 504].includes(status)) return true;
+  if (["QUOTA_EXCEEDED", "PROVIDER_UNAVAILABLE", "TIMEOUT", "DNS_FAILURE", "CONNECTION_RESET", "CONNECTION_REFUSED", "FETCH_FAILED"].includes(canonicalReason)) {
+    return true;
   }
+  return false;
+}
+
+function extractGeneratedText(data: any): string {
+  const parts = data?.candidates?.[0]?.content?.parts;
+  if (!Array.isArray(parts)) return "";
+  const nonThoughtParts = parts.filter((p: any) => !p?.thought && typeof p?.text === "string");
+  if (nonThoughtParts.length > 0) {
+    return nonThoughtParts.map((p: any) => p.text).join("\n\n").trim();
+  }
+  const lastPart = parts.at(-1);
+  return typeof lastPart?.text === "string" ? lastPart.text.trim() : "";
 }
 
 // Single Model Minimal Generation Probe
@@ -484,9 +438,8 @@ async function probeSingleModelGeneration(apiKey: string, model: string): Promis
   status: number;
   latencyMs: number;
   providerStatus: string;
-  canonicalErrorClass: string;
+  canonicalReason: string;
   hasText: boolean;
-  text?: string;
   success: boolean;
 }> {
   const start = performance.now();
@@ -518,15 +471,14 @@ async function probeSingleModelGeneration(apiKey: string, model: string): Promis
     const latencyMs = Math.round(performance.now() - start);
     if (res.ok) {
       const data = await res.json().catch(() => ({})) as Record<string, unknown>;
-      const text = (data as any)?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      const text = extractGeneratedText(data);
       return {
         model,
         status: res.status,
         latencyMs,
         providerStatus: "OK",
-        canonicalErrorClass: "NONE",
+        canonicalReason: "NONE",
         hasText: Boolean(text && text.trim().length > 0),
-        text: text.trim(),
         success: true
       };
     }
@@ -540,7 +492,7 @@ async function probeSingleModelGeneration(apiKey: string, model: string): Promis
       status: res.status,
       latencyMs,
       providerStatus,
-      canonicalErrorClass: canonicalReason,
+      canonicalReason,
       hasText: false,
       success: false
     };
@@ -552,101 +504,77 @@ async function probeSingleModelGeneration(apiKey: string, model: string): Promis
       status: networkCause === "TIMEOUT" ? 504 : 0,
       latencyMs,
       providerStatus: networkCause,
-      canonicalErrorClass: networkCause,
+      canonicalReason: networkCause,
       hasText: false,
       success: false
     };
   }
 }
 
-async function callGemini(
+async function executeModelCall(
+  model: string,
   apiKey: string,
   role: string,
   context: Record<string, unknown>,
   sources: KnowledgeRow[],
   history: ReturnType<typeof normalizedGeminiHistory>,
   prompt: string,
-  userName: string = ""
-): Promise<{ result: GeminiCallResult | null; errorCategory?: string; httpStatus?: number; providerStatus?: string; providerReason?: string }> {
-  for (const model of ACTIVE_GEMINI_MODELS) {
-    const start = performance.now();
-    try {
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
-      const sysInstructionText = systemInstruction(role, context, sources, userName);
+  userName: string
+): Promise<{ text: string; latencyMs: number; status: number; providerStatus: string; canonicalReason: string; recoverable: boolean }> {
+  const start = performance.now();
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
+  const sysInstructionText = systemInstruction(role, context, sources, userName);
 
-      const generationConfig: Record<string, unknown> = {
-        maxOutputTokens: 4096
-      };
-      if (model.includes("3.7") || model.includes("thinking")) {
-        generationConfig.thinkingConfig = {
-          thinkingLevel: "low"
-        };
-      }
+  const generationConfig: Record<string, unknown> = {
+    maxOutputTokens: 4096
+  };
+  if (model.includes("3.7") || model.includes("thinking")) {
+    generationConfig.thinkingConfig = {
+      thinkingLevel: "low"
+    };
+  }
 
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey
-        },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: sysInstructionText }] },
-          contents: [...history, { role: "user", parts: [{ text: prompt }] }],
-          generationConfig,
-          safetySettings: GEMINI_SAFETY_CATEGORIES.map((category) => ({
-            category,
-            threshold: "BLOCK_MEDIUM_AND_ABOVE"
-          }))
-        }),
-        signal: AbortSignal.timeout(GEMINI_GENERATE_TIMEOUT_MS)
-      });
+  try {
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": apiKey
+      },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: sysInstructionText }] },
+        contents: [...history, { role: "user", parts: [{ text: prompt }] }],
+        generationConfig,
+        safetySettings: GEMINI_SAFETY_CATEGORIES.map((category) => ({
+          category,
+          threshold: "BLOCK_MEDIUM_AND_ABOVE"
+        }))
+      }),
+      signal: AbortSignal.timeout(GEMINI_GENERATE_TIMEOUT_MS)
+    });
 
-      if (res.ok) {
-        const data = await res.json();
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (text && typeof text === "string" && text.trim()) {
-          const latencyMs = Math.round(performance.now() - start);
-          return {
-            result: {
-              text: text.trim(),
-              model,
-              latencyMs
-            }
-          };
-        }
-      } else {
-        const status = res.status;
-        const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
-        const errObj = errJson?.error as Record<string, unknown> | undefined;
-        const providerStatus = String(errObj?.status || `HTTP_${status}`);
-        const providerReason = mapCanonicalProviderReason(status, errObj);
-        const category = status === 400 ? "payload_error" : (status === 401 || status === 403) ? "auth_error" : status === 429 ? "quota_error" : "provider_error";
-        
-        // Se este modelo retornar erro/503, o loop tentará o próximo modelo ativo (ex: gemini-2.5-flash)
-        if (model === ACTIVE_GEMINI_MODELS[ACTIVE_GEMINI_MODELS.length - 1]) {
-          return {
-            result: null,
-            errorCategory: category,
-            httpStatus: status,
-            providerStatus,
-            providerReason
-          };
-        }
-      }
-    } catch (err: unknown) {
-      const { networkCause } = classifyNetworkError(err);
-      if (model === ACTIVE_GEMINI_MODELS[ACTIVE_GEMINI_MODELS.length - 1]) {
-        return {
-          result: null,
-          errorCategory: networkCause === "TIMEOUT" ? "timeout_error" : "network_error",
-          httpStatus: networkCause === "TIMEOUT" ? 504 : 0,
-          providerStatus: networkCause,
-          providerReason: networkCause
-        };
+    const latencyMs = Math.round(performance.now() - start);
+    if (res.ok) {
+      const data = await res.json();
+      const text = extractGeneratedText(data);
+      if (text) {
+        return { text, latencyMs, status: res.status, providerStatus: "OK", canonicalReason: "NONE", recoverable: false };
       }
     }
+
+    const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
+    const errObj = errJson?.error as Record<string, unknown> | undefined;
+    const providerStatus = String(errObj?.status || `HTTP_${res.status}`);
+    const canonicalReason = mapCanonicalProviderReason(res.status, errObj);
+    const recoverable = isRecoverableModelError(res.status, canonicalReason);
+    return { text: "", latencyMs, status: res.status, providerStatus, canonicalReason, recoverable };
+  } catch (err: unknown) {
+    const latencyMs = Math.round(performance.now() - start);
+    const { networkCause } = classifyNetworkError(err);
+    const status = networkCause === "TIMEOUT" ? 504 : 0;
+    const recoverable = isRecoverableModelError(status, networkCause);
+    return { text: "", latencyMs, status, providerStatus: networkCause, canonicalReason: networkCause, recoverable };
   }
-  return { result: null, errorCategory: "all_models_exhausted", httpStatus: 500, providerStatus: "MODELS_EXHAUSTED", providerReason: "PROVIDER_UNAVAILABLE" };
 }
 
 Deno.serve(async (req) => {
@@ -749,27 +677,21 @@ Deno.serve(async (req) => {
 
   // Probe 1: models.get
   if (payload.probe === "connectivity" || payload.probe === "models_get") {
-    if (!geminiKey) {
-      return jsonResponse({
-        stage: "models_get_connectivity_probe",
-        status: 503,
-        latencyMs: 0,
-        providerStatus: "MISSING_KEY",
-        canonicalErrorClass: "API_KEY_INVALID",
-        credential_present: false,
-        credential_source: credentialSource
-      }, 503, cors);
-    }
-    const probeResult = await probeGeminiModelsGet(geminiKey);
+    const res37 = await probeSingleModelGeneration(geminiKey, PRIMARY_MODEL);
     return jsonResponse({
-      ...probeResult,
+      stage: "models_get_connectivity_probe",
+      model: PRIMARY_MODEL,
+      status: res37.status,
+      latencyMs: res37.latencyMs,
+      providerStatus: res37.providerStatus,
+      canonicalReason: res37.canonicalReason,
+      success: res37.success,
       credential_present: credentialPresent,
-      credential_source: credentialSource,
-      model: "gemini-3.7-flash"
-    }, probeResult.success ? 200 : (probeResult.status || 500), cors);
+      credential_source: credentialSource
+    }, res37.success ? 200 : (res37.status || 500), cors);
   }
 
-  // Probe 2: minimal generation (Gemini 3.7 + Fallback 2.5)
+  // Probe 2: minimal generation (Gemini 3.7 + Fallback 2.5) com persistência em ai_audit_events
   if (payload.probe === "minimal_generation") {
     if (!geminiKey) {
       return jsonResponse({
@@ -777,16 +699,57 @@ Deno.serve(async (req) => {
         status: 503,
         latencyMs: 0,
         providerStatus: "MISSING_KEY",
-        canonicalErrorClass: "API_KEY_INVALID",
+        canonicalReason: "API_KEY_INVALID",
         credential_present: false,
         credential_source: credentialSource
       }, 503, cors);
     }
 
-    const res37 = await probeSingleModelGeneration(geminiKey, "gemini-3.7-flash");
+    const res37 = await probeSingleModelGeneration(geminiKey, PRIMARY_MODEL);
+    
+    // Persiste auditoria sanitizada do probe 3.7
+    await adminClient.from("ai_audit_events").insert({
+      user_id: userId,
+      institution_id: profile.institution_id,
+      event_type: "provider_probe",
+      model_name: PRIMARY_MODEL,
+      input_characters: 0,
+      output_characters: 0,
+      success: res37.success,
+      metadata: {
+        probe_type: "generation",
+        model: PRIMARY_MODEL,
+        status: res37.status,
+        latency_ms: res37.latencyMs,
+        has_text: res37.hasText,
+        canonical_reason: res37.canonicalReason,
+        credential_source: credentialSource
+      }
+    });
+
     let res25 = null;
-    if (!res37.success) {
-      res25 = await probeSingleModelGeneration(geminiKey, "gemini-2.5-flash");
+    if (!res37.success && isRecoverableModelError(res37.status, res37.canonicalReason)) {
+      res25 = await probeSingleModelGeneration(geminiKey, CLOUD_FALLBACK_MODEL);
+      
+      // Persiste auditoria sanitizada do probe 2.5 se executado
+      await adminClient.from("ai_audit_events").insert({
+        user_id: userId,
+        institution_id: profile.institution_id,
+        event_type: "provider_probe",
+        model_name: CLOUD_FALLBACK_MODEL,
+        input_characters: 0,
+        output_characters: 0,
+        success: res25.success,
+        metadata: {
+          probe_type: "generation",
+          model: CLOUD_FALLBACK_MODEL,
+          status: res25.status,
+          latency_ms: res25.latencyMs,
+          has_text: res25.hasText,
+          canonical_reason: res25.canonicalReason,
+          credential_source: credentialSource
+        }
+      });
     }
 
     return jsonResponse({
@@ -798,7 +761,7 @@ Deno.serve(async (req) => {
     }, (res37.success || res25?.success) ? 200 : 503, cors);
   }
 
-  // Probe 3: embedding probe (gemini-embedding-2 -> 768d)
+  // Probe 3: embedding probe (gemini-embedding-2 -> 768d) com persistência em ai_audit_events
   if (payload.probe === "embedding") {
     if (!geminiKey) {
       return jsonResponse({
@@ -812,13 +775,32 @@ Deno.serve(async (req) => {
     const startEmbed = performance.now();
     const emb = await generateEmbedding(geminiKey, "Nervo radial e anatomia do plexo braquial");
     const latencyMs = Math.round(performance.now() - startEmbed);
+    const embSuccess = Boolean(emb && emb.length === 768);
+
+    await adminClient.from("ai_audit_events").insert({
+      user_id: userId,
+      institution_id: profile.institution_id,
+      event_type: "embedding_probe",
+      model_name: GEMINI_EMBEDDING_MODEL,
+      input_characters: 0,
+      output_characters: 0,
+      success: embSuccess,
+      metadata: {
+        model: GEMINI_EMBEDDING_MODEL,
+        status: emb ? 200 : 500,
+        latency_ms: latencyMs,
+        embedding_length: emb ? emb.length : 0,
+        credential_source: credentialSource
+      }
+    });
+
     return jsonResponse({
       stage: "embedding_probe",
       status: emb ? 200 : 500,
       model: GEMINI_EMBEDDING_MODEL,
       embeddingLength: emb ? emb.length : 0,
       latencyMs,
-      success: Boolean(emb && emb.length === 768)
+      success: embSuccess
     }, emb ? 200 : 500, cors);
   }
 
@@ -878,17 +860,17 @@ Deno.serve(async (req) => {
 
   let actualProvider = "google-gemini";
   let actualModel = PRIMARY_MODEL;
-  let fallbackUsed = false;
+  let modelFallbackUsed = false;
+  let providerFallbackUsed = false;
   let responseText = "";
   let latencyMs = 0;
-  let diagCategory = "none";
-  let diagStatus = 200;
-  let diagProviderStatus = "none";
-  let diagProviderReason = "";
+  const attempts: AttemptRecord[] = [];
 
-  // 1. Tenta gerar via Gemini oficial (se configurado)
+  // 1. Execução de Geração com Política Estrita de Fallback
   if (geminiKey) {
-    const { result, errorCategory, httpStatus, providerStatus, providerReason } = await callGemini(
+    // Tentativa 1: Modelo Primário (gemini-3.7-flash)
+    const primaryAttempt = await executeModelCall(
+      PRIMARY_MODEL,
       geminiKey,
       String(profile.role || "student"),
       context,
@@ -897,30 +879,58 @@ Deno.serve(async (req) => {
       prompt,
       String(profile.name || "")
     );
-    if (result) {
-      responseText = result.text;
-      actualModel = result.model;
+
+    attempts.push({
+      model: PRIMARY_MODEL,
+      status: primaryAttempt.status,
+      canonicalReason: primaryAttempt.canonicalReason,
+      latencyMs: primaryAttempt.latencyMs
+    });
+
+    if (primaryAttempt.text) {
+      responseText = primaryAttempt.text;
+      actualModel = PRIMARY_MODEL;
       actualProvider = "google-gemini";
-      fallbackUsed = false;
-      latencyMs = result.latencyMs;
-    } else {
-      diagCategory = errorCategory || "provider_failure";
-      diagStatus = httpStatus || 500;
-      diagProviderStatus = providerStatus || "ERROR";
-      diagProviderReason = providerReason || "UNKNOWN";
+      modelFallbackUsed = false;
+      providerFallbackUsed = false;
+      latencyMs = primaryAttempt.latencyMs;
+    } else if (primaryAttempt.recoverable) {
+      // Tentativa 2: Único Fallback Permitido (gemini-2.5-flash) apenas em erros recuperáveis
+      const fallbackAttempt = await executeModelCall(
+        CLOUD_FALLBACK_MODEL,
+        geminiKey,
+        String(profile.role || "student"),
+        context,
+        sources,
+        normalizedHistory,
+        prompt,
+        String(profile.name || "")
+      );
+
+      attempts.push({
+        model: CLOUD_FALLBACK_MODEL,
+        status: fallbackAttempt.status,
+        canonicalReason: fallbackAttempt.canonicalReason,
+        latencyMs: fallbackAttempt.latencyMs
+      });
+
+      if (fallbackAttempt.text) {
+        responseText = fallbackAttempt.text;
+        actualModel = CLOUD_FALLBACK_MODEL;
+        actualProvider = "google-gemini";
+        modelFallbackUsed = true;
+        providerFallbackUsed = false;
+        latencyMs = fallbackAttempt.latencyMs;
+      }
     }
-  } else {
-    diagCategory = "key_not_configured";
-    diagStatus = 503;
-    diagProviderStatus = "MISSING_KEY";
-    diagProviderReason = "API_KEY_INVALID";
   }
 
-  // 2. Fallback resiliente com base anatômica se Gemini falhar
+  // 2. Fallback resiliente determinístico (Provider Fallback) se Cloud falhar
   if (!responseText) {
     actualProvider = "local-fallback";
     actualModel = "vita-rag-dictionary";
-    fallbackUsed = true;
+    modelFallbackUsed = false;
+    providerFallbackUsed = true;
     const startFallback = performance.now();
     const localMatch = matchLocalFallback(prompt, sources);
     if (localMatch) {
@@ -943,9 +953,12 @@ Deno.serve(async (req) => {
       role: "assistant",
       content: persistedText,
       metadata: {
-        model: actualModel,
-        provider: actualProvider,
-        fallbackUsed,
+        primary_model: PRIMARY_MODEL,
+        actual_model: actualModel,
+        actual_provider: actualProvider,
+        model_fallback_used: modelFallbackUsed,
+        provider_fallback_used: providerFallbackUsed,
+        fallbackUsed: providerFallbackUsed,
         retrievalMethod: ragMethod,
         embeddingModel: GEMINI_EMBEDDING_MODEL,
         retrievedSources: sources.map((source) => ({
@@ -972,31 +985,42 @@ Deno.serve(async (req) => {
       output_characters: persistedText.length,
       success: true,
       metadata: {
-        actual_provider: actualProvider,
+        primary_model: PRIMARY_MODEL,
         actual_model: actualModel,
-        fallback_used: fallbackUsed,
+        actual_provider: actualProvider,
+        model_fallback_used: modelFallbackUsed,
+        provider_fallback_used: providerFallbackUsed,
+        fallback_used: providerFallbackUsed,
         latency_ms: latencyMs,
+        attempts,
         retrievedSourceCount: sources.length,
         retrievalMethod: ragMethod,
         embedding_model: GEMINI_EMBEDDING_MODEL,
         credential_present: credentialPresent,
-        credential_source: credentialSource,
-        diagCategory: diagCategory !== "none" ? diagCategory : undefined,
-        diagStatus: diagStatus !== 200 ? diagStatus : undefined,
-        providerStatus: diagProviderStatus !== "none" ? diagProviderStatus : undefined,
-        providerReason: diagProviderReason || undefined
+        credential_source: credentialSource
       }
     });
   } catch (dbErr) {
     console.error("[ai-tutor] database persistence error", dbErr);
   }
 
-  // Streaming SSE com metadados de observabilidade
+  // Streaming SSE com metadados estruturados
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     start(controller) {
       controller.enqueue(
-        encoder.encode(`data: ${JSON.stringify({ conversationId, source: actualProvider, model: actualModel, fallbackUsed, latencyMs, retrievalCount: sources.length, retrievalMethod: ragMethod })}\n\n`)
+        encoder.encode(`data: ${JSON.stringify({
+          conversationId,
+          source: actualProvider,
+          model: actualModel,
+          primaryModel: PRIMARY_MODEL,
+          modelFallbackUsed,
+          providerFallbackUsed,
+          fallbackUsed: providerFallbackUsed,
+          latencyMs,
+          retrievalCount: sources.length,
+          retrievalMethod: ragMethod
+        })}\n\n`)
       );
       for (let offset = 0; offset < persistedText.slice(0, 4000).length; offset += 200) {
         controller.enqueue(
@@ -1016,7 +1040,7 @@ Deno.serve(async (req) => {
       "X-Content-Type-Options": "nosniff",
       "X-Aeternum-AI-Source": actualProvider,
       "X-Aeternum-AI-Model": actualModel,
-      "X-Aeternum-AI-Fallback": String(fallbackUsed)
+      "X-Aeternum-AI-Fallback": String(providerFallbackUsed)
     }
   });
 });
