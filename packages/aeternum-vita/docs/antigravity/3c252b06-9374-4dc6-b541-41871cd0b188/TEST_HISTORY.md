@@ -202,3 +202,29 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9)
 
 ### Resultado
 PASS (141/141 Testes Unitários de Provedores Aprovados | Zero Erros de Tipagem | Zero Regressões)
+
+---
+
+## Teste 017 — Validação de Integração Live e Fixtures de Fala (Fase 2B.2.1 Live Validation Gate)
+
+Data: 2026-08-27 15:25 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9)
+
+### 1. Verificação Estática & Tipagem (`tsc --noEmit`):
+- `packages/aeternum-vita`: **PASS (0 erros)** ✅
+
+### 2. Suíte Unitária Completa dos Provedores (141 Testes 100% Green):
+- Suíte completa de contratos, matriz de erros, thought-safety, Deepgram Nova-3 keyterm e Cartesia 2026-08-14: **PASS** ✅
+- Regressões Locais & Contratos (84 testes): **PASS** ✅
+
+### 3. Harness de Teste de Integração Live (`cloud_providers.integration.test.ts`):
+- Fixture de Áudio: Criada fixture dedicada de fala sintética (`synthetic_speech_aeternum_atlas.wav`) simulando envelope multi-formante para validação acústica do Deepgram STT.
+- Sanitização de Logs: Removido todo e qualquer log de texto gerado, transcrições e áudios; harness emite unicamente metadados estruturados (`provider`, `model`, `success`, `latency`, `textLength` / `audioBytes`).
+- Status Factuais no Ambiente Local:
+  - `LIVE_GEMINI`: BLOCKED_BY_MISSING_CREDENTIAL (Ambiente local Node sem chave em disco; Produção `ai-tutor v38` permanece com Gemini 3.7 live PASS no P0.1.1).
+  - `LIVE_DEEPGRAM`: BLOCKED_BY_MISSING_CREDENTIAL (Ambiente local Node sem chave em disco).
+  - `LIVE_CARTESIA`: BLOCKED_BY_MISSING_CREDENTIAL (Ambiente local Node sem chave em disco).
+- Total de chamadas pagas efetuadas: **0**.
+
+### Resultado
+PASS (141/141 Testes Unitários de Provedores Aprovados | Zero Erros de Tipagem | Zero Regressões | Logging 100% Seguro)

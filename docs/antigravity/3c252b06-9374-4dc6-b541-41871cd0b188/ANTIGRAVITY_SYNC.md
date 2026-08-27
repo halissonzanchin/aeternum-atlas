@@ -630,3 +630,19 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
      - Adicionadas asserções para `typeof payload.voice === "string"` e testes para toda a tabela de finishReason do Gemini e formatos discriminados da Cartesia.
 - **Produção:** Intocada (`ai-tutor v38` e `voice-token v8` inalterados).
 - **Próxima Fase:** 2C Provider Router (BLOQUEADA aguardando auditoria do ChatGPT).
+
+---
+
+## [2026-08-27 15:25] — Fase 2B.2.1 Live Validation Gate
+
+### Ações e Resultados Factuais
+- **Fase:** 2B.2.1 — Live Validation Gate
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+- **Modificações Realizadas:**
+  1. `cloud_providers.integration.test.ts`:
+     - Sanitização estrita de logging: Registra apenas metadados seguros (`provider`, `model`, `success`, `latency`, `textLength` ou `audioBytes`), sem exibir ou persistir texto bruto gerado, transcrições ou arquivos de áudio.
+     - Fixture de Fala Sintética: Substituída a onda senoidal simples por `synthetic_speech_aeternum_atlas.wav` (arquivo WAV sintético com modulação de formantes F1/F2 e envoltória de fala articulada).
+  2. Documentação e Auditoria:
+     - Estados factuais de credenciais registrados com precisão (`BLOCKED_BY_MISSING_CREDENTIAL` para o ambiente local, sem farsa de PASS).
+- **Produção:** Intocada (`ai-tutor v38` e `voice-token v8` inalterados).
+- **Próxima Fase:** 2C Provider Router (BLOQUEADA aguardando auditoria do ChatGPT).

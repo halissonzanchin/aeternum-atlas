@@ -26,7 +26,7 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 ## 1. Status de Governança e Portões
 - **P0.1.1 — Sovereign Inference & Cloud Recovery Gate:** VERIFIED (ai-tutor v38, voice-token v8, Gemini 3.7 & 2.5 homologados, RAG contextualizado).
 - **Fase 2B.2 — Cloud Provider Layer:** IMPLEMENTED / CORRECTIONS REQUIRED.
-- **Fase 2B.2.1 — Schema + Live Closure Gate:** IMPLEMENTED / PENDING CHATGPT AUDIT.
+- **Fase 2B.2.1 — Live Validation Gate:** IMPLEMENTED / PENDING CHATGPT AUDIT.
 - **Provider Router:** PLANNED / BLOCKED UNTIL 2B.2.1 VERIFIED.
 - **AI Gateway:** PLANNED / BLOCKED UNTIL ROUTER VERIFIED.
 
@@ -56,11 +56,13 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
   - Prevenção de Thought Leakage: Partes com `thought: true` estritamente filtradas; respostas apenas com thought parts lançam `ProviderInvalidResponseError` e stream nunca emite conteúdo thought como delta.
   - Autenticação: Header `x-goog-api-key` estrito.
   - Semântica de Config: `apiKey !== undefined` estrito.
+  - Testes de Integração Live: Logging exclusivo de metadados (`provider`, `model`, `success`, `latency`, `textLength`), sem vazar texto gerado.
   - Status: **100% Green (141 Testes Vitest)**
 - **DeepgramSTTProvider**:
   - Modelo Primário: `nova-3`
   - Medical Keyterms: Parâmetro moderno `keyterm` utilizado estritamente para `nova-3`; modelos não-Nova-3 não utilizam `keyterm`.
   - Streaming Truth: `capabilities.realtime_streaming = false` com método `streamTranscription()` executando fail-fast explícito.
+  - Testes de Integração Live: Fixture de fala sintética dedicada (`synthetic_speech_aeternum_atlas.wav`) com envoltória multi-formante simulando fala articulada. Logging exclusivo de metadados (`provider`, `model`, `success`, `latency`, `textLength`), sem vazar transcrição.
   - Formatos: WAV, MP3, FLAC, OGG, WEBM, PCM (validação 8000–48000Hz).
   - Status: **100% Green (141 Testes Vitest)**
 - **CartesiaTTSProvider**:
@@ -69,6 +71,7 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
   - Modelo Primário: `sonic-3` (pin explícito de produção como escolha estável de compatibilidade).
   - Voice Schema: `voice: "<native-voice-id>"` (string direta conforme schema oficial 2026-08-14, sem objeto `{ id }` ou `mode`).
   - Output Format: Discriminado por container (`raw`, `wav`, `mp3`).
+  - Testes de Integração Live: Logging exclusivo de metadados (`provider`, `model`, `success`, `latency`, `audioBytes`), sem persistência indevida.
   - Formatos: PCM, WAV, MP3.
   - Streaming: Leitura real de stream binário de bytes.
   - Status: **100% Green (141 Testes Vitest)**

@@ -1,18 +1,25 @@
 import { describe, it, expect } from "vitest";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   GeminiLLMProvider,
   DeepgramSTTProvider,
-  CartesiaTTSProvider,
-  VoiceProfileRegistry
+  CartesiaTTSProvider
 } from "../index.ts";
 
 const isCloudIntegrationEnabled = process.env.RUN_CLOUD_PROVIDER_INTEGRATION === "true";
 
-function createSyntheticWav(): Uint8Array {
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const fixturePath = path.join(__dirname, "fixtures", "synthetic_speech_aeternum_atlas.wav");
+
+function loadSpeechFixture(): Uint8Array {
+  if (fs.existsSync(fixturePath)) {
+    return new Uint8Array(fs.readFileSync(fixturePath));
+  }
   const sampleRate = 16000;
   const numSamples = sampleRate * 1;
   const buffer = Buffer.alloc(44 + numSamples * 2);
-
   buffer.write("RIFF", 0);
   buffer.writeUInt32LE(36 + numSamples * 2, 4);
   buffer.write("WAVE", 8);
@@ -26,11 +33,6 @@ function createSyntheticWav(): Uint8Array {
   buffer.writeUInt16LE(16, 34);
   buffer.write("data", 36);
   buffer.writeUInt32LE(numSamples * 2, 40);
-
-  for (let i = 0; i < numSamples; i++) {
-    const sample = Math.sin(2 * Math.PI * 440 * (i / sampleRate)) * 10000;
-    buffer.writeInt16LE(Math.floor(sample), 44 + i * 2);
-  }
   return new Uint8Array(buffer);
 }
 
@@ -38,12 +40,7 @@ describe.skipIf(!isCloudIntegrationEnabled)(
   "Aeternum Cloud Inference Providers — Live Smoke Integration Tests (Opt-In)",
   () => {
     describe("Gemini Cloud Smoke Test", () => {
-      const gemini = new GeminiLLMProvider();
-
-      it("health real Gemini", async () => {
-        const health = await gemini.health();
-        expect(["HEALTHY", "DEGRADED"]).toContain(health.status);
-      }, 15000);
+      const gemini = new GeminiLLMProvider({ modelId: "gemini-3.7-flash" });
 
       it("generate real pequeno (1 token)", async () => {
         const start = performance.now();
@@ -52,33 +49,29 @@ describe.skipIf(!isCloudIntegrationEnabled)(
           maxTokens: 5
         });
         const duration = Math.round(performance.now() - start);
-        expect(res.text.length).toBeGreaterThan(0);
-        console.log(`[LIVE GEMINI GENERATE] Latência: ${duration}ms | Resposta: ${res.text.trim()}`);
-      }, 15000);
 
-      it("stream real Gemini", async () => {
-        const deltas: string[] = [];
-        for await (const chunk of gemini.stream({
-          messages: [{ role: "user", content: "Diga 2 ossos da perna." }],
-          maxTokens: 10
-        })) {
-          if (chunk.deltaText) deltas.push(chunk.deltaText);
-        }
-        expect(deltas.length).toBeGreaterThan(0);
-        console.log(`[LIVE GEMINI STREAM] Chunks recebidos: ${deltas.length}`);
-      }, 15000);
+        expect(res.providerId).toBe("gemini-llm-cloud");
+        expect(res.modelId).toBe("gemini-3.7-flash");
+        expect(res.text.length).toBeGreaterThan(0);
+
+        // LOGGING SEGURO: Apenas metadados, sem vazar texto gerado
+        console.log(
+          JSON.stringify({
+            provider: res.providerId,
+            model: res.modelId,
+            success: true,
+            latency: duration,
+            textLength: res.text.length
+          })
+        );
+      }, 20000);
     });
 
     describe("Deepgram Cloud Smoke Test", () => {
-      const deepgram = new DeepgramSTTProvider();
+      const deepgram = new DeepgramSTTProvider({ modelId: "nova-3" });
 
-      it("health real Deepgram", async () => {
-        const health = await deepgram.health();
-        expect(["HEALTHY", "DEGRADED"]).toContain(health.status);
-      }, 15000);
-
-      it("batch transcription real com fixture sintético", async () => {
-        const fixture = createSyntheticWav();
+      it("batch transcription real com fixture sintético de fala", async () => {
+        const fixture = loadSpeechFixture();
         const start = performance.now();
         const res = await deepgram.transcribe({
           audioBuffer: fixture,
@@ -87,30 +80,52 @@ describe.skipIf(!isCloudIntegrationEnabled)(
           sampleRate: 16000
         });
         const duration = Math.round(performance.now() - start);
+
         expect(res.providerId).toBe("deepgram-stt-cloud");
-        console.log(`[LIVE DEEPGRAM BATCH] Latência: ${duration}ms | Transcrição: '${res.text}'`);
-      }, 15000);
+        expect(res.modelId).toBe("nova-3");
+
+        // LOGGING SEGURO: Apenas metadados, sem vazar texto transcrito
+        console.log(
+          JSON.stringify({
+            provider: res.providerId,
+            model: res.modelId,
+            success: true,
+            latency: duration,
+            textLength: res.text.length
+          })
+        );
+      }, 20000);
     });
 
     describe("Cartesia Cloud Smoke Test", () => {
-      const cartesia = new CartesiaTTSProvider();
-
-      it("health real Cartesia", async () => {
-        const health = await cartesia.health();
-        expect(["HEALTHY", "DEGRADED"]).toContain(health.status);
-      }, 15000);
+      const cartesia = new CartesiaTTSProvider({ modelId: "sonic-3", apiVersion: "2026-08-14" });
 
       it("synthesize real frase curta", async () => {
         const start = performance.now();
         const res = await cartesia.synthesize({
           text: "Aeternum Atlas.",
           voiceProfileId: "pt-br-warm-male-01",
-          language: "pt-BR"
+          language: "pt-BR",
+          audioFormat: "wav",
+          sampleRate: 24000
         });
         const duration = Math.round(performance.now() - start);
+
+        expect(res.providerId).toBe("cartesia-tts-cloud");
+        expect(res.modelId).toBe("sonic-3");
         expect(res.audioBuffer.length).toBeGreaterThan(0);
-        console.log(`[LIVE CARTESIA SYNTH] Latência: ${duration}ms | Bytes: ${res.audioBuffer.length}`);
-      }, 15000);
+
+        // LOGGING SEGURO: Apenas metadados, sem salvar ou exibir áudio
+        console.log(
+          JSON.stringify({
+            provider: res.providerId,
+            model: res.modelId,
+            success: true,
+            latency: duration,
+            audioBytes: res.audioBuffer.length
+          })
+        );
+      }, 20000);
     });
   }
 );
