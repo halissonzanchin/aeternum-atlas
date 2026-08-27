@@ -27,13 +27,18 @@ export function normalizeGeminiFinishReason(rawReason?: string): LLMFinishReason
   if (
     upper === "SAFETY" ||
     upper === "RECITATION" ||
+    upper === "LANGUAGE" ||
     upper === "BLOCKLIST" ||
     upper === "PROHIBITED_CONTENT" ||
     upper === "SPII" ||
-    upper === "OTHER"
+    upper === "IMAGE_SAFETY" ||
+    upper === "IMAGE_PROHIBITED_CONTENT" ||
+    upper === "IMAGE_RECITATION" ||
+    upper === "ESCALATION"
   ) {
     return "content_filter";
   }
+  // OTHER, MALFORMED_FUNCTION_CALL, UNEXPECTED_TOOL_CALL, etc. are not content_filter
   return "unknown";
 }
 

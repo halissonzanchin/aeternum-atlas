@@ -21,6 +21,33 @@ export interface CartesiaTTSConfig {
   registry?: VoiceProfileRegistry;
 }
 
+export function buildCartesiaOutputFormat(requestedFormat: AeternumAudioFormat, sampleRate: number): Record<string, any> {
+  switch (requestedFormat) {
+    case "pcm":
+      return {
+        container: "raw",
+        encoding: "pcm_s16le",
+        sample_rate: sampleRate
+      };
+    case "wav":
+      return {
+        container: "wav",
+        encoding: "pcm_s16le",
+        sample_rate: sampleRate
+      };
+    case "mp3":
+      return {
+        container: "mp3",
+        sample_rate: sampleRate
+      };
+    default:
+      return {
+        container: requestedFormat,
+        sample_rate: sampleRate
+      };
+  }
+}
+
 export class CartesiaTTSProvider implements TTSProvider {
   public readonly metadata: ProviderMetadata;
   public readonly supportedSynthesizeFormats: readonly AeternumAudioFormat[] = ["pcm", "wav", "mp3"];
@@ -34,6 +61,7 @@ export class CartesiaTTSProvider implements TTSProvider {
 
   constructor(config: CartesiaTTSConfig = {}) {
     this.apiKey = config.apiKey !== undefined ? config.apiKey : (typeof process !== "undefined" ? process.env?.CARTESIA_API_KEY : undefined);
+    // sonic-3 is the approved stable compatibility choice
     this.modelId = config.modelId !== undefined ? config.modelId : ((typeof process !== "undefined" ? process.env?.CARTESIA_MODEL : undefined) || "sonic-3");
     this.baseUrl = config.baseUrl !== undefined ? config.baseUrl : "https://api.cartesia.ai";
     this.apiVersion = config.apiVersion !== undefined ? config.apiVersion : "2026-08-14";
@@ -143,21 +171,14 @@ export class CartesiaTTSProvider implements TTSProvider {
       );
     }
 
-    const container = requestedFormat === "pcm" ? "raw" : requestedFormat;
-    const encoding = requestedFormat === "pcm" ? "pcm_s16le" : undefined;
+    const output_format = buildCartesiaOutputFormat(requestedFormat, effectiveSampleRate);
 
-    // Current official Cartesia API payload schema
+    // Current official 2026-08-14 Cartesia API payload schema (voice is a direct string ID)
     const payload = {
       model_id: target.modelId || this.modelId,
       transcript: request.text,
-      voice: {
-        id: target.nativeVoiceId
-      },
-      output_format: {
-        container,
-        ...(encoding ? { encoding } : {}),
-        sample_rate: effectiveSampleRate
-      },
+      voice: target.nativeVoiceId,
+      output_format,
       language: request.language ? request.language.split("-")[0] : "pt"
     };
 

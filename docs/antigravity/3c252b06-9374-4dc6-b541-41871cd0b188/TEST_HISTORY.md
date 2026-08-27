@@ -471,3 +471,45 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9)
 
 ### Resultado
 PASS (140/140 Testes Unitários de Provedores Aprovados | Zero Erros de Tipagem | Zero Regressões)
+
+---
+
+## Teste 016 — Correções Finais de Schema e Live Closure (Fase 2B.2.1 Schema + Live Closure Gate)
+
+Data: 2026-08-27 15:15 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9)
+
+### 1. Verificação Estática & Tipagem (`tsc --noEmit`):
+- `packages/aeternum-vita`: **PASS (0 erros)** ✅
+
+### 2. Suíte Unitária Completa dos Provedores (141 Testes 100% Green):
+- **GeminiLLMProvider**:
+  - Mapeamento estrito de finishReason:
+    - `LANGUAGE`, `SAFETY`, `RECITATION`, `BLOCKLIST`, `PROHIBITED_CONTENT`, `SPII`, `IMAGE_SAFETY`, `IMAGE_PROHIBITED_CONTENT`, `IMAGE_RECITATION`, `ESCALATION` $ightarrow$ `"content_filter"`: **PASS** ✅
+    - `MAX_TOKENS` $ightarrow$ `"length"`: **PASS** ✅
+    - `STOP` $ightarrow$ `"stop"`: **PASS** ✅
+    - `OTHER`, `MALFORMED_FUNCTION_CALL`, `UNEXPECTED_TOOL_CALL`, `TOO_MANY_TOOL_CALLS`, `MISSING_THOUGHT_SIGNATURE`, `MALFORMED_RESPONSE` $ightarrow$ `"unknown"`: **PASS** ✅
+  - Prevenção de vazamento de Thought (Testes A, B, C, D): **PASS** ✅
+  - Suporte determinístico a `systemInstruction` e mesclagem com `role=system`: **PASS** ✅
+  - Supressão de sampling obsoleto para 3.x (`temperature`, `top_p`, `top_k` omitidos): **PASS** ✅
+  - Matriz de Erros: 400, 401/403, 404, 429, 500/502/503/504, timeout, AbortSignal: **PASS** ✅
+- **DeepgramSTTProvider**:
+  - Parâmetro `keyterm` restrito a `nova-3`; não utilizado em modelos anteriores: **PASS** ✅
+  - Streaming Truth com fail-fast explícito em `streamTranscription()`: **PASS** ✅
+  - Transcrição batch e validação PCM: **PASS** ✅
+- **CartesiaTTSProvider**:
+  - Schema de voz 2026-08-14 com `voice` como string direta (`typeof payload.voice === "string"`): **PASS** ✅
+  - `output_format` discriminado por container (`raw`, `wav`, `mp3`): **PASS** ✅
+  - Autenticação `Authorization: Bearer <key>` e `Cartesia-Version: 2026-08-14`: **PASS** ✅
+  - Synthesize & Stream: **PASS** ✅
+- **Regressões Locais & Contratos (84 testes)**:
+  - `local_providers.test.ts` & `provider_contracts.test.ts`: **PASS** ✅
+
+### 3. Smoke Test de Provedores de Nuvem:
+- `LIVE_GEMINI`: BLOCKED_BY_MISSING_CREDENTIAL no ambiente local Node (Produção `ai-tutor v38` permanece com Gemini 3.7 live test PASS comprovado no P0.1.1).
+- `LIVE_DEEPGRAM`: BLOCKED_BY_MISSING_CREDENTIAL no ambiente local Node.
+- `LIVE_CARTESIA`: BLOCKED_BY_MISSING_CREDENTIAL no ambiente local Node.
+- Chamadas pagas efetuadas: **0**.
+
+### Resultado
+PASS (141/141 Testes Unitários de Provedores Aprovados | Zero Erros de Tipagem | Zero Regressões)

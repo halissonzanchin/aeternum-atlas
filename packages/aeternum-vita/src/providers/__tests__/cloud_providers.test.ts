@@ -12,7 +12,7 @@ import {
   ProviderTimeoutError
 } from "../index.ts";
 
-describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Final)", () => {
+describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Schema + Live Closure)", () => {
   const originalFetch = global.fetch;
 
   beforeEach(() => {
@@ -137,7 +137,6 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Final)"
 
       const gemini = new GeminiLLMProvider({ apiKey: "test-key", modelId: "gemini-3.7-flash" });
 
-      // Caso 1: request.systemInstruction + role=system mesclados
       await gemini.generate({
         systemInstruction: "Diretriz Global 1.",
         messages: [
@@ -151,16 +150,26 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Final)"
       expect(capturedPayload.contents[0].role).toBe("user");
     });
 
-    it("finishReason: normaliza respostas do Google para o contrato canônico", async () => {
+    it("finishReason: mapeamento rigoroso (SAFETY, RECITATION, LANGUAGE, BLOCKLIST -> content_filter; MAX_TOKENS -> length; STOP -> stop; OTHER, MALFORMED -> unknown)", async () => {
       const finishMap: Record<string, string> = {
         STOP: "stop",
         MAX_TOKENS: "length",
         SAFETY: "content_filter",
         RECITATION: "content_filter",
+        LANGUAGE: "content_filter",
         BLOCKLIST: "content_filter",
         PROHIBITED_CONTENT: "content_filter",
         SPII: "content_filter",
-        OTHER_RANDOM: "unknown"
+        IMAGE_SAFETY: "content_filter",
+        IMAGE_PROHIBITED_CONTENT: "content_filter",
+        IMAGE_RECITATION: "content_filter",
+        ESCALATION: "content_filter",
+        OTHER: "unknown",
+        MALFORMED_FUNCTION_CALL: "unknown",
+        UNEXPECTED_TOOL_CALL: "unknown",
+        TOO_MANY_TOOL_CALLS: "unknown",
+        MISSING_THOUGHT_SIGNATURE: "unknown",
+        MALFORMED_RESPONSE: "unknown"
       };
 
       for (const [googleReason, canonicalReason] of Object.entries(finishMap)) {
@@ -540,7 +549,7 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Final)"
       expect(capturedHeaders["Cartesia-Version"]).toBe("2026-08-14");
     });
 
-    it("synthesize: resolve target nativo, usa schema atual (voice: { id }) e Authorization Bearer", async () => {
+    it("synthesize: schema 2026-08-14 com voice string direta e output_format discriminado para WAV", async () => {
       let capturedUrl = "";
       let capturedHeaders: any = {};
       let capturedPayload: any = {};
@@ -574,17 +583,56 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Final)"
       expect(capturedHeaders["X-API-Key"]).toBeUndefined();
       expect(capturedHeaders["Cartesia-Version"]).toBe("2026-08-14");
 
-      // Payload oficial moderno da Cartesia
-      expect(capturedPayload.model_id).toBe("sonic-3");
-      expect(capturedPayload.voice.id).toBe("a0e99841-438c-4a64-b679-ae501e7d6091");
-      expect(capturedPayload.voice.mode).toBeUndefined(); // Legacy mode: "id" removido
+      // Verificação estrita do schema 2026-08-14 da Cartesia: voice deve ser string direta!
+      expect(typeof capturedPayload.voice).toBe("string");
+      expect(capturedPayload.voice).toBe("a0e99841-438c-4a64-b679-ae501e7d6091");
+      expect(capturedPayload.voice.id).toBeUndefined();
+
+      // output_format para WAV
       expect(capturedPayload.output_format.container).toBe("wav");
+      expect(capturedPayload.output_format.encoding).toBe("pcm_s16le");
       expect(capturedPayload.output_format.sample_rate).toBe(24000);
 
       expect(res.audioBuffer.length).toBe(3);
       expect(res.audioFormat).toBe("wav");
       expect(res.sampleRate).toBe(24000);
       expect(res.providerId).toBe("cartesia-tts-cloud");
+    });
+
+    it("synthesize: output_format discriminado para PCM (raw) e MP3", async () => {
+      let capturedPayloads: any[] = [];
+
+      global.fetch = vi.fn().mockImplementation(async (_url, init) => {
+        capturedPayloads.push(JSON.parse(init.body));
+        return {
+          ok: true,
+          arrayBuffer: async () => new Uint8Array([1, 2]).buffer
+        };
+      });
+
+      const cartesia = new CartesiaTTSProvider({ apiKey: "cartesia-key" });
+
+      // 1. PCM (container: raw)
+      await cartesia.synthesize({
+        text: "PCM test",
+        voiceProfileId: "pt-br-warm-male-01",
+        audioFormat: "pcm",
+        sampleRate: 24000
+      });
+      expect(capturedPayloads[0].output_format.container).toBe("raw");
+      expect(capturedPayloads[0].output_format.encoding).toBe("pcm_s16le");
+      expect(capturedPayloads[0].output_format.sample_rate).toBe(24000);
+
+      // 2. MP3 (container: mp3)
+      await cartesia.synthesize({
+        text: "MP3 test",
+        voiceProfileId: "pt-br-warm-male-01",
+        audioFormat: "mp3",
+        sampleRate: 44100
+      });
+      expect(capturedPayloads[1].output_format.container).toBe("mp3");
+      expect(capturedPayloads[1].output_format.encoding).toBeUndefined();
+      expect(capturedPayloads[1].output_format.sample_rate).toBe(44100);
     });
 
     it("synthesize: rejeita formatos de áudio não suportados (ex: ogg)", async () => {
@@ -618,9 +666,10 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Final)"
       ).rejects.toThrow(ProviderUnavailableError);
     });
 
-    it("streamSynthesis: streaming progressivo de bytes de áudio", async () => {
+    it("streamSynthesis: streaming progressivo de bytes de áudio com voice string schema", async () => {
       const audioChunks = [new Uint8Array([1, 2]), new Uint8Array([3, 4])];
       let idx = 0;
+      let capturedPayload: any = {};
       const stream = new ReadableStream({
         pull(controller) {
           if (idx < audioChunks.length) {
@@ -631,7 +680,10 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Final)"
         }
       });
 
-      global.fetch = vi.fn().mockResolvedValue({ ok: true, body: stream } as unknown as Response);
+      global.fetch = vi.fn().mockImplementation(async (_url, init) => {
+        capturedPayload = JSON.parse(init.body);
+        return { ok: true, body: stream };
+      });
 
       const cartesia = new CartesiaTTSProvider({ apiKey: "cartesia-key" });
       const collected: Uint8Array[] = [];
@@ -643,6 +695,8 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Final)"
         if (chunk.audioChunk.length > 0) collected.push(chunk.audioChunk);
       }
 
+      expect(typeof capturedPayload.voice).toBe("string");
+      expect(capturedPayload.voice).toBe("a0e99841-438c-4a64-b679-ae501e7d6091");
       expect(collected.length).toBe(2);
     });
   });

@@ -610,3 +610,23 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
   4. `cloud_providers.test.ts`: Atualizado para validar estritamente todos os novos contratos.
 - **Produção:** Intocada (`ai-tutor v38` e `voice-token v8` inalterados).
 - **Próxima Fase:** 2C Provider Router (BLOQUEADA aguardando auditoria do ChatGPT).
+
+---
+
+## [2026-08-27 15:15] — Fase 2B.2.1 Schema + Live Closure Gate
+
+### Ações e Resultados Factuais
+- **Fase:** 2B.2.1 — Schema + Live Closure Gate
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+- **Modificações Realizadas:**
+  1. `GeminiLLMProvider.ts`:
+     - Corrigido o mapeamento de `OTHER` $ightarrow$ `"unknown"` e adicionado `LANGUAGE`, `IMAGE_SAFETY`, `IMAGE_PROHIBITED_CONTENT`, `IMAGE_RECITATION`, `ESCALATION` $ightarrow$ `"content_filter"`.
+     - Erros estruturais (`MALFORMED_*`, `UNEXPECTED_TOOL_CALL`, etc.) mapeados para `"unknown"`.
+  2. `CartesiaTTSProvider.ts`:
+     - Atualizado payload para schema oficial 2026-08-14: `voice: target.nativeVoiceId` (string direta).
+     - `output_format` construído de forma discriminada por container (`raw`, `wav`, `mp3`).
+     - `sonic-3` documentado como pin explícito de compatibilidade estável.
+  3. `cloud_providers.test.ts`:
+     - Adicionadas asserções para `typeof payload.voice === "string"` e testes para toda a tabela de finishReason do Gemini e formatos discriminados da Cartesia.
+- **Produção:** Intocada (`ai-tutor v38` e `voice-token v8` inalterados).
+- **Próxima Fase:** 2C Provider Router (BLOQUEADA aguardando auditoria do ChatGPT).
