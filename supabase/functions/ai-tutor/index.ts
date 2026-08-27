@@ -250,7 +250,8 @@ function extractSearchTerms(prompt: string): string {
     "explique", "explica", "fale", "falar", "sobre", "quais", "qual", "quem", "como", "onde", "quando",
     "por", "que", "porque", "para", "com", "sem", "uma", "um", "umas", "uns", "dos", "das", "do", "da",
     "de", "em", "no", "na", "nos", "nas", "ao", "aos", "a", "o", "os", "as", "e", "ou", "se", "me", "diga",
-    "mostre", "descreva", "detalhe", "apresente", "resuma", "sintetize", "ola", "oi", "bom", "dia", "boa", "tarde", "noite"
+    "mostre", "descreva", "detalhe", "apresente", "resuma", "sintetize", "ola", "oi", "bom", "dia", "boa", "tarde", "noite",
+    "principais", "ramos", "ramo", "funcoes", "funcao", "origem", "insercao", "trajeto"
   ]);
   const tokens = prompt
     .toLowerCase()
@@ -334,7 +335,7 @@ async function retrieveKnowledge(
       }
     }
 
-    // 2. Busca lexical FTS nativa no PostgreSQL (PostgreSQL Full Text Search) com termos limpos
+    // 2. Busca lexical FTS nativa no PostgreSQL (PostgreSQL Full Text Search) com termos lematizados
     const searchTerms = extractSearchTerms(prompt);
     const { data: ftsData, error: ftsError } = await adminClient.rpc("match_vita_anatomical_knowledge", {
       search_query: searchTerms,
@@ -344,7 +345,7 @@ async function retrieveKnowledge(
       return { sources: ftsData as KnowledgeRow[], method: "postgresql-fts" };
     }
 
-    // 3. Fallback para busca lexical com prompt original se a limpeza foi muito restritiva
+    // 3. Fallback para busca lexical com prompt original se a lematização removeu termos
     if (searchTerms !== prompt) {
       const { data: rawFts, error: rawError } = await adminClient.rpc("match_vita_anatomical_knowledge", {
         search_query: prompt,
@@ -432,6 +433,71 @@ function extractGeneratedText(data: any): string {
   return typeof lastPart?.text === "string" ? lastPart.text.trim() : "";
 }
 
+// True Dedicated models.get Probe (GET /v1beta/models/{model})
+async function probeGeminiModelsGet(apiKey: string, model: string): Promise<{
+  stage: string;
+  model: string;
+  status: number;
+  latencyMs: number;
+  providerStatus: string;
+  canonicalReason: string;
+  modelName?: string;
+  success: boolean;
+}> {
+  const start = performance.now();
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}`;
+  try {
+    const res = await fetch(endpoint, {
+      method: "GET",
+      headers: {
+        "x-goog-api-key": apiKey
+      },
+      signal: AbortSignal.timeout(GEMINI_MODELS_GET_TIMEOUT_MS)
+    });
+
+    const latencyMs = Math.round(performance.now() - start);
+    if (res.ok) {
+      const data = await res.json().catch(() => ({})) as Record<string, unknown>;
+      return {
+        stage: "models_get_connectivity_probe",
+        model,
+        status: res.status,
+        latencyMs,
+        providerStatus: "OK",
+        canonicalReason: "NONE",
+        modelName: String(data?.name || model),
+        success: true
+      };
+    }
+
+    const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
+    const errObj = errJson?.error as Record<string, unknown> | undefined;
+    const providerStatus = String(errObj?.status || `HTTP_${res.status}`);
+    const canonicalReason = mapCanonicalProviderReason(res.status, errObj);
+    return {
+      stage: "models_get_connectivity_probe",
+      model,
+      status: res.status,
+      latencyMs,
+      providerStatus,
+      canonicalReason,
+      success: false
+    };
+  } catch (err: unknown) {
+    const latencyMs = Math.round(performance.now() - start);
+    const { networkCause } = classifyNetworkError(err);
+    return {
+      stage: "models_get_connectivity_probe",
+      model,
+      status: networkCause === "TIMEOUT" ? 504 : 0,
+      latencyMs,
+      providerStatus: networkCause,
+      canonicalReason: networkCause,
+      success: false
+    };
+  }
+}
+
 // Single Model Minimal Generation Probe
 async function probeSingleModelGeneration(apiKey: string, model: string): Promise<{
   model: string;
@@ -472,14 +538,15 @@ async function probeSingleModelGeneration(apiKey: string, model: string): Promis
     if (res.ok) {
       const data = await res.json().catch(() => ({})) as Record<string, unknown>;
       const text = extractGeneratedText(data);
+      const hasText = Boolean(text && text.trim().length > 0);
       return {
         model,
         status: res.status,
         latencyMs,
         providerStatus: "OK",
         canonicalReason: "NONE",
-        hasText: Boolean(text && text.trim().length > 0),
-        success: true
+        hasText,
+        success: hasText
       };
     }
 
@@ -675,20 +742,25 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: "Corpo JSON inválido." }, 400, cors);
   }
 
-  // Probe 1: models.get
+  // Probe 1: True Dedicated models.get (GET /v1beta/models/{model})
   if (payload.probe === "connectivity" || payload.probe === "models_get") {
-    const res37 = await probeSingleModelGeneration(geminiKey, PRIMARY_MODEL);
+    if (!geminiKey) {
+      return jsonResponse({
+        stage: "models_get_connectivity_probe",
+        status: 503,
+        latencyMs: 0,
+        providerStatus: "MISSING_KEY",
+        canonicalReason: "API_KEY_INVALID",
+        credential_present: false,
+        credential_source: credentialSource
+      }, 503, cors);
+    }
+    const res = await probeGeminiModelsGet(geminiKey, PRIMARY_MODEL);
     return jsonResponse({
-      stage: "models_get_connectivity_probe",
-      model: PRIMARY_MODEL,
-      status: res37.status,
-      latencyMs: res37.latencyMs,
-      providerStatus: res37.providerStatus,
-      canonicalReason: res37.canonicalReason,
-      success: res37.success,
+      ...res,
       credential_present: credentialPresent,
       credential_source: credentialSource
-    }, res37.success ? 200 : (res37.status || 500), cors);
+    }, res.success ? 200 : (res.status || 500), cors);
   }
 
   // Probe 2: minimal generation (Gemini 3.7 + Fallback 2.5) com persistência em ai_audit_events
@@ -855,8 +927,22 @@ Deno.serve(async (req) => {
   if (orderedHistory.at(-1)?.role === "user") orderedHistory.pop();
   const normalizedHistory = normalizedGeminiHistory(orderedHistory);
 
-  // Execução do RAG (Recuperação de Conhecimento Anatômico)
-  const { sources, method: ragMethod } = await retrieveKnowledge(adminClient, geminiKey, prompt);
+  // Contextualização Bounded para Busca no RAG e Fallback Local
+  // Concatena no máximo a mensagem de usuário anterior mais recente + prompt atual
+  const previousUserMessage = orderedHistory
+    .filter((m) => m.role === "user")
+    .at(-1);
+  
+  let contextualRetrievalInput = prompt;
+  let retrievalContextualized = false;
+  if (previousUserMessage && cleanText(previousUserMessage.content, MAX_PROMPT_CHARACTERS)) {
+    const prevClean = cleanText(previousUserMessage.content, 1_000);
+    contextualRetrievalInput = cleanText(`${prevClean}\n${prompt}`, MAX_PROMPT_CHARACTERS);
+    retrievalContextualized = true;
+  }
+
+  // Execução do RAG (Recuperação de Conhecimento Anatômico Contextualizado)
+  const { sources, method: ragMethod } = await retrieveKnowledge(adminClient, geminiKey, contextualRetrievalInput);
 
   let actualProvider = "google-gemini";
   let actualModel = PRIMARY_MODEL;
@@ -866,7 +952,7 @@ Deno.serve(async (req) => {
   let latencyMs = 0;
   const attempts: AttemptRecord[] = [];
 
-  // 1. Execução de Geração com Política Estrita de Fallback
+  // 1. Execução de Geração com Política Estrita de Fallback (Prompt normal enviado ao Gemini)
   if (geminiKey) {
     // Tentativa 1: Modelo Primário (gemini-3.7-flash)
     const primaryAttempt = await executeModelCall(
@@ -925,14 +1011,14 @@ Deno.serve(async (req) => {
     }
   }
 
-  // 2. Fallback resiliente determinístico (Provider Fallback) se Cloud falhar
+  // 2. Fallback resiliente determinístico (Provider Fallback Contextualizado) se Cloud falhar
   if (!responseText) {
     actualProvider = "local-fallback";
     actualModel = "vita-rag-dictionary";
     modelFallbackUsed = false;
     providerFallbackUsed = true;
     const startFallback = performance.now();
-    const localMatch = matchLocalFallback(prompt, sources);
+    const localMatch = matchLocalFallback(contextualRetrievalInput, sources);
     if (localMatch) {
       responseText = localMatch;
     } else if (sources.length > 0) {
@@ -960,6 +1046,7 @@ Deno.serve(async (req) => {
         provider_fallback_used: providerFallbackUsed,
         fallbackUsed: providerFallbackUsed,
         retrievalMethod: ragMethod,
+        retrieval_contextualized: retrievalContextualized,
         embeddingModel: GEMINI_EMBEDDING_MODEL,
         retrievedSources: sources.map((source) => ({
           bookTitle: source.book_title,
@@ -995,6 +1082,7 @@ Deno.serve(async (req) => {
         attempts,
         retrievedSourceCount: sources.length,
         retrievalMethod: ragMethod,
+        retrieval_contextualized: retrievalContextualized,
         embedding_model: GEMINI_EMBEDDING_MODEL,
         credential_present: credentialPresent,
         credential_source: credentialSource
@@ -1019,7 +1107,8 @@ Deno.serve(async (req) => {
           fallbackUsed: providerFallbackUsed,
           latencyMs,
           retrievalCount: sources.length,
-          retrievalMethod: ragMethod
+          retrievalMethod: ragMethod,
+          retrievalContextualized
         })}\n\n`)
       );
       for (let offset = 0; offset < persistedText.slice(0, 4000).length; offset += 200) {
