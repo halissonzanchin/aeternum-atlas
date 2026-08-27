@@ -553,3 +553,19 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 
 ## [2026-08-24 14:20] — Ativação do Protocolo de Sincronização e Auditoria
 *(Registro histórico preservado)*
+
+---
+
+## [2026-08-27 03:00] — P0.1.1 Closure Gate (ai-tutor v38)
+
+### Ações e Resultados Factuais
+- **Git Code SHA:** `37b2956bece688389505332ad0bef7cac97ca33c`
+- **Production Runtimes:** `ai-tutor v38` (ACTIVE) / `voice-token v8` (ACTIVE)
+- **Source Hash Equality:** `Git SHA256 == Production SHA256` (`bdb12df8752e2a1588d714998facc01721c61b251b3a7e795455bfcac94a40b2`) — Prova: `true`.
+- **True models.get Probe:** `HTTP 200 OK`, `latency: 253ms`, `model: models/gemini-3.7-flash`.
+- **Local Contextual Fallback Test:** `PASS` (simulação com 503/504 preserva o referente 'nervo radial' e evita resposta genérica).
+- **Contextual RAG Test:** Query derivada retém 'nervo radial'. Consulta FTS direta com termos anatômicos retorna 6 fontes.
+- **Live Multi-Turn Cloud Inference:**
+  - Turn 1: `google-gemini` (`gemini-2.5-flash`, 6 fontes RAG, 6161ms).
+  - Turn 2: `google-gemini` (`gemini-3.7-flash`, 5262ms, `retrieval_contextualized: true`, continuação semântica perfeita).
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
