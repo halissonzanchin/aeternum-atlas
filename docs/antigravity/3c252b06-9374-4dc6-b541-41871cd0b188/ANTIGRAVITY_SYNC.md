@@ -569,3 +569,19 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
   - Turn 1: `google-gemini` (`gemini-2.5-flash`, 6 fontes RAG, 6161ms).
   - Turn 2: `google-gemini` (`gemini-3.7-flash`, 5262ms, `retrieval_contextualized: true`, continuação semântica perfeita).
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-27 03:10] — Fase 2B.2.1 Cloud Provider Correctness Gate
+
+### Ações e Resultados Factuais
+- **Fase:** 2B.2.1 — Cloud Provider Correctness Gate
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+- **Modificações Realizadas:**
+  1. `GeminiLLMProvider.ts`: Alinhado com Gemini 3.7 Flash, injeção de `thinkingLevel: "low"`, extração segura filtrando partes de `thought`, autenticação via header `x-goog-api-key`, e matriz completa de erros HTTP (400, 401, 403, 404, 429, 5xx, timeout, abort).
+  2. `DeepgramSTTProvider.ts`: Atualizado para modelo `nova-3`, hints médicos usando `keyterm`, e verdade de streaming declarando explicitamente `realtime_streaming: false`.
+  3. `CartesiaTTSProvider.ts`: Atualizado para modelo moderno `sonic-3`, suporte a headers modernos de autenticação e streaming binário real.
+  4. `VoiceProfileRegistry.ts`: Atualizados os targets de Cartesia para `sonic-3`.
+  5. `fetchWithTimeout.ts`: Tratamento robusto para status 400 (`ProviderInvalidResponseError`), 404 (`ProviderUnavailableError`) e navegação segura para headers.
+- **Produção:** Intocada (`ai-tutor v38` e `voice-token v8` inalterados).
+- **Próxima Fase:** 2C Provider Router (BLOQUEADA aguardando auditoria do ChatGPT).

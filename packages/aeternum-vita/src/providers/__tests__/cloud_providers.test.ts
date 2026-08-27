@@ -12,7 +12,7 @@ import {
   ProviderTimeoutError
 } from "../index.ts";
 
-describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => {
+describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1)", () => {
   const originalFetch = global.fetch;
 
   beforeEach(() => {
@@ -34,7 +34,7 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
 
       const cartesiaTarget = registry.resolveTarget("pt-br-warm-male-01", "cartesia");
       expect(cartesiaTarget.providerId).toBe("cartesia");
-      expect(cartesiaTarget.modelId).toBe("sonic-multilingual");
+      expect(cartesiaTarget.modelId).toBe("sonic-3");
       expect(cartesiaTarget.nativeVoiceId).toBe("a0e99841-438c-4a64-b679-ae501e7d6091");
     });
 
@@ -47,6 +47,11 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
   });
 
   describe("2. GeminiLLMProvider (Google Cloud)", () => {
+    it("config: explicit empty API key must remain empty string and not fallback", () => {
+      const gemini = new GeminiLLMProvider({ apiKey: "" });
+      expect((gemini as any).apiKey).toBe("");
+    });
+
     it("health: DEGRADED quando API key não configurada", async () => {
       const gemini = new GeminiLLMProvider({ apiKey: "" });
       const health = await gemini.health();
@@ -57,15 +62,23 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
     it("health: HEALTHY quando modelo disponível (sem consumo de tokens)", async () => {
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
-        json: async () => ({ name: "models/gemini-2.0-flash" })
+        json: async () => ({ name: "models/gemini-3.7-flash" })
       } as unknown as Response);
 
-      const gemini = new GeminiLLMProvider({ apiKey: "test-key", modelId: "gemini-2.0-flash" });
+      const gemini = new GeminiLLMProvider({ apiKey: "test-key", modelId: "gemini-3.7-flash" });
       const health = await gemini.health();
       expect(health.status).toBe("HEALTHY");
     });
 
-    it("generate: sucesso com mapeamento completo de texto e tokens de uso", async () => {
+    it("health: DEGRADED quando chave for inválida ou não autorizada (401/403)", async () => {
+      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 403 } as unknown as Response);
+      const gemini = new GeminiLLMProvider({ apiKey: "bad-key" });
+      const health = await gemini.health();
+      expect(health.status).toBe("DEGRADED");
+      expect(health.details?.error).toContain("Invalid or unauthorized API key");
+    });
+
+    it("generate: sucesso com Gemini 3.7 Flash injetando thinkingLevel=low e ignorando partes de thought", async () => {
       let capturedUrl = "";
       let capturedHeaders: any = {};
       let capturedPayload: any = {};
@@ -80,7 +93,10 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
             candidates: [
               {
                 content: {
-                  parts: [{ text: "O fêmur é o osso mais longo do corpo humano." }],
+                  parts: [
+                    { thought: true, text: "Pensando na estrutura anatômica..." },
+                    { text: "O fêmur é o osso mais longo do corpo humano." }
+                  ],
                   role: "model"
                 },
                 finishReason: "STOP"
@@ -95,7 +111,7 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
         };
       });
 
-      const gemini = new GeminiLLMProvider({ apiKey: "test-gemini-key", modelId: "gemini-2.0-flash" });
+      const gemini = new GeminiLLMProvider({ apiKey: "test-gemini-key", modelId: "gemini-3.7-flash" });
       const res = await gemini.generate({
         messages: [
           { role: "system", content: "Você é o Atlas AI Tutor." },
@@ -103,14 +119,15 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
         ]
       });
 
-      expect(capturedUrl).toContain("/v1beta/models/gemini-2.0-flash:generateContent");
+      expect(capturedUrl).toContain("/v1beta/models/gemini-3.7-flash:generateContent");
       expect(capturedHeaders["x-goog-api-key"]).toBe("test-gemini-key");
+      expect(capturedPayload.generationConfig.thinkingConfig.thinkingLevel).toBe("low");
       expect(capturedPayload.systemInstruction.parts[0].text).toBe("Você é o Atlas AI Tutor.");
       expect(capturedPayload.contents[0].parts[0].text).toBe("Fale sobre o fêmur.");
 
       expect(res.text).toBe("O fêmur é o osso mais longo do corpo humano.");
       expect(res.providerId).toBe("gemini-llm-cloud");
-      expect(res.modelId).toBe("gemini-2.0-flash");
+      expect(res.modelId).toBe("gemini-3.7-flash");
       expect(res.finishReason).toBe("STOP");
       expect(res.usage?.totalTokens).toBe(20);
     });
@@ -122,11 +139,32 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
       );
     });
 
-    it("generate: HTTP 401 mapeia para ProviderAuthenticationError", async () => {
+    it("generate: HTTP 400 mapeia para ProviderInvalidResponseError", async () => {
+      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 400 } as unknown as Response);
+      const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
+      await expect(gemini.generate({ messages: [{ role: "user", content: "Olá" }] })).rejects.toThrow(
+        ProviderInvalidResponseError
+      );
+    });
+
+    it("generate: HTTP 401/403 mapeia para ProviderAuthenticationError", async () => {
       global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 401 } as unknown as Response);
       const gemini = new GeminiLLMProvider({ apiKey: "invalid-key" });
       await expect(gemini.generate({ messages: [{ role: "user", content: "Olá" }] })).rejects.toThrow(
         ProviderAuthenticationError
+      );
+
+      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 403 } as unknown as Response);
+      await expect(gemini.generate({ messages: [{ role: "user", content: "Olá" }] })).rejects.toThrow(
+        ProviderAuthenticationError
+      );
+    });
+
+    it("generate: HTTP 404 mapeia para ProviderUnavailableError (modelo não encontrado)", async () => {
+      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 404 } as unknown as Response);
+      const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
+      await expect(gemini.generate({ messages: [{ role: "user", content: "Olá" }] })).rejects.toThrow(
+        ProviderUnavailableError
       );
     });
 
@@ -143,17 +181,87 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
       );
     });
 
-    it("generate: HTTP 503 mapeia para ProviderUnavailableError", async () => {
-      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 503 } as unknown as Response);
+    it("generate: HTTP 500, 502, 503, 504 mapeiam para ProviderUnavailableError", async () => {
+      const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
+      for (const status of [500, 502, 503, 504]) {
+        global.fetch = vi.fn().mockResolvedValue({ ok: false, status } as unknown as Response);
+        await expect(gemini.generate({ messages: [{ role: "user", content: "Olá" }] })).rejects.toThrow(
+          ProviderUnavailableError
+        );
+      }
+    });
+
+    it("generate: falha de rede/DNS/TLS mapeia para ProviderUnavailableError", async () => {
+      global.fetch = vi.fn().mockRejectedValue(new TypeError("fetch failed: ENOTFOUND generativelanguage.googleapis.com"));
       const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
       await expect(gemini.generate({ messages: [{ role: "user", content: "Olá" }] })).rejects.toThrow(
         ProviderUnavailableError
       );
     });
 
-    it("stream: consome eventos SSE progressivos do Gemini", async () => {
+    it("generate: timeout mapeia para ProviderTimeoutError", async () => {
+      global.fetch = vi.fn().mockImplementation((_url, init) => {
+        return new Promise((_, reject) => {
+          init.signal?.addEventListener("abort", () => {
+            const err = new Error("Abort");
+            err.name = "AbortError";
+            reject(err);
+          });
+        });
+      });
+
+      const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
+      await expect(
+        gemini.generate({ messages: [{ role: "user", content: "Olá" }] }, { timeoutMs: 10, requestId: "timeout-test" })
+      ).rejects.toThrow(ProviderTimeoutError);
+    });
+
+    it("generate: cancelamento do usuário lança ProviderCancelledError (nunca fallback)", async () => {
+      const controller = new AbortController();
+      global.fetch = vi.fn().mockImplementation((_url, init) => {
+        return new Promise((_, reject) => {
+          init.signal?.addEventListener("abort", () => {
+            const err = new Error("Abort");
+            err.name = "AbortError";
+            reject(err);
+          });
+        });
+      });
+
+      const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
+      const promise = gemini.generate(
+        { messages: [{ role: "user", content: "Olá" }] },
+        { signal: controller.signal, requestId: "user-cancel" }
+      );
+
+      setTimeout(() => controller.abort(), 5);
+      await expect(promise).rejects.toThrow(ProviderCancelledError);
+    });
+
+    it("generate: resposta sem candidates ou com texto vazio lança ProviderInvalidResponseError", async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ candidates: [] })
+      } as unknown as Response);
+
+      const gemini = new GeminiLLMProvider({ apiKey: "test-key" });
+      await expect(gemini.generate({ messages: [{ role: "user", content: "Olá" }] })).rejects.toThrow(
+        ProviderInvalidResponseError
+      );
+
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ candidates: [{ content: { parts: [{ text: "" }] } }] })
+      } as unknown as Response);
+
+      await expect(gemini.generate({ messages: [{ role: "user", content: "Olá" }] })).rejects.toThrow(
+        ProviderInvalidResponseError
+      );
+    });
+
+    it("stream: consome eventos SSE progressivos do Gemini filtrando thoughts", async () => {
       const sseLines = [
-        'data: ' + JSON.stringify({ candidates: [{ content: { parts: [{ text: "Articulação " }] } }] }) + '\n\n',
+        'data: ' + JSON.stringify({ candidates: [{ content: { parts: [{ thought: true, text: "Pensando..." }, { text: "Articulação " }] } }] }) + '\n\n',
         'data: ' + JSON.stringify({ candidates: [{ content: { parts: [{ text: "sinovial." }] }, finishReason: "STOP" }] }) + '\n\n',
         'data: [DONE]\n\n'
       ];
@@ -213,6 +321,13 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
   });
 
   describe("3. DeepgramSTTProvider (Cloud STT)", () => {
+    it("capabilities: declara explicitamente realtime_streaming=false (verdade de streaming)", () => {
+      const deepgram = new DeepgramSTTProvider({ apiKey: "dg-test" });
+      expect(deepgram.capabilities.batch_transcription).toBe(true);
+      expect(deepgram.capabilities.realtime_streaming).toBe(false);
+      expect(deepgram.capabilities.medical_keyterms).toBe(true);
+    });
+
     it("health: DEGRADED quando API key não configurada", async () => {
       const deepgram = new DeepgramSTTProvider({ apiKey: "" });
       const health = await deepgram.health();
@@ -230,7 +345,7 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
       expect(health.status).toBe("HEALTHY");
     });
 
-    it("transcribe: mapeamento completo com timestamps de palavras e hints médicos", async () => {
+    it("transcribe: mapeamento completo com keyterm para Nova-3 e timestamps de palavras", async () => {
       let capturedUrl = "";
       let capturedHeaders: any = {};
 
@@ -274,8 +389,8 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
 
       expect(capturedUrl).toContain("model=nova-3");
       expect(capturedUrl).toContain("language=pt");
-      expect(capturedUrl).toContain("keywords=di%C3%A1fise");
-      expect(capturedUrl).toContain("keywords=f%C3%AAmur");
+      expect(capturedUrl).toContain("keyterm=di%C3%A1fise");
+      expect(capturedUrl).toContain("keyterm=f%C3%AAmur");
       expect(capturedHeaders["Authorization"]).toBe("Token dg-test-key");
 
       expect(res.text).toBe("Fratura na diáfise do fêmur.");
@@ -308,7 +423,26 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
       ).rejects.toThrow(ProviderInvalidResponseError);
     });
 
-    it("streamTranscription: coleta áudio e emite transcrição final", async () => {
+    it("transcribe: erros HTTP 401, 429, 500 mapeiam corretamente", async () => {
+      const deepgram = new DeepgramSTTProvider({ apiKey: "dg-test-key" });
+
+      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 401 } as unknown as Response);
+      await expect(
+        deepgram.transcribe({ audioBuffer: new Uint8Array([1]), language: "pt", audioFormat: "wav" })
+      ).rejects.toThrow(ProviderAuthenticationError);
+
+      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 429 } as unknown as Response);
+      await expect(
+        deepgram.transcribe({ audioBuffer: new Uint8Array([1]), language: "pt", audioFormat: "wav" })
+      ).rejects.toThrow(ProviderRateLimitError);
+
+      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 500 } as unknown as Response);
+      await expect(
+        deepgram.transcribe({ audioBuffer: new Uint8Array([1]), language: "pt", audioFormat: "wav" })
+      ).rejects.toThrow(ProviderUnavailableError);
+    });
+
+    it("streamTranscription: agrega chunks de áudio e emite transcrição final em batch", async () => {
       global.fetch = vi.fn().mockResolvedValue({
         ok: true,
         json: async () => ({
@@ -384,6 +518,7 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
 
       expect(capturedUrl).toContain("/tts/bytes");
       expect(capturedHeaders["X-API-Key"]).toBe("cartesia-key");
+      expect(capturedHeaders["Authorization"]).toBe("Bearer cartesia-key");
       expect(capturedHeaders["Cartesia-Version"]).toBe("2024-06-10");
       expect(capturedPayload.voice.id).toBe("a0e99841-438c-4a64-b679-ae501e7d6091");
       expect(capturedPayload.output_format.container).toBe("wav");
@@ -405,6 +540,25 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2)", () => 
           audioFormat: "ogg" as any
         })
       ).rejects.toThrow(ProviderInvalidResponseError);
+    });
+
+    it("synthesize: HTTP 401, 429, 500 mapeiam para erros canônicos", async () => {
+      const cartesia = new CartesiaTTSProvider({ apiKey: "cartesia-key" });
+
+      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 401 } as unknown as Response);
+      await expect(
+        cartesia.synthesize({ text: "Teste", voiceProfileId: "pt-br-warm-male-01", language: "pt-BR" })
+      ).rejects.toThrow(ProviderAuthenticationError);
+
+      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 429 } as unknown as Response);
+      await expect(
+        cartesia.synthesize({ text: "Teste", voiceProfileId: "pt-br-warm-male-01", language: "pt-BR" })
+      ).rejects.toThrow(ProviderRateLimitError);
+
+      global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 500 } as unknown as Response);
+      await expect(
+        cartesia.synthesize({ text: "Teste", voiceProfileId: "pt-br-warm-male-01", language: "pt-BR" })
+      ).rejects.toThrow(ProviderUnavailableError);
     });
 
     it("streamSynthesis: streaming progressivo de bytes de áudio", async () => {

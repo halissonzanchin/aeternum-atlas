@@ -60,7 +60,7 @@ export class VoiceProfileRegistry {
           },
           cartesia: {
             providerId: "cartesia",
-            modelId: "sonic-multilingual",
+            modelId: "sonic-3",
             nativeVoiceId: "a0e99841-438c-4a64-b679-ae501e7d6091", // Cartesia Portuguese Male
             sampleRate: 24000,
             format: "pcm"
@@ -89,7 +89,7 @@ export class VoiceProfileRegistry {
           },
           cartesia: {
             providerId: "cartesia",
-            modelId: "sonic-multilingual",
+            modelId: "sonic-3",
             nativeVoiceId: "79a125e8-cd45-4c13-8a67-188112f4dd22", // Cartesia Portuguese Female
             sampleRate: 24000,
             format: "pcm"
@@ -118,7 +118,7 @@ export class VoiceProfileRegistry {
           },
           cartesia: {
             providerId: "cartesia",
-            modelId: "sonic-multilingual",
+            modelId: "sonic-3",
             nativeVoiceId: "846d035a-e727-4638-953e-0044fa66c3db",
             sampleRate: 24000,
             format: "pcm"
@@ -147,7 +147,7 @@ export class VoiceProfileRegistry {
           },
           cartesia: {
             providerId: "cartesia",
-            modelId: "sonic-multilingual",
+            modelId: "sonic-3",
             nativeVoiceId: "156fb8d2-335b-4950-9cb3-a2d33befec77",
             sampleRate: 24000,
             format: "pcm"
@@ -234,7 +234,7 @@ export class VoiceProfileRegistry {
           },
           cartesia: {
             providerId: "cartesia",
-            modelId: "sonic-multilingual",
+            modelId: "sonic-3",
             nativeVoiceId: "b7d50908-b17c-442d-ad8d-810c63997ed9",
             sampleRate: 24000,
             format: "pcm"

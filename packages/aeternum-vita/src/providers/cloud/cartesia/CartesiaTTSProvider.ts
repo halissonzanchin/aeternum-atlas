@@ -33,11 +33,11 @@ export class CartesiaTTSProvider implements TTSProvider {
   private readonly registry: VoiceProfileRegistry;
 
   constructor(config: CartesiaTTSConfig = {}) {
-    this.apiKey = config.apiKey || (typeof process !== "undefined" ? process.env?.CARTESIA_API_KEY : undefined);
-    this.modelId = config.modelId || (typeof process !== "undefined" ? process.env?.CARTESIA_MODEL : undefined) || "sonic-multilingual";
-    this.baseUrl = config.baseUrl || "https://api.cartesia.ai";
-    this.apiVersion = config.apiVersion || "2024-06-10";
-    this.registry = config.registry || new VoiceProfileRegistry(true);
+    this.apiKey = config.apiKey !== undefined ? config.apiKey : (typeof process !== "undefined" ? process.env?.CARTESIA_API_KEY : undefined);
+    this.modelId = config.modelId !== undefined ? config.modelId : ((typeof process !== "undefined" ? process.env?.CARTESIA_MODEL : undefined) || "sonic-3");
+    this.baseUrl = config.baseUrl !== undefined ? config.baseUrl : "https://api.cartesia.ai";
+    this.apiVersion = config.apiVersion !== undefined ? config.apiVersion : "2024-06-10";
+    this.registry = config.registry !== undefined ? config.registry : new VoiceProfileRegistry(true);
 
     this.metadata = {
       id: "cartesia-tts-cloud",
@@ -180,6 +180,7 @@ export class CartesiaTTSProvider implements TTSProvider {
         headers: {
           "Content-Type": "application/json",
           "X-API-Key": this.apiKey,
+          "Authorization": `Bearer ${this.apiKey}`,
           "Cartesia-Version": this.apiVersion
         },
         body: JSON.stringify(payload)
@@ -217,6 +218,7 @@ export class CartesiaTTSProvider implements TTSProvider {
         headers: {
           "Content-Type": "application/json",
           "X-API-Key": this.apiKey,
+          "Authorization": `Bearer ${this.apiKey}`,
           "Cartesia-Version": this.apiVersion
         },
         body: JSON.stringify(payload)

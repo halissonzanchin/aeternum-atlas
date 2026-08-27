@@ -28,9 +28,10 @@ export class DeepgramSTTProvider implements STTProvider {
   public readonly metadata: ProviderMetadata;
   public readonly capabilities = {
     batch_transcription: true,
-    streamed_transcription_output: true,
+    realtime_streaming: false,
+    streamed_transcription_output: false,
     smart_format: true,
-    medical_keywords: true
+    medical_keyterms: true
   };
 
   private readonly apiKey?: string;
@@ -39,10 +40,10 @@ export class DeepgramSTTProvider implements STTProvider {
   private readonly apiVersion: string;
 
   constructor(config: DeepgramSTTConfig = {}) {
-    this.apiKey = config.apiKey || (typeof process !== "undefined" ? process.env?.DEEPGRAM_API_KEY : undefined);
-    this.modelId = config.modelId || (typeof process !== "undefined" ? process.env?.DEEPGRAM_MODEL : undefined) || "nova-3";
-    this.baseUrl = config.baseUrl || "https://api.deepgram.com";
-    this.apiVersion = config.apiVersion || "v1";
+    this.apiKey = config.apiKey !== undefined ? config.apiKey : (typeof process !== "undefined" ? process.env?.DEEPGRAM_API_KEY : undefined);
+    this.modelId = config.modelId !== undefined ? config.modelId : ((typeof process !== "undefined" ? process.env?.DEEPGRAM_MODEL : undefined) || "nova-3");
+    this.baseUrl = config.baseUrl !== undefined ? config.baseUrl : "https://api.deepgram.com";
+    this.apiVersion = config.apiVersion !== undefined ? config.apiVersion : "v1";
 
     this.metadata = {
       id: "deepgram-stt-cloud",
@@ -50,7 +51,7 @@ export class DeepgramSTTProvider implements STTProvider {
       type: "STT",
       location: "CLOUD",
       version: "1.0.0",
-      description: "Cloud STT adapter for Deepgram Nova-3 API with medical context hints and zero audio-cost health checks"
+      description: "Cloud STT adapter for Deepgram Nova-3 API with medical keyterm hints and zero audio-cost health checks"
     };
   }
 
@@ -179,8 +180,9 @@ export class DeepgramSTTProvider implements STTProvider {
       params.set("language", request.language.split("-")[0]);
     }
     if (request.medicalContextHints && request.medicalContextHints.length > 0) {
+      const paramName = this.modelId.includes("nova-3") || this.modelId.includes("nova-2") ? "keyterm" : "keywords";
       for (const hint of request.medicalContextHints) {
-        if (hint.trim()) params.append("keywords", hint.trim());
+        if (hint.trim()) params.append(paramName, hint.trim());
       }
     }
     return `${this.baseUrl}/${this.apiVersion}/listen?${params.toString()}`;
@@ -245,6 +247,7 @@ export class DeepgramSTTProvider implements STTProvider {
     options: Omit<STTRequest, "audioBuffer">,
     context?: ProviderExecutionContext
   ): AsyncIterable<STTStreamChunk> {
+    // Adapter REST opera em agregação de chunks de áudio; streaming realtime é declarado false nas capacidades
     const coordinator = createExecutionCoordinator(this.metadata.id, context);
     const chunks: Uint8Array[] = [];
     const iterator = audioStream[Symbol.asyncIterator]();

@@ -180,11 +180,17 @@ export async function executeProviderFetchSession(
 
     if (!res.ok) {
       coordinator.cleanup();
+      if (res.status === 400) {
+        throw new ProviderInvalidResponseError(`Requisição inválida enviada ao provider [HTTP 400]`, providerId);
+      }
       if (res.status === 401 || res.status === 403) {
         throw new ProviderAuthenticationError(`Falha de autenticação no provider [HTTP ${res.status}]`, providerId);
       }
+      if (res.status === 404) {
+        throw new ProviderUnavailableError(`Modelo ou recurso não encontrado no provider [HTTP 404]`, providerId);
+      }
       if (res.status === 429) {
-        const retryAfter = Number(res.headers.get("retry-after")) || undefined;
+        const retryAfter = Number(res.headers?.get?.("retry-after")) || undefined;
         throw new ProviderRateLimitError(`Cota excedida no provider [HTTP 429]`, providerId, retryAfter);
       }
       if (res.status >= 500) {
