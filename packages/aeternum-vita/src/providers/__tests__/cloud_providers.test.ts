@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import { ALLOWED_LOCAL_CLOUD_SECRETS, parseAndApplyLocalCloudEnv } from "../cloud/localSecretLoader.ts";
 import {
   GeminiLLMProvider,
   DeepgramSTTProvider,
@@ -700,4 +701,61 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Schema 
       expect(collected.length).toBe(2);
     });
   });
+
+  describe("5. Local Secret Loader Security Hardening (Fase 2B.2.1 Micro-Gate)", () => {
+    it("1/2/3: GEMINI_API_KEY, DEEPGRAM_API_KEY, CARTESIA_API_KEY são carregadas da allowlist", () => {
+      const mockEnv: Record<string, string | undefined> = {};
+      const fileContent = `
+        GEMINI_API_KEY=mock-gemini-secret
+        DEEPGRAM_API_KEY=mock-deepgram-secret
+        CARTESIA_API_KEY=mock-cartesia-secret
+      `;
+      parseAndApplyLocalCloudEnv(fileContent, mockEnv);
+
+      expect(mockEnv.GEMINI_API_KEY).toBe("mock-gemini-secret");
+      expect(mockEnv.DEEPGRAM_API_KEY).toBe("mock-deepgram-secret");
+      expect(mockEnv.CARTESIA_API_KEY).toBe("mock-cartesia-secret");
+    });
+
+    it("4: Precedência do processo: valor pré-existente no ambiente nunca é sobrescrito", () => {
+      const mockEnv: Record<string, string | undefined> = {
+        GEMINI_API_KEY: "existing-session-key"
+      };
+      const fileContent = "GEMINI_API_KEY=file-override-key";
+      parseAndApplyLocalCloudEnv(fileContent, mockEnv);
+
+      expect(mockEnv.GEMINI_API_KEY).toBe("existing-session-key");
+    });
+
+    it("5: Bloqueio estrito de variáveis arbitrárias não autorizadas", () => {
+      const mockEnv: Record<string, string | undefined> = {};
+      const fileContent = `
+        DATABASE_PASSWORD=super-secret
+        ARBITRARY_VAR=should-be-ignored
+        SOME_OTHER_KEY=12345
+      `;
+      parseAndApplyLocalCloudEnv(fileContent, mockEnv);
+
+      expect(mockEnv.DATABASE_PASSWORD).toBeUndefined();
+      expect(mockEnv.ARBITRARY_VAR).toBeUndefined();
+      expect(mockEnv.SOME_OTHER_KEY).toBeUndefined();
+    });
+
+    it("6: Bloqueio mandatório: RUN_CLOUD_PROVIDER_INTEGRATION NUNCA é carregado de arquivo local", () => {
+      const mockEnv: Record<string, string | undefined> = {};
+      const fileContent = "RUN_CLOUD_PROVIDER_INTEGRATION=true";
+      parseAndApplyLocalCloudEnv(fileContent, mockEnv);
+
+      expect(mockEnv.RUN_CLOUD_PROVIDER_INTEGRATION).toBeUndefined();
+    });
+
+    it("7: Allowlist canônica contém estritamente apenas as 3 credenciais de nuvem homologadas", () => {
+      expect(ALLOWED_LOCAL_CLOUD_SECRETS.size).toBe(3);
+      expect(ALLOWED_LOCAL_CLOUD_SECRETS.has("GEMINI_API_KEY")).toBe(true);
+      expect(ALLOWED_LOCAL_CLOUD_SECRETS.has("DEEPGRAM_API_KEY")).toBe(true);
+      expect(ALLOWED_LOCAL_CLOUD_SECRETS.has("CARTESIA_API_KEY")).toBe(true);
+      expect(ALLOWED_LOCAL_CLOUD_SECRETS.has("RUN_CLOUD_PROVIDER_INTEGRATION")).toBe(false);
+    });
+  });
+
 });

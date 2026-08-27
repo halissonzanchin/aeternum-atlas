@@ -279,3 +279,27 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Windows P
 
 ### Resultado
 PASS (Mecanismo seguro de provisionamento validado e protegido por Git | Zero segredos em disco | Zero regressões)
+
+---
+
+## Teste 020 — Hardening de Segurança do Loader com Allowlist Estrita (Fase 2B.2.1 Secure Local Provisioning Micro-Gate)
+
+Data: 2026-08-27 19:10 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Windows PowerShell)
+
+### 1. Hardening do Loader de Segredos Locais (`localSecretLoader.ts`):
+- **Allowlist Estrita**: O loader `loadLocalCloudEnv` restringe o parsing unicamente para `GEMINI_API_KEY`, `DEEPGRAM_API_KEY` e `CARTESIA_API_KEY`.
+- **Bloqueio de Flag de Integração**: `RUN_CLOUD_PROVIDER_INTEGRATION` é ativamente bloqueada de arquivos locais, garantindo que execuções de fumaça ao vivo sejam sempre explícitas e restritas à sessão/processo.
+- **Precedência de Ambiente**: Variáveis já presentes em `process.env` nunca são sobrescritas.
+
+### 2. Suíte de Testes e Tipagem:
+- **Testes Unitários**: 146/146 testes 100% Green no Vitest (incluindo 5 novos testes determinísticos comprovando carregamento via allowlist, bloqueio de variáveis arbitrárias, bloqueio de flags de opt-in e precedência de sessão).
+- **Tipagem (`tsc --noEmit`)**: PASS (0 erros).
+
+### 3. Factual Live Status:
+- Chamadas pagas de nuvem executadas: **0**
+- Chaves ou segredos expostos: **ZERO**
+- Produção (`ai-tutor v38`, `voice-token v8`): **Intocada**
+
+### Resultado
+PASS (146/146 Testes Unitários Aprovados | Zero Erros de Tipagem | Allowlist e Precedência 100% Blindadas)

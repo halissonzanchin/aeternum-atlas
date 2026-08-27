@@ -243,3 +243,20 @@ FALLBACK: CONFIGURED
 - **Live Calls Executed:** 0
 - **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-27 19:10] — 2B.2.1 LOCAL SECRET LOADER HARDENING
+
+### Hardening Highlights
+- **Allowlist Implementada:** PASS (`ALLOWED_LOCAL_CLOUD_SECRETS` = `GEMINI_API_KEY`, `DEEPGRAM_API_KEY`, `CARTESIA_API_KEY`).
+- **Arbitrary Env Loading Blocked:** PASS (Variáveis arbitrárias ou de banco não autorizadas são ignoradas).
+- **RUN_CLOUD_PROVIDER_INTEGRATION File Loading Blocked:** PASS (A flag de live integration só é aceita se definida explicitamente na sessão).
+- **Precedência do Processo:** PASS (Valores já existentes em `process.env` são respeitados e nunca sobrescritos).
+
+### Test Suite Status
+- **Vitest Provider Suite:** 146/146 PASS (100% Green).
+- **TypeScript:** 0 erros (`tsc --noEmit`).
+- **Live Calls:** 0.
+- **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
