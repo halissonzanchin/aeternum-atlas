@@ -14,8 +14,8 @@ const MAX_PROMPT_CHARACTERS = 4_000;
 const MAX_CONTEXT_CHARACTERS = 12_000;
 const MAX_HISTORY_MESSAGES = 24;
 const MAX_KNOWLEDGE_RESULTS = 6;
-const GEMINI_GENERATE_TIMEOUT_MS = 30_000;
-const GEMINI_EMBED_TIMEOUT_MS = 3_000;
+const GEMINI_GENERATE_TIMEOUT_MS = 25_000;
+const GEMINI_EMBED_TIMEOUT_MS = 5_000;
 const GEMINI_MODELS_GET_TIMEOUT_MS = 5_000;
 
 const GEMINI_SAFETY_CATEGORIES = [
@@ -317,7 +317,7 @@ async function retrieveKnowledge(
   prompt: string
 ): Promise<{ sources: KnowledgeRow[]; method: string }> {
   try {
-    // 1. Tenta busca vetorial se embedding estiver disponível (timeout 3s não bloqueante)
+    // 1. Tenta busca vetorial se embedding estiver disponível (timeout 5s)
     if (apiKey) {
       const embedding = await generateEmbedding(apiKey, prompt);
       if (embedding?.length) {
@@ -478,18 +478,29 @@ async function probeGeminiModelsGet(apiKey: string): Promise<{
   }
 }
 
-// Minimal Generation Probe (com prompt atômico sem configs pesadas)
-async function probeGeminiMinimalGeneration(apiKey: string): Promise<{
-  stage: string;
+// Single Model Minimal Generation Probe
+async function probeSingleModelGeneration(apiKey: string, model: string): Promise<{
+  model: string;
   status: number;
   latencyMs: number;
   providerStatus: string;
   canonicalErrorClass: string;
   hasText: boolean;
+  text?: string;
   success: boolean;
 }> {
   const start = performance.now();
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent`;
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
+  
+  const generationConfig: Record<string, unknown> = {
+    maxOutputTokens: 128
+  };
+  if (model.includes("3.7") || model.includes("thinking")) {
+    generationConfig.thinkingConfig = {
+      thinkingLevel: "low"
+    };
+  }
+
   try {
     const res = await fetch(endpoint, {
       method: "POST",
@@ -498,7 +509,8 @@ async function probeGeminiMinimalGeneration(apiKey: string): Promise<{
         "x-goog-api-key": apiKey
       },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: "Diga 1." }] }]
+        contents: [{ role: "user", parts: [{ text: "Explique brevemente o nervo radial em uma frase." }] }],
+        generationConfig
       }),
       signal: AbortSignal.timeout(GEMINI_GENERATE_TIMEOUT_MS)
     });
@@ -508,12 +520,13 @@ async function probeGeminiMinimalGeneration(apiKey: string): Promise<{
       const data = await res.json().catch(() => ({})) as Record<string, unknown>;
       const text = (data as any)?.candidates?.[0]?.content?.parts?.[0]?.text || "";
       return {
-        stage: "minimal_generation_probe",
+        model,
         status: res.status,
         latencyMs,
         providerStatus: "OK",
         canonicalErrorClass: "NONE",
         hasText: Boolean(text && text.trim().length > 0),
+        text: text.trim(),
         success: true
       };
     }
@@ -523,7 +536,7 @@ async function probeGeminiMinimalGeneration(apiKey: string): Promise<{
     const providerStatus = String(errObj?.status || `HTTP_${res.status}`);
     const canonicalReason = mapCanonicalProviderReason(res.status, errObj);
     return {
-      stage: "minimal_generation_probe",
+      model,
       status: res.status,
       latencyMs,
       providerStatus,
@@ -535,7 +548,7 @@ async function probeGeminiMinimalGeneration(apiKey: string): Promise<{
     const latencyMs = Math.round(performance.now() - start);
     const { networkCause } = classifyNetworkError(err);
     return {
-      stage: "minimal_generation_probe",
+      model,
       status: networkCause === "TIMEOUT" ? 504 : 0,
       latencyMs,
       providerStatus: networkCause,
@@ -561,6 +574,15 @@ async function callGemini(
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
       const sysInstructionText = systemInstruction(role, context, sources, userName);
 
+      const generationConfig: Record<string, unknown> = {
+        maxOutputTokens: 4096
+      };
+      if (model.includes("3.7") || model.includes("thinking")) {
+        generationConfig.thinkingConfig = {
+          thinkingLevel: "low"
+        };
+      }
+
       const res = await fetch(endpoint, {
         method: "POST",
         headers: {
@@ -570,9 +592,7 @@ async function callGemini(
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: sysInstructionText }] },
           contents: [...history, { role: "user", parts: [{ text: prompt }] }],
-          generationConfig: {
-            maxOutputTokens: 4096
-          },
+          generationConfig,
           safetySettings: GEMINI_SAFETY_CATEGORIES.map((category) => ({
             category,
             threshold: "BLOCK_MEDIUM_AND_ABOVE"
@@ -601,23 +621,29 @@ async function callGemini(
         const providerStatus = String(errObj?.status || `HTTP_${status}`);
         const providerReason = mapCanonicalProviderReason(status, errObj);
         const category = status === 400 ? "payload_error" : (status === 401 || status === 403) ? "auth_error" : status === 429 ? "quota_error" : "provider_error";
-        return {
-          result: null,
-          errorCategory: category,
-          httpStatus: status,
-          providerStatus,
-          providerReason
-        };
+        
+        // Se este modelo retornar erro/503, o loop tentará o próximo modelo ativo (ex: gemini-2.5-flash)
+        if (model === ACTIVE_GEMINI_MODELS[ACTIVE_GEMINI_MODELS.length - 1]) {
+          return {
+            result: null,
+            errorCategory: category,
+            httpStatus: status,
+            providerStatus,
+            providerReason
+          };
+        }
       }
     } catch (err: unknown) {
       const { networkCause } = classifyNetworkError(err);
-      return {
-        result: null,
-        errorCategory: networkCause === "TIMEOUT" ? "timeout_error" : "network_error",
-        httpStatus: networkCause === "TIMEOUT" ? 504 : 0,
-        providerStatus: networkCause,
-        providerReason: networkCause
-      };
+      if (model === ACTIVE_GEMINI_MODELS[ACTIVE_GEMINI_MODELS.length - 1]) {
+        return {
+          result: null,
+          errorCategory: networkCause === "TIMEOUT" ? "timeout_error" : "network_error",
+          httpStatus: networkCause === "TIMEOUT" ? 504 : 0,
+          providerStatus: networkCause,
+          providerReason: networkCause
+        };
+      }
     }
   }
   return { result: null, errorCategory: "all_models_exhausted", httpStatus: 500, providerStatus: "MODELS_EXHAUSTED", providerReason: "PROVIDER_UNAVAILABLE" };
@@ -721,7 +747,7 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: "Corpo JSON inválido." }, 400, cors);
   }
 
-  // Probe 1: True models.get Connectivity Probe (GET v1beta/models/gemini-3.7-flash)
+  // Probe 1: models.get
   if (payload.probe === "connectivity" || payload.probe === "models_get") {
     if (!geminiKey) {
       return jsonResponse({
@@ -743,7 +769,7 @@ Deno.serve(async (req) => {
     }, probeResult.success ? 200 : (probeResult.status || 500), cors);
   }
 
-  // Probe 2: Minimal Generation Probe
+  // Probe 2: minimal generation (Gemini 3.7 + Fallback 2.5)
   if (payload.probe === "minimal_generation") {
     if (!geminiKey) {
       return jsonResponse({
@@ -756,13 +782,44 @@ Deno.serve(async (req) => {
         credential_source: credentialSource
       }, 503, cors);
     }
-    const probeResult = await probeGeminiMinimalGeneration(geminiKey);
+
+    const res37 = await probeSingleModelGeneration(geminiKey, "gemini-3.7-flash");
+    let res25 = null;
+    if (!res37.success) {
+      res25 = await probeSingleModelGeneration(geminiKey, "gemini-2.5-flash");
+    }
+
     return jsonResponse({
-      ...probeResult,
+      stage: "minimal_generation_probe",
+      gemini_37: res37,
+      gemini_25: res25,
       credential_present: credentialPresent,
-      credential_source: credentialSource,
-      model: "gemini-3.7-flash"
-    }, probeResult.success ? 200 : (probeResult.status || 500), cors);
+      credential_source: credentialSource
+    }, (res37.success || res25?.success) ? 200 : 503, cors);
+  }
+
+  // Probe 3: embedding probe (gemini-embedding-2 -> 768d)
+  if (payload.probe === "embedding") {
+    if (!geminiKey) {
+      return jsonResponse({
+        stage: "embedding_probe",
+        status: 503,
+        latencyMs: 0,
+        embeddingLength: 0,
+        success: false
+      }, 503, cors);
+    }
+    const startEmbed = performance.now();
+    const emb = await generateEmbedding(geminiKey, "Nervo radial e anatomia do plexo braquial");
+    const latencyMs = Math.round(performance.now() - startEmbed);
+    return jsonResponse({
+      stage: "embedding_probe",
+      status: emb ? 200 : 500,
+      model: GEMINI_EMBEDDING_MODEL,
+      embeddingLength: emb ? emb.length : 0,
+      latencyMs,
+      success: Boolean(emb && emb.length === 768)
+    }, emb ? 200 : 500, cors);
   }
 
   const messages = Array.isArray(payload.messages) ? payload.messages : [];
