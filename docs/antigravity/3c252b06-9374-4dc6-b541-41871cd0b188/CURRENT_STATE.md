@@ -3,25 +3,26 @@
 LAST_UPDATE=2026-08-28
 P0.1.1=VERIFIED
 FASE_2B_2=IMPLEMENTED / CORRECTIONS REQUIRED
-FASE_2B_2_1=IMPLEMENTED / PENDING CHATGPT AUDIT
+FASE_2B_2_1=VERIFIED (ChatGPT Audit)
+FASE_2C=IMPLEMENTED / PENDING CHATGPT AUDIT
 AI_TUTOR_RUNTIME_VERSION=v38
 VOICE_TOKEN_RUNTIME_VERSION=v8
 AI_TUTOR_PRIMARY_MODEL=gemini-3.7-flash
 AI_TUTOR_CLOUD_FALLBACK_MODEL=gemini-2.5-flash
 AI_TUTOR_EMBEDDING_MODEL=gemini-embedding-2
-GEMINI_3_7_LIVE_STATUS=PASS (Production ai-tutor v38) / HTTP_503_UPSTREAM (Local Node Adapter @ 22.6s)
+GEMINI_3_7_LIVE_STATUS=PASS (Production ai-tutor v38) / VERIFIED (Phase 2B.2.1)
 GEMINI_2_5_FALLBACK_STATUS=PASS
 EMBEDDING_768_STATUS=PASS
 RAG_CURRENT_METHOD=postgresql-fts
 LAST_VERIFIED_RAG_RETRIEVAL=6
 CONTEXTUAL_RETRIEVAL=IMPLEMENTED / TESTED with factual result
 LOCAL_SECRET_PROVISIONING_MECHANISM=HARDENED_ALLOWLIST (loadLocalCloudEnv allows strictly GEMINI_API_KEY, DEEPGRAM_API_KEY, CARTESIA_API_KEY)
-LOCAL_GEMINI_CREDENTIAL_STATUS=AUTHENTICATED (HTTP 200 on /models/gemini-3.7-flash; Live returned HTTP 503 @ 22.6s)
-LOCAL_DEEPGRAM_CREDENTIAL_STATUS=AUTHENTICATED / LIVE PASS
-LOCAL_CARTESIA_CREDENTIAL_STATUS=AUTHENTICATED / LIVE PASS (Felipe 9904416a-0831-44ea-b8ee-5f145e8f9bbf)
+LOCAL_GEMINI_CREDENTIAL_STATUS=VERIFIED (HTTP 200 on /models/gemini-3.7-flash)
+LOCAL_DEEPGRAM_CREDENTIAL_STATUS=VERIFIED / LIVE PASS (nova-3)
+LOCAL_CARTESIA_CREDENTIAL_STATUS=VERIFIED / LIVE PASS (sonic-3 / Felipe 9904416a-0831-44ea-b8ee-5f145e8f9bbf)
 ALL_LOCAL_CLOUD_CREDENTIALS_READY=YES
 CARTESIA_PT_BR_VOICE_TARGET=Felipe (9904416a-0831-44ea-b8ee-5f145e8f9bbf)
-Provider Router=PLANNED / BLOCKED UNTIL 2B.2.1 VERIFIED
+PROVIDER_ROUTER_STATUS=IMPLEMENTED (16/16 deterministic tests PASS / 178 total tests PASS)
 AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 
 ---
@@ -29,9 +30,9 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 ## 1. Status de Governança e Portões
 - **P0.1.1 — Sovereign Inference & Cloud Recovery Gate:** VERIFIED (ai-tutor v38, voice-token v8, Gemini 3.7 & 2.5 homologados, RAG contextualizado).
 - **Fase 2B.2 — Cloud Provider Layer:** IMPLEMENTED / CORRECTIONS REQUIRED.
-- **Fase 2B.2.1 — Gemini Production-Parity Live Test:** IMPLEMENTED / PENDING CHATGPT AUDIT.
-- **Provider Router:** PLANNED / BLOCKED UNTIL 2B.2.1 VERIFIED.
-- **AI Gateway:** PLANNED / BLOCKED UNTIL ROUTER VERIFIED.
+- **Fase 2B.2.1 — Cloud Provider Correctness Gate:** VERIFIED by ChatGPT.
+- **Fase 2C — Provider Router:** IMPLEMENTED / PENDING CHATGPT AUDIT.
+- **Fase 2D — AI Gateway:** PLANNED / BLOCKED UNTIL ROUTER VERIFIED.
 
 ## 2. Visão Geral dos Componentes
 
@@ -50,23 +51,18 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 - Embedding Model: `gemini-embedding-2` (768 dimensões)
 - RAG Method: `postgresql-fts` (6 fontes) com contextualização bounded
 
+### Provider Router (Fase 2C — packages/aeternum-vita/src/providers/router)
+- **Architecture:** Local First com Cloud Fallback determinístico.
+- **LLM Routing:** `Ollama (qwen2.5:3b)` $\rightarrow$ `Gemini (gemini-3.7-flash)`
+- **STT Routing:** `Speaches / Faster-Whisper` $\rightarrow$ `Deepgram (nova-3)`
+- **TTS Routing:** `Speaches / Kokoro` $\rightarrow$ `Cartesia (sonic-3 / Felipe)`
+- **Barge-in Safe:** User cancellation NUNCA dispara fallback à nuvem.
+- **Status:** **178/178 Testes Vitest PASS (100% Green)**
+
 ### Cloud Provider Adapters (Fase 2B.2.1 — packages/aeternum-vita)
-- **GeminiLLMProvider**:
-  - Auth Status: **AUTHENTICATED** (HTTP 200 no endpoint de modelos)
-  - Live Smoke Status: **HTTP 503 (Upstream Overload @ 22.6s)** (`ProviderUnavailableError`)
-  - Modelo Primário: `gemini-3.7-flash`
-  - Status Unitário: **100% Green (146 Testes Vitest)**
-- **DeepgramSTTProvider**:
-  - Auth Status: **AUTHENTICATED**
-  - Live Smoke Status: **LIVE PASS** (Transcrição batch com fixture sintético validada)
-  - Modelo Primário: `nova-3`
-  - Status Unitário: **100% Green (146 Testes Vitest)**
-- **CartesiaTTSProvider**:
-  - Auth Status: **AUTHENTICATED**
-  - Live Smoke Status: **LIVE PASS** (Síntese TTS validada)
-  - Modelo Primário: `sonic-3`
-  - Voice Target PT-BR: **Felipe** (`9904416a-0831-44ea-b8ee-5f145e8f9bbf`)
-  - Status Unitário: **100% Green (146 Testes Vitest)**
+- **GeminiLLMProvider**: VERIFIED
+- **DeepgramSTTProvider**: VERIFIED (Live Pass)
+- **CartesiaTTSProvider**: VERIFIED (Live Pass — Felipe)
 
 ### Local Stack (HP Victus)
 - LiveKit Server: :7880 (Community Edition)

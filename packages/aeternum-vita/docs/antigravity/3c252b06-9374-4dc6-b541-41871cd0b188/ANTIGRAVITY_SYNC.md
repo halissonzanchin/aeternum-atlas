@@ -575,3 +575,46 @@ FALLBACK: CONFIGURED
 - **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Provider Router:** NOT STARTED.
 - **Status:** `PENDING CHATGPT FINAL AUDIT`
+
+---
+
+## [2026-08-28 03:33] — FASE 2C CONCLUÍDA: PROVIDER ROUTER (LOCAL FIRST / CLOUD FALLBACK)
+
+### Architecture & Routing Policy
+- **LLM Routing:** Primary Local: `Ollama (qwen2.5:3b)` $\rightarrow$ Cloud Fallback: `Gemini (gemini-3.7-flash)`
+- **STT Routing:** Primary Local: `Speaches / Faster-Whisper` $\rightarrow$ Cloud Fallback: `Deepgram (nova-3)`
+- **TTS Routing:** Primary Local: `Speaches / Kokoro` $\rightarrow$ Cloud Fallback: `Cartesia (sonic-3 / Felipe)`
+- **Canonical Voice Profile:** `pt-br-warm-male-01` mapeado para Felipe (`9904416a-0831-44ea-b8ee-5f145e8f9bbf`)
+
+### Core Policy & Invariants Verified
+1. **LOCAL FIRST:** Se o provedor local responder com sucesso, nenhum provedor de nuvem é consultado (`0` chamadas cloud).
+2. **USER CANCELLATION / BARGE-IN (CRÍTICO):** Cancelamento do usuário (`ProviderCancelledError` ou `AbortSignal`) aborta imediatamente a rota com **ZERO chamadas de fallback à nuvem**.
+3. **CAPABILITY TRUTH:** Deepgram fallback é batch-only; solicitações de streaming em tempo real com falha local disparam `CapabilityMismatchError` em vez de simular streaming.
+4. **ALL PROVIDERS FAILED:** Se tanto o local quanto o cloud falharem, `AllProvidersFailedError` é lançado com metadados canônicos sanitarizados de todas as tentativas.
+5. **OBSERVABILITY PURA:** Metadados sanitarizados de rota gravados sem vazar prompts, texto gerado, transcrições, áudio binário ou chaves de API.
+
+### Deterministic Test Matrix (16 Casos Obrigatórios)
+- **1. LLM local healthy $\rightarrow$ Ollama selected $\rightarrow$ Gemini not called:** PASS
+- **2. LLM local unavailable $\rightarrow$ Gemini selected:** PASS
+- **3. LLM local timeout $\rightarrow$ Gemini selected:** PASS
+- **4. LLM local invalid provider response $\rightarrow$ Gemini selected:** PASS
+- **5. LLM user cancellation $\rightarrow$ NO Gemini call (Barge-In Guarantee):** PASS
+- **6. LLM local fail + Gemini HTTP 503 $\rightarrow$ ALL_PROVIDERS_FAILED:** PASS
+- **7. STT local healthy $\rightarrow$ Speaches selected:** PASS
+- **8. STT local unavailable $\rightarrow$ Deepgram batch selected:** PASS
+- **9. STT realtime capability requested + local unavailable + Deepgram realtime unsupported $\rightarrow$ Capability Mismatch (Never fake streaming):** PASS
+- **10. STT user cancellation $\rightarrow$ NO Deepgram call:** PASS
+- **11. TTS local healthy $\rightarrow$ Kokoro/Speaches selected:** PASS
+- **12. TTS local unavailable $\rightarrow$ Cartesia selected:** PASS
+- **13. TTS local timeout $\rightarrow$ Cartesia selected:** PASS
+- **14. TTS user cancellation $\rightarrow$ NO Cartesia call:** PASS
+- **15. Cloud failure after local failure $\rightarrow$ Canonical AllProvidersFailedError:** PASS
+- **16. Metadata contains no prompt/text/transcript/audio/secrets:** PASS
+
+### Test & TypeScript Metrics
+- **Unit Tests:** 178/178 PASS (100% Green no Vitest)
+- **TypeScript:** 0 erros (`tsc --noEmit`)
+- **Live Cloud Calls:** 0 chamadas pagas consumidas
+- **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
+- **AI Gateway:** NÃO INICIADO.
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

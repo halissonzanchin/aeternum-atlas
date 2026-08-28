@@ -454,3 +454,27 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--us
 
 ### Resultado
 UPSTREAM OVERLOAD CAPTURED (Google Gemini 3.7 Flash retornou HTTP 503 aos 22.6s | Deepgram e Cartesia mantidos como LIVE PASS)
+
+---
+
+## Teste 028 — Validação Determinística Completa do Provider Router (Fase 2C)
+
+Data: 2026-08-28 03:33 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--use-system-ca`)
+
+### 1. Suíte de Testes do Router (`provider_router.test.ts`):
+- **16/16 Testes Obrigatórios PASS**:
+  - Cenários de sucesso local (LLM, STT, TTS) sem acionamento de nuvem.
+  - Cenários de fallback por indisponibilidade, timeout e resposta inválida.
+  - Invariante de barge-in: Cancelamento de usuário aborta imediatamente sem tocar a nuvem.
+  - Invariante de verdade de capacidades: Streaming STT não suportado rejeitado com `CapabilityMismatchError`.
+  - Tratamento de falha mútua com `AllProvidersFailedError`.
+  - Verificação rigorosa de não-vazamento de prompts, áudio ou segredos em metadados.
+
+### 2. Métricas Totais da Suíte:
+- **178 testes passaram** no Vitest (`src/providers`).
+- **0 erros de compilação** no TypeScript.
+- **0 chamadas de inferência pagas** (execução 100% determinística).
+
+### Resultado
+ALL 16 ROUTER DETERMINISTIC TESTS PASS (178/178 total no módulo providers | Local-First & Barge-In Invariants Enforced)

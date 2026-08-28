@@ -9,7 +9,8 @@ import {
   ProviderCancelledError,
   ProviderUnavailableError,
   ProviderTimeoutError,
-  ProviderRateLimitError
+  ProviderRateLimitError,
+  ProviderInvalidResponseError
 } from "../types/index.ts";
 
 export class FakeLLMProvider implements LLMProvider {
@@ -21,8 +22,16 @@ export class FakeLLMProvider implements LLMProvider {
     version: "1.0.0"
   };
 
-  public failureMode?: "unavailable" | "timeout" | "rate_limit";
+  public failureMode?: "unavailable" | "timeout" | "rate_limit" | "invalid_response" | "custom";
+  public customError?: Error;
   public mockText = "Resposta simulada do modelo de teste.";
+  public callCount = 0;
+
+  constructor(metadata?: Partial<ProviderMetadata>) {
+    if (metadata) {
+      this.metadata = { ...this.metadata, ...metadata };
+    }
+  }
 
   async health(_context?: ProviderExecutionContext): Promise<HealthResult> {
     if (this.failureMode === "unavailable") {
@@ -43,8 +52,12 @@ export class FakeLLMProvider implements LLMProvider {
   }
 
   async generate(request: LLMRequest, context?: ProviderExecutionContext): Promise<LLMResponse> {
+    this.callCount++;
     if (context?.signal?.aborted) {
       throw new ProviderCancelledError("Geração cancelada por AbortSignal.", this.metadata.id);
+    }
+    if (this.customError) {
+      throw this.customError;
     }
     if (this.failureMode === "unavailable") {
       throw new ProviderUnavailableError("Servidor de LLM indisponível.", this.metadata.id);
@@ -54,6 +67,9 @@ export class FakeLLMProvider implements LLMProvider {
     }
     if (this.failureMode === "rate_limit") {
       throw new ProviderRateLimitError("Limite de requisições atingido.", this.metadata.id, 30);
+    }
+    if (this.failureMode === "invalid_response") {
+      throw new ProviderInvalidResponseError("Resposta malformada do provider.", this.metadata.id);
     }
 
     const lastMsg = request.messages.at(-1)?.content || "";
@@ -75,8 +91,12 @@ export class FakeLLMProvider implements LLMProvider {
   }
 
   async *stream(request: LLMRequest, context?: ProviderExecutionContext): AsyncIterable<LLMStreamChunk> {
+    this.callCount++;
     if (context?.signal?.aborted) {
       throw new ProviderCancelledError("Stream cancelado antes de iniciar.", this.metadata.id);
+    }
+    if (this.customError) {
+      throw this.customError;
     }
     if (this.failureMode === "unavailable") {
       throw new ProviderUnavailableError("Servidor de LLM indisponível.", this.metadata.id);

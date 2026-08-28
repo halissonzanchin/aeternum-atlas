@@ -8,7 +8,8 @@ import {
   ProviderExecutionContext,
   ProviderCancelledError,
   ProviderUnavailableError,
-  ProviderTimeoutError
+  ProviderTimeoutError,
+  ProviderInvalidResponseError
 } from "../types/index.ts";
 
 export class FakeTTSProvider implements TTSProvider {
@@ -20,7 +21,15 @@ export class FakeTTSProvider implements TTSProvider {
     version: "1.0.0"
   };
 
-  public failureMode?: "unavailable" | "timeout";
+  public failureMode?: "unavailable" | "timeout" | "invalid_response" | "custom";
+  public customError?: Error;
+  public callCount = 0;
+
+  constructor(metadata?: Partial<ProviderMetadata>) {
+    if (metadata) {
+      this.metadata = { ...this.metadata, ...metadata };
+    }
+  }
 
   async health(_context?: ProviderExecutionContext): Promise<HealthResult> {
     return {
@@ -32,14 +41,21 @@ export class FakeTTSProvider implements TTSProvider {
   }
 
   async synthesize(request: TTSRequest, context?: ProviderExecutionContext): Promise<TTSResponse> {
+    this.callCount++;
     if (context?.signal?.aborted) {
       throw new ProviderCancelledError("Síntese cancelada por AbortSignal.", this.metadata.id);
+    }
+    if (this.customError) {
+      throw this.customError;
     }
     if (this.failureMode === "unavailable") {
       throw new ProviderUnavailableError("Servidor de TTS indisponível.", this.metadata.id);
     }
     if (this.failureMode === "timeout") {
       throw new ProviderTimeoutError("Tempo limite de síntese excedido.", this.metadata.id);
+    }
+    if (this.failureMode === "invalid_response") {
+      throw new ProviderInvalidResponseError("Resposta malformada de TTS.", this.metadata.id);
     }
 
     return {
@@ -56,8 +72,12 @@ export class FakeTTSProvider implements TTSProvider {
   }
 
   async *streamSynthesis(request: TTSRequest, context?: ProviderExecutionContext): AsyncIterable<TTSStreamChunk> {
+    this.callCount++;
     if (context?.signal?.aborted) {
       throw new ProviderCancelledError("Stream de voz cancelado antes de iniciar.", this.metadata.id);
+    }
+    if (this.customError) {
+      throw this.customError;
     }
     if (this.failureMode === "unavailable") {
       throw new ProviderUnavailableError("Falha na síntese de áudio.", this.metadata.id);

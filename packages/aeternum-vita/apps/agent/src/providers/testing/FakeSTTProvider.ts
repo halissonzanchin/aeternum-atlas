@@ -8,7 +8,8 @@ import {
   ProviderExecutionContext,
   ProviderCancelledError,
   ProviderUnavailableError,
-  ProviderTimeoutError
+  ProviderTimeoutError,
+  ProviderInvalidResponseError
 } from "../types/index.ts";
 
 export class FakeSTTProvider implements STTProvider {
@@ -20,8 +21,17 @@ export class FakeSTTProvider implements STTProvider {
     version: "1.0.0"
   };
 
-  public failureMode?: "unavailable" | "timeout";
+  public failureMode?: "unavailable" | "timeout" | "invalid_response" | "custom";
+  public customError?: Error;
   public mockTranscript = "Transcrição simulada de anatomia humana.";
+  public callCount = 0;
+  public supportsStreaming = true;
+
+  constructor(metadata?: Partial<ProviderMetadata>) {
+    if (metadata) {
+      this.metadata = { ...this.metadata, ...metadata };
+    }
+  }
 
   async health(_context?: ProviderExecutionContext): Promise<HealthResult> {
     return {
@@ -33,14 +43,21 @@ export class FakeSTTProvider implements STTProvider {
   }
 
   async transcribe(request: STTRequest, context?: ProviderExecutionContext): Promise<STTResponse> {
+    this.callCount++;
     if (context?.signal?.aborted) {
       throw new ProviderCancelledError("Transcrição cancelada.", this.metadata.id);
+    }
+    if (this.customError) {
+      throw this.customError;
     }
     if (this.failureMode === "unavailable") {
       throw new ProviderUnavailableError("Serviço de STT indisponível.", this.metadata.id);
     }
     if (this.failureMode === "timeout") {
       throw new ProviderTimeoutError("Tempo limite de transcrição excedido.", this.metadata.id);
+    }
+    if (this.failureMode === "invalid_response") {
+      throw new ProviderInvalidResponseError("Resposta malformada de STT.", this.metadata.id);
     }
 
     return {
@@ -60,9 +77,13 @@ export class FakeSTTProvider implements STTProvider {
     _options: Omit<STTRequest, "audioBuffer">,
     context?: ProviderExecutionContext
   ): AsyncIterable<STTStreamChunk> {
+    this.callCount++;
     for await (const _chunk of audioStream) {
       if (context?.signal?.aborted) {
         throw new ProviderCancelledError("Stream de áudio cancelado.", this.metadata.id);
+      }
+      if (this.customError) {
+        throw this.customError;
       }
       if (this.failureMode === "unavailable") {
         throw new ProviderUnavailableError("Falha no stream de STT.", this.metadata.id);
