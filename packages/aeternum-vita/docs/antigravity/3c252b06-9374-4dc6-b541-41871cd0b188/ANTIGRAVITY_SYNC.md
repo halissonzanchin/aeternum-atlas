@@ -389,3 +389,38 @@ FALLBACK: CONFIGURED
 - **Generated Text / Audio Displayed:** ZERO.
 - **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Status:** `PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-28 02:47] — 2B.2.1 ZERO-COST FAILURE DIAGNOSTIC REPORT
+
+### 1. Environment Precedence Audit
+- **Gemini:** Preexisting Process Env: false | Effective Source: LOCAL_FILE (.env.cloud.local)
+- **Deepgram:** Preexisting Process Env: false | Effective Source: LOCAL_FILE (.env.cloud.local)
+- **Cartesia:** Preexisting Process Env: false | Effective Source: LOCAL_FILE (.env.cloud.local)
+
+### 2. Provider Zero-Inference Authentication Diagnostics
+- **Gemini (`gemini-3.7-flash`):**
+  - Endpoint: `GET /v1beta/models/gemini-3.7-flash` (Zero-token lookup)
+  - HTTP Status: 400 (API_KEY_INVALID)
+  - Auth Valid: NO
+  - Model Available: NO
+  - Diagnosis: A chave local inserida em `.env.cloud.local` foi rejeitada pela API do Google como inválida/não autorizada.
+- **Deepgram (`nova-3`):**
+  - Endpoint: `GET /v1/projects` (Zero-audio lookup)
+  - HTTP Status: 401 (Unauthorized)
+  - Auth Valid: NO
+  - User Action Required: YES (Verificar/renovar API key no Deepgram Console).
+- **Cartesia (`sonic-3`):**
+  - Endpoint: `GET /voices` (Zero-audio lookup)
+  - HTTP Status: 401 (Unauthorized)
+  - Auth Valid: NO
+  - Schema Audit: PASS (Contrato 2026-08-14 com Bearer Auth, voice string e output_format 100% aderente)
+  - User Action Required: YES (Verificar/renovar API key no Cartesia Dashboard).
+
+### 3. Safety & Production
+- **Paid Inference Calls:** 0
+- **Audio Calls:** 0
+- **Secrets Exposed:** NO
+- **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Status:** `PENDING CHATGPT AUDIT`

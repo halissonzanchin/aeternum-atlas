@@ -638,3 +638,24 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--us
 
 ### Resultado
 FAIL (Resultados factuais registrados com rigor sem alterar código automaticamente nem enfraquecer asserções)
+
+---
+
+## Teste 022 — Diagnóstico de Falhas de Nuvem com Custo Zero (Fase 2B.2.1)
+
+Data: 2026-08-28 02:47 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Windows PowerShell / `--use-system-ca`)
+
+### 1. Auditoria de Precedência de Ambiente:
+- As 3 credenciais foram carregadas com sucesso a partir de `.env.cloud.local` (`CREDENTIAL_SOURCE_EFFECTIVE=LOCAL_FILE`), sem conflito de variáveis pré-existentes na sessão.
+
+### 2. Diagnóstico de Endpoints de Autenticação (Zero Tokens / Zero Áudio):
+- **Gemini**: `GET /v1beta/models/gemini-3.7-flash` retornou **HTTP 400** (Google API_KEY_INVALID no endpoint de modelos).
+- **Deepgram**: `GET /v1/projects` retornou **HTTP 401** (Token inválido/não reconhecido).
+- **Cartesia**: `GET /voices` retornou **HTTP 401** (Bearer token inválido/não reconhecido).
+
+### 3. Auditoria do Schema de Adapters:
+- O adapter da Cartesia foi auditado e está 100% conforme a documentação oficial (`Authorization: Bearer`, `Cartesia-Version: 2026-08-14`, `voice: string`, `output_format`).
+
+### Resultado
+DIAGNOSTIC COMPLETED (0 chamadas pagas de inferência | 0 chamadas de áudio | Causa raiz isolada: credenciais locais fornecidas foram rejeitadas na autenticação dos 3 provedores upstream)
