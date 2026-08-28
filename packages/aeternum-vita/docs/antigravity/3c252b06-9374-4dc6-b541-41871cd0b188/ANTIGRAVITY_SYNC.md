@@ -282,3 +282,25 @@ FALLBACK: CONFIGURED
 - **ai-tutor:** v38 unchanged
 - **voice-token:** v8 unchanged
 - **Status:** PENDING CHATGPT AUDIT
+
+---
+
+## [2026-08-28 01:51] — 2B.2.1 LOCAL DEEPGRAM CREDENTIAL PRESENCE VERIFICATION
+
+### Factual Presence State
+- **GEMINI_STATUS:** READY
+- **DEEPGRAM_API_KEY_PRESENT:** true
+- **DEEPGRAM_STATUS:** READY (Provisionada com segurança no arquivo local git-ignored `packages/aeternum-vita/.env.cloud.local`)
+- **CARTESIA_STATUS:** MISSING (Aguardando provisionamento)
+
+### Security Verification
+- **SECRET_FILE_GIT_IGNORED:** YES (Validado via `git check-ignore packages/aeternum-vita/.env.cloud.local`)
+- **SECRET_FILE_TRACKED:** NO (Nenhum arquivo de segredo rastreado pelo Git)
+- **SECRETS_DISPLAYED:** NO (Zero exibição de chaves, prefixos, sufixos, comprimentos ou hashes)
+- **SECRETS_COMMITTED:** NO
+- **LIVE_CLOUD_CALLS:** 0 (Nenhuma chamada de nuvem executada nesta etapa)
+
+### Production State
+- **ai-tutor:** v38 unchanged
+- **voice-token:** v8 unchanged
+- **Status:** PENDING CHATGPT AUDIT
