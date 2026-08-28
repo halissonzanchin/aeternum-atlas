@@ -303,3 +303,27 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Windows P
 
 ### Resultado
 PASS (146/146 Testes Unitários Aprovados | Zero Erros de Tipagem | Allowlist e Precedência 100% Blindadas)
+
+---
+
+## Teste 021 — Execução do Live Cloud Smoke Test dos Adapters de Nuvem (Fase 2B.2.1)
+
+Data: 2026-08-28 02:38 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--use-system-ca`)
+
+### 1. Execução do Harness Canônico de Integração (`cloud_providers.integration.test.ts`):
+- **GEMINI (`gemini-3.7-flash`):**
+  - Status: **FAIL** (HTTP 400 — ProviderInvalidResponseError | Latência: 415ms)
+- **DEEPGRAM (`nova-3`):**
+  - Status: **FAIL** (HTTP 401 — Falha de autenticação no provider | Latência: 742ms)
+- **CARTESIA (`sonic-3` / Voz: Felipe `9904416a-0831-44ea-b8ee-5f145e8f9bbf`):**
+  - Status: **FAIL** (HTTP 401 — Falha de autenticação no provider | Latência: 645ms)
+
+### 2. Observações Factuais de Rede e TLS:
+- O handshake TLS com os três provedores de nuvem foi completado com sucesso através do `--use-system-ca`.
+- O Deepgram e a Cartesia rejeitaram a autenticação com HTTP 401.
+- O Google Gemini rejeitou o payload de geração com HTTP 400.
+- Nenhuma chamada repetida foi executada.
+
+### Resultado
+FAIL (Resultados factuais registrados com rigor sem alterar código automaticamente nem enfraquecer asserções)

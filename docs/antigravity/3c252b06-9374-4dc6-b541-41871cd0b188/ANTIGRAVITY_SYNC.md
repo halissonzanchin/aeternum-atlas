@@ -818,3 +818,38 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **Secrets in Git / Docs / Logs:** ZERO
 - **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-28 02:38] — 2B.2.1 FINAL LIVE CLOUD VALIDATION RUN
+
+### Canonical Test Execution
+- **Harness:** `packages/aeternum-vita/src/providers/__tests__/cloud_providers.integration.test.ts`
+- **Environment:** HP Victus / Windows (PowerShell / Node.js 24 / `--use-system-ca`)
+- **Opt-in Flag:** `RUN_CLOUD_PROVIDER_INTEGRATION=true` (Session-scoped)
+
+### Factual Provider Results
+1. **GEMINI (gemini-3.7-flash):**
+   - **Result:** FAIL
+   - **Error / HTTP Code:** HTTP 400 (`ProviderInvalidResponseError: Requisição inválida enviada ao provider [HTTP 400]`)
+   - **Latency:** 415ms
+   - **Text Length:** 0
+
+2. **DEEPGRAM (nova-3):**
+   - **Result:** FAIL
+   - **Error / HTTP Code:** HTTP 401 (`ProviderAuthenticationError: Falha de autenticação no provider [HTTP 401]`)
+   - **Latency:** 742ms
+   - **Text Length:** 0
+
+3. **CARTESIA (sonic-3 / Felipe):**
+   - **Result:** FAIL
+   - **Error / HTTP Code:** HTTP 401 (`ProviderAuthenticationError: Falha de autenticação no provider [HTTP 401]`)
+   - **Latency:** 645ms
+   - **Audio Bytes:** 0
+
+### Security & Governance
+- **Total Attempts:** 1 attempt per provider (3 live calls total).
+- **Secrets Exposed / Displayed:** ZERO.
+- **Generated Text / Audio Displayed:** ZERO.
+- **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Status:** `PENDING CHATGPT AUDIT`
