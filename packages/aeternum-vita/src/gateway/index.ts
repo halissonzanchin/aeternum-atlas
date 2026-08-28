@@ -1,4 +1,5 @@
 export * from "./types.ts";
+export * from "./config.ts";
 export * from "./AeternumAIGateway.ts";
 export * from "./middleware/logging.ts";
 export * from "./middleware/auth.ts";

@@ -684,3 +684,50 @@ FALLBACK: CONFIGURED
 - **Live Cloud Calls:** 0
 - **Produção:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-28 11:20] — FASE 2D.1 CONCLUÍDA: AETERNUM AI GATEWAY FINAL HARDENING + LOCAL-ONLY PROOF
+
+### Branch & Governança de Git / Vercel
+- **Branch:** `antigravity/phase-2d-hardening` (NÃO mergeada para `main`).
+- **Governança Vercel:**
+  - `VERCEL_PRODUCTION_AUTO_DEPLOY_OCCURRED=YES` (Na fase 2D inicial, commit 7ce9a40)
+  - `GATEWAY_EXPOSED_ON_VERCEL=NO` (Bundle Vite idêntico, apps/gateway não é exposto)
+  - `FRONTEND_BUNDLE_CHANGE_DETECTED=NO`
+  - `New production deploy in 2D.1=NO` (Push restrito à topic branch)
+
+### Hardening & Correções Implementadas
+1. **Truthful Provider Health & Gateway Overall Health:**
+   - Removido status otimista hardcoded de `/health`.
+   - Implementado `GatewayProviderHealthRegistry` executando `provider.health({ timeoutMs: 1500 })` sem inferência.
+   - Status do Gateway factualmente derivado: `HEALTHY` (todas capacidades ativas saudáveis), `DEGRADED` (capacidades atendidas mas com degradação/fallback down), `UNAVAILABLE` (falha em capacidade obrigatória).
+2. **Auth — Supabase JWT Fail-Closed:**
+   - `SUPABASE_JWT` sem validador real configurado rejeita requisições fail-closed (HTTP 401).
+   - Proibido modo `DISABLED` em conexões não-loopback.
+3. **Public Binding Startup Guard:**
+   - Bloqueia inicialização em host não-loopback (`0.0.0.0`) sem validador de JWT ativo.
+4. **Timeout Invariant & Gateway Outer Deadline:**
+   - Invariante estrito: `providerTimeoutMs < gatewayRequestTimeoutMs` (30000ms < 35000ms).
+   - Gateway Outer Deadline com `Promise.race` dispara HTTP 504 (`gateway_timeout`) sem classificar como cancelamento do usuário.
+5. **SSE Error Framing:**
+   - Falha pré-primeiro-chunk: HTTP JSON seguro (503/504).
+   - Falha pós-primeiro-chunk: evento SSE `event: error` canônico, sem vazamento de erros brutos.
+6. **Configuração Explícita Local / Cloud:**
+   - Suporte a `AETERNUM_AI_MODE`, `CLOUD_FALLBACK_ENABLED`, `LOCAL_LLM_ENABLED`, etc., com parsing booleano estrito.
+   - Prova determinística de Cloud-Off (`CLOUD_FALLBACK_ENABLED=false` $\rightarrow$ zero chamadas de fallback à nuvem).
+
+### Métricas de Teste
+- **Suíte Determinística do Gateway (`gateway.test.ts`):** 24/24 PASS (100% Green)
+- **Total de Testes no Módulo Providers + Gateway:** 192/192 PASS
+- **TypeScript:** 0 erros (`tsc --noEmit`)
+- **Validação Factual HP Victus (Local-Only com CLOUD_FALLBACK_ENABLED=false):**
+  - `health`: PASS (HTTP 200 | 93ms | status: HEALTHY)
+  - `LLM local via Gateway`: PASS (HTTP 200 | 646ms | Ollama qwen2.5:3b | textLength: 14)
+  - `TTS local via Gateway`: PASS (HTTP 200 | 661ms | Speaches Kokoro | audioBytes: 109612)
+  - `STT local via Gateway`: PASS (HTTP 200 | 2609ms | Speaches Faster-Whisper | textLength: 32)
+  - `Cancellation propagation`: PASS (AbortError | 499 | zero cloud calls)
+  - `LOCAL_ONLY_GATEWAY_PROOF`: PASS
+  - `Cloud calls`: Gemini=0, Deepgram=0, Cartesia=0
+- **Produção:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

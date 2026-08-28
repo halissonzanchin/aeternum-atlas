@@ -35,6 +35,8 @@ services:
   ollama:
     image: ollama/ollama:0.32.5
     gpus: all
+    ports:
+      - "11434:11434"
     volumes:
       - ollama-models:/root/.ollama
     healthcheck:
@@ -63,6 +65,8 @@ services:
 
   speech:
     image: ghcr.io/speaches-ai/speaches:0.8.3-cpu
+    ports:
+      - "8000:8000"
     environment:
       API_KEY: ${LOCAL_SPEECH_API_KEY:?Configure LOCAL_SPEECH_API_KEY}
       ENABLE_UI: "false"

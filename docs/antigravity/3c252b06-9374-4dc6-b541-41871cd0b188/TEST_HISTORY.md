@@ -851,3 +851,48 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Windows P
 
 ### Resultado
 ALL 20 GATEWAY TESTS PASS (188/188 Total Providers & Gateway Suite PASS)
+
+---
+
+## Teste 031 — Validação Factual e Hardening do Aeternum AI Gateway (Fase 2D.1)
+
+Data: 2026-08-28 11:20 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Windows PowerShell / Docker Desktop)
+
+### 1. Suíte Hardened do Gateway (`gateway.test.ts` — 24 Testes Determinísticos):
+1. Health: Todos provedores saudáveis $\rightarrow$ `HEALTHY` $\rightarrow$ **PASS**.
+2. Health: Local indisponível + nuvem saudável $\rightarrow$ `DEGRADED` $\rightarrow$ **PASS**.
+3. Health: Nuvem indisponível + local saudável $\rightarrow$ `DEGRADED` (nunca UNAVAILABLE) $\rightarrow$ **PASS**.
+4. Health: Nuvem desabilitada + local saudável $\rightarrow$ `HEALTHY` $\rightarrow$ **PASS**.
+5. Health: Local + nuvem indisponíveis $\rightarrow$ `UNAVAILABLE` $\rightarrow$ **PASS**.
+6. Health: Provedor lança exceção $\rightarrow$ `UNAVAILABLE` sem vazamento $\rightarrow$ **PASS**.
+7. Auth: `SUPABASE_JWT` sem validador $\rightarrow$ Fail-closed HTTP 401 $\rightarrow$ **PASS**.
+8. Auth: `SUPABASE_JWT` com validador válido $\rightarrow$ HTTP 200 $\rightarrow$ **PASS**.
+9. Startup Guard: Bind público sem JWT ativo $\rightarrow$ Recusa inicialização $\rightarrow$ **PASS**.
+10. Timeout Invariant: `providerTimeoutMs >= gatewayRequestTimeoutMs` $\rightarrow$ Erro de config $\rightarrow$ **PASS**.
+11. Gateway Outer Deadline: Provedor travado $\rightarrow$ HTTP 504 `gateway_timeout` $\rightarrow$ **PASS**.
+12. SSE: Erro antes do primeiro chunk $\rightarrow$ HTTP JSON 503 seguro $\rightarrow$ **PASS**.
+13. SSE: Erro após primeiro chunk $\rightarrow$ Evento SSE `event: error` $\rightarrow$ **PASS**.
+14. SSE: TTS erro após primeiro chunk $\rightarrow$ Evento SSE `event: error` $\rightarrow$ **PASS**.
+15. Cloud-Off Proof: `CLOUD_FALLBACK_ENABLED=false` $\rightarrow$ 0 chamadas de nuvem $\rightarrow$ **PASS**.
+16. `parseStrictBoolean` validação estrita $\rightarrow$ **PASS**.
+17. LLM local sucesso $\rightarrow$ zero Gemini $\rightarrow$ **PASS**.
+18. STT local sucesso $\rightarrow$ **PASS**.
+19. TTS local sucesso $\rightarrow$ **PASS**.
+20. Cancelamento de cliente $\rightarrow$ Zero cloud fallback $\rightarrow$ **PASS**.
+21. JSON malformado $\rightarrow$ HTTP 400 $\rightarrow$ **PASS**.
+22. Body excessivo $\rightarrow$ HTTP 413 $\rightarrow$ **PASS**.
+23. Sanitização de logs e respostas $\rightarrow$ **PASS**.
+24. Propagação de `X-Request-Id` $\rightarrow$ **PASS**.
+
+### 2. Validação Factual no HP Victus (Modo Local-Only):
+- `GET /health`: HTTP 200 (93ms) $\rightarrow$ `HEALTHY`
+- `POST /v1/llm/generate`: HTTP 200 (646ms | Ollama qwen2.5:3b | textLength: 14)
+- `POST /v1/tts/synthesize`: HTTP 200 (661ms | Speaches Kokoro | audioBytes: 109612)
+- `POST /v1/stt/transcribe`: HTTP 200 (2609ms | Speaches Faster-Whisper | textLength: 32)
+- `Cancellation propagation`: HTTP 499 (AbortError | 22ms | zero cloud calls)
+- `Cloud inference calls`: Gemini=0, Deepgram=0, Cartesia=0
+- `LOCAL_ONLY_GATEWAY_PROOF`: **PASS**
+
+### Resultado
+ALL 24 GATEWAY TESTS PASS (192/192 Total Providers & Gateway Suite PASS) | LOCAL ONLY GATEWAY PROOF = PASS

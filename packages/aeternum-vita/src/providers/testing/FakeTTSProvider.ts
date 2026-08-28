@@ -21,8 +21,10 @@ export class FakeTTSProvider implements TTSProvider {
     version: "1.0.0"
   };
 
+  public healthStatus: "HEALTHY" | "DEGRADED" | "UNAVAILABLE" = "HEALTHY";
   public failureMode?: "unavailable" | "timeout" | "invalid_response" | "custom";
   public customError?: Error;
+  public mockAudio = new Uint8Array([0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00]);
   public callCount = 0;
 
   constructor(metadata?: Partial<ProviderMetadata>) {
@@ -32,10 +34,16 @@ export class FakeTTSProvider implements TTSProvider {
   }
 
   async health(_context?: ProviderExecutionContext): Promise<HealthResult> {
+    const status =
+      this.healthStatus !== "HEALTHY"
+        ? this.healthStatus
+        : this.failureMode === "unavailable"
+        ? "UNAVAILABLE"
+        : "HEALTHY";
     return {
       providerId: this.metadata.id,
-      status: this.failureMode === "unavailable" ? "UNAVAILABLE" : "HEALTHY",
-      latencyMs: 12,
+      status,
+      latencyMs: 1,
       timestamp: new Date().toISOString()
     };
   }
@@ -43,50 +51,57 @@ export class FakeTTSProvider implements TTSProvider {
   async synthesize(request: TTSRequest, context?: ProviderExecutionContext): Promise<TTSResponse> {
     this.callCount++;
     if (context?.signal?.aborted) {
-      throw new ProviderCancelledError("Síntese cancelada por AbortSignal.", this.metadata.id);
+      throw new ProviderCancelledError("Síntese de voz cancelada.", this.metadata.id);
     }
     if (this.customError) {
       throw this.customError;
     }
     if (this.failureMode === "unavailable") {
-      throw new ProviderUnavailableError("Servidor de TTS indisponível.", this.metadata.id);
+      throw new ProviderUnavailableError("TTS local indisponível.", this.metadata.id);
     }
     if (this.failureMode === "timeout") {
-      throw new ProviderTimeoutError("Tempo limite de síntese excedido.", this.metadata.id);
+      throw new ProviderTimeoutError("Timeout na síntese TTS.", this.metadata.id);
     }
     if (this.failureMode === "invalid_response") {
-      throw new ProviderInvalidResponseError("Resposta malformada de TTS.", this.metadata.id);
+      throw new ProviderInvalidResponseError("Resposta inválida no TTS.", this.metadata.id);
     }
 
     return {
-      audioBuffer: new Uint8Array([0, 1, 2, 3, 4, 5]),
+      audioBuffer: this.mockAudio,
       audioFormat: request.audioFormat || "pcm",
       sampleRate: request.sampleRate || 24000,
       providerId: this.metadata.id,
-      modelId: "fake-tts-model",
-      latency: {
-        totalDurationMs: 200,
-        timeToFirstByteMs: 45
-      }
+      modelId: request.modelId || "fake-tts-model",
+      voiceId: request.voiceProfileId || "pt-br-warm-male-01"
     };
   }
 
-  async *streamSynthesis(request: TTSRequest, context?: ProviderExecutionContext): AsyncIterable<TTSStreamChunk> {
+  async *streamSynthesis(
+    request: TTSRequest,
+    context?: ProviderExecutionContext
+  ): AsyncIterable<TTSStreamChunk> {
     this.callCount++;
     if (context?.signal?.aborted) {
-      throw new ProviderCancelledError("Stream de voz cancelado antes de iniciar.", this.metadata.id);
+      throw new ProviderCancelledError("Stream TTS cancelado.", this.metadata.id);
     }
     if (this.customError) {
       throw this.customError;
     }
     if (this.failureMode === "unavailable") {
-      throw new ProviderUnavailableError("Falha na síntese de áudio.", this.metadata.id);
+      throw new ProviderUnavailableError("TTS indisponível para stream.", this.metadata.id);
+    }
+    if (this.failureMode === "timeout") {
+      throw new ProviderTimeoutError("Timeout no stream TTS.", this.metadata.id);
     }
 
-    yield { audioChunk: new Uint8Array([0, 1]), isFinal: false };
-    if (context?.signal?.aborted) {
-      throw new ProviderCancelledError("Stream de voz interrompido por barge-in.", this.metadata.id);
+    for (let i = 0; i < 2; i++) {
+      if (context?.signal?.aborted) {
+        throw new ProviderCancelledError("Stream TTS abortado durante iteração.", this.metadata.id);
+      }
+      yield {
+        audioChunk: i === 0 ? this.mockAudio.slice(0, 4) : this.mockAudio.slice(4),
+        isFinal: i === 1
+      };
     }
-    yield { audioChunk: new Uint8Array([2, 3, 4, 5]), isFinal: true };
   }
 }

@@ -21,6 +21,7 @@ export class FakeSTTProvider implements STTProvider {
     version: "1.0.0"
   };
 
+  public healthStatus: "HEALTHY" | "DEGRADED" | "UNAVAILABLE" = "HEALTHY";
   public failureMode?: "unavailable" | "timeout" | "invalid_response" | "custom";
   public customError?: Error;
   public mockTranscript = "Transcrição simulada de anatomia humana.";
@@ -34,10 +35,16 @@ export class FakeSTTProvider implements STTProvider {
   }
 
   async health(_context?: ProviderExecutionContext): Promise<HealthResult> {
+    const status =
+      this.healthStatus !== "HEALTHY"
+        ? this.healthStatus
+        : this.failureMode === "unavailable"
+        ? "UNAVAILABLE"
+        : "HEALTHY";
     return {
       providerId: this.metadata.id,
-      status: this.failureMode === "unavailable" ? "UNAVAILABLE" : "HEALTHY",
-      latencyMs: 8,
+      status,
+      latencyMs: 1,
       timestamp: new Date().toISOString()
     };
   }
@@ -51,13 +58,13 @@ export class FakeSTTProvider implements STTProvider {
       throw this.customError;
     }
     if (this.failureMode === "unavailable") {
-      throw new ProviderUnavailableError("Serviço de STT indisponível.", this.metadata.id);
+      throw new ProviderUnavailableError("STT local indisponível.", this.metadata.id);
     }
     if (this.failureMode === "timeout") {
-      throw new ProviderTimeoutError("Tempo limite de transcrição excedido.", this.metadata.id);
+      throw new ProviderTimeoutError("Timeout na transcrição STT.", this.metadata.id);
     }
     if (this.failureMode === "invalid_response") {
-      throw new ProviderInvalidResponseError("Resposta malformada de STT.", this.metadata.id);
+      throw new ProviderInvalidResponseError("Resposta inválida no STT.", this.metadata.id);
     }
 
     return {
@@ -65,31 +72,42 @@ export class FakeSTTProvider implements STTProvider {
       languageDetected: request.language || "pt-BR",
       confidence: 0.98,
       providerId: this.metadata.id,
-      modelId: "fake-stt-model",
-      latency: {
-        totalDurationMs: 150
-      }
+      modelId: request.modelId || "fake-stt-model"
     };
   }
 
   async *streamTranscription(
     audioStream: AsyncIterable<Uint8Array>,
-    _options: Omit<STTRequest, "audioBuffer">,
+    options: Omit<STTRequest, "audioBuffer">,
     context?: ProviderExecutionContext
   ): AsyncIterable<STTStreamChunk> {
     this.callCount++;
+    if (context?.signal?.aborted) {
+      throw new ProviderCancelledError("Stream de transcrição cancelado.", this.metadata.id);
+    }
+    if (this.customError) {
+      throw this.customError;
+    }
+    if (this.failureMode === "unavailable") {
+      throw new ProviderUnavailableError("STT indisponível para stream.", this.metadata.id);
+    }
+    if (this.failureMode === "timeout") {
+      throw new ProviderTimeoutError("Timeout no stream de transcrição.", this.metadata.id);
+    }
+
     for await (const _chunk of audioStream) {
       if (context?.signal?.aborted) {
         throw new ProviderCancelledError("Stream de áudio cancelado.", this.metadata.id);
       }
-      if (this.customError) {
-        throw this.customError;
-      }
-      if (this.failureMode === "unavailable") {
-        throw new ProviderUnavailableError("Falha no stream de STT.", this.metadata.id);
-      }
-      yield { partialText: this.mockTranscript, isFinal: false };
+      yield {
+        partialText: this.mockTranscript,
+        isFinal: false
+      };
     }
-    yield { partialText: this.mockTranscript, isFinal: true };
+
+    yield {
+      partialText: this.mockTranscript,
+      isFinal: true
+    };
   }
 }

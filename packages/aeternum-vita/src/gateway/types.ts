@@ -1,4 +1,7 @@
+import http from "node:http";
 import { ProviderRouter, RouteMetadata } from "../providers/router/index.ts";
+import { BaseProvider } from "../providers/contracts/BaseProvider.ts";
+import { HealthResult } from "../providers/types/health.ts";
 
 export type GatewayAuthMode = "INTERNAL_DEV" | "SUPABASE_JWT" | "DISABLED";
 
@@ -8,17 +11,43 @@ export interface GatewayLogger {
   error(event: string, meta?: Record<string, unknown>): void;
 }
 
+export interface GatewayJwtValidator {
+  validateToken(token: string): Promise<{ valid: boolean; userId?: string; error?: string }>;
+}
+
+export interface ProviderHealthEntry {
+  provider: BaseProvider;
+  enabled: boolean;
+}
+
+export interface GatewayProviderHealthRegistry {
+  llm_local?: ProviderHealthEntry;
+  llm_cloud?: ProviderHealthEntry;
+  stt_local?: ProviderHealthEntry;
+  stt_cloud?: ProviderHealthEntry;
+  tts_local?: ProviderHealthEntry;
+  tts_cloud?: ProviderHealthEntry;
+}
+
 export interface GatewayConfig {
   port?: number;
   host?: string;
   authMode?: GatewayAuthMode;
+  jwtValidator?: GatewayJwtValidator;
   router: ProviderRouter;
+  healthRegistry?: GatewayProviderHealthRegistry;
   version?: string;
   mode?: string;
-  requestTimeoutMs?: number;
+  providerTimeoutMs?: number;
+  gatewayRequestTimeoutMs?: number;
   maxJsonBodyBytes?: number;
   maxAudioBodyBytes?: number;
   logger?: GatewayLogger;
+}
+
+export interface ProviderHealthStatus {
+  enabled: boolean;
+  status: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
 }
 
 export interface GatewayHealthResponse {
@@ -28,12 +57,12 @@ export interface GatewayHealthResponse {
   auth_mode: GatewayAuthMode;
   timestamp: string;
   providers: {
-    llm_local: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
-    llm_cloud: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
-    stt_local: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
-    stt_cloud: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
-    tts_local: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
-    tts_cloud: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
+    llm_local: ProviderHealthStatus;
+    llm_cloud: ProviderHealthStatus;
+    stt_local: ProviderHealthStatus;
+    stt_cloud: ProviderHealthStatus;
+    tts_local: ProviderHealthStatus;
+    tts_cloud: ProviderHealthStatus;
   };
 }
 
