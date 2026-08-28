@@ -651,3 +651,36 @@ FALLBACK: CONFIGURED
 - **Produção:** `ai-tutor v38` e `voice-token v8` intocados.
 - **AI Gateway:** NÃO INICIADO.
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-28 04:02] — FASE 2D CONCLUÍDA: AETERNUM AI GATEWAY (INTERNAL ORCHESTRATION API)
+
+### Arquitetura Implementada
+- **Módulo Canônico:** `packages/aeternum-vita/src/gateway`
+- **Standalone App:** `packages/aeternum-vita/apps/gateway`
+- **Porta:** `8081` (configurável via `AETERNUM_AI_GATEWAY_PORT`)
+- **Binding Default:** `127.0.0.1` (Loopback / Internal Only)
+- **Auth Mode:** `INTERNAL_DEV` (Restringe chamadas externas por default; preparado para futura validação de JWT Supabase)
+- **Roteamento:** `GATEWAY_ROUTING_POLICY_SOURCE = ProviderRouter` (100% de delegação ao `ProviderRouter` canônico, sem duplicação de regras de fallback)
+- **Rotas:**
+  - `GET /health` (Metadados seguros de liveness e status de provedores)
+  - `POST /v1/llm/generate` e `POST /v1/llm/stream`
+  - `POST /v1/stt/transcribe` (Batch seguro)
+  - `POST /v1/tts/synthesize` e `POST /v1/tts/stream`
+- **Boundaries de Serviço:** Criadas interfaces `RAGService` e `MemoryService` desacopladas.
+- **Segurança & Observabilidade:**
+  - `SafeGatewayLogger` filtra prompts, texto gerado, transcrições, áudio binário, JWT e chaves de API.
+  - Limite estrito de body (1MB para JSON com HTTP 413, 10MB para áudio).
+  - Propagação estrita de cancelamento via `AbortSignal` com ZERO chamadas de fallback.
+
+### Métricas de Teste
+- **Suíte Determinística do Gateway (`gateway.test.ts`):** 20/20 PASS (100% Green)
+- **Total de Testes no Módulo Providers + Gateway:** 188/188 PASS
+- **TypeScript:** 0 erros (`tsc --noEmit`)
+- **Integração Local HP Victus:**
+  - `GET /health`: PASS (HTTP 200, 42ms)
+  - Chamadas a daemons locais offline (:11434/:8000) tratadas com segurança fail-closed (HTTP 503) sem vazamento de erros brutos.
+- **Live Cloud Calls:** 0
+- **Produção:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

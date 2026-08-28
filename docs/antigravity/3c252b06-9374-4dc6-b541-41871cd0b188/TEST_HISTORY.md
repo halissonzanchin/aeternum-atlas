@@ -814,3 +814,40 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--us
 
 ### Resultado
 ALL 22 HARDENING TESTS PASS (168/168 total no módulo providers | Zero Secret Leakage | Safe Partial Stream Classification)
+
+---
+
+## Teste 030 — Validação do Aeternum AI Gateway (Fase 2D)
+
+Data: 2026-08-28 04:02 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Windows PowerShell)
+
+### 1. Suíte Determinística do Gateway (`gateway.test.ts` — 20 Testes):
+1. `GET /health` retorna metadados seguros (sem secrets) $\rightarrow$ **PASS**.
+2. `POST /v1/llm/generate` local Ollama sucesso (zero Gemini) $\rightarrow$ **PASS**.
+3. `POST /v1/llm/generate` Ollama indisponível $\rightarrow$ Gemini fallback $\rightarrow$ **PASS**.
+4. `POST /v1/llm/generate` falha dupla $\rightarrow$ HTTP 503 `all_providers_failed` $\rightarrow$ **PASS**.
+5. `POST /v1/stt/transcribe` local Speaches sucesso $\rightarrow$ **PASS**.
+6. `POST /v1/stt/transcribe` Speaches indisponível $\rightarrow$ Deepgram batch fallback $\rightarrow$ **PASS**.
+7. STT realtime não suportado no fallback $\rightarrow$ `CapabilityMismatchError` $\rightarrow$ **PASS**.
+8. `POST /v1/tts/synthesize` local Speaches sucesso $\rightarrow$ **PASS**.
+9. `POST /v1/tts/synthesize` Speaches indisponível $\rightarrow$ Cartesia fallback $\rightarrow$ **PASS**.
+10. Perfil de voz canônico `pt-br-warm-male-01` preservado $\rightarrow$ **PASS**.
+11. Cancelamento do cliente $\rightarrow$ AbortSignal propaga $\rightarrow$ 0 chamadas de nuvem $\rightarrow$ **PASS**.
+12. JSON malformado $\rightarrow$ HTTP 400 `bad_request` $\rightarrow$ **PASS**.
+13. Payload excessivo $\rightarrow$ HTTP 413 `payload_too_large` $\rightarrow$ **PASS**.
+14. Mensagem bruta de erro de provedor não vaza na resposta da API $\rightarrow$ **PASS**.
+15. Mensagem bruta de erro de provedor não vaza nos logs $\rightarrow$ **PASS**.
+16. Secrets/JWT/Authorization nunca são logados $\rightarrow$ **PASS**.
+17. `X-Request-Id` gerado e propagado corretamente $\rightarrow$ **PASS**.
+18. Metadados de fallback permanecem sanitarizados $\rightarrow$ **PASS**.
+19. Binding padrão interno em `127.0.0.1` $\rightarrow$ **PASS**.
+20. Gateway utiliza o `ProviderRouter` canônico sem duplicação de lógica $\rightarrow$ **PASS**.
+
+### 2. Métricas Totais:
+- **188 testes passaram** no Vitest (`src/providers` + `src/gateway`).
+- **0 erros de compilação** no TypeScript (`tsc --noEmit`).
+- **0 chamadas de nuvem pagas**.
+
+### Resultado
+ALL 20 GATEWAY TESTS PASS (188/188 Total Providers & Gateway Suite PASS)

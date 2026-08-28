@@ -4,8 +4,9 @@ LAST_UPDATE=2026-08-28
 P0.1.1=VERIFIED
 FASE_2B_2=IMPLEMENTED / CORRECTIONS REQUIRED
 FASE_2B_2_1=VERIFIED (ChatGPT Audit)
-FASE_2C=IMPLEMENTED / CORRECTED / PENDING CHATGPT AUDIT
-FASE_2C_1=IMPLEMENTED / PENDING CHATGPT AUDIT
+FASE_2C=VERIFIED (ChatGPT Audit)
+FASE_2C_1=VERIFIED (ChatGPT Audit)
+FASE_2D=IMPLEMENTED / PENDING CHATGPT AUDIT
 AI_TUTOR_RUNTIME_VERSION=v38
 VOICE_TOKEN_RUNTIME_VERSION=v8
 AI_TUTOR_PRIMARY_MODEL=gemini-3.7-flash
@@ -24,17 +25,19 @@ LOCAL_CARTESIA_CREDENTIAL_STATUS=VERIFIED / LIVE PASS (sonic-3 / Felipe 9904416a
 ALL_LOCAL_CLOUD_CREDENTIALS_READY=YES
 CARTESIA_PT_BR_VOICE_TARGET=Felipe (9904416a-0831-44ea-b8ee-5f145e8f9bbf)
 PROVIDER_ROUTER_SOURCES_OF_TRUTH=1 (Canonical: packages/aeternum-vita/src/providers/router | Thin Reexport: apps/agent)
-PROVIDER_ROUTER_STATUS=HARDENED (22/22 hardening tests PASS / 168 total unit tests PASS)
-AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
+PROVIDER_ROUTER_STATUS=VERIFIED (ChatGPT Audit)
+AI_GATEWAY_PORT=8081
+AI_GATEWAY_STATUS=IMPLEMENTED (20/20 deterministic tests PASS / 188 total suite PASS)
+AI_GATEWAY_AUTH_MODE=INTERNAL_DEV (Loopback 127.0.0.1 default)
 
 ---
 
 ## 1. Status de Governança e Portões
 - **P0.1.1 — Sovereign Inference & Cloud Recovery Gate:** VERIFIED (ai-tutor v38, voice-token v8, Gemini 3.7 & 2.5 homologados, RAG contextualizado).
-- **Fase 2B.2 — Cloud Provider Layer:** IMPLEMENTED / CORRECTIONS REQUIRED.
 - **Fase 2B.2.1 — Cloud Provider Correctness Gate:** VERIFIED by ChatGPT.
-- **Fase 2C & 2C.1 — Provider Router Final Hardening:** IMPLEMENTED / PENDING CHATGPT AUDIT.
-- **Fase 2D — AI Gateway:** PLANNED / BLOCKED UNTIL ROUTER VERIFIED.
+- **Fase 2C & 2C.1 — Provider Router Final Hardening:** VERIFIED by ChatGPT.
+- **Fase 2D — Aeternum AI Gateway:** IMPLEMENTED / PENDING CHATGPT AUDIT.
+- **Fase 3A — Vita $\rightarrow$ Gateway Migration:** PLANNED / BLOCKED UNTIL GATEWAY VERIFIED.
 
 ## 2. Visão Geral dos Componentes
 
@@ -53,16 +56,17 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 - Embedding Model: `gemini-embedding-2` (768 dimensões)
 - RAG Method: `postgresql-fts` (6 fontes) com contextualização bounded
 
+### Aeternum AI Gateway (Fase 2D — packages/aeternum-vita/src/gateway & apps/gateway)
+- **Port:** `8081`
+- **Binding:** `127.0.0.1` (Loopback internal)
+- **Auth Mode:** `INTERNAL_DEV`
+- **Routing Source:** Canonical `ProviderRouter` (`src/providers/router`)
+- **API Endpoints:** `GET /health`, `POST /v1/llm/generate`, `POST /v1/llm/stream`, `POST /v1/stt/transcribe`, `POST /v1/tts/synthesize`, `POST /v1/tts/stream`
+- **Status:** **20/20 Deterministic Tests PASS (188/188 Total Providers & Gateway PASS)**
+
 ### Provider Router (Fase 2C & 2C.1 — packages/aeternum-vita/src/providers/router)
 - **Source of Truth:** 1 (Canônico em `src/providers/router`, re-export fino em `apps/agent/src/providers/router`).
-- **Architecture:** Local First com Cloud Fallback determinístico.
-- **LLM Routing:** `Ollama (qwen2.5:3b)` $\rightarrow$ `Gemini (gemini-3.7-flash)`
-- **STT Routing:** `Speaches / Faster-Whisper` $\rightarrow$ `Deepgram (nova-3)`
-- **TTS Routing:** `Speaches / Kokoro` $\rightarrow$ `Cartesia (sonic-3 / Felipe)`
-- **Error Metadata Security:** Safe canonical error messages & fallbackReason; zero vazamento de segredos ou prompts em metadados.
-- **Partial Stream Failure:** Falhas pós-primeiro-chunk não sofrem fallback e são classificadas como FAILED com o código de erro real.
-- **Barge-in Safe:** Cancelamento de usuário aborta imediatamente com ZERO chamadas à nuvem.
-- **Status:** **22/22 Hardening Tests PASS / 168/168 Total Unit Tests PASS (100% Green)**
+- **Status:** VERIFIED by ChatGPT
 
 ### Cloud Provider Adapters (Fase 2B.2.1 — packages/aeternum-vita)
 - **GeminiLLMProvider**: VERIFIED
@@ -73,7 +77,6 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 - LiveKit Server: :7880 (Community Edition)
 - Speaches (STT/TTS): :8000 (Faster-Whisper / Kokoro-82M / Piper)
 - Ollama: :11434 (qwen2.5:3b)
-- Status: HEALTHY / RUNNING
 
 ### Segurança & Observabilidade
 - voice-token exige JWT: YES (`v8` ACTIVE)
