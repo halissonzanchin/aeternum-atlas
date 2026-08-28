@@ -1,6 +1,6 @@
 # AETERNUM ATLAS — ESTADO ATUAL
 
-LAST_UPDATE=2026-08-27
+LAST_UPDATE=2026-08-28
 P0.1.1=VERIFIED
 FASE_2B_2=IMPLEMENTED / CORRECTIONS REQUIRED
 FASE_2B_2_1=IMPLEMENTED / PENDING CHATGPT AUDIT
@@ -15,10 +15,10 @@ EMBEDDING_768_STATUS=PASS
 RAG_CURRENT_METHOD=postgresql-fts
 LAST_VERIFIED_RAG_RETRIEVAL=6
 CONTEXTUAL_RETRIEVAL=IMPLEMENTED / TESTED with factual result
-LOCAL_SECRET_PROVISIONING_MECHANISM=HARDENED_ALLOWLIST (loadLocalCloudEnv allows strictly GEMINI_API_KEY, DEEPGRAM_API_KEY, CARTESIA_API_KEY; RUN_CLOUD_PROVIDER_INTEGRATION blocked from files)
-LIVE_GEMINI_ADAPTER=BLOCKED_BY_MISSING_CREDENTIAL (Local node env; Production ai-tutor v38 is LIVE PASS)
-LIVE_DEEPGRAM_ADAPTER=BLOCKED_BY_MISSING_CREDENTIAL
-LIVE_CARTESIA_ADAPTER=BLOCKED_BY_MISSING_CREDENTIAL
+LOCAL_SECRET_PROVISIONING_MECHANISM=HARDENED_ALLOWLIST (loadLocalCloudEnv allows strictly GEMINI_API_KEY, DEEPGRAM_API_KEY, CARTESIA_API_KEY)
+LOCAL_GEMINI_CREDENTIAL_STATUS=READY
+LOCAL_DEEPGRAM_CREDENTIAL_STATUS=MISSING
+LOCAL_CARTESIA_CREDENTIAL_STATUS=MISSING
 Provider Router=PLANNED / BLOCKED UNTIL 2B.2.1 VERIFIED
 AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 
@@ -50,31 +50,16 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 
 ### Cloud Provider Adapters (Fase 2B.2.1 — packages/aeternum-vita)
 - **GeminiLLMProvider**:
+  - Local Credential Status: **READY** (Disponível no ambiente de teste local via `.env.cloud.local`)
   - Modelo Primário: `gemini-3.7-flash`
-  - Sampling: Parâmetros obsoletos (`temperature`, `top_p`, `top_k`) removidos para Gemini 3.x; `thinkingConfig: { thinkingLevel: "low" }` e `maxOutputTokens` preservados.
-  - System Instruction: Suporte determinístico e mesclagem de `request.systemInstruction` com mensagens de `role: "system"`.
-  - Normalização de FinishReason: Mapeamento canônico estrito idêntico em `generate()` e `stream()`.
-  - Prevenção de Thought Leakage: Partes com `thought: true` estritamente filtradas (Testes A, B, C, D 100% Green).
-  - Autenticação: Header `x-goog-api-key` estrito.
-  - Semântica de Config: `apiKey !== undefined` estrito.
-  - Testes de Integração Live: Logging exclusivo de metadados (`provider`, `model`, `success`, `latency`, `textLength`), sem vazar texto gerado.
   - Status: **100% Green (146 Testes Vitest)**
 - **DeepgramSTTProvider**:
+  - Local Credential Status: **MISSING**
   - Modelo Primário: `nova-3`
-  - Medical Keyterms: Parâmetro moderno `keyterm` utilizado estritamente para `nova-3`; modelos não-Nova-3 não utilizam `keyterm`.
-  - Streaming Truth: `capabilities.realtime_streaming = false` com método `streamTranscription()` executando fail-fast explícito.
-  - Testes de Integração Live: Fixture obrigatória de fala sintética (`synthetic_speech_aeternum_atlas.wav`) com fail-fast estrito se ausente e asserção mandatória de `textLength > 0`. Logging exclusivo de metadados.
-  - Formatos: WAV, MP3, FLAC, OGG, WEBM, PCM (validação 8000–48000Hz).
   - Status: **100% Green (146 Testes Vitest)**
 - **CartesiaTTSProvider**:
-  - API Version: `2026-08-14`
-  - Autenticação: `Authorization: Bearer <api_key>` (removido `X-API-Key`).
-  - Modelo Primário: `sonic-3` (pin explícito de produção como escolha estável de compatibilidade).
-  - Voice Schema: `voice: "<native-voice-id>"` (string direta conforme schema oficial 2026-08-14).
-  - Output Format: Discriminado por container (`raw`, `wav`, `mp3`).
-  - Testes de Integração Live: Logging exclusivo de metadados (`provider`, `model`, `success`, `latency`, `audioBytes`).
-  - Formatos: PCM, WAV, MP3.
-  - Streaming: Leitura real de stream binário de bytes.
+  - Local Credential Status: **MISSING**
+  - Modelo Primário: `sonic-3`
   - Status: **100% Green (146 Testes Vitest)**
 
 ### Local Stack (HP Victus)
