@@ -720,3 +720,26 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--us
 
 ### Resultado
 PARTIAL PASS / GEMINI TIMEOUT (Deepgram PASS | Cartesia PASS | Gemini Timeout >20s | 0 segredos expostos)
+
+---
+
+## Teste 026 — Execução de Fechamento ao Vivo Exclusivo do Gemini (Fase 2B.2.1)
+
+Data: 2026-08-28 03:17 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--use-system-ca`)
+
+### 1. Correção de Deadline no Harness (`cloud_providers.integration.test.ts`):
+- Injeção de `{ timeoutMs: 30000 }` no `gemini.generate()` e ajuste do timeout do Vitest para 35000ms, garantindo que o provider capture e lance seu erro canônico antes do runner.
+
+### 2. Resultados da Execução Isolada:
+- **GEMINI (`gemini-3.7-flash`):** **FAIL** (`ProviderTimeoutError: Tempo limite de 30000ms excedido na requisição` | Latência: 30022ms).
+- **DEEPGRAM (`nova-3`):** Preservado factual anterior: **LIVE PASS**.
+- **CARTESIA (`sonic-3` / Voz: Felipe):** Preservado factual anterior: **LIVE PASS**.
+
+### 3. Governança e Custos:
+- Chamadas executadas: Gemini=1, Deepgram=0, Cartesia=0.
+- Sem enfraquecimento de asserções.
+- Zero vazamento de chaves ou conteúdo.
+
+### Resultado
+CANONICAL PROVIDER TIMEOUT ERROR PRODUCED (ProviderTimeoutError capturado com rigor aos 30s | Deepgram e Cartesia mantidos como LIVE PASS)

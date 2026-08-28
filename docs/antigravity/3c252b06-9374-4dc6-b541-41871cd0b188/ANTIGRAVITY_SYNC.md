@@ -982,3 +982,32 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Provider Router:** NOT STARTED.
 - **Status:** `PENDING CHATGPT FINAL AUDIT`
+
+---
+
+## [2026-08-28 03:17] — 2B.2.1 GEMINI-ONLY LIVE CLOSURE RUN
+
+### Harness Correction
+- **Provider Timeout (`context.timeoutMs`):** 30000ms
+- **Vitest Runner Timeout:** 35000ms
+- **Invariant Enforced:** `PROVIDER_TIMEOUT < TEST_RUNNER_TIMEOUT` (YES)
+
+### Deterministic & Unit Tests
+- **Status:** PASS (146/146 testes 100% Green no Vitest)
+- **TypeScript:** 0 erros (`tsc --noEmit`)
+
+### Live Cloud Execution Results (Gemini Only)
+- **GEMINI (`gemini-3.7-flash`):**
+  - **Result:** FAIL
+  - **Canonical Error:** `ProviderTimeoutError: Tempo limite de 30000ms excedido na requisição.`
+  - **Latency:** 30022ms
+  - **Text Length:** 0
+- **DEEPGRAM (`nova-3`):** 0 chamadas executadas nesta etapa (Preservado: LIVE PASS)
+- **CARTESIA (`sonic-3` / Felipe):** 0 chamadas executadas nesta etapa (Preservado: LIVE PASS)
+
+### Security & Governance
+- **Total Live Calls:** Gemini=1, Deepgram=0, Cartesia=0.
+- **Secrets Displayed / Committed:** ZERO.
+- **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Provider Router:** NOT STARTED.
+- **Status:** `PENDING CHATGPT FINAL AUDIT`

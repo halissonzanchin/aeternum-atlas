@@ -9,14 +9,14 @@ VOICE_TOKEN_RUNTIME_VERSION=v8
 AI_TUTOR_PRIMARY_MODEL=gemini-3.7-flash
 AI_TUTOR_CLOUD_FALLBACK_MODEL=gemini-2.5-flash
 AI_TUTOR_EMBEDDING_MODEL=gemini-embedding-2
-GEMINI_3_7_LIVE_STATUS=PASS
+GEMINI_3_7_LIVE_STATUS=PASS (Production ai-tutor v38) / TIMEOUT_30S (Local Node Adapter)
 GEMINI_2_5_FALLBACK_STATUS=PASS
 EMBEDDING_768_STATUS=PASS
 RAG_CURRENT_METHOD=postgresql-fts
 LAST_VERIFIED_RAG_RETRIEVAL=6
 CONTEXTUAL_RETRIEVAL=IMPLEMENTED / TESTED with factual result
 LOCAL_SECRET_PROVISIONING_MECHANISM=HARDENED_ALLOWLIST (loadLocalCloudEnv allows strictly GEMINI_API_KEY, DEEPGRAM_API_KEY, CARTESIA_API_KEY)
-LOCAL_GEMINI_CREDENTIAL_STATUS=AUTHENTICATED (HTTP 200 on /models/gemini-3.7-flash)
+LOCAL_GEMINI_CREDENTIAL_STATUS=AUTHENTICATED (HTTP 200 on /models/gemini-3.7-flash; Adapter Live Timeout >30s)
 LOCAL_DEEPGRAM_CREDENTIAL_STATUS=AUTHENTICATED / LIVE PASS
 LOCAL_CARTESIA_CREDENTIAL_STATUS=AUTHENTICATED / LIVE PASS (Felipe 9904416a-0831-44ea-b8ee-5f145e8f9bbf)
 ALL_LOCAL_CLOUD_CREDENTIALS_READY=YES
@@ -29,7 +29,7 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 ## 1. Status de Governança e Portões
 - **P0.1.1 — Sovereign Inference & Cloud Recovery Gate:** VERIFIED (ai-tutor v38, voice-token v8, Gemini 3.7 & 2.5 homologados, RAG contextualizado).
 - **Fase 2B.2 — Cloud Provider Layer:** IMPLEMENTED / CORRECTIONS REQUIRED.
-- **Fase 2B.2.1 — Final Live Cloud Validation:** IMPLEMENTED / PENDING CHATGPT AUDIT.
+- **Fase 2B.2.1 — Gemini-Only Live Closure:** IMPLEMENTED / PENDING CHATGPT AUDIT.
 - **Provider Router:** PLANNED / BLOCKED UNTIL 2B.2.1 VERIFIED.
 - **AI Gateway:** PLANNED / BLOCKED UNTIL ROUTER VERIFIED.
 
@@ -53,17 +53,17 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 ### Cloud Provider Adapters (Fase 2B.2.1 — packages/aeternum-vita)
 - **GeminiLLMProvider**:
   - Auth Status: **AUTHENTICATED** (HTTP 200 no endpoint de modelos)
-  - Live Smoke Status: **TIMEOUT (>20s)**
+  - Live Smoke Status: **TIMEOUT (>30s)** (`ProviderTimeoutError`)
   - Modelo Primário: `gemini-3.7-flash`
   - Status Unitário: **100% Green (146 Testes Vitest)**
 - **DeepgramSTTProvider**:
   - Auth Status: **AUTHENTICATED**
-  - Live Smoke Status: **PASS** (Transcrição batch com fixture sintético validada)
+  - Live Smoke Status: **LIVE PASS** (Transcrição batch com fixture sintético validada)
   - Modelo Primário: `nova-3`
   - Status Unitário: **100% Green (146 Testes Vitest)**
 - **CartesiaTTSProvider**:
   - Auth Status: **AUTHENTICATED**
-  - Live Smoke Status: **PASS** (Síntese TTS validada)
+  - Live Smoke Status: **LIVE PASS** (Síntese TTS validada)
   - Modelo Primário: `sonic-3`
   - Voice Target PT-BR: **Felipe** (`9904416a-0831-44ea-b8ee-5f145e8f9bbf`)
   - Status Unitário: **100% Green (146 Testes Vitest)**

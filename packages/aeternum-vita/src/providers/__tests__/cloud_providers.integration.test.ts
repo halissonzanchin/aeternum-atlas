@@ -35,10 +35,13 @@ describe.skipIf(!isCloudIntegrationEnabled)(
 
       it("generate real pequeno (1 token)", async () => {
         const start = performance.now();
-        const res = await gemini.generate({
-          messages: [{ role: "user", content: "Responda apenas: Aeternum" }],
-          maxTokens: 5
-        });
+        const res = await gemini.generate(
+          {
+            messages: [{ role: "user", content: "Responda apenas: Aeternum" }],
+            maxTokens: 5
+          },
+          { timeoutMs: 30000 }
+        );
         const duration = Math.round(performance.now() - start);
 
         expect(res.providerId).toBe("gemini-llm-cloud");
@@ -55,7 +58,7 @@ describe.skipIf(!isCloudIntegrationEnabled)(
             textLength: res.text.length
           })
         );
-      }, 20000);
+      }, 35000);
     });
 
     describe("Deepgram Cloud Smoke Test", () => {
