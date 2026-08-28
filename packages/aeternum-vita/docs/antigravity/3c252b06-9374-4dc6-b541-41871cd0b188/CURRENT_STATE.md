@@ -16,9 +16,9 @@ RAG_CURRENT_METHOD=postgresql-fts
 LAST_VERIFIED_RAG_RETRIEVAL=6
 CONTEXTUAL_RETRIEVAL=IMPLEMENTED / TESTED with factual result
 LOCAL_SECRET_PROVISIONING_MECHANISM=HARDENED_ALLOWLIST (loadLocalCloudEnv allows strictly GEMINI_API_KEY, DEEPGRAM_API_KEY, CARTESIA_API_KEY)
-LOCAL_GEMINI_CREDENTIAL_STATUS=READY
-LOCAL_DEEPGRAM_CREDENTIAL_STATUS=READY
-LOCAL_CARTESIA_CREDENTIAL_STATUS=READY
+LOCAL_GEMINI_CREDENTIAL_STATUS=AUTHENTICATED (HTTP 200 on /models/gemini-3.7-flash)
+LOCAL_DEEPGRAM_CREDENTIAL_STATUS=AUTHENTICATED (HTTP 200 on /v1/auth/token)
+LOCAL_CARTESIA_CREDENTIAL_STATUS=AUTHENTICATED (HTTP 200 on /voices)
 ALL_LOCAL_CLOUD_CREDENTIALS_READY=YES
 CARTESIA_PT_BR_VOICE_TARGET=Felipe (9904416a-0831-44ea-b8ee-5f145e8f9bbf)
 Provider Router=PLANNED / BLOCKED UNTIL 2B.2.1 VERIFIED
@@ -52,15 +52,15 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 
 ### Cloud Provider Adapters (Fase 2B.2.1 — packages/aeternum-vita)
 - **GeminiLLMProvider**:
-  - Local Credential Status: **READY** (Disponível no ambiente de teste local via `.env.cloud.local`)
+  - Local Credential Status: **AUTHENTICATED** (HTTP 200 no endpoint de modelos)
   - Modelo Primário: `gemini-3.7-flash`
   - Status: **100% Green (146 Testes Vitest)**
 - **DeepgramSTTProvider**:
-  - Local Credential Status: **READY** (Disponível no ambiente de teste local via `.env.cloud.local`)
+  - Local Credential Status: **AUTHENTICATED** (HTTP 200 no endpoint de validação de token)
   - Modelo Primário: `nova-3`
   - Status: **100% Green (146 Testes Vitest)**
 - **CartesiaTTSProvider**:
-  - Local Credential Status: **READY** (Disponível no ambiente de teste local via `.env.cloud.local`)
+  - Local Credential Status: **AUTHENTICATED** (HTTP 200 no endpoint de vozes)
   - Modelo Primário: `sonic-3`
   - Voice Target PT-BR: **Felipe** (`9904416a-0831-44ea-b8ee-5f145e8f9bbf`)
   - Status: **100% Green (146 Testes Vitest)**

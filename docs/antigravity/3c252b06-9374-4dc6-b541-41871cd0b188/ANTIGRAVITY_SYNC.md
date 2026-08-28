@@ -910,3 +910,35 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **Audio Calls:** 0
 - **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Status:** `PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-28 03:01] — 2B.2.1 POST-FORMAT-FIX AUTH VALIDATION REPORT
+
+### 1. Format Sanity
+- **Gemini:** PASS
+- **Deepgram:** PASS
+- **Cartesia:** PASS
+
+### 2. Zero-Cost Authentication Diagnostics
+- **Gemini (`gemini-3.7-flash`):**
+  - Endpoint: `GET /v1beta/models/gemini-3.7-flash`
+  - HTTP Status: 200 (OK)
+  - Auth Valid: YES
+  - Model Available: YES (Latência: 3212ms)
+- **Deepgram (`nova-3`):**
+  - Endpoint: `GET /v1/auth/token`
+  - HTTP Status: 200 (OK)
+  - Auth Valid: YES (Latência: 744ms)
+- **Cartesia (`sonic-3`):**
+  - Endpoint: `GET /voices` (Cartesia-Version: 2026-08-14 / Bearer)
+  - HTTP Status: 200 (OK)
+  - Auth Valid: YES (Latência: 951ms)
+
+### 3. Cost & Safety
+- **Inference Calls:** 0
+- **Audio Calls:** 0
+- **Secrets Displayed:** NO
+- **Secrets Committed:** NO
+- **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Status:** `PENDING CHATGPT AUDIT`

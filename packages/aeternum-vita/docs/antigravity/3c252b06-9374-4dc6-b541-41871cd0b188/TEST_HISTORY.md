@@ -369,3 +369,23 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Windows PowerShell / `--use-system-
 
 ### Resultado
 DIAGNOSTIC RESOLVED (Causa raiz de sintaxe descoberta sem expor nenhum segredo | 0 chamadas de inferência | 0 chamadas de áudio)
+
+---
+
+## Teste 024 — Validação de Autenticação Pós-Correção de Formato (Fase 2B.2.1)
+
+Data: 2026-08-28 03:01 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Windows PowerShell / `--use-system-ca`)
+
+### 1. Auditoria de Sanidade de Formato Local:
+- **Gemini**: PASS (Delimitadores angulares removidos com sucesso)
+- **Deepgram**: PASS (Delimitadores angulares removidos com sucesso)
+- **Cartesia**: PASS (Delimitadores angulares removidos com sucesso)
+
+### 2. Endpoints Oficiais de Autenticação (Zero Tokens / Zero Áudio):
+- **Gemini**: `GET /v1beta/models/gemini-3.7-flash` $ightarrow$ **HTTP 200** (Auth Valid: YES | Model Available: YES | 3212ms).
+- **Deepgram**: `GET /v1/auth/token` $ightarrow$ **HTTP 200** (Auth Valid: YES | 744ms).
+- **Cartesia**: `GET /voices` $ightarrow$ **HTTP 200** (Auth Valid: YES | 951ms).
+
+### Resultado
+ALL 3 PROVIDERS AUTHENTICATED (100% HTTP 200 nos endpoints de autenticação de nuvem | 0 chamadas de inferência | 0 chamadas de áudio)
