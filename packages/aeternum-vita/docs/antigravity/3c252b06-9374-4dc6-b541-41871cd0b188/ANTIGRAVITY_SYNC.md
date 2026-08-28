@@ -424,3 +424,25 @@ FALLBACK: CONFIGURED
 - **Secrets Exposed:** NO
 - **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Status:** `PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-28 02:54] — 2B.2.1 CREDENTIAL DIAGNOSTIC CORRECTION REPORT
+
+### 1. Deepgram Official Auth Endpoint Diagnostic
+- **Endpoint:** `GET https://api.deepgram.com/v1/auth/token`
+- **Header:** `Authorization: Token <key>`
+- **HTTP Status:** 401
+- **Auth Valid:** NO (Latência: 1783ms)
+
+### 2. Local File Format Sanity Audit (Zero Secret Exposure)
+- **GEMINI_LOCAL_FORMAT_SANITY:** FAIL (Detectada presença de caracteres de template/parênteses angulares `<` e `>` no valor atribuído)
+- **DEEPGRAM_LOCAL_FORMAT_SANITY:** FAIL (Detectada presença de caracteres de template/parênteses angulares `<` e `>` no valor atribuído)
+- **CARTESIA_LOCAL_FORMAT_SANITY:** FAIL (Detectada presença de caracteres de template/parênteses angulares `<` e `>` no valor atribuído)
+
+### 3. Diagnosis & Remediation
+- **Root Cause Identificada:** As credenciais foram gravadas no arquivo local com delimitadores angulares literais (ex: `KEY=<valor>` em vez de `KEY=valor`), fazendo com que os caracteres `<` e `>` fossem enviados no header de autorização, invalidando a assinatura das chaves perante os 3 gateways.
+- **Inference Calls:** 0
+- **Audio Calls:** 0
+- **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Status:** `PENDING CHATGPT AUDIT`

@@ -659,3 +659,24 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Windows PowerShell / `--use-system-
 
 ### Resultado
 DIAGNOSTIC COMPLETED (0 chamadas pagas de inferência | 0 chamadas de áudio | Causa raiz isolada: credenciais locais fornecidas foram rejeitadas na autenticação dos 3 provedores upstream)
+
+---
+
+## Teste 023 — Correção de Diagnóstico de Credenciais e Auditoria de Sanidade de Formato (Fase 2B.2.1)
+
+Data: 2026-08-28 02:54 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Windows PowerShell / `--use-system-ca`)
+
+### 1. Endpoint Oficial de Validação do Deepgram:
+- `GET /v1/auth/token` com `Authorization: Token <key>`: **HTTP 401** (Auth Valid: NO).
+
+### 2. Auditoria Sintática e de Formato Local:
+- **GEMINI_LOCAL_FORMAT_SANITY**: **FAIL** (Presença de parênteses angulares `<` `>`)
+- **DEEPGRAM_LOCAL_FORMAT_SANITY**: **FAIL** (Presença de parênteses angulares `<` `>`)
+- **CARTESIA_LOCAL_FORMAT_SANITY**: **FAIL** (Presença de parênteses angulares `<` `>`)
+
+### 3. Causa Raiz Conclusiva:
+- Os delimitadores `<` e `>` do exemplo foram mantidos pelo usuário ao colar as chaves em `.env.cloud.local`.
+
+### Resultado
+DIAGNOSTIC RESOLVED (Causa raiz de sintaxe descoberta sem expor nenhum segredo | 0 chamadas de inferência | 0 chamadas de áudio)
