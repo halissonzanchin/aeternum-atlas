@@ -432,3 +432,25 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--us
 
 ### Resultado
 CANONICAL PROVIDER TIMEOUT ERROR PRODUCED (ProviderTimeoutError capturado com rigor aos 30s | Deepgram e Cartesia mantidos como LIVE PASS)
+
+---
+
+## Teste 027 — Execução do Teste de Paridade de Produção do Gemini (Fase 2B.2.1)
+
+Data: 2026-08-28 03:24 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--use-system-ca`)
+
+### 1. Configuração do Harness com Paridade de Produção:
+- `maxOutputTokens: 128`, `thinkingLevel: "low"`, `timeoutMs: 30000`, runner timeout: `35000ms`.
+
+### 2. Resultados da Execução Isolada:
+- **GEMINI (`gemini-3.7-flash`):** **FAIL** (`ProviderUnavailableError: Serviço indisponível [HTTP 503]` | Latência: 22657ms). A API do Google processou a requisição e retornou HTTP 503 (sobrecarga upstream do modelo 3.7 Flash).
+- **DEEPGRAM (`nova-3`):** Preservado factual anterior: **LIVE PASS**.
+- **CARTESIA (`sonic-3` / Voz: Felipe):** Preservado factual anterior: **LIVE PASS**.
+
+### 3. Governança e Custos:
+- Chamadas executadas: Gemini=1, Deepgram=0, Cartesia=0.
+- Zero vazamento de chaves ou conteúdo.
+
+### Resultado
+UPSTREAM OVERLOAD CAPTURED (Google Gemini 3.7 Flash retornou HTTP 503 aos 22.6s | Deepgram e Cartesia mantidos como LIVE PASS)

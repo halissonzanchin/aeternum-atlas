@@ -38,7 +38,7 @@ describe.skipIf(!isCloudIntegrationEnabled)(
         const res = await gemini.generate(
           {
             messages: [{ role: "user", content: "Responda apenas: Aeternum" }],
-            maxTokens: 5
+            maxTokens: 128
           },
           { timeoutMs: 30000 }
         );
@@ -55,7 +55,8 @@ describe.skipIf(!isCloudIntegrationEnabled)(
             model: res.modelId,
             success: true,
             latency: duration,
-            textLength: res.text.length
+            textLength: res.text.length,
+            finishReason: res.finishReason
           })
         );
       }, 35000);

@@ -547,3 +547,31 @@ FALLBACK: CONFIGURED
 - **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Provider Router:** NOT STARTED.
 - **Status:** `PENDING CHATGPT FINAL AUDIT`
+
+---
+
+## [2026-08-28 03:24] — 2B.2.1 GEMINI PRODUCTION-PARITY LIVE TEST REPORT
+
+### Harness Configuration
+- **Model:** `gemini-3.7-flash`
+- **Thinking Level:** `low`
+- **maxOutputTokens:** `128` (Alinhado com a probe de produção)
+- **Provider Timeout:** `30000ms`
+- **Runner Timeout:** `35000ms`
+
+### Factual Result
+- **GEMINI (`gemini-3.7-flash`):**
+  - **Result:** FAIL (HTTP 503 ProviderUnavailableError)
+  - **Canonical Error:** `ProviderUnavailableError: Serviço indisponível [HTTP 503]`
+  - **Latency:** 22657ms
+  - **Text Length:** 0
+  - **Finish Reason:** N/A (HTTP 503 retornado pela infraestrutura do Google)
+- **DEEPGRAM (`nova-3`):** 0 chamadas (Preservado: LIVE PASS)
+- **CARTESIA (`sonic-3` / Felipe):** 0 chamadas (Preservado: LIVE PASS)
+
+### Security & Governance
+- **Total Live Calls:** Gemini=1, Deepgram=0, Cartesia=0.
+- **Secrets Displayed / Committed:** ZERO.
+- **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Provider Router:** NOT STARTED.
+- **Status:** `PENDING CHATGPT FINAL AUDIT`
