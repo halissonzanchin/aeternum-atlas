@@ -389,3 +389,23 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Windows PowerShell / `--use-system-
 
 ### Resultado
 ALL 3 PROVIDERS AUTHENTICATED (100% HTTP 200 nos endpoints de autenticação de nuvem | 0 chamadas de inferência | 0 chamadas de áudio)
+
+---
+
+## Teste 025 — Execução Final do Live Cloud Validation Harness (Fase 2B.2.1)
+
+Data: 2026-08-28 03:11 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--use-system-ca`)
+
+### 1. Resultados do Harness Canônico de Integração (`cloud_providers.integration.test.ts`):
+- **DEEPGRAM (`nova-3`):** **PASS** (Transcrição batch com fixture sintético executada com sucesso | textLength > 0).
+- **CARTESIA (`sonic-3` / Voz: Felipe `9904416a-0831-44ea-b8ee-5f145e8f9bbf`):** **PASS** (Síntese TTS com áudio gerado com sucesso | audioBytes > 0 | Schema 2026-08-14).
+- **GEMINI (`gemini-3.7-flash`):** **FAIL** (Timeout na requisição de geração aos 20000ms).
+
+### 2. Governança e Custos:
+- Sem loops de repetição de créditos pagos.
+- Zero vazamento de chaves ou conteúdo de áudio/texto.
+- Produção (`ai-tutor v38`, `voice-token v8`) intocada.
+
+### Resultado
+PARTIAL PASS / GEMINI TIMEOUT (Deepgram PASS | Cartesia PASS | Gemini Timeout >20s | 0 segredos expostos)

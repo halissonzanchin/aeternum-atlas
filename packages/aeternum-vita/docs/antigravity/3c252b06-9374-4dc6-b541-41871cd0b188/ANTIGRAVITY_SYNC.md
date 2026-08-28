@@ -478,3 +478,43 @@ FALLBACK: CONFIGURED
 - **Secrets Committed:** NO
 - **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Status:** `PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-28 03:11] — 2B.2.1 FINAL LIVE CLOUD VALIDATION (AUTH FIXED)
+
+### Canonical Harness Execution
+- **File:** `packages/aeternum-vita/src/providers/__tests__/cloud_providers.integration.test.ts`
+- **Environment:** HP Victus / Windows (Node.js v24.19.0 / `--use-system-ca`)
+- **Opt-in Flag:** `RUN_CLOUD_PROVIDER_INTEGRATION=true` (Session-only)
+
+### Factual Provider Results
+1. **GEMINI (gemini-3.7-flash):**
+   - **Result:** FAIL (Test timed out in 20000ms)
+   - **Provider ID:** `gemini-llm-cloud`
+   - **Model:** `gemini-3.7-flash`
+   - **Latency:** > 20000ms
+   - **Text Length:** 0 (Timeout)
+
+2. **DEEPGRAM (nova-3):**
+   - **Result:** PASS
+   - **Provider ID:** `deepgram-stt-cloud`
+   - **Model:** `nova-3`
+   - **Fixture:** `synthetic_speech_aeternum_atlas.wav`
+   - **Assertion:** textLength > 0 (PASS)
+
+3. **CARTESIA (sonic-3 / Felipe):**
+   - **Result:** PASS
+   - **Provider ID:** `cartesia-tts-cloud`
+   - **Model:** `sonic-3`
+   - **Voice:** `Felipe` (`9904416a-0831-44ea-b8ee-5f145e8f9bbf`)
+   - **API Version:** `2026-08-14`
+   - **Assertion:** audioBytes > 0 (PASS)
+
+### Security & Governance
+- **Total Live Calls:** Exactly 1 attempt per provider (no manual loops/retries).
+- **Secrets Displayed / Committed:** ZERO.
+- **Generated Text / Audio Displayed:** ZERO.
+- **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Provider Router:** NOT STARTED.
+- **Status:** `PENDING CHATGPT FINAL AUDIT`
