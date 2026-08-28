@@ -1,2 +1,1 @@
-export * from "./types.ts";
-export * from "./ProviderRouter.ts";
+export * from "../../../../../src/providers/router/index.ts";

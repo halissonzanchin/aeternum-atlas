@@ -13,17 +13,19 @@ export type RouterCapability =
   | "TTS_SYNTHESIZE"
   | "TTS_STREAM";
 
+export interface SafeProviderErrorInfo {
+  name: string;
+  code: string;
+  message: string;
+}
+
 export interface RouteAttempt {
   attemptNumber: number;
   providerId: string;
   providerLocation: ProviderLocation;
   latencyMs: number;
   canonicalResult: "SUCCESS" | "FAILED" | "CANCELLED";
-  error?: {
-    name: string;
-    code: string;
-    message: string;
-  };
+  error?: SafeProviderErrorInfo;
 }
 
 export interface RouteMetadata {

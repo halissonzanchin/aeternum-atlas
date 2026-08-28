@@ -18,8 +18,57 @@ import { BaseProvider } from "../contracts/BaseProvider.ts";
 import { LLMProvider } from "../contracts/LLMProvider.ts";
 import { STTProvider } from "../contracts/STTProvider.ts";
 import { TTSProvider } from "../contracts/TTSProvider.ts";
-import { ProviderRouterConfig, RouteMetadata, RouterCapability, RouterExecutionResult } from "./types.ts";
+import {
+  ProviderRouterConfig,
+  RouteMetadata,
+  RouterCapability,
+  RouterExecutionResult,
+  SafeProviderErrorInfo
+} from "./types.ts";
 import { VoiceProfileRegistry, DEFAULT_VOICE_REGISTRY } from "../voice/VoiceProfileRegistry.ts";
+
+const CANONICAL_ERROR_MESSAGES: Record<string, string> = {
+  PROVIDER_TIMEOUT: "provider_timeout",
+  PROVIDER_UNAVAILABLE: "provider_unavailable",
+  PROVIDER_RATE_LIMIT: "provider_rate_limit",
+  PROVIDER_INVALID_RESPONSE: "provider_invalid_response",
+  PROVIDER_AUTH_ERROR: "provider_authentication_failed",
+  PROVIDER_CANCELLED: "provider_cancelled",
+  CAPABILITY_MISMATCH: "capability_mismatch",
+  ALL_PROVIDERS_FAILED: "all_providers_failed"
+};
+
+/**
+ * Sanitiza e normaliza erros de providers em metadados estritamente canônicos.
+ * Invariante de Segurança: NUNCA inclui err.message bruto nos metadados da rota.
+ */
+export function toSafeProviderError(error: unknown): SafeProviderErrorInfo {
+  if (!error || typeof error !== "object") {
+    return {
+      name: "Error",
+      code: "PROVIDER_ERROR",
+      message: "provider_error"
+    };
+  }
+
+  const errObj = error as any;
+  const name = typeof errObj.name === "string" ? errObj.name : "AeternumProviderError";
+  const code =
+    typeof errObj.code === "string"
+      ? errObj.code
+      : errObj.name === "AbortError"
+      ? "PROVIDER_CANCELLED"
+      : "PROVIDER_ERROR";
+
+  const message = CANONICAL_ERROR_MESSAGES[code] || "provider_error";
+
+  return { name, code, message };
+}
+
+export function toSafeFallbackReason(error: unknown): string {
+  const safe = toSafeProviderError(error);
+  return safe.code;
+}
 
 /**
  * Aeternum Provider Router
@@ -28,13 +77,16 @@ import { VoiceProfileRegistry, DEFAULT_VOICE_REGISTRY } from "../voice/VoiceProf
  * providers com arquitetura LOCAL FIRST e CLOUD FALLBACK.
  *
  * Invariantes Críticos de Arquitetura:
- * 1. LOCAL FIRST: Se o provider local estiver saudável e responder, nenhum provider de nuvem é consultado.
+ * 1. LOCAL FIRST: Se o provider local responder com sucesso, nenhum provider de nuvem é consultado.
  * 2. BARGE-IN / CANCELAMENTO: Se o usuário cancelar a execução (ProviderCancelledError ou AbortSignal),
  *    o roteamento é abortado imediatamente com ZERO chamadas de fallback à nuvem.
- * 3. VERDADE DE CAPACIDADES: Deepgram/cloud não suporta streaming em tempo real nesta versão;
+ * 3. FALHA APÓS PRIMEIRO CHUNK DE STREAM: Se um stream falhar após já ter emitido dados ao cliente,
+ *    nunca sofre fallback (pois geraria chunks duplicados/corrompidos).
+ *    Classificado como FAILED com o erro canônico correspondente (não CANCELLED).
+ * 4. VERDADE DE CAPACIDADES: Deepgram/cloud não suporta streaming em tempo real nesta versão;
  *    nenhum streaming é simulado se o fallback não suportar.
- * 4. PERSONA != MODEL != VOICE: Perfis canônicos de voz são resolvidos exclusivamente via VoiceProfileRegistry.
- * 5. OBSERVABILIDADE PURA: Apenas metadados sanitarizados de rota são registrados (sem prompts, texto gerado,
+ * 5. PERSONA != MODEL != VOICE: Perfis canônicos de voz são resolvidos exclusivamente via VoiceProfileRegistry.
+ * 6. OBSERVABILIDADE PURA: Apenas metadados sanitarizados de rota são registrados (sem prompts, texto gerado,
  *    áudio ou credenciais).
  */
 export class ProviderRouter {
@@ -124,33 +176,48 @@ export class ProviderRouter {
       return;
     } catch (err: any) {
       const latencyMs = Math.round(performance.now() - t0);
+      const isCancelled =
+        err instanceof ProviderCancelledError ||
+        err?.code === "PROVIDER_CANCELLED" ||
+        context?.signal?.aborted ||
+        err?.name === "AbortError";
 
-      // Invariante: Se cancelado ou se já começou a emitir chunks para o usuário, nunca faça fallback
-      if (err instanceof ProviderCancelledError || err?.code === "PROVIDER_CANCELLED" || context?.signal?.aborted || primaryYielded) {
-        metadata.finalCanonicalError = err?.code || "PROVIDER_CANCELLED";
+      if (isCancelled) {
+        // A. ACTUAL USER CANCELLATION
+        metadata.finalCanonicalError = "PROVIDER_CANCELLED";
         metadata.attempts.push({
           attemptNumber: 1,
           providerId: primary.metadata.id,
           providerLocation: primary.metadata.location,
           latencyMs,
           canonicalResult: "CANCELLED",
-          error: { name: err?.name || "Error", code: err?.code || "PROVIDER_CANCELLED", message: err?.message || String(err) }
+          error: toSafeProviderError(err)
         });
         this.config.onRouteComplete?.(metadata);
         throw err;
       }
 
+      // Se não foi cancelamento:
+      const safeErr = toSafeProviderError(err);
       metadata.attempts.push({
         attemptNumber: 1,
         providerId: primary.metadata.id,
         providerLocation: primary.metadata.location,
         latencyMs,
         canonicalResult: "FAILED",
-        error: { name: err?.name || "Error", code: err?.code || "PROVIDER_ERROR", message: err?.message || String(err) }
+        error: safeErr
       });
 
+      if (primaryYielded) {
+        // B. PROVIDER FAILURE AFTER FIRST CHUNK:
+        // Não sofrer fallback para não corromper o stream com dados repetidos.
+        metadata.finalCanonicalError = safeErr.code;
+        this.config.onRouteComplete?.(metadata);
+        throw err;
+      }
+
       if (!isRecoverableProviderError(err) || !fallback) {
-        metadata.finalCanonicalError = fallback ? (err?.code || "PROVIDER_ERROR") : "ALL_PROVIDERS_FAILED";
+        metadata.finalCanonicalError = fallback ? safeErr.code : "ALL_PROVIDERS_FAILED";
         this.config.onRouteComplete?.(metadata);
         if (!fallback) {
           throw new AllProvidersFailedError("Todos os provedores falharam para stream LLM.", capability, metadata.attempts, err);
@@ -159,7 +226,7 @@ export class ProviderRouter {
       }
 
       metadata.fallbackUsed = true;
-      metadata.fallbackReason = err?.message || err?.code;
+      metadata.fallbackReason = toSafeFallbackReason(err);
       metadata.selectedProvider = fallback.metadata.id;
     }
 
@@ -186,27 +253,34 @@ export class ProviderRouter {
       this.config.onRouteComplete?.(metadata);
     } catch (err: any) {
       const latencyMs = Math.round(performance.now() - t1);
-      if (err instanceof ProviderCancelledError || err?.code === "PROVIDER_CANCELLED" || context?.signal?.aborted) {
-        metadata.finalCanonicalError = err?.code || "PROVIDER_CANCELLED";
+      const isCancelled =
+        err instanceof ProviderCancelledError ||
+        err?.code === "PROVIDER_CANCELLED" ||
+        context?.signal?.aborted ||
+        err?.name === "AbortError";
+
+      if (isCancelled) {
+        metadata.finalCanonicalError = "PROVIDER_CANCELLED";
         metadata.attempts.push({
           attemptNumber: 2,
           providerId: fallback.metadata.id,
           providerLocation: fallback.metadata.location,
           latencyMs,
           canonicalResult: "CANCELLED",
-          error: { name: err?.name || "Error", code: err?.code || "PROVIDER_CANCELLED", message: err?.message || String(err) }
+          error: toSafeProviderError(err)
         });
         this.config.onRouteComplete?.(metadata);
         throw err;
       }
 
+      const safeErr = toSafeProviderError(err);
       metadata.attempts.push({
         attemptNumber: 2,
         providerId: fallback.metadata.id,
         providerLocation: fallback.metadata.location,
         latencyMs,
         canonicalResult: "FAILED",
-        error: { name: err?.name || "Error", code: err?.code || "PROVIDER_ERROR", message: err?.message || String(err) }
+        error: safeErr
       });
       metadata.finalCanonicalError = "ALL_PROVIDERS_FAILED";
       this.config.onRouteComplete?.(metadata);
@@ -293,32 +367,44 @@ export class ProviderRouter {
       return;
     } catch (err: any) {
       const latencyMs = Math.round(performance.now() - t0);
+      const isCancelled =
+        err instanceof ProviderCancelledError ||
+        err?.code === "PROVIDER_CANCELLED" ||
+        context?.signal?.aborted ||
+        err?.name === "AbortError";
 
-      if (err instanceof ProviderCancelledError || err?.code === "PROVIDER_CANCELLED" || context?.signal?.aborted || primaryYielded) {
-        metadata.finalCanonicalError = err?.code || "PROVIDER_CANCELLED";
+      if (isCancelled) {
+        metadata.finalCanonicalError = "PROVIDER_CANCELLED";
         metadata.attempts.push({
           attemptNumber: 1,
           providerId: primary.metadata.id,
           providerLocation: primary.metadata.location,
           latencyMs,
           canonicalResult: "CANCELLED",
-          error: { name: err?.name || "Error", code: err?.code || "PROVIDER_CANCELLED", message: err?.message || String(err) }
+          error: toSafeProviderError(err)
         });
         this.config.onRouteComplete?.(metadata);
         throw err;
       }
 
+      const safeErr = toSafeProviderError(err);
       metadata.attempts.push({
         attemptNumber: 1,
         providerId: primary.metadata.id,
         providerLocation: primary.metadata.location,
         latencyMs,
         canonicalResult: "FAILED",
-        error: { name: err?.name || "Error", code: err?.code || "PROVIDER_ERROR", message: err?.message || String(err) }
+        error: safeErr
       });
 
+      if (primaryYielded) {
+        metadata.finalCanonicalError = safeErr.code;
+        this.config.onRouteComplete?.(metadata);
+        throw err;
+      }
+
       if (!isRecoverableProviderError(err) || !fallback) {
-        metadata.finalCanonicalError = fallback ? (err?.code || "PROVIDER_ERROR") : "ALL_PROVIDERS_FAILED";
+        metadata.finalCanonicalError = fallback ? safeErr.code : "ALL_PROVIDERS_FAILED";
         this.config.onRouteComplete?.(metadata);
         if (!fallback) {
           throw new AllProvidersFailedError("Todos os provedores falharam para stream STT.", capability, metadata.attempts, err);
@@ -326,10 +412,8 @@ export class ProviderRouter {
         throw err;
       }
 
-      // Regra de Ouro: Deepgram fallback é batch-only nesta versão. Se streaming em tempo real for exigido,
-      // rejeitar com CapabilityMismatchError em vez de fingir streaming silenciosamente.
       metadata.fallbackUsed = true;
-      metadata.fallbackReason = err?.message || err?.code;
+      metadata.fallbackReason = toSafeFallbackReason(err);
       metadata.selectedProvider = fallback.metadata.id;
 
       // Validar se o fallback suporta streaming real
@@ -345,7 +429,7 @@ export class ProviderRouter {
           providerLocation: fallback.metadata.location,
           latencyMs: 0,
           canonicalResult: "FAILED",
-          error: { name: "CapabilityMismatchError", code: "CAPABILITY_MISMATCH", message: mismatchErr.message }
+          error: toSafeProviderError(mismatchErr)
         });
         this.config.onRouteComplete?.(metadata);
         throw mismatchErr;
@@ -377,9 +461,7 @@ export class ProviderRouter {
       "TTS_SYNTHESIZE",
       this.config.tts.primary,
       this.config.tts.fallback,
-      (provider: TTSProvider) => {
-        return provider.synthesize(request, context);
-      },
+      (provider: TTSProvider) => provider.synthesize(request, context),
       context
     );
   }
@@ -433,32 +515,44 @@ export class ProviderRouter {
       return;
     } catch (err: any) {
       const latencyMs = Math.round(performance.now() - t0);
+      const isCancelled =
+        err instanceof ProviderCancelledError ||
+        err?.code === "PROVIDER_CANCELLED" ||
+        context?.signal?.aborted ||
+        err?.name === "AbortError";
 
-      if (err instanceof ProviderCancelledError || err?.code === "PROVIDER_CANCELLED" || context?.signal?.aborted || primaryYielded) {
-        metadata.finalCanonicalError = err?.code || "PROVIDER_CANCELLED";
+      if (isCancelled) {
+        metadata.finalCanonicalError = "PROVIDER_CANCELLED";
         metadata.attempts.push({
           attemptNumber: 1,
           providerId: primary.metadata.id,
           providerLocation: primary.metadata.location,
           latencyMs,
           canonicalResult: "CANCELLED",
-          error: { name: err?.name || "Error", code: err?.code || "PROVIDER_CANCELLED", message: err?.message || String(err) }
+          error: toSafeProviderError(err)
         });
         this.config.onRouteComplete?.(metadata);
         throw err;
       }
 
+      const safeErr = toSafeProviderError(err);
       metadata.attempts.push({
         attemptNumber: 1,
         providerId: primary.metadata.id,
         providerLocation: primary.metadata.location,
         latencyMs,
         canonicalResult: "FAILED",
-        error: { name: err?.name || "Error", code: err?.code || "PROVIDER_ERROR", message: err?.message || String(err) }
+        error: safeErr
       });
 
+      if (primaryYielded) {
+        metadata.finalCanonicalError = safeErr.code;
+        this.config.onRouteComplete?.(metadata);
+        throw err;
+      }
+
       if (!isRecoverableProviderError(err) || !fallback) {
-        metadata.finalCanonicalError = fallback ? (err?.code || "PROVIDER_ERROR") : "ALL_PROVIDERS_FAILED";
+        metadata.finalCanonicalError = fallback ? safeErr.code : "ALL_PROVIDERS_FAILED";
         this.config.onRouteComplete?.(metadata);
         if (!fallback) {
           throw new AllProvidersFailedError("Todos os provedores falharam para stream TTS.", capability, metadata.attempts, err);
@@ -467,7 +561,7 @@ export class ProviderRouter {
       }
 
       metadata.fallbackUsed = true;
-      metadata.fallbackReason = err?.message || err?.code;
+      metadata.fallbackReason = toSafeFallbackReason(err);
       metadata.selectedProvider = fallback.metadata.id;
     }
 
@@ -494,27 +588,34 @@ export class ProviderRouter {
       this.config.onRouteComplete?.(metadata);
     } catch (err: any) {
       const latencyMs = Math.round(performance.now() - t1);
-      if (err instanceof ProviderCancelledError || err?.code === "PROVIDER_CANCELLED" || context?.signal?.aborted) {
-        metadata.finalCanonicalError = err?.code || "PROVIDER_CANCELLED";
+      const isCancelled =
+        err instanceof ProviderCancelledError ||
+        err?.code === "PROVIDER_CANCELLED" ||
+        context?.signal?.aborted ||
+        err?.name === "AbortError";
+
+      if (isCancelled) {
+        metadata.finalCanonicalError = "PROVIDER_CANCELLED";
         metadata.attempts.push({
           attemptNumber: 2,
           providerId: fallback.metadata.id,
           providerLocation: fallback.metadata.location,
           latencyMs,
           canonicalResult: "CANCELLED",
-          error: { name: err?.name || "Error", code: err?.code || "PROVIDER_CANCELLED", message: err?.message || String(err) }
+          error: toSafeProviderError(err)
         });
         this.config.onRouteComplete?.(metadata);
         throw err;
       }
 
+      const safeErr = toSafeProviderError(err);
       metadata.attempts.push({
         attemptNumber: 2,
         providerId: fallback.metadata.id,
         providerLocation: fallback.metadata.location,
         latencyMs,
         canonicalResult: "FAILED",
-        error: { name: err?.name || "Error", code: err?.code || "PROVIDER_ERROR", message: err?.message || String(err) }
+        error: safeErr
       });
       metadata.finalCanonicalError = "ALL_PROVIDERS_FAILED";
       this.config.onRouteComplete?.(metadata);
@@ -564,35 +665,41 @@ export class ProviderRouter {
       return { data: response, metadata };
     } catch (err: any) {
       const latencyMs = Math.round(performance.now() - t0);
+      const isCancelled =
+        err instanceof ProviderCancelledError ||
+        err?.code === "PROVIDER_CANCELLED" ||
+        context?.signal?.aborted ||
+        err?.name === "AbortError";
 
       // Invariante de Segurança: Cancelamento do usuário (Barge-in) NUNCA sofre fallback
-      if (err instanceof ProviderCancelledError || err?.code === "PROVIDER_CANCELLED" || context?.signal?.aborted) {
-        metadata.finalCanonicalError = err?.code || "PROVIDER_CANCELLED";
+      if (isCancelled) {
+        metadata.finalCanonicalError = "PROVIDER_CANCELLED";
         metadata.attempts.push({
           attemptNumber: 1,
           providerId: primary.metadata.id,
           providerLocation: primary.metadata.location,
           latencyMs,
           canonicalResult: "CANCELLED",
-          error: { name: err?.name || "Error", code: err?.code || "PROVIDER_CANCELLED", message: err?.message || String(err) }
+          error: toSafeProviderError(err)
         });
 
         this.config.onRouteComplete?.(metadata);
         throw err;
       }
 
+      const safeErr = toSafeProviderError(err);
       metadata.attempts.push({
         attemptNumber: 1,
         providerId: primary.metadata.id,
         providerLocation: primary.metadata.location,
         latencyMs,
         canonicalResult: "FAILED",
-        error: { name: err?.name || "Error", code: err?.code || "PROVIDER_ERROR", message: err?.message || String(err) }
+        error: safeErr
       });
 
       // Se o erro não for recuperável ou se não houver fallback configurado
       if (!isRecoverableProviderError(err) || !fallback) {
-        metadata.finalCanonicalError = fallback ? (err?.code || "PROVIDER_ERROR") : "ALL_PROVIDERS_FAILED";
+        metadata.finalCanonicalError = fallback ? safeErr.code : "ALL_PROVIDERS_FAILED";
         this.config.onRouteComplete?.(metadata);
         if (!fallback) {
           throw new AllProvidersFailedError(
@@ -606,7 +713,7 @@ export class ProviderRouter {
       }
 
       metadata.fallbackUsed = true;
-      metadata.fallbackReason = err?.message || err?.code;
+      metadata.fallbackReason = toSafeFallbackReason(err);
       metadata.selectedProvider = fallback.metadata.id;
     }
 
@@ -633,29 +740,35 @@ export class ProviderRouter {
       return { data: response, metadata };
     } catch (err: any) {
       const latencyMs = Math.round(performance.now() - t1);
+      const isCancelled =
+        err instanceof ProviderCancelledError ||
+        err?.code === "PROVIDER_CANCELLED" ||
+        context?.signal?.aborted ||
+        err?.name === "AbortError";
 
-      if (err instanceof ProviderCancelledError || err?.code === "PROVIDER_CANCELLED" || context?.signal?.aborted) {
-        metadata.finalCanonicalError = err?.code || "PROVIDER_CANCELLED";
+      if (isCancelled) {
+        metadata.finalCanonicalError = "PROVIDER_CANCELLED";
         metadata.attempts.push({
           attemptNumber: 2,
           providerId: fallback.metadata.id,
           providerLocation: fallback.metadata.location,
           latencyMs,
           canonicalResult: "CANCELLED",
-          error: { name: err?.name || "Error", code: err?.code || "PROVIDER_CANCELLED", message: err?.message || String(err) }
+          error: toSafeProviderError(err)
         });
 
         this.config.onRouteComplete?.(metadata);
         throw err;
       }
 
+      const safeErr = toSafeProviderError(err);
       metadata.attempts.push({
         attemptNumber: 2,
         providerId: fallback.metadata.id,
         providerLocation: fallback.metadata.location,
         latencyMs,
         canonicalResult: "FAILED",
-        error: { name: err?.name || "Error", code: err?.code || "PROVIDER_ERROR", message: err?.message || String(err) }
+        error: safeErr
       });
 
       metadata.finalCanonicalError = "ALL_PROVIDERS_FAILED";

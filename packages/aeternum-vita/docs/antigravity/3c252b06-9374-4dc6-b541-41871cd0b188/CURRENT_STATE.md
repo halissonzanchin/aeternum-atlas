@@ -4,7 +4,8 @@ LAST_UPDATE=2026-08-28
 P0.1.1=VERIFIED
 FASE_2B_2=IMPLEMENTED / CORRECTIONS REQUIRED
 FASE_2B_2_1=VERIFIED (ChatGPT Audit)
-FASE_2C=IMPLEMENTED / PENDING CHATGPT AUDIT
+FASE_2C=IMPLEMENTED / CORRECTED / PENDING CHATGPT AUDIT
+FASE_2C_1=IMPLEMENTED / PENDING CHATGPT AUDIT
 AI_TUTOR_RUNTIME_VERSION=v38
 VOICE_TOKEN_RUNTIME_VERSION=v8
 AI_TUTOR_PRIMARY_MODEL=gemini-3.7-flash
@@ -22,7 +23,8 @@ LOCAL_DEEPGRAM_CREDENTIAL_STATUS=VERIFIED / LIVE PASS (nova-3)
 LOCAL_CARTESIA_CREDENTIAL_STATUS=VERIFIED / LIVE PASS (sonic-3 / Felipe 9904416a-0831-44ea-b8ee-5f145e8f9bbf)
 ALL_LOCAL_CLOUD_CREDENTIALS_READY=YES
 CARTESIA_PT_BR_VOICE_TARGET=Felipe (9904416a-0831-44ea-b8ee-5f145e8f9bbf)
-PROVIDER_ROUTER_STATUS=IMPLEMENTED (16/16 deterministic tests PASS / 178 total tests PASS)
+PROVIDER_ROUTER_SOURCES_OF_TRUTH=1 (Canonical: packages/aeternum-vita/src/providers/router | Thin Reexport: apps/agent)
+PROVIDER_ROUTER_STATUS=HARDENED (22/22 hardening tests PASS / 168 total unit tests PASS)
 AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 
 ---
@@ -31,7 +33,7 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 - **P0.1.1 — Sovereign Inference & Cloud Recovery Gate:** VERIFIED (ai-tutor v38, voice-token v8, Gemini 3.7 & 2.5 homologados, RAG contextualizado).
 - **Fase 2B.2 — Cloud Provider Layer:** IMPLEMENTED / CORRECTIONS REQUIRED.
 - **Fase 2B.2.1 — Cloud Provider Correctness Gate:** VERIFIED by ChatGPT.
-- **Fase 2C — Provider Router:** IMPLEMENTED / PENDING CHATGPT AUDIT.
+- **Fase 2C & 2C.1 — Provider Router Final Hardening:** IMPLEMENTED / PENDING CHATGPT AUDIT.
 - **Fase 2D — AI Gateway:** PLANNED / BLOCKED UNTIL ROUTER VERIFIED.
 
 ## 2. Visão Geral dos Componentes
@@ -51,13 +53,16 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 - Embedding Model: `gemini-embedding-2` (768 dimensões)
 - RAG Method: `postgresql-fts` (6 fontes) com contextualização bounded
 
-### Provider Router (Fase 2C — packages/aeternum-vita/src/providers/router)
+### Provider Router (Fase 2C & 2C.1 — packages/aeternum-vita/src/providers/router)
+- **Source of Truth:** 1 (Canônico em `src/providers/router`, re-export fino em `apps/agent/src/providers/router`).
 - **Architecture:** Local First com Cloud Fallback determinístico.
 - **LLM Routing:** `Ollama (qwen2.5:3b)` $\rightarrow$ `Gemini (gemini-3.7-flash)`
 - **STT Routing:** `Speaches / Faster-Whisper` $\rightarrow$ `Deepgram (nova-3)`
 - **TTS Routing:** `Speaches / Kokoro` $\rightarrow$ `Cartesia (sonic-3 / Felipe)`
-- **Barge-in Safe:** User cancellation NUNCA dispara fallback à nuvem.
-- **Status:** **178/178 Testes Vitest PASS (100% Green)**
+- **Error Metadata Security:** Safe canonical error messages & fallbackReason; zero vazamento de segredos ou prompts em metadados.
+- **Partial Stream Failure:** Falhas pós-primeiro-chunk não sofrem fallback e são classificadas como FAILED com o código de erro real.
+- **Barge-in Safe:** Cancelamento de usuário aborta imediatamente com ZERO chamadas à nuvem.
+- **Status:** **22/22 Hardening Tests PASS / 168/168 Total Unit Tests PASS (100% Green)**
 
 ### Cloud Provider Adapters (Fase 2B.2.1 — packages/aeternum-vita)
 - **GeminiLLMProvider**: VERIFIED
@@ -73,4 +78,4 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 ### Segurança & Observabilidade
 - voice-token exige JWT: YES (`v8` ACTIVE)
 - ai-tutor exige JWT: YES (`v38` ACTIVE)
-- Secrets em logs/código: ZERO (Nenhuma credencial exposta)
+- Secrets em logs/código/metadados: ZERO (Nenhuma credencial exposta)

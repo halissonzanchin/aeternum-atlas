@@ -618,3 +618,36 @@ FALLBACK: CONFIGURED
 - **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
 - **AI Gateway:** NÃO INICIADO.
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-28 03:47] — FASE 2C.1 CONCLUÍDA: PROVIDER ROUTER FINAL HARDENING GATE
+
+### Hardening Corrections & Audit Resolutions
+1. **Finding 1 — Sanitização Estrita de Mensagens de Erro e Fallback Reason:**
+   - Criado helper canônico `toSafeProviderError(err)` e `toSafeFallbackReason(err)`.
+   - `fallbackReason` e `error.message` nos metadados de rota agora são estritamente canônicos (ex: `PROVIDER_UNAVAILABLE`, `PROVIDER_TIMEOUT`, `provider_unavailable`).
+   - Validado em teste que erros contendo marcadores sensíveis (`SECRET_PROMPT_MARKER`, `API_KEY_MARKER`, `TRANSCRIPT_MARKER`) jamais vazam para a serialização de metadados.
+
+2. **Finding 2 — Classificação Estrita de Falha Parcial de Stream (LLM, STT, TTS):**
+   - **Cancelamento Real do Usuário (Barge-in):** `canonicalResult = "CANCELLED"`, `finalCanonicalError = "PROVIDER_CANCELLED"`, ZERO chamadas à nuvem.
+   - **Falha do Provedor Após Primeiro Chunk (`primaryYielded === true`):** Não sofre fallback à nuvem (evita duplicação/corrupção de chunks no cliente) e classifica corretamente como `canonicalResult = "FAILED"` com `finalCanonicalError = <código canônico do erro>` (não CANCELLED).
+   - Testes determinísticos para LLM, STT e TTS cobrindo falhas pós-primeiro-chunk e cancelamento de usuário: 100% PASS.
+
+3. **Finding 3 — Unificação da Fonte Única da Verdade do Provider Router:**
+   - Fonte Canônica Única: `packages/aeternum-vita/src/providers/router`.
+   - `packages/aeternum-vita/apps/agent/src/providers/router` convertido em **thin re-export compatibility shim** (`export * from "../../../../../src/providers/router/..."`).
+   - Removida duplicidade de testes em `apps/agent`.
+   - Invariante estabelecido: `PROVIDER_ROUTER_SOURCES_OF_TRUTH = 1`.
+
+4. **Auth Fail-Closed Invariant:**
+   - Provado em teste que erro de autenticação no provedor primário local (`ProviderAuthenticationError`) propaga imediatamente com **ZERO chamadas à nuvem**.
+
+### Métricas de Teste
+- **Suíte Hardened do Router (`provider_router.test.ts`):** 22/22 PASS (100% Green)
+- **Total Unitários no Módulo Providers:** 168/168 PASS (30 skipped opt-in = 198 total)
+- **TypeScript:** 0 erros (`tsc --noEmit`)
+- **Live Cloud Calls:** 0
+- **Produção:** `ai-tutor v38` e `voice-token v8` intocados.
+- **AI Gateway:** NÃO INICIADO.
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

@@ -789,3 +789,28 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--us
 
 ### Resultado
 ALL 16 ROUTER DETERMINISTIC TESTS PASS (178/178 total no módulo providers | Local-First & Barge-In Invariants Enforced)
+
+---
+
+## Teste 029 — Validação do Portão de Hardening do Provider Router (Fase 2C.1)
+
+Data: 2026-08-28 03:47 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / Windows PowerShell / `--use-system-ca`)
+
+### 1. Suíte Hardened do Router (`provider_router.test.ts` — 22 Testes):
+- **Finding 1 Security Test**: Erros contaminados com marcadores de segredos e prompts são sanitizados nos metadados e no `fallbackReason` $\rightarrow$ **PASS**.
+- **Finding 2 Partial Stream Tests**:
+  - LLM stream (1 chunk emitido + ProviderUnavailableError) $\rightarrow$ **FAILED** / `PROVIDER_UNAVAILABLE` / 0 cloud calls $\rightarrow$ **PASS**.
+  - STT stream (1 chunk emitido + ProviderTimeoutError) $\rightarrow$ **FAILED** / `PROVIDER_TIMEOUT` / 0 cloud calls $\rightarrow$ **PASS**.
+  - TTS stream (1 chunk emitido + ProviderUnavailableError) $\rightarrow$ **FAILED** / `PROVIDER_UNAVAILABLE` / 0 cloud calls $\rightarrow$ **PASS**.
+  - Cancelamento real de usuário em stream $\rightarrow$ **CANCELLED** / `PROVIDER_CANCELLED` / 0 cloud calls $\rightarrow$ **PASS**.
+- **Finding 3 Single Source of Truth**: `apps/agent/src/providers/router` opera como thin re-export $\rightarrow$ **PASS**.
+- **Auth Fail-Closed**: Erro de autenticação local dispara 0 chamadas de nuvem e propaga o erro original $\rightarrow$ **PASS**.
+
+### 2. Métricas Totais:
+- **168 testes passaram** no Vitest (`src/providers`).
+- **0 erros de compilação** no TypeScript.
+- **0 chamadas de nuvem pagas**.
+
+### Resultado
+ALL 22 HARDENING TESTS PASS (168/168 total no módulo providers | Zero Secret Leakage | Safe Partial Stream Classification)
