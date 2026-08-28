@@ -20,6 +20,7 @@ LOCAL_GEMINI_CREDENTIAL_STATUS=READY
 LOCAL_DEEPGRAM_CREDENTIAL_STATUS=READY
 LOCAL_CARTESIA_CREDENTIAL_STATUS=READY
 ALL_LOCAL_CLOUD_CREDENTIALS_READY=YES
+CARTESIA_PT_BR_VOICE_TARGET=Felipe (9904416a-0831-44ea-b8ee-5f145e8f9bbf)
 Provider Router=PLANNED / BLOCKED UNTIL 2B.2.1 VERIFIED
 AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 
@@ -61,6 +62,7 @@ AI Gateway=PLANNED / BLOCKED UNTIL ROUTER VERIFIED
 - **CartesiaTTSProvider**:
   - Local Credential Status: **READY** (Disponível no ambiente de teste local via `.env.cloud.local`)
   - Modelo Primário: `sonic-3`
+  - Voice Target PT-BR: **Felipe** (`9904416a-0831-44ea-b8ee-5f145e8f9bbf`)
   - Status: **100% Green (146 Testes Vitest)**
 
 ### Local Stack (HP Victus)

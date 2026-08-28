@@ -36,7 +36,7 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Schema 
       const cartesiaTarget = registry.resolveTarget("pt-br-warm-male-01", "cartesia");
       expect(cartesiaTarget.providerId).toBe("cartesia");
       expect(cartesiaTarget.modelId).toBe("sonic-3");
-      expect(cartesiaTarget.nativeVoiceId).toBe("a0e99841-438c-4a64-b679-ae501e7d6091");
+      expect(cartesiaTarget.nativeVoiceId).toBe("9904416a-0831-44ea-b8ee-5f145e8f9bbf");
     });
 
     it("deve falhar se o perfil não possuir target para o provedor solicitado", () => {
@@ -586,7 +586,7 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Schema 
 
       // Verificação estrita do schema 2026-08-14 da Cartesia: voice deve ser string direta!
       expect(typeof capturedPayload.voice).toBe("string");
-      expect(capturedPayload.voice).toBe("a0e99841-438c-4a64-b679-ae501e7d6091");
+      expect(capturedPayload.voice).toBe("9904416a-0831-44ea-b8ee-5f145e8f9bbf");
       expect(capturedPayload.voice.id).toBeUndefined();
 
       // output_format para WAV
@@ -697,7 +697,7 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Schema 
       }
 
       expect(typeof capturedPayload.voice).toBe("string");
-      expect(capturedPayload.voice).toBe("a0e99841-438c-4a64-b679-ae501e7d6091");
+      expect(capturedPayload.voice).toBe("9904416a-0831-44ea-b8ee-5f145e8f9bbf");
       expect(collected.length).toBe(2);
     });
   });

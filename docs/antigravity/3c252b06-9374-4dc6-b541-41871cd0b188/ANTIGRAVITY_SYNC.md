@@ -791,3 +791,30 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **ai-tutor:** v38 unchanged
 - **voice-token:** v8 unchanged
 - **Status:** PENDING CHATGPT AUDIT
+
+---
+
+## [2026-08-28 02:34] — 2B.2.1 PT-BR CARTESIA VOICE TARGET UPDATE
+
+### Voice Target Update
+- **Canonical Voice Profile:** `pt-br-warm-male-01`
+- **Cartesia Selected Voice:** Felipe
+- **Native Cartesia Voice ID:** `9904416a-0831-44ea-b8ee-5f145e8f9bbf`
+- **Speaches / Kokoro Local Target:** Inalterado (`pm_alex`)
+- **Architectural Separation:** `PERSONA != MODEL != VOICE` preservado estritamente.
+
+### Persona Eduardo Definition Audit (Reference for Future Dedicated Gate)
+- Arquivos mapeados contendo referências de persona:
+  - `packages/aeternum-vita/apps/agent/src/agent.ts`
+  - `packages/aeternum-vita/apps/agent/src/runtime-config.ts`
+  - `packages/aeternum-vita/apps/token-server/src/token.ts`
+  - `packages/aeternum-vita/apps/web/src/components/A26TutorSelector.tsx`
+  - `packages/aeternum-vita/supabase/functions/voice-token/index.ts`
+
+### Test & Security State
+- **Unit Tests:** 146/146 PASS (100% Green no Vitest)
+- **TypeScript:** 0 erros (`tsc --noEmit`)
+- **Live Cloud Calls:** 0
+- **Secrets in Git / Docs / Logs:** ZERO
+- **Production State:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

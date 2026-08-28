@@ -61,7 +61,7 @@ export class VoiceProfileRegistry {
           cartesia: {
             providerId: "cartesia",
             modelId: "sonic-multilingual",
-            nativeVoiceId: "a0e99841-438c-4a64-b679-ae501e7d6091", // Cartesia Portuguese Male
+            nativeVoiceId: "9904416a-0831-44ea-b8ee-5f145e8f9bbf", // Cartesia Portuguese Male (Felipe)
             sampleRate: 24000,
             format: "pcm"
           }
