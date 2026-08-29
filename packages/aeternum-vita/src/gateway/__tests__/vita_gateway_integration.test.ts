@@ -674,7 +674,7 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A & 3A.1)", () => {
     }
   });
 
-  it("22. TTS SSE stream: unknown provider error maps to provider_error without vendor leakage", async () => {
+  it("22. TTS SSE stream: unknown provider error maps to canonical provider_error without vendor leakage", async () => {
     const p = getPort();
 
     class CustomBrokenTTS extends FakeTTSProvider {
@@ -706,6 +706,7 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A & 3A.1)", () => {
 
       expect(errorCaught).toBeDefined();
       expect(errorCaught.message).not.toContain("SECRET_KEY_12345");
+      expect(errorCaught.message).toBe("Serviço de síntese vocal temporariamente indisponível.");
     } finally {
       await gateway.stop();
     }

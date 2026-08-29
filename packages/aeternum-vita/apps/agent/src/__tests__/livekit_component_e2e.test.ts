@@ -12,7 +12,7 @@ import { queryVitaKnowledge, formatKnowledgeContext } from "../vita-rag.ts";
 
 initializeLogger({ level: "silent", pretty: false });
 
-describe("LiveKit AgentSession ↔ AI Gateway E2E Harness (Phase 3A.3)", () => {
+describe("LiveKit Component Composition E2E Harness (LIVEKIT_COMPONENT_E2E)", () => {
   let port = 8630;
   const getPort = () => ++port;
 

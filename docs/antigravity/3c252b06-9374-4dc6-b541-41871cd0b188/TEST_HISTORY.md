@@ -1056,3 +1056,37 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / HP Victus
 
 ### Resultado
 ALL 60 GATEWAY & COMPOSITION TESTS PASS (274/274 Total Suite PASS) | REAL AGENTSESSION PROOF = PASS
+
+---
+
+## Teste 037 — Barge-In Signal Propagation & Local AgentSession Evidence Closure (Fase 3A.4)
+
+Data: 2026-08-29 14:30 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / HP Victus Stack: Gateway :8081, Ollama :11434, Speaches :8000)
+
+### 1. Suíte de Testes de Protocolo & Integração
+- `livekit_openai_protocol.test.ts` $\rightarrow$ **7/7 PASS** (`LIVEKIT_STREAM_CLOSE_PROPAGATED_TO_PROVIDER: PASS`)
+- `livekit_gateway_composition.test.ts` $\rightarrow$ **6/6 PASS**
+- `livekit_component_e2e.test.ts` $\rightarrow$ **1/1 PASS** (`LIVEKIT_COMPONENT_E2E: PASS`)
+- `vita_gateway_integration.test.ts` $\rightarrow$ **22/22 PASS**
+- `gateway.test.ts` $\rightarrow$ **24/24 PASS**
+- Suíte completa (`src/providers`, `src/gateway`, `apps/agent`) $\rightarrow$ **274/274 PASS**
+
+### 2. Validação Factual de Voz com LiveKit AgentSession Real no HP Victus (`CLOUD_FALLBACK_ENABLED=false` / `VITA_AI_BACKEND=gateway`)
+- **Harness:** `apps/agent/src/__tests__/run_agentsession_local_proof.ts`
+- **Rotas do Gateway Acionadas:** `/v1/audio/transcriptions` (SIM), `/v1/chat/completions` (SIM), `/v1/audio/speech` (SIM)
+- **Bypass Direto:** 0 chamadas para :11434 ou :8000
+- **Cold Turn:** Total=25465ms (STT: 13317ms, LLM Total: 10018ms, TTS Total: 2130ms)
+- **3 Warm Turns (Estatísticas Factuais):**
+  - STT Latency: min=3715ms, median=3870ms, max=3978ms
+  - LLM TTFT: min=470ms, median=515ms, max=6778ms
+  - LLM Total: min=1253ms, median=1449ms, max=8018ms
+  - TTS TTFA: min=3795ms, median=4689ms, max=5588ms
+  - TTS Total: min=3795ms, median=4689ms, max=5588ms
+  - Total Voice Turn: min=8763ms, median=10117ms, max=17477ms
+- **LiveKit Active Barge-In Signal Propagation:** PASS (`providerObservedAbort === true`, `cloudGemini.callCount === 0`)
+- **Cloud inference calls:** Gemini=0, Deepgram=0, Cartesia=0
+- **VITA_LIVEKIT_GATEWAY_REAL_E2E:** **PASS**
+
+### Resultado
+ALL 60 GATEWAY & COMPOSITION TESTS PASS (274/274 Total Suite PASS) | REAL AGENTSESSION EVIDENCE = PASS

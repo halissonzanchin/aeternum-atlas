@@ -6,7 +6,7 @@ import { ProviderRouter } from "../../../../src/providers/router/ProviderRouter.
 import { FakeLLMProvider } from "../../../../src/providers/testing/FakeLLMProvider.ts";
 import { FakeSTTProvider } from "../../../../src/providers/testing/FakeSTTProvider.ts";
 import { FakeTTSProvider } from "../../../../src/providers/testing/FakeTTSProvider.ts";
-import { ProviderUnavailableError } from "../../../../src/providers/types/index.ts";
+import { ProviderUnavailableError, ProviderCancelledError } from "../../../../src/providers/types/index.ts";
 import { VoiceProfileRegistry } from "../../../../src/providers/voice/VoiceProfileRegistry.ts";
 
 initializeLogger({ level: "silent", pretty: false });
@@ -205,16 +205,24 @@ describe("LiveKit ↔ AI Gateway Protocol Compatibility & Multilingual (Phase 3A
   // 5. LIVEKIT ACTIVE BARGE-IN WITH stream.close()
   // ==========================================
 
-  it("5. LIVEKIT_ACTIVE_BARGE_IN_ZERO_CLOUD: LiveKit request in-flight abort via stream.close() results in zero cloud fallback", async () => {
+  it("5. LIVEKIT_STREAM_CLOSE_PROPAGATED_TO_PROVIDER & LIVEKIT_ACTIVE_BARGE_IN_ZERO_CLOUD: LiveKit stream.close() propagates AbortSignal to provider and yields zero cloud fallback", async () => {
     const p = getPort();
+
+    let providerObservedAbort = false;
 
     class SlowLLM extends FakeLLMProvider {
       async *stream(req: any, context?: any) {
         yield { deltaText: "Início", isComplete: false };
-        await new Promise((resolve) => setTimeout(resolve, 300));
-        if (context?.signal?.aborted) {
-          throw new ProviderUnavailableError("Cancelado", this.metadata.id);
+
+        const start = Date.now();
+        while (Date.now() - start < 400) {
+          if (context?.signal?.aborted) {
+            providerObservedAbort = true;
+            throw new ProviderCancelledError("Cancelado pelo cliente", this.metadata.id);
+          }
+          await new Promise((resolve) => setTimeout(resolve, 20));
         }
+
         yield { deltaText: " Fim", isComplete: true, finishReason: "stop" as any };
       }
     }
@@ -256,9 +264,12 @@ describe("LiveKit ↔ AI Gateway Protocol Compatibility & Multilingual (Phase 3A
       }
 
       expect(firstChunkReceived).toBe(true);
-      // Aguarda 350ms para garantir que qualquer operação em voo finalize sem fallback tardio
-      await new Promise((r) => setTimeout(r, 350));
-      expect(cloudGemini.callCount).toBe(0); // Zero chamadas de nuvem
+
+      // Aguarda o tempo necessário para o provedor local observar o sinal de aborto
+      await new Promise((r) => setTimeout(r, 450));
+
+      expect(providerObservedAbort).toBe(true); // Prova propagação do AbortSignal ao provedor
+      expect(cloudGemini.callCount).toBe(0); // Zero chamadas de nuvem tardias
     } finally {
       await gateway.stop();
     }
