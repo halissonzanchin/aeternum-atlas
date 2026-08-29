@@ -334,6 +334,7 @@ export class AeternumAIGateway {
       metadata: {
         requestId,
         capability: result.metadata.capabilityRequested,
+        primaryProvider: result.metadata.primaryProvider,
         finalProvider: result.metadata.finalProvider,
         fallbackUsed: result.metadata.fallbackUsed,
         fallbackReason: result.metadata.fallbackReason,
@@ -985,7 +986,8 @@ export class AeternumAIGateway {
       return true;
     }
 
-    return true;
+    this.sendError(res, 401, "UNAUTHORIZED", requestId, "unauthorized", "Modo de autenticação inválido ou desconhecido.");
+    return false;
   }
 
   private async readJsonBody<T = any>(

@@ -1259,3 +1259,32 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Supabase 
 
 ### Resultado
 ALL 84 GATEWAY, COMPOSITION, AGENTSESSION & ATLAS TUTOR TESTS PASS (299/299 Total Suite PASS) | PHASE 3B.2 = IMPLEMENTED
+
+---
+
+## Teste 043 — Final Multi-Tenant + Contract Hardening (Fase 3B.3)
+
+Data: 2026-08-29 18:35 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Supabase Edge Functions)
+
+### 1. Suíte de Testes de Hardening (`atlas_tutor_hardening_3b3.test.ts`)
+- **Teste 1 (AI_TUTOR_TENANT_ISOLATION):** Mesmo usuário tentando acessar conversa de outra instituição $\rightarrow$ HTTP 403 `CONVERSATION_FORBIDDEN`, 0 chamadas de provider $\rightarrow$ **PASS**
+- **Teste 2 (AI_TUTOR_FALLBACK_METADATA_SEMANTICS):** Fallback do Router reflete fidedignamente modelo primário vs final no frame SSE $\rightarrow$ **PASS**
+- **Teste 3 (GATEWAY_UNKNOWN_AUTH_MODE_FAIL_CLOSED):** Modo de autenticação desconhecido no Gateway falha fechado com 401 $\rightarrow$ **PASS**
+- **Teste 4 (AI_TUTOR_UTF8_64KB_BYTE_GUARD):** Payload multibyte $>64\text{KB}$ rejeitado com HTTP 413 $\rightarrow$ **PASS**
+
+### 2. Suíte Regressiva Geral
+- `atlas_tutor_hardening_3b3.test.ts` $\rightarrow$ **4/4 PASS**
+- `atlas_tutor_real_http_service_auth.test.ts` $\rightarrow$ **7/7 PASS**
+- `atlas_tutor_real_handler.test.ts` $\rightarrow$ **11/11 PASS**
+- `atlas_tutor_gateway_integration.test.ts` $\rightarrow$ **5/5 PASS**
+- `livekit_agentsession_lifecycle.test.ts` $\rightarrow$ **1/1 PASS**
+- `livekit_openai_protocol.test.ts` $\rightarrow$ **7/7 PASS**
+- `livekit_gateway_composition.test.ts` $\rightarrow$ **6/6 PASS**
+- `livekit_component_e2e.test.ts` $\rightarrow$ **1/1 PASS**
+- `vita_gateway_integration.test.ts` $\rightarrow$ **22/22 PASS**
+- `gateway.test.ts` $\rightarrow$ **24/24 PASS**
+- Suíte completa (`src/providers`, `src/gateway`, `apps/agent`) $\rightarrow$ **303/303 PASS**
+
+### Resultado
+ALL 88 GATEWAY, COMPOSITION, AGENTSESSION & ATLAS TUTOR TESTS PASS (303/303 Total Suite PASS) | PHASE 3B.3 = IMPLEMENTED

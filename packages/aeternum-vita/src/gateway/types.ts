@@ -74,6 +74,7 @@ export interface GatewaySuccessResponse<T> {
   metadata?: {
     requestId: string;
     capability: string;
+    primaryProvider?: string;
     finalProvider?: string;
     fallbackUsed: boolean;
     fallbackReason?: string;

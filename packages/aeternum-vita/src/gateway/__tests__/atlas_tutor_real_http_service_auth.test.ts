@@ -27,48 +27,42 @@ function createFakeClientFactory(db: InMemoryDB) {
         }
       },
       from(table: string) {
-        return {
-          select(fields: string) {
-            return {
-              eq(col1: string, val1: any) {
-                return {
-                  eq(col2: string, val2: any) {
-                    return {
-                      order(orderCol: string, opts?: { ascending: boolean }) {
-                        return {
-                          limit(lim: number) {
-                            if (table === "ai_messages") {
-                              const filtered = db.messages.filter((m) => (m as any)[col1] === val1 && (m as any)[col2] === val2);
-                              const sorted = opts?.ascending === false ? [...filtered].reverse() : [...filtered];
-                              return Promise.resolve({ data: sorted.slice(0, lim), error: null });
-                            }
-                            return Promise.resolve({ data: [], error: null });
-                          }
-                        };
-                      },
-                      maybeSingle() {
-                        if (table === "ai_conversations") {
-                          const found = db.conversations.find((c) => (c as any)[col1] === val1 && (c as any)[col2] === val2);
-                          return Promise.resolve({ data: found || null, error: null });
-                        }
-                        return Promise.resolve({ data: null, error: null });
-                      }
-                    };
-                  },
-                  maybeSingle() {
-                    if (table === "users") {
-                      const found = db.users.find((u) => (u as any)[col1] === val1);
-                      return Promise.resolve({ data: found || null, error: null });
-                    }
-                    if (table === "ai_conversations") {
-                      const found = db.conversations.find((c) => (c as any)[col1] === val1);
-                      return Promise.resolve({ data: found || null, error: null });
-                    }
-                    return Promise.resolve({ data: null, error: null });
+        function createQueryBuilder(filters: Array<[string, any]> = []) {
+          return {
+            eq(col: string, val: any) {
+              return createQueryBuilder([...filters, [col, val]]);
+            },
+            order(orderCol: string, opts?: { ascending: boolean }) {
+              return {
+                limit(lim: number) {
+                  let rows: any[] = [];
+                  if (table === "ai_messages") {
+                    rows = db.messages.filter((m) =>
+                      filters.every(([c, v]) => (m as any)[c] === v)
+                    );
                   }
-                };
-              }
-            };
+                  const sorted = opts?.ascending === false ? [...rows].reverse() : [...rows];
+                  return Promise.resolve({ data: sorted.slice(0, lim), error: null });
+                }
+              };
+            },
+            maybeSingle() {
+              let rows: any[] = [];
+              if (table === "users") rows = db.users;
+              else if (table === "ai_conversations") rows = db.conversations;
+              else if (table === "ai_messages") rows = db.messages;
+
+              const found = rows.find((r) =>
+                filters.every(([c, v]) => (r as any)[c] === v)
+              );
+              return Promise.resolve({ data: found || null, error: null });
+            }
+          };
+        }
+
+        return {
+          select(fields?: string) {
+            return createQueryBuilder();
           },
           insert(record: any) {
             if (table === "ai_conversations") {
@@ -85,19 +79,23 @@ function createFakeClientFactory(db: InMemoryDB) {
             return Promise.resolve({ error: null });
           },
           update(fields: any) {
-            return {
-              eq(col1: string, val1: any) {
-                return {
-                  eq(col2: string, val2: any) {
-                    if (table === "ai_conversations") {
-                      const found = db.conversations.find((c) => (c as any)[col1] === val1 && (c as any)[col2] === val2);
-                      if (found) Object.assign(found, fields);
-                    }
-                    return Promise.resolve({ error: null });
+            function createUpdateBuilder(filters: Array<[string, any]> = []) {
+              return {
+                eq(col: string, val: any) {
+                  return createUpdateBuilder([...filters, [col, val]]);
+                },
+                then(resolve: any) {
+                  if (table === "ai_conversations") {
+                    const found = db.conversations.find((c) =>
+                      filters.every(([k, v]) => (c as any)[k] === v)
+                    );
+                    if (found) Object.assign(found, fields);
                   }
-                };
-              }
-            };
+                  return Promise.resolve({ error: null }).then(resolve);
+                }
+              };
+            }
+            return createUpdateBuilder();
           },
           delete() {
             return {

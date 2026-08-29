@@ -1762,3 +1762,49 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **Testes de Integração Gateway da Fase 3B (`atlas_tutor_gateway_integration.test.ts`):** 5/5 PASS
 - **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-29 18:35] — FASE 3B.3 CONCLUÍDA: FINAL MULTI-TENANT + CONTRACT HARDENING
+
+### Branch & Governança
+- **Branch:** `antigravity/phase-3b-atlas-tutor-gateway` (NÃO mergeada para `main`).
+- **Governança Visual & Vercel / Supabase:**
+  - Arquivos visuais de frontend alterados: 0
+  - Arquivos CSS alterados: 0
+  - `ai-tutor v38` e `voice-token v8` intocados e congelados em produção.
+  - Vercel production frontend intocado.
+  - Migração de Bridge 3D (Fase 3C): **NÃO INICIADA / BLOQUEADA**.
+  - `LOCAL_GATEWAY_AUTH = TESTED (SERVICE_TOKEN)`
+  - `PRODUCTION_GATEWAY_AUTH_CONTRACT = NOT PROVEN`
+  - `PRODUCTION_GATEWAY_REACHABILITY = NOT PROVEN`
+  - `PRODUCTION CUTOVER = BLOCKED`
+
+### Implementação da Fase 3B.3
+1. **Isolamento Estrito de Tenant (Multi-Tenant Real):**
+   - A consulta e a atualização de conversas existentes em `ai-tutor` agora exigem estritamente:
+     `id = conversationId`, `user_id = userId`, `institution_id = profile.institution_id`.
+   - Teste factual do mesmo usuário tentando acessar conversa vinculada a instituição diferente $\rightarrow$ HTTP 403 (`CONVERSATION_FORBIDDEN`), Provider chamado 0 vezes, nenhuma mensagem persistida.
+2. **Verdade Semântica de Metadados de Fallback (SSE):**
+   - O Gateway agora emite `primaryProvider`, `finalProvider`, `fallbackUsed`, `fallbackReason`, `attemptCount` no envelope de sucesso.
+   - O SSE emite com fidelidade:
+     - `primaryModel`: ID do modelo/provedor primário configurado (`ollama-local`)
+     - `model`: ID do modelo que de fato gerou a resposta (`gemini-3.7-flash`)
+     - `source`: ID do provedor de fallback (`gemini-cloud`)
+     - `fallbackUsed`: `true`
+     - `modelFallbackUsed`: `true`
+     - `providerFallbackUsed`: `true`
+3. **Autenticação em Modos Desconhecidos (Fail-Closed):**
+   - Modos de autenticação não reconhecidos no Gateway falham fechado com HTTP 401 (`UNAUTHORIZED`) e Provider chamado 0 vezes.
+4. **Guarda de Bytes UTF-8 Real (64KB Byte Guard):**
+   - O limite de 64KB avalia `new TextEncoder().encode(rawBodyText).byteLength`.
+   - Payloads multibyte (ex: emojis) com contagem de caracteres $< 64.000$, mas tamanho em bytes $> 64.000$ bytes, são rejeitados com HTTP 413.
+
+### Métricas de Teste
+- **Suíte Regressiva Monorepo:** 303/303 PASS (30 skipped cloud live opt-in)
+- **Testes de Hardening da Fase 3B.3 (`atlas_tutor_hardening_3b3.test.ts`):** 4/4 PASS
+- **Testes HTTP SERVICE_TOKEN da Fase 3B.2 (`atlas_tutor_real_http_service_auth.test.ts`):** 7/7 PASS
+- **Testes Reais de Handler da Fase 3B.1 (`atlas_tutor_real_handler.test.ts`):** 11/11 PASS
+- **Testes de Integração Gateway da Fase 3B (`atlas_tutor_gateway_integration.test.ts`):** 5/5 PASS
+- **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
+- **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`

@@ -421,15 +421,18 @@ async function defaultExecuteGatewayLLMCall(
       const model = typeof data.modelId === "string" ? data.modelId : "aeternum-llm";
       const provider = typeof data.providerId === "string" ? data.providerId : "aeternum-gateway";
       const fallbackUsed = Boolean(metadata.fallbackUsed);
+      const primaryModel = fallbackUsed
+        ? (typeof metadata.primaryProvider === "string" ? metadata.primaryProvider : "primary-llm-model")
+        : model;
       return {
         text,
         latencyMs,
         status: res.status,
         provider,
         model,
-        primaryModel: model,
+        primaryModel,
         fallbackUsed,
-        modelFallbackUsed: false,
+        modelFallbackUsed: fallbackUsed,
         providerFallbackUsed: fallbackUsed,
         success: Boolean(text.trim()),
         canonicalReason: "NONE"
@@ -583,7 +586,8 @@ export async function handleAiTutorRequest(
     return jsonResponse({ error: "Erro ao ler corpo da requisição." }, 400, cors);
   }
 
-  if (rawBodyText.length > MAX_REQUEST_BYTES) {
+  const byteLength = new TextEncoder().encode(rawBodyText).byteLength;
+  if (byteLength > MAX_REQUEST_BYTES) {
     return jsonResponse({ error: "Requisição excede o limite permitido." }, 413, cors);
   }
 
@@ -711,6 +715,7 @@ export async function handleAiTutorRequest(
       .select("id")
       .eq("id", conversationId)
       .eq("user_id", userId)
+      .eq("institution_id", profile.institution_id)
       .maybeSingle();
     if (error || !existingConversation) {
       return jsonResponse({ error: "Conversa não autorizada.", code: "CONVERSATION_FORBIDDEN" }, 403, cors);
@@ -875,7 +880,8 @@ export async function handleAiTutorRequest(
     await adminClient.from("ai_conversations")
       .update({ context, updated_at: new Date().toISOString() })
       .eq("id", conversationId)
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .eq("institution_id", profile.institution_id);
 
     await adminClient.from("ai_audit_events").insert({
       user_id: userId,
