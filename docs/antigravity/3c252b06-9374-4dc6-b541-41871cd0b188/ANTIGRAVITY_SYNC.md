@@ -1408,3 +1408,61 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
   - Próxima: Fase 3B (Atlas AI Tutor → Gateway)
   - Futura: Fase 3C (AI ↔ Sketchfab Intelligence Bridge) — **NÃO INICIADA / BLOQUEADA**.
 - **Status:** `ARCHITECTURE_DECISION_RECORDED`
+
+---
+
+## [2026-08-29 12:35] — FASE 3A.3 CONCLUÍDA: LIVEKIT CANCELLATION + MULTILINGUAL TTS CLOSURE
+
+### Branch & Governança
+- **Branch:** `antigravity/phase-3a-vita-gateway` (NÃO mergeada para `main`).
+- **Governança Vercel / Supabase:**
+  - `ai-tutor v38` e `voice-token v8` intocados e congelados em produção.
+  - Vercel production frontend intocado.
+  - Migração Atlas AI Tutor (Fase 3B) e Bridge 3D (Fase 3C): **NÃO INICIADAS / BLOQUEADAS**.
+
+### Fechamento Arquitetural da Fase 3A.3
+1. **Falha de Stream LLM Rigorosa:**
+   - `apps/agent/src/__tests__/livekit_openai_protocol.test.ts` valida falha de provider no meio do stream, destruição do socket e emissão de evento `llm_error` no cliente LiveKit, comprovando ausência de encerramento espúrio com sucesso.
+2. **Interrupção Ativa de Fala (Barge-In) com `stream.close()`:**
+   - Utilização do método canônico de cancelamento do LiveKit `stream.close()` / `abort()`.
+   - `LIVEKIT_ACTIVE_BARGE_IN_ZERO_CLOUD = PASS` com 0 chamadas de nuvem tardias após encerramento do stream local.
+3. **Resolução Multilíngue de Idiomas no TTS OpenAI-Compatível:**
+   - `AeternumAIGateway.ts` resolve o idioma canônico do `VoiceProfileRegistry` (`profile.language`) para cada persona:
+     - Eduardo: `pt-BR`
+     - Antonia: `es`
+     - Ariana: `en-US`
+     - Fabian: `de`
+4. **Fallback Multilíngue para Nuvem:**
+   - Teste determinístico comprova que em caso de falha do TTS local, a contingência em nuvem recebe o idioma exato do perfil correspondente com 1 chamada por persona.
+5. **Matriz Completa de Erros SSE TTS (Testes 18 a 22):**
+   - Cobertura individual para `ProviderUnavailableError`, `ProviderTimeoutError`, `ProviderCancelledError`, timeout de outer gateway e sanitização de erro desconhecido (`provider_error` sem vazamento de segredos/stack).
+6. **Validação Estrita de `VITA_AI_BACKEND` (Fail-Closed):**
+   - `VITA_AI_BACKEND` aceita estritamente `gateway` (padrão) e `legacy_direct`. Qualquer valor arbitrário rejeita imediatamente com erro (`fail-closed`).
+7. **Harness E2E Sanitizado no Repositório:**
+   - Adicionado `apps/agent/src/__tests__/livekit_agentsession_e2e.test.ts` validando fluxo completo do AgentSession via Gateway com zero dados brutos de áudio/prompts persistidos (apenas metadados).
+
+### Métricas de Teste
+- **Suíte Regressiva Monorepo:** 274/274 PASS (30 skipped cloud live opt-in)
+- **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
+
+### Benchmark Factual de Voz em Runtime Real LiveKit AgentSession no HP Victus (`CLOUD_FALLBACK_ENABLED=false` / `VITA_AI_BACKEND=gateway`)
+- **Rotas Observadas no Gateway:**
+  - `/v1/audio/transcriptions`: `true`
+  - `/v1/chat/completions`: `true`
+  - `/v1/audio/speech`: `true`
+- **Bypass Direto a Provedores:** `Ollama=0, Speaches=0`
+- **Cold Turn (LiveKit AgentSession + RAG):**
+  - Status: PASS | total: 18204ms
+  - STT: 4055ms (textLength: 49) | Provider: `speaches-stt-local`
+  - LLM: 9616ms (TTFT: 8788ms, textLength: 201) | Provider: `ollama-llm-local`
+  - TTS: 4533ms (audioBytes: 595200) | Provider: `speaches-tts-local`
+- **Warm Turns (3 turnos LiveKit AgentSession + RAG):**
+  - **STT Latency:** min: 3406ms | median: 3426ms | max: 3738ms
+  - **LLM TTFT:** min: 443ms | median: 502ms | max: 527ms
+  - **LLM Total:** min: 1265ms | median: 1439ms | max: 1955ms
+  - **TTS TTFA:** min: 3777ms | median: 3877ms | max: 6985ms
+  - **TTS Total:** min: 3786ms | median: 3878ms | max: 6985ms
+  - **Total Voice Turn:** min: 8631ms | median: 8881ms | max: 12366ms
+- **Chamadas de Nuvem durante a validação:** Gemini=0, Deepgram=0, Cartesia=0
+- **VITA_LIVEKIT_GATEWAY_REAL_E2E:** **PASS**
+- **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`

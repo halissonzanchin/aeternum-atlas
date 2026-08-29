@@ -712,3 +712,36 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / HP Victus
 
 ### Resultado
 ALL 53 GATEWAY & COMPOSITION TESTS PASS (266/266 Total Suite PASS) | REAL AGENTSESSION PROOF = PASS
+
+---
+
+## Teste 036 — LiveKit Cancellation, Multilingual TTS & Final AgentSession E2E Harness (Fase 3A.3)
+
+Data: 2026-08-29 12:35 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / HP Victus Stack: Gateway :8081, Ollama :11434, Speaches :8000)
+
+### 1. Suíte de Testes de Protocolo & Integração
+- `livekit_openai_protocol.test.ts` $\rightarrow$ **7/7 PASS**
+- `livekit_gateway_composition.test.ts` $\rightarrow$ **6/6 PASS**
+- `livekit_agentsession_e2e.test.ts` $\rightarrow$ **1/1 PASS**
+- `vita_gateway_integration.test.ts` $\rightarrow$ **22/22 PASS**
+- `gateway.test.ts` $\rightarrow$ **24/24 PASS**
+- Suíte completa (`src/providers`, `src/gateway`, `apps/agent`) $\rightarrow$ **274/274 PASS**
+
+### 2. Validação Factual de Voz com LiveKit AgentSession Real no HP Victus (`CLOUD_FALLBACK_ENABLED=false` / `VITA_AI_BACKEND=gateway`)
+- **Rotas do Gateway Acionadas:** `/v1/audio/transcriptions` (SIM), `/v1/chat/completions` (SIM), `/v1/audio/speech` (SIM)
+- **Bypass Direto:** 0 chamadas para :11434 ou :8000
+- **Cold Turn:** Total=18204ms (STT: 4055ms, LLM Total: 9616ms, TTS Total: 4533ms)
+- **3 Warm Turns (Estatísticas Factuais):**
+  - STT Latency: min=3406ms, median=3426ms, max=3738ms
+  - LLM TTFT: min=443ms, median=502ms, max=527ms
+  - LLM Total: min=1265ms, median=1439ms, max=1955ms
+  - TTS TTFA: min=3777ms, median=3877ms, max=6985ms
+  - TTS Total: min=3786ms, median=3878ms, max=6985ms
+  - Total Voice Turn: min=8631ms, median=8881ms, max=12366ms
+- **LiveKit Active Barge-In via `stream.close()`: `LIVEKIT_ACTIVE_BARGE_IN_ZERO_CLOUD: PASS`**
+- **Cloud inference calls:** Gemini=0, Deepgram=0, Cartesia=0
+- **VITA_LIVEKIT_GATEWAY_REAL_E2E:** **PASS**
+
+### Resultado
+ALL 60 GATEWAY & COMPOSITION TESTS PASS (274/274 Total Suite PASS) | REAL AGENTSESSION PROOF = PASS

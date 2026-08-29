@@ -7,11 +7,12 @@ import { FakeLLMProvider } from "../../../../src/providers/testing/FakeLLMProvid
 import { FakeSTTProvider } from "../../../../src/providers/testing/FakeSTTProvider.ts";
 import { FakeTTSProvider } from "../../../../src/providers/testing/FakeTTSProvider.ts";
 import { ProviderUnavailableError } from "../../../../src/providers/types/index.ts";
+import { VoiceProfileRegistry } from "../../../../src/providers/voice/VoiceProfileRegistry.ts";
 
 initializeLogger({ level: "silent", pretty: false });
 
-describe("LiveKit ↔ AI Gateway Protocol Compatibility (@livekit/agents-plugin-openai 1.6.4)", () => {
-  let port = 8550;
+describe("LiveKit ↔ AI Gateway Protocol Compatibility & Multilingual (Phase 3A.3)", () => {
+  let port = 8610;
   const getPort = () => ++port;
 
   // ==========================================
@@ -141,7 +142,7 @@ describe("LiveKit ↔ AI Gateway Protocol Compatibility (@livekit/agents-plugin-
   });
 
   // ==========================================
-  // 4. OPENAI LLM STREAM FAILURE IS NOT SILENT SUCCESS
+  // 4. OPENAI LLM STREAM FAILURE STRICT PROOF
   // ==========================================
 
   it("4. LiveKit openai.LLM stream fails cleanly on provider error rather than silent completion", async () => {
@@ -150,6 +151,7 @@ describe("LiveKit ↔ AI Gateway Protocol Compatibility (@livekit/agents-plugin-
     class FailMidStreamLLM extends FakeLLMProvider {
       async *stream() {
         yield { deltaText: "Primeira palavra", isComplete: false };
+        await new Promise((r) => setTimeout(r, 40));
         throw new ProviderUnavailableError("LLM caiu no meio", "ollama-llm-local");
       }
     }
@@ -166,37 +168,50 @@ describe("LiveKit ↔ AI Gateway Protocol Compatibility (@livekit/agents-plugin-
         model: "qwen2.5:3b"
       });
 
+      let llmErrorObserved = false;
+      llm.on("error", (evt) => {
+        if (evt.type === "llm_error") {
+          llmErrorObserved = true;
+        }
+      });
+
       const chatCtx = ChatContext.empty();
       chatCtx.addMessage({ role: "user", content: "Teste de falha no stream" });
 
-      const stream = await llm.chat({ chatCtx });
+      const stream = await llm.chat({ chatCtx, connOptions: { maxRetry: 0, retryIntervalMs: 0, timeoutMs: 5000 } });
 
-      let errorObserved = false;
+      let fullText = "";
       try {
-        for await (const _chunk of stream) {
-          // Continua até a falha
+        for await (const chunk of stream) {
+          if (chunk.delta?.content) {
+            fullText += chunk.delta.content;
+          }
         }
       } catch {
-        errorObserved = true;
+        llmErrorObserved = true;
       }
 
-      expect(true).toBe(true);
+      // Aguarda 100ms para propagação do evento no background task do LiveKit
+      await new Promise((r) => setTimeout(r, 100));
+
+      expect(llmErrorObserved).toBe(true);
+      expect(fullText).not.toContain("Resposta Concluída com Sucesso");
     } finally {
       await gateway.stop();
     }
   });
 
   // ==========================================
-  // 5. LIVEKIT ACTIVE BARGE-IN: ZERO CLOUD CALLS
+  // 5. LIVEKIT ACTIVE BARGE-IN WITH stream.close()
   // ==========================================
 
-  it("5. LIVEKIT_ACTIVE_BARGE_IN_ZERO_CLOUD: LiveKit request in-flight abort results in zero cloud fallback", async () => {
+  it("5. LIVEKIT_ACTIVE_BARGE_IN_ZERO_CLOUD: LiveKit request in-flight abort via stream.close() results in zero cloud fallback", async () => {
     const p = getPort();
 
     class SlowLLM extends FakeLLMProvider {
       async *stream(req: any, context?: any) {
         yield { deltaText: "Início", isComplete: false };
-        await new Promise((resolve) => setTimeout(resolve, 250));
+        await new Promise((resolve) => setTimeout(resolve, 300));
         if (context?.signal?.aborted) {
           throw new ProviderUnavailableError("Cancelado", this.metadata.id);
         }
@@ -215,7 +230,6 @@ describe("LiveKit ↔ AI Gateway Protocol Compatibility (@livekit/agents-plugin-
     await gateway.start();
 
     try {
-      const controller = new AbortController();
       const llm = new openai.LLM({
         baseURL: `http://127.0.0.1:${p}/v1`,
         apiKey: "gateway-internal",
@@ -226,17 +240,129 @@ describe("LiveKit ↔ AI Gateway Protocol Compatibility (@livekit/agents-plugin-
       chatCtx.addMessage({ role: "user", content: "Interrupção em voo" });
 
       const stream = await llm.chat({ chatCtx });
+      let firstChunkReceived = false;
 
       try {
-        for await (const _chunk of stream) {
-          controller.abort();
-          break;
+        for await (const chunk of stream) {
+          if (chunk.delta?.content) {
+            firstChunkReceived = true;
+            // Executa o cancelamento real do LiveKit LLMStream
+            await (stream as any).close?.() || (stream as any).abort?.();
+            break;
+          }
         }
       } catch {
-        // Ignora abort
+        // Abort esperado
       }
 
+      expect(firstChunkReceived).toBe(true);
+      // Aguarda 350ms para garantir que qualquer operação em voo finalize sem fallback tardio
+      await new Promise((r) => setTimeout(r, 350));
       expect(cloudGemini.callCount).toBe(0); // Zero chamadas de nuvem
+    } finally {
+      await gateway.stop();
+    }
+  });
+
+  // ==========================================
+  // 6. MULTILINGUAL OPENAI TTS LANGUAGE RESOLUTION
+  // ==========================================
+
+  it("6. Multilingual OpenAI TTS resolves canonical language for Eduardo, Antonia, Ariana, Fabian", async () => {
+    const p = getPort();
+
+    const capturedRequests: any[] = [];
+    class CapturingTTS extends FakeTTSProvider {
+      async synthesize(req: any, ctx?: any) {
+        capturedRequests.push({ ...req });
+        return super.synthesize(req, ctx);
+      }
+    }
+
+    const localTTS = new CapturingTTS({ id: "speaches-tts-local", location: "LOCAL" });
+    const router = new ProviderRouter({ tts: { primary: localTTS } });
+    const gateway = new AeternumAIGateway({ port: p, router });
+    await gateway.start();
+
+    try {
+      const personas = [
+        { name: "Eduardo", voiceProfileId: "pt-br-warm-male-01", expectedLang: "pt-BR" },
+        { name: "Antonia", voiceProfileId: "es-calm-female-01", expectedLang: "es" },
+        { name: "Ariana", voiceProfileId: "en-calm-female-01", expectedLang: "en-US" },
+        { name: "Fabian", voiceProfileId: "de-clear-male-01", expectedLang: "de" }
+      ];
+
+      for (const persona of personas) {
+        const tts = new openai.TTS({
+          baseURL: `http://127.0.0.1:${p}/v1`,
+          apiKey: "gateway-internal",
+          voice: persona.voiceProfileId as never,
+          model: "speaches-ai/Kokoro-82M-v1.0-ONNX"
+        });
+
+        const stream = tts.synthesize(`Teste de voz para ${persona.name}`);
+        for await (const _ of stream) {}
+      }
+
+      expect(capturedRequests.length).toBe(4);
+      expect(capturedRequests[0].language).toBe("pt-BR");
+      expect(capturedRequests[1].language).toBe("es");
+      expect(capturedRequests[2].language).toBe("en-US");
+      expect(capturedRequests[3].language).toBe("de");
+    } finally {
+      await gateway.stop();
+    }
+  });
+
+  // ==========================================
+  // 7. MULTILINGUAL CLOUD FALLBACK TTS
+  // ==========================================
+
+  it("7. Multilingual TTS cloud fallback receives correct profile language for each persona", async () => {
+    const p = getPort();
+
+    const localTTS = new FakeTTSProvider({ id: "speaches-tts-local", location: "LOCAL" });
+    localTTS.failureMode = "unavailable"; // Força fallback
+
+    const fallbackCaptured: any[] = [];
+    class CapturingCloudTTS extends FakeTTSProvider {
+      async synthesize(req: any, ctx?: any) {
+        fallbackCaptured.push({ ...req });
+        return super.synthesize(req, ctx);
+      }
+    }
+
+    const cloudTTS = new CapturingCloudTTS({ id: "cartesia-tts-cloud", location: "CLOUD" });
+    const router = new ProviderRouter({ tts: { primary: localTTS, fallback: cloudTTS } });
+    const gateway = new AeternumAIGateway({ port: p, router });
+    await gateway.start();
+
+    try {
+      const personas = [
+        { id: "eduardo", profile: "pt-br-warm-male-01", expectedLangPrefix: "pt" },
+        { id: "antonia", profile: "es-calm-female-01", expectedLangPrefix: "es" },
+        { id: "ariana", profile: "en-calm-female-01", expectedLangPrefix: "en" },
+        { id: "fabian", profile: "de-clear-male-01", expectedLangPrefix: "de" }
+      ];
+
+      for (const persona of personas) {
+        const tts = new openai.TTS({
+          baseURL: `http://127.0.0.1:${p}/v1`,
+          apiKey: "gateway-internal",
+          voice: persona.profile as never,
+          model: "speaches-ai/Kokoro-82M-v1.0-ONNX"
+        });
+
+        const stream = tts.synthesize(`Fallback de voz para ${persona.id}`);
+        for await (const _ of stream) {}
+      }
+
+      expect(cloudTTS.callCount).toBe(4);
+      expect(fallbackCaptured.length).toBe(4);
+      expect(fallbackCaptured[0].language).toContain("pt");
+      expect(fallbackCaptured[1].language).toContain("es");
+      expect(fallbackCaptured[2].language).toContain("en");
+      expect(fallbackCaptured[3].language).toContain("de");
     } finally {
       await gateway.stop();
     }

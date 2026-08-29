@@ -75,8 +75,16 @@ export const loadVoiceRuntimeConfig = (
   environment: NodeJS.ProcessEnv = process.env,
 ): VoiceRuntimeConfig => {
   const rawBackend = environment.VITA_AI_BACKEND?.trim().toLowerCase();
-  const backendMode: VitaAIBackendMode =
-    rawBackend === "legacy_direct" ? "legacy_direct" : "gateway";
+  let backendMode: VitaAIBackendMode;
+  if (!rawBackend || rawBackend === "gateway") {
+    backendMode = "gateway";
+  } else if (rawBackend === "legacy_direct") {
+    backendMode = "legacy_direct";
+  } else {
+    throw new Error(
+      `VITA_AI_BACKEND deve ser 'gateway' ou 'legacy_direct'. Recebido: ${environment.VITA_AI_BACKEND}`,
+    );
+  }
 
   const ragUrl = environment.VITA_RAG_URL?.trim();
 

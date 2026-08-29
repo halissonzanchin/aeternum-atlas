@@ -508,40 +508,204 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A & 3A.1)", () => {
       await gateway.stop();
     }
   });
-  it("18. SSE error mapping correctly maps provider_unavailable, provider_timeout and request_cancelled on TTS stream", async () => {
+    // ==========================================
+  // 18-22. COMPLETE TTS SSE ERROR MATRIX
+  // ==========================================
+
+  it("18. TTS SSE stream: ProviderUnavailableError maps to ProviderUnavailableError client-side", async () => {
     const p = getPort();
 
-    class FailMidStreamTTS extends FakeTTSProvider {
+    class FailUnavailableTTS extends FakeTTSProvider {
       async *streamSynthesis() {
         yield { audioChunk: new Uint8Array([1, 2, 3]), isFinal: false };
-        throw new ProviderUnavailableError("TTS síntese falhou no meio", "fake-tts");
+        throw new ProviderUnavailableError("TTS local indisponível no stream", "fake-tts");
       }
     }
 
-    const localTTS = new FailMidStreamTTS({ id: "fail-tts-local", location: "LOCAL" });
+    const localTTS = new FailUnavailableTTS({ id: "fail-tts-local", location: "LOCAL" });
     const router = new ProviderRouter({ tts: { primary: localTTS } });
-
     const gateway = new AeternumAIGateway({ port: p, router });
     await gateway.start();
 
     try {
       const client = new VitaGatewayClient({ baseUrl: `http://127.0.0.1:${p}` });
       const stream = client.streamSynthesis({
-        text: "Teste de falha no stream TTS",
+        text: "Teste de falha unavailable TTS",
         voiceProfileId: "pt-br-warm-male-01",
         language: "pt"
       });
 
       let errorCaught: any = null;
       try {
-        for await (const _chunk of stream) {
-          // Continua até o frame de erro
-        }
+        for await (const _chunk of stream) {}
       } catch (err: any) {
         errorCaught = err;
       }
 
       expect(errorCaught).toBeInstanceOf(ProviderUnavailableError);
+    } finally {
+      await gateway.stop();
+    }
+  });
+
+  it("19. TTS SSE stream: ProviderTimeoutError maps to ProviderTimeoutError client-side", async () => {
+    const p = getPort();
+
+    class FailTimeoutTTS extends FakeTTSProvider {
+      async *streamSynthesis() {
+        yield { audioChunk: new Uint8Array([1, 2, 3]), isFinal: false };
+        throw new ProviderTimeoutError("TTS timeout no stream", "fake-tts");
+      }
+    }
+
+    const localTTS = new FailTimeoutTTS({ id: "fail-tts-timeout", location: "LOCAL" });
+    const router = new ProviderRouter({ tts: { primary: localTTS } });
+    const gateway = new AeternumAIGateway({ port: p, router });
+    await gateway.start();
+
+    try {
+      const client = new VitaGatewayClient({ baseUrl: `http://127.0.0.1:${p}` });
+      const stream = client.streamSynthesis({
+        text: "Teste de timeout TTS",
+        voiceProfileId: "pt-br-warm-male-01",
+        language: "pt"
+      });
+
+      let errorCaught: any = null;
+      try {
+        for await (const _chunk of stream) {}
+      } catch (err: any) {
+        errorCaught = err;
+      }
+
+      expect(errorCaught).toBeInstanceOf(ProviderTimeoutError);
+    } finally {
+      await gateway.stop();
+    }
+  });
+
+  it("20. TTS SSE stream: ProviderCancelledError / abort maps to ProviderCancelledError client-side", async () => {
+    const p = getPort();
+
+    class CancellableTTS extends FakeTTSProvider {
+      async *streamSynthesis(req: any, ctx?: any) {
+        yield { audioChunk: new Uint8Array([1, 2, 3]), isFinal: false };
+        await new Promise((r) => setTimeout(r, 200));
+        if (ctx?.signal?.aborted) {
+          throw new ProviderCancelledError("Cancelado", "fake-tts");
+        }
+        yield { audioChunk: new Uint8Array([4, 5, 6]), isFinal: true };
+      }
+    }
+
+    const localTTS = new CancellableTTS({ id: "cancel-tts", location: "LOCAL" });
+    const router = new ProviderRouter({ tts: { primary: localTTS } });
+    const gateway = new AeternumAIGateway({ port: p, router });
+    await gateway.start();
+
+    try {
+      const controller = new AbortController();
+      const client = new VitaGatewayClient({ baseUrl: `http://127.0.0.1:${p}` });
+      const stream = client.streamSynthesis(
+        {
+          text: "Teste cancel TTS",
+          voiceProfileId: "pt-br-warm-male-01",
+          language: "pt"
+        },
+        { requestId: "req-cancel-tts", signal: controller.signal }
+      );
+
+      let errorCaught: any = null;
+      try {
+        for await (const chunk of stream) {
+          if (chunk.audioChunk) {
+            controller.abort();
+          }
+        }
+      } catch (err: any) {
+        errorCaught = err;
+      }
+
+      expect(errorCaught).toBeInstanceOf(ProviderCancelledError);
+    } finally {
+      await gateway.stop();
+    }
+  });
+
+  it("21. TTS SSE stream: Gateway outer deadline triggers canonical gateway_timeout error", async () => {
+    const p = getPort();
+
+    class VerySlowTTS extends FakeTTSProvider {
+      async *streamSynthesis() {
+        await new Promise((r) => setTimeout(r, 500));
+        yield { audioChunk: new Uint8Array([1, 2, 3]), isFinal: true };
+      }
+    }
+
+    const localTTS = new VerySlowTTS({ id: "slow-tts", location: "LOCAL" });
+    const router = new ProviderRouter({ tts: { primary: localTTS } });
+    // Gateway deadline curto de 100ms
+    const gateway = new AeternumAIGateway({
+      port: p,
+      router,
+      providerTimeoutMs: 80,
+      gatewayRequestTimeoutMs: 100
+    });
+    await gateway.start();
+
+    try {
+      const client = new VitaGatewayClient({ baseUrl: `http://127.0.0.1:${p}` });
+      const stream = client.streamSynthesis({
+        text: "Teste outer timeout",
+        voiceProfileId: "pt-br-warm-male-01",
+        language: "pt"
+      });
+
+      let errorCaught: any = null;
+      try {
+        for await (const _chunk of stream) {}
+      } catch (err: any) {
+        errorCaught = err;
+      }
+
+      expect(errorCaught).toBeInstanceOf(ProviderTimeoutError);
+    } finally {
+      await gateway.stop();
+    }
+  });
+
+  it("22. TTS SSE stream: unknown provider error maps to provider_error without vendor leakage", async () => {
+    const p = getPort();
+
+    class CustomBrokenTTS extends FakeTTSProvider {
+      async *streamSynthesis() {
+        yield { audioChunk: new Uint8Array([1, 2, 3]), isFinal: false };
+        throw new Error("VENDOR_INTERNAL_EXCEPTION_SECRET_KEY_12345");
+      }
+    }
+
+    const localTTS = new CustomBrokenTTS({ id: "broken-tts", location: "LOCAL" });
+    const router = new ProviderRouter({ tts: { primary: localTTS } });
+    const gateway = new AeternumAIGateway({ port: p, router });
+    await gateway.start();
+
+    try {
+      const client = new VitaGatewayClient({ baseUrl: `http://127.0.0.1:${p}` });
+      const stream = client.streamSynthesis({
+        text: "Teste unknown error",
+        voiceProfileId: "pt-br-warm-male-01",
+        language: "pt"
+      });
+
+      let errorCaught: any = null;
+      try {
+        for await (const _chunk of stream) {}
+      } catch (err: any) {
+        errorCaught = err;
+      }
+
+      expect(errorCaught).toBeDefined();
+      expect(errorCaught.message).not.toContain("SECRET_KEY_12345");
     } finally {
       await gateway.stop();
     }

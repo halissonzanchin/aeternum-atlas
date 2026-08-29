@@ -18,6 +18,12 @@ describe("configuração local de voz", () => {
     expect(config.llmModel).toBe("qwen2.5:3b");
   });
 
+  it("rejeita valor desconhecido para VITA_AI_BACKEND (fail-closed)", () => {
+    expect(() =>
+      loadVoiceRuntimeConfig({ VITA_AI_BACKEND: "foo_invalid" }),
+    ).toThrow("VITA_AI_BACKEND deve ser 'gateway' ou 'legacy_direct'");
+  });
+
   it("rejeita endpoint não HTTP em modo legacy_direct", () => {
     expect(() =>
       loadVoiceRuntimeConfig({

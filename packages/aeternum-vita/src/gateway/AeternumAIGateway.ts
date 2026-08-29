@@ -8,6 +8,7 @@ import {
   ProviderHealthEntry,
   ProviderHealthStatus
 } from "./types.ts";
+import { VoiceProfileRegistry } from "../providers/voice/VoiceProfileRegistry.ts";
 import {
   LLMRequest,
   STTRequest,
@@ -483,7 +484,7 @@ export class AeternumAIGateway {
             }
           };
           res.write(`data: ${JSON.stringify(errorFrame)}\n\n`);
-          res.end();
+          res.destroy(new Error("Stream terminated due to provider failure"));
         }
       }
       return;
@@ -673,10 +674,14 @@ export class AeternumAIGateway {
       return;
     }
 
+    const voiceProfileId = body.voiceProfileId || "pt-br-warm-male-01";
+    const profile = VoiceProfileRegistry.get(voiceProfileId);
+    const language = body.language || profile?.language || "pt";
+
     const ttsReq: TTSRequest = {
       text: body.text,
-      voiceProfileId: body.voiceProfileId || "pt-br-warm-male-01",
-      language: body.language || "pt",
+      voiceProfileId,
+      language,
       speed: body.speed,
       sampleRate: body.sampleRate || 24000,
       audioFormat: body.audioFormat || "pcm"
@@ -730,12 +735,14 @@ export class AeternumAIGateway {
     }
 
     const voiceProfileId = body.voice || body.voiceProfileId || "pt-br-warm-male-01";
+    const profile = VoiceProfileRegistry.get(voiceProfileId);
+    const language = profile?.language || "pt";
     const audioFormat = body.response_format === "pcm" ? "pcm" : "wav";
 
     const ttsReq: TTSRequest = {
       text,
       voiceProfileId,
-      language: "pt",
+      language,
       speed: body.speed,
       sampleRate: audioFormat === "pcm" ? 24000 : 24000,
       audioFormat
@@ -766,10 +773,14 @@ export class AeternumAIGateway {
       return;
     }
 
+    const voiceProfileId = body.voiceProfileId || "pt-br-warm-male-01";
+    const profile = VoiceProfileRegistry.get(voiceProfileId);
+    const language = body.language || profile?.language || "pt";
+
     const ttsReq: TTSRequest = {
       text: body.text,
-      voiceProfileId: body.voiceProfileId || "pt-br-warm-male-01",
-      language: body.language || "pt",
+      voiceProfileId,
+      language,
       speed: body.speed,
       sampleRate: body.sampleRate || 24000,
       audioFormat: body.audioFormat || "pcm"
