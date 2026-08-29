@@ -34,6 +34,10 @@ export interface GatewayLLMResult {
   status: number;
   provider: string;
   model: string;
+  primaryModel?: string;
+  fallbackUsed?: boolean;
+  modelFallbackUsed?: boolean;
+  providerFallbackUsed?: boolean;
   success: boolean;
   canonicalReason: string;
 }
@@ -412,15 +416,21 @@ async function defaultExecuteGatewayLLMCall(
     if (res.ok) {
       const json = await res.json().catch(() => ({})) as Record<string, unknown>;
       const data = (json.data && typeof json.data === "object") ? json.data as Record<string, unknown> : json;
+      const metadata = (json.metadata && typeof json.metadata === "object") ? json.metadata as Record<string, unknown> : {};
       const text = typeof data.text === "string" ? data.text : "";
       const model = typeof data.modelId === "string" ? data.modelId : "aeternum-llm";
       const provider = typeof data.providerId === "string" ? data.providerId : "aeternum-gateway";
+      const fallbackUsed = Boolean(metadata.fallbackUsed);
       return {
         text,
         latencyMs,
         status: res.status,
         provider,
         model,
+        primaryModel: model,
+        fallbackUsed,
+        modelFallbackUsed: false,
+        providerFallbackUsed: fallbackUsed,
         success: Boolean(text.trim()),
         canonicalReason: "NONE"
       };
@@ -491,7 +501,7 @@ export async function handleAiTutorRequest(
     return jsonResponse({ error: "Origem não autorizada." }, 403, cors);
   }
 
-  // Verificação de tamanho máximo de requisição (64KB Guard)
+  // Verificação de tamanho máximo de requisição (64KB Guard com verificação de payload real)
   const contentLength = Number(req.headers.get("content-length") || 0);
   if (contentLength > MAX_REQUEST_BYTES) {
     return jsonResponse({ error: "Requisição excede o limite permitido." }, 413, cors);
@@ -566,9 +576,20 @@ export async function handleAiTutorRequest(
     }, 429, { ...cors, "Retry-After": String(retryAfter) });
   }
 
+  let rawBodyText = "";
+  try {
+    rawBodyText = await req.text();
+  } catch {
+    return jsonResponse({ error: "Erro ao ler corpo da requisição." }, 400, cors);
+  }
+
+  if (rawBodyText.length > MAX_REQUEST_BYTES) {
+    return jsonResponse({ error: "Requisição excede o limite permitido." }, 413, cors);
+  }
+
   let payload: Record<string, unknown>;
   try {
-    payload = await req.json();
+    payload = JSON.parse(rawBodyText);
   } catch {
     return jsonResponse({ error: "Corpo JSON inválido." }, 400, cors);
   }
@@ -888,7 +909,10 @@ export async function handleAiTutorRequest(
           conversationId,
           source: gatewayResult.provider,
           model: gatewayResult.model,
-          primaryModel: gatewayResult.model,
+          primaryModel: gatewayResult.primaryModel || gatewayResult.model,
+          modelFallbackUsed: gatewayResult.modelFallbackUsed ?? false,
+          providerFallbackUsed: gatewayResult.providerFallbackUsed ?? gatewayResult.fallbackUsed ?? false,
+          fallbackUsed: gatewayResult.fallbackUsed ?? false,
           latencyMs: gatewayResult.latencyMs,
           retrievalCount: sources.length,
           retrievalMethod: ragMethod,

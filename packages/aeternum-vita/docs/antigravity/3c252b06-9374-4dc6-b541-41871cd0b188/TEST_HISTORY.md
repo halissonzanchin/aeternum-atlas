@@ -917,3 +917,34 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Supabase 
 
 ### Resultado
 ALL 77 GATEWAY, COMPOSITION, AGENTSESSION & ATLAS TUTOR TESTS PASS (292/292 Total Suite PASS) | PHASE 3B.1 = IMPLEMENTED
+
+---
+
+## Teste 042 — Secure Edge → Gateway Auth Contract & SSE Parity (Fase 3B.2)
+
+Data: 2026-08-29 17:55 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Supabase Edge Functions)
+
+### 1. Suíte de Testes Reais HTTP e SERVICE_TOKEN (`atlas_tutor_real_http_service_auth.test.ts`)
+- **Teste 1 (SERVICE_TOKEN_VALID & REAL HTTP):** Requisição HTTP real com service token válido $\rightarrow$ HTTP 200, Provider LLM chamado 1 vez $\rightarrow$ **PASS**
+- **Teste 2 (SERVICE_TOKEN_MISSING):** Token ausente $\rightarrow$ Gateway 401, ai-tutor 503, Provider chamado 0 vezes $\rightarrow$ **PASS**
+- **Teste 3 (SERVICE_TOKEN_INVALID):** Token incorreto $\rightarrow$ Gateway 401, ai-tutor 503, Provider chamado 0 vezes $\rightarrow$ **PASS**
+- **Teste 4 (USER_JWT_AS_SERVICE_TOKEN):** User JWT apresentado ao Gateway $\rightarrow$ 401, Provider chamado 0 vezes $\rightarrow$ **PASS**
+- **Teste 5 (PUBLIC_BINDING_RULE):** Binding não-local sem autenticação segura falha no construtor $\rightarrow$ **PASS**
+- **Teste 6 (SSE_V38_METADATA_PARITY):** Todos os campos de metadados legados v38 e [DONE] verificados $\rightarrow$ **PASS**
+- **Teste 7 (BODY_LIMIT_64KB_GUARD):** Payload > 64KB rejeitado com HTTP 413 mesmo sem Content-Length $\rightarrow$ **PASS**
+
+### 2. Suíte Regressiva Geral
+- `atlas_tutor_real_http_service_auth.test.ts` $\rightarrow$ **7/7 PASS**
+- `atlas_tutor_real_handler.test.ts` $\rightarrow$ **11/11 PASS**
+- `atlas_tutor_gateway_integration.test.ts` $\rightarrow$ **5/5 PASS**
+- `livekit_agentsession_lifecycle.test.ts` $\rightarrow$ **1/1 PASS**
+- `livekit_openai_protocol.test.ts` $\rightarrow$ **7/7 PASS**
+- `livekit_gateway_composition.test.ts` $\rightarrow$ **6/6 PASS**
+- `livekit_component_e2e.test.ts` $\rightarrow$ **1/1 PASS**
+- `vita_gateway_integration.test.ts` $\rightarrow$ **22/22 PASS**
+- `gateway.test.ts` $\rightarrow$ **24/24 PASS**
+- Suíte completa (`src/providers`, `src/gateway`, `apps/agent`) $\rightarrow$ **299/299 PASS**
+
+### Resultado
+ALL 84 GATEWAY, COMPOSITION, AGENTSESSION & ATLAS TUTOR TESTS PASS (299/299 Total Suite PASS) | PHASE 3B.2 = IMPLEMENTED

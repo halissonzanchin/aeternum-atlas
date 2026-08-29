@@ -34,8 +34,16 @@ export class AeternumAIGateway {
     const providerTimeoutMs = config.providerTimeoutMs || 25000;
     const gatewayRequestTimeoutMs = config.gatewayRequestTimeoutMs || 30000;
 
-    if (host !== "127.0.0.1" && host !== "localhost" && authMode !== "SUPABASE_JWT") {
-      throw new Error("Binding público proibido sem autenticação SUPABASE_JWT e validador JWT configurado.");
+    const isLoopback = host === "127.0.0.1" || host === "localhost" || host === "::1" || host === "::ffff:127.0.0.1";
+    if (!isLoopback && authMode !== "SUPABASE_JWT" && authMode !== "SERVICE_TOKEN") {
+      throw new Error("Binding público proibido sem autenticação segura (SUPABASE_JWT ou SERVICE_TOKEN).");
+    }
+
+    if (authMode === "SERVICE_TOKEN") {
+      const token = (config.authToken || process.env.AETERNUM_AI_GATEWAY_TOKEN || "").trim();
+      if (!token) {
+        throw new Error("Modo SERVICE_TOKEN requer configuração de authToken seguro não-vazio.");
+      }
     }
 
     if (providerTimeoutMs >= gatewayRequestTimeoutMs) {
@@ -946,6 +954,23 @@ export class AeternumAIGateway {
 
     const token = authHeader.substring(7).trim();
 
+    if (this.config.authMode === "SERVICE_TOKEN") {
+      const configuredToken = (this.config.authToken || "").trim();
+      if (!configuredToken) {
+        this.sendError(res, 401, "UNAUTHORIZED", requestId, "unauthorized", "Service token não configurado no Gateway (fail-closed).");
+        return false;
+      }
+
+      const tokenBuf = Buffer.from(token, "utf-8");
+      const expectedBuf = Buffer.from(configuredToken, "utf-8");
+
+      if (tokenBuf.length !== expectedBuf.length || !crypto.timingSafeEqual(tokenBuf, expectedBuf)) {
+        this.sendError(res, 401, "UNAUTHORIZED", requestId, "unauthorized", "Token de serviço inválido.");
+        return false;
+      }
+      return true;
+    }
+
     if (this.config.authMode === "SUPABASE_JWT") {
       const validator = (this.config as any).jwtValidator;
       if (!validator || typeof validator.validateToken !== "function") {
@@ -958,11 +983,6 @@ export class AeternumAIGateway {
         return false;
       }
       return true;
-    }
-
-    if (this.config.authToken && token !== this.config.authToken) {
-      this.sendError(res, 401, "UNAUTHORIZED", requestId, "unauthorized", "Token de autenticação inválido.");
-      return false;
     }
 
     return true;

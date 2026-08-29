@@ -1,4 +1,5 @@
 import http from "node:http";
+import crypto from "node:crypto";
 import { GatewayAuthMode, GatewayJwtValidator } from "../types.ts";
 
 export interface AuthValidationResult {
@@ -21,7 +22,8 @@ export function isLoopbackHost(host: string): boolean {
 export async function validateGatewayAuth(
   req: http.IncomingMessage,
   mode: GatewayAuthMode = "INTERNAL_DEV",
-  jwtValidator?: GatewayJwtValidator
+  jwtValidator?: GatewayJwtValidator,
+  serviceToken?: string
 ): Promise<AuthValidationResult> {
   const remoteAddress = req.socket.remoteAddress || "";
   const isLoopback = isLoopbackHost(remoteAddress);
@@ -37,7 +39,39 @@ export async function validateGatewayAuth(
     return { authenticated: true, userId: "internal_dev_user" };
   }
 
-  // 2. Em modo SUPABASE_JWT (Fail-Closed por padrão sem validador real)
+  // 2. Em modo SERVICE_TOKEN: requer Bearer token com validação em tempo constante
+  if (mode === "SERVICE_TOKEN") {
+    if (!serviceToken || !serviceToken.trim()) {
+      return {
+        authenticated: false,
+        error: "Service token não configurado no Gateway (fail-closed)."
+      };
+    }
+
+    const authHeader = req.headers["authorization"] || "";
+    if (!authHeader.startsWith("Bearer ")) {
+      return {
+        authenticated: false,
+        error: "Token de serviço não fornecido no cabeçalho Authorization."
+      };
+    }
+
+    const token = authHeader.slice(7).trim();
+    if (token.length === 0) {
+      return { authenticated: false, error: "Token de serviço vazio." };
+    }
+
+    const tokenBuf = Buffer.from(token, "utf-8");
+    const expectedBuf = Buffer.from(serviceToken, "utf-8");
+
+    if (tokenBuf.length !== expectedBuf.length || !crypto.timingSafeEqual(tokenBuf, expectedBuf)) {
+      return { authenticated: false, error: "Token de serviço inválido." };
+    }
+
+    return { authenticated: true, userId: "service_account" };
+  }
+
+  // 3. Em modo SUPABASE_JWT (Fail-Closed por padrão sem validador real)
   if (mode === "SUPABASE_JWT") {
     if (!jwtValidator) {
       return {
@@ -67,7 +101,7 @@ export async function validateGatewayAuth(
     return { authenticated: true, userId: validation.userId || "jwt_user" };
   }
 
-  // 3. Em modo DISABLED: obrigatório ser loopback
+  // 4. Em modo DISABLED: obrigatório ser loopback
   if (mode === "DISABLED") {
     if (!isLoopback) {
       return {

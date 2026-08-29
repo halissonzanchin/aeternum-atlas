@@ -1719,3 +1719,46 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **Testes de Integração Gateway da Fase 3B (`atlas_tutor_gateway_integration.test.ts`):** 5/5 PASS
 - **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-29 17:55] — FASE 3B.2 CONCLUÍDA: SECURE EDGE → GATEWAY AUTH CONTRACT + SSE BACKWARD-COMPATIBILITY CLOSURE
+
+### Branch & Governança
+- **Branch:** `antigravity/phase-3b-atlas-tutor-gateway` (NÃO mergeada para `main`).
+- **Governança Visual & Vercel / Supabase:**
+  - Arquivos visuais de frontend alterados: 0
+  - Arquivos CSS alterados: 0
+  - `ai-tutor v38` e `voice-token v8` intocados e congelados em produção.
+  - Vercel production frontend intocado.
+  - Migração de Bridge 3D (Fase 3C): **NÃO INICIADA / BLOQUEADA**.
+  - `LOCAL_GATEWAY_AUTH = TESTED (SERVICE_TOKEN)`
+  - `PRODUCTION_GATEWAY_AUTH_CONTRACT = NOT PROVEN`
+  - `PRODUCTION_GATEWAY_REACHABILITY = NOT PROVEN`
+  - `PRODUCTION CUTOVER = BLOCKED`
+
+### Implementação da Fase 3B.2
+1. **Modo Explícito SERVICE_TOKEN no Gateway:**
+   - Adicionado modo canônico `SERVICE_TOKEN` à união `GatewayAuthMode` (`"INTERNAL_DEV" | "SUPABASE_JWT" | "SERVICE_TOKEN" | "DISABLED"`).
+   - Validação estrita de credenciais com `crypto.timingSafeEqual` em tempo constante.
+   - Proibição absoluta de bindings públicos com `INTERNAL_DEV` ou `DISABLED`.
+   - Inicialização do Gateway falha fechada se `SERVICE_TOKEN` estiver ativo sem `authToken` configurado.
+   - JWTs de usuário Supabase apresentados a um Gateway em modo `SERVICE_TOKEN` são rejeitados com HTTP 401.
+2. **Integração Real HTTP `handleAiTutorRequest` $\rightarrow$ Gateway:**
+   - Teste ponta a ponta utilizando o cliente HTTP nativo (`fetch`) sem injeção mock do `gatewayClient.generate`.
+   - Token válido: HTTP 200, Provider LLM executado exatamente 1 vez, stream SSE completo recebido e mensagem persistida.
+   - Token ausente / inválido / user JWT: Gateway retorna HTTP 401, `ai-tutor` falha fechado com HTTP 503 (`AI_GATEWAY_UNAVAILABLE`) e o Provider LLM **nunca é chamado** (`callCount = 0`).
+3. **Paridade Total com Metadados SSE v38:**
+   - Primeiro frame SSE emite integralmente:
+     `conversationId`, `source`, `model`, `primaryModel`, `modelFallbackUsed`, `providerFallbackUsed`, `fallbackUsed`, `latencyMs`, `retrievalCount`, `retrievalMethod`, `retrievalContextualized`.
+   - Encerramento estrito com `data: [DONE]`.
+4. **Hardening de Limite de Payload (64KB Guard):**
+   - Verificação em tempo de execução via `req.text().length > 64000`, rejeitando requisições com HTTP 413 mesmo sem o header `Content-Length`.
+
+### Métricas de Teste
+- **Suíte Regressiva Monorepo:** 299/299 PASS (30 skipped cloud live opt-in)
+- **Testes HTTP SERVICE_TOKEN da Fase 3B.2 (`atlas_tutor_real_http_service_auth.test.ts`):** 7/7 PASS
+- **Testes Reais de Handler da Fase 3B.1 (`atlas_tutor_real_handler.test.ts`):** 11/11 PASS
+- **Testes de Integração Gateway da Fase 3B (`atlas_tutor_gateway_integration.test.ts`):** 5/5 PASS
+- **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

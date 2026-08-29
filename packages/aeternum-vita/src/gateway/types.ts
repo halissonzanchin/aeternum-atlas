@@ -3,7 +3,7 @@ import { ProviderRouter, RouteMetadata } from "../providers/router/index.ts";
 import { BaseProvider } from "../providers/contracts/BaseProvider.ts";
 import { HealthResult } from "../providers/types/health.ts";
 
-export type GatewayAuthMode = "INTERNAL_DEV" | "SUPABASE_JWT" | "DISABLED";
+export type GatewayAuthMode = "INTERNAL_DEV" | "SUPABASE_JWT" | "SERVICE_TOKEN" | "DISABLED";
 
 export interface GatewayLogger {
   info(event: string, meta?: Record<string, unknown>): void;
