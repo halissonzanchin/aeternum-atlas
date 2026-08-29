@@ -1203,3 +1203,55 @@ FALLBACK: CONFIGURED
 - **Testes Dedicados da Fase 3B:** `atlas_tutor_gateway_integration.test.ts` (5/5 PASS)
 - **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-29 16:25] — FASE 3B.1 CONCLUÍDA: REAL AI-TUTOR EDGE CONTRACT CLOSURE
+
+### Branch & Governança
+- **Branch:** `antigravity/phase-3b-atlas-tutor-gateway` (NÃO mergeada para `main`).
+- **Governança Visual & Vercel / Supabase:**
+  - Arquivos visuais de frontend alterados: 0
+  - Arquivos CSS alterados: 0
+  - `ai-tutor v38` e `voice-token v8` intocados e congelados em produção.
+  - Vercel production frontend intocado.
+  - Migração de Bridge 3D (Fase 3C): **NÃO INICIADA / BLOQUEADA**.
+  - `LOCAL_GATEWAY_AUTH = TESTED`
+  - `PRODUCTION_GATEWAY_AUTH_CONTRACT = NOT PROVEN`
+  - `PRODUCTION_GATEWAY_REACHABILITY = NOT PROVEN`
+  - `PRODUCTION CUTOVER = BLOCKED`
+
+### Implementação da Fase 3B.1
+1. **Handler Real e Determinístico (`handleAiTutorRequest`):**
+   - Exportado em `supabase/functions/ai-tutor/index.ts` com injeção de dependências para testes e produção (`Deno.serve((req: Request) => handleAiTutorRequest(req))`).
+   - Testado empiricamente com mock in-memory DB e clients reais.
+2. **Autenticação Real & Isolamento de Tenant:**
+   - Missing JWT $\rightarrow$ 401 `AUTH_REQUIRED`
+   - Invalid JWT $ightarrow$ 401 `AUTH_INVALID`
+   - Inactive User $ightarrow$ 403 `USER_INACTIVE`
+   - Acesso cruzado entre usuários/tenants em conversas alheias $ightarrow$ 403 `CONVERSATION_FORBIDDEN`
+3. **Rate Limiting & Fail-Closed:**
+   - Quota excedida $ightarrow$ 429 `AI_RATE_LIMITED` (`Retry-After: 30`)
+   - Erro RPC $ightarrow$ 503 `AI_RATE_LIMIT_ERROR` (Fail closed estrito)
+4. **Fluxo RAG Real & Fallback Lexical:**
+   - Prompt $\rightarrow$ Busca vetorial $\rightarrow$ Extração de fontes $\rightarrow$ Montagem de `systemInstruction` $\rightarrow$ Entregue ao Gateway.
+   - Vetorial vazio $\rightarrow$ Fallback lexical PostgreSQL FTS nativo (`match_vita_anatomical_knowledge`).
+   - `TEMPORARY_RAG_EMBEDDING_EXCEPTION` preservada estritamente para `:embedContent`.
+5. **Histórico Multi-turn, Persistência & Integridade em Falhas:**
+   - Multi-turn carrega mensagens anteriores de `ai_messages` e entrega no array `messages` ao Gateway.
+   - Mensagens de usuário e assistente persistidas em banco.
+   - **Failed-turn history integrity:** Em caso de falha do Gateway (503 / timeout), a mensagem de usuário órfã é removida de `ai_messages`, impedindo contaminação ou turnos fantasmas em retentativas.
+6. **Zero Direct Gemini Generation & Fail-Closed:**
+   - `AI_TUTOR_DIRECT_GEMINI_GENERATION_CALLS = 0` (Zero chamadas a `:generateContent`).
+   - Falha de Gateway retorna HTTP 503 `AI_GATEWAY_UNAVAILABLE` ("Tutor IA temporariamente indisponível. Tente novamente em instantes.") sem mascaramento por dicionário local nem bypass para nuvem.
+7. **Remoção de Token Padrão e Limpeza de Payload:**
+   - Removido `|| "gateway-internal"` das credenciais de produção.
+   - Removido `rawRequestPayload` de estruturas de retorno e log de produção.
+   - Preservadas sondas diagnósticas (`gateway_health`, `embedding`, `connectivity`).
+
+### Métricas de Teste
+- **Suíte Regressiva Monorepo:** 292/292 PASS (30 skipped cloud live opt-in)
+- **Testes Reais de Handler da Fase 3B.1 (`atlas_tutor_real_handler.test.ts`):** 11/11 PASS
+- **Testes de Integração Gateway da Fase 3B (`atlas_tutor_gateway_integration.test.ts`):** 5/5 PASS
+- **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

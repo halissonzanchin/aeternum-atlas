@@ -883,3 +883,37 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Supabase 
 
 ### Resultado
 ALL 66 GATEWAY, COMPOSITION, AGENTSESSION & ATLAS TUTOR TESTS PASS (281/281 Total Suite PASS) | PHASE 3B = IMPLEMENTED
+
+---
+
+## Teste 041 — Real AI-Tutor Edge Contract Closure (Fase 3B.1)
+
+Data: 2026-08-29 16:25 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Supabase Edge Functions)
+
+### 1. Suíte de Testes Reais do Handler (`atlas_tutor_real_handler.test.ts`)
+- **Teste 1 (AUTH - Missing JWT):** 401 `AUTH_REQUIRED` $\rightarrow$ **PASS**
+- **Teste 2 (AUTH - Invalid JWT):** 401 `AUTH_INVALID` $\rightarrow$ **PASS**
+- **Teste 3 (AUTH - Inactive User):** 403 `USER_INACTIVE` $\rightarrow$ **PASS**
+- **Teste 4 (TENANT ISOLATION - Cross-user conversation):** 403 `CONVERSATION_FORBIDDEN` $\rightarrow$ **PASS**
+- **Teste 5 (RATE LIMIT - 429 & RPC Fail-closed 503):** `AI_RATE_LIMITED` / `AI_RATE_LIMIT_ERROR` $\rightarrow$ **PASS**
+- **Teste 6 (RAG - Vector retrieval & Gateway payload):** Fontes bibliográficas injetadas $\rightarrow$ **PASS**
+- **Teste 7 (LEXICAL FALLBACK - PostgreSQL FTS):** Fallback quando vetorial vazio $\rightarrow$ **PASS**
+- **Teste 8 (HISTORY & PERSISTENCE - Multi-turn):** Histórico anterior carregado e propagado $\rightarrow$ **PASS**
+- **Teste 9 (MINDMAP - Hierarchical protocol):** Protocolo sem Markdown injetado $\rightarrow$ **PASS**
+- **Teste 10 (GATEWAY FAILURE & FAILED TURN INTEGRITY):** 503 `AI_GATEWAY_UNAVAILABLE` e remoção de mensagem órfã $\rightarrow$ **PASS**
+- **Teste 11 (ZERO DIRECT GEMINI GENERATION):** 0 chamadas a `:generateContent`, 1 chamada a `:embedContent` $\rightarrow$ **PASS**
+
+### 2. Suíte Regressiva Geral
+- `atlas_tutor_real_handler.test.ts` $\rightarrow$ **11/11 PASS**
+- `atlas_tutor_gateway_integration.test.ts` $\rightarrow$ **5/5 PASS**
+- `livekit_agentsession_lifecycle.test.ts` $\rightarrow$ **1/1 PASS**
+- `livekit_openai_protocol.test.ts` $\rightarrow$ **7/7 PASS**
+- `livekit_gateway_composition.test.ts` $\rightarrow$ **6/6 PASS**
+- `livekit_component_e2e.test.ts` $\rightarrow$ **1/1 PASS**
+- `vita_gateway_integration.test.ts` $\rightarrow$ **22/22 PASS**
+- `gateway.test.ts` $\rightarrow$ **24/24 PASS**
+- Suíte completa (`src/providers`, `src/gateway`, `apps/agent`) $\rightarrow$ **292/292 PASS**
+
+### Resultado
+ALL 77 GATEWAY, COMPOSITION, AGENTSESSION & ATLAS TUTOR TESTS PASS (292/292 Total Suite PASS) | PHASE 3B.1 = IMPLEMENTED

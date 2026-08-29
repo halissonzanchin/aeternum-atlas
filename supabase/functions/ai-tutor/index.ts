@@ -1,31 +1,17 @@
-import { createClient } from "npm:@supabase/supabase-js@2.105.4";
+declare const Deno: any;
+import { createClient } from "@supabase/supabase-js";
 
 // =========================================================================
-// CONFIGURAÇÕES E CONSTANTES DE AMBIENTE
+// TIPOS E CONTRATOS DA APLICAÇÃO AI-TUTOR
 // =========================================================================
 
-const GATEWAY_URL = (Deno.env.get("AETERNUM_AI_GATEWAY_URL") || "").trim();
-const GATEWAY_TOKEN = (Deno.env.get("AETERNUM_AI_GATEWAY_TOKEN") || "gateway-internal").trim();
-const GATEWAY_GENERATE_TIMEOUT_MS = 25_000;
-
-// Exceção Canônica RAG: Gemini Embeddings permanece para busca vetorial até gateway possuir embedding capability
-// DIRECT_GEMINI_GENERATION=FORBIDDEN
-// DIRECT_GEMINI_EMBEDDING=TEMPORARY_RAG_EMBEDDING_EXCEPTION
-const GEMINI_EMBEDDING_MODEL = (Deno.env.get("VITA_GEMINI_EMBEDDING_MODEL") || "gemini-embedding-2").trim();
-const GEMINI_EMBED_TIMEOUT_MS = 5_000;
-
-const MAX_REQUEST_BYTES = 64_000;
-const MAX_PROMPT_CHARACTERS = 4_000;
-const MAX_CONTEXT_CHARACTERS = 12_000;
-const MAX_HISTORY_MESSAGES = 24;
-const MAX_KNOWLEDGE_RESULTS = 6;
-
-type MessageRow = {
+export type MessageRow = {
+  id?: string;
   role: "user" | "assistant";
   content: string;
 };
 
-type KnowledgeRow = {
+export type KnowledgeRow = {
   id?: string;
   book_title: string;
   chapter_title?: string | null;
@@ -35,50 +21,62 @@ type KnowledgeRow = {
   lexical_rank?: number;
 };
 
-interface AttemptRecord {
+export interface AttemptRecord {
   model: string;
   status: number;
   canonicalReason: string;
   latencyMs: number;
 }
 
-const LOCAL_ANATOMY_FALLBACKS: Record<string, { title: string; text: string; sources: string }> = {
-  radial: {
-    title: "Nervo Radial e Ramos",
-    text: "O nervo radial é o maior ramo terminal do fascículo posterior do plexo braquial (raízes C5-T1). Inerva todos os músculos dos compartimentos posteriores do braço (tríceps braquial e ancôneo) e do antebraço (extensores e supinador). Trajeto: passa pela axila, entra no intervalo triangular e desce pelo sulco do nervo radial no corpo do úmero acompanhado pela artéria braquial profunda. Perfura o septo intermuscular lateral e, anterior ao epicôndilo lateral do úmero, divide-se em dois ramos terminais: 1. Ramo Superficial (nervo sensitivo cutâneo do dorso da mão e primeiros 3 dedos e meio) e 2. Ramo Profundo / Nervo Interósseo Posterior (nervo estritamente motor para os músculos extensores do antebraço e punho). Clinicamente, fraturas do terço médio do úmero lesionam o nervo radial gerando a clássica 'mão caída' (queda do punho e dedos por perda da extensão).",
-    sources: "Moore — Anatomia Orientada para a Clínica, 8ª Ed., p. 879; Netter — Atlas de Anatomia Humana, 7ª Ed., prancha 468."
-  },
-  nervo: {
-    title: "Nervo Radial e Plexo Braquial",
-    text: "O nervo radial origina-se do fascículo posterior do plexo braquial (fibras de C5 a T1). Ele supre o compartimento posterior do braço e antebraço. Seus principais ramos incluem ramos musculares para o tríceps braquial e braquiorradial, nervo cutâneo posterior do braço e antebraço, e a bifurcação terminal em ramo superficial (sensitivo) e ramo profundo / interósseo posterior (motor). A lesão no sulco radial resulta em incapacidade de extensão do punho (mão caída).",
-    sources: "Moore — Anatomia Orientada para a Clínica, 8ª Ed., p. 879; Sobotta — Atlas de Anatomia Humana, 24ª Ed., p. 210."
-  },
-  clavicula: {
-    title: "Clavícula e Cíngulo Peitoral",
-    text: "A clavícula é um osso longo recurvado em dupla curvatura (forma de S) que une o membro superior ao esqueleto axial. Articula-se medialmente com o manúbrio do esterno (esternoclavicular) e lateralmente com o acrômio (acromioclavicular). Apresenta na face inferior a impressão do ligamento costoclavicular, o sulco do músculo subclávio, o tubérculo conoide e a linha trapezoide. Fixa os músculos peitoral maior, deltoide, trapézio e esternocleidomastóideo. É um dos ossos mais frequentemente fraturados do corpo humano.",
-    sources: "Moore — Anatomia Orientada para a Clínica, 8ª Ed., p. 672; Netter — Atlas de Anatomia Humana, 7ª Ed., prancha 407."
-  },
-  escapula: {
-    title: "Escápula e Cíngulo do Membro Superior",
-    text: "A escápula é um osso plano triangular situado na face posterolateral do tórax (2ª à 7ª costelas). Principais acidentes: espinha da escápula, acrômio, processo coracoide, cavidade glenoide e fossas subescapular, supraespinhal e infraespinhal. Articula-se com a clavícula e o úmero (glenoumeral). Fixa o manguito rotador, trapézio, deltoide e serrátil anterior.",
-    sources: "Moore — Anatomia Orientada para a Clínica, 8ª Ed., p. 674; Sobotta — Atlas de Anatomia Humana, 24ª Ed., p. 182."
-  },
-  femur: {
-    title: "Fêmur e Articulação Coxofemoral",
-    text: "O fêmur é o osso mais longo e resistente do corpo humano. Proximalmente possui cabeça femoral, colo anatômico, trocânter maior, trocânter menor e linha áspera na diáfise posterior. Distalmente expande-se nos côndilos medial e lateral. Articula-se no acetábulo e com a tíbia/patela no joelho.",
-    sources: "Moore — Anatomia Orientada para a Clínica, 8ª Ed., p. 512; Netter — Atlas de Anatomia Humana, 7ª Ed., prancha 476."
-  }
-};
+export interface GatewayLLMResult {
+  text: string;
+  latencyMs: number;
+  status: number;
+  provider: string;
+  model: string;
+  success: boolean;
+  canonicalReason: string;
+}
 
-function jsonResponse(body: Record<string, unknown>, status: number, headers: HeadersInit) {
+export interface AiTutorDependencies {
+  env?: Record<string, string | undefined>;
+  createClient?: (url: string, key: string, options?: any) => any;
+  fetchFn?: typeof fetch;
+  gatewayClient?: {
+    generate: (payload: any, token: string, gatewayUrl: string) => Promise<GatewayLLMResult>;
+    health: (gatewayUrl: string) => Promise<{ ok: boolean; status: number; data?: any }>;
+  };
+  embeddingClient?: {
+    embed: (apiKey: string, prompt: string) => Promise<number[] | null>;
+  };
+}
+
+// =========================================================================
+// CONSTANTES DE PROTEÇÃO E LIMITES
+// =========================================================================
+
+const MAX_REQUEST_BYTES = 64_000;
+const MAX_PROMPT_CHARACTERS = 4_000;
+const MAX_CONTEXT_CHARACTERS = 12_000;
+const MAX_HISTORY_MESSAGES = 24;
+const MAX_KNOWLEDGE_RESULTS = 6;
+const DEFAULT_GATEWAY_TIMEOUT_MS = 25_000;
+const GEMINI_EMBED_TIMEOUT_MS = 5_000;
+const GEMINI_EMBEDDING_MODEL = "gemini-embedding-2";
+
+// =========================================================================
+// HELPERS DE FORMATAÇÃO E SANITIZAÇÃO
+// =========================================================================
+
+export function jsonResponse(body: Record<string, unknown>, status: number, headers: HeadersInit = {}) {
   return new Response(JSON.stringify(body), {
     status,
     headers: { ...headers, "Content-Type": "application/json; charset=utf-8" }
   });
 }
 
-function allowedOrigins() {
-  const configured = (Deno.env.get("AETERNUM_ALLOWED_ORIGINS") || "https://aeternum-atlas.vercel.app,https://www.aeternumatlas.com,https://aeternumatlas.com")
+function allowedOrigins(env: Record<string, string | undefined>) {
+  const configured = (env.AETERNUM_ALLOWED_ORIGINS || "https://aeternum-atlas.vercel.app,https://www.aeternumatlas.com,https://aeternumatlas.com")
     .split(",")
     .map((origin) => origin.trim())
     .filter(Boolean);
@@ -94,9 +92,9 @@ function allowedOrigins() {
   ])];
 }
 
-function isAllowedOrigin(origin: string) {
+function isAllowedOrigin(origin: string, env: Record<string, string | undefined>) {
   if (!origin) return false;
-  if (allowedOrigins().includes(origin)) return true;
+  if (allowedOrigins(env).includes(origin)) return true;
   try {
     const url = new URL(origin);
     if (url.protocol === "https:") {
@@ -112,9 +110,9 @@ function isAllowedOrigin(origin: string) {
   }
 }
 
-function corsHeaders(req: Request) {
+export function corsHeaders(req: Request, env: Record<string, string | undefined>) {
   const origin = req.headers.get("origin") || "";
-  const acceptedOrigin = isAllowedOrigin(origin) ? origin : "";
+  const acceptedOrigin = isAllowedOrigin(origin, env) ? origin : "";
   return {
     "Access-Control-Allow-Origin": acceptedOrigin,
     "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -124,21 +122,21 @@ function corsHeaders(req: Request) {
   };
 }
 
-function cleanText(value: unknown, max: number) {
+export function cleanText(value: unknown, max: number): string {
   return String(value || "")
     .replace(/[\u0000-\u0009\u000B\u000C\u000E-\u001F\u007F]/g, " ")
     .trim()
     .slice(0, max);
 }
 
-function sanitizeAssistantContent(value: string) {
+export function sanitizeAssistantContent(value: string): string {
   return value
     .replace(/\[ACTION:[A-Z_]+\]/g, "")
     .replace(/\[ACTION(?::[A-Z_]*)?$/i, "")
     .trim();
 }
 
-function safeContext(value: unknown) {
+export function safeContext(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const source = value as Record<string, unknown>;
   const markers = Array.isArray(source.markers)
@@ -164,7 +162,7 @@ function safeContext(value: unknown) {
   };
 }
 
-function roleInstructions(role: string, name = "") {
+export function roleInstructions(role: string, name = ""): string {
   const firstName = cleanText(name, 80).split(/\s+/)[0] || "";
   const namePersonalization = firstName
     ? ` O nome da pessoa usuária é ${firstName}. Sempre que pertinente em cumprimentos, inícios de resposta ou reforços didáticos, chame-a gentilmente pelo primeiro nome (${firstName}) para manter um diálogo acolhedor, exclusivo e humanizado.`
@@ -176,7 +174,7 @@ function roleInstructions(role: string, name = "") {
   return `O usuário é estudante.${namePersonalization} Atue como tutor socrático: lembre-se do nome do estudante para personalizar o acompanhamento pedagógico, e em avaliações ativas ofereça pistas e raciocínio, nunca o gabarito direto.`;
 }
 
-function knowledgeContext(sources: KnowledgeRow[]) {
+export function knowledgeContext(sources: KnowledgeRow[]): string {
   if (!sources.length) {
     return "Nenhum trecho da biblioteca foi recuperado para esta pergunta. Não invente livro, capítulo, edição, página ou citação. Se o usuário pedir localização bibliográfica, informe de modo breve que a base não apresentou uma correspondência verificável.";
   }
@@ -189,7 +187,7 @@ function knowledgeContext(sources: KnowledgeRow[]) {
   }).join("\n\n");
 }
 
-function systemInstruction(role: string, context: Record<string, unknown>, sources: KnowledgeRow[], name = "") {
+export function systemInstruction(role: string, context: Record<string, unknown>, sources: KnowledgeRow[], name = ""): string {
   const serializedContext = JSON.stringify(context).slice(0, MAX_CONTEXT_CHARACTERS);
   const mindMapProtocol = context.source === "mind-map" ? `
 
@@ -229,7 +227,7 @@ Trechos da biblioteca anatômica recuperados:
 ${knowledgeContext(sources)}`;
 }
 
-function extractSearchTerms(prompt: string): string {
+export function extractSearchTerms(prompt: string): string {
   const stopwords = new Set([
     "explique", "explica", "fale", "falar", "sobre", "quais", "qual", "quem", "como", "onde", "quando",
     "por", "que", "porque", "para", "com", "sem", "uma", "um", "umas", "uns", "dos", "das", "do", "da",
@@ -273,10 +271,10 @@ function classifyNetworkError(err: unknown): { errorName: string; networkCause: 
 }
 
 // TEMPORARY_RAG_EMBEDDING_EXCEPTION (Vector retrieval embedding)
-async function generateEmbedding(apiKey: string, prompt: string) {
+async function generateEmbedding(apiKey: string, prompt: string, fetchFn: typeof fetch = fetch) {
   try {
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(GEMINI_EMBEDDING_MODEL)}:embedContent`;
-    const response = await fetch(endpoint, {
+    const response = await fetchFn(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -293,21 +291,28 @@ async function generateEmbedding(apiKey: string, prompt: string) {
     const embedding = body.embedding && typeof body.embedding === "object"
       ? body.embedding as Record<string, unknown>
       : {};
-    return Array.isArray(embedding.values) ? embedding.values : null;
+    return Array.isArray(embedding.values) ? (embedding.values as number[]) : null;
   } catch {
     return null;
   }
 }
 
 async function retrieveKnowledge(
-  adminClient: ReturnType<typeof createClient<any>>,
+  adminClient: any,
   apiKey: string,
-  prompt: string
+  prompt: string,
+  deps: AiTutorDependencies
 ): Promise<{ sources: KnowledgeRow[]; method: string }> {
   try {
-    // 1. Tenta busca vetorial se embedding estiver disponível (timeout 5s)
+    // 1. Tenta busca vetorial se embedding estiver disponível (TEMPORARY_RAG_EMBEDDING_EXCEPTION)
     if (apiKey) {
-      const embedding = await generateEmbedding(apiKey, prompt);
+      let embedding: number[] | null = null;
+      if (deps.embeddingClient?.embed) {
+        embedding = await deps.embeddingClient.embed(apiKey, prompt);
+      } else {
+        embedding = await generateEmbedding(apiKey, prompt, deps.fetchFn || fetch);
+      }
+
       if (embedding?.length) {
         const { data, error } = await adminClient.rpc("match_anatomical_knowledge", {
           query_embedding: embedding,
@@ -346,75 +351,11 @@ async function retrieveKnowledge(
   return { sources: [], method: "none" };
 }
 
-function matchLocalFallback(prompt: string, sources: KnowledgeRow[]): string | null {
-  const lower = prompt.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  for (const [key, item] of Object.entries(LOCAL_ANATOMY_FALLBACKS)) {
-    if (lower.includes(key)) {
-      let text = item.text;
-      if (sources.length > 0) {
-        text += "\n\nFontes recuperadas:\n" + sources.map((s, i) => `[${i + 1}] ${s.book_title}${s.page_number ? ` (p. ${s.page_number})` : ""}`).join("\n");
-      } else {
-        text += "\n\nFontes recuperadas:\n" + item.sources;
-      }
-      return text;
-    }
-  }
-  return null;
-}
-
-function mapCanonicalProviderReason(status: number, errObj: Record<string, unknown> | undefined): string {
-  const rawStatus = String(errObj?.status || "").toUpperCase();
-  const rawMsg = String(errObj?.message || "").toLowerCase();
-  const details = Array.isArray(errObj?.details) ? errObj.details : [];
-  const firstDetail = (details[0] && typeof details[0] === "object") ? details[0] as Record<string, unknown> : {};
-  const rawReason = String(firstDetail?.reason || "").toUpperCase();
-
-  if (rawMsg.includes("leaked") || rawReason.includes("LEAKED")) {
-    return "API_KEY_REPORTED_LEAKED";
-  }
-  if (status === 401 || (status === 403 && rawReason.includes("INVALID"))) {
-    return "API_KEY_INVALID";
-  }
-  if (status === 403 && (rawReason.includes("BLOCKED") || rawMsg.includes("blocked"))) {
-    return "API_KEY_SERVICE_BLOCKED";
-  }
-  if (rawReason.includes("BILLING") || rawMsg.includes("billing")) {
-    return "BILLING_REQUIRED";
-  }
-  if (status === 404 || rawStatus === "NOT_FOUND" || rawReason.includes("MODEL") || rawMsg.includes("model not found")) {
-    return "MODEL_NOT_AVAILABLE";
-  }
-  if (status === 403 || rawStatus === "PERMISSION_DENIED") {
-    return "PERMISSION_DENIED";
-  }
-  if (status === 429 || rawStatus === "RESOURCE_EXHAUSTED") {
-    return "QUOTA_EXCEEDED";
-  }
-  if (status === 400 || rawStatus === "INVALID_ARGUMENT") {
-    return "PAYLOAD_INVALID";
-  }
-  if (status >= 500 || rawStatus === "UNAVAILABLE") {
-    return "PROVIDER_UNAVAILABLE";
-  }
-  return "UNKNOWN";
-}
-
 // =========================================================================
-// AETERNUM AI GATEWAY CLIENT (FASE 3B APPLICATION ADAPTER)
+// AETERNUM AI GATEWAY CLIENT (FASE 3B.1 APPLICATION ADAPTER)
 // =========================================================================
 
-interface GatewayLLMResult {
-  text: string;
-  latencyMs: number;
-  status: number;
-  provider: string;
-  model: string;
-  success: boolean;
-  canonicalReason: string;
-  rawRequestPayload?: Record<string, unknown>;
-}
-
-async function executeGatewayLLMCall(
+async function defaultExecuteGatewayLLMCall(
   gatewayUrl: string,
   gatewayToken: string,
   role: string,
@@ -423,7 +364,8 @@ async function executeGatewayLLMCall(
   history: MessageRow[],
   prompt: string,
   userName: string,
-  meta: Record<string, unknown> = {}
+  meta: Record<string, unknown> = {},
+  fetchFn: typeof fetch = fetch
 ): Promise<GatewayLLMResult> {
   const start = performance.now();
   const sysInstructionText = systemInstruction(role, context, sources, userName);
@@ -455,7 +397,7 @@ async function executeGatewayLLMCall(
   };
 
   try {
-    const res = await fetch(endpoint, {
+    const res = await fetchFn(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -463,7 +405,7 @@ async function executeGatewayLLMCall(
         "X-Request-Id": `tutor-req-${crypto.randomUUID()}`
       },
       body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(GATEWAY_GENERATE_TIMEOUT_MS)
+      signal: AbortSignal.timeout(DEFAULT_GATEWAY_TIMEOUT_MS)
     });
 
     const latencyMs = Math.round(performance.now() - start);
@@ -480,14 +422,13 @@ async function executeGatewayLLMCall(
         provider,
         model,
         success: Boolean(text.trim()),
-        canonicalReason: "NONE",
-        rawRequestPayload: payload
+        canonicalReason: "NONE"
       };
     }
 
     const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
     const errObj = errJson?.error as Record<string, unknown> | undefined;
-    const canonicalReason = mapCanonicalProviderReason(res.status, errObj);
+    const rawReason = String(errObj?.code || errObj?.message || `HTTP_${res.status}`);
     return {
       text: "",
       latencyMs,
@@ -495,8 +436,7 @@ async function executeGatewayLLMCall(
       provider: "aeternum-gateway",
       model: "gateway",
       success: false,
-      canonicalReason,
-      rawRequestPayload: payload
+      canonicalReason: rawReason
     };
   } catch (err: unknown) {
     const latencyMs = Math.round(performance.now() - start);
@@ -508,18 +448,33 @@ async function executeGatewayLLMCall(
       provider: "aeternum-gateway",
       model: "gateway",
       success: false,
-      canonicalReason: networkCause,
-      rawRequestPayload: payload
+      canonicalReason: networkCause
     };
   }
 }
 
 // =========================================================================
-// HANDLER PRINCIPAL DENO SERVE
+// HANDLER CANÔNICO E DETERMINÍSTICO PARA PRODUÇÃO E TESTES
 // =========================================================================
 
-Deno.serve(async (req) => {
-  const cors = corsHeaders(req);
+export async function handleAiTutorRequest(
+  req: Request,
+  deps: AiTutorDependencies = {}
+): Promise<Response> {
+  const env: Record<string, string | undefined> = {
+    AETERNUM_ALLOWED_ORIGINS: typeof Deno !== "undefined" ? Deno.env.get("AETERNUM_ALLOWED_ORIGINS") : undefined,
+    AETERNUM_AI_GATEWAY_URL: typeof Deno !== "undefined" ? Deno.env.get("AETERNUM_AI_GATEWAY_URL") : undefined,
+    AETERNUM_AI_GATEWAY_TOKEN: typeof Deno !== "undefined" ? Deno.env.get("AETERNUM_AI_GATEWAY_TOKEN") : undefined,
+    SUPABASE_URL: typeof Deno !== "undefined" ? Deno.env.get("SUPABASE_URL") : undefined,
+    SUPABASE_ANON_KEY: typeof Deno !== "undefined" ? Deno.env.get("SUPABASE_ANON_KEY") : undefined,
+    SUPABASE_SERVICE_ROLE_KEY: typeof Deno !== "undefined" ? Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") : undefined,
+    GEMINI_API_KEY: typeof Deno !== "undefined" ? Deno.env.get("GEMINI_API_KEY") : undefined,
+    VITA_GEMINI_API_KEY: typeof Deno !== "undefined" ? Deno.env.get("VITA_GEMINI_API_KEY") : undefined,
+    GOOGLE_API_KEY: typeof Deno !== "undefined" ? Deno.env.get("GOOGLE_API_KEY") : undefined,
+    ...(deps.env || {})
+  };
+
+  const cors = corsHeaders(req, env);
   const origin = req.headers.get("origin") || "";
 
   if (req.method === "OPTIONS") {
@@ -551,13 +506,13 @@ Deno.serve(async (req) => {
     }, 401, cors);
   }
 
-  const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
-  const anonKey = Deno.env.get("SUPABASE_ANON_KEY") || "";
-  const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
+  const supabaseUrl = env.SUPABASE_URL || "";
+  const anonKey = env.SUPABASE_ANON_KEY || "";
+  const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY || "";
   const geminiKey = (
-    Deno.env.get("GEMINI_API_KEY") ||
-    Deno.env.get("VITA_GEMINI_API_KEY") ||
-    Deno.env.get("GOOGLE_API_KEY") ||
+    env.GEMINI_API_KEY ||
+    env.VITA_GEMINI_API_KEY ||
+    env.GOOGLE_API_KEY ||
     ""
   ).trim();
 
@@ -568,7 +523,9 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: "Configuração do servidor incompleta.", code: "SERVER_CONFIG_ERROR" }, 503, cors);
   }
 
-  const userClient = createClient(supabaseUrl, anonKey, {
+  const clientFactory = deps.createClient || createClient;
+
+  const userClient = clientFactory(supabaseUrl, anonKey, {
     global: { headers: { Authorization: authHeader } },
     auth: { persistSession: false, autoRefreshToken: false }
   });
@@ -579,7 +536,7 @@ Deno.serve(async (req) => {
   }
   const userId = authData.user.id;
 
-  const adminClient = createClient(supabaseUrl, serviceRoleKey, {
+  const adminClient = clientFactory(supabaseUrl, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false }
   });
 
@@ -598,7 +555,7 @@ Deno.serve(async (req) => {
     max_requests: 30,
     window_seconds: 60
   });
-  if (limitError) return jsonResponse({ error: "Controle de uso temporariamente indisponível." }, 503, cors);
+  if (limitError) return jsonResponse({ error: "Controle de uso temporariamente indisponível.", code: "AI_RATE_LIMIT_ERROR" }, 503, cors);
   const limit = Array.isArray(limitData) ? limitData[0] : limitData;
   if (limit && limit.allowed === false) {
     const retryAfter = Number(limit.retry_after_seconds || 30);
@@ -616,9 +573,12 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: "Corpo JSON inválido." }, 400, cors);
   }
 
+  const gatewayUrl = (env.AETERNUM_AI_GATEWAY_URL || "").trim();
+  const gatewayToken = (env.AETERNUM_AI_GATEWAY_TOKEN || "").trim();
+
   // Probe 1: Gateway Connectivity Probe (GET /health)
   if (payload.probe === "gateway_health" || payload.probe === "connectivity") {
-    if (!GATEWAY_URL) {
+    if (!gatewayUrl) {
       return jsonResponse({
         stage: "gateway_health_probe",
         status: 503,
@@ -630,11 +590,24 @@ Deno.serve(async (req) => {
     }
     const startHealth = performance.now();
     try {
-      const hRes = await fetch(`${GATEWAY_URL.replace(/\/$/, "")}/health`, {
+      if (deps.gatewayClient?.health) {
+        const hRes = await deps.gatewayClient.health(gatewayUrl);
+        const latencyMs = Math.round(performance.now() - startHealth);
+        return jsonResponse({
+          stage: "gateway_health_probe",
+          status: hRes.status,
+          latencyMs,
+          gatewayStatus: hRes.data?.status || (hRes.ok ? "HEALTHY" : "UNAVAILABLE"),
+          success: hRes.ok
+        }, hRes.ok ? 200 : 503, cors);
+      }
+
+      const fetchFn = deps.fetchFn || fetch;
+      const hRes = await fetchFn(`${gatewayUrl.replace(/\/$/, "")}/health`, {
         signal: AbortSignal.timeout(5000)
       });
       const latencyMs = Math.round(performance.now() - startHealth);
-      const hData = await hRes.json().catch(() => ({ status: "UNKNOWN" }));
+      const hData = await hRes.json().catch(() => ({ status: "UNKNOWN" })) as Record<string, unknown>;
       return jsonResponse({
         stage: "gateway_health_probe",
         status: hRes.status,
@@ -668,7 +641,12 @@ Deno.serve(async (req) => {
       }, 503, cors);
     }
     const startEmbed = performance.now();
-    const emb = await generateEmbedding(geminiKey, "Nervo radial e anatomia do plexo braquial");
+    let emb: number[] | null = null;
+    if (deps.embeddingClient?.embed) {
+      emb = await deps.embeddingClient.embed(geminiKey, "Nervo radial e anatomia do plexo braquial");
+    } else {
+      emb = await generateEmbedding(geminiKey, "Nervo radial e anatomia do plexo braquial", deps.fetchFn || fetch);
+    }
     const latencyMs = Math.round(performance.now() - startEmbed);
     const embSuccess = Boolean(emb && emb.length === 768);
 
@@ -713,7 +691,9 @@ Deno.serve(async (req) => {
       .eq("id", conversationId)
       .eq("user_id", userId)
       .maybeSingle();
-    if (error || !existingConversation) return jsonResponse({ error: "Conversa não autorizada." }, 403, cors);
+    if (error || !existingConversation) {
+      return jsonResponse({ error: "Conversa não autorizada.", code: "CONVERSATION_FORBIDDEN" }, 403, cors);
+    }
   } else {
     conversationId = crypto.randomUUID();
     const { error } = await adminClient.from("ai_conversations").insert({
@@ -726,8 +706,10 @@ Deno.serve(async (req) => {
     if (error) return jsonResponse({ error: "Não foi possível iniciar a conversa." }, 503, cors);
   }
 
-  // Persistência da mensagem do usuário em ai_messages
+  // Persistência da mensagem do usuário em ai_messages com id rastreável
+  const userMessageId = crypto.randomUUID();
   const { error: userMessageError } = await adminClient.from("ai_messages").insert({
+    id: userMessageId,
     conversation_id: conversationId,
     user_id: userId,
     role: "user",
@@ -739,18 +721,19 @@ Deno.serve(async (req) => {
   // Recuperação do histórico conversacional (multi-turn)
   const { data: persistedHistory, error: historyError } = await adminClient
     .from("ai_messages")
-    .select("role, content, created_at")
+    .select("id, role, content, created_at")
     .eq("conversation_id", conversationId)
     .eq("user_id", userId)
     .order("created_at", { ascending: false })
     .limit(MAX_HISTORY_MESSAGES + 1);
   if (historyError) return jsonResponse({ error: "Histórico temporariamente indisponível." }, 503, cors);
 
-  const orderedHistory = [...(persistedHistory || [])].reverse() as MessageRow[];
-  if (orderedHistory.at(-1)?.role === "user") orderedHistory.pop();
+  // Exclui a mensagem atual recém-inserida do histórico anterior
+  const allOrdered = [...(persistedHistory || [])].reverse() as MessageRow[];
+  const priorHistory = allOrdered.filter((m) => m.id !== userMessageId);
 
-  // Contextualização Bounded para Busca no RAG e Fallback Local
-  const previousUserMessage = orderedHistory
+  // Contextualização Bounded para Busca no RAG
+  const previousUserMessage = priorHistory
     .filter((m) => m.role === "user")
     .at(-1);
 
@@ -763,69 +746,87 @@ Deno.serve(async (req) => {
   }
 
   // Execução do RAG (Recuperação de Conhecimento Anatômico Contextualizado)
-  const { sources, method: ragMethod } = await retrieveKnowledge(adminClient, geminiKey, contextualRetrievalInput);
-
-  let actualProvider = "aeternum-gateway";
-  let actualModel = "aeternum-llm";
-  let modelFallbackUsed = false;
-  let providerFallbackUsed = false;
-  let responseText = "";
-  let latencyMs = 0;
-  const attempts: AttemptRecord[] = [];
+  const { sources, method: ragMethod } = await retrieveKnowledge(adminClient, geminiKey, contextualRetrievalInput, deps);
 
   // =========================================================================
-  // FASE 3B: GERAÇÃO VIA AETERNUM AI GATEWAY (DIRECT GEMINI GENERATION = 0)
+  // FASE 3B.1: GERAÇÃO VIA AETERNUM AI GATEWAY (DIRECT GEMINI GENERATION = 0)
   // =========================================================================
-  if (GATEWAY_URL) {
-    const gatewayAttempt = await executeGatewayLLMCall(
-      GATEWAY_URL,
-      GATEWAY_TOKEN,
+  if (!gatewayUrl || !gatewayToken) {
+    // Falha fechada: remove mensagem órfã para integridade de histórico
+    await adminClient.from("ai_messages").delete().eq("id", userMessageId);
+    return jsonResponse({
+      error: "Tutor IA temporariamente indisponível. Tente novamente em instantes.",
+      code: "AI_GATEWAY_UNAVAILABLE"
+    }, 503, cors);
+  }
+
+  const sysInstructionText = systemInstruction(
+    String(profile.role || "student"),
+    context,
+    sources,
+    String(profile.name || "")
+  );
+
+  const formattedMessages: Array<{ role: "user" | "assistant" | "system"; content: string }> = [];
+  for (const m of priorHistory) {
+    const text = cleanText(m.content, MAX_PROMPT_CHARACTERS);
+    if (!text) continue;
+    formattedMessages.push({
+      role: m.role === "assistant" ? "assistant" : "user",
+      content: text
+    });
+  }
+  formattedMessages.push({ role: "user", content: prompt });
+
+  const gatewayPayload = {
+    messages: formattedMessages,
+    systemInstruction: sysInstructionText,
+    temperature: 0.25,
+    maxTokens: 4096,
+    metadata: {
+      source: "atlas-ai-tutor",
+      role: String(profile.role || "student"),
+      user_id: userId,
+      institution_id: profile.institution_id,
+      retrieved_source_count: sources.length
+    },
+    sources,
+    history: priorHistory,
+    prompt
+  };
+
+  let gatewayResult: GatewayLLMResult;
+  if (deps.gatewayClient?.generate) {
+    gatewayResult = await deps.gatewayClient.generate(
+      gatewayPayload,
+      gatewayToken,
+      gatewayUrl
+    );
+  } else {
+    gatewayResult = await defaultExecuteGatewayLLMCall(
+      gatewayUrl,
+      gatewayToken,
       String(profile.role || "student"),
       context,
       sources,
-      orderedHistory,
+      priorHistory,
       prompt,
       String(profile.name || ""),
-      { userId, institutionId: profile.institution_id }
+      { userId, institutionId: profile.institution_id },
+      deps.fetchFn || fetch
     );
-
-    attempts.push({
-      model: gatewayAttempt.model,
-      status: gatewayAttempt.status,
-      canonicalReason: gatewayAttempt.canonicalReason,
-      latencyMs: gatewayAttempt.latencyMs
-    });
-
-    if (gatewayAttempt.success) {
-      responseText = gatewayAttempt.text;
-      actualModel = gatewayAttempt.model;
-      actualProvider = gatewayAttempt.provider;
-      modelFallbackUsed = false;
-      providerFallbackUsed = false;
-      latencyMs = gatewayAttempt.latencyMs;
-    }
   }
 
-  // Se Gateway falhar ou não estiver configurado: FAIL-CLOSED para fallback local determinístico
-  // (PROIBIÇÃO ABSOLUTA de chamada direta a Gemini generateContent em runtime)
-  if (!responseText) {
-    actualProvider = "local-fallback";
-    actualModel = "vita-rag-dictionary";
-    modelFallbackUsed = false;
-    providerFallbackUsed = true;
-    const startFallback = performance.now();
-    const localMatch = matchLocalFallback(contextualRetrievalInput, sources);
-    if (localMatch) {
-      responseText = localMatch;
-    } else if (sources.length > 0) {
-      responseText = `Olá ${cleanText(profile.name || "Estudante", 40)}! Sou o Professor Eduardo, seu tutor de anatomia na Aeternum Atlas.\n\nCom base nos tratados de anatomia consultados:\n\n${sources.map((s, i) => `• ${s.content.slice(0, 300)}...`).join("\n\n")}\n\nFontes recuperadas:\n${sources.map((s, i) => `[${i + 1}] ${s.book_title}${s.page_number ? ` (p. ${s.page_number})` : ""}`).join("\n")}`;
-    } else {
-      responseText = `Olá ${cleanText(profile.name || "Estudante", 40)}! Sou o Professor Eduardo, seu tutor de anatomia na Aeternum Atlas. Sobre ${prompt}, apresentamos a estrutura, relações anatômicas, inervação e vascularização com base nos tratados de Moore e Netter. Como deseja aprofundar este estudo?`;
-    }
-    latencyMs = Math.round(performance.now() - startFallback);
+  // Se Gateway falhar: FAIL CLOSED com erro canônico 503 e limpeza da mensagem órfã
+  if (!gatewayResult.success || !gatewayResult.text.trim()) {
+    await adminClient.from("ai_messages").delete().eq("id", userMessageId);
+    return jsonResponse({
+      error: "Tutor IA temporariamente indisponível. Tente novamente em instantes.",
+      code: "AI_GATEWAY_UNAVAILABLE"
+    }, 503, cors);
   }
 
-  const persistedText = sanitizeAssistantContent(responseText);
+  const persistedText = sanitizeAssistantContent(gatewayResult.text);
 
   // Persistência da resposta do assistente em ai_messages
   try {
@@ -835,12 +836,9 @@ Deno.serve(async (req) => {
       role: "assistant",
       content: persistedText,
       metadata: {
-        primary_model: actualModel,
-        actual_model: actualModel,
-        actual_provider: actualProvider,
-        model_fallback_used: modelFallbackUsed,
-        provider_fallback_used: providerFallbackUsed,
-        fallbackUsed: providerFallbackUsed,
+        primary_model: gatewayResult.model,
+        actual_model: gatewayResult.model,
+        actual_provider: gatewayResult.provider,
         retrievalMethod: ragMethod,
         retrieval_contextualized: retrievalContextualized,
         embeddingModel: GEMINI_EMBEDDING_MODEL,
@@ -863,45 +861,35 @@ Deno.serve(async (req) => {
       institution_id: profile.institution_id,
       conversation_id: conversationId,
       event_type: "generation_completed",
-      model_name: actualModel,
+      model_name: gatewayResult.model,
       input_characters: prompt.length,
       output_characters: persistedText.length,
       success: true,
       metadata: {
-        primary_model: actualModel,
-        actual_model: actualModel,
-        actual_provider: actualProvider,
-        model_fallback_used: modelFallbackUsed,
-        provider_fallback_used: providerFallbackUsed,
-        fallback_used: providerFallbackUsed,
-        latency_ms: latencyMs,
-        attempts,
+        model: gatewayResult.model,
+        provider: gatewayResult.provider,
+        latency_ms: gatewayResult.latencyMs,
         retrievedSourceCount: sources.length,
         retrievalMethod: ragMethod,
         retrieval_contextualized: retrievalContextualized,
-        embedding_model: GEMINI_EMBEDDING_MODEL,
-        credential_present: credentialPresent,
-        credential_source: credentialSource
+        embedding_model: GEMINI_EMBEDDING_MODEL
       }
     });
   } catch (dbErr) {
     console.error("[ai-tutor] database persistence error", dbErr);
   }
 
-  // Streaming SSE com metadados estruturados
+  // Streaming SSE com metadados estruturados (Contrato com Frontend)
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     start(controller) {
       controller.enqueue(
         encoder.encode(`data: ${JSON.stringify({
           conversationId,
-          source: actualProvider,
-          model: actualModel,
-          primaryModel: actualModel,
-          modelFallbackUsed,
-          providerFallbackUsed,
-          fallbackUsed: providerFallbackUsed,
-          latencyMs,
+          source: gatewayResult.provider,
+          model: gatewayResult.model,
+          primaryModel: gatewayResult.model,
+          latencyMs: gatewayResult.latencyMs,
           retrievalCount: sources.length,
           retrievalMethod: ragMethod,
           retrievalContextualized
@@ -923,9 +911,13 @@ Deno.serve(async (req) => {
       "Content-Type": "text/event-stream; charset=utf-8",
       "Cache-Control": "no-store",
       "X-Content-Type-Options": "nosniff",
-      "X-Aeternum-AI-Source": actualProvider,
-      "X-Aeternum-AI-Model": actualModel,
-      "X-Aeternum-AI-Fallback": String(providerFallbackUsed)
+      "X-Aeternum-AI-Source": gatewayResult.provider,
+      "X-Aeternum-AI-Model": gatewayResult.model
     }
   });
-});
+}
+
+// Produção Deno entrypoint
+if (typeof Deno !== "undefined" && typeof Deno.serve === "function") {
+  Deno.serve((req: Request) => handleAiTutorRequest(req));
+}
