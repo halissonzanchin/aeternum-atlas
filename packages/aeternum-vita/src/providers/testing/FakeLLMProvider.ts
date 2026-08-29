@@ -75,7 +75,7 @@ export class FakeLLMProvider implements LLMProvider {
 
     return {
       text,
-      modelId: request.modelId || "fake-llm-model",
+      modelId: (request as any).modelId || "fake-llm-model",
       providerId: this.metadata.id,
       finishReason: "stop",
       usage: {

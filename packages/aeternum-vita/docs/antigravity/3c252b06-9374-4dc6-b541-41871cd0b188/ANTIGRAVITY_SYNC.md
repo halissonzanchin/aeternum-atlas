@@ -731,3 +731,35 @@ FALLBACK: CONFIGURED
   - `Cloud calls`: Gemini=0, Deepgram=0, Cartesia=0
 - **Produção:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-28 22:38] — FASE 2D.1: FECHAMENTO DE TYPECHECK STRICT & CONTRATO DE HEALTH CONTEXT
+
+### Correções Implementadas (Audit Closure)
+1. **Gateway TypeScript Coverage:**
+   - Criado `packages/aeternum-vita/tsconfig.json` e `packages/aeternum-vita/apps/gateway/tsconfig.json`.
+   - Adicionado script `typecheck:gateway` no `package.json`.
+   - Suporte estrito com `@types/node` e `lib: ["ES2023", "DOM", "DOM.Iterable"]`.
+   - Validação `tsc --project tsconfig.json --noEmit` e `tsc --project apps/gateway/tsconfig.json --noEmit`: **0 erros**.
+2. **Provider Health Context Contract:**
+   - Corrigido `AeternumAIGateway.checkProviderHealth()` para enviar `ProviderExecutionContext` canônico com `requestId: `health-${crypto.randomUUID()}`` e `timeoutMs: 1500`.
+   - `ProviderExecutionContext` não foi flexibilizado nem enfraquecido.
+3. **Harmonização de Tipos nos Provedores:**
+   - `DeepgramSTTProvider.ts` e `SpeachesSTTProvider.ts` com compatibilidade de buffer/blob no strict typecheck.
+   - `cloud_providers.test.ts` e `cloud_providers.integration.test.ts` com tipos estritos compatíveis.
+   - `VoiceProfileRegistry.ts` exportando `DEFAULT_VOICE_REGISTRY`.
+
+### Métricas de Validação
+- **Gateway TypeScript Check:** PASS (0 erros)
+- **Suíte Gateway (`gateway.test.ts`):** 24/24 PASS
+- **Suíte Completa Providers + Gateway:** 192/192 PASS
+- **Validação Local HP Victus (Local-Only):**
+  - `GET /health`: PASS (HTTP 200 | 142ms | status: HEALTHY)
+  - `POST /v1/llm/generate`: PASS (HTTP 200 | 13763ms | textLength: 14)
+  - `POST /v1/tts/synthesize`: PASS (HTTP 200 | 5376ms | audioBytes: 109612)
+  - `POST /v1/stt/transcribe`: PASS (HTTP 200 | 11184ms | textLength: 32)
+  - `LOCAL_ONLY_GATEWAY_PROOF`: PASS
+  - `Cloud Calls`: Gemini=0, Deepgram=0, Cartesia=0
+- **Produção:** `ai-tutor v38` e `voice-token v8` intocados.
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

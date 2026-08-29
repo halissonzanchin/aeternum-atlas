@@ -11,6 +11,7 @@ import {
 import { SafeGatewayLogger } from "./middleware/logging.ts";
 import { validateGatewayAuth, isLoopbackHost } from "./middleware/auth.ts";
 import {
+  ProviderExecutionContext,
   ProviderCancelledError,
   ProviderTimeoutError,
   ProviderUnavailableError,
@@ -214,9 +215,14 @@ export class AeternumAIGateway {
       return { enabled: false, status: "UNAVAILABLE" };
     }
 
+    const healthContext: ProviderExecutionContext = {
+      requestId: `health-${crypto.randomUUID()}`,
+      timeoutMs: 1500
+    };
+
     try {
       const res: HealthResult = await Promise.race([
-        entry.provider.health({ timeoutMs: 1500 }),
+        entry.provider.health(healthContext),
         new Promise<HealthResult>((_, reject) =>
           setTimeout(() => reject(new Error("Health check timeout")), 1500)
         )

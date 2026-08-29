@@ -40,7 +40,7 @@ describe.skipIf(!isCloudIntegrationEnabled)(
             messages: [{ role: "user", content: "Responda apenas: Aeternum" }],
             maxTokens: 128
           },
-          { timeoutMs: 30000 }
+          { requestId: "gemini-integration-test-01", timeoutMs: 30000 }
         );
         const duration = Math.round(performance.now() - start);
 

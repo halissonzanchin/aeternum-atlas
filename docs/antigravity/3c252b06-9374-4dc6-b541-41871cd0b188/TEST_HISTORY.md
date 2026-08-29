@@ -896,3 +896,30 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Windows P
 
 ### Resultado
 ALL 24 GATEWAY TESTS PASS (192/192 Total Providers & Gateway Suite PASS) | LOCAL ONLY GATEWAY PROOF = PASS
+
+---
+
+## Teste 032 — Fechamento Final de Typecheck Estrito do Gateway (Fase 2D.1)
+
+Data: 2026-08-28 22:38 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / TypeScript 5.9 / Vitest)
+
+### 1. Typecheck Estrito do Gateway & Providers
+- `tsc --project packages/aeternum-vita/tsconfig.json --noEmit` $\rightarrow$ **PASS (0 erros)**
+- `tsc --project packages/aeternum-vita/apps/gateway/tsconfig.json --noEmit` $\rightarrow$ **PASS (0 erros)**
+
+### 2. Suíte de Testes
+- `vitest run src/gateway` $\rightarrow$ **24/24 PASS**
+- `vitest run src/providers src/gateway` $\rightarrow$ **192/192 PASS**
+
+### 3. Validação Factual HP Victus (Local-Only)
+- `GET /health`: HTTP 200 (142ms) $\rightarrow$ `HEALTHY`
+- `POST /v1/llm/generate`: HTTP 200 (13763ms | textLength: 14)
+- `POST /v1/tts/synthesize`: HTTP 200 (5376ms | audioBytes: 109612)
+- `POST /v1/stt/transcribe`: HTTP 200 (11184ms | textLength: 32)
+- `Cancellation propagation`: HTTP 499 (AbortError | zero cloud calls)
+- `Cloud inference calls`: Gemini=0, Deepgram=0, Cartesia=0
+- `LOCAL_ONLY_GATEWAY_PROOF`: **PASS**
+
+### Resultado
+GATEWAY TYPECHECK = PASS (0 ERRORS) | ALL 24 GATEWAY TESTS PASS | 192 TOTAL TESTS PASS | LOCAL PROOF = PASS

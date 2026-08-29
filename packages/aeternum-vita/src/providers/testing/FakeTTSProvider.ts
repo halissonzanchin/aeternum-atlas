@@ -71,8 +71,7 @@ export class FakeTTSProvider implements TTSProvider {
       audioFormat: request.audioFormat || "pcm",
       sampleRate: request.sampleRate || 24000,
       providerId: this.metadata.id,
-      modelId: request.modelId || "fake-tts-model",
-      voiceId: request.voiceProfileId || "pt-br-warm-male-01"
+      modelId: (request as any).modelId || "fake-tts-model"
     };
   }
 

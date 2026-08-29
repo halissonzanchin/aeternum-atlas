@@ -33,7 +33,6 @@ const cloudSTT = envConfig.cloudSTTEnabled
 
 const localTTS = envConfig.localTTSEnabled
   ? new SpeachesTTSProvider({
-      modelId: "speaches-ai/Kokoro-82M-v1.0-ONNX",
       baseUrl: "http://127.0.0.1:8000",
       apiKey: process.env.LOCAL_SPEECH_API_KEY
     })

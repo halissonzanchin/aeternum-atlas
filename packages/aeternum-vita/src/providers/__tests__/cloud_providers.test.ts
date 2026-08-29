@@ -422,7 +422,8 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Schema 
       })();
 
       const generator = deepgram.streamTranscription(asyncAudio, { language: "pt" });
-      await expect(generator.next()).rejects.toThrow(ProviderInvalidResponseError);
+      const iterator = generator[Symbol.asyncIterator]();
+      await expect(iterator.next()).rejects.toThrow(ProviderInvalidResponseError);
     });
 
     it("health: DEGRADED quando API key não configurada", async () => {
@@ -617,6 +618,7 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Schema 
       await cartesia.synthesize({
         text: "PCM test",
         voiceProfileId: "pt-br-warm-male-01",
+        language: "pt-BR",
         audioFormat: "pcm",
         sampleRate: 24000
       });
@@ -628,6 +630,7 @@ describe("Aeternum Cloud Inference Providers — Unit Suite (Fase 2B.2.1 Schema 
       await cartesia.synthesize({
         text: "MP3 test",
         voiceProfileId: "pt-br-warm-male-01",
+        language: "pt-BR",
         audioFormat: "mp3",
         sampleRate: 44100
       });

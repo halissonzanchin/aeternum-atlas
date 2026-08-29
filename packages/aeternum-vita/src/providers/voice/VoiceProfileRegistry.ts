@@ -301,3 +301,5 @@ export class VoiceProfileRegistry {
     return Array.from(this.profiles.values());
   }
 }
+
+export const DEFAULT_VOICE_REGISTRY = new VoiceProfileRegistry();

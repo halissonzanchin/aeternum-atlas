@@ -203,7 +203,7 @@ export class DeepgramSTTProvider implements STTProvider {
           "Authorization": `Token ${this.apiKey}`,
           "Content-Type": mimeType
         },
-        body: buffer
+        body: buffer as any
       },
       this.metadata.id,
       context

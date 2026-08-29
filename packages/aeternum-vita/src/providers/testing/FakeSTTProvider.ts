@@ -72,7 +72,7 @@ export class FakeSTTProvider implements STTProvider {
       languageDetected: request.language || "pt-BR",
       confidence: 0.98,
       providerId: this.metadata.id,
-      modelId: request.modelId || "fake-stt-model"
+      modelId: (request as any).modelId || "fake-stt-model"
     };
   }
 

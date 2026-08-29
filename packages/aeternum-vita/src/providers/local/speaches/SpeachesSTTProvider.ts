@@ -192,7 +192,7 @@ export class SpeachesSTTProvider implements STTProvider {
     }
 
     const formData = new FormData();
-    const blob = new Blob([audioBytes], { type: mimeType });
+    const blob = new Blob([audioBytes as any], { type: mimeType });
     formData.append("file", blob, fileName);
     formData.append("model", this.modelId);
 
