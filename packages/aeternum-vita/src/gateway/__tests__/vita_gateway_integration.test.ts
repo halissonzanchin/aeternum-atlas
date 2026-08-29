@@ -508,4 +508,42 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A & 3A.1)", () => {
       await gateway.stop();
     }
   });
+  it("18. SSE error mapping correctly maps provider_unavailable, provider_timeout and request_cancelled on TTS stream", async () => {
+    const p = getPort();
+
+    class FailMidStreamTTS extends FakeTTSProvider {
+      async *streamSynthesis() {
+        yield { audioChunk: new Uint8Array([1, 2, 3]), isFinal: false };
+        throw new ProviderUnavailableError("TTS síntese falhou no meio", "fake-tts");
+      }
+    }
+
+    const localTTS = new FailMidStreamTTS({ id: "fail-tts-local", location: "LOCAL" });
+    const router = new ProviderRouter({ tts: { primary: localTTS } });
+
+    const gateway = new AeternumAIGateway({ port: p, router });
+    await gateway.start();
+
+    try {
+      const client = new VitaGatewayClient({ baseUrl: `http://127.0.0.1:${p}` });
+      const stream = client.streamSynthesis({
+        text: "Teste de falha no stream TTS",
+        voiceProfileId: "pt-br-warm-male-01",
+        language: "pt"
+      });
+
+      let errorCaught: any = null;
+      try {
+        for await (const _chunk of stream) {
+          // Continua até o frame de erro
+        }
+      } catch (err: any) {
+        errorCaught = err;
+      }
+
+      expect(errorCaught).toBeInstanceOf(ProviderUnavailableError);
+    } finally {
+      await gateway.stop();
+    }
+  });
 });

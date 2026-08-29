@@ -177,10 +177,14 @@ export class AeternumAIGateway {
         await this.handleLLMStream(req, res, requestId, abortController);
       } else if (method === "POST" && path === "/v1/chat/completions") {
         await this.handleOpenAIChatCompletions(req, res, requestId, abortController);
-      } else if (method === "POST" && (path === "/v1/stt/transcribe" || path === "/v1/audio/transcriptions")) {
-        await this.handleSTTTranscribe(req, res, requestId, abortController, path === "/v1/audio/transcriptions");
-      } else if (method === "POST" && (path === "/v1/tts/synthesize" || path === "/v1/audio/speech")) {
-        await this.handleTTSSynthesize(req, res, requestId, abortController, path === "/v1/audio/speech");
+      } else if (method === "POST" && path === "/v1/stt/transcribe") {
+        await this.handleSTTTranscribe(req, res, requestId, abortController);
+      } else if (method === "POST" && path === "/v1/audio/transcriptions") {
+        await this.handleOpenAIAudioTranscriptions(req, res, requestId, abortController);
+      } else if (method === "POST" && path === "/v1/tts/synthesize") {
+        await this.handleTTSSynthesize(req, res, requestId, abortController);
+      } else if (method === "POST" && path === "/v1/audio/speech") {
+        await this.handleOpenAIAudioSpeech(req, res, requestId, abortController);
       } else if (method === "POST" && path === "/v1/tts/stream") {
         await this.handleTTSStream(req, res, requestId, abortController);
       } else {
@@ -378,11 +382,11 @@ export class AeternumAIGateway {
       if (!streamHeadersSent) {
         this.handleGenericError(res, err, requestId);
       } else {
-        const code = err?.code ? err.code.toLowerCase() : "provider_unavailable";
+        const safeCode = this.toSafeGatewayErrorCode(err);
         const errorFrame = {
           success: false,
           error: {
-            code,
+            code: safeCode,
             message: "Serviço de IA temporariamente indisponível."
           },
           requestId
@@ -407,8 +411,17 @@ export class AeternumAIGateway {
       return;
     }
 
+    const normalizedMessages = body.messages.map((m: any) => ({
+      role: m.role === "assistant" ? "model" : m.role,
+      content: typeof m.content === "string"
+        ? m.content
+        : Array.isArray(m.content)
+        ? m.content.map((c: any) => typeof c === "string" ? c : c.text || c.content || "").join("")
+        : String(m.content || "")
+    }));
+
     const llmReq: LLMRequest = {
-      messages: body.messages,
+      messages: normalizedMessages,
       systemInstruction: body.systemInstruction,
       temperature: body.temperature,
       maxTokens: body.maxTokens || body.max_tokens,
@@ -461,6 +474,15 @@ export class AeternumAIGateway {
         if (!streamHeadersSent) {
           this.handleGenericError(res, err, requestId);
         } else {
+          const safeCode = this.toSafeGatewayErrorCode(err);
+          const errorFrame = {
+            error: {
+              message: "Serviço de IA temporariamente indisponível.",
+              type: "server_error",
+              code: safeCode
+            }
+          };
+          res.write(`data: ${JSON.stringify(errorFrame)}\n\n`);
           res.end();
         }
       }
@@ -493,12 +515,15 @@ export class AeternumAIGateway {
     );
   }
 
+  // ==========================================
+  // STT: NATIVE & OPENAI MULTIPART
+  // ==========================================
+
   private async handleSTTTranscribe(
     req: http.IncomingMessage,
     res: http.ServerResponse,
     requestId: string,
-    abortController: AbortController,
-    isOpenAI = false
+    abortController: AbortController
   ): Promise<void> {
     const body = await this.readJsonBody<{
       audioBase64?: string;
@@ -529,13 +554,6 @@ export class AeternumAIGateway {
       timeoutMs: this.config.providerTimeoutMs
     });
 
-    if (isOpenAI) {
-      res.statusCode = 200;
-      res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify({ text: result.data.text }));
-      return;
-    }
-
     const response: GatewaySuccessResponse<any> = {
       success: true,
       data: result.data,
@@ -555,29 +573,113 @@ export class AeternumAIGateway {
     res.end(JSON.stringify(response));
   }
 
+  private async handleOpenAIAudioTranscriptions(
+    req: http.IncomingMessage,
+    res: http.ServerResponse,
+    requestId: string,
+    abortController: AbortController
+  ): Promise<void> {
+    const contentType = req.headers["content-type"] || "";
+
+    if (contentType.includes("multipart/form-data")) {
+      const boundaryMatch = contentType.match(/boundary=([^;]+)/i);
+      if (!boundaryMatch) {
+        this.sendError(res, 400, "BAD_REQUEST", requestId, "bad_request", "Cabeçalho multipart sem boundary.");
+        return;
+      }
+      const boundary = boundaryMatch[1].trim().replace(/^["']|["']$/g, "");
+
+      const rawBuffer = await this.readRawBody(req, res, requestId, this.config.maxAudioBodyBytes);
+      if (res.writableEnded || !rawBuffer) return;
+
+      const parsed = this.parseMultipart(rawBuffer, boundary);
+      if (!parsed.file || parsed.file.length === 0) {
+        this.sendError(res, 400, "BAD_REQUEST", requestId, "bad_request", "Campo 'file' de áudio ausente no multipart.");
+        return;
+      }
+
+      let audioFormat: "wav" | "pcm" | "mp3" | "ogg" = "wav";
+      if (parsed.filename?.endsWith(".pcm") || parsed.contentType?.includes("pcm")) {
+        audioFormat = "pcm";
+      } else if (parsed.filename?.endsWith(".mp3") || parsed.contentType?.includes("mp3")) {
+        audioFormat = "mp3";
+      }
+
+      const sttReq: STTRequest = {
+        audioBuffer: parsed.file,
+        language: parsed.fields.language || "pt",
+        audioFormat,
+        sampleRate: 16000,
+        medicalContextHints: parsed.fields.prompt ? [parsed.fields.prompt] : undefined
+      };
+
+      const result = await this.config.router.transcribeWithMetadata(sttReq, {
+        requestId,
+        signal: abortController.signal,
+        timeoutMs: this.config.providerTimeoutMs
+      });
+
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({ text: result.data.text }));
+      return;
+    }
+
+    // JSON fallback
+    const body = await this.readJsonBody<any>(req, res, requestId, this.config.maxAudioBodyBytes);
+    if (res.writableEnded) return;
+
+    const b64 = body?.audioBase64 || body?.file;
+    if (!b64) {
+      this.sendError(res, 400, "BAD_REQUEST", requestId, "bad_request", "Campo 'file' ou 'audioBase64' obrigatório.");
+      return;
+    }
+
+    const audioBuffer = new Uint8Array(Buffer.from(b64, "base64"));
+    const sttReq: STTRequest = {
+      audioBuffer,
+      language: body.language || "pt",
+      audioFormat: (body.audioFormat as any) || "wav",
+      sampleRate: body.sampleRate || 16000,
+      medicalContextHints: body.prompt ? [body.prompt] : undefined
+    };
+
+    const result = await this.config.router.transcribeWithMetadata(sttReq, {
+      requestId,
+      signal: abortController.signal,
+      timeoutMs: this.config.providerTimeoutMs
+    });
+
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ text: result.data.text }));
+  }
+
+  // ==========================================
+  // TTS: NATIVE & OPENAI AUDIO SPEECH
+  // ==========================================
+
   private async handleTTSSynthesize(
     req: http.IncomingMessage,
     res: http.ServerResponse,
     requestId: string,
-    abortController: AbortController,
-    isOpenAI = false
+    abortController: AbortController
   ): Promise<void> {
-    const body = await this.readJsonBody<any>(req, res, requestId, this.config.maxJsonBodyBytes);
+    const body = await this.readJsonBody<TTSRequest>(req, res, requestId, this.config.maxJsonBodyBytes);
     if (res.writableEnded) return;
 
-    const text = body?.text || body?.input;
-    if (!body || !text) {
-      this.sendError(res, 400, "BAD_REQUEST", requestId, "BAD_REQUEST", "Campo 'text' ou 'input' obrigatório.");
+    if (!body || !body.text) {
+      this.sendError(res, 400, "BAD_REQUEST", requestId, "BAD_REQUEST", "Campo 'text' obrigatório.");
       return;
     }
 
     const ttsReq: TTSRequest = {
-      text,
-      voiceProfileId: body.voiceProfileId || body.voice || "pt-br-warm-male-01",
+      text: body.text,
+      voiceProfileId: body.voiceProfileId || "pt-br-warm-male-01",
       language: body.language || "pt",
       speed: body.speed,
       sampleRate: body.sampleRate || 24000,
-      audioFormat: body.audioFormat || body.response_format || (isOpenAI ? "wav" : "pcm")
+      audioFormat: body.audioFormat || "pcm"
     };
 
     const result = await this.config.router.synthesizeWithMetadata(ttsReq, {
@@ -585,13 +687,6 @@ export class AeternumAIGateway {
       signal: abortController.signal,
       timeoutMs: this.config.providerTimeoutMs
     });
-
-    if (isOpenAI) {
-      res.statusCode = 200;
-      res.setHeader("Content-Type", ttsReq.audioFormat === "wav" ? "audio/wav" : "audio/pcm");
-      res.end(Buffer.from(result.data.audioBuffer));
-      return;
-    }
 
     const response: GatewaySuccessResponse<any> = {
       success: true,
@@ -617,6 +712,44 @@ export class AeternumAIGateway {
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(response));
+  }
+
+  private async handleOpenAIAudioSpeech(
+    req: http.IncomingMessage,
+    res: http.ServerResponse,
+    requestId: string,
+    abortController: AbortController
+  ): Promise<void> {
+    const body = await this.readJsonBody<any>(req, res, requestId, this.config.maxJsonBodyBytes);
+    if (res.writableEnded) return;
+
+    const text = body?.input || body?.text;
+    if (!text) {
+      this.sendError(res, 400, "BAD_REQUEST", requestId, "BAD_REQUEST", "Campo 'input' obrigatório.");
+      return;
+    }
+
+    const voiceProfileId = body.voice || body.voiceProfileId || "pt-br-warm-male-01";
+    const audioFormat = body.response_format === "pcm" ? "pcm" : "wav";
+
+    const ttsReq: TTSRequest = {
+      text,
+      voiceProfileId,
+      language: "pt",
+      speed: body.speed,
+      sampleRate: audioFormat === "pcm" ? 24000 : 24000,
+      audioFormat
+    };
+
+    const result = await this.config.router.synthesizeWithMetadata(ttsReq, {
+      requestId,
+      signal: abortController.signal,
+      timeoutMs: this.config.providerTimeoutMs
+    });
+
+    res.statusCode = 200;
+    res.setHeader("Content-Type", audioFormat === "wav" ? "audio/wav" : "audio/pcm");
+    res.end(Buffer.from(result.data.audioBuffer));
   }
 
   private async handleTTSStream(
@@ -677,11 +810,11 @@ export class AeternumAIGateway {
       if (!streamHeadersSent) {
         this.handleGenericError(res, err, requestId);
       } else {
-        const code = err?.code ? err.code.toLowerCase() : "provider_unavailable";
+        const safeCode = this.toSafeGatewayErrorCode(err);
         const errorFrame = {
           success: false,
           error: {
-            code,
+            code: safeCode,
             message: "Serviço de síntese vocal temporariamente indisponível."
           },
           requestId
@@ -693,8 +826,101 @@ export class AeternumAIGateway {
   }
 
   // ==========================================
-  // HELPERS
+  // HELPERS & MULTIPART
   // ==========================================
+
+  private parseMultipart(buffer: Buffer, boundary: string): {
+    fields: Record<string, string>;
+    file: Uint8Array | null;
+    filename: string | null;
+    contentType: string | null;
+  } {
+    const boundaryBuffer = Buffer.from(`--${boundary}`);
+    const result: {
+      fields: Record<string, string>;
+      file: Uint8Array | null;
+      filename: string | null;
+      contentType: string | null;
+    } = {
+      fields: {},
+      file: null,
+      filename: null,
+      contentType: null
+    };
+
+    let startIndex = buffer.indexOf(boundaryBuffer);
+    while (startIndex !== -1) {
+      const nextIndex = buffer.indexOf(boundaryBuffer, startIndex + boundaryBuffer.length);
+      if (nextIndex === -1) break;
+
+      const partBuffer = buffer.subarray(startIndex + boundaryBuffer.length, nextIndex);
+      startIndex = nextIndex;
+
+      const headerSep = Buffer.from("\r\n\r\n");
+      let sepIndex = partBuffer.indexOf(headerSep);
+      let sepLen = 4;
+      if (sepIndex === -1) {
+        const altSep = Buffer.from("\n\n");
+        sepIndex = partBuffer.indexOf(altSep);
+        sepLen = 2;
+      }
+      if (sepIndex === -1) continue;
+
+      const headerStr = partBuffer.subarray(0, sepIndex).toString("utf-8");
+      let body = partBuffer.subarray(sepIndex + sepLen);
+
+      if (body.length >= 2 && body[body.length - 2] === 13 && body[body.length - 1] === 10) {
+        body = body.subarray(0, body.length - 2);
+      } else if (body.length >= 1 && body[body.length - 1] === 10) {
+        body = body.subarray(0, body.length - 1);
+      }
+
+      const dispMatch = headerStr.match(/Content-Disposition:\s*form-data;\s*name="([^"]+)"(?:;\s*filename="([^"]+)")?/i);
+      if (dispMatch) {
+        const fieldName = dispMatch[1];
+        const filename = dispMatch[2];
+
+        if (filename || fieldName === "file") {
+          result.file = new Uint8Array(body);
+          result.filename = filename || "audio.wav";
+          const ctMatch = headerStr.match(/Content-Type:\s*([^\r\n]+)/i);
+          result.contentType = ctMatch ? ctMatch[1].trim() : "audio/wav";
+        } else {
+          result.fields[fieldName] = body.toString("utf-8").trim();
+        }
+      }
+    }
+
+    return result;
+  }
+
+  private async readRawBody(
+    req: http.IncomingMessage,
+    res: http.ServerResponse,
+    requestId: string,
+    maxBytes: number
+  ): Promise<Buffer | null> {
+    return new Promise((resolve) => {
+      let totalBytes = 0;
+      const chunks: Buffer[] = [];
+
+      req.on("data", (chunk: Buffer) => {
+        totalBytes += chunk.length;
+        if (totalBytes > maxBytes) {
+          this.sendError(res, 413, "PAYLOAD_TOO_LARGE", requestId, "payload_too_large", "Corpo da requisição excede o limite permitido.");
+          req.destroy();
+          resolve(null);
+          return;
+        }
+        chunks.push(chunk);
+      });
+
+      req.on("end", () => {
+        if (res.writableEnded) return;
+        resolve(Buffer.concat(chunks));
+      });
+    });
+  }
 
   private async authenticateRequest(req: http.IncomingMessage, res: http.ServerResponse, requestId: string): Promise<boolean> {
     if (this.config.authMode === "INTERNAL_DEV" || this.config.authMode === "DISABLED") {
@@ -770,6 +996,28 @@ export class AeternumAIGateway {
     });
   }
 
+  private toSafeGatewayErrorCode(err: any): string {
+    if (err instanceof ProviderCancelledError || err?.code === "PROVIDER_CANCELLED") {
+      return "request_cancelled";
+    }
+    if (err instanceof ProviderTimeoutError || err?.code === "PROVIDER_TIMEOUT") {
+      return "provider_timeout";
+    }
+    if (err instanceof ProviderUnavailableError || err?.code === "PROVIDER_UNAVAILABLE") {
+      return "provider_unavailable";
+    }
+    if (err instanceof AllProvidersFailedError || err?.code === "ALL_PROVIDERS_FAILED") {
+      return "all_providers_failed";
+    }
+    if (err instanceof ProviderAuthenticationError || err?.code === "PROVIDER_AUTH_ERROR") {
+      return "provider_authentication_failed";
+    }
+    if (err instanceof CapabilityMismatchError || err?.code === "CAPABILITY_MISMATCH") {
+      return "capability_mismatch";
+    }
+    return "provider_error";
+  }
+
   private handleGenericError(res: http.ServerResponse, err: any, requestId: string): void {
     if (res.headersSent || res.writableEnded) return;
 
@@ -817,12 +1065,12 @@ export class AeternumAIGateway {
 
     const errorBody: GatewayErrorResponse = {
       success: false,
+      requestId,
       error: {
         code: safeErrorCode || code.toLowerCase(),
         message: message || "Erro de processamento no Aeternum AI Gateway.",
         httpStatus
-      },
-      requestId
+      }
     };
 
     res.statusCode = httpStatus;

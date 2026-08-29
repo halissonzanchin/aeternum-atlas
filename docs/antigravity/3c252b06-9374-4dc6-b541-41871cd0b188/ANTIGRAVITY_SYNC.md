@@ -1339,3 +1339,59 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **Chamadas de Nuvem durante a validação:** Gemini=0, Deepgram=0, Cartesia=0
 - **VITA_REAL_RUNTIME_PROOF:** **PASS**
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-29 01:10] — FASE 3A.2 CONCLUÍDA: COMPATIBILIDADE DE PROTOCOLO LIVEKIT ↔ AI GATEWAY
+
+### Branch & Governança
+- **Branch:** `antigravity/phase-3a-vita-gateway` (NÃO mergeada para `main`).
+- **Governança Vercel / Supabase:**
+  - `ai-tutor v38` e `voice-token v8` intocados e congelados em produção.
+  - Vercel production frontend intocado.
+  - Migração de Atlas AI Tutor: **NÃO INICIADA (Fase 3B)**.
+
+### Fechamento Arquitetural da Fase 3A.2
+1. **Protocolo STT LiveKit / OpenAI Compatível:**
+   - `POST /v1/audio/transcriptions` implementado com parser nativo de `multipart/form-data` seguro e bounded (`maxAudioBodyBytes`).
+   - Retorno canônico OpenAI: `{ "text": "..." }`.
+   - `POST /v1/stt/transcribe` mantido para o contrato JSON nativo da Aeternum.
+2. **Perfis de Voz Canônicos no TTS (`PERSONA != VOICE PROFILE != NATIVE VOICE != MODEL`):**
+   - LiveKit TTS envia o `voiceProfileId` canônico (`pt-br-warm-male-01`, `es-calm-female-01`, `en-calm-female-01`, `de-clear-male-01`).
+   - Gateway `POST /v1/audio/speech` resolve via `VoiceProfileRegistry` sem expor vozes nativas de vendors.
+3. **Modo de Execução Gateway-Only (`VITA_AI_BACKEND=gateway`):**
+   - `VITA_AI_BACKEND=gateway` é o padrão, forçando todas as rotas para o Gateway (`:8081/v1`).
+   - Modo `legacy_direct` requer opt-in explícito `VITA_AI_BACKEND=legacy_direct`.
+   - `GATEWAY_MODE_DIRECT_PROVIDER_BYPASS = 0`.
+4. **Testes de Protocolo com `@livekit/agents-plugin-openai 1.6.4`:**
+   - `apps/agent/src/__tests__/livekit_openai_protocol.test.ts` (5/5 PASS).
+   - Teste de falha em stream OpenAI (`stream=true` com erro do provider emite frame de erro e não encerra com sucesso espúrio).
+   - Teste de cancelamento ativo (`LIVEKIT_ACTIVE_BARGE_IN_ZERO_CLOUD = PASS`).
+5. **Invariantes de Personas & VoiceProfileRegistry:**
+   - Testes cruzados `TUTOR_CONFIGS` $\leftrightarrow$ `VITA_TUTOR_PERSONAS` com `VoiceProfileRegistry.require()` PASS para todos os 4 tutores.
+
+### Métricas de Teste
+- **Suíte Regressiva Monorepo:** 266/266 PASS (30 skipped cloud live opt-in)
+- **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
+
+### Benchmark Factual de Voz em Runtime Real LiveKit AgentSession no HP Victus (`CLOUD_FALLBACK_ENABLED=false` / `VITA_AI_BACKEND=gateway`)
+- **Rotas Observadas no Gateway:**
+  - `/v1/audio/transcriptions`: `true` (POST multipart)
+  - `/v1/chat/completions`: `true` (POST JSON/stream)
+  - `/v1/audio/speech`: `true` (POST JSON / binary audio)
+- **Bypass Direto a Provedores:** `Ollama=0, Speaches=0`
+- **Cold Turn (LiveKit AgentSession + RAG):**
+  - Status: PASS | total: 36587ms
+  - STT: 3576ms (textLength: 52) | Provider: `speaches-stt-local`
+  - LLM: 6601ms (TTFT: 545ms, textLength: 1600) | Provider: `ollama-llm-local`
+  - TTS: 26409ms (audioBytes: 4267200) | Provider: `speaches-tts-local`
+- **Warm Turns (3 turnos LiveKit AgentSession + RAG):**
+  - **STT Latency:** min: 3345ms | median: 3379ms | max: 3438ms
+  - **LLM TTFT:** min: 392ms | median: 480ms | max: 499ms
+  - **LLM Total:** min: 4299ms | median: 5306ms | max: 5483ms
+  - **TTS TTFA:** min: 17050ms | median: 22656ms | max: 23209ms
+  - **TTS Total:** min: 17053ms | median: 22657ms | max: 23211ms
+  - **Total Voice Turn:** min: 24790ms | median: 31343ms | max: 32039ms
+- **Chamadas de Nuvem durante a validação:** Gemini=0, Deepgram=0, Cartesia=0
+- **VITA_LIVEKIT_GATEWAY_REAL_E2E:** **PASS**
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

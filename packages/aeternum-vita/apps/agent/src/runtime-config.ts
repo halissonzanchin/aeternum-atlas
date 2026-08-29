@@ -1,6 +1,9 @@
 import type { TutorId } from "./agent.ts";
 
+export type VitaAIBackendMode = "gateway" | "legacy_direct";
+
 export interface VoiceRuntimeConfig {
+  backendMode: VitaAIBackendMode;
   llmBaseUrl: string;
   llmModel: string;
   llmTemperature: number;
@@ -71,21 +74,53 @@ const httpUrl = (value: string, key: string): string => {
 export const loadVoiceRuntimeConfig = (
   environment: NodeJS.ProcessEnv = process.env,
 ): VoiceRuntimeConfig => {
+  const rawBackend = environment.VITA_AI_BACKEND?.trim().toLowerCase();
+  const backendMode: VitaAIBackendMode =
+    rawBackend === "legacy_direct" ? "legacy_direct" : "gateway";
+
   const ragUrl = environment.VITA_RAG_URL?.trim();
-  const gatewayUrl = environment.AETERNUM_AI_GATEWAY_URL?.trim();
 
-  const defaultLlmUrl = gatewayUrl ? `${gatewayUrl.replace(/\/$/, "")}/v1` : "http://localhost:11434/v1";
-  const defaultSpeechUrl = gatewayUrl ? `${gatewayUrl.replace(/\/$/, "")}/v1` : "http://localhost:8000/v1";
+  let llmBaseUrl: string;
+  let speechBaseUrl: string;
+  let speechApiKey: string;
 
-  return {
-    llmBaseUrl: httpUrl(
+  if (backendMode === "gateway") {
+    const rawGatewayUrl =
+      environment.AETERNUM_AI_GATEWAY_URL?.trim() ||
+      `http://127.0.0.1:${environment.AETERNUM_AI_GATEWAY_PORT || 8081}`;
+    const gatewayBase = `${rawGatewayUrl.replace(/\/$/, "")}/v1`;
+
+    llmBaseUrl = httpUrl(gatewayBase, "AETERNUM_AI_GATEWAY_URL");
+    speechBaseUrl = httpUrl(gatewayBase, "AETERNUM_AI_GATEWAY_URL");
+    speechApiKey = environment.AETERNUM_AI_GATEWAY_TOKEN || "gateway-internal";
+  } else {
+    // legacy_direct mode (apenas com opt-in explícito VITA_AI_BACKEND=legacy_direct)
+    llmBaseUrl = httpUrl(
       requiredValue(
         environment.LOCAL_LLM_BASE_URL,
-        defaultLlmUrl,
+        "http://localhost:11434/v1",
         "LOCAL_LLM_BASE_URL",
       ),
       "LOCAL_LLM_BASE_URL",
-    ),
+    );
+    speechBaseUrl = httpUrl(
+      requiredValue(
+        environment.LOCAL_SPEECH_BASE_URL,
+        "http://localhost:8000/v1",
+        "LOCAL_SPEECH_BASE_URL",
+      ),
+      "LOCAL_SPEECH_BASE_URL",
+    );
+    speechApiKey = requiredValue(
+      environment.LOCAL_SPEECH_API_KEY,
+      "local-development-only",
+      "LOCAL_SPEECH_API_KEY",
+    );
+  }
+
+  return {
+    backendMode,
+    llmBaseUrl,
     llmModel: requiredValue(
       environment.LOCAL_LLM_MODEL,
       "qwen2.5:3b",
@@ -98,19 +133,8 @@ export const loadVoiceRuntimeConfig = (
       0,
       1,
     ),
-    speechBaseUrl: httpUrl(
-      requiredValue(
-        environment.LOCAL_SPEECH_BASE_URL,
-        defaultSpeechUrl,
-        "LOCAL_SPEECH_BASE_URL",
-      ),
-      "LOCAL_SPEECH_BASE_URL",
-    ),
-    speechApiKey: requiredValue(
-      environment.LOCAL_SPEECH_API_KEY,
-      environment.AETERNUM_AI_GATEWAY_TOKEN || "local-development-only",
-      "LOCAL_SPEECH_API_KEY",
-    ),
+    speechBaseUrl,
+    speechApiKey,
     sttModel: requiredValue(
       environment.LOCAL_STT_MODEL,
       "Systran/faster-whisper-small",
@@ -134,26 +158,10 @@ export const loadVoiceRuntimeConfig = (
       2,
     ),
     tutorVoices: {
-      eduardo: requiredValue(
-        environment.LOCAL_TTS_VOICE_EDUARDO,
-        "pm_alex",
-        "LOCAL_TTS_VOICE_EDUARDO",
-      ),
-      antonia: requiredValue(
-        environment.LOCAL_TTS_VOICE_ANTONIA,
-        "ef_dora",
-        "LOCAL_TTS_VOICE_ANTONIA",
-      ),
-      ariana: requiredValue(
-        environment.LOCAL_TTS_VOICE_ARIANA,
-        "af_heart",
-        "LOCAL_TTS_VOICE_ARIANA",
-      ),
-      fabian: requiredValue(
-        environment.LOCAL_TTS_VOICE_FABIAN,
-        "thorsten",
-        "LOCAL_TTS_VOICE_FABIAN",
-      ),
+      eduardo: requiredValue(environment.LOCAL_TTS_VOICE_EDUARDO, "pm_alex", "LOCAL_TTS_VOICE_EDUARDO"),
+      antonia: requiredValue(environment.LOCAL_TTS_VOICE_ANTONIA, "ef_dora", "LOCAL_TTS_VOICE_ANTONIA"),
+      ariana: requiredValue(environment.LOCAL_TTS_VOICE_ARIANA, "af_heart", "LOCAL_TTS_VOICE_ARIANA"),
+      fabian: requiredValue(environment.LOCAL_TTS_VOICE_FABIAN, "thorsten", "LOCAL_TTS_VOICE_FABIAN"),
     },
     ragUrl: ragUrl ? httpUrl(ragUrl, "VITA_RAG_URL") : undefined,
     ragApiKey: environment.VITA_RAG_API_KEY?.trim() || undefined,

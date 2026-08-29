@@ -3,10 +3,12 @@ import { initializeLogger } from "@livekit/agents";
 import { loadVoiceRuntimeConfig } from "../runtime-config.ts";
 import { createTutorAgent, createTutorSession, TUTOR_CONFIGS } from "../agent.ts";
 import { formatKnowledgeContext } from "../vita-rag.ts";
+import { VITA_TUTOR_PERSONAS } from "../../../../src/gateway/client/VitaVoicePipeline.ts";
+import { VoiceProfileRegistry } from "../../../../src/providers/voice/VoiceProfileRegistry.ts";
 
 initializeLogger({ level: "silent", pretty: false });
 
-describe("LiveKit Vita Agent → AI Gateway Composition (Phase 3A.1)", () => {
+describe("LiveKit Vita Agent → AI Gateway Composition (Phase 3A.2)", () => {
   it("1. loadVoiceRuntimeConfig correctly routes to AI Gateway when AETERNUM_AI_GATEWAY_URL is provided", () => {
     const config = loadVoiceRuntimeConfig({ AETERNUM_AI_GATEWAY_URL: "http://127.0.0.1:8081" });
     expect(config.llmBaseUrl).toBe("http://127.0.0.1:8081/v1");
@@ -53,5 +55,18 @@ describe("LiveKit Vita Agent → AI Gateway Composition (Phase 3A.1)", () => {
     expect(formatted).toContain("O músculo deltoide é inervado pelo nervo axilar");
     expect(formatted).toContain("Gray's Anatomia Clínica");
     expect(formatted).toContain("CONTEXTO BIBLIOGRÁFICO TEMPORÁRIO DA AETERNUM VITA");
+  });
+
+  it("6. Cross-source persona invariant: TUTOR_CONFIGS and VITA_TUTOR_PERSONAS agree and validate in VoiceProfileRegistry", () => {
+    const tutors = ["eduardo", "antonia", "ariana", "fabian"] as const;
+
+    for (const id of tutors) {
+      const agentProfile = TUTOR_CONFIGS[id].voiceProfileId;
+      const pipelineProfile = VITA_TUTOR_PERSONAS[id].voiceProfileId;
+
+      expect(agentProfile).toBe(pipelineProfile);
+      const registryProfile = VoiceProfileRegistry.require(agentProfile);
+      expect(registryProfile.id).toBe(agentProfile);
+    }
   });
 });

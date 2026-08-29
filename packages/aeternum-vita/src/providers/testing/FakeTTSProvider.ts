@@ -24,7 +24,7 @@ export class FakeTTSProvider implements TTSProvider {
   public healthStatus: "HEALTHY" | "DEGRADED" | "UNAVAILABLE" = "HEALTHY";
   public failureMode?: "unavailable" | "timeout" | "invalid_response" | "custom";
   public customError?: Error;
-  public mockAudio = new Uint8Array([0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00]);
+  public mockAudio = new Uint8Array(48000); // 1 segundo de áudio a 24kHz 16-bit mono
   public callCount = 0;
 
   constructor(metadata?: Partial<ProviderMetadata>) {

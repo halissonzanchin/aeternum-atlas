@@ -16,6 +16,7 @@ import {
 import { loadVoiceRuntimeConfig } from "./runtime-config.ts";
 
 const runtime = loadVoiceRuntimeConfig({
+  VITA_AI_BACKEND: "legacy_direct",
   LOCAL_LLM_BASE_URL: "http://ollama:11434/v1",
   LOCAL_LLM_MODEL: "qwen3:4b",
   LOCAL_SPEECH_BASE_URL: "http://speech:8000/v1",

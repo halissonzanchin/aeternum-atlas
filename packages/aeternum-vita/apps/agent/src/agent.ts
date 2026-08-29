@@ -323,7 +323,7 @@ export const createTutorSession = (
     }),
     tts: new openai.TTS({
       model,
-      voice: runtime.tutorVoices[config.voiceKey] as never,
+      voice: config.voiceProfileId as never,
       speed: runtime.ttsSpeed,
       baseURL: runtime.speechBaseUrl,
       apiKey: runtime.speechApiKey,

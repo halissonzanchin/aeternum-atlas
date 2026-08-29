@@ -28,7 +28,16 @@ export interface VoiceProfile {
 }
 
 export class VoiceProfileRegistry {
+  private static defaultInstance = new VoiceProfileRegistry();
   private profiles = new Map<string, VoiceProfile>();
+
+  public static require(id: string): VoiceProfile {
+    return VoiceProfileRegistry.defaultInstance.require(id);
+  }
+
+  public static get(id: string): VoiceProfile | undefined {
+    return VoiceProfileRegistry.defaultInstance.get(id);
+  }
 
   constructor(registerDefaults = true) {
     if (registerDefaults) {

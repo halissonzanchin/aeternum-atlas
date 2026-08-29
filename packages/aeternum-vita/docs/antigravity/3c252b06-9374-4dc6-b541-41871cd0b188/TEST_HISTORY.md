@@ -680,3 +680,35 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / HP Victus
 
 ### Resultado
 ALL 46 GATEWAY & COMPOSITION TESTS PASS (258/258 Total Suite PASS) | REAL RUNTIME PROOF = PASS
+
+---
+
+## Teste 035 — Compatibilidade de Protocolo LiveKit ↔ AI Gateway & Validação de AgentSession (Fase 3A.2)
+
+Data: 2026-08-29 01:10 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / HP Victus Stack: Gateway :8081, Ollama :11434, Speaches :8000)
+
+### 1. Suíte de Testes de Protocolo & Integração
+- `livekit_openai_protocol.test.ts` $\rightarrow$ **5/5 PASS**
+- `livekit_gateway_composition.test.ts` $\rightarrow$ **6/6 PASS**
+- `vita_gateway_integration.test.ts` $\rightarrow$ **18/18 PASS**
+- `gateway.test.ts` $\rightarrow$ **24/24 PASS**
+- Suíte completa (`src/providers`, `src/gateway`, `apps/agent`) $\rightarrow$ **266/266 PASS**
+
+### 2. Validação Factual de Voz com LiveKit AgentSession Real no HP Victus (`CLOUD_FALLBACK_ENABLED=false` / `VITA_AI_BACKEND=gateway`)
+- **Rotas do Gateway Acionadas:** `/v1/audio/transcriptions` (SIM), `/v1/chat/completions` (SIM), `/v1/audio/speech` (SIM)
+- **Bypass Direto:** 0 chamadas para :11434 ou :8000
+- **Cold Turn:** Total=36587ms (STT: 3576ms, LLM TTFT: 545ms / Total: 6601ms, TTS: 26409ms)
+- **3 Warm Turns (Estatísticas Factuais):**
+  - STT Latency: min=3345ms, median=3379ms, max=3438ms
+  - LLM TTFT: min=392ms, median=480ms, max=499ms
+  - LLM Total: min=4299ms, median=5306ms, max=5483ms
+  - TTS TTFA: min=17050ms, median=22656ms, max=23209ms
+  - TTS Total: min=17053ms, median=22657ms, max=23211ms
+  - Total Voice Turn: min=24790ms, median=31343ms, max=32039ms
+- **LiveKit Active Barge-In:** PASS (`LIVEKIT_ACTIVE_BARGE_IN_ZERO_CLOUD: PASS`)
+- **Cloud inference calls:** Gemini=0, Deepgram=0, Cartesia=0
+- **VITA_LIVEKIT_GATEWAY_REAL_E2E:** **PASS**
+
+### Resultado
+ALL 53 GATEWAY & COMPOSITION TESTS PASS (266/266 Total Suite PASS) | REAL AGENTSESSION PROOF = PASS
