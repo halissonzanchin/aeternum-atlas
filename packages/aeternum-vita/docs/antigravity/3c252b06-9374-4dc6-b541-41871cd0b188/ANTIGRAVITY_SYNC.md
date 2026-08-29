@@ -1344,3 +1344,40 @@ FALLBACK: CONFIGURED
 - **Testes de Integração Gateway da Fase 3B (`atlas_tutor_gateway_integration.test.ts`):** 5/5 PASS
 - **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
 - **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`
+
+---
+
+## [2026-08-29 19:20] — FASE 3B PATCH: FINAL PERSISTED METADATA INTEGRITY
+
+### Branch & Governança
+- **Branch:** `antigravity/phase-3b-atlas-tutor-gateway` (NÃO mergeada para `main`).
+- **Governança Visual & Vercel / Supabase:**
+  - Arquivos visuais de frontend alterados: 0
+  - Arquivos CSS alterados: 0
+  - `ai-tutor v38` e `voice-token v8` intocados e congelados em produção.
+  - Vercel production frontend intocado.
+  - Migração de Bridge 3D (Fase 3C): **NÃO INICIADA / BLOQUEADA**.
+  - `LOCAL_GATEWAY_AUTH = TESTED (SERVICE_TOKEN)`
+  - `PRODUCTION_GATEWAY_AUTH_CONTRACT = NOT PROVEN`
+  - `PRODUCTION_GATEWAY_REACHABILITY = NOT PROVEN`
+  - `PRODUCTION CUTOVER = BLOCKED`
+
+### Implementação do Patch de Metadados Persistidos
+1. **Fidelidade Semântica na Mensagem do Assistente (`ai_messages`):**
+   - `primary_model`: reflete fidedignamente o modelo primário configurado (`gatewayResult.primaryModel || gatewayResult.model`, ex: `"ollama-local"`).
+   - `actual_model`: reflete fidedignamente o modelo que de fato gerou a resposta (`gatewayResult.model`, ex: `"gemini-3.7-flash"`).
+   - `actual_provider`: reflete o provider final (`gatewayResult.provider`, ex: `"gemini-cloud"`).
+   - `primary_provider`: reflete o provider primário (`gatewayResult.primaryProvider`, ex: `"ollama-local"`).
+   - `final_provider`: reflete o provider final (`gatewayResult.provider`, ex: `"gemini-cloud"`).
+   - `fallback_used`: reflete o booleano factual (`true` em fallback, `false` em execução primária).
+   - `fallback_reason` e `attempt_count` gravados quando disponíveis.
+2. **Fidelidade no Evento de Auditoria (`ai_audit_events`):**
+   - `event_type: "generation_completed"` grava `model_name` como o modelo real que gerou a resposta (`gatewayResult.model`).
+   - `metadata` registra `primary_model`, `final_model`, `primary_provider`, `final_provider`, `fallback_used`, `fallback_reason`, `attempt_count`, permitindo analytics factual sem armazenar prompts, respostas ou tokens.
+3. **Teste de Regressão de Persistência:**
+   - O teste determinístico de fallback em `atlas_tutor_hardening_3b3.test.ts` foi estendido para validar a integridade de `db.messages` e `db.auditEvents`.
+
+### Métricas de Teste
+- **Suíte Regressiva Monorepo:** 303/303 PASS (30 skipped cloud live opt-in)
+- **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
+- **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`

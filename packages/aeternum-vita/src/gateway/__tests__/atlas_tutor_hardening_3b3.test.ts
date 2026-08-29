@@ -309,13 +309,33 @@ describe("Atlas AI Tutor Phase 3B.3 Hardening", () => {
       const firstFrame = rawStream.split("\n\n")[0];
       const metadata = JSON.parse(firstFrame.replace("data: ", ""));
 
-      // Verificação da verdade semântica dos metadados de fallback
+      // Verificação da verdade semântica dos metadados de fallback no SSE
       expect(metadata.fallbackUsed).toBe(true);
       expect(metadata.modelFallbackUsed).toBe(true);
       expect(metadata.providerFallbackUsed).toBe(true);
       expect(metadata.source).toBe("gemini-cloud");
       expect(metadata.model).toBe("gemini-3.7-flash");
       expect(metadata.primaryModel).toBe("ollama-local");
+
+      // Verificação da verdade semântica persistida em ai_messages
+      const assistantMsg = db.messages.find((m) => m.role === "assistant");
+      expect(assistantMsg).toBeDefined();
+      expect(assistantMsg?.metadata?.primary_model).toBe("ollama-local");
+      expect(assistantMsg?.metadata?.actual_model).toBe("gemini-3.7-flash");
+      expect(assistantMsg?.metadata?.actual_provider).toBe("gemini-cloud");
+      expect(assistantMsg?.metadata?.primary_provider).toBe("ollama-local");
+      expect(assistantMsg?.metadata?.final_provider).toBe("gemini-cloud");
+      expect(assistantMsg?.metadata?.fallback_used).toBe(true);
+
+      // Verificação da verdade semântica persistida em ai_audit_events
+      const auditEvt = db.auditEvents.find((e) => e.event_type === "generation_completed");
+      expect(auditEvt).toBeDefined();
+      expect(auditEvt?.model_name).toBe("gemini-3.7-flash");
+      expect(auditEvt?.metadata?.primary_model).toBe("ollama-local");
+      expect(auditEvt?.metadata?.final_model).toBe("gemini-3.7-flash");
+      expect(auditEvt?.metadata?.primary_provider).toBe("ollama-local");
+      expect(auditEvt?.metadata?.final_provider).toBe("gemini-cloud");
+      expect(auditEvt?.metadata?.fallback_used).toBe(true);
     } finally {
       await gateway.stop();
     }

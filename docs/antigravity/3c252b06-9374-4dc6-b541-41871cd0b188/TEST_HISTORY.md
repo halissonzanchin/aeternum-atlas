@@ -1288,3 +1288,36 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Supabase 
 
 ### Resultado
 ALL 88 GATEWAY, COMPOSITION, AGENTSESSION & ATLAS TUTOR TESTS PASS (303/303 Total Suite PASS) | PHASE 3B.3 = IMPLEMENTED
+
+---
+
+## Teste 044 — Final Persisted Metadata Integrity Patch (Fase 3B)
+
+Data: 2026-08-29 19:20 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Supabase Edge Functions)
+
+### 1. Asserções de Persistência de Metadados de Fallback
+- **Persistência `ai_messages`:**
+  - `primary_model === "ollama-local"` $\rightarrow$ **PASS**
+  - `actual_model === "gemini-3.7-flash"` $\rightarrow$ **PASS**
+  - `actual_provider === "gemini-cloud"` $\rightarrow$ **PASS**
+  - `primary_provider === "ollama-local"` $\rightarrow$ **PASS**
+  - `final_provider === "gemini-cloud"` $\rightarrow$ **PASS**
+  - `fallback_used === true` $\rightarrow$ **PASS**
+- **Persistência `ai_audit_events`:**
+  - `model_name === "gemini-3.7-flash"` $\rightarrow$ **PASS**
+  - `metadata.primary_model === "ollama-local"` $\rightarrow$ **PASS**
+  - `metadata.final_model === "gemini-3.7-flash"` $\rightarrow$ **PASS**
+  - `metadata.primary_provider === "ollama-local"` $\rightarrow$ **PASS**
+  - `metadata.final_provider === "gemini-cloud"` $\rightarrow$ **PASS**
+  - `metadata.fallback_used === true` $\rightarrow$ **PASS**
+
+### 2. Suíte Regressiva Geral
+- `atlas_tutor_hardening_3b3.test.ts` $\rightarrow$ **4/4 PASS**
+- `atlas_tutor_real_http_service_auth.test.ts` $\rightarrow$ **7/7 PASS**
+- `atlas_tutor_real_handler.test.ts` $\rightarrow$ **11/11 PASS**
+- `atlas_tutor_gateway_integration.test.ts` $\rightarrow$ **5/5 PASS**
+- Suíte completa (`src/providers`, `src/gateway`, `apps/agent`) $\rightarrow$ **303/303 PASS**
+
+### Resultado
+ALL 88 GATEWAY, COMPOSITION, AGENTSESSION & ATLAS TUTOR TESTS PASS (303/303 Total Suite PASS) | PHASE 3B PERSISTED METADATA PATCH = IMPLEMENTED

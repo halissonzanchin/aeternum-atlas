@@ -34,8 +34,11 @@ export interface GatewayLLMResult {
   status: number;
   provider: string;
   model: string;
+  primaryProvider?: string;
   primaryModel?: string;
   fallbackUsed?: boolean;
+  fallbackReason?: string;
+  attemptCount?: number;
   modelFallbackUsed?: boolean;
   providerFallbackUsed?: boolean;
   success: boolean;
@@ -421,17 +424,24 @@ async function defaultExecuteGatewayLLMCall(
       const model = typeof data.modelId === "string" ? data.modelId : "aeternum-llm";
       const provider = typeof data.providerId === "string" ? data.providerId : "aeternum-gateway";
       const fallbackUsed = Boolean(metadata.fallbackUsed);
+      const primaryProvider = typeof metadata.primaryProvider === "string" ? metadata.primaryProvider : provider;
       const primaryModel = fallbackUsed
         ? (typeof metadata.primaryProvider === "string" ? metadata.primaryProvider : "primary-llm-model")
         : model;
+      const fallbackReason = typeof metadata.fallbackReason === "string" ? metadata.fallbackReason : undefined;
+      const attemptCount = typeof metadata.attemptCount === "number" ? metadata.attemptCount : (fallbackUsed ? 2 : 1);
+
       return {
         text,
         latencyMs,
         status: res.status,
         provider,
         model,
+        primaryProvider,
         primaryModel,
         fallbackUsed,
+        fallbackReason,
+        attemptCount,
         modelFallbackUsed: fallbackUsed,
         providerFallbackUsed: fallbackUsed,
         success: Boolean(text.trim()),
@@ -862,9 +872,14 @@ export async function handleAiTutorRequest(
       role: "assistant",
       content: persistedText,
       metadata: {
-        primary_model: gatewayResult.model,
+        primary_model: gatewayResult.primaryModel || gatewayResult.model,
         actual_model: gatewayResult.model,
         actual_provider: gatewayResult.provider,
+        fallback_used: gatewayResult.fallbackUsed ?? false,
+        fallback_reason: gatewayResult.fallbackReason,
+        primary_provider: gatewayResult.primaryProvider || gatewayResult.provider,
+        final_provider: gatewayResult.provider,
+        attempt_count: gatewayResult.attemptCount ?? 1,
         retrievalMethod: ragMethod,
         retrieval_contextualized: retrievalContextualized,
         embeddingModel: GEMINI_EMBEDDING_MODEL,
@@ -895,6 +910,13 @@ export async function handleAiTutorRequest(
       metadata: {
         model: gatewayResult.model,
         provider: gatewayResult.provider,
+        primary_model: gatewayResult.primaryModel || gatewayResult.model,
+        final_model: gatewayResult.model,
+        primary_provider: gatewayResult.primaryProvider || gatewayResult.provider,
+        final_provider: gatewayResult.provider,
+        fallback_used: gatewayResult.fallbackUsed ?? false,
+        fallback_reason: gatewayResult.fallbackReason,
+        attempt_count: gatewayResult.attemptCount ?? 1,
         latency_ms: gatewayResult.latencyMs,
         retrievedSourceCount: sources.length,
         retrievalMethod: ragMethod,
