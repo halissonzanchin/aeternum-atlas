@@ -674,7 +674,7 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A & 3A.1)", () => {
     }
   });
 
-  it("22. TTS SSE stream: unknown provider error maps to canonical provider_error without vendor leakage", async () => {
+  it("22. TTS SSE stream: unknown provider error emits canonical provider_error SSE frame without vendor leakage", async () => {
     const p = getPort();
 
     class CustomBrokenTTS extends FakeTTSProvider {
@@ -690,9 +690,26 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A & 3A.1)", () => {
     await gateway.start();
 
     try {
+      // 1. Inspeciona o frame SSE bruto do endpoint
+      const res = await fetch(`http://127.0.0.1:${p}/v1/tts/stream`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text: "Teste raw SSE error",
+          voiceProfileId: "pt-br-warm-male-01",
+          language: "pt"
+        })
+      });
+
+      const rawText = await res.text();
+      expect(rawText).toContain('"code":"provider_error"');
+      expect(rawText).toContain('"message":"Serviço de síntese vocal temporariamente indisponível."');
+      expect(rawText).not.toContain("SECRET_KEY_12345");
+
+      // 2. Inspeciona o mapeamento seguro no VitaGatewayClient
       const client = new VitaGatewayClient({ baseUrl: `http://127.0.0.1:${p}` });
       const stream = client.streamSynthesis({
-        text: "Teste unknown error",
+        text: "Teste client error",
         voiceProfileId: "pt-br-warm-male-01",
         language: "pt"
       });

@@ -1056,3 +1056,59 @@ FALLBACK: CONFIGURED
 - **Chamadas de Nuvem durante a validação:** Gemini=0, Deepgram=0, Cartesia=0
 - **VITA_LIVEKIT_GATEWAY_REAL_E2E:** **PASS**
 - **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`
+
+---
+
+## [2026-08-29 14:55] — FASE 3A.5 CONCLUÍDA: PROVA REAL DO CICLO DE VIDA DO AGENTSESSION
+
+### Branch & Governança
+- **Branch:** `antigravity/phase-3a-vita-gateway` (NÃO mergeada para `main`).
+- **Governança Visual & Vercel / Supabase:**
+  - Arquivos visuais de frontend alterados: 0
+  - Arquivos CSS alterados: 0
+  - `ai-tutor v38` e `voice-token v8` intocados e congelados em produção.
+  - Vercel production frontend intocado.
+  - Migração Atlas AI Tutor (Fase 3B) e Bridge 3D (Fase 3C): **NÃO INICIADAS / BLOQUEADAS**.
+
+### Fechamento de Evidências da Fase 3A.5
+1. **Execução Real do Ciclo de Vida do AgentSession (`AgentSession.start`):**
+   - Teste determinístico `apps/agent/src/__tests__/livekit_agentsession_lifecycle.test.ts` e harness `apps/agent/src/__tests__/run_agentsession_local_proof.ts` invocam `await session.start({ agent, record: false })` e exercitam a orquestração oficial do SDK LiveKit.
+   - `AGENTSESSION_REAL_E2E = PASS`
+2. **Eliminação de Chamadas Diretas de Fixture & Áudio Sintético em Memória:**
+   - Remoção de qualquer chamada HTTP direta para `http://127.0.0.1:8000/v1/audio/speech` para criação de fixtures.
+   - Geração determinística de WAV/PCM 16kHz 100% em memória no harness (`createSyntheticWavBuffer`).
+3. **Prova de Bypass Observável:**
+   - `Direct Ollama bypass = 0`
+   - `Direct Speaches bypass = 0`
+   - `Gateway routes observed > 0`: `/v1/audio/transcriptions`, `/v1/chat/completions`, `/v1/audio/speech`.
+4. **Acionamento Real do Hook de RAG:**
+   - O hook canônico `agent.onUserTurnCompleted` do LiveKit é disparado e executa a recuperação de conhecimento anatômico (`rag_lifecycle_hook_executed = true`).
+5. **Inspeção Canônica de Frame SSE `provider_error`:**
+   - Teste 22 em `vita_gateway_integration.test.ts` inspeciona o frame SSE bruto (`code: "provider_error"`) e assegura não-vazamento de segredos de vendor.
+
+### Métricas de Teste
+- **Suíte Regressiva Monorepo:** 275/275 PASS (30 skipped cloud live opt-in)
+- **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
+
+### Benchmark Factual de Voz no HP Victus Stack (`CLOUD_FALLBACK_ENABLED=false` / `VITA_AI_BACKEND=gateway`)
+- **Comando de Execução:**
+  ```powershell
+  $env:NODE_PATH="packages/aeternum-vita/apps/agent/node_modules;packages/aeternum-vita/node_modules"; npx tsx packages/aeternum-vita/apps/agent/src/__tests__/run_agentsession_local_proof.ts
+  ```
+- **Resultados Fatuais:**
+  - `agent_session_start_executed`: `true`
+  - `agent_session_lifecycle`: `PASS`
+  - `rag_lifecycle_hook_executed`: `true`
+  - `gateway_routes_observed`: `audio/transcriptions=true`, `chat/completions=true`, `audio/speech=true`
+  - `direct_provider_bypass`: `Ollama=0`, `Speaches=0`
+  - `cloud_calls`: `Gemini=0`, `Deepgram=0`, `Cartesia=0`
+  - `Cold Turn`: Total: 23444ms | STT: 4311ms (len: 35) | LLM: 8195ms (len: 435, TTFT: 6435ms) | TTS: 10938ms (bytes: 1152000, TTFA: 10936ms)
+  - `3 Warm Turns (Estatísticas)`:
+    - **STT Latency:** min: 112ms | median: 136ms | max: 147ms
+    - **LLM TTFT:** min: 499ms | median: 514ms | max: 564ms
+    - **LLM Total:** min: 1982ms | median: 2398ms | max: 5340ms
+    - **TTS TTFA:** min: 7411ms | median: 10296ms | max: 25055ms
+    - **TTS Total:** min: 7411ms | median: 10297ms | max: 25057ms
+    - **Total Voice Turn:** min: 9541ms | median: 12807ms | max: 30533ms
+- **AGENTSESSION_REAL_E2E:** **PASS**
+- **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`

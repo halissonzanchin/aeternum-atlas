@@ -21,10 +21,11 @@ const VITA_KNOWLEDGE_CONTEXT_FLAG = "vitaKnowledgeContext";
 export const clearPreviousKnowledgeContext = (
   chatContext: Pick<ChatContext, "items" | "remove">,
 ): void => {
-  const previousKnowledgeItems = chatContext.items.filter(
-    (item) =>
+  const items = (chatContext as any)?.items || [];
+  const previousKnowledgeItems = items.filter(
+    (item: any) =>
       item.type === "message" &&
-      item.extra[VITA_KNOWLEDGE_CONTEXT_FLAG] === true,
+      item.extra?.[VITA_KNOWLEDGE_CONTEXT_FLAG] === true,
   );
 
   for (const item of previousKnowledgeItems) {
