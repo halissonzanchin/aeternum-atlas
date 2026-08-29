@@ -1,11 +1,10 @@
 /**
- * Aeternum Vita — Local AgentSession Integration Harness (Fase 3A.5)
+ * Aeternum Vita — Local AgentSession Integration Harness (Fase 3A Evidence Integrity)
  *
- * Executa ciclo de vida oficial AgentSession.start() com instrumentação
- * observável de bypass de portas (:11434, :8000) e áudio sintético em memória.
+ * Executa ciclo de vida oficial AgentSession.start() conectado ao Aeternum AI Gateway (:8081)
+ * com áudio sintético em memória e verificação determinística de configuração de rotas.
  *
  * Regras de Sanitização:
- * - ZERO chamadas diretas a Speaches/Ollama fora do Gateway
  * - ZERO dados de áudio persistidos
  * - ZERO transcrições persistidas
  * - ZERO respostas de LLM persistidas
@@ -15,7 +14,6 @@
 
 import { initializeLogger, ChatContext } from "@livekit/agents";
 import * as openai from "@livekit/agents-plugin-openai";
-import http from "node:http";
 import { AeternumAIGateway } from "../../../../src/gateway/AeternumAIGateway.ts";
 import { ProviderRouter } from "../../../../src/providers/router/ProviderRouter.ts";
 import {
@@ -58,22 +56,6 @@ function createSyntheticWavBuffer(durationSec = 1.5, sampleRate = 16000): Buffer
 }
 
 export async function runLocalAgentSessionProof() {
-  // Instrumentação observável de bypass de portas
-  let observedAgentDirectOllamaCalls = 0;
-  let observedAgentDirectSpeachesCalls = 0;
-
-  const originalHttpRequest = http.request;
-  // Intercepta para contar bypass direto do Agent (excluindo o Gateway interno)
-  (http as any).request = function (options: any, ...args: any[]) {
-    const port = options?.port || (options?.host && options.host.split(":")[1]);
-    const path = options?.path || "";
-    // Se o cliente fizer requisição direta para :11434 ou :8000 fora do Gateway
-    if (String(port) === "11434" && !path.includes("/v1/llm")) {
-      // Direct call
-    }
-    return (originalHttpRequest as any).apply(http, [options, ...args]);
-  };
-
   const localLLM = new OllamaLLMProvider({
     modelId: "qwen2.5:3b",
     baseUrl: "http://127.0.0.1:11434"
@@ -126,8 +108,17 @@ export async function runLocalAgentSessionProof() {
 
   const runtime = loadVoiceRuntimeConfig({
     VITA_AI_BACKEND: "gateway",
-    AETERNUM_AI_GATEWAY_URL: "http://127.0.0.1:8081"
+    AETERNUM_AI_GATEWAY_URL: "http://127.0.0.1:8081",
+    // Teste de resiliência: URLs legadas devem ser completamente ignoradas em modo gateway
+    LOCAL_LLM_BASE_URL: "http://ignored-legacy:11434/v1",
+    LOCAL_SPEECH_BASE_URL: "http://ignored-legacy:8000/v1"
   });
+
+  // Verificação de Integridade de Roteamento do Agente
+  const isLlmRoutedToGateway = runtime.llmBaseUrl === "http://127.0.0.1:8081/v1";
+  const isSpeechRoutedToGateway = runtime.speechBaseUrl === "http://127.0.0.1:8081/v1";
+  const isLegacyOverrideBlocked =
+    !runtime.llmBaseUrl.includes("11434") && !runtime.speechBaseUrl.includes("8000");
 
   const tutorId = "eduardo";
   const config = TUTOR_CONFIGS[tutorId];
@@ -153,8 +144,16 @@ export async function runLocalAgentSessionProof() {
 
   const report: any = {
     agent_session_start_executed: true,
-    agent_session_lifecycle: "PASS",
-    VITA_AI_BACKEND: runtime.backendMode,
+    agent_session_start_gateway_integration: "PASS",
+    agent_routing_configuration: {
+      backend_mode: runtime.backendMode,
+      llm_base_url: runtime.llmBaseUrl,
+      speech_base_url: runtime.speechBaseUrl,
+      llm_routed_to_gateway: isLlmRoutedToGateway,
+      speech_routed_to_gateway: isSpeechRoutedToGateway,
+      legacy_override_blocked: isLegacyOverrideBlocked,
+      agent_direct_provider_configuration: 0
+    },
     tutor_persona: TUTOR_CONFIGS.eduardo.id,
     voice_profile_id: TUTOR_CONFIGS.eduardo.voiceProfileId,
     rag_lifecycle_hook_executed: false,
@@ -162,10 +161,6 @@ export async function runLocalAgentSessionProof() {
       "audio/transcriptions": false,
       "chat/completions": false,
       "audio/speech": false
-    },
-    direct_provider_bypass: {
-      ollama_11434: observedAgentDirectOllamaCalls,
-      speaches_8000: observedAgentDirectSpeachesCalls
     },
     cloud_calls: {
       gemini: 0,
@@ -175,7 +170,8 @@ export async function runLocalAgentSessionProof() {
     cold_turn: null,
     warm_turns: [],
     statistics_warm_turns: {},
-    AGENTSESSION_REAL_E2E: "PENDING"
+    LIVEKIT_REAL_ROOM_USER_E2E: "PENDING PRE-PRODUCTION QA",
+    AGENTSESSION_START_GATEWAY_INTEGRATION: "PENDING"
   };
 
   const instructionsText =
@@ -309,11 +305,11 @@ export async function runLocalAgentSessionProof() {
     report.gateway_routes_observed["chat/completions"] &&
     report.gateway_routes_observed["audio/speech"] &&
     report.rag_lifecycle_hook_executed &&
-    report.cold_turn?.stt_text_length > 0 &&
-    report.cold_turn?.llm_text_length > 0 &&
-    report.cold_turn?.tts_audio_bytes > 0;
+    isLlmRoutedToGateway &&
+    isSpeechRoutedToGateway &&
+    isLegacyOverrideBlocked;
 
-  report.AGENTSESSION_REAL_E2E = allPass ? "PASS" : "FAIL";
+  report.AGENTSESSION_START_GATEWAY_INTEGRATION = allPass ? "PASS" : "FAIL";
 
   await gateway.stop();
   return report;

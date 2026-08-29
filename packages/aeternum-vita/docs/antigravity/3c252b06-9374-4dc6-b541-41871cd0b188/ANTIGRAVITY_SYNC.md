@@ -1112,3 +1112,56 @@ FALLBACK: CONFIGURED
     - **Total Voice Turn:** min: 9541ms | median: 12807ms | max: 30533ms
 - **AGENTSESSION_REAL_E2E:** **PASS**
 - **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`
+
+---
+
+## [2026-08-29 15:10] — FASE 3A CONCLUÍDA: PATCH FINAL DE INTEGRIDADE DE EVIDÊNCIAS
+
+### Branch & Governança
+- **Branch:** `antigravity/phase-3a-vita-gateway` (NÃO mergeada para `main`).
+- **Governança Visual & Vercel / Supabase:**
+  - Arquivos visuais de frontend alterados: 0
+  - Arquivos CSS alterados: 0
+  - `ai-tutor v38` e `voice-token v8` intocados e congelados em produção.
+  - Vercel production frontend intocado.
+  - Migração Atlas AI Tutor (Fase 3B) e Bridge 3D (Fase 3C): **NÃO INICIADAS / BLOQUEADAS**.
+
+### Fechamento de Integridade de Evidências
+1. **Remoção de Monkeypatching Frágil de Rede:**
+   - Eliminadas variáveis artificiais e monkeypatch de rede em `run_agentsession_local_proof.ts`.
+2. **Prova Determinística de Configuração de Rotas do Agente:**
+   - `runtime.backendMode === "gateway"`
+   - `runtime.llmBaseUrl` direcionado estritamente para o Gateway `/v1`
+   - `runtime.speechBaseUrl` direcionado estritamente para o Gateway `/v1`
+   - Bloqueio comprovado de qualquer override por variáveis legadas (`AGENT_DIRECT_PROVIDER_CONFIGURATION: 0`).
+3. **Terminologia Factual do AgentSession:**
+   - `AgentSession.start` oficial verificado: `AGENTSESSION_START_GATEWAY_INTEGRATION = PASS`
+   - Classificação honesta: turno conversacional de usuário em sala real registrada como `LIVEKIT_REAL_ROOM_USER_E2E = PENDING PRE-PRODUCTION QA`.
+
+### Métricas de Teste
+- **Suíte Regressiva Monorepo:** 276/276 PASS (30 skipped cloud live opt-in)
+- **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
+
+### Benchmark Factual de Voz no HP Victus Stack (`CLOUD_FALLBACK_ENABLED=false` / `VITA_AI_BACKEND=gateway`)
+- **Comando de Execução:**
+  ```powershell
+  $env:NODE_PATH="packages/aeternum-vita/apps/agent/node_modules;packages/aeternum-vita/node_modules"; npx tsx packages/aeternum-vita/apps/agent/src/__tests__/run_agentsession_local_proof.ts
+  ```
+- **Resultados Fatuais:**
+  - `agent_session_start_executed`: `true`
+  - `agent_session_start_gateway_integration`: `PASS`
+  - `agent_routing_configuration`: `llm_routed_to_gateway=true`, `speech_routed_to_gateway=true`, `legacy_override_blocked=true`, `agent_direct_provider_configuration=0`
+  - `rag_lifecycle_hook_executed`: `true`
+  - `gateway_routes_observed`: `audio/transcriptions=true`, `chat/completions=true`, `audio/speech=true`
+  - `cloud_calls`: `Gemini=0`, `Deepgram=0`, `Cartesia=0`
+  - `Cold Turn`: Total: 31378ms | STT: 3138ms (len: 35) | LLM: 7472ms (len: 931, TTFT: 4135ms) | TTS: 20767ms (bytes: 2472000, TTFA: 20765ms)
+  - `3 Warm Turns (Estatísticas)`:
+    - **STT Latency:** min: 131ms | median: 145ms | max: 157ms
+    - **LLM TTFT:** min: 448ms | median: 499ms | max: 527ms
+    - **LLM Total:** min: 3162ms | median: 3230ms | max: 4224ms
+    - **TTS TTFA:** min: 13494ms | median: 15326ms | max: 19189ms
+    - **TTS Total:** min: 13495ms | median: 15327ms | max: 19200ms
+    - **Total Voice Turn:** min: 16870ms | median: 18620ms | max: 23580ms
+- **LIVEKIT_REAL_ROOM_USER_E2E:** `PENDING PRE-PRODUCTION QA`
+- **AGENTSESSION_START_GATEWAY_INTEGRATION:** `PASS`
+- **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`

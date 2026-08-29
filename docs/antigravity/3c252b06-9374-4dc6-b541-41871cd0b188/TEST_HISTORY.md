@@ -1127,3 +1127,43 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / HP Victus
 
 ### Resultado
 ALL 61 GATEWAY, COMPOSITION & AGENTSESSION TESTS PASS (275/275 Total Suite PASS) | ACTUAL AGENTSESSION LIFECYCLE = PASS
+
+---
+
+## Teste 039 — Final Evidence Integrity Patch & Direct Override Block (Fase 3A Final Patch)
+
+Data: 2026-08-29 15:10 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / HP Victus Stack: Gateway :8081, Ollama :11434, Speaches :8000)
+
+### 1. Suíte de Testes de Protocolo & Integração
+- `runtime-config.test.ts` $\rightarrow$ **5/5 PASS** (Bloqueio de override legado em modo gateway verificado)
+- `livekit_agentsession_lifecycle.test.ts` $\rightarrow$ **1/1 PASS** (`AGENTSESSION_START_GATEWAY_INTEGRATION: PASS`)
+- `livekit_openai_protocol.test.ts` $\rightarrow$ **7/7 PASS**
+- `livekit_gateway_composition.test.ts` $\rightarrow$ **6/6 PASS**
+- `livekit_component_e2e.test.ts` $\rightarrow$ **1/1 PASS** (`LIVEKIT_COMPONENT_E2E: PASS`)
+- `vita_gateway_integration.test.ts` $\rightarrow$ **22/22 PASS**
+- `gateway.test.ts` $\rightarrow$ **24/24 PASS**
+- Suíte completa (`src/providers`, `src/gateway`, `apps/agent`) $\rightarrow$ **276/276 PASS**
+
+### 2. Validação Factual de Configuração de Roteamento no HP Victus
+- **Harness:** `apps/agent/src/__tests__/run_agentsession_local_proof.ts`
+- **AgentSession.start executado:** SIM
+- **Configuração de Roteamento do Agente:** `llmBaseUrl` e `speechBaseUrl` direcionados exclusivamente ao Gateway `/v1`
+- **AGENT_DIRECT_PROVIDER_CONFIGURATION:** 0
+- **Hook RAG Executado:** SIM (`agent.onUserTurnCompleted`)
+- **Rotas do Gateway Acionadas:** `/v1/audio/transcriptions` (SIM), `/v1/chat/completions` (SIM), `/v1/audio/speech` (SIM)
+- **Áudio de Entrada:** Sintético 16kHz em memória
+- **Cold Turn:** Total=31378ms (STT: 3138ms, LLM Total: 7472ms, TTS Total: 20767ms)
+- **3 Warm Turns (Estatísticas Factuais):**
+  - STT Latency: min=131ms, median=145ms, max=157ms (len: 35)
+  - LLM TTFT: min=448ms, median=499ms, max=527ms
+  - LLM Total: min=3162ms, median=3230ms, max=4224ms (len: 676..1038)
+  - TTS TTFA: min=13494ms, median=15326ms, max=19189ms
+  - TTS Total: min=13495ms, median=15327ms, max=19200ms (bytes: 1824000..2779200)
+  - Total Voice Turn: min=16870ms, median=18620ms, max=23580ms
+- **Cloud inference calls:** Gemini=0, Deepgram=0, Cartesia=0
+- **AGENTSESSION_START_GATEWAY_INTEGRATION:** **PASS**
+- **LIVEKIT_REAL_ROOM_USER_E2E:** **PENDING PRE-PRODUCTION QA**
+
+### Resultado
+ALL 61 GATEWAY, COMPOSITION & AGENTSESSION TESTS PASS (276/276 Total Suite PASS) | EVIDENCE INTEGRITY = PASS

@@ -2,6 +2,20 @@ import { describe, expect, it } from "vitest";
 import { loadVoiceRuntimeConfig } from "./runtime-config.ts";
 
 describe("configuração local de voz", () => {
+  it("bloqueia override de URLs legadas em modo gateway (AGENT_DIRECT_PROVIDER_CONFIGURATION=0)", () => {
+    const config = loadVoiceRuntimeConfig({
+      VITA_AI_BACKEND: "gateway",
+      AETERNUM_AI_GATEWAY_URL: "http://127.0.0.1:8081",
+      LOCAL_LLM_BASE_URL: "http://attacker:11434/v1",
+      LOCAL_SPEECH_BASE_URL: "http://attacker:8000/v1"
+    });
+    expect(config.backendMode).toBe("gateway");
+    expect(config.llmBaseUrl).toBe("http://127.0.0.1:8081/v1");
+    expect(config.speechBaseUrl).toBe("http://127.0.0.1:8081/v1");
+    expect(config.llmBaseUrl).not.toContain("11434");
+    expect(config.speechBaseUrl).not.toContain("8000");
+  });
+
   it("usa modo gateway por padrão", () => {
     const config = loadVoiceRuntimeConfig({});
     expect(config.backendMode).toBe("gateway");
