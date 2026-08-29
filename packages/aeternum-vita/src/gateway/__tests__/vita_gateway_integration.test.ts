@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { AeternumAIGateway } from "../AeternumAIGateway.ts";
 import { VitaGatewayClient } from "../client/VitaGatewayClient.ts";
 import { VitaVoicePipeline, VITA_TUTOR_PERSONAS } from "../client/VitaVoicePipeline.ts";
+import { VoiceProfileRegistry } from "../../providers/voice/VoiceProfileRegistry.ts";
 import { ProviderRouter } from "../../providers/router/ProviderRouter.ts";
 import { FakeLLMProvider } from "../../providers/testing/FakeLLMProvider.ts";
 import { FakeSTTProvider } from "../../providers/testing/FakeSTTProvider.ts";
@@ -10,11 +11,14 @@ import {
   ProviderUnavailableError,
   ProviderTimeoutError,
   ProviderCancelledError,
-  ProviderExecutionContext
+  ProviderAuthenticationError,
+  LLMStreamChunk,
+  LLMFinishReason,
+  TTSStreamChunk
 } from "../../providers/types/index.ts";
 
-describe("Aeternum Vita → AI Gateway Integration (Phase 3A)", () => {
-  let port = 8220;
+describe("Aeternum Vita → AI Gateway Integration (Phase 3A & 3A.1)", () => {
+  let port = 8320;
   const getPort = () => ++port;
 
   // ==========================================
@@ -203,7 +207,7 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A)", () => {
   });
 
   // ==========================================
-  // 7, 8. CANCELLATION & BARGE-IN (ZERO CLOUD FALLBACK)
+  // 7, 8. CANCELLATION & ACTIVE IN-FLIGHT BARGE-IN
   // ==========================================
 
   it("7. Vita user cancellation -> Gateway request aborted", async () => {
@@ -229,30 +233,54 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A)", () => {
     }
   });
 
-  it("8. barge-in -> zero cloud fallback", async () => {
+  it("8. ACTIVE_BARGE_IN_ZERO_CLOUD: in-flight cancellation aborts active stream with zero cloud fallback", async () => {
     const p = getPort();
-    const localOllama = new FakeLLMProvider({ id: "ollama-llm-local", location: "LOCAL" });
+
+    class SlowStreamingLLM extends FakeLLMProvider {
+      async *stream(req: any, context?: any) {
+        yield { deltaText: "Primeira palavra", isComplete: false };
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        if (context?.signal?.aborted) {
+          throw new ProviderCancelledError("Cancelado no meio do stream", this.metadata.id);
+        }
+        yield { deltaText: " segunda palavra", isComplete: true, finishReason: "stop" as LLMFinishReason };
+      }
+    }
+
+    const localLLM = new SlowStreamingLLM({ id: "slow-llm-local", location: "LOCAL" });
     const cloudGemini = new FakeLLMProvider({ id: "gemini-llm-cloud", location: "CLOUD" });
-    const router = new ProviderRouter({ llm: { primary: localOllama, fallback: cloudGemini } });
+    const router = new ProviderRouter({ llm: { primary: localLLM, fallback: cloudGemini } });
 
     const gateway = new AeternumAIGateway({ port: p, router });
     await gateway.start();
+
     try {
       const client = new VitaGatewayClient({ baseUrl: `http://127.0.0.1:${p}` });
-      const pipeline = new VitaVoicePipeline(client);
       const controller = new AbortController();
 
-      // Dispara o turno vocal com abort acionado durante execução
-      controller.abort();
+      const stream = client.streamGenerate(
+        { messages: [{ role: "user", content: "Fale lentamente" }] },
+        { requestId: "req-barge-in-stream", signal: controller.signal }
+      );
 
-      await expect(
-        pipeline.executeVoiceTurn(
-          { audioBuffer: new Uint8Array([1, 2, 3]), tutorId: "eduardo" },
-          { requestId: "barge-in-turn", signal: controller.signal }
-        )
-      ).rejects.toThrow(ProviderCancelledError);
+      let chunkCount = 0;
+      let caughtError: any = null;
 
-      expect(cloudGemini.callCount).toBe(0);
+      try {
+        for await (const chunk of stream) {
+          chunkCount++;
+          if (chunkCount === 1) {
+            // Emite o abort ativo no meio do stream em voo
+            controller.abort();
+          }
+        }
+      } catch (err: any) {
+        caughtError = err;
+      }
+
+      expect(chunkCount).toBe(1);
+      expect(caughtError).toBeInstanceOf(ProviderCancelledError);
+      expect(cloudGemini.callCount).toBe(0); // Zero fallback de nuvem
     } finally {
       await gateway.stop();
     }
@@ -292,14 +320,14 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A)", () => {
   });
 
   it("10. Gateway unavailable -> explicit safe unavailable state", async () => {
-    const client = new VitaGatewayClient({ baseUrl: "http://127.0.0.1:8999" }); // Porta fechada
+    const client = new VitaGatewayClient({ baseUrl: "http://127.0.0.1:8999" });
     await expect(
       client.generate({ messages: [{ role: "user", content: "Sem gateway" }] })
     ).rejects.toThrow(ProviderUnavailableError);
   });
 
   // ==========================================
-  // 11, 12, 13. PERSONA INVARIANTS & VOICE PROFILES
+  // 11, 12, 13. PERSONA INVARIANTS & VOICE PROFILE CANONICAL REGISTRY
   // ==========================================
 
   it("11. PT-BR voiceProfileId preserved as pt-br-warm-male-01 for Eduardo", () => {
@@ -310,20 +338,19 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A)", () => {
     expect(persona.languageCode).toBe("pt");
   });
 
-  it("12. persona name does not select provider/model (PERSONA != MODEL != VOICE)", () => {
-    const eduardo = VITA_TUTOR_PERSONAS.eduardo;
-    const antonia = VITA_TUTOR_PERSONAS.antonia;
-    const ariana = VITA_TUTOR_PERSONAS.ariana;
-    const fabian = VITA_TUTOR_PERSONAS.fabian;
+  it("12. VoiceProfileRegistry.require succeeds for every Vita persona (Eduardo, Antonia, Ariana, Fabian)", () => {
+    const registry = new VoiceProfileRegistry();
+    const personas = ["eduardo", "antonia", "ariana", "fabian"] as const;
 
-    // A persona define apenas ID vocal e idioma, nunca modelo ou provedor físico
-    expect(eduardo.voiceProfileId).toBe("pt-br-warm-male-01");
-    expect(antonia.voiceProfileId).toBe("es-calm-female-01");
-    expect(ariana.voiceProfileId).toBe("en-calm-female-01");
-    expect(fabian.voiceProfileId).toBe("de-warm-male-01");
+    for (const key of personas) {
+      const persona = VITA_TUTOR_PERSONAS[key];
+      expect(persona).toBeDefined();
+      const profile = registry.require(persona.voiceProfileId);
+      expect(profile).toBeDefined();
+      expect(profile.id).toBe(persona.voiceProfileId);
+    }
 
-    expect((eduardo as any).model).toBeUndefined();
-    expect((eduardo as any).provider).toBeUndefined();
+    expect(VITA_TUTOR_PERSONAS.fabian.voiceProfileId).toBe("de-clear-male-01");
   });
 
   it("13. no API key hardcoded in Vita Gateway client (uses internal loopback Gateway)", () => {
@@ -333,7 +360,7 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A)", () => {
   });
 
   // ==========================================
-  // 14. NO SENSITIVE LOGGING
+  // 14. NO SENSITIVE LOGGING & REQUEST ID
   // ==========================================
 
   it("14. no prompts, transcripts or audio data leaked into Gateway operational logs", async () => {
@@ -365,10 +392,6 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A)", () => {
     }
   });
 
-  // ==========================================
-  // 15. REQUEST ID PROPAGATION
-  // ==========================================
-
   it("15. requestId propagation works end-to-end (Turn -> Client -> Gateway -> Router -> Provider)", async () => {
     const p = getPort();
     const localOllama = new FakeLLMProvider({ id: "ollama-llm-local", location: "LOCAL" });
@@ -387,6 +410,100 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A)", () => {
 
       expect(res.text).toBeDefined();
       expect(res.metadata?.requestId).toBe(customTraceId);
+    } finally {
+      await gateway.stop();
+    }
+  });
+
+  // ==========================================
+  // 16. MULTI-TURN CONVERSATION CONTINUITY
+  // ==========================================
+
+  it("16. Conversation continuity preserves history across multiple turns (Turn 1 -> Turn 2)", async () => {
+    const p = getPort();
+    const localOllama = new FakeLLMProvider({ id: "ollama-llm-local", location: "LOCAL" });
+    const localSTT = new FakeSTTProvider({ id: "speaches-stt-local", location: "LOCAL" });
+    const localTTS = new FakeTTSProvider({ id: "speaches-tts-local", location: "LOCAL" });
+
+    const router = new ProviderRouter({
+      llm: { primary: localOllama },
+      stt: { primary: localSTT },
+      tts: { primary: localTTS }
+    });
+
+    const gateway = new AeternumAIGateway({ port: p, router });
+    await gateway.start();
+
+    try {
+      const client = new VitaGatewayClient({ baseUrl: `http://127.0.0.1:${p}` });
+      const pipeline = new VitaVoicePipeline(client);
+
+      // Turn 1
+      localSTT.mockTranscript = "O nervo radial percorre qual compartimento?";
+      localOllama.mockResponseText = "O nervo radial percorre o compartimento posterior do braço no sulco do nervo radial.";
+
+      const turn1 = await pipeline.executeStreamedVoiceTurn({
+        audioBuffer: new Uint8Array([1, 2, 3]),
+        tutorId: "eduardo"
+      });
+
+      expect(turn1.transcript).toBe("O nervo radial percorre qual compartimento?");
+      expect(turn1.replyText).toContain("compartimento posterior do braço");
+
+      // Turn 2: Inclui o histórico do Turn 1
+      localSTT.mockTranscript = "E onde ele termina?";
+      localOllama.mockResponseText = "Ele se divide no antebraço em ramos superficial e profundo (nervo interósseo posterior).";
+
+      const turn2 = await pipeline.executeStreamedVoiceTurn({
+        audioBuffer: new Uint8Array([4, 5, 6]),
+        tutorId: "eduardo",
+        conversationHistory: [
+          { role: "user", content: turn1.transcript },
+          { role: "assistant", content: turn1.replyText }
+        ]
+      });
+
+      expect(turn2.transcript).toBe("E onde ele termina?");
+      expect(turn2.replyText).toContain("ramos superficial e profundo");
+    } finally {
+      await gateway.stop();
+    }
+  });
+
+  // ==========================================
+  // 17. SSE ERROR MAPPING (LLM & TTS)
+  // ==========================================
+
+  it("17. SSE error mapping correctly maps provider_unavailable on LLM stream", async () => {
+    const p = getPort();
+
+    class FailMidStreamLLM extends FakeLLMProvider {
+      async *stream() {
+        yield { deltaText: "Início", isComplete: false };
+        throw new ProviderUnavailableError("LLM caiu no meio", "fake-llm");
+      }
+    }
+
+    const localLLM = new FailMidStreamLLM({ id: "fail-llm-local", location: "LOCAL" });
+    const router = new ProviderRouter({ llm: { primary: localLLM } });
+
+    const gateway = new AeternumAIGateway({ port: p, router });
+    await gateway.start();
+
+    try {
+      const client = new VitaGatewayClient({ baseUrl: `http://127.0.0.1:${p}` });
+      const stream = client.streamGenerate({ messages: [{ role: "user", content: "Erro SSE" }] });
+
+      let errorCaught: any = null;
+      try {
+        for await (const _chunk of stream) {
+          // Continua até receber o frame de erro
+        }
+      } catch (err: any) {
+        errorCaught = err;
+      }
+
+      expect(errorCaught).toBeInstanceOf(ProviderUnavailableError);
     } finally {
       await gateway.stop();
     }

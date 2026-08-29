@@ -52,7 +52,7 @@ export const VITA_TUTOR_PERSONAS: Record<VitaTutorId, VitaTutorPersona> = {
     id: "fabian",
     name: "Fabian",
     languageCode: "de",
-    voiceProfileId: "de-warm-male-01",
+    voiceProfileId: "de-clear-male-01",
     instructions: "Du bist Fabian, der Anatomietutor von Aeternum Vita. Sprich ausschließlich natürliches Hochdeutsch mit akademischer Präzision.",
     greeting: "Hallo! Ich bin Fabian, dein Anatomietutor auf Deutsch. Was möchtest du heute lernen?"
   }
@@ -260,10 +260,24 @@ export class VitaVoicePipeline {
       signal: context?.signal
     };
 
+    const messages: LLMMessage[] = [];
+    if (input.conversationHistory && input.conversationHistory.length > 0) {
+      messages.push(...input.conversationHistory);
+    }
+    messages.push({
+      role: "user",
+      content: sttResponse.text
+    });
+
+    let systemInstruction = persona.instructions;
+    if (input.knowledgeContext) {
+      systemInstruction += `\n\n[CONTEXTO BIBLIOGRÁFICO DE ANATOMIA]:\n${input.knowledgeContext}`;
+    }
+
     const stream = this.gatewayClient.streamGenerate(
       {
-        messages: [{ role: "user", content: sttResponse.text }],
-        systemInstruction: persona.instructions,
+        messages,
+        systemInstruction,
         temperature: 0.3,
         maxTokens: 128
       },

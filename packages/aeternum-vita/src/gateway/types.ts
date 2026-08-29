@@ -33,6 +33,7 @@ export interface GatewayConfig {
   port?: number;
   host?: string;
   authMode?: GatewayAuthMode;
+  authToken?: string;
   jwtValidator?: GatewayJwtValidator;
   router: ProviderRouter;
   healthRegistry?: GatewayProviderHealthRegistry;
@@ -48,6 +49,7 @@ export interface GatewayConfig {
 export interface ProviderHealthStatus {
   enabled: boolean;
   status: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
+  latencyMs?: number;
 }
 
 export interface GatewayHealthResponse {
@@ -82,9 +84,11 @@ export interface GatewaySuccessResponse<T> {
 
 export interface GatewayErrorResponse {
   success: false;
+  requestId?: string;
   error: {
     code: string;
     message: string;
+    httpStatus?: number;
   };
   metadata?: {
     requestId?: string;

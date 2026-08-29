@@ -31,7 +31,7 @@ export interface VitaGatewayClientConfig {
 export class VitaGatewayClient {
   public readonly baseUrl: string;
   private readonly authToken?: string;
-  private readonly defaultTimeoutMs: number;
+  public readonly defaultTimeoutMs: number;
 
   constructor(config: VitaGatewayClientConfig = {}) {
     const rawUrl =
@@ -54,30 +54,34 @@ export class VitaGatewayClient {
     return headers;
   }
 
-  private mapGatewayError(errorBody: any, status: number, requestId: string): Error {
-    const code = errorBody?.error?.code || "unknown_error";
-    const message = errorBody?.error?.message || `Erro no Gateway HTTP ${status}`;
+  public mapGatewayError(errorBody: any, status: number, requestId: string): Error {
+    const rawCode =
+      errorBody?.error?.code ||
+      errorBody?.code ||
+      errorBody?.error?.name ||
+      "unknown_error";
+    const code = String(rawCode).toLowerCase();
+
+    const message =
+      errorBody?.error?.message ||
+      errorBody?.message ||
+      `Erro no Gateway HTTP ${status}`;
 
     switch (code) {
       case "request_cancelled":
-      case "PROVIDER_CANCELLED":
+      case "provider_cancelled":
         return new ProviderCancelledError(message, "gateway");
       case "provider_timeout":
       case "gateway_timeout":
-      case "PROVIDER_TIMEOUT":
-      case "GATEWAY_TIMEOUT":
         return new ProviderTimeoutError(message, "gateway");
       case "provider_unavailable":
       case "all_providers_failed":
-      case "PROVIDER_UNAVAILABLE":
-      case "ALL_PROVIDERS_FAILED":
         return new ProviderUnavailableError(message, "gateway");
       case "provider_authentication_failed":
+      case "provider_auth_error":
       case "unauthorized":
-      case "PROVIDER_AUTH_ERROR":
         return new ProviderAuthenticationError(message, "gateway");
       case "capability_mismatch":
-      case "CAPABILITY_MISMATCH":
         return new CapabilityMismatchError(message, "gateway");
       default:
         return new ProviderInvalidResponseError(message, "gateway");
@@ -130,8 +134,24 @@ export class VitaGatewayClient {
   // ==========================================
 
   async generate(request: LLMRequest, context?: ProviderExecutionContext): Promise<LLMResponse> {
+    if (context?.signal?.aborted) {
+      throw new ProviderCancelledError("Geração LLM cancelada pelo usuário.", "gateway");
+    }
     const requestId = context?.requestId || `llm-req-${crypto.randomUUID()}`;
     const headers = this.buildHeaders(requestId);
+    const timeoutMs = context?.timeoutMs || this.defaultTimeoutMs;
+
+    const timeoutCtrl = new AbortController();
+    let isClientTimeout = false;
+    const timer = setTimeout(() => {
+      isClientTimeout = true;
+      timeoutCtrl.abort();
+    }, timeoutMs);
+
+    const abortHandler = () => timeoutCtrl.abort();
+    if (context?.signal) {
+      context.signal.addEventListener("abort", abortHandler);
+    }
 
     const payload = {
       messages: request.messages,
@@ -148,7 +168,7 @@ export class VitaGatewayClient {
         method: "POST",
         headers,
         body: JSON.stringify(payload),
-        signal: context?.signal
+        signal: timeoutCtrl.signal
       });
 
       if (!res.ok) {
@@ -170,6 +190,9 @@ export class VitaGatewayClient {
         }
       };
     } catch (err: any) {
+      if (isClientTimeout) {
+        throw new ProviderTimeoutError("Tempo limite do cliente Gateway excedido para LLM.", "gateway");
+      }
       if (context?.signal?.aborted || err.name === "AbortError" || err.code === "PROVIDER_CANCELLED") {
         throw new ProviderCancelledError("Geração LLM cancelada pelo usuário.", "gateway");
       }
@@ -177,6 +200,11 @@ export class VitaGatewayClient {
         throw err;
       }
       throw new ProviderUnavailableError("Falha de conexão com Gateway para geração LLM.", "gateway");
+    } finally {
+      clearTimeout(timer);
+      if (context?.signal) {
+        context.signal.removeEventListener("abort", abortHandler);
+      }
     }
   }
 
@@ -184,8 +212,24 @@ export class VitaGatewayClient {
     request: LLMRequest,
     context?: ProviderExecutionContext
   ): AsyncIterable<LLMStreamChunk> {
+    if (context?.signal?.aborted) {
+      throw new ProviderCancelledError("Stream LLM cancelado.", "gateway");
+    }
     const requestId = context?.requestId || `llm-stream-${crypto.randomUUID()}`;
     const headers = this.buildHeaders(requestId);
+    const timeoutMs = context?.timeoutMs || this.defaultTimeoutMs;
+
+    const timeoutCtrl = new AbortController();
+    let isClientTimeout = false;
+    const timer = setTimeout(() => {
+      isClientTimeout = true;
+      timeoutCtrl.abort();
+    }, timeoutMs);
+
+    const abortHandler = () => timeoutCtrl.abort();
+    if (context?.signal) {
+      context.signal.addEventListener("abort", abortHandler);
+    }
 
     const payload = {
       messages: request.messages,
@@ -203,9 +247,12 @@ export class VitaGatewayClient {
         method: "POST",
         headers,
         body: JSON.stringify(payload),
-        signal: context?.signal
+        signal: timeoutCtrl.signal
       });
     } catch (err: any) {
+      if (isClientTimeout) {
+        throw new ProviderTimeoutError("Tempo limite do cliente Gateway excedido para stream LLM.", "gateway");
+      }
       if (context?.signal?.aborted || err.name === "AbortError") {
         throw new ProviderCancelledError("Stream LLM cancelado.", "gateway");
       }
@@ -268,7 +315,7 @@ export class VitaGatewayClient {
             }
 
             if (currentEvent === "error") {
-              throw this.mapGatewayError({ error: parsed }, 500, requestId);
+              throw this.mapGatewayError(parsed, 500, requestId);
             }
 
             yield {
@@ -280,6 +327,10 @@ export class VitaGatewayClient {
         }
       }
     } finally {
+      clearTimeout(timer);
+      if (context?.signal) {
+        context.signal.removeEventListener("abort", abortHandler);
+      }
       reader.releaseLock();
     }
   }
@@ -289,8 +340,24 @@ export class VitaGatewayClient {
   // ==========================================
 
   async transcribe(request: STTRequest, context?: ProviderExecutionContext): Promise<STTResponse> {
+    if (context?.signal?.aborted) {
+      throw new ProviderCancelledError("Transcrição STT cancelada pelo usuário.", "gateway");
+    }
     const requestId = context?.requestId || `stt-req-${crypto.randomUUID()}`;
     const headers = this.buildHeaders(requestId);
+    const timeoutMs = context?.timeoutMs || this.defaultTimeoutMs;
+
+    const timeoutCtrl = new AbortController();
+    let isClientTimeout = false;
+    const timer = setTimeout(() => {
+      isClientTimeout = true;
+      timeoutCtrl.abort();
+    }, timeoutMs);
+
+    const abortHandler = () => timeoutCtrl.abort();
+    if (context?.signal) {
+      context.signal.addEventListener("abort", abortHandler);
+    }
 
     const audioBase64 = Buffer.from(request.audioBuffer).toString("base64");
     const payload = {
@@ -306,7 +373,7 @@ export class VitaGatewayClient {
         method: "POST",
         headers,
         body: JSON.stringify(payload),
-        signal: context?.signal
+        signal: timeoutCtrl.signal
       });
 
       if (!res.ok) {
@@ -322,6 +389,9 @@ export class VitaGatewayClient {
       const data = (await res.json()) as GatewaySuccessResponse<STTResponse>;
       return data.data;
     } catch (err: any) {
+      if (isClientTimeout) {
+        throw new ProviderTimeoutError("Tempo limite do cliente Gateway excedido para STT.", "gateway");
+      }
       if (context?.signal?.aborted || err.name === "AbortError" || err.code === "PROVIDER_CANCELLED") {
         throw new ProviderCancelledError("Transcrição STT cancelada pelo usuário.", "gateway");
       }
@@ -329,6 +399,11 @@ export class VitaGatewayClient {
         throw err;
       }
       throw new ProviderUnavailableError("Falha de conexão com Gateway para transcrição STT.", "gateway");
+    } finally {
+      clearTimeout(timer);
+      if (context?.signal) {
+        context.signal.removeEventListener("abort", abortHandler);
+      }
     }
   }
 
@@ -337,8 +412,24 @@ export class VitaGatewayClient {
   // ==========================================
 
   async synthesize(request: TTSRequest, context?: ProviderExecutionContext): Promise<TTSResponse> {
+    if (context?.signal?.aborted) {
+      throw new ProviderCancelledError("Síntese TTS cancelada pelo usuário.", "gateway");
+    }
     const requestId = context?.requestId || `tts-req-${crypto.randomUUID()}`;
     const headers = this.buildHeaders(requestId);
+    const timeoutMs = context?.timeoutMs || this.defaultTimeoutMs;
+
+    const timeoutCtrl = new AbortController();
+    let isClientTimeout = false;
+    const timer = setTimeout(() => {
+      isClientTimeout = true;
+      timeoutCtrl.abort();
+    }, timeoutMs);
+
+    const abortHandler = () => timeoutCtrl.abort();
+    if (context?.signal) {
+      context.signal.addEventListener("abort", abortHandler);
+    }
 
     const payload = {
       text: request.text,
@@ -354,7 +445,7 @@ export class VitaGatewayClient {
         method: "POST",
         headers,
         body: JSON.stringify(payload),
-        signal: context?.signal
+        signal: timeoutCtrl.signal
       });
 
       if (!res.ok) {
@@ -386,6 +477,9 @@ export class VitaGatewayClient {
         latency: data.data.latency
       };
     } catch (err: any) {
+      if (isClientTimeout) {
+        throw new ProviderTimeoutError("Tempo limite do cliente Gateway excedido para TTS.", "gateway");
+      }
       if (context?.signal?.aborted || err.name === "AbortError" || err.code === "PROVIDER_CANCELLED") {
         throw new ProviderCancelledError("Síntese TTS cancelada pelo usuário.", "gateway");
       }
@@ -393,6 +487,11 @@ export class VitaGatewayClient {
         throw err;
       }
       throw new ProviderUnavailableError("Falha de conexão com Gateway para síntese TTS.", "gateway");
+    } finally {
+      clearTimeout(timer);
+      if (context?.signal) {
+        context.signal.removeEventListener("abort", abortHandler);
+      }
     }
   }
 
@@ -400,8 +499,24 @@ export class VitaGatewayClient {
     request: TTSRequest,
     context?: ProviderExecutionContext
   ): AsyncIterable<TTSStreamChunk> {
+    if (context?.signal?.aborted) {
+      throw new ProviderCancelledError("Stream TTS cancelado.", "gateway");
+    }
     const requestId = context?.requestId || `tts-stream-${crypto.randomUUID()}`;
     const headers = this.buildHeaders(requestId);
+    const timeoutMs = context?.timeoutMs || this.defaultTimeoutMs;
+
+    const timeoutCtrl = new AbortController();
+    let isClientTimeout = false;
+    const timer = setTimeout(() => {
+      isClientTimeout = true;
+      timeoutCtrl.abort();
+    }, timeoutMs);
+
+    const abortHandler = () => timeoutCtrl.abort();
+    if (context?.signal) {
+      context.signal.addEventListener("abort", abortHandler);
+    }
 
     const payload = {
       text: request.text,
@@ -418,9 +533,12 @@ export class VitaGatewayClient {
         method: "POST",
         headers,
         body: JSON.stringify(payload),
-        signal: context?.signal
+        signal: timeoutCtrl.signal
       });
     } catch (err: any) {
+      if (isClientTimeout) {
+        throw new ProviderTimeoutError("Tempo limite do cliente Gateway excedido para stream TTS.", "gateway");
+      }
       if (context?.signal?.aborted || err.name === "AbortError") {
         throw new ProviderCancelledError("Stream TTS cancelado.", "gateway");
       }
@@ -483,7 +601,7 @@ export class VitaGatewayClient {
             }
 
             if (currentEvent === "error") {
-              throw this.mapGatewayError({ error: parsed }, 500, requestId);
+              throw this.mapGatewayError(parsed, 500, requestId);
             }
 
             if (parsed.audioBase64) {
@@ -497,6 +615,10 @@ export class VitaGatewayClient {
         }
       }
     } finally {
+      clearTimeout(timer);
+      if (context?.signal) {
+        context.signal.removeEventListener("abort", abortHandler);
+      }
       reader.releaseLock();
     }
   }

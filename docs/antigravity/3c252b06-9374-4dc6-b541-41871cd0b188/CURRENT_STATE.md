@@ -11,6 +11,7 @@ FASE_2C_1=VERIFIED (ChatGPT Audit)
 FASE_2D=VERIFIED (ChatGPT Audit)
 FASE_2D_1=VERIFIED (ChatGPT Audit)
 FASE_3A=IMPLEMENTED / PENDING CHATGPT AUDIT
+FASE_3A_1=IMPLEMENTED / PENDING CHATGPT AUDIT
 AI_TUTOR_RUNTIME_VERSION=v38
 VOICE_TOKEN_RUNTIME_VERSION=v8
 AI_TUTOR_PRIMARY_MODEL=gemini-3.7-flash
@@ -32,8 +33,10 @@ PROVIDER_ROUTER_SOURCES_OF_TRUTH=1 (Canonical: packages/aeternum-vita/src/provid
 PROVIDER_ROUTER_STATUS=VERIFIED (ChatGPT Audit)
 AI_GATEWAY_PORT=8081
 AI_GATEWAY_STATUS=VERIFIED (ChatGPT Audit)
-VITA_GATEWAY_INTEGRATION_STATUS=HARDENED (15/15 integration tests PASS / 251 total suite PASS / Benchmark PASS)
-LOCAL_ONLY_GATEWAY_PROOF=PASS (STT 2845ms median / LLM TTFT 426ms median / TTS TTFA 6329ms median / Total 12091ms median / Cloud calls = 0)
+VITA_GATEWAY_INTEGRATION_STATUS=HARDENED (17/17 integration tests PASS / 258 total suite PASS / Benchmark PASS)
+VITA_REAL_RUNTIME_STATUS=GATEWAY_ENABLED (LiveKit agent routes to :8081/v1, direct provider bypass = 0)
+LOCAL_ONLY_GATEWAY_PROOF=PASS (STT 3027ms median / LLM TTFT 491ms median / TTS TTFA 6185ms median / Total 12373ms median / Cloud calls = 0)
+ACTIVE_BARGE_IN_ZERO_CLOUD=PASS
 
 ---
 
@@ -42,14 +45,14 @@ LOCAL_ONLY_GATEWAY_PROOF=PASS (STT 2845ms median / LLM TTFT 426ms median / TTS T
 - **Fase 2B.2.1 — Cloud Provider Correctness Gate:** VERIFIED by ChatGPT.
 - **Fase 2C & 2C.1 — Provider Router Final Hardening:** VERIFIED by ChatGPT.
 - **Fase 2D & 2D.1 — Aeternum AI Gateway Final Hardening:** VERIFIED by ChatGPT.
-- **Fase 3A — Aeternum Vita $\rightarrow$ AI Gateway Integration:** IMPLEMENTED / PENDING CHATGPT AUDIT.
-- **Fase 3B — Atlas AI Tutor $\rightarrow$ Gateway Migration:** PLANNED / BLOCKED UNTIL 3A VERIFIED.
+- **Fase 3A & 3A.1 — Aeternum Vita Real Runtime $\rightarrow$ AI Gateway Migration:** IMPLEMENTED / PENDING CHATGPT AUDIT.
+- **Fase 3B — Atlas AI Tutor $\rightarrow$ Gateway Migration:** PLANNED / BLOCKED UNTIL 3A.1 VERIFIED.
 
 ## 2. Visão Geral dos Componentes
 
 ### Frontend
 - Provider: Vercel (Produção em https://www.aeternumatlas.com)
-- Status: DEPLOYED / ACTIVE (Vercel production deploy intocado; Phase 3A desenvolvida em branch dedicada)
+- Status: DEPLOYED / ACTIVE (Vercel production deploy intocado; Phase 3A.1 desenvolvida em branch dedicada)
 
 ### Authentication
 - Provider: Supabase GoTrue
@@ -62,13 +65,20 @@ LOCAL_ONLY_GATEWAY_PROOF=PASS (STT 2845ms median / LLM TTFT 426ms median / TTS T
 - Embedding Model: `gemini-embedding-2` (768 dimensões)
 - RAG Method: `postgresql-fts` (6 fontes) com contextualização bounded
 
-### Aeternum Vita Runtime (Fase 3A — packages/aeternum-vita)
+### Aeternum Vita Live Runtime (`apps/agent` & `src/gateway`)
+- **Gateway Runtime:** `apps/agent` configurado exclusivamente para `http://127.0.0.1:8081/v1`
+- **Direct Provider Bypass:** 0 (Zero chamadas diretas para Ollama :11434 ou Speaches :8000 fora do Gateway)
 - **Gateway Client:** `VitaGatewayClient` (`src/gateway/client/VitaGatewayClient.ts`)
 - **Voice Pipeline:** `VitaVoicePipeline` (`src/gateway/client/VitaVoicePipeline.ts`)
-- **Target:** `http://127.0.0.1:8081`
-- **Persona Invariant:** `PERSONA != MODEL != VOICE` (Eduardo $\rightarrow$ `pt-br-warm-male-01`, Antonia $\rightarrow$ `es-calm-female-01`, Ariana $\rightarrow$ `en-calm-female-01`, Fabian $\rightarrow$ `de-warm-male-01`)
-- **Pipeline:** `USER SPEECH -> STT Gateway -> Conversational Brain -> LLM Gateway -> TTS Gateway -> AUDIO RESPONSE`
-- **Status:** **15/15 Integration Tests PASS / 251/251 Total Suite PASS / HP Victus Voice Benchmark PASS**
+- **Persona Invariant:** `PERSONA != MODEL != VOICE`
+  - Eduardo $\rightarrow$ `pt-br-warm-male-01`
+  - Antonia $\rightarrow$ `es-calm-female-01`
+  - Ariana $\rightarrow$ `en-calm-female-01`
+  - Fabian $\rightarrow$ `de-clear-male-01` (Validado com `VoiceProfileRegistry.require`)
+- **Vita RAG:** Preservado (`queryVitaKnowledge` + `formatKnowledgeContext`)
+- **Continuidade de Conversa:** Preservada em rotas unárias e streaming
+- **Active Barge-In:** Validado em voo com `ACTIVE_BARGE_IN_ZERO_CLOUD = PASS`
+- **Status:** **258/258 Total Suite PASS / HP Victus Real Runtime Benchmark PASS**
 
 ### Local Stack (HP Victus)
 - LiveKit Server: :7880 (Community Edition)
@@ -76,8 +86,3 @@ LOCAL_ONLY_GATEWAY_PROOF=PASS (STT 2845ms median / LLM TTFT 426ms median / TTS T
 - Ollama: :11434 (qwen2.5:3b)
 - Aeternum AI Gateway: :8081
 - Status: HEALTHY / RUNNING
-
-### Segurança & Observabilidade
-- voice-token exige JWT: YES (`v8` ACTIVE)
-- ai-tutor exige JWT: YES (`v38` ACTIVE)
-- Secrets em logs/código/metadados: ZERO (Nenhuma credencial exposta)

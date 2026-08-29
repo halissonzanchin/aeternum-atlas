@@ -1280,3 +1280,62 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **Chamadas de Nuvem durante os testes:** Gemini=0, Deepgram=0, Cartesia=0
 - **LOCAL_ONLY_GATEWAY_PROOF:** **PASS**
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-28 23:40] — FASE 3A.1 CONCLUÍDA: MIGRAÇÃO DO RUNTIME OPERACIONAL LIVEKIT VITA → AI GATEWAY
+
+### Branch & Governança
+- **Branch:** `antigravity/phase-3a-vita-gateway` (NÃO mergeada para `main`).
+- **Governança Vercel / Supabase:**
+  - `ai-tutor v38` e `voice-token v8` intocados e congelados em produção.
+  - Vercel production frontend intocado.
+  - Migração de Atlas AI Tutor: **NÃO INICIADA (Fase 3B)**.
+
+### Fechamento Arquitetural da Fase 3A.1
+1. **Migração do Runtime Real LiveKit Vita (`apps/agent`):**
+   - `apps/agent/src/runtime-config.ts` e `agent.ts` migrados para consumir exclusivamente o Aeternum AI Gateway (`127.0.0.1:8081/v1`).
+   - Chamadas diretas de `apps/agent` para Ollama (`:11434`) = **0**.
+   - Chamadas diretas de `apps/agent` para Speaches (`:8000`) = **0**.
+   - Chamadas diretas para Nuvem = **0**.
+   - Fluxo canônico: `LiveKit Vita Runtime -> Aeternum AI Gateway (:8081) -> ProviderRouter -> Provedores`.
+2. **Preservação de Sessão, VAD, Lifecycle e RAG Vita:**
+   - `queryVitaKnowledge()` e `formatKnowledgeContext()` ativos no ciclo de turno.
+   - Instruções pedagógicas e roteiro de 5 pontos preservados.
+3. **Harmonização Canônica de Personas & Fabian Voice Profile:**
+   - Eduardo: `pt-br-warm-male-01`
+   - Antonia: `es-calm-female-01`
+   - Ariana: `en-calm-female-01`
+   - Fabian: `de-clear-male-01` (corrigido e validado com `VoiceProfileRegistry.require`).
+4. **SSE Error Handling & Client Timeout:**
+   - Parsing canônico de SSE error frames sem envelopamento espúrio.
+   - Enforce do deadline de cliente no `VitaGatewayClient` via AbortController/timeout.
+5. **In-Flight Active Barge-In:**
+   - Teste de cancelamento ativo no meio do stream (`ACTIVE_BARGE_IN_ZERO_CLOUD = PASS`) com zero acionamento de nuvem.
+
+### Métricas de Teste
+- **Testes Determinísticos da Integração Vita $\rightarrow$ Gateway (`vita_gateway_integration.test.ts`):** 17/17 PASS
+- **Testes Determinísticos do Gateway (`gateway.test.ts`):** 24/24 PASS
+- **Testes de Composição do LiveKit Agent (`livekit_gateway_composition.test.ts`):** 5/5 PASS
+- **Total da Suíte Regressiva Providers + Gateway + Agent:** 258/258 PASS (30 skipped cloud live opt-in)
+- **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
+
+### Benchmark Factual de Voz em Runtime Real no HP Victus (`CLOUD_FALLBACK_ENABLED=false`)
+- **Health:** PASS (HTTP 200 | 70ms | status: HEALTHY)
+- **Cold Turn (com enriquecimento RAG):**
+  - Status: PASS | total: 17856ms
+  - STT latency: 4758ms (textLength: 34) | Provider: `speaches-stt-local`
+  - LLM latency: 5153ms (textLength: 453) | Provider: `ollama-llm-local`
+  - TTS latency: 7944ms (audioBytes: 1244204) | Provider: `speaches-tts-local`
+- **Warm Turns (3 turnos com streaming TTFT & TTFA e RAG):**
+  - **STT Latency:** min: 2960ms | median: 3027ms | max: 3067ms
+  - **LLM TTFT:** min: 485ms | median: 491ms | max: 522ms
+  - **LLM Total:** min: 2191ms | median: 2224ms | max: 2231ms
+  - **TTS TTFA:** min: 5131ms | median: 6185ms | max: 6378ms
+  - **TTS Total:** min: 6864ms | median: 7123ms | max: 7404ms
+  - **Total Voice Turn:** min: 12056ms | median: 12373ms | max: 12661ms
+- **Continuidade Conversacional Multi-Turno:** PASS (Turno 1 $\rightarrow$ Turno 2 preserva histórico)
+- **Active In-Flight Barge-In:** PASS (`ACTIVE_BARGE_IN_ZERO_CLOUD: PASS` | zero chamadas à nuvem)
+- **Chamadas de Nuvem durante a validação:** Gemini=0, Deepgram=0, Cartesia=0
+- **VITA_REAL_RUNTIME_PROOF:** **PASS**
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

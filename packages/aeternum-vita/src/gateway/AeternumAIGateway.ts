@@ -5,142 +5,145 @@ import {
   GatewayHealthResponse,
   GatewaySuccessResponse,
   GatewayErrorResponse,
-  ProviderHealthStatus,
-  ProviderHealthEntry
+  ProviderHealthEntry,
+  ProviderHealthStatus
 } from "./types.ts";
-import { SafeGatewayLogger } from "./middleware/logging.ts";
-import { validateGatewayAuth, isLoopbackHost } from "./middleware/auth.ts";
 import {
+  LLMRequest,
+  STTRequest,
+  TTSRequest,
   ProviderExecutionContext,
   ProviderCancelledError,
   ProviderTimeoutError,
   ProviderUnavailableError,
   ProviderAuthenticationError,
+  AllProvidersFailedError,
   CapabilityMismatchError,
-  AllProvidersFailedError
+  AeternumProviderError
 } from "../providers/types/index.ts";
-import { LLMRequest, STTRequest, TTSRequest } from "../providers/types/index.ts";
-import { HealthResult } from "../providers/types/health.ts";
-
-const SAFE_CANONICAL_ERROR_CODES: Record<string, { code: string; message: string; httpStatus: number }> = {
-  PROVIDER_CANCELLED: { code: "request_cancelled", message: "Operação cancelada pelo usuário.", httpStatus: 499 },
-  PROVIDER_TIMEOUT: { code: "provider_timeout", message: "Tempo limite da operação excedido.", httpStatus: 504 },
-  GATEWAY_TIMEOUT: { code: "gateway_timeout", message: "Tempo limite da requisição do Gateway excedido.", httpStatus: 504 },
-  PROVIDER_UNAVAILABLE: { code: "provider_unavailable", message: "Serviço de IA temporariamente indisponível.", httpStatus: 503 },
-  PROVIDER_AUTH_ERROR: { code: "provider_authentication_failed", message: "Falha de autenticação do provedor.", httpStatus: 502 },
-  PROVIDER_INVALID_RESPONSE: { code: "provider_invalid_response", message: "Resposta inesperada do provedor de IA.", httpStatus: 502 },
-  CAPABILITY_MISMATCH: { code: "capability_mismatch", message: "Capacidade solicitada não suportada pelos provedores.", httpStatus: 400 },
-  ALL_PROVIDERS_FAILED: { code: "all_providers_failed", message: "Todos os provedores configurados falharam.", httpStatus: 503 },
-  BAD_REQUEST: { code: "bad_request", message: "Corpo da requisição inválido ou malformado.", httpStatus: 400 },
-  PAYLOAD_TOO_LARGE: { code: "payload_too_large", message: "Tamanho da requisição excede o limite máximo permitido.", httpStatus: 413 },
-  UNAUTHORIZED: { code: "unauthorized", message: "Acesso não autorizado.", httpStatus: 401 }
-};
 
 export class AeternumAIGateway {
-  private server?: http.Server;
   private readonly config: Required<GatewayConfig>;
+  private server: http.Server | null = null;
+  private isRunning = false;
 
   constructor(config: GatewayConfig) {
-    const providerTimeoutMs = config.providerTimeoutMs || 30000;
-    const gatewayRequestTimeoutMs = config.gatewayRequestTimeoutMs || 35000;
-
-    if (providerTimeoutMs >= gatewayRequestTimeoutMs) {
-      throw new Error(
-        `Invariante de timeout violado: providerTimeoutMs (${providerTimeoutMs}ms) deve ser menor que gatewayRequestTimeoutMs (${gatewayRequestTimeoutMs}ms).`
-      );
-    }
-
     const host = config.host || "127.0.0.1";
     const authMode = config.authMode || "INTERNAL_DEV";
+    const providerTimeoutMs = config.providerTimeoutMs || 25000;
+    const gatewayRequestTimeoutMs = config.gatewayRequestTimeoutMs || 30000;
 
-    // Public Binding Startup Guard: proibido bind não-loopback sem validador real de JWT
-    if (!isLoopbackHost(host)) {
-      if (authMode !== "SUPABASE_JWT" || !config.jwtValidator) {
-        throw new Error(
-          `Binding público proibido no host [${host}] com authMode [${authMode}] sem validador de JWT ativo.`
-        );
-      }
+    if (host !== "127.0.0.1" && host !== "localhost" && authMode !== "SUPABASE_JWT") {
+      throw new Error("Binding público proibido sem autenticação SUPABASE_JWT e validador JWT configurado.");
+    }
+
+    if (providerTimeoutMs >= gatewayRequestTimeoutMs) {
+      throw new Error("Invariante de timeout violado: providerTimeoutMs deve ser estritamente menor que gatewayRequestTimeoutMs.");
     }
 
     this.config = {
       port: config.port || Number(process.env.AETERNUM_AI_GATEWAY_PORT) || 8081,
       host,
-      authMode,
-      jwtValidator: config.jwtValidator as any,
       router: config.router,
-      healthRegistry: config.healthRegistry || {},
       version: config.version || "1.0.0",
       mode: config.mode || "local_first",
-      providerTimeoutMs,
+      authMode,
+      authToken: config.authToken || process.env.AETERNUM_AI_GATEWAY_TOKEN || "",
       gatewayRequestTimeoutMs,
-      maxJsonBodyBytes: config.maxJsonBodyBytes || 1024 * 1024, // 1MB
-      maxAudioBodyBytes: config.maxAudioBodyBytes || 10 * 1024 * 1024, // 10MB
-      logger: config.logger || new SafeGatewayLogger()
-    };
+      providerTimeoutMs,
+      maxJsonBodyBytes: config.maxJsonBodyBytes || 1024 * 1024,
+      maxAudioBodyBytes: config.maxAudioBodyBytes || 15 * 1024 * 1024,
+      logger: config.logger || {
+        info: (evt, meta) => console.log(JSON.stringify({ level: "INFO", event: evt, timestamp: new Date().toISOString(), ...meta })),
+        warn: (evt, meta) => console.warn(JSON.stringify({ level: "WARN", event: evt, timestamp: new Date().toISOString(), ...meta })),
+        error: (evt, meta) => console.error(JSON.stringify({ level: "ERROR", event: evt, timestamp: new Date().toISOString(), ...meta }))
+      },
+      healthRegistry: config.healthRegistry || {},
+      jwtValidator: config.jwtValidator
+    } as any;
   }
 
+  public get port(): number {
+    return this.config.port;
+  }
+
+  public get running(): boolean {
+    return this.isRunning;
+  }
+
+  // ==========================================
+  // SERVER LIFECYCLE
+  // ==========================================
+
   async start(): Promise<void> {
-    if (this.server) return;
+    if (this.isRunning) return;
 
-    this.server = http.createServer(async (req, res) => {
-      await this.handleRequest(req, res);
-    });
+    return new Promise((resolve, reject) => {
+      this.server = http.createServer((req, res) => this.handleRequest(req, res));
 
-    return new Promise<void>((resolve, reject) => {
-      this.server?.listen(this.config.port, this.config.host, () => {
+      this.server.on("error", (err) => {
+        this.config.logger.error("GATEWAY_START_ERROR", { error: err.message });
+        reject(err);
+      });
+
+      this.server.listen(this.config.port, this.config.host, () => {
+        this.isRunning = true;
         this.config.logger.info("GATEWAY_STARTED", {
           port: this.config.port,
           host: this.config.host,
-          mode: this.config.mode,
-          authMode: this.config.authMode
+          mode: this.config.mode
         });
         resolve();
       });
-      this.server?.on("error", (err) => reject(err));
     });
   }
 
   async stop(): Promise<void> {
-    if (!this.server) return;
-    return new Promise<void>((resolve, reject) => {
-      this.server?.close((err) => {
-        if (err) reject(err);
-        else {
-          this.server = undefined;
+    if (!this.isRunning || !this.server) return;
+
+    return new Promise((resolve, reject) => {
+      this.server!.close((err) => {
+        if (err) {
+          this.config.logger.error("GATEWAY_STOP_ERROR", { error: err.message });
+          reject(err);
+        } else {
+          this.isRunning = false;
+          this.config.logger.info("GATEWAY_STOPPED");
           resolve();
         }
       });
     });
   }
 
-  getServer(): http.Server | undefined {
-    return this.server;
-  }
+  // ==========================================
+  // REQUEST DISPATCHER & LIFECYCLE
+  // ==========================================
 
   private async handleRequest(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
     const start = performance.now();
-    const requestId = (req.headers["x-request-id"] as string) || crypto.randomUUID();
-    const url = new URL(req.url || "/", `http://${this.config.host}:${this.config.port}`);
-    const path = url.pathname;
-    const method = req.method?.toUpperCase() || "GET";
+    const rawRequestId = req.headers["x-request-id"];
+    const requestId = (typeof rawRequestId === "string" && rawRequestId.trim())
+      ? rawRequestId.trim()
+      : `req-${crypto.randomUUID()}`;
 
     res.setHeader("X-Request-Id", requestId);
-    res.setHeader("Content-Type", "application/json; charset=utf-8");
 
-    // 1. Health endpoint (Público/Liveness metadata factual)
+    const url = new URL(req.url || "/", `http://${req.headers.host || "127.0.0.1"}`);
+    const path = url.pathname;
+    const method = req.method?.toUpperCase();
+
+    // 1. Health check público do Gateway
     if (method === "GET" && path === "/health") {
-      await this.handleHealth(res);
+      await this.handleHealth(req, res, requestId);
       return;
     }
 
-    // 2. Validação de Autenticação Fail-Closed
-    const authResult = await validateGatewayAuth(req, this.config.authMode, this.config.jwtValidator);
-    if (!authResult.authenticated) {
-      this.sendError(res, 401, "UNAUTHORIZED", requestId, "UNAUTHORIZED", authResult.error);
+    // 2. Verificação de Autenticação
+    if (!await this.authenticateRequest(req, res, requestId)) {
       return;
     }
 
-    // 3. Configurar AbortController & Outer Gateway Deadline
+    // 3. Setup de Cancelamento & Deadline do Gateway
     const abortController = new AbortController();
     let isClientAborted = false;
     let isGatewayTimeout = false;
@@ -150,7 +153,7 @@ export class AeternumAIGateway {
       abortController.abort("CLIENT_ABORT");
     });
     res.on("close", () => {
-      if (!res.writableEnded) {
+      if (!res.writableEnded && !res.writableFinished) {
         isClientAborted = true;
         abortController.abort("CLIENT_ABORT");
       }
@@ -172,10 +175,12 @@ export class AeternumAIGateway {
         await this.handleLLMGenerate(req, res, requestId, abortController);
       } else if (method === "POST" && path === "/v1/llm/stream") {
         await this.handleLLMStream(req, res, requestId, abortController);
-      } else if (method === "POST" && path === "/v1/stt/transcribe") {
-        await this.handleSTTTranscribe(req, res, requestId, abortController);
-      } else if (method === "POST" && path === "/v1/tts/synthesize") {
-        await this.handleTTSSynthesize(req, res, requestId, abortController);
+      } else if (method === "POST" && path === "/v1/chat/completions") {
+        await this.handleOpenAIChatCompletions(req, res, requestId, abortController);
+      } else if (method === "POST" && (path === "/v1/stt/transcribe" || path === "/v1/audio/transcriptions")) {
+        await this.handleSTTTranscribe(req, res, requestId, abortController, path === "/v1/audio/transcriptions");
+      } else if (method === "POST" && (path === "/v1/tts/synthesize" || path === "/v1/audio/speech")) {
+        await this.handleTTSSynthesize(req, res, requestId, abortController, path === "/v1/audio/speech");
       } else if (method === "POST" && path === "/v1/tts/stream") {
         await this.handleTTSStream(req, res, requestId, abortController);
       } else {
@@ -187,9 +192,9 @@ export class AeternumAIGateway {
       await Promise.race([routeExecution(), deadlinePromise]);
     } catch (err: any) {
       if (isGatewayTimeout || err?.code === "GATEWAY_TIMEOUT") {
-        this.sendError(res, 504, "GATEWAY_TIMEOUT", requestId, "GATEWAY_TIMEOUT");
+        this.sendError(res, 504, "GATEWAY_TIMEOUT", requestId, "gateway_timeout");
       } else if (isClientAborted || err instanceof ProviderCancelledError || err?.code === "PROVIDER_CANCELLED") {
-        this.sendError(res, 499, "PROVIDER_CANCELLED", requestId, "PROVIDER_CANCELLED");
+        this.sendError(res, 499, "PROVIDER_CANCELLED", requestId, "request_cancelled");
       } else {
         this.handleGenericError(res, err, requestId);
       }
@@ -221,19 +226,21 @@ export class AeternumAIGateway {
     };
 
     try {
-      const res: HealthResult = await Promise.race([
-        entry.provider.health(healthContext),
-        new Promise<HealthResult>((_, reject) =>
-          setTimeout(() => reject(new Error("Health check timeout")), 1500)
-        )
-      ]);
-      return { enabled: true, status: res.status };
+      const h = await entry.provider.health(healthContext);
+      return {
+        enabled: true,
+        status: h.status,
+        latencyMs: h.latencyMs
+      };
     } catch {
-      return { enabled: true, status: "UNAVAILABLE" };
+      return {
+        enabled: true,
+        status: "UNAVAILABLE"
+      };
     }
   }
 
-  private async handleHealth(res: http.ServerResponse): Promise<void> {
+  private async handleHealth(req: http.IncomingMessage, res: http.ServerResponse, requestId: string): Promise<void> {
     const reg = this.config.healthRegistry;
 
     const [llm_local, llm_cloud, stt_local, stt_cloud, tts_local, tts_cloud] = await Promise.all([
@@ -260,9 +267,7 @@ export class AeternumAIGateway {
     if (!llmOk || !sttOk || !ttsOk) {
       overallStatus = "UNAVAILABLE";
     } else {
-      const allEnabled = [llm_local, llm_cloud, stt_local, stt_cloud, tts_local, tts_cloud].filter(
-        (p) => p.enabled
-      );
+      const allEnabled = [llm_local, llm_cloud, stt_local, stt_cloud, tts_local, tts_cloud].filter((p) => p.enabled);
       const anyDegradedOrUnavailable = allEnabled.some((p) => p.status !== "HEALTHY");
       if (anyDegradedOrUnavailable) {
         overallStatus = "DEGRADED";
@@ -286,6 +291,7 @@ export class AeternumAIGateway {
     };
 
     res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(health));
   }
 
@@ -324,6 +330,7 @@ export class AeternumAIGateway {
     };
 
     res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(response));
   }
 
@@ -353,6 +360,7 @@ export class AeternumAIGateway {
           res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
           res.setHeader("Cache-Control", "no-cache");
           res.setHeader("Connection", "keep-alive");
+          res.setHeader("X-Request-Id", requestId);
           res.statusCode = 200;
           streamHeadersSent = true;
         }
@@ -368,15 +376,13 @@ export class AeternumAIGateway {
       res.end();
     } catch (err: any) {
       if (!streamHeadersSent) {
-        // A. Erro antes do primeiro chunk -> Resposta JSON segura normal
         this.handleGenericError(res, err, requestId);
       } else {
-        // B. Erro após o stream ter começado -> Evento SSE de erro canônico
-        const code = err?.code || "provider_unavailable";
+        const code = err?.code ? err.code.toLowerCase() : "provider_unavailable";
         const errorFrame = {
           success: false,
           error: {
-            code: code.toLowerCase(),
+            code,
             message: "Serviço de IA temporariamente indisponível."
           },
           requestId
@@ -387,11 +393,112 @@ export class AeternumAIGateway {
     }
   }
 
-  private async handleSTTTranscribe(
+  private async handleOpenAIChatCompletions(
     req: http.IncomingMessage,
     res: http.ServerResponse,
     requestId: string,
     abortController: AbortController
+  ): Promise<void> {
+    const body = await this.readJsonBody<any>(req, res, requestId, this.config.maxJsonBodyBytes);
+    if (res.writableEnded) return;
+
+    if (!body || !Array.isArray(body.messages) || body.messages.length === 0) {
+      this.sendError(res, 400, "BAD_REQUEST", requestId, "BAD_REQUEST", "Campo 'messages' obrigatório.");
+      return;
+    }
+
+    const llmReq: LLMRequest = {
+      messages: body.messages,
+      systemInstruction: body.systemInstruction,
+      temperature: body.temperature,
+      maxTokens: body.maxTokens || body.max_tokens,
+      topP: body.topP || body.top_p,
+      stopSequences: body.stopSequences || body.stop,
+      metadata: body.metadata
+    };
+
+    if (body.stream === true) {
+      let streamHeadersSent = false;
+      try {
+        for await (const chunk of this.config.router.stream(llmReq, {
+          requestId,
+          signal: abortController.signal,
+          timeoutMs: this.config.providerTimeoutMs
+        })) {
+          if (!streamHeadersSent) {
+            res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+            res.setHeader("Cache-Control", "no-cache");
+            res.setHeader("Connection", "keep-alive");
+            res.setHeader("X-Request-Id", requestId);
+            res.statusCode = 200;
+            streamHeadersSent = true;
+          }
+
+          const sseChunk = {
+            id: requestId,
+            object: "chat.completion.chunk",
+            created: Math.floor(Date.now() / 1000),
+            model: body.model || "aeternum-llm",
+            choices: [
+              {
+                index: 0,
+                delta: chunk.deltaText ? { content: chunk.deltaText } : {},
+                finish_reason: chunk.finishReason || null
+              }
+            ]
+          };
+          res.write(`data: ${JSON.stringify(sseChunk)}\n\n`);
+        }
+
+        if (!streamHeadersSent) {
+          res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+          res.statusCode = 200;
+          streamHeadersSent = true;
+        }
+        res.write("data: [DONE]\n\n");
+        res.end();
+      } catch (err: any) {
+        if (!streamHeadersSent) {
+          this.handleGenericError(res, err, requestId);
+        } else {
+          res.end();
+        }
+      }
+      return;
+    }
+
+    const result = await this.config.router.generateWithMetadata(llmReq, {
+      requestId,
+      signal: abortController.signal,
+      timeoutMs: this.config.providerTimeoutMs
+    });
+
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
+    res.end(
+      JSON.stringify({
+        id: requestId,
+        object: "chat.completion",
+        created: Math.floor(Date.now() / 1000),
+        model: result.data.modelId || body.model || "aeternum-llm",
+        choices: [
+          {
+            index: 0,
+            message: { role: "assistant", content: result.data.text },
+            finish_reason: result.data.finishReason || "stop"
+          }
+        ],
+        usage: result.data.usage
+      })
+    );
+  }
+
+  private async handleSTTTranscribe(
+    req: http.IncomingMessage,
+    res: http.ServerResponse,
+    requestId: string,
+    abortController: AbortController,
+    isOpenAI = false
   ): Promise<void> {
     const body = await this.readJsonBody<{
       audioBase64?: string;
@@ -422,6 +529,13 @@ export class AeternumAIGateway {
       timeoutMs: this.config.providerTimeoutMs
     });
 
+    if (isOpenAI) {
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({ text: result.data.text }));
+      return;
+    }
+
     const response: GatewaySuccessResponse<any> = {
       success: true,
       data: result.data,
@@ -437,6 +551,7 @@ export class AeternumAIGateway {
     };
 
     res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(response));
   }
 
@@ -444,29 +559,49 @@ export class AeternumAIGateway {
     req: http.IncomingMessage,
     res: http.ServerResponse,
     requestId: string,
-    abortController: AbortController
+    abortController: AbortController,
+    isOpenAI = false
   ): Promise<void> {
-    const body = await this.readJsonBody<TTSRequest>(req, res, requestId, this.config.maxJsonBodyBytes);
+    const body = await this.readJsonBody<any>(req, res, requestId, this.config.maxJsonBodyBytes);
     if (res.writableEnded) return;
 
-    if (!body || !body.text) {
-      this.sendError(res, 400, "BAD_REQUEST", requestId, "BAD_REQUEST", "Campo 'text' obrigatório.");
+    const text = body?.text || body?.input;
+    if (!body || !text) {
+      this.sendError(res, 400, "BAD_REQUEST", requestId, "BAD_REQUEST", "Campo 'text' ou 'input' obrigatório.");
       return;
     }
 
-    const result = await this.config.router.synthesizeWithMetadata(body, {
+    const ttsReq: TTSRequest = {
+      text,
+      voiceProfileId: body.voiceProfileId || body.voice || "pt-br-warm-male-01",
+      language: body.language || "pt",
+      speed: body.speed,
+      sampleRate: body.sampleRate || 24000,
+      audioFormat: body.audioFormat || body.response_format || (isOpenAI ? "wav" : "pcm")
+    };
+
+    const result = await this.config.router.synthesizeWithMetadata(ttsReq, {
       requestId,
       signal: abortController.signal,
       timeoutMs: this.config.providerTimeoutMs
     });
 
-    const audioBase64 = Buffer.from(result.data.audioBuffer).toString("base64");
+    if (isOpenAI) {
+      res.statusCode = 200;
+      res.setHeader("Content-Type", ttsReq.audioFormat === "wav" ? "audio/wav" : "audio/pcm");
+      res.end(Buffer.from(result.data.audioBuffer));
+      return;
+    }
+
     const response: GatewaySuccessResponse<any> = {
       success: true,
       data: {
-        ...result.data,
-        audioBuffer: undefined,
-        audioBase64
+        audioBase64: Buffer.from(result.data.audioBuffer).toString("base64"),
+        audioFormat: result.data.audioFormat,
+        sampleRate: result.data.sampleRate,
+        providerId: result.data.providerId,
+        modelId: result.data.modelId,
+        latency: result.data.latency
       },
       metadata: {
         requestId,
@@ -480,6 +615,7 @@ export class AeternumAIGateway {
     };
 
     res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(response));
   }
 
@@ -497,10 +633,19 @@ export class AeternumAIGateway {
       return;
     }
 
+    const ttsReq: TTSRequest = {
+      text: body.text,
+      voiceProfileId: body.voiceProfileId || "pt-br-warm-male-01",
+      language: body.language || "pt",
+      speed: body.speed,
+      sampleRate: body.sampleRate || 24000,
+      audioFormat: body.audioFormat || "pcm"
+    };
+
     let streamHeadersSent = false;
 
     try {
-      for await (const chunk of this.config.router.streamSynthesis(body, {
+      for await (const chunk of this.config.router.streamSynthesis(ttsReq, {
         requestId,
         signal: abortController.signal,
         timeoutMs: this.config.providerTimeoutMs
@@ -509,11 +654,16 @@ export class AeternumAIGateway {
           res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
           res.setHeader("Cache-Control", "no-cache");
           res.setHeader("Connection", "keep-alive");
+          res.setHeader("X-Request-Id", requestId);
           res.statusCode = 200;
           streamHeadersSent = true;
         }
-        const audioBase64 = Buffer.from(chunk.audioChunk).toString("base64");
-        res.write(`data: ${JSON.stringify({ audioBase64, isFinal: chunk.isFinal })}\n\n`);
+
+        const payload = {
+          audioBase64: Buffer.from(chunk.audioChunk).toString("base64"),
+          isFinal: chunk.isFinal
+        };
+        res.write(`data: ${JSON.stringify(payload)}\n\n`);
       }
 
       if (!streamHeadersSent) {
@@ -527,12 +677,12 @@ export class AeternumAIGateway {
       if (!streamHeadersSent) {
         this.handleGenericError(res, err, requestId);
       } else {
-        const code = err?.code || "provider_unavailable";
+        const code = err?.code ? err.code.toLowerCase() : "provider_unavailable";
         const errorFrame = {
           success: false,
           error: {
-            code: code.toLowerCase(),
-            message: "Serviço de IA temporariamente indisponível."
+            code,
+            message: "Serviço de síntese vocal temporariamente indisponível."
           },
           requestId
         };
@@ -543,116 +693,141 @@ export class AeternumAIGateway {
   }
 
   // ==========================================
-  // BODY PARSING & ERROR HANDLING
+  // HELPERS
   // ==========================================
 
-  private async readJsonBody<T>(
+  private async authenticateRequest(req: http.IncomingMessage, res: http.ServerResponse, requestId: string): Promise<boolean> {
+    if (this.config.authMode === "INTERNAL_DEV" || this.config.authMode === "DISABLED") {
+      return true;
+    }
+
+    const authHeader = req.headers["authorization"];
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      this.sendError(res, 401, "UNAUTHORIZED", requestId, "unauthorized", "Token de autenticação obrigatório.");
+      return false;
+    }
+
+    const token = authHeader.substring(7).trim();
+
+    if (this.config.authMode === "SUPABASE_JWT") {
+      const validator = (this.config as any).jwtValidator;
+      if (!validator || typeof validator.validateToken !== "function") {
+        this.sendError(res, 401, "UNAUTHORIZED", requestId, "unauthorized", "Validador JWT não configurado no Gateway (fail-closed).");
+        return false;
+      }
+      const result = await validator.validateToken(token);
+      if (!result || !result.valid) {
+        this.sendError(res, 401, "UNAUTHORIZED", requestId, "unauthorized", "Token JWT inválido ou expirado.");
+        return false;
+      }
+      return true;
+    }
+
+    if (this.config.authToken && token !== this.config.authToken) {
+      this.sendError(res, 401, "UNAUTHORIZED", requestId, "unauthorized", "Token de autenticação inválido.");
+      return false;
+    }
+
+    return true;
+  }
+
+  private async readJsonBody<T = any>(
     req: http.IncomingMessage,
     res: http.ServerResponse,
     requestId: string,
     maxBytes: number
   ): Promise<T | null> {
-    return new Promise<T | null>((resolve) => {
+    return new Promise((resolve) => {
       let totalBytes = 0;
       const chunks: Buffer[] = [];
-      let exceeded = false;
 
       req.on("data", (chunk: Buffer) => {
         totalBytes += chunk.length;
-        if (totalBytes > maxBytes && !exceeded) {
-          exceeded = true;
-          this.sendError(res, 413, "PAYLOAD_TOO_LARGE", requestId, "PAYLOAD_TOO_LARGE");
-          req.resume();
+        if (totalBytes > maxBytes) {
+          this.sendError(res, 413, "PAYLOAD_TOO_LARGE", requestId, "payload_too_large", "Corpo da requisição excede o limite permitido.");
+          req.destroy();
           resolve(null);
           return;
         }
-        if (!exceeded) {
-          chunks.push(chunk);
-        }
+        chunks.push(chunk);
       });
 
       req.on("end", () => {
-        if (exceeded || res.writableEnded) {
-          resolve(null);
-          return;
-        }
+        if (res.writableEnded) return;
         if (chunks.length === 0) {
-          resolve(null);
+          resolve({} as T);
           return;
         }
         try {
-          const raw = Buffer.concat(chunks).toString("utf8");
+          const raw = Buffer.concat(chunks).toString("utf-8");
           const parsed = JSON.parse(raw);
           resolve(parsed as T);
         } catch {
-          this.sendError(res, 400, "BAD_REQUEST", requestId, "BAD_REQUEST", "JSON malformado.");
+          this.sendError(res, 400, "BAD_REQUEST", requestId, "bad_request", "Corpo JSON inválido.");
           resolve(null);
         }
-      });
-
-      req.on("error", () => {
-        if (!res.writableEnded) {
-          this.sendError(res, 400, "BAD_REQUEST", requestId, "BAD_REQUEST", "Erro de stream na requisição.");
-        }
-        resolve(null);
       });
     });
   }
 
   private handleGenericError(res: http.ServerResponse, err: any, requestId: string): void {
-    if (res.writableEnded) return;
+    if (res.headersSent || res.writableEnded) return;
 
-    const code = err?.code || "PROVIDER_UNAVAILABLE";
-    const mapped = SAFE_CANONICAL_ERROR_CODES[code] || {
-      code: "provider_error",
-      message: "Ocorreu um erro durante o processamento da requisição.",
-      httpStatus: 500
-    };
+    if (err instanceof ProviderCancelledError || err?.code === "PROVIDER_CANCELLED") {
+      this.sendError(res, 499, "PROVIDER_CANCELLED", requestId, "request_cancelled");
+      return;
+    }
+    if (err instanceof ProviderTimeoutError || err?.code === "PROVIDER_TIMEOUT") {
+      this.sendError(res, 504, "PROVIDER_TIMEOUT", requestId, "provider_timeout");
+      return;
+    }
+    if (err instanceof ProviderUnavailableError || err?.code === "PROVIDER_UNAVAILABLE") {
+      this.sendError(res, 503, "PROVIDER_UNAVAILABLE", requestId, "provider_unavailable");
+      return;
+    }
+    if (err instanceof AllProvidersFailedError || err?.code === "ALL_PROVIDERS_FAILED") {
+      this.sendError(res, 503, "ALL_PROVIDERS_FAILED", requestId, "all_providers_failed");
+      return;
+    }
+    if (err instanceof ProviderAuthenticationError || err?.code === "PROVIDER_AUTH_ERROR") {
+      this.sendError(res, 502, "PROVIDER_AUTH_ERROR", requestId, "provider_authentication_failed");
+      return;
+    }
+    if (err instanceof CapabilityMismatchError || err?.code === "CAPABILITY_MISMATCH") {
+      this.sendError(res, 400, "CAPABILITY_MISMATCH", requestId, "capability_mismatch");
+      return;
+    }
+    if (err instanceof AeternumProviderError) {
+      this.sendError(res, 500, "PROVIDER_ERROR", requestId, "provider_error");
+      return;
+    }
 
-    const errorResp: GatewayErrorResponse = {
-      success: false,
-      error: {
-        code: mapped.code,
-        message: mapped.message
-      },
-      metadata: {
-        requestId,
-        finalCanonicalError: code
-      }
-    };
-
-    res.statusCode = mapped.httpStatus;
-    res.end(JSON.stringify(errorResp));
+    this.sendError(res, 500, "INTERNAL_ERROR", requestId, "internal_error", "Erro interno no gateway.");
   }
 
   private sendError(
     res: http.ServerResponse,
     httpStatus: number,
-    canonicalCode: string,
+    code: string,
     requestId: string,
-    errorCode: string,
-    customMessage?: string
+    safeErrorCode?: string,
+    message?: string
   ): void {
-    if (res.writableEnded) return;
+    if (res.headersSent || res.writableEnded) return;
 
-    const mapped = SAFE_CANONICAL_ERROR_CODES[canonicalCode] || {
-      code: errorCode.toLowerCase(),
-      message: customMessage || "Erro na requisição."
-    };
-
-    const errorResp: GatewayErrorResponse = {
+    const errorBody: GatewayErrorResponse = {
       success: false,
       error: {
-        code: mapped.code,
-        message: customMessage || mapped.message
+        code: safeErrorCode || code.toLowerCase(),
+        message: message || "Erro de processamento no Aeternum AI Gateway.",
+        httpStatus
       },
-      metadata: {
-        requestId,
-        finalCanonicalError: canonicalCode
-      }
+      requestId
     };
 
     res.statusCode = httpStatus;
-    res.end(JSON.stringify(errorResp));
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("X-Request-Id", requestId);
+    res.end(JSON.stringify(errorBody));
   }
 }

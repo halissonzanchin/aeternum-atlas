@@ -42,6 +42,7 @@ export interface TutorConfig {
   gender: "masculino" | "feminino";
   description: string;
   voiceKey: TutorId;
+  voiceProfileId: string;
   ttsModel: "default" | "german";
   instructions: string;
   greeting: string;
@@ -89,6 +90,7 @@ export const TUTOR_CONFIGS: Record<TutorId, TutorConfig> = {
     description:
       "Mentor sênior com voz barítona calorosa, profunda e acolhedora em português do Brasil.",
     voiceKey: "eduardo",
+    voiceProfileId: "pt-br-warm-male-01",
     ttsModel: "default",
     instructions: dedent`
       Você é Eduardo, tutor de anatomia da Aeternum Vita. Fale exclusivamente em português do Brasil, com naturalidade, empatia e precisão acadêmica.
@@ -108,6 +110,7 @@ export const TUTOR_CONFIGS: Record<TutorId, TutorConfig> = {
     description:
       "Mentora hispanohablante nativa con voz femenina clara, empática y expresiva.",
     voiceKey: "antonia",
+    voiceProfileId: "es-calm-female-01",
     ttsModel: "default",
     instructions: dedent`
       Eres Antonia, tutora de anatomía de Aeternum Vita. Habla exclusivamente en español natural, con empatía y precisión académica.
@@ -128,6 +131,7 @@ export const TUTOR_CONFIGS: Record<TutorId, TutorConfig> = {
     description:
       "Dynamic and inspiring American English mentor with a natural female voice.",
     voiceKey: "ariana",
+    voiceProfileId: "en-calm-female-01",
     ttsModel: "default",
     instructions: dedent`
       You are Ariana, Aeternum Vita's anatomy tutor. Speak exclusively in natural English, with empathy and academic precision.
@@ -148,6 +152,7 @@ export const TUTOR_CONFIGS: Record<TutorId, TutorConfig> = {
     description:
       "Kompetenter akademischer Mentor mit angenehmer und klarer deutscher Männerstimme.",
     voiceKey: "fabian",
+    voiceProfileId: "de-clear-male-01",
     ttsModel: "german",
     instructions: dedent`
       Du bist Fabian, der Anatomietutor von Aeternum Vita. Sprich ausschließlich natürliches Hochdeutsch, empathisch und akademisch präzise.

@@ -1,3 +1,5 @@
+import type { TutorId } from "./agent.ts";
+
 export interface VoiceRuntimeConfig {
   llmBaseUrl: string;
   llmModel: string;
@@ -8,12 +10,7 @@ export interface VoiceRuntimeConfig {
   defaultTtsModel: string;
   germanTtsModel: string;
   ttsSpeed: number;
-  tutorVoices: {
-    eduardo: string;
-    antonia: string;
-    ariana: string;
-    fabian: string;
-  };
+  tutorVoices: Record<TutorId, string>;
   ragUrl?: string;
   ragApiKey?: string;
   ragTimeoutMs: number;
@@ -22,40 +19,51 @@ export interface VoiceRuntimeConfig {
 const requiredValue = (
   value: string | undefined,
   fallback: string,
-  name: string,
+  key: string,
 ): string => {
-  const resolved = value?.trim() || fallback;
-  if (!resolved) {
-    throw new Error(`${name} deve ser configurada.`);
+  const trimmed = value?.trim();
+  if (!trimmed) {
+    return fallback;
   }
-  return resolved;
-};
-
-const httpUrl = (value: string, name: string): string => {
-  let url: URL;
-  try {
-    url = new URL(value);
-  } catch {
-    throw new Error(`${name} deve ser uma URL HTTP válida.`);
-  }
-
-  if (url.protocol !== "http:" && url.protocol !== "https:") {
-    throw new Error(`${name} deve usar HTTP ou HTTPS.`);
-  }
-
-  return value.replace(/\/$/, "");
+  return trimmed;
 };
 
 const numberValue = (
   value: string | undefined,
   fallback: number,
-  name: string,
-  minimum: number,
-  maximum: number,
+  key: string,
+  min: number,
+  max: number,
 ): number => {
-  const resolved = value === undefined ? fallback : Number(value);
-  if (!Number.isFinite(resolved) || resolved < minimum || resolved > maximum) {
-    throw new Error(`${name} deve estar entre ${minimum} e ${maximum}.`);
+  if (!value) {
+    return fallback;
+  }
+
+  const parsed = Number(value);
+  if (Number.isNaN(parsed) || parsed < min || parsed > max) {
+    throw new Error(
+      `${key} deve ser um número entre ${min} e ${max}. Recebido: ${value}`,
+    );
+  }
+
+  return parsed;
+};
+
+const httpUrl = (value: string, key: string): string => {
+  let parsed: URL;
+  try {
+    parsed = new URL(value);
+  } catch {
+    throw new Error(`${key} deve usar HTTP ou HTTPS. Recebido: ${value}`);
+  }
+
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+    throw new Error(`${key} deve usar HTTP ou HTTPS. Recebido: ${value}`);
+  }
+
+  const resolved = parsed.toString();
+  if (resolved.endsWith("/")) {
+    return resolved.slice(0, -1);
   }
   return resolved;
 };
@@ -64,12 +72,16 @@ export const loadVoiceRuntimeConfig = (
   environment: NodeJS.ProcessEnv = process.env,
 ): VoiceRuntimeConfig => {
   const ragUrl = environment.VITA_RAG_URL?.trim();
+  const gatewayUrl = environment.AETERNUM_AI_GATEWAY_URL?.trim();
+
+  const defaultLlmUrl = gatewayUrl ? `${gatewayUrl.replace(/\/$/, "")}/v1` : "http://localhost:11434/v1";
+  const defaultSpeechUrl = gatewayUrl ? `${gatewayUrl.replace(/\/$/, "")}/v1` : "http://localhost:8000/v1";
 
   return {
     llmBaseUrl: httpUrl(
       requiredValue(
         environment.LOCAL_LLM_BASE_URL,
-        "http://localhost:11434/v1",
+        defaultLlmUrl,
         "LOCAL_LLM_BASE_URL",
       ),
       "LOCAL_LLM_BASE_URL",
@@ -89,14 +101,14 @@ export const loadVoiceRuntimeConfig = (
     speechBaseUrl: httpUrl(
       requiredValue(
         environment.LOCAL_SPEECH_BASE_URL,
-        "http://localhost:8000/v1",
+        defaultSpeechUrl,
         "LOCAL_SPEECH_BASE_URL",
       ),
       "LOCAL_SPEECH_BASE_URL",
     ),
     speechApiKey: requiredValue(
       environment.LOCAL_SPEECH_API_KEY,
-      "local-development-only",
+      environment.AETERNUM_AI_GATEWAY_TOKEN || "local-development-only",
       "LOCAL_SPEECH_API_KEY",
     ),
     sttModel: requiredValue(
@@ -149,8 +161,8 @@ export const loadVoiceRuntimeConfig = (
       environment.VITA_RAG_TIMEOUT_MS,
       2500,
       "VITA_RAG_TIMEOUT_MS",
-      250,
-      15_000,
+      200,
+      15000,
     ),
   };
 };
