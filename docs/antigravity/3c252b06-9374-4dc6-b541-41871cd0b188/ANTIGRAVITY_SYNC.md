@@ -1629,3 +1629,41 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **LIVEKIT_REAL_ROOM_USER_E2E:** `PENDING PRE-PRODUCTION QA`
 - **AGENTSESSION_START_GATEWAY_INTEGRATION:** `PASS`
 - **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`
+
+---
+
+## [2026-08-29 15:40] — FASE 3B CONCLUÍDA: MIGRAÇÃO ATLAS AI TUTOR → AETERNUM AI GATEWAY
+
+### Branch & Governança
+- **Branch:** `antigravity/phase-3b-atlas-tutor-gateway` (NÃO mergeada para `main`).
+- **Governança Visual & Vercel / Supabase:**
+  - Arquivos visuais de frontend alterados: 0
+  - Arquivos CSS alterados: 0
+  - `ai-tutor v38` e `voice-token v8` intocados e congelados em produção.
+  - Vercel production frontend intocado.
+  - Migração de Bridge 3D (Fase 3C): **NÃO INICIADA / BLOQUEADA**.
+  - `PRODUCTION_GATEWAY_REACHABILITY = NOT PROVEN`
+  - `PRODUCTION CUTOVER = BLOCKED` (A Edge Function em produção permanece em v38 até estabelecimento e auditoria de endpoint de Gateway seguro).
+
+### Implementação da Fase 3B
+1. **Preservação Integral da Camada de Aplicação Supabase (`ai-tutor`):**
+   - **Autenticação:** JWT Bearer obrigatório (401 para requisições sem/com token inválido).
+   - **Contexto de Usuário & Tenant:** Validação de usuário ativo e propagação de `institution_id` e `role` na auditoria e metadados.
+   - **Rate Limiting:** Enforce via RPC `consume_ai_rate_limit` (429 `AI_RATE_LIMITED`).
+   - **Personalização:** Injeção do primeiro nome da pessoa usuária nas instruções pedagógicas/socráticas.
+   - **Histórico & Persistência:** Multi-turn preservado em `ai_messages` e contexto em `ai_conversations`.
+   - **Contratos:** Modo Chat e modo Mapa Mental (hierarquia pura sem Markdown) preservados.
+2. **Preservação e Fluxo de RAG:**
+   - Busca vetorial (`TEMPORARY_RAG_EMBEDDING_EXCEPTION` para embeddings Gemini) + Fallback lexical PostgreSQL FTS nativo.
+   - Contextualização bounded entre pergunta anterior e prompt atual.
+   - Montagem do `systemInstruction` contendo exatamente os trechos bibliográficos recuperados (livro, capítulo, página, conteúdo).
+3. **Geração LLM via Aeternum AI Gateway:**
+   - A geração de respostas de texto migrada para `POST /v1/llm/generate` no Gateway.
+   - **Chamadas Diretas de Geração Gemini:** `AI_TUTOR_DIRECT_GEMINI_GENERATION_CALLS = 0` (Proibição absoluta de chamadas diretas a `:generateContent`).
+   - **Fail-Closed:** Em caso de indisponibilidade do Gateway, a aplicação falha fechada para o dicionário anatômico local determinístico, sem acionar geração direta na nuvem.
+
+### Métricas de Teste
+- **Suíte Regressiva Monorepo:** 281/281 PASS (30 skipped cloud live opt-in)
+- **Testes Dedicados da Fase 3B:** `atlas_tutor_gateway_integration.test.ts` (5/5 PASS)
+- **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

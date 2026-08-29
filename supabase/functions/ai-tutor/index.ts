@@ -1,24 +1,24 @@
 import { createClient } from "npm:@supabase/supabase-js@2.105.4";
 
-const PRIMARY_MODEL = (Deno.env.get("VITA_GEMINI_MODEL") || "gemini-3.7-flash").trim();
-const CLOUD_FALLBACK_MODEL = (Deno.env.get("VITA_GEMINI_FALLBACK_MODEL") || "gemini-2.5-flash").trim();
+// =========================================================================
+// CONFIGURAÇÕES E CONSTANTES DE AMBIENTE
+// =========================================================================
+
+const GATEWAY_URL = (Deno.env.get("AETERNUM_AI_GATEWAY_URL") || "").trim();
+const GATEWAY_TOKEN = (Deno.env.get("AETERNUM_AI_GATEWAY_TOKEN") || "gateway-internal").trim();
+const GATEWAY_GENERATE_TIMEOUT_MS = 25_000;
+
+// Exceção Canônica RAG: Gemini Embeddings permanece para busca vetorial até gateway possuir embedding capability
+// DIRECT_GEMINI_GENERATION=FORBIDDEN
+// DIRECT_GEMINI_EMBEDDING=TEMPORARY_RAG_EMBEDDING_EXCEPTION
 const GEMINI_EMBEDDING_MODEL = (Deno.env.get("VITA_GEMINI_EMBEDDING_MODEL") || "gemini-embedding-2").trim();
+const GEMINI_EMBED_TIMEOUT_MS = 5_000;
 
 const MAX_REQUEST_BYTES = 64_000;
 const MAX_PROMPT_CHARACTERS = 4_000;
 const MAX_CONTEXT_CHARACTERS = 12_000;
 const MAX_HISTORY_MESSAGES = 24;
 const MAX_KNOWLEDGE_RESULTS = 6;
-const GEMINI_GENERATE_TIMEOUT_MS = 25_000;
-const GEMINI_EMBED_TIMEOUT_MS = 5_000;
-const GEMINI_MODELS_GET_TIMEOUT_MS = 5_000;
-
-const GEMINI_SAFETY_CATEGORIES = [
-  "HARM_CATEGORY_HARASSMENT",
-  "HARM_CATEGORY_HATE_SPEECH",
-  "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-  "HARM_CATEGORY_DANGEROUS_CONTENT"
-];
 
 type MessageRow = {
   role: "user" | "assistant";
@@ -229,22 +229,6 @@ Trechos da biblioteca anatômica recuperados:
 ${knowledgeContext(sources)}`;
 }
 
-function normalizedGeminiHistory(history: MessageRow[]) {
-  const normalized: Array<{ role: "user" | "model"; parts: [{ text: string }] }> = [];
-  for (const message of history) {
-    const text = cleanText(message.content, MAX_PROMPT_CHARACTERS);
-    if (!text) continue;
-    const role = message.role === "assistant" ? "model" : "user";
-    const previous = normalized.at(-1);
-    if (previous && previous.role === role) {
-      previous.parts[0].text = `${previous.parts[0].text}\n\n${text}`.slice(0, MAX_PROMPT_CHARACTERS);
-    } else {
-      normalized.push({ role, parts: [{ text }] });
-    }
-  }
-  return normalized;
-}
-
 function extractSearchTerms(prompt: string): string {
   const stopwords = new Set([
     "explique", "explica", "fale", "falar", "sobre", "quais", "qual", "quem", "como", "onde", "quando",
@@ -288,6 +272,7 @@ function classifyNetworkError(err: unknown): { errorName: string; networkCause: 
   return { errorName, networkCause: "UNKNOWN_NETWORK" };
 }
 
+// TEMPORARY_RAG_EMBEDDING_EXCEPTION (Vector retrieval embedding)
 async function generateEmbedding(apiKey: string, prompt: string) {
   try {
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(GEMINI_EMBEDDING_MODEL)}:embedContent`;
@@ -414,235 +399,124 @@ function mapCanonicalProviderReason(status: number, errObj: Record<string, unkno
   return "UNKNOWN";
 }
 
-function isRecoverableModelError(status: number, canonicalReason: string): boolean {
-  if ([429, 500, 502, 503, 504].includes(status)) return true;
-  if (["QUOTA_EXCEEDED", "PROVIDER_UNAVAILABLE", "TIMEOUT", "DNS_FAILURE", "CONNECTION_RESET", "CONNECTION_REFUSED", "FETCH_FAILED"].includes(canonicalReason)) {
-    return true;
-  }
-  return false;
-}
+// =========================================================================
+// AETERNUM AI GATEWAY CLIENT (FASE 3B APPLICATION ADAPTER)
+// =========================================================================
 
-function extractGeneratedText(data: any): string {
-  const parts = data?.candidates?.[0]?.content?.parts;
-  if (!Array.isArray(parts)) return "";
-  const nonThoughtParts = parts.filter((p: any) => !p?.thought && typeof p?.text === "string");
-  if (nonThoughtParts.length > 0) {
-    return nonThoughtParts.map((p: any) => p.text).join("\n\n").trim();
-  }
-  const lastPart = parts.at(-1);
-  return typeof lastPart?.text === "string" ? lastPart.text.trim() : "";
-}
-
-// True Dedicated models.get Probe (GET /v1beta/models/{model})
-async function probeGeminiModelsGet(apiKey: string, model: string): Promise<{
-  stage: string;
-  model: string;
-  status: number;
+interface GatewayLLMResult {
+  text: string;
   latencyMs: number;
-  providerStatus: string;
-  canonicalReason: string;
-  modelName?: string;
-  success: boolean;
-}> {
-  const start = performance.now();
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}`;
-  try {
-    const res = await fetch(endpoint, {
-      method: "GET",
-      headers: {
-        "x-goog-api-key": apiKey
-      },
-      signal: AbortSignal.timeout(GEMINI_MODELS_GET_TIMEOUT_MS)
-    });
-
-    const latencyMs = Math.round(performance.now() - start);
-    if (res.ok) {
-      const data = await res.json().catch(() => ({})) as Record<string, unknown>;
-      return {
-        stage: "models_get_connectivity_probe",
-        model,
-        status: res.status,
-        latencyMs,
-        providerStatus: "OK",
-        canonicalReason: "NONE",
-        modelName: String(data?.name || model),
-        success: true
-      };
-    }
-
-    const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
-    const errObj = errJson?.error as Record<string, unknown> | undefined;
-    const providerStatus = String(errObj?.status || `HTTP_${res.status}`);
-    const canonicalReason = mapCanonicalProviderReason(res.status, errObj);
-    return {
-      stage: "models_get_connectivity_probe",
-      model,
-      status: res.status,
-      latencyMs,
-      providerStatus,
-      canonicalReason,
-      success: false
-    };
-  } catch (err: unknown) {
-    const latencyMs = Math.round(performance.now() - start);
-    const { networkCause } = classifyNetworkError(err);
-    return {
-      stage: "models_get_connectivity_probe",
-      model,
-      status: networkCause === "TIMEOUT" ? 504 : 0,
-      latencyMs,
-      providerStatus: networkCause,
-      canonicalReason: networkCause,
-      success: false
-    };
-  }
-}
-
-// Single Model Minimal Generation Probe
-async function probeSingleModelGeneration(apiKey: string, model: string): Promise<{
-  model: string;
   status: number;
-  latencyMs: number;
-  providerStatus: string;
-  canonicalReason: string;
-  hasText: boolean;
+  provider: string;
+  model: string;
   success: boolean;
-}> {
-  const start = performance.now();
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
-  
-  const generationConfig: Record<string, unknown> = {
-    maxOutputTokens: 128
-  };
-  if (model.includes("3.7") || model.includes("thinking")) {
-    generationConfig.thinkingConfig = {
-      thinkingLevel: "low"
-    };
-  }
-
-  try {
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": apiKey
-      },
-      body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: "Explique brevemente o nervo radial em uma frase." }] }],
-        generationConfig
-      }),
-      signal: AbortSignal.timeout(GEMINI_GENERATE_TIMEOUT_MS)
-    });
-
-    const latencyMs = Math.round(performance.now() - start);
-    if (res.ok) {
-      const data = await res.json().catch(() => ({})) as Record<string, unknown>;
-      const text = extractGeneratedText(data);
-      const hasText = Boolean(text && text.trim().length > 0);
-      return {
-        model,
-        status: res.status,
-        latencyMs,
-        providerStatus: "OK",
-        canonicalReason: "NONE",
-        hasText,
-        success: hasText
-      };
-    }
-
-    const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
-    const errObj = errJson?.error as Record<string, unknown> | undefined;
-    const providerStatus = String(errObj?.status || `HTTP_${res.status}`);
-    const canonicalReason = mapCanonicalProviderReason(res.status, errObj);
-    return {
-      model,
-      status: res.status,
-      latencyMs,
-      providerStatus,
-      canonicalReason,
-      hasText: false,
-      success: false
-    };
-  } catch (err: unknown) {
-    const latencyMs = Math.round(performance.now() - start);
-    const { networkCause } = classifyNetworkError(err);
-    return {
-      model,
-      status: networkCause === "TIMEOUT" ? 504 : 0,
-      latencyMs,
-      providerStatus: networkCause,
-      canonicalReason: networkCause,
-      hasText: false,
-      success: false
-    };
-  }
+  canonicalReason: string;
+  rawRequestPayload?: Record<string, unknown>;
 }
 
-async function executeModelCall(
-  model: string,
-  apiKey: string,
+async function executeGatewayLLMCall(
+  gatewayUrl: string,
+  gatewayToken: string,
   role: string,
   context: Record<string, unknown>,
   sources: KnowledgeRow[],
-  history: ReturnType<typeof normalizedGeminiHistory>,
+  history: MessageRow[],
   prompt: string,
-  userName: string
-): Promise<{ text: string; latencyMs: number; status: number; providerStatus: string; canonicalReason: string; recoverable: boolean }> {
+  userName: string,
+  meta: Record<string, unknown> = {}
+): Promise<GatewayLLMResult> {
   const start = performance.now();
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
   const sysInstructionText = systemInstruction(role, context, sources, userName);
+  const endpoint = `${gatewayUrl.replace(/\/$/, "")}/v1/llm/generate`;
 
-  const generationConfig: Record<string, unknown> = {
-    maxOutputTokens: 4096
-  };
-  if (model.includes("3.7") || model.includes("thinking")) {
-    generationConfig.thinkingConfig = {
-      thinkingLevel: "low"
-    };
+  const formattedMessages: Array<{ role: "user" | "assistant" | "system"; content: string }> = [];
+  for (const m of history) {
+    const text = cleanText(m.content, MAX_PROMPT_CHARACTERS);
+    if (!text) continue;
+    formattedMessages.push({
+      role: m.role === "assistant" ? "assistant" : "user",
+      content: text
+    });
   }
+  formattedMessages.push({ role: "user", content: prompt });
+
+  const payload = {
+    messages: formattedMessages,
+    systemInstruction: sysInstructionText,
+    temperature: 0.25,
+    maxTokens: 4096,
+    metadata: {
+      source: "atlas-ai-tutor",
+      role,
+      user_id: meta.userId,
+      institution_id: meta.institutionId,
+      retrieved_source_count: sources.length
+    }
+  };
 
   try {
     const res = await fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-goog-api-key": apiKey
+        "Authorization": `Bearer ${gatewayToken}`,
+        "X-Request-Id": `tutor-req-${crypto.randomUUID()}`
       },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: sysInstructionText }] },
-        contents: [...history, { role: "user", parts: [{ text: prompt }] }],
-        generationConfig,
-        safetySettings: GEMINI_SAFETY_CATEGORIES.map((category) => ({
-          category,
-          threshold: "BLOCK_MEDIUM_AND_ABOVE"
-        }))
-      }),
-      signal: AbortSignal.timeout(GEMINI_GENERATE_TIMEOUT_MS)
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(GATEWAY_GENERATE_TIMEOUT_MS)
     });
 
     const latencyMs = Math.round(performance.now() - start);
     if (res.ok) {
-      const data = await res.json();
-      const text = extractGeneratedText(data);
-      if (text) {
-        return { text, latencyMs, status: res.status, providerStatus: "OK", canonicalReason: "NONE", recoverable: false };
-      }
+      const json = await res.json().catch(() => ({})) as Record<string, unknown>;
+      const data = (json.data && typeof json.data === "object") ? json.data as Record<string, unknown> : json;
+      const text = typeof data.text === "string" ? data.text : "";
+      const model = typeof data.modelId === "string" ? data.modelId : "aeternum-llm";
+      const provider = typeof data.providerId === "string" ? data.providerId : "aeternum-gateway";
+      return {
+        text,
+        latencyMs,
+        status: res.status,
+        provider,
+        model,
+        success: Boolean(text.trim()),
+        canonicalReason: "NONE",
+        rawRequestPayload: payload
+      };
     }
 
     const errJson = await res.json().catch(() => ({})) as Record<string, unknown>;
     const errObj = errJson?.error as Record<string, unknown> | undefined;
-    const providerStatus = String(errObj?.status || `HTTP_${res.status}`);
     const canonicalReason = mapCanonicalProviderReason(res.status, errObj);
-    const recoverable = isRecoverableModelError(res.status, canonicalReason);
-    return { text: "", latencyMs, status: res.status, providerStatus, canonicalReason, recoverable };
+    return {
+      text: "",
+      latencyMs,
+      status: res.status,
+      provider: "aeternum-gateway",
+      model: "gateway",
+      success: false,
+      canonicalReason,
+      rawRequestPayload: payload
+    };
   } catch (err: unknown) {
     const latencyMs = Math.round(performance.now() - start);
     const { networkCause } = classifyNetworkError(err);
-    const status = networkCause === "TIMEOUT" ? 504 : 0;
-    const recoverable = isRecoverableModelError(status, networkCause);
-    return { text: "", latencyMs, status, providerStatus: networkCause, canonicalReason: networkCause, recoverable };
+    return {
+      text: "",
+      latencyMs,
+      status: networkCause === "TIMEOUT" ? 504 : 0,
+      provider: "aeternum-gateway",
+      model: "gateway",
+      success: false,
+      canonicalReason: networkCause,
+      rawRequestPayload: payload
+    };
   }
 }
+
+// =========================================================================
+// HANDLER PRINCIPAL DENO SERVE
+// =========================================================================
 
 Deno.serve(async (req) => {
   const cors = corsHeaders(req);
@@ -742,98 +616,47 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: "Corpo JSON inválido." }, 400, cors);
   }
 
-  // Probe 1: True Dedicated models.get (GET /v1beta/models/{model})
-  if (payload.probe === "connectivity" || payload.probe === "models_get") {
-    if (!geminiKey) {
+  // Probe 1: Gateway Connectivity Probe (GET /health)
+  if (payload.probe === "gateway_health" || payload.probe === "connectivity") {
+    if (!GATEWAY_URL) {
       return jsonResponse({
-        stage: "models_get_connectivity_probe",
+        stage: "gateway_health_probe",
         status: 503,
         latencyMs: 0,
-        providerStatus: "MISSING_KEY",
-        canonicalReason: "API_KEY_INVALID",
-        credential_present: false,
-        credential_source: credentialSource
+        providerStatus: "MISSING_GATEWAY_URL",
+        canonicalReason: "GATEWAY_UNAVAILABLE",
+        success: false
       }, 503, cors);
     }
-    const res = await probeGeminiModelsGet(geminiKey, PRIMARY_MODEL);
-    return jsonResponse({
-      ...res,
-      credential_present: credentialPresent,
-      credential_source: credentialSource
-    }, res.success ? 200 : (res.status || 500), cors);
-  }
-
-  // Probe 2: minimal generation (Gemini 3.7 + Fallback 2.5) com persistência em ai_audit_events
-  if (payload.probe === "minimal_generation") {
-    if (!geminiKey) {
-      return jsonResponse({
-        stage: "minimal_generation_probe",
-        status: 503,
-        latencyMs: 0,
-        providerStatus: "MISSING_KEY",
-        canonicalReason: "API_KEY_INVALID",
-        credential_present: false,
-        credential_source: credentialSource
-      }, 503, cors);
-    }
-
-    const res37 = await probeSingleModelGeneration(geminiKey, PRIMARY_MODEL);
-    
-    // Persiste auditoria sanitizada do probe 3.7
-    await adminClient.from("ai_audit_events").insert({
-      user_id: userId,
-      institution_id: profile.institution_id,
-      event_type: "provider_probe",
-      model_name: PRIMARY_MODEL,
-      input_characters: 0,
-      output_characters: 0,
-      success: res37.success,
-      metadata: {
-        probe_type: "generation",
-        model: PRIMARY_MODEL,
-        status: res37.status,
-        latency_ms: res37.latencyMs,
-        has_text: res37.hasText,
-        canonical_reason: res37.canonicalReason,
-        credential_source: credentialSource
-      }
-    });
-
-    let res25 = null;
-    if (!res37.success && isRecoverableModelError(res37.status, res37.canonicalReason)) {
-      res25 = await probeSingleModelGeneration(geminiKey, CLOUD_FALLBACK_MODEL);
-      
-      // Persiste auditoria sanitizada do probe 2.5 se executado
-      await adminClient.from("ai_audit_events").insert({
-        user_id: userId,
-        institution_id: profile.institution_id,
-        event_type: "provider_probe",
-        model_name: CLOUD_FALLBACK_MODEL,
-        input_characters: 0,
-        output_characters: 0,
-        success: res25.success,
-        metadata: {
-          probe_type: "generation",
-          model: CLOUD_FALLBACK_MODEL,
-          status: res25.status,
-          latency_ms: res25.latencyMs,
-          has_text: res25.hasText,
-          canonical_reason: res25.canonicalReason,
-          credential_source: credentialSource
-        }
+    const startHealth = performance.now();
+    try {
+      const hRes = await fetch(`${GATEWAY_URL.replace(/\/$/, "")}/health`, {
+        signal: AbortSignal.timeout(5000)
       });
+      const latencyMs = Math.round(performance.now() - startHealth);
+      const hData = await hRes.json().catch(() => ({ status: "UNKNOWN" }));
+      return jsonResponse({
+        stage: "gateway_health_probe",
+        status: hRes.status,
+        latencyMs,
+        gatewayStatus: hData.status,
+        success: hRes.ok
+      }, hRes.ok ? 200 : 503, cors);
+    } catch (hErr: unknown) {
+      const latencyMs = Math.round(performance.now() - startHealth);
+      const { networkCause } = classifyNetworkError(hErr);
+      return jsonResponse({
+        stage: "gateway_health_probe",
+        status: 503,
+        latencyMs,
+        providerStatus: networkCause,
+        canonicalReason: networkCause,
+        success: false
+      }, 503, cors);
     }
-
-    return jsonResponse({
-      stage: "minimal_generation_probe",
-      gemini_37: res37,
-      gemini_25: res25,
-      credential_present: credentialPresent,
-      credential_source: credentialSource
-    }, (res37.success || res25?.success) ? 200 : 503, cors);
   }
 
-  // Probe 3: embedding probe (gemini-embedding-2 -> 768d) com persistência em ai_audit_events
+  // Probe 2: Embedding Probe (TEMPORARY_RAG_EMBEDDING_EXCEPTION)
   if (payload.probe === "embedding") {
     if (!geminiKey) {
       return jsonResponse({
@@ -925,14 +748,12 @@ Deno.serve(async (req) => {
 
   const orderedHistory = [...(persistedHistory || [])].reverse() as MessageRow[];
   if (orderedHistory.at(-1)?.role === "user") orderedHistory.pop();
-  const normalizedHistory = normalizedGeminiHistory(orderedHistory);
 
   // Contextualização Bounded para Busca no RAG e Fallback Local
-  // Concatena no máximo a mensagem de usuário anterior mais recente + prompt atual
   const previousUserMessage = orderedHistory
     .filter((m) => m.role === "user")
     .at(-1);
-  
+
   let contextualRetrievalInput = prompt;
   let retrievalContextualized = false;
   if (previousUserMessage && cleanText(previousUserMessage.content, MAX_PROMPT_CHARACTERS)) {
@@ -944,74 +765,49 @@ Deno.serve(async (req) => {
   // Execução do RAG (Recuperação de Conhecimento Anatômico Contextualizado)
   const { sources, method: ragMethod } = await retrieveKnowledge(adminClient, geminiKey, contextualRetrievalInput);
 
-  let actualProvider = "google-gemini";
-  let actualModel = PRIMARY_MODEL;
+  let actualProvider = "aeternum-gateway";
+  let actualModel = "aeternum-llm";
   let modelFallbackUsed = false;
   let providerFallbackUsed = false;
   let responseText = "";
   let latencyMs = 0;
   const attempts: AttemptRecord[] = [];
 
-  // 1. Execução de Geração com Política Estrita de Fallback (Prompt normal enviado ao Gemini)
-  if (geminiKey) {
-    // Tentativa 1: Modelo Primário (gemini-3.7-flash)
-    const primaryAttempt = await executeModelCall(
-      PRIMARY_MODEL,
-      geminiKey,
+  // =========================================================================
+  // FASE 3B: GERAÇÃO VIA AETERNUM AI GATEWAY (DIRECT GEMINI GENERATION = 0)
+  // =========================================================================
+  if (GATEWAY_URL) {
+    const gatewayAttempt = await executeGatewayLLMCall(
+      GATEWAY_URL,
+      GATEWAY_TOKEN,
       String(profile.role || "student"),
       context,
       sources,
-      normalizedHistory,
+      orderedHistory,
       prompt,
-      String(profile.name || "")
+      String(profile.name || ""),
+      { userId, institutionId: profile.institution_id }
     );
 
     attempts.push({
-      model: PRIMARY_MODEL,
-      status: primaryAttempt.status,
-      canonicalReason: primaryAttempt.canonicalReason,
-      latencyMs: primaryAttempt.latencyMs
+      model: gatewayAttempt.model,
+      status: gatewayAttempt.status,
+      canonicalReason: gatewayAttempt.canonicalReason,
+      latencyMs: gatewayAttempt.latencyMs
     });
 
-    if (primaryAttempt.text) {
-      responseText = primaryAttempt.text;
-      actualModel = PRIMARY_MODEL;
-      actualProvider = "google-gemini";
+    if (gatewayAttempt.success) {
+      responseText = gatewayAttempt.text;
+      actualModel = gatewayAttempt.model;
+      actualProvider = gatewayAttempt.provider;
       modelFallbackUsed = false;
       providerFallbackUsed = false;
-      latencyMs = primaryAttempt.latencyMs;
-    } else if (primaryAttempt.recoverable) {
-      // Tentativa 2: Único Fallback Permitido (gemini-2.5-flash) apenas em erros recuperáveis
-      const fallbackAttempt = await executeModelCall(
-        CLOUD_FALLBACK_MODEL,
-        geminiKey,
-        String(profile.role || "student"),
-        context,
-        sources,
-        normalizedHistory,
-        prompt,
-        String(profile.name || "")
-      );
-
-      attempts.push({
-        model: CLOUD_FALLBACK_MODEL,
-        status: fallbackAttempt.status,
-        canonicalReason: fallbackAttempt.canonicalReason,
-        latencyMs: fallbackAttempt.latencyMs
-      });
-
-      if (fallbackAttempt.text) {
-        responseText = fallbackAttempt.text;
-        actualModel = CLOUD_FALLBACK_MODEL;
-        actualProvider = "google-gemini";
-        modelFallbackUsed = true;
-        providerFallbackUsed = false;
-        latencyMs = fallbackAttempt.latencyMs;
-      }
+      latencyMs = gatewayAttempt.latencyMs;
     }
   }
 
-  // 2. Fallback resiliente determinístico (Provider Fallback Contextualizado) se Cloud falhar
+  // Se Gateway falhar ou não estiver configurado: FAIL-CLOSED para fallback local determinístico
+  // (PROIBIÇÃO ABSOLUTA de chamada direta a Gemini generateContent em runtime)
   if (!responseText) {
     actualProvider = "local-fallback";
     actualModel = "vita-rag-dictionary";
@@ -1039,7 +835,7 @@ Deno.serve(async (req) => {
       role: "assistant",
       content: persistedText,
       metadata: {
-        primary_model: PRIMARY_MODEL,
+        primary_model: actualModel,
         actual_model: actualModel,
         actual_provider: actualProvider,
         model_fallback_used: modelFallbackUsed,
@@ -1072,7 +868,7 @@ Deno.serve(async (req) => {
       output_characters: persistedText.length,
       success: true,
       metadata: {
-        primary_model: PRIMARY_MODEL,
+        primary_model: actualModel,
         actual_model: actualModel,
         actual_provider: actualProvider,
         model_fallback_used: modelFallbackUsed,
@@ -1101,7 +897,7 @@ Deno.serve(async (req) => {
           conversationId,
           source: actualProvider,
           model: actualModel,
-          primaryModel: PRIMARY_MODEL,
+          primaryModel: actualModel,
           modelFallbackUsed,
           providerFallbackUsed,
           fallbackUsed: providerFallbackUsed,

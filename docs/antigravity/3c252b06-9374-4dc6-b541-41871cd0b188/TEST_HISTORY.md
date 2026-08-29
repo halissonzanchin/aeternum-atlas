@@ -1167,3 +1167,30 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / HP Victus
 
 ### Resultado
 ALL 61 GATEWAY, COMPOSITION & AGENTSESSION TESTS PASS (276/276 Total Suite PASS) | EVIDENCE INTEGRITY = PASS
+
+---
+
+## Teste 040 — Atlas AI Tutor → Aeternum AI Gateway Migration (Fase 3B)
+
+Data: 2026-08-29 15:40 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / Supabase Edge Functions)
+
+### 1. Suíte de Testes de Integração da Fase 3B (`atlas_tutor_gateway_integration.test.ts`)
+- **Teste 1 (AI_TUTOR_RAG_PRESERVED):** Contexto bibliográfico anatômico exato montado e verificado no payload do Gateway $\rightarrow$ **PASS**
+- **Teste 2 (AI_TUTOR_HISTORY_PRESERVED):** Histórico multi-turn (Turn 1 $\rightarrow$ Turn 2) preservado no payload do Gateway $\rightarrow$ **PASS**
+- **Teste 3 (AI_TUTOR_MINDMAP_CONTRACT_PRESERVED):** Protocolo de mapa mental roteado e executado $\rightarrow$ **PASS**
+- **Teste 4 (AI_TUTOR_GATEWAY_FAILURE_FAIL_CLOSED & ZERO DIRECT GEMINI):** Falha do Gateway resulta em fail-closed local com 0 chamadas diretas a Gemini $\rightarrow$ **PASS**
+- **Teste 5 (AI_TUTOR_TENANT_CONTEXT_PRESERVED & ROLE):** Contexto de instituição e papel de professor/estudante propagados $\rightarrow$ **PASS**
+
+### 2. Suíte Regressiva Geral
+- `atlas_tutor_gateway_integration.test.ts` $\rightarrow$ **5/5 PASS**
+- `livekit_agentsession_lifecycle.test.ts` $\rightarrow$ **1/1 PASS**
+- `livekit_openai_protocol.test.ts` $\rightarrow$ **7/7 PASS**
+- `livekit_gateway_composition.test.ts` $\rightarrow$ **6/6 PASS**
+- `livekit_component_e2e.test.ts` $\rightarrow$ **1/1 PASS**
+- `vita_gateway_integration.test.ts` $\rightarrow$ **22/22 PASS**
+- `gateway.test.ts` $\rightarrow$ **24/24 PASS**
+- Suíte completa (`src/providers`, `src/gateway`, `apps/agent`) $\rightarrow$ **281/281 PASS**
+
+### Resultado
+ALL 66 GATEWAY, COMPOSITION, AGENTSESSION & ATLAS TUTOR TESTS PASS (281/281 Total Suite PASS) | PHASE 3B = IMPLEMENTED
