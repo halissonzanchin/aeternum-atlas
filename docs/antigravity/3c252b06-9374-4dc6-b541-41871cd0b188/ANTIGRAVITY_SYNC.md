@@ -1395,3 +1395,16 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **Chamadas de Nuvem durante a validação:** Gemini=0, Deepgram=0, Cartesia=0
 - **VITA_LIVEKIT_GATEWAY_REAL_E2E:** **PASS**
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-29 01:40] — DECISÃO ARQUITETURAL: ESTRATÉGIA 3D OFICIAL (SKETCHFAB)
+
+- **Decisão:** Sketchfab oficializado como motor de renderização e hospedagem 3D canônico de produção (`AETERNUM_CUSTOM_3D_ENGINE = ARCHIVED`).
+- **Nomenclatura Futura:** Fase 3C renomeada para **AI ↔ SKETCHFAB INTELLIGENCE BRIDGE**.
+- **Invariante:** IA gera comandos semânticos com validação determinística via `AnatomicalStructureRegistry` (`AI_ARBITRARY_JS_TO_SKETCHFAB = FORBIDDEN`).
+- **Roadmap:**
+  - Atual: Fase 3A.2 (Concluída / Aguardando Auditoria ChatGPT)
+  - Próxima: Fase 3B (Atlas AI Tutor → Gateway)
+  - Futura: Fase 3C (AI ↔ Sketchfab Intelligence Bridge) — **NÃO INICIADA / BLOQUEADA**.
+- **Status:** `ARCHITECTURE_DECISION_RECORDED`

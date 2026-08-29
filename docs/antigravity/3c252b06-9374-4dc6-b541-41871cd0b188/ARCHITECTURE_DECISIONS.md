@@ -139,3 +139,85 @@ Pode ser transferido para servidores de nuvem dedicados via Docker Compose sem a
 
 ### Status
 ACCEPTED
+
+---
+
+## ADR-005 — Estratégia 3D Oficial: Plataforma Canônica Sketchfab & Arquivamento do Renderizador Próprio
+
+Data: 2026-08-29
+
+### Contexto
+O visualizador 3D proprietário desenvolvido anteriormente para o navegador apresentou desempenho de carregamento e renderização inaceitável, especialmente em smartphones e tablets utilizados por estudantes em cenários reais de aprendizagem online.
+
+### Decisão Arquitetural
+1. **Renderizador Próprio Arquivado:**
+   - `AETERNUM_CUSTOM_3D_ENGINE = LEGACY`
+   - `AETERNUM_CUSTOM_3D_ENGINE_STATUS = ARCHIVED`
+   - `AETERNUM_CUSTOM_3D_ENGINE_ACTIVE = NO`
+   - Proibida a restauração ou reconstrução do renderizador proprietário salvo decisão explícita futura.
+2. **Plataforma 3D Canônica de Produção:**
+   - **SKETCHFAB** (`STATUS: ACTIVE / CANONICAL / PRODUCTION 3D VISUALIZATION PLATFORM`).
+   - O Sketchfab é responsável pela hospedagem, renderização 3D, visualização web/mobile/tablet, câmera/navegação, nós da malha e anotações.
+   - O Aeternum Atlas é responsável pelas camadas de inteligência pedagógica e orquestração de comandos semânticos sobre o visualizador.
+3. **Nomenclatura da Futura Fase 3C:**
+   - **FASE 3C: AI ↔ SKETCHFAB INTELLIGENCE BRIDGE**
+4. **Arquitetura Conceitual da Fase 3C:**
+   ```
+   Aeternum Tutor / Vita
+           |
+           v
+   Aeternum AI Gateway
+           |
+           v
+   Anatomical Intent Resolver
+           |
+           v
+   Anatomical Structure Registry
+           |
+           v
+   Safe 3D Command Layer
+           |
+           v
+   Sketchfab Integration Bridge
+           |
+           v
+   Sketchfab Viewer API
+           |
+           v
+   Sketchfab-hosted anatomical model
+   ```
+5. **Invariante Crítico de Segurança:**
+   - A IA NUNCA gera JavaScript arbitrário para o Sketchfab.
+   - A IA NUNCA inventa IDs de nós/malhas do Sketchfab.
+   - A IA NUNCA executa comandos diretos não validados no visualizador.
+   - A IA produz exclusivamente comandos semânticos validados (ex: `focusStructure("radial_nerve")`, NUNCA `show(184)`).
+   - Somente o código determinístico do `AnatomicalStructureRegistry` traduz o `structureId` para o UID do modelo e nós/anotações específicos do Sketchfab.
+6. **Contrato Inicial de Comandos Seguros (Allowlist):**
+   - `focusStructure(structureId)`
+   - `showStructure(structureId)`
+   - `hideStructure(structureId)`
+   - `isolateStructure(structureId)`
+   - `showAnnotation(structureId)`
+   - `gotoAnnotation(annotationId)`
+   - `resetView()`
+   - `listAvailableStructures()`
+7. **Metadados Mínimos do Anatomical Structure Registry:**
+   - `structureId`
+   - `canonicalName`
+   - `aliases`
+   - `region`
+   - `system`
+   - `Sketchfab model UID`
+   - `Sketchfab node IDs`
+   - `Sketchfab annotation IDs`
+   - `supported actions`
+8. **Roadmap e Decomposição da Fase 3C:**
+   - 3C.1 Anatomical Structure Registry
+   - 3C.2 Safe Sketchfab Command Layer
+   - 3C.3 Anatomical Intent Resolver
+   - 3C.4 Voice/Text → Anatomy → Sketchfab
+   - 3C.5 Guided Anatomical Experiences
+   *(Fase 3C NÃO iniciada; bloqueada até a conclusão e auditoria das Fases 3A e 3B).*
+
+### Status
+ACCEPTED / ARCHITECTURE_DECISION_RECORDED
