@@ -5,3 +5,5 @@ export * from "./middleware/logging.ts";
 export * from "./middleware/auth.ts";
 export * from "./services/RAGService.ts";
 export * from "./services/MemoryService.ts";
+export * from "./client/VitaGatewayClient.ts";
+export * from "./client/VitaVoicePipeline.ts";

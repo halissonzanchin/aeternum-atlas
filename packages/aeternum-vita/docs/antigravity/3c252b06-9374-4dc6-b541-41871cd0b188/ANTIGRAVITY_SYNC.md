@@ -763,3 +763,56 @@ FALLBACK: CONFIGURED
   - `Cloud Calls`: Gemini=0, Deepgram=0, Cartesia=0
 - **Produção:** `ai-tutor v38` e `voice-token v8` intocados.
 - **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-28 23:05] — FASE 3A CONCLUÍDA: INTEGRAÇÃO AETERNUM VITA → AI GATEWAY
+
+### Branch & Governança
+- **Branch:** `antigravity/phase-3a-vita-gateway` (NÃO mergeada para `main`).
+- **Governança Vercel / Supabase:**
+  - `ai-tutor v38` e `voice-token v8` intocados e congelados em produção.
+  - Vercel production frontend intocado.
+  - Migração de Atlas AI Tutor: **NÃO INICIADA (Fase 3B)**.
+
+### Implementações da Fase 3A
+1. **VitaGatewayClient Canônico (`src/gateway/client/VitaGatewayClient.ts`):**
+   - Cliente HTTP tipado para o Aeternum AI Gateway (`127.0.0.1:8081`).
+   - Métodos: `health()`, `generate()`, `streamGenerate()`, `transcribe()`, `synthesize()`, `streamSynthesis()`.
+   - Tratamento e mapeamento de erros canônicos seguros (`request_cancelled`, `provider_timeout`, `provider_unavailable`, `provider_authentication_failed`, `capability_mismatch`, `gateway_timeout`).
+   - Propagação de `X-Request-Id` em todos os turnos.
+2. **VitaVoicePipeline (`src/gateway/client/VitaVoicePipeline.ts`):**
+   - Invariante de Persona: `PERSONA != MODEL != VOICE`.
+   - Mapeamento de Personas:
+     - Eduardo: `pt-br-warm-male-01`
+     - Antonia: `es-calm-female-01`
+     - Ariana: `en-calm-female-01`
+     - Fabian: `de-warm-male-01`
+   - Pipeline conversacional completo: `USER SPEECH -> STT Gateway -> Vita Brain / RAG -> LLM Gateway -> TTS Gateway -> AUDIO RESPONSE`.
+   - Cancelamento / Barge-in: aborta requisições via AbortSignal sem acionar fallback de nuvem.
+
+### Métricas de Teste
+- **Testes Determinísticos da Integração Vita $\rightarrow$ Gateway (`vita_gateway_integration.test.ts`):** 15/15 PASS
+- **Testes Determinísticos do Gateway (`gateway.test.ts`):** 24/24 PASS
+- **Total do Módulo Gateway (`src/gateway`):** 39/39 PASS
+- **Total da Suíte Regressiva Providers + Gateway + Agent:** 251/251 PASS (30 skipped cloud live opt-in)
+- **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
+
+### Benchmark Factual de Voz no HP Victus (Local-Only: `CLOUD_FALLBACK_ENABLED=false`)
+- **Health:** PASS (HTTP 200 | 84ms | status: HEALTHY)
+- **Cold Turn:**
+  - Status: PASS | total: 12220ms
+  - STT latency: 2720ms (textLength: 21)
+  - LLM latency: 2113ms (textLength: 442)
+  - TTS latency: 7386ms (audioBytes: 1177644)
+- **Warm Turns (3 turnos com streaming TTFT & TTFA):**
+  - **STT Latency:** min: 2732ms | median: 2845ms | max: 2925ms
+  - **LLM TTFT:** min: 415ms | median: 426ms | max: 493ms
+  - **LLM Total:** min: 2077ms | median: 2097ms | max: 2154ms
+  - **TTS TTFA:** min: 6268ms | median: 6329ms | max: 6483ms
+  - **TTS Total:** min: 6297ms | median: 7262ms | max: 7603ms
+  - **Total Voice Turn:** min: 11220ms | median: 12091ms | max: 12682ms
+- **Barge-in / Cancellation:** PASS (`ProviderCancelledError` | zero chamadas de nuvem)
+- **Chamadas de Nuvem durante os testes:** Gemini=0, Deepgram=0, Cartesia=0
+- **LOCAL_ONLY_GATEWAY_PROOF:** **PASS**
+- **Status:** `IMPLEMENTED / PENDING CHATGPT AUDIT`

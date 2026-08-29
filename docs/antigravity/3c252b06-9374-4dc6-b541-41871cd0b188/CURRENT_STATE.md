@@ -1,15 +1,16 @@
 # AETERNUM ATLAS — ESTADO ATUAL
 
 LAST_UPDATE=2026-08-28
-CURRENT_BRANCH=antigravity/phase-2d-hardening
+CURRENT_BRANCH=antigravity/phase-3a-vita-gateway
 MERGED_TO_MAIN=NO
 P0.1.1=VERIFIED
 FASE_2B_2=IMPLEMENTED / CORRECTIONS REQUIRED
 FASE_2B_2_1=VERIFIED (ChatGPT Audit)
 FASE_2C=VERIFIED (ChatGPT Audit)
 FASE_2C_1=VERIFIED (ChatGPT Audit)
-FASE_2D=IMPLEMENTED / CORRECTED / PENDING CHATGPT AUDIT
-FASE_2D_1=IMPLEMENTED / TYPECHECK CLOSED / PENDING CHATGPT AUDIT
+FASE_2D=VERIFIED (ChatGPT Audit)
+FASE_2D_1=VERIFIED (ChatGPT Audit)
+FASE_3A=IMPLEMENTED / PENDING CHATGPT AUDIT
 AI_TUTOR_RUNTIME_VERSION=v38
 VOICE_TOKEN_RUNTIME_VERSION=v8
 AI_TUTOR_PRIMARY_MODEL=gemini-3.7-flash
@@ -30,9 +31,9 @@ CARTESIA_PT_BR_VOICE_TARGET=Felipe (9904416a-0831-44ea-b8ee-5f145e8f9bbf)
 PROVIDER_ROUTER_SOURCES_OF_TRUTH=1 (Canonical: packages/aeternum-vita/src/providers/router | Thin Reexport: apps/agent)
 PROVIDER_ROUTER_STATUS=VERIFIED (ChatGPT Audit)
 AI_GATEWAY_PORT=8081
-AI_GATEWAY_STATUS=HARDENED (24/24 deterministic tests PASS / 192 total suite PASS / Strict Typecheck 0 errors / Local Proof PASS)
-AI_GATEWAY_AUTH_MODE=INTERNAL_DEV (Loopback 127.0.0.1 default)
-LOCAL_ONLY_GATEWAY_PROOF=PASS (Ollama / Kokoro / Faster-Whisper / Cloud calls = 0)
+AI_GATEWAY_STATUS=VERIFIED (ChatGPT Audit)
+VITA_GATEWAY_INTEGRATION_STATUS=HARDENED (15/15 integration tests PASS / 251 total suite PASS / Benchmark PASS)
+LOCAL_ONLY_GATEWAY_PROOF=PASS (STT 2845ms median / LLM TTFT 426ms median / TTS TTFA 6329ms median / Total 12091ms median / Cloud calls = 0)
 
 ---
 
@@ -40,14 +41,15 @@ LOCAL_ONLY_GATEWAY_PROOF=PASS (Ollama / Kokoro / Faster-Whisper / Cloud calls = 
 - **P0.1.1 — Sovereign Inference & Cloud Recovery Gate:** VERIFIED (ai-tutor v38, voice-token v8, Gemini 3.7 & 2.5 homologados, RAG contextualizado).
 - **Fase 2B.2.1 — Cloud Provider Correctness Gate:** VERIFIED by ChatGPT.
 - **Fase 2C & 2C.1 — Provider Router Final Hardening:** VERIFIED by ChatGPT.
-- **Fase 2D & 2D.1 — Aeternum AI Gateway Final Hardening:** IMPLEMENTED / TYPECHECK CLOSED / PENDING CHATGPT AUDIT.
-- **Fase 3A — Vita $\rightarrow$ Gateway Migration:** PLANNED / BLOCKED UNTIL GATEWAY VERIFIED.
+- **Fase 2D & 2D.1 — Aeternum AI Gateway Final Hardening:** VERIFIED by ChatGPT.
+- **Fase 3A — Aeternum Vita $\rightarrow$ AI Gateway Integration:** IMPLEMENTED / PENDING CHATGPT AUDIT.
+- **Fase 3B — Atlas AI Tutor $\rightarrow$ Gateway Migration:** PLANNED / BLOCKED UNTIL 3A VERIFIED.
 
 ## 2. Visão Geral dos Componentes
 
 ### Frontend
 - Provider: Vercel (Produção em https://www.aeternumatlas.com)
-- Status: DEPLOYED / ACTIVE (Vercel Production Auto-Deploy occurred on initial 2D commit; Gateway NOT exposed; Frontend bundle identical; Phase 2D.1 committed strictly to non-main branch)
+- Status: DEPLOYED / ACTIVE (Vercel production deploy intocado; Phase 3A desenvolvida em branch dedicada)
 
 ### Authentication
 - Provider: Supabase GoTrue
@@ -60,22 +62,19 @@ LOCAL_ONLY_GATEWAY_PROOF=PASS (Ollama / Kokoro / Faster-Whisper / Cloud calls = 
 - Embedding Model: `gemini-embedding-2` (768 dimensões)
 - RAG Method: `postgresql-fts` (6 fontes) com contextualização bounded
 
-### Aeternum AI Gateway (Fase 2D & 2D.1 — packages/aeternum-vita/src/gateway & apps/gateway)
-- **Port:** `8081`
-- **Binding:** `127.0.0.1` (Loopback internal only)
-- **Auth Mode:** `INTERNAL_DEV` (Fail-closed on SUPABASE_JWT without real validator; public bind guard enforced)
-- **Timeout Invariant:** `providerTimeoutMs (30s) < gatewayRequestTimeoutMs (35s)` enforced
-- **Health Architecture:** Truthful health registry checking live `provider.health()` with bounded 1.5s timeout and canonical `ProviderExecutionContext`
-- **Typecheck Coverage:** Dedicated `tsconfig.json` covering `src/gateway` and `apps/gateway` with 0 errors
-- **SSE Error Framing:** Safe JSON pre-chunk / `event: error` post-chunk framing
-- **Routing Source:** Canonical `ProviderRouter` (`src/providers/router`)
-- **API Endpoints:** `GET /health`, `POST /v1/llm/generate`, `POST /v1/llm/stream`, `POST /v1/stt/transcribe`, `POST /v1/tts/synthesize`, `POST /v1/tts/stream`
-- **Status:** **0 Typecheck Errors / 24/24 Deterministic Tests PASS / 192/192 Total Providers & Gateway PASS / HP Victus Local Proof PASS**
+### Aeternum Vita Runtime (Fase 3A — packages/aeternum-vita)
+- **Gateway Client:** `VitaGatewayClient` (`src/gateway/client/VitaGatewayClient.ts`)
+- **Voice Pipeline:** `VitaVoicePipeline` (`src/gateway/client/VitaVoicePipeline.ts`)
+- **Target:** `http://127.0.0.1:8081`
+- **Persona Invariant:** `PERSONA != MODEL != VOICE` (Eduardo $\rightarrow$ `pt-br-warm-male-01`, Antonia $\rightarrow$ `es-calm-female-01`, Ariana $\rightarrow$ `en-calm-female-01`, Fabian $\rightarrow$ `de-warm-male-01`)
+- **Pipeline:** `USER SPEECH -> STT Gateway -> Conversational Brain -> LLM Gateway -> TTS Gateway -> AUDIO RESPONSE`
+- **Status:** **15/15 Integration Tests PASS / 251/251 Total Suite PASS / HP Victus Voice Benchmark PASS**
 
 ### Local Stack (HP Victus)
 - LiveKit Server: :7880 (Community Edition)
 - Speaches (STT/TTS): :8000 (Faster-Whisper / Kokoro-82M / Piper)
 - Ollama: :11434 (qwen2.5:3b)
+- Aeternum AI Gateway: :8081
 - Status: HEALTHY / RUNNING
 
 ### Segurança & Observabilidade

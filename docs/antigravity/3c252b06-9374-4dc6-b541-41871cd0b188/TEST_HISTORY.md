@@ -923,3 +923,36 @@ Ambiente: Monorepo Aeternum Atlas (Node 24 / TypeScript 5.9 / Vitest)
 
 ### Resultado
 GATEWAY TYPECHECK = PASS (0 ERRORS) | ALL 24 GATEWAY TESTS PASS | 192 TOTAL TESTS PASS | LOCAL PROOF = PASS
+
+---
+
+## Teste 033 — Integração Aeternum Vita → AI Gateway & Benchmark Factual de Voz (Fase 3A)
+
+Data: 2026-08-28 23:05 BRT  
+Ambiente: Monorepo Aeternum Atlas (Node 24 / Vitest / TypeScript 5.9 / HP Victus Stack: Gateway :8081, Ollama :11434, Speaches :8000)
+
+### 1. Suíte de Testes Determinísticos
+- `vita_gateway_integration.test.ts` $\rightarrow$ **15/15 PASS**
+- `gateway.test.ts` $\rightarrow$ **24/24 PASS**
+- Suíte completa (`src/providers`, `src/gateway`, `apps/agent`) $\rightarrow$ **251/251 PASS**
+
+### 2. Validação Factual de Turno de Voz no HP Victus (`CLOUD_FALLBACK_ENABLED=false`)
+- **Health:** HTTP 200 (84ms) $\rightarrow$ `HEALTHY`
+- **Cold Turn:**
+  - STT: 2720ms (textLength: 21)
+  - LLM: 2113ms (textLength: 442)
+  - TTS: 7386ms (audioBytes: 1177644)
+  - Total Voice Turn: 12220ms
+- **3 Warm Turns (Estatísticas Factuais):**
+  - STT Latency: min=2732ms, median=2845ms, max=2925ms
+  - LLM TTFT: min=415ms, median=426ms, max=493ms
+  - LLM Total: min=2077ms, median=2097ms, max=2154ms
+  - TTS TTFA: min=6268ms, median=6329ms, max=6483ms
+  - TTS Total: min=6297ms, median=7262ms, max=7603ms
+  - Total Voice Turn: min=11220ms, median=12091ms, max=12682ms
+- **Cancellation / Barge-in:** PASS (HTTP 499 / AbortError / zero chamadas à nuvem)
+- **Cloud inference calls:** Gemini=0, Deepgram=0, Cartesia=0
+- **LOCAL_ONLY_GATEWAY_PROOF:** **PASS**
+
+### Resultado
+ALL 39 GATEWAY & INTEGRATION TESTS PASS (251/251 Total Suite PASS) | LOCAL ONLY PROOF = PASS
