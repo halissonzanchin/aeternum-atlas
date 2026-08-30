@@ -1426,3 +1426,26 @@ FALLBACK: CONFIGURED
 - Infraestrutura provisionada: 0
 - Cutover em produção: **BLOQUEADO**
 - Status: `PHASE 3B.4A ARCHITECTURE PROPOSAL COMPLETE / PENDING CHATGPT ARCHITECTURAL AUDIT`
+
+---
+
+## [2026-08-30 00:10] — FASE 3B.4A.1 CONCLUÍDA: REFINAMENTO ARQUITETURAL DO GATEWAY DE PRODUÇÃO
+
+### Sumário dos Refinamentos (Auditoria ChatGPT)
+1. **Classificação de Plataformas Cloud:** Fly.io Machine / VM Linux Persistente definidas como candidatas preferenciais. Cloud Run classificado como requerendo provas adicionais de networking overlay para nós externos.
+2. **Terminologia de Rede Privada:** Rede overlay criptografada WireGuard/Tailscale com endereçamento privado e ACLs. mTLS classificado como `NOT IMPLEMENTED / OPTIONAL FUTURE HARDENING`.
+3. **Requisitos TLS:** `TLS >= 1.2 REQUIRED`, `TLS 1.3 PREFERRED`, `VALID PUBLIC CERTIFICATE REQUIRED`, `HTTPS ONLY`.
+4. **Supabase Secrets & Egress:** Segredos de projeto do Supabase injetados em runtime na Edge Function. Declarado explicitamente: `SUPABASE_EDGE_STATIC_EGRESS_IP = NOT AVAILABLE` (autenticação baseada em `HTTPS + SERVICE_TOKEN`, sem dependência de IP fixo).
+5. **Rotação de Tokens:** Single-token `IMPLEMENTED / TESTED`; dual-token rotation classificado como `PLANNED / PRE-PRODUCTION REQUIREMENT`.
+6. **Resiliência Factual:** Substituição de termos absolutos por `HIGH AVAILABILITY`, `BEST-EFFORT AUTOMATIC FAILOVER`, `GRACEFUL DEGRADATION`, `MULTI-PROVIDER RESILIENCE`.
+7. **Medições Pré-Produção:** Aferição empírica de latência (`p50, p95, p99`) para Hard Failure (`ECONNREFUSED`) e Soft Failure (Timeout) antes de fixar SLOs.
+8. **Candidatos de Piloto:** Opção A (Fly.io Machine + WireGuard) e Opção B (VM Linux + Tailscale). Nenhuma infraestrutura provisionada nesta fase.
+9. **Domínio Canônico:** `gateway.aeternumatlas.com`.
+10. **LiveKit Scope:** `LIVEKIT_REAL_ROOM_USER_E2E = PENDING PRE-PRODUCTION QA` (fora do escopo da 3B.4).
+
+### Invariantes de Governança
+- Alterações em código de runtime: 0
+- Alterações visuais no frontend: 0
+- Alterações em CSS: 0
+- Infraestrutura provisionada: 0
+- Status: `PHASE 3B.4A.1 ARCHITECTURE HARDENING COMPLETE / PENDING CHATGPT FINAL ARCHITECTURAL AUDIT`

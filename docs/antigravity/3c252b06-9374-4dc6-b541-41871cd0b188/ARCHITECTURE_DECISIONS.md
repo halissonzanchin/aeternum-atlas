@@ -221,3 +221,26 @@ O visualizador 3D proprietário desenvolvido anteriormente para o navegador apre
 
 ### Status
 ACCEPTED / ARCHITECTURE_DECISION_RECORDED
+
+---
+
+## ADR-006 — Arquitetura de Produção e Conectividade do AI Gateway (Fase 3B.4A.1)
+
+Data: 2026-08-30
+
+### Contexto
+A Fase 3B comprovou os contratos de aplicação do `ai-tutor` com o AI Gateway em ambiente de desenvolvimento local (`127.0.0.1:8081`). Para operação em produção, as Supabase Edge Functions devem alcançar o Gateway via HTTPS seguro, mantendo a inferência prioritária local/privada e contingência em nuvem.
+
+### Problema
+O hardware de desenvolvimento local (HP Victus) não pode ser exposto à Internet via portas abertas ou roteadores residenciais, e o Supabase Edge Functions não possui IP de saída estático.
+
+### Decisão
+1. **Separação de Planos:** Control Plane (Supabase Edge + AI Gateway) desacoplado do Inference Plane (Ollama/Speaches locais e Gemini/Cartesia na nuvem).
+2. **Classificação do Nó Local:** O HP Victus é classificado estritamente como **Nó de Desenvolvimento / Piloto Acadêmico**.
+3. **Ingress & Autenticação:** O AI Gateway de produção opera sob HTTPS (`TLS >= 1.2`, `TLS 1.3 preferencial`, certificado público válido) no domínio `gateway.aeternumatlas.com`. A autenticação com Supabase Edge baseia-se no modo canônico `SERVICE_TOKEN` em tempo constante. Allowlist de IP é proibida como mecanismo obrigatório (`SUPABASE_EDGE_STATIC_EGRESS_IP = NOT AVAILABLE`).
+4. **Conectividade com Inferência Privada:** Realizada via rede overlay criptografada (WireGuard / Tailscale) com ACLs e endereçamento privado. mTLS é classificado como melhoria futura opcional.
+5. **Candidatos de Piloto:** Opção A (Fly.io Machine + WireGuard) como candidata preferencial; Opção B (VM Linux Persistente + Tailscale) como contingência. Nenhuma infraestrutura provisionada nesta fase.
+6. **Resiliência:** Alta disponibilidade e failover automático de melhor esforço (Best-Effort Automatic Failover) via `ProviderRouter`.
+
+### Status
+ACCEPTED / ARCHITECTURE_DECISION_RECORDED (Phase 3B.4A.1)
