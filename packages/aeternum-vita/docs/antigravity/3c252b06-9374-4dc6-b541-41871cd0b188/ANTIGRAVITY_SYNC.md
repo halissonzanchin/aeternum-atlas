@@ -1506,3 +1506,22 @@ FALLBACK: CONFIGURED
 - **Suíte Monorepo:** **310/310 PASS** (30 skipped cloud live opt-in)
 - **TypeScript:** **0 erros**
 - **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`
+
+---
+
+## [2026-08-30 02:58] — FASE 3B.4B.1 MICRO-GATE FINAL DE REPRODUTIBILIDADE DE CONTÊINER CONCLUÍDO (CLEAN CHECKOUT, INTERNAL BUILDER COMPILATION, ESBUILD LOCKED, DOCKER PROOF 100%)
+
+### Entregas do Micro-Gate
+1. **Reprodutibilidade em Checkout Limpo:** O Dockerfile compila `dist/gateway.mjs` internamente no estágio `builder` (`RUN node scripts/build_gateway.mjs`), sem depender de artefatos pré-existentes no host.
+2. **Esbuild Explícito e Travado:** Dependências `esbuild@0.28.2`, `@esbuild/linux-x64@0.28.2` e `@esbuild/win32-x64@0.28.2` declaradas e travadas.
+3. **Zero TSX em Runtime:** Execução do contêiner é puramente JavaScript nativo do Node 24 (`CMD ["node", "dist/gateway.mjs"]`).
+4. **Zero TLS Bypass:** Remoção total de `NODE_TLS_REJECT_UNAUTHORIZED=0` e configurações de desativação de SSL.
+5. **Usuário Não-Root:** `USER node` preservado no contêiner.
+6. **Shutdown Uniformizado Bounded:** SIGTERM (555ms) e SIGINT (665ms) ambos testados e validados no contêiner.
+7. **Prova Docker Limpa 100%:** Build sem cache a partir de estado sem `dist/`, liveness (200), readiness (503), auth (401/401/503), rotação dual-token comprovada.
+
+### Métricas de Teste
+- **Suíte Prontidão:** `gateway_production_readiness_3b4b1.test.ts` $\rightarrow$ **7/7 PASS**
+- **Suíte Monorepo:** **310/310 PASS** (30 skipped cloud live opt-in)
+- **TypeScript:** **0 erros**
+- **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`

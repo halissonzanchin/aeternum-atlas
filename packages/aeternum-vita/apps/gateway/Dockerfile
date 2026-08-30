@@ -1,4 +1,17 @@
-# Aeternum AI Gateway — Production Dockerfile
+# Aeternum AI Gateway — Production Multi-Stage Dockerfile
+FROM node:24-bookworm-slim AS builder
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY node_modules ./node_modules
+COPY scripts ./scripts
+COPY apps/gateway ./apps/gateway
+COPY src ./src
+
+# Compilação determinística do Gateway dentro do builder stage via esbuild
+RUN node scripts/build_gateway.mjs
+
 FROM node:24-bookworm-slim AS runner
 
 WORKDIR /app
@@ -8,7 +21,8 @@ ENV AETERNUM_AI_GATEWAY_HOST=0.0.0.0
 
 USER node
 
-COPY --chown=node:node dist/gateway.mjs ./dist/gateway.mjs
+# Copia estritamente o artefato compilado internamente no builder stage
+COPY --from=builder --chown=node:node /app/dist/gateway.mjs ./dist/gateway.mjs
 
 EXPOSE 8081
 
