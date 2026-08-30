@@ -1934,3 +1934,22 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **Suíte Monorepo:** **308/308 PASS** (30 skipped cloud live opt-in)
 - **TypeScript:** **0 erros** em `tsconfig.json`, `apps/gateway` e `apps/agent`
 - **Status:** `PHASE 3B.4B.1 IMPLEMENTED / PENDING CHATGPT AUDIT`
+
+---
+
+## [2026-08-30 01:15] — FASE 3B.4B.1 CORREÇÕES FINAIS AUDITADAS CONCLUÍDAS (TRUE LIVENESS, FINITE SHUTDOWN, DOCKER PROOF 100%)
+
+### Correções Aplicadas
+1. **True Liveness (`/health`):** Probe ultraleve sem chamadas ou dependência de provedores de inferência. Retorna 200 `{ status: "HEALTHY" }` mesmo com todos os provedores offline.
+2. **Readiness Factual (`/ready`):** Avaliação exclusiva de dependências com `cloud_fallback` factual (`configured` / `unavailable` / `disabled`).
+3. **Invariante do Primary Token:** `PRIMARY_SERVICE_TOKEN` obrigatório no modo `SERVICE_TOKEN` (presença exclusiva de token secundário falha a inicialização).
+4. **Shutdown Finito Bounded:** `stop(graceTimeoutMs)` com encerramento de conexões remanescentes e resolução garantida dentro do deadline.
+5. **Configuração Completa:** `maxConcurrentRequests` e `shutdownTimeoutMs` repassados do ambiente para o construtor do Gateway.
+6. **Prova Factual de Contêiner Docker Executada Localmente:** Build, startup com credenciais sintéticas, `/health` 200, `/ready` 503, auth 401/401/503 e graceful shutdown em 1119ms.
+
+### Métricas de Teste
+- **Suíte Prontidão:** `gateway_production_readiness_3b4b1.test.ts` $\rightarrow$ **7/7 PASS**
+- **Suíte Monorepo:** **310/310 PASS** (30 skipped cloud live opt-in)
+- **TypeScript:** **0 erros**
+- **Docker Proof:** **100% SUCESSO**
+- **Status:** `PHASE 3B.4B.1 FINAL CORRECTIONS IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`

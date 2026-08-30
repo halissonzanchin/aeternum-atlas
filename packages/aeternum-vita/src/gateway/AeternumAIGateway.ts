@@ -30,6 +30,7 @@ export class AeternumAIGateway {
   private isRunning = false;
   private isShuttingDown = false;
   private activeRequests = 0;
+  private openSockets = new Set<import("node:net").Socket>();
 
   constructor(config: GatewayConfig) {
     const host = config.host || "127.0.0.1";
@@ -46,9 +47,8 @@ export class AeternumAIGateway {
 
     if (authMode === "SERVICE_TOKEN") {
       const primary = (config.authToken || process.env.AETERNUM_AI_GATEWAY_TOKEN || process.env.PRIMARY_SERVICE_TOKEN || "").trim();
-      const secondary = (config.secondaryAuthToken || process.env.SECONDARY_SERVICE_TOKEN || "").trim();
-      if (!primary && !secondary) {
-        throw new Error("Modo SERVICE_TOKEN requer configuração de authToken seguro não-vazio.");
+      if (!primary) {
+        throw new Error("Modo SERVICE_TOKEN requer configuração de authToken seguro não-vazio (PRIMARY_SERVICE_TOKEN obrigatório).");
       }
     }
 
@@ -112,6 +112,13 @@ export class AeternumAIGateway {
         reject(err);
       });
 
+      this.server.on("connection", (socket) => {
+        this.openSockets.add(socket);
+        socket.on("close", () => {
+          this.openSockets.delete(socket);
+        });
+      });
+
       this.server.listen(this.config.port, this.config.host, () => {
         this.isRunning = true;
         this.config.logger.info("GATEWAY_STARTED", {
@@ -128,30 +135,59 @@ export class AeternumAIGateway {
     if (!this.isRunning || !this.server) return;
 
     this.isShuttingDown = true;
-    const deadlineMs = graceTimeoutMs || this.config.shutdownTimeoutMs || 5000;
+    const deadlineMs = graceTimeoutMs ?? this.config.shutdownTimeoutMs ?? 5000;
+    const serverRef = this.server;
 
-    return new Promise((resolve, reject) => {
-      this.server!.close((err) => {
+    return new Promise<void>((resolve, reject) => {
+      let resolved = false;
+
+      const finish = (err?: Error | null) => {
+        if (resolved) return;
+        resolved = true;
+        this.isRunning = false;
+        this.isShuttingDown = false;
         if (err) {
           this.config.logger.error("GATEWAY_STOP_ERROR", { error: err.message });
           reject(err);
         } else {
-          this.isRunning = false;
-          this.isShuttingDown = false;
           this.config.logger.info("GATEWAY_STOPPED");
           resolve();
         }
+      };
+
+      if (typeof serverRef.closeIdleConnections === "function") {
+        serverRef.closeIdleConnections();
+      }
+
+      serverRef.close((err) => {
+        if (err && (err as any).code !== "ERR_SERVER_NOT_RUNNING") {
+          finish(err);
+        } else {
+          finish(null);
+        }
       });
 
-      const checkInterval = setInterval(() => {
-        if (this.activeRequests === 0) {
-          clearInterval(checkInterval);
+      const deadlineTimer = setTimeout(() => {
+        if (typeof serverRef.closeAllConnections === "function") {
+          serverRef.closeAllConnections();
         }
-      }, 50);
-
-      setTimeout(() => {
-        clearInterval(checkInterval);
+        for (const socket of this.openSockets) {
+          socket.destroy();
+        }
+        this.openSockets.clear();
+        finish(null);
       }, deadlineMs);
+
+      const pollInterval = setInterval(() => {
+        if (this.activeRequests === 0) {
+          clearInterval(pollInterval);
+          clearTimeout(deadlineTimer);
+          if (typeof serverRef.closeIdleConnections === "function") {
+            serverRef.closeIdleConnections();
+          }
+          finish(null);
+        }
+      }, 25);
     });
   }
 
@@ -307,60 +343,19 @@ export class AeternumAIGateway {
   }
 
   private async handleHealth(req: http.IncomingMessage, res: http.ServerResponse, requestId: string): Promise<void> {
-    const reg = this.config.healthRegistry;
-
-    const [llm_local, llm_cloud, stt_local, stt_cloud, tts_local, tts_cloud] = await Promise.all([
-      this.checkProviderHealth(reg.llm_local),
-      this.checkProviderHealth(reg.llm_cloud),
-      this.checkProviderHealth(reg.stt_local),
-      this.checkProviderHealth(reg.stt_cloud),
-      this.checkProviderHealth(reg.tts_local),
-      this.checkProviderHealth(reg.tts_cloud)
-    ]);
-
-    const isCapabilityServiceable = (local: ProviderHealthStatus, cloud: ProviderHealthStatus) => {
-      if (!local.enabled && !cloud.enabled) return true;
-      const localOk = local.enabled && (local.status === "HEALTHY" || local.status === "DEGRADED");
-      const cloudOk = cloud.enabled && (cloud.status === "HEALTHY" || cloud.status === "DEGRADED");
-      return localOk || cloudOk;
-    };
-
-    const llmOk = isCapabilityServiceable(llm_local, llm_cloud);
-    const sttOk = isCapabilityServiceable(stt_local, stt_cloud);
-    const ttsOk = isCapabilityServiceable(tts_local, tts_cloud);
-
-    let overallStatus: "HEALTHY" | "DEGRADED" | "UNAVAILABLE" = "HEALTHY";
-
-    if (!llmOk || !sttOk || !ttsOk) {
-      overallStatus = "UNAVAILABLE";
-    } else {
-      const allEnabled = [llm_local, llm_cloud, stt_local, stt_cloud, tts_local, tts_cloud].filter((p) => p.enabled);
-      const anyDegradedOrUnavailable = allEnabled.some((p) => p.status !== "HEALTHY");
-      if (anyDegradedOrUnavailable) {
-        overallStatus = "DEGRADED";
-      }
-    }
-
-    const health: GatewayHealthResponse = {
-      status: overallStatus,
+    const isAlive = this.isRunning && !this.isShuttingDown;
+    const body = {
+      status: isAlive ? "HEALTHY" : "UNAVAILABLE",
       gateway_version: this.config.version,
       mode: this.config.mode,
       auth_mode: this.config.authMode,
-      timestamp: new Date().toISOString(),
-      providers: {
-        llm_local,
-        llm_cloud,
-        stt_local,
-        stt_cloud,
-        tts_local,
-        tts_cloud
-      }
+      timestamp: new Date().toISOString()
     };
 
-    res.statusCode = overallStatus === "UNAVAILABLE" ? 503 : 200;
+    res.statusCode = isAlive ? 200 : 503;
     res.setHeader("Content-Type", "application/json");
     res.setHeader("X-Request-Id", requestId);
-    res.end(JSON.stringify(health));
+    res.end(JSON.stringify(body));
   }
 
   private async handleReady(req: http.IncomingMessage, res: http.ServerResponse, requestId: string): Promise<void> {
@@ -393,23 +388,31 @@ export class AeternumAIGateway {
     const sttOk = isCapabilityServiceable(stt_local, stt_cloud);
     const ttsOk = isCapabilityServiceable(tts_local, tts_cloud);
 
-    const hasCloudFallback = (llm_cloud.enabled && (llm_cloud.status === "HEALTHY" || llm_cloud.status === "DEGRADED")) ||
-                             (stt_cloud.enabled && (stt_cloud.status === "HEALTHY" || stt_cloud.status === "DEGRADED")) ||
-                             (tts_cloud.enabled && (tts_cloud.status === "HEALTHY" || tts_cloud.status === "DEGRADED"));
-    const cloudFallbackState = (llm_cloud.enabled || stt_cloud.enabled || tts_cloud.enabled) ? "configured" : "disabled";
+    const anyCloudEnabled = Boolean(llm_cloud.enabled || stt_cloud.enabled || tts_cloud.enabled);
+    const anyCloudHealthyOrDegraded = Boolean(
+      (llm_cloud.enabled && (llm_cloud.status === "HEALTHY" || llm_cloud.status === "DEGRADED")) ||
+      (stt_cloud.enabled && (stt_cloud.status === "HEALTHY" || stt_cloud.status === "DEGRADED")) ||
+      (tts_cloud.enabled && (tts_cloud.status === "HEALTHY" || tts_cloud.status === "DEGRADED"))
+    );
+
+    let cloudFallbackState: "configured" | "unavailable" | "disabled" = "disabled";
+    if (anyCloudEnabled) {
+      cloudFallbackState = anyCloudHealthyOrDegraded ? "configured" : "unavailable";
+    }
 
     let readinessStatus: "READY" | "DEGRADED" | "NOT_READY" = "READY";
 
     if (!llmOk || !sttOk || !ttsOk) {
       readinessStatus = "NOT_READY";
     } else {
-      const anyLocalDegradedOrDown =
+      const anyLocalDegradedOrDown = Boolean(
         (llm_local.enabled && llm_local.status !== "HEALTHY") ||
         (stt_local.enabled && stt_local.status !== "HEALTHY") ||
-        (tts_local.enabled && tts_local.status !== "HEALTHY");
+        (tts_local.enabled && tts_local.status !== "HEALTHY")
+      );
 
       if (anyLocalDegradedOrDown) {
-        readinessStatus = hasCloudFallback ? "DEGRADED" : "NOT_READY";
+        readinessStatus = anyCloudHealthyOrDegraded ? "DEGRADED" : "NOT_READY";
       }
     }
 
@@ -431,7 +434,6 @@ export class AeternumAIGateway {
     res.setHeader("X-Request-Id", requestId);
     res.end(JSON.stringify(body));
   }
-
   private async handleLLMGenerate(
     req: http.IncomingMessage,
     res: http.ServerResponse,

@@ -19,6 +19,7 @@ import {
 } from "../../providers/types/index.ts";
 import {
   GatewayHealthResponse,
+  GatewayReadinessResponse,
   GatewaySuccessResponse
 } from "../types.ts";
 
@@ -91,6 +92,48 @@ export class VitaGatewayClient {
   // ==========================================
   // HEALTH
   // ==========================================
+
+
+  // ==========================================
+  // READINESS
+  // ==========================================
+
+  async ready(context?: ProviderExecutionContext): Promise<GatewayReadinessResponse> {
+    const requestId = context?.requestId || `ready-client-${crypto.randomUUID()}`;
+    const headers = this.buildHeaders(requestId);
+    const timeoutMs = context?.timeoutMs || 2000;
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+    if (context?.signal) {
+      context.signal.addEventListener("abort", () => controller.abort());
+    }
+
+    try {
+      const res = await fetch(`${this.baseUrl}/ready`, {
+        method: "GET",
+        headers,
+        signal: controller.signal
+      });
+
+      if (!res.ok && res.status !== 503) {
+        throw new ProviderUnavailableError(
+          `Gateway readiness check falhou com status HTTP ${res.status}`,
+          "gateway"
+        );
+      }
+
+      return (await res.json()) as GatewayReadinessResponse;
+    } catch (err: any) {
+      if (err.name === "AbortError" || context?.signal?.aborted) {
+        throw new ProviderCancelledError("Readiness check cancelado.", "gateway");
+      }
+      throw new ProviderUnavailableError("Gateway inacessível no endpoint /ready.", "gateway");
+    } finally {
+      clearTimeout(timer);
+    }
+  }
 
   async health(context?: ProviderExecutionContext): Promise<GatewayHealthResponse> {
     const requestId = context?.requestId || `health-client-${crypto.randomUUID()}`;

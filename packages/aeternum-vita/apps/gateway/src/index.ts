@@ -62,8 +62,12 @@ const gateway = new AeternumAIGateway({
   host: envConfig.host,
   authMode: envConfig.authMode,
   mode: envConfig.mode,
+  authToken: envConfig.authToken,
+  secondaryAuthToken: envConfig.secondaryAuthToken,
   providerTimeoutMs: envConfig.providerTimeoutMs,
   gatewayRequestTimeoutMs: envConfig.gatewayRequestTimeoutMs,
+  maxConcurrentRequests: envConfig.maxConcurrentRequests,
+  shutdownTimeoutMs: envConfig.shutdownTimeoutMs,
   router,
   healthRegistry: {
     llm_local: localLLM ? { provider: localLLM, enabled: true } : undefined,
@@ -81,7 +85,7 @@ gateway.start().then(() => {
 
 process.on("SIGTERM", async () => {
   console.log("Sinal SIGTERM recebido. Encerrando Gateway graciosamente...");
-  await gateway.stop(5000);
+  await gateway.stop(envConfig.shutdownTimeoutMs);
   process.exit(0);
 });
 

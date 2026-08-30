@@ -52,9 +52,11 @@ describe("Aeternum Vita → AI Gateway Integration (Phase 3A & 3A.1)", () => {
       const client = new VitaGatewayClient({ baseUrl: `http://127.0.0.1:${p}` });
       const health = await client.health();
       expect(health.status).toBe("HEALTHY");
-      expect(health.providers.llm_local.status).toBe("HEALTHY");
-      expect(health.providers.stt_local.status).toBe("HEALTHY");
-      expect(health.providers.tts_local.status).toBe("HEALTHY");
+      const ready = await client.ready();
+      expect(ready.status).toBe("READY");
+      expect(ready.providers.local_llm).toBe("healthy");
+      expect(ready.providers.local_stt).toBe("healthy");
+      expect(ready.providers.local_tts).toBe("healthy");
     } finally {
       await gateway.stop();
     }

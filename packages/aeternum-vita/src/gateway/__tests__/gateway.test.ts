@@ -44,13 +44,20 @@ describe("Aeternum AI Gateway — Hardened Suite (Phase 2D.1)", () => {
 
     await gateway.start();
     try {
-      const res = await fetch(`${baseUrl()}/health`);
+      // 1. /health é liveness pura
+      const liveRes = await fetch(`${baseUrl()}/health`);
+      expect(liveRes.status).toBe(200);
+      const liveData = await liveRes.json();
+      expect(liveData.status).toBe("HEALTHY");
+
+      // 2. /ready avalia dependências
+      const res = await fetch(`${baseUrl()}/ready`);
       expect(res.status).toBe(200);
       const data = await res.json();
-      expect(data.status).toBe("HEALTHY");
-      expect(data.providers.llm_local.status).toBe("HEALTHY");
-      expect(data.providers.stt_local.status).toBe("HEALTHY");
-      expect(data.providers.tts_local.status).toBe("HEALTHY");
+      expect(data.status).toBe("READY");
+      expect(data.providers.local_llm).toBe("healthy");
+      expect(data.providers.local_stt).toBe("healthy");
+      expect(data.providers.local_tts).toBe("healthy");
     } finally {
       await gateway.stop();
     }
@@ -83,11 +90,11 @@ describe("Aeternum AI Gateway — Hardened Suite (Phase 2D.1)", () => {
 
     await gateway.start();
     try {
-      const res = await fetch(`${baseUrl()}/health`);
+      const res = await fetch(`${baseUrl()}/ready`);
       const data = await res.json();
       expect(data.status).toBe("DEGRADED");
-      expect(data.providers.llm_local.status).toBe("UNAVAILABLE");
-      expect(data.providers.llm_cloud.status).toBe("HEALTHY");
+      expect(data.providers.local_llm).toBe("unavailable");
+      expect(data.providers.cloud_fallback).toBe("configured");
     } finally {
       await gateway.stop();
     }
@@ -120,11 +127,11 @@ describe("Aeternum AI Gateway — Hardened Suite (Phase 2D.1)", () => {
 
     await gateway.start();
     try {
-      const res = await fetch(`${baseUrl()}/health`);
+      const res = await fetch(`${baseUrl()}/ready`);
       const data = await res.json();
-      expect(data.status).toBe("DEGRADED");
-      expect(data.providers.llm_local.status).toBe("HEALTHY");
-      expect(data.providers.llm_cloud.status).toBe("UNAVAILABLE");
+      expect(data.status).toBe("READY");
+      expect(data.providers.local_llm).toBe("healthy");
+      expect(data.providers.cloud_fallback).toBe("unavailable");
     } finally {
       await gateway.stop();
     }
@@ -154,10 +161,13 @@ describe("Aeternum AI Gateway — Hardened Suite (Phase 2D.1)", () => {
 
     await gateway.start();
     try {
-      const res = await fetch(`${baseUrl()}/health`);
+      const liveRes = await fetch(`${baseUrl()}/health`);
+      expect(liveRes.status).toBe(200);
+
+      const res = await fetch(`${baseUrl()}/ready`);
       const data = await res.json();
-      expect(data.status).toBe("HEALTHY");
-      expect(data.providers.llm_cloud.enabled).toBe(false);
+      expect(data.status).toBe("READY");
+      expect(data.providers.cloud_fallback).toBe("disabled");
     } finally {
       await gateway.stop();
     }
@@ -191,9 +201,9 @@ describe("Aeternum AI Gateway — Hardened Suite (Phase 2D.1)", () => {
 
     await gateway.start();
     try {
-      const res = await fetch(`${baseUrl()}/health`);
+      const res = await fetch(`${baseUrl()}/ready`);
       const data = await res.json();
-      expect(data.status).toBe("UNAVAILABLE");
+      expect(data.status).toBe("NOT_READY");
     } finally {
       await gateway.stop();
     }
@@ -219,9 +229,9 @@ describe("Aeternum AI Gateway — Hardened Suite (Phase 2D.1)", () => {
 
     await gateway.start();
     try {
-      const res = await fetch(`${baseUrl()}/health`);
+      const res = await fetch(`${baseUrl()}/ready`);
       const data = await res.json();
-      expect(data.providers.llm_local.status).toBe("UNAVAILABLE");
+      expect(data.providers.local_llm).toBe("unavailable");
       const serialized = JSON.stringify(data);
       expect(serialized).not.toContain("SECRET_INTERNAL_DB_HEALTH_LEAK");
     } finally {
