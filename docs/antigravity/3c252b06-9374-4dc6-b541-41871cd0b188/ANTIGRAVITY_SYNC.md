@@ -1913,3 +1913,24 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - Alterações em CSS: 0
 - Infraestrutura provisionada: 0
 - Status: `PHASE 3B.4A.1 ARCHITECTURE HARDENING COMPLETE / PENDING CHATGPT FINAL ARCHITECTURAL AUDIT`
+
+---
+
+## [2026-08-30 00:35] — FASE 3B.4B.1 CONCLUÍDA: PRONTIDÃO DE RUNTIME DO AI GATEWAY (DUAL TOKEN, READINESS, CONCURRENCY, SHUTDOWN)
+
+### Implementações Entregues
+1. **Rotação Dual-Token Zero-Downtime:** Suporte a token primário (`authToken` / `PRIMARY_SERVICE_TOKEN`) e secundário (`secondaryAuthToken` / `SECONDARY_SERVICE_TOKEN`) com verificação em tempo constante (`crypto.timingSafeEqual`).
+2. **Validação Estrita de Configuração:** Bloqueio de inicialização para bindings públicos (`0.0.0.0`) com `INTERNAL_DEV` ou `DISABLED`; validação de consistência de timeouts; fail-closed em modo `SERVICE_TOKEN` sem segredo.
+3. **Separação Semântica Liveness (`/health`) e Readiness (`/ready`):**
+   - `/health`: Liveness probe do processo.
+   - `/ready`: Readiness probe que avalia dependências com estados sanitizados (`READY` / `DEGRADED` / `NOT_READY`).
+4. **Encerramento Gracioso (Graceful Shutdown):** Tratamento de `SIGTERM` e `SIGINT`, rejeição imediata com HTTP 503 e término de requisições em trânsito dentro do deadline configurável.
+5. **Controle de Concorrência Bounded (`maxConcurrentRequests`):** Rejeição com HTTP 429 (`RATE_LIMITED`) ao atingir capacidade máxima.
+6. **Segurança de Logs:** Auditoria estruturada sem registro de tokens, senhas, chaves, JWTs ou dados de usuários.
+7. **Dockerfile de Produção:** Criação de `packages/aeternum-vita/apps/gateway/Dockerfile` (Node 24 slim, `USER node`, multi-stage, healthcheck).
+
+### Métricas de Teste
+- **Suíte Prontidão:** `gateway_production_readiness_3b4b1.test.ts` $\rightarrow$ **5/5 PASS**
+- **Suíte Monorepo:** **308/308 PASS** (30 skipped cloud live opt-in)
+- **TypeScript:** **0 erros** em `tsconfig.json`, `apps/gateway` e `apps/agent`
+- **Status:** `PHASE 3B.4B.1 IMPLEMENTED / PENDING CHATGPT AUDIT`

@@ -34,6 +34,7 @@ export interface GatewayConfig {
   host?: string;
   authMode?: GatewayAuthMode;
   authToken?: string;
+  secondaryAuthToken?: string;
   jwtValidator?: GatewayJwtValidator;
   router: ProviderRouter;
   healthRegistry?: GatewayProviderHealthRegistry;
@@ -41,6 +42,8 @@ export interface GatewayConfig {
   mode?: string;
   providerTimeoutMs?: number;
   gatewayRequestTimeoutMs?: number;
+  maxConcurrentRequests?: number;
+  shutdownTimeoutMs?: number;
   maxJsonBodyBytes?: number;
   maxAudioBodyBytes?: number;
   logger?: GatewayLogger;
@@ -100,4 +103,17 @@ export interface GatewayErrorResponse {
     attemptCount?: number;
     finalCanonicalError?: string;
   };
+}
+
+export interface GatewayReadinessResponse {
+  status: "READY" | "DEGRADED" | "NOT_READY";
+  gateway: "ready" | "not_ready";
+  router: "ready" | "not_ready";
+  providers: {
+    local_llm: "healthy" | "degraded" | "unavailable" | "disabled";
+    local_stt: "healthy" | "degraded" | "unavailable" | "disabled";
+    local_tts: "healthy" | "degraded" | "unavailable" | "disabled";
+    cloud_fallback: "configured" | "unavailable" | "disabled";
+  };
+  timestamp: string;
 }

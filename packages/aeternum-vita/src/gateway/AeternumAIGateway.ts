@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import {
   GatewayConfig,
   GatewayHealthResponse,
+  GatewayReadinessResponse,
   GatewaySuccessResponse,
   GatewayErrorResponse,
   ProviderHealthEntry,
@@ -27,12 +28,16 @@ export class AeternumAIGateway {
   private readonly config: Required<GatewayConfig>;
   private server: http.Server | null = null;
   private isRunning = false;
+  private isShuttingDown = false;
+  private activeRequests = 0;
 
   constructor(config: GatewayConfig) {
     const host = config.host || "127.0.0.1";
     const authMode = config.authMode || "INTERNAL_DEV";
     const providerTimeoutMs = config.providerTimeoutMs || 25000;
     const gatewayRequestTimeoutMs = config.gatewayRequestTimeoutMs || 30000;
+    const maxConcurrentRequests = config.maxConcurrentRequests || 50;
+    const shutdownTimeoutMs = config.shutdownTimeoutMs || 5000;
 
     const isLoopback = host === "127.0.0.1" || host === "localhost" || host === "::1" || host === "::ffff:127.0.0.1";
     if (!isLoopback && authMode !== "SUPABASE_JWT" && authMode !== "SERVICE_TOKEN") {
@@ -40,14 +45,23 @@ export class AeternumAIGateway {
     }
 
     if (authMode === "SERVICE_TOKEN") {
-      const token = (config.authToken || process.env.AETERNUM_AI_GATEWAY_TOKEN || "").trim();
-      if (!token) {
+      const primary = (config.authToken || process.env.AETERNUM_AI_GATEWAY_TOKEN || process.env.PRIMARY_SERVICE_TOKEN || "").trim();
+      const secondary = (config.secondaryAuthToken || process.env.SECONDARY_SERVICE_TOKEN || "").trim();
+      if (!primary && !secondary) {
         throw new Error("Modo SERVICE_TOKEN requer configuração de authToken seguro não-vazio.");
       }
     }
 
+    if (providerTimeoutMs <= 0 || gatewayRequestTimeoutMs <= 0) {
+      throw new Error("Valores de timeout devem ser estritamente positivos.");
+    }
+
     if (providerTimeoutMs >= gatewayRequestTimeoutMs) {
       throw new Error("Invariante de timeout violado: providerTimeoutMs deve ser estritamente menor que gatewayRequestTimeoutMs.");
+    }
+
+    if (maxConcurrentRequests <= 0) {
+      throw new Error("maxConcurrentRequests deve ser maior que zero.");
     }
 
     this.config = {
@@ -57,9 +71,12 @@ export class AeternumAIGateway {
       version: config.version || "1.0.0",
       mode: config.mode || "local_first",
       authMode,
-      authToken: config.authToken || process.env.AETERNUM_AI_GATEWAY_TOKEN || "",
+      authToken: (config.authToken || process.env.AETERNUM_AI_GATEWAY_TOKEN || process.env.PRIMARY_SERVICE_TOKEN || "").trim(),
+      secondaryAuthToken: (config.secondaryAuthToken || process.env.SECONDARY_SERVICE_TOKEN || "").trim(),
       gatewayRequestTimeoutMs,
       providerTimeoutMs,
+      maxConcurrentRequests,
+      shutdownTimeoutMs,
       maxJsonBodyBytes: config.maxJsonBodyBytes || 1024 * 1024,
       maxAudioBodyBytes: config.maxAudioBodyBytes || 15 * 1024 * 1024,
       logger: config.logger || {
@@ -107,8 +124,11 @@ export class AeternumAIGateway {
     });
   }
 
-  async stop(): Promise<void> {
+  async stop(graceTimeoutMs?: number): Promise<void> {
     if (!this.isRunning || !this.server) return;
+
+    this.isShuttingDown = true;
+    const deadlineMs = graceTimeoutMs || this.config.shutdownTimeoutMs || 5000;
 
     return new Promise((resolve, reject) => {
       this.server!.close((err) => {
@@ -117,10 +137,21 @@ export class AeternumAIGateway {
           reject(err);
         } else {
           this.isRunning = false;
+          this.isShuttingDown = false;
           this.config.logger.info("GATEWAY_STOPPED");
           resolve();
         }
       });
+
+      const checkInterval = setInterval(() => {
+        if (this.activeRequests === 0) {
+          clearInterval(checkInterval);
+        }
+      }, 50);
+
+      setTimeout(() => {
+        clearInterval(checkInterval);
+      }, deadlineMs);
     });
   }
 
@@ -141,14 +172,35 @@ export class AeternumAIGateway {
     const path = url.pathname;
     const method = req.method?.toUpperCase();
 
-    // 1. Health check público do Gateway
+    // 1. Liveness check público do Gateway
     if (method === "GET" && path === "/health") {
       await this.handleHealth(req, res, requestId);
       return;
     }
 
-    // 2. Verificação de Autenticação
+    // 2. Readiness check público do Gateway
+    if (method === "GET" && path === "/ready") {
+      await this.handleReady(req, res, requestId);
+      return;
+    }
+
+    // 3. Verificação de Estado de Encerramento (Graceful Shutdown)
+    if (this.isShuttingDown) {
+      this.sendError(res, 503, "SERVICE_UNAVAILABLE", requestId, "gateway_shutting_down", "Gateway em processo de encerramento gracioso.");
+      return;
+    }
+
+    // 4. Concorrência / Backpressure Bounded Guard
+    if (this.activeRequests >= this.config.maxConcurrentRequests) {
+      this.sendError(res, 429, "RATE_LIMITED", requestId, "concurrency_limit_exceeded", "Gateway com capacidade máxima atingida. Tente novamente em instantes.");
+      return;
+    }
+
+    this.activeRequests++;
+
+    // 5. Verificação de Autenticação
     if (!await this.authenticateRequest(req, res, requestId)) {
+      this.activeRequests--;
       return;
     }
 
@@ -212,6 +264,7 @@ export class AeternumAIGateway {
         this.handleGenericError(res, err, requestId);
       }
     } finally {
+      this.activeRequests--;
       if (deadlineTimer) clearTimeout(deadlineTimer);
       const durationMs = Math.round(performance.now() - start);
       this.config.logger.info("GATEWAY_REQUEST_COMPLETED", {
@@ -266,6 +319,7 @@ export class AeternumAIGateway {
     ]);
 
     const isCapabilityServiceable = (local: ProviderHealthStatus, cloud: ProviderHealthStatus) => {
+      if (!local.enabled && !cloud.enabled) return true;
       const localOk = local.enabled && (local.status === "HEALTHY" || local.status === "DEGRADED");
       const cloudOk = cloud.enabled && (cloud.status === "HEALTHY" || cloud.status === "DEGRADED");
       return localOk || cloudOk;
@@ -303,9 +357,79 @@ export class AeternumAIGateway {
       }
     };
 
-    res.statusCode = 200;
+    res.statusCode = overallStatus === "UNAVAILABLE" ? 503 : 200;
     res.setHeader("Content-Type", "application/json");
+    res.setHeader("X-Request-Id", requestId);
     res.end(JSON.stringify(health));
+  }
+
+  private async handleReady(req: http.IncomingMessage, res: http.ServerResponse, requestId: string): Promise<void> {
+    const reg = this.config.healthRegistry;
+
+    const [llm_local, llm_cloud, stt_local, stt_cloud, tts_local, tts_cloud] = await Promise.all([
+      this.checkProviderHealth(reg.llm_local),
+      this.checkProviderHealth(reg.llm_cloud),
+      this.checkProviderHealth(reg.stt_local),
+      this.checkProviderHealth(reg.stt_cloud),
+      this.checkProviderHealth(reg.tts_local),
+      this.checkProviderHealth(reg.tts_cloud)
+    ]);
+
+    const isCapabilityServiceable = (local: ProviderHealthStatus, cloud: ProviderHealthStatus) => {
+      if (!local.enabled && !cloud.enabled) return true;
+      const localOk = local.enabled && (local.status === "HEALTHY" || local.status === "DEGRADED");
+      const cloudOk = cloud.enabled && (cloud.status === "HEALTHY" || cloud.status === "DEGRADED");
+      return localOk || cloudOk;
+    };
+
+    const toSanitizedState = (p: ProviderHealthStatus): "healthy" | "degraded" | "unavailable" | "disabled" => {
+      if (!p.enabled) return "disabled";
+      if (p.status === "HEALTHY") return "healthy";
+      if (p.status === "DEGRADED") return "degraded";
+      return "unavailable";
+    };
+
+    const llmOk = isCapabilityServiceable(llm_local, llm_cloud);
+    const sttOk = isCapabilityServiceable(stt_local, stt_cloud);
+    const ttsOk = isCapabilityServiceable(tts_local, tts_cloud);
+
+    const hasCloudFallback = (llm_cloud.enabled && (llm_cloud.status === "HEALTHY" || llm_cloud.status === "DEGRADED")) ||
+                             (stt_cloud.enabled && (stt_cloud.status === "HEALTHY" || stt_cloud.status === "DEGRADED")) ||
+                             (tts_cloud.enabled && (tts_cloud.status === "HEALTHY" || tts_cloud.status === "DEGRADED"));
+    const cloudFallbackState = (llm_cloud.enabled || stt_cloud.enabled || tts_cloud.enabled) ? "configured" : "disabled";
+
+    let readinessStatus: "READY" | "DEGRADED" | "NOT_READY" = "READY";
+
+    if (!llmOk || !sttOk || !ttsOk) {
+      readinessStatus = "NOT_READY";
+    } else {
+      const anyLocalDegradedOrDown =
+        (llm_local.enabled && llm_local.status !== "HEALTHY") ||
+        (stt_local.enabled && stt_local.status !== "HEALTHY") ||
+        (tts_local.enabled && tts_local.status !== "HEALTHY");
+
+      if (anyLocalDegradedOrDown) {
+        readinessStatus = hasCloudFallback ? "DEGRADED" : "NOT_READY";
+      }
+    }
+
+    const body: GatewayReadinessResponse = {
+      status: readinessStatus,
+      gateway: this.isRunning && !this.isShuttingDown ? "ready" : "not_ready",
+      router: this.config.router ? "ready" : "not_ready",
+      providers: {
+        local_llm: toSanitizedState(llm_local),
+        local_stt: toSanitizedState(stt_local),
+        local_tts: toSanitizedState(tts_local),
+        cloud_fallback: cloudFallbackState
+      },
+      timestamp: new Date().toISOString()
+    };
+
+    res.statusCode = readinessStatus === "NOT_READY" ? 503 : 200;
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("X-Request-Id", requestId);
+    res.end(JSON.stringify(body));
   }
 
   private async handleLLMGenerate(
@@ -956,16 +1080,32 @@ export class AeternumAIGateway {
     const token = authHeader.substring(7).trim();
 
     if (this.config.authMode === "SERVICE_TOKEN") {
-      const configuredToken = (this.config.authToken || "").trim();
-      if (!configuredToken) {
+      const primaryToken = (this.config.authToken || "").trim();
+      const secondaryToken = (this.config.secondaryAuthToken || "").trim();
+
+      if (!primaryToken && !secondaryToken) {
         this.sendError(res, 401, "UNAUTHORIZED", requestId, "unauthorized", "Service token não configurado no Gateway (fail-closed).");
         return false;
       }
 
       const tokenBuf = Buffer.from(token, "utf-8");
-      const expectedBuf = Buffer.from(configuredToken, "utf-8");
 
-      if (tokenBuf.length !== expectedBuf.length || !crypto.timingSafeEqual(tokenBuf, expectedBuf)) {
+      let isValid = false;
+      if (primaryToken) {
+        const primaryBuf = Buffer.from(primaryToken, "utf-8");
+        if (tokenBuf.length === primaryBuf.length && crypto.timingSafeEqual(tokenBuf, primaryBuf)) {
+          isValid = true;
+        }
+      }
+
+      if (!isValid && secondaryToken) {
+        const secondaryBuf = Buffer.from(secondaryToken, "utf-8");
+        if (tokenBuf.length === secondaryBuf.length && crypto.timingSafeEqual(tokenBuf, secondaryBuf)) {
+          isValid = true;
+        }
+      }
+
+      if (!isValid) {
         this.sendError(res, 401, "UNAUTHORIZED", requestId, "unauthorized", "Token de serviço inválido.");
         return false;
       }

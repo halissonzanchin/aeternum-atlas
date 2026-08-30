@@ -78,3 +78,15 @@ const gateway = new AeternumAIGateway({
 gateway.start().then(() => {
   console.log(`Aeternum AI Gateway rodando na porta ${envConfig.port} (${envConfig.authMode}) - Modo: ${envConfig.mode}`);
 });
+
+process.on("SIGTERM", async () => {
+  console.log("Sinal SIGTERM recebido. Encerrando Gateway graciosamente...");
+  await gateway.stop(5000);
+  process.exit(0);
+});
+
+process.on("SIGINT", async () => {
+  console.log("Sinal SIGINT recebido. Encerrando Gateway...");
+  await gateway.stop(5000);
+  process.exit(0);
+});

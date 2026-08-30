@@ -23,7 +23,8 @@ export async function validateGatewayAuth(
   req: http.IncomingMessage,
   mode: GatewayAuthMode = "INTERNAL_DEV",
   jwtValidator?: GatewayJwtValidator,
-  serviceToken?: string
+  serviceToken?: string,
+  secondaryServiceToken?: string
 ): Promise<AuthValidationResult> {
   const remoteAddress = req.socket.remoteAddress || "";
   const isLoopback = isLoopbackHost(remoteAddress);
@@ -39,9 +40,12 @@ export async function validateGatewayAuth(
     return { authenticated: true, userId: "internal_dev_user" };
   }
 
-  // 2. Em modo SERVICE_TOKEN: requer Bearer token com validação em tempo constante
+  // 2. Em modo SERVICE_TOKEN: requer Bearer token com validação em tempo constante (Dual-Token Support)
   if (mode === "SERVICE_TOKEN") {
-    if (!serviceToken || !serviceToken.trim()) {
+    const primary = (serviceToken || "").trim();
+    const secondary = (secondaryServiceToken || "").trim();
+
+    if (!primary && !secondary) {
       return {
         authenticated: false,
         error: "Service token não configurado no Gateway (fail-closed)."
@@ -62,9 +66,23 @@ export async function validateGatewayAuth(
     }
 
     const tokenBuf = Buffer.from(token, "utf-8");
-    const expectedBuf = Buffer.from(serviceToken, "utf-8");
 
-    if (tokenBuf.length !== expectedBuf.length || !crypto.timingSafeEqual(tokenBuf, expectedBuf)) {
+    let isValid = false;
+    if (primary) {
+      const primaryBuf = Buffer.from(primary, "utf-8");
+      if (tokenBuf.length === primaryBuf.length && crypto.timingSafeEqual(tokenBuf, primaryBuf)) {
+        isValid = true;
+      }
+    }
+
+    if (!isValid && secondary) {
+      const secondaryBuf = Buffer.from(secondary, "utf-8");
+      if (tokenBuf.length === secondaryBuf.length && crypto.timingSafeEqual(tokenBuf, secondaryBuf)) {
+        isValid = true;
+      }
+    }
+
+    if (!isValid) {
       return { authenticated: false, error: "Token de serviço inválido." };
     }
 

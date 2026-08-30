@@ -14,6 +14,10 @@ export interface GatewayEnvConfig {
   authMode: GatewayAuthMode;
   providerTimeoutMs: number;
   gatewayRequestTimeoutMs: number;
+  authToken?: string;
+  secondaryAuthToken?: string;
+  maxConcurrentRequests: number;
+  shutdownTimeoutMs: number;
 }
 
 export function parseStrictBoolean(value: string | undefined, defaultValue: boolean): boolean {
@@ -40,8 +44,12 @@ export function loadGatewayEnvConfig(): GatewayEnvConfig {
   const host = process.env.AETERNUM_AI_GATEWAY_HOST || "127.0.0.1";
   const authMode = (process.env.AETERNUM_AI_GATEWAY_AUTH_MODE as GatewayAuthMode) || "INTERNAL_DEV";
 
-  const providerTimeoutMs = Number(process.env.PROVIDER_TIMEOUT_MS) || 30000;
-  const gatewayRequestTimeoutMs = Number(process.env.GATEWAY_REQUEST_TIMEOUT_MS) || 35000;
+  const providerTimeoutMs = Number(process.env.PROVIDER_TIMEOUT_MS) || 25000;
+  const gatewayRequestTimeoutMs = Number(process.env.GATEWAY_REQUEST_TIMEOUT_MS) || 30000;
+  const authToken = process.env.AETERNUM_AI_GATEWAY_TOKEN || process.env.PRIMARY_SERVICE_TOKEN;
+  const secondaryAuthToken = process.env.SECONDARY_SERVICE_TOKEN;
+  const maxConcurrentRequests = Number(process.env.MAX_CONCURRENT_REQUESTS) || 50;
+  const shutdownTimeoutMs = Number(process.env.SHUTDOWN_TIMEOUT_MS) || 5000;
 
   return {
     mode,
@@ -55,7 +63,11 @@ export function loadGatewayEnvConfig(): GatewayEnvConfig {
     port,
     host,
     authMode,
+    authToken,
+    secondaryAuthToken,
     providerTimeoutMs,
-    gatewayRequestTimeoutMs
+    gatewayRequestTimeoutMs,
+    maxConcurrentRequests,
+    shutdownTimeoutMs
   };
 }
