@@ -1381,3 +1381,20 @@ FALLBACK: CONFIGURED
 - **Suíte Regressiva Monorepo:** 303/303 PASS (30 skipped cloud live opt-in)
 - **TypeScript:** PASS (0 erros em `tsconfig.json`, `apps/gateway` e `apps/agent`)
 - **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`
+
+---
+
+## [2026-08-29 23:58] — STEP 0: DOCUMENTATION CONSISTENCY PATCH (PHASE 3B VERIFICATION ALIGNMENT)
+
+### Atualização Canônica
+- **Auditoria ChatGPT da Fase 3B:** Concluída e Aprovada (`PHASE_3B=VERIFIED`).
+- **Baseline Imutável:** Commit `475c93e51590a216aba4851389d592934837c24a`.
+- **Status Canônico Alinhado:**
+  - `PHASE_3A = VERIFIED`
+  - `PHASE_3B = VERIFIED` (`3B.1`, `3B.2`, `3B.3` e `3B_METADATA_PATCH` todos `VERIFIED`)
+  - `LIVEKIT_REAL_ROOM_USER_E2E = PENDING PRE-PRODUCTION QA`
+  - `PRODUCTION_GATEWAY_REACHABILITY = NOT PROVEN`
+  - `PRODUCTION_GATEWAY_AUTH_CONTRACT = NOT PROVEN IN PRODUCTION`
+  - `PRODUCTION_CUTOVER = BLOCKED`
+  - `PHASE_3C = NOT STARTED / BLOCKED BY INFRASTRUCTURE GATE`
+  - `CURRENT_BRANCH = antigravity/phase-3b-atlas-tutor-gateway`
