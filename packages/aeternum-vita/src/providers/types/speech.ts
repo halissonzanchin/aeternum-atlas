@@ -1,4 +1,4 @@
-import { LatencyMetrics } from "./common.ts";
+import type { LatencyMetrics } from "./common.ts";
 
 export type AeternumAudioFormat = "pcm" | "wav" | "mp3" | "flac" | "ogg" | "webm";
 

@@ -1489,3 +1489,20 @@ FALLBACK: CONFIGURED
 - **TypeScript:** **0 erros**
 - **Docker Proof:** **100% SUCESSO**
 - **Status:** `PHASE 3B.4B.1 FINAL CORRECTIONS IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`
+
+---
+
+## [2026-08-30 02:05] — FASE 3B.4B.1 MICRO-GATE DE SEGURANÇA DE CONTÊINER CONCLUÍDO (ZERO TLS BYPASS, COMPILED NODE, USER NODE, CLEAN DOCKER PROOF 100%)
+
+### Entregas do Micro-Gate
+1. **Zero TLS Bypass:** Remoção total de `NODE_TLS_REJECT_UNAUTHORIZED=0` e configurações de desativação de SSL do npm/pnpm.
+2. **Runtime Compilado (`COMPILED NODE`):** Gateway compilado para bundle ESM autocontido (`dist/gateway.mjs`) executado nativamente pelo Node 24 (`CMD ["node", "dist/gateway.mjs"]`).
+3. **Usuário Não-Root:** `USER node` preservado no contêiner.
+4. **Shutdown Uniformizado:** SIGTERM e SIGINT ambos utilizando `gateway.stop(envConfig.shutdownTimeoutMs)`.
+5. **Prova Docker Limpa 100%:** Build sem cache, inicialização segura, liveness (200), readiness (503), auth (401/401/503), rotação dual-token comprovada e encerramento gracioso em 596ms.
+
+### Métricas de Teste
+- **Suíte Prontidão:** `gateway_production_readiness_3b4b1.test.ts` $\rightarrow$ **7/7 PASS**
+- **Suíte Monorepo:** **310/310 PASS** (30 skipped cloud live opt-in)
+- **TypeScript:** **0 erros**
+- **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`

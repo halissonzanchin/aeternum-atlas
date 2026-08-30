@@ -22,7 +22,8 @@
     "test": "pnpm --recursive --if-present test",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "typecheck:gateway": "tsc --project tsconfig.json --noEmit",
-    "typecheck:all": "tsc --noEmit && pnpm --recursive --if-present typecheck"
+    "typecheck:all": "tsc --noEmit && pnpm --recursive --if-present typecheck",
+    "build:gateway": "esbuild apps/gateway/src/index.ts --bundle --platform=node --target=node24 --outfile=dist/gateway.mjs --format=esm"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
@@ -39,6 +40,7 @@
   "dependencies": {
     "@livekit/protocol": "^1.50.4",
     "livekit-server-sdk": "^2.18.0",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "tsx": "4.19.3"
   }
 }

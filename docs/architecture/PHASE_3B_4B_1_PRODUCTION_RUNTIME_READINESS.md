@@ -1,8 +1,8 @@
 # AETERNUM ATLAS & VITA — FASE 3B.4B.1
-## PRONTIDÃO DE RUNTIME DO AI GATEWAY PARA PRÉ-PRODUÇÃO (RUNTIME READINESS — AUDIT HARDENED)
+## PRONTIDÃO DE RUNTIME DO AI GATEWAY PARA PRÉ-PRODUÇÃO (RUNTIME READINESS — CONTAINER SECURITY AUDIT HARDENED)
 
 **Documento:** `PHASE_3B_4B_1_PRODUCTION_RUNTIME_READINESS.md`  
-**Status:** `PHASE 3B.4B.1 FINAL CORRECTIONS IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`  
+**Status:** `PHASE 3B.4B.1 CONTAINER SECURITY MICRO-GATE IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`  
 **Data:** 2026-08-30  
 **Branch Base:** `antigravity/phase-3b-atlas-tutor-gateway`  
 **Baseline Imutável Verificado:** `c313e5c23a484638c545e8a35ea984fe26ef4542` (Phase 3B.4A.1 VERIFIED)
@@ -11,49 +11,53 @@
 
 ## 1. SUMÁRIO EXECUTIVO
 
-A **Fase 3B.4B.1** implementou o endurecimento estrito do runtime do `AeternumAIGateway` para permitir sua execução segura, resiliente, determinística e auditável fora do localhost, com validação empírica em contêiner Docker local.
+A **Fase 3B.4B.1 (Container Security Micro-Gate)** eliminou qualquer possibilidade de bypass de TLS ou instalação não-determinística no contêiner do AI Gateway, estabelecendo um padrão de segurança para o artefato Docker de pré-produção.
 
-### Principais Capacidades Entregues & Auditadas:
-1. **True Liveness (`GET /health`):** Probe pura e ultraleve de vitalidade de processo. Não chama provedores de inferência (LLM, STT, TTS) e não depende de conectividade externa/cloud. Retorna HTTP 200 `{ "status": "HEALTHY" }` enquanto o processo estiver ativo.
-2. **Readiness com Estado Factual (`GET /ready`):** Avalia a prontidão de inferência reportando estados sanitizados (`READY` / `DEGRADED` / `NOT_READY`). O estado `cloud_fallback` reflete fielmente:
-   - `"configured"`: Cloud habilitado e com pelo menos um provedor saudável/degradado.
-   - `"unavailable"`: Cloud habilitado porém provedores indisponíveis.
-   - `"disabled"`: Cloud totalmente desabilitado.
-3. **Invariante do Primary Token:** Em modo `SERVICE_TOKEN`, `PRIMARY_SERVICE_TOKEN` é estritamente obrigatório. A presença exclusiva do secundário bloqueia a inicialização (Fail-Closed). O secundário existe apenas para overlap temporário em rotações de credencial.
-4. **Encerramento Gracioso Finito & Bounded (Node 24):** Tratamento de `SIGTERM` e `SIGINT`. Rejeita novas requisições com HTTP 503, conclui requisições em trânsito e destrói conexões remanescentes ao atingir o deadline (`shutdownTimeoutMs`), garantindo resolução determinística de `stop()` sem pendência indefinida.
-5. **Fiação Completa de Configuração de Ambiente:** Parâmetros `maxConcurrentRequests` e `shutdownTimeoutMs` lidos de `loadGatewayEnvConfig` e devidamente repassados na inicialização em `apps/gateway/src/index.ts`.
-6. **Controle de Concorrência Bounded (`maxConcurrentRequests`):** Rejeita requisições excedentes com HTTP 429 (`RATE_LIMITED`), sem filas ilimitadas em memória.
-7. **Segurança Rigorosa de Logs:** Auditoria estruturada com zero registro de tokens, segredos, JWTs, prompts brutos, áudio ou dados sensíveis.
-8. **Prova Factual de Contêiner Docker Executada Localmente:**
-   - Build de contêiner multi-stage Node 24 slim com usuário não-root (`USER node`) concluído com sucesso.
-   - Execução factual com credenciais sintéticas não-secretas comprovando: startup, `/health` (200), `/ready` (503 truthful not_ready em isolamento), rejeição de token inválido (401), rejeição de token ausente (401), autenticação com token válido (503 com chamada roteada sem crash) e encerramento gracioso via `SIGTERM` em 1.1s.
+### Principais Garantias de Segurança e Runtime Entregues:
+1. **Validação TLS Estrita & Ativa:** Todos os bypasses de TLS (`NODE_TLS_REJECT_UNAUTHORIZED=0`, `strict-ssl false`) foram completamente removidos de todos os estágios do Docker. A verificação de certificados TLS permanece 100% ativa.
+2. **Runtime Compilado Determinístico (`COMPILED NODE`):** O Gateway é compilado via esbuild para um bundle ESM autocontido (`dist/gateway.mjs`, ~133kB) executado nativamente pelo Node 24 (`CMD ["node", "dist/gateway.mjs"]`), eliminando a necessidade de `tsx` ou download de dependências em tempo de execução no contêiner.
+3. **Usuário Não-Root (`USER node`):** O contêiner de execução roda estritamente com privilégios reduzidos (`USER node`), mitigando riscos de escape de contêiner.
+4. **Shutdown Finito Bounded em SIGTERM e SIGINT:** Ambas as rotas de encerramento utilizam `gateway.stop(envConfig.shutdownTimeoutMs)` de forma idêntica e determinística, com parada confirmada em 596ms no contêiner.
+5. **True Liveness (`/health`) e Readiness (`/ready`):** Separação semântica estrita: `/health` retorna HTTP 200 de forma ultraleve enquanto o processo vive; `/ready` reporta factualidade das capacidades e recusa tráfego durante shutdown ou falha de provedor.
+6. **Rotação Dual-Token:** Token primário obrigatório; token secundário funcional para overlap em rotações; rejeição 401 para credenciais ausentes ou inválidas em tempo constante (`crypto.timingSafeEqual`).
 
 ---
 
-## 2. EVIDÊNCIAS DE EXECUÇÃO EM CONTÊINER DOCKER (PROVA LOCAL)
+## 2. EVIDÊNCIAS FACTUAIS DO MICRO-GATE (DOCKER CLEAN BUILD & PROOF)
 
 ```
-=== PROVA FACTUAL DO CONTÊINER DOCKER LOCAL ===
-1. Iniciando contêiner com credenciais sintéticas e modo SERVICE_TOKEN...
+==================================================
+ANTIGRAVITY — CONTAINER SECURITY MICRO-GATE PROOF
+==================================================
+1. Verificando NODE_TLS_REJECT_UNAUTHORIZED e usuário do runner no contêiner...
+   Container Env Check: {"tlsReject":"UNDEFINED_SAFE","user":"node"}
+   -> TLS validation enabled: PASS (NODE_TLS_REJECT_UNAUTHORIZED é seguro/ausente)
+2. Inicializando contêiner com Primary + Secondary Tokens...
    [Docker stdout] {"level":"INFO","event":"GATEWAY_STARTED","port":8081,"host":"0.0.0.0","mode":"local_first"}
-2. Testando GET /health (Liveness)...
+3. Testando GET /health (Liveness)...
    Health response: 200 {"status":"HEALTHY","gateway_version":"1.0.0","mode":"local_first","auth_mode":"SERVICE_TOKEN"}
-3. Testando GET /ready (Readiness)...
+4. Testando GET /ready (Readiness)...
    Ready response: 503 {"status":"NOT_READY","gateway":"ready","router":"ready","providers":{"local_llm":"unavailable","local_stt":"unavailable","local_tts":"unavailable","cloud_fallback":"disabled"}}
-4. Testando POST /v1/llm/generate com token inválido...
-   Invalid token status: 401
 5. Testando POST /v1/llm/generate sem token...
    Missing token status: 401
-6. Testando POST /v1/llm/generate com SERVICE_TOKEN válido...
-   Valid token status: 503 (atinge router/gateway; erro estruturado por ausência de backend)
-7. Enviando SIGTERM para encerramento gracioso...
-   Contêiner encerrado graciosamente em 1119ms
-=== PROVA FACTUAL DO CONTÊINER DOCKER CONCLUÍDA COM 100% DE SUCESSO! ===
+6. Testando POST /v1/llm/generate com token inválido...
+   Invalid token status: 401
+7. Testando POST /v1/llm/generate com Primary Token válido...
+   Primary token status: 503 (atinge router)
+8. Testando POST /v1/llm/generate com Secondary Token de rotação válido...
+   Secondary token status: 503 (atinge router)
+9. Testando encerramento gracioso via SIGTERM (docker stop)...
+   [Docker stdout] Sinal SIGTERM recebido. Encerrando Gateway graciosamente...
+   [Docker stdout] {"level":"INFO","event":"GATEWAY_STOPPED"}
+   SIGTERM Graceful Shutdown concluído em 596ms
+==================================================
+PROVA FACTUAL DO MICRO-GATE CONCLUÍDA COM SUCESSO!
+==================================================
 ```
 
 ---
 
-## 3. RESULTADOS DA SUÍTE DE TESTES E TYPESCRIPT
+## 3. RESULTADOS DA SUÍTE DETERMINÍSTICA
 
 - **Suíte Prontidão 3B.4B.1:** `gateway_production_readiness_3b4b1.test.ts` $\rightarrow$ **7/7 PASS**
 - **Suíte Monorepo:** **310/310 PASS** (30 skipped cloud live opt-in) em 24 arquivos de teste
@@ -78,4 +82,4 @@ A **Fase 3B.4B.1** implementou o endurecimento estrito do runtime do `AeternumAI
 ---
 
 **STATUS:**  
-`PHASE 3B.4B.1 FINAL CORRECTIONS IMPLEMENTED / PENDING CHATGPT FINAL AUDIT`
+`IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`

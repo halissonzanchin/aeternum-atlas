@@ -91,6 +91,6 @@ process.on("SIGTERM", async () => {
 
 process.on("SIGINT", async () => {
   console.log("Sinal SIGINT recebido. Encerrando Gateway...");
-  await gateway.stop(5000);
+  await gateway.stop(envConfig.shutdownTimeoutMs);
   process.exit(0);
 });
