@@ -1862,3 +1862,31 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
   - `PRODUCTION_CUTOVER = BLOCKED`
   - `PHASE_3C = NOT STARTED / BLOCKED BY INFRASTRUCTURE GATE`
   - `CURRENT_BRANCH = antigravity/phase-3b-atlas-tutor-gateway`
+
+---
+
+## [2026-08-29 23:59] — FASE 3B.4A CONCLUÍDA: ARQUITETURA DE PRODUÇÃO & CONECTIVIDADE DO GATEWAY
+
+### Sumário da Fase 3B.4A (Auditoria e Design Arquitetural)
+- **Documento Produzido:** `docs/architecture/PHASE_3B_4_PRODUCTION_GATEWAY_ARCHITECTURE.md`
+- **Classificação de Planos:**
+  - **Control Plane:** Supabase Edge (`ai-tutor`, `voice-token`), PostgreSQL e AI Gateway (orquestrador de tráfego / métricas).
+  - **Inference Plane:** Motores locais de inferência (Ollama/vLLM, Speaches) e APIs gerenciadas de nuvem (Gemini, Deepgram, Cartesia).
+- **Classificação de Ambientes:**
+  - **HP Victus:** Nó de Desenvolvimento / Piloto Acadêmico (proibido de receber exposição pública direta ou port-forwarding).
+  - **Produção Multi-Institucional:** Gateway conteinerizado em nuvem de alta disponibilidade conectado aos nós de inferência locais via malha VPN privada (Tailscale / WireGuard Mesh) e Cloud Fallback automático.
+- **Topologia de Segurança & Conectividade:**
+  - Supabase Edge Functions alcançam o Gateway exclusivamente via HTTPS seguro com certificado TLS 1.3.
+  - Gateway autentica via modo canônico `SERVICE_TOKEN` em tempo constante (`crypto.timingSafeEqual`).
+  - Provedores locais (Ollama :11434, Speaches :8000) permanecem 100% isolados da Internet pública, residindo exclusivamente na rede virtual privada.
+- **Resiliência:**
+  - Se o nó local de inferência ficar offline ou sofrer timeout, o `ProviderRouter` do Gateway despacha a requisição para o Cloud Fallback de forma instantânea e transparente.
+  - Se o Gateway estiver indisponível, a Edge Function falha fechada com HTTP 503 (`AI_GATEWAY_UNAVAILABLE`) e limpa turnos órfãos.
+
+### Invariantes de Governança
+- Alterações em código de runtime: 0
+- Alterações visuais no frontend: 0
+- Alterações em CSS: 0
+- Infraestrutura provisionada: 0
+- Cutover em produção: **BLOQUEADO**
+- Status: `PHASE 3B.4A ARCHITECTURE PROPOSAL COMPLETE / PENDING CHATGPT ARCHITECTURAL AUDIT`
