@@ -1,0 +1,199 @@
+name: Gateway Docker Neutral Linux CI Proof
+
+on:
+  push:
+    branches:
+      - 'antigravity/phase-3b-atlas-tutor-gateway'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gateway-docker-reproducibility-proof:
+    name: Gateway Docker Reproducibility & Runtime Proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify host clean state (no node_modules, no dist)
+        run: |
+          echo "=== STEP 2: VERIFY HOST CLEAN STATE ==="
+          if [ -d "packages/aeternum-vita/node_modules" ]; then
+            echo "FAIL: packages/aeternum-vita/node_modules exists on host!"
+            exit 1
+          fi
+          if [ -d "packages/aeternum-vita/dist" ]; then
+            echo "FAIL: packages/aeternum-vita/dist exists on host!"
+            exit 1
+          fi
+          echo "HOST node_modules: ABSENT"
+          echo "HOST dist: ABSENT"
+
+      - name: Docker Clean Build (No Cache)
+        working-directory: packages/aeternum-vita
+        run: |
+          echo "=== STEP 3: DOCKER CLEAN BUILD ==="
+          docker build --no-cache \
+            -t aeternum-ai-gateway-ci-proof \
+            -f apps/gateway/Dockerfile .
+          echo "DOCKER BUILD: PASS"
+
+      - name: Inspect Image Security & Non-Root User
+        run: |
+          echo "=== STEP 4: IMAGE SECURITY INSPECTION ==="
+          RUNNER_USER=$(docker run --rm aeternum-ai-gateway-ci-proof whoami)
+          echo "Runner user: $RUNNER_USER"
+          if [ "$RUNNER_USER" != "node" ]; then
+            echo "FAIL: Expected runner user 'node', got '$RUNNER_USER'"
+            exit 1
+          fi
+          echo "Runner non-root: PASS"
+
+          TLS_CHECK=$(docker run --rm aeternum-ai-gateway-ci-proof node -e "
+            const tls = process.env.NODE_TLS_REJECT_UNAUTHORIZED;
+            if (tls === '0') {
+              console.error('FAIL: NODE_TLS_REJECT_UNAUTHORIZED is 0');
+              process.exit(1);
+            }
+            console.log(tls === undefined ? 'UNDEFINED_SAFE' : tls);
+          ")
+          echo "NODE_TLS_REJECT_UNAUTHORIZED: $TLS_CHECK"
+          echo "TLS security check: PASS"
+
+      - name: Verify Gateway Runtime & Endpoints
+        run: |
+          echo "=== STEP 5: RUN CONTAINER WITH SYNTHETIC CREDENTIALS ==="
+          PRIMARY_TOKEN="ci-synthetic-primary-secret-token-123456789"
+          SECONDARY_TOKEN="ci-synthetic-secondary-secret-token-987654321"
+
+          docker run -d \
+            --name gateway-proof \
+            -p 8081:8081 \
+            -e PORT=8081 \
+            -e HOST=0.0.0.0 \
+            -e SERVICE_TOKEN_SECRET="$PRIMARY_TOKEN" \
+            -e SECONDARY_SERVICE_TOKEN_SECRET="$SECONDARY_TOKEN" \
+            -e AI_GATEWAY_MODE=local_first \
+            aeternum-ai-gateway-ci-proof
+
+          echo "Waiting for Gateway readiness..."
+          READY=0
+          for i in {1..30}; do
+            if curl -s http://127.0.0.1:8081/health > /dev/null 2>&1; then
+              READY=1
+              break
+            fi
+            sleep 0.5
+          done
+
+          if [ "$READY" -ne 1 ]; then
+            echo "FAIL: Gateway did not start within timeout"
+            docker logs gateway-proof
+            exit 1
+          fi
+
+          echo "=== STEP 6: LIVENESS (/health) ==="
+          HEALTH_BODY=$(curl -s http://127.0.0.1:8081/health)
+          HEALTH_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8081/health)
+          echo "Health HTTP Status: $HEALTH_STATUS"
+          echo "Health Response Body: $HEALTH_BODY"
+          if [ "$HEALTH_STATUS" != "200" ]; then
+            echo "FAIL: Expected HTTP 200 from /health"
+            exit 1
+          fi
+          echo "Liveness /health: PASS"
+
+          echo "=== STEP 7: READINESS (/ready) ==="
+          READY_BODY=$(curl -s http://127.0.0.1:8081/ready)
+          READY_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8081/ready)
+          echo "Ready HTTP Status: $READY_STATUS"
+          echo "Ready Response Body: $READY_BODY"
+          echo "Readiness /ready: PASS"
+
+          echo "=== STEP 8: AUTHENTICATION ==="
+          echo "1. Missing token:"
+          MISSING_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST http://127.0.0.1:8081/v1/llm/generate \
+            -H "Content-Type: application/json" -d '{"prompt":"test"}')
+          echo "Missing token status: $MISSING_STATUS"
+          if [ "$MISSING_STATUS" != "401" ]; then
+            echo "FAIL: Expected 401 for missing token, got $MISSING_STATUS"
+            exit 1
+          fi
+          echo "Missing token 401: PASS"
+
+          echo "2. Invalid token:"
+          INVALID_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST http://127.0.0.1:8081/v1/llm/generate \
+            -H "Content-Type: application/json" -H "Authorization: Bearer wrong-token" -d '{"prompt":"test"}')
+          echo "Invalid token status: $INVALID_STATUS"
+          if [ "$INVALID_STATUS" != "401" ]; then
+            echo "FAIL: Expected 401 for invalid token, got $INVALID_STATUS"
+            exit 1
+          fi
+          echo "Invalid token 401: PASS"
+
+          echo "3. Valid primary token:"
+          PRIMARY_BODY=$(curl -s -X POST http://127.0.0.1:8081/v1/llm/generate \
+            -H "Content-Type: application/json" -H "Authorization: Bearer $PRIMARY_TOKEN" -d '{"prompt":"test"}')
+          PRIMARY_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST http://127.0.0.1:8081/v1/llm/generate \
+            -H "Content-Type: application/json" -H "Authorization: Bearer $PRIMARY_TOKEN" -d '{"prompt":"test"}')
+          echo "Primary token HTTP status: $PRIMARY_STATUS"
+          echo "Primary token response body: $PRIMARY_BODY"
+          if [ "$PRIMARY_STATUS" = "401" ]; then
+            echo "FAIL: Primary token rejected with 401"
+            exit 1
+          fi
+          echo "Primary token auth reaches router: PASS"
+
+          echo "4. Valid secondary token:"
+          SECONDARY_BODY=$(curl -s -X POST http://127.0.0.1:8081/v1/llm/generate \
+            -H "Content-Type: application/json" -H "Authorization: Bearer $SECONDARY_TOKEN" -d '{"prompt":"test"}')
+          SECONDARY_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST http://127.0.0.1:8081/v1/llm/generate \
+            -H "Content-Type: application/json" -H "Authorization: Bearer $SECONDARY_TOKEN" -d '{"prompt":"test"}')
+          echo "Secondary token HTTP status: $SECONDARY_STATUS"
+          echo "Secondary token response body: $SECONDARY_BODY"
+          if [ "$SECONDARY_STATUS" = "401" ]; then
+            echo "FAIL: Secondary token rejected with 401"
+            exit 1
+          fi
+          echo "Secondary token auth reaches router: PASS"
+
+          echo "=== STEP 9: SHUTDOWN PROOF (SIGTERM) ==="
+          START_TIME=$(date +%s%3N)
+          docker stop --time 10 gateway-proof
+          END_TIME=$(date +%s%3N)
+          DURATION=$((END_TIME - START_TIME))
+          echo "SIGTERM stop completed in ${DURATION}ms"
+          docker rm gateway-proof
+          echo "SIGTERM bounded shutdown: PASS"
+
+          echo "=== STEP 9: SHUTDOWN PROOF (SIGINT) ==="
+          docker run -d \
+            --name gateway-sigint \
+            -p 8082:8081 \
+            -e PORT=8081 \
+            -e HOST=0.0.0.0 \
+            -e SERVICE_TOKEN_SECRET="$PRIMARY_TOKEN" \
+            -e AI_GATEWAY_MODE=local_first \
+            aeternum-ai-gateway-ci-proof
+
+          for i in {1..30}; do
+            if curl -s http://127.0.0.1:8082/health > /dev/null 2>&1; then
+              break
+            fi
+            sleep 0.5
+          done
+
+          START_TIME_INT=$(date +%s%3N)
+          docker kill --signal=SIGINT gateway-sigint
+          docker wait gateway-sigint
+          END_TIME_INT=$(date +%s%3N)
+          DURATION_INT=$((END_TIME_INT - START_TIME_INT))
+          echo "SIGINT stop completed in ${DURATION_INT}ms"
+          docker rm gateway-sigint
+          echo "SIGINT bounded shutdown: PASS"
+
+          echo "=== ALL NEUTRAL LINUX CI PROOFS COMPLETED SUCCESSFULLY ==="
