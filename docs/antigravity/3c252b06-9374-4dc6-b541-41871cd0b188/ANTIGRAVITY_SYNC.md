@@ -2043,3 +2043,23 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 
 ### Status
 - **Status:** PHASE 3B.4B.1 NEUTRAL LINUX CI PROOF IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION
+
+---
+
+## [2026-09-04 01:18] — FASE 3B.4B.2 PROVA DE CONECTIVIDADE E INFERÊNCIA LOCAL COM OLLAMA CONCLUÍDA COM SUCESSO
+
+### Entregas e Evidências da Fase 3B.4B.2
+1. **Branch Criada:** antigravity/phase-3b4b2-local-ollama-connectivity a partir do base SHA 16d1f793b5a45fffd615ff34a88d53c31d37a21f (Phase 3B.4B.1 VERIFIED por ChatGPT Audit).
+2. **Descoberta do Ollama e GPU:** Ollama v0.32.5 ativo no host com modelo canônico qwen2.5:3b carregado a 100% na GPU NVIDIA GeForce RTX 4050 (2161 MiB VRAM).
+3. **Conectividade Docker Desktop -> Windows Ollama:** Verificado HTTP 200 via host.docker.internal:11434/api/tags sem alteração de firewall e sem alterar binding (zero exposição a redes externas ou túneis).
+4. **Configuração Mínima via Variáveis de Ambiente:** Adicionados localLLMBaseUrl e localLLMModelId em GatewayEnvConfig e loadGatewayEnvConfig(), com defaults estritos preservados (http://127.0.0.1:11434 e qwen2.5:3b).
+5. **Gateway Docker Local:** Container iniciado com LOCAL_LLM_BASE_URL=http://host.docker.internal:11434 e CLOUD_FALLBACK_ENABLED=false. Liveness /health HTTP 200, Readiness /ready confirmando local_llm: healthy.
+6. **Inferência Real E2E com Rotação de Tokens:**
+   - PRIMARY_SERVICE_TOKEN: Resposta real gerada AETERNUM_GATEWAY_OLLAMA_OK (HTTP 200, modelo: qwen2.5:3b, provider: ollama-local).
+   - SECONDARY_SERVICE_TOKEN: Resposta real gerada AETERNUM_SECONDARY_TOKEN_OLLAMA_OK (HTTP 200, latência: 665ms).
+7. **Simulação de Falha / Degradação:** Quando apontado para porta não utilizada (11435), Gateway reporta local_llm: unavailable e falha com HTTP 503 all_providers_failed de forma segura sem vazar segredos e sem recorrer à nuvem.
+8. **Amostragem de Desempenho Local (5 requisições):** Mínimo: 234ms, Mediana/p50: 702ms, Máximo: 1241ms.
+9. **Testes e Tipagem:** 5/5 dedicado 3B.4B.2 PASS, 7/7 prontidão 3B.4B.1 PASS, 315/315 suíte completa PASS, 0 erros TypeScript.
+
+### Status
+- **Status:** PHASE 3B.4B.2 LOCAL OLLAMA INFERENCE CONNECTIVITY IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION
