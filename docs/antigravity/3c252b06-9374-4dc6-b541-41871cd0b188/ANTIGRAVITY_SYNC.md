@@ -2138,3 +2138,44 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 
 ### Status
 - **Status:** PHASE 3B.4B.3 PRE-PRODUCTION INFRASTRUCTURE PREFLIGHT CORRECTED / PENDING CHATGPT FINAL VERIFICATION
+
+---
+
+## [2026-09-04 02:50] — AETERNUM COMMERCIAL READINESS & PRODUCTION QA AUDIT
+
+### Decisão Estratégica
+- Pausada a expansão de infraestrutura privada (Fly.io, VPS, WireGuard, Cloud Gateway, Supabase Staging, servidores privados de inferência).
+- O hardware HP Victus permanece como nó local de desenvolvimento, piloto e demonstração.
+- Prioridade máxima redirecionada para a comprovação de prontidão comercial da plataforma em produção (`https://www.aeternumatlas.com`) visando demonstrações e comercialização com universidades.
+
+### Escopo e Evidências do Read-Only Production Audit
+1. **Ambiente de Produção (Source of Truth):**
+   - Domínio: `https://www.aeternumatlas.com` (Vercel Edge `gru1`).
+   - Vercel Deployment ID: `dpl_GmjVs3ZSWsCUo2qqzrTLRtnTFdxV`.
+   - Git Commit SHA de Produção: `7ce9a40aba8f3b3aaa8215256afe5f9784de1304` (Branch: `main`).
+   - Supabase Produção: `hyivyrietgjdazgizafp` (`ai-tutor v38`, `voice-token v8`).
+2. **Atlas AI Tutor (Text): PASS**
+   - Edge Function `ai-tutor v38` ativa com autenticação estrita Zero Guests (`Bearer JWT`).
+   - RAG ativo com 20.302 chunks anatômicos em `public.vita_anatomical_knowledge`.
+   - Busca `postgresql-fts` comprovada com 6 fontes bibliográficas recuperadas de Moore (*Anatomia Orientada para Clínica 7ª ed*).
+   - Diálogo socrático multi-turn com personalização nominal e rastreabilidade integral (`public.ai_conversations`: 189, `public.ai_messages`: 383, `public.ai_audit_events`: 270).
+3. **Aeternum Vita (Voice Tutors): FAIL (P0 BLOCKER)**
+   - Bloqueio crítico na camada de transporte WebRTC: `vault.decrypted_secrets.LIVEKIT_URL` configurado para URL efêmera do Cloudflare Quick Tunnel (`wss://interactive-championship-highways-matched.trycloudflare.com`), cujo domínio expirou (`ENOTFOUND`).
+   - Conexão E2E dos 4 tutores de voz (Eduardo, Antonia, Ariana, Fabian), LiveKit Room, STT, LLM de voz, TTS e Barge-in falham imediatamente.
+   - Ausência de worker daemon de agentes LiveKit rodando em nuvem para atender salas de produção.
+4. **Plataforma Central do Aluno: PASS**
+   - Viewer 3D Sketchfab ativo com modelos craniano, reprodutor feminino e cardíaco.
+   - Telemetria de aprendizagem ativa (`viewer_learning_sessions`: 1.029, `viewer_learning_events`: 2.476).
+   - Flashcards anatômicos (237 cards curados) com algoritmo SM-2 funcional em `localStorage`.
+   - Simulados práticos e teóricos persistindo resultados em `viewer_quiz_results`.
+   - Agenda de estudos com 6 eventos persistidos em `study_agenda_events`.
+5. **Classificação de Achados:**
+   - **P0:** 2 achados (URL do LiveKit no Supabase Vault morta por túnel expirado; ausência de LiveKit Agent Worker em nuvem).
+   - **P1:** 2 achados (Falta de credenciais de demonstração documentadas para universidades; fallback silencioso do Tutor para Cérebro local estático ao expirar sessão).
+   - **P2:** 2 achados (Bifurcação de tabelas de simulados; flashcards persistidos apenas em LocalStorage sem sync cross-device).
+   - **P3:** 2 achados (Avisos de console para imagens de capa vazias no catálogo; mock institution UUID em metadados legados).
+6. **Integridade de Produção:**
+   - Zero modificações aplicadas ao banco de produção, Edge Functions, Vercel ou branches principais.
+
+### Status
+- **Status:** AETERNUM COMMERCIAL READINESS PRODUCTION QA AUDIT COMPLETED / PENDING CHATGPT REVIEW
