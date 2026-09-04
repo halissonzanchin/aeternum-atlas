@@ -3,7 +3,7 @@
  * CÉREBRO AETERNUM VITA — MOTOR NEURAL DE VOZ & MULTI-TUTORIA CONVERSACIONAL
  * ============================================================================
  * Exclusivo para os Tutores de Voz da Aeternum Vita:
- * - Eduardo 🇧🇷 (pt-BR)
+ * - Felipe 🇧🇷 (pt-BR, alias: eduardo)
  * - Antonia 🇪🇸 (es-ES)
  * - Ariana 🇺🇸 (en-US)
  * - Fabian 🇩🇪 (de-DE)

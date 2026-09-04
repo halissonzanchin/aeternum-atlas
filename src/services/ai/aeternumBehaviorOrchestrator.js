@@ -68,7 +68,7 @@ export class AeternumBehaviorOrchestrator {
       return CONVERSATIONAL_INTENTS.STUDY_ROUTINE;
     }
 
-    if (/\b(fala comigo|fala eduardo|fala antonia|oi|ola|tudo bem|como vai|quem e voce|hola|buen dia|hello|hi)\b/i.test(q)) {
+    if (/\b(fala comigo|fala felipe|fala eduardo|fala antonia|oi|ola|tudo bem|como vai|quem e voce|hola|buen dia|hello|hi)\b/i.test(q)) {
       return CONVERSATIONAL_INTENTS.CASUAL_CHAT;
     }
 

@@ -9,7 +9,7 @@ import "./AeternumSiriScreenOverlay.css";
 /**
  * Aeternum 26.1 Apple Intelligence Screen Glow & Aeternum Vita Voice Multi-Tutor
  * High-Fidelity Single-Engine Audio Architecture with Clean Turn-Taking
- * Personas: Eduardo 🇧🇷, Antonia 🇪🇸, Ariana 🇺🇸, Fabian 🇩🇪
+ * Personas: Felipe 🇧🇷 (alias: eduardo), Antonia 🇪🇸, Ariana 🇺🇸, Fabian 🇩🇪
  */
 export default function AeternumSiriScreenOverlay({
   active = false,

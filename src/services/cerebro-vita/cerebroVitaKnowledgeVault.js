@@ -2,7 +2,7 @@
  * Cérebro Aeternum Vita — Base de Conhecimento Vocal & Consciência Empática
  * Exclusivo para os Tutores IA de Voz (Aeternum Vita)
  * Personas:
- * - Eduardo 🇧🇷 (Mentor Sênior, Sábio & Acolhedor)
+ * - Felipe 🇧🇷 (Mentor Sênior, Sábio & Acolhedor, alias: eduardo)
  * - Antonia 🇪🇸 (Mentora Empática & Expressiva)
  * - Ariana 🇺🇸 (Mentora Dinâmica & Inspiradora)
  * - Fabian 🇩🇪 (Mentor Acadêmico & Preciso)
