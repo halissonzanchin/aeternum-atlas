@@ -1555,3 +1555,27 @@ FALLBACK: CONFIGURED
 
 ### Status
 - **Status:** IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION
+
+---
+
+## [2026-09-04 00:58] — FASE 3B.4B.1 PROVA NEUTRA EM LINUX CI (GITHUB ACTIONS UBUNTU-LATEST) CONCLUÍDA COM SUCESSO
+
+### Evidências da Execução no GitHub Actions (Run ID: 33834974859)
+1. **Ambiente:** GitHub Actions ubuntu-latest (Linux x86_64 neutro, fora de interceptação de antivírus/Windows).
+2. **Clean Checkout:** HOST node_modules e HOST dist ausentes antes do build.
+3. **Dockerfile:** 0 modificações no Dockerfile ou código de runtime.
+4. **Standard Debian CA:** PASS (ca-certificates + npm install -g pnpm@10.30.3 resolvido em 5.2s via CA pública da Debian).
+5. **Docker Build Sem Cache:** PASS (pnpm install --frozen-lockfile determinístico + compilação interna com esbuild gerando dist/gateway.mjs no estágio builder).
+6. **Segurança e Não-Root:** Runner roda estritamente com USER node (não-root); NODE_TLS_REJECT_UNAUTHORIZED é seguro/não-rebaixado.
+7. **Provas de Runtime no Contêiner:**
+   - Liveness (/health): HTTP 200 HEALTHY (PASS)
+   - Readiness (/ready): HTTP 200 DEGRADED (factual, PASS)
+   - Missing Token: HTTP 401 (PASS)
+   - Invalid Token: HTTP 401 (PASS)
+   - Primary Token: Alcança ProviderRouter (PASS)
+   - Secondary Token: Alcança ProviderRouter (PASS, rotação dual-token comprovada)
+   - SIGTERM: shutdown bounded em 122ms (PASS)
+   - SIGINT: shutdown bounded em 127ms (PASS)
+
+### Status
+- **Status:** PHASE 3B.4B.1 NEUTRAL LINUX CI PROOF IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION

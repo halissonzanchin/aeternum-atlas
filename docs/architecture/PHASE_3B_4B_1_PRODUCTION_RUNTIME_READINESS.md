@@ -124,6 +124,43 @@ PROVA CLEAN CHECKOUT DOCKER CONCLUÍDA COM SUCESSO!
 
 ---
 
+## 6. PROVA NEUTRA EM LINUX CI (GITHUB ACTIONS UBUNTU-LATEST)
+
+### 6.1 Parâmetros e Ambiente de Execução
+- **Workflow:** `.github/workflows/gateway-docker-proof.yml`
+- **Run ID:** `33834974859` (Job ID: `100905503061`)
+- **Runner:** `ubuntu-latest` (Linux x86_64, ambiente neutro de nuvem fora de Norton/Windows)
+- **Branch:** `antigravity/phase-3b-atlas-tutor-gateway`
+- **Clean Checkout:** `PASS`
+- **HOST node_modules antes do build:** `ABSENT`
+- **HOST dist antes do build:** `ABSENT`
+- **Docker copies host node_modules:** `NO`
+- **Docker copies host dist:** `NO`
+- **Docker copies custom host certs:** `NO`
+- **TLS bypass:** `ABSENT` (`NODE_TLS_REJECT_UNAUTHORIZED=UNDEFINED_SAFE`)
+
+### 6.2 Resultados Factuais da Execução
+- **Standard Debian CA:** `PASS` (instalação de `ca-certificates`, `update-ca-certificates` e `npm install -g pnpm@10.30.3` concluídos em 5.2s via CA pública da Debian sem nenhum certificado customizado)
+- **Docker Clean Build (`docker build --no-cache`):** `PASS`
+  - Dependências Linux determinísticas: `pnpm install --frozen-lockfile` instalou 240 pacotes em 2.1s
+  - Compilação interna do Gateway: `node scripts/build_gateway.mjs` gerou `dist/gateway.mjs` em 0.152s
+  - Imagem runner final: construída em ~18s
+- **Inspeção de Imagem e Não-Root:**
+  - `runner user`: `node` (`PASS`)
+  - `runner root`: `NO` (`PASS`)
+  - `NODE_TLS_REJECT_UNAUTHORIZED`: `UNDEFINED_SAFE` (`PASS`)
+- **Provas de Runtime do Contêiner:**
+  - **Liveness (`GET /health`):** `HTTP 200` (`{"status":"HEALTHY","gateway_version":"1.0.0","mode":"local_first","auth_mode":"SERVICE_TOKEN"}`) $\rightarrow$ `PASS`
+  - **Readiness (`GET /ready`):** `HTTP 200` (`{"status":"DEGRADED","gateway":"ready","router":"ready","providers":{"local_llm":"unavailable","local_stt":"unavailable","local_tts":"unavailable","cloud_fallback":"configured"}}`) $\rightarrow$ `PASS`
+  - **Missing Token:** `HTTP 401` $\rightarrow$ `PASS`
+  - **Invalid Token:** `HTTP 401` $\rightarrow$ `PASS`
+  - **Valid Primary Token:** `HTTP 400` (alcança ProviderRouter e passa por validação de schema de mensagens; autenticação aprovada) $\rightarrow$ `PASS`
+  - **Valid Secondary Token:** `HTTP 400` (alcança ProviderRouter; rotação dual-token comprovada) $\rightarrow$ `PASS`
+  - **SIGTERM Shutdown Bounded:** parado em **122ms** $\rightarrow$ `PASS`
+  - **SIGINT Shutdown Bounded:** parado em **127ms** $\rightarrow$ `PASS`
+
+---
+
 **STATUS:**  
-`IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`
+`PHASE 3B.4B.1 NEUTRAL LINUX CI PROOF IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`
 
