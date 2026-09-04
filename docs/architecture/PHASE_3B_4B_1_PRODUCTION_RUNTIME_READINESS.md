@@ -1,9 +1,9 @@
 # AETERNUM ATLAS & VITA — FASE 3B.4B.1
-## PRONTIDÃO DE RUNTIME DO AI GATEWAY PARA PRÉ-PRODUÇÃO (REPRODUCIBLE CONTAINER & RUNTIME READINESS)
+## PRONTIDÃO DE RUNTIME DO AI GATEWAY PARA PRÉ-PRODUÇÃO (REPRODUCIBLE CLEAN-CHECKOUT CONTAINER GATE)
 
 **Documento:** `PHASE_3B_4B_1_PRODUCTION_RUNTIME_READINESS.md`  
-**Status:** `PHASE 3B.4B.1 REPRODUCIBLE CONTAINER MICRO-GATE IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`  
-**Data:** 2026-08-30  
+**Status:** `PHASE 3B.4B.1 CLEAN-CHECKOUT CONTAINER GATE IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`  
+**Data:** 2026-09-04  
 **Branch Base:** `antigravity/phase-3b-atlas-tutor-gateway`  
 **Baseline Imutável Verificado:** `c313e5c23a484638c545e8a35ea984fe26ef4542` (Phase 3B.4A.1 VERIFIED)
 
@@ -11,59 +11,54 @@
 
 ## 1. SUMÁRIO EXECUTIVO
 
-A **Fase 3B.4B.1 (Reproducible Container Micro-Gate)** estabeleceu um padrão estrito de reprodutibilidade onde o artefato Docker de pré-produção é integralmente construído a partir de um checkout limpo do repositório Git, sem depender de qualquer diretório `dist/` gerado no host.
+A **Fase 3B.4B.1 (Clean-Checkout Container Gate)** removeu em definitivo qualquer dependência de `COPY node_modules ./node_modules` do Dockerfile. O build da imagem de pré-produção é 100% autônomo, instalando as dependências travadas e compilando o Gateway dentro do estágio `builder` a partir de um estado onde tanto `node_modules` quanto `dist/` estão ausentes no host.
 
 ### Principais Garantias de Reprodutibilidade e Segurança Entregues:
-1. **Compilação Interna no Builder Stage (Clean Checkout Reproducible):** O Dockerfile utiliza arquitetura multi-stage onde o estágio `builder` executa determinística e internamente a compilação do bundle ESM (`node scripts/build_gateway.mjs`), gerando `/app/dist/gateway.mjs`. O estágio `runner` copia exclusivamente o artefato gerado internamente (`COPY --from=builder /app/dist/gateway.mjs ./dist/gateway.mjs`).
-2. **Esbuild Explícito e Travado com Suporte Multiplataforma:** As dependências `esbuild@0.28.2`, `@esbuild/linux-x64@0.28.2` e `@esbuild/win32-x64@0.28.2` estão explicitamente declaradas em `devDependencies` e travadas no `pnpm-lock.yaml`.
-3. **Remoção Completa de `tsx` em Runtime:** O Gateway roda estritamente como JavaScript compilado nativo do Node 24 (`CMD ["node", "dist/gateway.mjs"]`), eliminando `tsx` ou qualquer download dinâmico em tempo de execução.
-4. **Validação TLS Estrita & Ativa:** Todos os bypasses de TLS (`NODE_TLS_REJECT_UNAUTHORIZED=0`, `strict-ssl false`) permanecem 100% ausentes de todos os estágios do Docker.
-5. **Usuário Não-Root (`USER node`):** O contêiner de execução roda estritamente com privilégios reduzidos (`USER node`), mitigando riscos de escape de contêiner.
-6. **Shutdown Finito Bounded em SIGTERM e SIGINT:** Ambas as rotas de encerramento utilizam `gateway.stop(envConfig.shutdownTimeoutMs)` de forma idêntica e determinística, com parada confirmada em 555ms (SIGTERM) e 665ms (SIGINT) no contêiner.
-7. **True Liveness (`/health`) e Readiness (`/ready`):** Separação semântica estrita: `/health` retorna HTTP 200 de forma ultraleve enquanto o processo vive; `/ready` reporta factualidade das capacidades e recusa tráfego durante shutdown ou falha de provedor.
-8. **Rotação Dual-Token:** Token primário obrigatório; token secundário funcional para overlap em rotações; rejeição 401 para credenciais ausentes ou inválidas em tempo constante (`crypto.timingSafeEqual`).
+1. **Zero Dependência de `node_modules` do Host:** `COPY node_modules ./node_modules` foi completamente removido do `apps/gateway/Dockerfile`.
+2. **Build Comprovado a partir de `HOST node_modules = ABSENT` e `HOST dist = ABSENT`:** Prova executada com `dist/` limpo e `node_modules` ausente no host; o Docker builder stage executou `pnpm install --frozen-lockfile` (+240 pacotes em 6.8s) e `node scripts/build_gateway.mjs` (compilação interna em 0.5s).
+3. **Validação TLS 100% Ativa:** Nenhuma desativação de TLS (`NODE_TLS_REJECT_UNAUTHORIZED=0`, `strict-ssl false` inexistentes).
+4. **Usuário Não-Root (`USER node`):** O contêiner de execução roda estritamente com privilégios reduzidos (`USER node`), mitigando riscos de escape de contêiner.
+5. **Shutdown Finito Bounded em SIGTERM e SIGINT:** Parada confirmada em 532ms (SIGTERM) e 492ms (SIGINT) no contêiner.
+6. **True Liveness (`/health`) e Readiness (`/ready`):** Separação semântica estrita: `/health` retorna HTTP 200 de forma ultraleve enquanto o processo vive; `/ready` reporta factualidade das capacidades (HTTP 503 quando sem provedores).
+7. **Rotação Dual-Token:** Token primário obrigatório; token secundário funcional para overlap em rotações; rejeição 401 para credenciais ausentes ou inválidas em tempo constante (`crypto.timingSafeEqual`).
 
 ---
 
-## 2. EVIDÊNCIAS FACTUAIS DO MICRO-GATE (DOCKER CLEAN BUILD & PROOF)
+## 2. EVIDÊNCIAS FACTUAIS DO CLEAN-CHECKOUT PROOF
 
 ```
 ==================================================
-CLEAN CHECKOUT & DOCKER PROOF
+PHASE 3B.4B.1 CLEAN CHECKOUT DOCKER BUILD PROOF
 ==================================================
-1. Estado antes do build Docker:
-   dist/ presente no host: False (limpo antes do build)
-2. Compilação interna no Docker Builder Stage:
-   #12 [builder 8/8] RUN node scripts/build_gateway.mjs
-   #12 0.466 Gateway compilado com sucesso em dist/gateway.mjs!
-   #13 [runner 3/3] COPY --from=builder --chown=node:node /app/dist/gateway.mjs ./dist/gateway.mjs
-3. Verificando NODE_TLS_REJECT_UNAUTHORIZED e usuário do runner no contêiner...
-   Container Env Check: {"tlsReject":"UNDEFINED_SAFE","user":"node"}
-   -> TLS validation enabled: PASS (NODE_TLS_REJECT_UNAUTHORIZED é seguro/ausente)
-4. Inicializando contêiner com Primary + Secondary Tokens...
-   [Docker stdout] {"level":"INFO","event":"GATEWAY_STARTED","port":8081,"host":"0.0.0.0","mode":"local_first"}
-5. Testando GET /health (Liveness)...
-   Health response: 200 {"status":"HEALTHY","gateway_version":"1.0.0","mode":"local_first","auth_mode":"SERVICE_TOKEN"}
-6. Testando GET /ready (Readiness)...
-   Ready response: 503 {"status":"NOT_READY","gateway":"ready","router":"ready","providers":{"local_llm":"unavailable","local_stt":"unavailable","local_tts":"unavailable","cloud_fallback":"disabled"}}
-7. Testando POST /v1/llm/generate sem token...
-   Missing token status: 401
-8. Testando POST /v1/llm/generate com token inválido...
-   Invalid token status: 401
-9. Testando POST /v1/llm/generate com Primary Token válido...
-   Primary token status: 503 (atinge router)
-10. Testando POST /v1/llm/generate com Secondary Token de rotação válido...
-    Secondary token status: 503 (atinge router)
-11. Testando encerramento gracioso via SIGTERM (docker stop)...
-    [Docker stdout] Sinal SIGTERM recebido. Encerrando Gateway graciosamente...
-    [Docker stdout] {"level":"INFO","event":"GATEWAY_STOPPED"}
-    SIGTERM Graceful Shutdown concluído em 555ms
-12. Testando encerramento gracioso via SIGINT (docker kill -s SIGINT)...
-    [Docker stdout] Sinal SIGINT recebido. Encerrando Gateway...
-    [Docker stdout] {"level":"INFO","event":"GATEWAY_STOPPED"}
-    SIGINT Graceful Shutdown concluído em 665ms
+Verificação de estado do Host antes do build Docker:
+- HOST node_modules existe: NO (ABSENT)
+- HOST dist existe: NO (ABSENT)
+
+Executando: docker build --no-cache -t aeternum-ai-gateway-local-test -f apps/gateway/Dockerfile .
+#13 [builder 9/10] RUN pnpm install --frozen-lockfile
+#13 0.685 Lockfile is up to date, resolution step is skipped
+#13 0.819 Packages: +240
+#13 7.156 Done in 6.8s using pnpm v10.30.3
+#14 [builder 10/10] RUN node scripts/build_gateway.mjs
+#14 0.443 Gateway compilado com sucesso em dist/gateway.mjs!
+#15 [runner 3/3] COPY --from=builder --chown=node:node /app/dist/gateway.mjs ./dist/gateway.mjs
+-> Docker build concluído com sucesso a partir de HOST node_modules=ABSENT e HOST dist=ABSENT!
+
 ==================================================
-PROVA FACTUAL DO MICRO-GATE CONCLUÍDA COM SUCESSO!
+PROVA DE RUNTIME DO CONTÊINER CONSTRUÍDO
+==================================================
+Container Env Check: {"tlsReject":"UNDEFINED_SAFE","user":"node"}
+Iniciando contêiner de teste...
+Health response: 200 {"status":"HEALTHY","gateway_version":"1.0.0","mode":"local_first","auth_mode":"SERVICE_TOKEN"}
+Ready response: 503 {"status":"NOT_READY","gateway":"ready","router":"ready","providers":{"local_llm":"unavailable","local_stt":"unavailable","local_tts":"unavailable","cloud_fallback":"disabled"}}
+Missing token status: 401
+Invalid token status: 401
+Primary token status (reaches router): 503
+Secondary token status (reaches router): 503
+SIGTERM graceful shutdown concluído em 532ms
+SIGINT graceful shutdown concluído em 492ms
+==================================================
+PROVA CLEAN CHECKOUT DOCKER CONCLUÍDA COM SUCESSO!
 ==================================================
 ```
 

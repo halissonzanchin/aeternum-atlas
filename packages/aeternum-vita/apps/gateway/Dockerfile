@@ -3,13 +3,25 @@ FROM node:24-bookworm-slim AS builder
 
 WORKDIR /app
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+ENV NODE_OPTIONS="--use-system-ca"
+
+# Instala CA certificates e suporta certificados customizados caso presentes
+COPY certs* /usr/local/share/ca-certificates/
+RUN apt-get update -qq && apt-get install -y -qq --no-install-recommends ca-certificates \
+    && update-ca-certificates \
+    && rm -rf /var/lib/apt/lists/* \
+    && npm install -g pnpm@10.30.3
+
+# Copia apenas manifestos e código-fonte (SEM node_modules do host e SEM dist do host)
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY node_modules ./node_modules
-COPY scripts ./scripts
 COPY apps/gateway ./apps/gateway
 COPY src ./src
+COPY scripts ./scripts
 
-# Compilação determinística do Gateway dentro do builder stage via esbuild
+# Instalação determinística de dependências travadas e compilação do Gateway no builder
+RUN pnpm install --frozen-lockfile
 RUN node scripts/build_gateway.mjs
 
 FROM node:24-bookworm-slim AS runner

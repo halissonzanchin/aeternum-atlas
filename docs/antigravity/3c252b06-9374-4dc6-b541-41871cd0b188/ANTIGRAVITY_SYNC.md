@@ -1989,3 +1989,18 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 - **Suíte Monorepo:** **310/310 PASS** (30 skipped cloud live opt-in)
 - **TypeScript:** **0 erros**
 - **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`
+
+---
+
+## [2026-09-04 00:02] — FASE 3B.4B.1 CORREÇÃO FINAL DE CLEAN-CHECKOUT DOCKER CONCLUÍDA (COPY NODE_MODULES REMOVIDO, HOST NODE_MODULES=ABSENT, HOST DIST=ABSENT, PROVA 100%)
+
+### Entregas do Gate
+1. **Remoção de COPY node_modules:** O Dockerfile não copia mais `node_modules` do host.
+2. **Prova a partir de Estado Limpo:** Build executado comprovadamente com `HOST node_modules = ABSENT` e `HOST dist = ABSENT`. O builder stage realizou instalação determinística via `pnpm install --frozen-lockfile` e compilação interna com `node scripts/build_gateway.mjs`.
+3. **Validação TLS 100% Ativa:** Preservada sem bypass.
+4. **Usuário Não-Root:** `USER node` no runner.
+5. **Shutdown Uniformizado Bounded:** SIGTERM (532ms) e SIGINT (492ms) validados.
+6. **Testes:** 310/310 PASS, 0 erros TypeScript.
+
+### Status
+- **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`
