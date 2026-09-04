@@ -1,13 +1,13 @@
 export const AETERNUM_VITA_TUTORS = Object.freeze({
   pt: Object.freeze({
-    id: "eduardo",
-    name: "Eduardo",
+    id: "eduardo", // eduardo = LEGACY_ALIAS_FOR_FELIPE
+    name: "Felipe",
     countryCode: "BR",
     country: "Brasil",
     langCode: "pt-BR",
     role: "Mentor Sênior em Português",
     badgeGradient: "linear-gradient(135deg, #009c3b 0%, #ffdf00 50%, #002776 100%)",
-    greeting: "Olá! Seja muito bem-vindo ao Aeternum Vita. Eu sou o Eduardo, seu mentor em português do Brasil. Como posso guiar seus estudos anatômicos hoje?"
+    greeting: "Olá! Seja muito bem-vindo ao Aeternum Vita. Eu sou o Felipe, seu mentor em português do Brasil. Como posso guiar seus estudos anatômicos hoje?"
   }),
   es: Object.freeze({
     id: "antonia",

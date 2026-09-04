@@ -19,7 +19,7 @@ export interface TutorInfo {
 export const TUTOR_LIST: TutorInfo[] = [
   {
     id: 'eduardo',
-    name: 'Eduardo',
+    name: 'Felipe',
     language: 'Português',
     flag: '🇧🇷',
     gender: 'Voz Masculina',

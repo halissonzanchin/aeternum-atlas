@@ -263,7 +263,7 @@ export const VITA_MENTORSHIP_MODULES = {
   despedida_encerramento: {
     id: "despedida_encerramento",
     synonyms: [
-      "vamos parar por aqui", "parar por aqui", "por hoje e so", "por hoje é só", "tchau", "tchau eduardo", "tchau antonia",
+      "vamos parar por aqui", "parar por aqui", "por hoje e so", "por hoje é só", "tchau", "tchau felipe", "tchau eduardo", "tchau antonia",
       "ate mais", "até mais", "boa noite", "bom descanso", "vou descansar", "vou dormir", "vamos encerrar",
       "encerrar", "obrigado pelo dialogo", "obrigado pela conversa", "obrigado pela aula", "valeu pelo dialogo",
       "adios", "hasta luego", "hasta pronto", "buenas noches", "descansar", "terminar por hoy", "gracias por la charla",
@@ -375,7 +375,7 @@ export const VITA_MENTORSHIP_MODULES = {
     id: "saudacoes",
     synonyms: ["hola", "buen dia", "buenas", "ola", "oi", "bom dia", "boa tarde", "hello", "hi", "hey", "hallo", "guten tag"],
     responses: {
-      pt: "Olá! Seja muito bem-vindo ao Aeternum Atlas. Eu sou o Eduardo, seu mentor de estudos. Como está sua preparação hoje e em que posso te apoiar?",
+      pt: "Olá! Seja muito bem-vindo ao Aeternum Atlas. Eu sou o Felipe, seu mentor de estudos. Como está sua preparação hoje e em que posso te apoiar?",
       es: "¡Hola! Es un gran placer saludarte. Soy Antonia, tu mentora en Aeternum Vita. ¿Cómo va tu día de estudio y qué estructura te gustaría explorar hoy?",
       en: "Hello! It is fantastic to connect with you. I am Ariana, your mentor here at Aeternum Vita. How is your study momentum going today?",
       de: "Hallo! Schön, dass du da bist. Ich bin Fabian, dein Anatomie-Mentor. Wie läuft dein Tag und womit starten wir heute?"

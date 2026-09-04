@@ -110,7 +110,7 @@ class CerebroAeternumEngine {
       if (lang === "de") {
         return "Hallo! Schön, dich zu hören. Ich bin Fabian, dein Studienmentor. Wie läuft dein Tag und welches Thema gehen wir heute gemeinsam an?";
       }
-      return "Olá! Que satisfação falar com você hoje. Eu sou o Eduardo, seu mentor e conselheiro de estudos. Como está seu dia e em que posso te apoiar agora?";
+      return "Olá! Que satisfação falar com você hoje. Eu sou o Felipe, seu mentor e conselheiro de estudos. Como está seu dia e em que posso te apoiar agora?";
     }
 
     // 2. Perguntas sobre como o tutor está ou sentimentos mútuos

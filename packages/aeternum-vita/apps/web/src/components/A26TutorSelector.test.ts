@@ -7,7 +7,7 @@ describe('A26TutorSelector Component Models', () => {
 
     const eduardo = TUTOR_LIST.find((t) => t.id === 'eduardo');
     expect(eduardo).toBeDefined();
-    expect(eduardo?.name).toBe('Eduardo');
+    expect(eduardo?.name).toBe('Felipe');
     expect(eduardo?.flag).toBe('🇧🇷');
     expect(eduardo?.language).toBe('Português');
     expect(eduardo?.gender).toBe('Voz Masculina');

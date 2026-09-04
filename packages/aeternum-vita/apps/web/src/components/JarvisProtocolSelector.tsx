@@ -13,7 +13,7 @@ export interface ProtocolOption {
 export const JARVIS_PROTOCOLS: ProtocolOption[] = [
   {
     id: 'eduardo',
-    name: 'Eduardo',
+    name: 'Felipe',
     code: 'ALPHA-01',
     language: 'Português (Brasil)',
     flag: '🇧🇷',
