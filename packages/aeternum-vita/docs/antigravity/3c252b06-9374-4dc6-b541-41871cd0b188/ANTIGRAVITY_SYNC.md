@@ -1638,3 +1638,39 @@ FALLBACK: CONFIGURED
 
 ### Status
 - **Status:** PHASE 3B.4B.3 PRE-PRODUCTION INFRASTRUCTURE PREFLIGHT IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION
+
+---
+
+## [2026-09-04 01:50] — FASE 3B.4B.3 CORREÇÕES FACTUAIS DE PRÉ-VOO (FINAL PREFLIGHT FACTUAL CORRECTIONS)
+
+### Correções Factuais Realizadas
+1. **Diferenciação de Regiões Fly (Machine Regions vs WireGuard Gateway Regions):**
+   - Corrigida a documentação para distinguir a região de computação da Machine (candidata: `gru` / São Paulo) da região do Gateway WireGuard (`fly wireguard create`).
+   - A região `gru` atualmente não possui o marcador de Gateway WireGuard na plataforma Fly.io. A região do Gateway WireGuard deverá ser escolhida estritamente dentre as regiões com suporte comprovado a Gateway WireGuard (com tráfego roteado internamente via 6PN até a Machine em `gru`).
+   - Removida `mia` como candidata presumida sem confirmação empírica.
+   - Decisão final da região do WireGuard postergada para a fase de descoberta pós-autenticação (`fly platform regions`) combinada com medição de latência.
+2. **Estado da Conta Fly.io (FLY_CLI_INSTALLED=NO, FLY_AUTHENTICATED=NO):**
+   - Atualizado `EXISTING_FLY_RESOURCES=UNKNOWN` (corrigido de 0, pois recursos não podem ser conhecidos antes do login).
+   - Atualizado `FLY_ACCOUNT_PAYMENT_STATUS=UNKNOWN_UNTIL_LOGIN` (Fly opera Pay-As-You-Go e pode exigir pagamento ativo, mas status específico da conta permanece desconhecido até o login).
+3. **Modelo de Custo do Gateway:**
+   - Removida a estimativa genérica de $0-$3.50/mês.
+   - Atualizado para: `COST=TO_BE_CONFIRMED_FROM_CURRENT_FLY_PRICING_AND_SELECTED_MACHINE` com base na tabela vigente na data de alocação da máquina selecionada (sem presumir gratuidade).
+4. **Classificação Factual de Exposição de Portas no Host Local (HP Victus):**
+   - Registrado que `docker-compose.yml` publica `11434:11434` e `8000:8000`, e o runtime mostra `0.0.0.0:11434`, `[::]:11434`, `0.0.0.0:8000`, `[::]:8000`.
+   - Removida a alegação de que os serviços já seriam "100% overlay-private".
+   - Classificação estrita adotada:
+     - `ROUTER_PORT_FORWARDING=ABSENT`
+     - `PUBLIC_TUNNEL=ABSENT`
+     - `HOST_PORT_PUBLICATION_11434=PRESENT`
+     - `HOST_PORT_PUBLICATION_8000=PRESENT`
+     - `LAN_ACCESS_BLOCKED=NOT_YET_PROVEN`
+     - `INTERNET_DIRECT_EXPOSURE=NOT_OBSERVED`
+   - Definidos os dois caminhos para a futura pré-produção:
+     - Opção Preferida: WireGuard sidecar / rede privada interna Docker (elimina a necessidade de publicar portas no host para a rota de staging).
+     - Opção Alternativa: Windows WireGuard peer + Windows Defender Firewall restrito com prova factual de que interfaces de LAN/não-confiáveis não acessam as portas 11434 e 8000.
+5. **Governança Intacta:**
+   - Zero alterações de código de runtime, frontend, Docker ou produção.
+   - Zero provisionamento externo.
+
+### Status
+- **Status:** PHASE 3B.4B.3 PRE-PRODUCTION INFRASTRUCTURE PREFLIGHT CORRECTED / PENDING CHATGPT FINAL VERIFICATION
