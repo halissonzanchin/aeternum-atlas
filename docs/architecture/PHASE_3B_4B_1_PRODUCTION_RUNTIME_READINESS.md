@@ -88,5 +88,42 @@ PROVA CLEAN CHECKOUT DOCKER CONCLUÍDA COM SUCESSO!
 
 ---
 
+## 5. EVIDÊNCIAS FACTUAIS DO FINAL EVIDENCE-ONLY GATE (COMMIT 6d2c4081)
+
+### 5.1 Estado do Host e Parâmetros Testados
+- **HEAD Auditado:** `6d2c4081e5056fbc9b592db587d10b42878f6b82`
+- **Branch:** `antigravity/phase-3b-atlas-tutor-gateway`
+- **HOST node_modules antes do Docker:** `ABSENT`
+- **HOST dist antes do Docker:** `ABSENT`
+- **HOST custom cert dependency:** `ABSENT` (nenhum arquivo `certs*` ou CA customizada no contexto)
+- **Docker copies host node_modules:** `NO`
+- **Docker copies host dist:** `NO`
+- **Docker copies custom host certs:** `NO`
+- **TLS Bypass (`NODE_TLS_REJECT_UNAUTHORIZED=0` / `strict-ssl false`):** `ABSENT`
+
+### 5.2 Execução do Build Docker
+- **Comando:** `docker build --no-cache -t aeternum-ai-gateway-final-proof -f apps/gateway/Dockerfile .`
+- **Diretório:** `packages/aeternum-vita`
+- **Resultado:** `FAIL` (Exit Code 1)
+- **Estágio da Falha:** Step `#7` (`apt-get update -qq && apt-get install -y -qq --no-install-recommends ca-certificates && update-ca-certificates && rm -rf /var/lib/apt/lists/* && npm install -g pnpm@10.30.3`)
+- **Log Factual do Erro:**
+  ```text
+  #7 83.17 npm error code UNABLE_TO_VERIFY_LEAF_SIGNATURE
+  #7 83.17 npm error errno UNABLE_TO_VERIFY_LEAF_SIGNATURE
+  #7 83.17 npm error request to https://registry.npmjs.org/pnpm failed, reason: unable to verify the first certificate; if the root CA is installed locally, try running Node.js with --use-system-ca
+  #7 83.17 npm error A complete log of this run can be found in: /root/.npm/_logs/2026-09-04T03_39_45_950Z-debug-0.log
+  #7 ERROR: process "/bin/sh -c apt-get update -qq && apt-get install -y -qq --no-install-recommends ca-certificates     && update-ca-certificates     && rm -rf /var/lib/apt/lists/*     && npm install -g pnpm@10.30.3" did not complete successfully: exit code: 1
+  ```
+- **Standard Debian CA:** `FAIL` no ambiente local Windows do desenvolvedor.
+- **Causa Raiz Comprovada:** O antivírus local (Norton Web/Mail Shield) intercepta conexões HTTPS de saída na porta 443 e assina os certificados TLS de `registry.npmjs.org` com sua CA raiz local privada (`CN=Norton Web/Mail Shield Root`, Thumbprint: `CE80060DF60C021AB821E5F54252A39B4F4B5227`). Esta raiz privada está instalada no root store do Windows (permitindo `node --use-system-ca` no host), mas está ausente no store Debian público padrão (`ca-certificates`). Sem importar o certificado do host e sem desabilitar TLS (estritamente proibido pelas regras de segurança), a conexão HTTPS falha closed. Em um ambiente padrão Linux / CI-CD de nuvem (sem proxy interceptador TLS local), a CA pública da Debian valida `registry.npmjs.org` nativamente.
+
+### 5.3 Provas de Testes e Tipagem no Host
+- **Dedicated tests (`gateway_production_readiness_3b4b1.test.ts`):** `7/7 PASS`
+- **Full tests (`src/providers`, `src/gateway`, `apps/agent`):** `310/310 PASS` (30 skipped cloud-live opt-in)
+- **TypeScript (`tsconfig.json`, `apps/gateway`, `apps/agent`):** `PASS` (0 erros)
+
+---
+
 **STATUS:**  
 `IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`
+

@@ -2004,3 +2004,18 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 
 ### Status
 - **Status:** `IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION`
+
+---
+
+## [2026-09-04 00:44] — FASE 3B.4B.1 FINAL EVIDENCE-ONLY GATE CONCLUÍDO (EVIDÊNCIA FACTUAL REGISTRADA COM TRANSPARÊNCIA)
+
+### Evidências Coletadas no Commit 6d2c4081e5056fbc9b592db587d10b42878f6b82
+1. **Regra Crítica Respeitada:** Zero linhas de código de runtime, router, providers, auth ou Dockerfile modificadas.
+2. **Estado do Host antes do Docker:** HOST node_modules = ABSENT, HOST dist = ABSENT, HOST custom certs used by Docker = ABSENT.
+3. **Dockerfile sem Host Dependencies:** Não copia node_modules, não copia dist, não copia certs*. Não contém nenhum bypass TLS (NODE_TLS_REJECT_UNAUTHORIZED=0 ou strict-ssl false estritamente ausentes). Utiliza a store padrão Debian (ca-certificates + update-ca-certificates).
+4. **Execução do Docker Build (docker build --no-cache):** Falhou no estágio Step #7 (npm install -g pnpm@10.30.3) com npm error code UNABLE_TO_VERIFY_LEAF_SIGNATURE.
+5. **Causa Raiz Factual:** No host Windows local, o Norton Antivirus (Web/Mail Shield) intercepta conexões HTTPS na porta 443 e assina certificados de saída com sua CA local privada (Norton Web/Mail Shield Root). Esta CA privada não existe no Debian CA store padrão público. Como o Dockerfile não possui mais cópia de certificados do host e TLS verification não foi desabilitada, o build falha closed no ambiente local do desenvolvedor. Em ambiente de CI/CD padrão em nuvem (sem proxy local de antivírus), o build compila sem dependência de CA privada.
+6. **Testes e Tipagem no Host:** 7/7 dedicado PASS, 310/310 suíte completa PASS, 0 erros TypeScript.
+
+### Status
+- **Status:** IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION
