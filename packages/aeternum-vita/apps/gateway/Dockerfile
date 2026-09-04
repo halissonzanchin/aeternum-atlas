@@ -7,8 +7,6 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV NODE_OPTIONS="--use-system-ca"
 
-# Instala CA certificates e suporta certificados customizados caso presentes
-COPY certs* /usr/local/share/ca-certificates/
 RUN apt-get update -qq && apt-get install -y -qq --no-install-recommends ca-certificates \
     && update-ca-certificates \
     && rm -rf /var/lib/apt/lists/* \
