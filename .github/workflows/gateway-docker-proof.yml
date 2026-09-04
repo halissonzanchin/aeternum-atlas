@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'antigravity/phase-3b-atlas-tutor-gateway'
+      - 'antigravity/phase-3b4b2-local-ollama-connectivity'
   workflow_dispatch:
 
 permissions:
@@ -194,3 +195,14 @@ jobs:
           echo "SIGINT bounded shutdown: PASS"
 
           echo "=== ALL NEUTRAL LINUX CI PROOFS COMPLETED SUCCESSFULLY ==="
+
+      - name: Save Docker Image Artifact
+        run: |
+          docker save aeternum-ai-gateway-ci-proof:latest | gzip > /tmp/gateway-image.tar.gz
+
+      - name: Upload Docker Image Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gateway-docker-image
+          path: /tmp/gateway-image.tar.gz
+          retention-days: 1

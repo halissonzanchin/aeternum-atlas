@@ -14,7 +14,7 @@ loadLocalCloudEnv();
 const envConfig = loadGatewayEnvConfig();
 
 const localLLM = envConfig.localLLMEnabled
-  ? new OllamaLLMProvider({ modelId: "qwen2.5:3b", baseUrl: "http://127.0.0.1:11434" })
+  ? new OllamaLLMProvider({ modelId: envConfig.localLLMModelId, baseUrl: envConfig.localLLMBaseUrl })
   : undefined;
 const cloudLLM = envConfig.cloudLLMEnabled
   ? new GeminiLLMProvider({ modelId: "gemini-3.7-flash" })

@@ -16,6 +16,8 @@ export interface GatewayEnvConfig {
   gatewayRequestTimeoutMs: number;
   authToken?: string;
   secondaryAuthToken?: string;
+  localLLMBaseUrl: string;
+  localLLMModelId: string;
   maxConcurrentRequests: number;
   shutdownTimeoutMs: number;
 }
@@ -48,6 +50,8 @@ export function loadGatewayEnvConfig(): GatewayEnvConfig {
   const gatewayRequestTimeoutMs = Number(process.env.GATEWAY_REQUEST_TIMEOUT_MS) || 30000;
   const authToken = process.env.AETERNUM_AI_GATEWAY_TOKEN || process.env.PRIMARY_SERVICE_TOKEN;
   const secondaryAuthToken = process.env.SECONDARY_SERVICE_TOKEN;
+  const localLLMBaseUrl = process.env.LOCAL_LLM_BASE_URL || "http://127.0.0.1:11434";
+  const localLLMModelId = process.env.LOCAL_LLM_MODEL_ID || "qwen2.5:3b";
   const maxConcurrentRequests = Number(process.env.MAX_CONCURRENT_REQUESTS) || 50;
   const shutdownTimeoutMs = Number(process.env.SHUTDOWN_TIMEOUT_MS) || 5000;
 
@@ -65,6 +69,8 @@ export function loadGatewayEnvConfig(): GatewayEnvConfig {
     authMode,
     authToken,
     secondaryAuthToken,
+    localLLMBaseUrl,
+    localLLMModelId,
     providerTimeoutMs,
     gatewayRequestTimeoutMs,
     maxConcurrentRequests,
