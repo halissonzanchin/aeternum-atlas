@@ -73,11 +73,9 @@ jobs:
           docker run -d \
             --name gateway-proof \
             -p 8081:8081 \
-            -e PORT=8081 \
-            -e HOST=0.0.0.0 \
-            -e SERVICE_TOKEN_SECRET="$PRIMARY_TOKEN" \
-            -e SECONDARY_SERVICE_TOKEN_SECRET="$SECONDARY_TOKEN" \
-            -e AI_GATEWAY_MODE=local_first \
+            -e AETERNUM_AI_GATEWAY_AUTH_MODE=SERVICE_TOKEN \
+            -e PRIMARY_SERVICE_TOKEN="$PRIMARY_TOKEN" \
+            -e SECONDARY_SERVICE_TOKEN="$SECONDARY_TOKEN" \
             aeternum-ai-gateway-ci-proof
 
           echo "Waiting for Gateway readiness..."
@@ -174,10 +172,9 @@ jobs:
           docker run -d \
             --name gateway-sigint \
             -p 8082:8081 \
-            -e PORT=8081 \
-            -e HOST=0.0.0.0 \
-            -e SERVICE_TOKEN_SECRET="$PRIMARY_TOKEN" \
-            -e AI_GATEWAY_MODE=local_first \
+            -e AETERNUM_AI_GATEWAY_AUTH_MODE=SERVICE_TOKEN \
+            -e PRIMARY_SERVICE_TOKEN="$PRIMARY_TOKEN" \
+            -e SECONDARY_SERVICE_TOKEN="$SECONDARY_TOKEN" \
             aeternum-ai-gateway-ci-proof
 
           for i in {1..30}; do
