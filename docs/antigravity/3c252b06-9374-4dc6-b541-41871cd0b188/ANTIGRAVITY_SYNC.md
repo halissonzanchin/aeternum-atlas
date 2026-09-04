@@ -2063,3 +2063,42 @@ PASS (Fase 1.2 VERIFIED & FAIL-CLOSED)
 
 ### Status
 - **Status:** PHASE 3B.4B.2 LOCAL OLLAMA INFERENCE CONNECTIVITY IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION
+
+---
+
+## [2026-09-04 01:40] — FASE 3B.4B.3 PROVA DE INFRAESTRUTURA DE PRÉ-PRODUÇÃO (PREFLIGHT AUDIT & SETUP SEGURO) CONCLUÍDA
+
+### Evidências da Auditoria de Pré-Voo (Preflight)
+1. **Nova Branch de Trabalho:** `antigravity/phase-3b4b3-preproduction-infrastructure` criada a partir do commit canônico verificado `f1160ca0bfc6f05597e8d73de1ac5109cdf51aff` (Fase 3B.4B.2 VERIFIED por ChatGPT Audit).
+2. **Baseline Local no HP Victus Confirmado:**
+   - Docker Desktop: v29.7.2 ativo.
+   - Ollama: v0.32.5 ativo em contêiner `aeternum-vita-ollama-1` com portas `0.0.0.0:11434` e `[::]:11434`.
+   - Modelo `qwen2.5:3b` (1.9 GB) presente e acelerado a 100% na GPU NVIDIA GeForce RTX 4050 (2161 MiB VRAM).
+   - `GET http://127.0.0.1:11434/api/tags` retornando HTTP 200 factual com modelos `qwen3:4b` e `qwen2.5:3b`.
+3. **Baseline do Gateway Confirmado:**
+   - Configuração do Gateway herda `LOCAL_LLM_BASE_URL` e `LOCAL_LLM_MODEL_ID` sem refatoração.
+   - ProviderRouter, OllamaLLMProvider e dual-token auth preservados sem modificações.
+   - Testes unitários e de integração: 335 passed (100% green), 0 erros TypeScript.
+4. **Descoberta do Fly.io (Read-Only):**
+   - `FLY_CLI_INSTALLED`: NO (binário ausente no host e no WSL2).
+   - `FLY_AUTHENTICATED`: NO (sem sessão ou credenciais locais).
+   - `FLY_ORG_AVAILABLE`: UNKNOWN.
+   - `FLY_BILLING_REQUIRED_BEFORE_DEPLOY`: YES (exige método de pagamento cadastrado antes de criar Machines).
+   - Recursos Fly existentes: 0 (nenhum recurso criado ou existente).
+5. **Descoberta de Região & Rede Privada (WireGuard / 6PN):**
+   - Região prioritária recomendada: `gru` (São Paulo, Brasil) para menor latência física até o HP Victus.
+   - WireGuard opera via UDP 51820 de saída com `PersistentKeepalive=25`, atravessando NAT sem portas abertas no roteador.
+   - Análise de peer HP Victus: Opção C (Sidecar Docker) ou Opção A (Windows Host com regra estrita de Firewall).
+6. **Segurança de Rede & Ingress:**
+   - Ingress público restrito a HTTPS :443 do Gateway na nuvem.
+   - Portas :11434 e :8000 restritas 100% ao overlay privado.
+   - Regra estrita respeitada: zero router port-forwarding, zero DMZ, zero UPnP, zero túneis públicos (ngrok/Cloudflare/Tailscale Funnel).
+7. **Descoberta do Supabase & Vercel:**
+   - `STAGING_SUPABASE_EXISTS`: NO (apenas o projeto de produção `hyivyrietgjdazgizafp` existe via MCP list_projects).
+   - Produção Supabase (`ai-tutor v38`, `voice-token v8`) e Vercel 100% congelados e intocados.
+   - Plano de teste de pré-produção estruturado para validação com test harness sintético desacoplado de produção.
+8. **Matriz de Decisão:** Opção A (Fly.io + WireGuard) confirmada como arquitetura canônica preferida vs Opção B (VPS + Tailscale). Ambas corretamente bloqueadas antes de faturamento/provisionamento.
+9. **Condições de Parada & Governança:** Preflight concluído com total transparência factual, aguardando autorização do usuário e credenciamento de billing antes do provisionamento real.
+
+### Status
+- **Status:** PHASE 3B.4B.3 PRE-PRODUCTION INFRASTRUCTURE PREFLIGHT IMPLEMENTED / PENDING CHATGPT FINAL VERIFICATION
