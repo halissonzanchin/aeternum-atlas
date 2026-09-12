@@ -1,13 +1,13 @@
 export const AETERNUM_VITA_TUTORS = Object.freeze({
   pt: Object.freeze({
-    id: "eduardo", // eduardo = LEGACY_ALIAS_FOR_FELIPE
-    name: "Felipe",
+    id: "eduardo", // eduardo = LEGACY_INTERNAL_ALIAS_FOR_MARINA
+    name: "Marina",
     countryCode: "BR",
     country: "Brasil",
     langCode: "pt-BR",
-    role: "Mentor Sênior em Português",
+    role: "Mentora Sênior em Português",
     badgeGradient: "linear-gradient(135deg, #009c3b 0%, #ffdf00 50%, #002776 100%)",
-    greeting: "Olá! Seja muito bem-vindo ao Aeternum Vita. Eu sou o Felipe, seu mentor em português do Brasil. Como posso guiar seus estudos anatômicos hoje?"
+    greeting: "Marina está pronta. Pode perguntar quando quiser."
   }),
   es: Object.freeze({
     id: "antonia",
@@ -17,7 +17,7 @@ export const AETERNUM_VITA_TUTORS = Object.freeze({
     langCode: "es-ES",
     role: "Mentora Empática en Español",
     badgeGradient: "linear-gradient(135deg, #aa151b 0%, #f1bf00 50%, #aa151b 100%)",
-    greeting: "¡Hola! Te doy una cálida bienvenida a Aeternum Vita. Soy Antonia, tu mentora nativa en español. ¿Qué estructura anatómica deseas explorar hoy?"
+    greeting: "Antonia está lista. Puedes preguntar cuando quieras."
   }),
   en: Object.freeze({
     id: "ariana",
@@ -27,7 +27,7 @@ export const AETERNUM_VITA_TUTORS = Object.freeze({
     langCode: "en-US",
     role: "Dynamic English Mentor",
     badgeGradient: "linear-gradient(135deg, #0a3161 0%, #ffffff 50%, #b31942 100%)",
-    greeting: "Hello and welcome to Aeternum Vita! I am Ariana, your native English anatomy mentor. How can I guide your journey today?"
+    greeting: "Ariana is ready. Ask whenever you want."
   }),
   de: Object.freeze({
     id: "fabian",
@@ -37,7 +37,7 @@ export const AETERNUM_VITA_TUTORS = Object.freeze({
     langCode: "de-DE",
     role: "Strukturierter Deutscher Mentor",
     badgeGradient: "linear-gradient(135deg, #000000 0%, #dd0000 50%, #ffce00 100%)",
-    greeting: "Hallo und herzlich willkommen bei Aeternum Vita! Ich bin Fabian, dein Anatomie-Mentor auf Deutsch. Wie kann ich dir heute helfen?"
+    greeting: "Fabian ist bereit. Du kannst jederzeit fragen."
   })
 });
 

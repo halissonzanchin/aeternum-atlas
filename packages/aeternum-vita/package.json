@@ -9,6 +9,7 @@
     "pnpm": ">=10.0.0"
   },
   "scripts": {
+    "dev:gateway": "node apps/gateway/run.mjs",
     "dev": "pnpm --filter @aeternum-vita/web --filter @aeternum-vita/token-server --parallel --stream dev",
     "dev:all": "pnpm --recursive --parallel --stream dev",
     "dev:agent": "pnpm --filter @aeternum-vita/agent dev",

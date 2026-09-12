@@ -18,11 +18,11 @@ const router = new ProviderRouter({
     fallback: new GeminiLLMProvider({ modelId: "gemini-3.7-flash" })
   },
   stt: {
-    primary: new SpeachesSTTProvider({ modelId: "faster-whisper" }),
+    primary: new SpeachesSTTProvider({ modelId: "Systran/faster-whisper-small", baseUrl: "http://127.0.0.1:8000", apiKey: process.env.SPEECH_API_KEY }),
     fallback: new DeepgramSTTProvider({ modelId: "nova-3" })
   },
   tts: {
-    primary: new SpeachesTTSProvider({ modelId: "kokoro" }),
+    primary: new SpeachesTTSProvider({ baseUrl: "http://127.0.0.1:8000", apiKey: process.env.SPEECH_API_KEY }),
     fallback: new CartesiaTTSProvider({ modelId: "sonic-3", apiVersion: "2026-08-14" })
   }
 });

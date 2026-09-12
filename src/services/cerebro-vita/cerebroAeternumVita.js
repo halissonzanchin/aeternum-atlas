@@ -3,7 +3,7 @@
  * CÉREBRO AETERNUM VITA — MOTOR NEURAL DE VOZ & MULTI-TUTORIA CONVERSACIONAL
  * ============================================================================
  * Exclusivo para os Tutores de Voz da Aeternum Vita:
- * - Felipe 🇧🇷 (pt-BR, alias: eduardo)
+ * - Marina 🇧🇷 (pt-BR, alias: eduardo)
  * - Antonia 🇪🇸 (es-ES)
  * - Ariana 🇺🇸 (en-US)
  * - Fabian 🇩🇪 (de-DE)
@@ -123,7 +123,7 @@ class CerebroAeternumVitaEngine {
     if (lang === "de") {
       return `Hallo ${nameStr}herzlich willkommen bei Aeternum Vita! Ich bin Fabian, dein Anatomie-Mentor. Womit starten wir heute?`;
     }
-    return `Olá ${nameStr}seja muito bem-vindo ao Aeternum Atlas! Eu sou o Felipe, seu mentor de anatomia. Como posso guiar seus estudos hoje?`;
+    return `Olá ${nameStr}seja muito bem-vindo ao Aeternum Atlas! Eu sou a Marina, sua mentora de anatomia. Como posso guiar seus estudos hoje?`;
   }
 
   findOralQuizTopic(query) {

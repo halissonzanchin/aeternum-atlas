@@ -25,7 +25,7 @@ import {
   RouterExecutionResult,
   SafeProviderErrorInfo
 } from "./types.ts";
-import { VoiceProfileRegistry, DEFAULT_VOICE_REGISTRY } from "../voice/VoiceProfileRegistry.ts";
+import { VoiceProfileRegistry } from "../voice/VoiceProfileRegistry.ts";
 
 const CANONICAL_ERROR_MESSAGES: Record<string, string> = {
   PROVIDER_TIMEOUT: "provider_timeout",
@@ -95,7 +95,7 @@ export class ProviderRouter {
 
   constructor(config: ProviderRouterConfig) {
     this.config = config;
-    this.voiceRegistry = config.voiceRegistry || DEFAULT_VOICE_REGISTRY;
+    this.voiceRegistry = config.voiceRegistry || new VoiceProfileRegistry();
   }
 
   // ==========================================
