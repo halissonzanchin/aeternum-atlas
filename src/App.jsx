@@ -121,12 +121,12 @@ export default function App() {
 
   function navigate(to) {
     window.history.pushState({}, "", to);
-    setPath(to);
+    setPath(to ? to.split(/[?#]/)[0] || "/" : "/");
   }
 
   function replace(to) {
     window.history.replaceState({}, "", to);
-    setPath(to);
+    setPath(to ? to.split(/[?#]/)[0] || "/" : "/");
   }
 
   function notify(message) {
@@ -172,6 +172,28 @@ export default function App() {
     if (path === "/register") return <Register navigate={navigate} onAuth={handleAuth} />;
 
     if (!authReady && (isPrivatePath(path) || isAdminPath(path))) {
+      if (user) {
+        return (
+          <AppLayout user={user} path={path} navigate={navigate} onLogout={handleLogout}>
+            <section className="student-study-home a26-student-dashboard a26-session-skeleton fade-in-up pb-12" data-testid="a26-auth-skeleton">
+              <A26Card material="substantial" tone="teal" className="student-study-hero a26-student-hero mb-6">
+                <div className="student-study-hero__content">
+                  <p className="viewer-eyebrow">{t("common.sessionValidationTitle") || "Validação de Sessão"}</p>
+                  <h1 className="display-title">{t("common.sessionValidationBody") || "Sincronizando ambiente acadêmico..."}</h1>
+                </div>
+              </A26Card>
+              <div className="study-tools-grid">
+                <A26Card material="regular" tone="neutral" className="p-6">
+                  <div className="flex items-center gap-3">
+                    <span className="a26-spinner" />
+                    <span className="text-textMuted text-sm">Validando credenciais institucionais seguras...</span>
+                  </div>
+                </A26Card>
+              </div>
+            </section>
+          </AppLayout>
+        );
+      }
       return <AuthBootstrap />;
     }
     if (path.startsWith("/atlas-viewer/")) {

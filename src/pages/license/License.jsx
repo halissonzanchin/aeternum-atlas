@@ -1,4 +1,4 @@
-import { A26Button, A26Card, A26EmptyState, A26Metric } from "../../components/aeternum-26";
+import { A26Button, A26Card, A26EmptyState, A26FeatureShell, A26Metric, A26PageHeader } from "../../components/aeternum-26";
 import { useLanguage } from "../../context/LanguageContext";
 
 function institutionLabel(user) {
@@ -11,15 +11,17 @@ export default function License({ user, navigate }) {
   const institution = institutionLabel(user);
 
   return (
-    <section className="fade-in-up">
-      <header className="page-title">
-        <p className="eyebrow">{t("license.title")}</p>
-        <h1 className="display-title">Acesso institucional</h1>
-        <p className="mt-3 max-w-3xl text-textMuted">
-          Esta área exibe apenas dados confirmados da sessão e do perfil autenticado.
-        </p>
-      </header>
-
+    <A26FeatureShell
+      variant="standard"
+      className="fade-in-up"
+      header={
+        <A26PageHeader
+          eyebrow={t("license.eyebrow")}
+          title={t("license.title")}
+          description={t("license.accessText")}
+        />
+      }
+    >
       <div className="kpi-grid">
         <A26Metric label="Instituição" value={institution} />
         <A26Metric label="Papel autenticado" value={user?.role || "Não identificado"} />
@@ -46,6 +48,6 @@ export default function License({ user, navigate }) {
           />
         )}
       </A26Card>
-    </section>
+    </A26FeatureShell>
   );
 }

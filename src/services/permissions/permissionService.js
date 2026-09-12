@@ -104,7 +104,7 @@ export const routeAccessRules = [
   { prefix: "/review", roles: [ROLES.STUDENT] },
   { prefix: "/profile", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
   { prefix: "/settings", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
-  { prefix: "/license", roles: [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
+  { prefix: "/license", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
   { prefix: "/teacher", roles: [ROLES.TEACHER, ROLES.SUPER_ADMIN] },
   { prefix: "/institution-admin", roles: [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
   { prefix: "/admin", roles: [ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },

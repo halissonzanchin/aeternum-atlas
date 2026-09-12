@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { A26Button, A26Card, A26Field } from "../../components/aeternum-26";
+import { A26AuroraBackground, A26Button, A26Card, A26FeatureShell, A26Field, A26PageHeader } from "../../components/aeternum-26";
 import { updateCurrentUserPassword, updateCurrentUserProfile } from "../../services/auth/authService";
 import { sanitizeText } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
@@ -7,14 +7,14 @@ import { useLanguage } from "../../context/LanguageContext";
 export default function Profile({ user, onAuth, notify }) {
   const { t } = useLanguage();
   const [values, setValues] = useState({
-    name: user.name || "",
-    email: user.email || "",
-    institution: user.institution || "",
-    course: user.course || "",
-    semester: user.semester || "",
-    studentRegistration: user.studentRegistration || "",
-    country: user.country || "",
-    userType: user.userType || user.role || "",
+    name: user?.name || "",
+    email: user?.email || "",
+    institution: user?.institution || "",
+    course: user?.course || "",
+    semester: user?.semester || "",
+    studentRegistration: user?.studentRegistration || "",
+    country: user?.country || "",
+    userType: user?.userType || user?.role || "",
     language: "Português",
     password: ""
   });
@@ -43,32 +43,40 @@ export default function Profile({ user, onAuth, notify }) {
   }
 
   return (
-    <section className="a26-profile-page fade-in-up" data-a26-source="authenticated-account">
-      <header className="a26-profile-hero">
-        <p className="a26-kicker">Conta autenticada</p>
-        <h1>Perfil</h1>
-        <p>Gerencie os dados pessoais editáveis e revise as informações institucionais vinculadas à sua conta.</p>
-      </header>
-
+    <div className="profile-root relative">
+      <A26AuroraBackground variant="veryQuiet" />
+      <A26FeatureShell
+        variant="standard"
+        className="a26-profile-page fade-in-up relative z-10"
+      data-a26-source="authenticated-account"
+      header={
+        <A26PageHeader
+          eyebrow={t("profile.eyebrow")}
+          title={t("profile.title")}
+          description={t("profile.subtitle")}
+        />
+      }
+    >
       <A26Card material="substantial" tone="teal" className="a26-profile-card">
         <form className="a26-profile-form" onSubmit={submit}>
-          <A26Field label="Nome" name="name" value={values.name} onChange={update} />
-          <A26Field label="E-mail" name="email" value={values.email} disabled hint="Identidade de acesso gerenciada pela conta." />
-          <A26Field label="Instituição" name="institution" value={values.institution} disabled />
-          <A26Field label="Curso" name="course" value={values.course} onChange={update} />
-          <A26Field label="Ano/Semestre" name="semester" value={values.semester} onChange={update} />
-          <A26Field label="Matrícula/R.A." name="studentRegistration" value={values.studentRegistration} onChange={update} />
-          <A26Field label="País" name="country" value={values.country} onChange={update} />
-          <A26Field label="Tipo de usuário" name="userType" value={values.userType} disabled />
-          <A26Field as="select" label="Preferência de idioma" name="language" value={values.language} onChange={update}>
+          <A26Field label={t("profile.name")} name="name" value={values.name} onChange={update} />
+          <A26Field label={t("profile.email")} name="email" value={values.email} disabled hint={t("profile.emailHint")} />
+          <A26Field label={t("profile.institution")} name="institution" value={values.institution} disabled />
+          <A26Field label={t("profile.course")} name="course" value={values.course} onChange={update} />
+          <A26Field label={t("profile.semester")} name="semester" value={values.semester} onChange={update} />
+          <A26Field label={t("profile.studentRegistration")} name="studentRegistration" value={values.studentRegistration} onChange={update} />
+          <A26Field label={t("profile.country")} name="country" value={values.country} onChange={update} />
+          <A26Field label={t("profile.userType")} name="userType" value={values.userType} disabled />
+          <A26Field as="select" label={t("profile.languagePreference")} name="language" value={values.language} onChange={update}>
               <option>Português</option>
               <option>Español</option>
               <option>English</option>
           </A26Field>
-          <A26Field className="a26-profile-form__wide" label="Alterar senha" name="password" type="password" value={values.password} onChange={update} placeholder="Opcional" hint="Deixe em branco para manter a senha atual." />
-          <A26Button className="a26-profile-form__submit" variant="primary" type="submit">Salvar perfil</A26Button>
+          <A26Field className="a26-profile-form__wide" label={t("profile.changePassword")} name="password" type="password" value={values.password} onChange={update} placeholder={t("profile.changePasswordPlaceholder")} hint={t("profile.changePasswordHint")} />
+          <A26Button className="a26-profile-form__submit" variant="primary" type="submit">{t("profile.saveProfile")}</A26Button>
         </form>
       </A26Card>
-    </section>
+    </A26FeatureShell>
+    </div>
   );
 }

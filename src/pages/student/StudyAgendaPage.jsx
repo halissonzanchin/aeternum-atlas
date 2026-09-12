@@ -11,7 +11,7 @@ import LineIcon from "../../components/icons/LineIcon";
 import { formatAgendaDate, parseAgendaDate, useStudyAgenda } from "../../hooks/useStudyAgenda";
 import { useLanguage } from "../../context/LanguageContext";
 import { useAuth } from "../../context/AuthContext";
-import { A26Button, A26Card, A26Metric, A26SegmentedControl } from "../../components/aeternum-26";
+import { A26Button, A26Card, A26FeatureShell, A26Metric, A26PageHeader, A26SegmentedControl } from "../../components/aeternum-26";
 import "../../styles/A26StudyAgenda.css";
 
 export default function StudyAgendaPage({ navigate }) {
@@ -142,13 +142,21 @@ export default function StudyAgendaPage({ navigate }) {
   }
 
   return (
-    <section
+    <A26FeatureShell
+      variant="tool"
       className="study-agenda-page fade-in-up"
       data-testid="a26-student-agenda"
       data-a26-source="account-persisted"
+      header={
+        <A26PageHeader
+          eyebrow={t("studyAgenda.eyebrow")}
+          title={t("studyAgenda.title")}
+          description={t("studyAgenda.subtitle")}
+        />
+      }
     >
       {/* Google Calendar Style Unified Top Header Bar */}
-      <A26Card as="header" material="substantial" tone="teal" className="study-agenda-top-bar">
+      <A26Card as="div" material="substantial" tone="teal" className="study-agenda-top-bar">
         <div className="study-agenda-top-bar__left">
           <A26Button
             variant="secondary"
@@ -165,7 +173,7 @@ export default function StudyAgendaPage({ navigate }) {
               ›
             </button>
           </div>
-          <h1 className="a26-header-month-title">{headerTitle}</h1>
+          <h2 className="a26-header-month-title">{headerTitle}</h2>
           <div className="a26-hero-sync-badges" aria-label="Estado da agenda">
             <span className={`a26-hero-sync-badge ${agenda.syncStatus === "synced" ? "is-active" : ""}`}>
               {agenda.syncStatus === "synced" ? t("agenda.accountSynced", { defaultValue: "Conta sincronizada" }) : agenda.syncStatus === "pending" ? t("agenda.syncPending", { defaultValue: "Sincronização pendente" }) : t("agenda.localAgenda", { defaultValue: "Agenda local" })}
@@ -287,6 +295,6 @@ export default function StudyAgendaPage({ navigate }) {
         }}
         onSubmit={submitActivity}
       />
-    </section>
+    </A26FeatureShell>
   );
 }

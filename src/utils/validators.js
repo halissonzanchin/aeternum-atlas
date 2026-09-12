@@ -29,7 +29,18 @@ export function validateRegister(values) {
 
 export function validateLogin(values) {
   const errors = {};
-  if (!isValidEmail(values.email)) errors.email = "Informe um e-mail válido.";
-  if (!values.password) errors.password = "Informe sua senha.";
+  const email = String(values?.email || "").trim();
+  const password = String(values?.password || "");
+
+  if (!email) {
+    errors.email = "Informe seu e-mail.";
+  } else if (!isValidEmail(email)) {
+    errors.email = "Informe um e-mail válido.";
+  }
+
+  if (!password) {
+    errors.password = "Informe sua senha.";
+  }
+
   return errors;
 }

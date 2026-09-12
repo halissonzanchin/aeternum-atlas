@@ -341,33 +341,67 @@ function updateSession(sessionId, patch) {
   return updated;
 }
 
-function activeViewerSession(userId, modelId) {
+function activeAnySession(userId, modelId = null) {
   const sessions = readStorage(storageKeys.learningSessions, []);
+  if (modelId) {
+    const viewerSession = sessions.find(session => (
+      session.userId === userId
+      && session.status === "active"
+      && session.scope === "viewer"
+      && session.modelId === modelId
+    ));
+    if (viewerSession) return viewerSession;
+  }
   return sessions.find(session => (
     session.userId === userId
     && session.status === "active"
-    && session.scope === "viewer"
-    && (!modelId || session.modelId === modelId)
-  ));
+  )) || null;
 }
 
-async function persistEventRemote(event) {
+function ensureActiveSession({ user, modelId = null, scope = null }) {
+  const userId = userIdOf(user);
+  if (!userId) return null;
+  const existing = activeAnySession(userId, modelId);
+  if (existing) return existing;
+  return createSession({
+    user,
+    scope: scope || (modelId ? "viewer" : "account"),
+    modelId
+  });
+}
+
+async function persistEventRemote(event, user = null) {
   if (!event?.userId || !isSupabaseConfigured()) return false;
   try {
-    if (event.sessionId) {
+    let resolvedSessionId = event.sessionId;
+    if (!resolvedSessionId) {
+      const fallbackSession = ensureActiveSession({
+        user: user || { id: event.userId, institutionId: event.institutionId },
+        modelId: event.modelId
+      });
+      if (fallbackSession) {
+        resolvedSessionId = fallbackSession.id;
+        event.sessionId = resolvedSessionId;
+      }
+    }
+
+    if (resolvedSessionId) {
       const parentSession = readStorage(storageKeys.learningSessions, [])
-        .find(session => session.id === event.sessionId);
+        .find(session => session.id === resolvedSessionId);
       if (parentSession) {
         const sessionPersisted = await persistSessionRemote(parentSession);
         if (!sessionPersisted) return false;
       }
+    } else {
+      // Cannot persist event without a valid session_id constraint in database
+      return false;
     }
 
     const { error } = await getSupabaseClient().from("viewer_learning_events").insert({
       id: event.id,
       user_id: event.userId,
       institution_id: event.institutionId,
-      session_id: event.sessionId,
+      session_id: resolvedSessionId,
       model_id: event.modelId,
       event_type: event.eventType,
       event_data: event.eventData || {},
@@ -386,7 +420,7 @@ export function recordLearningEvent({ user, sessionId = null, modelId = null, ev
   migrateLegacyLearningTelemetry();
   const session = sessionId
     ? readStorage(storageKeys.learningSessions, []).find(item => item.id === sessionId)
-    : activeViewerSession(userIdOf(user), modelId);
+    : activeAnySession(userIdOf(user), modelId);
   const event = {
     id: createUuid(),
     userId: userIdOf(user),
@@ -399,7 +433,7 @@ export function recordLearningEvent({ user, sessionId = null, modelId = null, ev
     syncStatus: "local"
   };
   saveEvents([event, ...readStorage(storageKeys.learningEvents, [])], { reason: eventType, eventId: event.id });
-  const remoteSyncPromise = persistEventRemote(event);
+  const remoteSyncPromise = persistEventRemote(event, user);
   Object.defineProperty(event, "remoteSyncPromise", {
     value: remoteSyncPromise,
     enumerable: false

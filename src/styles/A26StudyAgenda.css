@@ -303,10 +303,12 @@
 .a26-weekly-quick-stats .a26-metric__value {
   margin-top: 6px;
   color: var(--a26-color-text);
-  font-family: var(--a26-type-display);
+  font-family: var(--a26-font-sans);
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 1;
+  font-feature-settings: "tnum" 1, "cv01" 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .a26-hourly-grid-container,
@@ -364,7 +366,7 @@
 .a26-hourly-grid__day-header { display: grid; place-content: center; gap: 2px; cursor: pointer; transition: background 0.2s ease; }
 .a26-hourly-grid__day-header.is-selected { color: var(--a26-color-gold); background: rgb(223 197 127 / 0.06); }
 .a26-hourly-grid__day-header.is-today { color: var(--a26-color-teal); }
-.a26-hourly-grid__weekday { font-size: 0.67rem; font-weight: 800; text-transform: uppercase; }
+.a26-hourly-grid__weekday { font-size: 0.67rem; font-weight: 800; text-transform: uppercase; color: var(--a26-color-text-muted); }
 .a26-hourly-grid__daynum { font-size: 1.05rem; font-weight: 800; }
 
 .a26-all-day-row { display: grid; grid-template-columns: 72px minmax(0, 1fr); min-height: 46px; border-bottom: 1px solid var(--a26-color-border); }
@@ -1286,6 +1288,10 @@
 .a26-theme-light .a26-hourly-grid__time-col-header,
 .a26-theme-light .a26-hourly-grid__day-header {
   border-right-color: rgba(148, 163, 184, 0.25) !important;
+  color: #334155 !important;
+}
+
+.a26-theme-light .a26-hourly-grid__weekday {
   color: #334155 !important;
 }
 

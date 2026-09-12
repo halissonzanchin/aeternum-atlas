@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars -- o parser ESLint atual não contabiliza identificadores usados apenas em JSX */
+import { useEffect } from "react";
 import { A26Button, A26Card } from "../aeternum-26";
 import {
   canAccessRoute,
@@ -39,13 +40,31 @@ function AccessState({ title, text, actionLabel, onAction, role = "visitante", p
 export default function ProtectedRoute({ user, adminOnly = false, path = window.location.pathname, navigate, children }) {
   const isSuperAdminArea = String(path || "").startsWith("/super-admin");
 
+  useEffect(() => {
+    if (!user && typeof window !== "undefined") {
+      const currentPathname = window.location.pathname;
+      if (currentPathname === "/login" || currentPathname.startsWith("/login")) {
+        return;
+      }
+      const fullTarget = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+      if (fullTarget && !fullTarget.startsWith("/login")) {
+        navigate(`/login?redirect=${encodeURIComponent(fullTarget)}`);
+      }
+    }
+  }, [user, navigate]);
+
   if (!user) {
+    const fullCurrentLocation = typeof window !== "undefined"
+      ? `${window.location.pathname}${window.location.search}${window.location.hash}`
+      : path;
+    const targetToEncode = (fullCurrentLocation && !fullCurrentLocation.startsWith("/login")) ? fullCurrentLocation : "/";
+    const redirectTarget = `/login?redirect=${encodeURIComponent(targetToEncode)}`;
     return (
       <AccessState
         title="Acesso protegido"
         text="Entre na sua conta para acessar a biblioteca anatômica 3D."
         actionLabel="Iniciar sessão"
-        onAction={() => navigate("/login")}
+        onAction={() => navigate(redirectTarget)}
         path={path}
       />
     );

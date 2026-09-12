@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { getAllLessons } from '../../services/lessonManifestService';
 import LessonCard from './components/LessonCard';
+import { useLanguage } from '../../context/LanguageContext';
+import { A26FeatureShell, A26PageHeader, A26SegmentedControl } from '../../components/aeternum-26';
 
 export default function LessonLibraryPage({ navigate }) {
+  const { t } = useLanguage();
   const [lessons] = useState(getAllLessons());
   const [filter, setFilter] = useState('all');
 
@@ -19,43 +22,31 @@ export default function LessonLibraryPage({ navigate }) {
   };
 
   return (
-    <div className="flex flex-col h-full space-y-6 w-full max-w-[1400px] mx-auto px-4 md:px-8 py-8 animate-fade-in-up">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6">
-        <div>
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-techTeal/10 border border-techTeal/20 text-techTeal text-xs font-bold uppercase tracking-widest mb-3">
-            🧪 Módulo em Protótipo (MIRA Lab)
-          </span>
-          <h1 className="text-3xl md:text-4xl font-light text-clinicalWhite tracking-tight">
-            Biblioteca de Aulas Interativas
-          </h1>
-          <p className="text-textMuted mt-2 text-lg">
-            Decks HTML estáticos gerados externamente e validados via Manifesto
-          </p>
+    <A26FeatureShell
+      variant="standard"
+      className="animate-fade-in-up"
+      header={
+        <A26PageHeader
+          eyebrow={t("lessonLibrary.eyebrow")}
+          title={t("lessonLibrary.title")}
+          description={t("lessonLibrary.subtitle")}
+        />
+      }
+      toolbar={
+        <div className="flex justify-end">
+          <A26SegmentedControl
+            value={filter}
+            onChange={setFilter}
+            options={[
+              { value: 'all', label: t("lessonLibrary.filterAll") },
+              { value: 'published', label: t("lessonLibrary.filterPublished") },
+              { value: 'draft', label: t("lessonLibrary.filterDraft") }
+            ]}
+          />
         </div>
-        
-        <div className="flex gap-2 bg-black/40 p-1 rounded-lg border border-white/10">
-          <button 
-            className={`px-4 py-2 rounded text-sm font-semibold transition-colors ${filter === 'all' ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-gray-200'}`}
-            onClick={() => setFilter('all')}
-          >
-            Todas
-          </button>
-          <button 
-            className={`px-4 py-2 rounded text-sm font-semibold transition-colors ${filter === 'published' ? 'bg-techTeal/20 text-techTeal' : 'text-gray-400 hover:text-gray-200'}`}
-            onClick={() => setFilter('published')}
-          >
-            Publicadas
-          </button>
-          <button 
-            className={`px-4 py-2 rounded text-sm font-semibold transition-colors ${filter === 'draft' ? 'bg-gold/20 text-gold' : 'text-gray-400 hover:text-gray-200'}`}
-            onClick={() => setFilter('draft')}
-          >
-            Rascunhos
-          </button>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pt-4">
+      }
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {filteredLessons.map(lesson => (
           <LessonCard 
             key={lesson.lessonId} 
@@ -67,9 +58,9 @@ export default function LessonLibraryPage({ navigate }) {
       
       {filteredLessons.length === 0 && (
         <div className="text-center py-20 text-gray-500">
-          <p>Nenhuma aula encontrada para este filtro.</p>
+          <p>{t("common.noData", { defaultValue: "Nenhuma aula encontrada para este filtro." })}</p>
         </div>
       )}
-    </div>
+    </A26FeatureShell>
   );
 }

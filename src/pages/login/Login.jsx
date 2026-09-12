@@ -17,9 +17,19 @@ export default function Login({ navigate, onAuth }) {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const redirectTarget = typeof window !== "undefined"
+    ? (() => {
+        const target = new URLSearchParams(window.location.search).get("redirect");
+        return (target && target.startsWith("/") && !target.startsWith("//") && !target.startsWith("/login")) ? target : null;
+      })()
+    : null;
+
   function update(event) {
     const { name, value } = event.target;
     setValues(current => ({ ...current, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
   }
 
   async function submit(event) {
@@ -34,7 +44,7 @@ export default function Login({ navigate, onAuth }) {
     try {
       const user = await loginUser(values.email, values.password);
       onAuth(user);
-      navigate(getRedirectPathForUser(user));
+      navigate(redirectTarget || getRedirectPathForUser(user));
     } catch (error) {
       setMessage(error.message || t("auth.invalidCredentials"));
     } finally {
@@ -67,7 +77,7 @@ export default function Login({ navigate, onAuth }) {
         <p className="eyebrow mt-8">{t("auth.accessAccount")}</p>
         <h1 className="display-title">{t("auth.loginShort")}</h1>
         <p className="mt-4 max-w-md text-textMuted">{t("auth.loginDescription")}</p>
-        <form className="atlas-auth-form" onSubmit={submit}>
+        <form className="atlas-auth-form" onSubmit={submit} noValidate>
           <A26Field
             label={t("auth.email")}
             error={errors.email}

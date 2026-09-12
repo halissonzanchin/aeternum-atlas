@@ -28,9 +28,16 @@ export const atlasAnalyticsService = {
   async syncEvents(eventsArray, sessionId) {
     if (!supabase || !eventsArray || eventsArray.length === 0) return null;
 
+    const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(sessionId);
+    if (!isUuid) return false;
+
     try {
+      const { data: authData } = await supabase.auth.getUser();
+      const userId = authData?.user?.id || null;
+
       const payload = eventsArray.map(evt => ({
         session_id: sessionId,
+        user_id: userId,
         event_type: evt.type,
         structure_id: evt.payload?.layerId || evt.payload?.structure || null,
         annotation_id: evt.payload?.annotationId || null,
