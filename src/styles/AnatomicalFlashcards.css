@@ -6,7 +6,7 @@
   gap: clamp(18px, 2.2vw, 28px);
   width: min(100%, 1280px);
   margin-inline: auto;
-  padding-bottom: 48px;
+  padding-bottom: clamp(120px, 16vh, 160px);
   color: var(--a26-color-text);
 }
 
@@ -70,6 +70,16 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  padding-right: clamp(120px, 22vw, 320px);
+}
+
+.a26-generator-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding-top: 8px;
+  padding-right: clamp(120px, 22vw, 320px);
 }
 
 .a26-quick-chip.a26-button {

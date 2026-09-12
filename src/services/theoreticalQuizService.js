@@ -2,6 +2,26 @@ import { readStorage, writeStorage } from "./storage/storageService";
 import { supabase } from "../lib/supabase";
 import { isSupabaseConfigured } from "./supabase/supabaseClient";
 import { recordLearningQuizResult } from "./learningTelemetryService";
+import {
+  RADAR_TOPICS_PT,
+  BRAIN_RADAR_TOPICS_PT,
+  FEMALE_REPRODUCTIVE_RADAR_TOPICS_PT,
+  ptMultipleChoiceQuestions,
+  ptTrueFalseQuestions,
+  ptMatchingExercises,
+  ptShortQuestions,
+  ptFillQuestions,
+  ptBrainMultipleChoiceQuestions,
+  ptBrainTrueFalseQuestions,
+  ptBrainMatchingExercises,
+  ptBrainShortQuestions,
+  ptBrainFillQuestions,
+  ptFemaleMultipleChoiceQuestions,
+  ptFemaleTrueFalseQuestions,
+  ptFemaleMatchingExercises,
+  ptFemaleShortQuestions,
+  ptFemaleFillQuestions
+} from "./theoreticalQuizPortuguese";
 
 const STORAGE_KEY = "aeternum_theoretical_quiz_progress";
 export const THEORETICAL_QUIZ_TIME_LIMIT_SECONDS = 90 * 60;
@@ -1095,68 +1115,75 @@ export function normalizeTheoreticalAnswer(value) {
     .trim();
 }
 
-export function getTheoreticalQuizForModel(model = {}) {
+export function getTheoreticalQuizForModel(model = {}, language = "pt") {
+  const isPortuguese = language === "pt";
   const isFemaleQuiz = isFemaleReproductiveModel(model);
   const isBrainQuiz = !isFemaleQuiz && isSagittalBrainModel(model);
   const content = isFemaleQuiz
     ? {
         fallbackId: "female-reproductive-sagittal",
-        subtitle: "Sistema Reproductor Femenino - Corte Sagital",
-        modelTitle: "Corte Sagital Sistema Reproductor Femenino - Modelo 3D",
+        subtitle: isPortuguese ? "Sistema Reprodutor Feminino - Corte Sagital" : "Sistema Reproductor Femenino - Corte Sagital",
+        modelTitle: isPortuguese ? "Corte Sagital do Sistema Reprodutor Feminino - Modelo 3D" : "Corte Sagital Sistema Reproductor Femenino - Modelo 3D",
         visualType: "pelvis",
-        resultMessage: "Tu desempeño simula una evaluación universitaria real de Anatomía Topográfica del Sistema Reproductor Femenino.",
-        radarTopics: FEMALE_REPRODUCTIVE_RADAR_TOPICS,
-        multiple: femaleMultipleChoiceQuestions,
-        truefalse: femaleTrueFalseQuestions,
-        matching: femaleMatchingExercises,
-        short: femaleShortQuestions,
-        fill: femaleFillQuestions
+        resultMessage: isPortuguese
+          ? "Seu desempenho simula uma avaliação universitária real de Anatomia Topográfica do Sistema Reprodutor Feminino."
+          : "Tu desempeño simula una evaluación universitaria real de Anatomía Topográfica del Sistema Reproductor Femenino.",
+        radarTopics: isPortuguese ? FEMALE_REPRODUCTIVE_RADAR_TOPICS_PT : FEMALE_REPRODUCTIVE_RADAR_TOPICS,
+        multiple: isPortuguese ? ptFemaleMultipleChoiceQuestions : femaleMultipleChoiceQuestions,
+        truefalse: isPortuguese ? ptFemaleTrueFalseQuestions : femaleTrueFalseQuestions,
+        matching: isPortuguese ? ptFemaleMatchingExercises : femaleMatchingExercises,
+        short: isPortuguese ? ptFemaleShortQuestions : femaleShortQuestions,
+        fill: isPortuguese ? ptFemaleFillQuestions : femaleFillQuestions
       }
     : isBrainQuiz
     ? {
         fallbackId: "corte-sagital-encefalo",
-        subtitle: "Corte Sagital del Cráneo / Encéfalo Humano",
-        modelTitle: "Corte Sagital del Encéfalo Humano - Modelo 3D",
+        subtitle: isPortuguese ? "Corte Sagital do Crânio / Encéfalo Humano" : "Corte Sagital del Cráneo / Encéfalo Humano",
+        modelTitle: isPortuguese ? "Corte Sagital do Encéfalo Humano - Modelo 3D" : "Corte Sagital del Encéfalo Humano - Modelo 3D",
         visualType: "brain",
-        resultMessage: "Tú desempeño simula una evaluación universitaria real de Neuroanatomía y Anatomía Topográfica.",
-        radarTopics: BRAIN_RADAR_TOPICS,
-        multiple: brainMultipleChoiceQuestions,
-        truefalse: brainTrueFalseQuestions,
-        matching: brainMatchingExercises,
-        short: brainShortQuestions,
-        fill: brainFillQuestions
+        resultMessage: isPortuguese
+          ? "Seu desempenho simula uma avaliação universitária real de Neuroanatomia e Anatomia Topográfica."
+          : "Tú desempeño simula una evaluación universitaria real de Neuroanatomía y Anatomía Topográfica.",
+        radarTopics: isPortuguese ? BRAIN_RADAR_TOPICS_PT : BRAIN_RADAR_TOPICS,
+        multiple: isPortuguese ? ptBrainMultipleChoiceQuestions : brainMultipleChoiceQuestions,
+        truefalse: isPortuguese ? ptBrainTrueFalseQuestions : brainTrueFalseQuestions,
+        matching: isPortuguese ? ptBrainMatchingExercises : brainMatchingExercises,
+        short: isPortuguese ? ptBrainShortQuestions : brainShortQuestions,
+        fill: isPortuguese ? ptBrainFillQuestions : brainFillQuestions
       }
     : {
         fallbackId: "heart",
-        subtitle: "Sistema Cardiovascular - Corazón",
-        modelTitle: "Corazón Humano - Modelo Superficial 3D",
+        subtitle: isPortuguese ? "Sistema Cardiovascular - Coração" : "Sistema Cardiovascular - Corazón",
+        modelTitle: isPortuguese ? "Coração Humano - Modelo Superficial 3D" : "Corazón Humano - Modelo Superficial 3D",
         visualType: "heart",
-        resultMessage: "Tú desempeño simula una evaluación universitaria real de Anatomía Médica.",
-        radarTopics: RADAR_TOPICS,
-        multiple: multipleChoiceQuestions,
-        truefalse: trueFalseQuestions,
-        matching: matchingExercises,
-        short: shortQuestions,
-        fill: fillQuestions
+        resultMessage: isPortuguese
+          ? "Seu desempenho simula uma avaliação universitária real de Anatomia Médica."
+          : "Tú desempeño simula una evaluación universitaria real de Anatomía Médica.",
+        radarTopics: isPortuguese ? RADAR_TOPICS_PT : RADAR_TOPICS,
+        multiple: isPortuguese ? ptMultipleChoiceQuestions : multipleChoiceQuestions,
+        truefalse: isPortuguese ? ptTrueFalseQuestions : trueFalseQuestions,
+        matching: isPortuguese ? ptMatchingExercises : matchingExercises,
+        short: isPortuguese ? ptShortQuestions : shortQuestions,
+        fill: isPortuguese ? ptFillQuestions : fillQuestions
       };
 
   return {
     id: `theoretical-${model?.slug || model?.id || content.fallbackId}`,
     modelId: model?.id || "",
-    title: "Prueba de Anatomía Topográfica y Descriptiva",
+    title: isPortuguese ? "Prova de Anatomia Topográfica e Descritiva" : "Prueba de Anatomía Topográfica y Descriptiva",
     subtitle: content.subtitle,
-    course: "Medicina - 2.º / 3.º año",
+    course: isPortuguese ? "Medicina - 2.º / 3.º ano" : "Medicina - 2.º / 3.º año",
     modelTitle: content.modelTitle,
     visualType: content.visualType,
     resultMessage: content.resultMessage,
     timeLimitSeconds: THEORETICAL_QUIZ_TIME_LIMIT_SECONDS,
     radarTopics: content.radarTopics,
     sections: [
-      { id: "multiple", title: "Sección I - Opción múltiple", expectedCount: 20, questions: content.multiple },
-      { id: "truefalse", title: "Sección II - Verdadero / Falso", expectedCount: 20, questions: content.truefalse },
-      { id: "matching", title: "Sección III - Relación de columnas", expectedCount: 5, questions: content.matching },
-      { id: "short", title: "Sección IV - Preguntas de desarrollo / cortas", expectedCount: 20, questions: content.short },
-      { id: "fill", title: "Sección V - Completa con la palabra que falta", expectedCount: 10, questions: content.fill }
+      { id: "multiple", title: isPortuguese ? "Seção I - Múltipla escolha" : "Sección I - Opción múltiple", expectedCount: 20, questions: content.multiple },
+      { id: "truefalse", title: isPortuguese ? "Seção II - Verdadeiro ou Falso" : "Sección II - Verdadero / Falso", expectedCount: 20, questions: content.truefalse },
+      { id: "matching", title: isPortuguese ? "Seção III - Associação de colunas" : "Sección III - Relación de columnas", expectedCount: 5, questions: content.matching },
+      { id: "short", title: isPortuguese ? "Seção IV - Questões dissertativas e curtas" : "Sección IV - Preguntas de desarrollo / cortas", expectedCount: 20, questions: content.short },
+      { id: "fill", title: isPortuguese ? "Seção V - Preenchimento de lacunas" : "Sección V - Completa con la palabra que falta", expectedCount: 10, questions: content.fill }
     ]
   };
 }

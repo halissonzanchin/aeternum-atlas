@@ -1,13 +1,14 @@
 import React from "react";
 import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
+import { A26FeatureShell, A26PageHeader } from "../../components/aeternum-26";
 
 const THEORETICAL_QUIZ_CATALOG = [
   {
     id: "sagittal-skull",
     title: "Simulado Teórico: Corte Sagital do Crânio",
     category: "NEUROANATOMIA & CRÂNIO",
-    description: "Prueba de Anatomía Topográfica y Descriptiva sobre telencéfalo, tronco encefálico, cavidade craniana e pares de nervos cranianos.",
+    description: "Prova de Anatomia Topográfica e Descritiva sobre telencéfalo, tronco encefálico, cavidade craniana e pares de nervos cranianos.",
     topics: [
       "Córtex Cerebral & Sulcos Principais",
       "Mesencéfalo, Ponte e Bulbo",
@@ -57,16 +58,19 @@ export default function AnatomicalQuizzesPage({ navigate }) {
   const { t } = useLanguage();
 
   return (
-    <section
+    <A26FeatureShell
+      variant="tool"
       className="anatomical-quizzes-page fade-in-up"
       data-testid="a26-student-quizzes"
       data-a26-source="institutional-catalog"
+      header={
+        <A26PageHeader
+          eyebrow={t("studentHome.quizCatalog.eyebrow")}
+          title={t("studentHome.quizCatalog.title")}
+          description={t("studentHome.quizCatalog.description")}
+        />
+      }
     >
-      <header className="anatomical-quizzes-header">
-        <p className="viewer-eyebrow">AVALIAÇÕES TEÓRICAS E EXAMES VINCULADOS AOS MODELOS 3D</p>
-        <h1>Simulado Teórico Anatômico</h1>
-        <span>Pratique questões teóricas estruturadas de múltipla escolha e exames anatômicos de caso clínico diretamente nos 3 modelos 3D do Atlas.</span>
-      </header>
 
       <div className="anatomical-quiz-catalog-grid">
         {THEORETICAL_QUIZ_CATALOG.map((quiz) => (
@@ -106,6 +110,6 @@ export default function AnatomicalQuizzesPage({ navigate }) {
           </article>
         ))}
       </div>
-    </section>
+    </A26FeatureShell>
   );
 }

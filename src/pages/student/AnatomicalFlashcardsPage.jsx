@@ -5,8 +5,10 @@ import { useAtlasAITutorSession } from "../../context/AtlasAITutorSessionContext
 import {
   A26Button,
   A26Card,
+  A26FeatureShell,
   A26Field,
   A26Metric,
+  A26PageHeader,
   A26SegmentedControl,
   A26Surface,
   A26Toolbar
@@ -351,25 +353,24 @@ export default function AnatomicalFlashcardsPage({ user }) {
   }, [sessionResults]);
 
   return (
-    <div className="a26-flashcards-container">
-      {/* Hero Header - Liquid Glass Aeternum 26.1 */}
-      <A26Surface material="regular" tone="teal" className="a26-flashcards-hero">
-        <div>
-          <span className="a26-kicker">{t("flashcards.kicker", { defaultValue: "Revisão Ativa & Repetição Espaçada SM-2" })}</span>
-          <h1 className="text-2xl md:text-3xl font-bold text-agedGold tracking-tight mt-1">
-            {t("flashcards.title", { defaultValue: "Flashcards Anatômicos Inteligentes" })}
-          </h1>
-          <p className="text-xs md:text-sm text-textMuted mt-1">
-            {t("flashcards.subtitle", { defaultValue: "Combine um banco anatômico curado, repetição espaçada e o Tutor IA autenticado em baralhos sem perguntas duplicadas." })}
-          </p>
-        </div>
-
-        {activeDeck && (
-          <A26Button variant="liquid" onClick={() => setActiveDeck(null)} icon={<LineIcon name="reset" />}>
-            {t("flashcards.newDeck", { defaultValue: "Novo Baralho" })}
-          </A26Button>
-        )}
-      </A26Surface>
+    <A26FeatureShell
+      variant="tool"
+      className="a26-flashcards-container"
+      header={
+        <A26PageHeader
+          eyebrow={t("flashcards.kicker", { defaultValue: "Revisão Ativa & Repetição Espaçada SM-2" })}
+          title={t("flashcards.title", { defaultValue: "Flashcards Anatômicos Inteligentes" })}
+          description={t("flashcards.subtitle", { defaultValue: "Combine um banco anatômico curado, repetição espaçada e o Tutor IA autenticado em baralhos sem perguntas duplicadas." })}
+          primaryAction={
+            activeDeck ? (
+              <A26Button variant="liquid" onClick={() => setActiveDeck(null)} icon={<LineIcon name="reset" />}>
+                {t("flashcards.newDeck", { defaultValue: "Novo Baralho" })}
+              </A26Button>
+            ) : null
+          }
+        />
+      }
+    >
 
       {/* Mode 1: Generator Modal & Config (NotebookLM Pattern) */}
       {!activeDeck && (
@@ -445,7 +446,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
           {generationError ? <p className="a26-generation-message is-error" role="alert">{generationError}</p> : null}
           {generationNotice ? <p className="a26-generation-message" aria-live="polite">{generationNotice}</p> : null}
 
-          <div className="flex items-center justify-end gap-3 pt-2">
+          <div className="a26-generator-actions flex items-center justify-start gap-3 pt-2">
             <A26Button
               variant="primary"
               onClick={() => handleGenerateDeck()}
@@ -698,6 +699,6 @@ export default function AnatomicalFlashcardsPage({ user }) {
           </div>
         </A26Card>
       )}
-    </div>
+    </A26FeatureShell>
   );
 }

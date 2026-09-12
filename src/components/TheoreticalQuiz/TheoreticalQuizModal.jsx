@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import LineIcon from "../icons/LineIcon";
+import { useLanguage } from "../../context/LanguageContext";
 import {
   clearTheoreticalQuizProgress,
   createTheoreticalQuizState,
@@ -57,7 +58,7 @@ function normalizeStatusTone(isCorrect) {
   return "";
 }
 
-function TheoryTimer({ remaining, total, examMode = false }) {
+function TheoryTimer({ remaining, total, examMode = false, isPortuguese = true }) {
   const safeTotal = total || 3600;
   const elapsed = Math.max(0, safeTotal - (remaining || 0));
   const elapsedRatio = Math.min(1, Math.max(0, elapsed / safeTotal));
@@ -72,7 +73,7 @@ function TheoryTimer({ remaining, total, examMode = false }) {
   return (
     <div
       className={`theory-timer-fluid ${urgent ? "is-urgent" : ""} ${examMode ? "is-exam" : ""}`}
-      aria-label={`Tiempo restante ${formatClock(remaining)} de ${formatLongTime(safeTotal)}`}
+      aria-label={`${isPortuguese ? "Tempo restante" : "Tiempo restante"} ${formatClock(remaining)} de ${formatLongTime(safeTotal)}`}
     >
       <svg className="theory-timer-svg" width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <defs>
@@ -146,7 +147,7 @@ function TheoryTimer({ remaining, total, examMode = false }) {
       <div className="theory-timer-face">
         <LineIcon name="timer" className="h-5 w-5" />
         <strong>{formatClock(remaining)}</strong>
-        <small>{urgent ? "Último minuto" : "tiempo restante"}</small>
+        <small>{urgent ? (isPortuguese ? "Último minuto" : "Último minuto") : (isPortuguese ? "tempo restante" : "tiempo restante")}</small>
       </div>
     </div>
   );
@@ -217,13 +218,13 @@ function ResultRadar({ data = [] }) {
     ctx.stroke();
   }, [data]);
 
-  return <canvas className="theory-radar" ref={canvasRef} aria-label="Grafico radar de desempeno tematico" />;
+  return <canvas className="theory-radar" ref={canvasRef} aria-label="Gráfico radar de desempenho temático" />;
 }
 
-
-
 export default function TheoreticalQuizModal({ open, model, user, onClose, onCompleted, onQuestionNavigate }) {
-  const quiz = useMemo(() => getTheoreticalQuizForModel(model), [model]);
+  const { language = "pt" } = useLanguage?.() || {};
+  const isPortuguese = language === "pt";
+  const quiz = useMemo(() => getTheoreticalQuizForModel(model, language), [model, language]);
   const [state, setState] = useState(null);
   const [activeSectionId, setActiveSectionId] = useState("multiple");
   const [timeRemaining, setTimeRemaining] = useState(quiz?.timeLimitSeconds || 3600);
@@ -471,12 +472,12 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
               </div>
 
               <button type="button" className="theory-link-button" onClick={() => toggleReveal(question.id)}>
-                {showExplanation ? "Ocultar explicación" : "Mostrar explicación"}
+                {showExplanation ? (isPortuguese ? "Ocultar explicação" : "Ocultar explicación") : (isPortuguese ? "Mostrar explicação" : "Mostrar explicación")}
               </button>
 
               {showExplanation ? (
                 <div className="theory-explanation">
-                  <strong>Respuesta correcta: {answerLetter(question.correctIndex)}) {question.options[question.correctIndex]}</strong>
+                  <strong>{isPortuguese ? "Resposta correta:" : "Respuesta correcta:"} {answerLetter(question.correctIndex)}) {question.options[question.correctIndex]}</strong>
                   {question.explanations.map((explanation, explanationIndex) => (
                     <p key={explanation}>
                       <b>{answerLetter(explanationIndex)})</b> {explanation}
@@ -529,18 +530,18 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
                     disabled={isLocked}
                   >
                     <LineIcon name={value ? "check" : "close"} className="h-4 w-4" />
-                    <span>{value ? "Verdadero" : "Falso"}</span>
+                    <span>{value ? (isPortuguese ? "Verdadeiro" : "Verdadero") : "Falso"}</span>
                   </button>
                 ))}
               </div>
 
               <button type="button" className="theory-link-button" onClick={() => toggleReveal(question.id)}>
-                {showExplanation ? "Ocultar explicación" : "Ver explicación"}
+                {showExplanation ? (isPortuguese ? "Ocultar explicação" : "Ocultar explicación") : (isPortuguese ? "Ver explicação" : "Ver explicación")}
               </button>
 
               {showExplanation ? (
                 <div className="theory-explanation">
-                  <strong>Respuesta correcta: {question.correctAnswer ? "Verdadero" : "Falso"}</strong>
+                  <strong>{isPortuguese ? "Resposta correta:" : "Respuesta correcta:"} {question.correctAnswer ? (isPortuguese ? "Verdadeiro" : "Verdadero") : "Falso"}</strong>
                   <p>{question.explanation}</p>
                 </div>
               ) : null}
@@ -591,19 +592,19 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
                         onChange={event => updateMatchingAnswer(exercise.id, pair.id, event.target.value)}
                         disabled={isLocked}
                       >
-                        <option value="">Seleccionar relación</option>
+                        <option value="">{isPortuguese ? "Selecionar associação" : "Seleccionar relación"}</option>
                         {exercise.options.map(option => (
                           <option key={option.id} value={option.id}>{option.text}</option>
                         ))}
                       </select>
-                      {showExplanation ? <small>Correcto: {correctOption?.text}</small> : null}
+                      {showExplanation ? <small>{isPortuguese ? "Correto:" : "Correcto:"} {correctOption?.text}</small> : null}
                     </label>
                   );
                 })}
               </div>
 
               <button type="button" className="theory-link-button" onClick={() => toggleReveal(exercise.id)}>
-                {showExplanation ? "Ocultar corrección" : "Ver corrección"}
+                {showExplanation ? (isPortuguese ? "Ocultar correção" : "Ocultar corrección") : (isPortuguese ? "Ver correção" : "Ver corrección")}
               </button>
 
               {showExplanation ? (
@@ -646,17 +647,17 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
                 className="theory-textarea"
                 value={answers[question.id]?.text || ""}
                 onChange={event => updateAnswer(question.id, { text: event.target.value })}
-                placeholder="Desarrolle su respuesta con lenguaje anatómico universitario..."
+                placeholder={isPortuguese ? "Desenvolva sua resposta com linguagem anatômica universitária..." : "Desarrolle su respuesta con lenguaje anatómico universitario..."}
                 disabled={isLocked}
               />
 
               <button type="button" className="theory-link-button" onClick={() => toggleReveal(question.id)}>
-                {showAnswer ? "Ocultar respuesta modelo" : "Mostrar respuesta modelo"}
+                {showAnswer ? (isPortuguese ? "Ocultar resposta modelo" : "Ocultar respuesta modelo") : (isPortuguese ? "Mostrar resposta modelo" : "Mostrar respuesta modelo")}
               </button>
 
               {showAnswer ? (
                 <div className="theory-explanation">
-                  <strong>Respuesta modelo</strong>
+                  <strong>{isPortuguese ? "Resposta modelo" : "Respuesta modelo"}</strong>
                   <p>{question.expectedAnswer}</p>
                 </div>
               ) : null}
@@ -698,18 +699,18 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
                 className="theory-input"
                 value={value}
                 onChange={event => updateAnswer(question.id, { value: event.target.value })}
-                placeholder="Palabra faltante"
+                placeholder={isPortuguese ? "Palavra que falta" : "Palabra faltante"}
                 disabled={isLocked}
               />
 
               <button type="button" className="theory-link-button" onClick={() => toggleReveal(question.id)}>
-                {showAnswer ? "Ocultar respuesta" : "Mostrar respuesta"}
+                {showAnswer ? (isPortuguese ? "Ocultar resposta" : "Ocultar respuesta") : (isPortuguese ? "Mostrar resposta" : "Mostrar respuesta")}
               </button>
 
               {showAnswer ? (
                 <div className="theory-explanation">
-                  <strong>Respuesta: {question.answer}</strong>
-                  {question.acceptedAnswers?.length ? <p>También válido: {question.acceptedAnswers.join(", ")}</p> : null}
+                  <strong>{isPortuguese ? "Resposta:" : "Respuesta:"} {question.answer}</strong>
+                  {question.acceptedAnswers?.length ? <p>{isPortuguese ? "Também aceito:" : "También válido:"} {question.acceptedAnswers.join(", ")}</p> : null}
                 </div>
               ) : null}
             </article>
@@ -739,8 +740,8 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
       <section className="theory-quiz-shell">
         <div className="theory-quiz-commandbar">
           <div>
-            <p>Modo universitario premium</p>
-            <strong>Tiempo estimado: 90 minutos</strong>
+            <p>{isPortuguese ? "Modo universitário premium" : "Modo universitario premium"}</p>
+            <strong>{isPortuguese ? "Tempo estimado: 90 minutos" : "Tiempo estimado: 90 minutos"}</strong>
           </div>
           <div className="theory-quiz-command-actions">
             <button
@@ -749,9 +750,9 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
               onClick={() => setExamMode(value => !value)}
             >
               <LineIcon name="note" className="h-4 w-4" />
-              <span>Modo examen</span>
+              <span>{isPortuguese ? "Modo exame" : "Modo examen"}</span>
             </button>
-            <button type="button" className="viewer-icon-button" onClick={onClose} aria-label="Cerrar simulado teórico">
+            <button type="button" className="viewer-icon-button" onClick={onClose} aria-label={isPortuguese ? "Fechar simulado teórico" : "Cerrar simulado teórico"}>
               <LineIcon name="close" />
             </button>
           </div>
@@ -762,14 +763,14 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
             <p className="theory-university">UNIVERSIDAD PRIVADA DEL ESTE</p>
             <p className="theory-faculty">FACULTAD DE CIENCIAS MÉDICAS - Prof. Dr. Manuel Riveros</p>
             <p className="theory-campus">Sede Presidente Franco</p>
-            <h1 id="theory-quiz-title">PRUEBA DE ANATOMÍA TOPOGRÁFICA Y DESCRIPTIVA</h1>
+            <h1 id="theory-quiz-title">{quiz.title.toUpperCase()}</h1>
             <strong>{quiz.subtitle}</strong>
             <span>{quiz.course}</span>
           </div>
         </header>
 
-        <div className="theory-exam-fields" aria-label="Campos institucionales de la prueba">
-          {["Fecha", "Nombre", "Turno", "Matrícula"].map(label => (
+        <div className="theory-exam-fields" aria-label={isPortuguese ? "Campos institucionais da avaliação" : "Campos institucionales de la prueba"}>
+          {(isPortuguese ? ["Data", "Nome", "Turno", "Matrícula"] : ["Fecha", "Nombre", "Turno", "Matrícula"]).map(label => (
             <label key={label}>
               <span>{label}</span>
               <i />
@@ -779,19 +780,19 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
 
         <div className="theory-quiz-body">
           <aside className="theory-quiz-sidebar">
-            <TheoryTimer remaining={timeRemaining} total={quiz.timeLimitSeconds} examMode={examMode} />
+            <TheoryTimer remaining={timeRemaining} total={quiz.timeLimitSeconds} examMode={examMode} isPortuguese={isPortuguese} />
 
             <div className="theory-quick-stats">
               <div>
-                <span>Progreso general</span>
+                <span>{isPortuguese ? "Progresso geral" : "Progreso general"}</span>
                 <strong>{completionPercentage}%</strong>
               </div>
               <div>
-                <span>Actividades</span>
+                <span>{isPortuguese ? "Atividades" : "Actividades"}</span>
                 <strong>{completion.completed}/{completion.total}</strong>
               </div>
               <div>
-                <span>Tiempo total</span>
+                <span>{isPortuguese ? "Tempo total" : "Tiempo total"}</span>
                 <strong>{formatLongTime(quiz.timeLimitSeconds)}</strong>
               </div>
             </div>
@@ -800,7 +801,7 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
               <span style={{ width: `${completionPercentage}%` }} />
             </div>
 
-            <nav className="theory-section-nav" aria-label="Secciones del simulado teórico">
+            <nav className="theory-section-nav" aria-label={isPortuguese ? "Seções do simulado teórico" : "Secciones del simulado teórico"}>
               {sections.map(section => {
                 const current = sectionCompletion(section, answers, revealed);
                 const sectionPercentage = current.total ? Math.round((current.completed / current.total) * 100) : 0;
@@ -847,9 +848,9 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
             {result ? (
               <section className="theory-result-panel">
                 <div>
-                  <p>Resultado final</p>
-                  <h2>{result.score}/{result.objectiveTotal} acertos</h2>
-                  <strong>{result.percentage}% de aprovechamiento</strong>
+                  <p>{isPortuguese ? "Resultado final" : "Resultado final"}</p>
+                  <h2>{result.score}/{result.objectiveTotal} {isPortuguese ? "acertos" : "acertos"}</h2>
+                  <strong>{result.percentage}% {isPortuguese ? "de aproveitamento" : "de aprovechamiento"}</strong>
                   <span>{quiz.resultMessage}</span>
                 </div>
                 <ResultRadar data={result.radar} />
@@ -904,15 +905,15 @@ export default function TheoreticalQuizModal({ open, model, user, onClose, onCom
             <section className="theory-section-heading">
               <div>
                 <p>{activeSection.title}</p>
-                <h2>{activeSection.expectedCount} ejercicios</h2>
+                <h2>{activeSection.expectedCount} {isPortuguese ? "questões" : "ejercicios"}</h2>
               </div>
-              <span>{activeSection.id === "short" ? "Evaluación formativa con respuesta modelo" : "Corrección automática disponible"}</span>
+              <span>{activeSection.id === "short" ? (isPortuguese ? "Avaliação formativa com resposta modelo" : "Evaluación formativa con respuesta modelo") : (isPortuguese ? "Correção automática disponível" : "Corrección automática disponible")}</span>
             </section>
 
             {renderActiveSection()}
 
             <footer className="theory-exam-footer">
-              <span>Plataforma académica desarrollada para simulación de evaluación universitaria</span>
+              <span>{isPortuguese ? "Plataforma acadêmica desenvolvida para simulação de avaliação universitária" : "Plataforma académica desarrollada para simulación de evaluación universitaria"}</span>
               <strong>Aeternum Atlas</strong>
             </footer>
           </main>
