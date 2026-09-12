@@ -518,7 +518,7 @@ export default function MuralModularBoard({ videoSrc = null }) {
             </div>
 
             <h4 style={{ color: "#eef3f4", fontSize: "1.4rem" }}>{notes[readingIndex].title}</h4>
-            <p style={{ fontFamily: "Hanken Grotesk", fontSize: "0.95rem", lineHeight: "1.5", color: "#93a4aa" }}>
+            <p style={{ fontFamily: "var(--a26-font-sans)", fontSize: "0.95rem", lineHeight: "1.5", color: "var(--a26-color-text-muted)" }}>
               {notes[readingIndex].content}
             </p>
 

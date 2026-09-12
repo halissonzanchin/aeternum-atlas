@@ -54,7 +54,7 @@
   overflow: hidden;
   color: var(--a26-color-gold);
   font: 600 15px/1.2 var(--a26-type-display);
-  letter-spacing: 0.13em;
+  letter-spacing: 0.045em;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -191,12 +191,26 @@
   gap: 9px;
 }
 
+.a26-shell__atmosphere {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .a26-shell__main {
+  grid-column: 2;
+  grid-row: 1 / -1;
   min-width: 0;
   height: 100dvh;
   overflow: hidden;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
+  z-index: 1;
 }
 
 .a26-shell__topbar {
@@ -1275,6 +1289,11 @@ body:has(.atlas-auth-page) #root {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .a26-shell__atmosphere,
+  .a26-shell__main {
+    grid-column: 1 / -1;
+  }
+
   .a26-shell__sidebar {
     display: none;
   }
@@ -1690,7 +1709,7 @@ body:has(.atlas-auth-page) #root {
 }
 
 .a26-theme-light .a26-shell__context small {
-  color: #64748b;
+  color: var(--a26-color-text-secondary);
 }
 
 .a26-theme-light .a26-shell__controls .a26-icon-button {
@@ -1812,12 +1831,17 @@ body:has(.atlas-auth-page) #root {
 .a26-theme-light .atlas-auth-story-copy > p,
 .a26-theme-light .atlas-auth-capability p,
 .a26-theme-light .atlas-auth-status small {
-  color: #475569 !important;
+  color: #334155 !important;
+}
+
+.a26-theme-light .atlas-auth-status strong {
+  color: #0f172a !important;
+  font-weight: 750 !important;
 }
 
 .a26-theme-light .atlas-auth-kicker,
 .a26-theme-light .atlas-auth-card__topline > span {
-  color: #0f766e !important;
+  color: #042f2e !important;
 }
 
 .a26-theme-light .atlas-auth-capability {
@@ -1914,6 +1938,7 @@ body:has(.atlas-auth-page) #root {
 .a26-theme-light .atlas-auth-card--registration .atlas-auth-submit,
 .a26-theme-light .atlas-auth-form button[type="submit"] {
   background: linear-gradient(135deg, #0d9488, #0f766e) !important;
+  background-color: #0f766e !important;
   border: 1px solid #0f766e !important;
   color: #ffffff !important;
   font-weight: 750 !important;
@@ -1926,6 +1951,7 @@ body:has(.atlas-auth-page) #root {
 .a26-theme-light .atlas-auth-card--registration .atlas-auth-submit:hover,
 .a26-theme-light .atlas-auth-form button[type="submit"]:hover {
   background: linear-gradient(135deg, #14b8a6, #0d9488) !important;
+  background-color: #0d9488 !important;
   box-shadow:
     0 12px 28px rgba(15, 118, 110, 0.36),
     inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
@@ -1955,23 +1981,25 @@ body:has(.atlas-auth-page) #root {
 }
 
 .a26-theme-light .atlas-auth-password__toggle {
-  background: rgba(15, 118, 110, 0.08) !important;
+  background: rgba(241, 245, 249, 0.95) !important;
+  background-color: #f1f5f9 !important;
   color: #0f766e !important;
-  border: 1px solid rgba(15, 118, 110, 0.2) !important;
+  border: 1px solid rgba(15, 118, 110, 0.25) !important;
 }
 
 .a26-theme-light .atlas-auth-password__toggle:hover {
-  background: rgba(15, 118, 110, 0.14) !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
   color: #0d9488 !important;
   border-color: #0f766e !important;
 }
 
 .a26-theme-light .atlas-auth-card p {
-  color: #475569 !important;
+  color: var(--a26-color-text-secondary) !important;
 }
 
 .a26-theme-light .atlas-auth-card .eyebrow {
-  color: #0f766e !important;
+  color: #042f2e !important;
   font-weight: 750 !important;
 }
 
@@ -1980,7 +2008,7 @@ body:has(.atlas-auth-page) #root {
 }
 
 .a26-theme-light .atlas-auth-card__topline > span {
-  color: #0f766e !important;
+  color: #042f2e !important;
   font-weight: 800 !important;
 }
 
@@ -2014,26 +2042,32 @@ body:has(.atlas-auth-page) #root {
   box-shadow: 0 2px 8px rgba(15, 118, 110, 0.2);
 }
 
-.a26-theme-light .atlas-auth-card .language-selector .language-selector__button.a26-surface,
-.a26-theme-light .atlas-auth-card .language-selector__code {
-  color: #0f766e !important;
-  border-color: rgba(15, 118, 110, 0.28) !important;
-  background: rgba(255, 255, 255, 0.85) !important;
+.a26-theme-light .language-selector .language-selector__button.a26-surface,
+.a26-theme-light .language-selector__code,
+.a26-theme-light .language-selector__current {
+  color: var(--a26-color-text) !important;
+  border-color: var(--a26-color-border) !important;
+  background: var(--a26-material-clear-bg) !important;
 }
 
-.a26-theme-light .atlas-auth-card .language-selector .language-selector__menu.a26-surface {
-  background: rgba(255, 255, 255, 0.98) !important;
-  border: 1px solid rgba(148, 163, 184, 0.35) !important;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12) !important;
+.a26-theme-light .language-selector .language-selector__menu.a26-surface {
+  background: var(--a26-material-substantial-bg) !important;
+  border: 1px solid var(--a26-color-border-strong) !important;
+  box-shadow: var(--a26-shadow-elevated) !important;
 }
 
-.a26-theme-light .atlas-auth-card .language-selector__option {
-  color: #334155 !important;
+.a26-theme-light .language-selector__option {
+  color: var(--a26-color-text-muted) !important;
 }
 
-.a26-theme-light .atlas-auth-card .language-selector__option:hover {
+.a26-theme-light .language-selector__option:hover {
   background: rgba(15, 118, 110, 0.1) !important;
-  color: #0f766e !important;
+  color: var(--a26-color-teal-strong) !important;
+}
+
+.a26-theme-light .language-selector__option.is-active {
+  background: rgba(180, 83, 9, 0.12) !important;
+  color: var(--a26-color-gold) !important;
 }
 
 /* Ensure cinematic home header, nav AND language menu ALWAYS preserve dark cosmic liquid glass */

@@ -1,4 +1,7 @@
 export { default as A26Surface } from "./A26Surface";
+export { default as A26PageHeader } from "./A26PageHeader";
+export { default as A26FeatureShell } from "./A26FeatureShell";
+export { default as A26AuroraBackground } from "./A26AuroraBackground";
 export { default as AeternumSiriScreenOverlay } from "./AeternumSiriScreenOverlay";
 export {
   A26Button,

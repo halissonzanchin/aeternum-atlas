@@ -87,10 +87,12 @@
 }
 
 .stat-val {
-  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-family: var(--a26-font-sans);
   font-size: 11.5px;
   font-weight: 700;
   color: var(--a26-color-text, #ffffff);
+  font-feature-settings: "tnum" 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .stat-lbl {

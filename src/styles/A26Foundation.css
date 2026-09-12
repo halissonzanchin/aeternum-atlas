@@ -9,6 +9,7 @@
   --a26-color-teal: #5ce8df;
   --a26-color-teal-strong: #22bdb8;
   --a26-color-gold: #dfc57f;
+  --a26-page-display-color: var(--a26-color-gold);
   --a26-color-danger: #ff9a9a;
   --a26-color-warning: #f3c66e;
   --a26-color-success: #72dfa0;
@@ -49,9 +50,117 @@
   --a26-motion-spring: cubic-bezier(0.16, 1, 0.3, 1);
   --a26-motion-standard: cubic-bezier(0.2, 0, 0, 1);
 
-  --a26-type-display: "Cinzel", Georgia, serif;
-  --a26-type-body: Inter, system-ui, sans-serif;
-  --a26-type-mono: "SFMono-Regular", Consolas, monospace;
+  /* Semantic Spacing Rhythm Tokens (Wave 4C) */
+  --a26-spacing-gutter: clamp(16px, 3vw, 32px);
+  --a26-spacing-section: clamp(24px, 4vw, 48px);
+  --a26-spacing-card-gap: 20px;
+  --a26-spacing-card-pad: clamp(16px, 2.5vw, 24px);
+  --a26-spacing-card-pad-compact: 14px;
+  --a26-spacing-chip-gap: 8px;
+  --a26-spacing-input-gap: 12px;
+
+  /* Semantic Card Dimensions & Radii */
+  --a26-card-hero-radius: 24px;
+  --a26-card-standard-radius: 20px;
+  --a26-card-compact-radius: 14px;
+  --a26-card-interactive-radius: 18px;
+  --a26-card-metric-radius: 18px;
+  --a26-card-viewer-radius: 20px;
+
+  /* Semantic Input Universal Dimensions */
+  --a26-input-height-standard: 46px;
+  --a26-input-height-compact: 38px;
+  --a26-input-radius: 12px;
+  --a26-input-padding: 10px 16px;
+
+  /* Chip & Badge Semantic Dimensions */
+  --a26-chip-radius: 999px;
+  --a26-badge-radius: 8px;
+
+  /* Canonical Semantic Font Families */
+  --a26-font-display: "Cinzel", Georgia, serif;
+  --a26-font-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --a26-font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+
+  /* Backward-compatible font aliases */
+  --a26-type-display: var(--a26-font-display);
+  --a26-type-body: var(--a26-font-sans);
+  --a26-type-mono: var(--a26-font-mono);
+
+  /* Semantic Typography Scale */
+  --a26-text-display-size: clamp(2.25rem, 4vw, 3.25rem);
+  --a26-text-display-line-height: 1.15;
+  --a26-text-display-weight: 700;
+  --a26-text-display-tracking: 0.04em;
+
+  --a26-text-h1-size: clamp(1.75rem, 3vw, 2.25rem);
+  --a26-text-h1-line-height: 1.25;
+  --a26-text-h1-weight: 700;
+
+  --a26-text-h2-size: clamp(1.35rem, 2.2vw, 1.65rem);
+  --a26-text-h2-line-height: 1.3;
+  --a26-text-h2-weight: 600;
+
+  --a26-text-h3-size: 1.2rem;
+  --a26-text-h3-line-height: 1.35;
+  --a26-text-h3-weight: 600;
+
+  --a26-text-card-title-size: 1.1rem;
+  --a26-text-card-title-line-height: 1.4;
+  --a26-text-card-title-weight: 700;
+
+  --a26-text-body-size: 0.95rem;
+  --a26-text-body-line-height: 1.55;
+  --a26-text-body-weight: 400;
+
+  --a26-text-body-sm-size: 0.84rem;
+  --a26-text-body-sm-line-height: 1.45;
+  --a26-text-body-sm-weight: 400;
+
+  --a26-text-caption-size: 0.75rem;
+  --a26-text-caption-line-height: 1.4;
+  --a26-text-caption-weight: 500;
+
+  --a26-text-kicker-size: 0.7rem;
+  --a26-text-kicker-line-height: 1.3;
+  --a26-text-kicker-weight: 800;
+  --a26-text-kicker-tracking: 0.16em;
+
+  --a26-text-button-size: 0.88rem;
+  --a26-text-button-line-height: 1.25;
+  --a26-text-button-weight: 600;
+
+  --a26-text-input-size: 0.94rem;
+  --a26-text-input-line-height: 1.4;
+  --a26-text-input-weight: 400;
+
+  --a26-text-metadata-size: 0.75rem;
+  --a26-text-metadata-line-height: 1.4;
+  --a26-text-metadata-weight: 500;
+
+  --a26-text-metric-size: 1.8rem;
+  --a26-text-metric-line-height: 1.1;
+  --a26-text-metric-weight: 700;
+
+  /* Semantic Color Foundation - DARK (Default) */
+  --a26-color-text-primary: #f4fbfa;
+  --a26-color-text-secondary: #aebfbe;
+  --a26-color-text-disabled: #556766;
+
+  --a26-color-surface-canvas: #020608;
+  --a26-color-surface-raised: #071014;
+  --a26-color-surface-glass: rgb(7 22 27 / 0.72);
+  --a26-color-surface-dark: #0b171b;
+
+  --a26-color-border-subtle: rgb(218 251 248 / 0.14);
+  --a26-color-border-default: rgb(218 251 248 / 0.28);
+
+  --a26-color-accent-primary: #5ce8df;
+  --a26-color-accent-secondary: #dfc57f;
+
+  --a26-color-status-success: #72dfa0;
+  --a26-color-status-warning: #f3c66e;
+  --a26-color-status-danger: #ff9a9a;
 
   --a26-z-content: 1;
   --a26-z-navigation: 40;
@@ -83,11 +192,32 @@ body.a26-theme-light,
   --a26-color-teal: #0f766e;
   --a26-color-teal-strong: #115e59;
   --a26-color-gold: #b45309;
+  --a26-page-display-color: #b45309;
   --a26-color-danger: #dc2626;
   --a26-color-warning: #d97706;
   --a26-color-success: #059669;
   --a26-color-border: rgba(148, 163, 184, 0.35);
   --a26-color-border-strong: rgba(100, 116, 139, 0.45);
+
+  /* Semantic Color Foundation - LIGHT */
+  --a26-color-text-primary: #0f172a;
+  --a26-color-text-secondary: #334155;
+  --a26-color-text-disabled: #94a3b8;
+
+  --a26-color-surface-canvas: #e8eef3;
+  --a26-color-surface-raised: #dfe7ed;
+  --a26-color-surface-glass: rgba(255, 255, 255, 0.82);
+  --a26-color-surface-dark: #0b171b;
+
+  --a26-color-border-subtle: rgba(148, 163, 184, 0.35);
+  --a26-color-border-default: rgba(100, 116, 139, 0.45);
+
+  --a26-color-accent-primary: #0f766e;
+  --a26-color-accent-secondary: #b45309;
+
+  --a26-color-status-success: #059669;
+  --a26-color-status-warning: #d97706;
+  --a26-color-status-danger: #dc2626;
 
   /* Materiais de Vidro Líquido Translúcido (iOS 27) */
   --a26-material-clear-bg: rgba(255, 255, 255, 0.65);
@@ -108,6 +238,129 @@ body.a26-theme-light,
   --atlas-glass-shadow: var(--a26-shadow-ambient);
   --atlas-glass-radius: var(--a26-radius-card);
   --atlas-glass-blur: var(--a26-material-regular-blur);
+}
+
+/* 3D Viewer Semantic Dark Surface Isolation (Part 5) */
+.a26-surface-dark,
+.viewer-shell,
+[data-surface="dark"] {
+  background-color: #020608;
+  --a26-color-canvas: #020608;
+  --a26-color-canvas-raised: #071014;
+  --a26-color-surface: #0b171b;
+  --a26-color-surface-strong: #102126;
+  --a26-color-text: #f4fbfa;
+  --a26-color-text-muted: #aebfbe;
+  --a26-color-text-subtle: #7f9695;
+  --a26-color-text-disabled: #556766;
+  --a26-color-text-primary: #f4fbfa;
+  --a26-color-text-secondary: #aebfbe;
+  --a26-color-surface-canvas: #020608;
+  --a26-color-surface-raised: #071014;
+  --a26-color-surface-glass: rgb(7 22 27 / 0.72);
+  --a26-color-surface-dark: #0b171b;
+  --a26-color-border-subtle: rgb(218 251 248 / 0.14);
+  --a26-color-border-default: rgb(218 251 248 / 0.28);
+  --a26-color-border: rgb(218 251 248 / 0.14);
+  --a26-color-border-strong: rgb(218 251 248 / 0.28);
+  --a26-color-accent-primary: #5ce8df;
+  --a26-color-accent-secondary: #dfc57f;
+  --a26-color-teal: #5ce8df;
+  --a26-color-teal-strong: #22bdb8;
+  --a26-color-gold: #dfc57f;
+  --a26-color-danger: #ff9a9a;
+  --a26-color-warning: #f3c66e;
+  --a26-color-success: #72dfa0;
+  --a26-material-clear-bg: rgb(9 25 30 / 0.48);
+  --a26-material-regular-bg: rgb(7 22 27 / 0.72);
+  --a26-material-substantial-bg: rgb(5 17 21 / 0.88);
+  --a26-material-opaque-bg: #091318;
+  color: var(--a26-color-text);
+}
+
+/* Semantic Typography Utility Classes (Part 1) */
+.a26-type-display {
+  font-family: var(--a26-font-display);
+  font-size: var(--a26-text-display-size);
+  line-height: var(--a26-text-display-line-height);
+  font-weight: var(--a26-text-display-weight);
+  letter-spacing: var(--a26-text-display-tracking);
+}
+.a26-type-h1 {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-h1-size);
+  line-height: var(--a26-text-h1-line-height);
+  font-weight: var(--a26-text-h1-weight);
+}
+.a26-type-h2 {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-h2-size);
+  line-height: var(--a26-text-h2-line-height);
+  font-weight: var(--a26-text-h2-weight);
+}
+.a26-type-h3 {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-h3-size);
+  line-height: var(--a26-text-h3-line-height);
+  font-weight: var(--a26-text-h3-weight);
+}
+.a26-type-card-title {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-card-title-size);
+  line-height: var(--a26-text-card-title-line-height);
+  font-weight: var(--a26-text-card-title-weight);
+}
+.a26-type-body {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-body-size);
+  line-height: var(--a26-text-body-line-height);
+  font-weight: var(--a26-text-body-weight);
+}
+.a26-type-body-sm {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-body-sm-size);
+  line-height: var(--a26-text-body-sm-line-height);
+  font-weight: var(--a26-text-body-sm-weight);
+}
+.a26-type-caption {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-caption-size);
+  line-height: var(--a26-text-caption-line-height);
+  font-weight: var(--a26-text-caption-weight);
+}
+.a26-type-kicker {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-kicker-size);
+  line-height: var(--a26-text-kicker-line-height);
+  font-weight: var(--a26-text-kicker-weight);
+  letter-spacing: var(--a26-text-kicker-tracking);
+  text-transform: uppercase;
+}
+.a26-type-button {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-button-size);
+  line-height: var(--a26-text-button-line-height);
+  font-weight: var(--a26-text-button-weight);
+}
+.a26-type-input {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-input-size);
+  line-height: var(--a26-text-input-line-height);
+  font-weight: var(--a26-text-input-weight);
+}
+.a26-type-metadata {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-metadata-size);
+  line-height: var(--a26-text-metadata-line-height);
+  font-weight: var(--a26-text-metadata-weight);
+}
+.a26-type-numeric-metric {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-metric-size);
+  line-height: var(--a26-text-metric-line-height);
+  font-weight: var(--a26-text-metric-weight);
+  font-feature-settings: "tnum" 1, "cv01" 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .a26-surface {
@@ -381,6 +634,7 @@ body.a26-theme-light,
 
 .a26-button--primary {
   --a26-material-border: rgb(210 255 251 / 0.38);
+  background-color: #37c8c3;
   background:
     linear-gradient(145deg, rgb(255 255 255 / 0.4), transparent 30%),
     linear-gradient(135deg, #7bf1e9, #37c8c3 52%, #16767b);
@@ -464,6 +718,28 @@ body.a26-theme-light,
   box-shadow: none;
 }
 
+.a26-button--tertiary {
+  background: transparent;
+  border: 1px solid var(--a26-color-border);
+  color: var(--a26-color-text-secondary);
+  box-shadow: none;
+}
+
+.a26-button--tertiary:hover,
+.a26-button--tertiary:focus-visible {
+  background: rgb(255 255 255 / 0.06);
+  border-color: var(--a26-color-border-strong);
+  color: var(--a26-color-text);
+}
+
+.a26-button--compact {
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: 0.8rem;
+  border-radius: var(--a26-radius-floating);
+}
+
+
 .a26-liquid-button-adapter,
 .viewer-secondary-button,
 .viewer-soft-button,
@@ -472,6 +748,7 @@ body.a26-theme-light,
   background:
     linear-gradient(145deg, rgb(255 255 255 / 0.09), transparent 36%),
     rgb(5 24 29 / 0.5);
+  background-color: #05181d;
   color: rgb(244 251 250 / 0.9);
   box-shadow:
     0 10px 28px rgb(0 0 0 / 0.2),
@@ -551,9 +828,73 @@ body.a26-theme-light,
 }
 
 .a26-card {
-  border-radius: var(--a26-radius-card);
-  padding: var(--a26-space-6);
+  border-radius: var(--a26-card-standard-radius, var(--a26-radius-card));
+  padding: var(--a26-spacing-card-pad, var(--a26-space-6));
+  border: 1px solid var(--a26-color-border);
+  transition: transform var(--a26-motion-enter) var(--a26-motion-spring),
+              box-shadow var(--a26-motion-response) ease,
+              border-color var(--a26-motion-response) ease;
 }
+
+/* Card Family 1: Hero Card */
+.a26-card--hero {
+  border-radius: var(--a26-card-hero-radius);
+  padding: clamp(20px, 3.5vw, 36px);
+  border: 1px solid var(--a26-color-border-strong);
+  box-shadow: var(--a26-shadow-elevated);
+}
+
+/* Card Family 2: Standard Card (Atlas, Flashcards, Quizzes, Settings) */
+.a26-card--standard,
+.atlas-card,
+.flashcard-deck-card,
+.quiz-topic-card,
+.settings-card {
+  border-radius: var(--a26-card-standard-radius);
+  padding: var(--a26-spacing-card-pad);
+  border: 1px solid var(--a26-color-border);
+}
+
+/* Card Family 3: Compact Card (Lists, Sidebar Items, Sub-decks) */
+.a26-card--compact {
+  border-radius: var(--a26-card-compact-radius);
+  padding: var(--a26-spacing-card-pad-compact);
+  border: 1px solid var(--a26-color-border);
+}
+
+/* Card Family 4: Interactive / Clickable Card (Model Cards, Action Cards) */
+.a26-card--interactive,
+.model-card-aog {
+  border-radius: var(--a26-card-interactive-radius);
+  padding: var(--a26-spacing-card-pad);
+  border: 1px solid var(--a26-color-border);
+  cursor: pointer;
+  transition: transform var(--a26-motion-enter) var(--a26-motion-spring),
+              border-color var(--a26-motion-response) ease,
+              box-shadow var(--a26-motion-response) ease;
+}
+
+.a26-card--interactive:hover,
+.model-card-aog:hover {
+  border-color: rgb(var(--a26-accent-rgb, 92 232 223) / 0.4);
+  transform: translateY(-2px);
+  box-shadow: var(--a26-shadow-elevated), 0 0 24px rgb(var(--a26-accent-rgb, 92 232 223) / 0.12);
+}
+
+/* Card Family 5: Metric Card */
+.a26-card--metric {
+  border-radius: var(--a26-card-metric-radius);
+  padding: var(--a26-spacing-card-pad);
+  border: 1px solid var(--a26-color-border);
+}
+
+/* Card Family 6: Specialized / Viewer Card */
+.a26-card--viewer {
+  border-radius: var(--a26-card-viewer-radius);
+  padding: var(--a26-spacing-card-pad);
+  border: 1px solid var(--a26-color-border);
+}
+
 
 /* ============================================================
    AETERNUM 26.1 PHYSICAL LIQUID GLASS LENS ENGINE
@@ -650,31 +991,59 @@ body.a26-theme-light,
   font-weight: 720;
 }
 
-.a26-field__control {
+.a26-field__control,
+input.a26-input,
+select.a26-select {
   width: 100%;
+  height: var(--a26-input-height-standard, 46px);
   min-height: 44px;
   border: 1px solid var(--a26-color-border);
-  border-radius: var(--a26-radius-control);
+  border-radius: var(--a26-input-radius, 12px);
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.035), transparent),
     var(--a26-material-clear-bg, #071116);
   color: var(--a26-color-text);
-  padding: 10px 14px;
+  padding: var(--a26-input-padding, 10px 16px);
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-input-size, 0.94rem);
   outline: none;
+  box-sizing: border-box;
+  transition: border-color var(--a26-motion-response) ease,
+              box-shadow var(--a26-motion-response) ease,
+              background var(--a26-motion-response) ease;
+}
+
+.a26-field__control:focus,
+input.a26-input:focus,
+select.a26-select:focus {
+  border-color: var(--a26-color-teal);
+  box-shadow: var(--a26-shadow-focus);
+}
+
+.a26-field__control--compact,
+input.a26-input--compact {
+  height: var(--a26-input-height-compact, 38px);
+  min-height: 38px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
 }
 
 .a26-theme-light .a26-field__label {
   color: #0f172a;
 }
 
-.a26-theme-light .a26-field__control {
+.a26-theme-light .a26-field__control,
+.a26-theme-light input.a26-input,
+.a26-theme-light select.a26-select {
   background: rgba(255, 255, 255, 0.95);
   border-color: rgba(148, 163, 184, 0.4);
   color: #0f172a;
   box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
-.a26-theme-light .a26-field__control:focus {
+.a26-theme-light .a26-field__control:focus,
+.a26-theme-light input.a26-input:focus,
+.a26-theme-light select.a26-select:focus {
   border-color: #0f766e;
   box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15), inset 0 1px 2px rgba(15, 23, 42, 0.04);
 }
@@ -742,7 +1111,11 @@ textarea.a26-field__control {
 }
 
 .a26-theme-light .a26-segmented button {
-  color: #64748b;
+  color: #334155;
+}
+
+.a26-theme-light .a26-segmented button:hover {
+  color: #0f172a;
 }
 
 .a26-theme-light .a26-segmented button.is-selected {
@@ -1177,13 +1550,17 @@ textarea.a26-field__control {
 }
 
 .viewer-model-actions__label {
-  color: var(--a26-color-text-subtle);
+  color: var(--a26-color-text-muted);
   font-family: var(--a26-type-mono);
   font-size: 0.62rem;
   font-weight: 750;
   letter-spacing: 0.12em;
   line-height: 1;
   text-transform: uppercase;
+}
+
+.viewer-shell .text-textMuted {
+  color: var(--a26-color-text-muted);
 }
 
 .viewer-model-actions__controls {
@@ -1311,6 +1688,7 @@ textarea.a26-field__control {
   background:
     linear-gradient(112deg, rgb(155 245 238 / 0.075), transparent 30%),
     linear-gradient(180deg, rgb(8 25 30 / 0.92), rgb(3 12 16 / 0.84));
+  background-color: #08191e;
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.055),
     0 18px 46px rgb(0 0 0 / 0.22);
@@ -1454,3 +1832,274 @@ textarea.a26-field__control {
     font-size: 0.68rem;
   }
 }
+
+/* ============================================================
+   WAVE 4C: SEMANTIC CHIPS & BADGES
+   ============================================================ */
+.a26-chip,
+.a26-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--a26-font-sans);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+  box-sizing: border-box;
+  transition: all var(--a26-motion-response) ease;
+}
+
+/* Category 1: Filter Chip (Interactive toggle pill) */
+.a26-chip--filter,
+.subcategory-chip {
+  min-height: 32px;
+  padding: 4px 12px;
+  border-radius: var(--a26-chip-radius);
+  font-size: 0.78rem;
+  border: 1px solid var(--a26-color-border);
+  background: rgb(7 22 27 / 0.6);
+  color: var(--a26-color-text-secondary);
+  cursor: pointer;
+}
+
+.a26-chip--filter:hover,
+.subcategory-chip:hover {
+  border-color: var(--a26-color-teal);
+  color: var(--a26-color-text);
+  background: rgb(92 232 223 / 0.1);
+}
+
+.a26-chip--filter[aria-pressed="true"],
+.subcategory-chip.is-active {
+  border-color: var(--a26-color-teal);
+  background: rgb(92 232 223 / 0.18);
+  color: var(--a26-color-teal);
+  box-shadow: 0 0 12px rgb(92 232 223 / 0.15);
+}
+
+/* Category 2: Status Badge (Available, Em Breve, Concluído, etc.) */
+.a26-badge--status,
+.status-badge {
+  min-height: 24px;
+  padding: 3px 8px;
+  border-radius: var(--a26-badge-radius);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid rgb(114 223 160 / 0.3);
+  background: rgb(114 223 160 / 0.12);
+  color: var(--a26-color-status-success);
+}
+
+/* Category 3: Category Badge (Modelo 3D, Sistema, etc.) */
+.a26-badge--category {
+  min-height: 24px;
+  padding: 3px 8px;
+  border-radius: var(--a26-badge-radius);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid rgb(92 232 223 / 0.3);
+  background: rgb(92 232 223 / 0.12);
+  color: var(--a26-color-teal);
+}
+
+/* Category 4: Count Badge (Numeric counts, e.g. "12 cards") */
+.a26-badge--count {
+  min-height: 22px;
+  padding: 2px 7px;
+  border-radius: var(--a26-chip-radius);
+  font-size: 0.68rem;
+  font-weight: 700;
+  font-family: var(--a26-font-mono);
+  border: 1px solid var(--a26-color-border);
+  background: rgb(255 255 255 / 0.06);
+  color: var(--a26-color-text-secondary);
+}
+
+/* Category 5: Difficulty Chip (Fácil, Médio, Difícil) */
+.a26-chip--difficulty {
+  min-height: 24px;
+  padding: 3px 9px;
+  border-radius: var(--a26-badge-radius);
+  font-size: 0.72rem;
+  font-weight: 650;
+  border: 1px solid var(--a26-color-border);
+  background: rgb(255 255 255 / 0.05);
+  color: var(--a26-color-text-secondary);
+}
+
+.a26-chip--difficulty[data-difficulty="easy"],
+.a26-chip--difficulty.is-easy {
+  border-color: rgb(114 223 160 / 0.3);
+  color: var(--a26-color-status-success);
+  background: rgb(114 223 160 / 0.1);
+}
+
+.a26-chip--difficulty[data-difficulty="medium"],
+.a26-chip--difficulty.is-medium {
+  border-color: rgb(243 198 110 / 0.3);
+  color: var(--a26-color-status-warning);
+  background: rgb(243 198 110 / 0.1);
+}
+
+.a26-chip--difficulty[data-difficulty="hard"],
+.a26-chip--difficulty.is-hard {
+  border-color: rgb(255 154 154 / 0.3);
+  color: var(--a26-color-status-danger);
+  background: rgb(255 154 154 / 0.1);
+}
+
+/* Category 6: Language Chip */
+.a26-chip--language,
+.language-pill {
+  min-height: 26px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-family: var(--a26-font-mono);
+  background: #002776;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   WAVE 4C: LIGHT THEME COMPONENT ADAPTATIONS
+   ============================================================ */
+.a26-theme-light .a26-chip--filter,
+.a26-theme-light .subcategory-chip {
+  background: rgba(241, 245, 249, 0.9);
+  border-color: rgba(148, 163, 184, 0.4);
+  color: #334155;
+}
+
+.a26-theme-light .a26-chip--filter:hover,
+.a26-theme-light .subcategory-chip:hover {
+  background: #ffffff;
+  border-color: #0f766e;
+  color: #0f172a;
+}
+
+.a26-theme-light .a26-chip--filter[aria-pressed="true"],
+.a26-theme-light .subcategory-chip.is-active {
+  background: #0f766e;
+  border-color: #0f766e;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(15, 118, 110, 0.25);
+}
+
+.a26-theme-light .a26-badge--status,
+.a26-theme-light .status-badge {
+  background: rgba(5, 150, 105, 0.1);
+  border-color: rgba(5, 150, 105, 0.3);
+  color: #047857;
+}
+
+.a26-theme-light .a26-badge--category {
+  background: rgba(15, 118, 110, 0.1);
+  border-color: rgba(15, 118, 110, 0.25);
+  color: #0f766e;
+}
+
+.a26-theme-light .a26-badge--count {
+  background: rgba(226, 232, 240, 0.8);
+  border-color: rgba(148, 163, 184, 0.35);
+  color: #334155;
+}
+
+.a26-theme-light .a26-chip--difficulty {
+  background: rgba(241, 245, 249, 0.8);
+  border-color: rgba(148, 163, 184, 0.35);
+  color: #334155;
+}
+
+.a26-theme-light .a26-chip--difficulty[data-difficulty="easy"],
+.a26-theme-light .a26-chip--difficulty.is-easy {
+  background: rgba(5, 150, 105, 0.1);
+  border-color: rgba(5, 150, 105, 0.25);
+  color: #047857;
+}
+
+.a26-theme-light .a26-chip--difficulty[data-difficulty="medium"],
+.a26-theme-light .a26-chip--difficulty.is-medium {
+  background: rgba(217, 119, 6, 0.1);
+  border-color: rgba(217, 119, 6, 0.25);
+  color: #b45309;
+}
+
+.a26-theme-light .a26-chip--difficulty[data-difficulty="hard"],
+.a26-theme-light .a26-chip--difficulty.is-hard {
+  background: rgba(220, 38, 38, 0.1);
+  border-color: rgba(220, 38, 38, 0.25);
+  color: #b91c1c;
+}
+
+.a26-theme-light .a26-button--secondary {
+  --a26-material-background: rgba(255, 255, 255, 0.85);
+  --a26-material-border: rgba(148, 163, 184, 0.4);
+  --a26-material-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.6), transparent 34%),
+    rgba(255, 255, 255, 0.85);
+  background-color: #ffffff;
+  color: #0f766e;
+  border-color: rgba(148, 163, 184, 0.4);
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.04),
+    inset 0 1px 0 #ffffff;
+}
+
+.a26-theme-light .a26-button--secondary:hover,
+.a26-theme-light .a26-button--secondary:focus-visible {
+  background: #ffffff;
+  background-color: #ffffff;
+  color: #0d9488;
+  border-color: #0f766e;
+  box-shadow:
+    0 4px 14px rgba(15, 118, 110, 0.15),
+    inset 0 1px 0 #ffffff;
+}
+
+.a26-theme-light .a26-button--tertiary {
+  color: #334155;
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.a26-theme-light .a26-button--tertiary:hover,
+.a26-theme-light .a26-button--tertiary:focus-visible {
+  background: rgba(241, 245, 249, 0.8);
+  border-color: #0f766e;
+  color: #0f172a;
+}
+
+.a26-theme-light .a26-card {
+  border-color: rgba(148, 163, 184, 0.35);
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.a26-theme-light .a26-card--interactive:hover,
+.a26-theme-light .model-card-aog:hover {
+  border-color: #0f766e;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.09), 0 0 20px rgba(15, 118, 110, 0.12);
+}
+
+/* Wave 4C Systemic Light Theme Text & Muted Contrast Bindings */
+.a26-theme-light .text-textMuted,
+.a26-theme-light [class*="text-textMuted"],
+.a26-theme-light .text-muted,
+.a26-theme-light .muted {
+  color: var(--a26-color-text-secondary);
+}
+
+.a26-theme-light .text-agedGold,
+.a26-theme-light [class*="text-agedGold"] {
+  color: var(--a26-color-gold);
+}
+

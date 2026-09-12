@@ -417,3 +417,6 @@ export function A26LiquidLens({
   );
 }
 
+export { default as A26PageHeader } from "./A26PageHeader";
+export { default as A26FeatureShell } from "./A26FeatureShell";
+

@@ -85,12 +85,14 @@ button {
   }
 
   .eyebrow {
-    @apply text-xs font-extrabold uppercase tracking-[0.2em] text-techTeal;
+    @apply text-xs font-extrabold uppercase tracking-[0.2em];
+    color: var(--a26-color-teal-strong);
     text-shadow: 0 0 18px rgba(47, 184, 181, 0.18);
   }
 
   .display-title {
-    @apply mt-3 font-display text-4xl uppercase leading-none tracking-[0.07em] text-agedGold md:text-6xl;
+    @apply mt-3 font-display text-4xl uppercase leading-none tracking-[0.07em] md:text-6xl;
+    color: var(--a26-color-gold);
   }
 
   .muted {
@@ -172,6 +174,7 @@ button {
     radial-gradient(circle at 50% 12%, rgba(47, 184, 181, 0.16), transparent 32%),
     radial-gradient(circle at 72% 70%, rgba(198, 168, 92, 0.1), transparent 28%),
     linear-gradient(135deg, #0a0a0a 0%, #0f172a 52%, #090d14 100%);
+  background-color: #020608;
   color: #f5f5f5;
 }
 
@@ -184,6 +187,7 @@ button {
   gap: 1rem;
   border-bottom: 1px solid rgba(198, 168, 92, 0.16);
   background: rgba(10, 10, 10, 0.72);
+  background-color: #0a0a0a;
   padding: 0.75rem 1rem;
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(20px);
@@ -206,7 +210,11 @@ button {
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #2fb8b5;
+  color: var(--a26-color-teal-strong);
+}
+
+.a26-theme-light .viewer-eyebrow {
+  color: var(--a26-color-teal-strong);
 }
 
 .viewer-icon-button,
@@ -246,6 +254,7 @@ button {
   padding: 0 1.15rem;
   color: #061414;
   font-weight: 800;
+  background-color: #2fb8b5;
   background: linear-gradient(135deg, #2fb8b5, #4ade80);
   box-shadow: 0 12px 30px rgba(47, 184, 181, 0.22);
 }
@@ -261,6 +270,20 @@ button {
   color: #fecaca;
   background: rgba(127, 29, 29, 0.24);
   border-color: rgba(248, 113, 113, 0.28);
+}
+
+.a26-theme-light .viewer-danger-button {
+  color: #b91c1c;
+  background: rgba(239, 68, 68, 0.1);
+  background-color: #fef2f2;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.a26-theme-light .viewer-danger-button:hover {
+  background: rgba(239, 68, 68, 0.18);
+  background-color: #fee2e2;
+  border-color: #dc2626;
+  color: #991b1b;
 }
 
 .viewer-icon-button:hover,
@@ -317,6 +340,17 @@ button {
   text-transform: uppercase;
 }
 
+.a26-theme-light .settings-panel {
+  background: rgba(255, 255, 255, 0.95);
+  background-color: #ffffff;
+  border-color: rgba(148, 163, 184, 0.35);
+  box-shadow: 0 16px 48px rgba(15, 23, 42, 0.08);
+}
+
+.a26-theme-light .settings-panel h2 {
+  color: #0f172a;
+}
+
 .left-info-header p:last-child {
   margin-top: 0.35rem;
   color: #a0a7b4;
@@ -363,18 +397,32 @@ button {
 .viewer-tabs button {
   flex: 0 0 auto;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--a26-color-border);
+  background: var(--a26-material-clear-bg);
   padding: 0.55rem 0.8rem;
-  color: #a0a7b4;
+  color: var(--a26-color-text-muted);
   font-size: 0.76rem;
   font-weight: 700;
+  transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.viewer-tabs button:hover {
+  color: var(--a26-color-text);
+  border-color: var(--a26-color-teal);
 }
 
 .viewer-tabs button.is-active {
   color: #081313;
+  background-color: #2fb8b5;
   background: #2fb8b5;
   border-color: rgba(47, 184, 181, 0.9);
+}
+
+.a26-theme-light .viewer-tabs button.is-active {
+  color: #ffffff;
+  background-color: var(--a26-color-teal-strong, #115e59);
+  background: var(--a26-color-teal-strong, #115e59);
+  border-color: var(--a26-color-teal-strong, #115e59);
 }
 
 .left-info-content {
@@ -2200,96 +2248,96 @@ button {
 }
 
 /* --- AETERNUM 26.1: LIGHT LIQUID GLASS (MODO EXAME - ESTILO IOS 27 HIGH CONTRAST) --- */
-.theory-quiz-backdrop.is-exam-mode {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) {
   background: rgba(232, 242, 245, 0.88);
   backdrop-filter: blur(28px) saturate(140%);
   -webkit-backdrop-filter: blur(28px) saturate(140%);
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-quiz-shell {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-quiz-shell {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(244, 249, 250, 0.90) 45%, rgba(235, 245, 247, 0.95) 100%) !important;
   color: #0a1d21 !important;
   border: 1px solid rgba(255, 255, 255, 0.95) !important;
   box-shadow: 0 24px 70px rgba(10, 45, 52, 0.12), inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -1px 0 rgba(46, 168, 162, 0.12) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-quiz-commandbar {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-quiz-commandbar {
   background: rgba(255, 255, 255, 0.85) !important;
   border-bottom: 1px solid rgba(200, 225, 228, 0.7) !important;
   box-shadow: none !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-institution-header {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-institution-header {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 250, 251, 0.92)) !important;
   border-bottom: 1px solid rgba(200, 225, 228, 0.7) !important;
   box-shadow: none !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-institution-header h1 {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-institution-header h1 {
   color: #0a1d21 !important;
   text-shadow: none !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-institution-header p {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-institution-header p {
   color: #1f3a40 !important;
   font-weight: 600 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-institution-header .theory-university {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-institution-header .theory-university {
   color: #042f2e !important;
   font-weight: 900 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-institution-header strong {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-institution-header strong {
   color: #a16207 !important; /* Deep Bronze/Amber - AAA Contrast */
   font-weight: 800 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-institution-header span {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-institution-header span {
   color: #0f766e !important; /* Deep Rich Teal - AAA Contrast */
   font-weight: 800 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-exam-fields {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-exam-fields {
   background: rgba(240, 247, 248, 0.85) !important;
   border-bottom: 1px solid rgba(200, 225, 228, 0.7) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-exam-fields label {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-exam-fields label {
   color: #1f3a40 !important;
   font-weight: 800 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-exam-fields i {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-exam-fields i {
   border-bottom-color: #64748b !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-quiz-sidebar {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-quiz-sidebar {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(238, 246, 248, 0.85)) !important;
   border-right: 1px solid rgba(200, 225, 228, 0.7) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-quiz-content {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-quiz-content {
   background: rgba(248, 251, 252, 0.7) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-model-banner {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-model-banner {
   background: linear-gradient(135deg, #ffffff 0%, rgba(240, 248, 250, 0.95) 100%) !important;
   border: 1.5px solid rgba(180, 215, 220, 0.8) !important;
   box-shadow: 0 8px 24px rgba(10, 45, 50, 0.06) !important;
   border-radius: 20px !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-model-banner p {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-model-banner p {
   color: #0f766e !important;
   font-weight: 900 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-model-banner h2 {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-model-banner h2 {
   color: #0a1d21 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-model-glass-chip {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-model-glass-chip {
   background: rgba(13, 148, 136, 0.12) !important;
   border: 1.5px solid #0d9488 !important;
   color: #042f2e !important;
@@ -2297,154 +2345,154 @@ button {
   box-shadow: inset 0 1px 1px #ffffff, 0 2px 10px rgba(13, 148, 136, 0.1) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-section-heading {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-section-heading {
   background: rgba(255, 255, 255, 0.9) !important;
   border: 1px solid rgba(200, 225, 228, 0.8) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-section-heading h2 {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-section-heading h2 {
   color: #0a1d21 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-section-heading > span {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-section-heading > span {
   color: #0f766e !important;
   font-weight: 800 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-question-card {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-question-card {
   background: #ffffff !important;
   border: 1px solid rgba(180, 215, 220, 0.8) !important;
   box-shadow: 0 8px 30px rgba(10, 45, 52, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
   border-radius: 22px !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-marker-btn {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-marker-btn {
   background: rgba(13, 148, 136, 0.14) !important;
   border: 1.5px solid #0d9488 !important;
   color: #042f2e !important; /* Bold legible number */
   box-shadow: 0 2px 8px rgba(13, 148, 136, 0.15) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-question-heading small {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-question-heading small {
   color: #0f766e !important;
   font-weight: 900 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-question-heading h3 {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-question-heading h3 {
   color: #0a1d21 !important;
   font-weight: 800 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-option {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-option {
   background: rgba(248, 251, 252, 0.95) !important;
   border: 1px solid rgba(180, 215, 220, 0.85) !important;
   color: #0a1d21 !important;
   box-shadow: 0 2px 6px rgba(10, 45, 50, 0.03) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-option strong {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-option strong {
   color: #0a1d21 !important;
   font-weight: 900 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-option span {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-option span {
   color: #0a1d21 !important;
   font-weight: 600 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-option:hover:not(:disabled),
-.theory-quiz-backdrop.is-exam-mode .theory-option.is-selected {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-option:hover:not(:disabled),
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-option.is-selected {
   border-color: #0d9488 !important;
   background: rgba(92, 232, 226, 0.28) !important;
   color: #042f2e !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-option.is-selected strong,
-.theory-quiz-backdrop.is-exam-mode .theory-option.is-selected span {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-option.is-selected strong,
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-option.is-selected span {
   color: #042f2e !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-option.is-correct {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-option.is-correct {
   border-color: #10b981 !important;
   background: rgba(16, 185, 129, 0.20) !important;
   color: #064e3b !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-option.is-incorrect {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-option.is-incorrect {
   border-color: #ef4444 !important;
   background: rgba(239, 68, 68, 0.18) !important;
   color: #7f1d1d !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-explanation {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-explanation {
   background: rgba(240, 248, 250, 0.98) !important;
   color: #0a1d21 !important;
   border: 1px solid rgba(200, 225, 228, 0.8) !important;
   border-left: 4px solid #0d9488 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-link-button {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-link-button {
   color: #0f766e !important;
   font-weight: 800 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-quick-stats div {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-quick-stats div {
   border-color: rgba(200, 225, 228, 0.8) !important;
   background: #ffffff !important;
   box-shadow: 0 2px 8px rgba(10, 45, 52, 0.05) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-quick-stats span {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-quick-stats span {
   color: #0f766e !important;
   font-weight: 900 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-quick-stats strong {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-quick-stats strong {
   color: #0a1d21 !important;
   font-weight: 900 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-section-nav button {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-section-nav button {
   border-color: rgba(200, 225, 228, 0.8) !important;
   background: #ffffff !important;
   box-shadow: 0 2px 8px rgba(10, 45, 52, 0.04) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-section-nav button span {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-section-nav button span {
   color: #0a1d21 !important;
   font-weight: 800 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-section-nav button strong {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-section-nav button strong {
   color: #a16207 !important; /* Deep bronze/amber - high contrast */
   font-weight: 900 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-section-nav button:hover,
-.theory-quiz-backdrop.is-exam-mode .theory-section-nav button.is-active {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-section-nav button:hover,
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-section-nav button.is-active {
   border-color: #0d9488 !important;
   background: linear-gradient(135deg, rgba(92, 232, 226, 0.35), rgba(47, 184, 181, 0.2)) !important;
   box-shadow: 0 4px 14px rgba(13, 148, 136, 0.15) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-section-nav button.is-active span,
-.theory-quiz-backdrop.is-exam-mode .theory-section-nav button.is-active strong {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-section-nav button.is-active span,
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-section-nav button.is-active strong {
   color: #042f2e !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-timer-track {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-timer-track {
   stroke: rgba(10, 45, 50, 0.12) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-timer-tick {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-timer-tick {
   color: rgba(10, 45, 50, 0.2) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-timer-tick.is-major {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-timer-tick.is-major {
   color: rgba(10, 45, 50, 0.5) !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-timer-face {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-timer-face {
   background: radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.98) 0%, rgba(240, 248, 250, 0.92) 50%, rgba(225, 242, 246, 0.95) 100%) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -2453,15 +2501,15 @@ button {
   color: #0a1d21 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-timer-face svg {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-timer-face svg {
   color: #0f766e !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-timer-face strong {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-timer-face strong {
   color: #0a1d21 !important;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-timer-face small {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-timer-face small {
   color: #0f766e !important;
   font-weight: 900 !important;
 }
@@ -2479,7 +2527,7 @@ button {
   gap: 1rem;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-error-reinforcement-card {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-error-reinforcement-card {
   background: linear-gradient(135deg, rgba(92, 232, 226, 0.15), rgba(255, 255, 255, 0.95)) !important;
   border: 1px solid rgba(13, 148, 136, 0.35) !important;
   box-shadow: 0 8px 24px rgba(10, 45, 50, 0.07) !important;
@@ -2504,7 +2552,7 @@ button {
   flex-shrink: 0;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-error-icon-badge {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-error-icon-badge {
   background: rgba(13, 148, 136, 0.15) !important;
   border-color: #0d9488 !important;
   color: #0d9488 !important;
@@ -2517,7 +2565,7 @@ button {
   margin-bottom: 0.2rem;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-error-reinforcement-info strong {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-error-reinforcement-info strong {
   color: #0a1d21 !important;
 }
 
@@ -2528,7 +2576,7 @@ button {
   line-height: 1.4;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-error-reinforcement-info p {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-error-reinforcement-info p {
   color: #27484e !important;
 }
 
@@ -2557,7 +2605,7 @@ button {
   font-weight: 500;
 }
 
-.theory-quiz-backdrop.is-exam-mode .theory-error-notice {
+:is(.theory-quiz-backdrop.is-exam-mode, .a26-theme-light .theory-quiz-backdrop) .theory-error-notice {
   background: rgba(16, 185, 129, 0.15) !important;
   border-color: #10b981 !important;
   color: #065f46 !important;
@@ -3954,8 +4002,8 @@ button {
   display: flex;
   gap: 0.85rem;
   border-radius: 1.05rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(10, 10, 10, 0.26);
+  border: 1px solid var(--a26-color-border);
+  background: var(--a26-material-clear-bg);
   padding: 1rem;
 }
 
@@ -3967,24 +4015,25 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: 0.85rem;
-  color: #2fb8b5;
-  background: rgba(47, 184, 181, 0.1);
+  color: var(--a26-color-teal);
+  background: var(--a26-material-regular-bg);
+  border: 1px solid var(--a26-color-border);
 }
 
 .settings-card h3 {
-  color: #f5f5f5;
+  color: var(--a26-color-text);
   font-weight: 850;
 }
 
 .settings-card p {
   margin-top: 0.35rem;
-  color: #d8dee8;
+  color: var(--a26-color-text);
 }
 
 .settings-card small {
   display: block;
   margin-top: 0.25rem;
-  color: #a0a7b4;
+  color: var(--a26-color-text-muted);
 }
 
 .premium-field {
@@ -5169,7 +5218,7 @@ select:focus-visible {
 .atlas-card h3 {
   max-width: calc(100% - 8px);
   margin: 0;
-  color: #f5f5f5;
+  color: var(--a26-color-text);
   font-size: clamp(1.2rem, 1.2vw, 1.45rem);
   font-weight: 900;
   line-height: 1.2;
@@ -5178,7 +5227,7 @@ select:focus-visible {
 
 .atlas-card p {
   margin: 14px 0 0;
-  color: #aeb8c5;
+  color: var(--a26-color-text-muted);
   line-height: 1.6;
 }
 
@@ -5187,10 +5236,10 @@ select:focus-visible {
   top: 16px;
   right: 16px;
   z-index: 2;
-  border: 1px solid rgba(0, 255, 200, 0.16);
+  border: 1px solid var(--a26-color-border-strong);
   border-radius: 999px;
-  background: rgba(0, 255, 200, 0.12);
-  color: #00ffd0;
+  background: var(--a26-material-regular-bg);
+  color: var(--a26-color-teal-strong);
   padding: 4px 10px;
   font-size: 11px;
   font-weight: 900;
@@ -5207,21 +5256,22 @@ select:focus-visible {
 
 .subcategory-chip {
   min-width: 0;
-  border: 1px solid rgba(0, 255, 200, 0.12);
+  border: 1px solid var(--a26-color-border);
   border-radius: 999px;
-  background: rgba(0, 255, 200, 0.06);
-  color: #9fffe0;
+  background: var(--a26-material-clear-bg);
+  color: var(--a26-color-teal-strong);
   padding: 6px 10px;
   font-size: 12px;
   font-weight: 800;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
 }
 
 .subcategory-chip:hover,
 .subcategory-chip:focus-visible {
   transform: translateY(-1px);
-  border-color: rgba(0, 255, 200, 0.26);
-  background: rgba(0, 255, 200, 0.18);
+  border-color: var(--a26-color-teal);
+  background: var(--a26-material-regular-bg);
+  color: var(--a26-color-text);
   outline: none;
 }
 
@@ -7146,12 +7196,16 @@ select:focus-visible {
 }
 
 .agenda-weekdays span {
-  color: #8fa0b6;
+  color: var(--a26-color-text-secondary, #8fa0b6);
   font-size: 0.76rem;
   font-weight: 900;
   letter-spacing: 0.08em;
   text-align: center;
   text-transform: uppercase;
+}
+
+.a26-theme-light .agenda-weekdays span {
+  color: #0f766e;
 }
 
 .agenda-calendar-grid {
@@ -7489,13 +7543,22 @@ select:focus-visible {
 
 .agenda-empty-state strong,
 .agenda-empty-text {
-  color: #f5f5f5;
+  color: var(--a26-color-text, #f5f5f5);
   line-height: 1.45;
 }
 
 .agenda-empty-state p {
-  color: #aeb8c5;
+  color: var(--a26-color-text-secondary, #aeb8c5);
   line-height: 1.55;
+}
+
+.a26-theme-light .agenda-empty-state strong,
+.a26-theme-light .agenda-empty-text {
+  color: #0f172a;
+}
+
+.a26-theme-light .agenda-empty-state p {
+  color: #334155;
 }
 
 .agenda-side-card {
@@ -14277,6 +14340,47 @@ button.cinematic-info-card {
   }
 }
 
+/* Light Liquid Glass Quiz Cards */
+.a26-theme-light .anatomical-quiz-card {
+  border-color: rgba(148, 163, 184, 0.4);
+  background: rgba(255, 255, 255, 0.95);
+  background-color: #ffffff;
+  box-shadow: 0 14px 38px rgba(15, 23, 42, 0.08);
+}
+
+.a26-theme-light .anatomical-quiz-card::before {
+  opacity: 0.25;
+}
+
+.a26-theme-light .anatomical-quiz-card h2 {
+  color: #0f172a;
+}
+
+.a26-theme-light .anatomical-quiz-description {
+  color: #334155;
+}
+
+.a26-theme-light .anatomical-quiz-category {
+  color: #0f766e;
+}
+
+.a26-theme-light .anatomical-quiz-status {
+  background: rgba(15, 118, 110, 0.1);
+  border-color: rgba(15, 118, 110, 0.25);
+  color: #0f766e;
+}
+
+.a26-theme-light .anatomical-quiz-icon {
+  background: rgba(15, 118, 110, 0.08);
+  border-color: rgba(15, 118, 110, 0.2);
+  color: #0f766e;
+}
+
+.a26-theme-light .anatomical-quiz-topics li {
+  color: #334155;
+}
+
+
 /* PURPOSEFUL UX ANIMATIONS */
 
 /* 1. Typing Dots */
@@ -14593,6 +14697,11 @@ button.cinematic-info-card {
     text-wrap: balance;
     word-break: normal;
     letter-spacing: -0.01em;
+    color: var(--a26-color-text);
+  }
+
+  .a26-theme-light .atlas-empty-state-title {
+    color: #0f172a !important;
   }
 
   .atlas-empty-state-description {
@@ -14600,6 +14709,11 @@ button.cinematic-info-card {
     line-height: 1.5;
     text-wrap: balance;
     word-break: normal;
+    color: var(--a26-color-text-secondary);
+  }
+
+  .a26-theme-light .atlas-empty-state-description {
+    color: #334155 !important;
   }
 
   .atlas-card-safe {

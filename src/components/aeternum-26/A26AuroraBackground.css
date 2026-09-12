@@ -1,0 +1,108 @@
+/* ==========================================================================
+   A26AuroraBackground.css — GPU Atmospheric Aurora Veil
+   Contract: data-atmosphere="aurora", pointer-events none, full Light/Dark support
+   ========================================================================== */
+
+/* Canonical Atmospheric Background Contract (Wave 4I-B.3):
+   When an Aurora route is active (data-atmosphere="aurora" or .has-a26-aurora),
+   neutralize duplicate body radial gradient and shell background so the WebGL
+   veil is the sole atmospheric illumination source.
+   Preserved and restored completely on non-Aurora routes. */
+:is(body[data-atmosphere="aurora"], body.has-a26-aurora) {
+  background-image: none !important;
+  background-color: var(--black-deep, #020608) !important;
+}
+
+:is(body[data-atmosphere="aurora"], body.has-a26-aurora).a26-theme-light {
+  background-image: none !important;
+  background-color: #e8eef3 !important;
+}
+
+:is(body[data-atmosphere="aurora"], body.has-a26-aurora)::before {
+  display: none !important;
+}
+
+:is(body[data-atmosphere="aurora"], body.has-a26-aurora) .a26-shell {
+  background: transparent !important;
+}
+
+/* Part 5 & Amendment 5: Surgical Legacy Lighting Suppression
+   Neutralize ONLY the duplicate atmospheric radial lighting layer.
+   Preserve glass specularity, border, fill, layout, and functional states. */
+:is(body[data-atmosphere="aurora"], body.has-a26-aurora) .models-hero-aog {
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 0.055), transparent 42%),
+    rgb(4 16 21 / 0.72) !important;
+}
+
+:is(body[data-atmosphere="aurora"], body.has-a26-aurora).a26-theme-light .models-hero-aog {
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 0.95), rgb(240 246 248 / 0.90)),
+    rgb(255 255 255 / 0.85) !important;
+}
+
+:is(body[data-atmosphere="aurora"], body.has-a26-aurora) .student-learning-root {
+  background: transparent !important;
+}
+
+/* Part 4: Content-Region Atmosphere
+   Inside the dedicated .a26-shell__atmosphere host, Aurora is strictly bounded to the
+   content column, eliminating sidebar optical bleed without hardcoded offsets. */
+.a26-shell__atmosphere .a26-aurora-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Fallback container positioning for standalone/test usage */
+.a26-aurora-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  contain: strict;
+}
+
+.a26-aurora-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Part 3: Light Theme Native WebGL Luminescence
+   Removed dark veil opacity/filter hack. Canvas operates at full opacity with
+   true Light-palette WebGL fragment synthesis. */
+.a26-aurora-container--light .a26-aurora-canvas {
+  opacity: 1;
+  filter: none;
+}
+
+/* Static Atmospheric Fallback (when WebGL is unsupported or fails) */
+.a26-aurora-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(34, 189, 184, 0.12), transparent 75%),
+    radial-gradient(ellipse 60% 40% at 75% 20%, rgba(5, 150, 105, 0.08), transparent 60%),
+    radial-gradient(ellipse 50% 30% at 25% 15%, rgba(223, 197, 127, 0.05), transparent 50%),
+    linear-gradient(180deg, #020608 0%, #050d12 40%, #020608 100%);
+}
+
+.a26-aurora-container--light .a26-aurora-fallback {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(34, 189, 184, 0.05), transparent 75%),
+    radial-gradient(ellipse 60% 40% at 80% 15%, rgba(223, 197, 127, 0.03), transparent 60%),
+    linear-gradient(180deg, #f8fafc 0%, #e8eef3 100%);
+}

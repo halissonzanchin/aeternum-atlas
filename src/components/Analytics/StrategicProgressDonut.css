@@ -132,10 +132,12 @@
 }
 
 .pillar-percent {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--a26-font-sans);
   font-size: 13px;
   font-weight: 700;
   flex-shrink: 0;
+  font-feature-settings: "tnum" 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .pillar-track-bg {
@@ -198,8 +200,13 @@
   background: rgba(148, 163, 184, 0.2) !important;
 }
 
+.a26-theme-light .pillar-percent {
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+
 .a26-theme-light .pillar-value-detail {
-  color: #64748b !important;
+  color: #334155 !important;
   font-weight: 600 !important;
 }
 

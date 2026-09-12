@@ -82,7 +82,7 @@ export default function HeroAcademicStatusWidget({
             fill="#ffffff"
             fontSize="21"
             fontWeight="700"
-            fontFamily="'Space Grotesk', 'Inter', sans-serif"
+            fontFamily="Inter, system-ui, sans-serif"
           >
             {displayProgress}%
           </text>

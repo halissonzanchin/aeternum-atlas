@@ -199,7 +199,7 @@ export default function StrategicProgressDonut({
                 fill={activePillar.color}
                 fontSize="20"
                 fontWeight="700"
-                fontFamily="'Space Grotesk', 'Inter', sans-serif"
+                fontFamily="Inter, system-ui, sans-serif"
                 dominantBaseline="central"
               >
                 {activePillar.percent}%
@@ -224,7 +224,7 @@ export default function StrategicProgressDonut({
                 fill="url(#centerTextGrad)"
                 fontSize="21"
                 fontWeight="700"
-                fontFamily="'Space Grotesk', 'Inter', sans-serif"
+                fontFamily="Inter, system-ui, sans-serif"
                 dominantBaseline="central"
               >
                 {pillarData.overallPercent}%

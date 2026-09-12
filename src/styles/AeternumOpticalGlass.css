@@ -934,11 +934,11 @@
 
 .models-hero-aog h1 {
   margin: 0;
-  color: #f1f1eb;
-  font-family: Georgia, "Times New Roman", serif;
+  color: var(--a26-color-text);
+  font-family: var(--a26-font-display);
   font-size: clamp(2.25rem, 5vw, 4.7rem);
-  font-weight: 500;
-  letter-spacing: -0.045em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   line-height: 0.94;
 }
 
@@ -1005,12 +1005,24 @@
   border: 0;
   outline: 0;
   background: transparent;
-  color: #eef4f1;
+  color: var(--a26-color-text, #eef4f1);
   font-size: 0.86rem;
 }
 
 .models-search-aog input::placeholder {
   color: rgb(184 207 203 / 0.45);
+}
+
+.a26-theme-light .models-search-aog input {
+  color: #0f172a;
+}
+
+.a26-theme-light .models-search-aog input::placeholder {
+  color: #64748b;
+}
+
+.a26-theme-light .models-search-aog > svg {
+  color: #0f766e;
 }
 
 .models-search-aog button {

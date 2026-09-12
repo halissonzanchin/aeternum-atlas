@@ -52,9 +52,12 @@ body:has(.a26-shell) #root {
 .study-agenda-page,
 .a26-daily-page,
 .models-page-aog,
+.models-catalog,
+.anatomical-quizzes-page,
 .a26-ai-tutor-studio-hub {
   min-width: 0;
   max-width: 100%;
+  padding-bottom: clamp(120px, 16vh, 160px);
 }
 
 .a26-shell .student-study-hero h1 {
@@ -214,8 +217,8 @@ body:has(.a26-shell) #root {
 }
 
 .models-hero-aog__copy { max-width: 930px; }
-.models-hero-aog__eyebrow { margin: 0 0 12px; color: var(--a26-color-teal); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; }
-.models-hero-aog h1 { margin: 0; color: #f3ead6; font: 500 clamp(2.65rem, 3.9vw, 4.25rem)/1 var(--a26-type-display); letter-spacing: 0.035em; text-transform: uppercase; text-wrap: balance; overflow-wrap: normal; word-break: normal; }
+.models-hero-aog__eyebrow { margin: 0 0 12px; color: var(--a26-color-teal-strong); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; }
+.models-hero-aog h1 { margin: 0; color: var(--a26-color-text); font: 500 clamp(2.65rem, 3.9vw, 4.25rem)/1 var(--a26-type-display); letter-spacing: 0.035em; text-transform: uppercase; text-wrap: balance; overflow-wrap: normal; word-break: normal; }
 .models-hero-aog__copy > p:last-child { max-width: 760px; margin: 18px 0 0; color: var(--a26-color-text-muted); font-size: 1.08rem; line-height: 1.65; }
 
 .models-hero-aog__badge {
@@ -277,9 +280,23 @@ body:has(.a26-shell) #root {
 .model-card-aog__placeholder-ring { position: absolute; inset: 17%; border: 1px solid rgb(92 232 223 / 0.2); border-radius: 50%; }
 .model-card-aog__placeholder-letter { position: absolute; inset: 0; display: grid; place-items: center; color: var(--a26-color-teal); font: 500 4.5rem var(--a26-type-display); }
 .model-card-aog__status { position: absolute; top: 12px; right: auto; bottom: auto; left: 12px; z-index: 3; display: inline-flex; align-items: center; width: max-content; max-width: calc(100% - 76px); min-width: 0; min-height: 0; height: auto; padding: 6px 10px; border: 1px solid rgb(114 223 160 / 0.28); border-radius: 999px; color: var(--a26-color-success); background: rgb(4 22 20 / 0.72); font-size: 0.67rem; font-weight: 800; line-height: 1.15; text-transform: uppercase; }
+.models-grid {
+  padding-bottom: clamp(120px, 16vh, 160px);
+}
+
 .model-card-aog__favorite { position: absolute; top: 10px; right: 10px; z-index: 3; display: grid; place-items: center; width: 42px; height: 42px; padding: 0; border-radius: 50%; }
 .model-card-aog__favorite > span:last-child { display: grid; place-items: center; }
 .model-card-aog__favorite.is-active { color: var(--a26-color-gold); }
+
+/* Orb Safe Zone: ensure favorite button on cards in compact/constrained viewports clears the floating Atlas Orb */
+@media (max-width: 1360px) and (max-height: 860px) {
+  .models-grid .model-card-aog__favorite,
+  .model-card-aog__favorite {
+    top: auto;
+    bottom: 10px;
+    right: 10px;
+  }
+}
 .model-card-aog__body { display: grid; gap: 10px; padding-inline: 4px; }
 .model-card-aog__body h3 { margin: 0; color: var(--a26-color-text); font-size: 1.2rem; line-height: 1.32; }
 .model-card-aog__taxonomy,
@@ -300,7 +317,8 @@ body:has(.a26-shell) #root {
 /* Perfil */
 .a26-profile-page { display: grid; gap: 24px; width: min(100%, 1180px); margin-inline: auto; padding-bottom: 64px; }
 .a26-profile-hero { padding-block: 12px 22px; border-bottom: 1px solid var(--a26-color-border); }
-.a26-profile-hero h1 { margin: 6px 0 10px; color: #f3ead6; font: 500 clamp(2.8rem, 6vw, 5rem)/1 var(--a26-type-display); text-transform: uppercase; }
+.a26-profile-hero h1 { margin: 6px 0 10px; color: var(--a26-color-text); font: 500 clamp(2.8rem, 6vw, 5rem)/1 var(--a26-type-display); text-transform: uppercase; }
+.a26-theme-light .a26-profile-hero h1 { color: var(--a26-color-text); }
 .a26-profile-hero > p:last-child { max-width: 760px; margin: 0; color: var(--a26-color-text-muted); line-height: 1.65; }
 .a26-profile-card { padding: clamp(22px, 4vw, 38px); border-radius: var(--a26-radius-panel); }
 .a26-profile-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
@@ -389,5 +407,20 @@ body:has(.a26-shell) #root {
   .models-source-notice { align-items: start; flex-direction: column; }
   .model-card-aog__media,
   .model-card-aog__media > img { min-height: 190px; }
+}
+
+/* Light Mode Parity for Models Hero */
+.a26-theme-light .models-hero-aog h1 {
+  color: var(--a26-color-text) !important;
+}
+
+.a26-theme-light .models-hero-aog__badge {
+  background: rgba(180, 83, 9, 0.08) !important;
+  border-color: rgba(180, 83, 9, 0.25) !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .models-hero-aog__badge-label {
+  color: var(--a26-color-text-muted) !important;
 }
 

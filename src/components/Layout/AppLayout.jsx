@@ -141,6 +141,8 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
         onLogout={onLogout}
       />
 
+      <div id="a26-shell-atmosphere" className="a26-shell__atmosphere" aria-hidden="true" />
+
       <div className="a26-shell__main">
         <A26Surface
           as="header"

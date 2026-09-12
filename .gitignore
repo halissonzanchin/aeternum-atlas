@@ -66,3 +66,6 @@ assets-pipeline/**/working/
 knowledge_base/pdf_books/*.pdf
 knowledge_base/pdf_books/**/*.pdf
 knowledge_base/ingested_chunks/
+
+# Scratch temporary diagnostic artifacts
+/scratch/
