@@ -192,7 +192,7 @@ function ViewerContent({ id, user, navigate, notify, onLogout }) {
 
   return (
     <ViewerContext.Provider value={contextValue}>
-      <div className="viewer-shell atlas-crystal-viewer">
+      <div className="viewer-shell atlas-crystal-viewer a26-surface-dark" data-surface="dark">
         <TopViewerBar
           model={modelState.model}
           structure={modelState.activeStructure}

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import ModelCard from "../../components/ModelCard/ModelCard";
 import LineIcon from "../../components/icons/LineIcon";
 import {
+  A26AuroraBackground,
   A26Button,
   A26Card,
   A26EmptyState,
@@ -90,7 +91,9 @@ export default function Models({ user, navigate }) {
   };
 
   return (
-    <div className="premium-dashboard models-page-aog fade-in-up pb-12 relative min-h-screen">
+    <div className="models-catalog-root relative">
+      <A26AuroraBackground variant="standard" />
+      <div className="premium-dashboard models-page-aog fade-in-up pb-12 relative min-h-screen z-10">
       <A26Card material="substantial" tone="teal" className="models-hero-aog a26-models-hero">
         <div className="models-hero-aog__copy">
           <p className="models-hero-aog__eyebrow">{t("models.eyebrow")}</p>
@@ -224,6 +227,7 @@ export default function Models({ user, navigate }) {
           {filtered.map(model => <ModelCard key={model.id} model={model} user={user} navigate={navigate} />)}
         </div>
       )}
+      </div>
     </div>
   );
 }

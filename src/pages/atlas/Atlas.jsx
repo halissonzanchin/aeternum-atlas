@@ -3,7 +3,7 @@ import { atlasPathForItem, atlasStructure, atlasSubcategoryPath, findAtlasItemBy
 import { findLocalModel } from "../../data/localModels";
 import { useLanguage } from "../../context/LanguageContext";
 import { translateTaxonomy } from "../../utils/modelI18n";
-import { A26Surface } from "../../components/aeternum-26";
+import { A26AuroraBackground, A26FeatureShell, A26PageHeader, A26Surface } from "../../components/aeternum-26";
 import ModelCard from "../../components/ModelCard/ModelCard";
 import LineIcon from "../../components/icons/LineIcon";
 
@@ -52,7 +52,7 @@ function AtlasCard({ item, isActive, navigate, t }) {
       <div className="flex items-center justify-between gap-2 mb-2">
         <span className="status-badge">{t("common.available")}</span>
         {hasLinkedModels && (
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-teal-500/20 text-teal-300 border border-teal-500/30 flex items-center gap-1 font-semibold">
+          <span className="a26-badge a26-badge--category flex items-center gap-1 font-semibold">
             <span>🧊</span> {t("atlas.linkedModelBadge")}
           </span>
         )}
@@ -94,14 +94,19 @@ export default function Atlas({ path = "/atlas", user, navigate }) {
   }, [selectedItem]);
 
   return (
-    <section className="atlas-page fade-in-up space-y-6">
-      <div className="page-title atlas-page__header">
-        <p className="eyebrow">{t("common.module")}</p>
-        <h1 className="display-title">{t("modules.atlasTitle")}</h1>
-        <p className="mt-3 text-textMuted">
-          {t("atlas.pageDescription")}
-        </p>
-      </div>
+    <div className="atlas-root relative">
+      <A26AuroraBackground variant="standard" />
+      <A26FeatureShell
+        variant="catalog"
+        className="atlas-page fade-in-up relative z-10"
+      header={
+        <A26PageHeader
+          eyebrow={t("common.module")}
+          title={t("modules.atlasTitle")}
+          description={t("atlas.pageDescription")}
+        />
+      }
+    >
 
       {/* Painel do Módulo Selecionado & Modelos 3D Vinculados */}
       {selectedItem && (
@@ -166,6 +171,7 @@ export default function Atlas({ path = "/atlas", user, navigate }) {
           />
         ))}
       </div>
-    </section>
+    </A26FeatureShell>
+    </div>
   );
 }
