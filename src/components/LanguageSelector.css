@@ -91,7 +91,7 @@
 
 .language-selector__option.is-active {
   background: rgba(198, 168, 92, 0.14);
-  color: #f5d98b;
+  color: var(--a26-color-gold);
 }
 
 .language-selector--compact .language-selector__current {

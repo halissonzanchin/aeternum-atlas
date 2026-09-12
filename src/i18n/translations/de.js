@@ -707,6 +707,14 @@ export const de = {
       "completedTime": "Abgeschlossene Zeit"
     }
   },
+  "lessonLibrary": {
+    "eyebrow": "MIRA Lab · Interaktive Lektionen",
+    "title": "Interaktive Lektionen",
+    "subtitle": "Lern-Decks und strukturierte Lernpfade mit integrierten anatomischen Modellen.",
+    "filterAll": "Alle",
+    "filterPublished": "Veröffentlicht",
+    "filterDraft": "Entwürfe"
+  },
   "professorDashboard": {
     "eyebrow": "Dozierenden-Hub",
     "title": "Dozierenden-Dashboard",
@@ -1559,6 +1567,7 @@ export const de = {
     "observations": "Anmerkungen"
   },
   "license": {
+    "eyebrow": "Zugang & Governance",
     "title": "Institutionelle Lizenz",
     "accessTitle": "Akademischer Zugang",
     "accessText": "Ihr Zugang ist mit der akademischen Lizenz Ihrer Institution verknüpft. Finanzdaten sind nur für autorisierte Administratoren verfügbar.",
@@ -1860,5 +1869,24 @@ export const de = {
     "sourcePrefix": "Quelle:",
     "frontSide": "Vorderseite",
     "backSide": "Rückseite"
+  },
+  "profile": {
+    "eyebrow": "Authentifiziertes Konto",
+    "title": "Profil",
+    "subtitle": "Verwalten Sie persönliche bearbeitbare Daten und überprüfen Sie mit Ihrem Konto verknüpfte institutionelle Informationen.",
+    "name": "Name",
+    "email": "E-Mail",
+    "emailHint": "Vom Konto verwaltete Zugangsidentität.",
+    "institution": "Institution",
+    "course": "Studiengang",
+    "semester": "Jahr/Semester",
+    "studentRegistration": "Matrikelnummer",
+    "country": "Land",
+    "userType": "Benutzertyp",
+    "languagePreference": "Sprachpräferenz",
+    "changePassword": "Passwort ändern",
+    "changePasswordPlaceholder": "Optional",
+    "changePasswordHint": "Leer lassen, um das aktuelle Passwort beizubehalten.",
+    "saveProfile": "Profil speichern"
   }
 };

@@ -300,9 +300,17 @@ export const pt = {
         "title": "Resumos inteligentes",
         "description": "Transforme conteúdos estudados em sínteses objetivas para revisão."
       },
+      "guidedStudy": {
+        "title": "Estudo Orientado",
+        "description": "Siga trilhas estruturadas por região anatômica, sistema e nível de complexidade."
+      },
       "aiTutor": {
         "title": "Tutor IA",
         "description": "Receba apoio contextual para dúvidas anatômicas e planejamento de revisão."
+      },
+      "quickReview": {
+        "title": "Revisão Rápida",
+        "description": "Retome conteúdos recentes em ciclos curtos de evocação ativa e alta retenção."
       }
     },
     "quizCatalog": {
@@ -692,6 +700,14 @@ export const pt = {
       "planned": "Tempo planejado",
       "completedTime": "Tempo concluído"
     }
+  },
+  "lessonLibrary": {
+    "eyebrow": "MIRA Lab · Aulas Interativas",
+    "title": "Aulas Interativas",
+    "subtitle": "Decks de estudo e roteiros de aprendizagem com modelos anatômicos integrados.",
+    "filterAll": "Todas",
+    "filterPublished": "Publicadas",
+    "filterDraft": "Rascunhos"
   },
   "professorDashboard": {
     "eyebrow": "Hub docente",
@@ -1545,6 +1561,7 @@ export const pt = {
     "observations": "Observações"
   },
   "license": {
+    "eyebrow": "Acesso e Governança",
     "title": "Licença institucional",
     "accessTitle": "Acesso acadêmico",
     "accessText": "Seu acesso está vinculado à licença acadêmica da sua instituição. Dados financeiros ficam disponíveis apenas para administradores autorizados.",
@@ -1846,5 +1863,24 @@ export const pt = {
     "sourcePrefix": "Origem:",
     "frontSide": "Frente",
     "backSide": "Verso"
+  },
+  "profile": {
+    "eyebrow": "Conta autenticada",
+    "title": "Perfil",
+    "subtitle": "Gerencie os dados pessoais editáveis e revise as informações institucionais vinculadas à sua conta.",
+    "name": "Nome",
+    "email": "E-mail",
+    "emailHint": "Identidade de acesso gerenciada pela conta.",
+    "institution": "Instituição",
+    "course": "Curso",
+    "semester": "Ano/Semestre",
+    "studentRegistration": "Matrícula/R.A.",
+    "country": "País",
+    "userType": "Tipo de usuário",
+    "languagePreference": "Preferência de idioma",
+    "changePassword": "Alterar senha",
+    "changePasswordPlaceholder": "Opcional",
+    "changePasswordHint": "Deixe em branco para manter a senha atual.",
+    "saveProfile": "Salvar perfil"
   }
 };
