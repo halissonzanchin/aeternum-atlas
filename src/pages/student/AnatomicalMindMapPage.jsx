@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import {
   A26Button,
+  A26FeatureShell,
   A26Field,
   A26IconButton,
   A26Modal,
+  A26PageHeader,
   A26Sidebar,
   A26Surface,
   A26Toolbar
@@ -88,7 +90,7 @@ const measurementCtx = measurementCanvas ? measurementCanvas.getContext("2d") : 
 
 function estimateWidth(text, depth = 1) {
   if (measurementCtx) {
-    measurementCtx.font = depth === 0 ? "700 14px 'Space Grotesk', 'Inter', sans-serif" : "500 12.5px 'Inter', sans-serif";
+    measurementCtx.font = depth === 0 ? "700 14px Inter, system-ui, sans-serif" : "500 12.5px Inter, system-ui, sans-serif";
     const measured = measurementCtx.measureText(text).width;
     return Math.max(90, Math.ceil(measured) + (depth === 0 ? 48 : 34));
   }
@@ -117,7 +119,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const { t } = useLanguage();
   const [outlineText, setOutlineText] = useState(DEFAULT_OUTLINE);
   const [isOutlineEditorOpen, setIsOutlineEditorOpen] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => typeof window !== "undefined" && window.innerWidth <= 880);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => typeof window !== "undefined" && window.innerWidth <= 1100);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -135,43 +137,116 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const rootDataRef = useRef(null);
   const nodeIdSeqRef = useRef(0);
 
-  const fitToView = (duration = 450) => {
-    if (!gZoomRef.current || !svgRef.current) return;
+  const fitGraphToViewport = (animated = true) => {
+    if (!svgRef.current || !gZoomRef.current || !rootDataRef.current || !zoomBehaviorRef.current) return;
     try {
-      const bounds = gZoomRef.current.node().getBBox();
       const svgEl = svgRef.current;
-      const rect = svgEl.getBoundingClientRect();
-      const W = rect.width || svgEl.clientWidth || 900;
-      const H = rect.height || svgEl.clientHeight || 650;
-      if (bounds.width === 0 || bounds.height === 0) return;
+      const svgRect = svgEl.getBoundingClientRect();
+      const W = svgRect.width || svgEl.clientWidth || 900;
+      const H = svgRect.height || svgEl.clientHeight || 650;
+      if (W <= 0 || H <= 0) return;
 
-      const padding = 60;
-      const scale = Math.min(1.4, Math.max(0.35, 0.88 / Math.max((bounds.width + padding * 2) / W, (bounds.height + padding * 2) / H)));
-      const tx = W / 2 - scale * (bounds.x + bounds.width / 2);
-      const ty = H / 2 - scale * (bounds.y + bounds.height / 2);
+      const root = rootDataRef.current;
+      const descendants = root.descendants();
+      if (descendants.length === 0) return;
 
-      d3.select(svgEl)
-        .transition()
-        .duration(duration)
-        .call(zoomBehaviorRef.current.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
-    } catch (e) {
-      console.warn("fitToView calc", e);
+      let minX = Infinity;
+      let maxX = -Infinity;
+      let minY = Infinity;
+      let maxY = -Infinity;
+
+      for (const d of descendants) {
+        const nodeLeft = d.depth === 0 ? d.y - d.w / 2 : d.y - 6;
+        const nodeRight = d.depth === 0 ? d.y + d.w / 2 : d.y + d.w + (d._children ? 26 : 14);
+        const nodeTop = d.x - 19;
+        const nodeBottom = d.x + 19;
+
+        if (nodeLeft < minX) minX = nodeLeft;
+        if (nodeRight > maxX) maxX = nodeRight;
+        if (nodeTop < minY) minY = nodeTop;
+        if (nodeBottom > maxY) maxY = nodeBottom;
+      }
+
+      const graphWidth = maxX - minX;
+      const graphHeight = maxY - minY;
+      if (graphWidth <= 0 || graphHeight <= 0) return;
+
+      // Marina Orb safe area clearance (bottom-right fixed overlay)
+      const marinaEl = document.querySelector(".upe-ai-trigger");
+      let marinaOverlapH = 0;
+      let marinaOverlapW = 0;
+      if (marinaEl) {
+        const mRect = marinaEl.getBoundingClientRect();
+        if (mRect.top < svgRect.bottom && mRect.right > svgRect.left) {
+          marinaOverlapH = Math.max(0, svgRect.bottom - mRect.top);
+          marinaOverlapW = Math.max(0, svgRect.right - mRect.left);
+        }
+      }
+
+      const padLeft = 36;
+      const padRight = 44;
+      const padTop = 58; // Space below topbar toolbar controls
+      const padBottom = Math.max(42, marinaOverlapH > 0 ? marinaOverlapH + 18 : 42); // Safe exclusion zone above Marina
+
+      const availW = Math.max(200, W - padLeft - padRight);
+      const availH = Math.max(200, H - padTop - padBottom);
+
+      const rawScale = Math.min(availW / graphWidth, availH / graphHeight);
+      // Calibrated scale: comfortable scale ceiling up to 1.45, preserving margins without miniature clustering
+      const scale = Math.min(1.45, Math.max(0.35, rawScale * 0.98));
+
+      const fittedW = graphWidth * scale;
+      const fittedH = graphHeight * scale;
+
+      let tx = padLeft + (availW - fittedW) / 2 - scale * minX;
+      let ty = padTop + (availH - fittedH) / 2 - scale * minY;
+
+      // Dynamic Marina exclusion: ensure bottom-right leaf nodes don't collide with Marina Orb
+      if (marinaOverlapH > 0 && marinaOverlapW > 0) {
+        const marinaLeftInSvg = W - marinaOverlapW - 12;
+        const marinaTopInSvg = H - marinaOverlapH - 12;
+        for (const d of descendants) {
+          const nodeRight = tx + scale * (d.depth === 0 ? d.y + d.w / 2 : d.y + d.w + 14);
+          const nodeBottom = ty + scale * (d.x + 19);
+          if (nodeRight > marinaLeftInSvg && nodeBottom > marinaTopInSvg) {
+            const overlapY = nodeBottom - marinaTopInSvg;
+            ty = Math.max(padTop - scale * minY, ty - overlapY - 8);
+            break;
+          }
+        }
+      }
+
+      const transform = d3.zoomIdentity.translate(tx, ty).scale(scale);
+
+      if (animated) {
+        d3.select(svgEl)
+          .transition()
+          .duration(380)
+          .ease(d3.easeCubicOut)
+          .call(zoomBehaviorRef.current.transform, transform);
+      } else {
+        d3.select(svgEl).call(zoomBehaviorRef.current.transform, transform);
+      }
+    } catch (err) {
+      console.warn("fitGraphToViewport calculation error:", err);
     }
   };
+
+  const fitToView = (duration = 380) => fitGraphToViewport(duration > 0);
 
   // Re-fit view smoothly when sidebar collapses or expands
   useEffect(() => {
     const timer = setTimeout(() => {
-      fitToView(350);
-    }, 320);
+      fitGraphToViewport(true);
+    }, 280);
     return () => clearTimeout(timer);
   }, [sidebarCollapsed]);
 
   // Re-fit view when entering or exiting full screen mode
   useEffect(() => {
     const timer = setTimeout(() => {
-      fitToView(350);
-    }, 150);
+      fitGraphToViewport(true);
+    }, 180);
     return () => clearTimeout(timer);
   }, [isFullscreen]);
 
@@ -186,11 +261,20 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isFullscreen]);
 
-  // ResizeObserver on canvas container element to keep view perfectly centered on window resize
+  // ResizeObserver on canvas container element to keep view perfectly fitted on actual container resize
   useEffect(() => {
     if (!canvasWrapRef.current) return;
-    const observer = new ResizeObserver(() => {
-      fitToView(150);
+    let lastW = 0;
+    let lastH = 0;
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const cr = entry.contentRect;
+        if (Math.abs(cr.width - lastW) > 3 || Math.abs(cr.height - lastH) > 3) {
+          lastW = cr.width;
+          lastH = cr.height;
+          fitGraphToViewport(false);
+        }
+      }
     });
     observer.observe(canvasWrapRef.current);
     return () => observer.disconnect();
@@ -199,8 +283,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const updateTree = (source) => {
     if (!rootDataRef.current || !gZoomRef.current) return;
     const duration = 320;
-    const dx = 56;
-    const dy = 340;
+    const dx = 46;
+    const dy = 280;
 
     const treeLayout = d3.tree().nodeSize([dx, dy]);
 
@@ -209,7 +293,9 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     const links = root.links();
 
     treeLayout(root);
-    root.each((d) => { d.y = d.depth * dy; });
+    root.each((d) => {
+      d.y = d.depth === 0 ? 0 : d.depth === 1 ? 230 : 230 + (d.depth - 1) * 290;
+    });
 
     const transition = gZoomRef.current.transition().duration(duration);
 
@@ -362,7 +448,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
     rootDataRef.current = r;
     updateTree(r);
-    setTimeout(() => fitToView(450), 120);
+    fitGraphToViewport(false);
+    setTimeout(() => fitGraphToViewport(true), 120);
   };
 
   // Initialize D3 Canvas
@@ -492,11 +579,11 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     // Embed Google Fonts & explicit SVG styling in clone header
     const styleElem = document.createElement("style");
     styleElem.textContent = `
-      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap');
       .link { fill: none; stroke-width: 2.2px; opacity: 0.8; }
       .node-box { stroke-width: 1.6px; }
       .node-label { font-family: 'Inter', sans-serif; fill: #ffffff; dominant-baseline: middle; }
-      .node-root .node-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; fill: #ffffff; }
+      .node-root .node-label { font-family: 'Inter', sans-serif; font-weight: 700; fill: #ffffff; }
       .fold-dot { fill: rgba(5,8,10,0.95); stroke-width: 1.6px; }
       .fold-count { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
     `;
@@ -552,14 +639,19 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   };
 
   return (
-    <div className={`a26-mindmap-page fade-in-up ${sidebarCollapsed ? "sidebar-collapsed" : ""} ${isFullscreen ? "is-fullscreen" : ""}`}>
-      <A26Sidebar label={t("mindMap.title", { defaultValue: "Editor do mapa mental" })} className={`mindmap-sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
-        <div className="mindmap-sidebar-head">
-          <p className="mindmap-eyebrow">{t("mindMap.eyebrow", { defaultValue: "Atlas de raciocínio · Tutor autenticado" })}</p>
-          <h1>{t("mindMap.title", { defaultValue: "Mapa Mental" })}</h1>
-          <p>{t("mindMap.subtitle", { defaultValue: "Transforme um tema anatômico em relações visuais editáveis sem perder o controle do esboço." })}</p>
-        </div>
-
+    <A26FeatureShell
+      variant="canvas"
+      header={
+        <A26PageHeader
+          variant="compact"
+          eyebrow={t("mindMap.eyebrow", { defaultValue: "Atlas de raciocínio · Tutor autenticado" })}
+          title={t("mindMap.title", { defaultValue: "Mapa Mental" })}
+          description={t("mindMap.subtitle", { defaultValue: "Transforme um tema anatômico em relações visuais editáveis sem perder o controle do esboço." })}
+        />
+      }
+    >
+      <div className={`a26-mindmap-page fade-in-up ${sidebarCollapsed ? "sidebar-collapsed" : ""} ${isFullscreen ? "is-fullscreen" : ""}`}>
+        <A26Sidebar label={t("mindMap.title", { defaultValue: "Editor do mapa mental" })} className={`mindmap-sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
         <A26Surface material="clear" tone="teal" className="mindmap-ai-composer">
           <div className="mindmap-ai-composer__status">
             <span className={`mindmap-status-dot is-${connectionMode || "offline"}`} aria-hidden="true" />
@@ -750,5 +842,6 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         </div>
       </A26Modal>
     </div>
+    </A26FeatureShell>
   );
 }
