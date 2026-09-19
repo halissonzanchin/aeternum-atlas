@@ -5,8 +5,9 @@ services:
     env: docker
     dockerfilePath: packages/aeternum-vita/apps/gateway/Dockerfile
     dockerContext: .
-    plan: starter
+    plan: free
     region: oregon
+    autoDeployTrigger: off
     numInstances: 1
     healthCheckPath: /health
     initialDeployHook: null
