@@ -1,0 +1,338 @@
+{
+  "specification": "AETERNUM_CANONICAL_FRESH_INSTALL_SCHEMA",
+  "version": "1.0.0",
+  "generated_at": "2026-09-19T02:11:22.484Z",
+  "canonical_user_id_type": "UUID",
+  "canonical_3d_architecture": {
+    "models_table": "atlas_models",
+    "assets_table": "atlas_model_assets",
+    "annotations_table": "atlas_model_annotations",
+    "audit_table": "atlas_model_audit_logs",
+    "storage_bucket": "atlas-model-assets",
+    "rls_helper": "public.can_read_atlas_model(uuid)",
+    "deprecated_drafts": [
+      "atlas_3d_models",
+      "atlas_3d_markers"
+    ]
+  },
+  "domains": {
+    "AETERNUM_CORE": [
+      {
+        "name": "institutions",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "users",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "student_profiles",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "teacher_profiles",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "feature_flags",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "platform_events",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "security_events",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "audit_logs",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      }
+    ],
+    "AETERNUM_3D": [
+      {
+        "name": "atlas_models",
+        "object_type": "table",
+        "source_of_truth": "20260621000001_atlas_model_assets_persistence.sql",
+        "rls_required": true
+      },
+      {
+        "name": "atlas_model_assets",
+        "object_type": "table",
+        "source_of_truth": "20260621000001_atlas_model_assets_persistence.sql",
+        "rls_required": true
+      },
+      {
+        "name": "atlas_model_annotations",
+        "object_type": "table",
+        "source_of_truth": "20260621000001_atlas_model_assets_persistence.sql",
+        "rls_required": true
+      },
+      {
+        "name": "atlas_model_audit_logs",
+        "object_type": "table",
+        "source_of_truth": "src/services/modelService.js",
+        "rls_required": true
+      },
+      {
+        "name": "viewer_learning_sessions",
+        "object_type": "table",
+        "source_of_truth": "20260621000000_viewer_learning_analytics.sql",
+        "rls_required": true
+      },
+      {
+        "name": "viewer_learning_events",
+        "object_type": "table",
+        "source_of_truth": "20260621000000_viewer_learning_analytics.sql",
+        "rls_required": true
+      },
+      {
+        "name": "viewer_quiz_results",
+        "object_type": "table",
+        "source_of_truth": "20260621000000_viewer_learning_analytics.sql",
+        "rls_required": true
+      },
+      {
+        "name": "anatomical_knowledge_base",
+        "object_type": "table",
+        "source_of_truth": "20260806191000_anatomical_knowledge_base.sql",
+        "rls_required": true
+      },
+      {
+        "name": "anatomical_quizzes",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "anatomical_quiz_questions",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "anatomical_quiz_attempts",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "anatomical_quiz_answers",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      }
+    ],
+    "AETERNUM_TUTOR": [
+      {
+        "name": "ai_conversations",
+        "object_type": "table",
+        "source_of_truth": "20260804054522_p0_ai_tutor.sql",
+        "rls_required": true
+      },
+      {
+        "name": "ai_messages",
+        "object_type": "table",
+        "source_of_truth": "20260804054522_p0_ai_tutor.sql",
+        "rls_required": true
+      },
+      {
+        "name": "ai_rate_limits",
+        "object_type": "table",
+        "source_of_truth": "20260804054522_p0_ai_tutor.sql",
+        "rls_required": true
+      },
+      {
+        "name": "ai_audit_events",
+        "object_type": "table",
+        "source_of_truth": "20260804054522_p0_ai_tutor.sql",
+        "rls_required": true
+      }
+    ],
+    "AETERNUM_VITA": [
+      {
+        "name": "vita_voice_rate_limits",
+        "object_type": "table",
+        "source_of_truth": "20260823011218_add_vita_voice_rate_limit.sql",
+        "rls_required": true
+      },
+      {
+        "name": "vita_tutor_memory",
+        "object_type": "table",
+        "source_of_truth": "20260823014259_add_vita_tutor_memory.sql",
+        "rls_required": true
+      },
+      {
+        "name": "vita_anatomical_knowledge",
+        "object_type": "table",
+        "source_of_truth": "20260823021957_add_vita_hybrid_knowledge_search.sql",
+        "rls_required": true
+      },
+      {
+        "name": "vita_ocr_pages",
+        "object_type": "table",
+        "source_of_truth": "20260823032907_add_vita_ocr_staging.sql",
+        "rls_required": true
+      }
+    ],
+    "AETERNUM_ACADEMIC": [
+      {
+        "name": "academic_classes",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "academic_class_students",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "teacher_study_guides",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "teacher_lesson_plans",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "teacher_anatomical_notes",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "study_agenda",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "study_agenda_events",
+        "object_type": "table",
+        "source_of_truth": "20260809010000_study_agenda_sync.sql",
+        "rls_required": true
+      }
+    ],
+    "AETERNUM_BILLING": [
+      {
+        "name": "subscription_plans",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "institution_subscriptions",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "billing_cycles",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "billing_snapshots",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "invoices",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "invoice_items",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      },
+      {
+        "name": "license_usage",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true
+      }
+    ],
+    "LEGACY": [
+      {
+        "name": "models_3d",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true,
+        "notes": "Fallback in modelService.js"
+      },
+      {
+        "name": "model_annotations",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true,
+        "notes": "Fallback in modelAnnotationService.js"
+      },
+      {
+        "name": "model_access_logs",
+        "object_type": "table",
+        "source_of_truth": "schema.sql",
+        "rls_required": true,
+        "notes": "Legacy telemetry read-only"
+      },
+      {
+        "name": "legacy_cleanup_archive",
+        "object_type": "table",
+        "source_of_truth": "20260804060553_p0_cleanup_archive.sql",
+        "rls_required": true,
+        "notes": "P0 cleanup archive"
+      }
+    ]
+  },
+  "held_tables": [
+    "academic_campuses",
+    "academic_courses",
+    "academic_subjects",
+    "academic_terms",
+    "theoretical_quiz_answers",
+    "theoretical_quiz_attempts",
+    "theoretical_quiz_questions",
+    "theoretical_quizzes"
+  ],
+  "excluded_tables": [
+    "atlas_3d_models",
+    "atlas_3d_markers",
+    "analytics_scoring_models",
+    "participant_consents",
+    "participants",
+    "prostheses",
+    "prosthesis_changes",
+    "prosthesis_manufacturing_specs",
+    "research_audit_log",
+    "researcher_profiles",
+    "submission_domain_scores",
+    "weekly_submissions"
+  ]
+}

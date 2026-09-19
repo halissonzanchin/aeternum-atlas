@@ -1,0 +1,117 @@
+[
+  {
+    "filename": "20260620000000_create_atlas_3d_cms.sql",
+    "bytes": 4249,
+    "sha256": "6f038fb3f916d7d86915f8ec8b84d6402c24fe0799e2b7df41a63a4f69ea7ea4"
+  },
+  {
+    "filename": "20260621000000_viewer_learning_analytics.sql",
+    "bytes": 4014,
+    "sha256": "5a0b13b48a0f5f3d146da496d768a0f6b3c0fd2057f4ffe746629cec6ee535d4"
+  },
+  {
+    "filename": "20260621000001_atlas_model_assets_persistence.sql",
+    "bytes": 4516,
+    "sha256": "0f8f08bb1b603fdbec4daa809cae9a8f03ac6d1a3fb3dd07e8ee6bae932e712e"
+  },
+  {
+    "filename": "20260622000000_create_atlas_model_assets_bucket.sql",
+    "bytes": 2065,
+    "sha256": "9bf1751bffe3a23d20e322c552408c979b88a55f62c339cc2d51ed91cb40de0f"
+  },
+  {
+    "filename": "20260624000000_fix_atlas_models_institution_visibility_rls.sql",
+    "bytes": 3810,
+    "sha256": "f9bb894fddf65b5551a778b0dcf1f4735a1f3e8bb181175dd143a829020d55aa"
+  },
+  {
+    "filename": "20260724230000_correct_atlas_model_visibility_rls.sql",
+    "bytes": 7012,
+    "sha256": "32cb4564a3be7338654101d1a4b8b7f1cfdcc4238c6beaf772c1e9a11fb1d2b0"
+  },
+  {
+    "filename": "20260803000000_learning_telemetry_v2.sql",
+    "bytes": 10831,
+    "sha256": "303749f1b6970430f99f3523488b80881a71f69109bea1914ce29403f16e58e5"
+  },
+  {
+    "filename": "20260804054520_p0_telemetry_hardening.sql",
+    "bytes": 4171,
+    "sha256": "d0e11bbbb7d8c6c569b095aadb31232e486b03691bfa5fc1cb8c556e2a1b7c71"
+  },
+  {
+    "filename": "20260804054522_p0_ai_tutor.sql",
+    "bytes": 5729,
+    "sha256": "d42a62503709dde4e5c4f7d3af5f633c5d0c4dc46252af6b46d08d953b841b7c"
+  },
+  {
+    "filename": "20260804060553_p0_cleanup_archive.sql",
+    "bytes": 653,
+    "sha256": "e3e1073b543b2f5d27c6e125ecfdf6e4ac2bcd7cec7e529314fda85422f3b46f"
+  },
+  {
+    "filename": "20260804061848_p0_identity_cleanup.sql",
+    "bytes": 7425,
+    "sha256": "da56ed1884ea46503a5151e73228384b51dbd00d499519ba851178c9fd2df641"
+  },
+  {
+    "filename": "20260804132756_p0_security_hardening.sql",
+    "bytes": 1909,
+    "sha256": "0bee557613db49f6e8863b9884af34ce4379efdfe19e255526804db0032aa729"
+  },
+  {
+    "filename": "20260806191000_anatomical_knowledge_base.sql",
+    "bytes": 3084,
+    "sha256": "97caa3bfc7187946577cd2bc0dc454210b5b69e250f98e02c6ce378581566633"
+  },
+  {
+    "filename": "20260809010000_study_agenda_sync.sql",
+    "bytes": 5172,
+    "sha256": "33e929f68b1f3a36800ddb18a028d357a9c6e9462bcc4c9706a1d58ade2af506"
+  },
+  {
+    "filename": "20260809020000_backfill_viewer_quiz_results.sql",
+    "bytes": 2334,
+    "sha256": "7fc2932ab6cf82ead11974d594cd99ead6d44785d4e3f9eaba3011b0a463927a"
+  },
+  {
+    "filename": "20260809030000_agenda_grant_hardening.sql",
+    "bytes": 362,
+    "sha256": "458832269028730db05729aae25f8dd5dc69113a52af52c617a031dfe3dd3bad"
+  },
+  {
+    "filename": "20260809040000_learning_session_reconciliation_cron.sql",
+    "bytes": 598,
+    "sha256": "6e7284177ae7aea8da8f62017c26e2cc48c2df14ba8d38025b3a9151ef78d8b6"
+  },
+  {
+    "filename": "20260814010000_agenda_flashcard_links.sql",
+    "bytes": 614,
+    "sha256": "795fea3650cfc8bef26ce1cbcdfb39c4feff4d44ec5466b49b6f3bd3db226b83"
+  },
+  {
+    "filename": "20260823011218_add_vita_voice_rate_limit.sql",
+    "bytes": 2360,
+    "sha256": "3b2bd26f03855197d260e51a8746150ce9ae335fb2b6f50dc6a8d6b0b33b0556"
+  },
+  {
+    "filename": "20260823014259_add_vita_tutor_memory.sql",
+    "bytes": 1179,
+    "sha256": "9b9554df8c04aa67fd7c5fc340b1ab0f785c1ca1debe201920e8f43dc7f4b49f"
+  },
+  {
+    "filename": "20260823021957_add_vita_hybrid_knowledge_search.sql",
+    "bytes": 3498,
+    "sha256": "ddb4bdd31d2ac0245f64de5c0ee10426adbab6895f9c48cb5a89a9171a56e63e"
+  },
+  {
+    "filename": "20260823032907_add_vita_ocr_staging.sql",
+    "bytes": 2998,
+    "sha256": "0ff0f79fb5daf5b69e985f708a145511d380bbd88f22e421130217d74a6e58dd"
+  },
+  {
+    "filename": "202608240002_vault_privilege_hardening.sql",
+    "bytes": 1283,
+    "sha256": "eac1729349938d653c188be0bd6cb11b04e14f65f4c42e608434bd4efce65df1"
+  }
+]

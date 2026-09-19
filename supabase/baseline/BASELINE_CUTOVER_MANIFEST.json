@@ -1,0 +1,119 @@
+{
+  "contract_version": "1.0.0",
+  "canonical_baseline_model": "FINAL_STATE_SNAPSHOT",
+  "proposed_baseline_cutover_version": "202608240002_vault_privilege_hardening.sql",
+  "proposed_baseline_cutover_date": "2026-08-24",
+  "scratch_baseline_file": "scratch/canonical-schema/00000000000000_aeternum_canonical_baseline.sql",
+  "scratch_baseline_sha256": "01c0f56a3282ffb7ea63c4de2ed354b9f5da1b688006589401c6d77c7285c2c8",
+  "scratch_baseline_secret_scan": "PASS",
+  "canonical_schema_metrics": {
+    "total_tables": 46,
+    "total_functions": 15,
+    "total_triggers": 8,
+    "total_policies": 37,
+    "total_indexes": 79,
+    "canonical_fk_type_mismatches": 0,
+    "canonical_schema_complete": "YES"
+  },
+  "canonical_domain_breakdown": {
+    "AETERNUM_CORE": [
+      "institutions",
+      "users",
+      "student_profiles",
+      "teacher_profiles",
+      "feature_flags",
+      "platform_events",
+      "security_events",
+      "audit_logs"
+    ],
+    "AETERNUM_ACADEMIC": [
+      "academic_classes",
+      "academic_class_students",
+      "teacher_study_guides",
+      "teacher_lesson_plans",
+      "teacher_anatomical_notes",
+      "study_agenda",
+      "study_agenda_events"
+    ],
+    "AETERNUM_QUIZZES": [
+      "anatomical_quizzes",
+      "anatomical_quiz_questions",
+      "anatomical_quiz_attempts",
+      "anatomical_quiz_answers"
+    ],
+    "AETERNUM_BILLING": [
+      "subscription_plans",
+      "institution_subscriptions",
+      "billing_cycles",
+      "billing_snapshots",
+      "invoices",
+      "invoice_items",
+      "license_usage"
+    ],
+    "AETERNUM_3D": [
+      "atlas_models",
+      "atlas_model_assets",
+      "atlas_model_annotations",
+      "atlas_model_audit_logs",
+      "viewer_learning_sessions",
+      "viewer_learning_events",
+      "viewer_quiz_results"
+    ],
+    "AETERNUM_VITA_AND_KNOWLEDGE": [
+      "anatomical_knowledge_base",
+      "vita_voice_rate_limits",
+      "vita_tutor_memory",
+      "vita_anatomical_knowledge",
+      "vita_ocr_pages"
+    ],
+    "AETERNUM_TUTOR": [
+      "ai_conversations",
+      "ai_messages",
+      "ai_rate_limits",
+      "ai_audit_events"
+    ],
+    "LEGACY_RUNTIME_REQUIRED": [
+      "models_3d",
+      "model_annotations",
+      "model_access_logs",
+      "legacy_cleanup_archive"
+    ]
+  },
+  "canonical_exclusions": {
+    "DEPRECATED_DRAFT_ARCHITECTURE": [
+      "atlas_3d_models",
+      "atlas_3d_markers"
+    ],
+    "UNASSIGNED_DOMAIN_RESEARCH": [
+      "analytics_scoring_models",
+      "participant_consents",
+      "participants",
+      "prostheses",
+      "prosthesis_changes",
+      "prosthesis_manufacturing_specs",
+      "research_audit_log",
+      "researcher_profiles",
+      "submission_domain_scores",
+      "weekly_submissions"
+    ],
+    "HELD_DEV_FUTURE": [
+      "academic_campuses",
+      "academic_courses",
+      "academic_subjects",
+      "academic_terms",
+      "theoretical_quizzes",
+      "theoretical_quiz_questions",
+      "theoretical_quiz_attempts",
+      "theoretical_quiz_answers"
+    ]
+  },
+  "migration_summary": {
+    "total_historical_migrations": 23,
+    "absorbed_schema": 19,
+    "historical_data_only": 2,
+    "mixed_schema_and_data": 0,
+    "post_baseline_schema": 0,
+    "deprecated": 1,
+    "requires_replacement": 1
+  }
+}
