@@ -1,6 +1,6 @@
 import { ProviderRouter, RouteMetadata } from "../providers/router/index.ts";
 
-export type GatewayAuthMode = "INTERNAL_DEV" | "SUPABASE_JWT" | "DISABLED";
+export type GatewayAuthMode = "INTERNAL_DEV" | "SUPABASE_JWT" | "DISABLED" | "BEARER_TOKEN";
 
 export interface GatewayLogger {
   info(event: string, meta?: Record<string, unknown>): void;

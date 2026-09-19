@@ -9,6 +9,8 @@
     "pnpm": ">=10.0.0"
   },
   "scripts": {
+    "build:gateway": "esbuild apps/gateway/src/index.ts --bundle --platform=node --target=node24 --format=esm --packages=external --outfile=apps/gateway/dist/index.js",
+    "start:gateway": "node apps/gateway/dist/index.js",
     "dev:gateway": "node apps/gateway/run.mjs",
     "dev": "pnpm --filter @aeternum-vita/web --filter @aeternum-vita/token-server --parallel --stream dev",
     "dev:all": "pnpm --recursive --parallel --stream dev",

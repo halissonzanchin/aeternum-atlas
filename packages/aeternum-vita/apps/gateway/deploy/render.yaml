@@ -1,0 +1,42 @@
+# Aeternum AI Gateway Staging Deployment Manifest (Render / OCI Container)
+services:
+  - type: web
+    name: aeternum-ai-gateway-staging
+    env: docker
+    dockerfilePath: packages/aeternum-vita/apps/gateway/Dockerfile
+    dockerContext: .
+    plan: starter
+    region: oregon
+    numInstances: 1
+    healthCheckPath: /health
+    initialDeployHook: null
+    envVars:
+      - key: NODE_ENV
+        value: staging
+      - key: PORT
+        value: 8081
+      - key: AETERNUM_AI_GATEWAY_PORT
+        value: 8081
+      - key: AETERNUM_AI_GATEWAY_HOST
+        value: 0.0.0.0
+      - key: AETERNUM_AI_GATEWAY_AUTH_MODE
+        value: BEARER_TOKEN
+      - key: AETERNUM_AI_GATEWAY_MODE
+        value: cloud_only
+      - key: AETERNUM_AI_GATEWAY_TOKEN
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: DEEPGRAM_API_KEY
+        sync: false
+      - key: CARTESIA_API_KEY
+        sync: false
+      - key: SPEECH_API_KEY
+        sync: false
+    headers:
+      - path: /v1/*
+        name: X-Accel-Buffering
+        value: "no"
+      - path: /v1/*
+        name: Cache-Control
+        value: "no-cache"

@@ -571,4 +571,148 @@ describe("Aeternum AI Gateway — Deterministic API & Orchestration Suite", () =
     expect((gateway as any).config.router).toBe(router);
     expect(router instanceof ProviderRouter).toBe(true);
   });
+
+  it("21. BEARER_TOKEN mode — missing token returns 401", async () => {
+    const dynamicToken = `test-bearer-${crypto.randomUUID()}`;
+    process.env.AETERNUM_AI_GATEWAY_TOKEN = dynamicToken;
+    const localOllama = new FakeLLMProvider({ id: "ollama-llm-local", location: "LOCAL" });
+    const router = new ProviderRouter({ llm: { primary: localOllama } });
+
+    const gateway = new AeternumAIGateway({
+      port: ++port,
+      authMode: "BEARER_TOKEN",
+      router
+    });
+    await gateway.start();
+
+    try {
+      const res = await fetch(`${baseUrl()}/v1/llm/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: [{ role: "user", content: "Test" }] })
+      });
+      expect(res.status).toBe(401);
+      const data = await res.json();
+      expect(data.error.code).toBe("unauthorized");
+      expect(JSON.stringify(data)).not.toContain(dynamicToken);
+    } finally {
+      await gateway.stop();
+      delete process.env.AETERNUM_AI_GATEWAY_TOKEN;
+    }
+  });
+
+  it("22. BEARER_TOKEN mode — invalid token returns 401", async () => {
+    const dynamicToken = `test-bearer-${crypto.randomUUID()}`;
+    const wrongToken = `wrong-bearer-${crypto.randomUUID()}`;
+    process.env.AETERNUM_AI_GATEWAY_TOKEN = dynamicToken;
+    const localOllama = new FakeLLMProvider({ id: "ollama-llm-local", location: "LOCAL" });
+    const router = new ProviderRouter({ llm: { primary: localOllama } });
+
+    const gateway = new AeternumAIGateway({
+      port: ++port,
+      authMode: "BEARER_TOKEN",
+      router
+    });
+    await gateway.start();
+
+    try {
+      const res = await fetch(`${baseUrl()}/v1/llm/generate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${wrongToken}`
+        },
+        body: JSON.stringify({ messages: [{ role: "user", content: "Test" }] })
+      });
+      expect(res.status).toBe(401);
+      const data = await res.json();
+      expect(data.error.code).toBe("unauthorized");
+      expect(JSON.stringify(data)).not.toContain(dynamicToken);
+      expect(JSON.stringify(data)).not.toContain(wrongToken);
+    } finally {
+      await gateway.stop();
+      delete process.env.AETERNUM_AI_GATEWAY_TOKEN;
+    }
+  });
+
+  it("23. BEARER_TOKEN mode — valid token succeeds 200", async () => {
+    const dynamicToken = `test-bearer-${crypto.randomUUID()}`;
+    process.env.AETERNUM_AI_GATEWAY_TOKEN = dynamicToken;
+    const localOllama = new FakeLLMProvider({ id: "ollama-llm-local", location: "LOCAL" });
+    const router = new ProviderRouter({ llm: { primary: localOllama } });
+
+    const gateway = new AeternumAIGateway({
+      port: ++port,
+      authMode: "BEARER_TOKEN",
+      router
+    });
+    await gateway.start();
+
+    try {
+      const res = await fetch(`${baseUrl()}/v1/llm/generate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${dynamicToken}`
+        },
+        body: JSON.stringify({ messages: [{ role: "user", content: "Test" }] })
+      });
+      expect(res.status).toBe(200);
+      const data = await res.json();
+      expect(data.success).toBe(true);
+      expect(JSON.stringify(data)).not.toContain(dynamicToken);
+    } finally {
+      await gateway.stop();
+      delete process.env.AETERNUM_AI_GATEWAY_TOKEN;
+    }
+  });
+
+  it("24. DISABLED mode — blocked in production and staging", async () => {
+    const origEnv = process.env.NODE_ENV;
+    const localOllama = new FakeLLMProvider({ id: "ollama-llm-local", location: "LOCAL" });
+    const router = new ProviderRouter({ llm: { primary: localOllama } });
+
+    try {
+      process.env.NODE_ENV = "staging";
+      const gatewayStaging = new AeternumAIGateway({
+        port: ++port,
+        authMode: "DISABLED",
+        router
+      });
+      await gatewayStaging.start();
+
+      try {
+        const res = await fetch(`${baseUrl()}/v1/llm/generate`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: [{ role: "user", content: "Test" }] })
+        });
+        expect(res.status).toBe(401);
+      } finally {
+        await gatewayStaging.stop();
+      }
+
+      process.env.NODE_ENV = "production";
+      const gatewayProd = new AeternumAIGateway({
+        port: ++port,
+        authMode: "DISABLED",
+        router
+      });
+      await gatewayProd.start();
+
+      try {
+        const res = await fetch(`${baseUrl()}/v1/llm/generate`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: [{ role: "user", content: "Test" }] })
+        });
+        expect(res.status).toBe(401);
+      } finally {
+        await gatewayProd.stop();
+      }
+    } finally {
+      process.env.NODE_ENV = origEnv;
+    }
+  });
 });
+
