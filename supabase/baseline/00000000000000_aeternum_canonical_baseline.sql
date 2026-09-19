@@ -6,58 +6,12 @@
 -- CANONICAL TABLES: 46 (42 Domain + 4 Legacy Runtime Required)
 -- ============================================================================
 
--- System Schema Stubs (extensions, auth, storage, vault, supabase_migrations)
-CREATE SCHEMA IF NOT EXISTS extensions;
-CREATE SCHEMA IF NOT EXISTS auth;
-CREATE SCHEMA IF NOT EXISTS storage;
-CREATE SCHEMA IF NOT EXISTS vault;
-CREATE SCHEMA IF NOT EXISTS supabase_migrations;
-
-CREATE TABLE IF NOT EXISTS supabase_migrations.schema_migrations (
-  version text PRIMARY KEY,
-  statements text[],
-  name text
-);
-
 -- Extensions
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA extensions;
 CREATE EXTENSION IF NOT EXISTS "pgcrypto" WITH SCHEMA extensions;
 CREATE EXTENSION IF NOT EXISTS "vector" WITH SCHEMA extensions;
 
--- Auth Stubs
-CREATE TABLE IF NOT EXISTS auth.users (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  email text UNIQUE,
-  role text,
-  created_at timestamptz DEFAULT now()
-);
-
-CREATE OR REPLACE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT null::uuid $$;
-CREATE OR REPLACE FUNCTION auth.jwt() RETURNS jsonb LANGUAGE sql STABLE AS $$ SELECT '{}'::jsonb $$;
-CREATE OR REPLACE FUNCTION auth.role() RETURNS text LANGUAGE sql STABLE AS $$ SELECT 'authenticated'::text $$;
-
--- Storage Stubs
-CREATE TABLE IF NOT EXISTS storage.buckets (
-  id text PRIMARY KEY,
-  name text NOT NULL,
-  owner uuid,
-  created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now(),
-  public boolean DEFAULT false
-);
-
-CREATE TABLE IF NOT EXISTS storage.objects (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  bucket_id text REFERENCES storage.buckets(id),
-  name text,
-  owner uuid,
-  created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now(),
-  last_accessed_at timestamptz DEFAULT now(),
-  metadata jsonb DEFAULT '{}'::jsonb
-);
-
--- Seed Canonical Storage Bucket for 3D Models
+-- Canonical Infrastructure Metadata: Storage Bucket for 3D Models
 INSERT INTO storage.buckets (id, name, public)
 VALUES ('atlas-model-assets', 'atlas-model-assets', true)
 ON CONFLICT (id) DO NOTHING;

@@ -41,6 +41,30 @@ if (!dbUrl) {
   process.exit(1);
 }
 
+// GUARD 3: PLATFORM PRECONDITIONS PRE-FLIGHT (READ-ONLY)
+console.log('\n[PRE-FLIGHT] Checking Supabase Platform Preconditions...');
+const preflightSql = `
+SELECT 
+  (SELECT count(*) = 1 FROM information_schema.tables WHERE table_schema = 'auth' AND table_name = 'users') AS auth_users,
+  (SELECT count(*) >= 1 FROM pg_proc p JOIN pg_namespace n ON p.pronamespace = n.oid WHERE n.nspname = 'auth' AND p.proname = 'uid') AS auth_uid,
+  (SELECT count(*) = 1 FROM information_schema.tables WHERE table_schema = 'storage' AND table_name = 'buckets') AS storage_buckets,
+  (SELECT count(*) = 1 FROM information_schema.tables WHERE table_schema = 'storage' AND table_name = 'objects') AS storage_objects;
+`;
+const preflightRes = spawnSync('psql', [dbUrl, '-v', 'ON_ERROR_STOP=1', '-t', '-A', '-c', preflightSql], { encoding: 'utf8' });
+if (preflightRes.status !== 0) {
+  console.error('[FAIL] Platform preflight query failed:', preflightRes.stderr);
+  process.exit(1);
+}
+const [authUsers, authUid, storageBuckets, storageObjects] = preflightRes.stdout.trim().split('|');
+if (authUsers !== 't' || authUid !== 't' || storageBuckets !== 't' || storageObjects !== 't') {
+  console.error('[FATAL] Missing required Supabase platform dependencies:');
+  console.error({ authUsers, authUid, storageBuckets, storageObjects });
+  console.error('PLATFORM_PREFLIGHT_GUARD=BLOCKED');
+  process.exit(1);
+}
+console.log('[PRE-FLIGHT PASS] Platform dependencies verified (auth.users, auth.uid, storage.buckets, storage.objects).');
+
+
 const baselinePath = path.resolve(__dirname, '../00000000000000_aeternum_canonical_baseline.sql');
 if (!fs.existsSync(baselinePath)) {
   console.error('[FATAL] Baseline SQL not found at:', baselinePath);
