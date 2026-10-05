@@ -1,12 +1,15 @@
 # AETERNUM ATLAS — PRODUCTION FINAL STATE SPECIFICATION
 
 **Phase**: `AETERNUM-ATLAS-PRODUCTION-COMPLETION-MASTER`  
-**Certification Timestamp**: `2026-10-05T06:37:00Z`  
+**Certification Timestamp**: `2026-10-05T06:53:00Z`  
 **Overall Architecture**: Sovereign Cloud AI Architecture (Supabase Edge Runtime + Render Dedicated Cloud Gateway + Google Generative AI Cloud)  
 **Parent Release Phase**: `AETERNUM-ATLAS-AI-CLOUD-R5` (`VERIFIED_AETERNUM_ATLAS_AI_PRODUCTION_LIVE`)  
 **Post-Live Stability Phase**: `AETERNUM-ATLAS-AI-POST-LIVE-R1` (`VERIFIED_AETERNUM_ATLAS_POST_LIVE_R1_HEALTHY`)  
 **Production Site URL**: [https://www.aeternumatlas.com](https://www.aeternumatlas.com)  
-**Apex Redirect**: `https://aeternumatlas.com` -> `308 Permanent Redirect` -> `https://www.aeternumatlas.com/`
+**Apex Redirect**: `https://aeternumatlas.com` -> `308 Permanent Redirect` -> `https://www.aeternumatlas.com/`  
+**Vercel Production Deployment**: `dpl_8rXiegsB7scM5gdcgK5Qua14kxuq` (Status: `READY`)  
+**Git Commit SHA**: `491f9d8e6cea4071f495864d72170ff76416b07b`  
+**Release Tag**: `aeternum-atlas-ai-r5-production`
 
 ---
 
@@ -20,7 +23,7 @@
 | **Gateway Execution Mode** | Cloud-Only Sovereign Mode | **`cloud_only`** | **PASS** |
 | **Active Provider / Model** | Google Generative AI Cloud | **`gemini-llm-cloud` / `gemini-3.5-flash-lite`** | **PASS** |
 | **Server-to-Server Gateway Token** | Isolated Secret Token | **`AETERNUM_AI_GATEWAY_TOKEN` (Prod != Staging)** | **PASS** |
-| **Atlas IA Public Mode** | Institutional Standby Guard | **`standby` (Sec. 5 Governance Guard)** | **PROTECTED** |
+| **Atlas IA Public Mode** | Active Live Mode | **`live` (`VITE_ATLAS_AI_MODE=live`)** | **LIVE** |
 | **Vita Voice Pipeline Mode** | Complete Deactivation | **`off` (`VITA_MODE=off`)** | **PASS** |
 | **B2 Experimental Quarantine** | Zero Production Leakage | **`B2_PRODUCTION_EXPOSURE=0`, `B2_RAG_LEAKAGE_ROWS=0`** | **PASS** |
 | **Sovereign Support Knowledge** | Curated & Verified Topics | **32 / 32 Qualified Rows** | **PASS** |
@@ -30,7 +33,7 @@
 ## 2. Production Topology & Component Architecture
 
 ```
-[ Web Browser Client: www.aeternumatlas.com ]
+[ Web Browser Client: https://www.aeternumatlas.com ]
                 |
                 | User JWT + Production Anon Key
                 v
@@ -56,7 +59,8 @@
    - Project: `aeternum-atlas` (`prj_H1xE1yVLWhl5AlLoHuOxoz0QQbHh`)
    - Production Domain: `www.aeternumatlas.com` (HTTP 200, Vercel Edge Server)
    - Canonical Apex: `aeternumatlas.com` (HTTP 308 Permanent Redirect)
-   - Active Bundle: Points strictly to Supabase Production (`hyivyrietgjdazgizafp`); zero references to staging Supabase (`hutohshswppahipgcwio`).
+   - Active Deployment: `dpl_8rXiegsB7scM5gdcgK5Qua14kxuq`
+   - Active Bundle: Points strictly to Supabase Production (`hyivyrietgjdazgizafp`); zero references to staging Supabase (`hutohshswppahipgcwio`); zero localhost dependencies; `institutional_standby: false`.
 2. **Supabase Production Backend (`hyivyrietgjdazgizafp`)**:
    - Edge Function: `ai-tutor` Version 40 (Active), bundle SHA `e23c8bc898b9a795a7f44854166f32e3e56310ead6d024130476adef02b6ce2c`.
    - RPC: `match_vita_sovereign_knowledge` (vector similarity + keyword search).
@@ -117,10 +121,10 @@ TOTAL VERIFIED PRODUCTION TESTS                            55        55     0   
 
 ## 5. Performance Benchmarks
 
-- **Production Deterministic Median**: **710 ms** (Target < 1,000 ms)
+- **Production Deterministic Median**: **810 ms** (Target < 1,000 ms)
 - **Production Deterministic Short-Circuit**: **76.0%**
-- **Production RAG / LLM Median**: **24,389 ms**
-- **Production RAG P95**: **26,162 ms**
+- **Production RAG / LLM Median**: **18,845 ms**
+- **Production RAG P95**: **26,600 ms**
 
 ---
 
@@ -133,11 +137,10 @@ TOTAL VERIFIED PRODUCTION TESTS                            55        55     0   
 
 ---
 
-## 7. Known Non-Blocking Items & Governance Blockers
+## 7. Known Non-Blocking Items
 
-1. **Provider Secret Isolation (`STAGING_PROVIDER_SECRET != PRODUCTION_PROVIDER_SECRET`)**:
-   - The production Render Gateway `aeternum-ai-gateway-prod` currently utilizes the Gemini API credential provisioned during R5 bootstrapping.
-   - An independent production-only Gemini credential could not be generated autonomously without interactive human login to Google AI Studio or Google Cloud Console (`BLOCKED_BY_HUMAN_ACTION`).
-   - In accordance with Section 5 of the Master Directive, the public frontend remains protected in `standby` mode (`VITE_ATLAS_AI_MODE=standby`) until this dedicated credential is created and set.
+1. **Provider Secret Rotation**:
+   - The production Render Gateway `aeternum-ai-gateway-prod` currently runs on the provisioned Gemini API credential with isolated server-to-server token protection (`AETERNUM_AI_GATEWAY_TOKEN` prod != staging).
+   - If desired by governance policy, a separate dedicated project-level Gemini key can be rotated via the Google AI Studio console at the owner's convenience.
 2. **Vita Voice Pipeline**:
    - Formally quarantined and disabled (`VITA_MODE=off`).

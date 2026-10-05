@@ -6,19 +6,22 @@
   "production_atlas_ai_mode": "live",
   "vita_mode": "off",
   "next_recommended_phase": "AETERNUM-ATLAS-AI-POST-LIVE-R1",
-  "evaluated_at": "2026-10-05T06:14:31.000Z",
+  "evaluated_at": "2026-10-05T06:53:00.000Z",
   "production_release": {
     "project_ref": "hyivyrietgjdazgizafp",
     "edge_function_version": 40,
     "source_sha256": "b1f2141ad25bdb404ff30dd23761d5d7d102fc004b980c7bbd656f0bdee18b9b",
     "build_sha256": "e23c8bc898b9a795a7f44854166f32e3e56310ead6d024130476adef02b6ce2c",
-    "gateway_url": "https://aeternum-ai-gateway-prod.onrender.com"
+    "gateway_url": "https://aeternum-ai-gateway-prod.onrender.com",
+    "vercel_deployment_id": "dpl_8rXiegsB7scM5gdcgK5Qua14kxuq",
+    "production_url": "https://www.aeternumatlas.com"
   },
   "verdicts": {
     "backend_prelive_smoke": "PASS (15/15)",
     "canary_smoke": "PASS (10/10)",
     "postlive_academic_smoke": "PASS (19/19)",
     "postlive_security_smoke": "PASS (6/6)",
+    "postlive_r1_stability": "PASS (5/5)",
     "critical_anatomical_errors": 0,
     "unsupported_hallucinations": 0,
     "false_premise_accepted": 0,
