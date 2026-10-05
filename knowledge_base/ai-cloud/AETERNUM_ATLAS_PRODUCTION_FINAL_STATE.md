@@ -1,15 +1,15 @@
 # AETERNUM ATLAS — PRODUCTION FINAL STATE SPECIFICATION
 
-**Phase**: `AETERNUM-ATLAS-PRODUCTION-COMPLETION-MASTER`  
-**Certification Timestamp**: `2026-10-05T14:16:00Z`  
+**Phase**: `AETERNUM-ATLAS-RELEASE-R5.2` (Consolidated Source of Truth)  
+**Certification Timestamp**: `2026-10-05T16:53:00Z`  
 **Overall Architecture**: Sovereign Cloud AI Architecture (Supabase Edge Runtime + Render Dedicated Cloud Gateway + Google Generative AI Cloud)  
-**Parent Release Phase**: `AETERNUM-ATLAS-AI-CLOUD-R5` (`VERIFIED_AETERNUM_ATLAS_AI_PRODUCTION_LIVE`)  
-**Post-Live Stability Phase**: `AETERNUM-ATLAS-AI-POST-LIVE-R1` (`VERIFIED_AETERNUM_ATLAS_POST_LIVE_R1_HEALTHY`)  
+**Parent Release Phases**: `AETERNUM-ATLAS-AI-CLOUD-R5` (`VERIFIED_AETERNUM_ATLAS_AI_PRODUCTION_LIVE`), `AETERNUM-ATLAS-AI-R5.1` (`VERIFIED_AETERNUM_ATLAS_R5_1_FINAL_GOVERNANCE_CERTIFIED`)  
+**Source-of-Truth Consolidation**: `AETERNUM-ATLAS-RELEASE-R5.2` (`VERIFIED_AETERNUM_ATLAS_R5_2_SOURCE_OF_TRUTH_CONSOLIDATED`)  
 **Production Site URL**: [https://www.aeternumatlas.com](https://www.aeternumatlas.com)  
 **Apex Redirect**: `https://aeternumatlas.com` -> `308 Permanent Redirect` -> `https://www.aeternumatlas.com/`  
-**Vercel Production Deployment**: `dpl_9hp7beYjQCUqAivrzWfaN78kJCEi` (Status: `READY`)  
-**Git Commit SHA**: `d240300bab026cedf9da93802afcc8f792e5da7c`  
-**Release Tag**: `aeternum-atlas-ai-r5-production`
+**Vercel Production Deployment**: `dpl_CYSoCQWm5fTwisBpiR5pj5PKiPGW` (Source: `github`, Ref: `main`, Status: `READY`)  
+**Git Commit SHA**: `9380f75f783b1af3654bf7b450c80dbacafd2b72`  
+**Release Tags**: `aeternum-atlas-production-consolidated-r5.2` (Consolidation), `aeternum-atlas-ai-r5-production` (Historical R5)
 
 ---
 
@@ -22,7 +22,7 @@
 | **Cloud AI Gateway Service** | Isolated Cloud Render Service | **`aeternum-ai-gateway-prod` (`srv-db1jf0ad0e5s7381o14g`)** | **HEALTHY** |
 | **Gateway Execution Mode** | Cloud-Only Sovereign Mode | **`cloud_only`** | **PASS** |
 | **Server-to-Server Gateway Token** | Isolated Secret Token | **`AETERNUM_AI_GATEWAY_TOKEN` (Prod != Staging)** | **PASS** |
-| **Provider Secret Isolation** | Staging Key Purged from Prod | **`STAGING_PROVIDER_SECRET != PRODUCTION_PROVIDER_SECRET`** | **PURGED / AWAITING DEDICATED KEY** |
+| **Provider Secret Isolation** | Dedicated Prod Key Configured | **`STAGING_PROVIDER_SECRET != PRODUCTION_PROVIDER_SECRET`** | **PASS** |
 | **Atlas IA Public Mode** | Full Sovereign AI Mode | **`live` (`VITE_ATLAS_AI_MODE=live`)** | **ACTIVE & CERTIFIED** |
 | **Vita Voice Pipeline Mode** | Complete Deactivation | **`off` (`VITA_MODE=off`)** | **PASS** |
 | **B2 Experimental Quarantine** | Zero Production Leakage | **`B2_PRODUCTION_EXPOSURE=0`, `B2_RAG_LEAKAGE_ROWS=0`** | **PASS** |
@@ -59,8 +59,8 @@
    - Project: `aeternum-atlas` (`prj_H1xE1yVLWhl5AlLoHuOxoz0QQbHh`)
    - Production Domain: `www.aeternumatlas.com` (HTTP 200, Vercel Edge Server)
    - Canonical Apex: `aeternumatlas.com` (HTTP 308 Permanent Redirect)
-   - Active Deployment: `dpl_9hp7beYjQCUqAivrzWfaN78kJCEi`
-   - Active Mode: `live` (`VITE_ATLAS_AI_MODE=live`, `institutional_standby: false`). Points strictly to Supabase Production (`hyivyrietgjdazgizafp`); zero references to staging Supabase (`hutohshswppahipgcwio`); zero localhost dependencies. Active bundle: `/assets/index-fMM2TaGv.js`.
+   - Active Deployment: `dpl_CYSoCQWm5fTwisBpiR5pj5PKiPGW` (Source: `github`, Branch: `main`, Commit: `9380f75f783b1af3654bf7b450c80dbacafd2b72`)
+   - Active Mode: `live` (`VITE_ATLAS_AI_MODE=live`, `institutional_standby: false`). Points strictly to Supabase Production (`hyivyrietgjdazgizafp`); zero references to staging Supabase (`hutohshswppahipgcwio`); zero localhost dependencies. Active bundle: `/assets/index-BnSjPX7e.js`.
 2. **Supabase Production Backend (`hyivyrietgjdazgizafp`)**:
    - Edge Function: `ai-tutor` Version 40 (Active), bundle SHA `e23c8bc898b9a795a7f44854166f32e3e56310ead6d024130476adef02b6ce2c`.
    - RPC: `match_vita_sovereign_knowledge` (vector similarity + keyword search).

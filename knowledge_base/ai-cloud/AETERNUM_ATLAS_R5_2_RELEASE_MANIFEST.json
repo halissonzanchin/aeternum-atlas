@@ -1,0 +1,61 @@
+{
+  "phase": "AETERNUM-ATLAS-RELEASE-R5.2",
+  "name": "GIT MAIN / VERCEL PRODUCTION SOURCE-OF-TRUTH CONSOLIDATION",
+  "status": "VERIFIED_AETERNUM_ATLAS_R5_2_SOURCE_OF_TRUTH_CONSOLIDATED",
+  "timestamp": "2026-10-05T16:53:00Z",
+  "final_platform_state": "GITHUB_MAIN_EQUALS_VERCEL_PRODUCTION_EQUALS_CERTIFIED_RELEASE",
+  "git": {
+    "old_main_sha": "7ce9a40aba8f3b3aaa8215256afe5f9784de1304",
+    "certified_release_branch_sha": "9380f75f783b1af3654bf7b450c80dbacafd2b72",
+    "new_main_sha": "9380f75f783b1af3654bf7b450c80dbacafd2b72",
+    "merge_strategy": "fast-forward",
+    "main_contains_certified_release": true,
+    "github_main_updated": true,
+    "feature_branch": "antigravity/commercial-felipe-frontend",
+    "feature_branch_status": "MERGED_RELEASE_BRANCH",
+    "historical_r5_tag": "aeternum-atlas-ai-r5-production",
+    "consolidation_tag": "aeternum-atlas-production-consolidated-r5.2"
+  },
+  "vercel": {
+    "project_name": "aeternum-atlas",
+    "project_id": "prj_H1xE1yVLWhl5AlLoHuOxoz0QQbHh",
+    "production_branch": "main",
+    "deployment_id": "dpl_CYSoCQWm5fTwisBpiR5pj5PKiPGW",
+    "deployment_source": "github",
+    "deployment_commit_sha": "9380f75f783b1af3654bf7b450c80dbacafd2b72",
+    "deployment_state": "READY",
+    "active_bundle": "/assets/index-BnSjPX7e.js",
+    "domains": {
+      "live_domain": "https://www.aeternumatlas.com",
+      "live_status": 200,
+      "apex_domain": "https://aeternumatlas.com",
+      "apex_status": 308,
+      "apex_redirect_target": "https://www.aeternumatlas.com/"
+    }
+  },
+  "runtime_governance": {
+    "atlas_ia_public_mode": "live",
+    "vita_mode": "off",
+    "provider_secret_isolation": "PASS",
+    "b2_production_exposure": 0,
+    "b2_rag_leakage_rows": 0,
+    "active_localhost_dependency": false,
+    "critical_anatomical_errors": 0,
+    "unsupported_hallucinations": 0,
+    "false_premise_accepted": 0,
+    "security_critical_failures": 0
+  },
+  "verification": {
+    "mini_release_smoke": {
+      "r01_site_load": "PASS",
+      "r02_authenticated_login": "PASS",
+      "r03_deterministic_query": "PASS",
+      "r04_rag_gemini_query": "PASS",
+      "r05_false_premise_protection": "PASS",
+      "r06_missing_jwt_rejection": "PASS",
+      "r07_b2_leakage_probe": "PASS",
+      "r08_production_gemini_provider_path": "PASS",
+      "total": "8/8 PASS"
+    }
+  }
+}
