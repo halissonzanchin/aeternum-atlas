@@ -1,0 +1,25 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-CQ1",
+  "generated_at": "2026-09-25T03:53:39.744Z",
+  "parent_canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+  "proposed_canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+  "current_scapula_canonical_fact_count": 119,
+  "current_canonical_entity_count": 1,
+  "promotion_preview_b1_fact_count": 129,
+  "promotion_preview_b1_entity_count": 30,
+  "promotion_preview_future_canonical_fact_total": 248,
+  "promotion_preview_future_canonical_entity_total": 31,
+  "governance": {
+    "canonical_promotion_performed": "NO",
+    "local_sqlite_changes": 0,
+    "supabase_staging_changes": 0,
+    "supabase_production_changes": 0,
+    "vercel_deploys": 0,
+    "frozen_files_modified": 0,
+    "gemini_calls": 0,
+    "ollama_calls": 0,
+    "git_commits": 0,
+    "git_pushes": 0
+  }
+}

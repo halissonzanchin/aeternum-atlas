@@ -1,0 +1,1836 @@
+[
+  {
+    "fact_candidate_id": "SCAP-SRC-F001",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula (omóplato) integra a cintura escapular."
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P4)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F002",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula é um osso plano."
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P4)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F003",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula é um osso par."
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P4)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F004",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula tem configuração triangular."
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P4)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F005",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula localiza-se na região torácica posterossuperolateral."
+    ],
+    "knowledge_dimension": "LOCATION",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P4)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F006",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula estende-se aproximadamente da 2ª à 7ª costela."
+    ],
+    "knowledge_dimension": "LOCATION",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P4)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F007",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula articula-se com a clavícula através da articulação acromioclavicular."
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P5)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F008",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula articula-se com o úmero através da articulação glenoumeral."
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P5)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F009",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face anterior ou costal da escápula é descrita como côncava."
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P6)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F010",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face anterior ou costal abriga a fossa subescapular."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P6)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F011",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior ou dorsal da escápula é descrita como convexa."
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P7)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F012",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior identifica a fossa supraespinosa."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P7)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F013",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior identifica a fossa infraespinosa."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P7)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F014",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior identifica a espinha da escápula."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P7)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F015",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior identifica o acrômio."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P7)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F016",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior identifica a incisura espinoglenoidal."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P7)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F017",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui borda medial (denominada borda espinhal nas notas de aula)."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P8)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F018",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui borda lateral (denominada borda axilar nas notas de aula)."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P8)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F019",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui borda superior."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P8)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F020",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "O músculo romboide menor relaciona-se com a borda medial ao nível da espinha escapular."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P8)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F021",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "O músculo romboide maior relaciona-se com a borda medial em direção ao ângulo inferior."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P8)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F022",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A borda superior associa-se à terminologia incisura escapular / incisura coracoide nas notas."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P8)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F023",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui ângulo superior, unindo as bordas superior e medial."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P9)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F024",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui ângulo inferior, unindo as bordas medial e lateral."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P9)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F025",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui ângulo lateral, unindo as bordas superior e lateral."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P9)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F026",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula identifica o processo coracoide."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P10)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F027",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula identifica a cavidade glenoidal."
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P10)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F028",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A cavidade glenoidal é circundada pelo lábio glenoidal (labrum)."
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P10)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F029",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A cavidade glenoidal articula-se com a cabeça do úmero."
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P10)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F030",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o subescapular com a fossa subescapular."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P11)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F031",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o serrátil anterior com a borda medial entre os ângulos superior e inferior."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P11)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F032",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o supraespinhal com a fossa supraespinosa."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P12)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F033",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o infraespinhal com a fossa infraespinosa."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P12)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F034",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o trapézio com o lábio superior da borda posterior da espinha da escápula."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P13)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F035",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o deltoide com o lábio inferior da borda posterior da espinha da escápula."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P13)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F036",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o redondo menor em direção à borda lateral."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P14)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F037",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o redondo maior em direção à borda lateral."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P14)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F038",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a cabeça longa do bíceps com a região supraglenoidal."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P15)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F039",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a cabeça longa do tríceps com a região infraglenoidal."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P15)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F040",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o coracobraquial com o ápice do processo coracoide."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P16)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F041",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a cabeça curta do bíceps com o ápice do processo coracoide."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P16)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F042",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o peitoral menor com a borda medial do processo coracoide."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P16)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F043",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "As notas mencionam expansão do subclávio associada à borda medial do processo coracoide."
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P16)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F044",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a região coracoide aos ligamentos coracoclaviculares."
+    ],
+    "knowledge_dimension": "LIGAMENTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P17)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F045",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a região coracoide ao ligamento coracoacromial."
+    ],
+    "knowledge_dimension": "LIGAMENTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P17)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F046",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a região coracoide ao ligamento trapezoide."
+    ],
+    "knowledge_dimension": "LIGAMENTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P17)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F047",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a região coracoide ao ligamento conoide."
+    ],
+    "knowledge_dimension": "LIGAMENTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P17)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F048",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a região coracoide ao ligamento transverso superior da escápula."
+    ],
+    "knowledge_dimension": "LIGAMENTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P18)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F049",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte afirma que o ligamento transverso superior converte a incisura escapular/coracoide em forame."
+    ],
+    "knowledge_dimension": "LIGAMENTS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P18)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F050",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte lista relação vascular regional envolvendo artéria e veia subclávias."
+    ],
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P20)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F051",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte lista relação vascular regional envolvendo artéria e veia axilares."
+    ],
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P21)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F052",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte lista relação vascular regional envolvendo artéria e veia dorsais da escápula."
+    ],
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "authoring_agent": "INSTITUTIONAL_TEACHING_NOTES",
+    "evidence_source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locations": [
+      "pages 4-23 (P22)"
+    ],
+    "authoring_mode": "SOURCE_GROUNDED",
+    "validation_status": "REVIEW_PENDING"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F001",
+    "subject": "scapula",
+    "relation": "TYPE_OF",
+    "object_or_arguments": [
+      "flat_bone_candidate"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F002",
+    "subject": "scapula",
+    "relation": "LOCATED_IN",
+    "object_or_arguments": [
+      "pectoral_girdle"
+    ],
+    "knowledge_dimension": "LOCATION",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F003",
+    "subject": "scapula",
+    "relation": "HAS_SURFACE",
+    "object_or_arguments": [
+      "costal_surface"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F004",
+    "subject": "scapula",
+    "relation": "HAS_SURFACE",
+    "object_or_arguments": [
+      "posterior_surface"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F005",
+    "subject": "scapula",
+    "relation": "HAS_BORDER",
+    "object_or_arguments": [
+      "superior_border"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F006",
+    "subject": "scapula",
+    "relation": "HAS_BORDER",
+    "object_or_arguments": [
+      "medial_border"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F007",
+    "subject": "scapula",
+    "relation": "HAS_BORDER",
+    "object_or_arguments": [
+      "lateral_border"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F008",
+    "subject": "scapula",
+    "relation": "HAS_ANGLE",
+    "object_or_arguments": [
+      "superior_angle"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F009",
+    "subject": "scapula",
+    "relation": "HAS_ANGLE",
+    "object_or_arguments": [
+      "inferior_angle"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F010",
+    "subject": "scapula",
+    "relation": "HAS_ANGLE",
+    "object_or_arguments": [
+      "lateral_angle"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F011",
+    "subject": "posterior_surface_of_scapula",
+    "relation": "HAS_STRUCTURE",
+    "object_or_arguments": [
+      "scapular_spine"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F012",
+    "subject": "scapular_spine",
+    "relation": "SEPARATES",
+    "object_or_arguments": [
+      "supraspinous_fossa",
+      "infraspinous_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F013",
+    "subject": "scapula",
+    "relation": "HAS_FOSSA",
+    "object_or_arguments": [
+      "subscapular_fossa"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F014",
+    "subject": "scapula",
+    "relation": "HAS_FOSSA",
+    "object_or_arguments": [
+      "supraspinous_fossa"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F015",
+    "subject": "scapula",
+    "relation": "HAS_FOSSA",
+    "object_or_arguments": [
+      "infraspinous_fossa"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F016",
+    "subject": "scapular_spine",
+    "relation": "CONTINUES_AS",
+    "object_or_arguments": [
+      "acromion"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F017",
+    "subject": "scapula",
+    "relation": "HAS_PROCESS",
+    "object_or_arguments": [
+      "coracoid_process"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F018",
+    "subject": "lateral_angle_of_scapula",
+    "relation": "HAS_STRUCTURE",
+    "object_or_arguments": [
+      "glenoid_cavity"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F019",
+    "subject": "scapula",
+    "relation": "HAS_LANDMARK",
+    "object_or_arguments": [
+      "supraglenoid_tubercle"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F020",
+    "subject": "scapula",
+    "relation": "HAS_LANDMARK",
+    "object_or_arguments": [
+      "infraglenoid_tubercle"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F021",
+    "subject": "superior_border_of_scapula",
+    "relation": "HAS_NOTCH",
+    "object_or_arguments": [
+      "suprascapular_notch"
+    ],
+    "knowledge_dimension": "PARTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F022",
+    "subject": "scapula",
+    "relation": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "clavicle"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F023",
+    "subject": "scapula",
+    "relation": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "humerus"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F024",
+    "subject": "glenoid_cavity",
+    "relation": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "humeral_head"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F025",
+    "subject": "subscapularis",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "subscapular_fossa"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F026",
+    "subject": "supraspinatus",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "supraspinous_fossa"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F027",
+    "subject": "infraspinatus",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "infraspinous_fossa"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F028",
+    "subject": "teres_minor",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "lateral_border_of_scapula"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F029",
+    "subject": "teres_major",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "inferior_scapular_region"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F030",
+    "subject": "deltoid",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "acromion"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F031",
+    "subject": "deltoid",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "scapular_spine"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F032",
+    "subject": "trapezius",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "acromion"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F033",
+    "subject": "trapezius",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "scapular_spine"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F034",
+    "subject": "levator_scapulae",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "superior_medial_border_of_scapula"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F035",
+    "subject": "rhomboid_minor",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "medial_border_near_root_of_scapular_spine"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F036",
+    "subject": "rhomboid_major",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "medial_border_inferior_to_scapular_spine"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F037",
+    "subject": "serratus_anterior",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "costal_aspect_of_medial_border"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F038",
+    "subject": "biceps_brachii_long_head",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "supraglenoid_region"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F039",
+    "subject": "triceps_brachii_long_head",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "infraglenoid_tubercle"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F040",
+    "subject": "biceps_brachii_short_head",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "coracoid_process"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F041",
+    "subject": "coracobrachialis",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "coracoid_process"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F042",
+    "subject": "pectoralis_minor",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "coracoid_process"
+    ],
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F043",
+    "subject": "coracoacromial_ligament",
+    "relation": "EXTENDS_BETWEEN",
+    "object_or_arguments": [
+      "coracoid_process",
+      "acromion"
+    ],
+    "knowledge_dimension": "LIGAMENTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F044",
+    "subject": "superior_transverse_scapular_ligament",
+    "relation": "BRIDGES",
+    "object_or_arguments": [
+      "suprascapular_notch"
+    ],
+    "knowledge_dimension": "LIGAMENTS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F045",
+    "subject": "suprascapular_nerve",
+    "relation": "PASSES_THROUGH",
+    "object_or_arguments": [
+      "suprascapular_notch_region"
+    ],
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F046",
+    "subject": "suprascapular_nerve",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "superior_transverse_scapular_ligament"
+    ],
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F047",
+    "subject": "suprascapular_artery",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "suprascapular_notch_region"
+    ],
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F048",
+    "subject": "suprascapular_nerve",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "spinoglenoid_notch"
+    ],
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F049",
+    "subject": "dorsal_scapular_artery",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "medial_border_of_scapula"
+    ],
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F050",
+    "subject": "circumflex_scapular_artery",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "posterior_scapular_region"
+    ],
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F051",
+    "subject": "triangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "teres_minor"
+    ],
+    "knowledge_dimension": "ANATOMICAL_SPACES",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F052",
+    "subject": "triangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "teres_major"
+    ],
+    "knowledge_dimension": "ANATOMICAL_SPACES",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F053",
+    "subject": "triangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "long_head_triceps"
+    ],
+    "knowledge_dimension": "ANATOMICAL_SPACES",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F054",
+    "subject": "triangular_space",
+    "relation": "CONTAINS",
+    "object_or_arguments": [
+      "circumflex_scapular_vessels"
+    ],
+    "knowledge_dimension": "ANATOMICAL_SPACES",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F055",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "teres_minor"
+    ],
+    "knowledge_dimension": "ANATOMICAL_SPACES",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F056",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "teres_major"
+    ],
+    "knowledge_dimension": "ANATOMICAL_SPACES",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F057",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "long_head_triceps"
+    ],
+    "knowledge_dimension": "ANATOMICAL_SPACES",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F058",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "surgical_neck_humerus"
+    ],
+    "knowledge_dimension": "ANATOMICAL_SPACES",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F059",
+    "subject": "quadrangular_space",
+    "relation": "CONTAINS",
+    "object_or_arguments": [
+      "axillary_nerve"
+    ],
+    "knowledge_dimension": "ANATOMICAL_SPACES",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F060",
+    "subject": "quadrangular_space",
+    "relation": "CONTAINS",
+    "object_or_arguments": [
+      "posterior_circumflex_humeral_vessels"
+    ],
+    "knowledge_dimension": "ANATOMICAL_SPACES",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F061",
+    "subject": "scapular_spine",
+    "relation": "PRACTICAL_IDENTIFIES",
+    "object_or_arguments": [
+      "posterior_surface_of_scapula"
+    ],
+    "knowledge_dimension": "PRACTICAL_IDENTIFICATION",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F062",
+    "subject": "glenoid_cavity",
+    "relation": "PRACTICAL_ORIENTATION",
+    "object_or_arguments": [
+      "lateral"
+    ],
+    "knowledge_dimension": "PRACTICAL_IDENTIFICATION",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F063",
+    "subject": "coracoid_process",
+    "relation": "PRACTICAL_ORIENTATION",
+    "object_or_arguments": [
+      "anterior"
+    ],
+    "knowledge_dimension": "PRACTICAL_IDENTIFICATION",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F064",
+    "subject": "inferior_angle_of_scapula",
+    "relation": "PRACTICAL_ORIENTATION",
+    "object_or_arguments": [
+      "inferior"
+    ],
+    "knowledge_dimension": "PRACTICAL_IDENTIFICATION",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT"
+  }
+]

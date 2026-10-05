@@ -1,0 +1,66 @@
+{
+  "phase": "EXP-UL-B1-CP1-IA1",
+  "audit_timestamp": "2026-09-25T13:30:13.062Z",
+  "AMC_BASELINE_VERSION": "1.1",
+  "MASTER_DENOMINATOR_TARGETS": 2202,
+  "HISTORICAL_CP1_CALCULATION": {
+    "metric_name": "GLOBAL_CANONICAL_ENTITY_COVERAGE_PERCENT",
+    "reported_value": "1.41%",
+    "numerator_used": 31,
+    "denominator_used": 2202,
+    "formula": "31 / 2202 = 1.4078%"
+  },
+  "AMC_COVERAGE_CALCULATION_VALID": "NO",
+  "audit_findings": {
+    "reason_invalid": "The numerator 31 corresponds to raw rows in canonical_entities storage (which includes bone subparts, tubercles, grooves, and impressions). AMC 1.1 denominator 2,202 represents discrete primary anatomical structures.",
+    "master_targets_covered": [
+      {
+        "id": "TARGET-UL-SCAPULA",
+        "canonical_name": "Scapula",
+        "category": "BONE",
+        "batch": "0.1.0"
+      },
+      {
+        "id": "TARGET-UL-CLAVICLE",
+        "canonical_name": "Clavicle",
+        "category": "BONE",
+        "batch": "EXP-UL-B1"
+      },
+      {
+        "id": "TARGET-UL-SC-JOINT",
+        "canonical_name": "Sternoclavicular Joint",
+        "category": "JOINT",
+        "batch": "EXP-UL-B1"
+      },
+      {
+        "id": "TARGET-UL-AC-JOINT",
+        "canonical_name": "Acromioclavicular Joint",
+        "category": "JOINT",
+        "batch": "EXP-UL-B1"
+      },
+      {
+        "id": "TARGET-UL-CC-LIGAMENT-COMPLEX",
+        "canonical_name": "Coracoclavicular Ligament Complex",
+        "category": "LIGAMENT_COMPLEX",
+        "batch": "EXP-UL-B1"
+      },
+      {
+        "id": "TARGET-UL-DELTOPECTORAL-GROOVE",
+        "canonical_name": "Deltopectoral Groove / Triangle",
+        "category": "TOPOGRAPHIC_SPACE",
+        "batch": "EXP-UL-B1"
+      },
+      {
+        "id": "TARGET-UL-CERVICOAXILLARY-CANAL",
+        "canonical_name": "Cervicoaxillary Canal",
+        "category": "TOPOGRAPHIC_SPACE",
+        "batch": "EXP-UL-B1"
+      }
+    ],
+    "UNIQUE_CANONICAL_AMC_TARGET_COUNT": 7,
+    "CORRECTED_MASTER_ANATOMICAL_TARGET_COVERAGE": "0.32%",
+    "CORRECTED_FORMULA": "7 / 2202 = 0.31789%",
+    "STORAGE_ENTITY_DENSITY_METRIC": "1.41% (31 entities / 2202)",
+    "reconciliation_policy": "Both metrics are preserved and explicitly disambiguated in all future releases: Storage Entity Density (1.41%) vs Master Anatomical Target Coverage (0.32%)."
+  }
+}

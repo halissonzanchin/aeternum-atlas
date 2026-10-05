@@ -1,0 +1,183 @@
+{
+  "engine_version": "AETERNUM-SAFE-ENGINE-0.1.0-SCAPULA-PILOT",
+  "total_tested": 25,
+  "determinism_matches": 25,
+  "determinism_percentage": "100%",
+  "cases": [
+    {
+      "query": "Qual é a classificação morfológica da escápula?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "A escápula é um osso plano?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "A omoplata é um osso par?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "A escápula tem formato triangular?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Quantas faces possui a escápula?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Quantas margens tem a escápula?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Quantos ângulos são descritos na escápula?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "A escápula faz parte de qual cíngulo?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Quais são as três margens da escápula?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Quais são as duas faces da escápula?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Qual músculo se origina na fossa supraespinosa?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "o supra espinhoso começa onde?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Qual músculo se origina na fossa infraespinosa?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Qual músculo se insere na fossa subescapular?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Com quem se articula a cavidade glenoidal?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Qual articulação é formada pelo acrômio e a clavícula?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Onde se insere o músculo peitoral menor?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Onde se origina o músculo coracobraquial?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Onde se origina a cabeça curta do bíceps braquial?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Onde se origina a cabeça longa do bíceps braquial?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Onde se origina a cabeça longa do tríceps braquial?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Onde se insere o músculo trapézio?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Onde se origina o músculo deltoide?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Onde se insere o músculo serrátil anterior?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    },
+    {
+      "query": "Onde se insere o músculo levantador da escápula?",
+      "is_deterministic": true,
+      "facts_match": true,
+      "plan_match": true,
+      "text_match": true
+    }
+  ]
+}

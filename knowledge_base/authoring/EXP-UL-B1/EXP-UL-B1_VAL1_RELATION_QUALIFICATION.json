@@ -1,0 +1,149 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-VAL1",
+  "total_relations": 25,
+  "certified_usages": [
+    {
+      "relation": "part_of",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 3
+    },
+    {
+      "relation": "type_of",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 9
+    },
+    {
+      "relation": "has_symmetry",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 1
+    },
+    {
+      "relation": "has_shape",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 3
+    },
+    {
+      "relation": "located_in",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 1
+    },
+    {
+      "relation": "spans_levels",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 0
+    },
+    {
+      "relation": "articulates_with",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 4
+    },
+    {
+      "relation": "has_curvature",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 6
+    },
+    {
+      "relation": "has_structure",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 61
+    },
+    {
+      "relation": "has_border",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 4
+    },
+    {
+      "relation": "has_surface",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 2
+    },
+    {
+      "relation": "has_landmark",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 6
+    },
+    {
+      "relation": "originates_from",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 6
+    },
+    {
+      "relation": "inserts_into",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 6
+    },
+    {
+      "relation": "attaches_ligament",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 3
+    },
+    {
+      "relation": "vascular_syntopy",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 9
+    },
+    {
+      "relation": "innervated_by",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 3
+    },
+    {
+      "relation": "surrounded_by",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 2
+    },
+    {
+      "relation": "vascular_supply",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 4
+    },
+    {
+      "relation": "functional_axis",
+      "status": "CERTIFIED_RELATION_USAGE_VALID",
+      "usage_count": 6
+    }
+  ],
+  "candidate_relations": [
+    {
+      "relation_name": "RESISTS_DISPLACEMENT",
+      "classification": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "inverse_relation": "DISPLACEMENT_RESISTED_BY",
+      "qualification_assessment": "Fully unambiguous directional vector constraint predicate."
+    },
+    {
+      "relation_name": "DIVIDES_JOINT_CAVITY",
+      "classification": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "inverse_relation": "JOINT_CAVITY_DIVIDED_BY",
+      "qualification_assessment": "Clean topological partition predicate for interarticular discs."
+    },
+    {
+      "relation_name": "TRANSMITS_STRUCTURE",
+      "classification": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "inverse_relation": "TRANSMITTED_THROUGH",
+      "qualification_assessment": "Standard topographic passage predicate for grooves and canals."
+    },
+    {
+      "relation_name": "SUSPENDS_STRUCTURE",
+      "classification": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "inverse_relation": "SUSPENDED_BY",
+      "qualification_assessment": "Valid mechanical suspension relationship with deterministic inverse."
+    },
+    {
+      "relation_name": "SYSSARCOSIS_INTERFACE_BETWEEN",
+      "classification": "ONTOLOGY_REVIEW_REQUIRED",
+      "inverse_relation": "PARTICIPATES_IN_SYSSARCOSIS",
+      "qualification_assessment": "Novel functional interface primitive; requires formal ontology review before promotion."
+    }
+  ],
+  "metrics": {
+    "CERTIFIED_RELATION_USAGE_VALID_COUNT": 20,
+    "CERTIFIED_RELATION_USAGE_INVALID_COUNT": 0,
+    "RELATION_CANDIDATE_UNAMBIGUOUS_COUNT": 3,
+    "RELATION_CANDIDATE_ALIAS_COUNT": 0,
+    "RELATION_CANDIDATE_INVERSE_COUNT": 1,
+    "RELATION_CANDIDATE_AMBIGUOUS_COUNT": 0,
+    "RELATION_CANDIDATE_PEDAGOGICAL_COUNT": 0,
+    "RELATION_CANDIDATE_ONTOLOGY_REVIEW_COUNT": 1
+  }
+}

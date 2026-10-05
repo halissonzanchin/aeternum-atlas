@@ -1,0 +1,82 @@
+{
+  "audit_version": "AIR1-PREP",
+  "timestamp": "2026-09-25T02:00:00.000Z",
+  "vercel_project": {
+    "project_id": "prj_H1xE1yVLWhl5AlLoHuOxoz0QQbHh",
+    "org_id": "team_vSczccILMfr2FubBdIvjdkrg",
+    "project_name": "aeternum-atlas",
+    "framework": "vite",
+    "build_command": "npm run build",
+    "output_directory": "dist",
+    "install_command": "npm install",
+    "node_version": "20.x"
+  },
+  "domains": {
+    "production_primary": "aeternumatlas.com",
+    "production_canonical": "www.aeternumatlas.com",
+    "preview_default": "aeternum-atlas.vercel.app"
+  },
+  "routing_and_rewrites": {
+    "config_file": "vercel.json",
+    "spa_catch_all_configured": true,
+    "rewrites": [
+      {
+        "source": "/(.*)",
+        "destination": "/index.html"
+      }
+    ],
+    "clean_urls": true
+  },
+  "environment_variables_audit": {
+    "client_exposed_vite": [
+      {
+        "name": "VITE_SUPABASE_URL",
+        "required": true,
+        "staging_target": "https://hutohshswppahipgcwio.supabase.co",
+        "production_target": "https://hyivyrietgjdazgizafp.supabase.co",
+        "classification": "PUBLIC_CONFIG"
+      },
+      {
+        "name": "VITE_SUPABASE_ANON_KEY",
+        "required": true,
+        "staging_target": "SUPABASE_STAGING_ANON_KEY",
+        "production_target": "SUPABASE_PRODUCTION_ANON_KEY",
+        "classification": "PUBLIC_CLIENT_KEY"
+      },
+      {
+        "name": "VITE_AETERNUM_VITA_PIPELINE",
+        "required": false,
+        "recommended_air1_value": "off",
+        "classification": "FEATURE_FLAG"
+      },
+      {
+        "name": "VITE_LIVEKIT_AGENT_NAME",
+        "required": false,
+        "recommended_air1_value": "aeternum-vita-voice",
+        "classification": "PUBLIC_CONFIG"
+      }
+    ],
+    "serverless_and_edge_secrets": [
+      {
+        "name": "SUPABASE_SERVICE_ROLE_KEY",
+        "required": true,
+        "location": "Supabase Vault / Vercel Serverless Env",
+        "client_exposed": false,
+        "classification": "SECRET"
+      },
+      {
+        "name": "GEMINI_API_KEY",
+        "required": true,
+        "location": "Supabase Edge Secrets",
+        "client_exposed": false,
+        "classification": "SECRET"
+      }
+    ]
+  },
+  "readiness_verdict": {
+    "vercel_configuration_valid": true,
+    "spa_routing_certified": true,
+    "missing_config_blockers": 0,
+    "status": "READY_FOR_DEPLOYMENT"
+  }
+}

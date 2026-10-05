@@ -1,0 +1,197 @@
+{
+  "document_name": "EXP-UL-B2_A2E0_NOT_APPLICABLE_REVIEW_QUEUE",
+  "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+  "timestamp": "2026-09-27T11:15:00Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "metrics": {
+    "total_candidates": 18,
+    "joint_candidates_count": 2,
+    "muscle_head_candidates_count": 4,
+    "osteological_subpart_candidates_count": 12,
+    "all_require_chatgpt_author_review": true,
+    "automatically_promoted_to_na": false
+  },
+  "governance_rule": "Antigravity MUST NOT convert N_A_CANDIDATE to NOT_APPLICABLE autonomously. All items require ChatGPT anatomical author review and adjudication.",
+  "candidates": [
+    {
+      "queue_id": "NA-CAND-001",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "complementary_structures.disc",
+      "schema_basis": "AADS JOINT schema complementary_structures.disc",
+      "reason_for_candidate": "Glenohumeral joint is a spheroidal enarthrosis equipped with a glenoid labrum; it does not possess an intra-articular fibrocartilaginous disc (unlike TMJ, sternoclavicular, or distal radioulnar joints).",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-002",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "complementary_structures.meniscus",
+      "schema_basis": "AADS JOINT schema complementary_structures.meniscus",
+      "reason_for_candidate": "Meniscal structures are anatomically restricted to femorotibial and specialized hinge joints; glenohumeral articulation lacks menisci.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-003",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.heads",
+      "schema_basis": "AADS MUSCLE schema architecture.heads",
+      "reason_for_candidate": "Subscapularis is a multipennate single-bellied muscle originating from the subscapular fossa; it does not possess distinct anatomical heads (capita).",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-004",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.heads",
+      "schema_basis": "AADS MUSCLE schema architecture.heads",
+      "reason_for_candidate": "Supraspinatus arises as a single uniform muscular belly from the supraspinous fossa without separate anatomical heads.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-005",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.heads",
+      "schema_basis": "AADS MUSCLE schema architecture.heads",
+      "reason_for_candidate": "Infraspinatus is a triangular single-bellied muscle with radiating fascicles, possessing no separate heads.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-006",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.heads",
+      "schema_basis": "AADS MUSCLE schema architecture.heads",
+      "reason_for_candidate": "Teres minor arises as a single cylindrical belly from the lateral scapular border without separate heads.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-007",
+      "entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+      "entity_type": "BONE",
+      "field_name": "paired_unpaired",
+      "schema_basis": "AADS BONE schema paired_unpaired",
+      "reason_for_candidate": "Humeral head is an anatomical landmark/epiphyseal feature of the paired Humerus; paired/unpaired classification applies to whole skeletal elements rather than surface landmarks.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-008",
+      "entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+      "entity_type": "BONE",
+      "field_name": "bone_type",
+      "schema_basis": "AADS BONE schema bone_type",
+      "reason_for_candidate": "Bone classification (long/short/flat/irregular) describes the parent humerus; head is an epiphysis/articular surface, not an autonomous bone type.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-009",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "entity_type": "BONE",
+      "field_name": "paired_unpaired",
+      "schema_basis": "AADS BONE schema paired_unpaired",
+      "reason_for_candidate": "Anatomical neck is a circumscribing groove/constriction, not an autonomous skeletal bone.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-010",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "entity_type": "BONE",
+      "field_name": "bone_type",
+      "schema_basis": "AADS BONE schema bone_type",
+      "reason_for_candidate": "Anatomical neck is an osseous landmark, not an independent bone type.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-011",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "entity_type": "BONE",
+      "field_name": "paired_unpaired",
+      "schema_basis": "AADS BONE schema paired_unpaired",
+      "reason_for_candidate": "Greater tubercle is an apophyseal bone prominence, not an independent bone element.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-012",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "entity_type": "BONE",
+      "field_name": "bone_type",
+      "schema_basis": "AADS BONE schema bone_type",
+      "reason_for_candidate": "Tubercle is a non-articular apophysis, not an independent bone classification.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-013",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "entity_type": "BONE",
+      "field_name": "paired_unpaired",
+      "schema_basis": "AADS BONE schema paired_unpaired",
+      "reason_for_candidate": "Lesser tubercle is an anterior osseous tuberosity, not an independent bone element.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-014",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "entity_type": "BONE",
+      "field_name": "bone_type",
+      "schema_basis": "AADS BONE schema bone_type",
+      "reason_for_candidate": "Lesser tubercle is a non-articular apophysis, not an independent bone classification.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-015",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "entity_type": "BONE",
+      "field_name": "paired_unpaired",
+      "schema_basis": "AADS BONE schema paired_unpaired",
+      "reason_for_candidate": "Intertubercular sulcus is an osteological groove, not an autonomous bone.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-016",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "entity_type": "BONE",
+      "field_name": "bone_type",
+      "schema_basis": "AADS BONE schema bone_type",
+      "reason_for_candidate": "Intertubercular sulcus is an osseous groove, not an independent bone type.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-017",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "paired_unpaired",
+      "schema_basis": "AADS BONE schema paired_unpaired",
+      "reason_for_candidate": "Surgical neck is a transitional osteological region, not an independent bone.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    },
+    {
+      "queue_id": "NA-CAND-018",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "bone_type",
+      "schema_basis": "AADS BONE schema bone_type",
+      "reason_for_candidate": "Surgical neck is a transitional morphofunctional zone, not an independent bone classification.",
+      "requires_chatgpt_author_review": true,
+      "suggested_disposition": "CONFIRM_NOT_APPLICABLE_BY_AUTHOR"
+    }
+  ]
+}

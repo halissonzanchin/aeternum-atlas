@@ -1,0 +1,313 @@
+{
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+  "batch_id": "EXP-UL-B1",
+  "promotion_id": "AET-PROM-UL-B1-001",
+  "total_production_facts": 118,
+  "production_facts": [
+    "AET-CF-CLAV-001",
+    "AET-CF-CLAV-002",
+    "AET-CF-CLAV-003",
+    "AET-CF-CLAV-004",
+    "AET-CF-CLAV-005",
+    "AET-CF-CLAV-006",
+    "AET-CF-CLAV-007",
+    "AET-CF-CLAV-008",
+    "AET-CF-CLAV-009",
+    "AET-CF-CLAV-010",
+    "AET-CF-CLAV-011",
+    "AET-CF-CLAV-012",
+    "AET-CF-CLAV-013",
+    "AET-CF-CLAV-014",
+    "AET-CF-CLAV-015",
+    "AET-CF-CLAV-016",
+    "AET-CF-CLAV-017",
+    "AET-CF-CLAV-018",
+    "AET-CF-CLAV-019",
+    "AET-CF-CLAV-020",
+    "AET-CF-CLAV-021",
+    "AET-CF-CLAV-022",
+    "AET-CF-CLAV-023",
+    "AET-CF-CLAV-024",
+    "AET-CF-CLAV-025",
+    "AET-CF-CLAV-026",
+    "AET-CF-CLAV-027",
+    "AET-CF-CLAV-028",
+    "AET-CF-CLAV-029",
+    "AET-CF-CLAV-030",
+    "AET-CF-CLAV-031",
+    "AET-CF-CLAV-032",
+    "AET-CF-CLAV-033",
+    "AET-CF-CLAV-034",
+    "AET-CF-CLAV-035",
+    "AET-CF-CLAV-036",
+    "AET-CF-CLAV-037",
+    "AET-CF-CLAV-038",
+    "AET-CF-CLAV-039",
+    "AET-CF-CLAV-040",
+    "AET-CF-CLAV-041",
+    "AET-CF-CLAV-042",
+    "AET-CF-CLAV-043",
+    "AET-CF-CLAV-044",
+    "AET-CF-CLAV-045",
+    "AET-CF-CLAV-046",
+    "AET-CF-CLAV-047",
+    "AET-CF-CLAV-048",
+    "AET-CF-CLAV-049",
+    "AET-CF-SCJ-001",
+    "AET-CF-SCJ-002",
+    "AET-CF-SCJ-003",
+    "AET-CF-SCJ-004",
+    "AET-CF-SCJ-005",
+    "AET-CF-SCJ-006",
+    "AET-CF-SCJ-007",
+    "AET-CF-SCJ-009",
+    "AET-CF-SCJ-010",
+    "AET-CF-SCJ-011",
+    "AET-CF-SCJ-012",
+    "AET-CF-SCJ-013",
+    "AET-CF-SCJ-014",
+    "AET-CF-SCJ-016",
+    "AET-CF-SCJ-017",
+    "AET-CF-SCJ-018",
+    "AET-CF-SCJ-019",
+    "AET-CF-SCJ-020",
+    "AET-CF-SCJ-021",
+    "AET-CF-SCJ-022",
+    "AET-CF-SCJ-024",
+    "AET-CF-SCJ-026",
+    "AET-CF-ACJ-001",
+    "AET-CF-ACJ-002",
+    "AET-CF-ACJ-003",
+    "AET-CF-ACJ-004",
+    "AET-CF-ACJ-005",
+    "AET-CF-ACJ-006",
+    "AET-CF-ACJ-007",
+    "AET-CF-ACJ-008",
+    "AET-CF-ACJ-009",
+    "AET-CF-ACJ-010",
+    "AET-CF-ACJ-011",
+    "AET-CF-ACJ-013",
+    "AET-CF-ACJ-014",
+    "AET-CF-ACJ-015",
+    "AET-CF-ACJ-016",
+    "AET-CF-ACJ-017",
+    "AET-CF-ACJ-018",
+    "AET-CF-ACJ-019",
+    "AET-CF-ACJ-020",
+    "AET-CF-CCC-001",
+    "AET-CF-CCC-002",
+    "AET-CF-CCC-003",
+    "AET-CF-CCC-004",
+    "AET-CF-CCC-005",
+    "AET-CF-CCC-006",
+    "AET-CF-CCC-008",
+    "AET-CF-CCC-009",
+    "AET-CF-CCC-010",
+    "AET-CF-CCC-011",
+    "AET-CF-CCC-014",
+    "AET-CF-CCC-015",
+    "AET-CF-CCC-016",
+    "AET-CF-CCC-017",
+    "AET-CF-CCC-018",
+    "AET-CF-CCC-019",
+    "AET-CF-PGI-001",
+    "AET-CF-PGI-002",
+    "AET-CF-PGI-003",
+    "AET-CF-PGI-004",
+    "AET-CF-PGI-005",
+    "AET-CF-PGI-006",
+    "AET-CF-PGI-008",
+    "AET-CF-PGI-009",
+    "AET-CF-PGI-010",
+    "AET-CF-PGI-012",
+    "AET-CF-PGI-013",
+    "AET-CF-PGI-015"
+  ],
+  "production_teaching_connections": [
+    "TC-UL-B1-001",
+    "TC-UL-B1-002",
+    "TC-UL-B1-003",
+    "TC-UL-B1-004",
+    "TC-UL-B1-005",
+    "TC-UL-B1-006"
+  ],
+  "production_practical_units": [
+    "AET-PRAC-UL-B1-002",
+    "AET-PRAC-UL-B1-003",
+    "AET-PRAC-UL-B1-004",
+    "AET-PRAC-UL-B1-005",
+    "AET-PRAC-UL-B1-006",
+    "AET-PRAC-UL-B1-007",
+    "AET-PRAC-UL-B1-008",
+    "AET-PRAC-UL-B1-009",
+    "AET-PRAC-UL-B1-010",
+    "AET-PRAC-UL-B1-011"
+  ],
+  "production_documentary_blocks": [
+    "DOC-UL-B1-001",
+    "DOC-UL-B1-002",
+    "DOC-UL-B1-003",
+    "DOC-UL-B1-004",
+    "DOC-UL-B1-005"
+  ],
+  "quarantined_from_production": {
+    "canonical_facts_blocked": [
+      {
+        "canonical_fact_id": "AET-CF-SCJ-008",
+        "source_fact_candidate_id": "B1-FC-SCJ-008",
+        "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+        "entity_id": "sternoclavicular_articular_disc",
+        "subject_id": "sternoclavicular_articular_disc",
+        "relation": "DIVIDES_JOINT_CAVITY",
+        "object_or_arguments": [
+          "meniscoclavicular_synovial_cavity",
+          "meniscosternal_synovial_cavity"
+        ],
+        "safe_engine_production_eligible": false,
+        "block_reason": "UNCERTIFIED_CANDIDATE_RELATION_DIVIDES_JOINT_CAVITY"
+      },
+      {
+        "canonical_fact_id": "AET-CF-SCJ-015",
+        "source_fact_candidate_id": "B1-FC-SCJ-015",
+        "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+        "entity_id": "costoclavicular_ligament",
+        "subject_id": "costoclavicular_ligament",
+        "relation": "RESISTS_DISPLACEMENT",
+        "object_or_arguments": [
+          "excessive_elevation_of_clavicle",
+          "anterior_and_posterior_clavicular_gliding"
+        ],
+        "safe_engine_production_eligible": false,
+        "block_reason": "UNCERTIFIED_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+      },
+      {
+        "canonical_fact_id": "AET-CF-SCJ-023",
+        "source_fact_candidate_id": "B1-FC-SCJ-023",
+        "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+        "entity_id": "sternoclavicular_joint",
+        "subject_id": "interclavicular_ligament",
+        "relation": "RESISTS_DISPLACEMENT",
+        "object_or_arguments": [
+          "excessive_depression_of_lateral_clavicular_end"
+        ],
+        "safe_engine_production_eligible": false,
+        "block_reason": "UNCERTIFIED_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+      },
+      {
+        "canonical_fact_id": "AET-CF-SCJ-025",
+        "source_fact_candidate_id": "B1-FC-SCJ-025",
+        "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+        "entity_id": "sternoclavicular_articular_disc",
+        "subject_id": "sternoclavicular_articular_disc",
+        "relation": "RESISTS_DISPLACEMENT",
+        "object_or_arguments": [
+          "medial_and_superior_displacement_of_clavicle_under_axial_load"
+        ],
+        "safe_engine_production_eligible": false,
+        "block_reason": "UNCERTIFIED_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+      },
+      {
+        "canonical_fact_id": "AET-CF-ACJ-012",
+        "source_fact_candidate_id": "B1-FC-ACJ-012",
+        "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+        "entity_id": "acromioclavicular_ligament",
+        "subject_id": "superior_acromioclavicular_ligament",
+        "relation": "RESISTS_DISPLACEMENT",
+        "object_or_arguments": [
+          "anteroposterior_displacement_and_joint_separation"
+        ],
+        "safe_engine_production_eligible": false,
+        "block_reason": "UNCERTIFIED_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+      },
+      {
+        "canonical_fact_id": "AET-CF-CCC-007",
+        "source_fact_candidate_id": "B1-FC-CCC-007",
+        "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+        "entity_id": "conoid_ligament",
+        "subject_id": "conoid_ligament",
+        "relation": "RESISTS_DISPLACEMENT",
+        "object_or_arguments": [
+          "anterior_and_superior_displacement_of_clavicle",
+          "scapular_anterior_tipping"
+        ],
+        "safe_engine_production_eligible": false,
+        "block_reason": "UNCERTIFIED_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+      },
+      {
+        "canonical_fact_id": "AET-CF-CCC-012",
+        "source_fact_candidate_id": "B1-FC-CCC-012",
+        "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+        "entity_id": "trapezoid_ligament",
+        "subject_id": "trapezoid_ligament",
+        "relation": "RESISTS_DISPLACEMENT",
+        "object_or_arguments": [
+          "posterior_displacement_of_clavicle",
+          "horizontal_override_between_clavicle_and_acromion"
+        ],
+        "safe_engine_production_eligible": false,
+        "block_reason": "UNCERTIFIED_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+      },
+      {
+        "canonical_fact_id": "AET-CF-CCC-013",
+        "source_fact_candidate_id": "B1-FC-CCC-013",
+        "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+        "entity_id": "coracoclavicular_ligament_complex",
+        "subject_id": "coracoclavicular_ligament_complex",
+        "relation": "SUSPENDS_STRUCTURE",
+        "object_or_arguments": [
+          "scapula",
+          "free_upper_limb"
+        ],
+        "safe_engine_production_eligible": false,
+        "block_reason": "UNCERTIFIED_CANDIDATE_RELATION_SUSPENDS_STRUCTURE"
+      },
+      {
+        "canonical_fact_id": "AET-CF-PGI-007",
+        "source_fact_candidate_id": "B1-FC-PGI-013",
+        "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+        "entity_id": "pectoral_girdle",
+        "subject_id": "scapulohumeral_rhythm",
+        "relation": "has_structure",
+        "object_or_arguments": [
+          "two_to_one_ratio_overall_arm_abduction"
+        ],
+        "safe_engine_production_eligible": false,
+        "block_reason": "NON_GRAPH_KINEMATIC_RATIO_CONCEPT"
+      },
+      {
+        "canonical_fact_id": "AET-CF-PGI-011",
+        "source_fact_candidate_id": "B1-FC-PGI-018",
+        "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+        "entity_id": "deltopectoral_groove",
+        "subject_id": "deltopectoral_groove",
+        "relation": "TRANSMITS_STRUCTURE",
+        "object_or_arguments": [
+          "cephalic_vein",
+          "deltoid_branch_of_thoracoacromial_artery"
+        ],
+        "safe_engine_production_eligible": false,
+        "block_reason": "UNCERTIFIED_CANDIDATE_RELATION_TRANSMITS_STRUCTURE"
+      },
+      {
+        "canonical_fact_id": "AET-CF-PGI-014",
+        "source_fact_candidate_id": "B1-FC-PGI-021",
+        "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+        "entity_id": "cervicoaxillary_canal",
+        "subject_id": "cervicoaxillary_canal",
+        "relation": "TRANSMITS_STRUCTURE",
+        "object_or_arguments": [
+          "axillary_artery_and_vein",
+          "brachial_plexus_cords"
+        ],
+        "safe_engine_production_eligible": false,
+        "block_reason": "UNCERTIFIED_CANDIDATE_RELATION_TRANSMITS_STRUCTURE"
+      }
+    ],
+    "tier_b_supported_retained_outside_canonical": 13,
+    "tier_c_ai_drafts_retained_outside_canonical": 2,
+    "supported_entities_quarantined": [
+      "scapulothoracic_interface",
+      "retroclavicular_space"
+    ]
+  }
+}

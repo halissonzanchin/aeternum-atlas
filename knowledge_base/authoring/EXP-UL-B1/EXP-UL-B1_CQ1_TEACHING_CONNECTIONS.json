@@ -1,0 +1,78 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-CQ1",
+  "generated_at": "2026-09-25T03:53:39.743Z",
+  "metrics": {
+    "TEACHING_CONNECTION_PRODUCTION_READY_COUNT": 6,
+    "TEACHING_CONNECTION_STAGING_READY_COUNT": 2,
+    "TEACHING_CONNECTION_PENDING_COUNT": 0,
+    "PROFESSOR_STAGING_READY_COUNT": 8,
+    "PROFESSOR_PRODUCTION_READY_COUNT": 6
+  },
+  "connections": [
+    {
+      "connection_id": "TC-UL-B1-001",
+      "title": "Clavicle as the Sole Osseous Skeletal Bridge to the Axial Trunk",
+      "anchor_entity": "clavicle",
+      "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+      "professor_production_eligible": true,
+      "pedagogical_scope": "Students frequently assume the shoulder girdle is solidly anchored by both clavicle and scapula. Emphasizing that the clavicle is the only rigid bony link to the skeleton explains why clavicle fractures immediately cause the shoulder to collapse downward and forward."
+    },
+    {
+      "connection_id": "TC-UL-B1-002",
+      "title": "The Mechanical S-Curvature: Elasticity vs Fracture Vulnerability",
+      "anchor_entity": "clavicular_shaft",
+      "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+      "professor_production_eligible": true,
+      "pedagogical_scope": "The transition from the convex medial two-thirds to the concave lateral third creates a mechanical curve transition point that acts both as a shock absorber for axial loads and as the most common fracture site in the human skeleton."
+    },
+    {
+      "connection_id": "TC-UL-B1-003",
+      "title": "Sternoclavicular Fibrocartilaginous Disc: Transforming a Saddle into a Ball-and-Socket",
+      "anchor_entity": "sternoclavicular_articular_disc",
+      "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+      "professor_production_eligible": true,
+      "pedagogical_scope": "Explains how an anatomical sellar joint achieves multiaxial spheroidal movement freedom (elevation, depression, protraction, retraction, and 40° of axial spin) through an interarticular disc that provides two decoupled degrees of freedom."
+    },
+    {
+      "connection_id": "TC-UL-B1-004",
+      "title": "The Costoclavicular Ligament as the Fulcrum and Checkrein of Elevation",
+      "anchor_entity": "costoclavicular_ligament",
+      "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+      "professor_production_eligible": true,
+      "pedagogical_scope": "Demonstrates that during clavicular elevation, the costoclavicular ligament serves as a stable kinetic pivot: when the lateral end rises, the sternal articular surface slides downward on the disc."
+    },
+    {
+      "connection_id": "TC-UL-B1-005",
+      "title": "Coracoclavicular Complex: The True Suspensory Apparatus of the Arm",
+      "anchor_entity": "coracoclavicular_ligament_complex",
+      "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+      "professor_production_eligible": true,
+      "pedagogical_scope": "Clarifies that the weak acromioclavicular capsule cannot resist the weight of the arm alone. The conoid and trapezoid ligaments provide the actual suspensory sling holding the scapula and upper limb from the clavicle."
+    },
+    {
+      "connection_id": "TC-UL-B1-006",
+      "title": "Deltopectoral Groove and Triangle: Superficial Venous Highway and Surgical Access",
+      "anchor_entity": "deltopectoral_groove",
+      "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+      "professor_production_eligible": true,
+      "pedagogical_scope": "Teaches students the surface palpation of the deltopectoral groove for emergency venous cutdown of the cephalic vein and for the standard anterior surgical approach to the shoulder joint."
+    },
+    {
+      "connection_id": "TC-UL-B1-007",
+      "title": "The Retroclavicular Danger Zone: Neurovascular Crossing into the Axilla",
+      "anchor_entity": "cervicoaxillary_canal",
+      "qualification_status": "TEACHING_CONNECTION_STAGING_READY",
+      "professor_production_eligible": false,
+      "pedagogical_scope": "Alerts learners to the immediate proximity of the subclavian vein, subclavian artery, and brachial plexus trunks directly deep to the subclavius muscle and middle third of the clavicle, explaining why posterior clavicle displacement is a surgical emergency."
+    },
+    {
+      "connection_id": "TC-UL-B1-008",
+      "title": "Scapulothoracic Syssarcosis and Scapulohumeral Rhythm",
+      "anchor_entity": "scapulothoracic_interface",
+      "qualification_status": "TEACHING_CONNECTION_STAGING_READY",
+      "professor_production_eligible": false,
+      "pedagogical_scope": "Unifies the entire batch by demonstrating that the 60° of scapular upward rotation during arm abduction requires synchronous motion across the sternoclavicular joint (elevation + posterior axial spin) and acromioclavicular joint (subtle gliding), gliding smoothly across the serratus anterior syssarcosis."
+    }
+  ]
+}

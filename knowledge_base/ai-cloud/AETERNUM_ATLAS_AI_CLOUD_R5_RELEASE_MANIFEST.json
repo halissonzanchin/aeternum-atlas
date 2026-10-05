@@ -1,0 +1,61 @@
+{
+  "release_id": "REL-AETERNUM-AI-CLOUD-R5",
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R5",
+  "name": "AETERNUM ATLAS — CONTROLLED PRODUCTION PROMOTION & LIVE ACTIVATION",
+  "activated_at": "2026-10-05T06:14:31.000Z",
+  "status": "VERIFIED_AETERNUM_ATLAS_AI_PRODUCTION_LIVE",
+  "release_identity_chain": {
+    "r4_1_source_sha256": "b1f2141ad25bdb404ff30dd23761d5d7d102fc004b980c7bbd656f0bdee18b9b",
+    "production_build_sha256": "e23c8bc898b9a795a7f44854166f32e3e56310ead6d024130476adef02b6ce2c",
+    "production_edge_function_version": 40
+  },
+  "environments": {
+    "production_supabase": {
+      "project_ref": "hyivyrietgjdazgizafp",
+      "project_name": "aeternum-atlas-saas",
+      "edge_function": "ai-tutor",
+      "version": 40,
+      "status": "ACTIVE"
+    },
+    "staging_supabase_reference": {
+      "project_ref": "hutohshswppahipgcwio",
+      "version": 18,
+      "status": "ACTIVE (FROZEN REFERENCE)"
+    },
+    "production_gateway": {
+      "service_id": "srv-db1jf0ad0e5s7381o14g",
+      "name": "aeternum-ai-gateway-prod",
+      "url": "https://aeternum-ai-gateway-prod.onrender.com",
+      "mode": "cloud_only",
+      "status": "HEALTHY"
+    },
+    "production_frontend": {
+      "host": "https://www.aeternumatlas.com",
+      "provider": "Vercel",
+      "status": "HEALTHY"
+    }
+  },
+  "ai_pipeline_runtime": {
+    "production_atlas_ai_mode": "live",
+    "vita_mode": "off",
+    "active_provider": "gemini-llm-cloud",
+    "active_model": "gemini-3.5-flash-lite",
+    "provider_adapter_version": "GeminiLLMProvider-1.0.0",
+    "safe_engine_mode": "deterministic-canonical",
+    "evidence_gate_mode": "sovereign-hybrid-rpc",
+    "localhost_dependencies": 0
+  },
+  "canonical_memory_baseline": {
+    "memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+    "canonical_facts": 248,
+    "canonical_entities": 154,
+    "safe_engine_facts": 231,
+    "b2_authored": 41,
+    "b2_holds": 10,
+    "b2_production_exposure": 0,
+    "certified_relation_types_count": 10,
+    "canonical_content_mutations": 0,
+    "safe_engine_knowledge_mutations": 0,
+    "b2_mutations": 0
+  }
+}

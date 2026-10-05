@@ -1,0 +1,300 @@
+{
+  "phase": "AETERNUM-RELEASE-R1",
+  "audit_timestamp": "2026-10-04T21:32:24.508Z",
+  "total_features_evaluated": 26,
+  "counts": {
+    "real_features": 12,
+    "partial_features": 6,
+    "mock_features": 2,
+    "static_placeholders": 2,
+    "broken_features": 4
+  },
+  "features": [
+    {
+      "feature": "Authentication (Login)",
+      "frontend_state": "REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "SUPABASE_AUTH",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Real Supabase signInWithPassword with profile validation in public.users."
+    },
+    {
+      "feature": "Authentication (Sign-up / Register)",
+      "frontend_state": "REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "SUPABASE_AUTH_AND_USERS",
+      "auth_state": "PENDING_APPROVAL",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Real Supabase signUp with institution validation and pending profile creation."
+    },
+    {
+      "feature": "Authentication (Session Restoration)",
+      "frontend_state": "REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "SUPABASE_SESSION",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "supabase.auth.getUser() on page load; restores active user profile."
+    },
+    {
+      "feature": "Authentication (Password Recovery)",
+      "frontend_state": "MOCK",
+      "backend_state": "NOT_CONNECTED",
+      "data_state": "NONE",
+      "auth_state": "ANONYMOUS",
+      "production_ready": "NO",
+      "blocker": "P1-01",
+      "severity": "P1",
+      "notes": "UI shows toast saying flow is prepared for future API; resetPasswordForEmail not implemented."
+    },
+    {
+      "feature": "Student Dashboard (/student/home)",
+      "frontend_state": "REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "HYBRID_TELEMETRY",
+      "auth_state": "ROLE_STUDENT",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Displays real study metrics, recent models, radar progress, and recommended next steps."
+    },
+    {
+      "feature": "3D Model Library (/models)",
+      "frontend_state": "REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "SUPABASE_AND_LOCAL",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES",
+      "blocker": "P2-03",
+      "severity": "P2",
+      "notes": "Queries Supabase models_3d and atlas_models, merged with 3 canonical Sketchfab models. Model covers missing."
+    },
+    {
+      "feature": "3D Viewer (/viewer/:id)",
+      "frontend_state": "REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "SKETCHFAB_IFRAME",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Embeds Sketchfab 3D models with topbar breadcrumbs, annotations, quizzes, and progress telemetry."
+    },
+    {
+      "feature": "Anatomical & Theoretical Quizzes (/quizzes)",
+      "frontend_state": "REAL",
+      "backend_state": "LOCAL_ONLY",
+      "data_state": "CURATED_QUESTION_BANK",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "3 rich, rigorous multi-format question banks for skull, heart, and female reproductive system."
+    },
+    {
+      "feature": "Anatomical Flashcards (/flashcards)",
+      "frontend_state": "REAL",
+      "backend_state": "LOCAL_ONLY",
+      "data_state": "LOCAL_STORAGE_SM2",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES_WITH_LIMITATION",
+      "blocker": "P2-02",
+      "severity": "P2",
+      "notes": "SM-2 spaced repetition engine and curated card bank work client-side in localStorage; not synced to Supabase db."
+    },
+    {
+      "feature": "Anatomical Mind Map (/mind-map)",
+      "frontend_state": "REAL",
+      "backend_state": "LOCAL_ONLY",
+      "data_state": "D3_TREE_LOCAL",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES_WITH_LIMITATION",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Interactive D3 visualization with hierarchical zoom and editing; outline generation depends on AI Tutor or manual text."
+    },
+    {
+      "feature": "Study Agenda (/study-agenda)",
+      "frontend_state": "REAL",
+      "backend_state": "LOCAL_ONLY",
+      "data_state": "LOCAL_STORAGE",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES_WITH_LIMITATION",
+      "blocker": "P2-02",
+      "severity": "P2",
+      "notes": "Interactive calendar and study agenda persisted in browser localStorage with optional Supabase sync hooks."
+    },
+    {
+      "feature": "Modular Wall (Mural Modular Board)",
+      "frontend_state": "REAL",
+      "backend_state": "LOCAL_ONLY",
+      "data_state": "LOCAL_STORAGE",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Canvas-based 300-frame planetarium animation loop with editable post-it grid in localStorage."
+    },
+    {
+      "feature": "Atlas Anatomical Taxonomy (/atlas)",
+      "frontend_state": "REAL",
+      "backend_state": "LOCAL_ONLY",
+      "data_state": "STATIC_TAXONOMY",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Hierarchical body system and region explorer linking directly to corresponding 3D models."
+    },
+    {
+      "feature": "Interactive Lessons (/lessons, /lessons/:slug)",
+      "frontend_state": "PARTIAL_REAL",
+      "backend_state": "LOCAL_ONLY",
+      "data_state": "LOCAL_DECKS_HTML",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES_WITH_LIMITATION",
+      "blocker": "NONE",
+      "severity": "P2",
+      "notes": "Sandbox iframe player works with local decks; 1 verified production lesson available."
+    },
+    {
+      "feature": "Student Telemetry & Progress Tracking",
+      "frontend_state": "REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "SUPABASE_AND_LOCAL",
+      "auth_state": "ROLE_STUDENT",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Captures viewer duration, heartbeat sessions, quiz results, and model completions."
+    },
+    {
+      "feature": "User Profile (/profile)",
+      "frontend_state": "PARTIAL_REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "PARTIAL_SUPABASE",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES_WITH_LIMITATION",
+      "blocker": "P2-01",
+      "severity": "P2",
+      "notes": "Only name and password update in Supabase; academic fields (course/semester) not saved on submit."
+    },
+    {
+      "feature": "User Settings (/settings)",
+      "frontend_state": "REAL",
+      "backend_state": "LOCAL_ONLY",
+      "data_state": "LOCAL_STORAGE",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Language switcher (PT/ES/EN/DE), Dark/Light theme toggle, cache flush, logout."
+    },
+    {
+      "feature": "Institutional Licensing Gating (/license)",
+      "frontend_state": "REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "PROFILE_ENTITLEMENT",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Accurately displays authenticated institutional tenancy and contract status without fake metrics."
+    },
+    {
+      "feature": "Teacher Experience (/teacher/*)",
+      "frontend_state": "PARTIAL_REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "SUPABASE_TEACHER_TABLES",
+      "auth_state": "ROLE_TEACHER",
+      "production_ready": "YES_WITH_LIMITATION",
+      "blocker": "NONE",
+      "severity": "P2",
+      "notes": "Provides classes, students, study guides, and anatomical notes for verified teacher profiles."
+    },
+    {
+      "feature": "Rector Governance Dashboard (/rector/*)",
+      "frontend_state": "REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "SUPABASE_ANALYTICS",
+      "auth_state": "ROLE_RECTOR",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Executive level governance view with platform capacity, student count, and usage trends."
+    },
+    {
+      "feature": "Coordinator Governance Dashboard (/coordinator/*)",
+      "frontend_state": "REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "SUPABASE_ANALYTICS",
+      "auth_state": "ROLE_COORDINATOR",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Academic governance view with class progress, student risk analysis, and system heatmaps."
+    },
+    {
+      "feature": "Super Admin CMS & Operations (/super-admin)",
+      "frontend_state": "REAL",
+      "backend_state": "PROD_REAL",
+      "data_state": "SUPABASE_MULTI_TENANT",
+      "auth_state": "ROLE_SUPER_ADMIN",
+      "production_ready": "YES",
+      "blocker": "NONE",
+      "severity": "NONE",
+      "notes": "Multi-tenant institution overview, student approval/blocking, 3D model CMS, audit logs."
+    },
+    {
+      "feature": "Atlas AI Tutor (Text Chat)",
+      "frontend_state": "REAL",
+      "backend_state": "LOCAL_ONLY",
+      "data_state": "AI_GATEWAY_OLLAMA",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "NO",
+      "blocker": "P0-01",
+      "severity": "P0",
+      "notes": "Depends on local AI Gateway (:8081) with Ollama qwen2.5:3b. Edge function returns 503 in cloud."
+    },
+    {
+      "feature": "Atlas AI Voice / Aeternum Vita",
+      "frontend_state": "BROKEN",
+      "backend_state": "LOCAL_ONLY",
+      "data_state": "LIVEKIT_WS",
+      "auth_state": "AUTHENTICATED",
+      "production_ready": "NO",
+      "blocker": "P0-01",
+      "severity": "P1",
+      "notes": "Requires LiveKit WebRTC agent and local Speaches STT/TTS server; not deployable on Vercel frontend alone."
+    },
+    {
+      "feature": "Safe Engine (Deterministic Anatomical Reasoning)",
+      "frontend_state": "NOT_IMPLEMENTED",
+      "backend_state": "LOCAL_ONLY",
+      "data_state": "CANONICAL_MEMORY_SQLITE",
+      "auth_state": "NOT_APPLICABLE",
+      "production_ready": "NO",
+      "blocker": "P1-02",
+      "severity": "P1",
+      "notes": "Deterministic offline Node.js engine; not wired into client-side UI or Edge Functions."
+    },
+    {
+      "feature": "Canonical Anatomical Memory (248 Facts / 154 Entities)",
+      "frontend_state": "NOT_IMPLEMENTED",
+      "backend_state": "NOT_CONNECTED",
+      "data_state": "LOCAL_FILES_ONLY",
+      "auth_state": "NOT_APPLICABLE",
+      "production_ready": "NO",
+      "blocker": "P1-02",
+      "severity": "P1",
+      "notes": "Stored in knowledge_base/canonical/ and SQLite mirror; Supabase production uses older textbook OCR RAG."
+    }
+  ]
+}

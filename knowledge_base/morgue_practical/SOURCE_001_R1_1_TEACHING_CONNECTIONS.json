@@ -1,0 +1,126 @@
+[
+  {
+    "connection_id": "TC-001",
+    "anchor_entity": "canal_de_torsion_sulco_radial",
+    "related_entities": [
+      "nervio_radial",
+      "arteria_braquial_profunda",
+      "umero"
+    ],
+    "connection_type": "NEUROVASCULAR_OSSEOUS_GROOVE_VULNERABILITY",
+    "teaching_reason": "El canal de torsión en la cara posterior del húmero aloja íntimamente al nervio radial y a la arteria braquial profunda contra la cortical ósea.",
+    "context": "Cara posterior de la diáfisis del húmero",
+    "underlying_atomic_fact_ids": [
+      "AF-0080",
+      "AF-0081"
+    ],
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "connection_id": "TC-002",
+    "anchor_entity": "espacio_cuadrangular_velpeau",
+    "related_entities": [
+      "nervio_axilar",
+      "arteria_circunfleja_humeral_posterior",
+      "cuello_quirurgico_umero"
+    ],
+    "connection_type": "TOPOGRAPHIC_SPACE_SURGICAL_VULNERABILITY",
+    "teaching_reason": "El espacio cuadrangular de Velpeau da paso al nervio axilar y arteria circunfleja humeral posterior inmediatamente adyacentes al cuello quirúrgico del húmero.",
+    "context": "Región escapular posterior / axila posterior",
+    "underlying_atomic_fact_ids": [
+      "AF-0141",
+      "AF-0142",
+      "AF-0143",
+      "AF-0144",
+      "AF-0145",
+      "AF-0146"
+    ],
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "connection_id": "TC-003",
+    "anchor_entity": "apofisis_coracoides",
+    "related_entities": [
+      "m_coracobraquial",
+      "m_biceps_braquial_cabeza_corta",
+      "m_pectoral_menor",
+      "lig_conoide",
+      "lig_trapezoide"
+    ],
+    "connection_type": "ANATOMICAL_LIGHTHOUSE_CONJOINT_TENDON",
+    "teaching_reason": "El vértice de la apófisis coracoides da origen común al tendón conjunto coracobiceps y sirve de faro en la disección anterior del hombro.",
+    "context": "Hombro anterior",
+    "underlying_atomic_fact_ids": [],
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "connection_id": "TC-004",
+    "anchor_entity": "corredera_bicipital",
+    "related_entities": [
+      "m_pectoral_mayor",
+      "m_dorsal_ancho",
+      "m_redondo_mayor"
+    ],
+    "connection_type": "RELATIONAL_MNEMONIC_TENDON_CHANNEL",
+    "teaching_reason": "Nemotecnia del profesor: dorsal ancho (mendigo) en el suelo entre dos caballeros (pectoral mayor lateral y redondo mayor medial).",
+    "context": "Húmero proximal anterior",
+    "underlying_atomic_fact_ids": [
+      "AF-0075",
+      "AF-0076",
+      "AF-0077"
+    ],
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "connection_id": "TC-005",
+    "anchor_entity": "tabaquera_anatomica",
+    "related_entities": [
+      "arteria_radial",
+      "escafoides",
+      "trapecio"
+    ],
+    "connection_type": "SURFACE_LANDMARK_AND_CLINICAL_PALPATION",
+    "teaching_reason": "Foveola radialis donde se palpa directamente el escafoides y el pulso de la arteria radial entre los tendones extensores del pulgar.",
+    "context": "Muñeca posterolateral",
+    "underlying_atomic_fact_ids": [
+      "AF-0096",
+      "AF-0169",
+      "AF-0201"
+    ],
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "connection_id": "TC-006",
+    "anchor_entity": "arteria_axilar",
+    "related_entities": [
+      "m_pectoral_menor",
+      "arteria_toracica_superior",
+      "arteria_toracoacromial",
+      "arteria_subescapular"
+    ],
+    "connection_type": "RELATIONAL_DIVISION_AND_BRANCH_COUNTING",
+    "teaching_reason": "El músculo pectoral menor divide la arteria axilar en 3 porciones con regla aritmética de ramas: 1ª porción = 1 rama; 2ª porción = 2 ramas; 3ª porción = 3 ramas.",
+    "context": "Fosa axilar",
+    "underlying_atomic_fact_ids": [
+      "AF-0182",
+      "AF-0184",
+      "AF-0185",
+      "AF-0191",
+      "AF-0192",
+      "AF-0193"
+    ],
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "validation_status": "SOURCE_EXTRACTED"
+  }
+]

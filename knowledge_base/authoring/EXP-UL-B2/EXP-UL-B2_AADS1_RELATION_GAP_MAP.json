@@ -1,0 +1,110 @@
+{
+  "phase": "AMC-1.2 / EXP-UL-B2-A1.6",
+  "timestamp": "2026-09-27T02:30:00Z",
+  "certified_relations_status": "PRESERVED_UNCHANGED",
+  "total_certified_relations": 10,
+  "certified_relations": [
+    {
+      "relation_type": "articulates_with",
+      "source_entity": "AET-ENT-REF-HUMERAL_HEAD",
+      "target_entity": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_type": "deepens",
+      "source_entity": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "target_entity": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_type": "inserts_into",
+      "source_entity": "AET-ENT-REF-SUBSCAPULARIS",
+      "target_entity": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_type": "inserts_into",
+      "source_entity": "AET-ENT-REF-SUPRASPINATUS",
+      "target_entity": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_type": "inserts_into",
+      "source_entity": "AET-ENT-REF-INFRASPINATUS",
+      "target_entity": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_type": "inserts_into",
+      "source_entity": "AET-ENT-REF-TERES_MINOR",
+      "target_entity": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_type": "originates_from",
+      "source_entity": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "target_entity": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_type": "bridges",
+      "source_entity": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "target_entity": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_type": "reinforces",
+      "source_entity": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "target_entity": "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_type": "forms_part_of",
+      "source_entity": "AET-ENT-CAND-UL-HUMERAL_HEAD",
+      "target_entity": "AET-ENT-REF-HUMERUS",
+      "status": "RELATION_CERTIFIED"
+    }
+  ],
+  "candidate_relations_audited": [
+    {
+      "relation_type": "traversed_by",
+      "source_entity": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+      "target_entity": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "description": "The rotator interval is traversed by the tendon of the long head of the biceps brachii, enclosed within its synovial sheath.",
+      "status": "RELATION_CANDIDATE",
+      "ontology_review": "APPROVED_FOR_AUTHORING"
+    },
+    {
+      "relation_type": "communicates_with",
+      "source_entity": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "target_entity": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "description": "The subtendinous bursa of the subscapularis communicates with the glenohumeral synovial cavity through the foramen of Weitbrecht.",
+      "status": "RELATION_CANDIDATE",
+      "ontology_review": "APPROVED_FOR_AUTHORING"
+    },
+    {
+      "relation_type": "forms_force_couple_with",
+      "source_entity": "AET-ENT-REF-DELTOID",
+      "target_entity": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "description": "Deltoid superior shear vector is dynamically balanced by the inferior and compressive vectors of the rotator cuff force couple.",
+      "status": "RELATION_CANDIDATE",
+      "ontology_review": "APPROVED_FOR_AUTHORING"
+    },
+    {
+      "relation_type": "buffers",
+      "source_entity": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "target_entity": "AET-ENT-CAND-UL-CORACOACROMIAL_ARCH",
+      "description": "Subacromial-subdeltoid bursa buffers friction between the underlying supraspinatus tendon and the overlying rigid coracoacromial arch.",
+      "status": "RELATION_CANDIDATE",
+      "ontology_review": "APPROVED_FOR_AUTHORING"
+    },
+    {
+      "relation_type": "coordinates_with",
+      "source_entity": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "target_entity": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "description": "Glenohumeral elevation coordinates rhythmically with acromioclavicular rotation in the 2:1 scapulohumeral motion ratio.",
+      "status": "RELATION_ONTOLOGY_REVIEW_REQUIRED",
+      "ontology_review": "REVIEW_REQUIRED_FOR_KINEMATIC_COUPLING"
+    }
+  ]
+}

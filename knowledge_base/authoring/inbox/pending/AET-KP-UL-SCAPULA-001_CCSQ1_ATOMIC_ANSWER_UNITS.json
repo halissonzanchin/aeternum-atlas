@@ -1,0 +1,3098 @@
+[
+  {
+    "answer_unit_id": "AAU-SCAP-001",
+    "canonical_candidate_id": "CANON-SCAP-001",
+    "source_fact_candidate_id": "SCAP-SRC-F001",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_PART_OF",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "part_of",
+      "target": [
+        "pectoral_girdle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — part_of: pectoral_girdle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula (omóplato) integra a cintura escapular.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-002",
+    "canonical_candidate_id": "CANON-SCAP-002",
+    "source_fact_candidate_id": "SCAP-SRC-F002",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_TYPE_OF",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "type_of",
+      "target": [
+        "flat_bone"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — type_of: flat_bone.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula é um osso plano.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-003",
+    "canonical_candidate_id": "CANON-SCAP-003",
+    "source_fact_candidate_id": "SCAP-SRC-F003",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_SYMMETRY",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_symmetry",
+      "target": [
+        "paired_bone"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_symmetry: paired_bone.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula é um osso par.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-004",
+    "canonical_candidate_id": "CANON-SCAP-004",
+    "source_fact_candidate_id": "SCAP-SRC-F004",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_SHAPE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_shape",
+      "target": [
+        "triangular"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_shape: triangular.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula tem configuração triangular.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-005",
+    "canonical_candidate_id": "CANON-SCAP-005",
+    "source_fact_candidate_id": "SCAP-SRC-F005",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_LOCATED_IN",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "located_in",
+      "target": [
+        "posterolateral_thoracic_wall"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — located_in: posterolateral_thoracic_wall.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula localiza-se na região torácica posterossuperolateral.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-006",
+    "canonical_candidate_id": "CANON-SCAP-006",
+    "source_fact_candidate_id": "SCAP-SRC-F006",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_SPANS_LEVELS",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "spans_levels",
+      "target": [
+        "rib_2_to_rib_7"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — spans_levels: rib_2_to_rib_7.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula estende-se aproximadamente da 2ª à 7ª costela.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-007",
+    "canonical_candidate_id": "CANON-SCAP-007",
+    "source_fact_candidate_id": "SCAP-SRC-F007",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ARTICULATES_WITH",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "articulates_with",
+      "target": [
+        "clavicle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — articulates_with: clavicle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula articula-se com a clavícula através da articulação acromioclavicular.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-007)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-008",
+    "canonical_candidate_id": "CANON-SCAP-008",
+    "source_fact_candidate_id": "SCAP-SRC-F008",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ARTICULATES_WITH",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "articulates_with",
+      "target": [
+        "humerus"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — articulates_with: humerus.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula articula-se com o úmero através da articulação glenoumeral.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-008)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-009",
+    "canonical_candidate_id": "CANON-SCAP-009",
+    "source_fact_candidate_id": "SCAP-SRC-F009",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_CURVATURE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_curvature",
+      "target": [
+        "costal_surface_concave"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_curvature: costal_surface_concave.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A face anterior ou costal da escápula é descrita como côncava.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-010",
+    "canonical_candidate_id": "CANON-SCAP-010",
+    "source_fact_candidate_id": "SCAP-SRC-F010",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_FOSSA",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_fossa",
+      "target": [
+        "subscapular_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_fossa: subscapular_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A face anterior ou costal abriga a fossa subescapular.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-011",
+    "canonical_candidate_id": "CANON-SCAP-011",
+    "source_fact_candidate_id": "SCAP-SRC-F011",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_CURVATURE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_curvature",
+      "target": [
+        "posterior_surface_convex"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_curvature: posterior_surface_convex.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A face posterior ou dorsal da escápula é descrita como convexa.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-012",
+    "canonical_candidate_id": "CANON-SCAP-012",
+    "source_fact_candidate_id": "SCAP-SRC-F012",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_FOSSA",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_fossa",
+      "target": [
+        "supraspinous_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_fossa: supraspinous_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A face posterior identifica a fossa supraespinosa.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-013",
+    "canonical_candidate_id": "CANON-SCAP-013",
+    "source_fact_candidate_id": "SCAP-SRC-F013",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_FOSSA",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_fossa",
+      "target": [
+        "infraspinous_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_fossa: infraspinous_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A face posterior identifica a fossa infraespinosa.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-014",
+    "canonical_candidate_id": "CANON-SCAP-014",
+    "source_fact_candidate_id": "SCAP-SRC-F014",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_STRUCTURE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_structure",
+      "target": [
+        "scapular_spine"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_structure: scapular_spine.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A face posterior identifica a espinha da escápula.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-015",
+    "canonical_candidate_id": "CANON-SCAP-015",
+    "source_fact_candidate_id": "SCAP-SRC-F015",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_STRUCTURE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_structure",
+      "target": [
+        "acromion"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_structure: acromion.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A face posterior identifica o acrômio.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-016",
+    "canonical_candidate_id": "CANON-SCAP-016",
+    "source_fact_candidate_id": "SCAP-SRC-F016",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_NOTCH",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_notch",
+      "target": [
+        "spinoglenoid_notch"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_notch: spinoglenoid_notch.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A face posterior identifica a incisura espinoglenoidal.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-003)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-017",
+    "canonical_candidate_id": "CANON-SCAP-017",
+    "source_fact_candidate_id": "SCAP-SRC-F017",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_BORDER",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_border",
+      "target": [
+        "medial_border"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_border: medial_border.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula possui borda medial (denominada borda espinhal nas notas de aula).",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-018",
+    "canonical_candidate_id": "CANON-SCAP-018",
+    "source_fact_candidate_id": "SCAP-SRC-F018",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_BORDER",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_border",
+      "target": [
+        "lateral_border"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_border: lateral_border.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula possui borda lateral (denominada borda axilar nas notas de aula).",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-019",
+    "canonical_candidate_id": "CANON-SCAP-019",
+    "source_fact_candidate_id": "SCAP-SRC-F019",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_BORDER",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_border",
+      "target": [
+        "superior_border"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_border: superior_border.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula possui borda superior.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-020",
+    "canonical_candidate_id": "CANON-SCAP-020",
+    "source_fact_candidate_id": "SCAP-SRC-F020",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_INSERTS_INTO",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "inserts_into",
+      "target": [
+        "medial_border_at_spine_level"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — inserts_into: medial_border_at_spine_level.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "O músculo romboide menor relaciona-se com a borda medial ao nível da espinha escapular.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-021",
+    "canonical_candidate_id": "CANON-SCAP-021",
+    "source_fact_candidate_id": "SCAP-SRC-F021",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_INSERTS_INTO",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "inserts_into",
+      "target": [
+        "medial_border_to_inferior_angle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — inserts_into: medial_border_to_inferior_angle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "O músculo romboide maior relaciona-se com a borda medial em direção ao ângulo inferior.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-022",
+    "canonical_candidate_id": "CANON-SCAP-022",
+    "source_fact_candidate_id": "SCAP-SRC-F022",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_NOTCH",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_notch",
+      "target": [
+        "suprascapular_notch"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_notch: suprascapular_notch.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A borda superior associa-se à terminologia incisura escapular / incisura coracoide nas notas.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-023",
+    "canonical_candidate_id": "CANON-SCAP-023",
+    "source_fact_candidate_id": "SCAP-SRC-F023",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_ANGLE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_angle",
+      "target": [
+        "superior_angle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_angle: superior_angle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula possui ângulo superior, unindo as bordas superior e medial.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-005)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-024",
+    "canonical_candidate_id": "CANON-SCAP-024",
+    "source_fact_candidate_id": "SCAP-SRC-F024",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_ANGLE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_angle",
+      "target": [
+        "inferior_angle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_angle: inferior_angle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula possui ângulo inferior, unindo as bordas medial e lateral.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-005)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-025",
+    "canonical_candidate_id": "CANON-SCAP-025",
+    "source_fact_candidate_id": "SCAP-SRC-F025",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_ANGLE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_angle",
+      "target": [
+        "lateral_angle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_angle: lateral_angle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula possui ângulo lateral, unindo as bordas superior e lateral.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-005)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-026",
+    "canonical_candidate_id": "CANON-SCAP-026",
+    "source_fact_candidate_id": "SCAP-SRC-F026",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_PROCESS",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_process",
+      "target": [
+        "coracoid_process"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_process: coracoid_process.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula identifica o processo coracoide.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-005)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-027",
+    "canonical_candidate_id": "CANON-SCAP-027",
+    "source_fact_candidate_id": "SCAP-SRC-F027",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_ARTICULAR_CAVITY",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "has_articular_cavity",
+      "target": [
+        "glenoid_cavity"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — has_articular_cavity: glenoid_cavity.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A escápula identifica a cavidade glenoidal.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-005)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-028",
+    "canonical_candidate_id": "CANON-SCAP-028",
+    "source_fact_candidate_id": "SCAP-SRC-F028",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_SURROUNDED_BY",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "surrounded_by",
+      "target": [
+        "glenoid_labrum"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — surrounded_by: glenoid_labrum.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A cavidade glenoidal é circundada pelo lábio glenoidal (labrum).",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-008)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-029",
+    "canonical_candidate_id": "CANON-SCAP-029",
+    "source_fact_candidate_id": "SCAP-SRC-F029",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ARTICULATES_WITH",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "articulates_with",
+      "target": [
+        "humeral_head"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — articulates_with: humeral_head.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A cavidade glenoidal articula-se com a cabeça do úmero.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-008)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-030",
+    "canonical_candidate_id": "CANON-SCAP-030",
+    "source_fact_candidate_id": "SCAP-SRC-F030",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ORIGINATES_FROM",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "originates_from",
+      "target": [
+        "subscapular_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — originates_from: subscapular_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa o subescapular com a fossa subescapular.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-031",
+    "canonical_candidate_id": "CANON-SCAP-031",
+    "source_fact_candidate_id": "SCAP-SRC-F031",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_INSERTS_INTO",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "inserts_into",
+      "target": [
+        "medial_border_costal_aspect"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — inserts_into: medial_border_costal_aspect.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa o serrátil anterior com a borda medial entre os ângulos superior e inferior.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-032",
+    "canonical_candidate_id": "CANON-SCAP-032",
+    "source_fact_candidate_id": "SCAP-SRC-F032",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ORIGINATES_FROM",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "originates_from",
+      "target": [
+        "supraspinous_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — originates_from: supraspinous_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa o supraespinhal com a fossa supraespinosa.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-033",
+    "canonical_candidate_id": "CANON-SCAP-033",
+    "source_fact_candidate_id": "SCAP-SRC-F033",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ORIGINATES_FROM",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "originates_from",
+      "target": [
+        "infraspinous_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — originates_from: infraspinous_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa o infraespinhal com a fossa infraespinosa.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-034",
+    "canonical_candidate_id": "CANON-SCAP-034",
+    "source_fact_candidate_id": "SCAP-SRC-F034",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_INSERTS_INTO",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "inserts_into",
+      "target": [
+        "scapular_spine_superior_lip"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — inserts_into: scapular_spine_superior_lip.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa o trapézio com o lábio superior da borda posterior da espinha da escápula.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-035",
+    "canonical_candidate_id": "CANON-SCAP-035",
+    "source_fact_candidate_id": "SCAP-SRC-F035",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ORIGINATES_FROM",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "originates_from",
+      "target": [
+        "scapular_spine_inferior_lip"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — originates_from: scapular_spine_inferior_lip.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa o deltoide com o lábio inferior da borda posterior da espinha da escápula.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-036",
+    "canonical_candidate_id": "CANON-SCAP-036",
+    "source_fact_candidate_id": "SCAP-SRC-F036",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ORIGINATES_FROM",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "originates_from",
+      "target": [
+        "lateral_border_dorsal_aspect"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — originates_from: lateral_border_dorsal_aspect.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa o redondo menor em direção à borda lateral.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-037",
+    "canonical_candidate_id": "CANON-SCAP-037",
+    "source_fact_candidate_id": "SCAP-SRC-F037",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ORIGINATES_FROM",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "originates_from",
+      "target": [
+        "inferior_angle_dorsal_aspect"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — originates_from: inferior_angle_dorsal_aspect.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa o redondo maior em direção à borda lateral.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-038",
+    "canonical_candidate_id": "CANON-SCAP-038",
+    "source_fact_candidate_id": "SCAP-SRC-F038",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ORIGINATES_FROM",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "originates_from",
+      "target": [
+        "supraglenoid_tubercle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — originates_from: supraglenoid_tubercle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa a cabeça longa do bíceps com a região supraglenoidal.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-005)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-039",
+    "canonical_candidate_id": "CANON-SCAP-039",
+    "source_fact_candidate_id": "SCAP-SRC-F039",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ORIGINATES_FROM",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "originates_from",
+      "target": [
+        "infraglenoid_tubercle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — originates_from: infraglenoid_tubercle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa a cabeça longa do tríceps com a região infraglenoidal.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-005)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-040",
+    "canonical_candidate_id": "CANON-SCAP-040",
+    "source_fact_candidate_id": "SCAP-SRC-F040",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ORIGINATES_FROM",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "originates_from",
+      "target": [
+        "coracoid_process_apex"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — originates_from: coracoid_process_apex.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa o coracobraquial com o ápice do processo coracoide.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-005)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-041",
+    "canonical_candidate_id": "CANON-SCAP-041",
+    "source_fact_candidate_id": "SCAP-SRC-F041",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ORIGINATES_FROM",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "originates_from",
+      "target": [
+        "coracoid_process_apex"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — originates_from: coracoid_process_apex.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa a cabeça curta do bíceps com o ápice do processo coracoide.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-005)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-042",
+    "canonical_candidate_id": "CANON-SCAP-042",
+    "source_fact_candidate_id": "SCAP-SRC-F042",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_INSERTS_INTO",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "inserts_into",
+      "target": [
+        "coracoid_process_medial_border"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — inserts_into: coracoid_process_medial_border.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa o peitoral menor com a borda medial do processo coracoide.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-005)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-043",
+    "canonical_candidate_id": "CANON-SCAP-043",
+    "source_fact_candidate_id": "SCAP-SRC-F044",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ATTACHES_LIGAMENT",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "attaches_ligament",
+      "target": [
+        "coracoclavicular_ligament"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — attaches_ligament: coracoclavicular_ligament.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa a região coracoide aos ligamentos coracoclaviculares.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-044",
+    "canonical_candidate_id": "CANON-SCAP-044",
+    "source_fact_candidate_id": "SCAP-SRC-F045",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ATTACHES_LIGAMENT",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "attaches_ligament",
+      "target": [
+        "coracoacromial_ligament"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — attaches_ligament: coracoacromial_ligament.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa a região coracoide ao ligamento coracoacromial.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-045",
+    "canonical_candidate_id": "CANON-SCAP-045",
+    "source_fact_candidate_id": "SCAP-SRC-F046",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ATTACHES_LIGAMENT",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "attaches_ligament",
+      "target": [
+        "trapezoid_ligament"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — attaches_ligament: trapezoid_ligament.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa a região coracoide ao ligamento trapezoide.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-046",
+    "canonical_candidate_id": "CANON-SCAP-046",
+    "source_fact_candidate_id": "SCAP-SRC-F047",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ATTACHES_LIGAMENT",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "attaches_ligament",
+      "target": [
+        "conoid_ligament"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — attaches_ligament: conoid_ligament.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa a região coracoide ao ligamento conoide.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-047",
+    "canonical_candidate_id": "CANON-SCAP-047",
+    "source_fact_candidate_id": "SCAP-SRC-F048",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ATTACHES_LIGAMENT",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "attaches_ligament",
+      "target": [
+        "superior_transverse_scapular_ligament"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — attaches_ligament: superior_transverse_scapular_ligament.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte associa a região coracoide ao ligamento transverso superior da escápula.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-048",
+    "canonical_candidate_id": "CANON-SCAP-048",
+    "source_fact_candidate_id": "SCAP-SRC-F049",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_CONVERTS_TO_FORAMEN",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "converts_to_foramen",
+      "target": [
+        "suprascapular_foramen"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — converts_to_foramen: suprascapular_foramen.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte afirma que o ligamento transverso superior converte a incisura escapular/coracoide em forame.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-049",
+    "canonical_candidate_id": "CANON-SCAP-049",
+    "source_fact_candidate_id": "SCAP-SRC-F052",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_VASCULAR_SYNTOPY",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "vascular_syntopy",
+      "target": [
+        "dorsal_scapular_vessels_along_medial_border"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — vascular_syntopy: dorsal_scapular_vessels_along_medial_border.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": "A fonte lista relação vascular regional envolvendo artéria e veia dorsais da escápula.",
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-050",
+    "canonical_candidate_id": "CANON-SCAP-050",
+    "source_fact_candidate_id": "SCAP-AI-F001",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_TYPE_OF",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "TYPE_OF",
+      "target": [
+        "flat_bone_candidate"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — TYPE_OF: flat_bone_candidate.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-051",
+    "canonical_candidate_id": "CANON-SCAP-051",
+    "source_fact_candidate_id": "SCAP-AI-F002",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_LOCATED_IN",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "LOCATED_IN",
+      "target": [
+        "pectoral_girdle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — LOCATED_IN: pectoral_girdle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-052",
+    "canonical_candidate_id": "CANON-SCAP-052",
+    "source_fact_candidate_id": "SCAP-AI-F003",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_SURFACE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_SURFACE",
+      "target": [
+        "costal_surface"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_SURFACE: costal_surface.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-053",
+    "canonical_candidate_id": "CANON-SCAP-053",
+    "source_fact_candidate_id": "SCAP-AI-F004",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_SURFACE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_SURFACE",
+      "target": [
+        "posterior_surface"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_SURFACE: posterior_surface.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-054",
+    "canonical_candidate_id": "CANON-SCAP-054",
+    "source_fact_candidate_id": "SCAP-AI-F005",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_BORDER",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_BORDER",
+      "target": [
+        "superior_border"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_BORDER: superior_border.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-055",
+    "canonical_candidate_id": "CANON-SCAP-055",
+    "source_fact_candidate_id": "SCAP-AI-F006",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_BORDER",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_BORDER",
+      "target": [
+        "medial_border"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_BORDER: medial_border.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-056",
+    "canonical_candidate_id": "CANON-SCAP-056",
+    "source_fact_candidate_id": "SCAP-AI-F007",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_BORDER",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_BORDER",
+      "target": [
+        "lateral_border"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_BORDER: lateral_border.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-057",
+    "canonical_candidate_id": "CANON-SCAP-057",
+    "source_fact_candidate_id": "SCAP-AI-F008",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_ANGLE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_ANGLE",
+      "target": [
+        "superior_angle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_ANGLE: superior_angle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-058",
+    "canonical_candidate_id": "CANON-SCAP-058",
+    "source_fact_candidate_id": "SCAP-AI-F009",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_ANGLE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_ANGLE",
+      "target": [
+        "inferior_angle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_ANGLE: inferior_angle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-059",
+    "canonical_candidate_id": "CANON-SCAP-059",
+    "source_fact_candidate_id": "SCAP-AI-F010",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_ANGLE",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_ANGLE",
+      "target": [
+        "lateral_angle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_ANGLE: lateral_angle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-060",
+    "canonical_candidate_id": "CANON-SCAP-060",
+    "source_fact_candidate_id": "SCAP-AI-F011",
+    "entity_id": "posterior_surface_of_scapula",
+    "query_intents": [
+      "QUERY_POSTERIOR_SURFACE_OF_SCAPULA_HAS_STRUCTURE",
+      "QUERY_POSTERIOR_SURFACE_OF_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "posterior_surface_of_scapula",
+      "relation": "HAS_STRUCTURE",
+      "target": [
+        "scapular_spine"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "posterior_surface_of_scapula — HAS_STRUCTURE: scapular_spine.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-061",
+    "canonical_candidate_id": "CANON-SCAP-061",
+    "source_fact_candidate_id": "SCAP-AI-F012",
+    "entity_id": "scapular_spine",
+    "query_intents": [
+      "QUERY_SCAPULAR_SPINE_SEPARATES",
+      "QUERY_SCAPULAR_SPINE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapular_spine",
+      "relation": "SEPARATES",
+      "target": [
+        "supraspinous_fossa",
+        "infraspinous_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapular_spine — SEPARATES: supraspinous_fossa, infraspinous_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-062",
+    "canonical_candidate_id": "CANON-SCAP-062",
+    "source_fact_candidate_id": "SCAP-AI-F013",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_FOSSA",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_FOSSA",
+      "target": [
+        "subscapular_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_FOSSA: subscapular_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-063",
+    "canonical_candidate_id": "CANON-SCAP-063",
+    "source_fact_candidate_id": "SCAP-AI-F014",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_FOSSA",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_FOSSA",
+      "target": [
+        "supraspinous_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_FOSSA: supraspinous_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-064",
+    "canonical_candidate_id": "CANON-SCAP-064",
+    "source_fact_candidate_id": "SCAP-AI-F015",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_FOSSA",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_FOSSA",
+      "target": [
+        "infraspinous_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_FOSSA: infraspinous_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-065",
+    "canonical_candidate_id": "CANON-SCAP-065",
+    "source_fact_candidate_id": "SCAP-AI-F016",
+    "entity_id": "scapular_spine",
+    "query_intents": [
+      "QUERY_SCAPULAR_SPINE_CONTINUES_AS",
+      "QUERY_SCAPULAR_SPINE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapular_spine",
+      "relation": "CONTINUES_AS",
+      "target": [
+        "acromion"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapular_spine — CONTINUES_AS: acromion.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-066",
+    "canonical_candidate_id": "CANON-SCAP-066",
+    "source_fact_candidate_id": "SCAP-AI-F017",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_PROCESS",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_PROCESS",
+      "target": [
+        "coracoid_process"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_PROCESS: coracoid_process.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-067",
+    "canonical_candidate_id": "CANON-SCAP-067",
+    "source_fact_candidate_id": "SCAP-AI-F018",
+    "entity_id": "lateral_angle_of_scapula",
+    "query_intents": [
+      "QUERY_LATERAL_ANGLE_OF_SCAPULA_HAS_STRUCTURE",
+      "QUERY_LATERAL_ANGLE_OF_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "lateral_angle_of_scapula",
+      "relation": "HAS_STRUCTURE",
+      "target": [
+        "glenoid_cavity"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "lateral_angle_of_scapula — HAS_STRUCTURE: glenoid_cavity.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-068",
+    "canonical_candidate_id": "CANON-SCAP-068",
+    "source_fact_candidate_id": "SCAP-AI-F019",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_LANDMARK",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_LANDMARK",
+      "target": [
+        "supraglenoid_tubercle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_LANDMARK: supraglenoid_tubercle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-069",
+    "canonical_candidate_id": "CANON-SCAP-069",
+    "source_fact_candidate_id": "SCAP-AI-F020",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_HAS_LANDMARK",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "HAS_LANDMARK",
+      "target": [
+        "infraglenoid_tubercle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — HAS_LANDMARK: infraglenoid_tubercle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-070",
+    "canonical_candidate_id": "CANON-SCAP-070",
+    "source_fact_candidate_id": "SCAP-AI-F021",
+    "entity_id": "superior_border_of_scapula",
+    "query_intents": [
+      "QUERY_SUPERIOR_BORDER_OF_SCAPULA_HAS_NOTCH",
+      "QUERY_SUPERIOR_BORDER_OF_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "superior_border_of_scapula",
+      "relation": "HAS_NOTCH",
+      "target": [
+        "suprascapular_notch"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "superior_border_of_scapula — HAS_NOTCH: suprascapular_notch.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-071",
+    "canonical_candidate_id": "CANON-SCAP-071",
+    "source_fact_candidate_id": "SCAP-AI-F022",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ARTICULATES_WITH",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "ARTICULATES_WITH",
+      "target": [
+        "clavicle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — ARTICULATES_WITH: clavicle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-007)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-072",
+    "canonical_candidate_id": "CANON-SCAP-072",
+    "source_fact_candidate_id": "SCAP-AI-F023",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_ARTICULATES_WITH",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "ARTICULATES_WITH",
+      "target": [
+        "humerus"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — ARTICULATES_WITH: humerus.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-007)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-073",
+    "canonical_candidate_id": "CANON-SCAP-073",
+    "source_fact_candidate_id": "SCAP-AI-F024",
+    "entity_id": "glenoid_cavity",
+    "query_intents": [
+      "QUERY_GLENOID_CAVITY_ARTICULATES_WITH",
+      "QUERY_GLENOID_CAVITY_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "glenoid_cavity",
+      "relation": "ARTICULATES_WITH",
+      "target": [
+        "humeral_head"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "glenoid_cavity — ARTICULATES_WITH: humeral_head.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-007)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-074",
+    "canonical_candidate_id": "CANON-SCAP-074",
+    "source_fact_candidate_id": "SCAP-AI-F025",
+    "entity_id": "subscapularis",
+    "query_intents": [
+      "QUERY_SUBSCAPULARIS_ORIGINATES_FROM",
+      "QUERY_SUBSCAPULARIS_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "subscapularis",
+      "relation": "ORIGINATES_FROM",
+      "target": [
+        "subscapular_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "subscapularis — ORIGINATES_FROM: subscapular_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-075",
+    "canonical_candidate_id": "CANON-SCAP-075",
+    "source_fact_candidate_id": "SCAP-AI-F026",
+    "entity_id": "supraspinatus",
+    "query_intents": [
+      "QUERY_SUPRASPINATUS_ORIGINATES_FROM",
+      "QUERY_SUPRASPINATUS_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "supraspinatus",
+      "relation": "ORIGINATES_FROM",
+      "target": [
+        "supraspinous_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "supraspinatus — ORIGINATES_FROM: supraspinous_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-076",
+    "canonical_candidate_id": "CANON-SCAP-076",
+    "source_fact_candidate_id": "SCAP-AI-F027",
+    "entity_id": "infraspinatus",
+    "query_intents": [
+      "QUERY_INFRASPINATUS_ORIGINATES_FROM",
+      "QUERY_INFRASPINATUS_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "infraspinatus",
+      "relation": "ORIGINATES_FROM",
+      "target": [
+        "infraspinous_fossa"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "infraspinatus — ORIGINATES_FROM: infraspinous_fossa.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-077",
+    "canonical_candidate_id": "CANON-SCAP-077",
+    "source_fact_candidate_id": "SCAP-AI-F028",
+    "entity_id": "teres_minor",
+    "query_intents": [
+      "QUERY_TERES_MINOR_ORIGINATES_FROM",
+      "QUERY_TERES_MINOR_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "teres_minor",
+      "relation": "ORIGINATES_FROM",
+      "target": [
+        "lateral_border_of_scapula"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "teres_minor — ORIGINATES_FROM: lateral_border_of_scapula.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-078",
+    "canonical_candidate_id": "CANON-SCAP-078",
+    "source_fact_candidate_id": "SCAP-AI-F029",
+    "entity_id": "teres_major",
+    "query_intents": [
+      "QUERY_TERES_MAJOR_ORIGINATES_FROM",
+      "QUERY_TERES_MAJOR_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "teres_major",
+      "relation": "ORIGINATES_FROM",
+      "target": [
+        "inferior_scapular_region"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "teres_major — ORIGINATES_FROM: inferior_scapular_region.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-079",
+    "canonical_candidate_id": "CANON-SCAP-079",
+    "source_fact_candidate_id": "SCAP-AI-F030",
+    "entity_id": "deltoid",
+    "query_intents": [
+      "QUERY_DELTOID_ORIGINATES_FROM",
+      "QUERY_DELTOID_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "deltoid",
+      "relation": "ORIGINATES_FROM",
+      "target": [
+        "acromion"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "deltoid — ORIGINATES_FROM: acromion.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-080",
+    "canonical_candidate_id": "CANON-SCAP-080",
+    "source_fact_candidate_id": "SCAP-AI-F031",
+    "entity_id": "deltoid",
+    "query_intents": [
+      "QUERY_DELTOID_ORIGINATES_FROM",
+      "QUERY_DELTOID_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "deltoid",
+      "relation": "ORIGINATES_FROM",
+      "target": [
+        "scapular_spine"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "deltoid — ORIGINATES_FROM: scapular_spine.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-081",
+    "canonical_candidate_id": "CANON-SCAP-081",
+    "source_fact_candidate_id": "SCAP-AI-F032",
+    "entity_id": "trapezius",
+    "query_intents": [
+      "QUERY_TRAPEZIUS_INSERTS_INTO",
+      "QUERY_TRAPEZIUS_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "trapezius",
+      "relation": "INSERTS_INTO",
+      "target": [
+        "acromion"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "trapezius — INSERTS_INTO: acromion.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-082",
+    "canonical_candidate_id": "CANON-SCAP-082",
+    "source_fact_candidate_id": "SCAP-AI-F033",
+    "entity_id": "trapezius",
+    "query_intents": [
+      "QUERY_TRAPEZIUS_INSERTS_INTO",
+      "QUERY_TRAPEZIUS_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "trapezius",
+      "relation": "INSERTS_INTO",
+      "target": [
+        "scapular_spine"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "trapezius — INSERTS_INTO: scapular_spine.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-083",
+    "canonical_candidate_id": "CANON-SCAP-083",
+    "source_fact_candidate_id": "SCAP-AI-F034",
+    "entity_id": "levator_scapulae",
+    "query_intents": [
+      "QUERY_LEVATOR_SCAPULAE_INSERTS_INTO",
+      "QUERY_LEVATOR_SCAPULAE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "levator_scapulae",
+      "relation": "INSERTS_INTO",
+      "target": [
+        "superior_medial_border_of_scapula"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "levator_scapulae — INSERTS_INTO: superior_medial_border_of_scapula.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-084",
+    "canonical_candidate_id": "CANON-SCAP-084",
+    "source_fact_candidate_id": "SCAP-AI-F035",
+    "entity_id": "rhomboid_minor",
+    "query_intents": [
+      "QUERY_RHOMBOID_MINOR_INSERTS_INTO",
+      "QUERY_RHOMBOID_MINOR_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "rhomboid_minor",
+      "relation": "INSERTS_INTO",
+      "target": [
+        "medial_border_near_root_of_scapular_spine"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "rhomboid_minor — INSERTS_INTO: medial_border_near_root_of_scapular_spine.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-085",
+    "canonical_candidate_id": "CANON-SCAP-085",
+    "source_fact_candidate_id": "SCAP-AI-F036",
+    "entity_id": "rhomboid_major",
+    "query_intents": [
+      "QUERY_RHOMBOID_MAJOR_INSERTS_INTO",
+      "QUERY_RHOMBOID_MAJOR_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "rhomboid_major",
+      "relation": "INSERTS_INTO",
+      "target": [
+        "medial_border_inferior_to_scapular_spine"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "rhomboid_major — INSERTS_INTO: medial_border_inferior_to_scapular_spine.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-086",
+    "canonical_candidate_id": "CANON-SCAP-086",
+    "source_fact_candidate_id": "SCAP-AI-F037",
+    "entity_id": "serratus_anterior",
+    "query_intents": [
+      "QUERY_SERRATUS_ANTERIOR_INSERTS_INTO",
+      "QUERY_SERRATUS_ANTERIOR_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "serratus_anterior",
+      "relation": "INSERTS_INTO",
+      "target": [
+        "costal_aspect_of_medial_border"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "serratus_anterior — INSERTS_INTO: costal_aspect_of_medial_border.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-087",
+    "canonical_candidate_id": "CANON-SCAP-087",
+    "source_fact_candidate_id": "SCAP-AI-F038",
+    "entity_id": "biceps_brachii_long_head",
+    "query_intents": [
+      "QUERY_BICEPS_BRACHII_LONG_HEAD_ORIGINATES_FROM",
+      "QUERY_BICEPS_BRACHII_LONG_HEAD_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "biceps_brachii_long_head",
+      "relation": "ORIGINATES_FROM",
+      "target": [
+        "supraglenoid_region"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "biceps_brachii_long_head — ORIGINATES_FROM: supraglenoid_region.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-088",
+    "canonical_candidate_id": "CANON-SCAP-088",
+    "source_fact_candidate_id": "SCAP-AI-F039",
+    "entity_id": "triceps_brachii_long_head",
+    "query_intents": [
+      "QUERY_TRICEPS_BRACHII_LONG_HEAD_ORIGINATES_FROM",
+      "QUERY_TRICEPS_BRACHII_LONG_HEAD_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "triceps_brachii_long_head",
+      "relation": "ORIGINATES_FROM",
+      "target": [
+        "infraglenoid_tubercle"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "triceps_brachii_long_head — ORIGINATES_FROM: infraglenoid_tubercle.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-089",
+    "canonical_candidate_id": "CANON-SCAP-089",
+    "source_fact_candidate_id": "SCAP-AI-F040",
+    "entity_id": "biceps_brachii_short_head",
+    "query_intents": [
+      "QUERY_BICEPS_BRACHII_SHORT_HEAD_ORIGINATES_FROM",
+      "QUERY_BICEPS_BRACHII_SHORT_HEAD_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "biceps_brachii_short_head",
+      "relation": "ORIGINATES_FROM",
+      "target": [
+        "coracoid_process"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "biceps_brachii_short_head — ORIGINATES_FROM: coracoid_process.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-090",
+    "canonical_candidate_id": "CANON-SCAP-090",
+    "source_fact_candidate_id": "SCAP-AI-F041",
+    "entity_id": "coracobrachialis",
+    "query_intents": [
+      "QUERY_CORACOBRACHIALIS_ORIGINATES_FROM",
+      "QUERY_CORACOBRACHIALIS_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "coracobrachialis",
+      "relation": "ORIGINATES_FROM",
+      "target": [
+        "coracoid_process"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "coracobrachialis — ORIGINATES_FROM: coracoid_process.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-091",
+    "canonical_candidate_id": "CANON-SCAP-091",
+    "source_fact_candidate_id": "SCAP-AI-F042",
+    "entity_id": "pectoralis_minor",
+    "query_intents": [
+      "QUERY_PECTORALIS_MINOR_INSERTS_INTO",
+      "QUERY_PECTORALIS_MINOR_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "pectoralis_minor",
+      "relation": "INSERTS_INTO",
+      "target": [
+        "coracoid_process"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "pectoralis_minor — INSERTS_INTO: coracoid_process.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-002)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-092",
+    "canonical_candidate_id": "CANON-SCAP-092",
+    "source_fact_candidate_id": "SCAP-AI-F043",
+    "entity_id": "coracoacromial_ligament",
+    "query_intents": [
+      "QUERY_CORACOACROMIAL_LIGAMENT_EXTENDS_BETWEEN",
+      "QUERY_CORACOACROMIAL_LIGAMENT_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "coracoacromial_ligament",
+      "relation": "EXTENDS_BETWEEN",
+      "target": [
+        "coracoid_process",
+        "acromion"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "coracoacromial_ligament — EXTENDS_BETWEEN: coracoid_process, acromion.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-093",
+    "canonical_candidate_id": "CANON-SCAP-093",
+    "source_fact_candidate_id": "SCAP-AI-F044",
+    "entity_id": "superior_transverse_scapular_ligament",
+    "query_intents": [
+      "QUERY_SUPERIOR_TRANSVERSE_SCAPULAR_LIGAMENT_BRIDGES",
+      "QUERY_SUPERIOR_TRANSVERSE_SCAPULAR_LIGAMENT_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "superior_transverse_scapular_ligament",
+      "relation": "BRIDGES",
+      "target": [
+        "suprascapular_notch"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "superior_transverse_scapular_ligament — BRIDGES: suprascapular_notch.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-094",
+    "canonical_candidate_id": "CANON-SCAP-094",
+    "source_fact_candidate_id": "SCAP-AI-F045",
+    "entity_id": "suprascapular_nerve",
+    "query_intents": [
+      "QUERY_SUPRASCAPULAR_NERVE_PASSES_THROUGH",
+      "QUERY_SUPRASCAPULAR_NERVE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "suprascapular_nerve",
+      "relation": "PASSES_THROUGH",
+      "target": [
+        "suprascapular_notch_region"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "suprascapular_nerve — PASSES_THROUGH: suprascapular_notch_region.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-003)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-095",
+    "canonical_candidate_id": "CANON-SCAP-095",
+    "source_fact_candidate_id": "SCAP-AI-F046",
+    "entity_id": "suprascapular_nerve",
+    "query_intents": [
+      "QUERY_SUPRASCAPULAR_NERVE_RELATED_TO",
+      "QUERY_SUPRASCAPULAR_NERVE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "suprascapular_nerve",
+      "relation": "RELATED_TO",
+      "target": [
+        "superior_transverse_scapular_ligament"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "suprascapular_nerve — RELATED_TO: superior_transverse_scapular_ligament.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-003)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-096",
+    "canonical_candidate_id": "CANON-SCAP-096",
+    "source_fact_candidate_id": "SCAP-AI-F047",
+    "entity_id": "suprascapular_artery",
+    "query_intents": [
+      "QUERY_SUPRASCAPULAR_ARTERY_RELATED_TO",
+      "QUERY_SUPRASCAPULAR_ARTERY_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "suprascapular_artery",
+      "relation": "RELATED_TO",
+      "target": [
+        "suprascapular_notch_region"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "suprascapular_artery — RELATED_TO: suprascapular_notch_region.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-003)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-097",
+    "canonical_candidate_id": "CANON-SCAP-097",
+    "source_fact_candidate_id": "SCAP-AI-F048",
+    "entity_id": "suprascapular_nerve",
+    "query_intents": [
+      "QUERY_SUPRASCAPULAR_NERVE_RELATED_TO",
+      "QUERY_SUPRASCAPULAR_NERVE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "suprascapular_nerve",
+      "relation": "RELATED_TO",
+      "target": [
+        "spinoglenoid_notch"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "suprascapular_nerve — RELATED_TO: spinoglenoid_notch.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-003)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-098",
+    "canonical_candidate_id": "CANON-SCAP-098",
+    "source_fact_candidate_id": "SCAP-AI-F049",
+    "entity_id": "dorsal_scapular_artery",
+    "query_intents": [
+      "QUERY_DORSAL_SCAPULAR_ARTERY_RELATED_TO",
+      "QUERY_DORSAL_SCAPULAR_ARTERY_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "dorsal_scapular_artery",
+      "relation": "RELATED_TO",
+      "target": [
+        "medial_border_of_scapula"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "dorsal_scapular_artery — RELATED_TO: medial_border_of_scapula.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-099",
+    "canonical_candidate_id": "CANON-SCAP-099",
+    "source_fact_candidate_id": "SCAP-AI-F050",
+    "entity_id": "circumflex_scapular_artery",
+    "query_intents": [
+      "QUERY_CIRCUMFLEX_SCAPULAR_ARTERY_RELATED_TO",
+      "QUERY_CIRCUMFLEX_SCAPULAR_ARTERY_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "circumflex_scapular_artery",
+      "relation": "RELATED_TO",
+      "target": [
+        "posterior_scapular_region"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "circumflex_scapular_artery — RELATED_TO: posterior_scapular_region.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-004)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-100",
+    "canonical_candidate_id": "CANON-SCAP-100",
+    "source_fact_candidate_id": "SCAP-AI-F051",
+    "entity_id": "triangular_space",
+    "query_intents": [
+      "QUERY_TRIANGULAR_SPACE_HAS_BOUNDARY",
+      "QUERY_TRIANGULAR_SPACE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": [
+        "teres_minor"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "triangular_space — HAS_BOUNDARY: teres_minor.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-101",
+    "canonical_candidate_id": "CANON-SCAP-101",
+    "source_fact_candidate_id": "SCAP-AI-F052",
+    "entity_id": "triangular_space",
+    "query_intents": [
+      "QUERY_TRIANGULAR_SPACE_HAS_BOUNDARY",
+      "QUERY_TRIANGULAR_SPACE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": [
+        "teres_major"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "triangular_space — HAS_BOUNDARY: teres_major.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-102",
+    "canonical_candidate_id": "CANON-SCAP-102",
+    "source_fact_candidate_id": "SCAP-AI-F053",
+    "entity_id": "triangular_space",
+    "query_intents": [
+      "QUERY_TRIANGULAR_SPACE_HAS_BOUNDARY",
+      "QUERY_TRIANGULAR_SPACE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": [
+        "long_head_triceps"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "triangular_space — HAS_BOUNDARY: long_head_triceps.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-103",
+    "canonical_candidate_id": "CANON-SCAP-103",
+    "source_fact_candidate_id": "SCAP-AI-F054",
+    "entity_id": "triangular_space",
+    "query_intents": [
+      "QUERY_TRIANGULAR_SPACE_CONTAINS",
+      "QUERY_TRIANGULAR_SPACE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "triangular_space",
+      "relation": "CONTAINS",
+      "target": [
+        "circumflex_scapular_vessels"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "triangular_space — CONTAINS: circumflex_scapular_vessels.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-104",
+    "canonical_candidate_id": "CANON-SCAP-104",
+    "source_fact_candidate_id": "SCAP-AI-F055",
+    "entity_id": "quadrangular_space",
+    "query_intents": [
+      "QUERY_QUADRANGULAR_SPACE_HAS_BOUNDARY",
+      "QUERY_QUADRANGULAR_SPACE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": [
+        "teres_minor"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "quadrangular_space — HAS_BOUNDARY: teres_minor.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-105",
+    "canonical_candidate_id": "CANON-SCAP-105",
+    "source_fact_candidate_id": "SCAP-AI-F056",
+    "entity_id": "quadrangular_space",
+    "query_intents": [
+      "QUERY_QUADRANGULAR_SPACE_HAS_BOUNDARY",
+      "QUERY_QUADRANGULAR_SPACE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": [
+        "teres_major"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "quadrangular_space — HAS_BOUNDARY: teres_major.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-106",
+    "canonical_candidate_id": "CANON-SCAP-106",
+    "source_fact_candidate_id": "SCAP-AI-F057",
+    "entity_id": "quadrangular_space",
+    "query_intents": [
+      "QUERY_QUADRANGULAR_SPACE_HAS_BOUNDARY",
+      "QUERY_QUADRANGULAR_SPACE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": [
+        "long_head_triceps"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "quadrangular_space — HAS_BOUNDARY: long_head_triceps.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-107",
+    "canonical_candidate_id": "CANON-SCAP-107",
+    "source_fact_candidate_id": "SCAP-AI-F058",
+    "entity_id": "quadrangular_space",
+    "query_intents": [
+      "QUERY_QUADRANGULAR_SPACE_HAS_BOUNDARY",
+      "QUERY_QUADRANGULAR_SPACE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": [
+        "surgical_neck_humerus"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "quadrangular_space — HAS_BOUNDARY: surgical_neck_humerus.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-108",
+    "canonical_candidate_id": "CANON-SCAP-108",
+    "source_fact_candidate_id": "SCAP-AI-F059",
+    "entity_id": "quadrangular_space",
+    "query_intents": [
+      "QUERY_QUADRANGULAR_SPACE_CONTAINS",
+      "QUERY_QUADRANGULAR_SPACE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "quadrangular_space",
+      "relation": "CONTAINS",
+      "target": [
+        "axillary_nerve"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "quadrangular_space — CONTAINS: axillary_nerve.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-109",
+    "canonical_candidate_id": "CANON-SCAP-109",
+    "source_fact_candidate_id": "SCAP-AI-F060",
+    "entity_id": "quadrangular_space",
+    "query_intents": [
+      "QUERY_QUADRANGULAR_SPACE_CONTAINS",
+      "QUERY_QUADRANGULAR_SPACE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "quadrangular_space",
+      "relation": "CONTAINS",
+      "target": [
+        "posterior_circumflex_humeral_vessels"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "quadrangular_space — CONTAINS: posterior_circumflex_humeral_vessels.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-110",
+    "canonical_candidate_id": "CANON-SCAP-110",
+    "source_fact_candidate_id": "SCAP-AI-F061",
+    "entity_id": "scapular_spine",
+    "query_intents": [
+      "QUERY_SCAPULAR_SPINE_PRACTICAL_IDENTIFIES",
+      "QUERY_SCAPULAR_SPINE_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapular_spine",
+      "relation": "PRACTICAL_IDENTIFIES",
+      "target": [
+        "posterior_surface_of_scapula"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapular_spine — PRACTICAL_IDENTIFIES: posterior_surface_of_scapula.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-111",
+    "canonical_candidate_id": "CANON-SCAP-111",
+    "source_fact_candidate_id": "SCAP-AI-F062",
+    "entity_id": "glenoid_cavity",
+    "query_intents": [
+      "QUERY_GLENOID_CAVITY_PRACTICAL_ORIENTATION",
+      "QUERY_GLENOID_CAVITY_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "glenoid_cavity",
+      "relation": "PRACTICAL_ORIENTATION",
+      "target": [
+        "lateral"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "glenoid_cavity — PRACTICAL_ORIENTATION: lateral.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-112",
+    "canonical_candidate_id": "CANON-SCAP-112",
+    "source_fact_candidate_id": "SCAP-AI-F063",
+    "entity_id": "coracoid_process",
+    "query_intents": [
+      "QUERY_CORACOID_PROCESS_PRACTICAL_ORIENTATION",
+      "QUERY_CORACOID_PROCESS_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "coracoid_process",
+      "relation": "PRACTICAL_ORIENTATION",
+      "target": [
+        "anterior"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "coracoid_process — PRACTICAL_ORIENTATION: anterior.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-113",
+    "canonical_candidate_id": "CANON-SCAP-113",
+    "source_fact_candidate_id": "SCAP-AI-F064",
+    "entity_id": "inferior_angle_of_scapula",
+    "query_intents": [
+      "QUERY_INFERIOR_ANGLE_OF_SCAPULA_PRACTICAL_ORIENTATION",
+      "QUERY_INFERIOR_ANGLE_OF_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "inferior_angle_of_scapula",
+      "relation": "PRACTICAL_ORIENTATION",
+      "target": [
+        "inferior"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "inferior_angle_of_scapula — PRACTICAL_ORIENTATION: inferior.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1, SRC-NIELSEN-ATLAS-ED1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-001)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-114",
+    "canonical_candidate_id": "CANON-SCAP-114",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F009",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_REGIONAL_VASCULAR_RELATION",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "target": [
+        "suprascapular_artery"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — REGIONAL_VASCULAR_RELATION: suprascapular_artery.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-115",
+    "canonical_candidate_id": "CANON-SCAP-115",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F010",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_REGIONAL_VASCULAR_RELATION",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "target": [
+        "circumflex_scapular_artery"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — REGIONAL_VASCULAR_RELATION: circumflex_scapular_artery.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-116",
+    "canonical_candidate_id": "CANON-SCAP-116",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F011",
+    "entity_id": "scapula",
+    "query_intents": [
+      "QUERY_SCAPULA_REGIONAL_VASCULAR_RELATION",
+      "QUERY_SCAPULA_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "target": [
+        "dorsal_scapular_artery"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "scapula — REGIONAL_VASCULAR_RELATION: dorsal_scapular_artery.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-010)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-117",
+    "canonical_candidate_id": "CANON-SCAP-117",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F014",
+    "entity_id": "glenohumeral_joint",
+    "query_intents": [
+      "QUERY_GLENOHUMERAL_JOINT_INNERVATED_BY",
+      "QUERY_GLENOHUMERAL_JOINT_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "glenohumeral_joint",
+      "relation": "innervated_by",
+      "target": [
+        "suprascapular_nerve"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "glenohumeral_joint — innervated_by: suprascapular_nerve.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-008)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-118",
+    "canonical_candidate_id": "CANON-SCAP-118",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F015",
+    "entity_id": "glenohumeral_joint",
+    "query_intents": [
+      "QUERY_GLENOHUMERAL_JOINT_INNERVATED_BY",
+      "QUERY_GLENOHUMERAL_JOINT_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "glenohumeral_joint",
+      "relation": "innervated_by",
+      "target": [
+        "axillary_nerve"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "glenohumeral_joint — innervated_by: axillary_nerve.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-008)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "answer_unit_id": "AAU-SCAP-119",
+    "canonical_candidate_id": "CANON-SCAP-119",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F017",
+    "entity_id": "acromioclavicular_joint",
+    "query_intents": [
+      "QUERY_ACROMIOCLAVICULAR_JOINT_ARTICULAR_INNERVATION_CANDIDATE",
+      "QUERY_ACROMIOCLAVICULAR_JOINT_FACT"
+    ],
+    "direct_answer_semantics": {
+      "subject": "acromioclavicular_joint",
+      "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+      "target": [
+        "suprascapular_nerve"
+      ]
+    },
+    "humanized_blocks": {
+      "direct_fact_block": "acromioclavicular_joint — ARTICULAR_INNERVATION_CANDIDATE: suprascapular_nerve.",
+      "context_link_block": "Relacionado topograficamente a SRC-LATARJET-ED5-T1.",
+      "topography_block": "Região escapular / cíngulo peitoral.",
+      "practical_block": null,
+      "evidence_block": "Fonte canônica: SRC-LATARJET-ED5-T1 (LAT-T1-SCAP-LOC-007)."
+    },
+    "minimum_validation_level": "CANONICAL_VALIDATED",
+    "safe_engine_production_eligible": true
+  }
+]

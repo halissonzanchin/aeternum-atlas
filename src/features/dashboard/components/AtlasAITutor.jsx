@@ -4,6 +4,7 @@ import { A26IconButton, A26Surface, AeternumSiriScreenOverlay } from "../../../c
 import { useLanguage } from "../../../context/LanguageContext";
 import { useAtlasAITutorSession } from "../../../context/AtlasAITutorSessionContext";
 import { getTutorForLanguage } from "../../../services/voice/aeternumTutorCatalog";
+import { isVitaVoiceEnabled } from "../../../services/voice/aeternumVitaConfig";
 import AtlasAIConversation from "../../atlas-viewer/ai/AtlasAIConversation";
 import AtlasAIOrb from "../../atlas-viewer/ai/AtlasAIOrb";
 import NotebookLMToolModal from "../../atlas-viewer/ai/NotebookLMToolModal";
@@ -130,6 +131,9 @@ export default function AtlasAITutor({
   const handlePointerDown = (e) => {
     dragHandlers.onPointerDown?.(e);
     didTriggerHoldRef.current = false;
+    if (!isVitaVoiceEnabled()) {
+      return;
+    }
     setIsCharging(true);
 
     if (holdTimerRef.current) {
@@ -343,6 +347,7 @@ export default function AtlasAITutor({
               <span
                 style={{
                   background: activeTutor.badgeGradient,
+                  backgroundColor: "#002776",
                   color: "#ffffff",
                   fontSize: "0.55rem",
                   fontWeight: 800,

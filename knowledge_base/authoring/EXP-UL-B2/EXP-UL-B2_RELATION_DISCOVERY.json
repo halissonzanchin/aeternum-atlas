@@ -1,0 +1,43 @@
+{
+  "batch_id": "EXP-UL-B2",
+  "generated_at": "2026-09-27T00:18:07.927Z",
+  "metrics": {
+    "certified_relation_reuse_count": 10,
+    "new_relation_candidate_count": 3
+  },
+  "certified_relations_reused": [
+    "part_of",
+    "articulates_with",
+    "originates_from",
+    "inserts_into",
+    "stabilizes",
+    "reinforces",
+    "continuous_with",
+    "bounded_by",
+    "innervated_by",
+    "vascularized_by"
+  ],
+  "new_relation_candidates": [
+    {
+      "candidate_relation": "traversed_by",
+      "description": "Estrutura osteofibrosa ou sulco percorrido por tendão ou feixe neurovascular sem inserção direta no canal",
+      "example_usage": "Sulco intertubercular atravessado pelo tendão da cabeça longa do bíceps",
+      "classification": "NEW_RELATION_CANDIDATE",
+      "certification_status": "PENDING_ACADEMIC_VALIDATION"
+    },
+    {
+      "candidate_relation": "communicates_with",
+      "description": "Bolsa serosa/sinovial com abertura anatômica direta na cavidade sinovial articular",
+      "example_usage": "Bolsa subtendínea do subescapular comunica com a cavidade sinovial glenoumeral através do forame oval de Weitbrecht",
+      "classification": "NEW_RELATION_CANDIDATE",
+      "certification_status": "PENDING_ACADEMIC_VALIDATION"
+    },
+    {
+      "candidate_relation": "forms_force_couple_with",
+      "description": "Músculos atuando sinergicamente com linhas de tração opostas ou complementares para estabilização dinâmica",
+      "example_usage": "Manguito rotador inferior/posterior atua em equilíbrio de torque com o músculo deltoide",
+      "classification": "NEW_RELATION_CANDIDATE",
+      "certification_status": "PENDING_ACADEMIC_VALIDATION"
+    }
+  ]
+}

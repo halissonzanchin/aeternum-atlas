@@ -1,0 +1,1827 @@
+{
+  "audited_at": "2026-09-25T04:24:56.727Z",
+  "total_promoted_facts": 129,
+  "facts_with_complete_provenance": 129,
+  "PROMOTED_FACT_BROKEN_PROVENANCE_COUNT": 0,
+  "provenance_chains": [
+    {
+      "canonical_fact_id": "AET-CF-CLAV-001",
+      "canonical_candidate_id": "CANON-CAND-CLAV-001",
+      "validation_assessment_id": "VA-B1-001",
+      "source_fact_candidate_id": "B1-FC-CLAV-001",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "NLS-ATLAS-CLAV-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-002",
+      "canonical_candidate_id": "CANON-CAND-CLAV-002",
+      "validation_assessment_id": "VA-B1-002",
+      "source_fact_candidate_id": "B1-FC-CLAV-002",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-003",
+      "canonical_candidate_id": "CANON-CAND-CLAV-003",
+      "validation_assessment_id": "VA-B1-003",
+      "source_fact_candidate_id": "B1-FC-CLAV-003",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "NLS-ATLAS-CLAV-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-004",
+      "canonical_candidate_id": "CANON-CAND-CLAV-004",
+      "validation_assessment_id": "VA-B1-004",
+      "source_fact_candidate_id": "B1-FC-CLAV-004",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-005",
+      "canonical_candidate_id": "CANON-CAND-CLAV-005",
+      "validation_assessment_id": "VA-B1-005",
+      "source_fact_candidate_id": "B1-FC-CLAV-005",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "NLS-ATLAS-CLAV-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-006",
+      "canonical_candidate_id": "CANON-CAND-CLAV-006",
+      "validation_assessment_id": "VA-B1-006",
+      "source_fact_candidate_id": "B1-FC-CLAV-006",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-007",
+      "canonical_candidate_id": "CANON-CAND-CLAV-007",
+      "validation_assessment_id": "VA-B1-007",
+      "source_fact_candidate_id": "B1-FC-CLAV-007",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-008",
+      "canonical_candidate_id": "CANON-CAND-CLAV-008",
+      "validation_assessment_id": "VA-B1-008",
+      "source_fact_candidate_id": "B1-FC-CLAV-008",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-009",
+      "canonical_candidate_id": "CANON-CAND-CLAV-009",
+      "validation_assessment_id": "VA-B1-009",
+      "source_fact_candidate_id": "B1-FC-CLAV-009",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-010",
+      "canonical_candidate_id": "CANON-CAND-CLAV-010",
+      "validation_assessment_id": "VA-B1-010",
+      "source_fact_candidate_id": "B1-FC-CLAV-010",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-011",
+      "canonical_candidate_id": "CANON-CAND-CLAV-011",
+      "validation_assessment_id": "VA-B1-011",
+      "source_fact_candidate_id": "B1-FC-CLAV-011",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-012",
+      "canonical_candidate_id": "CANON-CAND-CLAV-012",
+      "validation_assessment_id": "VA-B1-012",
+      "source_fact_candidate_id": "B1-FC-CLAV-012",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-013",
+      "canonical_candidate_id": "CANON-CAND-CLAV-013",
+      "validation_assessment_id": "VA-B1-013",
+      "source_fact_candidate_id": "B1-FC-CLAV-013",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-014",
+      "canonical_candidate_id": "CANON-CAND-CLAV-014",
+      "validation_assessment_id": "VA-B1-014",
+      "source_fact_candidate_id": "B1-FC-CLAV-014",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-015",
+      "canonical_candidate_id": "CANON-CAND-CLAV-015",
+      "validation_assessment_id": "VA-B1-015",
+      "source_fact_candidate_id": "B1-FC-CLAV-015",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "match_class": "DIRECT_VISUAL_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-016",
+      "canonical_candidate_id": "CANON-CAND-CLAV-016",
+      "validation_assessment_id": "VA-B1-016",
+      "source_fact_candidate_id": "B1-FC-CLAV-016",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-017",
+      "canonical_candidate_id": "CANON-CAND-CLAV-017",
+      "validation_assessment_id": "VA-B1-017",
+      "source_fact_candidate_id": "B1-FC-CLAV-017",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-018",
+      "canonical_candidate_id": "CANON-CAND-CLAV-018",
+      "validation_assessment_id": "VA-B1-018",
+      "source_fact_candidate_id": "B1-FC-CLAV-018",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-019",
+      "canonical_candidate_id": "CANON-CAND-CLAV-019",
+      "validation_assessment_id": "VA-B1-019",
+      "source_fact_candidate_id": "B1-FC-CLAV-019",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-020",
+      "canonical_candidate_id": "CANON-CAND-CLAV-020",
+      "validation_assessment_id": "VA-B1-020",
+      "source_fact_candidate_id": "B1-FC-CLAV-020",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-021",
+      "canonical_candidate_id": "CANON-CAND-CLAV-021",
+      "validation_assessment_id": "VA-B1-021",
+      "source_fact_candidate_id": "B1-FC-CLAV-021",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-022",
+      "canonical_candidate_id": "CANON-CAND-CLAV-022",
+      "validation_assessment_id": "VA-B1-022",
+      "source_fact_candidate_id": "B1-FC-CLAV-022",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-004",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-023",
+      "canonical_candidate_id": "CANON-CAND-CLAV-023",
+      "validation_assessment_id": "VA-B1-023",
+      "source_fact_candidate_id": "B1-FC-CLAV-023",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-024",
+      "canonical_candidate_id": "CANON-CAND-CLAV-024",
+      "validation_assessment_id": "VA-B1-024",
+      "source_fact_candidate_id": "B1-FC-CLAV-024",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-004",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-025",
+      "canonical_candidate_id": "CANON-CAND-CLAV-025",
+      "validation_assessment_id": "VA-B1-025",
+      "source_fact_candidate_id": "B1-FC-CLAV-025",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-002",
+        "MORG-UL-LOC-P02"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-026",
+      "canonical_candidate_id": "CANON-CAND-CLAV-026",
+      "validation_assessment_id": "VA-B1-026",
+      "source_fact_candidate_id": "B1-FC-CLAV-026",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-002",
+        "MORG-UL-LOC-P02"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-027",
+      "canonical_candidate_id": "CANON-CAND-CLAV-027",
+      "validation_assessment_id": "VA-B1-027",
+      "source_fact_candidate_id": "B1-FC-CLAV-027",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-002",
+        "MORG-UL-LOC-P02"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-028",
+      "canonical_candidate_id": "CANON-CAND-CLAV-028",
+      "validation_assessment_id": "VA-B1-028",
+      "source_fact_candidate_id": "B1-FC-CLAV-028",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-002"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-029",
+      "canonical_candidate_id": "CANON-CAND-CLAV-029",
+      "validation_assessment_id": "VA-B1-029",
+      "source_fact_candidate_id": "B1-FC-CLAV-029",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-CLAV-LOC-002",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-030",
+      "canonical_candidate_id": "CANON-CAND-CLAV-030",
+      "validation_assessment_id": "VA-B1-030",
+      "source_fact_candidate_id": "B1-FC-CLAV-030",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-031",
+      "canonical_candidate_id": "CANON-CAND-CLAV-031",
+      "validation_assessment_id": "VA-B1-031",
+      "source_fact_candidate_id": "B1-FC-CLAV-031",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-032",
+      "canonical_candidate_id": "CANON-CAND-CLAV-032",
+      "validation_assessment_id": "VA-B1-032",
+      "source_fact_candidate_id": "B1-FC-CLAV-032",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-033",
+      "canonical_candidate_id": "CANON-CAND-CLAV-033",
+      "validation_assessment_id": "VA-B1-033",
+      "source_fact_candidate_id": "B1-FC-CLAV-033",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-034",
+      "canonical_candidate_id": "CANON-CAND-CLAV-034",
+      "validation_assessment_id": "VA-B1-034",
+      "source_fact_candidate_id": "B1-FC-CLAV-034",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-004",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "match_class": "DIRECT_VISUAL_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-035",
+      "canonical_candidate_id": "CANON-CAND-CLAV-035",
+      "validation_assessment_id": "VA-B1-035",
+      "source_fact_candidate_id": "B1-FC-CLAV-035",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-036",
+      "canonical_candidate_id": "CANON-CAND-CLAV-036",
+      "validation_assessment_id": "VA-B1-036",
+      "source_fact_candidate_id": "B1-FC-CLAV-036",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-037",
+      "canonical_candidate_id": "CANON-CAND-CLAV-037",
+      "validation_assessment_id": "VA-B1-037",
+      "source_fact_candidate_id": "B1-FC-CLAV-037",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-PG-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-038",
+      "canonical_candidate_id": "CANON-CAND-CLAV-038",
+      "validation_assessment_id": "VA-B1-038",
+      "source_fact_candidate_id": "B1-FC-CLAV-038",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-PG-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-039",
+      "canonical_candidate_id": "CANON-CAND-CLAV-039",
+      "validation_assessment_id": "VA-B1-039",
+      "source_fact_candidate_id": "B1-FC-CLAV-039",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-040",
+      "canonical_candidate_id": "CANON-CAND-CLAV-040",
+      "validation_assessment_id": "VA-B1-040",
+      "source_fact_candidate_id": "B1-FC-CLAV-040",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-041",
+      "canonical_candidate_id": "CANON-CAND-CLAV-041",
+      "validation_assessment_id": "VA-B1-042",
+      "source_fact_candidate_id": "B1-FC-CLAV-042",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-042",
+      "canonical_candidate_id": "CANON-CAND-CLAV-042",
+      "validation_assessment_id": "VA-B1-043",
+      "source_fact_candidate_id": "B1-FC-CLAV-043",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-043",
+      "canonical_candidate_id": "CANON-CAND-CLAV-043",
+      "validation_assessment_id": "VA-B1-044",
+      "source_fact_candidate_id": "B1-FC-CLAV-044",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-044",
+      "canonical_candidate_id": "CANON-CAND-CLAV-044",
+      "validation_assessment_id": "VA-B1-046",
+      "source_fact_candidate_id": "B1-FC-CLAV-046",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-045",
+      "canonical_candidate_id": "CANON-CAND-CLAV-045",
+      "validation_assessment_id": "VA-B1-047",
+      "source_fact_candidate_id": "B1-FC-CLAV-047",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-046",
+      "canonical_candidate_id": "CANON-CAND-CLAV-046",
+      "validation_assessment_id": "VA-B1-048",
+      "source_fact_candidate_id": "B1-FC-CLAV-048",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-047",
+      "canonical_candidate_id": "CANON-CAND-CLAV-047",
+      "validation_assessment_id": "VA-B1-049",
+      "source_fact_candidate_id": "B1-FC-CLAV-049",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-001"
+      ],
+      "match_class": "SEMANTIC_EQUIVALENT_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-048",
+      "canonical_candidate_id": "CANON-CAND-CLAV-048",
+      "validation_assessment_id": "VA-B1-050",
+      "source_fact_candidate_id": "B1-FC-CLAV-050",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-004",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-049",
+      "canonical_candidate_id": "CANON-CAND-CLAV-049",
+      "validation_assessment_id": "VA-B1-052",
+      "source_fact_candidate_id": "B1-FC-CLAV-052",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-001",
+      "canonical_candidate_id": "CANON-CAND-SCJ-001",
+      "validation_assessment_id": "VA-B1-053",
+      "source_fact_candidate_id": "B1-FC-SCJ-001",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-002",
+      "canonical_candidate_id": "CANON-CAND-SCJ-002",
+      "validation_assessment_id": "VA-B1-054",
+      "source_fact_candidate_id": "B1-FC-SCJ-002",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-003",
+      "canonical_candidate_id": "CANON-CAND-SCJ-003",
+      "validation_assessment_id": "VA-B1-055",
+      "source_fact_candidate_id": "B1-FC-SCJ-003",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-004",
+      "canonical_candidate_id": "CANON-CAND-SCJ-004",
+      "validation_assessment_id": "VA-B1-056",
+      "source_fact_candidate_id": "B1-FC-SCJ-004",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-005",
+      "canonical_candidate_id": "CANON-CAND-SCJ-005",
+      "validation_assessment_id": "VA-B1-057",
+      "source_fact_candidate_id": "B1-FC-SCJ-005",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-002",
+        "NLS-ATLAS-SCJ-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-006",
+      "canonical_candidate_id": "CANON-CAND-SCJ-006",
+      "validation_assessment_id": "VA-B1-058",
+      "source_fact_candidate_id": "B1-FC-SCJ-006",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-007",
+      "canonical_candidate_id": "CANON-CAND-SCJ-007",
+      "validation_assessment_id": "VA-B1-059",
+      "source_fact_candidate_id": "B1-FC-SCJ-007",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-008",
+      "canonical_candidate_id": "CANON-CAND-SCJ-008",
+      "validation_assessment_id": "VA-B1-060",
+      "source_fact_candidate_id": "B1-FC-SCJ-008",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-002",
+        "NLS-ATLAS-SCJ-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-009",
+      "canonical_candidate_id": "CANON-CAND-SCJ-009",
+      "validation_assessment_id": "VA-B1-061",
+      "source_fact_candidate_id": "B1-FC-SCJ-009",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-010",
+      "canonical_candidate_id": "CANON-CAND-SCJ-010",
+      "validation_assessment_id": "VA-B1-062",
+      "source_fact_candidate_id": "B1-FC-SCJ-010",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-003",
+        "NLS-ATLAS-SCJ-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-011",
+      "canonical_candidate_id": "CANON-CAND-SCJ-011",
+      "validation_assessment_id": "VA-B1-063",
+      "source_fact_candidate_id": "B1-FC-SCJ-011",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-012",
+      "canonical_candidate_id": "CANON-CAND-SCJ-012",
+      "validation_assessment_id": "VA-B1-064",
+      "source_fact_candidate_id": "B1-FC-SCJ-012",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-003",
+        "NLS-ATLAS-SCJ-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-013",
+      "canonical_candidate_id": "CANON-CAND-SCJ-013",
+      "validation_assessment_id": "VA-B1-065",
+      "source_fact_candidate_id": "B1-FC-SCJ-013",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-004",
+        "NLS-ATLAS-SCJ-LOC-001",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-014",
+      "canonical_candidate_id": "CANON-CAND-SCJ-014",
+      "validation_assessment_id": "VA-B1-066",
+      "source_fact_candidate_id": "B1-FC-SCJ-014",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-015",
+      "canonical_candidate_id": "CANON-CAND-SCJ-015",
+      "validation_assessment_id": "VA-B1-067",
+      "source_fact_candidate_id": "B1-FC-SCJ-015",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-016",
+      "canonical_candidate_id": "CANON-CAND-SCJ-016",
+      "validation_assessment_id": "VA-B1-068",
+      "source_fact_candidate_id": "B1-FC-SCJ-016",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-005"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-017",
+      "canonical_candidate_id": "CANON-CAND-SCJ-017",
+      "validation_assessment_id": "VA-B1-069",
+      "source_fact_candidate_id": "B1-FC-SCJ-017",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-005"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-018",
+      "canonical_candidate_id": "CANON-CAND-SCJ-018",
+      "validation_assessment_id": "VA-B1-070",
+      "source_fact_candidate_id": "B1-FC-SCJ-018",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-005"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-019",
+      "canonical_candidate_id": "CANON-CAND-SCJ-019",
+      "validation_assessment_id": "VA-B1-071",
+      "source_fact_candidate_id": "B1-FC-SCJ-019",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-005"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-020",
+      "canonical_candidate_id": "CANON-CAND-SCJ-020",
+      "validation_assessment_id": "VA-B1-072",
+      "source_fact_candidate_id": "B1-FC-SCJ-020",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-005"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-021",
+      "canonical_candidate_id": "CANON-CAND-SCJ-021",
+      "validation_assessment_id": "VA-B1-073",
+      "source_fact_candidate_id": "B1-FC-SCJ-021",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-022",
+      "canonical_candidate_id": "CANON-CAND-SCJ-022",
+      "validation_assessment_id": "VA-B1-074",
+      "source_fact_candidate_id": "B1-FC-SCJ-022",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-023",
+      "canonical_candidate_id": "CANON-CAND-SCJ-023",
+      "validation_assessment_id": "VA-B1-075",
+      "source_fact_candidate_id": "B1-FC-SCJ-023",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-024",
+      "canonical_candidate_id": "CANON-CAND-SCJ-024",
+      "validation_assessment_id": "VA-B1-076",
+      "source_fact_candidate_id": "B1-FC-SCJ-024",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-001",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "match_class": "DIRECT_VISUAL_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-025",
+      "canonical_candidate_id": "CANON-CAND-SCJ-025",
+      "validation_assessment_id": "VA-B1-077",
+      "source_fact_candidate_id": "B1-FC-SCJ-025",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-026",
+      "canonical_candidate_id": "CANON-CAND-SCJ-026",
+      "validation_assessment_id": "VA-B1-080",
+      "source_fact_candidate_id": "B1-FC-SCJ-028",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-SCJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-001",
+      "canonical_candidate_id": "CANON-CAND-ACJ-001",
+      "validation_assessment_id": "VA-B1-081",
+      "source_fact_candidate_id": "B1-FC-ACJ-001",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-002",
+      "canonical_candidate_id": "CANON-CAND-ACJ-002",
+      "validation_assessment_id": "VA-B1-082",
+      "source_fact_candidate_id": "B1-FC-ACJ-002",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-003",
+      "canonical_candidate_id": "CANON-CAND-ACJ-003",
+      "validation_assessment_id": "VA-B1-083",
+      "source_fact_candidate_id": "B1-FC-ACJ-003",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-001",
+        "MORG-UL-LOC-P10"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-004",
+      "canonical_candidate_id": "CANON-CAND-ACJ-004",
+      "validation_assessment_id": "VA-B1-084",
+      "source_fact_candidate_id": "B1-FC-ACJ-004",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-005",
+      "canonical_candidate_id": "CANON-CAND-ACJ-005",
+      "validation_assessment_id": "VA-B1-085",
+      "source_fact_candidate_id": "B1-FC-ACJ-005",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-006",
+      "canonical_candidate_id": "CANON-CAND-ACJ-006",
+      "validation_assessment_id": "VA-B1-086",
+      "source_fact_candidate_id": "B1-FC-ACJ-006",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-007",
+      "canonical_candidate_id": "CANON-CAND-ACJ-007",
+      "validation_assessment_id": "VA-B1-087",
+      "source_fact_candidate_id": "B1-FC-ACJ-007",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-008",
+      "canonical_candidate_id": "CANON-CAND-ACJ-008",
+      "validation_assessment_id": "VA-B1-088",
+      "source_fact_candidate_id": "B1-FC-ACJ-008",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-009",
+      "canonical_candidate_id": "CANON-CAND-ACJ-009",
+      "validation_assessment_id": "VA-B1-089",
+      "source_fact_candidate_id": "B1-FC-ACJ-009",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-010",
+      "canonical_candidate_id": "CANON-CAND-ACJ-010",
+      "validation_assessment_id": "VA-B1-090",
+      "source_fact_candidate_id": "B1-FC-ACJ-010",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-002",
+        "NLS-ATLAS-ACJ-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-011",
+      "canonical_candidate_id": "CANON-CAND-ACJ-011",
+      "validation_assessment_id": "VA-B1-091",
+      "source_fact_candidate_id": "B1-FC-ACJ-011",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-012",
+      "canonical_candidate_id": "CANON-CAND-ACJ-012",
+      "validation_assessment_id": "VA-B1-092",
+      "source_fact_candidate_id": "B1-FC-ACJ-012",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-013",
+      "canonical_candidate_id": "CANON-CAND-ACJ-013",
+      "validation_assessment_id": "VA-B1-093",
+      "source_fact_candidate_id": "B1-FC-ACJ-013",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-014",
+      "canonical_candidate_id": "CANON-CAND-ACJ-014",
+      "validation_assessment_id": "VA-B1-094",
+      "source_fact_candidate_id": "B1-FC-ACJ-014",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-015",
+      "canonical_candidate_id": "CANON-CAND-ACJ-015",
+      "validation_assessment_id": "VA-B1-095",
+      "source_fact_candidate_id": "B1-FC-ACJ-015",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-016",
+      "canonical_candidate_id": "CANON-CAND-ACJ-016",
+      "validation_assessment_id": "VA-B1-096",
+      "source_fact_candidate_id": "B1-FC-ACJ-016",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-017",
+      "canonical_candidate_id": "CANON-CAND-ACJ-017",
+      "validation_assessment_id": "VA-B1-097",
+      "source_fact_candidate_id": "B1-FC-ACJ-017",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-001",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "match_class": "DIRECT_VISUAL_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-018",
+      "canonical_candidate_id": "CANON-CAND-ACJ-018",
+      "validation_assessment_id": "VA-B1-098",
+      "source_fact_candidate_id": "B1-FC-ACJ-018",
+      "sources": [
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "match_class": "DIRECT_VISUAL_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-019",
+      "canonical_candidate_id": "CANON-CAND-ACJ-019",
+      "validation_assessment_id": "VA-B1-099",
+      "source_fact_candidate_id": "B1-FC-ACJ-019",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-020",
+      "canonical_candidate_id": "CANON-CAND-ACJ-020",
+      "validation_assessment_id": "VA-B1-101",
+      "source_fact_candidate_id": "B1-FC-ACJ-021",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-001",
+      "canonical_candidate_id": "CANON-CAND-CCC-001",
+      "validation_assessment_id": "VA-B1-103",
+      "source_fact_candidate_id": "B1-FC-CCC-001",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-002",
+      "canonical_candidate_id": "CANON-CAND-CCC-002",
+      "validation_assessment_id": "VA-B1-104",
+      "source_fact_candidate_id": "B1-FC-CCC-002",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "NLS-ATLAS-ACJ-LOC-001",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-003",
+      "canonical_candidate_id": "CANON-CAND-CCC-003",
+      "validation_assessment_id": "VA-B1-105",
+      "source_fact_candidate_id": "B1-FC-CCC-003",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "NLS-ATLAS-ACJ-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-004",
+      "canonical_candidate_id": "CANON-CAND-CCC-004",
+      "validation_assessment_id": "VA-B1-106",
+      "source_fact_candidate_id": "B1-FC-CCC-004",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-005",
+      "canonical_candidate_id": "CANON-CAND-CCC-005",
+      "validation_assessment_id": "VA-B1-107",
+      "source_fact_candidate_id": "B1-FC-CCC-005",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "MORG-UL-LOC-P15"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-006",
+      "canonical_candidate_id": "CANON-CAND-CCC-006",
+      "validation_assessment_id": "VA-B1-108",
+      "source_fact_candidate_id": "B1-FC-CCC-006",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-007",
+      "canonical_candidate_id": "CANON-CAND-CCC-007",
+      "validation_assessment_id": "VA-B1-109",
+      "source_fact_candidate_id": "B1-FC-CCC-007",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-008",
+      "canonical_candidate_id": "CANON-CAND-CCC-008",
+      "validation_assessment_id": "VA-B1-110",
+      "source_fact_candidate_id": "B1-FC-CCC-008",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "NLS-ATLAS-ACJ-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-009",
+      "canonical_candidate_id": "CANON-CAND-CCC-009",
+      "validation_assessment_id": "VA-B1-111",
+      "source_fact_candidate_id": "B1-FC-CCC-009",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-010",
+      "canonical_candidate_id": "CANON-CAND-CCC-010",
+      "validation_assessment_id": "VA-B1-112",
+      "source_fact_candidate_id": "B1-FC-CCC-010",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "MORG-UL-LOC-P15"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-011",
+      "canonical_candidate_id": "CANON-CAND-CCC-011",
+      "validation_assessment_id": "VA-B1-113",
+      "source_fact_candidate_id": "B1-FC-CCC-011",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-012",
+      "canonical_candidate_id": "CANON-CAND-CCC-012",
+      "validation_assessment_id": "VA-B1-114",
+      "source_fact_candidate_id": "B1-FC-CCC-012",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-013",
+      "canonical_candidate_id": "CANON-CAND-CCC-013",
+      "validation_assessment_id": "VA-B1-115",
+      "source_fact_candidate_id": "B1-FC-CCC-013",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-014",
+      "canonical_candidate_id": "CANON-CAND-CCC-014",
+      "validation_assessment_id": "VA-B1-116",
+      "source_fact_candidate_id": "B1-FC-CCC-014",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-015",
+      "canonical_candidate_id": "CANON-CAND-CCC-015",
+      "validation_assessment_id": "VA-B1-117",
+      "source_fact_candidate_id": "B1-FC-CCC-015",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-016",
+      "canonical_candidate_id": "CANON-CAND-CCC-016",
+      "validation_assessment_id": "VA-B1-118",
+      "source_fact_candidate_id": "B1-FC-CCC-016",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-017",
+      "canonical_candidate_id": "CANON-CAND-CCC-017",
+      "validation_assessment_id": "VA-B1-120",
+      "source_fact_candidate_id": "B1-FC-CCC-018",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-018",
+      "canonical_candidate_id": "CANON-CAND-CCC-018",
+      "validation_assessment_id": "VA-B1-121",
+      "source_fact_candidate_id": "B1-FC-CCC-019",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-019",
+      "canonical_candidate_id": "CANON-CAND-CCC-019",
+      "validation_assessment_id": "VA-B1-122",
+      "source_fact_candidate_id": "B1-FC-CCC-020",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-001",
+      "canonical_candidate_id": "CANON-CAND-PGI-001",
+      "validation_assessment_id": "VA-B1-125",
+      "source_fact_candidate_id": "B1-FC-PGI-001",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-PG-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-002",
+      "canonical_candidate_id": "CANON-CAND-PGI-002",
+      "validation_assessment_id": "VA-B1-126",
+      "source_fact_candidate_id": "B1-FC-PGI-002",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-PG-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-003",
+      "canonical_candidate_id": "CANON-CAND-PGI-003",
+      "validation_assessment_id": "VA-B1-127",
+      "source_fact_candidate_id": "B1-FC-PGI-003",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-PG-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-004",
+      "canonical_candidate_id": "CANON-CAND-PGI-004",
+      "validation_assessment_id": "VA-B1-128",
+      "source_fact_candidate_id": "B1-FC-PGI-004",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-PG-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-005",
+      "canonical_candidate_id": "CANON-CAND-PGI-005",
+      "validation_assessment_id": "VA-B1-129",
+      "source_fact_candidate_id": "B1-FC-PGI-005",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-PG-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-006",
+      "canonical_candidate_id": "CANON-CAND-PGI-006",
+      "validation_assessment_id": "VA-B1-130",
+      "source_fact_candidate_id": "B1-FC-PGI-006",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-PG-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-007",
+      "canonical_candidate_id": "CANON-CAND-PGI-007",
+      "validation_assessment_id": "VA-B1-137",
+      "source_fact_candidate_id": "B1-FC-PGI-013",
+      "sources": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "locators": [
+        "LAT-T1-PG-LOC-001"
+      ],
+      "match_class": "EXACT_PROPOSITION_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-008",
+      "canonical_candidate_id": "CANON-CAND-PGI-008",
+      "validation_assessment_id": "VA-B1-138",
+      "source_fact_candidate_id": "B1-FC-PGI-014",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-003",
+        "MORG-UL-LOC-P02"
+      ],
+      "match_class": "DIRECT_VISUAL_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-009",
+      "canonical_candidate_id": "CANON-CAND-PGI-009",
+      "validation_assessment_id": "VA-B1-139",
+      "source_fact_candidate_id": "B1-FC-PGI-015",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "MORG-UL-LOC-P02"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-010",
+      "canonical_candidate_id": "CANON-CAND-PGI-010",
+      "validation_assessment_id": "VA-B1-140",
+      "source_fact_candidate_id": "B1-FC-PGI-016",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "MORG-UL-LOC-P02"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-011",
+      "canonical_candidate_id": "CANON-CAND-PGI-011",
+      "validation_assessment_id": "VA-B1-142",
+      "source_fact_candidate_id": "B1-FC-PGI-018",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-003",
+        "MORG-UL-LOC-P02"
+      ],
+      "match_class": "DIRECT_VISUAL_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-012",
+      "canonical_candidate_id": "CANON-CAND-PGI-012",
+      "validation_assessment_id": "VA-B1-143",
+      "source_fact_candidate_id": "B1-FC-PGI-019",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-PG-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-013",
+      "canonical_candidate_id": "CANON-CAND-PGI-013",
+      "validation_assessment_id": "VA-B1-144",
+      "source_fact_candidate_id": "B1-FC-PGI-020",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-PG-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-014",
+      "canonical_candidate_id": "CANON-CAND-PGI-014",
+      "validation_assessment_id": "VA-B1-145",
+      "source_fact_candidate_id": "B1-FC-PGI-021",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-PG-LOC-001"
+      ],
+      "match_class": "MULTI_SOURCE_MATCH"
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-015",
+      "canonical_candidate_id": "CANON-CAND-PGI-015",
+      "validation_assessment_id": "VA-B1-150",
+      "source_fact_candidate_id": "B1-FC-PGI-026",
+      "sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "match_class": "DIRECT_VISUAL_MATCH"
+    }
+  ]
+}

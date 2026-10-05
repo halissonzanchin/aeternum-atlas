@@ -62,10 +62,10 @@ export default function Profile({ user, onAuth, notify }) {
           <A26Field label={t("profile.name")} name="name" value={values.name} onChange={update} />
           <A26Field label={t("profile.email")} name="email" value={values.email} disabled hint={t("profile.emailHint")} />
           <A26Field label={t("profile.institution")} name="institution" value={values.institution} disabled />
-          <A26Field label={t("profile.course")} name="course" value={values.course} onChange={update} />
-          <A26Field label={t("profile.semester")} name="semester" value={values.semester} onChange={update} />
-          <A26Field label={t("profile.studentRegistration")} name="studentRegistration" value={values.studentRegistration} onChange={update} />
-          <A26Field label={t("profile.country")} name="country" value={values.country} onChange={update} />
+          <A26Field label={t("profile.course")} name="course" value={values.course} disabled hint={t("profile.managedByInstitution")} />
+          <A26Field label={t("profile.semester")} name="semester" value={values.semester} disabled hint={t("profile.managedByInstitution")} />
+          <A26Field label={t("profile.studentRegistration")} name="studentRegistration" value={values.studentRegistration} disabled hint={t("profile.managedByInstitution")} />
+          <A26Field label={t("profile.country")} name="country" value={values.country} disabled hint={t("profile.managedByInstitution")} />
           <A26Field label={t("profile.userType")} name="userType" value={values.userType} disabled />
           <A26Field as="select" label={t("profile.languagePreference")} name="language" value={values.language} onChange={update}>
               <option>Português</option>

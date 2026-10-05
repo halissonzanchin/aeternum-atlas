@@ -1,0 +1,29 @@
+{
+  "document_name": "EXP-UL-B2_AADS1_R2_SOURCE_RECHECK_QUEUE",
+  "phase": "AMC-1.2-R2 / EXP-UL-B2-A1.6-R2",
+  "timestamp": "2026-09-27T10:30:00Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "metrics": {
+    "total_queue_items": 1,
+    "resolved_count": 0,
+    "pending_recheck_count": 1,
+    "authoring_blocked_count": 1
+  },
+  "queue_items": [
+    {
+      "queue_id": "RECHECK-Q-001",
+      "evidence_unit_id": "EVI-B2-HUM-007",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-HUM-LOC-003",
+      "problem_type": "SYNTHESIS_PARAPHRASE_ERROR_AND_CONTAMINATION",
+      "observed_text": "Latarjet Vol 1, p. 481 (printed 461) states only: 'Se denomina cuello quirúrgico, en oposición al cuello anatómico, a una línea mal definida que marca el límite entre la epífisis superior y la diáfisis humeral.' It does NOT mention axillary nerve, circumflex vessels, or quadrangular space, and contains anomalous reference to 'vasos circunflejos femorales/humerales'.",
+      "verification_required": "Direct text audit of axillary neurovascular topography chapter required before asserting topographical relations for the surgical neck.",
+      "verification_status": "RECHECK_REQUIRED",
+      "resolution": "BLOCKED_FOR_AUTHORING_UNTIL_TOPOGRAPHY_SECTION_INGESTED",
+      "authoring_blocked": true,
+      "impacted_interfaces": [
+        "IFACE-SHOULDER-004"
+      ]
+    }
+  ]
+}

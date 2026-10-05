@@ -114,7 +114,10 @@ export const de = {
     "loginDescription": "Greifen Sie auf Ihre anatomische 3D-Bibliothek zu.",
     "registerEyebrow": "Institutionelle akademische Registrierung",
     "registerDescription": "Ihr Konto wird mit der Bildungseinrichtung verknüpft. Studierende erhalten keine individuelle Rechnung.",
-    "recoveryPrepared": "Wiederherstellungsfluss für eine zukünftige API vorbereitet.",
+    "recoveryPrepared": "Wiederherstellungsanweisungen an Ihre E-Mail gesendet.",
+    "enterEmailForRecovery": "Geben Sie oben Ihre E-Mail-Adresse ein, um die Passwortwiederherstellung anzufordern.",
+    "recoveryEmailSent": "Anweisungen zur Passwortwiederherstellung wurden an Ihre E-Mail gesendet. Bitte prüfen Sie Ihren Posteingang.",
+    "recoveryFailed": "E-Mail zur Passwortwiederherstellung konnte nicht gesendet werden.",
     "createAccountError": "Das Konto konnte nicht erstellt werden.",
     "invalidCredentials": "E-Mail oder Passwort ungültig.",
     "loadingInstitutions": "Institutionen werden geladen...",
@@ -1606,15 +1609,16 @@ export const de = {
     "professionalProfile": "Perfil profissional",
     "governanceProfile": "Perfil de governança",
     "institutionConfigured": "Instituição vinculada pela configuração do ambiente",
-    "institutionMissing": "Instituição ainda não vinculada",
+    "tenantLinked": "Verknüpfter Institutions-Tenant",
+    "institutionMissing": "Aktive akademische Zugehörigkeit",
     "roles": {
-      "student": "Estudante",
-      "teacher": "Professor",
-      "coordinator": "Coordenador",
-      "rector": "Reitor",
-      "institutionAdmin": "Administrador institucional",
-      "admin": "Administrador",
-      "superAdmin": "Superadministrador"
+      "student": "Student",
+      "teacher": "Dozent",
+      "coordinator": "Koordination",
+      "rector": "Rektorat",
+      "admin": "Administration",
+      "institutionAdmin": "Institutionsadministrator",
+      "superAdmin": "Super-Administrator"
     },
     "endSession": "Abmelden",
     "notificationCenter": "Benachrichtigungszentrale",
@@ -1649,18 +1653,7 @@ export const de = {
       "animations": "Anatomische Animationen",
       "privacy": "Datenschutz",
       "updates": "Modell-Aktualisierungen"
-    },
-    "roles": {
-      "student": "Student",
-      "teacher": "Dozent",
-      "coordinator": "Koordination",
-      "rector": "Rektorat",
-      "admin": "Administration",
-      "institutionAdmin": "Institutionsadministrator",
-      "superAdmin": "Super-Administrator"
-    },
-    "tenantLinked": "Verknüpfter Institutions-Tenant",
-    "institutionMissing": "Aktive akademische Zugehörigkeit"
+    }
   },
   "status": {
     "ativo": "aktiv",
@@ -1882,6 +1875,7 @@ export const de = {
     "semester": "Jahr/Semester",
     "studentRegistration": "Matrikelnummer",
     "country": "Land",
+    "managedByInstitution": "Verwaltet durch die institutionelle Administration.",
     "userType": "Benutzertyp",
     "languagePreference": "Sprachpräferenz",
     "changePassword": "Passwort ändern",

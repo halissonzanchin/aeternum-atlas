@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Aeternum Knowledge Gap Request Schema",
+  "contract_name": "KNOWLEDGE_GAP_REQUEST",
+  "version": "1.0.0",
+  "description": "Standardized request emitted by Antigravity Engine when an entity or anatomical region is missing required dimensions, dispatched to the Knowledge Author (ChatGPT) for targeted authoring.",
+  "type": "object",
+  "required": [
+    "gap_id",
+    "entity_id",
+    "domain",
+    "missing_dimension",
+    "current_evidence",
+    "required_content_type",
+    "priority",
+    "related_entities",
+    "reason"
+  ],
+  "properties": {
+    "gap_id": {
+      "type": "string",
+      "pattern": "^GAP-[A-Z0-9_]+-[0-9]{3}$",
+      "description": "Deterministic gap request ID (e.g. GAP-SCAPULA_VASCULAR-001)."
+    },
+    "entity_id": {
+      "type": "string",
+      "description": "Target canonical entity lacking required coverage."
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "UPPER_LIMB",
+        "LOWER_LIMB",
+        "HEAD_AND_NECK",
+        "THORAX",
+        "ABDOMEN",
+        "PELVIS_AND_PERINEUM",
+        "BACK_AND_SPINE",
+        "CENTRAL_NERVOUS_SYSTEM",
+        "CARDIOVASCULAR_SYSTEM"
+      ]
+    },
+    "missing_dimension": {
+      "type": "string",
+      "enum": [
+        "morphology",
+        "syntopic_relations",
+        "articular_surfaces",
+        "muscular_attachments",
+        "innervation",
+        "vascular_supply",
+        "lymphatic_drainage",
+        "topographic_spaces",
+        "clinical_anatomy",
+        "cadaveric_pearls",
+        "3d_mesh_landmarks"
+      ]
+    },
+    "current_evidence": {
+      "type": "object",
+      "required": ["source_ids", "existing_fact_count", "summary_of_known"],
+      "properties": {
+        "source_ids": { "type": "array", "items": { "type": "string" } },
+        "existing_fact_count": { "type": "integer" },
+        "summary_of_known": { "type": "string" }
+      }
+    },
+    "required_content_type": {
+      "type": "string",
+      "enum": [
+        "KNOWLEDGE_AUTHOR_PATCH",
+        "FULL_KNOWLEDGE_PACK",
+        "FOCUSED_MICRO_FACTS",
+        "TEACHING_CONNECTION_SYNTHESIS"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"]
+    },
+    "related_entities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "reason": {
+      "type": "string",
+      "description": "Why this dimension is required for complete pedagogical or clinical integrity."
+    }
+  }
+}

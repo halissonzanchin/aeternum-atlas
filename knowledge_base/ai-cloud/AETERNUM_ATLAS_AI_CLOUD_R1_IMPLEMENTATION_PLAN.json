@@ -1,0 +1,142 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R1",
+  "artifact_type": "IMPLEMENTATION_ROADMAP",
+  "generated_at": "2026-10-04T22:27:00Z",
+  "milestones": {
+    "minimum_safe_ai_release": {
+      "definition": "Fastest viable production activation that restores Atlas IA with full academic safety, deterministic canonical grounding, and zero developer-machine dependency.",
+      "included_phases": [
+        "AI-CLOUD-R2",
+        "AI-CLOUD-R3",
+        "AI-CLOUD-R4",
+        "AI-CLOUD-R5"
+      ],
+      "non_negotiable_invariants": [
+        "Academic integrity preserved: 0 hallucinations on canonical anatomy",
+        "Sovereign memory dual residence: local git mirror remains root of truth",
+        "Security: 0 provider keys or tokens reach browser client",
+        "Provider replaceability: gateway abstracts underlying vendor SDKs",
+        "B2 Quarantine: B2_PRODUCTION_EXPOSURE=0 strictly maintained",
+        "Vita containment: VITE_AETERNUM_VITA_PIPELINE=off maintained"
+      ]
+    },
+    "full_sovereign_ai_architecture": {
+      "definition": "Complete multi-provider sovereign architecture with dynamic multi-cloud failover, full-spectrum false-premise matrix, academic evidence mode drawer, and automated dual-residence sync.",
+      "deferred_features": [
+        "Anthropic Claude 3.5 Sonnet / OpenAI GPT-4o dynamic fallback routing",
+        "Generalized SemanticPremiseValidator across entire human body",
+        "Interactive Academic Evidence UI Drawer with deep locator viewer",
+        "Automated GitHub Action syncing canonical releases to Supabase tables",
+        "Faculty pedagogical review dashboard"
+      ]
+    }
+  },
+  "phases": [
+    {
+      "phase_id": "AI-CLOUD-R2",
+      "name": "Safe Engine & Canonical Memory Cloud Runtime Port",
+      "mode": "LOCAL_ENGINEERING_AND_UNIT_TESTING",
+      "goal": "Port the deterministic Safe Engine from Node-fs to pure ESM for Deno Edge compatibility, package Canonical Memory 0.2.2 as an in-memory module, and eliminate all localhost/fs dependencies.",
+      "key_tasks": [
+        "Replace import { performance } from 'perf_hooks' with global performance",
+        "Package Canonical Memory 0.2.2 (231 safe facts, 154 entities, practical memory, teaching connections) into a static ESM bundle",
+        "Refactor safeKnowledgeRetriever.js and safeEntityResolver.js to consume in-memory data instead of fs.readFileSync",
+        "Decouple node:sqlite from runtime retrieval; retain as offline verification tool",
+        "Execute Safe Engine contract test suite verifying 100% parity against baseline"
+      ],
+      "entry_gates": [
+        "Baseline tests pass: 60/60 PASS",
+        "Memory 0.2.2 intact: 248 facts, 154 entities, 231 safe facts"
+      ],
+      "exit_gates": [
+        "SAFE_ENGINE_DENO_COMPATIBLE=YES",
+        "NODE_FS_DEPENDENCY=0",
+        "NODE_SQLITE_RUNTIME_DEPENDENCY=0",
+        "PARITY_TESTS=100%_PASS"
+      ],
+      "deliverables": [
+        "src/services/safe-engine/portable/ (Deno-compatible ESM modules)",
+        "tests/safe-engine-cloud-parity.test.mjs"
+      ]
+    },
+    {
+      "phase_id": "AI-CLOUD-R3",
+      "name": "Cloud Gateway Deployment & Edge Function Pipeline Integration",
+      "mode": "CONTROLLED_CLOUD_INTEGRATION",
+      "goal": "Deploy the containerized Aeternum AI Gateway to managed cloud infrastructure in cloud_only mode, wire the portable Safe Engine into supabase/functions/ai-tutor, and implement deterministic short-circuiting.",
+      "key_tasks": [
+        "Deploy Docker container from packages/aeternum-vita/apps/gateway/Dockerfile to cloud host (Render / Cloud Run) with AETERNUM_AI_GATEWAY_MODE=cloud_only",
+        "Configure cloud secrets (GEMINI_API_KEY, AETERNUM_AI_GATEWAY_TOKEN) in container and Supabase Edge Function",
+        "Update supabase/functions/ai-tutor/index.ts to import portable Safe Engine",
+        "Implement short-circuit logic: return deterministic Safe Engine answers instantly; forward complex synthesis queries to Cloud Gateway",
+        "Harden error handling and fallback: return DEGRADED_DETERMINISTIC if gateway is unreachable"
+      ],
+      "entry_gates": [
+        "AI-CLOUD-R2 completed and verified",
+        "Gateway Docker build passes: npm run build:gateway"
+      ],
+      "exit_gates": [
+        "GATEWAY_CLOUD_HEALTH=200_OK",
+        "EDGE_FUNCTION_SAFE_ENGINE_WIRED=YES",
+        "SECRETS_ENCRYPTED_AND_BOUND=YES"
+      ],
+      "deliverables": [
+        "supabase/functions/ai-tutor/index.ts (integrated orchestrator)",
+        "Deployed Cloud Gateway endpoint"
+      ]
+    },
+    {
+      "phase_id": "AI-CLOUD-R4",
+      "name": "End-to-End Staging Validation & Adversarial Testing",
+      "mode": "CONTROLLED_STAGING_DEPLOYMENT_AND_TESTING",
+      "goal": "Deploy updated Edge Function to Staging Supabase (hutohshswppahipgcwio), connect Vercel staging, and execute a comprehensive verification test suite covering deterministic answers, synthesis, false premises, and load.",
+      "key_tasks": [
+        "Deploy Edge Function to Staging Supabase: supabase functions deploy ai-tutor --project-ref hutohshswppahipgcwio",
+        "Configure Staging Vercel env: VITE_ATLAS_AI_MODE=live, VITE_ATLAS_RUNTIME=cloud",
+        "Run automated test matrix against staging: 20 canonical queries, 10 socratic synthesis queries, 5 false-premise probes, 5 out-of-scope probes",
+        "Verify zero calls to localhost, 127.0.0.1, :8081, or :8082 in staging network traces",
+        "Validate telemetry emission to ai_messages and ai_audit_events"
+      ],
+      "entry_gates": [
+        "AI-CLOUD-R3 completed and verified",
+        "Staging Supabase ACTIVE_HEALTHY"
+      ],
+      "exit_gates": [
+        "STAGING_SMOKE_TESTS=100%_PASS",
+        "ACTIVE_LOCALHOST_CALLS=0",
+        "CANONICAL_ACCURACY=100%",
+        "FALSE_PREMISE_REJECTION=100%"
+      ],
+      "deliverables": [
+        "knowledge_base/ai-cloud/AETERNUM_ATLAS_AI_CLOUD_R4_STAGING_REPORT.md"
+      ]
+    },
+    {
+      "phase_id": "AI-CLOUD-R5",
+      "name": "Controlled Production Promotion & Live Activation",
+      "mode": "CONTROLLED_PRODUCTION_PROMOTION",
+      "goal": "Deploy verified Edge Function to Production Supabase (hyivyrietgjdazgizafp), switch VITE_ATLAS_AI_MODE to live on production Vercel domains, and perform post-activation health audit.",
+      "key_tasks": [
+        "Verify production preflight gates and confirm rollback anchor dpl_vvHtzke37a52oqRrSxJQZ5grN4jM",
+        "Deploy Edge Function to Production Supabase: supabase functions deploy ai-tutor --project-ref hyivyrietgjdazgizafp",
+        "Update Vercel Production environment variable: VITE_ATLAS_AI_MODE=live",
+        "Trigger production redeployment on Vercel without cache",
+        "Execute live production smoke test on https://www.aeternumatlas.com",
+        "Verify 100% production health score and publish activation report"
+      ],
+      "entry_gates": [
+        "AI-CLOUD-R4 STAGING_SMOKE_TESTS=PASS",
+        "Production Supabase ACTIVE_HEALTHY",
+        "Rollback anchor verified"
+      ],
+      "exit_gates": [
+        "PRODUCTION_LIVE_ATLAS_AI=ACTIVE",
+        "CANONICAL_MUTATIONS=0",
+        "PRODUCTION_HEALTH_SCORE=100%"
+      ],
+      "deliverables": [
+        "knowledge_base/ai-cloud/AETERNUM_ATLAS_AI_CLOUD_R5_PRODUCTION_REPORT.md"
+      ]
+    }
+  ]
+}

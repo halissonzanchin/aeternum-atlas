@@ -1,0 +1,33 @@
+{
+  "document_name": "EXP-UL-B2_A2E0_SOURCE_RECHECK_QUEUE",
+  "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+  "timestamp": "2026-09-27T11:45:00Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "metrics": {
+    "total_queue_items": 1,
+    "resolved_count": 1,
+    "pending_recheck_count": 0,
+    "authoring_blocked_count": 0
+  },
+  "queue_items": [
+    {
+      "queue_id": "RECHECK-Q-001",
+      "evidence_unit_id": "EVI-B2-HUM-007",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-HUM-LOC-003",
+      "problem_type": "SYNTHESIS_PARAPHRASE_ERROR_AND_CONTAMINATION",
+      "observed_text": "Latarjet Vol 1, p. 481 (printed 461) states only osteological definition of surgical neck without axillary relations. Paraphrase had anomalous femoral/humeral contamination.",
+      "verification_status": "RESOLVED_BY_NEW_EVIDENCE",
+      "resolution_summary": "Full-volume Latarjet T1 search located exact axillary nerve and circumflex vessels topography in Chapter 62 (p. 641, 643; LAT-T1-TOPO-LOC-001) and Chapter 59 (p. 600-601; LAT-T1-TOPO-LOC-002). Fresh evidence unit EVI-B2-TOPO-001 created without modifying historical erratum EVI-B2-HUM-007.",
+      "resolution_evidence_unit_id": "EVI-B2-TOPO-001",
+      "resolution_locator_ids": [
+        "LAT-T1-TOPO-LOC-001",
+        "LAT-T1-TOPO-LOC-002"
+      ],
+      "authoring_blocked": false,
+      "impacted_interfaces": [
+        "IFACE-SHOULDER-004"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+[
+  {
+    "anchor_entity": "canal_de_torsion_sulco_radial",
+    "related_entities": [
+      "nervio_radial",
+      "arteria_braquial_profunda",
+      "umero",
+      "cabeza_lateral_triceps",
+      "cabeza_medial_triceps"
+    ],
+    "connection_type": "NEUROVASCULAR_OSSEOUS_GROOVE_VULNERABILITY",
+    "teaching_reason": "El canal de torsión en la cara posterior del húmero es el punto donde el nervio radial y la arteria profunda brachii entran en íntimo contacto con el periostio. Explica la parálisis del nervio radial por compresión externa (parálisis del sábado por la noche) o fractura espiroidea de diáfisis.",
+    "context": "Brazo Posterior - Cara posterior del húmero",
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_chunk_ids": [
+      "P26",
+      "P41",
+      "P52"
+    ],
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "anchor_entity": "espacio_cuadrangular_velpeau",
+    "related_entities": [
+      "nervio_axilar",
+      "arteria_circunfleja_humeral_posterior",
+      "cuello_quirurgico_umero",
+      "musculo_redondo_menor",
+      "musculo_redondo_mayor",
+      "cabeza_larga_triceps"
+    ],
+    "connection_type": "TOPOGRAPHIC_SPACE_SURGICAL_VULNERABILITY",
+    "teaching_reason": "Espacio cuadrangular que comunica la axila anterior con el muñón del hombro. El paso del nervio axilar y la arteria circunfleja humeral posterior contra el cuello quirúrgico del húmero explica la pérdida del deltoides en luxaciones o fracturas proximales.",
+    "context": "Región Escapular Posterior",
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_chunk_ids": [
+      "P25",
+      "P41",
+      "P52"
+    ],
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "anchor_entity": "apofisis_coracoides",
+    "related_entities": [
+      "musculo_coracobraquial",
+      "cabeza_corta_biceps_braquial",
+      "musculo_pectoral_menor",
+      "ligamento_conoide",
+      "ligamento_trapezoide",
+      "ligamento_coracoacromial"
+    ],
+    "connection_type": "ANATOMICAL_LIGHTHOUSE_CONJOINT_TENDON",
+    "teaching_reason": "Conocida en cirugía y disección como el \"faro del hombro\" anterior. Su palpación orienta toda la anatomía del hombro anterior y divide el espacio clavipectoral.",
+    "context": "Hombro Anterior",
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_chunk_ids": [
+      "P15",
+      "P23",
+      "P36",
+      "P38"
+    ],
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "anchor_entity": "corredera_bicipital_sulco_intertubercular",
+    "related_entities": [
+      "tendon_cabeza_larga_biceps",
+      "musculo_pectoral_mayor",
+      "musculo_dorsal_ancho",
+      "musculo_redondo_mayor",
+      "ligamento_humeral_transverso"
+    ],
+    "connection_type": "RELATIONAL_MNEMONIC_TENDON_CHANNEL",
+    "teaching_reason": "Mnemotecnia clásica del profesor: \"Un mendigo entre dos caballeros\" (Dorsal Ancho en el suelo, Pectoral Mayor en el labio lateral y Redondo Mayor en el labio medial). El tendón de la cabeza larga del bíceps discurre en el surco sujetado por el ligamento de Gordon Brodie.",
+    "context": "Húmero Proximal Anterior",
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_chunk_ids": [
+      "P25",
+      "P36",
+      "P37",
+      "P39"
+    ],
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "anchor_entity": "tabaquera_anatomica",
+    "related_entities": [
+      "arteria_radial",
+      "hueso_escafoides",
+      "abductor_largo_pulgar",
+      "extensor_corto_pulgar",
+      "extensor_largo_pulgar",
+      "vena_cefalica"
+    ],
+    "connection_type": "SURFACE_LANDMARK_AND_CLINICAL_PALPATION",
+    "teaching_reason": "Espacio triangular clave para palpar la fractura del escafoides y el pulso radial dorsal. El techo venoso (vena cefálica) no debe confundirse con la arteria radial del suelo.",
+    "context": "Muñeca Posterolateral",
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_chunk_ids": [
+      "P29",
+      "P46",
+      "P53"
+    ],
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "anchor_entity": "canal_epitrocleoolecraneano",
+    "related_entities": [
+      "nervio_cubital",
+      "arteria_recurrente_cubital_posterior",
+      "epicondilo_medial_umero",
+      "olecranon"
+    ],
+    "connection_type": "SUPERFICIAL_NERVE_VULNERABILITY",
+    "teaching_reason": "Punto donde el nervio cubital pasa inmediatamente subcutáneo sobre el hueso. Es el origen de la sensación de choque eléctrico ante traumatismos en el codo (\"funny bone\").",
+    "context": "Codo Posterior-Medial",
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_chunk_ids": [
+      "P26",
+      "P42"
+    ],
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "anchor_entity": "escotadura_de_la_escapula",
+    "related_entities": [
+      "nervio_supraescapular",
+      "arteria_supraescapular",
+      "ligamento_transverso_superior_escapula"
+    ],
+    "connection_type": "NEUROVASCULAR_FORAMEN_MNEMONIC",
+    "teaching_reason": "El ligamento coracoideo transforma la escotadura en orificio. Regla del profesor: el nervio pasa por debajo (por dentro del orificio) y la arteria pasa por encima del ligamento (\"Navy sails over the bridge, Army marches under the bridge\").",
+    "context": "Borde Superior de la Escápula",
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "SECONDARY",
+    "source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_chunk_ids": [
+      "P12",
+      "P35"
+    ],
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "anchor_entity": "arteria_axilar",
+    "related_entities": [
+      "musculo_pectoral_menor",
+      "plexo_braquial",
+      "arteria_toracica_superior",
+      "arteria_toracoacromial",
+      "arteria_toracica_lateral",
+      "arteria_subescapular",
+      "arteria_circunfleja_humeral_anterior",
+      "arteria_circunfleja_humeral_posterior"
+    ],
+    "connection_type": "RELATIONAL_DIVISION_AND_BRANCH_COUNTING",
+    "teaching_reason": "El músculo pectoral menor cruza la arteria dividiéndola en 3 porciones que guardan regla aritmética de ramas: Porción 1 = 1 rama; Porción 2 = 2 ramas; Porción 3 = 3 ramas.",
+    "context": "Fosa Axilar",
+    "teaching_layer": "MORGUE_PRACTICAL",
+    "priority": "PRIMARY",
+    "source_ids": [
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_chunk_ids": [
+      "P51",
+      "P52"
+    ],
+    "validation_status": "SOURCE_EXTRACTED"
+  }
+]

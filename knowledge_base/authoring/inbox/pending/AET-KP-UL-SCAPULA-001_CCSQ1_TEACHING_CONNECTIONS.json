@@ -1,0 +1,279 @@
+[
+  {
+    "connection_id": "TC-SCAP-001",
+    "anchor_entity": "scapular_spine",
+    "connection_type": "TOPOGRAPHIC_ORGANIZER",
+    "teaching_reason": "The spine is the practical landmark that immediately separates the two posterior fossae and therefore organizes the muscle origins located above and below it.",
+    "required_fact_ids": [
+      "SCAP-AI-F011",
+      "SCAP-AI-F012",
+      "SCAP-AI-F014",
+      "SCAP-AI-F015",
+      "SCAP-AI-F026",
+      "SCAP-AI-F027"
+    ],
+    "canonical_candidate_support_count": 6,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": true,
+    "qualification_notes": "All required propositions are production-eligible canonical candidates; qualified for deterministic professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-002",
+    "anchor_entity": "glenoid_cavity",
+    "connection_type": "ARTICULAR_COMPLEX",
+    "teaching_reason": "The lateral articular region should be studied as a complete joint complex rather than as an isolated bony depression.",
+    "required_fact_ids": [
+      "SCAP-AI-F018",
+      "SCAP-AI-F023",
+      "SCAP-AI-F024"
+    ],
+    "canonical_candidate_support_count": 3,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": true,
+    "qualification_notes": "All required propositions are production-eligible canonical candidates; qualified for deterministic professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-003",
+    "anchor_entity": "supraglenoid_and_infraglenoid_regions",
+    "connection_type": "MUSCULAR_ORIGIN_HUB",
+    "teaching_reason": "The glenoid region directly links osteology to the long heads of the arm muscles.",
+    "required_fact_ids": [
+      "SCAP-AI-F019",
+      "SCAP-AI-F020",
+      "SCAP-AI-F038",
+      "SCAP-AI-F039"
+    ],
+    "canonical_candidate_support_count": 4,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": true,
+    "qualification_notes": "All required propositions are production-eligible canonical candidates; qualified for deterministic professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-004",
+    "anchor_entity": "coracoid_process",
+    "connection_type": "ATTACHMENT_CONVERGENCE",
+    "teaching_reason": "The coracoid is a major convergence point of muscle and ligament attachments.",
+    "required_fact_ids": [
+      "SCAP-AI-F017",
+      "SCAP-AI-F040",
+      "SCAP-AI-F041",
+      "SCAP-AI-F042",
+      "SCAP-AI-F043"
+    ],
+    "canonical_candidate_support_count": 5,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": true,
+    "qualification_notes": "All required propositions are production-eligible canonical candidates; qualified for deterministic professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-005",
+    "anchor_entity": "suprascapular_notch",
+    "connection_type": "NEUROVASCULAR_CROSSING",
+    "teaching_reason": "This region integrates bone morphology, ligament anatomy, arterial relation and nerve passage.",
+    "required_fact_ids": [
+      "SCAP-AI-F021",
+      "SCAP-AI-F044",
+      "SCAP-AI-F045",
+      "SCAP-AI-F046",
+      "SCAP-AI-F047"
+    ],
+    "canonical_candidate_support_count": 5,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": true,
+    "qualification_notes": "All required propositions are production-eligible canonical candidates; qualified for deterministic professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-006",
+    "anchor_entity": "medial_border",
+    "connection_type": "POSTURAL_INTEGRATOR",
+    "teaching_reason": "The medial border organizes the muscular systems responsible for positioning the scapula against the thoracic wall.",
+    "required_fact_ids": [
+      "SCAP-AI-F006",
+      "SCAP-AI-F034",
+      "SCAP-AI-F035",
+      "SCAP-AI-F036",
+      "SCAP-AI-F037"
+    ],
+    "canonical_candidate_support_count": 5,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": true,
+    "qualification_notes": "All required propositions are production-eligible canonical candidates; qualified for deterministic professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-007",
+    "anchor_entity": "lateral_border_and_inferior_region",
+    "connection_type": "ANATOMIC_SPACE_FORMATION",
+    "teaching_reason": "Muscle attachments on the scapula create clinically and practically important posterior shoulder spaces.",
+    "required_fact_ids": [
+      "SCAP-AI-F007",
+      "SCAP-AI-F028",
+      "SCAP-AI-F029",
+      "SCAP-AI-F051",
+      "SCAP-AI-F052",
+      "SCAP-AI-F053",
+      "SCAP-AI-F054",
+      "SCAP-AI-F055",
+      "SCAP-AI-F056",
+      "SCAP-AI-F057"
+    ],
+    "canonical_candidate_support_count": 10,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": true,
+    "qualification_notes": "All required propositions are production-eligible canonical candidates; qualified for deterministic professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-008",
+    "anchor_entity": "acromion",
+    "connection_type": "SKELETAL_MUSCLE_BRIDGE",
+    "teaching_reason": "The acromion links scapular osteology to the acromioclavicular joint and to major superficial shoulder muscles.",
+    "required_fact_ids": [
+      "SCAP-AI-F016",
+      "SCAP-AI-F022",
+      "SCAP-AI-F030",
+      "SCAP-AI-F032"
+    ],
+    "canonical_candidate_support_count": 4,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": true,
+    "qualification_notes": "All required propositions are production-eligible canonical candidates; qualified for deterministic professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-009",
+    "anchor_entity": "scapular_vascular_region",
+    "connection_type": "VASCULAR_NETWORK",
+    "teaching_reason": "The scapular region should be understood as an anastomotic vascular network rather than as isolated named arteries.",
+    "required_fact_ids": [
+      "SCAP-AI-F047",
+      "SCAP-AI-F049",
+      "SCAP-AI-F050"
+    ],
+    "canonical_candidate_support_count": 3,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": true,
+    "qualification_notes": "All required propositions are production-eligible canonical candidates; qualified for deterministic professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-010",
+    "anchor_entity": "isolated_scapula",
+    "connection_type": "PRACTICAL_ORIENTATION_CLUSTER",
+    "teaching_reason": "These four landmarks allow rapid orientation and laterality determination during practical examination.",
+    "required_fact_ids": [
+      "SCAP-AI-F061",
+      "SCAP-AI-F062",
+      "SCAP-AI-F063",
+      "SCAP-AI-F064"
+    ],
+    "canonical_candidate_support_count": 4,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": true,
+    "qualification_notes": "All required propositions are production-eligible canonical candidates; qualified for deterministic professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-KP1-VASC-001",
+    "anchor_entity": "scapula",
+    "connection_type": "VASCULAR_NETWORK",
+    "teaching_reason": "The student should understand scapular vascularization as a regional network supplying muscles, periosteum and adjacent osseous regions rather than memorizing one isolated artery as the universal nutrient vessel of the scapula.",
+    "required_fact_ids": [
+      "SCAP-KP1-AI-F009",
+      "SCAP-KP1-AI-F010",
+      "SCAP-KP1-AI-F011",
+      "SCAP-KP1-AI-F012",
+      "SCAP-KP1-AI-F013"
+    ],
+    "canonical_candidate_support_count": 3,
+    "supported_only_count": 2,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": false,
+    "qualification_notes": "Contains supported variants (staging only); blocked from production professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-KP1-NEURAL-001",
+    "anchor_entity": "glenoid_region",
+    "connection_type": "ARTICULAR_INNERVATION",
+    "teaching_reason": "The glenoid is not only a bony articular surface; the region must be mentally connected with the sensory innervation of the joint capsule and the nerves that travel around the shoulder.",
+    "required_fact_ids": [
+      "SCAP-KP1-AI-F014",
+      "SCAP-KP1-AI-F015",
+      "SCAP-KP1-AI-F016"
+    ],
+    "canonical_candidate_support_count": 2,
+    "supported_only_count": 0,
+    "pending_count": 1,
+    "safe_engine_staging_ready": false,
+    "safe_engine_production_ready": false,
+    "qualification_notes": "Contains pending unverified candidates; completely blocked."
+  },
+  {
+    "connection_id": "TC-SCAP-KP1-NEURAL-002",
+    "anchor_entity": "suprascapular_notch",
+    "connection_type": "NEUROVASCULAR_DUAL_FUNCTION",
+    "teaching_reason": "The same nerve that is topographically important at the scapular notch also has functional relevance to the posterior shoulder and articular region.",
+    "required_fact_ids": [
+      "SCAP-KP1-AI-F014",
+      "SCAP-KP1-AI-F017"
+    ],
+    "canonical_candidate_support_count": 2,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": true,
+    "qualification_notes": "All required propositions are production-eligible canonical candidates; qualified for deterministic professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-KP1-VAR-001",
+    "anchor_entity": "acromion",
+    "connection_type": "MORPHOLOGIC_VARIATION_ORGANIZER",
+    "teaching_reason": "The acromion should be taught not as a perfectly invariant process but as a region with developmental and morphologic variation relevant to specimen and imaging interpretation.",
+    "required_fact_ids": [
+      "SCAP-KP1-AI-F001",
+      "SCAP-KP1-AI-F002",
+      "SCAP-KP1-AI-F003",
+      "SCAP-KP1-AI-F004",
+      "SCAP-KP1-AI-F005"
+    ],
+    "canonical_candidate_support_count": 0,
+    "supported_only_count": 5,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": false,
+    "qualification_notes": "Contains supported variants (staging only); blocked from production professor logic."
+  },
+  {
+    "connection_id": "TC-SCAP-KP1-VAR-002",
+    "anchor_entity": "suprascapular_notch",
+    "connection_type": "LIGAMENTOUS_OSSIFICATION_TOPOGRAPHY",
+    "teaching_reason": "A normally ligament-bridged notch can present a different osseous configuration when the ligament ossifies, directly linking variation anatomy with topographic nerve passage.",
+    "required_fact_ids": [
+      "SCAP-KP1-AI-F006",
+      "SCAP-KP1-AI-F007",
+      "SCAP-KP1-AI-F008"
+    ],
+    "canonical_candidate_support_count": 0,
+    "supported_only_count": 3,
+    "pending_count": 0,
+    "safe_engine_staging_ready": true,
+    "safe_engine_production_ready": false,
+    "qualification_notes": "Contains supported variants (staging only); blocked from production professor logic."
+  }
+]

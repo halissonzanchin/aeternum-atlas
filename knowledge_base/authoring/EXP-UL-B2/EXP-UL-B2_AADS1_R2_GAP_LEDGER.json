@@ -1,0 +1,15 @@
+{
+  "document_name": "EXP-UL-B2_AADS1_R2_GAP_LEDGER",
+  "phase": "AMC-1.2-R2 / EXP-UL-B2-A1.6-R2",
+  "timestamp": "2026-09-27T10:30:00Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "metrics": {
+    "total_gaps_tracked": 783,
+    "missing_fields": 779,
+    "source_not_available_fields": 0,
+    "conflict_review_fields": 1,
+    "field_binding_review_fields": 3
+  },
+  "governance_rule": "No anatomical gap may gain coverage merely because an entity was mentioned by a source.",
+  "summary_by_entity_type": {}
+}

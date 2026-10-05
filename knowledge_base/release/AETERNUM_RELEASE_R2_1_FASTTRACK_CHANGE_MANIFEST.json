@@ -1,0 +1,137 @@
+{
+  "phase": "AETERNUM-RELEASE-R2.1-FASTTRACK",
+  "generated_at": "2026-10-04T22:15:00.000Z",
+  "target_environment": "staging",
+  "staging_project": "hutohshswppahipgcwio",
+  "production_project": "hyivyrietgjdazgizafp",
+  "total_files_changed": 18,
+  "changes": [
+    {
+      "path": "src/i18n/translations/de.js",
+      "action": "modified",
+      "rationale": "Fix duplicate translation keys (roles, institutionMissing) for ESLint, add password recovery strings and managedByInstitution hint",
+      "category": "lint",
+      "pre_existing": true
+    },
+    {
+      "path": "src/i18n/translations/en.js",
+      "action": "modified",
+      "rationale": "Fix duplicate translation keys (roles, institutionMissing) for ESLint, add password recovery strings and managedByInstitution hint",
+      "category": "lint",
+      "pre_existing": true
+    },
+    {
+      "path": "src/i18n/translations/es.js",
+      "action": "modified",
+      "rationale": "Fix duplicate translation keys (roles, institutionMissing) for ESLint, add password recovery strings and managedByInstitution hint",
+      "category": "lint",
+      "pre_existing": true
+    },
+    {
+      "path": "src/i18n/translations/pt.js",
+      "action": "modified",
+      "rationale": "Fix duplicate translation keys (roles, institutionMissing) for ESLint, add password recovery strings and managedByInstitution hint",
+      "category": "lint",
+      "pre_existing": true
+    },
+    {
+      "path": "src/services/ai/aeternumBehaviorOrchestrator.js",
+      "action": "modified",
+      "rationale": "Fix unescaped quotation mark inside double-quoted string literal on line 162",
+      "category": "lint",
+      "pre_existing": true
+    },
+    {
+      "path": "src/features/atlas-viewer/ai/atlasAITutorService.js",
+      "action": "modified",
+      "rationale": "Fix empty catch blocks and integrate VITE_ATLAS_AI_MODE === 'standby' check returning safe institutional message",
+      "category": "lint",
+      "pre_existing": true
+    },
+    {
+      "path": "src/services/cerebro-vita/cerebroAeternumVita.js",
+      "action": "modified",
+      "rationale": "Fix empty catch blocks with explanatory comments for ESLint compliance",
+      "category": "lint",
+      "pre_existing": true
+    },
+    {
+      "path": "src/services/auth/authService.js",
+      "action": "modified",
+      "rationale": "Export requestPasswordRecovery(email) calling supabase.auth.resetPasswordForEmail with dynamic origin redirect",
+      "category": "auth",
+      "pre_existing": false
+    },
+    {
+      "path": "src/pages/login/Login.jsx",
+      "action": "modified",
+      "rationale": "Implement real password recovery flow with Liquid Glass success/error messaging and loading state",
+      "category": "auth",
+      "pre_existing": false
+    },
+    {
+      "path": "src/pages/profile/Profile.jsx",
+      "action": "modified",
+      "rationale": "Option A profile honesty: make course, semester, studentRegistration and country disabled with managedByInstitution hint",
+      "category": "profile",
+      "pre_existing": false
+    },
+    {
+      "path": "src/features/dashboard/components/AtlasAITutor.jsx",
+      "action": "modified",
+      "rationale": "Guard hold-to-charge voice gesture with isVitaVoiceEnabled so unconfigured LiveKit cannot be triggered",
+      "category": "voice",
+      "pre_existing": true
+    },
+    {
+      "path": "tests/learning-telemetry-contracts.test.mjs",
+      "action": "modified",
+      "rationale": "Support fallback to supabase/historical/migrations/ for post-cutover test suite execution",
+      "category": "contract_test",
+      "pre_existing": false
+    },
+    {
+      "path": "tests/study-agenda-contracts.test.mjs",
+      "action": "modified",
+      "rationale": "Support fallback to supabase/historical/migrations/ for post-cutover test suite execution",
+      "category": "contract_test",
+      "pre_existing": false
+    },
+    {
+      "path": "tests/vita-isolation-contracts.test.mjs",
+      "action": "modified",
+      "rationale": "Support fallback to supabase/historical/migrations/ for post-cutover test suite execution",
+      "category": "contract_test",
+      "pre_existing": false
+    },
+    {
+      "path": "tests/vita-ocr-pipeline.test.mjs",
+      "action": "modified",
+      "rationale": "Support fallback to supabase/historical/migrations/ for post-cutover test suite execution",
+      "category": "contract_test",
+      "pre_existing": false
+    },
+    {
+      "scripts/check-supabase-p0-contracts.mjs": "path",
+      "path": "scripts/check-supabase-p0-contracts.mjs",
+      "action": "modified",
+      "rationale": "Support historical migrations fallback and align model/ingestion assertions with Phase 3B AI Gateway contract",
+      "category": "contract_test",
+      "pre_existing": false
+    },
+    {
+      "path": ".gitignore",
+      "action": "modified",
+      "rationale": "Add exception for .env.staging.example and clean trailing duplicate pattern",
+      "category": "config",
+      "pre_existing": true
+    },
+    {
+      "path": ".env.staging.example",
+      "action": "created",
+      "rationale": "Document complete staging environment variable contract for Vercel Staging deployment",
+      "category": "config",
+      "pre_existing": false
+    }
+  ]
+}

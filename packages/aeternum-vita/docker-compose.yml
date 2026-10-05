@@ -37,6 +37,8 @@ services:
     gpus: all
     volumes:
       - ollama-models:/root/.ollama
+    ports:
+      - "127.0.0.1:11434:11434"
     healthcheck:
       test: ["CMD", "ollama", "list"]
       interval: 10s
@@ -68,6 +70,8 @@ services:
       ENABLE_UI: "false"
     volumes:
       - speech-models:/home/ubuntu/.cache/huggingface/hub
+    ports:
+      - "127.0.0.1:8000:8000"
     healthcheck:
       test:
         [
@@ -133,6 +137,8 @@ services:
     restart: unless-stopped
 
   agent:
+    profiles:
+      - voice-agent
     build:
       context: .
       dockerfile: Dockerfile
@@ -159,7 +165,7 @@ services:
     environment:
       TOKEN_API_UPSTREAM: http://token-server:3001
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     depends_on:
       token-server:
         condition: service_healthy

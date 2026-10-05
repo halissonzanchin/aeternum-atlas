@@ -1,0 +1,34 @@
+{
+  "document_name": "EXP-UL-B2_A2E0_IA2_1_EVIDENCE_ID_COLLISION_ERRATA",
+  "phase": "AMC-1.2-R2.3.1 / EXP-UL-B2-A2E0-IA2.1",
+  "timestamp": "2026-10-04T05:46:52.861Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "collision_summary": {
+    "collisions_detected": 2,
+    "collisions_resolved": 2,
+    "total_evidence_units_before": 51,
+    "unique_evidence_units_before": 49,
+    "total_evidence_units_after": 51,
+    "unique_evidence_units_after": 51
+  },
+  "collisions": [
+    {
+      "old_evidence_unit_id": "EVI-B2-RTC-006",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-002",
+      "primary_entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "new_evidence_unit_id": "EVI-B2-RTC-010",
+      "action": "RENAMED_TO_UNIQUE_ID",
+      "rationale": "Disambiguated from historical Nielsen unit EVI-B2-RTC-006 (NIE-ED1-RTC-LOC-001, AET-ENT-CAND-UL-ROTATOR_CUFF, DIRECT_IMAGE)."
+    },
+    {
+      "old_evidence_unit_id": "EVI-B2-RTC-007",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-003",
+      "primary_entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "new_evidence_unit_id": "EVI-B2-RTC-011",
+      "action": "RENAMED_TO_UNIQUE_ID",
+      "rationale": "Disambiguated from historical Nielsen unit EVI-B2-RTC-007 (NIE-ED1-RTC-LOC-002, AET-ENT-CAND-UL-ROTATOR_CUFF, DIRECT_IMAGE)."
+    }
+  ]
+}

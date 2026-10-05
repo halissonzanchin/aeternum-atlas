@@ -1,0 +1,45 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR1",
+  "timestamp": "2026-09-26T13:45:56.617Z",
+  "pre_migration_sha256": "4e6d2df6df8281ebd02e3ee1ae4f791f77d787a9207ac9c44643af7b3faa81c4",
+  "post_migration_sha256": "8cf2948a752068970528e8fd70efc3dfdf079f98690ee6958fa411f4d22857e7",
+  "backup_file": "knowledge_base/local_mirror/aeternum_anatomical_memory.db.pre-ir1.bak",
+  "transaction_safety": "ATOMIC_TRANSACTION_WITH_ROLLBACK_PROTECTION",
+  "table_migrations": [
+    {
+      "table": "canonical_entities",
+      "action": "ADD_COLUMNS_AND_EXPAND_ENTITIES",
+      "pre_count": 31,
+      "post_count": 108,
+      "parity_with_v2_json": "100%"
+    },
+    {
+      "table": "practical_memory",
+      "action": "ADDITIVE_BACKFILL_SCAPULA",
+      "pre_count": 10,
+      "post_count": 16,
+      "parity_with_json": "100%"
+    },
+    {
+      "table": "teaching_connections",
+      "action": "ADDITIVE_BACKFILL_SCAPULA",
+      "pre_count": 6,
+      "post_count": 17,
+      "parity_with_json": "100%"
+    },
+    {
+      "table": "canonical_documentary_memory",
+      "action": "CREATE_TABLE_AND_MIRROR_DOCS",
+      "pre_count": 0,
+      "post_count": 20,
+      "parity_with_json": "100%"
+    },
+    {
+      "table": "canonical_facts",
+      "action": "ZERO_MUTATION",
+      "pre_count": 248,
+      "post_count": 248,
+      "safe_eligible_count": 231
+    }
+  ]
+}

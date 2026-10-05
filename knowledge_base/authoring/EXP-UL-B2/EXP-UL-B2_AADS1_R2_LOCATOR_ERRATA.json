@@ -1,0 +1,33 @@
+{
+  "document_name": "EXP-UL-B2_AADS1_R2_LOCATOR_ERRATA",
+  "phase": "AMC-1.2-R2 / EXP-UL-B2-A1.6-R2",
+  "timestamp": "2026-09-27T10:30:00Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "errata_records": [
+    {
+      "erratum_id": "ERR-LOC-R2-001",
+      "affected_locator": "LOC-INST-DOCX-B14-HUM",
+      "status": "DEPRECATED_ERRATUM",
+      "correct_locator_id": "LOC-INST-DOCX-B07-HUM",
+      "source_id": "SRC-INST-BOLILLERO-2024-DOCX",
+      "reason": "Physical DOCX verification confirmed Bolilla 14 evaluates Mandíbula/Rodilla/Brazo; Húmero is evaluated in Bolilla 7."
+    },
+    {
+      "erratum_id": "ERR-LOC-R2-002",
+      "affected_locator": "LOC-INST-DOCX-B21-RTC",
+      "status": "DEPRECATED_ERRATUM",
+      "correct_locator_id": "LOC-INST-DOCX-B24-RTC",
+      "source_id": "SRC-INST-BOLILLERO-2024-DOCX",
+      "reason": "Physical DOCX verification confirmed Bolilla 21 evaluates Cigomático/Codo/Intercostales; Manguito rotador is evaluated in Bolilla 24."
+    },
+    {
+      "erratum_id": "ERR-LOC-R2-003",
+      "affected_interface": "IFACE-SHOULDER-002",
+      "erroneous_locator_referenced": "LAT-T1-INT-LOC-002",
+      "correct_locator_id": "LAT-T1-GHJ-LOC-006",
+      "evidence_unit_id": "EVI-B2-INT-002",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "reason": "IFACE-SHOULDER-002 was bound to LAT-T1-INT-LOC-002 (elevación y contacto articular, p. 518), but supporting evidence EVI-B2-INT-002 actually resides at LAT-T1-GHJ-LOC-006 (bolsas serosas del hombro, p. 499). Parity restored."
+    }
+  ]
+}

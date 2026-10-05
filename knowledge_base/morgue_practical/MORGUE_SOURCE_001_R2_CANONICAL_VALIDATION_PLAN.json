@@ -1,0 +1,121 @@
+{
+  "plan_id": "MORGUE-SOURCE-001-R2-REVALIDATION-PLAN",
+  "source_id": "MORGUE-UPPER-LIMB-001",
+  "phase": "R2_CANONICAL_VALIDATION_PLANNING",
+  "governing_protocol": "AKAIP-1.0",
+  "total_atomic_facts_pending": 208,
+  "canonical_promotion_performed": false,
+  "summary": {
+    "total_facts": 208,
+    "currently_resolved_evidence_count": 0,
+    "unresolved_evidence_count": 208,
+    "promotion_gate": "DISABLED_UNTIL_R2_BIBLIOGRAPHIC_RESOLUTION"
+  },
+  "anatomical_group_revalidation": {
+    "BONE": {
+      "fact_count": 62,
+      "currently_resolved_evidence_count": 0,
+      "unresolved_evidence_count": 62,
+      "recommended_validation_source_category": "CANONICAL_PRIMARY",
+      "target_sources": [
+        "TERMINOLOGIA_ANATOMICA_2_FIPAT",
+        "LATARJET_ANATOMIA_HUMANA_5ED"
+      ],
+      "priority": "HIGH"
+    },
+    "MUSCLE": {
+      "fact_count": 47,
+      "currently_resolved_evidence_count": 0,
+      "unresolved_evidence_count": 47,
+      "recommended_validation_source_category": "CANONICAL_SECONDARY",
+      "target_sources": [
+        "MOORE_CLINICALLY_ORIENTED_ANATOMY_8ED",
+        "GRAYS_ANATOMY_42ED"
+      ],
+      "priority": "HIGH"
+    },
+    "NERVE": {
+      "fact_count": 29,
+      "currently_resolved_evidence_count": 0,
+      "unresolved_evidence_count": 29,
+      "recommended_validation_source_category": "CANONICAL_SECONDARY",
+      "target_sources": [
+        "GRAYS_ANATOMY_42ED",
+        "MOORE_CLINICALLY_ORIENTED_ANATOMY_8ED"
+      ],
+      "priority": "CRITICAL"
+    },
+    "ARTERY": {
+      "fact_count": 36,
+      "currently_resolved_evidence_count": 0,
+      "unresolved_evidence_count": 36,
+      "recommended_validation_source_category": "CANONICAL_SECONDARY",
+      "target_sources": [
+        "TESTUT_LATARJET_TRAITE_ANATOMIE",
+        "GRAYS_ANATOMY_42ED"
+      ],
+      "priority": "HIGH"
+    },
+    "VEIN": {
+      "fact_count": 1,
+      "currently_resolved_evidence_count": 0,
+      "unresolved_evidence_count": 1,
+      "recommended_validation_source_category": "CANONICAL_PRIMARY",
+      "target_sources": [
+        "TERMINOLOGIA_ANATOMICA_2_FIPAT",
+        "MOORE_CLINICALLY_ORIENTED_ANATOMY_8ED"
+      ],
+      "priority": "MEDIUM"
+    },
+    "JOINT": {
+      "fact_count": 6,
+      "currently_resolved_evidence_count": 0,
+      "unresolved_evidence_count": 6,
+      "recommended_validation_source_category": "CANONICAL_PRIMARY",
+      "target_sources": [
+        "TERMINOLOGIA_ANATOMICA_2_FIPAT",
+        "KAPANDJI_PHYSIOLOGY_OF_JOINTS_UPPER_LIMB"
+      ],
+      "priority": "HIGH"
+    },
+    "LIGAMENT": {
+      "fact_count": 4,
+      "currently_resolved_evidence_count": 0,
+      "unresolved_evidence_count": 4,
+      "recommended_validation_source_category": "CANONICAL_PRIMARY",
+      "target_sources": [
+        "TERMINOLOGIA_ANATOMICA_2_FIPAT",
+        "LATARJET_ANATOMIA_HUMANA_5ED"
+      ],
+      "priority": "MEDIUM"
+    },
+    "SPACE": {
+      "fact_count": 15,
+      "currently_resolved_evidence_count": 0,
+      "unresolved_evidence_count": 15,
+      "recommended_validation_source_category": "CANONICAL_SECONDARY",
+      "target_sources": [
+        "MOORE_CLINICALLY_ORIENTED_ANATOMY_8ED",
+        "ROUVIERE_DELMAS_ANATOMIE_HUMAINE"
+      ],
+      "priority": "CRITICAL"
+    },
+    "OTHER": {
+      "fact_count": 8,
+      "currently_resolved_evidence_count": 0,
+      "unresolved_evidence_count": 8,
+      "recommended_validation_source_category": "INTERNAL_CURATED",
+      "target_sources": [
+        "AETERNUM_TOPOGRAPHIC_LANDMARK_REGISTRY"
+      ],
+      "priority": "LOW"
+    }
+  },
+  "execution_sequence_r2": [
+    "Step 1: Register formal bibliographic SOURCE_MANIFEST entries for TA2, Moore, Gray, and Latarjet.",
+    "Step 2: Map each of the 208 atomic facts to exact page/table/figure citations in registered sources.",
+    "Step 3: Submit facts to Quality Engine for verification against canonical citations.",
+    "Step 4: Resolve the 4 REVIEW_PENDING student shorthands and 2 CONFLICTING source slips through explicit comparative records.",
+    "Step 5: Execute dual-substrate canonical promotion to Aeternum Sovereign Memory only after release gate."
+  ]
+}

@@ -1,0 +1,2513 @@
+[
+  {
+    "relation_id": "REL-0001",
+    "source_assertion_id": "SA-0001",
+    "atomic_fact_id": "AF-0001",
+    "subject": "cintura_escapular",
+    "relation": "HAS_BONE_COUNT",
+    "object": [
+      "32_huesos"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0002",
+    "source_assertion_id": "SA-0002",
+    "atomic_fact_id": "AF-0002",
+    "subject": "clavicula",
+    "relation": "PART_OF",
+    "object": [
+      "cintura_escapular"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0003",
+    "source_assertion_id": "SA-0003",
+    "atomic_fact_id": "AF-0003",
+    "subject": "clavicula",
+    "relation": "TYPE_OF",
+    "object": [
+      "hueso_plano_alargado"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0004",
+    "source_assertion_id": "SA-0004",
+    "atomic_fact_id": "AF-0004",
+    "subject": "clavicula_extremo_medial",
+    "relation": "MORPHOLOGY",
+    "object": [
+      "esternal_esferoide"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0005",
+    "source_assertion_id": "SA-0004",
+    "atomic_fact_id": "AF-0005",
+    "subject": "clavicula_extremo_medial",
+    "relation": "ARTICULATES_WITH",
+    "object": [
+      "manubrio_esternal"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0006",
+    "source_assertion_id": "SA-0004",
+    "atomic_fact_id": "AF-0006",
+    "subject": "clavicula_extremo_medial",
+    "relation": "ARTICULATES_WITH",
+    "object": [
+      "primer_cartilago_costal"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0007",
+    "source_assertion_id": "SA-0005",
+    "atomic_fact_id": "AF-0007",
+    "subject": "clavicula_extremo_lateral",
+    "relation": "MORPHOLOGY",
+    "object": [
+      "acromial_plano"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0008",
+    "source_assertion_id": "SA-0005",
+    "atomic_fact_id": "AF-0008",
+    "subject": "clavicula_extremo_lateral",
+    "relation": "ARTICULATES_WITH",
+    "object": [
+      "acromion_escapula"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0009",
+    "source_assertion_id": "SA-0006",
+    "atomic_fact_id": "AF-0009",
+    "subject": "clavicula",
+    "relation": "HAS_SURFACE",
+    "object": [
+      "cara_superior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0010",
+    "source_assertion_id": "SA-0006",
+    "atomic_fact_id": "AF-0010",
+    "subject": "clavicula",
+    "relation": "HAS_SURFACE",
+    "object": [
+      "cara_inferior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0011",
+    "source_assertion_id": "SA-0007",
+    "atomic_fact_id": "AF-0011",
+    "subject": "clavicula",
+    "relation": "HAS_BORDER",
+    "object": [
+      "borde_anterior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0012",
+    "source_assertion_id": "SA-0007",
+    "atomic_fact_id": "AF-0012",
+    "subject": "clavicula",
+    "relation": "HAS_BORDER",
+    "object": [
+      "borde_posterior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 1
+  },
+  {
+    "relation_id": "REL-0013",
+    "source_assertion_id": "SA-0008",
+    "atomic_fact_id": "AF-0013",
+    "subject": "entity_2",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "1/3 Lateral: Inserción descendente del músculo trapecio en cara superior - borde posterior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 2
+  },
+  {
+    "relation_id": "REL-0014",
+    "source_assertion_id": "SA-0009",
+    "atomic_fact_id": "AF-0014",
+    "subject": "entity_2",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "1/3 Lateral: Inserción del músculo deltoides en cara superior - borde anterior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 2
+  },
+  {
+    "relation_id": "REL-0015",
+    "source_assertion_id": "SA-0010",
+    "atomic_fact_id": "AF-0015",
+    "subject": "entity_2",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "2/3 Mediales: Inserción del músculo pectoral mayor en cara superior - borde anterior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 2
+  },
+  {
+    "relation_id": "REL-0016",
+    "source_assertion_id": "SA-0011",
+    "atomic_fact_id": "AF-0016",
+    "subject": "triangulo_deltopectoral_mohrenheim",
+    "relation": "CONTAINS",
+    "object": [
+      "vena_cefalica"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 2
+  },
+  {
+    "relation_id": "REL-0017",
+    "source_assertion_id": "SA-0011",
+    "atomic_fact_id": "AF-0017",
+    "subject": "triangulo_deltopectoral_mohrenheim",
+    "relation": "CONTAINS",
+    "object": [
+      "rama_deltoidea_arteria_toracoacromial"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 2
+  },
+  {
+    "relation_id": "REL-0018",
+    "source_assertion_id": "SA-0012",
+    "atomic_fact_id": "AF-0018",
+    "subject": "entity_3",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Impresión del ligamento costoclavicular en cara inferior del 1/3 medial."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 3
+  },
+  {
+    "relation_id": "REL-0019",
+    "source_assertion_id": "SA-0013",
+    "atomic_fact_id": "AF-0019",
+    "subject": "entity_3",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Surco del músculo subclavio en 1/3 medio cara inferior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 3
+  },
+  {
+    "relation_id": "REL-0020",
+    "source_assertion_id": "SA-0014",
+    "atomic_fact_id": "AF-0020",
+    "subject": "clavicula_cara_inferior",
+    "relation": "HAS_LANDMARK",
+    "object": [
+      "tuberculo_conoideo"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 3
+  },
+  {
+    "relation_id": "REL-0021",
+    "source_assertion_id": "SA-0014",
+    "atomic_fact_id": "AF-0021",
+    "subject": "clavicula_cara_inferior",
+    "relation": "HAS_LANDMARK",
+    "object": [
+      "linea_trapezoidea"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 3
+  },
+  {
+    "relation_id": "REL-0022",
+    "source_assertion_id": "SA-0015",
+    "atomic_fact_id": "AF-0022",
+    "subject": "entity_4",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Tipo de Hueso: Hueso Plano."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 4
+  },
+  {
+    "relation_id": "REL-0023",
+    "source_assertion_id": "SA-0016",
+    "atomic_fact_id": "AF-0023",
+    "subject": "entity_4",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Hueso con formato triangular / Hueso Par."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 4
+  },
+  {
+    "relation_id": "REL-0024",
+    "source_assertion_id": "SA-0017",
+    "atomic_fact_id": "AF-0024",
+    "subject": "entity_4",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Localización: Región superior, posterior y lateral del tórax."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 4
+  },
+  {
+    "relation_id": "REL-0025",
+    "source_assertion_id": "SA-0018",
+    "atomic_fact_id": "AF-0025",
+    "subject": "escapula",
+    "relation": "PROJECTS_TO",
+    "object": [
+      "costillas_2_a_7"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 4
+  },
+  {
+    "relation_id": "REL-0026",
+    "source_assertion_id": "SA-0019",
+    "atomic_fact_id": "AF-0026",
+    "subject": "entity_4",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Posee 2 Caras: Anterior (Costal) y Posterior (Dorsal)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 4
+  },
+  {
+    "relation_id": "REL-0027",
+    "source_assertion_id": "SA-0020",
+    "atomic_fact_id": "AF-0027",
+    "subject": "entity_4",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cara Costal o Anterior: Es Cóncava."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 4
+  },
+  {
+    "relation_id": "REL-0028",
+    "source_assertion_id": "SA-0021",
+    "atomic_fact_id": "AF-0028",
+    "subject": "entity_5",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cara costal presenta la Fosa Subescapular."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 5
+  },
+  {
+    "relation_id": "REL-0029",
+    "source_assertion_id": "SA-0023",
+    "atomic_fact_id": "AF-0029",
+    "subject": "entity_6",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cara Posterior o Dorsal: Es Convexa."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 6
+  },
+  {
+    "relation_id": "REL-0030",
+    "source_assertion_id": "SA-0024",
+    "atomic_fact_id": "AF-0030",
+    "subject": "entity_6",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Presenta relieve que divide la cara posterior en dos fosas."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 6
+  },
+  {
+    "relation_id": "REL-0031",
+    "source_assertion_id": "SA-0025",
+    "atomic_fact_id": "AF-0031",
+    "subject": "entity_7",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Presenta Fosa Supraespinosa en la cara posterior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 7
+  },
+  {
+    "relation_id": "REL-0032",
+    "source_assertion_id": "SA-0026",
+    "atomic_fact_id": "AF-0032",
+    "subject": "entity_8",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Presenta Fosa Infraespinosa en la cara posterior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 8
+  },
+  {
+    "relation_id": "REL-0033",
+    "source_assertion_id": "SA-0027",
+    "atomic_fact_id": "AF-0033",
+    "subject": "entity_9",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Presenta Espina de la Escápula dividiendo las fosas posterior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 9
+  },
+  {
+    "relation_id": "REL-0034",
+    "source_assertion_id": "SA-0028",
+    "atomic_fact_id": "AF-0034",
+    "subject": "entity_10",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Presenta Acromion como continuación lateral de la espina."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 10
+  },
+  {
+    "relation_id": "REL-0035",
+    "source_assertion_id": "SA-0029",
+    "atomic_fact_id": "AF-0035",
+    "subject": "entity_11",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Presenta Escotadura Espinoglenoidea cerca de la cavidad glenoidea."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 11
+  },
+  {
+    "relation_id": "REL-0036",
+    "source_assertion_id": "SA-0030",
+    "atomic_fact_id": "AF-0036",
+    "subject": "escapula",
+    "relation": "HAS_BORDER",
+    "object": [
+      "borde_medial_espinal"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 12
+  },
+  {
+    "relation_id": "REL-0037",
+    "source_assertion_id": "SA-0030",
+    "atomic_fact_id": "AF-0037",
+    "subject": "escapula",
+    "relation": "HAS_BORDER",
+    "object": [
+      "borde_lateral_axilar"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 12
+  },
+  {
+    "relation_id": "REL-0038",
+    "source_assertion_id": "SA-0030",
+    "atomic_fact_id": "AF-0038",
+    "subject": "escapula",
+    "relation": "HAS_BORDER",
+    "object": [
+      "borde_superior_cervical"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 12
+  },
+  {
+    "relation_id": "REL-0039",
+    "source_assertion_id": "SA-0031",
+    "atomic_fact_id": "AF-0039",
+    "subject": "entity_12",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Borde Superior presenta la Escotadura de la Escápula (cerrada por el ligamento transverso)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 12
+  },
+  {
+    "relation_id": "REL-0040",
+    "source_assertion_id": "SA-0032",
+    "atomic_fact_id": "AF-0040",
+    "subject": "entity_12",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Por la escotadura pasa el Nervio Supraescapular."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 12
+  },
+  {
+    "relation_id": "REL-0041",
+    "source_assertion_id": "SA-0033",
+    "atomic_fact_id": "AF-0041",
+    "subject": "entity_12",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Inserción del Músculo Omohioideo en el borde superior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 12
+  },
+  {
+    "relation_id": "REL-0042",
+    "source_assertion_id": "SA-0034",
+    "atomic_fact_id": "AF-0042",
+    "subject": "escapula",
+    "relation": "HAS_ANGLE",
+    "object": [
+      "angulo_superior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 13
+  },
+  {
+    "relation_id": "REL-0043",
+    "source_assertion_id": "SA-0034",
+    "atomic_fact_id": "AF-0043",
+    "subject": "angulo_superior",
+    "relation": "JUNCTION_OF",
+    "object": [
+      "borde_superior",
+      "borde_medial"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 13
+  },
+  {
+    "relation_id": "REL-0044",
+    "source_assertion_id": "SA-0035",
+    "atomic_fact_id": "AF-0044",
+    "subject": "escapula",
+    "relation": "HAS_ANGLE",
+    "object": [
+      "angulo_inferior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 13
+  },
+  {
+    "relation_id": "REL-0045",
+    "source_assertion_id": "SA-0035",
+    "atomic_fact_id": "AF-0045",
+    "subject": "angulo_inferior",
+    "relation": "JUNCTION_OF",
+    "object": [
+      "borde_medial",
+      "borde_lateral"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 13
+  },
+  {
+    "relation_id": "REL-0046",
+    "source_assertion_id": "SA-0036",
+    "atomic_fact_id": "AF-0046",
+    "subject": "escapula",
+    "relation": "HAS_ANGLE",
+    "object": [
+      "angulo_lateral"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 14
+  },
+  {
+    "relation_id": "REL-0047",
+    "source_assertion_id": "SA-0036",
+    "atomic_fact_id": "AF-0047",
+    "subject": "angulo_lateral",
+    "relation": "JUNCTION_OF",
+    "object": [
+      "borde_superior",
+      "borde_lateral"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 14
+  },
+  {
+    "relation_id": "REL-0048",
+    "source_assertion_id": "SA-0037",
+    "atomic_fact_id": "AF-0048",
+    "subject": "entity_15",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Presenta Apófisis Coracoides en el ángulo lateral."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 15
+  },
+  {
+    "relation_id": "REL-0049",
+    "source_assertion_id": "SA-0038",
+    "atomic_fact_id": "AF-0049",
+    "subject": "entity_16",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Presenta Cavidad Glenoidea en el ángulo lateral."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 16
+  },
+  {
+    "relation_id": "REL-0050",
+    "source_assertion_id": "SA-0039",
+    "atomic_fact_id": "AF-0050",
+    "subject": "entity_16",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Tubérculo Supraglenoideo: Músculo bíceps cabeza larga."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 16
+  },
+  {
+    "relation_id": "REL-0051",
+    "source_assertion_id": "SA-0040",
+    "atomic_fact_id": "AF-0051",
+    "subject": "entity_16",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Tubérculo Infraglenoideo: Músculo tríceps cabeza larga."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 16
+  },
+  {
+    "relation_id": "REL-0052",
+    "source_assertion_id": "SA-0041",
+    "atomic_fact_id": "AF-0052",
+    "subject": "entity_17",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cavidad glenoidea está rodeada por el labrum (Rodete Glenoideo)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 17
+  },
+  {
+    "relation_id": "REL-0053",
+    "source_assertion_id": "SA-0042",
+    "atomic_fact_id": "AF-0053",
+    "subject": "entity_18",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cavidad glenoidea se articula con la cabeza del húmero."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 18
+  },
+  {
+    "relation_id": "REL-0054",
+    "source_assertion_id": "SA-0043",
+    "atomic_fact_id": "AF-0054",
+    "subject": "entity_18",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Inserciones Musculares Cara Anterior: Músculo Subescapular en la fosa subescapular."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 18
+  },
+  {
+    "relation_id": "REL-0055",
+    "source_assertion_id": "SA-0044",
+    "atomic_fact_id": "AF-0055",
+    "subject": "entity_19",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Serrato Anterior: En el borde medial entre el ángulo superior y el ángulo inferior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 19
+  },
+  {
+    "relation_id": "REL-0056",
+    "source_assertion_id": "SA-0045",
+    "atomic_fact_id": "AF-0056",
+    "subject": "entity_20",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cara Posterior: Músculo Supraespinoso en la fosa Supraespinosa."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 20
+  },
+  {
+    "relation_id": "REL-0057",
+    "source_assertion_id": "SA-0046",
+    "atomic_fact_id": "AF-0057",
+    "subject": "entity_21",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Infraespinoso en la fosa Infraespinosa."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 21
+  },
+  {
+    "relation_id": "REL-0058",
+    "source_assertion_id": "SA-0047",
+    "atomic_fact_id": "AF-0058",
+    "subject": "entity_22",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Espina de la Escápula: Músculo Trapecio en el labio superior del borde posterior de la espina."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 22
+  },
+  {
+    "relation_id": "REL-0059",
+    "source_assertion_id": "SA-0048",
+    "atomic_fact_id": "AF-0059",
+    "subject": "entity_22",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Acromion: Músculo Deltoides en el labio inferior del borde posterior de la espina y borde lateral del acromion."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 22
+  },
+  {
+    "relation_id": "REL-0060",
+    "source_assertion_id": "SA-0049",
+    "atomic_fact_id": "AF-0060",
+    "subject": "entity_22",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Borde Medial: Músculo Elevador de la Escápula, Músculo Romboides Menor, Músculo Romboides Mayor."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 22
+  },
+  {
+    "relation_id": "REL-0061",
+    "source_assertion_id": "SA-0050",
+    "atomic_fact_id": "AF-0061",
+    "subject": "entity_22",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Borde Lateral: Músculo Redondo Menor (arriba) y Músculo Redondo Mayor (abajo)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 22
+  },
+  {
+    "relation_id": "REL-0062",
+    "source_assertion_id": "SA-0051",
+    "atomic_fact_id": "AF-0062",
+    "subject": "entity_23",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Apófisis Coracoides: Músculo Coracobraquial en el vértice."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 23
+  },
+  {
+    "relation_id": "REL-0063",
+    "source_assertion_id": "SA-0052",
+    "atomic_fact_id": "AF-0063",
+    "subject": "entity_23",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Apófisis Coracoides: Cabeza Corta del Bíceps en el vértice."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 23
+  },
+  {
+    "relation_id": "REL-0064",
+    "source_assertion_id": "SA-0053",
+    "atomic_fact_id": "AF-0064",
+    "subject": "entity_23",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Apófisis Coracoides: Músculo Pectoral Menor en la cara medial."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 23
+  },
+  {
+    "relation_id": "REL-0065",
+    "source_assertion_id": "SA-0054",
+    "atomic_fact_id": "AF-0065",
+    "subject": "entity_23",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Ligamentos en la Apófisis Coracoides: Ligamento Conoide, Ligamento Trapezoide, Ligamento Coracoacromial."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 23
+  },
+  {
+    "relation_id": "REL-0066",
+    "source_assertion_id": "SA-0055",
+    "atomic_fact_id": "AF-0066",
+    "subject": "entity_24",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Articulación Glenohumeral: Diartrosis - Enartrosis (esferoidea)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 24
+  },
+  {
+    "relation_id": "REL-0067",
+    "source_assertion_id": "SA-0056",
+    "atomic_fact_id": "AF-0067",
+    "subject": "entity_24",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Movimientos: Flexión, extensión, abducción, aducción, rotación medial, rotación lateral, circunducción."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 24
+  },
+  {
+    "relation_id": "REL-0068",
+    "source_assertion_id": "SA-0057",
+    "atomic_fact_id": "AF-0068",
+    "subject": "entity_24",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cápsula y Ligamentos: Ligamento Glenohumeral Superior, Medio e Inferior; Ligamento Coracohumeral."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 24
+  },
+  {
+    "relation_id": "REL-0069",
+    "source_assertion_id": "SA-0058",
+    "atomic_fact_id": "AF-0069",
+    "subject": "entity_24",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Articulación del Codo: Diartrosis - Troclear / Ginglimo."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 24
+  },
+  {
+    "relation_id": "REL-0070",
+    "source_assertion_id": "SA-0059",
+    "atomic_fact_id": "AF-0070",
+    "subject": "art_codo",
+    "relation": "INNERVATED_BY",
+    "object": [
+      "nervio_radial_y_cubital_ramos_articulares"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 24
+  },
+  {
+    "relation_id": "REL-0071",
+    "source_assertion_id": "SA-0060",
+    "atomic_fact_id": "AF-0071",
+    "subject": "m_supraespinoso",
+    "relation": "INSERTS_INTO",
+    "object": [
+      "troquiter_faceta_superior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 25
+  },
+  {
+    "relation_id": "REL-0072",
+    "source_assertion_id": "SA-0060",
+    "atomic_fact_id": "AF-0072",
+    "subject": "m_infraespinoso",
+    "relation": "INSERTS_INTO",
+    "object": [
+      "troquiter_faceta_media"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 25
+  },
+  {
+    "relation_id": "REL-0073",
+    "source_assertion_id": "SA-0060",
+    "atomic_fact_id": "AF-0073",
+    "subject": "m_redondo_menor",
+    "relation": "INSERTS_INTO",
+    "object": [
+      "troquiter_faceta_inferior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 25
+  },
+  {
+    "relation_id": "REL-0074",
+    "source_assertion_id": "SA-0061",
+    "atomic_fact_id": "AF-0074",
+    "subject": "entity_25",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Tubérculo Menor (Troquín): Inserción del músculo subescapular."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 25
+  },
+  {
+    "relation_id": "REL-0075",
+    "source_assertion_id": "SA-0062",
+    "atomic_fact_id": "AF-0075",
+    "subject": "m_pectoral_mayor",
+    "relation": "INSERTS_INTO",
+    "object": [
+      "corredera_bicipital_labio_lateral"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 25
+  },
+  {
+    "relation_id": "REL-0076",
+    "source_assertion_id": "SA-0062",
+    "atomic_fact_id": "AF-0076",
+    "subject": "m_dorsal_ancho",
+    "relation": "INSERTS_INTO",
+    "object": [
+      "corredera_bicipital_suelo"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 25
+  },
+  {
+    "relation_id": "REL-0077",
+    "source_assertion_id": "SA-0062",
+    "atomic_fact_id": "AF-0077",
+    "subject": "m_redondo_mayor",
+    "relation": "INSERTS_INTO",
+    "object": [
+      "corredera_bicipital_labio_medial"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 25
+  },
+  {
+    "relation_id": "REL-0078",
+    "source_assertion_id": "SA-0063",
+    "atomic_fact_id": "AF-0078",
+    "subject": "entity_25",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cuello Quirúrgico del húmero: relacionado con el Nervio Axilar y Arteria Circunfleja Humeral Posterior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 25
+  },
+  {
+    "relation_id": "REL-0079",
+    "source_assertion_id": "SA-0064",
+    "atomic_fact_id": "AF-0079",
+    "subject": "entity_26",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Diáfisis Humeral Cara Posterior: Surco del Nervio Radial (Canal de Torsión)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 26
+  },
+  {
+    "relation_id": "REL-0080",
+    "source_assertion_id": "SA-0065",
+    "atomic_fact_id": "AF-0080",
+    "subject": "canal_de_torsion_sulco_radial",
+    "relation": "CONTAINS",
+    "object": [
+      "nervio_radial"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 26
+  },
+  {
+    "relation_id": "REL-0081",
+    "source_assertion_id": "SA-0065",
+    "atomic_fact_id": "AF-0081",
+    "subject": "canal_de_torsion_sulco_radial",
+    "relation": "CONTAINS",
+    "object": [
+      "arteria_braquial_profunda"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 26
+  },
+  {
+    "relation_id": "REL-0082",
+    "source_assertion_id": "SA-0065",
+    "atomic_fact_id": "AF-0082",
+    "subject": "nervio_radial",
+    "relation": "ACCOMPANIES",
+    "object": [
+      "arteria_braquial_profunda"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 26
+  },
+  {
+    "relation_id": "REL-0083",
+    "source_assertion_id": "SA-0066",
+    "atomic_fact_id": "AF-0083",
+    "subject": "entity_26",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Separa el origen del vasto lateral (arriba) y vasto medial (abajo) del tríceps."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 26
+  },
+  {
+    "relation_id": "REL-0084",
+    "source_assertion_id": "SA-0067",
+    "atomic_fact_id": "AF-0084",
+    "subject": "entity_26",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cara Anterolateral: Tuberosidad Deltoidea (V deltoidea)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 26
+  },
+  {
+    "relation_id": "REL-0085",
+    "source_assertion_id": "SA-0068",
+    "atomic_fact_id": "AF-0085",
+    "subject": "entity_26",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Canal epitrocleoolecraneano detrás del epicóndilo medial para el Nervio Cubital."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 26
+  },
+  {
+    "relation_id": "REL-0086",
+    "source_assertion_id": "SA-0069",
+    "atomic_fact_id": "AF-0086",
+    "subject": "entity_27",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cúbito: Hueso medial del antebrazo."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 27
+  },
+  {
+    "relation_id": "REL-0087",
+    "source_assertion_id": "SA-0070",
+    "atomic_fact_id": "AF-0087",
+    "subject": "entity_27",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Olécranon (inserción del tríceps) y Apófisis Coronoides (inserción del braquial anterior)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 27
+  },
+  {
+    "relation_id": "REL-0088",
+    "source_assertion_id": "SA-0071",
+    "atomic_fact_id": "AF-0088",
+    "subject": "entity_27",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Escotadura troclear (cavidad sigmoidea mayor) y escotadura radial (cavidad sigmoidea menor)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 27
+  },
+  {
+    "relation_id": "REL-0089",
+    "source_assertion_id": "SA-0072",
+    "atomic_fact_id": "AF-0089",
+    "subject": "entity_27",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cúbito no se articula directamente con los huesos del carpo; separado por fibrocartílago triangular."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 27
+  },
+  {
+    "relation_id": "REL-0090",
+    "source_assertion_id": "SA-0073",
+    "atomic_fact_id": "AF-0090",
+    "subject": "radio",
+    "relation": "LOCATION_SLIP",
+    "object": [
+      "hueso_medial_antebrazo"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 27
+  },
+  {
+    "relation_id": "REL-0091",
+    "source_assertion_id": "SA-0074",
+    "atomic_fact_id": "AF-0091",
+    "subject": "entity_28",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Radio: Hueso largo lateral del antebrazo."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 28
+  },
+  {
+    "relation_id": "REL-0092",
+    "source_assertion_id": "SA-0075",
+    "atomic_fact_id": "AF-0092",
+    "subject": "entity_28",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cabeza del radio: fóvea articular y circunferencia articular (articulación trocoide)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 28
+  },
+  {
+    "relation_id": "REL-0093",
+    "source_assertion_id": "SA-0076",
+    "atomic_fact_id": "AF-0093",
+    "subject": "entity_28",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Tuberosidad del Radio (Tuberosidad Bicipital): Inserción del tendón del bíceps braquial."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 28
+  },
+  {
+    "relation_id": "REL-0094",
+    "source_assertion_id": "SA-0077",
+    "atomic_fact_id": "AF-0094",
+    "subject": "entity_28",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cara posterior distal presenta el Tubérculo Dorsal (de Lister)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 28
+  },
+  {
+    "relation_id": "REL-0095",
+    "source_assertion_id": "SA-0078",
+    "atomic_fact_id": "AF-0095",
+    "subject": "entity_29",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Tabaquera Anatómica: Límites tendinosos (abductor largo y extensor corto lateralmente; extensor largo medialmente)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 29
+  },
+  {
+    "relation_id": "REL-0096",
+    "source_assertion_id": "SA-0079",
+    "atomic_fact_id": "AF-0096",
+    "subject": "entity_29",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Suelo de la tabaquera: Hueso Escafoides y Hueso Trapecio."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 29
+  },
+  {
+    "relation_id": "REL-0097",
+    "source_assertion_id": "SA-0080",
+    "atomic_fact_id": "AF-0097",
+    "subject": "entity_29",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Contenido en el suelo: Arteria Radial."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 29
+  },
+  {
+    "relation_id": "REL-0098",
+    "source_assertion_id": "SA-0081",
+    "atomic_fact_id": "AF-0098",
+    "subject": "entity_30",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Huesos del carpo (8 huesos divididos en fila proximal y fila distal)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 30
+  },
+  {
+    "relation_id": "REL-0099",
+    "source_assertion_id": "SA-0082",
+    "atomic_fact_id": "AF-0099",
+    "subject": "semilunar",
+    "relation": "ARTICULATES_WITH",
+    "object": [
+      "radio"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 30
+  },
+  {
+    "relation_id": "REL-0100",
+    "source_assertion_id": "SA-0082",
+    "atomic_fact_id": "AF-0100",
+    "subject": "semilunar",
+    "relation": "ARTICULATES_WITH",
+    "object": [
+      "escafoides"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 30
+  },
+  {
+    "relation_id": "REL-0101",
+    "source_assertion_id": "SA-0082",
+    "atomic_fact_id": "AF-0101",
+    "subject": "semilunar",
+    "relation": "ARTICULATES_WITH",
+    "object": [
+      "piramidal"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 30
+  },
+  {
+    "relation_id": "REL-0102",
+    "source_assertion_id": "SA-0082",
+    "atomic_fact_id": "AF-0102",
+    "subject": "semilunar",
+    "relation": "ARTICULATES_WITH",
+    "object": [
+      "hueso_grande"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 30
+  },
+  {
+    "relation_id": "REL-0103",
+    "source_assertion_id": "SA-0082",
+    "atomic_fact_id": "AF-0103",
+    "subject": "semilunar",
+    "relation": "ARTICULATES_WITH",
+    "object": [
+      "ganchoso"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 30
+  },
+  {
+    "relation_id": "REL-0104",
+    "source_assertion_id": "SA-0083",
+    "atomic_fact_id": "AF-0104",
+    "subject": "entity_30",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Grande se articula con 7 huesos."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 30
+  },
+  {
+    "relation_id": "REL-0105",
+    "source_assertion_id": "SA-0084",
+    "atomic_fact_id": "AF-0105",
+    "subject": "entity_31",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Ganchoso presenta apófisis unciforme / gancho."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 31
+  },
+  {
+    "relation_id": "REL-0106",
+    "source_assertion_id": "SA-0085",
+    "atomic_fact_id": "AF-0106",
+    "subject": "entity_31",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Pisiforme articula únicamente con el piramidal."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 31
+  },
+  {
+    "relation_id": "REL-0107",
+    "source_assertion_id": "SA-0086",
+    "atomic_fact_id": "AF-0107",
+    "subject": "entity_31",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Canal de Guyon formado entre pisiforme y gancho del ganchoso."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 31
+  },
+  {
+    "relation_id": "REL-0108",
+    "source_assertion_id": "SA-0087",
+    "atomic_fact_id": "AF-0108",
+    "subject": "entity_32",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "5 Metacarpianos."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 32
+  },
+  {
+    "relation_id": "REL-0109",
+    "source_assertion_id": "SA-0088",
+    "atomic_fact_id": "AF-0109",
+    "subject": "entity_32",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "1er Metacarpiano no tiene carillas articulares laterales en su base; articula con el trapecio (encaje recíproco / silla de montar)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 32
+  },
+  {
+    "relation_id": "REL-0110",
+    "source_assertion_id": "SA-0089",
+    "atomic_fact_id": "AF-0110",
+    "subject": "entity_32",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "2do a 5to metacarpianos articulan entre sí por sus bases."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 32
+  },
+  {
+    "relation_id": "REL-0111",
+    "source_assertion_id": "SA-0090",
+    "atomic_fact_id": "AF-0111",
+    "subject": "entity_33",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "14 Falanges en la mano (3 por dedo excepto el pulgar que tiene 2)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 33
+  },
+  {
+    "relation_id": "REL-0112",
+    "source_assertion_id": "SA-0091",
+    "atomic_fact_id": "AF-0112",
+    "subject": "entity_33",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Falange proximal, falange media y falange distal."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 33
+  },
+  {
+    "relation_id": "REL-0113",
+    "source_assertion_id": "SA-0092",
+    "atomic_fact_id": "AF-0113",
+    "subject": "entity_33",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Inserción del Músculo Flexor Superficial de los Dedos en falange media (lengüetas perforadas)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 33
+  },
+  {
+    "relation_id": "REL-0114",
+    "source_assertion_id": "SA-0093",
+    "atomic_fact_id": "AF-0114",
+    "subject": "entity_34",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Inserción del Músculo Flexor Profundo de los Dedos en la base de la falange distal (perforante)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 34
+  },
+  {
+    "relation_id": "REL-0115",
+    "source_assertion_id": "SA-0094",
+    "atomic_fact_id": "AF-0115",
+    "subject": "entity_34",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Expansión del tendón extensor en la falange distal."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 34
+  },
+  {
+    "relation_id": "REL-0116",
+    "source_assertion_id": "SA-0095",
+    "atomic_fact_id": "AF-0116",
+    "subject": "m_supraespinoso",
+    "relation": "ORIGINATES_FROM",
+    "object": [
+      "fosa_supraespinosa"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 35
+  },
+  {
+    "relation_id": "REL-0117",
+    "source_assertion_id": "SA-0095",
+    "atomic_fact_id": "AF-0117",
+    "subject": "m_supraespinoso",
+    "relation": "INSERTS_INTO",
+    "object": [
+      "troquiter_faceta_superior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 35
+  },
+  {
+    "relation_id": "REL-0118",
+    "source_assertion_id": "SA-0095",
+    "atomic_fact_id": "AF-0118",
+    "subject": "m_supraespinoso",
+    "relation": "INNERVATED_BY",
+    "object": [
+      "nervio_supraescapular"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 35
+  },
+  {
+    "relation_id": "REL-0119",
+    "source_assertion_id": "SA-0095",
+    "atomic_fact_id": "AF-0119",
+    "subject": "m_supraespinoso",
+    "relation": "SUPPLIED_BY",
+    "object": [
+      "arteria_supraescapular"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 35
+  },
+  {
+    "relation_id": "REL-0120",
+    "source_assertion_id": "SA-0095",
+    "atomic_fact_id": "AF-0120",
+    "subject": "m_supraespinoso",
+    "relation": "PERFORMS_ACTION",
+    "object": [
+      "abduce_el_brazo"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 35
+  },
+  {
+    "relation_id": "REL-0121",
+    "source_assertion_id": "SA-0096",
+    "atomic_fact_id": "AF-0121",
+    "subject": "m_infraespinoso",
+    "relation": "ORIGINATES_FROM",
+    "object": [
+      "fosa_infraespinosa"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 35
+  },
+  {
+    "relation_id": "REL-0122",
+    "source_assertion_id": "SA-0096",
+    "atomic_fact_id": "AF-0122",
+    "subject": "m_infraespinoso",
+    "relation": "INSERTS_INTO",
+    "object": [
+      "troquiter_faceta_media"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 35
+  },
+  {
+    "relation_id": "REL-0123",
+    "source_assertion_id": "SA-0096",
+    "atomic_fact_id": "AF-0123",
+    "subject": "m_infraespinoso",
+    "relation": "INNERVATED_BY",
+    "object": [
+      "nervio_supraescapular"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 35
+  },
+  {
+    "relation_id": "REL-0124",
+    "source_assertion_id": "SA-0096",
+    "atomic_fact_id": "AF-0124",
+    "subject": "m_infraespinoso",
+    "relation": "PERFORMS_ACTION",
+    "object": [
+      "rotador_lateral"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 35
+  },
+  {
+    "relation_id": "REL-0125",
+    "source_assertion_id": "SA-0097",
+    "atomic_fact_id": "AF-0125",
+    "subject": "entity_36",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Pectoral Mayor: aductor y rotador medial del brazo."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 36
+  },
+  {
+    "relation_id": "REL-0126",
+    "source_assertion_id": "SA-0098",
+    "atomic_fact_id": "AF-0126",
+    "subject": "entity_36",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Pectoral Menor: desciende la escápula."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 36
+  },
+  {
+    "relation_id": "REL-0127",
+    "source_assertion_id": "SA-0099",
+    "atomic_fact_id": "AF-0127",
+    "subject": "entity_36",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Serrato Anterior: inervado por el Nervio Torácico Largo."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 36
+  },
+  {
+    "relation_id": "REL-0128",
+    "source_assertion_id": "SA-0100",
+    "atomic_fact_id": "AF-0128",
+    "subject": "entity_37",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Subescapular: aductor y rotador medial del húmero."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 37
+  },
+  {
+    "relation_id": "REL-0129",
+    "source_assertion_id": "SA-0101",
+    "atomic_fact_id": "AF-0129",
+    "subject": "entity_37",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Redondo Menor: inervado por el Nervio Axilar."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 37
+  },
+  {
+    "relation_id": "REL-0130",
+    "source_assertion_id": "SA-0102",
+    "atomic_fact_id": "AF-0130",
+    "subject": "entity_37",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Redondo Mayor: inervado por el nervio subescapular inferior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 37
+  },
+  {
+    "relation_id": "REL-0131",
+    "source_assertion_id": "SA-0103",
+    "atomic_fact_id": "AF-0131",
+    "subject": "entity_37",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Dorsal Ancho: inervado por el Nervio Toracodorsal."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 37
+  },
+  {
+    "relation_id": "REL-0132",
+    "source_assertion_id": "SA-0104",
+    "atomic_fact_id": "AF-0132",
+    "subject": "m_subescapular",
+    "relation": "INNERVATED_BY",
+    "object": [
+      "nervio_axilar_mencion_fuente"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 37
+  },
+  {
+    "relation_id": "REL-0133",
+    "source_assertion_id": "SA-0105",
+    "atomic_fact_id": "AF-0133",
+    "subject": "entity_38",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Deltoides: inervado por el Nervio Axilar (circunflejo). Principal abductor."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 38
+  },
+  {
+    "relation_id": "REL-0134",
+    "source_assertion_id": "SA-0106",
+    "atomic_fact_id": "AF-0134",
+    "subject": "entity_38",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Coracobraquial: perforado por el Nervio Musculocutáneo (inervado por él)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 38
+  },
+  {
+    "relation_id": "REL-0135",
+    "source_assertion_id": "SA-0107",
+    "atomic_fact_id": "AF-0135",
+    "subject": "entity_39",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Bíceps Braquial: dos cabezas (larga y corta)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 39
+  },
+  {
+    "relation_id": "REL-0136",
+    "source_assertion_id": "SA-0108",
+    "atomic_fact_id": "AF-0136",
+    "subject": "entity_39",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Acción: Supinador del antebrazo flexionado y flexor del codo."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 39
+  },
+  {
+    "relation_id": "REL-0137",
+    "source_assertion_id": "SA-0109",
+    "atomic_fact_id": "AF-0137",
+    "subject": "m_biceps_braquial",
+    "relation": "INNERVATED_BY",
+    "object": [
+      "nervio_radial_mencion_fuente"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 39
+  },
+  {
+    "relation_id": "REL-0138",
+    "source_assertion_id": "SA-0110",
+    "atomic_fact_id": "AF-0138",
+    "subject": "entity_40",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Braquial (Braquial Anterior): Principal flexor del antebrazo en el codo."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 40
+  },
+  {
+    "relation_id": "REL-0139",
+    "source_assertion_id": "SA-0111",
+    "atomic_fact_id": "AF-0139",
+    "subject": "entity_40",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Inervación: Nervio Musculocutáneo."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 40
+  },
+  {
+    "relation_id": "REL-0140",
+    "source_assertion_id": "SA-0112",
+    "atomic_fact_id": "AF-0140",
+    "subject": "entity_41",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Tríceps Braquial: Cabeza larga, vasto lateral y vasto medial. Inervado por el Nervio Radial."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0141",
+    "source_assertion_id": "SA-0113",
+    "atomic_fact_id": "AF-0141",
+    "subject": "espacio_cuadrangular_velpeau",
+    "relation": "HAS_SUPERIOR_BOUNDARY",
+    "object": [
+      "m_redondo_menor"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0142",
+    "source_assertion_id": "SA-0113",
+    "atomic_fact_id": "AF-0142",
+    "subject": "espacio_cuadrangular_velpeau",
+    "relation": "HAS_INFERIOR_BOUNDARY",
+    "object": [
+      "m_redondo_mayor"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0143",
+    "source_assertion_id": "SA-0113",
+    "atomic_fact_id": "AF-0143",
+    "subject": "espacio_cuadrangular_velpeau",
+    "relation": "HAS_MEDIAL_BOUNDARY",
+    "object": [
+      "cabeza_larga_triceps"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0144",
+    "source_assertion_id": "SA-0113",
+    "atomic_fact_id": "AF-0144",
+    "subject": "espacio_cuadrangular_velpeau",
+    "relation": "HAS_LATERAL_BOUNDARY",
+    "object": [
+      "cuello_quirurgico_umero"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0145",
+    "source_assertion_id": "SA-0113",
+    "atomic_fact_id": "AF-0145",
+    "subject": "espacio_cuadrangular_velpeau",
+    "relation": "CONTAINS",
+    "object": [
+      "nervio_axilar"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0146",
+    "source_assertion_id": "SA-0113",
+    "atomic_fact_id": "AF-0146",
+    "subject": "espacio_cuadrangular_velpeau",
+    "relation": "CONTAINS",
+    "object": [
+      "arteria_circunfleja_humeral_posterior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0147",
+    "source_assertion_id": "SA-0114",
+    "atomic_fact_id": "AF-0147",
+    "subject": "espacio_triangular_omotricipital",
+    "relation": "HAS_SUPERIOR_BOUNDARY",
+    "object": [
+      "m_redondo_menor"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0148",
+    "source_assertion_id": "SA-0114",
+    "atomic_fact_id": "AF-0148",
+    "subject": "espacio_triangular_omotricipital",
+    "relation": "HAS_INFERIOR_BOUNDARY",
+    "object": [
+      "m_redondo_mayor"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0149",
+    "source_assertion_id": "SA-0114",
+    "atomic_fact_id": "AF-0149",
+    "subject": "espacio_triangular_omotricipital",
+    "relation": "HAS_LATERAL_BOUNDARY",
+    "object": [
+      "cabeza_larga_triceps"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0150",
+    "source_assertion_id": "SA-0114",
+    "atomic_fact_id": "AF-0150",
+    "subject": "espacio_triangular_omotricipital",
+    "relation": "CONTAINS",
+    "object": [
+      "arteria_circunfleja_escapular"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0151",
+    "source_assertion_id": "SA-0115",
+    "atomic_fact_id": "AF-0151",
+    "subject": "intervalo_triangular_avelino_gutierrez",
+    "relation": "HAS_SUPERIOR_BOUNDARY",
+    "object": [
+      "m_redondo_mayor"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0152",
+    "source_assertion_id": "SA-0115",
+    "atomic_fact_id": "AF-0152",
+    "subject": "intervalo_triangular_avelino_gutierrez",
+    "relation": "HAS_MEDIAL_BOUNDARY",
+    "object": [
+      "cabeza_larga_triceps"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0153",
+    "source_assertion_id": "SA-0115",
+    "atomic_fact_id": "AF-0153",
+    "subject": "intervalo_triangular_avelino_gutierrez",
+    "relation": "HAS_LATERAL_BOUNDARY",
+    "object": [
+      "diafisis_umero"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0154",
+    "source_assertion_id": "SA-0115",
+    "atomic_fact_id": "AF-0154",
+    "subject": "intervalo_triangular_avelino_gutierrez",
+    "relation": "CONTAINS",
+    "object": [
+      "nervio_radial"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0155",
+    "source_assertion_id": "SA-0115",
+    "atomic_fact_id": "AF-0155",
+    "subject": "intervalo_triangular_avelino_gutierrez",
+    "relation": "CONTAINS",
+    "object": [
+      "arteria_braquial_profunda"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 41
+  },
+  {
+    "relation_id": "REL-0156",
+    "source_assertion_id": "SA-0116",
+    "atomic_fact_id": "AF-0156",
+    "subject": "entity_42",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Compartimento anterior antebrazo: Plano 1 (epicondíleos mediales / epitrocleares)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 42
+  },
+  {
+    "relation_id": "REL-0157",
+    "source_assertion_id": "SA-0117",
+    "atomic_fact_id": "AF-0157",
+    "subject": "entity_42",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Pronador redondo, flexor radial del carpo, palmar largo, flexor cubital del carpo."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 42
+  },
+  {
+    "relation_id": "REL-0158",
+    "source_assertion_id": "SA-0118",
+    "atomic_fact_id": "AF-0158",
+    "subject": "entity_42",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Inervación: Todos por Nervio Mediano EXCEPTO Flexor Cubital del Carpo (inervado por Nervio Cubital)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 42
+  },
+  {
+    "relation_id": "REL-0159",
+    "source_assertion_id": "SA-0119",
+    "atomic_fact_id": "AF-0159",
+    "subject": "entity_43",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Plano 2: Flexor superficial de los dedos (N. mediano)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 43
+  },
+  {
+    "relation_id": "REL-0160",
+    "source_assertion_id": "SA-0120",
+    "atomic_fact_id": "AF-0160",
+    "subject": "entity_43",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Plano 3: Flexor profundo de los dedos (mitad lateral N. mediano, mitad medial N. cubital) y flexor largo del pulgar (N. interóseo anterior del mediano)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 43
+  },
+  {
+    "relation_id": "REL-0161",
+    "source_assertion_id": "SA-0121",
+    "atomic_fact_id": "AF-0161",
+    "subject": "entity_43",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Plano 4: Pronador cuadrado (N. interóseo anterior del mediano)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 43
+  },
+  {
+    "relation_id": "REL-0162",
+    "source_assertion_id": "SA-0122",
+    "atomic_fact_id": "AF-0162",
+    "subject": "entity_44",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Compartimento posterior y lateral: 12 músculos en total."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 44
+  },
+  {
+    "relation_id": "REL-0163",
+    "source_assertion_id": "SA-0123",
+    "atomic_fact_id": "AF-0163",
+    "subject": "entity_44",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Grupo Lateral: Braquiorradial, extensor radial largo del carpo, extensor radial corto del carpo, supinador."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 44
+  },
+  {
+    "relation_id": "REL-0164",
+    "source_assertion_id": "SA-0124",
+    "atomic_fact_id": "AF-0164",
+    "subject": "entity_44",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Inervación: Nervio Radial (ramo profundo atraviesa el supinador)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 44
+  },
+  {
+    "relation_id": "REL-0165",
+    "source_assertion_id": "SA-0125",
+    "atomic_fact_id": "AF-0165",
+    "subject": "entity_45",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Porción Posterior Plano Superficial: Extensor de los dedos, extensor del meñique, extensor cubital del carpo, ancóneo."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 45
+  },
+  {
+    "relation_id": "REL-0166",
+    "source_assertion_id": "SA-0126",
+    "atomic_fact_id": "AF-0166",
+    "subject": "entity_45",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Origen: Epicóndilo lateral del húmero. Inervación: Nervio Radial."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 45
+  },
+  {
+    "relation_id": "REL-0167",
+    "source_assertion_id": "SA-0127",
+    "atomic_fact_id": "AF-0167",
+    "subject": "entity_46",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Plano Profundo Posterior: Abductor largo del pulgar, extensor corto del pulgar, extensor largo del pulgar."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 46
+  },
+  {
+    "relation_id": "REL-0168",
+    "source_assertion_id": "SA-0128",
+    "atomic_fact_id": "AF-0168",
+    "subject": "entity_46",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Inervación: Ramo profundo del nervio radial (interóseo posterior)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 46
+  },
+  {
+    "relation_id": "REL-0169",
+    "source_assertion_id": "SA-0129",
+    "atomic_fact_id": "AF-0169",
+    "subject": "tabaquera_anatomica",
+    "relation": "VASCULAR_SLIP",
+    "object": [
+      "arteria_cefalica"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 46
+  },
+  {
+    "relation_id": "REL-0170",
+    "source_assertion_id": "SA-0130",
+    "atomic_fact_id": "AF-0170",
+    "subject": "entity_47",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculo Extensor del Índice: Origen en cúbito y membrana interósea."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 47
+  },
+  {
+    "relation_id": "REL-0171",
+    "source_assertion_id": "SA-0131",
+    "atomic_fact_id": "AF-0171",
+    "subject": "entity_47",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Inervación: Ramo profundo del nervio radial."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 47
+  },
+  {
+    "relation_id": "REL-0172",
+    "source_assertion_id": "SA-0132",
+    "atomic_fact_id": "AF-0172",
+    "subject": "entity_48",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculos de la Región Tenar: Abductor corto, flexor corto, oponente, aductor del pulgar."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 48
+  },
+  {
+    "relation_id": "REL-0173",
+    "source_assertion_id": "SA-0133",
+    "atomic_fact_id": "AF-0173",
+    "subject": "entity_48",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Inervación: Abductor corto, oponente y cabeza superficial del flexor corto por Ramo Recurrente del Mediano."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 48
+  },
+  {
+    "relation_id": "REL-0174",
+    "source_assertion_id": "SA-0134",
+    "atomic_fact_id": "AF-0174",
+    "subject": "entity_48",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Cabeza profunda del flexor corto y aductor del pulgar por Ramo Profundo del Cubital."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 48
+  },
+  {
+    "relation_id": "REL-0175",
+    "source_assertion_id": "SA-0135",
+    "atomic_fact_id": "AF-0175",
+    "subject": "entity_49",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Músculos de la Región Hipotenar: Palmar corto (cutáneo palmar), abductor del meñique, flexor corto del meñique, oponente del meñique."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 49
+  },
+  {
+    "relation_id": "REL-0176",
+    "source_assertion_id": "SA-0136",
+    "atomic_fact_id": "AF-0176",
+    "subject": "entity_49",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Inervación: Ramo superficial del nervio cubital para palmar corto; ramo profundo del cubital para los otros tres."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 49
+  },
+  {
+    "relation_id": "REL-0177",
+    "source_assertion_id": "SA-0137",
+    "atomic_fact_id": "AF-0177",
+    "subject": "entity_50",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Lumbricales 1 y 2 inervados por el Nervio Mediano; Lumbricales 3 y 4 inervados por el Nervio Cubital (ramo profundo)."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 50
+  },
+  {
+    "relation_id": "REL-0178",
+    "source_assertion_id": "SA-0138",
+    "atomic_fact_id": "AF-0178",
+    "subject": "entity_50",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Interóseos Palmares (3): Aductores hacia el eje del 3er dedo. Inervados por ramo profundo del cubital."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 50
+  },
+  {
+    "relation_id": "REL-0179",
+    "source_assertion_id": "SA-0139",
+    "atomic_fact_id": "AF-0179",
+    "subject": "entity_50",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Interóseos Dorsales (4): Abductores del eje del 3er dedo. Inervados por ramo profundo del cubital."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 50
+  },
+  {
+    "relation_id": "REL-0180",
+    "source_assertion_id": "SA-0140",
+    "atomic_fact_id": "AF-0180",
+    "subject": "entity_51",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Arteria Axilar: Continuación de la arteria subclavia."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 51
+  },
+  {
+    "relation_id": "REL-0181",
+    "source_assertion_id": "SA-0141",
+    "atomic_fact_id": "AF-0181",
+    "subject": "entity_51",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Dividida en 3 porciones por el músculo pectoral menor."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 51
+  },
+  {
+    "relation_id": "REL-0182",
+    "source_assertion_id": "SA-0142",
+    "atomic_fact_id": "AF-0182",
+    "subject": "arteria_axilar_p1",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_toracica_superior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 51
+  },
+  {
+    "relation_id": "REL-0183",
+    "source_assertion_id": "SA-0142",
+    "atomic_fact_id": "AF-0183",
+    "subject": "arteria_toracica_superior",
+    "relation": "BRANCHES_FROM",
+    "object": [
+      "arteria_axilar_p1"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 51
+  },
+  {
+    "relation_id": "REL-0184",
+    "source_assertion_id": "SA-0143",
+    "atomic_fact_id": "AF-0184",
+    "subject": "arteria_axilar_p2",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_toracoacromial"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 51
+  },
+  {
+    "relation_id": "REL-0185",
+    "source_assertion_id": "SA-0143",
+    "atomic_fact_id": "AF-0185",
+    "subject": "arteria_axilar_p2",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_toracica_lateral"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 51
+  },
+  {
+    "relation_id": "REL-0186",
+    "source_assertion_id": "SA-0143",
+    "atomic_fact_id": "AF-0186",
+    "subject": "arteria_toracoacromial",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "rama_acromial"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 51
+  },
+  {
+    "relation_id": "REL-0187",
+    "source_assertion_id": "SA-0143",
+    "atomic_fact_id": "AF-0187",
+    "subject": "arteria_toracoacromial",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "rama_clavicular"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 51
+  },
+  {
+    "relation_id": "REL-0188",
+    "source_assertion_id": "SA-0143",
+    "atomic_fact_id": "AF-0188",
+    "subject": "arteria_toracoacromial",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "rama_deltoidea"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 51
+  },
+  {
+    "relation_id": "REL-0189",
+    "source_assertion_id": "SA-0143",
+    "atomic_fact_id": "AF-0189",
+    "subject": "arteria_toracoacromial",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "rama_pectoral"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 51
+  },
+  {
+    "relation_id": "REL-0190",
+    "source_assertion_id": "SA-0144",
+    "atomic_fact_id": "AF-0190",
+    "subject": "entity_51",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Relaciones con los fascículos del plexo braquial."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 51
+  },
+  {
+    "relation_id": "REL-0191",
+    "source_assertion_id": "SA-0145",
+    "atomic_fact_id": "AF-0191",
+    "subject": "arteria_axilar_p3",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_subescapular"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 52
+  },
+  {
+    "relation_id": "REL-0192",
+    "source_assertion_id": "SA-0145",
+    "atomic_fact_id": "AF-0192",
+    "subject": "arteria_axilar_p3",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_circunfleja_humeral_anterior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 52
+  },
+  {
+    "relation_id": "REL-0193",
+    "source_assertion_id": "SA-0145",
+    "atomic_fact_id": "AF-0193",
+    "subject": "arteria_axilar_p3",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_circunfleja_humeral_posterior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 52
+  },
+  {
+    "relation_id": "REL-0194",
+    "source_assertion_id": "SA-0145",
+    "atomic_fact_id": "AF-0194",
+    "subject": "arteria_subescapular",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_toracodorsal"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 52
+  },
+  {
+    "relation_id": "REL-0195",
+    "source_assertion_id": "SA-0145",
+    "atomic_fact_id": "AF-0195",
+    "subject": "arteria_subescapular",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_circunfleja_escapular"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 52
+  },
+  {
+    "relation_id": "REL-0196",
+    "source_assertion_id": "SA-0146",
+    "atomic_fact_id": "AF-0196",
+    "subject": "entity_52",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Arteria circunfleja humeral posterior pasa por el cuadrilátero de Velpeau con el nervio axilar."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 52
+  },
+  {
+    "relation_id": "REL-0197",
+    "source_assertion_id": "SA-0147",
+    "atomic_fact_id": "AF-0197",
+    "subject": "entity_52",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Arteria Braquial: Continuación de la axilar desde el borde inferior del pectoral mayor."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 52
+  },
+  {
+    "relation_id": "REL-0198",
+    "source_assertion_id": "SA-0148",
+    "atomic_fact_id": "AF-0198",
+    "subject": "entity_52",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Discurre en el conducto braquial junto al nervio mediano."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 52
+  },
+  {
+    "relation_id": "REL-0199",
+    "source_assertion_id": "SA-0149",
+    "atomic_fact_id": "AF-0199",
+    "subject": "entity_52",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Ramas: Arteria braquial profunda (entra al canal de torsión), colaterales cubitales superior e inferior."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 52
+  },
+  {
+    "relation_id": "REL-0200",
+    "source_assertion_id": "SA-0150",
+    "atomic_fact_id": "AF-0200",
+    "subject": "entity_52",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Terminación: Se bifurca en arteria radial y arteria cubital."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 52
+  },
+  {
+    "relation_id": "REL-0201",
+    "source_assertion_id": "SA-0151",
+    "atomic_fact_id": "AF-0201",
+    "subject": "entity_53",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Arteria Radial: Trayecto por el canal muscular y canal del pulso en antebrazo; tabaquera anatómica y 1er espacio intermetacarpiano en la mano."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 53
+  },
+  {
+    "relation_id": "REL-0202",
+    "source_assertion_id": "SA-0152",
+    "atomic_fact_id": "AF-0202",
+    "subject": "entity_53",
+    "relation": "HAS_PROPERTY",
+    "object": [
+      "Terminación: Se une a la arteria palmar profunda (rama de la cubital) formando el arco palmar profundo."
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 53
+  },
+  {
+    "relation_id": "REL-0203",
+    "source_assertion_id": "SA-0153",
+    "atomic_fact_id": "AF-0203",
+    "subject": "arteria_radial",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_recurrente_radial"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 53
+  },
+  {
+    "relation_id": "REL-0204",
+    "source_assertion_id": "SA-0153",
+    "atomic_fact_id": "AF-0204",
+    "subject": "arteria_radial",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_carpiana_palmar"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 53
+  },
+  {
+    "relation_id": "REL-0205",
+    "source_assertion_id": "SA-0153",
+    "atomic_fact_id": "AF-0205",
+    "subject": "arteria_radial",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_carpiana_dorsal"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 53
+  },
+  {
+    "relation_id": "REL-0206",
+    "source_assertion_id": "SA-0153",
+    "atomic_fact_id": "AF-0206",
+    "subject": "arteria_radial",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_palmar_superficial"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 53
+  },
+  {
+    "relation_id": "REL-0207",
+    "source_assertion_id": "SA-0153",
+    "atomic_fact_id": "AF-0207",
+    "subject": "arteria_radial",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_principal_pulgar"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 53
+  },
+  {
+    "relation_id": "REL-0208",
+    "source_assertion_id": "SA-0153",
+    "atomic_fact_id": "AF-0208",
+    "subject": "arteria_radial",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_metacarpiana_dorsal_1"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_page": 53
+  },
+  {
+    "relation_id": "REL-0209",
+    "source_assertion_id": "SA-0154",
+    "atomic_fact_id": "AF-0209",
+    "subject": "arco_dorsal_carpo",
+    "relation": "SOURCE_STATUS",
+    "object": [
+      "SOURCE_CONTENT_INCOMPLETE"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_page": 53
+  }
+]

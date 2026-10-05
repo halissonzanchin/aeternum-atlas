@@ -1,0 +1,72 @@
+{
+  "registry_type": "AETERNUM_SOURCE_AUTHORIZATION_REGISTRY",
+  "version": "1.1.0",
+  "protocol": "ACSRP-1.1",
+  "updated_at": "2026-09-24T03:00:00.000Z",
+  "doctrine": {
+    "validation_eligibility_vs_republication": "Academic validation eligibility grants permission to fact-check propositions against external authoritative works. It does NOT authorize text republication, public redistribution, or verbatim corpus ingestion.",
+    "policy_nature": "This registry represents an internal Aeternum operational governance standard, not a statutory copyright license."
+  },
+  "sources": [
+    {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "authorization_status": "USER_PROVIDED_LOCAL_REFERENCE",
+      "usage_scope": {
+        "SOURCE_METADATA_STORAGE": "ALLOWED",
+        "FACT_EXTRACTION": "ALLOWED_FOR_INTERNAL_VALIDATION",
+        "ORIGINAL_PARAPHRASED_SYNTHESIS": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "STRUCTURED_RELATION_EXTRACTION": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "SHORT_EVIDENCE_LOCATOR": "ALLOWED",
+        "PAGE_LEVEL_PROVENANCE": "ALLOWED",
+        "SUBSTANTIAL_VERBATIM_INGESTION": "PROHIBITED",
+        "TEXT_REPUBLICATION": "NOT_AUTHORIZED_BY_REGISTRY",
+        "PUBLIC_REDISTRIBUTION": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "source_id": "SRC-LATARJET-ED5-T2",
+      "authorization_status": "USER_PROVIDED_LOCAL_REFERENCE",
+      "usage_scope": {
+        "SOURCE_METADATA_STORAGE": "ALLOWED",
+        "FACT_EXTRACTION": "ALLOWED_FOR_INTERNAL_VALIDATION",
+        "ORIGINAL_PARAPHRASED_SYNTHESIS": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "STRUCTURED_RELATION_EXTRACTION": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "SHORT_EVIDENCE_LOCATOR": "ALLOWED",
+        "PAGE_LEVEL_PROVENANCE": "ALLOWED",
+        "SUBSTANTIAL_VERBATIM_INGESTION": "PROHIBITED",
+        "TEXT_REPUBLICATION": "NOT_AUTHORIZED_BY_REGISTRY",
+        "PUBLIC_REDISTRIBUTION": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "source_id": "SRC-NIELSEN-ATLAS-ED1",
+      "authorization_status": "USER_PROVIDED_LOCAL_REFERENCE",
+      "usage_scope": {
+        "SOURCE_METADATA_STORAGE": "ALLOWED",
+        "FACT_EXTRACTION": "ALLOWED_FOR_INTERNAL_VALIDATION",
+        "ORIGINAL_PARAPHRASED_SYNTHESIS": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "STRUCTURED_RELATION_EXTRACTION": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "SHORT_EVIDENCE_LOCATOR": "ALLOWED",
+        "PAGE_LEVEL_PROVENANCE": "ALLOWED",
+        "SUBSTANTIAL_VERBATIM_INGESTION": "PROHIBITED",
+        "TEXT_REPUBLICATION": "NOT_AUTHORIZED_BY_REGISTRY",
+        "PUBLIC_REDISTRIBUTION": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "authorization_status": "INTERNAL_VALIDATION_ONLY",
+      "usage_scope": {
+        "SOURCE_METADATA_STORAGE": "ALLOWED",
+        "FACT_EXTRACTION": "ALLOWED",
+        "ORIGINAL_PARAPHRASED_SYNTHESIS": "ALLOWED",
+        "STRUCTURED_RELATION_EXTRACTION": "ALLOWED",
+        "SHORT_EVIDENCE_LOCATOR": "ALLOWED",
+        "PAGE_LEVEL_PROVENANCE": "ALLOWED",
+        "SUBSTANTIAL_VERBATIM_INGESTION": "PROHIBITED",
+        "TEXT_REPUBLICATION": "NOT_AUTHORIZED_BY_REGISTRY",
+        "PUBLIC_REDISTRIBUTION": "NOT_ESTABLISHED"
+      }
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "manifest_name": "AETERNUM_CANONICAL_MEMORY_MANIFEST",
+  "version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+  "parent_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+  "release_date": "2026-09-25T04:24:56.727Z",
+  "status": "RELEASED_LOCAL_SOVEREIGN",
+  "total_canonical_facts": 248,
+  "total_canonical_entities": 31,
+  "total_teaching_connections": 17,
+  "total_practical_units": 16,
+  "total_documentary_blocks": 12,
+  "local_sqlite_mirror": "knowledge_base/local_mirror/aeternum_anatomical_memory.db",
+  "active_entities": [
+    "scapula",
+    "clavicle",
+    "clavicular_shaft",
+    "clavicular_sternal_end",
+    "clavicular_acromial_end",
+    "clavicular_superior_surface",
+    "clavicular_inferior_surface",
+    "conoid_tubercle",
+    "trapezoid_line",
+    "subclavian_groove",
+    "costoclavicular_ligament_impression",
+    "clavicular_sternal_articular_surface",
+    "clavicular_acromial_articular_surface",
+    "clavicular_nutrient_foramen",
+    "sternoclavicular_joint",
+    "sternoclavicular_articular_disc",
+    "anterior_sternoclavicular_ligament",
+    "posterior_sternoclavicular_ligament",
+    "interclavicular_ligament",
+    "costoclavicular_ligament",
+    "sternoclavicular_fibrous_capsule",
+    "acromioclavicular_joint",
+    "acromioclavicular_fibrous_capsule",
+    "acromioclavicular_ligament",
+    "acromioclavicular_articular_disc",
+    "coracoclavicular_ligament_complex",
+    "conoid_ligament",
+    "trapezoid_ligament",
+    "pectoral_girdle",
+    "deltopectoral_groove",
+    "cervicoaxillary_canal"
+  ],
+  "promotions": [
+    {
+      "promotion_id": "AET-PROM-SCAP-001",
+      "pack_id": "AET-KP-UL-SCAPULA-001",
+      "fact_count": 119,
+      "entity_count": 1,
+      "promoted_at": "2026-09-24T06:59:47.583Z"
+    },
+    {
+      "promotion_id": "AET-PROM-UL-B1-001",
+      "batch_id": "EXP-UL-B1",
+      "packs": [
+        "AET-KP-UL-CLAVICLE-001",
+        "AET-KP-UL-SC-JOINT-001",
+        "AET-KP-UL-AC-JOINT-001",
+        "AET-KP-UL-CORACOCLAVICULAR-001",
+        "AET-KP-UL-PECTORAL-GIRDLE-001"
+      ],
+      "fact_count": 129,
+      "entity_count": 30,
+      "promoted_at": "2026-09-25T04:24:56.727Z"
+    }
+  ]
+}

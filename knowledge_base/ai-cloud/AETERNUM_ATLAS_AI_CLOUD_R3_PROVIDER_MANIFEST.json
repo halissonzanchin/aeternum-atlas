@@ -1,0 +1,45 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R3",
+  "manifest_version": "1.0.0",
+  "evaluated_at": "2026-10-05T03:59:37.000Z",
+  "provider_architecture": {
+    "active_provider": "gemini-llm-cloud",
+    "active_model": "gemini-3.7-flash",
+    "provider_adapter": "GeminiLLMProvider",
+    "provider_router_status": "ACTIVE",
+    "router_class": "ProviderRouter",
+    "runtime_mode": "cloud_only",
+    "local_dependencies": {
+      "localhost": 0,
+      "ollama": 0,
+      "local_qwen_model": 0,
+      "workstation_ports": 0
+    }
+  },
+  "cloud_gateway": {
+    "host_platform": "Render (Web Service)",
+    "service_id": "srv-dan4raqjnfac73fceaag",
+    "service_name": "aeternum-ai-gateway-staging",
+    "deployment_status": "ACTIVE",
+    "service_url": "https://aeternum-ai-gateway-staging.onrender.com",
+    "health_endpoint": "https://aeternum-ai-gateway-staging.onrender.com/health",
+    "health_status": "HEALTHY",
+    "gateway_version": "1.0.0",
+    "auth_mode": "BEARER_TOKEN",
+    "auth_direction": "server-to-server (Edge Function -> Gateway)"
+  },
+  "client_security_boundary": {
+    "browser_secrets": 0,
+    "browser_gateway_tokens": 0,
+    "browser_provider_keys": 0,
+    "user_jwt_required": true
+  },
+  "supported_capabilities": [
+    "LLM_GENERATE",
+    "LLM_STREAM"
+  ],
+  "sla_targets": {
+    "max_gateway_timeout_ms": 60000,
+    "retry_strategy": "1 bounded retry with 1000ms backoff"
+  }
+}

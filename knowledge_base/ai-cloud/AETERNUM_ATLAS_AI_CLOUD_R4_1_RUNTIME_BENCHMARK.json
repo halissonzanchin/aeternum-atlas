@@ -1,0 +1,30 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R4.1",
+  "evaluated_at": "2026-10-05T05:31:32.528Z",
+  "benchmark_environment": {
+    "supabase_staging_project": "hutohshswppahipgcwio",
+    "edge_function": "ai-tutor (version 18)",
+    "gateway_host": "Render Web Service (srv-dan4raqjnfac73fceaag)",
+    "active_provider": "gemini-llm-cloud",
+    "active_model": "gemini-3.5-flash-lite",
+    "candidate_sha256": "b1f2141ad25bdb404ff30dd23761d5d7d102fc004b980c7bbd656f0bdee18b9b",
+    "artifact_mutated_during_test": "NO"
+  },
+  "latency_summary_ms": {
+    "deterministic": {
+      "median": 750,
+      "count": 76
+    },
+    "llm_backed": {
+      "median": 10498,
+      "p95": 21428,
+      "count": 19
+    }
+  },
+  "cost_efficiency": {
+    "total_interactions": 100,
+    "deterministic_short_circuit_rate_percent": 76,
+    "llm_invocation_rate_percent": 18,
+    "llm_avoidance_rate_percent": 82
+  }
+}

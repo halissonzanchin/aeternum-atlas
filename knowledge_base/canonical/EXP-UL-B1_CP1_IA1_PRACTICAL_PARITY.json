@@ -1,0 +1,15 @@
+{
+  "phase": "EXP-UL-B1-CP1-IA1",
+  "audit_timestamp": "2026-09-25T13:30:13.064Z",
+  "SCAPULA_CANONICAL_PRACTICAL_JSON_COUNT": 6,
+  "B1_CANONICAL_PRACTICAL_JSON_COUNT": 10,
+  "EXPECTED_GLOBAL_PRACTICAL_COUNT": 16,
+  "SQLITE_PRACTICAL_MEMORY_COUNT": 10,
+  "SQLITE_SCAPULA_PRACTICAL_COUNT": 0,
+  "SQLITE_B1_PRACTICAL_COUNT": 10,
+  "MISSING_SCAPULA_PRACTICAL_COUNT": 6,
+  "MISSING_B1_PRACTICAL_COUNT": 0,
+  "GLOBAL_PRACTICAL_JSON_SQLITE_PARITY": "62.5%",
+  "classification": "MIRROR_INCOMPLETENESS",
+  "remediation_recommendation": "Backfill 6 Scapula practical units into SQLite practical_memory additively during integrity remediation."
+}

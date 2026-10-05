@@ -1,0 +1,1910 @@
+{
+  "version": "R1.2",
+  "source_id": "MORGUE-UPPER-LIMB-001",
+  "baseline_atomic_fact_count": 209,
+  "audit_summary": {
+    "current_atomic_fact_count": 209,
+    "valid_atomic_proposition_count": 208,
+    "structural_heading_removed_count": 0,
+    "incomplete_fact_removed_count": 1,
+    "duplicate_fact_removed_count": 0,
+    "unsupported_derivation_count": 0,
+    "compound_remaining_count": 0,
+    "final_atomic_fact_count": 208
+  },
+  "arco_dorsal_handling": {
+    "arco_dorsal_atomic_fact_after": "NO",
+    "arco_dorsal_incomplete_source_record": "YES",
+    "incomplete_source_record": {
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_assertion_id": "SA-0154",
+      "source_page": 53,
+      "raw_source_text": "Mano: Arcos Palmares y Arco Dorsal (sección incompleta).",
+      "classification": "SOURCE_CONTENT_INCOMPLETE",
+      "pedagogical_status": "ABRUPT_TERMINATION_IN_SOURCE_TRANSCRIPTION"
+    }
+  },
+  "audit_ledger": [
+    {
+      "atomic_fact_id": "AF-0001",
+      "source_assertion_id": "SA-0001",
+      "source_page": 1,
+      "source_text": "Cintura escapular posee 32 huesos.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0002",
+      "source_assertion_id": "SA-0002",
+      "source_page": 1,
+      "source_text": "Clavícula es hueso de la cintura escapular.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0003",
+      "source_assertion_id": "SA-0003",
+      "source_page": 1,
+      "source_text": "Tipo de Hueso: Hueso Plano Alargado.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0004",
+      "source_assertion_id": "SA-0004",
+      "source_page": 1,
+      "source_text": "Extremo Medial: Esternal / Esferoide",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0005",
+      "source_assertion_id": "SA-0004",
+      "source_page": 1,
+      "source_text": "manubrio del esternón",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0006",
+      "source_assertion_id": "SA-0004",
+      "source_page": 1,
+      "source_text": "1º cartílago costal",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0007",
+      "source_assertion_id": "SA-0005",
+      "source_page": 1,
+      "source_text": "Extremo Lateral: Acromial / Plano",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0008",
+      "source_assertion_id": "SA-0005",
+      "source_page": 1,
+      "source_text": "con el acromion de la escápula",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0009",
+      "source_assertion_id": "SA-0006",
+      "source_page": 1,
+      "source_text": "Cara Superior",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0010",
+      "source_assertion_id": "SA-0006",
+      "source_page": 1,
+      "source_text": "Cara Inferior",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0011",
+      "source_assertion_id": "SA-0007",
+      "source_page": 1,
+      "source_text": "Borde Anterior",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0012",
+      "source_assertion_id": "SA-0007",
+      "source_page": 1,
+      "source_text": "Borde Posterior",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0013",
+      "source_assertion_id": "SA-0008",
+      "source_page": 2,
+      "source_text": "1/3 Lateral: Inserción descendente del músculo trapecio en cara superior - borde posterior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0014",
+      "source_assertion_id": "SA-0009",
+      "source_page": 2,
+      "source_text": "1/3 Lateral: Inserción del músculo deltoides en cara superior - borde anterior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0015",
+      "source_assertion_id": "SA-0010",
+      "source_page": 2,
+      "source_text": "2/3 Mediales: Inserción del músculo pectoral mayor en cara superior - borde anterior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0016",
+      "source_assertion_id": "SA-0011",
+      "source_page": 2,
+      "source_text": "Vena Cefálica",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0017",
+      "source_assertion_id": "SA-0011",
+      "source_page": 2,
+      "source_text": "Rama Deltoidea",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0018",
+      "source_assertion_id": "SA-0012",
+      "source_page": 3,
+      "source_text": "Impresión del ligamento costoclavicular en cara inferior del 1/3 medial.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0019",
+      "source_assertion_id": "SA-0013",
+      "source_page": 3,
+      "source_text": "Surco del músculo subclavio en 1/3 medio cara inferior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0020",
+      "source_assertion_id": "SA-0014",
+      "source_page": 3,
+      "source_text": "Tubérculo conoideo",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0021",
+      "source_assertion_id": "SA-0014",
+      "source_page": 3,
+      "source_text": "Línea trapezoidea",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0022",
+      "source_assertion_id": "SA-0015",
+      "source_page": 4,
+      "source_text": "Tipo de Hueso: Hueso Plano.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0023",
+      "source_assertion_id": "SA-0016",
+      "source_page": 4,
+      "source_text": "Hueso con formato triangular / Hueso Par.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0024",
+      "source_assertion_id": "SA-0017",
+      "source_page": 4,
+      "source_text": "Localización: Región superior, posterior y lateral del tórax.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0025",
+      "source_assertion_id": "SA-0018",
+      "source_page": 4,
+      "source_text": "Se proyecta de la 2 a la 7 costilla.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0026",
+      "source_assertion_id": "SA-0019",
+      "source_page": 4,
+      "source_text": "Posee 2 Caras: Anterior (Costal) y Posterior (Dorsal).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0027",
+      "source_assertion_id": "SA-0020",
+      "source_page": 4,
+      "source_text": "Cara Costal o Anterior: Es Cóncava.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0028",
+      "source_assertion_id": "SA-0021",
+      "source_page": 5,
+      "source_text": "Cara costal presenta la Fosa Subescapular.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0029",
+      "source_assertion_id": "SA-0023",
+      "source_page": 6,
+      "source_text": "Cara Posterior o Dorsal: Es Convexa.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0030",
+      "source_assertion_id": "SA-0024",
+      "source_page": 6,
+      "source_text": "Presenta relieve que divide la cara posterior en dos fosas.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0031",
+      "source_assertion_id": "SA-0025",
+      "source_page": 7,
+      "source_text": "Presenta Fosa Supraespinosa en la cara posterior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0032",
+      "source_assertion_id": "SA-0026",
+      "source_page": 8,
+      "source_text": "Presenta Fosa Infraespinosa en la cara posterior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0033",
+      "source_assertion_id": "SA-0027",
+      "source_page": 9,
+      "source_text": "Presenta Espina de la Escápula dividiendo las fosas posterior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0034",
+      "source_assertion_id": "SA-0028",
+      "source_page": 10,
+      "source_text": "Presenta Acromion como continuación lateral de la espina.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0035",
+      "source_assertion_id": "SA-0029",
+      "source_page": 11,
+      "source_text": "Presenta Escotadura Espinoglenoidea cerca de la cavidad glenoidea.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0036",
+      "source_assertion_id": "SA-0030",
+      "source_page": 12,
+      "source_text": "Borde Medial (Espinal)",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0037",
+      "source_assertion_id": "SA-0030",
+      "source_page": 12,
+      "source_text": "Borde Lateral (Axilar)",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0038",
+      "source_assertion_id": "SA-0030",
+      "source_page": 12,
+      "source_text": "Borde Superior (Cervical)",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0039",
+      "source_assertion_id": "SA-0031",
+      "source_page": 12,
+      "source_text": "Borde Superior presenta la Escotadura de la Escápula (cerrada por el ligamento transverso).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0040",
+      "source_assertion_id": "SA-0032",
+      "source_page": 12,
+      "source_text": "Por la escotadura pasa el Nervio Supraescapular.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0041",
+      "source_assertion_id": "SA-0033",
+      "source_page": 12,
+      "source_text": "Inserción del Músculo Omohioideo en el borde superior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0042",
+      "source_assertion_id": "SA-0034",
+      "source_page": 13,
+      "source_text": "Ángulo Superior",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0043",
+      "source_assertion_id": "SA-0034",
+      "source_page": 13,
+      "source_text": "Une Borde Superior y Medial",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0044",
+      "source_assertion_id": "SA-0035",
+      "source_page": 13,
+      "source_text": "Ángulo Inferior",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0045",
+      "source_assertion_id": "SA-0035",
+      "source_page": 13,
+      "source_text": "Une Borde Medial y Lateral",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0046",
+      "source_assertion_id": "SA-0036",
+      "source_page": 14,
+      "source_text": "Ángulo Lateral",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0047",
+      "source_assertion_id": "SA-0036",
+      "source_page": 14,
+      "source_text": "Une Borde Superior y Lateral",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0048",
+      "source_assertion_id": "SA-0037",
+      "source_page": 15,
+      "source_text": "Presenta Apófisis Coracoides en el ángulo lateral.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0049",
+      "source_assertion_id": "SA-0038",
+      "source_page": 16,
+      "source_text": "Presenta Cavidad Glenoidea en el ángulo lateral.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0050",
+      "source_assertion_id": "SA-0039",
+      "source_page": 16,
+      "source_text": "Tubérculo Supraglenoideo: Músculo bíceps cabeza larga.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0051",
+      "source_assertion_id": "SA-0040",
+      "source_page": 16,
+      "source_text": "Tubérculo Infraglenoideo: Músculo tríceps cabeza larga.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0052",
+      "source_assertion_id": "SA-0041",
+      "source_page": 17,
+      "source_text": "Cavidad glenoidea está rodeada por el labrum (Rodete Glenoideo).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0053",
+      "source_assertion_id": "SA-0042",
+      "source_page": 18,
+      "source_text": "Cavidad glenoidea se articula con la cabeza del húmero.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0054",
+      "source_assertion_id": "SA-0043",
+      "source_page": 18,
+      "source_text": "Inserciones Musculares Cara Anterior: Músculo Subescapular en la fosa subescapular.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0055",
+      "source_assertion_id": "SA-0044",
+      "source_page": 19,
+      "source_text": "Músculo Serrato Anterior: En el borde medial entre el ángulo superior y el ángulo inferior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0056",
+      "source_assertion_id": "SA-0045",
+      "source_page": 20,
+      "source_text": "Cara Posterior: Músculo Supraespinoso en la fosa Supraespinosa.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0057",
+      "source_assertion_id": "SA-0046",
+      "source_page": 21,
+      "source_text": "Músculo Infraespinoso en la fosa Infraespinosa.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0058",
+      "source_assertion_id": "SA-0047",
+      "source_page": 22,
+      "source_text": "Espina de la Escápula: Músculo Trapecio en el labio superior del borde posterior de la espina.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0059",
+      "source_assertion_id": "SA-0048",
+      "source_page": 22,
+      "source_text": "Acromion: Músculo Deltoides en el labio inferior del borde posterior de la espina y borde lateral del acromion.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0060",
+      "source_assertion_id": "SA-0049",
+      "source_page": 22,
+      "source_text": "Borde Medial: Músculo Elevador de la Escápula, Músculo Romboides Menor, Músculo Romboides Mayor.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0061",
+      "source_assertion_id": "SA-0050",
+      "source_page": 22,
+      "source_text": "Borde Lateral: Músculo Redondo Menor (arriba) y Músculo Redondo Mayor (abajo).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0062",
+      "source_assertion_id": "SA-0051",
+      "source_page": 23,
+      "source_text": "Apófisis Coracoides: Músculo Coracobraquial en el vértice.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0063",
+      "source_assertion_id": "SA-0052",
+      "source_page": 23,
+      "source_text": "Apófisis Coracoides: Cabeza Corta del Bíceps en el vértice.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0064",
+      "source_assertion_id": "SA-0053",
+      "source_page": 23,
+      "source_text": "Apófisis Coracoides: Músculo Pectoral Menor en la cara medial.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0065",
+      "source_assertion_id": "SA-0054",
+      "source_page": 23,
+      "source_text": "Ligamentos en la Apófisis Coracoides: Ligamento Conoide, Ligamento Trapezoide, Ligamento Coracoacromial.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0066",
+      "source_assertion_id": "SA-0055",
+      "source_page": 24,
+      "source_text": "Articulación Glenohumeral: Diartrosis - Enartrosis (esferoidea).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0067",
+      "source_assertion_id": "SA-0056",
+      "source_page": 24,
+      "source_text": "Movimientos: Flexión, extensión, abducción, aducción, rotación medial, rotación lateral, circunducción.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0068",
+      "source_assertion_id": "SA-0057",
+      "source_page": 24,
+      "source_text": "Cápsula y Ligamentos: Ligamento Glenohumeral Superior, Medio e Inferior; Ligamento Coracohumeral.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0069",
+      "source_assertion_id": "SA-0058",
+      "source_page": 24,
+      "source_text": "Articulación del Codo: Diartrosis - Troclear / Ginglimo.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0070",
+      "source_assertion_id": "SA-0059",
+      "source_page": 24,
+      "source_text": "Articulación del Codo: Inervación cita Nervio del Musculo Radial / Cubital (shorthand).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0071",
+      "source_assertion_id": "SA-0060",
+      "source_page": 25,
+      "source_text": "Faceta superior (supraespinoso)",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0072",
+      "source_assertion_id": "SA-0060",
+      "source_page": 25,
+      "source_text": "Faceta media (infraespinoso)",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0073",
+      "source_assertion_id": "SA-0060",
+      "source_page": 25,
+      "source_text": "Faceta inferior (redondo menor)",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0074",
+      "source_assertion_id": "SA-0061",
+      "source_page": 25,
+      "source_text": "Tubérculo Menor (Troquín): Inserción del músculo subescapular.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0075",
+      "source_assertion_id": "SA-0062",
+      "source_page": 25,
+      "source_text": "Labio lateral (pectoral mayor)",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0076",
+      "source_assertion_id": "SA-0062",
+      "source_page": 25,
+      "source_text": "suelo (dorsal ancho)",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0077",
+      "source_assertion_id": "SA-0062",
+      "source_page": 25,
+      "source_text": "labio medial (redondo mayor)",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0078",
+      "source_assertion_id": "SA-0063",
+      "source_page": 25,
+      "source_text": "Cuello Quirúrgico del húmero: relacionado con el Nervio Axilar y Arteria Circunfleja Humeral Posterior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0079",
+      "source_assertion_id": "SA-0064",
+      "source_page": 26,
+      "source_text": "Diáfisis Humeral Cara Posterior: Surco del Nervio Radial (Canal de Torsión).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0080",
+      "source_assertion_id": "SA-0065",
+      "source_page": 26,
+      "source_text": "Aloja el Nervio Radial",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0081",
+      "source_assertion_id": "SA-0065",
+      "source_page": 26,
+      "source_text": "Arteria Braquial Profunda",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0082",
+      "source_assertion_id": "SA-0065",
+      "source_page": 26,
+      "source_text": "Nervio Radial y Arteria Braquial Profunda",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0083",
+      "source_assertion_id": "SA-0066",
+      "source_page": 26,
+      "source_text": "Separa el origen del vasto lateral (arriba) y vasto medial (abajo) del tríceps.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0084",
+      "source_assertion_id": "SA-0067",
+      "source_page": 26,
+      "source_text": "Cara Anterolateral: Tuberosidad Deltoidea (V deltoidea).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0085",
+      "source_assertion_id": "SA-0068",
+      "source_page": 26,
+      "source_text": "Canal epitrocleoolecraneano detrás del epicóndilo medial para el Nervio Cubital.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0086",
+      "source_assertion_id": "SA-0069",
+      "source_page": 27,
+      "source_text": "Cúbito: Hueso medial del antebrazo.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0087",
+      "source_assertion_id": "SA-0070",
+      "source_page": 27,
+      "source_text": "Olécranon (inserción del tríceps) y Apófisis Coronoides (inserción del braquial anterior).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0088",
+      "source_assertion_id": "SA-0071",
+      "source_page": 27,
+      "source_text": "Escotadura troclear (cavidad sigmoidea mayor) y escotadura radial (cavidad sigmoidea menor).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0089",
+      "source_assertion_id": "SA-0072",
+      "source_page": 27,
+      "source_text": "Cúbito no se articula directamente con los huesos del carpo; separado por fibrocartílago triangular.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0090",
+      "source_assertion_id": "SA-0073",
+      "source_page": 27,
+      "source_text": "Sección de Radio inicia con: \"Es el hueso medial del antebrazo\" (desliz material).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0091",
+      "source_assertion_id": "SA-0074",
+      "source_page": 28,
+      "source_text": "Radio: Hueso largo lateral del antebrazo.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0092",
+      "source_assertion_id": "SA-0075",
+      "source_page": 28,
+      "source_text": "Cabeza del radio: fóvea articular y circunferencia articular (articulación trocoide).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0093",
+      "source_assertion_id": "SA-0076",
+      "source_page": 28,
+      "source_text": "Tuberosidad del Radio (Tuberosidad Bicipital): Inserción del tendón del bíceps braquial.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0094",
+      "source_assertion_id": "SA-0077",
+      "source_page": 28,
+      "source_text": "Cara posterior distal presenta el Tubérculo Dorsal (de Lister).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0095",
+      "source_assertion_id": "SA-0078",
+      "source_page": 29,
+      "source_text": "Tabaquera Anatómica: Límites tendinosos (abductor largo y extensor corto lateralmente; extensor largo medialmente).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0096",
+      "source_assertion_id": "SA-0079",
+      "source_page": 29,
+      "source_text": "Suelo de la tabaquera: Hueso Escafoides y Hueso Trapecio.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0097",
+      "source_assertion_id": "SA-0080",
+      "source_page": 29,
+      "source_text": "Contenido en el suelo: Arteria Radial.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0098",
+      "source_assertion_id": "SA-0081",
+      "source_page": 30,
+      "source_text": "Huesos del carpo (8 huesos divididos en fila proximal y fila distal).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0099",
+      "source_assertion_id": "SA-0082",
+      "source_page": 30,
+      "source_text": "radio",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0100",
+      "source_assertion_id": "SA-0082",
+      "source_page": 30,
+      "source_text": "escafoides",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0101",
+      "source_assertion_id": "SA-0082",
+      "source_page": 30,
+      "source_text": "piramidal",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0102",
+      "source_assertion_id": "SA-0082",
+      "source_page": 30,
+      "source_text": "grande",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0103",
+      "source_assertion_id": "SA-0082",
+      "source_page": 30,
+      "source_text": "ganchoso",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0104",
+      "source_assertion_id": "SA-0083",
+      "source_page": 30,
+      "source_text": "Grande se articula con 7 huesos.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0105",
+      "source_assertion_id": "SA-0084",
+      "source_page": 31,
+      "source_text": "Ganchoso presenta apófisis unciforme / gancho.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0106",
+      "source_assertion_id": "SA-0085",
+      "source_page": 31,
+      "source_text": "Pisiforme articula únicamente con el piramidal.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0107",
+      "source_assertion_id": "SA-0086",
+      "source_page": 31,
+      "source_text": "Canal de Guyon formado entre pisiforme y gancho del ganchoso.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0108",
+      "source_assertion_id": "SA-0087",
+      "source_page": 32,
+      "source_text": "5 Metacarpianos.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0109",
+      "source_assertion_id": "SA-0088",
+      "source_page": 32,
+      "source_text": "1er Metacarpiano no tiene carillas articulares laterales en su base; articula con el trapecio (encaje recíproco / silla de montar).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0110",
+      "source_assertion_id": "SA-0089",
+      "source_page": 32,
+      "source_text": "2do a 5to metacarpianos articulan entre sí por sus bases.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0111",
+      "source_assertion_id": "SA-0090",
+      "source_page": 33,
+      "source_text": "14 Falanges en la mano (3 por dedo excepto el pulgar que tiene 2).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0112",
+      "source_assertion_id": "SA-0091",
+      "source_page": 33,
+      "source_text": "Falange proximal, falange media y falange distal.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0113",
+      "source_assertion_id": "SA-0092",
+      "source_page": 33,
+      "source_text": "Inserción del Músculo Flexor Superficial de los Dedos en falange media (lengüetas perforadas).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0114",
+      "source_assertion_id": "SA-0093",
+      "source_page": 34,
+      "source_text": "Inserción del Músculo Flexor Profundo de los Dedos en la base de la falange distal (perforante).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0115",
+      "source_assertion_id": "SA-0094",
+      "source_page": 34,
+      "source_text": "Expansión del tendón extensor en la falange distal.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0116",
+      "source_assertion_id": "SA-0095",
+      "source_page": 35,
+      "source_text": "Origen fosa supraespinosa",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0117",
+      "source_assertion_id": "SA-0095",
+      "source_page": 35,
+      "source_text": "inserción troquíter",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0118",
+      "source_assertion_id": "SA-0095",
+      "source_page": 35,
+      "source_text": "inervación nervio supraescapular",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0119",
+      "source_assertion_id": "SA-0095",
+      "source_page": 35,
+      "source_text": "irrigación arteria supraescapular",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0120",
+      "source_assertion_id": "SA-0095",
+      "source_page": 35,
+      "source_text": "acción abduce el brazo",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0121",
+      "source_assertion_id": "SA-0096",
+      "source_page": 35,
+      "source_text": "Origen fosa infraespinosa",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0122",
+      "source_assertion_id": "SA-0096",
+      "source_page": 35,
+      "source_text": "inserción troquíter",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0123",
+      "source_assertion_id": "SA-0096",
+      "source_page": 35,
+      "source_text": "inervación nervio supraescapular",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0124",
+      "source_assertion_id": "SA-0096",
+      "source_page": 35,
+      "source_text": "acción rotador lateral",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0125",
+      "source_assertion_id": "SA-0097",
+      "source_page": 36,
+      "source_text": "Músculo Pectoral Mayor: aductor y rotador medial del brazo.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0126",
+      "source_assertion_id": "SA-0098",
+      "source_page": 36,
+      "source_text": "Músculo Pectoral Menor: desciende la escápula.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0127",
+      "source_assertion_id": "SA-0099",
+      "source_page": 36,
+      "source_text": "Músculo Serrato Anterior: inervado por el Nervio Torácico Largo.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0128",
+      "source_assertion_id": "SA-0100",
+      "source_page": 37,
+      "source_text": "Músculo Subescapular: aductor y rotador medial del húmero.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0129",
+      "source_assertion_id": "SA-0101",
+      "source_page": 37,
+      "source_text": "Músculo Redondo Menor: inervado por el Nervio Axilar.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0130",
+      "source_assertion_id": "SA-0102",
+      "source_page": 37,
+      "source_text": "Músculo Redondo Mayor: inervado por el nervio subescapular inferior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0131",
+      "source_assertion_id": "SA-0103",
+      "source_page": 37,
+      "source_text": "Músculo Dorsal Ancho: inervado por el Nervio Toracodorsal.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0132",
+      "source_assertion_id": "SA-0104",
+      "source_page": 37,
+      "source_text": "Músculo Subescapular: Inervación cita Nervio Subescapular superior e inferior / Nervio Axilar.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0133",
+      "source_assertion_id": "SA-0105",
+      "source_page": 38,
+      "source_text": "Músculo Deltoides: inervado por el Nervio Axilar (circunflejo). Principal abductor.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0134",
+      "source_assertion_id": "SA-0106",
+      "source_page": 38,
+      "source_text": "Músculo Coracobraquial: perforado por el Nervio Musculocutáneo (inervado por él).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0135",
+      "source_assertion_id": "SA-0107",
+      "source_page": 39,
+      "source_text": "Músculo Bíceps Braquial: dos cabezas (larga y corta).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0136",
+      "source_assertion_id": "SA-0108",
+      "source_page": 39,
+      "source_text": "Acción: Supinador del antebrazo flexionado y flexor del codo.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0137",
+      "source_assertion_id": "SA-0109",
+      "source_page": 39,
+      "source_text": "Inervación: cita Nervio Musculocutáneo y Nervio Radial.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0138",
+      "source_assertion_id": "SA-0110",
+      "source_page": 40,
+      "source_text": "Músculo Braquial (Braquial Anterior): Principal flexor del antebrazo en el codo.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0139",
+      "source_assertion_id": "SA-0111",
+      "source_page": 40,
+      "source_text": "Inervación: Nervio Musculocutáneo.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0140",
+      "source_assertion_id": "SA-0112",
+      "source_page": 41,
+      "source_text": "Tríceps Braquial: Cabeza larga, vasto lateral y vasto medial. Inervado por el Nervio Radial.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0141",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "source_text": "Redondo menor",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0142",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "source_text": "redondo mayor",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0143",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "source_text": "cabeza larga tríceps",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0144",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "source_text": "cuello quirúrgico",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0145",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "source_text": "Nervio axilar",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0146",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "source_text": "arteria circunfleja humeral posterior",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0147",
+      "source_assertion_id": "SA-0114",
+      "source_page": 41,
+      "source_text": "Redondo menor",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0148",
+      "source_assertion_id": "SA-0114",
+      "source_page": 41,
+      "source_text": "redondo mayor",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0149",
+      "source_assertion_id": "SA-0114",
+      "source_page": 41,
+      "source_text": "cabeza larga tríceps",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0150",
+      "source_assertion_id": "SA-0114",
+      "source_page": 41,
+      "source_text": "Arteria circunfleja escapular",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0151",
+      "source_assertion_id": "SA-0115",
+      "source_page": 41,
+      "source_text": "Redondo mayor",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0152",
+      "source_assertion_id": "SA-0115",
+      "source_page": 41,
+      "source_text": "cabeza larga tríceps",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0153",
+      "source_assertion_id": "SA-0115",
+      "source_page": 41,
+      "source_text": "húmero",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0154",
+      "source_assertion_id": "SA-0115",
+      "source_page": 41,
+      "source_text": "Nervio radial",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0155",
+      "source_assertion_id": "SA-0115",
+      "source_page": 41,
+      "source_text": "arteria braquial profunda",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0156",
+      "source_assertion_id": "SA-0116",
+      "source_page": 42,
+      "source_text": "Compartimento anterior antebrazo: Plano 1 (epicondíleos mediales / epitrocleares).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0157",
+      "source_assertion_id": "SA-0117",
+      "source_page": 42,
+      "source_text": "Pronador redondo, flexor radial del carpo, palmar largo, flexor cubital del carpo.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0158",
+      "source_assertion_id": "SA-0118",
+      "source_page": 42,
+      "source_text": "Inervación: Todos por Nervio Mediano EXCEPTO Flexor Cubital del Carpo (inervado por Nervio Cubital).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0159",
+      "source_assertion_id": "SA-0119",
+      "source_page": 43,
+      "source_text": "Plano 2: Flexor superficial de los dedos (N. mediano).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0160",
+      "source_assertion_id": "SA-0120",
+      "source_page": 43,
+      "source_text": "Plano 3: Flexor profundo de los dedos (mitad lateral N. mediano, mitad medial N. cubital) y flexor largo del pulgar (N. interóseo anterior del mediano).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0161",
+      "source_assertion_id": "SA-0121",
+      "source_page": 43,
+      "source_text": "Plano 4: Pronador cuadrado (N. interóseo anterior del mediano).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0162",
+      "source_assertion_id": "SA-0122",
+      "source_page": 44,
+      "source_text": "Compartimento posterior y lateral: 12 músculos en total.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0163",
+      "source_assertion_id": "SA-0123",
+      "source_page": 44,
+      "source_text": "Grupo Lateral: Braquiorradial, extensor radial largo del carpo, extensor radial corto del carpo, supinador.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0164",
+      "source_assertion_id": "SA-0124",
+      "source_page": 44,
+      "source_text": "Inervación: Nervio Radial (ramo profundo atraviesa el supinador).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0165",
+      "source_assertion_id": "SA-0125",
+      "source_page": 45,
+      "source_text": "Porción Posterior Plano Superficial: Extensor de los dedos, extensor del meñique, extensor cubital del carpo, ancóneo.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0166",
+      "source_assertion_id": "SA-0126",
+      "source_page": 45,
+      "source_text": "Origen: Epicóndilo lateral del húmero. Inervación: Nervio Radial.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0167",
+      "source_assertion_id": "SA-0127",
+      "source_page": 46,
+      "source_text": "Plano Profundo Posterior: Abductor largo del pulgar, extensor corto del pulgar, extensor largo del pulgar.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0168",
+      "source_assertion_id": "SA-0128",
+      "source_page": 46,
+      "source_text": "Inervación: Ramo profundo del nervio radial (interóseo posterior).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0169",
+      "source_assertion_id": "SA-0129",
+      "source_page": 46,
+      "source_text": "Límites de la tabaquera anatómica repetidos; menciona \"Arteria Cefálica\" por desliz.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0170",
+      "source_assertion_id": "SA-0130",
+      "source_page": 47,
+      "source_text": "Músculo Extensor del Índice: Origen en cúbito y membrana interósea.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0171",
+      "source_assertion_id": "SA-0131",
+      "source_page": 47,
+      "source_text": "Inervación: Ramo profundo del nervio radial.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0172",
+      "source_assertion_id": "SA-0132",
+      "source_page": 48,
+      "source_text": "Músculos de la Región Tenar: Abductor corto, flexor corto, oponente, aductor del pulgar.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0173",
+      "source_assertion_id": "SA-0133",
+      "source_page": 48,
+      "source_text": "Inervación: Abductor corto, oponente y cabeza superficial del flexor corto por Ramo Recurrente del Mediano.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0174",
+      "source_assertion_id": "SA-0134",
+      "source_page": 48,
+      "source_text": "Cabeza profunda del flexor corto y aductor del pulgar por Ramo Profundo del Cubital.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0175",
+      "source_assertion_id": "SA-0135",
+      "source_page": 49,
+      "source_text": "Músculos de la Región Hipotenar: Palmar corto (cutáneo palmar), abductor del meñique, flexor corto del meñique, oponente del meñique.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0176",
+      "source_assertion_id": "SA-0136",
+      "source_page": 49,
+      "source_text": "Inervación: Ramo superficial del nervio cubital para palmar corto; ramo profundo del cubital para los otros tres.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0177",
+      "source_assertion_id": "SA-0137",
+      "source_page": 50,
+      "source_text": "Lumbricales 1 y 2 inervados por el Nervio Mediano; Lumbricales 3 y 4 inervados por el Nervio Cubital (ramo profundo).",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0178",
+      "source_assertion_id": "SA-0138",
+      "source_page": 50,
+      "source_text": "Interóseos Palmares (3): Aductores hacia el eje del 3er dedo. Inervados por ramo profundo del cubital.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0179",
+      "source_assertion_id": "SA-0139",
+      "source_page": 50,
+      "source_text": "Interóseos Dorsales (4): Abductores del eje del 3er dedo. Inervados por ramo profundo del cubital.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0180",
+      "source_assertion_id": "SA-0140",
+      "source_page": 51,
+      "source_text": "Arteria Axilar: Continuación de la arteria subclavia.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0181",
+      "source_assertion_id": "SA-0141",
+      "source_page": 51,
+      "source_text": "Dividida en 3 porciones por el músculo pectoral menor.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0182",
+      "source_assertion_id": "SA-0142",
+      "source_page": 51,
+      "source_text": "1ª Porción: Arteria torácica superior",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0183",
+      "source_assertion_id": "SA-0142",
+      "source_page": 51,
+      "source_text": "Arteria torácica superior",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0184",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "source_text": "Arteria toracoacromial",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0185",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "source_text": "arteria torácica lateral",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0186",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "source_text": "ramas acromial",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0187",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "source_text": "clavicular",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0188",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "source_text": "deltoidea",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0189",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "source_text": "pectoral",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0190",
+      "source_assertion_id": "SA-0144",
+      "source_page": 51,
+      "source_text": "Relaciones con los fascículos del plexo braquial.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0191",
+      "source_assertion_id": "SA-0145",
+      "source_page": 52,
+      "source_text": "Arteria subescapular",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0192",
+      "source_assertion_id": "SA-0145",
+      "source_page": 52,
+      "source_text": "arteria circunfleja humeral anterior",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0193",
+      "source_assertion_id": "SA-0145",
+      "source_page": 52,
+      "source_text": "posterior",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0194",
+      "source_assertion_id": "SA-0145",
+      "source_page": 52,
+      "source_text": "ramas toracodorsal",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0195",
+      "source_assertion_id": "SA-0145",
+      "source_page": 52,
+      "source_text": "circunfleja escapular",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0196",
+      "source_assertion_id": "SA-0146",
+      "source_page": 52,
+      "source_text": "Arteria circunfleja humeral posterior pasa por el cuadrilátero de Velpeau con el nervio axilar.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0197",
+      "source_assertion_id": "SA-0147",
+      "source_page": 52,
+      "source_text": "Arteria Braquial: Continuación de la axilar desde el borde inferior del pectoral mayor.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0198",
+      "source_assertion_id": "SA-0148",
+      "source_page": 52,
+      "source_text": "Discurre en el conducto braquial junto al nervio mediano.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0199",
+      "source_assertion_id": "SA-0149",
+      "source_page": 52,
+      "source_text": "Ramas: Arteria braquial profunda (entra al canal de torsión), colaterales cubitales superior e inferior.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0200",
+      "source_assertion_id": "SA-0150",
+      "source_page": 52,
+      "source_text": "Terminación: Se bifurca en arteria radial y arteria cubital.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0201",
+      "source_assertion_id": "SA-0151",
+      "source_page": 53,
+      "source_text": "Arteria Radial: Trayecto por el canal muscular y canal del pulso en antebrazo; tabaquera anatómica y 1er espacio intermetacarpiano en la mano.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0202",
+      "source_assertion_id": "SA-0152",
+      "source_page": 53,
+      "source_text": "Terminación: Se une a la arteria palmar profunda (rama de la cubital) formando el arco palmar profundo.",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0203",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "source_text": "Recurrente radial",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0204",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "source_text": "carpiana palmar",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0205",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "source_text": "carpiana dorsal",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0206",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "source_text": "palmar superficial",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0207",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "source_text": "principal del pulgar",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0208",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "source_text": "metacarpiana dorsal del 1er espacio",
+      "classification": "VALID_ATOMIC_PROPOSITION",
+      "action_taken": "PRESERVED",
+      "rationale": "Smallest independently meaningful and verifiable proposition supported directly by source assertion."
+    },
+    {
+      "atomic_fact_id": "AF-0209",
+      "source_assertion_id": "SA-0154",
+      "source_page": 53,
+      "source_text": "Mano: Arcos Palmares y Arco Dorsal (sección incompleta).",
+      "classification": "INCOMPLETE_NOT_FACT",
+      "action_taken": "EXCLUDED_FROM_ATOMIC_FACTS_PRESERVED_AS_INCOMPLETE_SOURCE_RECORD",
+      "rationale": "Abruptly terminates on P53 as \"Arco Dorsal:\" without an actual anatomical predicate. Reclassified as SOURCE_CONTENT_INCOMPLETE."
+    }
+  ]
+}

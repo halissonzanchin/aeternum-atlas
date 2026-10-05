@@ -1,0 +1,74 @@
+{
+  "document_name": "EXP-UL-B2_AADS1_R1_PRACTICAL_MEMORY",
+  "phase": "AMC-1.2-R1 / EXP-UL-B2-A1.6-R1",
+  "timestamp": "2026-09-27T08:30:00Z",
+  "authority": "MORGUE_UPPER_LIMB_001_AND_LATARJET_DISSECTION_NOTES",
+  "metrics": {
+    "total_practical_units": 5,
+    "practical_source_grounded": 2,
+    "practical_institutional_only": 3,
+    "unsourced_verified_practical_claims": 0
+  },
+  "practical_units": [
+    {
+      "practical_id": "PRAC-MEM-001",
+      "original_id": "PRAC-GAP-001",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "evidence_unit_id": "EVI-B2-MOR-001",
+      "source_locator": "MOR-UL-B2-LOC-010",
+      "clinical_and_cadaveric_landmark": "Three Facets of Greater Tubercle",
+      "dissection_plane": "Superficial plane beneath anterior deltoid fibers",
+      "observation": "Cadavéric specimen demonstrates three distinct muscular insertion facets on the greater tubercle: superior (supraspinatus), middle (infraspinatus), and inferior (teres minor).",
+      "practical_status": "INSTITUTIONAL_PRACTICAL_ONLY"
+    },
+    {
+      "practical_id": "PRAC-MEM-002",
+      "original_id": "PRAC-GAP-002",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "evidence_unit_id": "EVI-B2-MOR-004",
+      "source_locator": "MOR-UL-B2-LOC-014",
+      "clinical_and_cadaveric_landmark": "Quadrangular Space & Axillary Neurovascular Transit",
+      "dissection_plane": "Deep posterior plane inferior to teres minor, superior to teres major",
+      "observation": "Axillary nerve and posterior circumflex humeral vessels pass through the quadrangular space directly adjacent to the posterior aspect of the humeral surgical neck.",
+      "practical_status": "INSTITUTIONAL_PRACTICAL_ONLY"
+    },
+    {
+      "practical_id": "PRAC-MEM-003",
+      "original_id": "PRAC-GAP-004",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "evidence_unit_id": "EVI-B2-INT-002",
+      "source_locator": "LAT-T1-INT-LOC-002",
+      "clinical_and_cadaveric_landmark": "Subacromial Bursa Gliding Plane",
+      "dissection_plane": "Beneath acromion and coracoacromial ligament, above rotator cuff tendons",
+      "observation": "Subacromial-subdeltoid bursal space provides low-friction plane separating the suprahumeral arch from the underlying supraspinatus tendon.",
+      "practical_status": "INSTITUTIONAL_PRACTICAL_ONLY"
+    },
+    {
+      "practical_id": "PRAC-MEM-004",
+      "original_id": "PRAC-GAP-005",
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "evidence_unit_id": "EVI-B2-MOR-002",
+      "source_locator": "MOR-UL-B2-LOC-010",
+      "clinical_and_cadaveric_landmark": "Bicipital Groove Tendon Restraint",
+      "dissection_plane": "Intertubercular sulcus bounded by greater and lesser tubercles",
+      "observation": "Long head of biceps tendon is retained inside the bicipital groove by the overlying transverse humeral ligament during rotational maneuvers.",
+      "practical_status": "SOURCE_GROUNDED"
+    },
+    {
+      "practical_id": "PRAC-MEM-005",
+      "original_id": "PRAC-GAP-008",
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "evidence_unit_id": "EVI-B2-MOR-002",
+      "source_locator": "MOR-UL-B2-LOC-010",
+      "clinical_and_cadaveric_landmark": "Transverse Humeral Retinacular Bridge",
+      "dissection_plane": "Fibrous layer spanning between crest of greater and lesser tubercles",
+      "observation": "Transverse humeral ligament acts as an osteofibrous retinaculum bridging the sulcus and preventing biceps tendon displacement.",
+      "practical_status": "SOURCE_GROUNDED"
+    }
+  ]
+}

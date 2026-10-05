@@ -1,0 +1,10 @@
+{
+  "phase": "EXP-UL-B1-CP1-IA1",
+  "audit_timestamp": "2026-09-25T13:30:13.064Z",
+  "SCAPULA_CANONICAL_DOCUMENTARY_BLOCK_COUNT": 13,
+  "B1_CANONICAL_DOCUMENTARY_BLOCK_COUNT": 7,
+  "GLOBAL_DOCUMENTARY_MIRROR_STATUS": "NOT_MIRRORED",
+  "architectural_status": "JSON_ONLY_BY_DESIGN",
+  "sqlite_table_present": false,
+  "explanation": "Documentary maps represent multi-fact macro syntheses managed as canonical JSON artifacts and are not currently represented as a relational table in SQLite."
+}

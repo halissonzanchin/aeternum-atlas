@@ -1,0 +1,17 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R5",
+  "evaluated_at": "2026-10-05T06:14:31.000Z",
+  "target_environment": "Production (hyivyrietgjdazgizafp)",
+  "latencies_ms": {
+    "median_deterministic": 825,
+    "median_rag": 26448,
+    "p95_rag": 26638,
+    "min_deterministic": 605,
+    "max_rag": 34034
+  },
+  "efficiency": {
+    "deterministic_short_circuit_rate_percent": 76,
+    "llm_avoidance_rate_percent": 82,
+    "llm_invocation_rate_percent": 18
+  }
+}

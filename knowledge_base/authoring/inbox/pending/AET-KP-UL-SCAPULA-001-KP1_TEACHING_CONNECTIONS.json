@@ -1,0 +1,95 @@
+[
+  {
+    "connection_id": "TC-SCAP-KP1-VASC-001",
+    "anchor_entity": "scapula",
+    "related_entities": [
+      "suprascapular_artery",
+      "circumflex_scapular_artery",
+      "dorsal_scapular_artery",
+      "periosteal_supply",
+      "regional_anastomotic_network"
+    ],
+    "connection_type": "VASCULAR_NETWORK",
+    "teaching_reason": "The student should understand scapular vascularization as a regional network supplying muscles, periosteum and adjacent osseous regions rather than memorizing one isolated artery as the universal nutrient vessel of the scapula.",
+    "supporting_fact_ids": [
+      "SCAP-KP1-AI-F009",
+      "SCAP-KP1-AI-F010",
+      "SCAP-KP1-AI-F011",
+      "SCAP-KP1-AI-F012",
+      "SCAP-KP1-AI-F013"
+    ],
+    "context": "Scapular peri-osseous and intraosseous multi-source arterial supply."
+  },
+  {
+    "connection_id": "TC-SCAP-KP1-NEURAL-001",
+    "anchor_entity": "glenoid_region",
+    "related_entities": [
+      "glenohumeral_joint",
+      "suprascapular_nerve",
+      "axillary_nerve",
+      "joint_capsule"
+    ],
+    "connection_type": "ARTICULAR_INNERVATION",
+    "teaching_reason": "The glenoid is not only a bony articular surface; the region must be mentally connected with the sensory innervation of the joint capsule and the nerves that travel around the shoulder.",
+    "supporting_fact_ids": [
+      "SCAP-KP1-AI-F014",
+      "SCAP-KP1-AI-F015",
+      "SCAP-KP1-AI-F016"
+    ],
+    "context": "Proprioceptive and nociceptive sensory innervation of the glenohumeral joint."
+  },
+  {
+    "connection_id": "TC-SCAP-KP1-NEURAL-002",
+    "anchor_entity": "suprascapular_notch",
+    "related_entities": [
+      "suprascapular_nerve",
+      "suprascapular_region",
+      "glenohumeral_joint_candidate_innervation"
+    ],
+    "connection_type": "NEUROVASCULAR_DUAL_FUNCTION",
+    "teaching_reason": "The same nerve that is topographically important at the scapular notch also has functional relevance to the posterior shoulder and articular region.",
+    "supporting_fact_ids": [
+      "SCAP-KP1-AI-F014",
+      "SCAP-KP1-AI-F017"
+    ],
+    "context": "Suprascapular nerve articular branching before and after notch traversal."
+  },
+  {
+    "connection_id": "TC-SCAP-KP1-VAR-001",
+    "anchor_entity": "acromion",
+    "related_entities": [
+      "acromial_shape_variation",
+      "Bigliani_classification",
+      "os_acromiale",
+      "developmental_ossification"
+    ],
+    "connection_type": "MORPHOLOGIC_VARIATION_ORGANIZER",
+    "teaching_reason": "The acromion should be taught not as a perfectly invariant process but as a region with developmental and morphologic variation relevant to specimen and imaging interpretation.",
+    "supporting_fact_ids": [
+      "SCAP-KP1-AI-F001",
+      "SCAP-KP1-AI-F002",
+      "SCAP-KP1-AI-F003",
+      "SCAP-KP1-AI-F004",
+      "SCAP-KP1-AI-F005"
+    ],
+    "context": "Acromial morphotypes (I-III) and developmental non-fusion (os acromiale)."
+  },
+  {
+    "connection_id": "TC-SCAP-KP1-VAR-002",
+    "anchor_entity": "suprascapular_notch",
+    "related_entities": [
+      "superior_transverse_scapular_ligament",
+      "ligament_ossification",
+      "osseous_foramen",
+      "suprascapular_nerve"
+    ],
+    "connection_type": "LIGAMENTOUS_OSSIFICATION_TOPOGRAPHY",
+    "teaching_reason": "A normally ligament-bridged notch can present a different osseous configuration when the ligament ossifies, directly linking variation anatomy with topographic nerve passage.",
+    "supporting_fact_ids": [
+      "SCAP-KP1-AI-F006",
+      "SCAP-KP1-AI-F007",
+      "SCAP-KP1-AI-F008"
+    ],
+    "context": "Suprascapular notch bony roof conversion and entrapment risk."
+  }
+]

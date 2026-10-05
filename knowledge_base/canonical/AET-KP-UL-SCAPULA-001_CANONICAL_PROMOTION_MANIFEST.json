@@ -1,0 +1,52 @@
+{
+  "promotion_id": "AET-PROM-SCAP-001",
+  "pack_id": "AET-KP-UL-SCAPULA-001",
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+  "canonical_memory_parent_version": "NONE",
+  "promotion_timestamp": "2026-09-25T04:24:56.623Z",
+  "promotion_environment": "LOCAL",
+  "production_change": "NO",
+  "metrics": {
+    "input_canonical_candidates": 119,
+    "promoted_canonical_fact_count": 119,
+    "blocked_canonical_fact_count": 0,
+    "tier_b_supported_retained": 14,
+    "tier_c_pending_retained": 2,
+    "canonical_atomic_answer_unit_count": 119,
+    "canonical_teaching_connection_count": 11,
+    "canonical_practical_answer_unit_count": 6,
+    "canonical_documentary_direct_count": 9,
+    "canonical_documentary_atomic_composition_count": 4,
+    "promoted_facts_relation_safe": 113,
+    "promoted_facts_relation_not_safe": 6,
+    "production_eligible_facts_using_ambiguous_relation": 0,
+    "production_eligible_facts_using_ontology_review_relation": 0,
+    "canonical_artifact_fact_count": 119,
+    "local_sqlite_canonical_fact_count": 119,
+    "canonical_sqlite_parity": "100%",
+    "local_search_index_updated": "YES",
+    "safe_engine_local_payload_created": "YES"
+  },
+  "source_registry_version": "ACSRP-1.1",
+  "validation_artifact_refs": [
+    "knowledge_base/authoring/inbox/pending/AET-KP-UL-SCAPULA-001_SGV1_FACT_VALIDATION.json",
+    "knowledge_base/authoring/inbox/pending/AET-KP-UL-SCAPULA-001_SGV1_EVIDENCE_MAP.json"
+  ],
+  "evidence_fidelity_artifact_ref": "knowledge_base/authoring/inbox/pending/AET-KP-UL-SCAPULA-001_CCSQ1_EVIDENCE_FIDELITY.json",
+  "safe_engine_qualification_artifact_refs": [
+    "knowledge_base/authoring/inbox/pending/AET-KP-UL-SCAPULA-001_CCSQ1_ATOMIC_ANSWER_UNITS.json",
+    "knowledge_base/authoring/inbox/pending/AET-KP-UL-SCAPULA-001_CCSQ1_TEACHING_CONNECTIONS.json",
+    "knowledge_base/authoring/inbox/pending/AET-KP-UL-SCAPULA-001_CCSQ1_PRACTICAL_ANSWER_UNITS.json"
+  ],
+  "artifact_hashes": {
+    "AET-KP-UL-SCAPULA-001_CANONICAL_FACTS.json": "a18dbaa02af0fee7106ebb05f8ef2e8bb618903779e51a365a12473fcc43d447",
+    "AET-KP-UL-SCAPULA-001_CANONICAL_RELATIONS.json": "f8d534656010b29b5498a5fdb925e432c56d7e5bda9395b40f7dbeb9eefc6267",
+    "AET-KP-UL-SCAPULA-001_CANONICAL_ENTITY_PAYLOAD.json": "c60b5453f181cd43b2cdb91766a5e5b08a5a67ca058573525e403f0c30dafb7e",
+    "AET-KP-UL-SCAPULA-001_CANONICAL_ATOMIC_ANSWER_UNITS.json": "61df6b56cabf2df86a4b6c18bce672dfa892e5face679e81c5b94775a954eb93",
+    "AET-KP-UL-SCAPULA-001_CANONICAL_TEACHING_CONNECTIONS.json": "aa693ee00ef993a2a1d2bd2926e1abd4fd175972d7ce6e0f4f07dee04fb0c86e",
+    "AET-KP-UL-SCAPULA-001_CANONICAL_PRACTICAL_MEMORY.json": "3cf10ae4a1159d326d5871012abc1c66a3507731e3cfa381d7869c7fe046ae3b",
+    "AET-KP-UL-SCAPULA-001_CANONICAL_DOCUMENTARY_MAP.json": "85ebd948a2064298077671de84d89dea4da1f21d1f7a39c1c05d23ed19116758",
+    "AET-KP-UL-SCAPULA-001_CANONICAL_QUERY_ROUTING.json": "2608a7e2b94f76fe3897be0a2321886ea755223ce4df67176a1dd71a0f2648d7",
+    "AET-KP-UL-SCAPULA-001_SAFE_ENGINE_LOCAL_PAYLOAD.json": "0543382d6dfb47bc282dac7281dad38ded7a16dc3c095dc91ae0c5b7e3b51081"
+  }
+}

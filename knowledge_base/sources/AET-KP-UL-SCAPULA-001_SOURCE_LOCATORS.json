@@ -1,0 +1,164 @@
+{
+  "dataset_name": "AET-KP-UL-SCAPULA-001_SOURCE_LOCATORS",
+  "pack_id": "AET-KP-UL-SCAPULA-001",
+  "protocol": "ACSRP-1.1",
+  "generated_at": "2026-09-24T03:00:00.000Z",
+  "sources": {
+    "SRC-LATARJET-ED5-T1": {
+      "source_title": "Anatomía Humana, Tomo 1 (5.ª Edición)",
+      "total_locators": 10,
+      "locators": [
+        {
+          "locator_id": "LAT-T1-SCAP-LOC-001",
+          "pdf_page": 474,
+          "printed_page": 455,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section_heading": "Escápula [omóplato] - Descripción general",
+          "anatomical_coverage": "Posición, orientación general, clasificación como hueso plano, ancho y delgado."
+        },
+        {
+          "locator_id": "LAT-T1-SCAP-LOC-002",
+          "pdf_page": 475,
+          "printed_page": 456,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section_heading": "Cara posterior (Espina de la escápula, Acromion)",
+          "anatomical_coverage": "Espina de la escápula, borde posterior, acromion, carilla articular clavicular, ángulo del acromion."
+        },
+        {
+          "locator_id": "LAT-T1-SCAP-LOC-003",
+          "pdf_page": 476,
+          "printed_page": 457,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section_heading": "Fosa supraespinosa y Fosa infraespinosa",
+          "anatomical_coverage": "Fosas dorsal y sus inserciones musculares (músculo supraespinoso e infraespinoso), cuello y borde lateral de la espina."
+        },
+        {
+          "locator_id": "LAT-T1-SCAP-LOC-004",
+          "pdf_page": 477,
+          "printed_page": 458,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section_heading": "Cara costal (Fosa subescapular) y Bordes (superior, medial, lateral)",
+          "anatomical_coverage": "Fosa subescapular, crestas oblicuas para el músculo subescapular, pilar de la escápula, borde superior con incisura de la escápula."
+        },
+        {
+          "locator_id": "LAT-T1-SCAP-LOC-005",
+          "pdf_page": 478,
+          "printed_page": 459,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section_heading": "Ángulos (superior, inferior, lateral) y Proceso coracoides",
+          "anatomical_coverage": "Cavidad glenoidea, tubérculo supraglenoideo, tubérculo infraglenoideo, cuello de la escápula, proceso coracoides e inserciones coracoideas."
+        },
+        {
+          "locator_id": "LAT-T1-SCAP-LOC-006",
+          "pdf_page": 479,
+          "printed_page": 460,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section_heading": "Estructura, anatomía de superficie y desarrollo",
+          "anatomical_coverage": "Estructura ósea (láminas compactas y hueso esponjoso periférico), reparos palpables y centros de osificación."
+        },
+        {
+          "locator_id": "LAT-T1-SCAP-LOC-007",
+          "pdf_page": 490,
+          "printed_page": 471,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section_heading": "Articulaciones de la cintura pectoral (Articulación acromioclavicular)",
+          "anatomical_coverage": "Superficies articulares acromial y clavicular, cápsula articular, ligamentos acromioclaviculares y ligamento coracoclavicular."
+        },
+        {
+          "locator_id": "LAT-T1-SCAP-LOC-008",
+          "pdf_page": 494,
+          "printed_page": 474,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section_heading": "Articulación glenohumeral",
+          "anatomical_coverage": "Cavidad glenoidea, rodete glenoideo [labrum], cápsula articular, ligamentos glenohumerales e inserción del tendón largo del bíceps."
+        },
+        {
+          "locator_id": "LAT-T1-SCAP-LOC-009",
+          "pdf_page": 500,
+          "printed_page": 480,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section_heading": "Músculos de la cintura pectoral (Músculos periescapulares)",
+          "anatomical_coverage": "Músculo deltoides, supraespinoso, infraespinoso, redondo menor, redondo mayor, subescapular y serrato anterior."
+        },
+        {
+          "locator_id": "LAT-T1-SCAP-LOC-010",
+          "pdf_page": 512,
+          "printed_page": 492,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section_heading": "Topografía periescapular y Espacios axilares",
+          "anatomical_coverage": "Triángulo omotricipital, cuadrilátero humerotricipital, paso de la arteria circunfleja escapular y nervio axilar."
+        }
+      ]
+    },
+    "SRC-NIELSEN-ATLAS-ED1": {
+      "source_title": "Atlas of Human Anatomy (1st Edition)",
+      "total_locators": 8,
+      "locators": [
+        {
+          "locator_id": "NLS-ATLAS-SCAP-LOC-001",
+          "pdf_page": 90,
+          "printed_page": 84,
+          "chapter": "Chapter 6: Appendicular Skeleton",
+          "section_heading": "Pectoral Girdle Overview",
+          "anatomical_coverage": "Articulated skeleton of shoulder girdle, scapular suspension by muscle sling."
+        },
+        {
+          "locator_id": "NLS-ATLAS-SCAP-LOC-002",
+          "pdf_page": 91,
+          "printed_page": 85,
+          "chapter": "Chapter 6: Appendicular Skeleton",
+          "section_heading": "Scapula: Skeletal Articulation and Surface Topography",
+          "anatomical_coverage": "Surface area for muscle attachments, glenoid cavity articulation with humerus."
+        },
+        {
+          "locator_id": "NLS-ATLAS-SCAP-LOC-003",
+          "pdf_page": 94,
+          "printed_page": 88,
+          "chapter": "Chapter 6: Appendicular Skeleton",
+          "section_heading": "Right Scapula: Anterior and Posterior Views",
+          "anatomical_coverage": "Photographic osteology: costal surface, spine, acromion, supraspinous/infraspinous fossae, borders, and angles."
+        },
+        {
+          "locator_id": "NLS-ATLAS-SCAP-LOC-004",
+          "pdf_page": 95,
+          "printed_page": 89,
+          "chapter": "Chapter 6: Appendicular Skeleton",
+          "section_heading": "Left Scapula: Lateral and Superior Views",
+          "anatomical_coverage": "Photographic osteology: glenoid fossa, supraglenoid/infraglenoid tubercles, coracoid process, scapular notch."
+        },
+        {
+          "locator_id": "NLS-ATLAS-SCAP-LOC-005",
+          "pdf_page": 181,
+          "printed_page": 175,
+          "chapter": "Chapter 11: Upper Limb Muscles",
+          "section_heading": "Upper Limb Muscles Overview",
+          "anatomical_coverage": "Organization of muscular sling anchoring scapula to the axial skeleton."
+        },
+        {
+          "locator_id": "NLS-ATLAS-SCAP-LOC-006",
+          "pdf_page": 182,
+          "printed_page": 176,
+          "chapter": "Chapter 11: Upper Limb Muscles",
+          "section_heading": "Scapular Muscle Sling: Posterior Thorax Dissection",
+          "anatomical_coverage": "Dissection photograph: trapezius, rhomboid major/minor, levator scapulae insertions on scapula."
+        },
+        {
+          "locator_id": "NLS-ATLAS-SCAP-LOC-007",
+          "pdf_page": 186,
+          "printed_page": 180,
+          "chapter": "Chapter 11: Upper Limb Muscles",
+          "section_heading": "Muscles that Insert on the Scapula: Anterior Thorax Dissection",
+          "anatomical_coverage": "Dissection photograph: pectoralis minor on coracoid process, serratus anterior on medial border."
+        },
+        {
+          "locator_id": "NLS-ATLAS-SCAP-LOC-008",
+          "pdf_page": 188,
+          "printed_page": 182,
+          "chapter": "Chapter 11: Upper Limb Muscles",
+          "section_heading": "Shoulder Muscles - Rotator Cuff",
+          "anatomical_coverage": "Dissection photograph: supraspinatus, infraspinatus, teres minor, and subscapularis origins."
+        }
+      ]
+    }
+  }
+}

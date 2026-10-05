@@ -1,0 +1,43 @@
+{
+  "phase": "AMC-1.2 / EXP-UL-B2-A1.6",
+  "timestamp": "2026-09-27T02:30:00Z",
+  "total_conflicts": 2,
+  "conflicts": [
+    {
+      "conflict_id": "CONF-INST-001",
+      "topic": "Subscapularis Muscle Innervation",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "assertion_1": {
+        "source_id": "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "locator": "LOC-INST-BOL-P48-RTC",
+        "claim": "Inervación: N. subescapulares (inferior y superior) + N. axilar."
+      },
+      "assertion_2": {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator": "LAT-T1-RTC-LOC-001",
+        "claim": "Inervación: Ramos colaterales del fascículo posterior del plexo braquial (nervios subescapulares superior e inferior C5-C6). El nervio axilar cruza el borde inferior del subescapular sin inervar su cuerpo carnoso."
+      },
+      "conflict_type": "INNERVATION_ATTRIBUTION_DISCREPANCY",
+      "resolution_status": "PRESERVED_BOTH_POSITIONS",
+      "authoring_guideline": "Do not silently adopt institutional assertion into canonical memory; maintain Latarjet as primary anatomical authority while acknowledging institutional note as candidate variation/erratum."
+    },
+    {
+      "conflict_id": "CONF-INST-002",
+      "topic": "Coracoclavicular vs Coracoacromial Ligament Classification",
+      "entity_id": "AET-ENT-UL-CORACOACROMIAL_LIGAMENT",
+      "assertion_1": {
+        "source_id": "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "locator": "LOC-INST-BOL-P08-SCAPULA",
+        "claim": "Lists \"LIGAMENTOS CORACOCLAVICULARES – coracoacromial + trapezoide + conoide + transverso superior\" under Escápula."
+      },
+      "assertion_2": {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator": "LAT-T1-GHJ-LOC-005",
+        "claim": "Ligamento coracoacromial is an intrinsic scapular syndesmosis forming the suprahumeral arch; coracoclavicular ligaments are strictly conoid and trapezoid uniting clavicle to coracoid process."
+      },
+      "conflict_type": "CLASSIFICATION_AND_TOPOGRAPHIC_GROUPING_DISCREPANCY",
+      "resolution_status": "PRESERVED_BOTH_POSITIONS",
+      "authoring_guideline": "Preserve classical Latarjet classification in canonical definitions; annotate institutional grouping as exam-specific mnemonic or broad regional aggregation."
+    }
+  ]
+}

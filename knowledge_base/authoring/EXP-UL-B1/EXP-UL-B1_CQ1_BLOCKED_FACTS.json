@@ -1,0 +1,341 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-CQ1",
+  "generated_at": "2026-09-25T03:53:39.742Z",
+  "summary": {
+    "VALIDATED_FACTS_BLOCKED_COUNT": 8,
+    "TIER_B_SUPPORTED_RETAINED_COUNT": 13,
+    "TIER_C_PENDING_RETAINED_COUNT": 2,
+    "TOTAL_NON_CANONICAL_FACTS": 23
+  },
+  "validated_blocked_facts": [
+    {
+      "fact_candidate_id": "B1-FC-PGI-007",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject": "scapulothoracic_interface",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "scapulothoracic_interface"
+      ],
+      "academic_status": "VALIDATED",
+      "canonical_tier": "TIER_A_BLOCKED",
+      "blocking_reason": "CANONICAL_FACT_BLOCKED_BY_ENTITY_IDENTITY",
+      "remediation_required": "Requires canonical qualification of scapulothoracic_interface or retroclavicular_space in future regional expansion batch."
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-008",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "scapulothoracic_interface",
+      "subject": "scapulothoracic_interface",
+      "relation": "type_of",
+      "object_or_arguments": [
+        "physiological_syssarcosis"
+      ],
+      "academic_status": "VALIDATED",
+      "canonical_tier": "TIER_A_BLOCKED",
+      "blocking_reason": "CANONICAL_FACT_BLOCKED_BY_ENTITY_IDENTITY",
+      "remediation_required": "Requires canonical qualification of scapulothoracic_interface or retroclavicular_space in future regional expansion batch."
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-009",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "scapulothoracic_interface",
+      "subject": "serratus_anterior",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "intermediate_muscular_partition"
+      ],
+      "academic_status": "VALIDATED",
+      "canonical_tier": "TIER_A_BLOCKED",
+      "blocking_reason": "CANONICAL_FACT_BLOCKED_BY_ENTITY_IDENTITY",
+      "remediation_required": "Requires canonical qualification of scapulothoracic_interface or retroclavicular_space in future regional expansion batch."
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-010",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "scapulothoracic_interface",
+      "subject": "omoserratus_interfascial_space",
+      "relation": "SYSSARCOSIS_INTERFACE_BETWEEN",
+      "object_or_arguments": [
+        "subscapularis_fascia",
+        "serratus_anterior_lateral_surface"
+      ],
+      "academic_status": "VALIDATED",
+      "canonical_tier": "TIER_A_BLOCKED",
+      "blocking_reason": "CANONICAL_FACT_BLOCKED_BY_ENTITY_IDENTITY",
+      "remediation_required": "Requires canonical qualification of scapulothoracic_interface or retroclavicular_space in future regional expansion batch."
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-011",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "scapulothoracic_interface",
+      "subject": "parietoserratus_interfascial_space",
+      "relation": "SYSSARCOSIS_INTERFACE_BETWEEN",
+      "object_or_arguments": [
+        "serratus_anterior_medial_surface",
+        "thoracic_wall_ribs_2_to_7_and_intercostals"
+      ],
+      "academic_status": "VALIDATED",
+      "canonical_tier": "TIER_A_BLOCKED",
+      "blocking_reason": "CANONICAL_FACT_BLOCKED_BY_ENTITY_IDENTITY",
+      "remediation_required": "Requires canonical qualification of scapulothoracic_interface or retroclavicular_space in future regional expansion batch."
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-012",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "scapulothoracic_interface",
+      "subject": "scapulothoracic_interface",
+      "relation": "functional_axis",
+      "object_or_arguments": [
+        "scapular_elevation_depression_protraction_retraction_upward_downward_rotation"
+      ],
+      "academic_status": "VALIDATED",
+      "canonical_tier": "TIER_A_BLOCKED",
+      "blocking_reason": "CANONICAL_FACT_BLOCKED_BY_ENTITY_IDENTITY",
+      "remediation_required": "Requires canonical qualification of scapulothoracic_interface or retroclavicular_space in future regional expansion batch."
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-022",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject": "retroclavicular_space",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "retroclavicular_space"
+      ],
+      "academic_status": "VALIDATED",
+      "canonical_tier": "TIER_A_BLOCKED",
+      "blocking_reason": "CANONICAL_FACT_BLOCKED_BY_ENTITY_IDENTITY",
+      "remediation_required": "Requires canonical qualification of scapulothoracic_interface or retroclavicular_space in future regional expansion batch."
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-023",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "retroclavicular_space",
+      "subject": "subclavius_muscle_and_sheath",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "anterior_musculofascial_cushion_for_subclavian_vessels"
+      ],
+      "academic_status": "VALIDATED",
+      "canonical_tier": "TIER_A_BLOCKED",
+      "blocking_reason": "CANONICAL_FACT_BLOCKED_BY_ENTITY_IDENTITY",
+      "remediation_required": "Requires canonical qualification of scapulothoracic_interface or retroclavicular_space in future regional expansion batch."
+    }
+  ],
+  "tier_b_supported_facts": [
+    {
+      "fact_candidate_id": "B1-FC-CLAV-041",
+      "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+      "subject": "deltoid_tubercle_of_clavicle",
+      "relation": "has_landmark",
+      "object_or_arguments": [
+        "anterior_border_lateral_third_prominence"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-045",
+      "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+      "subject": "clavicular_nutrient_artery",
+      "relation": "vascular_supply",
+      "object_or_arguments": [
+        "branch_of_suprascapular_or_thoracoacromial_artery"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-051",
+      "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+      "subject": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "subclavian_nerve_innervation_to_periosteum"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-026",
+      "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+      "subject": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "sternohyoid_and_sternothyroid_retroarticular_muscular_shield"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-027",
+      "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+      "subject": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "anterior_subluxation_more_frequent_than_posterior"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-020",
+      "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+      "subject": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "vulnerable_to_shearing_forces"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-022",
+      "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+      "subject": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "intracapsular_adhesions_with_aging"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-017",
+      "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "subject": "medial_coracoclavicular_ligament_of_caldani",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "inconstant_fibrous_tract_running_to_subclavius_fascia"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-021",
+      "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "subject": "coracoclavicular_ligament_complex",
+      "relation": "RESISTS_DISPLACEMENT",
+      "object_or_arguments": [
+        "transmits_rotational_torque_during_clavicular_axial_spin"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-022",
+      "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "subject": "coracoclavicular_ligament_complex",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "complete_rupture_causes_gross_ac_separation"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-017",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "subject": "deltopectoral_triangle_of_mohrenheim",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "subclavicular_fossa_at_superior_apex_of_groove"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-024",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "subject": "pectoral_girdle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "axioappendicular_musculature_force_couples"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-025",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "subject": "trapezius_and_serratus_anterior",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "force_couple_for_upward_scapular_rotation"
+      ],
+      "academic_status": "SUPPORTED",
+      "canonical_tier": "TIER_B_SUPPORTED",
+      "blocking_reason": "SUPPORTED_NOT_VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false
+    }
+  ],
+  "tier_c_pending_ai_drafts": [
+    {
+      "fact_candidate_id": "B1-FC-PGI-027",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "subject": "pectoral_girdle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "instantaneous_helical_axis_of_clavicular_rotation_in_overhead_motion"
+      ],
+      "academic_status": "REVIEW_PENDING",
+      "canonical_tier": "TIER_C_PENDING",
+      "blocking_reason": "AI_DRAFT_PENDING_PHYSICAL_SOURCE_LINEAGE",
+      "staging_eligible": false,
+      "production_eligible": false
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-028",
+      "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "subject": "scapulothoracic_interface",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "micro_lubrication_fluid_composition_in_interfascial_bursae"
+      ],
+      "academic_status": "REVIEW_PENDING",
+      "canonical_tier": "TIER_C_PENDING",
+      "blocking_reason": "AI_DRAFT_PENDING_PHYSICAL_SOURCE_LINEAGE",
+      "staging_eligible": false,
+      "production_eligible": false
+    }
+  ]
+}

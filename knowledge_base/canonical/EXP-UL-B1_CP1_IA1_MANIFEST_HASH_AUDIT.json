@@ -1,0 +1,104 @@
+{
+  "phase": "EXP-UL-B1-CP1-IA1",
+  "audit_timestamp": "2026-09-25T13:30:13.068Z",
+  "CP1_MANIFEST_HASH_MATCH_COUNT": 9,
+  "CP1_MANIFEST_HASH_MISMATCH_COUNT": 0,
+  "forward_hash_ledger_policy": "Establishes permanent cryptographic baseline for all v0.2.0 canonical artifacts beginning after IA1.",
+  "artifacts": {
+    "AET-KP-UL-SCAPULA-001_CANONICAL_FACTS.json": {
+      "sha256": "a18dbaa02af0fee7106ebb05f8ef2e8bb618903779e51a365a12473fcc43d447",
+      "status": "MATCH",
+      "expected_in_manifest": "a18dbaa02af0fee7106ebb05f8ef2e8bb618903779e51a365a12473fcc43d447"
+    },
+    "AET-KP-UL-SCAPULA-001_CANONICAL_RELATIONS.json": {
+      "sha256": "f8d534656010b29b5498a5fdb925e432c56d7e5bda9395b40f7dbeb9eefc6267",
+      "status": "MATCH",
+      "expected_in_manifest": "f8d534656010b29b5498a5fdb925e432c56d7e5bda9395b40f7dbeb9eefc6267"
+    },
+    "AET-KP-UL-SCAPULA-001_CANONICAL_ENTITY_PAYLOAD.json": {
+      "sha256": "c60b5453f181cd43b2cdb91766a5e5b08a5a67ca058573525e403f0c30dafb7e",
+      "status": "MATCH",
+      "expected_in_manifest": "c60b5453f181cd43b2cdb91766a5e5b08a5a67ca058573525e403f0c30dafb7e"
+    },
+    "AET-KP-UL-SCAPULA-001_CANONICAL_ATOMIC_ANSWER_UNITS.json": {
+      "sha256": "61df6b56cabf2df86a4b6c18bce672dfa892e5face679e81c5b94775a954eb93",
+      "status": "MATCH",
+      "expected_in_manifest": "61df6b56cabf2df86a4b6c18bce672dfa892e5face679e81c5b94775a954eb93"
+    },
+    "AET-KP-UL-SCAPULA-001_CANONICAL_TEACHING_CONNECTIONS.json": {
+      "sha256": "aa693ee00ef993a2a1d2bd2926e1abd4fd175972d7ce6e0f4f07dee04fb0c86e",
+      "status": "MATCH",
+      "expected_in_manifest": "aa693ee00ef993a2a1d2bd2926e1abd4fd175972d7ce6e0f4f07dee04fb0c86e"
+    },
+    "AET-KP-UL-SCAPULA-001_CANONICAL_PRACTICAL_MEMORY.json": {
+      "sha256": "3cf10ae4a1159d326d5871012abc1c66a3507731e3cfa381d7869c7fe046ae3b",
+      "status": "MATCH",
+      "expected_in_manifest": "3cf10ae4a1159d326d5871012abc1c66a3507731e3cfa381d7869c7fe046ae3b"
+    },
+    "AET-KP-UL-SCAPULA-001_CANONICAL_DOCUMENTARY_MAP.json": {
+      "sha256": "85ebd948a2064298077671de84d89dea4da1f21d1f7a39c1c05d23ed19116758",
+      "status": "MATCH",
+      "expected_in_manifest": "85ebd948a2064298077671de84d89dea4da1f21d1f7a39c1c05d23ed19116758"
+    },
+    "AET-KP-UL-SCAPULA-001_CANONICAL_QUERY_ROUTING.json": {
+      "sha256": "2608a7e2b94f76fe3897be0a2321886ea755223ce4df67176a1dd71a0f2648d7",
+      "status": "MATCH",
+      "expected_in_manifest": "2608a7e2b94f76fe3897be0a2321886ea755223ce4df67176a1dd71a0f2648d7"
+    },
+    "AET-KP-UL-SCAPULA-001_SAFE_ENGINE_LOCAL_PAYLOAD.json": {
+      "sha256": "0543382d6dfb47bc282dac7281dad38ded7a16dc3c095dc91ae0c5b7e3b51081",
+      "status": "MATCH",
+      "expected_in_manifest": "0543382d6dfb47bc282dac7281dad38ded7a16dc3c095dc91ae0c5b7e3b51081"
+    },
+    "EXP-UL-B1_CANONICAL_FACTS.json": {
+      "sha256": "9e4e83952ef46733ed785ad80e842c600aaef6dfafec6c2dc634b4bafc5d4cca",
+      "status": "HASH_NOT_AVAILABLE_IN_ORIGINAL_MANIFEST",
+      "expected_in_manifest": null
+    },
+    "EXP-UL-B1_CANONICAL_ENTITIES.json": {
+      "sha256": "5945b1855f36c09b8200dba3dd2ef815bfee293f6eb7172eadda2eda0a18e627",
+      "status": "HASH_NOT_AVAILABLE_IN_ORIGINAL_MANIFEST",
+      "expected_in_manifest": null
+    },
+    "EXP-UL-B1_CANONICAL_RELATIONS.json": {
+      "sha256": "0e51bf29b3c10a2a4e69ec2461a518b5588c5b0d968319187f0a155555cba658",
+      "status": "HASH_NOT_AVAILABLE_IN_ORIGINAL_MANIFEST",
+      "expected_in_manifest": null
+    },
+    "EXP-UL-B1_CANONICAL_PRACTICAL_MEMORY.json": {
+      "sha256": "a00b1c54fa40d92d098307903dca3fc952af696cbc2d6c6bab61e9b4e0aea131",
+      "status": "HASH_NOT_AVAILABLE_IN_ORIGINAL_MANIFEST",
+      "expected_in_manifest": null
+    },
+    "EXP-UL-B1_CANONICAL_TEACHING_CONNECTIONS.json": {
+      "sha256": "ffb66bb641832c10ac66c6da32cbced06c8606c6c434c93c2cf53f7f0df0ff3c",
+      "status": "HASH_NOT_AVAILABLE_IN_ORIGINAL_MANIFEST",
+      "expected_in_manifest": null
+    },
+    "EXP-UL-B1_CANONICAL_DOCUMENTARY_MAP.json": {
+      "sha256": "66c5855d1317f5d7af3a62460ff148c1c2808de9f95fe96cbc622d2c585cd9b4",
+      "status": "HASH_NOT_AVAILABLE_IN_ORIGINAL_MANIFEST",
+      "expected_in_manifest": null
+    },
+    "EXP-UL-B1_CANONICAL_QUERY_AFFORDANCES.json": {
+      "sha256": "3a36e7dad7e2f0333e350996d13bb76d4834a633ea659ceea5c5399b4f4dc900",
+      "status": "HASH_NOT_AVAILABLE_IN_ORIGINAL_MANIFEST",
+      "expected_in_manifest": null
+    },
+    "EXP-UL-B1_SAFE_ENGINE_LOCAL_PAYLOAD.json": {
+      "sha256": "fe83edd1f5eda654524ec6785e6b37d1967bd93a01bfa171fa56975275d483e1",
+      "status": "HASH_NOT_AVAILABLE_IN_ORIGINAL_MANIFEST",
+      "expected_in_manifest": null
+    },
+    "AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_0.json": {
+      "sha256": "9454c8963a16667c5efa9b292c2fca612e94514452a3578993479f8063e1eaa6",
+      "status": "HASH_NOT_AVAILABLE_IN_ORIGINAL_MANIFEST",
+      "expected_in_manifest": null
+    },
+    "EXP-UL-B1_CP1_PROMOTION_MANIFEST.json": {
+      "sha256": "4150b1655041f25c0046059bc17b591fa69df5c51f18ba7a090e2a1567e48383",
+      "status": "HASH_NOT_AVAILABLE_IN_ORIGINAL_MANIFEST",
+      "expected_in_manifest": null
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "generated_at": "2026-09-25T03:02:18.507Z",
+  "total_gaps": 8,
+  "gaps": [
+    {
+      "gap_id": "GAP-B1-001",
+      "gap_class": "SOURCE_GAP",
+      "title": "Absence of High-Resolution Digital Micro-CT Trabecular Architecture Data",
+      "description": "Currently registered gross anatomy textbooks (Latarjet, Nielsen) describe the cancellous core of the clavicle qualitatively but lack quantitative volumetric trabecular orientation tensors.",
+      "status": "OPEN_DEFERRED_TO_BIOMECHANICAL_SPECIALTY_SOURCES",
+      "severity": "LOW"
+    },
+    {
+      "gap_id": "GAP-B1-002",
+      "gap_class": "TERMINOLOGY_GAP",
+      "title": "Discrepancy Between Latin TA2 Standards and Classical French Osteological Traditions",
+      "description": "Morgue institutional notes emphasize the French description of the clavicle as \"hueso plano alargado\", whereas contemporary anglophone and TA2 curricula designate it as a modified long bone lacking a medullary canal. Both perspectives are preserved without declaring premature FIPAT certification.",
+      "status": "OPEN_PRESERVED_AS_QUALIFIED_VARIATION",
+      "severity": "LOW"
+    },
+    {
+      "gap_id": "GAP-B1-003",
+      "gap_class": "RELATION_ONTOLOGY_GAP",
+      "title": "Absence of Certified Primitives for Physiological Gliding Planes (Syssarcosis)",
+      "description": "Certified repository relations contain articulates_with but lack formal ontology for false joints (syssarcoses) and directional ligamentous resistance vectors. Handled by proposing candidate relations RESISTS_DISPLACEMENT and SYSSARCOSIS_INTERFACE_BETWEEN.",
+      "status": "PROPOSED_CANDIDATE_RELATIONS_PENDING_REGISTRATION",
+      "severity": "MEDIUM"
+    },
+    {
+      "gap_id": "GAP-B1-004",
+      "gap_class": "TOPOGRAPHIC_GAP",
+      "title": "Granular Fascial Boundary Definitions of Clavipectoral Fascia Suspensions",
+      "description": "Detailed microscopic transitions between the subclavius sheath, clavipectoral fascia, and the suspensory ligament of the axilla (Gerdy) require axillary dissection depth and are deferred to Batch 3.",
+      "status": "DEFERRED_TO_BATCH_3_AXILLA",
+      "severity": "LOW"
+    },
+    {
+      "gap_id": "GAP-B1-005",
+      "gap_class": "PRACTICAL_MEMORY_GAP",
+      "title": "Cadaveric Age-Stratified Dissection Series for Acromioclavicular Disc Morphology",
+      "description": "Photographic documentation of the regression of the AC joint meniscoid disc across young vs elderly cadavers is incomplete in current institutional morgue notes.",
+      "status": "OPEN_REQUIRES_EXPANDED_CADAVERIC_INGESTION",
+      "severity": "LOW"
+    },
+    {
+      "gap_id": "GAP-B1-006",
+      "gap_class": "CLINICAL_VALIDATION_GAP",
+      "title": "Orthopedic Fracture and Dislocation Classification Systems Held as Candidates",
+      "description": "Clinical classification systems (Allman/Neer for clavicular fractures, Rockwood grades I-VI for AC separations) cannot be certified as canonical truth without authorized clinical specialty references.",
+      "status": "PRESERVED_AS_CLINICAL_CANDIDATE_REVIEW_REQUIRED",
+      "severity": "MEDIUM"
+    },
+    {
+      "gap_id": "GAP-B1-007",
+      "gap_class": "3D_MAPPING_GAP",
+      "title": "Absence of Precise Geometric Coordinate Anchors in Current Viewer Meshes",
+      "description": "No existing glTF/OBJ clavicular and pectoral girdle 3D assets in the repository currently have verified vertex indices for the 32 authored entities. All targets are preserved in UNMAPPED state.",
+      "status": "PRESERVED_AS_UNMAPPED_CANDIDATES",
+      "severity": "LOW"
+    },
+    {
+      "gap_id": "GAP-B1-008",
+      "gap_class": "SPECIALIZED_ANATOMY_GAP",
+      "title": "Microvascular and Neural Innervation Penetration Mapping of the SC Articular Disc",
+      "description": "Whether the fibrocartilaginous disc of the SC joint possesses intrinsic nociceptive nerve endings in its periphery versus being completely aneural is unresolved in gross anatomy textbooks.",
+      "status": "OPEN_DEFERRED_TO_HISTOLOGY_REFERENCES",
+      "severity": "LOW"
+    }
+  ]
+}

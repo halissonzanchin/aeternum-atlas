@@ -1,0 +1,2556 @@
+{
+  "pack_id": "AET-KP-UL-SCAPULA_AI_DRAFT-001",
+  "pack_version": "0.1.0-DRAFT",
+  "topic": "SCAPULA",
+  "primary_entity_ids": [
+    "scapula"
+  ],
+  "domain": "UPPER_LIMB",
+  "subdomain": "PECTORAL_GIRDLE",
+  "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+  "authoring_protocol": "AKAP-1.0",
+  "authoring_mode": "AI_DRAFT",
+  "source_ids": [],
+  "source_locations": [],
+  "macro_dossiers": [
+    {
+      "entity_id": "scapula",
+      "canonical_name": "Escápula",
+      "systematic_classification": "Esqueleto apendicular superior — Cintura escapular — Osso plano par",
+      "pedagogical_summary": "A escápula é um osso plano, par e de configuração aproximadamente triangular que integra a cintura escapular. Localiza-se sobre a parede posterolateral do tórax, em relação geral com as costelas superiores e médias, e funciona como uma base óssea móvel entre o tronco e o membro superior.",
+      "morphological_dimensions": {
+        "surfaces": [
+          "costal_surface",
+          "posterior_surface"
+        ],
+        "borders": [
+          "superior_border",
+          "medial_border",
+          "lateral_border"
+        ],
+        "angles": [
+          "superior_angle",
+          "inferior_angle",
+          "lateral_angle"
+        ],
+        "major_processes": [
+          "scapular_spine",
+          "acromion",
+          "coracoid_process"
+        ],
+        "major_fossae": [
+          "subscapular_fossa",
+          "supraspinous_fossa",
+          "infraspinous_fossa"
+        ],
+        "articular_regions": [
+          "glenoid_cavity"
+        ],
+        "landmarks": [
+          "suprascapular_notch",
+          "supraglenoid_tubercle",
+          "infraglenoid_tubercle",
+          "neck_of_scapula",
+          "spinoglenoid_notch"
+        ]
+      },
+      "syntopic_relations": [
+        "Parede torácica posterolateral (costelas 2 a 7)",
+        "Clavícula (articulação acromioclavicular)",
+        "Úmero (articulação glenoumeral)",
+        "Espaços topográficos posteriores do ombro (espaço triangular, espaço quadrangular, intervalo triangular)"
+      ],
+      "clinical_vulnerabilities": [
+        "Escápula alada por lesão do nervo torácico longo ou disfunção do serrátil anterior",
+        "Compressão do nervo supraescapular na incisura da escápula",
+        "Compressão do nervo supraescapular na incisura espinoglenoidal",
+        "Instabilidade articular glenoumeral e lesões labrais"
+      ],
+      "cadaveric_pearls": [
+        "Orientação rápida: espinha posterior, cavidade glenoidal lateral, processo coracoide anterior, ângulo inferior apontando para baixo",
+        "Trajeto vásculo-nervoso na incisura escapular: artéria supraescapular passa acima do ligamento transverso superior; nervo supraescapular passa abaixo",
+        "Ápice coracoide como origem conjunta do coracobraquial e cabeça curta do bíceps braquial"
+      ]
+    }
+  ],
+  "documentary_memory": [
+    {
+      "document_id": "DOC-SCAP-001",
+      "entity_ids": [
+        "scapula",
+        "cintura_escapular",
+        "torax",
+        "costelas"
+      ],
+      "knowledge_dimensions": [
+        "IDENTITY",
+        "MORPHOLOGY",
+        "LOCATION"
+      ],
+      "narrative_text": "A escápula é um osso plano, par e de configuração aproximadamente triangular que integra a cintura escapular. Localiza-se sobre a parede posterolateral do tórax, em relação geral com as costelas superiores e médias, e funciona como uma base óssea móvel entre o tronco e o membro superior.",
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "fact_candidate_ids": [
+        "SCAP-SRC-F001",
+        "SCAP-SRC-F002",
+        "SCAP-SRC-F003",
+        "SCAP-SRC-F004",
+        "SCAP-SRC-F005",
+        "SCAP-SRC-F006",
+        "SCAP-AI-F001",
+        "SCAP-AI-F002"
+      ]
+    },
+    {
+      "document_id": "DOC-SCAP-002",
+      "entity_ids": [
+        "scapula",
+        "costal_surface",
+        "posterior_surface",
+        "subscapular_fossa",
+        "scapular_spine",
+        "supraspinous_fossa",
+        "infraspinous_fossa"
+      ],
+      "knowledge_dimensions": [
+        "MORPHOLOGY",
+        "PARTS"
+      ],
+      "narrative_text": "A escápula apresenta duas faces principais, três bordas e três ângulos. Sua face costal ou anterior é predominantemente côncava e abriga a fossa subescapular. A face posterior é dividida pela espinha da escápula em uma fossa supraespinosa, superior, e uma fossa infraespinosa, inferior.",
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "fact_candidate_ids": [
+        "SCAP-SRC-F009",
+        "SCAP-SRC-F010",
+        "SCAP-SRC-F011",
+        "SCAP-SRC-F012",
+        "SCAP-SRC-F013",
+        "SCAP-SRC-F014",
+        "SCAP-AI-F003",
+        "SCAP-AI-F004",
+        "SCAP-AI-F005",
+        "SCAP-AI-F006",
+        "SCAP-AI-F007",
+        "SCAP-AI-F008",
+        "SCAP-AI-F009",
+        "SCAP-AI-F010",
+        "SCAP-AI-F011",
+        "SCAP-AI-F012",
+        "SCAP-AI-F013",
+        "SCAP-AI-F014",
+        "SCAP-AI-F015"
+      ]
+    },
+    {
+      "document_id": "DOC-SCAP-003",
+      "entity_ids": [
+        "scapular_spine",
+        "acromion",
+        "clavicle",
+        "acromioclavicular_joint"
+      ],
+      "knowledge_dimensions": [
+        "MORPHOLOGY",
+        "ARTICULATIONS"
+      ],
+      "narrative_text": "A espinha da escápula projeta-se posteriormente e continua lateralmente no acrômio. O acrômio forma a proeminência óssea superolateral do ombro e participa da articulação acromioclavicular por meio de sua faceta destinada à extremidade lateral da clavícula.",
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "fact_candidate_ids": [
+        "SCAP-SRC-F007",
+        "SCAP-SRC-F015",
+        "SCAP-AI-F016",
+        "SCAP-AI-F022"
+      ]
+    },
+    {
+      "document_id": "DOC-SCAP-004",
+      "entity_ids": [
+        "coracoid_process",
+        "cintura_escapular",
+        "axila"
+      ],
+      "knowledge_dimensions": [
+        "MORPHOLOGY",
+        "TOPOGRAPHY"
+      ],
+      "narrative_text": "O processo coracoide projeta-se anteriormente a partir da região superior da escápula. Constitui importante ponto de fixação muscular e ligamentar e, por isso, funciona como um marco central para compreender as relações da cintura escapular, da axila e da região anterior do ombro.",
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "fact_candidate_ids": [
+        "SCAP-SRC-F026",
+        "SCAP-SRC-F040",
+        "SCAP-SRC-F041",
+        "SCAP-SRC-F042",
+        "SCAP-SRC-F044",
+        "SCAP-SRC-F045",
+        "SCAP-SRC-F046",
+        "SCAP-SRC-F047",
+        "SCAP-AI-F017",
+        "SCAP-AI-F040",
+        "SCAP-AI-F041",
+        "SCAP-AI-F042",
+        "SCAP-AI-F043"
+      ]
+    },
+    {
+      "document_id": "DOC-SCAP-005",
+      "entity_ids": [
+        "lateral_angle",
+        "glenoid_cavity",
+        "humerus",
+        "biceps_brachii_long_head",
+        "triceps_brachii_long_head",
+        "supraglenoid_tubercle",
+        "infraglenoid_tubercle"
+      ],
+      "knowledge_dimensions": [
+        "ARTICULATIONS",
+        "MUSCULAR_RELATIONS"
+      ],
+      "narrative_text": "O ângulo lateral contém a cavidade glenoidal, uma superfície articular relativamente rasa destinada à cabeça do úmero. Acima e abaixo da glenoide encontram-se, respectivamente, as regiões supraglenoidal e infraglenoidal, relacionadas às origens das cabeças longas do bíceps e do tríceps braquiais.",
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "fact_candidate_ids": [
+        "SCAP-SRC-F008",
+        "SCAP-SRC-F027",
+        "SCAP-SRC-F028",
+        "SCAP-SRC-F029",
+        "SCAP-SRC-F038",
+        "SCAP-SRC-F039",
+        "SCAP-AI-F018",
+        "SCAP-AI-F019",
+        "SCAP-AI-F020",
+        "SCAP-AI-F023",
+        "SCAP-AI-F024",
+        "SCAP-AI-F038",
+        "SCAP-AI-F039"
+      ]
+    },
+    {
+      "document_id": "DOC-SCAP-006",
+      "entity_ids": [
+        "superior_border",
+        "medial_border",
+        "lateral_border",
+        "suprascapular_notch",
+        "coracoid_process",
+        "teres_minor",
+        "teres_major"
+      ],
+      "knowledge_dimensions": [
+        "MORPHOLOGY",
+        "TOPOGRAPHY"
+      ],
+      "narrative_text": "A borda superior é a mais curta das três bordas e apresenta a incisura da escápula próxima à base do processo coracoide. A borda medial orienta-se em direção à coluna vertebral e recebe inserções de músculos responsáveis pela posição e movimento da escápula. A borda lateral é mais espessa e relaciona-se com os músculos redondos e com a região glenoidal.",
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "fact_candidate_ids": [
+        "SCAP-SRC-F017",
+        "SCAP-SRC-F018",
+        "SCAP-SRC-F019",
+        "SCAP-SRC-F020",
+        "SCAP-SRC-F021",
+        "SCAP-SRC-F022",
+        "SCAP-AI-F005",
+        "SCAP-AI-F006",
+        "SCAP-AI-F007",
+        "SCAP-AI-F021",
+        "SCAP-AI-F028",
+        "SCAP-AI-F029",
+        "SCAP-AI-F034",
+        "SCAP-AI-F035",
+        "SCAP-AI-F036",
+        "SCAP-AI-F037"
+      ]
+    },
+    {
+      "document_id": "DOC-SCAP-007",
+      "entity_ids": [
+        "subscapularis",
+        "supraspinatus",
+        "infraspinatus",
+        "teres_minor",
+        "teres_major",
+        "trapezius",
+        "deltoid",
+        "levator_scapulae",
+        "rhomboid_minor",
+        "rhomboid_major",
+        "serratus_anterior"
+      ],
+      "knowledge_dimensions": [
+        "MUSCULAR_RELATIONS"
+      ],
+      "narrative_text": "A escápula constitui um verdadeiro centro de integração muscular. Subescapular, supraespinal e infraespinal originam-se em fossas próprias da escápula. Redondo menor e redondo maior relacionam-se com a borda lateral e região do ângulo inferior. Trapézio, deltoide, levantador da escápula, romboides e serrátil anterior também apresentam importantes inserções ou origens sobre diferentes regiões do osso.",
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "fact_candidate_ids": [
+        "SCAP-SRC-F030",
+        "SCAP-SRC-F031",
+        "SCAP-SRC-F032",
+        "SCAP-SRC-F033",
+        "SCAP-SRC-F034",
+        "SCAP-SRC-F035",
+        "SCAP-SRC-F036",
+        "SCAP-SRC-F037",
+        "SCAP-AI-F025",
+        "SCAP-AI-F026",
+        "SCAP-AI-F027",
+        "SCAP-AI-F028",
+        "SCAP-AI-F029",
+        "SCAP-AI-F030",
+        "SCAP-AI-F031",
+        "SCAP-AI-F032",
+        "SCAP-AI-F033",
+        "SCAP-AI-F034",
+        "SCAP-AI-F035",
+        "SCAP-AI-F036",
+        "SCAP-AI-F037"
+      ]
+    },
+    {
+      "document_id": "DOC-SCAP-008",
+      "entity_ids": [
+        "suprascapular_notch",
+        "suprascapular_nerve",
+        "suprascapular_artery",
+        "spinoglenoid_notch",
+        "infraspinous_fossa",
+        "circumflex_scapular_artery",
+        "dorsal_scapular_artery"
+      ],
+      "knowledge_dimensions": [
+        "NEURAL_RELATIONS",
+        "VASCULAR_RELATIONS"
+      ],
+      "narrative_text": "Além das relações musculares, a escápula está intimamente ligada a importantes trajetos neurovasculares. A região da incisura escapular relaciona-se com o nervo e vasos supraescapulares; a região espinoglenoidal estabelece uma via de passagem para estruturas supraescapulares em direção à fossa infraespinosa; e os vasos escapulares participam de uma rede anastomótica ao redor do osso.",
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "fact_candidate_ids": [
+        "SCAP-SRC-F048",
+        "SCAP-SRC-F049",
+        "SCAP-SRC-F050",
+        "SCAP-SRC-F051",
+        "SCAP-SRC-F052",
+        "SCAP-AI-F045",
+        "SCAP-AI-F046",
+        "SCAP-AI-F047",
+        "SCAP-AI-F048",
+        "SCAP-AI-F049",
+        "SCAP-AI-F050"
+      ]
+    },
+    {
+      "document_id": "DOC-SCAP-009",
+      "entity_ids": [
+        "triangular_space",
+        "quadrangular_space",
+        "triangular_interval",
+        "teres_minor",
+        "teres_major",
+        "triceps_brachii_long_head",
+        "humerus",
+        "axillary_nerve",
+        "radial_nerve",
+        "circumflex_scapular_artery"
+      ],
+      "knowledge_dimensions": [
+        "ANATOMICAL_SPACES",
+        "TOPOGRAPHY"
+      ],
+      "narrative_text": "Do ponto de vista topográfico, músculos que se fixam na escápula participam da formação de espaços anatômicos posteriores do ombro. As relações entre redondo menor, redondo maior, cabeça longa do tríceps e úmero permitem compreender os espaços triangular e quadrangular e o intervalo triangular, associados a importantes nervos e vasos.",
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "fact_candidate_ids": [
+        "SCAP-AI-F051",
+        "SCAP-AI-F052",
+        "SCAP-AI-F053",
+        "SCAP-AI-F054",
+        "SCAP-AI-F055",
+        "SCAP-AI-F056",
+        "SCAP-AI-F057",
+        "SCAP-AI-F058",
+        "SCAP-AI-F059",
+        "SCAP-AI-F060"
+      ]
+    },
+    {
+      "document_id": "DOC-SCAP-010",
+      "entity_ids": [
+        "scapula",
+        "scapular_spine",
+        "glenoid_cavity",
+        "coracoid_process",
+        "inferior_angle"
+      ],
+      "knowledge_dimensions": [
+        "PRACTICAL_IDENTIFICATION",
+        "ORIENTATION"
+      ],
+      "narrative_text": "Na prática osteológica ou cadavérica, a identificação da escápula pode ser orientada pela espinha, que necessariamente fica posteriormente; pela cavidade glenoidal, que deve estar voltada lateralmente; pelo processo coracoide, que se projeta anteriormente; e pelo ângulo inferior, que aponta inferiormente. Esse conjunto permite determinar também a lateralidade da peça.",
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "fact_candidate_ids": [
+        "SCAP-AI-F061",
+        "SCAP-AI-F062",
+        "SCAP-AI-F063",
+        "SCAP-AI-F064"
+      ]
+    }
+  ],
+  "atomic_fact_candidates": [
+    {
+      "fact_candidate_id": "SCAP-AI-F001",
+      "subject": "scapula",
+      "relation": "TYPE_OF",
+      "object_or_arguments": [
+        "flat_bone_candidate"
+      ],
+      "knowledge_dimension": "MORPHOLOGY",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F002",
+      "subject": "scapula",
+      "relation": "LOCATED_IN",
+      "object_or_arguments": [
+        "pectoral_girdle"
+      ],
+      "knowledge_dimension": "LOCATION",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F003",
+      "subject": "scapula",
+      "relation": "HAS_SURFACE",
+      "object_or_arguments": [
+        "costal_surface"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F004",
+      "subject": "scapula",
+      "relation": "HAS_SURFACE",
+      "object_or_arguments": [
+        "posterior_surface"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F005",
+      "subject": "scapula",
+      "relation": "HAS_BORDER",
+      "object_or_arguments": [
+        "superior_border"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F006",
+      "subject": "scapula",
+      "relation": "HAS_BORDER",
+      "object_or_arguments": [
+        "medial_border"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F007",
+      "subject": "scapula",
+      "relation": "HAS_BORDER",
+      "object_or_arguments": [
+        "lateral_border"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F008",
+      "subject": "scapula",
+      "relation": "HAS_ANGLE",
+      "object_or_arguments": [
+        "superior_angle"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F009",
+      "subject": "scapula",
+      "relation": "HAS_ANGLE",
+      "object_or_arguments": [
+        "inferior_angle"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F010",
+      "subject": "scapula",
+      "relation": "HAS_ANGLE",
+      "object_or_arguments": [
+        "lateral_angle"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F011",
+      "subject": "posterior_surface_of_scapula",
+      "relation": "HAS_STRUCTURE",
+      "object_or_arguments": [
+        "scapular_spine"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F012",
+      "subject": "scapular_spine",
+      "relation": "SEPARATES",
+      "object_or_arguments": [
+        "supraspinous_fossa",
+        "infraspinous_fossa"
+      ],
+      "knowledge_dimension": "MORPHOLOGY",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F013",
+      "subject": "scapula",
+      "relation": "HAS_FOSSA",
+      "object_or_arguments": [
+        "subscapular_fossa"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F014",
+      "subject": "scapula",
+      "relation": "HAS_FOSSA",
+      "object_or_arguments": [
+        "supraspinous_fossa"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F015",
+      "subject": "scapula",
+      "relation": "HAS_FOSSA",
+      "object_or_arguments": [
+        "infraspinous_fossa"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F016",
+      "subject": "scapular_spine",
+      "relation": "CONTINUES_AS",
+      "object_or_arguments": [
+        "acromion"
+      ],
+      "knowledge_dimension": "MORPHOLOGY",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F017",
+      "subject": "scapula",
+      "relation": "HAS_PROCESS",
+      "object_or_arguments": [
+        "coracoid_process"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F018",
+      "subject": "lateral_angle_of_scapula",
+      "relation": "HAS_STRUCTURE",
+      "object_or_arguments": [
+        "glenoid_cavity"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F019",
+      "subject": "scapula",
+      "relation": "HAS_LANDMARK",
+      "object_or_arguments": [
+        "supraglenoid_tubercle"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F020",
+      "subject": "scapula",
+      "relation": "HAS_LANDMARK",
+      "object_or_arguments": [
+        "infraglenoid_tubercle"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F021",
+      "subject": "superior_border_of_scapula",
+      "relation": "HAS_NOTCH",
+      "object_or_arguments": [
+        "suprascapular_notch"
+      ],
+      "knowledge_dimension": "PARTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F022",
+      "subject": "scapula",
+      "relation": "ARTICULATES_WITH",
+      "object_or_arguments": [
+        "clavicle"
+      ],
+      "knowledge_dimension": "ARTICULATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F023",
+      "subject": "scapula",
+      "relation": "ARTICULATES_WITH",
+      "object_or_arguments": [
+        "humerus"
+      ],
+      "knowledge_dimension": "ARTICULATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F024",
+      "subject": "glenoid_cavity",
+      "relation": "ARTICULATES_WITH",
+      "object_or_arguments": [
+        "humeral_head"
+      ],
+      "knowledge_dimension": "ARTICULATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F025",
+      "subject": "subscapularis",
+      "relation": "ORIGINATES_FROM",
+      "object_or_arguments": [
+        "subscapular_fossa"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F026",
+      "subject": "supraspinatus",
+      "relation": "ORIGINATES_FROM",
+      "object_or_arguments": [
+        "supraspinous_fossa"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F027",
+      "subject": "infraspinatus",
+      "relation": "ORIGINATES_FROM",
+      "object_or_arguments": [
+        "infraspinous_fossa"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F028",
+      "subject": "teres_minor",
+      "relation": "ORIGINATES_FROM",
+      "object_or_arguments": [
+        "lateral_border_of_scapula"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F029",
+      "subject": "teres_major",
+      "relation": "ORIGINATES_FROM",
+      "object_or_arguments": [
+        "inferior_scapular_region"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F030",
+      "subject": "deltoid",
+      "relation": "ORIGINATES_FROM",
+      "object_or_arguments": [
+        "acromion"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F031",
+      "subject": "deltoid",
+      "relation": "ORIGINATES_FROM",
+      "object_or_arguments": [
+        "scapular_spine"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F032",
+      "subject": "trapezius",
+      "relation": "INSERTS_INTO",
+      "object_or_arguments": [
+        "acromion"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F033",
+      "subject": "trapezius",
+      "relation": "INSERTS_INTO",
+      "object_or_arguments": [
+        "scapular_spine"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F034",
+      "subject": "levator_scapulae",
+      "relation": "INSERTS_INTO",
+      "object_or_arguments": [
+        "superior_medial_border_of_scapula"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F035",
+      "subject": "rhomboid_minor",
+      "relation": "INSERTS_INTO",
+      "object_or_arguments": [
+        "medial_border_near_root_of_scapular_spine"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F036",
+      "subject": "rhomboid_major",
+      "relation": "INSERTS_INTO",
+      "object_or_arguments": [
+        "medial_border_inferior_to_scapular_spine"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F037",
+      "subject": "serratus_anterior",
+      "relation": "INSERTS_INTO",
+      "object_or_arguments": [
+        "costal_aspect_of_medial_border"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F038",
+      "subject": "biceps_brachii_long_head",
+      "relation": "ORIGINATES_FROM",
+      "object_or_arguments": [
+        "supraglenoid_region"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F039",
+      "subject": "triceps_brachii_long_head",
+      "relation": "ORIGINATES_FROM",
+      "object_or_arguments": [
+        "infraglenoid_tubercle"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F040",
+      "subject": "biceps_brachii_short_head",
+      "relation": "ORIGINATES_FROM",
+      "object_or_arguments": [
+        "coracoid_process"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F041",
+      "subject": "coracobrachialis",
+      "relation": "ORIGINATES_FROM",
+      "object_or_arguments": [
+        "coracoid_process"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F042",
+      "subject": "pectoralis_minor",
+      "relation": "INSERTS_INTO",
+      "object_or_arguments": [
+        "coracoid_process"
+      ],
+      "knowledge_dimension": "MUSCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F043",
+      "subject": "coracoacromial_ligament",
+      "relation": "EXTENDS_BETWEEN",
+      "object_or_arguments": [
+        "coracoid_process",
+        "acromion"
+      ],
+      "knowledge_dimension": "LIGAMENTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F044",
+      "subject": "superior_transverse_scapular_ligament",
+      "relation": "BRIDGES",
+      "object_or_arguments": [
+        "suprascapular_notch"
+      ],
+      "knowledge_dimension": "LIGAMENTS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F045",
+      "subject": "suprascapular_nerve",
+      "relation": "PASSES_THROUGH",
+      "object_or_arguments": [
+        "suprascapular_notch_region"
+      ],
+      "knowledge_dimension": "NEURAL_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F046",
+      "subject": "suprascapular_nerve",
+      "relation": "RELATED_TO",
+      "object_or_arguments": [
+        "superior_transverse_scapular_ligament"
+      ],
+      "knowledge_dimension": "NEURAL_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F047",
+      "subject": "suprascapular_artery",
+      "relation": "RELATED_TO",
+      "object_or_arguments": [
+        "suprascapular_notch_region"
+      ],
+      "knowledge_dimension": "VASCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F048",
+      "subject": "suprascapular_nerve",
+      "relation": "RELATED_TO",
+      "object_or_arguments": [
+        "spinoglenoid_notch"
+      ],
+      "knowledge_dimension": "NEURAL_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F049",
+      "subject": "dorsal_scapular_artery",
+      "relation": "RELATED_TO",
+      "object_or_arguments": [
+        "medial_border_of_scapula"
+      ],
+      "knowledge_dimension": "VASCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F050",
+      "subject": "circumflex_scapular_artery",
+      "relation": "RELATED_TO",
+      "object_or_arguments": [
+        "posterior_scapular_region"
+      ],
+      "knowledge_dimension": "VASCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F051",
+      "subject": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object_or_arguments": [
+        "teres_minor"
+      ],
+      "knowledge_dimension": "ANATOMICAL_SPACES",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F052",
+      "subject": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object_or_arguments": [
+        "teres_major"
+      ],
+      "knowledge_dimension": "ANATOMICAL_SPACES",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F053",
+      "subject": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object_or_arguments": [
+        "long_head_triceps"
+      ],
+      "knowledge_dimension": "ANATOMICAL_SPACES",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F054",
+      "subject": "triangular_space",
+      "relation": "CONTAINS",
+      "object_or_arguments": [
+        "circumflex_scapular_vessels"
+      ],
+      "knowledge_dimension": "ANATOMICAL_SPACES",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F055",
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object_or_arguments": [
+        "teres_minor"
+      ],
+      "knowledge_dimension": "ANATOMICAL_SPACES",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F056",
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object_or_arguments": [
+        "teres_major"
+      ],
+      "knowledge_dimension": "ANATOMICAL_SPACES",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F057",
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object_or_arguments": [
+        "long_head_triceps"
+      ],
+      "knowledge_dimension": "ANATOMICAL_SPACES",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F058",
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object_or_arguments": [
+        "surgical_neck_humerus"
+      ],
+      "knowledge_dimension": "ANATOMICAL_SPACES",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F059",
+      "subject": "quadrangular_space",
+      "relation": "CONTAINS",
+      "object_or_arguments": [
+        "axillary_nerve"
+      ],
+      "knowledge_dimension": "ANATOMICAL_SPACES",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F060",
+      "subject": "quadrangular_space",
+      "relation": "CONTAINS",
+      "object_or_arguments": [
+        "posterior_circumflex_humeral_vessels"
+      ],
+      "knowledge_dimension": "ANATOMICAL_SPACES",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F061",
+      "subject": "scapular_spine",
+      "relation": "PRACTICAL_IDENTIFIES",
+      "object_or_arguments": [
+        "posterior_surface_of_scapula"
+      ],
+      "knowledge_dimension": "PRACTICAL_IDENTIFICATION",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F062",
+      "subject": "glenoid_cavity",
+      "relation": "PRACTICAL_ORIENTATION",
+      "object_or_arguments": [
+        "lateral"
+      ],
+      "knowledge_dimension": "PRACTICAL_IDENTIFICATION",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F063",
+      "subject": "coracoid_process",
+      "relation": "PRACTICAL_ORIENTATION",
+      "object_or_arguments": [
+        "anterior"
+      ],
+      "knowledge_dimension": "PRACTICAL_IDENTIFICATION",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "SCAP-AI-F064",
+      "subject": "inferior_angle_of_scapula",
+      "relation": "PRACTICAL_ORIENTATION",
+      "object_or_arguments": [
+        "inferior"
+      ],
+      "knowledge_dimension": "PRACTICAL_IDENTIFICATION",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT"
+    }
+  ],
+  "relations": [
+    {
+      "relation_candidate_id": "REL-SCAP-001",
+      "subject": "scapula",
+      "relation": "TYPE_OF",
+      "object": "flat_bone_candidate",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F001"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-002",
+      "subject": "scapula",
+      "relation": "LOCATED_IN",
+      "object": "pectoral_girdle",
+      "relation_family": "located_in",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F002"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-003",
+      "subject": "scapula",
+      "relation": "HAS_SURFACE",
+      "object": "costal_surface",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F003"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-004",
+      "subject": "scapula",
+      "relation": "HAS_SURFACE",
+      "object": "posterior_surface",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F004"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-005",
+      "subject": "scapula",
+      "relation": "HAS_BORDER",
+      "object": "superior_border",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F005"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-006",
+      "subject": "scapula",
+      "relation": "HAS_BORDER",
+      "object": "medial_border",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F006"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-007",
+      "subject": "scapula",
+      "relation": "HAS_BORDER",
+      "object": "lateral_border",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F007"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-008",
+      "subject": "scapula",
+      "relation": "HAS_ANGLE",
+      "object": "superior_angle",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F008"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-009",
+      "subject": "scapula",
+      "relation": "HAS_ANGLE",
+      "object": "inferior_angle",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F009"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-010",
+      "subject": "scapula",
+      "relation": "HAS_ANGLE",
+      "object": "lateral_angle",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F010"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-011",
+      "subject": "posterior_surface_of_scapula",
+      "relation": "HAS_STRUCTURE",
+      "object": "scapular_spine",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F011"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-012",
+      "subject": "scapular_spine",
+      "relation": "SEPARATES",
+      "object": "supraspinous_fossa, infraspinous_fossa",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F012"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-013",
+      "subject": "scapula",
+      "relation": "HAS_FOSSA",
+      "object": "subscapular_fossa",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F013"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-014",
+      "subject": "scapula",
+      "relation": "HAS_FOSSA",
+      "object": "supraspinous_fossa",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F014"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-015",
+      "subject": "scapula",
+      "relation": "HAS_FOSSA",
+      "object": "infraspinous_fossa",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F015"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-016",
+      "subject": "scapular_spine",
+      "relation": "CONTINUES_AS",
+      "object": "acromion",
+      "relation_family": "continues_as",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F016"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-017",
+      "subject": "scapula",
+      "relation": "HAS_PROCESS",
+      "object": "coracoid_process",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F017"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-018",
+      "subject": "lateral_angle_of_scapula",
+      "relation": "HAS_STRUCTURE",
+      "object": "glenoid_cavity",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F018"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-019",
+      "subject": "scapula",
+      "relation": "HAS_LANDMARK",
+      "object": "supraglenoid_tubercle",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F019"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-020",
+      "subject": "scapula",
+      "relation": "HAS_LANDMARK",
+      "object": "infraglenoid_tubercle",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F020"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-021",
+      "subject": "superior_border_of_scapula",
+      "relation": "HAS_NOTCH",
+      "object": "suprascapular_notch",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F021"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-022",
+      "subject": "scapula",
+      "relation": "ARTICULATES_WITH",
+      "object": "clavicle",
+      "relation_family": "articulates_with",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F022"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-023",
+      "subject": "scapula",
+      "relation": "ARTICULATES_WITH",
+      "object": "humerus",
+      "relation_family": "articulates_with",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F023"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-024",
+      "subject": "glenoid_cavity",
+      "relation": "ARTICULATES_WITH",
+      "object": "humeral_head",
+      "relation_family": "articulates_with",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F024"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-025",
+      "subject": "subscapularis",
+      "relation": "ORIGINATES_FROM",
+      "object": "subscapular_fossa",
+      "relation_family": "originates_from",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F025"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-026",
+      "subject": "supraspinatus",
+      "relation": "ORIGINATES_FROM",
+      "object": "supraspinous_fossa",
+      "relation_family": "originates_from",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F026"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-027",
+      "subject": "infraspinatus",
+      "relation": "ORIGINATES_FROM",
+      "object": "infraspinous_fossa",
+      "relation_family": "originates_from",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F027"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-028",
+      "subject": "teres_minor",
+      "relation": "ORIGINATES_FROM",
+      "object": "lateral_border_of_scapula",
+      "relation_family": "originates_from",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F028"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-029",
+      "subject": "teres_major",
+      "relation": "ORIGINATES_FROM",
+      "object": "inferior_scapular_region",
+      "relation_family": "originates_from",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F029"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-030",
+      "subject": "deltoid",
+      "relation": "ORIGINATES_FROM",
+      "object": "acromion",
+      "relation_family": "originates_from",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F030"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-031",
+      "subject": "deltoid",
+      "relation": "ORIGINATES_FROM",
+      "object": "scapular_spine",
+      "relation_family": "originates_from",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F031"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-032",
+      "subject": "trapezius",
+      "relation": "INSERTS_INTO",
+      "object": "acromion",
+      "relation_family": "inserts_on",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F032"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-033",
+      "subject": "trapezius",
+      "relation": "INSERTS_INTO",
+      "object": "scapular_spine",
+      "relation_family": "inserts_on",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F033"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-034",
+      "subject": "levator_scapulae",
+      "relation": "INSERTS_INTO",
+      "object": "superior_medial_border_of_scapula",
+      "relation_family": "inserts_on",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F034"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-035",
+      "subject": "rhomboid_minor",
+      "relation": "INSERTS_INTO",
+      "object": "medial_border_near_root_of_scapular_spine",
+      "relation_family": "inserts_on",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F035"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-036",
+      "subject": "rhomboid_major",
+      "relation": "INSERTS_INTO",
+      "object": "medial_border_inferior_to_scapular_spine",
+      "relation_family": "inserts_on",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F036"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-037",
+      "subject": "serratus_anterior",
+      "relation": "INSERTS_INTO",
+      "object": "costal_aspect_of_medial_border",
+      "relation_family": "inserts_on",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F037"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-038",
+      "subject": "biceps_brachii_long_head",
+      "relation": "ORIGINATES_FROM",
+      "object": "supraglenoid_region",
+      "relation_family": "originates_from",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F038"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-039",
+      "subject": "triceps_brachii_long_head",
+      "relation": "ORIGINATES_FROM",
+      "object": "infraglenoid_tubercle",
+      "relation_family": "originates_from",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F039"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-040",
+      "subject": "biceps_brachii_short_head",
+      "relation": "ORIGINATES_FROM",
+      "object": "coracoid_process",
+      "relation_family": "originates_from",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F040"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-041",
+      "subject": "coracobrachialis",
+      "relation": "ORIGINATES_FROM",
+      "object": "coracoid_process",
+      "relation_family": "originates_from",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F041"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-042",
+      "subject": "pectoralis_minor",
+      "relation": "INSERTS_INTO",
+      "object": "coracoid_process",
+      "relation_family": "inserts_on",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F042"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-043",
+      "subject": "coracoacromial_ligament",
+      "relation": "EXTENDS_BETWEEN",
+      "object": "coracoid_process, acromion",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F043"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-044",
+      "subject": "superior_transverse_scapular_ligament",
+      "relation": "BRIDGES",
+      "object": "suprascapular_notch",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F044"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-045",
+      "subject": "suprascapular_nerve",
+      "relation": "PASSES_THROUGH",
+      "object": "suprascapular_notch_region",
+      "relation_family": "passes_through",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F045"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-046",
+      "subject": "suprascapular_nerve",
+      "relation": "RELATED_TO",
+      "object": "superior_transverse_scapular_ligament",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F046"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-047",
+      "subject": "suprascapular_artery",
+      "relation": "RELATED_TO",
+      "object": "suprascapular_notch_region",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F047"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-048",
+      "subject": "suprascapular_nerve",
+      "relation": "RELATED_TO",
+      "object": "spinoglenoid_notch",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F048"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-049",
+      "subject": "dorsal_scapular_artery",
+      "relation": "RELATED_TO",
+      "object": "medial_border_of_scapula",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F049"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-050",
+      "subject": "circumflex_scapular_artery",
+      "relation": "RELATED_TO",
+      "object": "posterior_scapular_region",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F050"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-051",
+      "subject": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object": "teres_minor",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F051"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-052",
+      "subject": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object": "teres_major",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F052"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-053",
+      "subject": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object": "long_head_triceps",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F053"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-054",
+      "subject": "triangular_space",
+      "relation": "CONTAINS",
+      "object": "circumflex_scapular_vessels",
+      "relation_family": "contains",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F054"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-055",
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object": "teres_minor",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F055"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-056",
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object": "teres_major",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F056"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-057",
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object": "long_head_triceps",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F057"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-058",
+      "subject": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "object": "surgical_neck_humerus",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F058"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-059",
+      "subject": "quadrangular_space",
+      "relation": "CONTAINS",
+      "object": "axillary_nerve",
+      "relation_family": "contains",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F059"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-060",
+      "subject": "quadrangular_space",
+      "relation": "CONTAINS",
+      "object": "posterior_circumflex_humeral_vessels",
+      "relation_family": "contains",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F060"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-061",
+      "subject": "scapular_spine",
+      "relation": "PRACTICAL_IDENTIFIES",
+      "object": "posterior_surface_of_scapula",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F061"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-062",
+      "subject": "glenoid_cavity",
+      "relation": "PRACTICAL_ORIENTATION",
+      "object": "lateral",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F062"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-063",
+      "subject": "coracoid_process",
+      "relation": "PRACTICAL_ORIENTATION",
+      "object": "anterior",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F063"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-064",
+      "subject": "inferior_angle_of_scapula",
+      "relation": "PRACTICAL_ORIENTATION",
+      "object": "inferior",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-AI-F064"
+      ]
+    }
+  ],
+  "teaching_connections": [
+    {
+      "connection_id": "TC-SCAP-001",
+      "anchor_entity": "scapular_spine",
+      "related_entities": [
+        "supraspinous_fossa",
+        "infraspinous_fossa",
+        "supraspinatus",
+        "infraspinatus"
+      ],
+      "connection_type": "TOPOGRAPHIC_ORGANIZER",
+      "teaching_reason": "The spine is the practical landmark that immediately separates the two posterior fossae and therefore organizes the muscle origins located above and below it.",
+      "supporting_fact_ids": [
+        "SCAP-AI-F011",
+        "SCAP-AI-F012",
+        "SCAP-AI-F014",
+        "SCAP-AI-F015",
+        "SCAP-AI-F026",
+        "SCAP-AI-F027"
+      ],
+      "context": "Dorsal scapular organization and rotator cuff posterior muscle origins."
+    },
+    {
+      "connection_id": "TC-SCAP-002",
+      "anchor_entity": "glenoid_cavity",
+      "related_entities": [
+        "humeral_head",
+        "glenoid_labrum",
+        "glenohumeral_joint"
+      ],
+      "connection_type": "ARTICULAR_COMPLEX",
+      "teaching_reason": "The lateral articular region should be studied as a complete joint complex rather than as an isolated bony depression.",
+      "supporting_fact_ids": [
+        "SCAP-AI-F018",
+        "SCAP-AI-F023",
+        "SCAP-AI-F024"
+      ],
+      "context": "Articular stability, labral deepening, and ball-and-socket kinematics."
+    },
+    {
+      "connection_id": "TC-SCAP-003",
+      "anchor_entity": "supraglenoid_and_infraglenoid_regions",
+      "related_entities": [
+        "long_head_biceps",
+        "long_head_triceps"
+      ],
+      "connection_type": "MUSCULAR_ORIGIN_HUB",
+      "teaching_reason": "The glenoid region directly links osteology to the long heads of the arm muscles.",
+      "supporting_fact_ids": [
+        "SCAP-AI-F019",
+        "SCAP-AI-F020",
+        "SCAP-AI-F038",
+        "SCAP-AI-F039"
+      ],
+      "context": "Long head origins anchoring anterior and posterior arm compartments to scapular tubercles."
+    },
+    {
+      "connection_id": "TC-SCAP-004",
+      "anchor_entity": "coracoid_process",
+      "related_entities": [
+        "short_head_biceps",
+        "coracobrachialis",
+        "pectoralis_minor",
+        "coracoacromial_ligament",
+        "coracoclavicular_complex"
+      ],
+      "connection_type": "ATTACHMENT_CONVERGENCE",
+      "teaching_reason": "The coracoid is a major convergence point of muscle and ligament attachments.",
+      "supporting_fact_ids": [
+        "SCAP-AI-F017",
+        "SCAP-AI-F040",
+        "SCAP-AI-F041",
+        "SCAP-AI-F042",
+        "SCAP-AI-F043"
+      ],
+      "context": "Central bony landmark organizing anterior shoulder and axillary attachments."
+    },
+    {
+      "connection_id": "TC-SCAP-005",
+      "anchor_entity": "suprascapular_notch",
+      "related_entities": [
+        "suprascapular_nerve",
+        "superior_transverse_scapular_ligament",
+        "suprascapular_artery"
+      ],
+      "connection_type": "NEUROVASCULAR_CROSSING",
+      "teaching_reason": "This region integrates bone morphology, ligament anatomy, arterial relation and nerve passage.",
+      "supporting_fact_ids": [
+        "SCAP-AI-F021",
+        "SCAP-AI-F044",
+        "SCAP-AI-F045",
+        "SCAP-AI-F046",
+        "SCAP-AI-F047"
+      ],
+      "context": "Foramen formation by transverse ligament and classic neurovascular crossing relationships."
+    },
+    {
+      "connection_id": "TC-SCAP-006",
+      "anchor_entity": "medial_border",
+      "related_entities": [
+        "levator_scapulae",
+        "rhomboid_minor",
+        "rhomboid_major",
+        "serratus_anterior"
+      ],
+      "connection_type": "POSTURAL_INTEGRATOR",
+      "teaching_reason": "The medial border organizes the muscular systems responsible for positioning the scapula against the thoracic wall.",
+      "supporting_fact_ids": [
+        "SCAP-AI-F006",
+        "SCAP-AI-F034",
+        "SCAP-AI-F035",
+        "SCAP-AI-F036",
+        "SCAP-AI-F037"
+      ],
+      "context": "Scapulothoracic motion, stabilization against ribs, and muscular sling antagonism."
+    },
+    {
+      "connection_id": "TC-SCAP-007",
+      "anchor_entity": "lateral_border_and_inferior_region",
+      "related_entities": [
+        "teres_minor",
+        "teres_major",
+        "long_head_triceps",
+        "triangular_space",
+        "quadrangular_space"
+      ],
+      "connection_type": "ANATOMIC_SPACE_FORMATION",
+      "teaching_reason": "Muscle attachments on the scapula create clinically and practically important posterior shoulder spaces.",
+      "supporting_fact_ids": [
+        "SCAP-AI-F007",
+        "SCAP-AI-F028",
+        "SCAP-AI-F029",
+        "SCAP-AI-F051",
+        "SCAP-AI-F052",
+        "SCAP-AI-F053",
+        "SCAP-AI-F054",
+        "SCAP-AI-F055",
+        "SCAP-AI-F056",
+        "SCAP-AI-F057"
+      ],
+      "context": "Delimitation of triangular and quadrangular spaces conducting neurovascular bundles."
+    },
+    {
+      "connection_id": "TC-SCAP-008",
+      "anchor_entity": "acromion",
+      "related_entities": [
+        "scapular_spine",
+        "clavicle",
+        "deltoid",
+        "trapezius"
+      ],
+      "connection_type": "SKELETAL_MUSCLE_BRIDGE",
+      "teaching_reason": "The acromion links scapular osteology to the acromioclavicular joint and to major superficial shoulder muscles.",
+      "supporting_fact_ids": [
+        "SCAP-AI-F016",
+        "SCAP-AI-F022",
+        "SCAP-AI-F030",
+        "SCAP-AI-F032"
+      ],
+      "context": "Superficial shoulder contour, clavicular suspension, and deltotrapezial continuous aponeurotic line."
+    },
+    {
+      "connection_id": "TC-SCAP-009",
+      "anchor_entity": "scapular_vascular_region",
+      "related_entities": [
+        "suprascapular_artery",
+        "circumflex_scapular_artery",
+        "dorsal_scapular_artery"
+      ],
+      "connection_type": "VASCULAR_NETWORK",
+      "teaching_reason": "The scapular region should be understood as an anastomotic vascular network rather than as isolated named arteries.",
+      "supporting_fact_ids": [
+        "SCAP-AI-F047",
+        "SCAP-AI-F049",
+        "SCAP-AI-F050"
+      ],
+      "context": "Scapular arterial collateral circulation bridging subclavian and axillary systems."
+    },
+    {
+      "connection_id": "TC-SCAP-010",
+      "anchor_entity": "isolated_scapula",
+      "related_entities": [
+        "scapular_spine",
+        "glenoid_cavity",
+        "coracoid_process",
+        "inferior_angle"
+      ],
+      "connection_type": "PRACTICAL_ORIENTATION_CLUSTER",
+      "teaching_reason": "These four landmarks allow rapid orientation and laterality determination during practical examination.",
+      "supporting_fact_ids": [
+        "SCAP-AI-F061",
+        "SCAP-AI-F062",
+        "SCAP-AI-F063",
+        "SCAP-AI-F064"
+      ],
+      "context": "Cadaveric and dry bone examination protocol for anatomic position and laterality."
+    }
+  ],
+  "practical_memory": [
+    {
+      "item_id": "PRAC-SCAP-001",
+      "topic": "PRACTICAL_IDENTIFICATION_CANDIDATE",
+      "steps": [
+        "1. Identifique a espinha da escápula; a espinha pertence necessariamente à face posterior.",
+        "2. Posicione a cavidade glenoidal lateralmente.",
+        "3. O processo coracoide projeta-se anteriormente.",
+        "4. O ângulo inferior aponta para baixo (inferiormente).",
+        "5. Com a cavidade glenoidal voltada lateralmente, o lado para o qual ela aponta determina se a escápula é direita ou esquerda."
+      ],
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "item_id": "PRAC-SCAP-002",
+      "topic": "POSTERIOR_SURFACE_IDENTIFICATION",
+      "landmarks": [
+        "Presença da espinha da escápula",
+        "Presença da fossa supraespinosa (acima da espinha)",
+        "Presença da fossa infraespinosa (abaixo da espinha)"
+      ],
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "item_id": "PRAC-SCAP-003",
+      "topic": "COSTAL_SURFACE_IDENTIFICATION",
+      "landmarks": [
+        "Ausência de espinha óssea",
+        "Ampla concavidade representada pela fossa subescapular"
+      ],
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "item_id": "PRAC-SCAP-004",
+      "topic": "GLENOID_REGION_IDENTIFICATION",
+      "landmarks": [
+        "Localização do ângulo lateral",
+        "Identificação da cavidade glenoidal (superfície ovalada lisa)",
+        "Identificação dos tubérculos supraglenoidal e infraglenoidal"
+      ],
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "item_id": "PRAC-SCAP-005",
+      "topic": "CORACOID_IDENTIFICATION",
+      "landmarks": [
+        "Processo ósseo curvo projetando-se anterior e superiormente à região glenoidal"
+      ],
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "item_id": "PRAC-SCAP-006",
+      "topic": "ACROMION_IDENTIFICATION",
+      "landmarks": [
+        "Continuação lateral expandida da espinha da escápula formando o ápice do ombro"
+      ],
+      "validation_status": "AI_DRAFT"
+    }
+  ],
+  "clinical_connections": [
+    {
+      "candidate_id": "CLIN-SCAP-001",
+      "anatomical_structures": [
+        "medial_border_of_scapula",
+        "serratus_anterior",
+        "long_thoracic_nerve"
+      ],
+      "clinical_hypothesis": "Loss of effective serratus anterior function produces medial scapular winging and altered scapulothoracic kinematics.",
+      "relevance": "Classic neurological-clinical finding in long thoracic nerve injury (e.g. radical mastectomy, trauma).",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "candidate_id": "CLIN-SCAP-002",
+      "anatomical_structures": [
+        "suprascapular_notch",
+        "superior_transverse_scapular_ligament",
+        "suprascapular_nerve"
+      ],
+      "clinical_hypothesis": "Compression of the suprascapular nerve at the suprascapular notch causes supraspinatus and infraspinatus weakness and wasting.",
+      "relevance": "Entrapment neuropathy affecting abduction initiation and external shoulder rotation.",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "candidate_id": "CLIN-SCAP-003",
+      "anatomical_structures": [
+        "spinoglenoid_notch",
+        "suprascapular_nerve",
+        "infraspinatus"
+      ],
+      "clinical_hypothesis": "Compression of the suprascapular nerve in the spinoglenoid notch region spares the supraspinatus and isolatedly denervates the infraspinatus.",
+      "relevance": "Overhead athletes (volleyball, baseball) developing selective external rotator weakness.",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "candidate_id": "CLIN-SCAP-004",
+      "anatomical_structures": [
+        "glenoid_cavity",
+        "glenoid_labrum",
+        "humeral_head"
+      ],
+      "clinical_hypothesis": "Relative shallowness of the glenoid fossa relies on the labrum and capsule for static stability; labral detachment predisposes to recurrent dislocation.",
+      "relevance": "Bankart lesions and glenohumeral joint instability.",
+      "validation_status": "AI_DRAFT"
+    },
+    {
+      "candidate_id": "CLIN-SCAP-005",
+      "anatomical_structures": [
+        "suprascapular_artery",
+        "circumflex_scapular_artery",
+        "dorsal_scapular_artery"
+      ],
+      "clinical_hypothesis": "Scapular peri-osseous anastomotic network provides collateral pathways around proximal axillary artery ligation or occlusion.",
+      "relevance": "Vascular surgery and collateral limb perfusion preservation.",
+      "validation_status": "AI_DRAFT"
+    }
+  ],
+  "terminology_candidates": [
+    {
+      "candidate_id": "TERM-SCAP-001",
+      "preferred_pt": "Escápula",
+      "latin_candidate": "Scapula",
+      "english_candidate": "Scapula",
+      "resolved_canonical_id": "scapula"
+    }
+  ],
+  "3d_mapping_candidates": [
+    {
+      "mapping_candidate_id": "3D-SCAP-001",
+      "anatomical_term": "scapula",
+      "canonical_entity_id": "scapula",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-002",
+      "anatomical_term": "costal_surface",
+      "canonical_entity_id": "scapula_costal_surface",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-003",
+      "anatomical_term": "posterior_surface",
+      "canonical_entity_id": "scapula_posterior_surface",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-004",
+      "anatomical_term": "superior_border",
+      "canonical_entity_id": "scapula_superior_border",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-005",
+      "anatomical_term": "medial_border",
+      "canonical_entity_id": "scapula_medial_border",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-006",
+      "anatomical_term": "lateral_border",
+      "canonical_entity_id": "scapula_lateral_border",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-007",
+      "anatomical_term": "superior_angle",
+      "canonical_entity_id": "scapula_superior_angle",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-008",
+      "anatomical_term": "inferior_angle",
+      "canonical_entity_id": "scapula_inferior_angle",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-009",
+      "anatomical_term": "lateral_angle",
+      "canonical_entity_id": "scapula_lateral_angle",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-010",
+      "anatomical_term": "subscapular_fossa",
+      "canonical_entity_id": "scapula_subscapular_fossa",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-011",
+      "anatomical_term": "supraspinous_fossa",
+      "canonical_entity_id": "scapula_supraspinous_fossa",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-012",
+      "anatomical_term": "infraspinous_fossa",
+      "canonical_entity_id": "scapula_infraspinous_fossa",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-013",
+      "anatomical_term": "scapular_spine",
+      "canonical_entity_id": "scapula_scapular_spine",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-014",
+      "anatomical_term": "acromion",
+      "canonical_entity_id": "scapula_acromion",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-015",
+      "anatomical_term": "coracoid_process",
+      "canonical_entity_id": "scapula_coracoid_process",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-016",
+      "anatomical_term": "glenoid_cavity",
+      "canonical_entity_id": "scapula_glenoid_cavity",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-017",
+      "anatomical_term": "supraglenoid_tubercle",
+      "canonical_entity_id": "scapula_supraglenoid_tubercle",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-018",
+      "anatomical_term": "infraglenoid_tubercle",
+      "canonical_entity_id": "scapula_infraglenoid_tubercle",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-019",
+      "anatomical_term": "suprascapular_notch",
+      "canonical_entity_id": "scapula_suprascapular_notch",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-020",
+      "anatomical_term": "spinoglenoid_notch",
+      "canonical_entity_id": "scapula_spinoglenoid_notch",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    },
+    {
+      "mapping_candidate_id": "3D-SCAP-021",
+      "anatomical_term": "neck_of_scapula",
+      "canonical_entity_id": "scapula_neck_of_scapula",
+      "viewer_model_id": null,
+      "mesh_node_id": null,
+      "spatial_coordinates": null,
+      "mapping_status": "UNMAPPED",
+      "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+    }
+  ],
+  "validation_requirements": {
+    "recommended_authorities": [
+      "CANONICAL_PRIMARY",
+      "CANONICAL_SECONDARY",
+      "TERMINOLOGY_AUTHORITY"
+    ],
+    "cross_validation_targets": [
+      "TERMINOLOGIA_ANATOMICA_2_FIPAT",
+      "MOORE_CLINICALLY_ORIENTED_ANATOMY_8ED"
+    ]
+  },
+  "known_gaps": [
+    {
+      "gap_id": "GAP-SCAPULA_TERMINOLOGY-001",
+      "entity_id": "scapula",
+      "missing_dimension": "morphology",
+      "description": "Formalize exact FIPAT TA2 Latin and PT-BR terminology reconciliation for all 21 scapular sub-landmarks."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_BIBLIOGRAPHIC_VALIDATION-001",
+      "entity_id": "scapula",
+      "missing_dimension": "morphology",
+      "description": "Zero registered validation authorities currently exist; cross-validation against Moore/Latarjet is required before canonical promotion."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_VASCULAR_DETAILS-001",
+      "entity_id": "scapula",
+      "missing_dimension": "vascular_supply",
+      "description": "Direct osseous nutrient foramina, periosteal branches, and detailed microvascular arcades require rigorous evidence."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_NEURAL_VALIDATION-001",
+      "entity_id": "scapula",
+      "missing_dimension": "innervation",
+      "description": "Full sensory and autonomic innervation mapping of periosteum and capsular insertions is incomplete."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_LIGAMENT_ATTACHMENT-001",
+      "entity_id": "scapula",
+      "missing_dimension": "articular_surfaces",
+      "description": "Exact footprint dimensions and biomechanical insertion lines on the coracoid process lack millimeter-level documentation."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_ANATOMIC_VARIATION-001",
+      "entity_id": "scapula",
+      "missing_dimension": "morphology",
+      "description": "Morphological variations significantly alter clinical impingement and entrapment risks and must be systematically cataloged."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_CLINICAL_VALIDATION-001",
+      "entity_id": "scapula",
+      "missing_dimension": "clinical_anatomy",
+      "description": "Clinical connections must cite validated medical literature before serving students or clinicians."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_3D_MAPPING-001",
+      "entity_id": "scapula",
+      "missing_dimension": "3d_mesh_landmarks",
+      "description": "Viewer glTF / OBJ anatomical mesh requires vertex coordinates and marker anchoring for all 21 anatomical landmarks."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_LATERALITY_ORIENTATION-001",
+      "entity_id": "scapula",
+      "missing_dimension": "cadaveric_pearls",
+      "description": "Practical cadaveric orientation benchmarks require multi-angle photographic and quiz calibration."
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "document_name": "EXP-UL-B2_AADS1_R1_DOCX_ERRATA",
+  "phase": "AMC-1.2-R1 / EXP-UL-B2-A1.6-R1",
+  "timestamp": "2026-09-27T08:30:00Z",
+  "target_source": "SRC-INST-BOLILLERO-2024-DOCX",
+  "source_hash": "6c1012c356be703c7b2d75f1869d86c614156d88831ab7c0462dcf21163e9125",
+  "errata_records": [
+    {
+      "erratum_id": "ERR-AADS1-DOCX-001",
+      "evidence_unit_id": "EVI-INST-DOCX-002",
+      "field_affected": "source_locator and docx_location for Humerus",
+      "previous_values": {
+        "source_locator": "LOC-INST-DOCX-B14-HUM",
+        "docx_location": "Bolilla 14 - Aparato Osteo-artro-muscular",
+        "source_assertion_paraphrase": "Mandates oral exam presentation of Hueso Húmero in Bolilla 14 under Aparato Osteo-artro-muscular."
+      },
+      "corrected_values": {
+        "source_locator": "LOC-INST-DOCX-B07-HUM",
+        "docx_location": "Bolilla 7 - Aparato Osteo-artro-muscular",
+        "source_assertion_paraphrase": "Mandates oral exam presentation of Hueso Húmero in Bolilla 7 under Aparato Osteo-artro-muscular."
+      },
+      "reason": "Physical DOCX verification confirmed Bolilla 14 evaluates Mandíbula/Rodilla/Brazo; Húmero is evaluated in Bolilla 7.",
+      "source_hash": "6c1012c356be703c7b2d75f1869d86c614156d88831ab7c0462dcf21163e9125"
+    },
+    {
+      "erratum_id": "ERR-AADS1-DOCX-002",
+      "evidence_unit_id": "EVI-INST-DOCX-003",
+      "field_affected": "source_locator and docx_location for Rotator Cuff",
+      "previous_values": {
+        "source_locator": "LOC-INST-DOCX-B21-RTC",
+        "docx_location": "Bolilla 21 - Aparato Osteo-artro-muscular",
+        "source_assertion_paraphrase": "Mandates oral exam presentation of Músculo Manguito rotador in Bolilla 21 under Aparato Osteo-artro-muscular."
+      },
+      "corrected_values": {
+        "source_locator": "LOC-INST-DOCX-B24-RTC",
+        "docx_location": "Bolilla 24 - Aparato Osteo-artro-muscular",
+        "source_assertion_paraphrase": "Mandates oral exam presentation of Músculo Manguito rotador in Bolilla 24 under Aparato Osteo-artro-muscular."
+      },
+      "reason": "Physical DOCX verification confirmed Bolilla 21 evaluates Cigomático/Codo/Intercostales; Manguito rotador is evaluated in Bolilla 24.",
+      "source_hash": "6c1012c356be703c7b2d75f1869d86c614156d88831ab7c0462dcf21163e9125"
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "batch_id": "EXP-UL-B2",
+  "generated_at": "2026-09-27T00:18:07.926Z",
+  "metrics": {
+    "total_terminology_records": 14,
+    "exact_count": 4,
+    "known_alias_count": 4,
+    "legacy_term_count": 5,
+    "regional_term_count": 1,
+    "unresolved_count": 0
+  },
+  "terms": [
+    {
+      "source_term": "Troquíter",
+      "normalized_candidate": "Tubérculo maior do úmero",
+      "latin_term": "Tuberculum majus",
+      "language": "es",
+      "terminology_status": "LEGACY_TERM",
+      "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+    },
+    {
+      "source_term": "Troquín",
+      "normalized_candidate": "Tubérculo menor do úmero",
+      "latin_term": "Tuberculum minus",
+      "language": "es",
+      "terminology_status": "LEGACY_TERM",
+      "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE"
+    },
+    {
+      "source_term": "Corredera bicipital",
+      "normalized_candidate": "Sulco intertubercular do úmero",
+      "latin_term": "Sulcus intertubercularis",
+      "language": "es",
+      "terminology_status": "LEGACY_TERM",
+      "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS"
+    },
+    {
+      "source_term": "Labio externo de la corredera",
+      "normalized_candidate": "Crista do tubérculo maior",
+      "latin_term": "Crista tuberculi majoris",
+      "language": "es",
+      "terminology_status": "LEGACY_TERM",
+      "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE_CREST"
+    },
+    {
+      "source_term": "Labio interno de la corredera",
+      "normalized_candidate": "Crista do tubérculo menor",
+      "latin_term": "Crista tuberculi minoris",
+      "language": "es",
+      "terminology_status": "LEGACY_TERM",
+      "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE_CREST"
+    },
+    {
+      "source_term": "Ligamento humeral transverso de Gordon Brodie",
+      "normalized_candidate": "Ligamento transverso do úmero",
+      "latin_term": "Ligamentum transversum humeri",
+      "language": "es",
+      "terminology_status": "KNOWN_ALIAS",
+      "existing_registry_match": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT"
+    },
+    {
+      "source_term": "Foramen oval de Weitbrecht",
+      "normalized_candidate": "Forame oval de Weitbrecht",
+      "latin_term": "Foramen ovale Weitbrecht",
+      "language": "es",
+      "terminology_status": "KNOWN_ALIAS",
+      "existing_registry_match": null
+    },
+    {
+      "source_term": "Foramen de Rouvière",
+      "normalized_candidate": "Forame de Rouvière",
+      "latin_term": "Foramen Rouvière",
+      "language": "es",
+      "terminology_status": "KNOWN_ALIAS",
+      "existing_registry_match": null
+    },
+    {
+      "source_term": "Rodete glenoideo",
+      "normalized_candidate": "Lábio glenoidal",
+      "latin_term": "Labrum glenoidale",
+      "language": "es",
+      "terminology_status": "KNOWN_ALIAS",
+      "existing_registry_match": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM"
+    },
+    {
+      "source_term": "Corona muscular periarticular",
+      "normalized_candidate": "Manguito rotador periarticular",
+      "latin_term": "Musculotendinous cuff",
+      "language": "es",
+      "terminology_status": "REGIONAL_TERM",
+      "existing_registry_match": "AET-ENT-CAND-UL-ROTATOR_CUFF"
+    },
+    {
+      "source_term": "Cuello quirúrgico",
+      "normalized_candidate": "Colo cirúrgico do úmero",
+      "latin_term": "Collum chirurgicum",
+      "language": "es",
+      "terminology_status": "EXACT",
+      "existing_registry_match": "AET-ENT-REF-SURGICAL_NECK_HUMERUS"
+    },
+    {
+      "source_term": "Cuello anatómico",
+      "normalized_candidate": "Colo anatômico do úmero",
+      "latin_term": "Collum anatomicum",
+      "language": "es",
+      "terminology_status": "EXACT",
+      "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK"
+    },
+    {
+      "source_term": "Receso axilar",
+      "normalized_candidate": "Recesso axilar da cápsula articular",
+      "latin_term": "Recessus axillaris",
+      "language": "es",
+      "terminology_status": "EXACT",
+      "existing_registry_match": "AET-ENT-CAND-UL-GLENOHUMERAL_AXILLARY_RECESS"
+    },
+    {
+      "source_term": "Intervalo rotador",
+      "normalized_candidate": "Intervalo dos rotadores",
+      "latin_term": "Intervallum rotatorium",
+      "language": "es",
+      "terminology_status": "EXACT",
+      "existing_registry_match": "AET-ENT-CAND-UL-ROTATOR_INTERVAL"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+[
+  {
+    "assertion_id": "VQ-001-RADIUS-LATERALITY-SLIP",
+    "entity": "radio",
+    "source_page": 27,
+    "source_statement_summary": "Source states: \"Es el hueso medial del antebrazo\" when beginning description of radius.",
+    "relation_type": "TOPOGRAPHIC_LOCATION",
+    "validation_status": "CONFLICTING",
+    "supporting_source_ids": [],
+    "conflicting_source_ids": [
+      "TA2-2026",
+      "MOORE-CLINICAL-ANATOMY",
+      "LATARJET-TESTUT",
+      "SOVEREIGN-AAC-2026.1-R1"
+    ],
+    "review_reason": "Anatomical slip in source teaching notes: The radius is universally the LATERAL bone of the forearm; the ulna (cúbito) is the MEDIAL bone. Source must NOT be silently corrected, but flagged as conflicting."
+  },
+  {
+    "assertion_id": "VQ-002-SNUFFBOX-CEPHALIC-ARTERY-SLIP",
+    "entity": "tabaquera_anatomica",
+    "source_page": 46,
+    "source_statement_summary": "Source notes state: \"Arteria Cefálica\" inside the anatomical snuffbox context.",
+    "relation_type": "VASCULAR_CONTENT",
+    "validation_status": "CONFLICTING",
+    "supporting_source_ids": [],
+    "conflicting_source_ids": [
+      "TA2-2026",
+      "GRAY-ANATOMY",
+      "SOVEREIGN-AAC-2026.1-R1"
+    ],
+    "review_reason": "Anatomical slip in source transcription: The cephalic vessel crossing the superficial roof of the snuffbox is the CEPHALIC VEIN (Vena Cefálica). The arterial element in the snuffbox is the RADIAL ARTERY (Arteria Radial). No \"arteria cefálica\" exists in human anatomy."
+  },
+  {
+    "assertion_id": "VQ-003-CLAVICLE-MORPHOLOGICAL-CLASSIFICATION",
+    "entity": "clavicula",
+    "source_page": 1,
+    "source_statement_summary": "Source states: \"Tipo de Hueso: Hueso Plano Alargado\".",
+    "relation_type": "BONE_CLASSIFICATION",
+    "validation_status": "REVIEW_PENDING",
+    "supporting_source_ids": [
+      "TESTUT-LATARJET-CLASSICAL"
+    ],
+    "conflicting_source_ids": [
+      "TERMINOLOGIA-ANATOMICA-2",
+      "MOORE-8TH-ED"
+    ],
+    "review_reason": "School of thought divergence: French and Latin classical anatomical traditions (Testut, Latarjet) classify the clavicle as a flat elongated bone (\"hueso plano alargado\") because it develops from intramembranous ossification and lacks a classic medullary cavity, whereas modern Terminologia Anatomica classifies it as a long bone."
+  },
+  {
+    "assertion_id": "VQ-004-ELBOW-INNERVATION-SHORTHAND",
+    "entity": "art_codo",
+    "source_page": 24,
+    "source_statement_summary": "Source states innervation includes \"Nervio del Musculo Radial / Cubital\".",
+    "relation_type": "JOINT_INNERVATION",
+    "validation_status": "REVIEW_PENDING",
+    "supporting_source_ids": [],
+    "conflicting_source_ids": [],
+    "review_reason": "Informal student shorthand for articular branches originating from Nervus radialis, Nervus musculocutaneus, Nervus medianus and Nervus ulnaris (Hilton's law). Needs formal nomenclature normalization."
+  },
+  {
+    "assertion_id": "VQ-005-SUBSCAPULARIS-AXILLARY-INNERVATION",
+    "entity": "m_subescapular",
+    "source_page": 37,
+    "source_statement_summary": "Source notes list \"Nervio axilar (circunflejo)\" alongside subscapular nerves for subscapularis.",
+    "relation_type": "MUSCLE_INNERVATION",
+    "validation_status": "REVIEW_PENDING",
+    "supporting_source_ids": [],
+    "conflicting_source_ids": [
+      "SOVEREIGN-AAC-2026.1-R1",
+      "GRAY-ANATOMY"
+    ],
+    "review_reason": "Non-standard innervation claim: Subscapularis is canonically innervated by superior and inferior subscapular nerves (C5-C6). While the axillary nerve arises from the same posterior cord adjacent to it, it supplies deltoid and teres minor, not typically subscapularis."
+  },
+  {
+    "assertion_id": "VQ-006-BICEPS-RADIAL-INNERVATION-CLAIM",
+    "entity": "m_biceps_braquial",
+    "source_page": 39,
+    "source_statement_summary": "Source notes state: \"Inervación: Nervio Musculocutáneo y el Nervio Radial\".",
+    "relation_type": "MUSCLE_INNERVATION",
+    "validation_status": "REVIEW_PENDING",
+    "supporting_source_ids": [
+      "HISTORICAL-TESTUT-DISSECTION-STUDIES"
+    ],
+    "conflicting_source_ids": [
+      "TA2-2026",
+      "SOVEREIGN-AAC-2026.1-R1"
+    ],
+    "review_reason": "Archaic or minor anatomical variation: Primary motor innervation of biceps brachii is 100% Musculocutaneous nerve. Some classical dissection studies noted occasional sensory twigs from the radial nerve reaching the distal tendon, but modern texts do not consider radial nerve an innervator of biceps."
+  },
+  {
+    "assertion_id": "VQ-007-SCAPULA-FOSSAE-CANONICAL-SUPPORT",
+    "entity": "escapula",
+    "source_page": 5,
+    "source_statement_summary": "Scapula possesses subscapular fossa on costal face, supraspinous and infraspinous fossae separated by spine on posterior face.",
+    "relation_type": "OSTEOLOGICAL_MORPHOLOGY",
+    "validation_status": "VALIDATED",
+    "supporting_source_ids": [
+      "SOVEREIGN-AAC-2026.1-R1",
+      "TA2-2026",
+      "LATARJET"
+    ],
+    "conflicting_source_ids": [],
+    "review_reason": "Direct match with verified sovereign anatomical memory AAC-2026.1-R1."
+  },
+  {
+    "assertion_id": "VQ-008-RADIAL-GROOVE-NEUROVASCULAR-SUPPORT",
+    "entity": "umero",
+    "source_page": 26,
+    "source_statement_summary": "Radial groove of humerus carries radial nerve and profunda brachii artery.",
+    "relation_type": "NEUROVASCULAR_CONTENT",
+    "validation_status": "VALIDATED",
+    "supporting_source_ids": [
+      "SOVEREIGN-AAC-2026.1-R1",
+      "TA2-2026"
+    ],
+    "conflicting_source_ids": [],
+    "review_reason": "Direct match with verified sovereign anatomical memory AAC-2026.1-R1."
+  },
+  {
+    "assertion_id": "VQ-009-VELPEAU-QUADRANGULAR-SPACE-SUPPORT",
+    "entity": "espacio_cuadrangular_velpeau",
+    "source_page": 41,
+    "source_statement_summary": "Velpeau quadrangular space bounded by teres minor, teres major, triceps long head and surgical neck; transmits axillary nerve and posterior circumflex humeral artery.",
+    "relation_type": "TOPOGRAPHIC_BOUNDARIES_AND_CONTENTS",
+    "validation_status": "VALIDATED",
+    "supporting_source_ids": [
+      "SOVEREIGN-AAC-2026.1-R1",
+      "TA2-2026",
+      "MOORE"
+    ],
+    "conflicting_source_ids": [],
+    "review_reason": "Direct match with verified sovereign anatomical memory AAC-2026.1-R1."
+  },
+  {
+    "assertion_id": "VQ-010-AXILLARY-ARTERY-PECTORALIS-MINOR-SUPPORT",
+    "entity": "arteria_axilar",
+    "source_page": 51,
+    "source_statement_summary": "Axillary artery divided into 3 portions by pectoralis minor muscle, giving 6 total branches.",
+    "relation_type": "ANGIOLOGICAL_TOPOGRAPHY",
+    "validation_status": "VALIDATED",
+    "supporting_source_ids": [
+      "SOVEREIGN-AAC-2026.1-R1",
+      "TA2-2026",
+      "TESTUT"
+    ],
+    "conflicting_source_ids": [],
+    "review_reason": "Direct match with verified sovereign anatomical memory AAC-2026.1-R1."
+  },
+  {
+    "assertion_id": "VQ-011-FOREARM-ANTERIOR-INNERVATION-SUPPORT",
+    "entity": "m_flexor_cubital_carpo",
+    "source_page": 42,
+    "source_statement_summary": "All muscles of anterior forearm compartment innervated by median nerve except flexor carpi ulnaris and medial half of flexor digitorum profundus (ulnar nerve).",
+    "relation_type": "COMPARTMENT_INNERVATION_RULE",
+    "validation_status": "VALIDATED",
+    "supporting_source_ids": [
+      "SOVEREIGN-AAC-2026.1-R1",
+      "TA2-2026"
+    ],
+    "conflicting_source_ids": [],
+    "review_reason": "Direct match with verified sovereign anatomical memory AAC-2026.1-R1."
+  }
+]

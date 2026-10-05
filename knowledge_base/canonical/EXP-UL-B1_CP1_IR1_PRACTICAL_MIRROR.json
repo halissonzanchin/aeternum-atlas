@@ -1,0 +1,52 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR1",
+  "generated_at": "2026-09-26T13:45:56.604Z",
+  "pre_remediation_counts": {
+    "scapula_json": 6,
+    "b1_json": 10,
+    "sqlite_total": 10,
+    "sqlite_scapula": 0,
+    "sqlite_b1": 10,
+    "parity": "62.5%"
+  },
+  "post_remediation_counts": {
+    "scapula_json": 6,
+    "b1_json": 10,
+    "SCAPULA_SQLITE_PRACTICAL_COUNT": 6,
+    "B1_SQLITE_PRACTICAL_COUNT": 10,
+    "SQLITE_GLOBAL_PRACTICAL_COUNT": 16,
+    "GLOBAL_PRACTICAL_JSON_SQLITE_PARITY": "100%"
+  },
+  "backfilled_scapula_items": [
+    {
+      "item_id": "PRAC-SCAP-001",
+      "canonical_practical_unit_id": "AET-CPU-PAU-SCAP-001",
+      "intent": "COMO_IDENTIFICAR_LATERALIDADE_ESCAPULA"
+    },
+    {
+      "item_id": "PRAC-SCAP-002",
+      "canonical_practical_unit_id": "AET-CPU-PAU-SCAP-002",
+      "intent": "IDENTIFICACAO_PRATICA_POSTERIOR_SURFACE_IDENTIFICATION"
+    },
+    {
+      "item_id": "PRAC-SCAP-003",
+      "canonical_practical_unit_id": "AET-CPU-PAU-SCAP-003",
+      "intent": "IDENTIFICACAO_PRATICA_COSTAL_SURFACE_IDENTIFICATION"
+    },
+    {
+      "item_id": "PRAC-SCAP-004",
+      "canonical_practical_unit_id": "AET-CPU-PAU-SCAP-004",
+      "intent": "IDENTIFICACAO_PRATICA_GLENOID_REGION_IDENTIFICATION"
+    },
+    {
+      "item_id": "PRAC-SCAP-005",
+      "canonical_practical_unit_id": "AET-CPU-PAU-SCAP-005",
+      "intent": "IDENTIFICACAO_PRATICA_CORACOID_IDENTIFICATION"
+    },
+    {
+      "item_id": "PRAC-SCAP-006",
+      "canonical_practical_unit_id": "AET-CPU-PAU-SCAP-006",
+      "intent": "IDENTIFICACAO_PRATICA_ACROMION_IDENTIFICATION"
+    }
+  ]
+}

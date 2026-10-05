@@ -1,0 +1,5959 @@
+[
+  {
+    "canonical_candidate_id": "CANON-SCAP-001",
+    "source_fact_candidate_id": "SCAP-SRC-F001",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "part_of",
+    "canonical_object_or_arguments": [
+      "pectoral_girdle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-001",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F001",
+      "validation_assessment_id": "VA-SCAP-001",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula (omóplato) integra a cintura escapular.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-002",
+    "source_fact_candidate_id": "SCAP-SRC-F002",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "type_of",
+    "canonical_object_or_arguments": [
+      "flat_bone"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-002",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F002",
+      "validation_assessment_id": "VA-SCAP-002",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula é um osso plano.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-003",
+    "source_fact_candidate_id": "SCAP-SRC-F003",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_symmetry",
+    "canonical_object_or_arguments": [
+      "paired_bone"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-003",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F003",
+      "validation_assessment_id": "VA-SCAP-003",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula é um osso par.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-004",
+    "source_fact_candidate_id": "SCAP-SRC-F004",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_shape",
+    "canonical_object_or_arguments": [
+      "triangular"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-004",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F004",
+      "validation_assessment_id": "VA-SCAP-004",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula tem configuração triangular.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-005",
+    "source_fact_candidate_id": "SCAP-SRC-F005",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "located_in",
+    "canonical_object_or_arguments": [
+      "posterolateral_thoracic_wall"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "validation_assessment_id": "VA-SCAP-005",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F005",
+      "validation_assessment_id": "VA-SCAP-005",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-002"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula localiza-se na região torácica posterossuperolateral.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-006",
+    "source_fact_candidate_id": "SCAP-SRC-F006",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "spans_levels",
+    "canonical_object_or_arguments": [
+      "rib_2_to_rib_7"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "validation_assessment_id": "VA-SCAP-006",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F006",
+      "validation_assessment_id": "VA-SCAP-006",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-002"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula estende-se aproximadamente da 2ª à 7ª costela.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-007",
+    "source_fact_candidate_id": "SCAP-SRC-F007",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "articulates_with",
+    "canonical_object_or_arguments": [
+      "clavicle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "validation_assessment_id": "VA-SCAP-007",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F007",
+      "validation_assessment_id": "VA-SCAP-007",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-002"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula articula-se com a clavícula através da articulação acromioclavicular.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-008",
+    "source_fact_candidate_id": "SCAP-SRC-F008",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "articulates_with",
+    "canonical_object_or_arguments": [
+      "humerus"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "validation_assessment_id": "VA-SCAP-008",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F008",
+      "validation_assessment_id": "VA-SCAP-008",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-008",
+        "NLS-ATLAS-SCAP-LOC-002"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula articula-se com o úmero através da articulação glenoumeral.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-009",
+    "source_fact_candidate_id": "SCAP-SRC-F009",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_curvature",
+    "canonical_object_or_arguments": [
+      "costal_surface_concave"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-009",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F009",
+      "validation_assessment_id": "VA-SCAP-009",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A face anterior ou costal da escápula é descrita como côncava.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-010",
+    "source_fact_candidate_id": "SCAP-SRC-F010",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_fossa",
+    "canonical_object_or_arguments": [
+      "subscapular_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-010",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F010",
+      "validation_assessment_id": "VA-SCAP-010",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A face anterior ou costal abriga a fossa subescapular.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-011",
+    "source_fact_candidate_id": "SCAP-SRC-F011",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_curvature",
+    "canonical_object_or_arguments": [
+      "posterior_surface_convex"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-011",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F011",
+      "validation_assessment_id": "VA-SCAP-011",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A face posterior ou dorsal da escápula é descrita como convexa.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-012",
+    "source_fact_candidate_id": "SCAP-SRC-F012",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_fossa",
+    "canonical_object_or_arguments": [
+      "supraspinous_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-012",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F012",
+      "validation_assessment_id": "VA-SCAP-012",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A face posterior identifica a fossa supraespinosa.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-013",
+    "source_fact_candidate_id": "SCAP-SRC-F013",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_fossa",
+    "canonical_object_or_arguments": [
+      "infraspinous_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-013",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F013",
+      "validation_assessment_id": "VA-SCAP-013",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A face posterior identifica a fossa infraespinosa.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-014",
+    "source_fact_candidate_id": "SCAP-SRC-F014",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_structure",
+    "canonical_object_or_arguments": [
+      "scapular_spine"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-014",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F014",
+      "validation_assessment_id": "VA-SCAP-014",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A face posterior identifica a espinha da escápula.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-015",
+    "source_fact_candidate_id": "SCAP-SRC-F015",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_structure",
+    "canonical_object_or_arguments": [
+      "acromion"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-015",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F015",
+      "validation_assessment_id": "VA-SCAP-015",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A face posterior identifica o acrômio.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-016",
+    "source_fact_candidate_id": "SCAP-SRC-F016",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_notch",
+    "canonical_object_or_arguments": [
+      "spinoglenoid_notch"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-016",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F016",
+      "validation_assessment_id": "VA-SCAP-016",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A face posterior identifica a incisura espinoglenoidal.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-017",
+    "source_fact_candidate_id": "SCAP-SRC-F017",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_border",
+    "canonical_object_or_arguments": [
+      "medial_border"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-017",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F017",
+      "validation_assessment_id": "VA-SCAP-017",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula possui borda medial (denominada borda espinhal nas notas de aula).",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-018",
+    "source_fact_candidate_id": "SCAP-SRC-F018",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_border",
+    "canonical_object_or_arguments": [
+      "lateral_border"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-018",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F018",
+      "validation_assessment_id": "VA-SCAP-018",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula possui borda lateral (denominada borda axilar nas notas de aula).",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-019",
+    "source_fact_candidate_id": "SCAP-SRC-F019",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_border",
+    "canonical_object_or_arguments": [
+      "superior_border"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "validation_assessment_id": "VA-SCAP-019",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F019",
+      "validation_assessment_id": "VA-SCAP-019",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-003"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula possui borda superior.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-020",
+    "source_fact_candidate_id": "SCAP-SRC-F020",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "inserts_into",
+    "canonical_object_or_arguments": [
+      "medial_border_at_spine_level"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-006"
+    ],
+    "validation_assessment_id": "VA-SCAP-020",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F020",
+      "validation_assessment_id": "VA-SCAP-020",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-006"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "O músculo romboide menor relaciona-se com a borda medial ao nível da espinha escapular.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-021",
+    "source_fact_candidate_id": "SCAP-SRC-F021",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "inserts_into",
+    "canonical_object_or_arguments": [
+      "medial_border_to_inferior_angle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-006"
+    ],
+    "validation_assessment_id": "VA-SCAP-021",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F021",
+      "validation_assessment_id": "VA-SCAP-021",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-006"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "O músculo romboide maior relaciona-se com a borda medial em direção ao ângulo inferior.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-022",
+    "source_fact_candidate_id": "SCAP-SRC-F022",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_notch",
+    "canonical_object_or_arguments": [
+      "suprascapular_notch"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-022",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F022",
+      "validation_assessment_id": "VA-SCAP-022",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A borda superior associa-se à terminologia incisura escapular / incisura coracoide nas notas.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-023",
+    "source_fact_candidate_id": "SCAP-SRC-F023",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_angle",
+    "canonical_object_or_arguments": [
+      "superior_angle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-023",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F023",
+      "validation_assessment_id": "VA-SCAP-023",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "VISUAL_ANATOMICAL_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula possui ângulo superior, unindo as bordas superior e medial.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-024",
+    "source_fact_candidate_id": "SCAP-SRC-F024",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_angle",
+    "canonical_object_or_arguments": [
+      "inferior_angle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-024",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F024",
+      "validation_assessment_id": "VA-SCAP-024",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "VISUAL_ANATOMICAL_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula possui ângulo inferior, unindo as bordas medial e lateral.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-025",
+    "source_fact_candidate_id": "SCAP-SRC-F025",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_angle",
+    "canonical_object_or_arguments": [
+      "lateral_angle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-025",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F025",
+      "validation_assessment_id": "VA-SCAP-025",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "VISUAL_ANATOMICAL_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula possui ângulo lateral, unindo as bordas superior e lateral.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-026",
+    "source_fact_candidate_id": "SCAP-SRC-F026",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_process",
+    "canonical_object_or_arguments": [
+      "coracoid_process"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-026",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F026",
+      "validation_assessment_id": "VA-SCAP-026",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula identifica o processo coracoide.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-027",
+    "source_fact_candidate_id": "SCAP-SRC-F027",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "has_articular_cavity",
+    "canonical_object_or_arguments": [
+      "glenoid_cavity"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-027",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F027",
+      "validation_assessment_id": "VA-SCAP-027",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "VISUAL_ANATOMICAL_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A escápula identifica a cavidade glenoidal.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-028",
+    "source_fact_candidate_id": "SCAP-SRC-F028",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "surrounded_by",
+    "canonical_object_or_arguments": [
+      "glenoid_labrum"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "validation_assessment_id": "VA-SCAP-028",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F028",
+      "validation_assessment_id": "VA-SCAP-028",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-008",
+        "NLS-ATLAS-SCAP-LOC-002"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A cavidade glenoidal é circundada pelo lábio glenoidal (labrum).",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-029",
+    "source_fact_candidate_id": "SCAP-SRC-F029",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "articulates_with",
+    "canonical_object_or_arguments": [
+      "humeral_head"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "validation_assessment_id": "VA-SCAP-029",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F029",
+      "validation_assessment_id": "VA-SCAP-029",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-008",
+        "NLS-ATLAS-SCAP-LOC-002"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A cavidade glenoidal articula-se com a cabeça do úmero.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-030",
+    "source_fact_candidate_id": "SCAP-SRC-F030",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "originates_from",
+    "canonical_object_or_arguments": [
+      "subscapular_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-030",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F030",
+      "validation_assessment_id": "VA-SCAP-030",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa o subescapular com a fossa subescapular.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-031",
+    "source_fact_candidate_id": "SCAP-SRC-F031",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "inserts_into",
+    "canonical_object_or_arguments": [
+      "medial_border_costal_aspect"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-031",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F031",
+      "validation_assessment_id": "VA-SCAP-031",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa o serrátil anterior com a borda medial entre os ângulos superior e inferior.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-032",
+    "source_fact_candidate_id": "SCAP-SRC-F032",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "originates_from",
+    "canonical_object_or_arguments": [
+      "supraspinous_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-032",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F032",
+      "validation_assessment_id": "VA-SCAP-032",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa o supraespinhal com a fossa supraespinosa.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-033",
+    "source_fact_candidate_id": "SCAP-SRC-F033",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "originates_from",
+    "canonical_object_or_arguments": [
+      "infraspinous_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-033",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F033",
+      "validation_assessment_id": "VA-SCAP-033",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa o infraespinhal com a fossa infraespinosa.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-034",
+    "source_fact_candidate_id": "SCAP-SRC-F034",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "inserts_into",
+    "canonical_object_or_arguments": [
+      "scapular_spine_superior_lip"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-034",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F034",
+      "validation_assessment_id": "VA-SCAP-034",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa o trapézio com o lábio superior da borda posterior da espinha da escápula.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-035",
+    "source_fact_candidate_id": "SCAP-SRC-F035",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "originates_from",
+    "canonical_object_or_arguments": [
+      "scapular_spine_inferior_lip"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-035",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F035",
+      "validation_assessment_id": "VA-SCAP-035",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa o deltoide com o lábio inferior da borda posterior da espinha da escápula.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-036",
+    "source_fact_candidate_id": "SCAP-SRC-F036",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "originates_from",
+    "canonical_object_or_arguments": [
+      "lateral_border_dorsal_aspect"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-036",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F036",
+      "validation_assessment_id": "VA-SCAP-036",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa o redondo menor em direção à borda lateral.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-037",
+    "source_fact_candidate_id": "SCAP-SRC-F037",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "originates_from",
+    "canonical_object_or_arguments": [
+      "inferior_angle_dorsal_aspect"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-037",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F037",
+      "validation_assessment_id": "VA-SCAP-037",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa o redondo maior em direção à borda lateral.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-038",
+    "source_fact_candidate_id": "SCAP-SRC-F038",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "originates_from",
+    "canonical_object_or_arguments": [
+      "supraglenoid_tubercle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-038",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F038",
+      "validation_assessment_id": "VA-SCAP-038",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-008",
+        "NLS-ATLAS-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa a cabeça longa do bíceps com a região supraglenoidal.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-039",
+    "source_fact_candidate_id": "SCAP-SRC-F039",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "originates_from",
+    "canonical_object_or_arguments": [
+      "infraglenoid_tubercle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-039",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F039",
+      "validation_assessment_id": "VA-SCAP-039",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-008",
+        "NLS-ATLAS-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa a cabeça longa do tríceps com a região infraglenoidal.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-040",
+    "source_fact_candidate_id": "SCAP-SRC-F040",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "originates_from",
+    "canonical_object_or_arguments": [
+      "coracoid_process_apex"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-040",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F040",
+      "validation_assessment_id": "VA-SCAP-040",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-008",
+        "NLS-ATLAS-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa o coracobraquial com o ápice do processo coracoide.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-041",
+    "source_fact_candidate_id": "SCAP-SRC-F041",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "originates_from",
+    "canonical_object_or_arguments": [
+      "coracoid_process_apex"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-041",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F041",
+      "validation_assessment_id": "VA-SCAP-041",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-008",
+        "NLS-ATLAS-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa a cabeça curta do bíceps com o ápice do processo coracoide.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-042",
+    "source_fact_candidate_id": "SCAP-SRC-F042",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "inserts_into",
+    "canonical_object_or_arguments": [
+      "coracoid_process_medial_border"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-042",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F042",
+      "validation_assessment_id": "VA-SCAP-042",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-008",
+        "NLS-ATLAS-SCAP-LOC-004",
+        "NLS-ATLAS-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa o peitoral menor com a borda medial do processo coracoide.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-043",
+    "source_fact_candidate_id": "SCAP-SRC-F044",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "attaches_ligament",
+    "canonical_object_or_arguments": [
+      "coracoclavicular_ligament"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-044",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F044",
+      "validation_assessment_id": "VA-SCAP-044",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa a região coracoide aos ligamentos coracoclaviculares.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-044",
+    "source_fact_candidate_id": "SCAP-SRC-F045",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "attaches_ligament",
+    "canonical_object_or_arguments": [
+      "coracoacromial_ligament"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-045",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F045",
+      "validation_assessment_id": "VA-SCAP-045",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa a região coracoide ao ligamento coracoacromial.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-045",
+    "source_fact_candidate_id": "SCAP-SRC-F046",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "attaches_ligament",
+    "canonical_object_or_arguments": [
+      "trapezoid_ligament"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-046",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F046",
+      "validation_assessment_id": "VA-SCAP-046",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa a região coracoide ao ligamento trapezoide.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-046",
+    "source_fact_candidate_id": "SCAP-SRC-F047",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "attaches_ligament",
+    "canonical_object_or_arguments": [
+      "conoid_ligament"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-047",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F047",
+      "validation_assessment_id": "VA-SCAP-047",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa a região coracoide ao ligamento conoide.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-047",
+    "source_fact_candidate_id": "SCAP-SRC-F048",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "attaches_ligament",
+    "canonical_object_or_arguments": [
+      "superior_transverse_scapular_ligament"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-048",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F048",
+      "validation_assessment_id": "VA-SCAP-048",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte associa a região coracoide ao ligamento transverso superior da escápula.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-048",
+    "source_fact_candidate_id": "SCAP-SRC-F049",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "converts_to_foramen",
+    "canonical_object_or_arguments": [
+      "suprascapular_foramen"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-049",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F049",
+      "validation_assessment_id": "VA-SCAP-049",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte afirma que o ligamento transverso superior converte a incisura escapular/coracoide em forame.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-049",
+    "source_fact_candidate_id": "SCAP-SRC-F052",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "vascular_syntopy",
+    "canonical_object_or_arguments": [
+      "dorsal_scapular_vessels_along_medial_border"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-052",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+      "source_fact_candidate_id": "SCAP-SRC-F052",
+      "validation_assessment_id": "VA-SCAP-052",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": {
+        "original_teaching_statement": "A fonte lista relação vascular regional envolvendo artéria e veia dorsais da escápula.",
+        "canonical_reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+        "canonical_status": "QUALIFIED_CANONICAL_CANDIDATE"
+      }
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-050",
+    "source_fact_candidate_id": "SCAP-AI-F001",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "TYPE_OF",
+    "canonical_object_or_arguments": [
+      "flat_bone_candidate"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-053",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F001",
+      "validation_assessment_id": "VA-SCAP-053",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-051",
+    "source_fact_candidate_id": "SCAP-AI-F002",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "LOCATED_IN",
+    "canonical_object_or_arguments": [
+      "pectoral_girdle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-054",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F002",
+      "validation_assessment_id": "VA-SCAP-054",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-052",
+    "source_fact_candidate_id": "SCAP-AI-F003",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_SURFACE",
+    "canonical_object_or_arguments": [
+      "costal_surface"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-055",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F003",
+      "validation_assessment_id": "VA-SCAP-055",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-053",
+    "source_fact_candidate_id": "SCAP-AI-F004",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_SURFACE",
+    "canonical_object_or_arguments": [
+      "posterior_surface"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-056",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F004",
+      "validation_assessment_id": "VA-SCAP-056",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-054",
+    "source_fact_candidate_id": "SCAP-AI-F005",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_BORDER",
+    "canonical_object_or_arguments": [
+      "superior_border"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-057",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F005",
+      "validation_assessment_id": "VA-SCAP-057",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-055",
+    "source_fact_candidate_id": "SCAP-AI-F006",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_BORDER",
+    "canonical_object_or_arguments": [
+      "medial_border"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-058",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F006",
+      "validation_assessment_id": "VA-SCAP-058",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-056",
+    "source_fact_candidate_id": "SCAP-AI-F007",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_BORDER",
+    "canonical_object_or_arguments": [
+      "lateral_border"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-059",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F007",
+      "validation_assessment_id": "VA-SCAP-059",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-057",
+    "source_fact_candidate_id": "SCAP-AI-F008",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_ANGLE",
+    "canonical_object_or_arguments": [
+      "superior_angle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-060",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F008",
+      "validation_assessment_id": "VA-SCAP-060",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-058",
+    "source_fact_candidate_id": "SCAP-AI-F009",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_ANGLE",
+    "canonical_object_or_arguments": [
+      "inferior_angle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-061",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F009",
+      "validation_assessment_id": "VA-SCAP-061",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-059",
+    "source_fact_candidate_id": "SCAP-AI-F010",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_ANGLE",
+    "canonical_object_or_arguments": [
+      "lateral_angle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-062",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "MACRO_OVERVIEW_COMPONENT",
+      "TOPOGRAPHIC_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F010",
+      "validation_assessment_id": "VA-SCAP-062",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-001",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-060",
+    "source_fact_candidate_id": "SCAP-AI-F011",
+    "canonical_subject_id": "posterior_surface_of_scapula",
+    "canonical_relation_id": "HAS_STRUCTURE",
+    "canonical_object_or_arguments": [
+      "scapular_spine"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-063",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F011",
+      "validation_assessment_id": "VA-SCAP-063",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-061",
+    "source_fact_candidate_id": "SCAP-AI-F012",
+    "canonical_subject_id": "scapular_spine",
+    "canonical_relation_id": "SEPARATES",
+    "canonical_object_or_arguments": [
+      "supraspinous_fossa",
+      "infraspinous_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-064",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F012",
+      "validation_assessment_id": "VA-SCAP-064",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-062",
+    "source_fact_candidate_id": "SCAP-AI-F013",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_FOSSA",
+    "canonical_object_or_arguments": [
+      "subscapular_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-065",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F013",
+      "validation_assessment_id": "VA-SCAP-065",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-063",
+    "source_fact_candidate_id": "SCAP-AI-F014",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_FOSSA",
+    "canonical_object_or_arguments": [
+      "supraspinous_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-066",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F014",
+      "validation_assessment_id": "VA-SCAP-066",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-064",
+    "source_fact_candidate_id": "SCAP-AI-F015",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_FOSSA",
+    "canonical_object_or_arguments": [
+      "infraspinous_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-067",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F015",
+      "validation_assessment_id": "VA-SCAP-067",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-065",
+    "source_fact_candidate_id": "SCAP-AI-F016",
+    "canonical_subject_id": "scapular_spine",
+    "canonical_relation_id": "CONTINUES_AS",
+    "canonical_object_or_arguments": [
+      "acromion"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-068",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F016",
+      "validation_assessment_id": "VA-SCAP-068",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-066",
+    "source_fact_candidate_id": "SCAP-AI-F017",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_PROCESS",
+    "canonical_object_or_arguments": [
+      "coracoid_process"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-069",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F017",
+      "validation_assessment_id": "VA-SCAP-069",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-067",
+    "source_fact_candidate_id": "SCAP-AI-F018",
+    "canonical_subject_id": "lateral_angle_of_scapula",
+    "canonical_relation_id": "HAS_STRUCTURE",
+    "canonical_object_or_arguments": [
+      "glenoid_cavity"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-070",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F018",
+      "validation_assessment_id": "VA-SCAP-070",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-068",
+    "source_fact_candidate_id": "SCAP-AI-F019",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_LANDMARK",
+    "canonical_object_or_arguments": [
+      "supraglenoid_tubercle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-071",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F019",
+      "validation_assessment_id": "VA-SCAP-071",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-069",
+    "source_fact_candidate_id": "SCAP-AI-F020",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "HAS_LANDMARK",
+    "canonical_object_or_arguments": [
+      "infraglenoid_tubercle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-072",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F020",
+      "validation_assessment_id": "VA-SCAP-072",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-070",
+    "source_fact_candidate_id": "SCAP-AI-F021",
+    "canonical_subject_id": "superior_border_of_scapula",
+    "canonical_relation_id": "HAS_NOTCH",
+    "canonical_object_or_arguments": [
+      "suprascapular_notch"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-073",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F021",
+      "validation_assessment_id": "VA-SCAP-073",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-071",
+    "source_fact_candidate_id": "SCAP-AI-F022",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "ARTICULATES_WITH",
+    "canonical_object_or_arguments": [
+      "clavicle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-007",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "validation_assessment_id": "VA-SCAP-074",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F022",
+      "validation_assessment_id": "VA-SCAP-074",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-007",
+        "LAT-T1-SCAP-LOC-008",
+        "NLS-ATLAS-SCAP-LOC-002"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-072",
+    "source_fact_candidate_id": "SCAP-AI-F023",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "ARTICULATES_WITH",
+    "canonical_object_or_arguments": [
+      "humerus"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-007",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "validation_assessment_id": "VA-SCAP-075",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F023",
+      "validation_assessment_id": "VA-SCAP-075",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-007",
+        "LAT-T1-SCAP-LOC-008",
+        "NLS-ATLAS-SCAP-LOC-002"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-073",
+    "source_fact_candidate_id": "SCAP-AI-F024",
+    "canonical_subject_id": "glenoid_cavity",
+    "canonical_relation_id": "ARTICULATES_WITH",
+    "canonical_object_or_arguments": [
+      "humeral_head"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-007",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "validation_assessment_id": "VA-SCAP-076",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F024",
+      "validation_assessment_id": "VA-SCAP-076",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-007",
+        "LAT-T1-SCAP-LOC-008",
+        "NLS-ATLAS-SCAP-LOC-002"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-074",
+    "source_fact_candidate_id": "SCAP-AI-F025",
+    "canonical_subject_id": "subscapularis",
+    "canonical_relation_id": "ORIGINATES_FROM",
+    "canonical_object_or_arguments": [
+      "subscapular_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-077",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F025",
+      "validation_assessment_id": "VA-SCAP-077",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-075",
+    "source_fact_candidate_id": "SCAP-AI-F026",
+    "canonical_subject_id": "supraspinatus",
+    "canonical_relation_id": "ORIGINATES_FROM",
+    "canonical_object_or_arguments": [
+      "supraspinous_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-078",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F026",
+      "validation_assessment_id": "VA-SCAP-078",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-076",
+    "source_fact_candidate_id": "SCAP-AI-F027",
+    "canonical_subject_id": "infraspinatus",
+    "canonical_relation_id": "ORIGINATES_FROM",
+    "canonical_object_or_arguments": [
+      "infraspinous_fossa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-079",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F027",
+      "validation_assessment_id": "VA-SCAP-079",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-077",
+    "source_fact_candidate_id": "SCAP-AI-F028",
+    "canonical_subject_id": "teres_minor",
+    "canonical_relation_id": "ORIGINATES_FROM",
+    "canonical_object_or_arguments": [
+      "lateral_border_of_scapula"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-080",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F028",
+      "validation_assessment_id": "VA-SCAP-080",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-078",
+    "source_fact_candidate_id": "SCAP-AI-F029",
+    "canonical_subject_id": "teres_major",
+    "canonical_relation_id": "ORIGINATES_FROM",
+    "canonical_object_or_arguments": [
+      "inferior_scapular_region"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-081",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F029",
+      "validation_assessment_id": "VA-SCAP-081",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-079",
+    "source_fact_candidate_id": "SCAP-AI-F030",
+    "canonical_subject_id": "deltoid",
+    "canonical_relation_id": "ORIGINATES_FROM",
+    "canonical_object_or_arguments": [
+      "acromion"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-082",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F030",
+      "validation_assessment_id": "VA-SCAP-082",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-080",
+    "source_fact_candidate_id": "SCAP-AI-F031",
+    "canonical_subject_id": "deltoid",
+    "canonical_relation_id": "ORIGINATES_FROM",
+    "canonical_object_or_arguments": [
+      "scapular_spine"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-083",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F031",
+      "validation_assessment_id": "VA-SCAP-083",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-081",
+    "source_fact_candidate_id": "SCAP-AI-F032",
+    "canonical_subject_id": "trapezius",
+    "canonical_relation_id": "INSERTS_INTO",
+    "canonical_object_or_arguments": [
+      "acromion"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-084",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F032",
+      "validation_assessment_id": "VA-SCAP-084",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-082",
+    "source_fact_candidate_id": "SCAP-AI-F033",
+    "canonical_subject_id": "trapezius",
+    "canonical_relation_id": "INSERTS_INTO",
+    "canonical_object_or_arguments": [
+      "scapular_spine"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-085",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F033",
+      "validation_assessment_id": "VA-SCAP-085",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-083",
+    "source_fact_candidate_id": "SCAP-AI-F034",
+    "canonical_subject_id": "levator_scapulae",
+    "canonical_relation_id": "INSERTS_INTO",
+    "canonical_object_or_arguments": [
+      "superior_medial_border_of_scapula"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-086",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F034",
+      "validation_assessment_id": "VA-SCAP-086",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-084",
+    "source_fact_candidate_id": "SCAP-AI-F035",
+    "canonical_subject_id": "rhomboid_minor",
+    "canonical_relation_id": "INSERTS_INTO",
+    "canonical_object_or_arguments": [
+      "medial_border_near_root_of_scapular_spine"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-087",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F035",
+      "validation_assessment_id": "VA-SCAP-087",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-085",
+    "source_fact_candidate_id": "SCAP-AI-F036",
+    "canonical_subject_id": "rhomboid_major",
+    "canonical_relation_id": "INSERTS_INTO",
+    "canonical_object_or_arguments": [
+      "medial_border_inferior_to_scapular_spine"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-088",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F036",
+      "validation_assessment_id": "VA-SCAP-088",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-086",
+    "source_fact_candidate_id": "SCAP-AI-F037",
+    "canonical_subject_id": "serratus_anterior",
+    "canonical_relation_id": "INSERTS_INTO",
+    "canonical_object_or_arguments": [
+      "costal_aspect_of_medial_border"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-089",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F037",
+      "validation_assessment_id": "VA-SCAP-089",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-087",
+    "source_fact_candidate_id": "SCAP-AI-F038",
+    "canonical_subject_id": "biceps_brachii_long_head",
+    "canonical_relation_id": "ORIGINATES_FROM",
+    "canonical_object_or_arguments": [
+      "supraglenoid_region"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-090",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F038",
+      "validation_assessment_id": "VA-SCAP-090",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-088",
+    "source_fact_candidate_id": "SCAP-AI-F039",
+    "canonical_subject_id": "triceps_brachii_long_head",
+    "canonical_relation_id": "ORIGINATES_FROM",
+    "canonical_object_or_arguments": [
+      "infraglenoid_tubercle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-091",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F039",
+      "validation_assessment_id": "VA-SCAP-091",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-089",
+    "source_fact_candidate_id": "SCAP-AI-F040",
+    "canonical_subject_id": "biceps_brachii_short_head",
+    "canonical_relation_id": "ORIGINATES_FROM",
+    "canonical_object_or_arguments": [
+      "coracoid_process"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-092",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F040",
+      "validation_assessment_id": "VA-SCAP-092",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-090",
+    "source_fact_candidate_id": "SCAP-AI-F041",
+    "canonical_subject_id": "coracobrachialis",
+    "canonical_relation_id": "ORIGINATES_FROM",
+    "canonical_object_or_arguments": [
+      "coracoid_process"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-093",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F041",
+      "validation_assessment_id": "VA-SCAP-093",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-091",
+    "source_fact_candidate_id": "SCAP-AI-F042",
+    "canonical_subject_id": "pectoralis_minor",
+    "canonical_relation_id": "INSERTS_INTO",
+    "canonical_object_or_arguments": [
+      "coracoid_process"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-094",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F042",
+      "validation_assessment_id": "VA-SCAP-094",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-005",
+        "LAT-T1-SCAP-LOC-009",
+        "NLS-ATLAS-SCAP-LOC-006",
+        "NLS-ATLAS-SCAP-LOC-007",
+        "NLS-ATLAS-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-092",
+    "source_fact_candidate_id": "SCAP-AI-F043",
+    "canonical_subject_id": "coracoacromial_ligament",
+    "canonical_relation_id": "EXTENDS_BETWEEN",
+    "canonical_object_or_arguments": [
+      "coracoid_process",
+      "acromion"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-095",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F043",
+      "validation_assessment_id": "VA-SCAP-095",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-093",
+    "source_fact_candidate_id": "SCAP-AI-F044",
+    "canonical_subject_id": "superior_transverse_scapular_ligament",
+    "canonical_relation_id": "BRIDGES",
+    "canonical_object_or_arguments": [
+      "suprascapular_notch"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-096",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F044",
+      "validation_assessment_id": "VA-SCAP-096",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-094",
+    "source_fact_candidate_id": "SCAP-AI-F045",
+    "canonical_subject_id": "suprascapular_nerve",
+    "canonical_relation_id": "PASSES_THROUGH",
+    "canonical_object_or_arguments": [
+      "suprascapular_notch_region"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-097",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F045",
+      "validation_assessment_id": "VA-SCAP-097",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-095",
+    "source_fact_candidate_id": "SCAP-AI-F046",
+    "canonical_subject_id": "suprascapular_nerve",
+    "canonical_relation_id": "RELATED_TO",
+    "canonical_object_or_arguments": [
+      "superior_transverse_scapular_ligament"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-098",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F046",
+      "validation_assessment_id": "VA-SCAP-098",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-096",
+    "source_fact_candidate_id": "SCAP-AI-F047",
+    "canonical_subject_id": "suprascapular_artery",
+    "canonical_relation_id": "RELATED_TO",
+    "canonical_object_or_arguments": [
+      "suprascapular_notch_region"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-099",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F047",
+      "validation_assessment_id": "VA-SCAP-099",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-097",
+    "source_fact_candidate_id": "SCAP-AI-F048",
+    "canonical_subject_id": "suprascapular_nerve",
+    "canonical_relation_id": "RELATED_TO",
+    "canonical_object_or_arguments": [
+      "spinoglenoid_notch"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-100",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F048",
+      "validation_assessment_id": "VA-SCAP-100",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-003",
+        "LAT-T1-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-098",
+    "source_fact_candidate_id": "SCAP-AI-F049",
+    "canonical_subject_id": "dorsal_scapular_artery",
+    "canonical_relation_id": "RELATED_TO",
+    "canonical_object_or_arguments": [
+      "medial_border_of_scapula"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-101",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F049",
+      "validation_assessment_id": "VA-SCAP-101",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-099",
+    "source_fact_candidate_id": "SCAP-AI-F050",
+    "canonical_subject_id": "circumflex_scapular_artery",
+    "canonical_relation_id": "RELATED_TO",
+    "canonical_object_or_arguments": [
+      "posterior_scapular_region"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-102",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F050",
+      "validation_assessment_id": "VA-SCAP-102",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-004",
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-100",
+    "source_fact_candidate_id": "SCAP-AI-F051",
+    "canonical_subject_id": "triangular_space",
+    "canonical_relation_id": "HAS_BOUNDARY",
+    "canonical_object_or_arguments": [
+      "teres_minor"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-103",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F051",
+      "validation_assessment_id": "VA-SCAP-103",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-101",
+    "source_fact_candidate_id": "SCAP-AI-F052",
+    "canonical_subject_id": "triangular_space",
+    "canonical_relation_id": "HAS_BOUNDARY",
+    "canonical_object_or_arguments": [
+      "teres_major"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-104",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F052",
+      "validation_assessment_id": "VA-SCAP-104",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-102",
+    "source_fact_candidate_id": "SCAP-AI-F053",
+    "canonical_subject_id": "triangular_space",
+    "canonical_relation_id": "HAS_BOUNDARY",
+    "canonical_object_or_arguments": [
+      "long_head_triceps"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-105",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F053",
+      "validation_assessment_id": "VA-SCAP-105",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-103",
+    "source_fact_candidate_id": "SCAP-AI-F054",
+    "canonical_subject_id": "triangular_space",
+    "canonical_relation_id": "CONTAINS",
+    "canonical_object_or_arguments": [
+      "circumflex_scapular_vessels"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-106",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F054",
+      "validation_assessment_id": "VA-SCAP-106",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-104",
+    "source_fact_candidate_id": "SCAP-AI-F055",
+    "canonical_subject_id": "quadrangular_space",
+    "canonical_relation_id": "HAS_BOUNDARY",
+    "canonical_object_or_arguments": [
+      "teres_minor"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-107",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F055",
+      "validation_assessment_id": "VA-SCAP-107",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-105",
+    "source_fact_candidate_id": "SCAP-AI-F056",
+    "canonical_subject_id": "quadrangular_space",
+    "canonical_relation_id": "HAS_BOUNDARY",
+    "canonical_object_or_arguments": [
+      "teres_major"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-108",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F056",
+      "validation_assessment_id": "VA-SCAP-108",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-106",
+    "source_fact_candidate_id": "SCAP-AI-F057",
+    "canonical_subject_id": "quadrangular_space",
+    "canonical_relation_id": "HAS_BOUNDARY",
+    "canonical_object_or_arguments": [
+      "long_head_triceps"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-109",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F057",
+      "validation_assessment_id": "VA-SCAP-109",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-107",
+    "source_fact_candidate_id": "SCAP-AI-F058",
+    "canonical_subject_id": "quadrangular_space",
+    "canonical_relation_id": "HAS_BOUNDARY",
+    "canonical_object_or_arguments": [
+      "surgical_neck_humerus"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-110",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F058",
+      "validation_assessment_id": "VA-SCAP-110",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-108",
+    "source_fact_candidate_id": "SCAP-AI-F059",
+    "canonical_subject_id": "quadrangular_space",
+    "canonical_relation_id": "CONTAINS",
+    "canonical_object_or_arguments": [
+      "axillary_nerve"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-111",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F059",
+      "validation_assessment_id": "VA-SCAP-111",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-109",
+    "source_fact_candidate_id": "SCAP-AI-F060",
+    "canonical_subject_id": "quadrangular_space",
+    "canonical_relation_id": "CONTAINS",
+    "canonical_object_or_arguments": [
+      "posterior_circumflex_humeral_vessels"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-112",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F060",
+      "validation_assessment_id": "VA-SCAP-112",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-110",
+    "source_fact_candidate_id": "SCAP-AI-F061",
+    "canonical_subject_id": "scapular_spine",
+    "canonical_relation_id": "PRACTICAL_IDENTIFIES",
+    "canonical_object_or_arguments": [
+      "posterior_surface_of_scapula"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-113",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "PROFESSOR"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F061",
+      "validation_assessment_id": "VA-SCAP-113",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "VISUAL_ANATOMICAL_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-111",
+    "source_fact_candidate_id": "SCAP-AI-F062",
+    "canonical_subject_id": "glenoid_cavity",
+    "canonical_relation_id": "PRACTICAL_ORIENTATION",
+    "canonical_object_or_arguments": [
+      "lateral"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-114",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "PROFESSOR"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F062",
+      "validation_assessment_id": "VA-SCAP-114",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "VISUAL_ANATOMICAL_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-112",
+    "source_fact_candidate_id": "SCAP-AI-F063",
+    "canonical_subject_id": "coracoid_process",
+    "canonical_relation_id": "PRACTICAL_ORIENTATION",
+    "canonical_object_or_arguments": [
+      "anterior"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-115",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "PROFESSOR"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F063",
+      "validation_assessment_id": "VA-SCAP-115",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "VISUAL_ANATOMICAL_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-113",
+    "source_fact_candidate_id": "SCAP-AI-F064",
+    "canonical_subject_id": "inferior_angle_of_scapula",
+    "canonical_relation_id": "PRACTICAL_ORIENTATION",
+    "canonical_object_or_arguments": [
+      "inferior"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_assessment_id": "VA-SCAP-116",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "PRACTICAL_IDENTIFICATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "PROFESSOR"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT",
+      "source_fact_candidate_id": "SCAP-AI-F064",
+      "validation_assessment_id": "VA-SCAP-116",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-001",
+        "LAT-T1-SCAP-LOC-002",
+        "LAT-T1-SCAP-LOC-005",
+        "NLS-ATLAS-SCAP-LOC-003",
+        "NLS-ATLAS-SCAP-LOC-004"
+      ],
+      "evidence_match_class": "VISUAL_ANATOMICAL_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-114",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F009",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "REGIONAL_VASCULAR_RELATION",
+    "canonical_object_or_arguments": [
+      "suprascapular_artery"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-125",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT_KP1",
+      "source_fact_candidate_id": "SCAP-KP1-AI-F009",
+      "validation_assessment_id": "VA-SCAP-125",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-115",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F010",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "REGIONAL_VASCULAR_RELATION",
+    "canonical_object_or_arguments": [
+      "circumflex_scapular_artery"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-126",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT_KP1",
+      "source_fact_candidate_id": "SCAP-KP1-AI-F010",
+      "validation_assessment_id": "VA-SCAP-126",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-116",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F011",
+    "canonical_subject_id": "scapula",
+    "canonical_relation_id": "REGIONAL_VASCULAR_RELATION",
+    "canonical_object_or_arguments": [
+      "dorsal_scapular_artery"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "validation_assessment_id": "VA-SCAP-127",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "TOPOGRAPHIC_QUERY",
+      "RELATION_QUERY",
+      "PROFESSOR_CONNECTION_COMPONENT"
+    ],
+    "response_depth_support": [
+      "DIRECT",
+      "CONTEXTUAL"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT_KP1",
+      "source_fact_candidate_id": "SCAP-KP1-AI-F011",
+      "validation_assessment_id": "VA-SCAP-127",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-010"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-117",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F014",
+    "canonical_subject_id": "glenohumeral_joint",
+    "canonical_relation_id": "innervated_by",
+    "canonical_object_or_arguments": [
+      "suprascapular_nerve"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-130",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT_KP1",
+      "source_fact_candidate_id": "SCAP-KP1-AI-F014",
+      "validation_assessment_id": "VA-SCAP-130",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-118",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F015",
+    "canonical_subject_id": "glenohumeral_joint",
+    "canonical_relation_id": "innervated_by",
+    "canonical_object_or_arguments": [
+      "axillary_nerve"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-008"
+    ],
+    "validation_assessment_id": "VA-SCAP-131",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT_KP1",
+      "source_fact_candidate_id": "SCAP-KP1-AI-F015",
+      "validation_assessment_id": "VA-SCAP-131",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-008"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  },
+  {
+    "canonical_candidate_id": "CANON-SCAP-119",
+    "source_fact_candidate_id": "SCAP-KP1-AI-F017",
+    "canonical_subject_id": "acromioclavicular_joint",
+    "canonical_relation_id": "ARTICULAR_INNERVATION_CANDIDATE",
+    "canonical_object_or_arguments": [
+      "suprascapular_nerve"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATED",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "validation_assessment_id": "VA-SCAP-133",
+    "safe_engine_status": "SAFE_ENGINE_PRODUCTION_ELIGIBLE",
+    "query_affordances": [
+      "MICRO_FACT",
+      "RELATION_QUERY"
+    ],
+    "response_depth_support": [
+      "DIRECT"
+    ],
+    "provenance_chain": {
+      "authoring_origin": "AI_DRAFT_KP1",
+      "source_fact_candidate_id": "SCAP-KP1-AI-F017",
+      "validation_assessment_id": "VA-SCAP-133",
+      "registered_source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "exact_locators": [
+        "LAT-T1-SCAP-LOC-007"
+      ],
+      "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+      "morgue_assertion": null
+    },
+    "candidate_version": "1.0.0-CANDIDATE"
+  }
+]

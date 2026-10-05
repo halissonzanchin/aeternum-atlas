@@ -71,7 +71,9 @@ class CerebroAeternumVitaEngine {
     try {
       const raw = window.localStorage.getItem(`aeternum_voice_mem:${userId}`);
       if (raw) return JSON.parse(raw);
-    } catch {}
+    } catch {
+      /* ignore local storage read error */
+    }
     return { recentTopics: [], mastered: [], reinforcement: [], lastSeen: Date.now() };
   }
 
@@ -88,7 +90,9 @@ class CerebroAeternumVitaEngine {
         lastSeen: Date.now()
       };
       window.localStorage.setItem(`aeternum_voice_mem:${userId}`, JSON.stringify(updated));
-    } catch {}
+    } catch {
+      /* ignore local storage write error */
+    }
   }
 
   generatePersonalizedGreeting({ userId = "default", language = "pt", persona = "eduardo", userName = "" }) {

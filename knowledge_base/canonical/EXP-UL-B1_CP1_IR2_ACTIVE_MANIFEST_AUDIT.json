@@ -1,0 +1,50 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR2",
+  "timestamp": "2026-09-26T18:45:50.000Z",
+  "generic_manifest_file": "AETERNUM_CANONICAL_MEMORY_MANIFEST.json",
+  "generic_manifest_current_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+  "generic_manifest_semantics": "HISTORICAL",
+  "generic_manifest_usage_count": 4,
+  "generic_manifest_runtime_usage_count": 0,
+  "generic_manifest_test_usage_count": 3,
+  "usages": [
+    {
+      "file": "tools/quality-lab/scripts/generate_aet_kp_ul_scapula_001_cmp1.cjs",
+      "line": 542,
+      "classification": "BUILD",
+      "note": "Historical generator for Scapula promotion"
+    },
+    {
+      "file": "tools/quality-lab/validators/test_aet_kp_ul_scapula_001_cmp1.cjs",
+      "lines": [
+        19,
+        39
+      ],
+      "classification": "HISTORICAL_VALIDATOR",
+      "note": "Validates historical Scapula promotion release"
+    },
+    {
+      "file": "test_aeternum_exp_ul_b1_cp1.cjs",
+      "lines": [
+        56,
+        58
+      ],
+      "classification": "HISTORICAL_VALIDATOR",
+      "note": "Validates historical CP1 promotion release version 0.2.0"
+    },
+    {
+      "file": "scripts/test_aeternum_exp_ul_b1_cp1.cjs",
+      "lines": [
+        56,
+        58
+      ],
+      "classification": "HISTORICAL_VALIDATOR",
+      "note": "Duplicate mirror of test_aeternum_exp_ul_b1_cp1.cjs"
+    }
+  ],
+  "active_pointer_strategy": "OPTION_B_EXPLICIT_CURRENT_POINTER_FILE",
+  "active_pointer_authority_count": 1,
+  "active_canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+  "active_current_file": "AETERNUM_CANONICAL_MEMORY_CURRENT.json",
+  "notes": "Generic manifest AETERNUM_CANONICAL_MEMORY_MANIFEST.json is frozen under HISTORICAL semantics at 0.2.0 to preserve certified historical validator contracts without causing runtime ambiguity."
+}

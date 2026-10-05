@@ -1,0 +1,15 @@
+{
+  "schema_name": "aeternum_anatomical_corpus_manifest",
+  "schema_version": "1.0.0",
+  "corpus_version": "AAC-2026.1-R1",
+  "build_timestamp": "2026-09-23T18:37:39.579Z",
+  "source_manifest_hash": "0be337efd267043eb58ef79d09b6051db45398cf1965f4e92775cbe9333fadb4",
+  "chunk_count": 32,
+  "source_count": 3,
+  "domain_count": 9,
+  "language": "pt-BR",
+  "tier": "TIER_B",
+  "parity_verified": true,
+  "staging_total_rows": 62,
+  "local_mirror_path": "knowledge_base/local_mirror/aeternum_anatomical_memory.db"
+}

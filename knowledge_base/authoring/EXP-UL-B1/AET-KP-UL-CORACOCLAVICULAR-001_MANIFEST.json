@@ -1,0 +1,40 @@
+{
+  "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+  "pack_name": "Coracoclavicular Ligament Complex Knowledge Pack",
+  "primary_entity": "coracoclavicular_ligament_complex",
+  "batch_id": "EXP-UL-B1",
+  "version": "1.0.0-DRAFT",
+  "created_at": "2026-09-25T03:02:18.508Z",
+  "status": "AUTHORED_SOURCE_GROUNDED_PENDING_VALIDATION",
+  "entities": [
+    "coracoclavicular_ligament_complex",
+    "conoid_ligament",
+    "trapezoid_ligament"
+  ],
+  "entity_count": 3,
+  "fact_count": 22,
+  "source_grounded_fact_count": 22,
+  "ai_draft_fact_count": 0,
+  "quality_dimensions": {
+    "IDENTITY": "COMPLETE",
+    "MORPHOLOGY": "COMPLETE",
+    "ORIENTATION": "COMPLETE",
+    "LANDMARKS": "COMPLETE",
+    "ARTICULATIONS": "COMPLETE",
+    "MUSCLE_ATTACHMENTS": "COMPLETE",
+    "LIGAMENT_ATTACHMENTS": "COMPLETE",
+    "NEUROVASCULAR_RELATIONS": "COMPLETE",
+    "TOPOGRAPHY": "COMPLETE",
+    "SURFACE_ANATOMY": "COMPLETE",
+    "PRACTICAL_ANATOMY": "COMPLETE",
+    "VARIATION": "PARTIAL",
+    "TEACHING_CONNECTIONS": "COMPLETE",
+    "3D_CONTEXT": "PARTIAL",
+    "PROVENANCE": "COMPLETE"
+  },
+  "governance": {
+    "canonical_promotion_performed": false,
+    "safe_engine_eligible": false,
+    "academic_validation": "PENDING"
+  }
+}

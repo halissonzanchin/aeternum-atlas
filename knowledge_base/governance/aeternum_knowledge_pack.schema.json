@@ -1,0 +1,280 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Aeternum Knowledge Pack Schema",
+  "contract_name": "AETERNUM_KNOWLEDGE_PACK",
+  "version": "1.0.0",
+  "description": "Machine-readable contract for externally authored anatomical knowledge packages created by the Aeternum Knowledge Author (ChatGPT) under AKAP-1.0.",
+  "type": "object",
+  "required": [
+    "pack_id",
+    "pack_version",
+    "topic",
+    "primary_entity_ids",
+    "domain",
+    "subdomain",
+    "authoring_agent",
+    "authoring_protocol",
+    "authoring_mode",
+    "source_ids",
+    "source_locations",
+    "macro_dossiers",
+    "documentary_memory",
+    "atomic_fact_candidates",
+    "relations",
+    "teaching_connections",
+    "practical_memory",
+    "clinical_connections",
+    "terminology_candidates",
+    "3d_mapping_candidates",
+    "validation_requirements",
+    "known_gaps"
+  ],
+  "properties": {
+    "pack_id": {
+      "type": "string",
+      "pattern": "^AET-KP-[A-Z0-9]+-[A-Z0-9_]+-[0-9]{3}$",
+      "description": "Unique deterministic identifier for the knowledge pack (e.g. AET-KP-UL-SCAPULA-001)."
+    },
+    "pack_version": {
+      "type": "string",
+      "description": "Version of the knowledge pack (e.g. 1.0.0)."
+    },
+    "topic": {
+      "type": "string",
+      "description": "Primary anatomical topic or structure focused in this pack."
+    },
+    "primary_entity_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Canonical entity IDs representing the primary scope."
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "UPPER_LIMB",
+        "LOWER_LIMB",
+        "HEAD_AND_NECK",
+        "THORAX",
+        "ABDOMEN",
+        "PELVIS_AND_PERINEUM",
+        "BACK_AND_SPINE",
+        "CENTRAL_NERVOUS_SYSTEM",
+        "CARDIOVASCULAR_SYSTEM"
+      ]
+    },
+    "subdomain": {
+      "type": "string",
+      "description": "Structural or functional compartment (e.g. BONES, MUSCLES, NERVES, ARTERIES, JOINTS, TOPOGRAPHIC_SPACES)."
+    },
+    "authoring_agent": {
+      "type": "string",
+      "enum": [
+        "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR"
+      ],
+      "description": "Formal identity of the authoring intelligence."
+    },
+    "authoring_protocol": {
+      "type": "string",
+      "enum": ["AKAP-1.0"],
+      "description": "Governing authoring protocol version."
+    },
+    "authoring_mode": {
+      "type": "string",
+      "enum": [
+        "SOURCE_GROUNDED",
+        "MULTI_SOURCE_SYNTHESIS",
+        "AI_DRAFT"
+      ],
+      "description": "Grounding category under which the pack was synthesized."
+    },
+    "source_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Registered bibliographic source IDs supporting the content."
+    },
+    "source_locations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Specific chapters, pages, or plates cited in the registered sources."
+    },
+    "macro_dossiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "entity_id",
+          "canonical_name",
+          "systematic_classification",
+          "pedagogical_summary",
+          "morphological_dimensions",
+          "syntopic_relations",
+          "clinical_vulnerabilities",
+          "cadaveric_pearls"
+        ],
+        "properties": {
+          "entity_id": { "type": "string" },
+          "canonical_name": { "type": "string" },
+          "systematic_classification": { "type": "string" },
+          "pedagogical_summary": { "type": "string" },
+          "morphological_dimensions": { "type": "object" },
+          "syntopic_relations": { "type": "array", "items": { "type": "string" } },
+          "clinical_vulnerabilities": { "type": "array", "items": { "type": "string" } },
+          "cadaveric_pearls": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "documentary_memory": {
+      "type": "array",
+      "description": "Narrative prose preserving fine-grained provenance linking paragraphs to factual evidence.",
+      "items": {
+        "type": "object",
+        "required": [
+          "document_id",
+          "entity_ids",
+          "knowledge_dimensions",
+          "narrative_text",
+          "source_ids",
+          "fact_candidate_ids"
+        ],
+        "properties": {
+          "document_id": { "type": "string" },
+          "entity_ids": { "type": "array", "items": { "type": "string" } },
+          "knowledge_dimensions": { "type": "array", "items": { "type": "string" } },
+          "narrative_text": { "type": "string" },
+          "source_ids": { "type": "array", "items": { "type": "string" } },
+          "fact_candidate_ids": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "atomic_fact_candidates": {
+      "type": "array",
+      "description": "Independently verifiable atomic factual propositions.",
+      "items": {
+        "type": "object",
+        "required": [
+          "fact_candidate_id",
+          "subject",
+          "relation",
+          "object_or_arguments",
+          "knowledge_dimension",
+          "authoring_agent",
+          "evidence_source_ids",
+          "evidence_locations",
+          "authoring_mode",
+          "validation_status"
+        ],
+        "properties": {
+          "fact_candidate_id": { "type": "string" },
+          "subject": { "type": "string" },
+          "relation": { "type": "string" },
+          "object_or_arguments": { "type": "array", "items": { "type": "string" } },
+          "knowledge_dimension": { "type": "string" },
+          "authoring_agent": { "type": "string" },
+          "evidence_source_ids": { "type": "array", "items": { "type": "string" } },
+          "evidence_locations": { "type": "array", "items": { "type": "string" } },
+          "authoring_mode": {
+            "type": "string",
+            "enum": ["SOURCE_GROUNDED", "MULTI_SOURCE_SYNTHESIS", "AI_DRAFT"]
+          },
+          "validation_status": {
+            "type": "string",
+            "enum": [
+              "AI_DRAFT",
+              "SOURCE_GROUNDED_DRAFT",
+              "REVIEW_PENDING",
+              "SUPPORTED",
+              "VALIDATED",
+              "CONFLICTING",
+              "REJECTED"
+            ]
+          }
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "relation_candidate_id",
+          "subject",
+          "relation",
+          "object",
+          "relation_family",
+          "supporting_fact_candidate_ids"
+        ],
+        "properties": {
+          "relation_candidate_id": { "type": "string" },
+          "subject": { "type": "string" },
+          "relation": { "type": "string" },
+          "object": { "type": "string" },
+          "relation_family": { "type": "string" },
+          "supporting_fact_candidate_ids": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "teaching_connections": {
+      "type": "array",
+      "description": "Pedagogical professor connections grounded in atomic facts.",
+      "items": {
+        "type": "object",
+        "required": [
+          "connection_id",
+          "anchor_entity",
+          "related_entities",
+          "connection_type",
+          "teaching_reason",
+          "supporting_fact_ids",
+          "context"
+        ],
+        "properties": {
+          "connection_id": { "type": "string" },
+          "anchor_entity": { "type": "string" },
+          "related_entities": { "type": "array", "items": { "type": "string" } },
+          "connection_type": { "type": "string" },
+          "teaching_reason": { "type": "string" },
+          "supporting_fact_ids": { "type": "array", "items": { "type": "string" } },
+          "context": { "type": "string" }
+        }
+      }
+    },
+    "practical_memory": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "clinical_connections": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "terminology_candidates": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "3d_mapping_candidates": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "validation_requirements": {
+      "type": "object",
+      "required": ["recommended_authorities", "cross_validation_targets"],
+      "properties": {
+        "recommended_authorities": { "type": "array", "items": { "type": "string" } },
+        "cross_validation_targets": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "known_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gap_id", "entity_id", "missing_dimension", "description"],
+        "properties": {
+          "gap_id": { "type": "string" },
+          "entity_id": { "type": "string" },
+          "missing_dimension": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+  "promotion_id": "AET-PROM-UL-B1-001",
+  "certified_relations": [],
+  "candidate_relations_retained": [
+    {
+      "relation_name": "RESISTS_DISPLACEMENT",
+      "proposed_semantics": "Specifies the anatomical vector or kinetic direction of translational/rotational displacement restrained by a ligament.",
+      "inverse_relation": "DISPLACEMENT_RESISTED_BY",
+      "domain": "LIGAMENT",
+      "range": "DISPLACEMENT_OR_MOTION_DIRECTION",
+      "facts_using_relation": [
+        "B1-FC-SCJ-015",
+        "B1-FC-SCJ-023",
+        "B1-FC-SCJ-025",
+        "B1-FC-ACJ-012",
+        "B1-FC-CCC-007",
+        "B1-FC-CCC-012",
+        "B1-FC-CCC-021"
+      ],
+      "qualification_class": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "safe_engine_production_eligible": false,
+      "safe_engine_staging_eligible": true
+    },
+    {
+      "relation_name": "DIVIDES_JOINT_CAVITY",
+      "proposed_semantics": "Specifies the anatomical partitioning of a synovial cavity into distinct synovial compartments by a fibrocartilaginous disc.",
+      "inverse_relation": "JOINT_CAVITY_DIVIDED_BY",
+      "domain": "FIBROCARTILAGE_DISC",
+      "range": "SYNOVIAL_COMPARTMENT_SET",
+      "facts_using_relation": [
+        "B1-FC-SCJ-008"
+      ],
+      "qualification_class": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "safe_engine_production_eligible": false,
+      "safe_engine_staging_eligible": true
+    },
+    {
+      "relation_name": "TRANSMITS_STRUCTURE",
+      "proposed_semantics": "Specifies that a canal, groove, triangle, or topographic space provides anatomical passage for a neurovascular bundle or vessel.",
+      "inverse_relation": "TRANSMITTED_THROUGH",
+      "domain": "TOPOGRAPHIC_STRUCTURE_OR_SPACE",
+      "range": "NEUROVASCULAR_ENTITY",
+      "facts_using_relation": [
+        "B1-FC-PGI-018",
+        "B1-FC-PGI-021"
+      ],
+      "qualification_class": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "safe_engine_production_eligible": false,
+      "safe_engine_staging_eligible": true
+    },
+    {
+      "relation_name": "SUSPENDS_STRUCTURE",
+      "proposed_semantics": "Specifies that a ligamentous complex provides continuous gravitational and mechanical suspension for a suspended skeletal segment.",
+      "inverse_relation": "SUSPENDED_BY",
+      "domain": "LIGAMENT_COMPLEX",
+      "range": "SKELETAL_STRUCTURE",
+      "facts_using_relation": [
+        "B1-FC-CCC-013"
+      ],
+      "qualification_class": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "safe_engine_production_eligible": false,
+      "safe_engine_staging_eligible": true
+    },
+    {
+      "relation_name": "SYSSARCOSIS_INTERFACE_BETWEEN",
+      "proposed_semantics": "Defines a physiological gliding interface between two muscular or osteomuscular walls separated by loose cellular connective tissue without true synovia.",
+      "inverse_relation": "PARTICIPATES_IN_SYSSARCOSIS",
+      "domain": "PHYSIOLOGICAL_INTERFACE",
+      "range": "MUSCULOSKELETAL_SURFACES_PAIR",
+      "facts_using_relation": [
+        "B1-FC-PGI-010",
+        "B1-FC-PGI-011"
+      ],
+      "qualification_class": "ONTOLOGY_REVIEW_REQUIRED",
+      "safe_engine_production_eligible": false,
+      "safe_engine_staging_eligible": true
+    }
+  ]
+}

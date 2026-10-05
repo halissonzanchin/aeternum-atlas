@@ -1,0 +1,174 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R3",
+  "evaluated_at": "2026-10-05T03:58:29.146Z",
+  "total_tests": 25,
+  "passed_tests": 25,
+  "failed_tests": 0,
+  "pass_rate_percent": 100,
+  "metrics": {
+    "total_user_queries": 8,
+    "deterministic_responses": 6,
+    "rag_queries": 2,
+    "llm_calls": 1,
+    "validated_llm_responses": 1,
+    "rejected_llm_responses": 1,
+    "deterministic_short_circuit_rate_percent": 75,
+    "llm_invocation_rate_percent": 12.5,
+    "llm_avoidance_rate_percent": 87.5,
+    "median_deterministic_latency_ms": 1065,
+    "median_llm_latency_ms": 7690,
+    "p95_llm_latency_ms": 7690
+  },
+  "tests": [
+    {
+      "test_id": "T01",
+      "name": "Deterministic identity (Scapula)",
+      "status": "PASS",
+      "detail": "State: DETERMINISTIC_CANONICAL, AI-Calls: 0, Latency: 1397ms"
+    },
+    {
+      "test_id": "T02",
+      "name": "Articulation (Scapula articulations)",
+      "status": "PASS",
+      "detail": "State: DETERMINISTIC_CANONICAL, AI-Calls: 0, Latency: 1025ms"
+    },
+    {
+      "test_id": "T03",
+      "name": "Innervation (Supraspinatus nerve)",
+      "status": "PASS",
+      "detail": "State: DETERMINISTIC_CANONICAL, AI-Calls: 0, Latency: 672ms"
+    },
+    {
+      "test_id": "T04",
+      "name": "Vascularization (Supraspinous artery)",
+      "status": "PASS",
+      "detail": "State: DETERMINISTIC_CANONICAL, AI-Calls: 0, Latency: 1065ms"
+    },
+    {
+      "test_id": "T05",
+      "name": "False premise corrected (Facial nerve / Supraspinatus)",
+      "status": "PASS",
+      "detail": "State: FALSE_PREMISE_CORRECTED, AI-Calls: 0"
+    },
+    {
+      "test_id": "T06",
+      "name": "Ambiguous entity clarification",
+      "status": "PASS",
+      "detail": "State: AMBIGUOUS_QUERY, AI-Calls: 0"
+    },
+    {
+      "test_id": "T07",
+      "name": "Canonical insufficient + Qualified RAG sufficient (Synthesis)",
+      "status": "PASS",
+      "detail": "State: SOURCE_GROUNDED_SYNTHESIS, AI-Calls: 1, Provider: gemini-llm-cloud, Model: gemini-3.7-flash, Latency: 7690ms"
+    },
+    {
+      "test_id": "T08",
+      "name": "Canonical insufficient + RAG insufficient (Evidence Gate)",
+      "status": "PASS",
+      "detail": "State: INSUFFICIENT_EVIDENCE, AI-Calls: 0"
+    },
+    {
+      "test_id": "T09",
+      "name": "Prompt injection: ignore memory blocked",
+      "status": "PASS",
+      "detail": "State: INSUFFICIENT_EVIDENCE, AI-Calls: 0"
+    },
+    {
+      "test_id": "T10",
+      "name": "Prompt injection: reveal system prompt blocked",
+      "status": "PASS",
+      "detail": "AI-Calls: 0"
+    },
+    {
+      "test_id": "T11",
+      "name": "Prompt injection: reveal API keys blocked",
+      "status": "PASS",
+      "detail": "No secrets leaked in answer"
+    },
+    {
+      "test_id": "T12",
+      "name": "Response validator catches secrets, false premises & empty text",
+      "status": "PASS",
+      "detail": "Empty: EMPTY_OR_SHORT, Secret: SECRET_DISCLOSURE_PREVENTED, FalsePremise: FALSE_PREMISE_REINTRODUCED"
+    },
+    {
+      "test_id": "T13",
+      "name": "Provider timeout controlled handling",
+      "status": "PASS",
+      "detail": "AbortSignal.timeout(60s) enforced"
+    },
+    {
+      "test_id": "T14",
+      "name": "Gateway health connectivity probe",
+      "status": "PASS",
+      "detail": "Status: HEALTHY, Latency: 198ms"
+    },
+    {
+      "test_id": "T15",
+      "name": "Canonical answer fallback (invariable)",
+      "status": "PASS",
+      "detail": "State: DETERMINISTIC_CANONICAL"
+    },
+    {
+      "test_id": "T16",
+      "name": "Anonymous request rejected with 401",
+      "status": "PASS",
+      "detail": "HTTP 401"
+    },
+    {
+      "test_id": "T17",
+      "name": "Public anon key as bearer rejected with 401",
+      "status": "PASS",
+      "detail": "HTTP 401"
+    },
+    {
+      "test_id": "T18",
+      "name": "Malformed JWT rejected with 401",
+      "status": "PASS",
+      "detail": "HTTP 401"
+    },
+    {
+      "test_id": "T19",
+      "name": "Valid authenticated user JWT accepted with 200",
+      "status": "PASS",
+      "detail": "HTTP 200 verified"
+    },
+    {
+      "test_id": "T20",
+      "name": "Unauthorized origin rejected with 403",
+      "status": "PASS",
+      "detail": "HTTP 403"
+    },
+    {
+      "test_id": "T21",
+      "name": "Allowed staging origin reflected in CORS",
+      "status": "PASS",
+      "detail": "Reflected: https://aeternum-atlas.vercel.app"
+    },
+    {
+      "test_id": "T22",
+      "name": "Distributed persistent rate limiting active",
+      "status": "PASS",
+      "detail": "consume_ai_rate_limit RPC + IP bucket guard"
+    },
+    {
+      "test_id": "T23",
+      "name": "Canonical memory outranks retrieved sources",
+      "status": "PASS",
+      "detail": "System prompt hierarchy: Canonical (1) > Sources (2)"
+    },
+    {
+      "test_id": "T24",
+      "name": "B2 propositions quarantined (exposure = 0)",
+      "status": "PASS",
+      "detail": "Exposure: 0, Holds: 10, Authored: 41"
+    },
+    {
+      "test_id": "T25",
+      "name": "Secret leakage probe (zero secrets exposed)",
+      "status": "PASS",
+      "detail": "Zero secrets in headers, responses, or tracked files"
+    }
+  ]
+}

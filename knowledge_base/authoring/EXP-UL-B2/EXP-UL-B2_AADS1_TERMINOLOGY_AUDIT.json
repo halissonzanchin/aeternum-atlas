@@ -1,0 +1,134 @@
+{
+  "phase": "AMC-1.2 / EXP-UL-B2-A1.6",
+  "timestamp": "2026-09-27T02:30:00Z",
+  "total_terms_audited": 10,
+  "terms": [
+    {
+      "canonical_name": "Greater Tubercle of Humerus",
+      "latin_name": "Tuberculum majus humeri",
+      "accepted_synonyms": [
+        "Tubérculo mayor del húmero"
+      ],
+      "legacy_and_classical_terms": [
+        "Troquíter",
+        "Trochiter"
+      ],
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "status": "SYNONYM_RECONCILED"
+    },
+    {
+      "canonical_name": "Lesser Tubercle of Humerus",
+      "latin_name": "Tuberculum minus humeri",
+      "accepted_synonyms": [
+        "Tubérculo menor del húmero"
+      ],
+      "legacy_and_classical_terms": [
+        "Troquín",
+        "Trochin"
+      ],
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "status": "SYNONYM_RECONCILED"
+    },
+    {
+      "canonical_name": "Intertubercular Sulcus of Humerus",
+      "latin_name": "Sulcus intertubercularis humeri",
+      "accepted_synonyms": [
+        "Surco intertubercular"
+      ],
+      "legacy_and_classical_terms": [
+        "Corredera bicipital",
+        "Canal bicipital"
+      ],
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "status": "SYNONYM_RECONCILED"
+    },
+    {
+      "canonical_name": "Transverse Humeral Ligament",
+      "latin_name": "Ligamentum transversum humeri",
+      "accepted_synonyms": [
+        "Ligamento humeral transverso"
+      ],
+      "legacy_and_classical_terms": [
+        "Ligamento de Gordon Brodie",
+        "Retináculo de Brodie"
+      ],
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "status": "SYNONYM_RECONCILED"
+    },
+    {
+      "canonical_name": "Foramen Ovale of Weitbrecht",
+      "latin_name": "Foramen ovale capsulae articularis humeri",
+      "accepted_synonyms": [
+        "Abertura subescapular de la cápsula"
+      ],
+      "legacy_and_classical_terms": [
+        "Foramen de Weitbrecht",
+        "Ojal de Weitbrecht"
+      ],
+      "entity_id": "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+      "status": "LANDMARK_SYNONYM_RECONCILED"
+    },
+    {
+      "canonical_name": "Aperture of Rouvière",
+      "latin_name": "Apertura inferior capsulae",
+      "accepted_synonyms": [
+        "Foramen subligamentoso medio"
+      ],
+      "legacy_and_classical_terms": [
+        "Foramen de Rouvière"
+      ],
+      "entity_id": "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+      "status": "LANDMARK_SYNONYM_RECONCILED"
+    },
+    {
+      "canonical_name": "Rotator Interval",
+      "latin_name": "Intervallum rotatatorum",
+      "accepted_synonyms": [
+        "Espacio de los rotadores",
+        "Intervalo anterosuperior"
+      ],
+      "legacy_and_classical_terms": [
+        "Hendidura triangular superior"
+      ],
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+      "status": "SYNONYM_RECONCILED"
+    },
+    {
+      "canonical_name": "Subacromial-Subdeltoid Bursa",
+      "latin_name": "Bursa subacromialis et bursa subdeltoidea",
+      "accepted_synonyms": [
+        "Bolsa serosa subacromiodeltoidea"
+      ],
+      "legacy_and_classical_terms": [
+        "Bolsa de Duplay"
+      ],
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "status": "SYNONYM_RECONCILED"
+    },
+    {
+      "canonical_name": "Coracoacromial Arch",
+      "latin_name": "Fornix humeri",
+      "accepted_synonyms": [
+        "Arco coracoacromial",
+        "Bóveda suprahumeral"
+      ],
+      "legacy_and_classical_terms": [
+        "Fórnix del húmero"
+      ],
+      "entity_id": "AET-ENT-CAND-UL-CORACOACROMIAL_ARCH",
+      "status": "SYNONYM_RECONCILED"
+    },
+    {
+      "canonical_name": "Surgical Neck of Humerus",
+      "latin_name": "Collum chirurgicum humeri",
+      "accepted_synonyms": [
+        "Cuello quirúrgico"
+      ],
+      "legacy_and_classical_terms": [
+        "Límite epifisodiafisario proximal"
+      ],
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "status": "SYNONYM_RECONCILED"
+    }
+  ]
+}

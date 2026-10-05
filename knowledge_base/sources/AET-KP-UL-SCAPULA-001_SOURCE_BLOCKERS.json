@@ -1,0 +1,86 @@
+{
+  "blockers_name": "AET-KP-UL-SCAPULA-001_SOURCE_BLOCKERS",
+  "generated_at": "2026-09-24T01:50:00.000Z",
+  "protocol": "ACSRP-1.0",
+  "pack_id": "AET-KP-UL-SCAPULA-001",
+  "category_blockers": [
+    {
+      "category": "CLINICAL_ANATOMY_TEXTBOOK",
+      "impacted_items": [
+        "CLIN-SCAP-001",
+        "CLIN-SCAP-002",
+        "CLIN-SCAP-003",
+        "CLIN-SCAP-004",
+        "CLIN-SCAP-005"
+      ],
+      "blocker_type": "MISSING_SOURCE_ARTIFACT",
+      "required_source": "Moore: Clinically Oriented Anatomy (or equivalent peer-reviewed clinical anatomy treatise)",
+      "remediation_path": "AWAIT_USER_CANONICAL_SOURCE_MATERIAL"
+    },
+    {
+      "category": "TERMINOLOGY_AUTHORITY",
+      "impacted_items": [
+        "scapula",
+        "facies_costalis",
+        "facies_posterior",
+        "margo_superior",
+        "margo_medialis",
+        "margo_lateralis",
+        "angulus_superior",
+        "angulus_inferior",
+        "angulus_lateralis",
+        "spina_scapulae",
+        "acromion",
+        "processus_coracoideus",
+        "cavitas_glenoidalis",
+        "fossa_subscapularis",
+        "fossa_supraspinata",
+        "fossa_infraspinata",
+        "incisura_scapulae",
+        "incisura_spinoglenoidalis",
+        "tuberculum_supraglenoidale",
+        "tuberculum_infraglenoidale",
+        "collum_scapulae"
+      ],
+      "blocker_type": "MISSING_SOURCE_ARTIFACT",
+      "required_source": "FIPAT IFAA Terminologia Anatomica 2 (TA2) official tables",
+      "remediation_path": "AWAIT_USER_CANONICAL_SOURCE_MATERIAL"
+    },
+    {
+      "category": "3D_MODEL_METADATA",
+      "impacted_items": [
+        "3D-SCAP-001", "3D-SCAP-002", "3D-SCAP-003", "3D-SCAP-004", "3D-SCAP-005",
+        "3D-SCAP-006", "3D-SCAP-007", "3D-SCAP-008", "3D-SCAP-009", "3D-SCAP-010",
+        "3D-SCAP-011", "3D-SCAP-012", "3D-SCAP-013", "3D-SCAP-014", "3D-SCAP-015",
+        "3D-SCAP-016", "3D-SCAP-017", "3D-SCAP-018", "3D-SCAP-019", "3D-SCAP-020",
+        "3D-SCAP-021"
+      ],
+      "blocker_type": "UNMAPPED_GEOMETRIC_COORDINATES",
+      "required_source": "Aeternum Volumetric 3D Scapula Mesh Manifest with Vertex Node IDs",
+      "remediation_path": "3D_VIEWER_CONTEXT_MAPPING"
+    }
+  ],
+  "residual_research_gaps": [
+    {
+      "gap_id": "GAP-SCAPULA_NUTRIENT_FORAMINA_PRECISE_MAPPING-001",
+      "topic": "precise_nutrient_foramina_distribution_and_microvasculature",
+      "status": "PRESERVED_ACTIVE",
+      "future_validation_requirement": "SPECIALIZED_ANATOMY_REFERENCE",
+      "note": "Standard gross textbooks (Latarjet) establish regional supply and intraosseous network, but exact foramina dimensions, counts, and spatial coordinates require specialized osteological/microvascular literature."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_PERIOSTEAL_NERVE_MAPPING-001",
+      "topic": "scapular_periosteal_named_nerve_mapping",
+      "status": "PRESERVED_ACTIVE",
+      "future_validation_requirement": "SPECIALIZED_ANATOMY_REFERENCE",
+      "note": "Periosteal nociception and sensory supply are physiologically established, but discrete distribution maps of fine periosteal articular twigs require specialized neuroanatomical research."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_OS_ACROMIALE_SUBTYPES-001",
+      "topic": "os_acromiale_morphological_subtypes_and_prevalences",
+      "status": "PRESERVED_ACTIVE",
+      "future_validation_requirement": "CLINICAL_ANATOMY_REFERENCE",
+      "note": "Pre-, meso-, meta-, and basi-acromion sub-classifications and population frequency percentages require orthopedic/radiological clinical literature."
+    }
+  ]
+}

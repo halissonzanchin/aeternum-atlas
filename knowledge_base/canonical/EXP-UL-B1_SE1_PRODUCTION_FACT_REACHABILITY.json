@@ -1,0 +1,2551 @@
+{
+  "phase": "EXP-UL-B1-SE1",
+  "audit_timestamp": "2026-09-26T23:37:17.530Z",
+  "production_fact_total": 231,
+  "production_fact_runtime_reachable_count": 231,
+  "unreachable_production_fact_count": 0,
+  "reachability_percentage": "100.0%",
+  "reachability_details": [
+    {
+      "canonical_fact_id": "AET-CF-SCAP-001",
+      "subject_id": "scapula",
+      "relation": "part_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-002",
+      "subject_id": "scapula",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-003",
+      "subject_id": "scapula",
+      "relation": "has_symmetry",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-004",
+      "subject_id": "scapula",
+      "relation": "has_shape",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-005",
+      "subject_id": "scapula",
+      "relation": "located_in",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-006",
+      "subject_id": "scapula",
+      "relation": "spans_levels",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-007",
+      "subject_id": "scapula",
+      "relation": "articulates_with",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-008",
+      "subject_id": "scapula",
+      "relation": "articulates_with",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-009",
+      "subject_id": "scapula",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-010",
+      "subject_id": "scapula",
+      "relation": "has_fossa",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-011",
+      "subject_id": "scapula",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-012",
+      "subject_id": "scapula",
+      "relation": "has_fossa",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-013",
+      "subject_id": "scapula",
+      "relation": "has_fossa",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-014",
+      "subject_id": "scapula",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-015",
+      "subject_id": "scapula",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-016",
+      "subject_id": "scapula",
+      "relation": "has_notch",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-017",
+      "subject_id": "scapula",
+      "relation": "has_border",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-018",
+      "subject_id": "scapula",
+      "relation": "has_border",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-019",
+      "subject_id": "scapula",
+      "relation": "has_border",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-020",
+      "subject_id": "scapula",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-021",
+      "subject_id": "scapula",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-022",
+      "subject_id": "scapula",
+      "relation": "has_notch",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-023",
+      "subject_id": "scapula",
+      "relation": "has_angle",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-024",
+      "subject_id": "scapula",
+      "relation": "has_angle",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-025",
+      "subject_id": "scapula",
+      "relation": "has_angle",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-026",
+      "subject_id": "scapula",
+      "relation": "has_process",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-027",
+      "subject_id": "scapula",
+      "relation": "has_articular_cavity",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-028",
+      "subject_id": "scapula",
+      "relation": "surrounded_by",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-029",
+      "subject_id": "scapula",
+      "relation": "articulates_with",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-030",
+      "subject_id": "scapula",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-031",
+      "subject_id": "scapula",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-032",
+      "subject_id": "scapula",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-033",
+      "subject_id": "scapula",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-034",
+      "subject_id": "scapula",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-035",
+      "subject_id": "scapula",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-036",
+      "subject_id": "scapula",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-037",
+      "subject_id": "scapula",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-038",
+      "subject_id": "scapula",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-039",
+      "subject_id": "scapula",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-040",
+      "subject_id": "scapula",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-041",
+      "subject_id": "scapula",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-042",
+      "subject_id": "scapula",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-043",
+      "subject_id": "scapula",
+      "relation": "attaches_ligament",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-044",
+      "subject_id": "scapula",
+      "relation": "attaches_ligament",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-045",
+      "subject_id": "scapula",
+      "relation": "attaches_ligament",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-046",
+      "subject_id": "scapula",
+      "relation": "attaches_ligament",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-047",
+      "subject_id": "scapula",
+      "relation": "attaches_ligament",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-048",
+      "subject_id": "scapula",
+      "relation": "converts_to_foramen",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-049",
+      "subject_id": "scapula",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-050",
+      "subject_id": "scapula",
+      "relation": "TYPE_OF",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-051",
+      "subject_id": "scapula",
+      "relation": "LOCATED_IN",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-052",
+      "subject_id": "scapula",
+      "relation": "HAS_SURFACE",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-053",
+      "subject_id": "scapula",
+      "relation": "HAS_SURFACE",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-054",
+      "subject_id": "scapula",
+      "relation": "HAS_BORDER",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-055",
+      "subject_id": "scapula",
+      "relation": "HAS_BORDER",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-056",
+      "subject_id": "scapula",
+      "relation": "HAS_BORDER",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-057",
+      "subject_id": "scapula",
+      "relation": "HAS_ANGLE",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-058",
+      "subject_id": "scapula",
+      "relation": "HAS_ANGLE",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-059",
+      "subject_id": "scapula",
+      "relation": "HAS_ANGLE",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-060",
+      "subject_id": "posterior_surface_of_scapula",
+      "relation": "HAS_STRUCTURE",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-061",
+      "subject_id": "scapular_spine",
+      "relation": "SEPARATES",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-062",
+      "subject_id": "scapula",
+      "relation": "HAS_FOSSA",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-063",
+      "subject_id": "scapula",
+      "relation": "HAS_FOSSA",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-064",
+      "subject_id": "scapula",
+      "relation": "HAS_FOSSA",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-065",
+      "subject_id": "scapular_spine",
+      "relation": "CONTINUES_AS",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-066",
+      "subject_id": "scapula",
+      "relation": "HAS_PROCESS",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-067",
+      "subject_id": "lateral_angle_of_scapula",
+      "relation": "HAS_STRUCTURE",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-068",
+      "subject_id": "scapula",
+      "relation": "HAS_LANDMARK",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-069",
+      "subject_id": "scapula",
+      "relation": "HAS_LANDMARK",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-070",
+      "subject_id": "superior_border_of_scapula",
+      "relation": "HAS_NOTCH",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-071",
+      "subject_id": "scapula",
+      "relation": "ARTICULATES_WITH",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-072",
+      "subject_id": "scapula",
+      "relation": "ARTICULATES_WITH",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-073",
+      "subject_id": "glenoid_cavity",
+      "relation": "ARTICULATES_WITH",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-074",
+      "subject_id": "subscapularis",
+      "relation": "ORIGINATES_FROM",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-075",
+      "subject_id": "supraspinatus",
+      "relation": "ORIGINATES_FROM",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-076",
+      "subject_id": "infraspinatus",
+      "relation": "ORIGINATES_FROM",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-077",
+      "subject_id": "teres_minor",
+      "relation": "ORIGINATES_FROM",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-078",
+      "subject_id": "teres_major",
+      "relation": "ORIGINATES_FROM",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-079",
+      "subject_id": "deltoid",
+      "relation": "ORIGINATES_FROM",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-080",
+      "subject_id": "deltoid",
+      "relation": "ORIGINATES_FROM",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-081",
+      "subject_id": "trapezius",
+      "relation": "INSERTS_INTO",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-082",
+      "subject_id": "trapezius",
+      "relation": "INSERTS_INTO",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-083",
+      "subject_id": "levator_scapulae",
+      "relation": "INSERTS_INTO",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-084",
+      "subject_id": "rhomboid_minor",
+      "relation": "INSERTS_INTO",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-085",
+      "subject_id": "rhomboid_major",
+      "relation": "INSERTS_INTO",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-086",
+      "subject_id": "serratus_anterior",
+      "relation": "INSERTS_INTO",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-087",
+      "subject_id": "biceps_brachii_long_head",
+      "relation": "ORIGINATES_FROM",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-088",
+      "subject_id": "triceps_brachii_long_head",
+      "relation": "ORIGINATES_FROM",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-089",
+      "subject_id": "biceps_brachii_short_head",
+      "relation": "ORIGINATES_FROM",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-090",
+      "subject_id": "coracobrachialis",
+      "relation": "ORIGINATES_FROM",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-091",
+      "subject_id": "pectoralis_minor",
+      "relation": "INSERTS_INTO",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-092",
+      "subject_id": "coracoacromial_ligament",
+      "relation": "EXTENDS_BETWEEN",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-093",
+      "subject_id": "superior_transverse_scapular_ligament",
+      "relation": "BRIDGES",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-094",
+      "subject_id": "suprascapular_nerve",
+      "relation": "PASSES_THROUGH",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-100",
+      "subject_id": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-101",
+      "subject_id": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-102",
+      "subject_id": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-103",
+      "subject_id": "triangular_space",
+      "relation": "CONTAINS",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-104",
+      "subject_id": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-105",
+      "subject_id": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-106",
+      "subject_id": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-107",
+      "subject_id": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-108",
+      "subject_id": "quadrangular_space",
+      "relation": "CONTAINS",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-109",
+      "subject_id": "quadrangular_space",
+      "relation": "CONTAINS",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-110",
+      "subject_id": "scapular_spine",
+      "relation": "PRACTICAL_IDENTIFIES",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-111",
+      "subject_id": "glenoid_cavity",
+      "relation": "PRACTICAL_ORIENTATION",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-112",
+      "subject_id": "coracoid_process",
+      "relation": "PRACTICAL_ORIENTATION",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-113",
+      "subject_id": "inferior_angle_of_scapula",
+      "relation": "PRACTICAL_ORIENTATION",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-114",
+      "subject_id": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-115",
+      "subject_id": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-116",
+      "subject_id": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-117",
+      "subject_id": "glenohumeral_joint",
+      "relation": "innervated_by",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCAP-118",
+      "subject_id": "glenohumeral_joint",
+      "relation": "innervated_by",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-001",
+      "subject_id": "clavicle",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-002",
+      "subject_id": "clavicle",
+      "relation": "part_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-003",
+      "subject_id": "clavicle",
+      "relation": "has_symmetry",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-004",
+      "subject_id": "clavicle",
+      "relation": "located_in",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-005",
+      "subject_id": "clavicle",
+      "relation": "has_shape",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-006",
+      "subject_id": "clavicle",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-007",
+      "subject_id": "clavicle",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-008",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-009",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-010",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-011",
+      "subject_id": "clavicle",
+      "relation": "has_surface",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-012",
+      "subject_id": "clavicle",
+      "relation": "has_surface",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-013",
+      "subject_id": "clavicle",
+      "relation": "has_border",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-014",
+      "subject_id": "clavicle",
+      "relation": "has_border",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-015",
+      "subject_id": "clavicular_superior_surface",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-016",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-017",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-018",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-019",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-020",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-021",
+      "subject_id": "clavicular_sternal_end",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-022",
+      "subject_id": "clavicular_sternal_articular_surface",
+      "relation": "articulates_with",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-023",
+      "subject_id": "clavicular_acromial_end",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-024",
+      "subject_id": "clavicular_acromial_articular_surface",
+      "relation": "articulates_with",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-025",
+      "subject_id": "pectoralis_major_clavicular_head",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-026",
+      "subject_id": "deltoid_clavicular_portion",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-027",
+      "subject_id": "trapezius_descending_part",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-028",
+      "subject_id": "sternocleidomastoid_clavicular_head",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-029",
+      "subject_id": "subclavius_muscle",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-030",
+      "subject_id": "costoclavicular_ligament",
+      "relation": "attaches_ligament",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-031",
+      "subject_id": "conoid_ligament",
+      "relation": "attaches_ligament",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-032",
+      "subject_id": "trapezoid_ligament",
+      "relation": "attaches_ligament",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-033",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-034",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-035",
+      "subject_id": "platysma_muscle",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-036",
+      "subject_id": "supraclavicular_nerves",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-037",
+      "subject_id": "subclavian_vessels",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-038",
+      "subject_id": "brachial_plexus_trunks",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-039",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-040",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-041",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-042",
+      "subject_id": "clavicular_sternal_end_epiphysis",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-043",
+      "subject_id": "clavipectoral_fascia",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-044",
+      "subject_id": "posterior_border_of_clavicle",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-045",
+      "subject_id": "anterior_border_of_clavicle",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-046",
+      "subject_id": "cervical_fascia_superficial_layer",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-047",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-048",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-049",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-001",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-002",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "part_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-003",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "articulates_with",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-004",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-005",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-006",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-007",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-009",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "surrounded_by",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-010",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-011",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-012",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-013",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-014",
+      "subject_id": "costoclavicular_ligament",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-016",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-017",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-018",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-019",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_supply",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-020",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "innervated_by",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-021",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-022",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-024",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-026",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-001",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-002",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "part_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-003",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "articulates_with",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-004",
+      "subject_id": "clavicular_acromial_articular_surface",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-005",
+      "subject_id": "acromial_facet_of_scapula",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-006",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-007",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-008",
+      "subject_id": "acromioclavicular_articular_disc",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-009",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "surrounded_by",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-010",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-011",
+      "subject_id": "superior_acromioclavicular_ligament",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-013",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "functional_axis",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-014",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "functional_axis",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-015",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "vascular_supply",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-016",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "innervated_by",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-017",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-018",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-019",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-020",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-001",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-002",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-003",
+      "subject_id": "conoid_ligament",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-004",
+      "subject_id": "conoid_ligament",
+      "relation": "has_shape",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-005",
+      "subject_id": "conoid_ligament",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-006",
+      "subject_id": "conoid_ligament",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-008",
+      "subject_id": "trapezoid_ligament",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-009",
+      "subject_id": "trapezoid_ligament",
+      "relation": "has_shape",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-010",
+      "subject_id": "trapezoid_ligament",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-011",
+      "subject_id": "trapezoid_ligament",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-014",
+      "subject_id": "coracoclavicular_interligamentous_angle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-015",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "vascular_supply",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-016",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "innervated_by",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-017",
+      "subject_id": "conoid_ligament",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-018",
+      "subject_id": "trapezoid_ligament",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-019",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-001",
+      "subject_id": "pectoral_girdle",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-002",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-003",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-004",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-005",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-006",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-008",
+      "subject_id": "deltopectoral_groove",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-009",
+      "subject_id": "deltopectoral_groove",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-010",
+      "subject_id": "deltopectoral_groove",
+      "relation": "has_border",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-012",
+      "subject_id": "cervicoaxillary_canal",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-013",
+      "subject_id": "cervicoaxillary_canal",
+      "relation": "has_border",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-015",
+      "subject_id": "cephalic_vein",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "reachable": true,
+      "addressability_methods": [
+        "getFactById",
+        "entity_retrieval"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+  "pack_name": "Pectoral Girdle Integration Knowledge Pack",
+  "primary_entity": "pectoral_girdle",
+  "batch_id": "EXP-UL-B1",
+  "version": "1.0.0-DRAFT",
+  "created_at": "2026-09-25T03:02:18.508Z",
+  "status": "AUTHORED_SOURCE_GROUNDED_PENDING_VALIDATION",
+  "entities": [
+    "pectoral_girdle",
+    "scapulothoracic_interface",
+    "deltopectoral_groove",
+    "cervicoaxillary_canal",
+    "retroclavicular_space"
+  ],
+  "entity_count": 5,
+  "fact_count": 28,
+  "source_grounded_fact_count": 26,
+  "ai_draft_fact_count": 2,
+  "quality_dimensions": {
+    "IDENTITY": "COMPLETE",
+    "MORPHOLOGY": "COMPLETE",
+    "ORIENTATION": "COMPLETE",
+    "LANDMARKS": "COMPLETE",
+    "ARTICULATIONS": "COMPLETE",
+    "MUSCLE_ATTACHMENTS": "COMPLETE",
+    "LIGAMENT_ATTACHMENTS": "COMPLETE",
+    "NEUROVASCULAR_RELATIONS": "COMPLETE",
+    "TOPOGRAPHY": "COMPLETE",
+    "SURFACE_ANATOMY": "COMPLETE",
+    "PRACTICAL_ANATOMY": "COMPLETE",
+    "VARIATION": "PARTIAL",
+    "TEACHING_CONNECTIONS": "COMPLETE",
+    "3D_CONTEXT": "PARTIAL",
+    "PROVENANCE": "COMPLETE"
+  },
+  "governance": {
+    "canonical_promotion_performed": false,
+    "safe_engine_eligible": false,
+    "academic_validation": "PENDING"
+  }
+}

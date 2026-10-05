@@ -1,0 +1,62 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "generated_at": "2026-09-25T03:02:18.507Z",
+  "total_dependencies": 4,
+  "dependencies": [
+    {
+      "dependency_id": "DEP-B1-TO-B2",
+      "target_batch_id": "EXP-UL-B2",
+      "target_domain": "MEMBRO_SUPERIOR",
+      "target_structures": [
+        "humerus",
+        "glenohumeral_joint",
+        "rotator_cuff"
+      ],
+      "relation_needed": "KINETIC_CHAIN_CONTINUITY_AND_SCAPULOHUMERAL_RHYTHM",
+      "current_support_status": "EXTERNAL_ENTITY_REFERENCE_ONLY",
+      "rationale": "Pectoral girdle motion transmits force directly to and from the humerus. B1 references the humerus as an external terminal node without authoring its internal osteology or arthrology."
+    },
+    {
+      "dependency_id": "DEP-B1-TO-B3",
+      "target_batch_id": "EXP-UL-B3",
+      "target_domain": "MEMBRO_SUPERIOR",
+      "target_structures": [
+        "axillary_artery",
+        "axillary_vein",
+        "brachial_plexus_cords",
+        "axilla"
+      ],
+      "relation_needed": "TRANSIT_THROUGH_CERVICOAXILLARY_CANAL",
+      "current_support_status": "EXTERNAL_ENTITY_REFERENCE_ONLY",
+      "rationale": "Neurovascular structures crossing inferior to the clavicle into the axilla are referenced as syntopical entities to avoid importing the entire axillary neurovascular tree into B1."
+    },
+    {
+      "dependency_id": "DEP-B1-TO-B9",
+      "target_batch_id": "EXP-THX-B9",
+      "target_domain": "TORAX",
+      "target_structures": [
+        "manubrium_sterni",
+        "first_rib",
+        "first_costal_cartilage",
+        "ribs_2_to_7"
+      ],
+      "relation_needed": "ARTICULAR_FACETS_AND_THORACIC_WALL_SYSSARCOSIS",
+      "current_support_status": "EXTERNAL_ENTITY_REFERENCE_ONLY",
+      "rationale": "The sternoclavicular joint and costoclavicular ligament articulate with the manubrium and 1st rib. B1 authors the joints but leaves the full thoracic wall osteology for Batch 9."
+    },
+    {
+      "dependency_id": "DEP-B1-TO-B23",
+      "target_batch_id": "EXP-NCK-B23",
+      "target_domain": "PESCOCO",
+      "target_structures": [
+        "cervical_plexus",
+        "supraclavicular_nerves",
+        "sternocleidomastoid_cervical_origin",
+        "trapezius_nuchal_origin"
+      ],
+      "relation_needed": "SUPERFICIAL_INNERVATION_AND_MUSCULAR_CONTINUITY",
+      "current_support_status": "EXTERNAL_ENTITY_REFERENCE_ONLY",
+      "rationale": "Supraclavicular nerves and neck muscular insertions attach to the clavicular borders; the nerve origins are managed as future neck domain targets."
+    }
+  ]
+}

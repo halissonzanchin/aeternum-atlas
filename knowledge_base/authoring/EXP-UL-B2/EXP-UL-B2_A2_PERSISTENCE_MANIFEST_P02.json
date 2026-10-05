@@ -1,0 +1,130 @@
+{
+  "document_name": "EXP-UL-B2_A2_PERSISTENCE_MANIFEST_P02",
+  "phase": "AMC-1.2-A2 / EXP-UL-B2-A2-P02",
+  "checkpoint": "P02",
+  "timestamp": "2026-10-04T21:13:55.334Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "parent_P01_sha256": "4a2beff3e842de816852adcfc408fc595ca6172e08d01ed75a052bfe1906e221",
+  "parent_IA2_2_sha256": "a58bd14c7e798fb79a1ebaa91b77b2eb6fbe2b4c17a05ce7376127a051430dc0",
+  "governance_firewall": {
+    "canonical_facts_before": 248,
+    "canonical_facts_after": 248,
+    "canonical_entities_before": 154,
+    "canonical_entities_after": 154,
+    "safe_engine_facts_before": 231,
+    "safe_engine_facts_after": 231,
+    "canonical_mutations": 0,
+    "sqlite_canonical_mutations": 0,
+    "safe_engine_mutations": 0,
+    "validated_new_facts": 0,
+    "canonical_promotions": 0,
+    "safe_engine_promotions": 0,
+    "new_evidence_units": 0,
+    "new_sources": 0,
+    "new_locators": 0,
+    "external_llm_calls": 0,
+    "internet_searches": 0,
+    "git_commits": 0,
+    "git_pushes": 0
+  },
+  "checkpoint_p02_metrics": {
+    "target_range_reviewed": "039-051",
+    "targets_reviewed_count": 13,
+    "chat_authored_expected": 10,
+    "persisted_authored_count": 10,
+    "author_holds_expected": 3,
+    "persisted_author_holds_count": 3,
+    "fact_id_uniqueness": "100%",
+    "target_id_uniqueness": "100%",
+    "fact_target_parity": "100%",
+    "evidence_referential_integrity": "100%",
+    "locator_referential_integrity": "100%",
+    "source_referential_integrity": "100%",
+    "proposition_text_changed_by_antigravity": 0,
+    "unauthorized_anatomical_enrichments": 0,
+    "validation_status_all": "PENDING_VALIDATION",
+    "canonical_status_all": "NONCANONICAL",
+    "safe_engine_status_all": "NOT_QUALIFIED"
+  },
+  "cumulative_metrics": {
+    "target_range_reviewed": "001-051",
+    "cumulative_targets_reviewed": 51,
+    "cumulative_persisted_authored": 41,
+    "cumulative_author_holds": 10,
+    "fact_id_uniqueness": "100%",
+    "target_id_uniqueness": "100%",
+    "fact_target_parity": "100%"
+  },
+  "p02_persisted_fact_ids": [
+    "AET-B2-A2-F039",
+    "AET-B2-A2-F040",
+    "AET-B2-A2-F043",
+    "AET-B2-A2-F044",
+    "AET-B2-A2-F045",
+    "AET-B2-A2-F046",
+    "AET-B2-A2-F047",
+    "AET-B2-A2-F048",
+    "AET-B2-A2-F050",
+    "AET-B2-A2-F051"
+  ],
+  "p02_persisted_hold_ids": [
+    "HOLD-041",
+    "HOLD-042",
+    "HOLD-049"
+  ],
+  "p02_persisted_target_ids": [
+    "TGT-B2-A2E0-039",
+    "TGT-B2-A2E0-040",
+    "TGT-B2-A2E0-043",
+    "TGT-B2-A2E0-044",
+    "TGT-B2-A2E0-045",
+    "TGT-B2-A2E0-046",
+    "TGT-B2-A2E0-047",
+    "TGT-B2-A2E0-048",
+    "TGT-B2-A2E0-050",
+    "TGT-B2-A2E0-051"
+  ],
+  "p02_hold_target_ids": [
+    "TGT-B2-A2E0-041",
+    "TGT-B2-A2E0-042",
+    "TGT-B2-A2E0-049"
+  ],
+  "referenced_entities_p02": [
+    "AET-ENT-REF-GLENOHUMERAL_JOINT",
+    "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM"
+  ],
+  "referenced_evidence_units_p02": [
+    "EVI-B2-BURS-001",
+    "EVI-B2-BURS-002",
+    "EVI-B2-LIG-001",
+    "EVI-B2-GHJ-004",
+    "EVI-B2-GHJ-005",
+    "EVI-B2-MOR-003",
+    "EVI-B2-RTC-010",
+    "EVI-B2-RTC-011",
+    "EVI-B2-INT-001",
+    "EVI-B2-GHJ-008",
+    "EVI-B2-TOPO-001",
+    "EVI-B2-FIG-006",
+    "EVI-B2-GHJ-001",
+    "EVI-B2-GHJ-002"
+  ],
+  "referenced_locators_p02": [
+    "LAT-T1-GHJ-LOC-006",
+    "LAT-T1-GHJ-LOC-003",
+    "LAT-T1-GHJ-LOC-002",
+    "MOR-UL-B2-LOC-009",
+    "LAT-T1-RTC-LOC-002",
+    "LAT-T1-RTC-LOC-003",
+    "LAT-T1-GHJ-LOC-005",
+    "LAT-T1-TOPO-LOC-001",
+    "LAT-T1-TOPO-LOC-002",
+    "NIE-ED1-RTC-LOC-001",
+    "LAT-T1-GHJ-LOC-001"
+  ],
+  "referenced_sources_p02": [
+    "SRC-LATARJET-ED5-T1",
+    "MORGUE-UPPER-LIMB-001",
+    "SRC-NIELSEN-ATLAS-ED1"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "manifest_name": "AETERNUM_CANONICAL_MEMORY_MANIFEST",
+  "version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+  "parent_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+  "release_date": "2026-09-26T18:45:50.000Z",
+  "patch_type": "INFRASTRUCTURE_SEMANTIC_RECONCILIATION",
+  "status": "RELEASED_LOCAL_SOVEREIGN",
+  "anatomical_content_changed": false,
+  "total_canonical_facts": 248,
+  "scapula_canonical_facts": 119,
+  "b1_canonical_facts": 129,
+  "safe_engine_global_production_facts": 231,
+  "safe_engine_quarantined_facts": 17,
+  "entity_registry_version": "2.1",
+  "entity_registry_count": 154,
+  "full_canonical_entities": 84,
+  "canonical_reference_entities": 68,
+  "supported_entities": 2,
+  "pending_entities": 0,
+  "practical_memory_units": 16,
+  "teaching_connections": 17,
+  "documentary_units": 20,
+  "active_pointer_strategy": "OPTION_B_EXPLICIT_CURRENT_POINTER_FILE",
+  "active_current_file": "AETERNUM_CANONICAL_MEMORY_CURRENT.json",
+  "generic_manifest_semantics": "HISTORICAL",
+  "AMC_verification_status": "PROVISIONAL",
+  "AMC_coverage_status": "EXACT_COVERAGE_PENDING_TARGET_REGISTRY",
+  "hash_ledger_reference": "AETERNUM_CERTIFIED_ARTIFACT_HASH_LEDGER_V1.json",
+  "local_sqlite_mirror": "knowledge_base/local_mirror/aeternum_anatomical_memory.db",
+  "promotions": [
+    {
+      "promotion_id": "AET-PROM-SCAP-001",
+      "pack_id": "AET-KP-UL-SCAPULA-001",
+      "fact_count": 119,
+      "safe_facts": 113,
+      "promoted_at": "2026-09-24T06:59:47.583Z"
+    },
+    {
+      "promotion_id": "AET-PROM-UL-B1-001",
+      "batch_id": "EXP-UL-B1",
+      "fact_count": 129,
+      "safe_facts": 118,
+      "promoted_at": "2026-09-25T04:24:56.726Z"
+    }
+  ]
+}

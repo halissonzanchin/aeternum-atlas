@@ -1,0 +1,952 @@
+{
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+  "entity": "scapula",
+  "total_nodes": 95,
+  "total_edges": 121,
+  "nodes": [
+    "scapula",
+    "pectoral_girdle",
+    "flat_bone",
+    "paired_bone",
+    "triangular",
+    "posterolateral_thoracic_wall",
+    "rib_2_to_rib_7",
+    "clavicle",
+    "humerus",
+    "costal_surface_concave",
+    "subscapular_fossa",
+    "posterior_surface_convex",
+    "supraspinous_fossa",
+    "infraspinous_fossa",
+    "scapular_spine",
+    "acromion",
+    "spinoglenoid_notch",
+    "medial_border",
+    "lateral_border",
+    "superior_border",
+    "medial_border_at_spine_level",
+    "medial_border_to_inferior_angle",
+    "suprascapular_notch",
+    "superior_angle",
+    "inferior_angle",
+    "lateral_angle",
+    "coracoid_process",
+    "glenoid_cavity",
+    "glenoid_labrum",
+    "humeral_head",
+    "medial_border_costal_aspect",
+    "scapular_spine_superior_lip",
+    "scapular_spine_inferior_lip",
+    "lateral_border_dorsal_aspect",
+    "inferior_angle_dorsal_aspect",
+    "supraglenoid_tubercle",
+    "infraglenoid_tubercle",
+    "coracoid_process_apex",
+    "coracoid_process_medial_border",
+    "coracoclavicular_ligament",
+    "coracoacromial_ligament",
+    "trapezoid_ligament",
+    "conoid_ligament",
+    "superior_transverse_scapular_ligament",
+    "suprascapular_foramen",
+    "dorsal_scapular_vessels_along_medial_border",
+    "flat_bone_candidate",
+    "costal_surface",
+    "posterior_surface",
+    "posterior_surface_of_scapula",
+    "lateral_angle_of_scapula",
+    "superior_border_of_scapula",
+    "subscapularis",
+    "supraspinatus",
+    "infraspinatus",
+    "teres_minor",
+    "lateral_border_of_scapula",
+    "teres_major",
+    "inferior_scapular_region",
+    "deltoid",
+    "trapezius",
+    "levator_scapulae",
+    "superior_medial_border_of_scapula",
+    "rhomboid_minor",
+    "medial_border_near_root_of_scapular_spine",
+    "rhomboid_major",
+    "medial_border_inferior_to_scapular_spine",
+    "serratus_anterior",
+    "costal_aspect_of_medial_border",
+    "biceps_brachii_long_head",
+    "supraglenoid_region",
+    "triceps_brachii_long_head",
+    "biceps_brachii_short_head",
+    "coracobrachialis",
+    "pectoralis_minor",
+    "suprascapular_nerve",
+    "suprascapular_notch_region",
+    "suprascapular_artery",
+    "dorsal_scapular_artery",
+    "medial_border_of_scapula",
+    "circumflex_scapular_artery",
+    "posterior_scapular_region",
+    "triangular_space",
+    "long_head_triceps",
+    "circumflex_scapular_vessels",
+    "quadrangular_space",
+    "surgical_neck_humerus",
+    "axillary_nerve",
+    "posterior_circumflex_humeral_vessels",
+    "lateral",
+    "anterior",
+    "inferior_angle_of_scapula",
+    "inferior",
+    "glenohumeral_joint",
+    "acromioclavicular_joint"
+  ],
+  "edges": [
+    {
+      "source": "scapula",
+      "relation": "part_of",
+      "target": "pectoral_girdle",
+      "canonical_fact_id": "AET-CF-SCAP-001",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "type_of",
+      "target": "flat_bone",
+      "canonical_fact_id": "AET-CF-SCAP-002",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_symmetry",
+      "target": "paired_bone",
+      "canonical_fact_id": "AET-CF-SCAP-003",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_shape",
+      "target": "triangular",
+      "canonical_fact_id": "AET-CF-SCAP-004",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "located_in",
+      "target": "posterolateral_thoracic_wall",
+      "canonical_fact_id": "AET-CF-SCAP-005",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "spans_levels",
+      "target": "rib_2_to_rib_7",
+      "canonical_fact_id": "AET-CF-SCAP-006",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "articulates_with",
+      "target": "clavicle",
+      "canonical_fact_id": "AET-CF-SCAP-007",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "articulates_with",
+      "target": "humerus",
+      "canonical_fact_id": "AET-CF-SCAP-008",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_curvature",
+      "target": "costal_surface_concave",
+      "canonical_fact_id": "AET-CF-SCAP-009",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_fossa",
+      "target": "subscapular_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-010",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_curvature",
+      "target": "posterior_surface_convex",
+      "canonical_fact_id": "AET-CF-SCAP-011",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_fossa",
+      "target": "supraspinous_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-012",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_fossa",
+      "target": "infraspinous_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-013",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_structure",
+      "target": "scapular_spine",
+      "canonical_fact_id": "AET-CF-SCAP-014",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_structure",
+      "target": "acromion",
+      "canonical_fact_id": "AET-CF-SCAP-015",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_notch",
+      "target": "spinoglenoid_notch",
+      "canonical_fact_id": "AET-CF-SCAP-016",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_border",
+      "target": "medial_border",
+      "canonical_fact_id": "AET-CF-SCAP-017",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_border",
+      "target": "lateral_border",
+      "canonical_fact_id": "AET-CF-SCAP-018",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_border",
+      "target": "superior_border",
+      "canonical_fact_id": "AET-CF-SCAP-019",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "inserts_into",
+      "target": "medial_border_at_spine_level",
+      "canonical_fact_id": "AET-CF-SCAP-020",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "inserts_into",
+      "target": "medial_border_to_inferior_angle",
+      "canonical_fact_id": "AET-CF-SCAP-021",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_notch",
+      "target": "suprascapular_notch",
+      "canonical_fact_id": "AET-CF-SCAP-022",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_angle",
+      "target": "superior_angle",
+      "canonical_fact_id": "AET-CF-SCAP-023",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_angle",
+      "target": "inferior_angle",
+      "canonical_fact_id": "AET-CF-SCAP-024",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_angle",
+      "target": "lateral_angle",
+      "canonical_fact_id": "AET-CF-SCAP-025",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_process",
+      "target": "coracoid_process",
+      "canonical_fact_id": "AET-CF-SCAP-026",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "has_articular_cavity",
+      "target": "glenoid_cavity",
+      "canonical_fact_id": "AET-CF-SCAP-027",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "surrounded_by",
+      "target": "glenoid_labrum",
+      "canonical_fact_id": "AET-CF-SCAP-028",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "articulates_with",
+      "target": "humeral_head",
+      "canonical_fact_id": "AET-CF-SCAP-029",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "originates_from",
+      "target": "subscapular_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-030",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "inserts_into",
+      "target": "medial_border_costal_aspect",
+      "canonical_fact_id": "AET-CF-SCAP-031",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "originates_from",
+      "target": "supraspinous_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-032",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "originates_from",
+      "target": "infraspinous_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-033",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "inserts_into",
+      "target": "scapular_spine_superior_lip",
+      "canonical_fact_id": "AET-CF-SCAP-034",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "originates_from",
+      "target": "scapular_spine_inferior_lip",
+      "canonical_fact_id": "AET-CF-SCAP-035",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "originates_from",
+      "target": "lateral_border_dorsal_aspect",
+      "canonical_fact_id": "AET-CF-SCAP-036",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "originates_from",
+      "target": "inferior_angle_dorsal_aspect",
+      "canonical_fact_id": "AET-CF-SCAP-037",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "originates_from",
+      "target": "supraglenoid_tubercle",
+      "canonical_fact_id": "AET-CF-SCAP-038",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "originates_from",
+      "target": "infraglenoid_tubercle",
+      "canonical_fact_id": "AET-CF-SCAP-039",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "originates_from",
+      "target": "coracoid_process_apex",
+      "canonical_fact_id": "AET-CF-SCAP-040",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "originates_from",
+      "target": "coracoid_process_apex",
+      "canonical_fact_id": "AET-CF-SCAP-041",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "inserts_into",
+      "target": "coracoid_process_medial_border",
+      "canonical_fact_id": "AET-CF-SCAP-042",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "attaches_ligament",
+      "target": "coracoclavicular_ligament",
+      "canonical_fact_id": "AET-CF-SCAP-043",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "attaches_ligament",
+      "target": "coracoacromial_ligament",
+      "canonical_fact_id": "AET-CF-SCAP-044",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "attaches_ligament",
+      "target": "trapezoid_ligament",
+      "canonical_fact_id": "AET-CF-SCAP-045",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "attaches_ligament",
+      "target": "conoid_ligament",
+      "canonical_fact_id": "AET-CF-SCAP-046",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "attaches_ligament",
+      "target": "superior_transverse_scapular_ligament",
+      "canonical_fact_id": "AET-CF-SCAP-047",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "converts_to_foramen",
+      "target": "suprascapular_foramen",
+      "canonical_fact_id": "AET-CF-SCAP-048",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "vascular_syntopy",
+      "target": "dorsal_scapular_vessels_along_medial_border",
+      "canonical_fact_id": "AET-CF-SCAP-049",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "TYPE_OF",
+      "target": "flat_bone_candidate",
+      "canonical_fact_id": "AET-CF-SCAP-050",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "LOCATED_IN",
+      "target": "pectoral_girdle",
+      "canonical_fact_id": "AET-CF-SCAP-051",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_SURFACE",
+      "target": "costal_surface",
+      "canonical_fact_id": "AET-CF-SCAP-052",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_SURFACE",
+      "target": "posterior_surface",
+      "canonical_fact_id": "AET-CF-SCAP-053",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_BORDER",
+      "target": "superior_border",
+      "canonical_fact_id": "AET-CF-SCAP-054",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_BORDER",
+      "target": "medial_border",
+      "canonical_fact_id": "AET-CF-SCAP-055",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_BORDER",
+      "target": "lateral_border",
+      "canonical_fact_id": "AET-CF-SCAP-056",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_ANGLE",
+      "target": "superior_angle",
+      "canonical_fact_id": "AET-CF-SCAP-057",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_ANGLE",
+      "target": "inferior_angle",
+      "canonical_fact_id": "AET-CF-SCAP-058",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_ANGLE",
+      "target": "lateral_angle",
+      "canonical_fact_id": "AET-CF-SCAP-059",
+      "production_eligible": true
+    },
+    {
+      "source": "posterior_surface_of_scapula",
+      "relation": "HAS_STRUCTURE",
+      "target": "scapular_spine",
+      "canonical_fact_id": "AET-CF-SCAP-060",
+      "production_eligible": true
+    },
+    {
+      "source": "scapular_spine",
+      "relation": "SEPARATES",
+      "target": "supraspinous_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-061",
+      "production_eligible": true
+    },
+    {
+      "source": "scapular_spine",
+      "relation": "SEPARATES",
+      "target": "infraspinous_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-061",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_FOSSA",
+      "target": "subscapular_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-062",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_FOSSA",
+      "target": "supraspinous_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-063",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_FOSSA",
+      "target": "infraspinous_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-064",
+      "production_eligible": true
+    },
+    {
+      "source": "scapular_spine",
+      "relation": "CONTINUES_AS",
+      "target": "acromion",
+      "canonical_fact_id": "AET-CF-SCAP-065",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_PROCESS",
+      "target": "coracoid_process",
+      "canonical_fact_id": "AET-CF-SCAP-066",
+      "production_eligible": true
+    },
+    {
+      "source": "lateral_angle_of_scapula",
+      "relation": "HAS_STRUCTURE",
+      "target": "glenoid_cavity",
+      "canonical_fact_id": "AET-CF-SCAP-067",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_LANDMARK",
+      "target": "supraglenoid_tubercle",
+      "canonical_fact_id": "AET-CF-SCAP-068",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "HAS_LANDMARK",
+      "target": "infraglenoid_tubercle",
+      "canonical_fact_id": "AET-CF-SCAP-069",
+      "production_eligible": true
+    },
+    {
+      "source": "superior_border_of_scapula",
+      "relation": "HAS_NOTCH",
+      "target": "suprascapular_notch",
+      "canonical_fact_id": "AET-CF-SCAP-070",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "ARTICULATES_WITH",
+      "target": "clavicle",
+      "canonical_fact_id": "AET-CF-SCAP-071",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "ARTICULATES_WITH",
+      "target": "humerus",
+      "canonical_fact_id": "AET-CF-SCAP-072",
+      "production_eligible": true
+    },
+    {
+      "source": "glenoid_cavity",
+      "relation": "ARTICULATES_WITH",
+      "target": "humeral_head",
+      "canonical_fact_id": "AET-CF-SCAP-073",
+      "production_eligible": true
+    },
+    {
+      "source": "subscapularis",
+      "relation": "ORIGINATES_FROM",
+      "target": "subscapular_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-074",
+      "production_eligible": true
+    },
+    {
+      "source": "supraspinatus",
+      "relation": "ORIGINATES_FROM",
+      "target": "supraspinous_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-075",
+      "production_eligible": true
+    },
+    {
+      "source": "infraspinatus",
+      "relation": "ORIGINATES_FROM",
+      "target": "infraspinous_fossa",
+      "canonical_fact_id": "AET-CF-SCAP-076",
+      "production_eligible": true
+    },
+    {
+      "source": "teres_minor",
+      "relation": "ORIGINATES_FROM",
+      "target": "lateral_border_of_scapula",
+      "canonical_fact_id": "AET-CF-SCAP-077",
+      "production_eligible": true
+    },
+    {
+      "source": "teres_major",
+      "relation": "ORIGINATES_FROM",
+      "target": "inferior_scapular_region",
+      "canonical_fact_id": "AET-CF-SCAP-078",
+      "production_eligible": true
+    },
+    {
+      "source": "deltoid",
+      "relation": "ORIGINATES_FROM",
+      "target": "acromion",
+      "canonical_fact_id": "AET-CF-SCAP-079",
+      "production_eligible": true
+    },
+    {
+      "source": "deltoid",
+      "relation": "ORIGINATES_FROM",
+      "target": "scapular_spine",
+      "canonical_fact_id": "AET-CF-SCAP-080",
+      "production_eligible": true
+    },
+    {
+      "source": "trapezius",
+      "relation": "INSERTS_INTO",
+      "target": "acromion",
+      "canonical_fact_id": "AET-CF-SCAP-081",
+      "production_eligible": true
+    },
+    {
+      "source": "trapezius",
+      "relation": "INSERTS_INTO",
+      "target": "scapular_spine",
+      "canonical_fact_id": "AET-CF-SCAP-082",
+      "production_eligible": true
+    },
+    {
+      "source": "levator_scapulae",
+      "relation": "INSERTS_INTO",
+      "target": "superior_medial_border_of_scapula",
+      "canonical_fact_id": "AET-CF-SCAP-083",
+      "production_eligible": true
+    },
+    {
+      "source": "rhomboid_minor",
+      "relation": "INSERTS_INTO",
+      "target": "medial_border_near_root_of_scapular_spine",
+      "canonical_fact_id": "AET-CF-SCAP-084",
+      "production_eligible": true
+    },
+    {
+      "source": "rhomboid_major",
+      "relation": "INSERTS_INTO",
+      "target": "medial_border_inferior_to_scapular_spine",
+      "canonical_fact_id": "AET-CF-SCAP-085",
+      "production_eligible": true
+    },
+    {
+      "source": "serratus_anterior",
+      "relation": "INSERTS_INTO",
+      "target": "costal_aspect_of_medial_border",
+      "canonical_fact_id": "AET-CF-SCAP-086",
+      "production_eligible": true
+    },
+    {
+      "source": "biceps_brachii_long_head",
+      "relation": "ORIGINATES_FROM",
+      "target": "supraglenoid_region",
+      "canonical_fact_id": "AET-CF-SCAP-087",
+      "production_eligible": true
+    },
+    {
+      "source": "triceps_brachii_long_head",
+      "relation": "ORIGINATES_FROM",
+      "target": "infraglenoid_tubercle",
+      "canonical_fact_id": "AET-CF-SCAP-088",
+      "production_eligible": true
+    },
+    {
+      "source": "biceps_brachii_short_head",
+      "relation": "ORIGINATES_FROM",
+      "target": "coracoid_process",
+      "canonical_fact_id": "AET-CF-SCAP-089",
+      "production_eligible": true
+    },
+    {
+      "source": "coracobrachialis",
+      "relation": "ORIGINATES_FROM",
+      "target": "coracoid_process",
+      "canonical_fact_id": "AET-CF-SCAP-090",
+      "production_eligible": true
+    },
+    {
+      "source": "pectoralis_minor",
+      "relation": "INSERTS_INTO",
+      "target": "coracoid_process",
+      "canonical_fact_id": "AET-CF-SCAP-091",
+      "production_eligible": true
+    },
+    {
+      "source": "coracoacromial_ligament",
+      "relation": "EXTENDS_BETWEEN",
+      "target": "coracoid_process",
+      "canonical_fact_id": "AET-CF-SCAP-092",
+      "production_eligible": true
+    },
+    {
+      "source": "coracoacromial_ligament",
+      "relation": "EXTENDS_BETWEEN",
+      "target": "acromion",
+      "canonical_fact_id": "AET-CF-SCAP-092",
+      "production_eligible": true
+    },
+    {
+      "source": "superior_transverse_scapular_ligament",
+      "relation": "BRIDGES",
+      "target": "suprascapular_notch",
+      "canonical_fact_id": "AET-CF-SCAP-093",
+      "production_eligible": true
+    },
+    {
+      "source": "suprascapular_nerve",
+      "relation": "PASSES_THROUGH",
+      "target": "suprascapular_notch_region",
+      "canonical_fact_id": "AET-CF-SCAP-094",
+      "production_eligible": true
+    },
+    {
+      "source": "suprascapular_nerve",
+      "relation": "RELATED_TO",
+      "target": "superior_transverse_scapular_ligament",
+      "canonical_fact_id": "AET-CF-SCAP-095",
+      "production_eligible": false
+    },
+    {
+      "source": "suprascapular_artery",
+      "relation": "RELATED_TO",
+      "target": "suprascapular_notch_region",
+      "canonical_fact_id": "AET-CF-SCAP-096",
+      "production_eligible": false
+    },
+    {
+      "source": "suprascapular_nerve",
+      "relation": "RELATED_TO",
+      "target": "spinoglenoid_notch",
+      "canonical_fact_id": "AET-CF-SCAP-097",
+      "production_eligible": false
+    },
+    {
+      "source": "dorsal_scapular_artery",
+      "relation": "RELATED_TO",
+      "target": "medial_border_of_scapula",
+      "canonical_fact_id": "AET-CF-SCAP-098",
+      "production_eligible": false
+    },
+    {
+      "source": "circumflex_scapular_artery",
+      "relation": "RELATED_TO",
+      "target": "posterior_scapular_region",
+      "canonical_fact_id": "AET-CF-SCAP-099",
+      "production_eligible": false
+    },
+    {
+      "source": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": "teres_minor",
+      "canonical_fact_id": "AET-CF-SCAP-100",
+      "production_eligible": true
+    },
+    {
+      "source": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": "teres_major",
+      "canonical_fact_id": "AET-CF-SCAP-101",
+      "production_eligible": true
+    },
+    {
+      "source": "triangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": "long_head_triceps",
+      "canonical_fact_id": "AET-CF-SCAP-102",
+      "production_eligible": true
+    },
+    {
+      "source": "triangular_space",
+      "relation": "CONTAINS",
+      "target": "circumflex_scapular_vessels",
+      "canonical_fact_id": "AET-CF-SCAP-103",
+      "production_eligible": true
+    },
+    {
+      "source": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": "teres_minor",
+      "canonical_fact_id": "AET-CF-SCAP-104",
+      "production_eligible": true
+    },
+    {
+      "source": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": "teres_major",
+      "canonical_fact_id": "AET-CF-SCAP-105",
+      "production_eligible": true
+    },
+    {
+      "source": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": "long_head_triceps",
+      "canonical_fact_id": "AET-CF-SCAP-106",
+      "production_eligible": true
+    },
+    {
+      "source": "quadrangular_space",
+      "relation": "HAS_BOUNDARY",
+      "target": "surgical_neck_humerus",
+      "canonical_fact_id": "AET-CF-SCAP-107",
+      "production_eligible": true
+    },
+    {
+      "source": "quadrangular_space",
+      "relation": "CONTAINS",
+      "target": "axillary_nerve",
+      "canonical_fact_id": "AET-CF-SCAP-108",
+      "production_eligible": true
+    },
+    {
+      "source": "quadrangular_space",
+      "relation": "CONTAINS",
+      "target": "posterior_circumflex_humeral_vessels",
+      "canonical_fact_id": "AET-CF-SCAP-109",
+      "production_eligible": true
+    },
+    {
+      "source": "scapular_spine",
+      "relation": "PRACTICAL_IDENTIFIES",
+      "target": "posterior_surface_of_scapula",
+      "canonical_fact_id": "AET-CF-SCAP-110",
+      "production_eligible": true
+    },
+    {
+      "source": "glenoid_cavity",
+      "relation": "PRACTICAL_ORIENTATION",
+      "target": "lateral",
+      "canonical_fact_id": "AET-CF-SCAP-111",
+      "production_eligible": true
+    },
+    {
+      "source": "coracoid_process",
+      "relation": "PRACTICAL_ORIENTATION",
+      "target": "anterior",
+      "canonical_fact_id": "AET-CF-SCAP-112",
+      "production_eligible": true
+    },
+    {
+      "source": "inferior_angle_of_scapula",
+      "relation": "PRACTICAL_ORIENTATION",
+      "target": "inferior",
+      "canonical_fact_id": "AET-CF-SCAP-113",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "target": "suprascapular_artery",
+      "canonical_fact_id": "AET-CF-SCAP-114",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "target": "circumflex_scapular_artery",
+      "canonical_fact_id": "AET-CF-SCAP-115",
+      "production_eligible": true
+    },
+    {
+      "source": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "target": "dorsal_scapular_artery",
+      "canonical_fact_id": "AET-CF-SCAP-116",
+      "production_eligible": true
+    },
+    {
+      "source": "glenohumeral_joint",
+      "relation": "innervated_by",
+      "target": "suprascapular_nerve",
+      "canonical_fact_id": "AET-CF-SCAP-117",
+      "production_eligible": true
+    },
+    {
+      "source": "glenohumeral_joint",
+      "relation": "innervated_by",
+      "target": "axillary_nerve",
+      "canonical_fact_id": "AET-CF-SCAP-118",
+      "production_eligible": true
+    },
+    {
+      "source": "acromioclavicular_joint",
+      "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+      "target": "suprascapular_nerve",
+      "canonical_fact_id": "AET-CF-SCAP-119",
+      "production_eligible": false
+    }
+  ]
+}

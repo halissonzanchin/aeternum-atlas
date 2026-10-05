@@ -1,0 +1,116 @@
+[
+  {
+    "id": "AACM-FIX-01",
+    "scope": "MACRO_OVERVIEW",
+    "query": "Explique a escápula.",
+    "target_entity": "scapula",
+    "expected_behavior_category": "PANORAMIC_PEDAGOGICAL_OVERVIEW",
+    "required_sections_in_order": [
+      "classification_and_morphology",
+      "faces_borders_angles",
+      "processes_spine_acromion_coracoid",
+      "articulations_glenohumeral_acromioclavicular",
+      "muscular_attachments_rotator_cuff",
+      "practical_cadaveric_orientation",
+      "clinical_correlations"
+    ],
+    "prohibited_behaviors": [
+      "single_sentence_glossary_definition",
+      "unstructured_database_field_dump",
+      "omission_of_articulations_and_rotator_cuff"
+    ],
+    "expected_response_depth": "PROFESSOR"
+  },
+  {
+    "id": "AACM-FIX-02",
+    "scope": "MICRO_FACT",
+    "query": "Qual músculo ocupa a fossa supraespinosa?",
+    "target_entity": "supraspinous_fossa",
+    "expected_behavior_category": "DIRECT_MICRO_FACT_RESPONSE",
+    "required_response_order": [
+      "DIRECT_ANSWER: identifies supraspinatus muscle",
+      "IMMEDIATE_ANATOMICAL_CONTEXT: position superior to scapular spine and insertion into greater tubercle of humerus",
+      "OPTIONAL_HIGH_VALUE_CONNECTION: subscapular nerve innervation or suprascapular notch neurovascular passage"
+    ],
+    "prohibited_behaviors": [
+      "full_monograph_on_scapular_osteology",
+      "unrelated_descriptions_of_infraspinatus_without_prompt",
+      "delayed_direct_answer"
+    ],
+    "expected_response_depth": "CONTEXTUAL"
+  },
+  {
+    "id": "AACM-FIX-03",
+    "scope": "RELATION_QUERY",
+    "query": "Com o que a cavidade glenoidal se articula?",
+    "target_entity": "glenoid_cavity",
+    "expected_behavior_category": "ARTICULAR_RELATIONAL_SPECIFICATION",
+    "required_response_order": [
+      "DIRECT_ANSWER: head of the humerus (glenohumeral joint)",
+      "IMMEDIATE_ANATOMICAL_CONTEXT: shallow concavity deepened by the fibrocartilaginous glenoid labrum",
+      "OPTIONAL_HIGH_VALUE_CONNECTION: mobility vs. stability trade-off leading to common anterior dislocation"
+    ],
+    "prohibited_behaviors": [
+      "omitting_glenoid_labrum_context",
+      "speculative_biomechanics_without_structural_basis"
+    ],
+    "expected_response_depth": "DIRECT"
+  },
+  {
+    "id": "AACM-FIX-04",
+    "scope": "RELATION_QUERY",
+    "query": "O que passa no sulco do nervo radial?",
+    "target_entity": "radial_groove",
+    "expected_behavior_category": "PROFESSOR_NEUROVASCULAR_CONNECTION",
+    "required_response_order": [
+      "DIRECT_ANSWER: radial nerve and deep artery of the arm (arteria profunda brachii)",
+      "IMMEDIATE_ANATOMICAL_CONTEXT: oblique spiral path along the posterior surface of the humeral midshaft",
+      "PROFESSOR_CONNECTION: vulnerability to midshaft humerus fractures resulting in wrist drop due to extensor paralysis"
+    ],
+    "prohibited_behaviors": [
+      "mentioning_only_nerve_without_vascular_companion",
+      "omitting_the_humeral_shaft_contact"
+    ],
+    "expected_response_depth": "PROFESSOR"
+  },
+  {
+    "id": "AACM-FIX-05",
+    "scope": "PRACTICAL_IDENTIFICATION_QUERY",
+    "query": "Como reconhecer a face posterior da escápula na peça?",
+    "target_entity": "scapula",
+    "expected_behavior_category": "CADAVERIC_PRACTICAL_RECOGNITION",
+    "required_response_order": [
+      "DIRECT_CRITERION: prominent spine of the scapula dividing the surface into supraspinous and infraspinous fossae",
+      "CONTRAST_CRITERION: anterior face is concave (subscapular fossa) with costal ridges",
+      "MORGUE_LAB_TIP: spine terminates laterally in the flat, subcutaneous acromion"
+    ],
+    "prohibited_behaviors": [
+      "abstract_theoretical_formula_without_palpable_visual_landmark",
+      "confusing_acromion_with_coracoid_process"
+    ],
+    "expected_response_depth": "PROFESSOR"
+  },
+  {
+    "id": "AACM-FIX-06",
+    "scope": "VIEWER_CONTEXT_QUERY",
+    "query": "quem inerva isso?",
+    "viewer_state": {
+      "selected_mesh_id": "mesh_biceps_brachii_lh",
+      "selected_entity_id": "biceps_brachii_muscle",
+      "camera_target": "anterior_arm"
+    },
+    "expected_behavior_category": "3D_REFERENT_DISAMBIGUATION_AND_MICRO_ANSWER",
+    "required_response_order": [
+      "DEICTIC_RESOLUTION: identifies 'isso' as biceps brachii muscle based on active 3D selection",
+      "DIRECT_ANSWER: musculocutaneous nerve (C5, C6)",
+      "IMMEDIATE_ANATOMICAL_CONTEXT: nerve pierces coracobrachialis and descends between biceps and brachialis",
+      "VIEWER_ACTION: maintains highlight on biceps brachii and emphasizes musculocutaneous nerve spline"
+    ],
+    "prohibited_behaviors": [
+      "asking_the_user_what_they_mean_by_isso",
+      "answering_about_the_wrong_adjacent_muscle",
+      "failing_to_resolve_the_viewer_state"
+    ],
+    "expected_response_depth": "CONTEXTUAL"
+  }
+]

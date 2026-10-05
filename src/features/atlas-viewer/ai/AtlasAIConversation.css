@@ -938,4 +938,125 @@
   color: #0d9488 !important;
 }
 
+/* ============================================================
+   FALLBACK TRANSPARENCY — ERROR CARDS & OFFLINE BADGES
+   ============================================================ */
+
+.atlas-viewer-ai-message-row.is-error {
+  width: 100%;
+  align-items: stretch;
+}
+
+.atlas-ai-message-error-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(45, 15, 20, 0.72);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  color: rgba(254, 202, 202, 0.95);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  backdrop-filter: blur(12px);
+}
+
+.atlas-ai-message-error-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.atlas-ai-error-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+
+.atlas-ai-error-text {
+  margin: 0;
+  color: #fecaca;
+  font-weight: 500;
+}
+
+.atlas-ai-error-retry-btn {
+  align-self: flex-start;
+  margin-left: 24px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.atlas-ai-error-retry-btn:hover {
+  background: rgba(239, 68, 68, 0.28);
+  color: #ffffff;
+  border-color: rgba(239, 68, 68, 0.55);
+}
+
+.atlas-ai-offline-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.32);
+  color: #fef3c7;
+}
+
+.atlas-ai-offline-badge__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fbbf24;
+  letter-spacing: 0.02em;
+}
+
+.atlas-ai-offline-badge__secondary {
+  font-size: 0.65rem;
+  color: rgba(253, 230, 138, 0.82);
+}
+
+.a26-theme-light .atlas-ai-message-error-card {
+  background: rgba(254, 242, 242, 0.96) !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+  color: #991b1b !important;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.08) !important;
+}
+
+.a26-theme-light .atlas-ai-error-text {
+  color: #991b1b !important;
+}
+
+.a26-theme-light .atlas-ai-error-retry-btn {
+  background: rgba(239, 68, 68, 0.1) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+  color: #dc2626 !important;
+}
+
+.a26-theme-light .atlas-ai-offline-badge {
+  background: rgba(254, 243, 199, 0.92) !important;
+  border-color: rgba(245, 158, 11, 0.4) !important;
+  color: #92400e !important;
+}
+
+.a26-theme-light .atlas-ai-offline-badge__title {
+  color: #b45309 !important;
+}
+
+.a26-theme-light .atlas-ai-offline-badge__secondary {
+  color: #78350f !important;
+}
+
+
 

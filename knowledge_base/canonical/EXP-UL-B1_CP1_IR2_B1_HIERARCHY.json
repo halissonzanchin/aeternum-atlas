@@ -1,0 +1,144 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR2",
+  "root_packs": [
+    "AET-KP-UL-CLAVICLE-001",
+    "AET-KP-UL-SC-JOINT-001",
+    "AET-KP-UL-AC-JOINT-001",
+    "AET-KP-UL-CORACOCLAVICULAR-001",
+    "AET-KP-UL-PECTORAL-GIRDLE-001"
+  ],
+  "hierarchy_nodes_count": 41,
+  "disaggregated_subentities_count": 11,
+  "structural_components": [
+    {
+      "parent": "AET-ENT-UL-CLAVICLE",
+      "children": [
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_SHAFT",
+          "name": "Shaft of Clavicle",
+          "type": "PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_STERNAL_END",
+          "name": "Sternal End of Clavicle",
+          "type": "PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_ACROMIAL_END",
+          "name": "Acromial End of Clavicle",
+          "type": "PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE",
+          "name": "Superior Surface of Clavicle",
+          "type": "SURFACE_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_INFERIOR_SURFACE",
+          "name": "Inferior Surface of Clavicle",
+          "type": "SURFACE_PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-CLAVICULAR_SHAFT",
+      "children": [
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER",
+          "name": "Anterior Border of Clavicle",
+          "type": "BORDER_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_POSTERIOR_BORDER",
+          "name": "Posterior Border of Clavicle",
+          "type": "BORDER_PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER",
+      "children": [
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER_LATERAL_THIRD",
+          "name": "Lateral One-Third of Anterior Border",
+          "type": "BORDER_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER_MEDIAL_TWO_THIRDS",
+          "name": "Medial Two-Thirds of Anterior Border",
+          "type": "BORDER_PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-CLAVICULAR_POSTERIOR_BORDER",
+      "children": [
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_POSTERIOR_BORDER_LATERAL_THIRD",
+          "name": "Lateral One-Third of Posterior Border",
+          "type": "BORDER_PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-CLAVICULAR_STERNAL_END",
+      "children": [
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_STERNAL_END_EPIPHYSIS",
+          "name": "Epiphysis of Sternal End of Clavicle",
+          "type": "PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE",
+      "children": [
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE_LATERAL_ANTERIOR",
+          "name": "Lateral One-Third Anterior Aspect",
+          "type": "SURFACE_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE_LATERAL_POSTERIOR",
+          "name": "Lateral One-Third Posterior Aspect",
+          "type": "SURFACE_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE_MEDIAL_HALF",
+          "name": "Medial Half",
+          "type": "SURFACE_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE_MEDIAL_POSTERIOR",
+          "name": "Medial One-Third Posterior Aspect",
+          "type": "SURFACE_PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-ACROMIOCLAVICULAR_LIGAMENT",
+      "children": [
+        {
+          "id": "AET-ENT-UL-SUPERIOR_ACROMIOCLAVICULAR_LIGAMENT",
+          "name": "Superior Acromioclavicular Ligament",
+          "type": "PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-CORACOCLAVICULAR_LIGAMENT_COMPLEX",
+      "children": [
+        {
+          "id": "AET-ENT-UL-CONOID_LIGAMENT",
+          "name": "Conoid Ligament",
+          "type": "PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-TRAPEZOID_LIGAMENT",
+          "name": "Trapezoid Ligament",
+          "type": "PART_OF"
+        }
+      ]
+    }
+  ]
+}

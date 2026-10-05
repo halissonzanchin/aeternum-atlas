@@ -68,7 +68,7 @@ export class AeternumBehaviorOrchestrator {
       return CONVERSATIONAL_INTENTS.STUDY_ROUTINE;
     }
 
-    if (/\b(fala comigo|fala felipe|fala eduardo|fala antonia|oi|ola|tudo bem|como vai|quem e voce|hola|buen dia|hello|hi)\b/i.test(q)) {
+    if (/\b(fala comigo|fala marina|fala felipe|fala eduardo|fala antonia|oi|ola|tudo bem|como vai|quem e voce|hola|buen dia|hello|hi)\b/i.test(q)) {
       return CONVERSATIONAL_INTENTS.CASUAL_CHAT;
     }
 
@@ -159,7 +159,7 @@ export class AeternumBehaviorOrchestrator {
       directive += '- Use numeros por extenso e virgulas para pausas respiratorias.\n';
 
       if (state.intent === CONVERSATIONAL_INTENTS.FAREWELL) {
-        directive += '- O aluno esta se despedindo. Agradeca calorosamente, deseje \"' + (state.timeContext?.greetingPhrase || 'bom descanso') + '\" e finalize o dialogo com carinho.\n';
+        directive += '- O aluno esta se despedindo. Agradeca calorosamente, deseje "' + (state.timeContext?.greetingPhrase || 'bom descanso') + '" e finalize o dialogo com carinho.\n';
       } else if (state.socraticLevel === SOCRATIC_LEVELS.S0_DIRECT) {
         directive += '- Entregue a resposta direta e precisa sem rodeios.\n';
       } else if (state.socraticLevel === SOCRATIC_LEVELS.S2_GUIDED) {

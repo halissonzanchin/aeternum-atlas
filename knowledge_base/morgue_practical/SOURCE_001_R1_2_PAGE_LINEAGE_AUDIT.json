@@ -1,0 +1,91 @@
+{
+  "version": "R1.2",
+  "summary": {
+    "total_atomic_facts_audited": 208,
+    "atomic_fact_page_mismatch_count": 0,
+    "quadrangular_page_audit_result": "REPORT_TYPO"
+  },
+  "quadrangular_investigation": {
+    "investigation": "Audit of reported \"Quadrangular boundary variant P14\" from R1.1 report.",
+    "findings": [
+      "Page 14 in SOURCE_001_R1_PAGE_LEDGER contains strictly: \"Ángulo Lateral: Une Borde Superior y Lateral\" (scapula lateral angle).",
+      "Atomic facts AF-0046 and AF-0047 correctly map to Page 14 (scapula lateral angle morphology) and are VALIDATED.",
+      "The Velpeau quadrangular space assertions and facts reside on Page 41 (SA-0112 / AF-0141..AF-0146) and Page 52 (SA-0150).",
+      "No quadrangular space facts ever resided on Page 14."
+    ],
+    "audit_verdict": "REPORT_TYPO",
+    "action": "Documentation erratum corrected in R1.2. The underlying page lineage in JSON artifacts was 100% correct."
+  },
+  "page_audit_sample": [
+    {
+      "atomic_fact_id": "AF-0001",
+      "source_assertion_id": "SA-0001",
+      "fact_page": 1,
+      "assertion_page": 1,
+      "is_page_consistent": true
+    },
+    {
+      "atomic_fact_id": "AF-0002",
+      "source_assertion_id": "SA-0002",
+      "fact_page": 1,
+      "assertion_page": 1,
+      "is_page_consistent": true
+    },
+    {
+      "atomic_fact_id": "AF-0003",
+      "source_assertion_id": "SA-0003",
+      "fact_page": 1,
+      "assertion_page": 1,
+      "is_page_consistent": true
+    },
+    {
+      "atomic_fact_id": "AF-0004",
+      "source_assertion_id": "SA-0004",
+      "fact_page": 1,
+      "assertion_page": 1,
+      "is_page_consistent": true
+    },
+    {
+      "atomic_fact_id": "AF-0005",
+      "source_assertion_id": "SA-0004",
+      "fact_page": 1,
+      "assertion_page": 1,
+      "is_page_consistent": true
+    },
+    {
+      "atomic_fact_id": "AF-0006",
+      "source_assertion_id": "SA-0004",
+      "fact_page": 1,
+      "assertion_page": 1,
+      "is_page_consistent": true
+    },
+    {
+      "atomic_fact_id": "AF-0007",
+      "source_assertion_id": "SA-0005",
+      "fact_page": 1,
+      "assertion_page": 1,
+      "is_page_consistent": true
+    },
+    {
+      "atomic_fact_id": "AF-0008",
+      "source_assertion_id": "SA-0005",
+      "fact_page": 1,
+      "assertion_page": 1,
+      "is_page_consistent": true
+    },
+    {
+      "atomic_fact_id": "AF-0009",
+      "source_assertion_id": "SA-0006",
+      "fact_page": 1,
+      "assertion_page": 1,
+      "is_page_consistent": true
+    },
+    {
+      "atomic_fact_id": "AF-0010",
+      "source_assertion_id": "SA-0006",
+      "fact_page": 1,
+      "assertion_page": 1,
+      "is_page_consistent": true
+    }
+  ]
+}

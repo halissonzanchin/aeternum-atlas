@@ -2,7 +2,15 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
+const read = (path) => {
+  return readFile(new URL(`../${path}`, import.meta.url), "utf8").catch((err) => {
+    if (path.startsWith("supabase/migrations/")) {
+      const historical = path.replace("supabase/migrations/", "supabase/historical/migrations/");
+      return readFile(new URL(`../${historical}`, import.meta.url), "utf8");
+    }
+    throw err;
+  });
+};
 
 const [
   page,

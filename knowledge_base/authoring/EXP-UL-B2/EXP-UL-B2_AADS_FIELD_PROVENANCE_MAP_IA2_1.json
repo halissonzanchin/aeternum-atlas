@@ -1,0 +1,4860 @@
+{
+  "document_name": "EXP-UL-B2_AADS_FIELD_PROVENANCE_MAP_IA2_1",
+  "phase": "AMC-1.2-R2.3.1 / EXP-UL-B2-A2E0-IA2.1",
+  "timestamp": "2026-10-04T05:46:52.857Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "metrics": {
+    "total_field_definitions": 288,
+    "institutional_core_explicit_count": 76,
+    "institutional_pattern_derived_count": 73,
+    "aeternum_extension_count": 139,
+    "unsupported_pending_count": 0,
+    "provenance_class_multiplicity_errors": 0,
+    "provenance_unclassified_fields": 0
+  },
+  "provenance_map": [
+    {
+      "entity_type": "BONE",
+      "field_name": "identity",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for BONE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "topographic_location",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "bone_type",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "paired_unpaired",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for BONE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "laterality",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for BONE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_orientation",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for BONE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "generalities",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for BONE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "external_configuration.parts",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for BONE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "external_configuration.surfaces",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "external_configuration.borders",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "external_configuration.angles",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "external_configuration.extremities",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.tubercles",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.processes",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.fossae",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.grooves",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.crests",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.lines",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.notches",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.foramina",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.canals",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.facets",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.articular_surfaces",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.other_landmarks",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "passage_relationships.what_passes_through_foramen",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BONE:passage_relationships.what_passes_through_foramen.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "passage_relationships.what_passes_through_canal",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BONE:passage_relationships.what_passes_through_canal.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "passage_relationships.what_passes_through_groove",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BONE:passage_relationships.what_passes_through_groove.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "passage_relationships.what_passes_through_notch",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BONE:passage_relationships.what_passes_through_notch.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "attachments.muscular",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "attachments.tendinous",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BONE:attachments.tendinous.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "attachments.ligamentous",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BONE:attachments.ligamentous.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "attachments.fascial",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BONE:attachments.fascial.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "articulations",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "relations",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P03-BONE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "continuities",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BONE:continuities.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for BONE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "three_d_orientation",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BONE:three_d_orientation.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BONE:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BONE",
+      "field_name": "morphometry_when_sourced",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BONE:morphometry_when_sourced.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "identity",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "location",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "classification",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "articular_surfaces",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "articular_cartilage",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for JOINT.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "congruence",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for JOINT.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "complementary_structures.labrum",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:complementary_structures.labrum.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "complementary_structures.disc",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:complementary_structures.disc.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "complementary_structures.meniscus",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:complementary_structures.meniscus.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "complementary_structures.fibrocartilage",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:complementary_structures.fibrocartilage.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "complementary_structures.fat_pads_if_applicable",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:complementary_structures.fat_pads_if_applicable.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "capsule.presence",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:capsule.presence.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "capsule.attachments",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:capsule.attachments.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "capsule.thickness_variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:capsule.thickness_variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "capsule.laxity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:capsule.laxity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "capsule.reinforcements",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:capsule.reinforcements.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "synovial_membrane",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for JOINT.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "synovial_recesses",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:synovial_recesses.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "bursae",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:bursae.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "ligaments",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for JOINT.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "means_of_union",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "movements.movement_types",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "movements.planes",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "movements.axes",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "movements.ranges_only_when_sourced",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:movements.ranges_only_when_sourced.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "stability.static_stabilizers",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:stability.static_stabilizers.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "stability.dynamic_stabilizers",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:stability.dynamic_stabilizers.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "innervation",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "arterial_supply",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "venous_drainage",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:venous_drainage.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "relations",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for JOINT.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for JOINT.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "JOINT",
+      "field_name": "three_d_relationships",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for JOINT:three_d_relationships.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "identity",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for MUSCLE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "location",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "region",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for MUSCLE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "group",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for MUSCLE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "plane",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for MUSCLE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "compartment",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for MUSCLE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "origin",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "insertion",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.belly",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:architecture.belly.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.heads",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:architecture.heads.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.fascicles",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:architecture.fascicles.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.fiber_direction",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:architecture.fiber_direction.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.pennation_when_sourced",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:architecture.pennation_when_sourced.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.aponeurosis",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:architecture.aponeurosis.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.tendon",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:architecture.tendon.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "trajectory",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for MUSCLE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "relations.superficial",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "relations.deep",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "relations.superior",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "relations.inferior",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "relations.medial",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "relations.lateral",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "relations.anterior",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "relations.posterior",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "innervation",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "arterial_supply",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "venous_drainage_when_sourced",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:venous_drainage_when_sourced.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "action",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "functional_role",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:functional_role.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "stabilizing_role",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:stabilizing_role.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for MUSCLE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "MUSCLE",
+      "field_name": "three_d_relationships",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for MUSCLE:three_d_relationships.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "identity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:identity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "parent_muscle",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:parent_muscle.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "origin_transition",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:origin_transition.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "course",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:course.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "relations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:relations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "sheaths",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:sheaths.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "bursae_relationships",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:bursae_relationships.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "capsular_relationships",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:capsular_relationships.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "insertion",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:insertion.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "footprint",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:footprint.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "vascularization_when_sourced",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:vascularization_when_sourced.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:practical_identification.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TENDON",
+      "field_name": "three_d_relationships",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TENDON:three_d_relationships.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "identity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:identity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "location",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:location.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "proximal_attachment",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:proximal_attachment.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "distal_attachment",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:distal_attachment.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "course",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:course.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "relations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:relations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "joint_association",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:joint_association.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "capsular_continuity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:capsular_continuity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "mechanical_role_when_sourced",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:mechanical_role_when_sourced.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:practical_identification.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LIGAMENT",
+      "field_name": "three_d_relationships",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LIGAMENT:three_d_relationships.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "identity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:identity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "location",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:location.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "boundaries",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:boundaries.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "superficial_relations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:superficial_relations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "deep_relations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:deep_relations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "structures_separated",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:structures_separated.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "communication_with_joint_if_sourced",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:communication_with_joint_if_sourced.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "communication_with_other_bursa_if_sourced",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:communication_with_other_bursa_if_sourced.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "functional_role",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:functional_role.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:practical_identification.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "BURSA",
+      "field_name": "three_d_relationships",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for BURSA:three_d_relationships.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ARTERY",
+      "field_name": "identity",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for ARTERY.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ARTERY",
+      "field_name": "origin",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ARTERY",
+      "field_name": "course",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ARTERY",
+      "field_name": "segments",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for ARTERY.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ARTERY",
+      "field_name": "relations",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ARTERY",
+      "field_name": "collateral_branches",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ARTERY",
+      "field_name": "terminal_branches",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ARTERY",
+      "field_name": "anastomoses",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for ARTERY.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ARTERY",
+      "field_name": "territory_supplied",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for ARTERY.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ARTERY",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for ARTERY.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ARTERY",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for ARTERY:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VEIN",
+      "field_name": "identity",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for VEIN.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VEIN",
+      "field_name": "origin_or_formation",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VEIN",
+      "field_name": "course",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VEIN",
+      "field_name": "relations",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VEIN",
+      "field_name": "tributaries",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VEIN",
+      "field_name": "termination",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P04-MUSCLE"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VEIN",
+      "field_name": "communications",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for VEIN.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VEIN",
+      "field_name": "territory_drained",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for VEIN.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VEIN",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for VEIN.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VEIN",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for VEIN:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "identity",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "nerve_type",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "origin.root_values",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "origin.plexus_origin",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "origin.real_origin_if_applicable",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "origin.apparent_origin_if_applicable",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "course",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "segments",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "relations",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "passage_through_spaces",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "collateral_branches",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "terminal_branches",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "territory.motor",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "territory.sensory",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "territory.autonomic",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "territory.articular",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "communications",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for NERVE.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NERVE",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for NERVE:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "identity",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "location",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "boundaries.superior",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "boundaries.inferior",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "boundaries.medial",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "boundaries.lateral",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "boundaries.anterior",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "boundaries.posterior",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "roof",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "floor",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "walls",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "layers",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "contents",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "neurovascular_arrangement",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "entrances",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "exits",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "communications",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "continuities",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "relations",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "structures_crossing",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "structures_entering",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "structures_leaving",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for TOPOGRAPHIC_REGION.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "three_d_relationships",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TOPOGRAPHIC_REGION:three_d_relationships.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for TOPOGRAPHIC_REGION:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "identity",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for VISCUS.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "definition",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "function",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "location",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "weight_when_sourced",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "dimensions_when_sourced",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "external_configuration.parts",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "external_configuration.shape",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "external_configuration.surfaces",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "external_configuration.borders",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "external_configuration.angles",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "external_configuration.base",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "external_configuration.apex",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "external_configuration.poles",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "external_configuration.extremities",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "internal_configuration",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "functional_organization",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "relations",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "means_of_fixation",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for VISCUS.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "arterial_supply",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "venous_drainage",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "innervation",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "lymphatics",
+      "primary_provenance_class": "INSTITUTIONAL_CORE_EXPLICIT",
+      "institutional_source_ids": [
+        "SRC-INST-GUIA-BOLILLERO-PDF"
+      ],
+      "institutional_locator_ids": [
+        "LOC-INST-GUIA-P07-JOINT"
+      ],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "INSTITUTIONAL_BOLILLERO_EXAM_PROGRAM"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "INSTITUTIONAL_PATTERN_DERIVED",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+        "SRC-INST-BOLILLERO-2024-DOCX"
+      ],
+      "pattern_rationale": "Derived from recurrent institutional study format and bolillero examination question pattern for VISCUS.",
+      "aeternum_extension_rationale": null,
+      "secondary_provenance": [
+        "CLASSICAL_DESCRIPTIVE_ANATOMY"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "VISCUS",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for VISCUS:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "FASCIA",
+      "field_name": "identity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for FASCIA:identity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "FASCIA",
+      "field_name": "location",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for FASCIA:location.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "FASCIA",
+      "field_name": "attachments",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for FASCIA:attachments.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "FASCIA",
+      "field_name": "investing_layers",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for FASCIA:investing_layers.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "FASCIA",
+      "field_name": "intermuscular_septa",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for FASCIA:intermuscular_septa.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "FASCIA",
+      "field_name": "compartments_formed",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for FASCIA:compartments_formed.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "FASCIA",
+      "field_name": "relations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for FASCIA:relations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "FASCIA",
+      "field_name": "retinacula_continuities",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for FASCIA:retinacula_continuities.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "FASCIA",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for FASCIA:practical_identification.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "FASCIA",
+      "field_name": "variations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for FASCIA:variations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "APONEUROSIS",
+      "field_name": "identity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for APONEUROSIS:identity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "APONEUROSIS",
+      "field_name": "parent_muscle_or_tendon",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for APONEUROSIS:parent_muscle_or_tendon.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "APONEUROSIS",
+      "field_name": "extent",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for APONEUROSIS:extent.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "APONEUROSIS",
+      "field_name": "fiber_direction",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for APONEUROSIS:fiber_direction.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "APONEUROSIS",
+      "field_name": "thickness",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for APONEUROSIS:thickness.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "APONEUROSIS",
+      "field_name": "attachments",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for APONEUROSIS:attachments.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "APONEUROSIS",
+      "field_name": "relations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for APONEUROSIS:relations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "APONEUROSIS",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for APONEUROSIS:practical_identification.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ANATOMICAL_SPACE",
+      "field_name": "identity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for ANATOMICAL_SPACE:identity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ANATOMICAL_SPACE",
+      "field_name": "location",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for ANATOMICAL_SPACE:location.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ANATOMICAL_SPACE",
+      "field_name": "boundaries",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for ANATOMICAL_SPACE:boundaries.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ANATOMICAL_SPACE",
+      "field_name": "contents",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for ANATOMICAL_SPACE:contents.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ANATOMICAL_SPACE",
+      "field_name": "communications",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for ANATOMICAL_SPACE:communications.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ANATOMICAL_SPACE",
+      "field_name": "clinical_significance_when_sourced",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for ANATOMICAL_SPACE:clinical_significance_when_sourced.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "ANATOMICAL_SPACE",
+      "field_name": "practical_identification",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for ANATOMICAL_SPACE:practical_identification.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "SYNOVIAL_RECESS",
+      "field_name": "identity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for SYNOVIAL_RECESS:identity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "SYNOVIAL_RECESS",
+      "field_name": "parent_joint",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for SYNOVIAL_RECESS:parent_joint.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "SYNOVIAL_RECESS",
+      "field_name": "location",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for SYNOVIAL_RECESS:location.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "SYNOVIAL_RECESS",
+      "field_name": "subtendinous_or_subligamentous",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for SYNOVIAL_RECESS:subtendinous_or_subligamentous.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "SYNOVIAL_RECESS",
+      "field_name": "expansion_dynamics",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for SYNOVIAL_RECESS:expansion_dynamics.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "SYNOVIAL_RECESS",
+      "field_name": "communication_status",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for SYNOVIAL_RECESS:communication_status.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "SYNOVIAL_RECESS",
+      "field_name": "relations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for SYNOVIAL_RECESS:relations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "RETINACULUM",
+      "field_name": "identity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for RETINACULUM:identity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "RETINACULUM",
+      "field_name": "location",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for RETINACULUM:location.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "RETINACULUM",
+      "field_name": "attachments",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for RETINACULUM:attachments.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "RETINACULUM",
+      "field_name": "compartments_defined",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for RETINACULUM:compartments_defined.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "RETINACULUM",
+      "field_name": "structures_contained",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for RETINACULUM:structures_contained.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "RETINACULUM",
+      "field_name": "pulleys_formed",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for RETINACULUM:pulleys_formed.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "RETINACULUM",
+      "field_name": "relations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for RETINACULUM:relations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NEUROVASCULAR_BUNDLE",
+      "field_name": "identity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for NEUROVASCULAR_BUNDLE:identity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NEUROVASCULAR_BUNDLE",
+      "field_name": "location",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for NEUROVASCULAR_BUNDLE:location.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NEUROVASCULAR_BUNDLE",
+      "field_name": "artery",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for NEUROVASCULAR_BUNDLE:artery.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NEUROVASCULAR_BUNDLE",
+      "field_name": "veins",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for NEUROVASCULAR_BUNDLE:veins.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NEUROVASCULAR_BUNDLE",
+      "field_name": "nerve",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for NEUROVASCULAR_BUNDLE:nerve.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NEUROVASCULAR_BUNDLE",
+      "field_name": "fascial_sheath",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for NEUROVASCULAR_BUNDLE:fascial_sheath.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NEUROVASCULAR_BUNDLE",
+      "field_name": "course",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for NEUROVASCULAR_BUNDLE:course.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "NEUROVASCULAR_BUNDLE",
+      "field_name": "relations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for NEUROVASCULAR_BUNDLE:relations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LYMPHATIC_NODE_GROUP",
+      "field_name": "identity",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LYMPHATIC_NODE_GROUP:identity.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LYMPHATIC_NODE_GROUP",
+      "field_name": "location",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LYMPHATIC_NODE_GROUP:location.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LYMPHATIC_NODE_GROUP",
+      "field_name": "levels_or_chains",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LYMPHATIC_NODE_GROUP:levels_or_chains.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LYMPHATIC_NODE_GROUP",
+      "field_name": "afferents",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LYMPHATIC_NODE_GROUP:afferents.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LYMPHATIC_NODE_GROUP",
+      "field_name": "efferents",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LYMPHATIC_NODE_GROUP:efferents.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LYMPHATIC_NODE_GROUP",
+      "field_name": "surrounding_vascular_relations",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LYMPHATIC_NODE_GROUP:surrounding_vascular_relations.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    },
+    {
+      "entity_type": "LYMPHATIC_NODE_GROUP",
+      "field_name": "palpability_when_sourced",
+      "primary_provenance_class": "AETERNUM_EXTENSION",
+      "institutional_source_ids": [],
+      "institutional_locator_ids": [],
+      "pattern_sources": [],
+      "pattern_rationale": null,
+      "aeternum_extension_rationale": "Aeternum architecture extension for high-granularity relational modeling, 3D anatomical registration, or biomechanical dynamic stability for LYMPHATIC_NODE_GROUP:palpability_when_sourced.",
+      "secondary_provenance": [
+        "AETERNUM_ONTOLOGY_SPECIFICATION"
+      ],
+      "status": "APPROVED",
+      "review_required": false
+    }
+  ]
+}

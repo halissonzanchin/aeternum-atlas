@@ -1,0 +1,13 @@
+{
+  "pointer_schema_version": "1.0.0",
+  "active_canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+  "active_manifest_path": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_2.json",
+  "active_manifest_file": "AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_2.json",
+  "parent_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+  "pointer_strategy": "OPTION_B_EXPLICIT_CURRENT_POINTER_FILE",
+  "active_pointer_authority_count": 1,
+  "generic_manifest_runtime_usage_count": 0,
+  "updated_at": "2026-09-26T18:45:50.000Z",
+  "status": "ACTIVE_PRODUCTION_POINTER",
+  "description": "Sole authoritative pointer to the current active Aeternum Sovereign Canonical Memory release."
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "../aeternum_academic_source_manifest.schema.json",
+  "source_id": "SRC-LATARJET-ED5-T2",
+  "source_title": "Anatomía Humana, Tomo 2",
+  "authors": [
+    "Michel Latarjet",
+    "Alfredo Ruiz Liard",
+    "Eduardo Adrián Pró"
+  ],
+  "edition": "5.ª Edición",
+  "volume": "Tomo 2",
+  "publication_year": 2019,
+  "publisher": "Editorial Médica Panamericana S.A.C.F.",
+  "isbn_if_explicitly_available": "978-950-06-9586-2",
+  "language": ["es"],
+  "source_type": "GROSS_ANATOMY_TEXTBOOK",
+  "authority_class": "GROSS_ANATOMY_REFERENCE",
+  "artifact_filename": "AnatomÃ_a Humana (T2) - Latarjet-Ruiz Liard (1)_240313_120617.pdf",
+  "artifact_path_or_reference": "C:\\Users\\halis\\Downloads\\AnatomÃ_a Humana (T2) - Latarjet-Ruiz Liard (1)_240313_120617.pdf",
+  "artifact_sha256": "4fd1032de8d202e41e681e2d55c911153d6f05d553bb194108c9e5de4edc0c6e",
+  "page_count": 835,
+  "provenance_type": "LOCAL_PHYSICAL_PDF_ARTIFACT",
+  "authorization_status": "USER_PROVIDED_LOCAL_REFERENCE",
+  "academic_validation_eligible": true,
+  "validation_scope": [
+    "THORAX_OSTEOLOGY",
+    "THORACIC_WALL_RELATIONS",
+    "CARDIOVASCULAR_SYSTEM",
+    "RESPIRATORY_SYSTEM",
+    "SPLANCHNOLOGY",
+    "CENTRAL_NERVOUS_SYSTEM"
+  ],
+  "usage_scope": {
+    "SOURCE_METADATA_STORAGE": "ALLOWED",
+    "FACT_EXTRACTION": "ALLOWED_FOR_INTERNAL_VALIDATION",
+    "ORIGINAL_PARAPHRASED_SYNTHESIS": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+    "STRUCTURED_RELATION_EXTRACTION": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+    "SHORT_EVIDENCE_LOCATOR": "ALLOWED",
+    "PAGE_LEVEL_PROVENANCE": "ALLOWED",
+    "SUBSTANTIAL_VERBATIM_INGESTION": "PROHIBITED",
+    "TEXT_REPUBLICATION": "NOT_AUTHORIZED_BY_REGISTRY",
+    "PUBLIC_REDISTRIBUTION": "NOT_ESTABLISHED"
+  },
+  "registered_at": "2026-09-24T03:00:00.000Z",
+  "registration_protocol_version": "ACSRP-1.1",
+  "review_status": "REGISTERED",
+  "translator": null,
+  "original_language": "fr",
+  "terminology_standard_version": "Terminologia Anatomica (IFAA/FIPAT concordance)"
+}

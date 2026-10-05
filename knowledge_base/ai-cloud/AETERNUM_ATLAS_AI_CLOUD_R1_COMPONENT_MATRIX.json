@@ -1,0 +1,216 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R1",
+  "audit_date": "2026-10-04T22:25:00Z",
+  "status": "VERIFIED_AETERNUM_AI_CLOUD_R1_AUDIT_COMPLETE",
+  "authoritative_parent": "AETERNUM-POST-RELEASE-R1",
+  "protected_knowledge_state": {
+    "canonical_facts": 248,
+    "canonical_entities": 154,
+    "safe_engine_facts": 231,
+    "blocked_quarantined_facts": 17,
+    "b2_authored": 41,
+    "b2_holds": 10,
+    "b2_cursor": "TGT-B2-A2E0-052",
+    "b2_production_exposure": 0
+  },
+  "mutations_during_audit": {
+    "production_mutations": 0,
+    "canonical_mutations": 0,
+    "safe_engine_mutations": 0,
+    "b2_mutations": 0,
+    "git_commits": 0,
+    "git_pushes": 0
+  },
+  "components": [
+    {
+      "component_id": "COMP-UI-01",
+      "name": "Atlas AI Conversation UI",
+      "subsystem": "frontend-spa",
+      "file_paths": [
+        "src/features/atlas-viewer/ai/AtlasAIConversation.jsx",
+        "src/features/atlas-viewer/ai/AtlasAIConversation.css",
+        "src/features/dashboard/components/AtlasAITutor.jsx"
+      ],
+      "current_state": "PRODUCTION_READY",
+      "target_cloud_state": "PRODUCTION_READY",
+      "classification": "EXISTING",
+      "local_dependencies": [],
+      "portability_feasibility": "IMMEDIATE",
+      "security_tier": "PUBLIC_CLIENT",
+      "remediation_required": "None. Supports streaming SSE, Markdown, action buttons, and citation badges."
+    },
+    {
+      "component_id": "COMP-SVC-01",
+      "name": "Atlas AI Tutor Service",
+      "subsystem": "frontend-spa",
+      "file_paths": [
+        "src/features/atlas-viewer/ai/atlasAITutorService.js"
+      ],
+      "current_state": "STANDBY_PROTECTED",
+      "target_cloud_state": "PRODUCTION_READY",
+      "classification": "EXISTING",
+      "local_dependencies": [
+        "VITE_ATLAS_LOCAL_BRIDGE_URL (http://127.0.0.1:8082 fallback)",
+        "localhost dev hostname check"
+      ],
+      "portability_feasibility": "HIGH",
+      "security_tier": "PUBLIC_CLIENT",
+      "remediation_required": "Set VITE_ATLAS_RUNTIME=cloud; toggle VITE_ATLAS_AI_MODE from standby to live in production Vercel env when cloud backend verified."
+    },
+    {
+      "component_id": "COMP-EDGE-01",
+      "name": "ai-tutor Supabase Edge Function",
+      "subsystem": "supabase-edge",
+      "file_paths": [
+        "supabase/functions/ai-tutor/index.ts",
+        "supabase/functions/ai-tutor/deno.json"
+      ],
+      "current_state": "CLOUD_READY_GATEWAY_PROXY",
+      "target_cloud_state": "PRODUCTION_READY_ORCHESTRATOR",
+      "classification": "NEEDS_PORT",
+      "local_dependencies": [
+        "Configured to call AETERNUM_AI_GATEWAY_URL"
+      ],
+      "portability_feasibility": "HIGH",
+      "security_tier": "AUTHENTICATED_EDGE",
+      "remediation_required": "Embed Safe Engine in Deno; execute Safe Engine first; short-circuit deterministic queries; proxy complex generative queries to cloud gateway."
+    },
+    {
+      "component_id": "COMP-SAFE-01",
+      "name": "Deterministic Safe Engine",
+      "subsystem": "safe-engine",
+      "file_paths": [
+        "src/services/safe-engine/safeEngine.js",
+        "src/services/safe-engine/safeNormalizer.js",
+        "src/services/safe-engine/safeEntityResolver.js",
+        "src/services/safe-engine/safeIntentResolver.js",
+        "src/services/safe-engine/safeKnowledgeRetriever.js",
+        "src/services/safe-engine/safeResponsePlanner.js",
+        "src/services/safe-engine/safeResponseComposer.js",
+        "src/services/safe-engine/safeFailurePolicy.js"
+      ],
+      "current_state": "LOCAL_ONLY",
+      "target_cloud_state": "CLOUD_READY_DENO_EMBEDDED",
+      "classification": "NEEDS_PORT",
+      "local_dependencies": [
+        "import { performance } from 'perf_hooks'",
+        "fs.readFileSync and path in safeKnowledgeRetriever.js & safeEntityResolver.js",
+        "node:sqlite (DatabaseSync) optional in safeKnowledgeRetriever.js"
+      ],
+      "portability_feasibility": "HIGH",
+      "security_tier": "SOVEREIGN_CORE",
+      "remediation_required": "Convert to pure ESM with in-memory JSON data packaging; use global performance; remove Node fs/sqlite references."
+    },
+    {
+      "component_id": "COMP-MEM-01",
+      "name": "Canonical Memory V0.2.2",
+      "subsystem": "sovereign-memory",
+      "file_paths": [
+        "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_CURRENT.json",
+        "knowledge_base/canonical/AETERNUM_CANONICAL_ENTITY_REGISTRY_V2_1.json",
+        "knowledge_base/canonical/AET-KP-UL-SCAPULA-001_CANONICAL_FACTS.json",
+        "knowledge_base/canonical/EXP-UL-B1_CANONICAL_FACTS.json",
+        "knowledge_base/local_mirror/aeternum_anatomical_memory.db"
+      ],
+      "current_state": "LOCAL_MIRROR",
+      "target_cloud_state": "DUAL_RESIDENCE",
+      "classification": "READY",
+      "local_dependencies": [
+        "Local git files and SQLite database file"
+      ],
+      "portability_feasibility": "HIGH",
+      "security_tier": "SOVEREIGN_CORE",
+      "remediation_required": "Bundle versioned JSON directly with Edge Function; mirror to read-only Supabase tables; preserve local git/SQLite as sovereign root of truth."
+    },
+    {
+      "component_id": "COMP-RAG-01",
+      "name": "Production Supporting RAG",
+      "subsystem": "database-retrieval",
+      "file_paths": [
+        "supabase/migrations/20260923010000_harden_staging_sovereign_retrieval.sql",
+        "supabase/baseline/00000000000000_aeternum_canonical_baseline.sql"
+      ],
+      "current_state": "PRODUCTION_READY",
+      "target_cloud_state": "PRODUCTION_READY",
+      "classification": "EXISTING",
+      "local_dependencies": [],
+      "portability_feasibility": "IMMEDIATE",
+      "security_tier": "SERVICE_ROLE_ONLY",
+      "remediation_required": "None. Tables public.vita_anatomical_knowledge and RPC match_vita_sovereign_knowledge already deployed in Supabase."
+    },
+    {
+      "component_id": "COMP-GW-01",
+      "name": "Aeternum AI Gateway",
+      "subsystem": "cloud-gateway",
+      "file_paths": [
+        "packages/aeternum-vita/apps/gateway/src/index.ts",
+        "packages/aeternum-vita/apps/gateway/Dockerfile",
+        "packages/aeternum-vita/apps/gateway/deploy/render.yaml",
+        "packages/aeternum-vita/src/gateway/AeternumAIGateway.ts",
+        "packages/aeternum-vita/src/providers/router/ProviderRouter.ts"
+      ],
+      "current_state": "LOCAL_CONTAINER_TESTED",
+      "target_cloud_state": "PRODUCTION_READY_CLOUD_CONTAINER",
+      "classification": "NEEDS_PORT",
+      "local_dependencies": [
+        "Default port 8081 / host 127.0.0.1 in local dev",
+        "Ollama fallback in local_first mode"
+      ],
+      "portability_feasibility": "HIGH",
+      "security_tier": "INTERNAL_VPC_TOKEN",
+      "remediation_required": "Deploy Docker container to managed cloud platform (Render / Cloud Run) with AETERNUM_AI_GATEWAY_MODE=cloud_only and Bearer token auth."
+    },
+    {
+      "component_id": "COMP-PROV-01",
+      "name": "Gemini LLM Provider Adapter",
+      "subsystem": "provider-adapters",
+      "file_paths": [
+        "packages/aeternum-vita/src/providers/cloud/gemini/GeminiLLMProvider.ts"
+      ],
+      "current_state": "CLOUD_READY",
+      "target_cloud_state": "PRODUCTION_READY",
+      "classification": "READY",
+      "local_dependencies": [],
+      "portability_feasibility": "IMMEDIATE",
+      "security_tier": "SERVER_SECRET",
+      "remediation_required": "Provision GEMINI_API_KEY in cloud gateway environment."
+    },
+    {
+      "component_id": "COMP-VAL-01",
+      "name": "Runtime False Premise & Safety Validator",
+      "subsystem": "safety-layer",
+      "file_paths": [
+        "tools/quality-lab/judge/false_premise_detector.cjs",
+        "src/services/safe-engine/safeResponsePlanner.js"
+      ],
+      "current_state": "OFFLINE_TEST_BENCHMARK",
+      "target_cloud_state": "RUNTIME_EDGE_GUARD",
+      "classification": "NEEDS_NEW_ADAPTER",
+      "local_dependencies": [
+        "CommonJS modules in tools/quality-lab/"
+      ],
+      "portability_feasibility": "HIGH",
+      "security_tier": "SOVEREIGN_CORE",
+      "remediation_required": "Adapt offline judge logic into lightweight ESM SemanticPremiseValidator in Safe Engine."
+    },
+    {
+      "component_id": "COMP-BRDG-01",
+      "name": "Atlas Local Bridge (:8082)",
+      "subsystem": "dev-bridge",
+      "file_paths": [
+        "packages/aeternum-vita/apps/atlas-local-bridge/src/index.ts",
+        "packages/aeternum-vita/apps/atlas-local-bridge/run.mjs"
+      ],
+      "current_state": "LOCAL_DEV_UTILITY",
+      "target_cloud_state": "DECOMMISSIONED_FROM_PRODUCTION",
+      "classification": "LEGACY",
+      "local_dependencies": [
+        "Local Node http on 127.0.0.1:8082",
+        "Ollama on 127.0.0.1:11434"
+      ],
+      "portability_feasibility": "NOT_APPLICABLE",
+      "security_tier": "LOCAL_ONLY",
+      "remediation_required": "Retire from production topology. Cloud production connects solely via Supabase Edge Function."
+    }
+  ]
+}

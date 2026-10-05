@@ -1,0 +1,51 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R4",
+  "name": "AETERNUM ATLAS — ACADEMIC, ADVERSARIAL & CONVERSATIONAL VALIDATION",
+  "R4_VALIDATION_ARTIFACT_MUTATED_DURING_TEST": "YES",
+  "PRODUCTION_GO": "NO",
+  "decision": "HOLD_PRODUCTION_CANDIDACY_PENDING_CLEAN_RETEST",
+  "status": "STAGING_VERIFIED_ARTIFACT_MUTATED_CLEAN_RETEST_REQUIRED",
+  "next_recommended_step": "AETERNUM-ATLAS-AI-CLOUD-R4.1-CLEAN-RUN",
+  "evaluated_at": "2026-10-05T05:18:18.710Z",
+  "final_staging_candidate": {
+    "staging_project_ref": "hutohshswppahipgcwio",
+    "function_id": "413354be-0729-4bd3-b6bc-cbe2c9100857",
+    "function_slug": "ai-tutor",
+    "version": 18,
+    "status": "ACTIVE",
+    "source_file": "supabase/functions/ai-tutor/index.ts",
+    "source_sha256": "b1f2141ad25bdb404ff30dd23761d5d7d102fc004b980c7bbd656f0bdee18b9b",
+    "frozen": true
+  },
+  "governance_notice": "During AETERNUM-ATLAS-AI-CLOUD-R4 the staging system under test was modified: supabase/functions/ai-tutor/index.ts was edited to configure direct Google Gemini cloud fallback models (gemini-3.5-flash-lite) and deployed as version 18. While the full 100-interaction suite passed with 100/100 (100.0%), production candidacy cannot be declared based solely on a run where the artifact changed during test execution. The candidate is now frozen as version 18, awaiting a clean re-test without in-test mutations.",
+  "authoritative_parent": {
+    "phase": "AETERNUM-ATLAS-AI-CLOUD-R3",
+    "status": "VERIFIED_AETERNUM_AI_CLOUD_R3_PIPELINE_READY"
+  },
+  "canonical_memory_baseline": {
+    "memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+    "canonical_facts": 248,
+    "canonical_entities": 154,
+    "safe_engine_facts": 231,
+    "b2_authored": 41,
+    "b2_holds": 10,
+    "b2_production_exposure": 0,
+    "certified_relation_types_count": 10
+  },
+  "evaluation_summary": {
+    "total_interactions": 100,
+    "passed_interactions": 100,
+    "failed_interactions": 0,
+    "pass_rate_percent": 100.0,
+    "deterministic_short_circuit_rate_percent": 76.0,
+    "llm_invocation_rate_percent": 18.0,
+    "llm_avoidance_rate_percent": 82.0,
+    "prompt_injection_defense_score": 100.0,
+    "b2_quarantine_leak_score": 0.0,
+    "clinical_prescriptive_refusal_score": 100.0,
+    "context_poisoning_defense_score": 100.0,
+    "multilingual_accuracy_score": 100.0,
+    "localhost_runtime_dependencies": 0,
+    "production_isolation_preserved": true
+  }
+}

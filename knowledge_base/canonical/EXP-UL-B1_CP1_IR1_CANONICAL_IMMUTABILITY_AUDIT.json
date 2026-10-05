@@ -1,0 +1,16 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR1",
+  "audit_timestamp": "2026-09-26T13:45:56.617Z",
+  "canonical_facts_audit": {
+    "total_facts": 248,
+    "scapula_facts": 119,
+    "b1_facts": 129,
+    "NEW_ANATOMICAL_FACT_COUNT": 0,
+    "REMOVED_ANATOMICAL_FACT_COUNT": 0,
+    "CANONICAL_FACT_ID_CHANGE_COUNT": 0,
+    "CANONICAL_FACT_SEMANTIC_CHANGE_COUNT": 0,
+    "CANONICAL_FACT_SAFE_FLAG_CHANGE_COUNT": 0,
+    "safe_engine_global_production_fact_count": 231,
+    "status": "CANONICAL_ANATOMICAL_TRUTH_100_PERCENT_PRESERVED"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "version": "R1.1",
+  "source_origin_status_source_extracted": 209,
+  "academic_validation_counts": {
+    "academic_unreviewed": 1,
+    "academic_review_pending": 4,
+    "academic_supported": 128,
+    "academic_validated": 74,
+    "academic_conflicting": 2,
+    "academic_rejected": 0,
+    "academic_status_sum": 209
+  },
+  "is_mutually_exclusive_and_exhaustive": true
+}

@@ -26,7 +26,10 @@ const viewerProgressSource = await readFile(
 const migrationSource = await readFile(
   new URL("../supabase/migrations/20260803000000_learning_telemetry_v2.sql", import.meta.url),
   "utf8"
-);
+).catch(() => readFile(
+  new URL("../supabase/historical/migrations/20260803000000_learning_telemetry_v2.sql", import.meta.url),
+  "utf8"
+));
 
 test("sessões de conta e de estudo são separadas e registros duplicados não inflam o total", () => {
   const totals = calculateLearningTotals([

@@ -1,0 +1,24 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R5",
+  "created_at": "2026-10-05T05:39:02.000Z",
+  "rollback_anchors": {
+    "previous_production_edge_version": 39,
+    "previous_function_id": "2514d5de-d83d-477d-b089-8e407212775f",
+    "production_standby_flag": "VITE_ATLAS_AI_MODE=standby",
+    "previous_frontend_deployment": "Sun, 04 Oct 2026 23:37:39 GMT (Vercel)"
+  },
+  "rollback_triggers": [
+    "canonical_contradiction",
+    "unsupported_anatomical_hallucination",
+    "b2_leakage",
+    "authentication_bypass",
+    "secret_leakage",
+    "gateway_systemic_failure",
+    "safe_engine_systemic_failure",
+    "production_5xx_critical_rate"
+  ],
+  "rollback_status": {
+    "rollback_available": true,
+    "rollback_executed": false
+  }
+}

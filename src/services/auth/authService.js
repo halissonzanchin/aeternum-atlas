@@ -525,3 +525,26 @@ export async function updateCurrentUserPassword(password) {
 export async function loginWithProvider() {
   throw new Error("Login federado será habilitado quando o Supabase Auth for conectado.");
 }
+
+export async function requestPasswordRecovery(email) {
+  const normalizedEmail = normalizeEmail(email);
+  if (!normalizedEmail) {
+    throw new Error("Informe um e-mail válido para recuperação de senha.");
+  }
+
+  const redirectTo = typeof window !== "undefined"
+    ? `${window.location.origin}/login?mode=reset-password`
+    : undefined;
+
+  const { error } = await supabase.auth.resetPasswordForEmail(normalizedEmail, {
+    redirectTo
+  });
+
+  if (error) {
+    console.error("Falha ao solicitar recuperação de senha no Supabase Auth.", error);
+    throw new Error(error.message || "Não foi possível enviar o e-mail de recuperação de senha.");
+  }
+
+  return true;
+}
+

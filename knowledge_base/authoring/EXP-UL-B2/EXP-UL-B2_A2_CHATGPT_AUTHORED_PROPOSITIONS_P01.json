@@ -1,0 +1,932 @@
+{
+  "document_name": "EXP-UL-B2_A2_CHATGPT_AUTHORED_PROPOSITIONS_P01",
+  "phase": "AMC-1.2-A2 / EXP-UL-B2-A2-P01",
+  "checkpoint": "P01",
+  "scope": "TARGETS TGT-B2-A2E0-001 THROUGH TGT-B2-A2E0-038",
+  "timestamp": "2026-10-04T17:32:29.106Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "parent_IA2_2_sha256": "a58bd14c7e798fb79a1ebaa91b77b2eb6fbe2b4c17a05ce7376127a051430dc0",
+  "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+  "persisted_by": "ANTIGRAVITY_AUTHORING_PERSISTENCE_ORCHESTRATOR",
+  "metrics": {
+    "target_range_reviewed": "001-038",
+    "targets_reviewed": 38,
+    "propositions_authored": 31,
+    "author_holds": 7,
+    "fact_id_uniqueness_percent": 100,
+    "target_id_uniqueness_percent": 100,
+    "fact_target_parity_percent": 100,
+    "evidence_referential_integrity_percent": 100,
+    "locator_referential_integrity_percent": 100,
+    "source_referential_integrity_percent": 100,
+    "proposition_text_changed_by_antigravity": 0,
+    "unauthorized_anatomical_enrichments": 0,
+    "validated_new_facts": 0,
+    "canonical_promotions": 0,
+    "safe_engine_promotions": 0
+  },
+  "propositions": [
+    {
+      "fact_id": "AET-B2-A2-F001",
+      "target_id": "TGT-B2-A2E0-001",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "AADS_field": "identity",
+      "proposition": "O úmero é o osso que constitui o esqueleto do braço.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F002",
+      "target_id": "TGT-B2-A2E0-002",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "AADS_field": "topographic_location",
+      "proposition": "O úmero localiza-se no braço, entre a cintura escapular e os ossos do antebraço.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F003",
+      "target_id": "TGT-B2-A2E0-003",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "AADS_field": "bone_type",
+      "proposition": "O úmero é classificado como um osso longo.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F004",
+      "target_id": "TGT-B2-A2E0-004",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "AADS_field": "paired_unpaired",
+      "proposition": "O úmero é um osso par.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F005",
+      "target_id": "TGT-B2-A2E0-005",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "AADS_field": "laterality",
+      "proposition": "O úmero é assimétrico, apresentando características que permitem sua determinação lateral.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F007",
+      "target_id": "TGT-B2-A2E0-007",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "AADS_field": "external_configuration.extremities",
+      "proposition": "O úmero apresenta uma extremidade superior relacionada à escápula e uma extremidade inferior relacionada ao rádio e à ulna.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F008",
+      "target_id": "TGT-B2-A2E0-008",
+      "entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+      "AADS_field": "identity",
+      "proposition": "A cabeça do úmero é a superfície articular arredondada e lisa da extremidade proximal do úmero que se articula com a cavidade glenoidal da escápula.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [
+        "articulates_with"
+      ],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F009",
+      "target_id": "TGT-B2-A2E0-009",
+      "entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+      "AADS_field": "anatomical_orientation",
+      "proposition": "A cabeça do úmero orienta-se medial, posterior e superiormente.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F010",
+      "target_id": "TGT-B2-A2E0-010",
+      "entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+      "AADS_field": "external_configuration.surfaces",
+      "proposition": "A superfície articular da cabeça umeral é lisa e arredondada, correspondendo aproximadamente a um terço de uma esfera, com raio descrito pela fonte em cerca de 30 mm.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-002",
+        "EVI-B2-GHJ-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "LAT-T1-GHJ-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F011",
+      "target_id": "TGT-B2-A2E0-011",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "AADS_field": "identity",
+      "proposition": "O colo anatômico do úmero é um sulco circular estreito que circunda a cabeça umeral.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F012",
+      "target_id": "TGT-B2-A2E0-012",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "AADS_field": "external_configuration.borders",
+      "proposition": "O colo anatômico delimita o contorno da cabeça do úmero e a separa lateralmente dos tubérculos maior e menor.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F013",
+      "target_id": "TGT-B2-A2E0-013",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "AADS_field": "relations",
+      "proposition": "O colo anatômico relaciona-se com a fixação da cápsula da articulação glenoumeral, que se insere nessa região.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-003",
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F014",
+      "target_id": "TGT-B2-A2E0-014",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "AADS_field": "identity",
+      "proposition": "O tubérculo maior é uma eminência da extremidade proximal do úmero situada lateralmente à cabeça umeral.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-004",
+        "EVI-B2-MOR-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F015",
+      "target_id": "TGT-B2-A2E0-015",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "AADS_field": "external_configuration.surfaces",
+      "proposition": "O tubérculo maior apresenta três facetas distintas: superior, média e inferior.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-004",
+        "EVI-B2-MOR-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F016",
+      "target_id": "TGT-B2-A2E0-016",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "AADS_field": "anatomical_landmarks.tubercles",
+      "proposition": "As três facetas do tubérculo maior correspondem aos locais de inserção do supraespinal, infraespinal e redondo menor, respectivamente nas facetas superior, média e inferior.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-004",
+        "EVI-B2-MOR-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F017",
+      "target_id": "TGT-B2-A2E0-017",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "AADS_field": "identity",
+      "proposition": "O tubérculo menor é uma eminência arredondada situada anteriormente à cabeça do úmero e medialmente ao tubérculo maior.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F018",
+      "target_id": "TGT-B2-A2E0-018",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "AADS_field": "anatomical_landmarks.tubercles",
+      "proposition": "O tubérculo menor constitui um marco ósseo proximal do úmero que recebe a inserção do tendão do músculo subescapular.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F019",
+      "target_id": "TGT-B2-A2E0-019",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "AADS_field": "identity",
+      "proposition": "O sulco intertubercular é um sulco vertical localizado entre os tubérculos maior e menor do úmero.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F020",
+      "target_id": "TGT-B2-A2E0-020",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "AADS_field": "external_configuration.borders",
+      "proposition": "O sulco intertubercular é limitado lateralmente pela crista do tubérculo maior e medialmente pela crista do tubérculo menor.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F022",
+      "target_id": "TGT-B2-A2E0-022",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "AADS_field": "relations",
+      "proposition": "O sulco intertubercular contém o trajeto do tendão da cabeça longa do bíceps braquial, acompanhado por sua bainha sinovial, e é recoberto pelo ligamento umeral transverso, que se estende entre os tubérculos maior e menor sobre o sulco.",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-006",
+        "EVI-B2-GHJ-005",
+        "EVI-B2-MOR-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "LAT-T1-GHJ-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [
+        "traversed_by",
+        "bridges"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F023",
+      "target_id": "TGT-B2-A2E0-023",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "AADS_field": "identity",
+      "proposition": "O colo cirúrgico é uma região do úmero proximal identificável inferiormente à região articular do ombro e participante do limite lateral do espaço axilar lateral.",
+      "evidence_unit_ids": [
+        "EVI-B2-TOPO-001",
+        "EVI-B2-FIG-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-TOPO-LOC-001",
+        "NIE-ED1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F024",
+      "target_id": "TGT-B2-A2E0-024",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "AADS_field": "topographic_location",
+      "proposition": "O colo cirúrgico do úmero situa-se abaixo da articulação glenoumeral e forma o limite lateral do espaço axilar lateral.",
+      "evidence_unit_ids": [
+        "EVI-B2-TOPO-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-TOPO-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F026",
+      "target_id": "TGT-B2-A2E0-026",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "AADS_field": "relations",
+      "proposition": "O nervo axilar contorna o colo cirúrgico do úmero de anterior para posterior, aplicado ao osso; os vasos circunflexos umerais posteriores acompanham essa região, enquanto a artéria circunflexa umeral anterior cruza anteriormente o colo cirúrgico e participa da rede arterial periumeral.",
+      "evidence_unit_ids": [
+        "EVI-B2-TOPO-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-TOPO-LOC-001",
+        "LAT-T1-TOPO-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F028",
+      "target_id": "TGT-B2-A2E0-028",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "identity",
+      "proposition": "A articulação glenoumeral é a articulação que une a cabeça do úmero à cavidade glenoidal da escápula.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F029",
+      "target_id": "TGT-B2-A2E0-029",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "classification",
+      "proposition": "A articulação glenoumeral é uma articulação sinovial esferoidea, classificada como enartrose.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F030",
+      "target_id": "TGT-B2-A2E0-030",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "articular_surfaces",
+      "proposition": "As superfícies articulares da articulação glenoumeral são a cabeça do úmero e a cavidade glenoidal da escápula.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-HUM-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F032",
+      "target_id": "TGT-B2-A2E0-032",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "complementary_structures.labrum",
+      "proposition": "O labrum glenoidal é uma estrutura fibrocartilaginosa localizada perifericamente à cavidade glenoidal, ampliando sua margem articular.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F033",
+      "target_id": "TGT-B2-A2E0-033",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "capsule.presence",
+      "proposition": "A articulação glenoumeral possui uma cápsula fibrosa que forma um manguito ao redor da articulação.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F034",
+      "target_id": "TGT-B2-A2E0-034",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "capsule.attachments",
+      "proposition": "Medialmente, a cápsula fibrosa fixa-se ao contorno ósseo da cavidade glenoidal e à periferia do labrum glenoidal; lateralmente, fixa-se ao colo anatômico do úmero, estendendo-se mais distalmente na face medial.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F035",
+      "target_id": "TGT-B2-A2E0-035",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "capsule.laxity",
+      "proposition": "A cápsula fibrosa glenoumeral apresenta configuração frouxa, formando um manguito cilíndrico laxo.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F036",
+      "target_id": "TGT-B2-A2E0-036",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "capsule.reinforcements",
+      "proposition": "A porção anterior da cápsula glenoumeral apresenta três espessamentos capsulares principais: os ligamentos glenoumerais superior, médio e inferior.",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_candidates": [
+        "reinforces"
+      ],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    }
+  ]
+}

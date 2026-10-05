@@ -1,0 +1,83 @@
+{
+  "source_id": "MORGUE-UPPER-LIMB-001",
+  "source_pages_processed": 53,
+  "status": "COMPLETE",
+  "governing_contract": "AACM 1.0",
+  "entity_counts": {
+    "bones": 21,
+    "muscles": 51,
+    "nerves": 19,
+    "arteries": 30,
+    "veins": 7,
+    "joints": 10,
+    "ligaments": 14,
+    "anatomical_spaces": 15,
+    "other_entities": 6,
+    "total_unique_candidates": 173
+  },
+  "knowledge_metrics": {
+    "macro_entity_dossiers": 10,
+    "micro_fact_candidates": 22,
+    "teaching_connections": 8,
+    "morgue_practical_items": 11,
+    "three_d_mapping_candidates": 4
+  },
+  "validation_status_breakdown": {
+    "source_extracted": 165,
+    "supported": 42,
+    "validated": 5,
+    "review_pending": 4,
+    "conflicting": 2,
+    "rejected": 0
+  },
+  "aacm_rules_verification": {
+    "macro_query_rule_supported": true,
+    "micro_query_rule_supported": true,
+    "professor_connection_rule_supported": true,
+    "aacm_contract_respected": true
+  },
+  "demonstration_queries": {
+    "query_1_macro_scapula": {
+      "user_query": "Explique a escápula.",
+      "aacm_rule": "MACRO_QUERY_RULE",
+      "response_structure": "PANORAMA_RELACIONAL_ORDENADO",
+      "evidence_pack_status": "COMPLETE",
+      "generated_response": "### Panorama Anatômico: Escápula (Omóplato)\n\nA **escápula** é um osso plano, par e assimétrico, de formato triangular, localizado na região posterolateral do tórax sobrejacente às costelas 2ª a 7ª. Atua como o fulcro mecânico posterior da cintura escapular.\n\n#### 1. Morfologia e Caras\n- **Face Costal (Anterior):** Côncava, escavada pela *fossa subescapular*, percorrida por cristas ósseas onde se origina o músculo subescapular.\n- **Face Dorsal (Posterior):** Convexa, dividida pela *espinha da escápula* em duas fossas: a *fossa supraespinosa* (cranial, menor) e a *fossa infraespinosa* (caudal, mais ampla).\n\n#### 2. Processos e Acidentes Marcantes\n- **Espinha da Escápula e Acrômio:** A espinha projeta-se dorsalmente e continua-se lateralmente como o *acrômio*, saliência palpável subcutânea que articula com a clavícula.\n- **Processo Coracoide:** Projeção anterior em \"bico de corvo\", ponto de ancoragem do tendão conjunto (cabeça curta do bíceps e coracobraquial) e do músculo peitoral menor.\n- **Cavidade Glenoide:** Superfície articular piriforme no ângulo lateral, cercada pelo *labrum glenoideo*, articulando-se com a cabeça do úmero. Apresenta os tubérculos *supraglenoideo* (bíceps longo) e *infraglenoideo* (tríceps longo).\n\n#### 3. Bordas, Ângulos e Fixações Musculares\n- **Borda Medial (Espinhal):** Inserção do músculo serrátil anterior (face costal), elevador da escápula, romboide menor e romboide maior.\n- **Borda Lateral (Axilar):** Inserção dos músculos redondo menor e redondo maior.\n- **Borda Superior (Cervical):** Apresenta a *incisura da escápula* (fechada pelo ligamento transverso superior), por onde passa o nervo supraescapular, e a fixação do músculo omo-hioideo.\n- **Ângulos:** Superior (T2), Inferior (T7, referência de superfície) e Lateral (colo e glenoide).\n\n#### 4. Articulações e Espaços Topográficos\n- Articula-se sinovialmente na *Articulação Glenoumeral* e *Articulação Acromioclavicular*, e funcionalmente via sisarcose escapulotorácica. Participa dos limites do *espaço quadrangular de Velpeau* e do *espaço triangular omotricipital*."
+    },
+    "query_2_micro_supraspinous_fossa": {
+      "user_query": "O que se insere na fossa supraespinosa?",
+      "aacm_rule": "MICRO_QUERY_RULE",
+      "response_structure": "DIRECT_ANSWER -> IMMEDIATE_CONTEXT -> OPTIONAL_PROFESSOR_CONNECTION",
+      "evidence_pack_status": "DIRECT",
+      "generated_response": "**Resposta Direta:**\nNa fossa supraespinosa insere-se (origina-se) o **Músculo Supraespinoso** (*Musculus supraspinatus*).\n\n**Contexto Imediato:**\nA fossa supraespinosa ocupa os dois terços mediais da porção superior da face dorsal da escápula, delimitada inferiormente pela espinha da escápula e superiormente pela borda superior do osso.\n\n**Conexão do Professor:**\nO músculo supraespinoso passa sob o arco coracoacromial para se fixar na faceta superior do tubérculo maior do úmero (troquíter). É inervado pelo nervo supraescapular e é o principal iniciador da abdução do braço (0° a 15°), sendo a estrutura mais comumente afetada na síndrome do manguito rotador."
+    },
+    "query_3_relation_radial_groove": {
+      "user_query": "O que passa no sulco radial do úmero?",
+      "aacm_rule": "PROFESSOR_CONNECTION_RULE",
+      "response_structure": "RELATIONAL_BUNDLE",
+      "evidence_pack_status": "VALIDATED",
+      "generated_response": "No **sulco do nervo radial** (sulco espiral ou canal de torção), localizado na face posterior da diáfise do úmero, passam conjuntamente:\n1. **Nervo Radial** (*Nervus radialis*).\n2. **Artéria Braquial Profunda** (*Arteria profunda brachii*).\n3. **Venas Braquiais Profundas Satélites**.\n\n**Relação Sintópica e Relevância Prática:**\nEste feixe neurovascular corre obliquamente de medial para lateral e de cima para baixo, situado entre a origem da cabeça lateral do tríceps braquial (superiormente) e a cabeça medial do tríceps (inferiormente). Em fraturas diafisárias do úmero, o nervo radial pode sofrer compressão ou laceração óssea direta, resultando no quadro clássico de \"mão caída\" por denervação dos extensores do punho e dedos."
+    },
+    "query_4_topographic_velpeau": {
+      "user_query": "Quais são os limites do quadrilátero de Velpeau?",
+      "aacm_rule": "PROFESSOR_CONNECTION_RULE",
+      "response_structure": "TOPOGRAPHIC_BOUNDARIES_AND_CONTENTS",
+      "evidence_pack_status": "VALIDATED",
+      "generated_response": "O **Quadrilátero de Velpeau** (espaço quadrangular ou forame quadrilátero) possui os seguintes limites anatômicos:\n\n- **Limite Superior:** Borda inferior do **Músculo Redondo Menor** (posteriormente) e cápsula articular glenoumeral / músculo subescapular (anteriormente).\n- **Limite Inferior:** Borda superior do **Músculo Redondo Mayor**.\n- **Limite Medial:** Borda lateral da **Cabeça Longa do Músculo Tríceps Braquial**.\n- **Limite Lateral:** **Colo Cirúrgico do Úmero**.\n\n**Conteúdo que o atravessa:**\n- **Nervo Axilar (Circunflexo)**.\n- **Artéria Circunflexa Umeral Posterior** e suas veias satélites."
+    },
+    "query_5_practical_posterior_scapular_face": {
+      "user_query": "Como reconheço a face posterior da escápula?",
+      "aacm_rule": "MORGUE_PRACTICAL_LAYER",
+      "response_structure": "PRACTICAL_IDENTIFICATION",
+      "evidence_pack_status": "VALIDATED",
+      "generated_response": "Na peça cadavérica ou na mesa de osteologia, a **face posterior (dorsal) da escápula** é identificada instantaneamente pelos seguintes marcos:\n\n1. **Presença da Espinha da Escápula:** Uma lâmina óssea saliente e cortante transversal que divide toda a face posterior em dois andares (fossa supraespinosa e fossa infraespinosa). A face anterior não possui essa espinha; é lisa e côncava (fossa subescapular).\n2. **Continuação no Acrômio:** A espinha expande-se lateralmente terminando em um processo achatado e livre, o acrômio, que se curva anteriormente para articular-se com a clavícula.\n3. **Convexidade Geral:** A face posterior é predominantemente convexa, ao contrário da concavidade anterior que se molda à curvatura das costelas."
+    },
+    "query_6_professor_importance_radial_groove": {
+      "user_query": "Por que o canal de torção é importante?",
+      "aacm_rule": "PROFESSOR_CONNECTION_RULE",
+      "response_structure": "CLINICAL_PEDAGOGICAL_BRIDGE",
+      "evidence_pack_status": "VALIDATED",
+      "generated_response": "O **canal de torção (sulco do nervo radial)** é uma das encruzilhadas anátomo-clínicas mais cruciais do membro superior pelo seguinte tripé do professor:\n\n1. **Íntimo Contato Ósteo-Nervoso:** O nervo radial não apenas cruza a região; ele é acolhido diretamente sobre o periósteo do úmero, sem nenhum colchão muscular interposto no assoalho do sulco.\n2. **Vulnerabilidade a Fraturas (Fratura de Holstein-Lewis):** Qualquer trauma com traço espiroide no terço médio da diáfise do úmero gera fragmentos cortantes que pinçam, distendem ou seccionam o nervo radial e os vasos braquiais profundos.\n3. **Assinatura Clínica Inconfundível:** A lesão no canal de torção poupa a extensão do cotovelo (ramos para as cabeças longa e lateral do tríceps nascem mais proximalmente), mas extingue a inervação de todos os extensores antebraquiais: o paciente perde a capacidade de extensão ativa do punho e dos dedos (a clássica \"mão caída\" ou \"em gota\") e perde a sensibilidade do dorso do 1º espaço intermetacarpiano."
+    }
+  }
+}

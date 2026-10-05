@@ -53,13 +53,16 @@ function normalizeStoredMessages(messages, welcomeMessage) {
   }
 
   const normalized = messages
-    .filter((message) => message && typeof message.text === "string" && message.text.trim())
+    .filter((message) => message && typeof message.text === "string" && message.text.trim() && message.mode !== "error")
     .slice(-MAX_MESSAGES)
     .map((message) => {
       const isWelcome = message.id === "atlas-ai-welcome";
       return {
         id: message.id || createMessageId(message.sender || "message"),
         sender: message.sender === "user" ? "user" : "ai",
+        mode: message.mode || (message.sender === "user" ? "user" : "live"),
+        source: message.source || (message.sender === "user" ? null : "aeternum_gateway"),
+        code: message.code || null,
         text: isWelcome && welcomeMessage
           ? welcomeMessage.text
           : message.sender === "user"
@@ -155,6 +158,9 @@ export function AtlasAITutorSessionProvider({ children, user }) {
     const normalizedMessage = {
       id: message.id || createMessageId(message.sender || "message"),
       sender: message.sender === "user" ? "user" : "ai",
+      mode: message.mode || (message.sender === "user" ? "user" : "live"),
+      source: message.source || (message.sender === "user" ? null : "aeternum_gateway"),
+      code: message.code || null,
       text: message.sender === "user"
         ? message.text || ""
         : sanitizeTutorDisplayText(message.text),
@@ -196,6 +202,18 @@ export function AtlasAITutorSessionProvider({ children, user }) {
       const client = getSupabaseClient();
       let remoteConversationId = conversationId;
 
+      if (remoteConversationId) {
+        const { data: convCheck } = await client
+          .from("ai_conversations")
+          .select("id")
+          .eq("id", remoteConversationId)
+          .eq("user_id", user.id)
+          .maybeSingle();
+        if (!convCheck) {
+          remoteConversationId = null;
+        }
+      }
+
       if (!remoteConversationId) {
         const { data: conversations, error: conversationError } = await client
           .from("ai_conversations")
@@ -203,8 +221,8 @@ export function AtlasAITutorSessionProvider({ children, user }) {
           .eq("user_id", user.id)
           .order("updated_at", { ascending: false })
           .limit(1);
-        if (conversationError || !conversations?.[0]?.id || cancelled) return;
-        remoteConversationId = conversations[0].id;
+        if (conversationError || cancelled) return;
+        remoteConversationId = conversations?.[0]?.id || null;
       }
 
       const { data: remoteMessages, error: messagesError } = await client
@@ -252,6 +270,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
     const userMessage = {
       id: createMessageId("user"),
       sender: "user",
+      mode: "user",
       text: normalizedText,
       contextLabel,
       createdAt
@@ -260,6 +279,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
     const aiPlaceholder = {
       id: aiMessageId,
       sender: "ai",
+      mode: "live",
       text: "",
       contextLabel,
       createdAt,
@@ -295,32 +315,58 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         enrichedContext,
         (chunkText) => updateMessage(aiMessageId, {
           text: sanitizeTutorDisplayText(chunkText),
+          mode: "live",
           isStreaming: true
         }),
         conversationId
       );
 
-      updateMessage(aiMessageId, {
-        text: sanitizeTutorDisplayText(response.text),
-        action: response.action || null,
-        payload: response.payload ?? null,
-        isStreaming: false
-      });
-      setConnectionMode(response.mode || "online");
-      if (response.conversationId) setConversationId(response.conversationId);
+      if (response.mode === "error") {
+        if (response.code === "FORBIDDEN") {
+          setConversationId(null);
+        }
+        updateMessage(aiMessageId, {
+          text: response.message || "",
+          mode: "error",
+          code: response.code || "SERVICE_UNAVAILABLE",
+          source: null,
+          action: null,
+          payload: null,
+          isStreaming: false
+        });
+        setConnectionMode("error");
+      } else {
+        updateMessage(aiMessageId, {
+          text: sanitizeTutorDisplayText(response.text),
+          mode: response.mode || "live",
+          code: null,
+          source: response.source || "aeternum_gateway",
+          action: response.action || null,
+          payload: response.payload ?? null,
+          isStreaming: false
+        });
+        setConnectionMode(response.mode || "live");
+        if (response.conversationId) setConversationId(response.conversationId);
+      }
       return response;
     } catch (error) {
       console.error("[Atlas AI Session] Falha inesperada:", error);
-      const fallbackResponse = {
-        text: "Não consegui concluir esta resposta agora. Sua pergunta e o histórico foram preservados para você continuar quando a conexão estiver disponível.",
-        mode: "offline"
+      const errorMessage = "O Atlas não conseguiu acessar o modelo agora. Tente novamente.";
+      const errorResponse = {
+        mode: "error",
+        code: "SERVICE_UNAVAILABLE",
+        message: errorMessage,
+        source: null
       };
       updateMessage(aiMessageId, {
-        text: fallbackResponse.text,
+        text: errorMessage,
+        mode: "error",
+        code: "SERVICE_UNAVAILABLE",
+        source: null,
         isStreaming: false
       });
-      setConnectionMode("offline");
-      return fallbackResponse;
+      setConnectionMode("error");
+      return errorResponse;
     } finally {
       thinkingRef.current = false;
       setIsThinking(false);
@@ -331,7 +377,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
     if (typeof window === "undefined") return;
 
     const persistentMessages = messages
-      .filter((message) => !message.isStreaming && message.text?.trim())
+      .filter((message) => !message.isStreaming && message.text?.trim() && message.mode !== "error")
       .slice(-MAX_MESSAGES);
     try {
       window.localStorage.setItem(storageKey, JSON.stringify({

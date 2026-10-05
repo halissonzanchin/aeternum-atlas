@@ -1,0 +1,17 @@
+{
+  "phase": "AETERNUM-RELEASE-R2.3",
+  "generated_at": "2026-10-04T23:40:00Z",
+  "rollback_strategy": "instant_vercel_alias_repoint",
+  "rollback_deployment_id": "dpl_GmjVs3ZSWsCUo2qqzrTLRtnTFdxV",
+  "rollback_deployment_url": "https://aeternum-atlas-fegsbtvyv-aeternum-atlas.vercel.app",
+  "rollback_deployment_created": "2026-08-28T07:03:20.000Z",
+  "production_domains": [
+    "https://aeternumatlas.com",
+    "https://www.aeternumatlas.com",
+    "https://aeternum-atlas.vercel.app"
+  ],
+  "new_production_deployment_id": "dpl_vvHtzke37a52oqRrSxJQZ5grN4jM",
+  "new_production_deployment_url": "https://aeternum-atlas-cxnwmkj7h-aeternum-atlas.vercel.app",
+  "rollback_command": "npx vercel promote dpl_GmjVs3ZSWsCUo2qqzrTLRtnTFdxV --yes",
+  "rollback_executed": false
+}

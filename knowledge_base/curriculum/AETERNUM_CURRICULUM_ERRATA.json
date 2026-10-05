@@ -1,0 +1,96 @@
+{
+  "document_name": "AETERNUM_CURRICULUM_ERRATA",
+  "phase": "AMC-1.2-R1 / EXP-UL-B2-A1.6-R1",
+  "timestamp": "2026-09-27T08:30:00Z",
+  "target_artifact": "knowledge_base/curriculum/AETERNUM_INSTITUTIONAL_ANATOMY_CURRICULUM_MAP.json",
+  "remediated_artifact": "knowledge_base/curriculum/AETERNUM_INSTITUTIONAL_ANATOMY_CURRICULUM_MAP_R1.json",
+  "errata_records": [
+    {
+      "erratum_id": "ERR-CURR-001",
+      "topic_id": "CURR-TOPIC-060",
+      "bolilla_number": 11,
+      "defect": "Maxilar classified as shoulder complex and assigned to EXP-UL-B3",
+      "previous_values": {
+        "is_shoulder_complex": true,
+        "likely_AETERNUM_domain": "UPPER_LIMB",
+        "likely_batch_owner": "EXP-UL-B3"
+      },
+      "corrected_values": {
+        "is_shoulder_complex": false,
+        "likely_AETERNUM_domain": "CRANIOFACIAL",
+        "likely_batch_owner": "OUT_OF_SCOPE_OTHER"
+      },
+      "reason": "Maxilar is a viscerocranium/facial bone, not part of the shoulder complex. False positive removed."
+    },
+    {
+      "erratum_id": "ERR-CURR-002",
+      "topic_id": "CURR-TOPIC-114",
+      "bolilla_number": 20,
+      "defect": "Clavícula misassigned to OUT_OF_SCOPE_OTHER",
+      "previous_values": {
+        "likely_AETERNUM_domain": "OTHER",
+        "likely_batch_owner": "OUT_OF_SCOPE_OTHER"
+      },
+      "corrected_values": {
+        "likely_AETERNUM_domain": "UPPER_LIMB",
+        "likely_batch_owner": "EXP-UL-B1"
+      },
+      "reason": "Clavicle is a certified canonical bone belonging to Upper Limb Batch 1 (EXP-UL-B1)."
+    },
+    {
+      "erratum_id": "ERR-CURR-003",
+      "topic_id": "CURR-TOPIC-032",
+      "bolilla_number": 6,
+      "defect": "Empty joint parsing (articulación: )",
+      "previous_values": {
+        "topic": "articulación:",
+        "entity_or_region": ""
+      },
+      "corrected_values": {
+        "topic": "articulación: Talocrural",
+        "entity_or_region": "Talocrural",
+        "likely_AETERNUM_domain": "LOWER_LIMB",
+        "likely_batch_owner": "EXP-LOWER_LIMB"
+      },
+      "reason": "Recovered from original Bolillero 2024.docx Bolilla 6 text (Talocrural joint)."
+    },
+    {
+      "erratum_id": "ERR-CURR-004",
+      "topic_id": "CURR-TOPIC-082",
+      "bolilla_number": 14,
+      "defect": "Truncated topic string (Triangulo Femoral ()",
+      "previous_values": {
+        "topic": "Triangulo Femoral (",
+        "entity_or_region": "Triangulo Femoral ("
+      },
+      "corrected_values": {
+        "topic": "Triangulo Femoral (Scarpa)",
+        "entity_or_region": "Triangulo Femoral (Scarpa)"
+      },
+      "reason": "Recovered full string from original Bolillero 2024.docx Bolilla 14."
+    },
+    {
+      "erratum_id": "ERR-CURR-005",
+      "topic_id": "CURR-TOPIC-130",
+      "bolilla_number": 22,
+      "defect": "Truncated topic string (Canal del Pulso y Canal de)",
+      "previous_values": {
+        "topic": "Canal del Pulso y Canal de",
+        "entity_or_region": "Canal del Pulso y Canal de"
+      },
+      "corrected_values": {
+        "topic": "Canal del Pulso y Canal de Guyon",
+        "entity_or_region": "Canal del Pulso y Canal de Guyon"
+      },
+      "reason": "Recovered full string from original Bolillero 2024.docx Bolilla 22."
+    }
+  ],
+  "metrics_summary": {
+    "total_topics_before": 149,
+    "total_topics_after": 149,
+    "shoulder_topics_before": 11,
+    "shoulder_topics_after": 10,
+    "false_positives_removed": 1,
+    "false_negatives_added": 0
+  }
+}

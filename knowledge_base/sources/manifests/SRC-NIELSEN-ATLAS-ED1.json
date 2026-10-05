@@ -1,0 +1,48 @@
+{
+  "$schema": "../aeternum_academic_source_manifest.schema.json",
+  "source_id": "SRC-NIELSEN-ATLAS-ED1",
+  "source_title": "Atlas of Human Anatomy",
+  "authors": [
+    "Mark Nielsen",
+    "Shawn D. Miller"
+  ],
+  "edition": "1st Edition",
+  "volume": null,
+  "publication_year": 2011,
+  "publisher": "John Wiley & Sons, Inc.",
+  "isbn_if_explicitly_available": "978-0470-50145-0",
+  "language": ["en"],
+  "source_type": "ANATOMICAL_ATLAS",
+  "authority_class": "ANATOMICAL_ATLAS",
+  "artifact_filename": "Atlas of HUMAN ANATOMY.pdf",
+  "artifact_path_or_reference": "C:\\Users\\halis\\Downloads\\Atlas of HUMAN ANATOMY.pdf",
+  "artifact_sha256": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+  "page_count": 354,
+  "provenance_type": "LOCAL_PHYSICAL_PDF_ARTIFACT",
+  "authorization_status": "USER_PROVIDED_LOCAL_REFERENCE",
+  "academic_validation_eligible": true,
+  "validation_scope": [
+    "ANATOMICAL_ORIENTATION",
+    "PRACTICAL_IDENTIFICATION",
+    "CADAVERIC_PHOTOGRAPHIC_DISSECTION",
+    "APPENDICULAR_SKELETON_OSTEOLOGY",
+    "SHOULDER_GIRDLE_SURFACE_ANATOMY"
+  ],
+  "usage_scope": {
+    "SOURCE_METADATA_STORAGE": "ALLOWED",
+    "FACT_EXTRACTION": "ALLOWED_FOR_INTERNAL_VALIDATION",
+    "ORIGINAL_PARAPHRASED_SYNTHESIS": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+    "STRUCTURED_RELATION_EXTRACTION": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+    "SHORT_EVIDENCE_LOCATOR": "ALLOWED",
+    "PAGE_LEVEL_PROVENANCE": "ALLOWED",
+    "SUBSTANTIAL_VERBATIM_INGESTION": "PROHIBITED",
+    "TEXT_REPUBLICATION": "NOT_AUTHORIZED_BY_REGISTRY",
+    "PUBLIC_REDISTRIBUTION": "NOT_ESTABLISHED"
+  },
+  "registered_at": "2026-09-24T03:00:00.000Z",
+  "registration_protocol_version": "ACSRP-1.1",
+  "review_status": "REGISTERED",
+  "translator": null,
+  "original_language": "en",
+  "terminology_standard_version": "English / Latin anatomical equivalents"
+}

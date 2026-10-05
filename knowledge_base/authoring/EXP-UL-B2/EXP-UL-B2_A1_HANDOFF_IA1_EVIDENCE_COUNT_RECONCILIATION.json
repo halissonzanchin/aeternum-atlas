@@ -1,0 +1,458 @@
+{
+  "phase": "EXP-UL-B2-A1-HANDOFF-IA1",
+  "audit_timestamp": "2026-09-27T01:30:00Z",
+  "e0_reported_evidence_unit_count": 22,
+  "current_evidence_unit_count": 29,
+  "count_difference": 7,
+  "evidence_count_root_cause": "E0_REPORT_COUNTING_ERROR",
+  "differential_evidence_unit_count": 7,
+  "differential_evidence_unit_ids": [
+    "EVI-B2-RTC-001",
+    "EVI-B2-RTC-002",
+    "EVI-B2-RTC-003",
+    "EVI-B2-RTC-004",
+    "EVI-B2-RTC-005",
+    "EVI-B2-INT-001",
+    "EVI-B2-INT-002"
+  ],
+  "post_e0_evidence_modification_detected": false,
+  "e0_certification_valid": true,
+  "e0_errata_required": true,
+  "evidence_amendment_required": false,
+  "counting_reconciliation": {
+    "reported_breakdown": {
+      "direct_text": 13,
+      "direct_image": 5,
+      "institutional_note": 4,
+      "total": 22
+    },
+    "actual_breakdown": {
+      "direct_text": 21,
+      "direct_image": 4,
+      "institutional_note": 4,
+      "total": 29
+    },
+    "arithmetic_root_cause_explanation": "The original E0 report drafter calculated Direct Text Evidence Units as 13 by summing only Proximal Humerus text units (7) and Glenohumeral Joint text units (6), accidentally omitting Rotator Cuff text units (5) and Integration text units (3), representing 8 omitted text units. Concurrently, the report transcribed 5 Direct Image units from the 5 figure entries in EXP-UL-B2_FIGURE_EVIDENCE.json, whereas EXP-UL-B2_EVIDENCE_UNITS.json contained 4 standalone DIRECT_IMAGE units (FIG-B2-005 was linked to topographic integration units rather than an isolated evidence unit). The net arithmetic difference is exactly +8 - 1 = +7 units."
+  },
+  "differential_units": [
+    {
+      "evidence_unit_id": "EVI-B2-RTC-001",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-001",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (draft counted only HUM+GHJ text units: 7+6=13)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-002",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-002",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Rotator Cuff block text)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-003",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-003",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Rotator Cuff block text)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-004",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-004",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Rotator Cuff block text)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-005",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-005",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Rotator Cuff block text)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-INT-001",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-005",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Integration block text)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-INT-002",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-006",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Integration block text)"
+    }
+  ],
+  "all_29_evidence_units_audit": [
+    {
+      "evidence_unit_id": "EVI-B2-HUM-001",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-HUM-LOC-001",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-HUM-002",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-HUM-LOC-003",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-HUM-003",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-HUM-LOC-003",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-HUM-004",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-HUM-LOC-003",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-HUM-005",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-HUM-LOC-003",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-HUM-006",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-HUM-LOC-003",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-HUM-007",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-HUM-LOC-003",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-HUM-008",
+      "source_id": "SRC-NIELSEN-ATLAS-ED1",
+      "source_locator": "NIE-ED1-HUM-LOC-001",
+      "evidence_type": "DIRECT_IMAGE",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-GHJ-001",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-001",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-GHJ-002",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-002",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-GHJ-003",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-002",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-GHJ-004",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-002",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-GHJ-005",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-003",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-GHJ-006",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-004",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-GHJ-007",
+      "source_id": "SRC-NIELSEN-ATLAS-ED1",
+      "source_locator": "NIE-ED1-GHJ-LOC-001",
+      "evidence_type": "DIRECT_IMAGE",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-001",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-001",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-002",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-002",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-003",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-003",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-004",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-004",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-005",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-005",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-006",
+      "source_id": "SRC-NIELSEN-ATLAS-ED1",
+      "source_locator": "NIE-ED1-RTC-LOC-001",
+      "evidence_type": "DIRECT_IMAGE",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-007",
+      "source_id": "SRC-NIELSEN-ATLAS-ED1",
+      "source_locator": "NIE-ED1-RTC-LOC-002",
+      "evidence_type": "DIRECT_IMAGE",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-INT-001",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-005",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-INT-002",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-006",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-INT-003",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-INT-LOC-003",
+      "evidence_type": "DIRECT_TEXT",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-MOR-001",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-010",
+      "evidence_type": "INSTITUTIONAL_NOTE",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-MOR-002",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-010",
+      "evidence_type": "INSTITUTIONAL_NOTE",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-MOR-003",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-009",
+      "evidence_type": "INSTITUTIONAL_NOTE",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-MOR-004",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-014",
+      "evidence_type": "INSTITUTIONAL_NOTE",
+      "present_in_original_E0_generation_run": true,
+      "present_in_current_handoff": true,
+      "historical_provenance": "EXP-UL-B2-E0 (2026-09-27T00:18:07.837Z)"
+    }
+  ],
+  "differential_evidence_units": [
+    {
+      "evidence_unit_id": "EVI-B2-RTC-001",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-001",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (draft counted only HUM+GHJ text units: 7+6=13)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-002",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-002",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Rotator Cuff block text)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-003",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-003",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Rotator Cuff block text)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-004",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-004",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Rotator Cuff block text)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-005",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-RTC-LOC-005",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Rotator Cuff block text)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-INT-001",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-005",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Integration block text)"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-INT-002",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_locator": "LAT-T1-GHJ-LOC-006",
+      "evidence_type": "DIRECT_TEXT",
+      "creation_or_first_seen_context": "EXP-UL-B2-E0 (2026-09-27T00:18:07Z)",
+      "present_in_original_E0_generation_run": true,
+      "present_in_E0_report_accounting": false,
+      "present_in_current_handoff": true,
+      "reason_for_count_difference": "Omitted from E0 report text category subtotal (Integration block text)"
+    }
+  ]
+}

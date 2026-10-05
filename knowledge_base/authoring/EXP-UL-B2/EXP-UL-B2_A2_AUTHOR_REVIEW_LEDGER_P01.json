@@ -1,0 +1,79 @@
+{
+  "document_name": "EXP-UL-B2_A2_AUTHOR_REVIEW_LEDGER_P01",
+  "phase": "AMC-1.2-A2 / EXP-UL-B2-A2-P01",
+  "checkpoint": "P01",
+  "timestamp": "2026-10-04T17:32:29.108Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "parent_IA2_2_sha256": "a58bd14c7e798fb79a1ebaa91b77b2eb6fbe2b4c17a05ce7376127a051430dc0",
+  "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+  "persisted_by": "ANTIGRAVITY_AUTHORING_PERSISTENCE_ORCHESTRATOR",
+  "metrics": {
+    "total_holds": 7,
+    "automatically_promoted_to_na": false
+  },
+  "holds": [
+    {
+      "hold_id": "HOLD-006",
+      "target_id": "TGT-B2-A2E0-006",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "field": "anatomical_orientation",
+      "decision": "HOLD",
+      "reason_code": "PARTIAL_SUPPORT_REQUIRES_AUTHOR_REVIEW",
+      "reason": "Available evidence establishes superior/inferior relational orientation but does not support a complete three-dimensional anatomical orientation. Do not infer: retroversion, inclination angles, quantitative orientation."
+    },
+    {
+      "hold_id": "HOLD-021",
+      "target_id": "TGT-B2-A2E0-021",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "field": "anatomical_landmarks.fossae",
+      "decision": "HOLD",
+      "reason_code": "FIELD_SEMANTIC_MISMATCH",
+      "reason": "Evidence explicitly describes the intertubercular structure as a sulcus/groove, not as a fossa. Do not reclassify automatically."
+    },
+    {
+      "hold_id": "HOLD-025",
+      "target_id": "TGT-B2-A2E0-025",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "field": "external_configuration.extremities",
+      "decision": "HOLD",
+      "reason_code": "INSUFFICIENT_ASSERTION_FOR_EXACT_FIELD",
+      "reason": "Available evidence describes topographic and neurovascular relations of the surgical neck but does not describe its extremities."
+    },
+    {
+      "hold_id": "HOLD-027",
+      "target_id": "TGT-B2-A2E0-027",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "field": "continuities",
+      "decision": "HOLD",
+      "reason_code": "INSUFFICIENT_ASSERTION_FOR_EXACT_FIELD",
+      "reason": "Available evidence describes topographic and neurovascular relations, not anatomical continuity with another structure."
+    },
+    {
+      "hold_id": "HOLD-031",
+      "target_id": "TGT-B2-A2E0-031",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field": "congruence",
+      "decision": "HOLD",
+      "reason_code": "INSUFFICIENT_ASSERTION_FOR_EXACT_FIELD",
+      "reason": "Evidence establishes the articulating surfaces and labrum but does not explicitly establish degree of congruence/incongruence. Do not infer: low congruence, surface-area mismatch, quantitative ratios."
+    },
+    {
+      "hold_id": "HOLD-037",
+      "target_id": "TGT-B2-A2E0-037",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field": "synovial_membrane",
+      "decision": "HOLD",
+      "reason_code": "RELATIONAL_EVIDENCE_DOES_NOT_DEFINE_EXACT_FIELD",
+      "reason": "Evidence describes the subscapular bursa and its communication with the glenohumeral synovial cavity but does not directly define the synovial membrane."
+    },
+    {
+      "hold_id": "HOLD-038",
+      "target_id": "TGT-B2-A2E0-038",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field": "synovial_recesses",
+      "decision": "HOLD",
+      "reason_code": "SOURCE_SUPPORTS_COMMUNICATING_BURSA_NOT_EXPLICIT_RECESS",
+      "reason": "Evidence establishes communication between the subscapular bursa and the glenohumeral synovial cavity through the Weitbrecht foramen but does not explicitly classify the bursa as a synovial recess."
+    }
+  ]
+}

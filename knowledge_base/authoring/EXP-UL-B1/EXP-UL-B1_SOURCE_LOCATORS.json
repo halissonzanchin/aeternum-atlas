@@ -1,0 +1,234 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "protocol": "ACSRP-1.1",
+  "generated_at": "2026-09-25T03:02:18.507Z",
+  "total_locators": 26,
+  "sources": {
+    "SRC-LATARJET-ED5-T1": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_title": "Anatomía Humana, Tomo 1 (5.ª Edición)",
+      "locators": [
+        {
+          "locator_id": "LAT-T1-CLAV-LOC-001",
+          "pdf_page": 470,
+          "printed_page": 451,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section_heading": "Clavícula - Descripción general, forma, curvaturas y situación",
+          "anatomical_coverage": "Hueso largo en forma de S itálica, situación anterosuperior del tórax, curvaturas medial convexa y lateral cóncava."
+        },
+        {
+          "locator_id": "LAT-T1-CLAV-LOC-002",
+          "pdf_page": 471,
+          "printed_page": 452,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section_heading": "Cara superior y bordes (anterior y posterior) de la clavícula",
+          "anatomical_coverage": "Cara superior subcutánea y lisa; borde anterior con inserción del pectoral mayor y deltoides; borde posterior con inserción del trapecio y ECM."
+        },
+        {
+          "locator_id": "LAT-T1-CLAV-LOC-003",
+          "pdf_page": 472,
+          "printed_page": 453,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section_heading": "Cara inferior de la clavícula",
+          "anatomical_coverage": "Impresión del ligamento costoclavicular, canal/surco del músculo subclavio, agujero nutricio, tubérculo conoideo y línea trapezoidea."
+        },
+        {
+          "locator_id": "LAT-T1-CLAV-LOC-004",
+          "pdf_page": 473,
+          "printed_page": 454,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section_heading": "Extremidades esternal y acromial, estructura y osificación",
+          "anatomical_coverage": "Extremidad esternal voluminosa con carilla articular en silla de montar; extremidad acromial aplanada con carilla elíptica; estructura sin conducto medular definido."
+        },
+        {
+          "locator_id": "LAT-T1-SCJ-LOC-001",
+          "pdf_page": 486,
+          "printed_page": 467,
+          "chapter": "Capítulo 55: Articulaciones de la cintura pectoral",
+          "section_heading": "Articulación esternoclavicular - Superficies articulares y tipo",
+          "anatomical_coverage": "Sinovial selar (en silla de montar), superficies clavicular, esternal (manubrio) y 1er cartílago costal."
+        },
+        {
+          "locator_id": "LAT-T1-SCJ-LOC-002",
+          "pdf_page": 487,
+          "printed_page": 468,
+          "chapter": "Capítulo 55: Articulaciones de la cintura pectoral",
+          "section_heading": "Disco articular esternoclavicular y cápsula",
+          "anatomical_coverage": "Disco fibrocartilaginoso interarticular adherido superiormente a la clavícula e inferiormente al 1er cartílago, división en dos cavidades."
+        },
+        {
+          "locator_id": "LAT-T1-SCJ-LOC-003",
+          "pdf_page": 488,
+          "printed_page": 469,
+          "chapter": "Capítulo 55: Articulaciones de la cintura pectoral",
+          "section_heading": "Ligamentos esternoclaviculares e interclavicular",
+          "anatomical_coverage": "Ligamentos esternoclavicular anterior, posterior (muy grueso y protector) e interclavicular (horquilla esternal)."
+        },
+        {
+          "locator_id": "LAT-T1-SCJ-LOC-004",
+          "pdf_page": 489,
+          "printed_page": 470,
+          "chapter": "Capítulo 55: Articulaciones de la cintura pectoral",
+          "section_heading": "Ligamento costoclavicular",
+          "anatomical_coverage": "Potente ligamento a distancia romboidal entre el 1er cartílago/costilla y la clavícula; principal estabilizador y freno de la elevación."
+        },
+        {
+          "locator_id": "LAT-T1-SCJ-LOC-005",
+          "pdf_page": 490,
+          "printed_page": 471,
+          "chapter": "Capítulo 55: Articulaciones de la cintura pectoral",
+          "section_heading": "Sinoviales, vascularización, inervación y movimientos esternoclaviculares",
+          "anatomical_coverage": "Dos cavidades sinoviales, ramas de torácica interna y supraescapular, nervio supraclavicular y del subclavio; movimientos de elevación, descenso, protracción y retracción."
+        },
+        {
+          "locator_id": "LAT-T1-ACJ-LOC-001",
+          "pdf_page": 490,
+          "printed_page": 471,
+          "chapter": "Capítulo 55: Articulaciones de la cintura pectoral",
+          "section_heading": "Articulación acromioclavicular - Superficies y tipo",
+          "anatomical_coverage": "Artrodia (articulación plana), carilla clavicular orientada inferolateralmente y carilla acromial superomedialmente."
+        },
+        {
+          "locator_id": "LAT-T1-ACJ-LOC-002",
+          "pdf_page": 491,
+          "printed_page": 472,
+          "chapter": "Capítulo 55: Articulaciones de la cintura pectoral",
+          "section_heading": "Disco y ligamentos acromioclaviculares",
+          "anatomical_coverage": "Disco fibrocartilaginoso frecuentemente incompleto; cápsula reforzada por el potente ligamento acromioclavicular superior."
+        },
+        {
+          "locator_id": "LAT-T1-ACJ-LOC-003",
+          "pdf_page": 492,
+          "printed_page": 473,
+          "chapter": "Capítulo 55: Articulaciones de la cintura pectoral",
+          "section_heading": "Ligamentos coracoclaviculares (conoideo y trapezoideo)",
+          "anatomical_coverage": "Ligamento trapezoideo anterolateral horizontal; ligamento conoideo posteromedial triangular; ángulo entre ambos ligamentos."
+        },
+        {
+          "locator_id": "LAT-T1-ACJ-LOC-004",
+          "pdf_page": 493,
+          "printed_page": 474,
+          "chapter": "Capítulo 55: Articulaciones de la cintura pectoral",
+          "section_heading": "Mecánica acromioclavicular y suspensión escapular",
+          "anatomical_coverage": "Deslizamiento, rotación escapular y papel del complejo coracoclavicular como suspensor principal del miembro superior."
+        },
+        {
+          "locator_id": "LAT-T1-PG-LOC-001",
+          "pdf_page": 486,
+          "printed_page": 467,
+          "chapter": "Capítulo 55: Articulaciones de la cintura pectoral",
+          "section_heading": "Cintura pectoral - Concepto de integración articular y esquelética",
+          "anatomical_coverage": "Unión osteofibrosa del miembro superior al esqueleto axial a través de la clavícula y la articulación esternoclavicular."
+        },
+        {
+          "locator_id": "LAT-T1-PG-LOC-002",
+          "pdf_page": 494,
+          "printed_page": 475,
+          "chapter": "Capítulo 55: Articulaciones de la cintura pectoral",
+          "section_heading": "Unión escápulo-torácica (sisarcosis fisiológica)",
+          "anatomical_coverage": "Falsa articulación / sisarcosis escápulo-torácica, espacios omo-serrático y toraco-serrático delimitados por el músculo serrato anterior."
+        }
+      ]
+    },
+    "SRC-NIELSEN-ATLAS-ED1": {
+      "source_id": "SRC-NIELSEN-ATLAS-ED1",
+      "source_title": "Atlas of Human Anatomy (1st Edition)",
+      "locators": [
+        {
+          "locator_id": "NLS-ATLAS-CLAV-LOC-001",
+          "pdf_page": 89,
+          "printed_page": 89,
+          "chapter": "Chapter 5: Upper Limb Osteology",
+          "section_heading": "Clavicle - Superior and Inferior Surfaces & Orientation",
+          "anatomical_coverage": "Photographic cadaveric views of right and left clavicles, conoid tubercle, trapezoid line, and sternal/acromial ends."
+        },
+        {
+          "locator_id": "NLS-ATLAS-CLAV-LOC-002",
+          "pdf_page": 90,
+          "printed_page": 90,
+          "chapter": "Chapter 5: Upper Limb Osteology",
+          "section_heading": "Muscle Attachments of the Clavicle",
+          "anatomical_coverage": "Origins of pectoralis major, deltoid, sternocleidomastoid; insertions of trapezius and subclavius."
+        },
+        {
+          "locator_id": "NLS-ATLAS-CLAV-LOC-003",
+          "pdf_page": 96,
+          "printed_page": 96,
+          "chapter": "Chapter 5: Upper Limb Surface Anatomy",
+          "section_heading": "Surface Anatomy and Palpable Landmarks of Pectoral Girdle",
+          "anatomical_coverage": "Palpation of clavicle along entire shaft, sternoclavicular prominence, acromioclavicular step, and deltopectoral groove."
+        },
+        {
+          "locator_id": "NLS-ATLAS-SCJ-LOC-001",
+          "pdf_page": 92,
+          "printed_page": 92,
+          "chapter": "Chapter 5: Upper Limb Arthrology",
+          "section_heading": "Sternoclavicular Joint and Ligamentous Reinforcements",
+          "anatomical_coverage": "Coronal cross-section showing fibrocartilaginous disc, anterior SC ligament, interclavicular ligament, and costoclavicular ligament."
+        },
+        {
+          "locator_id": "NLS-ATLAS-ACJ-LOC-001",
+          "pdf_page": 93,
+          "printed_page": 93,
+          "chapter": "Chapter 5: Upper Limb Arthrology",
+          "section_heading": "Acromioclavicular Joint and Coracoclavicular Ligaments",
+          "anatomical_coverage": "Anterior and superior views showing AC ligament, conoid ligament, and trapezoid ligament orientations."
+        },
+        {
+          "locator_id": "NLS-ATLAS-PG-LOC-001",
+          "pdf_page": 98,
+          "printed_page": 98,
+          "chapter": "Chapter 5: Upper Limb Topography",
+          "section_heading": "Deep Neurovascular Relations of the Clavicle and Neck-Axilla Junction",
+          "anatomical_coverage": "Cervicoaxillary canal, subclavian artery and vein, and brachial plexus passing posterior and inferior to the middle third of the clavicle."
+        }
+      ]
+    },
+    "MORGUE-UPPER-LIMB-001": {
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_title": "Anotaciones - Práctica Miembro Superiores (Morgue Institucional)",
+      "locators": [
+        {
+          "locator_id": "MORG-UL-LOC-P01",
+          "pdf_page": 1,
+          "printed_page": 1,
+          "chapter": "Sección Osteología de la Cintura Escapular",
+          "section_heading": "Clavícula - Clasificación, extremos, caras y bordes",
+          "anatomical_coverage": "Clasificación de la clavícula como hueso plano alargado, extremo medial esternal/esferoide, extremo lateral acromial/plano, 2 caras y 2 bordes."
+        },
+        {
+          "locator_id": "MORG-UL-LOC-P02",
+          "pdf_page": 2,
+          "printed_page": 2,
+          "chapter": "Sección Osteología de la Cintura Escapular",
+          "section_heading": "Clavícula - Inserciones musculares y surco deltopectoral",
+          "anatomical_coverage": "Inserciones musculares: 1/3 lateral (trapecio y deltoides), 2/3 mediales (pectoral mayor), y surco deltopectoral con vena cefálica y arteria deltoidea."
+        },
+        {
+          "locator_id": "MORG-UL-LOC-P03",
+          "pdf_page": 3,
+          "printed_page": 3,
+          "chapter": "Sección Osteología de la Cintura Escapular",
+          "section_heading": "Cara inferior de la clavícula - Accidentes óseos e inserciones ligamentosas",
+          "anatomical_coverage": "Impresión del ligamento costoclavicular (1/3 medial), surco del subclavio (1/3 medio), y tubérculo conoideo y línea trapezoidea (1/3 lateral)."
+        },
+        {
+          "locator_id": "MORG-UL-LOC-P10",
+          "pdf_page": 10,
+          "printed_page": 10,
+          "chapter": "Sección Escápula y Hombro",
+          "section_heading": "Acromion y articulación acromioclavicular",
+          "anatomical_coverage": "Acromion como continuación lateral de la espina, carilla articular para la clavícula y reparo palpable más elevado del hombro."
+        },
+        {
+          "locator_id": "MORG-UL-LOC-P15",
+          "pdf_page": 15,
+          "printed_page": 15,
+          "chapter": "Sección Escápula y Hombro",
+          "section_heading": "Apófisis coracoides y anclaje ligamentario",
+          "anatomical_coverage": "Apófisis coracoides en el ángulo lateral de la escápula como punto de anclaje para los ligamentos coracoclaviculares (conoideo y trapezoideo)."
+        }
+      ]
+    }
+  }
+}

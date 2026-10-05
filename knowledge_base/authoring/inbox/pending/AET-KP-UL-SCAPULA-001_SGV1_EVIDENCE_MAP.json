@@ -1,0 +1,3189 @@
+[
+  {
+    "fact_candidate_id": "SCAP-SRC-F001",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F002",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F003",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F004",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F005",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-002"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F006",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-002"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F007",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-007"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-002"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F008",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-002"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F009",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F010",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F011",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F012",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F013",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F014",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F015",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F016",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-003"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F017",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F018",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F019",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F020",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F021",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F022",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F023",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F024",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F025",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F026",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F027",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F028",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-002"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F029",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-002"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F030",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F031",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F032",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F033",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F034",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F035",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F036",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F037",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F038",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-004",
+          "NLS-ATLAS-SCAP-LOC-007"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F039",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-004",
+          "NLS-ATLAS-SCAP-LOC-007"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F040",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-004",
+          "NLS-ATLAS-SCAP-LOC-007"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F041",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-004",
+          "NLS-ATLAS-SCAP-LOC-007"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F042",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-004",
+          "NLS-ATLAS-SCAP-LOC-007"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F043",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "SUPPORTED",
+    "support_type": "INSTITUTIONAL_TEACHING_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "MORGUE-UPPER-LIMB-001",
+        "locator_ids": [
+          "pages 4-23 (P4)"
+        ],
+        "citation": "Anotaciones - Práctica Miembro Superiores"
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F044",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-007"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F045",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-007"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F046",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-007"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F047",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-007"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F048",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-007"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F049",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-007"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F050",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F051",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-SRC-F052",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F001",
+    "subject": "scapula",
+    "relation": "TYPE_OF",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F002",
+    "subject": "scapula",
+    "relation": "LOCATED_IN",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F003",
+    "subject": "scapula",
+    "relation": "HAS_SURFACE",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F004",
+    "subject": "scapula",
+    "relation": "HAS_SURFACE",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F005",
+    "subject": "scapula",
+    "relation": "HAS_BORDER",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F006",
+    "subject": "scapula",
+    "relation": "HAS_BORDER",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F007",
+    "subject": "scapula",
+    "relation": "HAS_BORDER",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F008",
+    "subject": "scapula",
+    "relation": "HAS_ANGLE",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F009",
+    "subject": "scapula",
+    "relation": "HAS_ANGLE",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F010",
+    "subject": "scapula",
+    "relation": "HAS_ANGLE",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-001",
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F011",
+    "subject": "posterior_surface_of_scapula",
+    "relation": "HAS_STRUCTURE",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F012",
+    "subject": "scapular_spine",
+    "relation": "SEPARATES",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F013",
+    "subject": "scapula",
+    "relation": "HAS_FOSSA",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F014",
+    "subject": "scapula",
+    "relation": "HAS_FOSSA",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F015",
+    "subject": "scapula",
+    "relation": "HAS_FOSSA",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F016",
+    "subject": "scapular_spine",
+    "relation": "CONTINUES_AS",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F017",
+    "subject": "scapula",
+    "relation": "HAS_PROCESS",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F018",
+    "subject": "lateral_angle_of_scapula",
+    "relation": "HAS_STRUCTURE",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F019",
+    "subject": "scapula",
+    "relation": "HAS_LANDMARK",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F020",
+    "subject": "scapula",
+    "relation": "HAS_LANDMARK",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F021",
+    "subject": "superior_border_of_scapula",
+    "relation": "HAS_NOTCH",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F022",
+    "subject": "scapula",
+    "relation": "ARTICULATES_WITH",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-007",
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-002"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F023",
+    "subject": "scapula",
+    "relation": "ARTICULATES_WITH",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-007",
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-002"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F024",
+    "subject": "glenoid_cavity",
+    "relation": "ARTICULATES_WITH",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-007",
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-002"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F025",
+    "subject": "subscapularis",
+    "relation": "ORIGINATES_FROM",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F026",
+    "subject": "supraspinatus",
+    "relation": "ORIGINATES_FROM",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F027",
+    "subject": "infraspinatus",
+    "relation": "ORIGINATES_FROM",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F028",
+    "subject": "teres_minor",
+    "relation": "ORIGINATES_FROM",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F029",
+    "subject": "teres_major",
+    "relation": "ORIGINATES_FROM",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F030",
+    "subject": "deltoid",
+    "relation": "ORIGINATES_FROM",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F031",
+    "subject": "deltoid",
+    "relation": "ORIGINATES_FROM",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F032",
+    "subject": "trapezius",
+    "relation": "INSERTS_INTO",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F033",
+    "subject": "trapezius",
+    "relation": "INSERTS_INTO",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F034",
+    "subject": "levator_scapulae",
+    "relation": "INSERTS_INTO",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F035",
+    "subject": "rhomboid_minor",
+    "relation": "INSERTS_INTO",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F036",
+    "subject": "rhomboid_major",
+    "relation": "INSERTS_INTO",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F037",
+    "subject": "serratus_anterior",
+    "relation": "INSERTS_INTO",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F038",
+    "subject": "biceps_brachii_long_head",
+    "relation": "ORIGINATES_FROM",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F039",
+    "subject": "triceps_brachii_long_head",
+    "relation": "ORIGINATES_FROM",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F040",
+    "subject": "biceps_brachii_short_head",
+    "relation": "ORIGINATES_FROM",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F041",
+    "subject": "coracobrachialis",
+    "relation": "ORIGINATES_FROM",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F042",
+    "subject": "pectoralis_minor",
+    "relation": "INSERTS_INTO",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-005",
+          "LAT-T1-SCAP-LOC-009"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-006",
+          "NLS-ATLAS-SCAP-LOC-007",
+          "NLS-ATLAS-SCAP-LOC-008"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F043",
+    "subject": "coracoacromial_ligament",
+    "relation": "EXTENDS_BETWEEN",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-007"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F044",
+    "subject": "superior_transverse_scapular_ligament",
+    "relation": "BRIDGES",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-007"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F045",
+    "subject": "suprascapular_nerve",
+    "relation": "PASSES_THROUGH",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F046",
+    "subject": "suprascapular_nerve",
+    "relation": "RELATED_TO",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F047",
+    "subject": "suprascapular_artery",
+    "relation": "RELATED_TO",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F048",
+    "subject": "suprascapular_nerve",
+    "relation": "RELATED_TO",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-003",
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F049",
+    "subject": "dorsal_scapular_artery",
+    "relation": "RELATED_TO",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F050",
+    "subject": "circumflex_scapular_artery",
+    "relation": "RELATED_TO",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004",
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F051",
+    "subject": "triangular_space",
+    "relation": "HAS_BOUNDARY",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F052",
+    "subject": "triangular_space",
+    "relation": "HAS_BOUNDARY",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F053",
+    "subject": "triangular_space",
+    "relation": "HAS_BOUNDARY",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F054",
+    "subject": "triangular_space",
+    "relation": "CONTAINS",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F055",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F056",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F057",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F058",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F059",
+    "subject": "quadrangular_space",
+    "relation": "CONTAINS",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F060",
+    "subject": "quadrangular_space",
+    "relation": "CONTAINS",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F061",
+    "subject": "scapular_spine",
+    "relation": "PRACTICAL_IDENTIFIES",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F062",
+    "subject": "glenoid_cavity",
+    "relation": "PRACTICAL_ORIENTATION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F063",
+    "subject": "coracoid_process",
+    "relation": "PRACTICAL_ORIENTATION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-AI-F064",
+    "subject": "inferior_angle_of_scapula",
+    "relation": "PRACTICAL_ORIENTATION",
+    "validation_status": "VALIDATED",
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-001",
+          "LAT-T1-SCAP-LOC-002",
+          "LAT-T1-SCAP-LOC-005"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-003",
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "MULTI_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F001",
+    "subject": "acromion",
+    "relation": "HAS_MORPHOLOGIC_VARIANT",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F002",
+    "subject": "acromion",
+    "relation": "HAS_MORPHOLOGIC_VARIANT",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F003",
+    "subject": "acromion",
+    "relation": "HAS_MORPHOLOGIC_VARIANT",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-002"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      },
+      {
+        "source_id": "SRC-NIELSEN-ATLAS-ED1",
+        "locator_ids": [
+          "NLS-ATLAS-SCAP-LOC-004"
+        ],
+        "citation": "Nielsen & Miller, Atlas of Human Anatomy 1st Ed."
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F004",
+    "subject": "os_acromiale",
+    "relation": "TYPE_OF",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-006"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F005",
+    "subject": "os_acromiale",
+    "relation": "RELATED_TO",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-006"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F006",
+    "subject": "superior_transverse_scapular_ligament",
+    "relation": "HAS_VARIANT",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F007",
+    "subject": "superior_transverse_scapular_ligament",
+    "relation": "HAS_VARIANT",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F008",
+    "subject": "complete_ossification_of_superior_transverse_scapular_ligament",
+    "relation": "MAY_FORM",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-004"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F009",
+    "subject": "scapula",
+    "relation": "REGIONAL_VASCULAR_RELATION",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F010",
+    "subject": "scapula",
+    "relation": "REGIONAL_VASCULAR_RELATION",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F011",
+    "subject": "scapula",
+    "relation": "REGIONAL_VASCULAR_RELATION",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F012",
+    "subject": "scapula",
+    "relation": "RECEIVES_PERIOSTEAL_SUPPLY_FROM",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-006",
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F013",
+    "subject": "scapula",
+    "relation": "HAS_INTRAOSSEOUS_VASCULAR_NETWORK",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-006",
+          "LAT-T1-SCAP-LOC-010"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F014",
+    "subject": "glenohumeral_joint",
+    "relation": "innervated_by",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F015",
+    "subject": "glenohumeral_joint",
+    "relation": "innervated_by",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-008"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F016",
+    "subject": "glenohumeral_joint",
+    "relation": "POSSIBLE_ARTICULAR_CONTRIBUTION",
+    "validation_status": "REVIEW_PENDING",
+    "support_type": "NO_REGISTERED_SUPPORT",
+    "sources": [],
+    "evidence_strength": "NONE"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F017",
+    "subject": "acromioclavicular_joint",
+    "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+    "validation_status": "VALIDATED",
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-007"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SINGLE_SOURCE_CANONICAL"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F018",
+    "subject": "acromioclavicular_joint",
+    "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+    "validation_status": "REVIEW_PENDING",
+    "support_type": "NO_REGISTERED_SUPPORT",
+    "sources": [],
+    "evidence_strength": "NONE"
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F019",
+    "subject": "scapular_periosteum",
+    "relation": "HAS_SENSORY_INNERVATION",
+    "validation_status": "SUPPORTED",
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "sources": [
+      {
+        "source_id": "SRC-LATARJET-ED5-T1",
+        "locator_ids": [
+          "LAT-T1-SCAP-LOC-006"
+        ],
+        "citation": "Latarjet & Ruiz Liard, Anatomía Humana 5.ª Ed., Tomo 1"
+      }
+    ],
+    "evidence_strength": "SUPPORTING_OR_CONTEXTUAL"
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "pack_id": "AET-KP-UL-SCAPULA-001",
+  "pack_version": "1.0.0",
+  "topic": "SCAPULA",
+  "primary_entity_ids": [
+    "escapula"
+  ],
+  "domain": "UPPER_LIMB",
+  "subdomain": "BONES",
+  "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+  "authoring_protocol": "AKAP-1.0",
+  "authoring_mode": "SOURCE_GROUNDED",
+  "status": "RESERVED_TEMPLATE",
+  "note": "EMPTY STRUCTURAL TEMPLATE RESERVED FOR EXTERNAL KNOWLEDGE AUTHOR (CHATGPT). NO INVENTED ANATOMY.",
+  "source_ids": [],
+  "source_locations": [],
+  "macro_dossiers": [],
+  "documentary_memory": [],
+  "atomic_fact_candidates": [],
+  "relations": [],
+  "teaching_connections": [],
+  "practical_memory": [],
+  "clinical_connections": [],
+  "terminology_candidates": [],
+  "3d_mapping_candidates": [],
+  "validation_requirements": {
+    "recommended_authorities": [
+      "CANONICAL_PRIMARY",
+      "CANONICAL_SECONDARY",
+      "TERMINOLOGY_AUTHORITY"
+    ],
+    "cross_validation_targets": [
+      "TERMINOLOGIA_ANATOMICA_2_FIPAT",
+      "MOORE_CLINICALLY_ORIENTED_ANATOMY_8ED",
+      "LATARJET_ANATOMIA_HUMANA_5ED"
+    ]
+  },
+  "known_gaps": []
+}

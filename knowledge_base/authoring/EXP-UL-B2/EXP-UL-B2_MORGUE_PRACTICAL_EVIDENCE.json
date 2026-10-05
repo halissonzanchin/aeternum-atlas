@@ -1,0 +1,154 @@
+{
+  "batch_id": "EXP-UL-B2",
+  "generated_at": "2026-09-27T00:18:07.838Z",
+  "metrics": {
+    "total_morgue_evidence_units": 12,
+    "morgue_inventory_only_evidence_count": 0
+  },
+  "items": [
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-001",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-010",
+      "page": 25,
+      "topic": "PROXIMAL_HUMERUS",
+      "primary_entity": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "original_assertion": "Tubérculo Mayor (Troquíter): Faceta superior (supraespinoso), faceta media (infraespinoso), faceta inferior (redondo menor).",
+      "dissection_perspective": "Identificação das 3 facetas na epífise proximal do úmero cadavérico desprovido de periósteo.",
+      "classification": "DIRECT_PRACTICAL_ASSERTION",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    },
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-002",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-010",
+      "page": 25,
+      "topic": "PROXIMAL_HUMERUS",
+      "primary_entity": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "original_assertion": "Tubérculo Menor (Troquín): Inserción del músculo subescapular.",
+      "dissection_perspective": "Ponto de inserção anterior do manguito rotador visível após rebatimento do peitoral maior.",
+      "classification": "DIRECT_PRACTICAL_ASSERTION",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    },
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-003",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-010",
+      "page": 25,
+      "topic": "PROXIMAL_HUMERUS",
+      "primary_entity": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "original_assertion": "Corredera Bicipital (Surco Intertubercular): Labio lateral (pectoral mayor), suelo (dorsal ancho), labio medial (redondo mayor).",
+      "dissection_perspective": "Relação das inserções musculares nos lábios e assoalho da corredera bicipital.",
+      "classification": "DIRECT_PRACTICAL_ASSERTION",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    },
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-004",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-010",
+      "page": 25,
+      "topic": "GLENOHUMERAL_JOINT",
+      "primary_entity": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "original_assertion": "Ligamento Humeral Transverso de Gordon Brodie sobre la corredera bicipital.",
+      "dissection_perspective": "Retináculo osteofibroso mantendo o tendão bicipital na calha umeral.",
+      "classification": "VISUAL_IDENTIFICATION",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    },
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-005",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-009",
+      "page": 24,
+      "topic": "GLENOHUMERAL_JOINT",
+      "primary_entity": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "original_assertion": "Articulación Glenohumeral: Diartrosis - Enartrosis (esferoidea). Cápsula y Ligamentos: Ligamento Glenohumeral Superior, Medio e Inferior; Ligamento Coracohumeral.",
+      "dissection_perspective": "Demonstração dos reforços capsulares anteriores e do ligamento coracoumeral superior.",
+      "classification": "DIRECT_PRACTICAL_ASSERTION",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    },
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-006",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-007",
+      "page": 17,
+      "topic": "GLENOHUMERAL_JOINT",
+      "primary_entity": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "original_assertion": "Cavidad glenoidea está rodeada por el labrum (Rodete Glenoideo).",
+      "dissection_perspective": "Bordo fibrocartilagíneo aumentando a profundidade e congruência da cavidade glenoidal.",
+      "classification": "VISUAL_IDENTIFICATION",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    },
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-007",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-006",
+      "page": 16,
+      "topic": "GLENOHUMERAL_JOINT",
+      "primary_entity": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "original_assertion": "Cabeza larga del bíceps braquial insertándose en el tubérculo supraglenoideo.",
+      "dissection_perspective": "Origem intra-articular e íntima continuidade com as fibras superiores do lábio glenoidal.",
+      "classification": "VISUAL_IDENTIFICATION",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    },
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-008",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-001",
+      "page": 5,
+      "topic": "ROTATOR_CUFF",
+      "primary_entity": "AET-ENT-REF-SUBSCAPULARIS",
+      "original_assertion": "Músculo Subescapular en fosa subescapular, convergiendo en tendón anterior al hombro.",
+      "dissection_perspective": "Plano anterior da escápula; fascículos musculares multipenados.",
+      "classification": "DIRECT_PRACTICAL_ASSERTION",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    },
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-009",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-002",
+      "page": 7,
+      "topic": "ROTATOR_CUFF",
+      "primary_entity": "AET-ENT-REF-SUPRASPINATUS",
+      "original_assertion": "Músculo Supraespinoso pasando por debajo del arco acromiocoracoideo hacia el troquíter.",
+      "dissection_perspective": "Passagem pelo túnel osteofibroso superior do ombro.",
+      "classification": "DIRECT_PRACTICAL_ASSERTION",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    },
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-010",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-003",
+      "page": 8,
+      "topic": "ROTATOR_CUFF",
+      "primary_entity": "AET-ENT-REF-INFRASPINATUS",
+      "original_assertion": "Músculo Infraespinoso en fosa infraespinosa, tendón cubriendo la cápsula posterior.",
+      "dissection_perspective": "Exposição do ventre muscular sob a espessa fáscia infraespinal.",
+      "classification": "DIRECT_PRACTICAL_ASSERTION",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    },
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-011",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-004",
+      "page": 12,
+      "topic": "ROTATOR_CUFF",
+      "primary_entity": "AET-ENT-REF-TERES_MINOR",
+      "original_assertion": "Músculo Redondo Menor en borde lateral de la escápula, íntimamente adosado al infraespinoso.",
+      "dissection_perspective": "Delimitação inferior do manguito rotador posterior.",
+      "classification": "DIRECT_PRACTICAL_ASSERTION",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    },
+    {
+      "morgue_evidence_id": "MOR-EVI-B2-012",
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_locator": "MOR-UL-B2-LOC-014",
+      "page": 41,
+      "topic": "ROTATOR_CUFF",
+      "primary_entity": "AET-ENT-REF-TERES_MINOR",
+      "original_assertion": "Espacio cuadrangular de Velpeau: limitado arriba por el redondo menor, abajo por el redondo mayor, medial por tríceps y lateral por húmero.",
+      "dissection_perspective": "Topografia do forame quadrilátero com emergência do nervo axilar.",
+      "classification": "PEDAGOGICAL_NOTE",
+      "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+    }
+  ]
+}

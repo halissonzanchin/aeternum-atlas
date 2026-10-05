@@ -1,0 +1,127 @@
+{
+  "audit_version": "AIR1-PREP",
+  "timestamp": "2026-09-25T02:00:00.000Z",
+  "environments": {
+    "staging": {
+      "project_ref": "hutohshswppahipgcwio",
+      "project_name": "Aeternum Atlas Staging",
+      "region": "sa-east-1",
+      "total_tables": 46,
+      "rls_enforcement": "100%",
+      "status": "OPERATIONAL"
+    },
+    "production": {
+      "project_ref": "hyivyrietgjdazgizafp",
+      "project_name": "Aeternum Atlas Production",
+      "region": "sa-east-1",
+      "total_tables": 56,
+      "rls_enforcement": "100%",
+      "status": "OPERATIONAL"
+    }
+  },
+  "schema_diff_summary": {
+    "core_atlas_tables_in_parity": 46,
+    "core_atlas_parity_percentage": "100%",
+    "tables_in_production_missing_in_staging": 10,
+    "tables_in_staging_missing_in_production": 0,
+    "canonical_memory_tables_in_staging": 0,
+    "canonical_memory_tables_in_production": 0,
+    "canonical_memory_schema_ready": false,
+    "schema_drift_risk": "CONTROLLED_LOW"
+  },
+  "core_common_tables": [
+    "academic_disciplines",
+    "agenda_items",
+    "ai_conversations",
+    "atlas_annotations",
+    "atlas_structures",
+    "chat_messages",
+    "curriculum_nodes",
+    "curriculum_prerequisites",
+    "educational_content",
+    "flashcard_reviews",
+    "flashcards",
+    "institution_courses",
+    "institution_domains",
+    "institution_invitations",
+    "institution_memberships",
+    "institutions",
+    "learning_metrics",
+    "learning_telemetry",
+    "lesson_manifests",
+    "lesson_sections",
+    "lessons",
+    "license_assignments",
+    "licenses",
+    "model_annotations",
+    "model_notes",
+    "models",
+    "organization_members",
+    "organizations",
+    "profiles",
+    "quiz_answers",
+    "quiz_questions",
+    "quiz_submissions",
+    "quizzes",
+    "security_audit_log",
+    "spatial_hotspots",
+    "student_classrooms",
+    "student_profiles",
+    "study_agendas",
+    "system_announcements",
+    "user_achievements",
+    "user_activity_log",
+    "user_course_enrollments",
+    "user_lesson_progress",
+    "user_preferences",
+    "user_roles",
+    "viewer_state_presets"
+  ],
+  "production_extra_tables_vita_research": [
+    "researcher_profiles",
+    "participants",
+    "prostheses",
+    "prosthesis_manufacturing_specs",
+    "prosthesis_changes",
+    "analytics_scoring_models",
+    "weekly_submissions",
+    "submission_domain_scores",
+    "participant_consents",
+    "research_audit_log"
+  ],
+  "canonical_tables_to_provision": [
+    "canonical_memory_versions",
+    "academic_sources",
+    "academic_source_locators",
+    "canonical_entities",
+    "canonical_facts",
+    "canonical_relations",
+    "canonical_teaching_connections",
+    "canonical_practical_memory",
+    "canonical_query_routing",
+    "safe_engine_metadata"
+  ],
+  "remediation_actions": [
+    {
+      "step": 1,
+      "target": "staging",
+      "action": "Backfill 10 Vita clinical research tables to synchronize Staging with Production baseline.",
+      "priority": "P2",
+      "blocking_for_air1_pilot": false
+    },
+    {
+      "step": 2,
+      "target": "staging",
+      "action": "Apply migration 20260925000000_create_canonical_memory_tables.sql to provision 10 canonical memory tables.",
+      "priority": "P1",
+      "blocking_for_air1_pilot": true
+    },
+    {
+      "step": 3,
+      "target": "staging",
+      "action": "Seed canonical scapula knowledge pack (AET-KP-UL-SCAPULA-001) into staging canonical tables.",
+      "priority": "P1",
+      "blocking_for_air1_pilot": true
+    }
+  ]
+}

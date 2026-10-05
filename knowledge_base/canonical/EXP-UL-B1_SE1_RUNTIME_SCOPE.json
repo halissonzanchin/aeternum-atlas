@@ -1,0 +1,18 @@
+{
+  "phase": "EXP-UL-B1-SE1",
+  "safe_engine_version": "AETERNUM-SAFE-ENGINE-0.2.0-UPPER-LIMB-B1",
+  "safe_engine_parent_version": "AETERNUM-SAFE-ENGINE-0.1.0-SCAPULA-PILOT",
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+  "entity_registry_version": "2.1.0",
+  "active_pointer": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_CURRENT.json",
+  "active_manifest": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_2.json",
+  "scope": {
+    "canonical_facts_count": 248,
+    "production_facts_count": 231,
+    "blocked_facts_count": 17,
+    "entity_registry_count": 154,
+    "practical_memory_count": 16,
+    "teaching_connection_count": 17,
+    "documentary_unit_count": 20
+  }
+}

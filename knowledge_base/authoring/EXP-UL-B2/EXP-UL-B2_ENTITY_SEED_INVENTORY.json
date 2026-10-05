@@ -1,0 +1,372 @@
+{
+  "batch_id": "EXP-UL-B2",
+  "generated_at": "2026-09-27T00:18:07.926Z",
+  "metrics": {
+    "total_seed_entities": 42,
+    "reused_existing_count": 16,
+    "new_subentity_candidates_count": 26,
+    "potential_duplicate_count": 0
+  },
+  "reused_entities": [
+    {
+      "canonical_entity_id": "AET-ENT-REF-HUMERUS",
+      "canonical_name": "Humerus",
+      "latin_name": "Humerus",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-PROXIMAL-HUMERUS-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": true,
+      "reuse_justification": "Existing stable reference bone identity from Registry 2.1; promoted to candidacy for B2 primary ownership.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+      "canonical_name": "Head of Humerus",
+      "latin_name": "Caput humeri",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-PROXIMAL-HUMERUS-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": true,
+      "reuse_justification": "Existing reference bone part from Registry 2.1; distinct from shaft and tubercles.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "canonical_name": "Surgical Neck of Humerus",
+      "latin_name": "Collum chirurgicum humeri",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-PROXIMAL-HUMERUS-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": true,
+      "reuse_justification": "Existing reference landmark subpart from Registry 2.1; distinct from anatomical neck.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "canonical_name": "Glenohumeral Joint",
+      "latin_name": "Articulatio glenohumeralis",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-GLENOHUMERAL-JOINT-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": true,
+      "reuse_justification": "Existing reference joint from Registry 2.1; central subject of B2 joint pack.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "canonical_name": "Subscapularis Muscle",
+      "latin_name": "Musculus subscapularis",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": true,
+      "reuse_justification": "Existing reference muscle from Registry 2.1; anterior rotator cuff component.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "canonical_name": "Supraspinatus Muscle",
+      "latin_name": "Musculus supraspinatus",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": true,
+      "reuse_justification": "Existing reference muscle from Registry 2.1; superior rotator cuff component.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "canonical_name": "Infraspinatus Muscle",
+      "latin_name": "Musculus infraspinatus",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": true,
+      "reuse_justification": "Existing reference muscle from Registry 2.1; posterior rotator cuff component.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-TERES_MINOR",
+      "canonical_name": "Teres Minor Muscle",
+      "latin_name": "Musculus teres minor",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": true,
+      "reuse_justification": "Existing reference muscle from Registry 2.1; posteroinferior rotator cuff component.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "canonical_name": "Biceps Brachii Long Head",
+      "latin_name": "Caput longum musculi bicipitis brachii",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-GLENOHUMERAL-JOINT-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": false,
+      "reuse_justification": "Retained as REFERENCE_ONLY supporting structure for intra-articular relation; full arm authorship belongs to later batch.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-DELTOID",
+      "canonical_name": "Deltoid Muscle",
+      "latin_name": "Musculus deltoideus",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-SHOULDER-INTEGRATION-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": false,
+      "reuse_justification": "Retained as REFERENCE_ONLY functional prime mover partner; full muscle authorship belongs to later batch.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-AXILLARY_NERVE",
+      "canonical_name": "Axillary Nerve",
+      "latin_name": "Nervus axillaris",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": false,
+      "reuse_justification": "Retained as REFERENCE_ONLY innervation dependency for teres minor and surgical neck relation.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUPRASCAPULAR_NERVE",
+      "canonical_name": "Suprascapular Nerve",
+      "latin_name": "Nervus suprascapularis",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": false,
+      "reuse_justification": "Retained as REFERENCE_ONLY innervation dependency for supraspinatus and infraspinatus.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUPRASCAPULAR_ARTERY",
+      "canonical_name": "Suprascapular Artery",
+      "latin_name": "Arteria suprascapularis",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": false,
+      "reuse_justification": "Retained as REFERENCE_ONLY vascular supply dependency.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-POSTERIOR_CIRCUMFLEX_HUMERAL_VESSELS",
+      "canonical_name": "Posterior Circumflex Humeral Vessels",
+      "latin_name": "Vasa circumflexa humeri posteriora",
+      "current_knowledge_state": "REFERENCE_ONLY",
+      "proposed_pack_owner": "AET-KP-UL-PROXIMAL-HUMERUS-001",
+      "classification": "EXISTING_REFERENCE_ENTITY",
+      "reference_only_to_full_candidate": false,
+      "reuse_justification": "Retained as REFERENCE_ONLY neurovascular relation dependency for surgical neck.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "canonical_name": "Glenoid Cavity of Scapula",
+      "latin_name": "Cavitas glenoidalis scapulae",
+      "current_knowledge_state": "FULL_CANONICAL",
+      "proposed_pack_owner": "AET-KP-UL-SCAPULA-001",
+      "classification": "EXISTING_EXACT_IDENTITY",
+      "reference_only_to_full_candidate": false,
+      "reuse_justification": "Permanent Scapula canonical entity; cross-referenced as articular partner.",
+      "identity_collapse_prevented": true
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "canonical_name": "Glenoid Labrum",
+      "latin_name": "Labrum glenoidale",
+      "current_knowledge_state": "FULL_CANONICAL",
+      "proposed_pack_owner": "AET-KP-UL-SCAPULA-001",
+      "classification": "EXISTING_EXACT_IDENTITY",
+      "reference_only_to_full_candidate": false,
+      "reuse_justification": "Permanent Scapula canonical entity; cross-referenced as capsulolabral partner.",
+      "identity_collapse_prevented": true
+    }
+  ],
+  "new_candidates": [
+    {
+      "candidate_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "canonical_name": "Anatomical Neck of Humerus",
+      "latin_name": "Collum anatomicum humeri",
+      "entity_type": "BONE_LANDMARK",
+      "parent_id": "AET-ENT-REF-HUMERUS"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "canonical_name": "Greater Tubercle of Humerus",
+      "latin_name": "Tuberculum majus humeri",
+      "entity_type": "BONE_LANDMARK",
+      "parent_id": "AET-ENT-REF-HUMERUS"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "canonical_name": "Lesser Tubercle of Humerus",
+      "latin_name": "Tuberculum minus humeri",
+      "entity_type": "BONE_LANDMARK",
+      "parent_id": "AET-ENT-REF-HUMERUS"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "canonical_name": "Intertubercular Sulcus of Humerus",
+      "latin_name": "Sulcus intertubercularis humeri",
+      "entity_type": "BONE_LANDMARK",
+      "parent_id": "AET-ENT-REF-HUMERUS"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE_CREST",
+      "canonical_name": "Crest of Greater Tubercle",
+      "latin_name": "Crista tuberculi majoris",
+      "entity_type": "BONE_LANDMARK",
+      "parent_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE_CREST",
+      "canonical_name": "Crest of Lesser Tubercle",
+      "latin_name": "Crista tuberculi minoris",
+      "entity_type": "BONE_LANDMARK",
+      "parent_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-HUMERAL_PROXIMAL_EPIPHYSIS",
+      "canonical_name": "Proximal Epiphysis of Humerus",
+      "latin_name": "Epiphysis proximalis humeri",
+      "entity_type": "REGIONAL_SEGMENT",
+      "parent_id": "AET-ENT-REF-HUMERUS"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-GREATER_TUBERCLE_SUPERIOR_FACET",
+      "canonical_name": "Superior Facet of Greater Tubercle",
+      "latin_name": "Facies superior tuberculi majoris",
+      "entity_type": "LANDMARK_SUBPART",
+      "parent_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-GREATER_TUBERCLE_MIDDLE_FACET",
+      "canonical_name": "Middle Facet of Greater Tubercle",
+      "latin_name": "Facies media tuberculi majoris",
+      "entity_type": "LANDMARK_SUBPART",
+      "parent_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-GREATER_TUBERCLE_INFERIOR_FACET",
+      "canonical_name": "Inferior Facet of Greater Tubercle",
+      "latin_name": "Facies inferior tuberculi majoris",
+      "entity_type": "LANDMARK_SUBPART",
+      "parent_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+      "canonical_name": "Fibrous Capsule of Glenohumeral Joint",
+      "latin_name": "Capsula articularis glenohumeralis",
+      "entity_type": "JOINT_CAPSULE",
+      "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-GLENOHUMERAL_SYNOVIAL_MEMBRANE",
+      "canonical_name": "Synovial Membrane of Glenohumeral Joint",
+      "latin_name": "Membrana synovialis glenohumeralis",
+      "entity_type": "SYNOVIAL_MEMBRANE",
+      "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "canonical_name": "Superior Glenohumeral Ligament",
+      "latin_name": "Ligamentum glenohumerale superius",
+      "entity_type": "LIGAMENT",
+      "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "canonical_name": "Middle Glenohumeral Ligament",
+      "latin_name": "Ligamentum glenohumerale medium",
+      "entity_type": "LIGAMENT",
+      "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "canonical_name": "Inferior Glenohumeral Ligament Complex",
+      "latin_name": "Ligamentum glenohumerale inferius",
+      "entity_type": "LIGAMENT_COMPLEX",
+      "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "canonical_name": "Coracohumeral Ligament",
+      "latin_name": "Ligamentum coracohumerale",
+      "entity_type": "LIGAMENT",
+      "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "canonical_name": "Transverse Humeral Ligament",
+      "latin_name": "Ligamentum transversum humeri",
+      "entity_type": "LIGAMENT",
+      "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+      "canonical_name": "Rotator Interval",
+      "latin_name": "Intervallum rotatorium",
+      "entity_type": "ANATOMICAL_SPACE",
+      "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-GLENOHUMERAL_AXILLARY_RECESS",
+      "canonical_name": "Axillary Recess of Glenohumeral Joint",
+      "latin_name": "Recessus axillaris",
+      "entity_type": "SYNOVIAL_RECESS",
+      "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "canonical_name": "Subacromial-Subdeltoid Bursa",
+      "latin_name": "Bursa subacromialis et subdeltoidea",
+      "entity_type": "BURSA",
+      "parent_id": null
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "canonical_name": "Subtendinous Bursa of Subscapularis",
+      "latin_name": "Bursa subtendinea musculi subscapularis",
+      "entity_type": "BURSA",
+      "parent_id": null
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "canonical_name": "Rotator Cuff",
+      "latin_name": "Musculotendinous rotator cuff",
+      "entity_type": "COMPOSITE_STRUCTURE",
+      "parent_id": null
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "canonical_name": "Tendon of Supraspinatus Muscle",
+      "latin_name": "Tendo musculi supraspinati",
+      "entity_type": "TENDON",
+      "parent_id": "AET-ENT-REF-SUPRASPINATUS"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "canonical_name": "Tendon of Infraspinatus Muscle",
+      "latin_name": "Tendo musculi infraspinati",
+      "entity_type": "TENDON",
+      "parent_id": "AET-ENT-REF-INFRASPINATUS"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "canonical_name": "Tendon of Teres Minor Muscle",
+      "latin_name": "Tendo musculi teretis minoris",
+      "entity_type": "TENDON",
+      "parent_id": "AET-ENT-REF-TERES_MINOR"
+    },
+    {
+      "candidate_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "canonical_name": "Tendon of Subscapularis Muscle",
+      "latin_name": "Tendo musculi subscapularis",
+      "entity_type": "TENDON",
+      "parent_id": "AET-ENT-REF-SUBSCAPULARIS"
+    }
+  ]
+}

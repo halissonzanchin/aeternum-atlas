@@ -1,0 +1,125 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "source_id": "MORGUE-UPPER-LIMB-001",
+  "generated_at": "2026-09-25T03:02:18.507Z",
+  "total_items": 13,
+  "items": [
+    {
+      "item_id": "MORG-B1-PRACT-001",
+      "classification": "MORGUE_DIRECT",
+      "page": 1,
+      "line_reference": "Línea 3",
+      "institutional_statement": "Tipo de Hueso: Hueso Plano Alargado.",
+      "reconciliation": "AGREES_WITH_CLASSICAL_FRENCH_NOMENCLATURE",
+      "anatomical_application": "Classifies the clavicle as a flat elongated bone due to its cortical plates and absence of a medullary canal, consistent with Testut and Latarjet teaching traditions."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-002",
+      "classification": "MORGUE_DIRECT",
+      "page": 1,
+      "line_reference": "Línea 4",
+      "institutional_statement": "Extremo Medial: Esternal / Esferoide (manubrio del esternón y 1º cartílago costal).",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Directly guides students to identify the bulbous, spheroid/quadrangular medial extremity articulating with the sternum and 1st costal cartilage."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-003",
+      "classification": "MORGUE_DIRECT",
+      "page": 1,
+      "line_reference": "Línea 5",
+      "institutional_statement": "Extremo Lateral: Acromial / Plano (con el acromion de la escápula).",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Directly contrasts the flattened plate-like lateral end with the bulbous medial end to determine mediolateral orientation."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-004",
+      "classification": "MORGUE_DIRECT",
+      "page": 1,
+      "line_reference": "Líneas 6-7",
+      "institutional_statement": "Posee 2 Caras: Superior e Inferior. Posee 2 Bordes: Anterior y Posterior.",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Establishes the fundamental 4-surface/border framework for systematic cadaveric inspection."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-005",
+      "classification": "MORGUE_DIRECT",
+      "page": 2,
+      "line_reference": "Línea 1",
+      "institutional_statement": "1/3 Lateral: Inserción descendente del músculo trapecio en cara superior - borde posterior.",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Identifies the posterior rough zone of the lateral third as the key landmark for trapezius insertion."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-006",
+      "classification": "MORGUE_DIRECT",
+      "page": 2,
+      "line_reference": "Línea 2",
+      "institutional_statement": "1/3 Lateral: Inserción del músculo deltoides en cara superior - borde anterior.",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Identifies the anterior border of the lateral third as the origin of clavicular fibers of the deltoid."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-007",
+      "classification": "MORGUE_DIRECT",
+      "page": 2,
+      "line_reference": "Línea 3",
+      "institutional_statement": "2/3 Mediales: Inserción del músculo pectoral mayor en cara superior - borde anterior.",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Maps the robust muscular ridge on the medial two-thirds anterior border to pectoralis major origin."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-008",
+      "classification": "MORGUE_DIRECT",
+      "page": 2,
+      "line_reference": "Línea 4",
+      "institutional_statement": "Surco Deltopectoral: Vena Cefálica y Rama Deltoidea.",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Highlights the deltopectoral groove as the cardinal superficial surgical reference harboring the cephalic vein and deltoid artery."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-009",
+      "classification": "MORGUE_DIRECT",
+      "page": 3,
+      "line_reference": "Línea 1",
+      "institutional_statement": "Impresión del ligamento costoclavicular en cara inferior del 1/3 medial.",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Designates the medial oval rugosity as the inferior anchor of the costoclavicular ligament."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-010",
+      "classification": "MORGUE_DIRECT",
+      "page": 3,
+      "line_reference": "Línea 2",
+      "institutional_statement": "Surco del músculo subclavio en 1/3 medio cara inferior.",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Uses the longitudinal groove of the middle third to confirm the inferior aspect of the clavicular shaft."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-011",
+      "classification": "MORGUE_DIRECT",
+      "page": 3,
+      "line_reference": "Línea 3",
+      "institutional_statement": "Tubérculo conoideo y línea trapezoidea en 1/3 lateral cara inferior.",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Directs palpation to the conoid tubercle and trapezoid line on the lateral inferior aspect for coracoclavicular ligament identification."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-012",
+      "classification": "MORGUE_INTERPRETED",
+      "page": 10,
+      "line_reference": "Líneas 1-2",
+      "institutional_statement": "Presenta Acromion como continuación lateral de la espina; punto palpable superior del hombro.",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Establishes the acromion as the palpable lateral benchmark for tracing the acromioclavicular joint line."
+    },
+    {
+      "item_id": "MORG-B1-PRACT-013",
+      "classification": "MORGUE_INTERPRETED",
+      "page": 15,
+      "line_reference": "Línea 1",
+      "institutional_statement": "Presenta Apófisis Coracoides en el ángulo lateral; anclaje ligamentario coracoclavicular.",
+      "reconciliation": "AGREES_WITH_CANONICAL_SOURCE",
+      "anatomical_application": "Establishes the coracoid process in the infraclavicular fossa as the inferior landmark for palpating the tension of the coracoclavicular ligaments."
+    }
+  ]
+}

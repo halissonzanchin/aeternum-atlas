@@ -1,0 +1,74 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-VAL1",
+  "generated_at": "2026-09-25T03:25:42.363Z",
+  "metrics": {
+    "SOURCE_GAP_COUNT": 1,
+    "TERMINOLOGY_GAP_COUNT": 1,
+    "RELATION_ONTOLOGY_GAP_COUNT": 1,
+    "TOPOGRAPHIC_GAP_COUNT": 1,
+    "PRACTICAL_MEMORY_GAP_COUNT": 1,
+    "CLINICAL_VALIDATION_GAP_COUNT": 1,
+    "3D_MAPPING_GAP_COUNT": 1,
+    "SPECIALIZED_ANATOMY_GAP_COUNT": 1,
+    "TOTAL_GAP_COUNT": 8
+  },
+  "reconciled_gaps": [
+    {
+      "gap_id": "GAP-B1-001",
+      "gap_class": "SOURCE_GAP",
+      "title": "Absence of High-Resolution Digital Micro-CT Trabecular Architecture Data",
+      "current_resolution_state": "PRESERVED_AS_AUDITED_GAP",
+      "clinical_risk_mitigation": "NONE_REQUIRED"
+    },
+    {
+      "gap_id": "GAP-B1-002",
+      "gap_class": "TERMINOLOGY_GAP",
+      "title": "Discrepancy Between Latin TA2 Standards and Classical French Osteological Traditions",
+      "current_resolution_state": "PRESERVED_AS_AUDITED_GAP",
+      "clinical_risk_mitigation": "NONE_REQUIRED"
+    },
+    {
+      "gap_id": "GAP-B1-003",
+      "gap_class": "RELATION_ONTOLOGY_GAP",
+      "title": "Absence of Certified Primitives for Physiological Gliding Planes (Syssarcosis)",
+      "current_resolution_state": "PRESERVED_AS_AUDITED_GAP",
+      "clinical_risk_mitigation": "NONE_REQUIRED"
+    },
+    {
+      "gap_id": "GAP-B1-004",
+      "gap_class": "TOPOGRAPHIC_GAP",
+      "title": "Granular Fascial Boundary Definitions of Clavipectoral Fascia Suspensions",
+      "current_resolution_state": "PRESERVED_AS_AUDITED_GAP",
+      "clinical_risk_mitigation": "NONE_REQUIRED"
+    },
+    {
+      "gap_id": "GAP-B1-005",
+      "gap_class": "PRACTICAL_MEMORY_GAP",
+      "title": "Cadaveric Age-Stratified Dissection Series for Acromioclavicular Disc Morphology",
+      "current_resolution_state": "PRESERVED_AS_AUDITED_GAP",
+      "clinical_risk_mitigation": "NONE_REQUIRED"
+    },
+    {
+      "gap_id": "GAP-B1-006",
+      "gap_class": "CLINICAL_VALIDATION_GAP",
+      "title": "Orthopedic Fracture and Dislocation Classification Systems Held as Candidates",
+      "current_resolution_state": "PRESERVED_AS_AUDITED_GAP",
+      "clinical_risk_mitigation": "NO_CLINICAL_DIAGNOSTIC_OR_PROGNOSTIC_PROPOSITIONS_ADMITTED"
+    },
+    {
+      "gap_id": "GAP-B1-007",
+      "gap_class": "3D_MAPPING_GAP",
+      "title": "Absence of Precise Geometric Coordinate Anchors in Current Viewer Meshes",
+      "current_resolution_state": "PRESERVED_AS_AUDITED_GAP",
+      "clinical_risk_mitigation": "NONE_REQUIRED"
+    },
+    {
+      "gap_id": "GAP-B1-008",
+      "gap_class": "SPECIALIZED_ANATOMY_GAP",
+      "title": "Microvascular and Neural Innervation Penetration Mapping of the SC Articular Disc",
+      "current_resolution_state": "PRESERVED_AS_AUDITED_GAP",
+      "clinical_risk_mitigation": "NONE_REQUIRED"
+    }
+  ]
+}

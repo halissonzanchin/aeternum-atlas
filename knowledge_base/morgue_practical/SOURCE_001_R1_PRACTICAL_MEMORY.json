@@ -1,0 +1,79 @@
+[
+  {
+    "category": "PRACTICAL_IDENTIFICATION",
+    "target_structure": "escapula",
+    "content": "Para orientar la escápula en la mesa de disección: colocar la cara cóncava lisa (fosa subescapular) hacia adelante; la espina saliente hacia atrás y arriba; la cavidad articular glenoidea ovalada mirando hacia afuera (lateral); el ángulo puntiagudo apuntando hacia abajo (caudal).",
+    "source_page": 4,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "category": "PRACTICAL_IDENTIFICATION",
+    "target_structure": "umero",
+    "content": "Para orientar el húmero: la cabeza esférica articular mira medial y hacia arriba; la fosa olecraneana profunda mira hacia atrás; la tróclea en forma de polea mira medialmente en el extremo distal.",
+    "source_page": 24,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "category": "PRACTICAL_IDENTIFICATION",
+    "target_structure": "clavicula",
+    "content": "Para orientar la clavícula: el extremo aplanado es lateral (acromial); el extremo grueso cilíndrico es medial (esternal); la cara lisa es superior; la cara rugosa con canal subclavio e impresión costoclavicular es inferior; la gran curva cóncava mira hacia adelante en su tercio lateral.",
+    "source_page": 1,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "category": "SURFACE_LANDMARK",
+    "target_structure": "acromion_y_espina",
+    "content": "La cresta de la espina de la escápula y el acromion son palpables directamente bajo la piel sin interposición muscular en toda su extensión, sirviendo como reparo para mediciones del miembro superior.",
+    "source_page": 10,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "category": "SURFACE_LANDMARK",
+    "target_structure": "tuberculo_de_lister",
+    "content": "Tubérculo dorsal del radio palpable en la cara dorsal de la muñeca. Sirve como tróclea de reflexión angular para el tendón del músculo extensor largo del pulgar.",
+    "source_page": 28,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "category": "CADAVERIC_RELATION",
+    "target_structure": "nervio_musculocutaneo",
+    "content": "En la disección de la axila y brazo, el nervio musculocutáneo es identificado rápidamente porque atraviesa oblicuamente el espesor del músculo coracobraquial (Músculo perforado de Casserius).",
+    "source_page": 38,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "category": "CADAVERIC_RELATION",
+    "target_structure": "nervio_mediano_y_arteria_braquial",
+    "content": "El nervio mediano desciende en el brazo satélite a la arteria braquial en el canal de Cruveilhier; la cruza superficialmente por delante de afuera hacia adentro en forma de X muy abierta.",
+    "source_page": 52,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "category": "DISSECTION_RELATION",
+    "target_structure": "vena_cefalica_surco_deltopectoral",
+    "content": "Al abordar el hombro anterior, se identifica el surco deltopectoral (espacio de Mohrenheim) donde discurre la vena cefálica antes de perforar la fascia clavipectoral para desembocar en la vena axilar.",
+    "source_page": 2,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "category": "SPACE_BOUNDARIES_AND_CONTENTS",
+    "target_structure": "espacio_triangular_omotricipital",
+    "content": "Límites: superior por redondo menor, inferior por redondo mayor, lateral por cabeza larga del tríceps. Contenido: Arteria y vena circunfleja escapular (sin nervio acompañante mayor).",
+    "source_page": 41,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "category": "SPACE_BOUNDARIES_AND_CONTENTS",
+    "target_structure": "intervalo_triangular_avelino_gutierrez",
+    "content": "Límites: superior por redondo mayor, medial por cabeza larga del tríceps, lateral por diáfisis del húmero. Contenido: Nervio radial y arteria braquial profunda (profunda brachii).",
+    "source_page": 41,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "category": "TEACHER_EMPHASIS",
+    "target_structure": "interoseos_mano",
+    "content": "Nemotecnia para acción de interóseos: PAD y DAB (Palmares Aductores - cierran los dedos hacia el eje del 3er dedo; Dorsales Abductores - separan los dedos del eje del 3er dedo).",
+    "source_page": 50,
+    "validation_status": "SOURCE_EXTRACTED"
+  }
+]

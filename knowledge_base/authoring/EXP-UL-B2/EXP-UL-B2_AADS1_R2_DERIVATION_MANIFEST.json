@@ -1,0 +1,66 @@
+{
+  "document_name": "EXP-UL-B2_AADS1_R2_DERIVATION_MANIFEST",
+  "phase": "AMC-1.2-R2 / EXP-UL-B2-A1.6-R2",
+  "timestamp": "2026-09-27T10:30:00Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "metrics": {
+    "total_derivation_rules": 6,
+    "derived_artifact_parity": 1.0
+  },
+  "derivation_rules": [
+    {
+      "rule_id": "DRULE-001",
+      "domain": "RELATION_STATUS_PROJECTION",
+      "authoritative_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-B2_AADS1_R1_RELATION_GAP_MAP.json",
+      "derived_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-SHOULDER_COMPLEX_AGGREGATOR_R2.json",
+      "derivation_rule": "Aggregator relation sections (certified_cross_pack_relations, candidate_cross_pack_relations, ontology_review_cross_pack_relations, identity_review_cross_pack_relations) must be exact mathematical projections of the corresponding arrays in relation_gap_map.",
+      "invariant": "Zero instances of deepens, bridges, buffers, or forms_part_of in certified relations. Parity = 100%.",
+      "validation_test": "test_aeternum_amc1_2_r2.cjs :: Gate 25"
+    },
+    {
+      "rule_id": "DRULE-002",
+      "domain": "SOURCE_IDENTITY_INTEGRITY",
+      "authoritative_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-B2_AADS1_R2_SOURCE_REGISTRY.json",
+      "derived_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-B2_AADS1_R2_EVIDENCE_UNITS.json",
+      "derivation_rule": "Every evidence_unit.source_id must exist in the authoritative source registry, and evidence_unit.source_hash must equal the registered source_file_sha256.",
+      "invariant": "Unregistered sources = 0; Hash mismatches = 0. Parity = 100%.",
+      "validation_test": "test_aeternum_amc1_2_r2.cjs :: Gates 7, 8, 9, 10"
+    },
+    {
+      "rule_id": "DRULE-003",
+      "domain": "LOCATOR_IDENTITY_INTEGRITY",
+      "authoritative_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-B2_AADS1_R2_SOURCE_LOCATORS.json",
+      "derived_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-B2_AADS1_R2_EVIDENCE_UNITS.json",
+      "derivation_rule": "Every evidence_unit.source_locator must resolve to an ACTIVE locator in the consolidated locator registry or an explicit canonical alias in locator errata.",
+      "invariant": "Broken evidence locators = 0; Unknown locators = 0. Referential integrity = 100%.",
+      "validation_test": "test_aeternum_amc1_2_r2.cjs :: Gates 11, 12, 13"
+    },
+    {
+      "rule_id": "DRULE-004",
+      "domain": "FIELD_COMPLETENESS_DERIVATION",
+      "authoritative_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-B2_AADS1_R2_FIELD_EVIDENCE_BINDINGS.json",
+      "derived_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-B2_AADS1_R2_COMPLETENESS_MATRIX.json",
+      "derivation_rule": "Each cell in the completeness matrix is derived deterministically from the field binding record for (entity_id, field_name). Broad entity-level evidence bundles are strictly prohibited from populating fields without field-specific support.",
+      "invariant": "Completeness metrics in matrix equal exact aggregate counts in field bindings. Mentions do not equal evidence.",
+      "validation_test": "test_aeternum_amc1_2_r2.cjs :: Gates 36, 37, 38, 41, 42"
+    },
+    {
+      "rule_id": "DRULE-005",
+      "domain": "INTERFACE_EVIDENCE_PARITY",
+      "authoritative_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-B2_AADS1_R2_EVIDENCE_UNITS.json",
+      "derived_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-SHOULDER_COMPLEX_AGGREGATOR_R2.json",
+      "derivation_rule": "Every SOURCE_GROUNDED topographic interface clause must bind to an active evidence unit, and its locator must equal the evidence unit locator.",
+      "invariant": "No SOURCE_GROUNDED interface without verified evidence; locator parity = 100%.",
+      "validation_test": "test_aeternum_amc1_2_r2.cjs :: Gates 26, 27, 28, 29"
+    },
+    {
+      "rule_id": "DRULE-006",
+      "domain": "THREE_D_READINESS_DERIVATION",
+      "authoritative_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-B2_AADS1_R1_3D_READINESS_AUDIT.json",
+      "derived_artifact": "knowledge_base/authoring/EXP-UL-B2/EXP-UL-B2_AADS1_R2_CHATGPT_AUTHORING_HANDOFF.json",
+      "derivation_rule": "3D viewer mapping metrics must derive strictly from verified runtime database rows, strictly decoupled from anatomical entity readiness.",
+      "invariant": "Fabricated 3D IDs = 0; Viewer mapped count = 0; Row parity = 100%.",
+      "validation_test": "test_aeternum_amc1_2_r2.cjs :: Gate 55"
+    }
+  ]
+}

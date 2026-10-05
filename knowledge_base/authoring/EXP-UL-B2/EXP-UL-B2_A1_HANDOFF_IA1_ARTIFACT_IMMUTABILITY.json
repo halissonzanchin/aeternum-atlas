@@ -1,0 +1,159 @@
+{
+  "phase": "EXP-UL-B2-A1-HANDOFF-IA1",
+  "timestamp": "2026-09-27T01:30:00Z",
+  "artifact_count_audited": 15,
+  "historical_hash_available_count": 0,
+  "hash_match_count": 0,
+  "hash_mismatch_count": 0,
+  "unverifiable_historical_hash_count": 15,
+  "post_e0_modification_detected_count": 0,
+  "artifacts": [
+    {
+      "artifact_name": "EXP-UL-B2_SCOPE_BOUNDARY.json",
+      "current_sha256": "88e4fd5879d8054447b9cbaf9ef066b1682e9a022029438853c95d07cbfac196",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_SOURCE_REGISTRY.json",
+      "current_sha256": "9475742596f516a09d91781f7ddc39356e2ac4963db159d23d49c790d03920d1",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_SOURCE_LOCATORS.json",
+      "current_sha256": "f257b384cdaf0697e9c0682c02b2697c4deb3a251bca6d56b4ddb459f375a0da",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_EVIDENCE_UNITS.json",
+      "current_sha256": "0991ba28602fb4563a3fce20b09a927cd320a3559793769ac015e9a7ae2cb4be",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_ENTITY_SEED_INVENTORY.json",
+      "current_sha256": "20cde8a2e7f9f683595551dac681133db63ebc133fa647beb94b139129a5ea8e",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_EXISTING_ENTITY_REUSE.json",
+      "current_sha256": "2c32f713abb0efaa2868f553fbeb85f9c44b70111a0b4d01dc4213d6ba0881fe",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_TERMINOLOGY_RECONCILIATION.json",
+      "current_sha256": "0bec8d8477a3428131599a5117f50ca7ada8873ffb2a57fc84c28e4427996943",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_RELATION_DISCOVERY.json",
+      "current_sha256": "f4d0fda4aaf9305a286a98a188037601a1c0ab86494e8063b080b9de76d6d547",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_MORGUE_PRACTICAL_EVIDENCE.json",
+      "current_sha256": "6cecd43cfe0b430b01e01206ca5ce886961f2b3d4fcbaa865ebd6edf288f0d26",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_FIGURE_EVIDENCE.json",
+      "current_sha256": "1b647c14e5b164552e840643f2720016020c730bcdda5cdb7ad605d8b012076b",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_SOURCE_CONFLICTS.json",
+      "current_sha256": "700c9740c22a30dc8a94062721d3e3e18c5bbca8e622ca779f2219d344b70422",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_KNOWLEDGE_GAPS.json",
+      "current_sha256": "008bb2694b0ef83728f8597177e642eb85a91b8e06711a54861ecf71ab7ee20a",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_CROSS_BATCH_DEPENDENCIES.json",
+      "current_sha256": "419debba361ae87d4241f23996bde3bfb3a31e8bf8f050ccf5c6ae4257a75d03",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_3D_PREMAPPING.json",
+      "current_sha256": "61d2583c2fb51e84baf8d76bf6c0d98d12dba81bde73fbf1c564a8df9a896465",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    },
+    {
+      "artifact_name": "EXP-UL-B2_AUTHORING_HANDOFF_TO_CHATGPT.json",
+      "current_sha256": "360f1a5bbde97c022459c4926db4746c990fad2e5754ede2a78cd32fcab0f892",
+      "historical_E0_sha256_available": false,
+      "historical_E0_sha256": null,
+      "hash_match": "UNVERIFIABLE",
+      "post_E0_modification_detected": false,
+      "modification_semantic_effect": "NONE"
+    }
+  ],
+  "package_audit": {
+    "package_name": "EXP-UL-B2_CHATGPT_AUTHORING_PACKAGE.json",
+    "original_artifact_count": 15,
+    "missing_original_artifact_count": 0,
+    "package_embedded_evidence_unit_count": 29,
+    "package_source_locator_count": 38,
+    "package_entity_seed_count": 42,
+    "package_conflict_group_count": 4,
+    "package_knowledge_gap_count": 9,
+    "package_semantic_transformations": 0,
+    "new_anatomical_propositions": 0
+  }
+}

@@ -1,0 +1,3976 @@
+[
+  {
+    "atomic_fact_id": "AF-0001",
+    "source_assertion_id": "SA-0001",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "Cintura escapular posee 32 huesos.",
+    "subject_entity_id": "cintura_escapular",
+    "relation_type": "HAS_BONE_COUNT",
+    "object_or_arguments": [
+      "32_huesos"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0001",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0002",
+    "source_assertion_id": "SA-0002",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "Clavícula es hueso de la cintura escapular.",
+    "subject_entity_id": "clavicula",
+    "relation_type": "PART_OF",
+    "object_or_arguments": [
+      "cintura_escapular"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0002",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0003",
+    "source_assertion_id": "SA-0003",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "Tipo de Hueso: Hueso Plano Alargado.",
+    "subject_entity_id": "clavicula",
+    "relation_type": "TYPE_OF",
+    "object_or_arguments": [
+      "hueso_plano_alargado"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-REVIEW_PENDING-SA-0003",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "REVIEW_PENDING",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0004",
+    "source_assertion_id": "SA-0004",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "Extremo Medial: Esternal / Esferoide",
+    "subject_entity_id": "clavicula_extremo_medial",
+    "relation_type": "MORPHOLOGY",
+    "object_or_arguments": [
+      "esternal_esferoide"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0004",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0005",
+    "source_assertion_id": "SA-0004",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "manubrio del esternón",
+    "subject_entity_id": "clavicula_extremo_medial",
+    "relation_type": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "manubrio_esternal"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "ARTICULATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0004",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0006",
+    "source_assertion_id": "SA-0004",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "1º cartílago costal",
+    "subject_entity_id": "clavicula_extremo_medial",
+    "relation_type": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "primer_cartilago_costal"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "ARTICULATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0004",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0007",
+    "source_assertion_id": "SA-0005",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "Extremo Lateral: Acromial / Plano",
+    "subject_entity_id": "clavicula_extremo_lateral",
+    "relation_type": "MORPHOLOGY",
+    "object_or_arguments": [
+      "acromial_plano"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0005",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0008",
+    "source_assertion_id": "SA-0005",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "con el acromion de la escápula",
+    "subject_entity_id": "clavicula_extremo_lateral",
+    "relation_type": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "acromion_escapula"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "ARTICULATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0005",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0009",
+    "source_assertion_id": "SA-0006",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "Cara Superior",
+    "subject_entity_id": "clavicula",
+    "relation_type": "HAS_SURFACE",
+    "object_or_arguments": [
+      "cara_superior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0006",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0010",
+    "source_assertion_id": "SA-0006",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "Cara Inferior",
+    "subject_entity_id": "clavicula",
+    "relation_type": "HAS_SURFACE",
+    "object_or_arguments": [
+      "cara_inferior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0006",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0011",
+    "source_assertion_id": "SA-0007",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "Borde Anterior",
+    "subject_entity_id": "clavicula",
+    "relation_type": "HAS_BORDER",
+    "object_or_arguments": [
+      "borde_anterior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0007",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0012",
+    "source_assertion_id": "SA-0007",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1,
+    "source_text_reference": "Borde Posterior",
+    "subject_entity_id": "clavicula",
+    "relation_type": "HAS_BORDER",
+    "object_or_arguments": [
+      "borde_posterior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0007",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0013",
+    "source_assertion_id": "SA-0008",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 2,
+    "source_text_reference": "1/3 Lateral: Inserción descendente del músculo trapecio en cara superior - borde posterior.",
+    "subject_entity_id": "entity_2",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "1/3 Lateral: Inserción descendente del músculo trapecio en cara superior - borde posterior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0008",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0014",
+    "source_assertion_id": "SA-0009",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 2,
+    "source_text_reference": "1/3 Lateral: Inserción del músculo deltoides en cara superior - borde anterior.",
+    "subject_entity_id": "entity_2",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "1/3 Lateral: Inserción del músculo deltoides en cara superior - borde anterior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0009",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0015",
+    "source_assertion_id": "SA-0010",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 2,
+    "source_text_reference": "2/3 Mediales: Inserción del músculo pectoral mayor en cara superior - borde anterior.",
+    "subject_entity_id": "entity_2",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "2/3 Mediales: Inserción del músculo pectoral mayor en cara superior - borde anterior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0010",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0016",
+    "source_assertion_id": "SA-0011",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 2,
+    "source_text_reference": "Vena Cefálica",
+    "subject_entity_id": "triangulo_deltopectoral_mohrenheim",
+    "relation_type": "CONTAINS",
+    "object_or_arguments": [
+      "vena_cefalica"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0011",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0017",
+    "source_assertion_id": "SA-0011",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 2,
+    "source_text_reference": "Rama Deltoidea",
+    "subject_entity_id": "triangulo_deltopectoral_mohrenheim",
+    "relation_type": "CONTAINS",
+    "object_or_arguments": [
+      "rama_deltoidea_arteria_toracoacromial"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0011",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0018",
+    "source_assertion_id": "SA-0012",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 3,
+    "source_text_reference": "Impresión del ligamento costoclavicular en cara inferior del 1/3 medial.",
+    "subject_entity_id": "entity_3",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Impresión del ligamento costoclavicular en cara inferior del 1/3 medial."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0012",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0019",
+    "source_assertion_id": "SA-0013",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 3,
+    "source_text_reference": "Surco del músculo subclavio en 1/3 medio cara inferior.",
+    "subject_entity_id": "entity_3",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Surco del músculo subclavio en 1/3 medio cara inferior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0013",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0020",
+    "source_assertion_id": "SA-0014",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 3,
+    "source_text_reference": "Tubérculo conoideo",
+    "subject_entity_id": "clavicula_cara_inferior",
+    "relation_type": "HAS_LANDMARK",
+    "object_or_arguments": [
+      "tuberculo_conoideo"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0014",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0021",
+    "source_assertion_id": "SA-0014",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 3,
+    "source_text_reference": "Línea trapezoidea",
+    "subject_entity_id": "clavicula_cara_inferior",
+    "relation_type": "HAS_LANDMARK",
+    "object_or_arguments": [
+      "linea_trapezoidea"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0014",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0022",
+    "source_assertion_id": "SA-0015",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 4,
+    "source_text_reference": "Tipo de Hueso: Hueso Plano.",
+    "subject_entity_id": "entity_4",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Tipo de Hueso: Hueso Plano."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0015",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0023",
+    "source_assertion_id": "SA-0016",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 4,
+    "source_text_reference": "Hueso con formato triangular / Hueso Par.",
+    "subject_entity_id": "entity_4",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Hueso con formato triangular / Hueso Par."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0016",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0024",
+    "source_assertion_id": "SA-0017",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 4,
+    "source_text_reference": "Localización: Región superior, posterior y lateral del tórax.",
+    "subject_entity_id": "entity_4",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Localización: Región superior, posterior y lateral del tórax."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0017",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0025",
+    "source_assertion_id": "SA-0018",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 4,
+    "source_text_reference": "Se proyecta de la 2 a la 7 costilla.",
+    "subject_entity_id": "escapula",
+    "relation_type": "PROJECTS_TO",
+    "object_or_arguments": [
+      "costillas_2_a_7"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0018",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0026",
+    "source_assertion_id": "SA-0019",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 4,
+    "source_text_reference": "Posee 2 Caras: Anterior (Costal) y Posterior (Dorsal).",
+    "subject_entity_id": "entity_4",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Posee 2 Caras: Anterior (Costal) y Posterior (Dorsal)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0019",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0027",
+    "source_assertion_id": "SA-0020",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 4,
+    "source_text_reference": "Cara Costal o Anterior: Es Cóncava.",
+    "subject_entity_id": "entity_4",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cara Costal o Anterior: Es Cóncava."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0020",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0028",
+    "source_assertion_id": "SA-0021",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 5,
+    "source_text_reference": "Cara costal presenta la Fosa Subescapular.",
+    "subject_entity_id": "entity_5",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cara costal presenta la Fosa Subescapular."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0021",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0029",
+    "source_assertion_id": "SA-0023",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 6,
+    "source_text_reference": "Cara Posterior o Dorsal: Es Convexa.",
+    "subject_entity_id": "entity_6",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cara Posterior o Dorsal: Es Convexa."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0023",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0030",
+    "source_assertion_id": "SA-0024",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 6,
+    "source_text_reference": "Presenta relieve que divide la cara posterior en dos fosas.",
+    "subject_entity_id": "entity_6",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Presenta relieve que divide la cara posterior en dos fosas."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0024",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0031",
+    "source_assertion_id": "SA-0025",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 7,
+    "source_text_reference": "Presenta Fosa Supraespinosa en la cara posterior.",
+    "subject_entity_id": "entity_7",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Presenta Fosa Supraespinosa en la cara posterior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0025",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0032",
+    "source_assertion_id": "SA-0026",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 8,
+    "source_text_reference": "Presenta Fosa Infraespinosa en la cara posterior.",
+    "subject_entity_id": "entity_8",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Presenta Fosa Infraespinosa en la cara posterior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0026",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0033",
+    "source_assertion_id": "SA-0027",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 9,
+    "source_text_reference": "Presenta Espina de la Escápula dividiendo las fosas posterior.",
+    "subject_entity_id": "entity_9",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Presenta Espina de la Escápula dividiendo las fosas posterior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0027",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0034",
+    "source_assertion_id": "SA-0028",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 10,
+    "source_text_reference": "Presenta Acromion como continuación lateral de la espina.",
+    "subject_entity_id": "entity_10",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Presenta Acromion como continuación lateral de la espina."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0028",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0035",
+    "source_assertion_id": "SA-0029",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 11,
+    "source_text_reference": "Presenta Escotadura Espinoglenoidea cerca de la cavidad glenoidea.",
+    "subject_entity_id": "entity_11",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Presenta Escotadura Espinoglenoidea cerca de la cavidad glenoidea."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0029",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0036",
+    "source_assertion_id": "SA-0030",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 12,
+    "source_text_reference": "Borde Medial (Espinal)",
+    "subject_entity_id": "escapula",
+    "relation_type": "HAS_BORDER",
+    "object_or_arguments": [
+      "borde_medial_espinal"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0030",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0037",
+    "source_assertion_id": "SA-0030",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 12,
+    "source_text_reference": "Borde Lateral (Axilar)",
+    "subject_entity_id": "escapula",
+    "relation_type": "HAS_BORDER",
+    "object_or_arguments": [
+      "borde_lateral_axilar"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0030",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0038",
+    "source_assertion_id": "SA-0030",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 12,
+    "source_text_reference": "Borde Superior (Cervical)",
+    "subject_entity_id": "escapula",
+    "relation_type": "HAS_BORDER",
+    "object_or_arguments": [
+      "borde_superior_cervical"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0030",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0039",
+    "source_assertion_id": "SA-0031",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 12,
+    "source_text_reference": "Borde Superior presenta la Escotadura de la Escápula (cerrada por el ligamento transverso).",
+    "subject_entity_id": "entity_12",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Borde Superior presenta la Escotadura de la Escápula (cerrada por el ligamento transverso)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0031",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0040",
+    "source_assertion_id": "SA-0032",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 12,
+    "source_text_reference": "Por la escotadura pasa el Nervio Supraescapular.",
+    "subject_entity_id": "entity_12",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Por la escotadura pasa el Nervio Supraescapular."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0032",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0041",
+    "source_assertion_id": "SA-0033",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 12,
+    "source_text_reference": "Inserción del Músculo Omohioideo en el borde superior.",
+    "subject_entity_id": "entity_12",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Inserción del Músculo Omohioideo en el borde superior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0033",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0042",
+    "source_assertion_id": "SA-0034",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 13,
+    "source_text_reference": "Ángulo Superior",
+    "subject_entity_id": "escapula",
+    "relation_type": "HAS_ANGLE",
+    "object_or_arguments": [
+      "angulo_superior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0034",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0043",
+    "source_assertion_id": "SA-0034",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 13,
+    "source_text_reference": "Une Borde Superior y Medial",
+    "subject_entity_id": "angulo_superior",
+    "relation_type": "JUNCTION_OF",
+    "object_or_arguments": [
+      "borde_superior",
+      "borde_medial"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0034",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0044",
+    "source_assertion_id": "SA-0035",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 13,
+    "source_text_reference": "Ángulo Inferior",
+    "subject_entity_id": "escapula",
+    "relation_type": "HAS_ANGLE",
+    "object_or_arguments": [
+      "angulo_inferior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0035",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0045",
+    "source_assertion_id": "SA-0035",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 13,
+    "source_text_reference": "Une Borde Medial y Lateral",
+    "subject_entity_id": "angulo_inferior",
+    "relation_type": "JUNCTION_OF",
+    "object_or_arguments": [
+      "borde_medial",
+      "borde_lateral"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0035",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0046",
+    "source_assertion_id": "SA-0036",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 14,
+    "source_text_reference": "Ángulo Lateral",
+    "subject_entity_id": "escapula",
+    "relation_type": "HAS_ANGLE",
+    "object_or_arguments": [
+      "angulo_lateral"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0036",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0047",
+    "source_assertion_id": "SA-0036",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 14,
+    "source_text_reference": "Une Borde Superior y Lateral",
+    "subject_entity_id": "angulo_lateral",
+    "relation_type": "JUNCTION_OF",
+    "object_or_arguments": [
+      "borde_superior",
+      "borde_lateral"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MORPHOLOGY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0036",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0048",
+    "source_assertion_id": "SA-0037",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 15,
+    "source_text_reference": "Presenta Apófisis Coracoides en el ángulo lateral.",
+    "subject_entity_id": "entity_15",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Presenta Apófisis Coracoides en el ángulo lateral."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0037",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0049",
+    "source_assertion_id": "SA-0038",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 16,
+    "source_text_reference": "Presenta Cavidad Glenoidea en el ángulo lateral.",
+    "subject_entity_id": "entity_16",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Presenta Cavidad Glenoidea en el ángulo lateral."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0038",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0050",
+    "source_assertion_id": "SA-0039",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 16,
+    "source_text_reference": "Tubérculo Supraglenoideo: Músculo bíceps cabeza larga.",
+    "subject_entity_id": "entity_16",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Tubérculo Supraglenoideo: Músculo bíceps cabeza larga."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0039",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0051",
+    "source_assertion_id": "SA-0040",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 16,
+    "source_text_reference": "Tubérculo Infraglenoideo: Músculo tríceps cabeza larga.",
+    "subject_entity_id": "entity_16",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Tubérculo Infraglenoideo: Músculo tríceps cabeza larga."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0040",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0052",
+    "source_assertion_id": "SA-0041",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 17,
+    "source_text_reference": "Cavidad glenoidea está rodeada por el labrum (Rodete Glenoideo).",
+    "subject_entity_id": "entity_17",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cavidad glenoidea está rodeada por el labrum (Rodete Glenoideo)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0041",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0053",
+    "source_assertion_id": "SA-0042",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 18,
+    "source_text_reference": "Cavidad glenoidea se articula con la cabeza del húmero.",
+    "subject_entity_id": "entity_18",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cavidad glenoidea se articula con la cabeza del húmero."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0042",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0054",
+    "source_assertion_id": "SA-0043",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 18,
+    "source_text_reference": "Inserciones Musculares Cara Anterior: Músculo Subescapular en la fosa subescapular.",
+    "subject_entity_id": "entity_18",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Inserciones Musculares Cara Anterior: Músculo Subescapular en la fosa subescapular."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0043",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0055",
+    "source_assertion_id": "SA-0044",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 19,
+    "source_text_reference": "Músculo Serrato Anterior: En el borde medial entre el ángulo superior y el ángulo inferior.",
+    "subject_entity_id": "entity_19",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Serrato Anterior: En el borde medial entre el ángulo superior y el ángulo inferior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0044",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0056",
+    "source_assertion_id": "SA-0045",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 20,
+    "source_text_reference": "Cara Posterior: Músculo Supraespinoso en la fosa Supraespinosa.",
+    "subject_entity_id": "entity_20",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cara Posterior: Músculo Supraespinoso en la fosa Supraespinosa."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0045",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0057",
+    "source_assertion_id": "SA-0046",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 21,
+    "source_text_reference": "Músculo Infraespinoso en la fosa Infraespinosa.",
+    "subject_entity_id": "entity_21",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Infraespinoso en la fosa Infraespinosa."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0046",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0058",
+    "source_assertion_id": "SA-0047",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 22,
+    "source_text_reference": "Espina de la Escápula: Músculo Trapecio en el labio superior del borde posterior de la espina.",
+    "subject_entity_id": "entity_22",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Espina de la Escápula: Músculo Trapecio en el labio superior del borde posterior de la espina."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0047",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0059",
+    "source_assertion_id": "SA-0048",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 22,
+    "source_text_reference": "Acromion: Músculo Deltoides en el labio inferior del borde posterior de la espina y borde lateral del acromion.",
+    "subject_entity_id": "entity_22",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Acromion: Músculo Deltoides en el labio inferior del borde posterior de la espina y borde lateral del acromion."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0048",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0060",
+    "source_assertion_id": "SA-0049",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 22,
+    "source_text_reference": "Borde Medial: Músculo Elevador de la Escápula, Músculo Romboides Menor, Músculo Romboides Mayor.",
+    "subject_entity_id": "entity_22",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Borde Medial: Músculo Elevador de la Escápula, Músculo Romboides Menor, Músculo Romboides Mayor."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0049",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0061",
+    "source_assertion_id": "SA-0050",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 22,
+    "source_text_reference": "Borde Lateral: Músculo Redondo Menor (arriba) y Músculo Redondo Mayor (abajo).",
+    "subject_entity_id": "entity_22",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Borde Lateral: Músculo Redondo Menor (arriba) y Músculo Redondo Mayor (abajo)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0050",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0062",
+    "source_assertion_id": "SA-0051",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 23,
+    "source_text_reference": "Apófisis Coracoides: Músculo Coracobraquial en el vértice.",
+    "subject_entity_id": "entity_23",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Apófisis Coracoides: Músculo Coracobraquial en el vértice."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0051",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0063",
+    "source_assertion_id": "SA-0052",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 23,
+    "source_text_reference": "Apófisis Coracoides: Cabeza Corta del Bíceps en el vértice.",
+    "subject_entity_id": "entity_23",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Apófisis Coracoides: Cabeza Corta del Bíceps en el vértice."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0052",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0064",
+    "source_assertion_id": "SA-0053",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 23,
+    "source_text_reference": "Apófisis Coracoides: Músculo Pectoral Menor en la cara medial.",
+    "subject_entity_id": "entity_23",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Apófisis Coracoides: Músculo Pectoral Menor en la cara medial."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0053",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0065",
+    "source_assertion_id": "SA-0054",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 23,
+    "source_text_reference": "Ligamentos en la Apófisis Coracoides: Ligamento Conoide, Ligamento Trapezoide, Ligamento Coracoacromial.",
+    "subject_entity_id": "entity_23",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Ligamentos en la Apófisis Coracoides: Ligamento Conoide, Ligamento Trapezoide, Ligamento Coracoacromial."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0054",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0066",
+    "source_assertion_id": "SA-0055",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 24,
+    "source_text_reference": "Articulación Glenohumeral: Diartrosis - Enartrosis (esferoidea).",
+    "subject_entity_id": "entity_24",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Articulación Glenohumeral: Diartrosis - Enartrosis (esferoidea)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0055",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0067",
+    "source_assertion_id": "SA-0056",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 24,
+    "source_text_reference": "Movimientos: Flexión, extensión, abducción, aducción, rotación medial, rotación lateral, circunducción.",
+    "subject_entity_id": "entity_24",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Movimientos: Flexión, extensión, abducción, aducción, rotación medial, rotación lateral, circunducción."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0056",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0068",
+    "source_assertion_id": "SA-0057",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 24,
+    "source_text_reference": "Cápsula y Ligamentos: Ligamento Glenohumeral Superior, Medio e Inferior; Ligamento Coracohumeral.",
+    "subject_entity_id": "entity_24",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cápsula y Ligamentos: Ligamento Glenohumeral Superior, Medio e Inferior; Ligamento Coracohumeral."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0057",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0069",
+    "source_assertion_id": "SA-0058",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 24,
+    "source_text_reference": "Articulación del Codo: Diartrosis - Troclear / Ginglimo.",
+    "subject_entity_id": "entity_24",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Articulación del Codo: Diartrosis - Troclear / Ginglimo."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0058",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0070",
+    "source_assertion_id": "SA-0059",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 24,
+    "source_text_reference": "Articulación del Codo: Inervación cita Nervio del Musculo Radial / Cubital (shorthand).",
+    "subject_entity_id": "art_codo",
+    "relation_type": "INNERVATED_BY",
+    "object_or_arguments": [
+      "nervio_radial_y_cubital_ramos_articulares"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "validation_assessment_id": "VA-REVIEW_PENDING-SA-0059",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "REVIEW_PENDING",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0071",
+    "source_assertion_id": "SA-0060",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25,
+    "source_text_reference": "Faceta superior (supraespinoso)",
+    "subject_entity_id": "m_supraespinoso",
+    "relation_type": "INSERTS_INTO",
+    "object_or_arguments": [
+      "troquiter_faceta_superior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0060",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0072",
+    "source_assertion_id": "SA-0060",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25,
+    "source_text_reference": "Faceta media (infraespinoso)",
+    "subject_entity_id": "m_infraespinoso",
+    "relation_type": "INSERTS_INTO",
+    "object_or_arguments": [
+      "troquiter_faceta_media"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0060",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0073",
+    "source_assertion_id": "SA-0060",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25,
+    "source_text_reference": "Faceta inferior (redondo menor)",
+    "subject_entity_id": "m_redondo_menor",
+    "relation_type": "INSERTS_INTO",
+    "object_or_arguments": [
+      "troquiter_faceta_inferior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0060",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0074",
+    "source_assertion_id": "SA-0061",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25,
+    "source_text_reference": "Tubérculo Menor (Troquín): Inserción del músculo subescapular.",
+    "subject_entity_id": "entity_25",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Tubérculo Menor (Troquín): Inserción del músculo subescapular."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0061",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0075",
+    "source_assertion_id": "SA-0062",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25,
+    "source_text_reference": "Labio lateral (pectoral mayor)",
+    "subject_entity_id": "m_pectoral_mayor",
+    "relation_type": "INSERTS_INTO",
+    "object_or_arguments": [
+      "corredera_bicipital_labio_lateral"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0062",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0076",
+    "source_assertion_id": "SA-0062",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25,
+    "source_text_reference": "suelo (dorsal ancho)",
+    "subject_entity_id": "m_dorsal_ancho",
+    "relation_type": "INSERTS_INTO",
+    "object_or_arguments": [
+      "corredera_bicipital_suelo"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0062",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0077",
+    "source_assertion_id": "SA-0062",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25,
+    "source_text_reference": "labio medial (redondo mayor)",
+    "subject_entity_id": "m_redondo_mayor",
+    "relation_type": "INSERTS_INTO",
+    "object_or_arguments": [
+      "corredera_bicipital_labio_medial"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0062",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0078",
+    "source_assertion_id": "SA-0063",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25,
+    "source_text_reference": "Cuello Quirúrgico del húmero: relacionado con el Nervio Axilar y Arteria Circunfleja Humeral Posterior.",
+    "subject_entity_id": "entity_25",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cuello Quirúrgico del húmero: relacionado con el Nervio Axilar y Arteria Circunfleja Humeral Posterior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0063",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0079",
+    "source_assertion_id": "SA-0064",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26,
+    "source_text_reference": "Diáfisis Humeral Cara Posterior: Surco del Nervio Radial (Canal de Torsión).",
+    "subject_entity_id": "entity_26",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Diáfisis Humeral Cara Posterior: Surco del Nervio Radial (Canal de Torsión)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0064",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0080",
+    "source_assertion_id": "SA-0065",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26,
+    "source_text_reference": "Aloja el Nervio Radial",
+    "subject_entity_id": "canal_de_torsion_sulco_radial",
+    "relation_type": "CONTAINS",
+    "object_or_arguments": [
+      "nervio_radial"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0065",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0081",
+    "source_assertion_id": "SA-0065",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26,
+    "source_text_reference": "Arteria Braquial Profunda",
+    "subject_entity_id": "canal_de_torsion_sulco_radial",
+    "relation_type": "CONTAINS",
+    "object_or_arguments": [
+      "arteria_braquial_profunda"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0065",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0082",
+    "source_assertion_id": "SA-0065",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26,
+    "source_text_reference": "Nervio Radial y Arteria Braquial Profunda",
+    "subject_entity_id": "nervio_radial",
+    "relation_type": "ACCOMPANIES",
+    "object_or_arguments": [
+      "arteria_braquial_profunda"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0065",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0083",
+    "source_assertion_id": "SA-0066",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26,
+    "source_text_reference": "Separa el origen del vasto lateral (arriba) y vasto medial (abajo) del tríceps.",
+    "subject_entity_id": "entity_26",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Separa el origen del vasto lateral (arriba) y vasto medial (abajo) del tríceps."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0066",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0084",
+    "source_assertion_id": "SA-0067",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26,
+    "source_text_reference": "Cara Anterolateral: Tuberosidad Deltoidea (V deltoidea).",
+    "subject_entity_id": "entity_26",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cara Anterolateral: Tuberosidad Deltoidea (V deltoidea)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0067",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0085",
+    "source_assertion_id": "SA-0068",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26,
+    "source_text_reference": "Canal epitrocleoolecraneano detrás del epicóndilo medial para el Nervio Cubital.",
+    "subject_entity_id": "entity_26",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Canal epitrocleoolecraneano detrás del epicóndilo medial para el Nervio Cubital."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0068",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0086",
+    "source_assertion_id": "SA-0069",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 27,
+    "source_text_reference": "Cúbito: Hueso medial del antebrazo.",
+    "subject_entity_id": "entity_27",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cúbito: Hueso medial del antebrazo."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0069",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0087",
+    "source_assertion_id": "SA-0070",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 27,
+    "source_text_reference": "Olécranon (inserción del tríceps) y Apófisis Coronoides (inserción del braquial anterior).",
+    "subject_entity_id": "entity_27",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Olécranon (inserción del tríceps) y Apófisis Coronoides (inserción del braquial anterior)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0070",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0088",
+    "source_assertion_id": "SA-0071",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 27,
+    "source_text_reference": "Escotadura troclear (cavidad sigmoidea mayor) y escotadura radial (cavidad sigmoidea menor).",
+    "subject_entity_id": "entity_27",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Escotadura troclear (cavidad sigmoidea mayor) y escotadura radial (cavidad sigmoidea menor)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0071",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0089",
+    "source_assertion_id": "SA-0072",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 27,
+    "source_text_reference": "Cúbito no se articula directamente con los huesos del carpo; separado por fibrocartílago triangular.",
+    "subject_entity_id": "entity_27",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cúbito no se articula directamente con los huesos del carpo; separado por fibrocartílago triangular."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0072",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0090",
+    "source_assertion_id": "SA-0073",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 27,
+    "source_text_reference": "Sección de Radio inicia con: \"Es el hueso medial del antebrazo\" (desliz material).",
+    "subject_entity_id": "radio",
+    "relation_type": "LOCATION_SLIP",
+    "object_or_arguments": [
+      "hueso_medial_antebrazo"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-CONFLICTING-SA-0073",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "CONFLICTING",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0091",
+    "source_assertion_id": "SA-0074",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 28,
+    "source_text_reference": "Radio: Hueso largo lateral del antebrazo.",
+    "subject_entity_id": "entity_28",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Radio: Hueso largo lateral del antebrazo."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0074",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0092",
+    "source_assertion_id": "SA-0075",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 28,
+    "source_text_reference": "Cabeza del radio: fóvea articular y circunferencia articular (articulación trocoide).",
+    "subject_entity_id": "entity_28",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cabeza del radio: fóvea articular y circunferencia articular (articulación trocoide)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0075",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0093",
+    "source_assertion_id": "SA-0076",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 28,
+    "source_text_reference": "Tuberosidad del Radio (Tuberosidad Bicipital): Inserción del tendón del bíceps braquial.",
+    "subject_entity_id": "entity_28",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Tuberosidad del Radio (Tuberosidad Bicipital): Inserción del tendón del bíceps braquial."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0076",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0094",
+    "source_assertion_id": "SA-0077",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 28,
+    "source_text_reference": "Cara posterior distal presenta el Tubérculo Dorsal (de Lister).",
+    "subject_entity_id": "entity_28",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cara posterior distal presenta el Tubérculo Dorsal (de Lister)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0077",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0095",
+    "source_assertion_id": "SA-0078",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 29,
+    "source_text_reference": "Tabaquera Anatómica: Límites tendinosos (abductor largo y extensor corto lateralmente; extensor largo medialmente).",
+    "subject_entity_id": "entity_29",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Tabaquera Anatómica: Límites tendinosos (abductor largo y extensor corto lateralmente; extensor largo medialmente)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0078",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0096",
+    "source_assertion_id": "SA-0079",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 29,
+    "source_text_reference": "Suelo de la tabaquera: Hueso Escafoides y Hueso Trapecio.",
+    "subject_entity_id": "entity_29",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Suelo de la tabaquera: Hueso Escafoides y Hueso Trapecio."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0079",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0097",
+    "source_assertion_id": "SA-0080",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 29,
+    "source_text_reference": "Contenido en el suelo: Arteria Radial.",
+    "subject_entity_id": "entity_29",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Contenido en el suelo: Arteria Radial."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0080",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0098",
+    "source_assertion_id": "SA-0081",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 30,
+    "source_text_reference": "Huesos del carpo (8 huesos divididos en fila proximal y fila distal).",
+    "subject_entity_id": "entity_30",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Huesos del carpo (8 huesos divididos en fila proximal y fila distal)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0081",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0099",
+    "source_assertion_id": "SA-0082",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 30,
+    "source_text_reference": "radio",
+    "subject_entity_id": "semilunar",
+    "relation_type": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "radio"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "ARTICULATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0082",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0100",
+    "source_assertion_id": "SA-0082",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 30,
+    "source_text_reference": "escafoides",
+    "subject_entity_id": "semilunar",
+    "relation_type": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "escafoides"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "ARTICULATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0082",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0101",
+    "source_assertion_id": "SA-0082",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 30,
+    "source_text_reference": "piramidal",
+    "subject_entity_id": "semilunar",
+    "relation_type": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "piramidal"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "ARTICULATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0082",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0102",
+    "source_assertion_id": "SA-0082",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 30,
+    "source_text_reference": "grande",
+    "subject_entity_id": "semilunar",
+    "relation_type": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "hueso_grande"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "ARTICULATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0082",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0103",
+    "source_assertion_id": "SA-0082",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 30,
+    "source_text_reference": "ganchoso",
+    "subject_entity_id": "semilunar",
+    "relation_type": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "ganchoso"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "ARTICULATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0082",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0104",
+    "source_assertion_id": "SA-0083",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 30,
+    "source_text_reference": "Grande se articula con 7 huesos.",
+    "subject_entity_id": "entity_30",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Grande se articula con 7 huesos."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0083",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0105",
+    "source_assertion_id": "SA-0084",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 31,
+    "source_text_reference": "Ganchoso presenta apófisis unciforme / gancho.",
+    "subject_entity_id": "entity_31",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Ganchoso presenta apófisis unciforme / gancho."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0084",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0106",
+    "source_assertion_id": "SA-0085",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 31,
+    "source_text_reference": "Pisiforme articula únicamente con el piramidal.",
+    "subject_entity_id": "entity_31",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Pisiforme articula únicamente con el piramidal."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0085",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0107",
+    "source_assertion_id": "SA-0086",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 31,
+    "source_text_reference": "Canal de Guyon formado entre pisiforme y gancho del ganchoso.",
+    "subject_entity_id": "entity_31",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Canal de Guyon formado entre pisiforme y gancho del ganchoso."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0086",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0108",
+    "source_assertion_id": "SA-0087",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 32,
+    "source_text_reference": "5 Metacarpianos.",
+    "subject_entity_id": "entity_32",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "5 Metacarpianos."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0087",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0109",
+    "source_assertion_id": "SA-0088",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 32,
+    "source_text_reference": "1er Metacarpiano no tiene carillas articulares laterales en su base; articula con el trapecio (encaje recíproco / silla de montar).",
+    "subject_entity_id": "entity_32",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "1er Metacarpiano no tiene carillas articulares laterales en su base; articula con el trapecio (encaje recíproco / silla de montar)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0088",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0110",
+    "source_assertion_id": "SA-0089",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 32,
+    "source_text_reference": "2do a 5to metacarpianos articulan entre sí por sus bases.",
+    "subject_entity_id": "entity_32",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "2do a 5to metacarpianos articulan entre sí por sus bases."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0089",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0111",
+    "source_assertion_id": "SA-0090",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 33,
+    "source_text_reference": "14 Falanges en la mano (3 por dedo excepto el pulgar que tiene 2).",
+    "subject_entity_id": "entity_33",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "14 Falanges en la mano (3 por dedo excepto el pulgar que tiene 2)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0090",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0112",
+    "source_assertion_id": "SA-0091",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 33,
+    "source_text_reference": "Falange proximal, falange media y falange distal.",
+    "subject_entity_id": "entity_33",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Falange proximal, falange media y falange distal."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0091",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0113",
+    "source_assertion_id": "SA-0092",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 33,
+    "source_text_reference": "Inserción del Músculo Flexor Superficial de los Dedos en falange media (lengüetas perforadas).",
+    "subject_entity_id": "entity_33",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Inserción del Músculo Flexor Superficial de los Dedos en falange media (lengüetas perforadas)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0092",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0114",
+    "source_assertion_id": "SA-0093",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 34,
+    "source_text_reference": "Inserción del Músculo Flexor Profundo de los Dedos en la base de la falange distal (perforante).",
+    "subject_entity_id": "entity_34",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Inserción del Músculo Flexor Profundo de los Dedos en la base de la falange distal (perforante)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0093",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0115",
+    "source_assertion_id": "SA-0094",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 34,
+    "source_text_reference": "Expansión del tendón extensor en la falange distal.",
+    "subject_entity_id": "entity_34",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Expansión del tendón extensor en la falange distal."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0094",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0116",
+    "source_assertion_id": "SA-0095",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35,
+    "source_text_reference": "Origen fosa supraespinosa",
+    "subject_entity_id": "m_supraespinoso",
+    "relation_type": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "fosa_supraespinosa"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0095",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0117",
+    "source_assertion_id": "SA-0095",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35,
+    "source_text_reference": "inserción troquíter",
+    "subject_entity_id": "m_supraespinoso",
+    "relation_type": "INSERTS_INTO",
+    "object_or_arguments": [
+      "troquiter_faceta_superior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0095",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0118",
+    "source_assertion_id": "SA-0095",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35,
+    "source_text_reference": "inervación nervio supraescapular",
+    "subject_entity_id": "m_supraespinoso",
+    "relation_type": "INNERVATED_BY",
+    "object_or_arguments": [
+      "nervio_supraescapular"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0095",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0119",
+    "source_assertion_id": "SA-0095",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35,
+    "source_text_reference": "irrigación arteria supraescapular",
+    "subject_entity_id": "m_supraespinoso",
+    "relation_type": "SUPPLIED_BY",
+    "object_or_arguments": [
+      "arteria_supraescapular"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0095",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0120",
+    "source_assertion_id": "SA-0095",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35,
+    "source_text_reference": "acción abduce el brazo",
+    "subject_entity_id": "m_supraespinoso",
+    "relation_type": "PERFORMS_ACTION",
+    "object_or_arguments": [
+      "abduce_el_brazo"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0095",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0121",
+    "source_assertion_id": "SA-0096",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35,
+    "source_text_reference": "Origen fosa infraespinosa",
+    "subject_entity_id": "m_infraespinoso",
+    "relation_type": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "fosa_infraespinosa"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0096",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0122",
+    "source_assertion_id": "SA-0096",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35,
+    "source_text_reference": "inserción troquíter",
+    "subject_entity_id": "m_infraespinoso",
+    "relation_type": "INSERTS_INTO",
+    "object_or_arguments": [
+      "troquiter_faceta_media"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "MUSCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0096",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0123",
+    "source_assertion_id": "SA-0096",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35,
+    "source_text_reference": "inervación nervio supraescapular",
+    "subject_entity_id": "m_infraespinoso",
+    "relation_type": "INNERVATED_BY",
+    "object_or_arguments": [
+      "nervio_supraescapular"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0096",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0124",
+    "source_assertion_id": "SA-0096",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35,
+    "source_text_reference": "acción rotador lateral",
+    "subject_entity_id": "m_infraespinoso",
+    "relation_type": "PERFORMS_ACTION",
+    "object_or_arguments": [
+      "rotador_lateral"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0096",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0125",
+    "source_assertion_id": "SA-0097",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 36,
+    "source_text_reference": "Músculo Pectoral Mayor: aductor y rotador medial del brazo.",
+    "subject_entity_id": "entity_36",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Pectoral Mayor: aductor y rotador medial del brazo."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0097",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0126",
+    "source_assertion_id": "SA-0098",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 36,
+    "source_text_reference": "Músculo Pectoral Menor: desciende la escápula.",
+    "subject_entity_id": "entity_36",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Pectoral Menor: desciende la escápula."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0098",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0127",
+    "source_assertion_id": "SA-0099",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 36,
+    "source_text_reference": "Músculo Serrato Anterior: inervado por el Nervio Torácico Largo.",
+    "subject_entity_id": "entity_36",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Serrato Anterior: inervado por el Nervio Torácico Largo."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0099",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0128",
+    "source_assertion_id": "SA-0100",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 37,
+    "source_text_reference": "Músculo Subescapular: aductor y rotador medial del húmero.",
+    "subject_entity_id": "entity_37",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Subescapular: aductor y rotador medial del húmero."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0100",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0129",
+    "source_assertion_id": "SA-0101",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 37,
+    "source_text_reference": "Músculo Redondo Menor: inervado por el Nervio Axilar.",
+    "subject_entity_id": "entity_37",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Redondo Menor: inervado por el Nervio Axilar."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0101",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0130",
+    "source_assertion_id": "SA-0102",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 37,
+    "source_text_reference": "Músculo Redondo Mayor: inervado por el nervio subescapular inferior.",
+    "subject_entity_id": "entity_37",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Redondo Mayor: inervado por el nervio subescapular inferior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0102",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0131",
+    "source_assertion_id": "SA-0103",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 37,
+    "source_text_reference": "Músculo Dorsal Ancho: inervado por el Nervio Toracodorsal.",
+    "subject_entity_id": "entity_37",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Dorsal Ancho: inervado por el Nervio Toracodorsal."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0103",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0132",
+    "source_assertion_id": "SA-0104",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 37,
+    "source_text_reference": "Músculo Subescapular: Inervación cita Nervio Subescapular superior e inferior / Nervio Axilar.",
+    "subject_entity_id": "m_subescapular",
+    "relation_type": "INNERVATED_BY",
+    "object_or_arguments": [
+      "nervio_axilar_mencion_fuente"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "validation_assessment_id": "VA-REVIEW_PENDING-SA-0104",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "REVIEW_PENDING",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0133",
+    "source_assertion_id": "SA-0105",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 38,
+    "source_text_reference": "Músculo Deltoides: inervado por el Nervio Axilar (circunflejo). Principal abductor.",
+    "subject_entity_id": "entity_38",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Deltoides: inervado por el Nervio Axilar (circunflejo). Principal abductor."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0105",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0134",
+    "source_assertion_id": "SA-0106",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 38,
+    "source_text_reference": "Músculo Coracobraquial: perforado por el Nervio Musculocutáneo (inervado por él).",
+    "subject_entity_id": "entity_38",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Coracobraquial: perforado por el Nervio Musculocutáneo (inervado por él)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0106",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0135",
+    "source_assertion_id": "SA-0107",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 39,
+    "source_text_reference": "Músculo Bíceps Braquial: dos cabezas (larga y corta).",
+    "subject_entity_id": "entity_39",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Bíceps Braquial: dos cabezas (larga y corta)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0107",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0136",
+    "source_assertion_id": "SA-0108",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 39,
+    "source_text_reference": "Acción: Supinador del antebrazo flexionado y flexor del codo.",
+    "subject_entity_id": "entity_39",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Acción: Supinador del antebrazo flexionado y flexor del codo."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0108",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0137",
+    "source_assertion_id": "SA-0109",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 39,
+    "source_text_reference": "Inervación: cita Nervio Musculocutáneo y Nervio Radial.",
+    "subject_entity_id": "m_biceps_braquial",
+    "relation_type": "INNERVATED_BY",
+    "object_or_arguments": [
+      "nervio_radial_mencion_fuente"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "validation_assessment_id": "VA-REVIEW_PENDING-SA-0109",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "REVIEW_PENDING",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0138",
+    "source_assertion_id": "SA-0110",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 40,
+    "source_text_reference": "Músculo Braquial (Braquial Anterior): Principal flexor del antebrazo en el codo.",
+    "subject_entity_id": "entity_40",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Braquial (Braquial Anterior): Principal flexor del antebrazo en el codo."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0110",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0139",
+    "source_assertion_id": "SA-0111",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 40,
+    "source_text_reference": "Inervación: Nervio Musculocutáneo.",
+    "subject_entity_id": "entity_40",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Inervación: Nervio Musculocutáneo."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0111",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0140",
+    "source_assertion_id": "SA-0112",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "Tríceps Braquial: Cabeza larga, vasto lateral y vasto medial. Inervado por el Nervio Radial.",
+    "subject_entity_id": "entity_41",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Tríceps Braquial: Cabeza larga, vasto lateral y vasto medial. Inervado por el Nervio Radial."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0112",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0141",
+    "source_assertion_id": "SA-0113",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "Redondo menor",
+    "subject_entity_id": "espacio_cuadrangular_velpeau",
+    "relation_type": "HAS_SUPERIOR_BOUNDARY",
+    "object_or_arguments": [
+      "m_redondo_menor"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0113",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0142",
+    "source_assertion_id": "SA-0113",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "redondo mayor",
+    "subject_entity_id": "espacio_cuadrangular_velpeau",
+    "relation_type": "HAS_INFERIOR_BOUNDARY",
+    "object_or_arguments": [
+      "m_redondo_mayor"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0113",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0143",
+    "source_assertion_id": "SA-0113",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "cabeza larga tríceps",
+    "subject_entity_id": "espacio_cuadrangular_velpeau",
+    "relation_type": "HAS_MEDIAL_BOUNDARY",
+    "object_or_arguments": [
+      "cabeza_larga_triceps"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0113",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0144",
+    "source_assertion_id": "SA-0113",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "cuello quirúrgico",
+    "subject_entity_id": "espacio_cuadrangular_velpeau",
+    "relation_type": "HAS_LATERAL_BOUNDARY",
+    "object_or_arguments": [
+      "cuello_quirurgico_umero"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0113",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0145",
+    "source_assertion_id": "SA-0113",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "Nervio axilar",
+    "subject_entity_id": "espacio_cuadrangular_velpeau",
+    "relation_type": "CONTAINS",
+    "object_or_arguments": [
+      "nervio_axilar"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0113",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0146",
+    "source_assertion_id": "SA-0113",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "arteria circunfleja humeral posterior",
+    "subject_entity_id": "espacio_cuadrangular_velpeau",
+    "relation_type": "CONTAINS",
+    "object_or_arguments": [
+      "arteria_circunfleja_humeral_posterior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0113",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0147",
+    "source_assertion_id": "SA-0114",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "Redondo menor",
+    "subject_entity_id": "espacio_triangular_omotricipital",
+    "relation_type": "HAS_SUPERIOR_BOUNDARY",
+    "object_or_arguments": [
+      "m_redondo_menor"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0114",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0148",
+    "source_assertion_id": "SA-0114",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "redondo mayor",
+    "subject_entity_id": "espacio_triangular_omotricipital",
+    "relation_type": "HAS_INFERIOR_BOUNDARY",
+    "object_or_arguments": [
+      "m_redondo_mayor"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0114",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0149",
+    "source_assertion_id": "SA-0114",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "cabeza larga tríceps",
+    "subject_entity_id": "espacio_triangular_omotricipital",
+    "relation_type": "HAS_LATERAL_BOUNDARY",
+    "object_or_arguments": [
+      "cabeza_larga_triceps"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0114",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0150",
+    "source_assertion_id": "SA-0114",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "Arteria circunfleja escapular",
+    "subject_entity_id": "espacio_triangular_omotricipital",
+    "relation_type": "CONTAINS",
+    "object_or_arguments": [
+      "arteria_circunfleja_escapular"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0114",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0151",
+    "source_assertion_id": "SA-0115",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "Redondo mayor",
+    "subject_entity_id": "intervalo_triangular_avelino_gutierrez",
+    "relation_type": "HAS_SUPERIOR_BOUNDARY",
+    "object_or_arguments": [
+      "m_redondo_mayor"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0115",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0152",
+    "source_assertion_id": "SA-0115",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "cabeza larga tríceps",
+    "subject_entity_id": "intervalo_triangular_avelino_gutierrez",
+    "relation_type": "HAS_MEDIAL_BOUNDARY",
+    "object_or_arguments": [
+      "cabeza_larga_triceps"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0115",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0153",
+    "source_assertion_id": "SA-0115",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "húmero",
+    "subject_entity_id": "intervalo_triangular_avelino_gutierrez",
+    "relation_type": "HAS_LATERAL_BOUNDARY",
+    "object_or_arguments": [
+      "diafisis_umero"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-VALIDATED-SA-0115",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0154",
+    "source_assertion_id": "SA-0115",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "Nervio radial",
+    "subject_entity_id": "intervalo_triangular_avelino_gutierrez",
+    "relation_type": "CONTAINS",
+    "object_or_arguments": [
+      "nervio_radial"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0115",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0155",
+    "source_assertion_id": "SA-0115",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41,
+    "source_text_reference": "arteria braquial profunda",
+    "subject_entity_id": "intervalo_triangular_avelino_gutierrez",
+    "relation_type": "CONTAINS",
+    "object_or_arguments": [
+      "arteria_braquial_profunda"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0115",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0156",
+    "source_assertion_id": "SA-0116",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 42,
+    "source_text_reference": "Compartimento anterior antebrazo: Plano 1 (epicondíleos mediales / epitrocleares).",
+    "subject_entity_id": "entity_42",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Compartimento anterior antebrazo: Plano 1 (epicondíleos mediales / epitrocleares)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0116",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0157",
+    "source_assertion_id": "SA-0117",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 42,
+    "source_text_reference": "Pronador redondo, flexor radial del carpo, palmar largo, flexor cubital del carpo.",
+    "subject_entity_id": "entity_42",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Pronador redondo, flexor radial del carpo, palmar largo, flexor cubital del carpo."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0117",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0158",
+    "source_assertion_id": "SA-0118",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 42,
+    "source_text_reference": "Inervación: Todos por Nervio Mediano EXCEPTO Flexor Cubital del Carpo (inervado por Nervio Cubital).",
+    "subject_entity_id": "entity_42",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Inervación: Todos por Nervio Mediano EXCEPTO Flexor Cubital del Carpo (inervado por Nervio Cubital)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0118",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0159",
+    "source_assertion_id": "SA-0119",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 43,
+    "source_text_reference": "Plano 2: Flexor superficial de los dedos (N. mediano).",
+    "subject_entity_id": "entity_43",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Plano 2: Flexor superficial de los dedos (N. mediano)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0119",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0160",
+    "source_assertion_id": "SA-0120",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 43,
+    "source_text_reference": "Plano 3: Flexor profundo de los dedos (mitad lateral N. mediano, mitad medial N. cubital) y flexor largo del pulgar (N. interóseo anterior del mediano).",
+    "subject_entity_id": "entity_43",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Plano 3: Flexor profundo de los dedos (mitad lateral N. mediano, mitad medial N. cubital) y flexor largo del pulgar (N. interóseo anterior del mediano)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0120",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0161",
+    "source_assertion_id": "SA-0121",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 43,
+    "source_text_reference": "Plano 4: Pronador cuadrado (N. interóseo anterior del mediano).",
+    "subject_entity_id": "entity_43",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Plano 4: Pronador cuadrado (N. interóseo anterior del mediano)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0121",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0162",
+    "source_assertion_id": "SA-0122",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 44,
+    "source_text_reference": "Compartimento posterior y lateral: 12 músculos en total.",
+    "subject_entity_id": "entity_44",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Compartimento posterior y lateral: 12 músculos en total."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0122",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0163",
+    "source_assertion_id": "SA-0123",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 44,
+    "source_text_reference": "Grupo Lateral: Braquiorradial, extensor radial largo del carpo, extensor radial corto del carpo, supinador.",
+    "subject_entity_id": "entity_44",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Grupo Lateral: Braquiorradial, extensor radial largo del carpo, extensor radial corto del carpo, supinador."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0123",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0164",
+    "source_assertion_id": "SA-0124",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 44,
+    "source_text_reference": "Inervación: Nervio Radial (ramo profundo atraviesa el supinador).",
+    "subject_entity_id": "entity_44",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Inervación: Nervio Radial (ramo profundo atraviesa el supinador)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0124",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0165",
+    "source_assertion_id": "SA-0125",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 45,
+    "source_text_reference": "Porción Posterior Plano Superficial: Extensor de los dedos, extensor del meñique, extensor cubital del carpo, ancóneo.",
+    "subject_entity_id": "entity_45",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Porción Posterior Plano Superficial: Extensor de los dedos, extensor del meñique, extensor cubital del carpo, ancóneo."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0125",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0166",
+    "source_assertion_id": "SA-0126",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 45,
+    "source_text_reference": "Origen: Epicóndilo lateral del húmero. Inervación: Nervio Radial.",
+    "subject_entity_id": "entity_45",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Origen: Epicóndilo lateral del húmero. Inervación: Nervio Radial."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0126",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0167",
+    "source_assertion_id": "SA-0127",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 46,
+    "source_text_reference": "Plano Profundo Posterior: Abductor largo del pulgar, extensor corto del pulgar, extensor largo del pulgar.",
+    "subject_entity_id": "entity_46",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Plano Profundo Posterior: Abductor largo del pulgar, extensor corto del pulgar, extensor largo del pulgar."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0127",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0168",
+    "source_assertion_id": "SA-0128",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 46,
+    "source_text_reference": "Inervación: Ramo profundo del nervio radial (interóseo posterior).",
+    "subject_entity_id": "entity_46",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Inervación: Ramo profundo del nervio radial (interóseo posterior)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0128",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0169",
+    "source_assertion_id": "SA-0129",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 46,
+    "source_text_reference": "Límites de la tabaquera anatómica repetidos; menciona \"Arteria Cefálica\" por desliz.",
+    "subject_entity_id": "tabaquera_anatomica",
+    "relation_type": "VASCULAR_SLIP",
+    "object_or_arguments": [
+      "arteria_cefalica"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-CONFLICTING-SA-0129",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "CONFLICTING",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0170",
+    "source_assertion_id": "SA-0130",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 47,
+    "source_text_reference": "Músculo Extensor del Índice: Origen en cúbito y membrana interósea.",
+    "subject_entity_id": "entity_47",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculo Extensor del Índice: Origen en cúbito y membrana interósea."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0130",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0171",
+    "source_assertion_id": "SA-0131",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 47,
+    "source_text_reference": "Inervación: Ramo profundo del nervio radial.",
+    "subject_entity_id": "entity_47",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Inervación: Ramo profundo del nervio radial."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0131",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0172",
+    "source_assertion_id": "SA-0132",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 48,
+    "source_text_reference": "Músculos de la Región Tenar: Abductor corto, flexor corto, oponente, aductor del pulgar.",
+    "subject_entity_id": "entity_48",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculos de la Región Tenar: Abductor corto, flexor corto, oponente, aductor del pulgar."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0132",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0173",
+    "source_assertion_id": "SA-0133",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 48,
+    "source_text_reference": "Inervación: Abductor corto, oponente y cabeza superficial del flexor corto por Ramo Recurrente del Mediano.",
+    "subject_entity_id": "entity_48",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Inervación: Abductor corto, oponente y cabeza superficial del flexor corto por Ramo Recurrente del Mediano."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0133",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0174",
+    "source_assertion_id": "SA-0134",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 48,
+    "source_text_reference": "Cabeza profunda del flexor corto y aductor del pulgar por Ramo Profundo del Cubital.",
+    "subject_entity_id": "entity_48",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Cabeza profunda del flexor corto y aductor del pulgar por Ramo Profundo del Cubital."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0134",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0175",
+    "source_assertion_id": "SA-0135",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 49,
+    "source_text_reference": "Músculos de la Región Hipotenar: Palmar corto (cutáneo palmar), abductor del meñique, flexor corto del meñique, oponente del meñique.",
+    "subject_entity_id": "entity_49",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Músculos de la Región Hipotenar: Palmar corto (cutáneo palmar), abductor del meñique, flexor corto del meñique, oponente del meñique."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0135",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0176",
+    "source_assertion_id": "SA-0136",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 49,
+    "source_text_reference": "Inervación: Ramo superficial del nervio cubital para palmar corto; ramo profundo del cubital para los otros tres.",
+    "subject_entity_id": "entity_49",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Inervación: Ramo superficial del nervio cubital para palmar corto; ramo profundo del cubital para los otros tres."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0136",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0177",
+    "source_assertion_id": "SA-0137",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 50,
+    "source_text_reference": "Lumbricales 1 y 2 inervados por el Nervio Mediano; Lumbricales 3 y 4 inervados por el Nervio Cubital (ramo profundo).",
+    "subject_entity_id": "entity_50",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Lumbricales 1 y 2 inervados por el Nervio Mediano; Lumbricales 3 y 4 inervados por el Nervio Cubital (ramo profundo)."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0137",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0178",
+    "source_assertion_id": "SA-0138",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 50,
+    "source_text_reference": "Interóseos Palmares (3): Aductores hacia el eje del 3er dedo. Inervados por ramo profundo del cubital.",
+    "subject_entity_id": "entity_50",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Interóseos Palmares (3): Aductores hacia el eje del 3er dedo. Inervados por ramo profundo del cubital."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0138",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0179",
+    "source_assertion_id": "SA-0139",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 50,
+    "source_text_reference": "Interóseos Dorsales (4): Abductores del eje del 3er dedo. Inervados por ramo profundo del cubital.",
+    "subject_entity_id": "entity_50",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Interóseos Dorsales (4): Abductores del eje del 3er dedo. Inervados por ramo profundo del cubital."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0139",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0180",
+    "source_assertion_id": "SA-0140",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51,
+    "source_text_reference": "Arteria Axilar: Continuación de la arteria subclavia.",
+    "subject_entity_id": "entity_51",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Arteria Axilar: Continuación de la arteria subclavia."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0140",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0181",
+    "source_assertion_id": "SA-0141",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51,
+    "source_text_reference": "Dividida en 3 porciones por el músculo pectoral menor.",
+    "subject_entity_id": "entity_51",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Dividida en 3 porciones por el músculo pectoral menor."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0141",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0182",
+    "source_assertion_id": "SA-0142",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51,
+    "source_text_reference": "1ª Porción: Arteria torácica superior",
+    "subject_entity_id": "arteria_axilar_p1",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_toracica_superior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0142",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0183",
+    "source_assertion_id": "SA-0142",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51,
+    "source_text_reference": "Arteria torácica superior",
+    "subject_entity_id": "arteria_toracica_superior",
+    "relation_type": "BRANCHES_FROM",
+    "object_or_arguments": [
+      "arteria_axilar_p1"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0142",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0184",
+    "source_assertion_id": "SA-0143",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51,
+    "source_text_reference": "Arteria toracoacromial",
+    "subject_entity_id": "arteria_axilar_p2",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_toracoacromial"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0143",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0185",
+    "source_assertion_id": "SA-0143",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51,
+    "source_text_reference": "arteria torácica lateral",
+    "subject_entity_id": "arteria_axilar_p2",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_toracica_lateral"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0143",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0186",
+    "source_assertion_id": "SA-0143",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51,
+    "source_text_reference": "ramas acromial",
+    "subject_entity_id": "arteria_toracoacromial",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "rama_acromial"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0143",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0187",
+    "source_assertion_id": "SA-0143",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51,
+    "source_text_reference": "clavicular",
+    "subject_entity_id": "arteria_toracoacromial",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "rama_clavicular"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0143",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0188",
+    "source_assertion_id": "SA-0143",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51,
+    "source_text_reference": "deltoidea",
+    "subject_entity_id": "arteria_toracoacromial",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "rama_deltoidea"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0143",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0189",
+    "source_assertion_id": "SA-0143",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51,
+    "source_text_reference": "pectoral",
+    "subject_entity_id": "arteria_toracoacromial",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "rama_pectoral"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0143",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0190",
+    "source_assertion_id": "SA-0144",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51,
+    "source_text_reference": "Relaciones con los fascículos del plexo braquial.",
+    "subject_entity_id": "entity_51",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Relaciones con los fascículos del plexo braquial."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0144",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0191",
+    "source_assertion_id": "SA-0145",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52,
+    "source_text_reference": "Arteria subescapular",
+    "subject_entity_id": "arteria_axilar_p3",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_subescapular"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0145",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0192",
+    "source_assertion_id": "SA-0145",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52,
+    "source_text_reference": "arteria circunfleja humeral anterior",
+    "subject_entity_id": "arteria_axilar_p3",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_circunfleja_humeral_anterior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0145",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0193",
+    "source_assertion_id": "SA-0145",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52,
+    "source_text_reference": "posterior",
+    "subject_entity_id": "arteria_axilar_p3",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_circunfleja_humeral_posterior"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0145",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0194",
+    "source_assertion_id": "SA-0145",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52,
+    "source_text_reference": "ramas toracodorsal",
+    "subject_entity_id": "arteria_subescapular",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_toracodorsal"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0145",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0195",
+    "source_assertion_id": "SA-0145",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52,
+    "source_text_reference": "circunfleja escapular",
+    "subject_entity_id": "arteria_subescapular",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_circunfleja_escapular"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0145",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0196",
+    "source_assertion_id": "SA-0146",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52,
+    "source_text_reference": "Arteria circunfleja humeral posterior pasa por el cuadrilátero de Velpeau con el nervio axilar.",
+    "subject_entity_id": "entity_52",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Arteria circunfleja humeral posterior pasa por el cuadrilátero de Velpeau con el nervio axilar."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0146",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0197",
+    "source_assertion_id": "SA-0147",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52,
+    "source_text_reference": "Arteria Braquial: Continuación de la axilar desde el borde inferior del pectoral mayor.",
+    "subject_entity_id": "entity_52",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Arteria Braquial: Continuación de la axilar desde el borde inferior del pectoral mayor."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0147",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0198",
+    "source_assertion_id": "SA-0148",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52,
+    "source_text_reference": "Discurre en el conducto braquial junto al nervio mediano.",
+    "subject_entity_id": "entity_52",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Discurre en el conducto braquial junto al nervio mediano."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0148",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0199",
+    "source_assertion_id": "SA-0149",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52,
+    "source_text_reference": "Ramas: Arteria braquial profunda (entra al canal de torsión), colaterales cubitales superior e inferior.",
+    "subject_entity_id": "entity_52",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Ramas: Arteria braquial profunda (entra al canal de torsión), colaterales cubitales superior e inferior."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0149",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0200",
+    "source_assertion_id": "SA-0150",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52,
+    "source_text_reference": "Terminación: Se bifurca en arteria radial y arteria cubital.",
+    "subject_entity_id": "entity_52",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Terminación: Se bifurca en arteria radial y arteria cubital."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0150",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0201",
+    "source_assertion_id": "SA-0151",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53,
+    "source_text_reference": "Arteria Radial: Trayecto por el canal muscular y canal del pulso en antebrazo; tabaquera anatómica y 1er espacio intermetacarpiano en la mano.",
+    "subject_entity_id": "entity_53",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Arteria Radial: Trayecto por el canal muscular y canal del pulso en antebrazo; tabaquera anatómica y 1er espacio intermetacarpiano en la mano."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0151",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0202",
+    "source_assertion_id": "SA-0152",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53,
+    "source_text_reference": "Terminación: Se une a la arteria palmar profunda (rama de la cubital) formando el arco palmar profundo.",
+    "subject_entity_id": "entity_53",
+    "relation_type": "HAS_PROPERTY",
+    "object_or_arguments": [
+      "Terminación: Se une a la arteria palmar profunda (rama de la cubital) formando el arco palmar profundo."
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-SUPPORTED-SA-0152",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "SUPPORTED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0203",
+    "source_assertion_id": "SA-0153",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53,
+    "source_text_reference": "Recurrente radial",
+    "subject_entity_id": "arteria_radial",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_recurrente_radial"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0153",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0204",
+    "source_assertion_id": "SA-0153",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53,
+    "source_text_reference": "carpiana palmar",
+    "subject_entity_id": "arteria_radial",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_carpiana_palmar"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0153",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0205",
+    "source_assertion_id": "SA-0153",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53,
+    "source_text_reference": "carpiana dorsal",
+    "subject_entity_id": "arteria_radial",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_carpiana_dorsal"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0153",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0206",
+    "source_assertion_id": "SA-0153",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53,
+    "source_text_reference": "palmar superficial",
+    "subject_entity_id": "arteria_radial",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_palmar_superficial"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0153",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0207",
+    "source_assertion_id": "SA-0153",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53,
+    "source_text_reference": "principal del pulgar",
+    "subject_entity_id": "arteria_radial",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_principal_pulgar"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0153",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0208",
+    "source_assertion_id": "SA-0153",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53,
+    "source_text_reference": "metacarpiana dorsal del 1er espacio",
+    "subject_entity_id": "arteria_radial",
+    "relation_type": "GIVES_BRANCH",
+    "object_or_arguments": [
+      "arteria_metacarpiana_dorsal_1"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "validation_assessment_id": "VA-VALIDATED-SA-0153",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "VALIDATED",
+    "authoring_pipeline_version": "R1.1"
+  },
+  {
+    "atomic_fact_id": "AF-0209",
+    "source_assertion_id": "SA-0154",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53,
+    "source_text_reference": "Mano: Arcos Palmares y Arco Dorsal (sección incompleta).",
+    "subject_entity_id": "arco_dorsal_carpo",
+    "relation_type": "SOURCE_STATUS",
+    "object_or_arguments": [
+      "SOURCE_CONTENT_INCOMPLETE"
+    ],
+    "region_if_available": "Miembro Superior",
+    "laterality_if_available": "bilateral",
+    "knowledge_dimension": "TOPOGRAPHY",
+    "validation_assessment_id": "VA-UNREVIEWED-SA-0154",
+    "source_origin_status": "SOURCE_EXTRACTED",
+    "academic_validation_status": "UNREVIEWED",
+    "authoring_pipeline_version": "R1.1"
+  }
+]

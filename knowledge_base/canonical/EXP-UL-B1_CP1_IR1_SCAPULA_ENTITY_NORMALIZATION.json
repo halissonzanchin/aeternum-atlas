@@ -1,0 +1,184 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR1",
+  "pack_owner": "AET-KP-UL-SCAPULA-001",
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+  "remediation_mode": "LEGACY_ENTITY_NORMALIZATION",
+  "summary": {
+    "legacy_sqlite_entities_count": 1,
+    "remediated_full_canonical_entities_count": 24,
+    "reference_entities_used": 28,
+    "supported_entities_used": 0,
+    "anatomical_fact_mutations": 0,
+    "anatomical_facts_preserved": 119
+  },
+  "full_canonical_entities": [
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULA",
+      "canonical_name": "Scapula",
+      "entity_type": "BONE",
+      "AMC_mapping_status": "MAPPED_EXACT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_ACROMION",
+      "canonical_name": "Acromion",
+      "entity_type": "BONE_PART",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "canonical_name": "Coracoid Process",
+      "entity_type": "BONE_PART",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SPINE",
+      "canonical_name": "Spine of Scapula",
+      "entity_type": "BONE_PART",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "canonical_name": "Glenoid Cavity of Scapula",
+      "entity_type": "ARTICULAR_SURFACE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUBSCAPULAR_FOSSA",
+      "canonical_name": "Subscapular Fossa",
+      "entity_type": "BONE_SURFACE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPRASPINOUS_FOSSA",
+      "canonical_name": "Supraspinous Fossa",
+      "entity_type": "BONE_SURFACE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_INFRASPINOUS_FOSSA",
+      "canonical_name": "Infraspinous Fossa",
+      "entity_type": "BONE_SURFACE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPERIOR_BORDER",
+      "canonical_name": "Superior Border of Scapula",
+      "entity_type": "BONE_BORDER",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "canonical_name": "Medial Border of Scapula",
+      "entity_type": "BONE_BORDER",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_LATERAL_BORDER",
+      "canonical_name": "Lateral Border of Scapula",
+      "entity_type": "BONE_BORDER",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPERIOR_ANGLE",
+      "canonical_name": "Superior Angle of Scapula",
+      "entity_type": "BONE_ANGLE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_INFERIOR_ANGLE",
+      "canonical_name": "Inferior Angle of Scapula",
+      "entity_type": "BONE_ANGLE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_LATERAL_ANGLE",
+      "canonical_name": "Lateral Angle of Scapula",
+      "entity_type": "BONE_ANGLE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_COSTAL_SURFACE",
+      "canonical_name": "Costal Surface of Scapula",
+      "entity_type": "BONE_SURFACE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_POSTERIOR_SURFACE",
+      "canonical_name": "Posterior Surface of Scapula",
+      "entity_type": "BONE_SURFACE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPRAGLENOID_TUBERCLE",
+      "canonical_name": "Supraglenoid Tubercle",
+      "entity_type": "BONE_LANDMARK",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_INFRAGLENOID_TUBERCLE",
+      "canonical_name": "Infraglenoid Tubercle",
+      "entity_type": "BONE_LANDMARK",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPRASCAPULAR_NOTCH",
+      "canonical_name": "Suprascapular Notch",
+      "entity_type": "BONE_LANDMARK",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SPINOGLENOID_NOTCH",
+      "canonical_name": "Spinoglenoid Notch",
+      "entity_type": "BONE_LANDMARK",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-SCAPULA"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "canonical_name": "Glenoid Labrum",
+      "entity_type": "FIBROCARTILAGE",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPRASCAPULAR_FORAMEN",
+      "canonical_name": "Suprascapular Foramen",
+      "entity_type": "FORAMEN",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SUPERIOR_TRANSVERSE_SCAPULAR_LIGAMENT",
+      "canonical_name": "Superior Transverse Scapular Ligament",
+      "entity_type": "LIGAMENT",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CORACOACROMIAL_LIGAMENT",
+      "canonical_name": "Coracoacromial Ligament",
+      "entity_type": "LIGAMENT",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    }
+  ]
+}

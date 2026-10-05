@@ -1,0 +1,156 @@
+{
+  "audit_version": "AIR1-PREP",
+  "timestamp": "2026-09-25T02:00:00.000Z",
+  "summary": {
+    "total_modules_audited": 12,
+    "production_ready_modules": 8,
+    "staging_ready_modules": 3,
+    "experimental_or_deferred_modules": 1,
+    "overall_readiness": "STAGING_READY"
+  },
+  "modules": [
+    {
+      "module_id": "MOD-3D-VIEWER",
+      "name": "3D Anatomical Viewer & Dissection Engine",
+      "path": "src/features/viewer",
+      "status": "PRODUCTION_READY",
+      "supabase_integration": true,
+      "tables_used": ["models", "model_notes", "model_annotations"],
+      "safe_engine_integrated": false,
+      "air1_inclusion": "CORE_ACTIVE",
+      "notes": "Three.js / WebGL high-performance rendering pipeline with annotation system and slice planes."
+    },
+    {
+      "module_id": "MOD-ATLAS-VIEWER",
+      "name": "Atlas Viewer & Learning Orchestrator",
+      "path": "src/features/atlas-viewer",
+      "status": "PRODUCTION_READY",
+      "supabase_integration": true,
+      "tables_used": ["profiles", "study_agendas", "agenda_items", "learning_metrics"],
+      "safe_engine_integrated": false,
+      "air1_inclusion": "CORE_ACTIVE",
+      "notes": "Integrates 3D viewport, educational panels, study agendas, and AI tutor panel."
+    },
+    {
+      "module_id": "MOD-ATLAS-AI-TUTOR",
+      "name": "Atlas AI Tutor (Cerebro Aeternum)",
+      "path": "src/features/atlas-viewer/ai",
+      "status": "STAGING_READY",
+      "supabase_integration": true,
+      "tables_used": ["chat_messages", "ai_conversations"],
+      "safe_engine_integrated": true,
+      "air1_inclusion": "CORE_ACTIVE",
+      "notes": "Handles SSE streaming via Supabase Edge Function with automatic deterministic Safe Engine fallback on HTTP 429/5xx."
+    },
+    {
+      "module_id": "MOD-SAFE-ENGINE",
+      "name": "Aeternum Local Safe Engine (Scapula Pilot)",
+      "path": "src/services/safe-engine",
+      "status": "STAGING_READY",
+      "supabase_integration": false,
+      "tables_used": ["canonical_facts (pending cloud migration)"],
+      "safe_engine_integrated": true,
+      "air1_inclusion": "PILOT_ACTIVE",
+      "notes": "Deterministic anatomical knowledge engine. Currently operates via local JSON/SQLite; requires Web Adapter for browser deployment."
+    },
+    {
+      "module_id": "MOD-LESSONS",
+      "name": "Lesson & Curriculum Management",
+      "path": "src/features/lessons",
+      "status": "PRODUCTION_READY",
+      "supabase_integration": true,
+      "tables_used": ["lessons", "lesson_sections", "user_lesson_progress"],
+      "safe_engine_integrated": false,
+      "air1_inclusion": "CORE_ACTIVE",
+      "notes": "Structured curriculum engine with tracking and progress recording."
+    },
+    {
+      "module_id": "MOD-DASHBOARD",
+      "name": "Student & Educator Analytics Dashboard",
+      "path": "src/features/dashboard",
+      "status": "PRODUCTION_READY",
+      "supabase_integration": true,
+      "tables_used": ["learning_telemetry", "quiz_submissions", "user_achievements"],
+      "safe_engine_integrated": false,
+      "air1_inclusion": "CORE_ACTIVE",
+      "notes": "Metric aggregation, study time tracking, and streak calculations."
+    },
+    {
+      "module_id": "MOD-INSTITUTION-ADMIN",
+      "name": "Multi-Tenant Institutional Administration",
+      "path": "src/features/institution-admin",
+      "status": "PRODUCTION_READY",
+      "supabase_integration": true,
+      "tables_used": ["institutions", "institution_memberships", "licenses"],
+      "safe_engine_integrated": false,
+      "air1_inclusion": "CORE_ACTIVE",
+      "notes": "Role-based access control (RBAC), seat management, and academic license provisioning."
+    },
+    {
+      "module_id": "MOD-A26-LIQUID-GLASS",
+      "name": "Aeternum 26.1 Liquid Glass Design System",
+      "path": "src/features/aeternum-26",
+      "status": "PRODUCTION_READY",
+      "supabase_integration": false,
+      "tables_used": [],
+      "safe_engine_integrated": false,
+      "air1_inclusion": "CORE_ACTIVE",
+      "notes": "Physical optical glassmorphism with refraction, chromatic dispersion, and high contrast accessibility."
+    },
+    {
+      "module_id": "MOD-AUTH-RBAC",
+      "name": "Authentication & Session Security",
+      "path": "src/services/auth",
+      "status": "PRODUCTION_READY",
+      "supabase_integration": true,
+      "tables_used": ["profiles", "auth.users"],
+      "safe_engine_integrated": false,
+      "air1_inclusion": "CORE_ACTIVE",
+      "notes": "Supabase GoTrue JWT auth, session refresh, MFA-ready, and route guarding."
+    },
+    {
+      "module_id": "MOD-QUIZ-EVALUATION",
+      "name": "Anatomical & Theoretical Quiz Engine",
+      "path": "src/services/theoreticalQuizService.js",
+      "status": "PRODUCTION_READY",
+      "supabase_integration": true,
+      "tables_used": ["quiz_questions", "quiz_answers", "quiz_submissions"],
+      "safe_engine_integrated": false,
+      "air1_inclusion": "CORE_ACTIVE",
+      "notes": "Latarjet question bank, flashcard bank, and scoring logic."
+    },
+    {
+      "module_id": "MOD-VITA-RESEARCH",
+      "name": "Aeternum Vita Clinical Research Module",
+      "path": "packages/aeternum-vita",
+      "status": "STAGING_READY",
+      "supabase_integration": true,
+      "tables_used": [
+        "researcher_profiles",
+        "participants",
+        "prostheses",
+        "prosthesis_manufacturing_specs",
+        "prosthesis_changes",
+        "analytics_scoring_models",
+        "weekly_submissions",
+        "submission_domain_scores",
+        "participant_consents",
+        "research_audit_log"
+      ],
+      "safe_engine_integrated": false,
+      "air1_inclusion": "SELECTIVE_STAGING",
+      "notes": "Clinical trial protocol & prosthesis follow-up tracker. Production schema exists; Staging schema requires backfill."
+    },
+    {
+      "module_id": "MOD-VOICE-LIVEKIT",
+      "name": "Voice Interaction Pipeline (LiveKit)",
+      "path": "src/services/voice",
+      "status": "DEFERRED_P3",
+      "supabase_integration": true,
+      "tables_used": [],
+      "safe_engine_integrated": false,
+      "air1_inclusion": "DEFERRED",
+      "notes": "LiveKit WebRTC audio pipeline. P3 non-blocking for AIR1; disabled via VITE_AETERNUM_VITA_PIPELINE=off or stubbed."
+    }
+  ]
+}

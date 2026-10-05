@@ -1,0 +1,1787 @@
+[
+  {
+    "page": 1,
+    "line_count": 47,
+    "source_assertions": [
+      "Cintura escapular posee 32 huesos.",
+      "Clavícula es hueso de la cintura escapular.",
+      "Tipo de Hueso: Hueso Plano Alargado.",
+      "Extremo Medial: Esternal / Esferoide (manubrio del esternón y 1º cartílago costal).",
+      "Extremo Lateral: Acromial / Plano (con el acromion de la escápula).",
+      "Posee 2 Caras: Superior e Inferior.",
+      "Posee 2 Bordes: Anterior y Posterior."
+    ],
+    "entities": [
+      "cintura_escapular",
+      "clavicula",
+      "art_esternoclavicular",
+      "art_acromioclavicular"
+    ],
+    "relations": [
+      {
+        "subject": "clavicula",
+        "relation": "PART_OF",
+        "object": "cintura_escapular"
+      },
+      {
+        "subject": "clavicula",
+        "relation": "TYPE_OF",
+        "object": "hueso_plano_alargado"
+      },
+      {
+        "subject": "clavicula",
+        "relation": "ARTICULATES_WITH",
+        "object": "esternon_y_1er_cartilago_costal"
+      },
+      {
+        "subject": "clavicula",
+        "relation": "ARTICULATES_WITH",
+        "object": "acromion_escapula"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [
+      "VQ-003: Clavícula clasificada como hueso plano alargado (tradición francesa/latina)."
+    ],
+    "incomplete_sections": []
+  },
+  {
+    "page": 2,
+    "line_count": 44,
+    "source_assertions": [
+      "1/3 Lateral: Inserción descendente del músculo trapecio en cara superior - borde posterior.",
+      "1/3 Lateral: Inserción del músculo deltoides en cara superior - borde anterior.",
+      "2/3 Mediales: Inserción del músculo pectoral mayor en cara superior - borde anterior.",
+      "Surco Deltopectoral: Vena Cefálica y Rama Deltoidea."
+    ],
+    "entities": [
+      "clavicula",
+      "m_trapecio",
+      "m_deltoides",
+      "m_pectoral_mayor",
+      "triangulo_deltopectoral_mohrenheim"
+    ],
+    "relations": [
+      {
+        "subject": "m_trapecio",
+        "relation": "INSERTS_INTO",
+        "object": "clavicula_1_3_lateral_cara_superior_borde_posterior"
+      },
+      {
+        "subject": "m_deltoides",
+        "relation": "ORIGINATES_FROM",
+        "object": "clavicula_1_3_lateral_cara_superior_borde_anterior"
+      },
+      {
+        "subject": "m_pectoral_mayor",
+        "relation": "ORIGINATES_FROM",
+        "object": "clavicula_2_3_medial_cara_superior_borde_anterior"
+      },
+      {
+        "subject": "triangulo_deltopectoral_mohrenheim",
+        "relation": "CONTAINS",
+        "object": "vena_cefalica_y_rama_deltoidea"
+      }
+    ],
+    "practical_items": [
+      "Surco deltopectoral es referencia superficial clave que alberga la vena cefálica."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 3,
+    "line_count": 21,
+    "source_assertions": [
+      "Impresión del ligamento costoclavicular en cara inferior del 1/3 medial.",
+      "Surco del músculo subclavio en 1/3 medio cara inferior.",
+      "Tubérculo conoideo y línea trapezoidea en 1/3 lateral cara inferior."
+    ],
+    "entities": [
+      "clavicula",
+      "lig_costoclavicular",
+      "m_subclavio",
+      "lig_conoide",
+      "lig_trapezoide"
+    ],
+    "relations": [
+      {
+        "subject": "lig_costoclavicular",
+        "relation": "INSERTS_INTO",
+        "object": "clavicula_cara_inferior_1_3_medial"
+      },
+      {
+        "subject": "m_subclavio",
+        "relation": "INSERTS_INTO",
+        "object": "clavicula_surco_subclavio"
+      },
+      {
+        "subject": "lig_conoide",
+        "relation": "INSERTS_INTO",
+        "object": "clavicula_tuberculo_conoideo"
+      },
+      {
+        "subject": "lig_trapezoide",
+        "relation": "INSERTS_INTO",
+        "object": "clavicula_linea_trapezoidea"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 4,
+    "line_count": 42,
+    "source_assertions": [
+      "Tipo de Hueso: Hueso Plano.",
+      "Hueso con formato triangular / Hueso Par.",
+      "Localización: Región superior, posterior y lateral del tórax.",
+      "Se proyecta de la 2 a la 7 costilla.",
+      "Posee 2 Caras: Anterior (Costal) y Posterior (Dorsal).",
+      "Cara Costal o Anterior: Es Cóncava."
+    ],
+    "entities": [
+      "escapula"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "TYPE_OF",
+        "object": "hueso_plano"
+      },
+      {
+        "subject": "escapula",
+        "relation": "LOCATED_IN",
+        "object": "region_superior_posterior_lateral_torax_costillas_2_a_7"
+      }
+    ],
+    "practical_items": [
+      "Para orientar la escápula: la cara cóncava mira hacia adelante contra la pared costal."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 5,
+    "line_count": 9,
+    "source_assertions": [
+      "Cara costal presenta la Fosa Subescapular.",
+      "Modelo anatómico coloreado de la cara costal de la escápula."
+    ],
+    "entities": [
+      "escapula",
+      "fosa_subescapular"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_FOSSA",
+        "object": "fosa_subescapular"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 6,
+    "line_count": 9,
+    "source_assertions": [
+      "Cara Posterior o Dorsal: Es Convexa.",
+      "Presenta relieve que divide la cara posterior en dos fosas."
+    ],
+    "entities": [
+      "escapula"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_SURFACE",
+        "object": "cara_posterior_convexa"
+      }
+    ],
+    "practical_items": [
+      "La cara posterior es marcadamente convexa."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 7,
+    "line_count": 8,
+    "source_assertions": [
+      "Presenta Fosa Supraespinosa en la cara posterior."
+    ],
+    "entities": [
+      "escapula",
+      "fosa_supraespinosa"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_FOSSA",
+        "object": "fosa_supraespinosa"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 8,
+    "line_count": 8,
+    "source_assertions": [
+      "Presenta Fosa Infraespinosa en la cara posterior."
+    ],
+    "entities": [
+      "escapula",
+      "fosa_infraespinosa"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_FOSSA",
+        "object": "fosa_infraespinosa"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 9,
+    "line_count": 8,
+    "source_assertions": [
+      "Presenta Espina de la Escápula dividiendo las fosas posterior."
+    ],
+    "entities": [
+      "escapula",
+      "espina_escapula"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_PROCESS",
+        "object": "espina_de_la_escapula"
+      }
+    ],
+    "practical_items": [
+      "La espina es la eminencia posterior palpable que separa ambas fosas."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 10,
+    "line_count": 8,
+    "source_assertions": [
+      "Presenta Acromion como continuación lateral de la espina."
+    ],
+    "entities": [
+      "escapula",
+      "acromion",
+      "art_acromioclavicular"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_PROCESS",
+        "object": "acromion"
+      },
+      {
+        "subject": "acromion",
+        "relation": "CONTINUES_FROM",
+        "object": "espina_de_la_escapula"
+      }
+    ],
+    "practical_items": [
+      "Acrômio é o ponto ósseo palpável superior do ombro."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 11,
+    "line_count": 8,
+    "source_assertions": [
+      "Presenta Escotadura Espinoglenoidea cerca de la cavidad glenoidea."
+    ],
+    "entities": [
+      "escapula",
+      "escotadura_espinoglenoidea"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_LANDMARK",
+        "object": "escotadura_espinoglenoidea"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 12,
+    "line_count": 24,
+    "source_assertions": [
+      "Posee 3 Bordes: Medial (Espinal), Lateral (Axilar), Superior (Cervical).",
+      "Borde Superior presenta la Escotadura de la Escápula (cerrada por el ligamento transverso).",
+      "Por la escotadura pasa el Nervio Supraescapular.",
+      "Inserción del Músculo Omohioideo en el borde superior."
+    ],
+    "entities": [
+      "escapula",
+      "lig_transverso_superior_escapula",
+      "nervio_supraescapular",
+      "m_omohioideo"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_BORDER",
+        "object": "borde_medial"
+      },
+      {
+        "subject": "escapula",
+        "relation": "HAS_BORDER",
+        "object": "borde_lateral"
+      },
+      {
+        "subject": "escapula",
+        "relation": "HAS_BORDER",
+        "object": "borde_superior"
+      },
+      {
+        "subject": "nervio_supraescapular",
+        "relation": "PASSES_THROUGH",
+        "object": "escotadura_de_la_escapula"
+      },
+      {
+        "subject": "m_omohioideo",
+        "relation": "INSERTS_INTO",
+        "object": "escapula_borde_superior"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 13,
+    "line_count": 9,
+    "source_assertions": [
+      "Ángulo Superior: Une Borde Superior y Medial.",
+      "Ángulo Inferior: Une Borde Medial y Lateral."
+    ],
+    "entities": [
+      "escapula"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_ANGLE",
+        "object": "angulo_superior"
+      },
+      {
+        "subject": "escapula",
+        "relation": "HAS_ANGLE",
+        "object": "angulo_inferior"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 14,
+    "line_count": 6,
+    "source_assertions": [
+      "Ángulo Lateral: Une Borde Superior y Lateral."
+    ],
+    "entities": [
+      "escapula"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_ANGLE",
+        "object": "angulo_lateral"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 15,
+    "line_count": 5,
+    "source_assertions": [
+      "Presenta Apófisis Coracoides en el ángulo lateral."
+    ],
+    "entities": [
+      "escapula",
+      "apofisis_coracoides"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_PROCESS",
+        "object": "apofisis_coracoides"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": [
+      "P15 contains heading only: Apófisis Coracoideas (detailed later on P23)."
+    ]
+  },
+  {
+    "page": 16,
+    "line_count": 5,
+    "source_assertions": [
+      "Presenta Cavidad Glenoidea en el ángulo lateral.",
+      "Tubérculo Supraglenoideo: Músculo bíceps cabeza larga.",
+      "Tubérculo Infraglenoideo: Músculo tríceps cabeza larga."
+    ],
+    "entities": [
+      "escapula",
+      "cavidad_glenoidea",
+      "tuberculo_supraglenoideo",
+      "tuberculo_infraglenoideo",
+      "m_biceps_braquial",
+      "m_triceps_braquial"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "HAS_LANDMARK",
+        "object": "cavidad_glenoidea"
+      },
+      {
+        "subject": "m_biceps_braquial",
+        "relation": "ORIGINATES_FROM",
+        "object": "tuberculo_supraglenoideo"
+      },
+      {
+        "subject": "m_triceps_braquial",
+        "relation": "ORIGINATES_FROM",
+        "object": "tuberculo_infraglenoideo"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 17,
+    "line_count": 6,
+    "source_assertions": [
+      "Cavidad glenoidea está rodeada por el labrum (Rodete Glenoideo)."
+    ],
+    "entities": [
+      "cavidad_glenoidea",
+      "labrum_glenoideo"
+    ],
+    "relations": [
+      {
+        "subject": "cavidad_glenoidea",
+        "relation": "RELATED_TO",
+        "object": "labrum_glenoideo"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 18,
+    "line_count": 12,
+    "source_assertions": [
+      "Cavidad glenoidea se articula con la cabeza del húmero.",
+      "Inserciones Musculares Cara Anterior: Músculo Subescapular en la fosa subescapular."
+    ],
+    "entities": [
+      "escapula",
+      "umero",
+      "art_glenohumeral",
+      "m_subescapular"
+    ],
+    "relations": [
+      {
+        "subject": "escapula",
+        "relation": "ARTICULATES_WITH",
+        "object": "cabeza_del_umero"
+      },
+      {
+        "subject": "m_subescapular",
+        "relation": "ORIGINATES_FROM",
+        "object": "fosa_subescapular"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 19,
+    "line_count": 7,
+    "source_assertions": [
+      "Músculo Serrato Anterior: En el borde medial entre el ángulo superior y el ángulo inferior."
+    ],
+    "entities": [
+      "escapula",
+      "m_serrato_anterior"
+    ],
+    "relations": [
+      {
+        "subject": "m_serrato_anterior",
+        "relation": "INSERTS_INTO",
+        "object": "escapula_borde_medial"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 20,
+    "line_count": 8,
+    "source_assertions": [
+      "Cara Posterior: Músculo Supraespinoso en la fosa Supraespinosa."
+    ],
+    "entities": [
+      "escapula",
+      "m_supraespinoso"
+    ],
+    "relations": [
+      {
+        "subject": "m_supraespinoso",
+        "relation": "ORIGINATES_FROM",
+        "object": "fosa_supraespinosa"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 21,
+    "line_count": 6,
+    "source_assertions": [
+      "Músculo Infraespinoso en la fosa Infraespinosa."
+    ],
+    "entities": [
+      "escapula",
+      "m_infraespinoso"
+    ],
+    "relations": [
+      {
+        "subject": "m_infraespinoso",
+        "relation": "ORIGINATES_FROM",
+        "object": "fosa_infraespinosa"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 22,
+    "line_count": 29,
+    "source_assertions": [
+      "Espina de la Escápula: Músculo Trapecio en el labio superior del borde posterior de la espina.",
+      "Acromion: Músculo Deltoides en el labio inferior del borde posterior de la espina y borde lateral del acromion.",
+      "Borde Medial: Músculo Elevador de la Escápula, Músculo Romboides Menor, Músculo Romboides Mayor.",
+      "Borde Lateral: Músculo Redondo Menor (arriba) y Músculo Redondo Mayor (abajo)."
+    ],
+    "entities": [
+      "escapula",
+      "espina_escapula",
+      "acromion",
+      "m_trapecio",
+      "m_deltoides",
+      "m_elevador_escapula",
+      "m_romboides_menor",
+      "m_romboides_mayor",
+      "m_redondo_menor",
+      "m_redondo_mayor"
+    ],
+    "relations": [
+      {
+        "subject": "m_trapecio",
+        "relation": "INSERTS_INTO",
+        "object": "espina_escapula_labio_superior"
+      },
+      {
+        "subject": "m_deltoides",
+        "relation": "ORIGINATES_FROM",
+        "object": "espina_escapula_labio_inferior_y_acromion"
+      },
+      {
+        "subject": "m_elevador_escapula",
+        "relation": "INSERTS_INTO",
+        "object": "escapula_borde_medial_superior"
+      },
+      {
+        "subject": "m_romboides_menor",
+        "relation": "INSERTS_INTO",
+        "object": "escapula_borde_medial_medio"
+      },
+      {
+        "subject": "m_romboides_mayor",
+        "relation": "INSERTS_INTO",
+        "object": "escapula_borde_medial_inferior"
+      },
+      {
+        "subject": "m_redondo_menor",
+        "relation": "ORIGINATES_FROM",
+        "object": "escapula_borde_lateral_superior"
+      },
+      {
+        "subject": "m_redondo_mayor",
+        "relation": "ORIGINATES_FROM",
+        "object": "escapula_borde_lateral_inferior"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 23,
+    "line_count": 85,
+    "source_assertions": [
+      "Apófisis Coracoides: Músculo Coracobraquial en el vértice.",
+      "Apófisis Coracoides: Cabeza Corta del Bíceps en el vértice.",
+      "Apófisis Coracoides: Músculo Pectoral Menor en la cara medial.",
+      "Ligamentos en la Apófisis Coracoides: Ligamento Conoide, Ligamento Trapezoide, Ligamento Coracoacromial."
+    ],
+    "entities": [
+      "escapula",
+      "apofisis_coracoides",
+      "m_coracobraquial",
+      "m_biceps_braquial",
+      "m_pectoral_menor",
+      "lig_conoide",
+      "lig_trapezoide",
+      "lig_coracoacromial"
+    ],
+    "relations": [
+      {
+        "subject": "m_coracobraquial",
+        "relation": "ORIGINATES_FROM",
+        "object": "apofisis_coracoides_vertice"
+      },
+      {
+        "subject": "m_biceps_braquial",
+        "relation": "ORIGINATES_FROM",
+        "object": "apofisis_coracoides_vertice"
+      },
+      {
+        "subject": "m_pectoral_menor",
+        "relation": "INSERTS_INTO",
+        "object": "apofisis_coracoides_cara_medial"
+      },
+      {
+        "subject": "lig_conoide",
+        "relation": "INSERTS_INTO",
+        "object": "apofisis_coracoides"
+      },
+      {
+        "subject": "lig_trapezoide",
+        "relation": "INSERTS_INTO",
+        "object": "apofisis_coracoides"
+      },
+      {
+        "subject": "lig_coracoacromial",
+        "relation": "INSERTS_INTO",
+        "object": "apofisis_coracoides"
+      }
+    ],
+    "practical_items": [
+      "Vértice da coracoide é origem comum do tendão conjunto coracobíceps."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 24,
+    "line_count": 76,
+    "source_assertions": [
+      "Articulación Glenohumeral: Diartrosis - Enartrosis (esferoidea).",
+      "Movimientos: Flexión, extensión, abducción, aducción, rotación medial, rotación lateral, circunducción.",
+      "Cápsula y Ligamentos: Ligamento Glenohumeral Superior, Medio e Inferior; Ligamento Coracohumeral.",
+      "Articulación del Codo: Diartrosis - Troclear / Ginglimo."
+    ],
+    "entities": [
+      "art_glenohumeral",
+      "art_codo",
+      "lig_glenohumerales",
+      "lig_coracohumeral"
+    ],
+    "relations": [
+      {
+        "subject": "art_glenohumeral",
+        "relation": "TYPE_OF",
+        "object": "diartrosis_enartrosis"
+      },
+      {
+        "subject": "art_codo",
+        "relation": "TYPE_OF",
+        "object": "diartrosis_troclear"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [
+      "VQ-004: Inervación de codo cita informalmente \"Nervio del Musculo Radial / Cubital\"."
+    ],
+    "incomplete_sections": []
+  },
+  {
+    "page": 25,
+    "line_count": 83,
+    "source_assertions": [
+      "Tubérculo Mayor (Troquíter): Faceta superior (supraespinoso), faceta media (infraespinoso), faceta inferior (redondo menor).",
+      "Tubérculo Menor (Troquín): Inserción del músculo subescapular.",
+      "Corredera Bicipital (Surco Intertubercular): Labio lateral (pectoral mayor), suelo (dorsal ancho), labio medial (redondo mayor).",
+      "Cuello Quirúrgico del húmero: relacionado con el Nervio Axilar y Arteria Circunfleja Humeral Posterior."
+    ],
+    "entities": [
+      "umero",
+      "m_supraespinoso",
+      "m_infraespinoso",
+      "m_redondo_menor",
+      "m_subescapular",
+      "m_pectoral_mayor",
+      "m_dorsal_ancho",
+      "m_redondo_mayor",
+      "nervio_axilar",
+      "arteria_circunfleja_humeral_posterior"
+    ],
+    "relations": [
+      {
+        "subject": "m_supraespinoso",
+        "relation": "INSERTS_INTO",
+        "object": "troquiter_faceta_superior"
+      },
+      {
+        "subject": "m_infraespinoso",
+        "relation": "INSERTS_INTO",
+        "object": "troquiter_faceta_media"
+      },
+      {
+        "subject": "m_redondo_menor",
+        "relation": "INSERTS_INTO",
+        "object": "troquiter_faceta_inferior"
+      },
+      {
+        "subject": "m_subescapular",
+        "relation": "INSERTS_INTO",
+        "object": "troquin"
+      },
+      {
+        "subject": "m_pectoral_mayor",
+        "relation": "INSERTS_INTO",
+        "object": "corredera_bicipital_labio_lateral"
+      },
+      {
+        "subject": "m_dorsal_ancho",
+        "relation": "INSERTS_INTO",
+        "object": "corredera_bicipital_suelo"
+      },
+      {
+        "subject": "m_redondo_mayor",
+        "relation": "INSERTS_INTO",
+        "object": "corredera_bicipital_labio_medial"
+      },
+      {
+        "subject": "nervio_axilar",
+        "relation": "RELATED_TO",
+        "object": "cuello_quirurgico_umero"
+      }
+    ],
+    "practical_items": [
+      "Regla del profesor para corredera: Dorsal ancho entre pectoral mayor y redondo mayor."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 26,
+    "line_count": 86,
+    "source_assertions": [
+      "Diáfisis Humeral Cara Posterior: Surco del Nervio Radial (Canal de Torsión).",
+      "Aloja el Nervio Radial y la Arteria Braquial Profunda.",
+      "Separa el origen del vasto lateral (arriba) y vasto medial (abajo) del tríceps.",
+      "Cara Anterolateral: Tuberosidad Deltoidea (V deltoidea).",
+      "Canal epitrocleoolecraneano detrás del epicóndilo medial para el Nervio Cubital."
+    ],
+    "entities": [
+      "umero",
+      "nervio_radial",
+      "arteria_braquial_profunda",
+      "m_triceps_braquial",
+      "m_deltoides",
+      "nervio_cubital",
+      "canal_epitrocleoolecraneano"
+    ],
+    "relations": [
+      {
+        "subject": "nervio_radial",
+        "relation": "PASSES_THROUGH",
+        "object": "canal_de_torsion_sulco_radial"
+      },
+      {
+        "subject": "arteria_braquial_profunda",
+        "relation": "PASSES_THROUGH",
+        "object": "canal_de_torsion_sulco_radial"
+      },
+      {
+        "subject": "nervio_cubital",
+        "relation": "PASSES_THROUGH",
+        "object": "canal_epitrocleoolecraneano"
+      }
+    ],
+    "practical_items": [
+      "Canal epitrocleoolecraneano posterior expone directamente el nervio cubital a traumatismos."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 27,
+    "line_count": 79,
+    "source_assertions": [
+      "Cúbito: Hueso medial del antebrazo.",
+      "Olécranon (inserción del tríceps) y Apófisis Coronoides (inserción del braquial anterior).",
+      "Escotadura troclear (cavidad sigmoidea mayor) y escotadura radial (cavidad sigmoidea menor).",
+      "Cúbito no se articula directamente con los huesos del carpo; separado por fibrocartílago triangular.",
+      "Sección de Radio inicia con: \"Es el hueso medial del antebrazo\" (desliz material)."
+    ],
+    "entities": [
+      "cubito_ulna",
+      "radio",
+      "m_triceps_braquial",
+      "m_braquial",
+      "fibrocartilago_triangular"
+    ],
+    "relations": [
+      {
+        "subject": "cubito_ulna",
+        "relation": "TYPE_OF",
+        "object": "hueso_largo"
+      },
+      {
+        "subject": "m_triceps_braquial",
+        "relation": "INSERTS_INTO",
+        "object": "olecranon"
+      },
+      {
+        "subject": "m_braquial",
+        "relation": "INSERTS_INTO",
+        "object": "apofisis_coronoides"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [
+      "VQ-001: Desliz del apunte al calificar el radio como \"hueso medial del antebrazo\" (es lateral)."
+    ],
+    "incomplete_sections": []
+  },
+  {
+    "page": 28,
+    "line_count": 80,
+    "source_assertions": [
+      "Radio: Hueso largo lateral del antebrazo.",
+      "Cabeza del radio: fóvea articular y circunferencia articular (articulación trocoide).",
+      "Tuberosidad del Radio (Tuberosidad Bicipital): Inserción del tendón del bíceps braquial.",
+      "Cara posterior distal presenta el Tubérculo Dorsal (de Lister)."
+    ],
+    "entities": [
+      "radio",
+      "m_biceps_braquial",
+      "art_radiocubital_proximal",
+      "membrana_interosea_antebrazo",
+      "tuberculo_de_lister"
+    ],
+    "relations": [
+      {
+        "subject": "radio",
+        "relation": "TYPE_OF",
+        "object": "hueso_largo"
+      },
+      {
+        "subject": "m_biceps_braquial",
+        "relation": "INSERTS_INTO",
+        "object": "tuberosidad_del_radio"
+      },
+      {
+        "subject": "radio",
+        "relation": "HAS_LANDMARK",
+        "object": "tuberculo_de_lister"
+      }
+    ],
+    "practical_items": [
+      "Tubérculo de Lister palpable en cara dorsal de muñeca."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 29,
+    "line_count": 82,
+    "source_assertions": [
+      "Tabaquera Anatómica: Límites tendinosos (abductor largo y extensor corto lateralmente; extensor largo medialmente).",
+      "Suelo de la tabaquera: Hueso Escafoides y Hueso Trapecio.",
+      "Contenido en el suelo: Arteria Radial."
+    ],
+    "entities": [
+      "tabaquera_anatomica",
+      "m_abductor_largo_pulgar",
+      "m_extensor_corto_pulgar",
+      "m_extensor_largo_pulgar",
+      "arteria_radial",
+      "escafoides",
+      "trapecio"
+    ],
+    "relations": [
+      {
+        "subject": "tabaquera_anatomica",
+        "relation": "HAS_BOUNDARY",
+        "object": "tendones_abductor_largo_y_extensores_pulgar"
+      },
+      {
+        "subject": "tabaquera_anatomica",
+        "relation": "CONTAINS",
+        "object": "arteria_radial"
+      },
+      {
+        "subject": "tabaquera_anatomica",
+        "relation": "CONTAINS",
+        "object": "escafoides_y_trapecio_en_suelo"
+      }
+    ],
+    "practical_items": [
+      "Tabaquera anatómica permite palpar directamente el escafoides y el pulso radial dorsal."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 30,
+    "line_count": 60,
+    "source_assertions": [
+      "Huesos del carpo (8 huesos divididos en fila proximal y fila distal).",
+      "Semilunar se articula con 5 huesos (radio, escafoides, piramidal, grande, ganchoso).",
+      "Grande se articula con 7 huesos."
+    ],
+    "entities": [
+      "carpo",
+      "escafoides",
+      "semilunar",
+      "piramidal",
+      "hueso_grande",
+      "tunel_carpiano"
+    ],
+    "relations": [
+      {
+        "subject": "semilunar",
+        "relation": "ARTICULATES_WITH",
+        "object": "radio_escafoides_piramidal_grande_ganchoso"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 31,
+    "line_count": 63,
+    "source_assertions": [
+      "Ganchoso presenta apófisis unciforme / gancho.",
+      "Pisiforme articula únicamente con el piramidal.",
+      "Canal de Guyon formado entre pisiforme y gancho del ganchoso."
+    ],
+    "entities": [
+      "ganchoso",
+      "pisiforme",
+      "trapecio",
+      "trapezoide",
+      "canal_de_guyon",
+      "retinaculo_flexor"
+    ],
+    "relations": [
+      {
+        "subject": "canal_de_guyon",
+        "relation": "HAS_BOUNDARY",
+        "object": "pisiforme_y_gancho_del_ganchoso"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 32,
+    "line_count": 84,
+    "source_assertions": [
+      "5 Metacarpianos.",
+      "1er Metacarpiano no tiene carillas articulares laterales en su base; articula con el trapecio (encaje recíproco / silla de montar).",
+      "2do a 5to metacarpianos articulan entre sí por sus bases."
+    ],
+    "entities": [
+      "metacarpianos",
+      "metacarpiano_1",
+      "metacarpiano_2",
+      "metacarpiano_3",
+      "metacarpiano_4",
+      "metacarpiano_5",
+      "trapecio"
+    ],
+    "relations": [
+      {
+        "subject": "metacarpiano_1",
+        "relation": "ARTICULATES_WITH",
+        "object": "trapecio"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 33,
+    "line_count": 88,
+    "source_assertions": [
+      "14 Falanges en la mano (3 por dedo excepto el pulgar que tiene 2).",
+      "Falange proximal, falange media y falange distal.",
+      "Inserción del Músculo Flexor Superficial de los Dedos en falange media (lengüetas perforadas)."
+    ],
+    "entities": [
+      "falanges_proximales",
+      "falanges_medias",
+      "falanges_distales",
+      "m_flexor_superficial_dedos"
+    ],
+    "relations": [
+      {
+        "subject": "m_flexor_superficial_dedos",
+        "relation": "INSERTS_INTO",
+        "object": "falanges_medias"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 34,
+    "line_count": 97,
+    "source_assertions": [
+      "Inserción del Músculo Flexor Profundo de los Dedos en la base de la falange distal (perforante).",
+      "Expansión del tendón extensor en la falange distal."
+    ],
+    "entities": [
+      "falanges_distales",
+      "m_flexor_profundo_dedos",
+      "m_extensor_dedos"
+    ],
+    "relations": [
+      {
+        "subject": "m_flexor_profundo_dedos",
+        "relation": "INSERTS_INTO",
+        "object": "falanges_distales_base"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 35,
+    "line_count": 95,
+    "source_assertions": [
+      "Músculo Supraespinoso: Origen fosa supraespinosa, inserción troquíter, inervación nervio supraescapular, irrigación arteria supraescapular, acción abduce el brazo.",
+      "Músculo Infraespinoso: Origen fosa infraespinosa, inserción troquíter, inervación nervio supraescapular, acción rotador lateral."
+    ],
+    "entities": [
+      "m_supraespinoso",
+      "m_infraespinoso",
+      "nervio_supraescapular",
+      "arteria_supraescapular"
+    ],
+    "relations": [
+      {
+        "subject": "m_supraespinoso",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_supraescapular"
+      },
+      {
+        "subject": "m_infraespinoso",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_supraescapular"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 36,
+    "line_count": 86,
+    "source_assertions": [
+      "Músculo Pectoral Mayor: aductor y rotador medial del brazo.",
+      "Músculo Pectoral Menor: desciende la escápula.",
+      "Músculo Serrato Anterior: inervado por el Nervio Torácico Largo."
+    ],
+    "entities": [
+      "m_pectoral_mayor",
+      "m_pectoral_menor",
+      "m_subclavio",
+      "m_serrato_anterior",
+      "nervio_toracico_largo"
+    ],
+    "relations": [
+      {
+        "subject": "m_serrato_anterior",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_toracico_largo"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 37,
+    "line_count": 98,
+    "source_assertions": [
+      "Músculo Subescapular: aductor y rotador medial del húmero.",
+      "Músculo Redondo Menor: inervado por el Nervio Axilar.",
+      "Músculo Redondo Mayor: inervado por el nervio subescapular inferior.",
+      "Músculo Dorsal Ancho: inervado por el Nervio Toracodorsal."
+    ],
+    "entities": [
+      "m_subescapular",
+      "m_redondo_menor",
+      "m_redondo_mayor",
+      "m_dorsal_ancho",
+      "nervio_axilar",
+      "nervio_toracodorsal"
+    ],
+    "relations": [
+      {
+        "subject": "m_redondo_menor",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_axilar"
+      },
+      {
+        "subject": "m_dorsal_ancho",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_toracodorsal"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [
+      "VQ-005: Menciona nervio axilar junto a subescapulares para el subescapular."
+    ],
+    "incomplete_sections": []
+  },
+  {
+    "page": 38,
+    "line_count": 62,
+    "source_assertions": [
+      "Músculo Deltoides: inervado por el Nervio Axilar (circunflejo). Principal abductor.",
+      "Músculo Coracobraquial: perforado por el Nervio Musculocutáneo (inervado por él)."
+    ],
+    "entities": [
+      "m_deltoides",
+      "m_coracobraquial",
+      "nervio_axilar",
+      "nervio_musculocutaneo"
+    ],
+    "relations": [
+      {
+        "subject": "m_deltoides",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_axilar"
+      },
+      {
+        "subject": "m_coracobraquial",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_musculocutaneo"
+      },
+      {
+        "subject": "m_coracobraquial",
+        "relation": "PERFORATED_BY",
+        "object": "nervio_musculocutaneo"
+      }
+    ],
+    "practical_items": [
+      "Nervio musculocutáneo atraviesa el coracobraquial (reparo clásico en axila)."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 39,
+    "line_count": 104,
+    "source_assertions": [
+      "Músculo Bíceps Braquial: dos cabezas (larga y corta).",
+      "Acción: Supinador del antebrazo flexionado y flexor del codo.",
+      "Inervación: cita Nervio Musculocutáneo y Nervio Radial."
+    ],
+    "entities": [
+      "m_biceps_braquial",
+      "nervio_musculocutaneo",
+      "nervio_radial",
+      "aponeurosis_bicipital"
+    ],
+    "relations": [
+      {
+        "subject": "m_biceps_braquial",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_musculocutaneo"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [
+      "VQ-006: Menciona nervio radial para bíceps (inervación motora canónica es 100% musculocutáneo)."
+    ],
+    "incomplete_sections": []
+  },
+  {
+    "page": 40,
+    "line_count": 113,
+    "source_assertions": [
+      "Músculo Braquial (Braquial Anterior): Principal flexor del antebrazo en el codo.",
+      "Inervación: Nervio Musculocutáneo."
+    ],
+    "entities": [
+      "m_braquial",
+      "nervio_musculocutaneo",
+      "arteria_braquial"
+    ],
+    "relations": [
+      {
+        "subject": "m_braquial",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_musculocutaneo"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 41,
+    "line_count": 112,
+    "source_assertions": [
+      "Tríceps Braquial: Cabeza larga, vasto lateral y vasto medial. Inervado por el Nervio Radial.",
+      "Cuadrilátero de Velpeau: Redondo menor, redondo mayor, cabeza larga tríceps, cuello quirúrgico. Contenido: Nervio axilar y arteria circunfleja humeral posterior.",
+      "Triángulo Omotricipital: Redondo menor, redondo mayor, cabeza larga tríceps. Contenido: Arteria circunfleja escapular.",
+      "Triángulo Húmerotricipital (Avelino Gutiérrez): Redondo mayor, cabeza larga tríceps, húmero. Contenido: Nervio radial y arteria braquial profunda."
+    ],
+    "entities": [
+      "espacio_cuadrangular_velpeau",
+      "espacio_triangular_omotricipital",
+      "intervalo_triangular_avelino_gutierrez",
+      "m_triceps_braquial",
+      "m_anconeo",
+      "nervio_axilar",
+      "nervio_radial",
+      "arteria_circunfleja_humeral_posterior",
+      "arteria_circunfleja_escapular",
+      "arteria_braquial_profunda"
+    ],
+    "relations": [
+      {
+        "subject": "espacio_cuadrangular_velpeau",
+        "relation": "CONTAINS",
+        "object": "nervio_axilar_y_arteria_circunfleja_humeral_posterior"
+      },
+      {
+        "subject": "espacio_triangular_omotricipital",
+        "relation": "CONTAINS",
+        "object": "arteria_circunfleja_escapular"
+      },
+      {
+        "subject": "intervalo_triangular_avelino_gutierrez",
+        "relation": "CONTAINS",
+        "object": "nervio_radial_y_arteria_braquial_profunda"
+      }
+    ],
+    "practical_items": [
+      "Triada de espacios axilares posteriores delimitados por la cabeza larga del tríceps."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 42,
+    "line_count": 109,
+    "source_assertions": [
+      "Compartimento anterior antebrazo: Plano 1 (epicondíleos mediales / epitrocleares).",
+      "Pronador redondo, flexor radial del carpo, palmar largo, flexor cubital del carpo.",
+      "Inervación: Todos por Nervio Mediano EXCEPTO Flexor Cubital del Carpo (inervado por Nervio Cubital)."
+    ],
+    "entities": [
+      "m_pronador_redondo",
+      "m_flexor_radial_carpo",
+      "m_palmar_largo",
+      "m_flexor_cubital_carpo",
+      "nervio_mediano",
+      "nervio_cubital"
+    ],
+    "relations": [
+      {
+        "subject": "m_pronador_redondo",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_mediano"
+      },
+      {
+        "subject": "m_flexor_radial_carpo",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_mediano"
+      },
+      {
+        "subject": "m_palmar_largo",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_mediano"
+      },
+      {
+        "subject": "m_flexor_cubital_carpo",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_cubital"
+      }
+    ],
+    "practical_items": [
+      "Regla de oro: flexor cubital del carpo es la excepción del 1er plano (inervado por el cubital)."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 43,
+    "line_count": 129,
+    "source_assertions": [
+      "Plano 2: Flexor superficial de los dedos (N. mediano).",
+      "Plano 3: Flexor profundo de los dedos (mitad lateral N. mediano, mitad medial N. cubital) y flexor largo del pulgar (N. interóseo anterior del mediano).",
+      "Plano 4: Pronador cuadrado (N. interóseo anterior del mediano)."
+    ],
+    "entities": [
+      "m_flexor_superficial_dedos",
+      "m_flexor_profundo_dedos",
+      "m_flexor_largo_pulgar",
+      "m_pronador_cuadrado",
+      "nervio_mediano",
+      "nervio_cubital",
+      "ramo_interoseo_anterior"
+    ],
+    "relations": [
+      {
+        "subject": "m_flexor_superficial_dedos",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_mediano"
+      },
+      {
+        "subject": "m_flexor_profundo_dedos",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_mediano_y_nervio_cubital"
+      },
+      {
+        "subject": "m_flexor_largo_pulgar",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_interoseo_anterior"
+      },
+      {
+        "subject": "m_pronador_cuadrado",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_interoseo_anterior"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 44,
+    "line_count": 118,
+    "source_assertions": [
+      "Compartimento posterior y lateral: 12 músculos en total.",
+      "Grupo Lateral: Braquiorradial, extensor radial largo del carpo, extensor radial corto del carpo, supinador.",
+      "Inervación: Nervio Radial (ramo profundo atraviesa el supinador)."
+    ],
+    "entities": [
+      "m_braquiorradial",
+      "m_extensor_radial_largo_carpo",
+      "m_extensor_radial_corto_carpo",
+      "m_supinador",
+      "nervio_radial",
+      "ramo_profundo_radial"
+    ],
+    "relations": [
+      {
+        "subject": "m_braquiorradial",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_radial"
+      },
+      {
+        "subject": "m_supinador",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_profundo_radial"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 45,
+    "line_count": 100,
+    "source_assertions": [
+      "Porción Posterior Plano Superficial: Extensor de los dedos, extensor del meñique, extensor cubital del carpo, ancóneo.",
+      "Origen: Epicóndilo lateral del húmero. Inervación: Nervio Radial."
+    ],
+    "entities": [
+      "m_extensor_dedos",
+      "m_extensor_menique",
+      "m_extensor_cubital_carpo",
+      "m_anconeo",
+      "nervio_radial"
+    ],
+    "relations": [
+      {
+        "subject": "m_extensor_dedos",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_radial"
+      },
+      {
+        "subject": "m_extensor_menique",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_radial"
+      },
+      {
+        "subject": "m_extensor_cubital_carpo",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_radial"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 46,
+    "line_count": 108,
+    "source_assertions": [
+      "Plano Profundo Posterior: Abductor largo del pulgar, extensor corto del pulgar, extensor largo del pulgar.",
+      "Inervación: Ramo profundo del nervio radial (interóseo posterior).",
+      "Límites de la tabaquera anatómica repetidos; menciona \"Arteria Cefálica\" por desliz."
+    ],
+    "entities": [
+      "m_abductor_largo_pulgar",
+      "m_extensor_corto_pulgar",
+      "m_extensor_largo_pulgar",
+      "ramo_profundo_radial",
+      "tabaquera_anatomica"
+    ],
+    "relations": [
+      {
+        "subject": "m_abductor_largo_pulgar",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_profundo_radial"
+      },
+      {
+        "subject": "m_extensor_corto_pulgar",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_profundo_radial"
+      },
+      {
+        "subject": "m_extensor_largo_pulgar",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_profundo_radial"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [
+      "VQ-002: Desliz al anotar \"Arteria Cefálica\" en contexto de tabaquera anatómica (es vena cefálica en techo)."
+    ],
+    "incomplete_sections": []
+  },
+  {
+    "page": 47,
+    "line_count": 110,
+    "source_assertions": [
+      "Músculo Extensor del Índice: Origen en cúbito y membrana interósea.",
+      "Inervación: Ramo profundo del nervio radial."
+    ],
+    "entities": [
+      "m_extensor_indice",
+      "ramo_profundo_radial"
+    ],
+    "relations": [
+      {
+        "subject": "m_extensor_indice",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_profundo_radial"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 48,
+    "line_count": 126,
+    "source_assertions": [
+      "Músculos de la Región Tenar: Abductor corto, flexor corto, oponente, aductor del pulgar.",
+      "Inervación: Abductor corto, oponente y cabeza superficial del flexor corto por Ramo Recurrente del Mediano.",
+      "Cabeza profunda del flexor corto y aductor del pulgar por Ramo Profundo del Cubital."
+    ],
+    "entities": [
+      "m_abductor_corto_pulgar",
+      "m_flexor_corto_pulgar",
+      "m_oponente_pulgar",
+      "m_aductor_pulgar",
+      "nervio_mediano",
+      "nervio_cubital"
+    ],
+    "relations": [
+      {
+        "subject": "m_abductor_corto_pulgar",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_mediano"
+      },
+      {
+        "subject": "m_oponente_pulgar",
+        "relation": "INNERVATED_BY",
+        "object": "nervio_mediano"
+      },
+      {
+        "subject": "m_aductor_pulgar",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_profundo_cubital"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 49,
+    "line_count": 109,
+    "source_assertions": [
+      "Músculos de la Región Hipotenar: Palmar corto (cutáneo palmar), abductor del meñique, flexor corto del meñique, oponente del meñique.",
+      "Inervación: Ramo superficial del nervio cubital para palmar corto; ramo profundo del cubital para los otros tres."
+    ],
+    "entities": [
+      "m_palmar_corto",
+      "m_abductor_menique",
+      "m_flexor_corto_menique",
+      "m_oponente_menique",
+      "nervio_cubital",
+      "canal_de_guyon"
+    ],
+    "relations": [
+      {
+        "subject": "m_abductor_menique",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_profundo_cubital"
+      },
+      {
+        "subject": "m_flexor_corto_menique",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_profundo_cubital"
+      },
+      {
+        "subject": "m_oponente_menique",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_profundo_cubital"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 50,
+    "line_count": 140,
+    "source_assertions": [
+      "Lumbricales 1 y 2 inervados por el Nervio Mediano; Lumbricales 3 y 4 inervados por el Nervio Cubital (ramo profundo).",
+      "Interóseos Palmares (3): Aductores hacia el eje del 3er dedo. Inervados por ramo profundo del cubital.",
+      "Interóseos Dorsales (4): Abductores del eje del 3er dedo. Inervados por ramo profundo del cubital."
+    ],
+    "entities": [
+      "m_lumbricales",
+      "m_interoseos_palmares",
+      "m_interoseos_dorsales",
+      "nervio_mediano",
+      "nervio_cubital"
+    ],
+    "relations": [
+      {
+        "subject": "m_interoseos_palmares",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_profundo_cubital"
+      },
+      {
+        "subject": "m_interoseos_dorsales",
+        "relation": "INNERVATED_BY",
+        "object": "ramo_profundo_cubital"
+      }
+    ],
+    "practical_items": [
+      "Regla PAD y DAB para función de interóseos."
+    ],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 51,
+    "line_count": 103,
+    "source_assertions": [
+      "Arteria Axilar: Continuación de la arteria subclavia.",
+      "Dividida en 3 porciones por el músculo pectoral menor.",
+      "1ª Porción: Arteria torácica superior.",
+      "2ª Porción: Arteria toracoacromial (ramas acromial, clavicular, deltoidea, pectoral) y arteria torácica lateral (mamaria externa).",
+      "Relaciones con los fascículos del plexo braquial."
+    ],
+    "entities": [
+      "arteria_subclavia",
+      "arteria_axilar",
+      "m_pectoral_menor",
+      "arteria_toracica_superior",
+      "arteria_toracoacromial",
+      "arteria_toracica_lateral",
+      "vena_cefalica",
+      "vena_basilica",
+      "plexo_braquial"
+    ],
+    "relations": [
+      {
+        "subject": "arteria_axilar",
+        "relation": "CONTINUES_FROM",
+        "object": "arteria_subclavia"
+      },
+      {
+        "subject": "arteria_axilar",
+        "relation": "GIVES_BRANCH",
+        "object": "arteria_toracica_superior"
+      },
+      {
+        "subject": "arteria_axilar",
+        "relation": "GIVES_BRANCH",
+        "object": "arteria_toracoacromial"
+      },
+      {
+        "subject": "arteria_axilar",
+        "relation": "GIVES_BRANCH",
+        "object": "arteria_toracica_lateral"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 52,
+    "line_count": 92,
+    "source_assertions": [
+      "3ª Porción Arteria Axilar: Arteria subescapular (ramas toracodorsal y circunfleja escapular), arteria circunfleja humeral anterior y posterior.",
+      "Arteria circunfleja humeral posterior pasa por el cuadrilátero de Velpeau con el nervio axilar.",
+      "Arteria Braquial: Continuación de la axilar desde el borde inferior del pectoral mayor.",
+      "Discurre en el conducto braquial junto al nervio mediano.",
+      "Ramas: Arteria braquial profunda (entra al canal de torsión), colaterales cubitales superior e inferior.",
+      "Terminación: Se bifurca en arteria radial y arteria cubital."
+    ],
+    "entities": [
+      "arteria_axilar",
+      "arteria_subescapular",
+      "arteria_circunfleja_humeral_anterior",
+      "arteria_circunfleja_humeral_posterior",
+      "arteria_braquial",
+      "m_pectoral_mayor",
+      "canal_braquial_cruveilhier",
+      "nervio_mediano",
+      "arteria_braquial_profunda",
+      "canal_de_torsion_sulco_radial",
+      "arteria_colateral_cubital_superior",
+      "arteria_colateral_cubital_inferior"
+    ],
+    "relations": [
+      {
+        "subject": "arteria_axilar",
+        "relation": "GIVES_BRANCH",
+        "object": "arteria_subescapular"
+      },
+      {
+        "subject": "arteria_axilar",
+        "relation": "GIVES_BRANCH",
+        "object": "arteria_circunfleja_humeral_posterior"
+      },
+      {
+        "subject": "arteria_braquial",
+        "relation": "CONTINUES_FROM",
+        "object": "arteria_axilar"
+      },
+      {
+        "subject": "arteria_braquial",
+        "relation": "GIVES_BRANCH",
+        "object": "arteria_braquial_profunda"
+      },
+      {
+        "subject": "arteria_braquial_profunda",
+        "relation": "PASSES_THROUGH",
+        "object": "canal_de_torsion_sulco_radial"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": []
+  },
+  {
+    "page": 53,
+    "line_count": 62,
+    "source_assertions": [
+      "Arteria Radial: Trayecto por el canal muscular y canal del pulso en antebrazo; tabaquera anatómica y 1er espacio intermetacarpiano en la mano.",
+      "Terminación: Se une a la arteria palmar profunda (rama de la cubital) formando el arco palmar profundo.",
+      "Ramas: Recurrente radial, carpiana palmar, carpiana dorsal, palmar superficial, principal del pulgar, metacarpiana dorsal del 1er espacio.",
+      "Mano: Arcos Palmares y Arco Dorsal (sección incompleta)."
+    ],
+    "entities": [
+      "arteria_radial",
+      "canal_muscular_antebrazo",
+      "canal_del_pulso",
+      "tabaquera_anatomica",
+      "arteria_recurrente_radial",
+      "arco_palmar_profundo",
+      "arco_palmar_superficial",
+      "arco_dorsal_carpo"
+    ],
+    "relations": [
+      {
+        "subject": "arteria_radial",
+        "relation": "PASSES_THROUGH",
+        "object": "canal_del_pulso"
+      },
+      {
+        "subject": "arteria_radial",
+        "relation": "PASSES_THROUGH",
+        "object": "tabaquera_anatomica"
+      },
+      {
+        "subject": "arco_palmar_profundo",
+        "relation": "FORMED_BY",
+        "object": "arteria_radial_y_rama_palmar_profunda_cubital"
+      }
+    ],
+    "practical_items": [],
+    "review_items": [],
+    "incomplete_sections": [
+      "P53 concludes abruptly with \"Arco Dorsal:\" without further elaboration. Marked as SOURCE_CONTENT_INCOMPLETE."
+    ]
+  }
+]

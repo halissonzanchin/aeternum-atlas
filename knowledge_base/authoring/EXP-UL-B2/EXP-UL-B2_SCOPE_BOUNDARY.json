@@ -1,0 +1,46 @@
+{
+  "phase": "EXP-UL-B2-E0",
+  "batch_id": "EXP-UL-B2",
+  "status": "FROZEN",
+  "timestamp": "2026-09-27T00:18:07.669Z",
+  "batch_scope": {
+    "primary_topics": [
+      "PROXIMAL_HUMERUS",
+      "GLENOHUMERAL_JOINT",
+      "ROTATOR_CUFF"
+    ],
+    "in_scope_full": [
+      "Húmero proximal: cabeça, colo anatômico, colo cirúrgico, tubérculo maior, tubérculo menor, sulco intertubercular, crista do tubérculo maior, crista do tubérculo menor, epífise proximal, facetas de inserção do manguito",
+      "Articulação glenoumeral: superfícies articulares, cabeça do úmero, cavidade glenoidal, lábio glenoidal (labrum), cápsula fibrosa, inserções capsulares, membrana sinovial, ligamento glenoumeral superior, ligamento glenoumeral médio, complexo ligamentar glenoumeral inferior, ligamento coracoumeral, ligamento umeral transverso, intervalo dos rotadores, recesso axilar",
+      "Manguito rotador: músculo e tendão supraespinal, músculo e tendão infraespinal, músculo e tendão redondo menor, músculo e tendão subescapular, lâmina tendínea pericapsular composta"
+    ],
+    "in_scope_supporting": [
+      "Tendão da cabeça longa do músculo bíceps braquial (trajeto intra-articular, fixação no tubérculo supraglenoidal, bainha sinovial intertubercular)",
+      "Arco coracoacromial (acrômio, processo coracoide, ligamento coracoacromial)",
+      "Bolsa subacromial-subdeltóidea e bolsa subtendínea do subescapular",
+      "Interface articular glenoidal da escápula"
+    ],
+    "reference_only_future_batch": [
+      "Músculo deltoide (partes clavicular, acromial e espinal)",
+      "Cabeça longa do músculo tríceps braquial (origem infraglenoidal)",
+      "Músculo peitoral maior (inserção na crista do tubérculo maior)",
+      "Músculos latíssimo do dorso e redondo maior (inserções no assoalho e crista medial)",
+      "Nervo axilar e vasos circunflexos umerais posteriores (espaço quadrangular)",
+      "Nervo supraescapular e artéria supraescapular",
+      "Nervos subescapulares superior e inferior"
+    ],
+    "out_of_scope": [
+      "Axila completa e canal cervicoaxilar",
+      "Cordões e divisões do plexo braquial",
+      "Compartimentos braquiais anterior e posterior completos",
+      "Úmero distal, tróclea, capítulo, epicôndilos",
+      "Fossa cubital e complexo do cotovelo"
+    ]
+  },
+  "governance": {
+    "b3_scope_leak_count": 0,
+    "boundary_violations": 0,
+    "clinical_promotions": 0,
+    "free_form_claims": 0
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "registry_name": "AETERNUM_ACADEMIC_SOURCE_REGISTRY",
+  "registry_version": "1.1.0",
+  "registration_protocol_version": "ACSRP-1.1",
+  "updated_at": "2026-09-24T03:00:00.000Z",
+  "metrics": {
+    "available_source_artifact_count": 4,
+    "registered_source_count": 4,
+    "academic_validation_eligible_source_count": 3,
+    "authority_class_counts": {
+      "TERMINOLOGY_AUTHORITY": 0,
+      "GROSS_ANATOMY_REFERENCE": 2,
+      "REGIONAL_ANATOMY_REFERENCE": 0,
+      "ANATOMICAL_ATLAS": 1,
+      "CLINICAL_ANATOMY_REFERENCE": 0,
+      "SPECIALIZED_ANATOMY_REFERENCE": 0,
+      "INSTITUTIONAL_TEACHING": 1,
+      "INTERNAL_CURATED": 0,
+      "AI_AUTHORED_DRAFT": 0,
+      "SYNTHETIC_QA": 0
+    },
+    "source_files_with_sha256": 4,
+    "source_files_without_sha256": 0,
+    "sources_with_complete_bibliographic_identity": 3,
+    "sources_with_incomplete_bibliographic_identity": 1,
+    "sources_with_known_authorization": 4,
+    "sources_with_unresolved_authorization": 0,
+    "sources_with_usage_scope_defined": 4
+  },
+  "governance_guarantees": {
+    "validation_eligibility_separated_from_redistribution_rights": true,
+    "substantial_verbatim_ingestion_allowed": false,
+    "public_redistribution_rights_assumed": false,
+    "corpus_version_used_as_bibliographic_source": false,
+    "knowledge_author_used_as_bibliographic_source": false
+  },
+  "available_source_artifacts": [
+    {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_title": "Anatomía Humana, Tomo 1",
+      "authors": ["Michel Latarjet", "Alfredo Ruiz Liard", "Eduardo Adrián Pró"],
+      "edition": "5.ª Edición",
+      "volume": "Tomo 1",
+      "publication_year": 2019,
+      "publisher": "Editorial Médica Panamericana S.A.C.F.",
+      "isbn_if_explicitly_available": "978-950-06-9589-3",
+      "language": ["es"],
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "hash_target": "ORIGINAL_PDF",
+      "artifact_filename": "Anatomía Humana Tomo 1 (Michel Latarjet, Alfredo _240313_120615.pdf",
+      "artifact_path_or_reference": "C:\\Users\\halis\\Downloads\\Anatomía Humana Tomo 1 (Michel Latarjet, Alfredo _240313_120615.pdf",
+      "artifact_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+      "page_count": 847,
+      "provenance_type": "LOCAL_PHYSICAL_PDF_ARTIFACT",
+      "authorization_status": "USER_PROVIDED_LOCAL_REFERENCE",
+      "usage_scope": {
+        "SOURCE_METADATA_STORAGE": "ALLOWED",
+        "FACT_EXTRACTION": "ALLOWED_FOR_INTERNAL_VALIDATION",
+        "ORIGINAL_PARAPHRASED_SYNTHESIS": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "STRUCTURED_RELATION_EXTRACTION": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "SHORT_EVIDENCE_LOCATOR": "ALLOWED",
+        "PAGE_LEVEL_PROVENANCE": "ALLOWED",
+        "SUBSTANTIAL_VERBATIM_INGESTION": "PROHIBITED",
+        "TEXT_REPUBLICATION": "NOT_AUTHORIZED_BY_REGISTRY",
+        "PUBLIC_REDISTRIBUTION": "NOT_ESTABLISHED"
+      },
+      "academic_validation_eligible": true,
+      "validation_scope": [
+        "UPPER_LIMB_OSTEOLOGY",
+        "UPPER_LIMB_ARTHROLOGY",
+        "UPPER_LIMB_MYOLOGY",
+        "PECTORAL_GIRDLE",
+        "SCAPULAR_TOPOGRAPHY",
+        "SCAPULAR_SPACES",
+        "NEUROVASCULAR_RELATIONS"
+      ],
+      "review_status": "REGISTERED"
+    },
+    {
+      "source_id": "SRC-LATARJET-ED5-T2",
+      "source_title": "Anatomía Humana, Tomo 2",
+      "authors": ["Michel Latarjet", "Alfredo Ruiz Liard", "Eduardo Adrián Pró"],
+      "edition": "5.ª Edición",
+      "volume": "Tomo 2",
+      "publication_year": 2019,
+      "publisher": "Editorial Médica Panamericana S.A.C.F.",
+      "isbn_if_explicitly_available": "978-950-06-9586-2",
+      "language": ["es"],
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "hash_target": "ORIGINAL_PDF",
+      "artifact_filename": "AnatomÃ_a Humana (T2) - Latarjet-Ruiz Liard (1)_240313_120617.pdf",
+      "artifact_path_or_reference": "C:\\Users\\halis\\Downloads\\AnatomÃ_a Humana (T2) - Latarjet-Ruiz Liard (1)_240313_120617.pdf",
+      "artifact_sha256": "4fd1032de8d202e41e681e2d55c911153d6f05d553bb194108c9e5de4edc0c6e",
+      "page_count": 835,
+      "provenance_type": "LOCAL_PHYSICAL_PDF_ARTIFACT",
+      "authorization_status": "USER_PROVIDED_LOCAL_REFERENCE",
+      "usage_scope": {
+        "SOURCE_METADATA_STORAGE": "ALLOWED",
+        "FACT_EXTRACTION": "ALLOWED_FOR_INTERNAL_VALIDATION",
+        "ORIGINAL_PARAPHRASED_SYNTHESIS": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "STRUCTURED_RELATION_EXTRACTION": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "SHORT_EVIDENCE_LOCATOR": "ALLOWED",
+        "PAGE_LEVEL_PROVENANCE": "ALLOWED",
+        "SUBSTANTIAL_VERBATIM_INGESTION": "PROHIBITED",
+        "TEXT_REPUBLICATION": "NOT_AUTHORIZED_BY_REGISTRY",
+        "PUBLIC_REDISTRIBUTION": "NOT_ESTABLISHED"
+      },
+      "academic_validation_eligible": true,
+      "validation_scope": [
+        "THORAX_OSTEOLOGY",
+        "THORACIC_WALL_RELATIONS",
+        "CARDIOVASCULAR_SYSTEM",
+        "RESPIRATORY_SYSTEM",
+        "SPLANCHNOLOGY",
+        "CENTRAL_NERVOUS_SYSTEM"
+      ],
+      "review_status": "REGISTERED"
+    },
+    {
+      "source_id": "SRC-NIELSEN-ATLAS-ED1",
+      "source_title": "Atlas of Human Anatomy",
+      "authors": ["Mark Nielsen", "Shawn D. Miller"],
+      "edition": "1st Edition",
+      "volume": null,
+      "publication_year": 2011,
+      "publisher": "John Wiley & Sons, Inc.",
+      "isbn_if_explicitly_available": "978-0470-50145-0",
+      "language": ["en"],
+      "source_type": "ANATOMICAL_ATLAS",
+      "authority_class": "ANATOMICAL_ATLAS",
+      "hash_target": "ORIGINAL_PDF",
+      "artifact_filename": "Atlas of HUMAN ANATOMY.pdf",
+      "artifact_path_or_reference": "C:\\Users\\halis\\Downloads\\Atlas of HUMAN ANATOMY.pdf",
+      "artifact_sha256": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+      "page_count": 354,
+      "provenance_type": "LOCAL_PHYSICAL_PDF_ARTIFACT",
+      "authorization_status": "USER_PROVIDED_LOCAL_REFERENCE",
+      "usage_scope": {
+        "SOURCE_METADATA_STORAGE": "ALLOWED",
+        "FACT_EXTRACTION": "ALLOWED_FOR_INTERNAL_VALIDATION",
+        "ORIGINAL_PARAPHRASED_SYNTHESIS": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "STRUCTURED_RELATION_EXTRACTION": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+        "SHORT_EVIDENCE_LOCATOR": "ALLOWED",
+        "PAGE_LEVEL_PROVENANCE": "ALLOWED",
+        "SUBSTANTIAL_VERBATIM_INGESTION": "PROHIBITED",
+        "TEXT_REPUBLICATION": "NOT_AUTHORIZED_BY_REGISTRY",
+        "PUBLIC_REDISTRIBUTION": "NOT_ESTABLISHED"
+      },
+      "academic_validation_eligible": true,
+      "validation_scope": [
+        "ANATOMICAL_ORIENTATION",
+        "PRACTICAL_IDENTIFICATION",
+        "CADAVERIC_PHOTOGRAPHIC_DISSECTION",
+        "APPENDICULAR_SKELETON_OSTEOLOGY",
+        "SHOULDER_GIRDLE_SURFACE_ANATOMY"
+      ],
+      "review_status": "REGISTERED"
+    },
+    {
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "source_title": "Anotaciones - Práctica Miembro Superiores",
+      "authors": null,
+      "edition": null,
+      "volume": null,
+      "publication_year": null,
+      "publisher": null,
+      "isbn_if_explicitly_available": null,
+      "language": ["es"],
+      "source_type": "INSTITUTIONAL_TEACHING_NOTES",
+      "authority_class": "INSTITUTIONAL_TEACHING",
+      "hash_target": "ORIGINAL_PDF",
+      "artifact_filename": "Anotaciones - Práctica Miembro Superiores.pdf",
+      "artifact_path_or_reference": "C:\\Users\\halis\\Downloads\\Anotaciones - Práctica Miembro Superiores.pdf",
+      "artifact_sha256": "ce1f13d0b85fd16f9c06db79381f7cce2842277e7de563d2f82be7223f73d8f6",
+      "page_count": 53,
+      "provenance_type": "LOCAL_PHYSICAL_PDF_ARTIFACT",
+      "authorization_status": "INTERNAL_VALIDATION_ONLY",
+      "usage_scope": {
+        "SOURCE_METADATA_STORAGE": "ALLOWED",
+        "FACT_EXTRACTION": "ALLOWED",
+        "ORIGINAL_PARAPHRASED_SYNTHESIS": "ALLOWED",
+        "STRUCTURED_RELATION_EXTRACTION": "ALLOWED",
+        "SHORT_EVIDENCE_LOCATOR": "ALLOWED",
+        "PAGE_LEVEL_PROVENANCE": "ALLOWED",
+        "SUBSTANTIAL_VERBATIM_INGESTION": "PROHIBITED",
+        "TEXT_REPUBLICATION": "NOT_AUTHORIZED_BY_REGISTRY",
+        "PUBLIC_REDISTRIBUTION": "NOT_ESTABLISHED"
+      },
+      "derived_artifact_id": "MORGUE-UPPER-LIMB-001-R1_2-GOLDEN-INGESTION",
+      "derived_from_source_id": "MORGUE-UPPER-LIMB-001",
+      "derived_artifact_path": "knowledge_base/morgue_practical/SOURCE_001_R1_PAGE_LEDGER.json",
+      "derived_artifact_sha256": "eacc242501592d557ba1d702a6158cf5f744ae2013956b0e0bb347627cd9f6bd",
+      "academic_validation_eligible": false,
+      "validation_scope": [
+        "PRACTICAL_ANATOMY",
+        "TEACHING_EMPHASIS",
+        "CADAVERIC_ORIENTATION",
+        "INSTITUTIONAL_TERMINOLOGY_OBSERVATION"
+      ],
+      "review_status": "REGISTERED"
+    }
+  ],
+  "desired_but_unavailable_sources": [
+    {
+      "title_candidate": "Moore: Clinically Oriented Anatomy",
+      "desired_authority_class": "CLINICAL_ANATOMY_REFERENCE",
+      "reason_needed": "Primary clinical correlations, surgical entrapment mechanisms, biomechanical scapulothoracic kinematics, and clinical risk contexts."
+    },
+    {
+      "title_candidate": "FIPAT IFAA: Terminologia Anatomica 2 (TA2)",
+      "desired_authority_class": "TERMINOLOGY_AUTHORITY",
+      "reason_needed": "Canonical Latin nomenclature codes, international synonymy mapping, and formal morphological hierarchy."
+    },
+    {
+      "title_candidate": "Gray's Anatomy: The Anatomical Basis of Clinical Practice",
+      "desired_authority_class": "GROSS_ANATOMY_REFERENCE",
+      "reason_needed": "Secondary corroboration for deep fascia, specialized variations, and neurovascular branches."
+    },
+    {
+      "title_candidate": "Netter: Atlas of Human Anatomy",
+      "desired_authority_class": "ANATOMICAL_ATLAS",
+      "reason_needed": "Classical illustrated plate corroboration for regional muscular footprints and bursae."
+    },
+    {
+      "title_candidate": "Sobotta: Atlas of Human Anatomy",
+      "desired_authority_class": "ANATOMICAL_ATLAS",
+      "reason_needed": "High-precision European illustrated reference for muscular attachments and joint capsule contours."
+    }
+  ]
+}

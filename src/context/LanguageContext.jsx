@@ -13,26 +13,86 @@ const availableLanguages = [
   { code: "de", label: "German", nativeName: "Deutsch", flag: "🇩🇪" }
 ];
 
+function getValidLanguage(candidate) {
+  if (typeof candidate !== "string") return null;
+  const normalized = candidate.trim().toLowerCase();
+  return translations[normalized] ? normalized : null;
+}
+
+function resolveInitialLanguage() {
+  if (typeof window !== "undefined") {
+    try {
+      const searchParams = new URLSearchParams(window.location.search);
+      const urlLang = getValidLanguage(searchParams.get("lang"));
+      if (urlLang) {
+        return urlLang;
+      }
+
+      const savedLanguage = getValidLanguage(window.localStorage.getItem(STORAGE_KEY));
+      if (savedLanguage) {
+        return savedLanguage;
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  return DEFAULT_LANGUAGE;
+}
+
 export function LanguageProvider({ children }) {
-  const [language, setLanguageState] = useState(() => {
-    const savedLanguage = window.localStorage.getItem(STORAGE_KEY);
-    return translations[savedLanguage] ? savedLanguage : DEFAULT_LANGUAGE;
-  });
+  const [language, setLanguageState] = useState(resolveInitialLanguage);
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, language);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, language);
+    } catch (e) {
+      // ignore
+    }
     document.documentElement.lang = language;
   }, [language]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    function handlePopState() {
+      try {
+        const searchParams = new URLSearchParams(window.location.search);
+        const urlLang = getValidLanguage(searchParams.get("lang"));
+        if (urlLang) {
+          setLanguageState(urlLang);
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
   const value = useMemo(() => {
     function setLanguage(nextLanguage) {
-      if (!translations[nextLanguage]) return;
-      setLanguageState(nextLanguage);
+      const valid = getValidLanguage(nextLanguage);
+      if (!valid) return;
+      setLanguageState(valid);
+
+      if (typeof window !== "undefined") {
+        try {
+          const url = new URL(window.location.href);
+          if (url.searchParams.get("lang") !== valid) {
+            url.searchParams.set("lang", valid);
+            window.history.pushState(window.history.state, "", url.pathname + url.search + url.hash);
+          }
+        } catch (e) {
+          // ignore
+        }
+      }
     }
 
     function t(key, params = {}) {
       const ptValue = getNestedValue(translations.pt, key);
-      const translatedValue = getNestedValue(translations[language], key) ?? ptValue ?? key;
+      const translatedValue = getNestedValue(translations[language], key) ?? ptValue ?? params.defaultValue ?? key;
 
       if (typeof translatedValue !== "string") return translatedValue;
 

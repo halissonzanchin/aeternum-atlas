@@ -1,0 +1,101 @@
+{
+  "audit_version": "AIR1-PREP",
+  "timestamp": "2026-09-25T02:00:00.000Z",
+  "summary": {
+    "build_status": "PASS",
+    "typecheck_status": "PASS",
+    "lint_status": "FAIL",
+    "quality_lab_status": "PASS",
+    "contract_tests_status": "PARTIAL_PASS",
+    "safe_engine_pilot_status": "PASS",
+    "overall_evaluation": "QUALIFIED_FOR_STAGING_WITH_P2_ACTIONS"
+  },
+  "pipeline_stages": {
+    "build": {
+      "command": "npm run build",
+      "exit_code": 0,
+      "passed": true,
+      "build_duration_seconds": 6.79,
+      "output_directory": "dist",
+      "assets_generated": true,
+      "notes": "Vite production bundling completed cleanly with zero fatal compilation errors."
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exit_code": 0,
+      "passed": true,
+      "error_count": 0,
+      "notes": "TypeScript typecheck exited with 0 diagnostic errors."
+    },
+    "lint": {
+      "command": "npm run lint",
+      "exit_code": 1,
+      "passed": false,
+      "error_count": 15,
+      "warning_count": 445,
+      "severity": "P2",
+      "notes": "ESLint errors are related to unused variables and formatting in non-critical components. Does not block staging compilation."
+    }
+  },
+  "test_suites_inventory": {
+    "quality_lab_certified_suites": {
+      "suites_run": 16,
+      "suites_passed": 16,
+      "suites_failed": 0,
+      "pass_rate": "100%",
+      "suites": [
+        "scapula_golden_master_test",
+        "scapula_source_evidence_test",
+        "scapula_dimension_coverage_test",
+        "scapula_relation_safety_test",
+        "scapula_professor_connections_test",
+        "scapula_practical_memory_test",
+        "scapula_retrieval_parity_test",
+        "safe_engine_determinism_test",
+        "safe_engine_hallucination_zero_test",
+        "safe_engine_query_routing_test",
+        "safe_engine_failure_policy_test",
+        "safe_engine_normalizer_test",
+        "safe_engine_intent_resolver_test",
+        "safe_engine_response_planner_test",
+        "safe_engine_response_composer_test",
+        "safe_engine_contract_compliance_test"
+      ]
+    },
+    "contract_suites": {
+      "suites_run": 16,
+      "suites_passed": 11,
+      "suites_failed": 5,
+      "tests_passed": 95,
+      "root_cause_of_failures": "Migration files were previously organized into supabase/historical/migrations/. The 5 failing contract tests expect files in supabase/migrations/ directly.",
+      "severity": "P2_NON_BLOCKING_FOR_STAGING"
+    },
+    "visual_and_script_checks": {
+      "a26_glass_check": {
+        "status": "FAIL",
+        "reason": "CSS backdrop-filter count drift against historical threshold.",
+        "severity": "P2"
+      },
+      "p0_gate_check": {
+        "status": "FAIL",
+        "reason": "Migration path expectation mismatch.",
+        "severity": "P2"
+      }
+    },
+    "totals": {
+      "total_suites_run": 35,
+      "total_suites_passed": 28,
+      "total_suites_failed": 7,
+      "functional_regressions": 0
+    }
+  },
+  "safe_engine_verification": {
+    "engine_version": "AETERNUM-SAFE-ENGINE-0.1.0-SCAPULA-PILOT",
+    "base_query_count": 68,
+    "execution_variant_count": 88,
+    "determinism_rate": "100%",
+    "hallucination_rate": "0.00%",
+    "external_network_calls": 0,
+    "sqlite_json_parity": "100%"
+  }
+}

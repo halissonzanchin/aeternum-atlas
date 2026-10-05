@@ -1,0 +1,97 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-CQ1",
+  "generated_at": "2026-09-25T03:53:39.744Z",
+  "packs": [
+    {
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "pack_name": "Clavicle Anatomical Knowledge Pack",
+      "total_facts": 52,
+      "validated": 49,
+      "supported": 3,
+      "pending": 0,
+      "canonical_candidate_ready": 49,
+      "canonical_candidate_blocked": 0,
+      "safe_engine_production_ready": 49,
+      "dimensional_coverage": {
+        "AUTHORING_COVERAGE": "COMPLETE",
+        "ACADEMIC_SUPPORT_COVERAGE": "COMPLETE",
+        "VALIDATED_COVERAGE": "COMPLETE",
+        "CANONICAL_CANDIDATE_COVERAGE": "COMPLETE",
+        "SAFE_ENGINE_PRODUCTION_COVERAGE": "COMPLETE"
+      }
+    },
+    {
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "pack_name": "Sternoclavicular Joint Knowledge Pack",
+      "total_facts": 28,
+      "validated": 26,
+      "supported": 2,
+      "pending": 0,
+      "canonical_candidate_ready": 26,
+      "canonical_candidate_blocked": 0,
+      "safe_engine_production_ready": 22,
+      "dimensional_coverage": {
+        "AUTHORING_COVERAGE": "COMPLETE",
+        "ACADEMIC_SUPPORT_COVERAGE": "COMPLETE",
+        "VALIDATED_COVERAGE": "COMPLETE",
+        "CANONICAL_CANDIDATE_COVERAGE": "COMPLETE",
+        "SAFE_ENGINE_PRODUCTION_COVERAGE": "COMPLETE"
+      }
+    },
+    {
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "pack_name": "Acromioclavicular Joint Knowledge Pack",
+      "total_facts": 22,
+      "validated": 20,
+      "supported": 2,
+      "pending": 0,
+      "canonical_candidate_ready": 20,
+      "canonical_candidate_blocked": 0,
+      "safe_engine_production_ready": 19,
+      "dimensional_coverage": {
+        "AUTHORING_COVERAGE": "COMPLETE",
+        "ACADEMIC_SUPPORT_COVERAGE": "COMPLETE",
+        "VALIDATED_COVERAGE": "COMPLETE",
+        "CANONICAL_CANDIDATE_COVERAGE": "COMPLETE",
+        "SAFE_ENGINE_PRODUCTION_COVERAGE": "COMPLETE"
+      }
+    },
+    {
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "pack_name": "Coracoclavicular Ligament Complex Knowledge Pack",
+      "total_facts": 22,
+      "validated": 19,
+      "supported": 3,
+      "pending": 0,
+      "canonical_candidate_ready": 19,
+      "canonical_candidate_blocked": 0,
+      "safe_engine_production_ready": 16,
+      "dimensional_coverage": {
+        "AUTHORING_COVERAGE": "COMPLETE",
+        "ACADEMIC_SUPPORT_COVERAGE": "COMPLETE",
+        "VALIDATED_COVERAGE": "COMPLETE",
+        "CANONICAL_CANDIDATE_COVERAGE": "COMPLETE",
+        "SAFE_ENGINE_PRODUCTION_COVERAGE": "COMPLETE"
+      }
+    },
+    {
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "pack_name": "Pectoral Girdle Integration Knowledge Pack",
+      "total_facts": 28,
+      "validated": 23,
+      "supported": 3,
+      "pending": 2,
+      "canonical_candidate_ready": 15,
+      "canonical_candidate_blocked": 8,
+      "safe_engine_production_ready": 12,
+      "dimensional_coverage": {
+        "AUTHORING_COVERAGE": "COMPLETE",
+        "ACADEMIC_SUPPORT_COVERAGE": "COMPLETE",
+        "VALIDATED_COVERAGE": "COMPLETE",
+        "CANONICAL_CANDIDATE_COVERAGE": "PARTIAL",
+        "SAFE_ENGINE_PRODUCTION_COVERAGE": "COMPLETE"
+      }
+    }
+  ]
+}

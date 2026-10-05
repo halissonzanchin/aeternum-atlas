@@ -1,0 +1,234 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-VAL1",
+  "total_targets": 32,
+  "unmapped_count": 32,
+  "mapped_count": 0,
+  "fake_ids_detected": 0,
+  "targets": [
+    {
+      "target_id": "3D-TGT-CLAVICLE",
+      "entity_id": "clavicle",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CLAVICULAR_SHAFT",
+      "entity_id": "clavicular_shaft",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CLAVICULAR_STERNAL_END",
+      "entity_id": "clavicular_sternal_end",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CLAVICULAR_ACROMIAL_END",
+      "entity_id": "clavicular_acromial_end",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CLAVICULAR_SUPERIOR_SURFACE",
+      "entity_id": "clavicular_superior_surface",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CLAVICULAR_INFERIOR_SURFACE",
+      "entity_id": "clavicular_inferior_surface",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CONOID_TUBERCLE",
+      "entity_id": "conoid_tubercle",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-TRAPEZOID_LINE",
+      "entity_id": "trapezoid_line",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-SUBCLAVIAN_GROOVE",
+      "entity_id": "subclavian_groove",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-COSTOCLAVICULAR_LIGAMENT_IMPRESSION",
+      "entity_id": "costoclavicular_ligament_impression",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CLAVICULAR_STERNAL_ARTICULAR_SURFACE",
+      "entity_id": "clavicular_sternal_articular_surface",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CLAVICULAR_ACROMIAL_ARTICULAR_SURFACE",
+      "entity_id": "clavicular_acromial_articular_surface",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CLAVICULAR_NUTRIENT_FORAMEN",
+      "entity_id": "clavicular_nutrient_foramen",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-STERNOCLAVICULAR_JOINT",
+      "entity_id": "sternoclavicular_joint",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-STERNOCLAVICULAR_ARTICULAR_DISC",
+      "entity_id": "sternoclavicular_articular_disc",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-ANTERIOR_STERNOCLAVICULAR_LIGAMENT",
+      "entity_id": "anterior_sternoclavicular_ligament",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-POSTERIOR_STERNOCLAVICULAR_LIGAMENT",
+      "entity_id": "posterior_sternoclavicular_ligament",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-INTERCLAVICULAR_LIGAMENT",
+      "entity_id": "interclavicular_ligament",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-COSTOCLAVICULAR_LIGAMENT",
+      "entity_id": "costoclavicular_ligament",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-STERNOCLAVICULAR_FIBROUS_CAPSULE",
+      "entity_id": "sternoclavicular_fibrous_capsule",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-ACROMIOCLAVICULAR_JOINT",
+      "entity_id": "acromioclavicular_joint",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-ACROMIOCLAVICULAR_FIBROUS_CAPSULE",
+      "entity_id": "acromioclavicular_fibrous_capsule",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-ACROMIOCLAVICULAR_LIGAMENT",
+      "entity_id": "acromioclavicular_ligament",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-ACROMIOCLAVICULAR_ARTICULAR_DISC",
+      "entity_id": "acromioclavicular_articular_disc",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CORACOCLAVICULAR_LIGAMENT_COMPLEX",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CONOID_LIGAMENT",
+      "entity_id": "conoid_ligament",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-TRAPEZOID_LIGAMENT",
+      "entity_id": "trapezoid_ligament",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-PECTORAL_GIRDLE",
+      "entity_id": "pectoral_girdle",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-SCAPULOTHORACIC_INTERFACE",
+      "entity_id": "scapulothoracic_interface",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-DELTOPECTORAL_GROOVE",
+      "entity_id": "deltopectoral_groove",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-CERVICOAXILLARY_CANAL",
+      "entity_id": "cervicoaxillary_canal",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    },
+    {
+      "target_id": "3D-TGT-RETROCLAVICULAR_SPACE",
+      "entity_id": "retroclavicular_space",
+      "status": "UNMAPPED",
+      "verified_anatomical_entity": true,
+      "mapping_readiness": "READY_FOR_POLY_VERTEX_ANCHORING"
+    }
+  ]
+}

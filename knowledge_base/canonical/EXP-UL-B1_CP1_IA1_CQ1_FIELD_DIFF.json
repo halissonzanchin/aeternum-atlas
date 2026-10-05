@@ -1,0 +1,82 @@
+{
+  "diff_id": "DIFF-EXP-UL-B1-CQ1-IA1-001",
+  "generated_at": "2026-09-25T13:30:13.056Z",
+  "target_files": [
+    {
+      "path": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_TEACHING_CONNECTIONS.json",
+      "items_diff": [
+        {
+          "item_id": "TC-UL-B1-007",
+          "title": "The Retroclavicular Danger Zone: Neurovascular Crossing into the Axilla",
+          "changes": [
+            {
+              "field": "qualification_status",
+              "original_reconstructed": "TEACHING_CONNECTION_PRODUCTION_READY",
+              "post_edit_consumed": "TEACHING_CONNECTION_STAGING_READY"
+            },
+            {
+              "field": "professor_production_eligible",
+              "original_reconstructed": true,
+              "post_edit_consumed": false
+            }
+          ]
+        },
+        {
+          "item_id": "TC-UL-B1-008",
+          "title": "Scapulothoracic Syssarcosis and Scapulohumeral Rhythm",
+          "changes": [
+            {
+              "field": "qualification_status",
+              "original_reconstructed": "TEACHING_CONNECTION_PRODUCTION_READY",
+              "post_edit_consumed": "TEACHING_CONNECTION_STAGING_READY"
+            },
+            {
+              "field": "professor_production_eligible",
+              "original_reconstructed": true,
+              "post_edit_consumed": false
+            }
+          ]
+        }
+      ],
+      "header_metrics_diff": "NONE (Metrics remained 6 production / 2 staging)"
+    },
+    {
+      "path": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_DOCUMENTARY_QUALIFICATION.json",
+      "items_diff": [
+        {
+          "item_id": "DOC-UL-B1-004",
+          "title": "Acromioclavicular Joint Morphology, Capsule, and Kinematics",
+          "changes": [
+            {
+              "field": "qualification_status",
+              "original_reconstructed": "DOCUMENTARY_ATOMIC_COMPOSITION_ONLY",
+              "post_edit_consumed": "DOCUMENTARY_PRODUCTION_DIRECT"
+            },
+            {
+              "field": "safe_engine_production_rule",
+              "original_reconstructed": "MUST_BE_DYNAMICALLY_SYNTHESIZED_FROM_QUALIFIED_ATOMIC_FACTS",
+              "post_edit_consumed": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL"
+            }
+          ]
+        },
+        {
+          "item_id": "DOC-UL-B1-005",
+          "title": "Coracoclavicular Ligament Complex: Functional Anatomy of Conoid and Trapezoid Ligaments",
+          "changes": [
+            {
+              "field": "qualification_status",
+              "original_reconstructed": "DOCUMENTARY_ATOMIC_COMPOSITION_ONLY",
+              "post_edit_consumed": "DOCUMENTARY_PRODUCTION_DIRECT"
+            },
+            {
+              "field": "safe_engine_production_rule",
+              "original_reconstructed": "MUST_BE_DYNAMICALLY_SYNTHESIZED_FROM_QUALIFIED_ATOMIC_FACTS",
+              "post_edit_consumed": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL"
+            }
+          ]
+        }
+      ],
+      "header_metrics_diff": "NONE (Metrics remained 5 direct / 2 atomic)"
+    }
+  ]
+}

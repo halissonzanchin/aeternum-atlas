@@ -1,0 +1,31 @@
+{
+  "phase": "EXP-UL-B1-SE1",
+  "audit_timestamp": "2026-09-26T23:37:17.532Z",
+  "blocked_fact_total": 17,
+  "scapula_blocked_count": 6,
+  "b1_blocked_count": 11,
+  "blocked_fact_ids": [
+    "AET-CF-SCAP-095",
+    "AET-CF-SCAP-096",
+    "AET-CF-SCAP-097",
+    "AET-CF-SCAP-098",
+    "AET-CF-SCAP-099",
+    "AET-CF-SCAP-119",
+    "AET-CF-SCJ-008",
+    "AET-CF-SCJ-015",
+    "AET-CF-SCJ-023",
+    "AET-CF-SCJ-025",
+    "AET-CF-ACJ-012",
+    "AET-CF-CCC-007",
+    "AET-CF-CCC-012",
+    "AET-CF-CCC-013",
+    "AET-CF-PGI-007",
+    "AET-CF-PGI-011",
+    "AET-CF-PGI-014"
+  ],
+  "blocked_fact_runtime_indexed_count": 0,
+  "blocked_fact_direct_leak_count": 0,
+  "blocked_fact_indirect_leak_count": 0,
+  "blocked_fact_runtime_leak_count": 0,
+  "quarantine_integrity": "SECURE"
+}

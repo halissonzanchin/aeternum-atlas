@@ -1,0 +1,5501 @@
+{
+  "targets": [
+    {
+      "target_id": "TGT-B2-A2E0-001",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "part_of"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-002",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "topographic_location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "part_of"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-003",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "bone_type",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "part_of"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-004",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "paired_unpaired",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "part_of"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-005",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "laterality",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "part_of"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-006",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "anatomical_orientation",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "part_of"
+      ],
+      "practical_context": null,
+      "support_strength": "PARTIAL",
+      "semantic_verdict": "PARTIAL_SUPPORT_REQUIRES_CHATGPT_REVIEW",
+      "recommended_authoring_class": "PARTIAL_SUPPORT_REQUIRES_CHATGPT_REVIEW",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-007",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "external_configuration.extremities",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "part_of"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-008",
+      "entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+      "entity_type": "BONE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-009",
+      "entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+      "entity_type": "BONE",
+      "field_name": "anatomical_orientation",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-010",
+      "entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+      "entity_type": "BONE",
+      "field_name": "external_configuration.surfaces",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-002",
+        "EVI-B2-GHJ-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "LAT-T1-GHJ-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with",
+        "articulates_with"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-011",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "entity_type": "BONE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "bounds"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-012",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "entity_type": "BONE",
+      "field_name": "external_configuration.borders",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "bounds"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-013",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "entity_type": "BONE",
+      "field_name": "relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-003",
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "bounds",
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-014",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "entity_type": "BONE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-004",
+        "EVI-B2-MOR-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "has_insertion",
+        "has_insertion"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-015",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "entity_type": "BONE",
+      "field_name": "external_configuration.surfaces",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-004",
+        "EVI-B2-MOR-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "has_insertion",
+        "has_insertion"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-016",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.tubercles",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-004",
+        "EVI-B2-MOR-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "has_insertion",
+        "has_insertion"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-017",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "entity_type": "BONE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "has_insertion"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-018",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.tubercles",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "has_insertion"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-019",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "entity_type": "BONE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "traversed_by"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-020",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "entity_type": "BONE",
+      "field_name": "external_configuration.borders",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "traversed_by"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-021",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "entity_type": "BONE",
+      "field_name": "anatomical_landmarks.fossae",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "traversed_by"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-022",
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "entity_type": "BONE",
+      "field_name": "relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-HUM-006",
+        "EVI-B2-GHJ-005",
+        "EVI-B2-MOR-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-HUM-LOC-003",
+        "LAT-T1-GHJ-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "traversed_by",
+        "bridges",
+        "bridges"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-023",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-TOPO-001",
+        "EVI-B2-FIG-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-TOPO-LOC-001",
+        "NIE-ED1-HUM-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-024",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "topographic_location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-TOPO-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-TOPO-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-025",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "external_configuration.extremities",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-TOPO-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-TOPO-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-026",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-TOPO-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-TOPO-LOC-001",
+        "LAT-T1-TOPO-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-027",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "entity_type": "BONE",
+      "field_name": "continuities",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-TOPO-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-TOPO-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-028",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-029",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "classification",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with",
+        "reinforces"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-030",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "articular_surfaces",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-HUM-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with",
+        "articulates_with"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-031",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "congruence",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-032",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "complementary_structures.labrum",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-033",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "capsule.presence",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-034",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "capsule.attachments",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-035",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "capsule.laxity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-036",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "capsule.reinforcements",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-LIG-002",
+        "EVI-B2-GHJ-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002",
+        "LAT-T1-GHJ-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-037",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "synovial_membrane",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-038",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "synovial_recesses",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-039",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "bursae",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001",
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006",
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-040",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "ligaments",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-GHJ-004",
+        "EVI-B2-GHJ-005",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002",
+        "LAT-T1-GHJ-LOC-003",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces",
+        "bridges",
+        "reinforces"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-041",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "movements.movement_types",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-INT-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-INT-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "coordinates_with"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-042",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "stability.static_stabilizers",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-002",
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-043",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "stability.dynamic_stabilizers",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-010",
+        "EVI-B2-RTC-011",
+        "EVI-B2-INT-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-002",
+        "LAT-T1-RTC-LOC-003",
+        "LAT-T1-GHJ-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "stabilizes"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-044",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "innervation",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-005",
+        "LAT-T1-TOPO-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-045",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "arterial_supply",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-008",
+        "EVI-B2-TOPO-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-005",
+        "LAT-T1-TOPO-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-046",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_type": "JOINT",
+      "field_name": "relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-INT-001",
+        "EVI-B2-FIG-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-005",
+        "NIE-ED1-RTC-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "stabilizes"
+      ],
+      "practical_context": null,
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-047",
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "entity_type": "LIGAMENT",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with",
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-048",
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "entity_type": "LIGAMENT",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with",
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-049",
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "entity_type": "LIGAMENT",
+      "field_name": "proximal_attachment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with",
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-050",
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "entity_type": "LIGAMENT",
+      "field_name": "joint_association",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with",
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-051",
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "entity_type": "LIGAMENT",
+      "field_name": "mechanical_role_when_sourced",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "articulates_with",
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-052",
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-053",
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-054",
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "proximal_attachment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-055",
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "distal_attachment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-056",
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "course",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-057",
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-058",
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "joint_association",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-059",
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "capsular_continuity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-060",
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "mechanical_role_when_sourced",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-061",
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-062",
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-063",
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "proximal_attachment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-064",
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "distal_attachment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-065",
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "course",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-066",
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-067",
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "joint_association",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-068",
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "capsular_continuity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-069",
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "mechanical_role_when_sourced",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-070",
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "entity_type": "LIGAMENT",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-071",
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "entity_type": "LIGAMENT",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "MULTI_SOURCE_SUPPORTED",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-072",
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "entity_type": "LIGAMENT",
+      "field_name": "proximal_attachment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-073",
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "entity_type": "LIGAMENT",
+      "field_name": "distal_attachment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-074",
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "entity_type": "LIGAMENT",
+      "field_name": "course",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-075",
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "entity_type": "LIGAMENT",
+      "field_name": "relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-076",
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "entity_type": "LIGAMENT",
+      "field_name": "joint_association",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-077",
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "entity_type": "LIGAMENT",
+      "field_name": "capsular_continuity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-078",
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "entity_type": "LIGAMENT",
+      "field_name": "mechanical_role_when_sourced",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-079",
+      "entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces",
+        "reinforces"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-080",
+      "entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces",
+        "reinforces"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-081",
+      "entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "proximal_attachment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-082",
+      "entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "distal_attachment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-083",
+      "entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "course",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-084",
+      "entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-085",
+      "entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "joint_association",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-086",
+      "entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "capsular_continuity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-087",
+      "entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "mechanical_role_when_sourced",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-088",
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-005",
+        "EVI-B2-MOR-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "bridges",
+        "bridges"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-089",
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-005",
+        "EVI-B2-MOR-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "bridges",
+        "bridges"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-090",
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "proximal_attachment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-005",
+        "EVI-B2-MOR-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "bridges",
+        "bridges"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-091",
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "distal_attachment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-005",
+        "EVI-B2-MOR-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "bridges",
+        "bridges"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-092",
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "course",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-093",
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-094",
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "joint_association",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-095",
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "capsular_continuity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-096",
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "entity_type": "LIGAMENT",
+      "field_name": "mechanical_role_when_sourced",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-005",
+        "EVI-B2-MOR-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003",
+        "MOR-UL-B2-LOC-010"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "bridges",
+        "bridges"
+      ],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-097",
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "entity_type": "MUSCLE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-INT-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001",
+        "LAT-T1-GHJ-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from",
+        "stabilizes"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-098",
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "entity_type": "MUSCLE",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-INT-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001",
+        "LAT-T1-GHJ-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from",
+        "stabilizes"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-099",
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "entity_type": "MUSCLE",
+      "field_name": "group",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001",
+        "EVI-INST-BOL-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001",
+        "LOC-INST-BOL-P48-RTC"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from",
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-100",
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "entity_type": "MUSCLE",
+      "field_name": "compartment",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001",
+        "EVI-INST-BOL-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001",
+        "LOC-INST-BOL-P48-RTC"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from",
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-101",
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "entity_type": "MUSCLE",
+      "field_name": "action",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-INT-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001",
+        "LAT-T1-GHJ-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from",
+        "stabilizes"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-102",
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "entity_type": "MUSCLE",
+      "field_name": "functional_role",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-008",
+        "EVI-B2-FIG-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-005",
+        "NIE-ED1-RTC-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-103",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-RTC-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001",
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from",
+        "acts_as"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-104",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-RTC-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001",
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from",
+        "acts_as"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-105",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "origin",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-106",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "insertion",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-HUM-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001",
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from",
+        "has_insertion"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-107",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.fascicles",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-010"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-108",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "relations.anterior",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-010"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-109",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "relations.posterior",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-010",
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-002",
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-110",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "arterial_supply",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-010"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-111",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "action",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "acts_as"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-112",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "functional_role",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-010"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-113",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_type": "MUSCLE",
+      "field_name": "stabilizing_role",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-010"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-114",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-115",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-116",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "origin",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-117",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "insertion",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-118",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.fascicles",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-011"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-119",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "relations.superficial",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-011",
+        "EVI-B2-BURS-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003",
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-120",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "relations.deep",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-011"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-121",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "innervation",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-122",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "arterial_supply",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-011"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-123",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "action",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-124",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "functional_role",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-011"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-125",
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "stabilizing_role",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-011"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-126",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-127",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-128",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "origin",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-129",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "insertion",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-130",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.fascicles",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-131",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "relations.superficial",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-132",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "relations.deep",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-133",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "innervation",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-134",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "arterial_supply",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-135",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "action",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-136",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "functional_role",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-137",
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_type": "MUSCLE",
+      "field_name": "stabilizing_role",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-138",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-139",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-140",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "origin",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-141",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "insertion",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-142",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "architecture.fascicles",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-009"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-143",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "relations.superficial",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-009"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-144",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "relations.deep",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-009"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-145",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "innervation",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-146",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "arterial_supply",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-009"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-147",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "action",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-148",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "functional_role",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-009"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-149",
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_type": "MUSCLE",
+      "field_name": "stabilizing_role",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-009"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-150",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-RTC-010"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001",
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-151",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "parent_muscle",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-152",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "course",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-010"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-153",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "bursae_relationships",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-154",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "capsular_relationships",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-INT-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "stabilizes"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-155",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "insertion",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-HUM-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-001",
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "originates_from",
+        "has_insertion"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-156",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "footprint",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-010",
+        "EVI-B2-INST-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-002",
+        "LOC-INST-BOL-P87-RTC"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-157",
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-003",
+        "EVI-B2-RTC-011"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-158",
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "parent_muscle",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-159",
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "course",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-011"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-160",
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "bursae_relationships",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-161",
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "capsular_relationships",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-INT-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "stabilizes"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-162",
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "insertion",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-003",
+        "EVI-B2-HUM-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003",
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into",
+        "has_insertion"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-163",
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "footprint",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-011",
+        "EVI-B2-INST-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-003",
+        "LOC-INST-BOL-P87-RTC"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-164",
+      "entity_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-004",
+        "EVI-B2-RTC-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-165",
+      "entity_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "parent_muscle",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-166",
+      "entity_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "course",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-167",
+      "entity_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "bursae_relationships",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001",
+        "EVI-B2-RTC-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006",
+        "LAT-T1-RTC-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-168",
+      "entity_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "capsular_relationships",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-INT-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "stabilizes"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-169",
+      "entity_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "insertion",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-004",
+        "EVI-B2-HUM-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004",
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into",
+        "has_insertion"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-170",
+      "entity_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "footprint",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-008",
+        "EVI-B2-INST-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-004",
+        "LOC-INST-BOL-P87-RTC"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-171",
+      "entity_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-005",
+        "EVI-B2-RTC-009"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-172",
+      "entity_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "parent_muscle",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-005"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-173",
+      "entity_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "course",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-009"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-174",
+      "entity_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "bursae_relationships",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-009"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-175",
+      "entity_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "capsular_relationships",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-INT-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "stabilizes"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-176",
+      "entity_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "insertion",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-005",
+        "EVI-B2-HUM-004"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005",
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "inserts_into",
+        "has_insertion"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-177",
+      "entity_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "entity_type": "TENDON",
+      "field_name": "footprint",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-009",
+        "EVI-B2-INST-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-005",
+        "LOC-INST-BOL-P87-RTC"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-INST-ANATOMIA-BOLILLERO-PDF"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-178",
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "entity_type": "TENDON",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-HUM-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-004",
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "traverses",
+        "traversed_by"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-179",
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "entity_type": "TENDON",
+      "field_name": "parent_muscle",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "traverses"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-180",
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "entity_type": "TENDON",
+      "field_name": "course",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-LIG-002",
+        "EVI-B2-FIG-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-004",
+        "LAT-T1-GHJ-LOC-002",
+        "NIE-ED1-RTC-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_MULTI_SOURCE",
+      "recommended_authoring_class": "READY_MULTI_SOURCE",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-181",
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "entity_type": "TENDON",
+      "field_name": "relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-LIG-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-004",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "reinforces"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_RELATIONAL",
+      "recommended_authoring_class": "READY_RELATIONAL",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-182",
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "entity_type": "TENDON",
+      "field_name": "capsular_relationships",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-004"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "traverses"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-183",
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "entity_type": "TENDON",
+      "field_name": "insertion",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-HUM-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-004",
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "traverses",
+        "traversed_by"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-184",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001",
+        "EVI-B2-INT-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "buffers"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-185",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001",
+        "EVI-B2-INT-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "buffers"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-186",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "boundaries",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-187",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "superficial_relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-188",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "deep_relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-189",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "structures_separated",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-190",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "communication_with_joint_if_sourced",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-191",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "communication_with_other_bursa_if_sourced",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-192",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "functional_role",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001",
+        "EVI-B2-INT-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "buffers"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-193",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002",
+        "EVI-B2-RTC-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003",
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "acts_as"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-194",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "location",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002",
+        "EVI-B2-RTC-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003",
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "acts_as"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-195",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "boundaries",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-196",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "superficial_relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-197",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "deep_relations",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-198",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "structures_separated",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-199",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "communication_with_joint_if_sourced",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-200",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "communication_with_other_bursa_if_sourced",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-201",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "entity_type": "BURSA",
+      "field_name": "functional_role",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-002",
+        "EVI-B2-RTC-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-003",
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "conflict_ids": [],
+      "relation_hints": [
+        "acts_as"
+      ],
+      "practical_context": null,
+      "support_strength": "DIRECT",
+      "semantic_verdict": "READY_DIRECT",
+      "recommended_authoring_class": "READY_DIRECT",
+      "authoring_eligible": true,
+      "authoring_block_reason": null
+    },
+    {
+      "target_id": "TGT-B2-A2E0-202",
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+      "entity_type": "ANATOMICAL_SPACE",
+      "field_name": "identity",
+      "owner_pack": "AETERNUM_UPPER_LIMB_B2",
+      "evidence_unit_ids": [],
+      "locator_ids": [],
+      "source_ids": [],
+      "authority_profile": "UNSUPPORTED",
+      "conflict_ids": [],
+      "relation_hints": [],
+      "practical_context": null,
+      "support_strength": "UNSUPPORTED",
+      "semantic_verdict": "BLOCKED_SOURCE_GAP",
+      "recommended_authoring_class": "BLOCKED_SOURCE_GAP",
+      "authoring_eligible": false,
+      "authoring_block_reason": "BLOCKED_SOURCE_GAP: No valid paragraph-level evidence found in B2 consolidated units. Preserved as SOURCE_GAP."
+    }
+  ],
+  "document_name": "EXP-UL-B2_A2E0_IA2_2_AUTHORING_TARGETS",
+  "phase": "AMC-1.2-R2.3.2 / EXP-UL-B2-A2E0-IA2.2",
+  "timestamp": "2026-10-04T06:13:05.678Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "parent_IA2_1_sha256": "78da1ea378ce9f8894b7f7ea8d418da27aeb55ae4b3988fc99c1249798bea1db",
+  "metrics": {
+    "total_authoring_targets": 202,
+    "final_target_evidence_pairs": 275,
+    "ready_direct_count": 115,
+    "ready_multi_source_count": 29,
+    "ready_relational_count": 56,
+    "partial_review_count": 1,
+    "blocked_source_gap_count": 1,
+    "authoring_eligible_count": 201,
+    "final_propositions_included": 0,
+    "canonical_propositions_included": 0
+  },
+  "governance_firewall": {
+    "antigravity_propositions_generated": false,
+    "authoring_role_reserved_for_chatgpt": true
+  }
+}

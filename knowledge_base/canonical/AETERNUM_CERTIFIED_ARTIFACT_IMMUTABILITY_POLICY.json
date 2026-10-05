@@ -1,0 +1,29 @@
+{
+  "policy_id": "AET-POL-CERTIFIED-ARTIFACT-IMMUTABILITY-V1",
+  "title": "Aeternum Certified Artifact Immutability and Lineage Governance Policy",
+  "version": "1.0.0",
+  "effective_date": "2026-09-26T00:00:00.000Z",
+  "authority": "Aeternum Atlas Governance & Supreme Architectural Council",
+  "core_principles": [
+    {
+      "rule_id": "POL-IMM-001",
+      "rule_name": "POST_VERIFICATION_ABSOLUTE_FREEZE",
+      "statement": "Once any phase receives status VERIFIED (e.g. STATUS=VERIFIED or STATUS=PROMOTED), all generated outputs become strictly immutable historical records. They may never be edited in-place."
+    },
+    {
+      "rule_id": "POL-IMM-002",
+      "rule_name": "FORWARD_CORRECTION_ONLY_VIA_ERRATA_AND_PATCHES",
+      "statement": "Any post-certification defect, inconsistency, or discrepancy discovered by subsequent forensic audits must be remediated forward by creating formal ERRATA, REVISION, or PATCH artifacts with full lineage and parent hash tracking."
+    },
+    {
+      "rule_id": "POL-IMM-003",
+      "rule_name": "ZERO_SILENT_MUTATION_TOLERANCE",
+      "statement": "Any silent modification of a certified historical file invalidates the certifying quality gate until explicitly addressed by a certified errata and hash ledger entry."
+    },
+    {
+      "rule_id": "POL-IMM-004",
+      "rule_name": "SOVEREIGN_CANONICAL_MEMORY_INCREMENTALISM",
+      "statement": "Anatomical canonical memory versions follow strict semantic lineage: minor versions (0.X.0) indicate newly promoted anatomical knowledge packs; patch versions (0.X.Y) indicate structural, infrastructure, or referential integrity normalizations with zero anatomical fact additions or alterations."
+    }
+  ]
+}

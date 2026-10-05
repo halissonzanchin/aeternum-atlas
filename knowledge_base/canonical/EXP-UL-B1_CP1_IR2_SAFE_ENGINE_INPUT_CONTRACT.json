@@ -1,0 +1,22 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR2",
+  "timestamp": "2026-09-26T18:45:50.000Z",
+  "safe_engine_qualification_ready": true,
+  "contract_specifications": {
+    "SAFE_ENGINE_CANONICAL_MEMORY_VERSION": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+    "SAFE_ENGINE_ENTITY_REGISTRY_VERSION": "2.1",
+    "SAFE_ENGINE_PRODUCTION_FACT_COUNT": 231,
+    "SCAPULA_SAFE_PRODUCTION_FACT_COUNT": 113,
+    "B1_SAFE_PRODUCTION_FACT_COUNT": 118,
+    "SAFE_ENGINE_BLOCKED_FACT_COUNT": 17,
+    "ACTIVE_POINTER_AUTHORITY_COUNT": 1,
+    "ACTIVE_CANONICAL_MEMORY_CURRENT_FILE": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_CURRENT.json",
+    "LOCAL_SQLITE_MIRROR_PATH": "knowledge_base/local_mirror/aeternum_anatomical_memory.db",
+    "ENTITY_REGISTRY_PATH": "knowledge_base/canonical/AETERNUM_CANONICAL_ENTITY_REGISTRY_V2_1.json"
+  },
+  "governance": {
+    "runtime_qualification_executed_in_ir2": false,
+    "qualification_authorization": "AUTHORIZED_FOR_IMMEDIATE_NEXT_PHASE",
+    "next_action": "AETERNUM_EXTREME_ANATOMICAL_MEMORY_EXPANSION_UPPER_LIMB_BATCH_1_SAFE_ENGINE_QUALIFICATION"
+  }
+}

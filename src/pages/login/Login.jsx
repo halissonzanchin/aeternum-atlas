@@ -3,7 +3,7 @@ import { useState } from "react";
 import AuthExperienceShell from "../../components/AuthExperienceShell/AuthExperienceShell";
 import LanguageSelector from "../../components/LanguageSelector";
 import { A26Button, A26Card, A26Field, A26IconButton } from "../../components/aeternum-26";
-import { getRedirectPathForUser, loginUser } from "../../services/auth/authService";
+import { getRedirectPathForUser, loginUser, requestPasswordRecovery } from "../../services/auth/authService";
 import { validateLogin } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
 import { useTheme } from "../../context/ThemeContext";
@@ -14,6 +14,8 @@ export default function Login({ navigate, onAuth }) {
   const [values, setValues] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
+  const [recoveryStatus, setRecoveryStatus] = useState(null);
+  const [recoveryLoading, setRecoveryLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -41,6 +43,7 @@ export default function Login({ navigate, onAuth }) {
     if (Object.keys(nextErrors).length) return;
 
     setLoading(true);
+    setRecoveryStatus(null);
     try {
       const user = await loginUser(values.email, values.password);
       onAuth(user);
@@ -49,6 +52,34 @@ export default function Login({ navigate, onAuth }) {
       setMessage(error.message || t("auth.invalidCredentials"));
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleForgotPassword() {
+    if (loading || recoveryLoading) return;
+    setMessage("");
+    setRecoveryStatus(null);
+    const email = values.email?.trim();
+    if (!email) {
+      setErrors(prev => ({ ...prev, email: t("auth.enterEmailForRecovery") }));
+      setMessage(t("auth.enterEmailForRecovery"));
+      return;
+    }
+
+    setRecoveryLoading(true);
+    try {
+      await requestPasswordRecovery(email);
+      setRecoveryStatus({
+        type: "success",
+        text: t("auth.recoveryEmailSent")
+      });
+    } catch (error) {
+      setRecoveryStatus({
+        type: "error",
+        text: error.message || t("auth.recoveryFailed")
+      });
+    } finally {
+      setRecoveryLoading(false);
     }
   }
 
@@ -110,12 +141,25 @@ export default function Login({ navigate, onAuth }) {
             {errors.password ? <small className="a26-field__error" role="alert">{errors.password}</small> : null}
           </label>
           {message ? <p className="a26-auth-message is-error" role="alert">{message}</p> : null}
+          {recoveryStatus ? (
+            <p className={`a26-auth-message ${recoveryStatus.type === "success" ? "is-success" : "is-error"}`} role="alert">
+              {recoveryStatus.text}
+            </p>
+          ) : null}
           <A26Button className="atlas-auth-submit" variant="liquid" type="submit" loading={loading}>
             {t("auth.loginShort")}
           </A26Button>
         </form>
         <div className="atlas-auth-actions">
-          <A26Button className="atlas-auth-secondary" variant="liquid" onClick={() => setMessage(t("auth.recoveryPrepared"))}>{t("auth.forgotPassword")}</A26Button>
+          <A26Button
+            className="atlas-auth-secondary"
+            variant="liquid"
+            type="button"
+            loading={recoveryLoading}
+            onClick={handleForgotPassword}
+          >
+            {t("auth.forgotPassword")}
+          </A26Button>
           <A26Button className="atlas-auth-secondary" variant="liquid" onClick={() => navigate("/register")}>{t("auth.newAccount")}</A26Button>
         </div>
       </A26Card>

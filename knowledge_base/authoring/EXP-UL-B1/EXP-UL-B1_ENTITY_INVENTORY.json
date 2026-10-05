@@ -1,0 +1,318 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "batch_name": "CLAVICLE_AND_PECTORAL_GIRDLE_JOINTS",
+  "version": "1.0.0-DRAFT",
+  "generated_at": "2026-09-25T03:02:18.506Z",
+  "target_entity_count": 32,
+  "unique_entity_count": 32,
+  "canonical_scapula_entities_referenced": [
+    "scapula",
+    "acromion",
+    "coracoid_process",
+    "glenoid_cavity",
+    "subscapularis",
+    "supraspinatus",
+    "infraspinatus"
+  ],
+  "packs": [
+    {
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "pack_name": "Clavicle Anatomical Knowledge Pack",
+      "primary_entity": "clavicle",
+      "entities": [
+        {
+          "entity_id": "clavicle",
+          "standard_name": "Clavicle",
+          "latin_name": "Clavicula",
+          "entity_type": "BONE",
+          "fipat_id_candidate": "A02.4.02.001",
+          "classification": "LONG_BONE",
+          "regional_domain": "MEMBRO_SUPERIOR",
+          "subdomain": "CINTURA_ESCAPULAR",
+          "symmetry": "PAIRED",
+          "description": "Long S-shaped bone situated at the anterosuperior aspect of the thorax, forming the anterior part of the pectoral girdle."
+        },
+        {
+          "entity_id": "clavicular_shaft",
+          "standard_name": "Shaft of Clavicle",
+          "latin_name": "Corpus claviculae",
+          "entity_type": "BONE_PART",
+          "classification": "DIAPHYSIS",
+          "description": "Curved middle segment of the clavicle presenting an S-shaped double curvature (medial convex anteriorly, lateral concave anteriorly)."
+        },
+        {
+          "entity_id": "clavicular_sternal_end",
+          "standard_name": "Sternal End of Clavicle",
+          "latin_name": "Extremitas sternalis claviculae",
+          "entity_type": "BONE_PART",
+          "classification": "EPIPHYSIS",
+          "description": "Voluminous, quadrangular medial extremity of the clavicle that articulates with the manubrium of the sternum and first costal cartilage."
+        },
+        {
+          "entity_id": "clavicular_acromial_end",
+          "standard_name": "Acromial End of Clavicle",
+          "latin_name": "Extremitas acromialis claviculae",
+          "entity_type": "BONE_PART",
+          "classification": "EPIPHYSIS",
+          "description": "Flattened, plate-like lateral extremity of the clavicle that articulates with the acromion of the scapula."
+        },
+        {
+          "entity_id": "clavicular_superior_surface",
+          "standard_name": "Superior Surface of Clavicle",
+          "latin_name": "Facies superior claviculae",
+          "entity_type": "BONE_SURFACE",
+          "classification": "SURFACE",
+          "description": "Largely smooth and subcutaneous surface giving attachment to the sternocleidomastoid and pectoralis major medially, and deltoid and trapezius laterally."
+        },
+        {
+          "entity_id": "clavicular_inferior_surface",
+          "standard_name": "Inferior Surface of Clavicle",
+          "latin_name": "Facies inferior claviculae",
+          "entity_type": "BONE_SURFACE",
+          "classification": "SURFACE",
+          "description": "Rough surface marked by the costoclavicular ligament impression, subclavian groove, conoid tubercle, and trapezoid line."
+        },
+        {
+          "entity_id": "conoid_tubercle",
+          "standard_name": "Conoid Tubercle",
+          "latin_name": "Tuberculum conoideum",
+          "entity_type": "BONE_LANDMARK",
+          "classification": "TUBERCLE",
+          "description": "Prominent bony projection on the posteromedial aspect of the inferior surface of the lateral third of the clavicle, anchoring the conoid ligament."
+        },
+        {
+          "entity_id": "trapezoid_line",
+          "standard_name": "Trapezoid Line",
+          "latin_name": "Linea trapezoidea",
+          "entity_type": "BONE_LANDMARK",
+          "classification": "CREST",
+          "description": "Oblique rough ridge running anterolaterally from the conoid tubercle on the inferior surface of the clavicle, anchoring the trapezoid ligament."
+        },
+        {
+          "entity_id": "subclavian_groove",
+          "standard_name": "Subclavian Groove",
+          "latin_name": "Sulcus musculi subclavii",
+          "entity_type": "BONE_LANDMARK",
+          "classification": "GROOVE",
+          "description": "Longitudinal shallow groove occupying the middle third of the inferior surface of the clavicular shaft, giving insertion to the subclavius muscle."
+        },
+        {
+          "entity_id": "costoclavicular_ligament_impression",
+          "standard_name": "Impression for Costoclavicular Ligament",
+          "latin_name": "Impressio ligamenti costoclavicularis",
+          "entity_type": "BONE_LANDMARK",
+          "classification": "IMPRESSION",
+          "description": "Rough, oval tuberosity on the inferior surface of the sternal end of the clavicle for the attachment of the costoclavicular ligament."
+        },
+        {
+          "entity_id": "clavicular_sternal_articular_surface",
+          "standard_name": "Sternal Articular Surface of Clavicle",
+          "latin_name": "Facies articularis sternalis claviculae",
+          "entity_type": "ARTICULAR_SURFACE",
+          "classification": "FACET",
+          "description": "Triangular or saddle-shaped articular surface covered by fibrocartilage at the sternal end of the clavicle."
+        },
+        {
+          "entity_id": "clavicular_acromial_articular_surface",
+          "standard_name": "Acromial Articular Surface of Clavicle",
+          "latin_name": "Facies articularis acromialis claviculae",
+          "entity_type": "ARTICULAR_SURFACE",
+          "classification": "FACET",
+          "description": "Small, oval planar articular surface covered by fibrocartilage at the acromial end of the clavicle."
+        },
+        {
+          "entity_id": "clavicular_nutrient_foramen",
+          "standard_name": "Nutrient Foramen of Clavicle",
+          "latin_name": "Foramen nutricium claviculae",
+          "entity_type": "BONE_LANDMARK",
+          "classification": "FORAMEN",
+          "description": "Vascular opening situated in or near the subclavian groove on the inferior surface of the shaft, directed laterally toward the acromial end."
+        }
+      ]
+    },
+    {
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "pack_name": "Sternoclavicular Joint Knowledge Pack",
+      "primary_entity": "sternoclavicular_joint",
+      "entities": [
+        {
+          "entity_id": "sternoclavicular_joint",
+          "standard_name": "Sternoclavicular Joint",
+          "latin_name": "Articulatio sternoclavicularis",
+          "entity_type": "JOINT",
+          "fipat_id_candidate": "A03.5.01.001",
+          "classification": "SYNOVIAL_SELLAR",
+          "functional_classification": "MULTIAXIAL_BALL_AND_SOCKET_EQUIVALENT",
+          "description": "Synovial saddle joint between the clavicular notch of the manubrium sterni, the first costal cartilage, and the sternal end of the clavicle."
+        },
+        {
+          "entity_id": "sternoclavicular_articular_disc",
+          "standard_name": "Articular Disc of Sternoclavicular Joint",
+          "latin_name": "Discus articularis articulationis sternoclavicularis",
+          "entity_type": "FIBROCARTILAGE_DISC",
+          "classification": "ARTICULAR_DISC",
+          "description": "Dense fibrocartilaginous disc dividing the sternoclavicular joint cavity completely into meniscoclavicular and meniscosternal compartments."
+        },
+        {
+          "entity_id": "anterior_sternoclavicular_ligament",
+          "standard_name": "Anterior Sternoclavicular Ligament",
+          "latin_name": "Ligamentum sternoclaviculare anterius",
+          "entity_type": "LIGAMENT",
+          "classification": "CAPSULAR_INTRINSIC_LIGAMENT",
+          "description": "Broad fibrous band reinforcing the anterior aspect of the sternoclavicular joint capsule, resisting excessive retraction."
+        },
+        {
+          "entity_id": "posterior_sternoclavicular_ligament",
+          "standard_name": "Posterior Sternoclavicular Ligament",
+          "latin_name": "Ligamentum sternoclaviculare posterius",
+          "entity_type": "LIGAMENT",
+          "classification": "CAPSULAR_INTRINSIC_LIGAMENT",
+          "description": "Thick, strong ligamentous band reinforcing the posterior capsule, protecting retrosternal vascular structures against anterior dislocation."
+        },
+        {
+          "entity_id": "interclavicular_ligament",
+          "standard_name": "Interclavicular Ligament",
+          "latin_name": "Ligamentum interclaviculare",
+          "entity_type": "LIGAMENT",
+          "classification": "EXTRINSIC_LIGAMENT",
+          "description": "Transverse fibrous band spanning across the jugular notch of the manubrium connecting the superior margins of both sternal ends of the clavicles."
+        },
+        {
+          "entity_id": "costoclavicular_ligament",
+          "standard_name": "Costoclavicular Ligament",
+          "latin_name": "Ligamentum costoclaviculare",
+          "entity_type": "LIGAMENT",
+          "classification": "EXTRINSIC_ACCESSORY_LIGAMENT",
+          "description": "Short, extremely powerful inverted-cone shaped ligament extending between the upper surface of the first rib and the costal impression of the clavicle."
+        },
+        {
+          "entity_id": "sternoclavicular_fibrous_capsule",
+          "standard_name": "Fibrous Capsule of Sternoclavicular Joint",
+          "latin_name": "Capsula articularis articulationis sternoclavicularis",
+          "entity_type": "JOINT_CAPSULE",
+          "classification": "FIBROUS_CAPSULE",
+          "description": "Fibrous envelope enclosing the sternoclavicular joint and attached to the boundaries of the articular facets."
+        }
+      ]
+    },
+    {
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "pack_name": "Acromioclavicular Joint Knowledge Pack",
+      "primary_entity": "acromioclavicular_joint",
+      "entities": [
+        {
+          "entity_id": "acromioclavicular_joint",
+          "standard_name": "Acromioclavicular Joint",
+          "latin_name": "Articulatio acromioclavicularis",
+          "entity_type": "JOINT",
+          "fipat_id_candidate": "A03.5.02.001",
+          "classification": "SYNOVIAL_PLANE",
+          "functional_classification": "GLIDING_AND_ROTATION",
+          "description": "Synovial plane joint between the acromial facet of the clavicle and the articular facet on the medial margin of the acromion of the scapula."
+        },
+        {
+          "entity_id": "acromioclavicular_fibrous_capsule",
+          "standard_name": "Fibrous Capsule of Acromioclavicular Joint",
+          "latin_name": "Capsula articularis articulationis acromioclavicularis",
+          "entity_type": "JOINT_CAPSULE",
+          "classification": "FIBROUS_CAPSULE",
+          "description": "Thin fibrous sheath surrounding the acromioclavicular joint, strengthened by superior and inferior ligamentous bands."
+        },
+        {
+          "entity_id": "acromioclavicular_ligament",
+          "standard_name": "Acromioclavicular Ligament",
+          "latin_name": "Ligamentum acromioclaviculare",
+          "entity_type": "LIGAMENT",
+          "classification": "CAPSULAR_INTRINSIC_LIGAMENT",
+          "description": "Quadrilateral ligament band covering the superior and inferior aspects of the AC joint, with the superior band being particularly dense and resistant."
+        },
+        {
+          "entity_id": "acromioclavicular_articular_disc",
+          "standard_name": "Articular Disc of Acromioclavicular Joint",
+          "latin_name": "Discus articularis articulationis acromioclavicularis",
+          "entity_type": "FIBROCARTILAGE_DISC",
+          "classification": "MENISCOID_DISC",
+          "description": "Wedge-shaped fibrocartilaginous disc frequently present in the superior part of the joint, often incomplete or absent in adults."
+        }
+      ]
+    },
+    {
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "pack_name": "Coracoclavicular Ligament Complex Knowledge Pack",
+      "primary_entity": "coracoclavicular_ligament_complex",
+      "entities": [
+        {
+          "entity_id": "coracoclavicular_ligament_complex",
+          "standard_name": "Coracoclavicular Ligament Complex",
+          "latin_name": "Ligamentum coracoclaviculare",
+          "entity_type": "LIGAMENT_COMPLEX",
+          "classification": "SYNDESMOSIS_COMPLEX",
+          "description": "Extrinsic ligament complex comprising the conoid and trapezoid ligaments, functioning as the primary suspensory mechanism of the scapula and upper limb from the clavicle."
+        },
+        {
+          "entity_id": "conoid_ligament",
+          "standard_name": "Conoid Ligament",
+          "latin_name": "Ligamentum conoideum",
+          "entity_type": "LIGAMENT",
+          "classification": "EXTRINSIC_SUSPENSORY_LIGAMENT",
+          "description": "Dense triangular, posteromedial ligament fanning out from the base of the coracoid process to the conoid tubercle of the clavicle, restraining anterior and superior translation."
+        },
+        {
+          "entity_id": "trapezoid_ligament",
+          "standard_name": "Trapezoid Ligament",
+          "latin_name": "Ligamentum trapezoideum",
+          "entity_type": "LIGAMENT",
+          "classification": "EXTRINSIC_SUSPENSORY_LIGAMENT",
+          "description": "Strong, flat quadrilateral, anterolateral ligament extending from the upper surface of the horizontal coracoid process to the trapezoid line of the clavicle, restraining posterior translation and axial override."
+        }
+      ]
+    },
+    {
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "pack_name": "Pectoral Girdle Integration Knowledge Pack",
+      "primary_entity": "pectoral_girdle",
+      "entities": [
+        {
+          "entity_id": "pectoral_girdle",
+          "standard_name": "Pectoral Girdle (Shoulder Girdle)",
+          "latin_name": "Cingulum pectorale / Cingulum membri superioris",
+          "entity_type": "SKELETAL_COMPLEX",
+          "classification": "APPENDICULAR_GIRDLE",
+          "description": "Incomplete bony and muscular ring anchoring the upper limbs to the axial skeleton, formed by the paired clavicles anteriorly and scapulae posterolaterally, closed anteriorly by the sternum and open posteriorly."
+        },
+        {
+          "entity_id": "scapulothoracic_interface",
+          "standard_name": "Scapulothoracic Functional Interface",
+          "latin_name": "Syssarcosis scapulothoracica",
+          "entity_type": "PHYSIOLOGICAL_INTERFACE",
+          "classification": "SYSSARCOSIS",
+          "description": "Physiological gliding mechanism between the anterior surface of the scapula (subscapularis) and the posterolateral thoracic wall (serratus anterior and ribs 2-7), lacking synovial or fibrous joints."
+        },
+        {
+          "entity_id": "deltopectoral_groove",
+          "standard_name": "Deltopectoral Groove (and Triangle)",
+          "latin_name": "Sulcus deltopectoralis / Trigonum clavipectorale",
+          "entity_type": "TOPOGRAPHIC_STRUCTURE",
+          "classification": "SURFACE_GROOVE",
+          "description": "Surface and subfascial groove between the anterior border of the deltoid and clavicular head of pectoralis major, conducting the cephalic vein and deltoid branch of thoracoacromial artery."
+        },
+        {
+          "entity_id": "cervicoaxillary_canal",
+          "standard_name": "Cervicoaxillary Canal",
+          "latin_name": "Canalis cervicoaxillaris",
+          "entity_type": "TOPOGRAPHIC_SPACE",
+          "classification": "TRANSITION_CANAL",
+          "description": "Anatomical passage bounded anteriorly by the middle third of the clavicle, posteromedially by the superior border of the scapula, and inferomedially by the first rib, conducting the brachial plexus and subclavian vessels."
+        },
+        {
+          "entity_id": "retroclavicular_space",
+          "standard_name": "Retroclavicular Space",
+          "latin_name": "Spatium retroclaviculare",
+          "entity_type": "TOPOGRAPHIC_SPACE",
+          "classification": "SUBFASCIAL_SPACE",
+          "description": "Surgical and topographic area directly posterior and inferior to the clavicle, deep to the subclavius muscle and clavipectoral fascia, housing major neurovascular trunks."
+        }
+      ]
+    }
+  ]
+}

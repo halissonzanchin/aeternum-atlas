@@ -1,0 +1,467 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR1",
+  "generated_at": "2026-09-26T13:45:56.603Z",
+  "accounting": {
+    "total_facts_audited": 248,
+    "scapula_facts": 119,
+    "b1_facts": 129,
+    "TOTAL_TYPED_FACT_REFERENCES": 771,
+    "ENTITY_REFERENCE_COUNT": 684,
+    "NON_ENTITY_LITERAL_COUNT": 87,
+    "UNKNOWN_REFERENCE_COUNT": 0,
+    "ORPHAN_ANATOMICAL_ENTITY_REFERENCE_COUNT": 0
+  },
+  "non_entity_partitions": {
+    "classifications_count": 17,
+    "directions_count": 13,
+    "numerics_count": 3,
+    "textuals_count": 50
+  },
+  "typed_references_sample": [
+    {
+      "fact_id": "AET-CF-SCAP-001",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-001",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-001",
+      "role": "object_or_arguments",
+      "token": "pectoral_girdle",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-PECTORAL_GIRDLE",
+      "entity_name": "Pectoral Girdle (Shoulder Girdle)"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-002",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-002",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-002",
+      "role": "object_or_arguments",
+      "token": "flat_bone",
+      "reference_type": "NON_ENTITY_LITERAL",
+      "sub_classification": "CLASSIFICATION_VALUE",
+      "resolves_to_entity": null
+    },
+    {
+      "fact_id": "AET-CF-SCAP-003",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-003",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-003",
+      "role": "object_or_arguments",
+      "token": "paired_bone",
+      "reference_type": "NON_ENTITY_LITERAL",
+      "sub_classification": "CLASSIFICATION_VALUE",
+      "resolves_to_entity": null
+    },
+    {
+      "fact_id": "AET-CF-SCAP-004",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-004",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-004",
+      "role": "object_or_arguments",
+      "token": "triangular",
+      "reference_type": "NON_ENTITY_LITERAL",
+      "sub_classification": "CLASSIFICATION_VALUE",
+      "resolves_to_entity": null
+    },
+    {
+      "fact_id": "AET-CF-SCAP-005",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-005",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-005",
+      "role": "object_or_arguments",
+      "token": "posterolateral_thoracic_wall",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "REFERENCE_ONLY",
+      "resolves_to_entity": "AET-ENT-REF-THORACIC_WALL",
+      "entity_name": "Thoracic Wall"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-006",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-006",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-006",
+      "role": "object_or_arguments",
+      "token": "rib_2_to_rib_7",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "REFERENCE_ONLY",
+      "resolves_to_entity": "AET-ENT-REF-RIBS_2_TO_7",
+      "entity_name": "Ribs 2 to 7"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-007",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-007",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-007",
+      "role": "object_or_arguments",
+      "token": "clavicle",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-CLAVICLE",
+      "entity_name": "Clavicle"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-008",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-008",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-008",
+      "role": "object_or_arguments",
+      "token": "humerus",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "REFERENCE_ONLY",
+      "resolves_to_entity": "AET-ENT-REF-HUMERUS",
+      "entity_name": "Humerus"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-009",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-009",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-009",
+      "role": "object_or_arguments",
+      "token": "costal_surface_concave",
+      "reference_type": "NON_ENTITY_LITERAL",
+      "sub_classification": "DIRECTION_VALUE",
+      "resolves_to_entity": null
+    },
+    {
+      "fact_id": "AET-CF-SCAP-010",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-010",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-010",
+      "role": "object_or_arguments",
+      "token": "subscapular_fossa",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULAR_SUBSCAPULAR_FOSSA",
+      "entity_name": "Subscapular Fossa"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-011",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-011",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-011",
+      "role": "object_or_arguments",
+      "token": "posterior_surface_convex",
+      "reference_type": "NON_ENTITY_LITERAL",
+      "sub_classification": "DIRECTION_VALUE",
+      "resolves_to_entity": null
+    },
+    {
+      "fact_id": "AET-CF-SCAP-012",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-012",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-012",
+      "role": "object_or_arguments",
+      "token": "supraspinous_fossa",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULAR_SUPRASPINOUS_FOSSA",
+      "entity_name": "Supraspinous Fossa"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-013",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-013",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-013",
+      "role": "object_or_arguments",
+      "token": "infraspinous_fossa",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULAR_INFRASPINOUS_FOSSA",
+      "entity_name": "Infraspinous Fossa"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-014",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-014",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-014",
+      "role": "object_or_arguments",
+      "token": "scapular_spine",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULAR_SPINE",
+      "entity_name": "Spine of Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-015",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-015",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-015",
+      "role": "object_or_arguments",
+      "token": "acromion",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULAR_ACROMION",
+      "entity_name": "Acromion"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-016",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-016",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-016",
+      "role": "object_or_arguments",
+      "token": "spinoglenoid_notch",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULAR_SPINOGLENOID_NOTCH",
+      "entity_name": "Spinoglenoid Notch"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-017",
+      "role": "entity_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    },
+    {
+      "fact_id": "AET-CF-SCAP-017",
+      "role": "subject_id",
+      "token": "scapula",
+      "reference_type": "ENTITY_REFERENCE",
+      "sub_classification": "FULL_CANONICAL",
+      "resolves_to_entity": "AET-ENT-UL-SCAPULA",
+      "entity_name": "Scapula"
+    }
+  ]
+}

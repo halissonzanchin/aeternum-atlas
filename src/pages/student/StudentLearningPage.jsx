@@ -1,11 +1,14 @@
 import { useMemo, useState } from "react";
 import {
+  A26AuroraBackground,
   A26Button,
   A26Card,
   A26EmptyState,
+  A26FeatureShell,
   A26Field,
   A26LoadingState,
   A26Metric,
+  A26PageHeader,
   A26SegmentedControl,
   A26Toolbar
 } from "../../components/aeternum-26";
@@ -403,51 +406,62 @@ export default function StudentLearningPage({ section, user, navigate }) {
 
   const supportsFilter = ["favorites", "recommendations"].includes(definition.kind) && baseModels.length > 0;
 
+  const auroraVariant = useMemo(() => {
+    if (section === "history") return "veryQuiet";
+    if (["videos", "courses", "favorites"].includes(section)) return "quiet";
+    return null;
+  }, [section]);
+
   return (
-    <section
-      className="a26-daily-page fade-in-up"
-      data-testid="a26-student-experience"
-      data-a26-section={section}
-      data-a26-source="account-observed"
-    >
-      <header className="a26-daily-hero">
-        <span className="a26-daily-hero__icon" aria-hidden="true"><LineIcon name={definition.icon} /></span>
-        <div>
-          <p className="a26-kicker">{labels.eyebrow}</p>
-          <h1>{title}</h1>
-          <p>{subtitle}</p>
-        </div>
-        <span className="a26-daily-source"><i aria-hidden="true" />{labels.source}</span>
-      </header>
-
-      {supportsFilter ? (
-        <A26Toolbar className="a26-daily-toolbar" label={labels.search}>
-          <A26Field
-            label={labels.search}
-            value={query}
-            placeholder={labels.searchPlaceholder}
-            onChange={event => setQuery(event.target.value)}
+    <div className="student-learning-root relative">
+      {auroraVariant && <A26AuroraBackground variant={auroraVariant} />}
+      <A26FeatureShell
+        variant="standard"
+        className="a26-daily-page fade-in-up relative z-10"
+        data-testid="a26-student-experience"
+        data-a26-section={section}
+        data-a26-source="account-observed"
+        header={
+          <A26PageHeader
+            eyebrow={labels.eyebrow}
+            title={title}
+            description={subtitle}
+            status={
+              <span className="a26-daily-source"><i aria-hidden="true" />{labels.source}</span>
+            }
           />
-          <A26SegmentedControl
-            label={labels.search}
-            value={view}
-            onChange={setView}
-            options={[
-              { value: "all", label: labels.all },
-              { value: "progress", label: labels.inProgress },
-              { value: "completed", label: labels.completed }
-            ]}
-          />
-        </A26Toolbar>
-      ) : null}
+        }
+        toolbar={
+          supportsFilter ? (
+            <A26Toolbar className="a26-daily-toolbar" label={labels.search}>
+              <A26Field
+                label={labels.search}
+                value={query}
+                placeholder={labels.searchPlaceholder}
+                onChange={event => setQuery(event.target.value)}
+              />
+              <A26SegmentedControl
+                label={labels.search}
+                value={view}
+                onChange={setView}
+                options={[
+                  { value: "all", label: labels.all },
+                  { value: "progress", label: labels.inProgress },
+                  { value: "completed", label: labels.completed }
+                ]}
+              />
+            </A26Toolbar>
+          ) : null
+        }
+      >
+        <div className="a26-daily-content">{renderBody()}</div>
 
-      <div className="a26-daily-content">{renderBody()}</div>
-
-      <p className="a26-daily-data-notice">
-        <LineIcon name="check" />
-        {labels.dataNotice}
-      </p>
-    </section>
+        <p className="a26-daily-data-notice">
+          <LineIcon name="check" />
+          {labels.dataNotice}
+        </p>
+      </A26FeatureShell>
+    </div>
   );
 }
 

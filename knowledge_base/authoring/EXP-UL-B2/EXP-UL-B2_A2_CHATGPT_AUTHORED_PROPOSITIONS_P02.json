@@ -1,0 +1,385 @@
+{
+  "document_name": "EXP-UL-B2_A2_CHATGPT_AUTHORED_PROPOSITIONS_P02",
+  "phase": "AMC-1.2-A2 / EXP-UL-B2-A2-P02",
+  "checkpoint": "P02",
+  "scope": "TARGETS TGT-B2-A2E0-039 THROUGH TGT-B2-A2E0-051",
+  "timestamp": "2026-10-04T21:13:55.332Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "parent_P01_sha256": "4a2beff3e842de816852adcfc408fc595ca6172e08d01ed75a052bfe1906e221",
+  "parent_IA2_2_sha256": "a58bd14c7e798fb79a1ebaa91b77b2eb6fbe2b4c17a05ce7376127a051430dc0",
+  "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+  "persisted_by": "ANTIGRAVITY_AUTHORING_PERSISTENCE_ORCHESTRATOR",
+  "metrics": {
+    "target_range_reviewed": "039-051",
+    "targets_reviewed": 13,
+    "propositions_authored": 10,
+    "author_holds": 3,
+    "fact_id_uniqueness_percent": 100,
+    "target_id_uniqueness_percent": 100,
+    "fact_target_parity_percent": 100,
+    "evidence_referential_integrity_percent": 100,
+    "locator_referential_integrity_percent": 100,
+    "source_referential_integrity_percent": 100,
+    "proposition_text_changed_by_antigravity": 0,
+    "unauthorized_anatomical_enrichments": 0,
+    "validated_new_facts": 0,
+    "canonical_promotions": 0,
+    "safe_engine_promotions": 0
+  },
+  "propositions": [
+    {
+      "fact_id": "AET-B2-A2-F039",
+      "target_id": "TGT-B2-A2E0-039",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "bursae",
+      "proposition": "As bursas periarticulares relacionadas à articulação glenoumeral incluem a bolsa subacromial/subdeltoidea e a bolsa subtendínea do subescapular. A primeira situa-se entre o complexo cápsula/supraespinal e o arco coracoacromial/deltoide e não comunica fisiologicamente com a cavidade glenoumeral; a bolsa subescapular comunica-se com a cavidade sinovial glenoumeral através do forame oval de Weitbrecht.",
+      "evidence_unit_ids": [
+        "EVI-B2-BURS-001",
+        "EVI-B2-BURS-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-006",
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_assertions_certified": [],
+      "relation_candidates": [],
+      "relation_ontology_review": [],
+      "relation_unmapped_hints": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F040",
+      "target_id": "TGT-B2-A2E0-040",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "ligaments",
+      "proposition": "O complexo ligamentar associado à articulação glenoumeral inclui os ligamentos glenoumerais superior, médio e inferior como espessamentos capsulares anteriores, além do ligamento coracoumeral como reforço superior da cápsula; o ligamento umeral transverso estende-se entre os tubérculos maior e menor sobre o sulco intertubercular.",
+      "evidence_unit_ids": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-GHJ-004",
+        "EVI-B2-GHJ-005",
+        "EVI-B2-MOR-003"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-002",
+        "LAT-T1-GHJ-LOC-003",
+        "MOR-UL-B2-LOC-009"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_assertions_certified": [
+        "reinforces"
+      ],
+      "relation_candidates": [],
+      "relation_ontology_review": [
+        "bridges"
+      ],
+      "relation_unmapped_hints": [],
+      "practical_context": "CADAVERIC_PRACTICAL_NOTES",
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F043",
+      "target_id": "TGT-B2-A2E0-043",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "stability.dynamic_stabilizers",
+      "proposition": "Os tendões dos músculos do manguito rotador formam uma coroa ativa periarticular de reforço e coaptação, intimamente aderida à cápsula fibrosa, constituindo um mecanismo dinâmico de estabilização da articulação glenoumeral.",
+      "evidence_unit_ids": [
+        "EVI-B2-RTC-010",
+        "EVI-B2-RTC-011",
+        "EVI-B2-INT-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-RTC-LOC-002",
+        "LAT-T1-RTC-LOC-003",
+        "LAT-T1-GHJ-LOC-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_assertions_certified": [
+        "stabilizes"
+      ],
+      "relation_candidates": [],
+      "relation_ontology_review": [],
+      "relation_unmapped_hints": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F044",
+      "target_id": "TGT-B2-A2E0-044",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "innervation",
+      "proposition": "A articulação glenoumeral recebe inervação principalmente do nervo axilar, com contribuição acessória do nervo supraescapular e fibras vasomotoras simpáticas.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-008"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-005",
+        "LAT-T1-TOPO-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_assertions_certified": [
+        "innervated_by"
+      ],
+      "relation_candidates": [],
+      "relation_ontology_review": [],
+      "relation_unmapped_hints": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F045",
+      "target_id": "TGT-B2-A2E0-045",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "arterial_supply",
+      "proposition": "A vascularização da articulação glenoumeral provém das artérias circunflexas umerais anterior e posterior e de ramos posteriores da artéria supraescapular.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-008",
+        "EVI-B2-TOPO-001"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-005",
+        "LAT-T1-TOPO-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_assertions_certified": [
+        "vascularized_by"
+      ],
+      "relation_candidates": [],
+      "relation_ontology_review": [],
+      "relation_unmapped_hints": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F046",
+      "target_id": "TGT-B2-A2E0-046",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "relations",
+      "proposition": "A articulação glenoumeral é envolvida pelos tendões do manguito rotador — subescapular anteriormente, supraespinal superiormente e infraespinal e redondo menor posteriormente — que aderem intimamente à cápsula articular.",
+      "evidence_unit_ids": [
+        "EVI-B2-INT-001",
+        "EVI-B2-FIG-006"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-005",
+        "NIE-ED1-RTC-LOC-001"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "authority_profile": "MULTI_SOURCE_SUPPORTED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_assertions_certified": [
+        "stabilizes"
+      ],
+      "relation_candidates": [],
+      "relation_ontology_review": [],
+      "relation_unmapped_hints": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F047",
+      "target_id": "TGT-B2-A2E0-047",
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "AADS_field": "identity",
+      "proposition": "O labrum glenoidal é um anel fibrocartilaginoso associado perifericamente à cavidade glenoidal da escápula.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_assertions_certified": [],
+      "relation_candidates": [],
+      "relation_ontology_review": [],
+      "relation_unmapped_hints": [
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F048",
+      "target_id": "TGT-B2-A2E0-048",
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "AADS_field": "location",
+      "proposition": "O labrum glenoidal localiza-se perifericamente ao contorno da cavidade glenoidal.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_assertions_certified": [],
+      "relation_candidates": [],
+      "relation_ontology_review": [],
+      "relation_unmapped_hints": [
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F050",
+      "target_id": "TGT-B2-A2E0-050",
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "AADS_field": "joint_association",
+      "proposition": "O labrum glenoidal integra o complexo articular glenoumeral, estando associado à periferia da cavidade glenoidal e servindo também como área de relação com a fixação medial da cápsula fibrosa.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_assertions_certified": [],
+      "relation_candidates": [],
+      "relation_ontology_review": [],
+      "relation_unmapped_hints": [
+        "attaches_to"
+      ],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    },
+    {
+      "fact_id": "AET-B2-A2-F051",
+      "target_id": "TGT-B2-A2E0-051",
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "AADS_field": "mechanical_role_when_sourced",
+      "proposition": "O labrum glenoidal amplia perifericamente a cavidade glenoidal.",
+      "evidence_unit_ids": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "locator_ids": [
+        "LAT-T1-GHJ-LOC-001",
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "authority_profile": "SOURCE_GROUNDED",
+      "confidence": "HIGH",
+      "conflict_status": "NONE",
+      "conflict_ids": [],
+      "relation_assertions_certified": [],
+      "relation_candidates": [],
+      "relation_ontology_review": [],
+      "relation_unmapped_hints": [],
+      "practical_context": null,
+      "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+      "authoring_status": "AUTHORED",
+      "persistence_status": "PERSISTED_AUTHORED",
+      "validation_status": "PENDING_VALIDATION",
+      "canonical_status": "NONCANONICAL",
+      "safe_engine_status": "NOT_QUALIFIED"
+    }
+  ]
+}

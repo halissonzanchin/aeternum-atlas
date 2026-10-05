@@ -1,0 +1,563 @@
+{
+  "test_set_metadata": {
+    "version": "AETERNUM-SAFE-ENGINE-0.1.0-SCAPULA-PILOT",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+    "pack_id": "AET-KP-UL-SCAPULA-001",
+    "total_queries": 68,
+    "categories": {
+      "MICRO_FACT": 10,
+      "RELATION_QUERY": 15,
+      "TOPOGRAPHIC_QUERY": 12,
+      "PRACTICAL_IDENTIFICATION": 10,
+      "MACRO_PROFESSOR": 10,
+      "SAFE_FAILURE_OUT_OF_SCOPE": 11
+    },
+    "multi_depth_test_count": 10
+  },
+  "queries": [
+    {
+      "test_id": "TEST-MF-001",
+      "category": "MICRO_FACT",
+      "query": "Qual é a classificação morfológica da escápula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT", "CONTEXTUAL", "PROFESSOR"],
+      "expected_scope": "MICRO_FACT"
+    },
+    {
+      "test_id": "TEST-MF-002",
+      "category": "MICRO_FACT",
+      "query": "A escápula é um osso plano?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "MICRO_FACT"
+    },
+    {
+      "test_id": "TEST-MF-003",
+      "category": "MICRO_FACT",
+      "query": "A omoplata é um osso par?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "MICRO_FACT"
+    },
+    {
+      "test_id": "TEST-MF-004",
+      "category": "MICRO_FACT",
+      "query": "A escápula tem formato triangular?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "MICRO_FACT"
+    },
+    {
+      "test_id": "TEST-MF-005",
+      "category": "MICRO_FACT",
+      "query": "Quantas faces possui a escápula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "MICRO_FACT"
+    },
+    {
+      "test_id": "TEST-MF-006",
+      "category": "MICRO_FACT",
+      "query": "Quantas margens tem a escápula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "MICRO_FACT"
+    },
+    {
+      "test_id": "TEST-MF-007",
+      "category": "MICRO_FACT",
+      "query": "Quantos ângulos são descritos na escápula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "MICRO_FACT"
+    },
+    {
+      "test_id": "TEST-MF-008",
+      "category": "MICRO_FACT",
+      "query": "A escápula faz parte de qual cíngulo?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "MICRO_FACT"
+    },
+    {
+      "test_id": "TEST-MF-009",
+      "category": "MICRO_FACT",
+      "query": "Quais são as três margens da escápula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT", "CONTEXTUAL", "PROFESSOR"],
+      "expected_scope": "MICRO_FACT"
+    },
+    {
+      "test_id": "TEST-MF-010",
+      "category": "MICRO_FACT",
+      "query": "Quais são as duas faces da escápula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "MICRO_FACT"
+    },
+    {
+      "test_id": "TEST-REL-001",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se origina na fossa supraespinosa?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT", "CONTEXTUAL", "PROFESSOR"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-002",
+      "category": "RELATION_QUERY",
+      "query": "o supra espinhoso começa onde?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-003",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se origina na fossa infraespinosa?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT", "CONTEXTUAL", "PROFESSOR"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-004",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se insere na fossa subescapular?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT", "CONTEXTUAL", "PROFESSOR"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-005",
+      "category": "RELATION_QUERY",
+      "query": "Com quem se articula a cavidade glenoidal?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT", "CONTEXTUAL", "PROFESSOR"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-006",
+      "category": "RELATION_QUERY",
+      "query": "Qual articulação é formada pelo acrômio e a clavícula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-007",
+      "category": "RELATION_QUERY",
+      "query": "Onde se insere o músculo peitoral menor?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-008",
+      "category": "RELATION_QUERY",
+      "query": "Onde se origina o músculo coracobraquial?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-009",
+      "category": "RELATION_QUERY",
+      "query": "Onde se origina a cabeça curta do bíceps braquial?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-010",
+      "category": "RELATION_QUERY",
+      "query": "Onde se origina a cabeça longa do bíceps braquial?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-011",
+      "category": "RELATION_QUERY",
+      "query": "Onde se origina a cabeça longa do tríceps braquial?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-012",
+      "category": "RELATION_QUERY",
+      "query": "Onde se insere o músculo trapézio?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-013",
+      "category": "RELATION_QUERY",
+      "query": "Onde se origina o músculo deltoide?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-014",
+      "category": "RELATION_QUERY",
+      "query": "Onde se insere o músculo serrátil anterior?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-REL-015",
+      "category": "RELATION_QUERY",
+      "query": "Onde se insere o músculo levantador da escápula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "RELATION_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-001",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "onde fica a espinha da escapula",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT", "CONTEXTUAL", "PROFESSOR"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-002",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde se localiza o processo coracoide?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-003",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde se localiza a cavidade glenoidal?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-004",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde fica a fossa supraespinosa?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-005",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde fica a fossa infraespinosa?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-006",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde fica a fossa subescapular?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-007",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Qual a relação entre a espinha da escápula e as fossas supraespinosa e infraespinosa?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT", "CONTEXTUAL", "PROFESSOR"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-008",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde se localiza o tubérculo supraglenoidal?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-009",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde se localiza o tubérculo infraglenoidal?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-010",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "o que passa nessa incisura?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-011",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Qual estrutura converte a incisura da escápula em forame?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-TOP-012",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde se situa o colo da escápula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "TOPOGRAPHIC_QUERY"
+    },
+    {
+      "test_id": "TEST-PRAC-001",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Como posicionar a escápula para identificar se é direita ou esquerda?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT", "CONTEXTUAL", "PROFESSOR"],
+      "expected_scope": "PRACTICAL_IDENTIFICATION_QUERY"
+    },
+    {
+      "test_id": "TEST-PRAC-002",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Como identificar uma escápula direita?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "PRACTICAL_IDENTIFICATION_QUERY"
+    },
+    {
+      "test_id": "TEST-PRAC-003",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "como sei se essa escapula é direita",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "PRACTICAL_IDENTIFICATION_QUERY"
+    },
+    {
+      "test_id": "TEST-PRAC-004",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "como eu diferencio a face anterior da posterior?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "PRACTICAL_IDENTIFICATION_QUERY"
+    },
+    {
+      "test_id": "TEST-PRAC-005",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "me explica como se eu estivesse no cadáver",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "PRACTICAL_IDENTIFICATION_QUERY"
+    },
+    {
+      "test_id": "TEST-PRAC-006",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Como orientar a escápula na posição anatômica?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "PRACTICAL_IDENTIFICATION_QUERY"
+    },
+    {
+      "test_id": "TEST-PRAC-007",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Quais são os marcos ósseos palpáveis para orientar a escápula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "PRACTICAL_IDENTIFICATION_QUERY"
+    },
+    {
+      "test_id": "TEST-PRAC-008",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Para onde aponta a cavidade glenoidal na posição anatômica?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "PRACTICAL_IDENTIFICATION_QUERY"
+    },
+    {
+      "test_id": "TEST-PRAC-009",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Para onde aponta a espinha da escápula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "PRACTICAL_IDENTIFICATION_QUERY"
+    },
+    {
+      "test_id": "TEST-PRAC-010",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Para onde aponta o processo coracoide na escápula?",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "PRACTICAL_IDENTIFICATION_QUERY"
+    },
+    {
+      "test_id": "TEST-MACRO-001",
+      "category": "MACRO_PROFESSOR",
+      "query": "Explique a escápula.",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT", "CONTEXTUAL", "PROFESSOR"],
+      "expected_scope": "MACRO_OVERVIEW"
+    },
+    {
+      "test_id": "TEST-MACRO-002",
+      "category": "MACRO_PROFESSOR",
+      "query": "faz uma revisão rápida da escápula",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "MACRO_OVERVIEW"
+    },
+    {
+      "test_id": "TEST-MACRO-003",
+      "category": "MACRO_PROFESSOR",
+      "query": "Dê uma visão geral da escápula.",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "depths": ["DIRECT"],
+      "expected_scope": "MACRO_OVERVIEW"
+    },
+    {
+      "test_id": "TEST-MACRO-004",
+      "category": "MACRO_PROFESSOR",
+      "query": "Por que o processo coracoide é importante?",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "depths": ["PROFESSOR"],
+      "expected_scope": "PROFESSOR_CONNECTION"
+    },
+    {
+      "test_id": "TEST-MACRO-005",
+      "category": "MACRO_PROFESSOR",
+      "query": "me explica o coracoide",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "depths": ["PROFESSOR"],
+      "expected_scope": "PROFESSOR_CONNECTION"
+    },
+    {
+      "test_id": "TEST-MACRO-006",
+      "category": "MACRO_PROFESSOR",
+      "query": "pra que serve a glenoide",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "depths": ["PROFESSOR"],
+      "expected_scope": "PROFESSOR_CONNECTION"
+    },
+    {
+      "test_id": "TEST-MACRO-007",
+      "category": "MACRO_PROFESSOR",
+      "query": "Qual a importância da espinha da escápula como organizador?",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "depths": ["PROFESSOR"],
+      "expected_scope": "PROFESSOR_CONNECTION"
+    },
+    {
+      "test_id": "TEST-MACRO-008",
+      "category": "MACRO_PROFESSOR",
+      "query": "Explique o complexo articular da cavidade glenoidal.",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "depths": ["PROFESSOR"],
+      "expected_scope": "PROFESSOR_CONNECTION"
+    },
+    {
+      "test_id": "TEST-MACRO-009",
+      "category": "MACRO_PROFESSOR",
+      "query": "Qual o papel funcional dos tubérculos supra e infraglenoidal?",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "depths": ["PROFESSOR"],
+      "expected_scope": "PROFESSOR_CONNECTION"
+    },
+    {
+      "test_id": "TEST-MACRO-010",
+      "category": "MACRO_PROFESSOR",
+      "query": "Por que a fossa subescapular é importante funcionalmente?",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "depths": ["PROFESSOR"],
+      "expected_scope": "PROFESSOR_CONNECTION"
+    },
+    {
+      "test_id": "TEST-FAIL-001",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Explique a anatomia do fêmur.",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "depths": ["DIRECT"],
+      "expected_scope": "OUT_OF_SCOPE"
+    },
+    {
+      "test_id": "TEST-FAIL-002",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Quais são os acidentes ósseos da tíbia?",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "depths": ["DIRECT"],
+      "expected_scope": "OUT_OF_SCOPE"
+    },
+    {
+      "test_id": "TEST-FAIL-003",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Quais são os ramos do nervo facial?",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "depths": ["DIRECT"],
+      "expected_scope": "OUT_OF_SCOPE"
+    },
+    {
+      "test_id": "TEST-FAIL-004",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Explique a estrutura anatômica do rim.",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "depths": ["DIRECT"],
+      "expected_scope": "OUT_OF_SCOPE"
+    },
+    {
+      "test_id": "TEST-FAIL-005",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Descreva os lobos do encéfalo.",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "depths": ["DIRECT"],
+      "expected_scope": "OUT_OF_SCOPE"
+    },
+    {
+      "test_id": "TEST-FAIL-006",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "A escápula alada confirma lesão do nervo torácico longo?",
+      "expected_status": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "depths": ["DIRECT"],
+      "expected_scope": "CLINICAL_ANATOMY_QUERY"
+    },
+    {
+      "test_id": "TEST-FAIL-007",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Qual o tratamento cirúrgico para fratura de escápula?",
+      "expected_status": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "depths": ["DIRECT"],
+      "expected_scope": "CLINICAL_ANATOMY_QUERY"
+    },
+    {
+      "test_id": "TEST-FAIL-008",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Como diagnosticar luxação glenoumeral?",
+      "expected_status": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "depths": ["DIRECT"],
+      "expected_scope": "CLINICAL_ANATOMY_QUERY"
+    },
+    {
+      "test_id": "TEST-FAIL-009",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Qual a anatomia da patela?",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "depths": ["DIRECT"],
+      "expected_scope": "OUT_OF_SCOPE"
+    },
+    {
+      "test_id": "TEST-FAIL-010",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Descreva a anatomia do crânio.",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "depths": ["DIRECT"],
+      "expected_scope": "OUT_OF_SCOPE"
+    },
+    {
+      "test_id": "TEST-FAIL-011",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Descreva a vascularização do fígado.",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "depths": ["DIRECT"],
+      "expected_scope": "OUT_OF_SCOPE"
+    }
+  ]
+}

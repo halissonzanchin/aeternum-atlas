@@ -1,0 +1,42 @@
+# Dependencies
+/node_modules/
+
+# Production builds and temp
+/dist/
+/build/
+/.vite/
+/coverage/
+/.temp/
+
+# Root diagnostic and repository maintenance directories
+/scratch/
+/assets-pipeline/
+/knowledge_base/
+/docs/
+/tools/
+/qa-screenshots/
+/artifacts/
+/legacy-static/
+/tests/
+/logs/
+/reports/
+/supabase/
+/server/
+/packages/
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.staging.example
+
+# Git and Editor
+/.git/
+/.github/
+/.agents/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

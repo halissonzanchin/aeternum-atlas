@@ -1,0 +1,15 @@
+{
+  "document_name": "AETERNUM_AADS_1_0_R2_ERRATA",
+  "phase": "AMC-1.2-R2 / EXP-UL-B2-A1.6-R2",
+  "timestamp": "2026-09-27T10:30:00Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "errata_records": [
+    {
+      "erratum_id": "ERR-AADS-R2-001",
+      "affected_artifact": "AETERNUM_AADS_1_0_R1.json",
+      "issue": "Presence of competing legacy taxonomy arrays (primary_entity_types [11] and optional_extension_types [7]) alongside authoritative core_entity_types [8] and extension_entity_types [10].",
+      "remediation": "Legacy arrays moved to legacy_authoring_grouping with deprecated=true and taxonomy_authority=false. Authoritative taxonomy strictly defined by core_entity_types (8) and extension_entity_types (10) totaling exactly 18 entity types.",
+      "status": "REMEDIATED"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-CQ1",
+  "generated_at": "2026-09-25T03:53:39.743Z",
+  "metrics": {
+    "DOCUMENTARY_PRODUCTION_DIRECT_COUNT": 5,
+    "DOCUMENTARY_ATOMIC_COMPOSITION_ONLY_COUNT": 2,
+    "DOCUMENTARY_STAGING_ONLY_COUNT": 0,
+    "DOCUMENTARY_BLOCKED_COUNT": 0
+  },
+  "blocks": [
+    {
+      "block_id": "DOC-UL-B1-001",
+      "title": "Clavicle Architectural and Morphological Overview",
+      "qualification_status": "DOCUMENTARY_PRODUCTION_DIRECT",
+      "safe_engine_production_rule": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+      "staging_eligible": true
+    },
+    {
+      "block_id": "DOC-UL-B1-002",
+      "title": "Systematic Practical Orientation and Laterality of the Clavicle",
+      "qualification_status": "DOCUMENTARY_PRODUCTION_DIRECT",
+      "safe_engine_production_rule": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+      "staging_eligible": true
+    },
+    {
+      "block_id": "DOC-UL-B1-003",
+      "title": "Sternoclavicular Joint Architecture and Kinematics",
+      "qualification_status": "DOCUMENTARY_PRODUCTION_DIRECT",
+      "safe_engine_production_rule": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+      "staging_eligible": true
+    },
+    {
+      "block_id": "DOC-UL-B1-004",
+      "title": "Acromioclavicular Joint Morphology, Capsule, and Kinematics",
+      "qualification_status": "DOCUMENTARY_PRODUCTION_DIRECT",
+      "safe_engine_production_rule": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+      "staging_eligible": true
+    },
+    {
+      "block_id": "DOC-UL-B1-005",
+      "title": "Coracoclavicular Ligament Complex: Functional Anatomy of Conoid and Trapezoid Ligaments",
+      "qualification_status": "DOCUMENTARY_PRODUCTION_DIRECT",
+      "safe_engine_production_rule": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+      "staging_eligible": true
+    },
+    {
+      "block_id": "DOC-UL-B1-006",
+      "title": "Pectoral Girdle Systemic Architecture and Scapulothoracic Syssarcosis",
+      "qualification_status": "DOCUMENTARY_ATOMIC_COMPOSITION_ONLY",
+      "safe_engine_production_rule": "MUST_BE_DYNAMICALLY_SYNTHESIZED_FROM_QUALIFIED_ATOMIC_FACTS",
+      "staging_eligible": true
+    },
+    {
+      "block_id": "DOC-UL-B1-007",
+      "title": "Practical Cadaveric and Clinical Surface Topography of the Clavicular Region",
+      "qualification_status": "DOCUMENTARY_ATOMIC_COMPOSITION_ONLY",
+      "safe_engine_production_rule": "MUST_BE_DYNAMICALLY_SYNTHESIZED_FROM_QUALIFIED_ATOMIC_FACTS",
+      "staging_eligible": true
+    }
+  ]
+}

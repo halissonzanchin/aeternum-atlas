@@ -1,0 +1,82 @@
+{
+  "status": "GO_FOR_PRODUCTION",
+  "generated_at": "2026-10-04T23:26:00.000Z",
+  "phase": "AETERNUM-RELEASE-R2.2",
+  "target_environment": "production",
+  "staging_deployment": {
+    "deployment_id": "dpl_HMnQrYFmysyYgW6nBFaUDHeGboa1",
+    "staging_url": "https://aeternum-atlas-ggwzygws4-aeternum-atlas.vercel.app",
+    "inspector_url": "https://vercel.com/aeternum-atlas/aeternum-atlas/HMnQrYFmysyYgW6nBFaUDHeGboa1",
+    "ready_state": "READY",
+    "smoke_test_verdict": "STAGING_VERIFIED_PASS",
+    "smoke_tests_passed": 9,
+    "smoke_tests_failed": 0
+  },
+  "supabase_staging": {
+    "project_ref": "hutohshswppahipgcwio",
+    "status": "ACTIVE_HEALTHY",
+    "public_tables": 46,
+    "rls_enabled_tables": 46,
+    "schema_drift": 0
+  },
+  "supabase_production": {
+    "project_ref": "hyivyrietgjdazgizafp",
+    "status": "STRICT_LOCK_UNTOUCHED",
+    "mutations_applied": 0,
+    "unauthorized_access_attempts": 0
+  },
+  "gates": {
+    "build": {
+      "status": "PASS",
+      "exit_code": 0,
+      "details": "Vite production build verified locally and deployed successfully on Vercel preview (849 modules, 12.03s)"
+    },
+    "typecheck": {
+      "status": "PASS",
+      "exit_code": 0,
+      "details": "tsc --noEmit clean with 0 type errors"
+    },
+    "lint": {
+      "status": "PASS",
+      "exit_code": 0,
+      "details": "ESLint clean (0 errors, 449 pre-existing baseline warnings)"
+    },
+    "contracts": {
+      "status": "PASS",
+      "exit_code": 0,
+      "details": "All 115 contract tests passing (115/115 PASS)"
+    },
+    "p0": {
+      "status": "PASS",
+      "exit_code": 0,
+      "details": "check-supabase-p0-contracts.mjs verified clean"
+    },
+    "staging_deployment": {
+      "status": "PASS",
+      "details": "Vercel preview deployment dpl_HMnQrYFmysyYgW6nBFaUDHeGboa1 active with HTTP 200 shell"
+    },
+    "smoke_tests": {
+      "status": "PASS",
+      "details": "All 9 smoke test suites passed (auth, password recovery, 3D viewer, atlas AI standby, vita containment, profile honesty, security)"
+    },
+    "invariants": {
+      "status": "PASS",
+      "canonical_facts": 248,
+      "canonical_entities": 154,
+      "safe_engine_facts": 231,
+      "authored_propositions": 41,
+      "author_holds": 10,
+      "reviewed_targets": 51,
+      "anatomical_diff": 0,
+      "production_db_mutated": false
+    },
+    "secrets": {
+      "status": "PASS",
+      "secrets_found": 0,
+      "details": "Zero committed credentials or service-role keys exposed in client bundles"
+    }
+  },
+  "production_readiness_score": 100,
+  "blockers": [],
+  "production_promotion_recommendation": "The staging release candidate has passed all technical, functional, and safety gates. The system is unconditionally ready for production promotion via 'vercel deploy --prod' and production Supabase cutover under designated maintenance window."
+}

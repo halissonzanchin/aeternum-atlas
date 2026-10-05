@@ -1,0 +1,351 @@
+{
+  "audit_version": "AIR1-PREP",
+  "timestamp": "2026-09-25T02:00:00.000Z",
+  "summary": {
+    "modified_files_count": 19,
+    "untracked_directories_count": 13,
+    "total_domains_represented": 16
+  },
+  "domains": [
+    "KNOWLEDGE_GOVERNANCE",
+    "SOURCE_REGISTRY",
+    "KNOWLEDGE_AUTHORING",
+    "CANONICAL_MEMORY",
+    "LOCAL_SQLITE_RETRIEVAL",
+    "SAFE_ENGINE",
+    "QUALITY_ENGINE",
+    "ATLAS_IA",
+    "AI_GATEWAY",
+    "SUPABASE_DATABASE",
+    "FRONTEND",
+    "VIEWER_3D",
+    "AUTH",
+    "FLASHCARDS_SIMULADOS",
+    "BUILD_DEPLOY",
+    "TEMPORARY_GENERATED_SHOULD_NOT_COMMIT"
+  ],
+  "modified_files": [
+    {
+      "file_path": ".gitignore",
+      "category": "BUILD_DEPLOY",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": false
+    },
+    {
+      "file_path": "knowledge_base/README.md",
+      "category": "KNOWLEDGE_GOVERNANCE",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": false
+    },
+    {
+      "file_path": "packages/aeternum-vita/docker-compose.yml",
+      "category": "AI_GATEWAY",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": false
+    },
+    {
+      "file_path": "src/context/AtlasAITutorSessionContext.jsx",
+      "category": "ATLAS_IA",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/context/LanguageContext.jsx",
+      "category": "FRONTEND",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/features/atlas-viewer/ai/AtlasAIConversation.css",
+      "category": "ATLAS_IA",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/features/atlas-viewer/ai/AtlasAIConversation.jsx",
+      "category": "ATLAS_IA",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/features/atlas-viewer/ai/atlasAITutorService.js",
+      "category": "ATLAS_IA",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/features/dashboard/components/AtlasAITutor.jsx",
+      "category": "ATLAS_IA",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/i18n/translations/de.js",
+      "category": "FRONTEND",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/i18n/translations/en.js",
+      "category": "FRONTEND",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/i18n/translations/es.js",
+      "category": "FRONTEND",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/i18n/translations/pt.js",
+      "category": "FRONTEND",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/pages/student/StudentLearningPage.jsx",
+      "category": "FRONTEND",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/services/ai/aeternumBehaviorOrchestrator.js",
+      "category": "ATLAS_IA",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "src/services/cerebro-aeternum/cerebroAeternum.js",
+      "category": "ATLAS_IA",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "supabase/functions/ai-tutor/deno.json",
+      "category": "SUPABASE_DATABASE",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "supabase/functions/ai-tutor/index.ts",
+      "category": "SUPABASE_DATABASE",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    },
+    {
+      "file_path": "vite.config.js",
+      "category": "BUILD_DEPLOY",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "generated_artifact": false,
+      "safe_to_commit": true,
+      "production_relevant": true
+    }
+  ],
+  "untracked_components": [
+    {
+      "directory": "src/services/safe-engine/",
+      "category": "SAFE_ENGINE",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": true,
+      "description": "Deterministic anatomical teaching engine (LSE-SCAPULA-P1)"
+    },
+    {
+      "directory": "knowledge_base/canonical/",
+      "category": "CANONICAL_MEMORY",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": true,
+      "description": "Sovereign canonical memory artifacts (version AETERNUM-CANONICAL-MEMORY-0.1.0)"
+    },
+    {
+      "directory": "knowledge_base/local_mirror/",
+      "category": "LOCAL_SQLITE_RETRIEVAL",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": false,
+      "description": "Local sovereign SQLite mirror (aeternum_anatomical_memory.db)"
+    },
+    {
+      "directory": "knowledge_base/sources/",
+      "category": "SOURCE_REGISTRY",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": false,
+      "description": "Canonical source authority registrations (CSR1, CSR1.1)"
+    },
+    {
+      "directory": "knowledge_base/governance/",
+      "category": "KNOWLEDGE_GOVERNANCE",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": false,
+      "description": "Authoring protocols, cognitive models, and validation standards (AACM, AKAP, ACSRP)"
+    },
+    {
+      "directory": "knowledge_base/authoring/",
+      "category": "KNOWLEDGE_AUTHORING",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": false,
+      "description": "Authoring candidates, patches, and gap reviews (AET-KP-UL-SCAPULA-001)"
+    },
+    {
+      "directory": "knowledge_base/taxonomy/",
+      "category": "KNOWLEDGE_GOVERNANCE",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": false,
+      "description": "Terminologia Anatomica mapping and alias resolution indices"
+    },
+    {
+      "directory": "knowledge_base/manifests/",
+      "category": "KNOWLEDGE_GOVERNANCE",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": false,
+      "description": "Corpus ingestion manifests and provenance manifests"
+    },
+    {
+      "directory": "knowledge_base/morgue_practical/",
+      "category": "KNOWLEDGE_AUTHORING",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": false,
+      "description": "Morgue institutional practical teaching assertions"
+    },
+    {
+      "directory": "tools/quality-lab/",
+      "category": "QUALITY_ENGINE",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": false,
+      "description": "Automated Quality Lab test suites, validators, scripts, and runners"
+    },
+    {
+      "directory": "packages/aeternum-vita/apps/atlas-local-bridge/",
+      "category": "AI_GATEWAY",
+      "intentional": true,
+      "runtime_required": false,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": false,
+      "description": "Local bridge application for Aeternum Vita offline proxy"
+    },
+    {
+      "file": "supabase/migrations/20260923010000_harden_staging_sovereign_retrieval.sql",
+      "category": "SUPABASE_DATABASE",
+      "intentional": true,
+      "runtime_required": true,
+      "commit_required": true,
+      "safe_to_commit": true,
+      "production_relevant": true,
+      "description": "Staging sovereign retrieval hardening migration"
+    },
+    {
+      "directory": ".agents/",
+      "category": "TEMPORARY_GENERATED_SHOULD_NOT_COMMIT",
+      "intentional": false,
+      "runtime_required": false,
+      "commit_required": false,
+      "safe_to_commit": false,
+      "production_relevant": false,
+      "description": "Antigravity IDE local cache metadata (exclude from commit)"
+    }
+  ]
+}

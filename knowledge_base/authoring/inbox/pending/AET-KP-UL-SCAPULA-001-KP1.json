@@ -1,0 +1,788 @@
+{
+  "pack_id": "AET-KP-UL-SCAPULA-001",
+  "pack_version": "0.1.0-DRAFT",
+  "patch_id": "AET-KP-UL-SCAPULA-001-KP1",
+  "patch_version": "0.1.0-DRAFT",
+  "patch_items": [
+    {
+      "patch_item_id": "KP1-ITEM-001",
+      "gap_id": "GAP-SCAPULA_VASCULAR_DETAILS-001",
+      "missing_dimension": "vascular_supply",
+      "missing_topic": "direct_osseous_and_microvascular_supply",
+      "desired_output_type": "ATOMIC_FACTS",
+      "status": "APPLIED_AI_DRAFT"
+    },
+    {
+      "patch_item_id": "KP1-ITEM-002",
+      "gap_id": "GAP-SCAPULA_NEURAL_VALIDATION-001",
+      "missing_dimension": "innervation",
+      "missing_topic": "capsular_and_periosteal_sensory_innervation",
+      "desired_output_type": "ATOMIC_FACTS",
+      "status": "APPLIED_AI_DRAFT"
+    },
+    {
+      "patch_item_id": "KP1-ITEM-003",
+      "gap_id": "GAP-SCAPULA_ANATOMIC_VARIATION-001",
+      "missing_dimension": "morphology",
+      "missing_topic": "scapular_and_acromial_morphological_variations",
+      "desired_output_type": "DOCUMENTARY_MEMORY",
+      "status": "APPLIED_AI_DRAFT"
+    }
+  ],
+  "topic": "SCAPULA_KNOWLEDGE_PATCH_1",
+  "primary_entity_ids": [
+    "scapula"
+  ],
+  "domain": "UPPER_LIMB",
+  "subdomain": "PECTORAL_GIRDLE",
+  "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+  "authoring_protocol": "AKAP-1.0",
+  "authoring_mode": "AI_DRAFT",
+  "source_ids": [],
+  "source_locations": [],
+  "macro_dossiers": [
+    {
+      "entity_id": "scapula",
+      "canonical_name": "Escápula (Patch 1 Expansion)",
+      "systematic_classification": "Esqueleto apendicular superior — Cintura escapular — Variações, inervação articular e vascularização",
+      "pedagogical_summary": "Expansão de conhecimento do Patch 1 cobrindo a rede vascular regional e periosteal da escápula, inervação sensitiva articular glenoumeral e acromioclavicular, e variações morfológicas do acrômio e ligamento transverso superior.",
+      "morphological_dimensions": {
+        "variations": [
+          "bigliani_type_I_flat",
+          "bigliani_type_II_curved",
+          "bigliani_type_III_hooked",
+          "os_acromiale",
+          "ossified_superior_transverse_ligament"
+        ],
+        "innervation": [
+          "suprascapular_nerve_articular",
+          "axillary_nerve_articular",
+          "lateral_pectoral_nerve_candidate"
+        ],
+        "vascularization": [
+          "suprascapular_artery",
+          "circumflex_scapular_artery",
+          "dorsal_scapular_artery",
+          "periosteal_network"
+        ]
+      },
+      "syntopic_relations": [
+        "Cápsula glenoumeral e acromioclavicular",
+        "Incisura da escápula e forame ósseo formado por ossificação ligamentar",
+        "Rede periosteal peri-escapular"
+      ],
+      "clinical_vulnerabilities": [
+        "Impacto subacromial associado a acrômio curvo ou ganchoso (Bigliani II/III)",
+        "Diferenciação radiológica entre os acromiale e fratura aguda",
+        "Aprisionamento do nervo supraescapular em forame ósseo pós-ossificação do ligamento transverso"
+      ],
+      "cadaveric_pearls": [
+        "A face inferior do acrômio deve ser inspecionada para curvatura ou espículas ósseas",
+        "O os acromiale pode apresentar mobilidade residual em espécimes anatômicos",
+        "A presença de um forame ósseo na borda superior indica ossificação do ligamento transverso"
+      ]
+    }
+  ],
+  "documentary_memory": [
+    {
+      "document_id": "DOC-SCAP-KP1-001",
+      "pack_id": "AET-KP-UL-SCAPULA-001",
+      "patch_id": "AET-KP-UL-SCAPULA-001-KP1",
+      "title": "Vascularização regional e óssea da escápula",
+      "entity_ids": [
+        "scapula",
+        "suprascapular_artery",
+        "circumflex_scapular_artery",
+        "dorsal_scapular_artery"
+      ],
+      "knowledge_dimensions": [
+        "VASCULAR_RELATIONS"
+      ],
+      "narrative_text": "A vascularização da região escapular deve ser compreendida como uma rede, e não como a ação isolada de uma única artéria. Três vasos têm especial importância topográfica ao redor da escápula: a artéria supraescapular, a artéria circunflexa da escápula e a artéria dorsal da escápula. Seus ramos percorrem diferentes margens, fossas e superfícies da região escapular e participam de comunicações arteriais regionais. Além da irrigação dos músculos relacionados à escápula, ramos periosteais provenientes da vascularização regional contribuem para a irrigação do osso. A irrigação intraóssea da escápula não deve ser representada como um único vaso nutrício invariável. A distribuição dos forames nutrícios e dos pequenos ramos intraósseos pode variar entre indivíduos e entre diferentes regiões do osso. Por isso, a memória Aeternum deve distinguir: 1. vascularização regional da escápula; 2. ramos periosteais que alcançam a superfície óssea; 3. circulação intraóssea; 4. localização específica de forames nutrícios. Os três primeiros níveis podem ser representados conceitualmente neste estágio. O quarto nível exige fonte anatômica específica antes que a Aeternum declare número, posição ou vaso dominante dos forames nutrícios.",
+      "source_ids": [],
+      "fact_candidate_ids": [
+        "SCAP-KP1-AI-F009",
+        "SCAP-KP1-AI-F010",
+        "SCAP-KP1-AI-F011",
+        "SCAP-KP1-AI-F012",
+        "SCAP-KP1-AI-F013"
+      ]
+    },
+    {
+      "document_id": "DOC-SCAP-KP1-002",
+      "pack_id": "AET-KP-UL-SCAPULA-001",
+      "patch_id": "AET-KP-UL-SCAPULA-001-KP1",
+      "title": "Relações nervosas sensitivas da região escapular e do ombro",
+      "entity_ids": [
+        "scapula",
+        "glenohumeral_joint",
+        "acromioclavicular_joint",
+        "suprascapular_nerve",
+        "axillary_nerve",
+        "lateral_pectoral_nerve"
+      ],
+      "knowledge_dimensions": [
+        "NEURAL_RELATIONS"
+      ],
+      "narrative_text": "A escápula não deve ser estudada neurologicamente apenas pelas relações motoras dos músculos que nela se fixam. A região escapular participa de articulações e interfaces capsuloligamentares que recebem ramos articulares sensitivos. Na articulação glenoumeral, ramos provenientes de nervos regionais, especialmente o nervo supraescapular e o nervo axilar, participam da inervação sensitiva articular. Contribuições do nervo peitoral lateral para a região articular anterior são descritas em referências anatômicas, mas a participação exata e a distribuição capsular devem permanecer como candidato de validação até que uma fonte registrada seja incorporada à Aeternum. Na articulação acromioclavicular, ramos articulares da região supraescapular e peitoral lateral são candidatos relevantes para a inervação sensitiva da cápsula. A distribuição periosteal sensitiva específica da escápula é menos apropriada para generalização sem fonte especializada. A Aeternum deve reconhecer que o periósteo possui inervação sensitiva, mas não deve inventar um mapa de nervos nomeados para cada superfície óssea.",
+      "source_ids": [],
+      "fact_candidate_ids": [
+        "SCAP-KP1-AI-F014",
+        "SCAP-KP1-AI-F015",
+        "SCAP-KP1-AI-F016",
+        "SCAP-KP1-AI-F017",
+        "SCAP-KP1-AI-F018",
+        "SCAP-KP1-AI-F019"
+      ]
+    },
+    {
+      "document_id": "DOC-SCAP-KP1-003",
+      "pack_id": "AET-KP-UL-SCAPULA-001",
+      "patch_id": "AET-KP-UL-SCAPULA-001-KP1",
+      "title": "Variações anatômicas relevantes da escápula",
+      "entity_ids": [
+        "scapula",
+        "acromion",
+        "os_acromiale",
+        "superior_transverse_scapular_ligament"
+      ],
+      "knowledge_dimensions": [
+        "MORPHOLOGY"
+      ],
+      "narrative_text": "A escápula apresenta variações morfológicas que podem alterar sua aparência em peças anatômicas e exames de imagem. Essas variações não devem ser tratadas automaticamente como patologia. Entre as variações de interesse didático estão: 1. diferenças na morfologia do acrômio; 2. persistência de centros de ossificação não fusionados do acrômio, formando o chamado os acromiale; 3. ossificação parcial ou completa do ligamento transverso superior da escápula. Essas variações são particularmente úteis no ensino porque conectam osteologia, desenvolvimento ósseo, topografia e interpretação radiológica.",
+      "source_ids": [],
+      "fact_candidate_ids": [
+        "SCAP-KP1-AI-F001",
+        "SCAP-KP1-AI-F002",
+        "SCAP-KP1-AI-F003",
+        "SCAP-KP1-AI-F004",
+        "SCAP-KP1-AI-F005",
+        "SCAP-KP1-AI-F006",
+        "SCAP-KP1-AI-F007",
+        "SCAP-KP1-AI-F008"
+      ]
+    }
+  ],
+  "atomic_fact_candidates": [
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F001",
+      "subject": "acromion",
+      "relation": "HAS_MORPHOLOGIC_VARIANT",
+      "object_or_arguments": [
+        "bigliani_type_I_flat"
+      ],
+      "knowledge_dimension": "MORPHOLOGY",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Non-canonical eponymic classification candidate. Undersurface is flat."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F002",
+      "subject": "acromion",
+      "relation": "HAS_MORPHOLOGIC_VARIANT",
+      "object_or_arguments": [
+        "bigliani_type_II_curved"
+      ],
+      "knowledge_dimension": "MORPHOLOGY",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Non-canonical eponymic classification candidate. Undersurface is curved."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F003",
+      "subject": "acromion",
+      "relation": "HAS_MORPHOLOGIC_VARIANT",
+      "object_or_arguments": [
+        "bigliani_type_III_hooked"
+      ],
+      "knowledge_dimension": "MORPHOLOGY",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Non-canonical eponymic classification candidate. Undersurface is hooked."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F004",
+      "subject": "os_acromiale",
+      "relation": "TYPE_OF",
+      "object_or_arguments": [
+        "developmental_anatomic_variant_candidate"
+      ],
+      "knowledge_dimension": "MORPHOLOGY",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Developmental variant from non-fusion of acromial ossification center."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F005",
+      "subject": "os_acromiale",
+      "relation": "RELATED_TO",
+      "object_or_arguments": [
+        "incomplete_fusion_of_acromial_ossification_component"
+      ],
+      "knowledge_dimension": "MORPHOLOGY",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Developmental non-fusion mechanism; not acute trauma."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F006",
+      "subject": "superior_transverse_scapular_ligament",
+      "relation": "HAS_VARIANT",
+      "object_or_arguments": [
+        "partial_ossification_candidate"
+      ],
+      "knowledge_dimension": "MORPHOLOGY",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Partial ossification of ligament bridging suprascapular notch."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F007",
+      "subject": "superior_transverse_scapular_ligament",
+      "relation": "HAS_VARIANT",
+      "object_or_arguments": [
+        "complete_ossification_candidate"
+      ],
+      "knowledge_dimension": "MORPHOLOGY",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Complete ossification converting notch into an osseous foramen."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F008",
+      "subject": "complete_ossification_of_superior_transverse_scapular_ligament",
+      "relation": "MAY_FORM",
+      "object_or_arguments": [
+        "osseous_suprascapular_foramen"
+      ],
+      "knowledge_dimension": "MORPHOLOGY",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Bony foramen formation surrounding suprascapular nerve passage."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F009",
+      "subject": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "object_or_arguments": [
+        "suprascapular_artery"
+      ],
+      "knowledge_dimension": "VASCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Regional relationship across supraspinous, spinoglenoid, and infraspinous regions."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F010",
+      "subject": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "object_or_arguments": [
+        "circumflex_scapular_artery"
+      ],
+      "knowledge_dimension": "VASCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Regional relationship across lateral border, posterior region, and infraspinous fossa."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F011",
+      "subject": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "object_or_arguments": [
+        "dorsal_scapular_artery"
+      ],
+      "knowledge_dimension": "VASCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Regional relationship along medial border and deep aspects of medial muscular attachments."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F012",
+      "subject": "scapula",
+      "relation": "RECEIVES_PERIOSTEAL_SUPPLY_FROM",
+      "object_or_arguments": [
+        "regional_arterial_branches"
+      ],
+      "knowledge_dimension": "VASCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Broad periosteal contribution from regional arterial branches; no universal single artery."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F013",
+      "subject": "scapula",
+      "relation": "HAS_INTRAOSSEOUS_VASCULAR_NETWORK",
+      "object_or_arguments": [
+        "true"
+      ],
+      "knowledge_dimension": "VASCULAR_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Internal bone circulation present; precise foramina coordinates require specialized literature."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F014",
+      "subject": "glenohumeral_joint",
+      "relation": "innervated_by",
+      "object_or_arguments": [
+        "suprascapular_nerve"
+      ],
+      "knowledge_dimension": "NEURAL_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Sensory articular branches to posterosuperior glenohumeral capsule."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F015",
+      "subject": "glenohumeral_joint",
+      "relation": "innervated_by",
+      "object_or_arguments": [
+        "axillary_nerve"
+      ],
+      "knowledge_dimension": "NEURAL_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Sensory articular branches to anteroinferior glenohumeral capsule."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F016",
+      "subject": "glenohumeral_joint",
+      "relation": "POSSIBLE_ARTICULAR_CONTRIBUTION",
+      "object_or_arguments": [
+        "lateral_pectoral_nerve"
+      ],
+      "knowledge_dimension": "NEURAL_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Candidate contribution to anterior joint capsule. Confidence low to moderate; validation required."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F017",
+      "subject": "acromioclavicular_joint",
+      "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+      "object_or_arguments": [
+        "suprascapular_nerve"
+      ],
+      "knowledge_dimension": "NEURAL_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Candidate articular innervation to AC joint capsule."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F018",
+      "subject": "acromioclavicular_joint",
+      "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+      "object_or_arguments": [
+        "lateral_pectoral_nerve"
+      ],
+      "knowledge_dimension": "NEURAL_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Candidate articular branch contribution to AC joint region."
+    },
+    {
+      "fact_candidate_id": "SCAP-KP1-AI-F019",
+      "subject": "scapular_periosteum",
+      "relation": "HAS_SENSORY_INNERVATION",
+      "object_or_arguments": [
+        "true"
+      ],
+      "knowledge_dimension": "NEURAL_RELATIONS",
+      "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+      "evidence_source_ids": [],
+      "evidence_locations": [],
+      "authoring_mode": "AI_DRAFT",
+      "validation_status": "AI_DRAFT",
+      "notes": "Periosteum possesses sensory innervation; precise named nerve map requires specialized literature."
+    }
+  ],
+  "relations": [
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-001",
+      "subject": "acromion",
+      "relation": "HAS_MORPHOLOGIC_VARIANT",
+      "object": "bigliani_type_I_flat",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F001"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-002",
+      "subject": "acromion",
+      "relation": "HAS_MORPHOLOGIC_VARIANT",
+      "object": "bigliani_type_II_curved",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F002"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-003",
+      "subject": "acromion",
+      "relation": "HAS_MORPHOLOGIC_VARIANT",
+      "object": "bigliani_type_III_hooked",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F003"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-004",
+      "subject": "os_acromiale",
+      "relation": "TYPE_OF",
+      "object": "developmental_anatomic_variant_candidate",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F004"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-005",
+      "subject": "os_acromiale",
+      "relation": "RELATED_TO",
+      "object": "incomplete_fusion_of_acromial_ossification_component",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F005"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-006",
+      "subject": "superior_transverse_scapular_ligament",
+      "relation": "HAS_VARIANT",
+      "object": "partial_ossification_candidate",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F006"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-007",
+      "subject": "superior_transverse_scapular_ligament",
+      "relation": "HAS_VARIANT",
+      "object": "complete_ossification_candidate",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F007"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-008",
+      "subject": "complete_ossification_of_superior_transverse_scapular_ligament",
+      "relation": "MAY_FORM",
+      "object": "osseous_suprascapular_foramen",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F008"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-009",
+      "subject": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "object": "suprascapular_artery",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F009"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-010",
+      "subject": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "object": "circumflex_scapular_artery",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F010"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-011",
+      "subject": "scapula",
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "object": "dorsal_scapular_artery",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F011"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-012",
+      "subject": "scapula",
+      "relation": "RECEIVES_PERIOSTEAL_SUPPLY_FROM",
+      "object": "regional_arterial_branches",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F012"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-013",
+      "subject": "scapula",
+      "relation": "HAS_INTRAOSSEOUS_VASCULAR_NETWORK",
+      "object": "true",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F013"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-014",
+      "subject": "glenohumeral_joint",
+      "relation": "innervated_by",
+      "object": "suprascapular_nerve",
+      "relation_family": "innervated_by",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F014"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-015",
+      "subject": "glenohumeral_joint",
+      "relation": "innervated_by",
+      "object": "axillary_nerve",
+      "relation_family": "innervated_by",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F015"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-016",
+      "subject": "glenohumeral_joint",
+      "relation": "POSSIBLE_ARTICULAR_CONTRIBUTION",
+      "object": "lateral_pectoral_nerve",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F016"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-017",
+      "subject": "acromioclavicular_joint",
+      "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+      "object": "suprascapular_nerve",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F017"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-018",
+      "subject": "acromioclavicular_joint",
+      "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+      "object": "lateral_pectoral_nerve",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F018"
+      ]
+    },
+    {
+      "relation_candidate_id": "REL-SCAP-KP1-019",
+      "subject": "scapular_periosteum",
+      "relation": "HAS_SENSORY_INNERVATION",
+      "object": "true",
+      "relation_family": "RELATION_CANDIDATE",
+      "supporting_fact_candidate_ids": [
+        "SCAP-KP1-AI-F019"
+      ]
+    }
+  ],
+  "teaching_connections": [
+    {
+      "connection_id": "TC-SCAP-KP1-VASC-001",
+      "anchor_entity": "scapula",
+      "related_entities": [
+        "suprascapular_artery",
+        "circumflex_scapular_artery",
+        "dorsal_scapular_artery",
+        "periosteal_supply",
+        "regional_anastomotic_network"
+      ],
+      "connection_type": "VASCULAR_NETWORK",
+      "teaching_reason": "The student should understand scapular vascularization as a regional network supplying muscles, periosteum and adjacent osseous regions rather than memorizing one isolated artery as the universal nutrient vessel of the scapula.",
+      "supporting_fact_ids": [
+        "SCAP-KP1-AI-F009",
+        "SCAP-KP1-AI-F010",
+        "SCAP-KP1-AI-F011",
+        "SCAP-KP1-AI-F012",
+        "SCAP-KP1-AI-F013"
+      ],
+      "context": "Scapular peri-osseous and intraosseous multi-source arterial supply."
+    },
+    {
+      "connection_id": "TC-SCAP-KP1-NEURAL-001",
+      "anchor_entity": "glenoid_region",
+      "related_entities": [
+        "glenohumeral_joint",
+        "suprascapular_nerve",
+        "axillary_nerve",
+        "joint_capsule"
+      ],
+      "connection_type": "ARTICULAR_INNERVATION",
+      "teaching_reason": "The glenoid is not only a bony articular surface; the region must be mentally connected with the sensory innervation of the joint capsule and the nerves that travel around the shoulder.",
+      "supporting_fact_ids": [
+        "SCAP-KP1-AI-F014",
+        "SCAP-KP1-AI-F015",
+        "SCAP-KP1-AI-F016"
+      ],
+      "context": "Proprioceptive and nociceptive sensory innervation of the glenohumeral joint."
+    },
+    {
+      "connection_id": "TC-SCAP-KP1-NEURAL-002",
+      "anchor_entity": "suprascapular_notch",
+      "related_entities": [
+        "suprascapular_nerve",
+        "suprascapular_region",
+        "glenohumeral_joint_candidate_innervation"
+      ],
+      "connection_type": "NEUROVASCULAR_DUAL_FUNCTION",
+      "teaching_reason": "The same nerve that is topographically important at the scapular notch also has functional relevance to the posterior shoulder and articular region.",
+      "supporting_fact_ids": [
+        "SCAP-KP1-AI-F014",
+        "SCAP-KP1-AI-F017"
+      ],
+      "context": "Suprascapular nerve articular branching before and after notch traversal."
+    },
+    {
+      "connection_id": "TC-SCAP-KP1-VAR-001",
+      "anchor_entity": "acromion",
+      "related_entities": [
+        "acromial_shape_variation",
+        "Bigliani_classification",
+        "os_acromiale",
+        "developmental_ossification"
+      ],
+      "connection_type": "MORPHOLOGIC_VARIATION_ORGANIZER",
+      "teaching_reason": "The acromion should be taught not as a perfectly invariant process but as a region with developmental and morphologic variation relevant to specimen and imaging interpretation.",
+      "supporting_fact_ids": [
+        "SCAP-KP1-AI-F001",
+        "SCAP-KP1-AI-F002",
+        "SCAP-KP1-AI-F003",
+        "SCAP-KP1-AI-F004",
+        "SCAP-KP1-AI-F005"
+      ],
+      "context": "Acromial morphotypes (I-III) and developmental non-fusion (os acromiale)."
+    },
+    {
+      "connection_id": "TC-SCAP-KP1-VAR-002",
+      "anchor_entity": "suprascapular_notch",
+      "related_entities": [
+        "superior_transverse_scapular_ligament",
+        "ligament_ossification",
+        "osseous_foramen",
+        "suprascapular_nerve"
+      ],
+      "connection_type": "LIGAMENTOUS_OSSIFICATION_TOPOGRAPHY",
+      "teaching_reason": "A normally ligament-bridged notch can present a different osseous configuration when the ligament ossifies, directly linking variation anatomy with topographic nerve passage.",
+      "supporting_fact_ids": [
+        "SCAP-KP1-AI-F006",
+        "SCAP-KP1-AI-F007",
+        "SCAP-KP1-AI-F008"
+      ],
+      "context": "Suprascapular notch bony roof conversion and entrapment risk."
+    }
+  ],
+  "practical_memory": [],
+  "clinical_connections": [],
+  "terminology_candidates": [
+    {
+      "candidate_id": "TERM-SCAP-KP1-001",
+      "source_term": "os acromiale",
+      "classification": "DEVELOPMENTAL_VARIANT",
+      "resolution_status": "NON_CANONICAL_MORPHOLOGIC_CANDIDATE"
+    },
+    {
+      "candidate_id": "TERM-SCAP-KP1-002",
+      "source_term": "Classificação de Bigliani (Tipos I, II, III)",
+      "classification": "EPONYMIC_CLASSIFICATION",
+      "resolution_status": "NON_CANONICAL_EPONYM"
+    }
+  ],
+  "3d_mapping_candidates": [],
+  "validation_requirements": {
+    "recommended_authorities": [
+      "CANONICAL_PRIMARY",
+      "REGIONAL_ANATOMY_TEXTBOOK",
+      "CLINICAL_ANATOMY_TEXTBOOK"
+    ],
+    "cross_validation_targets": [
+      "TERMINOLOGIA_ANATOMICA_2_FIPAT",
+      "MOORE_CLINICALLY_ORIENTED_ANATOMY_8ED"
+    ]
+  },
+  "known_gaps": [
+    {
+      "gap_id": "GAP-SCAPULA_NUTRIENT_FORAMINA_PRECISE_MAPPING-001",
+      "entity_id": "scapula",
+      "missing_dimension": "vascular_supply",
+      "description": "Number variability, surface/border distribution, dominant entry sites, arterial source, population variation, and measurement references require dedicated osteological literature."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_PERIOSTEAL_NERVE_MAPPING-001",
+      "entity_id": "scapula",
+      "missing_dimension": "innervation",
+      "description": "Named nerve contributions, regional surface distribution, periosteal sensory territory, and clinical relevance require specialized neuroanatomical research."
+    },
+    {
+      "gap_id": "GAP-SCAPULA_OS_ACROMIALE_SUBTYPES-001",
+      "entity_id": "scapula",
+      "missing_dimension": "morphology",
+      "description": "Pre-acromion, meso-acromion, meta-acromion, basi-acromion subtypes, population prevalence, bilaterality rates, and imaging differentials require formal radiographic literature."
+    }
+  ]
+}

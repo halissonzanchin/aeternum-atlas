@@ -114,7 +114,10 @@ export const en = {
     "loginDescription": "Access your 3D anatomical library.",
     "registerEyebrow": "Institutional academic registration",
     "registerDescription": "Your account will be linked to the educational institution. Students are not billed individually.",
-    "recoveryPrepared": "Password recovery flow prepared for a future API.",
+    "recoveryPrepared": "Recovery instructions sent to your email.",
+    "enterEmailForRecovery": "Enter your email above to request password recovery.",
+    "recoveryEmailSent": "Password recovery instructions sent to your email. Check your inbox.",
+    "recoveryFailed": "Failed to send password recovery email.",
     "createAccountError": "The account could not be created.",
     "invalidCredentials": "Invalid email or password.",
     "loadingInstitutions": "Loading institutions...",
@@ -1606,15 +1609,16 @@ export const en = {
     "professionalProfile": "Perfil profissional",
     "governanceProfile": "Perfil de governança",
     "institutionConfigured": "Instituição vinculada pela configuração do ambiente",
-    "institutionMissing": "Instituição ainda não vinculada",
+    "tenantLinked": "Linked institutional tenant",
+    "institutionMissing": "Active academic affiliation",
     "roles": {
-      "student": "Estudante",
+      "student": "Student",
       "teacher": "Professor",
-      "coordinator": "Coordenador",
-      "rector": "Reitor",
-      "institutionAdmin": "Administrador institucional",
-      "admin": "Administrador",
-      "superAdmin": "Superadministrador"
+      "coordinator": "Coordination",
+      "rector": "Rectorate",
+      "admin": "Administration",
+      "institutionAdmin": "Institutional Admin",
+      "superAdmin": "Super Admin"
     },
     "endSession": "Log out",
     "notificationCenter": "Notification center",
@@ -1649,18 +1653,7 @@ export const en = {
       "animations": "Anatomical animations",
       "privacy": "Privacy",
       "updates": "Model updates"
-    },
-    "roles": {
-      "student": "Student",
-      "teacher": "Professor",
-      "coordinator": "Coordination",
-      "rector": "Rectorate",
-      "admin": "Administration",
-      "institutionAdmin": "Institutional Admin",
-      "superAdmin": "Super Admin"
-    },
-    "tenantLinked": "Linked institutional tenant",
-    "institutionMissing": "Active academic affiliation"
+    }
   },
   "status": {
     "ativo": "active",
@@ -1882,6 +1875,7 @@ export const en = {
     "semester": "Year/Semester",
     "studentRegistration": "Student ID",
     "country": "Country",
+    "managedByInstitution": "Managed by institutional administration.",
     "userType": "User type",
     "languagePreference": "Language preference",
     "changePassword": "Change password",

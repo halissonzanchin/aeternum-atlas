@@ -1,0 +1,285 @@
+{
+  "document_name": "EXP-UL-B2_AADS1_R1_3D_READINESS_AUDIT",
+  "phase": "AMC-1.2-R1 / EXP-UL-B2-A1.6-R1",
+  "timestamp": "2026-09-27T08:30:00Z",
+  "fabricated_3d_ids": 0,
+  "metrics": {
+    "total_structures": 38,
+    "entity_ready": 29,
+    "partial": 3,
+    "reference_only": 5,
+    "needs_propositions": 1,
+    "viewer_mapped": 0,
+    "viewer_unmapped": 38,
+    "fabricated_3d_ids": 0,
+    "metric_row_parity": true
+  },
+  "structures": [
+    {
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "None for general bone volume"
+    },
+    {
+      "entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Articular cartilage submesh delineation"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Circumferential groove demarcation"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Three facet boundary segmentation"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Medial bony prominence boundary"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Sulcus floor and crest lines"
+    },
+    {
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Topographic band below tuberosities"
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Joint center of rotation and kinematic pivot"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "MODERATE",
+      "missing_mapping_requirements": "Volumetric sleeve geometry"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-GLENOHUMERAL_SYNOVIAL_MEMBRANE",
+      "entity_readiness": "NEEDS_PROPOSITIONS",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "LOW",
+      "missing_mapping_requirements": "Synovial lining boundary representation"
+    },
+    {
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Fibrocartilaginous ring geometry"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "MODERATE",
+      "missing_mapping_requirements": "Capsular thickening ribbon model"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "MODERATE",
+      "missing_mapping_requirements": "Oblique capsular band model"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "MODERATE",
+      "missing_mapping_requirements": "Hammock band and axillary pouch representation"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "MODERATE",
+      "missing_mapping_requirements": "Coracoid base to tubercles bifurcated model"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Transverse retaining bridge model"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Composite conjoined tendon envelope"
+    },
+    {
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Multipennate belly volume"
+    },
+    {
+      "entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Supraspinous fossa muscle belly"
+    },
+    {
+      "entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Infraspinous fossa muscle belly"
+    },
+    {
+      "entity_id": "AET-ENT-REF-TERES_MINOR",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Lateral scapular border muscle belly"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Lesser tubercle footprint model"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Superior facet footprint model"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Middle facet footprint model"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Inferior facet footprint model"
+    },
+    {
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Intra-articular curved trajectory mesh"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "entity_readiness": "PARTIAL",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "MODERATE",
+      "missing_mapping_requirements": "Collapsed synovial sac geometry"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "entity_readiness": "PARTIAL",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "MODERATE",
+      "missing_mapping_requirements": "Subtendinous pocket geometry"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+      "entity_readiness": "PARTIAL",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "MODERATE",
+      "missing_mapping_requirements": "Triangular cleft boundary markup"
+    },
+    {
+      "entity_id": "AET-ENT-UL-SCAPULA",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "None"
+    },
+    {
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "None"
+    },
+    {
+      "entity_id": "AET-ENT-UL-CLAVICLE",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "None"
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-CORACOACROMIAL_ARCH",
+      "entity_readiness": "ENTITY_READY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Osteofibrous vault composite"
+    },
+    {
+      "entity_id": "AET-ENT-REF-DELTOID",
+      "entity_readiness": "REFERENCE_ONLY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Awaits EXP-UL-B4 owner batch"
+    },
+    {
+      "entity_id": "AET-ENT-REF-AXILLARY_NERVE",
+      "entity_readiness": "REFERENCE_ONLY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Awaits EXP-UL-B3 owner batch"
+    },
+    {
+      "entity_id": "AET-ENT-REF-SUPRASCAPULAR_NERVE",
+      "entity_readiness": "REFERENCE_ONLY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Awaits EXP-UL-B3 owner batch"
+    },
+    {
+      "entity_id": "AET-ENT-REF-AXILLARY_ARTERY",
+      "entity_readiness": "REFERENCE_ONLY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Awaits EXP-UL-B3 owner batch"
+    },
+    {
+      "entity_id": "AET-ENT-REF-AXILLARY_VEIN",
+      "entity_readiness": "REFERENCE_ONLY",
+      "viewer_mapping_status": "UNMAPPED",
+      "visual_readiness": "HIGH",
+      "missing_mapping_requirements": "Awaits EXP-UL-B3 owner batch"
+    }
+  ]
+}

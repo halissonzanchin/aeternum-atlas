@@ -1,0 +1,90 @@
+{
+  "batch_id": "EXP-UL-B2",
+  "generated_at": "2026-09-27T00:18:08.007Z",
+  "metrics": {
+    "total_knowledge_gaps": 9,
+    "source_gaps": 1,
+    "entity_gaps": 1,
+    "relation_gaps": 1,
+    "terminology_gaps": 1,
+    "topography_gaps": 1,
+    "practical_gaps": 1,
+    "documentary_gaps": 1,
+    "three_d_mapping_gaps": 1,
+    "academic_validation_gaps": 1
+  },
+  "gaps": [
+    {
+      "gap_id": "GAP-B2-001",
+      "category": "SOURCE_GAP",
+      "topic": "External Anglo-Saxon Textual Authorities",
+      "severity": "MODERATE",
+      "description": "Textos de Moore (Clinically Oriented Anatomy), Gray's Anatomy e Sobotta não estão fisicamente registrados no repositório; extração primária restringe-se a Latarjet T1, Nielsen Atlas e Notas de Morgue.",
+      "remediation_plan": "Manter governança rigorosa baseada nos 3 corpos físicos registrados; sinalizar conceitos anglo-saxões para validação posterior."
+    },
+    {
+      "gap_id": "GAP-B2-002",
+      "category": "ENTITY_GAP",
+      "topic": "Micro-Footprint Footprint Zones of Rotator Cuff",
+      "severity": "LOW",
+      "description": "A distinção entre as áreas mediais e laterais da inserção do supraespinal e infraespinal no tubérculo maior requer detalhamento fino durante a autoria de ChatGPT.",
+      "remediation_plan": "ChatGPT estruturará facetas superior, média e inferior preservando a granularidade sem colapsamento."
+    },
+    {
+      "gap_id": "GAP-B2-003",
+      "category": "RELATION_GAP",
+      "topic": "Biomechanical Force-Couple Relations",
+      "severity": "LOW",
+      "description": "Relações dinâmicas de equilíbrio de forças (deltoide vs manguito) carecem de tipagem relacional canônica formalizada.",
+      "remediation_plan": "Classificada como NEW_RELATION_CANDIDATE para decisão no ciclo de qualificação relacional de B2."
+    },
+    {
+      "gap_id": "GAP-B2-004",
+      "category": "TERMINOLOGY_GAP",
+      "topic": "Eponyms and Classical French/Spanish Nomenclature",
+      "severity": "MODERATE",
+      "description": "Termos amplamente utilizados nas fontes de base (troquiter, troquin, foramen de Weitbrecht, ligamento de Gordon Brodie) devem ser alinhados com a Terminologia Anatômica 2.",
+      "remediation_plan": "Classificados na tabela de reconciliação como LEGACY_TERM e KNOWN_ALIAS, preservando rastreabilidade."
+    },
+    {
+      "gap_id": "GAP-B2-005",
+      "category": "TOPOGRAPHY_GAP",
+      "topic": "Boundary Between Infraspinatus and Teres Minor",
+      "severity": "LOW",
+      "description": "A separação fascial proximal entre os ventres musculares do infraespinal e redondo menor é frequentemente contínua ou delgada na dissecção.",
+      "remediation_plan": "Documentar a continuidade perimisial proximal e a divergência tendínea distal nas facetas do tubérculo maior."
+    },
+    {
+      "gap_id": "GAP-B2-006",
+      "category": "PRACTICAL_GAP",
+      "topic": "Cadaveric Preservation of Inferior Glenohumeral Ligament Complex Bands",
+      "severity": "MODERATE",
+      "description": "Em peças anatômicas cadavéricas formais, as bandas anterior e posterior do IGHL podem fundir-se com a cápsula retraída, dificultando a demonstração isolada.",
+      "remediation_plan": "Registrar a variabilidade de dissecção cadavérica no estrato de notas práticas de Morgue."
+    },
+    {
+      "gap_id": "GAP-B2-007",
+      "category": "DOCUMENTARY_GAP",
+      "topic": "Historical Evolution of the Rotator Interval Concept",
+      "severity": "LOW",
+      "description": "A definição cirúrgica e anatômica do intervalo dos rotadores evoluiu significativamente nas últimas décadas.",
+      "remediation_plan": "Preparar dossiê documental complementar para o autor ChatGPT sintetizar no pacote documental."
+    },
+    {
+      "gap_id": "GAP-B2-008",
+      "category": "3D_MAPPING_GAP",
+      "topic": "Isolated 3D Mesh Nodes for Capsular Ligaments",
+      "severity": "MODERATE",
+      "description": "Modelos tridimensionais convencionais frequentemente agrupam a cápsula articular como malha contínua sem separar os ligamentos glenoumerais individuais.",
+      "remediation_plan": "Manter status como UNMAPPED; proibir fabricação de identificadores sintéticos de malha."
+    },
+    {
+      "gap_id": "GAP-B2-009",
+      "category": "ACADEMIC_VALIDATION_GAP",
+      "topic": "Peer Review of Propositional Truth",
+      "severity": "HIGH",
+      "description": "Proposições anatômicas de B2 ainda não foram autoradas nem validadas contra matriz cruzada de bancada.",
+      "remediation_plan": "Executar autoria proposition-level via ChatGPT na fase E1, seguida pela bateria de validação empírica E2."
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "phase": "AMC-1.2-R1 / EXP-UL-B2-A1.6-R1",
+  "timestamp": "2026-09-27T08:30:00Z",
+  "total_locators": 8,
+  "locators": [
+    {
+      "locator_id": "LOC-INST-GUIA-P03-BONE",
+      "source_id": "SRC-INST-GUIA-BOLILLERO-PDF",
+      "source_hash": "6707aeb000a8a46c0df3fb9f16d7b8d590653e93bf17ac78dfcf5e350d6fa7a7",
+      "pdf_page_number": 3,
+      "printed_page_number": 3,
+      "chapter_or_section": "¿Cómo se describen los huesos?",
+      "topic": "Osteology descriptive schema",
+      "locator_confidence": 1
+    },
+    {
+      "locator_id": "LOC-INST-GUIA-P04-MUSCLE",
+      "source_id": "SRC-INST-GUIA-BOLILLERO-PDF",
+      "source_hash": "6707aeb000a8a46c0df3fb9f16d7b8d590653e93bf17ac78dfcf5e350d6fa7a7",
+      "pdf_page_number": 4,
+      "printed_page_number": 4,
+      "chapter_or_section": "¿Cómo se describe un músculo?",
+      "topic": "Myology descriptive schema",
+      "locator_confidence": 1
+    },
+    {
+      "locator_id": "LOC-INST-GUIA-P07-JOINT",
+      "source_id": "SRC-INST-GUIA-BOLILLERO-PDF",
+      "source_hash": "6707aeb000a8a46c0df3fb9f16d7b8d590653e93bf17ac78dfcf5e350d6fa7a7",
+      "pdf_page_number": 7,
+      "printed_page_number": 7,
+      "chapter_or_section": "¿Cómo se describe una articulación?",
+      "topic": "Arthrology descriptive schema",
+      "locator_confidence": 1
+    },
+    {
+      "locator_id": "LOC-INST-BOL-P08-SCAPULA",
+      "source_id": "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+      "source_hash": "ddf87c89f88b177285a223bd7919fcc1e0fcd6d97b23cd30fb406db5584a746f",
+      "pdf_page_number": 8,
+      "printed_page_number": 8,
+      "chapter_or_section": "Bolilla 7: Escápula",
+      "topic": "Scapula osteology and girdle connections",
+      "locator_confidence": 1
+    },
+    {
+      "locator_id": "LOC-INST-BOL-P48-RTC",
+      "source_id": "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+      "source_hash": "ddf87c89f88b177285a223bd7919fcc1e0fcd6d97b23cd30fb406db5584a746f",
+      "pdf_page_number": 48,
+      "printed_page_number": 48,
+      "chapter_or_section": "Músculos del Manguito Rotador",
+      "topic": "Rotator cuff muscles insertions, innervations, actions",
+      "locator_confidence": 1
+    },
+    {
+      "locator_id": "LOC-INST-DOCX-B01-GHJ",
+      "source_id": "SRC-INST-BOLILLERO-2024-DOCX",
+      "source_hash": "6c1012c356be703c7b2d75f1869d86c614156d88831ab7c0462dcf21163e9125",
+      "docx_location": "Bolilla 1 - Aparato Osteo-artro-muscular",
+      "topic": "Articulación Glenohumeral in exam blueprint",
+      "locator_confidence": 1
+    },
+    {
+      "locator_id": "LOC-INST-DOCX-B07-HUM",
+      "source_id": "SRC-INST-BOLILLERO-2024-DOCX",
+      "source_hash": "6c1012c356be703c7b2d75f1869d86c614156d88831ab7c0462dcf21163e9125",
+      "docx_location": "Bolilla 7 - Aparato Osteo-artro-muscular",
+      "topic": "Hueso Húmero in exam blueprint (Bolilla 7)",
+      "locator_confidence": 1
+    },
+    {
+      "locator_id": "LOC-INST-DOCX-B24-RTC",
+      "source_id": "SRC-INST-BOLILLERO-2024-DOCX",
+      "source_hash": "6c1012c356be703c7b2d75f1869d86c614156d88831ab7c0462dcf21163e9125",
+      "docx_location": "Bolilla 24 - Aparato Osteo-artro-muscular",
+      "topic": "Músculo Manguito rotador in exam blueprint (Bolilla 24)",
+      "locator_confidence": 1
+    }
+  ]
+}

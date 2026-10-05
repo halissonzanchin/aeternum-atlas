@@ -1,0 +1,58 @@
+[
+  {
+    "block_id": "DOC-UL-B1-001",
+    "title": "Clavicle Architectural and Morphological Overview",
+    "qualification_status": "DOCUMENTARY_PRODUCTION_DIRECT",
+    "safe_engine_production_rule": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "block_id": "DOC-UL-B1-002",
+    "title": "Systematic Practical Orientation and Laterality of the Clavicle",
+    "qualification_status": "DOCUMENTARY_PRODUCTION_DIRECT",
+    "safe_engine_production_rule": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "block_id": "DOC-UL-B1-003",
+    "title": "Sternoclavicular Joint Architecture and Kinematics",
+    "qualification_status": "DOCUMENTARY_PRODUCTION_DIRECT",
+    "safe_engine_production_rule": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "block_id": "DOC-UL-B1-004",
+    "title": "Acromioclavicular Joint Morphology, Capsule, and Kinematics",
+    "qualification_status": "DOCUMENTARY_PRODUCTION_DIRECT",
+    "safe_engine_production_rule": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "block_id": "DOC-UL-B1-005",
+    "title": "Coracoclavicular Ligament Complex: Functional Anatomy of Conoid and Trapezoid Ligaments",
+    "qualification_status": "DOCUMENTARY_PRODUCTION_DIRECT",
+    "safe_engine_production_rule": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "block_id": "DOC-UL-B1-006",
+    "title": "Pectoral Girdle Systemic Architecture and Scapulothoracic Syssarcosis",
+    "qualification_status": "DOCUMENTARY_ATOMIC_COMPOSITION_ONLY",
+    "safe_engine_production_rule": "MUST_BE_DYNAMICALLY_SYNTHESIZED_FROM_QUALIFIED_ATOMIC_FACTS",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "block_id": "DOC-UL-B1-007",
+    "title": "Practical Cadaveric and Clinical Surface Topography of the Clavicular Region",
+    "qualification_status": "DOCUMENTARY_ATOMIC_COMPOSITION_ONLY",
+    "safe_engine_production_rule": "MUST_BE_DYNAMICALLY_SYNTHESIZED_FROM_QUALIFIED_ATOMIC_FACTS",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  }
+]

@@ -1,0 +1,210 @@
+{
+  "phase": "AETERNUM-RELEASE-R1",
+  "audit_timestamp": "2026-10-04T21:32:11.906Z",
+  "target_deployment": "Vercel Production (https://aeternumatlas.com / aeternum-atlas.vercel.app)",
+  "summary": {
+    "p0_count": 2,
+    "p1_count": 3,
+    "p2_count": 4,
+    "p3_count": 3,
+    "total_issues": 12,
+    "blocking_production": 2,
+    "must_fix_before_staging": 2,
+    "must_fix_before_production": 5,
+    "can_ship_with_limitation": 4,
+    "post_release": 3
+  },
+  "blockers": [
+    {
+      "id": "P0-01",
+      "severity": "P0",
+      "title": "Atlas AI Tutor Fails Closed (503 AI_GATEWAY_UNAVAILABLE) in Serverless Cloud",
+      "category": "AI_INFRASTRUCTURE",
+      "must_fix_before": "PRODUCTION",
+      "affected_files": [
+        "supabase/functions/ai-tutor/index.ts",
+        "packages/aeternum-vita/apps/gateway/src/index.ts",
+        "src/features/atlas-viewer/ai/atlasAITutorService.js"
+      ],
+      "description": "When running on Vercel production, user chat messages are sent to Supabase Edge Function ai-tutor. The Edge Function strictly enforces lines 905-912: requiring AETERNUM_AI_GATEWAY_URL and AETERNUM_AI_GATEWAY_TOKEN. If the gateway is unreachable (currently a local Node.js process listening on 127.0.0.1:8081 with local Ollama qwen2.5:3b), the Edge Function returns HTTP 503 AI_GATEWAY_UNAVAILABLE.",
+      "root_cause": "The AI execution path was architected as a local-first gateway depending on Halissons Windows workstation Ollama instance, without a serverless-native cloud fallback deployed to a public URL.",
+      "impact": "Zero AI Tutor functionality in production Vercel deployment; users will receive immediate service unavailable error toasts.",
+      "remediation_strategy": "Option A: Deploy Aeternum AI Gateway to a cloud container (Fly.io, Railway, Cloud Run) configured in mode=cloud_only with Gemini 3.7 Flash and configure Supabase Edge Function secrets with the public gateway URL and token. Option B (Fastest): Update the Edge Function to allow direct cloud LLM fallback using Gemini API key when gateway is unreachable, or add an intentional offline/maintenance state in the frontend without throwing generic errors."
+    },
+    {
+      "id": "P0-02",
+      "severity": "P0",
+      "title": "ESLint CI Gate Failure (15 syntax/lint errors in working tree)",
+      "category": "BUILD_CI",
+      "must_fix_before": "STAGING",
+      "affected_files": [
+        "src/i18n/translations/de.js",
+        "src/i18n/translations/en.js",
+        "src/i18n/translations/es.js",
+        "src/i18n/translations/pt.js",
+        "src/features/atlas-viewer/ai/atlasAITutorService.js",
+        "src/services/ai/aeternumBehaviorOrchestrator.js",
+        "src/services/cerebro-vita/cerebroAeternumVita.js"
+      ],
+      "description": "npm run lint fails with 15 errors and 449 warnings (exit code 1). The 15 errors include duplicate object keys (roles, institutionMissing) across all 4 translation files, unescaped quote in template string in aeternumBehaviorOrchestrator.js, and empty catch/block statements.",
+      "root_cause": "Dirty working tree edits introduced duplicate translation keys around line 1650 and syntax errors that were not lint-validated before persistence.",
+      "impact": "Any automated CI/CD pipeline or pre-commit hook enforcing eslint will block deployment builds.",
+      "remediation_strategy": "Remove duplicate keys in de.js, en.js, es.js, pt.js; fix unescaped quote in aeternumBehaviorOrchestrator.js:162; add comments to empty catch blocks."
+    },
+    {
+      "id": "P1-01",
+      "severity": "P1",
+      "title": "Password Recovery Flow is a Static Placeholder Mock",
+      "category": "AUTH",
+      "must_fix_before": "PRODUCTION",
+      "affected_files": [
+        "src/pages/login/Login.jsx",
+        "src/services/auth/authService.js"
+      ],
+      "description": "Clicking Esqueci minha senha in Login.jsx executes setMessage(t(auth.recoveryPrepared)) showing toast Fluxo de recuperacao preparado para API futura. No actual Supabase resetPasswordForEmail call or reset-password route exists.",
+      "root_cause": "Password recovery UI was stubbed out during frontend migration and never connected to Supabase Auth reset password flow.",
+      "impact": "Students and professors who forget their password cannot recover their account independently without manual database intervention.",
+      "remediation_strategy": "Implement resetPassword(email) in authService.js using supabase.auth.resetPasswordForEmail(email, { redirectTo: ... }) and add a minimal ResetPasswordPage or modal."
+    },
+    {
+      "id": "P1-02",
+      "severity": "P1",
+      "title": "Canonical Anatomical Memory (248 Facts) & Safe Engine Disconnected from Production",
+      "category": "DATA_MEMORY",
+      "must_fix_before": "PRODUCTION",
+      "affected_files": [
+        "src/services/safe-engine/safeEngine.js",
+        "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_CURRENT.json",
+        "knowledge_base/local_mirror/aeternum_anatomical_memory.db"
+      ],
+      "description": "The 248 verified canonical facts, 154 entities, and Safe Engine 0.2.0 are stored in local JSON and SQLite files and are only executed by local test scripts. Supabase production uses an older vector RAG table populated from raw textbook OCR chunks. The deterministic Safe Engine is not callable from the web app.",
+      "root_cause": "Safe Engine was developed as a local-first Node.js package (using perf_hooks and fs) and has not yet been compiled into a client bundle or Supabase Edge Function.",
+      "impact": "The production platform cannot leverage the deterministic, hallucination-free Safe Engine reasoning or the 248 canonical facts validated in B1.",
+      "remediation_strategy": "Expose Safe Engine via a Supabase Edge Function (/functions/v1/safe-engine) consuming the canonical JSON manifest, or bundle SafeKnowledgeRetriever into the frontend for instant deterministic client-side search."
+    },
+    {
+      "id": "P1-03",
+      "severity": "P1",
+      "title": "Missing Historical Supabase Migration Files in Working Tree",
+      "category": "BUILD_CI",
+      "must_fix_before": "STAGING",
+      "affected_files": [
+        "tests/learning-telemetry-contracts.test.mjs",
+        "tests/study-agenda-contracts.test.mjs",
+        "tests/vita-isolation-contracts.test.mjs",
+        "tests/vita-ocr-pipeline.test.mjs",
+        "scripts/check-supabase-p0-contracts.mjs"
+      ],
+      "description": "Running npm run test:contracts results in 5 failures (out of 100 tests) and npm run test:p0 crashes with ENOENT because the test scripts expect 6 specific historical migration .sql files in supabase/migrations/ that are absent in this branch.",
+      "root_cause": "Branch antigravity/commercial-felipe-frontend branched from an earlier base or excluded these specific SQL migration files.",
+      "impact": "Automated test suites fail, blocking maintainer merge and certification gates.",
+      "remediation_strategy": "Restore or stub the expected migration files in supabase/migrations/ from the canonical main branch or update the contract test paths."
+    },
+    {
+      "id": "P2-01",
+      "severity": "P2",
+      "title": "Silent Field Dropping on User Profile Updates",
+      "category": "FRONTEND",
+      "must_fix_before": "CAN_SHIP_WITH_LIMITATION",
+      "affected_files": [
+        "src/pages/profile/Profile.jsx",
+        "src/services/auth/authService.js"
+      ],
+      "description": "Profile.jsx provides form fields for course, semester, studentRegistration, country, and language, but submit only passes name to updateCurrentUserProfile. Changes to other fields are silently ignored.",
+      "root_cause": "updateCurrentUserProfile in authService.js was scoped to safePayload = { name: sanitizeText(updates.name) } due to strict public.users column restrictions.",
+      "impact": "Users attempting to update academic metadata receive a success notification, but only their name is updated.",
+      "remediation_strategy": "Either disable/make read-only the non-persisted fields in Profile.jsx with clear explanatory tooltips, or add the corresponding columns to public.users and update the service payload."
+    },
+    {
+      "id": "P2-02",
+      "severity": "P2",
+      "title": "Flashcards, Study Agenda, and Mural Notes Stored Exclusively in LocalStorage",
+      "category": "DATA_MEMORY",
+      "must_fix_before": "CAN_SHIP_WITH_LIMITATION",
+      "affected_files": [
+        "src/services/ai/flashcardSpacedRepetitionService.js",
+        "src/services/studyAgendaService.js",
+        "src/components/MuralModularBoard/MuralModularBoard.jsx"
+      ],
+      "description": "Spaced repetition (SM-2) review states, saved flashcard decks, study agenda calendar events, and modular notes are persisted only in the clients browser window.localStorage. They are not synchronized across devices.",
+      "root_cause": "Features were built with a client-first storage strategy to guarantee offline capability and instantaneous latency.",
+      "impact": "If a student switches from laptop to phone or clears browser cache, their custom decks and study schedule are lost.",
+      "remediation_strategy": "Acceptable for initial Vercel release under CAN_SHIP_WITH_LIMITATION (with a cloud sync indicator or backup option in settings). Future release should sync to user_flashcards and study_agenda tables."
+    },
+    {
+      "id": "P2-03",
+      "severity": "P2",
+      "title": "Missing 3D Model Cover Images / Thumbnails in Canonical Catalog",
+      "category": "FRONTEND",
+      "must_fix_before": "CAN_SHIP_WITH_LIMITATION",
+      "affected_files": [
+        "src/data/localModels.js",
+        "src/components/ModelCard/ModelCard.jsx"
+      ],
+      "description": "The 3 canonical models (corte-sagital-cranio-humano-superficial, corte-sagital-sistema-reprodutor-feminino, coracao-edicao-morgue) have empty coverImageUrl and thumbnailUrl strings. The UI falls back to letter rings.",
+      "root_cause": "Image assets were not uploaded or linked in localModels.js.",
+      "impact": "Catalog cards look unpolished compared to production commercial medical applications, though functionally 100% interactive.",
+      "remediation_strategy": "Populate thumbnailUrl and coverImageUrl in localModels.js with optimized SVG/WebP assets from public/images/models/."
+    },
+    {
+      "id": "P2-04",
+      "severity": "P2",
+      "title": "No Self-Serve Retail Checkout / Payment Gateway Integration",
+      "category": "COMMERCIAL",
+      "must_fix_before": "CAN_SHIP_WITH_LIMITATION",
+      "affected_files": [
+        "src/pages/license/License.jsx",
+        "src/services/subscriptionService.js"
+      ],
+      "description": "There is no Stripe, Asaas, or MercadoPago checkout integration in the web app. Access is strictly institutional (users must be tied to an active institution_id).",
+      "root_cause": "Aeternum Atlas is designed primarily as an enterprise B2B university SaaS platform where licenses are provisioned by institution admins.",
+      "impact": "Retail/individual medical students cannot self-subscribe with a credit card or PIX.",
+      "remediation_strategy": "Display a clear Contact Sales / Falar com consultor modal for individual users and preserve institutional licensing for release."
+    },
+    {
+      "id": "P3-01",
+      "severity": "P3",
+      "title": "Large Single Javascript Bundle (2.3 MB) Without Route Code-Splitting",
+      "category": "BUILD_CI",
+      "must_fix_before": "POST_RELEASE",
+      "affected_files": [
+        "src/App.jsx",
+        "vite.config.js"
+      ],
+      "description": "Vite build outputs a single index-*.js chunk of 2,305 kB (gzip: 660 kB) exceeding the 500 kB chunk warning threshold.",
+      "root_cause": "All page components in App.jsx are statically imported instead of using React.lazy().",
+      "impact": "Slightly longer initial page load time on slow mobile 3G/4G connections.",
+      "remediation_strategy": "Wrap heavy secondary pages (RectorDashboard, AdministrativeOperationsPage, Teacher, LessonPlayerPage) in React.lazy() and React.Suspense."
+    },
+    {
+      "id": "P3-02",
+      "severity": "P3",
+      "title": "Direct backdrop-filter Declarations Violating A26 Glass Contract",
+      "category": "FRONTEND",
+      "must_fix_before": "POST_RELEASE",
+      "affected_files": [
+        "src/styles/globals.css",
+        "src/styles/CrystalGlassSystem.css",
+        "src/features/atlas-viewer/ai/AtlasAIConversation.css"
+      ],
+      "description": "npm run test:a26-glass fails due to hardcoded backdrop-filter declarations exceeding the baseline.",
+      "root_cause": "Direct CSS backdrop-filter rules were applied in custom stylesheets instead of utilizing canonical A26Surface components.",
+      "impact": "Zero functional impact on users; strictly a design token contract compliance warning.",
+      "remediation_strategy": "Refactor raw CSS rules to use the A26Surface token system."
+    },
+    {
+      "id": "P3-03",
+      "severity": "P3",
+      "title": "Secondary Academic Modules (/videos, /courses, /radiology) Render Empty States",
+      "category": "FRONTEND",
+      "must_fix_before": "POST_RELEASE",
+      "affected_files": [
+        "src/pages/student/StudentLearningPage.jsx"
+      ],
+      "description": "Routes like /videos, /courses, /classes, /radiology display honest empty state banners explaining that institutional content has not yet been published, directing users back to /models.",
+      "root_cause": "These modules are planned for future curriculum releases and have no database backend yet.",
+      "impact": "Zero regression or data loss; students understand the feature is upcoming.",
+      "remediation_strategy": "Retain current honest UX or temporarily remove links from navigation if desired."
+    }
+  ]
+}

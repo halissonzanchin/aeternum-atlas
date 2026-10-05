@@ -1,0 +1,198 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R1",
+  "artifact_type": "ARCHITECTURE_DEPENDENCY_GRAPH",
+  "generated_at": "2026-10-04T22:26:00Z",
+  "graph_metadata": {
+    "version": "1.0.0",
+    "architecture_tier": "SOVEREIGN_CLOUD_AI_HYBRID",
+    "root_authority": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+  },
+  "nodes": [
+    {
+      "id": "node_browser",
+      "label": "Browser Client",
+      "environment": "Public Internet (Vercel SPA)",
+      "classification": "PRODUCTION_READY",
+      "handles_secrets": false
+    },
+    {
+      "id": "node_frontend_service",
+      "label": "atlasAITutorService",
+      "environment": "Browser Runtime",
+      "classification": "PRODUCTION_READY",
+      "handles_secrets": false
+    },
+    {
+      "id": "node_edge_function",
+      "label": "ai-tutor Edge Function",
+      "environment": "Supabase Deno Edge",
+      "classification": "CLOUD_READY",
+      "handles_secrets": true
+    },
+    {
+      "id": "node_safe_engine",
+      "label": "Deterministic Safe Engine",
+      "environment": "Embedded Deno (Edge Runtime)",
+      "classification": "CLOUD_READY_AFTER_PORT",
+      "handles_secrets": false
+    },
+    {
+      "id": "node_canonical_memory",
+      "label": "Canonical Memory V0.2.2",
+      "environment": "Dual Residence (In-Memory Deno + Git Mirror)",
+      "classification": "PRODUCTION_READY",
+      "handles_secrets": false
+    },
+    {
+      "id": "node_database_rag",
+      "label": "Supabase PostgreSQL RAG",
+      "environment": "Supabase Production Cloud",
+      "classification": "PRODUCTION_READY",
+      "handles_secrets": false
+    },
+    {
+      "id": "node_ai_gateway",
+      "label": "Aeternum AI Gateway",
+      "environment": "Managed Container (Render / Cloud Run)",
+      "classification": "CLOUD_READY_AFTER_PORT",
+      "handles_secrets": true
+    },
+    {
+      "id": "node_cloud_llm",
+      "label": "Cloud LLM Provider (Gemini Flash)",
+      "environment": "Google Cloud AI API",
+      "classification": "PRODUCTION_READY",
+      "handles_secrets": true
+    },
+    {
+      "id": "node_telemetry",
+      "label": "Telemetry & Audit Logger",
+      "environment": "Supabase PostgreSQL (ai_audit_events)",
+      "classification": "PRODUCTION_READY",
+      "handles_secrets": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "node_browser",
+      "target": "node_frontend_service",
+      "type": "USER_INTERACTION",
+      "protocol": "INTERNAL_REACT_DISPATCH",
+      "payload": "Student anatomical query + viewer 3D context"
+    },
+    {
+      "source": "node_frontend_service",
+      "target": "node_edge_function",
+      "type": "HTTP_REQUEST",
+      "protocol": "HTTPS_POST",
+      "auth": "Bearer Supabase User JWT",
+      "payload": "Sanitized query + visual markers + conversationId"
+    },
+    {
+      "source": "node_edge_function",
+      "target": "node_safe_engine",
+      "type": "INTERNAL_CALL",
+      "protocol": "IN_MEMORY_ESM",
+      "payload": "Normalized query string"
+    },
+    {
+      "source": "node_safe_engine",
+      "target": "node_canonical_memory",
+      "type": "LOOKUP",
+      "protocol": "IN_MEMORY_MAP_QUERY",
+      "payload": "231 safe qualified facts + 154 registered entities"
+    },
+    {
+      "source": "node_edge_function",
+      "target": "node_database_rag",
+      "type": "RPC_QUERY",
+      "protocol": "POSTGRES_INTERNAL_RPC",
+      "payload": "match_vita_sovereign_knowledge(query, entities, match_count=4)",
+      "condition": "Invoked only if canonical facts need secondary textbook elaboration"
+    },
+    {
+      "source": "node_edge_function",
+      "target": "node_ai_gateway",
+      "type": "HTTP_REQUEST",
+      "protocol": "HTTPS_POST_SSE",
+      "auth": "Bearer AETERNUM_AI_GATEWAY_TOKEN",
+      "payload": "generate({ user_query, canonical_context, source_context })",
+      "condition": "Invoked only when query requires natural language synthesis"
+    },
+    {
+      "source": "node_ai_gateway",
+      "target": "node_cloud_llm",
+      "type": "API_DISPATCH",
+      "protocol": "HTTPS_STREAM",
+      "auth": "Server Secret API Key",
+      "payload": "Sanitized prompt bounded by canonical grounding"
+    },
+    {
+      "source": "node_cloud_llm",
+      "target": "node_ai_gateway",
+      "type": "RESPONSE_STREAM",
+      "protocol": "SSE_CHUNKS",
+      "payload": "Raw delta tokens"
+    },
+    {
+      "source": "node_ai_gateway",
+      "target": "node_edge_function",
+      "type": "RESPONSE_STREAM",
+      "protocol": "SSE_CHUNKS",
+      "payload": "Validated delta text"
+    },
+    {
+      "source": "node_edge_function",
+      "target": "node_telemetry",
+      "type": "AUDIT_PERSIST",
+      "protocol": "POSTGRES_INSERT",
+      "payload": "ai_messages + ai_audit_events record"
+    },
+    {
+      "source": "node_edge_function",
+      "target": "node_frontend_service",
+      "type": "STREAM_DELIVERY",
+      "protocol": "SSE_TEXT_EVENT_STREAM",
+      "payload": "Sanitized text chunks + [ACTION] token + citations"
+    }
+  ],
+  "security_boundaries": [
+    {
+      "boundary_name": "AUTH_BOUNDARY",
+      "location": "Supabase Edge Function Ingress",
+      "enforcement": "supabase.auth.getUser() validating active JWT session",
+      "rate_limit_enforcement": "consume_ai_rate_limit(user_id)"
+    },
+    {
+      "boundary_name": "SECRET_BOUNDARY",
+      "location": "Edge-to-Gateway & Gateway-to-Provider",
+      "enforcement": "Bearer token with crypto.timingSafeEqual; zero keys in browser"
+    },
+    {
+      "boundary_name": "SOVEREIGN_MEMORY_BOUNDARY",
+      "location": "Safe Engine Grounding Gate",
+      "enforcement": "Only Tier A Canonical Facts (Memory 0.2.2) can form deterministic foundation; B2 quarantined"
+    }
+  ],
+  "fail_safe_branches": [
+    {
+      "trigger": "Deterministic Canonical Match",
+      "path": "node_safe_engine -> node_edge_function -> node_frontend_service",
+      "bypasses": ["node_ai_gateway", "node_cloud_llm", "node_database_rag"],
+      "latency_target": "< 50ms",
+      "token_cost": 0
+    },
+    {
+      "trigger": "False Premise Detected",
+      "path": "node_safe_engine (SAFE_FAILURE_FALSE_PREMISE) -> node_edge_function -> node_frontend_service",
+      "bypasses": ["node_ai_gateway", "node_cloud_llm"],
+      "latency_target": "< 30ms",
+      "token_cost": 0
+    },
+    {
+      "trigger": "Gateway / Cloud LLM Timeout",
+      "path": "node_edge_function -> DEGRADED_DETERMINISTIC fallback -> node_frontend_service",
+      "timeout_threshold_ms": 15000
+    }
+  ]
+}

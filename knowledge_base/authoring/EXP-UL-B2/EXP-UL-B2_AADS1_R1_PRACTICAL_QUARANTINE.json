@@ -1,0 +1,56 @@
+{
+  "document_name": "EXP-UL-B2_AADS1_R1_PRACTICAL_QUARANTINE",
+  "phase": "AMC-1.2-R1 / EXP-UL-B2-A1.6-R1",
+  "timestamp": "2026-09-27T08:30:00Z",
+  "total_quarantined_items": 4,
+  "metrics": {
+    "quarantined_count": 4
+  },
+  "quarantined_items": [
+    {
+      "quarantine_id": "QUAR-PRAC-001",
+      "original_id": "PRAC-GAP-003",
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+      "unsupported_claims": [
+        "Rotator interval arthroscopic portal classification",
+        "Clavipectoral fascia surgical incision protocol",
+        "Operative division risks"
+      ],
+      "quarantine_reason": "Surgical approach and arthroscopic portal claims lack institutional or textbook evidence locators in B2 evidence substrate.",
+      "practical_status": "UNSUPPORTED_DRAFT_QUARANTINED"
+    },
+    {
+      "quarantine_id": "QUAR-PRAC-002",
+      "original_id": "PRAC-GAP-006",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "unsupported_claims": [
+        "'Three sisters' anterior circumflex vessel surgical landmark",
+        "Subscapularis tenotomy operative recommendations"
+      ],
+      "quarantine_reason": "Surgical tenotomy landmarks and colloquial operative designations are not grounded in registered B2 anatomical sources.",
+      "practical_status": "UNSUPPORTED_DRAFT_QUARANTINED"
+    },
+    {
+      "quarantine_id": "QUAR-PRAC-003",
+      "original_id": "PRAC-GAP-007",
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "unsupported_claims": [
+        "Codman critical avascular zone measured at exactly 1 cm proximal to insertion",
+        "Anteroinferior acromial spur impingement pathology"
+      ],
+      "quarantine_reason": "Specific centimeter distance (1 cm) and pathology assertions require dedicated clinical/surgical source qualification.",
+      "practical_status": "UNSUPPORTED_DRAFT_QUARANTINED"
+    },
+    {
+      "quarantine_id": "QUAR-PRAC-004",
+      "original_id": "PRAC-GAP-002-SURGICAL-SUBSET",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "unsupported_claims": [
+        "Axillary nerve measured exactly 5 cm distal to lateral acromion",
+        "Deltoid-splitting incision risk parameters"
+      ],
+      "quarantine_reason": "Exact metric distance (5 cm) and surgical incision technique are unsourced in B2 morgue notes.",
+      "practical_status": "UNSUPPORTED_DRAFT_QUARANTINED"
+    }
+  ]
+}

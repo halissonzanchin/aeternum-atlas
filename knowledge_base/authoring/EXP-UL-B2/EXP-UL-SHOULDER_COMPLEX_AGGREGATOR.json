@@ -1,0 +1,207 @@
+{
+  "region_id": "AET-REG-UL-SHOULDER-COMPLEX",
+  "region_name": "Shoulder Complex / Complejo del Hombro",
+  "classification": "REGIONAL_AGGREGATOR_LAYER",
+  "canonical_pack": false,
+  "description": "Topographic, biomechanical, and multi-pack connective layer aggregating osteological, arthrological, myological, and neurovascular ownership across the shoulder girdle and proximal arm.",
+  "phase": "AMC-1.2 / EXP-UL-B2-A1.6",
+  "timestamp": "2026-09-27T02:30:00Z",
+  "included_packs": [
+    {
+      "pack_id": "EXP-UL-B1",
+      "domain": "CÍNGULO DO MEMBRO SUPERIOR",
+      "scope": "Clavícula, Escápula e Articulações Acromioclavicular e Esternoclavicular",
+      "status": "CANONICAL_CERTIFIED",
+      "canonical_facts": 129
+    },
+    {
+      "pack_id": "EXP-UL-B2",
+      "domain": "HÚMERO PROXIMAL E ARTICULAÇÃO GLENOUMERAL",
+      "scope": "Húmero Proximal, Articulação Glenoumeral, Manguito Rotador e Integração do Ombro",
+      "status": "EVIDENCE_SUBSTRATE_VERIFIED",
+      "canonical_facts": 0
+    }
+  ],
+  "supporting_packs": [
+    {
+      "pack_id": "AET-KP-UL-SCAPULA-001",
+      "domain": "ESCÁPULA PILOTO",
+      "scope": "Escápula e Acidentes Ósseos",
+      "status": "CANONICAL_CERTIFIED",
+      "canonical_facts": 119
+    }
+  ],
+  "future_dependencies": [
+    {
+      "dependency_id": "EXP-UL-B3",
+      "domain": "AXILA E CONTEÚDO NEUROVASCULAR",
+      "scope": "Fossa Axilar, Canal Cérvico-Axilar, Artéria e Veia Axilares, Plexo Braquial e Nervo Axilar",
+      "status": "PLANNED"
+    },
+    {
+      "dependency_id": "EXP-UL-B4_FUTURE",
+      "domain": "MUSCULATURA AXIOAPENDICULAR E DELTOIDEA",
+      "scope": "M. Deltoide, M. Peitoral Maior, M. Peitoral Menor, M. Trapézio",
+      "status": "PLANNED"
+    }
+  ],
+  "entities": {
+    "total_entities_referenced": 48,
+    "b1_scapula_entities": [
+      "AET-ENT-UL-CLAVICLE",
+      "AET-ENT-UL-SCAPULA",
+      "AET-ENT-UL-SCAPULAR_SPINE",
+      "AET-ENT-UL-SCAPULAR_ACROMION",
+      "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "AET-ENT-UL-CORACOACROMIAL_LIGAMENT",
+      "AET-ENT-UL-CORACOCLAVICULAR_LIGAMENTS",
+      "AET-ENT-UL-TRAPEZOID_LIGAMENT",
+      "AET-ENT-UL-CONOID_LIGAMENT"
+    ],
+    "b2_proximal_humerus_entities": [
+      "AET-ENT-REF-HUMERUS",
+      "AET-ENT-REF-HUMERAL_HEAD",
+      "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "AET-ENT-REF-SURGICAL_NECK_HUMERUS"
+    ],
+    "b2_glenohumeral_entities": [
+      "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+      "AET-ENT-CAND-UL-GLENOHUMERAL_SYNOVIAL_MEMBRANE",
+      "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT"
+    ],
+    "b2_rotator_cuff_entities": [
+      "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "AET-ENT-REF-SUBSCAPULARIS",
+      "AET-ENT-REF-SUPRASPINATUS",
+      "AET-ENT-REF-INFRASPINATUS",
+      "AET-ENT-REF-TERES_MINOR",
+      "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "AET-ENT-CAND-UL-ROTATOR_CUFF_FOOTPRINT"
+    ],
+    "b2_integration_entities": [
+      "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+      "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "AET-ENT-CAND-UL-CORACOACROMIAL_ARCH",
+      "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD"
+    ],
+    "b3_future_boundary_entities": [
+      "AET-ENT-DEP-UL-AXILLARY_FOSSA",
+      "AET-ENT-DEP-UL-CERVICOAXILLARY_CANAL",
+      "AET-ENT-REF-AXILLARY_ARTERY",
+      "AET-ENT-REF-AXILLARY_VEIN",
+      "AET-ENT-REF-BRACHIAL_PLEXUS",
+      "AET-ENT-REF-AXILLARY_NERVE",
+      "AET-ENT-REF-SUPRASCAPULAR_NERVE"
+    ],
+    "future_outer_musculature_entities": [
+      "AET-ENT-REF-DELTOID",
+      "AET-ENT-DEP-UL-PECTORALIS_MAJOR",
+      "AET-ENT-DEP-UL-PECTORALIS_MINOR",
+      "AET-ENT-DEP-UL-TRAPEZIUS"
+    ]
+  },
+  "relations": {
+    "certified_cross_pack_relations": [
+      {
+        "relation_type": "articulates_with",
+        "source_entity": "AET-ENT-REF-HUMERAL_HEAD",
+        "target_entity": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+        "joint": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+        "status": "RELATION_CERTIFIED"
+      },
+      {
+        "relation_type": "deepens",
+        "source_entity": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+        "target_entity": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+        "joint": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+        "status": "RELATION_CERTIFIED"
+      }
+    ],
+    "candidate_cross_pack_relations": [
+      {
+        "relation_type": "traversed_by",
+        "source_entity": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+        "target_entity": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+        "status": "RELATION_CANDIDATE"
+      },
+      {
+        "relation_type": "forms_force_couple_with",
+        "source_entity": "AET-ENT-REF-DELTOID",
+        "target_entity": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+        "status": "RELATION_CANDIDATE"
+      },
+      {
+        "relation_type": "buffers",
+        "source_entity": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+        "target_entity": "AET-ENT-CAND-UL-CORACOACROMIAL_ARCH",
+        "status": "RELATION_CANDIDATE"
+      },
+      {
+        "relation_type": "communicates_with",
+        "source_entity": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+        "target_entity": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+        "status": "RELATION_CANDIDATE"
+      }
+    ]
+  },
+  "topographic_interfaces": [
+    {
+      "interface_id": "IFACE-SHOULDER-001",
+      "name": "Glenohumeral Articular Interface",
+      "boundary": "Scapular Glenoid Cavity & Labrum (B1) <-> Humeral Head (B2)",
+      "mechanical_function": "Multiaxial spheroidal articulation, dynamic labral seal and concavity compression"
+    },
+    {
+      "interface_id": "IFACE-SHOULDER-002",
+      "name": "Coracoacromial / Subacromial Space Interface",
+      "boundary": "Coracoacromial Arch (B1) <-> Subacromial-Subdeltoid Bursa & Supraspinatus Tendon (B2)",
+      "mechanical_function": "Suprahumeral glide ceiling preventing superior humeral migration; critical impingement zone"
+    },
+    {
+      "interface_id": "IFACE-SHOULDER-003",
+      "name": "Rotator Interval & Bicipital Groove Interface",
+      "boundary": "Supraspinatus & Subscapularis Margins (B2) <-> Intertubercular Sulcus & Long Head Biceps Tendon (B2/B3)",
+      "mechanical_function": "Anterosuperior capsuloligamentous restraint and pulley mechanism for LH biceps"
+    },
+    {
+      "interface_id": "IFACE-SHOULDER-004",
+      "name": "Axillary Fossa Lateral Wall Interface",
+      "boundary": "Intertubercular Sulcus, Subscapularis & Surgical Neck (B2) <-> Axillary Sheath & Neurovascular Elements (B3)",
+      "mechanical_function": "Topographic transit of circumflex vessels and axillary nerve around surgical neck"
+    },
+    {
+      "interface_id": "IFACE-SHOULDER-005",
+      "name": "Cervicoaxillary Inlet Interface",
+      "boundary": "Clavicle & Subclavius (B1) <-> 1st Rib / Cervicothoracic Aperture <-> Axillary Apex (B3)",
+      "mechanical_function": "Root-to-terminal neurovascular conduit entering the upper limb"
+    }
+  ],
+  "coverage_summary": {
+    "total_canonical_facts": 248,
+    "scapula_facts": 119,
+    "b1_facts": 129,
+    "b2_propositions_authored": 0,
+    "b2_evidence_substrate_units": 29,
+    "b2_source_locators": 38,
+    "b2_entity_seeds": 42,
+    "b3_dependencies_mapped": 5,
+    "future_packs_mapped": 2,
+    "aggregation_integrity_verified": true
+  }
+}

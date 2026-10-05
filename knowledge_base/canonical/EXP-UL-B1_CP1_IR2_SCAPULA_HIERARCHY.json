@@ -1,0 +1,199 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR2",
+  "root_entity": "AET-ENT-UL-SCAPULA",
+  "root_name": "Scapula",
+  "hierarchy_nodes_count": 43,
+  "disaggregated_subentities_count": 19,
+  "structural_components": [
+    {
+      "parent": "AET-ENT-UL-SCAPULA",
+      "children": [
+        {
+          "id": "AET-ENT-UL-INFERIOR_SCAPULAR_REGION",
+          "name": "Inferior Scapular Region",
+          "type": "REGION_OF"
+        },
+        {
+          "id": "AET-ENT-UL-POSTERIOR_SCAPULAR_REGION",
+          "name": "Posterior Scapular Region",
+          "type": "REGION_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_ACROMION",
+          "name": "Acromion",
+          "type": "PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+          "name": "Coracoid Process",
+          "type": "PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_SPINE",
+          "name": "Spine of Scapula",
+          "type": "PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+          "name": "Glenoid Cavity",
+          "type": "PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+          "name": "Medial Border",
+          "type": "BORDER_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_LATERAL_BORDER",
+          "name": "Lateral Border",
+          "type": "BORDER_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_SUPERIOR_BORDER",
+          "name": "Superior Border",
+          "type": "BORDER_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_INFERIOR_ANGLE",
+          "name": "Inferior Angle",
+          "type": "PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_SUPERIOR_ANGLE",
+          "name": "Superior Angle",
+          "type": "PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_LATERAL_ANGLE",
+          "name": "Lateral Angle",
+          "type": "PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "children": [
+        {
+          "id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS_APEX",
+          "name": "Apex of Coracoid Process",
+          "type": "LANDMARK_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS_MEDIAL_BORDER",
+          "name": "Medial Border of Coracoid Process",
+          "type": "BORDER_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS_POSTERIOR_BASE",
+          "name": "Posterior Base of Coracoid Process",
+          "type": "PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS_SUPERIOR_SURFACE_HORIZONTAL_SEGMENT",
+          "name": "Superior Surface Horizontal Segment",
+          "type": "SURFACE_PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-SCAPULAR_SPINE",
+      "children": [
+        {
+          "id": "AET-ENT-UL-SCAPULAR_SPINE_SUPERIOR_LIP",
+          "name": "Superior Lip of Scapular Spine",
+          "type": "BORDER_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_SPINE_INFERIOR_LIP",
+          "name": "Inferior Lip of Scapular Spine",
+          "type": "BORDER_PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "children": [
+        {
+          "id": "AET-ENT-UL-SCAPULAR_SUPRAGLENOID_REGION",
+          "name": "Supraglenoid Region",
+          "type": "LANDMARK_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "children": [
+        {
+          "id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER_AT_SPINE_LEVEL",
+          "name": "Medial Border at Spine Level",
+          "type": "BORDER_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER_COSTAL_ASPECT",
+          "name": "Costal Aspect of Medial Border",
+          "type": "SURFACE_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER_INFERIOR_TO_SPINE",
+          "name": "Medial Border Inferior to Spine",
+          "type": "BORDER_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER_NEAR_SPINE_ROOT",
+          "name": "Medial Border Near Spine Root",
+          "type": "BORDER_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER_TO_INFERIOR_ANGLE",
+          "name": "Medial Border to Inferior Angle",
+          "type": "BORDER_PART_OF"
+        },
+        {
+          "id": "AET-ENT-UL-SCAPULAR_SUPERIOR_MEDIAL_BORDER",
+          "name": "Superior Medial Border",
+          "type": "BORDER_PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-SCAPULAR_LATERAL_BORDER",
+      "children": [
+        {
+          "id": "AET-ENT-UL-SCAPULAR_LATERAL_BORDER_DORSAL_ASPECT",
+          "name": "Dorsal Aspect of Lateral Border",
+          "type": "SURFACE_PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-SCAPULAR_INFERIOR_ANGLE",
+      "children": [
+        {
+          "id": "AET-ENT-UL-SCAPULAR_INFERIOR_ANGLE_DORSAL_ASPECT",
+          "name": "Dorsal Aspect of Inferior Angle",
+          "type": "SURFACE_PART_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-SCAPULAR_SUPRASCAPULAR_NOTCH",
+      "children": [
+        {
+          "id": "AET-ENT-UL-SCAPULAR_SUPRASCAPULAR_NOTCH_REGION",
+          "name": "Suprascapular Notch Region",
+          "type": "REGION_OF"
+        }
+      ]
+    },
+    {
+      "parent": "AET-ENT-UL-SCAPULAR_ACROMION",
+      "children": [
+        {
+          "id": "AET-ENT-UL-SCAPULAR_ACROMIAL_FACET",
+          "name": "Acromial Facet of Scapula",
+          "type": "LANDMARK_OF"
+        }
+      ]
+    }
+  ]
+}

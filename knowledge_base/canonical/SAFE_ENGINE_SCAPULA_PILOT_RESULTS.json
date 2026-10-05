@@ -1,0 +1,1674 @@
+{
+  "metadata": {
+    "engine_version": "AETERNUM-SAFE-ENGINE-0.1.0-SCAPULA-PILOT",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+    "pack_id": "AET-KP-UL-SCAPULA-001",
+    "total_executions": 88,
+    "in_scope_success_rate": "100.0%",
+    "safe_failure_rate": "100.0%"
+  },
+  "results": [
+    {
+      "test_id": "TEST-MF-001",
+      "category": "MICRO_FACT",
+      "query": "Qual é a classificação morfológica da escápula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 11.536,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular. A escápula é um osso plano...."
+    },
+    {
+      "test_id": "TEST-MF-001",
+      "category": "MICRO_FACT",
+      "query": "Qual é a classificação morfológica da escápula?",
+      "depth": "CONTEXTUAL",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_CONTEXTUAL_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 4.746,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular.\n\nTopograficamente: A escápula é um osso plano. A ..."
+    },
+    {
+      "test_id": "TEST-MF-001",
+      "category": "MICRO_FACT",
+      "query": "Qual é a classificação morfológica da escápula?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.01,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular.\n\nTopograficamente: A escápula é um osso plano. A ..."
+    },
+    {
+      "test_id": "TEST-MF-002",
+      "category": "MICRO_FACT",
+      "query": "A escápula é um osso plano?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 3.367,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular. A escápula é um osso plano...."
+    },
+    {
+      "test_id": "TEST-MF-003",
+      "category": "MICRO_FACT",
+      "query": "A omoplata é um osso par?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.055,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular. A escápula é um osso plano...."
+    },
+    {
+      "test_id": "TEST-MF-004",
+      "category": "MICRO_FACT",
+      "query": "A escápula tem formato triangular?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.877,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular. A escápula é um osso plano...."
+    },
+    {
+      "test_id": "TEST-MF-005",
+      "category": "MICRO_FACT",
+      "query": "Quantas faces possui a escápula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-009",
+        "AET-CF-SCAP-011"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.987,
+      "response_preview": "A face anterior ou costal da escápula é descrita como côncava. A face posterior ou dorsal da escápul..."
+    },
+    {
+      "test_id": "TEST-MF-006",
+      "category": "MICRO_FACT",
+      "query": "Quantas margens tem a escápula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.914,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular. A escápula é um osso plano...."
+    },
+    {
+      "test_id": "TEST-MF-007",
+      "category": "MICRO_FACT",
+      "query": "Quantos ângulos são descritos na escápula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-021",
+        "AET-CF-SCAP-023"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.11,
+      "response_preview": "O músculo romboide maior relaciona-se com a borda medial em direção ao ângulo inferior. A escápula p..."
+    },
+    {
+      "test_id": "TEST-MF-008",
+      "category": "MICRO_FACT",
+      "query": "A escápula faz parte de qual cíngulo?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.993,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular. A escápula é um osso plano...."
+    },
+    {
+      "test_id": "TEST-MF-009",
+      "category": "MICRO_FACT",
+      "query": "Quais são as três margens da escápula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.863,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular. A escápula é um osso plano...."
+    },
+    {
+      "test_id": "TEST-MF-009",
+      "category": "MICRO_FACT",
+      "query": "Quais são as três margens da escápula?",
+      "depth": "CONTEXTUAL",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_CONTEXTUAL_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.087,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular.\n\nTopograficamente: A escápula é um osso plano. A ..."
+    },
+    {
+      "test_id": "TEST-MF-009",
+      "category": "MICRO_FACT",
+      "query": "Quais são as três margens da escápula?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.477,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular.\n\nTopograficamente: A escápula é um osso plano. A ..."
+    },
+    {
+      "test_id": "TEST-MF-010",
+      "category": "MICRO_FACT",
+      "query": "Quais são as duas faces da escápula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-009",
+        "AET-CF-SCAP-011"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 2.05,
+      "response_preview": "A face anterior ou costal da escápula é descrita como côncava. A face posterior ou dorsal da escápul..."
+    },
+    {
+      "test_id": "TEST-REL-001",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se origina na fossa supraespinosa?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-075",
+        "AET-CF-SCAP-012"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.113,
+      "response_preview": "O músculo supraespinoso origina-se na fossa supraespinosa. A face posterior identifica a fossa supra..."
+    },
+    {
+      "test_id": "TEST-REL-001",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se origina na fossa supraespinosa?",
+      "depth": "CONTEXTUAL",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_CONTEXTUAL_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-075",
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-032",
+        "AET-CF-SCAP-061"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.365,
+      "response_preview": "O músculo supraespinoso origina-se na fossa supraespinosa.\n\nTopograficamente: A face posterior ident..."
+    },
+    {
+      "test_id": "TEST-REL-001",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se origina na fossa supraespinosa?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-075",
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-032",
+        "AET-CF-SCAP-061"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.052,
+      "response_preview": "O músculo supraespinoso origina-se na fossa supraespinosa.\n\nTopograficamente: A face posterior ident..."
+    },
+    {
+      "test_id": "TEST-REL-002",
+      "category": "RELATION_QUERY",
+      "query": "o supra espinhoso começa onde?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 1,
+      "used_fact_ids": [
+        "AET-CF-SCAP-075"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.875,
+      "response_preview": "O músculo supraespinoso origina-se na fossa supraespinosa...."
+    },
+    {
+      "test_id": "TEST-REL-003",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se origina na fossa infraespinosa?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-076",
+        "AET-CF-SCAP-013"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.822,
+      "response_preview": "O músculo infraespinoso origina-se na fossa infraespinosa. A face posterior identifica a fossa infra..."
+    },
+    {
+      "test_id": "TEST-REL-003",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se origina na fossa infraespinosa?",
+      "depth": "CONTEXTUAL",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_CONTEXTUAL_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-076",
+        "AET-CF-SCAP-013",
+        "AET-CF-SCAP-033",
+        "AET-CF-SCAP-061"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.269,
+      "response_preview": "O músculo infraespinoso origina-se na fossa infraespinosa.\n\nTopograficamente: A face posterior ident..."
+    },
+    {
+      "test_id": "TEST-REL-003",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se origina na fossa infraespinosa?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-076",
+        "AET-CF-SCAP-013",
+        "AET-CF-SCAP-033",
+        "AET-CF-SCAP-061"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.748,
+      "response_preview": "O músculo infraespinoso origina-se na fossa infraespinosa.\n\nTopograficamente: A face posterior ident..."
+    },
+    {
+      "test_id": "TEST-REL-004",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se insere na fossa subescapular?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-074",
+        "AET-CF-SCAP-010"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.727,
+      "response_preview": "O músculo subescapular origina-se na fossa subescapular. A face anterior ou costal abriga a fossa su..."
+    },
+    {
+      "test_id": "TEST-REL-004",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se insere na fossa subescapular?",
+      "depth": "CONTEXTUAL",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_CONTEXTUAL_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-074",
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-030",
+        "AET-CF-SCAP-062"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.746,
+      "response_preview": "O músculo subescapular origina-se na fossa subescapular.\n\nTopograficamente: A face anterior ou costa..."
+    },
+    {
+      "test_id": "TEST-REL-004",
+      "category": "RELATION_QUERY",
+      "query": "Qual músculo se insere na fossa subescapular?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-074",
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-030",
+        "AET-CF-SCAP-062"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.708,
+      "response_preview": "O músculo subescapular origina-se na fossa subescapular.\n\nTopograficamente: A face anterior ou costa..."
+    },
+    {
+      "test_id": "TEST-REL-005",
+      "category": "RELATION_QUERY",
+      "query": "Com quem se articula a cavidade glenoidal?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-073",
+        "AET-CF-SCAP-027"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.787,
+      "response_preview": "A cavidade glenoidal articula-se com a cabeça do úmero. A escápula identifica a cavidade glenoidal...."
+    },
+    {
+      "test_id": "TEST-REL-005",
+      "category": "RELATION_QUERY",
+      "query": "Com quem se articula a cavidade glenoidal?",
+      "depth": "CONTEXTUAL",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_CONTEXTUAL_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-073",
+        "AET-CF-SCAP-027",
+        "AET-CF-SCAP-111",
+        "AET-CF-SCAP-067"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.729,
+      "response_preview": "A cavidade glenoidal articula-se com a cabeça do úmero.\n\nTopograficamente: A escápula identifica a c..."
+    },
+    {
+      "test_id": "TEST-REL-005",
+      "category": "RELATION_QUERY",
+      "query": "Com quem se articula a cavidade glenoidal?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-073",
+        "AET-CF-SCAP-027",
+        "AET-CF-SCAP-111",
+        "AET-CF-SCAP-067"
+      ],
+      "teaching_connections": [
+        "AET-CTC-TC-SCAP-002"
+      ],
+      "practical_units": [],
+      "latency_ms": 0.913,
+      "response_preview": "A cavidade glenoidal articula-se com a cabeça do úmero.\n\nTopograficamente: A escápula identifica a c..."
+    },
+    {
+      "test_id": "TEST-REL-006",
+      "category": "RELATION_QUERY",
+      "query": "Qual articulação é formada pelo acrômio e a clavícula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-071"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.265,
+      "response_preview": "A escápula articula-se com a clavícula através da articulação acromioclavicular. A escápula articula..."
+    },
+    {
+      "test_id": "TEST-REL-007",
+      "category": "RELATION_QUERY",
+      "query": "Onde se insere o músculo peitoral menor?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 1,
+      "used_fact_ids": [
+        "AET-CF-SCAP-091"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.878,
+      "response_preview": "O músculo peitoral menor insere-se no processo coracoide...."
+    },
+    {
+      "test_id": "TEST-REL-008",
+      "category": "RELATION_QUERY",
+      "query": "Onde se origina o músculo coracobraquial?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 1,
+      "used_fact_ids": [
+        "AET-CF-SCAP-090"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.778,
+      "response_preview": "O músculo coracobraquial origina-se no processo coracoide...."
+    },
+    {
+      "test_id": "TEST-REL-009",
+      "category": "RELATION_QUERY",
+      "query": "Onde se origina a cabeça curta do bíceps braquial?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 1,
+      "used_fact_ids": [
+        "AET-CF-SCAP-089"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.713,
+      "response_preview": "A cabeça curta do músculo bíceps braquial origina-se no processo coracoide...."
+    },
+    {
+      "test_id": "TEST-REL-010",
+      "category": "RELATION_QUERY",
+      "query": "Onde se origina a cabeça longa do bíceps braquial?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-087",
+        "AET-CF-SCAP-089"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.7,
+      "response_preview": "A cabeça longa do músculo bíceps braquial origina-se em supraglenoid region. A cabeça curta do múscu..."
+    },
+    {
+      "test_id": "TEST-REL-011",
+      "category": "RELATION_QUERY",
+      "query": "Onde se origina a cabeça longa do tríceps braquial?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 1,
+      "used_fact_ids": [
+        "AET-CF-SCAP-088"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.687,
+      "response_preview": "A cabeça longa do músculo tríceps braquial origina-se no tubérculo infraglenoidal...."
+    },
+    {
+      "test_id": "TEST-REL-012",
+      "category": "RELATION_QUERY",
+      "query": "Onde se insere o músculo trapézio?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-081",
+        "AET-CF-SCAP-082"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.715,
+      "response_preview": "O músculo trapézio insere-se no acrômio. O músculo trapézio insere-se na espinha da escápula...."
+    },
+    {
+      "test_id": "TEST-REL-013",
+      "category": "RELATION_QUERY",
+      "query": "Onde se origina o músculo deltoide?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-079",
+        "AET-CF-SCAP-080"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.312,
+      "response_preview": "O músculo deltoide origina-se no acrômio. O músculo deltoide origina-se na espinha da escápula...."
+    },
+    {
+      "test_id": "TEST-REL-014",
+      "category": "RELATION_QUERY",
+      "query": "Onde se insere o músculo serrátil anterior?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 1,
+      "used_fact_ids": [
+        "AET-CF-SCAP-086"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.883,
+      "response_preview": "O músculo serrátil anterior insere-se em costal aspect of medial border...."
+    },
+    {
+      "test_id": "TEST-REL-015",
+      "category": "RELATION_QUERY",
+      "query": "Onde se insere o músculo levantador da escápula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-083",
+        "AET-CF-SCAP-074"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.116,
+      "response_preview": "O músculo levantador da escápula insere-se em superior medial border of scapula. O músculo subescapu..."
+    },
+    {
+      "test_id": "TEST-TOP-001",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "onde fica a espinha da escapula",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-061",
+        "AET-CF-SCAP-065"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.824,
+      "response_preview": "A espinha da escápula separa a fossa supraespinosa e a fossa infraespinosa. A espinha da escápula re..."
+    },
+    {
+      "test_id": "TEST-TOP-001",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "onde fica a espinha da escapula",
+      "depth": "CONTEXTUAL",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_CONTEXTUAL_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-061",
+        "AET-CF-SCAP-065",
+        "AET-CF-SCAP-110",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.758,
+      "response_preview": "A espinha da escápula separa a fossa supraespinosa e a fossa infraespinosa.\n\nTopograficamente: A esp..."
+    },
+    {
+      "test_id": "TEST-TOP-001",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "onde fica a espinha da escapula",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-061",
+        "AET-CF-SCAP-065",
+        "AET-CF-SCAP-110",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_connections": [
+        "AET-CTC-TC-SCAP-001"
+      ],
+      "practical_units": [],
+      "latency_ms": 0.867,
+      "response_preview": "A espinha da escápula separa a fossa supraespinosa e a fossa infraespinosa.\n\nTopograficamente: A esp..."
+    },
+    {
+      "test_id": "TEST-TOP-002",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde se localiza o processo coracoide?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-112",
+        "AET-CF-SCAP-026"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.739,
+      "response_preview": "O processo coracoide relaciona-se topograficamente com anterior. A escápula identifica o processo co..."
+    },
+    {
+      "test_id": "TEST-TOP-003",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde se localiza a cavidade glenoidal?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-073",
+        "AET-CF-SCAP-111"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.794,
+      "response_preview": "A cavidade glenoidal articula-se com a cabeça do úmero. A cavidade glenoidal relaciona-se topografic..."
+    },
+    {
+      "test_id": "TEST-TOP-004",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde fica a fossa supraespinosa?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-032"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.72,
+      "response_preview": "A face posterior identifica a fossa supraespinosa. A fonte associa o supraespinhal com a fossa supra..."
+    },
+    {
+      "test_id": "TEST-TOP-005",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde fica a fossa infraespinosa?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-013",
+        "AET-CF-SCAP-033"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.019,
+      "response_preview": "A face posterior identifica a fossa infraespinosa. A fonte associa o infraespinhal com a fossa infra..."
+    },
+    {
+      "test_id": "TEST-TOP-006",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde fica a fossa subescapular?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-030"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.777,
+      "response_preview": "A face anterior ou costal abriga a fossa subescapular. A fonte associa o subescapular com a fossa su..."
+    },
+    {
+      "test_id": "TEST-TOP-007",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Qual a relação entre a espinha da escápula e as fossas supraespinosa e infraespinosa?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-061",
+        "AET-CF-SCAP-010"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.992,
+      "response_preview": "A espinha da escápula separa a fossa supraespinosa e a fossa infraespinosa. A face anterior ou costa..."
+    },
+    {
+      "test_id": "TEST-TOP-007",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Qual a relação entre a espinha da escápula e as fossas supraespinosa e infraespinosa?",
+      "depth": "CONTEXTUAL",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_CONTEXTUAL_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-061",
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-013"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.892,
+      "response_preview": "A espinha da escápula separa a fossa supraespinosa e a fossa infraespinosa.\n\nTopograficamente: A fac..."
+    },
+    {
+      "test_id": "TEST-TOP-007",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Qual a relação entre a espinha da escápula e as fossas supraespinosa e infraespinosa?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-061",
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-013"
+      ],
+      "teaching_connections": [
+        "AET-CTC-TC-SCAP-001"
+      ],
+      "practical_units": [],
+      "latency_ms": 0.819,
+      "response_preview": "A espinha da escápula separa a fossa supraespinosa e a fossa infraespinosa.\n\nTopograficamente: A fac..."
+    },
+    {
+      "test_id": "TEST-TOP-008",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde se localiza o tubérculo supraglenoidal?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-038",
+        "AET-CF-SCAP-068"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.694,
+      "response_preview": "A fonte associa a cabeça longa do bíceps com a região supraglenoidal. A escápula exibe a estrutura o..."
+    },
+    {
+      "test_id": "TEST-TOP-009",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde se localiza o tubérculo infraglenoidal?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-039",
+        "AET-CF-SCAP-069"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.675,
+      "response_preview": "A fonte associa a cabeça longa do tríceps com a região infraglenoidal. A escápula exibe a estrutura ..."
+    },
+    {
+      "test_id": "TEST-TOP-010",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "o que passa nessa incisura?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-022",
+        "AET-CF-SCAP-070"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.816,
+      "response_preview": "A borda superior associa-se à terminologia incisura escapular / incisura coracoide nas notas. Superi..."
+    },
+    {
+      "test_id": "TEST-TOP-011",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Qual estrutura converte a incisura da escápula em forame?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.039,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular. A escápula é um osso plano...."
+    },
+    {
+      "test_id": "TEST-TOP-012",
+      "category": "TOPOGRAPHIC_QUERY",
+      "query": "Onde se situa o colo da escápula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.84,
+      "response_preview": "A escápula (omóplato) integra a cintura escapular. A escápula é um osso plano...."
+    },
+    {
+      "test_id": "TEST-PRAC-001",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Como posicionar a escápula para identificar se é direita ou esquerda?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 3,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "teaching_connections": [],
+      "practical_units": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 0.847,
+      "response_preview": "Para a orientação anatômica e identificação prática da escápula, adotam-se os seguintes passos siste..."
+    },
+    {
+      "test_id": "TEST-PRAC-001",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Como posicionar a escápula para identificar se é direita ou esquerda?",
+      "depth": "CONTEXTUAL",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 5,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "teaching_connections": [],
+      "practical_units": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 0.741,
+      "response_preview": "Para a orientação anatômica e identificação prática da escápula, adotam-se os seguintes passos siste..."
+    },
+    {
+      "test_id": "TEST-PRAC-001",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Como posicionar a escápula para identificar se é direita ou esquerda?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 5,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "teaching_connections": [],
+      "practical_units": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 0.694,
+      "response_preview": "Para a orientação anatômica e identificação prática da escápula, adotam-se os seguintes passos siste..."
+    },
+    {
+      "test_id": "TEST-PRAC-002",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Como identificar uma escápula direita?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 3,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "teaching_connections": [],
+      "practical_units": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 0.676,
+      "response_preview": "Para a orientação anatômica e identificação prática da escápula, adotam-se os seguintes passos siste..."
+    },
+    {
+      "test_id": "TEST-PRAC-003",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "como sei se essa escapula é direita",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 3,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "teaching_connections": [],
+      "practical_units": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 0.687,
+      "response_preview": "Para a orientação anatômica e identificação prática da escápula, adotam-se os seguintes passos siste..."
+    },
+    {
+      "test_id": "TEST-PRAC-004",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "como eu diferencio a face anterior da posterior?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 1,
+      "used_fact_ids": [
+        "AET-CF-SCAP-052"
+      ],
+      "teaching_connections": [],
+      "practical_units": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 1.108,
+      "response_preview": "Para a orientação anatômica e identificação prática da escápula, adotam-se os seguintes passos siste..."
+    },
+    {
+      "test_id": "TEST-PRAC-005",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "me explica como se eu estivesse no cadáver",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 3,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "teaching_connections": [],
+      "practical_units": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 0.937,
+      "response_preview": "Para a orientação anatômica e identificação prática da escápula, adotam-se os seguintes passos siste..."
+    },
+    {
+      "test_id": "TEST-PRAC-006",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Como orientar a escápula na posição anatômica?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 3,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "teaching_connections": [],
+      "practical_units": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 0.833,
+      "response_preview": "Para a orientação anatômica e identificação prática da escápula, adotam-se os seguintes passos siste..."
+    },
+    {
+      "test_id": "TEST-PRAC-007",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Quais são os marcos ósseos palpáveis para orientar a escápula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 3,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "teaching_connections": [],
+      "practical_units": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 0.719,
+      "response_preview": "Para a orientação anatômica e identificação prática da escápula, adotam-se os seguintes passos siste..."
+    },
+    {
+      "test_id": "TEST-PRAC-008",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Para onde aponta a cavidade glenoidal na posição anatômica?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 3,
+      "used_fact_ids": [
+        "AET-CF-SCAP-073",
+        "AET-CF-SCAP-111",
+        "AET-CF-SCAP-027"
+      ],
+      "teaching_connections": [],
+      "practical_units": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 0.719,
+      "response_preview": "Para a orientação anatômica e identificação prática da escápula, adotam-se os seguintes passos siste..."
+    },
+    {
+      "test_id": "TEST-PRAC-009",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Para onde aponta a espinha da escápula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-061",
+        "AET-CF-SCAP-065"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.725,
+      "response_preview": "A espinha da escápula separa a fossa supraespinosa e a fossa infraespinosa. A espinha da escápula re..."
+    },
+    {
+      "test_id": "TEST-PRAC-010",
+      "category": "PRACTICAL_IDENTIFICATION",
+      "query": "Para onde aponta o processo coracoide na escápula?",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 2,
+      "used_fact_ids": [
+        "AET-CF-SCAP-112",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.687,
+      "response_preview": "O processo coracoide relaciona-se topograficamente com anterior. A escápula (omóplato) integra a cin..."
+    },
+    {
+      "test_id": "TEST-MACRO-001",
+      "category": "MACRO_PROFESSOR",
+      "query": "Explique a escápula.",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 5,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.789,
+      "response_preview": "A escápula (omóplato) é um osso plano, par e de morfologia triangular, situado na porção póstero-sup..."
+    },
+    {
+      "test_id": "TEST-MACRO-001",
+      "category": "MACRO_PROFESSOR",
+      "query": "Explique a escápula.",
+      "depth": "CONTEXTUAL",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 9,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005",
+        "AET-CF-SCAP-006",
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-008",
+        "AET-CF-SCAP-009"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.932,
+      "response_preview": "A escápula (omóplato) é um osso plano, par e de morfologia triangular, situado na porção póstero-sup..."
+    },
+    {
+      "test_id": "TEST-MACRO-001",
+      "category": "MACRO_PROFESSOR",
+      "query": "Explique a escápula.",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 9,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005",
+        "AET-CF-SCAP-006",
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-008",
+        "AET-CF-SCAP-009"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.765,
+      "response_preview": "A escápula (omóplato) é um osso plano, par e de morfologia triangular, situado na porção póstero-sup..."
+    },
+    {
+      "test_id": "TEST-MACRO-002",
+      "category": "MACRO_PROFESSOR",
+      "query": "faz uma revisão rápida da escápula",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 5,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.715,
+      "response_preview": "A escápula (omóplato) é um osso plano, par e de morfologia triangular, situado na porção póstero-sup..."
+    },
+    {
+      "test_id": "TEST-MACRO-003",
+      "category": "MACRO_PROFESSOR",
+      "query": "Dê uma visão geral da escápula.",
+      "depth": "DIRECT",
+      "expected_status": "VALIDATED_DIRECT_ANSWER",
+      "actual_status": "VALIDATED_DIRECT_ANSWER",
+      "passed": true,
+      "fact_count": 5,
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.752,
+      "response_preview": "A escápula (omóplato) é um osso plano, par e de morfologia triangular, situado na porção póstero-sup..."
+    },
+    {
+      "test_id": "TEST-MACRO-004",
+      "category": "MACRO_PROFESSOR",
+      "query": "Por que o processo coracoide é importante?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-112",
+        "AET-CF-SCAP-026",
+        "AET-CF-SCAP-066",
+        "AET-CF-SCAP-089"
+      ],
+      "teaching_connections": [
+        "AET-CTC-TC-SCAP-004"
+      ],
+      "practical_units": [],
+      "latency_ms": 0.77,
+      "response_preview": "O processo coracoide relaciona-se topograficamente com anterior.\n\nTopograficamente: A escápula ident..."
+    },
+    {
+      "test_id": "TEST-MACRO-005",
+      "category": "MACRO_PROFESSOR",
+      "query": "me explica o coracoide",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-112",
+        "AET-CF-SCAP-026",
+        "AET-CF-SCAP-066",
+        "AET-CF-SCAP-089"
+      ],
+      "teaching_connections": [
+        "AET-CTC-TC-SCAP-004"
+      ],
+      "practical_units": [],
+      "latency_ms": 0.76,
+      "response_preview": "O processo coracoide relaciona-se topograficamente com anterior.\n\nTopograficamente: A escápula ident..."
+    },
+    {
+      "test_id": "TEST-MACRO-006",
+      "category": "MACRO_PROFESSOR",
+      "query": "pra que serve a glenoide",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-073",
+        "AET-CF-SCAP-111",
+        "AET-CF-SCAP-027",
+        "AET-CF-SCAP-067"
+      ],
+      "teaching_connections": [
+        "AET-CTC-TC-SCAP-002"
+      ],
+      "practical_units": [],
+      "latency_ms": 0.812,
+      "response_preview": "A cavidade glenoidal articula-se com a cabeça do úmero.\n\nTopograficamente: A cavidade glenoidal rela..."
+    },
+    {
+      "test_id": "TEST-MACRO-007",
+      "category": "MACRO_PROFESSOR",
+      "query": "Qual a importância da espinha da escápula como organizador?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-061",
+        "AET-CF-SCAP-065",
+        "AET-CF-SCAP-110",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_connections": [
+        "AET-CTC-TC-SCAP-001"
+      ],
+      "practical_units": [],
+      "latency_ms": 0.789,
+      "response_preview": "A espinha da escápula separa a fossa supraespinosa e a fossa infraespinosa.\n\nTopograficamente: A esp..."
+    },
+    {
+      "test_id": "TEST-MACRO-008",
+      "category": "MACRO_PROFESSOR",
+      "query": "Explique o complexo articular da cavidade glenoidal.",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-073",
+        "AET-CF-SCAP-027",
+        "AET-CF-SCAP-111",
+        "AET-CF-SCAP-067"
+      ],
+      "teaching_connections": [
+        "AET-CTC-TC-SCAP-002"
+      ],
+      "practical_units": [],
+      "latency_ms": 1.551,
+      "response_preview": "A cavidade glenoidal articula-se com a cabeça do úmero.\n\nTopograficamente: A escápula identifica a c..."
+    },
+    {
+      "test_id": "TEST-MACRO-009",
+      "category": "MACRO_PROFESSOR",
+      "query": "Qual o papel funcional dos tubérculos supra e infraglenoidal?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-038",
+        "AET-CF-SCAP-039",
+        "AET-CF-SCAP-068",
+        "AET-CF-SCAP-069"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.481,
+      "response_preview": "A fonte associa a cabeça longa do bíceps com a região supraglenoidal.\n\nTopograficamente: A fonte ass..."
+    },
+    {
+      "test_id": "TEST-MACRO-010",
+      "category": "MACRO_PROFESSOR",
+      "query": "Por que a fossa subescapular é importante funcionalmente?",
+      "depth": "PROFESSOR",
+      "expected_status": "VALIDATED_PROFESSOR_ANSWER",
+      "actual_status": "VALIDATED_PROFESSOR_ANSWER",
+      "passed": true,
+      "fact_count": 4,
+      "used_fact_ids": [
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-030",
+        "AET-CF-SCAP-062",
+        "AET-CF-SCAP-074"
+      ],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.147,
+      "response_preview": "A face anterior ou costal abriga a fossa subescapular.\n\nTopograficamente: A fonte associa o subescap..."
+    },
+    {
+      "test_id": "TEST-FAIL-001",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Explique a anatomia do fêmur.",
+      "depth": "DIRECT",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "actual_status": "NO_CANONICAL_EVIDENCE",
+      "passed": true,
+      "fact_count": 0,
+      "used_fact_ids": [],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.929,
+      "response_preview": "A estrutura anatômica informada (femur) está fora do escopo canônico atualmente homologado no Aetern..."
+    },
+    {
+      "test_id": "TEST-FAIL-002",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Quais são os acidentes ósseos da tíbia?",
+      "depth": "DIRECT",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "actual_status": "NO_CANONICAL_EVIDENCE",
+      "passed": true,
+      "fact_count": 0,
+      "used_fact_ids": [],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.681,
+      "response_preview": "A estrutura anatômica informada (tibia) está fora do escopo canônico atualmente homologado no Aetern..."
+    },
+    {
+      "test_id": "TEST-FAIL-003",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Quais são os ramos do nervo facial?",
+      "depth": "DIRECT",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "actual_status": "NO_CANONICAL_EVIDENCE",
+      "passed": true,
+      "fact_count": 0,
+      "used_fact_ids": [],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.768,
+      "response_preview": "A estrutura anatômica informada (nervo facial) está fora do escopo canônico atualmente homologado no..."
+    },
+    {
+      "test_id": "TEST-FAIL-004",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Explique a estrutura anatômica do rim.",
+      "depth": "DIRECT",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "actual_status": "NO_CANONICAL_EVIDENCE",
+      "passed": true,
+      "fact_count": 0,
+      "used_fact_ids": [],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.885,
+      "response_preview": "A estrutura anatômica informada (rim) está fora do escopo canônico atualmente homologado no Aeternum..."
+    },
+    {
+      "test_id": "TEST-FAIL-005",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Descreva os lobos do encéfalo.",
+      "depth": "DIRECT",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "actual_status": "NO_CANONICAL_EVIDENCE",
+      "passed": true,
+      "fact_count": 0,
+      "used_fact_ids": [],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.723,
+      "response_preview": "A estrutura anatômica informada (encefalo) está fora do escopo canônico atualmente homologado no Aet..."
+    },
+    {
+      "test_id": "TEST-FAIL-006",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "A escápula alada confirma lesão do nervo torácico longo?",
+      "depth": "DIRECT",
+      "expected_status": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "actual_status": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "passed": true,
+      "fact_count": 0,
+      "used_fact_ids": [],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.258,
+      "response_preview": "A base canônica do Aeternum Atlas foca na anatomia descritiva, topográfica e funcional estritamente ..."
+    },
+    {
+      "test_id": "TEST-FAIL-007",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Qual o tratamento cirúrgico para fratura de escápula?",
+      "depth": "DIRECT",
+      "expected_status": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "actual_status": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "passed": true,
+      "fact_count": 0,
+      "used_fact_ids": [],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.562,
+      "response_preview": "A base canônica do Aeternum Atlas foca na anatomia descritiva, topográfica e funcional estritamente ..."
+    },
+    {
+      "test_id": "TEST-FAIL-008",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Como diagnosticar luxação glenoumeral?",
+      "depth": "DIRECT",
+      "expected_status": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "actual_status": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "passed": true,
+      "fact_count": 0,
+      "used_fact_ids": [],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 1.474,
+      "response_preview": "A base canônica do Aeternum Atlas foca na anatomia descritiva, topográfica e funcional estritamente ..."
+    },
+    {
+      "test_id": "TEST-FAIL-009",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Qual a anatomia da patela?",
+      "depth": "DIRECT",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "actual_status": "NO_CANONICAL_EVIDENCE",
+      "passed": true,
+      "fact_count": 0,
+      "used_fact_ids": [],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.899,
+      "response_preview": "A estrutura anatômica informada (patela) está fora do escopo canônico atualmente homologado no Aeter..."
+    },
+    {
+      "test_id": "TEST-FAIL-010",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Descreva a anatomia do crânio.",
+      "depth": "DIRECT",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "actual_status": "NO_CANONICAL_EVIDENCE",
+      "passed": true,
+      "fact_count": 0,
+      "used_fact_ids": [],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.771,
+      "response_preview": "A estrutura anatômica informada (cranio) está fora do escopo canônico atualmente homologado no Aeter..."
+    },
+    {
+      "test_id": "TEST-FAIL-011",
+      "category": "SAFE_FAILURE_OUT_OF_SCOPE",
+      "query": "Descreva a vascularização do fígado.",
+      "depth": "DIRECT",
+      "expected_status": "NO_CANONICAL_EVIDENCE",
+      "actual_status": "NO_CANONICAL_EVIDENCE",
+      "passed": true,
+      "fact_count": 0,
+      "used_fact_ids": [],
+      "teaching_connections": [],
+      "practical_units": [],
+      "latency_ms": 0.856,
+      "response_preview": "A estrutura anatômica informada (figado) está fora do escopo canônico atualmente homologado no Aeter..."
+    }
+  ]
+}

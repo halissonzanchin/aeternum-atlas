@@ -1,0 +1,695 @@
+[
+  {
+    "canonical_entity_candidate": "escapula",
+    "source_term": "Escápula / Omóplato",
+    "aliases": [
+      "Omóplato",
+      "Scapula",
+      "Paleta"
+    ],
+    "entity_type": "BONE",
+    "domain": "OSTEOLOGIA",
+    "region": "Cintura Escapular",
+    "definition": "Hueso plano, par y de forma triangular, ubicado en la parte posterolateral del tórax, apoyado sobre las costillas 2ª a 7ª.",
+    "classification": "Hueso Plano",
+    "location": "Región dorsal superior del tórax, posterolateral, entre T2 y T7",
+    "orientation": "Cara cóncava anterior (fosa subescapular) hacia las costillas; espina y acromion dirigidos posterior y lateralmente; cavidad glenoidea orientada lateralmente.",
+    "parts": {
+      "surfaces": [
+        {
+          "name": "Cara Anterior / Costal",
+          "morphology": "Cóncava, forma la fosa subescapular con crestas rugosas para el músculo subescapular"
+        },
+        {
+          "name": "Cara Posterior / Dorsal",
+          "morphology": "Convexa, dividida por la espina de la escápula en fosa supraespinosa (menor, craneal) y fosa infraespinosa (mayor, caudal)"
+        }
+      ],
+      "borders": [
+        {
+          "name": "Borde Medial / Espinal",
+          "attachments": [
+            "Músculo Serrato Anterior (labio anterior)",
+            "Músculo Elevador de la Escápula",
+            "Músculo Romboides Menor",
+            "Músculo Romboides Mayor"
+          ]
+        },
+        {
+          "name": "Borde Lateral / Axilar",
+          "attachments": [
+            "Tubérculo Infraglenoideo (cabeza larga del tríceps)",
+            "Músculo Redondo Menor",
+            "Músculo Redondo Mayor"
+          ]
+        },
+        {
+          "name": "Borde Superior / Cervical",
+          "landmarks": [
+            "Escotadura de la Escápula / Coracoidea (cerrada por el ligamento transverso superior)",
+            "Inserción del Músculo Omohioideo medial a la escotadura"
+          ]
+        }
+      ],
+      "angles": [
+        {
+          "name": "Ángulo Superior",
+          "description": "Unión del borde superior y medial (proyecta a nivel de T2)"
+        },
+        {
+          "name": "Ángulo Inferior",
+          "description": "Unión del borde medial y lateral (proyecta a nivel de T7; punto de referencia palpable; recibe fibras inconstantes del dorsal ancho)"
+        },
+        {
+          "name": "Ángulo Lateral",
+          "description": "Soporta la cavidad glenoidea, el cuello de la escápula y la apófisis coracoides"
+        }
+      ],
+      "processes": [
+        {
+          "name": "Espina de la Escápula",
+          "description": "Relieve triangular óseo que cruza transversalmente la cara posterior; termina lateralmente en el acromion"
+        },
+        {
+          "name": "Acromion",
+          "description": "Extensión aplanada y lateral de la espina; posee carilla articular para la clavícula"
+        },
+        {
+          "name": "Apófisis Coracoides",
+          "description": "Proceso en forma de pico de cuervo que se proyecta anterolateralmente desde el borde superior del cuello"
+        }
+      ],
+      "fossae": [
+        "Fosa Subescapular",
+        "Fosa Supraespinosa",
+        "Fosa Infraespinosa"
+      ],
+      "landmarks": [
+        "Cavidad Glenoidea",
+        "Labrum Glenoideo",
+        "Tubérculo Supraglenoideo",
+        "Tubérculo Infraglenoideo",
+        "Escotadura Espinoglenoidea"
+      ]
+    },
+    "articulations": [
+      {
+        "joint": "Articulación Acromioclavicular",
+        "partner": "Clavícula (extremo acromial)"
+      },
+      {
+        "joint": "Articulación Glenohumeral",
+        "partner": "Húmero (cabeza humeral)"
+      },
+      {
+        "joint": "Articulación Sisarcosis Escapulotorácica",
+        "partner": "Pared torácica posterior a través de los espacios celulosos serrático y subescapular"
+      }
+    ],
+    "ligament_attachments": [
+      "Ligamento Coracoclavicular (Conoide y Trapezoide)",
+      "Ligamento Coracoacromial",
+      "Ligamento Coracohumeral",
+      "Ligamento Transverso Superior de la Escápula",
+      "Ligamento Espinoglenoideo",
+      "Ligamentos Glenohumerales"
+    ],
+    "muscle_attachments": [
+      "M. Subescapular (fosa subescapular)",
+      "M. Serrato Anterior (borde medial, cara costal)",
+      "M. Supraespinoso (fosa supraespinosa)",
+      "M. Infraespinoso (fosa infraespinosa)",
+      "M. Trapecio (labio superior de la espina y acromion)",
+      "M. Deltoides (labio inferior de la espina y borde lateral del acromion)",
+      "M. Elevador de la Escápula (borde medial sobre la espina)",
+      "M. Romboides Menor (borde medial a nivel de la espina)",
+      "M. Romboides Mayor (borde medial debajo de la espina)",
+      "M. Redondo Menor (borde lateral superior)",
+      "M. Redondo Mayor (borde lateral inferior y ángulo inferior)",
+      "M. Omohioideo (borde superior cerca de escotadura)",
+      "M. Pectoral Menor (apófisis coracoides, cara medial)",
+      "M. Coracobraquial (vértice apófisis coracoides)",
+      "M. Bíceps Braquial - Cabeza Corta (vértice apófisis coracoides)",
+      "M. Bíceps Braquial - Cabeza Larga (tubérculo supraglenoideo)",
+      "M. Tríceps Braquial - Cabeza Larga (tubérculo infraglenoideo)"
+    ],
+    "neural_relations": [
+      "Nervio Supraescapular pasa por dentro de la escotadura coracoidea (debajo del ligamento) hacia la fosa supraespinosa, y por la escotadura espinoglenoidea hacia la fosa infraespinosa.",
+      "Nervio Axilar contornea el cuello quirúrgico humeral inmediatamente adyacente al ángulo lateral e infraglenoideo a través del cuadrilátero de Velpeau."
+    ],
+    "vascular_relations": [
+      "Arteria Supraescapular cruza por ENCIMA del ligamento transverso de la escápula (el nervio por debajo: \"army under the bridge, navy over the bridge\").",
+      "Arteria Circunfleja Escapular atraviesa el triángulo omotricipital para anastomosarse en la fosa infraespinosa."
+    ],
+    "practical_identification": "Diferenciación de lateralidad: Cara anterior lisa y cóncava orientada hacia delante; espina saliente orientada hacia atrás; cavidad glenoidea y acromion orientados hacia afuera (lateral); ángulo agudo inferior apuntando hacia abajo.",
+    "teacher_emphasis": "La apófisis coracoides es el faro del hombro anterior (\"lighthouse\"), donde confluyen el tendón conjunto (coracobraquial + bíceps corto), el pectoral menor y los ligamentos coracoclaviculares.",
+    "source_pages": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "canonical_entity_candidate": "umero",
+    "source_term": "Húmero",
+    "aliases": [
+      "Humerus"
+    ],
+    "entity_type": "BONE",
+    "domain": "OSTEOLOGIA",
+    "region": "Brazo",
+    "definition": "Hueso largo, par y asimétrico que constituye el esqueleto del brazo. Articula proximalmente con la escápula y distalmente con el radio y cúbito.",
+    "classification": "Hueso Largo",
+    "location": "Segmento braquial del miembro superior",
+    "orientation": "Cabeza redondeada y convexa orientada proximal, medial y posterior; fosa olecraneana profunda orientada hacia atrás; tróclea y cóndilo distales.",
+    "parts": {
+      "epifisis_proximal": [
+        "Cabeza del Húmero (esfera articular 1/3)",
+        "Cuello Anatómico (línea periesférica)",
+        "Tubérculo Mayor / Troquíter (3 facetas: superior para supraespinoso, media para infraespinoso, inferior para redondo menor)",
+        "Tubérculo Menor / Troquín (inserción para subescapular)",
+        "Surco Intertubercular / Corredera Bicipital (tendón del bíceps cabeza larga; labio lateral: pectoral mayor; suelo: dorsal ancho; labio medial: redondo mayor)",
+        "Cuello Quirúrgico (zona de debilidad, relación íntima con nervio axilar y arteria circunfleja humeral posterior)"
+      ],
+      "diafisis": [
+        "Cara Anterolateral (Tuberosidad deltoidea / V deltoidea para m. deltoides)",
+        "Cara Anteromedial (Inserción distal del coracobraquial, foramen nutricio)",
+        "Cara Posterior (Surco del nervio radial / Canal de torsión: da paso al nervio radial y arteria braquial profunda; separa el origen del vasto lateral arriba y vasto medial abajo)"
+      ],
+      "epifisis_distal": [
+        "Cóndilo Humeral (Capitulum lateral, articula con fosita articular del radio)",
+        "Tróclea Humeral (polea medial, articula con escotadura troclear del cúbito)",
+        "Epicóndilo Lateral (inserción de extensores y supinador)",
+        "Epicóndilo Medial / Epitróclea (inserción de pronador y flexores; posterior: canal epitrocleoolecraneano para nervio cubital)",
+        "Fosa Radial (anterior, suprayacente al capitulum)",
+        "Fosa Coronoidea (anterior, suprayacente a la tróclea)",
+        "Fosa Olecraneana (posterior, profunda, aloja el olécranon)"
+      ]
+    },
+    "articulations": [
+      {
+        "joint": "Articulación Glenohumeral",
+        "partner": "Escápula (cavidad glenoidea)"
+      },
+      {
+        "joint": "Articulación Humeroradial",
+        "partner": "Radio (cabeza radial)"
+      },
+      {
+        "joint": "Articulación Humerocubital",
+        "partner": "Cúbito (escotadura troclear)"
+      }
+    ],
+    "neural_relations": [
+      "Nervio Axilar contornea íntimamente el cuello quirúrgico en el cuadrilátero de Velpeau.",
+      "Nervio Radial discurre directamente pegado al hueso en el surco del nervio radial (canal de torsión) en la cara posterior de la diáfisis.",
+      "Nervio Cubital desciende posterior al epicóndilo medial en el canal epitrocleoolecraneano (\"nervio del golpe en el codo\")."
+    ],
+    "vascular_relations": [
+      "Arteria Braquial Profunda acompaña al nervio radial en el surco radial.",
+      "Arteria Circunfleja Humeral Posterior acompaña al nervio axilar en el cuello quirúrgico."
+    ],
+    "practical_identification": "Cabeza articular orientada proximal y medialmente; fosa olecraneana grande y profunda orientada hacia posterior; epicóndilo medial más saliente que el lateral.",
+    "teacher_emphasis": "Regla nemotécnica en la corredera bicipital: \"Un mendigo (dorsal ancho) entre dos caballeros (pectoral mayor por fuera y redondo mayor por dentro)\". Las 3 zonas críticas de fractura con lesión nerviosa: cuello quirúrgico (axilar), diáfisis media (radial), epicóndilo medial (cubital).",
+    "source_pages": [
+      24,
+      25,
+      26,
+      41
+    ],
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "canonical_entity_candidate": "clavicula",
+    "source_term": "Clavícula",
+    "aliases": [
+      "Clavicula"
+    ],
+    "entity_type": "BONE",
+    "domain": "OSTEOLOGIA",
+    "region": "Cintura Escapular",
+    "definition": "Hueso de la cintura escapular con forma de S itálica que conecta el miembro superior al esqueleto axial.",
+    "classification": "Hueso Plano Alargado (según apunte fuente) / Hueso Largo (TA)",
+    "location": "Parte anterosuperior del tórax",
+    "orientation": "Extremo medial redondeado y voluminoso articulado con esternón; extremo lateral aplanado articulado con acromion; convexidad medial anterior y concavidad lateral anterior; cara superior lisa, cara inferior rugosa.",
+    "parts": {
+      "faces": [
+        {
+          "name": "Cara Superior",
+          "description": "Lisa en casi toda su extensión, subcutánea"
+        },
+        {
+          "name": "Cara Inferior",
+          "landmarks": [
+            "Surco del Músculo Subclavio (tercio medio)",
+            "Impresión del Ligamento Costoclavicular (tercio medial)",
+            "Tubérculo Conoideo y Línea Trapezoidea (tercio lateral)"
+          ]
+        }
+      ],
+      "borders": [
+        {
+          "name": "Borde Anterior",
+          "description": "Convexo en sus 2/3 mediales (pectoral mayor), cóncavo en su 1/3 lateral (deltoides)"
+        },
+        {
+          "name": "Borde Posterior",
+          "description": "Cóncavo en sus 2/3 mediales, convexo en su 1/3 lateral (trapecio)"
+        }
+      ],
+      "extremities": [
+        {
+          "name": "Extremo Medial / Esternal",
+          "description": "Voluminoso, carilla articular triangular/selar para el manubrio esternal y 1er cartílago costal"
+        },
+        {
+          "name": "Extremo Lateral / Acromial",
+          "description": "Aplanado de arriba abajo, carilla elíptica para el acromion"
+        }
+      ]
+    },
+    "articulations": [
+      {
+        "joint": "Articulación Esternoclavicular",
+        "partner": "Esternón (manubrio) y 1er cartílago costal"
+      },
+      {
+        "joint": "Articulación Acromioclavicular",
+        "partner": "Escápula (acromion)"
+      }
+    ],
+    "ligament_attachments": [
+      "Ligamento Costoclavicular (tercio medial, cara inferior)",
+      "Ligamento Conoide (tercio lateral, tubérculo conoideo)",
+      "Ligamento Trapezoide (tercio lateral, línea trapezoidea)",
+      "Ligamentos Esternoclaviculares",
+      "Ligamentos Acromioclaviculares"
+    ],
+    "muscle_attachments": [
+      "M. Pectoral Mayor (borde anterior, 2/3 mediales)",
+      "M. Deltoides (borde anterior, 1/3 lateral)",
+      "M. Trapecio (borde posterior y cara superior, 1/3 lateral)",
+      "M. Esternocleidomastoideo (cara superior, 1/3 medial)",
+      "M. Subclavio (cara inferior, surco subclavio)"
+    ],
+    "neural_relations": [
+      "Plexo Braquial cruza inmediatamente inferior a la clavícula en el conducto cervicoaxilar"
+    ],
+    "vascular_relations": [
+      "Vasos Subclavios pasan por debajo del tercio medio de la clavícula sobre la 1ª costilla"
+    ],
+    "practical_identification": "Extremo aplanado lateral; extremo grueso y redondeado medial; convexidad anterior en la porción medial; cara rugosa con canal subclavio orientada inferiormente.",
+    "teacher_emphasis": "La cara superior es fácilmente palpable bajo la piel; las fracturas de tercio medio ponen en riesgo los vasos subclavios y el plexo braquial subyacentes.",
+    "source_pages": [
+      1,
+      2,
+      3
+    ],
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "canonical_entity_candidate": "cubito_ulna",
+    "source_term": "Cúbito / Ulna",
+    "aliases": [
+      "Ulna",
+      "Cúbito"
+    ],
+    "entity_type": "BONE",
+    "domain": "OSTEOLOGIA",
+    "region": "Antebrazo",
+    "definition": "Hueso largo medial del antebrazo, situado entre la tróclea humeral proximalmente y el fibrocartílago triangular distalmente.",
+    "classification": "Hueso Largo",
+    "location": "Compartimento medial del antebrazo",
+    "orientation": "Extremo proximal voluminoso con concavidad troclear anterior (gancho); borde cortante interóseo orientado hacia lateral; olécranon hacia posterior; apófisis estiloides distal y medial.",
+    "parts": {
+      "epifisis_proximal": [
+        "Olécranon (proceso posterior voluminoso, inserción del tríceps)",
+        "Apófisis Coronoides (proceso horizontal anterior, inserción del braquial)",
+        "Escotadura Troclear / Cavidad Sigmoidea Mayor (articula con la tróclea humeral)",
+        "Escotadura Radial / Cavidad Sigmoidea Menor (articula con la circunferencia del radio)",
+        "Cresta del Músculo Supinador"
+      ],
+      "diafisis": [
+        "Cara Anterior",
+        "Cara Posterior",
+        "Cara Medial",
+        "Borde Interóseo Lateral"
+      ],
+      "epifisis_distal": [
+        "Cabeza del Cúbito (circunferencia articular)",
+        "Apófisis Estiloides del Cúbito (proyección medial posterior)",
+        "Canal para el tendón del extensor cubital del carpo"
+      ]
+    },
+    "articulations": [
+      {
+        "joint": "Articulación Humerocubital",
+        "partner": "Húmero (tróclea)"
+      },
+      {
+        "joint": "Articulación Radiocubital Proximal",
+        "partner": "Radio (cabeza)"
+      },
+      {
+        "joint": "Articulación Radiocubital Distal",
+        "partner": "Radio (escotadura cubital)"
+      }
+    ],
+    "practical_identification": "Gancho articular proximal mira hacia adelante; olécranon hacia atrás; borde cortante mira hacia el radio (lateral). No contacta directamente con el carpo en la muñeca.",
+    "teacher_emphasis": "El cúbito está separado del carpo por el disco articular / fibrocartílago triangular.",
+    "source_pages": [
+      27
+    ],
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "canonical_entity_candidate": "radio",
+    "source_term": "Radio",
+    "aliases": [
+      "Radius"
+    ],
+    "entity_type": "BONE",
+    "domain": "OSTEOLOGIA",
+    "region": "Antebrazo",
+    "definition": "Hueso largo lateral del antebrazo, principal responsable de los movimientos de pronación y supinación alrededor del cúbito.",
+    "classification": "Hueso Largo",
+    "location": "Compartimento lateral del antebrazo",
+    "orientation": "Extremo distal más voluminoso y cuadrangular; cara anterior lisa; cara posterior con tubérculo dorsal (Lister); apófisis estiloides orientada lateralmente y descendiendo más que la cubital.",
+    "parts": {
+      "epifisis_proximal": [
+        "Cabeza del Radio (cilindro con fóvea articular para el capitulum y circunferencia articular)",
+        "Cuello del Radio",
+        "Tuberosidad del Radio / Bicipital (inserción para el tendón del bíceps braquial)"
+      ],
+      "diafisis": [
+        "Curvatura pronadora y supinadora",
+        "Borde Interóseo Medial"
+      ],
+      "epifisis_distal": [
+        "Carilla Articular Carpiana (dividida en faceta triangular para escafoides y cuadrangular para semilunar)",
+        "Escotadura Cubital del Radio (medial)",
+        "Apófisis Estiloides Radial (lateral)",
+        "Tubérculo Dorsal de Lister (posterior, polea de reflexión del extensor largo del pulgar)"
+      ]
+    },
+    "articulations": [
+      {
+        "joint": "Articulación Humeroradial",
+        "partner": "Húmero (capitulum)"
+      },
+      {
+        "joint": "Articulación Radiocubital Proximal",
+        "partner": "Cúbito (escotadura radial)"
+      },
+      {
+        "joint": "Articulación Radiocubital Distal",
+        "partner": "Cúbito (cabeza cubital)"
+      },
+      {
+        "joint": "Articulación Radiocarpiana",
+        "partner": "Carpo (escafoides y semilunar)"
+      }
+    ],
+    "practical_identification": "Cabeza redonda proximal; extremo ancho distal; apófisis estiloides distal y lateral; tubérculo de Lister posterior.",
+    "teacher_emphasis": "El radio gira sobre el cúbito en pronosupinación. Nota crítica: en apunte P27 se deslizó \"Es el hueso medial del antebrazo\", error material registrado en la Validation Queue.",
+    "source_pages": [
+      27,
+      28,
+      29
+    ],
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "canonical_entity_candidate": "espacio_cuadrangular_velpeau",
+    "source_term": "Cuadrilátero de Velpeau / Espacio Cuadrangular",
+    "aliases": [
+      "Espacio Húmero-Tricipital",
+      "Foramen Cuadrilátero",
+      "Quadrangular Space"
+    ],
+    "entity_type": "ANATOMICAL_SPACE",
+    "domain": "TOPOGRAFIA",
+    "region": "Región Escapular / Axilar Posterior",
+    "definition": "Espacio topográfico de forma cuadrangular ubicado en la región escapular posterior que comunica la fosa axilar con la región deltoidea dorsal.",
+    "classification": "Espacio Intermuscular Topográfico",
+    "location": "Región dorsal del hombro, lateral al tríceps",
+    "parts": {
+      "boundaries": [
+        {
+          "wall": "Límite Superior",
+          "structure": "Borde inferior del Músculo Redondo Menor (y cápsula articular glenohumeral / subescapular anteriormente)"
+        },
+        {
+          "wall": "Límite Inferior",
+          "structure": "Borde superior del Músculo Redondo Mayor"
+        },
+        {
+          "wall": "Límite Medial",
+          "structure": "Borde lateral de la Cabeza Larga del Músculo Tríceps Braquial"
+        },
+        {
+          "wall": "Límite Lateral",
+          "structure": "Cuello Quirúrgico del Húmero"
+        }
+      ],
+      "contents": [
+        {
+          "element": "Nervio Axilar / Circunflejo",
+          "nature": "Estructura Nerviosa (inerva deltoides y redondo menor, sensibilidad de muñón del hombro)"
+        },
+        {
+          "element": "Arteria Circunfleja Humeral Posterior",
+          "nature": "Estructura Vascular (rama de la 3ª porción de la arteria axilar)"
+        },
+        {
+          "element": "Venas Circunflejas Humerales Posteriores",
+          "nature": "Venas Satélites"
+        }
+      ]
+    },
+    "practical_identification": "Localizar la cabeza larga del tríceps descendiendo verticalmente desde el tubérculo infraglenoideo; identificar el cruce horizontal de los redondos; el cuadrilátero queda inmediatamente lateral al tríceps contra el húmero.",
+    "teacher_emphasis": "Alta correlación clínica: las fracturas del cuello quirúrgico del húmero o las luxaciones glenohumerales anteriores comprimen o seccionan el nervio axilar en este cuadrilátero, aboliendo la abducción inicial del brazo y la sensibilidad de la cara lateral del hombro.",
+    "source_pages": [
+      25,
+      41,
+      52
+    ],
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "canonical_entity_candidate": "canal_de_torsion_sulco_radial",
+    "source_term": "Canal de Torsión / Sulco do Nervo Radial",
+    "aliases": [
+      "Surco del Nervio Radial",
+      "Sulcus nervi radialis",
+      "Canal de torsión del húmero"
+    ],
+    "entity_type": "ANATOMICAL_SPACE",
+    "domain": "TOPOGRAFIA_E_OSTEOLOGIA",
+    "region": "Brazo Posterior",
+    "definition": "Depresión helicoidal ancha y oblicua que cruza de arriba hacia abajo y de medial a lateral la cara posterior de la diáfisis del húmero.",
+    "classification": "Surco Ósteo-Muscular Neurovascular",
+    "location": "Cara posterior del húmero, tercio medio",
+    "parts": {
+      "boundaries": [
+        {
+          "wall": "Suelo",
+          "structure": "Hueso cortical posterior del húmero"
+        },
+        {
+          "wall": "Límite Superior",
+          "structure": "Inserción del vasto lateral del tríceps braquial"
+        },
+        {
+          "wall": "Límite Inferior",
+          "structure": "Inserción del vasto medial del tríceps braquial"
+        },
+        {
+          "wall": "Techo",
+          "structure": "Cabeza larga y lateral del tríceps braquial y fascia braquial"
+        }
+      ],
+      "contents": [
+        {
+          "element": "Nervio Radial",
+          "nature": "Ramo terminal mayor del fascículo posterior del plexo braquial"
+        },
+        {
+          "element": "Arteria Braquial Profunda / Profunda Brachii",
+          "nature": "Rama colateral mayor de la arteria braquial"
+        },
+        {
+          "element": "Venas Braquiales Profundas Satélites",
+          "nature": "Retorno venoso satélite"
+        }
+      ]
+    },
+    "practical_identification": "Identificar en la cara posterior del húmero la banda lisa oblicua orientada hacia la cara anterolateral inferior.",
+    "teacher_emphasis": "La fractura diafisaria media del húmero (fractura de Holstein-Lewis o por torsión) atrapa o desgarra el nervio radial en este surco, provocando la clásica \"mano caída\" o \"mano en gota\" por parálisis de todos los extensores de la muñeca y dedos.",
+    "source_pages": [
+      26,
+      41,
+      52
+    ],
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "canonical_entity_candidate": "tabaquera_anatomica",
+    "source_term": "Tabaquera Anatómica",
+    "aliases": [
+      "Foveola radialis",
+      "Anatomical snuffbox"
+    ],
+    "entity_type": "ANATOMICAL_SPACE",
+    "domain": "TOPOGRAFIA",
+    "region": "Muñeca Posterolateral / Dorso de la Mano",
+    "definition": "Depresión triangular en la cara posterolateral de la muñeca visible cuando el pulgar se encuentra en extensión completa.",
+    "classification": "Espacio Topográfico Tendinoso",
+    "location": "Base del pulgar y cara lateral del carpo",
+    "parts": {
+      "boundaries": [
+        {
+          "wall": "Límite Lateral / Anterior",
+          "structure": "Tendones del M. Abductor Largo del Pulgar y M. Extensor Corto del Pulgar"
+        },
+        {
+          "wall": "Límite Medial / Posterior",
+          "structure": "Tendón del M. Extensor Largo del Pulgar"
+        },
+        {
+          "wall": "Suelo",
+          "structure": "Hueso Escafoides, Hueso Trapecio y tendones de los extensores radiales del carpo"
+        },
+        {
+          "wall": "Techo",
+          "structure": "Piel, fascia y Vena Cefálica con el Ramo Superficial del Nervio Radial"
+        }
+      ],
+      "contents": [
+        {
+          "element": "Arteria Radial",
+          "nature": "Cruza el suelo sobre el escafoides y trapecio hacia el 1er espacio interóseo"
+        },
+        {
+          "element": "Tendones de los Músculos Radiales (Extensor Carpi Radialis Longus et Brevis)",
+          "nature": "Tendinoso en el fondo"
+        }
+      ]
+    },
+    "practical_identification": "Extender el pulgar activamente contra resistencia para tensar los tendones limitantes; el fondo permite palpar directamente el hueso escafoides y el pulso de la arteria radial dorsal.",
+    "teacher_emphasis": "Dolor a la palpación profunda en la tabaquera anatómica tras caída sobre la mano en extensión es el signo clínico cardinal de fractura del escafoides. Nota crítica: en apunte P46 se menciona \"arteria cefálica\" por error material (la vena cefálica cruza el techo).",
+    "source_pages": [
+      29,
+      46,
+      53
+    ],
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "canonical_entity_candidate": "arteria_axilar",
+    "source_term": "Arteria Axilar",
+    "aliases": [
+      "Arteria axillaris"
+    ],
+    "entity_type": "ARTERY",
+    "domain": "ANGIOLOGIA",
+    "region": "Fosa Axilar",
+    "definition": "Tronco arterial principal de irrigación del miembro superior, continuación de la arteria subclavia.",
+    "classification": "Arteria Muscular de Gran Calibre",
+    "location": "Fosa axilar, envuelta en la vaina axilar junto al plexo braquial y vena axilar",
+    "orientation": "Comienza en el borde posterior de la clavícula / borde lateral de la 1ª costilla y termina en el borde inferior del músculo pectoral mayor / redondo mayor para continuarse como arteria braquial.",
+    "parts": {
+      "porciones": [
+        {
+          "name": "1ª Porción (Medial al Pectoral Menor)",
+          "relations": "Cruzada anteriormente por el músculo pectoral mayor y la fascia clavipectoral; medialmente la vena axilar; posteriormente el fascículo medial del plexo braquial.",
+          "branches": [
+            "Arteria Torácica Superior"
+          ]
+        },
+        {
+          "name": "2ª Porción (Posterior al Pectoral Menor)",
+          "relations": "Abrazada íntimamente por los 3 fascículos del plexo braquial: fascículo lateral por fuera, medial por dentro, posterior por detrás.",
+          "branches": [
+            "Arteria Toracoacromial (ramas: acromial, clavicular, deltoidea, pectoral)",
+            "Arteria Torácica Lateral / Mamaria Externa"
+          ]
+        },
+        {
+          "name": "3ª Porción (Lateral al Pectoral Menor)",
+          "relations": "Cruza el borde inferior de la axila; relacionada con los ramos terminales del plexo braquial (horquilla del nervio mediano por delante).",
+          "branches": [
+            "Arteria Subescapular (ramas toracodorsal y circunfleja escapular)",
+            "Arteria Circunfleja Humeral Anterior",
+            "Arteria Circunfleja Humeral Posterior"
+          ]
+        }
+      ]
+    },
+    "practical_identification": "En la disección de la axila, el músculo pectoral menor sirve como reparo quirúrgico clave para dividir la arteria en sus tres sectores.",
+    "teacher_emphasis": "La relación 1-2-3: la 1ª porción da 1 rama; la 2ª porción da 2 ramas; la 3ª porción da 3 ramas. Total = 6 ramas colaterales.",
+    "source_pages": [
+      51,
+      52
+    ],
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "canonical_entity_candidate": "arteria_braquial",
+    "source_term": "Arteria Braquial / Humeral",
+    "aliases": [
+      "Arteria brachialis"
+    ],
+    "entity_type": "ARTERY",
+    "domain": "ANGIOLOGIA",
+    "region": "Brazo Anterior / Fosa Cubital",
+    "definition": "Continuación directa de la arteria axilar en el brazo, principal vía de irrigación del brazo, antebrazo y mano.",
+    "classification": "Arteria Conductora Principal",
+    "location": "Compartimento anterior del brazo, en el canal de Cruveilhier",
+    "orientation": "Se origina en el borde inferior del pectoral mayor / redondo mayor y desciende hasta 2 a 3 cm debajo del pliegue del codo.",
+    "parts": {
+      "course_and_relations": "Desciende por el conducto braquial junto a las venas braquiales satélites y al nervio mediano. El nervio mediano se sitúa primero lateral, luego la cruza por delante en X alargada, y se ubica medial en el codo.",
+      "collateral_branches": [
+        "Arteria Braquial Profunda (entra al canal de torsión)",
+        "Arteria Nutricia del Húmero",
+        "Arteria Colateral Cubital Superior (acompaña al nervio cubital hacia la epitróclea)",
+        "Arteria Colateral Cubital Inferior (supratroclear)"
+      ],
+      "termination": "En la fosa cubital profunda se bifurca en Arteria Radial (lateral) y Arteria Cubital (medial)."
+    },
+    "practical_identification": "Palpable medial al tendón del bíceps en el canal bicipital medial (surco para toma de presión arterial auscultatoria).",
+    "teacher_emphasis": "La arteria está protegida superficialmente en el codo por la aponeurosis bicipital (lacertus fibrosus), que la separa de la vena mediana del codo utilizada para venopunción.",
+    "source_pages": [
+      52
+    ],
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "validation_status": "SOURCE_EXTRACTED"
+  }
+]

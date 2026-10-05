@@ -1,0 +1,80 @@
+[
+  {
+    "document_id": "DOC-SCAP-KP1-001",
+    "pack_id": "AET-KP-UL-SCAPULA-001",
+    "patch_id": "AET-KP-UL-SCAPULA-001-KP1",
+    "title": "Vascularização regional e óssea da escápula",
+    "entity_ids": [
+      "scapula",
+      "suprascapular_artery",
+      "circumflex_scapular_artery",
+      "dorsal_scapular_artery"
+    ],
+    "knowledge_dimensions": [
+      "VASCULAR_RELATIONS"
+    ],
+    "narrative_text": "A vascularização da região escapular deve ser compreendida como uma rede, e não como a ação isolada de uma única artéria. Três vasos têm especial importância topográfica ao redor da escápula: a artéria supraescapular, a artéria circunflexa da escápula e a artéria dorsal da escápula. Seus ramos percorrem diferentes margens, fossas e superfícies da região escapular e participam de comunicações arteriais regionais. Além da irrigação dos músculos relacionados à escápula, ramos periosteais provenientes da vascularização regional contribuem para a irrigação do osso. A irrigação intraóssea da escápula não deve ser representada como um único vaso nutrício invariável. A distribuição dos forames nutrícios e dos pequenos ramos intraósseos pode variar entre indivíduos e entre diferentes regiões do osso. Por isso, a memória Aeternum deve distinguir: 1. vascularização regional da escápula; 2. ramos periosteais que alcançam a superfície óssea; 3. circulação intraóssea; 4. localização específica de forames nutrícios. Os três primeiros níveis podem ser representados conceitualmente neste estágio. O quarto nível exige fonte anatômica específica antes que a Aeternum declare número, posição ou vaso dominante dos forames nutrícios.",
+    "source_ids": [],
+    "fact_candidate_ids": [
+      "SCAP-KP1-AI-F009",
+      "SCAP-KP1-AI-F010",
+      "SCAP-KP1-AI-F011",
+      "SCAP-KP1-AI-F012",
+      "SCAP-KP1-AI-F013"
+    ]
+  },
+  {
+    "document_id": "DOC-SCAP-KP1-002",
+    "pack_id": "AET-KP-UL-SCAPULA-001",
+    "patch_id": "AET-KP-UL-SCAPULA-001-KP1",
+    "title": "Relações nervosas sensitivas da região escapular e do ombro",
+    "entity_ids": [
+      "scapula",
+      "glenohumeral_joint",
+      "acromioclavicular_joint",
+      "suprascapular_nerve",
+      "axillary_nerve",
+      "lateral_pectoral_nerve"
+    ],
+    "knowledge_dimensions": [
+      "NEURAL_RELATIONS"
+    ],
+    "narrative_text": "A escápula não deve ser estudada neurologicamente apenas pelas relações motoras dos músculos que nela se fixam. A região escapular participa de articulações e interfaces capsuloligamentares que recebem ramos articulares sensitivos. Na articulação glenoumeral, ramos provenientes de nervos regionais, especialmente o nervo supraescapular e o nervo axilar, participam da inervação sensitiva articular. Contribuições do nervo peitoral lateral para a região articular anterior são descritas em referências anatômicas, mas a participação exata e a distribuição capsular devem permanecer como candidato de validação até que uma fonte registrada seja incorporada à Aeternum. Na articulação acromioclavicular, ramos articulares da região supraescapular e peitoral lateral são candidatos relevantes para a inervação sensitiva da cápsula. A distribuição periosteal sensitiva específica da escápula é menos apropriada para generalização sem fonte especializada. A Aeternum deve reconhecer que o periósteo possui inervação sensitiva, mas não deve inventar um mapa de nervos nomeados para cada superfície óssea.",
+    "source_ids": [],
+    "fact_candidate_ids": [
+      "SCAP-KP1-AI-F014",
+      "SCAP-KP1-AI-F015",
+      "SCAP-KP1-AI-F016",
+      "SCAP-KP1-AI-F017",
+      "SCAP-KP1-AI-F018",
+      "SCAP-KP1-AI-F019"
+    ]
+  },
+  {
+    "document_id": "DOC-SCAP-KP1-003",
+    "pack_id": "AET-KP-UL-SCAPULA-001",
+    "patch_id": "AET-KP-UL-SCAPULA-001-KP1",
+    "title": "Variações anatômicas relevantes da escápula",
+    "entity_ids": [
+      "scapula",
+      "acromion",
+      "os_acromiale",
+      "superior_transverse_scapular_ligament"
+    ],
+    "knowledge_dimensions": [
+      "MORPHOLOGY"
+    ],
+    "narrative_text": "A escápula apresenta variações morfológicas que podem alterar sua aparência em peças anatômicas e exames de imagem. Essas variações não devem ser tratadas automaticamente como patologia. Entre as variações de interesse didático estão: 1. diferenças na morfologia do acrômio; 2. persistência de centros de ossificação não fusionados do acrômio, formando o chamado os acromiale; 3. ossificação parcial ou completa do ligamento transverso superior da escápula. Essas variações são particularmente úteis no ensino porque conectam osteologia, desenvolvimento ósseo, topografia e interpretação radiológica.",
+    "source_ids": [],
+    "fact_candidate_ids": [
+      "SCAP-KP1-AI-F001",
+      "SCAP-KP1-AI-F002",
+      "SCAP-KP1-AI-F003",
+      "SCAP-KP1-AI-F004",
+      "SCAP-KP1-AI-F005",
+      "SCAP-KP1-AI-F006",
+      "SCAP-KP1-AI-F007",
+      "SCAP-KP1-AI-F008"
+    ]
+  }
+]

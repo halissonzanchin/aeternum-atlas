@@ -1,0 +1,130 @@
+[
+  {
+    "canonical_teaching_connection_id": "TC-UL-B1-001",
+    "clinical_concept": "Clavicle as the Sole Osseous Skeletal Bridge to the Axial Trunk",
+    "anchor_entities": [
+      "clavicle",
+      "pectoral_girdle",
+      "sternoclavicular_joint",
+      "scapula"
+    ],
+    "supporting_fact_ids": [
+      "AET-CF-CLAV-002",
+      "AET-CF-SCJ-002",
+      "AET-CF-PGI-004",
+      "AET-CF-PGI-005"
+    ],
+    "pedagogical_prompt": "Explain the anatomical and functional significance of clavicle in relation to Clavicle as the Sole Osseous Skeletal Bridge to the Axial Trunk.",
+    "professor_response_template": "Students frequently assume the shoulder girdle is solidly anchored by both clavicle and scapula. Emphasizing that the clavicle is the only rigid bony link to the skeleton explains why clavicle fractures immediately cause the shoulder to collapse downward and forward.",
+    "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+    "professor_production_ready": true,
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_teaching_connection_id": "TC-UL-B1-002",
+    "clinical_concept": "The Mechanical S-Curvature: Elasticity vs Fracture Vulnerability",
+    "anchor_entities": [
+      "clavicular_shaft",
+      "clavicle",
+      "cervicoaxillary_canal"
+    ],
+    "supporting_fact_ids": [
+      "AET-CF-CLAV-005",
+      "AET-CF-CLAV-006",
+      "AET-CF-CLAV-007",
+      "AET-CF-CLAV-047"
+    ],
+    "pedagogical_prompt": "Explain the anatomical and functional significance of clavicular_shaft in relation to The Mechanical S-Curvature: Elasticity vs Fracture Vulnerability.",
+    "professor_response_template": "The transition from the convex medial two-thirds to the concave lateral third creates a mechanical curve transition point that acts both as a shock absorber for axial loads and as the most common fracture site in the human skeleton.",
+    "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+    "professor_production_ready": true,
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_teaching_connection_id": "TC-UL-B1-003",
+    "clinical_concept": "Sternoclavicular Fibrocartilaginous Disc: Transforming a Saddle into a Ball-and-Socket",
+    "anchor_entities": [
+      "sternoclavicular_articular_disc",
+      "sternoclavicular_joint"
+    ],
+    "supporting_fact_ids": [
+      "AET-CF-SCJ-001",
+      "AET-CF-SCJ-005",
+      "AET-CF-SCJ-008",
+      "AET-CF-SCJ-018"
+    ],
+    "pedagogical_prompt": "Explain the anatomical and functional significance of sternoclavicular_articular_disc in relation to Sternoclavicular Fibrocartilaginous Disc: Transforming a Saddle into a Ball-and-Socket.",
+    "professor_response_template": "Explains how an anatomical sellar joint achieves multiaxial spheroidal movement freedom (elevation, depression, protraction, retraction, and 40° of axial spin) through an interarticular disc that provides two decoupled degrees of freedom.",
+    "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+    "professor_production_ready": true,
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_teaching_connection_id": "TC-UL-B1-004",
+    "clinical_concept": "The Costoclavicular Ligament as the Fulcrum and Checkrein of Elevation",
+    "anchor_entities": [
+      "costoclavicular_ligament",
+      "sternoclavicular_joint",
+      "clavicular_inferior_surface"
+    ],
+    "supporting_fact_ids": [
+      "AET-CF-SCJ-013",
+      "AET-CF-SCJ-015",
+      "AET-CF-SCJ-026"
+    ],
+    "pedagogical_prompt": "Explain the anatomical and functional significance of costoclavicular_ligament in relation to The Costoclavicular Ligament as the Fulcrum and Checkrein of Elevation.",
+    "professor_response_template": "Demonstrates that during clavicular elevation, the costoclavicular ligament serves as a stable kinetic pivot: when the lateral end rises, the sternal articular surface slides downward on the disc.",
+    "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+    "professor_production_ready": true,
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_teaching_connection_id": "TC-UL-B1-005",
+    "clinical_concept": "Coracoclavicular Complex: The True Suspensory Apparatus of the Arm",
+    "anchor_entities": [
+      "coracoclavicular_ligament_complex",
+      "conoid_ligament",
+      "trapezoid_ligament",
+      "acromioclavicular_joint",
+      "scapula"
+    ],
+    "supporting_fact_ids": [
+      "AET-CF-ACJ-012",
+      "AET-CF-CCC-001",
+      "AET-CF-CCC-007",
+      "AET-CF-CCC-012",
+      "AET-CF-CCC-013"
+    ],
+    "pedagogical_prompt": "Explain the anatomical and functional significance of coracoclavicular_ligament_complex in relation to Coracoclavicular Complex: The True Suspensory Apparatus of the Arm.",
+    "professor_response_template": "Clarifies that the weak acromioclavicular capsule cannot resist the weight of the arm alone. The conoid and trapezoid ligaments provide the actual suspensory sling holding the scapula and upper limb from the clavicle.",
+    "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+    "professor_production_ready": true,
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_teaching_connection_id": "TC-UL-B1-006",
+    "clinical_concept": "Deltopectoral Groove and Triangle: Superficial Venous Highway and Surgical Access",
+    "anchor_entities": [
+      "deltopectoral_groove",
+      "clavicle",
+      "pectoral_girdle"
+    ],
+    "supporting_fact_ids": [
+      "AET-CF-PGI-008",
+      "AET-CF-PGI-010",
+      "AET-CF-PGI-011",
+      "AET-CF-PGI-015"
+    ],
+    "pedagogical_prompt": "Explain the anatomical and functional significance of deltopectoral_groove in relation to Deltopectoral Groove and Triangle: Superficial Venous Highway and Surgical Access.",
+    "professor_response_template": "Teaches students the surface palpation of the deltopectoral groove for emergency venous cutdown of the cephalic vein and for the standard anterior surgical approach to the shoulder joint.",
+    "qualification_status": "TEACHING_CONNECTION_PRODUCTION_READY",
+    "professor_production_ready": true,
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  }
+]

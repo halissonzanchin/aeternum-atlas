@@ -1,0 +1,906 @@
+{
+  "phase": "EXP-UL-B1-SE1",
+  "total_tested": 60,
+  "matching_parity_count": 60,
+  "parity_percentage": "100%",
+  "details": [
+    {
+      "query_id": "SE1-Q-001",
+      "query": "Qual é a classificação morfológica da clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-002",
+      "query": "Qual é a classificação morfológica da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-003",
+      "query": "A clavícula é um osso par ou ímpar?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-004",
+      "query": "A escápula é um osso par?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-005",
+      "query": "Qual o formato geral da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-006",
+      "query": "Quantas curvaturas apresenta o corpo da clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-007",
+      "query": "Como se curva a clavícula em seus dois terços mediais?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-008",
+      "query": "Como se curva a clavícula em seu terço lateral?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-009",
+      "query": "Quantas extremidades possui a clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-042"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-042"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-010",
+      "query": "Quantas faces possui o corpo da clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-011",
+        "AET-CF-CLAV-012"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-011",
+        "AET-CF-CLAV-012"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-011",
+      "query": "Quantas margens apresenta a diáfise da clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-012",
+      "query": "Quantas faces apresenta a escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-052",
+        "AET-CF-SCAP-053"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-052",
+        "AET-CF-SCAP-053"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-013",
+      "query": "Quantas margens possui a escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-014",
+      "query": "Quantos ângulos possui a escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-015",
+      "query": "Qual o tipo morfológico da articulação esternoclavicular?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-004",
+        "AET-CF-SCJ-003"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-004",
+        "AET-CF-SCJ-003"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-016",
+      "query": "A articulação esternoclavicular possui disco articular?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-004",
+        "AET-CF-SCJ-003"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-004",
+        "AET-CF-SCJ-003"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-017",
+      "query": "Qual o tipo morfológico da articulação acromioclavicular?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-ACJ-001",
+        "AET-CF-ACJ-003"
+      ],
+      "sqlite_facts": [
+        "AET-CF-ACJ-001",
+        "AET-CF-ACJ-003"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-018",
+      "query": "Quais ligamentos compõem o complexo ligamentar coracoclavicular?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CCC-001",
+        "AET-CF-CCC-002"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CCC-001",
+        "AET-CF-CCC-002"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-019",
+      "query": "Onde se localiza o tubérculo conoide na clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CCC-006",
+        "AET-CF-CLAV-001"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CCC-006",
+        "AET-CF-CLAV-001"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-020",
+      "query": "Onde se localiza a linha trapezoide na clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CCC-011",
+        "AET-CF-CLAV-001"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CCC-011",
+        "AET-CF-CLAV-001"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-021",
+      "query": "Qual estrutura passa pelo sulco subclávio da clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-022",
+      "query": "O que se insere no ápice do processo coracoide?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-089",
+        "AET-CF-SCAP-090"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-089",
+        "AET-CF-SCAP-090"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-023",
+      "query": "Qual acidente anatômico separa a fossa supraespinosa da infraespinosa?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-013"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-013"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-024",
+      "query": "Qual músculo se insere no lábio superior da espinha da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-025",
+      "query": "Qual músculo se insere na fossa subescapular?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-074"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-074"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-026",
+      "query": "Qual músculo se insere na fossa supraespinosa?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-075"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-075"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-027",
+      "query": "Com quem a extremidade acromial da clavícula se articula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-071"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-071"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-028",
+      "query": "Com quem a extremidade esternal da clavícula se articula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-071"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-071"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-029",
+      "query": "Quais ligamentos conectam a clavícula ao processo coracoide da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-030",
+        "AET-CF-CLAV-031"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-030",
+        "AET-CF-CLAV-031"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-030",
+      "query": "Onde se fixa o ligamento conoide na clavícula e na escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CCC-006",
+        "AET-CF-CLAV-027"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CCC-006",
+        "AET-CF-CLAV-027"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-031",
+      "query": "Onde se fixa o ligamento trapezoide na clavícula e no coracoide?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CCC-011",
+        "AET-CF-CLAV-027"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CCC-011",
+        "AET-CF-CLAV-027"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-032",
+      "query": "Qual músculo se origina na borda anterior do terço lateral da clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-033",
+      "query": "Qual músculo se origina na borda anterior dos dois terços mediais da clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-034",
+      "query": "Qual músculo se insere na margem posterior do terço lateral da clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-035",
+      "query": "Qual músculo se origina na face superior medial da clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-036",
+      "query": "Qual músculo se insere no sulco subclávio na face inferior da clavícula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-037",
+      "query": "Qual ligamento se fixa na impressão da face inferior da clavícula perto da ponta esternal?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-038",
+      "query": "Quais ligamentos reforçam a cápsula da articulação esternoclavicular?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-004",
+        "AET-CF-SCJ-003"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-004",
+        "AET-CF-SCJ-003"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-039",
+      "query": "Qual ligamento une as extremidades esternais das duas clavículas?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-009",
+        "AET-CF-CLAV-021"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-009",
+        "AET-CF-CLAV-021"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-040",
+      "query": "Qual ligamento reforça a face superior da articulação acromioclavicular?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-ACJ-001",
+        "AET-CF-ACJ-003"
+      ],
+      "sqlite_facts": [
+        "AET-CF-ACJ-001",
+        "AET-CF-ACJ-003"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-041",
+      "query": "Qual ligamento estende-se entre o acrômio e o processo coracoide da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-042",
+      "query": "Qual ligamento fecha a incisura da escápula transformando-a em forame?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-043",
+      "query": "Qual músculo se insere em toda a extensão da margem medial da escápula na face costal?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-044",
+      "query": "Qual músculo se insere no tubérculo supraglenoidal da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-045",
+      "query": "Qual músculo se origina no tubérculo infraglenoidal da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-046",
+      "query": "Quais músculos se inserem no processo coracoide da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-047",
+      "query": "Com quem a cavidade glenoidal da escápula se articula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-008"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-008"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-048",
+      "query": "Com quem o acrômio da escápula se articula diretamente?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-CLAV-024",
+        "AET-CF-SCAP-007"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-024",
+        "AET-CF-SCAP-007"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-049",
+      "query": "Onde se localiza o sulco deltopeitoral e quais seus limites?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-008",
+        "AET-CF-PGI-009"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-008",
+        "AET-CF-PGI-009"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-050",
+      "query": "Qual vaso transita pelo sulco deltopeitoral?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-008",
+        "AET-CF-PGI-009"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-008",
+        "AET-CF-PGI-009"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-051",
+      "query": "Quais são os limites anatômicos do canal cervicoaxilar?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-012",
+        "AET-CF-PGI-013"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-012",
+        "AET-CF-PGI-013"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-052",
+      "query": "O que passa através do canal cervicoaxilar?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-012",
+        "AET-CF-PGI-013"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-012",
+        "AET-CF-PGI-013"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-053",
+      "query": "Onde se fixa a fáscia clavipeitoral?",
+      "semantic_parity": true,
+      "json_status": "PARTIAL_CANONICAL_EVIDENCE",
+      "sqlite_status": "PARTIAL_CANONICAL_EVIDENCE",
+      "json_facts": [
+        "AET-CF-CLAV-043"
+      ],
+      "sqlite_facts": [
+        "AET-CF-CLAV-043"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-054",
+      "query": "O que passa pela incisura da escápula abaixo do ligamento transverso superior?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-055",
+      "query": "O que passa por cima do ligamento transverso superior da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-056",
+      "query": "O que transita pela incisura espinoglenoidal da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-057",
+      "query": "Onde fica a face costal da escápula em relação à caixa torácica?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-SCAP-052",
+        "AET-CF-SCAP-053"
+      ],
+      "sqlite_facts": [
+        "AET-CF-SCAP-052",
+        "AET-CF-SCAP-053"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-058",
+      "query": "Entre quais níveis vertebrais a escápula se localiza no dorso?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-059",
+      "query": "Onde se localiza a fossa supraespinosa em relação à espinha da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ]
+    },
+    {
+      "query_id": "SE1-Q-060",
+      "query": "Onde se localiza a fossa infraespinosa em relação à espinha da escápula?",
+      "semantic_parity": true,
+      "json_status": "VALIDATED_DIRECT_ANSWER",
+      "sqlite_status": "VALIDATED_DIRECT_ANSWER",
+      "json_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "sqlite_facts": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ]
+    }
+  ]
+}

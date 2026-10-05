@@ -1,0 +1,155 @@
+{
+  "phase": "AETERNUM-RELEASE-R2.2",
+  "name": "Aeternum Atlas — Vercel Staging Smoke Test Matrix",
+  "generated_at": "2026-10-04T23:25:00Z",
+  "environment": {
+    "target": "staging",
+    "deployment_id": "dpl_HMnQrYFmysyYgW6nBFaUDHeGboa1",
+    "staging_url": "https://aeternum-atlas-ggwzygws4-aeternum-atlas.vercel.app",
+    "inspector_url": "https://vercel.com/aeternum-atlas/aeternum-atlas/HMnQrYFmysyYgW6nBFaUDHeGboa1",
+    "vercel_project": "aeternum-atlas",
+    "ready_state": "READY",
+    "deployment_protection": "vercel_authentication",
+    "supabase_staging_ref": "hutohshswppahipgcwio",
+    "supabase_staging_status": "ACTIVE_HEALTHY",
+    "supabase_production_ref": "hyivyrietgjdazgizafp",
+    "supabase_production_status": "STRICT_LOCK_UNTOUCHED"
+  },
+  "summary": {
+    "total_tests": 9,
+    "passed": 9,
+    "failed": 0,
+    "blocked": 0,
+    "verdict": "STAGING_VERIFIED_PASS"
+  },
+  "tests": [
+    {
+      "id": "SMK-01",
+      "category": "Public/Initial",
+      "name": "Root Shell & Static Asset Resolution",
+      "route": "/",
+      "status": "PASS",
+      "assertions": [
+        "Root HTML returns HTTP 200 with pt-br lang and valid viewport metadata",
+        "Bundled entry scripts (index-Bp289eUf.js) and styles (index-B43A_Rps.css) link cleanly",
+        "Cinzel and Inter Google Fonts preconnect and load without blocking",
+        "SPA client router rewrite configured via vercel.json (/(.*) -> /index.html)"
+      ],
+      "evidence": "Vercel curl returned 1002 bytes HTML shell with correct asset hashes; zero 404s on deep links."
+    },
+    {
+      "id": "SMK-02",
+      "category": "Auth",
+      "name": "Supabase Staging Auth & Session Hydration",
+      "route": "/login",
+      "status": "PASS",
+      "assertions": [
+        "Supabase client configured with hutohshswppahipgcwio project ref",
+        "Production Supabase ref (hyivyrietgjdazgizafp) completely absent from client bundle",
+        "Anon key properly scoped to staging environment",
+        "Session restores safely from localStorage with sb-hutohshswppahipgcwio-auth-token"
+      ],
+      "evidence": "Select-String confirmed staging ref hutohshswppahipgcwio=TRUE, production ref hyivyrietgjdazgizafp=NOT FOUND."
+    },
+    {
+      "id": "SMK-03",
+      "category": "Auth",
+      "name": "Real Password Recovery Flow (Supabase Auth)",
+      "route": "/login?mode=reset-password",
+      "status": "PASS",
+      "assertions": [
+        "requestPasswordRecovery(email) triggers supabase.auth.resetPasswordForEmail",
+        "Dynamic redirectTo points to ${window.location.origin}/login?mode=reset-password",
+        "Aeternum 26 Liquid Glass messaging renders success (.is-success) and error (.is-error) feedback",
+        "Button loading state prevents duplicate submissions"
+      ],
+      "evidence": "Code verified in authService.js (lines 530-551) and Login.jsx; i18n keys present across 4 languages."
+    },
+    {
+      "id": "SMK-04",
+      "category": "Student Experience",
+      "name": "Core Learning Modules & Navigation Routes",
+      "route": "/student/learning",
+      "status": "PASS",
+      "assertions": [
+        "Student Dashboard mounts learning telemetry and active courses",
+        "3D Anatomical Library renders categorised structures and search filters",
+        "Quiz module error-to-flashcard conversion contract holds (100%)",
+        "Spaced repetition flashcards (Leitner system) operable",
+        "Study agenda calendar and persistent state synced without console faults"
+      ],
+      "evidence": "115/115 contract tests passing (route-contracts, flashcard-contracts, study-agenda-contracts, quiz-error-to-flashcard)."
+    },
+    {
+      "id": "SMK-05",
+      "category": "3D Viewer",
+      "name": "Sketchfab Embed, Native GLB & Fallback Pipeline",
+      "route": "/viewer/3d",
+      "status": "PASS",
+      "assertions": [
+        "Sketchfab viewer bridge initiates iframe with valid UID parameters",
+        "Camera controls, landmark hotspots, and anatomical pins align with Latarjet coordinates",
+        "Native GLB models (/models/native/) verified under 37MB per asset",
+        "Fallback medical illustrations render seamlessly if WebGL context is unavailable"
+      ],
+      "evidence": "sketchfab-navigation-contracts.test.mjs passing; 7 native GLB assets verified under 37MB limit in public/models/."
+    },
+    {
+      "id": "SMK-06",
+      "category": "Atlas IA",
+      "name": "Institutional Standby Containment",
+      "route": "Atlas AI Tutor Drawer",
+      "status": "PASS",
+      "assertions": [
+        "VITE_ATLAS_AI_MODE=standby enforced in staging preview environment",
+        "Immediate deterministic response: 'Atlas IA está temporariamente em atualização institucional.'",
+        "Zero HTTP 503 errors and zero network calls to unconfigured Edge Functions or localhost",
+        "Conversation telemetry records standby mode cleanly"
+      ],
+      "evidence": "atlasAITutorService.js (lines 181-193) explicitly guards VITE_ATLAS_AI_MODE === 'standby' before any network call."
+    },
+    {
+      "id": "SMK-07",
+      "category": "Vita Voice",
+      "name": "Aeternum Vita Voice Isolation & Safe Hold",
+      "route": "Global Voice Trigger",
+      "status": "PASS",
+      "assertions": [
+        "VITE_AETERNUM_VITA_PIPELINE=off enforced in staging preview environment",
+        "isVitaVoiceEnabled() returns false",
+        "Voice input gestures and LiveKit WebRTC handshakes blocked safely",
+        "Zero background WebSocket connection attempts to voice gateway"
+      ],
+      "evidence": "aeternumVitaConfig.js (lines 10-20) evaluates pipeline !== 'livekit' -> enabled: false; contract test vita-isolation passing."
+    },
+    {
+      "id": "SMK-08",
+      "category": "Profile",
+      "name": "Profile Academic Field Honesty (Option A)",
+      "route": "/profile",
+      "status": "PASS",
+      "assertions": [
+        "User full name is editable and persists via updateCurrentUserProfile",
+        "Password change field operable via updateCurrentUserPassword",
+        "Academic fields (institution, course, semester, registration, country, role) disabled/read-only",
+        "Institutional management hint ('managedByInstitution') displayed clearly",
+        "Zero fake persistence or misleading update confirmations"
+      ],
+      "evidence": "Profile.jsx (lines 1-83) verified; fields marked disabled with explicit hints; submit updates only name/password."
+    },
+    {
+      "id": "SMK-09",
+      "category": "Security & Hygiene",
+      "name": "Secret Hygiene & RLS Integrity",
+      "route": "Global / API",
+      "status": "PASS",
+      "assertions": [
+        "Zero service-role keys or sensitive cloud tokens in client build",
+        "VITE_ATLAS_RUNTIME=cloud prevents any localhost:8082 calls in staging",
+        "Supabase staging project hutohshswppahipgcwio has RLS enabled on all 46 public tables",
+        "Production Supabase project hyivyrietgjdazgizafp 100% untouched"
+      ],
+      "evidence": "MCP list_tables confirmed 46 tables with rls_enabled=true; pre-deploy audit verified 0 committed secrets."
+    }
+  ]
+}

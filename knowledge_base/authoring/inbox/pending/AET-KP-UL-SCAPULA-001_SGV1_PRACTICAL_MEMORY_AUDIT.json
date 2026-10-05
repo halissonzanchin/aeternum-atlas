@@ -1,0 +1,137 @@
+[
+  {
+    "item_id": "PRAC-SCAP-001",
+    "topic": "PRACTICAL_IDENTIFICATION_CANDIDATE",
+    "steps_or_landmarks": [
+      "1. Identifique a espinha da escápula; a espinha pertence necessariamente à face posterior.",
+      "2. Posicione a cavidade glenoidal lateralmente.",
+      "3. O processo coracoide projeta-se anteriormente.",
+      "4. O ângulo inferior aponta para baixo (inferiormente).",
+      "5. Com a cavidade glenoidal voltada lateralmente, o lado para o qual ela aponta determina se a escápula é direita ou esquerda."
+    ],
+    "academic_grounding_sources": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "academic_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_status": "VALIDATED",
+    "safe_engine_practical_ready": true,
+    "pedagogical_scope": "Cadaveric bone orientation and palpation protocol"
+  },
+  {
+    "item_id": "PRAC-SCAP-002",
+    "topic": "POSTERIOR_SURFACE_IDENTIFICATION",
+    "steps_or_landmarks": [
+      "Presença da espinha da escápula",
+      "Presença da fossa supraespinosa (acima da espinha)",
+      "Presença da fossa infraespinosa (abaixo da espinha)"
+    ],
+    "academic_grounding_sources": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "academic_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_status": "VALIDATED",
+    "safe_engine_practical_ready": true,
+    "pedagogical_scope": "Cadaveric bone orientation and palpation protocol"
+  },
+  {
+    "item_id": "PRAC-SCAP-003",
+    "topic": "COSTAL_SURFACE_IDENTIFICATION",
+    "steps_or_landmarks": [
+      "Ausência de espinha óssea",
+      "Ampla concavidade representada pela fossa subescapular"
+    ],
+    "academic_grounding_sources": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "academic_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_status": "VALIDATED",
+    "safe_engine_practical_ready": true,
+    "pedagogical_scope": "Cadaveric bone orientation and palpation protocol"
+  },
+  {
+    "item_id": "PRAC-SCAP-004",
+    "topic": "GLENOID_REGION_IDENTIFICATION",
+    "steps_or_landmarks": [
+      "Localização do ângulo lateral",
+      "Identificação da cavidade glenoidal (superfície ovalada lisa)",
+      "Identificação dos tubérculos supraglenoidal e infraglenoidal"
+    ],
+    "academic_grounding_sources": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "academic_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_status": "VALIDATED",
+    "safe_engine_practical_ready": true,
+    "pedagogical_scope": "Cadaveric bone orientation and palpation protocol"
+  },
+  {
+    "item_id": "PRAC-SCAP-005",
+    "topic": "CORACOID_IDENTIFICATION",
+    "steps_or_landmarks": [
+      "Processo ósseo curvo projetando-se anterior e superiormente à região glenoidal"
+    ],
+    "academic_grounding_sources": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "academic_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_status": "VALIDATED",
+    "safe_engine_practical_ready": true,
+    "pedagogical_scope": "Cadaveric bone orientation and palpation protocol"
+  },
+  {
+    "item_id": "PRAC-SCAP-006",
+    "topic": "ACROMION_IDENTIFICATION",
+    "steps_or_landmarks": [
+      "Continuação lateral expandida da espinha da escápula formando o ápice do ombro"
+    ],
+    "academic_grounding_sources": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "academic_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "validation_status": "VALIDATED",
+    "safe_engine_practical_ready": true,
+    "pedagogical_scope": "Cadaveric bone orientation and palpation protocol"
+  }
+]

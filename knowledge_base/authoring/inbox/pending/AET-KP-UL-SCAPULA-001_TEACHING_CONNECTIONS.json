@@ -1,0 +1,198 @@
+[
+  {
+    "connection_id": "TC-SCAP-001",
+    "anchor_entity": "scapular_spine",
+    "related_entities": [
+      "supraspinous_fossa",
+      "infraspinous_fossa",
+      "supraspinatus",
+      "infraspinatus"
+    ],
+    "connection_type": "TOPOGRAPHIC_ORGANIZER",
+    "teaching_reason": "The spine is the practical landmark that immediately separates the two posterior fossae and therefore organizes the muscle origins located above and below it.",
+    "supporting_fact_ids": [
+      "SCAP-AI-F011",
+      "SCAP-AI-F012",
+      "SCAP-AI-F014",
+      "SCAP-AI-F015",
+      "SCAP-AI-F026",
+      "SCAP-AI-F027"
+    ],
+    "context": "Dorsal scapular organization and rotator cuff posterior muscle origins."
+  },
+  {
+    "connection_id": "TC-SCAP-002",
+    "anchor_entity": "glenoid_cavity",
+    "related_entities": [
+      "humeral_head",
+      "glenoid_labrum",
+      "glenohumeral_joint"
+    ],
+    "connection_type": "ARTICULAR_COMPLEX",
+    "teaching_reason": "The lateral articular region should be studied as a complete joint complex rather than as an isolated bony depression.",
+    "supporting_fact_ids": [
+      "SCAP-AI-F018",
+      "SCAP-AI-F023",
+      "SCAP-AI-F024"
+    ],
+    "context": "Articular stability, labral deepening, and ball-and-socket kinematics."
+  },
+  {
+    "connection_id": "TC-SCAP-003",
+    "anchor_entity": "supraglenoid_and_infraglenoid_regions",
+    "related_entities": [
+      "long_head_biceps",
+      "long_head_triceps"
+    ],
+    "connection_type": "MUSCULAR_ORIGIN_HUB",
+    "teaching_reason": "The glenoid region directly links osteology to the long heads of the arm muscles.",
+    "supporting_fact_ids": [
+      "SCAP-AI-F019",
+      "SCAP-AI-F020",
+      "SCAP-AI-F038",
+      "SCAP-AI-F039"
+    ],
+    "context": "Long head origins anchoring anterior and posterior arm compartments to scapular tubercles."
+  },
+  {
+    "connection_id": "TC-SCAP-004",
+    "anchor_entity": "coracoid_process",
+    "related_entities": [
+      "short_head_biceps",
+      "coracobrachialis",
+      "pectoralis_minor",
+      "coracoacromial_ligament",
+      "coracoclavicular_complex"
+    ],
+    "connection_type": "ATTACHMENT_CONVERGENCE",
+    "teaching_reason": "The coracoid is a major convergence point of muscle and ligament attachments.",
+    "supporting_fact_ids": [
+      "SCAP-AI-F017",
+      "SCAP-AI-F040",
+      "SCAP-AI-F041",
+      "SCAP-AI-F042",
+      "SCAP-AI-F043"
+    ],
+    "context": "Central bony landmark organizing anterior shoulder and axillary attachments."
+  },
+  {
+    "connection_id": "TC-SCAP-005",
+    "anchor_entity": "suprascapular_notch",
+    "related_entities": [
+      "suprascapular_nerve",
+      "superior_transverse_scapular_ligament",
+      "suprascapular_artery"
+    ],
+    "connection_type": "NEUROVASCULAR_CROSSING",
+    "teaching_reason": "This region integrates bone morphology, ligament anatomy, arterial relation and nerve passage.",
+    "supporting_fact_ids": [
+      "SCAP-AI-F021",
+      "SCAP-AI-F044",
+      "SCAP-AI-F045",
+      "SCAP-AI-F046",
+      "SCAP-AI-F047"
+    ],
+    "context": "Foramen formation by transverse ligament and classic neurovascular crossing relationships."
+  },
+  {
+    "connection_id": "TC-SCAP-006",
+    "anchor_entity": "medial_border",
+    "related_entities": [
+      "levator_scapulae",
+      "rhomboid_minor",
+      "rhomboid_major",
+      "serratus_anterior"
+    ],
+    "connection_type": "POSTURAL_INTEGRATOR",
+    "teaching_reason": "The medial border organizes the muscular systems responsible for positioning the scapula against the thoracic wall.",
+    "supporting_fact_ids": [
+      "SCAP-AI-F006",
+      "SCAP-AI-F034",
+      "SCAP-AI-F035",
+      "SCAP-AI-F036",
+      "SCAP-AI-F037"
+    ],
+    "context": "Scapulothoracic motion, stabilization against ribs, and muscular sling antagonism."
+  },
+  {
+    "connection_id": "TC-SCAP-007",
+    "anchor_entity": "lateral_border_and_inferior_region",
+    "related_entities": [
+      "teres_minor",
+      "teres_major",
+      "long_head_triceps",
+      "triangular_space",
+      "quadrangular_space"
+    ],
+    "connection_type": "ANATOMIC_SPACE_FORMATION",
+    "teaching_reason": "Muscle attachments on the scapula create clinically and practically important posterior shoulder spaces.",
+    "supporting_fact_ids": [
+      "SCAP-AI-F007",
+      "SCAP-AI-F028",
+      "SCAP-AI-F029",
+      "SCAP-AI-F051",
+      "SCAP-AI-F052",
+      "SCAP-AI-F053",
+      "SCAP-AI-F054",
+      "SCAP-AI-F055",
+      "SCAP-AI-F056",
+      "SCAP-AI-F057"
+    ],
+    "context": "Delimitation of triangular and quadrangular spaces conducting neurovascular bundles."
+  },
+  {
+    "connection_id": "TC-SCAP-008",
+    "anchor_entity": "acromion",
+    "related_entities": [
+      "scapular_spine",
+      "clavicle",
+      "deltoid",
+      "trapezius"
+    ],
+    "connection_type": "SKELETAL_MUSCLE_BRIDGE",
+    "teaching_reason": "The acromion links scapular osteology to the acromioclavicular joint and to major superficial shoulder muscles.",
+    "supporting_fact_ids": [
+      "SCAP-AI-F016",
+      "SCAP-AI-F022",
+      "SCAP-AI-F030",
+      "SCAP-AI-F032"
+    ],
+    "context": "Superficial shoulder contour, clavicular suspension, and deltotrapezial continuous aponeurotic line."
+  },
+  {
+    "connection_id": "TC-SCAP-009",
+    "anchor_entity": "scapular_vascular_region",
+    "related_entities": [
+      "suprascapular_artery",
+      "circumflex_scapular_artery",
+      "dorsal_scapular_artery"
+    ],
+    "connection_type": "VASCULAR_NETWORK",
+    "teaching_reason": "The scapular region should be understood as an anastomotic vascular network rather than as isolated named arteries.",
+    "supporting_fact_ids": [
+      "SCAP-AI-F047",
+      "SCAP-AI-F049",
+      "SCAP-AI-F050"
+    ],
+    "context": "Scapular arterial collateral circulation bridging subclavian and axillary systems."
+  },
+  {
+    "connection_id": "TC-SCAP-010",
+    "anchor_entity": "isolated_scapula",
+    "related_entities": [
+      "scapular_spine",
+      "glenoid_cavity",
+      "coracoid_process",
+      "inferior_angle"
+    ],
+    "connection_type": "PRACTICAL_ORIENTATION_CLUSTER",
+    "teaching_reason": "These four landmarks allow rapid orientation and laterality determination during practical examination.",
+    "supporting_fact_ids": [
+      "SCAP-AI-F061",
+      "SCAP-AI-F062",
+      "SCAP-AI-F063",
+      "SCAP-AI-F064"
+    ],
+    "context": "Cadaveric and dry bone examination protocol for anatomic position and laterality."
+  }
+]

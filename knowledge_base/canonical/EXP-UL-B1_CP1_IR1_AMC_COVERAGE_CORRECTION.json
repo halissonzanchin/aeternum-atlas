@@ -1,0 +1,27 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR1",
+  "corrected_at": "2026-09-26T13:45:56.604Z",
+  "legacy_historical_baseline": {
+    "metric": "CP1_LEGACY_GLOBAL_CANONICAL_COVERAGE_PERCENT",
+    "value": "1.41%",
+    "numerator": 31,
+    "denominator": 2202,
+    "valid": "NO",
+    "reason": "Numerator 31 corresponded to raw SQLite row count containing subparts and impressions rather than qualified master targets."
+  },
+  "corrected_global_coverage": {
+    "UNIQUE_CANONICAL_AMC_TARGET_COUNT": 7,
+    "GLOBAL_ENTITY_TARGET_COUNT": 2202,
+    "CORRECTED_GLOBAL_CANONICAL_ENTITY_COVERAGE_PERCENT": "0.32%",
+    "exact_ratio": 0.003178928247048138,
+    "status": "MATHEMATICALLY_CERTIFIED"
+  },
+  "corrected_upper_limb_coverage": {
+    "UPPER_LIMB_ENTITY_TARGET_COUNT": 232,
+    "UPPER_LIMB_UNIQUE_CANONICAL_AMC_TARGET_COUNT": 7,
+    "CORRECTED_UPPER_LIMB_COVERAGE_PERCENT": "3.02%",
+    "exact_ratio": 0.03017241379310345,
+    "status": "MATHEMATICALLY_CERTIFIED"
+  },
+  "future_expansion_rule": "Only FULL_CANONICAL_ENTITY items with AMC_mapping_status=MAPPED_EXACT may increment the numerator in future batch promotions."
+}

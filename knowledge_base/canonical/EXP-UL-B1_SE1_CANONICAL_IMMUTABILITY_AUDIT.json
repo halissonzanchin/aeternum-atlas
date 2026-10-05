@@ -1,0 +1,10 @@
+{
+  "phase": "EXP-UL-B1-SE1",
+  "canonical_fact_count": 248,
+  "canonical_fact_id_change_count": 0,
+  "canonical_fact_semantic_change_count": 0,
+  "canonical_fact_provenance_change_count": 0,
+  "safe_engine_eligibility_flag_change_count": 0,
+  "entity_registry_canonical_semantic_change_count": 0,
+  "immutability_status": "STRICTLY_PRESERVED"
+}

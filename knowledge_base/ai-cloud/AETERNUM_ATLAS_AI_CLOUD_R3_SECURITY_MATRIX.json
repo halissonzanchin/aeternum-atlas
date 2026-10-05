@@ -1,0 +1,139 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R3",
+  "evaluated_at": "2026-10-05T03:59:37.000Z",
+  "security_status": "VERIFIED_HARDENED",
+  "total_security_checks": 16,
+  "passed_security_checks": 16,
+  "failed_security_checks": 0,
+  "pass_rate_percent": 100.0,
+  "checks": [
+    {
+      "check_id": "SEC-R3-01",
+      "category": "AUTHENTICATION",
+      "description": "Missing Authorization header rejected with HTTP 401",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "HTTP 401 AUTH_REQUIRED"
+    },
+    {
+      "check_id": "SEC-R3-02",
+      "category": "AUTHENTICATION",
+      "description": "Public anon key as bearer token rejected with HTTP 401",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "HTTP 401 ANON_KEY_AS_BEARER_REJECTED"
+    },
+    {
+      "check_id": "SEC-R3-03",
+      "category": "AUTHENTICATION",
+      "description": "Malformed / invalid user JWT rejected with HTTP 401",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "HTTP 401 AUTH_INVALID"
+    },
+    {
+      "check_id": "SEC-R3-04",
+      "category": "AUTHENTICATION",
+      "description": "Cryptographic JWT validation via GoTrue auth",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "userClient.auth.getUser() enforced"
+    },
+    {
+      "check_id": "SEC-R3-05",
+      "category": "CORS",
+      "description": "Strict CORS origin allowlist enforced",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "Only verified staging/canonical origins permitted"
+    },
+    {
+      "check_id": "SEC-R3-06",
+      "category": "CORS",
+      "description": "Unauthorized origin rejected with HTTP 403",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "HTTP 403 on untrusted origin"
+    },
+    {
+      "check_id": "SEC-R3-07",
+      "category": "RATE_LIMITING",
+      "description": "Distributed persistent PostgreSQL RPC rate limiting",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "public.consume_ai_rate_limit(30, 60)"
+    },
+    {
+      "check_id": "SEC-R3-08",
+      "category": "RATE_LIMITING",
+      "description": "Edge IP burst bucket guard against L7 floods",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "checkIpBurstGuard(60, 60000) active"
+    },
+    {
+      "check_id": "SEC-R3-09",
+      "category": "GATEWAY_SECURITY",
+      "description": "Server-to-server gateway authentication enforced",
+      "status": "PASS",
+      "verified_endpoint": "https://aeternum-ai-gateway-staging.onrender.com",
+      "evidence": "BEARER_TOKEN mode, HTTP 401 on unauthenticated"
+    },
+    {
+      "check_id": "SEC-R3-10",
+      "category": "PROMPT_INJECTION",
+      "description": "Ignore memory injection blocked",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "Hierarchy preserved, AI-Calls: 0"
+    },
+    {
+      "check_id": "SEC-R3-11",
+      "category": "PROMPT_INJECTION",
+      "description": "System prompt disclosure injection blocked",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "No prompt leakage, AI-Calls: 0"
+    },
+    {
+      "check_id": "SEC-R3-12",
+      "category": "PROMPT_INJECTION",
+      "description": "API key disclosure injection blocked",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "Zero secrets returned"
+    },
+    {
+      "check_id": "SEC-R3-13",
+      "category": "RESPONSE_VALIDATION",
+      "description": "Response validator blocks secrets, empty text & false premises",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "validateResponseContent enforced with max 1 bounded retry"
+    },
+    {
+      "check_id": "SEC-R3-14",
+      "category": "TLS_GOVERNANCE",
+      "description": "Strict trusted TLS validation (--use-system-ca only)",
+      "status": "PASS",
+      "verified_endpoint": "Repository / Scripts",
+      "evidence": "INSECURE_TLS_BYPASS_PRESENT = NO"
+    },
+    {
+      "check_id": "SEC-R3-15",
+      "category": "SECRET_HYGIENE",
+      "description": "Zero committed private secrets or token store dumps",
+      "status": "PASS",
+      "verified_endpoint": "Repository / Commits",
+      "evidence": "OAUTH_TOKEN_ARTIFACTS_FOUND = 0, PRIVATE_SECRETS = 0"
+    },
+    {
+      "check_id": "SEC-R3-16",
+      "category": "READ_ONLY_ENGINE",
+      "description": "Deterministic anatomical engine strictly read-only",
+      "status": "PASS",
+      "verified_endpoint": "functions/v1/ai-tutor",
+      "evidence": "ANATOMICAL_WRITE_CAPABILITY = NONE"
+    }
+  ]
+}

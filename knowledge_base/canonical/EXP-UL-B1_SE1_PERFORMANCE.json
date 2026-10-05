@@ -1,0 +1,10 @@
+{
+  "phase": "EXP-UL-B1-SE1",
+  "safe_engine_cold_start_ms": 20.614,
+  "warm_query_latency_min_ms": 0.96,
+  "warm_query_latency_median_ms": 1.28,
+  "warm_query_latency_p95_ms": 2.61,
+  "warm_query_latency_max_ms": 15.51,
+  "total_warm_queries_measured": 143,
+  "interactive_ready": true
+}

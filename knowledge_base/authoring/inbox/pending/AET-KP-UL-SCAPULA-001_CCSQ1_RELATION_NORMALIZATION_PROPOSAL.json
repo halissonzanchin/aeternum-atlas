@@ -1,0 +1,44 @@
+{
+  "proposal_id": "REL-PROP-SCAPULA-001",
+  "target_pack": "AET-KP-UL-SCAPULA-001",
+  "timestamp": "2026-09-24T03:45:00.000Z",
+  "summary": "Reduces ontological proliferation by mapping part-whole and boundary relation candidates to inverse certified semantics without loss of anatomical specificity.",
+  "proposals": [
+    {
+      "source_candidates": [
+        "HAS_SURFACE",
+        "HAS_BORDER",
+        "HAS_ANGLE",
+        "HAS_FOSSA",
+        "HAS_PROCESS",
+        "HAS_LANDMARK",
+        "HAS_NOTCH",
+        "HAS_STRUCTURE"
+      ],
+      "target_certified_inverse": "part_of",
+      "justification": "Standard anatomical part-whole meronymy; anatomical sub-region is part_of osseous body."
+    },
+    {
+      "source_candidates": [
+        "HAS_BOUNDARY"
+      ],
+      "target_certified_inverse": "forms_boundary_of",
+      "justification": "Boundary structure forms boundary of regional anatomical space."
+    },
+    {
+      "source_candidates": [
+        "EXTENDS_BETWEEN",
+        "BRIDGES"
+      ],
+      "target_certified_alias": "connects_to",
+      "justification": "Ligamentous connection between two distinct osseous landmarks."
+    },
+    {
+      "source_candidates": [
+        "PRACTICAL_IDENTIFIES"
+      ],
+      "target_certified_alias": "indicates_orientation_of",
+      "justification": "Direct morphological orientation cue."
+    }
+  ]
+}

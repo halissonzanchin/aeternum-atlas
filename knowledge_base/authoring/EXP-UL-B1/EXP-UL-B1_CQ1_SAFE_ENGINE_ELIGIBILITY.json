@@ -1,0 +1,1084 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-CQ1",
+  "generated_at": "2026-09-25T03:53:39.743Z",
+  "metrics": {
+    "TOTAL_FACTS": 152,
+    "SAFE_ENGINE_STAGING_ELIGIBLE_FACT_COUNT": 137,
+    "SAFE_ENGINE_PRODUCTION_ELIGIBLE_FACT_COUNT": 118,
+    "SAFE_ENGINE_PRODUCTION_BLOCKED_FACT_COUNT": 34,
+    "PRODUCTION_ELIGIBLE_FACTS_USING_ONTOLOGY_REVIEW_RELATION": 0,
+    "DIRECT_STAGING_READY_COUNT": 137,
+    "DIRECT_PRODUCTION_READY_COUNT": 118,
+    "CONTEXTUAL_STAGING_READY_COUNT": 150,
+    "CONTEXTUAL_PRODUCTION_READY_COUNT": 118,
+    "PROFESSOR_STAGING_READY_COUNT": 8,
+    "PROFESSOR_PRODUCTION_READY_COUNT": 6
+  },
+  "facts": [
+    {
+      "fact_candidate_id": "B1-FC-CLAV-001",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-002",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-003",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-004",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-005",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-006",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-007",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-008",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-009",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-010",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-011",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-012",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-013",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-014",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-015",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-016",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-017",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-018",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-019",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-020",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-021",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-022",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-023",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-024",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-025",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-026",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-027",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-028",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-029",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-030",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-031",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-032",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-033",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-034",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-035",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-036",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-037",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-038",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-039",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-040",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-041",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-042",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-043",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-044",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-045",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-046",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-047",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-048",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-049",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-050",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-051",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-052",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-001",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-002",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-003",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-004",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-005",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-006",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-007",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-008",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "RELATION_NOT_QUALIFIED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-009",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-010",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-011",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-012",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-013",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-014",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-015",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "RELATION_NOT_QUALIFIED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-016",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-017",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-018",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-019",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-020",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-021",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-022",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-023",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "RELATION_NOT_QUALIFIED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-024",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-025",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "RELATION_NOT_QUALIFIED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-026",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-027",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-028",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-001",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-002",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-003",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-004",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-005",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-006",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-007",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-008",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-009",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-010",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-011",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-012",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "RELATION_NOT_QUALIFIED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-013",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-014",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-015",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-016",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-017",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-018",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-019",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-020",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-021",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-022",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-001",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-002",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-003",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-004",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-005",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-006",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-007",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "RELATION_NOT_QUALIFIED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-008",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-009",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-010",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-011",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-012",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "RELATION_NOT_QUALIFIED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-013",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "RELATION_NOT_QUALIFIED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-014",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-015",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-016",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-017",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-018",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-019",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-020",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-021",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-022",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-001",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-002",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-003",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-004",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-005",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-006",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-007",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "ENTITY_IDENTITY_NOT_CANONICAL"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-008",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "ENTITY_IDENTITY_NOT_CANONICAL"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-009",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "ENTITY_IDENTITY_NOT_CANONICAL"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-010",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "ENTITY_IDENTITY_NOT_CANONICAL"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-011",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "ENTITY_IDENTITY_NOT_CANONICAL"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-012",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "ENTITY_IDENTITY_NOT_CANONICAL"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-013",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "NON_RELATIONAL_KINESIOLOGICAL_CONCEPT"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-014",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-015",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-016",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-017",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-018",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "RELATION_NOT_QUALIFIED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-019",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-020",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-021",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "RELATION_NOT_QUALIFIED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-022",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "ENTITY_IDENTITY_NOT_CANONICAL"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-023",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": false,
+      "production_block_reason": "ENTITY_IDENTITY_NOT_CANONICAL"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-024",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-025",
+      "validation_status": "SUPPORTED",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "SUPPORTED_NOT_VALIDATED"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-026",
+      "validation_status": "VALIDATED",
+      "staging_eligible": true,
+      "production_eligible": true,
+      "production_block_reason": null
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-027",
+      "validation_status": "REVIEW_PENDING",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "AI_DRAFT"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-028",
+      "validation_status": "REVIEW_PENDING",
+      "staging_eligible": false,
+      "production_eligible": false,
+      "production_block_reason": "AI_DRAFT"
+    }
+  ]
+}

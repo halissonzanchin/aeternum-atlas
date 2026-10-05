@@ -1,0 +1,32 @@
+{
+  "pack_id": "AET-KP-UL-SCAPULA-001",
+  "patch_id": "AET-KP-UL-SCAPULA-001-KP1",
+  "evaluated_at": "2026-09-24T04:30:52.273Z",
+  "governing_model": "AACM-1.0",
+  "authoring_coverage_before": "15/15 DIMENSIONS (10 COMPLETE, 5 PARTIAL, 0 MISSING)",
+  "authoring_coverage_after": "15/15 DIMENSIONS (10 COMPLETE, 5 PARTIAL, 0 MISSING)",
+  "canonical_validated_coverage": "0/15 DIMENSIONS (REGISTERED_VALIDATION_SOURCE_COUNT=0; ALL DRAFTS UNPROMOTED)",
+  "gap_status_transitions": {
+    "GAP-SCAPULA_VASCULAR_DETAILS-001": {
+      "status_before": "PARTIAL_DRAFT_PENDING_AUTHORING",
+      "status_after": "AUTHORING_PARTIAL_RESEARCH_REQUIRED",
+      "reason": "Regional arterial network and periosteal supply conceptualized; precise nutrient foramina mapping deferred to residual gap."
+    },
+    "GAP-SCAPULA_NEURAL_VALIDATION-001": {
+      "status_before": "PARTIAL_DRAFT_PENDING_AUTHORING",
+      "status_after": "AUTHORING_PARTIAL_RESEARCH_REQUIRED",
+      "reason": "AC and GH articular capsular sensory innervation drafted; named periosteal nerve mapping deferred to residual gap."
+    },
+    "GAP-SCAPULA_ANATOMIC_VARIATION-001": {
+      "status_before": "UNAUTHORED_VARIATION_GAP",
+      "status_after": "AUTHORING_COMPLETE_PENDING_VALIDATION",
+      "reason": "Bigliani acromial morphotypes (I-III), os acromiale, and ossified superior transverse ligament fully authored in draft."
+    }
+  },
+  "new_facts_by_dimension": {
+    "VASCULAR_RELATIONS": 5,
+    "NEURAL_RELATIONS": 6,
+    "MORPHOLOGY": 8
+  },
+  "total_new_patch_facts": 19
+}

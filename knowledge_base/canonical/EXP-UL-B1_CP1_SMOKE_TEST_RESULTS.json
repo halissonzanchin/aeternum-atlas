@@ -1,0 +1,169 @@
+{
+  "tested_at": "2026-09-25T04:24:56.727Z",
+  "SMOKE_QUERY_COUNT": 12,
+  "SMOKE_QUERY_PASS_COUNT": 12,
+  "BLOCKED_QUERY_TEST_COUNT": 4,
+  "BLOCKED_QUERY_SAFE_COUNT": 4,
+  "positive_tests": [
+    {
+      "query_id": "SMOKE-001",
+      "topic": "CLAVICLE",
+      "mode": "MICRO_FACT",
+      "question": "What type of bone is the clavicle?",
+      "passed": true,
+      "target_canonical_id": "AET-CF-CLAV-001",
+      "evidence_found": "clavicle type_of [\"long_bone\"]"
+    },
+    {
+      "query_id": "SMOKE-002",
+      "topic": "CLAVICLE",
+      "mode": "TOPOGRAPHIC",
+      "question": "What is the curvature of the medial two-thirds of the clavicle?",
+      "passed": true,
+      "target_canonical_id": "AET-CF-CLAV-006",
+      "evidence_found": "clavicle has_curvature [\"medial_two_thirds_convex_anteriorly\"]"
+    },
+    {
+      "query_id": "SMOKE-003",
+      "topic": "CLAVICLE",
+      "mode": "LANDMARKS",
+      "question": "Where is the conoid tubercle located on the clavicle?",
+      "passed": true,
+      "target_canonical_id": "AET-CF-CLAV-018",
+      "evidence_found": "clavicular_inferior_surface has_landmark [\"conoid_tubercle\"]"
+    },
+    {
+      "query_id": "SMOKE-004",
+      "topic": "STERNOCLAVICULAR_JOINT",
+      "mode": "RELATION",
+      "question": "What type of synovial joint is the sternoclavicular joint?",
+      "passed": true,
+      "target_canonical_id": "AET-CF-SCJ-001",
+      "evidence_found": "sternoclavicular_joint type_of [\"synovial_sellar_joint\"]"
+    },
+    {
+      "query_id": "SMOKE-005",
+      "topic": "STERNOCLAVICULAR_JOINT",
+      "mode": "MICRO_FACT",
+      "question": "Does the sternoclavicular joint contain an articular disc?",
+      "passed": true,
+      "target_canonical_id": "AET-CF-SCJ-005",
+      "evidence_found": "sternoclavicular_joint has_structure [\"sternoclavicular_articular_disc\"]"
+    },
+    {
+      "query_id": "SMOKE-006",
+      "topic": "ACROMIOCLAVICULAR_JOINT",
+      "mode": "RELATION",
+      "question": "What type of joint is the acromioclavicular joint?",
+      "passed": true,
+      "target_canonical_id": "AET-CF-ACJ-001",
+      "evidence_found": "acromioclavicular_joint type_of [\"synovial_plane_joint\"]"
+    },
+    {
+      "query_id": "SMOKE-007",
+      "topic": "ACROMIOCLAVICULAR_JOINT",
+      "mode": "TOPOGRAPHIC",
+      "question": "With what does the acromial end of the clavicle articulate?",
+      "passed": true,
+      "target_canonical_id": "AET-CF-ACJ-003",
+      "evidence_found": "acromioclavicular_joint articulates_with [\"clavicular_acromial_articular_surface\",\"acromial_facet_of_scapula\"]"
+    },
+    {
+      "query_id": "SMOKE-008",
+      "topic": "CONOID_LIGAMENT",
+      "mode": "RELATION",
+      "question": "Where does the conoid ligament attach on the clavicle?",
+      "passed": true,
+      "target_canonical_id": "AET-CF-CCC-005",
+      "evidence_found": "conoid_ligament originates_from [\"coracoid_process_posterior_base\"]"
+    },
+    {
+      "query_id": "SMOKE-009",
+      "topic": "TRAPEZOID_LIGAMENT",
+      "mode": "RELATION",
+      "question": "Where does the trapezoid ligament insert on the clavicle?",
+      "passed": true,
+      "target_canonical_id": "AET-CF-CCC-011",
+      "evidence_found": "trapezoid_ligament inserts_into [\"trapezoid_line\"]"
+    },
+    {
+      "query_id": "SMOKE-010",
+      "topic": "PECTORAL_GIRDLE",
+      "mode": "MICRO_FACT",
+      "question": "Which bones constitute the pectoral girdle?",
+      "passed": true,
+      "target_canonical_id": "AET-CF-PGI-002",
+      "evidence_found": "pectoral_girdle has_structure [\"clavicle\",\"scapula\"]"
+    },
+    {
+      "query_id": "SMOKE-011",
+      "topic": "CLAVICLE_PRACTICAL",
+      "mode": "PRACTICAL",
+      "question": "How to describe the medial sternal end of the clavicle in practical exams?",
+      "passed": true,
+      "target_canonical_id": "AET-PRAC-UL-B1-002",
+      "evidence_found": "Extremo Medial: Esternal / Esferoide (manubrio del esternón y 1º cartílago costal)."
+    },
+    {
+      "query_id": "SMOKE-012",
+      "topic": "CORACOCLAVICULAR_FUNCTION",
+      "mode": "PROFESSOR",
+      "question": "Why is the coracoclavicular ligament complex crucial for the upper limb?",
+      "passed": true,
+      "target_canonical_id": "TC-UL-B1-005",
+      "evidence_found": "Clarifies that the weak acromioclavicular capsule cannot resist the weight of the arm alone. The conoid and trapezoid ligaments provide the actual suspensory sling holding the scapula and upper limb from the clavicle."
+    }
+  ],
+  "blocked_tests": [
+    {
+      "test_id": "BLOCKED-001",
+      "target": "scapulothoracic_interface",
+      "attempted_action": "SAFE_ENGINE_PRODUCTION_RETRIEVAL",
+      "expected_status": "QUARANTINED_SUPPORTED_ENTITY",
+      "safe": true,
+      "reason": "scapulothoracic_interface is ENTITY_IDENTITY_SUPPORTED; blocked from Safe Engine Production"
+    },
+    {
+      "test_id": "BLOCKED-002",
+      "target": "retroclavicular_space",
+      "attempted_action": "SAFE_ENGINE_PRODUCTION_RETRIEVAL",
+      "expected_status": "QUARANTINED_SUPPORTED_ENTITY",
+      "safe": true,
+      "reason": "retroclavicular_space is ENTITY_IDENTITY_SUPPORTED; blocked from Safe Engine Production"
+    },
+    {
+      "test_id": "BLOCKED-003",
+      "target": "SYSSARCOSIS_INTERFACE_BETWEEN",
+      "attempted_action": "GRAPH_RELATION_PRODUCTION_TRAVERSAL",
+      "expected_status": "QUARANTINED_ONTOLOGY_REVIEW_RELATION",
+      "safe": true,
+      "reason": "SYSSARCOSIS_INTERFACE_BETWEEN requires formal ontology review; 0 facts admitted to production"
+    },
+    {
+      "test_id": "BLOCKED-004",
+      "target": "scapulohumeral_rhythm",
+      "attempted_action": "SAFE_ENGINE_RELATION_TRAVERSAL",
+      "expected_status": "QUARANTINED_NON_GRAPH_KINEMATIC_RATIO",
+      "safe": true,
+      "reason": "scapulohumeral_rhythm ratio concept held from production relation queries"
+    }
+  ],
+  "no_evidence_safety_tests": [
+    {
+      "test_id": "NO-EVID-001",
+      "proposition": "Ligamento coracoclavicular medial de Caldani",
+      "fact_id": "B1-FC-CCC-017",
+      "tier": "TIER_B_SUPPORTED",
+      "result": "PARTIAL_CANONICAL_EVIDENCE",
+      "safe_handling": "Controlled partial evidence fallback; omitted from Tier A canonical truth."
+    },
+    {
+      "test_id": "NO-EVID-002",
+      "proposition": "Ângulo de inclinação escapular posterior",
+      "fact_id": "B1-FC-PGI-027",
+      "tier": "TIER_C_PENDING_AI_DRAFT",
+      "result": "NO_CANONICAL_EVIDENCE",
+      "safe_handling": "Controlled zero evidence fallback; omitted from Tier A canonical truth and Safe Engine."
+    }
+  ]
+}

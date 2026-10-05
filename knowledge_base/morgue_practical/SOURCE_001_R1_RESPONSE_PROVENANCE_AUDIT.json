@@ -1,0 +1,326 @@
+{
+  "summary": {
+    "behavior_sentence_count": 45,
+    "source_001_supported_sentences": 37,
+    "other_source_supported_sentences": 7,
+    "unsupported_sentences": 1,
+    "non_source_assertions_misattributed": 0
+  },
+  "sentences": [
+    {
+      "query": "query_1_macro_scapula",
+      "text": "A escápula é um osso plano, par e assimétrico, de formato triangular, localizado na região posterolateral do tórax sobrejacente às costelas 2ª a 7ª.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 4,
+      "notes": "Matches P4 text."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Atua como o fulcro mecânico posterior da cintura escapular.",
+      "classification": "OTHER_AETERNUM_SOURCE_SUPPORTED",
+      "comparison_source_id": "AAC-2026.1-R1",
+      "notes": "Biomechanical functional role from canonical anatomy."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Face Costal (Anterior): Côncava, escavada pela fossa subescapular, percorrida por cristas ósseas onde se origina o músculo subescapular.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 5,
+      "notes": "Matches P4, P5, P18."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Face Dorsal (Posterior): Convexa, dividida pela espinha da escápula em duas fossas: a fossa supraespinosa (cranial, menor) e a fossa infraespinosa (caudal, mais ampla).",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 6,
+      "notes": "Matches P6, P7, P8, P9."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Espinha da Escápula e Acrômio: A espinha projeta-se dorsalmente e continua-se lateralmente como o acrômio, saliência palpável subcutânea que articula com a clavícula.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 10,
+      "notes": "Matches P9, P10, P1."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Processo Coracoide: Projeção anterior em \"bico de corvo\", ponto de ancoragem do tendão conjunto (cabeça curta do bíceps e coracobraquial) e do músculo peitoral menor.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 23,
+      "notes": "Matches P15, P23."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Cavidade Glenoide: Superfície articular piriforme no ângulo lateral, cercada pelo labrum glenoideo, articulando-se com a cabeça do úmero.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 17,
+      "notes": "Matches P16, P17, P18."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Apresenta os tubérculos supraglenoideo (bíceps longo) e infraglenoideo (tríceps longo).",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 16,
+      "notes": "Matches P16, P23."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Borda Medial (Espinhal): Inserção do músculo serrátil anterior (face costal), elevador da escápula, romboide menor e romboide maior.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 22,
+      "notes": "Matches P12, P19, P22."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Borda Lateral (Axilar): Inserção dos músculos redondo menor e redondo maior.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 22,
+      "notes": "Matches P12, P22."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Borda Superior (Cervical): Apresenta a incisura da escápula (fechada pelo ligamento transverso superior), por onde passa o nervo supraescapular, e a fixação do músculo omo-hioideo.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 12,
+      "notes": "Matches P12, P23."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Ângulos: Superior (T2), Inferior (T7, referência de superfície) e Lateral (colo e glenoide).",
+      "classification": "OTHER_AETERNUM_SOURCE_SUPPORTED",
+      "comparison_source_id": "AAC-2026.1-R1",
+      "notes": "Angles in P13-P14; T2/T7 vertebral levels from canonical source."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Articula-se sinovialmente na Articulação Glenoumeral e Articulação Acromioclavicular, e funcionalmente via sisarcose escapulotorácica.",
+      "classification": "OTHER_AETERNUM_SOURCE_SUPPORTED",
+      "comparison_source_id": "AAC-2026.1-R1",
+      "notes": "Joints in P1, P10, P18; sisarcosis is canonical textbook terminology."
+    },
+    {
+      "query": "query_1_macro_scapula",
+      "text": "Participa dos limites do espaço quadrangular de Velpeau e do espaço triangular omotricipital.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 41,
+      "notes": "Matches P41."
+    },
+    {
+      "query": "query_2_micro_supraspinous_fossa",
+      "text": "Resposta Direta:",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 7,
+      "notes": "Structural framing."
+    },
+    {
+      "query": "query_2_micro_supraspinous_fossa",
+      "text": "Na fossa supraespinosa insere-se (origina-se) o Músculo Supraespinoso (Musculus supraspinatus).",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 20,
+      "notes": "Matches P7, P20, P35."
+    },
+    {
+      "query": "query_2_micro_supraspinous_fossa",
+      "text": "Contexto Imediato:",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 7,
+      "notes": "Structural framing."
+    },
+    {
+      "query": "query_2_micro_supraspinous_fossa",
+      "text": "A fossa supraespinosa ocupa os dois terços mediais da porção superior da face dorsal da escápula, delimitada inferiormente pela espinha da escápula e superiormente pela borda superior do osso.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 7,
+      "notes": "Matches P7, P9, P12."
+    },
+    {
+      "query": "query_2_micro_supraspinous_fossa",
+      "text": "Conexão do Professor:",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 25,
+      "notes": "Structural framing."
+    },
+    {
+      "query": "query_2_micro_supraspinous_fossa",
+      "text": "O músculo supraespinoso passa sob o arco coracoacromial para se fixar na faceta superior do tubérculo maior do úmero (troquíter).",
+      "classification": "OTHER_AETERNUM_SOURCE_SUPPORTED",
+      "comparison_source_id": "AAC-2026.1-R1",
+      "notes": "Trochiter facet in P25; coracoacromial arch synthesis is canonical."
+    },
+    {
+      "query": "query_2_micro_supraspinous_fossa",
+      "text": "É inervado pelo nervo supraescapular e é o principal iniciador da abdução do braço (0° a 15°), sendo a estrutura mais comumente afetada na síndrome do manguito rotador.",
+      "classification": "OTHER_AETERNUM_SOURCE_SUPPORTED",
+      "comparison_source_id": "AAC-2026.1-R1",
+      "notes": "Innervation & abduction in P35; degree range 0-15 and rotator cuff syndrome from canonical clinical."
+    },
+    {
+      "query": "query_3_relation_radial_groove",
+      "text": "No sulco do nervo radial (sulco espiral ou canal de torção), localizado na face posterior da diáfise do úmero, passam conjuntamente:",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 26,
+      "notes": "Matches P26."
+    },
+    {
+      "query": "query_3_relation_radial_groove",
+      "text": "1. Nervo Radial (Nervus radialis).",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 26,
+      "notes": "Matches P26, P41, P52."
+    },
+    {
+      "query": "query_3_relation_radial_groove",
+      "text": "2. Artéria Braquial Profunda (Arteria profunda brachii).",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 26,
+      "notes": "Matches P26, P41, P52."
+    },
+    {
+      "query": "query_3_relation_radial_groove",
+      "text": "3. Veias Braquiais Profundas Satélites.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 52,
+      "notes": "Matches P52."
+    },
+    {
+      "query": "query_3_relation_radial_groove",
+      "text": "Relação Sintópica e Relevância Prática:",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 26,
+      "notes": "Structural framing."
+    },
+    {
+      "query": "query_3_relation_radial_groove",
+      "text": "Este feixe neurovascular corre obliquamente de medial para lateral e de cima para baixo, situado entre a origem da cabeça lateral do tríceps braquial (superiormente) e a cabeça medial do tríceps (inferiormente).",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 26,
+      "notes": "Matches P26."
+    },
+    {
+      "query": "query_3_relation_radial_groove",
+      "text": "Em fraturas diafisárias do úmero, o nervo radial pode sofrer compressão ou laceração óssea direta, resultando no quadro clássico de \"mão caída\" por denervação dos extensores do punho e dedos.",
+      "classification": "OTHER_AETERNUM_SOURCE_SUPPORTED",
+      "comparison_source_id": "AAC-2026.1-R1",
+      "notes": "Wrist drop clinical correlation from canonical neurology."
+    },
+    {
+      "query": "query_4_topographic_velpeau",
+      "text": "O Quadrilátero de Velpeau (espaço quadrangular ou forame quadrilátero) possui os seguintes limites anatômicos:",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 41,
+      "notes": "Matches P41."
+    },
+    {
+      "query": "query_4_topographic_velpeau",
+      "text": "- Limite Superior: Borda inferior do Músculo Redondo Menor (posteriormente) e cápsula articular glenoumeral / músculo subescapular (anteriormente).",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 41,
+      "notes": "Matches P41."
+    },
+    {
+      "query": "query_4_topographic_velpeau",
+      "text": "- Limite Inferior: Borda superior do Músculo Redondo Mayor.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 41,
+      "notes": "Matches P41."
+    },
+    {
+      "query": "query_4_topographic_velpeau",
+      "text": "- Limite Medial: Borda lateral da Cabeça Longa do Músculo Tríceps Braquial.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 41,
+      "notes": "Matches P41."
+    },
+    {
+      "query": "query_4_topographic_velpeau",
+      "text": "- Limite Lateral: Colo Cirúrgico do Úmero.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 41,
+      "notes": "Matches P41."
+    },
+    {
+      "query": "query_4_topographic_velpeau",
+      "text": "Conteúdo que o atravessa:",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 41,
+      "notes": "Structural framing."
+    },
+    {
+      "query": "query_4_topographic_velpeau",
+      "text": "- Nervo Axilar (Circunflexo).",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 41,
+      "notes": "Matches P41, P52."
+    },
+    {
+      "query": "query_4_topographic_velpeau",
+      "text": "- Artéria Circunflexa Umeral Posterior e suas veias satélites.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 41,
+      "notes": "Matches P41, P52."
+    },
+    {
+      "query": "query_5_practical_posterior_scapular_face",
+      "text": "Na peça cadavérica ou na mesa de osteologia, a face posterior (dorsal) da escápula é identificada instantaneamente pelos seguintes marcos:",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 6,
+      "notes": "Practical orientation framing."
+    },
+    {
+      "query": "query_5_practical_posterior_scapular_face",
+      "text": "1. Presença da Espinha da Escápula: Uma lâmina óssea saliente e cortante transversal que divide toda a face posterior em dois andares (fossa supraespinosa e fossa infraespinosa).",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 9,
+      "notes": "Matches P6, P7, P8, P9."
+    },
+    {
+      "query": "query_5_practical_posterior_scapular_face",
+      "text": "A face anterior não possui essa espinha; é lisa e côncava (fossa subescapular).",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 4,
+      "notes": "Matches P4, P5."
+    },
+    {
+      "query": "query_5_practical_posterior_scapular_face",
+      "text": "2. Continuação no Acrômio: A espinha expande-se lateralmente terminando em um processo achatado e livre, o acrômio, que se curva anteriormente para articular-se com a clavícula.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 10,
+      "notes": "Matches P9, P10."
+    },
+    {
+      "query": "query_5_practical_posterior_scapular_face",
+      "text": "3. Convexidade Geral: A face posterior é predominantemente convexa, ao contrário da concavidade anterior que se molda à curvatura das costelas.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 6,
+      "notes": "Matches P4, P6."
+    },
+    {
+      "query": "query_6_professor_importance_radial_groove",
+      "text": "O canal de torção (sulco do nervo radial) é uma das encruzilhadas anátomo-clínicas mais cruciais do membro superior pelo seguinte tripé do professor:",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 26,
+      "notes": "Pedagogical lead-in."
+    },
+    {
+      "query": "query_6_professor_importance_radial_groove",
+      "text": "1. Íntimo Contato Ósteo-Nervoso: O nervo radial não apenas cruza a região; ele é acolhido diretamente sobre o periósteo do úmero, sem nenhum colchão muscular interposto no assoalho do sulco.",
+      "classification": "SOURCE_001_SUPPORTED",
+      "source_page": 26,
+      "notes": "Matches P26."
+    },
+    {
+      "query": "query_6_professor_importance_radial_groove",
+      "text": "2. Vulnerabilidade a Fraturas (Fratura de Holstein-Lewis): Qualquer trauma com traço espiroide no terço médio da diáfise do úmero gera fragmentos cortantes que pinçam, distendem ou seccionam o nervo radial e os vasos braquiais profundos.",
+      "classification": "UNSUPPORTED_IN_CURRENT_EVIDENCE",
+      "comparison_source_id": null,
+      "notes": "The specific eponym \"Holstein-Lewis\" is not present in sovereign memory AAC-2026.1-R1."
+    },
+    {
+      "query": "query_6_professor_importance_radial_groove",
+      "text": "3. Assinatura Clínica Inconfundível: A lesão no canal de torção poupa a extensão do cotovelo (ramos para as cabeças longa e lateral do tríceps nascem mais proximalmente), mas extingue a inervação de todos os extensores antebraquiais: o paciente perde a capacidade de extensão ativa do punho e dos dedos (a clássica \"mão caída\" ou \"em gota\") e perde a sensibilidade do dorso do 1º espaço intermetacarpiano.",
+      "classification": "OTHER_AETERNUM_SOURCE_SUPPORTED",
+      "comparison_source_id": "AAC-2026.1-R1",
+      "notes": "Wrist drop and triceps branch sparing from canonical neurology."
+    }
+  ]
+}

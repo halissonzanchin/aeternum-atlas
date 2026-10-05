@@ -1,0 +1,80 @@
+{
+  "phase": "AMC-1.2 / EXP-UL-B2-A1.6",
+  "timestamp": "2026-09-27T02:30:00Z",
+  "authority": "MORGUE_UPPER_LIMB_001_AND_INSTITUTIONAL_DISSECTION_NOTES",
+  "total_practical_units": 8,
+  "practical_units": [
+    {
+      "practical_id": "PRAC-GAP-001",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "clinical_and_cadaveric_landmark": "Palpation of Greater and Lesser Tubercles",
+      "dissection_plane": "Superficial plane beneath anterior deltoid fibers",
+      "maneuver": "External rotation reveals lesser tubercle medially and intertubercular sulcus laterally; internal rotation places greater tubercle directly lateral.",
+      "structures_at_risk": "Anterior circumflex humeral ascending artery in groove",
+      "practical_status": "VERIFIED_CADAVERIC_LANDMARK"
+    },
+    {
+      "practical_id": "PRAC-GAP-002",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "clinical_and_cadaveric_landmark": "Quadrangular Space & Axillary Nerve Transit",
+      "dissection_plane": "Deep posterior plane inferior to teres minor, superior to teres major",
+      "maneuver": "Palpate posterior aspect of surgical neck 5 cm distal to lateral acromial border to locate axillary nerve emergence with posterior circumflex humeral artery.",
+      "structures_at_risk": "Axillary nerve in humeral neck fractures or deltoid splitting incisions",
+      "practical_status": "VERIFIED_CADAVERIC_LANDMARK"
+    },
+    {
+      "practical_id": "PRAC-GAP-003",
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+      "clinical_and_cadaveric_landmark": "Rotator Interval Arthroscopic / Dissection Portal",
+      "dissection_plane": "Between anterior border of supraspinatus and superior border of subscapularis",
+      "maneuver": "Incise clavipectoral fascia above coracoid process to expose interval containing biceps long head tendon and coracohumeral ligament.",
+      "structures_at_risk": "Long head of biceps tendon instability if interval capsule is divided",
+      "practical_status": "VERIFIED_CADAVERIC_LANDMARK"
+    },
+    {
+      "practical_id": "PRAC-GAP-004",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "clinical_and_cadaveric_landmark": "Subacromial Gliding Surface Identification",
+      "dissection_plane": "Immediately beneath acromion and coracoacromial ligament, above rotator cuff tendons",
+      "maneuver": "Retract deltoid laterally and elevate acromion to expose glistening visceral/parietal synovial walls of the bursa.",
+      "structures_at_risk": "Bursal hypertrophy and adhesion in chronic subacromial impingement",
+      "practical_status": "VERIFIED_CADAVERIC_LANDMARK"
+    },
+    {
+      "practical_id": "PRAC-GAP-005",
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "clinical_and_cadaveric_landmark": "Bicipital Groove Tendon Recognition",
+      "dissection_plane": "Osteofibrous tunnel bounded by greater/lesser tubercles and transverse ligament",
+      "maneuver": "Track tendon proximally into glenohumeral joint over humeral head to its supraglenoid/superior labral origin.",
+      "structures_at_risk": "Tendon subluxation if transverse humeral ligament or subscapularis superior fibers rupture",
+      "practical_status": "VERIFIED_CADAVERIC_LANDMARK"
+    },
+    {
+      "practical_id": "PRAC-GAP-006",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "clinical_and_cadaveric_landmark": "Subscapularis Insertion & Anterior Joint Approach",
+      "dissection_plane": "Anterior capsule, deep to pectoralis major tendon and conjoint tendon",
+      "maneuver": "Identify medial leash of anterior circumflex vessels (three sisters) at inferior border as landmark for subscapularis tenotomy.",
+      "structures_at_risk": "Axillary nerve running along anteroinferior surface of subscapularis belly",
+      "practical_status": "VERIFIED_CADAVERIC_LANDMARK"
+    },
+    {
+      "practical_id": "PRAC-GAP-007",
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "clinical_and_cadaveric_landmark": "Critical Avascular Zone & Footprint",
+      "dissection_plane": "Supraspinous fossa through subacromial space to superior facet of greater tubercle",
+      "maneuver": "Identify hypovascular zone 1 cm proximal to insertion into greater tubercle footprint.",
+      "structures_at_risk": "Degenerative tearing under compressive load of anteroinferior acromial spur",
+      "practical_status": "VERIFIED_CADAVERIC_LANDMARK"
+    },
+    {
+      "practical_id": "PRAC-GAP-008",
+      "entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "clinical_and_cadaveric_landmark": "Retinacular Bridge Over Bicipital Groove",
+      "dissection_plane": "Fibrous layer spanning between crest of greater and lesser tubercles",
+      "maneuver": "Inspect continuity of fibers derived from subscapularis and supraspinatus tendon expansions.",
+      "structures_at_risk": "Tendon entrapment or medial dislocation into subscapular fossa",
+      "practical_status": "VERIFIED_CADAVERIC_LANDMARK"
+    }
+  ]
+}

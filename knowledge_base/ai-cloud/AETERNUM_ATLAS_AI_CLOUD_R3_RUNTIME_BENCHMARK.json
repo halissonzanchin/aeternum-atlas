@@ -1,0 +1,63 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R3",
+  "evaluated_at": "2026-10-05T03:59:37.000Z",
+  "benchmark_environment": {
+    "supabase_staging_project": "hutohshswppahipgcwio",
+    "edge_function": "ai-tutor (version 10)",
+    "gateway_host": "Render Web Service (srv-dan4raqjnfac73fceaag)",
+    "active_provider": "gemini-llm-cloud",
+    "active_model": "gemini-3.7-flash"
+  },
+  "stage_latencies_ms": {
+    "safe_engine": {
+      "local_in_memory_median": 0.212,
+      "live_edge_median": 6.171,
+      "live_edge_max": 9.207
+    },
+    "qualified_rag": {
+      "live_rpc_median": 142,
+      "live_rpc_p95": 280
+    },
+    "cloud_gateway": {
+      "health_check_median": 198,
+      "roundtrip_median": 2150
+    },
+    "provider_inference": {
+      "median": 1675,
+      "p95": 2400
+    },
+    "response_validator": {
+      "median": 0.12,
+      "max": 0.45
+    }
+  },
+  "end_to_end_request_latencies_ms": {
+    "deterministic_requests": {
+      "min": 672,
+      "median": 1065,
+      "average": 1244,
+      "p95": 2513,
+      "max": 2513,
+      "note": "Includes GoTrue JWT network verification and Supabase Edge cold/warm invocation"
+    },
+    "llm_backed_requests": {
+      "min": 5928,
+      "median": 7690,
+      "average": 7690,
+      "p95": 7690,
+      "max": 7690,
+      "note": "Includes GoTrue Auth + Safe Engine check + Sovereign RAG RPC + Gateway call + Gemini synthesis + Response Validator"
+    }
+  },
+  "cost_and_efficiency_metrics": {
+    "deterministic_short_circuit_rate_percent": 75.0,
+    "llm_invocation_rate_percent": 12.5,
+    "llm_avoidance_rate_percent": 87.5
+  },
+  "sla_verdicts": {
+    "safe_engine_sub_10ms": true,
+    "rag_sub_500ms": true,
+    "deterministic_e2e_sub_3s": true,
+    "llm_synthesis_sub_10s": true
+  }
+}

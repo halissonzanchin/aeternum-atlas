@@ -1,0 +1,89 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "version": "1.0.0",
+  "description": "Candidate relational predicates proposed for B1 anatomical authoring without mutating the frozen canonical relations registry.",
+  "certified_relations_used": [
+    "part_of",
+    "type_of",
+    "has_symmetry",
+    "has_shape",
+    "located_in",
+    "spans_levels",
+    "articulates_with",
+    "has_curvature",
+    "has_structure",
+    "has_border",
+    "has_surface",
+    "has_landmark",
+    "originates_from",
+    "inserts_into",
+    "attaches_ligament",
+    "vascular_syntopy",
+    "innervated_by",
+    "surrounded_by",
+    "vascular_supply",
+    "functional_axis"
+  ],
+  "candidate_relations": [
+    {
+      "relation_name": "RESISTS_DISPLACEMENT",
+      "proposed_semantics": "Specifies the anatomical vector or kinetic direction of translational/rotational displacement restrained by a ligament.",
+      "inverse_relation": "DISPLACEMENT_RESISTED_BY",
+      "domain": "LIGAMENT",
+      "range": "DISPLACEMENT_OR_MOTION_DIRECTION",
+      "reason_needed": "Required to capture the exact mechanical stabilizing function of costoclavicular, conoid, trapezoid, and sternoclavicular ligaments.",
+      "example_fact_ids": [
+        "B1-FC-SCJ-015",
+        "B1-FC-CCC-007",
+        "B1-FC-CCC-012"
+      ]
+    },
+    {
+      "relation_name": "DIVIDES_JOINT_CAVITY",
+      "proposed_semantics": "Specifies the anatomical partitioning of a synovial cavity into distinct synovial compartments by a fibrocartilaginous disc.",
+      "inverse_relation": "JOINT_CAVITY_DIVIDED_BY",
+      "domain": "FIBROCARTILAGE_DISC",
+      "range": "SYNOVIAL_COMPARTMENT_SET",
+      "reason_needed": "Required to model the complete compartmentalization of the sternoclavicular joint into meniscoclavicular and meniscosternal cavities.",
+      "example_fact_ids": [
+        "B1-FC-SCJ-008"
+      ]
+    },
+    {
+      "relation_name": "TRANSMITS_STRUCTURE",
+      "proposed_semantics": "Specifies that a canal, groove, triangle, or topographic space provides anatomical passage for a neurovascular bundle or vessel.",
+      "inverse_relation": "TRANSMITTED_THROUGH",
+      "domain": "TOPOGRAPHIC_STRUCTURE_OR_SPACE",
+      "range": "NEUROVASCULAR_ENTITY",
+      "reason_needed": "Required to model passage of the cephalic vein in the deltopectoral groove and subclavian vessels in the cervicoaxillary canal.",
+      "example_fact_ids": [
+        "B1-FC-PGI-018",
+        "B1-FC-PGI-021"
+      ]
+    },
+    {
+      "relation_name": "SUSPENDS_STRUCTURE",
+      "proposed_semantics": "Specifies that a ligamentous complex provides continuous gravitational and mechanical suspension for a suspended skeletal segment.",
+      "inverse_relation": "SUSPENDED_BY",
+      "domain": "LIGAMENT_COMPLEX",
+      "range": "SKELETAL_STRUCTURE",
+      "reason_needed": "Essential to encode the classical Latarjet/Rouvière principle that the coracoclavicular complex suspends the scapula and free limb from the clavicle.",
+      "example_fact_ids": [
+        "B1-FC-CCC-001",
+        "B1-FC-PGI-008"
+      ]
+    },
+    {
+      "relation_name": "SYSSARCOSIS_INTERFACE_BETWEEN",
+      "proposed_semantics": "Defines a physiological gliding interface between two muscular or osteomuscular walls separated by loose cellular connective tissue without true synovia.",
+      "inverse_relation": "PARTICIPATES_IN_SYSSARCOSIS",
+      "domain": "PHYSIOLOGICAL_INTERFACE",
+      "range": "MUSCULOSKELETAL_SURFACES_PAIR",
+      "reason_needed": "Strictly required to correctly model the scapulothoracic functional joint without falsely classifying it as a synovial articulation.",
+      "example_fact_ids": [
+        "B1-FC-PGI-010",
+        "B1-FC-PGI-011"
+      ]
+    }
+  ]
+}

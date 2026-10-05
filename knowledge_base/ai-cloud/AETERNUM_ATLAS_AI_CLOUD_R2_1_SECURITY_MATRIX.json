@@ -1,0 +1,106 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R2.1",
+  "evaluated_at": "2026-10-05T03:59:37.403Z",
+  "total_tests": 16,
+  "passed_tests": 16,
+  "failed_tests": 0,
+  "pass_rate_percent": 100,
+  "tests": [
+    {
+      "test_id": "AUTH-01",
+      "description": "Missing Authorization header rejected with 401",
+      "status": "PASS",
+      "detail": "(HTTP 401, body status: ERROR_SAFE_CLOSED)"
+    },
+    {
+      "test_id": "AUTH-02",
+      "description": "Malformed/invalid bearer token rejected with 401",
+      "status": "PASS",
+      "detail": "(HTTP 401, body status: ERROR_SAFE_CLOSED)"
+    },
+    {
+      "test_id": "AUTH-03",
+      "description": "Public anon key as bearer token rejected with 401",
+      "status": "PASS",
+      "detail": "(HTTP 401, body status: ERROR_SAFE_CLOSED)"
+    },
+    {
+      "test_id": "AUTH-04",
+      "description": "Expired user JWT rejected with 401",
+      "status": "PASS",
+      "detail": "(HTTP 401, body status: ERROR_SAFE_CLOSED)"
+    },
+    {
+      "test_id": "AUTH-05",
+      "description": "Valid authenticated user JWT accepted with 200",
+      "status": "PASS",
+      "detail": "(HTTP 200, status: DETERMINISTIC_CANONICAL, match: AET-ENT-UL-SCAPULA)"
+    },
+    {
+      "test_id": "AUTH-06",
+      "description": "Authenticated user context and role resolved",
+      "status": "PASS",
+      "detail": "(resolved user_id: VERIFIED, role: student)"
+    },
+    {
+      "test_id": "CORS-01",
+      "description": "Allowed staging origin reflected in CORS header",
+      "status": "PASS",
+      "detail": "(HTTP 200, allow-origin: https://aeternum-atlas.vercel.app)"
+    },
+    {
+      "test_id": "CORS-02",
+      "description": "Unauthorized origin rejected with 403",
+      "status": "PASS",
+      "detail": "(HTTP 403)"
+    },
+    {
+      "test_id": "RATE-01",
+      "description": "Normal request rate operates successfully within limit",
+      "status": "PASS",
+      "detail": "(HTTP 200 confirmed under standard threshold)"
+    },
+    {
+      "test_id": "RATE-02",
+      "description": "Distributed rate limit architecture active (PostgreSQL RPC + IP bucket guard)",
+      "status": "PASS",
+      "detail": "(Architecture: POSTGRES_RPC_PERSISTENT_AND_EDGE_IP_GUARD, Distributed Ready: YES)"
+    },
+    {
+      "test_id": "TLS-01",
+      "description": "No insecure TLS bypass present in scripts (NODE_OPTIONS=--use-system-ca only)",
+      "status": "PASS",
+      "detail": "(Insecure TLS bypass present: NO)"
+    },
+    {
+      "test_id": "SECRET-01",
+      "description": "No private secrets or service role credentials in tracked repo files",
+      "status": "PASS",
+      "detail": "(Private secrets found: 0)"
+    },
+    {
+      "test_id": "SECRET-02",
+      "description": "No OAuth token store copies or token artifacts in repository",
+      "status": "PASS",
+      "detail": "(OAuth token artifacts found: 0)"
+    },
+    {
+      "test_id": "MEM-01",
+      "description": "Canonical memory baseline counts unchanged (248 facts, 154 entities, 231 safe)",
+      "status": "PASS",
+      "detail": "(Memory: AETERNUM-CANONICAL-MEMORY-0.2.2)"
+    },
+    {
+      "test_id": "MEM-02",
+      "description": "B2 authoring propositions strictly quarantined (exposure = 0)",
+      "status": "PASS",
+      "detail": "(B2 authored: 41, B2 exposure: 0)"
+    },
+    {
+      "test_id": "MEM-03",
+      "description": "Anatomical read-only guarantee enforced (DELETE/PUT/PATCH rejected with 405)",
+      "status": "PASS",
+      "detail": "(HTTP 405 on non-POST method)"
+    }
+  ]
+}

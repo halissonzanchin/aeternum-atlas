@@ -1,0 +1,48 @@
+{
+  "errata_id": "EXP-UL-B2-E0-ERRATA-1",
+  "phase": "EXP-UL-B2-A1-HANDOFF-IA1",
+  "target_artifact": "EXP-UL-B2_E0_REPORT.md",
+  "timestamp": "2026-09-27T01:30:00Z",
+  "original_reported_count": 22,
+  "correct_count": 29,
+  "count_difference": 7,
+  "evidence_count_root_cause": "E0_REPORT_COUNTING_ERROR",
+  "reason": "The historical EXP-UL-B2_E0_REPORT.md contained an arithmetic accounting transcription omission in its summary table: it reported 13 Direct Text units (summing only Proximal Humerus [7] and Glenohumeral Joint [6] text units, omitting Rotator Cuff [5] and Shoulder Integration [3] text units) and 5 Direct Image units (transcribing the 5 records from EXP-UL-B2_FIGURE_EVIDENCE.json rather than the 4 standalone DIRECT_IMAGE units in EXP-UL-B2_EVIDENCE_UNITS.json). The underlying artifact EXP-UL-B2_EVIDENCE_UNITS.json was generated deterministically with all 29 units at 2026-09-27T00:18:07.837Z and has not been modified post-certification.",
+  "affected_fields": [
+    {
+      "field_name": "EVIDENCE_UNIT_COUNT",
+      "reported_value": 22,
+      "correct_value": 29,
+      "correction_type": "ARITHMETIC_CORRECTION"
+    },
+    {
+      "field_name": "Direct Text Evidence Units",
+      "reported_value": 13,
+      "correct_value": 21,
+      "correction_type": "CATEGORY_SUBTOTAL_CORRECTION"
+    },
+    {
+      "field_name": "Direct Image Evidence Units",
+      "reported_value": 5,
+      "correct_value": 4,
+      "correction_type": "CATEGORY_SUBTOTAL_CORRECTION"
+    },
+    {
+      "field_name": "Topographic Relations Captured",
+      "reported_value": 12,
+      "correct_value": 13,
+      "correction_type": "METRIC_ALIGNMENT"
+    },
+    {
+      "field_name": "Practical Identification Units",
+      "reported_value": 17,
+      "correct_value": 23,
+      "correction_type": "METRIC_ALIGNMENT"
+    }
+  ],
+  "anatomical_semantic_change": "NO",
+  "evidence_content_change": "NO",
+  "canonical_effect": "NONE",
+  "historical_report_preservation": "HISTORICAL_E0_REPORT_PRESERVED_IMMUTABLE",
+  "certification_status": "E0_CERTIFICATION_VALID"
+}

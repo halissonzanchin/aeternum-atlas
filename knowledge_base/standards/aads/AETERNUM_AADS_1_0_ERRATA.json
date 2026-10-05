@@ -1,0 +1,58 @@
+{
+  "document_name": "AETERNUM_AADS_1_0_ERRATA",
+  "phase": "AMC-1.2-R1 / EXP-UL-B2-A1.6-R1",
+  "timestamp": "2026-09-27T08:30:00Z",
+  "target_artifact": "knowledge_base/standards/aads/AETERNUM_AADS_1_0.json",
+  "remediated_artifact": "knowledge_base/standards/aads/AETERNUM_AADS_1_0_R1.json",
+  "remediation_reason": "Reconciliation of internal classification inconsistency between core_entity_types and schema.is_extension_type",
+  "errata_records": [
+    {
+      "erratum_id": "ERR-AADS1-TAX-001",
+      "entity_type": "TENDON",
+      "previous_classification": "core_entity_types (with schema.is_extension_type = true)",
+      "corrected_classification": "extension_entity_types (schema.is_extension_type = true)",
+      "rationale": "Tendon is an Aeternum Extension type separating myotendinous junction, course, sheaths, and footprint from muscular bellies."
+    },
+    {
+      "erratum_id": "ERR-AADS1-TAX-002",
+      "entity_type": "LIGAMENT",
+      "previous_classification": "core_entity_types (with schema.is_extension_type = true)",
+      "corrected_classification": "extension_entity_types (schema.is_extension_type = true)",
+      "rationale": "Ligament is an Aeternum Extension type providing dedicated mechanical, insertional, and capsular description distinct from articular generalities."
+    },
+    {
+      "erratum_id": "ERR-AADS1-TAX-003",
+      "entity_type": "BURSA",
+      "previous_classification": "core_entity_types (with schema.is_extension_type = true)",
+      "corrected_classification": "extension_entity_types (schema.is_extension_type = true)",
+      "rationale": "Bursa is an Aeternum Extension type formalizing synovial gliding sacs and joint communication dynamics."
+    }
+  ],
+  "taxonomy_summary": {
+    "total_entity_types": 18,
+    "foundational_core_types_count": 8,
+    "aeternum_extension_types_count": 10,
+    "foundational_core_types": [
+      "BONE",
+      "JOINT",
+      "MUSCLE",
+      "ARTERY",
+      "VEIN",
+      "NERVE",
+      "TOPOGRAPHIC_REGION",
+      "VISCUS"
+    ],
+    "aeternum_extension_types": [
+      "TENDON",
+      "LIGAMENT",
+      "BURSA",
+      "FASCIA",
+      "APONEUROSIS",
+      "ANATOMICAL_SPACE",
+      "SYNOVIAL_RECESS",
+      "RETINACULUM",
+      "NEUROVASCULAR_BUNDLE",
+      "LYMPHATIC_NODE_GROUP"
+    ]
+  }
+}

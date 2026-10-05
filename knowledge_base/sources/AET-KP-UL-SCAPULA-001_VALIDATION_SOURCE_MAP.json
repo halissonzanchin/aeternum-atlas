@@ -1,0 +1,67 @@
+{
+  "mapping_name": "AET-KP-UL-SCAPULA-001_VALIDATION_SOURCE_MAP",
+  "generated_at": "2026-09-24T01:50:00.000Z",
+  "protocol": "ACSRP-1.0",
+  "pack_id": "AET-KP-UL-SCAPULA-001",
+  "categories": {
+    "GROSS_ANATOMY_TEXTBOOK": {
+      "required_fact_count": 112,
+      "available_registered_sources": ["SRC-LATARJET-ED5-T1"],
+      "coverage_possible_now": true,
+      "coverage_blocked": false,
+      "eligible_for_validation": true,
+      "applicable_sections": "Latarjet Tomo 1, Sección XI: Miembro superior, Capítulo 54: Huesos del miembro superior (pp. 455-460), Capítulo 55: Cintura pectoral (pp. 471-480)"
+    },
+    "REGIONAL_ANATOMY_TEXTBOOK": {
+      "required_fact_count": 19,
+      "available_registered_sources": ["SRC-LATARJET-ED5-T1"],
+      "coverage_possible_now": true,
+      "coverage_blocked": false,
+      "eligible_for_validation": true,
+      "applicable_sections": "Latarjet Tomo 1, Capítulos 54-58: Fosa axilar, espacios topográficos escapulares (triángulo omotricipital, cuadrilátero humerotricipital) y anastomosis escapular"
+    },
+    "ANATOMICAL_ATLAS": {
+      "required_fact_count": 10,
+      "available_registered_sources": ["SRC-NIELSEN-ATLAS-ED1"],
+      "coverage_possible_now": true,
+      "coverage_blocked": false,
+      "eligible_for_validation": true,
+      "applicable_sections": "Nielsen & Miller Atlas, Chapter 6: Appendicular Skeleton (Scapula pp. 84-86), Chapter 11: Upper Limb Muscles (pp. 175-182)"
+    },
+    "TERMINOLOGY_AUTHORITY": {
+      "required_fact_count": 20,
+      "available_registered_sources": [],
+      "coverage_possible_now": false,
+      "coverage_blocked": true,
+      "eligible_for_validation": false,
+      "blocker_details": "Official FIPAT IFAA Terminologia Anatomica 2 (TA2) machine-readable standard artifact is not available locally. Latarjet 5.ª Edición provides secondary concordance, but does not substitute for pure standard registration."
+    },
+    "CLINICAL_ANATOMY_TEXTBOOK": {
+      "required_fact_count": 5,
+      "available_registered_sources": [],
+      "coverage_possible_now": false,
+      "coverage_blocked": true,
+      "eligible_for_validation": false,
+      "blocker_details": "Moore: Clinically Oriented Anatomy or equivalent dedicated clinical anatomy treatise artifact is not available locally."
+    },
+    "3D_MODEL_METADATA": {
+      "required_fact_count": 21,
+      "available_registered_sources": [],
+      "coverage_possible_now": false,
+      "coverage_blocked": true,
+      "eligible_for_validation": false,
+      "blocker_details": "Volumetric 3D mesh node IDs and vertex coordinates for scapular landmark markers remain unmapped."
+    }
+  },
+  "summary": {
+    "total_categories": 6,
+    "categories_coverage_possible_now": 3,
+    "categories_coverage_blocked": 3,
+    "primary_gross_validation_unblocked": true,
+    "primary_regional_validation_unblocked": true,
+    "atlas_orientation_validation_unblocked": true,
+    "clinical_validation_unblocked": false,
+    "terminology_validation_unblocked": false,
+    "3d_mapping_unblocked": false
+  }
+}

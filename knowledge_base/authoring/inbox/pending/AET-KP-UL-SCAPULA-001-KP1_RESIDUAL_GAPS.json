@@ -1,0 +1,56 @@
+[
+  {
+    "gap_id": "GAP-SCAPULA_NUTRIENT_FORAMINA_PRECISE_MAPPING-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "vascular_supply",
+    "current_evidence": {
+      "source_ids": [],
+      "existing_fact_count": 5,
+      "summary_of_known": "Regional vascular network and periosteal supply conceptualized in KP1; precise nutrient foramina coordinates and count remain unauthored."
+    },
+    "required_content_type": "FOCUSED_MICRO_FACTS",
+    "priority": "MEDIUM",
+    "related_entities": [
+      "scapula",
+      "foramen_nutricium_scapulae"
+    ],
+    "reason": "Number variability, surface/border distribution, dominant entry sites, arterial source, population variation, and measurement references require dedicated osteological literature."
+  },
+  {
+    "gap_id": "GAP-SCAPULA_PERIOSTEAL_NERVE_MAPPING-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "innervation",
+    "current_evidence": {
+      "source_ids": [],
+      "existing_fact_count": 6,
+      "summary_of_known": "Capsular sensory innervation drafted; periosteal innervation acknowledged conceptually without named nerve mapping."
+    },
+    "required_content_type": "FOCUSED_MICRO_FACTS",
+    "priority": "HIGH",
+    "related_entities": [
+      "scapula",
+      "periosteum"
+    ],
+    "reason": "Named nerve contributions, regional surface distribution, periosteal sensory territory, and clinical relevance require specialized neuroanatomical research."
+  },
+  {
+    "gap_id": "GAP-SCAPULA_OS_ACROMIALE_SUBTYPES-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "morphology",
+    "current_evidence": {
+      "source_ids": [],
+      "existing_fact_count": 5,
+      "summary_of_known": "Os acromiale identified as developmental non-fusion variant; detailed anatomical subtypes and prevalence remain unauthored."
+    },
+    "required_content_type": "FOCUSED_MICRO_FACTS",
+    "priority": "MEDIUM",
+    "related_entities": [
+      "os_acromiale",
+      "acromion"
+    ],
+    "reason": "Pre-acromion, meso-acromion, meta-acromion, basi-acromion subtypes, population prevalence, bilaterality rates, and imaging differentials require formal radiographic literature."
+  }
+]

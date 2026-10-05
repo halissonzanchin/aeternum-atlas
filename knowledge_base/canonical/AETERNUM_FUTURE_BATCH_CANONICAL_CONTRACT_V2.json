@@ -1,0 +1,28 @@
+{
+  "contract_id": "AET-CTR-FUTURE-BATCH-CANONICAL-V2",
+  "version": "2.0.0",
+  "effective_phase": "EXP-UL-B1-CP1-IR1",
+  "governance": "MANDATORY_FOR_ALL_EXPANSION_BATCHES",
+  "requirements": [
+    {
+      "rule_id": "CTR-ENT-001",
+      "rule_name": "ENTITY_REGISTRY_V2_MANDATE",
+      "description": "Every future expansion batch (B2+) must author entities strictly under V2 schema (Full Canonical, Reference Only, Supported, Non-Entity Literal) prior to canonical promotion."
+    },
+    {
+      "rule_id": "CTR-PAR-002",
+      "rule_name": "LOCAL_MIRROR_COMPLETE_PARITY_MANDATE",
+      "description": "Promotion requires 100% parity across facts, entities, practical memory, teaching connections, and documentary maps between canonical JSON and local SQLite sovereign mirror."
+    },
+    {
+      "rule_id": "CTR-AMC-003",
+      "rule_name": "AMC_EXACT_TARGET_MAPPING_MANDATE",
+      "description": "Canonical coverage may only be counted for FULL_CANONICAL entities explicitly mapped MAPPED_EXACT to AMC targets."
+    },
+    {
+      "rule_id": "CTR-LED-004",
+      "rule_name": "FORWARD_HASH_LEDGER_REGISTRATION",
+      "description": "All promoted artifacts must be immutably recorded in AETERNUM_CERTIFIED_ARTIFACT_HASH_LEDGER."
+    }
+  ]
+}

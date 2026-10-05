@@ -1,0 +1,130 @@
+{
+  "errata_id": "EXP-UL-B1-CQ1-ERRATA-1",
+  "phase": "EXP-UL-B1-CP1-IR1",
+  "created_at": "2026-09-26T13:45:56.599Z",
+  "target_phase": "EXP-UL-B1-CQ1",
+  "audit_parent": "EXP-UL-B1-CP1-IA1",
+  "lineage": {
+    "sequence": [
+      "CQ1_CERTIFIED_ORIGINAL",
+      "CQ1_POST_CERTIFICATION_MODIFICATION",
+      "CQ1_ERRATA_1",
+      "CP1_CONSUMED_STATE"
+    ],
+    "status": "EXPLICIT_LINEAGE_ESTABLISHED"
+  },
+  "summary": {
+    "affected_artifact_count": 2,
+    "semantic_change_count": 8,
+    "metric_change_count": 0,
+    "promotion_change_count": 0,
+    "runtime_effect": "NONE (Safe Engine qualification was paused; consumed state preserved without regressions)",
+    "reconstruction_confidence": "ABSOLUTE_100%"
+  },
+  "errata_records": [
+    {
+      "affected_artifact": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_TEACHING_CONNECTIONS.json",
+      "item_id": "TC-UL-B1-007",
+      "title": "The Retroclavicular Danger Zone: Neurovascular Crossing into the Axilla",
+      "field_path": "qualification_status",
+      "original_value": "TEACHING_CONNECTION_PRODUCTION_READY",
+      "modified_value": "TEACHING_CONNECTION_STAGING_READY",
+      "reason": "Conservative pedagogical containment during local authoring review",
+      "semantic_effect": "Demoted from production candidate to staging candidate",
+      "metric_effect": "NONE",
+      "promotion_effect": "NONE (Excluded from CP1 production promotion)",
+      "runtime_effect": "NONE"
+    },
+    {
+      "affected_artifact": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_TEACHING_CONNECTIONS.json",
+      "item_id": "TC-UL-B1-007",
+      "title": "The Retroclavicular Danger Zone: Neurovascular Crossing into the Axilla",
+      "field_path": "professor_production_eligible",
+      "original_value": true,
+      "modified_value": false,
+      "reason": "Conservative pedagogical containment during local authoring review",
+      "semantic_effect": "Flag turned false to prevent direct production ingestion",
+      "metric_effect": "NONE",
+      "promotion_effect": "NONE",
+      "runtime_effect": "NONE"
+    },
+    {
+      "affected_artifact": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_TEACHING_CONNECTIONS.json",
+      "item_id": "TC-UL-B1-008",
+      "title": "Scapulothoracic Syssarcosis and Scapulohumeral Rhythm",
+      "field_path": "qualification_status",
+      "original_value": "TEACHING_CONNECTION_PRODUCTION_READY",
+      "modified_value": "TEACHING_CONNECTION_STAGING_READY",
+      "reason": "Conservative pedagogical containment during local authoring review",
+      "semantic_effect": "Demoted from production candidate to staging candidate",
+      "metric_effect": "NONE",
+      "promotion_effect": "NONE",
+      "runtime_effect": "NONE"
+    },
+    {
+      "affected_artifact": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_TEACHING_CONNECTIONS.json",
+      "item_id": "TC-UL-B1-008",
+      "title": "Scapulothoracic Syssarcosis and Scapulohumeral Rhythm",
+      "field_path": "professor_production_eligible",
+      "original_value": true,
+      "modified_value": false,
+      "reason": "Conservative pedagogical containment during local authoring review",
+      "semantic_effect": "Flag turned false to prevent direct production ingestion",
+      "metric_effect": "NONE",
+      "promotion_effect": "NONE",
+      "runtime_effect": "NONE"
+    },
+    {
+      "affected_artifact": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_DOCUMENTARY_QUALIFICATION.json",
+      "item_id": "DOC-UL-B1-004",
+      "title": "Acromioclavicular Joint Morphology, Capsule, and Kinematics",
+      "field_path": "qualification_status",
+      "original_value": "DOCUMENTARY_ATOMIC_COMPOSITION_ONLY",
+      "modified_value": "DOCUMENTARY_PRODUCTION_DIRECT",
+      "reason": "Elevated to direct retrieval overview after self-contained macroscopic synthesis validation",
+      "semantic_effect": "Promoted to direct retrieval block candidate",
+      "metric_effect": "NONE",
+      "promotion_effect": "NONE",
+      "runtime_effect": "NONE"
+    },
+    {
+      "affected_artifact": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_DOCUMENTARY_QUALIFICATION.json",
+      "item_id": "DOC-UL-B1-004",
+      "title": "Acromioclavicular Joint Morphology, Capsule, and Kinematics",
+      "field_path": "safe_engine_production_rule",
+      "original_value": "MUST_BE_DYNAMICALLY_SYNTHESIZED_FROM_QUALIFIED_ATOMIC_FACTS",
+      "modified_value": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+      "reason": "Elevated to direct retrieval overview after self-contained macroscopic synthesis validation",
+      "semantic_effect": "Rule changed to allow macro retrieval",
+      "metric_effect": "NONE",
+      "promotion_effect": "NONE",
+      "runtime_effect": "NONE"
+    },
+    {
+      "affected_artifact": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_DOCUMENTARY_QUALIFICATION.json",
+      "item_id": "DOC-UL-B1-005",
+      "title": "Coracoclavicular Ligament Complex: Functional Anatomy of Conoid and Trapezoid Ligaments",
+      "field_path": "qualification_status",
+      "original_value": "DOCUMENTARY_ATOMIC_COMPOSITION_ONLY",
+      "modified_value": "DOCUMENTARY_PRODUCTION_DIRECT",
+      "reason": "Elevated to direct retrieval overview after self-contained macroscopic synthesis validation",
+      "semantic_effect": "Promoted to direct retrieval block candidate",
+      "metric_effect": "NONE",
+      "promotion_effect": "NONE",
+      "runtime_effect": "NONE"
+    },
+    {
+      "affected_artifact": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_DOCUMENTARY_QUALIFICATION.json",
+      "item_id": "DOC-UL-B1-005",
+      "title": "Coracoclavicular Ligament Complex: Functional Anatomy of Conoid and Trapezoid Ligaments",
+      "field_path": "safe_engine_production_rule",
+      "original_value": "MUST_BE_DYNAMICALLY_SYNTHESIZED_FROM_QUALIFIED_ATOMIC_FACTS",
+      "modified_value": "ELIGIBLE_FOR_DIRECT_OVERVIEW_MACRO_RETRIEVAL",
+      "reason": "Elevated to direct retrieval overview after self-contained macroscopic synthesis validation",
+      "semantic_effect": "Rule changed to allow macro retrieval",
+      "metric_effect": "NONE",
+      "promotion_effect": "NONE",
+      "runtime_effect": "NONE"
+    }
+  ]
+}

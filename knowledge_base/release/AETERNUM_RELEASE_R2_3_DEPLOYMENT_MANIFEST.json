@@ -1,0 +1,67 @@
+{
+  "phase": "AETERNUM-RELEASE-R2.3",
+  "name": "Aeternum Atlas — Production Deployment Manifest",
+  "release_timestamp": "2026-10-04T23:36:34Z",
+  "orchestrators": {
+    "knowledge_engineer": "Antigravity",
+    "release_maestro": "ChatGPT"
+  },
+  "vercel": {
+    "project_name": "aeternum-atlas",
+    "project_id": "prj_H1xE1yVLWhl5AlLoHuOxoz0QQbHh",
+    "org_id": "team_vSczccILMfr2FubBdIvjdkrg",
+    "deployment_id": "dpl_vvHtzke37a52oqRrSxJQZ5grN4jM",
+    "deployment_url": "https://aeternum-atlas-cxnwmkj7h-aeternum-atlas.vercel.app",
+    "inspector_url": "https://vercel.com/aeternum-atlas/aeternum-atlas/vvHtzke37a52oqRrSxJQZ5grN4jM",
+    "target": "production",
+    "ready_state": "READY",
+    "build_duration_ms": 9370,
+    "total_duration_s": 30,
+    "build_machine": "2 cores, 8192 MiB (iad1)",
+    "production_domains": [
+      {
+        "domain": "https://aeternumatlas.com",
+        "type": "apex",
+        "status": "308_REDIRECT_TO_WWW"
+      },
+      {
+        "domain": "https://www.aeternumatlas.com",
+        "type": "canonical_www",
+        "status": "200_OK_LIVE"
+      },
+      {
+        "domain": "https://aeternum-atlas.vercel.app",
+        "type": "vercel_subdomain",
+        "status": "200_OK_LIVE"
+      }
+    ]
+  },
+  "supabase": {
+    "production_project_ref": "hyivyrietgjdazgizafp",
+    "production_project_status": "ACTIVE_HEALTHY",
+    "region": "us-west-2",
+    "database_engine": "PostgreSQL 17.6.1.113",
+    "schema_mutations_applied": 0,
+    "rls_enforcement": "STRICT_ACTIVE",
+    "staging_project_ref": "hutohshswppahipgcwio",
+    "staging_isolated": true
+  },
+  "bundle_isolation": {
+    "entry_js": "assets/index-CgTbBKfQ.js",
+    "entry_css": "assets/index-B43A_Rps.css",
+    "production_ref_present": true,
+    "staging_ref_absent": true,
+    "atlas_ai_mode": "standby",
+    "vita_pipeline": "off",
+    "runtime": "cloud"
+  },
+  "invariants": {
+    "canonical_facts": 248,
+    "canonical_entities": 154,
+    "safe_engine_facts": 231,
+    "authored_propositions": 41,
+    "author_holds": 10,
+    "current_cursor": "TGT-B2-A2E0-052",
+    "mutations": 0
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-VAL1",
+  "total_items": 13,
+  "summary": {
+    "MORGUE_AGREES_COUNT": 10,
+    "MORGUE_PARTIAL_COUNT": 1,
+    "MORGUE_TERMINOLOGY_DIFFERENCE_COUNT": 1,
+    "MORGUE_INSTITUTIONAL_ONLY_COUNT": 1,
+    "MORGUE_CONFLICT_COUNT": 0,
+    "MORGUE_NOT_VERIFIABLE_COUNT": 0
+  },
+  "items": [
+    {
+      "item_id": "MORG-B1-PRACT-001",
+      "page": 1,
+      "institutional_statement": "Tipo de Hueso: Hueso Plano Alargado.",
+      "reconciliation_class": "TERMINOLOGY_DIFFERENCE",
+      "academic_evidence_assessment": "Classical French nomenclature (Testut, Latarjet) describes clavicle as plano alargado; TA2 classifies it as long bone without medullary canal.",
+      "canonical_suitability": "PRESERVED_AS_INSTITUTIONAL_NOTE"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-002",
+      "page": 1,
+      "institutional_statement": "Extremo Medial: Esternal / Esferoide (manubrio del esternón y 1º cartílago costal).",
+      "reconciliation_class": "AGREES_WITH_ACADEMIC_SOURCE",
+      "academic_evidence_assessment": "Exact osteological/ligamentous assertion confirmed in Latarjet T1 and Nielsen Atlas.",
+      "canonical_suitability": "QUALIFIED_FOR_PRACTICAL_MEMORY"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-003",
+      "page": 1,
+      "institutional_statement": "Extremo Lateral: Acromial / Plano (con el acromion de la escápula).",
+      "reconciliation_class": "AGREES_WITH_ACADEMIC_SOURCE",
+      "academic_evidence_assessment": "Exact osteological/ligamentous assertion confirmed in Latarjet T1 and Nielsen Atlas.",
+      "canonical_suitability": "QUALIFIED_FOR_PRACTICAL_MEMORY"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-004",
+      "page": 1,
+      "institutional_statement": "Posee 2 Caras: Superior e Inferior. Posee 2 Bordes: Anterior y Posterior.",
+      "reconciliation_class": "AGREES_WITH_ACADEMIC_SOURCE",
+      "academic_evidence_assessment": "Exact osteological/ligamentous assertion confirmed in Latarjet T1 and Nielsen Atlas.",
+      "canonical_suitability": "QUALIFIED_FOR_PRACTICAL_MEMORY"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-005",
+      "page": 2,
+      "institutional_statement": "1/3 Lateral: Inserción descendente del músculo trapecio en cara superior - borde posterior.",
+      "reconciliation_class": "AGREES_WITH_ACADEMIC_SOURCE",
+      "academic_evidence_assessment": "Exact osteological/ligamentous assertion confirmed in Latarjet T1 and Nielsen Atlas.",
+      "canonical_suitability": "QUALIFIED_FOR_PRACTICAL_MEMORY"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-006",
+      "page": 2,
+      "institutional_statement": "1/3 Lateral: Inserción del músculo deltoides en cara superior - borde anterior.",
+      "reconciliation_class": "AGREES_WITH_ACADEMIC_SOURCE",
+      "academic_evidence_assessment": "Exact osteological/ligamentous assertion confirmed in Latarjet T1 and Nielsen Atlas.",
+      "canonical_suitability": "QUALIFIED_FOR_PRACTICAL_MEMORY"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-007",
+      "page": 2,
+      "institutional_statement": "2/3 Mediales: Inserción del músculo pectoral mayor en cara superior - borde anterior.",
+      "reconciliation_class": "AGREES_WITH_ACADEMIC_SOURCE",
+      "academic_evidence_assessment": "Exact osteological/ligamentous assertion confirmed in Latarjet T1 and Nielsen Atlas.",
+      "canonical_suitability": "QUALIFIED_FOR_PRACTICAL_MEMORY"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-008",
+      "page": 2,
+      "institutional_statement": "Surco Deltopectoral: Vena Cefálica y Rama Deltoidea.",
+      "reconciliation_class": "AGREES_WITH_ACADEMIC_SOURCE",
+      "academic_evidence_assessment": "Exact osteological/ligamentous assertion confirmed in Latarjet T1 and Nielsen Atlas.",
+      "canonical_suitability": "QUALIFIED_FOR_PRACTICAL_MEMORY"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-009",
+      "page": 3,
+      "institutional_statement": "Impresión del ligamento costoclavicular en cara inferior del 1/3 medial.",
+      "reconciliation_class": "AGREES_WITH_ACADEMIC_SOURCE",
+      "academic_evidence_assessment": "Exact osteological/ligamentous assertion confirmed in Latarjet T1 and Nielsen Atlas.",
+      "canonical_suitability": "QUALIFIED_FOR_PRACTICAL_MEMORY"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-010",
+      "page": 3,
+      "institutional_statement": "Surco del músculo subclavio en 1/3 medio cara inferior.",
+      "reconciliation_class": "AGREES_WITH_ACADEMIC_SOURCE",
+      "academic_evidence_assessment": "Exact osteological/ligamentous assertion confirmed in Latarjet T1 and Nielsen Atlas.",
+      "canonical_suitability": "QUALIFIED_FOR_PRACTICAL_MEMORY"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-011",
+      "page": 3,
+      "institutional_statement": "Tubérculo conoideo y línea trapezoidea en 1/3 lateral cara inferior.",
+      "reconciliation_class": "AGREES_WITH_ACADEMIC_SOURCE",
+      "academic_evidence_assessment": "Exact osteological/ligamentous assertion confirmed in Latarjet T1 and Nielsen Atlas.",
+      "canonical_suitability": "QUALIFIED_FOR_PRACTICAL_MEMORY"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-012",
+      "page": 10,
+      "institutional_statement": "Presenta Acromion como continuación lateral de la espina; punto palpable superior del hombro.",
+      "reconciliation_class": "PARTIAL_AGREEMENT",
+      "academic_evidence_assessment": "Acromion is superior palpable landmark, but AC joint line requires palpation 2-3 cm medial to acromial angle.",
+      "canonical_suitability": "PRESERVED_AS_INSTITUTIONAL_NOTE"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-013",
+      "page": 15,
+      "institutional_statement": "Presenta Apófisis Coracoides en el ángulo lateral; anclaje ligamentario coracoclavicular.",
+      "reconciliation_class": "INSTITUTIONAL_TEACHING_ONLY",
+      "academic_evidence_assessment": "Coracoid palpation in infraclavicular fossa is a specialized teaching maneuver; confirmed anatomically but specific morgue method is institutional.",
+      "canonical_suitability": "PRESERVED_AS_INSTITUTIONAL_NOTE"
+    }
+  ]
+}

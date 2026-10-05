@@ -1,0 +1,1418 @@
+{
+  "document_name": "EXP-UL-B2_A2E0_IA2_SEMANTIC_ERRATA",
+  "phase": "AMC-1.2-R2.3 / EXP-UL-B2-A2E0-IA2",
+  "timestamp": "2026-10-03T21:00:00Z",
+  "parent_IA1_sha256": "023b3cc390c12e74931c67415459d10bdd8078d49bc7ff00af705f02512f175f",
+  "summary": {
+    "targets_audited": 202,
+    "target_evidence_pairs_audited": 281,
+    "bindings_corrected": 69,
+    "targets_rebound": 69,
+    "evidence_links_removed": 80,
+    "existing_evidence_links_added": 74,
+    "coverage_before_percent": 29.17,
+    "coverage_after_percent": 29.1,
+    "coverage_delta_percent": -0.07,
+    "metric_correction_required": true
+  },
+  "errata": [
+    {
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-HUM-002",
+        "EVI-B2-HUM-004"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-HUM-003"
+      ],
+      "removed_units": [
+        "EVI-B2-HUM-002",
+        "EVI-B2-HUM-004"
+      ],
+      "added_units": [
+        "EVI-B2-HUM-003"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 480-481."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "field_name": "external_configuration.borders",
+      "previous_evidence_units": [
+        "EVI-B2-HUM-002",
+        "EVI-B2-GHJ-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-HUM-003"
+      ],
+      "removed_units": [
+        "EVI-B2-HUM-002",
+        "EVI-B2-GHJ-003"
+      ],
+      "added_units": [
+        "EVI-B2-HUM-003"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 480 and p. 495."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+      "field_name": "relations",
+      "previous_evidence_units": [
+        "EVI-B2-HUM-002",
+        "EVI-B2-GHJ-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-HUM-003",
+        "EVI-B2-GHJ-002"
+      ],
+      "removed_units": [
+        "EVI-B2-HUM-002",
+        "EVI-B2-GHJ-003"
+      ],
+      "added_units": [
+        "EVI-B2-HUM-003",
+        "EVI-B2-GHJ-002"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 480 and p. 495."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-HUM-003",
+        "EVI-B2-MOR-001"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-HUM-004",
+        "EVI-B2-MOR-001"
+      ],
+      "removed_units": [
+        "EVI-B2-HUM-003"
+      ],
+      "added_units": [
+        "EVI-B2-HUM-004"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 480 and Morgue Specimen 001."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "field_name": "external_configuration.surfaces",
+      "previous_evidence_units": [
+        "EVI-B2-HUM-003",
+        "EVI-B2-MOR-001"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-HUM-004",
+        "EVI-B2-MOR-001"
+      ],
+      "removed_units": [
+        "EVI-B2-HUM-003"
+      ],
+      "added_units": [
+        "EVI-B2-HUM-004"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 480 and verified in Morgue cadaveric dissection."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "field_name": "anatomical_landmarks.tubercles",
+      "previous_evidence_units": [
+        "EVI-B2-HUM-003",
+        "EVI-B2-MOR-001"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-HUM-004",
+        "EVI-B2-MOR-001"
+      ],
+      "removed_units": [
+        "EVI-B2-HUM-003"
+      ],
+      "added_units": [
+        "EVI-B2-HUM-004"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 480 and Morgue Specimen 001."
+    },
+    {
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-HUM-003",
+        "EVI-B2-TOPO-001",
+        "EVI-B2-FIG-005"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-TOPO-001",
+        "EVI-B2-FIG-005"
+      ],
+      "removed_units": [
+        "EVI-B2-HUM-003"
+      ],
+      "added_units": [],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Underlying evidence unit EVI-B2-HUM-007 is quarantined in RECHECK-Q-001 due to source text paraphrase inconsistency on page 481."
+    },
+    {
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "field_name": "topographic_location",
+      "previous_evidence_units": [
+        "EVI-B2-HUM-003",
+        "EVI-B2-TOPO-001"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-TOPO-001"
+      ],
+      "removed_units": [
+        "EVI-B2-HUM-003"
+      ],
+      "added_units": [],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Underlying evidence unit EVI-B2-HUM-007 is quarantined in RECHECK-Q-001 due to source text paraphrase inconsistency on page 481."
+    },
+    {
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "field_name": "external_configuration.extremities",
+      "previous_evidence_units": [
+        "EVI-B2-HUM-003",
+        "EVI-B2-TOPO-001"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-TOPO-001"
+      ],
+      "removed_units": [
+        "EVI-B2-HUM-003"
+      ],
+      "added_units": [],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Underlying evidence unit EVI-B2-HUM-007 is quarantined in RECHECK-Q-001 due to source text paraphrase inconsistency on page 481."
+    },
+    {
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "field_name": "continuities",
+      "previous_evidence_units": [
+        "EVI-B2-HUM-003",
+        "EVI-B2-TOPO-001"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-TOPO-001"
+      ],
+      "removed_units": [
+        "EVI-B2-HUM-003"
+      ],
+      "added_units": [],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "No explicit field-specific proposition in currently ingested B2 source locators."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "congruence",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "added_units": [
+        "EVI-B2-GHJ-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 494 (LAT-T1-GHJ-LOC-002)."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "complementary_structures.labrum",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "added_units": [
+        "EVI-B2-GHJ-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 494 (LAT-T1-GHJ-LOC-002)."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "capsule.presence",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-003"
+      ],
+      "added_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495 (LAT-T1-GHJ-LOC-003)."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "capsule.attachments",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-003"
+      ],
+      "added_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495 (LAT-T1-GHJ-LOC-003)."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "capsule.laxity",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-003"
+      ],
+      "added_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "No explicit field-specific proposition in currently ingested B2 source locators."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "synovial_membrane",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-003",
+        "EVI-B2-BURS-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-BURS-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-003"
+      ],
+      "added_units": [],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "No explicit field-specific proposition in currently ingested B2 source locators."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "synovial_recesses",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-BURS-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-BURS-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "No explicit field-specific proposition in currently ingested B2 source locators."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "bursae",
+      "previous_evidence_units": [
+        "EVI-B2-BURS-001",
+        "EVI-B2-BURS-002",
+        "EVI-B2-GHJ-008"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-BURS-001",
+        "EVI-B2-BURS-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-008"
+      ],
+      "added_units": [],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "No explicit field-specific proposition in currently ingested B2 source locators."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "ligaments",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-GHJ-005",
+        "EVI-B2-MOR-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-GHJ-004",
+        "EVI-B2-GHJ-005",
+        "EVI-B2-MOR-003"
+      ],
+      "removed_units": [],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 and Morgue Specimen 001."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "movements.movement_types",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-008"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-INT-003"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-008"
+      ],
+      "added_units": [
+        "EVI-B2-INT-003"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "No explicit field-specific proposition in currently ingested B2 source locators."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "stability.dynamic_stabilizers",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-008",
+        "EVI-B2-RTC-006",
+        "EVI-B2-RTC-007"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-006",
+        "EVI-B2-RTC-007",
+        "EVI-B2-INT-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-008"
+      ],
+      "added_units": [
+        "EVI-B2-INT-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "No explicit field-specific proposition in currently ingested B2 source locators."
+    },
+    {
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field_name": "relations",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-008",
+        "EVI-B2-FIG-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-FIG-006"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-008"
+      ],
+      "added_units": [
+        "EVI-B2-INT-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "No explicit field-specific proposition in currently ingested B2 source locators."
+    },
+    {
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "removed_units": [],
+      "added_units": [
+        "EVI-B2-GHJ-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 494 (LAT-T1-GHJ-LOC-002)."
+    },
+    {
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "field_name": "location",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "removed_units": [],
+      "added_units": [
+        "EVI-B2-GHJ-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 494 (LAT-T1-GHJ-LOC-002)."
+    },
+    {
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "field_name": "proximal_attachment",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "removed_units": [],
+      "added_units": [
+        "EVI-B2-GHJ-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 494 (LAT-T1-GHJ-LOC-002)."
+    },
+    {
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "field_name": "joint_association",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "removed_units": [],
+      "added_units": [
+        "EVI-B2-GHJ-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 494 (LAT-T1-GHJ-LOC-002)."
+    },
+    {
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "field_name": "mechanical_role_when_sourced",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-001",
+        "EVI-B2-GHJ-002"
+      ],
+      "removed_units": [],
+      "added_units": [
+        "EVI-B2-GHJ-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 494 (LAT-T1-GHJ-LOC-002)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-MOR-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 and confirmed in Morgue."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "field_name": "location",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-MOR-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 and confirmed in Morgue."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "field_name": "proximal_attachment",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 (LAT-T1-GHJ-LOC-004)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "field_name": "distal_attachment",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 (LAT-T1-GHJ-LOC-004)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "field_name": "course",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 (LAT-T1-GHJ-LOC-004)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-MOR-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 and confirmed in Morgue."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "field_name": "location",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-MOR-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 and confirmed in Morgue."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "field_name": "proximal_attachment",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 (LAT-T1-GHJ-LOC-004)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "field_name": "distal_attachment",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 (LAT-T1-GHJ-LOC-004)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+      "field_name": "course",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 (LAT-T1-GHJ-LOC-004)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-MOR-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 and confirmed in Morgue."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "field_name": "location",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004",
+        "EVI-B2-MOR-003"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001",
+        "EVI-B2-MOR-003"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 and confirmed in Morgue."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "field_name": "proximal_attachment",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 (LAT-T1-GHJ-LOC-004)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "field_name": "distal_attachment",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 (LAT-T1-GHJ-LOC-004)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+      "field_name": "course",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-004"
+      ],
+      "added_units": [
+        "EVI-B2-LIG-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 495-497 (LAT-T1-GHJ-LOC-004)."
+    },
+    {
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-RTC-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-RTC-002"
+      ],
+      "removed_units": [],
+      "added_units": [
+        "EVI-B2-RTC-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 (LAT-T1-RTC-LOC-002)."
+    },
+    {
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "field_name": "location",
+      "previous_evidence_units": [
+        "EVI-B2-RTC-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-RTC-002"
+      ],
+      "removed_units": [],
+      "added_units": [
+        "EVI-B2-RTC-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 (LAT-T1-RTC-LOC-002)."
+    },
+    {
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "field_name": "origin",
+      "previous_evidence_units": [
+        "EVI-B2-RTC-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-001"
+      ],
+      "removed_units": [
+        "EVI-B2-RTC-002"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 (LAT-T1-RTC-LOC-002)."
+    },
+    {
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "field_name": "insertion",
+      "previous_evidence_units": [
+        "EVI-B2-RTC-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-HUM-005"
+      ],
+      "removed_units": [
+        "EVI-B2-RTC-002"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-HUM-005"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 (LAT-T1-RTC-LOC-002)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-RTC-006"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-RTC-006"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "field_name": "parent_muscle",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-001"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "field_name": "insertion",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-HUM-005"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-001",
+        "EVI-B2-HUM-005"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-003",
+        "EVI-B2-RTC-007"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-003",
+        "EVI-B2-RTC-007"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "field_name": "parent_muscle",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-003"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-003"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+      "field_name": "insertion",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-003",
+        "EVI-B2-HUM-004"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-003",
+        "EVI-B2-HUM-004"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-004",
+        "EVI-B2-RTC-008"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-004",
+        "EVI-B2-RTC-008"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "field_name": "parent_muscle",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-004"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-004"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+      "field_name": "insertion",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-004",
+        "EVI-B2-HUM-004"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-004",
+        "EVI-B2-HUM-004"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-005",
+        "EVI-B2-RTC-009"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-005",
+        "EVI-B2-RTC-009"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "field_name": "parent_muscle",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-005"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-005"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+      "field_name": "insertion",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-RTC-005",
+        "EVI-B2-HUM-004"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-RTC-005",
+        "EVI-B2-HUM-004"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-HUM-006"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001"
+      ],
+      "added_units": [
+        "EVI-B2-GHJ-006"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "field_name": "parent_muscle",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-006"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [
+        "EVI-B2-GHJ-006"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "field_name": "capsular_relationships",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-006"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001"
+      ],
+      "added_units": [
+        "EVI-B2-GHJ-006"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 498 (LAT-T1-INT-LOC-001)."
+    },
+    {
+      "entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "field_name": "insertion",
+      "previous_evidence_units": [
+        "EVI-B2-INT-001",
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-HUM-006"
+      ],
+      "removed_units": [
+        "EVI-B2-INT-001"
+      ],
+      "added_units": [
+        "EVI-B2-GHJ-006"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Asserted in Latarjet joint and muscular integration chapters."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-INT-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-BURS-001",
+        "EVI-B2-INT-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-006"
+      ],
+      "added_units": [
+        "EVI-B2-BURS-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 499 (LAT-T1-GHJ-LOC-006)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "field_name": "location",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-INT-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-BURS-001",
+        "EVI-B2-INT-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-006"
+      ],
+      "added_units": [
+        "EVI-B2-BURS-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 499 (LAT-T1-GHJ-LOC-006)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "field_name": "functional_role",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-INT-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-BURS-001",
+        "EVI-B2-INT-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-006"
+      ],
+      "added_units": [
+        "EVI-B2-BURS-001"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 499 (LAT-T1-GHJ-LOC-006)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-INT-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-BURS-002",
+        "EVI-B2-RTC-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-INT-002"
+      ],
+      "added_units": [
+        "EVI-B2-BURS-002",
+        "EVI-B2-RTC-002"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 499 (LAT-T1-GHJ-LOC-006)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "field_name": "location",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-INT-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-BURS-002",
+        "EVI-B2-RTC-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-INT-002"
+      ],
+      "added_units": [
+        "EVI-B2-BURS-002",
+        "EVI-B2-RTC-002"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 499 (LAT-T1-GHJ-LOC-006)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "field_name": "functional_role",
+      "previous_evidence_units": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-INT-002"
+      ],
+      "corrected_evidence_units": [
+        "EVI-B2-BURS-002",
+        "EVI-B2-RTC-002"
+      ],
+      "removed_units": [
+        "EVI-B2-GHJ-006",
+        "EVI-B2-INT-002"
+      ],
+      "added_units": [
+        "EVI-B2-BURS-002",
+        "EVI-B2-RTC-002"
+      ],
+      "field_state_before": "COMPLETE",
+      "field_state_after": "COMPLETE",
+      "reason": "Explicitly asserted in Latarjet Vol 1 p. 499 (LAT-T1-GHJ-LOC-006)."
+    },
+    {
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+      "field_name": "identity",
+      "previous_evidence_units": [
+        "EVI-B2-HUM-006"
+      ],
+      "corrected_evidence_units": [],
+      "removed_units": [
+        "EVI-B2-HUM-006"
+      ],
+      "added_units": [],
+      "field_state_before": "PARTIAL",
+      "field_state_after": "MISSING",
+      "reason": "No explicit paragraph-level evidence found in B2 consolidated units. Preserved as SOURCE_GAP."
+    }
+  ]
+}

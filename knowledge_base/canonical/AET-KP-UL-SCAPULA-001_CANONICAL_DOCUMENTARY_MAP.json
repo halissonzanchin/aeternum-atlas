@@ -1,0 +1,132 @@
+[
+  {
+    "document_id": "DOC-SCAP-001",
+    "title": "Documentary Block DOC-SCAP-001",
+    "assembly_mode": "DIRECT_BLOCK",
+    "total_referenced_facts": 8,
+    "canonical_candidate_count": 8,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_production_ready": true
+  },
+  {
+    "document_id": "DOC-SCAP-002",
+    "title": "Documentary Block DOC-SCAP-002",
+    "assembly_mode": "DIRECT_BLOCK",
+    "total_referenced_facts": 19,
+    "canonical_candidate_count": 19,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_production_ready": true
+  },
+  {
+    "document_id": "DOC-SCAP-003",
+    "title": "Documentary Block DOC-SCAP-003",
+    "assembly_mode": "DIRECT_BLOCK",
+    "total_referenced_facts": 4,
+    "canonical_candidate_count": 4,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_production_ready": true
+  },
+  {
+    "document_id": "DOC-SCAP-004",
+    "title": "Documentary Block DOC-SCAP-004",
+    "assembly_mode": "DIRECT_BLOCK",
+    "total_referenced_facts": 13,
+    "canonical_candidate_count": 13,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_production_ready": true
+  },
+  {
+    "document_id": "DOC-SCAP-005",
+    "title": "Documentary Block DOC-SCAP-005",
+    "assembly_mode": "DIRECT_BLOCK",
+    "total_referenced_facts": 13,
+    "canonical_candidate_count": 13,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_production_ready": true
+  },
+  {
+    "document_id": "DOC-SCAP-006",
+    "title": "Documentary Block DOC-SCAP-006",
+    "assembly_mode": "DIRECT_BLOCK",
+    "total_referenced_facts": 16,
+    "canonical_candidate_count": 16,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_production_ready": true
+  },
+  {
+    "document_id": "DOC-SCAP-007",
+    "title": "Documentary Block DOC-SCAP-007",
+    "assembly_mode": "DIRECT_BLOCK",
+    "total_referenced_facts": 21,
+    "canonical_candidate_count": 21,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_production_ready": true
+  },
+  {
+    "document_id": "DOC-SCAP-008",
+    "title": "Documentary Block DOC-SCAP-008",
+    "assembly_mode": "ATOMIC_COMPOSITION_REQUIRED",
+    "total_referenced_facts": 11,
+    "canonical_candidate_count": 9,
+    "supported_only_count": 2,
+    "pending_count": 0,
+    "safe_engine_production_ready": false
+  },
+  {
+    "document_id": "DOC-SCAP-009",
+    "title": "Documentary Block DOC-SCAP-009",
+    "assembly_mode": "DIRECT_BLOCK",
+    "total_referenced_facts": 10,
+    "canonical_candidate_count": 10,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_production_ready": true
+  },
+  {
+    "document_id": "DOC-SCAP-010",
+    "title": "Documentary Block DOC-SCAP-010",
+    "assembly_mode": "DIRECT_BLOCK",
+    "total_referenced_facts": 4,
+    "canonical_candidate_count": 4,
+    "supported_only_count": 0,
+    "pending_count": 0,
+    "safe_engine_production_ready": true
+  },
+  {
+    "document_id": "DOC-SCAP-KP1-001",
+    "title": "Vascularização regional e óssea da escápula",
+    "assembly_mode": "ATOMIC_COMPOSITION_REQUIRED",
+    "total_referenced_facts": 5,
+    "canonical_candidate_count": 3,
+    "supported_only_count": 2,
+    "pending_count": 0,
+    "safe_engine_production_ready": false
+  },
+  {
+    "document_id": "DOC-SCAP-KP1-002",
+    "title": "Relações nervosas sensitivas da região escapular e do ombro",
+    "assembly_mode": "ATOMIC_COMPOSITION_REQUIRED",
+    "total_referenced_facts": 6,
+    "canonical_candidate_count": 3,
+    "supported_only_count": 1,
+    "pending_count": 2,
+    "safe_engine_production_ready": false
+  },
+  {
+    "document_id": "DOC-SCAP-KP1-003",
+    "title": "Variações anatômicas relevantes da escápula",
+    "assembly_mode": "ATOMIC_COMPOSITION_REQUIRED",
+    "total_referenced_facts": 8,
+    "canonical_candidate_count": 0,
+    "supported_only_count": 8,
+    "pending_count": 0,
+    "safe_engine_production_ready": false
+  }
+]

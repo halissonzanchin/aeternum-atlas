@@ -1,0 +1,1596 @@
+[
+  {
+    "assertion_id": "SA-0001",
+    "source_page": 1,
+    "source_text": "Cintura escapular posee 32 huesos.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0001"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0002",
+    "source_page": 1,
+    "source_text": "Clavícula es hueso de la cintura escapular.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0002"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0003",
+    "source_page": 1,
+    "source_text": "Tipo de Hueso: Hueso Plano Alargado.",
+    "classification": "REVIEW_REQUIRED",
+    "emitted_atomic_fact_ids": [
+      "AF-0003"
+    ],
+    "decomposition_rationale": "Classical French classification of clavicle; recorded with REVIEW_PENDING status."
+  },
+  {
+    "assertion_id": "SA-0004",
+    "source_page": 1,
+    "source_text": "Extremo Medial: Esternal / Esferoide (manubrio del esternón y 1º cartílago costal).",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0004",
+      "AF-0005",
+      "AF-0006"
+    ],
+    "decomposition_rationale": "Decomposed into extremity morphology and 2 distinct articular contacts."
+  },
+  {
+    "assertion_id": "SA-0005",
+    "source_page": 1,
+    "source_text": "Extremo Lateral: Acromial / Plano (con el acromion de la escápula).",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0007",
+      "AF-0008"
+    ],
+    "decomposition_rationale": "Decomposed into extremity morphology and acromial articulation."
+  },
+  {
+    "assertion_id": "SA-0006",
+    "source_page": 1,
+    "source_text": "Posee 2 Caras: Superior e Inferior.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0009",
+      "AF-0010"
+    ],
+    "decomposition_rationale": "Decomposed into superior face and inferior face."
+  },
+  {
+    "assertion_id": "SA-0007",
+    "source_page": 1,
+    "source_text": "Posee 2 Bordes: Anterior y Posterior.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0011",
+      "AF-0012"
+    ],
+    "decomposition_rationale": "Decomposed into anterior border and posterior border."
+  },
+  {
+    "assertion_id": "SA-0008",
+    "source_page": 2,
+    "source_text": "1/3 Lateral: Inserción descendente del músculo trapecio en cara superior - borde posterior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0013"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0009",
+    "source_page": 2,
+    "source_text": "1/3 Lateral: Inserción del músculo deltoides en cara superior - borde anterior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0014"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0010",
+    "source_page": 2,
+    "source_text": "2/3 Mediales: Inserción del músculo pectoral mayor en cara superior - borde anterior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0015"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0011",
+    "source_page": 2,
+    "source_text": "Surco Deltopectoral: Vena Cefálica y Rama Deltoidea.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0016",
+      "AF-0017"
+    ],
+    "decomposition_rationale": "Decomposed into two separate contents of the deltopectoral groove."
+  },
+  {
+    "assertion_id": "SA-0012",
+    "source_page": 3,
+    "source_text": "Impresión del ligamento costoclavicular en cara inferior del 1/3 medial.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0018"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0013",
+    "source_page": 3,
+    "source_text": "Surco del músculo subclavio en 1/3 medio cara inferior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0019"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0014",
+    "source_page": 3,
+    "source_text": "Tubérculo conoideo y línea trapezoidea en 1/3 lateral cara inferior.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0020",
+      "AF-0021"
+    ],
+    "decomposition_rationale": "Decomposed into two separate bony landmarks on lateral third of clavicle."
+  },
+  {
+    "assertion_id": "SA-0015",
+    "source_page": 4,
+    "source_text": "Tipo de Hueso: Hueso Plano.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0022"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0016",
+    "source_page": 4,
+    "source_text": "Hueso con formato triangular / Hueso Par.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0023"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0017",
+    "source_page": 4,
+    "source_text": "Localización: Región superior, posterior y lateral del tórax.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0024"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0018",
+    "source_page": 4,
+    "source_text": "Se proyecta de la 2 a la 7 costilla.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0025"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0019",
+    "source_page": 4,
+    "source_text": "Posee 2 Caras: Anterior (Costal) y Posterior (Dorsal).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0026"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0020",
+    "source_page": 4,
+    "source_text": "Cara Costal o Anterior: Es Cóncava.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0027"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0021",
+    "source_page": 5,
+    "source_text": "Cara costal presenta la Fosa Subescapular.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0028"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0022",
+    "source_page": 5,
+    "source_text": "Modelo anatómico coloreado de la cara costal de la escápula.",
+    "classification": "NO_ANATOMICAL_FACT",
+    "emitted_atomic_fact_ids": [],
+    "decomposition_rationale": "Pure image description/metadata with no anatomical assertion."
+  },
+  {
+    "assertion_id": "SA-0023",
+    "source_page": 6,
+    "source_text": "Cara Posterior o Dorsal: Es Convexa.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0029"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0024",
+    "source_page": 6,
+    "source_text": "Presenta relieve que divide la cara posterior en dos fosas.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0030"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0025",
+    "source_page": 7,
+    "source_text": "Presenta Fosa Supraespinosa en la cara posterior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0031"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0026",
+    "source_page": 8,
+    "source_text": "Presenta Fosa Infraespinosa en la cara posterior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0032"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0027",
+    "source_page": 9,
+    "source_text": "Presenta Espina de la Escápula dividiendo las fosas posterior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0033"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0028",
+    "source_page": 10,
+    "source_text": "Presenta Acromion como continuación lateral de la espina.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0034"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0029",
+    "source_page": 11,
+    "source_text": "Presenta Escotadura Espinoglenoidea cerca de la cavidad glenoidea.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0035"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0030",
+    "source_page": 12,
+    "source_text": "Posee 3 Bordes: Medial (Espinal), Lateral (Axilar), Superior (Cervical).",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0036",
+      "AF-0037",
+      "AF-0038"
+    ],
+    "decomposition_rationale": "Decomposed into 3 individual scapular borders."
+  },
+  {
+    "assertion_id": "SA-0031",
+    "source_page": 12,
+    "source_text": "Borde Superior presenta la Escotadura de la Escápula (cerrada por el ligamento transverso).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0039"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0032",
+    "source_page": 12,
+    "source_text": "Por la escotadura pasa el Nervio Supraescapular.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0040"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0033",
+    "source_page": 12,
+    "source_text": "Inserción del Músculo Omohioideo en el borde superior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0041"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0034",
+    "source_page": 13,
+    "source_text": "Ángulo Superior: Une Borde Superior y Medial.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0042",
+      "AF-0043"
+    ],
+    "decomposition_rationale": "Decomposed into angle existence and junction of borders."
+  },
+  {
+    "assertion_id": "SA-0035",
+    "source_page": 13,
+    "source_text": "Ángulo Inferior: Une Borde Medial y Lateral.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0044",
+      "AF-0045"
+    ],
+    "decomposition_rationale": "Decomposed into angle existence and junction of borders."
+  },
+  {
+    "assertion_id": "SA-0036",
+    "source_page": 14,
+    "source_text": "Ángulo Lateral: Une Borde Superior y Lateral.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0046",
+      "AF-0047"
+    ],
+    "decomposition_rationale": "Decomposed into angle existence and junction of borders."
+  },
+  {
+    "assertion_id": "SA-0037",
+    "source_page": 15,
+    "source_text": "Presenta Apófisis Coracoides en el ángulo lateral.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0048"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0038",
+    "source_page": 16,
+    "source_text": "Presenta Cavidad Glenoidea en el ángulo lateral.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0049"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0039",
+    "source_page": 16,
+    "source_text": "Tubérculo Supraglenoideo: Músculo bíceps cabeza larga.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0050"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0040",
+    "source_page": 16,
+    "source_text": "Tubérculo Infraglenoideo: Músculo tríceps cabeza larga.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0051"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0041",
+    "source_page": 17,
+    "source_text": "Cavidad glenoidea está rodeada por el labrum (Rodete Glenoideo).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0052"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0042",
+    "source_page": 18,
+    "source_text": "Cavidad glenoidea se articula con la cabeza del húmero.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0053"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0043",
+    "source_page": 18,
+    "source_text": "Inserciones Musculares Cara Anterior: Músculo Subescapular en la fosa subescapular.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0054"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0044",
+    "source_page": 19,
+    "source_text": "Músculo Serrato Anterior: En el borde medial entre el ángulo superior y el ángulo inferior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0055"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0045",
+    "source_page": 20,
+    "source_text": "Cara Posterior: Músculo Supraespinoso en la fosa Supraespinosa.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0056"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0046",
+    "source_page": 21,
+    "source_text": "Músculo Infraespinoso en la fosa Infraespinosa.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0057"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0047",
+    "source_page": 22,
+    "source_text": "Espina de la Escápula: Músculo Trapecio en el labio superior del borde posterior de la espina.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0058"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0048",
+    "source_page": 22,
+    "source_text": "Acromion: Músculo Deltoides en el labio inferior del borde posterior de la espina y borde lateral del acromion.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0059"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0049",
+    "source_page": 22,
+    "source_text": "Borde Medial: Músculo Elevador de la Escápula, Músculo Romboides Menor, Músculo Romboides Mayor.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0060"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0050",
+    "source_page": 22,
+    "source_text": "Borde Lateral: Músculo Redondo Menor (arriba) y Músculo Redondo Mayor (abajo).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0061"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0051",
+    "source_page": 23,
+    "source_text": "Apófisis Coracoides: Músculo Coracobraquial en el vértice.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0062"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0052",
+    "source_page": 23,
+    "source_text": "Apófisis Coracoides: Cabeza Corta del Bíceps en el vértice.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0063"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0053",
+    "source_page": 23,
+    "source_text": "Apófisis Coracoides: Músculo Pectoral Menor en la cara medial.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0064"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0054",
+    "source_page": 23,
+    "source_text": "Ligamentos en la Apófisis Coracoides: Ligamento Conoide, Ligamento Trapezoide, Ligamento Coracoacromial.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0065"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0055",
+    "source_page": 24,
+    "source_text": "Articulación Glenohumeral: Diartrosis - Enartrosis (esferoidea).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0066"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0056",
+    "source_page": 24,
+    "source_text": "Movimientos: Flexión, extensión, abducción, aducción, rotación medial, rotación lateral, circunducción.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0067"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0057",
+    "source_page": 24,
+    "source_text": "Cápsula y Ligamentos: Ligamento Glenohumeral Superior, Medio e Inferior; Ligamento Coracohumeral.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0068"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0058",
+    "source_page": 24,
+    "source_text": "Articulación del Codo: Diartrosis - Troclear / Ginglimo.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0069"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0059",
+    "source_page": 24,
+    "source_text": "Articulación del Codo: Inervación cita Nervio del Musculo Radial / Cubital (shorthand).",
+    "classification": "REVIEW_REQUIRED",
+    "emitted_atomic_fact_ids": [
+      "AF-0070"
+    ],
+    "decomposition_rationale": "Informal student shorthand for elbow innervation; recorded with REVIEW_PENDING status."
+  },
+  {
+    "assertion_id": "SA-0060",
+    "source_page": 25,
+    "source_text": "Tubérculo Mayor (Troquíter): Faceta superior (supraespinoso), faceta media (infraespinoso), faceta inferior (redondo menor).",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0071",
+      "AF-0072",
+      "AF-0073"
+    ],
+    "decomposition_rationale": "Decomposed into 3 individual greater tubercle facets and their muscle insertions."
+  },
+  {
+    "assertion_id": "SA-0061",
+    "source_page": 25,
+    "source_text": "Tubérculo Menor (Troquín): Inserción del músculo subescapular.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0074"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0062",
+    "source_page": 25,
+    "source_text": "Corredera Bicipital (Surco Intertubercular): Labio lateral (pectoral mayor), suelo (dorsal ancho), labio medial (redondo mayor).",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0075",
+      "AF-0076",
+      "AF-0077"
+    ],
+    "decomposition_rationale": "Decomposed into 3 muscular insertions in the intertubercular sulcus."
+  },
+  {
+    "assertion_id": "SA-0063",
+    "source_page": 25,
+    "source_text": "Cuello Quirúrgico del húmero: relacionado con el Nervio Axilar y Arteria Circunfleja Humeral Posterior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0078"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0064",
+    "source_page": 26,
+    "source_text": "Diáfisis Humeral Cara Posterior: Surco del Nervio Radial (Canal de Torsión).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0079"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0065",
+    "source_page": 26,
+    "source_text": "Aloja el Nervio Radial y la Arteria Braquial Profunda.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0080",
+      "AF-0081",
+      "AF-0082"
+    ],
+    "decomposition_rationale": "Decomposed into radial nerve and deep brachial artery inside the radial groove."
+  },
+  {
+    "assertion_id": "SA-0066",
+    "source_page": 26,
+    "source_text": "Separa el origen del vasto lateral (arriba) y vasto medial (abajo) del tríceps.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0083"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0067",
+    "source_page": 26,
+    "source_text": "Cara Anterolateral: Tuberosidad Deltoidea (V deltoidea).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0084"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0068",
+    "source_page": 26,
+    "source_text": "Canal epitrocleoolecraneano detrás del epicóndilo medial para el Nervio Cubital.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0085"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0069",
+    "source_page": 27,
+    "source_text": "Cúbito: Hueso medial del antebrazo.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0086"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0070",
+    "source_page": 27,
+    "source_text": "Olécranon (inserción del tríceps) y Apófisis Coronoides (inserción del braquial anterior).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0087"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0071",
+    "source_page": 27,
+    "source_text": "Escotadura troclear (cavidad sigmoidea mayor) y escotadura radial (cavidad sigmoidea menor).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0088"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0072",
+    "source_page": 27,
+    "source_text": "Cúbito no se articula directamente con los huesos del carpo; separado por fibrocartílago triangular.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0089"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0073",
+    "source_page": 27,
+    "source_text": "Sección de Radio inicia con: \"Es el hueso medial del antebrazo\" (desliz material).",
+    "classification": "REVIEW_REQUIRED",
+    "emitted_atomic_fact_ids": [
+      "AF-0090"
+    ],
+    "decomposition_rationale": "Source slips calling radius medial; recorded with CONFLICTING academic status."
+  },
+  {
+    "assertion_id": "SA-0074",
+    "source_page": 28,
+    "source_text": "Radio: Hueso largo lateral del antebrazo.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0091"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0075",
+    "source_page": 28,
+    "source_text": "Cabeza del radio: fóvea articular y circunferencia articular (articulación trocoide).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0092"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0076",
+    "source_page": 28,
+    "source_text": "Tuberosidad del Radio (Tuberosidad Bicipital): Inserción del tendón del bíceps braquial.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0093"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0077",
+    "source_page": 28,
+    "source_text": "Cara posterior distal presenta el Tubérculo Dorsal (de Lister).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0094"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0078",
+    "source_page": 29,
+    "source_text": "Tabaquera Anatómica: Límites tendinosos (abductor largo y extensor corto lateralmente; extensor largo medialmente).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0095"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0079",
+    "source_page": 29,
+    "source_text": "Suelo de la tabaquera: Hueso Escafoides y Hueso Trapecio.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0096"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0080",
+    "source_page": 29,
+    "source_text": "Contenido en el suelo: Arteria Radial.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0097"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0081",
+    "source_page": 30,
+    "source_text": "Huesos del carpo (8 huesos divididos en fila proximal y fila distal).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0098"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0082",
+    "source_page": 30,
+    "source_text": "Semilunar se articula con 5 huesos (radio, escafoides, piramidal, grande, ganchoso).",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0099",
+      "AF-0100",
+      "AF-0101",
+      "AF-0102",
+      "AF-0103"
+    ],
+    "decomposition_rationale": "Decomposed into 5 individual carpal articular contacts."
+  },
+  {
+    "assertion_id": "SA-0083",
+    "source_page": 30,
+    "source_text": "Grande se articula con 7 huesos.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0104"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0084",
+    "source_page": 31,
+    "source_text": "Ganchoso presenta apófisis unciforme / gancho.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0105"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0085",
+    "source_page": 31,
+    "source_text": "Pisiforme articula únicamente con el piramidal.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0106"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0086",
+    "source_page": 31,
+    "source_text": "Canal de Guyon formado entre pisiforme y gancho del ganchoso.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0107"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0087",
+    "source_page": 32,
+    "source_text": "5 Metacarpianos.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0108"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0088",
+    "source_page": 32,
+    "source_text": "1er Metacarpiano no tiene carillas articulares laterales en su base; articula con el trapecio (encaje recíproco / silla de montar).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0109"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0089",
+    "source_page": 32,
+    "source_text": "2do a 5to metacarpianos articulan entre sí por sus bases.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0110"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0090",
+    "source_page": 33,
+    "source_text": "14 Falanges en la mano (3 por dedo excepto el pulgar que tiene 2).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0111"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0091",
+    "source_page": 33,
+    "source_text": "Falange proximal, falange media y falange distal.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0112"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0092",
+    "source_page": 33,
+    "source_text": "Inserción del Músculo Flexor Superficial de los Dedos en falange media (lengüetas perforadas).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0113"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0093",
+    "source_page": 34,
+    "source_text": "Inserción del Músculo Flexor Profundo de los Dedos en la base de la falange distal (perforante).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0114"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0094",
+    "source_page": 34,
+    "source_text": "Expansión del tendón extensor en la falange distal.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0115"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0095",
+    "source_page": 35,
+    "source_text": "Músculo Supraespinoso: Origen fosa supraespinosa, inserción troquíter, inervación nervio supraescapular, irrigación arteria supraescapular, acción abduce el brazo.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0116",
+      "AF-0117",
+      "AF-0118",
+      "AF-0119",
+      "AF-0120"
+    ],
+    "decomposition_rationale": "Decomposed into origin, insertion, innervation, arterial supply and action."
+  },
+  {
+    "assertion_id": "SA-0096",
+    "source_page": 35,
+    "source_text": "Músculo Infraespinoso: Origen fosa infraespinosa, inserción troquíter, inervación nervio supraescapular, acción rotador lateral.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0121",
+      "AF-0122",
+      "AF-0123",
+      "AF-0124"
+    ],
+    "decomposition_rationale": "Decomposed into origin, insertion, innervation, and action."
+  },
+  {
+    "assertion_id": "SA-0097",
+    "source_page": 36,
+    "source_text": "Músculo Pectoral Mayor: aductor y rotador medial del brazo.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0125"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0098",
+    "source_page": 36,
+    "source_text": "Músculo Pectoral Menor: desciende la escápula.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0126"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0099",
+    "source_page": 36,
+    "source_text": "Músculo Serrato Anterior: inervado por el Nervio Torácico Largo.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0127"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0100",
+    "source_page": 37,
+    "source_text": "Músculo Subescapular: aductor y rotador medial del húmero.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0128"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0101",
+    "source_page": 37,
+    "source_text": "Músculo Redondo Menor: inervado por el Nervio Axilar.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0129"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0102",
+    "source_page": 37,
+    "source_text": "Músculo Redondo Mayor: inervado por el nervio subescapular inferior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0130"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0103",
+    "source_page": 37,
+    "source_text": "Músculo Dorsal Ancho: inervado por el Nervio Toracodorsal.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0131"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0104",
+    "source_page": 37,
+    "source_text": "Músculo Subescapular: Inervación cita Nervio Subescapular superior e inferior / Nervio Axilar.",
+    "classification": "REVIEW_REQUIRED",
+    "emitted_atomic_fact_ids": [
+      "AF-0132"
+    ],
+    "decomposition_rationale": "Axillary nerve mention for subscapularis; recorded with REVIEW_PENDING status."
+  },
+  {
+    "assertion_id": "SA-0105",
+    "source_page": 38,
+    "source_text": "Músculo Deltoides: inervado por el Nervio Axilar (circunflejo). Principal abductor.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0133"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0106",
+    "source_page": 38,
+    "source_text": "Músculo Coracobraquial: perforado por el Nervio Musculocutáneo (inervado por él).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0134"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0107",
+    "source_page": 39,
+    "source_text": "Músculo Bíceps Braquial: dos cabezas (larga y corta).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0135"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0108",
+    "source_page": 39,
+    "source_text": "Acción: Supinador del antebrazo flexionado y flexor del codo.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0136"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0109",
+    "source_page": 39,
+    "source_text": "Inervación: cita Nervio Musculocutáneo y Nervio Radial.",
+    "classification": "REVIEW_REQUIRED",
+    "emitted_atomic_fact_ids": [
+      "AF-0137"
+    ],
+    "decomposition_rationale": "Radial nerve mention for biceps brachii; recorded with REVIEW_PENDING status."
+  },
+  {
+    "assertion_id": "SA-0110",
+    "source_page": 40,
+    "source_text": "Músculo Braquial (Braquial Anterior): Principal flexor del antebrazo en el codo.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0138"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0111",
+    "source_page": 40,
+    "source_text": "Inervación: Nervio Musculocutáneo.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0139"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0112",
+    "source_page": 41,
+    "source_text": "Tríceps Braquial: Cabeza larga, vasto lateral y vasto medial. Inervado por el Nervio Radial.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0140"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0113",
+    "source_page": 41,
+    "source_text": "Cuadrilátero de Velpeau: Redondo menor, redondo mayor, cabeza larga tríceps, cuello quirúrgico. Contenido: Nervio axilar y arteria circunfleja humeral posterior.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0141",
+      "AF-0142",
+      "AF-0143",
+      "AF-0144",
+      "AF-0145",
+      "AF-0146"
+    ],
+    "decomposition_rationale": "Decomposed into 4 boundary walls and 2 contained neurovascular elements."
+  },
+  {
+    "assertion_id": "SA-0114",
+    "source_page": 41,
+    "source_text": "Triángulo Omotricipital: Redondo menor, redondo mayor, cabeza larga tríceps. Contenido: Arteria circunfleja escapular.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0147",
+      "AF-0148",
+      "AF-0149",
+      "AF-0150"
+    ],
+    "decomposition_rationale": "Decomposed into 3 boundary walls and circumflex scapular artery content."
+  },
+  {
+    "assertion_id": "SA-0115",
+    "source_page": 41,
+    "source_text": "Triángulo Húmerotricipital (Avelino Gutiérrez): Redondo mayor, cabeza larga tríceps, húmero. Contenido: Nervio radial y arteria braquial profunda.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0151",
+      "AF-0152",
+      "AF-0153",
+      "AF-0154",
+      "AF-0155"
+    ],
+    "decomposition_rationale": "Decomposed into 3 boundaries and radial nerve / deep brachial artery contents."
+  },
+  {
+    "assertion_id": "SA-0116",
+    "source_page": 42,
+    "source_text": "Compartimento anterior antebrazo: Plano 1 (epicondíleos mediales / epitrocleares).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0156"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0117",
+    "source_page": 42,
+    "source_text": "Pronador redondo, flexor radial del carpo, palmar largo, flexor cubital del carpo.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0157"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0118",
+    "source_page": 42,
+    "source_text": "Inervación: Todos por Nervio Mediano EXCEPTO Flexor Cubital del Carpo (inervado por Nervio Cubital).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0158"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0119",
+    "source_page": 43,
+    "source_text": "Plano 2: Flexor superficial de los dedos (N. mediano).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0159"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0120",
+    "source_page": 43,
+    "source_text": "Plano 3: Flexor profundo de los dedos (mitad lateral N. mediano, mitad medial N. cubital) y flexor largo del pulgar (N. interóseo anterior del mediano).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0160"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0121",
+    "source_page": 43,
+    "source_text": "Plano 4: Pronador cuadrado (N. interóseo anterior del mediano).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0161"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0122",
+    "source_page": 44,
+    "source_text": "Compartimento posterior y lateral: 12 músculos en total.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0162"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0123",
+    "source_page": 44,
+    "source_text": "Grupo Lateral: Braquiorradial, extensor radial largo del carpo, extensor radial corto del carpo, supinador.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0163"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0124",
+    "source_page": 44,
+    "source_text": "Inervación: Nervio Radial (ramo profundo atraviesa el supinador).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0164"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0125",
+    "source_page": 45,
+    "source_text": "Porción Posterior Plano Superficial: Extensor de los dedos, extensor del meñique, extensor cubital del carpo, ancóneo.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0165"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0126",
+    "source_page": 45,
+    "source_text": "Origen: Epicóndilo lateral del húmero. Inervación: Nervio Radial.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0166"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0127",
+    "source_page": 46,
+    "source_text": "Plano Profundo Posterior: Abductor largo del pulgar, extensor corto del pulgar, extensor largo del pulgar.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0167"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0128",
+    "source_page": 46,
+    "source_text": "Inervación: Ramo profundo del nervio radial (interóseo posterior).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0168"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0129",
+    "source_page": 46,
+    "source_text": "Límites de la tabaquera anatómica repetidos; menciona \"Arteria Cefálica\" por desliz.",
+    "classification": "REVIEW_REQUIRED",
+    "emitted_atomic_fact_ids": [
+      "AF-0169"
+    ],
+    "decomposition_rationale": "Source slips calling cephalic vein an artery in snuffbox; recorded with CONFLICTING academic status."
+  },
+  {
+    "assertion_id": "SA-0130",
+    "source_page": 47,
+    "source_text": "Músculo Extensor del Índice: Origen en cúbito y membrana interósea.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0170"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0131",
+    "source_page": 47,
+    "source_text": "Inervación: Ramo profundo del nervio radial.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0171"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0132",
+    "source_page": 48,
+    "source_text": "Músculos de la Región Tenar: Abductor corto, flexor corto, oponente, aductor del pulgar.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0172"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0133",
+    "source_page": 48,
+    "source_text": "Inervación: Abductor corto, oponente y cabeza superficial del flexor corto por Ramo Recurrente del Mediano.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0173"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0134",
+    "source_page": 48,
+    "source_text": "Cabeza profunda del flexor corto y aductor del pulgar por Ramo Profundo del Cubital.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0174"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0135",
+    "source_page": 49,
+    "source_text": "Músculos de la Región Hipotenar: Palmar corto (cutáneo palmar), abductor del meñique, flexor corto del meñique, oponente del meñique.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0175"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0136",
+    "source_page": 49,
+    "source_text": "Inervación: Ramo superficial del nervio cubital para palmar corto; ramo profundo del cubital para los otros tres.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0176"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0137",
+    "source_page": 50,
+    "source_text": "Lumbricales 1 y 2 inervados por el Nervio Mediano; Lumbricales 3 y 4 inervados por el Nervio Cubital (ramo profundo).",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0177"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0138",
+    "source_page": 50,
+    "source_text": "Interóseos Palmares (3): Aductores hacia el eje del 3er dedo. Inervados por ramo profundo del cubital.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0178"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0139",
+    "source_page": 50,
+    "source_text": "Interóseos Dorsales (4): Abductores del eje del 3er dedo. Inervados por ramo profundo del cubital.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0179"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0140",
+    "source_page": 51,
+    "source_text": "Arteria Axilar: Continuación de la arteria subclavia.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0180"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0141",
+    "source_page": 51,
+    "source_text": "Dividida en 3 porciones por el músculo pectoral menor.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0181"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0142",
+    "source_page": 51,
+    "source_text": "1ª Porción: Arteria torácica superior.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0182",
+      "AF-0183"
+    ],
+    "decomposition_rationale": "Decomposed into gives_branch and branches_from."
+  },
+  {
+    "assertion_id": "SA-0143",
+    "source_page": 51,
+    "source_text": "2ª Porción: Arteria toracoacromial (ramas acromial, clavicular, deltoidea, pectoral) y arteria torácica lateral (mamaria externa).",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0184",
+      "AF-0185",
+      "AF-0186",
+      "AF-0187",
+      "AF-0188",
+      "AF-0189"
+    ],
+    "decomposition_rationale": "Decomposed into 2 main branches and 4 sub-branches of thoracoacromial artery."
+  },
+  {
+    "assertion_id": "SA-0144",
+    "source_page": 51,
+    "source_text": "Relaciones con los fascículos del plexo braquial.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0190"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0145",
+    "source_page": 52,
+    "source_text": "3ª Porción Arteria Axilar: Arteria subescapular (ramas toracodorsal y circunfleja escapular), arteria circunfleja humeral anterior y posterior.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0191",
+      "AF-0192",
+      "AF-0193",
+      "AF-0194",
+      "AF-0195"
+    ],
+    "decomposition_rationale": "Decomposed into 3 branches of 3rd portion and 2 sub-branches of subscapular artery."
+  },
+  {
+    "assertion_id": "SA-0146",
+    "source_page": 52,
+    "source_text": "Arteria circunfleja humeral posterior pasa por el cuadrilátero de Velpeau con el nervio axilar.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0196"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0147",
+    "source_page": 52,
+    "source_text": "Arteria Braquial: Continuación de la axilar desde el borde inferior del pectoral mayor.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0197"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0148",
+    "source_page": 52,
+    "source_text": "Discurre en el conducto braquial junto al nervio mediano.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0198"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0149",
+    "source_page": 52,
+    "source_text": "Ramas: Arteria braquial profunda (entra al canal de torsión), colaterales cubitales superior e inferior.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0199"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0150",
+    "source_page": 52,
+    "source_text": "Terminación: Se bifurca en arteria radial y arteria cubital.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0200"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0151",
+    "source_page": 53,
+    "source_text": "Arteria Radial: Trayecto por el canal muscular y canal del pulso en antebrazo; tabaquera anatómica y 1er espacio intermetacarpiano en la mano.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0201"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0152",
+    "source_page": 53,
+    "source_text": "Terminación: Se une a la arteria palmar profunda (rama de la cubital) formando el arco palmar profundo.",
+    "classification": "ATOMIC_ALREADY",
+    "emitted_atomic_fact_ids": [
+      "AF-0202"
+    ],
+    "decomposition_rationale": "Single atomic claim parsed directly."
+  },
+  {
+    "assertion_id": "SA-0153",
+    "source_page": 53,
+    "source_text": "Ramas: Recurrente radial, carpiana palmar, carpiana dorsal, palmar superficial, principal del pulgar, metacarpiana dorsal del 1er espacio.",
+    "classification": "COMPOUND_DECOMPOSED",
+    "emitted_atomic_fact_ids": [
+      "AF-0203",
+      "AF-0204",
+      "AF-0205",
+      "AF-0206",
+      "AF-0207",
+      "AF-0208"
+    ],
+    "decomposition_rationale": "Decomposed into 6 distinct collateral branches of the radial artery."
+  },
+  {
+    "assertion_id": "SA-0154",
+    "source_page": 53,
+    "source_text": "Mano: Arcos Palmares y Arco Dorsal (sección incompleta).",
+    "classification": "INCOMPLETE_SOURCE",
+    "emitted_atomic_fact_ids": [
+      "AF-0209"
+    ],
+    "decomposition_rationale": "Transcription abruptly terminates without completing dorsal carpal arch details."
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "engine_version": "AETERNUM-SAFE-ENGINE-0.1.0-SCAPULA-PILOT",
+  "total_queries_evaluated": 88,
+  "raw_internal_ids_leaked": 0,
+  "raw_relation_labels_leaked": 0,
+  "json_leaks": 0,
+  "duplicate_response_count": 0,
+  "humanization_status": "PASSED"
+}

@@ -1,0 +1,226 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR1",
+  "batch_id": "EXP-UL-B1",
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+  "remediation_mode": "B1_STORAGE_SEMANTICS_NORMALIZATION",
+  "summary": {
+    "b1_full_canonical_entities_count": 30,
+    "reference_entities_used": 30,
+    "supported_entities_used": 2,
+    "anatomical_fact_mutations": 0,
+    "anatomical_facts_preserved": 129,
+    "SCAPULA_B1_ENTITY_MODEL_CONSISTENT": "YES"
+  },
+  "full_canonical_entities": [
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICLE",
+      "canonical_name": "Clavicle",
+      "entity_type": "BONE",
+      "AMC_mapping_status": "MAPPED_EXACT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_SHAFT",
+      "canonical_name": "Shaft of Clavicle",
+      "entity_type": "BONE_PART",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_STERNAL_END",
+      "canonical_name": "Sternal End of Clavicle",
+      "entity_type": "BONE_PART",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_ACROMIAL_END",
+      "canonical_name": "Acromial End of Clavicle",
+      "entity_type": "BONE_PART",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE",
+      "canonical_name": "Superior Surface of Clavicle",
+      "entity_type": "BONE_SURFACE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_INFERIOR_SURFACE",
+      "canonical_name": "Inferior Surface of Clavicle",
+      "entity_type": "BONE_SURFACE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CONOID_TUBERCLE",
+      "canonical_name": "Conoid Tubercle",
+      "entity_type": "BONE_LANDMARK",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-TRAPEZOID_LINE",
+      "canonical_name": "Trapezoid Line",
+      "entity_type": "BONE_LANDMARK",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SUBCLAVIAN_GROOVE",
+      "canonical_name": "Subclavian Groove",
+      "entity_type": "BONE_LANDMARK",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-COSTOCLAVICULAR_LIGAMENT_IMPRESSION",
+      "canonical_name": "Impression for Costoclavicular Ligament",
+      "entity_type": "BONE_LANDMARK",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_STERNAL_ARTICULAR_SURFACE",
+      "canonical_name": "Sternal Articular Surface of Clavicle",
+      "entity_type": "ARTICULAR_SURFACE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_ACROMIAL_ARTICULAR_SURFACE",
+      "canonical_name": "Acromial Articular Surface of Clavicle",
+      "entity_type": "ARTICULAR_SURFACE",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_NUTRIENT_FORAMEN",
+      "canonical_name": "Nutrient Foramen of Clavicle",
+      "entity_type": "BONE_LANDMARK",
+      "AMC_mapping_status": "MAPPED_PARENT",
+      "AMC_target_id": "TARGET-UL-CLAVICLE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "canonical_name": "Sternoclavicular Joint",
+      "entity_type": "JOINT",
+      "AMC_mapping_status": "MAPPED_EXACT",
+      "AMC_target_id": "TARGET-UL-SC-JOINT"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-STERNOCLAVICULAR_ARTICULAR_DISC",
+      "canonical_name": "Articular Disc of Sternoclavicular Joint",
+      "entity_type": "FIBROCARTILAGE_DISC",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-ANTERIOR_STERNOCLAVICULAR_LIGAMENT",
+      "canonical_name": "Anterior Sternoclavicular Ligament",
+      "entity_type": "LIGAMENT",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-POSTERIOR_STERNOCLAVICULAR_LIGAMENT",
+      "canonical_name": "Posterior Sternoclavicular Ligament",
+      "entity_type": "LIGAMENT",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-INTERCLAVICULAR_LIGAMENT",
+      "canonical_name": "Interclavicular Ligament",
+      "entity_type": "LIGAMENT",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-COSTOCLAVICULAR_LIGAMENT",
+      "canonical_name": "Costoclavicular Ligament",
+      "entity_type": "LIGAMENT",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-STERNOCLAVICULAR_FIBROUS_CAPSULE",
+      "canonical_name": "Fibrous Capsule of Sternoclavicular Joint",
+      "entity_type": "JOINT_CAPSULE",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "canonical_name": "Acromioclavicular Joint",
+      "entity_type": "JOINT",
+      "AMC_mapping_status": "MAPPED_EXACT",
+      "AMC_target_id": "TARGET-UL-AC-JOINT"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-ACROMIOCLAVICULAR_FIBROUS_CAPSULE",
+      "canonical_name": "Fibrous Capsule of Acromioclavicular Joint",
+      "entity_type": "JOINT_CAPSULE",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-ACROMIOCLAVICULAR_LIGAMENT",
+      "canonical_name": "Acromioclavicular Ligament",
+      "entity_type": "LIGAMENT",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-ACROMIOCLAVICULAR_ARTICULAR_DISC",
+      "canonical_name": "Articular Disc of Acromioclavicular Joint",
+      "entity_type": "FIBROCARTILAGE_DISC",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CORACOCLAVICULAR_LIGAMENT_COMPLEX",
+      "canonical_name": "Coracoclavicular Ligament Complex",
+      "entity_type": "LIGAMENT_COMPLEX",
+      "AMC_mapping_status": "MAPPED_EXACT",
+      "AMC_target_id": "TARGET-UL-CC-LIGAMENT-COMPLEX"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CONOID_LIGAMENT",
+      "canonical_name": "Conoid Ligament",
+      "entity_type": "LIGAMENT",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-TRAPEZOID_LIGAMENT",
+      "canonical_name": "Trapezoid Ligament",
+      "entity_type": "LIGAMENT",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-PECTORAL_GIRDLE",
+      "canonical_name": "Pectoral Girdle (Shoulder Girdle)",
+      "entity_type": "SKELETAL_COMPLEX",
+      "AMC_mapping_status": "NOT_REPRESENTED_IN_AMC",
+      "AMC_target_id": null
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-DELTOPECTORAL_GROOVE",
+      "canonical_name": "Deltopectoral Groove (and Triangle)",
+      "entity_type": "TOPOGRAPHIC_STRUCTURE",
+      "AMC_mapping_status": "MAPPED_EXACT",
+      "AMC_target_id": "TARGET-UL-DELTOPECTORAL-GROOVE"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CERVICOAXILLARY_CANAL",
+      "canonical_name": "Cervicoaxillary Canal",
+      "entity_type": "TOPOGRAPHIC_SPACE",
+      "AMC_mapping_status": "MAPPED_EXACT",
+      "AMC_target_id": "TARGET-UL-CERVICOAXILLARY-CANAL"
+    }
+  ]
+}

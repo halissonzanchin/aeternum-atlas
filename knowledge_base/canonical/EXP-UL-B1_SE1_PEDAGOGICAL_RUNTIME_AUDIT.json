@@ -1,0 +1,10 @@
+{
+  "phase": "EXP-UL-B1-SE1",
+  "practical_runtime_available_count": 16,
+  "practical_runtime_unsafe_leak_count": 0,
+  "teaching_connection_runtime_available_count": 17,
+  "unsafe_teaching_connection_leak_count": 0,
+  "documentary_runtime_available_count": 20,
+  "documentary_unsafe_prose_leak_count": 0,
+  "professor_output_unmapped_claim_count": 0
+}

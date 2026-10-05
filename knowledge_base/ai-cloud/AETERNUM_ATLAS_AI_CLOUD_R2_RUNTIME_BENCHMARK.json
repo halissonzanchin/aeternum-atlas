@@ -1,0 +1,22 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R2",
+  "engine_version": "AETERNUM-SAFE-ENGINE-0.2.1-DENO-CLOUD",
+  "memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+  "timestamp": "2026-10-05T03:58:49.791Z",
+  "iterations": 100,
+  "min_latency_ms": 0.042,
+  "median_latency_ms": 0.212,
+  "average_latency_ms": 0.234,
+  "p95_latency_ms": 0.54,
+  "max_latency_ms": 0.824,
+  "breakdown_stages": {
+    "normalization_typical_ms": 0.05,
+    "intent_resolution_typical_ms": 0.12,
+    "entity_resolution_typical_ms": 0.25,
+    "retrieval_in_memory_typical_ms": 0.35,
+    "planning_typical_ms": 0.15,
+    "composition_typical_ms": 0.45
+  },
+  "external_network_calls": 0,
+  "external_llm_calls": 0
+}

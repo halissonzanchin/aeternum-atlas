@@ -1,0 +1,2316 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "generated_at": "2026-09-25T03:02:18.507Z",
+  "total_queued_facts": 152,
+  "validation_ready_count": 150,
+  "validation_blocked_count": 2,
+  "queue_items": [
+    {
+      "fact_candidate_id": "B1-FC-CLAV-001",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "type_of",
+      "object_or_arguments": [
+        "long_bone"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-002",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "part_of",
+      "object_or_arguments": [
+        "pectoral_girdle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-003",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_symmetry",
+      "object_or_arguments": [
+        "paired_bone"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-004",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "located_in",
+      "object_or_arguments": [
+        "anterosuperior_thoracic_wall"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-005",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_shape",
+      "object_or_arguments": [
+        "italic_s_shape"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-006",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_curvature",
+      "object_or_arguments": [
+        "medial_two_thirds_convex_anteriorly"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-007",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_curvature",
+      "object_or_arguments": [
+        "lateral_one_third_concave_anteriorly"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-008",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "clavicular_shaft"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-009",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "clavicular_sternal_end"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-010",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "clavicular_acromial_end"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-011",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_surface",
+      "object_or_arguments": [
+        "clavicular_superior_surface"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-012",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_surface",
+      "object_or_arguments": [
+        "clavicular_inferior_surface"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-013",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_border",
+      "object_or_arguments": [
+        "anterior_border_of_clavicle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-014",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_border",
+      "object_or_arguments": [
+        "posterior_border_of_clavicle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-015",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicular_superior_surface",
+      "subject_id": "clavicular_superior_surface",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "subcutaneous_palpable_area"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-016",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicular_inferior_surface",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "object_or_arguments": [
+        "costoclavicular_ligament_impression"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-017",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicular_inferior_surface",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "object_or_arguments": [
+        "subclavian_groove"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-018",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicular_inferior_surface",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "object_or_arguments": [
+        "conoid_tubercle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-019",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicular_inferior_surface",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "object_or_arguments": [
+        "trapezoid_line"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-020",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicular_inferior_surface",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "object_or_arguments": [
+        "clavicular_nutrient_foramen"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-021",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicular_sternal_end",
+      "subject_id": "clavicular_sternal_end",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "clavicular_sternal_articular_surface"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-022",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicular_sternal_articular_surface",
+      "subject_id": "clavicular_sternal_articular_surface",
+      "relation": "articulates_with",
+      "object_or_arguments": [
+        "manubrium_sterni",
+        "first_costal_cartilage"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-023",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicular_acromial_end",
+      "subject_id": "clavicular_acromial_end",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "clavicular_acromial_articular_surface"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-024",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicular_acromial_articular_surface",
+      "subject_id": "clavicular_acromial_articular_surface",
+      "relation": "articulates_with",
+      "object_or_arguments": [
+        "acromion"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-025",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "pectoralis_major_clavicular_head",
+      "relation": "originates_from",
+      "object_or_arguments": [
+        "anterior_border_medial_two_thirds_clavicle",
+        "superior_surface_medial_half_clavicle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-026",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "deltoid_clavicular_portion",
+      "relation": "originates_from",
+      "object_or_arguments": [
+        "anterior_border_lateral_one_third_clavicle",
+        "superior_surface_lateral_one_third_anterior_clavicle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-027",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "trapezius_descending_part",
+      "relation": "inserts_into",
+      "object_or_arguments": [
+        "posterior_border_lateral_one_third_clavicle",
+        "superior_surface_lateral_one_third_posterior_clavicle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-028",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "sternocleidomastoid_clavicular_head",
+      "relation": "originates_from",
+      "object_or_arguments": [
+        "superior_surface_medial_one_third_posterior_aspect_clavicle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-029",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "subclavius_muscle",
+      "relation": "inserts_into",
+      "object_or_arguments": [
+        "subclavian_groove"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-030",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "costoclavicular_ligament",
+      "relation": "attaches_ligament",
+      "object_or_arguments": [
+        "costoclavicular_ligament_impression"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-031",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "conoid_ligament",
+      "relation": "attaches_ligament",
+      "object_or_arguments": [
+        "conoid_tubercle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-032",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "trapezoid_ligament",
+      "relation": "attaches_ligament",
+      "object_or_arguments": [
+        "trapezoid_line"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-033",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "compact_cortical_bone",
+        "spongy_trabecular_core"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-034",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "palpable_entire_length"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-035",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "platysma_muscle",
+      "relation": "vascular_syntopy",
+      "object_or_arguments": [
+        "covers_superior_surface_of_clavicle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-036",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "supraclavicular_nerves",
+      "relation": "vascular_syntopy",
+      "object_or_arguments": [
+        "cross_superficial_to_clavicle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-037",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "subclavian_vessels",
+      "relation": "vascular_syntopy",
+      "object_or_arguments": [
+        "pass_deep_to_middle_third_of_clavicle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-038",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "brachial_plexus_trunks",
+      "relation": "vascular_syntopy",
+      "object_or_arguments": [
+        "pass_deep_to_middle_third_of_clavicle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-039",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "practical_orientation_criteria"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-040",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "laterality_determination_rule"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-041",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "deltoid_tubercle_of_clavicle",
+      "relation": "has_landmark",
+      "object_or_arguments": [
+        "anterior_border_lateral_third_prominence"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-042",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "intramembranous_and_endochondral_ossification"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-043",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicular_sternal_end_epiphysis",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "secondary_ossification_center_fusion_age_25"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-044",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavipectoral_fascia",
+      "relation": "vascular_syntopy",
+      "object_or_arguments": [
+        "encloses_subclavius_muscle_and_attaches_to_subclavian_groove_lips"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-045",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicular_nutrient_artery",
+      "relation": "vascular_supply",
+      "object_or_arguments": [
+        "branch_of_suprascapular_or_thoracoacromial_artery"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-046",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "posterior_border_of_clavicle",
+      "relation": "has_curvature",
+      "object_or_arguments": [
+        "concave_medially_convex_laterally"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-047",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "anterior_border_of_clavicle",
+      "relation": "has_curvature",
+      "object_or_arguments": [
+        "convex_medially_concave_laterally"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-048",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "cervical_fascia_superficial_layer",
+      "relation": "vascular_syntopy",
+      "object_or_arguments": [
+        "attaches_to_superior_surface_and_posterior_border_of_clavicle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-049",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "junction_between_middle_and_lateral_thirds_weakest_point"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-050",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "absence_of_medullary_canal"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-051",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "subclavian_nerve_innervation_to_periosteum"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-005",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CLAV-052",
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "supraclavicular_fossa_boundary"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-001",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "type_of",
+      "object_or_arguments": [
+        "synovial_sellar_joint"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-002",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "part_of",
+      "object_or_arguments": [
+        "pectoral_girdle_arthrology"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-003",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "articulates_with",
+      "object_or_arguments": [
+        "clavicular_sternal_articular_surface",
+        "clavicular_notch_of_manubrium_sterni",
+        "first_costal_cartilage"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-004",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "fibrocartilage_articular_covering"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-005",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "sternoclavicular_articular_disc"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-006",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_articular_disc",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "inserts_into",
+      "object_or_arguments": [
+        "posterosuperior_margin_of_clavicular_sternal_end"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-007",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_articular_disc",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "inserts_into",
+      "object_or_arguments": [
+        "first_costal_cartilage_and_sternal_junction"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-008",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_articular_disc",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "DIVIDES_JOINT_CAVITY",
+      "object_or_arguments": [
+        "meniscoclavicular_synovial_cavity",
+        "meniscosternal_synovial_cavity"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-009",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "surrounded_by",
+      "object_or_arguments": [
+        "sternoclavicular_fibrous_capsule"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-010",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "anterior_sternoclavicular_ligament"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-011",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "posterior_sternoclavicular_ligament"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-012",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "interclavicular_ligament"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-013",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "costoclavicular_ligament"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-014",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "costoclavicular_ligament",
+      "subject_id": "costoclavicular_ligament",
+      "relation": "originates_from",
+      "object_or_arguments": [
+        "upper_surface_first_rib_and_costal_cartilage"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-015",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "costoclavicular_ligament",
+      "subject_id": "costoclavicular_ligament",
+      "relation": "RESISTS_DISPLACEMENT",
+      "object_or_arguments": [
+        "excessive_elevation_of_clavicle",
+        "anterior_and_posterior_clavicular_gliding"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-016",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "object_or_arguments": [
+        "elevation_and_depression"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-005",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-017",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "object_or_arguments": [
+        "protraction_and_retraction"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-005",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-018",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "object_or_arguments": [
+        "axial_rotation_up_to_40_degrees"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-005",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-019",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_supply",
+      "object_or_arguments": [
+        "internal_thoracic_artery_branches",
+        "suprascapular_artery_branches"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-005",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-020",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "innervated_by",
+      "object_or_arguments": [
+        "medial_supraclavicular_nerve",
+        "nerve_to_subclavius"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-005",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-021",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_syntopy",
+      "object_or_arguments": [
+        "anterior_to_brachiocephalic_vein_and_internal_jugular_vein"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-022",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_syntopy",
+      "object_or_arguments": [
+        "anterior_to_brachiocephalic_arterial_trunk_on_right_and_common_carotid_on_left"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-023",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "interclavicular_ligament",
+      "relation": "RESISTS_DISPLACEMENT",
+      "object_or_arguments": [
+        "excessive_depression_of_lateral_clavicular_end"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-024",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "palpable_prominence_at_suprasternal_notch_margins"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-025",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_articular_disc",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "RESISTS_DISPLACEMENT",
+      "object_or_arguments": [
+        "medial_and_superior_displacement_of_clavicle_under_axial_load"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-026",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "sternohyoid_and_sternothyroid_retroarticular_muscular_shield"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-027",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "anterior_subluxation_more_frequent_than_posterior"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-028",
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "costoclavicular_anterior_and_posterior_laminae"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-SCJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-001",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "type_of",
+      "object_or_arguments": [
+        "synovial_plane_joint"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-002",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "part_of",
+      "object_or_arguments": [
+        "pectoral_girdle_arthrology"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-003",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "articulates_with",
+      "object_or_arguments": [
+        "clavicular_acromial_articular_surface",
+        "acromial_facet_of_scapula"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-004",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "clavicular_acromial_articular_surface",
+      "subject_id": "clavicular_acromial_articular_surface",
+      "relation": "has_curvature",
+      "object_or_arguments": [
+        "faces_inferolaterally"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-005",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromial_facet_of_scapula",
+      "subject_id": "acromial_facet_of_scapula",
+      "relation": "has_curvature",
+      "object_or_arguments": [
+        "faces_superomedially"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-006",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "fibrocartilage_articular_lining"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-007",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "acromioclavicular_articular_disc"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-008",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_articular_disc",
+      "subject_id": "acromioclavicular_articular_disc",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "frequently_incomplete_or_perforated_in_adults"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-009",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "surrounded_by",
+      "object_or_arguments": [
+        "acromioclavicular_fibrous_capsule"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-010",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "acromioclavicular_ligament"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-011",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_ligament",
+      "subject_id": "superior_acromioclavicular_ligament",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "dense_quadrilateral_fibrous_plate"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-012",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_ligament",
+      "subject_id": "superior_acromioclavicular_ligament",
+      "relation": "RESISTS_DISPLACEMENT",
+      "object_or_arguments": [
+        "anteroposterior_displacement_and_joint_separation"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-013",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "functional_axis",
+      "object_or_arguments": [
+        "small_gliding_and_rotational_adjustments"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-014",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "functional_axis",
+      "object_or_arguments": [
+        "scapuloclavicular_angle_variation"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-015",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "vascular_supply",
+      "object_or_arguments": [
+        "acromial_rete",
+        "acromial_branch_of_thoracoacromial_artery",
+        "suprascapular_artery"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-016",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "innervated_by",
+      "object_or_arguments": [
+        "lateral_supraclavicular_nerve",
+        "axillary_nerve_articular_twigs",
+        "lateral_pectoral_nerve"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-017",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "subcutaneous_palpable_joint_line"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-018",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "step_off_palpation_sign"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "NLS-ATLAS-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-019",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "synovial_membrane_and_occasional_preclavicular_bursa"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-020",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "vulnerable_to_shearing_forces"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-021",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "coracoacromial_ligament_adjacent_syntopy"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-022",
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "intracapsular_adhesions_with_aging"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-001",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "type_of",
+      "object_or_arguments": [
+        "extrinsic_syndesmosis_complex"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-002",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "conoid_ligament",
+        "trapezoid_ligament"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-003",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "type_of",
+      "object_or_arguments": [
+        "extrinsic_ligament"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-004",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "has_shape",
+      "object_or_arguments": [
+        "inverted_triangular_cone"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-005",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "originates_from",
+      "object_or_arguments": [
+        "coracoid_process_posterior_base"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-006",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "inserts_into",
+      "object_or_arguments": [
+        "conoid_tubercle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-007",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "RESISTS_DISPLACEMENT",
+      "object_or_arguments": [
+        "anterior_and_superior_displacement_of_clavicle",
+        "scapular_anterior_tipping"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-008",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "type_of",
+      "object_or_arguments": [
+        "extrinsic_ligament"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-009",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "has_shape",
+      "object_or_arguments": [
+        "quadrilateral_trapezoid_plate"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-010",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "originates_from",
+      "object_or_arguments": [
+        "coracoid_process_superior_surface_horizontal_segment"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-011",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "inserts_into",
+      "object_or_arguments": [
+        "trapezoid_line"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-012",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "RESISTS_DISPLACEMENT",
+      "object_or_arguments": [
+        "posterior_displacement_of_clavicle",
+        "horizontal_override_between_clavicle_and_acromion"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-013",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "SUSPENDS_STRUCTURE",
+      "object_or_arguments": [
+        "scapula",
+        "free_upper_limb"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-014",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_interligamentous_angle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "open_laterally_and_anteriorly_containing_adipose_tissue_or_bursa"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-015",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "vascular_supply",
+      "object_or_arguments": [
+        "suprascapular_artery_branches",
+        "acromial_branches"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-016",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "innervated_by",
+      "object_or_arguments": [
+        "suprascapular_nerve_articular_branches"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-017",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "medial_coracoclavicular_ligament_of_caldani",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "inconstant_fibrous_tract_running_to_subclavius_fascia"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-018",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "vertical_fiber_orientation"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-019",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "subhorizontal_oblique_fiber_orientation"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-020",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "vascular_syntopy",
+      "object_or_arguments": [
+        "anterior_to_suprascapular_notch_and_suprascapular_nerve"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-021",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "RESISTS_DISPLACEMENT",
+      "object_or_arguments": [
+        "transmits_rotational_torque_during_clavicular_axial_spin"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-022",
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "complete_rupture_causes_gross_ac_separation"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-ACJ-LOC-004",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-001",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "pectoral_girdle",
+      "relation": "type_of",
+      "object_or_arguments": [
+        "appendicular_skeletal_girdle"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-002",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "clavicle",
+        "scapula"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-003",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "anterior_closure_via_sternum_posterior_open_configuration"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-004",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "sole_true_bony_articulation_between_upper_limb_and_axial_skeleton"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-005",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "strut_function_maintaining_scapular_clearance_from_thorax"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-006",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "kinetic_chain_force_transmission_pathway"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-007",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "scapulothoracic_interface",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "scapulothoracic_interface"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-008",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "scapulothoracic_interface",
+      "subject_id": "scapulothoracic_interface",
+      "relation": "type_of",
+      "object_or_arguments": [
+        "physiological_syssarcosis"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-009",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "scapulothoracic_interface",
+      "subject_id": "serratus_anterior",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "intermediate_muscular_partition"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-010",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "scapulothoracic_interface",
+      "subject_id": "omoserratus_interfascial_space",
+      "relation": "SYSSARCOSIS_INTERFACE_BETWEEN",
+      "object_or_arguments": [
+        "subscapularis_fascia",
+        "serratus_anterior_lateral_surface"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-011",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "scapulothoracic_interface",
+      "subject_id": "parietoserratus_interfascial_space",
+      "relation": "SYSSARCOSIS_INTERFACE_BETWEEN",
+      "object_or_arguments": [
+        "serratus_anterior_medial_surface",
+        "thoracic_wall_ribs_2_to_7_and_intercostals"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-012",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "scapulothoracic_interface",
+      "subject_id": "scapulothoracic_interface",
+      "relation": "functional_axis",
+      "object_or_arguments": [
+        "scapular_elevation_depression_protraction_retraction_upward_downward_rotation"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-013",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "scapulohumeral_rhythm",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "two_to_one_ratio_overall_arm_abduction"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-014",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "deltopectoral_groove",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "deltopectoral_groove"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-015",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "deltopectoral_groove",
+      "subject_id": "deltopectoral_groove",
+      "relation": "type_of",
+      "object_or_arguments": [
+        "intermuscular_surface_groove"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-016",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "deltopectoral_groove",
+      "subject_id": "deltopectoral_groove",
+      "relation": "has_border",
+      "object_or_arguments": [
+        "medially_pectoralis_major_clavicular_head",
+        "laterally_deltoid_anterior_border"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-017",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "deltopectoral_groove",
+      "subject_id": "deltopectoral_triangle_of_mohrenheim",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "subclavicular_fossa_at_superior_apex_of_groove"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-018",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "deltopectoral_groove",
+      "subject_id": "deltopectoral_groove",
+      "relation": "TRANSMITS_STRUCTURE",
+      "object_or_arguments": [
+        "cephalic_vein",
+        "deltoid_branch_of_thoracoacromial_artery"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-019",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "cervicoaxillary_canal",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "cervicoaxillary_canal"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-020",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "cervicoaxillary_canal",
+      "subject_id": "cervicoaxillary_canal",
+      "relation": "has_border",
+      "object_or_arguments": [
+        "anteriorly_clavicle_posteriorly_superior_border_of_scapula_medially_first_rib"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-021",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "cervicoaxillary_canal",
+      "subject_id": "cervicoaxillary_canal",
+      "relation": "TRANSMITS_STRUCTURE",
+      "object_or_arguments": [
+        "axillary_artery_and_vein",
+        "brachial_plexus_cords"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-022",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "retroclavicular_space",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "retroclavicular_space"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-023",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "retroclavicular_space",
+      "subject_id": "subclavius_muscle_and_sheath",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "anterior_musculofascial_cushion_for_subclavian_vessels"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-003",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-024",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "axioappendicular_musculature_force_couples"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-025",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "trapezius_and_serratus_anterior",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "force_couple_for_upward_scapular_rotation"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-PG-LOC-001",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-026",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "deltopectoral_groove",
+      "subject_id": "cephalic_vein",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "pierces_clavipectoral_fascia_in_mohrenheim_triangle_to_drain_into_axillary_vein"
+      ],
+      "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+      "validation_ready": true,
+      "validation_blocked_reason": null,
+      "primary_locator": "LAT-T1-CLAV-LOC-002",
+      "expected_validation_type": "PROPOSITION_EVIDENCE_MATCH"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-027",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "instantaneous_helical_axis_of_clavicular_rotation_in_overhead_motion"
+      ],
+      "authoring_origin": "AI_DRAFT",
+      "validation_ready": false,
+      "validation_blocked_reason": "SUPPLEMENTAL_BIOMECHANICAL_SYNTHESIS_PENDING_EXACT_SPATIAL_CADAVERIC_MAPPING",
+      "primary_locator": "LAT-T1-PG-LOC-001",
+      "expected_validation_type": "EXPERT_ACADEMIC_PEER_REVIEW"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-028",
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "entity_id": "scapulothoracic_interface",
+      "subject_id": "scapulothoracic_interface",
+      "relation": "has_structure",
+      "object_or_arguments": [
+        "micro_lubrication_fluid_composition_in_interfascial_bursae"
+      ],
+      "authoring_origin": "AI_DRAFT",
+      "validation_ready": false,
+      "validation_blocked_reason": "BIOCHEMICAL_INTERFASCIAL_ANALYSIS_PENDING_REGISTERED_HISTOLOGY_REFERENCE",
+      "primary_locator": "LAT-T1-PG-LOC-002",
+      "expected_validation_type": "EXPERT_ACADEMIC_PEER_REVIEW"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "document_name": "EXP-UL-SHOULDER_COMPLEX_R2_1_ERRATA",
+  "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+  "timestamp": "2026-09-27T11:15:00Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "metrics": {
+    "total_errata": 2,
+    "shoulder_aggregator_canonical_pack": false,
+    "shoulder_region_identity_duplicates": 0
+  },
+  "errata_records": [
+    {
+      "erratum_id": "ERR-AGG-GOV-001",
+      "affected_field": "canonical_pack",
+      "previous_value": "AETERNUM_UPPER_LIMB_SHOULDER",
+      "corrected_value": false,
+      "justification": "The Shoulder Complex aggregator is a regional aggregation layer spanning B1, B2, and B3, not an autonomous canonical knowledge pack. Set canonical_pack to false."
+    },
+    {
+      "erratum_id": "ERR-AGG-GOV-002",
+      "affected_field": "region_id",
+      "previous_value": "REG-SHOULDER-COMPLEX-001",
+      "corrected_value": "AET-REG-UL-SHOULDER-COMPLEX",
+      "alias_status": "DEPRECATED_ENGINEERING_ALIAS",
+      "justification": "Restored canonical region ID namespace AET-REG-UL-SHOULDER-COMPLEX. REG-SHOULDER-COMPLEX-001 preserved strictly as a deprecated engineering alias."
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-CQ1",
+  "generated_at": "2026-09-25T03:53:39.743Z",
+  "reconciliation": {
+    "SAFE_ENGINE_ATOMIC_READY_COUNT": 137,
+    "SAFE_ENGINE_RELATION_READY_COUNT": 118,
+    "VALIDATED_ATOMIC_FACTS_RELATION_READY": 118,
+    "VALIDATED_ATOMIC_FACTS_RELATION_NOT_READY": 19,
+    "EXPLANATION": "19 validated facts cannot enter Safe Engine production relation queries: 12 facts use uncertified candidate relations (DIVIDES_JOINT_CAVITY, RESISTS_DISPLACEMENT, SUSPENDS_STRUCTURE, SYSSARCOSIS_INTERFACE_BETWEEN, TRANSMITS_STRUCTURE), 6 facts use non-promoted supported entity identities (scapulothoracic_interface, retroclavicular_space) with certified relations, and 1 fact (B1-FC-PGI-013) defines scapulohumeral rhythm as a kinesiological motion ratio rather than a direct relational entity. Total = 12 + 6 + 1 = 19. 137 - 19 = 118."
+  },
+  "candidate_relation_details": [
+    {
+      "relation_candidate_id": "RESISTS_DISPLACEMENT",
+      "proposed_semantics": "Specifies the anatomical vector or kinetic direction of translational/rotational displacement restrained by a ligament.",
+      "inverse_relation": "DISPLACEMENT_RESISTED_BY",
+      "domain": "LIGAMENT",
+      "range": "DISPLACEMENT_OR_MOTION_DIRECTION",
+      "facts_using_relation": [
+        "B1-FC-SCJ-015",
+        "B1-FC-SCJ-023",
+        "B1-FC-SCJ-025",
+        "B1-FC-ACJ-012",
+        "B1-FC-CCC-007",
+        "B1-FC-CCC-012",
+        "B1-FC-CCC-021"
+      ],
+      "qualification_class": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "safe_engine_production_eligible": false,
+      "safe_engine_staging_eligible": true
+    },
+    {
+      "relation_candidate_id": "DIVIDES_JOINT_CAVITY",
+      "proposed_semantics": "Specifies the anatomical partitioning of a synovial cavity into distinct synovial compartments by a fibrocartilaginous disc.",
+      "inverse_relation": "JOINT_CAVITY_DIVIDED_BY",
+      "domain": "FIBROCARTILAGE_DISC",
+      "range": "SYNOVIAL_COMPARTMENT_SET",
+      "facts_using_relation": [
+        "B1-FC-SCJ-008"
+      ],
+      "qualification_class": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "safe_engine_production_eligible": false,
+      "safe_engine_staging_eligible": true
+    },
+    {
+      "relation_candidate_id": "TRANSMITS_STRUCTURE",
+      "proposed_semantics": "Specifies that a canal, groove, triangle, or topographic space provides anatomical passage for a neurovascular bundle or vessel.",
+      "inverse_relation": "TRANSMITTED_THROUGH",
+      "domain": "TOPOGRAPHIC_STRUCTURE_OR_SPACE",
+      "range": "NEUROVASCULAR_ENTITY",
+      "facts_using_relation": [
+        "B1-FC-PGI-018",
+        "B1-FC-PGI-021"
+      ],
+      "qualification_class": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "safe_engine_production_eligible": false,
+      "safe_engine_staging_eligible": true
+    },
+    {
+      "relation_candidate_id": "SUSPENDS_STRUCTURE",
+      "proposed_semantics": "Specifies that a ligamentous complex provides continuous gravitational and mechanical suspension for a suspended skeletal segment.",
+      "inverse_relation": "SUSPENDED_BY",
+      "domain": "LIGAMENT_COMPLEX",
+      "range": "SKELETAL_STRUCTURE",
+      "facts_using_relation": [
+        "B1-FC-CCC-013"
+      ],
+      "qualification_class": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "safe_engine_production_eligible": false,
+      "safe_engine_staging_eligible": true
+    },
+    {
+      "relation_candidate_id": "SYSSARCOSIS_INTERFACE_BETWEEN",
+      "proposed_semantics": "Defines a physiological gliding interface between two muscular or osteomuscular walls separated by loose cellular connective tissue without true synovia.",
+      "inverse_relation": "PARTICIPATES_IN_SYSSARCOSIS",
+      "domain": "PHYSIOLOGICAL_INTERFACE",
+      "range": "MUSCULOSKELETAL_SURFACES_PAIR",
+      "facts_using_relation": [
+        "B1-FC-PGI-010",
+        "B1-FC-PGI-011"
+      ],
+      "qualification_class": "ONTOLOGY_REVIEW_REQUIRED",
+      "safe_engine_production_eligible": false,
+      "safe_engine_staging_eligible": true
+    }
+  ],
+  "exact_relation_not_ready_fact_ids": [
+    {
+      "fact_candidate_id": "B1-FC-SCJ-008",
+      "relation": "DIVIDES_JOINT_CAVITY",
+      "entity_id": "sternoclavicular_articular_disc",
+      "subject": "sternoclavicular_articular_disc",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_DIVIDES_JOINT_CAVITY"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-015",
+      "relation": "RESISTS_DISPLACEMENT",
+      "entity_id": "costoclavicular_ligament",
+      "subject": "costoclavicular_ligament",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-023",
+      "relation": "RESISTS_DISPLACEMENT",
+      "entity_id": "sternoclavicular_joint",
+      "subject": "interclavicular_ligament",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+    },
+    {
+      "fact_candidate_id": "B1-FC-SCJ-025",
+      "relation": "RESISTS_DISPLACEMENT",
+      "entity_id": "sternoclavicular_articular_disc",
+      "subject": "sternoclavicular_articular_disc",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+    },
+    {
+      "fact_candidate_id": "B1-FC-ACJ-012",
+      "relation": "RESISTS_DISPLACEMENT",
+      "entity_id": "acromioclavicular_ligament",
+      "subject": "superior_acromioclavicular_ligament",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-007",
+      "relation": "RESISTS_DISPLACEMENT",
+      "entity_id": "conoid_ligament",
+      "subject": "conoid_ligament",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-012",
+      "relation": "RESISTS_DISPLACEMENT",
+      "entity_id": "trapezoid_ligament",
+      "subject": "trapezoid_ligament",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_RESISTS_DISPLACEMENT"
+    },
+    {
+      "fact_candidate_id": "B1-FC-CCC-013",
+      "relation": "SUSPENDS_STRUCTURE",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject": "coracoclavicular_ligament_complex",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_SUSPENDS_STRUCTURE"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-007",
+      "relation": "has_structure",
+      "entity_id": "pectoral_girdle",
+      "subject": "scapulothoracic_interface",
+      "reason_not_ready": "BLOCKED_BY_SUPPORTED_ENTITY_IDENTITY"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-008",
+      "relation": "type_of",
+      "entity_id": "scapulothoracic_interface",
+      "subject": "scapulothoracic_interface",
+      "reason_not_ready": "BLOCKED_BY_SUPPORTED_ENTITY_IDENTITY"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-009",
+      "relation": "has_structure",
+      "entity_id": "scapulothoracic_interface",
+      "subject": "serratus_anterior",
+      "reason_not_ready": "BLOCKED_BY_SUPPORTED_ENTITY_IDENTITY"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-010",
+      "relation": "SYSSARCOSIS_INTERFACE_BETWEEN",
+      "entity_id": "scapulothoracic_interface",
+      "subject": "omoserratus_interfascial_space",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_SYSSARCOSIS_INTERFACE_BETWEEN"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-011",
+      "relation": "SYSSARCOSIS_INTERFACE_BETWEEN",
+      "entity_id": "scapulothoracic_interface",
+      "subject": "parietoserratus_interfascial_space",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_SYSSARCOSIS_INTERFACE_BETWEEN"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-012",
+      "relation": "functional_axis",
+      "entity_id": "scapulothoracic_interface",
+      "subject": "scapulothoracic_interface",
+      "reason_not_ready": "BLOCKED_BY_SUPPORTED_ENTITY_IDENTITY"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-013",
+      "relation": "has_structure",
+      "entity_id": "pectoral_girdle",
+      "subject": "scapulohumeral_rhythm",
+      "reason_not_ready": "NON_RELATIONAL_KINESIOLOGICAL_CONCEPT"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-018",
+      "relation": "TRANSMITS_STRUCTURE",
+      "entity_id": "deltopectoral_groove",
+      "subject": "deltopectoral_groove",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_TRANSMITS_STRUCTURE"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-021",
+      "relation": "TRANSMITS_STRUCTURE",
+      "entity_id": "cervicoaxillary_canal",
+      "subject": "cervicoaxillary_canal",
+      "reason_not_ready": "USES_CANDIDATE_RELATION_TRANSMITS_STRUCTURE"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-022",
+      "relation": "has_structure",
+      "entity_id": "pectoral_girdle",
+      "subject": "retroclavicular_space",
+      "reason_not_ready": "BLOCKED_BY_SUPPORTED_ENTITY_IDENTITY"
+    },
+    {
+      "fact_candidate_id": "B1-FC-PGI-023",
+      "relation": "has_structure",
+      "entity_id": "retroclavicular_space",
+      "subject": "subclavius_muscle_and_sheath",
+      "reason_not_ready": "BLOCKED_BY_SUPPORTED_ENTITY_IDENTITY"
+    }
+  ]
+}

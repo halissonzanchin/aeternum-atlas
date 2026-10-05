@@ -1,0 +1,51 @@
+{
+  "$schema": "../aeternum_academic_source_manifest.schema.json",
+  "source_id": "SRC-LATARJET-ED5-T1",
+  "source_title": "Anatomía Humana, Tomo 1",
+  "authors": [
+    "Michel Latarjet",
+    "Alfredo Ruiz Liard",
+    "Eduardo Adrián Pró"
+  ],
+  "edition": "5.ª Edición",
+  "volume": "Tomo 1",
+  "publication_year": 2019,
+  "publisher": "Editorial Médica Panamericana S.A.C.F.",
+  "isbn_if_explicitly_available": "978-950-06-9589-3",
+  "language": ["es"],
+  "source_type": "GROSS_ANATOMY_TEXTBOOK",
+  "authority_class": "GROSS_ANATOMY_REFERENCE",
+  "artifact_filename": "Anatomía Humana Tomo 1 (Michel Latarjet, Alfredo _240313_120615.pdf",
+  "artifact_path_or_reference": "C:\\Users\\halis\\Downloads\\Anatomía Humana Tomo 1 (Michel Latarjet, Alfredo _240313_120615.pdf",
+  "artifact_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+  "page_count": 847,
+  "provenance_type": "LOCAL_PHYSICAL_PDF_ARTIFACT",
+  "authorization_status": "USER_PROVIDED_LOCAL_REFERENCE",
+  "academic_validation_eligible": true,
+  "validation_scope": [
+    "UPPER_LIMB_OSTEOLOGY",
+    "UPPER_LIMB_ARTHROLOGY",
+    "UPPER_LIMB_MYOLOGY",
+    "PECTORAL_GIRDLE",
+    "SCAPULAR_TOPOGRAPHY",
+    "SCAPULAR_SPACES",
+    "NEUROVASCULAR_RELATIONS"
+  ],
+  "usage_scope": {
+    "SOURCE_METADATA_STORAGE": "ALLOWED",
+    "FACT_EXTRACTION": "ALLOWED_FOR_INTERNAL_VALIDATION",
+    "ORIGINAL_PARAPHRASED_SYNTHESIS": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+    "STRUCTURED_RELATION_EXTRACTION": "ALLOWED_FOR_INTERNAL_WORKFLOW",
+    "SHORT_EVIDENCE_LOCATOR": "ALLOWED",
+    "PAGE_LEVEL_PROVENANCE": "ALLOWED",
+    "SUBSTANTIAL_VERBATIM_INGESTION": "PROHIBITED",
+    "TEXT_REPUBLICATION": "NOT_AUTHORIZED_BY_REGISTRY",
+    "PUBLIC_REDISTRIBUTION": "NOT_ESTABLISHED"
+  },
+  "registered_at": "2026-09-24T03:00:00.000Z",
+  "registration_protocol_version": "ACSRP-1.1",
+  "review_status": "REGISTERED",
+  "translator": null,
+  "original_language": "fr",
+  "terminology_standard_version": "Terminologia Anatomica (IFAA/FIPAT concordance)"
+}

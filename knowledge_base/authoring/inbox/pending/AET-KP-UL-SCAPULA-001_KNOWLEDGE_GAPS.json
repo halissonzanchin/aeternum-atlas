@@ -1,0 +1,177 @@
+[
+  {
+    "gap_id": "GAP-SCAPULA_TERMINOLOGY-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "morphology",
+    "current_evidence": {
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "existing_fact_count": 52,
+      "summary_of_known": "Scapula, borders, angles and processes identified in student notes; Latin terminology alignment pending formal FIPAT TA2 review."
+    },
+    "required_content_type": "FOCUSED_MICRO_FACTS",
+    "priority": "HIGH",
+    "related_entities": [
+      "scapula",
+      "spina_scapulae",
+      "acromion",
+      "processus_coracoideus"
+    ],
+    "reason": "Formalize exact FIPAT TA2 Latin and PT-BR terminology reconciliation for all 21 scapular sub-landmarks."
+  },
+  {
+    "gap_id": "GAP-SCAPULA_BIBLIOGRAPHIC_VALIDATION-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "morphology",
+    "current_evidence": {
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "existing_fact_count": 52,
+      "summary_of_known": "All 64 AI_DRAFT facts and 52 source assertions currently unverified against canonical textbooks."
+    },
+    "required_content_type": "FULL_KNOWLEDGE_PACK",
+    "priority": "CRITICAL",
+    "related_entities": [
+      "scapula"
+    ],
+    "reason": "Zero registered validation authorities currently exist; cross-validation against Moore/Latarjet is required before canonical promotion."
+  },
+  {
+    "gap_id": "GAP-SCAPULA_VASCULAR_DETAILS-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "vascular_supply",
+    "current_evidence": {
+      "source_ids": [],
+      "existing_fact_count": 3,
+      "summary_of_known": "Regional suprascapular, dorsal scapular, and circumflex scapular arteries noted in draft."
+    },
+    "required_content_type": "FOCUSED_MICRO_FACTS",
+    "priority": "MEDIUM",
+    "related_entities": [
+      "suprascapular_artery",
+      "dorsal_scapular_artery",
+      "circumflex_scapular_artery"
+    ],
+    "reason": "Direct osseous nutrient foramina, periosteal branches, and detailed microvascular arcades require rigorous evidence."
+  },
+  {
+    "gap_id": "GAP-SCAPULA_NEURAL_VALIDATION-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "innervation",
+    "current_evidence": {
+      "source_ids": [],
+      "existing_fact_count": 3,
+      "summary_of_known": "Suprascapular nerve passage drafted; sensory articular innervation to AC and GH joints omitted."
+    },
+    "required_content_type": "FOCUSED_MICRO_FACTS",
+    "priority": "HIGH",
+    "related_entities": [
+      "suprascapular_nerve",
+      "axillary_nerve",
+      "lateral_pectoral_nerve"
+    ],
+    "reason": "Full sensory and autonomic innervation mapping of periosteum and capsular insertions is incomplete."
+  },
+  {
+    "gap_id": "GAP-SCAPULA_LIGAMENT_ATTACHMENT-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "articular_surfaces",
+    "current_evidence": {
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "existing_fact_count": 5,
+      "summary_of_known": "Coracoclavicular (trapezoid/conoid) and coracoacromial ligaments noted in draft."
+    },
+    "required_content_type": "FOCUSED_MICRO_FACTS",
+    "priority": "MEDIUM",
+    "related_entities": [
+      "trapezoid_ligament",
+      "conoid_ligament",
+      "coracoacromial_ligament"
+    ],
+    "reason": "Exact footprint dimensions and biomechanical insertion lines on the coracoid process lack millimeter-level documentation."
+  },
+  {
+    "gap_id": "GAP-SCAPULA_ANATOMIC_VARIATION-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "morphology",
+    "current_evidence": {
+      "source_ids": [],
+      "existing_fact_count": 0,
+      "summary_of_known": "Ossified superior transverse scapular ligament, suprascapular foramen, and acromial morphotypes (Bigliani I-III) mentioned in passing."
+    },
+    "required_content_type": "FOCUSED_MICRO_FACTS",
+    "priority": "MEDIUM",
+    "related_entities": [
+      "suprascapular_notch",
+      "acromion"
+    ],
+    "reason": "Morphological variations significantly alter clinical impingement and entrapment risks and must be systematically cataloged."
+  },
+  {
+    "gap_id": "GAP-SCAPULA_CLINICAL_VALIDATION-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "clinical_anatomy",
+    "current_evidence": {
+      "source_ids": [],
+      "existing_fact_count": 5,
+      "summary_of_known": "5 clinical candidate hypotheses drafted without peer-reviewed bibliographic citations."
+    },
+    "required_content_type": "TEACHING_CONNECTION_SYNTHESIS",
+    "priority": "HIGH",
+    "related_entities": [
+      "serratus_anterior",
+      "long_thoracic_nerve",
+      "suprascapular_nerve"
+    ],
+    "reason": "Clinical connections must cite validated medical literature before serving students or clinicians."
+  },
+  {
+    "gap_id": "GAP-SCAPULA_3D_MAPPING-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "3d_mesh_landmarks",
+    "current_evidence": {
+      "source_ids": [],
+      "existing_fact_count": 0,
+      "summary_of_known": "21 landmark annotation candidates defined; all 21 status UNMAPPED in 3D Viewer."
+    },
+    "required_content_type": "KNOWLEDGE_AUTHOR_PATCH",
+    "priority": "HIGH",
+    "related_entities": [
+      "scapula"
+    ],
+    "reason": "Viewer glTF / OBJ anatomical mesh requires vertex coordinates and marker anchoring for all 21 anatomical landmarks."
+  },
+  {
+    "gap_id": "GAP-SCAPULA_LATERALITY_ORIENTATION-001",
+    "entity_id": "scapula",
+    "domain": "UPPER_LIMB",
+    "missing_dimension": "cadaveric_pearls",
+    "current_evidence": {
+      "source_ids": [
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "existing_fact_count": 4,
+      "summary_of_known": "5-step orientation rule drafted; photographic/cadaveric visual proof fixtures pending."
+    },
+    "required_content_type": "TEACHING_CONNECTION_SYNTHESIS",
+    "priority": "LOW",
+    "related_entities": [
+      "scapula",
+      "spina_scapulae",
+      "cavitas_glenoidalis"
+    ],
+    "reason": "Practical cadaveric orientation benchmarks require multi-angle photographic and quiz calibration."
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "record_type": "AETERNUM_SOURCE_QUALITY_RECORDS",
+  "version": "1.1.0",
+  "generated_at": "2026-09-24T03:00:00.000Z",
+  "protocol": "ACSRP-1.1",
+  "records": [
+    {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "original_artifact_verified": true,
+      "sha256_target_valid": true,
+      "bibliographic_identity_verified": true,
+      "page_addressable": true,
+      "language_known": true,
+      "edition_known": true,
+      "authorization_known": true,
+      "validation_scope_defined": true,
+      "usage_scope_defined": true,
+      "status": "ELIGIBLE_FOR_VALIDATION",
+      "notes": "Verified local PDF with exact ISBN 978-950-06-9589-3, 847 pages. Contains full upper limb osteology and regional anatomy."
+    },
+    {
+      "source_id": "SRC-LATARJET-ED5-T2",
+      "original_artifact_verified": true,
+      "sha256_target_valid": true,
+      "bibliographic_identity_verified": true,
+      "page_addressable": true,
+      "language_known": true,
+      "edition_known": true,
+      "authorization_known": true,
+      "validation_scope_defined": true,
+      "usage_scope_defined": true,
+      "status": "ELIGIBLE_FOR_VALIDATION",
+      "notes": "Verified local PDF with exact ISBN 978-950-06-9586-2, 835 pages. Covers thorax, thoracic wall relations, and splanchnology."
+    },
+    {
+      "source_id": "SRC-NIELSEN-ATLAS-ED1",
+      "original_artifact_verified": true,
+      "sha256_target_valid": true,
+      "bibliographic_identity_verified": true,
+      "page_addressable": true,
+      "language_known": true,
+      "edition_known": true,
+      "authorization_known": true,
+      "validation_scope_defined": true,
+      "usage_scope_defined": true,
+      "status": "ELIGIBLE_FOR_VALIDATION",
+      "notes": "Verified local PDF with exact ISBN 978-0470-50145-0, 354 pages. High-yield cadaveric dissection photographs and surface osteology."
+    },
+    {
+      "source_id": "MORGUE-UPPER-LIMB-001",
+      "original_artifact_verified": true,
+      "sha256_target_valid": true,
+      "bibliographic_identity_verified": true,
+      "page_addressable": true,
+      "language_known": true,
+      "edition_known": false,
+      "authorization_known": true,
+      "validation_scope_defined": true,
+      "usage_scope_defined": true,
+      "status": "NOT_ELIGIBLE",
+      "notes": "Original 53-page institutional PDF artifact verified. Authors, publisher, and year unstated; derived technical ledger separated. Serves as practical teaching memory; not eligible to arbitrate canonical consensus."
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "promotion_id": "AET-PROM-UL-B1-001",
+  "batch_id": "EXP-UL-B1",
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+  "parent_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+  "promoted_at": "2026-09-25T04:24:56.727Z",
+  "environment": "LOCAL_SOVEREIGN",
+  "packs": [
+    {
+      "pack_id": "AET-KP-UL-CLAVICLE-001",
+      "facts_promoted": 49,
+      "entities_promoted": 13,
+      "safe_engine_prod_facts": 49
+    },
+    {
+      "pack_id": "AET-KP-UL-SC-JOINT-001",
+      "facts_promoted": 26,
+      "entities_promoted": 7,
+      "safe_engine_prod_facts": 22
+    },
+    {
+      "pack_id": "AET-KP-UL-AC-JOINT-001",
+      "facts_promoted": 20,
+      "entities_promoted": 4,
+      "safe_engine_prod_facts": 19
+    },
+    {
+      "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+      "facts_promoted": 19,
+      "entities_promoted": 3,
+      "safe_engine_prod_facts": 16
+    },
+    {
+      "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+      "facts_promoted": 15,
+      "entities_promoted": 3,
+      "safe_engine_prod_facts": 12
+    }
+  ],
+  "accounting": {
+    "NEW_B1_CANONICAL_FACT_COUNT": 129,
+    "PREVIOUS_CANONICAL_FACT_COUNT": 119,
+    "POST_PROMOTION_CANONICAL_FACT_COUNT": 248,
+    "B1_SAFE_ENGINE_PRODUCTION_READY_COUNT": 118,
+    "B1_CANONICAL_BUT_SAFE_ENGINE_BLOCKED_COUNT": 11,
+    "NEW_CANONICAL_ENTITY_PROMOTED_COUNT": 30,
+    "PRE_CANONICAL_ENTITY_STORAGE_COUNT": 1,
+    "POST_CANONICAL_ENTITY_STORAGE_COUNT": 31,
+    "REUSED_EXISTING_CANONICAL_ENTITY_COUNT": 1,
+    "BLOCKED_ENTITY_PROMOTION_COUNT": 2,
+    "DUPLICATED_EXISTING_CANONICAL_ENTITY_COUNT": 0,
+    "PRACTICAL_PRODUCTION_PROMOTED_COUNT": 10,
+    "TEACHING_CONNECTION_PRODUCTION_PROMOTED_COUNT": 6,
+    "DOCUMENTARY_PRODUCTION_DIRECT_PROMOTED_COUNT": 5
+  },
+  "governance": {
+    "canonical_promotion_performed": "YES",
+    "local_sqlite_mutation": "ADDITIVE_TRANSACTION_COMMITTED",
+    "supabase_staging_changes": 0,
+    "supabase_production_changes": 0,
+    "vercel_deploys": 0,
+    "external_llm_calls": 0
+  }
+}

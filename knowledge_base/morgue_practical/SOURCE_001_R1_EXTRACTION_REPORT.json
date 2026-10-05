@@ -1,0 +1,52 @@
+{
+  "source_id": "MORGUE-UPPER-LIMB-001",
+  "phase": "R1_SOURCE_ONLY_EXHAUSTIVE_EXTRACTION",
+  "status": "VERIFIED",
+  "governing_contract": "AACM 1.0",
+  "scale_metrics": {
+    "pages_processed": 53,
+    "pages_with_ledger": 53,
+    "total_entities": 173,
+    "entity_dossiers": 12,
+    "partial_dossiers": 58,
+    "reference_only_entities": 103,
+    "unaccounted_entities": 0,
+    "source_assertions": 151,
+    "atomic_facts": 151,
+    "relational_facts": 151,
+    "relation_candidates": 31,
+    "teaching_connections": 8,
+    "practical_memory_items": 11,
+    "validation_breakdown": {
+      "source_extracted": 151,
+      "supported": 42,
+      "validated": 5,
+      "review_pending": 4,
+      "conflicting": 2,
+      "rejected": 0
+    },
+    "incomplete_source_sections": 3,
+    "source_supported_micro_fact_count": 85,
+    "source_supported_macro_entity_count": 8
+  },
+  "provenance_audit_metrics": {
+    "behavior_sentence_count": 45,
+    "source_001_supported_sentences": 37,
+    "other_source_supported_sentences": 7,
+    "unsupported_sentences": 1,
+    "non_source_assertions_misattributed": 0
+  },
+  "release_gate_status": {
+    "morgue_source_001_r1_ready": true,
+    "pages_ledger_complete": true,
+    "unaccounted_entities_zero": true,
+    "provenance_isolation_preserved": true,
+    "non_source_assertions_misattributed": 0,
+    "source_errors_preserved_separately": true,
+    "incomplete_sections_preserved": true,
+    "aacm_contract_respected": true,
+    "frozen_files_modified": 0,
+    "production_changes": 0,
+    "gemini_calls": 0
+  }
+}

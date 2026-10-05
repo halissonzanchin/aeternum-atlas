@@ -1,0 +1,24 @@
+{
+  "document_name": "EXP-UL-B2_AADS1_R2_OWNERSHIP_ERRATA",
+  "phase": "AMC-1.2-R2 / EXP-UL-B2-A1.6-R2",
+  "timestamp": "2026-09-27T10:30:00Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "metrics": {
+    "total_errata": 2,
+    "frozen_batch_scope_violations": 0
+  },
+  "errata_records": [
+    {
+      "erratum_id": "ERR-OWNER-R2-001",
+      "affected_label": "EXP-UL-B4_FUTURE",
+      "remediation": "Retired EXP-UL-B4_FUTURE placeholder. Deltoid, Trapezius, Pectoralis Major, Pectoralis Minor, Latissimus Dorsi, and Serratus Anterior reclassified under neutral OWNER_UNASSIGNED_FUTURE_UPPER_LIMB.",
+      "justification": "B4 is canonically reserved for Brachium / Cubital Fossa. Assigning shoulder-supporting girdle muscles to B4 violated batch scope boundaries."
+    },
+    {
+      "erratum_id": "ERR-OWNER-R2-002",
+      "affected_interface_type": "ARCH_IMPINGEMENT_INTERFACE",
+      "remediation": "Renamed to neutral anatomical interface type CORACOACROMIAL_SUBACROMIAL_INTERFACE.",
+      "justification": "ARCH_IMPINGEMENT_INTERFACE introduced clinical/pathological terminology into structural cross-batch dependencies without dedicated clinical layer authorization."
+    }
+  ]
+}

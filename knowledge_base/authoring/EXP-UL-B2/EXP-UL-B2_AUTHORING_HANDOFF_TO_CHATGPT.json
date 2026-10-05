@@ -1,0 +1,2285 @@
+{
+  "document_name": "EXP-UL-B2_AUTHORING_HANDOFF_TO_CHATGPT",
+  "phase": "EXP-UL-B2-E0",
+  "timestamp": "2026-09-27T00:18:08.081Z",
+  "governance": {
+    "author": "CHATGPT (Aeternum Anatomical Knowledge Author)",
+    "orchestrator": "ANTIGRAVITY (Aeternum Knowledge Engineer & Source Ingestion Orchestrator)",
+    "phase_objective": "Provide complete, deterministic, rights-safe evidence substrate for ChatGPT proposition-level authoring without requiring PDF reopening.",
+    "authoring_rules_for_chatgpt": [
+      "Every anatomical proposition authored must cite exact evidence_unit_id and source_locator.",
+      "Reconcile terminology using the provided EXP-UL-B2_TERMINOLOGY_RECONCILIATION table.",
+      "Do NOT collapse subentities (e.g. greater tubercle facets) into parent bones.",
+      "Preserve existing canonical entity IDs (AET-ENT-REF-*) with 100% stability.",
+      "Do NOT promote B2 into canonical memory; author candidate facts in knowledge_base/authoring/EXP-UL-B2/.",
+      "Clinical context items are provided for educational contextualization only and must NOT be promoted to canonical anatomical truth.",
+      "Respect batch boundaries: DO NOT author complete axillary neurovascular tree or arm compartments."
+    ],
+    "proposition_generation_authorized_in_e0": false,
+    "final_canonical_propositions_present": false,
+    "keyword_only_evidence_unit_count": 0,
+    "morgue_inventory_only_evidence_count": 0,
+    "duplicated_evidence_unit_count": 0
+  },
+  "global_metadata": {
+    "source_registry": "EXP-UL-B2_SOURCE_REGISTRY.json",
+    "source_conflicts": [
+      {
+        "conflict_id": "CONF-B2-001",
+        "topic": "Glenohumeral Joint Structural Classification",
+        "sources_involved": [
+          "SRC-LATARJET-ED5-T1",
+          "SRC-NIELSEN-ATLAS-ED1",
+          "MORGUE-UPPER-LIMB-001"
+        ],
+        "description": "Variação na taxonomia morfológica clássica vs funcional da articulação glenoumeral.",
+        "source_positions": {
+          "SRC-LATARJET-ED5-T1": "Classifica formalmente como 'enartrosis (articulación esferoidea)' no sistema tradicional francês/ibérico.",
+          "SRC-NIELSEN-ATLAS-ED1": "Classifica como 'ball and socket joint / multiaxial synovial joint' no sistema anglo-saxão.",
+          "MORGUE-UPPER-LIMB-001": "Registra 'Diartrosis - Enartrosis (esferoidea)' como ênfase prática institucional."
+        },
+        "classification": "TERMINOLOGY_VARIATION",
+        "resolution_status": "PRESERVED_FOR_ACADEMIC_AUTHORING"
+      },
+      {
+        "conflict_id": "CONF-B2-002",
+        "topic": "Transverse Humeral Ligament Autonomy vs Capsular Continuity",
+        "sources_involved": [
+          "SRC-LATARJET-ED5-T1",
+          "SRC-NIELSEN-ATLAS-ED1"
+        ],
+        "description": "Divergência quanto ao ligamento umeral transverso constituir uma estrutura capsular intrínseca ou um retináculo fibroso independente.",
+        "source_positions": {
+          "SRC-LATARJET-ED5-T1": "Descreve como retináculo osteofibroso transversal ('Ligamento humeral transverso de Gordon Brodie') que transforma o sulco em canal independente.",
+          "SRC-NIELSEN-ATLAS-ED1": "Trata o tecido sobre o sulco intertubercular como contínuo ou fundido à margem distal da cápsula fibrosa articular."
+        },
+        "classification": "GRANULARITY_DIFFERENCE",
+        "resolution_status": "PRESERVED_FOR_ACADEMIC_AUTHORING"
+      },
+      {
+        "conflict_id": "CONF-B2-003",
+        "topic": "Subacromial vs Subdeltoid Bursa Independence",
+        "sources_involved": [
+          "SRC-LATARJET-ED5-T1",
+          "MORGUE-UPPER-LIMB-001"
+        ],
+        "description": "Se a bolsa subacromial e a bolsa subdeltóidea devem ser tratadas como duas bolsas separadas ou como uma única cavidade bursa.",
+        "source_positions": {
+          "SRC-LATARJET-ED5-T1": "Afirma que na vasta maioria dos adultos a bolsa subacromial comunica-se amplamente com a bolsa subdeltóidea, formando a 'bolsa subdeltoidea [subacromial]' única.",
+          "MORGUE-UPPER-LIMB-001": "Apresenta registros práticos de dissecção por vezes listando bolsa subacromial e bolsa subdeltóidea como unidades topográficas distintas."
+        },
+        "classification": "GRANULARITY_DIFFERENCE",
+        "resolution_status": "PRESERVED_FOR_ACADEMIC_AUTHORING"
+      },
+      {
+        "conflict_id": "CONF-B2-004",
+        "topic": "Middle Glenohumeral Ligament Anatomical Consistency",
+        "sources_involved": [
+          "SRC-LATARJET-ED5-T1",
+          "SRC-NIELSEN-ATLAS-ED1"
+        ],
+        "description": "Variação descritiva na presença e robustez do ligamento glenoumeral médio.",
+        "source_positions": {
+          "SRC-LATARJET-ED5-T1": "Destaca expressamente que o ligamento glenoumeral médio é o mais variável dos três, podendo estar adelgaçado, desdobrado ou ausente em até 30% das peças anatômicas.",
+          "SRC-NIELSEN-ATLAS-ED1": "Ilustra o ligamento glenoumeral médio como componente anterior padrão dos reforços articulares."
+        },
+        "classification": "SOURCE_SCOPE_DIFFERENCE",
+        "resolution_status": "PRESERVED_FOR_ACADEMIC_AUTHORING"
+      }
+    ],
+    "terminology_reconciliation": [
+      {
+        "source_term": "Troquíter",
+        "normalized_candidate": "Tubérculo maior do úmero",
+        "latin_term": "Tuberculum majus",
+        "language": "es",
+        "terminology_status": "LEGACY_TERM",
+        "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+      },
+      {
+        "source_term": "Troquín",
+        "normalized_candidate": "Tubérculo menor do úmero",
+        "latin_term": "Tuberculum minus",
+        "language": "es",
+        "terminology_status": "LEGACY_TERM",
+        "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE"
+      },
+      {
+        "source_term": "Corredera bicipital",
+        "normalized_candidate": "Sulco intertubercular do úmero",
+        "latin_term": "Sulcus intertubercularis",
+        "language": "es",
+        "terminology_status": "LEGACY_TERM",
+        "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS"
+      },
+      {
+        "source_term": "Labio externo de la corredera",
+        "normalized_candidate": "Crista do tubérculo maior",
+        "latin_term": "Crista tuberculi majoris",
+        "language": "es",
+        "terminology_status": "LEGACY_TERM",
+        "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE_CREST"
+      },
+      {
+        "source_term": "Labio interno de la corredera",
+        "normalized_candidate": "Crista do tubérculo menor",
+        "latin_term": "Crista tuberculi minoris",
+        "language": "es",
+        "terminology_status": "LEGACY_TERM",
+        "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE_CREST"
+      },
+      {
+        "source_term": "Ligamento humeral transverso de Gordon Brodie",
+        "normalized_candidate": "Ligamento transverso do úmero",
+        "latin_term": "Ligamentum transversum humeri",
+        "language": "es",
+        "terminology_status": "KNOWN_ALIAS",
+        "existing_registry_match": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT"
+      },
+      {
+        "source_term": "Foramen oval de Weitbrecht",
+        "normalized_candidate": "Forame oval de Weitbrecht",
+        "latin_term": "Foramen ovale Weitbrecht",
+        "language": "es",
+        "terminology_status": "KNOWN_ALIAS",
+        "existing_registry_match": null
+      },
+      {
+        "source_term": "Foramen de Rouvière",
+        "normalized_candidate": "Forame de Rouvière",
+        "latin_term": "Foramen Rouvière",
+        "language": "es",
+        "terminology_status": "KNOWN_ALIAS",
+        "existing_registry_match": null
+      },
+      {
+        "source_term": "Rodete glenoideo",
+        "normalized_candidate": "Lábio glenoidal",
+        "latin_term": "Labrum glenoidale",
+        "language": "es",
+        "terminology_status": "KNOWN_ALIAS",
+        "existing_registry_match": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM"
+      },
+      {
+        "source_term": "Corona muscular periarticular",
+        "normalized_candidate": "Manguito rotador periarticular",
+        "latin_term": "Musculotendinous cuff",
+        "language": "es",
+        "terminology_status": "REGIONAL_TERM",
+        "existing_registry_match": "AET-ENT-CAND-UL-ROTATOR_CUFF"
+      },
+      {
+        "source_term": "Cuello quirúrgico",
+        "normalized_candidate": "Colo cirúrgico do úmero",
+        "latin_term": "Collum chirurgicum",
+        "language": "es",
+        "terminology_status": "EXACT",
+        "existing_registry_match": "AET-ENT-REF-SURGICAL_NECK_HUMERUS"
+      },
+      {
+        "source_term": "Cuello anatómico",
+        "normalized_candidate": "Colo anatômico do úmero",
+        "latin_term": "Collum anatomicum",
+        "language": "es",
+        "terminology_status": "EXACT",
+        "existing_registry_match": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK"
+      },
+      {
+        "source_term": "Receso axilar",
+        "normalized_candidate": "Recesso axilar da cápsula articular",
+        "latin_term": "Recessus axillaris",
+        "language": "es",
+        "terminology_status": "EXACT",
+        "existing_registry_match": "AET-ENT-CAND-UL-GLENOHUMERAL_AXILLARY_RECESS"
+      },
+      {
+        "source_term": "Intervalo rotador",
+        "normalized_candidate": "Intervalo dos rotadores",
+        "latin_term": "Intervallum rotatorium",
+        "language": "es",
+        "terminology_status": "EXACT",
+        "existing_registry_match": "AET-ENT-CAND-UL-ROTATOR_INTERVAL"
+      }
+    ],
+    "relation_discovery": {
+      "batch_id": "EXP-UL-B2",
+      "generated_at": "2026-09-27T00:18:07.927Z",
+      "metrics": {
+        "certified_relation_reuse_count": 10,
+        "new_relation_candidate_count": 3
+      },
+      "certified_relations_reused": [
+        "part_of",
+        "articulates_with",
+        "originates_from",
+        "inserts_into",
+        "stabilizes",
+        "reinforces",
+        "continuous_with",
+        "bounded_by",
+        "innervated_by",
+        "vascularized_by"
+      ],
+      "new_relation_candidates": [
+        {
+          "candidate_relation": "traversed_by",
+          "description": "Estrutura osteofibrosa ou sulco percorrido por tendão ou feixe neurovascular sem inserção direta no canal",
+          "example_usage": "Sulco intertubercular atravessado pelo tendão da cabeça longa do bíceps",
+          "classification": "NEW_RELATION_CANDIDATE",
+          "certification_status": "PENDING_ACADEMIC_VALIDATION"
+        },
+        {
+          "candidate_relation": "communicates_with",
+          "description": "Bolsa serosa/sinovial com abertura anatômica direta na cavidade sinovial articular",
+          "example_usage": "Bolsa subtendínea do subescapular comunica com a cavidade sinovial glenoumeral através do forame oval de Weitbrecht",
+          "classification": "NEW_RELATION_CANDIDATE",
+          "certification_status": "PENDING_ACADEMIC_VALIDATION"
+        },
+        {
+          "candidate_relation": "forms_force_couple_with",
+          "description": "Músculos atuando sinergicamente com linhas de tração opostas ou complementares para estabilização dinâmica",
+          "example_usage": "Manguito rotador inferior/posterior atua em equilíbrio de torque com o músculo deltoide",
+          "classification": "NEW_RELATION_CANDIDATE",
+          "certification_status": "PENDING_ACADEMIC_VALIDATION"
+        }
+      ]
+    },
+    "cross_batch_dependencies": [
+      {
+        "dependency_id": "DEP-B1-B2-001",
+        "from_batch": "EXP-UL-B1",
+        "to_batch": "EXP-UL-B2",
+        "interface_type": "ARTICULAR_INTERFACE",
+        "source_entities": [
+          "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+          "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM"
+        ],
+        "target_entities": [
+          "AET-ENT-REF-HUMERAL_HEAD",
+          "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        ],
+        "dependency_description": "A cabeça do úmero (B2) articula-se diretamente com a cavidade glenoidal e o lábio glenoidal da escápula (B1/Scapula)."
+      },
+      {
+        "dependency_id": "DEP-B1-B2-002",
+        "from_batch": "EXP-UL-B1",
+        "to_batch": "EXP-UL-B2",
+        "interface_type": "ARCH_IMPINGEMENT_INTERFACE",
+        "source_entities": [
+          "AET-ENT-UL-SCAPULAR_ACROMION",
+          "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS"
+        ],
+        "target_entities": [
+          "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+          "AET-ENT-REF-SUPRASPINATUS"
+        ],
+        "dependency_description": "O arco coracoacromial (acrômio + ligamento coracoacromial + processo coracoide de B1) sobrepõe-se à bolsa subacromial e tendão do supraespinal (B2)."
+      },
+      {
+        "dependency_id": "DEP-B1-B2-003",
+        "from_batch": "EXP-UL-B1",
+        "to_batch": "EXP-UL-B2",
+        "interface_type": "TENDON_ORIGIN_INTERFACE",
+        "source_entities": [
+          "AET-ENT-UL-SCAPULAR_SUPRAGLENOID_TUBERCLE"
+        ],
+        "target_entities": [
+          "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD"
+        ],
+        "dependency_description": "A cabeça longa do bíceps braquial (B2) origina-se no tubérculo supraglenoidal e margem superior do labrum (Scapula/B1)."
+      },
+      {
+        "dependency_id": "DEP-B2-B3-001",
+        "from_batch": "EXP-UL-B2",
+        "to_batch": "EXP-UL-B3",
+        "interface_type": "NEUROVASCULAR_TOPOGRAPHIC_INTERFACE",
+        "source_entities": [
+          "AET-ENT-REF-TERES_MINOR",
+          "AET-ENT-REF-SURGICAL_NECK_HUMERUS"
+        ],
+        "target_entities": [
+          "AET-ENT-REF-AXILLARY_NERVE",
+          "AET-ENT-REF-POSTERIOR_CIRCUMFLEX_HUMERAL_VESSELS"
+        ],
+        "dependency_description": "O colo cirúrgico do úmero e o bordo inferior do redondo menor (B2) delimitam o espaço quadrangular da axila posterior (B3), transmitindo o nervo axilar e vasos circunflexos umerais posteriores."
+      },
+      {
+        "dependency_id": "DEP-B2-B4-001",
+        "from_batch": "EXP-UL-B2",
+        "to_batch": "EXP-UL-B4",
+        "interface_type": "OSTEOLOGICAL_CONTINUITY",
+        "source_entities": [
+          "AET-ENT-REF-HUMERUS"
+        ],
+        "target_entities": [
+          "AET-ENT-CAND-UL-HUMERAL_DISTAL_EPIPHYSIS"
+        ],
+        "dependency_description": "A diáfise do úmero (B2) continua distalmente com a epífise distal umeral e articulação do cotovelo (B4)."
+      }
+    ],
+    "knowledge_gaps": [
+      {
+        "gap_id": "GAP-B2-001",
+        "category": "SOURCE_GAP",
+        "topic": "External Anglo-Saxon Textual Authorities",
+        "severity": "MODERATE",
+        "description": "Textos de Moore (Clinically Oriented Anatomy), Gray's Anatomy e Sobotta não estão fisicamente registrados no repositório; extração primária restringe-se a Latarjet T1, Nielsen Atlas e Notas de Morgue.",
+        "remediation_plan": "Manter governança rigorosa baseada nos 3 corpos físicos registrados; sinalizar conceitos anglo-saxões para validação posterior."
+      },
+      {
+        "gap_id": "GAP-B2-002",
+        "category": "ENTITY_GAP",
+        "topic": "Micro-Footprint Footprint Zones of Rotator Cuff",
+        "severity": "LOW",
+        "description": "A distinção entre as áreas mediais e laterais da inserção do supraespinal e infraespinal no tubérculo maior requer detalhamento fino durante a autoria de ChatGPT.",
+        "remediation_plan": "ChatGPT estruturará facetas superior, média e inferior preservando a granularidade sem colapsamento."
+      },
+      {
+        "gap_id": "GAP-B2-003",
+        "category": "RELATION_GAP",
+        "topic": "Biomechanical Force-Couple Relations",
+        "severity": "LOW",
+        "description": "Relações dinâmicas de equilíbrio de forças (deltoide vs manguito) carecem de tipagem relacional canônica formalizada.",
+        "remediation_plan": "Classificada como NEW_RELATION_CANDIDATE para decisão no ciclo de qualificação relacional de B2."
+      },
+      {
+        "gap_id": "GAP-B2-004",
+        "category": "TERMINOLOGY_GAP",
+        "topic": "Eponyms and Classical French/Spanish Nomenclature",
+        "severity": "MODERATE",
+        "description": "Termos amplamente utilizados nas fontes de base (troquiter, troquin, foramen de Weitbrecht, ligamento de Gordon Brodie) devem ser alinhados com a Terminologia Anatômica 2.",
+        "remediation_plan": "Classificados na tabela de reconciliação como LEGACY_TERM e KNOWN_ALIAS, preservando rastreabilidade."
+      },
+      {
+        "gap_id": "GAP-B2-005",
+        "category": "TOPOGRAPHY_GAP",
+        "topic": "Boundary Between Infraspinatus and Teres Minor",
+        "severity": "LOW",
+        "description": "A separação fascial proximal entre os ventres musculares do infraespinal e redondo menor é frequentemente contínua ou delgada na dissecção.",
+        "remediation_plan": "Documentar a continuidade perimisial proximal e a divergência tendínea distal nas facetas do tubérculo maior."
+      },
+      {
+        "gap_id": "GAP-B2-006",
+        "category": "PRACTICAL_GAP",
+        "topic": "Cadaveric Preservation of Inferior Glenohumeral Ligament Complex Bands",
+        "severity": "MODERATE",
+        "description": "Em peças anatômicas cadavéricas formais, as bandas anterior e posterior do IGHL podem fundir-se com a cápsula retraída, dificultando a demonstração isolada.",
+        "remediation_plan": "Registrar a variabilidade de dissecção cadavérica no estrato de notas práticas de Morgue."
+      },
+      {
+        "gap_id": "GAP-B2-007",
+        "category": "DOCUMENTARY_GAP",
+        "topic": "Historical Evolution of the Rotator Interval Concept",
+        "severity": "LOW",
+        "description": "A definição cirúrgica e anatômica do intervalo dos rotadores evoluiu significativamente nas últimas décadas.",
+        "remediation_plan": "Preparar dossiê documental complementar para o autor ChatGPT sintetizar no pacote documental."
+      },
+      {
+        "gap_id": "GAP-B2-008",
+        "category": "3D_MAPPING_GAP",
+        "topic": "Isolated 3D Mesh Nodes for Capsular Ligaments",
+        "severity": "MODERATE",
+        "description": "Modelos tridimensionais convencionais frequentemente agrupam a cápsula articular como malha contínua sem separar os ligamentos glenoumerais individuais.",
+        "remediation_plan": "Manter status como UNMAPPED; proibir fabricação de identificadores sintéticos de malha."
+      },
+      {
+        "gap_id": "GAP-B2-009",
+        "category": "ACADEMIC_VALIDATION_GAP",
+        "topic": "Peer Review of Propositional Truth",
+        "severity": "HIGH",
+        "description": "Proposições anatômicas de B2 ainda não foram autoradas nem validadas contra matriz cruzada de bancada.",
+        "remediation_plan": "Executar autoria proposition-level via ChatGPT na fase E1, seguida pela bateria de validação empírica E2."
+      }
+    ]
+  },
+  "packs": [
+    {
+      "pack_id": "AET-KP-UL-PROXIMAL-HUMERUS-001",
+      "pack_title": "Húmero Proximal: Osteologia, Epífise e Acidentes Ósseos",
+      "scope_topic": "PROXIMAL_HUMERUS",
+      "pack_description": "Morfologia e acidentes ósseos da epífise proximal do úmero: cabeça, colo anatômico, colo cirúrgico, tubérculo maior, tubérculo menor, sulco intertubercular, cristas e facetas de inserção.",
+      "evidence_density": {
+        "locator_count": 6,
+        "evidence_unit_count": 10,
+        "morgue_practical_count": 3,
+        "figure_count": 0,
+        "new_candidate_entity_count": 18,
+        "reused_entity_count": 4
+      },
+      "source_locators": [
+        {
+          "locator_id": "LAT-T1-HUM-LOC-001",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 478,
+          "pdf_page_number": 479,
+          "printed_page_number": 459,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section": "Húmero: situación, orientación general y forma",
+          "figure_or_table": null,
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Húmero (visão geral e situação esquelética)",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-HUM-LOC-002",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 479,
+          "pdf_page_number": 480,
+          "printed_page_number": 460,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section": "Cuerpo del húmero (diáfisis): caras, bordes y surco del nervio radial",
+          "figure_or_table": "Fig. 54-14",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Diáfise umeral e sulco do nervo radial",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-HUM-LOC-003",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 480,
+          "pdf_page_number": 481,
+          "printed_page_number": 461,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section": "Extremidad superior (epífisis proximal): cabeza, cuello anatómico, tubérculo mayor, tubérculo menor, surco intertubercular, crestas y cuello quirúrgico",
+          "figure_or_table": "Fig. 54-15",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Epífise proximal do úmero, tubérculos, facetas e sulco intertubercular",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-HUM-LOC-004",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 481,
+          "pdf_page_number": 482,
+          "printed_page_number": 462,
+          "chapter": "Capítulo 54: Huesos del miembro superior",
+          "section": "Anatomía de superficie y palpación de la extremidad proximal del húmero",
+          "figure_or_table": null,
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Palpação e anatomia de superfície da extremidade proximal do úmero",
+          "language": "es"
+        },
+        {
+          "locator_id": "NIE-ED1-HUM-LOC-001",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_file_sha256": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+          "pdf_page_index": 95,
+          "pdf_page_number": 96,
+          "printed_page_number": 90,
+          "chapter": "Chapter 3: Appendicular Skeleton - Upper Limb",
+          "section": "Left Humerus Osteology - Anterior and Posterior views",
+          "figure_or_table": "Unnumbered anatomical photographic plates",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Humerus osteology: head, anatomical neck, surgical neck, greater/lesser tubercles, intertubercular sulcus",
+          "language": "en"
+        },
+        {
+          "locator_id": "NIE-ED1-HUM-LOC-002",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_file_sha256": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+          "pdf_page_index": 96,
+          "pdf_page_number": 97,
+          "printed_page_number": 91,
+          "chapter": "Chapter 3: Appendicular Skeleton - Upper Limb",
+          "section": "Left Humerus Osteology - Lateral and Medial views",
+          "figure_or_table": "Unnumbered anatomical photographic plates",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Humerus lateral and medial profiles: tubercles, crests, deltoid tuberosity",
+          "language": "en"
+        }
+      ],
+      "evidence_units": [
+        {
+          "evidence_unit_id": "EVI-B2-HUM-001",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-HUM-LOC-001",
+          "pdf_page_number": 479,
+          "printed_page_number": 459,
+          "section": "Húmero: situación y forma general",
+          "language": "es",
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity_id": "AET-ENT-REF-HUMERUS",
+          "secondary_entity_ids": [
+            "AET-ENT-UL-SCAPULA"
+          ],
+          "relation_hint": "part_of",
+          "source_assertion_paraphrase": "El húmero es un hueso largo, par y asimétrico que constituye por sí solo el esqueleto del brazo. Se articula superiormente con la escápula e inferiormente con el radio y la ulna.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": false,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-HUM-002",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-HUM-LOC-003",
+          "pdf_page_number": 481,
+          "printed_page_number": 461,
+          "section": "Extremidad superior: Cabeza del húmero",
+          "language": "es",
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-HUMERUS",
+            "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY"
+          ],
+          "relation_hint": "articulates_with",
+          "source_assertion_paraphrase": "La cabeza del húmero es una superficie articular redondeada y lisa que representa aproximadamente un tercio de esfera de unos 30 mm de radio, orientada en sentido medial, posterior y superior, que se articula con la cavidad glenoidea de la escápula.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-HUM-003",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-HUM-LOC-003",
+          "pdf_page_number": 481,
+          "printed_page_number": 461,
+          "section": "Extremidad superior: Cuello anatómico",
+          "language": "es",
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-HUMERAL_HEAD",
+            "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+            "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE"
+          ],
+          "relation_hint": "bounds",
+          "source_assertion_paraphrase": "El cuello anatómico es un surco circular estrecho que delimita el contorno de la cabeza humeral y la separa lateralmente de los tubérculos mayor y menor, sirviendo de inserción a la cápsula articular glenohumeral.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": false,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-HUM-004",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-HUM-LOC-003",
+          "pdf_page_number": 481,
+          "printed_page_number": 461,
+          "section": "Extremidad superior: Tubérculo mayor (troquíter) y facetas",
+          "language": "es",
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-SUPRASPINATUS",
+            "AET-ENT-REF-INFRASPINATUS",
+            "AET-ENT-REF-TERES_MINOR"
+          ],
+          "relation_hint": "has_insertion",
+          "source_assertion_paraphrase": "El tubérculo mayor está situado lateralmente a la cabeza y presenta tres facetas de inserción muscular distintas: una faceta superior para el músculo supraespinoso, una faceta media para el músculo infraespinoso y una faceta inferior para el músculo redondo menor.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-HUM-005",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-HUM-LOC-003",
+          "pdf_page_number": 481,
+          "printed_page_number": 461,
+          "section": "Extremidad superior: Tubérculo menor (troquín)",
+          "language": "es",
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-SUBSCAPULARIS"
+          ],
+          "relation_hint": "has_insertion",
+          "source_assertion_paraphrase": "El tubérculo menor es una eminencia redondeada situada anteriormente a la cabeza y medialmente al tubérculo mayor, prestando inserción al tendón del músculo subescapular.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-HUM-006",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-HUM-LOC-003",
+          "pdf_page_number": 481,
+          "printed_page_number": 461,
+          "section": "Extremidad superior: Surco intertubercular y crestas",
+          "language": "es",
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+            "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE_CREST",
+            "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE_CREST"
+          ],
+          "relation_hint": "traversed_by",
+          "source_assertion_paraphrase": "El surco intertubercular (corredera bicipital) es una corredera vertical entre ambos tubérculos por donde transcurre el tendón de la cabeza larga del bíceps braquial acompañado por su vaina sinovial; está limitada lateralmente por la cresta del tubérculo mayor y medialmente por la cresta del tubérculo menor.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-HUM-007",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-HUM-LOC-003",
+          "pdf_page_number": 481,
+          "printed_page_number": 461,
+          "section": "Extremidad superior: Cuello quirúrgico",
+          "language": "es",
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-AXILLARY_NERVE",
+            "AET-ENT-REF-POSTERIOR_CIRCUMFLEX_HUMERAL_VESSELS"
+          ],
+          "relation_hint": "related_to",
+          "source_assertion_paraphrase": "El cuello quirúrgico corresponde a la zona de transición estrechada entre la epífisis proximal y la diáfisis del húmero, situada distalmente a los tubérculos mayor y menor, rodeada posteriormente por el nervio axilar y los vasos circunflejos femorales/humerales posteriores.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": true,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-HUM-008",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_hash": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+          "source_type": "ANATOMICAL_ATLAS",
+          "source_locator": "NIE-ED1-HUM-LOC-001",
+          "pdf_page_number": 96,
+          "printed_page_number": 90,
+          "section": "Left Humerus Osteology - Anterior and Posterior views",
+          "language": "en",
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity_id": "AET-ENT-REF-HUMERUS",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-HUMERAL_HEAD",
+            "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+            "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE"
+          ],
+          "relation_hint": "displays",
+          "source_assertion_paraphrase": "Fotografía anatómica del húmero que demuestra la orientación hemisférica medial-superior de la cabeza humeral, la proyección anterolateral del tubérculo mayor, el tubérculo menor anterior y la delimitación del surco intertubercular.",
+          "evidence_type": "DIRECT_IMAGE",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "METADATA_WITH_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-MOR-001",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_hash": "ce1f13d0b85fd16f9c06db79381f7cce2842277e7de563d2f82be7223f73d8f6",
+          "source_type": "INSTITUTIONAL_TEACHING_NOTES",
+          "source_locator": "MOR-UL-B2-LOC-010",
+          "pdf_page_number": 25,
+          "printed_page_number": 25,
+          "section": "Anotaciones Prácticas: Húmero Proximal",
+          "language": "es",
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-GREATER_TUBERCLE_SUPERIOR_FACET",
+            "AET-ENT-CAND-UL-GREATER_TUBERCLE_MIDDLE_FACET",
+            "AET-ENT-CAND-UL-GREATER_TUBERCLE_INFERIOR_FACET"
+          ],
+          "relation_hint": "has_insertion",
+          "source_assertion_paraphrase": "En la pieza cadavérica se visualizan tres carillas o facetas bien definidas en el tubérculo mayor (troquíter): la faceta superior recibe el tendón del supraespinoso, la media el infraespinoso y la inferior el redondo menor.",
+          "evidence_type": "INSTITUTIONAL_NOTE",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-MOR-002",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_hash": "ce1f13d0b85fd16f9c06db79381f7cce2842277e7de563d2f82be7223f73d8f6",
+          "source_type": "INSTITUTIONAL_TEACHING_NOTES",
+          "source_locator": "MOR-UL-B2-LOC-010",
+          "pdf_page_number": 25,
+          "printed_page_number": 25,
+          "section": "Anotaciones Prácticas: Corredera bicipital y ligamento transverso",
+          "language": "es",
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+            "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD"
+          ],
+          "relation_hint": "bridges",
+          "source_assertion_paraphrase": "El ligamento humeral transverso de Gordon Brodie puentea la corredera bicipital entre el troquíter y troquín, impidiendo que el tendón de la cabeza larga del bíceps se luxe durante las rotaciones humerales.",
+          "evidence_type": "INSTITUTIONAL_NOTE",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        }
+      ],
+      "morgue_practical_evidence": [
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-001",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-010",
+          "page": 25,
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+          "original_assertion": "Tubérculo Mayor (Troquíter): Faceta superior (supraespinoso), faceta media (infraespinoso), faceta inferior (redondo menor).",
+          "dissection_perspective": "Identificação das 3 facetas na epífise proximal do úmero cadavérico desprovido de periósteo.",
+          "classification": "DIRECT_PRACTICAL_ASSERTION",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        },
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-002",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-010",
+          "page": 25,
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+          "original_assertion": "Tubérculo Menor (Troquín): Inserción del músculo subescapular.",
+          "dissection_perspective": "Ponto de inserção anterior do manguito rotador visível após rebatimento do peitoral maior.",
+          "classification": "DIRECT_PRACTICAL_ASSERTION",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        },
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-003",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-010",
+          "page": 25,
+          "topic": "PROXIMAL_HUMERUS",
+          "primary_entity": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+          "original_assertion": "Corredera Bicipital (Surco Intertubercular): Labio lateral (pectoral mayor), suelo (dorsal ancho), labio medial (redondo mayor).",
+          "dissection_perspective": "Relação das inserções musculares nos lábios e assoalho da corredera bicipital.",
+          "classification": "DIRECT_PRACTICAL_ASSERTION",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        }
+      ],
+      "figure_evidence": [],
+      "entity_candidates": [
+        {
+          "candidate_id": "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+          "canonical_name": "Anatomical Neck of Humerus",
+          "latin_name": "Collum anatomicum humeri",
+          "entity_type": "BONE_LANDMARK",
+          "parent_id": "AET-ENT-REF-HUMERUS"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+          "canonical_name": "Greater Tubercle of Humerus",
+          "latin_name": "Tuberculum majus humeri",
+          "entity_type": "BONE_LANDMARK",
+          "parent_id": "AET-ENT-REF-HUMERUS"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+          "canonical_name": "Lesser Tubercle of Humerus",
+          "latin_name": "Tuberculum minus humeri",
+          "entity_type": "BONE_LANDMARK",
+          "parent_id": "AET-ENT-REF-HUMERUS"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+          "canonical_name": "Intertubercular Sulcus of Humerus",
+          "latin_name": "Sulcus intertubercularis humeri",
+          "entity_type": "BONE_LANDMARK",
+          "parent_id": "AET-ENT-REF-HUMERUS"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE_CREST",
+          "canonical_name": "Crest of Greater Tubercle",
+          "latin_name": "Crista tuberculi majoris",
+          "entity_type": "BONE_LANDMARK",
+          "parent_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE_CREST",
+          "canonical_name": "Crest of Lesser Tubercle",
+          "latin_name": "Crista tuberculi minoris",
+          "entity_type": "BONE_LANDMARK",
+          "parent_id": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-HUMERAL_PROXIMAL_EPIPHYSIS",
+          "canonical_name": "Proximal Epiphysis of Humerus",
+          "latin_name": "Epiphysis proximalis humeri",
+          "entity_type": "REGIONAL_SEGMENT",
+          "parent_id": "AET-ENT-REF-HUMERUS"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-GREATER_TUBERCLE_SUPERIOR_FACET",
+          "canonical_name": "Superior Facet of Greater Tubercle",
+          "latin_name": "Facies superior tuberculi majoris",
+          "entity_type": "LANDMARK_SUBPART",
+          "parent_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-GREATER_TUBERCLE_MIDDLE_FACET",
+          "canonical_name": "Middle Facet of Greater Tubercle",
+          "latin_name": "Facies media tuberculi majoris",
+          "entity_type": "LANDMARK_SUBPART",
+          "parent_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-GREATER_TUBERCLE_INFERIOR_FACET",
+          "canonical_name": "Inferior Facet of Greater Tubercle",
+          "latin_name": "Facies inferior tuberculi majoris",
+          "entity_type": "LANDMARK_SUBPART",
+          "parent_id": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+          "canonical_name": "Fibrous Capsule of Glenohumeral Joint",
+          "latin_name": "Capsula articularis glenohumeralis",
+          "entity_type": "JOINT_CAPSULE",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-GLENOHUMERAL_SYNOVIAL_MEMBRANE",
+          "canonical_name": "Synovial Membrane of Glenohumeral Joint",
+          "latin_name": "Membrana synovialis glenohumeralis",
+          "entity_type": "SYNOVIAL_MEMBRANE",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+          "canonical_name": "Superior Glenohumeral Ligament",
+          "latin_name": "Ligamentum glenohumerale superius",
+          "entity_type": "LIGAMENT",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+          "canonical_name": "Middle Glenohumeral Ligament",
+          "latin_name": "Ligamentum glenohumerale medium",
+          "entity_type": "LIGAMENT",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+          "canonical_name": "Inferior Glenohumeral Ligament Complex",
+          "latin_name": "Ligamentum glenohumerale inferius",
+          "entity_type": "LIGAMENT_COMPLEX",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+          "canonical_name": "Coracohumeral Ligament",
+          "latin_name": "Ligamentum coracohumerale",
+          "entity_type": "LIGAMENT",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+          "canonical_name": "Transverse Humeral Ligament",
+          "latin_name": "Ligamentum transversum humeri",
+          "entity_type": "LIGAMENT",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-GLENOHUMERAL_AXILLARY_RECESS",
+          "canonical_name": "Axillary Recess of Glenohumeral Joint",
+          "latin_name": "Recessus axillaris",
+          "entity_type": "SYNOVIAL_RECESS",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        }
+      ],
+      "existing_reused_entities": [
+        {
+          "canonical_entity_id": "AET-ENT-REF-HUMERUS",
+          "canonical_name": "Humerus",
+          "latin_name": "Humerus",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-PROXIMAL-HUMERUS-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": true,
+          "reuse_justification": "Existing stable reference bone identity from Registry 2.1; promoted to candidacy for B2 primary ownership.",
+          "identity_collapse_prevented": true
+        },
+        {
+          "canonical_entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+          "canonical_name": "Head of Humerus",
+          "latin_name": "Caput humeri",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-PROXIMAL-HUMERUS-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": true,
+          "reuse_justification": "Existing reference bone part from Registry 2.1; distinct from shaft and tubercles.",
+          "identity_collapse_prevented": true
+        },
+        {
+          "canonical_entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+          "canonical_name": "Surgical Neck of Humerus",
+          "latin_name": "Collum chirurgicum humeri",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-PROXIMAL-HUMERUS-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": true,
+          "reuse_justification": "Existing reference landmark subpart from Registry 2.1; distinct from anatomical neck.",
+          "identity_collapse_prevented": true
+        },
+        {
+          "canonical_entity_id": "AET-ENT-REF-POSTERIOR_CIRCUMFLEX_HUMERAL_VESSELS",
+          "canonical_name": "Posterior Circumflex Humeral Vessels",
+          "latin_name": "Vasa circumflexa humeri posteriora",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-PROXIMAL-HUMERUS-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": false,
+          "reuse_justification": "Retained as REFERENCE_ONLY neurovascular relation dependency for surgical neck.",
+          "identity_collapse_prevented": true
+        }
+      ]
+    },
+    {
+      "pack_id": "AET-KP-UL-GLENOHUMERAL-JOINT-001",
+      "pack_title": "Articulação Glenoumeral: Superfícies, Cápsula e Aparelho Ligamentar",
+      "scope_topic": "GLENOHUMERAL_JOINT",
+      "pack_description": "Estrutura articular da articulação glenoumeral: superfícies cartilaginosas, lábio glenoidal, manguito capsular fibroso, ligamentos glenoumerais (SGHL, MGHL, IGHL), ligamento coracoumeral, membrana sinovial e trajeto intra-articular do bíceps.",
+      "evidence_density": {
+        "locator_count": 7,
+        "evidence_unit_count": 8,
+        "morgue_practical_count": 4,
+        "figure_count": 0,
+        "new_candidate_entity_count": 9,
+        "reused_entity_count": 2
+      },
+      "source_locators": [
+        {
+          "locator_id": "LAT-T1-GHJ-LOC-001",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 493,
+          "pdf_page_number": 494,
+          "printed_page_number": 474,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Articulación glenohumeral: tipo, superficies articulares (cabeza humeral, cavidad glenoidea, rodete glenoideo/labrum)",
+          "figure_or_table": "Fig. 55-4",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Superfícies articulares glenoumerais e lábio glenoidal",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-GHJ-LOC-002",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 494,
+          "pdf_page_number": 495,
+          "printed_page_number": 475,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Medios de unión: cápsula articular, ligamentos glenohumerales superior, medio e inferior, ligamento coracohumeral, foramen oval de Weitbrecht",
+          "figure_or_table": "Fig. 55-5",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Cápsula e ligamentos glenoumerais (SGHL, MGHL, IGHL)",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-GHJ-LOC-003",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 495,
+          "pdf_page_number": 496,
+          "printed_page_number": 476,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Ligamento humeral transverso, sinovial articular, receso axilar",
+          "figure_or_table": "Fig. 55-6",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Ligamento umeral transverso, membrana sinovial e recesso axilar",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-GHJ-LOC-004",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 496,
+          "pdf_page_number": 497,
+          "printed_page_number": 477,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Tendón de la cabeza larga del bíceps braquial: trayecto intraarticular y prolongación sinovial",
+          "figure_or_table": "Fig. 55-7",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Trajeto intra-articular da cabeça longa do bíceps",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-GHJ-LOC-005",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 497,
+          "pdf_page_number": 498,
+          "printed_page_number": 478,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Relaciones inmediatas: corona muscular periarticular (manguito rotador) y relaciones mediatas",
+          "figure_or_table": null,
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Manguito rotador periarticular e relações imediatas",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-GHJ-LOC-006",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 498,
+          "pdf_page_number": 499,
+          "printed_page_number": 479,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Bolsas serosas del hombro: bolsa subdeltoidea/subacromial, bolsa del subescapular, bolsa del coracobraquial",
+          "figure_or_table": null,
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Bolsas sinoviais periarticulares (subacromial, subtendínea)",
+          "language": "es"
+        },
+        {
+          "locator_id": "NIE-ED1-GHJ-LOC-001",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_file_sha256": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+          "pdf_page_index": 138,
+          "pdf_page_number": 139,
+          "printed_page_number": 133,
+          "chapter": "Chapter 4: Joints",
+          "section": "Glenohumeral Joint: Frontal section anterior view and bones anterior view",
+          "figure_or_table": "Frontal section dissection plate & bone relation diagram",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Glenohumeral joint frontal section: articular cartilage, synovial membrane, fibrous capsule, labrum, biceps tendon, rotator cuff blend",
+          "language": "en"
+        }
+      ],
+      "evidence_units": [
+        {
+          "evidence_unit_id": "EVI-B2-GHJ-001",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-GHJ-LOC-001",
+          "pdf_page_number": 494,
+          "printed_page_number": 474,
+          "section": "Articulación glenohumeral: Clasificación y superficies",
+          "language": "es",
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-HUMERAL_HEAD",
+            "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+            "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM"
+          ],
+          "relation_hint": "articulates_with",
+          "source_assertion_paraphrase": "La articulación glenohumeral es una articulación sinovial esferoidea (enartrosis) que une la cabeza esferoidea del húmero a la cavidad glenoidea de la escápula, ampliada periféricamente por el fibrocartílago del rodete glenoideo (labrum).",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": false,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-GHJ-002",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-GHJ-LOC-002",
+          "pdf_page_number": 495,
+          "printed_page_number": 475,
+          "section": "Medios de unión: Cápsula articular",
+          "language": "es",
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity_id": "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+            "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM"
+          ],
+          "relation_hint": "attaches_to",
+          "source_assertion_paraphrase": "La cápsula fibrosa es un manguito cilíndrico laxo que se inserta medialmente en el contorno óseo de la cavidad glenoidea y cara periférica del rodete glenoideo, y lateralmente en el cuello anatómico del húmero, descendiendo más distalmente en la cara medial.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": false,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-GHJ-003",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-GHJ-LOC-002",
+          "pdf_page_number": 495,
+          "printed_page_number": 475,
+          "section": "Ligamentos glenohumerales superior, medio e inferior",
+          "language": "es",
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+            "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+            "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE"
+          ],
+          "relation_hint": "reinforces",
+          "source_assertion_paraphrase": "La cápsula articular está reforzada anteriormente por tres bandas ligamentarias intrínsecas: el ligamento glenohumeral superior, el ligamento glenohumeral medio y el ligamento glenohumeral inferior (el más potente y grueso, estabilizador principal en abducción).",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-GHJ-004",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-GHJ-LOC-002",
+          "pdf_page_number": 495,
+          "printed_page_number": 475,
+          "section": "Ligamento coracohumeral",
+          "language": "es",
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+          "secondary_entity_ids": [
+            "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+            "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+            "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE"
+          ],
+          "relation_hint": "reinforces",
+          "source_assertion_paraphrase": "El ligamento coracohumeral es una banda resistente y gruesa que se origina en la base y borde lateral del proceso coracoides y se dirige hacia el tubérculo mayor y menor del húmero, reforzando la porción superior de la cápsula articular.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-GHJ-005",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-GHJ-LOC-003",
+          "pdf_page_number": 496,
+          "printed_page_number": 476,
+          "section": "Ligamento humeral transverso y receso axilar",
+          "language": "es",
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+            "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+            "AET-ENT-CAND-UL-GLENOHUMERAL_AXILLARY_RECESS"
+          ],
+          "relation_hint": "bridges",
+          "source_assertion_paraphrase": "El ligamento humeral transverso (de Gordon Brodie) es una lámina fibrosa transversal que se extiende desde el tubérculo mayor hasta el tubérculo menor sobre el surco intertubercular, transformándolo en un conducto osteofibroso que retiene el tendón de la cabeza larga del bíceps.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-GHJ-006",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-GHJ-LOC-004",
+          "pdf_page_number": 497,
+          "printed_page_number": 477,
+          "section": "Tendón de la cabeza larga del bíceps braquial",
+          "language": "es",
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+          "secondary_entity_ids": [
+            "AET-ENT-UL-SCAPULAR_SUPRAGLENOID_TUBERCLE",
+            "AET-ENT-CAND-UL-GLENOHUMERAL_SYNOVIAL_MEMBRANE"
+          ],
+          "relation_hint": "traverses",
+          "source_assertion_paraphrase": "El tendón de la cabeza larga del bíceps braquial se origina en el tubérculo supraglenoideo y rodete glenoideo superior, atraviesa intracapsularmente la articulación sobre la cabeza del húmero envuelto por una vaina sinovial cilíndrica, y emerge por el surco intertubercular.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-GHJ-007",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_hash": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+          "source_type": "ANATOMICAL_ATLAS",
+          "source_locator": "NIE-ED1-GHJ-LOC-001",
+          "pdf_page_number": 139,
+          "printed_page_number": 133,
+          "section": "Glenohumeral Joint: Frontal section dissection plate",
+          "language": "en",
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+            "AET-ENT-CAND-UL-GLENOHUMERAL_SYNOVIAL_MEMBRANE",
+            "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM"
+          ],
+          "relation_hint": "contains",
+          "source_assertion_paraphrase": "Corte frontal macroscópico de la articulación glenohumeral izquierda que evidencia el cartílago articular hialino, el rodete glenoideo fibrocartilaginoso, la laxitud de la cápsula inferior (receso axilar), la cavidad sinovial y la íntima fusión de los tendones del manguito con la cápsula.",
+          "evidence_type": "DIRECT_IMAGE",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "METADATA_WITH_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-MOR-003",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_hash": "ce1f13d0b85fd16f9c06db79381f7cce2842277e7de563d2f82be7223f73d8f6",
+          "source_type": "INSTITUTIONAL_TEACHING_NOTES",
+          "source_locator": "MOR-UL-B2-LOC-009",
+          "pdf_page_number": 24,
+          "printed_page_number": 24,
+          "section": "Anotaciones Prácticas: Articulación Glenohumeral",
+          "language": "es",
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+            "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+            "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+            "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT"
+          ],
+          "relation_hint": "reinforces",
+          "source_assertion_paraphrase": "La articulación glenohumeral es clasificada como enartrosis multiaxial; en la disección se aprecian los tres engrosamientos capsulares anteriores (ligamentos glenohumerales sup, med e inf) y el ligamento coracohumeral que refuerza el polo superior.",
+          "evidence_type": "INSTITUTIONAL_NOTE",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        }
+      ],
+      "morgue_practical_evidence": [
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-004",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-010",
+          "page": 25,
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+          "original_assertion": "Ligamento Humeral Transverso de Gordon Brodie sobre la corredera bicipital.",
+          "dissection_perspective": "Retináculo osteofibroso mantendo o tendão bicipital na calha umeral.",
+          "classification": "VISUAL_IDENTIFICATION",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        },
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-005",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-009",
+          "page": 24,
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+          "original_assertion": "Articulación Glenohumeral: Diartrosis - Enartrosis (esferoidea). Cápsula y Ligamentos: Ligamento Glenohumeral Superior, Medio e Inferior; Ligamento Coracohumeral.",
+          "dissection_perspective": "Demonstração dos reforços capsulares anteriores e do ligamento coracoumeral superior.",
+          "classification": "DIRECT_PRACTICAL_ASSERTION",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        },
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-006",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-007",
+          "page": 17,
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+          "original_assertion": "Cavidad glenoidea está rodeada por el labrum (Rodete Glenoideo).",
+          "dissection_perspective": "Bordo fibrocartilagíneo aumentando a profundidade e congruência da cavidade glenoidal.",
+          "classification": "VISUAL_IDENTIFICATION",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        },
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-007",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-006",
+          "page": 16,
+          "topic": "GLENOHUMERAL_JOINT",
+          "primary_entity": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+          "original_assertion": "Cabeza larga del bíceps braquial insertándose en el tubérculo supraglenoideo.",
+          "dissection_perspective": "Origem intra-articular e íntima continuidade com as fibras superiores do lábio glenoidal.",
+          "classification": "VISUAL_IDENTIFICATION",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        }
+      ],
+      "figure_evidence": [],
+      "entity_candidates": [
+        {
+          "candidate_id": "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+          "canonical_name": "Fibrous Capsule of Glenohumeral Joint",
+          "latin_name": "Capsula articularis glenohumeralis",
+          "entity_type": "JOINT_CAPSULE",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-GLENOHUMERAL_SYNOVIAL_MEMBRANE",
+          "canonical_name": "Synovial Membrane of Glenohumeral Joint",
+          "latin_name": "Membrana synovialis glenohumeralis",
+          "entity_type": "SYNOVIAL_MEMBRANE",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+          "canonical_name": "Superior Glenohumeral Ligament",
+          "latin_name": "Ligamentum glenohumerale superius",
+          "entity_type": "LIGAMENT",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+          "canonical_name": "Middle Glenohumeral Ligament",
+          "latin_name": "Ligamentum glenohumerale medium",
+          "entity_type": "LIGAMENT",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+          "canonical_name": "Inferior Glenohumeral Ligament Complex",
+          "latin_name": "Ligamentum glenohumerale inferius",
+          "entity_type": "LIGAMENT_COMPLEX",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+          "canonical_name": "Coracohumeral Ligament",
+          "latin_name": "Ligamentum coracohumerale",
+          "entity_type": "LIGAMENT",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+          "canonical_name": "Transverse Humeral Ligament",
+          "latin_name": "Ligamentum transversum humeri",
+          "entity_type": "LIGAMENT",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+          "canonical_name": "Rotator Interval",
+          "latin_name": "Intervallum rotatorium",
+          "entity_type": "ANATOMICAL_SPACE",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-GLENOHUMERAL_AXILLARY_RECESS",
+          "canonical_name": "Axillary Recess of Glenohumeral Joint",
+          "latin_name": "Recessus axillaris",
+          "entity_type": "SYNOVIAL_RECESS",
+          "parent_id": "AET-ENT-REF-GLENOHUMERAL_JOINT"
+        }
+      ],
+      "existing_reused_entities": [
+        {
+          "canonical_entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+          "canonical_name": "Glenohumeral Joint",
+          "latin_name": "Articulatio glenohumeralis",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-GLENOHUMERAL-JOINT-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": true,
+          "reuse_justification": "Existing reference joint from Registry 2.1; central subject of B2 joint pack.",
+          "identity_collapse_prevented": true
+        },
+        {
+          "canonical_entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+          "canonical_name": "Biceps Brachii Long Head",
+          "latin_name": "Caput longum musculi bicipitis brachii",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-GLENOHUMERAL-JOINT-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": false,
+          "reuse_justification": "Retained as REFERENCE_ONLY supporting structure for intra-articular relation; full arm authorship belongs to later batch.",
+          "identity_collapse_prevented": true
+        }
+      ]
+    },
+    {
+      "pack_id": "AET-KP-UL-ROTATOR-CUFF-001",
+      "pack_title": "Manguito Rotador: Miologia, Inserções, Ações e Inervação",
+      "scope_topic": "ROTATOR_CUFF",
+      "pack_description": "Anatomia muscular e tendínea dos quatro componentes do manguito rotador: supraespinal, infraespinal, redondo menor e subescapular, com origens, footprints nas facetas dos tubérculos, inervação e vascularização.",
+      "evidence_density": {
+        "locator_count": 8,
+        "evidence_unit_count": 8,
+        "morgue_practical_count": 5,
+        "figure_count": 0,
+        "new_candidate_entity_count": 5,
+        "reused_entity_count": 7
+      },
+      "source_locators": [
+        {
+          "locator_id": "LAT-T1-RTC-LOC-001",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 508,
+          "pdf_page_number": 509,
+          "printed_page_number": 489,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Músculo subescapular: origen en fosa subescapular, inserción tendinosa en tubérculo menor (troquín)",
+          "figure_or_table": "Fig. 55-22",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Músculo subescapular (origem e inserção distal)",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-RTC-LOC-002",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 509,
+          "pdf_page_number": 510,
+          "printed_page_number": 490,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Músculo subescapular: relaciones, inervación (nervios subescapulares), acción rotadora medial; Músculo supraespinoso: origen en fosa supraespinosa",
+          "figure_or_table": null,
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Subescapular (inervação/ação) e Supraespinal (origem)",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-RTC-LOC-003",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 510,
+          "pdf_page_number": 511,
+          "printed_page_number": 491,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Músculo supraespinoso: inserción en faceta superior del tubérculo mayor, acción abductora, inervación (nervio supraescapular); Músculo infraespinoso: origen",
+          "figure_or_table": "Fig. 55-24",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Supraespinal (inserção/ação) e Infraespinal (origem)",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-RTC-LOC-004",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 511,
+          "pdf_page_number": 512,
+          "printed_page_number": 492,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Músculo infraespinoso: inserción en faceta media del tubérculo mayor, constitución, acción rotadora lateral, inervación (nervio supraescapular)",
+          "figure_or_table": "Fig. 55-25",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Músculo infraespinal (inserção, rotação lateral, inervação)",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-RTC-LOC-005",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 512,
+          "pdf_page_number": 513,
+          "printed_page_number": 493,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Músculo redondo menor: origen en borde lateral escapular, inserción en faceta inferior del tubérculo mayor, inervación (nervio axilar), acción rotadora lateral",
+          "figure_or_table": "Fig. 55-26",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Músculo redondo menor (origem, inserção, inervação, ação)",
+          "language": "es"
+        },
+        {
+          "locator_id": "NIE-ED1-RTC-LOC-001",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_file_sha256": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+          "pdf_page_index": 187,
+          "pdf_page_number": 188,
+          "printed_page_number": 182,
+          "chapter": "Chapter 5: Muscular System - Upper Limb",
+          "section": "Shoulder Muscles - Rotator Cuff: Deep dissection anterior view",
+          "figure_or_table": "Anterior deep dissection plate",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Rotator cuff anterior view: subscapularis, supraspinatus, capsule reinforcement",
+          "language": "en"
+        },
+        {
+          "locator_id": "NIE-ED1-RTC-LOC-002",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_file_sha256": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+          "pdf_page_index": 188,
+          "pdf_page_number": 189,
+          "printed_page_number": 183,
+          "chapter": "Chapter 5: Muscular System - Upper Limb",
+          "section": "Shoulder Muscles - Rotator Cuff: Deep dissection medial and posterior views",
+          "figure_or_table": "Medial and posterior deep dissection plates",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Rotator cuff posterior/medial views: supraspinatus, infraspinatus, teres minor",
+          "language": "en"
+        },
+        {
+          "locator_id": "NIE-ED1-RTC-LOC-003",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_file_sha256": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+          "pdf_page_index": 189,
+          "pdf_page_number": 190,
+          "printed_page_number": 184,
+          "chapter": "Chapter 5: Muscular System - Upper Limb",
+          "section": "Shoulder Prime Movers: Deltoid muscle (anterior, lateral, posterior)",
+          "figure_or_table": "Deltoid muscle dissection plate",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Deltoid muscle overview and topographic relation to rotator cuff",
+          "language": "en"
+        }
+      ],
+      "evidence_units": [
+        {
+          "evidence_unit_id": "EVI-B2-RTC-001",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-RTC-LOC-001",
+          "pdf_page_number": 509,
+          "printed_page_number": 489,
+          "section": "Músculo subescapular: origen e inserción",
+          "language": "es",
+          "topic": "ROTATOR_CUFF",
+          "primary_entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+          "secondary_entity_ids": [
+            "AET-ENT-UL-SCAPULAR_SUBSCAPULAR_FOSSA",
+            "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+            "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON"
+          ],
+          "relation_hint": "originates_from",
+          "source_assertion_paraphrase": "El músculo subescapular se origina ampliamente en la fosa subescapular de la cara costal de la escápula y se inserta por un tendón robusto en el tubérculo menor (troquín) del húmero y en su cresta adyacente.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-RTC-002",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-RTC-LOC-002",
+          "pdf_page_number": 510,
+          "printed_page_number": 490,
+          "section": "Músculo subescapular: inervación y acción",
+          "language": "es",
+          "topic": "ROTATOR_CUFF",
+          "primary_entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA"
+          ],
+          "relation_hint": "acts_as",
+          "source_assertion_paraphrase": "El músculo subescapular está inervado por los nervios subescapulares superior e inferior y actúa principalmente como un potente rotador medial y aductor del húmero, coaptando y centrando la cabeza humeral contra la cavidad glenoidea.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-RTC-003",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-RTC-LOC-003",
+          "pdf_page_number": 511,
+          "printed_page_number": 491,
+          "section": "Músculo supraespinoso: inserción y acción",
+          "language": "es",
+          "topic": "ROTATOR_CUFF",
+          "primary_entity_id": "AET-ENT-REF-SUPRASPINATUS",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-GREATER_TUBERCLE_SUPERIOR_FACET",
+            "AET-ENT-REF-SUPRASCAPULAR_NERVE",
+            "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON"
+          ],
+          "relation_hint": "inserts_into",
+          "source_assertion_paraphrase": "El músculo supraespinoso se origina en la fosa supraespinosa, pasa profundo al arco coracoacromial y se inserta en la faceta superior del tubérculo mayor del húmero; está inervado por el nervio supraescapular e inicia la abducción del brazo fijando la cabeza humeral.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-RTC-004",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-RTC-LOC-004",
+          "pdf_page_number": 512,
+          "printed_page_number": 492,
+          "section": "Músculo infraespinoso: inserción y acción",
+          "language": "es",
+          "topic": "ROTATOR_CUFF",
+          "primary_entity_id": "AET-ENT-REF-INFRASPINATUS",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-GREATER_TUBERCLE_MIDDLE_FACET",
+            "AET-ENT-REF-SUPRASCAPULAR_NERVE",
+            "AET-ENT-CAND-UL-INFRASPINATUS_TENDON"
+          ],
+          "relation_hint": "inserts_into",
+          "source_assertion_paraphrase": "El músculo infraespinoso se origina en los dos tercios mediales de la fosa infraespinosa, cruza posteriormente la cápsula articular y se inserta en la faceta media del tubérculo mayor; inervado por el nervio supraescapular, es el rotador lateral principal del húmero y estabilizador posterior.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-RTC-005",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-RTC-LOC-005",
+          "pdf_page_number": 513,
+          "printed_page_number": 493,
+          "section": "Músculo redondo menor: origen, inserción e inervación",
+          "language": "es",
+          "topic": "ROTATOR_CUFF",
+          "primary_entity_id": "AET-ENT-REF-TERES_MINOR",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-GREATER_TUBERCLE_INFERIOR_FACET",
+            "AET-ENT-REF-AXILLARY_NERVE",
+            "AET-ENT-CAND-UL-TERES_MINOR_TENDON"
+          ],
+          "relation_hint": "inserts_into",
+          "source_assertion_paraphrase": "El músculo redondo menor se origina en la parte lateral y superior de la fosa infraespinosa a lo largo del borde lateral de la escápula, y se inserta en la faceta inferior del tubérculo mayor del húmero; está inervado por un ramo del nervio axilar y actúa como rotador lateral y estabilizador posteroinferior.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-RTC-006",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_hash": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+          "source_type": "ANATOMICAL_ATLAS",
+          "source_locator": "NIE-ED1-RTC-LOC-001",
+          "pdf_page_number": 188,
+          "printed_page_number": 182,
+          "section": "Shoulder Muscles - Rotator Cuff: Deep anterior dissection",
+          "language": "en",
+          "topic": "ROTATOR_CUFF",
+          "primary_entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-SUBSCAPULARIS",
+            "AET-ENT-REF-SUPRASPINATUS"
+          ],
+          "relation_hint": "reinforces",
+          "source_assertion_paraphrase": "Disseção profunda anterior do manguito rotador evidenciando o tendão espesso do subescapular cruzando anteriormente a articulação glenoumeral e inserindo-se no tubérculo menor, com o tendão do supraespinal visível superiormente.",
+          "evidence_type": "DIRECT_IMAGE",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "METADATA_WITH_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-RTC-007",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_hash": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+          "source_type": "ANATOMICAL_ATLAS",
+          "source_locator": "NIE-ED1-RTC-LOC-002",
+          "pdf_page_number": 189,
+          "printed_page_number": 183,
+          "section": "Shoulder Muscles - Rotator Cuff: Posterior and Medial dissections",
+          "language": "en",
+          "topic": "ROTATOR_CUFF",
+          "primary_entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-SUPRASPINATUS",
+            "AET-ENT-REF-INFRASPINATUS",
+            "AET-ENT-REF-TERES_MINOR"
+          ],
+          "relation_hint": "reinforces",
+          "source_assertion_paraphrase": "Disseções profunda posterior e medial demonstrando a disposição contínua dos tendões do supraespinal, infraespinal e redondo menor unindo-se à cápsula fibrosa posterior e superior antes de se inserirem em suas respectivas facetas no tubérculo maior.",
+          "evidence_type": "DIRECT_IMAGE",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "METADATA_WITH_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-MOR-004",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_hash": "ce1f13d0b85fd16f9c06db79381f7cce2842277e7de563d2f82be7223f73d8f6",
+          "source_type": "INSTITUTIONAL_TEACHING_NOTES",
+          "source_locator": "MOR-UL-B2-LOC-014",
+          "pdf_page_number": 41,
+          "printed_page_number": 41,
+          "section": "Anotaciones Prácticas: Espacios axilares y redondo menor",
+          "language": "es",
+          "topic": "ROTATOR_CUFF",
+          "primary_entity_id": "AET-ENT-REF-TERES_MINOR",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-AXILLARY_NERVE",
+            "AET-ENT-REF-POSTERIOR_CIRCUMFLEX_HUMERAL_VESSELS"
+          ],
+          "relation_hint": "bounds",
+          "source_assertion_paraphrase": "El borde inferior del músculo redondo menor forma el límite superior del espacio cuadrangular de Velpeau (por donde cruzan el nervio axilar y los vasos circunflejos umerales posteriores) y del espacio triangular omotricipital.",
+          "evidence_type": "INSTITUTIONAL_NOTE",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        }
+      ],
+      "morgue_practical_evidence": [
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-008",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-001",
+          "page": 5,
+          "topic": "ROTATOR_CUFF",
+          "primary_entity": "AET-ENT-REF-SUBSCAPULARIS",
+          "original_assertion": "Músculo Subescapular en fosa subescapular, convergiendo en tendón anterior al hombro.",
+          "dissection_perspective": "Plano anterior da escápula; fascículos musculares multipenados.",
+          "classification": "DIRECT_PRACTICAL_ASSERTION",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        },
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-009",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-002",
+          "page": 7,
+          "topic": "ROTATOR_CUFF",
+          "primary_entity": "AET-ENT-REF-SUPRASPINATUS",
+          "original_assertion": "Músculo Supraespinoso pasando por debajo del arco acromiocoracoideo hacia el troquíter.",
+          "dissection_perspective": "Passagem pelo túnel osteofibroso superior do ombro.",
+          "classification": "DIRECT_PRACTICAL_ASSERTION",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        },
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-010",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-003",
+          "page": 8,
+          "topic": "ROTATOR_CUFF",
+          "primary_entity": "AET-ENT-REF-INFRASPINATUS",
+          "original_assertion": "Músculo Infraespinoso en fosa infraespinosa, tendón cubriendo la cápsula posterior.",
+          "dissection_perspective": "Exposição do ventre muscular sob a espessa fáscia infraespinal.",
+          "classification": "DIRECT_PRACTICAL_ASSERTION",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        },
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-011",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-004",
+          "page": 12,
+          "topic": "ROTATOR_CUFF",
+          "primary_entity": "AET-ENT-REF-TERES_MINOR",
+          "original_assertion": "Músculo Redondo Menor en borde lateral de la escápula, íntimamente adosado al infraespinoso.",
+          "dissection_perspective": "Delimitação inferior do manguito rotador posterior.",
+          "classification": "DIRECT_PRACTICAL_ASSERTION",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        },
+        {
+          "morgue_evidence_id": "MOR-EVI-B2-012",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "source_locator": "MOR-UL-B2-LOC-014",
+          "page": 41,
+          "topic": "ROTATOR_CUFF",
+          "primary_entity": "AET-ENT-REF-TERES_MINOR",
+          "original_assertion": "Espacio cuadrangular de Velpeau: limitado arriba por el redondo menor, abajo por el redondo mayor, medial por tríceps y lateral por húmero.",
+          "dissection_perspective": "Topografia do forame quadrilátero com emergência do nervo axilar.",
+          "classification": "PEDAGOGICAL_NOTE",
+          "pedagogical_status": "MORGUE_PRACTICAL_ANATOMY"
+        }
+      ],
+      "figure_evidence": [],
+      "entity_candidates": [
+        {
+          "candidate_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+          "canonical_name": "Rotator Cuff",
+          "latin_name": "Musculotendinous rotator cuff",
+          "entity_type": "COMPOSITE_STRUCTURE",
+          "parent_id": null
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+          "canonical_name": "Tendon of Supraspinatus Muscle",
+          "latin_name": "Tendo musculi supraspinati",
+          "entity_type": "TENDON",
+          "parent_id": "AET-ENT-REF-SUPRASPINATUS"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+          "canonical_name": "Tendon of Infraspinatus Muscle",
+          "latin_name": "Tendo musculi infraspinati",
+          "entity_type": "TENDON",
+          "parent_id": "AET-ENT-REF-INFRASPINATUS"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+          "canonical_name": "Tendon of Teres Minor Muscle",
+          "latin_name": "Tendo musculi teretis minoris",
+          "entity_type": "TENDON",
+          "parent_id": "AET-ENT-REF-TERES_MINOR"
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+          "canonical_name": "Tendon of Subscapularis Muscle",
+          "latin_name": "Tendo musculi subscapularis",
+          "entity_type": "TENDON",
+          "parent_id": "AET-ENT-REF-SUBSCAPULARIS"
+        }
+      ],
+      "existing_reused_entities": [
+        {
+          "canonical_entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+          "canonical_name": "Subscapularis Muscle",
+          "latin_name": "Musculus subscapularis",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": true,
+          "reuse_justification": "Existing reference muscle from Registry 2.1; anterior rotator cuff component.",
+          "identity_collapse_prevented": true
+        },
+        {
+          "canonical_entity_id": "AET-ENT-REF-SUPRASPINATUS",
+          "canonical_name": "Supraspinatus Muscle",
+          "latin_name": "Musculus supraspinatus",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": true,
+          "reuse_justification": "Existing reference muscle from Registry 2.1; superior rotator cuff component.",
+          "identity_collapse_prevented": true
+        },
+        {
+          "canonical_entity_id": "AET-ENT-REF-INFRASPINATUS",
+          "canonical_name": "Infraspinatus Muscle",
+          "latin_name": "Musculus infraspinatus",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": true,
+          "reuse_justification": "Existing reference muscle from Registry 2.1; posterior rotator cuff component.",
+          "identity_collapse_prevented": true
+        },
+        {
+          "canonical_entity_id": "AET-ENT-REF-TERES_MINOR",
+          "canonical_name": "Teres Minor Muscle",
+          "latin_name": "Musculus teres minor",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": true,
+          "reuse_justification": "Existing reference muscle from Registry 2.1; posteroinferior rotator cuff component.",
+          "identity_collapse_prevented": true
+        },
+        {
+          "canonical_entity_id": "AET-ENT-REF-AXILLARY_NERVE",
+          "canonical_name": "Axillary Nerve",
+          "latin_name": "Nervus axillaris",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": false,
+          "reuse_justification": "Retained as REFERENCE_ONLY innervation dependency for teres minor and surgical neck relation.",
+          "identity_collapse_prevented": true
+        },
+        {
+          "canonical_entity_id": "AET-ENT-REF-SUPRASCAPULAR_NERVE",
+          "canonical_name": "Suprascapular Nerve",
+          "latin_name": "Nervus suprascapularis",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": false,
+          "reuse_justification": "Retained as REFERENCE_ONLY innervation dependency for supraspinatus and infraspinatus.",
+          "identity_collapse_prevented": true
+        },
+        {
+          "canonical_entity_id": "AET-ENT-REF-SUPRASCAPULAR_ARTERY",
+          "canonical_name": "Suprascapular Artery",
+          "latin_name": "Arteria suprascapularis",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-ROTATOR-CUFF-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": false,
+          "reuse_justification": "Retained as REFERENCE_ONLY vascular supply dependency.",
+          "identity_collapse_prevented": true
+        }
+      ]
+    },
+    {
+      "pack_id": "AET-KP-UL-SHOULDER-INTEGRATION-001",
+      "pack_title": "Integração do Complexo do Ombro: Mecânica, Bolsas e Relações Topográficas",
+      "scope_topic": "SHOULDER_INTEGRATION",
+      "pack_description": "Cinemática integrada, estabilização dinâmica, intervalo dos rotadores, bolsas serosas periarticulares (subacromial-subdeltóidea, subtendínea do subescapular), arco coracoacromial e ritmo escapuloumeral.",
+      "evidence_density": {
+        "locator_count": 3,
+        "evidence_unit_count": 3,
+        "morgue_practical_count": 0,
+        "figure_count": 5,
+        "new_candidate_entity_count": 2,
+        "reused_entity_count": 1
+      },
+      "source_locators": [
+        {
+          "locator_id": "LAT-T1-INT-LOC-001",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 516,
+          "pdf_page_number": 517,
+          "printed_page_number": 497,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Biomecánica y movilidad del hombro: nociones cinemáticas generales",
+          "figure_or_table": null,
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Cinemática do ombro e mobilidade da cintura peitoral",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-INT-LOC-002",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 517,
+          "pdf_page_number": 518,
+          "printed_page_number": 498,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Movimientos en la articulación glenohumeral: elevación, flexión, abducción y contacto articular",
+          "figure_or_table": "Fig. 55-31",
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Movimentos glenoumerais e elevação",
+          "language": "es"
+        },
+        {
+          "locator_id": "LAT-T1-INT-LOC-003",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_file_sha256": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "pdf_page_index": 518,
+          "pdf_page_number": 519,
+          "printed_page_number": 499,
+          "chapter": "Capítulo 55: Cintura pectoral",
+          "section": "Interacción escápulo-humeral: oscilación escapular y rotaciones axiales del húmero",
+          "figure_or_table": null,
+          "locator_confidence": "HIGH",
+          "extraction_status": "EXTRACTED",
+          "anatomical_topic": "Ritmo escapuloumeral e rotações",
+          "language": "es"
+        }
+      ],
+      "evidence_units": [
+        {
+          "evidence_unit_id": "EVI-B2-INT-001",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-GHJ-LOC-005",
+          "pdf_page_number": 498,
+          "printed_page_number": 478,
+          "section": "Corona muscular periarticular (manguito rotador)",
+          "language": "es",
+          "topic": "SHOULDER_INTEGRATION",
+          "primary_entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+          "secondary_entity_ids": [
+            "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+            "AET-ENT-REF-GLENOHUMERAL_JOINT"
+          ],
+          "relation_hint": "stabilizes",
+          "source_assertion_paraphrase": "Los tendones periarticulares de los cuatro músculos rotadores (subescapular adelante, supraespinoso arriba, infraespinoso y redondo menor atrás) forman una verdadera corona activa de refuerzo y coaptación que se adhiere íntimamente a la cápsula articular fibrosa.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": false,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-INT-002",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-GHJ-LOC-006",
+          "pdf_page_number": 499,
+          "printed_page_number": 479,
+          "section": "Bolsas serosas del hombro",
+          "language": "es",
+          "topic": "SHOULDER_INTEGRATION",
+          "primary_entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+          "secondary_entity_ids": [
+            "AET-ENT-REF-SUPRASPINATUS",
+            "AET-ENT-UL-SCAPULAR_ACROMION",
+            "AET-ENT-CAND-UL-ROTATOR_CUFF"
+          ],
+          "relation_hint": "buffers",
+          "source_assertion_paraphrase": "La bolsa serosa subdeltoidea (subacromial) es un plano de deslizamiento interposed entre el arco coracoacromial y el músculo deltoides por fuera, y el tendón del supraespinoso y la cápsula articular por dentro, facilitando la abducción sin fricción osteotendinosa.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": true,
+          "clinical_context": false,
+          "three_d_relevance": true
+        },
+        {
+          "evidence_unit_id": "EVI-B2-INT-003",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+          "source_type": "GROSS_ANATOMY_TEXTBOOK",
+          "source_locator": "LAT-T1-INT-LOC-003",
+          "pdf_page_number": 519,
+          "printed_page_number": 499,
+          "section": "Ritmo escápulo-humeral y rotaciones axiales",
+          "language": "es",
+          "topic": "SHOULDER_INTEGRATION",
+          "primary_entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+          "secondary_entity_ids": [
+            "AET-ENT-UL-SCAPULA",
+            "AET-ENT-REF-HUMERUS"
+          ],
+          "relation_hint": "coordinates_with",
+          "source_assertion_paraphrase": "En la elevación completa del brazo, el movimiento glenohumeral se acompaña armónicamente de la rotación y basculación de la escápula sobre la pared torácica, garantizando que la cavidad glenoidea oriente su superficie para recibir y sustentar la cabeza del húmero.",
+          "evidence_type": "DIRECT_TEXT",
+          "confidence_of_extraction": "CERTAIN",
+          "requires_author_interpretation": false,
+          "rights_safe_storage_mode": "PARAPHRASE_WITH_EXACT_LOCATOR",
+          "practical_layer": false,
+          "clinical_context": false,
+          "three_d_relevance": true
+        }
+      ],
+      "morgue_practical_evidence": [],
+      "figure_evidence": [
+        {
+          "figure_id": "FIG-EVI-B2-001",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_locator": "NIE-ED1-HUM-LOC-001",
+          "pdf_page_number": 96,
+          "printed_page_number": 90,
+          "figure_title": "Left humerus osteology, anterior and posterior views",
+          "structures_visible": [
+            "Head of humerus",
+            "Anatomical neck",
+            "Greater tubercle",
+            "Lesser tubercle",
+            "Intertubercular sulcus",
+            "Surgical neck",
+            "Deltoid tuberosity"
+          ],
+          "orientation": "Anterior and posterior cadaveric osteological photographs",
+          "labels_available": [
+            "Head",
+            "Anatomical neck",
+            "Greater tubercle",
+            "Lesser tubercle",
+            "Intertubercular sulcus",
+            "Surgical neck"
+          ],
+          "evidence_utility": "VISUALLY_IDENTIFIABLE"
+        },
+        {
+          "figure_id": "FIG-EVI-B2-002",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_locator": "NIE-ED1-GHJ-LOC-001",
+          "pdf_page_number": 139,
+          "printed_page_number": 133,
+          "figure_title": "Section of left glenohumeral joint, frontal section anterior view",
+          "structures_visible": [
+            "Articular cartilage",
+            "Synovial membrane",
+            "Fibrous capsule",
+            "Glenoid labrum",
+            "Tendon of long head of biceps brachii",
+            "Supraspinatus muscle",
+            "Subscapularis muscle",
+            "Axillary recess of capsule"
+          ],
+          "orientation": "Frontal anatomical section, anterior view",
+          "labels_available": [
+            "1 Articular cartilage",
+            "2 Synovial membrane",
+            "3 Fibrous membrane",
+            "4 Glenoid labrum",
+            "10 Supraspinatus muscle",
+            "11 Subscapularis muscle",
+            "13 Tendon of long head of biceps brachii"
+          ],
+          "evidence_utility": "VISUALLY_IDENTIFIABLE"
+        },
+        {
+          "figure_id": "FIG-EVI-B2-003",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_locator": "NIE-ED1-RTC-LOC-001",
+          "pdf_page_number": 188,
+          "printed_page_number": 182,
+          "figure_title": "Shoulder Muscles - Rotator Cuff: Deep dissection anterior view",
+          "structures_visible": [
+            "Subscapularis muscle",
+            "Supraspinatus muscle",
+            "Coracoid process",
+            "Lesser tubercle insertion"
+          ],
+          "orientation": "Anterior cadaveric dissection plate",
+          "labels_available": [
+            "Subscapularis",
+            "Supraspinatus",
+            "Coracoid process"
+          ],
+          "evidence_utility": "VISUALLY_IDENTIFIABLE"
+        },
+        {
+          "figure_id": "FIG-EVI-B2-004",
+          "source_id": "SRC-NIELSEN-ATLAS-ED1",
+          "source_locator": "NIE-ED1-RTC-LOC-002",
+          "pdf_page_number": 189,
+          "printed_page_number": 183,
+          "figure_title": "Shoulder Muscles - Rotator Cuff: Deep dissection posterior view",
+          "structures_visible": [
+            "Supraspinatus muscle",
+            "Infraspinatus muscle",
+            "Teres minor muscle",
+            "Greater tubercle facets"
+          ],
+          "orientation": "Posterior cadaveric dissection plate",
+          "labels_available": [
+            "Supraspinatus",
+            "Infraspinatus",
+            "Teres minor"
+          ],
+          "evidence_utility": "VISUALLY_IDENTIFIABLE"
+        },
+        {
+          "figure_id": "FIG-EVI-B2-005",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "source_locator": "LAT-T1-GHJ-LOC-002",
+          "pdf_page_number": 495,
+          "printed_page_number": 475,
+          "figure_title": "Fig. 55-5. Ligamentos de la articulación glenohumeral, vista anterior",
+          "structures_visible": [
+            "Ligamento glenohumeral superior",
+            "Ligamento glenohumeral medio",
+            "Ligamento glenohumeral inferior",
+            "Foramen oval de Weitbrecht",
+            "Ligamento coracohumeral",
+            "Tendón del músculo subescapular"
+          ],
+          "orientation": "Vista anterior anatómica esquemática",
+          "labels_available": [
+            "Lig. glenohumeral superior",
+            "Lig. glenohumeral medio",
+            "Lig. glenohumeral inferior",
+            "Foramen oval",
+            "Lig. coracohumeral"
+          ],
+          "evidence_utility": "VISUALLY_IDENTIFIABLE"
+        }
+      ],
+      "entity_candidates": [
+        {
+          "candidate_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+          "canonical_name": "Subacromial-Subdeltoid Bursa",
+          "latin_name": "Bursa subacromialis et subdeltoidea",
+          "entity_type": "BURSA",
+          "parent_id": null
+        },
+        {
+          "candidate_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+          "canonical_name": "Subtendinous Bursa of Subscapularis",
+          "latin_name": "Bursa subtendinea musculi subscapularis",
+          "entity_type": "BURSA",
+          "parent_id": null
+        }
+      ],
+      "existing_reused_entities": [
+        {
+          "canonical_entity_id": "AET-ENT-REF-DELTOID",
+          "canonical_name": "Deltoid Muscle",
+          "latin_name": "Musculus deltoideus",
+          "current_knowledge_state": "REFERENCE_ONLY",
+          "proposed_pack_owner": "AET-KP-UL-SHOULDER-INTEGRATION-001",
+          "classification": "EXISTING_REFERENCE_ENTITY",
+          "reference_only_to_full_candidate": false,
+          "reuse_justification": "Retained as REFERENCE_ONLY functional prime mover partner; full muscle authorship belongs to later batch.",
+          "identity_collapse_prevented": true
+        }
+      ]
+    }
+  ]
+}

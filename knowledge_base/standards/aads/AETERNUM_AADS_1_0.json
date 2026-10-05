@@ -1,0 +1,579 @@
+{
+  "standard_name": "AETERNUM ANATOMICAL DESCRIPTION STANDARD",
+  "version": "AADS-1.0",
+  "phase": "AMC-1.2 / EXP-UL-B2-A1.6",
+  "timestamp": "2026-09-27T02:30:00Z",
+  "authority": {
+    "specification_role": "DESCRIPTIVE_PEDAGOGICAL_AND_STRUCTURAL_SCHEMA",
+    "canonical_authority": false,
+    "qualification_required": true,
+    "institutional_reference": "Universidad Privada del Este - Cátedra de Anatomía Topográfica y Descriptiva (Instructor Alejandro Duarte Báez)"
+  },
+  "common_metadata": {
+    "description": "Standard metadata attributes required or applicable across all anatomical entities in Aeternum Atlas",
+    "fields": [
+      "entity_id",
+      "canonical_name",
+      "latin_name",
+      "accepted_synonyms",
+      "legacy_terms",
+      "language_variants",
+      "entity_type",
+      "laterality",
+      "body_region",
+      "subregion",
+      "knowledge_pack_owner",
+      "source_ids",
+      "evidence_unit_ids",
+      "source_locator_ids",
+      "provenance_status",
+      "authoring_status",
+      "academic_validation_status",
+      "canonical_status",
+      "safe_engine_status",
+      "three_d_relevance",
+      "three_d_mapping_status",
+      "practical_cadaveric_relevance",
+      "teaching_relevance",
+      "known_variation_status",
+      "knowledge_gap_ids",
+      "conflict_ids",
+      "version"
+    ]
+  },
+  "completeness_states": [
+    "COMPLETE",
+    "PARTIAL",
+    "MISSING",
+    "NOT_APPLICABLE",
+    "SOURCE_NOT_AVAILABLE",
+    "CONFLICT_REVIEW_REQUIRED",
+    "VALIDATION_REQUIRED"
+  ],
+  "field_completeness_schema": {
+    "type": "object",
+    "required": [
+      "field_name",
+      "state",
+      "evidence_count",
+      "source_ids",
+      "evidence_unit_ids",
+      "locator_ids",
+      "reason",
+      "blocking_issue",
+      "recommended_next_action"
+    ],
+    "properties": {
+      "field_name": {
+        "type": "string"
+      },
+      "state": {
+        "type": "string",
+        "enum": [
+          "COMPLETE",
+          "PARTIAL",
+          "MISSING",
+          "NOT_APPLICABLE",
+          "SOURCE_NOT_AVAILABLE",
+          "CONFLICT_REVIEW_REQUIRED",
+          "VALIDATION_REQUIRED"
+        ]
+      },
+      "evidence_count": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "source_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "evidence_unit_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "locator_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "reason": {
+        "type": "string"
+      },
+      "blocking_issue": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "recommended_next_action": {
+        "type": "string"
+      }
+    }
+  },
+  "total_entity_types": 18,
+  "core_entity_types": [
+    "BONE",
+    "JOINT",
+    "MUSCLE",
+    "TENDON",
+    "LIGAMENT",
+    "BURSA",
+    "ARTERY",
+    "VEIN",
+    "NERVE",
+    "TOPOGRAPHIC_REGION",
+    "VISCUS"
+  ],
+  "extension_entity_types": [
+    "FASCIA",
+    "APONEUROSIS",
+    "ANATOMICAL_SPACE",
+    "SYNOVIAL_RECESS",
+    "RETINACULUM",
+    "NEUROVASCULAR_BUNDLE",
+    "LYMPHATIC_NODE_GROUP"
+  ],
+  "entity_type_schemas": {
+    "BONE": {
+      "entity_type": "BONE",
+      "is_extension_type": false,
+      "description": "Descriptive, osteological, and functional architecture of skeletal bones.",
+      "fields": [
+        "identity",
+        "topographic_location",
+        "bone_type",
+        "paired_unpaired",
+        "laterality",
+        "anatomical_orientation",
+        "generalities",
+        "external_configuration.parts",
+        "external_configuration.surfaces",
+        "external_configuration.borders",
+        "external_configuration.angles",
+        "external_configuration.extremities",
+        "anatomical_landmarks.tubercles",
+        "anatomical_landmarks.processes",
+        "anatomical_landmarks.fossae",
+        "anatomical_landmarks.grooves",
+        "anatomical_landmarks.crests",
+        "anatomical_landmarks.lines",
+        "anatomical_landmarks.notches",
+        "anatomical_landmarks.foramina",
+        "anatomical_landmarks.canals",
+        "anatomical_landmarks.facets",
+        "anatomical_landmarks.articular_surfaces",
+        "anatomical_landmarks.other_landmarks",
+        "passage_relationships.what_passes_through_foramen",
+        "passage_relationships.what_passes_through_canal",
+        "passage_relationships.what_passes_through_groove",
+        "passage_relationships.what_passes_through_notch",
+        "attachments.muscular",
+        "attachments.tendinous",
+        "attachments.ligamentous",
+        "attachments.fascial",
+        "articulations",
+        "relations",
+        "continuities",
+        "practical_identification",
+        "three_d_orientation",
+        "variations",
+        "morphometry_when_sourced"
+      ]
+    },
+    "JOINT": {
+      "entity_type": "JOINT",
+      "is_extension_type": false,
+      "description": "Descriptive, arthrological, and biomechanical architecture of articulations.",
+      "fields": [
+        "identity",
+        "location",
+        "classification",
+        "articular_surfaces",
+        "articular_cartilage",
+        "congruence",
+        "complementary_structures.labrum",
+        "complementary_structures.disc",
+        "complementary_structures.meniscus",
+        "complementary_structures.fibrocartilage",
+        "complementary_structures.fat_pads_if_applicable",
+        "capsule.presence",
+        "capsule.attachments",
+        "capsule.thickness_variations",
+        "capsule.laxity",
+        "capsule.reinforcements",
+        "synovial_membrane",
+        "synovial_recesses",
+        "bursae",
+        "ligaments",
+        "means_of_union",
+        "movements.movement_types",
+        "movements.planes",
+        "movements.axes",
+        "movements.ranges_only_when_sourced",
+        "stability.static_stabilizers",
+        "stability.dynamic_stabilizers",
+        "innervation",
+        "arterial_supply",
+        "venous_drainage",
+        "relations",
+        "variations",
+        "practical_identification",
+        "three_d_relationships"
+      ]
+    },
+    "MUSCLE": {
+      "entity_type": "MUSCLE",
+      "is_extension_type": false,
+      "description": "Myological, functional, neurovascular, and compartmental architecture of skeletal muscles.",
+      "fields": [
+        "identity",
+        "location",
+        "region",
+        "group",
+        "plane",
+        "compartment",
+        "origin",
+        "insertion",
+        "architecture.belly",
+        "architecture.heads",
+        "architecture.fascicles",
+        "architecture.fiber_direction",
+        "architecture.pennation_when_sourced",
+        "architecture.aponeurosis",
+        "architecture.tendon",
+        "trajectory",
+        "relations.superficial",
+        "relations.deep",
+        "relations.superior",
+        "relations.inferior",
+        "relations.medial",
+        "relations.lateral",
+        "relations.anterior",
+        "relations.posterior",
+        "innervation",
+        "arterial_supply",
+        "venous_drainage_when_sourced",
+        "action",
+        "functional_role",
+        "stabilizing_role",
+        "practical_identification",
+        "variations",
+        "three_d_relationships"
+      ]
+    },
+    "TENDON": {
+      "entity_type": "TENDON",
+      "is_extension_type": true,
+      "description": "Distinct tendinous structures, transitions, sheaths, footprints, and insertions. Never collapsed with muscle.",
+      "fields": [
+        "identity",
+        "parent_muscle",
+        "origin_transition",
+        "course",
+        "relations",
+        "sheaths",
+        "bursae_relationships",
+        "capsular_relationships",
+        "insertion",
+        "footprint",
+        "vascularization_when_sourced",
+        "practical_identification",
+        "variations",
+        "three_d_relationships"
+      ]
+    },
+    "LIGAMENT": {
+      "entity_type": "LIGAMENT",
+      "is_extension_type": true,
+      "description": "Articular, capsular, and independent ligamentous restraints and stabilization bands.",
+      "fields": [
+        "identity",
+        "location",
+        "proximal_attachment",
+        "distal_attachment",
+        "course",
+        "relations",
+        "joint_association",
+        "capsular_continuity",
+        "mechanical_role_when_sourced",
+        "variations",
+        "practical_identification",
+        "three_d_relationships"
+      ]
+    },
+    "BURSA": {
+      "entity_type": "BURSA",
+      "is_extension_type": true,
+      "description": "Synovial bursae and gliding cushions separating friction-bearing anatomical planes.",
+      "fields": [
+        "identity",
+        "location",
+        "boundaries",
+        "superficial_relations",
+        "deep_relations",
+        "structures_separated",
+        "communication_with_joint_if_sourced",
+        "communication_with_other_bursa_if_sourced",
+        "functional_role",
+        "variations",
+        "practical_identification",
+        "three_d_relationships"
+      ]
+    },
+    "ARTERY": {
+      "entity_type": "ARTERY",
+      "is_extension_type": false,
+      "description": "Arterial trunks, segments, branches, anastomotic networks, and irrigation territories.",
+      "fields": [
+        "identity",
+        "origin",
+        "course",
+        "segments",
+        "relations",
+        "collateral_branches",
+        "terminal_branches",
+        "anastomoses",
+        "territory_supplied",
+        "practical_identification",
+        "variations"
+      ]
+    },
+    "VEIN": {
+      "entity_type": "VEIN",
+      "is_extension_type": false,
+      "description": "Venous pathways, formations, tributaries, terminations, communications, and drainage basins.",
+      "fields": [
+        "identity",
+        "origin_or_formation",
+        "course",
+        "relations",
+        "tributaries",
+        "termination",
+        "communications",
+        "territory_drained",
+        "practical_identification",
+        "variations"
+      ]
+    },
+    "NERVE": {
+      "entity_type": "NERVE",
+      "is_extension_type": false,
+      "description": "Peripheral, cranial, and autonomic nerves, roots, trunks, plexuses, spaces of transit, and territories.",
+      "fields": [
+        "identity",
+        "nerve_type",
+        "origin.root_values",
+        "origin.plexus_origin",
+        "origin.real_origin_if_applicable",
+        "origin.apparent_origin_if_applicable",
+        "course",
+        "segments",
+        "relations",
+        "passage_through_spaces",
+        "collateral_branches",
+        "terminal_branches",
+        "territory.motor",
+        "territory.sensory",
+        "territory.autonomic",
+        "territory.articular",
+        "communications",
+        "practical_identification",
+        "variations"
+      ]
+    },
+    "TOPOGRAPHIC_REGION": {
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "is_extension_type": false,
+      "description": "Topographic spaces, triangles, canals, fossae, regional boundaries, walls, and contents.",
+      "fields": [
+        "identity",
+        "location",
+        "boundaries.superior",
+        "boundaries.inferior",
+        "boundaries.medial",
+        "boundaries.lateral",
+        "boundaries.anterior",
+        "boundaries.posterior",
+        "roof",
+        "floor",
+        "walls",
+        "layers",
+        "contents",
+        "neurovascular_arrangement",
+        "entrances",
+        "exits",
+        "communications",
+        "continuities",
+        "relations",
+        "structures_crossing",
+        "structures_entering",
+        "structures_leaving",
+        "practical_identification",
+        "three_d_relationships",
+        "variations"
+      ]
+    },
+    "VISCUS": {
+      "entity_type": "VISCUS",
+      "is_extension_type": false,
+      "description": "Visceral organs, external configuration, internal configuration, pedicles, and fixations.",
+      "fields": [
+        "identity",
+        "definition",
+        "function",
+        "location",
+        "weight_when_sourced",
+        "dimensions_when_sourced",
+        "external_configuration.parts",
+        "external_configuration.shape",
+        "external_configuration.surfaces",
+        "external_configuration.borders",
+        "external_configuration.angles",
+        "external_configuration.base",
+        "external_configuration.apex",
+        "external_configuration.poles",
+        "external_configuration.extremities",
+        "internal_configuration",
+        "functional_organization",
+        "relations",
+        "means_of_fixation",
+        "arterial_supply",
+        "venous_drainage",
+        "innervation",
+        "lymphatics",
+        "practical_identification",
+        "variations"
+      ]
+    },
+    "FASCIA": {
+      "entity_type": "FASCIA",
+      "is_extension_type": true,
+      "description": "Fascial sheets, investing layers, and compartmental boundaries.",
+      "fields": [
+        "identity",
+        "location",
+        "attachments",
+        "investing_layers",
+        "intermuscular_septa",
+        "compartments_formed",
+        "relations",
+        "retinacula_continuities",
+        "practical_identification",
+        "variations"
+      ]
+    },
+    "APONEUROSIS": {
+      "entity_type": "APONEUROSIS",
+      "is_extension_type": true,
+      "description": "Flat fibrous sheets serving muscular attachment, expansion, or containment.",
+      "fields": [
+        "identity",
+        "parent_muscle_or_tendon",
+        "extent",
+        "fiber_direction",
+        "thickness",
+        "attachments",
+        "relations",
+        "practical_identification"
+      ]
+    },
+    "ANATOMICAL_SPACE": {
+      "entity_type": "ANATOMICAL_SPACE",
+      "is_extension_type": true,
+      "description": "Specific intermuscular, osteofibrous, or cleft transit spaces.",
+      "fields": [
+        "identity",
+        "location",
+        "boundaries",
+        "contents",
+        "communications",
+        "clinical_significance_when_sourced",
+        "practical_identification"
+      ]
+    },
+    "SYNOVIAL_RECESS": {
+      "entity_type": "SYNOVIAL_RECESS",
+      "is_extension_type": true,
+      "description": "Synovial expansions, pouches, and recesses of joint cavities.",
+      "fields": [
+        "identity",
+        "parent_joint",
+        "location",
+        "subtendinous_or_subligamentous",
+        "expansion_dynamics",
+        "communication_status",
+        "relations"
+      ]
+    },
+    "RETINACULUM": {
+      "entity_type": "RETINACULUM",
+      "is_extension_type": true,
+      "description": "Fibrous retaining bands and pulleys holding tendons close to bone.",
+      "fields": [
+        "identity",
+        "location",
+        "attachments",
+        "compartments_defined",
+        "structures_contained",
+        "pulleys_formed",
+        "relations"
+      ]
+    },
+    "NEUROVASCULAR_BUNDLE": {
+      "entity_type": "NEUROVASCULAR_BUNDLE",
+      "is_extension_type": true,
+      "description": "Functional groupings of associated artery, companion veins, and nerve enclosed in a common sheath.",
+      "fields": [
+        "identity",
+        "location",
+        "artery",
+        "veins",
+        "nerve",
+        "fascial_sheath",
+        "course",
+        "relations"
+      ]
+    },
+    "LYMPHATIC_NODE_GROUP": {
+      "entity_type": "LYMPHATIC_NODE_GROUP",
+      "is_extension_type": true,
+      "description": "Regional lymphatic chains, node clusters, and drain stations.",
+      "fields": [
+        "identity",
+        "location",
+        "levels_or_chains",
+        "afferents",
+        "efferents",
+        "surrounding_vascular_relations",
+        "palpability_when_sourced"
+      ]
+    }
+  },
+  "primary_entity_types": [
+    "BONE",
+    "JOINT",
+    "MUSCLE",
+    "TENDON",
+    "LIGAMENT",
+    "BURSA",
+    "ARTERY",
+    "VEIN",
+    "NERVE",
+    "TOPOGRAPHIC_REGION",
+    "VISCUS"
+  ],
+  "optional_extension_types": [
+    "FASCIA",
+    "APONEUROSIS",
+    "ANATOMICAL_SPACE",
+    "SYNOVIAL_RECESS",
+    "RETINACULUM",
+    "NEUROVASCULAR_BUNDLE",
+    "LYMPHATIC_NODE_GROUP"
+  ]
+}

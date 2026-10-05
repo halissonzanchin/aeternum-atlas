@@ -1,0 +1,150 @@
+[
+  {
+    "mesh_node_id": "mesh_scapula_cintura_escapular",
+    "anatomical_entity_id": "escapula",
+    "canonical_name": "Escápula",
+    "region": "Cintura Escapular",
+    "default_camera_preset": {
+      "position": [
+        0.35,
+        1.45,
+        -0.65
+      ],
+      "target": [
+        0.18,
+        1.38,
+        -0.12
+      ],
+      "fov": 42
+    },
+    "submesh_landmarks": [
+      {
+        "landmark_id": "submesh_fossa_supraspinata",
+        "name": "Fossa Supraespinosa",
+        "color_highlight": "#4ADE80"
+      },
+      {
+        "landmark_id": "submesh_fossa_infraspinata",
+        "name": "Fossa Infraespinosa",
+        "color_highlight": "#60A5FA"
+      },
+      {
+        "landmark_id": "submesh_spina_scapulae",
+        "name": "Espina de la Escápula",
+        "color_highlight": "#FBBF24"
+      },
+      {
+        "landmark_id": "submesh_acromion",
+        "name": "Acromion",
+        "color_highlight": "#F472B6"
+      },
+      {
+        "landmark_id": "submesh_processus_coracoideus",
+        "name": "Apófisis Coracoides",
+        "color_highlight": "#A78BFA"
+      },
+      {
+        "landmark_id": "submesh_cavitas_glenoidalis",
+        "name": "Cavidad Glenoidea",
+        "color_highlight": "#38BDF8"
+      }
+    ]
+  },
+  {
+    "mesh_node_id": "mesh_humerus_braco",
+    "anatomical_entity_id": "umero",
+    "canonical_name": "Úmero",
+    "region": "Braço",
+    "default_camera_preset": {
+      "position": [
+        0.45,
+        1.25,
+        0.4
+      ],
+      "target": [
+        0.22,
+        1.15,
+        0
+      ],
+      "fov": 45
+    },
+    "submesh_landmarks": [
+      {
+        "landmark_id": "submesh_tuberculum_majus",
+        "name": "Troquíter / Tubérculo Mayor",
+        "color_highlight": "#F87171"
+      },
+      {
+        "landmark_id": "submesh_tuberculum_minus",
+        "name": "Troquín / Tubérculo Menor",
+        "color_highlight": "#FB923C"
+      },
+      {
+        "landmark_id": "submesh_sulcus_intertubercularis",
+        "name": "Corredera Bicipital",
+        "color_highlight": "#FDE047"
+      },
+      {
+        "landmark_id": "submesh_sulcus_nervi_radialis",
+        "name": "Surco del Nervio Radial / Canal de Torsión",
+        "color_highlight": "#C084FC"
+      },
+      {
+        "landmark_id": "submesh_collum_chirurgicum",
+        "name": "Cuello Quirúrgico",
+        "color_highlight": "#E879F9"
+      },
+      {
+        "landmark_id": "submesh_epicondylus_medialis",
+        "name": "Epicóndilo Medial / Epitróclea",
+        "color_highlight": "#34D399"
+      }
+    ]
+  },
+  {
+    "mesh_node_id": "mesh_space_velpeau_proxy",
+    "anatomical_entity_id": "espacio_cuadrangular_velpeau",
+    "canonical_name": "Espacio Cuadrangular de Velpeau",
+    "region": "Hombro Posterior",
+    "bounding_volume_proxy": {
+      "type": "OBB",
+      "center": [
+        0.24,
+        1.34,
+        -0.08
+      ],
+      "extents": [
+        0.06,
+        0.07,
+        0.05
+      ]
+    },
+    "associated_bundles": [
+      "nervio_axilar",
+      "arteria_circunfleja_humeral_posterior"
+    ]
+  },
+  {
+    "mesh_node_id": "mesh_space_snuffbox_proxy",
+    "anatomical_entity_id": "tabaquera_anatomica",
+    "canonical_name": "Tabaquera Anatómica",
+    "region": "Muñeca",
+    "bounding_volume_proxy": {
+      "type": "OBB",
+      "center": [
+        0.38,
+        0.88,
+        0.15
+      ],
+      "extents": [
+        0.03,
+        0.04,
+        0.03
+      ]
+    },
+    "associated_bundles": [
+      "arteria_radial",
+      "vena_cefalica"
+    ]
+  }
+]

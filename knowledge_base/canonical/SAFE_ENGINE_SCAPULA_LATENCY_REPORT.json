@@ -1,0 +1,30 @@
+{
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+  "engine_version": "AETERNUM-SAFE-ENGINE-0.1.0-SCAPULA-PILOT",
+  "total_query_executions": 88,
+  "intent": {
+    "median": 0.083,
+    "p95": 0.227,
+    "max": 2.426
+  },
+  "retrieval": {
+    "median": 0.674,
+    "p95": 1.458,
+    "max": 2.7
+  },
+  "planning": {
+    "median": 0.015,
+    "p95": 0.154,
+    "max": 6.995
+  },
+  "composition": {
+    "median": 0.033,
+    "p95": 0.096,
+    "max": 0.868
+  },
+  "total": {
+    "median": 0.856,
+    "p95": 1.883,
+    "max": 11.536
+  }
+}

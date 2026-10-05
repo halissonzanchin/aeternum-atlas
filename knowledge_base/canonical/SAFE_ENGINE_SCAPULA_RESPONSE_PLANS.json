@@ -1,0 +1,1608 @@
+{
+  "engine_version": "AETERNUM-SAFE-ENGINE-0.1.0-SCAPULA-PILOT",
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+  "count": 88,
+  "plans": [
+    {
+      "query_id": "TEST-MF-001-DIRECT",
+      "query": "Qual é a classificação morfológica da escápula?",
+      "normalized_query": "qual e a classificacao morfologica da escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-MF-001-CONTEXTUAL",
+      "query": "Qual é a classificação morfológica da escápula?",
+      "normalized_query": "qual e a classificacao morfologica da escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "CONTEXTUAL",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_CONTEXTUAL_ANSWER",
+      "response_strategy": "CONTEXT_EXPANSION"
+    },
+    {
+      "query_id": "TEST-MF-001-PROFESSOR",
+      "query": "Qual é a classificação morfológica da escápula?",
+      "normalized_query": "qual e a classificacao morfologica da escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-MF-002-DIRECT",
+      "query": "A escápula é um osso plano?",
+      "normalized_query": "a escapula e um osso plano",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-MF-003-DIRECT",
+      "query": "A omoplata é um osso par?",
+      "normalized_query": "a omoplata e um osso par",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-MF-004-DIRECT",
+      "query": "A escápula tem formato triangular?",
+      "normalized_query": "a escapula tem formato triangular",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-MF-005-DIRECT",
+      "query": "Quantas faces possui a escápula?",
+      "normalized_query": "quantas faces possui a escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-009",
+        "AET-CF-SCAP-011"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-MF-006-DIRECT",
+      "query": "Quantas margens tem a escápula?",
+      "normalized_query": "quantas margens tem a escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-MF-007-DIRECT",
+      "query": "Quantos ângulos são descritos na escápula?",
+      "normalized_query": "quantos angulos sao descritos na escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-021",
+        "AET-CF-SCAP-023"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-MF-008-DIRECT",
+      "query": "A escápula faz parte de qual cíngulo?",
+      "normalized_query": "a escapula faz parte de qual cingulo",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-MF-009-DIRECT",
+      "query": "Quais são as três margens da escápula?",
+      "normalized_query": "quais sao as tres margens da escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-MF-009-CONTEXTUAL",
+      "query": "Quais são as três margens da escápula?",
+      "normalized_query": "quais sao as tres margens da escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "CONTEXTUAL",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_CONTEXTUAL_ANSWER",
+      "response_strategy": "CONTEXT_EXPANSION"
+    },
+    {
+      "query_id": "TEST-MF-009-PROFESSOR",
+      "query": "Quais são as três margens da escápula?",
+      "normalized_query": "quais sao as tres margens da escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-MF-010-DIRECT",
+      "query": "Quais são as duas faces da escápula?",
+      "normalized_query": "quais sao as duas faces da escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-009",
+        "AET-CF-SCAP-011"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-001-DIRECT",
+      "query": "Qual músculo se origina na fossa supraespinosa?",
+      "normalized_query": "qual musculo se origina na fossa supraespinosa",
+      "resolved_entity": "supraspinous_fossa",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-075",
+        "AET-CF-SCAP-012"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-001-CONTEXTUAL",
+      "query": "Qual músculo se origina na fossa supraespinosa?",
+      "normalized_query": "qual musculo se origina na fossa supraespinosa",
+      "resolved_entity": "supraspinous_fossa",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "CONTEXTUAL",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-075"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-032",
+        "AET-CF-SCAP-061"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_CONTEXTUAL_ANSWER",
+      "response_strategy": "CONTEXT_EXPANSION"
+    },
+    {
+      "query_id": "TEST-REL-001-PROFESSOR",
+      "query": "Qual músculo se origina na fossa supraespinosa?",
+      "normalized_query": "qual musculo se origina na fossa supraespinosa",
+      "resolved_entity": "supraspinous_fossa",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-075"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-032",
+        "AET-CF-SCAP-061"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-REL-002-DIRECT",
+      "query": "o supra espinhoso começa onde?",
+      "normalized_query": "o supra espinhoso comeca onde",
+      "resolved_entity": "supraspinatus",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-075"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-003-DIRECT",
+      "query": "Qual músculo se origina na fossa infraespinosa?",
+      "normalized_query": "qual musculo se origina na fossa infraespinosa",
+      "resolved_entity": "infraspinous_fossa",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-076",
+        "AET-CF-SCAP-013"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-003-CONTEXTUAL",
+      "query": "Qual músculo se origina na fossa infraespinosa?",
+      "normalized_query": "qual musculo se origina na fossa infraespinosa",
+      "resolved_entity": "infraspinous_fossa",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "CONTEXTUAL",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-076"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-013",
+        "AET-CF-SCAP-033",
+        "AET-CF-SCAP-061"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_CONTEXTUAL_ANSWER",
+      "response_strategy": "CONTEXT_EXPANSION"
+    },
+    {
+      "query_id": "TEST-REL-003-PROFESSOR",
+      "query": "Qual músculo se origina na fossa infraespinosa?",
+      "normalized_query": "qual musculo se origina na fossa infraespinosa",
+      "resolved_entity": "infraspinous_fossa",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-076"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-013",
+        "AET-CF-SCAP-033",
+        "AET-CF-SCAP-061"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-REL-004-DIRECT",
+      "query": "Qual músculo se insere na fossa subescapular?",
+      "normalized_query": "qual musculo se insere na fossa subescapular",
+      "resolved_entity": "subscapular_fossa",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-074",
+        "AET-CF-SCAP-010"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-004-CONTEXTUAL",
+      "query": "Qual músculo se insere na fossa subescapular?",
+      "normalized_query": "qual musculo se insere na fossa subescapular",
+      "resolved_entity": "subscapular_fossa",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "CONTEXTUAL",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-074"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-030",
+        "AET-CF-SCAP-062"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_CONTEXTUAL_ANSWER",
+      "response_strategy": "CONTEXT_EXPANSION"
+    },
+    {
+      "query_id": "TEST-REL-004-PROFESSOR",
+      "query": "Qual músculo se insere na fossa subescapular?",
+      "normalized_query": "qual musculo se insere na fossa subescapular",
+      "resolved_entity": "subscapular_fossa",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-074"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-030",
+        "AET-CF-SCAP-062"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-REL-005-DIRECT",
+      "query": "Com quem se articula a cavidade glenoidal?",
+      "normalized_query": "com quem se articula a cavidade glenoidal",
+      "resolved_entity": "glenoid_cavity",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-073",
+        "AET-CF-SCAP-027"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-005-CONTEXTUAL",
+      "query": "Com quem se articula a cavidade glenoidal?",
+      "normalized_query": "com quem se articula a cavidade glenoidal",
+      "resolved_entity": "glenoid_cavity",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "CONTEXTUAL",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-073"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-027",
+        "AET-CF-SCAP-111",
+        "AET-CF-SCAP-067"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_CONTEXTUAL_ANSWER",
+      "response_strategy": "CONTEXT_EXPANSION"
+    },
+    {
+      "query_id": "TEST-REL-005-PROFESSOR",
+      "query": "Com quem se articula a cavidade glenoidal?",
+      "normalized_query": "com quem se articula a cavidade glenoidal",
+      "resolved_entity": "glenoid_cavity",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-073"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-027",
+        "AET-CF-SCAP-111",
+        "AET-CF-SCAP-067"
+      ],
+      "teaching_connection_ids": [
+        "AET-CTC-TC-SCAP-002"
+      ],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-REL-006-DIRECT",
+      "query": "Qual articulação é formada pelo acrômio e a clavícula?",
+      "normalized_query": "qual articulacao e formada pelo acromio e a clavicula",
+      "resolved_entity": "clavicle",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-071"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-007-DIRECT",
+      "query": "Onde se insere o músculo peitoral menor?",
+      "normalized_query": "onde se insere o musculo peitoral menor",
+      "resolved_entity": "pectoralis_minor",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-091"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-008-DIRECT",
+      "query": "Onde se origina o músculo coracobraquial?",
+      "normalized_query": "onde se origina o musculo coracobraquial",
+      "resolved_entity": "coracobrachialis",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-090"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-009-DIRECT",
+      "query": "Onde se origina a cabeça curta do bíceps braquial?",
+      "normalized_query": "onde se origina a cabeca curta do biceps braquial",
+      "resolved_entity": "biceps_brachii_short_head",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-089"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-010-DIRECT",
+      "query": "Onde se origina a cabeça longa do bíceps braquial?",
+      "normalized_query": "onde se origina a cabeca longa do biceps braquial",
+      "resolved_entity": "biceps_brachii_long_head",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-087",
+        "AET-CF-SCAP-089"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-011-DIRECT",
+      "query": "Onde se origina a cabeça longa do tríceps braquial?",
+      "normalized_query": "onde se origina a cabeca longa do triceps braquial",
+      "resolved_entity": "triceps_brachii_long_head",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-088"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-012-DIRECT",
+      "query": "Onde se insere o músculo trapézio?",
+      "normalized_query": "onde se insere o musculo trapezio",
+      "resolved_entity": "trapezius",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-081",
+        "AET-CF-SCAP-082"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-013-DIRECT",
+      "query": "Onde se origina o músculo deltoide?",
+      "normalized_query": "onde se origina o musculo deltoide",
+      "resolved_entity": "deltoid",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-079",
+        "AET-CF-SCAP-080"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-014-DIRECT",
+      "query": "Onde se insere o músculo serrátil anterior?",
+      "normalized_query": "onde se insere o musculo serratil anterior",
+      "resolved_entity": "serratus_anterior",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-086"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-REL-015-DIRECT",
+      "query": "Onde se insere o músculo levantador da escápula?",
+      "normalized_query": "onde se insere o musculo levantador da escapula",
+      "resolved_entity": "levator_scapulae",
+      "query_scope": "RELATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-083",
+        "AET-CF-SCAP-074"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-001-DIRECT",
+      "query": "onde fica a espinha da escapula",
+      "normalized_query": "onde fica a espinha da escapula",
+      "resolved_entity": "scapular_spine",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-061",
+        "AET-CF-SCAP-065"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-001-CONTEXTUAL",
+      "query": "onde fica a espinha da escapula",
+      "normalized_query": "onde fica a espinha da escapula",
+      "resolved_entity": "scapular_spine",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "CONTEXTUAL",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-061"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-065",
+        "AET-CF-SCAP-110",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_CONTEXTUAL_ANSWER",
+      "response_strategy": "CONTEXT_EXPANSION"
+    },
+    {
+      "query_id": "TEST-TOP-001-PROFESSOR",
+      "query": "onde fica a espinha da escapula",
+      "normalized_query": "onde fica a espinha da escapula",
+      "resolved_entity": "scapular_spine",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-061"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-065",
+        "AET-CF-SCAP-110",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_connection_ids": [
+        "AET-CTC-TC-SCAP-001"
+      ],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-TOP-002-DIRECT",
+      "query": "Onde se localiza o processo coracoide?",
+      "normalized_query": "onde se localiza o processo coracoide",
+      "resolved_entity": "coracoid_process",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-112",
+        "AET-CF-SCAP-026"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-003-DIRECT",
+      "query": "Onde se localiza a cavidade glenoidal?",
+      "normalized_query": "onde se localiza a cavidade glenoidal",
+      "resolved_entity": "glenoid_cavity",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-073",
+        "AET-CF-SCAP-111"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-004-DIRECT",
+      "query": "Onde fica a fossa supraespinosa?",
+      "normalized_query": "onde fica a fossa supraespinosa",
+      "resolved_entity": "supraspinous_fossa",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-032"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-005-DIRECT",
+      "query": "Onde fica a fossa infraespinosa?",
+      "normalized_query": "onde fica a fossa infraespinosa",
+      "resolved_entity": "infraspinous_fossa",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-013",
+        "AET-CF-SCAP-033"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-006-DIRECT",
+      "query": "Onde fica a fossa subescapular?",
+      "normalized_query": "onde fica a fossa subescapular",
+      "resolved_entity": "subscapular_fossa",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-030"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-007-DIRECT",
+      "query": "Qual a relação entre a espinha da escápula e as fossas supraespinosa e infraespinosa?",
+      "normalized_query": "qual a relacao entre a espinha da escapula e as fossas supraespinosa e infraespinosa",
+      "resolved_entity": "scapular_spine",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-061",
+        "AET-CF-SCAP-010"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-007-CONTEXTUAL",
+      "query": "Qual a relação entre a espinha da escápula e as fossas supraespinosa e infraespinosa?",
+      "normalized_query": "qual a relacao entre a espinha da escapula e as fossas supraespinosa e infraespinosa",
+      "resolved_entity": "scapular_spine",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "CONTEXTUAL",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-061"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-013"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_CONTEXTUAL_ANSWER",
+      "response_strategy": "CONTEXT_EXPANSION"
+    },
+    {
+      "query_id": "TEST-TOP-007-PROFESSOR",
+      "query": "Qual a relação entre a espinha da escápula e as fossas supraespinosa e infraespinosa?",
+      "normalized_query": "qual a relacao entre a espinha da escapula e as fossas supraespinosa e infraespinosa",
+      "resolved_entity": "scapular_spine",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-061"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-010",
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-013"
+      ],
+      "teaching_connection_ids": [
+        "AET-CTC-TC-SCAP-001"
+      ],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-TOP-008-DIRECT",
+      "query": "Onde se localiza o tubérculo supraglenoidal?",
+      "normalized_query": "onde se localiza o tuberculo supraglenoidal",
+      "resolved_entity": "supraglenoid_tubercle",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-038",
+        "AET-CF-SCAP-068"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-009-DIRECT",
+      "query": "Onde se localiza o tubérculo infraglenoidal?",
+      "normalized_query": "onde se localiza o tuberculo infraglenoidal",
+      "resolved_entity": "infraglenoid_tubercle",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-039",
+        "AET-CF-SCAP-069"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-010-DIRECT",
+      "query": "o que passa nessa incisura?",
+      "normalized_query": "o que passa nessa incisura",
+      "resolved_entity": "suprascapular_notch",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-022",
+        "AET-CF-SCAP-070"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-011-DIRECT",
+      "query": "Qual estrutura converte a incisura da escápula em forame?",
+      "normalized_query": "qual estrutura converte a incisura da escapula em forame",
+      "resolved_entity": "suprascapular_notch",
+      "query_scope": "TOPOGRAPHIC_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-TOP-012-DIRECT",
+      "query": "Onde se situa o colo da escápula?",
+      "normalized_query": "onde se situa o colo da escapula",
+      "resolved_entity": "collum_scapulae",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-PRAC-001-DIRECT",
+      "query": "Como posicionar a escápula para identificar se é direita ou esquerda?",
+      "normalized_query": "como posicionar a escapula para identificar se e direita ou esquerda",
+      "resolved_entity": "scapula",
+      "query_scope": "PRACTICAL_IDENTIFICATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "PRACTICAL_ORIENTATION_STEPS"
+    },
+    {
+      "query_id": "TEST-PRAC-001-CONTEXTUAL",
+      "query": "Como posicionar a escápula para identificar se é direita ou esquerda?",
+      "normalized_query": "como posicionar a escapula para identificar se e direita ou esquerda",
+      "resolved_entity": "scapula",
+      "query_scope": "PRACTICAL_IDENTIFICATION_QUERY",
+      "response_depth": "CONTEXTUAL",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "PRACTICAL_ORIENTATION_STEPS"
+    },
+    {
+      "query_id": "TEST-PRAC-001-PROFESSOR",
+      "query": "Como posicionar a escápula para identificar se é direita ou esquerda?",
+      "normalized_query": "como posicionar a escapula para identificar se e direita ou esquerda",
+      "resolved_entity": "scapula",
+      "query_scope": "PRACTICAL_IDENTIFICATION_QUERY",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "PRACTICAL_ORIENTATION_STEPS"
+    },
+    {
+      "query_id": "TEST-PRAC-002-DIRECT",
+      "query": "Como identificar uma escápula direita?",
+      "normalized_query": "como identificar uma escapula direita",
+      "resolved_entity": "scapula",
+      "query_scope": "PRACTICAL_IDENTIFICATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "PRACTICAL_ORIENTATION_STEPS"
+    },
+    {
+      "query_id": "TEST-PRAC-003-DIRECT",
+      "query": "como sei se essa escapula é direita",
+      "normalized_query": "como sei se essa escapula e direita",
+      "resolved_entity": "scapula",
+      "query_scope": "PRACTICAL_IDENTIFICATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "PRACTICAL_ORIENTATION_STEPS"
+    },
+    {
+      "query_id": "TEST-PRAC-004-DIRECT",
+      "query": "como eu diferencio a face anterior da posterior?",
+      "normalized_query": "como eu diferencio a face anterior da posterior",
+      "resolved_entity": "costal_surface",
+      "query_scope": "PRACTICAL_IDENTIFICATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-052"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "PRACTICAL_ORIENTATION_STEPS"
+    },
+    {
+      "query_id": "TEST-PRAC-005-DIRECT",
+      "query": "me explica como se eu estivesse no cadáver",
+      "normalized_query": "me explica como se eu estivesse no cadaver",
+      "resolved_entity": "scapula",
+      "query_scope": "PRACTICAL_IDENTIFICATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "PRACTICAL_ORIENTATION_STEPS"
+    },
+    {
+      "query_id": "TEST-PRAC-006-DIRECT",
+      "query": "Como orientar a escápula na posição anatômica?",
+      "normalized_query": "como orientar a escapula na posicao anatomica",
+      "resolved_entity": "scapula",
+      "query_scope": "PRACTICAL_IDENTIFICATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "PRACTICAL_ORIENTATION_STEPS"
+    },
+    {
+      "query_id": "TEST-PRAC-007-DIRECT",
+      "query": "Quais são os marcos ósseos palpáveis para orientar a escápula?",
+      "normalized_query": "quais sao os marcos osseos palpaveis para orientar a escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "PRACTICAL_IDENTIFICATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "PRACTICAL_ORIENTATION_STEPS"
+    },
+    {
+      "query_id": "TEST-PRAC-008-DIRECT",
+      "query": "Para onde aponta a cavidade glenoidal na posição anatômica?",
+      "normalized_query": "para onde aponta a cavidade glenoidal na posicao anatomica",
+      "resolved_entity": "glenoid_cavity",
+      "query_scope": "PRACTICAL_IDENTIFICATION_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-073",
+        "AET-CF-SCAP-111",
+        "AET-CF-SCAP-027"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "PRACTICAL_ORIENTATION_STEPS"
+    },
+    {
+      "query_id": "TEST-PRAC-009-DIRECT",
+      "query": "Para onde aponta a espinha da escápula?",
+      "normalized_query": "para onde aponta a espinha da escapula",
+      "resolved_entity": "scapular_spine",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-061",
+        "AET-CF-SCAP-065"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-PRAC-010-DIRECT",
+      "query": "Para onde aponta o processo coracoide na escápula?",
+      "normalized_query": "para onde aponta o processo coracoide na escapula",
+      "resolved_entity": "coracoid_process",
+      "query_scope": "MICRO_FACT",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-112",
+        "AET-CF-SCAP-001"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "DIRECT_FACT_ONLY"
+    },
+    {
+      "query_id": "TEST-MACRO-001-DIRECT",
+      "query": "Explique a escápula.",
+      "normalized_query": "explique a escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MACRO_OVERVIEW",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "MACRO_ORDERED_OVERVIEW"
+    },
+    {
+      "query_id": "TEST-MACRO-001-CONTEXTUAL",
+      "query": "Explique a escápula.",
+      "normalized_query": "explique a escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MACRO_OVERVIEW",
+      "response_depth": "CONTEXTUAL",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-006",
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-008",
+        "AET-CF-SCAP-009"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "MACRO_ORDERED_OVERVIEW"
+    },
+    {
+      "query_id": "TEST-MACRO-001-PROFESSOR",
+      "query": "Explique a escápula.",
+      "normalized_query": "explique a escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MACRO_OVERVIEW",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-006",
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-008",
+        "AET-CF-SCAP-009"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "MACRO_ORDERED_OVERVIEW"
+    },
+    {
+      "query_id": "TEST-MACRO-002-DIRECT",
+      "query": "faz uma revisão rápida da escápula",
+      "normalized_query": "faz uma revisao rapida da escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MACRO_OVERVIEW",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "MACRO_ORDERED_OVERVIEW"
+    },
+    {
+      "query_id": "TEST-MACRO-003-DIRECT",
+      "query": "Dê uma visão geral da escápula.",
+      "normalized_query": "de uma visao geral da escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "MACRO_OVERVIEW",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004",
+        "AET-CF-SCAP-005"
+      ],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_DIRECT_ANSWER",
+      "response_strategy": "MACRO_ORDERED_OVERVIEW"
+    },
+    {
+      "query_id": "TEST-MACRO-004-PROFESSOR",
+      "query": "Por que o processo coracoide é importante?",
+      "normalized_query": "por que o processo coracoide e importante",
+      "resolved_entity": "coracoid_process",
+      "query_scope": "PROFESSOR_CONNECTION",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-112"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-026",
+        "AET-CF-SCAP-066",
+        "AET-CF-SCAP-089"
+      ],
+      "teaching_connection_ids": [
+        "AET-CTC-TC-SCAP-004"
+      ],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-MACRO-005-PROFESSOR",
+      "query": "me explica o coracoide",
+      "normalized_query": "me explica o coracoide",
+      "resolved_entity": "coracoid_process",
+      "query_scope": "PROFESSOR_CONNECTION",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-112"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-026",
+        "AET-CF-SCAP-066",
+        "AET-CF-SCAP-089"
+      ],
+      "teaching_connection_ids": [
+        "AET-CTC-TC-SCAP-004"
+      ],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-MACRO-006-PROFESSOR",
+      "query": "pra que serve a glenoide",
+      "normalized_query": "pra que serve a glenoide",
+      "resolved_entity": "glenoid_cavity",
+      "query_scope": "PROFESSOR_CONNECTION",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-073"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-111",
+        "AET-CF-SCAP-027",
+        "AET-CF-SCAP-067"
+      ],
+      "teaching_connection_ids": [
+        "AET-CTC-TC-SCAP-002"
+      ],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-MACRO-007-PROFESSOR",
+      "query": "Qual a importância da espinha da escápula como organizador?",
+      "normalized_query": "qual a importancia da espinha da escapula como organizador",
+      "resolved_entity": "scapular_spine",
+      "query_scope": "PROFESSOR_CONNECTION",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-061"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-065",
+        "AET-CF-SCAP-110",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_connection_ids": [
+        "AET-CTC-TC-SCAP-001"
+      ],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-MACRO-008-PROFESSOR",
+      "query": "Explique o complexo articular da cavidade glenoidal.",
+      "normalized_query": "explique o complexo articular da cavidade glenoidal",
+      "resolved_entity": "glenoid_cavity",
+      "query_scope": "PROFESSOR_CONNECTION",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-073"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-027",
+        "AET-CF-SCAP-111",
+        "AET-CF-SCAP-067"
+      ],
+      "teaching_connection_ids": [
+        "AET-CTC-TC-SCAP-002"
+      ],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-MACRO-009-PROFESSOR",
+      "query": "Qual o papel funcional dos tubérculos supra e infraglenoidal?",
+      "normalized_query": "qual o papel funcional dos tuberculos supra e infraglenoidal",
+      "resolved_entity": "infraglenoid_tubercle",
+      "query_scope": "PROFESSOR_CONNECTION",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-038"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-039",
+        "AET-CF-SCAP-068",
+        "AET-CF-SCAP-069"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-MACRO-010-PROFESSOR",
+      "query": "Por que a fossa subescapular é importante funcionalmente?",
+      "normalized_query": "por que a fossa subescapular e importante funcionalmente",
+      "resolved_entity": "subscapular_fossa",
+      "query_scope": "PROFESSOR_CONNECTION",
+      "response_depth": "PROFESSOR",
+      "anchor_fact_ids": [
+        "AET-CF-SCAP-010"
+      ],
+      "context_fact_ids": [
+        "AET-CF-SCAP-030",
+        "AET-CF-SCAP-062",
+        "AET-CF-SCAP-074"
+      ],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "VALIDATED_PROFESSOR_ANSWER",
+      "response_strategy": "PROFESSOR_PEDAGOGICAL_CHAIN"
+    },
+    {
+      "query_id": "TEST-FAIL-001-DIRECT",
+      "query": "Explique a anatomia do fêmur.",
+      "normalized_query": "explique a anatomia do femur",
+      "resolved_entity": "femur",
+      "query_scope": "OUT_OF_SCOPE",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "NO_CANONICAL_EVIDENCE",
+      "response_strategy": "SAFE_FAILURE_OUT_OF_SCOPE"
+    },
+    {
+      "query_id": "TEST-FAIL-002-DIRECT",
+      "query": "Quais são os acidentes ósseos da tíbia?",
+      "normalized_query": "quais sao os acidentes osseos da tibia",
+      "resolved_entity": "tibia",
+      "query_scope": "OUT_OF_SCOPE",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "NO_CANONICAL_EVIDENCE",
+      "response_strategy": "SAFE_FAILURE_OUT_OF_SCOPE"
+    },
+    {
+      "query_id": "TEST-FAIL-003-DIRECT",
+      "query": "Quais são os ramos do nervo facial?",
+      "normalized_query": "quais sao os ramos do nervo facial",
+      "resolved_entity": "nervo facial",
+      "query_scope": "OUT_OF_SCOPE",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "NO_CANONICAL_EVIDENCE",
+      "response_strategy": "SAFE_FAILURE_OUT_OF_SCOPE"
+    },
+    {
+      "query_id": "TEST-FAIL-004-DIRECT",
+      "query": "Explique a estrutura anatômica do rim.",
+      "normalized_query": "explique a estrutura anatomica do rim",
+      "resolved_entity": "rim",
+      "query_scope": "OUT_OF_SCOPE",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "NO_CANONICAL_EVIDENCE",
+      "response_strategy": "SAFE_FAILURE_OUT_OF_SCOPE"
+    },
+    {
+      "query_id": "TEST-FAIL-005-DIRECT",
+      "query": "Descreva os lobos do encéfalo.",
+      "normalized_query": "descreva os lobos do encefalo",
+      "resolved_entity": "encefalo",
+      "query_scope": "OUT_OF_SCOPE",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "NO_CANONICAL_EVIDENCE",
+      "response_strategy": "SAFE_FAILURE_OUT_OF_SCOPE"
+    },
+    {
+      "query_id": "TEST-FAIL-006-DIRECT",
+      "query": "A escápula alada confirma lesão do nervo torácico longo?",
+      "normalized_query": "a escapula alada confirma lesao do nervo toracico longo",
+      "resolved_entity": "long_thoracic_nerve",
+      "query_scope": "CLINICAL_ANATOMY_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "response_strategy": "SAFE_FAILURE_CLINICAL"
+    },
+    {
+      "query_id": "TEST-FAIL-007-DIRECT",
+      "query": "Qual o tratamento cirúrgico para fratura de escápula?",
+      "normalized_query": "qual o tratamento cirurgico para fratura de escapula",
+      "resolved_entity": "scapula",
+      "query_scope": "CLINICAL_ANATOMY_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "response_strategy": "SAFE_FAILURE_CLINICAL"
+    },
+    {
+      "query_id": "TEST-FAIL-008-DIRECT",
+      "query": "Como diagnosticar luxação glenoumeral?",
+      "normalized_query": "como diagnosticar luxacao glenoumeral",
+      "resolved_entity": "scapula",
+      "query_scope": "CLINICAL_ANATOMY_QUERY",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "response_strategy": "SAFE_FAILURE_CLINICAL"
+    },
+    {
+      "query_id": "TEST-FAIL-009-DIRECT",
+      "query": "Qual a anatomia da patela?",
+      "normalized_query": "qual a anatomia da patela",
+      "resolved_entity": "patela",
+      "query_scope": "OUT_OF_SCOPE",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "NO_CANONICAL_EVIDENCE",
+      "response_strategy": "SAFE_FAILURE_OUT_OF_SCOPE"
+    },
+    {
+      "query_id": "TEST-FAIL-010-DIRECT",
+      "query": "Descreva a anatomia do crânio.",
+      "normalized_query": "descreva a anatomia do cranio",
+      "resolved_entity": "cranio",
+      "query_scope": "OUT_OF_SCOPE",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "NO_CANONICAL_EVIDENCE",
+      "response_strategy": "SAFE_FAILURE_OUT_OF_SCOPE"
+    },
+    {
+      "query_id": "TEST-FAIL-011-DIRECT",
+      "query": "Descreva a vascularização do fígado.",
+      "normalized_query": "descreva a vascularizacao do figado",
+      "resolved_entity": "figado",
+      "query_scope": "OUT_OF_SCOPE",
+      "response_depth": "DIRECT",
+      "anchor_fact_ids": [],
+      "context_fact_ids": [],
+      "teaching_connection_ids": [],
+      "practical_unit_ids": [],
+      "evidence_state": "NO_CANONICAL_EVIDENCE",
+      "response_strategy": "SAFE_FAILURE_OUT_OF_SCOPE"
+    }
+  ]
+}

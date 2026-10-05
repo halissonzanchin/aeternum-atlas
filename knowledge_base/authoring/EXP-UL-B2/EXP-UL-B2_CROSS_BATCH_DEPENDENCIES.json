@@ -1,0 +1,83 @@
+{
+  "batch_id": "EXP-UL-B2",
+  "generated_at": "2026-09-27T00:18:08.006Z",
+  "metrics": {
+    "total_cross_batch_dependencies": 5,
+    "b1_to_b2_dependencies": 3,
+    "b2_to_b3_dependencies": 1,
+    "b2_to_b4_dependencies": 1
+  },
+  "dependencies": [
+    {
+      "dependency_id": "DEP-B1-B2-001",
+      "from_batch": "EXP-UL-B1",
+      "to_batch": "EXP-UL-B2",
+      "interface_type": "ARTICULAR_INTERFACE",
+      "source_entities": [
+        "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+        "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM"
+      ],
+      "target_entities": [
+        "AET-ENT-REF-HUMERAL_HEAD",
+        "AET-ENT-REF-GLENOHUMERAL_JOINT"
+      ],
+      "dependency_description": "A cabeça do úmero (B2) articula-se diretamente com a cavidade glenoidal e o lábio glenoidal da escápula (B1/Scapula)."
+    },
+    {
+      "dependency_id": "DEP-B1-B2-002",
+      "from_batch": "EXP-UL-B1",
+      "to_batch": "EXP-UL-B2",
+      "interface_type": "ARCH_IMPINGEMENT_INTERFACE",
+      "source_entities": [
+        "AET-ENT-UL-SCAPULAR_ACROMION",
+        "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS"
+      ],
+      "target_entities": [
+        "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+        "AET-ENT-REF-SUPRASPINATUS"
+      ],
+      "dependency_description": "O arco coracoacromial (acrômio + ligamento coracoacromial + processo coracoide de B1) sobrepõe-se à bolsa subacromial e tendão do supraespinal (B2)."
+    },
+    {
+      "dependency_id": "DEP-B1-B2-003",
+      "from_batch": "EXP-UL-B1",
+      "to_batch": "EXP-UL-B2",
+      "interface_type": "TENDON_ORIGIN_INTERFACE",
+      "source_entities": [
+        "AET-ENT-UL-SCAPULAR_SUPRAGLENOID_TUBERCLE"
+      ],
+      "target_entities": [
+        "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD"
+      ],
+      "dependency_description": "A cabeça longa do bíceps braquial (B2) origina-se no tubérculo supraglenoidal e margem superior do labrum (Scapula/B1)."
+    },
+    {
+      "dependency_id": "DEP-B2-B3-001",
+      "from_batch": "EXP-UL-B2",
+      "to_batch": "EXP-UL-B3",
+      "interface_type": "NEUROVASCULAR_TOPOGRAPHIC_INTERFACE",
+      "source_entities": [
+        "AET-ENT-REF-TERES_MINOR",
+        "AET-ENT-REF-SURGICAL_NECK_HUMERUS"
+      ],
+      "target_entities": [
+        "AET-ENT-REF-AXILLARY_NERVE",
+        "AET-ENT-REF-POSTERIOR_CIRCUMFLEX_HUMERAL_VESSELS"
+      ],
+      "dependency_description": "O colo cirúrgico do úmero e o bordo inferior do redondo menor (B2) delimitam o espaço quadrangular da axila posterior (B3), transmitindo o nervo axilar e vasos circunflexos umerais posteriores."
+    },
+    {
+      "dependency_id": "DEP-B2-B4-001",
+      "from_batch": "EXP-UL-B2",
+      "to_batch": "EXP-UL-B4",
+      "interface_type": "OSTEOLOGICAL_CONTINUITY",
+      "source_entities": [
+        "AET-ENT-REF-HUMERUS"
+      ],
+      "target_entities": [
+        "AET-ENT-CAND-UL-HUMERAL_DISTAL_EPIPHYSIS"
+      ],
+      "dependency_description": "A diáfise do úmero (B2) continua distalmente com a epífise distal umeral e articulação do cotovelo (B4)."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "phase": "EXP-UL-B1-CP1-IA1",
+  "audit_timestamp": "2026-09-25T13:30:13.055Z",
+  "audit_type": "HISTORICAL_IMMUTABILITY_AUDIT",
+  "target_phase": "EXP-UL-B1-CQ1",
+  "consumer_phase": "EXP-UL-B1-CP1",
+  "CQ1_ARTIFACTS_MODIFIED_DURING_CP1": "YES",
+  "CQ1_MODIFIED_ARTIFACT_COUNT": 2,
+  "CQ1_SEMANTIC_CHANGE_COUNT": 8,
+  "CQ1_METRIC_CHANGE_COUNT": 0,
+  "CQ1_PROMOTION_ELIGIBILITY_CHANGE_COUNT": 0,
+  "ORIGINAL_CQ1_RECONSTRUCTION_CONFIDENCE": "HIGH",
+  "CP1_PROMOTION_SET_CHANGED_BY_CQ1_EDITS": "NO",
+  "CP1_SAFE_ENGINE_ELIGIBILITY_CHANGED": "NO",
+  "CP1_PRACTICAL_PROMOTION_CHANGED": "NO",
+  "CP1_TEACHING_PROMOTION_CHANGED": "NO",
+  "CP1_DOCUMENTARY_PROMOTION_CHANGED": "NO",
+  "modified_artifacts": [
+    {
+      "file": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_TEACHING_CONNECTIONS.json",
+      "cause_of_modification": "Adjustment of item-level flags for TC-UL-B1-007 and TC-UL-B1-008 to align with the certified metrics block (6 production / 2 staging).",
+      "timestamp_of_edit": "During CP1 promotion execution (2026-09-25T04:24:56Z)",
+      "items_affected": 2,
+      "fields_affected": 4,
+      "metric_header_changed": false
+    },
+    {
+      "file": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_DOCUMENTARY_QUALIFICATION.json",
+      "cause_of_modification": "Adjustment of item-level flags for DOC-UL-B1-004 and DOC-UL-B1-005 to align with the certified metrics block (5 direct / 2 atomic).",
+      "timestamp_of_edit": "During CP1 promotion execution (2026-09-25T04:24:56Z)",
+      "items_affected": 2,
+      "fields_affected": 4,
+      "metric_header_changed": false
+    }
+  ],
+  "lineage": {
+    "sequence": "ORIGINAL_CQ1 -> CQ1_ERRATA_1 -> CP1_CONSUMED_VERSION",
+    "governance_verdict": "Edits were reconciling individual item discrepancies against certified header metrics. No fact promotion set, practical set, or Safe Engine threshold was corrupted. Historical integrity restored via formal CQ1_ERRATA_1."
+  }
+}

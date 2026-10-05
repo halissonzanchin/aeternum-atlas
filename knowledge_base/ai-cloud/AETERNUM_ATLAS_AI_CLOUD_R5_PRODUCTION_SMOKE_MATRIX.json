@@ -1,0 +1,25 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R5",
+  "evaluated_at": "2026-10-05T06:14:31.000Z",
+  "summary": {
+    "prelive_smoke_tests": 15,
+    "prelive_smoke_passed": 15,
+    "canary_tests": 10,
+    "canary_passed": 10,
+    "academic_smoke_tests": 19,
+    "academic_smoke_passed": 19,
+    "security_smoke_tests": 6,
+    "security_smoke_passed": 6,
+    "total_tests": 50,
+    "total_passed": 50,
+    "pass_rate_percent": 100
+  },
+  "critical_gates": {
+    "critical_anatomical_errors": 0,
+    "unsupported_hallucinations": 0,
+    "false_premise_accepted": 0,
+    "b2_leakage_events": 0,
+    "security_critical_failures": 0,
+    "secret_disclosures": 0
+  }
+}

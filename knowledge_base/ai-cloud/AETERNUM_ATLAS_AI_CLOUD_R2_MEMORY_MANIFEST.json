@@ -1,0 +1,35 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R2",
+  "manifest_version": "1.0.0",
+  "memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+  "engine_version": "AETERNUM-SAFE-ENGINE-0.2.1-DENO-CLOUD",
+  "canonical_fact_count": 248,
+  "canonical_entity_count": 154,
+  "safe_engine_fact_count": 231,
+  "blocked_fact_count": 17,
+  "certified_relation_types_count": 10,
+  "b2_authored_count": 41,
+  "b2_holds_count": 10,
+  "b2_production_exposure": 0,
+  "generated_at": "2026-10-05T01:37:06.406Z",
+  "cloud_bundle_sha256": "dfd50bc610696d3e855199dfe2aa1482c680775f88643fe5b9aadbb1806801b0",
+  "qualification_rules": [
+    "canonical_tier === 'TIER_A_CANONICAL'",
+    "safe_engine_production_eligible === true",
+    "!BLOCKED_CANONICAL_FACT_IDS.includes(canonical_fact_id)",
+    "B2 authoring artifacts strictly quarantined (B2_PRODUCTION_EXPOSURE=0)"
+  ],
+  "source_artifacts": {
+    "pointer": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_CURRENT.json",
+    "registry": "knowledge_base/canonical/AETERNUM_CANONICAL_ENTITY_REGISTRY_V2_1.json",
+    "scapula_facts": "knowledge_base/canonical/AET-KP-UL-SCAPULA-001_CANONICAL_FACTS.json",
+    "b1_facts": "knowledge_base/canonical/EXP-UL-B1_CANONICAL_FACTS.json",
+    "scapula_practical": "knowledge_base/canonical/AET-KP-UL-SCAPULA-001_CANONICAL_PRACTICAL_MEMORY.json",
+    "b1_practical": "knowledge_base/canonical/EXP-UL-B1_CANONICAL_PRACTICAL_MEMORY.json",
+    "scapula_teaching": "knowledge_base/canonical/AET-KP-UL-SCAPULA-001_CANONICAL_TEACHING_CONNECTIONS.json",
+    "b1_teaching": "knowledge_base/canonical/EXP-UL-B1_CANONICAL_TEACHING_CONNECTIONS.json",
+    "scapula_documentary": "knowledge_base/canonical/AET-KP-UL-SCAPULA-001_CANONICAL_DOCUMENTARY_MAP.json",
+    "b1_documentary": "knowledge_base/canonical/EXP-UL-B1_CANONICAL_DOCUMENTARY_MAP.json",
+    "atomic_answers": "knowledge_base/canonical/AET-KP-UL-SCAPULA-001_CANONICAL_ATOMIC_ANSWER_UNITS.json"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "phase": "EXP-UL-B1-SE1",
+  "deterministic_query_count": 50,
+  "deterministic_executions_per_query": 5,
+  "deterministic_matches": 50,
+  "determinism_percentage": "100%"
+}

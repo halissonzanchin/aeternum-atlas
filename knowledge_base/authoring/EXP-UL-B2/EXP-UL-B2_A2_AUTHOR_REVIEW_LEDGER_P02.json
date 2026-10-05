@@ -1,0 +1,44 @@
+{
+  "document_name": "EXP-UL-B2_A2_AUTHOR_REVIEW_LEDGER_P02",
+  "phase": "AMC-1.2-A2 / EXP-UL-B2-A2-P02",
+  "checkpoint": "P02",
+  "timestamp": "2026-10-04T21:13:55.334Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "parent_P01_sha256": "4a2beff3e842de816852adcfc408fc595ca6172e08d01ed75a052bfe1906e221",
+  "parent_IA2_2_sha256": "a58bd14c7e798fb79a1ebaa91b77b2eb6fbe2b4c17a05ce7376127a051430dc0",
+  "author": "CHATGPT_AETERNUM_ANATOMICAL_KNOWLEDGE_AUTHOR",
+  "persisted_by": "ANTIGRAVITY_AUTHORING_PERSISTENCE_ORCHESTRATOR",
+  "metrics": {
+    "total_holds": 3,
+    "automatically_promoted_to_na": false
+  },
+  "holds": [
+    {
+      "hold_id": "HOLD-041",
+      "target_id": "TGT-B2-A2E0-041",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field": "movements.movement_types",
+      "decision": "HOLD",
+      "reason_code": "INSUFFICIENT_ASSERTION_FOR_EXACT_FIELD",
+      "reason": "A evidência descreve a coordenação da elevação completa com movimento escapular, mas não enumera diretamente os tipos de movimento da articulação glenoumeral. Do not infer or insert: flexion, extension, abduction, adduction, internal rotation, external rotation, circumduction."
+    },
+    {
+      "hold_id": "HOLD-042",
+      "target_id": "TGT-B2-A2E0-042",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "field": "stability.static_stabilizers",
+      "decision": "HOLD",
+      "reason_code": "SOURCE_DOES_NOT_EXPLICITLY_CLASSIFY_STATIC_STABILIZERS",
+      "reason": "As evidências vinculadas descrevem cápsula fibrosa e ligamentos glenoumerais, mas não os classificam explicitamente, nesse conjunto de Evidence Units, como uma lista formal de estabilizadores estáticos. Do not infer a static-stabilizer taxonomy."
+    },
+    {
+      "hold_id": "HOLD-049",
+      "target_id": "TGT-B2-A2E0-049",
+      "entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "field": "proximal_attachment",
+      "decision": "HOLD",
+      "reason_code": "INSUFFICIENT_ASSERTION_FOR_EXACT_FIELD",
+      "reason": "As evidências descrevem a localização periférica do labrum na cavidade glenoidal e a fixação da cápsula em sua periferia, mas não definem diretamente um proximal_attachment do labrum. Do not infer directional attachment nomenclature."
+    }
+  ]
+}

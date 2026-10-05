@@ -1,0 +1,1779 @@
+{
+  "source_id": "MORGUE-UPPER-LIMB-001",
+  "source_title": "Anotaciones - Práctica Miembro Superiores",
+  "source_pages_processed": 53,
+  "taxonomy_domain": "ANATOMIA_HUMANA_SISTEMICA_E_TOPOGRAFICA",
+  "region": "MIEMBRO_SUPERIOR",
+  "knowledge_layer": "MORGUE_PRACTICAL_ANATOMY",
+  "source_type": "INSTITUTIONAL_TEACHING_NOTES",
+  "default_validation_status": "SOURCE_EXTRACTED",
+  "structures": {
+    "bones": [
+      {
+        "id": "clavicula",
+        "canonical_name": "Clavícula",
+        "term_la": "Clavicula",
+        "type": "BONE",
+        "pages": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "id": "escapula",
+        "canonical_name": "Escápula",
+        "term_la": "Scapula",
+        "type": "BONE",
+        "pages": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ]
+      },
+      {
+        "id": "umero",
+        "canonical_name": "Úmero",
+        "term_la": "Humerus",
+        "type": "BONE",
+        "pages": [
+          24,
+          25,
+          26,
+          41
+        ]
+      },
+      {
+        "id": "cubito_ulna",
+        "canonical_name": "Cúbito / Ulna",
+        "term_la": "Ulna",
+        "type": "BONE",
+        "pages": [
+          27
+        ]
+      },
+      {
+        "id": "radio",
+        "canonical_name": "Rádio",
+        "term_la": "Radius",
+        "type": "BONE",
+        "pages": [
+          27,
+          28,
+          29
+        ]
+      },
+      {
+        "id": "escafoides",
+        "canonical_name": "Escafoides",
+        "term_la": "Os scaphoideum",
+        "type": "BONE",
+        "pages": [
+          30
+        ]
+      },
+      {
+        "id": "semilunar",
+        "canonical_name": "Semilunar",
+        "term_la": "Os lunatum",
+        "type": "BONE",
+        "pages": [
+          30
+        ]
+      },
+      {
+        "id": "piramidal",
+        "canonical_name": "Piramidal",
+        "term_la": "Os triquetrum",
+        "type": "BONE",
+        "pages": [
+          30
+        ]
+      },
+      {
+        "id": "pisiforme",
+        "canonical_name": "Pisiforme",
+        "term_la": "Os pisiforme",
+        "type": "BONE",
+        "pages": [
+          31
+        ]
+      },
+      {
+        "id": "trapecio",
+        "canonical_name": "Trapecio",
+        "term_la": "Os trapezium",
+        "type": "BONE",
+        "pages": [
+          31
+        ]
+      },
+      {
+        "id": "trapezoide",
+        "canonical_name": "Trapezoide",
+        "term_la": "Os trapezoideum",
+        "type": "BONE",
+        "pages": [
+          31
+        ]
+      },
+      {
+        "id": "hueso_grande",
+        "canonical_name": "Hueso Grande / Capitado",
+        "term_la": "Os capitatum",
+        "type": "BONE",
+        "pages": [
+          30,
+          31
+        ]
+      },
+      {
+        "id": "ganchoso",
+        "canonical_name": "Ganchoso / Unciforme",
+        "term_la": "Os hamatum",
+        "type": "BONE",
+        "pages": [
+          31
+        ]
+      },
+      {
+        "id": "metacarpiano_1",
+        "canonical_name": "1er Metacarpiano",
+        "term_la": "Os metacarpale I",
+        "type": "BONE",
+        "pages": [
+          32
+        ]
+      },
+      {
+        "id": "metacarpiano_2",
+        "canonical_name": "2do Metacarpiano",
+        "term_la": "Os metacarpale II",
+        "type": "BONE",
+        "pages": [
+          32
+        ]
+      },
+      {
+        "id": "metacarpiano_3",
+        "canonical_name": "3er Metacarpiano",
+        "term_la": "Os metacarpale III",
+        "type": "BONE",
+        "pages": [
+          32
+        ]
+      },
+      {
+        "id": "metacarpiano_4",
+        "canonical_name": "4to Metacarpiano",
+        "term_la": "Os metacarpale IV",
+        "type": "BONE",
+        "pages": [
+          32
+        ]
+      },
+      {
+        "id": "metacarpiano_5",
+        "canonical_name": "5to Metacarpiano",
+        "term_la": "Os metacarpale V",
+        "type": "BONE",
+        "pages": [
+          32
+        ]
+      },
+      {
+        "id": "falanges_proximales",
+        "canonical_name": "Falanges Proximales (1-5)",
+        "term_la": "Phalanges proximales",
+        "type": "BONE",
+        "pages": [
+          33
+        ]
+      },
+      {
+        "id": "falanges_medias",
+        "canonical_name": "Falanges Medias (2-5)",
+        "term_la": "Phalanges mediae",
+        "type": "BONE",
+        "pages": [
+          33,
+          34
+        ]
+      },
+      {
+        "id": "falanges_distales",
+        "canonical_name": "Falanges Distales (1-5)",
+        "term_la": "Phalanges distales",
+        "type": "BONE",
+        "pages": [
+          33,
+          34
+        ]
+      }
+    ],
+    "muscles": [
+      {
+        "id": "m_trapecio",
+        "canonical_name": "Músculo Trapecio",
+        "term_la": "Musculus trapezius",
+        "region": "Hombro / Dorso",
+        "pages": [
+          2,
+          22
+        ]
+      },
+      {
+        "id": "m_deltoides",
+        "canonical_name": "Músculo Deltoides",
+        "term_la": "Musculus deltoideus",
+        "region": "Hombro",
+        "pages": [
+          2,
+          22,
+          26,
+          38
+        ]
+      },
+      {
+        "id": "m_subclavio",
+        "canonical_name": "Músculo Subclavio",
+        "term_la": "Musculus subclavius",
+        "region": "Pectoral",
+        "pages": [
+          3,
+          36
+        ]
+      },
+      {
+        "id": "m_pectoral_mayor",
+        "canonical_name": "Músculo Pectoral Mayor",
+        "term_la": "Musculus pectoralis major",
+        "region": "Pectoral",
+        "pages": [
+          2,
+          25,
+          36
+        ]
+      },
+      {
+        "id": "m_pectoral_menor",
+        "canonical_name": "Músculo Pectoral Menor",
+        "term_la": "Musculus pectoralis minor",
+        "region": "Pectoral",
+        "pages": [
+          15,
+          23,
+          36,
+          51
+        ]
+      },
+      {
+        "id": "m_serrato_anterior",
+        "canonical_name": "Músculo Serrato Anterior",
+        "term_la": "Musculus serratus anterior",
+        "region": "Torácica / Hombro",
+        "pages": [
+          12,
+          19,
+          36
+        ]
+      },
+      {
+        "id": "m_elevador_escapula",
+        "canonical_name": "Músculo Elevador de la Escápula",
+        "term_la": "Musculus levator scapulae",
+        "region": "Cuello / Dorso",
+        "pages": [
+          12,
+          22
+        ]
+      },
+      {
+        "id": "m_romboides_menor",
+        "canonical_name": "Músculo Romboides Menor",
+        "term_la": "Musculus rhomboideus minor",
+        "region": "Dorso",
+        "pages": [
+          12,
+          22
+        ]
+      },
+      {
+        "id": "m_romboides_mayor",
+        "canonical_name": "Músculo Romboides Mayor",
+        "term_la": "Musculus rhomboideus major",
+        "region": "Dorso",
+        "pages": [
+          12,
+          22
+        ]
+      },
+      {
+        "id": "m_subescapular",
+        "canonical_name": "Músculo Subescapular",
+        "term_la": "Musculus subscapularis",
+        "region": "Hombro / Manguito",
+        "pages": [
+          5,
+          18,
+          25,
+          37
+        ]
+      },
+      {
+        "id": "m_supraespinoso",
+        "canonical_name": "Músculo Supraespinoso",
+        "term_la": "Musculus supraspinatus",
+        "region": "Hombro / Manguito",
+        "pages": [
+          7,
+          20,
+          25,
+          35
+        ]
+      },
+      {
+        "id": "m_infraespinoso",
+        "canonical_name": "Músculo Infraespinoso",
+        "term_la": "Musculus infraspinatus",
+        "region": "Hombro / Manguito",
+        "pages": [
+          8,
+          21,
+          25,
+          35
+        ]
+      },
+      {
+        "id": "m_redondo_menor",
+        "canonical_name": "Músculo Redondo Menor",
+        "term_la": "Musculus teres minor",
+        "region": "Hombro / Manguito",
+        "pages": [
+          12,
+          22,
+          25,
+          37,
+          41
+        ]
+      },
+      {
+        "id": "m_redondo_mayor",
+        "canonical_name": "Músculo Redondo Mayor",
+        "term_la": "Musculus teres major",
+        "region": "Hombro",
+        "pages": [
+          12,
+          22,
+          25,
+          37,
+          41
+        ]
+      },
+      {
+        "id": "m_dorsal_ancho",
+        "canonical_name": "Músculo Dorsal Ancho",
+        "term_la": "Musculus latissimus dorsi",
+        "region": "Dorso / Axilar",
+        "pages": [
+          13,
+          25,
+          37
+        ]
+      },
+      {
+        "id": "m_omohioideo",
+        "canonical_name": "Músculo Omohioideo",
+        "term_la": "Musculus omohyoideus",
+        "region": "Cuello",
+        "pages": [
+          12,
+          23
+        ]
+      },
+      {
+        "id": "m_coracobraquial",
+        "canonical_name": "Músculo Coracobraquial",
+        "term_la": "Musculus coracobrachialis",
+        "region": "Brazo Anterior",
+        "pages": [
+          15,
+          23,
+          38
+        ]
+      },
+      {
+        "id": "m_biceps_braquial",
+        "canonical_name": "Músculo Bíceps Braquial",
+        "term_la": "Musculus biceps brachii",
+        "region": "Brazo Anterior",
+        "pages": [
+          15,
+          16,
+          23,
+          25,
+          28,
+          39
+        ]
+      },
+      {
+        "id": "m_braquial",
+        "canonical_name": "Músculo Braquial",
+        "term_la": "Musculus brachialis",
+        "region": "Brazo Anterior",
+        "pages": [
+          26,
+          40
+        ]
+      },
+      {
+        "id": "m_triceps_braquial",
+        "canonical_name": "Músculo Tríceps Braquial",
+        "term_la": "Musculus triceps brachii",
+        "region": "Brazo Posterior",
+        "pages": [
+          16,
+          23,
+          26,
+          27,
+          41
+        ]
+      },
+      {
+        "id": "m_anconeo",
+        "canonical_name": "Músculo Ancóneo",
+        "term_la": "Musculus anconeus",
+        "region": "Brazo / Codo Posterior",
+        "pages": [
+          26,
+          27,
+          41,
+          45
+        ]
+      },
+      {
+        "id": "m_pronador_redondo",
+        "canonical_name": "Músculo Pronador Redondo",
+        "term_la": "Musculus pronator teres",
+        "region": "Antebrazo Anterior P1",
+        "pages": [
+          42
+        ]
+      },
+      {
+        "id": "m_flexor_radial_carpo",
+        "canonical_name": "Músculo Flexor Radial del Carpo",
+        "term_la": "Musculus flexor carpi radialis",
+        "region": "Antebrazo Anterior P1",
+        "pages": [
+          42,
+          53
+        ]
+      },
+      {
+        "id": "m_palmar_largo",
+        "canonical_name": "Músculo Palmar Largo",
+        "term_la": "Musculus palmaris longus",
+        "region": "Antebrazo Anterior P1",
+        "pages": [
+          42
+        ]
+      },
+      {
+        "id": "m_flexor_cubital_carpo",
+        "canonical_name": "Músculo Flexor Cubital del Carpo",
+        "term_la": "Musculus flexor carpi ulnaris",
+        "region": "Antebrazo Anterior P1",
+        "pages": [
+          31,
+          42
+        ]
+      },
+      {
+        "id": "m_flexor_superficial_dedos",
+        "canonical_name": "Músculo Flexor Superficial de los Dedos",
+        "term_la": "Musculus flexor digitorum superficialis",
+        "region": "Antebrazo Anterior P2",
+        "pages": [
+          33,
+          43
+        ]
+      },
+      {
+        "id": "m_flexor_profundo_dedos",
+        "canonical_name": "Músculo Flexor Profundo de los Dedos",
+        "term_la": "Musculus flexor digitorum profundus",
+        "region": "Antebrazo Anterior P3",
+        "pages": [
+          34,
+          43
+        ]
+      },
+      {
+        "id": "m_flexor_largo_pulgar",
+        "canonical_name": "Músculo Flexor Largo del Pulgar",
+        "term_la": "Musculus flexor pollicis longus",
+        "region": "Antebrazo Anterior P3",
+        "pages": [
+          34,
+          43
+        ]
+      },
+      {
+        "id": "m_pronador_cuadrado",
+        "canonical_name": "Músculo Pronador Cuadrado",
+        "term_la": "Musculus pronator quadratus",
+        "region": "Antebrazo Anterior P4",
+        "pages": [
+          43
+        ]
+      },
+      {
+        "id": "m_braquiorradial",
+        "canonical_name": "Músculo Braquiorradial",
+        "term_la": "Musculus brachioradialis",
+        "region": "Antebrazo Lateral",
+        "pages": [
+          26,
+          28,
+          44,
+          53
+        ]
+      },
+      {
+        "id": "m_extensor_radial_largo_carpo",
+        "canonical_name": "Músculo Extensor Radial Largo del Carpo",
+        "term_la": "Musculus extensor carpi radialis longus",
+        "region": "Antebrazo Lateral",
+        "pages": [
+          26,
+          32,
+          44
+        ]
+      },
+      {
+        "id": "m_extensor_radial_corto_carpo",
+        "canonical_name": "Músculo Extensor Radial Corto del Carpo",
+        "term_la": "Musculus extensor carpi radialis brevis",
+        "region": "Antebrazo Lateral",
+        "pages": [
+          26,
+          32,
+          44
+        ]
+      },
+      {
+        "id": "m_supinador",
+        "canonical_name": "Músculo Supinador",
+        "term_la": "Musculus supinator",
+        "region": "Antebrazo Lateral / Profundo",
+        "pages": [
+          27,
+          28,
+          44
+        ]
+      },
+      {
+        "id": "m_extensor_dedos",
+        "canonical_name": "Músculo Extensor de los Dedos",
+        "term_la": "Musculus extensor digitorum",
+        "region": "Antebrazo Posterior Superficial",
+        "pages": [
+          34,
+          45
+        ]
+      },
+      {
+        "id": "m_extensor_menique",
+        "canonical_name": "Músculo Extensor del Meñique",
+        "term_la": "Musculus extensor digiti minimi",
+        "region": "Antebrazo Posterior Superficial",
+        "pages": [
+          45
+        ]
+      },
+      {
+        "id": "m_extensor_cubital_carpo",
+        "canonical_name": "Músculo Extensor Cubital del Carpo",
+        "term_la": "Musculus extensor carpi ulnaris",
+        "region": "Antebrazo Posterior Superficial",
+        "pages": [
+          26,
+          27,
+          32,
+          45
+        ]
+      },
+      {
+        "id": "m_abductor_largo_pulgar",
+        "canonical_name": "Músculo Abductor Largo del Pulgar",
+        "term_la": "Musculus abductor pollicis longus",
+        "region": "Antebrazo Posterior Profundo",
+        "pages": [
+          27,
+          28,
+          29,
+          32,
+          46
+        ]
+      },
+      {
+        "id": "m_extensor_corto_pulgar",
+        "canonical_name": "Músculo Extensor Corto del Pulgar",
+        "term_la": "Musculus extensor pollicis brevis",
+        "region": "Antebrazo Posterior Profundo",
+        "pages": [
+          28,
+          29,
+          33,
+          46
+        ]
+      },
+      {
+        "id": "m_extensor_largo_pulgar",
+        "canonical_name": "Músculo Extensor Largo del Pulgar",
+        "term_la": "Musculus extensor pollicis longus",
+        "region": "Antebrazo Posterior Profundo",
+        "pages": [
+          27,
+          29,
+          34,
+          46
+        ]
+      },
+      {
+        "id": "m_extensor_indice",
+        "canonical_name": "Músculo Extensor del Índice",
+        "term_la": "Musculus extensor indicis",
+        "region": "Antebrazo Posterior Profundo",
+        "pages": [
+          27,
+          47
+        ]
+      },
+      {
+        "id": "m_abductor_corto_pulgar",
+        "canonical_name": "Músculo Abductor Corto del Pulgar",
+        "term_la": "Musculus abductor pollicis brevis",
+        "region": "Mano Tenar",
+        "pages": [
+          30,
+          31,
+          33,
+          48
+        ]
+      },
+      {
+        "id": "m_flexor_corto_pulgar",
+        "canonical_name": "Músculo Flexor Corto del Pulgar",
+        "term_la": "Musculus flexor pollicis brevis",
+        "region": "Mano Tenar",
+        "pages": [
+          31,
+          33,
+          48
+        ]
+      },
+      {
+        "id": "m_oponente_pulgar",
+        "canonical_name": "Músculo Oponente del Pulgar",
+        "term_la": "Musculus opponens pollicis",
+        "region": "Mano Tenar",
+        "pages": [
+          31,
+          32,
+          48
+        ]
+      },
+      {
+        "id": "m_aductor_pulgar",
+        "canonical_name": "Músculo Aductor del Pulgar",
+        "term_la": "Musculus adductor pollicis",
+        "region": "Mano Tenar",
+        "pages": [
+          31,
+          32,
+          33,
+          48
+        ]
+      },
+      {
+        "id": "m_palmar_corto",
+        "canonical_name": "Músculo Palmar Corto",
+        "term_la": "Musculus palmaris brevis",
+        "region": "Mano Hipotenar",
+        "pages": [
+          49
+        ]
+      },
+      {
+        "id": "m_abductor_menique",
+        "canonical_name": "Músculo Abductor del Meñique",
+        "term_la": "Musculus abductor digiti minimi",
+        "region": "Mano Hipotenar",
+        "pages": [
+          31,
+          33,
+          49
+        ]
+      },
+      {
+        "id": "m_flexor_corto_menique",
+        "canonical_name": "Músculo Flexor Corto del Meñique",
+        "term_la": "Musculus flexor digiti minimi brevis",
+        "region": "Mano Hipotenar",
+        "pages": [
+          31,
+          33,
+          49
+        ]
+      },
+      {
+        "id": "m_oponente_menique",
+        "canonical_name": "Músculo Oponente del Meñique",
+        "term_la": "Musculus opponens digiti minimi",
+        "region": "Mano Hipotenar",
+        "pages": [
+          31,
+          32,
+          49
+        ]
+      },
+      {
+        "id": "m_lumbricales",
+        "canonical_name": "Músculos Lumbricales (1-4)",
+        "term_la": "Musculi lumbricales",
+        "region": "Mano Palmar Media",
+        "pages": [
+          50
+        ]
+      },
+      {
+        "id": "m_interoseos_palmares",
+        "canonical_name": "Músculos Interóseos Palmares (1-3)",
+        "term_la": "Musculi interossei palmares",
+        "region": "Mano Interósea",
+        "pages": [
+          50
+        ]
+      },
+      {
+        "id": "m_interoseos_dorsales",
+        "canonical_name": "Músculos Interóseos Dorsales (1-4)",
+        "term_la": "Musculi interossei dorsales",
+        "region": "Mano Interósea",
+        "pages": [
+          32,
+          50
+        ]
+      }
+    ],
+    "nerves": [
+      {
+        "id": "plexo_braquial",
+        "canonical_name": "Plexo Braquial",
+        "term_la": "Plexus brachialis",
+        "type": "PLEXUS",
+        "pages": [
+          51,
+          52
+        ]
+      },
+      {
+        "id": "nervio_supraescapular",
+        "canonical_name": "Nervio Supraescapular",
+        "term_la": "Nervus suprascapularis",
+        "type": "NERVE",
+        "pages": [
+          11,
+          12,
+          35
+        ]
+      },
+      {
+        "id": "nervio_axilar",
+        "canonical_name": "Nervio Axilar / Circunflejo",
+        "term_la": "Nervus axillaris",
+        "type": "NERVE",
+        "pages": [
+          25,
+          37,
+          38,
+          41,
+          52
+        ]
+      },
+      {
+        "id": "nervio_musculocutaneo",
+        "canonical_name": "Nervio Musculocutáneo",
+        "term_la": "Nervus musculocutaneus",
+        "type": "NERVE",
+        "pages": [
+          38,
+          39,
+          40
+        ]
+      },
+      {
+        "id": "nervio_radial",
+        "canonical_name": "Nervio Radial",
+        "term_la": "Nervus radialis",
+        "type": "NERVE",
+        "pages": [
+          26,
+          41,
+          44,
+          45,
+          46,
+          47,
+          52
+        ]
+      },
+      {
+        "id": "ramo_profundo_radial",
+        "canonical_name": "Ramo Profundo del Nervio Radial / Interóseo Posterior",
+        "term_la": "Ramus profundus nervi radialis",
+        "type": "NERVE",
+        "pages": [
+          44,
+          45,
+          46,
+          47
+        ]
+      },
+      {
+        "id": "ramo_superficial_radial",
+        "canonical_name": "Ramo Superficial del Nervio Radial",
+        "term_la": "Ramus superficialis nervi radialis",
+        "type": "NERVE",
+        "pages": [
+          29,
+          44
+        ]
+      },
+      {
+        "id": "nervio_mediano",
+        "canonical_name": "Nervio Mediano",
+        "term_la": "Nervus medianus",
+        "type": "NERVE",
+        "pages": [
+          42,
+          43,
+          48,
+          50,
+          52
+        ]
+      },
+      {
+        "id": "ramo_interoseo_anterior",
+        "canonical_name": "Nervio Interóseo Anterior",
+        "term_la": "Nervus interosseus anterior",
+        "type": "NERVE",
+        "pages": [
+          43
+        ]
+      },
+      {
+        "id": "ramo_recurrente_mediano",
+        "canonical_name": "Ramo Recurrente Tenariano del Mediano",
+        "term_la": "Ramus muscularis recurrens nervi mediani",
+        "type": "NERVE",
+        "pages": [
+          48
+        ]
+      },
+      {
+        "id": "nervio_cubital",
+        "canonical_name": "Nervio Cubital / Ulnar",
+        "term_la": "Nervus ulnaris",
+        "type": "NERVE",
+        "pages": [
+          26,
+          42,
+          43,
+          48,
+          49,
+          50
+        ]
+      },
+      {
+        "id": "ramo_profundo_cubital",
+        "canonical_name": "Ramo Profundo del Nervio Cubital",
+        "term_la": "Ramus profundus nervi ulnaris",
+        "type": "NERVE",
+        "pages": [
+          48,
+          49,
+          50
+        ]
+      },
+      {
+        "id": "ramo_superficial_cubital",
+        "canonical_name": "Ramo Superficial del Nervio Cubital",
+        "term_la": "Ramus superficialis nervi ulnaris",
+        "type": "NERVE",
+        "pages": [
+          49
+        ]
+      },
+      {
+        "id": "nervio_cutaneo_antebraquial_medial",
+        "canonical_name": "Nervio Cutáneo Antebraquial Medial",
+        "term_la": "Nervus cutaneus antebrachii medialis",
+        "type": "NERVE",
+        "pages": [
+          51
+        ]
+      },
+      {
+        "id": "nervio_cutaneo_braquial_medial",
+        "canonical_name": "Nervio Cutáneo Braquial Medial",
+        "term_la": "Nervus cutaneus brachii medialis",
+        "type": "NERVE",
+        "pages": [
+          51
+        ]
+      },
+      {
+        "id": "nervio_subescapular_superior",
+        "canonical_name": "Nervio Subescapular Superior",
+        "term_la": "Nervus subscapularis superior",
+        "type": "NERVE",
+        "pages": [
+          37
+        ]
+      },
+      {
+        "id": "nervio_subescapular_inferior",
+        "canonical_name": "Nervio Subescapular Inferior",
+        "term_la": "Nervus subscapularis inferior",
+        "type": "NERVE",
+        "pages": [
+          37
+        ]
+      },
+      {
+        "id": "nervio_toracodorsal",
+        "canonical_name": "Nervio Toracodorsal",
+        "term_la": "Nervus thoracodorsalis",
+        "type": "NERVE",
+        "pages": [
+          37
+        ]
+      },
+      {
+        "id": "nervio_toracico_largo",
+        "canonical_name": "Nervio Torácico Largo",
+        "term_la": "Nervus thoracicus longus",
+        "type": "NERVE",
+        "pages": [
+          36
+        ]
+      }
+    ],
+    "arteries": [
+      {
+        "id": "arteria_subclavia",
+        "canonical_name": "Arteria Subclavia",
+        "term_la": "Arteria subclavia",
+        "type": "ARTERY",
+        "pages": [
+          51
+        ]
+      },
+      {
+        "id": "arteria_axilar",
+        "canonical_name": "Arteria Axilar",
+        "term_la": "Arteria axillaris",
+        "type": "ARTERY",
+        "pages": [
+          51,
+          52
+        ]
+      },
+      {
+        "id": "arteria_toracica_superior",
+        "canonical_name": "Arteria Torácica Superior",
+        "term_la": "Arteria thoracica superior",
+        "type": "ARTERY",
+        "pages": [
+          51
+        ]
+      },
+      {
+        "id": "arteria_toracoacromial",
+        "canonical_name": "Arteria Toracoacromial",
+        "term_la": "Arteria thoracoacromialis",
+        "type": "ARTERY",
+        "pages": [
+          51
+        ]
+      },
+      {
+        "id": "arteria_toracica_lateral",
+        "canonical_name": "Arteria Torácica Lateral / Mamaria Externa",
+        "term_la": "Arteria thoracica lateralis",
+        "type": "ARTERY",
+        "pages": [
+          51
+        ]
+      },
+      {
+        "id": "arteria_subescapular",
+        "canonical_name": "Arteria Subescapular",
+        "term_la": "Arteria subscapularis",
+        "type": "ARTERY",
+        "pages": [
+          52
+        ]
+      },
+      {
+        "id": "arteria_toracodorsal",
+        "canonical_name": "Arteria Toracodorsal",
+        "term_la": "Arteria thoracodorsalis",
+        "type": "ARTERY",
+        "pages": [
+          52
+        ]
+      },
+      {
+        "id": "arteria_circunfleja_escapular",
+        "canonical_name": "Arteria Circunfleja Escapular",
+        "term_la": "Arteria circumflexa scapulae",
+        "type": "ARTERY",
+        "pages": [
+          41,
+          52
+        ]
+      },
+      {
+        "id": "arteria_circunfleja_humeral_anterior",
+        "canonical_name": "Arteria Circunfleja Humeral Anterior",
+        "term_la": "Arteria circumflexa humeri anterior",
+        "type": "ARTERY",
+        "pages": [
+          25,
+          52
+        ]
+      },
+      {
+        "id": "arteria_circunfleja_humeral_posterior",
+        "canonical_name": "Arteria Circunfleja Humeral Posterior",
+        "term_la": "Arteria circumflexa humeri posterior",
+        "type": "ARTERY",
+        "pages": [
+          25,
+          41,
+          52
+        ]
+      },
+      {
+        "id": "arteria_braquial",
+        "canonical_name": "Arteria Braquial / Humeral",
+        "term_la": "Arteria brachialis",
+        "type": "ARTERY",
+        "pages": [
+          52
+        ]
+      },
+      {
+        "id": "arteria_braquial_profunda",
+        "canonical_name": "Arteria Braquial Profunda",
+        "term_la": "Arteria profunda brachii",
+        "type": "ARTERY",
+        "pages": [
+          26,
+          41,
+          52
+        ]
+      },
+      {
+        "id": "arteria_colateral_cubital_superior",
+        "canonical_name": "Arteria Colateral Cubital Superior",
+        "term_la": "Arteria collateralis ulnaris superior",
+        "type": "ARTERY",
+        "pages": [
+          52
+        ]
+      },
+      {
+        "id": "arteria_colateral_cubital_inferior",
+        "canonical_name": "Arteria Colateral Cubital Inferior",
+        "term_la": "Arteria collateralis ulnaris inferior",
+        "type": "ARTERY",
+        "pages": [
+          52
+        ]
+      },
+      {
+        "id": "arteria_radial",
+        "canonical_name": "Arteria Radial",
+        "term_la": "Arteria radialis",
+        "type": "ARTERY",
+        "pages": [
+          29,
+          48,
+          52,
+          53
+        ]
+      },
+      {
+        "id": "arteria_recurrente_radial",
+        "canonical_name": "Arteria Recurrente Radial",
+        "term_la": "Arteria recurrens radialis",
+        "type": "ARTERY",
+        "pages": [
+          53
+        ]
+      },
+      {
+        "id": "arteria_palmar_superficial",
+        "canonical_name": "Arteria Palmar Superficial / Radiopalmar",
+        "term_la": "Ramus palmaris superficialis arteriae radialis",
+        "type": "ARTERY",
+        "pages": [
+          48,
+          53
+        ]
+      },
+      {
+        "id": "arteria_carpiana_palmar",
+        "canonical_name": "Rama Carpiana Palmar",
+        "term_la": "Ramus carpalis palmaris",
+        "type": "ARTERY",
+        "pages": [
+          53
+        ]
+      },
+      {
+        "id": "arteria_carpiana_dorsal",
+        "canonical_name": "Rama Carpiana Dorsal",
+        "term_la": "Ramus carpalis dorsalis",
+        "type": "ARTERY",
+        "pages": [
+          53
+        ]
+      },
+      {
+        "id": "arteria_principal_pulgar",
+        "canonical_name": "Arteria Principal del Pulgar",
+        "term_la": "Arteria princeps pollicis",
+        "type": "ARTERY",
+        "pages": [
+          53
+        ]
+      },
+      {
+        "id": "arteria_metacarpiana_dorsal_1",
+        "canonical_name": "Arteria Metacarpiana Dorsal del 1er Espacio",
+        "term_la": "Arteria metacarpalis dorsalis I",
+        "type": "ARTERY",
+        "pages": [
+          53
+        ]
+      },
+      {
+        "id": "arteria_cubital",
+        "canonical_name": "Arteria Cubital / Ulnar",
+        "term_la": "Arteria ulnaris",
+        "type": "ARTERY",
+        "pages": [
+          43,
+          52,
+          53
+        ]
+      },
+      {
+        "id": "arteria_recurrente_cubital",
+        "canonical_name": "Arterias Recurrentes Cubitales (Ant/Post)",
+        "term_la": "Arteriae recurrentes ulnarae",
+        "type": "ARTERY",
+        "pages": [
+          43
+        ]
+      },
+      {
+        "id": "arteria_interosea_comun",
+        "canonical_name": "Arteria Interósea Común",
+        "term_la": "Arteria interossea communis",
+        "type": "ARTERY",
+        "pages": [
+          43
+        ]
+      },
+      {
+        "id": "arteria_interosea_anterior",
+        "canonical_name": "Arteria Interósea Anterior",
+        "term_la": "Arteria interossea anterior",
+        "type": "ARTERY",
+        "pages": [
+          43
+        ]
+      },
+      {
+        "id": "arteria_interosea_posterior",
+        "canonical_name": "Arteria Interósea Posterior",
+        "term_la": "Arteria interossea posterior",
+        "type": "ARTERY",
+        "pages": [
+          45,
+          46,
+          47
+        ]
+      },
+      {
+        "id": "arteria_palmar_profunda",
+        "canonical_name": "Rama Palmar Profunda de la Cubital",
+        "term_la": "Ramus palmaris profundus arteriae ulnaris",
+        "type": "ARTERY",
+        "pages": [
+          50,
+          53
+        ]
+      },
+      {
+        "id": "arco_palmar_superficial",
+        "canonical_name": "Arco Palmar Superficial",
+        "term_la": "Arcus palmaris superficialis",
+        "type": "ARTERY",
+        "pages": [
+          50,
+          53
+        ]
+      },
+      {
+        "id": "arco_palmar_profundo",
+        "canonical_name": "Arco Palmar Profundo",
+        "term_la": "Arcus palmaris profundus",
+        "type": "ARTERY",
+        "pages": [
+          50,
+          53
+        ]
+      },
+      {
+        "id": "arco_dorsal_carpo",
+        "canonical_name": "Arco Dorsal del Carpo",
+        "term_la": "Rete carpi dorsale",
+        "type": "ARTERY",
+        "pages": [
+          53
+        ]
+      }
+    ],
+    "veins": [
+      {
+        "id": "vena_cefalica",
+        "canonical_name": "Vena Cefálica",
+        "term_la": "Vena cephalica",
+        "type": "VEIN",
+        "pages": [
+          2,
+          29,
+          51
+        ]
+      },
+      {
+        "id": "vena_basilica",
+        "canonical_name": "Vena Basílica",
+        "term_la": "Vena basilica",
+        "type": "VEIN",
+        "pages": [
+          51
+        ]
+      },
+      {
+        "id": "vena_mediana_codo",
+        "canonical_name": "Vena Mediana del Codo / M Venosa",
+        "term_la": "Vena mediana cubiti",
+        "type": "VEIN",
+        "pages": [
+          51
+        ]
+      },
+      {
+        "id": "vena_axilar",
+        "canonical_name": "Vena Axilar",
+        "term_la": "Vena axillaris",
+        "type": "VEIN",
+        "pages": [
+          51
+        ]
+      },
+      {
+        "id": "venas_satelites_braquiales",
+        "canonical_name": "Venas Braquiales Profundas",
+        "term_la": "Venae comitantes arteriae brachialis",
+        "type": "VEIN",
+        "pages": [
+          52
+        ]
+      },
+      {
+        "id": "venas_satelites_radiales",
+        "canonical_name": "Venas Radiales Profundas",
+        "term_la": "Venae comitantes arteriae radialis",
+        "type": "VEIN",
+        "pages": [
+          53
+        ]
+      },
+      {
+        "id": "venas_satelites_cubitales",
+        "canonical_name": "Venas Cubitales Profundas",
+        "term_la": "Venae comitantes arteriae ulnaris",
+        "type": "VEIN",
+        "pages": [
+          53
+        ]
+      }
+    ],
+    "joints": [
+      {
+        "id": "art_esternoclavicular",
+        "canonical_name": "Articulación Esternoclavicular",
+        "term_la": "Articulatio sternoclavicularis",
+        "type": "JOINT",
+        "pages": [
+          1
+        ]
+      },
+      {
+        "id": "art_acromioclavicular",
+        "canonical_name": "Articulación Acromioclavicular",
+        "term_la": "Articulatio acromioclavicularis",
+        "type": "JOINT",
+        "pages": [
+          1,
+          10
+        ]
+      },
+      {
+        "id": "art_glenohumeral",
+        "canonical_name": "Articulación Glenohumeral",
+        "term_la": "Articulatio glenohumeralis",
+        "type": "JOINT",
+        "pages": [
+          18,
+          24
+        ]
+      },
+      {
+        "id": "art_codo",
+        "canonical_name": "Articulación del Codo (Húmero-radio-cubital)",
+        "term_la": "Articulatio cubiti",
+        "type": "JOINT",
+        "pages": [
+          24,
+          26,
+          27,
+          28
+        ]
+      },
+      {
+        "id": "art_radiocubital_proximal",
+        "canonical_name": "Articulación Radiocubital Proximal",
+        "term_la": "Articulatio radioulnaris proximalis",
+        "type": "JOINT",
+        "pages": [
+          28
+        ]
+      },
+      {
+        "id": "art_radiocubital_distal",
+        "canonical_name": "Articulación Radiocubital Distal",
+        "term_la": "Articulatio radioulnaris distalis",
+        "type": "JOINT",
+        "pages": [
+          27,
+          28
+        ]
+      },
+      {
+        "id": "art_radiocarpiana",
+        "canonical_name": "Articulación Radiocarpiana",
+        "term_la": "Articulatio radiocarpalis",
+        "type": "JOINT",
+        "pages": [
+          27,
+          28,
+          29
+        ]
+      },
+      {
+        "id": "art_carpometacarpianas",
+        "canonical_name": "Articulaciones Carpometacarpianas",
+        "term_la": "Articulationes carpometacarpales",
+        "type": "JOINT",
+        "pages": [
+          32
+        ]
+      },
+      {
+        "id": "art_metacarpofalangicas",
+        "canonical_name": "Articulaciones Metacarpofalángicas",
+        "term_la": "Articulationes metacarpophalangeae",
+        "type": "JOINT",
+        "pages": [
+          32,
+          33
+        ]
+      },
+      {
+        "id": "art_interfalangicas",
+        "canonical_name": "Articulaciones Interfalángicas",
+        "term_la": "Articulationes interphalangeae",
+        "type": "JOINT",
+        "pages": [
+          33
+        ]
+      }
+    ],
+    "ligaments": [
+      {
+        "id": "lig_costoclavicular",
+        "canonical_name": "Ligamento Costoclavicular",
+        "term_la": "Ligamentum costoclaviculare",
+        "type": "LIGAMENT",
+        "pages": [
+          3
+        ]
+      },
+      {
+        "id": "lig_trapezoide",
+        "canonical_name": "Ligamento Trapezoide",
+        "term_la": "Ligamentum trapezoideum",
+        "type": "LIGAMENT",
+        "pages": [
+          3,
+          15
+        ]
+      },
+      {
+        "id": "lig_conoide",
+        "canonical_name": "Ligamento Conoide",
+        "term_la": "Ligamentum conoideum",
+        "type": "LIGAMENT",
+        "pages": [
+          3,
+          15
+        ]
+      },
+      {
+        "id": "lig_coracoacromial",
+        "canonical_name": "Ligamento Coracoacromial",
+        "term_la": "Ligamentum coracoacromiale",
+        "type": "LIGAMENT",
+        "pages": [
+          10,
+          15
+        ]
+      },
+      {
+        "id": "lig_coracohumeral",
+        "canonical_name": "Ligamento Coracohumeral",
+        "term_la": "Ligamentum coracohumeralis",
+        "type": "LIGAMENT",
+        "pages": [
+          15,
+          24
+        ]
+      },
+      {
+        "id": "lig_glenohumerales",
+        "canonical_name": "Ligamentos Glenohumerales (Sup, Med, Inf)",
+        "term_la": "Ligamenta glenohumeralia",
+        "type": "LIGAMENT",
+        "pages": [
+          24
+        ]
+      },
+      {
+        "id": "lig_transverso_superior_escapula",
+        "canonical_name": "Ligamento Transverso Superior de la Escápula",
+        "term_la": "Ligamentum transversum scapulae superius",
+        "type": "LIGAMENT",
+        "pages": [
+          12
+        ]
+      },
+      {
+        "id": "lig_espinoglenoideo",
+        "canonical_name": "Ligamento Espinoglenoideo / Transverso Inferior",
+        "term_la": "Ligamentum transversum scapulae inferius",
+        "type": "LIGAMENT",
+        "pages": [
+          11
+        ]
+      },
+      {
+        "id": "lig_humeral_transverso",
+        "canonical_name": "Ligamento Humeral Transverso de Gordon Brodie",
+        "term_la": "Ligamentum transversum humeri",
+        "type": "LIGAMENT",
+        "pages": [
+          25
+        ]
+      },
+      {
+        "id": "lig_anular_radio",
+        "canonical_name": "Ligamento Anular del Radio",
+        "term_la": "Ligamentum anulare radii",
+        "type": "LIGAMENT",
+        "pages": [
+          28
+        ]
+      },
+      {
+        "id": "lig_colateral_radial_codo",
+        "canonical_name": "Ligamento Colateral Radial del Codo",
+        "term_la": "Ligamentum collaterale radiale",
+        "type": "LIGAMENT",
+        "pages": [
+          24
+        ]
+      },
+      {
+        "id": "lig_colateral_cubital_codo",
+        "canonical_name": "Ligamento Colateral Cubital del Codo",
+        "term_la": "Ligamentum collaterale ulnare",
+        "type": "LIGAMENT",
+        "pages": [
+          24
+        ]
+      },
+      {
+        "id": "retinaculo_flexor",
+        "canonical_name": "Retináculo Flexor / Ligamento Anular Anterior del Carpo",
+        "term_la": "Retinaculum flexorum",
+        "type": "LIGAMENT",
+        "pages": [
+          30,
+          31,
+          48
+        ]
+      },
+      {
+        "id": "retinaculo_extensor",
+        "canonical_name": "Retináculo Extensor",
+        "term_la": "Retinaculum extensorum",
+        "type": "LIGAMENT",
+        "pages": [
+          29,
+          44
+        ]
+      }
+    ],
+    "anatomical_spaces": [
+      {
+        "id": "espacio_cuadrangular_velpeau",
+        "canonical_name": "Espacio Cuadrangular de Velpeau / Foramen Cuadrilátero",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          25,
+          41,
+          52
+        ]
+      },
+      {
+        "id": "espacio_triangular_omotricipital",
+        "canonical_name": "Espacio Triangular Omotricipital / Foramen Triangular",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          41,
+          52
+        ]
+      },
+      {
+        "id": "intervalo_triangular_avelino_gutierrez",
+        "canonical_name": "Intervalo Triangular / Triángulo de Avelino Gutiérrez",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          26,
+          41,
+          52
+        ]
+      },
+      {
+        "id": "triangulo_deltopectoral_mohrenheim",
+        "canonical_name": "Triángulo Deltopectoral / Surco de Mohrenheim",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          2,
+          51
+        ]
+      },
+      {
+        "id": "canal_braquial_cruveilhier",
+        "canonical_name": "Conducto Braquial de Cruveilhier",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          52
+        ]
+      },
+      {
+        "id": "fosa_cubital_canales_bicipitales",
+        "canonical_name": "Fosa Cubital / Canales Bicipitales (Medial y Lateral)",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          39,
+          52
+        ]
+      },
+      {
+        "id": "canal_de_torsion_sulco_radial",
+        "canonical_name": "Canal de Torsión / Sulco do Nervo Radial",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          26,
+          41,
+          52
+        ]
+      },
+      {
+        "id": "canal_epitrocleoolecraneano",
+        "canonical_name": "Canal Epitrocleoolecraneano / Túnel Cubital",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          26,
+          42
+        ]
+      },
+      {
+        "id": "tunel_carpiano",
+        "canonical_name": "Túnel Carpiano / Conducto Carpiano",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          30,
+          31,
+          43
+        ]
+      },
+      {
+        "id": "canal_de_guyon",
+        "canonical_name": "Canal de Guyon / Canal Cubitocarpiano",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          31,
+          49,
+          53
+        ]
+      },
+      {
+        "id": "tabaquera_anatomica",
+        "canonical_name": "Tabaquera Anatómica",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          29,
+          46,
+          53
+        ]
+      },
+      {
+        "id": "canal_del_pulso",
+        "canonical_name": "Canal del Pulso Radial",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          53
+        ]
+      },
+      {
+        "id": "canal_muscular_antebrazo",
+        "canonical_name": "Canal Muscular del Antebrazo",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          53
+        ]
+      },
+      {
+        "id": "espacio_tenar",
+        "canonical_name": "Espacio Tenar",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          48
+        ]
+      },
+      {
+        "id": "espacio_palmar_medio",
+        "canonical_name": "Espacio Palmar Medio / Celda Palmar Profunda",
+        "type": "ANATOMICAL_SPACE",
+        "pages": [
+          50,
+          53
+        ]
+      }
+    ],
+    "other_entities": [
+      {
+        "id": "labrum_glenoideo",
+        "canonical_name": "Labrum / Rodete Glenoideo",
+        "type": "FIBROCARTILAGE",
+        "pages": [
+          17
+        ]
+      },
+      {
+        "id": "fibrocartilago_triangular",
+        "canonical_name": "Fibrocartílago Triangular / Disco Articular de la Muñeca",
+        "type": "FIBROCARTILAGE",
+        "pages": [
+          27,
+          28
+        ]
+      },
+      {
+        "id": "membrana_interosea_antebrazo",
+        "canonical_name": "Membrana Interósea Antebraquial",
+        "type": "MEMBRANE",
+        "pages": [
+          28,
+          43,
+          44,
+          46
+        ]
+      },
+      {
+        "id": "aponeurosis_bicipital",
+        "canonical_name": "Aponeurosis Bicipital / Lacertus Fibrosus",
+        "type": "FASCIA",
+        "pages": [
+          39
+        ]
+      },
+      {
+        "id": "aponeurosis_palmar",
+        "canonical_name": "Aponeurosis Palmar",
+        "type": "FASCIA",
+        "pages": [
+          42,
+          49
+        ]
+      },
+      {
+        "id": "vaina_axilar",
+        "canonical_name": "Vaina Axilar",
+        "type": "FASCIA",
+        "pages": [
+          51
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,149 @@
+# AETERNUM ATLAS — SGV1 AUDIT & VALIDATION REPORT
+## FIRST REAL ACADEMIC FACT VALIDATION + SAFE ENGINE COMPATIBILITY AUDIT
+### PACK: AET-KP-UL-SCAPULA-001 | PATCH: AET-KP-UL-SCAPULA-001-KP1
+### GOVERNING STANDARDS: AACM-1.0 | AKAP-1.0 | PROTOCOL: ACSRP-1.1
+### DATE: 2026-09-24
+
+---
+
+### 1. EXECUTIVE SUMMARY & OBJECTIVE
+
+Phase **SGV1** establishes the first real academic fact validation and safe engine compatibility audit for the Scapula Knowledge Pack. Every candidate anatomical proposition from the base pack (116 facts) and Patch 1 (19 facts) has been audited fact-by-fact against actual registered physical sources:
+- **Primary Authority**: *Anatomía Humana*, Tomo 1 (Latarjet & Ruiz Liard, 5.ª Edição) — `SRC-LATARJET-ED5-T1` (Gross Anatomy Reference with regional coverage).
+- **Supporting Authority**: *Atlas of Human Anatomy* (Nielsen & Miller, 1st Edition) — `SRC-NIELSEN-ATLAS-ED1` (Photographic Dissection Atlas).
+- **Institutional Teaching**: *Anotaciones - Práctica Miembro Superiores* (53-page original PDF) — `MORGUE-UPPER-LIMB-001`.
+
+---
+
+### 2. MORGUE SOURCE PROVENANCE CLOSURE
+- **MORGUE_REGISTERED_ARTIFACT_TYPE_BEFORE**: `DERIVED_LEDGER`
+- **MORGUE_REGISTERED_ARTIFACT_TYPE_AFTER**: `ORIGINAL_PDF` (`Anotaciones - Práctica Miembro Superiores.pdf`, 47,634,272 bytes, 53 pages, SHA256 `ce1f13d0b85fd16f9c06db79381f7cce2842277e7de563d2f82be7223f73d8f6`).
+- The derived ledger remains registered as a separate `DERIVED_ARTIFACT` (`MORGUE-UPPER-LIMB-001-R1_2-GOLDEN-INGESTION`).
+
+---
+
+### 3. FACT-BY-FACT VALIDATION & EVIDENCE AUDIT
+- **Total Facts Audited**: 135 / 135
+- **VALIDATED**: 119 facts (supported with exact chapter/page locators in Latarjet T1 ± Nielsen Atlas).
+- **SUPPORTED**: 14 facts (morphological variants, ligament ossifications, periosteal vascular relations, and institutional teaching nuances).
+- **REVIEW_PENDING**: 2 facts (`SCAP-KP1-AI-F016` and `SCAP-KP1-AI-F018` — candidate lateral pectoral nerve articular branches requiring specialized micro-neuroanatomy references).
+- **CONFLICTING**: 0 facts (zero academic contradictions identified).
+- **REJECTED**: 0 facts (zero invalid anatomical claims).
+
+---
+
+### 4. MORGUE RECONCILIATION
+All 52 Morgue propositions were reconciled against canonical gross anatomy:
+- **AGREES_WITH_CANONICAL_SOURCE**: 46
+- **PARTIALLY_AGREES**: 3 (subclavius expansion to coracoid, regional axillary/subclavian trunk proximity)
+- **TERMINOLOGY_DIFFERENCE**: 3 (*borda espinhal* = margo medialis, *borda axilar* = margo lateralis, *incisura coracoide* = incisura scapulae)
+- **CONFLICTS_WITH_CANONICAL_SOURCE**: 0
+- **NOT_YET_VERIFIABLE**: 0
+*All 52 teaching statements are preserved in sovereign memory without erasure.*
+
+---
+
+### 5. TEACHING CONNECTIONS & DOCUMENTARY MEMORY
+- **Teaching Connections**: 14 of 15 are `safe_engine_professor_ready` (TC-SCAP-KP1-NEURAL-001 remains pending due to dependency on candidate nerve branches).
+- **Documentary Blocks**: 12 of 13 are `DOCUMENTARY_BLOCK_FULLY_SUPPORTED` (DOC-SCAP-KP1-002 is `PARTIALLY_SUPPORTED` and uses atomic fallback).
+- **Practical Memory**: 6 of 6 orientation and palpation rules are `safe_engine_practical_ready`.
+
+---
+
+### 6. SAFE ENGINE READINESS AUDIT
+- **SAFE_ENGINE_ATOMIC_READY**: 133 / 135
+- **SAFE_ENGINE_RELATION_READY**: 81 / 135 (clean semantic relations; raw textual ingestion wrappers excluded)
+- **SAFE_ENGINE_MICRO_FACT_READY**: 127
+- **SAFE_ENGINE_CONTEXTUAL_READY**: 41
+- **SAFE_ENGINE_PROFESSOR_READY**: 63
+- **SAFE_ENGINE_PRACTICAL_READY**: 14
+- **SAFE_ENGINE_NOT_READY**: 2
+
+---
+
+### 7. CANONICAL COVERAGE BREAKDOWN
+- **AUTHORING_COVERAGE**: `15/15 DIMENSIONS (10 COMPLETE, 5 PARTIAL, 0 MISSING)`
+- **ACADEMICALLY_SUPPORTED_COVERAGE**: `15/15 DIMENSIONS (10 COMPLETE, 5 PARTIAL, 0 MISSING)`
+- **VALIDATED_COVERAGE**: `13/15 DIMENSIONS (10 COMPLETE, 3 PARTIAL, 2 NONE)`
+- **SAFE_ENGINE_READY_COVERAGE**: `13/15 DIMENSIONS (10 COMPLETE, 3 PARTIAL, 2 NONE)`
+
+*TA2 Latin codes remain blocked (TA2_VALIDATION_AVAILABLE=NO). Clinical causal claims remain blocked (CLINICAL_VALIDATION_AVAILABLE=NO). Zero canonical promotions occurred (CANONICAL_PROMOTION_PERFORMED=NO).*
+
+---
+
+### 8. CERTIFIED FINAL METRIC BLOCK
+
+```
+PACK_ID=
+AET-KP-UL-SCAPULA-001
+
+TOTAL_FACT_CANDIDATES=135
+
+VALIDATED_FACT_COUNT=119
+SUPPORTED_FACT_COUNT=14
+REVIEW_PENDING_FACT_COUNT=2
+CONFLICTING_FACT_COUNT=0
+REJECTED_FACT_COUNT=0
+
+FACT_STATUS_SUM=135
+
+FACTS_WITH_SOURCE_EVIDENCE=133
+FACTS_WITHOUT_SOURCE_EVIDENCE=2
+
+FACTS_WITH_EXACT_PAGE_LOCATOR=133
+FACTS_WITHOUT_EXACT_PAGE_LOCATOR=2
+
+VALIDATED_FACT_WITHOUT_EVIDENCE=0
+SUPPORTED_FACT_WITHOUT_EVIDENCE=0
+
+MORGUE_AGREES_COUNT=46
+MORGUE_PARTIAL_AGREEMENT_COUNT=3
+MORGUE_TERMINOLOGY_DIFFERENCE_COUNT=3
+MORGUE_CONFLICT_COUNT=0
+MORGUE_NOT_VERIFIABLE_COUNT=0
+
+TEACHING_CONNECTION_TOTAL=15
+TEACHING_CONNECTION_SAFE_ENGINE_PROFESSOR_READY=14
+
+DOCUMENTARY_FULLY_SUPPORTED=12
+DOCUMENTARY_PARTIALLY_SUPPORTED=1
+DOCUMENTARY_UNSUPPORTED=0
+
+PRACTICAL_MEMORY_TOTAL=6
+PRACTICAL_MEMORY_SAFE_ENGINE_READY=6
+
+SAFE_ENGINE_ATOMIC_READY_COUNT=133
+SAFE_ENGINE_RELATION_READY_COUNT=81
+SAFE_ENGINE_MICRO_FACT_READY_COUNT=127
+SAFE_ENGINE_CONTEXTUAL_READY_COUNT=41
+SAFE_ENGINE_PROFESSOR_READY_COUNT=63
+SAFE_ENGINE_PRACTICAL_READY_COUNT=14
+SAFE_ENGINE_NOT_READY_COUNT=2
+
+AUTHORING_COVERAGE=15/15 DIMENSIONS (10 COMPLETE, 5 PARTIAL, 0 MISSING)
+ACADEMICALLY_SUPPORTED_COVERAGE=15/15 DIMENSIONS (10 COMPLETE, 5 PARTIAL, 0 MISSING)
+VALIDATED_COVERAGE=13/15 DIMENSIONS (10 COMPLETE, 3 PARTIAL, 2 NONE)
+SAFE_ENGINE_READY_COVERAGE=13/15 DIMENSIONS (10 COMPLETE, 3 PARTIAL, 2 NONE)
+
+MORGUE_REGISTERED_ARTIFACT_TYPE_AFTER=ORIGINAL_PDF
+
+TA2_VALIDATION_AVAILABLE=NO
+CLINICAL_VALIDATION_AVAILABLE=NO
+
+CANONICAL_PROMOTION_PERFORMED=NO
+
+FROZEN_FILES_MODIFIED=0
+PRODUCTION_CHANGES=0
+GEMINI_CALLS=0
+OLLAMA_VALIDATION_CALLS=0
+GIT_COMMITS=0
+GIT_PUSHES=0
+
+SGV1_READY=YES
+
+AET_KP_UL_SCAPULA_001_SGV1_STATUS=
+VERIFIED
+
+NEXT_ACTION=
+AET_KP_UL_SCAPULA_001_CANONICAL_CANDIDATE_AND_SAFE_ENGINE_QUALIFICATION_1
+```

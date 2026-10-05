@@ -1,0 +1,177 @@
+{
+  "schema_name": "aeternum_anatomical_domain_taxonomy",
+  "schema_version": "1.0.0",
+  "created_at": "2026-09-23T15:30:00.000Z",
+  "domain_count": 9,
+  "domains": [
+    {
+      "id": "UPPER_LIMB",
+      "name_pt": "Membro Superior",
+      "name_en": "Upper Limb",
+      "subdomains": [
+        "BONES",
+        "JOINTS",
+        "LIGAMENTS",
+        "MUSCLES",
+        "FASCIAE",
+        "ARTERIES",
+        "VEINS",
+        "LYMPHATICS",
+        "NERVES",
+        "TOPOGRAPHIC_SPACES"
+      ]
+    },
+    {
+      "id": "LOWER_LIMB",
+      "name_pt": "Membro Inferior",
+      "name_en": "Lower Limb",
+      "subdomains": [
+        "BONES",
+        "JOINTS",
+        "LIGAMENTS",
+        "MUSCLES",
+        "FASCIAE",
+        "ARTERIES",
+        "VEINS",
+        "LYMPHATICS",
+        "NERVES",
+        "TOPOGRAPHIC_SPACES"
+      ]
+    },
+    {
+      "id": "THORAX",
+      "name_pt": "Tórax",
+      "name_en": "Thorax",
+      "subdomains": [
+        "BONES",
+        "JOINTS",
+        "MUSCLES",
+        "ORGANS",
+        "ARTERIES",
+        "VEINS",
+        "LYMPHATICS",
+        "NERVES",
+        "TOPOGRAPHIC_SPACES"
+      ]
+    },
+    {
+      "id": "ABDOMEN",
+      "name_pt": "Abdome",
+      "name_en": "Abdomen",
+      "subdomains": [
+        "MUSCLES",
+        "FASCIAE",
+        "ORGANS",
+        "ARTERIES",
+        "VEINS",
+        "LYMPHATICS",
+        "NERVES",
+        "GANGLIA",
+        "TOPOGRAPHIC_SPACES"
+      ]
+    },
+    {
+      "id": "PELVIS_PERINEUM",
+      "name_pt": "Pelve e Períneo",
+      "name_en": "Pelvis and Perineum",
+      "subdomains": [
+        "BONES",
+        "JOINTS",
+        "MUSCLES",
+        "ORGANS",
+        "ARTERIES",
+        "VEINS",
+        "NERVES",
+        "TOPOGRAPHIC_SPACES"
+      ]
+    },
+    {
+      "id": "HEAD_NECK",
+      "name_pt": "Cabeça e Pescoço",
+      "name_en": "Head and Neck",
+      "subdomains": [
+        "BONES",
+        "FORAMINA_CANALS",
+        "MUSCLES",
+        "FASCIAE",
+        "ORGANS",
+        "ARTERIES",
+        "VEINS",
+        "NERVES",
+        "GANGLIA",
+        "TOPOGRAPHIC_SPACES"
+      ]
+    },
+    {
+      "id": "BACK_SPINE",
+      "name_pt": "Dorso e Coluna Vertebral",
+      "name_en": "Back and Spine",
+      "subdomains": [
+        "BONES",
+        "JOINTS",
+        "LIGAMENTS",
+        "MUSCLES",
+        "NERVES",
+        "TOPOGRAPHIC_SPACES"
+      ]
+    },
+    {
+      "id": "CENTRAL_NERVOUS_SYSTEM",
+      "name_pt": "Sistema Nervoso Central",
+      "name_en": "Central Nervous System",
+      "subdomains": [
+        "ORGANS",
+        "ARTERIES",
+        "VEINS",
+        "TOPOGRAPHIC_SPACES"
+      ]
+    },
+    {
+      "id": "PERIPHERAL_NERVOUS_SYSTEM",
+      "name_pt": "Sistema Nervoso Periférico e Autônomo",
+      "name_en": "Peripheral and Autonomic Nervous System",
+      "subdomains": [
+        "NERVES",
+        "GANGLIA",
+        "TOPOGRAPHIC_SPACES"
+      ]
+    }
+  ],
+  "knowledge_dimensions": [
+    "definition",
+    "location",
+    "parts",
+    "boundaries",
+    "relations",
+    "origin",
+    "insertion",
+    "course",
+    "branches",
+    "innervation",
+    "vascularization",
+    "venous_drainage",
+    "lymphatic_drainage",
+    "articulation",
+    "function",
+    "topography",
+    "foramen",
+    "canal",
+    "space",
+    "clinical_anatomy",
+    "variation"
+  ],
+  "relation_families": [
+    "passes_between",
+    "lies_between",
+    "extends_between",
+    "connects_between",
+    "formed_by_components",
+    "articulates_with",
+    "originates_from",
+    "inserts_into",
+    "innervated_by",
+    "innervates",
+    "supplied_by",
+    "drains_into"
+  ]
+}

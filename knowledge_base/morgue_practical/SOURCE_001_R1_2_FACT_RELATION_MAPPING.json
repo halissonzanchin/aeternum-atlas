@@ -1,0 +1,2448 @@
+{
+  "version": "R1.2",
+  "summary": {
+    "final_atomic_fact_count": 208,
+    "final_total_relations": 91,
+    "certified_relation_count": 76,
+    "relation_candidate_count": 15,
+    "certified_plus_candidate": 91,
+    "atomic_facts_with_zero_relations": 120,
+    "atomic_facts_with_one_relation": 85,
+    "atomic_facts_with_multiple_relations": 3,
+    "relations_without_atomic_fact": 0,
+    "previous_209_209_equality_reason": "IMPLEMENTATION_ARTIFACT"
+  },
+  "explanation_of_previous_equality": "In R1.1, the builder script mechanically called addAtomicFact which iterated atomicFacts and pushed exactly one relation for every fact (including descriptive HAS_PROPERTY facts and incomplete headers). In R1.2, true ontological separation is established: 120 descriptive facts emit 0 graph relations, 85 facts emit 1 relation, and 3 multi-entity junction facts emit 6 relations.",
+  "mapping_ledger": [
+    {
+      "atomic_fact_id": "AF-0001",
+      "source_assertion_id": "SA-0001",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0001"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0002",
+      "source_assertion_id": "SA-0002",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0002"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0003",
+      "source_assertion_id": "SA-0003",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0003"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0004",
+      "source_assertion_id": "SA-0004",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0004"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0005",
+      "source_assertion_id": "SA-0004",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0005"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0006",
+      "source_assertion_id": "SA-0004",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0006"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0007",
+      "source_assertion_id": "SA-0005",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0007"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0008",
+      "source_assertion_id": "SA-0005",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0008"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0009",
+      "source_assertion_id": "SA-0006",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0009"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0010",
+      "source_assertion_id": "SA-0006",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0010"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0011",
+      "source_assertion_id": "SA-0007",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0011"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0012",
+      "source_assertion_id": "SA-0007",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0012"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0013",
+      "source_assertion_id": "SA-0008",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0014",
+      "source_assertion_id": "SA-0009",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0015",
+      "source_assertion_id": "SA-0010",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0016",
+      "source_assertion_id": "SA-0011",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0013"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0017",
+      "source_assertion_id": "SA-0011",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0014"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0018",
+      "source_assertion_id": "SA-0012",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0019",
+      "source_assertion_id": "SA-0013",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0020",
+      "source_assertion_id": "SA-0014",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0015"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0021",
+      "source_assertion_id": "SA-0014",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0016"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0022",
+      "source_assertion_id": "SA-0015",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0023",
+      "source_assertion_id": "SA-0016",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0024",
+      "source_assertion_id": "SA-0017",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0025",
+      "source_assertion_id": "SA-0018",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0017"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0026",
+      "source_assertion_id": "SA-0019",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0027",
+      "source_assertion_id": "SA-0020",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0028",
+      "source_assertion_id": "SA-0021",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0029",
+      "source_assertion_id": "SA-0023",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0030",
+      "source_assertion_id": "SA-0024",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0031",
+      "source_assertion_id": "SA-0025",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0032",
+      "source_assertion_id": "SA-0026",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0033",
+      "source_assertion_id": "SA-0027",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0034",
+      "source_assertion_id": "SA-0028",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0035",
+      "source_assertion_id": "SA-0029",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0036",
+      "source_assertion_id": "SA-0030",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0018"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0037",
+      "source_assertion_id": "SA-0030",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0019"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0038",
+      "source_assertion_id": "SA-0030",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0020"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0039",
+      "source_assertion_id": "SA-0031",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0040",
+      "source_assertion_id": "SA-0032",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0041",
+      "source_assertion_id": "SA-0033",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0042",
+      "source_assertion_id": "SA-0034",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0021"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0043",
+      "source_assertion_id": "SA-0034",
+      "relation_count": 2,
+      "emitted_relation_ids": [
+        "REL-R1_2-0022",
+        "REL-R1_2-0023"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0044",
+      "source_assertion_id": "SA-0035",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0024"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0045",
+      "source_assertion_id": "SA-0035",
+      "relation_count": 2,
+      "emitted_relation_ids": [
+        "REL-R1_2-0025",
+        "REL-R1_2-0026"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0046",
+      "source_assertion_id": "SA-0036",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0027"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0047",
+      "source_assertion_id": "SA-0036",
+      "relation_count": 2,
+      "emitted_relation_ids": [
+        "REL-R1_2-0028",
+        "REL-R1_2-0029"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0048",
+      "source_assertion_id": "SA-0037",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0049",
+      "source_assertion_id": "SA-0038",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0050",
+      "source_assertion_id": "SA-0039",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0051",
+      "source_assertion_id": "SA-0040",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0052",
+      "source_assertion_id": "SA-0041",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0053",
+      "source_assertion_id": "SA-0042",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0054",
+      "source_assertion_id": "SA-0043",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0055",
+      "source_assertion_id": "SA-0044",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0056",
+      "source_assertion_id": "SA-0045",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0057",
+      "source_assertion_id": "SA-0046",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0058",
+      "source_assertion_id": "SA-0047",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0059",
+      "source_assertion_id": "SA-0048",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0060",
+      "source_assertion_id": "SA-0049",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0061",
+      "source_assertion_id": "SA-0050",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0062",
+      "source_assertion_id": "SA-0051",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0063",
+      "source_assertion_id": "SA-0052",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0064",
+      "source_assertion_id": "SA-0053",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0065",
+      "source_assertion_id": "SA-0054",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0066",
+      "source_assertion_id": "SA-0055",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0067",
+      "source_assertion_id": "SA-0056",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0068",
+      "source_assertion_id": "SA-0057",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0069",
+      "source_assertion_id": "SA-0058",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0070",
+      "source_assertion_id": "SA-0059",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0030"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0071",
+      "source_assertion_id": "SA-0060",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0031"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0072",
+      "source_assertion_id": "SA-0060",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0032"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0073",
+      "source_assertion_id": "SA-0060",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0033"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0074",
+      "source_assertion_id": "SA-0061",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0075",
+      "source_assertion_id": "SA-0062",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0034"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0076",
+      "source_assertion_id": "SA-0062",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0035"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0077",
+      "source_assertion_id": "SA-0062",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0036"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0078",
+      "source_assertion_id": "SA-0063",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0079",
+      "source_assertion_id": "SA-0064",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0080",
+      "source_assertion_id": "SA-0065",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0037"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0081",
+      "source_assertion_id": "SA-0065",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0038"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0082",
+      "source_assertion_id": "SA-0065",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0039"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0083",
+      "source_assertion_id": "SA-0066",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0084",
+      "source_assertion_id": "SA-0067",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0085",
+      "source_assertion_id": "SA-0068",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0086",
+      "source_assertion_id": "SA-0069",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0087",
+      "source_assertion_id": "SA-0070",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0088",
+      "source_assertion_id": "SA-0071",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0089",
+      "source_assertion_id": "SA-0072",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0090",
+      "source_assertion_id": "SA-0073",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0040"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0091",
+      "source_assertion_id": "SA-0074",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0092",
+      "source_assertion_id": "SA-0075",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0093",
+      "source_assertion_id": "SA-0076",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0094",
+      "source_assertion_id": "SA-0077",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0095",
+      "source_assertion_id": "SA-0078",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0096",
+      "source_assertion_id": "SA-0079",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0097",
+      "source_assertion_id": "SA-0080",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0098",
+      "source_assertion_id": "SA-0081",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0099",
+      "source_assertion_id": "SA-0082",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0041"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0100",
+      "source_assertion_id": "SA-0082",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0042"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0101",
+      "source_assertion_id": "SA-0082",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0043"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0102",
+      "source_assertion_id": "SA-0082",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0044"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0103",
+      "source_assertion_id": "SA-0082",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0045"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0104",
+      "source_assertion_id": "SA-0083",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0105",
+      "source_assertion_id": "SA-0084",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0106",
+      "source_assertion_id": "SA-0085",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0107",
+      "source_assertion_id": "SA-0086",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0108",
+      "source_assertion_id": "SA-0087",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0109",
+      "source_assertion_id": "SA-0088",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0110",
+      "source_assertion_id": "SA-0089",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0111",
+      "source_assertion_id": "SA-0090",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0112",
+      "source_assertion_id": "SA-0091",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0113",
+      "source_assertion_id": "SA-0092",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0114",
+      "source_assertion_id": "SA-0093",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0115",
+      "source_assertion_id": "SA-0094",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0116",
+      "source_assertion_id": "SA-0095",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0046"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0117",
+      "source_assertion_id": "SA-0095",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0047"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0118",
+      "source_assertion_id": "SA-0095",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0048"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0119",
+      "source_assertion_id": "SA-0095",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0049"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0120",
+      "source_assertion_id": "SA-0095",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0050"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0121",
+      "source_assertion_id": "SA-0096",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0051"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0122",
+      "source_assertion_id": "SA-0096",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0052"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0123",
+      "source_assertion_id": "SA-0096",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0053"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0124",
+      "source_assertion_id": "SA-0096",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0054"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0125",
+      "source_assertion_id": "SA-0097",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0126",
+      "source_assertion_id": "SA-0098",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0127",
+      "source_assertion_id": "SA-0099",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0128",
+      "source_assertion_id": "SA-0100",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0129",
+      "source_assertion_id": "SA-0101",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0130",
+      "source_assertion_id": "SA-0102",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0131",
+      "source_assertion_id": "SA-0103",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0132",
+      "source_assertion_id": "SA-0104",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0055"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0133",
+      "source_assertion_id": "SA-0105",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0134",
+      "source_assertion_id": "SA-0106",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0135",
+      "source_assertion_id": "SA-0107",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0136",
+      "source_assertion_id": "SA-0108",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0137",
+      "source_assertion_id": "SA-0109",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0056"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0138",
+      "source_assertion_id": "SA-0110",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0139",
+      "source_assertion_id": "SA-0111",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0140",
+      "source_assertion_id": "SA-0112",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0141",
+      "source_assertion_id": "SA-0113",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0057"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0142",
+      "source_assertion_id": "SA-0113",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0058"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0143",
+      "source_assertion_id": "SA-0113",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0059"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0144",
+      "source_assertion_id": "SA-0113",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0060"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0145",
+      "source_assertion_id": "SA-0113",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0061"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0146",
+      "source_assertion_id": "SA-0113",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0062"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0147",
+      "source_assertion_id": "SA-0114",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0063"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0148",
+      "source_assertion_id": "SA-0114",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0064"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0149",
+      "source_assertion_id": "SA-0114",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0065"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0150",
+      "source_assertion_id": "SA-0114",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0066"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0151",
+      "source_assertion_id": "SA-0115",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0067"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0152",
+      "source_assertion_id": "SA-0115",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0068"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0153",
+      "source_assertion_id": "SA-0115",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0069"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0154",
+      "source_assertion_id": "SA-0115",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0070"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0155",
+      "source_assertion_id": "SA-0115",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0071"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0156",
+      "source_assertion_id": "SA-0116",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0157",
+      "source_assertion_id": "SA-0117",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0158",
+      "source_assertion_id": "SA-0118",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0159",
+      "source_assertion_id": "SA-0119",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0160",
+      "source_assertion_id": "SA-0120",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0161",
+      "source_assertion_id": "SA-0121",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0162",
+      "source_assertion_id": "SA-0122",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0163",
+      "source_assertion_id": "SA-0123",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0164",
+      "source_assertion_id": "SA-0124",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0165",
+      "source_assertion_id": "SA-0125",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0166",
+      "source_assertion_id": "SA-0126",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0167",
+      "source_assertion_id": "SA-0127",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0168",
+      "source_assertion_id": "SA-0128",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0169",
+      "source_assertion_id": "SA-0129",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0072"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0170",
+      "source_assertion_id": "SA-0130",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0171",
+      "source_assertion_id": "SA-0131",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0172",
+      "source_assertion_id": "SA-0132",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0173",
+      "source_assertion_id": "SA-0133",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0174",
+      "source_assertion_id": "SA-0134",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0175",
+      "source_assertion_id": "SA-0135",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0176",
+      "source_assertion_id": "SA-0136",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0177",
+      "source_assertion_id": "SA-0137",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0178",
+      "source_assertion_id": "SA-0138",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0179",
+      "source_assertion_id": "SA-0139",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0180",
+      "source_assertion_id": "SA-0140",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0181",
+      "source_assertion_id": "SA-0141",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0182",
+      "source_assertion_id": "SA-0142",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0073"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0183",
+      "source_assertion_id": "SA-0142",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0074"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0184",
+      "source_assertion_id": "SA-0143",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0075"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0185",
+      "source_assertion_id": "SA-0143",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0076"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0186",
+      "source_assertion_id": "SA-0143",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0077"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0187",
+      "source_assertion_id": "SA-0143",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0078"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0188",
+      "source_assertion_id": "SA-0143",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0079"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0189",
+      "source_assertion_id": "SA-0143",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0080"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0190",
+      "source_assertion_id": "SA-0144",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0191",
+      "source_assertion_id": "SA-0145",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0081"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0192",
+      "source_assertion_id": "SA-0145",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0082"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0193",
+      "source_assertion_id": "SA-0145",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0083"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0194",
+      "source_assertion_id": "SA-0145",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0084"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0195",
+      "source_assertion_id": "SA-0145",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0085"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0196",
+      "source_assertion_id": "SA-0146",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0197",
+      "source_assertion_id": "SA-0147",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0198",
+      "source_assertion_id": "SA-0148",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0199",
+      "source_assertion_id": "SA-0149",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0200",
+      "source_assertion_id": "SA-0150",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0201",
+      "source_assertion_id": "SA-0151",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0202",
+      "source_assertion_id": "SA-0152",
+      "relation_count": 0,
+      "emitted_relation_ids": []
+    },
+    {
+      "atomic_fact_id": "AF-0203",
+      "source_assertion_id": "SA-0153",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0086"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0204",
+      "source_assertion_id": "SA-0153",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0087"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0205",
+      "source_assertion_id": "SA-0153",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0088"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0206",
+      "source_assertion_id": "SA-0153",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0089"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0207",
+      "source_assertion_id": "SA-0153",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0090"
+      ]
+    },
+    {
+      "atomic_fact_id": "AF-0208",
+      "source_assertion_id": "SA-0153",
+      "relation_count": 1,
+      "emitted_relation_ids": [
+        "REL-R1_2-0091"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "relation_id": "REL-R1_2-0001",
+      "atomic_fact_id": "AF-0001",
+      "source_assertion_id": "SA-0001",
+      "source_page": 1,
+      "subject": "cintura_escapular",
+      "relation": "HAS_BONE_COUNT",
+      "object": "32_huesos",
+      "relation_family": "DESCRIPTIVE_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0002",
+      "atomic_fact_id": "AF-0002",
+      "source_assertion_id": "SA-0002",
+      "source_page": 1,
+      "subject": "clavicula",
+      "relation": "PART_OF",
+      "object": "cintura_escapular",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0003",
+      "atomic_fact_id": "AF-0003",
+      "source_assertion_id": "SA-0003",
+      "source_page": 1,
+      "subject": "clavicula",
+      "relation": "TYPE_OF",
+      "object": "hueso_plano_alargado",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0004",
+      "atomic_fact_id": "AF-0004",
+      "source_assertion_id": "SA-0004",
+      "source_page": 1,
+      "subject": "clavicula_extremo_medial",
+      "relation": "MORPHOLOGY",
+      "object": "esternal_esferoide",
+      "relation_family": "DESCRIPTIVE_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0005",
+      "atomic_fact_id": "AF-0005",
+      "source_assertion_id": "SA-0004",
+      "source_page": 1,
+      "subject": "clavicula_extremo_medial",
+      "relation": "ARTICULATES_WITH",
+      "object": "manubrio_esternal",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0006",
+      "atomic_fact_id": "AF-0006",
+      "source_assertion_id": "SA-0004",
+      "source_page": 1,
+      "subject": "clavicula_extremo_medial",
+      "relation": "ARTICULATES_WITH",
+      "object": "primer_cartilago_costal",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0007",
+      "atomic_fact_id": "AF-0007",
+      "source_assertion_id": "SA-0005",
+      "source_page": 1,
+      "subject": "clavicula_extremo_lateral",
+      "relation": "MORPHOLOGY",
+      "object": "acromial_plano",
+      "relation_family": "DESCRIPTIVE_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0008",
+      "atomic_fact_id": "AF-0008",
+      "source_assertion_id": "SA-0005",
+      "source_page": 1,
+      "subject": "clavicula_extremo_lateral",
+      "relation": "ARTICULATES_WITH",
+      "object": "acromion_escapula",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0009",
+      "atomic_fact_id": "AF-0009",
+      "source_assertion_id": "SA-0006",
+      "source_page": 1,
+      "subject": "clavicula",
+      "relation": "HAS_SURFACE",
+      "object": "cara_superior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0010",
+      "atomic_fact_id": "AF-0010",
+      "source_assertion_id": "SA-0006",
+      "source_page": 1,
+      "subject": "clavicula",
+      "relation": "HAS_SURFACE",
+      "object": "cara_inferior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0011",
+      "atomic_fact_id": "AF-0011",
+      "source_assertion_id": "SA-0007",
+      "source_page": 1,
+      "subject": "clavicula",
+      "relation": "HAS_BORDER",
+      "object": "borde_anterior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0012",
+      "atomic_fact_id": "AF-0012",
+      "source_assertion_id": "SA-0007",
+      "source_page": 1,
+      "subject": "clavicula",
+      "relation": "HAS_BORDER",
+      "object": "borde_posterior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0013",
+      "atomic_fact_id": "AF-0016",
+      "source_assertion_id": "SA-0011",
+      "source_page": 2,
+      "subject": "triangulo_deltopectoral_mohrenheim",
+      "relation": "CONTAINS",
+      "object": "vena_cefalica",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0014",
+      "atomic_fact_id": "AF-0017",
+      "source_assertion_id": "SA-0011",
+      "source_page": 2,
+      "subject": "triangulo_deltopectoral_mohrenheim",
+      "relation": "CONTAINS",
+      "object": "rama_deltoidea_arteria_toracoacromial",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0015",
+      "atomic_fact_id": "AF-0020",
+      "source_assertion_id": "SA-0014",
+      "source_page": 3,
+      "subject": "clavicula_cara_inferior",
+      "relation": "HAS_LANDMARK",
+      "object": "tuberculo_conoideo",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0016",
+      "atomic_fact_id": "AF-0021",
+      "source_assertion_id": "SA-0014",
+      "source_page": 3,
+      "subject": "clavicula_cara_inferior",
+      "relation": "HAS_LANDMARK",
+      "object": "linea_trapezoidea",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0017",
+      "atomic_fact_id": "AF-0025",
+      "source_assertion_id": "SA-0018",
+      "source_page": 4,
+      "subject": "escapula",
+      "relation": "PROJECTS_TO",
+      "object": "costillas_2_a_7",
+      "relation_family": "DESCRIPTIVE_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0018",
+      "atomic_fact_id": "AF-0036",
+      "source_assertion_id": "SA-0030",
+      "source_page": 12,
+      "subject": "escapula",
+      "relation": "HAS_BORDER",
+      "object": "borde_medial_espinal",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0019",
+      "atomic_fact_id": "AF-0037",
+      "source_assertion_id": "SA-0030",
+      "source_page": 12,
+      "subject": "escapula",
+      "relation": "HAS_BORDER",
+      "object": "borde_lateral_axilar",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0020",
+      "atomic_fact_id": "AF-0038",
+      "source_assertion_id": "SA-0030",
+      "source_page": 12,
+      "subject": "escapula",
+      "relation": "HAS_BORDER",
+      "object": "borde_superior_cervical",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0021",
+      "atomic_fact_id": "AF-0042",
+      "source_assertion_id": "SA-0034",
+      "source_page": 13,
+      "subject": "escapula",
+      "relation": "HAS_ANGLE",
+      "object": "angulo_superior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0022",
+      "atomic_fact_id": "AF-0043",
+      "source_assertion_id": "SA-0034",
+      "source_page": 13,
+      "subject": "angulo_superior",
+      "relation": "JUNCTION_OF",
+      "object": "borde_superior",
+      "relation_family": "GEOMETRIC_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0023",
+      "atomic_fact_id": "AF-0043",
+      "source_assertion_id": "SA-0034",
+      "source_page": 13,
+      "subject": "angulo_superior",
+      "relation": "JUNCTION_OF",
+      "object": "borde_medial",
+      "relation_family": "GEOMETRIC_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0024",
+      "atomic_fact_id": "AF-0044",
+      "source_assertion_id": "SA-0035",
+      "source_page": 13,
+      "subject": "escapula",
+      "relation": "HAS_ANGLE",
+      "object": "angulo_inferior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0025",
+      "atomic_fact_id": "AF-0045",
+      "source_assertion_id": "SA-0035",
+      "source_page": 13,
+      "subject": "angulo_inferior",
+      "relation": "JUNCTION_OF",
+      "object": "borde_medial",
+      "relation_family": "GEOMETRIC_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0026",
+      "atomic_fact_id": "AF-0045",
+      "source_assertion_id": "SA-0035",
+      "source_page": 13,
+      "subject": "angulo_inferior",
+      "relation": "JUNCTION_OF",
+      "object": "borde_lateral",
+      "relation_family": "GEOMETRIC_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0027",
+      "atomic_fact_id": "AF-0046",
+      "source_assertion_id": "SA-0036",
+      "source_page": 14,
+      "subject": "escapula",
+      "relation": "HAS_ANGLE",
+      "object": "angulo_lateral",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0028",
+      "atomic_fact_id": "AF-0047",
+      "source_assertion_id": "SA-0036",
+      "source_page": 14,
+      "subject": "angulo_lateral",
+      "relation": "JUNCTION_OF",
+      "object": "borde_superior",
+      "relation_family": "GEOMETRIC_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0029",
+      "atomic_fact_id": "AF-0047",
+      "source_assertion_id": "SA-0036",
+      "source_page": 14,
+      "subject": "angulo_lateral",
+      "relation": "JUNCTION_OF",
+      "object": "borde_lateral",
+      "relation_family": "GEOMETRIC_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0030",
+      "atomic_fact_id": "AF-0070",
+      "source_assertion_id": "SA-0059",
+      "source_page": 24,
+      "subject": "art_codo",
+      "relation": "INNERVATED_BY",
+      "object": "nervio_radial_y_cubital_ramos_articulares",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0031",
+      "atomic_fact_id": "AF-0071",
+      "source_assertion_id": "SA-0060",
+      "source_page": 25,
+      "subject": "m_supraespinoso",
+      "relation": "INSERTS_INTO",
+      "object": "troquiter_faceta_superior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0032",
+      "atomic_fact_id": "AF-0072",
+      "source_assertion_id": "SA-0060",
+      "source_page": 25,
+      "subject": "m_infraespinoso",
+      "relation": "INSERTS_INTO",
+      "object": "troquiter_faceta_media",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0033",
+      "atomic_fact_id": "AF-0073",
+      "source_assertion_id": "SA-0060",
+      "source_page": 25,
+      "subject": "m_redondo_menor",
+      "relation": "INSERTS_INTO",
+      "object": "troquiter_faceta_inferior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0034",
+      "atomic_fact_id": "AF-0075",
+      "source_assertion_id": "SA-0062",
+      "source_page": 25,
+      "subject": "m_pectoral_mayor",
+      "relation": "INSERTS_INTO",
+      "object": "corredera_bicipital_labio_lateral",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0035",
+      "atomic_fact_id": "AF-0076",
+      "source_assertion_id": "SA-0062",
+      "source_page": 25,
+      "subject": "m_dorsal_ancho",
+      "relation": "INSERTS_INTO",
+      "object": "corredera_bicipital_suelo",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0036",
+      "atomic_fact_id": "AF-0077",
+      "source_assertion_id": "SA-0062",
+      "source_page": 25,
+      "subject": "m_redondo_mayor",
+      "relation": "INSERTS_INTO",
+      "object": "corredera_bicipital_labio_medial",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0037",
+      "atomic_fact_id": "AF-0080",
+      "source_assertion_id": "SA-0065",
+      "source_page": 26,
+      "subject": "canal_de_torsion_sulco_radial",
+      "relation": "CONTAINS",
+      "object": "nervio_radial",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0038",
+      "atomic_fact_id": "AF-0081",
+      "source_assertion_id": "SA-0065",
+      "source_page": 26,
+      "subject": "canal_de_torsion_sulco_radial",
+      "relation": "CONTAINS",
+      "object": "arteria_braquial_profunda",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0039",
+      "atomic_fact_id": "AF-0082",
+      "source_assertion_id": "SA-0065",
+      "source_page": 26,
+      "subject": "nervio_radial",
+      "relation": "ACCOMPANIES",
+      "object": "arteria_braquial_profunda",
+      "relation_family": "DESCRIPTIVE_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0040",
+      "atomic_fact_id": "AF-0090",
+      "source_assertion_id": "SA-0073",
+      "source_page": 27,
+      "subject": "radio",
+      "relation": "LOCATION_SLIP",
+      "object": "hueso_medial_antebrazo",
+      "relation_family": "DESCRIPTIVE_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0041",
+      "atomic_fact_id": "AF-0099",
+      "source_assertion_id": "SA-0082",
+      "source_page": 30,
+      "subject": "semilunar",
+      "relation": "ARTICULATES_WITH",
+      "object": "radio",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0042",
+      "atomic_fact_id": "AF-0100",
+      "source_assertion_id": "SA-0082",
+      "source_page": 30,
+      "subject": "semilunar",
+      "relation": "ARTICULATES_WITH",
+      "object": "escafoides",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0043",
+      "atomic_fact_id": "AF-0101",
+      "source_assertion_id": "SA-0082",
+      "source_page": 30,
+      "subject": "semilunar",
+      "relation": "ARTICULATES_WITH",
+      "object": "piramidal",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0044",
+      "atomic_fact_id": "AF-0102",
+      "source_assertion_id": "SA-0082",
+      "source_page": 30,
+      "subject": "semilunar",
+      "relation": "ARTICULATES_WITH",
+      "object": "hueso_grande",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0045",
+      "atomic_fact_id": "AF-0103",
+      "source_assertion_id": "SA-0082",
+      "source_page": 30,
+      "subject": "semilunar",
+      "relation": "ARTICULATES_WITH",
+      "object": "ganchoso",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0046",
+      "atomic_fact_id": "AF-0116",
+      "source_assertion_id": "SA-0095",
+      "source_page": 35,
+      "subject": "m_supraespinoso",
+      "relation": "ORIGINATES_FROM",
+      "object": "fosa_supraespinosa",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0047",
+      "atomic_fact_id": "AF-0117",
+      "source_assertion_id": "SA-0095",
+      "source_page": 35,
+      "subject": "m_supraespinoso",
+      "relation": "INSERTS_INTO",
+      "object": "troquiter_faceta_superior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0048",
+      "atomic_fact_id": "AF-0118",
+      "source_assertion_id": "SA-0095",
+      "source_page": 35,
+      "subject": "m_supraespinoso",
+      "relation": "INNERVATED_BY",
+      "object": "nervio_supraescapular",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0049",
+      "atomic_fact_id": "AF-0119",
+      "source_assertion_id": "SA-0095",
+      "source_page": 35,
+      "subject": "m_supraespinoso",
+      "relation": "SUPPLIED_BY",
+      "object": "arteria_supraescapular",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0050",
+      "atomic_fact_id": "AF-0120",
+      "source_assertion_id": "SA-0095",
+      "source_page": 35,
+      "subject": "m_supraespinoso",
+      "relation": "PERFORMS_ACTION",
+      "object": "abduce_el_brazo",
+      "relation_family": "DESCRIPTIVE_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0051",
+      "atomic_fact_id": "AF-0121",
+      "source_assertion_id": "SA-0096",
+      "source_page": 35,
+      "subject": "m_infraespinoso",
+      "relation": "ORIGINATES_FROM",
+      "object": "fosa_infraespinosa",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0052",
+      "atomic_fact_id": "AF-0122",
+      "source_assertion_id": "SA-0096",
+      "source_page": 35,
+      "subject": "m_infraespinoso",
+      "relation": "INSERTS_INTO",
+      "object": "troquiter_faceta_media",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0053",
+      "atomic_fact_id": "AF-0123",
+      "source_assertion_id": "SA-0096",
+      "source_page": 35,
+      "subject": "m_infraespinoso",
+      "relation": "INNERVATED_BY",
+      "object": "nervio_supraescapular",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0054",
+      "atomic_fact_id": "AF-0124",
+      "source_assertion_id": "SA-0096",
+      "source_page": 35,
+      "subject": "m_infraespinoso",
+      "relation": "PERFORMS_ACTION",
+      "object": "rotador_lateral",
+      "relation_family": "DESCRIPTIVE_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0055",
+      "atomic_fact_id": "AF-0132",
+      "source_assertion_id": "SA-0104",
+      "source_page": 37,
+      "subject": "m_subescapular",
+      "relation": "INNERVATED_BY",
+      "object": "nervio_axilar_mencion_fuente",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0056",
+      "atomic_fact_id": "AF-0137",
+      "source_assertion_id": "SA-0109",
+      "source_page": 39,
+      "subject": "m_biceps_braquial",
+      "relation": "INNERVATED_BY",
+      "object": "nervio_radial_mencion_fuente",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0057",
+      "atomic_fact_id": "AF-0141",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "subject": "espacio_cuadrangular_velpeau",
+      "relation": "HAS_SUPERIOR_BOUNDARY",
+      "object": "m_redondo_menor",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0058",
+      "atomic_fact_id": "AF-0142",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "subject": "espacio_cuadrangular_velpeau",
+      "relation": "HAS_INFERIOR_BOUNDARY",
+      "object": "m_redondo_mayor",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0059",
+      "atomic_fact_id": "AF-0143",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "subject": "espacio_cuadrangular_velpeau",
+      "relation": "HAS_MEDIAL_BOUNDARY",
+      "object": "cabeza_larga_triceps",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0060",
+      "atomic_fact_id": "AF-0144",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "subject": "espacio_cuadrangular_velpeau",
+      "relation": "HAS_LATERAL_BOUNDARY",
+      "object": "cuello_quirurgico_umero",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0061",
+      "atomic_fact_id": "AF-0145",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "subject": "espacio_cuadrangular_velpeau",
+      "relation": "CONTAINS",
+      "object": "nervio_axilar",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0062",
+      "atomic_fact_id": "AF-0146",
+      "source_assertion_id": "SA-0113",
+      "source_page": 41,
+      "subject": "espacio_cuadrangular_velpeau",
+      "relation": "CONTAINS",
+      "object": "arteria_circunfleja_humeral_posterior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0063",
+      "atomic_fact_id": "AF-0147",
+      "source_assertion_id": "SA-0114",
+      "source_page": 41,
+      "subject": "espacio_triangular_omotricipital",
+      "relation": "HAS_SUPERIOR_BOUNDARY",
+      "object": "m_redondo_menor",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0064",
+      "atomic_fact_id": "AF-0148",
+      "source_assertion_id": "SA-0114",
+      "source_page": 41,
+      "subject": "espacio_triangular_omotricipital",
+      "relation": "HAS_INFERIOR_BOUNDARY",
+      "object": "m_redondo_mayor",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0065",
+      "atomic_fact_id": "AF-0149",
+      "source_assertion_id": "SA-0114",
+      "source_page": 41,
+      "subject": "espacio_triangular_omotricipital",
+      "relation": "HAS_LATERAL_BOUNDARY",
+      "object": "cabeza_larga_triceps",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0066",
+      "atomic_fact_id": "AF-0150",
+      "source_assertion_id": "SA-0114",
+      "source_page": 41,
+      "subject": "espacio_triangular_omotricipital",
+      "relation": "CONTAINS",
+      "object": "arteria_circunfleja_escapular",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0067",
+      "atomic_fact_id": "AF-0151",
+      "source_assertion_id": "SA-0115",
+      "source_page": 41,
+      "subject": "intervalo_triangular_avelino_gutierrez",
+      "relation": "HAS_SUPERIOR_BOUNDARY",
+      "object": "m_redondo_mayor",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0068",
+      "atomic_fact_id": "AF-0152",
+      "source_assertion_id": "SA-0115",
+      "source_page": 41,
+      "subject": "intervalo_triangular_avelino_gutierrez",
+      "relation": "HAS_MEDIAL_BOUNDARY",
+      "object": "cabeza_larga_triceps",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0069",
+      "atomic_fact_id": "AF-0153",
+      "source_assertion_id": "SA-0115",
+      "source_page": 41,
+      "subject": "intervalo_triangular_avelino_gutierrez",
+      "relation": "HAS_LATERAL_BOUNDARY",
+      "object": "diafisis_umero",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0070",
+      "atomic_fact_id": "AF-0154",
+      "source_assertion_id": "SA-0115",
+      "source_page": 41,
+      "subject": "intervalo_triangular_avelino_gutierrez",
+      "relation": "CONTAINS",
+      "object": "nervio_radial",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0071",
+      "atomic_fact_id": "AF-0155",
+      "source_assertion_id": "SA-0115",
+      "source_page": 41,
+      "subject": "intervalo_triangular_avelino_gutierrez",
+      "relation": "CONTAINS",
+      "object": "arteria_braquial_profunda",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0072",
+      "atomic_fact_id": "AF-0169",
+      "source_assertion_id": "SA-0129",
+      "source_page": 46,
+      "subject": "tabaquera_anatomica",
+      "relation": "VASCULAR_SLIP",
+      "object": "arteria_cefalica",
+      "relation_family": "DESCRIPTIVE_TOPOGRAPHY",
+      "relation_status": "RELATION_CANDIDATE"
+    },
+    {
+      "relation_id": "REL-R1_2-0073",
+      "atomic_fact_id": "AF-0182",
+      "source_assertion_id": "SA-0142",
+      "source_page": 51,
+      "subject": "arteria_axilar_p1",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_toracica_superior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0074",
+      "atomic_fact_id": "AF-0183",
+      "source_assertion_id": "SA-0142",
+      "source_page": 51,
+      "subject": "arteria_toracica_superior",
+      "relation": "BRANCHES_FROM",
+      "object": "arteria_axilar_p1",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0075",
+      "atomic_fact_id": "AF-0184",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "subject": "arteria_axilar_p2",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_toracoacromial",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0076",
+      "atomic_fact_id": "AF-0185",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "subject": "arteria_axilar_p2",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_toracica_lateral",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0077",
+      "atomic_fact_id": "AF-0186",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "subject": "arteria_toracoacromial",
+      "relation": "GIVES_BRANCH",
+      "object": "rama_acromial",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0078",
+      "atomic_fact_id": "AF-0187",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "subject": "arteria_toracoacromial",
+      "relation": "GIVES_BRANCH",
+      "object": "rama_clavicular",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0079",
+      "atomic_fact_id": "AF-0188",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "subject": "arteria_toracoacromial",
+      "relation": "GIVES_BRANCH",
+      "object": "rama_deltoidea",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0080",
+      "atomic_fact_id": "AF-0189",
+      "source_assertion_id": "SA-0143",
+      "source_page": 51,
+      "subject": "arteria_toracoacromial",
+      "relation": "GIVES_BRANCH",
+      "object": "rama_pectoral",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0081",
+      "atomic_fact_id": "AF-0191",
+      "source_assertion_id": "SA-0145",
+      "source_page": 52,
+      "subject": "arteria_axilar_p3",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_subescapular",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0082",
+      "atomic_fact_id": "AF-0192",
+      "source_assertion_id": "SA-0145",
+      "source_page": 52,
+      "subject": "arteria_axilar_p3",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_circunfleja_humeral_anterior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0083",
+      "atomic_fact_id": "AF-0193",
+      "source_assertion_id": "SA-0145",
+      "source_page": 52,
+      "subject": "arteria_axilar_p3",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_circunfleja_humeral_posterior",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0084",
+      "atomic_fact_id": "AF-0194",
+      "source_assertion_id": "SA-0145",
+      "source_page": 52,
+      "subject": "arteria_subescapular",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_toracodorsal",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0085",
+      "atomic_fact_id": "AF-0195",
+      "source_assertion_id": "SA-0145",
+      "source_page": 52,
+      "subject": "arteria_subescapular",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_circunfleja_escapular",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0086",
+      "atomic_fact_id": "AF-0203",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "subject": "arteria_radial",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_recurrente_radial",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0087",
+      "atomic_fact_id": "AF-0204",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "subject": "arteria_radial",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_carpiana_palmar",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0088",
+      "atomic_fact_id": "AF-0205",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "subject": "arteria_radial",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_carpiana_dorsal",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0089",
+      "atomic_fact_id": "AF-0206",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "subject": "arteria_radial",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_palmar_superficial",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0090",
+      "atomic_fact_id": "AF-0207",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "subject": "arteria_radial",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_principal_pulgar",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    },
+    {
+      "relation_id": "REL-R1_2-0091",
+      "atomic_fact_id": "AF-0208",
+      "source_assertion_id": "SA-0153",
+      "source_page": 53,
+      "subject": "arteria_radial",
+      "relation": "GIVES_BRANCH",
+      "object": "arteria_metacarpiana_dorsal_1",
+      "relation_family": "CERTIFIED_TAXONOMY",
+      "relation_status": "CERTIFIED_RELATION_FAMILY"
+    }
+  ]
+}

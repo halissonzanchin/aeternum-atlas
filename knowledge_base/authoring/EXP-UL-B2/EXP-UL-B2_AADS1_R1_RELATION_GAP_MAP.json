@@ -1,0 +1,160 @@
+{
+  "document_name": "EXP-UL-B2_AADS1_R1_RELATION_GAP_MAP",
+  "phase": "AMC-1.2-R1 / EXP-UL-B2-A1.6-R1",
+  "timestamp": "2026-09-27T08:30:00Z",
+  "certified_relation_ontology": {
+    "frozen_set_count": 10,
+    "allowed_types": [
+      "part_of",
+      "articulates_with",
+      "originates_from",
+      "inserts_into",
+      "stabilizes",
+      "reinforces",
+      "continuous_with",
+      "bounded_by",
+      "innervated_by",
+      "vascularized_by"
+    ]
+  },
+  "metrics": {
+    "certified_relations_count": 7,
+    "invalid_certified_relations_removed": 3,
+    "relation_candidates_count": 3,
+    "ontology_review_required_count": 4,
+    "identity_review_required_count": 1,
+    "broken_relation_entity_refs": 0
+  },
+  "certified_relations": [
+    {
+      "relation_id": "REL-CERT-001",
+      "relation_type": "articulates_with",
+      "source_entity": "AET-ENT-REF-HUMERAL_HEAD",
+      "target_entity": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_id": "REL-CERT-002",
+      "relation_type": "inserts_into",
+      "source_entity": "AET-ENT-REF-SUBSCAPULARIS",
+      "target_entity": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_id": "REL-CERT-003",
+      "relation_type": "inserts_into",
+      "source_entity": "AET-ENT-REF-SUPRASPINATUS",
+      "target_entity": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_id": "REL-CERT-004",
+      "relation_type": "inserts_into",
+      "source_entity": "AET-ENT-REF-INFRASPINATUS",
+      "target_entity": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_id": "REL-CERT-005",
+      "relation_type": "inserts_into",
+      "source_entity": "AET-ENT-REF-TERES_MINOR",
+      "target_entity": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_id": "REL-CERT-006",
+      "relation_type": "originates_from",
+      "source_entity": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "target_entity": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "status": "RELATION_CERTIFIED"
+    },
+    {
+      "relation_id": "REL-CERT-007",
+      "relation_type": "reinforces",
+      "source_entity": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "target_entity": "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+      "status": "RELATION_CERTIFIED"
+    }
+  ],
+  "candidate_relations": [
+    {
+      "relation_id": "REL-CAND-001",
+      "relation_type": "traversed_by",
+      "source_entity": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+      "target_entity": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "description": "The rotator interval is traversed by the tendon of the long head of the biceps brachii, enclosed within its synovial sheath.",
+      "status": "RELATION_CANDIDATE",
+      "validation_status": "PENDING_ACADEMIC_VALIDATION"
+    },
+    {
+      "relation_id": "REL-CAND-002",
+      "relation_type": "communicates_with",
+      "source_entity": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "target_entity": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "description": "The subtendinous bursa of the subscapularis communicates with the glenohumeral synovial cavity through the foramen of Weitbrecht.",
+      "status": "RELATION_CANDIDATE",
+      "validation_status": "PENDING_ACADEMIC_VALIDATION"
+    },
+    {
+      "relation_id": "REL-CAND-003",
+      "relation_type": "forms_force_couple_with",
+      "source_entity": "AET-ENT-REF-DELTOID",
+      "target_entity": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "description": "Deltoid superior shear vector is dynamically balanced by the inferior and compressive vectors of the rotator cuff force couple.",
+      "status": "RELATION_CANDIDATE",
+      "validation_status": "PENDING_ACADEMIC_VALIDATION"
+    }
+  ],
+  "ontology_review_required": [
+    {
+      "relation_id": "REL-REV-001",
+      "relation_type": "deepens",
+      "source_entity": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "target_entity": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "previous_status": "RELATION_CERTIFIED",
+      "status": "RELATION_ONTOLOGY_REVIEW_REQUIRED",
+      "reason": "'deepens' is not in the frozen 10 certified relation types. Retained as textual proposition candidate pending ontology review."
+    },
+    {
+      "relation_id": "REL-REV-002",
+      "relation_type": "bridges",
+      "source_entity": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+      "target_entity": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+      "previous_status": "RELATION_CERTIFIED",
+      "status": "RELATION_ONTOLOGY_REVIEW_REQUIRED",
+      "reason": "'bridges' is not in the frozen 10 certified relation types. Retained pending future authoring using existing certified relations or ontology expansion."
+    },
+    {
+      "relation_id": "REL-REV-003",
+      "relation_type": "buffers",
+      "source_entity": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "target_entity": "AET-ENT-CAND-UL-CORACOACROMIAL_ARCH",
+      "description": "Subacromial-subdeltoid bursa buffers friction between the underlying supraspinatus tendon and the overlying rigid coracoacromial arch.",
+      "previous_status": "RELATION_CANDIDATE (APPROVED_FOR_AUTHORING)",
+      "status": "RELATION_ONTOLOGY_REVIEW_REQUIRED",
+      "reason": "'buffers' must not be promoted without formal ontology qualification, even if supported by descriptive text."
+    },
+    {
+      "relation_id": "REL-REV-004",
+      "relation_type": "coordinates_with",
+      "source_entity": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "target_entity": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "description": "Glenohumeral elevation coordinates rhythmically with acromioclavicular and scapulothoracic motion.",
+      "previous_status": "RELATION_ONTOLOGY_REVIEW_REQUIRED",
+      "status": "RELATION_ONTOLOGY_REVIEW_REQUIRED",
+      "reason": "Kinematic ratio (2:1 scapulohumeral rhythm) neutralized pending exact source locator attribution."
+    }
+  ],
+  "identity_review_required": [
+    {
+      "relation_id": "REL-IDREV-001",
+      "relation_type": "forms_part_of",
+      "target_relation_predicate": "part_of",
+      "source_entity": "AET-ENT-REF-HUMERAL_HEAD",
+      "previous_source_entity": "AET-ENT-CAND-UL-HUMERAL_HEAD",
+      "target_entity": "AET-ENT-REF-HUMERUS",
+      "status": "RELATION_IDENTITY_REVIEW_REQUIRED",
+      "reason": "'forms_part_of' is not a certified predicate (certified is 'part_of'). Entity ID corrected from invalid candidate ID to registered reference ID AET-ENT-REF-HUMERAL_HEAD."
+    }
+  ]
+}

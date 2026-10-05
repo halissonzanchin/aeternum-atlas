@@ -1,0 +1,95 @@
+{
+  "source_id": "MORGUE-UPPER-LIMB-001",
+  "phase": "R1.2_ATOMIC_SEMANTIC_VALIDITY_AND_GOLDEN_INGESTION_CLOSEOUT",
+  "status": "VERIFIED",
+  "source_assertion_stability": {
+    "source_assertions_before": 154,
+    "source_assertions_after": 154,
+    "is_source_text_immutable": true
+  },
+  "atomic_validity": {
+    "current_atomic_fact_count": 209,
+    "final_atomic_fact_count": 208,
+    "valid_atomic_proposition_count": 208,
+    "structural_heading_removed_count": 0,
+    "incomplete_fact_removed_count": 1,
+    "duplicate_fact_removed_count": 0,
+    "unsupported_derivation_count": 0,
+    "compound_remaining_count": 0
+  },
+  "fact_relation_separation": {
+    "final_total_relations": 91,
+    "certified_relation_count": 76,
+    "relation_candidate_count": 15,
+    "certified_plus_candidate": 91,
+    "atomic_facts_with_zero_relations": 120,
+    "atomic_facts_with_one_relation": 85,
+    "atomic_facts_with_multiple_relations": 3,
+    "relations_without_atomic_fact": 0,
+    "previous_209_209_equality_reason": "IMPLEMENTATION_ARTIFACT"
+  },
+  "arco_dorsal_handling": {
+    "arco_dorsal_atomic_fact_after": "NO",
+    "arco_dorsal_incomplete_source_record": "YES"
+  },
+  "validation_lineage": {
+    "supported_facts_with_validation_lineage": 128,
+    "validated_facts_with_validation_lineage": 74,
+    "conflicting_facts_with_validation_lineage": 2,
+    "rejected_facts_with_validation_lineage": 0,
+    "facts_with_non_unreviewed_status_but_no_lineage": 0,
+    "inherited_validation_fact_count": 79,
+    "direct_validation_fact_count": 129,
+    "invalid_validation_inheritance_count": 0,
+    "validation_source_count": 1,
+    "validation_source_ids": [
+      "AAC-2026.1-R1"
+    ],
+    "unregistered_validation_sources": 0
+  },
+  "page_lineage": {
+    "quadrangular_page_audit_result": "REPORT_TYPO",
+    "atomic_fact_page_mismatch_count": 0
+  },
+  "entity_accounting": {
+    "total_entities": 173,
+    "entities_with_atomic_fact": 80,
+    "reference_only_entities": 84,
+    "structural_group_entities": 9,
+    "unaccounted_entities": 0
+  },
+  "academic_validation_statuses": {
+    "academic_unreviewed": 0,
+    "academic_review_pending": 4,
+    "academic_supported": 128,
+    "academic_validated": 74,
+    "academic_conflicting": 2,
+    "academic_rejected": 0,
+    "academic_status_sum": 208
+  },
+  "arbitrary_targets_audit": {
+    "arbitrary_fact_count_target_present_before": "YES",
+    "arbitrary_fact_count_target_present_after": "NO"
+  },
+  "release_gate": {
+    "morgue_source_001_golden_ingestion_ready": true,
+    "arbitrary_fact_count_target_present_after_no": true,
+    "structural_heading_not_fact_violations_zero": true,
+    "incomplete_not_fact_violations_zero": true,
+    "arco_dorsal_atomic_fact_after_no": true,
+    "unsupported_derivation_count_zero": true,
+    "compound_remaining_count_zero": true,
+    "relations_without_atomic_fact_zero": true,
+    "facts_with_non_unreviewed_status_but_no_lineage_zero": true,
+    "invalid_validation_inheritance_count_zero": true,
+    "unregistered_validation_sources_zero": true,
+    "atomic_fact_page_mismatch_count_zero": true,
+    "academic_status_sum_equals_final_atomic_facts": true,
+    "unaccounted_entities_zero": true,
+    "frozen_files_modified": 0,
+    "production_changes": 0,
+    "gemini_calls": 0,
+    "git_commits": 0,
+    "git_pushes": 0
+  }
+}

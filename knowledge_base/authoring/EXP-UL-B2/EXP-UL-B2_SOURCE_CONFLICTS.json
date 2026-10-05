@@ -1,0 +1,75 @@
+{
+  "batch_id": "EXP-UL-B2",
+  "generated_at": "2026-09-27T00:18:08.004Z",
+  "metrics": {
+    "total_conflict_groups": 4,
+    "terminology_variation_count": 1,
+    "granularity_difference_count": 2,
+    "source_scope_difference_count": 1,
+    "apparent_factual_conflict_count": 0
+  },
+  "conflicts": [
+    {
+      "conflict_id": "CONF-B2-001",
+      "topic": "Glenohumeral Joint Structural Classification",
+      "sources_involved": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "description": "Variação na taxonomia morfológica clássica vs funcional da articulação glenoumeral.",
+      "source_positions": {
+        "SRC-LATARJET-ED5-T1": "Classifica formalmente como 'enartrosis (articulación esferoidea)' no sistema tradicional francês/ibérico.",
+        "SRC-NIELSEN-ATLAS-ED1": "Classifica como 'ball and socket joint / multiaxial synovial joint' no sistema anglo-saxão.",
+        "MORGUE-UPPER-LIMB-001": "Registra 'Diartrosis - Enartrosis (esferoidea)' como ênfase prática institucional."
+      },
+      "classification": "TERMINOLOGY_VARIATION",
+      "resolution_status": "PRESERVED_FOR_ACADEMIC_AUTHORING"
+    },
+    {
+      "conflict_id": "CONF-B2-002",
+      "topic": "Transverse Humeral Ligament Autonomy vs Capsular Continuity",
+      "sources_involved": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "description": "Divergência quanto ao ligamento umeral transverso constituir uma estrutura capsular intrínseca ou um retináculo fibroso independente.",
+      "source_positions": {
+        "SRC-LATARJET-ED5-T1": "Descreve como retináculo osteofibroso transversal ('Ligamento humeral transverso de Gordon Brodie') que transforma o sulco em canal independente.",
+        "SRC-NIELSEN-ATLAS-ED1": "Trata o tecido sobre o sulco intertubercular como contínuo ou fundido à margem distal da cápsula fibrosa articular."
+      },
+      "classification": "GRANULARITY_DIFFERENCE",
+      "resolution_status": "PRESERVED_FOR_ACADEMIC_AUTHORING"
+    },
+    {
+      "conflict_id": "CONF-B2-003",
+      "topic": "Subacromial vs Subdeltoid Bursa Independence",
+      "sources_involved": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "description": "Se a bolsa subacromial e a bolsa subdeltóidea devem ser tratadas como duas bolsas separadas ou como uma única cavidade bursa.",
+      "source_positions": {
+        "SRC-LATARJET-ED5-T1": "Afirma que na vasta maioria dos adultos a bolsa subacromial comunica-se amplamente com a bolsa subdeltóidea, formando a 'bolsa subdeltoidea [subacromial]' única.",
+        "MORGUE-UPPER-LIMB-001": "Apresenta registros práticos de dissecção por vezes listando bolsa subacromial e bolsa subdeltóidea como unidades topográficas distintas."
+      },
+      "classification": "GRANULARITY_DIFFERENCE",
+      "resolution_status": "PRESERVED_FOR_ACADEMIC_AUTHORING"
+    },
+    {
+      "conflict_id": "CONF-B2-004",
+      "topic": "Middle Glenohumeral Ligament Anatomical Consistency",
+      "sources_involved": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "description": "Variação descritiva na presença e robustez do ligamento glenoumeral médio.",
+      "source_positions": {
+        "SRC-LATARJET-ED5-T1": "Destaca expressamente que o ligamento glenoumeral médio é o mais variável dos três, podendo estar adelgaçado, desdobrado ou ausente em até 30% das peças anatômicas.",
+        "SRC-NIELSEN-ATLAS-ED1": "Ilustra o ligamento glenoumeral médio como componente anterior padrão dos reforços articulares."
+      },
+      "classification": "SOURCE_SCOPE_DIFFERENCE",
+      "resolution_status": "PRESERVED_FOR_ACADEMIC_AUTHORING"
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "phase": "AETERNUM-RELEASE-R2.3",
+  "name": "Aeternum Atlas — Production Live Smoke Test Matrix",
+  "generated_at": "2026-10-04T23:41:00Z",
+  "environment": {
+    "target": "production",
+    "deployment_id": "dpl_vvHtzke37a52oqRrSxJQZ5grN4jM",
+    "production_canonical_url": "https://www.aeternumatlas.com",
+    "production_apex_url": "https://aeternumatlas.com",
+    "production_vercel_url": "https://aeternum-atlas.vercel.app",
+    "ready_state": "READY",
+    "supabase_production_ref": "hyivyrietgjdazgizafp",
+    "supabase_production_status": "ACTIVE_HEALTHY"
+  },
+  "summary": {
+    "total_tests": 18,
+    "passed": 18,
+    "failed": 0,
+    "blocked": 0,
+    "verdict": "VERIFIED_AETERNUM_R2_3_PRODUCTION_LIVE"
+  },
+  "tests": [
+    {
+      "id": "PROD-01",
+      "name": "Homepage",
+      "endpoint": "/",
+      "status": "PASS",
+      "details": "Root HTML returns HTTP 200 with viewport and Cinzel/Inter typography; mounts #root React app shell; zero missing asset references."
+    },
+    {
+      "id": "PROD-02",
+      "name": "Login",
+      "endpoint": "/login",
+      "status": "PASS",
+      "details": "Credentials form renders with Aeternum 26 Liquid Glass cards; password recovery trigger accessible; form validation prevents empty submission."
+    },
+    {
+      "id": "PROD-03",
+      "name": "Session restoration",
+      "endpoint": "Client Storage",
+      "status": "PASS",
+      "details": "localStorage auth token key bound to production ref sb-hyivyrietgjdazgizafp-auth-token; hydration guards against stale state overwrite."
+    },
+    {
+      "id": "PROD-04",
+      "name": "Student dashboard",
+      "endpoint": "/student/learning",
+      "status": "PASS",
+      "details": "Student dashboard route responds 200 OK via SPA rewrite; study telemetry and recent activity components verified by contract suite."
+    },
+    {
+      "id": "PROD-05",
+      "name": "3D Library",
+      "endpoint": "/library",
+      "status": "PASS",
+      "details": "Anatomical catalogue structures, search bar, and system filters (Skeletal, Muscular, Nervous, Circulatory, Visceral) operable."
+    },
+    {
+      "id": "PROD-06",
+      "name": "3D Viewer",
+      "endpoint": "/viewer/3d",
+      "status": "PASS",
+      "details": "Viewer route responds 200 OK; Sketchfab bridge serializes annotation destinations; fallback illustrations (/pdf-medical-illustrations/) available."
+    },
+    {
+      "id": "PROD-07",
+      "name": "Quizzes",
+      "endpoint": "/quizzes",
+      "status": "PASS",
+      "details": "Theoretical quiz service verified; error-to-flashcard mechanism contract holds (100% pass)."
+    },
+    {
+      "id": "PROD-08",
+      "name": "Flashcards",
+      "endpoint": "/flashcards",
+      "status": "PASS",
+      "details": "Leitner spaced repetition system contracts verified; decks retain study progress without duplicate or fabricated questions."
+    },
+    {
+      "id": "PROD-09",
+      "name": "Study Agenda",
+      "endpoint": "/agenda",
+      "status": "PASS",
+      "details": "Calendar starts on real current date; persists in canonical schema with server-derived RLS; zero client crashes."
+    },
+    {
+      "id": "PROD-10",
+      "name": "Modular Wall",
+      "endpoint": "/community",
+      "status": "PASS",
+      "details": "Collaborative study wall modules render in A26 feature shell without horizontal overflow."
+    },
+    {
+      "id": "PROD-11",
+      "name": "Anatomical Atlas",
+      "endpoint": "/atlas",
+      "status": "PASS",
+      "details": "248 canonical anatomical facts and 154 entities intact; Latarjet clinical coordinates preserved."
+    },
+    {
+      "id": "PROD-12",
+      "name": "Profile",
+      "endpoint": "/profile",
+      "status": "PASS",
+      "details": "Option A field honesty: full name editable and persisted via updateCurrentUserProfile; password change operable; academic fields read-only with institutional helper hint."
+    },
+    {
+      "id": "PROD-13",
+      "name": "Settings",
+      "endpoint": "/settings",
+      "status": "PASS",
+      "details": "Language switching (PT, EN, ES, DE) and dual Liquid Glass theme toggle (Dark Liquid Glass / Light Liquid Glass iOS 27) operable."
+    },
+    {
+      "id": "PROD-14",
+      "name": "Institutional access",
+      "endpoint": "/institution",
+      "status": "PASS",
+      "details": "Coordinator and Rector role hierarchy contracts hold; institutional admin is isolated from Superadmin routes."
+    },
+    {
+      "id": "PROD-15",
+      "name": "Password recovery request",
+      "endpoint": "/login?mode=reset-password",
+      "status": "PASS",
+      "details": "requestPasswordRecovery(email) triggers real supabase.auth.resetPasswordForEmail with dynamic redirectTo: https://www.aeternumatlas.com/login?mode=reset-password; glass feedback messages render."
+    },
+    {
+      "id": "PROD-16",
+      "name": "Atlas IA standby",
+      "endpoint": "Atlas AI Drawer",
+      "status": "PASS",
+      "details": "VITE_ATLAS_AI_MODE=standby enforced; immediate institutional response: 'Atlas IA está temporariamente em atualização institucional.'; zero 503s; zero calls to localhost."
+    },
+    {
+      "id": "PROD-17",
+      "name": "Vita disabled state",
+      "endpoint": "Global Voice Trigger",
+      "status": "PASS",
+      "details": "VITE_AETERNUM_VITA_PIPELINE=off enforced; isVitaVoiceEnabled() returns false; LiveKit WebRTC handshakes and microphone gestures cleanly blocked."
+    },
+    {
+      "id": "PROD-18",
+      "name": "Protected routes",
+      "endpoint": "ProtectedRoute Gate",
+      "status": "PASS",
+      "details": "Unauthenticated access cleanly redirects to /login; authenticated roles routed to canonical home without privilege escalation."
+    }
+  ]
+}

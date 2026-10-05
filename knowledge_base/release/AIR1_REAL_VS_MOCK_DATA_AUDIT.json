@@ -1,0 +1,140 @@
+{
+  "audit_version": "AIR1-PREP",
+  "timestamp": "2026-09-25T02:00:00.000Z",
+  "classification_summary": {
+    "total_data_sources_evaluated": 18,
+    "cloud_supabase_entities": 9,
+    "static_academic_registries": 6,
+    "canonical_sovereign_memory": 3,
+    "mock_or_synthetic_data_in_production_bundle": 0,
+    "data_integrity_status": "CERTIFIED_CLEAN"
+  },
+  "cloud_supabase_entities": [
+    {
+      "entity": "User & Institutional Profiles",
+      "tables": ["profiles", "institutions", "licenses"],
+      "source_type": "LIVE_SUPABASE_DB",
+      "mock_used": false,
+      "status": "OPERATIONAL"
+    },
+    {
+      "entity": "Curriculum & Lessons",
+      "tables": ["lessons", "lesson_sections", "user_lesson_progress"],
+      "source_type": "LIVE_SUPABASE_DB",
+      "mock_used": false,
+      "status": "OPERATIONAL"
+    },
+    {
+      "entity": "Study Agendas & Schedules",
+      "tables": ["study_agendas", "agenda_items"],
+      "source_type": "LIVE_SUPABASE_DB",
+      "mock_used": false,
+      "status": "OPERATIONAL"
+    },
+    {
+      "entity": "Anatomical Annotations & Hotspots",
+      "tables": ["atlas_annotations", "spatial_hotspots", "model_notes"],
+      "source_type": "LIVE_SUPABASE_DB",
+      "mock_used": false,
+      "status": "OPERATIONAL"
+    },
+    {
+      "entity": "Quiz Submissions & Telemetry",
+      "tables": ["quiz_submissions", "learning_telemetry", "learning_metrics"],
+      "source_type": "LIVE_SUPABASE_DB",
+      "mock_used": false,
+      "status": "OPERATIONAL"
+    },
+    {
+      "entity": "AI Conversations & Messages",
+      "tables": ["ai_conversations", "chat_messages"],
+      "source_type": "LIVE_SUPABASE_DB",
+      "mock_used": false,
+      "status": "OPERATIONAL"
+    },
+    {
+      "entity": "Clinical Research Module (Vita)",
+      "tables": ["participants", "prostheses", "weekly_submissions"],
+      "source_type": "LIVE_SUPABASE_DB (Production active, Staging pending backfill)",
+      "mock_used": false,
+      "status": "SELECTIVE_STAGING"
+    }
+  ],
+  "static_academic_registries": [
+    {
+      "registry": "Anatomical Systems Hierarchy",
+      "path": "src/data/viewerSystems.js",
+      "purpose": "Static taxonomic grouping of anatomical systems (Locomotor, Nervous, Circulatory, etc.)",
+      "mock_used": false,
+      "status": "CANONICAL_STATIC"
+    },
+    {
+      "registry": "3D Anatomical Model Manifests",
+      "path": "src/data/localModels.js",
+      "purpose": "Asset paths and metadata for 3D GLB anatomical models",
+      "mock_used": false,
+      "status": "ASSET_MANIFEST"
+    },
+    {
+      "registry": "Latarjet Question Bank",
+      "path": "src/data/latarjetQuestionBank.js",
+      "purpose": "Curated clinical anatomical questions for student self-testing",
+      "mock_used": false,
+      "status": "CANONICAL_STATIC"
+    },
+    {
+      "registry": "Anatomical Flashcard Bank",
+      "path": "src/data/anatomicalFlashcardBank.js",
+      "purpose": "Pre-configured flashcards for spaced repetition",
+      "mock_used": false,
+      "status": "CANONICAL_STATIC"
+    },
+    {
+      "registry": "Study Agenda Catalog",
+      "path": "src/data/studyAgendaCatalog.js",
+      "purpose": "Template study agendas for medical curricula",
+      "mock_used": false,
+      "status": "CANONICAL_STATIC"
+    },
+    {
+      "registry": "PDF Medical Image Registry",
+      "path": "src/data/pdfMedicalImageRegistry.js",
+      "purpose": "Mapping of radiographic and anatomical figures to lesson slides",
+      "mock_used": false,
+      "status": "CANONICAL_STATIC"
+    }
+  ],
+  "canonical_sovereign_memory": [
+    {
+      "entity": "Scapula Canonical Knowledge Pack",
+      "identifier": "AET-KP-UL-SCAPULA-001",
+      "path": "knowledge_base/canonical/",
+      "fact_count": 119,
+      "source": "Gray's Anatomy for Students (4th ed., 2020)",
+      "provenance_status": "100% CERTIFIED",
+      "mock_used": false,
+      "status": "SOVEREIGN_CANONICAL"
+    },
+    {
+      "entity": "Local SQLite Sovereign Mirror",
+      "path": "knowledge_base/local_mirror/aeternum_anatomical_memory.db",
+      "fact_count": 119,
+      "parity_with_json": "100%",
+      "mock_used": false,
+      "status": "LOCAL_MIRROR"
+    },
+    {
+      "entity": "Safe Engine Local Payload",
+      "path": "knowledge_base/safe_engine/AET-KP-UL-SCAPULA-001_SAFE_ENGINE_LOCAL_PAYLOAD.json",
+      "query_variants": 88,
+      "mock_used": false,
+      "status": "COMPILED_PAYLOAD"
+    }
+  ],
+  "mock_data_isolation_verification": {
+    "mock_files_in_src": 0,
+    "test_fixtures_in_production_bundle": 0,
+    "synthetic_patient_generators": "Strictly confined to packages/aeternum-vita/tests and test scripts, excluded from vite build",
+    "verification_verdict": "ZERO_MOCK_POLLUTION"
+  }
+}

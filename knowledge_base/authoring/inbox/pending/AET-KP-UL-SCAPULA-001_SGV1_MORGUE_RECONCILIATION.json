@@ -1,0 +1,418 @@
+[
+  {
+    "morgue_fact_id": "SCAP-SRC-F001",
+    "teaching_statement": "A escápula (omóplato) integra a cintura escapular.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F002",
+    "teaching_statement": "A escápula é um osso plano.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F003",
+    "teaching_statement": "A escápula é um osso par.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F004",
+    "teaching_statement": "A escápula tem configuração triangular.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F005",
+    "teaching_statement": "A escápula localiza-se na região torácica posterossuperolateral.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F006",
+    "teaching_statement": "A escápula estende-se aproximadamente da 2ª à 7ª costela.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F007",
+    "teaching_statement": "A escápula articula-se com a clavícula através da articulação acromioclavicular.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F008",
+    "teaching_statement": "A escápula articula-se com o úmero através da articulação glenoumeral.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F009",
+    "teaching_statement": "A face anterior ou costal da escápula é descrita como côncava.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F010",
+    "teaching_statement": "A face anterior ou costal abriga a fossa subescapular.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F011",
+    "teaching_statement": "A face posterior ou dorsal da escápula é descrita como convexa.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F012",
+    "teaching_statement": "A face posterior identifica a fossa supraespinosa.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F013",
+    "teaching_statement": "A face posterior identifica a fossa infraespinosa.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F014",
+    "teaching_statement": "A face posterior identifica a espinha da escápula.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F015",
+    "teaching_statement": "A face posterior identifica o acrômio.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F016",
+    "teaching_statement": "A face posterior identifica a incisura espinoglenoidal.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F017",
+    "teaching_statement": "A escápula possui borda medial (denominada borda espinhal nas notas de aula).",
+    "reconciliation_status": "TERMINOLOGY_DIFFERENCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "Nota institucional utiliza sinônimo tradicional \"borda espinhal\" para a margo medialis."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F018",
+    "teaching_statement": "A escápula possui borda lateral (denominada borda axilar nas notas de aula).",
+    "reconciliation_status": "TERMINOLOGY_DIFFERENCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "Nota institucional utiliza sinônimo tradicional \"borda axilar\" para a margo lateralis."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F019",
+    "teaching_statement": "A escápula possui borda superior.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F020",
+    "teaching_statement": "O músculo romboide menor relaciona-se com a borda medial ao nível da espinha escapular.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F021",
+    "teaching_statement": "O músculo romboide maior relaciona-se com a borda medial em direção ao ângulo inferior.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F022",
+    "teaching_statement": "A borda superior associa-se à terminologia incisura escapular / incisura coracoide nas notas.",
+    "reconciliation_status": "TERMINOLOGY_DIFFERENCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "Nota institucional cita \"incisura coracoide\" como termo alternativo para a incisura scapulae."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F023",
+    "teaching_statement": "A escápula possui ângulo superior, unindo as bordas superior e medial.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F024",
+    "teaching_statement": "A escápula possui ângulo inferior, unindo as bordas medial e lateral.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F025",
+    "teaching_statement": "A escápula possui ângulo lateral, unindo as bordas superior e lateral.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F026",
+    "teaching_statement": "A escápula identifica o processo coracoide.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F027",
+    "teaching_statement": "A escápula identifica a cavidade glenoidal.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F028",
+    "teaching_statement": "A cavidade glenoidal é circundada pelo lábio glenoidal (labrum).",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F029",
+    "teaching_statement": "A cavidade glenoidal articula-se com a cabeça do úmero.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F030",
+    "teaching_statement": "A fonte associa o subescapular com a fossa subescapular.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F031",
+    "teaching_statement": "A fonte associa o serrátil anterior com a borda medial entre os ângulos superior e inferior.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F032",
+    "teaching_statement": "A fonte associa o supraespinhal com a fossa supraespinosa.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F033",
+    "teaching_statement": "A fonte associa o infraespinhal com a fossa infraespinosa.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F034",
+    "teaching_statement": "A fonte associa o trapézio com o lábio superior da borda posterior da espinha da escápula.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F035",
+    "teaching_statement": "A fonte associa o deltoide com o lábio inferior da borda posterior da espinha da escápula.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F036",
+    "teaching_statement": "A fonte associa o redondo menor em direção à borda lateral.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F037",
+    "teaching_statement": "A fonte associa o redondo maior em direção à borda lateral.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F038",
+    "teaching_statement": "A fonte associa a cabeça longa do bíceps com a região supraglenoidal.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F039",
+    "teaching_statement": "A fonte associa a cabeça longa do tríceps com a região infraglenoidal.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F040",
+    "teaching_statement": "A fonte associa o coracobraquial com o ápice do processo coracoide.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F041",
+    "teaching_statement": "A fonte associa a cabeça curta do bíceps com o ápice do processo coracoide.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F042",
+    "teaching_statement": "A fonte associa o peitoral menor com a borda medial do processo coracoide.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F043",
+    "teaching_statement": "As notas mencionam expansão do subclávio associada à borda medial do processo coracoide.",
+    "reconciliation_status": "PARTIALLY_AGREES",
+    "canonical_agreement": false,
+    "teaching_statement_retained": true,
+    "notes": "Expansão do subclávio ao processo coracoide é variação anatômica/ênfase prática institucional, mantida como SUPPORTED."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F044",
+    "teaching_statement": "A fonte associa a região coracoide aos ligamentos coracoclaviculares.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F045",
+    "teaching_statement": "A fonte associa a região coracoide ao ligamento coracoacromial.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F046",
+    "teaching_statement": "A fonte associa a região coracoide ao ligamento trapezoide.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F047",
+    "teaching_statement": "A fonte associa a região coracoide ao ligamento conoide.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F048",
+    "teaching_statement": "A fonte associa a região coracoide ao ligamento transverso superior da escápula.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F049",
+    "teaching_statement": "A fonte afirma que o ligamento transverso superior converte a incisura escapular/coracoide em forame.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F050",
+    "teaching_statement": "A fonte lista relação vascular regional envolvendo artéria e veia subclávias.",
+    "reconciliation_status": "PARTIALLY_AGREES",
+    "canonical_agreement": false,
+    "teaching_statement_retained": true,
+    "notes": "Relação com troncos vasculares axilares/subclávios é regional/topográfica em vez de inserção óssea direta."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F051",
+    "teaching_statement": "A fonte lista relação vascular regional envolvendo artéria e veia axilares.",
+    "reconciliation_status": "PARTIALLY_AGREES",
+    "canonical_agreement": false,
+    "teaching_statement_retained": true,
+    "notes": "Relação com troncos vasculares axilares/subclávios é regional/topográfica em vez de inserção óssea direta."
+  },
+  {
+    "morgue_fact_id": "SCAP-SRC-F052",
+    "teaching_statement": "A fonte lista relação vascular regional envolvendo artéria e veia dorsais da escápula.",
+    "reconciliation_status": "AGREES_WITH_CANONICAL_SOURCE",
+    "canonical_agreement": true,
+    "teaching_statement_retained": true,
+    "notes": "A proposição anatômica concorda plenamente com Latarjet T1 e Nielsen Atlas."
+  }
+]

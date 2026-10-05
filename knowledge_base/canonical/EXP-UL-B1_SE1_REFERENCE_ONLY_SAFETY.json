@@ -1,0 +1,10 @@
+{
+  "phase": "EXP-UL-B1-SE1",
+  "reference_only_count": 68,
+  "reference_only_safety_test_count": 10,
+  "reference_only_unsafe_expansion_count": 0,
+  "supported_entity_count": 2,
+  "supported_entity_safety_test_count": 2,
+  "supported_entity_full_canonical_leak_count": 0,
+  "status": "VERIFIED_SAFE"
+}

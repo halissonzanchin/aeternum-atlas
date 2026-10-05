@@ -1,0 +1,409 @@
+{
+  "ledger_name": "AETERNUM_CERTIFIED_ARTIFACT_HASH_LEDGER",
+  "ledger_version": "1.0.0",
+  "phase": "EXP-UL-B1-CP1-IR1",
+  "created_at": "2026-09-26T13:45:56.624Z",
+  "entry_count": 40,
+  "entries": [
+    {
+      "artifact_path": "knowledge_base/canonical/AET-KP-UL-SCAPULA-001_CANONICAL_FACTS.json",
+      "phase": "AET-KP-UL-SCAPULA-001-CMP1",
+      "artifact_role": "CANONICAL_FACTS_SOURCE",
+      "certification_status": "CERTIFIED_PROMOTED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "a18dbaa02af0fee7106ebb05f8ef2e8bb618903779e51a365a12473fcc43d447",
+      "hash_created_at": "2026-09-26T13:45:56.618Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/AET-KP-UL-SCAPULA-001_CANONICAL_PRACTICAL_MEMORY.json",
+      "phase": "AET-KP-UL-SCAPULA-001-CMP1",
+      "artifact_role": "CANONICAL_PRACTICAL_MEMORY_SOURCE",
+      "certification_status": "CERTIFIED_PROMOTED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "3cf10ae4a1159d326d5871012abc1c66a3507731e3cfa381d7869c7fe046ae3b",
+      "hash_created_at": "2026-09-26T13:45:56.619Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/AET-KP-UL-SCAPULA-001_CANONICAL_TEACHING_CONNECTIONS.json",
+      "phase": "AET-KP-UL-SCAPULA-001-CMP1",
+      "artifact_role": "CANONICAL_TEACHING_CONNECTIONS_SOURCE",
+      "certification_status": "CERTIFIED_PROMOTED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "aa693ee00ef993a2a1d2bd2926e1abd4fd175972d7ce6e0f4f07dee04fb0c86e",
+      "hash_created_at": "2026-09-26T13:45:56.619Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/AET-KP-UL-SCAPULA-001_CANONICAL_DOCUMENTARY_MAP.json",
+      "phase": "AET-KP-UL-SCAPULA-001-CMP1",
+      "artifact_role": "CANONICAL_DOCUMENTARY_MAP_SOURCE",
+      "certification_status": "CERTIFIED_PROMOTED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "85ebd948a2064298077671de84d89dea4da1f21d1f7a39c1c05d23ed19116758",
+      "hash_created_at": "2026-09-26T13:45:56.619Z"
+    },
+    {
+      "artifact_path": "knowledge_base/coverage/AETERNUM_MASTER_ANATOMICAL_COVERAGE_MAP.json",
+      "phase": "AMC-1",
+      "artifact_role": "MASTER_COVERAGE_MAP_1.0",
+      "certification_status": "CERTIFIED_HISTORICAL",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "3b4d4a4bc5e8b9a1bcc4c94d97110ac3b3c70ebcb52be604b1ec28a30c7e318d",
+      "hash_created_at": "2026-09-26T13:45:56.619Z"
+    },
+    {
+      "artifact_path": "knowledge_base/coverage/AETERNUM_MASTER_ANATOMICAL_COVERAGE_MAP_V1_1.json",
+      "phase": "AMC-1.1",
+      "artifact_role": "MASTER_COVERAGE_MAP_1.1",
+      "certification_status": "CERTIFIED_ACTIVE",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/coverage/AETERNUM_MASTER_ANATOMICAL_COVERAGE_MAP.json",
+      "sha256": "150052c7237f1a0f0a956fe854dcd87fa38cf909912f11c4af440bb16b9ea8e7",
+      "hash_created_at": "2026-09-26T13:45:56.619Z"
+    },
+    {
+      "artifact_path": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_ATOMIC_FACT_CANDIDATES.json",
+      "phase": "EXP-UL-B1",
+      "artifact_role": "SOURCE_AUTHORING_FACTS",
+      "certification_status": "CERTIFIED_AUTHORED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "5536ad6ee342a42c7d31ebdefc832d4e05ea074ccfb69720cacf8dc951af4cec",
+      "hash_created_at": "2026-09-26T13:45:56.620Z"
+    },
+    {
+      "artifact_path": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_VAL1_FACT_VALIDATION.json",
+      "phase": "EXP-UL-B1-VAL1",
+      "artifact_role": "ACADEMIC_VALIDATION_MANIFEST",
+      "certification_status": "CERTIFIED_VALIDATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "6f6ea4fcd74bd7e71a397b102f304abd6fb157eb3b3bdac8b97a4e39e8e1da57",
+      "hash_created_at": "2026-09-26T13:45:56.620Z"
+    },
+    {
+      "artifact_path": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_PROMOTION_PREVIEW.json",
+      "phase": "EXP-UL-B1-CQ1",
+      "artifact_role": "QUALIFICATION_PROMOTION_SET",
+      "certification_status": "CERTIFIED_QUALIFIED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_VAL1_FACT_VALIDATION.json",
+      "sha256": "c47631d4a42953b3fe11c44e6ac18cacb2706c8ed816df9d2392d83b56093916",
+      "hash_created_at": "2026-09-26T13:45:56.621Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_PROMOTION_MANIFEST.json",
+      "phase": "EXP-UL-B1-CP1",
+      "artifact_role": "CANONICAL_PROMOTION_MANIFEST",
+      "certification_status": "PROMOTED_HISTORICAL",
+      "historical_original_hash_available": true,
+      "lineage_parent": "knowledge_base/authoring/EXP-UL-B1/EXP-UL-B1_CQ1_PROMOTION_PREVIEW.json",
+      "sha256": "4150b1655041f25c0046059bc17b591fa69df5c51f18ba7a090e2a1567e48383",
+      "hash_created_at": "2026-09-26T13:45:56.621Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CANONICAL_FACTS.json",
+      "phase": "EXP-UL-B1-CP1",
+      "artifact_role": "CANONICAL_FACTS_SOURCE",
+      "certification_status": "CERTIFIED_PROMOTED",
+      "historical_original_hash_available": true,
+      "lineage_parent": null,
+      "sha256": "9e4e83952ef46733ed785ad80e842c600aaef6dfafec6c2dc634b4bafc5d4cca",
+      "hash_created_at": "2026-09-26T13:45:56.621Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_0.json",
+      "phase": "EXP-UL-B1-CP1",
+      "artifact_role": "CANONICAL_MANIFEST_HISTORICAL_0_2_0",
+      "certification_status": "RELEASED_HISTORICAL",
+      "historical_original_hash_available": true,
+      "lineage_parent": "knowledge_base/canonical/AET-KP-UL-SCAPULA-001_CANONICAL_PROMOTION_MANIFEST.json",
+      "sha256": "9454c8963a16667c5efa9b292c2fca612e94514452a3578993479f8063e1eaa6",
+      "hash_created_at": "2026-09-26T13:45:56.622Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IA1_REPORT.md",
+      "phase": "EXP-UL-B1-CP1-IA1",
+      "artifact_role": "FORENSIC_INTEGRITY_AUDIT_REPORT",
+      "certification_status": "CERTIFIED_AUDIT",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/EXP-UL-B1_CP1_PROMOTION_MANIFEST.json",
+      "sha256": "fbb03be21e61d0a2ce46d1f7d895f63ebfae9a9f1f104076e72324cf71e68197",
+      "hash_created_at": "2026-09-26T13:45:56.622Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR1_CQ1_ERRATA.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "CQ1_ERRATA_RECORD",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/EXP-UL-B1_CP1_IA1_CQ1_FIELD_DIFF.json",
+      "sha256": "193e5e8404839c9ea99d48b84bb7d6568c7aafcbd0dad9c7fa1b5541c8e2fb50",
+      "hash_created_at": "2026-09-26T13:45:56.622Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/AETERNUM_CERTIFIED_ARTIFACT_IMMUTABILITY_POLICY.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "GOVERNANCE_IMMUTABILITY_POLICY",
+      "certification_status": "CERTIFIED_ACTIVE",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "b8659e39fe910c082261b452121a24cf04a4e3e4c1ce9ce5ae1f3ab4e53d658c",
+      "hash_created_at": "2026-09-26T13:45:56.622Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/AETERNUM_CANONICAL_ENTITY_REGISTRY_V2.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "CANONICAL_ENTITY_REGISTRY_V2",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/EXP-UL-B1_CANONICAL_ENTITIES.json",
+      "sha256": "4e3589243e15bd247afe262ff0c5f237f3c2ba475ac0e18798d26a1b69f23786",
+      "hash_created_at": "2026-09-26T13:45:56.622Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR1_REFERENCE_TYPING.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "FACT_REFERENCE_TYPING_AUDIT",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "cea6a313ed29809fe0ba516e377b9431f2e5edbcaf7b02438641b0ce29c22828",
+      "hash_created_at": "2026-09-26T13:45:56.623Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR1_SCAPULA_ENTITY_NORMALIZATION.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "SCAPULA_NORMALIZATION_AUDIT",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "1b9e6a9bb9b1d87b0fc142d16664177744df8935130c5a33c67a923b777f0937",
+      "hash_created_at": "2026-09-26T13:45:56.623Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR1_B1_ENTITY_NORMALIZATION.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "B1_NORMALIZATION_AUDIT",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "6a4d97e3513e8822a1563ebbf512b40e57235dd06396937074fa4e001402f5a7",
+      "hash_created_at": "2026-09-26T13:45:56.623Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR1_AMC_TARGET_MAPPING.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "AMC_TARGET_MAPPING_MATRIX",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "f1a8c2005933397df12b4f19d97f230de45e502c71125f1f95c91aad435948e6",
+      "hash_created_at": "2026-09-26T13:45:56.623Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR1_AMC_COVERAGE_CORRECTION.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "AMC_COVERAGE_CORRECTION_CERTIFICATE",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/EXP-UL-B1_CP1_IA1_AMC_COVERAGE_AUDIT.json",
+      "sha256": "e9b4ec518adf00a99581a247da7dd0ba3c331a4e5ce934c4e22dccf78d01f4f3",
+      "hash_created_at": "2026-09-26T13:45:56.623Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR1_PRACTICAL_MIRROR.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "PRACTICAL_PARITY_CERTIFICATE",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/EXP-UL-B1_CP1_IA1_PRACTICAL_PARITY.json",
+      "sha256": "098f6a4bde62fd556dbf3a262af91154ec25fbc96cbf666d923da91bb5628a96",
+      "hash_created_at": "2026-09-26T13:45:56.623Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR1_TEACHING_MIRROR.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "TEACHING_PARITY_CERTIFICATE",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/EXP-UL-B1_CP1_IA1_TEACHING_PARITY.json",
+      "sha256": "fcf19d1ff13432187ce8e2e47cbdbbadaa8d05fbc4760ee1ea4a000b35fe9fbc",
+      "hash_created_at": "2026-09-26T13:45:56.623Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR1_DOCUMENTARY_MIRROR.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "DOCUMENTARY_PARITY_CERTIFICATE",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/EXP-UL-B1_CP1_IA1_DOCUMENTARY_PARITY.json",
+      "sha256": "f87ca94f95cf898edd858a5705835ce6de6f94a5f26f47dc735b4c0b73001d63",
+      "hash_created_at": "2026-09-26T13:45:56.624Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR1_SQLITE_MIGRATION_AUDIT.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "SQLITE_MIGRATION_AUDIT_LOG",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "5a6b6e4e7524ddcbe883b7c053d0dd512677775edc1b2d9abaa6722215d23686",
+      "hash_created_at": "2026-09-26T13:45:56.624Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR1_CANONICAL_IMMUTABILITY_AUDIT.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "CANONICAL_FACT_IMMUTABILITY_AUDIT",
+      "certification_status": "CERTIFIED_REMEDIATED",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "0e365640a32aef1a46588ee0d7ff1e46e6488d1848212a3f7bbd1547ebc6905b",
+      "hash_created_at": "2026-09-26T13:45:56.624Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "CANONICAL_RELEASE_MANIFEST_0_2_1",
+      "certification_status": "CERTIFIED_RELEASED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_0.json",
+      "sha256": "a14530d04ac4a91de3993db9ecea9e9f91b6a22022262806476d474726a59527",
+      "hash_created_at": "2026-09-26T13:45:56.624Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/AETERNUM_FUTURE_BATCH_CANONICAL_CONTRACT_V2.json",
+      "phase": "EXP-UL-B1-CP1-IR1",
+      "artifact_role": "FUTURE_BATCH_CONTRACT_V2",
+      "certification_status": "CERTIFIED_ACTIVE",
+      "historical_original_hash_available": false,
+      "lineage_parent": null,
+      "sha256": "7ce9fb18672df3caaabf0ea86f8876ccdd3229fa7fe5d554e0c6c73de4858f66",
+      "hash_created_at": "2026-09-26T13:45:56.624Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR2_ACTIVE_MANIFEST_AUDIT.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "EXP-UL-B1_CP1_IR2_ACTIVE_MANIFEST_AUDIT",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "bad6e1d0a1400339c98d4983bebb25e65d64d94e1941d59221847a973acf0693",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_CURRENT.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "AETERNUM_CANONICAL_MEMORY_CURRENT",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "21834350dc473682584a905baf462866d6bed24422a116eaaafdbab461e3cbfa",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR2_ENTITY_GRANULARITY_AUDIT.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "EXP-UL-B1_CP1_IR2_ENTITY_GRANULARITY_AUDIT",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "cac1bd6720f4f4e3488b9f61d4d59d157371bbc79c6672cf136021d17813f604",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR2_SCAPULA_HIERARCHY.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "EXP-UL-B1_CP1_IR2_SCAPULA_HIERARCHY",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "4bc4cb01b5d844caeb5a9a3a60aa2e6e4af33209c84ab609c63e6affeb5441de",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR2_B1_HIERARCHY.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "EXP-UL-B1_CP1_IR2_B1_HIERARCHY",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "5095def9bd2b9db6d5ec2fb2ce7867b4c988d547041e1b33b1b6be44de665746",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/AETERNUM_CANONICAL_ENTITY_REGISTRY_V2_1.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "AETERNUM_CANONICAL_ENTITY_REGISTRY_V2_1",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "f9d39b5043edd2074cb8c6bf2fa4fc3797a511d806a59c8aaf2e4ae3e3da18b1",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR2_ENTITY_RESOLUTION_TESTS.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "EXP-UL-B1_CP1_IR2_ENTITY_RESOLUTION_TESTS",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "e64be362c940dee885caaae42d847e1f37eb1e71c888cbf21a18a1252c6e095c",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR2_AMC_TARGET_ID_AUDIT.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "EXP-UL-B1_CP1_IR2_AMC_TARGET_ID_AUDIT",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "f493128db3e5e9399f5e38fb7a0ade5d178cb0610c9e097bc06893b2631d4e37",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR2_AMC_COVERAGE_STATUS.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "EXP-UL-B1_CP1_IR2_AMC_COVERAGE_STATUS",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "ed3f5c34b2e0972402071a48231b6204362e99e41aa344b3b99412cb530e839b",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR2_SQLITE_PARITY.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "EXP-UL-B1_CP1_IR2_SQLITE_PARITY",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "4b2bade6a0b92c489f03cc80b146fe8b34c4940ee25f95bbf125b8c95de6c9be",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/EXP-UL-B1_CP1_IR2_SAFE_ENGINE_INPUT_CONTRACT.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "EXP-UL-B1_CP1_IR2_SAFE_ENGINE_INPUT_CONTRACT",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "32923563ef2252745102eac59eaae8636588dc350113c4d9f8e3dcbec7828042",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    },
+    {
+      "artifact_path": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_2.json",
+      "phase": "EXP-UL-B1-CP1-IR2",
+      "artifact_role": "AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_2",
+      "certification_status": "CERTIFIED_RECONCILED",
+      "historical_original_hash_available": false,
+      "lineage_parent": "knowledge_base/canonical/AETERNUM_CANONICAL_MEMORY_MANIFEST_0_2_1.json",
+      "sha256": "e502046d71902ee1b52b7364d4e705927fa82e38f00f85597a5c6f001fe7b911",
+      "hash_created_at": "2026-09-26T18:45:50.000Z"
+    }
+  ]
+}

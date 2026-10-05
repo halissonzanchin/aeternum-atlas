@@ -1,0 +1,4743 @@
+[
+  {
+    "validation_assessment_id": "VA-SCAP-001",
+    "fact_candidate_id": "SCAP-SRC-F001",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula (omóplato) integra a cintura escapular."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Posição, configuração de osso plano e par confirmados explicitamente em Latarjet T1 (p. 455) e Atlas Nielsen (pp. 84, 88).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-002",
+    "fact_candidate_id": "SCAP-SRC-F002",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula é um osso plano."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Posição, configuração de osso plano e par confirmados explicitamente em Latarjet T1 (p. 455) e Atlas Nielsen (pp. 84, 88).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-003",
+    "fact_candidate_id": "SCAP-SRC-F003",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula é um osso par."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Posição, configuração de osso plano e par confirmados explicitamente em Latarjet T1 (p. 455) e Atlas Nielsen (pp. 84, 88).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-004",
+    "fact_candidate_id": "SCAP-SRC-F004",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula tem configuração triangular."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Posição, configuração de osso plano e par confirmados explicitamente em Latarjet T1 (p. 455) e Atlas Nielsen (pp. 84, 88).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-005",
+    "fact_candidate_id": "SCAP-SRC-F005",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula localiza-se na região torácica posterossuperolateral."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Localização na parede torácica posterolateral da 2.ª à 7.ª costela verificada em Latarjet T1 (p. 455) e Nielsen (p. 85).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-006",
+    "fact_candidate_id": "SCAP-SRC-F006",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula estende-se aproximadamente da 2ª à 7ª costela."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Localização na parede torácica posterolateral da 2.ª à 7.ª costela verificada em Latarjet T1 (p. 455) e Nielsen (p. 85).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-007",
+    "fact_candidate_id": "SCAP-SRC-F007",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula articula-se com a clavícula através da articulação acromioclavicular."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Articulação acromioclavicular com a clavícula demonstrada em Latarjet T1 (p. 471) e Nielsen (p. 85).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-008",
+    "fact_candidate_id": "SCAP-SRC-F008",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula articula-se com o úmero através da articulação glenoumeral."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Articulação glenoumeral com a cabeça do úmero demonstrada em Latarjet T1 (p. 474) e Nielsen (p. 85).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-009",
+    "fact_candidate_id": "SCAP-SRC-F009",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face anterior ou costal da escápula é descrita como côncava."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Face costal côncava com a fossa subescapular descrita em Latarjet T1 (p. 458) e ilustrada em Nielsen (p. 88).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-010",
+    "fact_candidate_id": "SCAP-SRC-F010",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face anterior ou costal abriga a fossa subescapular."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Face costal côncava com a fossa subescapular descrita em Latarjet T1 (p. 458) e ilustrada em Nielsen (p. 88).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-011",
+    "fact_candidate_id": "SCAP-SRC-F011",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior ou dorsal da escápula é descrita como convexa."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Face posterior convexa, espinha, acrômio, fossas supra e infraespinosa demonstrados em Latarjet T1 (pp. 456-457) e Nielsen (p. 88).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-012",
+    "fact_candidate_id": "SCAP-SRC-F012",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior identifica a fossa supraespinosa."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Face posterior convexa, espinha, acrômio, fossas supra e infraespinosa demonstrados em Latarjet T1 (pp. 456-457) e Nielsen (p. 88).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-013",
+    "fact_candidate_id": "SCAP-SRC-F013",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior identifica a fossa infraespinosa."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Face posterior convexa, espinha, acrômio, fossas supra e infraespinosa demonstrados em Latarjet T1 (pp. 456-457) e Nielsen (p. 88).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-014",
+    "fact_candidate_id": "SCAP-SRC-F014",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior identifica a espinha da escápula."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Face posterior convexa, espinha, acrômio, fossas supra e infraespinosa demonstrados em Latarjet T1 (pp. 456-457) e Nielsen (p. 88).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-015",
+    "fact_candidate_id": "SCAP-SRC-F015",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior identifica o acrômio."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Face posterior convexa, espinha, acrômio, fossas supra e infraespinosa demonstrados em Latarjet T1 (pp. 456-457) e Nielsen (p. 88).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-016",
+    "fact_candidate_id": "SCAP-SRC-F016",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A face posterior identifica a incisura espinoglenoidal."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-003"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Incisura espinoglenoidal descrita no colo da espinha em Latarjet T1 (p. 457).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-017",
+    "fact_candidate_id": "SCAP-SRC-F017",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui borda medial (denominada borda espinhal nas notas de aula)."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Bordas medial, lateral e superior demonstradas em Latarjet T1 (p. 458) e Nielsen (p. 88). Termos borda espinhal e axilar auditados.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-018",
+    "fact_candidate_id": "SCAP-SRC-F018",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui borda lateral (denominada borda axilar nas notas de aula)."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Bordas medial, lateral e superior demonstradas em Latarjet T1 (p. 458) e Nielsen (p. 88). Termos borda espinhal e axilar auditados.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-019",
+    "fact_candidate_id": "SCAP-SRC-F019",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui borda superior."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-003"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Bordas medial, lateral e superior demonstradas em Latarjet T1 (p. 458) e Nielsen (p. 88). Termos borda espinhal e axilar auditados.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-020",
+    "fact_candidate_id": "SCAP-SRC-F020",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "O músculo romboide menor relaciona-se com a borda medial ao nível da espinha escapular."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-006"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Inserção dos músculos romboide menor e maior na borda medial confirmadas em Latarjet T1 (p. 458) e Nielsen (p. 176).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-021",
+    "fact_candidate_id": "SCAP-SRC-F021",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "O músculo romboide maior relaciona-se com a borda medial em direção ao ângulo inferior."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-006"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Inserção dos músculos romboide menor e maior na borda medial confirmadas em Latarjet T1 (p. 458) e Nielsen (p. 176).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-022",
+    "fact_candidate_id": "SCAP-SRC-F022",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A borda superior associa-se à terminologia incisura escapular / incisura coracoide nas notas."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Incisura escapular na borda superior confirmada em Latarjet T1 (p. 458) e Nielsen (p. 89). Termo incisura coracoide registrado.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-023",
+    "fact_candidate_id": "SCAP-SRC-F023",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui ângulo superior, unindo as bordas superior e medial."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ângulos (superior, inferior, lateral), processo coracoide e cavidade glenoidal confirmados em Latarjet T1 (p. 459) e Nielsen (pp. 88-89).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-024",
+    "fact_candidate_id": "SCAP-SRC-F024",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui ângulo inferior, unindo as bordas medial e lateral."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ângulos (superior, inferior, lateral), processo coracoide e cavidade glenoidal confirmados em Latarjet T1 (p. 459) e Nielsen (pp. 88-89).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-025",
+    "fact_candidate_id": "SCAP-SRC-F025",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula possui ângulo lateral, unindo as bordas superior e lateral."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ângulos (superior, inferior, lateral), processo coracoide e cavidade glenoidal confirmados em Latarjet T1 (p. 459) e Nielsen (pp. 88-89).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-026",
+    "fact_candidate_id": "SCAP-SRC-F026",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula identifica o processo coracoide."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ângulos (superior, inferior, lateral), processo coracoide e cavidade glenoidal confirmados em Latarjet T1 (p. 459) e Nielsen (pp. 88-89).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-027",
+    "fact_candidate_id": "SCAP-SRC-F027",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A escápula identifica a cavidade glenoidal."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ângulos (superior, inferior, lateral), processo coracoide e cavidade glenoidal confirmados em Latarjet T1 (p. 459) e Nielsen (pp. 88-89).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-028",
+    "fact_candidate_id": "SCAP-SRC-F028",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A cavidade glenoidal é circundada pelo lábio glenoidal (labrum)."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Lábio glenoidal (labrum) e articulação com a cabeça do úmero confirmados em Latarjet T1 (p. 474) e Nielsen (p. 85).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-029",
+    "fact_candidate_id": "SCAP-SRC-F029",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A cavidade glenoidal articula-se com a cabeça do úmero."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Lábio glenoidal (labrum) e articulação com a cabeça do úmero confirmados em Latarjet T1 (p. 474) e Nielsen (p. 85).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-030",
+    "fact_candidate_id": "SCAP-SRC-F030",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o subescapular com a fossa subescapular."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações musculares periescapulares (subescapular, serrátil, supra/infraespinoso, trapézio, deltoide, redondos) confirmadas em Latarjet T1 e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-031",
+    "fact_candidate_id": "SCAP-SRC-F031",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o serrátil anterior com a borda medial entre os ângulos superior e inferior."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações musculares periescapulares (subescapular, serrátil, supra/infraespinoso, trapézio, deltoide, redondos) confirmadas em Latarjet T1 e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-032",
+    "fact_candidate_id": "SCAP-SRC-F032",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o supraespinhal com a fossa supraespinosa."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações musculares periescapulares (subescapular, serrátil, supra/infraespinoso, trapézio, deltoide, redondos) confirmadas em Latarjet T1 e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-033",
+    "fact_candidate_id": "SCAP-SRC-F033",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o infraespinhal com a fossa infraespinosa."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações musculares periescapulares (subescapular, serrátil, supra/infraespinoso, trapézio, deltoide, redondos) confirmadas em Latarjet T1 e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-034",
+    "fact_candidate_id": "SCAP-SRC-F034",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o trapézio com o lábio superior da borda posterior da espinha da escápula."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações musculares periescapulares (subescapular, serrátil, supra/infraespinoso, trapézio, deltoide, redondos) confirmadas em Latarjet T1 e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-035",
+    "fact_candidate_id": "SCAP-SRC-F035",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o deltoide com o lábio inferior da borda posterior da espinha da escápula."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações musculares periescapulares (subescapular, serrátil, supra/infraespinoso, trapézio, deltoide, redondos) confirmadas em Latarjet T1 e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-036",
+    "fact_candidate_id": "SCAP-SRC-F036",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o redondo menor em direção à borda lateral."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações musculares periescapulares (subescapular, serrátil, supra/infraespinoso, trapézio, deltoide, redondos) confirmadas em Latarjet T1 e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-037",
+    "fact_candidate_id": "SCAP-SRC-F037",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o redondo maior em direção à borda lateral."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações musculares periescapulares (subescapular, serrátil, supra/infraespinoso, trapézio, deltoide, redondos) confirmadas em Latarjet T1 e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-038",
+    "fact_candidate_id": "SCAP-SRC-F038",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a cabeça longa do bíceps com a região supraglenoidal."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-007"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações peri-glenoidais e coracoideas (bíceps longo/curto, tríceps longo, coracobraquial, peitoral menor) confirmadas em Latarjet T1 (p. 459) e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-039",
+    "fact_candidate_id": "SCAP-SRC-F039",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a cabeça longa do tríceps com a região infraglenoidal."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-007"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações peri-glenoidais e coracoideas (bíceps longo/curto, tríceps longo, coracobraquial, peitoral menor) confirmadas em Latarjet T1 (p. 459) e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-040",
+    "fact_candidate_id": "SCAP-SRC-F040",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o coracobraquial com o ápice do processo coracoide."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-007"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações peri-glenoidais e coracoideas (bíceps longo/curto, tríceps longo, coracobraquial, peitoral menor) confirmadas em Latarjet T1 (p. 459) e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-041",
+    "fact_candidate_id": "SCAP-SRC-F041",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a cabeça curta do bíceps com o ápice do processo coracoide."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-007"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações peri-glenoidais e coracoideas (bíceps longo/curto, tríceps longo, coracobraquial, peitoral menor) confirmadas em Latarjet T1 (p. 459) e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-042",
+    "fact_candidate_id": "SCAP-SRC-F042",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa o peitoral menor com a borda medial do processo coracoide."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-004",
+      "NLS-ATLAS-SCAP-LOC-007"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Fixações peri-glenoidais e coracoideas (bíceps longo/curto, tríceps longo, coracobraquial, peitoral menor) confirmadas em Latarjet T1 (p. 459) e Nielsen.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-043",
+    "fact_candidate_id": "SCAP-SRC-F043",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "As notas mencionam expansão do subclávio associada à borda medial do processo coracoide."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-005",
+      "pages 4-23 (P4)"
+    ],
+    "support_type": "INSTITUTIONAL_TEACHING_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Expansão fascial/tendínea do subclávio para a base coracoide é nota de dissecação e prática anatômica contextual em Latarjet T1 (p. 459).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "PROFESSOR"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-044",
+    "fact_candidate_id": "SCAP-SRC-F044",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a região coracoide aos ligamentos coracoclaviculares."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ligamentos coracoclaviculares (conoide, trapezoide), coracoacromial e transverso superior da escápula confirmados em Latarjet T1 (pp. 458, 471).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-045",
+    "fact_candidate_id": "SCAP-SRC-F045",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a região coracoide ao ligamento coracoacromial."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ligamentos coracoclaviculares (conoide, trapezoide), coracoacromial e transverso superior da escápula confirmados em Latarjet T1 (pp. 458, 471).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-046",
+    "fact_candidate_id": "SCAP-SRC-F046",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a região coracoide ao ligamento trapezoide."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ligamentos coracoclaviculares (conoide, trapezoide), coracoacromial e transverso superior da escápula confirmados em Latarjet T1 (pp. 458, 471).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-047",
+    "fact_candidate_id": "SCAP-SRC-F047",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a região coracoide ao ligamento conoide."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ligamentos coracoclaviculares (conoide, trapezoide), coracoacromial e transverso superior da escápula confirmados em Latarjet T1 (pp. 458, 471).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-048",
+    "fact_candidate_id": "SCAP-SRC-F048",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte associa a região coracoide ao ligamento transverso superior da escápula."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ligamentos coracoclaviculares (conoide, trapezoide), coracoacromial e transverso superior da escápula confirmados em Latarjet T1 (pp. 458, 471).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-049",
+    "fact_candidate_id": "SCAP-SRC-F049",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte afirma que o ligamento transverso superior converte a incisura escapular/coracoide em forame."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ligamentos coracoclaviculares (conoide, trapezoide), coracoacromial e transverso superior da escápula confirmados em Latarjet T1 (pp. 458, 471).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-050",
+    "fact_candidate_id": "SCAP-SRC-F050",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte lista relação vascular regional envolvendo artéria e veia subclávias."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Vasos subclávios e axilares representam raízes vasculares regionais que margeiam a cintura escapular descritas em Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-051",
+    "fact_candidate_id": "SCAP-SRC-F051",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte lista relação vascular regional envolvendo artéria e veia axilares."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Vasos subclávios e axilares representam raízes vasculares regionais que margeiam a cintura escapular descritas em Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-052",
+    "fact_candidate_id": "SCAP-SRC-F052",
+    "subject": "scapula",
+    "relation": "SOURCE_REPORTED_PROPOSITION",
+    "object_or_arguments": [
+      "A fonte lista relação vascular regional envolvendo artéria e veia dorsais da escápula."
+    ],
+    "authoring_origin": "MORGUE_INSTITUTIONAL_TEACHING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Vasos dorsais da escápula ao longo da borda medial confirmados em Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-053",
+    "fact_candidate_id": "SCAP-AI-F001",
+    "subject": "scapula",
+    "relation": "TYPE_OF",
+    "object_or_arguments": [
+      "flat_bone_candidate"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Partes fundamentais, superfícies, bordas e ângulos validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-054",
+    "fact_candidate_id": "SCAP-AI-F002",
+    "subject": "scapula",
+    "relation": "LOCATED_IN",
+    "object_or_arguments": [
+      "pectoral_girdle"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Partes fundamentais, superfícies, bordas e ângulos validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-055",
+    "fact_candidate_id": "SCAP-AI-F003",
+    "subject": "scapula",
+    "relation": "HAS_SURFACE",
+    "object_or_arguments": [
+      "costal_surface"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Partes fundamentais, superfícies, bordas e ângulos validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-056",
+    "fact_candidate_id": "SCAP-AI-F004",
+    "subject": "scapula",
+    "relation": "HAS_SURFACE",
+    "object_or_arguments": [
+      "posterior_surface"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Partes fundamentais, superfícies, bordas e ângulos validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-057",
+    "fact_candidate_id": "SCAP-AI-F005",
+    "subject": "scapula",
+    "relation": "HAS_BORDER",
+    "object_or_arguments": [
+      "superior_border"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Partes fundamentais, superfícies, bordas e ângulos validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-058",
+    "fact_candidate_id": "SCAP-AI-F006",
+    "subject": "scapula",
+    "relation": "HAS_BORDER",
+    "object_or_arguments": [
+      "medial_border"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Partes fundamentais, superfícies, bordas e ângulos validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-059",
+    "fact_candidate_id": "SCAP-AI-F007",
+    "subject": "scapula",
+    "relation": "HAS_BORDER",
+    "object_or_arguments": [
+      "lateral_border"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Partes fundamentais, superfícies, bordas e ângulos validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-060",
+    "fact_candidate_id": "SCAP-AI-F008",
+    "subject": "scapula",
+    "relation": "HAS_ANGLE",
+    "object_or_arguments": [
+      "superior_angle"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Partes fundamentais, superfícies, bordas e ângulos validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-061",
+    "fact_candidate_id": "SCAP-AI-F009",
+    "subject": "scapula",
+    "relation": "HAS_ANGLE",
+    "object_or_arguments": [
+      "inferior_angle"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Partes fundamentais, superfícies, bordas e ângulos validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-062",
+    "fact_candidate_id": "SCAP-AI-F010",
+    "subject": "scapula",
+    "relation": "HAS_ANGLE",
+    "object_or_arguments": [
+      "lateral_angle"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-001",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Partes fundamentais, superfícies, bordas e ângulos validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "MACRO_OVERVIEW_COMPONENT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-063",
+    "fact_candidate_id": "SCAP-AI-F011",
+    "subject": "posterior_surface_of_scapula",
+    "relation": "HAS_STRUCTURE",
+    "object_or_arguments": [
+      "scapular_spine"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Acidentes ósseos específicos (espinha, acrômio, coracoide, cavidade glenoidal, tubérculos, incisuras) validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-064",
+    "fact_candidate_id": "SCAP-AI-F012",
+    "subject": "scapular_spine",
+    "relation": "SEPARATES",
+    "object_or_arguments": [
+      "supraspinous_fossa",
+      "infraspinous_fossa"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Acidentes ósseos específicos (espinha, acrômio, coracoide, cavidade glenoidal, tubérculos, incisuras) validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-065",
+    "fact_candidate_id": "SCAP-AI-F013",
+    "subject": "scapula",
+    "relation": "HAS_FOSSA",
+    "object_or_arguments": [
+      "subscapular_fossa"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Acidentes ósseos específicos (espinha, acrômio, coracoide, cavidade glenoidal, tubérculos, incisuras) validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-066",
+    "fact_candidate_id": "SCAP-AI-F014",
+    "subject": "scapula",
+    "relation": "HAS_FOSSA",
+    "object_or_arguments": [
+      "supraspinous_fossa"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Acidentes ósseos específicos (espinha, acrômio, coracoide, cavidade glenoidal, tubérculos, incisuras) validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-067",
+    "fact_candidate_id": "SCAP-AI-F015",
+    "subject": "scapula",
+    "relation": "HAS_FOSSA",
+    "object_or_arguments": [
+      "infraspinous_fossa"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Acidentes ósseos específicos (espinha, acrômio, coracoide, cavidade glenoidal, tubérculos, incisuras) validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-068",
+    "fact_candidate_id": "SCAP-AI-F016",
+    "subject": "scapular_spine",
+    "relation": "CONTINUES_AS",
+    "object_or_arguments": [
+      "acromion"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Acidentes ósseos específicos (espinha, acrômio, coracoide, cavidade glenoidal, tubérculos, incisuras) validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-069",
+    "fact_candidate_id": "SCAP-AI-F017",
+    "subject": "scapula",
+    "relation": "HAS_PROCESS",
+    "object_or_arguments": [
+      "coracoid_process"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Acidentes ósseos específicos (espinha, acrômio, coracoide, cavidade glenoidal, tubérculos, incisuras) validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-070",
+    "fact_candidate_id": "SCAP-AI-F018",
+    "subject": "lateral_angle_of_scapula",
+    "relation": "HAS_STRUCTURE",
+    "object_or_arguments": [
+      "glenoid_cavity"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Acidentes ósseos específicos (espinha, acrômio, coracoide, cavidade glenoidal, tubérculos, incisuras) validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-071",
+    "fact_candidate_id": "SCAP-AI-F019",
+    "subject": "scapula",
+    "relation": "HAS_LANDMARK",
+    "object_or_arguments": [
+      "supraglenoid_tubercle"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Acidentes ósseos específicos (espinha, acrômio, coracoide, cavidade glenoidal, tubérculos, incisuras) validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-072",
+    "fact_candidate_id": "SCAP-AI-F020",
+    "subject": "scapula",
+    "relation": "HAS_LANDMARK",
+    "object_or_arguments": [
+      "infraglenoid_tubercle"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Acidentes ósseos específicos (espinha, acrômio, coracoide, cavidade glenoidal, tubérculos, incisuras) validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-073",
+    "fact_candidate_id": "SCAP-AI-F021",
+    "subject": "superior_border_of_scapula",
+    "relation": "HAS_NOTCH",
+    "object_or_arguments": [
+      "suprascapular_notch"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Acidentes ósseos específicos (espinha, acrômio, coracoide, cavidade glenoidal, tubérculos, incisuras) validados por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-074",
+    "fact_candidate_id": "SCAP-AI-F022",
+    "subject": "scapula",
+    "relation": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "clavicle"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-007",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Articulações acromioclavicular e glenoumeral validadas por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-075",
+    "fact_candidate_id": "SCAP-AI-F023",
+    "subject": "scapula",
+    "relation": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "humerus"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-007",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Articulações acromioclavicular e glenoumeral validadas por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-076",
+    "fact_candidate_id": "SCAP-AI-F024",
+    "subject": "glenoid_cavity",
+    "relation": "ARTICULATES_WITH",
+    "object_or_arguments": [
+      "humeral_head"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-007",
+      "LAT-T1-SCAP-LOC-008",
+      "NLS-ATLAS-SCAP-LOC-002"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Articulações acromioclavicular e glenoumeral validadas por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-077",
+    "fact_candidate_id": "SCAP-AI-F025",
+    "subject": "subscapularis",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "subscapular_fossa"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-078",
+    "fact_candidate_id": "SCAP-AI-F026",
+    "subject": "supraspinatus",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "supraspinous_fossa"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-079",
+    "fact_candidate_id": "SCAP-AI-F027",
+    "subject": "infraspinatus",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "infraspinous_fossa"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-080",
+    "fact_candidate_id": "SCAP-AI-F028",
+    "subject": "teres_minor",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "lateral_border_of_scapula"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-081",
+    "fact_candidate_id": "SCAP-AI-F029",
+    "subject": "teres_major",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "inferior_scapular_region"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-082",
+    "fact_candidate_id": "SCAP-AI-F030",
+    "subject": "deltoid",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "acromion"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-083",
+    "fact_candidate_id": "SCAP-AI-F031",
+    "subject": "deltoid",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "scapular_spine"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-084",
+    "fact_candidate_id": "SCAP-AI-F032",
+    "subject": "trapezius",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "acromion"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-085",
+    "fact_candidate_id": "SCAP-AI-F033",
+    "subject": "trapezius",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "scapular_spine"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-086",
+    "fact_candidate_id": "SCAP-AI-F034",
+    "subject": "levator_scapulae",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "superior_medial_border_of_scapula"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-087",
+    "fact_candidate_id": "SCAP-AI-F035",
+    "subject": "rhomboid_minor",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "medial_border_near_root_of_scapular_spine"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-088",
+    "fact_candidate_id": "SCAP-AI-F036",
+    "subject": "rhomboid_major",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "medial_border_inferior_to_scapular_spine"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-089",
+    "fact_candidate_id": "SCAP-AI-F037",
+    "subject": "serratus_anterior",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "costal_aspect_of_medial_border"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-090",
+    "fact_candidate_id": "SCAP-AI-F038",
+    "subject": "biceps_brachii_long_head",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "supraglenoid_region"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-091",
+    "fact_candidate_id": "SCAP-AI-F039",
+    "subject": "triceps_brachii_long_head",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "infraglenoid_tubercle"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-092",
+    "fact_candidate_id": "SCAP-AI-F040",
+    "subject": "biceps_brachii_short_head",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "coracoid_process"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-093",
+    "fact_candidate_id": "SCAP-AI-F041",
+    "subject": "coracobrachialis",
+    "relation": "ORIGINATES_FROM",
+    "object_or_arguments": [
+      "coracoid_process"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-094",
+    "fact_candidate_id": "SCAP-AI-F042",
+    "subject": "pectoralis_minor",
+    "relation": "INSERTS_INTO",
+    "object_or_arguments": [
+      "coracoid_process"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-005",
+      "LAT-T1-SCAP-LOC-009",
+      "NLS-ATLAS-SCAP-LOC-006",
+      "NLS-ATLAS-SCAP-LOC-007",
+      "NLS-ATLAS-SCAP-LOC-008"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "18 fixações musculares periescapulares validadas com exatidão anatômica por Latarjet T1 e Nielsen Atlas.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-095",
+    "fact_candidate_id": "SCAP-AI-F043",
+    "subject": "coracoacromial_ligament",
+    "relation": "EXTENDS_BETWEEN",
+    "object_or_arguments": [
+      "coracoid_process",
+      "acromion"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ligamentos coracoacromial e transverso superior da escápula validados por Latarjet T1 (pp. 458, 471).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-096",
+    "fact_candidate_id": "SCAP-AI-F044",
+    "subject": "superior_transverse_scapular_ligament",
+    "relation": "BRIDGES",
+    "object_or_arguments": [
+      "suprascapular_notch"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Ligamentos coracoacromial e transverso superior da escápula validados por Latarjet T1 (pp. 458, 471).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-097",
+    "fact_candidate_id": "SCAP-AI-F045",
+    "subject": "suprascapular_nerve",
+    "relation": "PASSES_THROUGH",
+    "object_or_arguments": [
+      "suprascapular_notch_region"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Relações do nervo supraescapular e artéria supraescapular na incisura da escápula e incisura espinoglenoidal validadas por Latarjet T1 (pp. 457-458).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-098",
+    "fact_candidate_id": "SCAP-AI-F046",
+    "subject": "suprascapular_nerve",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "superior_transverse_scapular_ligament"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Relações do nervo supraescapular e artéria supraescapular na incisura da escápula e incisura espinoglenoidal validadas por Latarjet T1 (pp. 457-458).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-099",
+    "fact_candidate_id": "SCAP-AI-F047",
+    "subject": "suprascapular_artery",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "suprascapular_notch_region"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Relações do nervo supraescapular e artéria supraescapular na incisura da escápula e incisura espinoglenoidal validadas por Latarjet T1 (pp. 457-458).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-100",
+    "fact_candidate_id": "SCAP-AI-F048",
+    "subject": "suprascapular_nerve",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "spinoglenoid_notch"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-003",
+      "LAT-T1-SCAP-LOC-004"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Relações do nervo supraescapular e artéria supraescapular na incisura da escápula e incisura espinoglenoidal validadas por Latarjet T1 (pp. 457-458).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-101",
+    "fact_candidate_id": "SCAP-AI-F049",
+    "subject": "dorsal_scapular_artery",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "medial_border_of_scapula"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Relações das artérias dorsal da escápula e circunflexa da escápula validadas por Latarjet T1 (pp. 458, 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-102",
+    "fact_candidate_id": "SCAP-AI-F050",
+    "subject": "circumflex_scapular_artery",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "posterior_scapular_region"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004",
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Relações das artérias dorsal da escápula e circunflexa da escápula validadas por Latarjet T1 (pp. 458, 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-103",
+    "fact_candidate_id": "SCAP-AI-F051",
+    "subject": "triangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "teres_minor"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Limites e conteúdos do espaço omotricipital (triangular) e humerotricipital (quadrangular) validados com exatidão por Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-104",
+    "fact_candidate_id": "SCAP-AI-F052",
+    "subject": "triangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "teres_major"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Limites e conteúdos do espaço omotricipital (triangular) e humerotricipital (quadrangular) validados com exatidão por Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-105",
+    "fact_candidate_id": "SCAP-AI-F053",
+    "subject": "triangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "long_head_triceps"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Limites e conteúdos do espaço omotricipital (triangular) e humerotricipital (quadrangular) validados com exatidão por Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-106",
+    "fact_candidate_id": "SCAP-AI-F054",
+    "subject": "triangular_space",
+    "relation": "CONTAINS",
+    "object_or_arguments": [
+      "circumflex_scapular_vessels"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Limites e conteúdos do espaço omotricipital (triangular) e humerotricipital (quadrangular) validados com exatidão por Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-107",
+    "fact_candidate_id": "SCAP-AI-F055",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "teres_minor"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Limites e conteúdos do espaço omotricipital (triangular) e humerotricipital (quadrangular) validados com exatidão por Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-108",
+    "fact_candidate_id": "SCAP-AI-F056",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "teres_major"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Limites e conteúdos do espaço omotricipital (triangular) e humerotricipital (quadrangular) validados com exatidão por Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-109",
+    "fact_candidate_id": "SCAP-AI-F057",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "long_head_triceps"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Limites e conteúdos do espaço omotricipital (triangular) e humerotricipital (quadrangular) validados com exatidão por Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-110",
+    "fact_candidate_id": "SCAP-AI-F058",
+    "subject": "quadrangular_space",
+    "relation": "HAS_BOUNDARY",
+    "object_or_arguments": [
+      "surgical_neck_humerus"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Limites e conteúdos do espaço omotricipital (triangular) e humerotricipital (quadrangular) validados com exatidão por Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-111",
+    "fact_candidate_id": "SCAP-AI-F059",
+    "subject": "quadrangular_space",
+    "relation": "CONTAINS",
+    "object_or_arguments": [
+      "axillary_nerve"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Limites e conteúdos do espaço omotricipital (triangular) e humerotricipital (quadrangular) validados com exatidão por Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-112",
+    "fact_candidate_id": "SCAP-AI-F060",
+    "subject": "quadrangular_space",
+    "relation": "CONTAINS",
+    "object_or_arguments": [
+      "posterior_circumflex_humeral_vessels"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Limites e conteúdos do espaço omotricipital (triangular) e humerotricipital (quadrangular) validados com exatidão por Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-113",
+    "fact_candidate_id": "SCAP-AI-F061",
+    "subject": "scapular_spine",
+    "relation": "PRACTICAL_IDENTIFIES",
+    "object_or_arguments": [
+      "posterior_surface_of_scapula"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Critérios práticos de orientação (espinha posterior, cavidade glenoidal lateral, coracoide anterior, ângulo inferior para baixo) validados.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "PROFESSOR"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-114",
+    "fact_candidate_id": "SCAP-AI-F062",
+    "subject": "glenoid_cavity",
+    "relation": "PRACTICAL_ORIENTATION",
+    "object_or_arguments": [
+      "lateral"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Critérios práticos de orientação (espinha posterior, cavidade glenoidal lateral, coracoide anterior, ângulo inferior para baixo) validados.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "PROFESSOR"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-115",
+    "fact_candidate_id": "SCAP-AI-F063",
+    "subject": "coracoid_process",
+    "relation": "PRACTICAL_ORIENTATION",
+    "object_or_arguments": [
+      "anterior"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Critérios práticos de orientação (espinha posterior, cavidade glenoidal lateral, coracoide anterior, ângulo inferior para baixo) validados.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "PROFESSOR"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-116",
+    "fact_candidate_id": "SCAP-AI-F064",
+    "subject": "inferior_angle_of_scapula",
+    "relation": "PRACTICAL_ORIENTATION",
+    "object_or_arguments": [
+      "inferior"
+    ],
+    "authoring_origin": "AI_DRAFT",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "MULTI_SOURCE_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Critérios práticos de orientação (espinha posterior, cavidade glenoidal lateral, coracoide anterior, ângulo inferior para baixo) validados.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "PRACTICAL_IDENTIFICATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "PROFESSOR"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-117",
+    "fact_candidate_id": "SCAP-KP1-AI-F001",
+    "subject": "acromion",
+    "relation": "HAS_MORPHOLOGIC_VARIANT",
+    "object_or_arguments": [
+      "bigliani_type_I_flat"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Classificação morfológica acromial (Bigliani I plano, II curvo, III ganchoso) suportada morfologicamente; mantida como SUPPORTED por ser epônimo/variante clínica.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-118",
+    "fact_candidate_id": "SCAP-KP1-AI-F002",
+    "subject": "acromion",
+    "relation": "HAS_MORPHOLOGIC_VARIANT",
+    "object_or_arguments": [
+      "bigliani_type_II_curved"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Classificação morfológica acromial (Bigliani I plano, II curvo, III ganchoso) suportada morfologicamente; mantida como SUPPORTED por ser epônimo/variante clínica.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-119",
+    "fact_candidate_id": "SCAP-KP1-AI-F003",
+    "subject": "acromion",
+    "relation": "HAS_MORPHOLOGIC_VARIANT",
+    "object_or_arguments": [
+      "bigliani_type_III_hooked"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-002",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Classificação morfológica acromial (Bigliani I plano, II curvo, III ganchoso) suportada morfologicamente; mantida como SUPPORTED por ser epônimo/variante clínica.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-120",
+    "fact_candidate_id": "SCAP-KP1-AI-F004",
+    "subject": "os_acromiale",
+    "relation": "TYPE_OF",
+    "object_or_arguments": [
+      "developmental_anatomic_variant_candidate"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-006"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Os acromiale decorrente de centros secundários de ossificação do acrômio não fundidos suportado em Latarjet T1 (p. 460); lacuna especializada preservada.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-121",
+    "fact_candidate_id": "SCAP-KP1-AI-F005",
+    "subject": "os_acromiale",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "incomplete_fusion_of_acromial_ossification_component"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-006"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Os acromiale decorrente de centros secundários de ossificação do acrômio não fundidos suportado em Latarjet T1 (p. 460); lacuna especializada preservada.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-122",
+    "fact_candidate_id": "SCAP-KP1-AI-F006",
+    "subject": "superior_transverse_scapular_ligament",
+    "relation": "HAS_VARIANT",
+    "object_or_arguments": [
+      "partial_ossification_candidate"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Ossificação parcial e completa do ligamento transverso superior da escápula formando forame ósseo suportada em Latarjet T1 (p. 458).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-123",
+    "fact_candidate_id": "SCAP-KP1-AI-F007",
+    "subject": "superior_transverse_scapular_ligament",
+    "relation": "HAS_VARIANT",
+    "object_or_arguments": [
+      "complete_ossification_candidate"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Ossificação parcial e completa do ligamento transverso superior da escápula formando forame ósseo suportada em Latarjet T1 (p. 458).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-124",
+    "fact_candidate_id": "SCAP-KP1-AI-F008",
+    "subject": "complete_ossification_of_superior_transverse_scapular_ligament",
+    "relation": "MAY_FORM",
+    "object_or_arguments": [
+      "osseous_suprascapular_foramen"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-004"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Ossificação parcial e completa do ligamento transverso superior da escápula formando forame ósseo suportada em Latarjet T1 (p. 458).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-125",
+    "fact_candidate_id": "SCAP-KP1-AI-F009",
+    "subject": "scapula",
+    "relation": "REGIONAL_VASCULAR_RELATION",
+    "object_or_arguments": [
+      "suprascapular_artery"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Relação vascular regional da rede anastomótica periescapular (supraescapular, circunflexa escapular, dorsal da escápula) confirmada em Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-126",
+    "fact_candidate_id": "SCAP-KP1-AI-F010",
+    "subject": "scapula",
+    "relation": "REGIONAL_VASCULAR_RELATION",
+    "object_or_arguments": [
+      "circumflex_scapular_artery"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Relação vascular regional da rede anastomótica periescapular (supraescapular, circunflexa escapular, dorsal da escápula) confirmada em Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-127",
+    "fact_candidate_id": "SCAP-KP1-AI-F011",
+    "subject": "scapula",
+    "relation": "REGIONAL_VASCULAR_RELATION",
+    "object_or_arguments": [
+      "dorsal_scapular_artery"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Relação vascular regional da rede anastomótica periescapular (supraescapular, circunflexa escapular, dorsal da escápula) confirmada em Latarjet T1 (p. 492).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY",
+        "PROFESSOR_CONNECTION_COMPONENT"
+      ],
+      "response_depth": [
+        "DIRECT",
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-128",
+    "fact_candidate_id": "SCAP-KP1-AI-F012",
+    "subject": "scapula",
+    "relation": "RECEIVES_PERIOSTEAL_SUPPLY_FROM",
+    "object_or_arguments": [
+      "regional_arterial_branches"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-006",
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Suprimento periosteal e rede vascular intraóssea suportados genericamente na osteologia de Latarjet T1; mapeamento discreto de forames nutrícios preservado ativo.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-129",
+    "fact_candidate_id": "SCAP-KP1-AI-F013",
+    "subject": "scapula",
+    "relation": "HAS_INTRAOSSEOUS_VASCULAR_NETWORK",
+    "object_or_arguments": [
+      "true"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-006",
+      "LAT-T1-SCAP-LOC-010"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Suprimento periosteal e rede vascular intraóssea suportados genericamente na osteologia de Latarjet T1; mapeamento discreto de forames nutrícios preservado ativo.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "TOPOGRAPHIC_QUERY",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "CONTEXTUAL"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-130",
+    "fact_candidate_id": "SCAP-KP1-AI-F014",
+    "subject": "glenohumeral_joint",
+    "relation": "innervated_by",
+    "object_or_arguments": [
+      "suprascapular_nerve"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-008"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Inervação articular da articulação glenoumeral por ramos do nervo supraescapular e axilar confirmada em Latarjet T1 (p. 474).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-131",
+    "fact_candidate_id": "SCAP-KP1-AI-F015",
+    "subject": "glenohumeral_joint",
+    "relation": "innervated_by",
+    "object_or_arguments": [
+      "axillary_nerve"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-008"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Inervação articular da articulação glenoumeral por ramos do nervo supraescapular e axilar confirmada em Latarjet T1 (p. 474).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-132",
+    "fact_candidate_id": "SCAP-KP1-AI-F016",
+    "subject": "glenohumeral_joint",
+    "relation": "POSSIBLE_ARTICULAR_CONTRIBUTION",
+    "object_or_arguments": [
+      "lateral_pectoral_nerve"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [],
+    "evidence_locators": [],
+    "support_type": "NO_REGISTERED_SUPPORT",
+    "validation_status": "REVIEW_PENDING",
+    "validation_reason": "Contribuição articular candidata do nervo peitoral lateral para a glenoumeral requer bibliografia micro-neuroanatômica especializada indisponível.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": false,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [],
+      "response_depth": []
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-133",
+    "fact_candidate_id": "SCAP-KP1-AI-F017",
+    "subject": "acromioclavicular_joint",
+    "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+    "object_or_arguments": [
+      "suprascapular_nerve"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-007"
+    ],
+    "support_type": "DIRECT_EXPLICIT_SUPPORT",
+    "validation_status": "VALIDATED",
+    "validation_reason": "Inervação articular da articulação acromioclavicular por ramos do nervo supraescapular confirmada em Latarjet T1 (p. 471).",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY"
+      ],
+      "response_depth": [
+        "DIRECT"
+      ]
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-134",
+    "fact_candidate_id": "SCAP-KP1-AI-F018",
+    "subject": "acromioclavicular_joint",
+    "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+    "object_or_arguments": [
+      "lateral_pectoral_nerve"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [],
+    "evidence_locators": [],
+    "support_type": "NO_REGISTERED_SUPPORT",
+    "validation_status": "REVIEW_PENDING",
+    "validation_reason": "Contribuição articular candidata do nervo peitoral lateral para a acromioclavicular requer fonte especializada indisponível.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": false,
+      "safe_engine_relation_ready": false,
+      "query_affordances": [],
+      "response_depth": []
+    }
+  },
+  {
+    "validation_assessment_id": "VA-SCAP-135",
+    "fact_candidate_id": "SCAP-KP1-AI-F019",
+    "subject": "scapular_periosteum",
+    "relation": "HAS_SENSORY_INNERVATION",
+    "object_or_arguments": [
+      "true"
+    ],
+    "authoring_origin": "AI_DRAFT_KP1",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-006"
+    ],
+    "support_type": "INDIRECT_CONTEXTUAL_SUPPORT",
+    "validation_status": "SUPPORTED",
+    "validation_reason": "Inervação sensitiva geral do periósteo suportada pela biologia óssea em Latarjet T1; mapeamento fino de nervos periosteais preservado como lacuna ativa.",
+    "conflict_status": "NONE",
+    "safe_engine_compatibility": {
+      "safe_engine_atomic_ready": true,
+      "safe_engine_relation_ready": true,
+      "query_affordances": [
+        "TOPOGRAPHIC_QUERY"
+      ],
+      "response_depth": [
+        "CONTEXTUAL"
+      ]
+    }
+  }
+]

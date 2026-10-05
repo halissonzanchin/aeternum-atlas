@@ -13,6 +13,7 @@ coverage/
 .env
 .env.*
 !.env.example
+!.env.staging.example
 
 # Logs
 logs/
@@ -69,3 +70,18 @@ knowledge_base/ingested_chunks/
 
 # Scratch temporary diagnostic artifacts
 /scratch/
+*.cjs
+*.txt
+audit_*.cjs
+generate_*.cjs
+test_*.cjs
+scripts/test_ai_tutor_r3*.mjs
+scripts/test_ai_tutor_r4*.mjs
+scripts/build_*.cjs
+scripts/inspect_*.cjs
+scripts/parse_*.cjs
+scripts/read_*.cjs
+scripts/generate_*.cjs
+scripts/test_aeternum_*.cjs
+supabase/functions/ai-tutor/dist.js
+.agents/

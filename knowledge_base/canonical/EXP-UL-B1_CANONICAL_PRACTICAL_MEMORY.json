@@ -1,0 +1,82 @@
+[
+  {
+    "canonical_practical_id": "AET-PRAC-UL-B1-002",
+    "source_item_id": "MORG-B1-PRACT-002",
+    "institutional_statement": "Extremo Medial: Esternal / Esferoide (manubrio del esternón y 1º cartílago costal).",
+    "qualification_status": "PRACTICAL_PRODUCTION_READY",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_practical_id": "AET-PRAC-UL-B1-003",
+    "source_item_id": "MORG-B1-PRACT-003",
+    "institutional_statement": "Extremo Lateral: Acromial / Plano (con el acromion de la escápula).",
+    "qualification_status": "PRACTICAL_PRODUCTION_READY",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_practical_id": "AET-PRAC-UL-B1-004",
+    "source_item_id": "MORG-B1-PRACT-004",
+    "institutional_statement": "Posee 2 Caras: Superior e Inferior. Posee 2 Bordes: Anterior y Posterior.",
+    "qualification_status": "PRACTICAL_PRODUCTION_READY",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_practical_id": "AET-PRAC-UL-B1-005",
+    "source_item_id": "MORG-B1-PRACT-005",
+    "institutional_statement": "1/3 Lateral: Inserción descendente del músculo trapecio en cara superior - borde posterior.",
+    "qualification_status": "PRACTICAL_PRODUCTION_READY",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_practical_id": "AET-PRAC-UL-B1-006",
+    "source_item_id": "MORG-B1-PRACT-006",
+    "institutional_statement": "1/3 Lateral: Inserción del músculo deltoides en cara superior - borde anterior.",
+    "qualification_status": "PRACTICAL_PRODUCTION_READY",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_practical_id": "AET-PRAC-UL-B1-007",
+    "source_item_id": "MORG-B1-PRACT-007",
+    "institutional_statement": "2/3 Mediales: Inserción del músculo pectoral mayor en cara superior - borde anterior.",
+    "qualification_status": "PRACTICAL_PRODUCTION_READY",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_practical_id": "AET-PRAC-UL-B1-008",
+    "source_item_id": "MORG-B1-PRACT-008",
+    "institutional_statement": "Surco Deltopectoral: Vena Cefálica y Rama Deltoidea.",
+    "qualification_status": "PRACTICAL_PRODUCTION_READY",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_practical_id": "AET-PRAC-UL-B1-009",
+    "source_item_id": "MORG-B1-PRACT-009",
+    "institutional_statement": "Impresión del ligamento costoclavicular en cara inferior del 1/3 medial.",
+    "qualification_status": "PRACTICAL_PRODUCTION_READY",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_practical_id": "AET-PRAC-UL-B1-010",
+    "source_item_id": "MORG-B1-PRACT-010",
+    "institutional_statement": "Surco del músculo subclavio en 1/3 medio cara inferior.",
+    "qualification_status": "PRACTICAL_PRODUCTION_READY",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  },
+  {
+    "canonical_practical_id": "AET-PRAC-UL-B1-011",
+    "source_item_id": "MORG-B1-PRACT-011",
+    "institutional_statement": "Tubérculo conoideo y línea trapezoidea en 1/3 lateral cara inferior.",
+    "qualification_status": "PRACTICAL_PRODUCTION_READY",
+    "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+    "promotion_id": "AET-PROM-UL-B1-001"
+  }
+]

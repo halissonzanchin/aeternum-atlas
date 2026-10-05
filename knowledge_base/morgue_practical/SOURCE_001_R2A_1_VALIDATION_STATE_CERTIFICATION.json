@@ -1,0 +1,94 @@
+{
+  "contract_phase": "R2A_1_POST_AUDIT_VALIDATION_STATE_CONSISTENCY_CLOSEOUT",
+  "source_id": "MORGUE-UPPER-LIMB-001",
+  "governing_standards": ["AKAIP-1.0", "AACM-1.0", "AKAP-1.0"],
+  "timestamp": "2026-09-24T00:22:00Z",
+  "audit_finding": "R2A established that the build corpus AAC-2026.1-R1 is not bibliographic evidence. Under the Corpus-Only Lineage Rule, zero facts may remain SUPPORTED or VALIDATED solely on the basis of referencing AAC-2026.1-R1 without an underlying registered bibliographic SOURCE_ID. Therefore, all 74 previously validated facts and all 128 previously supported facts are conservatively certified as REVIEW_PENDING awaiting R2 primary bibliographic linking.",
+  "pre_r2a_status_counts": {
+    "unreviewed": 0,
+    "review_pending": 4,
+    "supported": 128,
+    "validated": 74,
+    "conflicting": 2,
+    "rejected": 0,
+    "status_sum": 208
+  },
+  "post_r2a_status_counts": {
+    "unreviewed": 0,
+    "review_pending": 206,
+    "supported": 0,
+    "validated": 0,
+    "conflicting": 2,
+    "rejected": 0,
+    "status_sum": 208
+  },
+  "corpus_only_lineage_rule": {
+    "corpus_only_facts_still_supported": 0,
+    "corpus_only_facts_still_validated": 0,
+    "rule_enforced": "Zero corpus-only facts remain supported or validated."
+  },
+  "facts_lineage_accounting_204_vs_208": {
+    "facts_with_corpus_only_lineage": 204,
+    "facts_with_other_lineage": 0,
+    "facts_with_no_validation_lineage": 4,
+    "total_facts": 208,
+    "explanation": "204 facts had validation assessments generated against the corpus build string AAC-2026.1-R1 (74 previously validated + 128 previously supported + 2 conflicting). The remaining 4 facts (AF-0003, AF-0070, AF-0132, AF-0137) were flagged from inception as REVIEW_PENDING review queue items (VQ-003 to VQ-006) with empty comparison source arrays, possessing zero validation lineage."
+  },
+  "source_authority_registry_audit": {
+    "candidate_sources_audited": [
+      {
+        "source_id": "SRC-TA2-2026",
+        "title": "Terminologia Anatomica 2 (FIPAT)",
+        "registered": "NO",
+        "provenance_available": "NO",
+        "ingestion_authorized": "YES",
+        "academic_validation_eligible": "NO"
+      },
+      {
+        "source_id": "SRC-MOORE-COA-8ED",
+        "title": "Moore Clinically Oriented Anatomy (8th Ed)",
+        "registered": "NO",
+        "provenance_available": "NO",
+        "ingestion_authorized": "YES",
+        "academic_validation_eligible": "NO"
+      },
+      {
+        "source_id": "SRC-GRAYS-42ED",
+        "title": "Gray's Anatomy (42nd Ed)",
+        "registered": "NO",
+        "provenance_available": "NO",
+        "ingestion_authorized": "YES",
+        "academic_validation_eligible": "NO"
+      },
+      {
+        "source_id": "SRC-LATARJET-5ED",
+        "title": "Latarjet & Ruiz Liard Anatomía Humana (5ª Ed)",
+        "registered": "NO",
+        "provenance_available": "NO",
+        "ingestion_authorized": "YES",
+        "academic_validation_eligible": "NO"
+      },
+      {
+        "source_id": "SRC-TESTUT-LATARJET",
+        "title": "Testut & Latarjet Traité d'Anatomie Humaine",
+        "registered": "NO",
+        "provenance_available": "NO",
+        "ingestion_authorized": "YES",
+        "academic_validation_eligible": "NO"
+      }
+    ],
+    "registered_validation_source_count": 0,
+    "academic_validation_eligible_source_count": 0,
+    "verdict": "No external bibliographic source is currently registered or eligible for canonical validation. All candidate texts require formal manifest registration in R2."
+  },
+  "scapula_pack_gate": {
+    "aet_kp_ul_scapula_001_authoring_ready": "YES",
+    "post_r2a_states_unambiguous": true,
+    "corpus_only_self_validation_zero": true,
+    "source_001_unpromoted": true,
+    "knowledge_pack_schema_valid": true,
+    "knowledge_author_identity_formalized": true,
+    "antigravity_non_authoring_rule_active": true,
+    "canonical_source_availability_honestly_reported": true
+  }
+}

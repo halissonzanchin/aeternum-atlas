@@ -1,0 +1,2170 @@
+{
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+  "batch_id": "EXP-UL-B1",
+  "promotion_id": "AET-PROM-UL-B1-001",
+  "total_promoted_facts": 129,
+  "production_queryable_facts": 118,
+  "canonical_stored_only_facts": 11,
+  "affordances": [
+    {
+      "canonical_fact_id": "AET-CF-CLAV-001",
+      "source_fact_candidate_id": "B1-FC-CLAV-001",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-002",
+      "source_fact_candidate_id": "B1-FC-CLAV-002",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "part_of",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-003",
+      "source_fact_candidate_id": "B1-FC-CLAV-003",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_symmetry",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-004",
+      "source_fact_candidate_id": "B1-FC-CLAV-004",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "located_in",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-005",
+      "source_fact_candidate_id": "B1-FC-CLAV-005",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_shape",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-006",
+      "source_fact_candidate_id": "B1-FC-CLAV-006",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-007",
+      "source_fact_candidate_id": "B1-FC-CLAV-007",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-008",
+      "source_fact_candidate_id": "B1-FC-CLAV-008",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-009",
+      "source_fact_candidate_id": "B1-FC-CLAV-009",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-010",
+      "source_fact_candidate_id": "B1-FC-CLAV-010",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-011",
+      "source_fact_candidate_id": "B1-FC-CLAV-011",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_surface",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-012",
+      "source_fact_candidate_id": "B1-FC-CLAV-012",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_surface",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-013",
+      "source_fact_candidate_id": "B1-FC-CLAV-013",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_border",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-014",
+      "source_fact_candidate_id": "B1-FC-CLAV-014",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_border",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-015",
+      "source_fact_candidate_id": "B1-FC-CLAV-015",
+      "entity_id": "clavicular_superior_surface",
+      "subject_id": "clavicular_superior_surface",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-016",
+      "source_fact_candidate_id": "B1-FC-CLAV-016",
+      "entity_id": "clavicular_inferior_surface",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-017",
+      "source_fact_candidate_id": "B1-FC-CLAV-017",
+      "entity_id": "clavicular_inferior_surface",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-018",
+      "source_fact_candidate_id": "B1-FC-CLAV-018",
+      "entity_id": "clavicular_inferior_surface",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-019",
+      "source_fact_candidate_id": "B1-FC-CLAV-019",
+      "entity_id": "clavicular_inferior_surface",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-020",
+      "source_fact_candidate_id": "B1-FC-CLAV-020",
+      "entity_id": "clavicular_inferior_surface",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-021",
+      "source_fact_candidate_id": "B1-FC-CLAV-021",
+      "entity_id": "clavicular_sternal_end",
+      "subject_id": "clavicular_sternal_end",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-022",
+      "source_fact_candidate_id": "B1-FC-CLAV-022",
+      "entity_id": "clavicular_sternal_articular_surface",
+      "subject_id": "clavicular_sternal_articular_surface",
+      "relation": "articulates_with",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-023",
+      "source_fact_candidate_id": "B1-FC-CLAV-023",
+      "entity_id": "clavicular_acromial_end",
+      "subject_id": "clavicular_acromial_end",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-024",
+      "source_fact_candidate_id": "B1-FC-CLAV-024",
+      "entity_id": "clavicular_acromial_articular_surface",
+      "subject_id": "clavicular_acromial_articular_surface",
+      "relation": "articulates_with",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-025",
+      "source_fact_candidate_id": "B1-FC-CLAV-025",
+      "entity_id": "clavicle",
+      "subject_id": "pectoralis_major_clavicular_head",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-026",
+      "source_fact_candidate_id": "B1-FC-CLAV-026",
+      "entity_id": "clavicle",
+      "subject_id": "deltoid_clavicular_portion",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-027",
+      "source_fact_candidate_id": "B1-FC-CLAV-027",
+      "entity_id": "clavicle",
+      "subject_id": "trapezius_descending_part",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-028",
+      "source_fact_candidate_id": "B1-FC-CLAV-028",
+      "entity_id": "clavicle",
+      "subject_id": "sternocleidomastoid_clavicular_head",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-029",
+      "source_fact_candidate_id": "B1-FC-CLAV-029",
+      "entity_id": "clavicle",
+      "subject_id": "subclavius_muscle",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-030",
+      "source_fact_candidate_id": "B1-FC-CLAV-030",
+      "entity_id": "clavicle",
+      "subject_id": "costoclavicular_ligament",
+      "relation": "attaches_ligament",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-031",
+      "source_fact_candidate_id": "B1-FC-CLAV-031",
+      "entity_id": "clavicle",
+      "subject_id": "conoid_ligament",
+      "relation": "attaches_ligament",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-032",
+      "source_fact_candidate_id": "B1-FC-CLAV-032",
+      "entity_id": "clavicle",
+      "subject_id": "trapezoid_ligament",
+      "relation": "attaches_ligament",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-033",
+      "source_fact_candidate_id": "B1-FC-CLAV-033",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-034",
+      "source_fact_candidate_id": "B1-FC-CLAV-034",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-035",
+      "source_fact_candidate_id": "B1-FC-CLAV-035",
+      "entity_id": "clavicle",
+      "subject_id": "platysma_muscle",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-036",
+      "source_fact_candidate_id": "B1-FC-CLAV-036",
+      "entity_id": "clavicle",
+      "subject_id": "supraclavicular_nerves",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-037",
+      "source_fact_candidate_id": "B1-FC-CLAV-037",
+      "entity_id": "clavicle",
+      "subject_id": "subclavian_vessels",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-038",
+      "source_fact_candidate_id": "B1-FC-CLAV-038",
+      "entity_id": "clavicle",
+      "subject_id": "brachial_plexus_trunks",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-039",
+      "source_fact_candidate_id": "B1-FC-CLAV-039",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-040",
+      "source_fact_candidate_id": "B1-FC-CLAV-040",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-041",
+      "source_fact_candidate_id": "B1-FC-CLAV-042",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-042",
+      "source_fact_candidate_id": "B1-FC-CLAV-043",
+      "entity_id": "clavicle",
+      "subject_id": "clavicular_sternal_end_epiphysis",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-043",
+      "source_fact_candidate_id": "B1-FC-CLAV-044",
+      "entity_id": "clavicle",
+      "subject_id": "clavipectoral_fascia",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-044",
+      "source_fact_candidate_id": "B1-FC-CLAV-046",
+      "entity_id": "clavicle",
+      "subject_id": "posterior_border_of_clavicle",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-045",
+      "source_fact_candidate_id": "B1-FC-CLAV-047",
+      "entity_id": "clavicle",
+      "subject_id": "anterior_border_of_clavicle",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-046",
+      "source_fact_candidate_id": "B1-FC-CLAV-048",
+      "entity_id": "clavicle",
+      "subject_id": "cervical_fascia_superficial_layer",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-047",
+      "source_fact_candidate_id": "B1-FC-CLAV-049",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-048",
+      "source_fact_candidate_id": "B1-FC-CLAV-050",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CLAV-049",
+      "source_fact_candidate_id": "B1-FC-CLAV-052",
+      "entity_id": "clavicle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-001",
+      "source_fact_candidate_id": "B1-FC-SCJ-001",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-002",
+      "source_fact_candidate_id": "B1-FC-SCJ-002",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "part_of",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-003",
+      "source_fact_candidate_id": "B1-FC-SCJ-003",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "articulates_with",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-004",
+      "source_fact_candidate_id": "B1-FC-SCJ-004",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-005",
+      "source_fact_candidate_id": "B1-FC-SCJ-005",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-006",
+      "source_fact_candidate_id": "B1-FC-SCJ-006",
+      "entity_id": "sternoclavicular_articular_disc",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-007",
+      "source_fact_candidate_id": "B1-FC-SCJ-007",
+      "entity_id": "sternoclavicular_articular_disc",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-008",
+      "source_fact_candidate_id": "B1-FC-SCJ-008",
+      "entity_id": "sternoclavicular_articular_disc",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "DIVIDES_JOINT_CAVITY",
+      "safe_engine_production_eligible": false,
+      "affordances": [
+        "CANONICAL_RETRIEVAL_ONLY"
+      ],
+      "response_modes": [
+        "CANONICAL_AUDIT_MODE"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-009",
+      "source_fact_candidate_id": "B1-FC-SCJ-009",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "surrounded_by",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-010",
+      "source_fact_candidate_id": "B1-FC-SCJ-010",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-011",
+      "source_fact_candidate_id": "B1-FC-SCJ-011",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-012",
+      "source_fact_candidate_id": "B1-FC-SCJ-012",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-013",
+      "source_fact_candidate_id": "B1-FC-SCJ-013",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-014",
+      "source_fact_candidate_id": "B1-FC-SCJ-014",
+      "entity_id": "costoclavicular_ligament",
+      "subject_id": "costoclavicular_ligament",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-015",
+      "source_fact_candidate_id": "B1-FC-SCJ-015",
+      "entity_id": "costoclavicular_ligament",
+      "subject_id": "costoclavicular_ligament",
+      "relation": "RESISTS_DISPLACEMENT",
+      "safe_engine_production_eligible": false,
+      "affordances": [
+        "CANONICAL_RETRIEVAL_ONLY"
+      ],
+      "response_modes": [
+        "CANONICAL_AUDIT_MODE"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-016",
+      "source_fact_candidate_id": "B1-FC-SCJ-016",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-017",
+      "source_fact_candidate_id": "B1-FC-SCJ-017",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-018",
+      "source_fact_candidate_id": "B1-FC-SCJ-018",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-019",
+      "source_fact_candidate_id": "B1-FC-SCJ-019",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_supply",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-020",
+      "source_fact_candidate_id": "B1-FC-SCJ-020",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "innervated_by",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-021",
+      "source_fact_candidate_id": "B1-FC-SCJ-021",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-022",
+      "source_fact_candidate_id": "B1-FC-SCJ-022",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-023",
+      "source_fact_candidate_id": "B1-FC-SCJ-023",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "interclavicular_ligament",
+      "relation": "RESISTS_DISPLACEMENT",
+      "safe_engine_production_eligible": false,
+      "affordances": [
+        "CANONICAL_RETRIEVAL_ONLY"
+      ],
+      "response_modes": [
+        "CANONICAL_AUDIT_MODE"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-024",
+      "source_fact_candidate_id": "B1-FC-SCJ-024",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-025",
+      "source_fact_candidate_id": "B1-FC-SCJ-025",
+      "entity_id": "sternoclavicular_articular_disc",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "RESISTS_DISPLACEMENT",
+      "safe_engine_production_eligible": false,
+      "affordances": [
+        "CANONICAL_RETRIEVAL_ONLY"
+      ],
+      "response_modes": [
+        "CANONICAL_AUDIT_MODE"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-SCJ-026",
+      "source_fact_candidate_id": "B1-FC-SCJ-028",
+      "entity_id": "sternoclavicular_joint",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-001",
+      "source_fact_candidate_id": "B1-FC-ACJ-001",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-002",
+      "source_fact_candidate_id": "B1-FC-ACJ-002",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "part_of",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-003",
+      "source_fact_candidate_id": "B1-FC-ACJ-003",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "articulates_with",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-004",
+      "source_fact_candidate_id": "B1-FC-ACJ-004",
+      "entity_id": "clavicular_acromial_articular_surface",
+      "subject_id": "clavicular_acromial_articular_surface",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-005",
+      "source_fact_candidate_id": "B1-FC-ACJ-005",
+      "entity_id": "acromial_facet_of_scapula",
+      "subject_id": "acromial_facet_of_scapula",
+      "relation": "has_curvature",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-006",
+      "source_fact_candidate_id": "B1-FC-ACJ-006",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-007",
+      "source_fact_candidate_id": "B1-FC-ACJ-007",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-008",
+      "source_fact_candidate_id": "B1-FC-ACJ-008",
+      "entity_id": "acromioclavicular_articular_disc",
+      "subject_id": "acromioclavicular_articular_disc",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-009",
+      "source_fact_candidate_id": "B1-FC-ACJ-009",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "surrounded_by",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-010",
+      "source_fact_candidate_id": "B1-FC-ACJ-010",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-011",
+      "source_fact_candidate_id": "B1-FC-ACJ-011",
+      "entity_id": "acromioclavicular_ligament",
+      "subject_id": "superior_acromioclavicular_ligament",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-012",
+      "source_fact_candidate_id": "B1-FC-ACJ-012",
+      "entity_id": "acromioclavicular_ligament",
+      "subject_id": "superior_acromioclavicular_ligament",
+      "relation": "RESISTS_DISPLACEMENT",
+      "safe_engine_production_eligible": false,
+      "affordances": [
+        "CANONICAL_RETRIEVAL_ONLY"
+      ],
+      "response_modes": [
+        "CANONICAL_AUDIT_MODE"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-013",
+      "source_fact_candidate_id": "B1-FC-ACJ-013",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "functional_axis",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-014",
+      "source_fact_candidate_id": "B1-FC-ACJ-014",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "functional_axis",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-015",
+      "source_fact_candidate_id": "B1-FC-ACJ-015",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "vascular_supply",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-016",
+      "source_fact_candidate_id": "B1-FC-ACJ-016",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "innervated_by",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-017",
+      "source_fact_candidate_id": "B1-FC-ACJ-017",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-018",
+      "source_fact_candidate_id": "B1-FC-ACJ-018",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-019",
+      "source_fact_candidate_id": "B1-FC-ACJ-019",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-ACJ-020",
+      "source_fact_candidate_id": "B1-FC-ACJ-021",
+      "entity_id": "acromioclavicular_joint",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-001",
+      "source_fact_candidate_id": "B1-FC-CCC-001",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-002",
+      "source_fact_candidate_id": "B1-FC-CCC-002",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-003",
+      "source_fact_candidate_id": "B1-FC-CCC-003",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-004",
+      "source_fact_candidate_id": "B1-FC-CCC-004",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "has_shape",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-005",
+      "source_fact_candidate_id": "B1-FC-CCC-005",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-006",
+      "source_fact_candidate_id": "B1-FC-CCC-006",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-007",
+      "source_fact_candidate_id": "B1-FC-CCC-007",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "RESISTS_DISPLACEMENT",
+      "safe_engine_production_eligible": false,
+      "affordances": [
+        "CANONICAL_RETRIEVAL_ONLY"
+      ],
+      "response_modes": [
+        "CANONICAL_AUDIT_MODE"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-008",
+      "source_fact_candidate_id": "B1-FC-CCC-008",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-009",
+      "source_fact_candidate_id": "B1-FC-CCC-009",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "has_shape",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-010",
+      "source_fact_candidate_id": "B1-FC-CCC-010",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "originates_from",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-011",
+      "source_fact_candidate_id": "B1-FC-CCC-011",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "inserts_into",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-012",
+      "source_fact_candidate_id": "B1-FC-CCC-012",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "RESISTS_DISPLACEMENT",
+      "safe_engine_production_eligible": false,
+      "affordances": [
+        "CANONICAL_RETRIEVAL_ONLY"
+      ],
+      "response_modes": [
+        "CANONICAL_AUDIT_MODE"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-013",
+      "source_fact_candidate_id": "B1-FC-CCC-013",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "SUSPENDS_STRUCTURE",
+      "safe_engine_production_eligible": false,
+      "affordances": [
+        "CANONICAL_RETRIEVAL_ONLY"
+      ],
+      "response_modes": [
+        "CANONICAL_AUDIT_MODE"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-014",
+      "source_fact_candidate_id": "B1-FC-CCC-014",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_interligamentous_angle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-015",
+      "source_fact_candidate_id": "B1-FC-CCC-015",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "vascular_supply",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-016",
+      "source_fact_candidate_id": "B1-FC-CCC-016",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "innervated_by",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-017",
+      "source_fact_candidate_id": "B1-FC-CCC-018",
+      "entity_id": "conoid_ligament",
+      "subject_id": "conoid_ligament",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-018",
+      "source_fact_candidate_id": "B1-FC-CCC-019",
+      "entity_id": "trapezoid_ligament",
+      "subject_id": "trapezoid_ligament",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-CCC-019",
+      "source_fact_candidate_id": "B1-FC-CCC-020",
+      "entity_id": "coracoclavicular_ligament_complex",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "vascular_syntopy",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-001",
+      "source_fact_candidate_id": "B1-FC-PGI-001",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "pectoral_girdle",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-002",
+      "source_fact_candidate_id": "B1-FC-PGI-002",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-003",
+      "source_fact_candidate_id": "B1-FC-PGI-003",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-004",
+      "source_fact_candidate_id": "B1-FC-PGI-004",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-005",
+      "source_fact_candidate_id": "B1-FC-PGI-005",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-006",
+      "source_fact_candidate_id": "B1-FC-PGI-006",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-007",
+      "source_fact_candidate_id": "B1-FC-PGI-013",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "scapulohumeral_rhythm",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": false,
+      "affordances": [
+        "CANONICAL_RETRIEVAL_ONLY"
+      ],
+      "response_modes": [
+        "CANONICAL_AUDIT_MODE"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-008",
+      "source_fact_candidate_id": "B1-FC-PGI-014",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "deltopectoral_groove",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-009",
+      "source_fact_candidate_id": "B1-FC-PGI-015",
+      "entity_id": "deltopectoral_groove",
+      "subject_id": "deltopectoral_groove",
+      "relation": "type_of",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-010",
+      "source_fact_candidate_id": "B1-FC-PGI-016",
+      "entity_id": "deltopectoral_groove",
+      "subject_id": "deltopectoral_groove",
+      "relation": "has_border",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-011",
+      "source_fact_candidate_id": "B1-FC-PGI-018",
+      "entity_id": "deltopectoral_groove",
+      "subject_id": "deltopectoral_groove",
+      "relation": "TRANSMITS_STRUCTURE",
+      "safe_engine_production_eligible": false,
+      "affordances": [
+        "CANONICAL_RETRIEVAL_ONLY"
+      ],
+      "response_modes": [
+        "CANONICAL_AUDIT_MODE"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-012",
+      "source_fact_candidate_id": "B1-FC-PGI-019",
+      "entity_id": "pectoral_girdle",
+      "subject_id": "cervicoaxillary_canal",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-013",
+      "source_fact_candidate_id": "B1-FC-PGI-020",
+      "entity_id": "cervicoaxillary_canal",
+      "subject_id": "cervicoaxillary_canal",
+      "relation": "has_border",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-014",
+      "source_fact_candidate_id": "B1-FC-PGI-021",
+      "entity_id": "cervicoaxillary_canal",
+      "subject_id": "cervicoaxillary_canal",
+      "relation": "TRANSMITS_STRUCTURE",
+      "safe_engine_production_eligible": false,
+      "affordances": [
+        "CANONICAL_RETRIEVAL_ONLY"
+      ],
+      "response_modes": [
+        "CANONICAL_AUDIT_MODE"
+      ]
+    },
+    {
+      "canonical_fact_id": "AET-CF-PGI-015",
+      "source_fact_candidate_id": "B1-FC-PGI-026",
+      "entity_id": "deltopectoral_groove",
+      "subject_id": "cephalic_vein",
+      "relation": "has_structure",
+      "safe_engine_production_eligible": true,
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    }
+  ]
+}

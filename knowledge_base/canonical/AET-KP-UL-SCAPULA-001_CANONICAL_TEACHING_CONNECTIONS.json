@@ -1,0 +1,174 @@
+[
+  {
+    "canonical_teaching_connection_id": "AET-CTC-TC-SCAP-001",
+    "original_connection_id": "TC-SCAP-001",
+    "anchor_entity": "scapular_spine",
+    "connection_type": "TOPOGRAPHIC_ORGANIZER",
+    "teaching_reason": "The spine is the practical landmark that immediately separates the two posterior fossae and therefore organizes the muscle origins located above and below it.",
+    "required_canonical_fact_ids": [
+      "AET-CF-SCAP-060",
+      "AET-CF-SCAP-061",
+      "AET-CF-SCAP-063",
+      "AET-CF-SCAP-064",
+      "AET-CF-SCAP-075",
+      "AET-CF-SCAP-076"
+    ],
+    "academic_status": "CANONICAL_QUALIFIED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_teaching_connection_id": "AET-CTC-TC-SCAP-002",
+    "original_connection_id": "TC-SCAP-002",
+    "anchor_entity": "glenoid_cavity",
+    "connection_type": "ARTICULAR_COMPLEX",
+    "teaching_reason": "The lateral articular region should be studied as a complete joint complex rather than as an isolated bony depression.",
+    "required_canonical_fact_ids": [
+      "AET-CF-SCAP-067",
+      "AET-CF-SCAP-072",
+      "AET-CF-SCAP-073"
+    ],
+    "academic_status": "CANONICAL_QUALIFIED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_teaching_connection_id": "AET-CTC-TC-SCAP-003",
+    "original_connection_id": "TC-SCAP-003",
+    "anchor_entity": "supraglenoid_and_infraglenoid_regions",
+    "connection_type": "MUSCULAR_ORIGIN_HUB",
+    "teaching_reason": "The glenoid region directly links osteology to the long heads of the arm muscles.",
+    "required_canonical_fact_ids": [
+      "AET-CF-SCAP-068",
+      "AET-CF-SCAP-069",
+      "AET-CF-SCAP-087",
+      "AET-CF-SCAP-088"
+    ],
+    "academic_status": "CANONICAL_QUALIFIED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_teaching_connection_id": "AET-CTC-TC-SCAP-004",
+    "original_connection_id": "TC-SCAP-004",
+    "anchor_entity": "coracoid_process",
+    "connection_type": "ATTACHMENT_CONVERGENCE",
+    "teaching_reason": "The coracoid is a major convergence point of muscle and ligament attachments.",
+    "required_canonical_fact_ids": [
+      "AET-CF-SCAP-066",
+      "AET-CF-SCAP-089",
+      "AET-CF-SCAP-090",
+      "AET-CF-SCAP-091",
+      "AET-CF-SCAP-092"
+    ],
+    "academic_status": "CANONICAL_QUALIFIED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_teaching_connection_id": "AET-CTC-TC-SCAP-005",
+    "original_connection_id": "TC-SCAP-005",
+    "anchor_entity": "suprascapular_notch",
+    "connection_type": "NEUROVASCULAR_CROSSING",
+    "teaching_reason": "This region integrates bone morphology, ligament anatomy, arterial relation and nerve passage.",
+    "required_canonical_fact_ids": [
+      "AET-CF-SCAP-070",
+      "AET-CF-SCAP-093",
+      "AET-CF-SCAP-094",
+      "AET-CF-SCAP-095",
+      "AET-CF-SCAP-096"
+    ],
+    "academic_status": "CANONICAL_QUALIFIED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_teaching_connection_id": "AET-CTC-TC-SCAP-006",
+    "original_connection_id": "TC-SCAP-006",
+    "anchor_entity": "medial_border",
+    "connection_type": "POSTURAL_INTEGRATOR",
+    "teaching_reason": "The medial border organizes the muscular systems responsible for positioning the scapula against the thoracic wall.",
+    "required_canonical_fact_ids": [
+      "AET-CF-SCAP-055",
+      "AET-CF-SCAP-083",
+      "AET-CF-SCAP-084",
+      "AET-CF-SCAP-085",
+      "AET-CF-SCAP-086"
+    ],
+    "academic_status": "CANONICAL_QUALIFIED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_teaching_connection_id": "AET-CTC-TC-SCAP-007",
+    "original_connection_id": "TC-SCAP-007",
+    "anchor_entity": "lateral_border_and_inferior_region",
+    "connection_type": "ANATOMIC_SPACE_FORMATION",
+    "teaching_reason": "Muscle attachments on the scapula create clinically and practically important posterior shoulder spaces.",
+    "required_canonical_fact_ids": [
+      "AET-CF-SCAP-056",
+      "AET-CF-SCAP-077",
+      "AET-CF-SCAP-078",
+      "AET-CF-SCAP-100",
+      "AET-CF-SCAP-101",
+      "AET-CF-SCAP-102",
+      "AET-CF-SCAP-103",
+      "AET-CF-SCAP-104",
+      "AET-CF-SCAP-105",
+      "AET-CF-SCAP-106"
+    ],
+    "academic_status": "CANONICAL_QUALIFIED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_teaching_connection_id": "AET-CTC-TC-SCAP-008",
+    "original_connection_id": "TC-SCAP-008",
+    "anchor_entity": "acromion",
+    "connection_type": "SKELETAL_MUSCLE_BRIDGE",
+    "teaching_reason": "The acromion links scapular osteology to the acromioclavicular joint and to major superficial shoulder muscles.",
+    "required_canonical_fact_ids": [
+      "AET-CF-SCAP-065",
+      "AET-CF-SCAP-071",
+      "AET-CF-SCAP-079",
+      "AET-CF-SCAP-081"
+    ],
+    "academic_status": "CANONICAL_QUALIFIED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_teaching_connection_id": "AET-CTC-TC-SCAP-009",
+    "original_connection_id": "TC-SCAP-009",
+    "anchor_entity": "scapular_vascular_region",
+    "connection_type": "VASCULAR_NETWORK",
+    "teaching_reason": "The scapular region should be understood as an anastomotic vascular network rather than as isolated named arteries.",
+    "required_canonical_fact_ids": [
+      "AET-CF-SCAP-096",
+      "AET-CF-SCAP-098",
+      "AET-CF-SCAP-099"
+    ],
+    "academic_status": "CANONICAL_QUALIFIED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_teaching_connection_id": "AET-CTC-TC-SCAP-010",
+    "original_connection_id": "TC-SCAP-010",
+    "anchor_entity": "isolated_scapula",
+    "connection_type": "PRACTICAL_ORIENTATION_CLUSTER",
+    "teaching_reason": "These four landmarks allow rapid orientation and laterality determination during practical examination.",
+    "required_canonical_fact_ids": [
+      "AET-CF-SCAP-110",
+      "AET-CF-SCAP-111",
+      "AET-CF-SCAP-112",
+      "AET-CF-SCAP-113"
+    ],
+    "academic_status": "CANONICAL_QUALIFIED",
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_teaching_connection_id": "AET-CTC-TC-SCAP-KP1-NEURAL-002",
+    "original_connection_id": "TC-SCAP-KP1-NEURAL-002",
+    "anchor_entity": "suprascapular_notch",
+    "connection_type": "NEUROVASCULAR_DUAL_FUNCTION",
+    "teaching_reason": "The same nerve that is topographically important at the scapular notch also has functional relevance to the posterior shoulder and articular region.",
+    "required_canonical_fact_ids": [
+      "AET-CF-SCAP-117",
+      "AET-CF-SCAP-119"
+    ],
+    "academic_status": "CANONICAL_QUALIFIED",
+    "safe_engine_production_eligible": true
+  }
+]

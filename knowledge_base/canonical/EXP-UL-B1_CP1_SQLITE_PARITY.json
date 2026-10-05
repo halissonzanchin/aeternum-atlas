@@ -1,0 +1,19 @@
+{
+  "verified_at": "2026-09-25T04:24:56.727Z",
+  "database_path": "C:\\Users\\halis\\.gemini\\antigravity\\scratch\\aeternum-atlas-frontend\\knowledge_base\\local_mirror\\aeternum_anatomical_memory.db",
+  "pre_mutation_hash": "8759ea65d097dc2c708fb14be216a643e7ae42b9c8c931b3c272e3bcd7b5b925",
+  "post_mutation_fact_count": 248,
+  "post_mutation_entity_count": 31,
+  "parity_metrics": {
+    "CANONICAL_JSON_B1_FACT_COUNT": 129,
+    "CANONICAL_SQLITE_B1_FACT_COUNT": 129,
+    "B1_JSON_SQLITE_PARITY": "100%",
+    "JSON_GLOBAL_CANONICAL_FACT_COUNT": 248,
+    "SQLITE_GLOBAL_CANONICAL_FACT_COUNT": 248,
+    "GLOBAL_JSON_SQLITE_PARITY": "100%",
+    "SCAPULA_CANONICAL_FACTS_PRESERVED": true,
+    "ANATOMICAL_CHUNKS_PRESERVED": true,
+    "DUPLICATE_FACT_IDS_COUNT": 0,
+    "DUPLICATE_ENTITY_IDS_COUNT": 0
+  }
+}

@@ -1,0 +1,59 @@
+[
+  {
+    "item_id": "PRAC-SCAP-001",
+    "topic": "PRACTICAL_IDENTIFICATION_CANDIDATE",
+    "steps": [
+      "1. Identifique a espinha da escápula; a espinha pertence necessariamente à face posterior.",
+      "2. Posicione a cavidade glenoidal lateralmente.",
+      "3. O processo coracoide projeta-se anteriormente.",
+      "4. O ângulo inferior aponta para baixo (inferiormente).",
+      "5. Com a cavidade glenoidal voltada lateralmente, o lado para o qual ela aponta determina se a escápula é direita ou esquerda."
+    ],
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "item_id": "PRAC-SCAP-002",
+    "topic": "POSTERIOR_SURFACE_IDENTIFICATION",
+    "landmarks": [
+      "Presença da espinha da escápula",
+      "Presença da fossa supraespinosa (acima da espinha)",
+      "Presença da fossa infraespinosa (abaixo da espinha)"
+    ],
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "item_id": "PRAC-SCAP-003",
+    "topic": "COSTAL_SURFACE_IDENTIFICATION",
+    "landmarks": [
+      "Ausência de espinha óssea",
+      "Ampla concavidade representada pela fossa subescapular"
+    ],
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "item_id": "PRAC-SCAP-004",
+    "topic": "GLENOID_REGION_IDENTIFICATION",
+    "landmarks": [
+      "Localização do ângulo lateral",
+      "Identificação da cavidade glenoidal (superfície ovalada lisa)",
+      "Identificação dos tubérculos supraglenoidal e infraglenoidal"
+    ],
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "item_id": "PRAC-SCAP-005",
+    "topic": "CORACOID_IDENTIFICATION",
+    "landmarks": [
+      "Processo ósseo curvo projetando-se anterior e superiormente à região glenoidal"
+    ],
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "item_id": "PRAC-SCAP-006",
+    "topic": "ACROMION_IDENTIFICATION",
+    "landmarks": [
+      "Continuação lateral expandida da espinha da escápula formando o ápice do ombro"
+    ],
+    "validation_status": "AI_DRAFT"
+  }
+]

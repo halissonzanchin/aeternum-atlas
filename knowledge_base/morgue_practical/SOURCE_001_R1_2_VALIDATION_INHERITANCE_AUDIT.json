@@ -1,0 +1,17 @@
+{
+  "version": "R1.2",
+  "r1_baseline_status": {
+    "validated": 5,
+    "supported": 42,
+    "review_pending": 4,
+    "conflicting": 2,
+    "source_extracted_total": 151
+  },
+  "r1_2_reconciliation": {
+    "inherited_validation_fact_count": 79,
+    "direct_validation_fact_count": 129,
+    "invalid_validation_inheritance_count": 0,
+    "total_audited_facts": 208
+  },
+  "inheritance_mechanics": "In R1, only 47 assertions had explicit academic qualification (5 validated, 42 supported), while the remainder were unreviewed source extractions. In R1.1 and R1.2, 23 compound assertions were decomposed into 79 atomic propositions. Each child fact inherited the parent assertion's verified scope strictly where the parent comparison evidence logically covered the child claim (e.g. 4 walls and 2 contents of Velpeau space covered by VQ-009). The remaining 129 facts were directly validated against AAC-2026.1-R1. Zero illegitimate inheritance was detected."
+}

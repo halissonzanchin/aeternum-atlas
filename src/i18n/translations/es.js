@@ -114,7 +114,10 @@ export const es = {
     "loginDescription": "Accede a tu biblioteca anatómica 3D.",
     "registerEyebrow": "Registro académico institucional",
     "registerDescription": "Tu cuenta estará vinculada a la institución educativa. El alumno no recibe cobro individual.",
-    "recoveryPrepared": "Flujo de recuperación preparado para una API futura.",
+    "recoveryPrepared": "Instrucciones de recuperación enviadas a su correo electrónico.",
+    "enterEmailForRecovery": "Ingrese su correo electrónico arriba para solicitar la recuperación de contraseña.",
+    "recoveryEmailSent": "Instrucciones de recuperación enviadas a su correo. Revise su bandeja de entrada.",
+    "recoveryFailed": "No se pudo enviar el correo de recuperación de contraseña.",
     "createAccountError": "No fue posible crear la cuenta.",
     "invalidCredentials": "Correo o contraseña inválidos.",
     "loadingInstitutions": "Cargando instituciones...",
@@ -1606,15 +1609,16 @@ export const es = {
     "professionalProfile": "Perfil profissional",
     "governanceProfile": "Perfil de governança",
     "institutionConfigured": "Instituição vinculada pela configuração do ambiente",
-    "institutionMissing": "Instituição ainda não vinculada",
+    "tenantLinked": "Tenant institucional vinculado",
+    "institutionMissing": "Vínculo académico activo",
     "roles": {
-      "student": "Estudante",
-      "teacher": "Professor",
-      "coordinator": "Coordenador",
-      "rector": "Reitor",
-      "institutionAdmin": "Administrador institucional",
-      "admin": "Administrador",
-      "superAdmin": "Superadministrador"
+      "student": "Estudiante",
+      "teacher": "Profesor",
+      "coordinator": "Coordinación",
+      "rector": "Rectoría",
+      "admin": "Administración",
+      "institutionAdmin": "Administración Institucional",
+      "superAdmin": "Super Administración"
     },
     "endSession": "Cerrar sesión",
     "notificationCenter": "Centro de notificaciones",
@@ -1649,18 +1653,7 @@ export const es = {
       "animations": "Animaciones anatómicas",
       "privacy": "Privacidad",
       "updates": "Actualizaciones de modelos"
-    },
-    "roles": {
-      "student": "Estudiante",
-      "teacher": "Profesor",
-      "coordinator": "Coordinación",
-      "rector": "Rectoría",
-      "admin": "Administración",
-      "institutionAdmin": "Administración Institucional",
-      "superAdmin": "Super Administración"
-    },
-    "tenantLinked": "Tenant institucional vinculado",
-    "institutionMissing": "Vínculo académico activo"
+    }
   },
   "status": {
     "ativo": "activo",
@@ -1882,6 +1875,7 @@ export const es = {
     "semester": "Año/Semestre",
     "studentRegistration": "Matrícula/R.A.",
     "country": "País",
+    "managedByInstitution": "Gestionado por la administración institucional.",
     "userType": "Tipo de usuario",
     "languagePreference": "Preferencia de idioma",
     "changePassword": "Cambiar contraseña",

@@ -1,0 +1,346 @@
+{
+  "document_name": "EXP-UL-SHOULDER_COMPLEX_AGGREGATOR_R2",
+  "region_id": "REG-SHOULDER-COMPLEX-001",
+  "region_name": "Shoulder Complex (Cintura Escapular y Articulación Glenohumeral)",
+  "classification": "REGIONAL_ANATOMICAL_AGGREGATOR",
+  "canonical_pack": "AETERNUM_UPPER_LIMB_SHOULDER",
+  "phase": "AMC-1.2-R2 / EXP-UL-B2-A1.6-R2",
+  "timestamp": "2026-09-27T10:30:00Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "description": "Deterministic regional aggregation of B1 (Scapula), B2 (Proximal Humerus, Glenohumeral Joint, Rotator Cuff), and verified regional interfaces with synchronized relation statuses and clause-level provenance.",
+  "included_packs": [
+    "EXP-UL-B1 (Scapula & Scapulohumeral Articular Surface)",
+    "EXP-UL-B2 (Proximal Humerus, Glenohumeral Joint, Rotator Cuff Complex)"
+  ],
+  "supporting_packs": [
+    "MORGUE-UPPER-LIMB-001 (Cadaveric Verification)",
+    "INSTITUTIONAL_CURRICULUM_BOLILLERO_2024"
+  ],
+  "future_dependencies": [
+    {
+      "dependency_id": "EXP-UL-B3",
+      "domain": "AXILLA AND NEUROVASCULAR ARCHITECTURE",
+      "scope": "Axillary Fossa, Cervicoaxillary Canal, Axillary Artery & Vein, Brachial Plexus Cords and Axillary Nerve Topography",
+      "status": "PLANNED"
+    },
+    {
+      "dependency_id": "OWNER_UNASSIGNED_FUTURE_UPPER_LIMB",
+      "domain": "AXIOAPPENDICULAR AND SHOULDER-SUPPORTING MUSCULATURE",
+      "scope": "M. Deltoideus, M. Pectoralis Major, M. Pectoralis Minor, M. Trapezius, M. Latissimus Dorsi, M. Serratus Anterior",
+      "status": "UNASSIGNED_GOVERNANCE_RESERVE",
+      "note": "Formerly mislabeled as EXP-UL-B4_FUTURE; retired in AMC-1.2-R2 to protect frozen B4 (Arm/Cubital Fossa) scope."
+    },
+    {
+      "dependency_id": "EXP-UL-B4",
+      "domain": "BRACHIUM AND CUBITAL FOSSA",
+      "scope": "Distal humeral shaft continuation toward elbow and cubital fossa (DEP-B2-B4-001)",
+      "status": "PLANNED"
+    }
+  ],
+  "relations": {
+    "derivation_rule": "Exact deterministic projection from EXP-UL-B2_AADS1_R1_RELATION_GAP_MAP.json",
+    "certified_relation_types_allowed": 10,
+    "certified_cross_pack_relations": [
+      {
+        "relation_id": "REL-CERT-001",
+        "relation_type": "articulates_with",
+        "source_entity": "AET-ENT-REF-HUMERAL_HEAD",
+        "target_entity": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+        "status": "RELATION_CERTIFIED"
+      },
+      {
+        "relation_id": "REL-CERT-002",
+        "relation_type": "inserts_into",
+        "source_entity": "AET-ENT-REF-SUBSCAPULARIS",
+        "target_entity": "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+        "status": "RELATION_CERTIFIED"
+      },
+      {
+        "relation_id": "REL-CERT-003",
+        "relation_type": "inserts_into",
+        "source_entity": "AET-ENT-REF-SUPRASPINATUS",
+        "target_entity": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+        "status": "RELATION_CERTIFIED"
+      },
+      {
+        "relation_id": "REL-CERT-004",
+        "relation_type": "inserts_into",
+        "source_entity": "AET-ENT-REF-INFRASPINATUS",
+        "target_entity": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+        "status": "RELATION_CERTIFIED"
+      },
+      {
+        "relation_id": "REL-CERT-005",
+        "relation_type": "inserts_into",
+        "source_entity": "AET-ENT-REF-TERES_MINOR",
+        "target_entity": "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+        "status": "RELATION_CERTIFIED"
+      },
+      {
+        "relation_id": "REL-CERT-006",
+        "relation_type": "originates_from",
+        "source_entity": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+        "target_entity": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+        "status": "RELATION_CERTIFIED"
+      },
+      {
+        "relation_id": "REL-CERT-007",
+        "relation_type": "reinforces",
+        "source_entity": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+        "target_entity": "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+        "status": "RELATION_CERTIFIED"
+      }
+    ],
+    "candidate_cross_pack_relations": [
+      {
+        "relation_id": "REL-CAND-001",
+        "relation_type": "traversed_by",
+        "source_entity": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+        "target_entity": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+        "description": "The rotator interval is traversed by the tendon of the long head of the biceps brachii, enclosed within its synovial sheath.",
+        "status": "RELATION_CANDIDATE",
+        "validation_status": "PENDING_ACADEMIC_VALIDATION"
+      },
+      {
+        "relation_id": "REL-CAND-002",
+        "relation_type": "communicates_with",
+        "source_entity": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+        "target_entity": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+        "description": "The subtendinous bursa of the subscapularis communicates with the glenohumeral synovial cavity through the foramen of Weitbrecht.",
+        "status": "RELATION_CANDIDATE",
+        "validation_status": "PENDING_ACADEMIC_VALIDATION"
+      },
+      {
+        "relation_id": "REL-CAND-003",
+        "relation_type": "forms_force_couple_with",
+        "source_entity": "AET-ENT-REF-DELTOID",
+        "target_entity": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+        "description": "Deltoid superior shear vector is dynamically balanced by the inferior and compressive vectors of the rotator cuff force couple.",
+        "status": "RELATION_CANDIDATE",
+        "validation_status": "PENDING_ACADEMIC_VALIDATION"
+      }
+    ],
+    "ontology_review_cross_pack_relations": [
+      {
+        "relation_id": "REL-REV-001",
+        "relation_type": "deepens",
+        "source_entity": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+        "target_entity": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+        "previous_status": "RELATION_CERTIFIED",
+        "status": "RELATION_ONTOLOGY_REVIEW_REQUIRED",
+        "reason": "'deepens' is not in the frozen 10 certified relation types. Retained as textual proposition candidate pending ontology review."
+      },
+      {
+        "relation_id": "REL-REV-002",
+        "relation_type": "bridges",
+        "source_entity": "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+        "target_entity": "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS",
+        "previous_status": "RELATION_CERTIFIED",
+        "status": "RELATION_ONTOLOGY_REVIEW_REQUIRED",
+        "reason": "'bridges' is not in the frozen 10 certified relation types. Retained pending future authoring using existing certified relations or ontology expansion."
+      },
+      {
+        "relation_id": "REL-REV-003",
+        "relation_type": "buffers",
+        "source_entity": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+        "target_entity": "AET-ENT-CAND-UL-CORACOACROMIAL_ARCH",
+        "description": "Subacromial-subdeltoid bursa buffers friction between the underlying supraspinatus tendon and the overlying rigid coracoacromial arch.",
+        "previous_status": "RELATION_CANDIDATE (APPROVED_FOR_AUTHORING)",
+        "status": "RELATION_ONTOLOGY_REVIEW_REQUIRED",
+        "reason": "'buffers' must not be promoted without formal ontology qualification, even if supported by descriptive text."
+      },
+      {
+        "relation_id": "REL-REV-004",
+        "relation_type": "coordinates_with",
+        "source_entity": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+        "target_entity": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+        "description": "Glenohumeral elevation coordinates rhythmically with acromioclavicular and scapulothoracic motion.",
+        "previous_status": "RELATION_ONTOLOGY_REVIEW_REQUIRED",
+        "status": "RELATION_ONTOLOGY_REVIEW_REQUIRED",
+        "reason": "Kinematic ratio (2:1 scapulohumeral rhythm) neutralized pending exact source locator attribution."
+      }
+    ],
+    "identity_review_cross_pack_relations": [
+      {
+        "relation_id": "REL-IDREV-001",
+        "relation_type": "forms_part_of",
+        "target_relation_predicate": "part_of",
+        "source_entity": "AET-ENT-REF-HUMERAL_HEAD",
+        "previous_source_entity": "AET-ENT-CAND-UL-HUMERAL_HEAD",
+        "target_entity": "AET-ENT-REF-HUMERUS",
+        "status": "RELATION_IDENTITY_REVIEW_REQUIRED",
+        "reason": "'forms_part_of' is not a certified predicate (certified is 'part_of'). Entity ID corrected from invalid candidate ID to registered reference ID AET-ENT-REF-HUMERAL_HEAD."
+      }
+    ],
+    "metrics": {
+      "certified_instances_present": 7,
+      "candidate_instances_present": 3,
+      "ontology_review_instances_present": 4,
+      "identity_review_instances_present": 1,
+      "deepens_certified_count": 0,
+      "bridges_certified_count": 0,
+      "buffers_certified_count": 0,
+      "forms_part_of_certified_count": 0,
+      "relation_status_cross_artifact_parity": 1
+    }
+  },
+  "topographic_interfaces": [
+    {
+      "interface_id": "IFACE-SHOULDER-001",
+      "name": "Subacromial-Subdeltoid Bursa Gliding Interface",
+      "status": "SOURCE_GROUNDED",
+      "clauses": {
+        "boundary_claim": {
+          "statement": "Interposed between coracoacromial arch and deltoid superiorly/laterally, and supraspinatus tendon and glenohumeral fibrous capsule inferiorly/medially.",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "evidence_unit_id": "EVI-B2-GHJ-006",
+          "source_locator": "LAT-T1-GHJ-LOC-006"
+        },
+        "functional_claim": {
+          "statement": "Provides a second supra-articular gliding plane facilitating frictionless humeral elevation and rotation.",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "evidence_unit_id": "EVI-B2-GHJ-006",
+          "source_locator": "LAT-T1-GHJ-LOC-006"
+        },
+        "relation_claim": {
+          "statement": "Buffers contact between coracoacromial arch and supraspinatus tendon.",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "evidence_unit_id": "EVI-B2-GHJ-006",
+          "source_locator": "LAT-T1-GHJ-LOC-006"
+        }
+      }
+    },
+    {
+      "interface_id": "IFACE-SHOULDER-002",
+      "name": "Coracoacromial Arch Interface",
+      "status": "SOURCE_GROUNDED",
+      "clauses": {
+        "boundary_claim": {
+          "statement": "Formed by the acromion, coracoid process, and intervening coracoacromial ligament overlying the suprahumeral space.",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "evidence_unit_id": "EVI-B2-INT-002",
+          "source_locator": "LAT-T1-GHJ-LOC-006"
+        },
+        "functional_claim": {
+          "statement": "Protective osteofibrous vault preventing superior dislocation of the humeral head during axial loading.",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "evidence_unit_id": "EVI-B2-INT-002",
+          "source_locator": "LAT-T1-GHJ-LOC-006"
+        },
+        "relation_claim": {
+          "statement": "Overlies the subacromial bursa and rotator cuff tendons.",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "evidence_unit_id": "EVI-B2-INT-002",
+          "source_locator": "LAT-T1-GHJ-LOC-006"
+        }
+      }
+    },
+    {
+      "interface_id": "IFACE-SHOULDER-003A",
+      "name": "Bicipital Groove Interface (Intertubercular Sulcus Tunnel)",
+      "status": "SOURCE_GROUNDED",
+      "clauses": {
+        "boundary_claim": {
+          "statement": "Intertubercular sulcus bounded laterally by greater tubercle crest and medially by lesser tubercle crest, bridged superiorly by transverse humeral ligament.",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "evidence_unit_id": "EVI-B2-HUM-006",
+          "source_locator": "LAT-T1-HUM-LOC-003"
+        },
+        "functional_claim": {
+          "statement": "Converts sulcus into an osteofibrous retinacular tunnel retaining long head of biceps tendon and its synovial sheath during arm movement.",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "evidence_unit_id": "EVI-B2-GHJ-005",
+          "source_locator": "LAT-T1-GHJ-LOC-003"
+        },
+        "relation_claim": {
+          "statement": "Puenteado por el ligamento humeral transverso de Gordon Brodie fijando el tendón bicipital.",
+          "source_id": "MORGUE-UPPER-LIMB-001",
+          "evidence_unit_id": "EVI-B2-MOR-002",
+          "source_locator": "MOR-UL-B2-LOC-002"
+        }
+      }
+    },
+    {
+      "interface_id": "IFACE-SHOULDER-003B",
+      "name": "Rotator Interval Interface",
+      "status": "PENDING_EVIDENCE",
+      "clauses": {
+        "boundary_claim": {
+          "statement": "Triangular capsular gap between the anterior margin of supraspinatus and superior margin of subscapularis.",
+          "source_id": null,
+          "evidence_unit_id": null,
+          "source_locator": null
+        },
+        "functional_claim": {
+          "statement": "Complex stabilizing anterosuperior translation; requires dedicated source ingestion before anatomical proposition authoring.",
+          "source_id": null,
+          "evidence_unit_id": null,
+          "source_locator": null
+        },
+        "relation_claim": {
+          "statement": "Pending authoritative source proposition.",
+          "source_id": null,
+          "evidence_unit_id": null,
+          "source_locator": null
+        }
+      }
+    },
+    {
+      "interface_id": "IFACE-SHOULDER-004",
+      "name": "Axillary Circumflex / Surgical Neck Interface",
+      "status": "PENDING_SOURCE_RECHECK",
+      "recheck_queue_id": "RECHECK-Q-001",
+      "clauses": {
+        "boundary_claim": {
+          "statement": "Surgical neck of humerus at the junction of proximal epiphysis and diaphysis; neurovascular transit requires regional chapter audit.",
+          "source_id": "SRC-LATARJET-ED5-T1",
+          "evidence_unit_id": "EVI-B2-HUM-007",
+          "source_locator": "LAT-T1-HUM-LOC-003"
+        },
+        "functional_claim": {
+          "statement": "Topographic neurovascular transit across quadrangular space; authoring blocked until regional axillary section is ingested.",
+          "source_id": null,
+          "evidence_unit_id": null,
+          "source_locator": null
+        },
+        "relation_claim": {
+          "statement": "Circumflex neurovascular relationship quarantined under RECHECK-Q-001.",
+          "source_id": null,
+          "evidence_unit_id": null,
+          "source_locator": null
+        }
+      }
+    },
+    {
+      "interface_id": "IFACE-SHOULDER-005",
+      "name": "Cervicoaxillary Inlet / Scapulothoracic Interface",
+      "status": "PENDING_EVIDENCE",
+      "clauses": {
+        "boundary_claim": {
+          "statement": "Boundary between thoracic wall, clavicle/1st rib apex, and axilla.",
+          "source_id": null,
+          "evidence_unit_id": null,
+          "source_locator": null
+        },
+        "functional_claim": {
+          "statement": "Major neurovascular conduit into upper limb; reserved for B3/Thorax integration.",
+          "source_id": null,
+          "evidence_unit_id": null,
+          "source_locator": null
+        },
+        "relation_claim": {
+          "statement": "Pending external batch definition.",
+          "source_id": null,
+          "evidence_unit_id": null,
+          "source_locator": null
+        }
+      }
+    }
+  ],
+  "interface_metrics": {
+    "interfaces_total": 6,
+    "interfaces_source_grounded": 3,
+    "interfaces_pending_evidence": 2,
+    "interfaces_source_recheck_required": 1
+  }
+}

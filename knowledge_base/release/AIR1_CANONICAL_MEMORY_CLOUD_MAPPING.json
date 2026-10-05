@@ -1,0 +1,180 @@
+{
+  "audit_version": "AIR1-PREP",
+  "timestamp": "2026-09-25T02:00:00.000Z",
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+  "pack_id": "AET-KP-UL-SCAPULA-001",
+  "table_mappings": [
+    {
+      "table_name": "canonical_memory_versions",
+      "purpose": "Version control registry for canonical knowledge packages",
+      "source_artifact": "AET-KP-UL-SCAPULA-001_CANONICAL_MANIFEST.json",
+      "primary_key": "version_id (text)",
+      "columns": [
+        {"name": "version_id", "type": "text", "nullable": false},
+        {"name": "pack_id", "type": "text", "nullable": false},
+        {"name": "entity_code", "type": "text", "nullable": false},
+        {"name": "promoted_fact_count", "type": "integer", "nullable": false},
+        {"name": "certification_phase", "type": "text", "nullable": false},
+        {"name": "sha256_hash", "type": "text", "nullable": false},
+        {"name": "promoted_at", "type": "timestamptz", "default": "now()"}
+      ],
+      "rls_policy": "Public read, maintainer insert/update"
+    },
+    {
+      "table_name": "academic_sources",
+      "purpose": "Sovereign bibliographic source registry",
+      "source_artifact": "canonical_sources registry",
+      "primary_key": "source_id (text)",
+      "columns": [
+        {"name": "source_id", "type": "text", "nullable": false},
+        {"name": "title", "type": "text", "nullable": false},
+        {"name": "authors", "type": "text[]", "nullable": false},
+        {"name": "edition", "type": "text", "nullable": true},
+        {"name": "publication_year", "type": "integer", "nullable": true},
+        {"name": "isbn", "type": "text", "nullable": true},
+        {"name": "license_status", "type": "text", "nullable": false}
+      ],
+      "rls_policy": "Public read, service_role write"
+    },
+    {
+      "table_name": "academic_source_locators",
+      "purpose": "Exact page, paragraph, figure, and edition locators for ground truth verification",
+      "source_artifact": "AET-KP-UL-SCAPULA-001_CANONICAL_FACTS.json:source_evidence",
+      "primary_key": "locator_id (uuid)",
+      "columns": [
+        {"name": "locator_id", "type": "uuid", "default": "gen_random_uuid()"},
+        {"name": "source_id", "type": "text", "references": "academic_sources(source_id)"},
+        {"name": "page_number", "type": "integer", "nullable": false},
+        {"name": "chapter", "type": "text", "nullable": true},
+        {"name": "section", "type": "text", "nullable": true},
+        {"name": "figure_locator", "type": "text", "nullable": true},
+        {"name": "exact_excerpt", "type": "text", "nullable": true}
+      ],
+      "rls_policy": "Public read, service_role write"
+    },
+    {
+      "table_name": "canonical_entities",
+      "purpose": "Anatomical entities under canonical memory",
+      "source_artifact": "AET-KP-UL-SCAPULA-001_CANONICAL_FACTS.json:entity_code",
+      "primary_key": "entity_code (text)",
+      "columns": [
+        {"name": "entity_code", "type": "text", "nullable": false},
+        {"name": "canonical_name_pt", "type": "text", "nullable": false},
+        {"name": "canonical_name_la", "type": "text", "nullable": false},
+        {"name": "canonical_name_en", "type": "text", "nullable": false},
+        {"name": "system", "type": "text", "nullable": false},
+        {"name": "region", "type": "text", "nullable": false},
+        {"name": "fma_id", "type": "text", "nullable": true}
+      ],
+      "rls_policy": "Public read, service_role write"
+    },
+    {
+      "table_name": "canonical_facts",
+      "purpose": "119 Certified Canonical Facts (Tier A sovereign ground truth)",
+      "source_artifact": "AET-KP-UL-SCAPULA-001_CANONICAL_FACTS.json",
+      "primary_key": "fact_id (text)",
+      "columns": [
+        {"name": "fact_id", "type": "text", "nullable": false},
+        {"name": "entity_code", "type": "text", "references": "canonical_entities(entity_code)"},
+        {"name": "dimension", "type": "text", "nullable": false},
+        {"name": "subdimension", "type": "text", "nullable": true},
+        {"name": "fact_text_pt", "type": "text", "nullable": false},
+        {"name": "fact_text_la", "type": "text", "nullable": true},
+        {"name": "canonical_tier", "type": "text", "default": "'TIER_A_CANONICAL'"},
+        {"name": "safe_engine_production_eligible", "type": "boolean", "default": "true"},
+        {"name": "safe_engine_relation_safe", "type": "boolean", "default": "true"},
+        {"name": "source_id", "type": "text", "references": "academic_sources(source_id)"},
+        {"name": "source_page", "type": "integer", "nullable": false},
+        {"name": "source_excerpt", "type": "text", "nullable": true},
+        {"name": "tags", "type": "text[]", "default": "'{}'"},
+        {"name": "created_at", "type": "timestamptz", "default": "now()"}
+      ],
+      "indexes": [
+        "idx_canonical_facts_entity_dim ON canonical_facts (entity_code, dimension)",
+        "idx_canonical_facts_safe ON canonical_facts (safe_engine_production_eligible)"
+      ],
+      "rls_policy": "Public read, service_role write"
+    },
+    {
+      "table_name": "canonical_relations",
+      "purpose": "113 Certified Safe Anatomical Relations (Topological / Articular / Myological)",
+      "source_artifact": "AET-KP-UL-SCAPULA-001_CANONICAL_FACTS.json:relations",
+      "primary_key": "relation_id (text)",
+      "columns": [
+        {"name": "relation_id", "type": "text", "nullable": false},
+        {"name": "source_entity", "type": "text", "references": "canonical_entities(entity_code)"},
+        {"name": "target_entity", "type": "text", "nullable": false},
+        {"name": "relation_type", "type": "text", "nullable": false},
+        {"name": "supporting_fact_id", "type": "text", "references": "canonical_facts(fact_id)"},
+        {"name": "relation_safety_certified", "type": "boolean", "default": "true"}
+      ],
+      "rls_policy": "Public read, service_role write"
+    },
+    {
+      "table_name": "canonical_teaching_connections",
+      "purpose": "11 Certified Professor Teaching Connections (Pedagogical Synapses)",
+      "source_artifact": "AET-KP-UL-SCAPULA-001_CANONICAL_TEACHING_CONNECTIONS.json",
+      "primary_key": "connection_id (text)",
+      "columns": [
+        {"name": "connection_id", "type": "text", "nullable": false},
+        {"name": "entity_code", "type": "text", "references": "canonical_entities(entity_code)"},
+        {"name": "connection_type", "type": "text", "nullable": false},
+        {"name": "title_pt", "type": "text", "nullable": false},
+        {"name": "concept_synthesis_pt", "type": "text", "nullable": false},
+        {"name": "pedagogical_prompt_pt", "type": "text", "nullable": false},
+        {"name": "referenced_fact_ids", "type": "text[]", "nullable": false}
+      ],
+      "rls_policy": "Public read, service_role write"
+    },
+    {
+      "table_name": "canonical_practical_memory",
+      "purpose": "6 Certified Practical Answer Units (Clinical & Palpation Guidance)",
+      "source_artifact": "AET-KP-UL-SCAPULA-001_CANONICAL_PRACTICAL_MEMORY.json",
+      "primary_key": "practical_id (text)",
+      "columns": [
+        {"name": "practical_id", "type": "text", "nullable": false},
+        {"name": "entity_code", "type": "text", "references": "canonical_entities(entity_code)"},
+        {"name": "practical_type", "type": "text", "nullable": false},
+        {"name": "clinical_title_pt", "type": "text", "nullable": false},
+        {"name": "practical_guidance_pt", "type": "text", "nullable": false},
+        {"name": "red_flags_pt", "type": "text[]", "default": "'{}'"},
+        {"name": "referenced_fact_ids", "type": "text[]", "nullable": false}
+      ],
+      "rls_policy": "Public read, service_role write"
+    },
+    {
+      "table_name": "canonical_query_routing",
+      "purpose": "Deterministic Routing Matrix for 68 Base Queries / 88 Execution Variants",
+      "source_artifact": "AET-KP-UL-SCAPULA-001_CANONICAL_QUERY_ROUTING.json",
+      "primary_key": "query_id (text)",
+      "columns": [
+        {"name": "query_id", "type": "text", "nullable": false},
+        {"name": "pattern_text", "type": "text", "nullable": false},
+        {"name": "entity_code", "type": "text", "references": "canonical_entities(entity_code)"},
+        {"name": "target_dimension", "type": "text", "nullable": false},
+        {"name": "routing_destination", "type": "text", "nullable": false},
+        {"name": "target_fact_ids", "type": "text[]", "nullable": false}
+      ],
+      "indexes": [
+        "idx_canonical_routing_pattern ON canonical_query_routing (pattern_text)"
+      ],
+      "rls_policy": "Public read, service_role write"
+    },
+    {
+      "table_name": "safe_engine_metadata",
+      "purpose": "Safe Engine qualification certificates and audit checksums",
+      "source_artifact": "AETERNUM_LOCAL_SAFE_ENGINE_SCAPULA_PILOT_1_REPORT.md",
+      "primary_key": "engine_version (text)",
+      "columns": [
+        {"name": "engine_version", "type": "text", "nullable": false},
+        {"name": "pack_id", "type": "text", "nullable": false},
+        {"name": "determinism_rate", "type": "numeric", "default": "1.00"},
+        {"name": "hallucination_rate", "type": "numeric", "default": "0.00"},
+        {"name": "base_query_count", "type": "integer", "nullable": false},
+        {"name": "execution_variant_count", "type": "integer", "nullable": false},
+        {"name": "certified_at", "type": "timestamptz", "default": "now()"}
+      ],
+      "rls_policy": "Public read, service_role write"
+    }
+  ]
+}

@@ -1,0 +1,287 @@
+[
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F001",
+    "subject": "acromion",
+    "relation": "HAS_MORPHOLOGIC_VARIANT",
+    "object_or_arguments": [
+      "bigliani_type_I_flat"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Non-canonical eponymic classification candidate. Undersurface is flat."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F002",
+    "subject": "acromion",
+    "relation": "HAS_MORPHOLOGIC_VARIANT",
+    "object_or_arguments": [
+      "bigliani_type_II_curved"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Non-canonical eponymic classification candidate. Undersurface is curved."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F003",
+    "subject": "acromion",
+    "relation": "HAS_MORPHOLOGIC_VARIANT",
+    "object_or_arguments": [
+      "bigliani_type_III_hooked"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Non-canonical eponymic classification candidate. Undersurface is hooked."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F004",
+    "subject": "os_acromiale",
+    "relation": "TYPE_OF",
+    "object_or_arguments": [
+      "developmental_anatomic_variant_candidate"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Developmental variant from non-fusion of acromial ossification center."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F005",
+    "subject": "os_acromiale",
+    "relation": "RELATED_TO",
+    "object_or_arguments": [
+      "incomplete_fusion_of_acromial_ossification_component"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Developmental non-fusion mechanism; not acute trauma."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F006",
+    "subject": "superior_transverse_scapular_ligament",
+    "relation": "HAS_VARIANT",
+    "object_or_arguments": [
+      "partial_ossification_candidate"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Partial ossification of ligament bridging suprascapular notch."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F007",
+    "subject": "superior_transverse_scapular_ligament",
+    "relation": "HAS_VARIANT",
+    "object_or_arguments": [
+      "complete_ossification_candidate"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Complete ossification converting notch into an osseous foramen."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F008",
+    "subject": "complete_ossification_of_superior_transverse_scapular_ligament",
+    "relation": "MAY_FORM",
+    "object_or_arguments": [
+      "osseous_suprascapular_foramen"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Bony foramen formation surrounding suprascapular nerve passage."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F009",
+    "subject": "scapula",
+    "relation": "REGIONAL_VASCULAR_RELATION",
+    "object_or_arguments": [
+      "suprascapular_artery"
+    ],
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Regional relationship across supraspinous, spinoglenoid, and infraspinous regions."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F010",
+    "subject": "scapula",
+    "relation": "REGIONAL_VASCULAR_RELATION",
+    "object_or_arguments": [
+      "circumflex_scapular_artery"
+    ],
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Regional relationship across lateral border, posterior region, and infraspinous fossa."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F011",
+    "subject": "scapula",
+    "relation": "REGIONAL_VASCULAR_RELATION",
+    "object_or_arguments": [
+      "dorsal_scapular_artery"
+    ],
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Regional relationship along medial border and deep aspects of medial muscular attachments."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F012",
+    "subject": "scapula",
+    "relation": "RECEIVES_PERIOSTEAL_SUPPLY_FROM",
+    "object_or_arguments": [
+      "regional_arterial_branches"
+    ],
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Broad periosteal contribution from regional arterial branches; no universal single artery."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F013",
+    "subject": "scapula",
+    "relation": "HAS_INTRAOSSEOUS_VASCULAR_NETWORK",
+    "object_or_arguments": [
+      "true"
+    ],
+    "knowledge_dimension": "VASCULAR_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Internal bone circulation present; precise foramina coordinates require specialized literature."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F014",
+    "subject": "glenohumeral_joint",
+    "relation": "innervated_by",
+    "object_or_arguments": [
+      "suprascapular_nerve"
+    ],
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Sensory articular branches to posterosuperior glenohumeral capsule."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F015",
+    "subject": "glenohumeral_joint",
+    "relation": "innervated_by",
+    "object_or_arguments": [
+      "axillary_nerve"
+    ],
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Sensory articular branches to anteroinferior glenohumeral capsule."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F016",
+    "subject": "glenohumeral_joint",
+    "relation": "POSSIBLE_ARTICULAR_CONTRIBUTION",
+    "object_or_arguments": [
+      "lateral_pectoral_nerve"
+    ],
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Candidate contribution to anterior joint capsule. Confidence low to moderate; validation required."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F017",
+    "subject": "acromioclavicular_joint",
+    "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+    "object_or_arguments": [
+      "suprascapular_nerve"
+    ],
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Candidate articular innervation to AC joint capsule."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F018",
+    "subject": "acromioclavicular_joint",
+    "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+    "object_or_arguments": [
+      "lateral_pectoral_nerve"
+    ],
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Candidate articular branch contribution to AC joint region."
+  },
+  {
+    "fact_candidate_id": "SCAP-KP1-AI-F019",
+    "subject": "scapular_periosteum",
+    "relation": "HAS_SENSORY_INNERVATION",
+    "object_or_arguments": [
+      "true"
+    ],
+    "knowledge_dimension": "NEURAL_RELATIONS",
+    "authoring_agent": "OPENAI_CHATGPT_AETERNUM_KNOWLEDGE_AUTHOR",
+    "evidence_source_ids": [],
+    "evidence_locations": [],
+    "authoring_mode": "AI_DRAFT",
+    "validation_status": "AI_DRAFT",
+    "notes": "Periosteum possesses sensory innervation; precise named nerve map requires specialized literature."
+  }
+]

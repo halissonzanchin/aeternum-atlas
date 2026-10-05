@@ -50,10 +50,10 @@ test("OCR quality gate never auto-accepts the manual review state", () => {
 });
 
 test("OCR staging remains private and isolated from Atlas IA", () => {
-  const migration = fs.readFileSync(
-    new URL("../supabase/migrations/20260823032907_add_vita_ocr_staging.sql", import.meta.url),
-    "utf8"
-  );
+  const migrationPath = fs.existsSync(new URL("../supabase/migrations/20260823032907_add_vita_ocr_staging.sql", import.meta.url))
+    ? new URL("../supabase/migrations/20260823032907_add_vita_ocr_staging.sql", import.meta.url)
+    : new URL("../supabase/historical/migrations/20260823032907_add_vita_ocr_staging.sql", import.meta.url);
+  const migration = fs.readFileSync(migrationPath, "utf8");
   const pipeline = fs.readFileSync(
     new URL("../tools/scripts/ocr_anatomy_pilot.js", import.meta.url),
     "utf8"

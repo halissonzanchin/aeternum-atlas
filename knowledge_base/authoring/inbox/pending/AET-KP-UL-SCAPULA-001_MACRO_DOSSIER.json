@@ -1,0 +1,61 @@
+[
+  {
+    "entity_id": "scapula",
+    "canonical_name": "Escápula",
+    "systematic_classification": "Esqueleto apendicular superior — Cintura escapular — Osso plano par",
+    "pedagogical_summary": "A escápula é um osso plano, par e de configuração aproximadamente triangular que integra a cintura escapular. Localiza-se sobre a parede posterolateral do tórax, em relação geral com as costelas superiores e médias, e funciona como uma base óssea móvel entre o tronco e o membro superior.",
+    "morphological_dimensions": {
+      "surfaces": [
+        "costal_surface",
+        "posterior_surface"
+      ],
+      "borders": [
+        "superior_border",
+        "medial_border",
+        "lateral_border"
+      ],
+      "angles": [
+        "superior_angle",
+        "inferior_angle",
+        "lateral_angle"
+      ],
+      "major_processes": [
+        "scapular_spine",
+        "acromion",
+        "coracoid_process"
+      ],
+      "major_fossae": [
+        "subscapular_fossa",
+        "supraspinous_fossa",
+        "infraspinous_fossa"
+      ],
+      "articular_regions": [
+        "glenoid_cavity"
+      ],
+      "landmarks": [
+        "suprascapular_notch",
+        "supraglenoid_tubercle",
+        "infraglenoid_tubercle",
+        "neck_of_scapula",
+        "spinoglenoid_notch"
+      ]
+    },
+    "syntopic_relations": [
+      "Parede torácica posterolateral (costelas 2 a 7)",
+      "Clavícula (articulação acromioclavicular)",
+      "Úmero (articulação glenoumeral)",
+      "Espaços topográficos posteriores do ombro (espaço triangular, espaço quadrangular, intervalo triangular)"
+    ],
+    "clinical_vulnerabilities": [
+      "Escápula alada por lesão do nervo torácico longo ou disfunção do serrátil anterior",
+      "Compressão do nervo supraescapular na incisura da escápula",
+      "Compressão do nervo supraescapular na incisura espinoglenoidal",
+      "Instabilidade articular glenoumeral e lesões labrais"
+    ],
+    "cadaveric_pearls": [
+      "Orientação rápida: espinha posterior, cavidade glenoidal lateral, processo coracoide anterior, ângulo inferior apontando para baixo",
+      "Trajeto vásculo-nervoso na incisura escapular: artéria supraescapular passa acima do ligamento transverso superior; nervo supraescapular passa abaixo",
+      "Ápice coracoide como origem conjunta do coracobraquial e cabeça curta do bíceps braquial"
+    ]
+  }
+]

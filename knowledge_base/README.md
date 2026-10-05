@@ -32,3 +32,21 @@ knowledge_base/
    - Enviará o conhecimento médico diretamente para o seu banco de dados **Supabase** (`anatomical_knowledge_base`).
 
 > ℹ️ **Nota:** Arquivos `.pdf` grandes nesta pasta são automaticamente ignorados pelo Git (via `.gitignore`) para não sobrecarregar o repositório GitHub, mantendo-os seguros e acessíveis localmente na sua máquina.
+
+---
+
+## 🏛️ Governança, Modelo Cognitivo & Protocolo de Autoria
+
+A organização, raciocínio pedagógico, recuperação híbrida, autoramento e expansão da memória anatômica são formalmente governados pelos padrões:
+
+- **Modelo Cognitivo Anatômico (AACM 1.0):**
+  - **Documento Canônico:** [`knowledge_base/governance/AETERNUM_ANATOMICAL_COGNITIVE_MODEL.md`](governance/AETERNUM_ANATOMICAL_COGNITIVE_MODEL.md)
+  - **Contrato Machine-Readable:** [`knowledge_base/governance/aeternum_anatomical_cognitive_model.json`](governance/aeternum_anatomical_cognitive_model.json)
+  - **Guia de Autoria & Expansão de Corpus:** [`knowledge_base/governance/CORPUS_AUTHORING_GUIDE.md`](governance/CORPUS_AUTHORING_GUIDE.md)
+
+- **Protocolo de Autoria de Conhecimento & Separação de Papéis (AKAP 1.0):**
+  - **Documento Canônico:** [`knowledge_base/governance/AETERNUM_KNOWLEDGE_AUTHORING_PROTOCOL.md`](governance/AETERNUM_KNOWLEDGE_AUTHORING_PROTOCOL.md)
+  - **Contrato Machine-Readable:** [`knowledge_base/governance/aeternum_knowledge_authoring_protocol.json`](governance/aeternum_knowledge_authoring_protocol.json)
+
+Qualquer expansão de corpus, elaboração de entidades ou resposta pedagógica deve obedecer estritamente aos princípios imutáveis do AACM (**Macro Query Rule**, **Micro Query Rule**, **Professor Connection Rule** e **Evidence-First Rule**) e à separação estrita de papéis do AKAP 1.0 (**Knowledge Author**, **Antigravity Engine**, **Quality Engine** e **Aeternum Memory**).
+

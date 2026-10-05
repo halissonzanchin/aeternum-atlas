@@ -1,0 +1,91 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-VAL1",
+  "total_items": 13,
+  "metrics": {
+    "PRACTICAL_CANONICAL_READY_COUNT": 10,
+    "PRACTICAL_SUPPORTED_COUNT": 2,
+    "PRACTICAL_INSTITUTIONAL_ONLY_COUNT": 1,
+    "PRACTICAL_PENDING_COUNT": 0
+  },
+  "items": [
+    {
+      "item_id": "MORG-B1-PRACT-001",
+      "readiness_status": "PRACTICAL_SUPPORTED",
+      "institutional_statement": "Tipo de Hueso: Hueso Plano Alargado.",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-002",
+      "readiness_status": "PRACTICAL_CANONICAL_READY",
+      "institutional_statement": "Extremo Medial: Esternal / Esferoide (manubrio del esternón y 1º cartílago costal).",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-003",
+      "readiness_status": "PRACTICAL_CANONICAL_READY",
+      "institutional_statement": "Extremo Lateral: Acromial / Plano (con el acromion de la escápula).",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-004",
+      "readiness_status": "PRACTICAL_CANONICAL_READY",
+      "institutional_statement": "Posee 2 Caras: Superior e Inferior. Posee 2 Bordes: Anterior y Posterior.",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-005",
+      "readiness_status": "PRACTICAL_CANONICAL_READY",
+      "institutional_statement": "1/3 Lateral: Inserción descendente del músculo trapecio en cara superior - borde posterior.",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-006",
+      "readiness_status": "PRACTICAL_CANONICAL_READY",
+      "institutional_statement": "1/3 Lateral: Inserción del músculo deltoides en cara superior - borde anterior.",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-007",
+      "readiness_status": "PRACTICAL_CANONICAL_READY",
+      "institutional_statement": "2/3 Mediales: Inserción del músculo pectoral mayor en cara superior - borde anterior.",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-008",
+      "readiness_status": "PRACTICAL_CANONICAL_READY",
+      "institutional_statement": "Surco Deltopectoral: Vena Cefálica y Rama Deltoidea.",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-009",
+      "readiness_status": "PRACTICAL_CANONICAL_READY",
+      "institutional_statement": "Impresión del ligamento costoclavicular en cara inferior del 1/3 medial.",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-010",
+      "readiness_status": "PRACTICAL_CANONICAL_READY",
+      "institutional_statement": "Surco del músculo subclavio en 1/3 medio cara inferior.",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-011",
+      "readiness_status": "PRACTICAL_CANONICAL_READY",
+      "institutional_statement": "Tubérculo conoideo y línea trapezoidea en 1/3 lateral cara inferior.",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-012",
+      "readiness_status": "PRACTICAL_SUPPORTED",
+      "institutional_statement": "Presenta Acromion como continuación lateral de la espina; punto palpable superior del hombro.",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    },
+    {
+      "item_id": "MORG-B1-PRACT-013",
+      "readiness_status": "PRACTICAL_INSTITUTIONAL_ONLY",
+      "institutional_statement": "Presenta Apófisis Coracoides en el ángulo lateral; anclaje ligamentario coracoclavicular.",
+      "student_guidance": "Deterministic cadaveric inspection step"
+    }
+  ]
+}

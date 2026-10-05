@@ -1,0 +1,4568 @@
+[
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-001",
+    "source_fact_candidate_id": "B1-FC-CLAV-001",
+    "validation_assessment_id": "VA-B1-001",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "long_bone"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "NLS-ATLAS-CLAV-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-001",
+      "validation_assessment": "VA-B1-001",
+      "authored_fact_candidate": "B1-FC-CLAV-001",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "NLS-ATLAS-CLAV-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-002",
+    "source_fact_candidate_id": "B1-FC-CLAV-002",
+    "validation_assessment_id": "VA-B1-002",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "part_of",
+    "object_or_arguments": [
+      "pectoral_girdle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-002",
+      "validation_assessment": "VA-B1-002",
+      "authored_fact_candidate": "B1-FC-CLAV-002",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-003",
+    "source_fact_candidate_id": "B1-FC-CLAV-003",
+    "validation_assessment_id": "VA-B1-003",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_symmetry",
+    "object_or_arguments": [
+      "paired_bone"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "NLS-ATLAS-CLAV-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-003",
+      "validation_assessment": "VA-B1-003",
+      "authored_fact_candidate": "B1-FC-CLAV-003",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "NLS-ATLAS-CLAV-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-004",
+    "source_fact_candidate_id": "B1-FC-CLAV-004",
+    "validation_assessment_id": "VA-B1-004",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "located_in",
+    "object_or_arguments": [
+      "anterosuperior_thoracic_wall"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-004",
+      "validation_assessment": "VA-B1-004",
+      "authored_fact_candidate": "B1-FC-CLAV-004",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-005",
+    "source_fact_candidate_id": "B1-FC-CLAV-005",
+    "validation_assessment_id": "VA-B1-005",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_shape",
+    "object_or_arguments": [
+      "italic_s_shape"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "NLS-ATLAS-CLAV-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-005",
+      "validation_assessment": "VA-B1-005",
+      "authored_fact_candidate": "B1-FC-CLAV-005",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "NLS-ATLAS-CLAV-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-006",
+    "source_fact_candidate_id": "B1-FC-CLAV-006",
+    "validation_assessment_id": "VA-B1-006",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "medial_two_thirds_convex_anteriorly"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-006",
+      "validation_assessment": "VA-B1-006",
+      "authored_fact_candidate": "B1-FC-CLAV-006",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-007",
+    "source_fact_candidate_id": "B1-FC-CLAV-007",
+    "validation_assessment_id": "VA-B1-007",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "lateral_one_third_concave_anteriorly"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-007",
+      "validation_assessment": "VA-B1-007",
+      "authored_fact_candidate": "B1-FC-CLAV-007",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-008",
+    "source_fact_candidate_id": "B1-FC-CLAV-008",
+    "validation_assessment_id": "VA-B1-008",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicular_shaft"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-008",
+      "validation_assessment": "VA-B1-008",
+      "authored_fact_candidate": "B1-FC-CLAV-008",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-009",
+    "source_fact_candidate_id": "B1-FC-CLAV-009",
+    "validation_assessment_id": "VA-B1-009",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicular_sternal_end"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-009",
+      "validation_assessment": "VA-B1-009",
+      "authored_fact_candidate": "B1-FC-CLAV-009",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-010",
+    "source_fact_candidate_id": "B1-FC-CLAV-010",
+    "validation_assessment_id": "VA-B1-010",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicular_acromial_end"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-010",
+      "validation_assessment": "VA-B1-010",
+      "authored_fact_candidate": "B1-FC-CLAV-010",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-011",
+    "source_fact_candidate_id": "B1-FC-CLAV-011",
+    "validation_assessment_id": "VA-B1-011",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_surface",
+    "object_or_arguments": [
+      "clavicular_superior_surface"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-011",
+      "validation_assessment": "VA-B1-011",
+      "authored_fact_candidate": "B1-FC-CLAV-011",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-012",
+    "source_fact_candidate_id": "B1-FC-CLAV-012",
+    "validation_assessment_id": "VA-B1-012",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_surface",
+    "object_or_arguments": [
+      "clavicular_inferior_surface"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-012",
+      "validation_assessment": "VA-B1-012",
+      "authored_fact_candidate": "B1-FC-CLAV-012",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-013",
+    "source_fact_candidate_id": "B1-FC-CLAV-013",
+    "validation_assessment_id": "VA-B1-013",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_border",
+    "object_or_arguments": [
+      "anterior_border_of_clavicle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-013",
+      "validation_assessment": "VA-B1-013",
+      "authored_fact_candidate": "B1-FC-CLAV-013",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-014",
+    "source_fact_candidate_id": "B1-FC-CLAV-014",
+    "validation_assessment_id": "VA-B1-014",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_border",
+    "object_or_arguments": [
+      "posterior_border_of_clavicle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-014",
+      "validation_assessment": "VA-B1-014",
+      "authored_fact_candidate": "B1-FC-CLAV-014",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-015",
+    "source_fact_candidate_id": "B1-FC-CLAV-015",
+    "validation_assessment_id": "VA-B1-015",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_superior_surface",
+    "subject_id": "clavicular_superior_surface",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "subcutaneous_palpable_area"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "evidence_match_class": "DIRECT_VISUAL_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-015",
+      "validation_assessment": "VA-B1-015",
+      "authored_fact_candidate": "B1-FC-CLAV-015",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-016",
+    "source_fact_candidate_id": "B1-FC-CLAV-016",
+    "validation_assessment_id": "VA-B1-016",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_inferior_surface",
+    "subject_id": "clavicular_inferior_surface",
+    "relation": "has_landmark",
+    "object_or_arguments": [
+      "costoclavicular_ligament_impression"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-016",
+      "validation_assessment": "VA-B1-016",
+      "authored_fact_candidate": "B1-FC-CLAV-016",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-017",
+    "source_fact_candidate_id": "B1-FC-CLAV-017",
+    "validation_assessment_id": "VA-B1-017",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_inferior_surface",
+    "subject_id": "clavicular_inferior_surface",
+    "relation": "has_landmark",
+    "object_or_arguments": [
+      "subclavian_groove"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-017",
+      "validation_assessment": "VA-B1-017",
+      "authored_fact_candidate": "B1-FC-CLAV-017",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-018",
+    "source_fact_candidate_id": "B1-FC-CLAV-018",
+    "validation_assessment_id": "VA-B1-018",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_inferior_surface",
+    "subject_id": "clavicular_inferior_surface",
+    "relation": "has_landmark",
+    "object_or_arguments": [
+      "conoid_tubercle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-018",
+      "validation_assessment": "VA-B1-018",
+      "authored_fact_candidate": "B1-FC-CLAV-018",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-019",
+    "source_fact_candidate_id": "B1-FC-CLAV-019",
+    "validation_assessment_id": "VA-B1-019",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_inferior_surface",
+    "subject_id": "clavicular_inferior_surface",
+    "relation": "has_landmark",
+    "object_or_arguments": [
+      "trapezoid_line"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-019",
+      "validation_assessment": "VA-B1-019",
+      "authored_fact_candidate": "B1-FC-CLAV-019",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-020",
+    "source_fact_candidate_id": "B1-FC-CLAV-020",
+    "validation_assessment_id": "VA-B1-020",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_inferior_surface",
+    "subject_id": "clavicular_inferior_surface",
+    "relation": "has_landmark",
+    "object_or_arguments": [
+      "clavicular_nutrient_foramen"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-020",
+      "validation_assessment": "VA-B1-020",
+      "authored_fact_candidate": "B1-FC-CLAV-020",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-021",
+    "source_fact_candidate_id": "B1-FC-CLAV-021",
+    "validation_assessment_id": "VA-B1-021",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_sternal_end",
+    "subject_id": "clavicular_sternal_end",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicular_sternal_articular_surface"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-021",
+      "validation_assessment": "VA-B1-021",
+      "authored_fact_candidate": "B1-FC-CLAV-021",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-022",
+    "source_fact_candidate_id": "B1-FC-CLAV-022",
+    "validation_assessment_id": "VA-B1-022",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_sternal_articular_surface",
+    "subject_id": "clavicular_sternal_articular_surface",
+    "relation": "articulates_with",
+    "object_or_arguments": [
+      "manubrium_sterni",
+      "first_costal_cartilage"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-022",
+      "validation_assessment": "VA-B1-022",
+      "authored_fact_candidate": "B1-FC-CLAV-022",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-004",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-023",
+    "source_fact_candidate_id": "B1-FC-CLAV-023",
+    "validation_assessment_id": "VA-B1-023",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_acromial_end",
+    "subject_id": "clavicular_acromial_end",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicular_acromial_articular_surface"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-023",
+      "validation_assessment": "VA-B1-023",
+      "authored_fact_candidate": "B1-FC-CLAV-023",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-024",
+    "source_fact_candidate_id": "B1-FC-CLAV-024",
+    "validation_assessment_id": "VA-B1-024",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_acromial_articular_surface",
+    "subject_id": "clavicular_acromial_articular_surface",
+    "relation": "articulates_with",
+    "object_or_arguments": [
+      "acromion"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-024",
+      "validation_assessment": "VA-B1-024",
+      "authored_fact_candidate": "B1-FC-CLAV-024",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-004",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-025",
+    "source_fact_candidate_id": "B1-FC-CLAV-025",
+    "validation_assessment_id": "VA-B1-025",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "pectoralis_major_clavicular_head",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "anterior_border_medial_two_thirds_clavicle",
+      "superior_surface_medial_half_clavicle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-002",
+      "MORG-UL-LOC-P02"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-025",
+      "validation_assessment": "VA-B1-025",
+      "authored_fact_candidate": "B1-FC-CLAV-025",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-002",
+        "MORG-UL-LOC-P02"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-026",
+    "source_fact_candidate_id": "B1-FC-CLAV-026",
+    "validation_assessment_id": "VA-B1-026",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "deltoid_clavicular_portion",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "anterior_border_lateral_one_third_clavicle",
+      "superior_surface_lateral_one_third_anterior_clavicle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-002",
+      "MORG-UL-LOC-P02"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-026",
+      "validation_assessment": "VA-B1-026",
+      "authored_fact_candidate": "B1-FC-CLAV-026",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-002",
+        "MORG-UL-LOC-P02"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-027",
+    "source_fact_candidate_id": "B1-FC-CLAV-027",
+    "validation_assessment_id": "VA-B1-027",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "trapezius_descending_part",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "posterior_border_lateral_one_third_clavicle",
+      "superior_surface_lateral_one_third_posterior_clavicle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-002",
+      "MORG-UL-LOC-P02"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-027",
+      "validation_assessment": "VA-B1-027",
+      "authored_fact_candidate": "B1-FC-CLAV-027",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-002",
+        "MORG-UL-LOC-P02"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-028",
+    "source_fact_candidate_id": "B1-FC-CLAV-028",
+    "validation_assessment_id": "VA-B1-028",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "sternocleidomastoid_clavicular_head",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "superior_surface_medial_one_third_posterior_aspect_clavicle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-002"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-028",
+      "validation_assessment": "VA-B1-028",
+      "authored_fact_candidate": "B1-FC-CLAV-028",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-029",
+    "source_fact_candidate_id": "B1-FC-CLAV-029",
+    "validation_assessment_id": "VA-B1-029",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "subclavius_muscle",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "subclavian_groove"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-CLAV-LOC-002",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-029",
+      "validation_assessment": "VA-B1-029",
+      "authored_fact_candidate": "B1-FC-CLAV-029",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-CLAV-LOC-002",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-030",
+    "source_fact_candidate_id": "B1-FC-CLAV-030",
+    "validation_assessment_id": "VA-B1-030",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "costoclavicular_ligament",
+    "relation": "attaches_ligament",
+    "object_or_arguments": [
+      "costoclavicular_ligament_impression"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-030",
+      "validation_assessment": "VA-B1-030",
+      "authored_fact_candidate": "B1-FC-CLAV-030",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-031",
+    "source_fact_candidate_id": "B1-FC-CLAV-031",
+    "validation_assessment_id": "VA-B1-031",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "conoid_ligament",
+    "relation": "attaches_ligament",
+    "object_or_arguments": [
+      "conoid_tubercle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-031",
+      "validation_assessment": "VA-B1-031",
+      "authored_fact_candidate": "B1-FC-CLAV-031",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-032",
+    "source_fact_candidate_id": "B1-FC-CLAV-032",
+    "validation_assessment_id": "VA-B1-032",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "trapezoid_ligament",
+    "relation": "attaches_ligament",
+    "object_or_arguments": [
+      "trapezoid_line"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-032",
+      "validation_assessment": "VA-B1-032",
+      "authored_fact_candidate": "B1-FC-CLAV-032",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-033",
+    "source_fact_candidate_id": "B1-FC-CLAV-033",
+    "validation_assessment_id": "VA-B1-033",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "compact_cortical_bone",
+      "spongy_trabecular_core"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-033",
+      "validation_assessment": "VA-B1-033",
+      "authored_fact_candidate": "B1-FC-CLAV-033",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-034",
+    "source_fact_candidate_id": "B1-FC-CLAV-034",
+    "validation_assessment_id": "VA-B1-034",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "palpable_entire_length"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "evidence_match_class": "DIRECT_VISUAL_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-034",
+      "validation_assessment": "VA-B1-034",
+      "authored_fact_candidate": "B1-FC-CLAV-034",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-004",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-035",
+    "source_fact_candidate_id": "B1-FC-CLAV-035",
+    "validation_assessment_id": "VA-B1-035",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "platysma_muscle",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "covers_superior_surface_of_clavicle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-035",
+      "validation_assessment": "VA-B1-035",
+      "authored_fact_candidate": "B1-FC-CLAV-035",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-036",
+    "source_fact_candidate_id": "B1-FC-CLAV-036",
+    "validation_assessment_id": "VA-B1-036",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "supraclavicular_nerves",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "cross_superficial_to_clavicle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-036",
+      "validation_assessment": "VA-B1-036",
+      "authored_fact_candidate": "B1-FC-CLAV-036",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-037",
+    "source_fact_candidate_id": "B1-FC-CLAV-037",
+    "validation_assessment_id": "VA-B1-037",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "subclavian_vessels",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "pass_deep_to_middle_third_of_clavicle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-PG-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-037",
+      "validation_assessment": "VA-B1-037",
+      "authored_fact_candidate": "B1-FC-CLAV-037",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-PG-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-038",
+    "source_fact_candidate_id": "B1-FC-CLAV-038",
+    "validation_assessment_id": "VA-B1-038",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "brachial_plexus_trunks",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "pass_deep_to_middle_third_of_clavicle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-PG-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-038",
+      "validation_assessment": "VA-B1-038",
+      "authored_fact_candidate": "B1-FC-CLAV-038",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-PG-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-039",
+    "source_fact_candidate_id": "B1-FC-CLAV-039",
+    "validation_assessment_id": "VA-B1-039",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "practical_orientation_criteria"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-039",
+      "validation_assessment": "VA-B1-039",
+      "authored_fact_candidate": "B1-FC-CLAV-039",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-040",
+    "source_fact_candidate_id": "B1-FC-CLAV-040",
+    "validation_assessment_id": "VA-B1-040",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "laterality_determination_rule"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-040",
+      "validation_assessment": "VA-B1-040",
+      "authored_fact_candidate": "B1-FC-CLAV-040",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-041",
+    "source_fact_candidate_id": "B1-FC-CLAV-042",
+    "validation_assessment_id": "VA-B1-042",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "intramembranous_and_endochondral_ossification"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-041",
+      "validation_assessment": "VA-B1-042",
+      "authored_fact_candidate": "B1-FC-CLAV-042",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-042",
+    "source_fact_candidate_id": "B1-FC-CLAV-043",
+    "validation_assessment_id": "VA-B1-043",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicular_sternal_end_epiphysis",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "secondary_ossification_center_fusion_age_25"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-042",
+      "validation_assessment": "VA-B1-043",
+      "authored_fact_candidate": "B1-FC-CLAV-043",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-043",
+    "source_fact_candidate_id": "B1-FC-CLAV-044",
+    "validation_assessment_id": "VA-B1-044",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavipectoral_fascia",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "encloses_subclavius_muscle_and_attaches_to_subclavian_groove_lips"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-043",
+      "validation_assessment": "VA-B1-044",
+      "authored_fact_candidate": "B1-FC-CLAV-044",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-044",
+    "source_fact_candidate_id": "B1-FC-CLAV-046",
+    "validation_assessment_id": "VA-B1-046",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "posterior_border_of_clavicle",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "concave_medially_convex_laterally"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-044",
+      "validation_assessment": "VA-B1-046",
+      "authored_fact_candidate": "B1-FC-CLAV-046",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-045",
+    "source_fact_candidate_id": "B1-FC-CLAV-047",
+    "validation_assessment_id": "VA-B1-047",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "anterior_border_of_clavicle",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "convex_medially_concave_laterally"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-045",
+      "validation_assessment": "VA-B1-047",
+      "authored_fact_candidate": "B1-FC-CLAV-047",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-046",
+    "source_fact_candidate_id": "B1-FC-CLAV-048",
+    "validation_assessment_id": "VA-B1-048",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "cervical_fascia_superficial_layer",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "attaches_to_superior_surface_and_posterior_border_of_clavicle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-046",
+      "validation_assessment": "VA-B1-048",
+      "authored_fact_candidate": "B1-FC-CLAV-048",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-047",
+    "source_fact_candidate_id": "B1-FC-CLAV-049",
+    "validation_assessment_id": "VA-B1-049",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "junction_between_middle_and_lateral_thirds_weakest_point"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001"
+    ],
+    "evidence_match_class": "SEMANTIC_EQUIVALENT_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-047",
+      "validation_assessment": "VA-B1-049",
+      "authored_fact_candidate": "B1-FC-CLAV-049",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-048",
+    "source_fact_candidate_id": "B1-FC-CLAV-050",
+    "validation_assessment_id": "VA-B1-050",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "absence_of_medullary_canal"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-048",
+      "validation_assessment": "VA-B1-050",
+      "authored_fact_candidate": "B1-FC-CLAV-050",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-004",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CLAV-049",
+    "source_fact_candidate_id": "B1-FC-CLAV-052",
+    "validation_assessment_id": "VA-B1-052",
+    "knowledge_pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "supraclavicular_fossa_boundary"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CLAV-049",
+      "validation_assessment": "VA-B1-052",
+      "authored_fact_candidate": "B1-FC-CLAV-052",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-001",
+    "source_fact_candidate_id": "B1-FC-SCJ-001",
+    "validation_assessment_id": "VA-B1-053",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "synovial_sellar_joint"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-001",
+      "validation_assessment": "VA-B1-053",
+      "authored_fact_candidate": "B1-FC-SCJ-001",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-002",
+    "source_fact_candidate_id": "B1-FC-SCJ-002",
+    "validation_assessment_id": "VA-B1-054",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "part_of",
+    "object_or_arguments": [
+      "pectoral_girdle_arthrology"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-002",
+      "validation_assessment": "VA-B1-054",
+      "authored_fact_candidate": "B1-FC-SCJ-002",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-003",
+    "source_fact_candidate_id": "B1-FC-SCJ-003",
+    "validation_assessment_id": "VA-B1-055",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "articulates_with",
+    "object_or_arguments": [
+      "clavicular_sternal_articular_surface",
+      "clavicular_notch_of_manubrium_sterni",
+      "first_costal_cartilage"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-003",
+      "validation_assessment": "VA-B1-055",
+      "authored_fact_candidate": "B1-FC-SCJ-003",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-004",
+    "source_fact_candidate_id": "B1-FC-SCJ-004",
+    "validation_assessment_id": "VA-B1-056",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "fibrocartilage_articular_covering"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-004",
+      "validation_assessment": "VA-B1-056",
+      "authored_fact_candidate": "B1-FC-SCJ-004",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-005",
+    "source_fact_candidate_id": "B1-FC-SCJ-005",
+    "validation_assessment_id": "VA-B1-057",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "sternoclavicular_articular_disc"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002",
+      "NLS-ATLAS-SCJ-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-005",
+      "validation_assessment": "VA-B1-057",
+      "authored_fact_candidate": "B1-FC-SCJ-005",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-002",
+        "NLS-ATLAS-SCJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-006",
+    "source_fact_candidate_id": "B1-FC-SCJ-006",
+    "validation_assessment_id": "VA-B1-058",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_articular_disc",
+    "subject_id": "sternoclavicular_articular_disc",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "posterosuperior_margin_of_clavicular_sternal_end"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-006",
+      "validation_assessment": "VA-B1-058",
+      "authored_fact_candidate": "B1-FC-SCJ-006",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-007",
+    "source_fact_candidate_id": "B1-FC-SCJ-007",
+    "validation_assessment_id": "VA-B1-059",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_articular_disc",
+    "subject_id": "sternoclavicular_articular_disc",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "first_costal_cartilage_and_sternal_junction"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-007",
+      "validation_assessment": "VA-B1-059",
+      "authored_fact_candidate": "B1-FC-SCJ-007",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-008",
+    "source_fact_candidate_id": "B1-FC-SCJ-008",
+    "validation_assessment_id": "VA-B1-060",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_articular_disc",
+    "subject_id": "sternoclavicular_articular_disc",
+    "relation": "DIVIDES_JOINT_CAVITY",
+    "object_or_arguments": [
+      "meniscoclavicular_synovial_cavity",
+      "meniscosternal_synovial_cavity"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002",
+      "NLS-ATLAS-SCJ-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-008",
+      "validation_assessment": "VA-B1-060",
+      "authored_fact_candidate": "B1-FC-SCJ-008",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-002",
+        "NLS-ATLAS-SCJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-009",
+    "source_fact_candidate_id": "B1-FC-SCJ-009",
+    "validation_assessment_id": "VA-B1-061",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "surrounded_by",
+    "object_or_arguments": [
+      "sternoclavicular_fibrous_capsule"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-009",
+      "validation_assessment": "VA-B1-061",
+      "authored_fact_candidate": "B1-FC-SCJ-009",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-010",
+    "source_fact_candidate_id": "B1-FC-SCJ-010",
+    "validation_assessment_id": "VA-B1-062",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "anterior_sternoclavicular_ligament"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003",
+      "NLS-ATLAS-SCJ-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-010",
+      "validation_assessment": "VA-B1-062",
+      "authored_fact_candidate": "B1-FC-SCJ-010",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-003",
+        "NLS-ATLAS-SCJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-011",
+    "source_fact_candidate_id": "B1-FC-SCJ-011",
+    "validation_assessment_id": "VA-B1-063",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "posterior_sternoclavicular_ligament"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-011",
+      "validation_assessment": "VA-B1-063",
+      "authored_fact_candidate": "B1-FC-SCJ-011",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-012",
+    "source_fact_candidate_id": "B1-FC-SCJ-012",
+    "validation_assessment_id": "VA-B1-064",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "interclavicular_ligament"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003",
+      "NLS-ATLAS-SCJ-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-012",
+      "validation_assessment": "VA-B1-064",
+      "authored_fact_candidate": "B1-FC-SCJ-012",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-003",
+        "NLS-ATLAS-SCJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-013",
+    "source_fact_candidate_id": "B1-FC-SCJ-013",
+    "validation_assessment_id": "VA-B1-065",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "costoclavicular_ligament"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-004",
+      "NLS-ATLAS-SCJ-LOC-001",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-013",
+      "validation_assessment": "VA-B1-065",
+      "authored_fact_candidate": "B1-FC-SCJ-013",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-004",
+        "NLS-ATLAS-SCJ-LOC-001",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-014",
+    "source_fact_candidate_id": "B1-FC-SCJ-014",
+    "validation_assessment_id": "VA-B1-066",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "costoclavicular_ligament",
+    "subject_id": "costoclavicular_ligament",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "upper_surface_first_rib_and_costal_cartilage"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-014",
+      "validation_assessment": "VA-B1-066",
+      "authored_fact_candidate": "B1-FC-SCJ-014",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-015",
+    "source_fact_candidate_id": "B1-FC-SCJ-015",
+    "validation_assessment_id": "VA-B1-067",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "costoclavicular_ligament",
+    "subject_id": "costoclavicular_ligament",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "excessive_elevation_of_clavicle",
+      "anterior_and_posterior_clavicular_gliding"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-015",
+      "validation_assessment": "VA-B1-067",
+      "authored_fact_candidate": "B1-FC-SCJ-015",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-016",
+    "source_fact_candidate_id": "B1-FC-SCJ-016",
+    "validation_assessment_id": "VA-B1-068",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "functional_axis",
+    "object_or_arguments": [
+      "elevation_and_depression"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-005"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-016",
+      "validation_assessment": "VA-B1-068",
+      "authored_fact_candidate": "B1-FC-SCJ-016",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-005"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-017",
+    "source_fact_candidate_id": "B1-FC-SCJ-017",
+    "validation_assessment_id": "VA-B1-069",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "functional_axis",
+    "object_or_arguments": [
+      "protraction_and_retraction"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-005"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-017",
+      "validation_assessment": "VA-B1-069",
+      "authored_fact_candidate": "B1-FC-SCJ-017",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-005"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-018",
+    "source_fact_candidate_id": "B1-FC-SCJ-018",
+    "validation_assessment_id": "VA-B1-070",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "functional_axis",
+    "object_or_arguments": [
+      "axial_rotation_up_to_40_degrees"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-005"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-018",
+      "validation_assessment": "VA-B1-070",
+      "authored_fact_candidate": "B1-FC-SCJ-018",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-005"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-019",
+    "source_fact_candidate_id": "B1-FC-SCJ-019",
+    "validation_assessment_id": "VA-B1-071",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "vascular_supply",
+    "object_or_arguments": [
+      "internal_thoracic_artery_branches",
+      "suprascapular_artery_branches"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-005"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-019",
+      "validation_assessment": "VA-B1-071",
+      "authored_fact_candidate": "B1-FC-SCJ-019",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-005"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-020",
+    "source_fact_candidate_id": "B1-FC-SCJ-020",
+    "validation_assessment_id": "VA-B1-072",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "innervated_by",
+    "object_or_arguments": [
+      "medial_supraclavicular_nerve",
+      "nerve_to_subclavius"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-005"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-020",
+      "validation_assessment": "VA-B1-072",
+      "authored_fact_candidate": "B1-FC-SCJ-020",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-005"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-021",
+    "source_fact_candidate_id": "B1-FC-SCJ-021",
+    "validation_assessment_id": "VA-B1-073",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "anterior_to_brachiocephalic_vein_and_internal_jugular_vein"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-021",
+      "validation_assessment": "VA-B1-073",
+      "authored_fact_candidate": "B1-FC-SCJ-021",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-022",
+    "source_fact_candidate_id": "B1-FC-SCJ-022",
+    "validation_assessment_id": "VA-B1-074",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "anterior_to_brachiocephalic_arterial_trunk_on_right_and_common_carotid_on_left"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-022",
+      "validation_assessment": "VA-B1-074",
+      "authored_fact_candidate": "B1-FC-SCJ-022",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-023",
+    "source_fact_candidate_id": "B1-FC-SCJ-023",
+    "validation_assessment_id": "VA-B1-075",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "interclavicular_ligament",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "excessive_depression_of_lateral_clavicular_end"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-023",
+      "validation_assessment": "VA-B1-075",
+      "authored_fact_candidate": "B1-FC-SCJ-023",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-024",
+    "source_fact_candidate_id": "B1-FC-SCJ-024",
+    "validation_assessment_id": "VA-B1-076",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "palpable_prominence_at_suprasternal_notch_margins"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-001",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "evidence_match_class": "DIRECT_VISUAL_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-024",
+      "validation_assessment": "VA-B1-076",
+      "authored_fact_candidate": "B1-FC-SCJ-024",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-001",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-025",
+    "source_fact_candidate_id": "B1-FC-SCJ-025",
+    "validation_assessment_id": "VA-B1-077",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_articular_disc",
+    "subject_id": "sternoclavicular_articular_disc",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "medial_and_superior_displacement_of_clavicle_under_axial_load"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-025",
+      "validation_assessment": "VA-B1-077",
+      "authored_fact_candidate": "B1-FC-SCJ-025",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-SCJ-026",
+    "source_fact_candidate_id": "B1-FC-SCJ-028",
+    "validation_assessment_id": "VA-B1-080",
+    "knowledge_pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "costoclavicular_anterior_and_posterior_laminae"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-SCJ-026",
+      "validation_assessment": "VA-B1-080",
+      "authored_fact_candidate": "B1-FC-SCJ-028",
+      "registered_locators": [
+        "LAT-T1-SCJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-001",
+    "source_fact_candidate_id": "B1-FC-ACJ-001",
+    "validation_assessment_id": "VA-B1-081",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "synovial_plane_joint"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-001",
+      "validation_assessment": "VA-B1-081",
+      "authored_fact_candidate": "B1-FC-ACJ-001",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-002",
+    "source_fact_candidate_id": "B1-FC-ACJ-002",
+    "validation_assessment_id": "VA-B1-082",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "part_of",
+    "object_or_arguments": [
+      "pectoral_girdle_arthrology"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-002",
+      "validation_assessment": "VA-B1-082",
+      "authored_fact_candidate": "B1-FC-ACJ-002",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-003",
+    "source_fact_candidate_id": "B1-FC-ACJ-003",
+    "validation_assessment_id": "VA-B1-083",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "articulates_with",
+    "object_or_arguments": [
+      "clavicular_acromial_articular_surface",
+      "acromial_facet_of_scapula"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001",
+      "MORG-UL-LOC-P10"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-003",
+      "validation_assessment": "VA-B1-083",
+      "authored_fact_candidate": "B1-FC-ACJ-003",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-001",
+        "MORG-UL-LOC-P10"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-004",
+    "source_fact_candidate_id": "B1-FC-ACJ-004",
+    "validation_assessment_id": "VA-B1-084",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "clavicular_acromial_articular_surface",
+    "subject_id": "clavicular_acromial_articular_surface",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "faces_inferolaterally"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-004",
+      "validation_assessment": "VA-B1-084",
+      "authored_fact_candidate": "B1-FC-ACJ-004",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-005",
+    "source_fact_candidate_id": "B1-FC-ACJ-005",
+    "validation_assessment_id": "VA-B1-085",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromial_facet_of_scapula",
+    "subject_id": "acromial_facet_of_scapula",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "faces_superomedially"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-005",
+      "validation_assessment": "VA-B1-085",
+      "authored_fact_candidate": "B1-FC-ACJ-005",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-006",
+    "source_fact_candidate_id": "B1-FC-ACJ-006",
+    "validation_assessment_id": "VA-B1-086",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "fibrocartilage_articular_lining"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-006",
+      "validation_assessment": "VA-B1-086",
+      "authored_fact_candidate": "B1-FC-ACJ-006",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-007",
+    "source_fact_candidate_id": "B1-FC-ACJ-007",
+    "validation_assessment_id": "VA-B1-087",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "acromioclavicular_articular_disc"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-007",
+      "validation_assessment": "VA-B1-087",
+      "authored_fact_candidate": "B1-FC-ACJ-007",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-008",
+    "source_fact_candidate_id": "B1-FC-ACJ-008",
+    "validation_assessment_id": "VA-B1-088",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_articular_disc",
+    "subject_id": "acromioclavicular_articular_disc",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "frequently_incomplete_or_perforated_in_adults"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-008",
+      "validation_assessment": "VA-B1-088",
+      "authored_fact_candidate": "B1-FC-ACJ-008",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-009",
+    "source_fact_candidate_id": "B1-FC-ACJ-009",
+    "validation_assessment_id": "VA-B1-089",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "surrounded_by",
+    "object_or_arguments": [
+      "acromioclavicular_fibrous_capsule"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-009",
+      "validation_assessment": "VA-B1-089",
+      "authored_fact_candidate": "B1-FC-ACJ-009",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-010",
+    "source_fact_candidate_id": "B1-FC-ACJ-010",
+    "validation_assessment_id": "VA-B1-090",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "acromioclavicular_ligament"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002",
+      "NLS-ATLAS-ACJ-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-010",
+      "validation_assessment": "VA-B1-090",
+      "authored_fact_candidate": "B1-FC-ACJ-010",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-002",
+        "NLS-ATLAS-ACJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-011",
+    "source_fact_candidate_id": "B1-FC-ACJ-011",
+    "validation_assessment_id": "VA-B1-091",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_ligament",
+    "subject_id": "superior_acromioclavicular_ligament",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "dense_quadrilateral_fibrous_plate"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-011",
+      "validation_assessment": "VA-B1-091",
+      "authored_fact_candidate": "B1-FC-ACJ-011",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-012",
+    "source_fact_candidate_id": "B1-FC-ACJ-012",
+    "validation_assessment_id": "VA-B1-092",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_ligament",
+    "subject_id": "superior_acromioclavicular_ligament",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "anteroposterior_displacement_and_joint_separation"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-012",
+      "validation_assessment": "VA-B1-092",
+      "authored_fact_candidate": "B1-FC-ACJ-012",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-013",
+    "source_fact_candidate_id": "B1-FC-ACJ-013",
+    "validation_assessment_id": "VA-B1-093",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "functional_axis",
+    "object_or_arguments": [
+      "small_gliding_and_rotational_adjustments"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-013",
+      "validation_assessment": "VA-B1-093",
+      "authored_fact_candidate": "B1-FC-ACJ-013",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-014",
+    "source_fact_candidate_id": "B1-FC-ACJ-014",
+    "validation_assessment_id": "VA-B1-094",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "functional_axis",
+    "object_or_arguments": [
+      "scapuloclavicular_angle_variation"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-014",
+      "validation_assessment": "VA-B1-094",
+      "authored_fact_candidate": "B1-FC-ACJ-014",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-015",
+    "source_fact_candidate_id": "B1-FC-ACJ-015",
+    "validation_assessment_id": "VA-B1-095",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "vascular_supply",
+    "object_or_arguments": [
+      "acromial_rete",
+      "acromial_branch_of_thoracoacromial_artery",
+      "suprascapular_artery"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-015",
+      "validation_assessment": "VA-B1-095",
+      "authored_fact_candidate": "B1-FC-ACJ-015",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-016",
+    "source_fact_candidate_id": "B1-FC-ACJ-016",
+    "validation_assessment_id": "VA-B1-096",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "innervated_by",
+    "object_or_arguments": [
+      "lateral_supraclavicular_nerve",
+      "axillary_nerve_articular_twigs",
+      "lateral_pectoral_nerve"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-016",
+      "validation_assessment": "VA-B1-096",
+      "authored_fact_candidate": "B1-FC-ACJ-016",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-017",
+    "source_fact_candidate_id": "B1-FC-ACJ-017",
+    "validation_assessment_id": "VA-B1-097",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "subcutaneous_palpable_joint_line"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "evidence_match_class": "DIRECT_VISUAL_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-017",
+      "validation_assessment": "VA-B1-097",
+      "authored_fact_candidate": "B1-FC-ACJ-017",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-001",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-018",
+    "source_fact_candidate_id": "B1-FC-ACJ-018",
+    "validation_assessment_id": "VA-B1-098",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "step_off_palpation_sign"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "evidence_match_class": "DIRECT_VISUAL_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-018",
+      "validation_assessment": "VA-B1-098",
+      "authored_fact_candidate": "B1-FC-ACJ-018",
+      "registered_locators": [
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-019",
+    "source_fact_candidate_id": "B1-FC-ACJ-019",
+    "validation_assessment_id": "VA-B1-099",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "synovial_membrane_and_occasional_preclavicular_bursa"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-019",
+      "validation_assessment": "VA-B1-099",
+      "authored_fact_candidate": "B1-FC-ACJ-019",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-ACJ-020",
+    "source_fact_candidate_id": "B1-FC-ACJ-021",
+    "validation_assessment_id": "VA-B1-101",
+    "knowledge_pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "coracoacromial_ligament_adjacent_syntopy"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-ACJ-020",
+      "validation_assessment": "VA-B1-101",
+      "authored_fact_candidate": "B1-FC-ACJ-021",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-002"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-001",
+    "source_fact_candidate_id": "B1-FC-CCC-001",
+    "validation_assessment_id": "VA-B1-103",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "extrinsic_syndesmosis_complex"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-001",
+      "validation_assessment": "VA-B1-103",
+      "authored_fact_candidate": "B1-FC-CCC-001",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-002",
+    "source_fact_candidate_id": "B1-FC-CCC-002",
+    "validation_assessment_id": "VA-B1-104",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "conoid_ligament",
+      "trapezoid_ligament"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "NLS-ATLAS-ACJ-LOC-001",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-002",
+      "validation_assessment": "VA-B1-104",
+      "authored_fact_candidate": "B1-FC-CCC-002",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "NLS-ATLAS-ACJ-LOC-001",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-003",
+    "source_fact_candidate_id": "B1-FC-CCC-003",
+    "validation_assessment_id": "VA-B1-105",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "extrinsic_ligament"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "NLS-ATLAS-ACJ-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-003",
+      "validation_assessment": "VA-B1-105",
+      "authored_fact_candidate": "B1-FC-CCC-003",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "NLS-ATLAS-ACJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-004",
+    "source_fact_candidate_id": "B1-FC-CCC-004",
+    "validation_assessment_id": "VA-B1-106",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "has_shape",
+    "object_or_arguments": [
+      "inverted_triangular_cone"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-004",
+      "validation_assessment": "VA-B1-106",
+      "authored_fact_candidate": "B1-FC-CCC-004",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-005",
+    "source_fact_candidate_id": "B1-FC-CCC-005",
+    "validation_assessment_id": "VA-B1-107",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "coracoid_process_posterior_base"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "MORG-UL-LOC-P15"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-005",
+      "validation_assessment": "VA-B1-107",
+      "authored_fact_candidate": "B1-FC-CCC-005",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "MORG-UL-LOC-P15"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-006",
+    "source_fact_candidate_id": "B1-FC-CCC-006",
+    "validation_assessment_id": "VA-B1-108",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "conoid_tubercle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-006",
+      "validation_assessment": "VA-B1-108",
+      "authored_fact_candidate": "B1-FC-CCC-006",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-007",
+    "source_fact_candidate_id": "B1-FC-CCC-007",
+    "validation_assessment_id": "VA-B1-109",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "anterior_and_superior_displacement_of_clavicle",
+      "scapular_anterior_tipping"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-007",
+      "validation_assessment": "VA-B1-109",
+      "authored_fact_candidate": "B1-FC-CCC-007",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-008",
+    "source_fact_candidate_id": "B1-FC-CCC-008",
+    "validation_assessment_id": "VA-B1-110",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "extrinsic_ligament"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "NLS-ATLAS-ACJ-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-008",
+      "validation_assessment": "VA-B1-110",
+      "authored_fact_candidate": "B1-FC-CCC-008",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "NLS-ATLAS-ACJ-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-009",
+    "source_fact_candidate_id": "B1-FC-CCC-009",
+    "validation_assessment_id": "VA-B1-111",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "has_shape",
+    "object_or_arguments": [
+      "quadrilateral_trapezoid_plate"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-009",
+      "validation_assessment": "VA-B1-111",
+      "authored_fact_candidate": "B1-FC-CCC-009",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-010",
+    "source_fact_candidate_id": "B1-FC-CCC-010",
+    "validation_assessment_id": "VA-B1-112",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "coracoid_process_superior_surface_horizontal_segment"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "MORG-UL-LOC-P15"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-010",
+      "validation_assessment": "VA-B1-112",
+      "authored_fact_candidate": "B1-FC-CCC-010",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "MORG-UL-LOC-P15"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-011",
+    "source_fact_candidate_id": "B1-FC-CCC-011",
+    "validation_assessment_id": "VA-B1-113",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "trapezoid_line"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-011",
+      "validation_assessment": "VA-B1-113",
+      "authored_fact_candidate": "B1-FC-CCC-011",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003",
+        "MORG-UL-LOC-P03"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-012",
+    "source_fact_candidate_id": "B1-FC-CCC-012",
+    "validation_assessment_id": "VA-B1-114",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "posterior_displacement_of_clavicle",
+      "horizontal_override_between_clavicle_and_acromion"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-012",
+      "validation_assessment": "VA-B1-114",
+      "authored_fact_candidate": "B1-FC-CCC-012",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-013",
+    "source_fact_candidate_id": "B1-FC-CCC-013",
+    "validation_assessment_id": "VA-B1-115",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "SUSPENDS_STRUCTURE",
+    "object_or_arguments": [
+      "scapula",
+      "free_upper_limb"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-013",
+      "validation_assessment": "VA-B1-115",
+      "authored_fact_candidate": "B1-FC-CCC-013",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-014",
+    "source_fact_candidate_id": "B1-FC-CCC-014",
+    "validation_assessment_id": "VA-B1-116",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_interligamentous_angle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "open_laterally_and_anteriorly_containing_adipose_tissue_or_bursa"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-014",
+      "validation_assessment": "VA-B1-116",
+      "authored_fact_candidate": "B1-FC-CCC-014",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-015",
+    "source_fact_candidate_id": "B1-FC-CCC-015",
+    "validation_assessment_id": "VA-B1-117",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "vascular_supply",
+    "object_or_arguments": [
+      "suprascapular_artery_branches",
+      "acromial_branches"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-015",
+      "validation_assessment": "VA-B1-117",
+      "authored_fact_candidate": "B1-FC-CCC-015",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-016",
+    "source_fact_candidate_id": "B1-FC-CCC-016",
+    "validation_assessment_id": "VA-B1-118",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "innervated_by",
+    "object_or_arguments": [
+      "suprascapular_nerve_articular_branches"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-016",
+      "validation_assessment": "VA-B1-118",
+      "authored_fact_candidate": "B1-FC-CCC-016",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-004"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-017",
+    "source_fact_candidate_id": "B1-FC-CCC-018",
+    "validation_assessment_id": "VA-B1-120",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "vertical_fiber_orientation"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-017",
+      "validation_assessment": "VA-B1-120",
+      "authored_fact_candidate": "B1-FC-CCC-018",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-018",
+    "source_fact_candidate_id": "B1-FC-CCC-019",
+    "validation_assessment_id": "VA-B1-121",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "subhorizontal_oblique_fiber_orientation"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-018",
+      "validation_assessment": "VA-B1-121",
+      "authored_fact_candidate": "B1-FC-CCC-019",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-CCC-019",
+    "source_fact_candidate_id": "B1-FC-CCC-020",
+    "validation_assessment_id": "VA-B1-122",
+    "knowledge_pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "anterior_to_suprascapular_notch_and_suprascapular_nerve"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-CCC-019",
+      "validation_assessment": "VA-B1-122",
+      "authored_fact_candidate": "B1-FC-CCC-020",
+      "registered_locators": [
+        "LAT-T1-ACJ-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-001",
+    "source_fact_candidate_id": "B1-FC-PGI-001",
+    "validation_assessment_id": "VA-B1-125",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "pectoral_girdle",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "appendicular_skeletal_girdle"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-001",
+      "validation_assessment": "VA-B1-125",
+      "authored_fact_candidate": "B1-FC-PGI-001",
+      "registered_locators": [
+        "LAT-T1-PG-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-002",
+    "source_fact_candidate_id": "B1-FC-PGI-002",
+    "validation_assessment_id": "VA-B1-126",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "pectoral_girdle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicle",
+      "scapula"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-002",
+      "validation_assessment": "VA-B1-126",
+      "authored_fact_candidate": "B1-FC-PGI-002",
+      "registered_locators": [
+        "LAT-T1-PG-LOC-001",
+        "MORG-UL-LOC-P01"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-003",
+    "source_fact_candidate_id": "B1-FC-PGI-003",
+    "validation_assessment_id": "VA-B1-127",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "pectoral_girdle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "anterior_closure_via_sternum_posterior_open_configuration"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-003",
+      "validation_assessment": "VA-B1-127",
+      "authored_fact_candidate": "B1-FC-PGI-003",
+      "registered_locators": [
+        "LAT-T1-PG-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-004",
+    "source_fact_candidate_id": "B1-FC-PGI-004",
+    "validation_assessment_id": "VA-B1-128",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "sole_true_bony_articulation_between_upper_limb_and_axial_skeleton"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-004",
+      "validation_assessment": "VA-B1-128",
+      "authored_fact_candidate": "B1-FC-PGI-004",
+      "registered_locators": [
+        "LAT-T1-PG-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-005",
+    "source_fact_candidate_id": "B1-FC-PGI-005",
+    "validation_assessment_id": "VA-B1-129",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "strut_function_maintaining_scapular_clearance_from_thorax"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-005",
+      "validation_assessment": "VA-B1-129",
+      "authored_fact_candidate": "B1-FC-PGI-005",
+      "registered_locators": [
+        "LAT-T1-PG-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-006",
+    "source_fact_candidate_id": "B1-FC-PGI-006",
+    "validation_assessment_id": "VA-B1-130",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "pectoral_girdle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "kinetic_chain_force_transmission_pathway"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-006",
+      "validation_assessment": "VA-B1-130",
+      "authored_fact_candidate": "B1-FC-PGI-006",
+      "registered_locators": [
+        "LAT-T1-PG-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-007",
+    "source_fact_candidate_id": "B1-FC-PGI-013",
+    "validation_assessment_id": "VA-B1-137",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "scapulohumeral_rhythm",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "two_to_one_ratio_overall_arm_abduction"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "evidence_match_class": "EXACT_PROPOSITION_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-007",
+      "validation_assessment": "VA-B1-137",
+      "authored_fact_candidate": "B1-FC-PGI-013",
+      "registered_locators": [
+        "LAT-T1-PG-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-008",
+    "source_fact_candidate_id": "B1-FC-PGI-014",
+    "validation_assessment_id": "VA-B1-138",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "deltopectoral_groove",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "deltopectoral_groove"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-003",
+      "MORG-UL-LOC-P02"
+    ],
+    "evidence_match_class": "DIRECT_VISUAL_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-008",
+      "validation_assessment": "VA-B1-138",
+      "authored_fact_candidate": "B1-FC-PGI-014",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-003",
+        "MORG-UL-LOC-P02"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-009",
+    "source_fact_candidate_id": "B1-FC-PGI-015",
+    "validation_assessment_id": "VA-B1-139",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "deltopectoral_groove",
+    "subject_id": "deltopectoral_groove",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "intermuscular_surface_groove"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "MORG-UL-LOC-P02"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-009",
+      "validation_assessment": "VA-B1-139",
+      "authored_fact_candidate": "B1-FC-PGI-015",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "MORG-UL-LOC-P02"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-010",
+    "source_fact_candidate_id": "B1-FC-PGI-016",
+    "validation_assessment_id": "VA-B1-140",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "deltopectoral_groove",
+    "subject_id": "deltopectoral_groove",
+    "relation": "has_border",
+    "object_or_arguments": [
+      "medially_pectoralis_major_clavicular_head",
+      "laterally_deltoid_anterior_border"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "MORG-UL-LOC-P02"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-010",
+      "validation_assessment": "VA-B1-140",
+      "authored_fact_candidate": "B1-FC-PGI-016",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "MORG-UL-LOC-P02"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-011",
+    "source_fact_candidate_id": "B1-FC-PGI-018",
+    "validation_assessment_id": "VA-B1-142",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "deltopectoral_groove",
+    "subject_id": "deltopectoral_groove",
+    "relation": "TRANSMITS_STRUCTURE",
+    "object_or_arguments": [
+      "cephalic_vein",
+      "deltoid_branch_of_thoracoacromial_artery"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-003",
+      "MORG-UL-LOC-P02"
+    ],
+    "evidence_match_class": "DIRECT_VISUAL_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-011",
+      "validation_assessment": "VA-B1-142",
+      "authored_fact_candidate": "B1-FC-PGI-018",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-003",
+        "MORG-UL-LOC-P02"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-012",
+    "source_fact_candidate_id": "B1-FC-PGI-019",
+    "validation_assessment_id": "VA-B1-143",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "cervicoaxillary_canal",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "cervicoaxillary_canal"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-PG-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-012",
+      "validation_assessment": "VA-B1-143",
+      "authored_fact_candidate": "B1-FC-PGI-019",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-PG-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-013",
+    "source_fact_candidate_id": "B1-FC-PGI-020",
+    "validation_assessment_id": "VA-B1-144",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "cervicoaxillary_canal",
+    "subject_id": "cervicoaxillary_canal",
+    "relation": "has_border",
+    "object_or_arguments": [
+      "anteriorly_clavicle_posteriorly_superior_border_of_scapula_medially_first_rib"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-PG-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-013",
+      "validation_assessment": "VA-B1-144",
+      "authored_fact_candidate": "B1-FC-PGI-020",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-PG-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-014",
+    "source_fact_candidate_id": "B1-FC-PGI-021",
+    "validation_assessment_id": "VA-B1-145",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "cervicoaxillary_canal",
+    "subject_id": "cervicoaxillary_canal",
+    "relation": "TRANSMITS_STRUCTURE",
+    "object_or_arguments": [
+      "axillary_artery_and_vein",
+      "brachial_plexus_cords"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-PG-LOC-001"
+    ],
+    "evidence_match_class": "MULTI_SOURCE_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-014",
+      "validation_assessment": "VA-B1-145",
+      "authored_fact_candidate": "B1-FC-PGI-021",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-003",
+        "NLS-ATLAS-PG-LOC-001"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "canonical_candidate_id": "CANON-CAND-PGI-015",
+    "source_fact_candidate_id": "B1-FC-PGI-026",
+    "validation_assessment_id": "VA-B1-150",
+    "knowledge_pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "deltopectoral_groove",
+    "subject_id": "cephalic_vein",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "pierces_clavipectoral_fascia_in_mohrenheim_triangle_to_drain_into_axillary_vein"
+    ],
+    "tier": "TIER_A_CANONICAL_CANDIDATE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "evidence_match_class": "DIRECT_VISUAL_MATCH",
+    "provenance_chain": {
+      "canonical_candidate": "CANON-CAND-PGI-015",
+      "validation_assessment": "VA-B1-150",
+      "authored_fact_candidate": "B1-FC-PGI-026",
+      "registered_locators": [
+        "LAT-T1-CLAV-LOC-002",
+        "NLS-ATLAS-CLAV-LOC-003"
+      ],
+      "primary_sources": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ]
+    },
+    "safe_engine_staging_eligible": true,
+    "safe_engine_production_eligible": true
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "candidate_id": "CLIN-SCAP-001",
+    "anatomical_structures": [
+      "medial_border_of_scapula",
+      "serratus_anterior",
+      "long_thoracic_nerve"
+    ],
+    "clinical_hypothesis": "Loss of effective serratus anterior function produces medial scapular winging and altered scapulothoracic kinematics.",
+    "relevance": "Classic neurological-clinical finding in long thoracic nerve injury (e.g. radical mastectomy, trauma).",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "candidate_id": "CLIN-SCAP-002",
+    "anatomical_structures": [
+      "suprascapular_notch",
+      "superior_transverse_scapular_ligament",
+      "suprascapular_nerve"
+    ],
+    "clinical_hypothesis": "Compression of the suprascapular nerve at the suprascapular notch causes supraspinatus and infraspinatus weakness and wasting.",
+    "relevance": "Entrapment neuropathy affecting abduction initiation and external shoulder rotation.",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "candidate_id": "CLIN-SCAP-003",
+    "anatomical_structures": [
+      "spinoglenoid_notch",
+      "suprascapular_nerve",
+      "infraspinatus"
+    ],
+    "clinical_hypothesis": "Compression of the suprascapular nerve in the spinoglenoid notch region spares the supraspinatus and isolatedly denervates the infraspinatus.",
+    "relevance": "Overhead athletes (volleyball, baseball) developing selective external rotator weakness.",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "candidate_id": "CLIN-SCAP-004",
+    "anatomical_structures": [
+      "glenoid_cavity",
+      "glenoid_labrum",
+      "humeral_head"
+    ],
+    "clinical_hypothesis": "Relative shallowness of the glenoid fossa relies on the labrum and capsule for static stability; labral detachment predisposes to recurrent dislocation.",
+    "relevance": "Bankart lesions and glenohumeral joint instability.",
+    "validation_status": "AI_DRAFT"
+  },
+  {
+    "candidate_id": "CLIN-SCAP-005",
+    "anatomical_structures": [
+      "suprascapular_artery",
+      "circumflex_scapular_artery",
+      "dorsal_scapular_artery"
+    ],
+    "clinical_hypothesis": "Scapular peri-osseous anastomotic network provides collateral pathways around proximal axillary artery ligation or occlusion.",
+    "relevance": "Vascular surgery and collateral limb perfusion preservation.",
+    "validation_status": "AI_DRAFT"
+  }
+]

@@ -1,0 +1,75 @@
+{
+  "pack_id": "AET-KP-UL-SCAPULA-001",
+  "evaluated_at": "2026-09-24T03:58:38.471Z",
+  "governing_model": "AACM-1.0",
+  "summary": {
+    "authoring_coverage": "15/15 DIMENSIONS (10 COMPLETE, 5 PARTIAL, 0 MISSING)",
+    "canonical_validated_coverage": "0/15 DIMENSIONS (REGISTERED_VALIDATION_SOURCE_COUNT=0; ALL DRAFTS UNPROMOTED)",
+    "complete_dimensions": 10,
+    "partial_dimensions": 5,
+    "missing_dimensions": 0,
+    "not_applicable_dimensions": 0
+  },
+  "dimensions": {
+    "IDENTITY": {
+      "status": "COMPLETE",
+      "note": "Escápula canonical identity, paired nature, systematic position mapped."
+    },
+    "MORPHOLOGY": {
+      "status": "COMPLETE",
+      "note": "Flat triangular bone, 2 surfaces, 3 borders, 3 angles, processes, fossae."
+    },
+    "LOCATION": {
+      "status": "COMPLETE",
+      "note": "Posterolateral thorax, ribs 2-7, shoulder girdle."
+    },
+    "ORIENTATION": {
+      "status": "COMPLETE",
+      "note": "Spine posterior, glenoid lateral, coracoid anterior, inferior angle downward."
+    },
+    "PARTS": {
+      "status": "COMPLETE",
+      "note": "Comprehensive breakdown of spine, acromion, coracoid, glenoid, fossae, and notches."
+    },
+    "ARTICULATIONS": {
+      "status": "COMPLETE",
+      "note": "Acromioclavicular and glenohumeral joints mapped; scapulothoracic functional joint noted."
+    },
+    "LIGAMENTS": {
+      "status": "COMPLETE",
+      "note": "Coracoacromial, coracoclavicular (conoid/trapezoid), and transverse scapular ligaments mapped."
+    },
+    "MUSCULAR_RELATIONS": {
+      "status": "COMPLETE",
+      "note": "17 muscle origins/insertions mapped to specific scapular regions."
+    },
+    "NEURAL_RELATIONS": {
+      "status": "PARTIAL",
+      "note": "Suprascapular nerve mapped; long thoracic / axillary / radial candidate mentions require full regional trajectory validation."
+    },
+    "VASCULAR_RELATIONS": {
+      "status": "PARTIAL",
+      "note": "Regional anastomotic network candidates mapped; direct osseous nutrient foramina unmapped."
+    },
+    "TOPOGRAPHY": {
+      "status": "COMPLETE",
+      "note": "Syntopic relations with thoracic wall, neck, axilla, and posterior shoulder."
+    },
+    "ANATOMICAL_SPACES": {
+      "status": "COMPLETE",
+      "note": "Triangular space, quadrangular space, and triangular interval boundaries and contents drafted."
+    },
+    "PRACTICAL_IDENTIFICATION": {
+      "status": "COMPLETE",
+      "note": "5-step orientation rule and 5 surface/landmark practical identification criteria."
+    },
+    "CLINICAL_ANATOMY": {
+      "status": "PARTIAL",
+      "note": "5 clinical candidate connections drafted; pending clinical-academic bibliographic verification."
+    },
+    "3D_MAPPING": {
+      "status": "PARTIAL",
+      "note": "21 landmark annotation candidates defined; all 21 remain UNMAPPED in Viewer 3D mesh."
+    }
+  }
+}

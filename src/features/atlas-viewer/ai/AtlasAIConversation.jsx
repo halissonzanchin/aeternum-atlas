@@ -240,7 +240,7 @@ export default function AtlasAIConversation({
 
   const latestAIMessageId = [...messages]
     .reverse()
-    .find((message) => message.sender === "ai" && message.text)
+    .find((message) => message.sender === "ai" && message.text && message.mode !== "error")
     ?.id;
   const interactionState = isThinking
     ? "is-thinking"
@@ -257,6 +257,40 @@ export default function AtlasAIConversation({
             const actionLabel = message.action && resolveActionLabel
               ? resolveActionLabel(message.action)
               : null;
+
+            if (message.mode === "error") {
+              return (
+                <div
+                  key={message.id}
+                  className="atlas-viewer-ai-message-row is-error"
+                >
+                  <div className="atlas-ai-message-error-card">
+                    <div className="atlas-ai-message-error-header">
+                      <span className="atlas-ai-error-icon" aria-hidden="true">⚠️</span>
+                      <p className="atlas-ai-error-text">
+                        {message.text || t("tutor.errorService", { defaultValue: "O Atlas não conseguiu acessar o modelo agora. Tente novamente." })}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const msgIdx = messages.findIndex((m) => m.id === message.id);
+                        const lastUserMsg = messages
+                          .slice(0, msgIdx)
+                          .reverse()
+                          .find((m) => m.sender === "user");
+                        if (lastUserMsg?.text) {
+                          handleSend(lastUserMsg.text);
+                        }
+                      }}
+                      className="atlas-ai-error-retry-btn"
+                    >
+                      {t("tutor.retry", { defaultValue: "Tentar novamente" })}
+                    </button>
+                  </div>
+                </div>
+              );
+            }
 
             return (
               <div
@@ -278,15 +312,27 @@ export default function AtlasAIConversation({
                     message.id === latestAIMessageId ? "is-featured" : ""
                   ].filter(Boolean).join(" ")}
                 >
-                  {message.id === latestAIMessageId ? (
-                    <div className="atlas-ai-featured-response__meta">
-                      <span>
-                        <i aria-hidden="true" />
-                        {t("tutor.atlasResponse", { defaultValue: "Resposta do Atlas" })}
+                  {message.mode === "offline" ? (
+                    <div className="atlas-ai-offline-badge">
+                      <div className="atlas-ai-offline-badge__title">
+                        <span aria-hidden="true">📡</span>
+                        <span>{t("tutor.offlineMode", { defaultValue: "Modo Offline • Acervo Didático Local" })}</span>
+                      </div>
+                      <span className="atlas-ai-offline-badge__secondary">
+                        {t("tutor.offlineSecondary", { defaultValue: "Sem conexão com IA em tempo real." })}
                       </span>
-                      <small>{t("tutor.contextualResponse", { defaultValue: "Resposta contextual" })}</small>
                     </div>
-                  ) : null}
+                  ) : (
+                    message.id === latestAIMessageId ? (
+                      <div className="atlas-ai-featured-response__meta">
+                        <span>
+                          <i aria-hidden="true" />
+                          {t("tutor.atlasResponse", { defaultValue: "Resposta do Atlas" })}
+                        </span>
+                        <small>{t("tutor.contextualResponse", { defaultValue: "Resposta contextual" })}</small>
+                      </div>
+                    ) : null
+                  )}
                   <MessageText text={message.text} />
                   {message.sender === "ai" && (
                     <SpatialAIGuidanceCard

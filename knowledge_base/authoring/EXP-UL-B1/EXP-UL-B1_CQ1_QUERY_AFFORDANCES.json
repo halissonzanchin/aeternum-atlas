@@ -1,0 +1,1778 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-CQ1",
+  "generated_at": "2026-09-25T03:53:39.743Z",
+  "total_production_facts": 118,
+  "affordances": [
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-001",
+      "source_fact_candidate_id": "B1-FC-CLAV-001",
+      "subject_id": "clavicle",
+      "relation": "type_of",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-002",
+      "source_fact_candidate_id": "B1-FC-CLAV-002",
+      "subject_id": "clavicle",
+      "relation": "part_of",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-003",
+      "source_fact_candidate_id": "B1-FC-CLAV-003",
+      "subject_id": "clavicle",
+      "relation": "has_symmetry",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-004",
+      "source_fact_candidate_id": "B1-FC-CLAV-004",
+      "subject_id": "clavicle",
+      "relation": "located_in",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-005",
+      "source_fact_candidate_id": "B1-FC-CLAV-005",
+      "subject_id": "clavicle",
+      "relation": "has_shape",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-006",
+      "source_fact_candidate_id": "B1-FC-CLAV-006",
+      "subject_id": "clavicle",
+      "relation": "has_curvature",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-007",
+      "source_fact_candidate_id": "B1-FC-CLAV-007",
+      "subject_id": "clavicle",
+      "relation": "has_curvature",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-008",
+      "source_fact_candidate_id": "B1-FC-CLAV-008",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-009",
+      "source_fact_candidate_id": "B1-FC-CLAV-009",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-010",
+      "source_fact_candidate_id": "B1-FC-CLAV-010",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-011",
+      "source_fact_candidate_id": "B1-FC-CLAV-011",
+      "subject_id": "clavicle",
+      "relation": "has_surface",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-012",
+      "source_fact_candidate_id": "B1-FC-CLAV-012",
+      "subject_id": "clavicle",
+      "relation": "has_surface",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-013",
+      "source_fact_candidate_id": "B1-FC-CLAV-013",
+      "subject_id": "clavicle",
+      "relation": "has_border",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-014",
+      "source_fact_candidate_id": "B1-FC-CLAV-014",
+      "subject_id": "clavicle",
+      "relation": "has_border",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-015",
+      "source_fact_candidate_id": "B1-FC-CLAV-015",
+      "subject_id": "clavicular_superior_surface",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-016",
+      "source_fact_candidate_id": "B1-FC-CLAV-016",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-017",
+      "source_fact_candidate_id": "B1-FC-CLAV-017",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-018",
+      "source_fact_candidate_id": "B1-FC-CLAV-018",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-019",
+      "source_fact_candidate_id": "B1-FC-CLAV-019",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-020",
+      "source_fact_candidate_id": "B1-FC-CLAV-020",
+      "subject_id": "clavicular_inferior_surface",
+      "relation": "has_landmark",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-021",
+      "source_fact_candidate_id": "B1-FC-CLAV-021",
+      "subject_id": "clavicular_sternal_end",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-022",
+      "source_fact_candidate_id": "B1-FC-CLAV-022",
+      "subject_id": "clavicular_sternal_articular_surface",
+      "relation": "articulates_with",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-023",
+      "source_fact_candidate_id": "B1-FC-CLAV-023",
+      "subject_id": "clavicular_acromial_end",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-024",
+      "source_fact_candidate_id": "B1-FC-CLAV-024",
+      "subject_id": "clavicular_acromial_articular_surface",
+      "relation": "articulates_with",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-025",
+      "source_fact_candidate_id": "B1-FC-CLAV-025",
+      "subject_id": "pectoralis_major_clavicular_head",
+      "relation": "originates_from",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-026",
+      "source_fact_candidate_id": "B1-FC-CLAV-026",
+      "subject_id": "deltoid_clavicular_portion",
+      "relation": "originates_from",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-027",
+      "source_fact_candidate_id": "B1-FC-CLAV-027",
+      "subject_id": "trapezius_descending_part",
+      "relation": "inserts_into",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-028",
+      "source_fact_candidate_id": "B1-FC-CLAV-028",
+      "subject_id": "sternocleidomastoid_clavicular_head",
+      "relation": "originates_from",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-029",
+      "source_fact_candidate_id": "B1-FC-CLAV-029",
+      "subject_id": "subclavius_muscle",
+      "relation": "inserts_into",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-030",
+      "source_fact_candidate_id": "B1-FC-CLAV-030",
+      "subject_id": "costoclavicular_ligament",
+      "relation": "attaches_ligament",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-031",
+      "source_fact_candidate_id": "B1-FC-CLAV-031",
+      "subject_id": "conoid_ligament",
+      "relation": "attaches_ligament",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-032",
+      "source_fact_candidate_id": "B1-FC-CLAV-032",
+      "subject_id": "trapezoid_ligament",
+      "relation": "attaches_ligament",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-033",
+      "source_fact_candidate_id": "B1-FC-CLAV-033",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-034",
+      "source_fact_candidate_id": "B1-FC-CLAV-034",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-035",
+      "source_fact_candidate_id": "B1-FC-CLAV-035",
+      "subject_id": "platysma_muscle",
+      "relation": "vascular_syntopy",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-036",
+      "source_fact_candidate_id": "B1-FC-CLAV-036",
+      "subject_id": "supraclavicular_nerves",
+      "relation": "vascular_syntopy",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-037",
+      "source_fact_candidate_id": "B1-FC-CLAV-037",
+      "subject_id": "subclavian_vessels",
+      "relation": "vascular_syntopy",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-038",
+      "source_fact_candidate_id": "B1-FC-CLAV-038",
+      "subject_id": "brachial_plexus_trunks",
+      "relation": "vascular_syntopy",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-039",
+      "source_fact_candidate_id": "B1-FC-CLAV-039",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-040",
+      "source_fact_candidate_id": "B1-FC-CLAV-040",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-041",
+      "source_fact_candidate_id": "B1-FC-CLAV-042",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-042",
+      "source_fact_candidate_id": "B1-FC-CLAV-043",
+      "subject_id": "clavicular_sternal_end_epiphysis",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-043",
+      "source_fact_candidate_id": "B1-FC-CLAV-044",
+      "subject_id": "clavipectoral_fascia",
+      "relation": "vascular_syntopy",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-044",
+      "source_fact_candidate_id": "B1-FC-CLAV-046",
+      "subject_id": "posterior_border_of_clavicle",
+      "relation": "has_curvature",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-045",
+      "source_fact_candidate_id": "B1-FC-CLAV-047",
+      "subject_id": "anterior_border_of_clavicle",
+      "relation": "has_curvature",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-046",
+      "source_fact_candidate_id": "B1-FC-CLAV-048",
+      "subject_id": "cervical_fascia_superficial_layer",
+      "relation": "vascular_syntopy",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-047",
+      "source_fact_candidate_id": "B1-FC-CLAV-049",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-048",
+      "source_fact_candidate_id": "B1-FC-CLAV-050",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CLAV-049",
+      "source_fact_candidate_id": "B1-FC-CLAV-052",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-001",
+      "source_fact_candidate_id": "B1-FC-SCJ-001",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "type_of",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-002",
+      "source_fact_candidate_id": "B1-FC-SCJ-002",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "part_of",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-003",
+      "source_fact_candidate_id": "B1-FC-SCJ-003",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "articulates_with",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-004",
+      "source_fact_candidate_id": "B1-FC-SCJ-004",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-005",
+      "source_fact_candidate_id": "B1-FC-SCJ-005",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-006",
+      "source_fact_candidate_id": "B1-FC-SCJ-006",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "inserts_into",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-007",
+      "source_fact_candidate_id": "B1-FC-SCJ-007",
+      "subject_id": "sternoclavicular_articular_disc",
+      "relation": "inserts_into",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-009",
+      "source_fact_candidate_id": "B1-FC-SCJ-009",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "surrounded_by",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-010",
+      "source_fact_candidate_id": "B1-FC-SCJ-010",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-011",
+      "source_fact_candidate_id": "B1-FC-SCJ-011",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-012",
+      "source_fact_candidate_id": "B1-FC-SCJ-012",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-013",
+      "source_fact_candidate_id": "B1-FC-SCJ-013",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-014",
+      "source_fact_candidate_id": "B1-FC-SCJ-014",
+      "subject_id": "costoclavicular_ligament",
+      "relation": "originates_from",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-016",
+      "source_fact_candidate_id": "B1-FC-SCJ-016",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-017",
+      "source_fact_candidate_id": "B1-FC-SCJ-017",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-018",
+      "source_fact_candidate_id": "B1-FC-SCJ-018",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "functional_axis",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-019",
+      "source_fact_candidate_id": "B1-FC-SCJ-019",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_supply",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-020",
+      "source_fact_candidate_id": "B1-FC-SCJ-020",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "innervated_by",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-021",
+      "source_fact_candidate_id": "B1-FC-SCJ-021",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_syntopy",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-022",
+      "source_fact_candidate_id": "B1-FC-SCJ-022",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "vascular_syntopy",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-024",
+      "source_fact_candidate_id": "B1-FC-SCJ-024",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-SCJ-026",
+      "source_fact_candidate_id": "B1-FC-SCJ-028",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-001",
+      "source_fact_candidate_id": "B1-FC-ACJ-001",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "type_of",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-002",
+      "source_fact_candidate_id": "B1-FC-ACJ-002",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "part_of",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-003",
+      "source_fact_candidate_id": "B1-FC-ACJ-003",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "articulates_with",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-004",
+      "source_fact_candidate_id": "B1-FC-ACJ-004",
+      "subject_id": "clavicular_acromial_articular_surface",
+      "relation": "has_curvature",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-005",
+      "source_fact_candidate_id": "B1-FC-ACJ-005",
+      "subject_id": "acromial_facet_of_scapula",
+      "relation": "has_curvature",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-006",
+      "source_fact_candidate_id": "B1-FC-ACJ-006",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-007",
+      "source_fact_candidate_id": "B1-FC-ACJ-007",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-008",
+      "source_fact_candidate_id": "B1-FC-ACJ-008",
+      "subject_id": "acromioclavicular_articular_disc",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-009",
+      "source_fact_candidate_id": "B1-FC-ACJ-009",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "surrounded_by",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-010",
+      "source_fact_candidate_id": "B1-FC-ACJ-010",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-011",
+      "source_fact_candidate_id": "B1-FC-ACJ-011",
+      "subject_id": "superior_acromioclavicular_ligament",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-013",
+      "source_fact_candidate_id": "B1-FC-ACJ-013",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "functional_axis",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-014",
+      "source_fact_candidate_id": "B1-FC-ACJ-014",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "functional_axis",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-015",
+      "source_fact_candidate_id": "B1-FC-ACJ-015",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "vascular_supply",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-016",
+      "source_fact_candidate_id": "B1-FC-ACJ-016",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "innervated_by",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-017",
+      "source_fact_candidate_id": "B1-FC-ACJ-017",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-018",
+      "source_fact_candidate_id": "B1-FC-ACJ-018",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-019",
+      "source_fact_candidate_id": "B1-FC-ACJ-019",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-ACJ-020",
+      "source_fact_candidate_id": "B1-FC-ACJ-021",
+      "subject_id": "acromioclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-001",
+      "source_fact_candidate_id": "B1-FC-CCC-001",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "type_of",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-002",
+      "source_fact_candidate_id": "B1-FC-CCC-002",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-003",
+      "source_fact_candidate_id": "B1-FC-CCC-003",
+      "subject_id": "conoid_ligament",
+      "relation": "type_of",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-004",
+      "source_fact_candidate_id": "B1-FC-CCC-004",
+      "subject_id": "conoid_ligament",
+      "relation": "has_shape",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-005",
+      "source_fact_candidate_id": "B1-FC-CCC-005",
+      "subject_id": "conoid_ligament",
+      "relation": "originates_from",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-006",
+      "source_fact_candidate_id": "B1-FC-CCC-006",
+      "subject_id": "conoid_ligament",
+      "relation": "inserts_into",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-008",
+      "source_fact_candidate_id": "B1-FC-CCC-008",
+      "subject_id": "trapezoid_ligament",
+      "relation": "type_of",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-009",
+      "source_fact_candidate_id": "B1-FC-CCC-009",
+      "subject_id": "trapezoid_ligament",
+      "relation": "has_shape",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-010",
+      "source_fact_candidate_id": "B1-FC-CCC-010",
+      "subject_id": "trapezoid_ligament",
+      "relation": "originates_from",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-011",
+      "source_fact_candidate_id": "B1-FC-CCC-011",
+      "subject_id": "trapezoid_ligament",
+      "relation": "inserts_into",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-014",
+      "source_fact_candidate_id": "B1-FC-CCC-014",
+      "subject_id": "coracoclavicular_interligamentous_angle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-015",
+      "source_fact_candidate_id": "B1-FC-CCC-015",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "vascular_supply",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-016",
+      "source_fact_candidate_id": "B1-FC-CCC-016",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "innervated_by",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-017",
+      "source_fact_candidate_id": "B1-FC-CCC-018",
+      "subject_id": "conoid_ligament",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-018",
+      "source_fact_candidate_id": "B1-FC-CCC-019",
+      "subject_id": "trapezoid_ligament",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-CCC-019",
+      "source_fact_candidate_id": "B1-FC-CCC-020",
+      "subject_id": "coracoclavicular_ligament_complex",
+      "relation": "vascular_syntopy",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-001",
+      "source_fact_candidate_id": "B1-FC-PGI-001",
+      "subject_id": "pectoral_girdle",
+      "relation": "type_of",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-002",
+      "source_fact_candidate_id": "B1-FC-PGI-002",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-003",
+      "source_fact_candidate_id": "B1-FC-PGI-003",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-004",
+      "source_fact_candidate_id": "B1-FC-PGI-004",
+      "subject_id": "sternoclavicular_joint",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-005",
+      "source_fact_candidate_id": "B1-FC-PGI-005",
+      "subject_id": "clavicle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-006",
+      "source_fact_candidate_id": "B1-FC-PGI-006",
+      "subject_id": "pectoral_girdle",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-008",
+      "source_fact_candidate_id": "B1-FC-PGI-014",
+      "subject_id": "deltopectoral_groove",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-009",
+      "source_fact_candidate_id": "B1-FC-PGI-015",
+      "subject_id": "deltopectoral_groove",
+      "relation": "type_of",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-010",
+      "source_fact_candidate_id": "B1-FC-PGI-016",
+      "subject_id": "deltopectoral_groove",
+      "relation": "has_border",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-012",
+      "source_fact_candidate_id": "B1-FC-PGI-019",
+      "subject_id": "cervicoaxillary_canal",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-013",
+      "source_fact_candidate_id": "B1-FC-PGI-020",
+      "subject_id": "cervicoaxillary_canal",
+      "relation": "has_border",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    },
+    {
+      "canonical_candidate_id": "CANON-CAND-PGI-015",
+      "source_fact_candidate_id": "B1-FC-PGI-026",
+      "subject_id": "cephalic_vein",
+      "relation": "has_structure",
+      "affordances": [
+        "MICRO_FACT",
+        "RELATION_QUERY",
+        "MACRO_OVERVIEW_COMPONENT"
+      ],
+      "response_modes": [
+        "DIRECT_RESPONSE",
+        "CONTEXTUAL_EXPANSION"
+      ]
+    }
+  ]
+}

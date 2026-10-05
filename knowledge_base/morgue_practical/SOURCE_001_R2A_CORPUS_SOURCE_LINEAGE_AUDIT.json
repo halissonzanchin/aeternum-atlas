@@ -1,0 +1,47 @@
+{
+  "audit_phase": "R2A_CANONICAL_VALIDATION_AUTHORITY_FOUNDATION",
+  "audit_name": "SOURCE_001_CORPUS_VS_SOURCE_LINEAGE_AUDIT",
+  "source_id": "MORGUE-UPPER-LIMB-001",
+  "governing_protocol": "AKAIP-1.0",
+  "timestamp": "2026-09-24T00:22:00Z",
+  "distinction_contract": {
+    "corpus_version": "AAC-2026.1-R1",
+    "nature": "BUILD_DISTRIBUTION_SNAPSHOT",
+    "is_valid_bibliographic_evidence": false,
+    "rule_enforced": "No atomic proposition may claim canonical validation solely by self-referencing an Aeternum build corpus version. All validation must resolve to an underlying registered SOURCE_ID manifest entry."
+  },
+  "metrics": {
+    "corpus_version_used_as_validation_source_before": "YES",
+    "corpus_version_used_as_validation_source_after": "NO",
+    "current_incoming_status_counts": {
+      "supported": 128,
+      "validated": 74,
+      "conflicting": 2,
+      "review_pending": 4,
+      "unreviewed": 0,
+      "total": 208
+    },
+    "lineage_breakdown": {
+      "facts_with_real_source_lineage": 0,
+      "facts_with_corpus_only_lineage": 204,
+      "facts_already_pending_review": 4
+    },
+    "conservative_reclassification": {
+      "validated_facts_demoted_to_review_pending": 74,
+      "supported_facts_demoted_to_review_pending": 128,
+      "total_facts_demoted_to_review_pending": 202,
+      "reason": "Previous validation and support were assigned against the build corpus string AAC-2026.1-R1 without an explicit pointer to an underlying registered bibliographic source manifest entry. Under the Corpus-Only Lineage Rule, zero facts may remain SUPPORTED or VALIDATED solely on that basis.",
+      "reclassified_academic_status": "REVIEW_PENDING",
+      "reclassified_substatus": "SOURCE_SUPPORTED_UNRESOLVED"
+    },
+    "post_audit_status_distribution": {
+      "academic_validated": 0,
+      "academic_supported": 0,
+      "academic_conflicting": 2,
+      "academic_review_pending": 206,
+      "academic_unreviewed": 0,
+      "total_facts": 208
+    }
+  },
+  "audit_ledger_summary": "100% of the 208 atomic facts from MORGUE-UPPER-LIMB-001 have been audited. None currently possess a verified, direct citation chain to a registered primary bibliographic source (such as TA2, Moore, or Gray). All 74 facts previously labeled VALIDATED and all 128 facts previously labeled SUPPORTED have been conservatively certified as REVIEW_PENDING (SOURCE_SUPPORTED_UNRESOLVED). They remain active in the authoring candidate queue awaiting R2 canonical validation."
+}

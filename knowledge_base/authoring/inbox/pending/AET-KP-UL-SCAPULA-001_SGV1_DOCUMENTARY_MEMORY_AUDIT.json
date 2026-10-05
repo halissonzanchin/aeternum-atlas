@@ -1,0 +1,145 @@
+[
+  {
+    "document_id": "DOC-SCAP-001",
+    "title": "Documentary Block DOC-SCAP-001",
+    "total_referenced_facts": 8,
+    "validated_fact_count": 8,
+    "supported_fact_count": 0,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  },
+  {
+    "document_id": "DOC-SCAP-002",
+    "title": "Documentary Block DOC-SCAP-002",
+    "total_referenced_facts": 19,
+    "validated_fact_count": 19,
+    "supported_fact_count": 0,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  },
+  {
+    "document_id": "DOC-SCAP-003",
+    "title": "Documentary Block DOC-SCAP-003",
+    "total_referenced_facts": 4,
+    "validated_fact_count": 4,
+    "supported_fact_count": 0,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  },
+  {
+    "document_id": "DOC-SCAP-004",
+    "title": "Documentary Block DOC-SCAP-004",
+    "total_referenced_facts": 13,
+    "validated_fact_count": 13,
+    "supported_fact_count": 0,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  },
+  {
+    "document_id": "DOC-SCAP-005",
+    "title": "Documentary Block DOC-SCAP-005",
+    "total_referenced_facts": 13,
+    "validated_fact_count": 13,
+    "supported_fact_count": 0,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  },
+  {
+    "document_id": "DOC-SCAP-006",
+    "title": "Documentary Block DOC-SCAP-006",
+    "total_referenced_facts": 16,
+    "validated_fact_count": 16,
+    "supported_fact_count": 0,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  },
+  {
+    "document_id": "DOC-SCAP-007",
+    "title": "Documentary Block DOC-SCAP-007",
+    "total_referenced_facts": 21,
+    "validated_fact_count": 21,
+    "supported_fact_count": 0,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  },
+  {
+    "document_id": "DOC-SCAP-008",
+    "title": "Documentary Block DOC-SCAP-008",
+    "total_referenced_facts": 11,
+    "validated_fact_count": 9,
+    "supported_fact_count": 2,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  },
+  {
+    "document_id": "DOC-SCAP-009",
+    "title": "Documentary Block DOC-SCAP-009",
+    "total_referenced_facts": 10,
+    "validated_fact_count": 10,
+    "supported_fact_count": 0,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  },
+  {
+    "document_id": "DOC-SCAP-010",
+    "title": "Documentary Block DOC-SCAP-010",
+    "total_referenced_facts": 4,
+    "validated_fact_count": 4,
+    "supported_fact_count": 0,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  },
+  {
+    "document_id": "DOC-SCAP-KP1-001",
+    "title": "Vascularização regional e óssea da escápula",
+    "total_referenced_facts": 5,
+    "validated_fact_count": 3,
+    "supported_fact_count": 2,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  },
+  {
+    "document_id": "DOC-SCAP-KP1-002",
+    "title": "Relações nervosas sensitivas da região escapular e do ombro",
+    "total_referenced_facts": 6,
+    "validated_fact_count": 3,
+    "supported_fact_count": 1,
+    "pending_fact_count": 2,
+    "support_classification": "DOCUMENTARY_BLOCK_PARTIALLY_SUPPORTED",
+    "safe_engine_full_block_usable": false,
+    "fallback_strategy": "ATOMIC_COMPOSITION_ONLY"
+  },
+  {
+    "document_id": "DOC-SCAP-KP1-003",
+    "title": "Variações anatômicas relevantes da escápula",
+    "total_referenced_facts": 8,
+    "validated_fact_count": 0,
+    "supported_fact_count": 8,
+    "pending_fact_count": 0,
+    "support_classification": "DOCUMENTARY_BLOCK_FULLY_SUPPORTED",
+    "safe_engine_full_block_usable": true,
+    "fallback_strategy": "DIRECT_BLOCK_RETRIEVAL"
+  }
+]

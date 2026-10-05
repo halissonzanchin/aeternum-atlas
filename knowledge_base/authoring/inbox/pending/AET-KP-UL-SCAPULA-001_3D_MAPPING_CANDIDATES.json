@@ -1,0 +1,212 @@
+[
+  {
+    "mapping_candidate_id": "3D-SCAP-001",
+    "anatomical_term": "scapula",
+    "canonical_entity_id": "scapula",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-002",
+    "anatomical_term": "costal_surface",
+    "canonical_entity_id": "scapula_costal_surface",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-003",
+    "anatomical_term": "posterior_surface",
+    "canonical_entity_id": "scapula_posterior_surface",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-004",
+    "anatomical_term": "superior_border",
+    "canonical_entity_id": "scapula_superior_border",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-005",
+    "anatomical_term": "medial_border",
+    "canonical_entity_id": "scapula_medial_border",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-006",
+    "anatomical_term": "lateral_border",
+    "canonical_entity_id": "scapula_lateral_border",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-007",
+    "anatomical_term": "superior_angle",
+    "canonical_entity_id": "scapula_superior_angle",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-008",
+    "anatomical_term": "inferior_angle",
+    "canonical_entity_id": "scapula_inferior_angle",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-009",
+    "anatomical_term": "lateral_angle",
+    "canonical_entity_id": "scapula_lateral_angle",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-010",
+    "anatomical_term": "subscapular_fossa",
+    "canonical_entity_id": "scapula_subscapular_fossa",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-011",
+    "anatomical_term": "supraspinous_fossa",
+    "canonical_entity_id": "scapula_supraspinous_fossa",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-012",
+    "anatomical_term": "infraspinous_fossa",
+    "canonical_entity_id": "scapula_infraspinous_fossa",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-013",
+    "anatomical_term": "scapular_spine",
+    "canonical_entity_id": "scapula_scapular_spine",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-014",
+    "anatomical_term": "acromion",
+    "canonical_entity_id": "scapula_acromion",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-015",
+    "anatomical_term": "coracoid_process",
+    "canonical_entity_id": "scapula_coracoid_process",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-016",
+    "anatomical_term": "glenoid_cavity",
+    "canonical_entity_id": "scapula_glenoid_cavity",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-017",
+    "anatomical_term": "supraglenoid_tubercle",
+    "canonical_entity_id": "scapula_supraglenoid_tubercle",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-018",
+    "anatomical_term": "infraglenoid_tubercle",
+    "canonical_entity_id": "scapula_infraglenoid_tubercle",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-019",
+    "anatomical_term": "suprascapular_notch",
+    "canonical_entity_id": "scapula_suprascapular_notch",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-020",
+    "anatomical_term": "spinoglenoid_notch",
+    "canonical_entity_id": "scapula_spinoglenoid_notch",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  },
+  {
+    "mapping_candidate_id": "3D-SCAP-021",
+    "anatomical_term": "neck_of_scapula",
+    "canonical_entity_id": "scapula_neck_of_scapula",
+    "viewer_model_id": null,
+    "mesh_node_id": null,
+    "spatial_coordinates": null,
+    "mapping_status": "UNMAPPED",
+    "notes": "Viewer model association is not currently registered; preserved strictly as UNMAPPED candidate."
+  }
+]

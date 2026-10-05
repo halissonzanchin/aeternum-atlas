@@ -1,0 +1,306 @@
+[
+  {
+    "subject": "fossa_supraespinosa",
+    "relation": "alberga_musculo",
+    "object_or_arguments": [
+      "musculo_supraespinoso"
+    ],
+    "context": "Cara posterior de la escápula, por encima de la espina",
+    "laterality": "bilateral",
+    "region": "Cintura Escapular",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 7,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "fossa_infraespinosa",
+    "relation": "alberga_musculo",
+    "object_or_arguments": [
+      "musculo_infraespinoso"
+    ],
+    "context": "Cara posterior de la escápula, por debajo de la espina",
+    "laterality": "bilateral",
+    "region": "Cintura Escapular",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 8,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "fossa_subescapular",
+    "relation": "alberga_musculo",
+    "object_or_arguments": [
+      "musculo_subescapular"
+    ],
+    "context": "Cara anterior / costal de la escápula",
+    "laterality": "bilateral",
+    "region": "Cintura Escapular",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 5,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "tuberculo_supraglenoideo",
+    "relation": "sitio_insercion_origen",
+    "object_or_arguments": [
+      "cabeza_larga_biceps_braquial"
+    ],
+    "context": "Borde superior de la cavidad glenoidea",
+    "laterality": "bilateral",
+    "region": "Hombro",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 16,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "tuberculo_infraglenoideo",
+    "relation": "sitio_insercion_origen",
+    "object_or_arguments": [
+      "cabeza_larga_triceps_braquial"
+    ],
+    "context": "Borde inferior de la cavidad glenoidea / borde lateral de escápula",
+    "laterality": "bilateral",
+    "region": "Hombro",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 16,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "apofisis_coracoides",
+    "relation": "sitio_insercion_tendon_conjunto",
+    "object_or_arguments": [
+      "musculo_coracobraquial",
+      "cabeza_corta_biceps_braquial",
+      "musculo_pectoral_menor"
+    ],
+    "context": "Vértice y cara medial de la apófisis coracoides",
+    "laterality": "bilateral",
+    "region": "Hombro Anterior",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 15,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "sulco_radial_umero",
+    "relation": "da_passagem_a",
+    "object_or_arguments": [
+      "nervio_radial",
+      "arteria_braquial_profunda",
+      "venas_braquiales_profundas"
+    ],
+    "context": "Cara posterior de la diáfisis humeral",
+    "laterality": "bilateral",
+    "region": "Brazo Posterior",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "colo_cirurgico_umero",
+    "relation": "relacionado_topograficamente_a",
+    "object_or_arguments": [
+      "nervio_axilar",
+      "arteria_circunfleja_humeral_posterior"
+    ],
+    "context": "Espacio cuadrangular de Velpeau",
+    "laterality": "bilateral",
+    "region": "Hombro Posterior",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "troquiter_tuberculo_mayor",
+    "relation": "sitio_insercion_manguito_rotador",
+    "object_or_arguments": [
+      "musculo_supraespinoso",
+      "musculo_infraespinoso",
+      "musculo_redondo_menor"
+    ],
+    "context": "Facetas superior, media e inferior del tubérculo mayor",
+    "laterality": "bilateral",
+    "region": "Hombro",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "troquin_tuberculo_menor",
+    "relation": "sitio_insercion_terminal",
+    "object_or_arguments": [
+      "musculo_subescapular"
+    ],
+    "context": "Epífisis proximal del húmero, cara anterior",
+    "laterality": "bilateral",
+    "region": "Hombro",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "tuberosidad_del_radio",
+    "relation": "sitio_insercion_terminal",
+    "object_or_arguments": [
+      "musculo_biceps_braquial"
+    ],
+    "context": "Epífisis proximal del radio, cara anteromedial",
+    "laterality": "bilateral",
+    "region": "Antebrazo Proximal",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 28,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "olecranon",
+    "relation": "sitio_insercion_terminal",
+    "object_or_arguments": [
+      "musculo_triceps_braquial",
+      "musculo_anconeo"
+    ],
+    "context": "Epífisis proximal del cúbito",
+    "laterality": "bilateral",
+    "region": "Codo Posterior",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 27,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "canal_epitrocleoolecraneano",
+    "relation": "aloja_y_protege",
+    "object_or_arguments": [
+      "nervio_cubital",
+      "arteria_recurrente_cubital_posterior"
+    ],
+    "context": "Detrás del epicóndilo medial del húmero",
+    "laterality": "bilateral",
+    "region": "Codo Medial",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "tabaquera_anatomica",
+    "relation": "contiene_en_su_suelo",
+    "object_or_arguments": [
+      "arteria_radial",
+      "hueso_escafoides",
+      "hueso_trapecio"
+    ],
+    "context": "Foveola radialis del dorso de la muñeca",
+    "laterality": "bilateral",
+    "region": "Muñeca",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 29,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "conducto_carpiano",
+    "relation": "da_paso_a",
+    "object_or_arguments": [
+      "nervio_mediano",
+      "4_tendones_flexor_superficial_dedos",
+      "4_tendones_flexor_profundo_dedos",
+      "1_tendon_flexor_largo_pulgar"
+    ],
+    "context": "Debajo del retináculo flexor en la muñeca",
+    "laterality": "bilateral",
+    "region": "Muñeca / Mano",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 30,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "canal_de_guyon",
+    "relation": "da_paso_a",
+    "object_or_arguments": [
+      "nervio_cubital",
+      "arteria_cubital",
+      "venas_satelites_cubitales"
+    ],
+    "context": "Entre pisiforme y gancho del ganchoso",
+    "laterality": "bilateral",
+    "region": "Muñeca / Mano Medial",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 31,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "musculo_coracobraquial",
+    "relation": "perforado_por",
+    "object_or_arguments": [
+      "nervio_musculocutaneo"
+    ],
+    "context": "Músculo de Casserius en tercio proximal de brazo",
+    "laterality": "bilateral",
+    "region": "Brazo Anterior",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 38,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "musculo_supinador",
+    "relation": "atravesado_por",
+    "object_or_arguments": [
+      "ramo_profundo_nervio_radial"
+    ],
+    "context": "Arcada de Frohse en antebrazo proximal",
+    "laterality": "bilateral",
+    "region": "Antebrazo",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 44,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "musculo_braquial",
+    "relation": "inervado_por",
+    "object_or_arguments": [
+      "nervio_musculocutaneo"
+    ],
+    "context": "Compartimento anterior del brazo",
+    "laterality": "bilateral",
+    "region": "Brazo",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 40,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "musculo_pronador_redondo",
+    "relation": "inervado_por",
+    "object_or_arguments": [
+      "nervio_mediano"
+    ],
+    "context": "Primer plano del compartimento anterior del antebrazo",
+    "laterality": "bilateral",
+    "region": "Antebrazo",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 42,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "arco_palmar_superficial",
+    "relation": "formado_principalmente_por",
+    "object_or_arguments": [
+      "arteria_cubital",
+      "rama_palmar_superficial_arteria_radial"
+    ],
+    "context": "Plano subcutáneo / subaponeurótico de la palma",
+    "laterality": "bilateral",
+    "region": "Mano Palmar",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53,
+    "validation_status": "SOURCE_EXTRACTED"
+  },
+  {
+    "subject": "arco_palmar_profundo",
+    "relation": "formado_principalmente_por",
+    "object_or_arguments": [
+      "arteria_radial",
+      "rama_palmar_profunda_arteria_cubital"
+    ],
+    "context": "Plano osteointeróseo de la palma",
+    "laterality": "bilateral",
+    "region": "Mano Palmar Profunda",
+    "source": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53,
+    "validation_status": "SOURCE_EXTRACTED"
+  }
+]

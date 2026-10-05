@@ -1,0 +1,107 @@
+{
+  "phase": "AMC-1.2 / EXP-UL-B2-A1.6",
+  "timestamp": "2026-09-27T02:30:00Z",
+  "total_gaps": 10,
+  "gaps": [
+    {
+      "gap_id": "GAP-AADS1-001",
+      "entity_id": "AET-ENT-REF-HUMERUS",
+      "AADS_field": "morphometry_when_sourced",
+      "category": "MORPHOMETRY_GAP",
+      "severity": "MODERATE",
+      "description": "Specific anatomical neck retroversion angle (approx 30°) and inclination neck-shaft angle (130°-135°) require quantitative source synthesis.",
+      "blocking_issue": null,
+      "priority": "HIGH"
+    },
+    {
+      "gap_id": "GAP-AADS1-002",
+      "entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "AADS_field": "movements.ranges_only_when_sourced",
+      "category": "BIOMECHANICS_GAP",
+      "severity": "MODERATE",
+      "description": "Physiological range of motion in degrees for flexion, extension, abduction, and internal/external rotation requires secondary source attribution.",
+      "blocking_issue": null,
+      "priority": "MODERATE"
+    },
+    {
+      "gap_id": "GAP-AADS1-003",
+      "entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "AADS_field": "innervation",
+      "category": "NEUROLOGICAL_GAP",
+      "severity": "HIGH",
+      "description": "Reconcile institutional mention of axillary nerve contribution vs classical subscapular nerve exclusive innervation.",
+      "blocking_issue": "CONF-INST-001",
+      "priority": "CRITICAL"
+    },
+    {
+      "gap_id": "GAP-AADS1-004",
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_INTERVAL",
+      "AADS_field": "boundaries",
+      "category": "TOPOGRAPHIC_GAP",
+      "severity": "HIGH",
+      "description": "Formal demarcation of anterior boundary (subscapularis superior border), superior boundary (supraspinatus anterior border), and apex (transverse humeral ligament).",
+      "blocking_issue": null,
+      "priority": "HIGH"
+    },
+    {
+      "gap_id": "GAP-AADS1-005",
+      "entity_id": "AET-ENT-CAND-UL-GLENOHUMERAL_SYNOVIAL_MEMBRANE",
+      "AADS_field": "synovial_recesses",
+      "category": "ARTHROLOGY_GAP",
+      "severity": "MODERATE",
+      "description": "Documentation of axillary pouch, subscapular recess, and bicipital tendon synovial sheath extension.",
+      "blocking_issue": null,
+      "priority": "HIGH"
+    },
+    {
+      "gap_id": "GAP-AADS1-006",
+      "entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF_FOOTPRINT",
+      "AADS_field": "footprint",
+      "category": "DESCRIPTIVE_GAP",
+      "severity": "HIGH",
+      "description": "Detailed bony insertion dimensions and facet topography across the superior, middle, and inferior facets of the greater tubercle.",
+      "blocking_issue": null,
+      "priority": "HIGH"
+    },
+    {
+      "gap_id": "GAP-AADS1-007",
+      "entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "AADS_field": "capsular_continuity",
+      "category": "ARTHROLOGY_GAP",
+      "severity": "MODERATE",
+      "description": "Bifurcation into medial and lateral bands embracing the LH biceps tendon and blending with the fibrous capsule and supraspinatus/subscapularis tendons.",
+      "blocking_issue": null,
+      "priority": "MODERATE"
+    },
+    {
+      "gap_id": "GAP-AADS1-008",
+      "entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "AADS_field": "relations",
+      "category": "TOPOGRAPHIC_GAP",
+      "severity": "HIGH",
+      "description": "Topographic encircling by the axillary nerve and posterior circumflex humeral artery within the quadrangular space interface.",
+      "blocking_issue": null,
+      "priority": "CRITICAL"
+    },
+    {
+      "gap_id": "GAP-AADS1-009",
+      "entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "AADS_field": "communication_with_joint_if_sourced",
+      "category": "ARTHROLOGY_GAP",
+      "severity": "HIGH",
+      "description": "In normal anatomy, subacromial-subdeltoid bursa does NOT communicate with glenohumeral joint cavity; communication is pathognomonic of full-thickness supraspinatus tear.",
+      "blocking_issue": null,
+      "priority": "HIGH"
+    },
+    {
+      "gap_id": "GAP-AADS1-010",
+      "entity_id": "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+      "AADS_field": "insertion",
+      "category": "MYOLOGY_GAP",
+      "severity": "MODERATE",
+      "description": "Upper 60% tendinous insertion into lesser tubercle crest vs lower 40% muscular insertion into proximal humeral shaft.",
+      "blocking_issue": null,
+      "priority": "MODERATE"
+    }
+  ]
+}

@@ -1,0 +1,5189 @@
+[
+  {
+    "fact_candidate_id": "B1-FC-CLAV-001",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "long_bone"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "NLS-ATLAS-CLAV-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle is classified morphologically as a long bone."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-002",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "part_of",
+    "object_or_arguments": [
+      "pectoral_girdle"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle forms the anterior component of the pectoral girdle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-003",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_symmetry",
+    "object_or_arguments": [
+      "paired_bone"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "NLS-ATLAS-CLAV-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle is a bilateral paired bone."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-004",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "located_in",
+    "object_or_arguments": [
+      "anterosuperior_thoracic_wall"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle is situated in the anterosuperior part of the thorax, between sternum and scapula."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-005",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_shape",
+    "object_or_arguments": [
+      "italic_s_shape"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "NLS-ATLAS-CLAV-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle possesses an elongated double curvature resembling an italic S."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-006",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "medial_two_thirds_convex_anteriorly"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The medial two-thirds of the clavicle is convex anteriorly."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-007",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "lateral_one_third_concave_anteriorly"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The lateral one-third of the clavicle is concave anteriorly."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-008",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicular_shaft"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle presents a central body or shaft."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-009",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicular_sternal_end"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle possesses an expanded medial sternal extremity."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-010",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicular_acromial_end"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle possesses a flattened lateral acromial extremity."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-011",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_surface",
+    "object_or_arguments": [
+      "clavicular_superior_surface"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle has a superior surface."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-012",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_surface",
+    "object_or_arguments": [
+      "clavicular_inferior_surface"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle has an inferior surface."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-013",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_border",
+    "object_or_arguments": [
+      "anterior_border_of_clavicle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle presents an anterior border."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-014",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_border",
+    "object_or_arguments": [
+      "posterior_border_of_clavicle"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle presents a posterior border."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-015",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_superior_surface",
+    "subject_id": "clavicular_superior_surface",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "subcutaneous_palpable_area"
+    ],
+    "knowledge_dimension": "SURFACE_ANATOMY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The middle portion of the superior surface of the clavicle is smooth and subcutaneous."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-016",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_inferior_surface",
+    "subject_id": "clavicular_inferior_surface",
+    "relation": "has_landmark",
+    "object_or_arguments": [
+      "costoclavicular_ligament_impression"
+    ],
+    "knowledge_dimension": "LANDMARKS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The inferior surface presents the impression for the costoclavicular ligament at its medial end."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-017",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_inferior_surface",
+    "subject_id": "clavicular_inferior_surface",
+    "relation": "has_landmark",
+    "object_or_arguments": [
+      "subclavian_groove"
+    ],
+    "knowledge_dimension": "LANDMARKS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The middle third of the inferior surface contains the longitudinal subclavian groove."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-018",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_inferior_surface",
+    "subject_id": "clavicular_inferior_surface",
+    "relation": "has_landmark",
+    "object_or_arguments": [
+      "conoid_tubercle"
+    ],
+    "knowledge_dimension": "LANDMARKS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The lateral third of the inferior surface exhibits the conoid tubercle near its posterior border."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-019",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_inferior_surface",
+    "subject_id": "clavicular_inferior_surface",
+    "relation": "has_landmark",
+    "object_or_arguments": [
+      "trapezoid_line"
+    ],
+    "knowledge_dimension": "LANDMARKS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The lateral third of the inferior surface presents the trapezoid line running anterolaterally from the conoid tubercle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-020",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_inferior_surface",
+    "subject_id": "clavicular_inferior_surface",
+    "relation": "has_landmark",
+    "object_or_arguments": [
+      "clavicular_nutrient_foramen"
+    ],
+    "knowledge_dimension": "LANDMARKS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The inferior surface features the principal nutrient foramen directed laterally towards the acromial end."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-021",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_sternal_end",
+    "subject_id": "clavicular_sternal_end",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicular_sternal_articular_surface"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-004",
+      "pdf_page": 473,
+      "printed_page": 454,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The sternal end of the clavicle bears the sternal articular surface."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-022",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_sternal_articular_surface",
+    "subject_id": "clavicular_sternal_articular_surface",
+    "relation": "articulates_with",
+    "object_or_arguments": [
+      "manubrium_sterni",
+      "first_costal_cartilage"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-004",
+      "pdf_page": 473,
+      "printed_page": 454,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The sternal articular facet articulates with the clavicular notch of the manubrium and the first costal cartilage."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-023",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_acromial_end",
+    "subject_id": "clavicular_acromial_end",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicular_acromial_articular_surface"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-004",
+      "pdf_page": 473,
+      "printed_page": 454,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The acromial end of the clavicle bears the acromial articular surface."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-024",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicular_acromial_articular_surface",
+    "subject_id": "clavicular_acromial_articular_surface",
+    "relation": "articulates_with",
+    "object_or_arguments": [
+      "acromion"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-004",
+      "pdf_page": 473,
+      "printed_page": 454,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The acromial articular facet articulates with the medial articular facet of the acromion of the scapula."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-025",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "pectoralis_major_clavicular_head",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "anterior_border_medial_two_thirds_clavicle",
+      "superior_surface_medial_half_clavicle"
+    ],
+    "knowledge_dimension": "MUSCLE_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-002",
+      "MORG-UL-LOC-P02"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicular head of pectoralis major originates from the anterior border and adjacent superior surface of the medial two-thirds of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-026",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "deltoid_clavicular_portion",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "anterior_border_lateral_one_third_clavicle",
+      "superior_surface_lateral_one_third_anterior_clavicle"
+    ],
+    "knowledge_dimension": "MUSCLE_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-002",
+      "MORG-UL-LOC-P02"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicular portion of the deltoid muscle originates from the anterior border and superior surface of the lateral one-third of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-027",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "trapezius_descending_part",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "posterior_border_lateral_one_third_clavicle",
+      "superior_surface_lateral_one_third_posterior_clavicle"
+    ],
+    "knowledge_dimension": "MUSCLE_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-002",
+      "MORG-UL-LOC-P02"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The descending part of the trapezius inserts into the posterior border and adjacent superior surface of the lateral one-third of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-028",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "sternocleidomastoid_clavicular_head",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "superior_surface_medial_one_third_posterior_aspect_clavicle"
+    ],
+    "knowledge_dimension": "MUSCLE_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicular head of the sternocleidomastoid muscle originates from the posterosuperior aspect of the medial third of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-029",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "subclavius_muscle",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "subclavian_groove"
+    ],
+    "knowledge_dimension": "MUSCLE_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-CLAV-LOC-002",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The subclavius muscle inserts into the subclavian groove on the inferior surface of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-030",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "costoclavicular_ligament",
+    "relation": "attaches_ligament",
+    "object_or_arguments": [
+      "costoclavicular_ligament_impression"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The costoclavicular ligament attaches to the costoclavicular impression on the inferior surface of the sternal end."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-031",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "conoid_ligament",
+    "relation": "attaches_ligament",
+    "object_or_arguments": [
+      "conoid_tubercle"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The conoid ligament attaches to the conoid tubercle on the inferior surface of the lateral third of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-032",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "trapezoid_ligament",
+    "relation": "attaches_ligament",
+    "object_or_arguments": [
+      "trapezoid_line"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The trapezoid ligament attaches to the trapezoid line on the inferior surface of the lateral third of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-033",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "compact_cortical_bone",
+      "spongy_trabecular_core"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-004",
+      "pdf_page": 473,
+      "printed_page": 454,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle consists of a thick outer cortical layer of compact bone enclosing a cancellous core without a true continuous medullary cavity."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-034",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "palpable_entire_length"
+    ],
+    "knowledge_dimension": "SURFACE_ANATOMY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-004",
+      "pdf_page": 473,
+      "printed_page": 454,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle is subcutaneous and palpable in living humans throughout its entire length from sternum to acromion."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-035",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "platysma_muscle",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "covers_superior_surface_of_clavicle"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Fibers of the platysma muscle cross subcutaneously superficial to the superior surface of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-036",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "supraclavicular_nerves",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "cross_superficial_to_clavicle"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The medial, intermediate, and lateral supraclavicular nerves cross superficial to the clavicle within subcutaneous tissue."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-037",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "subclavian_vessels",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "pass_deep_to_middle_third_of_clavicle"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The subclavian vein and subclavian artery pass directly deep to the middle third of the clavicle above the first rib."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-038",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "brachial_plexus_trunks",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "pass_deep_to_middle_third_of_clavicle"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The trunks and divisions of the brachial plexus pass posteroinferior to the middle third of the clavicle into the axilla."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-039",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "practical_orientation_criteria"
+    ],
+    "knowledge_dimension": "PRACTICAL_ANATOMY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle is oriented in space by placing the flattened acromial end laterally, the smooth surface superiorly, and the anterior convexity of the larger curve medially."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-040",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "laterality_determination_rule"
+    ],
+    "knowledge_dimension": "PRACTICAL_ANATOMY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Laterality is determined by confirming that the bulbous sternal end is medial, the rough ligamentous ridges (conoid tubercle, trapezoid line) are on the inferior surface, and the lateral curve is concave anteriorly."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-041",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "deltoid_tubercle_of_clavicle",
+    "relation": "has_landmark",
+    "object_or_arguments": [
+      "anterior_border_lateral_third_prominence"
+    ],
+    "knowledge_dimension": "VARIATION",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The anterior border of the lateral third frequently presents a small projection known as the deltoid tubercle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-042",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "intramembranous_and_endochondral_ossification"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-004",
+      "pdf_page": 473,
+      "printed_page": 454,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle is the first bone in the human skeleton to begin ossification (around the 5th to 6th embryonic week), primarily via intramembranous ossification with endochondral ends."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-043",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicular_sternal_end_epiphysis",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "secondary_ossification_center_fusion_age_25"
+    ],
+    "knowledge_dimension": "VARIATION",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-004",
+      "pdf_page": 473,
+      "printed_page": 454,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The secondary epiphysis of the sternal end appears late (18-20 years) and is the last long bone epiphysis to fuse with the shaft (around age 25)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-044",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavipectoral_fascia",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "encloses_subclavius_muscle_and_attaches_to_subclavian_groove_lips"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavipectoral fascia splits to envelop the subclavius muscle, attaching firmly to the anterior and posterior margins of the subclavian groove."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-045",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicular_nutrient_artery",
+    "relation": "vascular_supply",
+    "object_or_arguments": [
+      "branch_of_suprascapular_or_thoracoacromial_artery"
+    ],
+    "knowledge_dimension": "NEUROVASCULAR_RELATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The nutrient artery of the clavicle typically arises from the suprascapular artery or thoracoacromial artery and enters through the nutrient foramen."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-046",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "posterior_border_of_clavicle",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "concave_medially_convex_laterally"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The posterior border of the clavicle is concave in its medial two-thirds and convex in its lateral third."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-047",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "anterior_border_of_clavicle",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "convex_medially_concave_laterally"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The anterior border of the clavicle is convex in its medial two-thirds and concave in its lateral third."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-048",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "cervical_fascia_superficial_layer",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "attaches_to_superior_surface_and_posterior_border_of_clavicle"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The investing layer of deep cervical fascia attaches to the superior surface and posterior border of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-049",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "junction_between_middle_and_lateral_thirds_weakest_point"
+    ],
+    "knowledge_dimension": "VARIATION",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-001",
+      "pdf_page": 470,
+      "printed_page": 451,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The junction between the convex medial two-thirds and concave lateral one-third of the clavicle represents the structural point of greatest mechanical stress and curvature transition."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-050",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "absence_of_medullary_canal"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-004",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-004",
+      "pdf_page": 473,
+      "printed_page": 454,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Unlike typical tubular long bones, the clavicular shaft lacks a true well-defined central medullary cavity throughout life."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-051",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "subclavian_nerve_innervation_to_periosteum"
+    ],
+    "knowledge_dimension": "NEUROVASCULAR_RELATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-005"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-005",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Sensory and periosteal innervation to the clavicle is supplied principally by twigs from the nerve to the subclavius and supraclavicular nerves."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CLAV-052",
+    "pack_id": "AET-KP-UL-CLAVICLE-001",
+    "entity_id": "clavicle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "supraclavicular_fossa_boundary"
+    ],
+    "knowledge_dimension": "SURFACE_ANATOMY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The posterior border of the clavicle forms the inferior boundary of the greater supraclavicular fossa (omoclavicular triangle)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-001",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "synovial_sellar_joint"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The sternoclavicular joint is anatomically classified as a synovial saddle (sellar / encaje recíproco) joint."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-002",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "part_of",
+    "object_or_arguments": [
+      "pectoral_girdle_arthrology"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The sternoclavicular joint connects the pectoral girdle directly to the axial skeleton."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-003",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "articulates_with",
+    "object_or_arguments": [
+      "clavicular_sternal_articular_surface",
+      "clavicular_notch_of_manubrium_sterni",
+      "first_costal_cartilage"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The articular surfaces are the sternal end of the clavicle, the clavicular notch of the manubrium sterni, and the superior aspect of the first costal cartilage."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-004",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "fibrocartilage_articular_covering"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The articulating bony surfaces of the sternoclavicular joint are covered with fibrocartilage rather than typical hyaline cartilage."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-005",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "sternoclavicular_articular_disc"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002",
+      "NLS-ATLAS-SCJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-002",
+      "pdf_page": 487,
+      "printed_page": 468,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The sternoclavicular joint contains a complete interarticular fibrocartilaginous disc."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-006",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_articular_disc",
+    "subject_id": "sternoclavicular_articular_disc",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "posterosuperior_margin_of_clavicular_sternal_end"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-002",
+      "pdf_page": 487,
+      "printed_page": 468,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Superiorly, the articular disc is attached to the posterosuperior border of the sternal articular surface of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-007",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_articular_disc",
+    "subject_id": "sternoclavicular_articular_disc",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "first_costal_cartilage_and_sternal_junction"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-002",
+      "pdf_page": 487,
+      "printed_page": 468,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Inferiorly, the articular disc is attached to the junction between the first costal cartilage and the sternum."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-008",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_articular_disc",
+    "subject_id": "sternoclavicular_articular_disc",
+    "relation": "DIVIDES_JOINT_CAVITY",
+    "object_or_arguments": [
+      "meniscoclavicular_synovial_cavity",
+      "meniscosternal_synovial_cavity"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002",
+      "NLS-ATLAS-SCJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-002",
+      "pdf_page": 487,
+      "printed_page": 468,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The articular disc completely partitions the joint space into meniscoclavicular (superolateral) and meniscosternal (inferomedial) synovial cavities."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-009",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "surrounded_by",
+    "object_or_arguments": [
+      "sternoclavicular_fibrous_capsule"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-002",
+      "pdf_page": 487,
+      "printed_page": 468,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The joint is surrounded by a fibrous capsule that attaches around the periphery of the articular surfaces and disc."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-010",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "anterior_sternoclavicular_ligament"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003",
+      "NLS-ATLAS-SCJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-003",
+      "pdf_page": 488,
+      "printed_page": 469,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The fibrous capsule is reinforced anteriorly by the anterior sternoclavicular ligament."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-011",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "posterior_sternoclavicular_ligament"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-003",
+      "pdf_page": 488,
+      "printed_page": 469,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The fibrous capsule is reinforced posteriorly by the posterior sternoclavicular ligament, which is thicker and stronger than the anterior ligament."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-012",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "interclavicular_ligament"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003",
+      "NLS-ATLAS-SCJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-003",
+      "pdf_page": 488,
+      "printed_page": 469,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The superior aspect of the joint is strengthened by the interclavicular ligament bridging across the jugular notch."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-013",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "costoclavicular_ligament"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-004",
+      "NLS-ATLAS-SCJ-LOC-001",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-004",
+      "pdf_page": 489,
+      "printed_page": 470,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The joint is powerfully stabilized extracapsularly by the costoclavicular ligament."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-014",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "costoclavicular_ligament",
+    "subject_id": "costoclavicular_ligament",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "upper_surface_first_rib_and_costal_cartilage"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-004",
+      "pdf_page": 489,
+      "printed_page": 470,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The costoclavicular ligament arises from the superior surface of the first rib and adjacent first costal cartilage."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-015",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "costoclavicular_ligament",
+    "subject_id": "costoclavicular_ligament",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "excessive_elevation_of_clavicle",
+      "anterior_and_posterior_clavicular_gliding"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-004",
+      "pdf_page": 489,
+      "printed_page": 470,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The costoclavicular ligament serves as the primary restraint against upward displacement (elevation) of the clavicle and limits anterior/posterior translation."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-016",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "functional_axis",
+    "object_or_arguments": [
+      "elevation_and_depression"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-005"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-005",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The sternoclavicular joint permits elevation of approximately 30° to 45° and depression of approximately 5° to 10°."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-017",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "functional_axis",
+    "object_or_arguments": [
+      "protraction_and_retraction"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-005"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-005",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The sternoclavicular joint permits anterior protraction of 15° to 20° and posterior retraction of 20° to 30°."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-018",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "functional_axis",
+    "object_or_arguments": [
+      "axial_rotation_up_to_40_degrees"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-005"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-005",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The sternoclavicular joint accommodates axial rotation of the clavicle up to 30° to 40° along its longitudinal axis during full arm abduction."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-019",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "vascular_supply",
+    "object_or_arguments": [
+      "internal_thoracic_artery_branches",
+      "suprascapular_artery_branches"
+    ],
+    "knowledge_dimension": "NEUROVASCULAR_RELATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-005"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-005",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Arterial blood supply to the sternoclavicular joint is derived from branches of the internal thoracic artery and the suprascapular artery."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-020",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "innervated_by",
+    "object_or_arguments": [
+      "medial_supraclavicular_nerve",
+      "nerve_to_subclavius"
+    ],
+    "knowledge_dimension": "NEUROVASCULAR_RELATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-005"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-005",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The sternoclavicular joint receives articular sensory innervation from the medial supraclavicular nerve (C3, C4) and the nerve to the subclavius (C5, C6)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-021",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "anterior_to_brachiocephalic_vein_and_internal_jugular_vein"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-003",
+      "pdf_page": 488,
+      "printed_page": 469,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The posterior ligament and joint capsule lie immediately anterior to the confluence of the internal jugular and subclavian veins forming the brachiocephalic vein."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-022",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "anterior_to_brachiocephalic_arterial_trunk_on_right_and_common_carotid_on_left"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-003",
+      "pdf_page": 488,
+      "printed_page": 469,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The retrosternoclavicular space relates posteriorly to the brachiocephalic trunk on the right side and common carotid artery on the left side."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-023",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "interclavicular_ligament",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "excessive_depression_of_lateral_clavicular_end"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-003",
+      "pdf_page": 488,
+      "printed_page": 469,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The interclavicular ligament tightens during downward movement of the shoulder, preventing excessive depression of the acromial end of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-024",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "palpable_prominence_at_suprasternal_notch_margins"
+    ],
+    "knowledge_dimension": "SURFACE_ANATOMY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-001",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The sternoclavicular joint forms an easily palpable subcutaneous elevation on each side of the jugular notch of the manubrium."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-025",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_articular_disc",
+    "subject_id": "sternoclavicular_articular_disc",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "medial_and_superior_displacement_of_clavicle_under_axial_load"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-002",
+      "pdf_page": 487,
+      "printed_page": 468,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Because of its wedge-shaped attachments, the articular disc resists upward and medial displacement of the clavicle when axial loads are transmitted from the shoulder."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-026",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "sternohyoid_and_sternothyroid_retroarticular_muscular_shield"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-003",
+      "pdf_page": 488,
+      "printed_page": 469,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The posterior surface of the SC capsule is directly cushioned by the origins of the sternohyoid and sternothyroid muscles separating it from retrosternal veins."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-027",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "anterior_subluxation_more_frequent_than_posterior"
+    ],
+    "knowledge_dimension": "VARIATION",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-003",
+      "pdf_page": 488,
+      "printed_page": 469,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Anterior subluxation occurs more frequently than posterior dislocation due to the greater strength of the posterior sternoclavicular ligament and costoclavicular complex."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-SCJ-028",
+    "pack_id": "AET-KP-UL-SC-JOINT-001",
+    "entity_id": "sternoclavicular_joint",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "costoclavicular_anterior_and_posterior_laminae"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-SCJ-LOC-004",
+      "pdf_page": 489,
+      "printed_page": 470,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The costoclavicular ligament exhibits an anterior lamina directed superolaterally and a posterior lamina directed superomedially, forming an inverted cone."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-001",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "synovial_plane_joint"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-001",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The acromioclavicular joint is classified anatomically as a synovial plane joint (arthrodia)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-002",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "part_of",
+    "object_or_arguments": [
+      "pectoral_girdle_arthrology"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-001",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The acromioclavicular joint unites the lateral extremity of the clavicle to the scapular spine continuation (acromion)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-003",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "articulates_with",
+    "object_or_arguments": [
+      "clavicular_acromial_articular_surface",
+      "acromial_facet_of_scapula"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001",
+      "MORG-UL-LOC-P10"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-001",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The joint articulates the oval facet on the acromial end of the clavicle with the complementary facet on the medial margin of the acromion."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-004",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "clavicular_acromial_articular_surface",
+    "subject_id": "clavicular_acromial_articular_surface",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "faces_inferolaterally"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-001",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicular acromial facet is beveled to face downward and outward (inferolaterally)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-005",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromial_facet_of_scapula",
+    "subject_id": "acromial_facet_of_scapula",
+    "relation": "has_curvature",
+    "object_or_arguments": [
+      "faces_superomedially"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-001",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The acromial articular facet of the scapula is beveled to face upward and inward (superomedially)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-006",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "fibrocartilage_articular_lining"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-001",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Both articular surfaces of the acromioclavicular joint are lined with fibrocartilage."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-007",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "acromioclavicular_articular_disc"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-002",
+      "pdf_page": 491,
+      "printed_page": 472,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The AC joint frequently possesses a wedge-shaped fibrocartilaginous disc (meniscoid) hanging into the upper joint cavity."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-008",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_articular_disc",
+    "subject_id": "acromioclavicular_articular_disc",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "frequently_incomplete_or_perforated_in_adults"
+    ],
+    "knowledge_dimension": "VARIATION",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-002",
+      "pdf_page": 491,
+      "printed_page": 472,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The acromioclavicular disc is often incomplete, wedge-like, or absent in older adult populations."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-009",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "surrounded_by",
+    "object_or_arguments": [
+      "acromioclavicular_fibrous_capsule"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-002",
+      "pdf_page": 491,
+      "printed_page": 472,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The joint is enveloped by a relatively thin fibrous capsule attached around the articular margins."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-010",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "acromioclavicular_ligament"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002",
+      "NLS-ATLAS-ACJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-002",
+      "pdf_page": 491,
+      "printed_page": 472,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The joint capsule is reinforced by the acromioclavicular ligament, which exhibits distinct superior and inferior bands."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-011",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_ligament",
+    "subject_id": "superior_acromioclavicular_ligament",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "dense_quadrilateral_fibrous_plate"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-002",
+      "pdf_page": 491,
+      "printed_page": 472,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The superior acromioclavicular ligament is a robust quadrilateral band intermingled with aponeurotic fibers of the trapezius and deltoid muscles."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-012",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_ligament",
+    "subject_id": "superior_acromioclavicular_ligament",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "anteroposterior_displacement_and_joint_separation"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-002",
+      "pdf_page": 491,
+      "printed_page": 472,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The superior acromioclavicular ligament provides primary resistance against horizontal and anteroposterior displacement of the AC joint."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-013",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "functional_axis",
+    "object_or_arguments": [
+      "small_gliding_and_rotational_adjustments"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Movements at the acromioclavicular joint consist of subtle gliding and rotations that allow the scapula to maintain apposition with the curving thoracic wall during arm elevation."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-014",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "functional_axis",
+    "object_or_arguments": [
+      "scapuloclavicular_angle_variation"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The AC joint allows variation of the angle formed between the clavicle and the scapular spine (opening and closing of the scapuloclavicular angle)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-015",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "vascular_supply",
+    "object_or_arguments": [
+      "acromial_rete",
+      "acromial_branch_of_thoracoacromial_artery",
+      "suprascapular_artery"
+    ],
+    "knowledge_dimension": "NEUROVASCULAR_RELATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Vascular supply to the AC joint is derived from the acromial arterial network formed by the acromial branch of the thoracoacromial artery and the suprascapular artery."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-016",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "innervated_by",
+    "object_or_arguments": [
+      "lateral_supraclavicular_nerve",
+      "axillary_nerve_articular_twigs",
+      "lateral_pectoral_nerve"
+    ],
+    "knowledge_dimension": "NEUROVASCULAR_RELATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The acromioclavicular joint receives articular innervation from the lateral supraclavicular nerve, axillary nerve, and lateral pectoral nerve."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-017",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "subcutaneous_palpable_joint_line"
+    ],
+    "knowledge_dimension": "SURFACE_ANATOMY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-001",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The joint line of the acromioclavicular articulation is palpable subcutaneously approximately 2 to 3 cm medial to the lateral border of the acromion."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-018",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "step_off_palpation_sign"
+    ],
+    "knowledge_dimension": "SURFACE_ANATOMY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-NIELSEN-ATLAS-ED1",
+      "locator_id": "NLS-ATLAS-CLAV-LOC-003",
+      "pdf_page": 96,
+      "printed_page": 96,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "In normal surface anatomy, the lateral end of the clavicle projects slightly superior to the acromion, forming a small palpable step."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-019",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "synovial_membrane_and_occasional_preclavicular_bursa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The synovial membrane lines the fibrous capsule and covers any intracapsular portion of the articular disc."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-020",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "vulnerable_to_shearing_forces"
+    ],
+    "knowledge_dimension": "VARIATION",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-001",
+      "pdf_page": 490,
+      "printed_page": 471,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The inclined planes of the acromial and clavicular articular facets render the joint mechanically prone to superior dislocation of the clavicle under downward direct impact on the acromion."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-021",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "coracoacromial_ligament_adjacent_syntopy"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-002",
+      "pdf_page": 491,
+      "printed_page": 472,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The acromioclavicular joint capsule lies immediately superior to the lateral attachment of the coracoacromial ligament on the acromion."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-ACJ-022",
+    "pack_id": "AET-KP-UL-AC-JOINT-001",
+    "entity_id": "acromioclavicular_joint",
+    "subject_id": "acromioclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "intracapsular_adhesions_with_aging"
+    ],
+    "knowledge_dimension": "VARIATION",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-002",
+      "pdf_page": 491,
+      "printed_page": 472,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "With advancing age, degenerative remodeling, fibrocartilage fraying, and narrowing of the acromioclavicular joint space are standard physiological findings."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-001",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "extrinsic_syndesmosis_complex"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The coracoclavicular ligament complex is an extrinsic syndesmotic ligamentous apparatus uniting the coracoid process of the scapula to the inferior aspect of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-002",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "conoid_ligament",
+      "trapezoid_ligament"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "NLS-ATLAS-ACJ-LOC-001",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The complex consists of two distinct anatomically and functionally differentiated ligaments: the conoid ligament and the trapezoid ligament."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-003",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "extrinsic_ligament"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "NLS-ATLAS-ACJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The conoid ligament is the posteromedial component of the coracoclavicular complex."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-004",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "has_shape",
+    "object_or_arguments": [
+      "inverted_triangular_cone"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The conoid ligament is shaped like an inverted triangle or cone with an inferior apex and a superior base."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-005",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "coracoid_process_posterior_base"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "MORG-UL-LOC-P15"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The apex of the conoid ligament originates from the medial and posterior aspect of the base of the coracoid process of the scapula."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-006",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "conoid_tubercle"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The diverging fibers of the conoid ligament insert into the conoid tubercle on the inferior surface of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-007",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "anterior_and_superior_displacement_of_clavicle",
+      "scapular_anterior_tipping"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The conoid ligament acts as the primary restraint against superior translation of the clavicle relative to the scapula and limits anterior tilting of the scapula."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-008",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "extrinsic_ligament"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "NLS-ATLAS-ACJ-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The trapezoid ligament is the anterolateral component of the coracoclavicular complex."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-009",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "has_shape",
+    "object_or_arguments": [
+      "quadrilateral_trapezoid_plate"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The trapezoid ligament is a thick, flat, quadrilateral fibrous plate oriented in an oblique anterolateral plane."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-010",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "originates_from",
+    "object_or_arguments": [
+      "coracoid_process_superior_surface_horizontal_segment"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "MORG-UL-LOC-P15"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The inferior border of the trapezoid ligament arises from the upper surface of the horizontal segment of the coracoid process."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-011",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "inserts_into",
+    "object_or_arguments": [
+      "trapezoid_line"
+    ],
+    "knowledge_dimension": "LIGAMENT_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003",
+      "MORG-UL-LOC-P03"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The superior border of the trapezoid ligament inserts along the oblique trapezoid line on the inferior surface of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-012",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "posterior_displacement_of_clavicle",
+      "horizontal_override_between_clavicle_and_acromion"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The trapezoid ligament primarily restrains posterior displacement of the clavicle and resists horizontal approximation or axial override of the clavicle across the acromion."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-013",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "SUSPENDS_STRUCTURE",
+    "object_or_arguments": [
+      "scapula",
+      "free_upper_limb"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The coracoclavicular ligament complex provides the primary passive suspensory mechanism suspending the scapula and upper limb from the clavicular strut."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-014",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_interligamentous_angle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "open_laterally_and_anteriorly_containing_adipose_tissue_or_bursa"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The conoid and trapezoid ligaments meet posteriorly at their coracoid bases and diverge laterally and anteriorly, forming an angle occupied by fatty areolar tissue or an interligamentous bursa."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-015",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "vascular_supply",
+    "object_or_arguments": [
+      "suprascapular_artery_branches",
+      "acromial_branches"
+    ],
+    "knowledge_dimension": "NEUROVASCULAR_RELATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The coracoclavicular ligaments receive microvascular supply from descending branches of the suprascapular and thoracoacromial arteries."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-016",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "innervated_by",
+    "object_or_arguments": [
+      "suprascapular_nerve_articular_branches"
+    ],
+    "knowledge_dimension": "NEUROVASCULAR_RELATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Articular proprioceptive innervation to the coracoclavicular complex is supplied by fine branches of the suprascapular nerve."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-017",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "medial_coracoclavicular_ligament_of_caldani",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "inconstant_fibrous_tract_running_to_subclavius_fascia"
+    ],
+    "knowledge_dimension": "VARIATION",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "An accessory medial coracoclavicular band (ligament of Caldani / bicorne) is occasionally present running from the coracoid base to the first rib or subclavius sheath."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-018",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "conoid_ligament",
+    "subject_id": "conoid_ligament",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "vertical_fiber_orientation"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The conoid ligament fibers are oriented predominantly in a coronal vertical plane."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-019",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "trapezoid_ligament",
+    "subject_id": "trapezoid_ligament",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "subhorizontal_oblique_fiber_orientation"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The trapezoid ligament fibers are oriented in a subhorizontal, anterolaterally oblique plane."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-020",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "vascular_syntopy",
+    "object_or_arguments": [
+      "anterior_to_suprascapular_notch_and_suprascapular_nerve"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-003",
+      "pdf_page": 492,
+      "printed_page": 473,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The coracoid attachment of the conoid ligament lies immediately anterior to the suprascapular notch and the superior transverse scapular ligament."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-021",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "RESISTS_DISPLACEMENT",
+    "object_or_arguments": [
+      "transmits_rotational_torque_during_clavicular_axial_spin"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Tightening of the conoid ligament during scapular upward rotation pulls on the conoid tubercle, forcing passive posterior rotation of the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-CCC-022",
+    "pack_id": "AET-KP-UL-CORACOCLAVICULAR-001",
+    "entity_id": "coracoclavicular_ligament_complex",
+    "subject_id": "coracoclavicular_ligament_complex",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "complete_rupture_causes_gross_ac_separation"
+    ],
+    "knowledge_dimension": "VARIATION",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-ACJ-LOC-004"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-ACJ-LOC-004",
+      "pdf_page": 493,
+      "printed_page": 474,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Rupture of both conoid and trapezoid ligaments abolishes vertical scapular suspension, producing classic high-grade acromioclavicular dislocation (piano key sign)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-001",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "pectoral_girdle",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "appendicular_skeletal_girdle"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The pectoral girdle (cingulum pectorale) is the musculoskeletal ring connecting the upper limbs to the axial trunk."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-002",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "pectoral_girdle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "clavicle",
+      "scapula"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001",
+      "MORG-UL-LOC-P01"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The skeletal framework of each half of the pectoral girdle is formed solely by the clavicle anteriorly and the scapula posterolaterally."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-003",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "pectoral_girdle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "anterior_closure_via_sternum_posterior_open_configuration"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The pectoral girdle is closed anteriorly by the manubrium of the sternum but remains widely open posteriorly, where the scapulae are connected only by muscular slings."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-004",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "sternoclavicular_joint",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "sole_true_bony_articulation_between_upper_limb_and_axial_skeleton"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The sternoclavicular joint represents the sole true anatomical synovial articulation anchoring the upper extremity to the axial skeleton."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-005",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "clavicle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "strut_function_maintaining_scapular_clearance_from_thorax"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The clavicle functions mechanically as a rigid bony strut (brace) that holds the scapula and shoulder joint laterally away from the thoracic wall, maximizing free arm mobility."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-006",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "pectoral_girdle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "kinetic_chain_force_transmission_pathway"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Mechanical compressive forces pass from the hand and humerus to the glenoid cavity, through the scapula to the coracoclavicular ligaments, along the clavicle to the costoclavicular ligament and sternoclavicular joint, and into the sternum."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-007",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "scapulothoracic_interface",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "scapulothoracic_interface"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-002",
+      "pdf_page": 494,
+      "printed_page": 475,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The pectoral girdle incorporates the scapulothoracic functional interface (syssarcosis) as a critical component of shoulder girdle kinematics."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-008",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "scapulothoracic_interface",
+    "subject_id": "scapulothoracic_interface",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "physiological_syssarcosis"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-002",
+      "pdf_page": 494,
+      "printed_page": 475,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The scapulothoracic articulation is not a true anatomical synovial or fibrous joint, but a physiological syssarcosis formed by muscular gliding planes."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-009",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "scapulothoracic_interface",
+    "subject_id": "serratus_anterior",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "intermediate_muscular_partition"
+    ],
+    "knowledge_dimension": "MORPHOLOGY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-002",
+      "pdf_page": 494,
+      "printed_page": 475,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The serratus anterior muscle forms the intermediate fleshy partition dividing the scapulothoracic interface into two distinct gliding spaces."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-010",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "scapulothoracic_interface",
+    "subject_id": "omoserratus_interfascial_space",
+    "relation": "SYSSARCOSIS_INTERFACE_BETWEEN",
+    "object_or_arguments": [
+      "subscapularis_fascia",
+      "serratus_anterior_lateral_surface"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-002",
+      "pdf_page": 494,
+      "printed_page": 475,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The omo-serratus (scapulo-serratus) space lies between the subscapularis fascia lining the costal surface of the scapula and the lateral surface of the serratus anterior."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-011",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "scapulothoracic_interface",
+    "subject_id": "parietoserratus_interfascial_space",
+    "relation": "SYSSARCOSIS_INTERFACE_BETWEEN",
+    "object_or_arguments": [
+      "serratus_anterior_medial_surface",
+      "thoracic_wall_ribs_2_to_7_and_intercostals"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-002",
+      "pdf_page": 494,
+      "printed_page": 475,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The parieto-serratus (thoraco-serratus) space lies between the medial surface of the serratus anterior and the posterolateral rib cage (ribs 2-7 and intercostal muscles)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-012",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "scapulothoracic_interface",
+    "subject_id": "scapulothoracic_interface",
+    "relation": "functional_axis",
+    "object_or_arguments": [
+      "scapular_elevation_depression_protraction_retraction_upward_downward_rotation"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-002",
+      "pdf_page": 494,
+      "printed_page": 475,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The scapulothoracic interface accommodates translational movements (elevation/depression, protraction/retraction) and rotational movements (upward/downward rotation around a physiological sagittal axis)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-013",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "scapulohumeral_rhythm",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "two_to_one_ratio_overall_arm_abduction"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "In full arm abduction (180°), approximately 120° occurs at the glenohumeral joint and 60° occurs through synchronous rotation of the pectoral girdle (scapulothoracic, sternoclavicular, and acromioclavicular joints)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-014",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "deltopectoral_groove",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "deltopectoral_groove"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-003",
+      "MORG-UL-LOC-P02"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The anterosuperior aspect of the pectoral girdle presents the deltopectoral groove."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-015",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "deltopectoral_groove",
+    "subject_id": "deltopectoral_groove",
+    "relation": "type_of",
+    "object_or_arguments": [
+      "intermuscular_surface_groove"
+    ],
+    "knowledge_dimension": "IDENTITY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "MORG-UL-LOC-P02"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The deltopectoral groove is an intermuscular furrow separating the deltoid and pectoralis major muscles."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-016",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "deltopectoral_groove",
+    "subject_id": "deltopectoral_groove",
+    "relation": "has_border",
+    "object_or_arguments": [
+      "medially_pectoralis_major_clavicular_head",
+      "laterally_deltoid_anterior_border"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "MORG-UL-LOC-P02"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The deltopectoral groove is bounded medially by the clavicular head of the pectoralis major and laterally by the anterior border of the deltoid."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-017",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "deltopectoral_groove",
+    "subject_id": "deltopectoral_triangle_of_mohrenheim",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "subclavicular_fossa_at_superior_apex_of_groove"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "MORG-UL-LOC-P02"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Near the clavicle, the groove widens into the deltopectoral (clavipectoral / Mohrenheim) triangle bounded superiorly by the clavicle."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-018",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "deltopectoral_groove",
+    "subject_id": "deltopectoral_groove",
+    "relation": "TRANSMITS_STRUCTURE",
+    "object_or_arguments": [
+      "cephalic_vein",
+      "deltoid_branch_of_thoracoacromial_artery"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1",
+      "MORGUE-UPPER-LIMB-001"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-003",
+      "MORG-UL-LOC-P02"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The deltopectoral groove lodges and transmits the cephalic vein and the deltoid artery (branch of thoracoacromial trunk)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-019",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "cervicoaxillary_canal",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "cervicoaxillary_canal"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The skeletal framework of the pectoral girdle forms the boundaries of the cervicoaxillary canal."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-020",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "cervicoaxillary_canal",
+    "subject_id": "cervicoaxillary_canal",
+    "relation": "has_border",
+    "object_or_arguments": [
+      "anteriorly_clavicle_posteriorly_superior_border_of_scapula_medially_first_rib"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The cervicoaxillary canal is bounded anteriorly by the posterior surface of the clavicle, posterolaterally by the superior border of the scapula, and medially by the outer border of the first rib."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-021",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "cervicoaxillary_canal",
+    "subject_id": "cervicoaxillary_canal",
+    "relation": "TRANSMITS_STRUCTURE",
+    "object_or_arguments": [
+      "axillary_artery_and_vein",
+      "brachial_plexus_cords"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003",
+      "NLS-ATLAS-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The cervicoaxillary canal transmits the subclavian/axillary vessels and the cords of the brachial plexus from the root of the neck into the apex of the axilla."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-022",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "retroclavicular_space",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "retroclavicular_space"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The pectoral girdle defines the surgically critical retroclavicular space."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-023",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "retroclavicular_space",
+    "subject_id": "subclavius_muscle_and_sheath",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "anterior_musculofascial_cushion_for_subclavian_vessels"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-003",
+      "pdf_page": 472,
+      "printed_page": 453,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The subclavius muscle and its surrounding clavipectoral sheath act as a dynamic muscular cushion protecting the underlying subclavian vein and artery from bone fragments during clavicular trauma."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-024",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "pectoral_girdle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "axioappendicular_musculature_force_couples"
+    ],
+    "knowledge_dimension": "MUSCLE_ATTACHMENTS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Motion of the pectoral girdle is powered by anterior axioappendicular muscles (pectoralis major, pectoralis minor, subclavius, serratus anterior) and posterior axioappendicular muscles (trapezius, levator scapulae, rhomboids, latissimus dorsi)."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-025",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "trapezius_and_serratus_anterior",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "force_couple_for_upward_scapular_rotation"
+    ],
+    "knowledge_dimension": "ARTICULATIONS",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "Upward rotation of the scapula is driven by a coordinated force couple between the upper and lower trapezius fibers and the lower digitations of the serratus anterior."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-026",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "deltopectoral_groove",
+    "subject_id": "cephalic_vein",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "pierces_clavipectoral_fascia_in_mohrenheim_triangle_to_drain_into_axillary_vein"
+    ],
+    "knowledge_dimension": "TOPOGRAPHY",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "SOURCE_GROUNDED_DRAFT",
+    "validation_ready": true,
+    "validation_blocked_reason": null,
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1",
+      "SRC-NIELSEN-ATLAS-ED1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-CLAV-LOC-002",
+      "NLS-ATLAS-CLAV-LOC-003"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-CLAV-LOC-002",
+      "pdf_page": 471,
+      "printed_page": 452,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "At the apex of the deltopectoral groove, the cephalic vein pierces the clavipectoral fascia within Mohrenheim triangle to drain into the axillary vein."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-027",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "pectoral_girdle",
+    "subject_id": "pectoral_girdle",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "instantaneous_helical_axis_of_clavicular_rotation_in_overhead_motion"
+    ],
+    "knowledge_dimension": "VARIATION",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "AI_DRAFT",
+    "validation_ready": false,
+    "validation_blocked_reason": "SUPPLEMENTAL_BIOMECHANICAL_SYNTHESIS_PENDING_EXACT_SPATIAL_CADAVERIC_MAPPING",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-001"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-001",
+      "pdf_page": 486,
+      "printed_page": 467,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "In multi-axis high-speed kinematic models, clavicular rotation follows an instantaneous spatial helical screw axis rather than fixed planar coordinates."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  },
+  {
+    "fact_candidate_id": "B1-FC-PGI-028",
+    "pack_id": "AET-KP-UL-PECTORAL-GIRDLE-001",
+    "entity_id": "scapulothoracic_interface",
+    "subject_id": "scapulothoracic_interface",
+    "relation": "has_structure",
+    "object_or_arguments": [
+      "micro_lubrication_fluid_composition_in_interfascial_bursae"
+    ],
+    "knowledge_dimension": "VARIATION",
+    "academic_status": "VALIDATION_PENDING",
+    "canonical_tier": "TIER_B_CANDIDATE",
+    "authoring_origin": "AI_DRAFT",
+    "validation_ready": false,
+    "validation_blocked_reason": "BIOCHEMICAL_INTERFASCIAL_ANALYSIS_PENDING_REGISTERED_HISTOLOGY_REFERENCE",
+    "evidence_source_ids": [
+      "SRC-LATARJET-ED5-T1"
+    ],
+    "evidence_locators": [
+      "LAT-T1-PG-LOC-002"
+    ],
+    "provenance_chain": {
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "locator_id": "LAT-T1-PG-LOC-002",
+      "pdf_page": 494,
+      "printed_page": 475,
+      "match_class": "EXACT_PROPOSITION_MATCH",
+      "statement_summary": "The gliding tissue between serratus anterior and chest wall demonstrates hyaluronic acid-rich adventitial micro-bursal lubricating films under physiological conditions."
+    },
+    "safe_engine_atomic_ready": false,
+    "safe_engine_relation_ready": false,
+    "safe_engine_production_eligible": false
+  }
+]

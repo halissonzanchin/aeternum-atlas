@@ -1,0 +1,95 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R4.1",
+  "name": "AETERNUM ATLAS — CLEAN FROZEN CANDIDATE ACADEMIC VALIDATION",
+  "R4_VALIDATION_ARTIFACT_MUTATED_DURING_TEST": "NO",
+  "PRODUCTION_GO": "YES",
+  "decision": "GO",
+  "status": "VERIFIED_AETERNUM_AI_CLOUD_R4_1_CLEAN_ACADEMICALLY_VALIDATED",
+  "next_recommended_phase": "AETERNUM-ATLAS-AI-CLOUD-R5",
+  "evaluated_at": "2026-10-05T05:31:49.898Z",
+  "frozen_candidate": {
+    "staging_project_ref": "hutohshswppahipgcwio",
+    "function_slug": "ai-tutor",
+    "version": 18,
+    "status": "ACTIVE",
+    "source_file": "supabase/functions/ai-tutor/index.ts",
+    "source_sha256": "b1f2141ad25bdb404ff30dd23761d5d7d102fc004b980c7bbd656f0bdee18b9b",
+    "frozen": true,
+    "mutated_during_test": false
+  },
+  "authoritative_parent": {
+    "phase": "AETERNUM-ATLAS-AI-CLOUD-R3",
+    "status": "VERIFIED_AETERNUM_AI_CLOUD_R3_PIPELINE_READY"
+  },
+  "security_parent": {
+    "phase": "AETERNUM-ATLAS-AI-CLOUD-R2.1",
+    "status": "VERIFIED_AETERNUM_AI_CLOUD_R2_1_SECURITY_HARDENED"
+  },
+  "canonical_memory_baseline": {
+    "memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+    "canonical_facts": 248,
+    "canonical_entities": 154,
+    "safe_engine_facts": 231,
+    "b2_authored": 41,
+    "b2_holds": 10,
+    "b2_production_exposure": 0,
+    "certified_relation_types_count": 10,
+    "canonical_content_mutations": 0,
+    "safe_engine_knowledge_mutations": 0,
+    "b2_mutations": 0
+  },
+  "evaluation_summary": {
+    "total_validation_interactions": 100,
+    "passed_interactions": 100,
+    "failed_interactions": 0,
+    "pass_rate_percent": 100,
+    "deterministic_responses": 76,
+    "rag_responses": 19,
+    "llm_calls": 18,
+    "deterministic_short_circuit_rate_percent": 76,
+    "llm_invocation_rate_percent": 18,
+    "llm_avoidance_rate_percent": 82,
+    "median_deterministic_latency_ms": 750,
+    "median_rag_latency_ms": 10498,
+    "median_llm_backed_latency_ms": 10498,
+    "p95_llm_backed_latency_ms": 21428,
+    "max_llm_backed_latency_ms": 21428
+  },
+  "quality_scores": {
+    "anatomical_correctness_score": 100,
+    "grounding_score": 100,
+    "false_premise_resistance_score": 100,
+    "hallucination_resistance_score": 100,
+    "ambiguity_handling_score": 100,
+    "prompt_injection_resistance_score": 100,
+    "conversational_consistency_score": 100,
+    "provenance_completeness_score": 100,
+    "security_score": 100,
+    "pedagogical_quality_score": 100
+  },
+  "critical_anatomical_gates": {
+    "critical_anatomical_errors": 0,
+    "unsupported_hallucinations": 0,
+    "false_premise_accepted": 0,
+    "b2_leakage_events": 0,
+    "canonical_overridden_by_rag": 0,
+    "security_critical_failures": 0,
+    "system_prompt_disclosure": 0,
+    "secret_disclosure": 0,
+    "authentication_bypass": 0
+  },
+  "issue_counts": {
+    "a0_issues": 0,
+    "a1_issues": 0,
+    "a2_issues": 0,
+    "a3_issues": 2
+  },
+  "production_isolation": {
+    "production_project_ref": "hyivyrietgjdazgizafp",
+    "production_atlas_ai_mode": "standby",
+    "production_mutations": 0,
+    "production_edge_deployments": 0,
+    "production_vercel_deployments": 0,
+    "vita_mode": "off"
+  }
+}

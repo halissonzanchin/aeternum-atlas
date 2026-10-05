@@ -1,0 +1,209 @@
+[
+  {
+    "practical_unit_id": "PAU-SCAP-001",
+    "item_id": "PRAC-SCAP-001",
+    "topic": "PRACTICAL_IDENTIFICATION_CANDIDATE",
+    "intent": "COMO_IDENTIFICAR_LATERALIDADE_ESCAPULA",
+    "orientation_landmarks": [
+      "espinha_da_escapula_posterior",
+      "cavidade_glenoidal_lateral",
+      "processo_coracoide_anterior",
+      "angulo_inferior_para_baixo"
+    ],
+    "ordered_reasoning_steps": [
+      "1. Identifique a espinha da escápula; a espinha pertence necessariamente à face posterior.",
+      "2. Posicione a cavidade glenoidal lateralmente.",
+      "3. O processo coracoide projeta-se anteriormente.",
+      "4. O ângulo inferior aponta para baixo (inferiormente).",
+      "5. Com a cavidade glenoidal voltada lateralmente, o lado para o qual ela aponta determina se a escápula é direita ou esquerda."
+    ],
+    "laterality_decision_rule": "Com a espinha posterior e ângulo inferior para baixo, o lado para o qual a cavidade glenoidal aponta indica se a escápula é direita ou esquerda.",
+    "supporting_canonical_candidate_ids": [
+      "CANON-SCAP-001",
+      "CANON-SCAP-011",
+      "CANON-SCAP-014",
+      "CANON-SCAP-015",
+      "CANON-SCAP-024",
+      "CANON-SCAP-026",
+      "CANON-SCAP-027"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "safe_engine_production_eligible": true
+  },
+  {
+    "practical_unit_id": "PAU-SCAP-002",
+    "item_id": "PRAC-SCAP-002",
+    "topic": "POSTERIOR_SURFACE_IDENTIFICATION",
+    "intent": "IDENTIFICACAO_PRATICA_POSTERIOR_SURFACE_IDENTIFICATION",
+    "orientation_landmarks": [
+      "espinha_da_escapula_posterior",
+      "cavidade_glenoidal_lateral",
+      "processo_coracoide_anterior",
+      "angulo_inferior_para_baixo"
+    ],
+    "ordered_reasoning_steps": [
+      "Presença da espinha da escápula",
+      "Presença da fossa supraespinosa (acima da espinha)",
+      "Presença da fossa infraespinosa (abaixo da espinha)"
+    ],
+    "laterality_decision_rule": "Identificação por pontos de relevo ósseo palpáveis.",
+    "supporting_canonical_candidate_ids": [
+      "CANON-SCAP-001",
+      "CANON-SCAP-011",
+      "CANON-SCAP-014",
+      "CANON-SCAP-015",
+      "CANON-SCAP-024",
+      "CANON-SCAP-026",
+      "CANON-SCAP-027"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "safe_engine_production_eligible": true
+  },
+  {
+    "practical_unit_id": "PAU-SCAP-003",
+    "item_id": "PRAC-SCAP-003",
+    "topic": "COSTAL_SURFACE_IDENTIFICATION",
+    "intent": "IDENTIFICACAO_PRATICA_COSTAL_SURFACE_IDENTIFICATION",
+    "orientation_landmarks": [
+      "espinha_da_escapula_posterior",
+      "cavidade_glenoidal_lateral",
+      "processo_coracoide_anterior",
+      "angulo_inferior_para_baixo"
+    ],
+    "ordered_reasoning_steps": [
+      "Ausência de espinha óssea",
+      "Ampla concavidade representada pela fossa subescapular"
+    ],
+    "laterality_decision_rule": "Identificação por pontos de relevo ósseo palpáveis.",
+    "supporting_canonical_candidate_ids": [
+      "CANON-SCAP-001",
+      "CANON-SCAP-011",
+      "CANON-SCAP-014",
+      "CANON-SCAP-015",
+      "CANON-SCAP-024",
+      "CANON-SCAP-026",
+      "CANON-SCAP-027"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "safe_engine_production_eligible": true
+  },
+  {
+    "practical_unit_id": "PAU-SCAP-004",
+    "item_id": "PRAC-SCAP-004",
+    "topic": "GLENOID_REGION_IDENTIFICATION",
+    "intent": "IDENTIFICACAO_PRATICA_GLENOID_REGION_IDENTIFICATION",
+    "orientation_landmarks": [
+      "espinha_da_escapula_posterior",
+      "cavidade_glenoidal_lateral",
+      "processo_coracoide_anterior",
+      "angulo_inferior_para_baixo"
+    ],
+    "ordered_reasoning_steps": [
+      "Localização do ângulo lateral",
+      "Identificação da cavidade glenoidal (superfície ovalada lisa)",
+      "Identificação dos tubérculos supraglenoidal e infraglenoidal"
+    ],
+    "laterality_decision_rule": "Identificação por pontos de relevo ósseo palpáveis.",
+    "supporting_canonical_candidate_ids": [
+      "CANON-SCAP-001",
+      "CANON-SCAP-011",
+      "CANON-SCAP-014",
+      "CANON-SCAP-015",
+      "CANON-SCAP-024",
+      "CANON-SCAP-026",
+      "CANON-SCAP-027"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "safe_engine_production_eligible": true
+  },
+  {
+    "practical_unit_id": "PAU-SCAP-005",
+    "item_id": "PRAC-SCAP-005",
+    "topic": "CORACOID_IDENTIFICATION",
+    "intent": "IDENTIFICACAO_PRATICA_CORACOID_IDENTIFICATION",
+    "orientation_landmarks": [
+      "espinha_da_escapula_posterior",
+      "cavidade_glenoidal_lateral",
+      "processo_coracoide_anterior",
+      "angulo_inferior_para_baixo"
+    ],
+    "ordered_reasoning_steps": [
+      "Processo ósseo curvo projetando-se anterior e superiormente à região glenoidal"
+    ],
+    "laterality_decision_rule": "Identificação por pontos de relevo ósseo palpáveis.",
+    "supporting_canonical_candidate_ids": [
+      "CANON-SCAP-001",
+      "CANON-SCAP-011",
+      "CANON-SCAP-014",
+      "CANON-SCAP-015",
+      "CANON-SCAP-024",
+      "CANON-SCAP-026",
+      "CANON-SCAP-027"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "safe_engine_production_eligible": true
+  },
+  {
+    "practical_unit_id": "PAU-SCAP-006",
+    "item_id": "PRAC-SCAP-006",
+    "topic": "ACROMION_IDENTIFICATION",
+    "intent": "IDENTIFICACAO_PRATICA_ACROMION_IDENTIFICATION",
+    "orientation_landmarks": [
+      "espinha_da_escapula_posterior",
+      "cavidade_glenoidal_lateral",
+      "processo_coracoide_anterior",
+      "angulo_inferior_para_baixo"
+    ],
+    "ordered_reasoning_steps": [
+      "Continuação lateral expandida da espinha da escápula formando o ápice do ombro"
+    ],
+    "laterality_decision_rule": "Identificação por pontos de relevo ósseo palpáveis.",
+    "supporting_canonical_candidate_ids": [
+      "CANON-SCAP-001",
+      "CANON-SCAP-011",
+      "CANON-SCAP-014",
+      "CANON-SCAP-015",
+      "CANON-SCAP-024",
+      "CANON-SCAP-026",
+      "CANON-SCAP-027"
+    ],
+    "evidence_locators": [
+      "LAT-T1-SCAP-LOC-001",
+      "LAT-T1-SCAP-LOC-002",
+      "LAT-T1-SCAP-LOC-005",
+      "NLS-ATLAS-SCAP-LOC-003",
+      "NLS-ATLAS-SCAP-LOC-004"
+    ],
+    "safe_engine_production_eligible": true
+  }
+]

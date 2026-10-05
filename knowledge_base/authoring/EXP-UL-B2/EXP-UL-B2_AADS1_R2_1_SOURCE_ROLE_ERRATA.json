@@ -1,0 +1,60 @@
+{
+  "document_name": "EXP-UL-B2_AADS1_R2_1_SOURCE_ROLE_ERRATA",
+  "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+  "timestamp": "2026-09-27T11:15:00Z",
+  "authority": "AETERNUM_KNOWLEDGE_ENGINEERING_GOVERNANCE",
+  "metrics": {
+    "total_role_corrections": 2,
+    "source_role_conflicts": 0
+  },
+  "errata_records": [
+    {
+      "erratum_id": "ERR-SRC-ROLE-001",
+      "source_id": "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+      "field_affected": "source_type, authority_class, allowed_evidence_roles",
+      "previous_classification": {
+        "source_type": "CURRICULUM_SYLLABUS",
+        "authority_class": "INSTITUTIONAL_CURRICULUM",
+        "allowed_roles": [
+          "CURRICULUM_EVIDENCE",
+          "EXAM_BLUEPRINT_EVIDENCE"
+        ]
+      },
+      "corrected_classification": {
+        "source_type": "INSTITUTIONAL_ANATOMY_STUDY_SUMMARY",
+        "authority_class": "INSTITUTIONAL_SUPPORTING_ANATOMICAL_REFERENCE",
+        "allowed_roles": [
+          "ANATOMICAL_CONTENT_EVIDENCE",
+          "INSTITUTIONAL_SUPPORTING_EVIDENCE",
+          "CURRICULUM_EVIDENCE"
+        ],
+        "canonical_authority": false
+      },
+      "justification": "ANATOMIA - BOLILLERO contains explicit anatomical descriptions and summaries intended for study synthesis; reclassified from purely syllabus to institutional supporting anatomical reference."
+    },
+    {
+      "erratum_id": "ERR-SRC-ROLE-002",
+      "source_id": "SRC-INST-BOLILLERO-HUESOS-2023",
+      "field_affected": "source_type, authority_class, allowed_evidence_roles",
+      "previous_classification": {
+        "source_type": "CURRICULUM_SYLLABUS",
+        "authority_class": "INSTITUTIONAL_CURRICULUM",
+        "allowed_roles": [
+          "CURRICULUM_EVIDENCE"
+        ]
+      },
+      "corrected_classification": {
+        "source_type": "INSTITUTIONAL_OSTEOLOGY_TEACHING_ATLAS",
+        "authority_class": "INSTITUTIONAL_SUPPORTING_OSTEOLOGY_REFERENCE",
+        "allowed_roles": [
+          "ANATOMICAL_CONTENT_EVIDENCE",
+          "FIGURE_EVIDENCE",
+          "INSTITUTIONAL_SUPPORTING_EVIDENCE",
+          "CURRICULUM_EVIDENCE"
+        ],
+        "canonical_authority": false
+      },
+      "justification": "Bolillero específico huesos 2023 contains labeled bone photographs and osteological teaching descriptions; reclassified from purely syllabus to institutional supporting osteology reference."
+    }
+  ]
+}

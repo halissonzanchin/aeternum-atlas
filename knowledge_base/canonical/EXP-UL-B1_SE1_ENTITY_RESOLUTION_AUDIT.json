@@ -1,0 +1,12 @@
+{
+  "phase": "EXP-UL-B1-SE1",
+  "registry_version": "2.1",
+  "entity_registry_runtime_count": 154,
+  "full_canonical_count": 84,
+  "reference_only_count": 68,
+  "supported_count": 2,
+  "subentity_tests_count": 5,
+  "subentity_tests_passed": 5,
+  "subentity_parent_collapse_count": 0,
+  "specificity_preserved": true
+}

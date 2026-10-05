@@ -1,0 +1,65 @@
+{
+  "source_id": "MORGUE-UPPER-LIMB-001",
+  "phase": "R1.1_ATOMIC_KNOWLEDGE_SATURATION",
+  "status": "VERIFIED",
+  "source_assertion_count": 154,
+  "assertion_classification": {
+    "atomic_already_count": 123,
+    "compound_assertion_count": 23,
+    "compound_assertions_decomposed": 23,
+    "no_anatomical_fact_count": 1,
+    "incomplete_assertion_count": 1,
+    "review_required_assertion_count": 6
+  },
+  "saturation_metrics": {
+    "total_atomic_facts": 209,
+    "total_relations": 209,
+    "relation_candidates": 125,
+    "observable_ratios": {
+      "atomic_facts_per_source_assertion": 1.36,
+      "relations_per_source_assertion": 1.36,
+      "atomic_facts_per_page": 3.94,
+      "entities_with_fact_link_percent": 100,
+      "compound_assertions_decomposed_percent": 14.9
+    }
+  },
+  "entity_linkage_metrics": {
+    "total_entities": 173,
+    "entities_with_source_assertion_link": 173,
+    "structural_only_entities": 0,
+    "entities_without_evidence_link": 0
+  },
+  "page_saturation": {
+    "total_pages": 53,
+    "content_pages_with_zero_atomic_facts": 0
+  },
+  "teaching_connections_count": 6,
+  "practical_memory_item_count": 11,
+  "validation_state_semantics": {
+    "source_origin_status_source_extracted": 209,
+    "academic_unreviewed": 1,
+    "academic_review_pending": 4,
+    "academic_supported": 128,
+    "academic_validated": 74,
+    "academic_conflicting": 2,
+    "academic_rejected": 0,
+    "academic_status_sum": 209
+  },
+  "behavior_fixtures_audit": {
+    "unsupported_behavior_sentence_count_after": 0
+  },
+  "release_gate": {
+    "morgue_source_001_r1_1_ready": true,
+    "all_pages_audited": true,
+    "atomic_fact_without_source_assertion_zero": true,
+    "entities_without_evidence_link_zero": true,
+    "content_pages_with_zero_atomic_facts_zero": true,
+    "unsupported_behavior_sentence_count_after_zero": true,
+    "validation_state_sum_equals_total_atomic_facts": true,
+    "frozen_files_modified": 0,
+    "production_changes": 0,
+    "gemini_calls": 0,
+    "git_commits": 0,
+    "git_pushes": 0
+  }
+}

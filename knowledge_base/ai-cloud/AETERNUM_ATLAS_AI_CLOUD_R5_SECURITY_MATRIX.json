@@ -1,0 +1,44 @@
+{
+  "phase": "AETERNUM-ATLAS-AI-CLOUD-R5",
+  "evaluated_at": "2026-10-05T06:14:31.000Z",
+  "tests": [
+    {
+      "id": "SEC-01",
+      "name": "Valid User JWT Authorized",
+      "result": "200 OK",
+      "pass": true
+    },
+    {
+      "id": "SEC-02",
+      "name": "Missing JWT Rejected",
+      "result": "401 AUTH_REQUIRED",
+      "pass": true
+    },
+    {
+      "id": "SEC-03",
+      "name": "Invalid JWT Cryptographically Rejected",
+      "result": "401 AUTH_INVALID",
+      "pass": true
+    },
+    {
+      "id": "SEC-04",
+      "name": "Anon Key as Bearer Rejected",
+      "result": "401 ANON_KEY_AS_BEARER_REJECTED",
+      "pass": true
+    },
+    {
+      "id": "SEC-05",
+      "name": "Unauthorized CORS Origin Rejected",
+      "result": "403 Forbidden",
+      "pass": true
+    },
+    {
+      "id": "SEC-06",
+      "name": "Rate Limit Burst Guard Active",
+      "result": "400 / 429 Bounded Rejection",
+      "pass": true
+    }
+  ],
+  "security_score_percent": 100,
+  "secret_disclosure_events": 0
+}

@@ -1,0 +1,20 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR1",
+  "generated_at": "2026-09-26T13:45:56.605Z",
+  "architecture": {
+    "table_name": "canonical_documentary_memory",
+    "composition_models": [
+      "DIRECT_CANONICAL_BLOCK",
+      "ATOMIC_COMPOSITION_MAP"
+    ]
+  },
+  "counts": {
+    "SCAPULA_DOCUMENTARY_UNIT_COUNT": 13,
+    "B1_DOCUMENTARY_UNIT_COUNT": 7,
+    "EXPECTED_GLOBAL_DOCUMENTARY_UNIT_COUNT": 20,
+    "SQLITE_SCAPULA_DOCUMENTARY_COUNT": 13,
+    "SQLITE_B1_DOCUMENTARY_COUNT": 7,
+    "SQLITE_GLOBAL_DOCUMENTARY_COUNT": 20,
+    "GLOBAL_DOCUMENTARY_JSON_SQLITE_PARITY": "100%"
+  }
+}

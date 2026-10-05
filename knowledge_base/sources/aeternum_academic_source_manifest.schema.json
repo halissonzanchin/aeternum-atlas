@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AeternumAcademicSourceManifest",
+  "description": "Schema for machine-readable Aeternum academic source registration manifests.",
+  "type": "object",
+  "required": [
+    "source_id",
+    "source_title",
+    "authors",
+    "edition",
+    "publication_year",
+    "publisher",
+    "isbn_if_explicitly_available",
+    "language",
+    "source_type",
+    "authority_class",
+    "artifact_filename",
+    "artifact_path_or_reference",
+    "artifact_sha256",
+    "page_count",
+    "provenance_type",
+    "authorization_status",
+    "academic_validation_eligible",
+    "validation_scope",
+    "registered_at",
+    "registration_protocol_version",
+    "review_status"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON schema reference URI."
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^(SRC|MORGUE)-[A-Z0-9_-]+$",
+      "description": "Deterministic canonical identifier for the registered academic source."
+    },
+    "source_title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Official title of the registered bibliographic work."
+    },
+    "authors": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "List of primary authors or compiling entity, or null if unstated in original source."
+    },
+    "edition": {
+      "type": ["string", "null"],
+      "description": "Edition designation (e.g. '5a Edición', '1st Edition'), or null if not applicable."
+    },
+    "publication_year": {
+      "type": ["integer", "null"],
+      "minimum": 1500,
+      "maximum": 2100,
+      "description": "Year of publication, or null if unknown."
+    },
+    "publisher": {
+      "type": ["string", "null"],
+      "description": "Publishing company or institution, or null if not applicable."
+    },
+    "isbn_if_explicitly_available": {
+      "type": ["string", "null"],
+      "description": "Official ISBN-10 or ISBN-13 identifier if explicitly documented in the artifact, or null."
+    },
+    "language": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Languages supported or used in the source artifact."
+    },
+    "source_type": {
+      "type": "string",
+      "description": "Categorical form of the work (e.g. GROSS_ANATOMY_TEXTBOOK, ANATOMICAL_ATLAS, INSTITUTIONAL_TEACHING_NOTES)."
+    },
+    "authority_class": {
+      "type": "string",
+      "enum": [
+        "TERMINOLOGY_AUTHORITY",
+        "GROSS_ANATOMY_REFERENCE",
+        "REGIONAL_ANATOMY_REFERENCE",
+        "ANATOMICAL_ATLAS",
+        "CLINICAL_ANATOMY_REFERENCE",
+        "SPECIALIZED_ANATOMY_REFERENCE",
+        "INSTITUTIONAL_TEACHING",
+        "INTERNAL_CURATED",
+        "AI_AUTHORED_DRAFT",
+        "SYNTHETIC_QA"
+      ],
+      "description": "Governing academic authority classification under AACM-1.0 and AKAP-1.0."
+    },
+    "artifact_filename": {
+      "type": ["string", "null"],
+      "description": "Filename of the inspected artifact, or null if reference-only."
+    },
+    "artifact_path_or_reference": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Local filesystem path or repository reference to the artifact."
+    },
+    "artifact_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "Deterministic SHA256 checksum of the local artifact file, or null if artifact unavailable."
+    },
+    "page_count": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "description": "Total verified page count of the artifact, or null if not page-addressable."
+    },
+    "provenance_type": {
+      "type": "string",
+      "enum": [
+        "LOCAL_PHYSICAL_PDF_ARTIFACT",
+        "LOCAL_PHYSICAL_EPUB_ARTIFACT",
+        "LOCAL_TEXT_ARTIFACT",
+        "PROJECT_INTERNAL_DATASET",
+        "HISTORICAL_INGESTION_ARTIFACT"
+      ],
+      "description": "Nature of provenance backing this registration."
+    },
+    "authorization_status": {
+      "type": "string",
+      "enum": [
+        "USER_PROVIDED_LOCAL_REFERENCE",
+        "INTERNAL_VALIDATION_ONLY",
+        "INTERNAL_FACT_EXTRACTION_ALLOWED",
+        "ORIGINAL_SYNTHESIS_ALLOWED",
+        "VERBATIM_CORPUS_INGESTION_PROHIBITED",
+        "REDISTRIBUTION_NOT_ESTABLISHED",
+        "AUTHORIZED_LOCAL_FAIR_USE",
+        "AUTHORIZED_INTERNAL",
+        "USER_PROVIDED_REVIEW_REQUIRED",
+        "UNRESOLVED",
+        "REJECTED"
+      ],
+      "description": "Legal and governance usage authorization state."
+    },
+    "usage_scope": {
+      "type": ["object", "null"],
+      "properties": {
+        "SOURCE_METADATA_STORAGE": { "type": "string" },
+        "FACT_EXTRACTION": { "type": "string" },
+        "ORIGINAL_PARAPHRASED_SYNTHESIS": { "type": "string" },
+        "STRUCTURED_RELATION_EXTRACTION": { "type": "string" },
+        "SHORT_EVIDENCE_LOCATOR": { "type": "string" },
+        "PAGE_LEVEL_PROVENANCE": { "type": "string" },
+        "SUBSTANTIAL_VERBATIM_INGESTION": { "type": "string" },
+        "TEXT_REPUBLICATION": { "type": "string" },
+        "PUBLIC_REDISTRIBUTION": { "type": "string" }
+      },
+      "description": "Explicit operational scope and transformation rights."
+    },
+    "academic_validation_eligible": {
+      "type": "boolean",
+      "description": "True if this source has authority to validate canonical anatomical facts."
+    },
+    "validation_scope": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Anatomical domains, subdomains, or dimensions this source is permitted to validate."
+    },
+    "registered_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the source was formally registered."
+    },
+    "registration_protocol_version": {
+      "type": "string",
+      "description": "Protocol version governing registration (e.g. ACSRP-1.0)."
+    },
+    "review_status": {
+      "type": "string",
+      "enum": ["REGISTERED", "UNDER_REVIEW", "REJECTED"],
+      "description": "Current lifecycle status of the source registration."
+    },
+    "volume": {
+      "type": ["string", "null"],
+      "description": "Volume or tomo designation (e.g. 'Tomo 1', 'Volume II'), or null."
+    },
+    "translator": {
+      "type": ["string", "null"],
+      "description": "Translator name(s), or null."
+    },
+    "original_language": {
+      "type": ["string", "null"],
+      "description": "Original language of publication if translated, or null."
+    },
+    "terminology_standard_version": {
+      "type": ["string", "null"],
+      "description": "Specific international nomenclature standard adhered to (e.g. 'TA2-2019'), or null."
+    },
+    "derived_artifact_id": {
+      "type": ["string", "null"],
+      "description": "Identifier of a derived technical dataset, if distinct from original source."
+    },
+    "derived_from_source_id": {
+      "type": ["string", "null"],
+      "description": "Canonical source ID from which the derived technical artifact was produced."
+    },
+    "derived_artifact_path": {
+      "type": ["string", "null"],
+      "description": "Path to the derived technical dataset."
+    },
+    "derived_artifact_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA256 checksum of the derived technical dataset."
+    }
+  },
+  "additionalProperties": false
+}

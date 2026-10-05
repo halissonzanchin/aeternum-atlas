@@ -1,0 +1,214 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "generated_at": "2026-09-25T03:02:18.507Z",
+  "total_blocks": 7,
+  "blocks": [
+    {
+      "block_id": "DOC-UL-B1-001",
+      "title": "Clavicle Architectural and Morphological Overview",
+      "summary": "Comprehensive anatomical synthesis of the clavicle as a long S-shaped strut bone, its boundaries, borders, surfaces, internal structure, and muscular attachments.",
+      "content_paragraphs": [
+        "The clavicle (clavicula) is a long bone situated horizontally at the anterosuperior boundary of the thorax. It functions as a rigid mechanical strut that suspends the scapula and upper limb laterally away from the trunk, thereby granting maximum circumduction freedom to the glenohumeral joint.",
+        "Viewed from its superior aspect, the bone exhibits an italic S-shaped double curvature: its medial two-thirds presents a marked anterior convexity, whereas its lateral third presents an anterior concavity. It comprises a central shaft and two distinct extremities: a voluminous, quadrangular medial sternal end and a flattened, plate-like lateral acromial end.",
+        "The superior surface is largely smooth and subcutaneous, giving origin medially to the clavicular head of the pectoralis major and sternocleidomastoid, and laterally providing attachment to the deltoid and trapezius. The inferior surface is rugged and punctuated by key mechanical anchors: the costoclavicular ligament impression medially, the subclavian groove for the subclavius muscle in the middle third, and the conoid tubercle and trapezoid line laterally.",
+        "Internally, the clavicle lacks a continuous central medullary canal, being constructed of a thick compact cortical shell enveloping a trabecular cancellous core."
+      ],
+      "supporting_fact_ids": [
+        "B1-FC-CLAV-001",
+        "B1-FC-CLAV-002",
+        "B1-FC-CLAV-005",
+        "B1-FC-CLAV-006",
+        "B1-FC-CLAV-007",
+        "B1-FC-CLAV-008",
+        "B1-FC-CLAV-009",
+        "B1-FC-CLAV-010",
+        "B1-FC-CLAV-015",
+        "B1-FC-CLAV-016",
+        "B1-FC-CLAV-017",
+        "B1-FC-CLAV-018",
+        "B1-FC-CLAV-019",
+        "B1-FC-CLAV-025",
+        "B1-FC-CLAV-026",
+        "B1-FC-CLAV-027",
+        "B1-FC-CLAV-028",
+        "B1-FC-CLAV-029",
+        "B1-FC-CLAV-033",
+        "B1-FC-CLAV-050"
+      ]
+    },
+    {
+      "block_id": "DOC-UL-B1-002",
+      "title": "Systematic Practical Orientation and Laterality of the Clavicle",
+      "summary": "Practical cadaveric and osteological methodology to identify superior vs inferior surfaces, medial vs lateral ends, and right vs left laterality.",
+      "content_paragraphs": [
+        "In osteological inspection, determining the side and spatial orientation of the clavicle requires three sequential assessments:",
+        "First, determine the medial versus lateral extremity: the medial (sternal) end is enlarged, thick, and prismatically quadrangular or rounded, whereas the lateral (acromial) end is markedly flattened craniocaudally like a spatulate plate.",
+        "Second, determine the superior versus inferior surface: the superior surface is relatively smooth, flat, and subcutaneous throughout its central course, whereas the inferior surface is deeply excavated by the subclavian groove and roughened by prominent ligamentous impressions (costoclavicular tuberosity medially; conoid tubercle and trapezoid line laterally).",
+        "Third, determine anterior versus posterior borders to establish laterality: in the medial two-thirds, the anterior border is prominently convex and thick, whereas in the lateral third, the anterior border is concave and thin. When the flattened end is placed laterally, the rough surface placed inferiorly, and the anterior convexity oriented anteriorly on the medial portion, the bone naturally identifies its side (right or left)."
+      ],
+      "supporting_fact_ids": [
+        "B1-FC-CLAV-006",
+        "B1-FC-CLAV-007",
+        "B1-FC-CLAV-009",
+        "B1-FC-CLAV-010",
+        "B1-FC-CLAV-011",
+        "B1-FC-CLAV-012",
+        "B1-FC-CLAV-013",
+        "B1-FC-CLAV-014",
+        "B1-FC-CLAV-039",
+        "B1-FC-CLAV-040"
+      ]
+    },
+    {
+      "block_id": "DOC-UL-B1-003",
+      "title": "Sternoclavicular Joint Architecture and Kinematics",
+      "summary": "Detailed anatomical description of the sternoclavicular sellar joint, its fibrocartilage disc, capsule, stabilizing ligaments, and degrees of freedom.",
+      "content_paragraphs": [
+        "The sternoclavicular joint (articulatio sternoclavicularis) represents the only anatomical synovial articulation connecting the upper limb to the axial skeleton. It is classified by shape as a synovial saddle (sellar) joint, but functional mechanics permit multiaxial rotation akin to a ball-and-socket articulation.",
+        "The joint brings together the sternal facet of the clavicle, the clavicular notch of the manubrium sterni, and the superior surface of the first costal cartilage. These surfaces are incongruent and covered with fibrocartilage. Congruence is established by a robust interarticular fibrocartilaginous disc attached superiorly to the clavicle and inferiorly to the first costal cartilage, bisecting the joint cavity into meniscoclavicular and meniscosternal compartments.",
+        "The joint capsule is reinforced by the anterior sternoclavicular ligament, the remarkably thick posterior sternoclavicular ligament, and the transverse interclavicular ligament spanning the jugular notch. Extracapsularly, the short and extremely powerful costoclavicular ligament anchors the clavicle to the first rib, acting as the primary restraint against upward displacement during shoulder elevation.",
+        "Kinematically, the joint permits 30°–45° of elevation, 5°–10° of depression, 15°–30° of protraction/retraction, and up to 40° of axial spin during overhead arm elevation."
+      ],
+      "supporting_fact_ids": [
+        "B1-FC-SCJ-001",
+        "B1-FC-SCJ-003",
+        "B1-FC-SCJ-004",
+        "B1-FC-SCJ-005",
+        "B1-FC-SCJ-006",
+        "B1-FC-SCJ-007",
+        "B1-FC-SCJ-008",
+        "B1-FC-SCJ-009",
+        "B1-FC-SCJ-010",
+        "B1-FC-SCJ-011",
+        "B1-FC-SCJ-012",
+        "B1-FC-SCJ-013",
+        "B1-FC-SCJ-014",
+        "B1-FC-SCJ-015",
+        "B1-FC-SCJ-016",
+        "B1-FC-SCJ-017",
+        "B1-FC-SCJ-018",
+        "B1-FC-SCJ-023",
+        "B1-FC-SCJ-025"
+      ]
+    },
+    {
+      "block_id": "DOC-UL-B1-004",
+      "title": "Acromioclavicular Joint Morphology, Capsule, and Kinematics",
+      "summary": "Structural analysis of the acromioclavicular plane joint, articular facets, meniscoid disc, capsular ligaments, and subtle rotational kinematics.",
+      "content_paragraphs": [
+        "The acromioclavicular joint (articulatio acromioclavicularis) is a synovial plane joint (arthrodia) formed between the oval facet of the acromial end of the clavicle and the corresponding facet on the medial border of the acromion of the scapula.",
+        "The articular surfaces are beveled such that the clavicular facet faces downward and outward, while the acromial facet faces upward and inward. Both surfaces are lined with fibrocartilage. A wedge-shaped meniscoid fibrocartilaginous disc frequently projects into the superior portion of the cavity, though it is commonly partial, perforated, or absent in older adults.",
+        "A relatively thin fibrous capsule encloses the articulation, reinforced superiorly by the dense quadrilateral superior acromioclavicular ligament whose fibers blend with the aponeuroses of the trapezius and deltoid muscles. This capsular ligament controls horizontal translation and anteroposterior gliding.",
+        "The joint permits small gliding and pivoting adjustments that modify the angle between the scapular blade and the clavicle (scapuloclavicular angle), ensuring that the scapula remains closely applied to the thoracic curvature throughout arm elevation."
+      ],
+      "supporting_fact_ids": [
+        "B1-FC-ACJ-001",
+        "B1-FC-ACJ-003",
+        "B1-FC-ACJ-004",
+        "B1-FC-ACJ-005",
+        "B1-FC-ACJ-006",
+        "B1-FC-ACJ-007",
+        "B1-FC-ACJ-008",
+        "B1-FC-ACJ-009",
+        "B1-FC-ACJ-010",
+        "B1-FC-ACJ-011",
+        "B1-FC-ACJ-012",
+        "B1-FC-ACJ-013",
+        "B1-FC-ACJ-014",
+        "B1-FC-ACJ-019",
+        "B1-FC-ACJ-020"
+      ]
+    },
+    {
+      "block_id": "DOC-UL-B1-005",
+      "title": "Coracoclavicular Ligament Complex: Functional Anatomy of Conoid and Trapezoid Ligaments",
+      "summary": "In-depth anatomical and mechanical exposition of the coracoclavicular syndesmotic complex, distinguishing conoid and trapezoid components.",
+      "content_paragraphs": [
+        "The coracoclavicular ligament complex (ligamentum coracoclaviculare) is an extrinsic syndesmotic structure that serves as the paramount mechanical anchor suspending the scapula and the entire free upper limb from the clavicle.",
+        "Rather than a single homogenous structure, it comprises two anatomically distinct and functionally specialized ligaments separated by a fat-filled cleft or small bursa: the conoid ligament and the trapezoid ligament.",
+        "The conoid ligament is situated posteromedially. Shaped like an inverted cone, its apex originates from the base of the coracoid process, and its vertical fibers fan out to insert into the conoid tubercle on the inferior surface of the clavicle. It resists anterior and superior displacement of the clavicle and checks scapular anterior tilting.",
+        "The trapezoid ligament is situated anterolaterally. It forms a flat quadrilateral sheet extending subhorizontally from the upper aspect of the horizontal coracoid process to the oblique trapezoid line of the clavicle. It primarily restrains posterior displacement of the clavicle and prevents horizontal axial override across the acromion."
+      ],
+      "supporting_fact_ids": [
+        "B1-FC-CCC-001",
+        "B1-FC-CCC-002",
+        "B1-FC-CCC-003",
+        "B1-FC-CCC-004",
+        "B1-FC-CCC-005",
+        "B1-FC-CCC-006",
+        "B1-FC-CCC-007",
+        "B1-FC-CCC-008",
+        "B1-FC-CCC-009",
+        "B1-FC-CCC-010",
+        "B1-FC-CCC-011",
+        "B1-FC-CCC-012",
+        "B1-FC-CCC-013",
+        "B1-FC-CCC-014",
+        "B1-FC-CCC-018",
+        "B1-FC-CCC-019",
+        "B1-FC-CCC-021",
+        "B1-FC-CCC-022"
+      ]
+    },
+    {
+      "block_id": "DOC-UL-B1-006",
+      "title": "Pectoral Girdle Systemic Architecture and Scapulothoracic Syssarcosis",
+      "summary": "Functional and topographic integration of the pectoral girdle, kinetic force transmission, and the two interfascial gliding spaces of the scapulothoracic syssarcosis.",
+      "content_paragraphs": [
+        "The pectoral girdle (cingulum pectorale) constitutes an incomplete musculoskeletal ring formed by the clavicles anteriorly and the scapulae posterolaterally. It is closed anteriorly by the manubrium of the sternum via the sternoclavicular joints, but remains widely open posteriorly where no bony articulation exists between the scapulae.",
+        "Compressive kinetic forces entering the glenoid cavity from the upper extremity are transmitted through the scapula to the coracoclavicular ligaments, along the rigid clavicular strut to the costoclavicular ligament and sternoclavicular joint, and finally into the axial skeleton via the sternum.",
+        "A vital functional component of this girdle is the scapulothoracic interface (syssarcosis scapulothoracica), which is not a true synovial joint but a physiological gliding plane. The serratus anterior muscle acts as a mobile intermediate muscular curtain that divides this syssarcosis into two distinct interfascial compartments: the omo-serratus space (between subscapularis fascia and serratus anterior) and the parieto-serratus space (between serratus anterior and the chest wall over ribs 2 to 7).",
+        "Synchronous mobility across these interfascial spaces, coordinated with the sternoclavicular and acromioclavicular joints, produces the 60° of scapular upward rotation necessary to complete the 180° arc of arm abduction (scapulohumeral rhythm)."
+      ],
+      "supporting_fact_ids": [
+        "B1-FC-PGI-001",
+        "B1-FC-PGI-002",
+        "B1-FC-PGI-003",
+        "B1-FC-PGI-004",
+        "B1-FC-PGI-005",
+        "B1-FC-PGI-006",
+        "B1-FC-PGI-007",
+        "B1-FC-PGI-008",
+        "B1-FC-PGI-009",
+        "B1-FC-PGI-010",
+        "B1-FC-PGI-011",
+        "B1-FC-PGI-012",
+        "B1-FC-PGI-013",
+        "B1-FC-PGI-024",
+        "B1-FC-PGI-025"
+      ]
+    },
+    {
+      "block_id": "DOC-UL-B1-007",
+      "title": "Practical Cadaveric and Clinical Surface Topography of the Clavicular Region",
+      "summary": "Surface palpation benchmarks, deltopectoral groove and triangle landmarks, and deep neurovascular syntopy in the cervicoaxillary transition.",
+      "content_paragraphs": [
+        "In clinical and cadaveric surface anatomy, the clavicle is an indispensable reference landmark because its entire subcutaneous superior border can be continuously palpated from the sternal notch to the acromial tip.",
+        "Medially, the sternoclavicular joint creates a visible subcutaneous prominence on either side of the jugular notch. Moving laterally, the anterior border of the clavicle serves as the landmark dividing the neck from the thorax. Between the lateral third of the clavicle (giving origin to the deltoid) and the medial two-thirds (giving origin to pectoralis major) lies the deltopectoral groove.",
+        "At the superior apex of the deltopectoral groove, just beneath the clavicle, lies the deltopectoral triangle (clavipectoral triangle of Mohrenheim). This triangle provides surgical access to the cephalic vein before it pierces the clavipectoral fascia to terminate in the axillary vein.",
+        "Immediately deep to the middle third of the clavicle and the subclavius muscle lies the cervicoaxillary canal. Through this narrow passage cross the subclavian vessels and the cords of the brachial plexus into the axilla over the first rib. Understanding this syntopy is vital for recognizing the vascular and neurological hazards of displaced clavicular fractures."
+      ],
+      "supporting_fact_ids": [
+        "B1-FC-CLAV-015",
+        "B1-FC-CLAV-034",
+        "B1-FC-CLAV-037",
+        "B1-FC-CLAV-038",
+        "B1-FC-SCJ-021",
+        "B1-FC-SCJ-024",
+        "B1-FC-ACJ-017",
+        "B1-FC-ACJ-018",
+        "B1-FC-PGI-014",
+        "B1-FC-PGI-015",
+        "B1-FC-PGI-016",
+        "B1-FC-PGI-017",
+        "B1-FC-PGI-018",
+        "B1-FC-PGI-019",
+        "B1-FC-PGI-020",
+        "B1-FC-PGI-021",
+        "B1-FC-PGI-022",
+        "B1-FC-PGI-023",
+        "B1-FC-PGI-026"
+      ]
+    }
+  ]
+}

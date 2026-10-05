@@ -1,0 +1,529 @@
+{
+  "document_name": "EXP-UL-B2_A2E0_NEW_EVIDENCE_UNITS",
+  "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+  "new_evidence_units_count": 13,
+  "new_evidence_units": [
+    {
+      "evidence_unit_id": "EVI-B2-TOPO-001",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "evidence_role": "ANATOMICAL_CONTENT_EVIDENCE",
+      "source_locator": "LAT-T1-TOPO-LOC-001",
+      "supporting_locators": [
+        "LAT-T1-TOPO-LOC-001",
+        "LAT-T1-TOPO-LOC-002",
+        "LAT-T1-HUM-LOC-003"
+      ],
+      "pdf_page_number": 641,
+      "printed_page_number": 621,
+      "section": "Nervio axilar: trayecto y relaciones en cuello quirúrgico y espacio axilar lateral; arterias circunflejas humerales",
+      "language": "es",
+      "primary_entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "secondary_entity_ids": [
+        "AET-ENT-REF-AXILLARY_NERVE",
+        "AET-ENT-REF-AXILLARY_ARTERY",
+        "AET-ENT-REF-HUMERUS"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-REF-SURGICAL_NECK_HUMERUS:relations",
+        "AET-ENT-REF-SURGICAL_NECK_HUMERUS:continuities",
+        "AET-ENT-REF-SURGICAL_NECK_HUMERUS:topographic_location",
+        "AET-ENT-REF-SURGICAL_NECK_HUMERUS:identity",
+        "AET-ENT-REF-SURGICAL_NECK_HUMERUS:external_configuration.extremities"
+      ],
+      "source_assertion_paraphrase": "El cuello quirúrgico del húmero forma el límite lateral del espacio axilar lateral (cuadrilátero humerotricipital). Es contorneado de adelante hacia atrás por el nervio axilar [circunflejo], el cual describe una curva cóncava hacia arriba y adelante inmediatamente aplicado al hueso por debajo de la articulación glenohumeral, acompañado superiormente por los vasos circunflejos humerales posteriores. Anteriormente, la arteria circunfleja humeral anterior pasa sobre la cara anterior del cuello quirúrgico profundo al coracobraquial y bíceps, emite la rama ascendente intertubercular hacia la cabeza humeral y se anastomosa alrededor del cuello quirúrgico con la circunfleja posterior. Clínicamente, las fracturas del cuello quirúrgico comprometen directamente al nervio axilar.",
+      "evidence_type": "DIRECT_TEXT",
+      "support_strength": "DIRECT",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "recheck_status": "RESOLVED_BY_NEW_EVIDENCE",
+      "resolves_recheck_queue_id": "RECHECK-Q-001",
+      "cross_batch_status": "B2_CORE_WITH_B3_DEPENDENCY_INTERFACE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-GHJ-008",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "evidence_role": "ANATOMICAL_CONTENT_EVIDENCE",
+      "source_locator": "LAT-T1-GHJ-LOC-005",
+      "supporting_locators": [
+        "LAT-T1-GHJ-LOC-005",
+        "LAT-T1-GHJ-LOC-006"
+      ],
+      "pdf_page_number": 498,
+      "printed_page_number": 478,
+      "section": "Articulación glenohumeral: vascularización e inervación",
+      "language": "es",
+      "primary_entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "secondary_entity_ids": [
+        "AET-ENT-REF-HUMERUS",
+        "AET-ENT-REF-AXILLARY_NERVE",
+        "AET-ENT-REF-SUPRASCAPULAR_NERVE"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-REF-GLENOHUMERAL_JOINT:arterial_supply",
+        "AET-ENT-REF-GLENOHUMERAL_JOINT:innervation",
+        "AET-ENT-REF-GLENOHUMERAL_JOINT:relations",
+        "AET-ENT-REF-GLENOHUMERAL_JOINT:movements.movement_types",
+        "AET-ENT-REF-GLENOHUMERAL_JOINT:stability.static_stabilizers",
+        "AET-ENT-REF-GLENOHUMERAL_JOINT:stability.dynamic_stabilizers"
+      ],
+      "source_assertion_paraphrase": "La articulación glenohumeral está vascularizada por las arterias circunflejas anterior y posterior del húmero que forman un círculo periarterial perihumeral alrededor del cuello del hueso, y por ramos posteriores de la arteria supraescapular. Su inervación proviene principalmente del nervio axilar, accesoriamente del nervio supraescapular, y de filetes vasomotores simpáticos provenientes del ganglio cervicotorácico y primeros ganglios torácicos. La corona muscular del manguito rotador constituye su refuerzo dinámico más eficaz.",
+      "evidence_type": "DIRECT_TEXT",
+      "support_strength": "DIRECT",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-BURS-001",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "evidence_role": "ANATOMICAL_CONTENT_EVIDENCE",
+      "source_locator": "LAT-T1-GHJ-LOC-006",
+      "supporting_locators": [
+        "LAT-T1-GHJ-LOC-006",
+        "LAT-T1-RTC-LOC-001"
+      ],
+      "pdf_page_number": 499,
+      "printed_page_number": 479,
+      "section": "Bolsas serosas del hombro: bolsa subdeltoidea o subacromial",
+      "language": "es",
+      "primary_entity_id": "AET-ENT-CAND-UL-SUBACROMIAL_BURSA",
+      "secondary_entity_ids": [
+        "AET-ENT-REF-GLENOHUMERAL_JOINT",
+        "AET-ENT-REF-SUPRASPINATUS",
+        "AET-ENT-REF-DELTOID"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-CAND-UL-SUBACROMIAL_BURSA:boundaries",
+        "AET-ENT-CAND-UL-SUBACROMIAL_BURSA:superficial_relations",
+        "AET-ENT-CAND-UL-SUBACROMIAL_BURSA:deep_relations",
+        "AET-ENT-CAND-UL-SUBACROMIAL_BURSA:structures_separated",
+        "AET-ENT-CAND-UL-SUBACROMIAL_BURSA:communication_with_joint_if_sourced",
+        "AET-ENT-CAND-UL-SUBACROMIAL_BURSA:communication_with_other_bursa_if_sourced"
+      ],
+      "source_assertion_paraphrase": "La bolsa subdeltoidea o subacromial se sitúa entre la parte superior de la cápsula articular / tendón del supraespinoso (profundamente) y la cara inferior del acromion, del ligamento coracoacromial y del deltoides (superficialmente). Constituye un plano de deslizamiento autónomo indispensable para la abducción humeral. Fisiológicamente no comunica con la cavidad articular glenohumeral; la comunicación ocurre únicamente tras roturas del manguito rotador (Codman). Las porciones subacromial y subdeltoidea forman habitualmente una sola cavidad coalescente.",
+      "evidence_type": "DIRECT_TEXT",
+      "support_strength": "DIRECT",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-BURS-002",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "evidence_role": "ANATOMICAL_CONTENT_EVIDENCE",
+      "source_locator": "LAT-T1-GHJ-LOC-003",
+      "supporting_locators": [
+        "LAT-T1-GHJ-LOC-003",
+        "LAT-T1-GHJ-LOC-006",
+        "LAT-T1-RTC-LOC-002"
+      ],
+      "pdf_page_number": 496,
+      "printed_page_number": 476,
+      "section": "Sinovial articular y bolsa subtendinosa del músculo subescapular",
+      "language": "es",
+      "primary_entity_id": "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA",
+      "secondary_entity_ids": [
+        "AET-ENT-REF-SUBSCAPULARIS",
+        "AET-ENT-REF-GLENOHUMERAL_JOINT"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA:boundaries",
+        "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA:superficial_relations",
+        "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA:deep_relations",
+        "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA:structures_separated",
+        "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA:communication_with_joint_if_sourced",
+        "AET-ENT-CAND-UL-SUBSCAPULAR_BURSA:communication_with_other_bursa_if_sourced"
+      ],
+      "source_assertion_paraphrase": "La bolsa subtendinosa del músculo subescapular se encuentra situada entre la cara profunda del músculo subescapular y la cara anterior de la cápsula articular y cuello de la escápula. Comunica constantemente con la cavidad sinovial glenohumeral por delante a través del foramen oval [de Weitbrecht], situado entre los ligamentos glenohumeral superior y medio.",
+      "evidence_type": "DIRECT_TEXT",
+      "support_strength": "DIRECT",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-LIG-001",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "evidence_role": "ANATOMICAL_CONTENT_EVIDENCE",
+      "source_locator": "LAT-T1-GHJ-LOC-002",
+      "supporting_locators": [
+        "LAT-T1-GHJ-LOC-002",
+        "LAT-T1-GHJ-LOC-003"
+      ],
+      "pdf_page_number": 495,
+      "printed_page_number": 475,
+      "section": "Ligamentos glenohumerales: superior, medio e inferior",
+      "language": "es",
+      "primary_entity_id": "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT",
+      "secondary_entity_ids": [
+        "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT",
+        "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX",
+        "AET-ENT-CAND-UL-GLENOHUMERAL_FIBROUS_CAPSULE",
+        "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT:joint_association",
+        "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT:capsular_continuity",
+        "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT:mechanical_role_when_sourced",
+        "AET-ENT-CAND-UL-SUPERIOR_GLENOHUMERAL_LIGAMENT:relations",
+        "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT:joint_association",
+        "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT:capsular_continuity",
+        "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT:mechanical_role_when_sourced",
+        "AET-ENT-CAND-UL-MIDDLE_GLENOHUMERAL_LIGAMENT:relations",
+        "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX:joint_association",
+        "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX:capsular_continuity",
+        "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX:mechanical_role_when_sourced",
+        "AET-ENT-CAND-UL-INFERIOR_GLENOHUMERAL_LIGAMENT_COMPLEX:relations"
+      ],
+      "source_assertion_paraphrase": "Los ligamentos glenohumerales son tres engrosamientos capsulares anteriores descritos por Farabeuf: el ligamento glenohumeral superior va desde el labrum superior/cuello de la escápula hasta el cuello anatómico sobre el tubérculo menor; el ligamento glenohumeral medio va desde el labrum al tubérculo menor por debajo del tendón del subescapular, confundiéndose con él; el ligamento glenohumeral inferior es el más largo, ancho y resistente, originándose en la porción anteroinferior del labrum y cuello escapular para insertarse en la porción anteroinferior del cuello quirúrgico del húmero entre subescapular y redondo menor. Entre el superior y el medio se sitúa el foramen oval de Weitbrecht.",
+      "evidence_type": "DIRECT_TEXT",
+      "support_strength": "DIRECT",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-LIG-002",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "evidence_role": "ANATOMICAL_CONTENT_EVIDENCE",
+      "source_locator": "LAT-T1-GHJ-LOC-002",
+      "supporting_locators": [
+        "LAT-T1-GHJ-LOC-002"
+      ],
+      "pdf_page_number": 495,
+      "printed_page_number": 475,
+      "section": "Ligamento coracohumeral y ligamento humeral transverso",
+      "language": "es",
+      "primary_entity_id": "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT",
+      "secondary_entity_ids": [
+        "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT",
+        "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+        "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT:joint_association",
+        "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT:capsular_continuity",
+        "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT:mechanical_role_when_sourced",
+        "AET-ENT-CAND-UL-CORACOHUMERAL_LIGAMENT:relations",
+        "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT:course",
+        "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT:joint_association",
+        "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT:capsular_continuity",
+        "AET-ENT-CAND-UL-TRANSVERSE_HUMERAL_LIGAMENT:relations"
+      ],
+      "source_assertion_paraphrase": "El ligamento coracohumeral es una lámina fibrosa gruesa y resistente originada en la base y borde lateral del proceso coracoides que termina en dos fascículos, uno sobre el tubérculo mayor y otro sobre el tubérculo menor del húmero. Ambos fascículos están unidos por fibras transversales que forman el ligamento humeral transverso (de Gordon Brodie), el cual puentea el surco intertubercular transformándolo en conducto fibroso para retener el tendón de la cabeza larga del bíceps.",
+      "evidence_type": "DIRECT_TEXT",
+      "support_strength": "DIRECT",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-006",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "evidence_role": "ANATOMICAL_CONTENT_EVIDENCE",
+      "source_locator": "LAT-T1-RTC-LOC-002",
+      "supporting_locators": [
+        "LAT-T1-RTC-LOC-002",
+        "LOC-INST-BOL-P87-RTC"
+      ],
+      "pdf_page_number": 510,
+      "printed_page_number": 490,
+      "section": "Músculo subescapular: inervación, vascularización, acción e inserción",
+      "language": "es",
+      "primary_entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "secondary_entity_ids": [
+        "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON",
+        "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-REF-SUBSCAPULARIS:arterial_supply",
+        "AET-ENT-REF-SUBSCAPULARIS:functional_role",
+        "AET-ENT-REF-SUBSCAPULARIS:stabilizing_role",
+        "AET-ENT-REF-SUBSCAPULARIS:architecture.fascicles",
+        "AET-ENT-REF-SUBSCAPULARIS:relations.anterior",
+        "AET-ENT-REF-SUBSCAPULARIS:relations.posterior",
+        "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON:footprint",
+        "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON:course",
+        "AET-ENT-CAND-UL-SUBSCAPULARIS_TENDON:bursae_relationships"
+      ],
+      "source_assertion_paraphrase": "El músculo subescapular recibe inervación por su cara anterior de los nervios subescapulares superior e inferior procedentes del fascículo posterior del plexo braquial (C5, C6). Está vascularizado por ramas de la arteria subescapular y perforantes intercostales posteriores. Actúa como aductor y rotador medial del húmero, coaptador articular anterior, limitando la rotación lateral. Su tendón se inserta en el tubérculo menor (troquín) con resolución de nivel de faceta (FACET_LEVEL_ONLY), separado de la cápsula por la bolsa subtendinosa subescapular.",
+      "evidence_type": "DIRECT_TEXT",
+      "support_strength": "DIRECT",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-007",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "evidence_role": "ANATOMICAL_CONTENT_EVIDENCE",
+      "source_locator": "LAT-T1-RTC-LOC-003",
+      "supporting_locators": [
+        "LAT-T1-RTC-LOC-003",
+        "LOC-INST-BOL-P87-RTC"
+      ],
+      "pdf_page_number": 511,
+      "printed_page_number": 491,
+      "section": "Músculo supraespinoso: inervación, vascularización, acción e inserción",
+      "language": "es",
+      "primary_entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "secondary_entity_ids": [
+        "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON",
+        "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-REF-SUPRASPINATUS:arterial_supply",
+        "AET-ENT-REF-SUPRASPINATUS:functional_role",
+        "AET-ENT-REF-SUPRASPINATUS:stabilizing_role",
+        "AET-ENT-REF-SUPRASPINATUS:architecture.fascicles",
+        "AET-ENT-REF-SUPRASPINATUS:relations.superficial",
+        "AET-ENT-REF-SUPRASPINATUS:relations.deep",
+        "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON:footprint",
+        "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON:course",
+        "AET-ENT-CAND-UL-SUPRASPINATUS_TENDON:bursae_relationships"
+      ],
+      "source_assertion_paraphrase": "El músculo supraespinoso está inervado por ramas del nervio supraescapular (tronco superior, C5-C6) y vascularizado por la arteria supraescapular. Su acción es la abducción activa del brazo (iniciador esencial de la abducción junto con deltoides) y coaptación articular. Su tendón cilíndrico fuerte pasa por debajo del acromion y ligamento coracoacromial, íntimamente adherido a la cápsula, para insertarse en la cara superior del tubérculo mayor (troquiter) con granularidad de nivel de faceta (FACET_LEVEL_ONLY), cubierto superficialmente por la bolsa subdeltoidea.",
+      "evidence_type": "DIRECT_TEXT",
+      "support_strength": "DIRECT",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-008",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "evidence_role": "ANATOMICAL_CONTENT_EVIDENCE",
+      "source_locator": "LAT-T1-RTC-LOC-004",
+      "supporting_locators": [
+        "LAT-T1-RTC-LOC-004",
+        "LOC-INST-BOL-P87-RTC"
+      ],
+      "pdf_page_number": 512,
+      "printed_page_number": 492,
+      "section": "Músculo infraespinoso: inervación, vascularización, acción e inserción",
+      "language": "es",
+      "primary_entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "secondary_entity_ids": [
+        "AET-ENT-CAND-UL-INFRASPINATUS_TENDON",
+        "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-REF-INFRASPINATUS:arterial_supply",
+        "AET-ENT-REF-INFRASPINATUS:functional_role",
+        "AET-ENT-REF-INFRASPINATUS:stabilizing_role",
+        "AET-ENT-REF-INFRASPINATUS:architecture.fascicles",
+        "AET-ENT-REF-INFRASPINATUS:relations.superficial",
+        "AET-ENT-REF-INFRASPINATUS:relations.deep",
+        "AET-ENT-CAND-UL-INFRASPINATUS_TENDON:footprint",
+        "AET-ENT-CAND-UL-INFRASPINATUS_TENDON:course",
+        "AET-ENT-CAND-UL-INFRASPINATUS_TENDON:bursae_relationships"
+      ],
+      "source_assertion_paraphrase": "El músculo infraespinoso está inervado por los ramos terminales del nervio supraescapular (C5) y vascularizado por la arteria supraescapular. Es rotador lateral y abductor del húmero, coaptador articular posterior, actuando como ligamento activo. Su tendón terminal pasa por detrás de la cápsula articular a la que se adhiere íntimamente y se inserta en la superficie media del tubérculo mayor del húmero (troquiter) con resolución de nivel de faceta (FACET_LEVEL_ONLY).",
+      "evidence_type": "DIRECT_TEXT",
+      "support_strength": "DIRECT",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-RTC-009",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-LATARJET-ED5-T1",
+      "source_hash": "56eff057e6f4811342a1fe30dfc76c1441221a7716050713c5edf60174b415fd",
+      "source_type": "GROSS_ANATOMY_TEXTBOOK",
+      "authority_class": "GROSS_ANATOMY_REFERENCE",
+      "evidence_role": "ANATOMICAL_CONTENT_EVIDENCE",
+      "source_locator": "LAT-T1-RTC-LOC-005",
+      "supporting_locators": [
+        "LAT-T1-RTC-LOC-005",
+        "LOC-INST-BOL-P87-RTC"
+      ],
+      "pdf_page_number": 513,
+      "printed_page_number": 493,
+      "section": "Músculo redondo menor: inervación, vascularización, acción e inserción",
+      "language": "es",
+      "primary_entity_id": "AET-ENT-REF-TERES_MINOR",
+      "secondary_entity_ids": [
+        "AET-ENT-CAND-UL-TERES_MINOR_TENDON",
+        "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-REF-TERES_MINOR:arterial_supply",
+        "AET-ENT-REF-TERES_MINOR:functional_role",
+        "AET-ENT-REF-TERES_MINOR:stabilizing_role",
+        "AET-ENT-REF-TERES_MINOR:architecture.fascicles",
+        "AET-ENT-REF-TERES_MINOR:relations.superficial",
+        "AET-ENT-REF-TERES_MINOR:relations.deep",
+        "AET-ENT-CAND-UL-TERES_MINOR_TENDON:footprint",
+        "AET-ENT-CAND-UL-TERES_MINOR_TENDON:course",
+        "AET-ENT-CAND-UL-TERES_MINOR_TENDON:bursae_relationships"
+      ],
+      "source_assertion_paraphrase": "El músculo redondo menor recibe por su borde inferior un ramo colateral del nervio axilar (C5, C6) y está vascularizado por ramas de la arteria circunfleja humeral posterior. Es rotador lateral del brazo y coaptador articular posterior. Se inserta por un fuerte tendón en la superficie posterior e inferior del tubérculo mayor del húmero (troquiter) y diáfisis subyacente (FACET_LEVEL_ONLY). Limita superiormente el espacio axilar lateral (cuadrilátero humerotricipital).",
+      "evidence_type": "DIRECT_TEXT",
+      "support_strength": "DIRECT",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-FIG-005",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-NIELSEN-ATLAS-ED1",
+      "source_hash": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+      "source_type": "ANATOMICAL_ATLAS",
+      "authority_class": "VISUAL_ATLAS",
+      "evidence_role": "FIGURE_EVIDENCE",
+      "source_locator": "NIE-ED1-HUM-LOC-001",
+      "supporting_locators": [
+        "NIE-ED1-HUM-LOC-001"
+      ],
+      "pdf_page_number": 96,
+      "printed_page_number": 90,
+      "section": "Left humerus: Anterior and Posterior Views",
+      "language": "en",
+      "primary_entity_id": "AET-ENT-REF-HUMERUS",
+      "secondary_entity_ids": [
+        "AET-ENT-REF-HUMERAL_HEAD",
+        "AET-ENT-CAND-UL-HUMERAL_ANATOMICAL_NECK",
+        "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+        "AET-ENT-CAND-UL-HUMERAL_GREATER_TUBERCLE",
+        "AET-ENT-CAND-UL-HUMERAL_LESSER_TUBERCLE",
+        "AET-ENT-CAND-UL-HUMERAL_INTERTUBERCULAR_SULCUS"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-REF-HUMERUS:anatomical_landmarks.head",
+        "AET-ENT-REF-HUMERUS:anatomical_landmarks.neck",
+        "AET-ENT-REF-HUMERUS:anatomical_landmarks.tubercles"
+      ],
+      "source_assertion_paraphrase": "Demostración anatómica visual y fotográfica de la epífisis proximal del húmero mostrando cabeza (1), cuello anatómico (2), cuello quirúrgico (3), tubérculo mayor (4), tubérculo menor (5), surco intertubercular (6), cresta del tubérculo mayor (7) y cresta del tubérculo menor (8).",
+      "evidence_type": "FIGURE_EVIDENCE",
+      "support_strength": "VISUAL_ONLY",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-FIG-006",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-NIELSEN-ATLAS-ED1",
+      "source_hash": "0b93a1f583abf2e9788a6f68fede93c080a5ef57bd88e3501acd1cd78f0cb49e",
+      "source_type": "ANATOMICAL_ATLAS",
+      "authority_class": "VISUAL_ATLAS",
+      "evidence_role": "FIGURE_EVIDENCE",
+      "source_locator": "NIE-ED1-RTC-LOC-001",
+      "supporting_locators": [
+        "NIE-ED1-RTC-LOC-001",
+        "NIE-ED1-GHJ-LOC-001"
+      ],
+      "pdf_page_number": 188,
+      "printed_page_number": 182,
+      "section": "Shoulder Muscles - Rotator Cuff: Deep dissection",
+      "language": "en",
+      "primary_entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "secondary_entity_ids": [
+        "AET-ENT-REF-SUPRASPINATUS",
+        "AET-ENT-REF-INFRASPINATUS",
+        "AET-ENT-REF-TERES_MINOR",
+        "AET-ENT-REF-SUBSCAPULARIS",
+        "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-CAND-UL-ROTATOR_CUFF:relations",
+        "AET-ENT-CAND-UL-ROTATOR_CUFF:functional_role",
+        "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD:course",
+        "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD:relations"
+      ],
+      "source_assertion_paraphrase": "Demostración fotográfica por disección profunda de los cuatro músculos del manguito rotador envolviendo la articulación glenohumeral, íntima adherencia capsular y trayecto del tendón de la cabeza larga del bíceps braquial emergiendo entre subescapular y supraespinoso.",
+      "evidence_type": "FIGURE_EVIDENCE",
+      "support_strength": "VISUAL_ONLY",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    },
+    {
+      "evidence_unit_id": "EVI-B2-INST-001",
+      "phase": "AMC-1.2-R2.1 / EXP-UL-B2-A2-E0",
+      "source_id": "SRC-INST-ANATOMIA-BOLILLERO-PDF",
+      "source_hash": "ddf87c89f88b177285a223bd7919fcc1e0fcd6d97b23cd30fb406db5584a746f",
+      "source_type": "INSTITUTIONAL_ANATOMY_STUDY_SUMMARY",
+      "authority_class": "INSTITUTIONAL_SUPPORTING_ANATOMICAL_REFERENCE",
+      "evidence_role": "INSTITUTIONAL_SUPPORTING_EVIDENCE",
+      "source_locator": "LOC-INST-BOL-P87-RTC",
+      "supporting_locators": [
+        "LOC-INST-BOL-P87-RTC"
+      ],
+      "pdf_page_number": 87,
+      "printed_page_number": 87,
+      "section": "Músculos que unen la Cintura Escapular con el Brazo",
+      "language": "es",
+      "primary_entity_id": "AET-ENT-CAND-UL-ROTATOR_CUFF",
+      "secondary_entity_ids": [
+        "AET-ENT-REF-SUBSCAPULARIS",
+        "AET-ENT-REF-SUPRASPINATUS",
+        "AET-ENT-REF-INFRASPINATUS",
+        "AET-ENT-REF-TERES_MINOR"
+      ],
+      "AADS_fields_supported": [
+        "AET-ENT-REF-SUBSCAPULARIS:insertion",
+        "AET-ENT-REF-SUPRASPINATUS:insertion",
+        "AET-ENT-REF-INFRASPINATUS:insertion",
+        "AET-ENT-REF-TERES_MINOR:insertion"
+      ],
+      "source_assertion_paraphrase": "Resumen institucional oficial de inserciones del manguito rotador confirmando la correspondencia clásica de troquín (tubérculo menor para subescapular) y troquiter (tubérculo mayor para supraespinoso, infraespinoso y redondo menor), e inervaciones concordantes.",
+      "evidence_type": "INSTITUTIONAL_CONTENT",
+      "support_strength": "PARTIAL",
+      "confidence_of_extraction": "CERTAIN",
+      "requires_author_interpretation": false,
+      "authoring_allowed": true,
+      "cross_batch_status": "B2_CORE"
+    }
+  ]
+}

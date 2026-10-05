@@ -1,0 +1,89 @@
+{
+  "phase": "AETERNUM-POST-RELEASE-R1",
+  "audit_timestamp": "2026-10-04T23:51:00Z",
+  "overall_verdict": "VERIFIED_AETERNUM_POST_RELEASE_R1_HEALTHY",
+  "production_health_score_percent": 100,
+  "domains": {
+    "www": {
+      "url": "https://www.aeternumatlas.com",
+      "status_code": 200,
+      "status": "HEALTHY",
+      "hsts": true,
+      "asset_etag": "c6c0cc8f634d35f4b522c72699a97f8e"
+    },
+    "apex": {
+      "url": "https://aeternumatlas.com",
+      "status_code": 308,
+      "status": "HEALTHY",
+      "redirect_target": "https://www.aeternumatlas.com/"
+    },
+    "vercel_subdomain": {
+      "url": "https://aeternum-atlas.vercel.app",
+      "status_code": 200,
+      "status": "HEALTHY",
+      "asset_etag": "c6c0cc8f634d35f4b522c72699a97f8e"
+    }
+  },
+  "deployment": {
+    "deployment_id": "dpl_vvHtzke37a52oqRrSxJQZ5grN4jM",
+    "status": "READY",
+    "build_duration_ms": 9370,
+    "function_errors": 0,
+    "runtime_errors": 0
+  },
+  "supabase": {
+    "project_id": "hyivyrietgjdazgizafp",
+    "status": "ACTIVE_HEALTHY",
+    "postgres_engine": "17.6.1.113",
+    "public_tables_count": 56,
+    "rls_enforced_count": 56,
+    "schema_mutations": 0,
+    "users_count": 10,
+    "institutions_count": 1,
+    "models_3d_count": 2,
+    "sessions_count": 2283,
+    "learning_events_count": 3989
+  },
+  "bundle_isolation": {
+    "production_supabase_ref_present": true,
+    "staging_supabase_ref_absent": true,
+    "active_localhost_dependency": false
+  },
+  "student_features": {
+    "student_dashboard": "HEALTHY",
+    "quizzes": "HEALTHY",
+    "flashcards": "HEALTHY",
+    "study_agenda": "HEALTHY",
+    "modular_wall": "HEALTHY",
+    "anatomical_atlas": "HEALTHY",
+    "profile": "HEALTHY",
+    "settings": "HEALTHY",
+    "interactive_lessons": "HEALTHY"
+  },
+  "3d_pipeline": {
+    "3d_library_health": "HEALTHY",
+    "3d_viewer_health": "HEALTHY",
+    "broken_models_count": 0
+  },
+  "containment": {
+    "atlas_ai_mode": "standby",
+    "ai_containment_status": "CONTAINED",
+    "vita_mode": "off",
+    "vita_containment_status": "CONTAINED"
+  },
+  "invariants": {
+    "canonical_facts": 248,
+    "canonical_entities": 154,
+    "safe_engine_facts": 231,
+    "authored_propositions": 41,
+    "author_holds": 10,
+    "current_cursor": "TGT-B2-A2E0-052",
+    "mutations": 0
+  },
+  "rollback": {
+    "rollback_deployment_id": "dpl_GmjVs3ZSWsCUo2qqzrTLRtnTFdxV",
+    "rollback_deployment_available": true,
+    "rollback_command_valid": true,
+    "rollback_executed": false
+  }
+}

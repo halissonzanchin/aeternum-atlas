@@ -1,0 +1,193 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "generated_at": "2026-09-25T03:02:18.507Z",
+  "total_connections": 8,
+  "connections": [
+    {
+      "connection_id": "TC-UL-B1-001",
+      "title": "Clavicle as the Sole Osseous Skeletal Bridge to the Axial Trunk",
+      "anchor_entity": "clavicle",
+      "related_entities": [
+        "pectoral_girdle",
+        "sternoclavicular_joint",
+        "scapula"
+      ],
+      "connection_type": "STRUCTURAL_CONTINUITY",
+      "teaching_layer": "CONCEPTUAL_OVERVIEW",
+      "teaching_reason": "Students frequently assume the shoulder girdle is solidly anchored by both clavicle and scapula. Emphasizing that the clavicle is the only rigid bony link to the skeleton explains why clavicle fractures immediately cause the shoulder to collapse downward and forward.",
+      "supporting_fact_ids": [
+        "B1-FC-CLAV-002",
+        "B1-FC-SCJ-002",
+        "B1-FC-PGI-004",
+        "B1-FC-PGI-005"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "validation_status": "SOURCE_GROUNDED_VALIDATION_READY"
+    },
+    {
+      "connection_id": "TC-UL-B1-002",
+      "title": "The Mechanical S-Curvature: Elasticity vs Fracture Vulnerability",
+      "anchor_entity": "clavicular_shaft",
+      "related_entities": [
+        "clavicle",
+        "cervicoaxillary_canal"
+      ],
+      "connection_type": "BIOMECHANICAL_RELATION",
+      "teaching_layer": "FUNCTIONAL_CORRELATION",
+      "teaching_reason": "The transition from the convex medial two-thirds to the concave lateral third creates a mechanical curve transition point that acts both as a shock absorber for axial loads and as the most common fracture site in the human skeleton.",
+      "supporting_fact_ids": [
+        "B1-FC-CLAV-005",
+        "B1-FC-CLAV-006",
+        "B1-FC-CLAV-007",
+        "B1-FC-CLAV-049"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "validation_status": "SOURCE_GROUNDED_VALIDATION_READY"
+    },
+    {
+      "connection_id": "TC-UL-B1-003",
+      "title": "Sternoclavicular Fibrocartilaginous Disc: Transforming a Saddle into a Ball-and-Socket",
+      "anchor_entity": "sternoclavicular_articular_disc",
+      "related_entities": [
+        "sternoclavicular_joint"
+      ],
+      "connection_type": "FUNCTIONAL_COMPENSATION",
+      "teaching_layer": "DEEP_DIVE",
+      "teaching_reason": "Explains how an anatomical sellar joint achieves multiaxial spheroidal movement freedom (elevation, depression, protraction, retraction, and 40° of axial spin) through an interarticular disc that provides two decoupled degrees of freedom.",
+      "supporting_fact_ids": [
+        "B1-FC-SCJ-001",
+        "B1-FC-SCJ-005",
+        "B1-FC-SCJ-008",
+        "B1-FC-SCJ-018"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "validation_status": "SOURCE_GROUNDED_VALIDATION_READY"
+    },
+    {
+      "connection_id": "TC-UL-B1-004",
+      "title": "The Costoclavicular Ligament as the Fulcrum and Checkrein of Elevation",
+      "anchor_entity": "costoclavicular_ligament",
+      "related_entities": [
+        "sternoclavicular_joint",
+        "clavicular_inferior_surface"
+      ],
+      "connection_type": "BIOMECHANICAL_LEVER",
+      "teaching_layer": "FUNCTIONAL_CORRELATION",
+      "teaching_reason": "Demonstrates that during clavicular elevation, the costoclavicular ligament serves as a stable kinetic pivot: when the lateral end rises, the sternal articular surface slides downward on the disc.",
+      "supporting_fact_ids": [
+        "B1-FC-SCJ-013",
+        "B1-FC-SCJ-015",
+        "B1-FC-SCJ-028"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "validation_status": "SOURCE_GROUNDED_VALIDATION_READY"
+    },
+    {
+      "connection_id": "TC-UL-B1-005",
+      "title": "Coracoclavicular Complex: The True Suspensory Apparatus of the Arm",
+      "anchor_entity": "coracoclavicular_ligament_complex",
+      "related_entities": [
+        "conoid_ligament",
+        "trapezoid_ligament",
+        "acromioclavicular_joint",
+        "scapula"
+      ],
+      "connection_type": "GRAVITATIONAL_SUSPENSION",
+      "teaching_layer": "CLINICAL_ANATOMY_BRIDGE",
+      "teaching_reason": "Clarifies that the weak acromioclavicular capsule cannot resist the weight of the arm alone. The conoid and trapezoid ligaments provide the actual suspensory sling holding the scapula and upper limb from the clavicle.",
+      "supporting_fact_ids": [
+        "B1-FC-ACJ-012",
+        "B1-FC-CCC-001",
+        "B1-FC-CCC-007",
+        "B1-FC-CCC-012",
+        "B1-FC-CCC-013"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "validation_status": "SOURCE_GROUNDED_VALIDATION_READY"
+    },
+    {
+      "connection_id": "TC-UL-B1-006",
+      "title": "Deltopectoral Groove and Triangle: Superficial Venous Highway and Surgical Access",
+      "anchor_entity": "deltopectoral_groove",
+      "related_entities": [
+        "clavicle",
+        "pectoral_girdle"
+      ],
+      "connection_type": "SURGICAL_LANDMARK",
+      "teaching_layer": "PRACTICAL_PROCEDURE",
+      "teaching_reason": "Teaches students the surface palpation of the deltopectoral groove for emergency venous cutdown of the cephalic vein and for the standard anterior surgical approach to the shoulder joint.",
+      "supporting_fact_ids": [
+        "B1-FC-PGI-014",
+        "B1-FC-PGI-016",
+        "B1-FC-PGI-018",
+        "B1-FC-PGI-026"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1",
+        "MORGUE-UPPER-LIMB-001"
+      ],
+      "validation_status": "SOURCE_GROUNDED_VALIDATION_READY"
+    },
+    {
+      "connection_id": "TC-UL-B1-007",
+      "title": "The Retroclavicular Danger Zone: Neurovascular Crossing into the Axilla",
+      "anchor_entity": "cervicoaxillary_canal",
+      "related_entities": [
+        "clavicle",
+        "retroclavicular_space"
+      ],
+      "connection_type": "TOPOGRAPHIC_SYNTOPIAL_HAZARD",
+      "teaching_layer": "TOPOGRAPHIC_RELATIONS",
+      "teaching_reason": "Alerts learners to the immediate proximity of the subclavian vein, subclavian artery, and brachial plexus trunks directly deep to the subclavius muscle and middle third of the clavicle, explaining why posterior clavicle displacement is a surgical emergency.",
+      "supporting_fact_ids": [
+        "B1-FC-CLAV-037",
+        "B1-FC-CLAV-038",
+        "B1-FC-SCJ-021",
+        "B1-FC-PGI-020",
+        "B1-FC-PGI-021"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1",
+        "SRC-NIELSEN-ATLAS-ED1"
+      ],
+      "validation_status": "SOURCE_GROUNDED_VALIDATION_READY"
+    },
+    {
+      "connection_id": "TC-UL-B1-008",
+      "title": "Scapulothoracic Syssarcosis and Scapulohumeral Rhythm",
+      "anchor_entity": "scapulothoracic_interface",
+      "related_entities": [
+        "pectoral_girdle",
+        "sternoclavicular_joint",
+        "acromioclavicular_joint"
+      ],
+      "connection_type": "FUNCTIONAL_KINEMATICS",
+      "teaching_layer": "COMPREHENSIVE_INTEGRATION",
+      "teaching_reason": "Unifies the entire batch by demonstrating that the 60° of scapular upward rotation during arm abduction requires synchronous motion across the sternoclavicular joint (elevation + posterior axial spin) and acromioclavicular joint (subtle gliding), gliding smoothly across the serratus anterior syssarcosis.",
+      "supporting_fact_ids": [
+        "B1-FC-PGI-007",
+        "B1-FC-PGI-008",
+        "B1-FC-PGI-012",
+        "B1-FC-PGI-013"
+      ],
+      "source_ids": [
+        "SRC-LATARJET-ED5-T1"
+      ],
+      "validation_status": "SOURCE_GROUNDED_VALIDATION_READY"
+    }
+  ]
+}

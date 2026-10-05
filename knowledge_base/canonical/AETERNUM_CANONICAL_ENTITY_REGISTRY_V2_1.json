@@ -1,0 +1,5935 @@
+{
+  "schema_name": "AETERNUM_CANONICAL_ENTITY_REGISTRY",
+  "registry_version": "2.1.0",
+  "canonical_memory_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+  "created_at": "2026-09-26T18:45:50.000Z",
+  "phase": "EXP-UL-B1-CP1-IR2",
+  "metrics": {
+    "total_entities": 154,
+    "full_canonical_entities": 84,
+    "scapula_full_canonical": 43,
+    "b1_full_canonical": 41,
+    "supported_entities": 2,
+    "canonical_reference_entities": 68,
+    "pending_entities": 0
+  },
+  "entities": [
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULA",
+      "canonical_name": "Scapula",
+      "latin_name": "Scapula",
+      "entity_type": "BONE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "scapula"
+      ],
+      "legacy_identifiers": [
+        "scapula"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "scapula"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_ACROMION",
+      "canonical_name": "Acromion",
+      "latin_name": "Acromion",
+      "entity_type": "BONE_PART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "acromion"
+      ],
+      "legacy_identifiers": [
+        "acromion"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "acromion"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "canonical_name": "Coracoid Process",
+      "latin_name": "Processus coracoideus",
+      "entity_type": "BONE_PART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "coracoid_process"
+      ],
+      "legacy_identifiers": [
+        "coracoid_process"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "coracoid_process"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SPINE",
+      "canonical_name": "Spine of Scapula",
+      "latin_name": "Spina scapulae",
+      "entity_type": "BONE_PART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "scapular_spine"
+      ],
+      "legacy_identifiers": [
+        "scapular_spine"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "scapular_spine"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "canonical_name": "Glenoid Cavity of Scapula",
+      "latin_name": "Cavitas glenoidalis",
+      "entity_type": "ARTICULAR_SURFACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "glenoid_cavity"
+      ],
+      "legacy_identifiers": [
+        "glenoid_cavity"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "glenoid_cavity"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUBSCAPULAR_FOSSA",
+      "canonical_name": "Subscapular Fossa",
+      "latin_name": "Fossa subscapularis",
+      "entity_type": "BONE_SURFACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "subscapular_fossa"
+      ],
+      "legacy_identifiers": [
+        "subscapular_fossa"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "subscapular_fossa"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPRASPINOUS_FOSSA",
+      "canonical_name": "Supraspinous Fossa",
+      "latin_name": "Fossa supraspinata",
+      "entity_type": "BONE_SURFACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "supraspinous_fossa"
+      ],
+      "legacy_identifiers": [
+        "supraspinous_fossa"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "supraspinous_fossa"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_INFRASPINOUS_FOSSA",
+      "canonical_name": "Infraspinous Fossa",
+      "latin_name": "Fossa infraspinata",
+      "entity_type": "BONE_SURFACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "infraspinous_fossa"
+      ],
+      "legacy_identifiers": [
+        "infraspinous_fossa"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "infraspinous_fossa"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPERIOR_BORDER",
+      "canonical_name": "Superior Border of Scapula",
+      "latin_name": "Margo superior scapulae",
+      "entity_type": "BONE_BORDER",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "superior_border",
+        "superior_border_of_scapula"
+      ],
+      "legacy_identifiers": [
+        "superior_border"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "superior_border"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "canonical_name": "Medial Border of Scapula",
+      "latin_name": "Margo medialis scapulae",
+      "entity_type": "BONE_BORDER",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "medial_border",
+        "medial_border_of_scapula"
+      ],
+      "legacy_identifiers": [
+        "medial_border"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "medial_border"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_LATERAL_BORDER",
+      "canonical_name": "Lateral Border of Scapula",
+      "latin_name": "Margo lateralis scapulae",
+      "entity_type": "BONE_BORDER",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "lateral_border",
+        "lateral_border_of_scapula"
+      ],
+      "legacy_identifiers": [
+        "lateral_border"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "lateral_border"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPERIOR_ANGLE",
+      "canonical_name": "Superior Angle of Scapula",
+      "latin_name": "Angulus superior scapulae",
+      "entity_type": "BONE_ANGLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "superior_angle"
+      ],
+      "legacy_identifiers": [
+        "superior_angle"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "superior_angle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_INFERIOR_ANGLE",
+      "canonical_name": "Inferior Angle of Scapula",
+      "latin_name": "Angulus inferior scapulae",
+      "entity_type": "BONE_ANGLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "inferior_angle",
+        "inferior_angle_of_scapula"
+      ],
+      "legacy_identifiers": [
+        "inferior_angle"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "inferior_angle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_LATERAL_ANGLE",
+      "canonical_name": "Lateral Angle of Scapula",
+      "latin_name": "Angulus lateralis scapulae",
+      "entity_type": "BONE_ANGLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "lateral_angle",
+        "lateral_angle_of_scapula"
+      ],
+      "legacy_identifiers": [
+        "lateral_angle"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "lateral_angle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_COSTAL_SURFACE",
+      "canonical_name": "Costal Surface of Scapula",
+      "latin_name": "Facies costalis scapulae",
+      "entity_type": "BONE_SURFACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "costal_surface"
+      ],
+      "legacy_identifiers": [
+        "costal_surface"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "costal_surface"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_POSTERIOR_SURFACE",
+      "canonical_name": "Posterior Surface of Scapula",
+      "latin_name": "Facies posterior scapulae",
+      "entity_type": "BONE_SURFACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "posterior_surface",
+        "posterior_surface_of_scapula"
+      ],
+      "legacy_identifiers": [
+        "posterior_surface"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "posterior_surface"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPRAGLENOID_TUBERCLE",
+      "canonical_name": "Supraglenoid Tubercle",
+      "latin_name": "Tuberculum supraglenoidale",
+      "entity_type": "BONE_LANDMARK",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "supraglenoid_tubercle"
+      ],
+      "legacy_identifiers": [
+        "supraglenoid_tubercle"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "supraglenoid_tubercle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_INFRAGLENOID_TUBERCLE",
+      "canonical_name": "Infraglenoid Tubercle",
+      "latin_name": "Tuberculum infraglenoidale",
+      "entity_type": "BONE_LANDMARK",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "infraglenoid_tubercle"
+      ],
+      "legacy_identifiers": [
+        "infraglenoid_tubercle"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "infraglenoid_tubercle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPRASCAPULAR_NOTCH",
+      "canonical_name": "Suprascapular Notch",
+      "latin_name": "Incisura scapulae",
+      "entity_type": "BONE_LANDMARK",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "suprascapular_notch"
+      ],
+      "legacy_identifiers": [
+        "suprascapular_notch"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "suprascapular_notch"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SPINOGLENOID_NOTCH",
+      "canonical_name": "Spinoglenoid Notch",
+      "latin_name": "Incisura spinoglenoidalis",
+      "entity_type": "BONE_LANDMARK",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "spinoglenoid_notch"
+      ],
+      "legacy_identifiers": [
+        "spinoglenoid_notch"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "spinoglenoid_notch"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_LABRUM",
+      "canonical_name": "Glenoid Labrum",
+      "latin_name": "Labrum glenoidale",
+      "entity_type": "FIBROCARTILAGE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "glenoid_labrum"
+      ],
+      "legacy_identifiers": [
+        "glenoid_labrum"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "glenoid_labrum"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPRASCAPULAR_FORAMEN",
+      "canonical_name": "Suprascapular Foramen",
+      "latin_name": "Foramen suprascapulare",
+      "entity_type": "FORAMEN",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "suprascapular_foramen"
+      ],
+      "legacy_identifiers": [
+        "suprascapular_foramen"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "suprascapular_foramen"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SUPERIOR_TRANSVERSE_SCAPULAR_LIGAMENT",
+      "canonical_name": "Superior Transverse Scapular Ligament",
+      "latin_name": "Ligamentum transversum scapulae superius",
+      "entity_type": "LIGAMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "superior_transverse_scapular_ligament"
+      ],
+      "legacy_identifiers": [
+        "superior_transverse_scapular_ligament"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "superior_transverse_scapular_ligament"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CORACOACROMIAL_LIGAMENT",
+      "canonical_name": "Coracoacromial Ligament",
+      "latin_name": "Ligamentum coracoacromiale",
+      "entity_type": "LIGAMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.1.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "certified_at": "2026-09-24T06:59:47.583Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "coracoacromial_ligament"
+      ],
+      "legacy_identifiers": [
+        "coracoacromial_ligament"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "coracoacromial_ligament"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICLE",
+      "canonical_name": "Clavicle",
+      "latin_name": "Clavicula",
+      "entity_type": "BONE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.726Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "clavicle"
+      ],
+      "legacy_identifiers": [
+        "clavicle"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "clavicle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_SHAFT",
+      "canonical_name": "Shaft of Clavicle",
+      "latin_name": "Corpus claviculae",
+      "entity_type": "BONE_PART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "clavicular_shaft"
+      ],
+      "legacy_identifiers": [
+        "clavicular_shaft"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "clavicular_shaft"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_STERNAL_END",
+      "canonical_name": "Sternal End of Clavicle",
+      "latin_name": "Extremitas sternalis claviculae",
+      "entity_type": "BONE_PART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "clavicular_sternal_end"
+      ],
+      "legacy_identifiers": [
+        "clavicular_sternal_end"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "clavicular_sternal_end"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_ACROMIAL_END",
+      "canonical_name": "Acromial End of Clavicle",
+      "latin_name": "Extremitas acromialis claviculae",
+      "entity_type": "BONE_PART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "clavicular_acromial_end"
+      ],
+      "legacy_identifiers": [
+        "clavicular_acromial_end"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "clavicular_acromial_end"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE",
+      "canonical_name": "Superior Surface of Clavicle",
+      "latin_name": "Facies superior claviculae",
+      "entity_type": "BONE_SURFACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "clavicular_superior_surface"
+      ],
+      "legacy_identifiers": [
+        "clavicular_superior_surface"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "clavicular_superior_surface"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_INFERIOR_SURFACE",
+      "canonical_name": "Inferior Surface of Clavicle",
+      "latin_name": "Facies inferior claviculae",
+      "entity_type": "BONE_SURFACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "clavicular_inferior_surface"
+      ],
+      "legacy_identifiers": [
+        "clavicular_inferior_surface"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "clavicular_inferior_surface"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CONOID_TUBERCLE",
+      "canonical_name": "Conoid Tubercle",
+      "latin_name": "Tuberculum conoideum",
+      "entity_type": "BONE_LANDMARK",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "conoid_tubercle"
+      ],
+      "legacy_identifiers": [
+        "conoid_tubercle"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "conoid_tubercle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-TRAPEZOID_LINE",
+      "canonical_name": "Trapezoid Line",
+      "latin_name": "Linea trapezoidea",
+      "entity_type": "BONE_LANDMARK",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "trapezoid_line"
+      ],
+      "legacy_identifiers": [
+        "trapezoid_line"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "trapezoid_line"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SUBCLAVIAN_GROOVE",
+      "canonical_name": "Subclavian Groove",
+      "latin_name": "Sulcus musculi subclavii",
+      "entity_type": "BONE_LANDMARK",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "subclavian_groove"
+      ],
+      "legacy_identifiers": [
+        "subclavian_groove"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "subclavian_groove"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-COSTOCLAVICULAR_LIGAMENT_IMPRESSION",
+      "canonical_name": "Impression for Costoclavicular Ligament",
+      "latin_name": "Impressio ligamenti costoclavicularis",
+      "entity_type": "BONE_LANDMARK",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "costoclavicular_ligament_impression"
+      ],
+      "legacy_identifiers": [
+        "costoclavicular_ligament_impression"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "costoclavicular_ligament_impression"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_STERNAL_ARTICULAR_SURFACE",
+      "canonical_name": "Sternal Articular Surface of Clavicle",
+      "latin_name": "Facies articularis sternalis claviculae",
+      "entity_type": "ARTICULAR_SURFACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "clavicular_sternal_articular_surface"
+      ],
+      "legacy_identifiers": [
+        "clavicular_sternal_articular_surface"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "clavicular_sternal_articular_surface"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_ACROMIAL_ARTICULAR_SURFACE",
+      "canonical_name": "Acromial Articular Surface of Clavicle",
+      "latin_name": "Facies articularis acromialis claviculae",
+      "entity_type": "ARTICULAR_SURFACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "clavicular_acromial_articular_surface"
+      ],
+      "legacy_identifiers": [
+        "clavicular_acromial_articular_surface"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "clavicular_acromial_articular_surface"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_NUTRIENT_FORAMEN",
+      "canonical_name": "Nutrient Foramen of Clavicle",
+      "latin_name": "Foramen nutricium claviculae",
+      "entity_type": "BONE_LANDMARK",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "clavicular_nutrient_foramen"
+      ],
+      "legacy_identifiers": [
+        "clavicular_nutrient_foramen"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "clavicular_nutrient_foramen"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "canonical_name": "Sternoclavicular Joint",
+      "latin_name": "Articulatio sternoclavicularis",
+      "entity_type": "JOINT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "sternoclavicular_joint"
+      ],
+      "legacy_identifiers": [
+        "sternoclavicular_joint"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "sternoclavicular_joint"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SC-JOINT",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-STERNOCLAVICULAR_ARTICULAR_DISC",
+      "canonical_name": "Articular Disc of Sternoclavicular Joint",
+      "latin_name": "Discus articularis articulationis sternoclavicularis",
+      "entity_type": "FIBROCARTILAGE_DISC",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "sternoclavicular_articular_disc"
+      ],
+      "legacy_identifiers": [
+        "sternoclavicular_articular_disc"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "sternoclavicular_articular_disc"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-ANTERIOR_STERNOCLAVICULAR_LIGAMENT",
+      "canonical_name": "Anterior Sternoclavicular Ligament",
+      "latin_name": "Ligamentum sternoclaviculare anterius",
+      "entity_type": "LIGAMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "anterior_sternoclavicular_ligament"
+      ],
+      "legacy_identifiers": [
+        "anterior_sternoclavicular_ligament"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "anterior_sternoclavicular_ligament"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-POSTERIOR_STERNOCLAVICULAR_LIGAMENT",
+      "canonical_name": "Posterior Sternoclavicular Ligament",
+      "latin_name": "Ligamentum sternoclaviculare posterius",
+      "entity_type": "LIGAMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "posterior_sternoclavicular_ligament"
+      ],
+      "legacy_identifiers": [
+        "posterior_sternoclavicular_ligament"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "posterior_sternoclavicular_ligament"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-INTERCLAVICULAR_LIGAMENT",
+      "canonical_name": "Interclavicular Ligament",
+      "latin_name": "Ligamentum interclaviculare",
+      "entity_type": "LIGAMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "interclavicular_ligament"
+      ],
+      "legacy_identifiers": [
+        "interclavicular_ligament"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "interclavicular_ligament"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-COSTOCLAVICULAR_LIGAMENT",
+      "canonical_name": "Costoclavicular Ligament",
+      "latin_name": "Ligamentum costoclaviculare",
+      "entity_type": "LIGAMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "costoclavicular_ligament"
+      ],
+      "legacy_identifiers": [
+        "costoclavicular_ligament"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "costoclavicular_ligament"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-STERNOCLAVICULAR_FIBROUS_CAPSULE",
+      "canonical_name": "Fibrous Capsule of Sternoclavicular Joint",
+      "latin_name": "Capsula articularis articulationis sternoclavicularis",
+      "entity_type": "JOINT_CAPSULE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "sternoclavicular_fibrous_capsule"
+      ],
+      "legacy_identifiers": [
+        "sternoclavicular_fibrous_capsule"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "sternoclavicular_fibrous_capsule"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "canonical_name": "Acromioclavicular Joint",
+      "latin_name": "Articulatio acromioclavicularis",
+      "entity_type": "JOINT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "acromioclavicular_joint"
+      ],
+      "legacy_identifiers": [
+        "acromioclavicular_joint"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "acromioclavicular_joint"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-AC-JOINT",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-ACROMIOCLAVICULAR_FIBROUS_CAPSULE",
+      "canonical_name": "Fibrous Capsule of Acromioclavicular Joint",
+      "latin_name": "Capsula articularis articulationis acromioclavicularis",
+      "entity_type": "JOINT_CAPSULE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "acromioclavicular_fibrous_capsule"
+      ],
+      "legacy_identifiers": [
+        "acromioclavicular_fibrous_capsule"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "acromioclavicular_fibrous_capsule"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-ACROMIOCLAVICULAR_LIGAMENT",
+      "canonical_name": "Acromioclavicular Ligament",
+      "latin_name": "Ligamentum acromioclaviculare",
+      "entity_type": "LIGAMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "acromioclavicular_ligament"
+      ],
+      "legacy_identifiers": [
+        "acromioclavicular_ligament"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "acromioclavicular_ligament"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-ACROMIOCLAVICULAR_ARTICULAR_DISC",
+      "canonical_name": "Articular Disc of Acromioclavicular Joint",
+      "latin_name": "Discus articularis articulationis acromioclavicularis",
+      "entity_type": "FIBROCARTILAGE_DISC",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "acromioclavicular_articular_disc"
+      ],
+      "legacy_identifiers": [
+        "acromioclavicular_articular_disc"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "acromioclavicular_articular_disc"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CORACOCLAVICULAR_LIGAMENT_COMPLEX",
+      "canonical_name": "Coracoclavicular Ligament Complex",
+      "latin_name": "Ligamentum coracoclaviculare",
+      "entity_type": "LIGAMENT_COMPLEX",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "coracoclavicular_ligament_complex",
+        "coracoclavicular_ligament"
+      ],
+      "legacy_identifiers": [
+        "coracoclavicular_ligament_complex"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "coracoclavicular_ligament_complex"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CC-LIGAMENT-COMPLEX",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CONOID_LIGAMENT",
+      "canonical_name": "Conoid Ligament",
+      "latin_name": "Ligamentum conoideum",
+      "entity_type": "LIGAMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "conoid_ligament"
+      ],
+      "legacy_identifiers": [
+        "conoid_ligament"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "conoid_ligament"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-TRAPEZOID_LIGAMENT",
+      "canonical_name": "Trapezoid Ligament",
+      "latin_name": "Ligamentum trapezoideum",
+      "entity_type": "LIGAMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "trapezoid_ligament"
+      ],
+      "legacy_identifiers": [
+        "trapezoid_ligament"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "trapezoid_ligament"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-PECTORAL_GIRDLE",
+      "canonical_name": "Pectoral Girdle (Shoulder Girdle)",
+      "latin_name": "Cingulum pectorale / Cingulum membri superioris",
+      "entity_type": "SKELETAL_COMPLEX",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "pectoral_girdle"
+      ],
+      "legacy_identifiers": [
+        "pectoral_girdle"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "pectoral_girdle"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-DELTOPECTORAL_GROOVE",
+      "canonical_name": "Deltopectoral Groove (and Triangle)",
+      "latin_name": "Sulcus deltopectoralis / Trigonum clavipectorale",
+      "entity_type": "TOPOGRAPHIC_STRUCTURE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "deltopectoral_groove"
+      ],
+      "legacy_identifiers": [
+        "deltopectoral_groove"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "deltopectoral_groove"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-DELTOPECTORAL-GROOVE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CERVICOAXILLARY_CANAL",
+      "canonical_name": "Cervicoaxillary Canal",
+      "latin_name": "Canalis cervicoaxillaris",
+      "entity_type": "TOPOGRAPHIC_SPACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "promotion_id": "AET-PROM-UL-B1-001",
+        "promoted_at": "2026-09-25T04:24:56.727Z"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "cervicoaxillary_canal"
+      ],
+      "legacy_identifiers": [
+        "cervicoaxillary_canal"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "cervicoaxillary_canal"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CERVICOAXILLARY-CANAL",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-SUPP-SCAPULOTHORACIC_INTERFACE",
+      "canonical_name": "Scapulothoracic Syssarcosis Interface",
+      "latin_name": "Articulatio scapulothoracalis (syssarcosis)",
+      "entity_type": "PHYSIOLOGICAL_JOINT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "SUPPORTED",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "note": "Supported physiological articulation under evaluation"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "scapulothoracic_interface"
+      ],
+      "legacy_identifiers": [
+        "scapulothoracic_interface"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "scapulothoracic_interface"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-SUPP-RETROCLAVICULAR_SPACE",
+      "canonical_name": "Retroclavicular Space",
+      "latin_name": "Spatium retroclaviculare",
+      "entity_type": "TOPOGRAPHIC_SPACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "SUPPORTED",
+      "pack_owner": "EXP-UL-B1",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.0",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "note": "Supported clinical space under evaluation"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "retroclavicular_space"
+      ],
+      "legacy_identifiers": [
+        "retroclavicular_space"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "retroclavicular_space"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-HUMERUS",
+      "canonical_name": "Humerus",
+      "latin_name": "Humerus",
+      "entity_type": "BONE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "humerus"
+      ],
+      "legacy_identifiers": [
+        "humerus",
+        "humeral_head",
+        "surgical_neck_humerus"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "humerus",
+        "humeral_head",
+        "surgical_neck_humerus"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-GLENOHUMERAL_JOINT",
+      "canonical_name": "Glenohumeral Joint",
+      "latin_name": "Articulatio humeri",
+      "entity_type": "JOINT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "glenohumeral_joint"
+      ],
+      "legacy_identifiers": [
+        "glenohumeral_joint"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "glenohumeral_joint"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-MANUBRIUM_STERNI",
+      "canonical_name": "Manubrium Sterni",
+      "latin_name": "Manubrium sterni",
+      "entity_type": "BONE_PART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "manubrium_sterni"
+      ],
+      "legacy_identifiers": [
+        "manubrium_sterni",
+        "clavicular_notch_of_manubrium_sterni"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "manubrium_sterni",
+        "clavicular_notch_of_manubrium_sterni"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-FIRST_COSTAL_CARTILAGE",
+      "canonical_name": "First Costal Cartilage",
+      "latin_name": "Cartilago costalis I",
+      "entity_type": "CARTILAGE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "first_costal_cartilage"
+      ],
+      "legacy_identifiers": [
+        "first_costal_cartilage",
+        "first_costal_cartilage_and_sternal_junction"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "first_costal_cartilage",
+        "first_costal_cartilage_and_sternal_junction"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-FIRST_RIB",
+      "canonical_name": "First Rib",
+      "latin_name": "Costa I",
+      "entity_type": "BONE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "upper_surface_first_rib_and_costal_cartilage"
+      ],
+      "legacy_identifiers": [
+        "upper_surface_first_rib_and_costal_cartilage"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "upper_surface_first_rib_and_costal_cartilage"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-RIBS_2_TO_7",
+      "canonical_name": "Ribs 2 to 7",
+      "latin_name": "Costae II-VII",
+      "entity_type": "BONE_GROUP",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "rib_2_to_rib_7"
+      ],
+      "legacy_identifiers": [
+        "rib_2_to_rib_7"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "rib_2_to_rib_7"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-THORACIC_WALL",
+      "canonical_name": "Thoracic Wall",
+      "latin_name": "Paries thoracis",
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "thoracic_wall"
+      ],
+      "legacy_identifiers": [
+        "anterosuperior_thoracic_wall",
+        "posterolateral_thoracic_wall"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "anterosuperior_thoracic_wall",
+        "posterolateral_thoracic_wall"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-MENISCOCLAVICULAR_JOINT_CAVITY",
+      "canonical_name": "Meniscoclavicular Synovial Cavity",
+      "latin_name": "Cavitas meniscoclavicularis",
+      "entity_type": "JOINT_CAVITY",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "meniscoclavicular_synovial_cavity"
+      ],
+      "legacy_identifiers": [
+        "meniscoclavicular_synovial_cavity"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "meniscoclavicular_synovial_cavity"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-MENISCOCOSTAL_JOINT_CAVITY",
+      "canonical_name": "Meniscocostal / Meniscosternal Synovial Cavity",
+      "latin_name": "Cavitas meniscosternalis",
+      "entity_type": "JOINT_CAVITY",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "meniscosternal_synovial_cavity"
+      ],
+      "legacy_identifiers": [
+        "meniscosternal_synovial_cavity"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "meniscosternal_synovial_cavity"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-DELTOID",
+      "canonical_name": "Deltoid Muscle",
+      "latin_name": "Musculus deltoideus",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "deltoid"
+      ],
+      "legacy_identifiers": [
+        "deltoid",
+        "deltoid_clavicular_portion"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "deltoid",
+        "deltoid_clavicular_portion"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-TRAPEZIUS",
+      "canonical_name": "Trapezius Muscle",
+      "latin_name": "Musculus trapezius",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "trapezius"
+      ],
+      "legacy_identifiers": [
+        "trapezius",
+        "trapezius_descending_part"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "trapezius",
+        "trapezius_descending_part"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-PECTORALIS_MAJOR",
+      "canonical_name": "Pectoralis Major Muscle",
+      "latin_name": "Musculus pectoralis major",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "pectoralis_major_clavicular_head"
+      ],
+      "legacy_identifiers": [
+        "pectoralis_major_clavicular_head"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "pectoralis_major_clavicular_head"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-PECTORALIS_MINOR",
+      "canonical_name": "Pectoralis Minor Muscle",
+      "latin_name": "Musculus pectoralis minor",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "pectoralis_minor"
+      ],
+      "legacy_identifiers": [
+        "pectoralis_minor"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "pectoralis_minor"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUBCLAVIUS",
+      "canonical_name": "Subclavius Muscle",
+      "latin_name": "Musculus subclavius",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "subclavius_muscle"
+      ],
+      "legacy_identifiers": [
+        "subclavius_muscle"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "subclavius_muscle"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-STERNOCLEIDOMASTOID",
+      "canonical_name": "Sternocleidomastoid Muscle",
+      "latin_name": "Musculus sternocleidomastoideus",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "sternocleidomastoid_clavicular_head"
+      ],
+      "legacy_identifiers": [
+        "sternocleidomastoid_clavicular_head"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "sternocleidomastoid_clavicular_head"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-PLATYSMA",
+      "canonical_name": "Platysma Muscle",
+      "latin_name": "Platysma",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "platysma_muscle"
+      ],
+      "legacy_identifiers": [
+        "platysma_muscle"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "platysma_muscle"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUBSCAPULARIS",
+      "canonical_name": "Subscapularis Muscle",
+      "latin_name": "Musculus subscapularis",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "subscapularis"
+      ],
+      "legacy_identifiers": [
+        "subscapularis"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "subscapularis"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUPRASPINATUS",
+      "canonical_name": "Supraspinatus Muscle",
+      "latin_name": "Musculus supraspinatus",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "supraspinatus"
+      ],
+      "legacy_identifiers": [
+        "supraspinatus"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "supraspinatus"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-INFRASPINATUS",
+      "canonical_name": "Infraspinatus Muscle",
+      "latin_name": "Musculus infraspinatus",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "infraspinatus"
+      ],
+      "legacy_identifiers": [
+        "infraspinatus"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "infraspinatus"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-TERES_MINOR",
+      "canonical_name": "Teres Minor Muscle",
+      "latin_name": "Musculus teres minor",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "teres_minor"
+      ],
+      "legacy_identifiers": [
+        "teres_minor"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "teres_minor"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-TERES_MAJOR",
+      "canonical_name": "Teres Major Muscle",
+      "latin_name": "Musculus teres major",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "teres_major"
+      ],
+      "legacy_identifiers": [
+        "teres_major"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "teres_major"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-LEVATOR_SCAPULAE",
+      "canonical_name": "Levator Scapulae Muscle",
+      "latin_name": "Musculus levator scapulae",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "levator_scapulae"
+      ],
+      "legacy_identifiers": [
+        "levator_scapulae"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "levator_scapulae"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-RHOMBOID_MINOR",
+      "canonical_name": "Rhomboid Minor Muscle",
+      "latin_name": "Musculus rhomboideus minor",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "rhomboid_minor"
+      ],
+      "legacy_identifiers": [
+        "rhomboid_minor"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "rhomboid_minor"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-RHOMBOID_MAJOR",
+      "canonical_name": "Rhomboid Major Muscle",
+      "latin_name": "Musculus rhomboideus major",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "rhomboid_major"
+      ],
+      "legacy_identifiers": [
+        "rhomboid_major"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "rhomboid_major"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SERRATUS_ANTERIOR",
+      "canonical_name": "Serratus Anterior Muscle",
+      "latin_name": "Musculus serratus anterior",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "serratus_anterior"
+      ],
+      "legacy_identifiers": [
+        "serratus_anterior"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "serratus_anterior"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-BICEPS_BRACHII_LONG_HEAD",
+      "canonical_name": "Biceps Brachii Long Head",
+      "latin_name": "Caput longum musculi bicipitis brachii",
+      "entity_type": "MUSCLE_HEAD",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "biceps_brachii_long_head"
+      ],
+      "legacy_identifiers": [
+        "biceps_brachii_long_head"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "biceps_brachii_long_head"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-BICEPS_BRACHII_SHORT_HEAD",
+      "canonical_name": "Biceps Brachii Short Head",
+      "latin_name": "Caput breve musculi bicipitis brachii",
+      "entity_type": "MUSCLE_HEAD",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "biceps_brachii_short_head"
+      ],
+      "legacy_identifiers": [
+        "biceps_brachii_short_head"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "biceps_brachii_short_head"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-CORACOBRACHIALIS",
+      "canonical_name": "Coracobrachialis Muscle",
+      "latin_name": "Musculus coracobrachialis",
+      "entity_type": "MUSCLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "coracobrachialis"
+      ],
+      "legacy_identifiers": [
+        "coracobrachialis"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "coracobrachialis"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-TRICEPS_BRACHII_LONG_HEAD",
+      "canonical_name": "Triceps Brachii Long Head",
+      "latin_name": "Caput longum musculi tricipitis brachii",
+      "entity_type": "MUSCLE_HEAD",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "long_head_triceps",
+        "triceps_brachii_long_head"
+      ],
+      "legacy_identifiers": [
+        "long_head_triceps",
+        "triceps_brachii_long_head"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "long_head_triceps",
+        "triceps_brachii_long_head"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUPRACLAVICULAR_FOSSA",
+      "canonical_name": "Supraclavicular Fossa",
+      "latin_name": "Fossa supraclavicularis",
+      "entity_type": "FOSSA",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "supraclavicular_fossa_boundary"
+      ],
+      "legacy_identifiers": [
+        "supraclavicular_fossa_boundary"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "supraclavicular_fossa_boundary"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-QUADRANGULAR_SPACE",
+      "canonical_name": "Quadrangular Space",
+      "latin_name": "Spatium quadrangulare",
+      "entity_type": "TOPOGRAPHIC_SPACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "quadrangular_space"
+      ],
+      "legacy_identifiers": [
+        "quadrangular_space"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "quadrangular_space"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-TRIANGULAR_SPACE",
+      "canonical_name": "Triangular Space",
+      "latin_name": "Spatium triangulare",
+      "entity_type": "TOPOGRAPHIC_SPACE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "triangular_space"
+      ],
+      "legacy_identifiers": [
+        "triangular_space"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "triangular_space"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-FREE_UPPER_LIMB",
+      "canonical_name": "Free Upper Limb",
+      "latin_name": "Pars libera membri superioris",
+      "entity_type": "TOPOGRAPHIC_REGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "free_upper_limb"
+      ],
+      "legacy_identifiers": [
+        "free_upper_limb"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "free_upper_limb"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-CLAVIPECTORAL_FASCIA",
+      "canonical_name": "Clavipectoral Fascia",
+      "latin_name": "Fascia clavipectoralis",
+      "entity_type": "FASCIA",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "clavipectoral_fascia"
+      ],
+      "legacy_identifiers": [
+        "clavipectoral_fascia"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "clavipectoral_fascia"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-CERVICAL_FASCIA_SUPERFICIAL_LAYER",
+      "canonical_name": "Superficial Layer of Cervical Fascia",
+      "latin_name": "Lamina superficialis fasciae cervicalis",
+      "entity_type": "FASCIA",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "cervical_fascia_superficial_layer"
+      ],
+      "legacy_identifiers": [
+        "cervical_fascia_superficial_layer"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "cervical_fascia_superficial_layer"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-AXILLARY_VESSELS",
+      "canonical_name": "Axillary Artery and Vein",
+      "latin_name": "Vasa axillaria",
+      "entity_type": "VESSEL_BUNDLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "axillary_artery_and_vein"
+      ],
+      "legacy_identifiers": [
+        "axillary_artery_and_vein"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "axillary_artery_and_vein"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUBCLAVIAN_VESSELS",
+      "canonical_name": "Subclavian Vessels",
+      "latin_name": "Vasa subclavia",
+      "entity_type": "VESSEL_BUNDLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "subclavian_vessels"
+      ],
+      "legacy_identifiers": [
+        "subclavian_vessels"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "subclavian_vessels"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-CEPHALIC_VEIN",
+      "canonical_name": "Cephalic Vein",
+      "latin_name": "Vena cephalica",
+      "entity_type": "VEIN",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "cephalic_vein"
+      ],
+      "legacy_identifiers": [
+        "cephalic_vein"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "cephalic_vein"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-INTERNAL_THORACIC_ARTERY",
+      "canonical_name": "Internal Thoracic Artery Branches",
+      "latin_name": "Rami arteriae thoracicae internae",
+      "entity_type": "ARTERIAL_BRANCH",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "internal_thoracic_artery_branches"
+      ],
+      "legacy_identifiers": [
+        "internal_thoracic_artery_branches"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "internal_thoracic_artery_branches"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-THORACOACROMIAL_ARTERY",
+      "canonical_name": "Thoracoacromial Artery Branches",
+      "latin_name": "Arteria thoracoacromialis",
+      "entity_type": "ARTERY",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "thoracoacromial_artery"
+      ],
+      "legacy_identifiers": [
+        "acromial_branch_of_thoracoacromial_artery",
+        "acromial_branches",
+        "deltoid_branch_of_thoracoacromial_artery"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "acromial_branch_of_thoracoacromial_artery",
+        "acromial_branches",
+        "deltoid_branch_of_thoracoacromial_artery"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-ACROMIAL_RETE",
+      "canonical_name": "Acromial Arterial Rete",
+      "latin_name": "Rete acromiale",
+      "entity_type": "ARTERIAL_ANASTOMOSIS",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "acromial_rete"
+      ],
+      "legacy_identifiers": [
+        "acromial_rete"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "acromial_rete"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUPRASCAPULAR_ARTERY",
+      "canonical_name": "Suprascapular Artery",
+      "latin_name": "Arteria suprascapularis",
+      "entity_type": "ARTERY",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "suprascapular_artery"
+      ],
+      "legacy_identifiers": [
+        "suprascapular_artery",
+        "suprascapular_artery_branches"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "suprascapular_artery",
+        "suprascapular_artery_branches"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-CIRCUMFLEX_SCAPULAR_VESSELS",
+      "canonical_name": "Circumflex Scapular Vessels",
+      "latin_name": "Vasa circumflexa scapulae",
+      "entity_type": "VESSEL_BUNDLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "circumflex_scapular_artery",
+        "circumflex_scapular_vessels"
+      ],
+      "legacy_identifiers": [
+        "circumflex_scapular_artery",
+        "circumflex_scapular_vessels"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "circumflex_scapular_artery",
+        "circumflex_scapular_vessels"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-DORSAL_SCAPULAR_VESSELS",
+      "canonical_name": "Dorsal Scapular Vessels",
+      "latin_name": "Vasa dorsalia scapulae",
+      "entity_type": "VESSEL_BUNDLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "dorsal_scapular_artery",
+        "dorsal_scapular_vessels"
+      ],
+      "legacy_identifiers": [
+        "dorsal_scapular_artery",
+        "dorsal_scapular_vessels_along_medial_border"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "dorsal_scapular_artery",
+        "dorsal_scapular_vessels_along_medial_border"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-POSTERIOR_CIRCUMFLEX_HUMERAL_VESSELS",
+      "canonical_name": "Posterior Circumflex Humeral Vessels",
+      "latin_name": "Vasa circumflexa humeri posteriora",
+      "entity_type": "VESSEL_BUNDLE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "posterior_circumflex_humeral_vessels"
+      ],
+      "legacy_identifiers": [
+        "posterior_circumflex_humeral_vessels"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "posterior_circumflex_humeral_vessels"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-BRACHIAL_PLEXUS_TRUNKS",
+      "canonical_name": "Trunks of Brachial Plexus",
+      "latin_name": "Trunci plexus brachialis",
+      "entity_type": "NERVE_PLEXUS_PART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "brachial_plexus_trunks"
+      ],
+      "legacy_identifiers": [
+        "brachial_plexus_trunks"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "brachial_plexus_trunks"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-BRACHIAL_PLEXUS_CORDS",
+      "canonical_name": "Cords of Brachial Plexus",
+      "latin_name": "Fasciculi plexus brachialis",
+      "entity_type": "NERVE_PLEXUS_PART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "brachial_plexus_cords"
+      ],
+      "legacy_identifiers": [
+        "brachial_plexus_cords"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "brachial_plexus_cords"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUPRASCAPULAR_NERVE",
+      "canonical_name": "Suprascapular Nerve",
+      "latin_name": "Nervus suprascapularis",
+      "entity_type": "NERVE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "suprascapular_nerve"
+      ],
+      "legacy_identifiers": [
+        "suprascapular_nerve",
+        "suprascapular_nerve_articular_branches"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "suprascapular_nerve",
+        "suprascapular_nerve_articular_branches"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-AXILLARY_NERVE",
+      "canonical_name": "Axillary Nerve",
+      "latin_name": "Nervus axillaris",
+      "entity_type": "NERVE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "axillary_nerve"
+      ],
+      "legacy_identifiers": [
+        "axillary_nerve",
+        "axillary_nerve_articular_twigs"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "axillary_nerve",
+        "axillary_nerve_articular_twigs"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-LATERAL_PECTORAL_NERVE",
+      "canonical_name": "Lateral Pectoral Nerve",
+      "latin_name": "Nervus pectoralis lateralis",
+      "entity_type": "NERVE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "lateral_pectoral_nerve"
+      ],
+      "legacy_identifiers": [
+        "lateral_pectoral_nerve"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "lateral_pectoral_nerve"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-NERVE_TO_SUBCLAVIUS",
+      "canonical_name": "Nerve to Subclavius",
+      "latin_name": "Nervus subclavius",
+      "entity_type": "NERVE",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "nerve_to_subclavius"
+      ],
+      "legacy_identifiers": [
+        "nerve_to_subclavius"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "nerve_to_subclavius"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUPRACLAVICULAR_NERVES",
+      "canonical_name": "Supraclavicular Nerves",
+      "latin_name": "Nervi supraclaviculares",
+      "entity_type": "NERVE_GROUP",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CROSS_TOPOGRAPHIC_REFERENCE",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "AET-REF-EXTERNAL",
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.1",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "provenance": {
+        "source": "CANONICAL_FACT_REFERENCE_ONLY",
+        "note": "Reference-only entity supporting canonical relational propositions"
+      },
+      "parent_entity_id": null,
+      "hierarchy_type": null,
+      "true_aliases": [
+        "supraclavicular_nerves"
+      ],
+      "legacy_identifiers": [
+        "supraclavicular_nerves",
+        "lateral_supraclavicular_nerve",
+        "medial_supraclavicular_nerve"
+      ],
+      "regional_terms": [],
+      "source_terms": [
+        "supraclavicular_nerves",
+        "lateral_supraclavicular_nerve",
+        "medial_supraclavicular_nerve"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      }
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-INFERIOR_SCAPULAR_REGION",
+      "canonical_name": "Inferior Scapular Region",
+      "latin_name": "Regio scapularis inferior",
+      "entity_type": "REGIONAL_SEGMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULA",
+      "hierarchy_type": "REGION_OF",
+      "true_aliases": [
+        "inferior_scapular_region"
+      ],
+      "legacy_identifiers": [
+        "inferior_scapular_region"
+      ],
+      "regional_terms": [
+        "inferior_scapular_region"
+      ],
+      "source_terms": [
+        "inferior_scapular_region"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-078"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_ACROMIAL_FACET",
+      "canonical_name": "Acromial Facet of Scapula",
+      "latin_name": "Facies articularis acromialis",
+      "entity_type": "ARTICULAR_FACET",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_ACROMION",
+      "hierarchy_type": "LANDMARK_OF",
+      "true_aliases": [
+        "acromial_facet_of_scapula"
+      ],
+      "legacy_identifiers": [
+        "acromial_facet_of_scapula"
+      ],
+      "regional_terms": [
+        "acromial_facet"
+      ],
+      "source_terms": [
+        "acromial_facet_of_scapula"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-053"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS_APEX",
+      "canonical_name": "Apex of Coracoid Process",
+      "latin_name": "Apex processus coracoidei",
+      "entity_type": "LANDMARK_SUBPART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "hierarchy_type": "LANDMARK_OF",
+      "true_aliases": [
+        "coracoid_process_apex"
+      ],
+      "legacy_identifiers": [
+        "coracoid_process_apex"
+      ],
+      "regional_terms": [
+        "apex_processus_coracoidei"
+      ],
+      "source_terms": [
+        "coracoid_process_apex"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-072",
+          "AET-CF-SCAP-073"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS_MEDIAL_BORDER",
+      "canonical_name": "Medial Border of Coracoid Process",
+      "latin_name": "Margo medialis processus coracoidei",
+      "entity_type": "BORDER_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "coracoid_process_medial_border"
+      ],
+      "legacy_identifiers": [
+        "coracoid_process_medial_border"
+      ],
+      "regional_terms": [
+        "medial_border_coracoid"
+      ],
+      "source_terms": [
+        "coracoid_process_medial_border"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-071"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS_POSTERIOR_BASE",
+      "canonical_name": "Posterior Base of Coracoid Process",
+      "latin_name": "Basis posterior processus coracoidei",
+      "entity_type": "LANDMARK_SUBPART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "coracoid_process_posterior_base"
+      ],
+      "legacy_identifiers": [
+        "coracoid_process_posterior_base"
+      ],
+      "regional_terms": [
+        "base_of_coracoid_process"
+      ],
+      "source_terms": [
+        "coracoid_process_posterior_base"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-086"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS_SUPERIOR_SURFACE_HORIZONTAL_SEGMENT",
+      "canonical_name": "Superior Surface Horizontal Segment of Coracoid Process",
+      "latin_name": "Facies superior segmenti horizontalis processus coracoidei",
+      "entity_type": "SURFACE_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "hierarchy_type": "SURFACE_PART_OF",
+      "true_aliases": [
+        "coracoid_process_superior_surface_horizontal_segment"
+      ],
+      "legacy_identifiers": [
+        "coracoid_process_superior_surface_horizontal_segment"
+      ],
+      "regional_terms": [
+        "horizontal_segment_coracoid"
+      ],
+      "source_terms": [
+        "coracoid_process_superior_surface_horizontal_segment"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-085"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SPINE_SUPERIOR_LIP",
+      "canonical_name": "Superior Lip of Scapular Spine",
+      "latin_name": "Labium superius spinae scapulae",
+      "entity_type": "BORDER_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_SPINE",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "scapular_spine_superior_lip"
+      ],
+      "legacy_identifiers": [
+        "scapular_spine_superior_lip"
+      ],
+      "regional_terms": [
+        "superior_lip_scapular_spine"
+      ],
+      "source_terms": [
+        "scapular_spine_superior_lip"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-067"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SPINE_INFERIOR_LIP",
+      "canonical_name": "Inferior Lip of Scapular Spine",
+      "latin_name": "Labium inferius spinae scapulae",
+      "entity_type": "BORDER_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_SPINE",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "scapular_spine_inferior_lip"
+      ],
+      "legacy_identifiers": [
+        "scapular_spine_inferior_lip"
+      ],
+      "regional_terms": [
+        "inferior_lip_scapular_spine"
+      ],
+      "source_terms": [
+        "scapular_spine_inferior_lip"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-068"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPRAGLENOID_REGION",
+      "canonical_name": "Supraglenoid Region",
+      "latin_name": "Regio supraglenoidalis",
+      "entity_type": "LANDMARK_SUBPART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "hierarchy_type": "LANDMARK_OF",
+      "true_aliases": [
+        "supraglenoid_region"
+      ],
+      "legacy_identifiers": [
+        "supraglenoid_region"
+      ],
+      "regional_terms": [
+        "supraglenoid_tubercle_area"
+      ],
+      "source_terms": [
+        "supraglenoid_region"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-074"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER_AT_SPINE_LEVEL",
+      "canonical_name": "Medial Border of Scapula at Spine Level",
+      "latin_name": "Margo medialis scapulae ad libellam spinae",
+      "entity_type": "BORDER_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "medial_border_at_spine_level"
+      ],
+      "legacy_identifiers": [
+        "medial_border_at_spine_level"
+      ],
+      "regional_terms": [
+        "medial_border_spine_root"
+      ],
+      "source_terms": [
+        "medial_border_at_spine_level"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-070"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER_COSTAL_ASPECT",
+      "canonical_name": "Costal Aspect of Medial Border of Scapula",
+      "latin_name": "Facies costalis marginis medialis scapulae",
+      "entity_type": "SURFACE_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "hierarchy_type": "SURFACE_PART_OF",
+      "true_aliases": [
+        "medial_border_costal_aspect",
+        "costal_aspect_of_medial_border"
+      ],
+      "legacy_identifiers": [
+        "medial_border_costal_aspect",
+        "costal_aspect_of_medial_border"
+      ],
+      "regional_terms": [
+        "anterior_lip_medial_border"
+      ],
+      "source_terms": [
+        "medial_border_costal_aspect"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-075"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER_INFERIOR_TO_SPINE",
+      "canonical_name": "Medial Border of Scapula Inferior to Spine",
+      "latin_name": "Margo medialis scapulae infra spinam",
+      "entity_type": "BORDER_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "medial_border_inferior_to_scapular_spine"
+      ],
+      "legacy_identifiers": [
+        "medial_border_inferior_to_scapular_spine"
+      ],
+      "regional_terms": [
+        "infra_spinous_medial_border"
+      ],
+      "source_terms": [
+        "medial_border_inferior_to_scapular_spine"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-069"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER_NEAR_SPINE_ROOT",
+      "canonical_name": "Medial Border of Scapula Near Root of Spine",
+      "latin_name": "Margo medialis scapulae iuxta radicem spinae",
+      "entity_type": "BORDER_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "medial_border_near_root_of_scapular_spine"
+      ],
+      "legacy_identifiers": [
+        "medial_border_near_root_of_scapular_spine"
+      ],
+      "regional_terms": [
+        "spine_root_medial_border"
+      ],
+      "source_terms": [
+        "medial_border_near_root_of_scapular_spine"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER_TO_INFERIOR_ANGLE",
+      "canonical_name": "Medial Border of Scapula Extending to Inferior Angle",
+      "latin_name": "Margo medialis scapulae ad angulum inferiorem",
+      "entity_type": "BORDER_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "medial_border_to_inferior_angle"
+      ],
+      "legacy_identifiers": [
+        "medial_border_to_inferior_angle"
+      ],
+      "regional_terms": [
+        "distal_medial_border"
+      ],
+      "source_terms": [
+        "medial_border_to_inferior_angle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPERIOR_MEDIAL_BORDER",
+      "canonical_name": "Superior Medial Border of Scapula",
+      "latin_name": "Margo medialis scapulae pars superior",
+      "entity_type": "BORDER_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "superior_medial_border_of_scapula"
+      ],
+      "legacy_identifiers": [
+        "superior_medial_border_of_scapula"
+      ],
+      "regional_terms": [
+        "supra_spinous_medial_border"
+      ],
+      "source_terms": [
+        "superior_medial_border_of_scapula"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-076"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_LATERAL_BORDER_DORSAL_ASPECT",
+      "canonical_name": "Dorsal Aspect of Lateral Border of Scapula",
+      "latin_name": "Facies dorsalis marginis lateralis scapulae",
+      "entity_type": "SURFACE_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_LATERAL_BORDER",
+      "hierarchy_type": "SURFACE_PART_OF",
+      "true_aliases": [
+        "lateral_border_dorsal_aspect"
+      ],
+      "legacy_identifiers": [
+        "lateral_border_dorsal_aspect"
+      ],
+      "regional_terms": [
+        "dorsal_lateral_border"
+      ],
+      "source_terms": [
+        "lateral_border_dorsal_aspect"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-079"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_INFERIOR_ANGLE_DORSAL_ASPECT",
+      "canonical_name": "Dorsal Aspect of Inferior Angle of Scapula",
+      "latin_name": "Facies dorsalis anguli inferioris scapulae",
+      "entity_type": "SURFACE_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_INFERIOR_ANGLE",
+      "hierarchy_type": "SURFACE_PART_OF",
+      "true_aliases": [
+        "inferior_angle_dorsal_aspect"
+      ],
+      "legacy_identifiers": [
+        "inferior_angle_dorsal_aspect"
+      ],
+      "regional_terms": [
+        "dorsal_inferior_angle"
+      ],
+      "source_terms": [
+        "inferior_angle_dorsal_aspect"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": [
+          "AET-CF-SCAP-080"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-POSTERIOR_SCAPULAR_REGION",
+      "canonical_name": "Posterior Scapular Region",
+      "latin_name": "Regio scapularis posterior",
+      "entity_type": "REGIONAL_SEGMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULA",
+      "hierarchy_type": "REGION_OF",
+      "true_aliases": [
+        "posterior_scapular_region"
+      ],
+      "legacy_identifiers": [
+        "posterior_scapular_region"
+      ],
+      "regional_terms": [
+        "scapular_dorsum_region"
+      ],
+      "source_terms": [
+        "posterior_scapular_region"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SCAPULAR_SUPRASCAPULAR_NOTCH_REGION",
+      "canonical_name": "Suprascapular Notch Region",
+      "latin_name": "Regio incisurae scapulae",
+      "entity_type": "REGIONAL_SEGMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "AET-KP-UL-SCAPULA-001",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_SUPRASCAPULAR_NOTCH",
+      "hierarchy_type": "REGION_OF",
+      "true_aliases": [
+        "suprascapular_notch_region"
+      ],
+      "legacy_identifiers": [
+        "suprascapular_notch_region"
+      ],
+      "regional_terms": [
+        "notch_periphery"
+      ],
+      "source_terms": [
+        "suprascapular_notch_region"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-SCAPULA",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "AET-KP-UL-SCAPULA-001",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER",
+      "canonical_name": "Anterior Border of Clavicle",
+      "latin_name": "Margo anterior claviculae",
+      "entity_type": "BONE_BORDER",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_SHAFT",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "anterior_border_of_clavicle"
+      ],
+      "legacy_identifiers": [
+        "anterior_border_of_clavicle"
+      ],
+      "regional_terms": [
+        "anterior_clavicular_margin"
+      ],
+      "source_terms": [
+        "anterior_border_of_clavicle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER_LATERAL_THIRD",
+      "canonical_name": "Lateral One-Third of Anterior Border of Clavicle",
+      "latin_name": "Margo anterior claviculae pars lateralis",
+      "entity_type": "BORDER_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "anterior_border_lateral_one_third_clavicle"
+      ],
+      "legacy_identifiers": [
+        "anterior_border_lateral_one_third_clavicle"
+      ],
+      "regional_terms": [
+        "lateral_anterior_clavicle_border"
+      ],
+      "source_terms": [
+        "anterior_border_lateral_one_third_clavicle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "fact_ids": [
+          "AET-CF-B1-CLA-014"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER_MEDIAL_TWO_THIRDS",
+      "canonical_name": "Medial Two-Thirds of Anterior Border of Clavicle",
+      "latin_name": "Margo anterior claviculae pars medialis",
+      "entity_type": "BORDER_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "anterior_border_medial_two_thirds_clavicle"
+      ],
+      "legacy_identifiers": [
+        "anterior_border_medial_two_thirds_clavicle"
+      ],
+      "regional_terms": [
+        "medial_anterior_clavicle_border"
+      ],
+      "source_terms": [
+        "anterior_border_medial_two_thirds_clavicle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "fact_ids": [
+          "AET-CF-B1-CLA-015"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_POSTERIOR_BORDER",
+      "canonical_name": "Posterior Border of Clavicle",
+      "latin_name": "Margo posterior claviculae",
+      "entity_type": "BONE_BORDER",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_SHAFT",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "posterior_border_of_clavicle"
+      ],
+      "legacy_identifiers": [
+        "posterior_border_of_clavicle"
+      ],
+      "regional_terms": [
+        "posterior_clavicular_margin"
+      ],
+      "source_terms": [
+        "posterior_border_of_clavicle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_POSTERIOR_BORDER_LATERAL_THIRD",
+      "canonical_name": "Lateral One-Third of Posterior Border of Clavicle",
+      "latin_name": "Margo posterior claviculae pars lateralis",
+      "entity_type": "BORDER_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_POSTERIOR_BORDER",
+      "hierarchy_type": "BORDER_PART_OF",
+      "true_aliases": [
+        "posterior_border_lateral_one_third_clavicle"
+      ],
+      "legacy_identifiers": [
+        "posterior_border_lateral_one_third_clavicle"
+      ],
+      "regional_terms": [
+        "lateral_posterior_clavicle_border"
+      ],
+      "source_terms": [
+        "posterior_border_lateral_one_third_clavicle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "fact_ids": [
+          "AET-CF-B1-CLA-016"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_STERNAL_END_EPIPHYSIS",
+      "canonical_name": "Epiphysis of Sternal End of Clavicle",
+      "latin_name": "Epiphysis extremitatis sternalis claviculae",
+      "entity_type": "ANATOMICAL_SUBENTITY",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_STERNAL_END",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "clavicular_sternal_end_epiphysis"
+      ],
+      "legacy_identifiers": [
+        "clavicular_sternal_end_epiphysis"
+      ],
+      "regional_terms": [
+        "medial_clavicle_epiphysis"
+      ],
+      "source_terms": [
+        "clavicular_sternal_end_epiphysis"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "fact_ids": [
+          "AET-CF-B1-CLA-048"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE_LATERAL_ANTERIOR",
+      "canonical_name": "Lateral One-Third Anterior Aspect of Clavicular Superior Surface",
+      "latin_name": "Facies superior claviculae pars lateralis anterior",
+      "entity_type": "SURFACE_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE",
+      "hierarchy_type": "SURFACE_PART_OF",
+      "true_aliases": [
+        "superior_surface_lateral_one_third_anterior_clavicle"
+      ],
+      "legacy_identifiers": [
+        "superior_surface_lateral_one_third_anterior_clavicle"
+      ],
+      "regional_terms": [
+        "deltoid_attachment_superior_surface"
+      ],
+      "source_terms": [
+        "superior_surface_lateral_one_third_anterior_clavicle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "fact_ids": [
+          "AET-CF-B1-CLA-011"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE_LATERAL_POSTERIOR",
+      "canonical_name": "Lateral One-Third Posterior Aspect of Clavicular Superior Surface",
+      "latin_name": "Facies superior claviculae pars lateralis posterior",
+      "entity_type": "SURFACE_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE",
+      "hierarchy_type": "SURFACE_PART_OF",
+      "true_aliases": [
+        "superior_surface_lateral_one_third_posterior_clavicle"
+      ],
+      "legacy_identifiers": [
+        "superior_surface_lateral_one_third_posterior_clavicle"
+      ],
+      "regional_terms": [
+        "trapezius_attachment_superior_surface"
+      ],
+      "source_terms": [
+        "superior_surface_lateral_one_third_posterior_clavicle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "fact_ids": [
+          "AET-CF-B1-CLA-012"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE_MEDIAL_HALF",
+      "canonical_name": "Medial Half of Clavicular Superior Surface",
+      "latin_name": "Facies superior claviculae pars medialis",
+      "entity_type": "SURFACE_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE",
+      "hierarchy_type": "SURFACE_PART_OF",
+      "true_aliases": [
+        "superior_surface_medial_half_clavicle"
+      ],
+      "legacy_identifiers": [
+        "superior_surface_medial_half_clavicle"
+      ],
+      "regional_terms": [
+        "subcutaneous_medial_surface"
+      ],
+      "source_terms": [
+        "superior_surface_medial_half_clavicle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "fact_ids": [
+          "AET-CF-B1-CLA-010"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE_MEDIAL_POSTERIOR",
+      "canonical_name": "Medial One-Third Posterior Aspect of Clavicular Superior Surface",
+      "latin_name": "Facies superior claviculae pars medialis posterior",
+      "entity_type": "SURFACE_SUBREGION",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE",
+      "hierarchy_type": "SURFACE_PART_OF",
+      "true_aliases": [
+        "superior_surface_medial_one_third_posterior_aspect_clavicle"
+      ],
+      "legacy_identifiers": [
+        "superior_surface_medial_one_third_posterior_aspect_clavicle"
+      ],
+      "regional_terms": [
+        "scm_clavicular_attachment"
+      ],
+      "source_terms": [
+        "superior_surface_medial_one_third_posterior_aspect_clavicle"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-CLAVICLE",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "fact_ids": [
+          "AET-CF-B1-CLA-013"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-UL-SUPERIOR_ACROMIOCLAVICULAR_LIGAMENT",
+      "canonical_name": "Superior Acromioclavicular Ligament",
+      "latin_name": "Ligamentum acromioclaviculare superius",
+      "entity_type": "LIGAMENT",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "FULL_CANONICAL",
+      "pack_owner": "EXP-UL-B1",
+      "parent_entity_id": "AET-ENT-UL-ACROMIOCLAVICULAR_LIGAMENT",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "superior_acromioclavicular_ligament"
+      ],
+      "legacy_identifiers": [
+        "superior_acromioclavicular_ligament"
+      ],
+      "regional_terms": [
+        "superior_ac_band"
+      ],
+      "source_terms": [
+        "superior_acromioclavicular_ligament"
+      ],
+      "AMC_mapping": {
+        "target_id": "TARGET-UL-AC-JOINT",
+        "mapping_status": "DERIVED_MAPPING_HANDLE",
+        "derived_handle": true,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1",
+        "fact_ids": [
+          "AET-CF-B1-ACJ-008"
+        ]
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-HUMERAL_HEAD",
+      "canonical_name": "Head of Humerus",
+      "latin_name": "Caput humeri",
+      "entity_type": "BONE_PART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "REGIAO_DO_OMBRO",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-HUMERUS",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "humeral_head"
+      ],
+      "legacy_identifiers": [
+        "humeral_head"
+      ],
+      "regional_terms": [
+        "caput_humeri"
+      ],
+      "source_terms": [
+        "humeral_head"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SURGICAL_NECK_HUMERUS",
+      "canonical_name": "Surgical Neck of Humerus",
+      "latin_name": "Collum chirurgicum humeri",
+      "entity_type": "LANDMARK_SUBPART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "REGIAO_DO_OMBRO",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-HUMERUS",
+      "hierarchy_type": "LANDMARK_OF",
+      "true_aliases": [
+        "surgical_neck_humerus"
+      ],
+      "legacy_identifiers": [
+        "surgical_neck_humerus"
+      ],
+      "regional_terms": [
+        "collum_chirurgicum"
+      ],
+      "source_terms": [
+        "surgical_neck_humerus"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-CLAVICULAR_NOTCH_MANUBRIUM",
+      "canonical_name": "Clavicular Notch of Manubrium Sterni",
+      "latin_name": "Incisura clavicularis manubrii sterni",
+      "entity_type": "ARTICULAR_FACET",
+      "region": "TORAX",
+      "subregion": "PAREDE_TORACICA_ANTERIOR",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-MANUBRIUM_STERNI",
+      "hierarchy_type": "LANDMARK_OF",
+      "true_aliases": [
+        "clavicular_notch_of_manubrium_sterni"
+      ],
+      "legacy_identifiers": [
+        "clavicular_notch_of_manubrium_sterni"
+      ],
+      "regional_terms": [
+        "sternal_clavicular_notch"
+      ],
+      "source_terms": [
+        "clavicular_notch_of_manubrium_sterni"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-FIRST_COSTAL_CARTILAGE_STERNAL_JUNCTION",
+      "canonical_name": "First Costal Cartilage Sternal Junction",
+      "latin_name": "Junctio cartilaginis costalis primae et sterni",
+      "entity_type": "LANDMARK_SUBPART",
+      "region": "TORAX",
+      "subregion": "PAREDE_TORACICA_ANTERIOR",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-FIRST_COSTAL_CARTILAGE",
+      "hierarchy_type": "LANDMARK_OF",
+      "true_aliases": [
+        "first_costal_cartilage_and_sternal_junction"
+      ],
+      "legacy_identifiers": [
+        "first_costal_cartilage_and_sternal_junction"
+      ],
+      "regional_terms": [
+        "costosternal_junction_1"
+      ],
+      "source_terms": [
+        "first_costal_cartilage_and_sternal_junction"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-ANTEROSUPERIOR_THORACIC_WALL",
+      "canonical_name": "Anterosuperior Thoracic Wall",
+      "latin_name": "Paries thoracis anterosuperior",
+      "entity_type": "REGIONAL_SEGMENT",
+      "region": "TORAX",
+      "subregion": "PAREDE_TORACICA_ANTERIOR",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-THORACIC_WALL",
+      "hierarchy_type": "REGION_OF",
+      "true_aliases": [
+        "anterosuperior_thoracic_wall"
+      ],
+      "legacy_identifiers": [
+        "anterosuperior_thoracic_wall"
+      ],
+      "regional_terms": [
+        "pectoral_wall"
+      ],
+      "source_terms": [
+        "anterosuperior_thoracic_wall"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-POSTEROLATERAL_THORACIC_WALL",
+      "canonical_name": "Posterolateral Thoracic Wall",
+      "latin_name": "Paries thoracis posterolateralis",
+      "entity_type": "REGIONAL_SEGMENT",
+      "region": "TORAX",
+      "subregion": "PAREDE_TORACICA_POSTERIOR",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-THORACIC_WALL",
+      "hierarchy_type": "REGION_OF",
+      "true_aliases": [
+        "posterolateral_thoracic_wall"
+      ],
+      "legacy_identifiers": [
+        "posterolateral_thoracic_wall"
+      ],
+      "regional_terms": [
+        "scapulothoracic_wall"
+      ],
+      "source_terms": [
+        "posterolateral_thoracic_wall"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-DELTOID_CLAVICULAR_PORTION",
+      "canonical_name": "Clavicular Part of Deltoid Muscle",
+      "latin_name": "Pars clavicularis musculi deltoidei",
+      "entity_type": "MUSCLE_PART",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "REGIAO_DO_OMBRO",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-DELTOID",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "deltoid_clavicular_portion"
+      ],
+      "legacy_identifiers": [
+        "deltoid_clavicular_portion"
+      ],
+      "regional_terms": [
+        "anterior_deltoid"
+      ],
+      "source_terms": [
+        "deltoid_clavicular_portion"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-TRAPEZIUS_DESCENDING_PART",
+      "canonical_name": "Descending Part of Trapezius Muscle",
+      "latin_name": "Pars descendens musculi trapezii",
+      "entity_type": "MUSCLE_PART",
+      "region": "DORSO",
+      "subregion": "MUSCULOS_EXTRINSECOS_DO_DORSO",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-TRAPEZIUS",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "trapezius_descending_part"
+      ],
+      "legacy_identifiers": [
+        "trapezius_descending_part"
+      ],
+      "regional_terms": [
+        "superior_trapezius"
+      ],
+      "source_terms": [
+        "trapezius_descending_part"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-ACROMIAL_BRANCH_THORACOACROMIAL",
+      "canonical_name": "Acromial Branch of Thoracoacromial Artery",
+      "latin_name": "Ramus acromialis arteriae thoracoacromialis",
+      "entity_type": "ARTERY_BRANCH",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "AXILA",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-THORACOACROMIAL_ARTERY",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "acromial_branch_of_thoracoacromial_artery",
+        "acromial_branches"
+      ],
+      "legacy_identifiers": [
+        "acromial_branch_of_thoracoacromial_artery",
+        "acromial_branches"
+      ],
+      "regional_terms": [
+        "acromial_rete_supply"
+      ],
+      "source_terms": [
+        "acromial_branch_of_thoracoacromial_artery"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-DELTOID_BRANCH_THORACOACROMIAL",
+      "canonical_name": "Deltoid Branch of Thoracoacromial Artery",
+      "latin_name": "Ramus deltoideus arteriae thoracoacromialis",
+      "entity_type": "ARTERY_BRANCH",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "AXILA",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-THORACOACROMIAL_ARTERY",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "deltoid_branch_of_thoracoacromial_artery"
+      ],
+      "legacy_identifiers": [
+        "deltoid_branch_of_thoracoacromial_artery"
+      ],
+      "regional_terms": [
+        "deltopectoral_artery"
+      ],
+      "source_terms": [
+        "deltoid_branch_of_thoracoacromial_artery"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUPRASCAPULAR_ARTERY_BRANCHES",
+      "canonical_name": "Branches of Suprascapular Artery",
+      "latin_name": "Rami arteriae suprascapularis",
+      "entity_type": "ARTERY_BRANCH",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-SUPRASCAPULAR_ARTERY",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "suprascapular_artery_branches"
+      ],
+      "legacy_identifiers": [
+        "suprascapular_artery_branches"
+      ],
+      "regional_terms": [
+        "suprascapular_anastomotic_twigs"
+      ],
+      "source_terms": [
+        "suprascapular_artery_branches"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-DORSAL_SCAPULAR_VESSELS_MEDIAL_BORDER",
+      "canonical_name": "Dorsal Scapular Vessels along Medial Border",
+      "latin_name": "Vasa dorsalia scapulae ad marginem medialem",
+      "entity_type": "REFERENCE_TERM",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-DORSAL_SCAPULAR_VESSELS",
+      "hierarchy_type": "REGION_OF",
+      "true_aliases": [
+        "dorsal_scapular_vessels_along_medial_border"
+      ],
+      "legacy_identifiers": [
+        "dorsal_scapular_vessels_along_medial_border"
+      ],
+      "regional_terms": [
+        "medial_border_neurovascular_course"
+      ],
+      "source_terms": [
+        "dorsal_scapular_vessels_along_medial_border"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-SUPRASCAPULAR_NERVE_ARTICULAR_BRANCHES",
+      "canonical_name": "Articular Branches of Suprascapular Nerve",
+      "latin_name": "Rami articulares nervi suprascapularis",
+      "entity_type": "NERVE_BRANCH",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "CINTURA_ESCAPULAR",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-SUPRASCAPULAR_NERVE",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "suprascapular_nerve_articular_branches"
+      ],
+      "legacy_identifiers": [
+        "suprascapular_nerve_articular_branches"
+      ],
+      "regional_terms": [
+        "ac_and_gh_articular_branches"
+      ],
+      "source_terms": [
+        "suprascapular_nerve_articular_branches"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-AXILLARY_NERVE_ARTICULAR_TWIGS",
+      "canonical_name": "Articular Twigs of Axillary Nerve",
+      "latin_name": "Rami articulares nervi axillaris",
+      "entity_type": "NERVE_BRANCH",
+      "region": "MEMBRO_SUPERIOR",
+      "subregion": "REGIAO_DO_OMBRO",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-AXILLARY_NERVE",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "axillary_nerve_articular_twigs"
+      ],
+      "legacy_identifiers": [
+        "axillary_nerve_articular_twigs"
+      ],
+      "regional_terms": [
+        "inferior_capsular_twigs"
+      ],
+      "source_terms": [
+        "axillary_nerve_articular_twigs"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-LATERAL_SUPRACLAVICULAR_NERVE",
+      "canonical_name": "Lateral Supraclavicular Nerve",
+      "latin_name": "Nervus supraclavicularis lateralis",
+      "entity_type": "NERVE_BRANCH",
+      "region": "PESCOCO",
+      "subregion": "PLEXO_CERVICAL",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-SUPRACLAVICULAR_NERVES",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "lateral_supraclavicular_nerve"
+      ],
+      "legacy_identifiers": [
+        "lateral_supraclavicular_nerve"
+      ],
+      "regional_terms": [
+        "posterior_supraclavicular_branch"
+      ],
+      "source_terms": [
+        "lateral_supraclavicular_nerve"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    },
+    {
+      "canonical_entity_id": "AET-ENT-REF-MEDIAL_SUPRACLAVICULAR_NERVE",
+      "canonical_name": "Medial Supraclavicular Nerve",
+      "latin_name": "Nervus supraclavicularis medialis",
+      "entity_type": "NERVE_BRANCH",
+      "region": "PESCOCO",
+      "subregion": "PLEXO_CERVICAL",
+      "knowledge_state": "REFERENCE_ONLY",
+      "pack_owner": "FUTURE_BATCH",
+      "parent_entity_id": "AET-ENT-REF-SUPRACLAVICULAR_NERVES",
+      "hierarchy_type": "PART_OF",
+      "true_aliases": [
+        "medial_supraclavicular_nerve"
+      ],
+      "legacy_identifiers": [
+        "medial_supraclavicular_nerve"
+      ],
+      "regional_terms": [
+        "anterior_supraclavicular_branch"
+      ],
+      "source_terms": [
+        "medial_supraclavicular_nerve"
+      ],
+      "AMC_mapping": {
+        "target_id": null,
+        "mapping_status": "NOT_REPRESENTED_IN_AMC",
+        "derived_handle": false,
+        "certified_amc_target": false
+      },
+      "three_d_mapping": {
+        "status": "NOT_MAPPED"
+      },
+      "provenance": {
+        "source": "EXP-UL-B1_REF",
+        "fact_ids": []
+      },
+      "first_canonical_version": "AETERNUM-CANONICAL-MEMORY-0.2.2",
+      "current_version": "AETERNUM-CANONICAL-MEMORY-0.2.2"
+    }
+  ]
+}

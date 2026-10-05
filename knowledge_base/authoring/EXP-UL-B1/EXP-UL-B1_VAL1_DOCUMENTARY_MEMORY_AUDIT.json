@@ -1,0 +1,75 @@
+{
+  "batch_id": "EXP-UL-B1",
+  "phase": "EXP-UL-B1-VAL1",
+  "total_blocks": 7,
+  "metrics": {
+    "DOCUMENTARY_FULLY_SUPPORTED_COUNT": 5,
+    "DOCUMENTARY_PARTIALLY_SUPPORTED_COUNT": 2,
+    "DOCUMENTARY_UNSUPPORTED_COUNT": 0
+  },
+  "blocks": [
+    {
+      "block_id": "DOC-UL-B1-001",
+      "title": "Clavicle Architectural and Morphological Overview",
+      "audit_status": "FULLY_SUPPORTED",
+      "total_linked_facts": 20,
+      "validated_linked_facts": 20,
+      "supported_linked_facts": 0,
+      "safe_engine_usage_rule": "CAN_BE_RETRIEVED_AS_WHOLE_UNIT_OR_COMPOSED"
+    },
+    {
+      "block_id": "DOC-UL-B1-002",
+      "title": "Systematic Practical Orientation and Laterality of the Clavicle",
+      "audit_status": "FULLY_SUPPORTED",
+      "total_linked_facts": 10,
+      "validated_linked_facts": 10,
+      "supported_linked_facts": 0,
+      "safe_engine_usage_rule": "CAN_BE_RETRIEVED_AS_WHOLE_UNIT_OR_COMPOSED"
+    },
+    {
+      "block_id": "DOC-UL-B1-003",
+      "title": "Sternoclavicular Joint Architecture and Kinematics",
+      "audit_status": "FULLY_SUPPORTED",
+      "total_linked_facts": 19,
+      "validated_linked_facts": 19,
+      "supported_linked_facts": 0,
+      "safe_engine_usage_rule": "CAN_BE_RETRIEVED_AS_WHOLE_UNIT_OR_COMPOSED"
+    },
+    {
+      "block_id": "DOC-UL-B1-004",
+      "title": "Acromioclavicular Joint Morphology, Capsule, and Kinematics",
+      "audit_status": "PARTIALLY_SUPPORTED",
+      "total_linked_facts": 15,
+      "validated_linked_facts": 14,
+      "supported_linked_facts": 1,
+      "safe_engine_usage_rule": "MUST_BE_COMPOSED_FROM_QUALIFIED_ATOMIC_FACTS"
+    },
+    {
+      "block_id": "DOC-UL-B1-005",
+      "title": "Coracoclavicular Ligament Complex: Functional Anatomy of Conoid and Trapezoid Ligaments",
+      "audit_status": "PARTIALLY_SUPPORTED",
+      "total_linked_facts": 18,
+      "validated_linked_facts": 16,
+      "supported_linked_facts": 2,
+      "safe_engine_usage_rule": "MUST_BE_COMPOSED_FROM_QUALIFIED_ATOMIC_FACTS"
+    },
+    {
+      "block_id": "DOC-UL-B1-006",
+      "title": "Pectoral Girdle Systemic Architecture and Scapulothoracic Syssarcosis",
+      "audit_status": "PARTIALLY_SUPPORTED",
+      "total_linked_facts": 15,
+      "validated_linked_facts": 13,
+      "supported_linked_facts": 2,
+      "safe_engine_usage_rule": "MUST_BE_COMPOSED_FROM_QUALIFIED_ATOMIC_FACTS"
+    },
+    {
+      "block_id": "DOC-UL-B1-007",
+      "title": "Practical Cadaveric and Clinical Surface Topography of the Clavicular Region",
+      "audit_status": "PARTIALLY_SUPPORTED",
+      "total_linked_facts": 19,
+      "validated_linked_facts": 18,
+      "supported_linked_facts": 1,
+      "safe_engine_usage_rule": "MUST_BE_COMPOSED_FROM_QUALIFIED_ATOMIC_FACTS"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR2",
+  "timestamp": "2026-09-26T18:45:50.000Z",
+  "database_file": "knowledge_base/local_mirror/aeternum_anatomical_memory.db",
+  "parity_results": {
+    "canonical_facts": {
+      "json": 248,
+      "sqlite": 248,
+      "parity": "100%"
+    },
+    "safe_engine_facts": {
+      "json": 231,
+      "sqlite": 231,
+      "parity": "100%"
+    },
+    "canonical_entities": {
+      "json": 154,
+      "sqlite": 154,
+      "parity": "100%"
+    },
+    "practical_memory": {
+      "json": 16,
+      "sqlite": 16,
+      "parity": "100%"
+    },
+    "teaching_connections": {
+      "json": 17,
+      "sqlite": 17,
+      "parity": "100%"
+    },
+    "documentary_memory": {
+      "json": 20,
+      "sqlite": 20,
+      "parity": "100%"
+    },
+    "canonical_versions": {
+      "expected": 4,
+      "sqlite": 4,
+      "parity": "100%"
+    }
+  },
+  "status": "FULL_DUAL_SUBSTRATE_PARITY_ACHIEVED"
+}

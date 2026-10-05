@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "contract_name": "AETERNUM KNOWLEDGE AUTHORING PROTOCOL",
+  "short_name": "AKAP",
+  "version": "1.0.0",
+  "schema_version": "1.0.0",
+  "description": "Permanent machine-readable governance contract defining the strict role separation between Knowledge Author, Antigravity Engine, Quality Engine, and Aeternum Sovereign Memory.",
+  "roles": {
+    "KNOWLEDGE_AUTHOR": {
+      "name": "ChatGPT / Knowledge Author",
+      "nature": "EXTERNAL_AUTHORING_SYNTHESIZER",
+      "responsibilities": [
+        "anatomical_synthesis",
+        "detailed_academic_prose",
+        "relational_explanation",
+        "macro_dossiers",
+        "micro_fact_candidates",
+        "teaching_connections",
+        "practical_anatomy_interpretation",
+        "clinical_context_candidates",
+        "terminology_candidates",
+        "knowledge_gap_filling_proposals"
+      ],
+      "prohibitions": [
+        "Must NOT assign canonical validation status unilaterally.",
+        "Must NOT assign deterministic database UUIDs or row IDs.",
+        "Must NOT ingest directly into Aeternum Memory without Antigravity validation.",
+        "Must NOT bypass contamination or leakage firewalls."
+      ]
+    },
+    "ANTIGRAVITY": {
+      "name": "Antigravity Engineering Engine",
+      "nature": "SYSTEM_RUNTIME_AND_INGESTION_ORCHESTRATOR",
+      "responsibilities": [
+        "schema_enforcement",
+        "deterministic_ids",
+        "provenance_storage",
+        "duplicate_detection",
+        "consistency_checks",
+        "terminology_matching",
+        "validation_queue_generation",
+        "contamination_checks",
+        "corpus_building",
+        "database_ingestion",
+        "sqlite_supabase_parity",
+        "coverage_reports",
+        "quality_engine_execution"
+      ],
+      "invariants": [
+        "Zero silent promotion of authoring candidates to canonical facts.",
+        "Strict dual-substrate synchronization (node:sqlite local mirror and Supabase staging).",
+        "Preserve exact source assertions separately from validation assessments.",
+        "Maintain zero leakage with respect to Quality Lab frozen test suites."
+      ]
+    },
+    "QUALITY_ENGINE": {
+      "name": "Quality Engine",
+      "nature": "EVALUATION_AND_VERIFICATION_GATEKEEPER",
+      "responsibilities": [
+        "correctness_qualification",
+        "completeness",
+        "terminology",
+        "relation_verification",
+        "topographic_consistency",
+        "contradiction_detection",
+        "false_premise_resistance",
+        "validation_gates"
+      ],
+      "validation_states": [
+        "SOURCE_EXTRACTED",
+        "SUPPORTED",
+        "VALIDATED",
+        "REVIEW_PENDING",
+        "CONFLICTING",
+        "REJECTED"
+      ]
+    },
+    "AETERNUM_MEMORY": {
+      "name": "Aeternum Sovereign Memory",
+      "nature": "SOVEREIGN_CANONICAL_KNOWLEDGE_STORE",
+      "description": "Stores only knowledge carrying full provenance, validation, and semantic metadata.",
+      "mandatory_record_attributes": [
+        "source_identity",
+        "authoring_identity",
+        "validation_state",
+        "corpus_version",
+        "entity_identity",
+        "semantic_dimensions"
+      ],
+      "admission_gate": "Records lacking any of the 6 mandatory attributes are strictly rejected at the ingestion boundary."
+    }
+  },
+  "authoring_pipeline_lifecycle": [
+    {
+      "step": 1,
+      "actor": "KNOWLEDGE_AUTHOR",
+      "action": "PRODUCE_CANDIDATE_DOSSIERS_AND_FACTS",
+      "output": "AUTHORING_CANDIDATES"
+    },
+    {
+      "step": 2,
+      "actor": "ANTIGRAVITY",
+      "action": "ENFORCE_SCHEMA_AND_INSPECT_CONTAMINATION",
+      "output": "NORMALIZED_CANDIDATE_PACK"
+    },
+    {
+      "step": 3,
+      "actor": "QUALITY_ENGINE",
+      "action": "EVALUATE_CORRECTNESS_TOPOGRAPHY_CONTRADICTIONS",
+      "output": "VALIDATION_QUEUE_ASSESSMENT"
+    },
+    {
+      "step": 4,
+      "actor": "ANTIGRAVITY",
+      "action": "BUILD_DUAL_SUBSTRATE_AND_INGEST",
+      "output": "SOVEREIGN_CORPUS_MIRROR_AND_CLOUD"
+    },
+    {
+      "step": 5,
+      "actor": "AETERNUM_MEMORY",
+      "action": "COMMIT_QUALIFIED_RECORDS",
+      "output": "CANONICAL_SOVEREIGN_MEMORY"
+    }
+  ]
+}

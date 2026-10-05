@@ -1,0 +1,139 @@
+{
+  "phase": "EXP-UL-B1-CP1-IR2",
+  "timestamp": "2026-09-26T18:45:50.000Z",
+  "entity_resolution_test_count": 13,
+  "entity_resolution_test_pass_count": 13,
+  "all_tests_passed": true,
+  "results": [
+    {
+      "query": "coracoid_process_apex",
+      "exact_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS_APEX",
+      "exact_name": "Apex of Coracoid Process",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "parent_name": "Coracoid Process",
+      "hierarchy_type": "LANDMARK_OF",
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "coracoid_process",
+      "exact_entity_id": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "exact_name": "Coracoid Process",
+      "parent_entity_id": null,
+      "parent_name": null,
+      "hierarchy_type": null,
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "scapular_spine_superior_lip",
+      "exact_entity_id": "AET-ENT-UL-SCAPULAR_SPINE_SUPERIOR_LIP",
+      "exact_name": "Superior Lip of Scapular Spine",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_SPINE",
+      "parent_name": "Spine of Scapula",
+      "hierarchy_type": "BORDER_PART_OF",
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "scapular_spine",
+      "exact_entity_id": "AET-ENT-UL-SCAPULAR_SPINE",
+      "exact_name": "Spine of Scapula",
+      "parent_entity_id": null,
+      "parent_name": null,
+      "hierarchy_type": null,
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "medial_border_inferior_to_scapular_spine",
+      "exact_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER_INFERIOR_TO_SPINE",
+      "exact_name": "Medial Border of Scapula Inferior to Spine",
+      "parent_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "parent_name": "Medial Border of Scapula",
+      "hierarchy_type": "BORDER_PART_OF",
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "medial_border",
+      "exact_entity_id": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "exact_name": "Medial Border of Scapula",
+      "parent_entity_id": null,
+      "parent_name": null,
+      "hierarchy_type": null,
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "anterior_border_lateral_one_third_clavicle",
+      "exact_entity_id": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER_LATERAL_THIRD",
+      "exact_name": "Lateral One-Third of Anterior Border of Clavicle",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER",
+      "parent_name": "Anterior Border of Clavicle",
+      "hierarchy_type": "BORDER_PART_OF",
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "anterior_border_of_clavicle",
+      "exact_entity_id": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER",
+      "exact_name": "Anterior Border of Clavicle",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_SHAFT",
+      "parent_name": "Shaft of Clavicle",
+      "hierarchy_type": "BORDER_PART_OF",
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "clavicular_shaft",
+      "exact_entity_id": "AET-ENT-UL-CLAVICULAR_SHAFT",
+      "exact_name": "Shaft of Clavicle",
+      "parent_entity_id": null,
+      "parent_name": null,
+      "hierarchy_type": null,
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "clavicular_sternal_end_epiphysis",
+      "exact_entity_id": "AET-ENT-UL-CLAVICULAR_STERNAL_END_EPIPHYSIS",
+      "exact_name": "Epiphysis of Sternal End of Clavicle",
+      "parent_entity_id": "AET-ENT-UL-CLAVICULAR_STERNAL_END",
+      "parent_name": "Sternal End of Clavicle",
+      "hierarchy_type": "PART_OF",
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "clavicular_sternal_end",
+      "exact_entity_id": "AET-ENT-UL-CLAVICULAR_STERNAL_END",
+      "exact_name": "Sternal End of Clavicle",
+      "parent_entity_id": null,
+      "parent_name": null,
+      "hierarchy_type": null,
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "superior_acromioclavicular_ligament",
+      "exact_entity_id": "AET-ENT-UL-SUPERIOR_ACROMIOCLAVICULAR_LIGAMENT",
+      "exact_name": "Superior Acromioclavicular Ligament",
+      "parent_entity_id": "AET-ENT-UL-ACROMIOCLAVICULAR_LIGAMENT",
+      "parent_name": "Acromioclavicular Ligament",
+      "hierarchy_type": "PART_OF",
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    },
+    {
+      "query": "acromioclavicular_ligament",
+      "exact_entity_id": "AET-ENT-UL-ACROMIOCLAVICULAR_LIGAMENT",
+      "exact_name": "Acromioclavicular Ligament",
+      "parent_entity_id": null,
+      "parent_name": null,
+      "hierarchy_type": null,
+      "is_exact_synonym_of_parent": false,
+      "requested_granularity_preserved": true
+    }
+  ]
+}

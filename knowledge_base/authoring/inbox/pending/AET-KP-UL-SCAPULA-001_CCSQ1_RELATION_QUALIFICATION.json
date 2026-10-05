@@ -1,0 +1,239 @@
+{
+  "certified_ready": [
+    {
+      "relation": "ARTICULATES_WITH",
+      "count": 3,
+      "status": "CERTIFIED_READY",
+      "certified_in_registry": true,
+      "inverse": "ARTICULATES_WITH"
+    },
+    {
+      "relation": "ORIGINATES_FROM",
+      "count": 11,
+      "status": "CERTIFIED_READY",
+      "certified_in_registry": true,
+      "inverse": "GIVES_ORIGIN_TO"
+    },
+    {
+      "relation": "INSERTS_INTO",
+      "count": 7,
+      "status": "CERTIFIED_READY",
+      "certified_in_registry": true,
+      "inverse": "RECEIVES_INSERTION_OF"
+    },
+    {
+      "relation": "LOCATED_IN",
+      "count": 1,
+      "status": "CERTIFIED_READY",
+      "certified_in_registry": true,
+      "inverse": "CONTAINS_LOCATION_OF"
+    },
+    {
+      "relation": "TYPE_OF",
+      "count": 2,
+      "status": "CERTIFIED_READY",
+      "certified_in_registry": true,
+      "inverse": "HAS_SUBTYPE"
+    },
+    {
+      "relation": "CONTAINS",
+      "count": 3,
+      "status": "CERTIFIED_READY",
+      "certified_in_registry": true,
+      "inverse": "LOCATED_IN"
+    },
+    {
+      "relation": "innervated_by",
+      "count": 2,
+      "status": "CERTIFIED_READY",
+      "certified_in_registry": true,
+      "inverse": "INNERVATES"
+    }
+  ],
+  "inverse_normalizable": [
+    {
+      "relation": "HAS_SURFACE",
+      "count": 2,
+      "status": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "inverse_target": "part_of",
+      "description": "Inverse of anatomical surface part-whole relation"
+    },
+    {
+      "relation": "HAS_BORDER",
+      "count": 3,
+      "status": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "inverse_target": "part_of",
+      "description": "Inverse of anatomical border part-whole relation"
+    },
+    {
+      "relation": "HAS_ANGLE",
+      "count": 3,
+      "status": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "inverse_target": "part_of",
+      "description": "Inverse of anatomical angle part-whole relation"
+    },
+    {
+      "relation": "HAS_STRUCTURE",
+      "count": 2,
+      "status": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "inverse_target": "part_of",
+      "description": "Inverse of anatomical feature part-whole relation"
+    },
+    {
+      "relation": "HAS_FOSSA",
+      "count": 3,
+      "status": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "inverse_target": "part_of",
+      "description": "Inverse of osseous fossa part-whole relation"
+    },
+    {
+      "relation": "HAS_PROCESS",
+      "count": 1,
+      "status": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "inverse_target": "part_of",
+      "description": "Inverse of osseous process part-whole relation"
+    },
+    {
+      "relation": "HAS_LANDMARK",
+      "count": 2,
+      "status": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "inverse_target": "part_of",
+      "description": "Inverse of osseous landmark part-whole relation"
+    },
+    {
+      "relation": "HAS_NOTCH",
+      "count": 1,
+      "status": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "inverse_target": "part_of",
+      "description": "Inverse of incisura/notch part-whole relation"
+    },
+    {
+      "relation": "HAS_BOUNDARY",
+      "count": 7,
+      "status": "DETERMINISTIC_INVERSE_AVAILABLE",
+      "inverse_target": "forms_boundary_of",
+      "description": "Inverse of anatomical space boundary"
+    }
+  ],
+  "alias_normalizable": [
+    {
+      "relation": "EXTENDS_BETWEEN",
+      "count": 1,
+      "status": "CERTIFIED_RELATION_ALIAS_AVAILABLE",
+      "canonical_alias": "connects_to",
+      "description": "Ligamentous bridge connection"
+    },
+    {
+      "relation": "BRIDGES",
+      "count": 1,
+      "status": "CERTIFIED_RELATION_ALIAS_AVAILABLE",
+      "canonical_alias": "connects_to",
+      "description": "Ligament bridging notch"
+    },
+    {
+      "relation": "PRACTICAL_IDENTIFIES",
+      "count": 1,
+      "status": "CERTIFIED_RELATION_ALIAS_AVAILABLE",
+      "canonical_alias": "indicates_orientation_of",
+      "description": "Practical orientation cue"
+    }
+  ],
+  "unambiguous_candidate": [
+    {
+      "relation": "SEPARATES",
+      "count": 1,
+      "status": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "semantics": "Spatial divider between two anatomical compartments"
+    },
+    {
+      "relation": "CONTINUES_AS",
+      "count": 1,
+      "status": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "semantics": "Direct morphological continuation of osseous structure"
+    },
+    {
+      "relation": "PASSES_THROUGH",
+      "count": 1,
+      "status": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "semantics": "Neurovascular passage through opening"
+    },
+    {
+      "relation": "REGIONAL_VASCULAR_RELATION",
+      "count": 3,
+      "status": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "semantics": "Arterial supply network proximity"
+    },
+    {
+      "relation": "HAS_MORPHOLOGIC_VARIANT",
+      "count": 3,
+      "status": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "semantics": "Morphologic shape variation"
+    },
+    {
+      "relation": "HAS_VARIANT",
+      "count": 2,
+      "status": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "semantics": "Ligamentous variation candidate"
+    },
+    {
+      "relation": "MAY_FORM",
+      "count": 1,
+      "status": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "semantics": "Potential anatomic consequence of ossification"
+    },
+    {
+      "relation": "RECEIVES_PERIOSTEAL_SUPPLY_FROM",
+      "count": 1,
+      "status": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "semantics": "Periosteal micro-arterial supply"
+    },
+    {
+      "relation": "HAS_INTRAOSSEOUS_VASCULAR_NETWORK",
+      "count": 1,
+      "status": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "semantics": "Intraosseous vascular presence"
+    },
+    {
+      "relation": "HAS_SENSORY_INNERVATION",
+      "count": 1,
+      "status": "UNAMBIGUOUS_RELATION_CANDIDATE",
+      "semantics": "Sensory nerve presence in tissue"
+    }
+  ],
+  "ambiguous": [
+    {
+      "relation": "RELATED_TO",
+      "count": 6,
+      "status": "AMBIGUOUS_RELATION_CANDIDATE",
+      "reason": "Non-specific topological proximity"
+    },
+    {
+      "relation": "POSSIBLE_ARTICULAR_CONTRIBUTION",
+      "count": 1,
+      "status": "AMBIGUOUS_RELATION_CANDIDATE",
+      "reason": "Unverified candidate variation"
+    },
+    {
+      "relation": "ARTICULAR_INNERVATION_CANDIDATE",
+      "count": 2,
+      "status": "AMBIGUOUS_RELATION_CANDIDATE",
+      "reason": "Candidate innervation branch"
+    }
+  ],
+  "pedagogical_only": [
+    {
+      "relation": "PRACTICAL_ORIENTATION",
+      "count": 3,
+      "status": "PEDAGOGICAL_ONLY_RELATION",
+      "reason": "Cadaveric physical orientation rule"
+    }
+  ],
+  "requiring_ontology_review": [
+    {
+      "relation": "SOURCE_REPORTED_PROPOSITION",
+      "count": 52,
+      "status": "ONTOLOGY_REVIEW_REQUIRED",
+      "reason": "Raw ingestion wrapper relation from teaching notes; resolved into canonical relations during candidate extraction"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "phase": "EXP-UL-B1-CP1-IA1",
+  "audit_timestamp": "2026-09-25T13:30:13.064Z",
+  "SCAPULA_SAFE_PRODUCTION_FACT_COUNT": 113,
+  "B1_SAFE_PRODUCTION_FACT_COUNT": 118,
+  "SQLITE_SAFE_PRODUCTION_FACT_COUNT": 231,
+  "STATIC_PAYLOAD_SAFE_FACT_COUNT": 231,
+  "ACTUAL_SAFE_ENGINE_RUNTIME_SCOPE": 231,
+  "SAFE_ENGINE_GLOBAL_PRODUCTION_FACT_COUNT": 231,
+  "arithmetic_verification": "113 + 118 = 231 (100% verified)",
+  "quarantined_facts": {
+    "total_blocked_facts": 17,
+    "scapula_blocked_facts": [
+      "AET-CF-SCAP-095",
+      "AET-CF-SCAP-096",
+      "AET-CF-SCAP-097",
+      "AET-CF-SCAP-098",
+      "AET-CF-SCAP-099",
+      "AET-CF-SCAP-119"
+    ],
+    "b1_blocked_facts": [
+      "AET-CF-SCJ-007",
+      "AET-CF-SCJ-011",
+      "AET-CF-SCJ-017",
+      "AET-CF-SCJ-023",
+      "AET-CF-ACJ-008",
+      "AET-CF-ACJ-015",
+      "AET-CF-ACJ-019",
+      "AET-CF-CCL-009",
+      "AET-CF-CCL-015",
+      "AET-CF-CCL-019",
+      "AET-CF-PG-007"
+    ],
+    "tier_b_retained": 13,
+    "tier_c_retained": 2,
+    "quarantined_supported_entities": 2,
+    "quarantined_ontology_review_relations": 2
+  }
+}

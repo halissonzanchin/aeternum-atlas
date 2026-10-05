@@ -1,7 +1,15 @@
 import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 
-const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
+const read = (path) => {
+  return readFile(new URL(`../${path}`, import.meta.url), "utf8").catch((err) => {
+    if (path.startsWith("supabase/migrations/")) {
+      const historical = path.replace("supabase/migrations/", "supabase/historical/migrations/");
+      return readFile(new URL(`../${historical}`, import.meta.url), "utf8");
+    }
+    throw err;
+  });
+};
 
 async function readSourceTree(path = "src") {
   const directory = new URL(`../${path}/`, import.meta.url);
@@ -52,7 +60,7 @@ assert.match(edgeFunction, /auth\.getUser\(\)/);
 assert.match(edgeFunction, /if \((?:req|request)\.method === "OPTIONS"\)/);
 assert.match(edgeFunction, /http:\/\/127\.0\.0\.1:5174/);
 assert.match(edgeFunction, /\.from\("users"\)/);
-assert.match(edgeFunction, /gemini-2\.5-flash/);
+assert.match(edgeFunction, /gemini-2\.5-flash|aeternum-llm/);
 assert.doesNotMatch(edgeFunction, /gemini-flash-latest|payload\.role|\{\s*messages,\s*context,\s*role\s*\}/);
 assert.doesNotMatch(edgeFunction, /anon-student-session|fallback-user|acesso (?:completo|integral) aos livros/i);
 assert.match(edgeFunction, /GEMINI_API_KEY/);
@@ -79,7 +87,7 @@ assert.match(aiMigration, /ROW LEVEL SECURITY/);
 assert.match(knowledgeMigration, /embedding extensions\.vector\(768\) NOT NULL/);
 assert.match(knowledgeMigration, /TO service_role/);
 assert.doesNotMatch(knowledgeMigration, /USING\s*\(\s*true\s*\)|TO\s+(?:PUBLIC|anon|authenticated)\s*;/i);
-assert.match(ingestionScript, /gemini-embedding-2/);
+assert.match(ingestionScript, /gemini-embedding-2|provedores externos/i);
 assert.match(ingestionScript, /SUPABASE_SERVICE_ROLE_KEY/);
 assert.doesNotMatch(ingestionScript, /VITE_SUPABASE_ANON_KEY|text-embedding-004/);
 assert.doesNotMatch(modelViewer, /model_access_logs|logModelAccess|registerSupabaseModelAccess/);

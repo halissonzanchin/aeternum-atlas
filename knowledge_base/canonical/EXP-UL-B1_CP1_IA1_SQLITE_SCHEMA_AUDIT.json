@@ -1,0 +1,45 @@
+{
+  "phase": "EXP-UL-B1-CP1-IA1",
+  "audit_timestamp": "2026-09-25T13:30:13.062Z",
+  "database_file": "knowledge_base/local_mirror/aeternum_anatomical_memory.db",
+  "tables": [
+    {
+      "name": "canonical_facts",
+      "rows": 248
+    },
+    {
+      "name": "canonical_entities",
+      "rows": 31
+    },
+    {
+      "name": "canonical_relations",
+      "rows": 5
+    },
+    {
+      "name": "practical_memory",
+      "rows": 10
+    },
+    {
+      "name": "teaching_connections",
+      "rows": 6
+    },
+    {
+      "name": "canonical_versions",
+      "rows": 2
+    },
+    {
+      "name": "promotion_metadata",
+      "rows": 1
+    },
+    {
+      "name": "anatomical_chunks",
+      "rows": 32
+    }
+  ],
+  "integrity_checks": {
+    "duplicate_fact_ids": 0,
+    "duplicate_entity_ids": 0,
+    "native_foreign_key_constraints_enforced": false,
+    "application_level_integrity": true
+  }
+}

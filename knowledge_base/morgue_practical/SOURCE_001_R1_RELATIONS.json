@@ -1,0 +1,1266 @@
+[
+  {
+    "subject": "cintura_escapular",
+    "relation": "HAS_BONE_COUNT",
+    "object": "32_huesos",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1
+  },
+  {
+    "subject": "clavicula",
+    "relation": "PART_OF",
+    "object": "cintura_escapular",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1
+  },
+  {
+    "subject": "clavicula",
+    "relation": "TYPE_OF",
+    "object": "hueso_plano_alargado",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1
+  },
+  {
+    "subject": "clavicula_extremo_medial",
+    "relation": "ARTICULATES_WITH",
+    "object": "manubrio_esternal_y_1er_cartilago_costal",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1
+  },
+  {
+    "subject": "clavicula_extremo_lateral",
+    "relation": "ARTICULATES_WITH",
+    "object": "acromion_escapula",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1
+  },
+  {
+    "subject": "clavicula",
+    "relation": "HAS_SURFACES",
+    "object": [
+      "cara_superior",
+      "cara_inferior"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1
+  },
+  {
+    "subject": "clavicula",
+    "relation": "HAS_BORDERS",
+    "object": [
+      "borde_anterior",
+      "borde_posterior"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 1
+  },
+  {
+    "subject": "m_trapecio",
+    "relation": "INSERTS_INTO",
+    "object": "clavicula_1_3_lateral_cara_superior_borde_posterior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 2
+  },
+  {
+    "subject": "m_deltoides",
+    "relation": "ORIGINATES_FROM",
+    "object": "clavicula_1_3_lateral_cara_superior_borde_anterior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 2
+  },
+  {
+    "subject": "m_pectoral_mayor",
+    "relation": "ORIGINATES_FROM",
+    "object": "clavicula_2_3_mediales_cara_superior_borde_anterior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 2
+  },
+  {
+    "subject": "triangulo_deltopectoral_mohrenheim",
+    "relation": "CONTAINS",
+    "object": "vena_cefalica_y_rama_deltoidea",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 2
+  },
+  {
+    "subject": "lig_costoclavicular",
+    "relation": "INSERTS_INTO",
+    "object": "clavicula_cara_inferior_1_3_medial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 3
+  },
+  {
+    "subject": "m_subclavio",
+    "relation": "INSERTS_INTO",
+    "object": "clavicula_surco_subclavio",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 3
+  },
+  {
+    "subject": "lig_conoide",
+    "relation": "INSERTS_INTO",
+    "object": "clavicula_tuberculo_conoideo",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 3
+  },
+  {
+    "subject": "lig_trapezoide",
+    "relation": "INSERTS_INTO",
+    "object": "clavicula_linea_trapezoidea",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 3
+  },
+  {
+    "subject": "escapula",
+    "relation": "TYPE_OF",
+    "object": "hueso_plano",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 4
+  },
+  {
+    "subject": "escapula",
+    "relation": "MORPHOLOGY",
+    "object": "triangular_y_par",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 4
+  },
+  {
+    "subject": "escapula",
+    "relation": "LOCATED_IN",
+    "object": "region_superior_posterior_lateral_torax",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 4
+  },
+  {
+    "subject": "escapula",
+    "relation": "PROJECTS_TO",
+    "object": "costillas_2_a_7",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 4
+  },
+  {
+    "subject": "escapula_cara_costal",
+    "relation": "MORPHOLOGY",
+    "object": "concava",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 4
+  },
+  {
+    "subject": "escapula_cara_costal",
+    "relation": "HAS_FOSSA",
+    "object": "fosa_subescapular",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 5
+  },
+  {
+    "subject": "escapula_cara_posterior",
+    "relation": "MORPHOLOGY",
+    "object": "convexa",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 6
+  },
+  {
+    "subject": "escapula_cara_posterior",
+    "relation": "HAS_FOSSA",
+    "object": "fosa_supraespinosa",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 7
+  },
+  {
+    "subject": "escapula_cara_posterior",
+    "relation": "HAS_FOSSA",
+    "object": "fosa_infraespinosa",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 8
+  },
+  {
+    "subject": "escapula_cara_posterior",
+    "relation": "HAS_PROCESS",
+    "object": "espina_de_la_escapula",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 9
+  },
+  {
+    "subject": "espina_de_la_escapula",
+    "relation": "CONTINUES_AS",
+    "object": "acromion",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 10
+  },
+  {
+    "subject": "escapula",
+    "relation": "HAS_LANDMARK",
+    "object": "escotadura_espinoglenoidea",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 11
+  },
+  {
+    "subject": "escapula",
+    "relation": "HAS_BORDERS",
+    "object": [
+      "borde_medial",
+      "borde_lateral",
+      "borde_superior"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 12
+  },
+  {
+    "subject": "escapula_borde_superior",
+    "relation": "HAS_LANDMARK",
+    "object": "escotadura_de_la_escapula",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 12
+  },
+  {
+    "subject": "escotadura_de_la_escapula",
+    "relation": "CLOSED_BY",
+    "object": "lig_transverso_superior_escapula",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 12
+  },
+  {
+    "subject": "nervio_supraescapular",
+    "relation": "PASSES_THROUGH",
+    "object": "escotadura_de_la_escapula",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 12
+  },
+  {
+    "subject": "m_omohioideo",
+    "relation": "ORIGINATES_FROM",
+    "object": "escapula_borde_superior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 12
+  },
+  {
+    "subject": "escapula",
+    "relation": "HAS_ANGLES",
+    "object": [
+      "angulo_superior",
+      "angulo_inferior"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 13
+  },
+  {
+    "subject": "escapula",
+    "relation": "HAS_ANGLE",
+    "object": "angulo_lateral",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 14
+  },
+  {
+    "subject": "escapula_angulo_lateral",
+    "relation": "HAS_PROCESS",
+    "object": "apofisis_coracoides",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 15
+  },
+  {
+    "subject": "escapula_angulo_lateral",
+    "relation": "HAS_LANDMARK",
+    "object": "cavidad_glenoidea",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 16
+  },
+  {
+    "subject": "m_biceps_braquial",
+    "relation": "ORIGINATES_FROM",
+    "object": "tuberculo_supraglenoideo",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 16
+  },
+  {
+    "subject": "m_triceps_braquial",
+    "relation": "ORIGINATES_FROM",
+    "object": "tuberculo_infraglenoideo",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 16
+  },
+  {
+    "subject": "cavidad_glenoidea",
+    "relation": "SURROUNDED_BY",
+    "object": "labrum_glenoideo",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 17
+  },
+  {
+    "subject": "cavidad_glenoidea",
+    "relation": "ARTICULATES_WITH",
+    "object": "cabeza_del_umero",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 18
+  },
+  {
+    "subject": "m_subescapular",
+    "relation": "ORIGINATES_FROM",
+    "object": "fosa_subescapular",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 18
+  },
+  {
+    "subject": "m_serrato_anterior",
+    "relation": "INSERTS_INTO",
+    "object": "escapula_borde_medial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 19
+  },
+  {
+    "subject": "m_supraespinoso",
+    "relation": "ORIGINATES_FROM",
+    "object": "fosa_supraespinosa",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 20
+  },
+  {
+    "subject": "m_infraespinoso",
+    "relation": "ORIGINATES_FROM",
+    "object": "fosa_infraespinosa",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 21
+  },
+  {
+    "subject": "m_trapecio",
+    "relation": "INSERTS_INTO",
+    "object": "espina_escapula_labio_superior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 22
+  },
+  {
+    "subject": "m_deltoides",
+    "relation": "ORIGINATES_FROM",
+    "object": "espina_escapula_labio_inferior_y_acromion",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 22
+  },
+  {
+    "subject": "m_elevador_escapula",
+    "relation": "INSERTS_INTO",
+    "object": "escapula_borde_medial_superior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 22
+  },
+  {
+    "subject": "m_romboides_menor",
+    "relation": "INSERTS_INTO",
+    "object": "escapula_borde_medial_medio",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 22
+  },
+  {
+    "subject": "m_romboides_mayor",
+    "relation": "INSERTS_INTO",
+    "object": "escapula_borde_medial_inferior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 22
+  },
+  {
+    "subject": "m_redondo_menor",
+    "relation": "ORIGINATES_FROM",
+    "object": "escapula_borde_lateral_superior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 22
+  },
+  {
+    "subject": "m_redondo_mayor",
+    "relation": "ORIGINATES_FROM",
+    "object": "escapula_borde_lateral_inferior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 22
+  },
+  {
+    "subject": "m_coracobraquial",
+    "relation": "ORIGINATES_FROM",
+    "object": "apofisis_coracoides_vertice",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 23
+  },
+  {
+    "subject": "m_biceps_braquial_cabeza_corta",
+    "relation": "ORIGINATES_FROM",
+    "object": "apofisis_coracoides_vertice",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 23
+  },
+  {
+    "subject": "m_pectoral_menor",
+    "relation": "INSERTS_INTO",
+    "object": "apofisis_coracoides_cara_medial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 23
+  },
+  {
+    "subject": "lig_conoide",
+    "relation": "INSERTS_INTO",
+    "object": "apofisis_coracoides",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 23
+  },
+  {
+    "subject": "lig_trapezoide",
+    "relation": "INSERTS_INTO",
+    "object": "apofisis_coracoides",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 23
+  },
+  {
+    "subject": "lig_coracoacromial",
+    "relation": "INSERTS_INTO",
+    "object": "apofisis_coracoides",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 23
+  },
+  {
+    "subject": "art_glenohumeral",
+    "relation": "TYPE_OF",
+    "object": "diartrosis_enartrosis",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 24
+  },
+  {
+    "subject": "art_glenohumeral",
+    "relation": "HAS_LIGAMENTS",
+    "object": [
+      "lig_glenohumeral_superior",
+      "lig_glenohumeral_medio",
+      "lig_glenohumeral_inferior",
+      "lig_coracohumeral"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 24
+  },
+  {
+    "subject": "art_codo",
+    "relation": "TYPE_OF",
+    "object": "diartrosis_troclear",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 24
+  },
+  {
+    "subject": "m_supraespinoso",
+    "relation": "INSERTS_INTO",
+    "object": "troquiter_faceta_superior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25
+  },
+  {
+    "subject": "m_infraespinoso",
+    "relation": "INSERTS_INTO",
+    "object": "troquiter_faceta_media",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25
+  },
+  {
+    "subject": "m_redondo_menor",
+    "relation": "INSERTS_INTO",
+    "object": "troquiter_faceta_inferior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25
+  },
+  {
+    "subject": "m_subescapular",
+    "relation": "INSERTS_INTO",
+    "object": "troquin",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25
+  },
+  {
+    "subject": "m_pectoral_mayor",
+    "relation": "INSERTS_INTO",
+    "object": "corredera_bicipital_labio_lateral",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25
+  },
+  {
+    "subject": "m_dorsal_ancho",
+    "relation": "INSERTS_INTO",
+    "object": "corredera_bicipital_suelo",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25
+  },
+  {
+    "subject": "m_redondo_mayor",
+    "relation": "INSERTS_INTO",
+    "object": "corredera_bicipital_labio_medial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25
+  },
+  {
+    "subject": "nervio_axilar",
+    "relation": "RELATED_TO",
+    "object": "cuello_quirurgico_umero",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25
+  },
+  {
+    "subject": "arteria_circunfleja_humeral_posterior",
+    "relation": "RELATED_TO",
+    "object": "cuello_quirurgico_umero",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 25
+  },
+  {
+    "subject": "umero_cara_posterior",
+    "relation": "HAS_LANDMARK",
+    "object": "canal_de_torsion_sulco_radial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26
+  },
+  {
+    "subject": "canal_de_torsion_sulco_radial",
+    "relation": "CONTAINS",
+    "object": "nervio_radial_y_arteria_braquial_profunda",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26
+  },
+  {
+    "subject": "m_triceps_braquial_vasto_lateral",
+    "relation": "ORIGINATES_FROM",
+    "object": "umero_cara_posterior_arriba_del_sulco",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26
+  },
+  {
+    "subject": "m_triceps_braquial_vasto_medial",
+    "relation": "ORIGINATES_FROM",
+    "object": "umero_cara_posterior_abajo_del_sulco",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26
+  },
+  {
+    "subject": "m_deltoides",
+    "relation": "INSERTS_INTO",
+    "object": "tuberosidad_deltoidea",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26
+  },
+  {
+    "subject": "nervio_cubital",
+    "relation": "PASSES_THROUGH",
+    "object": "canal_epitrocleoolecraneano",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 26
+  },
+  {
+    "subject": "cubito_ulna",
+    "relation": "TYPE_OF",
+    "object": "hueso_largo",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 27
+  },
+  {
+    "subject": "m_triceps_braquial",
+    "relation": "INSERTS_INTO",
+    "object": "olecranon",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 27
+  },
+  {
+    "subject": "m_braquial",
+    "relation": "INSERTS_INTO",
+    "object": "apofisis_coronoides",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 27
+  },
+  {
+    "subject": "cubito_ulna",
+    "relation": "SEPARATED_FROM_CARPUS_BY",
+    "object": "fibrocartilago_triangular",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 27
+  },
+  {
+    "subject": "radio",
+    "relation": "TYPE_OF",
+    "object": "hueso_largo",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 28
+  },
+  {
+    "subject": "art_radiocubital_proximal",
+    "relation": "TYPE_OF",
+    "object": "diartrosis_trocoide",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 28
+  },
+  {
+    "subject": "m_biceps_braquial",
+    "relation": "INSERTS_INTO",
+    "object": "tuberosidad_del_radio",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 28
+  },
+  {
+    "subject": "radio",
+    "relation": "HAS_LANDMARK",
+    "object": "tuberculo_de_lister",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 28
+  },
+  {
+    "subject": "tabaquera_anatomica",
+    "relation": "HAS_LATERAL_BOUNDARY",
+    "object": "tendon_abductor_largo_y_extensor_corto_pulgar",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 29
+  },
+  {
+    "subject": "tabaquera_anatomica",
+    "relation": "HAS_MEDIAL_BOUNDARY",
+    "object": "tendon_extensor_largo_pulgar",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 29
+  },
+  {
+    "subject": "tabaquera_anatomica",
+    "relation": "HAS_FLOOR",
+    "object": "escafoides_y_trapecio",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 29
+  },
+  {
+    "subject": "tabaquera_anatomica",
+    "relation": "CONTAINS",
+    "object": "arteria_radial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 29
+  },
+  {
+    "subject": "semilunar",
+    "relation": "ARTICULATES_WITH",
+    "object": "5_huesos",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 30
+  },
+  {
+    "subject": "hueso_grande",
+    "relation": "ARTICULATES_WITH",
+    "object": "7_huesos",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 30
+  },
+  {
+    "subject": "ganchoso",
+    "relation": "HAS_LANDMARK",
+    "object": "apofisis_unciforme_gancho",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 31
+  },
+  {
+    "subject": "pisiforme",
+    "relation": "ARTICULATES_WITH",
+    "object": "piramidal",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 31
+  },
+  {
+    "subject": "metacarpiano_1",
+    "relation": "ARTICULATES_WITH",
+    "object": "trapecio",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 32
+  },
+  {
+    "subject": "falanges",
+    "relation": "HAS_COUNT",
+    "object": "14_huesos",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 33
+  },
+  {
+    "subject": "m_flexor_superficial_dedos",
+    "relation": "INSERTS_INTO",
+    "object": "falanges_medias",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 33
+  },
+  {
+    "subject": "m_flexor_profundo_dedos",
+    "relation": "INSERTS_INTO",
+    "object": "falanges_distales_base",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 34
+  },
+  {
+    "subject": "m_supraespinoso",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_supraescapular",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35
+  },
+  {
+    "subject": "m_supraespinoso",
+    "relation": "ACTION",
+    "object": "abduce_el_brazo",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35
+  },
+  {
+    "subject": "m_infraespinoso",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_supraescapular",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35
+  },
+  {
+    "subject": "m_infraespinoso",
+    "relation": "ACTION",
+    "object": "rotador_lateral",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 35
+  },
+  {
+    "subject": "m_serrato_anterior",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_toracico_largo",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 36
+  },
+  {
+    "subject": "m_redondo_menor",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_axilar",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 37
+  },
+  {
+    "subject": "m_redondo_mayor",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_subescapular_inferior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 37
+  },
+  {
+    "subject": "m_dorsal_ancho",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_toracodorsal",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 37
+  },
+  {
+    "subject": "m_deltoides",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_axilar",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 38
+  },
+  {
+    "subject": "m_coracobraquial",
+    "relation": "PERFORATED_BY",
+    "object": "nervio_musculocutaneo",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 38
+  },
+  {
+    "subject": "m_coracobraquial",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_musculocutaneo",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 38
+  },
+  {
+    "subject": "m_biceps_braquial",
+    "relation": "ACTION",
+    "object": "supina_y_flexiona_antebrazo",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 39
+  },
+  {
+    "subject": "m_biceps_braquial",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_musculocutaneo",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 39
+  },
+  {
+    "subject": "m_braquial",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_musculocutaneo",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 40
+  },
+  {
+    "subject": "m_braquial",
+    "relation": "ACTION",
+    "object": "flexiona_antebrazo_en_codo",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 40
+  },
+  {
+    "subject": "m_triceps_braquial",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_radial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41
+  },
+  {
+    "subject": "espacio_cuadrangular_velpeau",
+    "relation": "HAS_BOUNDARIES",
+    "object": [
+      "redondo_menor",
+      "redondo_mayor",
+      "cabeza_larga_triceps",
+      "cuello_quirurgico_umero"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41
+  },
+  {
+    "subject": "espacio_cuadrangular_velpeau",
+    "relation": "CONTAINS",
+    "object": [
+      "nervio_axilar",
+      "arteria_circunfleja_humeral_posterior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41
+  },
+  {
+    "subject": "espacio_triangular_omotricipital",
+    "relation": "CONTAINS",
+    "object": "arteria_circunfleja_escapular",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41
+  },
+  {
+    "subject": "intervalo_triangular_avelino_gutierrez",
+    "relation": "CONTAINS",
+    "object": [
+      "nervio_radial",
+      "arteria_braquial_profunda"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 41
+  },
+  {
+    "subject": "m_pronador_redondo",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_mediano",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 42
+  },
+  {
+    "subject": "m_flexor_radial_carpo",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_mediano",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 42
+  },
+  {
+    "subject": "m_palmar_largo",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_mediano",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 42
+  },
+  {
+    "subject": "m_flexor_cubital_carpo",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_cubital",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 42
+  },
+  {
+    "subject": "m_flexor_superficial_dedos",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_mediano",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 43
+  },
+  {
+    "subject": "m_flexor_profundo_dedos",
+    "relation": "INNERVATED_BY",
+    "object": [
+      "nervio_mediano",
+      "nervio_cubital"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 43
+  },
+  {
+    "subject": "m_flexor_largo_pulgar",
+    "relation": "INNERVATED_BY",
+    "object": "ramo_interoseo_anterior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 43
+  },
+  {
+    "subject": "m_pronador_cuadrado",
+    "relation": "INNERVATED_BY",
+    "object": "ramo_interoseo_anterior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 43
+  },
+  {
+    "subject": "m_braquiorradial",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_radial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 44
+  },
+  {
+    "subject": "m_supinador",
+    "relation": "INNERVATED_BY",
+    "object": "ramo_profundo_radial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 44
+  },
+  {
+    "subject": "m_extensor_dedos",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_radial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 45
+  },
+  {
+    "subject": "m_abductor_largo_pulgar",
+    "relation": "INNERVATED_BY",
+    "object": "ramo_profundo_radial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 46
+  },
+  {
+    "subject": "m_extensor_indice",
+    "relation": "INNERVATED_BY",
+    "object": "ramo_profundo_radial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 47
+  },
+  {
+    "subject": "m_abductor_corto_pulgar",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_mediano",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 48
+  },
+  {
+    "subject": "m_oponente_pulgar",
+    "relation": "INNERVATED_BY",
+    "object": "nervio_mediano",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 48
+  },
+  {
+    "subject": "m_aductor_pulgar",
+    "relation": "INNERVATED_BY",
+    "object": "ramo_profundo_cubital",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 48
+  },
+  {
+    "subject": "m_abductor_menique",
+    "relation": "INNERVATED_BY",
+    "object": "ramo_profundo_cubital",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 49
+  },
+  {
+    "subject": "m_lumbricales",
+    "relation": "INNERVATED_BY",
+    "object": [
+      "nervio_mediano_1_2",
+      "nervio_cubital_3_4"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 50
+  },
+  {
+    "subject": "m_interoseos_palmares",
+    "relation": "INNERVATED_BY",
+    "object": "ramo_profundo_cubital",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 50
+  },
+  {
+    "subject": "m_interoseos_dorsales",
+    "relation": "INNERVATED_BY",
+    "object": "ramo_profundo_cubital",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 50
+  },
+  {
+    "subject": "arteria_axilar",
+    "relation": "CONTINUES_FROM",
+    "object": "arteria_subclavia",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51
+  },
+  {
+    "subject": "arteria_axilar",
+    "relation": "DIVIDED_BY",
+    "object": "m_pectoral_menor",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51
+  },
+  {
+    "subject": "arteria_axilar_p1",
+    "relation": "GIVES_BRANCH",
+    "object": "arteria_toracica_superior",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51
+  },
+  {
+    "subject": "arteria_axilar_p2",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_toracoacromial",
+      "arteria_toracica_lateral"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 51
+  },
+  {
+    "subject": "arteria_axilar_p3",
+    "relation": "GIVES_BRANCH",
+    "object": [
+      "arteria_subescapular",
+      "arteria_circunfleja_humeral_anterior",
+      "arteria_circunfleja_humeral_posterior"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52
+  },
+  {
+    "subject": "arteria_circunfleja_humeral_posterior",
+    "relation": "PASSES_THROUGH",
+    "object": "espacio_cuadrangular_velpeau",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52
+  },
+  {
+    "subject": "arteria_braquial",
+    "relation": "CONTINUES_FROM",
+    "object": "arteria_axilar",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52
+  },
+  {
+    "subject": "arteria_braquial",
+    "relation": "LOCATED_IN",
+    "object": "canal_braquial_cruveilhier",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52
+  },
+  {
+    "subject": "arteria_braquial",
+    "relation": "ACCOMPANIED_BY",
+    "object": "nervio_mediano",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52
+  },
+  {
+    "subject": "arteria_braquial",
+    "relation": "GIVES_BRANCH",
+    "object": "arteria_braquial_profunda",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52
+  },
+  {
+    "subject": "arteria_braquial_profunda",
+    "relation": "PASSES_THROUGH",
+    "object": "canal_de_torsion_sulco_radial",
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52
+  },
+  {
+    "subject": "arteria_braquial",
+    "relation": "TERMINATION",
+    "object": [
+      "arteria_radial",
+      "arteria_cubital"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 52
+  },
+  {
+    "subject": "arteria_radial",
+    "relation": "LOCATED_IN",
+    "object": [
+      "canal_muscular_antebrazo",
+      "canal_del_pulso",
+      "tabaquera_anatomica"
+    ],
+    "relation_status": "CERTIFIED_TAXONOMY",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53
+  },
+  {
+    "subject": "arteria_radial",
+    "relation": "TERMINATION",
+    "object": "arco_palmar_profundo",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53
+  },
+  {
+    "subject": "arteria_radial",
+    "relation": "GIVES_BRANCHES",
+    "object": [
+      "arteria_recurrente_radial",
+      "arteria_carpiana_palmar",
+      "arteria_carpiana_dorsal",
+      "arteria_palmar_superficial",
+      "arteria_principal_pulgar",
+      "arteria_metacarpiana_dorsal_1"
+    ],
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53
+  },
+  {
+    "subject": "arco_dorsal_carpo",
+    "relation": "STATUS",
+    "object": "SOURCE_CONTENT_INCOMPLETE",
+    "relation_status": "RELATION_CANDIDATE",
+    "source_id": "MORGUE-UPPER-LIMB-001",
+    "source_page": 53
+  }
+]

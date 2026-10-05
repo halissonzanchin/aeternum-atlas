@@ -1,0 +1,16 @@
+{
+  "errata_id": "CQ1_ERRATA_1",
+  "batch_id": "EXP-UL-B1",
+  "target_phase": "EXP-UL-B1-CQ1",
+  "issued_at": "2026-09-25T13:30:13.056Z",
+  "status": "OFFICIALLY_REGISTERED",
+  "lineage": "ORIGINAL_CQ1 -> CQ1_ERRATA_1 -> CP1_CONSUMED_VERSION",
+  "description": "Formal reconciliation errata documenting item-level flag corrections made during CP1 promotion to align with certified CQ1 header metrics.",
+  "substantive_impact": {
+    "facts_promoted_impact": "ZERO (129 facts remained 129)",
+    "safe_engine_fact_impact": "ZERO (118 eligible facts remained 118)",
+    "teaching_connections_promoted": "6 production connections promoted (TC-001..006)",
+    "documentary_blocks_promoted": "5 production direct blocks promoted (DOC-001..005)",
+    "integrity_verdict": "No promotion corruption occurred; historical lineage formally documented."
+  }
+}

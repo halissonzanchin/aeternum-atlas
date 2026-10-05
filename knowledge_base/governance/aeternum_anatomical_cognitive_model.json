@@ -1,0 +1,380 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "contract_name": "AETERNUM ANATOMICAL COGNITIVE MODEL",
+  "short_name": "AACM",
+  "version": "1.0.0",
+  "schema_version": "1.0.0",
+  "description": "Permanent machine-readable governance contract encoding pedagogical, structural, and retrieval patterns for Aeternum Atlas.",
+  "core_rules": {
+    "MACRO_QUERY_RULE": {
+      "name": "Macro Query Rule",
+      "canonical_definition": "When the student requests a broad anatomical structure, region, system or theme, Aeternum must construct an organized relational anatomical panorama.",
+      "order": [
+        "structured_pedagogical_overview",
+        "ordered_sections",
+        "relational_connections",
+        "progressive_depth"
+      ],
+      "prohibition": "Macro does NOT mean dumping every database record without pedagogical organization."
+    },
+    "MICRO_QUERY_RULE": {
+      "name": "Micro Query Rule",
+      "canonical_definition": "When a student requests a specific anatomical fact, Aeternum must answer that fact directly without forcing the entire parent structure.",
+      "response_order": [
+        "DIRECT_ANSWER",
+        "IMMEDIATE_ANATOMICAL_CONTEXT",
+        "OPTIONAL_HIGH_VALUE_CONNECTION"
+      ],
+      "prohibition": "Do not expand the entire parent structure automatically."
+    },
+    "PROFESSOR_CONNECTION_RULE": {
+      "name": "Professor Connection Rule",
+      "canonical_definition": "Aeternum must prefer pedagogically meaningful anatomical connections rather than isolated encyclopedia-like facts, reflecting the reasoning pattern of an experienced anatomy professor.",
+      "safety_rule": "A professor connection may only be produced when supported by Aeternum sovereign evidence. Pedagogical humanization must never justify fabrication."
+    }
+  },
+  "query_scopes": [
+    {
+      "scope": "MACRO_OVERVIEW",
+      "description": "Comprehensive panoramic relational survey of an entity, region, or system.",
+      "example": "Explique a escápula e suas relações."
+    },
+    {
+      "scope": "FOCUSED_OVERVIEW",
+      "description": "Survey restricted to a specific functional or morphological compartment of an entity.",
+      "example": "Descreva o compartimento anterior do braço."
+    },
+    {
+      "scope": "MICRO_FACT",
+      "description": "Direct lookup of a singular anatomical property (innervation, attachment, blood supply).",
+      "example": "Qual músculo se insere na tuberosidade do rádio?"
+    },
+    {
+      "scope": "RELATION_QUERY",
+      "description": "Spatial, articular, or syntopic relationship between two or more named entities.",
+      "example": "Entre quais músculos passa o nervo musculocutâneo?"
+    },
+    {
+      "scope": "TOPOGRAPHIC_QUERY",
+      "description": "Boundaries (walls, floor, roof) and internal contents of an anatomical space.",
+      "example": "Quais são os limites e o conteúdo do canal do carpo?"
+    },
+    {
+      "scope": "PRACTICAL_IDENTIFICATION_QUERY",
+      "description": "Recognition, laterality determination, and cadaveric prosection inspection.",
+      "example": "Como diferenciar a face anterior da posterior da escápula na peça?"
+    },
+    {
+      "scope": "COMPARISON_QUERY",
+      "description": "Comparative morphological analysis between paired or homologous structures.",
+      "example": "Quais as diferenças estruturais entre o menisco medial e lateral do joelho?"
+    },
+    {
+      "scope": "CLINICAL_ANATOMY_QUERY",
+      "description": "Correlation between structural anatomy and clinical syndromes or vulnerabilities.",
+      "example": "Por que a lesão do colo cirúrgico do úmero afeta a abdução do braço?"
+    },
+    {
+      "scope": "VIEWER_CONTEXT_QUERY",
+      "description": "Queries anchored to currently selected 3D model nodes or inspection cameras.",
+      "example": "Quem inerva esta estrutura selecionada no visualizador?"
+    }
+  ],
+  "response_depths": [
+    {
+      "depth": "DIRECT",
+      "description": "Fact only plus minimal essential qualification."
+    },
+    {
+      "depth": "CONTEXTUAL",
+      "description": "Fact plus immediate anatomical relationships (syntopy, surrounding borders)."
+    },
+    {
+      "depth": "PROFESSOR",
+      "description": "Fact plus immediate relationships, practical cadaveric cues, and high-value clinical correlations."
+    }
+  ],
+  "entity_dimensions": [
+    "identity",
+    "synonyms",
+    "terminology",
+    "type",
+    "domain",
+    "region",
+    "system",
+    "morphology",
+    "location",
+    "orientation",
+    "parts",
+    "relations",
+    "muscular_relations",
+    "articulations",
+    "ligaments",
+    "neural_relations",
+    "vascular_relations",
+    "topography",
+    "spaces",
+    "function",
+    "clinical_anatomy",
+    "variation",
+    "practical_identification",
+    "3d_context",
+    "teaching_connections",
+    "sources",
+    "validation_status"
+  ],
+  "entity_type_templates": {
+    "BONE": [
+      "morphology",
+      "faces",
+      "borders",
+      "angles",
+      "processes",
+      "landmarks",
+      "articulations",
+      "muscular_attachments",
+      "ligament_attachments",
+      "neurovascular_relations",
+      "practical_orientation",
+      "3d"
+    ],
+    "MUSCLE": [
+      "origin",
+      "insertion",
+      "action",
+      "innervation",
+      "arterial_supply",
+      "relations",
+      "compartment",
+      "clinical",
+      "practical",
+      "3d"
+    ],
+    "NERVE": [
+      "origin",
+      "roots",
+      "course",
+      "branches",
+      "motor_distribution",
+      "sensory_distribution",
+      "relations",
+      "vascular_relations",
+      "clinical",
+      "practical",
+      "3d"
+    ],
+    "ARTERY": [
+      "origin",
+      "course",
+      "relations",
+      "branches",
+      "territory",
+      "anastomoses",
+      "termination",
+      "clinical",
+      "practical",
+      "3d"
+    ],
+    "VEIN": [
+      "tributaries",
+      "course",
+      "relations",
+      "valves",
+      "drainage_destination",
+      "clinical",
+      "practical",
+      "3d"
+    ],
+    "JOINT": [
+      "classification",
+      "participating_bones",
+      "articular_surfaces",
+      "capsule",
+      "intrinsic_ligaments",
+      "extrinsic_ligaments",
+      "movements",
+      "neurovascular_supply",
+      "clinical",
+      "practical",
+      "3d"
+    ],
+    "LIGAMENT": [
+      "attachments",
+      "fiber_orientation",
+      "reinforced_structure",
+      "function_resistance",
+      "relations",
+      "clinical",
+      "practical",
+      "3d"
+    ],
+    "ORGAN": [
+      "classification",
+      "peritoneal_status",
+      "holotopy",
+      "skeletotopy",
+      "external_features",
+      "internal_architecture",
+      "vascularization",
+      "innervation",
+      "lymphatic_drainage",
+      "clinical",
+      "practical",
+      "3d"
+    ],
+    "ANATOMICAL_SPACE": [
+      "boundaries",
+      "contents",
+      "communications",
+      "clinical",
+      "practical",
+      "3d"
+    ],
+    "FORAMEN_CANAL": [
+      "enclosing_bone_or_tissue",
+      "entrance_exit",
+      "structures_transversing",
+      "clinical",
+      "practical",
+      "3d"
+    ],
+    "PLEXUS": [
+      "spinal_roots",
+      "trunks",
+      "cords_divisions",
+      "terminal_branches",
+      "collateral_branches",
+      "relations",
+      "clinical",
+      "practical",
+      "3d"
+    ],
+    "FASCIA": [
+      "attachments",
+      "compartmentalization",
+      "investing_sheaths",
+      "clinical",
+      "practical",
+      "3d"
+    ],
+    "CNS_STRUCTURE": [
+      "division",
+      "external_landmarks",
+      "internal_nuclei_tracts",
+      "ventricles_csf_relations",
+      "arterial_supply",
+      "venous_drainage",
+      "functional_deficits",
+      "clinical",
+      "practical",
+      "3d"
+    ]
+  },
+  "teaching_connection_schema": {
+    "type": "object",
+    "required": [
+      "anchor_entity",
+      "related_entities",
+      "connection_type",
+      "teaching_reason",
+      "teaching_layer",
+      "priority",
+      "validation_status"
+    ],
+    "properties": {
+      "anchor_entity": { "type": "string" },
+      "related_entities": { "type": "array", "items": { "type": "string" } },
+      "connection_type": { "type": "string" },
+      "teaching_reason": { "type": "string" },
+      "context": { "type": "string" },
+      "teaching_layer": {
+        "type": "string",
+        "enum": ["CANONICAL_ANATOMY", "MORGUE_PRACTICAL", "CLINICAL_ANATOMY", "3D_VIEWER"]
+      },
+      "priority": {
+        "type": "string",
+        "enum": ["PRIMARY", "SECONDARY", "ENRICHMENT"]
+      },
+      "source_ids": { "type": "array", "items": { "type": "string" } },
+      "evidence_chunk_ids": { "type": "array", "items": { "type": "string" } },
+      "validation_status": { "type": "string" }
+    }
+  },
+  "macro_completeness_model": {
+    "dimensions": [
+      "MORPHOLOGY",
+      "ARTICULATIONS",
+      "MUSCULAR_RELATIONS",
+      "NEURAL_RELATIONS",
+      "VASCULAR_RELATIONS",
+      "TOPOGRAPHY",
+      "PRACTICAL_IDENTIFICATION",
+      "CLINICAL",
+      "3D_MAPPING"
+    ],
+    "states": [
+      "COMPLETE",
+      "PARTIAL",
+      "MISSING",
+      "NOT_APPLICABLE"
+    ],
+    "integrity_rule": "Completeness must reflect genuine verified evidence across dimensions, never derived from raw chunk counts."
+  },
+  "micro_fact_schema": {
+    "type": "object",
+    "required": [
+      "subject",
+      "relation",
+      "object_or_arguments",
+      "region",
+      "source",
+      "validation_status"
+    ],
+    "properties": {
+      "subject": { "type": "string" },
+      "relation": { "type": "string" },
+      "object_or_arguments": { "type": "array", "items": { "type": "string" } },
+      "context": { "type": "string" },
+      "laterality": { "type": "string" },
+      "region": { "type": "string" },
+      "source": { "type": "string" },
+      "validation_status": { "type": "string" }
+    }
+  },
+  "morgue_practical_layer": {
+    "layer_name": "MORGUE_PRACTICAL_ANATOMY",
+    "components": [
+      "practical_identification",
+      "surface_landmark",
+      "cadaveric_relation",
+      "dissection_relation",
+      "muscle_attachment",
+      "neurovascular_relation",
+      "anatomical_space",
+      "space_boundaries",
+      "space_contents",
+      "teacher_emphasis",
+      "candidate_3d_annotation"
+    ],
+    "isolation_rule": "Institutional teaching notes must retain distinct provenance and validation status. Do not silently conflate with canonical compendium text without review."
+  },
+  "evidence_first_rule": {
+    "pipeline": "MEMORY -> EVIDENCE_PACK -> RESPONSE",
+    "prohibition": "LLM_GUESS -> FACT is strictly forbidden.",
+    "null_evidence_handling": "NO_EVIDENCE is a valid, first-class knowledge state."
+  },
+  "viewer_3d_context_rule": {
+    "referent_metadata": [
+      "selected_mesh_id",
+      "selected_entity_id",
+      "camera_target",
+      "visible_layer"
+    ],
+    "deictic_disambiguation": "When user uses deictic references ('isso', 'este'), router maps to selected_entity_id.",
+    "highlight_sync": "Entities in evidence pack matching 3D scene trigger viewport highlighting."
+  },
+  "governance_versioning_rule": {
+    "semantic_versioning": "Revisions to core rules require formal specification version increment.",
+    "anti_tampering": "Do not silently alter semantics via prompt tuning or gateway configurations."
+  }
+}

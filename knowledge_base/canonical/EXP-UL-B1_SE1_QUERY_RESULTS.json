@@ -1,0 +1,2540 @@
+{
+  "phase": "EXP-UL-B1-SE1",
+  "execution_timestamp": "2026-09-26T23:37:17.531Z",
+  "total_queries": 143,
+  "passed_queries": 143,
+  "failed_queries": 0,
+  "success_rate": "100.0%",
+  "cross_pack_queries": 36,
+  "cross_pack_passed": 36,
+  "latencies": {
+    "min_ms": 0.96,
+    "median_ms": 1.28,
+    "p95_ms": 2.61,
+    "max_ms": 15.51
+  },
+  "results": [
+    {
+      "query_id": "SE1-Q-001",
+      "query_text": "Qual é a classificação morfológica da clavícula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 15.513,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-002",
+      "query_text": "Qual é a classificação morfológica da escápula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 4.472,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-003",
+      "query_text": "A clavícula é um osso par ou ímpar?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 4.713,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-004",
+      "query_text": "A escápula é um osso par?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.066,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-005",
+      "query_text": "Qual o formato geral da escápula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.591,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-006",
+      "query_text": "Quantas curvaturas apresenta o corpo da clavícula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_SHAFT",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.301,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-007",
+      "query_text": "Como se curva a clavícula em seus dois terços mediais?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.499,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-008",
+      "query_text": "Como se curva a clavícula em seu terço lateral?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.444,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-009",
+      "query_text": "Quantas extremidades possui a clavícula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-042"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.348,
+      "text_snippet": "Trapezius descending part insere-se em posterior border lateral one third clavicle e superior surface lateral one third ..."
+    },
+    {
+      "query_id": "SE1-Q-010",
+      "query_text": "Quantas faces possui o corpo da clavícula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_SHAFT",
+      "used_fact_ids": [
+        "AET-CF-CLAV-011",
+        "AET-CF-CLAV-012"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.254,
+      "text_snippet": "A clavícula apresenta a face superior da clavícula. A clavícula apresenta a face inferior da clavícula...."
+    },
+    {
+      "query_id": "SE1-Q-011",
+      "query_text": "Quantas margens apresenta a diáfise da clavícula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_SHAFT",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.228,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-012",
+      "query_text": "Quantas faces apresenta a escápula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-SCAP-052",
+        "AET-CF-SCAP-053"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.288,
+      "text_snippet": "A escápula apresenta a face costal (anterior). A escápula apresenta a face posterior (dorsal)...."
+    },
+    {
+      "query_id": "SE1-Q-013",
+      "query_text": "Quantas margens possui a escápula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.219,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-014",
+      "query_text": "Quantos ângulos possui a escápula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.286,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-015",
+      "query_text": "Qual o tipo morfológico da articulação esternoclavicular?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-SCJ-003",
+        "AET-CF-PGI-004"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.343,
+      "text_snippet": "A articulação esternoclavicular articula-se com clavicular sternal articular surface e clavicular notch of manubrium ste..."
+    },
+    {
+      "query_id": "SE1-Q-016",
+      "query_text": "A articulação esternoclavicular possui disco articular?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-SCJ-003",
+        "AET-CF-PGI-004"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.164,
+      "text_snippet": "A articulação esternoclavicular articula-se com clavicular sternal articular surface e clavicular notch of manubrium ste..."
+    },
+    {
+      "query_id": "SE1-Q-017",
+      "query_text": "Qual o tipo morfológico da articulação acromioclavicular?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-ACJ-003",
+        "AET-CF-ACJ-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.139,
+      "text_snippet": "A articulação acromioclavicular articula-se com clavicular acromial articular surface e acromial facet of scapula. A art..."
+    },
+    {
+      "query_id": "SE1-Q-018",
+      "query_text": "Quais ligamentos compõem o complexo ligamentar coracoclavicular?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CORACOCLAVICULAR_LIGAMENT_COMPLEX",
+      "used_fact_ids": [
+        "AET-CF-CCC-001",
+        "AET-CF-CCC-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.246,
+      "text_snippet": "O complexo ligamentar coracoclavicular é classificado morfologicamente como extrinsic syndesmosis complex. O complexo li..."
+    },
+    {
+      "query_id": "SE1-Q-019",
+      "query_text": "Onde se localiza o tubérculo conoide na clavícula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CONOID_TUBERCLE",
+      "used_fact_ids": [
+        "AET-CF-CCC-006",
+        "AET-CF-CLAV-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.4,
+      "text_snippet": "O ligamento conoide insere-se em o tubérculo conoide. A clavícula é classificado morfologicamente como osso longo...."
+    },
+    {
+      "query_id": "SE1-Q-020",
+      "query_text": "Onde se localiza a linha trapezoide na clavícula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-TRAPEZOID_LINE",
+      "used_fact_ids": [
+        "AET-CF-CCC-011",
+        "AET-CF-CLAV-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.826,
+      "text_snippet": "O ligamento trapezoide insere-se em a linha trapezoide. A clavícula é classificado morfologicamente como osso longo...."
+    },
+    {
+      "query_id": "SE1-Q-021",
+      "query_text": "Qual estrutura passa pelo sulco subclávio da clavícula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SUBCLAVIAN_GROOVE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.317,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-022",
+      "query_text": "O que se insere no ápice do processo coracoide?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS_APEX",
+      "used_fact_ids": [
+        "AET-CF-SCAP-089",
+        "AET-CF-SCAP-090"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.457,
+      "text_snippet": "Biceps brachii short head origina-se em o processo coracoide. Coracobrachialis origina-se em o processo coracoide...."
+    },
+    {
+      "query_id": "SE1-Q-023",
+      "query_text": "Qual acidente anatômico separa a fossa supraespinosa da infraespinosa?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUPRASPINOUS_FOSSA",
+      "used_fact_ids": [
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-013"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.462,
+      "text_snippet": "A face posterior identifica a fossa supraespinosa. A face posterior identifica a fossa infraespinosa...."
+    },
+    {
+      "query_id": "SE1-Q-024",
+      "query_text": "Qual músculo se insere no lábio superior da espinha da escápula?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SPINE_SUPERIOR_LIP",
+      "used_fact_ids": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.39,
+      "text_snippet": "O músculo romboide menor relaciona-se com a borda medial ao nível da espinha escapular. O músculo romboide maior relacio..."
+    },
+    {
+      "query_id": "SE1-Q-025",
+      "query_text": "Qual músculo se insere na fossa subescapular?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUBSCAPULAR_FOSSA",
+      "used_fact_ids": [
+        "AET-CF-SCAP-074",
+        "AET-CF-SCAP-010"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.279,
+      "text_snippet": "O músculo subescapular origina-se em a fossa subescapular. A face anterior ou costal abriga a fossa subescapular...."
+    },
+    {
+      "query_id": "SE1-Q-026",
+      "query_text": "Qual músculo se insere na fossa supraespinosa?",
+      "category": "MICRO_FACT",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUPRASPINOUS_FOSSA",
+      "used_fact_ids": [
+        "AET-CF-SCAP-075",
+        "AET-CF-SCAP-012"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.342,
+      "text_snippet": "O músculo supraespinoso origina-se em a fossa supraespinosa. A face posterior identifica a fossa supraespinosa...."
+    },
+    {
+      "query_id": "SE1-Q-027",
+      "query_text": "Com quem a extremidade acromial da clavícula se articula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_ACROMIAL_END",
+      "used_fact_ids": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-071"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.538,
+      "text_snippet": "A escápula articula-se com a clavícula através da articulação acromioclavicular. A escápula articula-se com a clavícula...."
+    },
+    {
+      "query_id": "SE1-Q-028",
+      "query_text": "Com quem a extremidade esternal da clavícula se articula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_STERNAL_END",
+      "used_fact_ids": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-071"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.418,
+      "text_snippet": "A escápula articula-se com a clavícula através da articulação acromioclavicular. A escápula articula-se com a clavícula...."
+    },
+    {
+      "query_id": "SE1-Q-029",
+      "query_text": "Quais ligamentos conectam a clavícula ao processo coracoide da escápula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "used_fact_ids": [
+        "AET-CF-CLAV-030",
+        "AET-CF-CLAV-031"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.441,
+      "text_snippet": "O ligamento costoclavicular fixa costoclavicular ligament impression. O ligamento conoide fixa o tubérculo conoide...."
+    },
+    {
+      "query_id": "SE1-Q-030",
+      "query_text": "Onde se fixa o ligamento conoide na clavícula e na escápula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CONOID_LIGAMENT",
+      "used_fact_ids": [
+        "AET-CF-CCC-006",
+        "AET-CF-CLAV-027"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.347,
+      "text_snippet": "O ligamento conoide insere-se em o tubérculo conoide. Trapezius descending part insere-se em posterior border lateral on..."
+    },
+    {
+      "query_id": "SE1-Q-031",
+      "query_text": "Onde se fixa o ligamento trapezoide na clavícula e no coracoide?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-TRAPEZOID_LIGAMENT",
+      "used_fact_ids": [
+        "AET-CF-CCC-011",
+        "AET-CF-CLAV-027"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.208,
+      "text_snippet": "O ligamento trapezoide insere-se em a linha trapezoide. Trapezius descending part insere-se em posterior border lateral ..."
+    },
+    {
+      "query_id": "SE1-Q-032",
+      "query_text": "Qual músculo se origina na borda anterior do terço lateral da clavícula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_ANTERIOR_BORDER_LATERAL_THIRD",
+      "used_fact_ids": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.205,
+      "text_snippet": "Trapezius descending part insere-se em posterior border lateral one third clavicle e superior surface lateral one third ..."
+    },
+    {
+      "query_id": "SE1-Q-033",
+      "query_text": "Qual músculo se origina na borda anterior dos dois terços mediais da clavícula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.173,
+      "text_snippet": "Trapezius descending part insere-se em posterior border lateral one third clavicle e superior surface lateral one third ..."
+    },
+    {
+      "query_id": "SE1-Q-034",
+      "query_text": "Qual músculo se insere na margem posterior do terço lateral da clavícula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_POSTERIOR_BORDER_LATERAL_THIRD",
+      "used_fact_ids": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.184,
+      "text_snippet": "Trapezius descending part insere-se em posterior border lateral one third clavicle e superior surface lateral one third ..."
+    },
+    {
+      "query_id": "SE1-Q-035",
+      "query_text": "Qual músculo se origina na face superior medial da clavícula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.267,
+      "text_snippet": "Trapezius descending part insere-se em posterior border lateral one third clavicle e superior surface lateral one third ..."
+    },
+    {
+      "query_id": "SE1-Q-036",
+      "query_text": "Qual músculo se insere no sulco subclávio na face inferior da clavícula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_INFERIOR_SURFACE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.221,
+      "text_snippet": "Trapezius descending part insere-se em posterior border lateral one third clavicle e superior surface lateral one third ..."
+    },
+    {
+      "query_id": "SE1-Q-037",
+      "query_text": "Qual ligamento se fixa na impressão da face inferior da clavícula perto da ponta esternal?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_INFERIOR_SURFACE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-029"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.422,
+      "text_snippet": "Trapezius descending part insere-se em posterior border lateral one third clavicle e superior surface lateral one third ..."
+    },
+    {
+      "query_id": "SE1-Q-038",
+      "query_text": "Quais ligamentos reforçam a cápsula da articulação esternoclavicular?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-SCJ-003",
+        "AET-CF-PGI-004"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.782,
+      "text_snippet": "A articulação esternoclavicular articula-se com clavicular sternal articular surface e clavicular notch of manubrium ste..."
+    },
+    {
+      "query_id": "SE1-Q-039",
+      "query_text": "Qual ligamento une as extremidades esternais das duas clavículas?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_STERNAL_END",
+      "used_fact_ids": [
+        "AET-CF-CLAV-021",
+        "AET-CF-CLAV-009"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.167,
+      "text_snippet": "A extremidade esternal da clavícula apresenta como acidente anatômico clavicular sternal articular surface. A clavícula ..."
+    },
+    {
+      "query_id": "SE1-Q-040",
+      "query_text": "Qual ligamento reforça a face superior da articulação acromioclavicular?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-ACJ-003",
+        "AET-CF-ACJ-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.124,
+      "text_snippet": "A articulação acromioclavicular articula-se com clavicular acromial articular surface e acromial facet of scapula. A art..."
+    },
+    {
+      "query_id": "SE1-Q-041",
+      "query_text": "Qual ligamento estende-se entre o acrômio e o processo coracoide da escápula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "used_fact_ids": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.159,
+      "text_snippet": "A fonte associa a região coracoide aos ligamentos coracoclaviculares. A fonte associa a região coracoide ao ligamento co..."
+    },
+    {
+      "query_id": "SE1-Q-042",
+      "query_text": "Qual ligamento fecha a incisura da escápula transformando-a em forame?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUPRASCAPULAR_NOTCH",
+      "used_fact_ids": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.161,
+      "text_snippet": "A fonte associa a região coracoide aos ligamentos coracoclaviculares. A fonte associa a região coracoide ao ligamento co..."
+    },
+    {
+      "query_id": "SE1-Q-043",
+      "query_text": "Qual músculo se insere em toda a extensão da margem medial da escápula na face costal?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "used_fact_ids": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.416,
+      "text_snippet": "O músculo romboide menor relaciona-se com a borda medial ao nível da espinha escapular. O músculo romboide maior relacio..."
+    },
+    {
+      "query_id": "SE1-Q-044",
+      "query_text": "Qual músculo se insere no tubérculo supraglenoidal da escápula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUPRAGLENOID_TUBERCLE",
+      "used_fact_ids": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 3.107,
+      "text_snippet": "O músculo romboide menor relaciona-se com a borda medial ao nível da espinha escapular. O músculo romboide maior relacio..."
+    },
+    {
+      "query_id": "SE1-Q-045",
+      "query_text": "Qual músculo se origina no tubérculo infraglenoidal da escápula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_INFRAGLENOID_TUBERCLE",
+      "used_fact_ids": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.35,
+      "text_snippet": "O músculo romboide menor relaciona-se com a borda medial ao nível da espinha escapular. O músculo romboide maior relacio..."
+    },
+    {
+      "query_id": "SE1-Q-046",
+      "query_text": "Quais músculos se inserem no processo coracoide da escápula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "used_fact_ids": [
+        "AET-CF-SCAP-020",
+        "AET-CF-SCAP-021"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.266,
+      "text_snippet": "O músculo romboide menor relaciona-se com a borda medial ao nível da espinha escapular. O músculo romboide maior relacio..."
+    },
+    {
+      "query_id": "SE1-Q-047",
+      "query_text": "Com quem a cavidade glenoidal da escápula se articula?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "used_fact_ids": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-008"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.022,
+      "text_snippet": "A escápula articula-se com a clavícula através da articulação acromioclavicular. A escápula articula-se com o úmero atra..."
+    },
+    {
+      "query_id": "SE1-Q-048",
+      "query_text": "Com quem o acrômio da escápula se articula diretamente?",
+      "category": "RELATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_ACROMION",
+      "used_fact_ids": [
+        "AET-CF-CLAV-024",
+        "AET-CF-SCAP-007"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.347,
+      "text_snippet": "Clavicular acromial articular surface articula-se com o acrômio. A escápula articula-se com a clavícula através da artic..."
+    },
+    {
+      "query_id": "SE1-Q-049",
+      "query_text": "Onde se localiza o sulco deltopeitoral e quais seus limites?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-DELTOPECTORAL_GROOVE",
+      "used_fact_ids": [
+        "AET-CF-PGI-008",
+        "AET-CF-PGI-009"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.198,
+      "text_snippet": "O sulco deltopeitoral apresenta como acidente anatômico o sulco deltopeitoral. O sulco deltopeitoral é classificado morf..."
+    },
+    {
+      "query_id": "SE1-Q-050",
+      "query_text": "Qual vaso transita pelo sulco deltopeitoral?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-DELTOPECTORAL_GROOVE",
+      "used_fact_ids": [
+        "AET-CF-PGI-008",
+        "AET-CF-PGI-009"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.117,
+      "text_snippet": "O sulco deltopeitoral apresenta como acidente anatômico o sulco deltopeitoral. O sulco deltopeitoral é classificado morf..."
+    },
+    {
+      "query_id": "SE1-Q-051",
+      "query_text": "Quais são os limites anatômicos do canal cervicoaxilar?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CERVICOAXILLARY_CANAL",
+      "used_fact_ids": [
+        "AET-CF-PGI-012",
+        "AET-CF-PGI-013"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.2,
+      "text_snippet": "O canal cervicoaxilar apresenta como acidente anatômico o canal cervicoaxilar. O canal cervicoaxilar é delimitado por an..."
+    },
+    {
+      "query_id": "SE1-Q-052",
+      "query_text": "O que passa através do canal cervicoaxilar?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CERVICOAXILLARY_CANAL",
+      "used_fact_ids": [
+        "AET-CF-PGI-012",
+        "AET-CF-PGI-013"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.611,
+      "text_snippet": "O canal cervicoaxilar apresenta como acidente anatômico o canal cervicoaxilar. O canal cervicoaxilar é delimitado por an..."
+    },
+    {
+      "query_id": "SE1-Q-053",
+      "query_text": "Onde se fixa a fáscia clavipeitoral?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "PARTIAL_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-REF-CLAVIPECTORAL_FASCIA",
+      "used_fact_ids": [
+        "AET-CF-CLAV-043"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.431,
+      "text_snippet": "A fáscia clavipeitoral: relação anatômica com encloses subclavius muscle and attaches to subclavian groove lips...."
+    },
+    {
+      "query_id": "SE1-Q-054",
+      "query_text": "O que passa pela incisura da escápula abaixo do ligamento transverso superior?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUPRASCAPULAR_NOTCH",
+      "used_fact_ids": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.548,
+      "text_snippet": "A fonte associa a região coracoide aos ligamentos coracoclaviculares. A fonte associa a região coracoide ao ligamento co..."
+    },
+    {
+      "query_id": "SE1-Q-055",
+      "query_text": "O que passa por cima do ligamento transverso superior da escápula?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SUPERIOR_TRANSVERSE_SCAPULAR_LIGAMENT",
+      "used_fact_ids": [
+        "AET-CF-SCAP-043",
+        "AET-CF-SCAP-044"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.569,
+      "text_snippet": "A fonte associa a região coracoide aos ligamentos coracoclaviculares. A fonte associa a região coracoide ao ligamento co..."
+    },
+    {
+      "query_id": "SE1-Q-056",
+      "query_text": "O que transita pela incisura espinoglenoidal da escápula?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SPINOGLENOID_NOTCH",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.769,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-057",
+      "query_text": "Onde fica a face costal da escápula em relação à caixa torácica?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_COSTAL_SURFACE",
+      "used_fact_ids": [
+        "AET-CF-SCAP-052",
+        "AET-CF-SCAP-053"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.288,
+      "text_snippet": "A escápula apresenta a face costal (anterior). A escápula apresenta a face posterior (dorsal)...."
+    },
+    {
+      "query_id": "SE1-Q-058",
+      "query_text": "Entre quais níveis vertebrais a escápula se localiza no dorso?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.13,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-059",
+      "query_text": "Onde se localiza a fossa supraespinosa em relação à espinha da escápula?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SPINE",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.138,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-060",
+      "query_text": "Onde se localiza a fossa infraespinosa em relação à espinha da escápula?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SPINE",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.151,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-061",
+      "query_text": "Onde se situa o tubérculo infraglenoidal em relação à cavidade glenoidal?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_INFRAGLENOID_TUBERCLE",
+      "used_fact_ids": [
+        "AET-CF-SCAP-027",
+        "AET-CF-SCAP-039"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.186,
+      "text_snippet": "A escápula identifica a cavidade glenoidal. A fonte associa a cabeça longa do tríceps com a região infraglenoidal...."
+    },
+    {
+      "query_id": "SE1-Q-062",
+      "query_text": "Onde se situa o tubérculo supraglenoidal em relação à cavidade glenoidal?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUPRAGLENOID_TUBERCLE",
+      "used_fact_ids": [
+        "AET-CF-SCAP-027",
+        "AET-CF-SCAP-038"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.155,
+      "text_snippet": "A escápula identifica a cavidade glenoidal. A fonte associa a cabeça longa do bíceps com a região supraglenoidal...."
+    },
+    {
+      "query_id": "SE1-Q-063",
+      "query_text": "Onde se localiza a margem superior da escápula?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUPERIOR_BORDER",
+      "used_fact_ids": [
+        "AET-CF-SCAP-017",
+        "AET-CF-SCAP-018"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.429,
+      "text_snippet": "A escápula possui borda medial (denominada borda espinhal nas notas de aula). A escápula possui borda lateral (denominad..."
+    },
+    {
+      "query_id": "SE1-Q-064",
+      "query_text": "Onde se localiza o ângulo inferior da escápula?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_INFERIOR_ANGLE",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.467,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-065",
+      "query_text": "Onde fica a face superior da clavícula e ela é palpável?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_SUPERIOR_SURFACE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-011",
+        "AET-CF-CLAV-012",
+        "AET-CF-CLAV-015"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 3.032,
+      "text_snippet": "A clavícula apresenta a face superior da clavícula. A clavícula apresenta a face inferior da clavícula. A face superior ..."
+    },
+    {
+      "query_id": "SE1-Q-066",
+      "query_text": "Onde fica a face inferior da clavícula e quais relevos apresenta?",
+      "category": "TOPOGRAPHIC_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_INFERIOR_SURFACE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-011",
+        "AET-CF-CLAV-012"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.212,
+      "text_snippet": "A clavícula apresenta a face superior da clavícula. A clavícula apresenta a face inferior da clavícula...."
+    },
+    {
+      "query_id": "SE1-Q-067",
+      "query_text": "Como posicionar a clavícula para identificar se é direita ou esquerda?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002",
+        "AET-CF-CLAV-003"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 1.222,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-068",
+      "query_text": "Como posicionar a escápula para identificar se é direita ou esquerda?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.286,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-069",
+      "query_text": "Como diferenciar a face anterior da posterior da escápula no cadáver?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-SCAP-052",
+        "AET-CF-SCAP-053",
+        "AET-CF-SCAP-060"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.186,
+      "text_snippet": "A escápula apresenta a face costal (anterior). A escápula apresenta a face posterior (dorsal). Posterior surface of scap..."
+    },
+    {
+      "query_id": "SE1-Q-070",
+      "query_text": "Como diferenciar a extremidade esternal da extremidade acromial da clavícula?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_ACROMIAL_END",
+      "used_fact_ids": [
+        "AET-CF-CLAV-021",
+        "AET-CF-CLAV-023",
+        "AET-CF-CLAV-027"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 1.117,
+      "text_snippet": "A extremidade esternal da clavícula apresenta como acidente anatômico clavicular sternal articular surface. A extremidad..."
+    },
+    {
+      "query_id": "SE1-Q-071",
+      "query_text": "Como diferenciar a face superior da face inferior da clavícula em peça óssea?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_INFERIOR_SURFACE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-011",
+        "AET-CF-CLAV-012",
+        "AET-CF-CLAV-016"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 1.246,
+      "text_snippet": "A clavícula apresenta a face superior da clavícula. A clavícula apresenta a face inferior da clavícula. A face inferior ..."
+    },
+    {
+      "query_id": "SE1-Q-072",
+      "query_text": "Como orientar a margem medial e lateral da escápula na peça anatômica?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_MEDIAL_BORDER",
+      "used_fact_ids": [
+        "AET-CF-SCAP-017",
+        "AET-CF-SCAP-018",
+        "AET-CF-SCAP-019"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.365,
+      "text_snippet": "A escápula possui borda medial (denominada borda espinhal nas notas de aula). A escápula possui borda lateral (denominad..."
+    },
+    {
+      "query_id": "SE1-Q-073",
+      "query_text": "Como palpar a espinha da escápula e o acrômio no ser vivo?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SPINE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-024",
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.333,
+      "text_snippet": "Clavicular acromial articular surface articula-se com o acrômio. O cíngulo peitoral (cintura escapular) apresenta como a..."
+    },
+    {
+      "query_id": "SE1-Q-074",
+      "query_text": "Como palpar o processo coracoide no ser vivo?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "used_fact_ids": [
+        "AET-CF-SCAP-026",
+        "AET-CF-SCAP-066",
+        "AET-CF-SCAP-089"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 3.399,
+      "text_snippet": "A escápula identifica o processo coracoide. A escápula apresenta como acidente anatômico o processo coracoide. Biceps br..."
+    },
+    {
+      "query_id": "SE1-Q-075",
+      "query_text": "Como palpar a clavícula em toda sua extensão no ser vivo?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002",
+        "AET-CF-CLAV-003"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 1.484,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-076",
+      "query_text": "Como identificar a articulação acromioclavicular por palpação?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-ACJ-003",
+        "AET-CF-ACJ-001",
+        "AET-CF-ACJ-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.148,
+      "text_snippet": "A articulação acromioclavicular articula-se com clavicular acromial articular surface e acromial facet of scapula. A art..."
+    },
+    {
+      "query_id": "SE1-Q-077",
+      "query_text": "Como reconhecer a articulação esternoclavicular na superfície anterior do tórax?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-SCJ-003",
+        "AET-CF-PGI-004",
+        "AET-CF-SCJ-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.07,
+      "text_snippet": "A articulação esternoclavicular articula-se com clavicular sternal articular surface e clavicular notch of manubrium ste..."
+    },
+    {
+      "query_id": "SE1-Q-078",
+      "query_text": "Qual a posição anatômica correta da clavícula?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002",
+        "AET-CF-CLAV-003"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 1.045,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-079",
+      "query_text": "Qual a posição anatômica correta da escápula?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.049,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-080",
+      "query_text": "Como identificar o ângulo inferior da escápula por palpação?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_INFERIOR_ANGLE",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.091,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-081",
+      "query_text": "Como identificar o tubérculo conoide na face inferior da clavícula?",
+      "category": "PRACTICAL_IDENTIFICATION_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_INFERIOR_SURFACE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-011",
+        "AET-CF-CLAV-012",
+        "AET-CF-CLAV-016"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [
+        "AET-CPU-PAU-SCAP-001"
+      ],
+      "latency_ms": 1.184,
+      "text_snippet": "A clavícula apresenta a face superior da clavícula. A clavícula apresenta a face inferior da clavícula. A face inferior ..."
+    },
+    {
+      "query_id": "SE1-Q-082",
+      "query_text": "Visão geral da clavícula",
+      "category": "MACRO_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002",
+        "AET-CF-CLAV-003",
+        "AET-CF-CLAV-004",
+        "AET-CF-CLAV-005"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.367,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-083",
+      "query_text": "Visão geral da escápula",
+      "category": "MACRO_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.162,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-084",
+      "query_text": "Descreva o cíngulo peitoral",
+      "category": "MACRO_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-PECTORAL_GIRDLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-002",
+        "AET-CF-PGI-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.089,
+      "text_snippet": "A clavícula integra o cíngulo peitoral (cintura escapular). O cíngulo peitoral (cintura escapular) é classificado morfol..."
+    },
+    {
+      "query_id": "SE1-Q-085",
+      "query_text": "Resumo da articulação esternoclavicular",
+      "category": "FOCUSED_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-SCJ-003",
+        "AET-CF-PGI-004",
+        "AET-CF-SCJ-001",
+        "AET-CF-SCJ-002",
+        "AET-CF-SCJ-004"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.159,
+      "text_snippet": "A articulação esternoclavicular articula-se com clavicular sternal articular surface e clavicular notch of manubrium ste..."
+    },
+    {
+      "query_id": "SE1-Q-086",
+      "query_text": "Resumo da articulação acromioclavicular",
+      "category": "FOCUSED_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-ACJ-003",
+        "AET-CF-ACJ-001",
+        "AET-CF-ACJ-002",
+        "AET-CF-ACJ-006",
+        "AET-CF-ACJ-007"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.091,
+      "text_snippet": "A articulação acromioclavicular articula-se com clavicular acromial articular surface e acromial facet of scapula. A art..."
+    },
+    {
+      "query_id": "SE1-Q-087",
+      "query_text": "Resumo do complexo ligamentar coracoclavicular",
+      "category": "FOCUSED_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CORACOCLAVICULAR_LIGAMENT_COMPLEX",
+      "used_fact_ids": [
+        "AET-CF-CCC-001",
+        "AET-CF-CCC-002",
+        "AET-CF-CCC-014",
+        "AET-CF-CCC-015",
+        "AET-CF-CCC-016"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.243,
+      "text_snippet": "O complexo ligamentar coracoclavicular é classificado morfologicamente como extrinsic syndesmosis complex. O complexo li..."
+    },
+    {
+      "query_id": "SE1-Q-088",
+      "query_text": "Descreva o sulco deltopeitoral",
+      "category": "FOCUSED_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-DELTOPECTORAL_GROOVE",
+      "used_fact_ids": [
+        "AET-CF-PGI-008",
+        "AET-CF-PGI-009",
+        "AET-CF-PGI-010",
+        "AET-CF-PGI-015"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.382,
+      "text_snippet": "O sulco deltopeitoral apresenta como acidente anatômico o sulco deltopeitoral. O sulco deltopeitoral é classificado morf..."
+    },
+    {
+      "query_id": "SE1-Q-089",
+      "query_text": "Descreva o canal cervicoaxilar",
+      "category": "FOCUSED_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CERVICOAXILLARY_CANAL",
+      "used_fact_ids": [
+        "AET-CF-PGI-012",
+        "AET-CF-PGI-013"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.189,
+      "text_snippet": "O canal cervicoaxilar apresenta como acidente anatômico o canal cervicoaxilar. O canal cervicoaxilar é delimitado por an..."
+    },
+    {
+      "query_id": "SE1-Q-090",
+      "query_text": "Explique a clavícula",
+      "category": "MACRO_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002",
+        "AET-CF-CLAV-003",
+        "AET-CF-CLAV-004",
+        "AET-CF-CLAV-005"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.041,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo. A clavícula integra o cíngulo peitoral (cintura escapular)...."
+    },
+    {
+      "query_id": "SE1-Q-091",
+      "query_text": "Explique a escápula",
+      "category": "MACRO_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003",
+        "AET-CF-SCAP-004"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.258,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-092",
+      "query_text": "Visão geral da articulação acromioclavicular",
+      "category": "FOCUSED_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-ACJ-003",
+        "AET-CF-ACJ-001",
+        "AET-CF-ACJ-002",
+        "AET-CF-ACJ-006",
+        "AET-CF-ACJ-007"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.281,
+      "text_snippet": "A articulação acromioclavicular articula-se com clavicular acromial articular surface e acromial facet of scapula. A art..."
+    },
+    {
+      "query_id": "SE1-Q-093",
+      "query_text": "Descreva a articulação esternoclavicular",
+      "category": "FOCUSED_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-SCJ-003",
+        "AET-CF-PGI-004",
+        "AET-CF-SCJ-001",
+        "AET-CF-SCJ-002",
+        "AET-CF-SCJ-004"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.152,
+      "text_snippet": "A articulação esternoclavicular articula-se com clavicular sternal articular surface e clavicular notch of manubrium ste..."
+    },
+    {
+      "query_id": "SE1-Q-094",
+      "query_text": "Descreva o complexo coracoclavicular",
+      "category": "FOCUSED_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CORACOCLAVICULAR_LIGAMENT_COMPLEX",
+      "used_fact_ids": [
+        "AET-CF-CCC-001",
+        "AET-CF-CCC-002",
+        "AET-CF-CCC-014",
+        "AET-CF-CCC-015",
+        "AET-CF-CCC-016"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.488,
+      "text_snippet": "O complexo ligamentar coracoclavicular é classificado morfologicamente como extrinsic syndesmosis complex. O complexo li..."
+    },
+    {
+      "query_id": "SE1-Q-095",
+      "query_text": "Visão geral da cintura escapular",
+      "category": "MACRO_OVERVIEW",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-PECTORAL_GIRDLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-002",
+        "AET-CF-PGI-001",
+        "AET-CF-PGI-002",
+        "AET-CF-PGI-003",
+        "AET-CF-PGI-004"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.349,
+      "text_snippet": "A clavícula integra o cíngulo peitoral (cintura escapular). O cíngulo peitoral (cintura escapular) é classificado morfol..."
+    },
+    {
+      "query_id": "SE1-Q-096",
+      "query_text": "Por que a clavícula é considerada o único elo ósseo com o tronco?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002",
+        "AET-CF-CLAV-003",
+        "AET-CF-CLAV-004"
+      ],
+      "teaching_units_used": [
+        "TC-UL-B1-001"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 1.512,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo.\n\nA clavícula integra o cíngulo peitoral (cintura escapular)..."
+    },
+    {
+      "query_id": "SE1-Q-097",
+      "query_text": "Qual a importância funcional da curvatura em S da clavícula?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002",
+        "AET-CF-CLAV-003",
+        "AET-CF-CLAV-004"
+      ],
+      "teaching_units_used": [
+        "TC-UL-B1-001"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 1.222,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo.\n\nA clavícula integra o cíngulo peitoral (cintura escapular)..."
+    },
+    {
+      "query_id": "SE1-Q-098",
+      "query_text": "Por que o disco articular da articulação esternoclavicular é indispensável?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-SCJ-003",
+        "AET-CF-PGI-004",
+        "AET-CF-SCJ-001",
+        "AET-CF-SCJ-002"
+      ],
+      "teaching_units_used": [
+        "TC-UL-B1-001"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 1.279,
+      "text_snippet": "A articulação esternoclavicular articula-se com clavicular sternal articular surface e clavicular notch of manubrium ste..."
+    },
+    {
+      "query_id": "SE1-Q-099",
+      "query_text": "Qual o papel mecânico do complexo ligamentar coracoclavicular na sustentação do membro superior?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-CORACOCLAVICULAR_LIGAMENT_COMPLEX",
+      "used_fact_ids": [
+        "AET-CF-CCC-001",
+        "AET-CF-CCC-002",
+        "AET-CF-CCC-014",
+        "AET-CF-CCC-015"
+      ],
+      "teaching_units_used": [
+        "TC-UL-B1-005"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 2.003,
+      "text_snippet": "O complexo ligamentar coracoclavicular é classificado morfologicamente como extrinsic syndesmosis complex.\n\nO complexo l..."
+    },
+    {
+      "query_id": "SE1-Q-100",
+      "query_text": "Por que o processo coracoide é tão importante funcionalmente?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "used_fact_ids": [
+        "AET-CF-SCAP-026",
+        "AET-CF-SCAP-066",
+        "AET-CF-SCAP-089",
+        "AET-CF-SCAP-090"
+      ],
+      "teaching_units_used": [
+        "AET-CTC-TC-SCAP-004"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 1.866,
+      "text_snippet": "A escápula identifica o processo coracoide.\n\nA escápula apresenta como acidente anatômico o processo coracoide. Biceps b..."
+    },
+    {
+      "query_id": "SE1-Q-101",
+      "query_text": "Qual o papel funcional da espinha da escápula e acrômio na mecânica do ombro?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SPINE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-024",
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_units_used": [
+        "AET-CTC-TC-SCAP-001"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 1.143,
+      "text_snippet": "Clavicular acromial articular surface articula-se com o acrômio.\n\nO cíngulo peitoral (cintura escapular) apresenta como ..."
+    },
+    {
+      "query_id": "SE1-Q-102",
+      "query_text": "Por que o lábio glenoidal é crucial para a cavidade glenoidal?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_GLENOID_CAVITY",
+      "used_fact_ids": [
+        "AET-CF-SCAP-027",
+        "AET-CF-SCAP-028",
+        "AET-CF-SCAP-067",
+        "AET-CF-SCAP-073"
+      ],
+      "teaching_units_used": [
+        "AET-CTC-TC-SCAP-002"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 1.079,
+      "text_snippet": "A escápula identifica a cavidade glenoidal.\n\nA cavidade glenoidal é circundada pelo lábio glenoidal (labrum). Lateral an..."
+    },
+    {
+      "query_id": "SE1-Q-103",
+      "query_text": "Qual a importância biomecânica da transmissão de forças pela clavícula para o esqueleto axial?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002",
+        "AET-CF-CLAV-003",
+        "AET-CF-CLAV-004"
+      ],
+      "teaching_units_used": [
+        "TC-UL-B1-001"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 1.069,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo.\n\nA clavícula integra o cíngulo peitoral (cintura escapular)..."
+    },
+    {
+      "query_id": "SE1-Q-104",
+      "query_text": "Por que a articulação acromioclavicular depende tanto dos ligamentos coracoclaviculares?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-ACJ-003",
+        "AET-CF-ACJ-001",
+        "AET-CF-ACJ-002",
+        "AET-CF-ACJ-006"
+      ],
+      "teaching_units_used": [
+        "TC-UL-B1-005"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 1.149,
+      "text_snippet": "A articulação acromioclavicular articula-se com clavicular acromial articular surface e acromial facet of scapula.\n\nA ar..."
+    },
+    {
+      "query_id": "SE1-Q-105",
+      "query_text": "Qual o papel do músculo subclávio na proteção dos vasos subclaviculares?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "PARTIAL_CANONICAL_EVIDENCE",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-REF-SUBCLAVIUS",
+      "used_fact_ids": [
+        "AET-CF-CLAV-029"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.333,
+      "text_snippet": "Subclavius muscle insere-se em o sulco do músculo subclávio...."
+    },
+    {
+      "query_id": "SE1-Q-106",
+      "query_text": "Por que a incisura da escápula é um ponto anatômico crítico de passagem neurovascular?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUPRASCAPULAR_NOTCH",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "teaching_units_used": [
+        "AET-CTC-TC-SCAP-005"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 1.229,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula.\n\nA escápula (omóplato..."
+    },
+    {
+      "query_id": "SE1-Q-107",
+      "query_text": "Qual o papel mecânico do ligamento costoclavicular como fulcro de movimento?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-COSTOCLAVICULAR_LIGAMENT",
+      "used_fact_ids": [
+        "AET-CF-CLAV-030",
+        "AET-CF-SCJ-014",
+        "AET-CF-SCJ-013"
+      ],
+      "teaching_units_used": [
+        "TC-UL-B1-004"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 1.478,
+      "text_snippet": "O ligamento costoclavicular fixa costoclavicular ligament impression.\n\nO ligamento costoclavicular origina-se em upper s..."
+    },
+    {
+      "query_id": "SE1-Q-108",
+      "query_text": "Por que a escápula e clavícula precisam mover-se em conjunto na elevação do braço?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-001",
+        "AET-CF-CLAV-002",
+        "AET-CF-CLAV-003",
+        "AET-CF-CLAV-004"
+      ],
+      "teaching_units_used": [
+        "TC-UL-B1-001"
+      ],
+      "practical_units_used": [],
+      "latency_ms": 1.387,
+      "text_snippet": "A clavícula é classificado morfologicamente como osso longo.\n\nA clavícula integra o cíngulo peitoral (cintura escapular)..."
+    },
+    {
+      "query_id": "SE1-Q-109",
+      "query_text": "Qual o papel funcional dos tubérculos supraglenoidal e infraglenoidal na mecânica do cotovelo e ombro?",
+      "category": "PROFESSOR_CONNECTION",
+      "passed": true,
+      "status": "VALIDATED_PROFESSOR_ANSWER",
+      "depth": "PROFESSOR",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUPRAGLENOID_TUBERCLE",
+      "used_fact_ids": [
+        "AET-CF-SCAP-038",
+        "AET-CF-SCAP-039",
+        "AET-CF-SCAP-068",
+        "AET-CF-SCAP-069"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.784,
+      "text_snippet": "A fonte associa a cabeça longa do bíceps com a região supraglenoidal.\n\nA fonte associa a cabeça longa do tríceps com a r..."
+    },
+    {
+      "query_id": "SE1-Q-110",
+      "query_text": "Compare a extremidade esternal e a extremidade acromial da clavícula",
+      "category": "COMPARISON_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_ACROMIAL_END",
+      "used_fact_ids": [
+        "AET-CF-CLAV-021",
+        "AET-CF-CLAV-023",
+        "AET-CF-CLAV-027",
+        "AET-CF-CLAV-042"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.4,
+      "text_snippet": "A extremidade esternal da clavícula apresenta como acidente anatômico clavicular sternal articular surface. A extremidad..."
+    },
+    {
+      "query_id": "SE1-Q-111",
+      "query_text": "Qual a diferença entre o ligamento conoide e o ligamento trapezoide?",
+      "category": "COMPARISON_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-TRAPEZOID_LIGAMENT",
+      "used_fact_ids": [
+        "AET-CF-CCC-002",
+        "AET-CF-CCC-003",
+        "AET-CF-CCC-004",
+        "AET-CF-CCC-005"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.197,
+      "text_snippet": "O complexo ligamentar coracoclavicular apresenta como acidente anatômico o ligamento conoide e o ligamento trapezoide. O..."
+    },
+    {
+      "query_id": "SE1-Q-112",
+      "query_text": "Diferença entre a face costal e a face posterior da escápula",
+      "category": "COMPARISON_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_POSTERIOR_SURFACE",
+      "used_fact_ids": [
+        "AET-CF-SCAP-052",
+        "AET-CF-SCAP-053",
+        "AET-CF-SCAP-060",
+        "AET-CF-PGI-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.638,
+      "text_snippet": "A escápula apresenta a face costal (anterior). A escápula apresenta a face posterior (dorsal). Posterior surface of scap..."
+    },
+    {
+      "query_id": "SE1-Q-113",
+      "query_text": "Compare a articulação esternoclavicular e a articulação acromioclavicular",
+      "category": "COMPARISON_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-ACJ-003",
+        "AET-CF-SCJ-003",
+        "AET-CF-ACJ-001",
+        "AET-CF-ACJ-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.241,
+      "text_snippet": "A articulação acromioclavicular articula-se com clavicular acromial articular surface e acromial facet of scapula. A art..."
+    },
+    {
+      "query_id": "SE1-Q-114",
+      "query_text": "Diferença entre a fossa supraespinosa e a fossa infraespinosa",
+      "category": "COMPARISON_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUPRASPINOUS_FOSSA",
+      "used_fact_ids": [
+        "AET-CF-SCAP-012",
+        "AET-CF-SCAP-013",
+        "AET-CF-SCAP-032",
+        "AET-CF-SCAP-033"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.158,
+      "text_snippet": "A face posterior identifica a fossa supraespinosa. A face posterior identifica a fossa infraespinosa. A fonte associa o ..."
+    },
+    {
+      "query_id": "SE1-Q-115",
+      "query_text": "Compare a margem medial e a margem lateral da escápula",
+      "category": "COMPARISON_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_LATERAL_BORDER",
+      "used_fact_ids": [
+        "AET-CF-SCAP-017",
+        "AET-CF-SCAP-018",
+        "AET-CF-SCAP-019",
+        "AET-CF-SCAP-054"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.162,
+      "text_snippet": "A escápula possui borda medial (denominada borda espinhal nas notas de aula). A escápula possui borda lateral (denominad..."
+    },
+    {
+      "query_id": "SE1-Q-116",
+      "query_text": "Diferença entre a face superior e a face inferior da clavícula",
+      "category": "COMPARISON_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_INFERIOR_SURFACE",
+      "used_fact_ids": [
+        "AET-CF-CLAV-011",
+        "AET-CF-CLAV-012",
+        "AET-CF-CLAV-016",
+        "AET-CF-CLAV-017"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.112,
+      "text_snippet": "A clavícula apresenta a face superior da clavícula. A clavícula apresenta a face inferior da clavícula. A face inferior ..."
+    },
+    {
+      "query_id": "SE1-Q-117",
+      "query_text": "Compare a borda anterior e a borda posterior da clavícula",
+      "category": "COMPARISON_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICULAR_SHAFT",
+      "used_fact_ids": [
+        "AET-CF-CLAV-013",
+        "AET-CF-CLAV-014",
+        "AET-CF-CLAV-044",
+        "AET-CF-CLAV-045"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.146,
+      "text_snippet": "A clavícula é delimitado por anterior border of clavicle. A clavícula é delimitado por posterior border of clavicle. Pos..."
+    },
+    {
+      "query_id": "SE1-Q-118",
+      "query_text": "Diferença entre o tubérculo supraglenoidal e infraglenoidal da escápula",
+      "category": "COMPARISON_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SUPRAGLENOID_TUBERCLE",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.693,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-119",
+      "query_text": "Compare o processo coracoide e o acrômio da escápula",
+      "category": "COMPARISON_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "used_fact_ids": [
+        "AET-CF-CLAV-024",
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.371,
+      "text_snippet": "Clavicular acromial articular surface articula-se com o acrômio. O cíngulo peitoral (cintura escapular) apresenta como a..."
+    },
+    {
+      "query_id": "SE1-Q-120",
+      "query_text": "Como a escápula é visualizada no modelo 3D do atlas?",
+      "category": "VIEWER_CONTEXT_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULA",
+      "used_fact_ids": [
+        "AET-CF-SCAP-001",
+        "AET-CF-SCAP-002",
+        "AET-CF-SCAP-003"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.216,
+      "text_snippet": "A escápula (omóplato) integra a cintura escapular. No ambiente 3D do Aeternum Atlas, a estrutura encontra-se atualmente ..."
+    },
+    {
+      "query_id": "SE1-Q-121",
+      "query_text": "Qual o posicionamento da clavícula no viewer 3D?",
+      "category": "VIEWER_CONTEXT_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [
+        "AET-CF-SCAP-007",
+        "AET-CF-SCAP-071",
+        "AET-CF-CLAV-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.105,
+      "text_snippet": "A escápula articula-se com a clavícula através da articulação acromioclavicular. No ambiente 3D do Aeternum Atlas, a est..."
+    },
+    {
+      "query_id": "SE1-Q-122",
+      "query_text": "Existe hotspot no visualizador 3D para a articulação esternoclavicular?",
+      "category": "VIEWER_CONTEXT_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-STERNOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-SCJ-001",
+        "AET-CF-SCJ-002",
+        "AET-CF-SCJ-003"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.08,
+      "text_snippet": "A articulação esternoclavicular é classificado morfologicamente como synovial sellar joint. No ambiente 3D do Aeternum A..."
+    },
+    {
+      "query_id": "SE1-Q-123",
+      "query_text": "Existe anotação 3D para a articulação acromioclavicular no atlas?",
+      "category": "VIEWER_CONTEXT_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-ACROMIOCLAVICULAR_JOINT",
+      "used_fact_ids": [
+        "AET-CF-ACJ-001",
+        "AET-CF-ACJ-002",
+        "AET-CF-ACJ-003"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.075,
+      "text_snippet": "A articulação acromioclavicular é classificado morfologicamente como synovial plane joint. No ambiente 3D do Aeternum At..."
+    },
+    {
+      "query_id": "SE1-Q-124",
+      "query_text": "Como localizar o processo coracoide no visualizador 3D?",
+      "category": "VIEWER_CONTEXT_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_CORACOID_PROCESS",
+      "used_fact_ids": [
+        "AET-CF-SCAP-026",
+        "AET-CF-SCAP-066",
+        "AET-CF-SCAP-089"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.129,
+      "text_snippet": "A escápula identifica o processo coracoide. No ambiente 3D do Aeternum Atlas, a estrutura encontra-se atualmente em stat..."
+    },
+    {
+      "query_id": "SE1-Q-125",
+      "query_text": "Qual o destaque do sulco deltopeitoral no visualizador 3D?",
+      "category": "VIEWER_CONTEXT_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-DELTOPECTORAL_GROOVE",
+      "used_fact_ids": [
+        "AET-CF-PGI-008",
+        "AET-CF-PGI-009",
+        "AET-CF-PGI-010"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.115,
+      "text_snippet": "O sulco deltopeitoral apresenta como acidente anatômico o sulco deltopeitoral. No ambiente 3D do Aeternum Atlas, a estru..."
+    },
+    {
+      "query_id": "SE1-Q-126",
+      "query_text": "Existe coordenada ou malha 3D mapeada para a espinha da escápula?",
+      "category": "VIEWER_CONTEXT_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_SPINE",
+      "used_fact_ids": [
+        "AET-CF-PGI-002",
+        "AET-CF-SCAP-001"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.117,
+      "text_snippet": "O cíngulo peitoral (cintura escapular) apresenta como acidente anatômico a clavícula e a escápula. A escápula (omóplato)..."
+    },
+    {
+      "query_id": "SE1-Q-127",
+      "query_text": "Como o acrômio aparece no modelo 3D do ombro?",
+      "category": "VIEWER_CONTEXT_QUERY",
+      "passed": true,
+      "status": "VALIDATED_DIRECT_ANSWER",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-SCAPULAR_ACROMION",
+      "used_fact_ids": [
+        "AET-CF-SCAP-015",
+        "AET-CF-SCAP-065",
+        "AET-CF-SCAP-079"
+      ],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.139,
+      "text_snippet": "A face posterior identifica o acrômio. No ambiente 3D do Aeternum Atlas, a estrutura encontra-se atualmente em status NO..."
+    },
+    {
+      "query_id": "SE1-Q-128",
+      "query_text": "Qual a classificação do fêmur?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "femur",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.149,
+      "text_snippet": "A estrutura anatômica informada (femur) está fora do escopo canônico atualmente homologado no Aeternum Atlas, que nesta ..."
+    },
+    {
+      "query_id": "SE1-Q-129",
+      "query_text": "Onde se localiza a tíbia?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "tibia",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 0.959,
+      "text_snippet": "A estrutura anatômica informada (tibia) está fora do escopo canônico atualmente homologado no Aeternum Atlas, que nesta ..."
+    },
+    {
+      "query_id": "SE1-Q-130",
+      "query_text": "Qual a função da patela no joelho?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "patela",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 0.987,
+      "text_snippet": "A estrutura anatômica informada (patela) está fora do escopo canônico atualmente homologado no Aeternum Atlas, que nesta..."
+    },
+    {
+      "query_id": "SE1-Q-131",
+      "query_text": "Quais as faces do rim?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "rim",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.748,
+      "text_snippet": "A estrutura anatômica informada (rim) está fora do escopo canônico atualmente homologado no Aeternum Atlas, que nesta fa..."
+    },
+    {
+      "query_id": "SE1-Q-132",
+      "query_text": "Onde se localiza o fígado?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "figado",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.249,
+      "text_snippet": "A estrutura anatômica informada (figado) está fora do escopo canônico atualmente homologado no Aeternum Atlas, que nesta..."
+    },
+    {
+      "query_id": "SE1-Q-133",
+      "query_text": "Quais as câmaras do coração?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "coracao",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.115,
+      "text_snippet": "A estrutura anatômica informada (coracao) está fora do escopo canônico atualmente homologado no Aeternum Atlas, que nest..."
+    },
+    {
+      "query_id": "SE1-Q-134",
+      "query_text": "Quais os lobos do cérebro?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "cerebro",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.816,
+      "text_snippet": "A estrutura anatômica informada (cerebro) está fora do escopo canônico atualmente homologado no Aeternum Atlas, que nest..."
+    },
+    {
+      "query_id": "SE1-Q-135",
+      "query_text": "Onde passa o nervo ciático?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "nervo ciatico",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.052,
+      "text_snippet": "A estrutura anatômica informada (nervo ciatico) está fora do escopo canônico atualmente homologado no Aeternum Atlas, qu..."
+    },
+    {
+      "query_id": "SE1-Q-136",
+      "query_text": "Quais são os ossos do carpo?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "carpo",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.007,
+      "text_snippet": "A estrutura anatômica informada (carpo) está fora do escopo canônico atualmente homologado no Aeternum Atlas, que nesta ..."
+    },
+    {
+      "query_id": "SE1-Q-137",
+      "query_text": "Qual o diagnóstico e conduta cirúrgica para fratura da clavícula?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.143,
+      "text_snippet": "A base canônica do Aeternum Atlas foca na anatomia descritiva, topográfica e funcional estritamente fundamentada em font..."
+    },
+    {
+      "query_id": "SE1-Q-138",
+      "query_text": "Qual o tratamento clínico para luxação acromioclavicular?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "CLINICAL_VALIDATION_UNAVAILABLE",
+      "depth": "DIRECT",
+      "resolved_entity": "cintura_escapular",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.093,
+      "text_snippet": "A base canônica do Aeternum Atlas foca na anatomia descritiva, topográfica e funcional estritamente fundamentada em font..."
+    },
+    {
+      "query_id": "SE1-Q-139",
+      "query_text": "A escápula se articula diretamente com a tíbia?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "tibia",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.201,
+      "text_snippet": "A estrutura anatômica informada (tibia) está fora do escopo canônico atualmente homologado no Aeternum Atlas, que nesta ..."
+    },
+    {
+      "query_id": "SE1-Q-140",
+      "query_text": "A clavícula possui cavidade glenoidal para o fêmur?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "femur",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 0.992,
+      "text_snippet": "A estrutura anatômica informada (femur) está fora do escopo canônico atualmente homologado no Aeternum Atlas, que nesta ..."
+    },
+    {
+      "query_id": "SE1-Q-141",
+      "query_text": "O ligamento conoide fixa a clavícula diretamente no esterno?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "NO_CANONICAL_EVIDENCE",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CONOID_LIGAMENT",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.131,
+      "text_snippet": "A consulta apresentada baseia-se em uma premissa anatômica incompatível com o registro canônico: Ligamento conoide fixa-..."
+    },
+    {
+      "query_id": "SE1-Q-142",
+      "query_text": "Qual a razão cinemática numérica do ritmo escapuloumeral 2:1?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "CANONICAL_EVIDENCE_AVAILABLE_BUT_RUNTIME_BLOCKED",
+      "depth": "DIRECT",
+      "resolved_entity": null,
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 2.203,
+      "text_snippet": "As relações conceituais ou proporções questionadas constam no repositório canônico sob revisão ontológica ou estágio de ..."
+    },
+    {
+      "query_id": "SE1-Q-143",
+      "query_text": "Existe alguma relação candidata não homologada para a clavícula?",
+      "category": "SAFE_FAILURE_QUERY",
+      "passed": true,
+      "status": "CANONICAL_EVIDENCE_AVAILABLE_BUT_RUNTIME_BLOCKED",
+      "depth": "DIRECT",
+      "resolved_entity": "AET-ENT-UL-CLAVICLE",
+      "used_fact_ids": [],
+      "teaching_units_used": [],
+      "practical_units_used": [],
+      "latency_ms": 1.11,
+      "text_snippet": "As relações conceituais ou proporções questionadas constam no repositório canônico sob revisão ontológica ou estágio de ..."
+    }
+  ]
+}
