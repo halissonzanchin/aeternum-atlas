@@ -85,3 +85,4 @@ scripts/generate_*.cjs
 scripts/test_aeternum_*.cjs
 supabase/functions/ai-tutor/dist.js
 .agents/
+tools/quality-lab/

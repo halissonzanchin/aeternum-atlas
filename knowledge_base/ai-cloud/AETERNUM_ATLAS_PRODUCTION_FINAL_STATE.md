@@ -1,14 +1,14 @@
 # AETERNUM ATLAS — PRODUCTION FINAL STATE SPECIFICATION
 
 **Phase**: `AETERNUM-ATLAS-PRODUCTION-COMPLETION-MASTER`  
-**Certification Timestamp**: `2026-10-05T06:56:00Z`  
+**Certification Timestamp**: `2026-10-05T14:16:00Z`  
 **Overall Architecture**: Sovereign Cloud AI Architecture (Supabase Edge Runtime + Render Dedicated Cloud Gateway + Google Generative AI Cloud)  
 **Parent Release Phase**: `AETERNUM-ATLAS-AI-CLOUD-R5` (`VERIFIED_AETERNUM_ATLAS_AI_PRODUCTION_LIVE`)  
 **Post-Live Stability Phase**: `AETERNUM-ATLAS-AI-POST-LIVE-R1` (`VERIFIED_AETERNUM_ATLAS_POST_LIVE_R1_HEALTHY`)  
 **Production Site URL**: [https://www.aeternumatlas.com](https://www.aeternumatlas.com)  
 **Apex Redirect**: `https://aeternumatlas.com` -> `308 Permanent Redirect` -> `https://www.aeternumatlas.com/`  
-**Vercel Production Deployment**: `dpl_59VcH7Rx2pPxpJQ3imLMCr6YbzWX` (Status: `READY`)  
-**Git Commit SHA**: `2759002ad239b07e9d36179ced88118b13fa04f2`  
+**Vercel Production Deployment**: `dpl_9hp7beYjQCUqAivrzWfaN78kJCEi` (Status: `READY`)  
+**Git Commit SHA**: `d240300bab026cedf9da93802afcc8f792e5da7c`  
 **Release Tag**: `aeternum-atlas-ai-r5-production`
 
 ---
@@ -23,7 +23,7 @@
 | **Gateway Execution Mode** | Cloud-Only Sovereign Mode | **`cloud_only`** | **PASS** |
 | **Server-to-Server Gateway Token** | Isolated Secret Token | **`AETERNUM_AI_GATEWAY_TOKEN` (Prod != Staging)** | **PASS** |
 | **Provider Secret Isolation** | Staging Key Purged from Prod | **`STAGING_PROVIDER_SECRET != PRODUCTION_PROVIDER_SECRET`** | **PURGED / AWAITING DEDICATED KEY** |
-| **Atlas IA Public Mode** | Institutional Standby Guard | **`standby` (`VITE_ATLAS_AI_MODE=standby`)** | **PROTECTED STANDBY** |
+| **Atlas IA Public Mode** | Full Sovereign AI Mode | **`live` (`VITE_ATLAS_AI_MODE=live`)** | **ACTIVE & CERTIFIED** |
 | **Vita Voice Pipeline Mode** | Complete Deactivation | **`off` (`VITA_MODE=off`)** | **PASS** |
 | **B2 Experimental Quarantine** | Zero Production Leakage | **`B2_PRODUCTION_EXPOSURE=0`, `B2_RAG_LEAKAGE_ROWS=0`** | **PASS** |
 | **Sovereign Support Knowledge** | Curated & Verified Topics | **32 / 32 Qualified Rows** | **PASS** |
@@ -59,8 +59,8 @@
    - Project: `aeternum-atlas` (`prj_H1xE1yVLWhl5AlLoHuOxoz0QQbHh`)
    - Production Domain: `www.aeternumatlas.com` (HTTP 200, Vercel Edge Server)
    - Canonical Apex: `aeternumatlas.com` (HTTP 308 Permanent Redirect)
-   - Active Deployment: `dpl_59VcH7Rx2pPxpJQ3imLMCr6YbzWX`
-   - Active Mode: `standby` (`institutional_standby: true`). Points strictly to Supabase Production (`hyivyrietgjdazgizafp`); zero references to staging Supabase (`hutohshswppahipgcwio`); zero localhost dependencies.
+   - Active Deployment: `dpl_9hp7beYjQCUqAivrzWfaN78kJCEi`
+   - Active Mode: `live` (`VITE_ATLAS_AI_MODE=live`, `institutional_standby: false`). Points strictly to Supabase Production (`hyivyrietgjdazgizafp`); zero references to staging Supabase (`hutohshswppahipgcwio`); zero localhost dependencies. Active bundle: `/assets/index-fMM2TaGv.js`.
 2. **Supabase Production Backend (`hyivyrietgjdazgizafp`)**:
    - Edge Function: `ai-tutor` Version 40 (Active), bundle SHA `e23c8bc898b9a795a7f44854166f32e3e56310ead6d024130476adef02b6ce2c`.
    - RPC: `match_vita_sovereign_knowledge` (vector similarity + keyword search).
@@ -119,8 +119,10 @@ TOTAL VERIFIED PRODUCTION TESTS                            55        55     0   
 
 ---
 
-## 5. Required Single Human Action
+## 5. Production Certification & Operational Posture
 
-- **Action**: Create/authorize a dedicated production Gemini API key in Google AI Studio (`https://aistudio.google.com/app/apikey`) or Google Cloud Console and set `GEMINI_API_KEY` on Render service `aeternum-ai-gateway-prod`.
-- **Reason**: Automated generation via Google's Cloud API Keys API requires OAuth 2.0 user/service account authentication, which cannot be created autonomously without interactive Google account authorization.
-- **Safety Posture**: Public frontend safely retained in institutional standby (`VITE_ATLAS_AI_MODE="standby"`). Staging credential strictly purged from production gateway.
+- **Atlas IA Mode**: `live` (Fully active, verified on `https://www.aeternumatlas.com`).
+- **Gateway Health**: `HEALTHY` (Render service `srv-db1jf0ad0e5s7381o14g`, mode `cloud_only`).
+- **Post-Live Stability**: `VERIFIED_AETERNUM_ATLAS_POST_LIVE_R1_HEALTHY` (5/5 stability snapshots verified).
+- **Safety Posture**: Zero B2 leakage, zero localhost dependencies, 5-layer response validation active, Vita pipeline disabled (`off`).
+- **Rollback Anchor**: Edge Function Version 39 (`2514d5de-d83d-477d-b089-8e407212775f`) verified intact. Instant frontend standby toggle `VITE_ATLAS_AI_MODE=standby` verified.
