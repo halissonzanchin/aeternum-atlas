@@ -760,10 +760,19 @@ export async function handleAiTutorRequest(
   ).trim();
   const localGatewayToken = (env.ATLAS_LOCAL_GATEWAY_TOKEN || "").trim();
   const localGatewayTimeoutMs = Number(env.ATLAS_LOCAL_GATEWAY_TIMEOUT_MS || 45_000) || 45_000;
-  // Política explícita de indisponibilidade: por padrão ("fail_closed"), NÃO aciona provedor pago terceiro silenciosamente
+  // Política explícita de indisponibilidade: por padrão ("fail_closed"), NÃO aciona provedor pago terceiro silenciosamente.
+  // Precedência não-negociável:
+  // 1. Se ATLAS_LOCAL_AI_FALLBACK_POLICY for explicitamente "fail_closed", NUNCA permite fallback à nuvem (mesmo se legado for true).
+  // 2. Se for explicitamente "cloud_fallback", permite fallback à nuvem.
+  // 3. Padrão estrito de segurança: fail_closed (apenas legado true se a política explícita não for fail_closed).
+  const rawFallbackPolicy = (env.ATLAS_LOCAL_AI_FALLBACK_POLICY || "").trim().toLowerCase();
+  const legacyAllowCloudFallback = (env.ATLAS_LOCAL_AI_ALLOW_CLOUD_FALLBACK || "").trim().toLowerCase() === "true";
   const allowLocalToCloudFallback =
-    (env.ATLAS_LOCAL_AI_FALLBACK_POLICY || "").trim().toLowerCase() === "cloud_fallback" ||
-    (env.ATLAS_LOCAL_AI_ALLOW_CLOUD_FALLBACK || "").trim().toLowerCase() === "true";
+    rawFallbackPolicy === "fail_closed"
+      ? false
+      : rawFallbackPolicy === "cloud_fallback"
+      ? true
+      : (rawFallbackPolicy === "" && legacyAllowCloudFallback);
   const cfClientId = (env.CF_ACCESS_CLIENT_ID || "").trim();
   const cfClientSecret = (env.CF_ACCESS_CLIENT_SECRET || "").trim();
 
@@ -1286,7 +1295,7 @@ export async function handleAiTutorRequest(
     const tRetryStart = performance.now();
     const retryInstruction = sysInstructionText + "\nATENÇÃO: Sua resposta anterior violou restrições de segurança ou premissa. Corrija rigorosamente.";
 
-    if (routeToLocalAI && gatewayResult.provider.includes("atlas-daemon")) {
+    if (routeToLocalAI) {
       const localHeaders: Record<string, string> = {};
       if (cfClientId && cfClientSecret) {
         localHeaders["CF-Access-Client-Id"] = cfClientId;
@@ -1362,6 +1371,8 @@ export async function handleAiTutorRequest(
       "X-Aeternum-Safe-Engine": "MISS",
       "X-Aeternum-RAG-Invoked": "TRUE",
       "X-Aeternum-AI-Calls": "1",
+      "X-Aeternum-AI-Routing": targetRouting,
+      "X-Aeternum-AI-Fallback": String(gatewayResult.fallbackUsed || false),
       "X-Aeternum-Latency-Total": String(totalLatencyMs)
     });
   }

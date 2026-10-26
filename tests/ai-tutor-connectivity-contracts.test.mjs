@@ -320,3 +320,127 @@ test("8. Cancelamento / Desconexão do Estudante: Interrompe chamada sem retry n
   const body = await res.json();
   assert.equal(body.code, "REQUEST_CANCELLED");
 });
+
+test("9. Precedência Não-Negociável: fail_closed sobrepõe explicitamente variável legada allow_cloud_fallback=true", async () => {
+  let geminiCalled = false;
+  let gatewayCalled = false;
+
+  const mockFetch = async (url) => {
+    if (String(url).includes("generativelanguage.googleapis.com")) {
+      geminiCalled = true;
+      return new Response("{}", { status: 200 });
+    }
+    gatewayCalled = true;
+    // Simula erro de conexão (503) no Gateway local
+    return new Response(JSON.stringify({ error: { code: "provider_unavailable" } }), { status: 503 });
+  };
+
+  const req = new Request("https://supabase.aeternumatlas.com/functions/v1/ai-tutor", {
+    method: "POST",
+    headers: {
+      Origin: "https://www.aeternumatlas.com",
+      Authorization: "Bearer valid-student-jwt-token",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      messages: [{ role: "user", content: "Explique a formação anatômica do plexo braquial." }]
+    })
+  });
+
+  const res = await handleAiTutorRequest(req, {
+    env: {
+      SUPABASE_URL: "https://mock.supabase.co",
+      SUPABASE_ANON_KEY: "anon-key",
+      SUPABASE_SERVICE_ROLE_KEY: "service-role-key",
+      GEMINI_API_KEY: "paid-gemini-api-key",
+      ATLAS_LOCAL_AI_ENABLED: "true",
+      ATLAS_LOCAL_AI_ALLOWLIST_UUIDS: "uuid-halisson-hp-victus-001",
+      ATLAS_LOCAL_GATEWAY_URL: "https://atlas-code.aeternumatlas.com",
+      ATLAS_LOCAL_GATEWAY_TOKEN: "independent-gateway-bearer-secret",
+      CF_ACCESS_CLIENT_ID: "real-client-id-123456.access",
+      CF_ACCESS_CLIENT_SECRET: "real-client-secret-abcdef",
+      // ADVERSARIAL: Legado tenta liberar cloud_fallback, mas a política explícita é fail_closed!
+      ATLAS_LOCAL_AI_ALLOW_CLOUD_FALLBACK: "true",
+      ATLAS_LOCAL_AI_FALLBACK_POLICY: "fail_closed"
+    },
+    createClient: createMockSupabaseFactory("uuid-halisson-hp-victus-001"),
+    fetchFn: mockFetch
+  });
+
+  assert.equal(gatewayCalled, true, "Deve tentar o Gateway local");
+  assert.equal(geminiCalled, false, "NUNCA deve acionar Gemini quando ATLAS_LOCAL_AI_FALLBACK_POLICY=fail_closed, mesmo se a variável legada for true");
+  assert.equal(res.status, 503);
+  assert.equal(res.headers.get("X-Aeternum-AI-Fallback"), "false");
+});
+
+test("10. Canário em Retry de Validação Anatômica: Permanece no Gateway local e NUNCA aciona Gemini em fail_closed", async () => {
+  let geminiCalled = false;
+  let localGatewayCalls = 0;
+
+  const mockFetch = async (url, init) => {
+    if (String(url).includes("generativelanguage.googleapis.com")) {
+      geminiCalled = true;
+      return new Response(JSON.stringify({
+        candidates: [{ content: { parts: [{ text: "Resposta paga do Gemini." }] } }]
+      }), { status: 200 });
+    }
+
+    if (String(url).includes("atlas-code.aeternumatlas.com")) {
+      localGatewayCalls++;
+      // Na primeira chamada, retorna resposta que violará o Response Validator (ex.: premissa falsa proibida)
+      if (localGatewayCalls === 1) {
+        return new Response(JSON.stringify({
+          success: true,
+          data: {
+            text: "O processo coracoide pertence à clavícula e articula-se com o fêmur.", // Premissa anatômica falsa proposital
+            providerId: "generic-provider-id-without-daemon-in-name",
+            modelId: "generic-model"
+          },
+          metadata: { finalProvider: "generic-provider-id-without-daemon-in-name" }
+        }), { status: 200, headers: { "Content-Type": "application/json" } });
+      }
+
+      // Na segunda chamada (retry do validator), simula falha local
+      return new Response(JSON.stringify({
+        error: { code: "provider_unavailable", message: "Daemon ocupado." }
+      }), { status: 503, headers: { "Content-Type": "application/json" } });
+    }
+
+    return new Response("{}", { status: 200 });
+  };
+
+  const req = new Request("https://supabase.aeternumatlas.com/functions/v1/ai-tutor", {
+    method: "POST",
+    headers: {
+      Origin: "https://www.aeternumatlas.com",
+      Authorization: "Bearer valid-student-jwt-token",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      messages: [{ role: "user", content: "Explique a correlação neurovascular complexa da fossa axilar em detalhes clínicos." }]
+    })
+  });
+
+  const res = await handleAiTutorRequest(req, {
+    env: {
+      SUPABASE_URL: "https://mock.supabase.co",
+      SUPABASE_ANON_KEY: "anon-key",
+      SUPABASE_SERVICE_ROLE_KEY: "service-role-key",
+      GEMINI_API_KEY: "paid-gemini-api-key",
+      ATLAS_LOCAL_AI_ENABLED: "true",
+      ATLAS_LOCAL_AI_ALLOWLIST_UUIDS: "uuid-halisson-hp-victus-001",
+      ATLAS_LOCAL_GATEWAY_URL: "https://atlas-code.aeternumatlas.com",
+      ATLAS_LOCAL_GATEWAY_TOKEN: "independent-gateway-bearer-secret",
+      CF_ACCESS_CLIENT_ID: "real-client-id-123456.access",
+      CF_ACCESS_CLIENT_SECRET: "real-client-secret-abcdef",
+      ATLAS_LOCAL_AI_FALLBACK_POLICY: "fail_closed"
+    },
+    createClient: createMockSupabaseFactory("uuid-halisson-hp-victus-001"),
+    fetchFn: mockFetch
+  });
+
+  assert.equal(localGatewayCalls, 2, "A tentativa inicial e o retry de validação devem ambos ter ocorrido no Gateway local");
+  assert.equal(geminiCalled, false, "NÃO deve ter ocorrido fallback silencioso para Gemini pago no retry sob política fail_closed");
+  assert.equal(res.status, 502, "Deve retornar 502 quando a resposta falhar na validação anatômica");
+  assert.equal(res.headers.get("X-Aeternum-AI-Fallback"), "false");
+});
