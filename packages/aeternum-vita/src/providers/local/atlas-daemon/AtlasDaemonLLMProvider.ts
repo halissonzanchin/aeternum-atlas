@@ -306,10 +306,11 @@ export class AtlasDaemonLLMProvider implements LLMProvider {
 
     const timeoutMs = this.defaultTimeoutMs;
     const requestedTokens = request.maxTokens || 1024;
-    // Modelos de raciocínio (ex.: qwen3.5:4b) consomem tokens iniciais em `thinking_chunk`
-    // antes de emitir `token_chunk`. Limitamos o orçamento efetivo em 1024 tokens para garantir
-    // tempo de inferência dentro do limite de 60s do daemon (~15-25s de geração na RTX 4050).
-    const effectiveTokenBudget = Math.min(Math.max(requestedTokens, 800), 1024);
+    // Modelos de raciocínio (ex.: qwen3.5:4b) consomem tokens em `thinking_chunk`
+    // antes de emitir `token_chunk`. Garantimos entre 1536 e 2048 tokens:
+    // - Mínimo de 1536 garante que o raciocínio (300-800 tokens) nunca estoure o orçamento antes da resposta.
+    // - Teto de 2048 garante que a inferência termine em ~35-42s na RTX 4050 (50 tps), com folga segura para o timeout de 60s do daemon.
+    const effectiveTokenBudget = Math.min(Math.max(requestedTokens, 1536), 2048);
     const taskPayload = {
       title: "Tutor IA Inferência Local",
       prompt,
