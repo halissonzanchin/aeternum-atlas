@@ -8,6 +8,7 @@ import {
 } from "./types.ts";
 import { SafeGatewayLogger } from "./middleware/logging.ts";
 import { validateGatewayAuth } from "./middleware/auth.ts";
+import { ConcurrencyQueue, ConcurrencyQueueError } from "./middleware/concurrency.ts";
 import {
   ProviderCancelledError,
   ProviderTimeoutError,
@@ -28,12 +29,15 @@ const SAFE_CANONICAL_ERROR_CODES: Record<string, { code: string; message: string
   ALL_PROVIDERS_FAILED: { code: "all_providers_failed", message: "Todos os provedores configurados falharam.", httpStatus: 503 },
   BAD_REQUEST: { code: "bad_request", message: "Corpo da requisição inválido ou malformado.", httpStatus: 400 },
   PAYLOAD_TOO_LARGE: { code: "payload_too_large", message: "Tamanho da requisição excede o limite máximo permitido.", httpStatus: 413 },
-  UNAUTHORIZED: { code: "unauthorized", message: "Acesso não autorizado.", httpStatus: 401 }
+  UNAUTHORIZED: { code: "unauthorized", message: "Acesso não autorizado.", httpStatus: 401 },
+  QUEUE_FULL: { code: "queue_full", message: "Fila de requisições do gateway local cheia. Capacidade máxima de VRAM atingida.", httpStatus: 429 },
+  QUEUE_TIMEOUT: { code: "queue_timeout", message: "Tempo limite de espera na fila excedido.", httpStatus: 504 }
 };
 
 export class AeternumAIGateway {
   private server?: http.Server;
-  private readonly config: Required<GatewayConfig>;
+  private readonly config: Required<Omit<GatewayConfig, "concurrency" | "concurrencyQueue">>;
+  private readonly concurrencyQueue: ConcurrencyQueue;
 
   constructor(config: GatewayConfig) {
     this.config = {
@@ -46,8 +50,14 @@ export class AeternumAIGateway {
       requestTimeoutMs: config.requestTimeoutMs || 35000,
       maxJsonBodyBytes: config.maxJsonBodyBytes || 1024 * 1024, // 1MB
       maxAudioBodyBytes: config.maxAudioBodyBytes || 10 * 1024 * 1024, // 10MB
-      logger: config.logger || new SafeGatewayLogger()
+      logger: config.logger || new SafeGatewayLogger(),
+      disableAudioRoutes: config.disableAudioRoutes ?? (process.env.ATLAS_INFERENCE_ONLY === "true")
     };
+    this.concurrencyQueue = config.concurrencyQueue || new ConcurrencyQueue(config.concurrency);
+  }
+
+  public getConcurrencyMetrics() {
+    return this.concurrencyQueue.getMetrics();
   }
 
   async start(): Promise<void> {
@@ -100,18 +110,53 @@ export class AeternumAIGateway {
 
     // 1. Health endpoint (Público/Liveness metadata)
     if (method === "GET" && path === "/health") {
-      this.handleHealth(res);
+      await this.handleHealth(res);
       return;
     }
 
-    // 2. Validação de Autenticação
+    // 2. Bloqueio imediato de rotas não autorizadas (Superfície Mínima Fail-Closed)
+    const isAllowedRoute =
+      (method === "POST" && path === "/v1/llm/generate") ||
+      (method === "POST" && path === "/v1/llm/stream") ||
+      (!this.config.disableAudioRoutes &&
+        method === "POST" &&
+        (path === "/v1/stt/transcribe" || path === "/v1/tts/synthesize" || path === "/v1/tts/stream"));
+
+    if (!isAllowedRoute) {
+      this.sendError(res, 404, "BAD_REQUEST", requestId, "NOT_FOUND", "Endpoint não encontrado.");
+      return;
+    }
+
+    // 3. Observabilidade segura dos cabeçalhos reais encaminhados pela Cloudflare (Zero Secret Leak)
+    if (
+      req.headers["cf-ray"] ||
+      req.headers["cf-connecting-ip"] ||
+      req.headers["cf-access-jwt-assertion"] ||
+      req.headers["cf-access-client-id"]
+    ) {
+      this.config.logger.info("CLOUDFLARE_HEADERS_OBSERVED", {
+        requestId,
+        route: path,
+        headerNames: Object.keys(req.headers).sort(),
+        hasCfRay: Boolean(req.headers["cf-ray"]),
+        hasCfConnectingIp: Boolean(req.headers["cf-connecting-ip"]),
+        hasCfAccessJwtAssertion: Boolean(req.headers["cf-access-jwt-assertion"]),
+        hasCfAccessClientId: Boolean(req.headers["cf-access-client-id"]),
+        hasCfAccessClientSecret: Boolean(req.headers["cf-access-client-secret"]),
+        hasAuthorizationBearer: Boolean(
+          typeof req.headers["authorization"] === "string" && req.headers["authorization"].startsWith("Bearer ")
+        )
+      });
+    }
+
+    // 4. Validação de Autenticação (Fail-Closed)
     const authResult = validateGatewayAuth(req, this.config.authMode);
     if (!authResult.authenticated) {
       this.sendError(res, 401, "UNAUTHORIZED", requestId, "UNAUTHORIZED", authResult.error);
       return;
     }
 
-    // 3. Configurar AbortController para cancelamento em tempo real (Barge-In)
+    // 4. Configurar AbortController para cancelamento em tempo real (Barge-In)
     const abortController = new AbortController();
     req.on("aborted", () => {
       abortController.abort();
@@ -127,14 +172,12 @@ export class AeternumAIGateway {
         await this.handleLLMGenerate(req, res, requestId, abortController);
       } else if (method === "POST" && path === "/v1/llm/stream") {
         await this.handleLLMStream(req, res, requestId, abortController);
-      } else if (method === "POST" && path === "/v1/stt/transcribe") {
+      } else if (!this.config.disableAudioRoutes && method === "POST" && path === "/v1/stt/transcribe") {
         await this.handleSTTTranscribe(req, res, requestId, abortController);
-      } else if (method === "POST" && path === "/v1/tts/synthesize") {
+      } else if (!this.config.disableAudioRoutes && method === "POST" && path === "/v1/tts/synthesize") {
         await this.handleTTSSynthesize(req, res, requestId, abortController);
-      } else if (method === "POST" && path === "/v1/tts/stream") {
+      } else if (!this.config.disableAudioRoutes && method === "POST" && path === "/v1/tts/stream") {
         await this.handleTTSStream(req, res, requestId, abortController);
-      } else {
-        this.sendError(res, 404, "BAD_REQUEST", requestId, "NOT_FOUND", "Endpoint não encontrado.");
       }
     } catch (err: any) {
       this.handleGenericError(res, err, requestId);
@@ -154,24 +197,49 @@ export class AeternumAIGateway {
   // HANDLERS
   // ==========================================
 
-  private handleHealth(res: http.ServerResponse): void {
-    const health: GatewayHealthResponse = {
-      status: "HEALTHY",
-      gateway_version: this.config.version,
-      mode: this.config.mode,
-      auth_mode: this.config.authMode,
-      timestamp: new Date().toISOString(),
-      providers: {
-        llm_local: "HEALTHY",
-        llm_cloud: "HEALTHY",
-        stt_local: "HEALTHY",
-        stt_cloud: "HEALTHY",
-        tts_local: "HEALTHY",
-        tts_cloud: "HEALTHY"
-      }
-    };
-    res.statusCode = 200;
-    res.end(JSON.stringify(health));
+  private async handleHealth(res: http.ServerResponse): Promise<void> {
+    try {
+      const routerHealth = await this.config.router.health();
+      const isHealthy = routerHealth.status === "HEALTHY";
+
+      const health: GatewayHealthResponse = {
+        status: routerHealth.status,
+        gateway_version: this.config.version,
+        mode: this.config.mode,
+        auth_mode: this.config.authMode,
+        timestamp: new Date().toISOString(),
+        providers: {
+          llm_local: (routerHealth.providers?.llm_local as any) || "UNAVAILABLE",
+          llm_cloud: (routerHealth.providers?.llm_cloud as any) || "UNAVAILABLE",
+          stt_local: "HEALTHY",
+          stt_cloud: "HEALTHY",
+          tts_local: "HEALTHY",
+          tts_cloud: "HEALTHY"
+        }
+      };
+
+      res.statusCode = isHealthy ? 200 : 503;
+      res.end(JSON.stringify(health));
+    } catch {
+      res.statusCode = 503;
+      res.end(
+        JSON.stringify({
+          status: "UNAVAILABLE",
+          gateway_version: this.config.version,
+          mode: this.config.mode,
+          auth_mode: this.config.authMode,
+          timestamp: new Date().toISOString(),
+          providers: {
+            llm_local: "UNAVAILABLE",
+            llm_cloud: "UNAVAILABLE",
+            stt_local: "UNAVAILABLE",
+            stt_cloud: "UNAVAILABLE",
+            tts_local: "UNAVAILABLE",
+            tts_cloud: "UNAVAILABLE"
+          }
+        })
+      );
+    }
   }
 
   private async handleLLMGenerate(
@@ -188,28 +256,43 @@ export class AeternumAIGateway {
       return;
     }
 
-    const result = await this.config.router.generateWithMetadata(body, {
-      requestId,
-      signal: abortController.signal,
-      timeoutMs: this.config.requestTimeoutMs
-    });
-
-    const response: GatewaySuccessResponse<any> = {
-      success: true,
-      data: result.data,
-      metadata: {
-        requestId,
-        capability: result.metadata.capabilityRequested,
-        finalProvider: result.metadata.finalProvider,
-        fallbackUsed: result.metadata.fallbackUsed,
-        fallbackReason: result.metadata.fallbackReason,
-        attemptCount: result.metadata.attempts.length,
-        latencyMs: result.metadata.attempts.reduce((acc, a) => acc + a.latencyMs, 0)
+    let release: (() => void) | undefined;
+    try {
+      release = await this.concurrencyQueue.acquire(requestId, abortController.signal);
+    } catch (err: any) {
+      if (err instanceof ConcurrencyQueueError) {
+        this.sendError(res, err.httpStatus, err.code, requestId, err.code, err.message);
+        return;
       }
-    };
+      throw err;
+    }
 
-    res.statusCode = 200;
-    res.end(JSON.stringify(response));
+    try {
+      const result = await this.config.router.generateWithMetadata(body, {
+        requestId,
+        signal: abortController.signal,
+        timeoutMs: this.config.requestTimeoutMs
+      });
+
+      const response: GatewaySuccessResponse<any> = {
+        success: true,
+        data: result.data,
+        metadata: {
+          requestId,
+          capability: result.metadata.capabilityRequested,
+          finalProvider: result.metadata.finalProvider,
+          fallbackUsed: result.metadata.fallbackUsed,
+          fallbackReason: result.metadata.fallbackReason,
+          attemptCount: result.metadata.attempts.length,
+          latencyMs: result.metadata.attempts.reduce((acc, a) => acc + a.latencyMs, 0)
+        }
+      };
+
+      res.statusCode = 200;
+      res.end(JSON.stringify(response));
+    } finally {
+      release();
+    }
   }
 
   private async handleLLMStream(
@@ -226,21 +309,36 @@ export class AeternumAIGateway {
       return;
     }
 
-    res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-    res.setHeader("Cache-Control", "no-cache");
-    res.setHeader("Connection", "keep-alive");
-    res.statusCode = 200;
-
-    for await (const chunk of this.config.router.stream(body, {
-      requestId,
-      signal: abortController.signal,
-      timeoutMs: this.config.requestTimeoutMs
-    })) {
-      res.write(`data: ${JSON.stringify(chunk)}\n\n`);
+    let release: (() => void) | undefined;
+    try {
+      release = await this.concurrencyQueue.acquire(requestId, abortController.signal);
+    } catch (err: any) {
+      if (err instanceof ConcurrencyQueueError) {
+        this.sendError(res, err.httpStatus, err.code, requestId, err.code, err.message);
+        return;
+      }
+      throw err;
     }
 
-    res.write("data: [DONE]\n\n");
-    res.end();
+    try {
+      res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+      res.setHeader("Cache-Control", "no-cache");
+      res.setHeader("Connection", "keep-alive");
+      res.statusCode = 200;
+
+      for await (const chunk of this.config.router.stream(body, {
+        requestId,
+        signal: abortController.signal,
+        timeoutMs: this.config.requestTimeoutMs
+      })) {
+        res.write(`data: ${JSON.stringify(chunk)}\n\n`);
+      }
+
+      res.write("data: [DONE]\n\n");
+      res.end();
+    } finally {
+      release();
+    }
   }
 
   private async handleSTTTranscribe(

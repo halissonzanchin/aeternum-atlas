@@ -782,4 +782,51 @@ export class ProviderRouter {
       );
     }
   }
+
+  // ==========================================
+  // HEALTH CHECK DIAGNOSTICS
+  // ==========================================
+
+  async health(context?: ProviderExecutionContext): Promise<{
+    status: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
+    providers: {
+      llm_local?: string;
+      llm_cloud?: string;
+      [key: string]: any;
+    };
+    details?: any;
+  }> {
+    if (!this.config.llm?.primary) {
+      return {
+        status: "HEALTHY",
+        providers: {
+          llm_local: "HEALTHY",
+          llm_cloud: this.config.llm?.fallback ? "HEALTHY" : "NOT_CONFIGURED"
+        },
+        details: { mode: "STANDBY" }
+      };
+    }
+
+    try {
+      const primaryHealth = await this.config.llm.primary.health(context);
+      const isDegraded = primaryHealth.status === "DEGRADED";
+      const isUnavailable = primaryHealth.status === "UNAVAILABLE";
+
+      return {
+        status: isUnavailable ? "UNAVAILABLE" : isDegraded ? "DEGRADED" : "HEALTHY",
+        providers: {
+          llm_local: primaryHealth.status,
+          llm_cloud: this.config.llm.fallback ? "HEALTHY" : "NOT_CONFIGURED"
+        },
+        details: primaryHealth.details
+      };
+    } catch (err: any) {
+      return {
+        status: "UNAVAILABLE",
+        providers: { llm_local: "UNAVAILABLE" },
+        details: { error: err?.message || String(err) }
+      };
+    }
+  }
 }
+

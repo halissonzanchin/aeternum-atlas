@@ -1,0 +1,27 @@
+# Cloudflare Tunnel Configuration — atlas-victus-gateway (P0 Permanent Connectivity)
+# Host Local: HP Victus (127.0.0.1:8081 -> Aeternum AI Gateway)
+# Invariante de Seguranca: Apenas o Gateway intermediario (127.0.0.1:8081) recebe trafego.
+# Ollama (11434), Atlas Daemon (14555), SQLite e servicos de voz NUNCA sao expostos.
+
+tunnel: atlas-victus-gateway
+# No modo Remotely-Managed Tunnel (--token), o credentials-file nao e necessario (zero cert.pem no host)
+
+ingress:
+  # Rota unica autorizada para o Gateway Intermediario protegido por HYBRID_AUTH + Cloudflare Access
+  - hostname: atlas-code.aeternumatlas.com
+    service: http://127.0.0.1:8081
+    originRequest:
+      connectTimeout: 10s
+      noTLSVerify: false
+      keepAliveTimeout: 90s
+      keepAliveConnections: 10
+      tcpKeepAlive: 30s
+      # Protect with Access (habilitado quando AUD e TeamName da conta Cloudflare Zero Trust sao definidos):
+      # access:
+      #   required: true
+      #   teamName: <SEU_TEAM_NAME_CLOUDFLARE_ZERO_TRUST>
+      #   audTag:
+      #     - <APPLICATION_AUD_TAG>
+
+  # Bloqueio padrao catch-all obrigatorio para qualquer outro hostname ou rota
+  - service: http_status:404
