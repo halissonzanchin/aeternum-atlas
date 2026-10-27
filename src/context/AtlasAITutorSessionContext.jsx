@@ -316,12 +316,15 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         }
       }
 
-      // Precedência de idioma:
-      // 1. Idioma explicitamente informado no context;
-      // 2. Idioma escolhido pelo estudante na plataforma (useLanguage);
+      // Precedência de idioma para o Tutor visual:
+      // 1. Idioma ativo selecionado pelo estudante na interface (useLanguage);
+      // 2. Idioma informado no context (fallback para chamadas sem UI ou especializadas);
       // 3. Preferência persistida válida (localStorage);
       // 4. Idioma padrão ('pt').
-      const activeLanguage = context?.language || language || persistedLang || "pt";
+      const validLanguages = ["es", "pt", "en", "de"];
+      const cleanUiLang = language && typeof language === "string" && validLanguages.includes(language.trim().toLowerCase()) ? language.trim().toLowerCase() : null;
+      const cleanContextLang = context?.language && typeof context?.language === "string" && validLanguages.includes(context.language.trim().toLowerCase()) ? context.language.trim().toLowerCase() : null;
+      const activeLanguage = cleanUiLang || cleanContextLang || persistedLang || "pt";
       const firstName = String(user?.name || "").trim().split(/\s+/)[0] || "";
       const enrichedContext = {
         ...context,
