@@ -40,6 +40,29 @@ function emitTutorTelemetry({ eventType = "ai_tutor_error", failureStage, errorC
   }
 }
 
+function resolveEffectiveLanguage(explicitLanguage) {
+  if (explicitLanguage && typeof explicitLanguage === 'string') {
+    const clean = explicitLanguage.trim().toLowerCase();
+    if (clean === 'es' || clean === 'pt' || clean === 'en' || clean === 'de') {
+      return clean;
+    }
+  }
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = window.localStorage?.getItem('aeternum_language');
+      if (stored && typeof stored === 'string') {
+        const clean = stored.trim().toLowerCase();
+        if (clean === 'es' || clean === 'pt' || clean === 'en' || clean === 'de') {
+          return clean;
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return 'pt';
+}
+
 function buildTutorContext(context = {}) {
   const routeContext = context.routeContext || context.tutorContext || {};
   const model = context.model || {};
@@ -77,7 +100,7 @@ function buildTutorContext(context = {}) {
     markers: Array.isArray(context.markers) ? context.markers : [],
     activePanel: context.markerOpen ? 'markers' : 'none',
     knowledgeGraphPrompt: context.knowledgeGraphPrompt || null,
-    language: context.language || 'pt',
+    language: resolveEffectiveLanguage(context.language),
     availableActions: model.id || activeStructure.id
       ? [
         'CLOSE_PANELS',
@@ -254,6 +277,7 @@ export const atlasAITutorService = {
         body: JSON.stringify({
           messages: [{ sender: 'user', text: message }],
           context: tutorContext,
+          language: tutorContext.language,
           conversationId,
           stream: true
         })

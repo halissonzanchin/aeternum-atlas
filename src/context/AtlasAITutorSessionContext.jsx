@@ -112,7 +112,7 @@ function readStoredSession(storageKey, welcomeMessage) {
 }
 
 export function AtlasAITutorSessionProvider({ children, user }) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const identity = user?.id || user?.email || "anonymous";
   const storageKey = `aeternum_atlas_ai_session:${identity}`;
   const personalizedWelcome = useMemo(() => buildPersonalizedWelcomeMessage(user, t), [user?.name, t]);
@@ -301,13 +301,35 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         console.warn("[KnowledgeGraph] Grafo indisponível nesta requisição", e);
       }
 
+      let persistedLang = null;
+      if (typeof window !== "undefined") {
+        try {
+          const stored = window.localStorage?.getItem("aeternum_language");
+          if (stored && typeof stored === "string") {
+            const clean = stored.trim().toLowerCase();
+            if (clean === "es" || clean === "pt" || clean === "en" || clean === "de") {
+              persistedLang = clean;
+            }
+          }
+        } catch {
+          // ignore
+        }
+      }
+
+      // Precedência de idioma:
+      // 1. Idioma explicitamente informado no context;
+      // 2. Idioma escolhido pelo estudante na plataforma (useLanguage);
+      // 3. Preferência persistida válida (localStorage);
+      // 4. Idioma padrão ('pt').
+      const activeLanguage = context?.language || language || persistedLang || "pt";
       const firstName = String(user?.name || "").trim().split(/\s+/)[0] || "";
       const enrichedContext = {
         ...context,
         userName: user?.name || null,
         userFirstName: firstName || null,
         userRole: user?.role || "student",
-        knowledgeGraphPrompt: graphContextPrompt || null
+        knowledgeGraphPrompt: graphContextPrompt || null,
+        language: activeLanguage
       };
 
       const response = await atlasAITutorService.processMessageStream(
