@@ -112,7 +112,7 @@ function readStoredSession(storageKey, welcomeMessage) {
 }
 
 export function AtlasAITutorSessionProvider({ children, user }) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const identity = user?.id || user?.email || "anonymous";
   const storageKey = `aeternum_atlas_ai_session:${identity}`;
   const personalizedWelcome = useMemo(() => buildPersonalizedWelcomeMessage(user, t), [user?.name, t]);
@@ -301,13 +301,38 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         console.warn("[KnowledgeGraph] Grafo indisponível nesta requisição", e);
       }
 
+      let persistedLang = null;
+      if (typeof window !== "undefined") {
+        try {
+          const stored = window.localStorage?.getItem("aeternum_language");
+          if (stored && typeof stored === "string") {
+            const clean = stored.trim().toLowerCase();
+            if (clean === "es" || clean === "pt" || clean === "en" || clean === "de") {
+              persistedLang = clean;
+            }
+          }
+        } catch {
+          // ignore
+        }
+      }
+
+      // Precedência de idioma para o Tutor visual:
+      // 1. Idioma ativo selecionado pelo estudante na interface (useLanguage);
+      // 2. Idioma informado no context (fallback para chamadas sem UI ou especializadas);
+      // 3. Preferência persistida válida (localStorage);
+      // 4. Idioma padrão ('pt').
+      const validLanguages = ["es", "pt", "en", "de"];
+      const cleanUiLang = language && typeof language === "string" && validLanguages.includes(language.trim().toLowerCase()) ? language.trim().toLowerCase() : null;
+      const cleanContextLang = context?.language && typeof context?.language === "string" && validLanguages.includes(context.language.trim().toLowerCase()) ? context.language.trim().toLowerCase() : null;
+      const activeLanguage = cleanUiLang || cleanContextLang || persistedLang || "pt";
       const firstName = String(user?.name || "").trim().split(/\s+/)[0] || "";
       const enrichedContext = {
         ...context,
         userName: user?.name || null,
         userFirstName: firstName || null,
         userRole: user?.role || "student",
-        knowledgeGraphPrompt: graphContextPrompt || null
+        knowledgeGraphPrompt: graphContextPrompt || null,
+        language: activeLanguage
       };
 
       const response = await atlasAITutorService.processMessageStream(

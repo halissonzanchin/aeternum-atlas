@@ -40,6 +40,29 @@ function emitTutorTelemetry({ eventType = "ai_tutor_error", failureStage, errorC
   }
 }
 
+function resolveEffectiveLanguage(explicitLanguage) {
+  if (explicitLanguage && typeof explicitLanguage === 'string') {
+    const clean = explicitLanguage.trim().toLowerCase();
+    if (clean === 'es' || clean === 'pt' || clean === 'en' || clean === 'de') {
+      return clean;
+    }
+  }
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = window.localStorage?.getItem('aeternum_language');
+      if (stored && typeof stored === 'string') {
+        const clean = stored.trim().toLowerCase();
+        if (clean === 'es' || clean === 'pt' || clean === 'en' || clean === 'de') {
+          return clean;
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return 'pt';
+}
+
 function buildTutorContext(context = {}) {
   const routeContext = context.routeContext || context.tutorContext || {};
   const model = context.model || {};
@@ -77,7 +100,7 @@ function buildTutorContext(context = {}) {
     markers: Array.isArray(context.markers) ? context.markers : [],
     activePanel: context.markerOpen ? 'markers' : 'none',
     knowledgeGraphPrompt: context.knowledgeGraphPrompt || null,
-    language: context.language || 'pt',
+    language: resolveEffectiveLanguage(context.language),
     availableActions: model.id || activeStructure.id
       ? [
         'CLOSE_PANELS',
@@ -254,6 +277,7 @@ export const atlasAITutorService = {
         body: JSON.stringify({
           messages: [{ sender: 'user', text: message }],
           context: tutorContext,
+          language: tutorContext.language,
           conversationId,
           stream: true
         })
@@ -311,6 +335,46 @@ export const atlasAITutorService = {
           code: "SERVICE_UNAVAILABLE",
           message: "Resposta do servidor sem corpo de dados.",
           source: null
+        };
+      }
+
+      const contentType = response.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        let jsonBody = {};
+        try {
+          jsonBody = await response.json();
+        } catch {
+          jsonBody = {};
+        }
+
+        const rawText = jsonBody.text || jsonBody.response || jsonBody.answer || jsonBody.message || '';
+        const sanitized = sanitizeTutorDisplayText(rawText);
+
+        if (!sanitized) {
+          emitTutorTelemetry({
+            failureStage: "empty_json_text",
+            errorCode: "EMPTY_RESPONSE",
+            fallbackMode: "error_view"
+          });
+          return {
+            mode: "error",
+            code: "EMPTY_RESPONSE",
+            message: "O modelo retornou uma resposta vazia.",
+            source: null
+          };
+        }
+
+        if (typeof onChunk === 'function') {
+          onChunk(sanitized);
+        }
+
+        return {
+          mode: "live",
+          text: sanitized,
+          source: jsonBody.source || "aeternum_safe_engine",
+          action: jsonBody.action || null,
+          payload: jsonBody.payload || null,
+          conversationId: jsonBody.conversationId || remoteConversationId
         };
       }
 
@@ -384,6 +448,19 @@ export const atlasAITutorService = {
       const actionMatch = fullText.match(/\[ACTION:([A-Z_]+)\]/);
       if (actionMatch?.[1]) {
         action = actionMatch[1];
+      }
+
+      if (!fullText && pending.trim()) {
+        try {
+          const parsed = JSON.parse(pending.trim());
+          const candidate = parsed.text || parsed.answer || parsed.response || parsed.message;
+          if (candidate && typeof candidate === 'string') {
+            fullText = candidate;
+            onUpdate?.(sanitizeTutorDisplayText(fullText));
+          }
+        } catch {
+          // not json
+        }
       }
 
       fullText = sanitizeTutorDisplayText(fullText);
