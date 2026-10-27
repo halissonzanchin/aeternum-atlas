@@ -47,6 +47,95 @@ interface DaemonHealthResponse {
   uptime_secs: number;
 }
 
+export class StreamingReasoningFilter {
+  private inThinkBlock = false;
+  private pendingBuffer = "";
+  private hasPassedThinkingHeaders = false;
+
+  public processChunk(raw: string): string[] {
+    const toEmit: string[] = [];
+    this.pendingBuffer += raw;
+
+    while (this.pendingBuffer.length > 0) {
+      if (this.inThinkBlock) {
+        const closeIdx = this.pendingBuffer.indexOf("</think>");
+        if (closeIdx !== -1) {
+          this.pendingBuffer = this.pendingBuffer.slice(closeIdx + 8);
+          this.inThinkBlock = false;
+        } else {
+          const match = this.pendingBuffer.match(/<\/?t?h?i?n?k?>?$/i);
+          if (match && match.index !== undefined) {
+            this.pendingBuffer = this.pendingBuffer.slice(match.index);
+          } else {
+            this.pendingBuffer = "";
+          }
+          break;
+        }
+      } else {
+        const openIdx = this.pendingBuffer.indexOf("<think>");
+        if (openIdx !== -1) {
+          const preText = this.pendingBuffer.slice(0, openIdx);
+          if (preText) {
+            const sanitized = this.filterLeadingHeaders(preText);
+            if (sanitized) toEmit.push(sanitized);
+          }
+          this.pendingBuffer = this.pendingBuffer.slice(openIdx + 7);
+          this.inThinkBlock = true;
+        } else {
+          const match = this.pendingBuffer.match(/<\/?t?h?i?n?k?>?$/i);
+          if (match && match.index !== undefined) {
+            const emitText = this.pendingBuffer.slice(0, match.index);
+            if (emitText) {
+              const sanitized = this.filterLeadingHeaders(emitText);
+              if (sanitized) toEmit.push(sanitized);
+            }
+            this.pendingBuffer = this.pendingBuffer.slice(match.index);
+            break;
+          } else {
+            const sanitized = this.filterLeadingHeaders(this.pendingBuffer);
+            if (sanitized) toEmit.push(sanitized);
+            this.pendingBuffer = "";
+          }
+        }
+      }
+    }
+
+    return toEmit;
+  }
+
+  private filterLeadingHeaders(text: string): string {
+    if (this.hasPassedThinkingHeaders) {
+      return text;
+    }
+    let cleaned = text;
+    const headerRegex = /^\s*(?:thinking\s+process|thoughts?|planning|draft|análise\s+preliminar)\s*:\s*/i;
+    if (headerRegex.test(cleaned)) {
+      cleaned = cleaned.replace(headerRegex, "");
+      const doubleNewline = cleaned.indexOf("\n\n");
+      if (doubleNewline !== -1) {
+        cleaned = cleaned.slice(doubleNewline + 2).trimStart();
+      }
+    }
+    if (cleaned.length > 0) {
+      this.hasPassedThinkingHeaders = true;
+    }
+    return cleaned;
+  }
+
+  public flush(): string[] {
+    const toEmit: string[] = [];
+    if (!this.inThinkBlock && this.pendingBuffer.length > 0) {
+      const cleaned = this.pendingBuffer.replace(/<\/?think>/gi, "");
+      if (cleaned) {
+        const sanitized = this.filterLeadingHeaders(cleaned);
+        if (sanitized) toEmit.push(sanitized);
+      }
+    }
+    this.pendingBuffer = "";
+    return toEmit;
+  }
+}
+
 export class AtlasDaemonLLMProvider implements LLMProvider {
   public readonly metadata: ProviderMetadata;
   private readonly daemonBaseUrl: string;
@@ -418,6 +507,7 @@ export class AtlasDaemonLLMProvider implements LLMProvider {
     let buffer = "";
     let hasEmittedTokenChunk = false;
     let accumulatedThinking = "";
+    const reasoningFilter = new StreamingReasoningFilter();
 
     try {
       while (true) {
@@ -447,16 +537,15 @@ export class AtlasDaemonLLMProvider implements LLMProvider {
             }
 
             if (eventPayload.chunk_type === "token_chunk" && eventPayload.content) {
-              let cleanChunk = eventPayload.content;
-              if (cleanChunk.includes("<think>") || cleanChunk.includes("</think>")) {
-                cleanChunk = cleanChunk.replace(/<think>[\s\S]*?<\/think>/g, "").replace(/<\/?think>/g, "");
-              }
-              if (cleanChunk) {
-                hasEmittedTokenChunk = true;
-                yield {
-                  deltaText: cleanChunk,
-                  isComplete: false
-                };
+              const cleanDeltas = reasoningFilter.processChunk(eventPayload.content);
+              for (const delta of cleanDeltas) {
+                if (delta) {
+                  hasEmittedTokenChunk = true;
+                  yield {
+                    deltaText: delta,
+                    isComplete: false
+                  };
+                }
               }
             } else if (eventPayload.chunk_type === "thinking_chunk" && eventPayload.content) {
               // REGRA ABSOLUTA DE SEGURANÇA: thinking_chunk JAMAIS deve ser emitido ao usuário ou retornado como resposta final.
@@ -472,6 +561,17 @@ export class AtlasDaemonLLMProvider implements LLMProvider {
                 this.metadata.id
               );
             } else if (eventPayload.chunk_type === "completed" || eventPayload.done) {
+              const flushed = reasoningFilter.flush();
+              for (const delta of flushed) {
+                if (delta) {
+                  hasEmittedTokenChunk = true;
+                  yield {
+                    deltaText: delta,
+                    isComplete: false
+                  };
+                }
+              }
+
               if (!hasEmittedTokenChunk) {
                 throw new ProviderInvalidResponseError(
                   "O modelo local encerrou sem emitir resposta válida (apenas raciocínio interno ou saída vazia).",
@@ -499,6 +599,17 @@ export class AtlasDaemonLLMProvider implements LLMProvider {
       throw err;
     } finally {
       reader.releaseLock();
+    }
+
+    const flushedEnd = reasoningFilter.flush();
+    for (const delta of flushedEnd) {
+      if (delta) {
+        hasEmittedTokenChunk = true;
+        yield {
+          deltaText: delta,
+          isComplete: false
+        };
+      }
     }
 
     if (!hasEmittedTokenChunk) {

@@ -952,11 +952,19 @@ export async function handleAiTutorRequest(
   const rawContext = (payload.context && typeof payload.context === "object" && !Array.isArray(payload.context))
     ? (payload.context as Record<string, unknown>)
     : {};
-  const reqLanguage: "pt" | "es" = cleanText(rawContext.language || payload.language || "pt", 10)
+  let reqLanguage: "pt" | "es" = cleanText(rawContext.language || payload.language || "pt", 10)
     .toLowerCase()
     .startsWith("es")
     ? "es"
     : "pt";
+
+  // Compatibilidade retroativa para clientes mobile/web cujo bundle ainda envie 'language: pt' por padrão
+  if (reqLanguage === "pt" && prompt) {
+    const spanishIndicators = /[¿¡]|\b(cu[aá]les|cu[aá]l|c[oó]mo|d[oó]nde|qui[eé]n|por\s+qu[eé]|en\s+espa[nñ]ol|cart[ií]lagos?|m[uú]sculos?\s+de\s+la|ramas?\s+del|huesos?\s+de|articulaci[oó]n|hendidura|agujero)\b/i;
+    if (spanishIndicators.test(prompt)) {
+      reqLanguage = "es";
+    }
+  }
   const context = safeContext(payload.context);
   if (!prompt) return jsonResponse({ error: "Mensagem vazia." }, 400, cors);
 

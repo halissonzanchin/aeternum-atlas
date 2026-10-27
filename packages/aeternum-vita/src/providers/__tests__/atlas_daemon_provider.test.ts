@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import http from "node:http";
-import { AtlasDaemonLLMProvider } from "../local/atlas-daemon/AtlasDaemonLLMProvider.ts";
+import { AtlasDaemonLLMProvider, StreamingReasoningFilter } from "../local/atlas-daemon/AtlasDaemonLLMProvider.ts";
 import {
   ProviderAuthenticationError,
   ProviderCancelledError,
@@ -335,5 +335,80 @@ describe("AtlasDaemonLLMProvider — Protocol & Invariant Suite", () => {
 
     expect(res.text).toBe("Resposta formal anatômica.");
     expect(res.text.includes("<think>")).toBe(false);
+  });
+
+  it("11. Invariante Anti-Vazamento: tags <think> e </think> fragmentadas entre múltiplos eventos SSE são filtradas", async () => {
+    nextStreamChunks = [
+      `data: ${JSON.stringify({ seq: 1, task_id: "task_mock_abc123", chunk_type: "token_chunk", content: "<th", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 2, task_id: "task_mock_abc123", chunk_type: "token_chunk", content: "ink>Rascunho secreto fragmentado </", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 3, task_id: "task_mock_abc123", chunk_type: "token_chunk", content: "th", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 4, task_id: "task_mock_abc123", chunk_type: "token_chunk", content: "ink>La laringe humana contiene cartílagos pares e impares.", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 5, task_id: "task_mock_abc123", chunk_type: "completed", content: "", done: true })}\n\n`
+    ];
+
+    const provider = new AtlasDaemonLLMProvider({
+      daemonBaseUrl: `http://127.0.0.1:${mockPort}`,
+      authToken: "valid_token_32_chars_abcdef12345678"
+    });
+
+    const res = await provider.generate({
+      messages: [{ role: "user", content: "¿Cuáles son los cartílagos de la laringe?" }]
+    });
+
+    expect(res.text).toBe("La laringe humana contiene cartílagos pares e impares.");
+    expect(res.text.includes("Rascunho")).toBe(false);
+    expect(res.text.includes("<think>")).toBe(false);
+    expect(res.text.includes("</think>")).toBe(false);
+  });
+
+  it("12. Invariante Anti-Vazamento: cabeçalhos de raciocínio sem tags (Thinking Process:) são expurgados", async () => {
+    nextStreamChunks = [
+      `data: ${JSON.stringify({ seq: 1, task_id: "task_mock_abc123", chunk_type: "token_chunk", content: "Thinking Process: The user is asking about the larynx in Spanish.\n\nLa laringe está compuesta por 9 cartílagos.", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 2, task_id: "task_mock_abc123", chunk_type: "completed", content: "", done: true })}\n\n`
+    ];
+
+    const provider = new AtlasDaemonLLMProvider({
+      daemonBaseUrl: `http://127.0.0.1:${mockPort}`,
+      authToken: "valid_token_32_chars_abcdef12345678"
+    });
+
+    const res = await provider.generate({
+      messages: [{ role: "user", content: "¿Cuáles son los cartílagos de la laringe?" }]
+    });
+
+    expect(res.text).toBe("La laringe está compuesta por 9 cartílagos.");
+    expect(res.text.includes("Thinking Process")).toBe(false);
+  });
+
+  it("13. Invariante Anti-Vazamento: resposta composta exclusivamente por thinking_chunk lança ProviderInvalidResponseError", async () => {
+    nextStreamChunks = [
+      `data: ${JSON.stringify({ seq: 1, task_id: "task_mock_abc123", chunk_type: "thinking_chunk", content: "Just thinking silently without token output...", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 2, task_id: "task_mock_abc123", chunk_type: "completed", content: "", done: true })}\n\n`
+    ];
+
+    const provider = new AtlasDaemonLLMProvider({
+      daemonBaseUrl: `http://127.0.0.1:${mockPort}`,
+      authToken: "valid_token_32_chars_abcdef12345678"
+    });
+
+    await expect(
+      provider.generate({ messages: [{ role: "user", content: "Pergunta sem resposta" }] })
+    ).rejects.toThrow(ProviderInvalidResponseError);
+  });
+
+  it("14. Invariante Anti-Vazamento: stream interrompido dentro de bloco <think> descarta rascunho e lança erro", async () => {
+    nextStreamChunks = [
+      `data: ${JSON.stringify({ seq: 1, task_id: "task_mock_abc123", chunk_type: "token_chunk", content: "<think>Rascunho que nunca fechou...", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 2, task_id: "task_mock_abc123", chunk_type: "completed", content: "", done: true })}\n\n`
+    ];
+
+    const provider = new AtlasDaemonLLMProvider({
+      daemonBaseUrl: `http://127.0.0.1:${mockPort}`,
+      authToken: "valid_token_32_chars_abcdef12345678"
+    });
+
+    await expect(
+      provider.generate({ messages: [{ role: "user", content: "Pergunta abortada" }] })
+    ).rejects.toThrow(ProviderInvalidResponseError);
   });
 });
