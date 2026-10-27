@@ -77,7 +77,7 @@ function buildTutorContext(context = {}) {
     markers: Array.isArray(context.markers) ? context.markers : [],
     activePanel: context.markerOpen ? 'markers' : 'none',
     knowledgeGraphPrompt: context.knowledgeGraphPrompt || null,
-    language: context.language || 'pt',
+    language: context.language || (typeof window !== "undefined" ? window.localStorage?.getItem("aeternum_language") : null) || 'pt',
     availableActions: model.id || activeStructure.id
       ? [
         'CLOSE_PANELS',
@@ -254,6 +254,7 @@ export const atlasAITutorService = {
         body: JSON.stringify({
           messages: [{ sender: 'user', text: message }],
           context: tutorContext,
+          language: tutorContext.language,
           conversationId,
           stream: true
         })

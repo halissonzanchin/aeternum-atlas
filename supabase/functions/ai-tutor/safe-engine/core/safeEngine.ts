@@ -63,6 +63,25 @@ export class SafeEngine {
     this.retriever = new SafeKnowledgeRetriever();
   }
 
+  getFactById(factId: string): any | null {
+    return this.retriever.getFactById(factId);
+  }
+
+  resolveFactText(factIdOrFact: any): { canonical_fact_id: string; proposition: string; source: string } | null {
+    const fact = typeof factIdOrFact === 'string' ? this.retriever.getFactById(factIdOrFact) : factIdOrFact;
+    if (!fact) return null;
+    const proposition = fact.provenance_chain?.morgue_assertion?.original_teaching_statement ||
+      fact.proposition ||
+      fact.fact ||
+      `${fact.subject_id || fact.entity_id} — ${fact.relation}: ${Array.isArray(fact.object_or_arguments) ? fact.object_or_arguments.join(', ') : (fact.object_or_arguments || '')}`;
+    const source = (Array.isArray(fact.evidence_source_ids) ? fact.evidence_source_ids.join(', ') : fact.evidence_source_id) || 'Aeternum Canonical Memory';
+    return {
+      canonical_fact_id: fact.canonical_fact_id,
+      proposition,
+      source
+    };
+  }
+
   query(queryText: string, options: SafeEngineOptions = {}): SafeEngineEnvelope {
     const t0 = globalThis.performance.now();
     const queryId = options.queryId || `Q-${Date.now()}`;

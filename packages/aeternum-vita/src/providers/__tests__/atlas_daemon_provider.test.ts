@@ -4,7 +4,8 @@ import { AtlasDaemonLLMProvider } from "../local/atlas-daemon/AtlasDaemonLLMProv
 import {
   ProviderAuthenticationError,
   ProviderCancelledError,
-  ProviderUnavailableError
+  ProviderUnavailableError,
+  ProviderInvalidResponseError
 } from "../types/index.ts";
 
 describe("AtlasDaemonLLMProvider — Protocol & Invariant Suite", () => {
@@ -276,5 +277,63 @@ describe("AtlasDaemonLLMProvider — Protocol & Invariant Suite", () => {
 
     const cancelCalls = requestLog.filter((r) => r.path.includes("/cancel"));
     expect(cancelCalls.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it("8. Invariante Anti-Vazamento: thinking_chunk sem resposta dispara ProviderInvalidResponseError", async () => {
+    nextStreamChunks = [
+      `data: ${JSON.stringify({ seq: 1, task_id: "task_mock_abc123", chunk_type: "thinking_chunk", content: "Let me think about this anatomy question...", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 2, task_id: "task_mock_abc123", chunk_type: "thinking_chunk", content: " Planning internal steps.", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 3, task_id: "task_mock_abc123", chunk_type: "completed", content: "", done: true })}\n\n`
+    ];
+
+    const provider = new AtlasDaemonLLMProvider({
+      daemonBaseUrl: `http://127.0.0.1:${mockPort}`,
+      authToken: "valid_token_32_chars_abcdef12345678"
+    });
+
+    await expect(
+      provider.generate({
+        messages: [{ role: "user", content: "Pergunta sem resposta válida" }]
+      })
+    ).rejects.toThrow(ProviderInvalidResponseError);
+  });
+
+  it("9. Invariante Anti-Vazamento: thinking_chunk é suprimido e apenas token_chunk chega ao usuário", async () => {
+    nextStreamChunks = [
+      `data: ${JSON.stringify({ seq: 1, task_id: "task_mock_abc123", chunk_type: "thinking_chunk", content: "Thinking process: I should talk about the deltoid insertion.", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 2, task_id: "task_mock_abc123", chunk_type: "token_chunk", content: "O músculo deltoide se insere na tuberosidade deltoidea do úmero.", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 3, task_id: "task_mock_abc123", chunk_type: "completed", content: "", done: true })}\n\n`
+    ];
+
+    const provider = new AtlasDaemonLLMProvider({
+      daemonBaseUrl: `http://127.0.0.1:${mockPort}`,
+      authToken: "valid_token_32_chars_abcdef12345678"
+    });
+
+    const res = await provider.generate({
+      messages: [{ role: "user", content: "Onde se insere o deltoide?" }]
+    });
+
+    expect(res.text).toBe("O músculo deltoide se insere na tuberosidade deltoidea do úmero.");
+    expect(res.text.includes("Thinking process")).toBe(false);
+  });
+
+  it("10. Invariante Anti-Vazamento: tags <think> residuais em token_chunk são expurgadas", async () => {
+    nextStreamChunks = [
+      `data: ${JSON.stringify({ seq: 1, task_id: "task_mock_abc123", chunk_type: "token_chunk", content: "<think>Rascunho interno</think>Resposta formal anatômica.", done: false })}\n\n`,
+      `data: ${JSON.stringify({ seq: 2, task_id: "task_mock_abc123", chunk_type: "completed", content: "", done: true })}\n\n`
+    ];
+
+    const provider = new AtlasDaemonLLMProvider({
+      daemonBaseUrl: `http://127.0.0.1:${mockPort}`,
+      authToken: "valid_token_32_chars_abcdef12345678"
+    });
+
+    const res = await provider.generate({
+      messages: [{ role: "user", content: "Pergunta de teste" }]
+    });
+
+    expect(res.text).toBe("Resposta formal anatômica.");
+    expect(res.text.includes("<think>")).toBe(false);
   });
 });

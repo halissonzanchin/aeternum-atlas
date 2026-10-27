@@ -112,7 +112,7 @@ function readStoredSession(storageKey, welcomeMessage) {
 }
 
 export function AtlasAITutorSessionProvider({ children, user }) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const identity = user?.id || user?.email || "anonymous";
   const storageKey = `aeternum_atlas_ai_session:${identity}`;
   const personalizedWelcome = useMemo(() => buildPersonalizedWelcomeMessage(user, t), [user?.name, t]);
@@ -301,13 +301,15 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         console.warn("[KnowledgeGraph] Grafo indisponível nesta requisição", e);
       }
 
+      const activeLanguage = context?.language || language || (typeof window !== "undefined" ? window.localStorage?.getItem("aeternum_language") : null) || "pt";
       const firstName = String(user?.name || "").trim().split(/\s+/)[0] || "";
       const enrichedContext = {
         ...context,
         userName: user?.name || null,
         userFirstName: firstName || null,
         userRole: user?.role || "student",
-        knowledgeGraphPrompt: graphContextPrompt || null
+        knowledgeGraphPrompt: graphContextPrompt || null,
+        language: activeLanguage
       };
 
       const response = await atlasAITutorService.processMessageStream(

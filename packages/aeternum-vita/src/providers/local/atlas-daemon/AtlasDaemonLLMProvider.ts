@@ -143,18 +143,12 @@ export class AtlasDaemonLLMProvider implements LLMProvider {
    */
   private buildPrompt(request: LLMRequest): string {
     const parts: string[] = [];
-    const isQwenReasoning = this.targetModel.toLowerCase().includes("qwen3");
-    const thinkingDiscipline = isQwenReasoning
-      ? "Mantenha o raciocínio interno (<think>) extremamente conciso (máximo de 2 frases diretas) antes de emitir a resposta final."
-      : "";
+    const cleanDiscipline = "DIRETRIZ DE SAÍDA: Responda de forma direta, clara, polida e estritamente anatômica no idioma solicitado. Não emita raciocínio preliminar, não emita rascunhos, não utilize tags de pensamento (<think>) e forneça exclusivamente a resposta final para o estudante.";
 
     if (request.systemInstruction?.trim()) {
-      const sysText = thinkingDiscipline
-        ? `${request.systemInstruction.trim()}\n${thinkingDiscipline}`
-        : request.systemInstruction.trim();
-      parts.push(`=== DIRETRIZES DO SISTEMA ===\n${sysText}`);
-    } else if (thinkingDiscipline) {
-      parts.push(`=== DIRETRIZES DO SISTEMA ===\n${thinkingDiscipline}`);
+      parts.push(`=== DIRETRIZES DO SISTEMA ===\n${request.systemInstruction.trim()}\n${cleanDiscipline}`);
+    } else {
+      parts.push(`=== DIRETRIZES DO SISTEMA ===\n${cleanDiscipline}`);
     }
 
     const messages = request.messages || [];
@@ -168,9 +162,7 @@ export class AtlasDaemonLLMProvider implements LLMProvider {
         }
       }
       if (historyParts.length > 0) {
-        const useFastThink = isQwenReasoning && request.metadata?.enableDeepThinking !== true;
-        const joined = historyParts.join("\n\n");
-        parts.push(useFastThink ? `/no_think ${joined}\n/no_think` : joined);
+        parts.push(historyParts.join("\n\n"));
       }
     }
 
@@ -269,6 +261,13 @@ export class AtlasDaemonLLMProvider implements LLMProvider {
     }
 
     const latencyMs = Math.round(performance.now() - start);
+
+    if (!accumulatedText.trim()) {
+      throw new ProviderInvalidResponseError(
+        "O modelo local retornou resposta vazia ou sem tokens válidos.",
+        this.metadata.id
+      );
+    }
 
     return {
       text: accumulatedText,
@@ -448,12 +447,19 @@ export class AtlasDaemonLLMProvider implements LLMProvider {
             }
 
             if (eventPayload.chunk_type === "token_chunk" && eventPayload.content) {
-              hasEmittedTokenChunk = true;
-              yield {
-                deltaText: eventPayload.content,
-                isComplete: false
-              };
+              let cleanChunk = eventPayload.content;
+              if (cleanChunk.includes("<think>") || cleanChunk.includes("</think>")) {
+                cleanChunk = cleanChunk.replace(/<think>[\s\S]*?<\/think>/g, "").replace(/<\/?think>/g, "");
+              }
+              if (cleanChunk) {
+                hasEmittedTokenChunk = true;
+                yield {
+                  deltaText: cleanChunk,
+                  isComplete: false
+                };
+              }
             } else if (eventPayload.chunk_type === "thinking_chunk" && eventPayload.content) {
+              // REGRA ABSOLUTA DE SEGURANÇA: thinking_chunk JAMAIS deve ser emitido ao usuário ou retornado como resposta final.
               accumulatedThinking += eventPayload.content;
             } else if (eventPayload.chunk_type === "cancelled") {
               throw new ProviderCancelledError(
@@ -466,11 +472,11 @@ export class AtlasDaemonLLMProvider implements LLMProvider {
                 this.metadata.id
               );
             } else if (eventPayload.chunk_type === "completed" || eventPayload.done) {
-              if (!hasEmittedTokenChunk && accumulatedThinking.trim().length > 0) {
-                yield {
-                  deltaText: accumulatedThinking.trim(),
-                  isComplete: false
-                };
+              if (!hasEmittedTokenChunk) {
+                throw new ProviderInvalidResponseError(
+                  "O modelo local encerrou sem emitir resposta válida (apenas raciocínio interno ou saída vazia).",
+                  this.metadata.id
+                );
               }
               yield {
                 deltaText: "",
@@ -493,6 +499,13 @@ export class AtlasDaemonLLMProvider implements LLMProvider {
       throw err;
     } finally {
       reader.releaseLock();
+    }
+
+    if (!hasEmittedTokenChunk) {
+      throw new ProviderInvalidResponseError(
+        "O modelo local encerrou o fluxo sem emitir tokens de resposta válidos.",
+        this.metadata.id
+      );
     }
 
     yield {

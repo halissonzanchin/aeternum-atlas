@@ -1,4 +1,4 @@
-import { TokenUsage, LatencyMetrics } from "./common.ts";
+import type { TokenUsage, LatencyMetrics } from "./common.ts";
 
 export type LLMRole = "system" | "user" | "assistant";
 
