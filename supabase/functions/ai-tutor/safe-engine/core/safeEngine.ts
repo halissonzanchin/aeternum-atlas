@@ -54,6 +54,10 @@ export interface SafeEngineEnvelope {
     composition_ms: number;
     total_engine_ms: number;
   };
+  response_strategy?: string;
+  query_scope?: string;
+  is_clinical?: boolean;
+  is_out_of_canonical_scope?: boolean;
 }
 
 export class SafeEngine {
@@ -203,7 +207,11 @@ export class SafeEngine {
         planning_ms: parseFloat(planningMs.toFixed(3)),
         composition_ms: parseFloat(compositionMs.toFixed(3)),
         total_engine_ms: parseFloat(totalMs.toFixed(3))
-      }
+      },
+      response_strategy: plan.response_strategy,
+      query_scope: plan.query_scope,
+      is_clinical: plan.response_strategy === 'SAFE_FAILURE_CLINICAL',
+      is_out_of_canonical_scope: plan.response_strategy === 'SAFE_FAILURE_OUT_OF_SCOPE'
     };
   }
 }

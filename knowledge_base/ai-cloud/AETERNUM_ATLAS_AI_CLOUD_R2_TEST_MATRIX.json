@@ -1,6 +1,6 @@
 {
   "phase": "AETERNUM-ATLAS-AI-CLOUD-R2",
-  "timestamp": "2026-10-05T03:58:49.789Z",
+  "timestamp": "2026-11-04T04:14:15.465Z",
   "total_tests": 27,
   "passed_tests": 27,
   "failed_tests": 0,
@@ -15,15 +15,15 @@
       "facts_used_count": 2,
       "provenance_count": 2,
       "passed": true,
-      "latency_ms": 4.613,
+      "latency_ms": 3.572,
       "engine_latencies": {
-        "normalization_ms": 0.046,
-        "intent_ms": 0.732,
-        "entity_ms": 3.235,
-        "retrieval_ms": 0.21,
-        "planning_ms": 0.267,
-        "composition_ms": 0.057,
-        "total_engine_ms": 4.561
+        "normalization_ms": 0.115,
+        "intent_ms": 1.197,
+        "entity_ms": 1.847,
+        "retrieval_ms": 0.154,
+        "planning_ms": 0.184,
+        "composition_ms": 0.028,
+        "total_engine_ms": 3.539
       }
     },
     {
@@ -35,15 +35,15 @@
       "facts_used_count": 2,
       "provenance_count": 2,
       "passed": true,
-      "latency_ms": 0.669,
+      "latency_ms": 0.406,
       "engine_latencies": {
-        "normalization_ms": 0.028,
-        "intent_ms": 0.071,
-        "entity_ms": 0.224,
-        "retrieval_ms": 0.198,
-        "planning_ms": 0.018,
-        "composition_ms": 0.072,
-        "total_engine_ms": 0.623
+        "normalization_ms": 0.012,
+        "intent_ms": 0.022,
+        "entity_ms": 0.149,
+        "retrieval_ms": 0.103,
+        "planning_ms": 0.016,
+        "composition_ms": 0.056,
+        "total_engine_ms": 0.366
       }
     },
     {
@@ -55,15 +55,15 @@
       "facts_used_count": 2,
       "provenance_count": 2,
       "passed": true,
-      "latency_ms": 0.792,
+      "latency_ms": 0.736,
       "engine_latencies": {
-        "normalization_ms": 0.05,
-        "intent_ms": 0.448,
-        "entity_ms": 0.141,
-        "retrieval_ms": 0.096,
-        "planning_ms": 0.016,
-        "composition_ms": 0.011,
-        "total_engine_ms": 0.765
+        "normalization_ms": 0.038,
+        "intent_ms": 0.426,
+        "entity_ms": 0.127,
+        "retrieval_ms": 0.089,
+        "planning_ms": 0.013,
+        "composition_ms": 0.01,
+        "total_engine_ms": 0.709
       }
     },
     {
@@ -75,15 +75,15 @@
       "facts_used_count": 1,
       "provenance_count": 1,
       "passed": true,
-      "latency_ms": 4.617,
+      "latency_ms": 3.453,
       "engine_latencies": {
-        "normalization_ms": 0.021,
-        "intent_ms": 0.93,
-        "entity_ms": 1.78,
-        "retrieval_ms": 0.302,
-        "planning_ms": 0.317,
-        "composition_ms": 1.191,
-        "total_engine_ms": 4.55
+        "normalization_ms": 0.019,
+        "intent_ms": 0.805,
+        "entity_ms": 1.602,
+        "retrieval_ms": 0.717,
+        "planning_ms": 0.215,
+        "composition_ms": 0.054,
+        "total_engine_ms": 3.421
       }
     },
     {
@@ -95,15 +95,15 @@
       "facts_used_count": 1,
       "provenance_count": 1,
       "passed": true,
-      "latency_ms": 1.367,
+      "latency_ms": 1.216,
       "engine_latencies": {
-        "normalization_ms": 0.036,
-        "intent_ms": 0.916,
-        "entity_ms": 0.214,
-        "retrieval_ms": 0.114,
-        "planning_ms": 0.025,
-        "composition_ms": 0.02,
-        "total_engine_ms": 1.336
+        "normalization_ms": 0.039,
+        "intent_ms": 0.831,
+        "entity_ms": 0.188,
+        "retrieval_ms": 0.093,
+        "planning_ms": 0.018,
+        "composition_ms": 0.017,
+        "total_engine_ms": 1.193
       }
     },
     {
@@ -115,15 +115,15 @@
       "facts_used_count": 1,
       "provenance_count": 1,
       "passed": true,
-      "latency_ms": 0.706,
+      "latency_ms": 0.659,
       "engine_latencies": {
-        "normalization_ms": 0.014,
-        "intent_ms": 0.405,
-        "entity_ms": 0.134,
-        "retrieval_ms": 0.072,
-        "planning_ms": 0.016,
-        "composition_ms": 0.019,
-        "total_engine_ms": 0.668
+        "normalization_ms": 0.018,
+        "intent_ms": 0.365,
+        "entity_ms": 0.162,
+        "retrieval_ms": 0.051,
+        "planning_ms": 0.013,
+        "composition_ms": 0.014,
+        "total_engine_ms": 0.629
       }
     },
     {
@@ -135,15 +135,15 @@
       "facts_used_count": 2,
       "provenance_count": 2,
       "passed": true,
-      "latency_ms": 0.583,
+      "latency_ms": 0.505,
       "engine_latencies": {
-        "normalization_ms": 0.012,
-        "intent_ms": 0.195,
-        "entity_ms": 0.19,
-        "retrieval_ms": 0.083,
-        "planning_ms": 0.021,
-        "composition_ms": 0.015,
-        "total_engine_ms": 0.524
+        "normalization_ms": 0.009,
+        "intent_ms": 0.181,
+        "entity_ms": 0.161,
+        "retrieval_ms": 0.066,
+        "planning_ms": 0.017,
+        "composition_ms": 0.011,
+        "total_engine_ms": 0.452
       }
     },
     {
@@ -155,15 +155,15 @@
       "facts_used_count": 2,
       "provenance_count": 2,
       "passed": true,
-      "latency_ms": 0.309,
+      "latency_ms": 0.285,
       "engine_latencies": {
-        "normalization_ms": 0.014,
-        "intent_ms": 0.033,
-        "entity_ms": 0.117,
-        "retrieval_ms": 0.054,
-        "planning_ms": 0.035,
-        "composition_ms": 0.031,
-        "total_engine_ms": 0.29
+        "normalization_ms": 0.011,
+        "intent_ms": 0.03,
+        "entity_ms": 0.119,
+        "retrieval_ms": 0.05,
+        "planning_ms": 0.028,
+        "composition_ms": 0.025,
+        "total_engine_ms": 0.266
       }
     },
     {
@@ -175,15 +175,15 @@
       "facts_used_count": 2,
       "provenance_count": 2,
       "passed": true,
-      "latency_ms": 0.296,
+      "latency_ms": 0.258,
       "engine_latencies": {
-        "normalization_ms": 0.018,
-        "intent_ms": 0.027,
-        "entity_ms": 0.122,
-        "retrieval_ms": 0.059,
-        "planning_ms": 0.025,
-        "composition_ms": 0.034,
-        "total_engine_ms": 0.287
+        "normalization_ms": 0.008,
+        "intent_ms": 0.021,
+        "entity_ms": 0.114,
+        "retrieval_ms": 0.053,
+        "planning_ms": 0.022,
+        "composition_ms": 0.031,
+        "total_engine_ms": 0.251
       }
     },
     {
@@ -195,15 +195,15 @@
       "facts_used_count": 1,
       "provenance_count": 1,
       "passed": true,
-      "latency_ms": 0.31,
+      "latency_ms": 0.285,
       "engine_latencies": {
-        "normalization_ms": 0.011,
-        "intent_ms": 0.023,
-        "entity_ms": 0.187,
-        "retrieval_ms": 0.045,
-        "planning_ms": 0.013,
-        "composition_ms": 0.016,
-        "total_engine_ms": 0.3
+        "normalization_ms": 0.007,
+        "intent_ms": 0.016,
+        "entity_ms": 0.175,
+        "retrieval_ms": 0.043,
+        "planning_ms": 0.011,
+        "composition_ms": 0.022,
+        "total_engine_ms": 0.277
       }
     },
     {
@@ -215,15 +215,15 @@
       "facts_used_count": 0,
       "provenance_count": 0,
       "passed": true,
-      "latency_ms": 0.105,
+      "latency_ms": 0.098,
       "engine_latencies": {
-        "normalization_ms": 0.007,
-        "intent_ms": 0.022,
-        "entity_ms": 0.014,
-        "retrieval_ms": 0.038,
-        "planning_ms": 0.012,
+        "normalization_ms": 0.006,
+        "intent_ms": 0.018,
+        "entity_ms": 0.009,
+        "retrieval_ms": 0.043,
+        "planning_ms": 0.011,
         "composition_ms": 0.004,
-        "total_engine_ms": 0.099
+        "total_engine_ms": 0.093
       }
     },
     {
@@ -235,15 +235,15 @@
       "facts_used_count": 0,
       "provenance_count": 0,
       "passed": true,
-      "latency_ms": 0.941,
+      "latency_ms": 0.43,
       "engine_latencies": {
-        "normalization_ms": 0.012,
-        "intent_ms": 0.418,
-        "entity_ms": 0.054,
-        "retrieval_ms": 0.142,
-        "planning_ms": 0.057,
-        "composition_ms": 0.231,
-        "total_engine_ms": 0.918
+        "normalization_ms": 0.008,
+        "intent_ms": 0.244,
+        "entity_ms": 0.019,
+        "retrieval_ms": 0.057,
+        "planning_ms": 0.009,
+        "composition_ms": 0.085,
+        "total_engine_ms": 0.424
       }
     },
     {
@@ -255,15 +255,15 @@
       "facts_used_count": 0,
       "provenance_count": 0,
       "passed": true,
-      "latency_ms": 0.895,
+      "latency_ms": 0.096,
       "engine_latencies": {
-        "normalization_ms": 0.04,
-        "intent_ms": 0.046,
-        "entity_ms": 0.041,
-        "retrieval_ms": 0.527,
-        "planning_ms": 0.176,
-        "composition_ms": 0.025,
-        "total_engine_ms": 0.869
+        "normalization_ms": 0.007,
+        "intent_ms": 0.016,
+        "entity_ms": 0.013,
+        "retrieval_ms": 0.047,
+        "planning_ms": 0.004,
+        "composition_ms": 0.003,
+        "total_engine_ms": 0.092
       }
     },
     {
@@ -275,15 +275,15 @@
       "facts_used_count": 0,
       "provenance_count": 0,
       "passed": true,
-      "latency_ms": 0.333,
+      "latency_ms": 0.109,
       "engine_latencies": {
-        "normalization_ms": 0.019,
-        "intent_ms": 0.056,
-        "entity_ms": 0.03,
-        "retrieval_ms": 0.116,
-        "planning_ms": 0.065,
-        "composition_ms": 0.017,
-        "total_engine_ms": 0.312
+        "normalization_ms": 0.005,
+        "intent_ms": 0.02,
+        "entity_ms": 0.008,
+        "retrieval_ms": 0.046,
+        "planning_ms": 0.019,
+        "composition_ms": 0.004,
+        "total_engine_ms": 0.104
       }
     },
     {
@@ -295,15 +295,15 @@
       "facts_used_count": 0,
       "provenance_count": 0,
       "passed": true,
-      "latency_ms": 0.277,
+      "latency_ms": 0.089,
       "engine_latencies": {
-        "normalization_ms": 0.018,
-        "intent_ms": 0.028,
-        "entity_ms": 0.01,
-        "retrieval_ms": 0.18,
-        "planning_ms": 0.01,
-        "composition_ms": 0.007,
-        "total_engine_ms": 0.262
+        "normalization_ms": 0.006,
+        "intent_ms": 0.015,
+        "entity_ms": 0.003,
+        "retrieval_ms": 0.053,
+        "planning_ms": 0.003,
+        "composition_ms": 0.003,
+        "total_engine_ms": 0.084
       }
     },
     {
@@ -315,15 +315,15 @@
       "facts_used_count": 0,
       "provenance_count": 0,
       "passed": true,
-      "latency_ms": 0.753,
+      "latency_ms": 0.252,
       "engine_latencies": {
-        "normalization_ms": 0.011,
-        "intent_ms": 0.023,
-        "entity_ms": 0.363,
-        "retrieval_ms": 0.299,
-        "planning_ms": 0.014,
-        "composition_ms": 0.018,
-        "total_engine_ms": 0.732
+        "normalization_ms": 0.005,
+        "intent_ms": 0.016,
+        "entity_ms": 0.132,
+        "retrieval_ms": 0.082,
+        "planning_ms": 0.004,
+        "composition_ms": 0.005,
+        "total_engine_ms": 0.246
       }
     },
     {
@@ -335,15 +335,15 @@
       "facts_used_count": 0,
       "provenance_count": 0,
       "passed": true,
-      "latency_ms": 0.874,
+      "latency_ms": 0.252,
       "engine_latencies": {
-        "normalization_ms": 0.045,
-        "intent_ms": 0.139,
-        "entity_ms": 0.336,
-        "retrieval_ms": 0.285,
-        "planning_ms": 0.011,
-        "composition_ms": 0.018,
-        "total_engine_ms": 0.85
+        "normalization_ms": 0.006,
+        "intent_ms": 0.021,
+        "entity_ms": 0.159,
+        "retrieval_ms": 0.05,
+        "planning_ms": 0.002,
+        "composition_ms": 0.005,
+        "total_engine_ms": 0.247
       }
     },
     {
@@ -355,15 +355,15 @@
       "facts_used_count": 0,
       "provenance_count": 0,
       "passed": true,
-      "latency_ms": 0.37,
+      "latency_ms": 0.245,
       "engine_latencies": {
-        "normalization_ms": 0.02,
-        "intent_ms": 0.014,
-        "entity_ms": 0.234,
-        "retrieval_ms": 0.07,
-        "planning_ms": 0.014,
-        "composition_ms": 0.005,
-        "total_engine_ms": 0.362
+        "normalization_ms": 0.01,
+        "intent_ms": 0.005,
+        "entity_ms": 0.168,
+        "retrieval_ms": 0.044,
+        "planning_ms": 0.008,
+        "composition_ms": 0.003,
+        "total_engine_ms": 0.24
       }
     },
     {
@@ -375,15 +375,15 @@
       "facts_used_count": 0,
       "provenance_count": 0,
       "passed": true,
-      "latency_ms": 0.322,
+      "latency_ms": 0.208,
       "engine_latencies": {
-        "normalization_ms": 0.014,
-        "intent_ms": 0.011,
-        "entity_ms": 0.19,
-        "retrieval_ms": 0.064,
-        "planning_ms": 0.019,
-        "composition_ms": 0.008,
-        "total_engine_ms": 0.31
+        "normalization_ms": 0.007,
+        "intent_ms": 0.007,
+        "entity_ms": 0.136,
+        "retrieval_ms": 0.038,
+        "planning_ms": 0.008,
+        "composition_ms": 0.003,
+        "total_engine_ms": 0.202
       }
     }
   ]

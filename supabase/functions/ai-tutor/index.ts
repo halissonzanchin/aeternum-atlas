@@ -211,10 +211,13 @@ export function extractSearchTerms(prompt: string): string[] {
     "de", "em", "no", "na", "nos", "nas", "ao", "aos", "a", "o", "os", "as", "e", "ou", "se", "me", "diga",
     "mostre", "descreva", "detalhe", "detalhadamente", "apresente", "resuma", "sintetize", "ola", "oi", "bom", "dia", "boa", "tarde", "noite",
     "segundo", "atlas", "aeternum", "por favor", "base", "fontes",
+    "sao", "seus", "suas", "seu", "sua", "tem", "ha", "este", "esta", "estes", "estas",
+    "esse", "essa", "esses", "essas", "aquele", "aquela", "aqueles", "aquelas", "dele", "dela",
+    "deles", "delas", "entre", "posso", "pode", "podem", "atraves",
     // Español
     "hable", "hablar", "cuales", "quien", "donde", "cuando", "unos", "del", "dela",
     "el", "los", "las", "al", "y", "u", "son", "es", "sea", "muestre", "describa", "detalle", "presente", "buen", "buenos", "dias",
-    "buenas", "tardes", "noches", "segun", "favor", "estimado"
+    "buenas", "tardes", "noches", "segun", "favor", "estimado", "sus", "su", "traves"
   ]);
   return prompt
     .toLowerCase()
@@ -236,23 +239,56 @@ async function retrieveKnowledge(
   const searchQueries: string[] = [];
   if (terms.length > 0) {
     searchQueries.push(terms.join(" "));
+    if (targetEntities && targetEntities.length > 0) {
+      const tgt = targetEntities.join(" ");
+      if (!searchQueries.includes(tgt)) searchQueries.push(tgt);
+    }
     if (terms.length > 2) {
-      searchQueries.push(terms.slice(0, 3).join(" "));
-      searchQueries.push(terms.slice(-3).join(" "));
+      const first3 = terms.slice(0, 3).join(" ");
+      const last2 = terms.slice(-2).join(" ");
+      if (!searchQueries.includes(first3)) searchQueries.push(first3);
+      if (!searchQueries.includes(last2)) searchQueries.push(last2);
     }
   }
-  searchQueries.push(prompt);
+  if (!searchQueries.includes(prompt)) {
+    searchQueries.push(prompt);
+  }
 
   for (const q of searchQueries) {
     try {
-      // 1. Dedicated Sovereign Hybrid Multi-Stage Retrieval RPC (Authoritative Staging Path)
-      const { data: sovData, error: sovError } = await adminClient.rpc("match_vita_sovereign_knowledge", {
+      // 1. Dedicated Sovereign Hybrid Multi-Stage Retrieval RPC with targeted entities
+      if (targetEntities && targetEntities.length > 0) {
+        const { data: sovData, error: sovError } = await adminClient.rpc("match_vita_sovereign_knowledge", {
+          search_query: q,
+          target_entities: targetEntities,
+          match_count: MAX_KNOWLEDGE_RESULTS
+        });
+        if (!sovError && Array.isArray(sovData) && sovData.length > 0) {
+          const rows: KnowledgeRow[] = sovData.map((d: any) => ({
+            id: d.id,
+            book_title: d.book_title || "Aeternum Atlas Sovereign Anatomical Knowledge Base",
+            chapter_title: d.metadata?.chapter || d.metadata?.topic,
+            page_number: d.page_number,
+            content: d.content,
+            similarity: d.lexical_rank,
+            lexical_rank: d.lexical_rank,
+            source_file: d.source_file,
+            source_sha256: d.source_sha256,
+            retrieval_stage: d.retrieval_stage,
+            metadata: d.metadata
+          }));
+          return { sources: rows, method: "sovereign-hybrid-rpc" };
+        }
+      }
+
+      // 2. Sovereign Hybrid RPC broad (without restrictive target_entities)
+      const { data: sovDataBroad, error: sovErrorBroad } = await adminClient.rpc("match_vita_sovereign_knowledge", {
         search_query: q,
-        target_entities: targetEntities || [],
+        target_entities: [],
         match_count: MAX_KNOWLEDGE_RESULTS
       });
-      if (!sovError && Array.isArray(sovData) && sovData.length > 0) {
-        const rows: KnowledgeRow[] = sovData.map((d: any) => ({
+      if (!sovErrorBroad && Array.isArray(sovDataBroad) && sovDataBroad.length > 0) {
+        const rows: KnowledgeRow[] = sovDataBroad.map((d: any) => ({
           id: d.id,
           book_title: d.book_title || "Aeternum Atlas Sovereign Anatomical Knowledge Base",
           chapter_title: d.metadata?.chapter || d.metadata?.topic,
@@ -265,10 +301,10 @@ async function retrieveKnowledge(
           retrieval_stage: d.retrieval_stage,
           metadata: d.metadata
         }));
-        return { sources: rows, method: "sovereign-hybrid-rpc" };
+        return { sources: rows, method: "sovereign-hybrid-rpc-broad" };
       }
 
-      // 2. FTS match fallback
+      // 3. FTS match fallback
       const { data: ftsData, error: ftsError } = await adminClient.rpc("match_vita_anatomical_knowledge", {
         search_query: q,
         match_count: MAX_KNOWLEDGE_RESULTS
@@ -313,7 +349,7 @@ export function evaluateEvidenceSufficiency(
   }
 
   // Validação semântica de relevância anatômica (evita aceitar meros índices, cabeçalhos ou referências vazias)
-  const anatomicalMarkers = /\b(nervo|nervio|musculo|músculo|arteria|artéria|osso|hueso|cartilagem|cartílago|veia|vena|vaso|ramo|ramus|plexo|plexus|insercao|inserção|inserción|origem|origen|articulacao|articulação|articulación|fasciculo|fascículo|espaco|espaço|espacio|face|borda|borde|ligamento|forame|foramen|processo|proceso|tuberculo|tubérculo|fossa|fosa|sulco|surco|espinha|espina|cavidade|cavidad|labrum|extremidade|extremo|crista|cresta|segmento|raiz|tronco|cordao|cordão|cordon|cuerda)\b/i;
+  const anatomicalMarkers = /\b(nervo|nervio|musculo|músculo|arteria|artéria|osso|hueso|cartilagem|cartílago|veia|vena|vaso|ramo|ramus|plexo|plexus|insercao|inserção|inserción|origem|origen|articulacao|articulação|articulación|fasciculo|fascículo|espaco|espaço|espacio|face|borda|borde|ligamento|forame|foramen|processo|proceso|tuberculo|tubérculo|fossa|fosa|sulco|surco|espinha|espina|cavidade|cavidad|labrum|extremidade|extremo|crista|cresta|segmento|raiz|tronco|cordao|cordão|cordon|cuerda|lobo|lobulo|lóbulo|fissura|valvula|válvula|atrio|átrio|ventriculo|ventrículo|septo|coronaria|coronária|aorta|pulmao|pulmão|pulmon|diafragma|femur|fêmur|cabeca|cabeça|colo|trocanter|trocânter|condilo|côndilo|epicondilo|epicôndilo)\b/i;
   if (!anatomicalMarkers.test(content)) {
     return { sufficient: false, reason: "NO_ANATOMICAL_MARKERS_IN_TOP_SOURCE" };
   }
@@ -1141,38 +1177,45 @@ export async function handleAiTutorRequest(
 
   // Branch 4: UNSUPPORTED_QUERY -> Out of anatomical scope / clinical prescription
   if (safeResult.status === "UNSUPPORTED_QUERY") {
-    const totalLatencyMs = Math.round(performance.now() - tStart);
-    const respHeaders = {
-      ...cors,
-      "X-Aeternum-Knowledge-State": "INSUFFICIENT_EVIDENCE",
-      "X-Aeternum-Safe-Engine": "HIT",
-      "X-Aeternum-RAG-Invoked": "FALSE",
-      "X-Aeternum-AI-Calls": "0",
-      "X-Aeternum-AI-Source": "aeternum-safe-engine",
-      "X-Aeternum-AI-Model": "deterministic-canonical"
-    };
+    const isClinical = safeResult.is_clinical || safeResult.response_strategy === "SAFE_FAILURE_CLINICAL";
+    if (isClinical) {
+      const totalLatencyMs = Math.round(performance.now() - tStart);
+      const respHeaders = {
+        ...cors,
+        "X-Aeternum-Knowledge-State": "INSUFFICIENT_EVIDENCE",
+        "X-Aeternum-Safe-Engine": "HIT",
+        "X-Aeternum-RAG-Invoked": "FALSE",
+        "X-Aeternum-AI-Calls": "0",
+        "X-Aeternum-AI-Source": "aeternum-safe-engine",
+        "X-Aeternum-AI-Model": "deterministic-canonical"
+      };
 
-    if (wantStream) {
-      return createSseTextResponse(safeResult.answer, {
-        source: "aeternum-safe-engine",
-        model: "deterministic-canonical",
+      if (wantStream) {
+        return createSseTextResponse(safeResult.answer, {
+          source: "aeternum-safe-engine",
+          model: "deterministic-canonical",
+          knowledgeState: "INSUFFICIENT_EVIDENCE",
+          safeEngineHit: true,
+          aiCalls: 0,
+          latencyMs: totalLatencyMs,
+          retrievalCount: 0
+        }, respHeaders);
+      }
+
+      return jsonResponse({
+        text: safeResult.answer,
         knowledgeState: "INSUFFICIENT_EVIDENCE",
         safeEngineHit: true,
         aiCalls: 0,
-        latencyMs: totalLatencyMs,
-        retrievalCount: 0
-      }, respHeaders);
+        source: "aeternum-safe-engine",
+        model: "deterministic-canonical",
+        latencies: { safeEngineMs: safeEngineLatencyMs, totalMs: totalLatencyMs }
+      }, 200, respHeaders);
     }
 
-    return jsonResponse({
-      text: safeResult.answer,
-      knowledgeState: "INSUFFICIENT_EVIDENCE",
-      safeEngineHit: true,
-      aiCalls: 0,
-      source: "aeternum-safe-engine",
-      model: "deterministic-canonical",
-      latencies: { safeEngineMs: safeEngineLatencyMs, totalMs: totalLatencyMs }
-    }, 200, respHeaders);
+    // For non-clinical queries (e.g. valid anatomical structures outside canonical package Upper Limb B1):
+    // Do NOT hard-block! Delegate to Authority Layer 3 (RAG) and Section 8 (Evidence Gate).
+    console.info(`[ai-tutor] SafeEngine UNSUPPORTED_QUERY (strategy: ${safeResult.response_strategy || "UNKNOWN"}) is non-clinical; falling through to Sovereign RAG / Evidence Gate.`);
   }
 
   // =========================================================================

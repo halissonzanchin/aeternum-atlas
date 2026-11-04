@@ -381,3 +381,51 @@ test("6. Defesa em Profundidade: Servidor legado retornando JSON 200 é consumid
   assert.notEqual(frontendOutput.code, "EMPTY_RESPONSE");
   assert.match(frontendOutput.text, /Evidência anatômica insuficiente/);
 });
+
+test("7. Consulta Clínica Proibida (Prescrição / Conduta): Bloqueio Determinístico sem RAG nem IA", () => {
+  // Simula Safe Engine detectando consulta clínica (SAFE_FAILURE_CLINICAL)
+  const clinicalRefusal = "O Aeternum Atlas é uma plataforma estritamente educacional para o estudo da anatomia humana e não realiza prescrições.";
+  const res = simulateAiTutorPipeline("receite um anti-inflamatório para dor no ombro", {
+    wantStream: true,
+    mockCanonicalAnswer: clinicalRefusal
+  });
+
+  assert.equal(res.status, 200);
+  assert.equal(res.contentType, "text/event-stream; charset=utf-8");
+  assert.equal(res.safeEngine, "HIT");
+  assert.equal(res.origin, "aeternum-safe-engine");
+  assert.equal(res.aiCalls, 0);
+  assert.equal(res.localModelUsed, false);
+  assert.match(res.text, /educacional/);
+
+  const frontendOutput = simulateFrontendConsumer(res);
+  assert.equal(frontendOutput.mode, "live");
+  assert.match(frontendOutput.text, /educacional/);
+});
+
+test("8. Pergunta sobre o Fêmur com Fontes Soberanas Disponíveis: RAG Qualificado + Síntese Local", () => {
+  // Fêmur fora do pacote estático B1, mas com 313 trechos soberanos no Supabase
+  const femurSources = [
+    { content: "O fêmur é o osso mais longo, pesado e resistente do corpo humano, articulando-se superiormente com o osso do quadril." }
+  ];
+  const femurSynthesized = "O fêmur é o osso da coxa, constituído por corpo (diáfise) e duas extremidades (epífises).";
+
+  const res = simulateAiTutorPipeline("anatomia do fêmur", {
+    wantStream: true,
+    mockRagSources: femurSources,
+    mockGatewayText: femurSynthesized
+  });
+
+  assert.equal(res.status, 200);
+  assert.equal(res.contentType, "text/event-stream; charset=utf-8");
+  assert.equal(res.safeEngine, "MISS");
+  assert.equal(res.origin, "atlas-daemon-rust-local");
+  assert.equal(res.aiCalls, 1);
+  assert.equal(res.localModelUsed, true);
+  assert.equal(res.text, femurSynthesized);
+
+  const frontendOutput = simulateFrontendConsumer(res);
+  assert.equal(frontendOutput.mode, "live");
+  assert.equal(frontendOutput.text, femurSynthesized);
+});
+
