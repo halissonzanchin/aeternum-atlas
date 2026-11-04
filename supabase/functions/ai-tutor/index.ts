@@ -112,6 +112,32 @@ export function jsonResponse(body: Record<string, unknown>, status: number, head
   });
 }
 
+export function createSseTextResponse(
+  text: string,
+  metadata: Record<string, unknown>,
+  headers: Record<string, string>,
+  chunkSize = 200
+): Response {
+  const encoder = new TextEncoder();
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.enqueue(encoder.encode(`data: ${JSON.stringify(metadata)}\n\n`));
+      for (let offset = 0; offset < text.length; offset += chunkSize) {
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: text.slice(offset, offset + chunkSize) })}\n\n`));
+      }
+      controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+      controller.close();
+    }
+  });
+  return new Response(stream, {
+    headers: {
+      ...headers,
+      "Content-Type": "text/event-stream; charset=utf-8",
+      "Cache-Control": "no-store"
+    }
+  });
+}
+
 export function cleanText(value: unknown, max: number): string {
   return String(value || "")
     .replace(/[\u0000-\u0009\u000B\u000C\u000E-\u001F\u007F]/g, " ")
@@ -946,6 +972,7 @@ export async function handleAiTutorRequest(
     }, geminiKey ? 200 : 503, cors);
   }
 
+  const wantStream = payload.stream === true || (req.headers.get("accept")?.includes("text/event-stream") ?? false);
   const messages = Array.isArray(payload.messages) ? payload.messages : [];
   const lastMessage = messages.at(-1) as Record<string, unknown> | undefined;
   const prompt = cleanText(lastMessage?.content || lastMessage?.text || payload.prompt, MAX_PROMPT_CHARACTERS);
@@ -1015,28 +1042,16 @@ export async function handleAiTutorRequest(
     };
 
     // Return SSE stream if client requested stream
-    const wantStream = payload.stream === true || req.headers.get("accept")?.includes("text/event-stream");
     if (wantStream) {
-      const encoder = new TextEncoder();
-      const stream = new ReadableStream({
-        start(controller) {
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({
-            source: "aeternum-safe-engine",
-            model: "deterministic-canonical",
-            knowledgeState: "DETERMINISTIC_CANONICAL",
-            safeEngineHit: true,
-            aiCalls: 0,
-            latencyMs: totalLatencyMs,
-            retrievalCount: 0
-          })}\n\n`));
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: safeResult.answer })}\n\n`));
-          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-          controller.close();
-        }
-      });
-      return new Response(stream, {
-        headers: { ...respHeaders, "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-store" }
-      });
+      return createSseTextResponse(safeResult.answer, {
+        source: "aeternum-safe-engine",
+        model: "deterministic-canonical",
+        knowledgeState: "DETERMINISTIC_CANONICAL",
+        safeEngineHit: true,
+        aiCalls: 0,
+        latencyMs: totalLatencyMs,
+        retrievalCount: 0
+      }, respHeaders);
     }
 
     return jsonResponse({
@@ -1065,6 +1080,18 @@ export async function handleAiTutorRequest(
       "X-Aeternum-AI-Model": "deterministic-canonical"
     };
 
+    if (wantStream) {
+      return createSseTextResponse(safeResult.answer, {
+        source: "aeternum-safe-engine",
+        model: "deterministic-canonical",
+        knowledgeState: "FALSE_PREMISE_CORRECTED",
+        safeEngineHit: true,
+        aiCalls: 0,
+        latencyMs: totalLatencyMs,
+        retrievalCount: 0
+      }, respHeaders);
+    }
+
     return jsonResponse({
       text: safeResult.answer,
       knowledgeState: "FALSE_PREMISE_CORRECTED",
@@ -1089,6 +1116,18 @@ export async function handleAiTutorRequest(
       "X-Aeternum-AI-Model": "deterministic-canonical"
     };
 
+    if (wantStream) {
+      return createSseTextResponse(safeResult.answer, {
+        source: "aeternum-safe-engine",
+        model: "deterministic-canonical",
+        knowledgeState: "AMBIGUOUS_QUERY",
+        safeEngineHit: true,
+        aiCalls: 0,
+        latencyMs: totalLatencyMs,
+        retrievalCount: 0
+      }, respHeaders);
+    }
+
     return jsonResponse({
       text: safeResult.answer,
       knowledgeState: "AMBIGUOUS_QUERY",
@@ -1112,6 +1151,18 @@ export async function handleAiTutorRequest(
       "X-Aeternum-AI-Source": "aeternum-safe-engine",
       "X-Aeternum-AI-Model": "deterministic-canonical"
     };
+
+    if (wantStream) {
+      return createSseTextResponse(safeResult.answer, {
+        source: "aeternum-safe-engine",
+        model: "deterministic-canonical",
+        knowledgeState: "INSUFFICIENT_EVIDENCE",
+        safeEngineHit: true,
+        aiCalls: 0,
+        latencyMs: totalLatencyMs,
+        retrievalCount: 0
+      }, respHeaders);
+    }
 
     return jsonResponse({
       text: safeResult.answer,
@@ -1158,6 +1209,19 @@ export async function handleAiTutorRequest(
     };
 
     const insufficientMsg = "Evidência anatômica insuficiente nas fontes soberanas do Aeternum Atlas para sintetizar esta estrutura com precisão.";
+    if (wantStream) {
+      return createSseTextResponse(insufficientMsg, {
+        source: "aeternum-evidence-gate",
+        model: "deterministic-evidence-gate",
+        knowledgeState: "INSUFFICIENT_EVIDENCE",
+        safeEngineHit: false,
+        aiCalls: 0,
+        evidenceGateResult: "SOURCE_EVIDENCE_INSUFFICIENT",
+        latencyMs: totalLatencyMs,
+        retrievalCount: sources.length
+      }, respHeaders);
+    }
+
     return jsonResponse({
       text: insufficientMsg,
       knowledgeState: "INSUFFICIENT_EVIDENCE",
@@ -1479,33 +1543,19 @@ export async function handleAiTutorRequest(
   };
 
   // Return SSE stream if client requested stream
-  const wantStream = payload.stream === true || req.headers.get("accept")?.includes("text/event-stream");
   if (wantStream) {
-    const encoder = new TextEncoder();
-    const stream = new ReadableStream({
-      start(controller) {
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify({
-          source: gatewayResult.provider,
-          model: gatewayResult.model,
-          routing: targetRouting,
-          fallbackUsed: gatewayResult.fallbackUsed ?? false,
-          knowledgeState,
-          safeEngineHit: false,
-          aiCalls: 1,
-          latencyMs: totalLatencyMs,
-          retrievalCount: sources.length,
-          retrievalMethod: ragMethod
-        })}\n\n`));
-        for (let offset = 0; offset < finalText.length; offset += 200) {
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: finalText.slice(offset, offset + 200) })}\n\n`));
-        }
-        controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-        controller.close();
-      }
-    });
-    return new Response(stream, {
-      headers: { ...respHeaders, "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-store" }
-    });
+    return createSseTextResponse(finalText, {
+      source: gatewayResult.provider,
+      model: gatewayResult.model,
+      routing: targetRouting,
+      fallbackUsed: gatewayResult.fallbackUsed ?? false,
+      knowledgeState,
+      safeEngineHit: false,
+      aiCalls: 1,
+      latencyMs: totalLatencyMs,
+      retrievalCount: sources.length,
+      retrievalMethod: ragMethod
+    }, respHeaders);
   }
 
   return jsonResponse({
