@@ -6,8 +6,11 @@ function normalizeAnnotation(row = {}) {
   return {
     id: row.id || row.annotation_uid || `annotation-${row.annotation_index}`,
     uid: row.annotation_uid || "",
+    sketchfabUid: row.sketchfab_uid || "",
     index: Number.isInteger(row.annotation_index) ? row.annotation_index : 0,
+    annotationIndex: Number.isInteger(row.annotation_index) ? row.annotation_index : 0,
     name: row.title || "Annotation",
+    label: row.title || "Annotation",
     description: row.description || "",
     eye: row.eye || null,
     target: row.target || null,
@@ -25,7 +28,7 @@ export async function listModelAnnotations(modelId) {
 
   const { data, error } = await supabase
     .from("model_annotations")
-    .select("id, annotation_uid, annotation_index, title, description, eye, target, position, images")
+    .select("id, model_id, annotation_uid, sketchfab_uid, annotation_index, title, description, eye, target, position, images")
     .eq("model_id", modelId)
     .order("annotation_index", { ascending: true });
 

@@ -63,17 +63,29 @@ function resolveEffectiveLanguage(explicitLanguage) {
   return 'pt';
 }
 
-function buildTutorContext(context = {}) {
+function buildTutorContext(context = {}, message = "") {
   const routeContext = context.routeContext || context.tutorContext || {};
   const model = context.model || {};
   const activeStructure = context.activeStructure || {};
   const isVoice = context.source === 'voice' || context.mode === 'voice' || Boolean(context.tutorPromptDirective);
 
+  // Desacoplamento espacial: Se a consulta do estudante for sobre outra região anatômica
+  // (ex: 'fêmur' ou 'coração' enquanto um modelo de 'crânio' estiver no viewport),
+  // não transfere o título/marcadores do modelo para o contexto da pergunta.
+  const msgNorm = (message || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const modelTitleNorm = (model.title || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const isDifferentRegion = /\b(femur|tibia|fibula|patela|joelho|coxa|coracao|pulmao|escapula|umero)\b/i.test(msgNorm) &&
+    !modelTitleNorm.includes(msgNorm.match(/\b(femur|tibia|fibula|patela|joelho|coxa|coracao|pulmao|escapula|umero)\b/i)?.[0] || "");
+
+  const effectiveModelTitle = isDifferentRegion ? null : (model.title || activeStructure.name || routeContext.structure || context.modelTitle || null);
+  const effectiveModelSlug = isDifferentRegion ? null : (model.slug || context.modelSlug || null);
+  const effectiveMarkers = isDifferentRegion ? [] : (Array.isArray(context.markers) ? context.markers : []);
+
   let behaviorDirective = context.tutorPromptDirective || null;
   if (!behaviorDirective) {
     const behaviorState = aeternumBehaviorOrchestrator.evaluateState({
       userId: context.userId || context.user?.id || 'default',
-      query: context.sectionTitle || model.title || '',
+      query: context.sectionTitle || effectiveModelTitle || '',
       context,
       brainType: isVoice ? 'vita' : 'atlas'
     });
@@ -90,14 +102,18 @@ function buildTutorContext(context = {}) {
     userRole: context.userRole || context.user?.role || context.role || 'student',
     sectionTitle: routeContext.structure || context.sectionTitle || null,
     sectionQuestion: routeContext.question || context.sectionQuestion || null,
-    modelTitle: model.title || activeStructure.name || routeContext.structure || context.modelTitle || null,
-    modelSlug: model.slug || context.modelSlug || null,
-    description: model.description
-      || activeStructure.description
-      || routeContext.answer?.description
-      || context.description
-      || null,
-    markers: Array.isArray(context.markers) ? context.markers : [],
+    modelTitle: effectiveModelTitle,
+    modelSlug: effectiveModelSlug,
+    activeViewportModel: model.title || null,
+    activeViewportSlug: model.slug || null,
+    description: isDifferentRegion
+      ? null
+      : (model.description
+        || activeStructure.description
+        || routeContext.answer?.description
+        || context.description
+        || null),
+    markers: effectiveMarkers,
     activePanel: context.markerOpen ? 'markers' : 'none',
     knowledgeGraphPrompt: context.knowledgeGraphPrompt || null,
     language: resolveEffectiveLanguage(context.language),
@@ -159,7 +175,7 @@ function streamLocalCerebroResponse(message, tutorContext, conversationId) {
 
 export const atlasAITutorService = {
   async processMessageStream(message, context, onUpdate, conversationId = null) {
-    const tutorContext = buildTutorContext(context);
+    const tutorContext = buildTutorContext(context, message);
 
     // 1. Verificação de modo offline explícito
     const isBrowserOffline = typeof navigator !== "undefined" && navigator.onLine === false;

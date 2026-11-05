@@ -334,12 +334,22 @@ export default function AtlasAIConversation({
                     ) : null
                   )}
                   <MessageText text={message.text} />
-                  {message.sender === "ai" && (
-                    <SpatialAIGuidanceCard
-                      text={sanitizeTutorDisplayText(message.text)}
-                      currentPath={typeof window !== "undefined" ? window.location.pathname : ""}
-                    />
-                  )}
+                  {message.sender === "ai" && (() => {
+                    const msgIdx = messages.findIndex((m) => m.id === message.id);
+                    const associatedUserMsg = messages
+                      .slice(0, msgIdx)
+                      .reverse()
+                      .find((m) => m.sender === "user");
+                    const associatedUserPrompt = associatedUserMsg?.text || "";
+
+                    return (
+                      <SpatialAIGuidanceCard
+                        text={sanitizeTutorDisplayText(message.text)}
+                        userQuery={associatedUserPrompt}
+                        currentPath={typeof window !== "undefined" ? window.location.pathname : ""}
+                      />
+                    );
+                  })()}
                 </div>
 
                 {actionLabel && onAction ? (
