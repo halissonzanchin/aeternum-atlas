@@ -16,6 +16,7 @@ export interface FalsePremiseResult {
 const FALSE_PREMISE_RULES = [
   { match: /escapula.*articula.*tibia/i, reason: 'Escápula não se articula com a tíbia (osso do membro inferior)' },
   { match: /escapula.*articula.*femur/i, reason: 'Escápula não se articula com o fêmur' },
+  { match: /clavicula.*articula.*femur/i, reason: 'Clavícula não se articula com o fêmur' },
   { match: /escapula.*articula.*fibula/i, reason: 'Escápula não se articula com a fíbula' },
   { match: /escapula.*articula.*radio/i, reason: 'Escápula não se articula diretamente com o rádio' },
   { match: /escapula.*articula.*ulna/i, reason: 'Escápula não se articula diretamente com a ulna' },

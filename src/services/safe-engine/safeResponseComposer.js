@@ -278,7 +278,8 @@ export function composeResponse({ plan, retrievalResult }) {
   // 1. Safe Failure strategies
   if (
     plan.response_strategy.startsWith('SAFE_FAILURE') ||
-    plan.response_strategy === 'REFERENCE_ONLY_NO_EVIDENCE'
+    plan.response_strategy === 'REFERENCE_ONLY_NO_EVIDENCE' ||
+    plan.response_strategy === 'DELEGATE_TO_SOVEREIGN_RAG'
   ) {
     const failureRes = composeSafeFailure(plan);
     return {

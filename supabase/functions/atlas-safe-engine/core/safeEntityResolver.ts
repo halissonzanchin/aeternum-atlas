@@ -9,7 +9,7 @@
  */
 
 import { CANONICAL_BUNDLE } from '../bundle/canonicalBundle.ts';
-import { normalizeQuery, ANATOMICAL_ALIASES, OUT_OF_SCOPE_ENTITIES } from './safeNormalizer.ts';
+import { normalizeQuery, ANATOMICAL_ALIASES, OUT_OF_SCOPE_ENTITIES, EXPANDED_ANATOMICAL_ENTITIES } from './safeNormalizer.ts';
 
 const entityLookup = new Map<string, any>();
 for (const ent of CANONICAL_BUNDLE.entity_registry.entities) {
@@ -53,17 +53,19 @@ export function resolveEntity(normalizedText: string) {
     };
   }
 
-  // 2. Check out-of-scope anatomy
-  for (const oos of OUT_OF_SCOPE_ENTITIES) {
-    const regex = new RegExp(`\\b${oos}\\b`, 'i');
+  // 2. Check expanded anatomy (valid anatomical structures requiring sovereign RAG / Knowledge Graph)
+  const expandedList = EXPANDED_ANATOMICAL_ENTITIES || OUT_OF_SCOPE_ENTITIES;
+  for (const exp of expandedList) {
+    const regex = new RegExp(`\\b${exp}\\b`, 'i');
     if (regex.test(normalizedText)) {
       return {
-        status: 'OUT_OF_SCOPE_ENTITY',
-        primary_entity: oos,
-        matched_entities: [oos],
-        is_out_of_scope: true,
+        status: 'RESOLVED_EXPANDED_ANATOMY',
+        primary_entity: exp,
+        matched_entities: [exp],
+        is_out_of_scope: false,
+        is_expanded_scope: true,
         is_ambiguous: false,
-        knowledge_state: 'OUT_OF_SCOPE',
+        knowledge_state: 'EXPANDED_ANATOMY_PENDING_RAG',
         is_subentity: false,
         parent_entity_id: null,
         hierarchy_type: null

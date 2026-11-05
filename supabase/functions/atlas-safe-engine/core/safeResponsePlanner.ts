@@ -71,21 +71,21 @@ export function planResponse({
     };
   }
 
-  // 3. Out of Scope Check
-  if (entityResolution.is_out_of_scope) {
+  // 3. Expanded Anatomical Scope (Delegates cleanly to Sovereign Evidence / RAG)
+  if (entityResolution.is_expanded_scope || entityResolution.is_out_of_scope) {
     return {
       query_id: queryId,
       query: originalQuery,
       normalized_query: normalizedQuery,
       resolved_entity: entityResolution.primary_entity,
-      query_scope: 'OUT_OF_SCOPE',
+      query_scope: 'EXPANDED_ANATOMICAL_SCOPE',
       response_depth: depth,
       anchor_fact_ids: [],
       context_fact_ids: [],
       teaching_connection_ids: [],
       practical_unit_ids: [],
-      evidence_state: 'NO_CANONICAL_EVIDENCE',
-      response_strategy: 'SAFE_FAILURE_OUT_OF_SCOPE',
+      evidence_state: 'CANONICAL_PACK_PENDING',
+      response_strategy: 'DELEGATE_TO_SOVEREIGN_RAG',
       is_false_premise: false
     };
   }

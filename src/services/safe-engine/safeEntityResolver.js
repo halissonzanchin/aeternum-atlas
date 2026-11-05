@@ -11,7 +11,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { normalizeQuery, ANATOMICAL_ALIASES, OUT_OF_SCOPE_ENTITIES } from './safeNormalizer.js';
+import { normalizeQuery, ANATOMICAL_ALIASES, OUT_OF_SCOPE_ENTITIES, EXPANDED_ANATOMICAL_ENTITIES } from './safeNormalizer.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -51,16 +51,18 @@ export function resolveEntity(normalizedText) {
     };
   }
 
-  // 1. Check for out-of-scope anatomy first
-  for (const oos of OUT_OF_SCOPE_ENTITIES) {
-    const regex = new RegExp(`\\b${oos}\\b`, 'i');
+  // 1. Check for expanded anatomy (valid structures requiring sovereign RAG / Knowledge Graph)
+  const expandedList = EXPANDED_ANATOMICAL_ENTITIES || OUT_OF_SCOPE_ENTITIES;
+  for (const exp of expandedList) {
+    const regex = new RegExp(`\\b${exp}\\b`, 'i');
     if (regex.test(normalizedText)) {
       return {
-        status: 'OUT_OF_SCOPE_ENTITY',
-        primary_entity: oos,
-        matched_entities: [oos],
-        is_out_of_scope: true,
-        knowledge_state: 'OUT_OF_SCOPE',
+        status: 'RESOLVED_EXPANDED_ANATOMY',
+        primary_entity: exp,
+        matched_entities: [exp],
+        is_out_of_scope: false,
+        is_expanded_scope: true,
+        knowledge_state: 'EXPANDED_ANATOMY_PENDING_RAG',
         is_subentity: false,
         parent_entity_id: null,
         hierarchy_type: null

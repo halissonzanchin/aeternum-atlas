@@ -261,11 +261,14 @@ export const ANATOMICAL_ALIASES = {
   'ligamento transverso superior da escapula': 'AET-ENT-UL-SUPERIOR_TRANSVERSE_SCAPULAR_LIGAMENT'
 };
 
-// Known out-of-scope entities to trigger safe failure cleanly
-export const OUT_OF_SCOPE_ENTITIES = [
+// Entidades anatômicas válidas do acervo expandido (suporte bibliográfico/RAG no acervo dos 14 livros)
+export const EXPANDED_ANATOMICAL_ENTITIES = [
   'femur', 'tibia', 'fibula', 'patela', 'radio', 'ulna', 'pelve', 'coxal',
   'cranio', 'mandibula', 'maxila', 'rim', 'figado', 'coracao', 'pulmao',
   'encefalo', 'cerebro', 'estomago', 'pancreas', 'baco', 'nervo facial',
   'nervo ciatico', 'nervo trigemeo', 'nervo femoral', 'carpo', 'metacarpo',
-  'falanges', 'astragalo', 'calcaneo'
+  'falanges', 'astragalo', 'calcaneo', 'joelho', 'ligamento cruzado', 'menisco', 'quadril', 'tornozelo', 'pe'
 ];
+
+// Alias para retrocompatibilidade
+export const OUT_OF_SCOPE_ENTITIES = EXPANDED_ANATOMICAL_ENTITIES;

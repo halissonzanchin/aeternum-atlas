@@ -156,9 +156,12 @@ export class SafeEngine {
     } else if (plan.response_strategy === 'AMBIGUOUS_ENTITY' || entityRes.is_ambiguous) {
       envelopeStatus = 'AMBIGUOUS_ENTITY';
       confidence = 0.5;
-    } else if (plan.response_strategy === 'SAFE_FAILURE_CLINICAL' || plan.response_strategy === 'SAFE_FAILURE_OUT_OF_SCOPE') {
+    } else if (plan.response_strategy === 'SAFE_FAILURE_CLINICAL') {
       envelopeStatus = 'UNSUPPORTED_QUERY';
       confidence = 0.0;
+    } else if (plan.response_strategy === 'DELEGATE_TO_SOVEREIGN_RAG' || plan.response_strategy === 'SAFE_FAILURE_OUT_OF_SCOPE') {
+      envelopeStatus = 'DELEGATE_TO_SOVEREIGN_RAG';
+      confidence = 0.85;
     } else if (entityRes.status === 'NO_ENTITY_DETECTED' || plan.response_strategy === 'ENTITY_NOT_RESOLVED') {
       envelopeStatus = 'ENTITY_NOT_RESOLVED';
       confidence = 0.0;
@@ -211,7 +214,8 @@ export class SafeEngine {
       response_strategy: plan.response_strategy,
       query_scope: plan.query_scope,
       is_clinical: plan.response_strategy === 'SAFE_FAILURE_CLINICAL',
-      is_out_of_canonical_scope: plan.response_strategy === 'SAFE_FAILURE_OUT_OF_SCOPE'
+      is_out_of_canonical_scope: false,
+      requires_sovereign_rag: plan.response_strategy === 'DELEGATE_TO_SOVEREIGN_RAG' || plan.response_strategy === 'SAFE_FAILURE_OUT_OF_SCOPE'
     };
   }
 }

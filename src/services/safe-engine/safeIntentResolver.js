@@ -32,7 +32,17 @@ export function resolveIntent(normalizedText) {
     /\bsindrome\b/,
     /\bconduta\b/,
     /\bterapia\b/,
-    /\bprognostico\b/
+    /\bprognostico\b/,
+    /\bprescr(e|eva|icao|ição)?\b/,
+    /\breceit(e|ar|a)?\b/,
+    /\banti-?inflamatorio\b/,
+    /\banalgesico\b/,
+    /\bmedicamento\b/,
+    /\bremedio\b/,
+    /\bdor\b/,
+    /\bfarmaco\b/,
+    /\bdosagem\b/,
+    /\bposologia\b/
   ];
 
   for (const pat of clinicalPatterns) {

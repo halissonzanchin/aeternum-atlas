@@ -21,6 +21,8 @@ const MUSCLE_SUBJECTS = new Set([
 // False premise detector patterns for anatomical queries
 const FALSE_PREMISE_PATTERNS = [
   { match: /escapula.*articula.*tibia/i, reason: 'Escápula não articula com a tíbia' },
+  { match: /escapula.*articula.*femur/i, reason: 'Escápula não se articula com o fêmur' },
+  { match: /clavicula.*articula.*femur/i, reason: 'Clavícula não se articula com o fêmur' },
   { match: /clavicula.*cavidade\s+glenoidal/i, reason: 'Clavícula não possui cavidade glenoidal' },
   { match: /processo\s+coracoide.*clavicula/i, check: (q) => q.includes('pertence') || q.includes('e da clavicula'), reason: 'Processo coracoide pertence à escápula, não à clavícula' },
   { match: /ligamento\s+conoide.*esterno/i, reason: 'Ligamento conoide fixa-se na clavícula e no processo coracoide, não no esterno' },
@@ -43,45 +45,7 @@ export function planResponse({
     ? requestedDepth
     : 'DIRECT';
 
-  // 1. Check Safe Failure: Out of Scope
-  if (entityResolution.is_out_of_scope) {
-    return {
-      query_id: queryId,
-      query: originalQuery,
-      normalized_query: normalizedQuery,
-      resolved_entity: entityResolution.primary_entity,
-      query_scope: 'OUT_OF_SCOPE',
-      response_depth: depth,
-      anchor_fact_ids: [],
-      context_fact_ids: [],
-      teaching_connection_ids: [],
-      practical_unit_ids: [],
-      evidence_state: 'NO_CANONICAL_EVIDENCE',
-      response_strategy: 'SAFE_FAILURE_OUT_OF_SCOPE',
-      is_false_premise: false
-    };
-  }
-
-  // 2. Check Safe Failure: Clinical Query Refusal
-  if (intentResolution.intent === 'CLINICAL_ANATOMY_QUERY') {
-    return {
-      query_id: queryId,
-      query: originalQuery,
-      normalized_query: normalizedQuery,
-      resolved_entity: entityResolution.primary_entity || 'cintura_escapular',
-      query_scope: 'CLINICAL_ANATOMY_QUERY',
-      response_depth: depth,
-      anchor_fact_ids: [],
-      context_fact_ids: [],
-      teaching_connection_ids: [],
-      practical_unit_ids: [],
-      evidence_state: 'CLINICAL_VALIDATION_UNAVAILABLE',
-      response_strategy: 'SAFE_FAILURE_CLINICAL',
-      is_false_premise: false
-    };
-  }
-
-  // 3. Check Safe Failure: False Premise
+  // 1. Check Safe Failure: False Premise (Highest Priority)
   for (const fp of FALSE_PREMISE_PATTERNS) {
     if (fp.match.test(normalizedQuery)) {
       if (!fp.check || fp.check(normalizedQuery)) {
@@ -103,6 +67,44 @@ export function planResponse({
         };
       }
     }
+  }
+
+  // 2. Check Safe Failure: Clinical Query Refusal
+  if (intentResolution.intent === 'CLINICAL_ANATOMY_QUERY') {
+    return {
+      query_id: queryId,
+      query: originalQuery,
+      normalized_query: normalizedQuery,
+      resolved_entity: entityResolution.primary_entity || 'cintura_escapular',
+      query_scope: 'CLINICAL_ANATOMY_QUERY',
+      response_depth: depth,
+      anchor_fact_ids: [],
+      context_fact_ids: [],
+      teaching_connection_ids: [],
+      practical_unit_ids: [],
+      evidence_state: 'CLINICAL_VALIDATION_UNAVAILABLE',
+      response_strategy: 'SAFE_FAILURE_CLINICAL',
+      is_false_premise: false
+    };
+  }
+
+  // 3. Check Expanded Scope / Out of Scope (Delegates cleanly to Sovereign Evidence / RAG)
+  if (entityResolution.is_expanded_scope || entityResolution.is_out_of_scope) {
+    return {
+      query_id: queryId,
+      query: originalQuery,
+      normalized_query: normalizedQuery,
+      resolved_entity: entityResolution.primary_entity,
+      query_scope: 'EXPANDED_ANATOMICAL_SCOPE',
+      response_depth: depth,
+      anchor_fact_ids: [],
+      context_fact_ids: [],
+      teaching_connection_ids: [],
+      practical_unit_ids: [],
+      evidence_state: 'CANONICAL_PACK_PENDING',
+      response_strategy: 'DELEGATE_TO_SOVEREIGN_RAG',
+      is_false_premise: false
+    };
   }
 
   // 4. Check Safe Failure: Blocked Knowledge Query

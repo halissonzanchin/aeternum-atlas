@@ -12,10 +12,10 @@ export function composeSafeFailure(plan) {
   let text = '';
   let reason = '';
 
-  if (strategy === 'SAFE_FAILURE_OUT_OF_SCOPE') {
+  if (strategy === 'DELEGATE_TO_SOVEREIGN_RAG' || strategy === 'SAFE_FAILURE_OUT_OF_SCOPE') {
     const entityName = plan.resolved_entity || 'a estrutura consultada';
-    text = `A estrutura anatômica informada (${entityName}) está fora do escopo canônico atualmente homologado no Aeternum Atlas, que nesta fase compreende o cíngulo peitoral (escápula, clavícula e suas articulações). Para assegurar rigor acadêmico absoluto e prevenir alucinações generativas, o motor não emite hipóteses fora do repertório canônico auditado.`;
-    reason = 'OUT_OF_SCOPE_ENTITY';
+    text = `A estrutura anatômica informada (${entityName}) é reconhecida no acervo soberano do Aeternum Atlas. O motor de recuperação e inferência em tempo real (Atlas Tutor) está temporariamente inacessível para sintetizar esta consulta. Por favor, tente novamente em alguns instantes.`;
+    reason = 'BACKEND_RAG_UNAVAILABLE';
   } else if (strategy === 'SAFE_FAILURE_CLINICAL') {
     text = `A base canônica do Aeternum Atlas foca na anatomia descritiva, topográfica e funcional estritamente fundamentada em fontes de referência primárias (Latarjet & Liard, Nielsen & Miller). Afirmações de correlação clínica diagnóstica, confirmação de lesão patológica, fratura cirúrgica ou conduta terapêutica estão bloqueadas nesta versão, pendentes da homologação formal do protocolo de autoridade clínica (ACSRP-1.1).`;
     reason = 'CLINICAL_VALIDATION_BLOCKED';
