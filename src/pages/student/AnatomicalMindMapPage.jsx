@@ -14,7 +14,7 @@ import {
 import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
 import { useAtlasAITutorSession } from "../../context/AtlasAITutorSessionContext";
-import { generateAuthenticatedMindMap } from "../../services/ai/mindMapGenerationService";
+import { generateAuthenticatedMindMap, generateUnifiedMindMap } from "../../services/ai/mindMapGenerationService";
 import "../../styles/A26MindMap.css";
 
 const COLORS = ["#4fd8c9", "#a78bfa", "#e8836f", "#e9b872", "#7fd99a", "#e895c2"];
@@ -496,12 +496,27 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     setGenerationNotice("");
 
     try {
-      const result = await generateAuthenticatedMindMap({
-        topic: aiPrompt,
-        sendTutorMessage: sendMessage
-      });
-      setOutlineText(result.outline);
-      setGenerationNotice("Mapa gerado pelo Tutor IA e vinculado ao seu histórico autenticado.");
+      // 1. Try isolated generation to prevent polluting the student's conversation history
+      try {
+        const result = await generateUnifiedMindMap({
+          topic: aiPrompt
+        });
+        setOutlineText(result.outline);
+        if (result.disambiguation?.isAmbiguous) {
+          setGenerationNotice(`Termo ajustado para Terminologia Oficial: ${result.disambiguation.canonicalTerm}.`);
+        } else {
+          setGenerationNotice("Mapa gerado pelo Tutor IA via motor local otimizado.");
+        }
+        return;
+      } catch (isolatedErr) {
+        // Fall back to authenticated session method if needed
+        const result = await generateAuthenticatedMindMap({
+          topic: aiPrompt,
+          sendTutorMessage: sendMessage
+        });
+        setOutlineText(result.outline);
+        setGenerationNotice("Mapa gerado pelo Tutor IA e vinculado ao seu histórico autenticado.");
+      }
     } catch (error) {
       setGenerationError(error?.message || "Não foi possível gerar o mapa com o Tutor IA.");
     } finally {

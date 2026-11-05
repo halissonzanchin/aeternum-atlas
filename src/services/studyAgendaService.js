@@ -1,4 +1,6 @@
 import { getSupabaseClient, isSupabaseConfigured } from "./supabase/supabaseClient.js";
+import { isStudyToolSuccess } from "./ai/studyToolContract.js";
+import { generateStudyPlanAI } from "./ai/unifiedStudyAIService.js";
 
 const STORAGE_PREFIX = "aeternum_study_agenda_v2";
 
@@ -220,3 +222,137 @@ export async function deleteAgendaEvent(user, eventId) {
     ? { success: false, syncStatus: "pending", error: error.message }
     : { success: true, syncStatus: "synced", error: null };
 }
+
+function parsePlanJsonArray(text = "") {
+  const normalized = String(text).replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+  const start = normalized.indexOf("[");
+  const end = normalized.lastIndexOf("]");
+  if (start < 0 || end <= start) return [];
+
+  try {
+    const parsed = JSON.parse(normalized.slice(start, end + 1));
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function addDaysToDate(baseDate, offsetDays) {
+  const d = new Date(baseDate || new Date());
+  d.setDate(d.getDate() + offsetDays);
+  return d.toISOString().split("T")[0];
+}
+
+/**
+ * Generates an AI Study Plan proposal based on student parameters without committing directly to DB.
+ */
+export async function generateStudyPlanProposal({
+  user,
+  topic,
+  availableHours = 10,
+  daysCount = 5,
+  examDate = null,
+  language = "pt",
+  startDate = null,
+  preferredTimes = "09:00"
+}) {
+  if (!user?.id) {
+    return { success: false, error: "Sessão obrigatória para propor cronograma.", proposals: [] };
+  }
+
+  const result = await generateStudyPlanAI({
+    topic,
+    availableHours,
+    daysCount,
+    examDate,
+    language,
+    preferredTimes
+  });
+
+  if (!isStudyToolSuccess(result) || !result.text) {
+    return {
+      success: false,
+      error: result.message || "Não foi possível gerar a proposta de cronograma com o Tutor IA.",
+      proposals: []
+    };
+  }
+
+  const rawSessions = parsePlanJsonArray(result.text);
+  if (!rawSessions.length) {
+    return {
+      success: false,
+      error: "O Tutor IA não retornou sessões no formato esperado.",
+      proposals: []
+    };
+  }
+
+  const baseDate = startDate || new Date().toISOString().split("T")[0];
+  const proposals = rawSessions.map((session, index) => {
+    const dayOffset = typeof session.relativeDay === "number" ? Math.max(0, session.relativeDay - 1) : index;
+    const sessionDate = addDaysToDate(baseDate, dayOffset);
+    let startTime = String(session.startTime || preferredTimes || "09:00").slice(0, 5);
+    let endTime = String(session.endTime || "10:30").slice(0, 5);
+
+    if (endTime <= startTime) {
+      const [h, m] = startTime.split(":").map(Number);
+      const endH = String((h + 1) % 24).padStart(2, "0");
+      endTime = `${endH}:${String(m || 0).padStart(2, "0")}`;
+    }
+
+    return {
+      id: `proposal-${createId()}`,
+      title: String(session.title || `Estudo de ${result.effectiveTopic || topic} - Sessão ${index + 1}`).trim().slice(0, 180),
+      description: String(session.description || "").trim().slice(0, 4000),
+      date: sessionDate,
+      startTime,
+      endTime,
+      type: ["study", "revision", "quiz"].includes(session.type) ? session.type : "study",
+      priority: ["low", "medium", "high"].includes(session.priority) ? session.priority : "medium",
+      anatomicalSystem: String(session.anatomicalSystem || "Anatomia Humana").trim(),
+      linkedModel: session.linkedModel || null,
+      linkedFlashcardDeck: session.linkedFlashcardDeck || null,
+      createdByRole: "ai_tutor",
+      creatorName: "Tutor IA Anatômico",
+      status: "pending",
+      selected: true
+    };
+  });
+
+  return {
+    success: true,
+    proposalId: `plan-${Date.now()}`,
+    topic: result.effectiveTopic || topic,
+    disambiguation: result.disambiguation,
+    totalSessions: proposals.length,
+    proposals
+  };
+}
+
+/**
+ * Persists user-confirmed study sessions into the agenda.
+ */
+export async function commitProposedStudyPlan(user, confirmedEvents = []) {
+  if (!user?.id) return { success: false, inserted: [], error: "Sessão obrigatória." };
+  if (!Array.isArray(confirmedEvents) || !confirmedEvents.length) {
+    return { success: false, inserted: [], error: "Nenhuma sessão selecionada para adicionar." };
+  }
+
+  const inserted = [];
+  for (const event of confirmedEvents) {
+    const res = await createAgendaEvent(user, {
+      ...event,
+      createdByRole: "ai_tutor",
+      creatorName: "Tutor IA Anatômico"
+    });
+    if (res.event) inserted.push(res.event);
+  }
+
+  return {
+    success: true,
+    inserted,
+    count: inserted.length,
+    syncStatus: isSupabaseConfigured() ? "synced" : "local",
+    error: null
+  };
+}
+

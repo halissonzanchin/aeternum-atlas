@@ -11,7 +11,8 @@ import LineIcon from "../../components/icons/LineIcon";
 import { formatAgendaDate, parseAgendaDate, useStudyAgenda } from "../../hooks/useStudyAgenda";
 import { useLanguage } from "../../context/LanguageContext";
 import { useAuth } from "../../context/AuthContext";
-import { A26Button, A26Card, A26FeatureShell, A26Metric, A26PageHeader, A26SegmentedControl } from "../../components/aeternum-26";
+import { A26Button, A26Card, A26FeatureShell, A26Metric, A26Modal, A26PageHeader, A26SegmentedControl } from "../../components/aeternum-26";
+import { generateStudyPlanProposal, commitProposedStudyPlan } from "../../services/studyAgendaService";
 import "../../styles/A26StudyAgenda.css";
 
 export default function StudyAgendaPage({ navigate }) {
@@ -141,6 +142,73 @@ export default function StudyAgendaPage({ navigate }) {
     return result || { success: true };
   }
 
+  // AI Study Plan Proposal state
+  const [planModalOpen, setPlanModalOpen] = useState(false);
+  const [planTopic, setPlanTopic] = useState("");
+  const [planHours, setPlanHours] = useState(10);
+  const [planDays, setPlanDays] = useState(5);
+  const [isGeneratingPlan, setIsGeneratingPlan] = useState(false);
+  const [planProposals, setPlanProposals] = useState([]);
+  const [selectedProposals, setSelectedProposals] = useState({});
+  const [planError, setPlanError] = useState("");
+  const [planSuccessNotice, setPlanSuccessNotice] = useState("");
+
+  async function handleGeneratePlan() {
+    if (!planTopic.trim()) {
+      setPlanError("Informe o tema anatômico para o cronograma.");
+      return;
+    }
+    setIsGeneratingPlan(true);
+    setPlanError("");
+    try {
+      const res = await generateStudyPlanProposal({
+        user,
+        topic: planTopic,
+        availableHours: Number(planHours) || 10,
+        daysCount: Number(planDays) || 5,
+        language: language || "pt"
+      });
+      if (res.success && res.proposals?.length) {
+        setPlanProposals(res.proposals);
+        const initialSelected = {};
+        res.proposals.forEach((p) => { initialSelected[p.id] = true; });
+        setSelectedProposals(initialSelected);
+      } else {
+        setPlanError(res.error || "Não foi possível gerar a proposta de cronograma.");
+      }
+    } catch (err) {
+      setPlanError(err?.message || "Erro ao conectar com o Tutor IA.");
+    } finally {
+      setIsGeneratingPlan(false);
+    }
+  }
+
+  async function handleCommitPlan() {
+    const toCommit = planProposals.filter((p) => selectedProposals[p.id]);
+    if (!toCommit.length) {
+      setPlanError("Selecione ao menos uma sessão para adicionar à sua agenda.");
+      return;
+    }
+    setIsGeneratingPlan(true);
+    try {
+      const res = await commitProposedStudyPlan(user, toCommit);
+      if (res.success) {
+        setPlanSuccessNotice(`${res.count} sessões de estudo adicionadas à sua agenda!`);
+        setPlanModalOpen(false);
+        setPlanProposals([]);
+        for (const evt of res.inserted) {
+          await agenda.addEvent(evt);
+        }
+      } else {
+        setPlanError(res.error || "Erro ao salvar as sessões.");
+      }
+    } catch (err) {
+      setPlanError(err?.message || "Erro ao salvar na agenda.");
+    } finally {
+      setIsGeneratingPlan(false);
+    }
+  }
+
   return (
     <A26FeatureShell
       variant="tool"
@@ -182,7 +250,18 @@ export default function StudyAgendaPage({ navigate }) {
           </div>
         </div>
 
-        <div className="a26-hero-actions">
+        <div className="a26-hero-actions" style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          <A26Button
+            variant="secondary"
+            className="a26-ai-plan-btn"
+            onClick={() => {
+              setPlanError("");
+              setPlanSuccessNotice("");
+              setPlanModalOpen(true);
+            }}
+          >
+            <LineIcon name="spark" /> {t("agenda.aiPlanButton", { defaultValue: "Planejar com IA" })}
+          </A26Button>
           {/* Main Display Switcher (Google Calendar Pattern: Mês | Semana | Dia) */}
           <A26SegmentedControl
             className="a26-main-mode-switcher"
@@ -295,6 +374,134 @@ export default function StudyAgendaPage({ navigate }) {
         }}
         onSubmit={submitActivity}
       />
+
+      {/* AI Study Plan Proposal & Confirmation Modal */}
+      <A26Modal
+        open={planModalOpen}
+        onClose={() => setPlanModalOpen(false)}
+        title={t("agenda.planModalTitle", { defaultValue: "Planejar Cronograma de Estudos com IA" })}
+        size="large"
+      >
+        <div className="a26-plan-modal-body" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          {planSuccessNotice && (
+            <div className="a26-alert a26-alert--success" style={{ padding: "0.75rem", borderRadius: "6px" }}>
+              {planSuccessNotice}
+            </div>
+          )}
+          {planError && (
+            <div className="a26-alert a26-alert--error" style={{ color: "var(--color-error, #f87171)", padding: "0.75rem" }}>
+              {planError}
+            </div>
+          )}
+
+          {!planProposals.length ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <label>
+                <strong>{t("agenda.planTopicLabel", { defaultValue: "Tema Anatômico:" })}</strong>
+                <input
+                  type="text"
+                  className="a26-input"
+                  style={{ width: "100%", padding: "0.5rem", marginTop: "0.25rem", borderRadius: "4px" }}
+                  placeholder="Ex: Plexo Braquial, Coração, Osteologia da Pelve"
+                  value={planTopic}
+                  onChange={(e) => setPlanTopic(e.target.value)}
+                />
+              </label>
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                <label>
+                  <span>{t("agenda.planHoursLabel", { defaultValue: "Horas de estudo totais:" })}</span>
+                  <input
+                    type="number"
+                    min="1"
+                    max="60"
+                    className="a26-input"
+                    style={{ width: "100%", padding: "0.5rem", marginTop: "0.25rem" }}
+                    value={planHours}
+                    onChange={(e) => setPlanHours(e.target.value)}
+                  />
+                </label>
+                <label>
+                  <span>{t("agenda.planDaysLabel", { defaultValue: "Número de sessões:" })}</span>
+                  <input
+                    type="number"
+                    min="1"
+                    max="14"
+                    className="a26-input"
+                    style={{ width: "100%", padding: "0.5rem", marginTop: "0.25rem" }}
+                    value={planDays}
+                    onChange={(e) => setPlanDays(e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem", gap: "0.5rem" }}>
+                <A26Button variant="secondary" onClick={() => setPlanModalOpen(false)}>
+                  {t("common.cancel", { defaultValue: "Cancelar" })}
+                </A26Button>
+                <A26Button variant="primary" onClick={handleGeneratePlan} disabled={isGeneratingPlan}>
+                  {isGeneratingPlan ? t("common.generating", { defaultValue: "Gerando cronograma..." }) : t("agenda.generatePlanAction", { defaultValue: "Gerar Proposta" })}
+                </A26Button>
+              </div>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <p>
+                <strong>Proposta gerada pelo Tutor IA:</strong> Revise as sessões abaixo e selecione quais deseja adicionar à sua agenda pessoal.
+              </p>
+              <div style={{ maxHeight: "320px", overflowY: "auto", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                {planProposals.map((prop) => (
+                  <label
+                    key={prop.id}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "0.75rem",
+                      padding: "0.75rem",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      borderRadius: "6px",
+                      background: selectedProposals[prop.id] ? "rgba(79, 216, 201, 0.08)" : "transparent",
+                      cursor: "pointer"
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={Boolean(selectedProposals[prop.id])}
+                      onChange={(e) => {
+                        const checked = e.target.checked;
+                        setSelectedProposals((prev) => ({ ...prev, [prop.id]: checked }));
+                      }}
+                      style={{ marginTop: "0.25rem" }}
+                    />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontWeight: 600 }}>{prop.title}</div>
+                      <div style={{ fontSize: "0.85rem", opacity: 0.8 }}>
+                        📅 {prop.date} · ⏰ {prop.startTime} - {prop.endTime} · 🏷️ {prop.type}
+                      </div>
+                      <div style={{ fontSize: "0.82rem", marginTop: "0.25rem", opacity: 0.7 }}>
+                        {prop.description}
+                      </div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1rem" }}>
+                <A26Button variant="secondary" onClick={() => setPlanProposals([])}>
+                  {t("common.back", { defaultValue: "Voltar e refazer" })}
+                </A26Button>
+                <div style={{ display: "flex", gap: "0.5rem" }}>
+                  <A26Button variant="secondary" onClick={() => setPlanModalOpen(false)}>
+                    {t("common.cancel", { defaultValue: "Cancelar" })}
+                  </A26Button>
+                  <A26Button variant="primary" onClick={handleCommitPlan} disabled={isGeneratingPlan}>
+                    {isGeneratingPlan ? t("common.saving", { defaultValue: "Salvando..." }) : t("agenda.confirmPlanAction", { defaultValue: "Confirmar e Adicionar" })}
+                  </A26Button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </A26Modal>
     </A26FeatureShell>
   );
 }

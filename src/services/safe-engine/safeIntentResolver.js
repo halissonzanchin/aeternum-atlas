@@ -18,6 +18,17 @@ export function resolveIntent(normalizedText) {
   }
 
   // 1. Clinical Anatomy Query check (Gate against clinical overreach)
+  // Normalize accents and strip negative safety constraints / prompt directives before clinical pattern checking
+  // E.g.: "não inclua diagnóstico nem conduta", "sem diagnóstico", "evite conduta terapêutica"
+  const cleanForCheck = String(normalizedText)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  const sanitizedForClinicalCheck = cleanForCheck.replace(
+    /(?:nao|sem|evite|nunca|dispense|nem)\s+[^.\n;]*(?:diagnostico|conduta|terapia|tratamento|prescricao|receita|patologia|medicamento|remedio)[^.\n;]*/gi,
+    ""
+  );
+
   const clinicalPatterns = [
     /\blesao\b/,
     /\balada\b/,
@@ -46,7 +57,7 @@ export function resolveIntent(normalizedText) {
   ];
 
   for (const pat of clinicalPatterns) {
-    if (pat.test(normalizedText)) {
+    if (pat.test(sanitizedForClinicalCheck)) {
       return {
         intent: 'CLINICAL_ANATOMY_QUERY',
         scope: 'CLINICAL_ANATOMY_QUERY'

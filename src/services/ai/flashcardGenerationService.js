@@ -2,8 +2,10 @@ import {
   FLASHCARD_DIFFICULTIES,
   normalizeFlashcardText,
   selectCuratedFlashcards
-} from "../../data/anatomicalFlashcardBank";
-import { atlasAITutorService } from "../../features/atlas-viewer/ai/atlasAITutorService";
+} from "../../data/anatomicalFlashcardBank.js";
+import { atlasAITutorService } from "../../features/atlas-viewer/ai/atlasAITutorService.js";
+import { isStudyToolSuccess } from "./studyToolContract.js";
+import { generateFlashcardsAI } from "./unifiedStudyAIService.js";
 
 const CARD_COUNTS = Object.freeze({ few: 5, standard: 10, many: 20 });
 const GENERATED_SOURCES = {
@@ -115,6 +117,26 @@ function buildTutorPrompt({ topic, difficulty, count, existingCards, language = 
 
 async function generateTutorCards({ topic, difficulty, count, existingCards, language = "pt" }) {
   if (count <= 0) return [];
+
+  // 1. Try isolated generation to prevent polluting the student's conversation history
+  try {
+    const isolated = await generateFlashcardsAI({
+      topic,
+      difficulty,
+      count,
+      language,
+      existingQuestions: existingCards.map((c) => c.front)
+    });
+    if (isStudyToolSuccess(isolated) && isolated.text) {
+      const parsed = parseJsonArray(isolated.text)
+        .map((entry, index) => sanitizeTutorCard(entry, { topic: isolated.effectiveTopic || topic, difficulty, index, language }))
+        .filter(Boolean);
+      if (parsed.length > 0) return parsed;
+    }
+  } catch {
+    // Continue to standard stream method below
+  }
+
   const response = await atlasAITutorService.processMessageStream(
     buildTutorPrompt({ topic, difficulty, count, existingCards, language }),
     {
@@ -126,7 +148,8 @@ async function generateTutorCards({ topic, difficulty, count, existingCards, lan
     }
   );
 
-  if (response?.mode !== "online" || !response?.text) return [];
+  const isOnline = response?.mode === "online" || response?.mode === "live" || isStudyToolSuccess(response);
+  if (!isOnline || !response?.text) return [];
   return parseJsonArray(response.text)
     .map((entry, index) => sanitizeTutorCard(entry, { topic, difficulty, index, language }))
     .filter(Boolean);

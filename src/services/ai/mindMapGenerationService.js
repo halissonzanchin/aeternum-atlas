@@ -1,3 +1,6 @@
+import { isStudyToolSuccess } from "./studyToolContract.js";
+import { generateMindMapAI, checkTermDisambiguation } from "./unifiedStudyAIService.js";
+
 const MAX_NODES = 40;
 const MAX_DEPTH = 4;
 const MAX_LABEL_LENGTH = 112;
@@ -102,19 +105,47 @@ export async function generateAuthenticatedMindMap({ topic, sendTutorMessage }) 
     contextLabel: `Mapa mental · ${normalizedTopic}`
   });
 
-  if (!response || response.mode !== "online") {
+  const isSuccess = response && (
+    response.mode === "online" ||
+    response.mode === "live" ||
+    isStudyToolSuccess(response)
+  );
+
+  if (!isSuccess || !response.text) {
     throw new Error("O Tutor IA precisa de uma sessão autenticada e conexão ativa para gerar o mapa.");
   }
 
   return {
     outline: normalizeMindMapOutline(response.text),
     conversationId: response.conversationId || null,
-    mode: response.mode
+    mode: response.mode || "live"
   };
 }
+
+export async function generateUnifiedMindMap({ topic, language = "pt" }) {
+  const result = await generateMindMapAI({ topic, language });
+  const isSuccess = isStudyToolSuccess(result) && result.text;
+
+  if (!isSuccess) {
+    throw new Error(result.message || "O Tutor IA precisa de uma sessão autenticada e conexão ativa para gerar o mapa.");
+  }
+
+  return {
+    outline: normalizeMindMapOutline(result.text),
+    generationId: result.generationId,
+    timestamp: result.timestamp,
+    mode: result.mode,
+    source: result.source,
+    disambiguation: result.disambiguation,
+    effectiveTopic: result.effectiveTopic
+  };
+}
+
+export { checkTermDisambiguation };
 
 export const mindMapGenerationLimits = Object.freeze({
   maxNodes: MAX_NODES,
   maxDepth: MAX_DEPTH,
   maxLabelLength: MAX_LABEL_LENGTH
 });
+
