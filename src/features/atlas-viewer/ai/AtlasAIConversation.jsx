@@ -292,6 +292,10 @@ export default function AtlasAIConversation({
               );
             }
 
+            const associatedUserPrompt = message.sender === "ai"
+              ? messages.slice(0, index).reverse().find((m) => m.sender === "user")?.text || ""
+              : "";
+
             return (
               <div
                 key={message.id}
@@ -337,6 +341,7 @@ export default function AtlasAIConversation({
                   {message.sender === "ai" && (
                     <SpatialAIGuidanceCard
                       text={sanitizeTutorDisplayText(message.text)}
+                      userQuery={associatedUserPrompt}
                       currentPath={typeof window !== "undefined" ? window.location.pathname : ""}
                     />
                   )}
