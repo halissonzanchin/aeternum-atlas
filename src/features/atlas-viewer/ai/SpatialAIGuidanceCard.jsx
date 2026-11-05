@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import LineIcon from "../../../components/icons/LineIcon";
 import { useLanguage } from "../../../context/LanguageContext";
+import { useAuth } from "../../../context/AuthContext";
 import { resolveSpatialGuidance } from "../../../services/spatial/spatialModelResolver";
-import { fetchPublishedSpatialCatalog, getSpatialCatalog } from "../../../services/spatial/spatialCatalogService";
+import { fetchPublishedSpatialCatalog } from "../../../services/spatial/spatialCatalogService";
 
 export default function SpatialAIGuidanceCard({
   text = "",
@@ -10,35 +11,44 @@ export default function SpatialAIGuidanceCard({
   currentPath = "",
   activeModel = null,
   catalog: initialCatalog = null,
-  user = null
+  user: userProp = null
 }) {
   const { t } = useLanguage();
+  const authContext = useAuth?.() || {};
+  const effectiveUser = userProp || authContext.user || null;
+  const currentUserId = effectiveUser?.id || "anonymous";
+  const currentUserInstitution = effectiveUser?.institution_id || effectiveUser?.institutionId || "none";
+  const currentUserStatus = effectiveUser?.status || (effectiveUser?.is_active === false ? "inactive" : "active");
 
-  // Estado do catálogo espacial ativo no ciclo de vida do componente React
+  // Estado do catálogo espacial ativo no ciclo de vida do componente React.
+  // STRICT FAIL-CLOSED: Nunca inicia com catálogo pré-populado no runtime antes da consulta autorizada.
   const [activeCatalog, setActiveCatalog] = useState(() => {
-    if (Array.isArray(initialCatalog) && initialCatalog.length > 0) {
+    if (Array.isArray(initialCatalog)) {
       return initialCatalog;
     }
-    // Consulta o estado síncrono inicial
-    return getSpatialCatalog({ user });
+    return [];
   });
 
-  const [isLoadingCatalog, setIsLoadingCatalog] = useState(false);
+  const [isLoadingCatalog, setIsLoadingCatalog] = useState(() => {
+    return !Array.isArray(initialCatalog);
+  });
 
-  // Integração efetiva ao ciclo de vida React: busca o catálogo do Supabase antes de recomendar
+  // Integração ao ciclo de vida React com isolamento estrito de sessão/usuário
   useEffect(() => {
-    if (initialCatalog && initialCatalog.length > 0) {
+    if (initialCatalog && Array.isArray(initialCatalog)) {
       setActiveCatalog(initialCatalog);
+      setIsLoadingCatalog(false);
       return;
     }
 
     let isMounted = true;
     setIsLoadingCatalog(true);
+    setActiveCatalog([]); // Limpa imediatamente catálogo anterior ao alterar autenticação ou montar
 
-    fetchPublishedSpatialCatalog({ user })
+    fetchPublishedSpatialCatalog({ user: effectiveUser })
       .then((models) => {
         if (!isMounted) return;
-        // FAIL-CLOSED: Se a consulta retornar vazia ou falhar, activeCatalog é setado como vazio
+        // FAIL-CLOSED: Apenas define modelos se for array verificado
         setActiveCatalog(Array.isArray(models) ? models : []);
       })
       .catch((err) => {
@@ -55,10 +65,10 @@ export default function SpatialAIGuidanceCard({
     return () => {
       isMounted = false;
     };
-  }, [user, initialCatalog]);
+  }, [currentUserId, currentUserInstitution, currentUserStatus, initialCatalog]);
 
-  // Se o catálogo estiver carregando ou vazio (FAIL-CLOSED), não emite nenhum elemento na UI
-  if (isLoadingCatalog || !activeCatalog || activeCatalog.length === 0) {
+  // FAIL-CLOSED: Se estiver carregando ou o catálogo estiver vazio, retorna rigorosamente null
+  if (isLoadingCatalog || !Array.isArray(activeCatalog) || activeCatalog.length === 0) {
     return null;
   }
 
@@ -69,7 +79,7 @@ export default function SpatialAIGuidanceCard({
     currentPath,
     activeModel,
     catalog: activeCatalog,
-    user
+    user: effectiveUser
   });
 
   // LINHA DE CORTE: Se a estrutura não existe no catálogo ou não tem modelo 3D correspondente,
@@ -80,20 +90,21 @@ export default function SpatialAIGuidanceCard({
 
   const { model, matchedMarker } = resolution;
 
-  // Validação real da rota: não presume validade sem rota canônica verificada
+  // Validação real da rota canônica do modelo
   const isValidViewerRoute = Boolean(
     model.isNavigable !== false &&
     model.viewerUrl &&
     typeof model.viewerUrl === "string" &&
-    model.viewerUrl.startsWith("/viewer/") &&
-    model.slug
+    model.viewerUrl === `/viewer/${model.slug}` &&
+    model.slug &&
+    /^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(model.slug)
   );
 
   const targetUrl = isValidViewerRoute ? model.viewerUrl : null;
   const isAlreadyInTargetViewer = Boolean(
     currentPath && (
-      (model.slug && currentPath.includes(model.slug)) ||
-      (model.id && currentPath.includes(model.id))
+      (model.slug && (currentPath === `/viewer/${model.slug}` || currentPath.startsWith(`/viewer/${model.slug}?`) || currentPath.startsWith(`/viewer/${model.slug}/`))) ||
+      (model.id && (currentPath === `/viewer/${model.id}` || currentPath.startsWith(`/viewer/${model.id}?`)))
     )
   );
 
@@ -108,28 +119,47 @@ export default function SpatialAIGuidanceCard({
   const handleFocusMarker = (marker) => {
     if (!marker || typeof marker !== "object") return;
 
-    // Verificação estrita de integridade antes do foco espacial:
-    // 1. UUID do modelo deve corresponder
-    const belongsToModel = (!marker.modelId || marker.modelId === model.id || (model.legacyIds && model.legacyIds.includes(marker.modelId)));
-    if (!belongsToModel) {
-      console.warn("[SpatialGuidance] Foco abortado: marcador não pertence ao modelo carregado", marker, model);
+    // 1. BLOQUEIO DE FOCO SE NÃO ESTIVER NO VISUALIZADOR ATIVO DO MODELO
+    // Não despachar eventos para modelos diferentes do visualizador ativo.
+    if (!isAlreadyInTargetViewer) {
+      console.warn("[SpatialGuidance] Foco abortado: usuário não está no visualizador do modelo ativo", model.slug);
+      if (targetUrl) handleOpenViewer();
       return;
     }
 
-    // 2. Índice numérico da anotação deve ser inteiro >= 0
+    // 2. Validação rigorosa de UUID real do marcador (padrão RFC 4122)
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    if (!marker.id || !uuidRegex.test(marker.id)) {
+      console.warn("[SpatialGuidance] Foco abortado: ID do marcador não é um UUID homologado", marker.id);
+      return;
+    }
+
+    // 3. Pertencimento inequívoco ao modelo carregado
+    const belongsToModel = Boolean(
+      (marker.modelId && marker.modelId === model.id) ||
+      (Array.isArray(model.legacyIds) && model.legacyIds.includes(marker.modelId))
+    );
+    if (!belongsToModel) {
+      console.warn("[SpatialGuidance] Foco abortado: marcador não pertence ao modelo carregado", marker.modelId, model.id);
+      return;
+    }
+
+    // 4. Índice numérico válido da anotação (inteiro >= 0)
     const markerIndex = marker.annotationIndex ?? marker.index;
     if (!Number.isInteger(markerIndex) || markerIndex < 0) {
       console.warn("[SpatialGuidance] Foco abortado: annotationIndex inválido", markerIndex);
       return;
     }
 
-    // 3. Identificador Sketchfab UID deve ser válido
+    // 5. Correspondência estrita com o Sketchfab UID do modelo (32 caracteres hexadecimais)
     const targetSketchfabUid = marker.sketchfabUid || model.sketchfabUid;
-    if (!targetSketchfabUid) {
-      console.warn("[SpatialGuidance] Foco abortado: sketchfabUid ausente");
+    const sketchfabUidRegex = /^[0-9a-f]{32}$/i;
+    if (!targetSketchfabUid || !sketchfabUidRegex.test(targetSketchfabUid) || (model.sketchfabUid && targetSketchfabUid !== model.sketchfabUid)) {
+      console.warn("[SpatialGuidance] Foco abortado: Sketchfab UID incompatível com o modelo", targetSketchfabUid, model.sketchfabUid);
       return;
     }
 
+    // 6. Disparo seguro do evento apenas após todas as validações rigorosas
     if (typeof window !== "undefined") {
       window.dispatchEvent(
         new CustomEvent("aeternum:select-marker", {

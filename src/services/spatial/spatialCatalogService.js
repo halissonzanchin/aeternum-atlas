@@ -272,36 +272,22 @@ export function normalizeText(str) {
 }
 
 /**
- * Extrai palavras-chave anatômicas de um modelo de forma homologada.
+ * Extrai exclusivamente entidades anatômicas homologadas de um modelo.
+ * Títulos, slugs, tags e nomes de regiões NÃO constituem homologação clínica automática.
+ * Apenas a entidade canônica expressamente homologada ou estruturas registradas no banco são válidas.
  */
 export function extractKeywordsFromModel(model) {
   const keywords = new Set();
 
-  const titleNorm = normalizeText(model.title);
-  const slugNorm = normalizeText(model.slug).replace(/[-_]/g, " ");
-
-  if (titleNorm) keywords.add(titleNorm);
-  if (slugNorm) keywords.add(slugNorm);
-
-  // Remove qualificadores genéricos mantendo termos anatômicos centrais (ex: "femur humano 3d" -> "femur")
-  const cleanedTitle = titleNorm.replace(/\b(3d|modelo|visualizador|humano|humana)\b/g, "").replace(/\s+/g, " ").trim();
-  if (cleanedTitle && cleanedTitle.length > 2) keywords.add(cleanedTitle);
-
-  const cleanedSlug = slugNorm.replace(/\b(3d|modelo|visualizador|humano|humana)\b/g, "").replace(/\s+/g, " ").trim();
-  if (cleanedSlug && cleanedSlug.length > 2) keywords.add(cleanedSlug);
-
-  // Palavras anatômicas individuais (>3 caracteres) excluindo termos técnicos genéricos de visualização
-  const words = [...titleNorm.split(/\s+/), ...slugNorm.split(/\s+/)];
-  const genericTerms = new Set(["corte", "sagital", "superficial", "humano", "humana", "modelo", "vista", "3d", "peca", "anatomica", "para", "com", "sem", "sobre"]);
-  words.forEach(w => {
-    const cleanW = w.trim();
-    if (cleanW.length >= 4 && !genericTerms.has(cleanW)) {
-      keywords.add(cleanW);
+  // 1. Entidade anatômica canônica explicitamente homologada (ex: "crânio", "coração")
+  if (model.canonicalEntity) {
+    const cleanCanon = normalizeText(model.canonicalEntity);
+    if (cleanCanon && cleanCanon.length > 2) {
+      keywords.add(cleanCanon);
     }
-  });
+  }
 
-  if (model.canonicalEntity) keywords.add(normalizeText(model.canonicalEntity));
-
+  // 2. Estruturas anatômicas explicitamente homologadas na base de dados
   if (Array.isArray(model.homologatedStructures)) {
     model.homologatedStructures.forEach(s => {
       const clean = normalizeText(s);
@@ -309,20 +295,11 @@ export function extractKeywordsFromModel(model) {
     });
   }
 
-  if (model.anatomicalSystem) keywords.add(normalizeText(model.anatomicalSystem));
-  if (model.anatomicalRegion) keywords.add(normalizeText(model.anatomicalRegion));
-
-  if (Array.isArray(model.tags)) {
-    model.tags.forEach(t => {
-      const clean = normalizeText(t);
-      if (clean && clean.length > 2) keywords.add(clean);
-    });
-  }
-
+  // 3. Palavras-chave diretas de homologação clínica auditada
   if (Array.isArray(model.directKeywords)) {
     model.directKeywords.forEach(k => {
       const clean = normalizeText(k);
-      if (clean) keywords.add(clean);
+      if (clean && clean.length > 2) keywords.add(clean);
     });
   }
 
@@ -331,15 +308,17 @@ export function extractKeywordsFromModel(model) {
 
 /**
  * Valida a existência real da rota do visualizador e da integridade do modelo.
- * Não considera automaticamente válida uma URL `/viewer/<slug>` sem validação do slug e viewer.
+ * Exige rota canônica estrita `/viewer/<slug>`, formato kebab-case válido e motor de renderização.
  */
 export function validateModelIntegrity(model) {
   if (!model || typeof model !== "object") return false;
   if (!model.id || !model.title || !model.slug) return false;
 
-  // Slug deve ser válido e não vazio
+  // Slug deve ser kebab-case válido (letras minúsculas, números e hífens, min 3 caracteres)
   const cleanSlug = String(model.slug).trim();
-  if (!cleanSlug || cleanSlug.length < 3) return false;
+  if (!cleanSlug || cleanSlug.length < 3 || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(cleanSlug)) {
+    return false;
+  }
 
   // Status deve ser estritamente 'published' ou 'active'
   const isPublished = ["published", "active", "publicado", "ativo"].includes(
@@ -352,15 +331,14 @@ export function validateModelIntegrity(model) {
     return false;
   }
 
-  // A rota de navegação deve ser explicitamente validada
-  const validRoute = model.viewerUrl && (
-    model.viewerUrl === `/viewer/${cleanSlug}` ||
-    model.viewerUrl.startsWith("/viewer/")
-  );
-  if (!validRoute) return false;
+  // A rota de navegação deve ser estritamente a rota canônica `/viewer/<slug>`
+  if (!model.viewerUrl || model.viewerUrl !== `/viewer/${cleanSlug}`) {
+    return false;
+  }
 
-  // Deve possuir motor de renderização ou identificador Sketchfab verificado
-  const hasViewerEngine = Boolean(model.sketchfabUid || model.sketchfabUrl || model.embedUrl);
+  // Deve possuir motor de renderização ou identificador Sketchfab de 32 hexadecimais
+  const validSketchfabUid = model.sketchfabUid && /^[0-9a-f]{32}$/i.test(model.sketchfabUid);
+  const hasViewerEngine = Boolean(validSketchfabUid || model.sketchfabUrl || model.embedUrl);
   if (!hasViewerEngine) return false;
 
   return true;
@@ -369,64 +347,88 @@ export function validateModelIntegrity(model) {
 /**
  * Valida se o usuário possui permissão institucional para acessar o modelo,
  * avaliando 'institution_availability' (JSONB) e 'institution_id'.
+ * Não autoriza formatos desconhecidos, strings com falso global ou objetos sem correspondência explícita.
  */
 export function validateInstitutionalAccess(model, user = null) {
-  if (!model) return false;
+  if (!model || typeof model !== "object") return false;
 
+  // 1. Verificação de status do usuário (revogação / suspensão imediata)
+  if (user) {
+    if (user.status === "suspended" || user.status === "revoked" || user.is_active === false) {
+      return false;
+    }
+  }
+
+  // 2. Privilégio administrativo estrito
   const role = String(user?.role || "").toLowerCase();
   const isSuperAdmin = role === "super_admin" || role === "superadmin" || role === "founder";
   if (isSuperAdmin) return true;
 
   const userInst = user?.institution_id || user?.institutionId || null;
 
-  // 1. Avalia 'institution_availability' (JSONB da tabela moderna atlas_models)
+  // 3. Avalia 'institution_availability' (JSONB da tabela moderna atlas_models)
   const avail = model.institutionAvailability ?? model.institution_availability;
   if (avail !== undefined && avail !== null) {
-    // Caso 1: string "global" ou objeto com propriedade global
-    if (avail === "global" || avail === "{global}") return true;
-    if (typeof avail === "object") {
-      if (avail.global === true || avail.is_global === true) return true;
-      if (Array.isArray(avail)) {
-        if (avail.includes("global") || avail.includes("{global}")) return true;
-        if (userInst && avail.includes(userInst)) return true;
-        // Se é array restrito e usuário não pertence
-        return false;
+    // Caso A: String estrita — Apenas aceita exatamente "global" ou "{global}". Proíbe regex permissivo.
+    if (typeof avail === "string") {
+      const cleanAvail = avail.trim().toLowerCase();
+      if (cleanAvail === "global" || cleanAvail === "{global}") {
+        return true;
       }
-      if (userInst && avail[userInst]) return true;
+      return false;
     }
-    if (typeof avail === "string" && /global/i.test(avail)) return true;
+
+    // Caso B: Array explícito
+    if (Array.isArray(avail)) {
+      if (avail.some(item => typeof item === "string" && (item.trim().toLowerCase() === "global" || item.trim().toLowerCase() === "{global}"))) {
+        return true;
+      }
+      if (userInst && avail.includes(userInst)) {
+        return true;
+      }
+      return false;
+    }
+
+    // Caso C: Objeto explícito (não array, não nulo)
+    if (typeof avail === "object") {
+      if (avail.is_global === true || avail.global === true) {
+        return true;
+      }
+      if (userInst && avail[userInst] === true) {
+        return true;
+      }
+      return false;
+    }
+
+    // Qualquer outro formato desconhecido (número, boolean, etc.) é estritamente rejeitado
+    return false;
   }
 
-  // 2. Avalia 'institution_id' legado ou explícito
+  // 4. Avalia 'institution_id' legado ou explícito
   const modelInst = model.institutionId || model.institution_id || null;
   if (modelInst) {
     if (!userInst) return false;
     return modelInst === userInst;
   }
 
-  // Se não possui restrição específica de instituição e não foi restrito por institution_availability
-  return true;
+  // 5. FAIL-CLOSED INSTITUCIONAL: Se o modelo não possui declaração explícita de disponibilidade
+  // nem vínculo institucional verificado, não é autorizado para exibição pública.
+  return false;
 }
 
 /**
- * Retorna o catálogo espacial atualmente em vigor para o usuário (FAIL-CLOSED).
- * Se o catálogo dinâmico não foi carregado ou falhou, retorna vazio para evitar recomendações obsoletas.
+ * Retorna o catálogo espacial atualmente em vigor para o usuário (STRICT FAIL-CLOSED).
+ * Se o catálogo dinâmico não foi carregado, falhou ou retornou vazio, retorna RIGOROSAMENTE vazio ([]).
+ * O BASELINE_AUTHORIZED_CATALOG é exportado como constante de referência para auditorias,
+ * mas NUNCA é injetado automaticamente como fallback no runtime.
  */
 export function getSpatialCatalog({ user = null } = {}) {
-  // Se houver um catálogo dinâmico carregado, usa-o
-  if (activeDynamicCatalog !== null) {
-    return activeDynamicCatalog
-      .filter(validateModelIntegrity)
-      .filter(m => validateInstitutionalAccess(m, user));
-  }
-
-  // FAIL-CLOSED: Se a última tentativa de consulta falhou ou retornou vazia, não usa fallback
-  if (lastFetchState.status === "error" || lastFetchState.status === "empty") {
+  // STRICT FAIL-CLOSED: Nunca retorna catálogo no runtime antes de consulta autorizada bem-sucedida
+  if (activeDynamicCatalog === null) {
     return [];
   }
 
-  // Em ambiente de teste ou inicial sem falha declarada, fornece o baseline homologado
-  return BASELINE_AUTHORIZED_CATALOG
+  return activeDynamicCatalog
     .filter(validateModelIntegrity)
     .filter(m => validateInstitutionalAccess(m, user));
 }
@@ -482,13 +484,15 @@ export function deduplicateCatalogModels(rawAtlas = [], rawLegacy = []) {
       title: row.title,
       shortTitle: row.title,
       status: row.status,
-      canonicalEntity: row.title?.toLowerCase().includes("crânio") || row.title?.toLowerCase().includes("cranio")
-        ? "crânio"
-        : (row.title?.toLowerCase().includes("coração") || row.title?.toLowerCase().includes("coracao") ? "coração" : row.slug),
+      canonicalEntity: row.canonical_entity || (
+        row.title?.toLowerCase().includes("crânio") || row.title?.toLowerCase().includes("cranio")
+          ? "crânio"
+          : (row.title?.toLowerCase().includes("coração") || row.title?.toLowerCase().includes("coracao") ? "coração" : null)
+      ),
       anatomicalSystem: row.anatomical_system,
       anatomicalRegion: row.anatomical_region,
       institutionId: row.institution_id || null,
-      institutionAvailability: row.institution_availability || "global",
+      institutionAvailability: row.institution_availability ?? (row.institution_id ? null : "global"),
       sketchfabUrl: row.sketchfab_url,
       embedUrl: row.embed_url,
       sketchfabUid: row.sketchfab_url?.match(/([a-f0-9]{32})/i)?.[1] || null,
@@ -527,13 +531,15 @@ export function deduplicateCatalogModels(rawAtlas = [], rawLegacy = []) {
         title: row.title,
         shortTitle: row.title,
         status: row.status,
-        canonicalEntity: row.title?.toLowerCase().includes("crânio") || row.title?.toLowerCase().includes("cranio")
-          ? "crânio"
-          : (row.title?.toLowerCase().includes("coração") || row.title?.toLowerCase().includes("coracao") ? "coração" : row.slug),
+        canonicalEntity: row.canonical_entity || (
+          row.title?.toLowerCase().includes("crânio") || row.title?.toLowerCase().includes("cranio")
+            ? "crânio"
+            : (row.title?.toLowerCase().includes("coração") || row.title?.toLowerCase().includes("coracao") ? "coração" : null)
+        ),
         anatomicalSystem: row.anatomical_system,
         anatomicalRegion: row.anatomical_region,
         institutionId: row.institution_id || null,
-        institutionAvailability: "global",
+        institutionAvailability: row.institution_availability ?? (row.institution_id ? null : "global"),
         sketchfabUrl: row.sketchfab_url,
         embedUrl: row.embed_url,
         sketchfabUid: row.sketchfab_url?.match(/([a-f0-9]{32})/i)?.[1] || null,
@@ -558,12 +564,12 @@ export async function fetchPublishedSpatialCatalog({ user = null, client = null 
   const sb = client || getSupabaseClient();
   if (!sb || (!client && !isSupabaseConfigured())) {
     // FAIL-CLOSED: Se o Supabase não está configurado, o catálogo não emite recomendações
-    lastFetchState = { status: "empty", lastFetchAt: Date.now(), error: null };
+    lastFetchState = { status: "empty", lastFetchAt: Date.now(), error: null, userId: user?.id || null };
     activeDynamicCatalog = [];
     return [];
   }
 
-  lastFetchState = { status: "loading", lastFetchAt: Date.now(), error: null };
+  lastFetchState = { status: "loading", lastFetchAt: Date.now(), error: null, userId: user?.id || null };
 
   try {
     // 1. Consultar modelos em atlas_models e models_3d
@@ -586,7 +592,7 @@ export async function fetchPublishedSpatialCatalog({ user = null, client = null 
     const deduplicatedModels = deduplicateCatalogModels(rawAtlas, rawLegacy);
 
     if (deduplicatedModels.length === 0) {
-      lastFetchState = { status: "empty", lastFetchAt: Date.now(), error: null };
+      lastFetchState = { status: "empty", lastFetchAt: Date.now(), error: null, userId: user?.id || null };
       activeDynamicCatalog = [];
       return [];
     }
@@ -619,6 +625,19 @@ export async function fetchPublishedSpatialCatalog({ user = null, client = null 
             existing.annotationIndex === ann.annotation_index || existing.id === ann.id
           );
           if (!alreadyExists) {
+            const syns = new Set();
+            const rawTitle = String(ann.title || "").trim();
+            if (rawTitle) {
+              syns.add(normalizeText(rawTitle));
+              const matchParen = rawTitle.match(/^(.*?)\s*\((.*?)\)$/);
+              if (matchParen) {
+                const p1 = normalizeText(matchParen[1]);
+                const p2 = normalizeText(matchParen[2]);
+                if (p1 && p1.length > 2) syns.add(p1);
+                if (p2 && p2.length > 2) syns.add(p2);
+              }
+            }
+
             parent.markers.push({
               id: ann.id,
               modelId: parent.id, // Normaliza para o UUID autoritativo do modelo
@@ -629,7 +648,7 @@ export async function fetchPublishedSpatialCatalog({ user = null, client = null 
               eye: ann.eye,
               target: ann.target,
               position: ann.position,
-              synonyms: [normalizeText(ann.title)]
+              synonyms: Array.from(syns)
             });
             if (ann.sketchfab_uid && !parent.sketchfabUid) {
               parent.sketchfabUid = ann.sketchfab_uid;
@@ -651,7 +670,8 @@ export async function fetchPublishedSpatialCatalog({ user = null, client = null 
     lastFetchState = {
       status: resolved.length > 0 ? "ready" : "empty",
       lastFetchAt: Date.now(),
-      error: null
+      error: null,
+      userId: user?.id || null
     };
 
     return resolved;
@@ -661,7 +681,8 @@ export async function fetchPublishedSpatialCatalog({ user = null, client = null 
     lastFetchState = {
       status: "error",
       lastFetchAt: Date.now(),
-      error: err
+      error: err,
+      userId: user?.id || null
     };
     // FAIL-CLOSED: Retorna estritamente vazio. Nenhuma recomendação potencialmente obsoleta é emitida.
     return [];

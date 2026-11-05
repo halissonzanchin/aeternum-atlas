@@ -21,27 +21,30 @@ const REGIONAL_INCOMPATIBILITIES = [
   {
     region: "lower_limb",
     triggers: ["femur", "fêmur", "coxa", "joelho", "patela", "tibia", "tíbia", "fibula", "fíbula", "quadril", "trocanter", "colo femoral"],
-    incompatibleSystems: ["Sistema Nervoso Central", "Cabeça e Pescoço", "Cabeça"]
+    incompatibleSystems: ["Sistema Nervoso Central", "Cabeça e Pescoço", "Cabeça", "Crânio", "Cranio", "Tórax", "Cardiovascular", "Coração", "Coracao"]
   },
   {
     region: "upper_limb",
     triggers: ["escapula", "escápula", "clavicula", "clavícula", "umero", "úmero", "radio", "rádio", "ulna", "ombro", "cotovelo", "punho", "mao", "mão"],
-    incompatibleSystems: ["Sistema Nervoso Central", "Cabeça e Pescoço", "Cabeça"]
+    incompatibleSystems: ["Sistema Nervoso Central", "Cabeça e Pescoço", "Cabeça", "Crânio", "Cranio", "Cardiovascular", "Coração", "Coracao"]
   },
   {
     region: "thorax_visceral",
     triggers: ["pulmao", "pulmão", "pulmoes", "pulmões", "pleura", "traqueia", "traquéia", "bronquio", "brônquio"],
-    incompatibleSystems: ["Sistema Nervoso Central", "Cabeça e Pescoço", "Cabeça"]
+    incompatibleSystems: ["Sistema Nervoso Central", "Cabeça e Pescoço", "Cabeça", "Crânio", "Cranio"]
   }
 ];
 
 /**
  * Verifica se a consulta do usuário contém termos de uma região anatômica
- * que é expressamente incompatível com o sistema/região do modelo em análise.
+ * que é expressamente incompatível com o sistema/região/órgão do modelo em análise.
  */
 function isRegionIncompatible(normQuery, model) {
   const modelRegion = normalizeText(model.anatomicalRegion || "");
   const modelSystem = normalizeText(model.anatomicalSystem || "");
+  const modelTitle = normalizeText(model.title || "");
+  const modelSlug = normalizeText(model.slug || "");
+  const modelCanon = normalizeText(model.canonicalEntity || "");
 
   for (const rule of REGIONAL_INCOMPATIBILITIES) {
     const queryHasRegionTrigger = rule.triggers.some(trig => {
@@ -52,7 +55,13 @@ function isRegionIncompatible(normQuery, model) {
     if (queryHasRegionTrigger) {
       const isForbidden = rule.incompatibleSystems.some(sys => {
         const normSys = normalizeText(sys);
-        return modelRegion.includes(normSys) || modelSystem.includes(normSys);
+        return (
+          modelRegion.includes(normSys) ||
+          modelSystem.includes(normSys) ||
+          modelTitle.includes(normSys) ||
+          modelSlug.includes(normSys) ||
+          modelCanon.includes(normSys)
+        );
       });
       if (isForbidden) return true;
     }
@@ -123,9 +132,14 @@ export function resolveSpatialGuidance({
 
       if (Array.isArray(model.markers)) {
         for (const marker of model.markers) {
-          // Validação de integridade: o marcador deve pertencer a este modelo
+          // Validação de integridade: o marcador deve pertencer a este modelo e possuir UUID real
           const belongsToModel = !marker.modelId || marker.modelId === model.id || (Array.isArray(model.legacyIds) && model.legacyIds.includes(marker.modelId));
           if (!belongsToModel) {
+            continue;
+          }
+
+          const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+          if (marker.id && !uuidRegex.test(marker.id)) {
             continue;
           }
 
@@ -133,6 +147,9 @@ export function resolveSpatialGuidance({
           const markerHit = synonyms.some((syn) => {
             const cleanSyn = normalizeText(syn);
             if (!cleanSyn || cleanSyn.length < 3) return false;
+            if (cleanSyn === "cabeca" || cleanSyn === "colo" || cleanSyn === "processo" || cleanSyn === "corpo") {
+              return false;
+            }
             const regex = new RegExp(`\\b${cleanSyn}\\b`, "i");
             return regex.test(normQuery);
           });
@@ -162,10 +179,14 @@ export function resolveSpatialGuidance({
         ? model.directKeywords
         : extractKeywordsFromModel(model);
 
+      if (!keywords || keywords.length === 0) {
+        continue;
+      }
+
       const directHit = keywords.some((kw) => {
         const cleanKw = normalizeText(kw);
-        // Exclusão estrita de palavras polissêmicas isoladas como 'cabeça' ou 'colo'
-        if (cleanKw === "cabeca" || cleanKw === "colo" || cleanKw === "processo") {
+        // Exclusão estrita de palavras polissêmicas isoladas como 'cabeça', 'colo', 'corpo'
+        if (cleanKw === "cabeca" || cleanKw === "colo" || cleanKw === "processo" || cleanKw === "corpo") {
           return false;
         }
         const regex = new RegExp(`\\b${cleanKw}\\b`, "i");
