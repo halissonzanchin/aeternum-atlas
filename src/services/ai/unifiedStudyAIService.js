@@ -247,7 +247,7 @@ export async function executeIsolatedAIRequest({
 /**
  * Generates an isolated anatomical Mind Map outline.
  */
-export async function generateMindMapAI({ topic, language = 'pt' }) {
+export async function generateMindMapAI({ topic, language = 'pt', minNodes = 10, maxNodes = 20 }) {
   const disambiguation = checkTermDisambiguation(topic);
   const effectiveTopic = disambiguation.canonicalTerm;
 
@@ -258,7 +258,7 @@ export async function generateMindMapAI({ topic, language = 'pt' }) {
     '- Responda somente com o esboço hierárquico, sem introdução, conclusão, Markdown, numeração ou bloco de código.',
     '- A primeira linha é o tema central e não possui espaços iniciais.',
     '- Cada nível filho usa exatamente um espaço adicional no início da linha.',
-    '- Use entre 12 e 32 nós, no máximo quatro níveis e no máximo seis filhos por nó.',
+    `- Use entre ${minNodes} e ${maxNodes} nós, no máximo quatro níveis e no máximo seis filhos por nó.`,
     '- Cada rótulo deve ser curto, único e anatomicamente específico.',
     '',
     'QUALIDADE DIDÁTICA:',

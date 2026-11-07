@@ -36,11 +36,13 @@ function cleanLabel(value) {
     .slice(0, MAX_LABEL_LENGTH);
 }
 
-export function normalizeMindMapOutline(rawText) {
+export function normalizeMindMapOutline(rawText, maxNodesLimit = MAX_NODES) {
   const source = String(rawText || "")
     .replace(/```(?:text|markdown)?/gi, "")
     .replace(/```/g, "")
     .replace(/\r/g, "");
+
+  const limit = (typeof maxNodesLimit === "number" && maxNodesLimit > 0) ? maxNodesLimit : MAX_NODES;
 
   const parsed = source
     .split("\n")
@@ -60,7 +62,7 @@ export function normalizeMindMapOutline(rawText) {
   let previousDepth = 0;
 
   for (const item of parsed) {
-    if (lines.length >= MAX_NODES) break;
+    if (lines.length >= limit) break;
     const normalizedKey = item.label.toLocaleLowerCase("pt-BR");
     if (seen.has(normalizedKey)) continue;
 
@@ -81,10 +83,16 @@ export function normalizeMindMapOutline(rawText) {
   return lines.join("\n");
 }
 
-export function buildMindMapTutorPrompt(topic) {
+export function buildMindMapTutorPrompt(topic, options = {}) {
   const normalizedTopic = cleanLabel(topic);
   if (normalizedTopic.length < 3) throw new Error("Informe um tema anatômico com pelo menos três caracteres.");
-  return `${FORMAT_INSTRUCTIONS}\n\nTEMA: ${normalizedTopic}`;
+  const minNodes = options?.minNodes || 10;
+  const maxNodes = options?.maxNodes || 20;
+  const instructions = FORMAT_INSTRUCTIONS.replace(
+    "- Use entre 12 e 32 nós, no máximo quatro níveis e no máximo seis filhos por nó.",
+    `- Use entre ${minNodes} e ${maxNodes} nós, no máximo quatro níveis e no máximo seis filhos por nó.`
+  );
+  return `${instructions}\n\nTEMA: ${normalizedTopic}`;
 }
 
 export async function generateAuthenticatedMindMap({ topic, sendTutorMessage }) {
@@ -122,8 +130,8 @@ export async function generateAuthenticatedMindMap({ topic, sendTutorMessage }) 
   };
 }
 
-export async function generateUnifiedMindMap({ topic, language = "pt" }) {
-  const result = await generateMindMapAI({ topic, language });
+export async function generateUnifiedMindMap({ topic, language = "pt", maxNodes = MAX_NODES }) {
+  const result = await generateMindMapAI({ topic, language, maxNodes });
   const isSuccess = isStudyToolSuccess(result) && result.text;
 
   if (!isSuccess) {
@@ -131,7 +139,7 @@ export async function generateUnifiedMindMap({ topic, language = "pt" }) {
   }
 
   return {
-    outline: normalizeMindMapOutline(result.text),
+    outline: normalizeMindMapOutline(result.text, maxNodes),
     generationId: result.generationId,
     timestamp: result.timestamp,
     mode: result.mode,

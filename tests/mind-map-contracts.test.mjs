@@ -119,3 +119,23 @@ test("Tutor aplica protocolo específico do mapa mental no servidor", () => {
   assert.match(edgeSource, /Modo de saída — Mapa Mental Anatômico/);
   assert.match(edgeSource, /Responda SOMENTE com o esboço hierárquico solicitado/);
 });
+
+test("normalizador e prompt aplicam limites configuráveis de 10 a 20 nós", () => {
+  const prompt = buildMindMapTutorPrompt("Coração", { minNodes: 10, maxNodes: 20 });
+  assert.match(prompt, /Use entre 10 e 20 nós/);
+
+  // Generate large mock outline of 30 nodes
+  const raw30 = [
+    "Coração",
+    ...Array.from({ length: 29 }, (_, i) => ` Nó Filho ${i + 1}`)
+  ].join("\n");
+
+  const cappedAt15 = normalizeMindMapOutline(raw30, 15);
+  const lines15 = cappedAt15.split("\n");
+  assert.equal(lines15.length, 15, "Deve limitar estritamente a 15 nós");
+
+  const cappedAt20 = normalizeMindMapOutline(raw30, 20);
+  const lines20 = cappedAt20.split("\n");
+  assert.equal(lines20.length, 20, "Deve limitar estritamente a 20 nós");
+});
+
