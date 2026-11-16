@@ -28,17 +28,47 @@ function stableHash(value = "") {
 }
 
 function parseJsonArray(text = "") {
-  const normalized = String(text).replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+  let normalized = String(text).replace(/```(?:json)?/gi, "").replace(/```/g, "").trim();
   const start = normalized.indexOf("[");
   const end = normalized.lastIndexOf("]");
-  if (start < 0 || end <= start) return [];
-
-  try {
-    const parsed = JSON.parse(normalized.slice(start, end + 1));
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
+  if (start >= 0 && end > start) {
+    try {
+      const parsed = JSON.parse(normalized.slice(start, end + 1));
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    } catch {
+      // Tentar recuperação de array com vírgula sobrando ou aspas
+      try {
+        const sanitized = normalized.slice(start, end + 1).replace(/,\s*([\]}])/g, "$1");
+        const parsed = JSON.parse(sanitized);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      } catch {}
+    }
   }
+
+  // Fallback por extração de objetos JSON individuais { ... }
+  const objectMatches = normalized.match(/\{[\s\S]*?\}(?=\s*[,\]]|\s*$)/g);
+  if (objectMatches) {
+    const results = [];
+    for (const rawObj of objectMatches) {
+      try {
+        const obj = JSON.parse(rawObj);
+        if (obj && (obj.front || obj.pergunta) && (obj.back || obj.resposta)) {
+          results.push(obj);
+        }
+      } catch {
+        try {
+          const fixed = rawObj.replace(/,\s*\}/g, "}");
+          const obj = JSON.parse(fixed);
+          if (obj && (obj.front || obj.pergunta) && (obj.back || obj.resposta)) {
+            results.push(obj);
+          }
+        } catch {}
+      }
+    }
+    if (results.length > 0) return results;
+  }
+
+  return [];
 }
 
 function extractCitationFromText(text, language = "pt") {
@@ -87,13 +117,17 @@ function sanitizeTutorCard(entry, { topic, difficulty, index, language = "pt", d
 
 function extractCardsFromScientificProse(topic, rawText, { difficulty = "Médio", count = 5, language = "pt" } = {}) {
   const citation = extractCitationFromText(rawText, language);
-  const clean = rawText.replace(/\[(?:PAS|SRC|REF)-[^\]]+\]/g, "").trim();
+  const clean = rawText
+    .replace(/\[(?:PAS|SRC|REF)-[^\]]+\]/g, "")
+    .replace(/"(?:front|back|explanation|learningObjective)"\s*:\s*/g, "")
+    .replace(/[{}\[\]"]/g, " ")
+    .trim();
   const paragraphs = clean.split(/\n\s*\n/).filter((p) => p.trim().length > 30);
   const sentences = clean.split(/(?<=[.!?])\s+/).filter((s) => s.trim().length > 25);
 
   const clauses = clean
     .split(/(?:[;:\n]|\.\s+)/)
-    .map((c) => c.trim())
+    .map((c) => c.replace(/^[\s,;."'-]+|[\s,;."'-]+$/g, "").trim())
     .filter((c) => c.length >= 25 && c.length <= 260);
 
   const factsPool = clauses.length >= 4 ? clauses : sentences;
@@ -231,7 +265,10 @@ function extractCardsFromScientificProse(topic, rawText, { difficulty = "Médio"
       continue;
     }
 
-    const cleanBack = matching.trim().replace(/^["'\s]+|["'\s]+$/g, "");
+    const cleanBack = matching
+      .replace(/^[\s,;."'-]+|[\s,;."'-]+$/g, "")
+      .replace(/^[:\s-]+/, "")
+      .trim();
     if (cleanBack.length < 5) continue;
 
     usedAnswers.add(normalizeFlashcardText(cleanBack));
