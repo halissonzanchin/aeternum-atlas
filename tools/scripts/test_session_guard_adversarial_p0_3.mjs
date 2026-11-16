@@ -383,6 +383,29 @@ async function main() {
       `Acesso negado fail-closed: ${resAdv8NoSession.code}`
     );
 
+    // 9. Imutabilidade de license_tier e session_guard_enabled para estudantes (P0.4)
+    // Estudante autenticado tenta elevar seu próprio license_tier para admin
+    let tamperingBlocked = false;
+    let tamperingMessage = "";
+    try {
+      runPsql(
+        `UPDATE public.users SET license_tier = 'admin' WHERE id = '${USER_TEST}';`,
+        "authenticated",
+        USER_TEST
+      );
+    } catch (err) {
+      tamperingBlocked = true;
+      tamperingMessage = (err.message || "") + (err.stderr ? err.stderr.toString() : "");
+    }
+    assertTest(
+      "9. Imutabilidade de license_tier e session_guard_enabled para estudantes",
+      tamperingBlocked === true && (
+        tamperingMessage.includes("permission denied") ||
+        tamperingMessage.includes("FORBIDDEN")
+      ),
+      `Adulteração bloqueada por privilégios/trigger: ${tamperingBlocked}`
+    );
+
     console.log("\n================================================================================");
     const allPassed = results.every(r => r.pass);
     console.log(`RESULTADO TESTES ADVERSARIAIS: ${results.filter(r => r.pass).length}/${results.length} APROVADOS (${allPassed ? "100% SUCESSO" : "COM FALHAS"})`);

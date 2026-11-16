@@ -23,7 +23,9 @@ DROP POLICY IF EXISTS ai_rate_limits_select_own ON public.ai_rate_limits;
 DROP TABLE IF EXISTS public.session_guard_events CASCADE;
 DROP TABLE IF EXISTS public.user_active_sessions CASCADE;
 
--- 4. Clean user attributes added for progressive rollout
+-- 4. Clean user attributes and protection triggers added for progressive rollout
+DROP TRIGGER IF EXISTS trg_protect_user_license_attributes ON public.users;
+DROP FUNCTION IF EXISTS public.protect_user_license_attributes();
 ALTER TABLE public.users DROP COLUMN IF EXISTS license_tier;
 ALTER TABLE public.users DROP COLUMN IF EXISTS session_guard_enabled;
 

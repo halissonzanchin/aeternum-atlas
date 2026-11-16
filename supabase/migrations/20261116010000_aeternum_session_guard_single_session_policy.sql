@@ -102,6 +102,37 @@ WHERE id = '5cfb837a-5ce3-4113-8f4a-dcdd9b8bf43f'
    OR email = 'demo.institucional@aeternumatlas.com';
 
 -- ------------------------------------------------------------------------------
+-- 3.2. IMMUTABILITY TRIGGER FOR LICENSE ATTRIBUTES (P0.4)
+-- Enforces that authenticated users cannot elevate their license_tier or modify
+-- session_guard_enabled via direct client-side updates on public.users.
+-- ------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION public.protect_user_license_attributes()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, auth, pg_temp
+AS $$
+BEGIN
+    IF auth.role() = 'authenticated' THEN
+        IF NEW.license_tier IS DISTINCT FROM OLD.license_tier THEN
+            RAISE EXCEPTION 'FORBIDDEN: Atributo license_tier não pode ser alterado pelo usuário.';
+        END IF;
+        IF NEW.session_guard_enabled IS DISTINCT FROM OLD.session_guard_enabled THEN
+            RAISE EXCEPTION 'FORBIDDEN: Atributo session_guard_enabled não pode ser alterado pelo usuário.';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trg_protect_user_license_attributes ON public.users;
+CREATE TRIGGER trg_protect_user_license_attributes
+    BEFORE UPDATE ON public.users
+    FOR EACH ROW
+    EXECUTE FUNCTION public.protect_user_license_attributes();
+
+-- ------------------------------------------------------------------------------
 -- 4. ROW LEVEL SECURITY (RLS) POLICIES
 -- Principle of least privilege: authenticated users can only READ their own record.
 -- Direct table mutations (INSERT, UPDATE, DELETE) are strictly revoked.
