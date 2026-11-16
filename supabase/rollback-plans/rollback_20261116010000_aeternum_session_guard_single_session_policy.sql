@@ -1,8 +1,8 @@
 -- ==============================================================================
--- AETERNUM ATLAS — ROLLBACK PLAN: P0 SESSION GUARD
+-- AETERNUM ATLAS — ROLLBACK PLAN: P0 SESSION GUARD (AUDITADO P0.3)
 -- Migration: rollback_20261116010000_aeternum_session_guard_single_session_policy.sql
--- Description: Cleanly revokes privileges, drops functions, policies, indexes
---              and tables introduced by the Session Guard migration.
+-- Description: Cleanly revokes privileges, drops functions, policies, indexes,
+--              user attributes and tables introduced by the Session Guard migration.
 -- ==============================================================================
 
 BEGIN;
@@ -19,8 +19,12 @@ DROP POLICY IF EXISTS user_active_sessions_select_own ON public.user_active_sess
 DROP POLICY IF EXISTS session_guard_events_select_own ON public.session_guard_events;
 DROP POLICY IF EXISTS ai_rate_limits_select_own ON public.ai_rate_limits;
 
--- 3. Drop Tables and Indexes (Preserves pre-existing tables if needed)
+-- 3. Drop Tables and Indexes
 DROP TABLE IF EXISTS public.session_guard_events CASCADE;
 DROP TABLE IF EXISTS public.user_active_sessions CASCADE;
+
+-- 4. Clean user attributes added for progressive rollout
+ALTER TABLE public.users DROP COLUMN IF EXISTS license_tier;
+ALTER TABLE public.users DROP COLUMN IF EXISTS session_guard_enabled;
 
 COMMIT;

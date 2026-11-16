@@ -81,6 +81,16 @@ async function main() {
       CREATE OR REPLACE FUNCTION auth.uid() RETURNS uuid AS $$
         SELECT NULLIF(current_setting('request.jwt.claim.sub', true), '')::uuid;
       $$ LANGUAGE sql STABLE;
+
+      -- Mock auth.role() function
+      CREATE OR REPLACE FUNCTION auth.role() RETURNS text AS $$
+        SELECT COALESCE(NULLIF(current_setting('request.jwt.claim.role', true), ''), 'authenticated');
+      $$ LANGUAGE sql STABLE;
+
+      -- Mock auth.jwt() function
+      CREATE OR REPLACE FUNCTION auth.jwt() RETURNS jsonb AS $$
+        SELECT COALESCE(NULLIF(current_setting('request.jwt.claims', true), '')::jsonb, '{}'::jsonb);
+      $$ LANGUAGE sql STABLE;
     `);
 
     // 4. Apply Migration

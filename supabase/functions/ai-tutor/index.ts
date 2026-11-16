@@ -747,70 +747,101 @@ export async function handleAiTutorRequest(
     auth: { persistSession: false, autoRefreshToken: false }
   });
 
-  // Parallel User Profile & Session Guard / Tiered Rate Limit Resolution
-  const sessionId = extractSessionIdFromBearer(token);
-
-  let limitResultPromise: Promise<any>;
-  if (sessionId) {
-    limitResultPromise = userClient.rpc("consume_ai_rate_limit_tiered", {
-      p_session_id: sessionId,
-      p_ip: clientIp
-    }).then(async (res: any) => {
-      // Fallback gracefully if tiered RPC is pending database deployment
-      if (res.error && (res.error.code === "PGRST202" || String(res.error.message || "").includes("consume_ai_rate_limit_tiered"))) {
-        return userClient.rpc("consume_ai_rate_limit", {
-          max_requests: 30,
-          window_seconds: 60
-        });
-      }
-      return res;
-    });
-  } else {
-    limitResultPromise = userClient.rpc("consume_ai_rate_limit", {
-      max_requests: 30,
-      window_seconds: 60
-    });
-  }
-
-  const [profileResult, limitResult] = await Promise.all([
-    adminClient
-      .from("users")
-      .select("id, institution_id, role, status, name")
-      .eq("id", userId)
-      .maybeSingle(),
-    limitResultPromise
-  ]);
-
-  const { data: profile, error: profileError } = profileResult;
-  const { data: limitData, error: limitError } = limitResult;
+  // 1. Fetch User Profile
+  const { data: profile, error: profileError } = await adminClient
+    .from("users")
+    .select("id, institution_id, role, status, name, license_tier, session_guard_enabled")
+    .eq("id", userId)
+    .maybeSingle();
 
   if (profileError || !profile || !["active", "ativo"].includes(String(profile.status).toLowerCase())) {
     return jsonResponse({ error: "Perfil não autorizado ou inativo.", code: "USER_INACTIVE" }, 403, cors);
   }
 
-  if (limitError) return jsonResponse({ error: "Controle de uso temporariamente indisponível.", code: "AI_RATE_LIMIT_ERROR" }, 503, cors);
-  const limit = Array.isArray(limitData) ? limitData[0] : limitData;
-  if (limit && limit.allowed === false) {
-    if (limit.code === "SESSION_DISPLACED" || limit.displaced) {
+  // 2. Fail-Closed Session Guard & Tiered Rate Limiting (P0.3 Hardened)
+  const isSessionGuardActive = Boolean(
+    (profile as any).session_guard_enabled === true ||
+    (profile as any).license_tier === "demo" ||
+    profile.role === "demo"
+  );
+
+  const sessionId = extractSessionIdFromBearer(token);
+
+  if (isSessionGuardActive) {
+    if (!sessionId) {
       return jsonResponse({
-        error: "Sessão encerrada porque outro dispositivo iniciou acesso nesta conta.",
-        code: "SESSION_DISPLACED",
-        displaced: true
-      }, 403, cors);
-    }
-    if (limit.code === "SESSION_EXPIRED_INACTIVITY" || limit.expired) {
-      return jsonResponse({
-        error: "Sessão expirada por inatividade. Faça login novamente.",
-        code: "SESSION_EXPIRED_INACTIVITY",
-        expired: true
+        error: "Sessão inválida: identificador criptográfico de sessão ausente no token autenticado.",
+        code: "SESSION_TOKEN_INVALID"
       }, 401, cors);
     }
-    const retryAfter = Number(limit.retry_after_seconds || 30);
-    return jsonResponse({
-      error: limit.error || "Muitas solicitações. Aguarde um instante.",
-      code: limit.code || "AI_RATE_LIMITED",
-      retryAfterSeconds: retryAfter
-    }, 429, { ...cors, "Retry-After": String(retryAfter) });
+
+    // Call consume_ai_rate_limit_tiered strictly without fallback to legacy routes
+    const { data: limitData, error: limitError } = await userClient.rpc("consume_ai_rate_limit_tiered", {
+      p_session_id: sessionId,
+      p_ip: clientIp
+    });
+
+    if (limitError) {
+      console.error("[ai-tutor] Erro crítico ao validar Session Guard:", limitError.message);
+      return jsonResponse({
+        error: "Serviço de validação de sessão e controle de uso temporariamente indisponível. Tente novamente em instantes.",
+        code: "SESSION_GUARD_UNAVAILABLE"
+      }, 503, cors);
+    }
+
+    const limit = Array.isArray(limitData) ? limitData[0] : limitData;
+    if (limit && limit.allowed === false) {
+      if (limit.code === "SESSION_DISPLACED" || limit.displaced) {
+        return jsonResponse({
+          error: "Sessão encerrada porque outro dispositivo iniciou acesso nesta conta.",
+          code: "SESSION_DISPLACED",
+          displaced: true
+        }, 403, cors);
+      }
+      if (limit.code === "SESSION_EXPIRED_INACTIVITY" || limit.expired) {
+        return jsonResponse({
+          error: "Sessão expirada por inatividade. Faça login novamente.",
+          code: "SESSION_EXPIRED_INACTIVITY",
+          expired: true
+        }, 401, cors);
+      }
+      if (limit.code === "SESSION_ID_MISMATCH") {
+        return jsonResponse({
+          error: "Identificador de sessão incompatível com o token autenticado.",
+          code: "SESSION_ID_MISMATCH"
+        }, 403, cors);
+      }
+      if (limit.code === "SESSION_REVOKED") {
+        return jsonResponse({
+          error: "Sessão revogada previamente. Faça login novamente.",
+          code: "SESSION_REVOKED"
+        }, 401, cors);
+      }
+      const retryAfter = Number(limit.retry_after_seconds || 30);
+      return jsonResponse({
+        error: limit.error || "Muitas solicitações. Aguarde um instante.",
+        code: limit.code || "AI_RATE_LIMITED",
+        retryAfterSeconds: retryAfter
+      }, 429, { ...cors, "Retry-After": String(retryAfter) });
+    }
+  } else {
+    // Progressive rollout: standard legacy accounts without session guard enabled
+    const { data: limitData, error: limitError } = await userClient.rpc("consume_ai_rate_limit", {
+      max_requests: 30,
+      window_seconds: 60
+    });
+    if (limitError) {
+      return jsonResponse({ error: "Controle de uso temporariamente indisponível.", code: "AI_RATE_LIMIT_ERROR" }, 503, cors);
+    }
+    const limit = Array.isArray(limitData) ? limitData[0] : limitData;
+    if (limit && limit.allowed === false) {
+      const retryAfter = Number(limit.retry_after_seconds || 30);
+      return jsonResponse({
+        error: limit.error || "Muitas solicitações. Aguarde um instante.",
+        code: limit.code || "AI_RATE_LIMITED",
+        retryAfterSeconds: retryAfter
+      }, 429, { ...cors, "Retry-After": String(retryAfter) });
+    }
   }
 
   // 5. Body Parsing

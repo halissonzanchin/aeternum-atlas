@@ -137,13 +137,23 @@ class SessionGuardService {
         if (data.status === "transfer_limit_exceeded") {
           this.notifyDisplaced({
             reason: "transfer_limit_exceeded",
-            active_session_id: data.active_session_id
+            error: data.error
           });
           return data;
         }
 
         if (data.status === "expired") {
           this.notifyExpired(data);
+          return data;
+        }
+
+        if (data.status === "revoked" || data.code === "SESSION_REVOKED") {
+          this.notifyExpired({ reason: "session_revoked", error: data.error });
+          return data;
+        }
+
+        if (data.status === "forbidden" || data.code === "SESSION_ID_MISMATCH") {
+          this.notifyDisplaced({ reason: "session_id_mismatch", error: data.error });
           return data;
         }
 
@@ -203,8 +213,10 @@ class SessionGuardService {
         if (data.valid === false) {
           if (data.code === "SESSION_DISPLACED" || data.displaced) {
             this.notifyDisplaced(data);
-          } else if (data.code === "SESSION_EXPIRED_INACTIVITY" || data.expired) {
+          } else if (data.code === "SESSION_EXPIRED_INACTIVITY" || data.expired || data.code === "SESSION_REVOKED") {
             this.notifyExpired(data);
+          } else if (data.code === "SESSION_ID_MISMATCH") {
+            this.notifyDisplaced(data);
           }
         }
       }

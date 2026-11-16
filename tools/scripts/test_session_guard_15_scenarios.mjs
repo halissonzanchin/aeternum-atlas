@@ -18,10 +18,19 @@ function runCmd(cmd) {
   return execSync(cmd, { encoding: "utf8" });
 }
 
-function runPsql(sql, role = "postgres", jwtSub = "", stopOnError = true) {
+function runPsql(sql, role = "postgres", jwtSub = "", stopOnError = true, jwtSessionId = "") {
   let setup = "";
   if (jwtSub) {
     setup += `SET request.jwt.claim.sub = '${jwtSub}'; `;
+  }
+  if (role && role !== "postgres") {
+    setup += `SET request.jwt.claim.role = '${role}'; `;
+  }
+  if (jwtSessionId) {
+    setup += `SET request.jwt.claim.session_id = '${jwtSessionId}'; `;
+    setup += `SET request.jwt.claims = '{"sub": "${jwtSub}", "session_id": "${jwtSessionId}", "role": "${role}"}'; `;
+  } else if (jwtSub) {
+    setup += `SET request.jwt.claims = '{"sub": "${jwtSub}", "role": "${role}"}'; `;
   }
   if (role && role !== "postgres") {
     setup += `SET ROLE ${role}; `;
@@ -34,8 +43,8 @@ function runPsql(sql, role = "postgres", jwtSub = "", stopOnError = true) {
   return filtered.join("\n");
 }
 
-function runPsqlJson(sql, role = "postgres", jwtSub = "") {
-  const raw = runPsql(sql, role, jwtSub, true);
+function runPsqlJson(sql, role = "postgres", jwtSub = "", jwtSessionId = "") {
+  const raw = runPsql(sql, role, jwtSub, true, jwtSessionId);
   try {
     return JSON.parse(raw);
   } catch (err) {
@@ -102,6 +111,14 @@ async function run15Scenarios() {
         SELECT NULLIF(current_setting('request.jwt.claim.sub', true), '')::uuid;
       $$ LANGUAGE sql STABLE;
 
+      CREATE OR REPLACE FUNCTION auth.role() RETURNS text AS $$
+        SELECT COALESCE(NULLIF(current_setting('request.jwt.claim.role', true), ''), 'authenticated');
+      $$ LANGUAGE sql STABLE;
+
+      CREATE OR REPLACE FUNCTION auth.jwt() RETURNS jsonb AS $$
+        SELECT COALESCE(NULLIF(current_setting('request.jwt.claims', true), '')::jsonb, '{}'::jsonb);
+      $$ LANGUAGE sql STABLE;
+
       GRANT USAGE ON SCHEMA public TO anon, authenticated, service_role;
       GRANT USAGE ON SCHEMA auth TO anon, authenticated, service_role;
       GRANT SELECT ON public.users TO authenticated, service_role;
@@ -142,7 +159,8 @@ async function run15Scenarios() {
     const res1 = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESSION_A}', 'Device A - Chrome MacOS', '192.168.1.100');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_A
     );
     assertTest(
       "1. Login no equipamento A",
@@ -154,12 +172,13 @@ async function run15Scenarios() {
     const res2 = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESSION_B}', 'Device B - iPhone Safari', '177.18.29.50');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_B
     );
     assertTest(
       "2. Tentativa de acesso no equipamento B",
-      res2.displaced_session_id === SESSION_A,
-      `Sessão anterior detectada para substituição: ${res2.displaced_session_id}`
+      res2.status === "transferred" && res2.transferred === true && !res2.displaced_session_id,
+      `Substituição autorizada sem divulgar identificador de terceiros (${res2.status})`
     );
     assertTest(
       "3. Transferência autorizada para B",
@@ -171,11 +190,12 @@ async function run15Scenarios() {
     const res4 = runPsqlJson(
       `SELECT public.validate_session_guard('${SESSION_A}', true, '192.168.1.100');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_A
     );
     assertTest(
       "4. Rejeição imediata das novas requisições de A",
-      res4.valid === false && res4.code === "SESSION_DISPLACED" && res4.displaced === true,
+      res4.valid === false && res4.code === "SESSION_DISPLACED" && res4.displaced === true && !res4.active_session_id,
       `Código retornado: ${res4.code}, Displaced: ${res4.displaced}`
     );
 
@@ -187,12 +207,14 @@ async function run15Scenarios() {
     const res5a = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESSION_C1}', 'Device C1', '10.0.0.1');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_C1
     );
     const res5b = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESSION_C2}', 'Device C2', '10.0.0.2');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_C2
     );
     const countActive = runPsql(
       `SELECT count(*) FROM public.user_active_sessions WHERE user_id = '${USER_STUDENT_ID}';`
@@ -208,7 +230,8 @@ async function run15Scenarios() {
     const res6 = runPsqlJson(
       `SELECT public.validate_session_guard('${SESSION_A}', true);`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_A
     );
     assertTest(
       "6. JWT antigo ainda não expirado",
@@ -220,7 +243,8 @@ async function run15Scenarios() {
     const res7 = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESSION_C2}', 'Device C2', '200.150.100.20');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_C2
     );
     const ipInDb = runPsql(
       `SELECT ip_address FROM public.user_active_sessions WHERE user_id = '${USER_STUDENT_ID}';`
@@ -235,7 +259,8 @@ async function run15Scenarios() {
     const res8 = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESSION_C2}', 'Device C2', '200.150.100.20');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_C2
     );
     assertTest(
       "8. Atualização de página no mesmo equipamento",
@@ -247,7 +272,8 @@ async function run15Scenarios() {
     const res9 = runPsqlJson(
       `SELECT public.validate_session_guard('${SESSION_C2}', true);`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_C2
     );
     assertTest(
       "9. Uso em múltiplas abas do mesmo navegador",
@@ -259,7 +285,8 @@ async function run15Scenarios() {
     const res10 = runPsqlJson(
       `SELECT public.validate_session_guard('${SESSION_C2}', true, '200.150.100.20');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_C2
     );
     assertTest(
       "10. Falha de conexão e recuperação",
@@ -276,7 +303,8 @@ async function run15Scenarios() {
     const res11 = runPsqlJson(
       `SELECT public.validate_session_guard('${SESSION_C2}', true);`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_C2
     );
     assertTest(
       "11. Sessão expirada por inatividade",
@@ -284,11 +312,12 @@ async function run15Scenarios() {
       `Sessão expirada com sucesso: ${res11.code} (${res11.inactivity_minutes} minutos)`
     );
 
-    // Reativar sessão para os próximos testes
+    // Reativar sessão para os próximos testes via nova transferência limpa
     runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESSION_C2}', 'Device C2', '200.150.100.20');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_C2
     );
 
     // CENÁRIO 12: Requisições da IA em andamento durante revogação
@@ -301,7 +330,8 @@ async function run15Scenarios() {
     const res12 = runPsqlJson(
       `SELECT public.consume_ai_rate_limit_tiered('${SESSION_C2}', '200.150.100.20');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_C2
     );
     assertTest(
       "12. Requisições da IA em andamento durante revogação",
@@ -309,18 +339,21 @@ async function run15Scenarios() {
       `Inferência Qwen bloqueada na porta de entrada: ${res12.code}`
     );
 
-    // Reativar para cenário 13
+    // Registrar nova sessão C3 para cenário 13 (já que sessão revogada não reativa)
+    const SESSION_C3 = "cccc3333-3333-3333-3333-333333333333";
     runPsqlJson(
-      `SELECT public.register_or_transfer_session('${SESSION_C2}', 'Device C2', '200.150.100.20');`,
+      `SELECT public.register_or_transfer_session('${SESSION_C3}', 'Device C3', '200.150.100.20');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_C3
     );
 
     // CENÁRIO 13: Bloqueio de acesso direto às APIs com sessão substituída
     const res13 = runPsqlJson(
       `SELECT public.consume_ai_rate_limit_tiered('${SESSION_A}', '192.168.1.100');`,
       "authenticated",
-      USER_STUDENT_ID
+      USER_STUDENT_ID,
+      SESSION_A
     );
     assertTest(
       "13. Bloqueio de acesso direto às APIs",
@@ -355,27 +388,36 @@ async function run15Scenarios() {
 
     // CENÁRIO 15: Compatibilidade com a conta demo e parâmetros específicos
     const DEMO_SESSION_1 = "dddd1111-1111-1111-1111-111111111111";
+    runPsql(`
+      UPDATE public.users 
+      SET license_tier = 'demo', session_guard_enabled = true 
+      WHERE id = '${USER_DEMO_ID}';
+    `);
     const res15Reg = runPsqlJson(
       `SELECT public.register_or_transfer_session('${DEMO_SESSION_1}', 'Demo Device', '127.0.0.1');`,
       "authenticated",
-      USER_DEMO_ID
+      USER_DEMO_ID,
+      DEMO_SESSION_1
     );
     
     // Testar limite da conta demo: 2 consultas por minuto
     const res15Ai1 = runPsqlJson(
       `SELECT public.consume_ai_rate_limit_tiered('${DEMO_SESSION_1}', '127.0.0.1');`,
       "authenticated",
-      USER_DEMO_ID
+      USER_DEMO_ID,
+      DEMO_SESSION_1
     );
     const res15Ai2 = runPsqlJson(
       `SELECT public.consume_ai_rate_limit_tiered('${DEMO_SESSION_1}', '127.0.0.1');`,
       "authenticated",
-      USER_DEMO_ID
+      USER_DEMO_ID,
+      DEMO_SESSION_1
     );
     const res15Ai3 = runPsqlJson(
       `SELECT public.consume_ai_rate_limit_tiered('${DEMO_SESSION_1}', '127.0.0.1');`,
       "authenticated",
-      USER_DEMO_ID
+      USER_DEMO_ID,
+      DEMO_SESSION_1
     );
     
     assertTest(
@@ -385,8 +427,9 @@ async function run15Scenarios() {
       res15Ai1.allowed === true &&
       res15Ai2.allowed === true &&
       res15Ai3.allowed === false &&
-      res15Ai3.code === "AI_RATE_LIMITED",
-      `Demo: Max Transfers=${res15Reg.max_transfers}, Inactivity=${res15Reg.inactivity_minutes}m, Rate limit=${res15Ai1.allowed}/${res15Ai2.allowed}/${res15Ai3.allowed} (${res15Ai3.code})`
+      res15Ai3.code === "AI_RATE_LIMITED" &&
+      res15Ai3.max_requests === 2,
+      `Demo: 2 req/min rigorosamente aplicado (1: ${res15Ai1.allowed}, 2: ${res15Ai2.allowed}, 3: ${res15Ai3.allowed} [${res15Ai3.code}])`
     );
 
     console.log("\n================================================================================");

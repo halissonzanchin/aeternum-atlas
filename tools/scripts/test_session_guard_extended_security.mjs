@@ -18,10 +18,19 @@ function runCmd(cmd) {
   return execSync(cmd, { encoding: "utf8" });
 }
 
-function runPsql(sql, role = "postgres", jwtSub = "", stopOnError = true) {
+function runPsql(sql, role = "postgres", jwtSub = "", stopOnError = true, jwtSessionId = "") {
   let setup = "";
   if (jwtSub) {
     setup += `SET request.jwt.claim.sub = '${jwtSub}'; `;
+  }
+  if (role && role !== "postgres") {
+    setup += `SET request.jwt.claim.role = '${role}'; `;
+  }
+  if (jwtSessionId) {
+    setup += `SET request.jwt.claim.session_id = '${jwtSessionId}'; `;
+    setup += `SET request.jwt.claims = '{"sub": "${jwtSub}", "session_id": "${jwtSessionId}", "role": "${role}"}'; `;
+  } else if (jwtSub) {
+    setup += `SET request.jwt.claims = '{"sub": "${jwtSub}", "role": "${role}"}'; `;
   }
   if (role && role !== "postgres") {
     setup += `SET ROLE ${role}; `;
@@ -34,8 +43,8 @@ function runPsql(sql, role = "postgres", jwtSub = "", stopOnError = true) {
   return filtered.join("\n");
 }
 
-function runPsqlJson(sql, role = "postgres", jwtSub = "") {
-  const raw = runPsql(sql, role, jwtSub, true);
+function runPsqlJson(sql, role = "postgres", jwtSub = "", jwtSessionId = "") {
+  const raw = runPsql(sql, role, jwtSub, true, jwtSessionId);
   try {
     return JSON.parse(raw);
   } catch (err) {
@@ -99,6 +108,14 @@ async function runExtendedSecuritySuite() {
         SELECT NULLIF(current_setting('request.jwt.claim.sub', true), '')::uuid;
       $$ LANGUAGE sql STABLE;
 
+      CREATE OR REPLACE FUNCTION auth.role() RETURNS text AS $$
+        SELECT COALESCE(NULLIF(current_setting('request.jwt.claim.role', true), ''), 'authenticated');
+      $$ LANGUAGE sql STABLE;
+
+      CREATE OR REPLACE FUNCTION auth.jwt() RETURNS jsonb AS $$
+        SELECT COALESCE(NULLIF(current_setting('request.jwt.claims', true), '')::jsonb, '{}'::jsonb);
+      $$ LANGUAGE sql STABLE;
+
       GRANT USAGE ON SCHEMA public TO anon, authenticated, service_role;
       GRANT USAGE ON SCHEMA auth TO anon, authenticated, service_role;
       GRANT SELECT ON public.users TO authenticated, service_role;
@@ -131,17 +148,20 @@ async function runExtendedSecuritySuite() {
     const regDesk = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESSION_DESKTOP}', 'MacBook Pro / Chrome', '189.40.20.10');`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESSION_DESKTOP
     );
     const regMob = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESSION_MOBILE}', 'iPhone 15 / Safari', '201.80.30.5');`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESSION_MOBILE
     );
     const valDeskAfterMob = runPsqlJson(
       `SELECT public.validate_session_guard('${SESSION_DESKTOP}', true);`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESSION_DESKTOP
     );
     assertTest(
       "1. Dois navegadores em equipamentos diferentes",
@@ -155,7 +175,8 @@ async function runExtendedSecuritySuite() {
     const replayAiCall = runPsqlJson(
       `SELECT public.consume_ai_rate_limit_tiered('${SESSION_DESKTOP}', '189.40.20.10');`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESSION_DESKTOP
     );
     assertTest(
       "2. Copiagem de sessão ou reutilização de JWT",
@@ -170,12 +191,14 @@ async function runExtendedSecuritySuite() {
     const race1 = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESS_RACE_1}', 'Device Race 1', '10.0.0.1');`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESS_RACE_1
     );
     const race2 = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESS_RACE_2}', 'Device Race 2', '10.0.0.2');`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESS_RACE_2
     );
     const totalSessionsInDb = runPsql(
       `SELECT count(*) FROM public.user_active_sessions WHERE user_id = '${USER_ALICE}';`
@@ -192,13 +215,15 @@ async function runExtendedSecuritySuite() {
     runPsqlJson(
       `SELECT public.revoke_active_session('${SESS_RACE_2}', 'user_logout');`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESS_RACE_2
     );
     // Próxima requisição ou validação de continuação falha imediatamente
     const postRevokeCall = runPsqlJson(
       `SELECT public.consume_ai_rate_limit_tiered('${SESS_RACE_2}', '10.0.0.2');`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESS_RACE_2
     );
     assertTest(
       "4. Sessão revogada durante streaming SSE",
@@ -213,13 +238,15 @@ async function runExtendedSecuritySuite() {
     runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESS_VALID}', 'iPad Pro', '192.168.1.5');`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESS_VALID
     );
     // Chamada direta forjando sessão antiga que foi descartada
     const directApiForged = runPsqlJson(
       `SELECT public.validate_session_guard('${SESSION_DESKTOP}', true);`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESSION_DESKTOP
     );
     assertTest(
       "5. Chamadas diretas às APIs de conteúdo pago",
@@ -232,12 +259,14 @@ async function runExtendedSecuritySuite() {
     const ipChange1 = runPsqlJson(
       `SELECT public.validate_session_guard('${SESS_VALID}', true, '177.100.50.1');`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESS_VALID
     );
     const ipChange2 = runPsqlJson(
       `SELECT public.validate_session_guard('${SESS_VALID}', true, '177.100.50.2');`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESS_VALID
     );
     const recordedIp = runPsql(
       `SELECT ip_address FROM public.user_active_sessions WHERE user_id = '${USER_ALICE}';`
@@ -255,7 +284,8 @@ async function runExtendedSecuritySuite() {
     const promptCheck = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESS_NEW_DEVICE}', 'Windows Desktop', '189.1.2.3', false);`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESS_NEW_DEVICE
     );
     // A sessão original A ainda deve estar ativa
     const checkOriginalStillActive = runPsql(
@@ -265,7 +295,8 @@ async function runExtendedSecuritySuite() {
     const confirmTransfer = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESS_NEW_DEVICE}', 'Windows Desktop', '189.1.2.3', true);`,
       "authenticated",
-      USER_ALICE
+      USER_ALICE,
+      SESS_NEW_DEVICE
     );
     assertTest(
       "7. Troca de equipamento com confirmação adicional",
@@ -282,7 +313,8 @@ async function runExtendedSecuritySuite() {
     const suspendedReg = runPsqlJson(
       `SELECT public.register_or_transfer_session('${SESS_SUSPENDED}', 'Browser Suspenso', '127.0.0.1');`,
       "authenticated",
-      USER_SUSPENDED
+      USER_SUSPENDED,
+      SESS_SUSPENDED
     );
     assertTest(
       "8. Conta suspensa ou assinatura vencida",
@@ -319,11 +351,11 @@ async function runExtendedSecuritySuite() {
     // TESTE 10: Limites globais de consumo da IA
     console.log("--- TESTE 10: Limites globais de consumo da IA ---");
     // Alice é estudante: cota máxima = 4 queries por 300 segundos
-    const ai1 = runPsqlJson(`SELECT public.consume_ai_rate_limit_tiered('${SESS_NEW_DEVICE}');`, "authenticated", USER_ALICE);
-    const ai2 = runPsqlJson(`SELECT public.consume_ai_rate_limit_tiered('${SESS_NEW_DEVICE}');`, "authenticated", USER_ALICE);
-    const ai3 = runPsqlJson(`SELECT public.consume_ai_rate_limit_tiered('${SESS_NEW_DEVICE}');`, "authenticated", USER_ALICE);
-    const ai4 = runPsqlJson(`SELECT public.consume_ai_rate_limit_tiered('${SESS_NEW_DEVICE}');`, "authenticated", USER_ALICE);
-    const ai5 = runPsqlJson(`SELECT public.consume_ai_rate_limit_tiered('${SESS_NEW_DEVICE}');`, "authenticated", USER_ALICE);
+    const ai1 = runPsqlJson(`SELECT public.consume_ai_rate_limit_tiered('${SESS_NEW_DEVICE}');`, "authenticated", USER_ALICE, SESS_NEW_DEVICE);
+    const ai2 = runPsqlJson(`SELECT public.consume_ai_rate_limit_tiered('${SESS_NEW_DEVICE}');`, "authenticated", USER_ALICE, SESS_NEW_DEVICE);
+    const ai3 = runPsqlJson(`SELECT public.consume_ai_rate_limit_tiered('${SESS_NEW_DEVICE}');`, "authenticated", USER_ALICE, SESS_NEW_DEVICE);
+    const ai4 = runPsqlJson(`SELECT public.consume_ai_rate_limit_tiered('${SESS_NEW_DEVICE}');`, "authenticated", USER_ALICE, SESS_NEW_DEVICE);
+    const ai5 = runPsqlJson(`SELECT public.consume_ai_rate_limit_tiered('${SESS_NEW_DEVICE}');`, "authenticated", USER_ALICE, SESS_NEW_DEVICE);
     assertTest(
       "10. Limites globais de consumo da IA",
       ai1.allowed === true &&

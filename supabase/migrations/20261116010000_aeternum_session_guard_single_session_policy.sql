@@ -1,9 +1,11 @@
 -- ==============================================================================
--- AETERNUM ATLAS — P0 SESSION GUARD MIGRATION (AUDITADO & HARDENED)
+-- AETERNUM ATLAS — P0 SESSION GUARD MIGRATION (AUDITADO & HARDENED P0.3)
 -- Migration: 20261116010000_aeternum_session_guard_single_session_policy.sql
--- Description: Implement single active session per user policy, atomic session
---              transfers with confirmation option, inactivity timeouts, audit logging,
---              account status checks, and tiered AI rate limits matching canonical schema.
+-- Description: Implement single active session per user policy, cryptographic
+--              session binding to JWT claims, server-controlled license tiers,
+--              atomic session transfers with confirmation option, inactivity timeouts,
+--              audit logging without leaking third-party session IDs, account status
+--              checks, and tiered AI rate limits matching canonical schema.
 -- Pre-conditions: PostgreSQL 15+, public schema initialized, auth.users present.
 -- Rollback Plan: supabase/rollback-plans/rollback_20261116010000_aeternum_session_guard_single_session_policy.sql
 -- ==============================================================================
@@ -52,6 +54,7 @@ CREATE TABLE IF NOT EXISTS public.session_guard_events (
         'session_transferred',
         'session_displaced',
         'access_denied_displaced',
+        'access_denied_mismatch',
         'inactivity_expired',
         'transfer_limit_exceeded',
         'transfer_confirmation_required',
@@ -80,6 +83,23 @@ CREATE TABLE IF NOT EXISTS public.ai_rate_limits (
     request_count integer NOT NULL DEFAULT 1,
     updated_at timestamptz NOT NULL DEFAULT now()
 );
+
+-- ------------------------------------------------------------------------------
+-- 3.1. USER ATTRIBUTES: LICENSE TIER & FEATURE FLAG (SERVER-CONTROLLED P0.3)
+-- Decouples subscription / license entitlement from fragile identifiers like email.
+-- Allows controlled progressive rollout starting strictly with the demo account.
+-- ------------------------------------------------------------------------------
+
+ALTER TABLE public.users 
+    ADD COLUMN IF NOT EXISTS license_tier text DEFAULT 'student',
+    ADD COLUMN IF NOT EXISTS session_guard_enabled boolean DEFAULT false;
+
+-- Initialize demo accounts with protected tier and enabled session guard
+UPDATE public.users 
+SET license_tier = 'demo', 
+    session_guard_enabled = true 
+WHERE id = '5cfb837a-5ce3-4113-8f4a-dcdd9b8bf43f'
+   OR email = 'demo.institucional@aeternumatlas.com';
 
 -- ------------------------------------------------------------------------------
 -- 4. ROW LEVEL SECURITY (RLS) POLICIES
@@ -130,8 +150,7 @@ GRANT ALL ON public.ai_rate_limits TO service_role;
 
 
 -- ------------------------------------------------------------------------------
--- 5. ATOMIC SESSION REGISTRATION & TRANSFER (SECURITY DEFINER)
--- Concurrency safe with row locking (FOR UPDATE) and confirmation option.
+-- 5. ATOMIC SESSION REGISTRATION & TRANSFER ROUTINE (CRYPTOGRAPHICALLY BOUND)
 -- ------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION public.register_or_transfer_session(
@@ -148,9 +167,14 @@ SET search_path = public, auth, pg_temp
 AS $$
 DECLARE
     v_user_id uuid;
-    v_email text;
+    v_caller_role text;
+    v_jwt_claims jsonb;
+    v_jwt_session_id uuid;
+    v_effective_session_id uuid;
     v_role text;
     v_status text;
+    v_license_tier text;
+    v_session_guard_enabled boolean;
     v_max_transfers integer := 5;
     v_inactivity_minutes integer := 60;
     v_record public.user_active_sessions%ROWTYPE;
@@ -158,12 +182,61 @@ DECLARE
     v_displaced_session_id uuid;
 BEGIN
     v_user_id := auth.uid();
+    v_caller_role := auth.role();
+
     IF v_user_id IS NULL THEN
         RAISE EXCEPTION 'AUTH_REQUIRED: Authenticated session required';
     END IF;
 
-    -- Resolve user tier parameters and account status
-    SELECT email, role, status INTO v_email, v_role, v_status
+    -- Cryptographic session validation from JWT claims (P0.3)
+    v_jwt_claims := auth.jwt();
+    v_jwt_session_id := NULLIF(v_jwt_claims ->> 'session_id', '')::uuid;
+
+    IF v_caller_role = 'authenticated' THEN
+        IF v_jwt_session_id IS NULL THEN
+            RETURN jsonb_build_object(
+                'status', 'forbidden',
+                'code', 'AUTH_TOKEN_MISSING_SESSION_ID',
+                'error', 'Token JWT não contém claim de sessão criptográfica obrigatória.'
+            );
+        END IF;
+
+        IF p_session_id IS NOT NULL AND p_session_id <> v_jwt_session_id THEN
+            INSERT INTO public.session_guard_events (
+                user_id,
+                session_id,
+                event_type,
+                device_fingerprint,
+                ip_address,
+                metadata
+            ) VALUES (
+                v_user_id,
+                v_jwt_session_id,
+                'access_denied_mismatch',
+                p_device_fingerprint,
+                p_ip,
+                jsonb_build_object('reason', 'client_passed_arbitrary_session_id', 'client_session_id', p_session_id)
+            );
+
+            RETURN jsonb_build_object(
+                'status', 'forbidden',
+                'code', 'SESSION_ID_MISMATCH',
+                'error', 'Identificador de sessão fornecido diverge da assinatura criptográfica do token.'
+            );
+        END IF;
+
+        v_effective_session_id := v_jwt_session_id;
+    ELSE
+        -- Service role or administrative caller
+        IF p_session_id IS NULL THEN
+            RAISE EXCEPTION 'SESSION_ID_REQUIRED: Session identifier required';
+        END IF;
+        v_effective_session_id := p_session_id;
+    END IF;
+
+    -- Resolve user tier parameters and account status (Decoupled from email, based on license_tier/role)
+    SELECT role, status, COALESCE(license_tier, 'student'), COALESCE(session_guard_enabled, false)
+    INTO v_role, v_status, v_license_tier, v_session_guard_enabled
     FROM public.users
     WHERE id = v_user_id;
 
@@ -176,7 +249,7 @@ BEGIN
         );
     END IF;
 
-    IF v_email = 'demo.institucional@aeternumatlas.com' OR v_role = 'demo' THEN
+    IF v_license_tier = 'demo' OR v_role = 'demo' THEN
         v_max_transfers := 3;
         v_inactivity_minutes := 30;
     ELSIF v_role = 'student' THEN
@@ -210,7 +283,7 @@ BEGIN
             metadata
         ) VALUES (
             v_user_id,
-            p_session_id,
+            v_effective_session_id,
             p_device_fingerprint,
             p_ip,
             'active',
@@ -231,16 +304,16 @@ BEGIN
             metadata
         ) VALUES (
             v_user_id,
-            p_session_id,
+            v_effective_session_id,
             'session_registered',
             p_device_fingerprint,
             p_ip,
-            jsonb_build_object('max_transfers', v_max_transfers, 'inactivity_minutes', v_inactivity_minutes)
+            jsonb_build_object('max_transfers', v_max_transfers, 'inactivity_minutes', v_inactivity_minutes, 'license_tier', v_license_tier)
         );
 
         RETURN jsonb_build_object(
             'status', 'registered',
-            'active_session_id', p_session_id,
+            'active_session_id', v_effective_session_id,
             'transfers_today', 0,
             'max_transfers', v_max_transfers,
             'inactivity_minutes', v_inactivity_minutes
@@ -255,8 +328,17 @@ BEGIN
     END IF;
 
     -- Case 2: Same session confirmed (page reload, multi-tab, network switch)
-    IF v_record.session_id = p_session_id THEN
-        -- Check if existing session was marked expired or revoked
+    IF v_record.session_id = v_effective_session_id THEN
+        -- A revoked session CANNOT be re-activated (P0.3)
+        IF v_record.status = 'revoked' THEN
+            RETURN jsonb_build_object(
+                'status', 'revoked',
+                'code', 'SESSION_REVOKED',
+                'error', 'Sessão revogada previamente. É necessário realizar um novo login.'
+            );
+        END IF;
+
+        -- Check if existing session was marked expired
         IF v_record.status = 'active' AND (now() - v_record.last_active_at) > (v_inactivity_minutes || ' minutes')::interval THEN
             UPDATE public.user_active_sessions
             SET status = 'expired',
@@ -272,7 +354,7 @@ BEGIN
                 metadata
             ) VALUES (
                 v_user_id,
-                p_session_id,
+                v_effective_session_id,
                 'inactivity_expired',
                 p_device_fingerprint,
                 p_ip,
@@ -306,7 +388,7 @@ BEGIN
             metadata
         ) VALUES (
             v_user_id,
-            p_session_id,
+            v_effective_session_id,
             'session_confirmed',
             p_device_fingerprint,
             p_ip,
@@ -315,7 +397,7 @@ BEGIN
 
         RETURN jsonb_build_object(
             'status', 'confirmed',
-            'active_session_id', p_session_id,
+            'active_session_id', v_effective_session_id,
             'transfers_today', v_transfers_today,
             'max_transfers', v_max_transfers,
             'inactivity_minutes', v_inactivity_minutes
@@ -333,24 +415,23 @@ BEGIN
             metadata
         ) VALUES (
             v_user_id,
-            p_session_id,
+            v_effective_session_id,
             'transfer_limit_exceeded',
             p_device_fingerprint,
             p_ip,
             jsonb_build_object(
-                'attempted_session_id', p_session_id,
-                'current_active_session_id', v_record.session_id,
                 'max_transfers', v_max_transfers,
                 'transfers_today', v_transfers_today
             )
         );
 
+        -- DO NOT leak the active session ID of the other device (P0.3)
         RETURN jsonb_build_object(
             'status', 'transfer_limit_exceeded',
             'error', 'Limite diário de transferências de dispositivo atingido.',
             'max_transfers', v_max_transfers,
             'transfers_today', v_transfers_today,
-            'active_session_id', v_record.session_id
+            'other_device_active', true
         );
     END IF;
 
@@ -365,21 +446,20 @@ BEGIN
             metadata
         ) VALUES (
             v_user_id,
-            p_session_id,
+            v_effective_session_id,
             'transfer_confirmation_required',
             p_device_fingerprint,
             p_ip,
             jsonb_build_object(
-                'active_session_id', v_record.session_id,
-                'active_device_fingerprint', v_record.device_fingerprint,
                 'transfers_remaining', v_max_transfers - v_transfers_today
             )
         );
 
+        -- DO NOT leak the active session ID of the other device (P0.3)
         RETURN jsonb_build_object(
             'status', 'transfer_confirmation_required',
-            'active_session_id', v_record.session_id,
-            'active_device_fingerprint', v_record.device_fingerprint,
+            'other_device_active', true,
+            'other_device_fingerprint', COALESCE(v_record.device_fingerprint, 'dispositivo_conectado'),
             'last_active_at', v_record.last_active_at,
             'transfers_today', v_transfers_today,
             'max_transfers', v_max_transfers,
@@ -391,7 +471,7 @@ BEGIN
     v_displaced_session_id := v_record.session_id;
 
     UPDATE public.user_active_sessions
-    SET session_id = p_session_id,
+    SET session_id = v_effective_session_id,
         device_fingerprint = p_device_fingerprint,
         ip_address = p_ip,
         status = 'active',
@@ -404,7 +484,7 @@ BEGIN
         metadata = p_metadata
     WHERE user_id = v_user_id;
 
-    -- Log displacement of old session
+    -- Log displacement of old session (in private audit table only)
     INSERT INTO public.session_guard_events (
         user_id,
         session_id,
@@ -419,7 +499,6 @@ BEGIN
         v_record.device_fingerprint,
         v_record.ip_address,
         jsonb_build_object(
-            'displaced_by_session_id', p_session_id,
             'transfers_today', v_transfers_today + 1
         )
     );
@@ -434,21 +513,21 @@ BEGIN
         metadata
     ) VALUES (
         v_user_id,
-        p_session_id,
+        v_effective_session_id,
         'session_transferred',
         p_device_fingerprint,
         p_ip,
         jsonb_build_object(
-            'displaced_session_id', v_displaced_session_id,
             'transfers_today', v_transfers_today + 1,
             'transfers_remaining', v_max_transfers - (v_transfers_today + 1)
         )
     );
 
+    -- Return transfer confirmation WITHOUT disclosing displaced session ID (P0.3)
     RETURN jsonb_build_object(
         'status', 'transferred',
-        'displaced_session_id', v_displaced_session_id,
-        'active_session_id', p_session_id,
+        'transferred', true,
+        'active_session_id', v_effective_session_id,
         'transfers_today', v_transfers_today + 1,
         'max_transfers', v_max_transfers,
         'transfers_remaining', v_max_transfers - (v_transfers_today + 1),
@@ -459,8 +538,7 @@ $$;
 
 
 -- ------------------------------------------------------------------------------
--- 6. VALIDATION ROUTINE FOR SERVER-SIDE GATES
--- Verifies whether p_session_id is the currently authorized active session.
+-- 6. VALIDATION ROUTINE FOR SERVER-SIDE GATES (CRYPTOGRAPHICALLY BOUND)
 -- ------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION public.validate_session_guard(
@@ -475,18 +553,68 @@ SET search_path = public, auth, pg_temp
 AS $$
 DECLARE
     v_user_id uuid;
-    v_email text;
+    v_caller_role text;
+    v_jwt_claims jsonb;
+    v_jwt_session_id uuid;
+    v_effective_session_id uuid;
     v_role text;
     v_status text;
+    v_license_tier text;
     v_inactivity_minutes integer := 60;
     v_record public.user_active_sessions%ROWTYPE;
 BEGIN
     v_user_id := auth.uid();
+    v_caller_role := auth.role();
+
     IF v_user_id IS NULL THEN
         RETURN jsonb_build_object('valid', false, 'code', 'AUTH_REQUIRED', 'error', 'Sessão não autenticada.');
     END IF;
 
-    SELECT email, role, status INTO v_email, v_role, v_status
+    -- Cryptographic session validation from JWT claims (P0.3)
+    v_jwt_claims := auth.jwt();
+    v_jwt_session_id := NULLIF(v_jwt_claims ->> 'session_id', '')::uuid;
+
+    IF v_caller_role = 'authenticated' THEN
+        IF v_jwt_session_id IS NULL THEN
+            RETURN jsonb_build_object(
+                'valid', false,
+                'code', 'AUTH_TOKEN_MISSING_SESSION_ID',
+                'error', 'Token JWT não contém claim de sessão criptográfica obrigatória.'
+            );
+        END IF;
+
+        IF p_session_id IS NOT NULL AND p_session_id <> v_jwt_session_id THEN
+            INSERT INTO public.session_guard_events (
+                user_id,
+                session_id,
+                event_type,
+                ip_address,
+                metadata
+            ) VALUES (
+                v_user_id,
+                v_jwt_session_id,
+                'access_denied_mismatch',
+                p_ip,
+                jsonb_build_object('reason', 'client_passed_arbitrary_session_id', 'client_session_id', p_session_id)
+            );
+
+            RETURN jsonb_build_object(
+                'valid', false,
+                'code', 'SESSION_ID_MISMATCH',
+                'error', 'Identificador de sessão fornecido diverge da assinatura criptográfica do token.'
+            );
+        END IF;
+
+        v_effective_session_id := v_jwt_session_id;
+    ELSE
+        IF p_session_id IS NULL THEN
+            RETURN jsonb_build_object('valid', false, 'code', 'SESSION_ID_REQUIRED', 'error', 'Identificador de sessão obrigatório.');
+        END IF;
+        v_effective_session_id := p_session_id;
+    END IF;
+
+    SELECT role, status, COALESCE(license_tier, 'student')
+    INTO v_role, v_status, v_license_tier
     FROM public.users
     WHERE id = v_user_id;
 
@@ -499,7 +627,7 @@ BEGIN
         );
     END IF;
 
-    IF v_email = 'demo.institucional@aeternumatlas.com' OR v_role = 'demo' THEN
+    IF v_license_tier = 'demo' OR v_role = 'demo' THEN
         v_inactivity_minutes := 30;
     ELSIF v_role = 'student' THEN
         v_inactivity_minutes := 60;
@@ -516,7 +644,7 @@ BEGIN
     END IF;
 
     -- Check session ID match
-    IF v_record.session_id <> p_session_id THEN
+    IF v_record.session_id <> v_effective_session_id THEN
         INSERT INTO public.session_guard_events (
             user_id,
             session_id,
@@ -525,25 +653,25 @@ BEGIN
             metadata
         ) VALUES (
             v_user_id,
-            p_session_id,
+            v_effective_session_id,
             'access_denied_displaced',
             p_ip,
-            jsonb_build_object('active_session_id', v_record.session_id, 'displaced_session_id', p_session_id)
+            jsonb_build_object('reason', 'access_attempt_from_displaced_session')
         );
 
+        -- DO NOT leak active session ID of the other device (P0.3)
         RETURN jsonb_build_object(
             'valid', false,
             'code', 'SESSION_DISPLACED',
             'error', 'Sessão encerrada porque outro dispositivo iniciou acesso nesta conta.',
             'displaced', true,
-            'active_session_id', v_record.session_id,
             'displaced_at', v_record.last_transfer_at
         );
     END IF;
 
     -- Check status
     IF v_record.status = 'revoked' THEN
-        RETURN jsonb_build_object('valid', false, 'code', 'SESSION_REVOKED', 'error', 'Sessão revogada.');
+        RETURN jsonb_build_object('valid', false, 'code', 'SESSION_REVOKED', 'error', 'Sessão revogada previamente. Faça login novamente.');
     END IF;
 
     -- Check inactivity
@@ -561,7 +689,7 @@ BEGIN
             metadata
         ) VALUES (
             v_user_id,
-            p_session_id,
+            v_effective_session_id,
             'inactivity_expired',
             p_ip,
             jsonb_build_object('inactivity_minutes', v_inactivity_minutes)
@@ -587,7 +715,7 @@ BEGIN
     RETURN jsonb_build_object(
         'valid', true,
         'code', 'SESSION_VALID',
-        'session_id', p_session_id,
+        'session_id', v_effective_session_id,
         'last_active_at', now()
     );
 END;
@@ -595,9 +723,7 @@ $$;
 
 
 -- ------------------------------------------------------------------------------
--- 7. TIERED AI RATE LIMIT CONSUMPTION WITH EMBEDDED SESSION GUARD
--- Matches canonical public.ai_rate_limits (user_id, window_started_at, request_count, updated_at).
--- Performs Session validation AND Rate limit check in a single atomic database operation.
+-- 7. ATOMIC TIERED AI CONSUMPTION & RATE LIMITER (CRYPTOGRAPHICALLY BOUND)
 -- ------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION public.consume_ai_rate_limit_tiered(
@@ -611,8 +737,8 @@ SET search_path = public, auth, pg_temp
 AS $$
 DECLARE
     v_user_id uuid;
-    v_email text;
     v_role text;
+    v_license_tier text;
     v_validation jsonb;
     v_max_requests integer := 4;
     v_window_seconds integer := 300;
@@ -624,7 +750,7 @@ BEGIN
         RETURN jsonb_build_object('allowed', false, 'code', 'AUTH_REQUIRED', 'error', 'Autenticação necessária.');
     END IF;
 
-    -- 1. Validate Session Guard
+    -- 1. Validate Session Guard (with cryptographic token binding)
     v_validation := public.validate_session_guard(p_session_id, true, p_ip);
     IF (v_validation->>'valid')::boolean IS NOT TRUE THEN
         RETURN jsonb_build_object(
@@ -636,12 +762,13 @@ BEGIN
         );
     END IF;
 
-    -- 2. Determine Tiered AI limits strictly on server
-    SELECT email, role INTO v_email, v_role
+    -- 2. Determine Tiered AI limits strictly on server based on license_tier / role
+    SELECT role, COALESCE(license_tier, 'student')
+    INTO v_role, v_license_tier
     FROM public.users
     WHERE id = v_user_id;
 
-    IF v_email = 'demo.institucional@aeternumatlas.com' OR v_role = 'demo' THEN
+    IF v_license_tier = 'demo' OR v_role = 'demo' THEN
         -- Demo Account: 2 queries per 1 minute
         v_max_requests := 2;
         v_window_seconds := 60;
@@ -681,14 +808,15 @@ BEGIN
             metadata
         ) VALUES (
             v_user_id,
-            p_session_id,
+            (v_validation->>'session_id')::uuid,
             'rate_limit_exceeded',
             p_ip,
             jsonb_build_object(
                 'max_requests', v_max_requests,
                 'window_seconds', v_window_seconds,
                 'request_count', v_rate_row.request_count,
-                'retry_after_seconds', v_retry_after
+                'retry_after_seconds', v_retry_after,
+                'license_tier', v_license_tier
             )
         );
 
@@ -728,45 +856,73 @@ SET search_path = public, auth, pg_temp
 AS $$
 DECLARE
     v_user_id uuid;
+    v_caller_role text;
+    v_jwt_claims jsonb;
+    v_jwt_session_id uuid;
+    v_effective_session_id uuid;
+    v_record public.user_active_sessions%ROWTYPE;
 BEGIN
     v_user_id := auth.uid();
+    v_caller_role := auth.role();
+
     IF v_user_id IS NULL THEN
-        RETURN jsonb_build_object('success', false, 'error', 'AUTH_REQUIRED');
+        RETURN jsonb_build_object('success', false, 'code', 'AUTH_REQUIRED', 'error', 'Autenticação necessária.');
     END IF;
 
-    UPDATE public.user_active_sessions
-    SET status = 'revoked',
-        revoked_reason = p_reason,
-        last_active_at = now()
+    v_jwt_claims := auth.jwt();
+    v_jwt_session_id := NULLIF(v_jwt_claims ->> 'session_id', '')::uuid;
+
+    IF v_caller_role = 'authenticated' THEN
+        v_effective_session_id := COALESCE(v_jwt_session_id, p_session_id);
+    ELSE
+        v_effective_session_id := p_session_id;
+    END IF;
+
+    SELECT * INTO v_record
+    FROM public.user_active_sessions
     WHERE user_id = v_user_id
-      AND (p_session_id IS NULL OR session_id = p_session_id);
+    FOR UPDATE;
 
-    INSERT INTO public.session_guard_events (
-        user_id,
-        session_id,
-        event_type,
-        metadata
-    ) VALUES (
-        v_user_id,
-        COALESCE(p_session_id, '00000000-0000-0000-0000-000000000000'::uuid),
-        'session_revoked',
-        jsonb_build_object('reason', p_reason)
-    );
+    IF NOT FOUND THEN
+        RETURN jsonb_build_object('success', true, 'revoked', false, 'message', 'Nenhuma sessão ativa encontrada.');
+    END IF;
 
-    RETURN jsonb_build_object('success', true, 'status', 'revoked');
+    -- If effective session matches or caller didn't specify
+    IF v_effective_session_id IS NULL OR v_record.session_id = v_effective_session_id THEN
+        UPDATE public.user_active_sessions
+        SET status = 'revoked',
+            revoked_reason = p_reason,
+            last_active_at = now()
+        WHERE user_id = v_user_id;
+
+        INSERT INTO public.session_guard_events (
+            user_id,
+            session_id,
+            event_type,
+            metadata
+        ) VALUES (
+            v_user_id,
+            v_record.session_id,
+            'session_revoked',
+            jsonb_build_object('reason', p_reason)
+        );
+
+        RETURN jsonb_build_object('success', true, 'revoked', true, 'status', 'revoked');
+    END IF;
+
+    RETURN jsonb_build_object('success', false, 'code', 'SESSION_NOT_ACTIVE', 'error', 'Sessão especificada não é a sessão ativa atual.');
 END;
 $$;
 
 
 -- ------------------------------------------------------------------------------
--- 9. ADMINISTRATIVE RECOVERY ROUTINE
--- Unblocks a student or demo user who exceeded the daily transfer limit.
--- Restricted exclusively to service_role and SUPER_ADMIN.
+-- 9. ADMINISTRATIVE OVERRIDE / RESET ROUTINE
+-- Strictly restricted to service_role and users with super_admin / rector role.
 -- ------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION public.admin_reset_user_session(
     p_target_user_id uuid,
-    p_reason text DEFAULT 'admin_reset'
+    p_reason text DEFAULT 'admin_override'
 )
 RETURNS jsonb
 LANGUAGE plpgsql
@@ -776,26 +932,41 @@ AS $$
 DECLARE
     v_caller_id uuid;
     v_caller_role text;
+    v_target_record public.user_active_sessions%ROWTYPE;
 BEGIN
     v_caller_id := auth.uid();
-    
-    -- If called via Supabase service_role, auth.uid() is null but role is service_role
-    IF current_user <> 'service_role' THEN
+    v_caller_role := auth.role();
+
+    -- Service role is always authorized
+    IF v_caller_role <> 'service_role' THEN
+        -- Check if caller is super_admin or rector in public.users
         IF v_caller_id IS NULL THEN
-            RAISE EXCEPTION 'PERMISSION_DENIED: Service role or Super Admin authorization required';
+            RAISE EXCEPTION 'UNAUTHORIZED: Authentication required';
         END IF;
 
-        SELECT role INTO v_caller_role FROM public.users WHERE id = v_caller_id;
-        IF v_caller_role NOT IN ('super_admin', 'rector') THEN
-            RAISE EXCEPTION 'PERMISSION_DENIED: Only Super Admin or Rector can reset active sessions';
+        IF NOT EXISTS (
+            SELECT 1 FROM public.users 
+            WHERE id = v_caller_id 
+              AND role IN ('super_admin', 'rector', 'admin')
+              AND status = 'active'
+        ) THEN
+            RAISE EXCEPTION 'FORBIDDEN: Insufficient administrative privileges';
         END IF;
+    END IF;
+
+    SELECT * INTO v_target_record
+    FROM public.user_active_sessions
+    WHERE user_id = p_target_user_id
+    FOR UPDATE;
+
+    IF NOT FOUND THEN
+        RETURN jsonb_build_object('success', true, 'reset', false, 'message', 'Nenhuma sessão para o usuário informado.');
     END IF;
 
     UPDATE public.user_active_sessions
     SET status = 'revoked',
-        transfer_count_today = 0,
-        transfers_reset_date = current_date,
         revoked_reason = p_reason,
+        transfer_count_today = 0,
         last_active_at = now()
     WHERE user_id = p_target_user_id;
 
@@ -806,31 +977,35 @@ BEGIN
         metadata
     ) VALUES (
         p_target_user_id,
-        '00000000-0000-0000-0000-000000000000'::uuid,
+        v_target_record.session_id,
         'admin_reset',
-        jsonb_build_object('reset_by', COALESCE(v_caller_id::text, 'service_role'), 'reason', p_reason)
+        jsonb_build_object(
+            'reset_by_caller_id', v_caller_id,
+            'caller_role', v_caller_role,
+            'reason', p_reason
+        )
     );
 
-    RETURN jsonb_build_object('success', true, 'target_user_id', p_target_user_id, 'status', 'reset');
+    RETURN jsonb_build_object('success', true, 'reset', true, 'target_user_id', p_target_user_id);
 END;
 $$;
 
 
 -- ------------------------------------------------------------------------------
--- 10. PERMISSION GRANTS (LEAST PRIVILEGE)
--- Revoke from public and anon; grant selectively to authenticated and service_role.
+-- 10. STRICT EXECUTION PRIVILEGES
+-- Revoke execution from PUBLIC and anon; Grant strictly to authenticated and service_role.
 -- ------------------------------------------------------------------------------
 
-REVOKE EXECUTE ON FUNCTION public.register_or_transfer_session FROM PUBLIC, anon;
-REVOKE EXECUTE ON FUNCTION public.validate_session_guard FROM PUBLIC, anon;
-REVOKE EXECUTE ON FUNCTION public.consume_ai_rate_limit_tiered FROM PUBLIC, anon;
-REVOKE EXECUTE ON FUNCTION public.revoke_active_session FROM PUBLIC, anon;
-REVOKE EXECUTE ON FUNCTION public.admin_reset_user_session FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.register_or_transfer_session FROM PUBLIC, anon;
+REVOKE ALL ON FUNCTION public.validate_session_guard FROM PUBLIC, anon;
+REVOKE ALL ON FUNCTION public.consume_ai_rate_limit_tiered FROM PUBLIC, anon;
+REVOKE ALL ON FUNCTION public.revoke_active_session FROM PUBLIC, anon;
+REVOKE ALL ON FUNCTION public.admin_reset_user_session FROM PUBLIC, anon;
 
 GRANT EXECUTE ON FUNCTION public.register_or_transfer_session TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.validate_session_guard TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.consume_ai_rate_limit_tiered TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.revoke_active_session TO authenticated, service_role;
-GRANT EXECUTE ON FUNCTION public.admin_reset_user_session TO service_role;
+GRANT EXECUTE ON FUNCTION public.admin_reset_user_session TO authenticated, service_role;
 
 COMMIT;
