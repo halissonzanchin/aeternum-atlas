@@ -74,7 +74,9 @@ export const createApp = (config: TokenServerConfig) => {
         } else if (rawToken === "atlas-authorized-dev-token") {
           tokenHasVoiceClaim = true;
         }
-      } catch {}
+      } catch {
+        /* empty */
+      }
     }
 
     const isEntitled = tokenHasVoiceClaim || voiceEntitledHeader === "true";

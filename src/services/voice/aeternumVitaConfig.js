@@ -28,7 +28,9 @@ export function isVitaVoiceEnabled(targetUser = null) {
       if (stored) {
         user = JSON.parse(stored);
       }
-    } catch {}
+    } catch {
+      /* empty */
+    }
   }
 
   if (user) {
