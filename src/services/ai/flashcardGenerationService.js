@@ -275,7 +275,7 @@ function extractCardsFromScientificProse(topic, rawText, { difficulty = "Médio"
       .replace(/^[\s,;."'-]+|[\s,;."'-]+$/g, "")
       .replace(/^[:\s-]+/, "")
       .trim();
-    if (cleanBack.length < 5) continue;
+    if (cleanBack.length < 5 || cleanBack.endsWith("?") || /^(qual|quais|como|onde|por que|descreva|explique)\b/i.test(cleanBack)) continue;
 
     usedAnswers.add(normalizeFlashcardText(cleanBack));
 
