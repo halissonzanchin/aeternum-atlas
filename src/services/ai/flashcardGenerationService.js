@@ -45,11 +45,12 @@ function extractCitationFromText(text, language = "pt") {
   const match = text.match(/\[(SRC-[A-Z0-9-]+|PAS-[A-Z0-9-]+|REF-[A-Z0-9-]+)\]/);
   if (match) {
     const id = match[1];
-    if (id.includes("MOORE")) return "Moore Anatomia Orientada para a Clínica [SRC-MOORE-2018]";
-    if (id.includes("LATARJET")) return "Latarjet & Ruiz Liard Anatomia Humana [SRC-LATARJET]";
-    if (id.includes("NETTER")) return "Netter Atlas de Anatomia Humana [SRC-NETTER]";
-    if (id.includes("GRAY")) return "Gray's Anatomia para Estudantes [SRC-GRAYS]";
-    return `Evidência Científica Verificada [${id}]`;
+    if (id.includes("MOORE")) return "Moore, Dalley & Agur — Anatomia Orientada para a Clínica (8ª Ed., Wolters Kluwer) [SRC-MOORE-2018]";
+    if (id.includes("LATARJET")) return "Latarjet & Ruiz Liard — Anatomia Humana (5ª Ed., Panamericana) [SRC-LATARJET]";
+    if (id.includes("NETTER")) return "Netter — Atlas de Anatomia Humana (7ª Ed., Elsevier) [SRC-NETTER-2019]";
+    if (id.includes("GRAY")) return "Gray's Anatomy — The Anatomical Basis of Clinical Practice (42ª Ed., Elsevier) [SRC-GRAY-2020]";
+    if (id.includes("TA2")) return "Terminologia Anatomica Internacional (IFAA/FIPAT, 2ª Ed.) [SRC-TA2-2019]";
+    return `Evidência Científica Canônica [${id}]`;
   }
   return GENERATED_SOURCES[language] || GENERATED_SOURCES.pt;
 }
@@ -225,23 +226,23 @@ function extractCardsFromScientificProse(topic, rawText, { difficulty = "Médio"
 
   for (let i = 0; i < templates.length && cards.length < count; i += 1) {
     const tpl = templates[i];
-    let matching = factsPool.find((f) => tpl.predicate(f) && !usedAnswers.has(normalizeFlashcardText(f)));
+    const matching = factsPool.find((f) => tpl.predicate(f) && !usedAnswers.has(normalizeFlashcardText(f)));
     if (!matching) {
-      matching = factsPool[i % factsPool.length];
+      continue;
     }
 
-    let finalBack = matching.trim();
-    if (usedAnswers.has(normalizeFlashcardText(finalBack))) {
-      finalBack = `${tpl.prefix}: ${finalBack}`;
-    }
+    const cleanBack = matching.trim().replace(/^["'\s]+|["'\s]+$/g, "");
+    if (cleanBack.length < 5) continue;
 
-    usedAnswers.add(normalizeFlashcardText(finalBack));
+    usedAnswers.add(normalizeFlashcardText(cleanBack));
+
+    const explanation = paragraphs.find((p) => p.includes(matching)) || paragraphs[0] || cleanBack;
 
     const card = sanitizeTutorCard(
       {
         front: tpl.front,
-        back: finalBack,
-        explanation: paragraphs[i % paragraphs.length] || matching.trim(),
+        back: cleanBack,
+        explanation,
         learningObjective: tpl.objective
       },
       { topic, difficulty, index: i, language, defaultCitation: citation }
@@ -386,18 +387,30 @@ export async function generateAnatomicalFlashcards({
       sendTutorMessage
     });
 
-    // Se o pedido era de lote grande (20) e a primeira inferência gerou menos, executa lote complementar
-    if (requestedCount > 10 && (curatedCards.length + tutorCards.length) < requestedCount && tutorCards.length > 0) {
-      const remainingNeeded = requestedCount - (curatedCards.length + tutorCards.length);
-      const secondBatch = await generateTutorCards({
-        topic: `${canonicalTopic} - relações clínicas e funcionais`,
-        difficulty: resolvedDifficulty,
-        count: remainingNeeded,
-        existingCards: [...curatedCards, ...tutorCards],
-        language: langKey,
-        sendTutorMessage
-      });
-      tutorCards = [...tutorCards, ...secondBatch];
+    // Se o pedido era de lote expandido (10 a 20) e ainda faltam cartões únicos com evidência anatômica:
+    if (requestedCount > (curatedCards.length + tutorCards.length) && tutorCards.length > 0) {
+      const subqueries = [
+        `${canonicalTopic} - relações anatômicas sintópicas, veia cava superior, tronco pulmonar e pericárdio`,
+        `${canonicalTopic} - seios aórticos de Valsalva, emergência das artérias coronárias e histologia da túnica média elástica`,
+        `${canonicalTopic} - correlações clínicas, dissecção aórtica de Stanford, tamponamento cardíaco e canulação para circulação extracorpórea`,
+        `${canonicalTopic} - união sinotubular, bulbo da aorta, variações anatômicas documentadas e propedêutica semiológica`
+      ];
+
+      for (const subtopic of subqueries) {
+        if ((curatedCards.length + tutorCards.length) >= requestedCount) break;
+        const remainingNeeded = requestedCount - (curatedCards.length + tutorCards.length);
+        const batch = await generateTutorCards({
+          topic: subtopic,
+          difficulty: resolvedDifficulty,
+          count: remainingNeeded,
+          existingCards: [...curatedCards, ...tutorCards],
+          language: langKey,
+          sendTutorMessage
+        });
+        if (batch.length > 0) {
+          tutorCards = deduplicateCards([...tutorCards, ...batch]);
+        }
+      }
     }
   }
 
