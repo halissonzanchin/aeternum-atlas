@@ -180,6 +180,9 @@ Deno.serve(async (req: Request) => {
       }, 503);
     }
 
+    // ==========================================
+    // FAIL-CLOSED DEFAULT-DENY AUTHORIZATION POLICY (P0)
+    // ==========================================
     if (!profile || !["active", "ativo"].includes(String(profile.status).toLowerCase())) {
       return jsonResponse(req, {
         error: "Perfil não autorizado para sessões de voz.",
@@ -187,10 +190,18 @@ Deno.serve(async (req: Request) => {
       }, 403);
     }
 
-    // Institutional Demo Isolation Guard: VoiceStudio strictly denied for demo accounts
-    if (String(authData.user.email || "").toLowerCase() === "demo.institucional@aeternumatlas.com") {
+    // Server-verified permission: requires explicit administrative entitlement in app_metadata.
+    // Client-provided user_metadata, email, tenant, or role are strictly ignored for authorization.
+    const appMetadata = (authData.user.app_metadata || {}) as Record<string, unknown>;
+    const isVoiceEntitled = Boolean(
+      appMetadata.voice_enabled === true ||
+      appMetadata.is_voice_pilot === true ||
+      appMetadata.voice_entitlement === "active"
+    );
+
+    if (!isVoiceEntitled) {
       return jsonResponse(req, {
-        error: "O recurso VoiceStudio não está disponível para esta conta de demonstração institucional.",
+        error: "O recurso VoiceStudio não está habilitado para esta conta. Acesso restrito a participantes autorizados do programa piloto.",
         code: "VOICESTUDIO_NOT_PERMITTED"
       }, 403);
     }

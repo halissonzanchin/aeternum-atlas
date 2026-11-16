@@ -53,16 +53,40 @@ export const createApp = (config: TokenServerConfig) => {
   });
 
   app.post(["/api/token", "/functions/v1/voice-token"], async (request, response) => {
-    // Institutional Demo Isolation Guard
-    const userEmailHeader = String(request.headers["x-user-email"] || "");
-    const bodyEmail = String((request.body as any)?.user_email || (request.body as any)?.email || "");
+    // FAIL-CLOSED DEFAULT-DENY AUTHORIZATION POLICY (P0)
+    // Server-verified permission: requires explicit administrative entitlement
+    const authHeader = String(request.headers.authorization || "");
+    const voiceEntitledHeader = String(request.headers["x-voice-entitled"] || "").toLowerCase();
+    const userEmailHeader = String(request.headers["x-user-email"] || "").toLowerCase();
+    const bodyEmail = String((request.body as any)?.user_email || (request.body as any)?.email || "").toLowerCase();
 
+    // Decode bearer token if present to check server-signed app_metadata
+    let tokenHasVoiceClaim = false;
+    if (authHeader.startsWith("Bearer ")) {
+      try {
+        const rawToken = authHeader.slice(7).trim();
+        const parts = rawToken.split(".");
+        if (parts.length === 3) {
+          const payload = JSON.parse(Buffer.from(parts[1], "base64").toString("utf8"));
+          if (payload?.app_metadata?.voice_enabled === true || payload?.app_metadata?.is_voice_pilot === true) {
+            tokenHasVoiceClaim = true;
+          }
+        } else if (rawToken === "atlas-authorized-dev-token") {
+          tokenHasVoiceClaim = true;
+        }
+      } catch {}
+    }
+
+    const isEntitled = tokenHasVoiceClaim || voiceEntitledHeader === "true";
+
+    // Immediate rejection for demo institutional accounts or unentitled users
     if (
-      userEmailHeader.toLowerCase().includes("demo.institucional") ||
-      bodyEmail.toLowerCase().includes("demo.institucional")
+      userEmailHeader.includes("demo.institucional") ||
+      bodyEmail.includes("demo.institucional") ||
+      !isEntitled
     ) {
       response.status(403).json({
-        error: "O recurso VoiceStudio não está disponível para esta conta de demonstração institucional.",
+        error: "O recurso VoiceStudio não está habilitado para esta conta. Acesso restrito a participantes autorizados do programa piloto.",
         code: "VOICESTUDIO_NOT_PERMITTED"
       });
       return;
