@@ -2,6 +2,12 @@ import { createClient } from "npm:@supabase/supabase-js@2.105.4";
 import { safeEngine, SAFE_ENGINE_VERSION, CANONICAL_MEMORY_VERSION } from "./safe-engine/core/safeEngine.ts";
 
 // =========================================================================
+// IDENTIDADE SOBERANA DO TUTOR COMERCIAL (P0.1)
+// =========================================================================
+export const PRIMARY_TUTOR_PROVIDER = "aeternum-gateway";
+export const PRIMARY_TUTOR_MODEL = "aeternum-llm"; // TutorEngine Rust + Qwen 3.5 4B
+
+// =========================================================================
 // TIPOS E CONTRATOS DA APLICAÇÃO AI-TUTOR (FASE R3 SOVEREIGN PIPELINE)
 // =========================================================================
 
@@ -251,23 +257,15 @@ async function retrieveKnowledge(
         return { sources: rows, method: "postgresql-fts" };
       }
 
-      // 3. Fallback to canonical match_anatomical_knowledge
-      const { data: legacyData, error: legacyError } = await adminClient.rpc("match_anatomical_knowledge", {
-        search_query: q,
-        match_count: MAX_KNOWLEDGE_RESULTS
-      });
-      if (!legacyError && Array.isArray(legacyData) && legacyData.length > 0) {
-        const rows: KnowledgeRow[] = legacyData.map((d: any) => ({
-          id: d.id,
-          book_title: d.book_title || "Aeternum Atlas Anatomical Knowledge",
-          chapter_title: d.chapter_title || d.topic,
-          page_number: d.page_number,
-          content: d.content,
-          similarity: d.similarity || d.lexical_rank,
-          lexical_rank: d.lexical_rank
-        }));
-        return { sources: rows, method: "legacy-rpc" };
-      }
+      // RECONCILIAÇÃO ARQUITETURAL CANÔNICA (P0.1):
+      // A RPC legada `match_anatomical_knowledge(vector, double precision, integer)`
+      // exigia embedding vetorial e operava sobre tabela sem rastreabilidade de proveniência SHA-256.
+      // Na arquitetura soberana (Fase R3), a recuperação autorizada é estritamente conduzida por:
+      // 1. `match_vita_sovereign_knowledge(search_query, target_entities, match_count)` (fontes homologadas)
+      // 2. `match_vita_anatomical_knowledge(search_query, match_count)` (FTS canônico soberano)
+      // É expressamente proibido realizar fallback silencioso para RPCs legadas com assinaturas
+      // divergentes ou para fontes sem proveniência, versão e licença verificadas.
+      // Se nenhuma fonte autorizada for encontrada, o Evidence Gate aciona abstenção controlada.
     } catch (err) {
       console.warn("[ai-tutor] knowledge retrieval query error for query", q, err);
     }
@@ -482,8 +480,8 @@ async function executeGatewayLLMCall(
           if (retryRes.ok) {
             const data = await retryRes.json();
             const text = data?.data?.text || data?.text || "";
-            const provider = data?.data?.providerId || data?.metadata?.finalProvider || "gemini-llm-cloud";
-            const model = data?.data?.modelId || "gemini-3.7-flash";
+            const provider = data?.data?.providerId || data?.metadata?.finalProvider || PRIMARY_TUTOR_PROVIDER;
+            const model = data?.data?.modelId || PRIMARY_TUTOR_MODEL;
             return {
               text,
               latencyMs: Math.round(performance.now() - start),
@@ -513,8 +511,8 @@ async function executeGatewayLLMCall(
 
     const data = await response.json();
     const text = data?.data?.text || data?.text || "";
-    const provider = data?.data?.providerId || data?.metadata?.finalProvider || "gemini-llm-cloud";
-    const model = data?.data?.modelId || "gemini-3.7-flash";
+    const provider = data?.data?.providerId || data?.metadata?.finalProvider || PRIMARY_TUTOR_PROVIDER;
+    const model = data?.data?.modelId || PRIMARY_TUTOR_MODEL;
 
     return {
       text,
@@ -576,7 +574,7 @@ async function callGeminiCloudDirect(
     };
   }
 
-  const candidateModels = ["gemini-3.5-flash-lite", "gemini-2.5-flash", "aeternum-llm"];
+  const candidateModels = ["gemini-2.5-flash"];
   let lastStatus = 504;
   let lastReason = "PROVIDER_ERROR";
   for (const candidateModel of candidateModels) {
@@ -593,7 +591,7 @@ async function callGeminiCloudDirect(
         lastStatus = res.status;
         const errText = await res.text().catch(() => "");
         lastReason = `HTTP_${res.status}: ${errText.slice(0, 100)}`;
-        console.warn(`[ai-tutor] gemini direct call with ${candidateModel} failed: HTTP ${res.status}:`, errText);
+        console.warn(`[ai-tutor] gemini direct diagnostic call with ${candidateModel} failed: HTTP ${res.status}:`, errText);
         continue;
       }
       const data = await res.json();
@@ -607,19 +605,16 @@ async function callGeminiCloudDirect(
           provider: "gemini-llm-cloud",
           model: candidateModel,
           primaryProvider: "gemini-llm-cloud",
-          primaryModel: "gemini-3.7-flash",
-          fallbackUsed: true,
-          providerFallbackUsed: false,
-          modelFallbackUsed: true,
-          fallbackReason: "GATEWAY_OR_PRIMARY_MODEL_QUOTA_EXHAUSTED",
-          attemptCount: 2,
+          primaryModel: candidateModel,
+          fallbackUsed: false,
+          attemptCount: 1,
           success: true,
           canonicalReason: "SUCCESS"
         };
       }
     } catch (err: any) {
       lastReason = err?.name === "TimeoutError" ? "TIMEOUT" : String(err?.message || err);
-      console.warn(`[ai-tutor] gemini direct call error for ${candidateModel}:`, err);
+      console.warn(`[ai-tutor] gemini direct diagnostic call error for ${candidateModel}:`, err);
     }
   }
 
@@ -629,7 +624,7 @@ async function callGeminiCloudDirect(
     latencyMs,
     status: lastStatus,
     provider: "gemini-llm-cloud",
-    model: "gemini-3.5-flash-lite",
+    model: "gemini-2.5-flash",
     success: false,
     canonicalReason: lastReason
   };
@@ -823,6 +818,36 @@ export async function handleAiTutorRequest(
       embeddingLength: geminiKey ? 768 : 0,
       success: Boolean(geminiKey)
     }, geminiKey ? 200 : 503, cors);
+  }
+
+  // Rota isolada exclusivamente para diagnóstico legado (nunca executada no fluxo de conversação)
+  if (payload.probe === "legacy_gemini_cloud_diagnostic") {
+    if (!geminiKey) {
+      return jsonResponse({
+        stage: "legacy_gemini_cloud_diagnostic",
+        status: 503,
+        error: "GEMINI_API_KEY não configurada.",
+        success: false
+      }, 503, cors);
+    }
+    const diagRes = await callGeminiCloudDirect(
+      geminiKey,
+      "Você é um diagnosticador técnico isolado do Aeternum Atlas.",
+      [],
+      "ping",
+      deps.fetchFn || fetch
+    );
+    return jsonResponse({
+      stage: "legacy_gemini_cloud_diagnostic",
+      isolated: true,
+      provider: diagRes.provider,
+      model: diagRes.model,
+      status: diagRes.status,
+      success: diagRes.success
+    }, diagRes.success ? 200 : 503, {
+      ...cors,
+      "X-Aeternum-Diagnostic-Route": "LEGACY_CLOUD_DIRECT"
+    });
   }
 
   const messages = Array.isArray(payload.messages) ? payload.messages : [];
@@ -1075,26 +1100,18 @@ export async function handleAiTutorRequest(
     deps.fetchFn || fetch
   );
 
-  // Cloud Provider Fallback if Gateway fails (e.g. HTTP 503/504 or primary model quota exhaustion)
-  if ((!gatewayResult.success || !gatewayResult.text.trim()) && geminiKey) {
-    const fallbackRes = await callGeminiCloudDirect(
-      geminiKey,
-      sysInstructionText,
-      priorHistory,
-      prompt,
-      deps.fetchFn || fetch
-    );
-    if (fallbackRes.success && fallbackRes.text.trim()) {
-      gatewayResult = fallbackRes;
-    }
-  }
+  // GOVERNANÇA SOBERANA P0.1: PROIBIÇÃO DE FALLBACK SILENCIOSO PARA OUTROS LLMs
+  // O Tutor comercial está estritamente associado ao TutorEngine Rust e ao Qwen 3.5 4B (aeternum-llm).
+  // Não é permitida a substituição silenciosa por Gemini ou outros modelos.
+  // Quando o Gateway soberano falhar ou estiver indisponível, deve-se retornar uma resposta
+  // controlada de indisponibilidade (HTTP 503 AI_GATEWAY_UNAVAILABLE) ou abstenção, nunca fallback opaco.
 
   let gatewayLatencyMs = parseFloat((performance.now() - tGatewayStart).toFixed(2));
 
   if (!gatewayResult.success || !gatewayResult.text.trim()) {
     const totalLatencyMs = Math.round(performance.now() - tStart);
     return jsonResponse({
-      error: "Tutor IA temporariamente indisponível. Falha na comunicação com o Gateway.",
+      error: "Tutor IA temporariamente indisponível. Falha na comunicação com o Gateway soberano.",
       code: "AI_GATEWAY_UNAVAILABLE",
       gatewayStatus: gatewayResult.status,
       canonicalReason: gatewayResult.canonicalReason,
@@ -1126,20 +1143,10 @@ export async function handleAiTutorRequest(
       contextMeta,
       deps.fetchFn || fetch
     );
-    if ((!gatewayResult.success || !gatewayResult.text.trim()) && geminiKey) {
-      const fallbackRetry = await callGeminiCloudDirect(
-        geminiKey,
-        sysInstructionText + "\nATENÇÃO: Sua resposta anterior violou restrições de segurança ou premissa. Corrija rigorosamente.",
-        priorHistory,
-        prompt,
-        deps.fetchFn || fetch
-      );
-      if (fallbackRetry.success && fallbackRetry.text.trim()) {
-        gatewayResult = fallbackRetry;
-      }
-    }
     gatewayLatencyMs += parseFloat((performance.now() - tRetryStart).toFixed(2));
-    validation = validateResponseContent(gatewayResult.text, safeResult.facts_used, sources);
+    if (gatewayResult.success && gatewayResult.text.trim()) {
+      validation = validateResponseContent(gatewayResult.text, safeResult.facts_used, sources);
+    }
   }
   const validatorLatencyMs = parseFloat((performance.now() - tValStart).toFixed(2));
 
