@@ -1156,8 +1156,10 @@ export async function handleAiTutorRequest(
     String(profile.name || "")
   );
 
-  if (context.source === "mind-map") {
+  if (context.source === "mind-map" || payload.task === "generate_mind_map") {
     sysInstructionText += "\n\nModo de saída — Mapa Mental Anatômico:\nResponda SOMENTE com o esboço hierárquico solicitado.";
+  } else if (context.source === "flashcards" || payload.task === "generate_flashcards") {
+    sysInstructionText += "\n\nModo de saída — Flashcards Anatômicos:\nResponda SOMENTE com um array JSON válido contendo os objetos flashcard [{\"front\": \"...\", \"back\": \"...\", \"explanation\": \"...\", \"learningObjective\": \"...\"}], sem introdução, sem conclusão e sem blocos Markdown.";
   }
 
   const contextMeta = {

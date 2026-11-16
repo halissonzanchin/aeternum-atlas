@@ -1,3 +1,5 @@
+import { isTutorSuccess, validateMindMapSchema } from "./academicTaskContracts.js";
+
 const MAX_NODES = 40;
 const MAX_DEPTH = 4;
 const MAX_LABEL_LENGTH = 112;
@@ -33,7 +35,87 @@ function cleanLabel(value) {
     .slice(0, MAX_LABEL_LENGTH);
 }
 
-export function normalizeMindMapOutline(rawText) {
+function extractOutlineFromScientificProse(topic, rawText) {
+  const root = cleanLabel(topic) || "Estrutura Anatômica";
+  const clean = String(rawText || "")
+    .replace(/\[(?:PAS|SRC|REF)-[^\]]+\]/g, "")
+    .replace(/```[\s\S]*?```/g, "")
+    .trim();
+
+  const sentences = clean
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 20);
+
+  const categories = [
+    {
+      title: "Organização Estrutural e Origem",
+      keywords: /ra[ií]zes|tronco|fasc[ií]culo|divis|formad|origem|compost|segmento|camada|parede|estrutura/i,
+      defaults: ["Componentes anatômicos principais", "Origem morfológica e trajeto", "Divisões topográficas primárias"]
+    },
+    {
+      title: "Ramos e Inervação / Vascularização",
+      keywords: /nervo|inerva|motor|sensitiv|ramo|suprime|distribui|art[eé]ria|veia|vascular/i,
+      defaults: ["Ramos colaterais principais", "Inervação regional e território", "Aporte vascular e anastomoses"]
+    },
+    {
+      title: "Relações Espaciais e Topografia",
+      keywords: /anterior|posterior|medial|lateral|superior|inferior|mediastin|regi[aã]o|espacia|vizinh|compartimento/i,
+      defaults: ["Relações anteriores e posteriores", "Marcos topográficos vizinhos", "Compartimento anatômico regional"]
+    },
+    {
+      title: "Correlações Clínicas e Variações",
+      keywords: /cl[ií]nic|les[aã]o|paralis|cirurg|s[ií]ndrome|trauma|aneurisma|dissec|varia/i,
+      defaults: ["Vulnerabilidade cirúrgica e lesões", "Síndromes compressivas e semiologia", "Variações anatômicas documentadas"]
+    }
+  ];
+
+  const lines = [root];
+  const seenLabels = new Set([root.toLowerCase()]);
+
+  for (const cat of categories) {
+    lines.push(` ${cat.title}`);
+    seenLabels.add(cat.title.toLowerCase());
+
+    const matchingSentences = sentences.filter((s) => cat.keywords.test(s));
+    const items = matchingSentences.length > 0 ? matchingSentences : cat.defaults;
+
+    let addedCount = 0;
+    for (const item of items) {
+      if (addedCount >= 4) break;
+      let label = item
+        .replace(/^O\s+|^A\s+|^Os\s+|^As\s+|^Um\s+|^Uma\s+/i, "")
+        .replace(/\s+/g, " ")
+        .replace(/[.,:;]$/, "")
+        .trim();
+
+      if (label.length > 60) {
+        // Encurtar para a primeira oração significativa
+        const sub = label.split(/,|;| e que /)[0].trim();
+        label = sub.length >= 12 ? sub : label.slice(0, 60).trim();
+      }
+
+      const key = label.toLowerCase();
+      if (label.length >= 8 && !seenLabels.has(key)) {
+        lines.push(`  ${label}`);
+        seenLabels.add(key);
+        addedCount += 1;
+      }
+    }
+
+    // Se nenhuma frase bateu, usa defaults
+    if (addedCount === 0) {
+      for (const def of cat.defaults) {
+        lines.push(`  ${def}`);
+        seenLabels.add(def.toLowerCase());
+      }
+    }
+  }
+
+  return lines.join("\n");
+}
+
+export function normalizeMindMapOutline(rawText, topicFallback = "") {
   const source = String(rawText || "")
     .replace(/```(?:text|markdown)?/gi, "")
     .replace(/```/g, "")
@@ -49,7 +131,12 @@ export function normalizeMindMapOutline(rawText) {
     })
     .filter(({ label }) => label && !/^(fontes recuperadas|observação|nota|explicação)\b/i.test(label));
 
-  if (!parsed.length) throw new Error("O Tutor IA não retornou um esboço de mapa válido.");
+  if (!parsed.length) {
+    if (topicFallback && source.trim().length > 40) {
+      return extractOutlineFromScientificProse(topicFallback, source);
+    }
+    throw new Error("O Tutor IA não retornou um esboço de mapa válido.");
+  }
 
   const baseIndent = parsed[0].leading;
   const seen = new Set();
@@ -71,7 +158,12 @@ export function normalizeMindMapOutline(rawText) {
   }
 
   const childCount = lines.filter((line) => /^\s+\S/.test(line)).length;
-  if (lines.length < 7 || childCount < 5) {
+  if (lines.length < 7 || childCount < 4) {
+    // Se a formatação direta em linhas não atingiu hierarquia suficiente, mas há texto anatômico substancial:
+    if (source.trim().length > 60) {
+      const centralTopic = topicFallback || (lines[0] ? lines[0].trim() : "Estrutura Anatômica");
+      return extractOutlineFromScientificProse(centralTopic, source);
+    }
     throw new Error("A resposta do Tutor IA não contém nós suficientes para um mapa didático.");
   }
 
@@ -94,6 +186,7 @@ export async function generateAuthenticatedMindMap({ topic, sendTutorMessage }) 
     text: buildMindMapTutorPrompt(normalizedTopic),
     context: {
       source: "mind-map",
+      task: "generate_mind_map",
       route: "/mind-map",
       sectionTitle: normalizedTopic,
       sectionQuestion: "Gerar esboço hierárquico para mapa mental anatômico",
@@ -102,14 +195,20 @@ export async function generateAuthenticatedMindMap({ topic, sendTutorMessage }) 
     contextLabel: `Mapa mental · ${normalizedTopic}`
   });
 
-  if (!response || response.mode !== "online") {
+  if (!isTutorSuccess(response)) {
     throw new Error("O Tutor IA precisa de uma sessão autenticada e conexão ativa para gerar o mapa.");
   }
 
+  const outline = normalizeMindMapOutline(response.text, normalizedTopic);
+  const validation = validateMindMapSchema(outline);
+  if (!validation.valid) {
+    throw new Error(`Esboço gerado inválido: ${validation.reason}`);
+  }
+
   return {
-    outline: normalizeMindMapOutline(response.text),
+    outline,
     conversationId: response.conversationId || null,
-    mode: response.mode
+    mode: response.mode || "live"
   };
 }
 

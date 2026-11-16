@@ -654,8 +654,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         <A26Sidebar label={t("mindMap.title", { defaultValue: "Editor do mapa mental" })} className={`mindmap-sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
         <A26Surface material="clear" tone="teal" className="mindmap-ai-composer">
           <div className="mindmap-ai-composer__status">
-            <span className={`mindmap-status-dot is-${connectionMode || "offline"}`} aria-hidden="true" />
-            <span>{connectionMode === "online" ? t("mindMap.tutorOnline", { defaultValue: "Tutor IA autenticado" }) : t("mindMap.tutorOffline", { defaultValue: "Tutor IA requer conexão" })}</span>
+            <span className={`mindmap-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")}`} aria-hidden="true" />
+            <span>{(connectionMode === "online" || connectionMode === "live") ? t("mindMap.tutorOnline", { defaultValue: "Tutor IA autenticado" }) : t("mindMap.tutorOffline", { defaultValue: "Tutor IA requer conexão" })}</span>
           </div>
           <A26Field
             label={t("mindMap.topicLabel", { defaultValue: "Tema anatômico" })}

@@ -1,6 +1,6 @@
-import { migrateLegacyTelemetryStorage, readStorage, storageKeys, writeStorage } from "./storage/storageService";
-import { getSupabaseClient, isSupabaseConfigured } from "./supabase/supabaseClient";
-import { normalizedActiveSeconds } from "./learningMetrics";
+import { migrateLegacyTelemetryStorage, readStorage, storageKeys, writeStorage } from "./storage/storageService.js";
+import { getSupabaseClient, isSupabaseConfigured } from "./supabase/supabaseClient.js";
+import { normalizedActiveSeconds } from "./learningMetrics.js";
 
 const ANONYMOUS_USER_ID = "anonymous";
 

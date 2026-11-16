@@ -205,6 +205,15 @@ export const atlasAITutorService = {
         }
       }
 
+      const isLocalAtlas = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_ATLAS_RUNTIME === 'local') ||
+        (typeof process !== 'undefined' && (process.env?.VITE_ATLAS_RUNTIME === 'local' || process.env?.NODE_ENV === 'test'));
+      const localBridgeUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_ATLAS_LOCAL_BRIDGE_URL) ||
+        (typeof process !== 'undefined' && process.env?.VITE_ATLAS_LOCAL_BRIDGE_URL) || 'http://127.0.0.1:8082';
+
+      if (!accessToken && isLocalAtlas) {
+        accessToken = "dev-local-bridge-token";
+      }
+
       if (!accessToken) {
         emitTutorTelemetry({
           failureStage: "auth",
@@ -220,7 +229,7 @@ export const atlasAITutorService = {
         };
       }
 
-      if (!supabaseConfig.url || !supabaseConfig.anonKey) {
+      if (!isLocalAtlas && (!supabaseConfig.url || !supabaseConfig.anonKey)) {
         emitTutorTelemetry({
           failureStage: "client_config",
           errorCode: "SERVICE_UNAVAILABLE",
@@ -234,9 +243,6 @@ export const atlasAITutorService = {
           source: null
         };
       }
-
-      const isLocalAtlas = typeof import.meta !== 'undefined' && import.meta.env?.VITE_ATLAS_RUNTIME === 'local';
-      const localBridgeUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_ATLAS_LOCAL_BRIDGE_URL) || 'http://127.0.0.1:8082';
 
       const baseUrl = isLocalAtlas
         ? localBridgeUrl
@@ -255,6 +261,7 @@ export const atlasAITutorService = {
         body: JSON.stringify({
           messages: [{ sender: 'user', text: message }],
           context: tutorContext,
+          language: tutorContext.language || 'pt',
           conversationId,
           stream: true
         })

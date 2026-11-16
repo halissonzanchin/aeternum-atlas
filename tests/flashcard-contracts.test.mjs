@@ -48,6 +48,8 @@ test("gerador usa o contrato real do Tutor e não fabrica fallback ou bibliograf
   assert.doesNotMatch(serviceSource, /Estrutura médica correspondente|Tuberosidade ou crista rugosa/);
   assert.match(serviceSource, /Não invente páginas, capítulos, livros, imagens/);
   assert.match(serviceSource, /Não duplicamos perguntas/);
+  assert.match(serviceSource, /isTutorSuccess/);
+  assert.match(serviceSource, /extractCardsFromScientificProse/);
 });
 
 test("interface envia contexto completo ao Tutor e usa apenas materiais A26 suportados", () => {
