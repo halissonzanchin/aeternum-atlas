@@ -250,6 +250,24 @@ async function retrieveKnowledge(
         }));
         return { sources: rows, method: "postgresql-fts" };
       }
+
+      // 3. Fallback to canonical match_anatomical_knowledge
+      const { data: legacyData, error: legacyError } = await adminClient.rpc("match_anatomical_knowledge", {
+        search_query: q,
+        match_count: MAX_KNOWLEDGE_RESULTS
+      });
+      if (!legacyError && Array.isArray(legacyData) && legacyData.length > 0) {
+        const rows: KnowledgeRow[] = legacyData.map((d: any) => ({
+          id: d.id,
+          book_title: d.book_title || "Aeternum Atlas Anatomical Knowledge",
+          chapter_title: d.chapter_title || d.topic,
+          page_number: d.page_number,
+          content: d.content,
+          similarity: d.similarity || d.lexical_rank,
+          lexical_rank: d.lexical_rank
+        }));
+        return { sources: rows, method: "legacy-rpc" };
+      }
     } catch (err) {
       console.warn("[ai-tutor] knowledge retrieval query error for query", q, err);
     }
@@ -558,7 +576,7 @@ async function callGeminiCloudDirect(
     };
   }
 
-  const candidateModels = ["gemini-3.5-flash-lite", "gemini-flash-lite-latest", "gemini-flash-latest"];
+  const candidateModels = ["gemini-3.5-flash-lite", "gemini-2.5-flash", "aeternum-llm"];
   let lastStatus = 504;
   let lastReason = "PROVIDER_ERROR";
   for (const candidateModel of candidateModels) {
@@ -1025,13 +1043,17 @@ export async function handleAiTutorRequest(
     }, 503, cors);
   }
 
-  const sysInstructionText = buildSynthesisPrompt(
+  let sysInstructionText = buildSynthesisPrompt(
     prompt,
     String(profile.role || "student"),
     safeResult.facts_used,
     sources,
     String(profile.name || "")
   );
+
+  if (context.source === "mind-map") {
+    sysInstructionText += "\n\nModo de saída — Mapa Mental Anatômico:\nResponda SOMENTE com o esboço hierárquico solicitado.";
+  }
 
   const contextMeta = {
     source: "atlas-ai-tutor",

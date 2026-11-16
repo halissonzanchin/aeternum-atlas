@@ -7,7 +7,7 @@
  * Maps user phrasing directly to canonical entity identifiers in Registry V2.1.
  */
 
-export function normalizeQuery(queryText) {
+export function normalizeQuery(queryText: string): string {
   if (!queryText || typeof queryText !== 'string') {
     return '';
   }
@@ -98,7 +98,6 @@ export const ANATOMICAL_ALIASES = {
   'fossa infraespinhal': 'AET-ENT-UL-SCAPULAR_INFRASPINOUS_FOSSA',
   'infraespinosa': 'AET-ENT-UL-SCAPULAR_INFRASPINOUS_FOSSA',
   'fossa subescapular': 'AET-ENT-UL-SCAPULAR_SUBSCAPULAR_FOSSA',
-  'subescapular': 'AET-ENT-UL-SCAPULAR_SUBSCAPULAR_FOSSA',
 
   // Surfaces & Borders & Angles & Subregions
   'face costal': 'AET-ENT-UL-SCAPULAR_COSTAL_SURFACE',

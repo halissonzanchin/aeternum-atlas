@@ -31,8 +31,9 @@ test("A26Surface implements dynamic chromatic spectrum and Blinn-Phong specular"
 });
 
 test("Aeternum 26.1 SKILL.md declares the 4-Pillar Physical Lens Architecture", () => {
-  const skillPath = path.join(process.env.USERPROFILE, ".gemini/config/skills/aeternum-26-liquid-glass/SKILL.md");
-  if (fs.existsSync(skillPath)) {
+  const homeDir = process.env.USERPROFILE || process.env.HOME || "";
+  const skillPath = homeDir ? path.join(homeDir, ".gemini/config/skills/aeternum-26-liquid-glass/SKILL.md") : null;
+  if (skillPath && fs.existsSync(skillPath)) {
     const file = fs.readFileSync(skillPath, "utf8");
     assert.match(file, /Physical Lens Architecture/i);
     assert.match(file, /Magnification Distortion/i);

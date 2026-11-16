@@ -179,13 +179,13 @@ const PORTUGUESE_LABELS = {
   'brachial_plexus': 'o plexo braquial'
 };
 
-function ptName(key) {
+function ptName(key: string): string {
   if (!key) return '';
-  return PORTUGUESE_LABELS[key] || key.replace(/^AET-ENT-[A-Z]+-/, '').replace(/_/g, ' ');
+  return (PORTUGUESE_LABELS as Record<string, string>)[key] || key.replace(/^AET-ENT-[A-Z]+-/, '').replace(/_/g, ' ');
 }
 
 // Convert a single canonical fact to a humanized Portuguese statement
-function factToPortuguese(fact, answerUnit) {
+function factToPortuguese(fact: any, answerUnit?: any): string {
   if (answerUnit && answerUnit.humanized_blocks && answerUnit.humanized_blocks.practical_block) {
     let blk = answerUnit.humanized_blocks.practical_block.trim();
     if (!blk.endsWith('.')) blk += '.';
@@ -274,7 +274,7 @@ function factToPortuguese(fact, answerUnit) {
   return stmt.charAt(0).toUpperCase() + stmt.slice(1);
 }
 
-export function composeResponse({ plan, retrievalResult }) {
+export function composeResponse({ plan, retrievalResult }: { plan: any; retrievalResult: any }): any {
   // 1. Safe Failure strategies
   if (
     plan.response_strategy.startsWith('SAFE_FAILURE') ||
@@ -291,9 +291,9 @@ export function composeResponse({ plan, retrievalResult }) {
 
   // 2. Viewer Context strategy
   if (plan.response_strategy === 'VIEWER_CONTEXT_UNMAPPED') {
-    const factPool = retrievalResult.matching_facts;
-    const factMap = new Map(factPool.map(f => [f.canonical_fact_id, f]));
-    const anchorStmts = plan.anchor_fact_ids.map(id => {
+    const factPool: any[] = retrievalResult.matching_facts || [];
+    const factMap = new Map(factPool.map((f: any) => [f.canonical_fact_id, f]));
+    const anchorStmts = (plan.anchor_fact_ids || []).map((id: string) => {
       const f = factMap.get(id);
       return f ? factToPortuguese(f, retrievalResult.answer_units_map?.get(id)) : '';
     }).filter(Boolean);
@@ -308,17 +308,17 @@ export function composeResponse({ plan, retrievalResult }) {
   }
 
   // Build fact map
-  const factPool = retrievalResult.matching_facts;
-  const factMap = new Map(factPool.map(f => [f.canonical_fact_id, f]));
+  const factPool: any[] = retrievalResult.matching_facts || [];
+  const factMap = new Map(factPool.map((f: any) => [f.canonical_fact_id, f]));
 
   // Compose Anchor Statements
-  const anchorStmts = plan.anchor_fact_ids.map(id => {
+  const anchorStmts = (plan.anchor_fact_ids || []).map((id: string) => {
     const f = factMap.get(id);
     return f ? factToPortuguese(f, retrievalResult.answer_units_map?.get(id)) : '';
   }).filter(Boolean);
 
   // Compose Context Statements
-  const contextStmts = plan.context_fact_ids.map(id => {
+  const contextStmts = (plan.context_fact_ids || []).map((id: string) => {
     const f = factMap.get(id);
     return f ? factToPortuguese(f, retrievalResult.answer_units_map?.get(id)) : '';
   }).filter(Boolean);
@@ -336,9 +336,9 @@ export function composeResponse({ plan, retrievalResult }) {
   }
 
   // Practical memory block if applicable
-  if (plan.practical_unit_ids.length > 0 && retrievalResult.practical_units) {
-    const practicalMap = new Map(retrievalResult.practical_units.map(p => [p.canonical_practical_unit_id, p]));
-    const pUnit = practicalMap.get(plan.practical_unit_ids[0]);
+  if (plan.practical_unit_ids?.length > 0 && retrievalResult.practical_units) {
+    const practicalMap = new Map((retrievalResult.practical_units as any[]).map((p: any) => [p.canonical_practical_unit_id, p]));
+    const pUnit = practicalMap.get(plan.practical_unit_ids[0]) as any;
     if (pUnit && (pUnit.practical_orientation_statement || pUnit.institutional_statement)) {
       const stmt = pUnit.practical_orientation_statement || pUnit.institutional_statement;
       responseBlocks.push(`Orientação Prática: ${stmt}`);
@@ -346,9 +346,9 @@ export function composeResponse({ plan, retrievalResult }) {
   }
 
   // Teaching Connection block if PROFESSOR depth
-  if (plan.response_depth === 'PROFESSOR' && plan.teaching_connection_ids.length > 0 && retrievalResult.teaching_connections) {
-    const tcMap = new Map(retrievalResult.teaching_connections.map(tc => [tc.canonical_teaching_connection_id, tc]));
-    const tc = tcMap.get(plan.teaching_connection_ids[0]);
+  if (plan.response_depth === 'PROFESSOR' && plan.teaching_connection_ids?.length > 0 && retrievalResult.teaching_connections) {
+    const tcMap = new Map((retrievalResult.teaching_connections as any[]).map((tc: any) => [tc.canonical_teaching_connection_id, tc]));
+    const tc = tcMap.get(plan.teaching_connection_ids[0]) as any;
     if (tc) {
       if (tc.professor_response_template) {
         responseBlocks.push(`Comentário do Professor: ${tc.professor_response_template}`);
