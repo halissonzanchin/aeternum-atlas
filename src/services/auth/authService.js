@@ -4,6 +4,7 @@ import { trackEvent } from "../analytics/analyticsService";
 import { readStorage, removeStorage, storageKeys, writeStorage } from "../storage/storageService";
 import { getHomeForRole, normalizeRole, ROLES } from "../permissions/permissionService";
 import { finalizeTrackedLearningSessionsForUser } from "../learningTelemetryService";
+import { sessionGuardService } from "../session/sessionGuardService";
 
 const PROFILE_SELECT = "id, institution_id, name, email, role, status, avatar_url";
 const INACTIVE_ACCOUNT_MESSAGE = "Usuário sem permissão ativa. Contate a instituição.";
@@ -393,6 +394,9 @@ export async function loginUser(email, password) {
   try {
     const user = await loadProfileForAuthUser(authUser);
     saveAuthProfile(user);
+    if (data?.session) {
+      await sessionGuardService.registerOrConfirmSession(data.session);
+    }
     trackEvent({ userId: user.id, institutionId: user.institutionId, role: user.role, eventType: "login" });
     console.log("Login flow completed");
     return publicUser(user);
@@ -422,6 +426,7 @@ export async function logoutUser() {
     trackEvent({ userId: user.id, institutionId: user.institutionId, role: user.role, eventType: "logout" });
     await finalizeTrackedLearningSessionsForUser(user.id, "logout");
   }
+  await sessionGuardService.revokeSession();
   clearAuthProfile();
   await supabase.auth.signOut();
 }
@@ -443,6 +448,10 @@ export async function restoreAuthSession() {
   try {
     const user = await loadProfileForAuthUser(data.user);
     saveAuthProfile(user);
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (sessionData?.session) {
+      sessionGuardService.registerOrConfirmSession(sessionData.session).catch(() => {});
+    }
     return publicUser(user);
   } catch (error) {
     console.warn(`Stored Supabase session could not be restored: ${error.message}`);

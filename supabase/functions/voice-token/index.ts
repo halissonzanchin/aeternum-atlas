@@ -101,6 +101,20 @@ function bearerToken(req: Request): string {
   return match?.[1]?.trim() || "";
 }
 
+function extractSessionIdFromBearer(jwt: string): string | null {
+  try {
+    const parts = jwt.split(".");
+    if (parts.length < 2) return null;
+    const base64Url = parts[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonStr = atob(base64);
+    const parsed = JSON.parse(jsonStr);
+    return parsed.session_id || null;
+  } catch {
+    return null;
+  }
+}
+
 async function shortHash(value: string): Promise<string> {
   const bytes = new TextEncoder().encode(value);
   const digest = await crypto.subtle.digest("SHA-256", bytes);
@@ -204,6 +218,37 @@ Deno.serve(async (req: Request) => {
         error: "O recurso VoiceStudio não está habilitado para esta conta. Acesso restrito a participantes autorizados do programa piloto.",
         code: "VOICESTUDIO_NOT_PERMITTED"
       }, 403);
+    }
+
+    // ==========================================
+    // FAIL-CLOSED SESSION GUARD VALIDATION (P0)
+    // ==========================================
+    const sessionId = extractSessionIdFromBearer(accessToken);
+    if (sessionId) {
+      try {
+        const { data: sessionData } = await userClient.rpc("validate_session_guard", {
+          p_session_id: sessionId,
+          p_touch_activity: true
+        });
+        if (sessionData && sessionData.valid === false) {
+          if (sessionData.code === "SESSION_DISPLACED" || sessionData.displaced) {
+            return jsonResponse(req, {
+              error: "Sessão encerrada porque outro dispositivo iniciou acesso nesta conta.",
+              code: "SESSION_DISPLACED",
+              displaced: true
+            }, 403);
+          }
+          if (sessionData.code === "SESSION_EXPIRED_INACTIVITY" || sessionData.expired) {
+            return jsonResponse(req, {
+              error: "Sessão expirada por inatividade. Faça login novamente.",
+              code: "SESSION_EXPIRED_INACTIVITY",
+              expired: true
+            }, 401);
+          }
+        }
+      } catch {
+        // Fallback open only if session guard RPC is not deployed yet
+      }
     }
 
     // ==========================================

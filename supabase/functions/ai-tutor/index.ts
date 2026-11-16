@@ -118,6 +118,20 @@ export function jsonResponse(body: Record<string, unknown>, status: number, head
   });
 }
 
+export function extractSessionIdFromBearer(jwt: string): string | null {
+  try {
+    const parts = jwt.split(".");
+    if (parts.length < 2) return null;
+    const base64Url = parts[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonStr = atob(base64);
+    const parsed = JSON.parse(jsonStr);
+    return parsed.session_id || null;
+  } catch {
+    return null;
+  }
+}
+
 export function cleanText(value: unknown, max: number): string {
   return String(value || "")
     .replace(/[\u0000-\u0009\u000B\u000C\u000E-\u001F\u007F]/g, " ")
@@ -733,17 +747,38 @@ export async function handleAiTutorRequest(
     auth: { persistSession: false, autoRefreshToken: false }
   });
 
-  // Parallel User Profile & Rate Limit Resolution
+  // Parallel User Profile & Session Guard / Tiered Rate Limit Resolution
+  const sessionId = extractSessionIdFromBearer(token);
+
+  let limitResultPromise: Promise<any>;
+  if (sessionId) {
+    limitResultPromise = userClient.rpc("consume_ai_rate_limit_tiered", {
+      p_session_id: sessionId,
+      p_ip: clientIp
+    }).then(async (res: any) => {
+      // Fallback gracefully if tiered RPC is pending database deployment
+      if (res.error && (res.error.code === "PGRST202" || String(res.error.message || "").includes("consume_ai_rate_limit_tiered"))) {
+        return userClient.rpc("consume_ai_rate_limit", {
+          max_requests: 30,
+          window_seconds: 60
+        });
+      }
+      return res;
+    });
+  } else {
+    limitResultPromise = userClient.rpc("consume_ai_rate_limit", {
+      max_requests: 30,
+      window_seconds: 60
+    });
+  }
+
   const [profileResult, limitResult] = await Promise.all([
     adminClient
       .from("users")
       .select("id, institution_id, role, status, name")
       .eq("id", userId)
       .maybeSingle(),
-    userClient.rpc("consume_ai_rate_limit", {
-      max_requests: 30,
-      window_seconds: 60
-    })
+    limitResultPromise
   ]);
 
   const { data: profile, error: profileError } = profileResult;
@@ -756,10 +791,24 @@ export async function handleAiTutorRequest(
   if (limitError) return jsonResponse({ error: "Controle de uso temporariamente indisponível.", code: "AI_RATE_LIMIT_ERROR" }, 503, cors);
   const limit = Array.isArray(limitData) ? limitData[0] : limitData;
   if (limit && limit.allowed === false) {
+    if (limit.code === "SESSION_DISPLACED" || limit.displaced) {
+      return jsonResponse({
+        error: "Sessão encerrada porque outro dispositivo iniciou acesso nesta conta.",
+        code: "SESSION_DISPLACED",
+        displaced: true
+      }, 403, cors);
+    }
+    if (limit.code === "SESSION_EXPIRED_INACTIVITY" || limit.expired) {
+      return jsonResponse({
+        error: "Sessão expirada por inatividade. Faça login novamente.",
+        code: "SESSION_EXPIRED_INACTIVITY",
+        expired: true
+      }, 401, cors);
+    }
     const retryAfter = Number(limit.retry_after_seconds || 30);
     return jsonResponse({
-      error: "Muitas solicitações. Aguarde um instante.",
-      code: "AI_RATE_LIMITED",
+      error: limit.error || "Muitas solicitações. Aguarde um instante.",
+      code: limit.code || "AI_RATE_LIMITED",
       retryAfterSeconds: retryAfter
     }, 429, { ...cors, "Retry-After": String(retryAfter) });
   }
