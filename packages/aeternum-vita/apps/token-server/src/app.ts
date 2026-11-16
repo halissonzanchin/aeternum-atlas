@@ -16,9 +16,24 @@ export const createApp = (config: TokenServerConfig) => {
   app.disable("x-powered-by");
   app.use(
     cors({
-      origin: config.webOrigin,
-      methods: ["GET", "POST"],
-      allowedHeaders: ["Content-Type", "Authorization", "Idempotency-Key"],
+      origin: (requestOrigin, callback) => {
+        if (!requestOrigin) return callback(null, true);
+        const allowedOrigins = [
+          config.webOrigin,
+          "http://localhost:5173",
+          "http://127.0.0.1:5173",
+          "http://localhost:5174",
+          "http://127.0.0.1:5174",
+          "http://localhost:8080",
+          "http://127.0.0.1:8080",
+        ];
+        if (allowedOrigins.includes(requestOrigin)) {
+          return callback(null, true);
+        }
+        return callback(null, false);
+      },
+      methods: ["GET", "POST", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization", "Idempotency-Key", "apikey"],
     }),
   );
   app.use(express.json({ limit: "16kb" }));
@@ -37,7 +52,22 @@ export const createApp = (config: TokenServerConfig) => {
     });
   });
 
-  app.post("/api/token", async (request, response) => {
+  app.post(["/api/token", "/functions/v1/voice-token"], async (request, response) => {
+    // Institutional Demo Isolation Guard
+    const userEmailHeader = String(request.headers["x-user-email"] || "");
+    const bodyEmail = String((request.body as any)?.user_email || (request.body as any)?.email || "");
+
+    if (
+      userEmailHeader.toLowerCase().includes("demo.institucional") ||
+      bodyEmail.toLowerCase().includes("demo.institucional")
+    ) {
+      response.status(403).json({
+        error: "O recurso VoiceStudio não está disponível para esta conta de demonstração institucional.",
+        code: "VOICESTUDIO_NOT_PERMITTED"
+      });
+      return;
+    }
+
     const body = tokenRequestSchema.safeParse(request.body);
 
     if (!body.success) {
@@ -50,10 +80,10 @@ export const createApp = (config: TokenServerConfig) => {
 
     const queryTutor =
       typeof request.query.tutor === "string" ? request.query.tutor : undefined;
-    const bodyTutor = body.data.tutor_id;
+    const bodyTutor = body.data.tutor_id || body.data.tutorId;
     const agentNameFromConfig = body.data.room_config?.agents?.[0]?.agent_name;
 
-    let resolvedTutor: TutorId = "eduardo";
+    let resolvedTutor: TutorId = "marina";
 
     if (
       queryTutor &&
@@ -74,7 +104,7 @@ export const createApp = (config: TokenServerConfig) => {
       } else if (lower.includes("hannah")) {
         resolvedTutor = "hannah";
       } else {
-        resolvedTutor = "eduardo";
+        resolvedTutor = "marina";
       }
     }
 

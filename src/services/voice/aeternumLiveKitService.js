@@ -3,8 +3,9 @@ import {
   isSupabaseConfigured,
   supabaseConfig
 } from "../supabase/supabaseClient.js";
+import { isVitaVoiceEnabled } from "./aeternumVitaConfig.js";
 
-const ALLOWED_TUTORS = new Set(["eduardo", "antonia", "ariana", "fabian"]);
+const ALLOWED_TUTORS = new Set(["eduardo", "antonia", "ariana", "fabian", "marina"]);
 
 export function createVitaSessionKey() {
   if (!globalThis.crypto?.randomUUID) {
@@ -23,8 +24,15 @@ function connectionError(message, code) {
  * Requests short-lived LiveKit credentials from the authenticated server edge.
  * No provider credential or signing operation is ever performed in the browser.
  */
-export async function requestVitaConnection({ tutorId, idempotencyKey, signal } = {}) {
-  const normalizedTutor = String(tutorId || "eduardo").toLowerCase();
+export async function requestVitaConnection({ tutorId, context3d, idempotencyKey, signal } = {}) {
+  if (!isVitaVoiceEnabled()) {
+    throw connectionError(
+      "O recurso VoiceStudio não está disponível para esta conta de demonstração institucional.",
+      "VOICESTUDIO_NOT_PERMITTED"
+    );
+  }
+
+  const normalizedTutor = String(tutorId || "marina").toLowerCase();
   if (!ALLOWED_TUTORS.has(normalizedTutor)) {
     throw connectionError("Tutor de voz inválido.", "INVALID_TUTOR");
   }
@@ -33,27 +41,54 @@ export async function requestVitaConnection({ tutorId, idempotencyKey, signal } 
     throw connectionError("Identificador de sessão de voz ausente.", "MISSING_IDEMPOTENCY_KEY");
   }
 
-  if (!isSupabaseConfigured()) {
+  const isLocalHost =
+    typeof window !== "undefined" &&
+    (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost");
+  const isLocalRuntime =
+    isLocalHost || String(import.meta.env.VITE_ATLAS_RUNTIME || "").toLowerCase() === "local";
+
+  if (!isSupabaseConfigured() && !isLocalRuntime) {
     throw connectionError("A conexão segura da Aeternum Vita não está configurada.", "VOICE_NOT_CONFIGURED");
   }
 
-  const client = getSupabaseClient();
-  const { data, error } = await client.auth.getSession();
-  const accessToken = data?.session?.access_token;
-  if (error || !accessToken) {
-    throw connectionError("Entre em sua conta para iniciar uma sessão de voz.", "VOICE_AUTH_REQUIRED");
+  let accessToken = null;
+  try {
+    if (isSupabaseConfigured()) {
+      const client = getSupabaseClient();
+      const { data } = await client.auth.getSession();
+      accessToken = data?.session?.access_token || null;
+    }
+  } catch {
+    accessToken = null;
   }
 
-  const response = await fetch(`${supabaseConfig.url}/functions/v1/voice-token`, {
+  if (!accessToken) {
+    if (isLocalRuntime) {
+      accessToken = "atlas-local-dev-token";
+    } else {
+      throw connectionError("Entre em sua conta para iniciar uma sessão de voz.", "VOICE_AUTH_REQUIRED");
+    }
+  }
+
+  const tokenEndpoint =
+    import.meta.env.VITE_VOICE_TOKEN_URL ||
+    (isLocalRuntime
+      ? "http://127.0.0.1:3001/functions/v1/voice-token"
+      : `${supabaseConfig.url}/functions/v1/voice-token`);
+  const response = await fetch(tokenEndpoint, {
     method: "POST",
     signal,
     headers: {
       Authorization: `Bearer ${accessToken}`,
-      apikey: supabaseConfig.anonKey,
+      apikey: supabaseConfig.anonKey || "local-dev-anon-key",
       "Content-Type": "application/json",
       "Idempotency-Key": idempotencyKey
     },
-    body: JSON.stringify({ tutor_id: normalizedTutor })
+    body: JSON.stringify({
+      tutor_id: normalizedTutor,
+      tutorId: normalizedTutor,
+      ...(context3d ? { context_3d: context3d } : {})
+    })
   });
 
   const payload = await response.json().catch(() => ({}));
@@ -68,10 +103,16 @@ export async function requestVitaConnection({ tutorId, idempotencyKey, signal } 
     throw connectionError("O servidor de voz devolveu uma resposta incompleta.", "INVALID_VOICE_TOKEN_RESPONSE");
   }
 
+  const normalizedServerUrl = String(payload.server_url).replace(
+    /^ws:\/\/localhost:/i,
+    "ws://127.0.0.1:"
+  );
+
   return {
-    serverUrl: payload.server_url,
+    serverUrl: normalizedServerUrl,
     token: payload.participant_token,
     roomName: payload.room_name,
-    tutorId: payload.tutor_id
+    tutorId: payload.tutor_id || normalizedTutor,
+    participantIdentity: payload.participant_identity || ""
   };
 }
