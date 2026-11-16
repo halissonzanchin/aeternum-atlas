@@ -225,6 +225,8 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         remoteConversationId = conversations?.[0]?.id || null;
       }
 
+      if (!remoteConversationId || cancelled) return;
+
       const { data: remoteMessages, error: messagesError } = await client
         .from("ai_messages")
         .select("id, role, content, created_at")
@@ -355,7 +357,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
               const client = getSupabaseClient();
               let currentConvId = conversationId || response.conversationId;
               if (!currentConvId) {
-                const { data: convData } = await client
+                const { data: convData, error: convError } = await client
                   .from("ai_conversations")
                   .insert({
                     user_id: user.id,
@@ -365,6 +367,10 @@ export function AtlasAITutorSessionProvider({ children, user }) {
                   })
                   .select("id")
                   .maybeSingle();
+                if (convError) {
+                  console.error("[Atlas AI Session] Erro ao criar conversa no Supabase:", convError);
+                  return;
+                }
                 if (convData?.id) {
                   currentConvId = convData.id;
                   setConversationId(currentConvId);
@@ -372,13 +378,13 @@ export function AtlasAITutorSessionProvider({ children, user }) {
               }
 
               if (currentConvId) {
-                await client.from("ai_messages").insert([
+                const { error: msgError } = await client.from("ai_messages").insert([
                   {
                     conversation_id: currentConvId,
                     user_id: user.id,
                     role: "user",
                     content: normalizedText,
-                    metadata: { context: enrichedContext, channel: "text" }
+                    metadata: { context: enrichedContext, channel: "text", clientMessageId: userMessage.id }
                   },
                   {
                     conversation_id: currentConvId,
@@ -389,10 +395,14 @@ export function AtlasAITutorSessionProvider({ children, user }) {
                       source: response.source || "aeternum_gateway",
                       action: response.action || null,
                       payload: response.payload ?? null,
-                      citations: response.citations || []
+                      citations: response.citations || [],
+                      clientMessageId: aiMessageId
                     }
                   }
                 ]);
+                if (msgError) {
+                  console.error("[Atlas AI Session] Erro ao gravar mensagens no Supabase:", msgError);
+                }
               }
             } catch (err) {
               console.warn("[Atlas AI Session] Falha ao persistir turno de conversa:", err);
