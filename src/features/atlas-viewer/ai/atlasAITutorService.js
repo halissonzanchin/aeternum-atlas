@@ -60,6 +60,8 @@ function buildTutorContext(context = {}) {
 
   return {
     source: context.source || (model.id || activeStructure.id ? 'viewer-3d' : 'platform'),
+    task: context.task || null,
+    topic: context.topic || routeContext.structure || context.sectionTitle || model.title || null,
     mode: isVoice ? 'voice' : (context.mode || 'research'),
     tutorPromptDirective: behaviorDirective,
     currentRoute: context.route || null,
@@ -261,6 +263,8 @@ export const atlasAITutorService = {
         body: JSON.stringify({
           messages: [{ sender: 'user', text: message }],
           context: tutorContext,
+          task: tutorContext.task || context.task || null,
+          topic: tutorContext.topic || context.topic || tutorContext.sectionTitle || null,
           language: tutorContext.language || 'pt',
           conversationId,
           stream: true
@@ -336,6 +340,7 @@ export const atlasAITutorService = {
       let payload = null;
       let remoteConversationId = conversationId;
       let pending = '';
+      let sources = [];
 
       while (!done) {
         const chunk = await reader.read();
@@ -385,6 +390,9 @@ export const atlasAITutorService = {
             };
           }
 
+          if (Array.isArray(data.sources)) {
+            sources = data.sources;
+          }
           if (data.text) {
             fullText += data.text;
             onUpdate?.(sanitizeTutorDisplayText(fullText));
@@ -419,6 +427,7 @@ export const atlasAITutorService = {
         mode: "live",
         text: fullText,
         source: "aeternum_gateway",
+        sources,
         action,
         payload,
         conversationId: remoteConversationId
