@@ -35,13 +35,16 @@ function parseJsonArray(text = "") {
     try {
       const parsed = JSON.parse(normalized.slice(start, end + 1));
       if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-    } catch {
+    } catch (_err) {
+      void _err;
       // Tentar recuperação de array com vírgula sobrando ou aspas
       try {
         const sanitized = normalized.slice(start, end + 1).replace(/,\s*([\]}])/g, "$1");
         const parsed = JSON.parse(sanitized);
         if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-      } catch {}
+      } catch (_recoveryErr) {
+        void _recoveryErr;
+      }
     }
   }
 
@@ -55,14 +58,17 @@ function parseJsonArray(text = "") {
         if (obj && (obj.front || obj.pergunta) && (obj.back || obj.resposta)) {
           results.push(obj);
         }
-      } catch {
+      } catch (_parseErr) {
+        void _parseErr;
         try {
           const fixed = rawObj.replace(/,\s*\}/g, "}");
           const obj = JSON.parse(fixed);
           if (obj && (obj.front || obj.pergunta) && (obj.back || obj.resposta)) {
             results.push(obj);
           }
-        } catch {}
+        } catch (_fixErr) {
+          void _fixErr;
+        }
       }
     }
     if (results.length > 0) return results;
@@ -120,7 +126,7 @@ function extractCardsFromScientificProse(topic, rawText, { difficulty = "Médio"
   const clean = rawText
     .replace(/\[(?:PAS|SRC|REF)-[^\]]+\]/g, "")
     .replace(/"(?:front|back|explanation|learningObjective)"\s*:\s*/g, "")
-    .replace(/[{}\[\]"]/g, " ")
+    .replace(/[{}[\]"]/g, " ")
     .trim();
   const paragraphs = clean.split(/\n\s*\n/).filter((p) => p.trim().length > 30);
   const sentences = clean.split(/(?<=[.!?])\s+/).filter((s) => s.trim().length > 25);
