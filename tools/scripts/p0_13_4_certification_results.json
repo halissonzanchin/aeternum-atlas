@@ -1,0 +1,167 @@
+{
+  "startedAt": "2026-11-17T23:08:40.024Z",
+  "domain": "https://www.aeternumatlas.com",
+  "gates": {
+    "gate7": {
+      "tests": {
+        "testA": {
+          "passed": true,
+          "url": "https://www.aeternumatlas.com/student/home",
+          "session": {
+            "user_id": "5cfb837a-5ce3-4113-8f4a-dcdd9b8bf43f",
+            "session_id": "313f7246-36dc-4f69-9594-6708a88e82ea",
+            "status": "active",
+            "last_activity_type": "educational_progress",
+            "inactivity_timeout_minutes": 60
+          }
+        },
+        "testB": {
+          "passed": true,
+          "modal": {
+            "found": true,
+            "title": "Conta em uso em outro dispositivo",
+            "textSnippet": "AETERNUM 26 Conta em uso em outro dispositivo Voltar ao login  Esta conta já possui uma sessão ativa. Para proteger seus dados acadêmicos, não é permitido iniciar um segundo acesso simultâneo.  Se foi",
+            "buttons": [
+              "Voltar ao login",
+              "Solicitar suporte",
+              "Voltar ao login"
+            ],
+            "hasForceTransfer": false,
+            "hasReturnLogin": true
+          }
+        },
+        "testC": {
+          "passed": true,
+          "url": "https://www.aeternumatlas.com/study-agenda",
+          "modalPresent": false
+        },
+        "testD": {
+          "passed": true,
+          "url": "https://www.aeternumatlas.com/"
+        },
+        "testE": {
+          "passed": true,
+          "dbRecord": {
+            "user_id": "5cfb837a-5ce3-4113-8f4a-dcdd9b8bf43f",
+            "status": "released",
+            "revoked_reason": "user_logout",
+            "released_at": "2026-11-17 23:09:11.472888+00"
+          }
+        },
+        "testF": {
+          "passed": true,
+          "url": "https://www.aeternumatlas.com/student/home",
+          "session": {
+            "user_id": "5cfb837a-5ce3-4113-8f4a-dcdd9b8bf43f",
+            "session_id": "f609263d-6243-480a-9bc4-7cb5fb99f04f",
+            "status": "active",
+            "last_activity_type": "educational_progress",
+            "inactivity_timeout_minutes": 60
+          }
+        },
+        "testG": {
+          "passed": true,
+          "modal": {
+            "found": true,
+            "title": "Conta em uso em outro dispositivo",
+            "buttons": [
+              "Voltar ao login",
+              "Solicitar suporte",
+              "Voltar ao login"
+            ]
+          }
+        }
+      }
+    },
+    "gate8": {
+      "tests": {
+        "test8_1": {
+          "passed": true,
+          "response": {
+            "code": "SESSION_EXPIRED_INACTIVITY",
+            "error": "Sessão expirada por atingir 60 minutos de inatividade.",
+            "valid": false,
+            "status": "SESSION_EXPIRED_INACTIVITY",
+            "expired": true,
+            "inactivity_minutes": 60,
+            "last_qualified_activity_at": "2026-11-17T22:04:28.509503+00:00"
+          }
+        },
+        "test8_2": {
+          "passed": true,
+          "record": {
+            "user_id": "5cfb837a-5ce3-4113-8f4a-dcdd9b8bf43f",
+            "status": "expired",
+            "expired_at": "2026-11-17 23:09:29.479587+00",
+            "revoked_reason": "inactivity_timeout"
+          }
+        },
+        "test8_3": {
+          "passed": true,
+          "response": {
+            "code": "SESSION_GRANTED",
+            "valid": true,
+            "status": "SESSION_GRANTED",
+            "allowed": true,
+            "active_session_id": "d2222222-2222-4222-8222-222222222222",
+            "inactivity_minutes": 60,
+            "last_presence_check_at": "2026-11-17T23:09:31.531199+00:00",
+            "last_qualified_activity_at": "2026-11-17T23:09:31.531199+00:00"
+          }
+        }
+      }
+    },
+    "gate9": {
+      "tools": {
+        "aiTutor": {
+          "passed": true,
+          "latencyMs": 61541,
+          "snippet": "RESPOSTA DO ATLAS\nRESPOSTA CONTEXTUAL\n\nOlá, Aeternum! Sou o Atlas AI Tutor. Esta conversa acompanha você por toda a plataforma. Posso explicar estrutu"
+        },
+        "flashcards": {
+          "passed": true,
+          "latencyMs": 6067
+        },
+        "mindmap": {
+          "passed": true,
+          "svgData": {
+            "hasSvg": true,
+            "nodesCount": 93
+          },
+          "latencyMs": 3392
+        },
+        "quizzes": {
+          "passed": true,
+          "count": 3,
+          "latencyMs": 2897
+        },
+        "agenda": {
+          "passed": true,
+          "latencyMs": 3071
+        },
+        "models": {
+          "passed": true,
+          "modelsCount": 2,
+          "latencyMs": 3653
+        },
+        "history": {
+          "passed": true,
+          "latencyMs": 4008
+        }
+      }
+    },
+    "gate10": {
+      "prometheus": {
+        "participants": 8,
+        "prostheses": 9,
+        "weekly_submissions": 4,
+        "matchBaseline": true
+      },
+      "rlsRestrictiveTablesCount": 19,
+      "passed": true
+    }
+  },
+  "passed": true,
+  "completedAt": "2026-11-17T23:11:10.272Z",
+  "durationSeconds": 150
+}
