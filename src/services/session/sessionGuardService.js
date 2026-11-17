@@ -1,7 +1,39 @@
 import { supabase } from "../../lib/supabase.js";
 
-function getDeviceFingerprint() {
-  if (typeof window === "undefined") return "unknown-server";
+export const SESSION_GUARD_STATES = Object.freeze({
+  SESSION_GRANTED: "SESSION_GRANTED",
+  SESSION_VALID: "SESSION_VALID",
+  SESSION_ALREADY_ACTIVE: "SESSION_ALREADY_ACTIVE",
+  SESSION_EXPIRED_INACTIVITY: "SESSION_EXPIRED_INACTIVITY",
+  SESSION_RELEASED: "SESSION_RELEASED",
+  SESSION_REVOKED: "SESSION_REVOKED",
+  SESSION_GUARD_UNAVAILABLE: "SESSION_GUARD_UNAVAILABLE"
+});
+
+export const QUALIFIED_ACTIVITY_TYPES = Object.freeze([
+  "form_tool_interaction",
+  "ai_tutor_query",
+  "quiz_answer_submission",
+  "flashcard_review",
+  "agenda_edit",
+  "model_3d_interaction",
+  "active_navigation_reading",
+  "educational_progress"
+]);
+
+const NON_QUALIFIED_SIGNALS = new Set([
+  "heartbeat",
+  "jwt_refresh",
+  "data_polling",
+  "health_check",
+  "session_sync",
+  "background_update",
+  "login_attempt_refused",
+  "presence_check"
+]);
+
+function getAnonymizedDeviceSeed() {
+  if (typeof window === "undefined") return "server-node";
   const nav = window.navigator || {};
   const screen = window.screen || {};
   const parts = [
@@ -33,21 +65,28 @@ export function extractSessionIdFromToken(token) {
   }
 }
 
+export function isQualifiedActivityType(activityType) {
+  if (!activityType || typeof activityType !== "string") return false;
+  const normalized = activityType.trim().toLowerCase();
+  if (NON_QUALIFIED_SIGNALS.has(normalized)) return false;
+  return QUALIFIED_ACTIVITY_TYPES.includes(normalized);
+}
+
 class SessionGuardService {
   constructor() {
     this.currentSessionId = null;
-    this.heartbeatInterval = null;
+    this.isAuthorizedSession = false;
+    this.status = null;
+    this.presenceInterval = null;
     this.listeners = new Set();
     this.isDisplaced = false;
     this.isExpired = false;
+    this.isUnavailable = false;
     this.displacementDetails = null;
     this.lastCheckedAt = null;
-    this.pendingTransfer = null;
-    this.transferStats = {
-      transfersToday: 0,
-      maxTransfers: 5,
-      transfersRemaining: 5
-    };
+    this.lastQualifiedActivitySentAt = 0;
+    this.activityThrottleMs = 60_000; // Group/throttle qualified UI activity writes to at most 1/min
+    this.domListenersAttached = false;
   }
 
   subscribe(callback) {
@@ -67,213 +106,444 @@ class SessionGuardService {
 
   getState() {
     return {
+      status: this.status,
+      isAuthorized: this.isAuthorizedSession,
       isDisplaced: this.isDisplaced,
       isExpired: this.isExpired,
+      isUnavailable: this.isUnavailable,
       displacementDetails: this.displacementDetails,
-      pendingTransfer: this.pendingTransfer,
+      pendingTransfer: null, // Voluntary transfer strictly disabled under First Session Wins
       currentSessionId: this.currentSessionId,
-      transferStats: this.transferStats,
       lastCheckedAt: this.lastCheckedAt
     };
   }
 
-  notifyDisplaced(details = {}) {
-    if (this.isDisplaced) return;
+  notifyAlreadyActive(details = {}) {
+    this.status = SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE;
+    this.isAuthorizedSession = false;
+    this.currentSessionId = null;
     this.isDisplaced = true;
+    this.isExpired = false;
+    this.isUnavailable = false;
     this.displacementDetails = {
-      reason: details.reason || "transferred_to_new_device",
-      displacedAt: details.displaced_at || new Date().toISOString(),
-      activeSessionId: details.active_session_id || null
+      code: SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE,
+      reason: "session_already_active",
+      error: details.error || "Esta conta já possui uma sessão ativa em outro dispositivo. Para proteger seus dados acadêmicos, não é permitido iniciar um segundo acesso simultâneo."
     };
-    this.stopHeartbeat();
+    this.stopMonitoring();
+    this.notify(this.getState());
+  }
+
+  notifyDisplaced(details = {}) {
+    const code = details.code || SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE;
+    this.status = code;
+    this.isAuthorizedSession = false;
+    this.currentSessionId = null;
+    this.isDisplaced = true;
+    this.isUnavailable = false;
+    this.displacementDetails = {
+      code,
+      reason: details.reason || "session_already_active",
+      error: details.error || "Esta conta já possui uma sessão ativa em outro dispositivo."
+    };
+    this.stopMonitoring();
     this.notify(this.getState());
   }
 
   notifyExpired(details = {}) {
-    if (this.isExpired) return;
+    const code = details.code || SESSION_GUARD_STATES.SESSION_EXPIRED_INACTIVITY;
+    this.status = code;
+    this.isAuthorizedSession = false;
+    this.currentSessionId = null;
     this.isExpired = true;
+    this.isUnavailable = false;
     this.displacementDetails = {
-      reason: "inactivity_timeout",
-      inactivityMinutes: details.inactivity_minutes || 60,
-      expiredAt: new Date().toISOString()
+      code,
+      reason: details.reason || "inactivity_timeout",
+      error: details.error || "Seu acesso foi encerrado após 60 minutos sem atividade para proteger sua conta e manter a disponibilidade da plataforma."
     };
-    this.stopHeartbeat();
+    this.stopMonitoring();
     this.notify(this.getState());
   }
 
-  async registerOrConfirmSession(session, confirmTransfer = true) {
-    if (!session?.access_token) return null;
+  notifyUnavailable(details = {}) {
+    this.status = SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE;
+    this.isAuthorizedSession = false;
+    this.isUnavailable = true;
+    this.isDisplaced = false;
+    this.isExpired = false;
+    this.displacementDetails = {
+      code: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+      reason: details.reason || "session_guard_unavailable",
+      error: details.error || "Estamos com uma indisponibilidade temporária na validação da sessão. Tente novamente em instantes."
+    };
+    this.stopMonitoring();
+    this.notify(this.getState());
+  }
+
+  reset() {
+    this.stopMonitoring();
+    this.status = null;
+    this.isAuthorizedSession = false;
+    this.currentSessionId = null;
+    this.isDisplaced = false;
+    this.isExpired = false;
+    this.isUnavailable = false;
+    this.displacementDetails = null;
+    this.notify(this.getState());
+  }
+
+  async registerOrConfirmSession(session) {
+    if (!session?.access_token) {
+      this.notifyUnavailable({ reason: "missing_access_token" });
+      return {
+        status: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+        code: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+        valid: false,
+        allowed: false
+      };
+    }
+
     const sessionId = extractSessionIdFromToken(session.access_token);
-    if (!sessionId) return null;
+    if (!sessionId) {
+      this.notifyUnavailable({ reason: "missing_session_id_claim" });
+      return {
+        status: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+        code: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+        valid: false,
+        allowed: false
+      };
+    }
 
     this.currentSessionId = sessionId;
-    const deviceFingerprint = getDeviceFingerprint();
+    const deviceFingerprint = getAnonymizedDeviceSeed();
 
     try {
       const { data, error } = await supabase.rpc("register_or_transfer_session", {
         p_session_id: sessionId,
         p_device_fingerprint: deviceFingerprint,
         p_ip: null,
-        p_confirm_transfer: confirmTransfer,
+        p_confirm_transfer: false,
         p_metadata: {
-          client_platform: typeof navigator !== "undefined" ? navigator.platform : "web",
-          registered_at: new Date().toISOString()
+          policy: "FIRST_SESSION_WINS",
+          client_platform: typeof navigator !== "undefined" ? navigator.platform : "web"
         }
       });
 
-      if (error) {
-        // If RPC does not exist yet (e.g. migration pending in production), fail open with warning
-        console.warn("[SessionGuard] RPC register_or_transfer_session not available:", error.message);
-        return null;
-      }
-
-      if (data) {
-        if (data.status === "transfer_confirmation_required") {
-          this.pendingTransfer = data;
-          this.notify(this.getState());
-          return data;
-        }
-
-        if (data.status === "transfer_limit_exceeded") {
-          this.notifyDisplaced({
-            reason: "transfer_limit_exceeded",
-            error: data.error
-          });
-          return data;
-        }
-
-        if (data.status === "expired") {
-          this.notifyExpired(data);
-          return data;
-        }
-
-        if (data.status === "revoked" || data.code === "SESSION_REVOKED") {
-          this.notifyExpired({ reason: "session_revoked", error: data.error });
-          return data;
-        }
-
-        if (data.status === "forbidden" || data.code === "SESSION_ID_MISMATCH") {
-          this.notifyDisplaced({ reason: "session_id_mismatch", error: data.error });
-          return data;
-        }
-
-        this.isDisplaced = false;
-        this.isExpired = false;
-        this.displacementDetails = null;
-        this.transferStats = {
-          transfersToday: data.transfers_today || 0,
-          maxTransfers: data.max_transfers || 5,
-          transfersRemaining: typeof data.transfers_remaining === "number" ? data.transfers_remaining : 5
+      // Fail-Closed on RPC error
+      if (error || !data) {
+        console.error("[SessionGuard] Fail-closed: RPC register_or_transfer_session falhou:", error?.message);
+        this.notifyUnavailable({ error: error?.message });
+        return {
+          status: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+          code: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+          valid: false,
+          allowed: false,
+          error: error?.message || "Falha na validação de sessão."
         };
-        this.lastCheckedAt = new Date().toISOString();
-
-        this.startHeartbeat();
-        this.notify(this.getState());
       }
 
-      return data;
+      const code = data.code || data.status;
+
+      if (code === SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE || data.other_device_active) {
+        this.notifyAlreadyActive(data);
+        return {
+          ...data,
+          status: SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE,
+          code: SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE,
+          valid: false,
+          allowed: false
+        };
+      }
+
+      if (code === SESSION_GUARD_STATES.SESSION_EXPIRED_INACTIVITY || data.status === "expired" || data.expired) {
+        this.notifyExpired({ ...data, code: SESSION_GUARD_STATES.SESSION_EXPIRED_INACTIVITY });
+        return {
+          ...data,
+          status: SESSION_GUARD_STATES.SESSION_EXPIRED_INACTIVITY,
+          code: SESSION_GUARD_STATES.SESSION_EXPIRED_INACTIVITY,
+          valid: false,
+          allowed: false
+        };
+      }
+
+      if (code === SESSION_GUARD_STATES.SESSION_RELEASED || data.released) {
+        this.notifyExpired({ ...data, code: SESSION_GUARD_STATES.SESSION_RELEASED, reason: "session_released" });
+        return {
+          ...data,
+          status: SESSION_GUARD_STATES.SESSION_RELEASED,
+          code: SESSION_GUARD_STATES.SESSION_RELEASED,
+          valid: false,
+          allowed: false
+        };
+      }
+
+      if (
+        code === SESSION_GUARD_STATES.SESSION_REVOKED ||
+        data.status === "revoked" ||
+        data.status === "forbidden" ||
+        code === "SESSION_ID_MISMATCH" ||
+        code === "USER_INACTIVE"
+      ) {
+        this.notifyExpired({ ...data, code: SESSION_GUARD_STATES.SESSION_REVOKED, reason: "session_revoked" });
+        return {
+          ...data,
+          status: SESSION_GUARD_STATES.SESSION_REVOKED,
+          code: SESSION_GUARD_STATES.SESSION_REVOKED,
+          valid: false,
+          allowed: false
+        };
+      }
+
+      if (code === SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE) {
+        this.notifyUnavailable(data);
+        return {
+          ...data,
+          status: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+          code: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+          valid: false,
+          allowed: false
+        };
+      }
+
+      // Authorized: SESSION_GRANTED or SESSION_VALID
+      this.status = code === SESSION_GUARD_STATES.SESSION_GRANTED
+        ? SESSION_GUARD_STATES.SESSION_GRANTED
+        : SESSION_GUARD_STATES.SESSION_VALID;
+      this.isAuthorizedSession = true;
+      this.currentSessionId = sessionId;
+      this.isDisplaced = false;
+      this.isExpired = false;
+      this.isUnavailable = false;
+      this.displacementDetails = null;
+      this.lastCheckedAt = new Date().toISOString();
+      if (this.status === SESSION_GUARD_STATES.SESSION_GRANTED) {
+        this.lastQualifiedActivitySentAt = Date.now();
+      }
+
+      this.startMonitoring();
+      this.notify(this.getState());
+
+      return {
+        ...data,
+        status: this.status,
+        code: this.status,
+        valid: true,
+        allowed: true
+      };
     } catch (err) {
-      console.warn("[SessionGuard] Registration failed:", err);
-      return null;
+      console.error("[SessionGuard] Fail-closed exception during registration:", err);
+      this.notifyUnavailable({ error: err?.message });
+      return {
+        status: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+        code: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+        valid: false,
+        allowed: false,
+        error: err?.message
+      };
     }
   }
 
   async confirmPendingTransfer() {
-    if (!this.pendingTransfer) return null;
-    const { data: sessionData } = await supabase.auth.getSession();
-    if (sessionData?.session) {
-      this.pendingTransfer = null;
-      return this.registerOrConfirmSession(sessionData.session, true);
-    }
-    return null;
+    // Voluntary transfer is strictly prohibited under First Session Wins
+    return {
+      status: SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE,
+      code: SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE,
+      valid: false,
+      allowed: false
+    };
   }
 
   cancelPendingTransfer() {
-    this.pendingTransfer = null;
     this.notify(this.getState());
   }
 
-  async validateActiveSession() {
+  /**
+   * Passive presence check: verifies if the session is still valid on the server
+   * WITHOUT resetting last_qualified_activity_at.
+   */
+  async validateActiveSession({ touchActivity = false, activityType = "presence_check" } = {}) {
     if (!this.currentSessionId || this.isDisplaced || this.isExpired) return null;
+
+    const qualified = Boolean(touchActivity && isQualifiedActivityType(activityType));
 
     try {
       const { data, error } = await supabase.rpc("validate_session_guard", {
         p_session_id: this.currentSessionId,
-        p_touch_activity: true,
-        p_ip: null
+        p_touch_activity: qualified,
+        p_ip: null,
+        p_activity_type: qualified ? activityType : "presence_check"
       });
 
-      if (error) {
-        // If RPC not available, do not block local client
-        return null;
+      if (error || !data) {
+        console.error("[SessionGuard] Fail-closed: RPC validate_session_guard falhou:", error?.message);
+        this.notifyUnavailable({ error: error?.message });
+        return {
+          valid: false,
+          status: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+          code: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE
+        };
       }
 
-      if (data) {
-        this.lastCheckedAt = new Date().toISOString();
-        if (data.valid === false) {
-          if (data.code === "SESSION_DISPLACED" || data.displaced) {
-            this.notifyDisplaced(data);
-          } else if (data.code === "SESSION_EXPIRED_INACTIVITY" || data.expired || data.code === "SESSION_REVOKED") {
-            this.notifyExpired(data);
-          } else if (data.code === "SESSION_ID_MISMATCH") {
-            this.notifyDisplaced(data);
-          }
+      this.lastCheckedAt = new Date().toISOString();
+
+      if (data.valid === false) {
+        const code = data.code || data.status;
+        if (code === SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE || data.other_device_active || code === "SESSION_DISPLACED") {
+          this.notifyAlreadyActive(data);
+        } else if (code === SESSION_GUARD_STATES.SESSION_EXPIRED_INACTIVITY || data.expired) {
+          this.notifyExpired({ ...data, code: SESSION_GUARD_STATES.SESSION_EXPIRED_INACTIVITY });
+        } else if (code === SESSION_GUARD_STATES.SESSION_RELEASED || data.released) {
+          this.notifyExpired({ ...data, code: SESSION_GUARD_STATES.SESSION_RELEASED, reason: "session_released" });
+        } else if (code === SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE) {
+          this.notifyUnavailable(data);
+        } else {
+          this.notifyExpired({ ...data, code: SESSION_GUARD_STATES.SESSION_REVOKED, reason: "session_revoked" });
         }
+      } else {
+        this.status = SESSION_GUARD_STATES.SESSION_VALID;
       }
 
       return data;
     } catch (err) {
-      console.warn("[SessionGuard] Validation failed:", err);
-      return null;
+      console.error("[SessionGuard] Fail-closed exception in validateActiveSession:", err);
+      this.notifyUnavailable({ error: err?.message });
+      return {
+        valid: false,
+        status: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
+        code: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE
+      };
     }
   }
 
-  startHeartbeat(intervalMs = 30000) {
-    this.stopHeartbeat();
-    this.heartbeatInterval = setInterval(() => {
-      this.validateActiveSession();
-    }, intervalMs);
+  /**
+   * Records a qualified student activity (throttled to avoid excessive DB writes).
+   * Non-qualified signals (heartbeats, JWT refreshes, polling, sync) are strictly ignored.
+   */
+  async recordQualifiedActivity(activityType, { forceImmediate = false } = {}) {
+    if (!this.currentSessionId || this.isDisplaced || this.isExpired) return null;
+    if (!isQualifiedActivityType(activityType)) {
+      return null;
+    }
 
-    if (typeof window !== "undefined" && window.addEventListener) {
+    const now = Date.now();
+    if (!forceImmediate && now - this.lastQualifiedActivitySentAt < this.activityThrottleMs) {
+      return null;
+    }
+
+    this.lastQualifiedActivitySentAt = now;
+    return this.validateActiveSession({
+      touchActivity: true,
+      activityType: activityType.trim().toLowerCase()
+    });
+  }
+
+  startMonitoring(presenceIntervalMs = 60_000) {
+    this.stopMonitoring();
+
+    // Passive presence check ONLY (touchActivity: false) — NEVER resets 60m inactivity timer!
+    this.presenceInterval = setInterval(() => {
+      this.validateActiveSession({ touchActivity: false, activityType: "presence_check" });
+    }, presenceIntervalMs);
+
+    if (typeof window !== "undefined" && typeof document !== "undefined") {
       this.visibilityHandler = () => {
         if (document.visibilityState === "visible") {
-          this.validateActiveSession();
+          this.validateActiveSession({ touchActivity: false, activityType: "presence_check" });
         }
       };
       document.addEventListener("visibilitychange", this.visibilityHandler);
+
+      // Attach qualified user interaction listeners (throttled to 1 write / 60s)
+      this.qualifiedInteractionHandler = (event) => {
+        if (!event?.isTrusted) return; // Reject synthetic/scripted untrusted browser events
+        const type = event.type;
+        if (type === "submit" || type === "change" || type === "input") {
+          this.recordQualifiedActivity("form_tool_interaction");
+        } else if (type === "scroll" || type === "keydown" || type === "pointerdown") {
+          this.recordQualifiedActivity("active_navigation_reading");
+        }
+      };
+
+      window.addEventListener("pointerdown", this.qualifiedInteractionHandler, { passive: true });
+      window.addEventListener("keydown", this.qualifiedInteractionHandler, { passive: true });
+      window.addEventListener("scroll", this.qualifiedInteractionHandler, { passive: true });
+      window.addEventListener("submit", this.qualifiedInteractionHandler, { passive: true });
+      window.addEventListener("change", this.qualifiedInteractionHandler, { passive: true });
+      this.domListenersAttached = true;
     }
   }
 
-  stopHeartbeat() {
-    if (this.heartbeatInterval) {
-      clearInterval(this.heartbeatInterval);
-      this.heartbeatInterval = null;
+  stopMonitoring() {
+    if (this.presenceInterval) {
+      clearInterval(this.presenceInterval);
+      this.presenceInterval = null;
     }
-    if (typeof window !== "undefined" && this.visibilityHandler) {
+    if (typeof document !== "undefined" && this.visibilityHandler) {
       document.removeEventListener("visibilitychange", this.visibilityHandler);
       this.visibilityHandler = null;
     }
+    if (typeof window !== "undefined" && this.domListenersAttached && this.qualifiedInteractionHandler) {
+      window.removeEventListener("pointerdown", this.qualifiedInteractionHandler);
+      window.removeEventListener("keydown", this.qualifiedInteractionHandler);
+      window.removeEventListener("scroll", this.qualifiedInteractionHandler);
+      window.removeEventListener("submit", this.qualifiedInteractionHandler);
+      window.removeEventListener("change", this.qualifiedInteractionHandler);
+      this.qualifiedInteractionHandler = null;
+      this.domListenersAttached = false;
+    }
   }
 
-  async revokeSession() {
-    this.stopHeartbeat();
+  // Alias for backward compatibility
+  startHeartbeat(intervalMs = 60_000) {
+    this.startMonitoring(intervalMs);
+  }
+
+  stopHeartbeat() {
+    this.stopMonitoring();
+  }
+
+  async revokeSession(reason = "user_logout") {
+    this.stopMonitoring();
     const sessionId = this.currentSessionId;
+    const wasAuthorized = this.isAuthorizedSession;
     this.currentSessionId = null;
+    this.isAuthorizedSession = false;
+    this.status = SESSION_GUARD_STATES.SESSION_RELEASED;
     this.isDisplaced = false;
     this.isExpired = false;
+    this.isUnavailable = false;
     this.displacementDetails = null;
 
-    if (sessionId) {
+    // CRITICAL: Only invoke server revoke RPC if this client actually holds an authorized active session!
+    // Refused second logins or unvalidated sessions must NEVER touch the server's active session!
+    if (wasAuthorized && sessionId) {
       try {
         await supabase.rpc("revoke_active_session", {
           p_session_id: sessionId,
-          p_reason: "user_logout"
+          p_reason: reason
         });
       } catch (err) {
         console.warn("[SessionGuard] Revocation error:", err);
       }
     }
     this.notify(this.getState());
+  }
+
+  async retryValidation() {
+    this.isUnavailable = false;
+    this.notify(this.getState());
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (!sessionData?.session) {
+        this.notifyUnavailable({ reason: "missing_access_token" });
+        return { valid: false, allowed: false };
+      }
+      return this.registerOrConfirmSession(sessionData.session);
+    } catch (err) {
+      this.notifyUnavailable({ error: err?.message });
+      return { valid: false, allowed: false };
+    }
   }
 }
 

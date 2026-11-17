@@ -392,16 +392,29 @@ export async function loginUser(email, password) {
   console.log("Supabase auth success");
 
   try {
+    if (!data?.session) {
+      throw new Error("Sessão autenticada não disponível.");
+    }
+
+    // 1. Validate FIRST SESSION WINS priority before granting portal access
+    const guardResult = await sessionGuardService.registerOrConfirmSession(data.session);
+    if (!guardResult || guardResult.allowed !== true) {
+      const guardError = new Error(
+        guardResult?.error ||
+        "Esta conta já possui uma sessão ativa em outro dispositivo. A primeira sessão permanece preservada."
+      );
+      guardError.code = guardResult?.code || "SESSION_ALREADY_ACTIVE";
+      throw guardError;
+    }
+
     const user = await loadProfileForAuthUser(authUser);
     saveAuthProfile(user);
-    if (data?.session) {
-      await sessionGuardService.registerOrConfirmSession(data.session);
-    }
     trackEvent({ userId: user.id, institutionId: user.institutionId, role: user.role, eventType: "login" });
     console.log("Login flow completed");
     return publicUser(user);
   } catch (profileError) {
-    await supabase.auth.signOut();
+    // CRITICAL: Use scope: 'local' so a refused second login NEVER revokes the first active session in GoTrue!
+    await supabase.auth.signOut({ scope: "local" });
     clearAuthProfile();
     throw profileError;
   }
@@ -426,7 +439,7 @@ export async function logoutUser() {
     trackEvent({ userId: user.id, institutionId: user.institutionId, role: user.role, eventType: "logout" });
     await finalizeTrackedLearningSessionsForUser(user.id, "logout");
   }
-  await sessionGuardService.revokeSession();
+  await sessionGuardService.revokeSession("user_logout");
   clearAuthProfile();
   await supabase.auth.signOut();
 }
@@ -446,16 +459,25 @@ export async function restoreAuthSession() {
   }
 
   try {
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (!sessionData?.session) {
+      clearAuthProfile();
+      return null;
+    }
+
+    const guardResult = await sessionGuardService.registerOrConfirmSession(sessionData.session);
+    if (!guardResult || guardResult.allowed !== true) {
+      await supabase.auth.signOut({ scope: "local" });
+      clearAuthProfile();
+      return null;
+    }
+
     const user = await loadProfileForAuthUser(data.user);
     saveAuthProfile(user);
-    const { data: sessionData } = await supabase.auth.getSession();
-    if (sessionData?.session) {
-      sessionGuardService.registerOrConfirmSession(sessionData.session).catch(() => {});
-    }
     return publicUser(user);
   } catch (error) {
     console.warn(`Stored Supabase session could not be restored: ${error.message}`);
-    await supabase.auth.signOut();
+    await supabase.auth.signOut({ scope: "local" });
     clearAuthProfile();
     return null;
   }

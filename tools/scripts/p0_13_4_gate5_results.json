@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-11-17T22:45:13.960Z",
+  "status": "PASS",
+  "deployed": [
+    {
+      "name": "voice-token",
+      "version": 25,
+      "status": "ACTIVE"
+    },
+    {
+      "name": "ai-tutor",
+      "version": 64,
+      "status": "ACTIVE"
+    }
+  ],
+  "functionsSummary": "voice-token: v25 (ACTIVE), ai-tutor: v64 (ACTIVE)"
+}

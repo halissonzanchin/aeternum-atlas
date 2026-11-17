@@ -6,6 +6,7 @@ import {
   getHomeForRole,
   normalizeRole
 } from "../../services/permissions/permissionService";
+import { useSessionGuard } from "../../context/SessionGuardContext";
 
 const roleLabels = {
   student: "Aluno",
@@ -39,6 +40,7 @@ function AccessState({ title, text, actionLabel, onAction, role = "visitante", p
 
 export default function ProtectedRoute({ user, adminOnly = false, path = window.location.pathname, navigate, children }) {
   const isSuperAdminArea = String(path || "").startsWith("/super-admin");
+  const { isDisplaced, isExpired, isUnavailable } = useSessionGuard();
 
   useEffect(() => {
     if (!user && typeof window !== "undefined") {
@@ -52,6 +54,19 @@ export default function ProtectedRoute({ user, adminOnly = false, path = window.
       }
     }
   }, [user, navigate]);
+
+  if (isDisplaced || isExpired || isUnavailable) {
+    return (
+      <AccessState
+        title="Sessão não autorizada"
+        text="Por segurança institucional, o acesso acadêmico permanece bloqueado nesta sessão."
+        actionLabel="Voltar ao login"
+        onAction={() => navigate("/login")}
+        role={user ? normalizeRole(user?.role, user) : "visitante"}
+        path={path}
+      />
+    );
+  }
 
   if (!user) {
     const fullCurrentLocation = typeof window !== "undefined"

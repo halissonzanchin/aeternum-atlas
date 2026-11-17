@@ -324,32 +324,90 @@ Deno.serve(async (req: Request) => {
         institutionId = profile.institution_id || "aeternum_direct";
       }
 
-      // Distributed Persistent Rate Limiting via consume_ai_rate_limit RPC
+      // Fail-Closed Session Guard & Distributed Rate Limiting via consume_ai_rate_limit_tiered
+      let jwtSessionId: string | null = null;
       try {
-        const { data: limitData, error: limitError } = await userClient.rpc("consume_ai_rate_limit", {
-          max_requests: 60,
-          window_seconds: 60
-        });
-        if (!limitError && limitData) {
-          const limit = Array.isArray(limitData) ? limitData[0] : limitData;
-          if (limit && limit.allowed === false) {
-            const retryAfter = Number(limit.retry_after_seconds || 30);
-            return jsonResponse({
-              status: "ERROR_SAFE_CLOSED",
-              answer: "Limite de consultas excedido. Aguarde um momento antes de nova consulta.",
-              knowledge_state: "NO_CANONICAL_EVIDENCE",
-              confidence: 0.0,
-              matched_entities: [],
-              facts_used: [],
-              provenance: [],
-              engine_version: SAFE_ENGINE_VERSION,
-              memory_version: CANONICAL_MEMORY_VERSION,
-              latencies_ms: { total_request_ms: parseFloat((globalThis.performance.now() - tStart).toFixed(3)) }
-            }, 429, { ...corsHeaders, "Retry-After": String(retryAfter) });
-          }
+        const parts = token.split(".");
+        if (parts.length >= 2) {
+          const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+          const decoded = JSON.parse(atob(base64));
+          jwtSessionId = decoded.session_id || null;
         }
       } catch {
-        // Fallback to IP bucket guard already applied
+        jwtSessionId = null;
+      }
+
+      if (!jwtSessionId) {
+        return jsonResponse({
+          status: "ERROR_SAFE_CLOSED",
+          code: "SESSION_GUARD_UNAVAILABLE",
+          answer: "Sessão inválida: claim session_id ausente no token JWT.",
+          knowledge_state: "NO_CANONICAL_EVIDENCE",
+          confidence: 0.0,
+          matched_entities: [],
+          facts_used: [],
+          provenance: [],
+          engine_version: SAFE_ENGINE_VERSION,
+          memory_version: CANONICAL_MEMORY_VERSION,
+          latencies_ms: { total_request_ms: parseFloat((globalThis.performance.now() - tStart).toFixed(3)) }
+        }, 401, corsHeaders);
+      }
+
+      const { data: limitData, error: limitError } = await userClient.rpc("consume_ai_rate_limit_tiered", {
+        p_session_id: jwtSessionId,
+        p_ip: clientIp
+      });
+
+      if (limitError || !limitData) {
+        return jsonResponse({
+          status: "ERROR_SAFE_CLOSED",
+          code: "SESSION_GUARD_UNAVAILABLE",
+          answer: "Serviço de validação de sessão temporariamente indisponível.",
+          knowledge_state: "NO_CANONICAL_EVIDENCE",
+          confidence: 0.0,
+          matched_entities: [],
+          facts_used: [],
+          provenance: [],
+          engine_version: SAFE_ENGINE_VERSION,
+          memory_version: CANONICAL_MEMORY_VERSION,
+          latencies_ms: { total_request_ms: parseFloat((globalThis.performance.now() - tStart).toFixed(3)) }
+        }, 503, corsHeaders);
+      }
+
+      const limit = Array.isArray(limitData) ? limitData[0] : limitData;
+      if (limit && limit.allowed === false) {
+        const code = limit.code || "SESSION_ALREADY_ACTIVE";
+        if (code !== "AI_RATE_LIMITED") {
+          const httpStatus = (code === "SESSION_EXPIRED_INACTIVITY" || code === "SESSION_RELEASED" || code === "SESSION_REVOKED") ? 401 : 403;
+          return jsonResponse({
+            status: "ERROR_SAFE_CLOSED",
+            code,
+            answer: limit.error || "Sessão não autorizada pela política de sessão única (First Session Wins).",
+            knowledge_state: "NO_CANONICAL_EVIDENCE",
+            confidence: 0.0,
+            matched_entities: [],
+            facts_used: [],
+            provenance: [],
+            engine_version: SAFE_ENGINE_VERSION,
+            memory_version: CANONICAL_MEMORY_VERSION,
+            latencies_ms: { total_request_ms: parseFloat((globalThis.performance.now() - tStart).toFixed(3)) }
+          }, httpStatus, corsHeaders);
+        }
+
+        const retryAfter = Number(limit.retry_after_seconds || 30);
+        return jsonResponse({
+          status: "ERROR_SAFE_CLOSED",
+          code: "AI_RATE_LIMITED",
+          answer: "Limite de consultas excedido. Aguarde um momento antes de nova consulta.",
+          knowledge_state: "NO_CANONICAL_EVIDENCE",
+          confidence: 0.0,
+          matched_entities: [],
+          facts_used: [],
+          provenance: [],
+          engine_version: SAFE_ENGINE_VERSION,
+          memory_version: CANONICAL_MEMORY_VERSION,
+          latencies_ms: { total_request_ms: parseFloat((globalThis.performance.now() - tStart).toFixed(3)) }
+        }, 429, { ...corsHeaders, "Retry-After": String(retryAfter) });
       }
     }
 

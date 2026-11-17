@@ -5,6 +5,7 @@ import {
   writeStorage
 } from "./storage/storageService";
 import { getSupabaseClient, isSupabaseConfigured } from "./supabase/supabaseClient";
+import { sessionGuardService } from "./session/sessionGuardService";
 
 export const LEARNING_TELEMETRY_UPDATED_EVENT = "aeternum:learning-telemetry-updated";
 export const DEFAULT_IDLE_TIMEOUT_MS = 90_000;
@@ -418,6 +419,11 @@ async function persistEventRemote(event, user = null) {
 export function recordLearningEvent({ user, sessionId = null, modelId = null, eventType, eventData = {}, createdAt = nowIso() }) {
   if (!eventType || !userIdOf(user)) return null;
   migrateLegacyLearningTelemetry();
+  try {
+    sessionGuardService.recordQualifiedActivity("educational_progress");
+  } catch {
+    /* ignore session guard reporting failure */
+  }
   const session = sessionId
     ? readStorage(storageKeys.learningSessions, []).find(item => item.id === sessionId)
     : activeAnySession(userIdOf(user), modelId);

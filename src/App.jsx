@@ -255,6 +255,12 @@ export default function App() {
             <A26SessionDisplacedModal
               onReauthenticate={() => { handleLogout(); navigate("/login"); }}
               onLogout={handleLogout}
+              onRetry={async () => {
+                const res = await sessionGuardService.retryValidation();
+                if (res?.allowed) {
+                  navigate(path);
+                }
+              }}
             />
             <Modal
               open={Boolean(modal)}

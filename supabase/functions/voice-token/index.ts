@@ -221,10 +221,10 @@ Deno.serve(async (req: Request) => {
     }
 
     // ==========================================
-    // FAIL-CLOSED SESSION GUARD VALIDATION (P0.3 Hardened)
+    // FAIL-CLOSED SESSION GUARD VALIDATION (P0.13.1 First Session Wins)
     // ==========================================
     const isSessionGuardActive = Boolean(
-      (profile as any).session_guard_enabled === true ||
+      (profile as any).session_guard_enabled !== false ||
       (profile as any).license_tier === "demo" ||
       profile.role === "demo"
     );
@@ -234,40 +234,50 @@ Deno.serve(async (req: Request) => {
       if (!sessionId) {
         return jsonResponse(req, {
           error: "Sessão inválida: claim criptográfico session_id ausente no token autenticado.",
-          code: "SESSION_TOKEN_INVALID"
+          code: "SESSION_GUARD_UNAVAILABLE",
+          reason: "SESSION_TOKEN_INVALID"
         }, 401);
       }
 
       const { data: sessionData, error: sessionError } = await userClient.rpc("validate_session_guard", {
         p_session_id: sessionId,
-        p_touch_activity: true
+        p_touch_activity: true,
+        p_ip: null,
+        p_activity_type: "form_tool_interaction"
       });
 
-      if (sessionError) {
+      if (sessionError || !sessionData || sessionData.code === "SESSION_GUARD_UNAVAILABLE") {
         return jsonResponse(req, {
           error: "Serviço de validação de sessão temporariamente indisponível.",
           code: "SESSION_GUARD_UNAVAILABLE"
         }, 503);
       }
 
-      if (sessionData && sessionData.valid === false) {
-        if (sessionData.code === "SESSION_DISPLACED" || sessionData.displaced) {
+      if (sessionData.valid === false) {
+        if (sessionData.code === "SESSION_ALREADY_ACTIVE" || sessionData.other_device_active || sessionData.code === "SESSION_DISPLACED" || sessionData.displaced) {
           return jsonResponse(req, {
-            error: "Sessão encerrada porque outro dispositivo iniciou acesso nesta conta.",
-            code: "SESSION_DISPLACED",
-            displaced: true
+            error: "Acesso recusado: outra sessão detém a prioridade ativa nesta conta.",
+            code: "SESSION_ALREADY_ACTIVE",
+            other_device_active: true
           }, 403);
         }
         if (sessionData.code === "SESSION_EXPIRED_INACTIVITY" || sessionData.expired) {
           return jsonResponse(req, {
-            error: "Sessão expirada por inatividade. Faça login novamente.",
+            error: "Sessão expirada após 60 minutos de inatividade. Faça login novamente.",
             code: "SESSION_EXPIRED_INACTIVITY",
             expired: true
           }, 401);
         }
+        if (sessionData.code === "SESSION_RELEASED" || sessionData.released) {
+          return jsonResponse(req, {
+            error: "Sessão encerrada voluntariamente. Faça login novamente.",
+            code: "SESSION_RELEASED",
+            released: true
+          }, 401);
+        }
         return jsonResponse(req, {
           error: sessionData.error || "Acesso de sessão negado.",
-          code: sessionData.code || "SESSION_DENIED"
+          code: sessionData.code || "SESSION_REVOKED"
         }, 403);
       }
     }

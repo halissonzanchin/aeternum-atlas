@@ -1,0 +1,293 @@
+{
+  "timestamp": "2026-11-17T21:57:06.407Z",
+  "totalScenarios": 24,
+  "passed": 24,
+  "failed": 0,
+  "results": [
+    {
+      "scenario": 1,
+      "name": "Chrome A entra e utiliza a plataforma",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_GRANTED",
+        "valid": true,
+        "status": "SESSION_GRANTED",
+        "allowed": true,
+        "active_session_id": "aaaa1111-1111-4111-8111-111111111111",
+        "inactivity_minutes": 60,
+        "last_presence_check_at": "2026-11-18T10:00:00+00:00",
+        "last_qualified_activity_at": "2026-11-18T10:00:00+00:00"
+      }
+    },
+    {
+      "scenario": 2,
+      "name": "Chrome anônimo B tenta acessar mesma conta",
+      "status": "PASSED"
+    },
+    {
+      "scenario": 3,
+      "name": "B recebe SESSION_ALREADY_ACTIVE",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_ALREADY_ACTIVE",
+        "error": "Esta conta já possui uma sessão ativa em outro dispositivo. A primeira sessão permanece preservada.",
+        "valid": false,
+        "status": "SESSION_ALREADY_ACTIVE",
+        "allowed": false,
+        "inactivity_minutes": 60,
+        "other_device_active": true
+      }
+    },
+    {
+      "scenario": 4,
+      "name": "A permanece utilizando o Tutor IA",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_VALID",
+        "status": "SESSION_VALID",
+        "allowed": true,
+        "max_requests": 4,
+        "window_seconds": 300,
+        "remaining_in_window": 3
+      }
+    },
+    {
+      "scenario": 5,
+      "name": "A continua acessando dados acadêmicos",
+      "status": "PASSED",
+      "rowsVisible": 1
+    },
+    {
+      "scenario": 6,
+      "name": "B não consegue acessar diretamente APIs protegidas",
+      "status": "PASSED",
+      "rowsBlocked": 0
+    },
+    {
+      "scenario": 7,
+      "name": "B encerra tentativa sem afetar A",
+      "status": "PASSED",
+      "activeSession": {
+        "status": "active",
+        "session_id": "aaaa1111-1111-4111-8111-111111111111"
+      }
+    },
+    {
+      "scenario": 8,
+      "name": "A realiza logout e libera conta",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_RELEASED",
+        "status": "SESSION_RELEASED",
+        "revoked": true,
+        "success": true,
+        "released": true
+      }
+    },
+    {
+      "scenario": 9,
+      "name": "B realiza novo login e recebe prioridade",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_GRANTED",
+        "valid": true,
+        "status": "SESSION_GRANTED",
+        "allowed": true,
+        "active_session_id": "bbbb2222-2222-4222-8222-222222222222",
+        "inactivity_minutes": 60,
+        "last_presence_check_at": "2026-11-18T10:21:00+00:00",
+        "last_qualified_activity_at": "2026-11-18T10:21:00+00:00"
+      }
+    },
+    {
+      "scenario": 10,
+      "name": "A tenta retornar e é recusado enquanto B estiver ativo",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_ALREADY_ACTIVE",
+        "error": "Esta conta já possui uma sessão ativa em outro dispositivo. A primeira sessão permanece preservada.",
+        "valid": false,
+        "status": "SESSION_ALREADY_ACTIVE",
+        "allowed": false,
+        "inactivity_minutes": 60,
+        "other_device_active": true
+      }
+    },
+    {
+      "scenario": 11,
+      "name": "B realiza logout e libera a conta",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_RELEASED",
+        "status": "SESSION_RELEASED",
+        "revoked": true,
+        "success": true,
+        "released": true
+      }
+    },
+    {
+      "scenario": 12,
+      "name": "A consegue entrar novamente",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_GRANTED",
+        "valid": true,
+        "status": "SESSION_GRANTED",
+        "allowed": true,
+        "active_session_id": "aaaa9999-9999-4999-8999-999999999999",
+        "inactivity_minutes": 60,
+        "last_presence_check_at": "2026-11-18T10:31:00+00:00",
+        "last_qualified_activity_at": "2026-11-18T10:31:00+00:00"
+      }
+    },
+    {
+      "scenario": 13,
+      "name": "Múltiplas abas da mesma sessão continuam funcionando",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_VALID",
+        "valid": true,
+        "status": "SESSION_VALID",
+        "allowed": true,
+        "active_session_id": "aaaa9999-9999-4999-8999-999999999999",
+        "inactivity_minutes": 60,
+        "last_presence_check_at": "2026-11-18T10:35:00+00:00",
+        "last_qualified_activity_at": "2026-11-18T10:31:00+00:00"
+      }
+    },
+    {
+      "scenario": 14,
+      "name": "Atividade legítima reinicia o prazo de 60 minutos",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_VALID",
+        "valid": true,
+        "status": "SESSION_VALID",
+        "session_id": "aaaa9999-9999-4999-8999-999999999999",
+        "inactivity_minutes": 60,
+        "last_presence_check_at": "2026-11-18T10:50:00+00:00",
+        "last_qualified_activity_at": "2026-11-18T10:50:00+00:00",
+        "qualified_activity_updated": true
+      }
+    },
+    {
+      "scenario": 15,
+      "name": "Heartbeat não reinicia o prazo",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_VALID",
+        "valid": true,
+        "status": "SESSION_VALID",
+        "session_id": "aaaa9999-9999-4999-8999-999999999999",
+        "inactivity_minutes": 60,
+        "last_presence_check_at": "2026-11-18T11:10:00+00:00",
+        "last_qualified_activity_at": "2026-11-18T10:50:00+00:00",
+        "qualified_activity_updated": false
+      }
+    },
+    {
+      "scenario": 16,
+      "name": "Aos 59 minutos e 59 segundos, sessão válida",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_VALID",
+        "valid": true,
+        "status": "SESSION_VALID",
+        "session_id": "aaaa9999-9999-4999-8999-999999999999",
+        "inactivity_minutes": 60,
+        "last_presence_check_at": "2026-11-18T11:49:59+00:00",
+        "last_qualified_activity_at": "2026-11-18T10:50:00+00:00",
+        "qualified_activity_updated": false
+      }
+    },
+    {
+      "scenario": 17,
+      "name": "Aos 60 minutos sem atividade, sessão expira",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_EXPIRED_INACTIVITY",
+        "error": "Sessão expirada por atingir 60 minutos de inatividade.",
+        "valid": false,
+        "status": "SESSION_EXPIRED_INACTIVITY",
+        "expired": true,
+        "inactivity_minutes": 60,
+        "last_qualified_activity_at": "2026-11-18T10:50:00+00:00"
+      }
+    },
+    {
+      "scenario": 18,
+      "name": "Após expiração, novo login assume a conta",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_GRANTED",
+        "valid": true,
+        "status": "SESSION_GRANTED",
+        "allowed": true,
+        "active_session_id": "cccc3333-3333-4333-8333-333333333333",
+        "inactivity_minutes": 60,
+        "last_presence_check_at": "2026-11-18T11:55:00+00:00",
+        "last_qualified_activity_at": "2026-11-18T11:55:00+00:00"
+      }
+    },
+    {
+      "scenario": 19,
+      "name": "Erro de RPC não libera acesso indevido (fail-closed)",
+      "status": "PASSED",
+      "details": {
+        "anonPermissionDenied": true,
+        "tokenMissing": {
+          "code": "SESSION_GUARD_UNAVAILABLE",
+          "error": "Token JWT não contém claim criptográfica session_id obrigatória.",
+          "valid": false,
+          "reason": "AUTH_TOKEN_MISSING_SESSION_ID",
+          "status": "SESSION_GUARD_UNAVAILABLE",
+          "allowed": false
+        }
+      }
+    },
+    {
+      "scenario": 20,
+      "name": "Segundo login não altera dados da sessão principal",
+      "status": "PASSED",
+      "verifiedIntegrity": true
+    },
+    {
+      "scenario": 21,
+      "name": "Sessões expiradas não podem ser restauradas por JWT antigo",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_ALREADY_ACTIVE",
+        "error": "Sessão recusada: já existe outra sessão ativa com prioridade nesta conta.",
+        "valid": false,
+        "status": "SESSION_ALREADY_ACTIVE",
+        "other_device_active": true
+      }
+    },
+    {
+      "scenario": 22,
+      "name": "Governança institucional de cadastro e aprovação",
+      "status": "PASSED",
+      "details": {
+        "code": "SESSION_REVOKED",
+        "error": "Conta de usuário inativa ou suspensa.",
+        "valid": false,
+        "reason": "USER_INACTIVE",
+        "status": "SESSION_REVOKED",
+        "allowed": false
+      }
+    },
+    {
+      "scenario": 23,
+      "name": "Todos os fluxos acadêmicos existentes continuam funcionais",
+      "status": "PASSED",
+      "verifiedTables": 19
+    },
+    {
+      "scenario": 24,
+      "name": "Dados e operações do Prometheus permanecem intactos",
+      "status": "PASSED",
+      "port5173Isolated": true,
+      "dataContamination": 0
+    }
+  ]
+}
