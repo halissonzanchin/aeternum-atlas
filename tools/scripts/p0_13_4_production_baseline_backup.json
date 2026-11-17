@@ -1,0 +1,1445 @@
+{
+  "timestamp": "2026-11-17T22:39:36.542Z",
+  "projectRef": "hyivyrietgjdazgizafp",
+  "migrationsApplied": [
+    {
+      "version": "20260513014519",
+      "name": "teacher_operational_layer_20260512"
+    },
+    {
+      "version": "20260621000000",
+      "name": "viewer_learning_analytics"
+    },
+    {
+      "version": "20260803000000",
+      "name": "learning_telemetry_v2"
+    },
+    {
+      "version": "20260804054520",
+      "name": "p0_telemetry_hardening"
+    },
+    {
+      "version": "20260804054522",
+      "name": "p0_ai_tutor"
+    },
+    {
+      "version": "20260804060553",
+      "name": "p0_cleanup_archive"
+    },
+    {
+      "version": "20260804061848",
+      "name": "p0_identity_cleanup"
+    },
+    {
+      "version": "20260804132756",
+      "name": "p0_security_hardening"
+    },
+    {
+      "version": "20260809070502",
+      "name": "anatomical_knowledge_base"
+    },
+    {
+      "version": "20260809070531",
+      "name": "study_agenda_sync"
+    },
+    {
+      "version": "20260809070557",
+      "name": "backfill_viewer_quiz_results"
+    },
+    {
+      "version": "20260809070817",
+      "name": "agenda_grant_hardening"
+    },
+    {
+      "version": "20260809075849",
+      "name": "learning_session_reconciliation_cron"
+    },
+    {
+      "version": "20260814165651",
+      "name": "agenda_flashcard_links"
+    },
+    {
+      "version": "20260823022527",
+      "name": "add_vita_voice_rate_limit"
+    },
+    {
+      "version": "20260823022529",
+      "name": "add_vita_tutor_memory"
+    },
+    {
+      "version": "20260823022532",
+      "name": "add_vita_hybrid_knowledge_search"
+    },
+    {
+      "version": "20260823033308",
+      "name": "add_vita_ocr_staging"
+    },
+    {
+      "version": "20260904174307",
+      "name": "restore_private_rls_grants"
+    },
+    {
+      "version": "20261116000000",
+      "name": "harden_security_definer_public_privileges"
+    },
+    {
+      "version": "20261116010000",
+      "name": "aeternum_session_guard_single_session_policy"
+    }
+  ],
+  "hasBase00": true,
+  "hasBase01": true,
+  "hasCandidateMigration": false,
+  "rpcsInstalledCount": 7,
+  "rpcs": [
+    {
+      "function_name": "admin_reset_user_session",
+      "args": "p_target_user_id uuid, p_reason text",
+      "security_definer": true,
+      "config": [
+        "search_path=public, auth, pg_temp"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.admin_reset_user_session(p_target_user_id uuid, p_reason text DEFAULT 'admin_override'::text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public', 'auth', 'pg_temp'\nAS $function$\nDECLARE\n    v_caller_id uuid;\n    v_caller_role text;\n    v_target_record public.user_active_sessions%ROWTYPE;\nBEGIN\n    v_caller_id := auth.uid();\n    v_caller_role := auth.role();\n\n    -- Service role is always authorized\n    IF v_caller_role <> 'service_role' THEN\n        -- Check if caller is super_admin or rector in public.users\n        IF v_caller_id IS NULL THEN\n            RAISE EXCEPTION 'UNAUTHORIZED: Authentication required';\n        END IF;\n\n        IF NOT EXISTS (\n            SELECT 1 FROM public.users \n            WHERE id = v_caller_id \n              AND role IN ('super_admin', 'rector', 'admin')\n              AND status = 'active'\n        ) THEN\n            RAISE EXCEPTION 'FORBIDDEN: Insufficient administrative privileges';\n        END IF;\n    END IF;\n\n    SELECT * INTO v_target_record\n    FROM public.user_active_sessions\n    WHERE user_id = p_target_user_id\n    FOR UPDATE;\n\n    IF NOT FOUND THEN\n        RETURN jsonb_build_object('success', true, 'reset', false, 'message', 'Nenhuma sessão para o usuário informado.');\n    END IF;\n\n    UPDATE public.user_active_sessions\n    SET status = 'revoked',\n        revoked_reason = p_reason,\n        transfer_count_today = 0,\n        last_active_at = now()\n    WHERE user_id = p_target_user_id;\n\n    INSERT INTO public.session_guard_events (\n        user_id,\n        session_id,\n        event_type,\n        metadata\n    ) VALUES (\n        p_target_user_id,\n        v_target_record.session_id,\n        'admin_reset',\n        jsonb_build_object(\n            'reset_by_caller_id', v_caller_id,\n            'caller_role', v_caller_role,\n            'reason', p_reason\n        )\n    );\n\n    RETURN jsonb_build_object('success', true, 'reset', true, 'target_user_id', p_target_user_id);\nEND;\n$function$\n"
+    },
+    {
+      "function_name": "consume_ai_rate_limit",
+      "args": "max_requests integer, window_seconds integer",
+      "security_definer": true,
+      "config": [
+        "search_path=public, auth"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.consume_ai_rate_limit(max_requests integer DEFAULT 20, window_seconds integer DEFAULT 60)\n RETURNS TABLE(allowed boolean, remaining integer, retry_after_seconds integer)\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public', 'auth'\nAS $function$\nDECLARE\n  caller UUID := auth.uid();\n  limit_row public.ai_rate_limits%ROWTYPE;\n  safe_max INTEGER := LEAST(GREATEST(max_requests, 1), 120);\n  safe_window INTEGER := LEAST(GREATEST(window_seconds, 10), 3600);\nBEGIN\n  IF caller IS NULL THEN\n    RAISE EXCEPTION 'Autenticação obrigatória.';\n  END IF;\n\n  INSERT INTO public.ai_rate_limits (user_id, window_started_at, request_count, updated_at)\n  VALUES (caller, NOW(), 1, NOW())\n  ON CONFLICT (user_id) DO UPDATE\n  SET\n    window_started_at = CASE\n      WHEN public.ai_rate_limits.window_started_at <= NOW() - make_interval(secs => safe_window)\n        THEN NOW()\n      ELSE public.ai_rate_limits.window_started_at\n    END,\n    request_count = CASE\n      WHEN public.ai_rate_limits.window_started_at <= NOW() - make_interval(secs => safe_window)\n        THEN 1\n      ELSE public.ai_rate_limits.request_count + 1\n    END,\n    updated_at = NOW()\n  RETURNING * INTO limit_row;\n\n  allowed := limit_row.request_count <= safe_max;\n  remaining := GREATEST(safe_max - limit_row.request_count, 0);\n  retry_after_seconds := CASE\n    WHEN allowed THEN 0\n    ELSE GREATEST(\n      1,\n      safe_window - FLOOR(EXTRACT(EPOCH FROM (NOW() - limit_row.window_started_at)))::INTEGER\n    )\n  END;\n  RETURN NEXT;\nEND;\n$function$\n"
+    },
+    {
+      "function_name": "consume_ai_rate_limit_tiered",
+      "args": "p_session_id uuid, p_ip text",
+      "security_definer": true,
+      "config": [
+        "search_path=public, auth, pg_temp"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.consume_ai_rate_limit_tiered(p_session_id uuid, p_ip text DEFAULT NULL::text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public', 'auth', 'pg_temp'\nAS $function$\nDECLARE\n    v_user_id uuid;\n    v_role text;\n    v_license_tier text;\n    v_validation jsonb;\n    v_max_requests integer := 4;\n    v_window_seconds integer := 300;\n    v_rate_row public.ai_rate_limits%ROWTYPE;\n    v_retry_after integer := 0;\nBEGIN\n    v_user_id := auth.uid();\n    IF v_user_id IS NULL THEN\n        RETURN jsonb_build_object('allowed', false, 'code', 'AUTH_REQUIRED', 'error', 'Autenticação necessária.');\n    END IF;\n\n    -- 1. Validate Session Guard (with cryptographic token binding)\n    v_validation := public.validate_session_guard(p_session_id, true, p_ip);\n    IF (v_validation->>'valid')::boolean IS NOT TRUE THEN\n        RETURN jsonb_build_object(\n            'allowed', false,\n            'code', v_validation->>'code',\n            'error', v_validation->>'error',\n            'displaced', COALESCE((v_validation->>'displaced')::boolean, false),\n            'expired', COALESCE((v_validation->>'expired')::boolean, false)\n        );\n    END IF;\n\n    -- 2. Determine Tiered AI limits strictly on server based on license_tier / role\n    SELECT role, COALESCE(license_tier, 'student')\n    INTO v_role, v_license_tier\n    FROM public.users\n    WHERE id = v_user_id;\n\n    IF v_license_tier = 'demo' OR v_role = 'demo' THEN\n        -- Demo Account: 2 queries per 1 minute\n        v_max_requests := 2;\n        v_window_seconds := 60;\n    ELSIF v_role = 'student' THEN\n        -- Student Account: 4 queries per 5 minutes (300s)\n        v_max_requests := 4;\n        v_window_seconds := 300;\n    ELSE\n        -- Teachers, Admins: 30 queries per 1 minute\n        v_max_requests := 30;\n        v_window_seconds := 60;\n    END IF;\n\n    -- 3. Consume Rate Limit using canonical schema (window_started_at, request_count, updated_at)\n    INSERT INTO public.ai_rate_limits (user_id, window_started_at, request_count, updated_at)\n    VALUES (v_user_id, now(), 1, now())\n    ON CONFLICT (user_id) DO UPDATE\n    SET window_started_at = CASE\n            WHEN public.ai_rate_limits.window_started_at <= now() - (v_window_seconds || ' seconds')::interval THEN now()\n            ELSE public.ai_rate_limits.window_started_at\n        END,\n        request_count = CASE\n            WHEN public.ai_rate_limits.window_started_at <= now() - (v_window_seconds || ' seconds')::interval THEN 1\n            ELSE public.ai_rate_limits.request_count + 1\n        END,\n        updated_at = now()\n    RETURNING * INTO v_rate_row;\n\n    IF v_rate_row.request_count > v_max_requests THEN\n        v_retry_after := GREATEST(1, v_window_seconds - FLOOR(EXTRACT(EPOCH FROM (now() - v_rate_row.window_started_at)))::integer);\n\n        INSERT INTO public.session_guard_events (\n            user_id,\n            session_id,\n            event_type,\n            ip_address,\n            metadata\n        ) VALUES (\n            v_user_id,\n            (v_validation->>'session_id')::uuid,\n            'rate_limit_exceeded',\n            p_ip,\n            jsonb_build_object(\n                'max_requests', v_max_requests,\n                'window_seconds', v_window_seconds,\n                'request_count', v_rate_row.request_count,\n                'retry_after_seconds', v_retry_after,\n                'license_tier', v_license_tier\n            )\n        );\n\n        RETURN jsonb_build_object(\n            'allowed', false,\n            'code', 'AI_RATE_LIMITED',\n            'error', 'Limite de consultas à IA atingido para este período. Aguarde um instante.',\n            'retry_after_seconds', v_retry_after,\n            'max_requests', v_max_requests,\n            'window_seconds', v_window_seconds\n        );\n    END IF;\n\n    RETURN jsonb_build_object(\n        'allowed', true,\n        'code', 'AUTHORIZED',\n        'remaining_in_window', GREATEST(0, v_max_requests - v_rate_row.request_count),\n        'max_requests', v_max_requests,\n        'window_seconds', v_window_seconds\n    );\nEND;\n$function$\n"
+    },
+    {
+      "function_name": "protect_user_license_attributes",
+      "args": "",
+      "security_definer": true,
+      "config": [
+        "search_path=public, auth, pg_temp"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.protect_user_license_attributes()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public', 'auth', 'pg_temp'\nAS $function$\nBEGIN\n    IF auth.role() = 'authenticated' THEN\n        IF NEW.license_tier IS DISTINCT FROM OLD.license_tier THEN\n            RAISE EXCEPTION 'FORBIDDEN: Atributo license_tier não pode ser alterado pelo usuário.';\n        END IF;\n        IF NEW.session_guard_enabled IS DISTINCT FROM OLD.session_guard_enabled THEN\n            RAISE EXCEPTION 'FORBIDDEN: Atributo session_guard_enabled não pode ser alterado pelo usuário.';\n        END IF;\n    END IF;\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "function_name": "register_or_transfer_session",
+      "args": "p_session_id uuid, p_device_fingerprint text, p_ip text, p_confirm_transfer boolean, p_metadata jsonb",
+      "security_definer": true,
+      "config": [
+        "search_path=public, auth, pg_temp"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.register_or_transfer_session(p_session_id uuid, p_device_fingerprint text DEFAULT NULL::text, p_ip text DEFAULT NULL::text, p_confirm_transfer boolean DEFAULT true, p_metadata jsonb DEFAULT '{}'::jsonb)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public', 'auth', 'pg_temp'\nAS $function$\nDECLARE\n    v_user_id uuid;\n    v_caller_role text;\n    v_jwt_claims jsonb;\n    v_jwt_session_id uuid;\n    v_effective_session_id uuid;\n    v_role text;\n    v_status text;\n    v_license_tier text;\n    v_session_guard_enabled boolean;\n    v_max_transfers integer := 5;\n    v_inactivity_minutes integer := 60;\n    v_record public.user_active_sessions%ROWTYPE;\n    v_transfers_today integer := 0;\n    v_displaced_session_id uuid;\nBEGIN\n    v_user_id := auth.uid();\n    v_caller_role := auth.role();\n\n    IF v_user_id IS NULL THEN\n        RAISE EXCEPTION 'AUTH_REQUIRED: Authenticated session required';\n    END IF;\n\n    -- Cryptographic session validation from JWT claims (P0.3)\n    v_jwt_claims := auth.jwt();\n    v_jwt_session_id := NULLIF(v_jwt_claims ->> 'session_id', '')::uuid;\n\n    IF v_caller_role = 'authenticated' THEN\n        IF v_jwt_session_id IS NULL THEN\n            RETURN jsonb_build_object(\n                'status', 'forbidden',\n                'code', 'AUTH_TOKEN_MISSING_SESSION_ID',\n                'error', 'Token JWT não contém claim de sessão criptográfica obrigatória.'\n            );\n        END IF;\n\n        IF p_session_id IS NOT NULL AND p_session_id <> v_jwt_session_id THEN\n            INSERT INTO public.session_guard_events (\n                user_id,\n                session_id,\n                event_type,\n                device_fingerprint,\n                ip_address,\n                metadata\n            ) VALUES (\n                v_user_id,\n                v_jwt_session_id,\n                'access_denied_mismatch',\n                p_device_fingerprint,\n                p_ip,\n                jsonb_build_object('reason', 'client_passed_arbitrary_session_id', 'client_session_id', p_session_id)\n            );\n\n            RETURN jsonb_build_object(\n                'status', 'forbidden',\n                'code', 'SESSION_ID_MISMATCH',\n                'error', 'Identificador de sessão fornecido diverge da assinatura criptográfica do token.'\n            );\n        END IF;\n\n        v_effective_session_id := v_jwt_session_id;\n    ELSE\n        -- Service role or administrative caller\n        IF p_session_id IS NULL THEN\n            RAISE EXCEPTION 'SESSION_ID_REQUIRED: Session identifier required';\n        END IF;\n        v_effective_session_id := p_session_id;\n    END IF;\n\n    -- Resolve user tier parameters and account status (Decoupled from email, based on license_tier/role)\n    SELECT role, status, COALESCE(license_tier, 'student'), COALESCE(session_guard_enabled, false)\n    INTO v_role, v_status, v_license_tier, v_session_guard_enabled\n    FROM public.users\n    WHERE id = v_user_id;\n\n    -- Fail closed on inactive or suspended account\n    IF v_status IS NOT NULL AND NOT (v_status = ANY(ARRAY['active', 'ativo'])) THEN\n        RETURN jsonb_build_object(\n            'status', 'account_inactive',\n            'error', 'Conta de usuário inativa ou suspensa. Contate a administração.',\n            'code', 'USER_INACTIVE'\n        );\n    END IF;\n\n    IF v_license_tier = 'demo' OR v_role = 'demo' THEN\n        v_max_transfers := 3;\n        v_inactivity_minutes := 30;\n    ELSIF v_role = 'student' THEN\n        v_max_transfers := 5;\n        v_inactivity_minutes := 60;\n    ELSE\n        -- Teachers, Admins, Institutional Coordinators\n        v_max_transfers := 10;\n        v_inactivity_minutes := 120;\n    END IF;\n\n    -- Concurrency serialization via SELECT ... FOR UPDATE\n    SELECT * INTO v_record\n    FROM public.user_active_sessions\n    WHERE user_id = v_user_id\n    FOR UPDATE;\n\n    -- Case 1: First time registration for this user\n    IF NOT FOUND THEN\n        INSERT INTO public.user_active_sessions (\n            user_id,\n            session_id,\n            device_fingerprint,\n            ip_address,\n            status,\n            created_at,\n            last_active_at,\n            last_transfer_at,\n            transfer_count_today,\n            transfers_reset_date,\n            metadata\n        ) VALUES (\n            v_user_id,\n            v_effective_session_id,\n            p_device_fingerprint,\n            p_ip,\n            'active',\n            now(),\n            now(),\n            now(),\n            0,\n            current_date,\n            p_metadata\n        );\n\n        INSERT INTO public.session_guard_events (\n            user_id,\n            session_id,\n            event_type,\n            device_fingerprint,\n            ip_address,\n            metadata\n        ) VALUES (\n            v_user_id,\n            v_effective_session_id,\n            'session_registered',\n            p_device_fingerprint,\n            p_ip,\n            jsonb_build_object('max_transfers', v_max_transfers, 'inactivity_minutes', v_inactivity_minutes, 'license_tier', v_license_tier)\n        );\n\n        RETURN jsonb_build_object(\n            'status', 'registered',\n            'active_session_id', v_effective_session_id,\n            'transfers_today', 0,\n            'max_transfers', v_max_transfers,\n            'inactivity_minutes', v_inactivity_minutes\n        );\n    END IF;\n\n    -- Compute daily reset of transfer counters\n    IF v_record.transfers_reset_date < current_date THEN\n        v_transfers_today := 0;\n    ELSE\n        v_transfers_today := v_record.transfer_count_today;\n    END IF;\n\n    -- Case 2: Same session confirmed (page reload, multi-tab, network switch)\n    IF v_record.session_id = v_effective_session_id THEN\n        -- A revoked session CANNOT be re-activated (P0.3)\n        IF v_record.status = 'revoked' THEN\n            RETURN jsonb_build_object(\n                'status', 'revoked',\n                'code', 'SESSION_REVOKED',\n                'error', 'Sessão revogada previamente. É necessário realizar um novo login.'\n            );\n        END IF;\n\n        -- Check if existing session was marked expired\n        IF v_record.status = 'active' AND (now() - v_record.last_active_at) > (v_inactivity_minutes || ' minutes')::interval THEN\n            UPDATE public.user_active_sessions\n            SET status = 'expired',\n                revoked_reason = 'inactivity_timeout'\n            WHERE user_id = v_user_id;\n\n            INSERT INTO public.session_guard_events (\n                user_id,\n                session_id,\n                event_type,\n                device_fingerprint,\n                ip_address,\n                metadata\n            ) VALUES (\n                v_user_id,\n                v_effective_session_id,\n                'inactivity_expired',\n                p_device_fingerprint,\n                p_ip,\n                jsonb_build_object('inactivity_minutes', v_inactivity_minutes)\n            );\n\n            RETURN jsonb_build_object(\n                'status', 'expired',\n                'reason', 'inactivity_timeout',\n                'inactivity_minutes', v_inactivity_minutes\n            );\n        END IF;\n\n        -- Normal session confirmation (smooth continuation)\n        UPDATE public.user_active_sessions\n        SET last_active_at = now(),\n            ip_address = COALESCE(p_ip, ip_address),\n            device_fingerprint = COALESCE(p_device_fingerprint, device_fingerprint),\n            transfers_reset_date = current_date,\n            transfer_count_today = v_transfers_today,\n            status = 'active',\n            revoked_reason = NULL\n        WHERE user_id = v_user_id;\n\n        INSERT INTO public.session_guard_events (\n            user_id,\n            session_id,\n            event_type,\n            device_fingerprint,\n            ip_address,\n            metadata\n        ) VALUES (\n            v_user_id,\n            v_effective_session_id,\n            'session_confirmed',\n            p_device_fingerprint,\n            p_ip,\n            jsonb_build_object('transfers_today', v_transfers_today)\n        );\n\n        RETURN jsonb_build_object(\n            'status', 'confirmed',\n            'active_session_id', v_effective_session_id,\n            'transfers_today', v_transfers_today,\n            'max_transfers', v_max_transfers,\n            'inactivity_minutes', v_inactivity_minutes\n        );\n    END IF;\n\n    -- Case 3: Different session (new device login requesting transfer)\n    IF v_transfers_today >= v_max_transfers THEN\n        INSERT INTO public.session_guard_events (\n            user_id,\n            session_id,\n            event_type,\n            device_fingerprint,\n            ip_address,\n            metadata\n        ) VALUES (\n            v_user_id,\n            v_effective_session_id,\n            'transfer_limit_exceeded',\n            p_device_fingerprint,\n            p_ip,\n            jsonb_build_object(\n                'max_transfers', v_max_transfers,\n                'transfers_today', v_transfers_today\n            )\n        );\n\n        -- DO NOT leak the active session ID of the other device (P0.3)\n        RETURN jsonb_build_object(\n            'status', 'transfer_limit_exceeded',\n            'error', 'Limite diário de transferências de dispositivo atingido.',\n            'max_transfers', v_max_transfers,\n            'transfers_today', v_transfers_today,\n            'other_device_active', true\n        );\n    END IF;\n\n    -- Check if caller requested confirmation before executing transfer\n    IF p_confirm_transfer IS NOT TRUE THEN\n        INSERT INTO public.session_guard_events (\n            user_id,\n            session_id,\n            event_type,\n            device_fingerprint,\n            ip_address,\n            metadata\n        ) VALUES (\n            v_user_id,\n            v_effective_session_id,\n            'transfer_confirmation_required',\n            p_device_fingerprint,\n            p_ip,\n            jsonb_build_object(\n                'transfers_remaining', v_max_transfers - v_transfers_today\n            )\n        );\n\n        -- DO NOT leak the active session ID of the other device (P0.3)\n        RETURN jsonb_build_object(\n            'status', 'transfer_confirmation_required',\n            'other_device_active', true,\n            'other_device_fingerprint', COALESCE(v_record.device_fingerprint, 'dispositivo_conectado'),\n            'last_active_at', v_record.last_active_at,\n            'transfers_today', v_transfers_today,\n            'max_transfers', v_max_transfers,\n            'transfers_remaining', v_max_transfers - v_transfers_today\n        );\n    END IF;\n\n    -- Execute transfer: old session displaced, new session becomes active\n    v_displaced_session_id := v_record.session_id;\n\n    UPDATE public.user_active_sessions\n    SET session_id = v_effective_session_id,\n        device_fingerprint = p_device_fingerprint,\n        ip_address = p_ip,\n        status = 'active',\n        created_at = now(),\n        last_active_at = now(),\n        last_transfer_at = now(),\n        transfer_count_today = v_transfers_today + 1,\n        transfers_reset_date = current_date,\n        revoked_reason = NULL,\n        metadata = p_metadata\n    WHERE user_id = v_user_id;\n\n    -- Log displacement of old session (in private audit table only)\n    INSERT INTO public.session_guard_events (\n        user_id,\n        session_id,\n        event_type,\n        device_fingerprint,\n        ip_address,\n        metadata\n    ) VALUES (\n        v_user_id,\n        v_displaced_session_id,\n        'session_displaced',\n        v_record.device_fingerprint,\n        v_record.ip_address,\n        jsonb_build_object(\n            'transfers_today', v_transfers_today + 1\n        )\n    );\n\n    -- Log activation of new session\n    INSERT INTO public.session_guard_events (\n        user_id,\n        session_id,\n        event_type,\n        device_fingerprint,\n        ip_address,\n        metadata\n    ) VALUES (\n        v_user_id,\n        v_effective_session_id,\n        'session_transferred',\n        p_device_fingerprint,\n        p_ip,\n        jsonb_build_object(\n            'transfers_today', v_transfers_today + 1,\n            'transfers_remaining', v_max_transfers - (v_transfers_today + 1)\n        )\n    );\n\n    -- Return transfer confirmation WITHOUT disclosing displaced session ID (P0.3)\n    RETURN jsonb_build_object(\n        'status', 'transferred',\n        'transferred', true,\n        'active_session_id', v_effective_session_id,\n        'transfers_today', v_transfers_today + 1,\n        'max_transfers', v_max_transfers,\n        'transfers_remaining', v_max_transfers - (v_transfers_today + 1),\n        'inactivity_minutes', v_inactivity_minutes\n    );\nEND;\n$function$\n"
+    },
+    {
+      "function_name": "revoke_active_session",
+      "args": "p_session_id uuid, p_reason text",
+      "security_definer": true,
+      "config": [
+        "search_path=public, auth, pg_temp"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.revoke_active_session(p_session_id uuid DEFAULT NULL::uuid, p_reason text DEFAULT 'user_logout'::text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public', 'auth', 'pg_temp'\nAS $function$\nDECLARE\n    v_user_id uuid;\n    v_caller_role text;\n    v_jwt_claims jsonb;\n    v_jwt_session_id uuid;\n    v_effective_session_id uuid;\n    v_record public.user_active_sessions%ROWTYPE;\nBEGIN\n    v_user_id := auth.uid();\n    v_caller_role := auth.role();\n\n    IF v_user_id IS NULL THEN\n        RETURN jsonb_build_object('success', false, 'code', 'AUTH_REQUIRED', 'error', 'Autenticação necessária.');\n    END IF;\n\n    v_jwt_claims := auth.jwt();\n    v_jwt_session_id := NULLIF(v_jwt_claims ->> 'session_id', '')::uuid;\n\n    IF v_caller_role = 'authenticated' THEN\n        v_effective_session_id := COALESCE(v_jwt_session_id, p_session_id);\n    ELSE\n        v_effective_session_id := p_session_id;\n    END IF;\n\n    SELECT * INTO v_record\n    FROM public.user_active_sessions\n    WHERE user_id = v_user_id\n    FOR UPDATE;\n\n    IF NOT FOUND THEN\n        RETURN jsonb_build_object('success', true, 'revoked', false, 'message', 'Nenhuma sessão ativa encontrada.');\n    END IF;\n\n    -- If effective session matches or caller didn't specify\n    IF v_effective_session_id IS NULL OR v_record.session_id = v_effective_session_id THEN\n        UPDATE public.user_active_sessions\n        SET status = 'revoked',\n            revoked_reason = p_reason,\n            last_active_at = now()\n        WHERE user_id = v_user_id;\n\n        INSERT INTO public.session_guard_events (\n            user_id,\n            session_id,\n            event_type,\n            metadata\n        ) VALUES (\n            v_user_id,\n            v_record.session_id,\n            'session_revoked',\n            jsonb_build_object('reason', p_reason)\n        );\n\n        RETURN jsonb_build_object('success', true, 'revoked', true, 'status', 'revoked');\n    END IF;\n\n    RETURN jsonb_build_object('success', false, 'code', 'SESSION_NOT_ACTIVE', 'error', 'Sessão especificada não é a sessão ativa atual.');\nEND;\n$function$\n"
+    },
+    {
+      "function_name": "validate_session_guard",
+      "args": "p_session_id uuid, p_touch_activity boolean, p_ip text",
+      "security_definer": true,
+      "config": [
+        "search_path=public, auth, pg_temp"
+      ],
+      "definition": "CREATE OR REPLACE FUNCTION public.validate_session_guard(p_session_id uuid, p_touch_activity boolean DEFAULT true, p_ip text DEFAULT NULL::text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public', 'auth', 'pg_temp'\nAS $function$\nDECLARE\n    v_user_id uuid;\n    v_caller_role text;\n    v_jwt_claims jsonb;\n    v_jwt_session_id uuid;\n    v_effective_session_id uuid;\n    v_role text;\n    v_status text;\n    v_license_tier text;\n    v_inactivity_minutes integer := 60;\n    v_record public.user_active_sessions%ROWTYPE;\nBEGIN\n    v_user_id := auth.uid();\n    v_caller_role := auth.role();\n\n    IF v_user_id IS NULL THEN\n        RETURN jsonb_build_object('valid', false, 'code', 'AUTH_REQUIRED', 'error', 'Sessão não autenticada.');\n    END IF;\n\n    -- Cryptographic session validation from JWT claims (P0.3)\n    v_jwt_claims := auth.jwt();\n    v_jwt_session_id := NULLIF(v_jwt_claims ->> 'session_id', '')::uuid;\n\n    IF v_caller_role = 'authenticated' THEN\n        IF v_jwt_session_id IS NULL THEN\n            RETURN jsonb_build_object(\n                'valid', false,\n                'code', 'AUTH_TOKEN_MISSING_SESSION_ID',\n                'error', 'Token JWT não contém claim de sessão criptográfica obrigatória.'\n            );\n        END IF;\n\n        IF p_session_id IS NOT NULL AND p_session_id <> v_jwt_session_id THEN\n            INSERT INTO public.session_guard_events (\n                user_id,\n                session_id,\n                event_type,\n                ip_address,\n                metadata\n            ) VALUES (\n                v_user_id,\n                v_jwt_session_id,\n                'access_denied_mismatch',\n                p_ip,\n                jsonb_build_object('reason', 'client_passed_arbitrary_session_id', 'client_session_id', p_session_id)\n            );\n\n            RETURN jsonb_build_object(\n                'valid', false,\n                'code', 'SESSION_ID_MISMATCH',\n                'error', 'Identificador de sessão fornecido diverge da assinatura criptográfica do token.'\n            );\n        END IF;\n\n        v_effective_session_id := v_jwt_session_id;\n    ELSE\n        IF p_session_id IS NULL THEN\n            RETURN jsonb_build_object('valid', false, 'code', 'SESSION_ID_REQUIRED', 'error', 'Identificador de sessão obrigatório.');\n        END IF;\n        v_effective_session_id := p_session_id;\n    END IF;\n\n    SELECT role, status, COALESCE(license_tier, 'student')\n    INTO v_role, v_status, v_license_tier\n    FROM public.users\n    WHERE id = v_user_id;\n\n    -- Fail closed on inactive or suspended account\n    IF v_status IS NOT NULL AND NOT (v_status = ANY(ARRAY['active', 'ativo'])) THEN\n        RETURN jsonb_build_object(\n            'valid', false,\n            'code', 'USER_INACTIVE',\n            'error', 'Conta suspensa ou inativa. Acesso negado.'\n        );\n    END IF;\n\n    IF v_license_tier = 'demo' OR v_role = 'demo' THEN\n        v_inactivity_minutes := 30;\n    ELSIF v_role = 'student' THEN\n        v_inactivity_minutes := 60;\n    ELSE\n        v_inactivity_minutes := 120;\n    END IF;\n\n    SELECT * INTO v_record\n    FROM public.user_active_sessions\n    WHERE user_id = v_user_id;\n\n    IF NOT FOUND THEN\n        RETURN jsonb_build_object('valid', false, 'code', 'NO_ACTIVE_SESSION', 'error', 'Nenhuma sessão ativa registrada.');\n    END IF;\n\n    -- Check session ID match\n    IF v_record.session_id <> v_effective_session_id THEN\n        INSERT INTO public.session_guard_events (\n            user_id,\n            session_id,\n            event_type,\n            ip_address,\n            metadata\n        ) VALUES (\n            v_user_id,\n            v_effective_session_id,\n            'access_denied_displaced',\n            p_ip,\n            jsonb_build_object('reason', 'access_attempt_from_displaced_session')\n        );\n\n        -- DO NOT leak active session ID of the other device (P0.3)\n        RETURN jsonb_build_object(\n            'valid', false,\n            'code', 'SESSION_DISPLACED',\n            'error', 'Sessão encerrada porque outro dispositivo iniciou acesso nesta conta.',\n            'displaced', true,\n            'displaced_at', v_record.last_transfer_at\n        );\n    END IF;\n\n    -- Check status\n    IF v_record.status = 'revoked' THEN\n        RETURN jsonb_build_object('valid', false, 'code', 'SESSION_REVOKED', 'error', 'Sessão revogada previamente. Faça login novamente.');\n    END IF;\n\n    -- Check inactivity\n    IF (now() - v_record.last_active_at) > (v_inactivity_minutes || ' minutes')::interval THEN\n        UPDATE public.user_active_sessions\n        SET status = 'expired',\n            revoked_reason = 'inactivity_timeout'\n        WHERE user_id = v_user_id;\n\n        INSERT INTO public.session_guard_events (\n            user_id,\n            session_id,\n            event_type,\n            ip_address,\n            metadata\n        ) VALUES (\n            v_user_id,\n            v_effective_session_id,\n            'inactivity_expired',\n            p_ip,\n            jsonb_build_object('inactivity_minutes', v_inactivity_minutes)\n        );\n\n        RETURN jsonb_build_object(\n            'valid', false,\n            'code', 'SESSION_EXPIRED_INACTIVITY',\n            'error', 'Sessão expirada por inatividade.',\n            'expired', true,\n            'inactivity_minutes', v_inactivity_minutes\n        );\n    END IF;\n\n    -- Touch activity timestamp\n    IF p_touch_activity THEN\n        UPDATE public.user_active_sessions\n        SET last_active_at = now(),\n            ip_address = COALESCE(p_ip, ip_address)\n        WHERE user_id = v_user_id;\n    END IF;\n\n    RETURN jsonb_build_object(\n        'valid', true,\n        'code', 'SESSION_VALID',\n        'session_id', v_effective_session_id,\n        'last_active_at', now()\n    );\nEND;\n$function$\n"
+    }
+  ],
+  "columns": [
+    {
+      "table_name": "ai_rate_limits",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "ai_rate_limits",
+      "column_name": "window_started_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "ai_rate_limits",
+      "column_name": "request_count",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "ai_rate_limits",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "session_guard_events",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "session_guard_events",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "session_guard_events",
+      "column_name": "session_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "session_guard_events",
+      "column_name": "event_type",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "session_guard_events",
+      "column_name": "device_fingerprint",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "session_guard_events",
+      "column_name": "ip_address",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "session_guard_events",
+      "column_name": "metadata",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "session_guard_events",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "session_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "device_fingerprint",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "ip_address",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'active'::text"
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "last_active_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "last_transfer_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "transfer_count_today",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "transfers_reset_date",
+      "data_type": "date",
+      "is_nullable": "NO",
+      "column_default": "CURRENT_DATE"
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "revoked_reason",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "user_active_sessions",
+      "column_name": "metadata",
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "column_default": "'{}'::jsonb"
+    },
+    {
+      "table_name": "users",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "users",
+      "column_name": "institution_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "name",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "email",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "role",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "status",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": "'active'::text"
+    },
+    {
+      "table_name": "users",
+      "column_name": "avatar_url",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "last_login",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "users",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "now()"
+    },
+    {
+      "table_name": "users",
+      "column_name": "license_tier",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": "'student'::text"
+    },
+    {
+      "table_name": "users",
+      "column_name": "session_guard_enabled",
+      "data_type": "boolean",
+      "is_nullable": "YES",
+      "column_default": "false"
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "ai_rate_limits",
+      "constraint_name": "ai_rate_limits_pkey",
+      "constraint_type": "p",
+      "definition": "PRIMARY KEY (user_id)"
+    },
+    {
+      "table_name": "ai_rate_limits",
+      "constraint_name": "ai_rate_limits_request_count_check",
+      "constraint_type": "c",
+      "definition": "CHECK ((request_count >= 0))"
+    },
+    {
+      "table_name": "ai_rate_limits",
+      "constraint_name": "ai_rate_limits_user_id_fkey",
+      "constraint_type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "session_guard_events",
+      "constraint_name": "session_guard_events_event_type_check",
+      "constraint_type": "c",
+      "definition": "CHECK ((event_type = ANY (ARRAY['session_registered'::text, 'session_confirmed'::text, 'session_transferred'::text, 'session_displaced'::text, 'access_denied_displaced'::text, 'access_denied_mismatch'::text, 'inactivity_expired'::text, 'transfer_limit_exceeded'::text, 'transfer_confirmation_required'::text, 'rate_limit_exceeded'::text, 'account_suspended'::text, 'session_revoked'::text, 'admin_reset'::text])))"
+    },
+    {
+      "table_name": "session_guard_events",
+      "constraint_name": "session_guard_events_pkey",
+      "constraint_type": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "session_guard_events",
+      "constraint_name": "session_guard_events_user_id_fkey",
+      "constraint_type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE"
+    },
+    {
+      "table_name": "user_active_sessions",
+      "constraint_name": "user_active_sessions_pkey",
+      "constraint_type": "p",
+      "definition": "PRIMARY KEY (user_id)"
+    },
+    {
+      "table_name": "user_active_sessions",
+      "constraint_name": "user_active_sessions_status_check",
+      "constraint_type": "c",
+      "definition": "CHECK ((status = ANY (ARRAY['active'::text, 'displaced'::text, 'expired'::text, 'revoked'::text])))"
+    },
+    {
+      "table_name": "user_active_sessions",
+      "constraint_name": "user_active_sessions_user_id_fkey",
+      "constraint_type": "f",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE"
+    }
+  ],
+  "policiesCount": 102,
+  "policies": [
+    {
+      "tablename": "academic_class_students",
+      "policyname": "academic_class_students_manage_scoped",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text) OR (EXISTS ( SELECT 1\n   FROM academic_classes c\n  WHERE ((c.id = academic_class_students.class_id) AND (c.teacher_id = ( SELECT auth.uid() AS uid)) AND (c.institution_id = academic_class_students.institution_id)))))))",
+      "with_check": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text) OR (EXISTS ( SELECT 1\n   FROM academic_classes c\n  WHERE ((c.id = academic_class_students.class_id) AND (c.teacher_id = ( SELECT auth.uid() AS uid)) AND (c.institution_id = academic_class_students.institution_id)))))))"
+    },
+    {
+      "tablename": "academic_class_students",
+      "policyname": "academic_class_students_select_scoped",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text) OR (EXISTS ( SELECT 1\n   FROM academic_classes c\n  WHERE ((c.id = academic_class_students.class_id) AND (c.teacher_id = ( SELECT auth.uid() AS uid)) AND (c.institution_id = academic_class_students.institution_id)))))))",
+      "with_check": null
+    },
+    {
+      "tablename": "academic_classes",
+      "policyname": "academic_classes_manage_scoped",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text))))",
+      "with_check": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text))))"
+    },
+    {
+      "tablename": "academic_classes",
+      "policyname": "academic_classes_select_scoped",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text))))",
+      "with_check": null
+    },
+    {
+      "tablename": "ai_audit_events",
+      "policyname": "Users view their own AI audit trail",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(auth.uid() = user_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "ai_conversations",
+      "policyname": "Users manage their own AI conversations",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "(auth.uid() = user_id)",
+      "with_check": "(auth.uid() = user_id)"
+    },
+    {
+      "tablename": "ai_messages",
+      "policyname": "Users insert their own AI messages",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "((auth.uid() = user_id) AND (EXISTS ( SELECT 1\n   FROM ai_conversations conversation\n  WHERE ((conversation.id = ai_messages.conversation_id) AND (conversation.user_id = auth.uid())))))"
+    },
+    {
+      "tablename": "ai_messages",
+      "policyname": "Users view their own AI messages",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(auth.uid() = user_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "ai_rate_limits",
+      "policyname": "ai_rate_limits_select_own",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(user_id = auth.uid())",
+      "with_check": null
+    },
+    {
+      "tablename": "analytics_scoring_models",
+      "policyname": "scoring_models_admin",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "(get_current_researcher_role() = 'admin'::text)",
+      "with_check": "(get_current_researcher_role() = 'admin'::text)"
+    },
+    {
+      "tablename": "analytics_scoring_models",
+      "policyname": "scoring_models_select",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text, 'viewer'::text]))",
+      "with_check": null
+    },
+    {
+      "tablename": "anatomical_quiz_answers",
+      "policyname": "anatomical_quiz_answers_insert_own_attempt",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "(EXISTS ( SELECT 1\n   FROM (anatomical_quiz_attempts a\n     JOIN anatomical_quiz_questions q ON ((q.id = anatomical_quiz_answers.question_id)))\n  WHERE ((a.id = anatomical_quiz_answers.attempt_id) AND (a.user_id = auth.uid()) AND (q.quiz_id = a.quiz_id))))"
+    },
+    {
+      "tablename": "anatomical_quiz_answers",
+      "policyname": "anatomical_quiz_answers_select_by_attempt_tenant",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM anatomical_quiz_attempts a\n  WHERE ((a.id = anatomical_quiz_answers.attempt_id) AND ((a.user_id = auth.uid()) OR ((lower(COALESCE(( SELECT private.current_user_status() AS current_user_status), 'active'::text)) = ANY (ARRAY['active'::text, 'ativo'::text])) AND ((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_role() AS current_user_role) = ANY (ARRAY['teacher'::text, 'institution_admin'::text])) AND (a.institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)))))))))",
+      "with_check": null
+    },
+    {
+      "tablename": "anatomical_quiz_attempts",
+      "policyname": "anatomical_quiz_attempts_insert_own_tenant",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "((user_id = auth.uid()) AND (lower(COALESCE(( SELECT private.current_user_status() AS current_user_status), 'active'::text)) = ANY (ARRAY['active'::text, 'ativo'::text])) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND (EXISTS ( SELECT 1\n   FROM anatomical_quizzes q\n  WHERE ((q.id = anatomical_quiz_attempts.quiz_id) AND (q.model_id = anatomical_quiz_attempts.model_id) AND (q.institution_id = anatomical_quiz_attempts.institution_id) AND (q.active = true)))))"
+    },
+    {
+      "tablename": "anatomical_quiz_attempts",
+      "policyname": "anatomical_quiz_attempts_select_by_tenant",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((user_id = auth.uid()) OR ((lower(COALESCE(( SELECT private.current_user_status() AS current_user_status), 'active'::text)) = ANY (ARRAY['active'::text, 'ativo'::text])) AND ((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_role() AS current_user_role) = ANY (ARRAY['teacher'::text, 'institution_admin'::text])) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id))))))",
+      "with_check": null
+    },
+    {
+      "tablename": "anatomical_quiz_attempts",
+      "policyname": "anatomical_quiz_attempts_update_own_in_progress",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "((user_id = auth.uid()) AND (status = 'in_progress'::text))",
+      "with_check": "(user_id = auth.uid())"
+    },
+    {
+      "tablename": "anatomical_quiz_questions",
+      "policyname": "anatomical_quiz_questions_select_by_tenant",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM anatomical_quizzes q\n  WHERE ((q.id = anatomical_quiz_questions.quiz_id) AND (q.active = true) AND ((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((lower(COALESCE(( SELECT private.current_user_status() AS current_user_status), 'active'::text)) = ANY (ARRAY['active'::text, 'ativo'::text])) AND (q.institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)))))))",
+      "with_check": null
+    },
+    {
+      "tablename": "anatomical_quizzes",
+      "policyname": "anatomical_quizzes_select_by_tenant",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((active = true) AND ((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((lower(COALESCE(( SELECT private.current_user_status() AS current_user_status), 'active'::text)) = ANY (ARRAY['active'::text, 'ativo'::text])) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)))))",
+      "with_check": null
+    },
+    {
+      "tablename": "atlas_model_annotations",
+      "policyname": "Admin full access to annotations",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "(current_user_role() = ANY (ARRAY['admin'::text, 'super_admin'::text]))",
+      "with_check": null
+    },
+    {
+      "tablename": "atlas_model_annotations",
+      "policyname": "Institutional read for annotations of published models",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM atlas_models m\n  WHERE ((m.id = atlas_model_annotations.model_id) AND (m.status = 'published'::text) AND ((m.institution_availability ? 'global'::text) OR ((current_user_institution_id() IS NOT NULL) AND (m.institution_availability ? (current_user_institution_id())::text))))))",
+      "with_check": null
+    },
+    {
+      "tablename": "atlas_model_assets",
+      "policyname": "Admin full access to assets",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "(current_user_role() = ANY (ARRAY['admin'::text, 'super_admin'::text]))",
+      "with_check": null
+    },
+    {
+      "tablename": "atlas_model_assets",
+      "policyname": "Institutional read for assets of published models",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM atlas_models m\n  WHERE ((m.id = atlas_model_assets.model_id) AND (m.status = 'published'::text) AND ((m.institution_availability ? 'global'::text) OR ((current_user_institution_id() IS NOT NULL) AND (m.institution_availability ? (current_user_institution_id())::text))))))",
+      "with_check": null
+    },
+    {
+      "tablename": "atlas_models",
+      "policyname": "Admin full access to models",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "(current_user_role() = ANY (ARRAY['admin'::text, 'super_admin'::text]))",
+      "with_check": null
+    },
+    {
+      "tablename": "atlas_models",
+      "policyname": "Institutional read for published models",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "((status = 'published'::text) AND ((institution_availability ? 'global'::text) OR ((current_user_institution_id() IS NOT NULL) AND (institution_availability ? (current_user_institution_id())::text))))",
+      "with_check": null
+    },
+    {
+      "tablename": "audit_logs",
+      "policyname": "Users can read audit logs from own institution",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(institution_id = ( SELECT users.institution_id\n   FROM users\n  WHERE (users.id = auth.uid())))",
+      "with_check": null
+    },
+    {
+      "tablename": "billing_cycles",
+      "policyname": "InstAdmin_SELECT_BillingCycles",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "(((auth.jwt() ->> 'role'::text) = 'institution_admin'::text) AND (subscription_id IN ( SELECT institution_subscriptions.id\n   FROM institution_subscriptions\n  WHERE (institution_subscriptions.institution_id = ((auth.jwt() ->> 'institution_id'::text))::uuid))))",
+      "with_check": null
+    },
+    {
+      "tablename": "billing_cycles",
+      "policyname": "SuperAdmin_ALL_BillingCycles",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "((auth.jwt() ->> 'role'::text) = 'super_admin'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "billing_snapshots",
+      "policyname": "InstAdmin_SELECT_BillingSnapshots",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "(((auth.jwt() ->> 'role'::text) = 'institution_admin'::text) AND (institution_id = ((auth.jwt() ->> 'institution_id'::text))::uuid))",
+      "with_check": null
+    },
+    {
+      "tablename": "billing_snapshots",
+      "policyname": "SuperAdmin_ALL_BillingSnapshots",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "((auth.jwt() ->> 'role'::text) = 'super_admin'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "feature_flags",
+      "policyname": "InstAdmin_SELECT_FeatureFlags",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "(((auth.jwt() ->> 'role'::text) = 'institution_admin'::text) AND (institution_id = ((auth.jwt() ->> 'institution_id'::text))::uuid))",
+      "with_check": null
+    },
+    {
+      "tablename": "feature_flags",
+      "policyname": "SuperAdmin_ALL_FeatureFlags",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "((auth.jwt() ->> 'role'::text) = 'super_admin'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "institution_subscriptions",
+      "policyname": "InstAdmin_SELECT_InstitutionSubscriptions",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "(((auth.jwt() ->> 'role'::text) = 'institution_admin'::text) AND (institution_id = ((auth.jwt() ->> 'institution_id'::text))::uuid))",
+      "with_check": null
+    },
+    {
+      "tablename": "institution_subscriptions",
+      "policyname": "SuperAdmin_ALL_InstitutionSubscriptions",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "((auth.jwt() ->> 'role'::text) = 'super_admin'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "institutions",
+      "policyname": "Users can read own institution",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(id = ( SELECT users.institution_id\n   FROM users\n  WHERE (users.id = auth.uid())))",
+      "with_check": null
+    },
+    {
+      "tablename": "invoice_items",
+      "policyname": "InstAdmin_SELECT_InvoiceItems",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "(((auth.jwt() ->> 'role'::text) = 'institution_admin'::text) AND (invoice_id IN ( SELECT invoices.id\n   FROM invoices\n  WHERE (invoices.institution_id = ((auth.jwt() ->> 'institution_id'::text))::uuid))))",
+      "with_check": null
+    },
+    {
+      "tablename": "invoice_items",
+      "policyname": "SuperAdmin_ALL_InvoiceItems",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "((auth.jwt() ->> 'role'::text) = 'super_admin'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "invoices",
+      "policyname": "InstAdmin_SELECT_Invoices",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "(((auth.jwt() ->> 'role'::text) = 'institution_admin'::text) AND (institution_id = ((auth.jwt() ->> 'institution_id'::text))::uuid))",
+      "with_check": null
+    },
+    {
+      "tablename": "invoices",
+      "policyname": "SuperAdmin_ALL_Invoices",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "((auth.jwt() ->> 'role'::text) = 'super_admin'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "license_usage",
+      "policyname": "InstAdmin_SELECT_LicenseUsage",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "(((auth.jwt() ->> 'role'::text) = 'institution_admin'::text) AND (institution_id = ((auth.jwt() ->> 'institution_id'::text))::uuid))",
+      "with_check": null
+    },
+    {
+      "tablename": "license_usage",
+      "policyname": "SuperAdmin_ALL_LicenseUsage",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "((auth.jwt() ->> 'role'::text) = 'super_admin'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "model_access_logs",
+      "policyname": "Permitir leitura de logs de acesso por usuários da instituiç",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "(auth.role() = 'authenticated'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "model_access_logs",
+      "policyname": "Users can read model logs from own institution",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(institution_id = ( SELECT users.institution_id\n   FROM users\n  WHERE (users.id = auth.uid())))",
+      "with_check": null
+    },
+    {
+      "tablename": "model_annotations",
+      "policyname": "model_annotations_select_same_institution",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM users u\n  WHERE ((u.id = auth.uid()) AND ((u.role = 'super_admin'::text) OR (u.institution_id = model_annotations.institution_id)))))",
+      "with_check": null
+    },
+    {
+      "tablename": "models_3d",
+      "policyname": "models_3d_select_by_tenant",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND (( SELECT private.current_user_role() AS current_user_role) = ANY (ARRAY['student'::text, 'teacher'::text, 'institution_admin'::text])) AND (COALESCE(status, 'active'::text) = ANY (ARRAY['active'::text, 'ativo'::text, 'available'::text, 'disponivel'::text, 'disponível'::text]))))",
+      "with_check": null
+    },
+    {
+      "tablename": "participant_consents",
+      "policyname": "participant_consents_insert",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))"
+    },
+    {
+      "tablename": "participant_consents",
+      "policyname": "participant_consents_select",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text, 'viewer'::text]))",
+      "with_check": null
+    },
+    {
+      "tablename": "participants",
+      "policyname": "participants_admin_delete",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "DELETE",
+      "qual": "(get_current_researcher_role() = 'admin'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "participants",
+      "policyname": "participants_insert_update",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))",
+      "with_check": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))"
+    },
+    {
+      "tablename": "participants",
+      "policyname": "participants_select",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text, 'viewer'::text]))",
+      "with_check": null
+    },
+    {
+      "tablename": "platform_events",
+      "policyname": "Permitir inserção de eventos por todos",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "true"
+    },
+    {
+      "tablename": "platform_events",
+      "policyname": "Permitir leitura de eventos por usuários autenticados",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "(auth.role() = 'authenticated'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "prostheses",
+      "policyname": "prostheses_admin_delete",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "DELETE",
+      "qual": "(get_current_researcher_role() = 'admin'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "prostheses",
+      "policyname": "prostheses_insert_update",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))",
+      "with_check": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))"
+    },
+    {
+      "tablename": "prostheses",
+      "policyname": "prostheses_select",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text, 'viewer'::text]))",
+      "with_check": null
+    },
+    {
+      "tablename": "prosthesis_changes",
+      "policyname": "prosthesis_changes_insert_update",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))",
+      "with_check": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))"
+    },
+    {
+      "tablename": "prosthesis_changes",
+      "policyname": "prosthesis_changes_select",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text, 'viewer'::text]))",
+      "with_check": null
+    },
+    {
+      "tablename": "prosthesis_manufacturing_specs",
+      "policyname": "manufacturing_specs_insert_update",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))",
+      "with_check": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))"
+    },
+    {
+      "tablename": "prosthesis_manufacturing_specs",
+      "policyname": "manufacturing_specs_select",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text, 'viewer'::text]))",
+      "with_check": null
+    },
+    {
+      "tablename": "research_audit_log",
+      "policyname": "audit_log_insert",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))"
+    },
+    {
+      "tablename": "research_audit_log",
+      "policyname": "audit_log_select",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text, 'viewer'::text]))",
+      "with_check": null
+    },
+    {
+      "tablename": "researcher_profiles",
+      "policyname": "researcher_profiles_admin",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "(get_current_researcher_role() = 'admin'::text)",
+      "with_check": "(get_current_researcher_role() = 'admin'::text)"
+    },
+    {
+      "tablename": "researcher_profiles",
+      "policyname": "researcher_profiles_select",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((id = auth.uid()) OR (get_current_researcher_role() = 'admin'::text))",
+      "with_check": null
+    },
+    {
+      "tablename": "security_events",
+      "policyname": "security_events_insert_own_event",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "((user_id = ( SELECT auth.uid() AS uid)) AND (lower(COALESCE(( SELECT private.current_user_status() AS current_user_status), 'active'::text)) = ANY (ARRAY['active'::text, 'ativo'::text])) AND ((institution_id IS NULL) OR (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) OR (( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text)))"
+    },
+    {
+      "tablename": "security_events",
+      "policyname": "security_events_select_institution_admin",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((lower(COALESCE(( SELECT private.current_user_status() AS current_user_status), 'active'::text)) = ANY (ARRAY['active'::text, 'ativo'::text])) AND (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)))",
+      "with_check": null
+    },
+    {
+      "tablename": "security_events",
+      "policyname": "security_events_select_own_event",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(user_id = ( SELECT auth.uid() AS uid))",
+      "with_check": null
+    },
+    {
+      "tablename": "security_events",
+      "policyname": "security_events_select_super_admin",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((lower(COALESCE(( SELECT private.current_user_status() AS current_user_status), 'active'::text)) = ANY (ARRAY['active'::text, 'ativo'::text])) AND (( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text))",
+      "with_check": null
+    },
+    {
+      "tablename": "session_guard_events",
+      "policyname": "session_guard_events_select_own",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(user_id = auth.uid())",
+      "with_check": null
+    },
+    {
+      "tablename": "student_profiles",
+      "policyname": "Users can read students from same institution",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM (users target_user\n     JOIN users viewer_user ON ((viewer_user.institution_id = target_user.institution_id)))\n  WHERE ((target_user.id = student_profiles.user_id) AND (viewer_user.id = auth.uid()))))",
+      "with_check": null
+    },
+    {
+      "tablename": "study_agenda_events",
+      "policyname": "Users can create own agenda events",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "(auth.uid() = user_id)"
+    },
+    {
+      "tablename": "study_agenda_events",
+      "policyname": "Users can delete own agenda events",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "DELETE",
+      "qual": "(auth.uid() = user_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "study_agenda_events",
+      "policyname": "Users can update own agenda events",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "(auth.uid() = user_id)",
+      "with_check": "(auth.uid() = user_id)"
+    },
+    {
+      "tablename": "study_agenda_events",
+      "policyname": "Users can view own or shared institution agenda events",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((auth.uid() = user_id) OR (is_shared_with_students AND (institution_id = ( SELECT profile.institution_id\n   FROM users profile\n  WHERE (profile.id = auth.uid())))))",
+      "with_check": null
+    },
+    {
+      "tablename": "submission_domain_scores",
+      "policyname": "domain_scores_select",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text, 'viewer'::text]))",
+      "with_check": null
+    },
+    {
+      "tablename": "subscription_plans",
+      "policyname": "InstAdmin_SELECT_SubscriptionPlans",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "SELECT",
+      "qual": "((auth.jwt() ->> 'role'::text) = 'institution_admin'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "subscription_plans",
+      "policyname": "SuperAdmin_ALL_SubscriptionPlans",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "((auth.jwt() ->> 'role'::text) = 'super_admin'::text)",
+      "with_check": null
+    },
+    {
+      "tablename": "teacher_anatomical_notes",
+      "policyname": "teacher_anatomical_notes_manage_scoped",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text))))",
+      "with_check": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text))))"
+    },
+    {
+      "tablename": "teacher_anatomical_notes",
+      "policyname": "teacher_anatomical_notes_select_scoped",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text) OR (visibility = 'institution'::text))))",
+      "with_check": null
+    },
+    {
+      "tablename": "teacher_lesson_plans",
+      "policyname": "teacher_lesson_plans_manage_scoped",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text))))",
+      "with_check": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text))))"
+    },
+    {
+      "tablename": "teacher_lesson_plans",
+      "policyname": "teacher_lesson_plans_select_scoped",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text))))",
+      "with_check": null
+    },
+    {
+      "tablename": "teacher_profiles",
+      "policyname": "Users can read teachers from same institution",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM (users target_user\n     JOIN users viewer_user ON ((viewer_user.institution_id = target_user.institution_id)))\n  WHERE ((target_user.id = teacher_profiles.user_id) AND (viewer_user.id = auth.uid()))))",
+      "with_check": null
+    },
+    {
+      "tablename": "teacher_study_guides",
+      "policyname": "teacher_study_guides_manage_scoped",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "ALL",
+      "qual": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text))))",
+      "with_check": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text))))"
+    },
+    {
+      "tablename": "teacher_study_guides",
+      "policyname": "teacher_study_guides_select_scoped",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND ((teacher_id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'institution_admin'::text))))",
+      "with_check": null
+    },
+    {
+      "tablename": "user_active_sessions",
+      "policyname": "user_active_sessions_select_own",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(user_id = auth.uid())",
+      "with_check": null
+    },
+    {
+      "tablename": "users",
+      "policyname": "Users can view own profile",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(id = auth.uid())",
+      "with_check": null
+    },
+    {
+      "tablename": "users",
+      "policyname": "users_select_institution_scope",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((id = ( SELECT auth.uid() AS uid)) OR (( SELECT private.current_user_role() AS current_user_role) = 'super_admin'::text) OR ((( SELECT private.current_user_status() AS current_user_status) = 'active'::text) AND (institution_id = ( SELECT private.current_user_institution_id() AS current_user_institution_id)) AND (( SELECT private.current_user_role() AS current_user_role) = ANY (ARRAY['teacher'::text, 'coordinator'::text, 'rector'::text, 'institution_admin'::text, 'admin'::text]))))",
+      "with_check": null
+    },
+    {
+      "tablename": "viewer_learning_events",
+      "policyname": "Institution staff can view learning events",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((current_user_role() = ANY (ARRAY['super_admin'::text, 'admin'::text, 'institution_admin'::text, 'reitor'::text, 'rector'::text, 'coordenador'::text, 'coordinator'::text, 'professor'::text, 'teacher'::text])) AND ((current_user_role() = 'super_admin'::text) OR (institution_id = current_user_institution_id())))",
+      "with_check": null
+    },
+    {
+      "tablename": "viewer_learning_events",
+      "policyname": "Staff can view institution learning events",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(EXISTS ( SELECT 1\n   FROM viewer_learning_sessions session\n  WHERE ((session.id = viewer_learning_events.session_id) AND ((current_user_role() = 'super_admin'::text) OR ((current_user_role() = ANY (ARRAY['admin'::text, 'institution_admin'::text, 'rector'::text, 'coordinator'::text, 'teacher'::text])) AND (session.institution_id = current_user_institution_id()))))))",
+      "with_check": null
+    },
+    {
+      "tablename": "viewer_learning_events",
+      "policyname": "Users can insert their own learning events",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "((auth.uid() = user_id) AND ((session_id IS NULL) OR (EXISTS ( SELECT 1\n   FROM viewer_learning_sessions session\n  WHERE ((session.id = viewer_learning_events.session_id) AND (session.user_id = auth.uid()))))))"
+    },
+    {
+      "tablename": "viewer_learning_events",
+      "policyname": "Users can view their own learning events",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(auth.uid() = user_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "viewer_learning_sessions",
+      "policyname": "Institution staff can view learning sessions",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((current_user_role() = ANY (ARRAY['super_admin'::text, 'admin'::text, 'institution_admin'::text, 'reitor'::text, 'rector'::text, 'coordenador'::text, 'coordinator'::text, 'professor'::text, 'teacher'::text])) AND ((current_user_role() = 'super_admin'::text) OR (institution_id = current_user_institution_id())))",
+      "with_check": null
+    },
+    {
+      "tablename": "viewer_learning_sessions",
+      "policyname": "Staff can view institution learning sessions",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((current_user_role() = 'super_admin'::text) OR ((current_user_role() = ANY (ARRAY['admin'::text, 'institution_admin'::text, 'rector'::text, 'coordinator'::text, 'teacher'::text])) AND (institution_id = current_user_institution_id())))",
+      "with_check": null
+    },
+    {
+      "tablename": "viewer_learning_sessions",
+      "policyname": "Users can insert their own learning sessions",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "(auth.uid() = user_id)"
+    },
+    {
+      "tablename": "viewer_learning_sessions",
+      "policyname": "Users can update their own learning sessions",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "(auth.uid() = user_id)",
+      "with_check": "(auth.uid() = user_id)"
+    },
+    {
+      "tablename": "viewer_learning_sessions",
+      "policyname": "Users can view their own learning sessions",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(auth.uid() = user_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "viewer_quiz_results",
+      "policyname": "Institution staff can view quiz results",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((current_user_role() = ANY (ARRAY['super_admin'::text, 'admin'::text, 'institution_admin'::text, 'reitor'::text, 'rector'::text, 'coordenador'::text, 'coordinator'::text, 'professor'::text, 'teacher'::text])) AND ((current_user_role() = 'super_admin'::text) OR (institution_id = current_user_institution_id())))",
+      "with_check": null
+    },
+    {
+      "tablename": "viewer_quiz_results",
+      "policyname": "Staff can view institution quiz results",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "((current_user_role() = 'super_admin'::text) OR ((current_user_role() = ANY (ARRAY['admin'::text, 'institution_admin'::text, 'rector'::text, 'coordinator'::text, 'teacher'::text])) AND (institution_id = current_user_institution_id())))",
+      "with_check": null
+    },
+    {
+      "tablename": "viewer_quiz_results",
+      "policyname": "Users can insert their own quiz results",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "INSERT",
+      "qual": null,
+      "with_check": "(auth.uid() = user_id)"
+    },
+    {
+      "tablename": "viewer_quiz_results",
+      "policyname": "Users can update their own quiz results",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "(auth.uid() = user_id)",
+      "with_check": "(auth.uid() = user_id)"
+    },
+    {
+      "tablename": "viewer_quiz_results",
+      "policyname": "Users can view their own quiz results",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(auth.uid() = user_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "vita_tutor_memory",
+      "policyname": "vita_memory_select_own",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(( SELECT auth.uid() AS uid) = user_id)",
+      "with_check": null
+    },
+    {
+      "tablename": "weekly_submissions",
+      "policyname": "weekly_submissions_researcher_update",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "UPDATE",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))",
+      "with_check": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text]))"
+    },
+    {
+      "tablename": "weekly_submissions",
+      "policyname": "weekly_submissions_select",
+      "permissive": "PERMISSIVE",
+      "roles": "{authenticated}",
+      "cmd": "SELECT",
+      "qual": "(get_current_researcher_role() = ANY (ARRAY['admin'::text, 'researcher'::text, 'viewer'::text]))",
+      "with_check": null
+    }
+  ],
+  "prometheusBaseline": {
+    "participants_count": 8,
+    "prostheses_count": 9,
+    "weekly_submissions_count": 4
+  },
+  "authConfig": {
+    "jwt_exp": 3600,
+    "rate_limit_token_refresh": 150,
+    "refresh_token_rotation_enabled": true,
+    "security_sb_forwarded_for_enabled": false,
+    "security_captcha_enabled": false,
+    "security_captcha_provider": "hcaptcha",
+    "security_manual_linking_enabled": false,
+    "security_refresh_token_reuse_interval": 10,
+    "sessions_inactivity_timeout": 0,
+    "sessions_single_per_user": false,
+    "sessions_tags": null,
+    "sessions_timebox": 0,
+    "site_url": "http://localhost:3000"
+  },
+  "edgeFunctions": [
+    {
+      "id": "2514d5de-d83d-477d-b089-8e407212775f",
+      "slug": "ai-tutor",
+      "name": "ai-tutor",
+      "status": "ACTIVE",
+      "version": 63,
+      "created_at": 1785849599107,
+      "updated_at": 1794899800387,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hyivyrietgjdazgizafp_2514d5de-d83d-477d-b089-8e407212775f_63/source/index.ts",
+      "ezbr_sha256": "06a6b532a188814ecef2b567fdb228f197cfb20e95b13c6f963e7b0b55326f6f"
+    },
+    {
+      "id": "c1331690-1471-417e-b46f-1ba6c864bb70",
+      "slug": "voice-token",
+      "name": "voice-token",
+      "status": "ACTIVE",
+      "version": 24,
+      "created_at": 1787451953130,
+      "updated_at": 1794899207019,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hyivyrietgjdazgizafp_c1331690-1471-417e-b46f-1ba6c864bb70_24/source/index.ts",
+      "ezbr_sha256": "8275de82365964999f94ecd3abc5c02a5cacd7636ede86c220c0e5972c8eb15f"
+    }
+  ],
+  "liveProductionHeaders": {
+    "status": 200,
+    "x-vercel-id": "gru1::7mmff-1794955178008-eeeddb72d365",
+    "x-vercel-cache": "HIT",
+    "server": "Vercel",
+    "date": "Tue, 17 Nov 2026 22:39:38 GMT"
+  }
+}

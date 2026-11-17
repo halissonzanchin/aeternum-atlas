@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-11-17T22:43:39.056Z",
+  "status": "PASS",
+  "migrationVersion": "20261117210000",
+  "migrationName": "p0_13_1_first_session_wins_inactivity_60m",
+  "sha256": "5D1A1611114DF748B507B63028BD757CBDA6CF651CCB4F1E110FC2F8DAE8EB31",
+  "durationMs": 1982,
+  "columnsVerified": 7,
+  "restrictivePoliciesCreated": 19,
+  "prometheusIntegrity": {
+    "participants": 8,
+    "prostheses": 9,
+    "weeklySubmissions": 4,
+    "matchBaseline": true
+  }
+}
