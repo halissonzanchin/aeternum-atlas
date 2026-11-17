@@ -478,7 +478,8 @@ async function executeGatewayLLMCall(
   priorHistory: MessageRow[],
   prompt: string,
   contextMetadata: Record<string, unknown>,
-  fetchFn: typeof fetch = fetch
+  fetchFn: typeof fetch = fetch,
+  extraHeaders: Record<string, string> = {}
 ): Promise<GatewayLLMResult> {
   const endpoint = `${gatewayUrl.replace(/\/$/, "")}/v1/llm/generate`;
   const formattedMessages: Array<{ role: "user" | "assistant" | "system"; content: string }> = [];
@@ -493,14 +494,17 @@ async function executeGatewayLLMCall(
   }
   formattedMessages.push({ role: "user", content: prompt });
 
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${gatewayToken}`,
+    ...extraHeaders
+  };
+
   const start = performance.now();
   try {
     const response = await fetchFn(endpoint, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${gatewayToken}`
-      },
+      headers,
       body: JSON.stringify({
         messages: formattedMessages,
         systemInstruction: sysInstructionText,
@@ -518,10 +522,7 @@ async function executeGatewayLLMCall(
         try {
           const retryRes = await fetchFn(endpoint, {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${gatewayToken}`
-            },
+            headers,
             body: JSON.stringify({
               messages: formattedMessages,
               systemInstruction: sysInstructionText,
@@ -745,6 +746,11 @@ export async function handleAiTutorRequest(
   const env = deps.env || {
     AETERNUM_AI_GATEWAY_URL: typeof Deno !== "undefined" ? Deno.env.get("AETERNUM_AI_GATEWAY_URL") : undefined,
     AETERNUM_AI_GATEWAY_TOKEN: typeof Deno !== "undefined" ? Deno.env.get("AETERNUM_AI_GATEWAY_TOKEN") : undefined,
+    ATLAS_LOCAL_GATEWAY_URL: typeof Deno !== "undefined" ? Deno.env.get("ATLAS_LOCAL_GATEWAY_URL") : undefined,
+    ATLAS_LOCAL_GATEWAY_TOKEN: typeof Deno !== "undefined" ? Deno.env.get("ATLAS_LOCAL_GATEWAY_TOKEN") : undefined,
+    CF_ACCESS_CLIENT_ID: typeof Deno !== "undefined" ? Deno.env.get("CF_ACCESS_CLIENT_ID") : undefined,
+    CF_ACCESS_CLIENT_SECRET: typeof Deno !== "undefined" ? Deno.env.get("CF_ACCESS_CLIENT_SECRET") : undefined,
+    ATLAS_LOCAL_AI_ENABLED: typeof Deno !== "undefined" ? Deno.env.get("ATLAS_LOCAL_AI_ENABLED") : undefined,
     SUPABASE_URL: typeof Deno !== "undefined" ? Deno.env.get("SUPABASE_URL") : undefined,
     SUPABASE_ANON_KEY: typeof Deno !== "undefined" ? Deno.env.get("SUPABASE_ANON_KEY") : undefined,
     SUPABASE_SERVICE_ROLE_KEY: typeof Deno !== "undefined" ? Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") : undefined,
@@ -755,8 +761,25 @@ export async function handleAiTutorRequest(
   const anonKey = env.SUPABASE_ANON_KEY || "";
   const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY || "";
   const geminiKey = (env.GEMINI_API_KEY || "").trim();
-  const gatewayUrl = (env.AETERNUM_AI_GATEWAY_URL || "").trim();
-  const gatewayToken = (env.AETERNUM_AI_GATEWAY_TOKEN || "").trim();
+
+  // Cloudflare Access Service Token & Gateway resolution
+  const cfClientId = (env.CF_ACCESS_CLIENT_ID || "").trim();
+  const cfClientSecret = (env.CF_ACCESS_CLIENT_SECRET || "").trim();
+  const localGatewayUrl = (env.ATLAS_LOCAL_GATEWAY_URL || "https://atlas-code.aeternumatlas.com").trim();
+  const localGatewayToken = (env.ATLAS_LOCAL_GATEWAY_TOKEN || "").trim();
+  const rawGatewayUrl = (env.AETERNUM_AI_GATEWAY_URL || "").trim();
+  const rawGatewayToken = (env.AETERNUM_AI_GATEWAY_TOKEN || "").trim();
+
+  // Prefer the sovereign local gateway via Cloudflare Tunnel
+  const preferLocal = Boolean(localGatewayUrl && (cfClientId || localGatewayToken));
+  const gatewayUrl = preferLocal ? localGatewayUrl : (rawGatewayUrl || localGatewayUrl);
+  const gatewayToken = (preferLocal && localGatewayToken ? localGatewayToken : rawGatewayToken) || localGatewayToken;
+
+  const gatewayHeaders: Record<string, string> = {};
+  if (cfClientId && cfClientSecret) {
+    gatewayHeaders["CF-Access-Client-Id"] = cfClientId;
+    gatewayHeaders["CF-Access-Client-Secret"] = cfClientSecret;
+  }
 
   // Explicit check: reject public anon key as bearer token
   const reqApiKey = req.headers.get("apikey");
@@ -929,6 +952,7 @@ export async function handleAiTutorRequest(
     try {
       const fetchFn = deps.fetchFn || fetch;
       const hRes = await fetchFn(`${gatewayUrl.replace(/\/$/, "")}/health`, {
+        headers: gatewayHeaders,
         signal: AbortSignal.timeout(5000)
       });
       const latencyMs = Math.round(performance.now() - startHealth);
@@ -1240,7 +1264,8 @@ export async function handleAiTutorRequest(
     priorHistory,
     prompt,
     contextMeta,
-    deps.fetchFn || fetch
+    deps.fetchFn || fetch,
+    gatewayHeaders
   );
 
   // GOVERNANÇA SOBERANA P0.1: PROIBIÇÃO DE FALLBACK SILENCIOSO PARA OUTROS LLMs
@@ -1284,7 +1309,8 @@ export async function handleAiTutorRequest(
       priorHistory,
       prompt,
       contextMeta,
-      deps.fetchFn || fetch
+      deps.fetchFn || fetch,
+      gatewayHeaders
     );
     gatewayLatencyMs += parseFloat((performance.now() - tRetryStart).toFixed(2));
     if (gatewayResult.success && gatewayResult.text.trim()) {
