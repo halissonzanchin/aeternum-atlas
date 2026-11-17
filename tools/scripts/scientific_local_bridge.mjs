@@ -184,6 +184,22 @@ const server = http.createServer(async (req, res) => {
       }
 
       const context = body.context || {};
+
+      // Continuidade Contextual & Anáfora: Ancoragem de tópico ativo em perguntas subsequentes
+      const activeTopic = body.topic || context.sectionTitle || context.topic || context.modelTitle || null;
+      const isAnaphoric = /\b(seus|suas|dele|dela|deste|desta|desses|dessas|o mesmo|a mesma)\b/i.test(question) ||
+        (question.length < 80 && !/\b(aorta|plexo|cora[cç][aã]o|nervo|art[eé]ria|veia|m[uú]sculo|osso|sraa|renina)\b/i.test(question));
+
+      if (activeTopic && isAnaphoric && !new RegExp(activeTopic.split(' ')[0], 'i').test(effectiveQuestion)) {
+        effectiveQuestion = `[Tópico em foco: ${activeTopic}] ${effectiveQuestion}`;
+      } else if (!activeTopic && messages.length > 1 && isAnaphoric) {
+        const prevUserMsg = [...messages].slice(0, -1).reverse().find(m => (m.sender === 'user' || m.role === 'user') && (m.text || m.content));
+        if (prevUserMsg) {
+          const prevText = (prevUserMsg.text || prevUserMsg.content || '').slice(0, 100);
+          effectiveQuestion = `[Em continuidade ao tema anterior: "${prevText}"] ${effectiveQuestion}`;
+        }
+      }
+
       const conversationId = body.session_id || body.conversationId || `conv-${crypto.randomUUID()}`;
       const requestId = body.request_id || crypto.randomUUID();
 
