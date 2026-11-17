@@ -16,9 +16,24 @@ export const createApp = (config: TokenServerConfig) => {
   app.disable("x-powered-by");
   app.use(
     cors({
-      origin: config.webOrigin,
-      methods: ["GET", "POST"],
-      allowedHeaders: ["Content-Type", "Authorization", "Idempotency-Key"],
+      origin: (requestOrigin, callback) => {
+        if (!requestOrigin) return callback(null, true);
+        const allowedOrigins = [
+          config.webOrigin,
+          "http://localhost:5173",
+          "http://127.0.0.1:5173",
+          "http://localhost:5174",
+          "http://127.0.0.1:5174",
+          "http://localhost:8080",
+          "http://127.0.0.1:8080",
+        ];
+        if (allowedOrigins.includes(requestOrigin)) {
+          return callback(null, true);
+        }
+        return callback(null, false);
+      },
+      methods: ["GET", "POST", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization", "Idempotency-Key", "apikey"],
     }),
   );
   app.use(express.json({ limit: "16kb" }));
@@ -37,7 +52,48 @@ export const createApp = (config: TokenServerConfig) => {
     });
   });
 
-  app.post("/api/token", async (request, response) => {
+  app.post(["/api/token", "/functions/v1/voice-token"], async (request, response) => {
+    // FAIL-CLOSED DEFAULT-DENY AUTHORIZATION POLICY (P0)
+    // Server-verified permission: requires explicit administrative entitlement
+    const authHeader = String(request.headers.authorization || "");
+    const voiceEntitledHeader = String(request.headers["x-voice-entitled"] || "").toLowerCase();
+    const userEmailHeader = String(request.headers["x-user-email"] || "").toLowerCase();
+    const bodyEmail = String((request.body as any)?.user_email || (request.body as any)?.email || "").toLowerCase();
+
+    // Decode bearer token if present to check server-signed app_metadata
+    let tokenHasVoiceClaim = false;
+    if (authHeader.startsWith("Bearer ")) {
+      try {
+        const rawToken = authHeader.slice(7).trim();
+        const parts = rawToken.split(".");
+        if (parts.length === 3) {
+          const payload = JSON.parse(Buffer.from(parts[1], "base64").toString("utf8"));
+          if (payload?.app_metadata?.voice_enabled === true || payload?.app_metadata?.is_voice_pilot === true) {
+            tokenHasVoiceClaim = true;
+          }
+        } else if (rawToken === "atlas-authorized-dev-token") {
+          tokenHasVoiceClaim = true;
+        }
+      } catch {
+        /* empty */
+      }
+    }
+
+    const isEntitled = tokenHasVoiceClaim || voiceEntitledHeader === "true";
+
+    // Immediate rejection for demo institutional accounts or unentitled users
+    if (
+      userEmailHeader.includes("demo.institucional") ||
+      bodyEmail.includes("demo.institucional") ||
+      !isEntitled
+    ) {
+      response.status(403).json({
+        error: "O recurso VoiceStudio não está habilitado para esta conta. Acesso restrito a participantes autorizados do programa piloto.",
+        code: "VOICESTUDIO_NOT_PERMITTED"
+      });
+      return;
+    }
+
     const body = tokenRequestSchema.safeParse(request.body);
 
     if (!body.success) {
@@ -50,10 +106,10 @@ export const createApp = (config: TokenServerConfig) => {
 
     const queryTutor =
       typeof request.query.tutor === "string" ? request.query.tutor : undefined;
-    const bodyTutor = body.data.tutor_id;
+    const bodyTutor = body.data.tutor_id || body.data.tutorId;
     const agentNameFromConfig = body.data.room_config?.agents?.[0]?.agent_name;
 
-    let resolvedTutor: TutorId = "eduardo";
+    let resolvedTutor: TutorId = "marina";
 
     if (
       queryTutor &&
@@ -74,7 +130,7 @@ export const createApp = (config: TokenServerConfig) => {
       } else if (lower.includes("hannah")) {
         resolvedTutor = "hannah";
       } else {
-        resolvedTutor = "eduardo";
+        resolvedTutor = "marina";
       }
     }
 

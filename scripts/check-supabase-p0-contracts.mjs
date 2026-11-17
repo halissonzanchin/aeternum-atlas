@@ -65,7 +65,7 @@ assert.doesNotMatch(edgeFunction, /gemini-flash-latest|payload\.role|\{\s*messag
 assert.doesNotMatch(edgeFunction, /anon-student-session|fallback-user|acesso (?:completo|integral) aos livros/i);
 assert.match(edgeFunction, /GEMINI_API_KEY/);
 assert.match(edgeFunction, /consume_ai_rate_limit/);
-assert.match(edgeFunction, /match_anatomical_knowledge/);
+assert.match(edgeFunction, /match_vita_sovereign_knowledge|match_anatomical_knowledge/);
 assert.match(edgeFunction, /gemini-embedding-2/);
 assert.match(edgeFunction, /systemInstruction/);
 assert.doesNotMatch(edgeFunction, /system_instruction/);

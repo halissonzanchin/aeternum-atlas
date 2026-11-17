@@ -15,6 +15,30 @@ export const VITA_VOICE_CONFIG = Object.freeze({
   agentName: String(metaEnv.VITE_LIVEKIT_AGENT_NAME || "aeternum-vita-voice")
 });
 
-export function isVitaVoiceEnabled() {
-  return VITA_VOICE_CONFIG.enabled;
+export function isVitaVoiceEnabled(targetUser = null) {
+  if (!VITA_VOICE_CONFIG.enabled) {
+    return false;
+  }
+
+  // Institutional Demo Isolation Guard: VoiceStudio is strictly disabled for demo institutional accounts
+  let user = targetUser;
+  if (!user && typeof window !== "undefined") {
+    try {
+      const stored = window.localStorage.getItem("aeternum_auth_profile");
+      if (stored) {
+        user = JSON.parse(stored);
+      }
+    } catch {
+      /* empty */
+    }
+  }
+
+  if (user) {
+    const email = String(user.email || "").toLowerCase();
+    if (email === "demo.institucional@aeternumatlas.com" || email.startsWith("demo.institucional")) {
+      return false;
+    }
+  }
+
+  return true;
 }

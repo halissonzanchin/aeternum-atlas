@@ -9,7 +9,7 @@
  * VIEWER_CONTEXT_QUERY, SAFE_FAILURE_QUERY (and CLINICAL_ANATOMY_QUERY refusal).
  */
 
-export function resolveIntent(normalizedText) {
+export function resolveIntent(normalizedText: string): { intent: string; scope: string; matched_entity_hint?: string } {
   if (!normalizedText) {
     return {
       intent: 'UNKNOWN',

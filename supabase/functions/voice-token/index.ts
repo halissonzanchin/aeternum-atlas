@@ -2,7 +2,7 @@ import { RoomAgentDispatch, RoomConfiguration, TrackSource } from "npm:@livekit/
 import { AccessToken } from "npm:livekit-server-sdk@2.17.0";
 import { createClient } from "npm:@supabase/supabase-js@2.105.4";
 
-const ALLOWED_TUTORS = new Set(["eduardo", "antonia", "ariana", "fabian"]);
+const ALLOWED_TUTORS = new Set(["eduardo", "marina", "antonia", "ariana", "fabian"]);
 const MAX_REQUEST_BYTES = 2_048;
 
 function allowedOrigins(): string[] {
@@ -180,10 +180,29 @@ Deno.serve(async (req: Request) => {
       }, 503);
     }
 
+    // ==========================================
+    // FAIL-CLOSED DEFAULT-DENY AUTHORIZATION POLICY (P0)
+    // ==========================================
     if (!profile || !["active", "ativo"].includes(String(profile.status).toLowerCase())) {
       return jsonResponse(req, {
         error: "Perfil não autorizado para sessões de voz.",
         code: "VOICE_PROFILE_DENIED"
+      }, 403);
+    }
+
+    // Server-verified permission: requires explicit administrative entitlement in app_metadata.
+    // Client-provided user_metadata, email, tenant, or role are strictly ignored for authorization.
+    const appMetadata = (authData.user.app_metadata || {}) as Record<string, unknown>;
+    const isVoiceEntitled = Boolean(
+      appMetadata.voice_enabled === true ||
+      appMetadata.is_voice_pilot === true ||
+      appMetadata.voice_entitlement === "active"
+    );
+
+    if (!isVoiceEntitled) {
+      return jsonResponse(req, {
+        error: "O recurso VoiceStudio não está habilitado para esta conta. Acesso restrito a participantes autorizados do programa piloto.",
+        code: "VOICESTUDIO_NOT_PERMITTED"
       }, 403);
     }
 
@@ -209,9 +228,40 @@ Deno.serve(async (req: Request) => {
     }
 
     const body = await req.json().catch(() => ({}));
-    const tutorId = String(body?.tutor_id || "eduardo").toLowerCase();
+    const tutorId = String(body?.tutor_id || body?.tutorId || "marina").toLowerCase();
     if (!ALLOWED_TUTORS.has(tutorId)) {
       return jsonResponse(req, { error: "Tutor de voz inválido.", code: "INVALID_TUTOR" }, 400);
+    }
+
+    // Sanitize 3D viewport context (restricting keys, lengths, and omitting arbitrary payloads)
+    const rawContext = body?.context_3d;
+    let sanitizedContext3d: Record<string, unknown> | null = null;
+    if (rawContext && typeof rawContext === "object" && !Array.isArray(rawContext)) {
+      const modelId = typeof rawContext.model_id === "string"
+        ? rawContext.model_id.slice(0, 64)
+        : (typeof rawContext.modelId === "string" ? rawContext.modelId.slice(0, 64) : null);
+      const canonicalStructureId = typeof rawContext.canonical_structure_id === "string"
+        ? rawContext.canonical_structure_id.slice(0, 64)
+        : (typeof rawContext.canonicalStructureId === "string" ? rawContext.canonicalStructureId.slice(0, 64) : null);
+      const rawMarkers = Array.isArray(rawContext.landmark_ids || rawContext.markers)
+        ? (rawContext.landmark_ids || rawContext.markers)
+        : [];
+      const markers = rawMarkers
+        .filter((m: unknown) => typeof m === "string")
+        .slice(0, 10)
+        .map((m: string) => m.slice(0, 64));
+      const contextVersion = typeof rawContext.context_version === "string"
+        ? rawContext.context_version.slice(0, 32)
+        : (typeof rawContext.contextVersion === "string" ? rawContext.contextVersion.slice(0, 32) : "1.0");
+
+      if (modelId || canonicalStructureId) {
+        sanitizedContext3d = {
+          modelId: modelId || undefined,
+          selectedStructureId: canonicalStructureId || undefined,
+          markers: markers.length > 0 ? markers : undefined,
+          contextVersion
+        };
+      }
     }
 
     // ==========================================
@@ -228,12 +278,18 @@ Deno.serve(async (req: Request) => {
     const participantIdentity = `student-${userId.slice(0, 8)}-${requestHash}`;
     const participantName = profile.name || authData.user.email?.split("@")[0] || "Estudante Aeternum";
 
+    const sessionMetadata = JSON.stringify({
+      tutorId,
+      userId,
+      ...(sanitizedContext3d ? { context3d: sanitizedContext3d } : {})
+    });
+
     // Token restrito (10 min TTL, microfone somente)
     const token = new AccessToken(livekitApiKey, livekitApiSecret, {
       identity: participantIdentity,
       name: participantName,
       ttl: "10m",
-      metadata: JSON.stringify({ tutorId, userId })
+      metadata: sessionMetadata
     });
 
     token.addGrant({
@@ -248,7 +304,7 @@ Deno.serve(async (req: Request) => {
     token.roomConfig = new RoomConfiguration({
       agents: [new RoomAgentDispatch({
         agentName,
-        metadata: JSON.stringify({ tutorId, userId })
+        metadata: sessionMetadata
       })]
     });
 
