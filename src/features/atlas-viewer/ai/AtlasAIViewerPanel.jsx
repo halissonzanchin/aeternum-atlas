@@ -111,10 +111,19 @@ export default function AtlasAIViewerPanel({ isSketchfabMode }) {
       setPanelMode("expanded");
     }
 
+    const queryText = String(textOverride ?? draft).trim();
+    const queryNorm = queryText.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const modelNorm = (currentStructure || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const isDifferentRegion = /\b(femur|tibia|fibula|patela|joelho|coxa|coracao|pulmao|escapula|umero)\b/i.test(queryNorm) &&
+      !modelNorm.includes(queryNorm.match(/\b(femur|tibia|fibula|patela|joelho|coxa|coracao|pulmao|escapula|umero)\b/i)?.[0] || "");
+    const effectiveContextLabel = isDifferentRegion
+      ? "Consulta Anatômica"
+      : currentStructure;
+
     const response = await sendMessage({
       text: textOverride ?? draft,
       context: viewerContext,
-      contextLabel: currentStructure,
+      contextLabel: effectiveContextLabel,
       role: user?.role || 'student'
     });
 

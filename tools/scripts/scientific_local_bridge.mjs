@@ -116,7 +116,8 @@ const server = http.createServer(async (req, res) => {
       pathname === '/api/v1/tutor/ask' ||
       pathname === '/v1/tutor/ask' ||
       pathname === '/v1/unified-brain/ask' ||
-      pathname === '/v1/unified-brain/stream')
+      pathname === '/v1/unified-brain/stream' ||
+      pathname === '/v1/llm/generate')
   ) {
     res.writeHead(200, { ...corsHeaders, 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
@@ -137,7 +138,8 @@ const server = http.createServer(async (req, res) => {
       pathname === '/api/v1/tutor/ask' ||
       pathname === '/v1/tutor/ask' ||
       pathname === '/v1/unified-brain/ask' ||
-      pathname === '/v1/unified-brain/stream')
+      pathname === '/v1/unified-brain/stream' ||
+      pathname === '/v1/llm/generate')
   ) {
     let bodyRaw = '';
     req.on('data', chunk => {
@@ -421,6 +423,11 @@ const server = http.createServer(async (req, res) => {
                 contract_version: parsed.contract_version || 'AeternumUnifiedBrainContract v2.0.0',
                 mode: 'live',
                 text: parsed.answer,
+                data: {
+                  text: parsed.answer,
+                  providerId: 'aeternum-gateway',
+                  modelId: 'aeternum-llm'
+                },
                 oralizable_answer: parsed.oralizable_answer || parsed.answer,
                 source: 'rust_tutor_engine_staging_dev',
                 conversationId: conversationId,

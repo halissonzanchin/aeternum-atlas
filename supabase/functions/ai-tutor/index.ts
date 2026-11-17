@@ -809,11 +809,20 @@ export async function handleAiTutorRequest(
     return jsonResponse({ error: "Perfil não autorizado ou inativo.", code: "USER_INACTIVE" }, 403, cors);
   }
 
-  // 2. Fail-Closed Session Guard & Tiered Rate Limiting (P0.3 Hardened)
+  // 2. Fail-Closed Session Guard & Tiered Rate Limiting (P0.3 Hardened & P0.11.4 Schema-Resilient)
+  // Fail-closed resolution: even if database columns are missing during rollout,
+  // institutional demo account must never bypass Session Guard, single session policy or rate limits.
+  const isDemoAccount = Boolean(
+    profile.role === "demo" ||
+    (profile as any).license_tier === "demo" ||
+    userId === "5cfb837a-5ce3-4113-8f4a-dcdd9b8bf43f" ||
+    (user as any).email === "demo.institucional@aeternumatlas.com"
+  );
+
+  const effectiveLicenseTier = (profile as any).license_tier || (isDemoAccount ? "demo" : "student");
   const isSessionGuardActive = Boolean(
     (profile as any).session_guard_enabled === true ||
-    (profile as any).license_tier === "demo" ||
-    profile.role === "demo"
+    isDemoAccount
   );
 
   const sessionId = extractSessionIdFromBearer(token);
