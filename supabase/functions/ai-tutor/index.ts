@@ -788,11 +788,22 @@ export async function handleAiTutorRequest(
   });
 
   // 1. Fetch User Profile
-  const { data: profile, error: profileError } = await adminClient
+  let { data: profile, error: profileError } = await adminClient
     .from("users")
     .select("id, institution_id, role, status, name, license_tier, session_guard_enabled")
     .eq("id", userId)
     .maybeSingle();
+
+  // Backward compatibility during gradual migration deployment
+  if (profileError && (profileError.code === "42703" || profileError.message?.includes("does not exist"))) {
+    const baseProfileRes = await adminClient
+      .from("users")
+      .select("id, institution_id, role, status, name")
+      .eq("id", userId)
+      .maybeSingle();
+    profile = baseProfileRes.data;
+    profileError = baseProfileRes.error;
+  }
 
   if (profileError || !profile || !["active", "ativo"].includes(String(profile.status).toLowerCase())) {
     return jsonResponse({ error: "Perfil não autorizado ou inativo.", code: "USER_INACTIVE" }, 403, cors);
@@ -1378,5 +1389,6 @@ export async function handleAiTutorRequest(
 
 // Deno entrypoint
 if (typeof Deno !== "undefined" && typeof Deno.serve === "function") {
-  Deno.serve((req: Request) => handleAiTutorRequest(req));
+  const port = Number(Deno.env.get("PORT") || 8000);
+  Deno.serve({ port }, (req: Request) => handleAiTutorRequest(req));
 }

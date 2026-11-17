@@ -25,6 +25,8 @@ function runPsql(sql, role = "postgres", jwtSub = "", stopOnError = true, jwtSes
   }
   if (role && role !== "postgres") {
     setup += `SET request.jwt.claim.role = '${role}'; `;
+  } else {
+    setup += `SET request.jwt.claim.role = 'service_role'; `;
   }
   if (jwtSessionId) {
     setup += `SET request.jwt.claim.session_id = '${jwtSessionId}'; `;
@@ -34,12 +36,14 @@ function runPsql(sql, role = "postgres", jwtSub = "", stopOnError = true, jwtSes
   }
   if (role && role !== "postgres") {
     setup += `SET ROLE ${role}; `;
+  } else {
+    setup += `RESET ROLE; `;
   }
   const fullSql = setup + sql;
   const flag = stopOnError ? "-v ON_ERROR_STOP=1" : "";
   const cmd = `docker exec -i ${CONTAINER_NAME} psql -U postgres -d postgres ${flag} -t -A`;
   const output = execSync(cmd, { input: fullSql, encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] }).trim();
-  const filtered = output.split("\n").map(l => l.trim()).filter(l => l && !l.startsWith("SET") && !l.startsWith("NOTICE:"));
+  const filtered = output.split("\n").map(l => l.trim()).filter(l => l && !l.startsWith("SET") && !l.startsWith("RESET") && !l.startsWith("NOTICE:"));
   return filtered.join("\n");
 }
 
