@@ -323,21 +323,36 @@ export const atlasAITutorService = {
         if (response.status === 401) {
           code = errorBody.code || "AUTH_EXPIRED_OR_INVALID";
           messageText = errorBody.error || "Sua sessão expirou. Entre novamente para continuar.";
-          if (errorBody.code === "SESSION_EXPIRED_INACTIVITY" || errorBody.expired) {
+          if (
+            errorBody.code === "SESSION_EXPIRED_INACTIVITY" ||
+            errorBody.code === "SESSION_RELEASED" ||
+            errorBody.code === "SESSION_REVOKED" ||
+            errorBody.expired ||
+            errorBody.released ||
+            errorBody.revoked
+          ) {
             sessionGuardService.notifyExpired(errorBody);
           }
         } else if (response.status === 403) {
           code = errorBody.code || "FORBIDDEN";
           messageText = errorBody.error || "Acesso não autorizado para esta funcionalidade.";
-          if (errorBody.code === "SESSION_DISPLACED" || errorBody.displaced) {
+          if (
+            errorBody.code === "SESSION_ALREADY_ACTIVE" ||
+            errorBody.code === "SESSION_DISPLACED" ||
+            errorBody.other_device_active ||
+            errorBody.displaced
+          ) {
             sessionGuardService.notifyDisplaced(errorBody);
           }
         } else if (response.status === 429) {
           code = "RATE_LIMITED";
           messageText = errorBody.error || "Seu limite de mensagens foi atingido. Tente novamente mais tarde.";
         } else if (response.status >= 500) {
-          code = "SERVICE_UNAVAILABLE";
+          code = errorBody.code || "SERVICE_UNAVAILABLE";
           messageText = errorBody.error || "O Atlas não conseguiu acessar o modelo agora. Tente novamente.";
+          if (errorBody.code === "SESSION_GUARD_UNAVAILABLE") {
+            sessionGuardService.notifyUnavailable(errorBody);
+          }
         }
 
         emitTutorTelemetry({

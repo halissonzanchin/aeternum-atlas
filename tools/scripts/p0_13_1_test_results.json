@@ -1,0 +1,222 @@
+{
+  "executedAt": "2026-11-17T21:10:53.594Z",
+  "mission": "P0.13.1",
+  "environment": "Disposable PostgreSQL 15 (Docker) + Controlled Clock",
+  "productionModified": false,
+  "totalTests": 13,
+  "passedTests": 13,
+  "failedTests": 0,
+  "results": [
+    {
+      "test": 1,
+      "name": "Primeiro acesso autorizado",
+      "status": "PASS",
+      "details": {
+        "code": "SESSION_GRANTED",
+        "valid": true,
+        "status": "SESSION_GRANTED",
+        "allowed": true,
+        "active_session_id": "aaaa1111-1111-4111-8111-111111111111",
+        "inactivity_minutes": 60,
+        "last_presence_check_at": "2026-11-17T12:00:00+00:00",
+        "last_qualified_activity_at": "2026-11-17T12:00:00+00:00"
+      }
+    },
+    {
+      "test": 2,
+      "name": "Segundo acesso recusado",
+      "status": "PASS",
+      "details": {
+        "code": "SESSION_ALREADY_ACTIVE",
+        "error": "Esta conta já possui uma sessão ativa em outro dispositivo. A primeira sessão permanece preservada.",
+        "valid": false,
+        "status": "SESSION_ALREADY_ACTIVE",
+        "allowed": false,
+        "inactivity_minutes": 60,
+        "other_device_active": true
+      }
+    },
+    {
+      "test": 3,
+      "name": "Segundo acesso sem modificar timestamps da primeira sessão",
+      "status": "PASS",
+      "details": {
+        "before": {
+          "created_at": "2026-11-17T12:00:00+00:00",
+          "last_qualified_activity_at": "2026-11-17T12:00:00+00:00",
+          "last_presence_check_at": "2026-11-17T12:00:00+00:00"
+        },
+        "after": {
+          "created_at": "2026-11-17T12:00:00+00:00",
+          "last_qualified_activity_at": "2026-11-17T12:00:00+00:00",
+          "last_presence_check_at": "2026-11-17T12:00:00+00:00"
+        }
+      }
+    },
+    {
+      "test": 4,
+      "name": "Mesma sessão autorizada em múltiplas abas",
+      "status": "PASS",
+      "details": {
+        "code": "SESSION_VALID",
+        "valid": true,
+        "status": "SESSION_VALID",
+        "allowed": true,
+        "active_session_id": "aaaa1111-1111-4111-8111-111111111111",
+        "inactivity_minutes": 60,
+        "last_presence_check_at": "2026-11-17T12:25:00+00:00",
+        "last_qualified_activity_at": "2026-11-17T12:00:00+00:00"
+      }
+    },
+    {
+      "test": 5,
+      "name": "Inatividade de 59 minutos e 59 segundos",
+      "status": "PASS",
+      "details": {
+        "s1": {
+          "code": "SESSION_VALID",
+          "valid": true,
+          "status": "SESSION_VALID",
+          "session_id": "aaaa1111-1111-4111-8111-111111111111",
+          "inactivity_minutes": 60,
+          "last_presence_check_at": "2026-11-17T12:59:59+00:00",
+          "last_qualified_activity_at": "2026-11-17T12:00:00+00:00",
+          "qualified_activity_updated": false
+        },
+        "s2": {
+          "code": "SESSION_ALREADY_ACTIVE",
+          "error": "Esta conta já possui uma sessão ativa em outro dispositivo. A primeira sessão permanece preservada.",
+          "valid": false,
+          "status": "SESSION_ALREADY_ACTIVE",
+          "allowed": false,
+          "inactivity_minutes": 60,
+          "other_device_active": true
+        }
+      }
+    },
+    {
+      "test": 6,
+      "name": "Expiração aos 60 minutos",
+      "status": "PASS",
+      "details": {
+        "code": "SESSION_EXPIRED_INACTIVITY",
+        "error": "Sessão expirada por atingir 60 minutos de inatividade.",
+        "valid": false,
+        "status": "SESSION_EXPIRED_INACTIVITY",
+        "expired": true,
+        "inactivity_minutes": 60,
+        "last_qualified_activity_at": "2026-11-17T12:00:00+00:00"
+      }
+    },
+    {
+      "test": 7,
+      "name": "Atividade legítima reiniciando o prazo",
+      "status": "PASS",
+      "details": {
+        "rpcActivity": {
+          "code": "SESSION_VALID",
+          "valid": true,
+          "status": "SESSION_VALID",
+          "session_id": "77777777-7777-4777-8777-777777777777",
+          "inactivity_minutes": 60,
+          "last_presence_check_at": "2026-11-17T14:45:00+00:00",
+          "last_qualified_activity_at": "2026-11-17T14:45:00+00:00",
+          "qualified_activity_updated": true
+        },
+        "triggerVerified": true
+      }
+    },
+    {
+      "test": 8,
+      "name": "Logout liberando a conta",
+      "status": "PASS",
+      "details": {
+        "logout": {
+          "code": "SESSION_RELEASED",
+          "status": "SESSION_RELEASED",
+          "revoked": true,
+          "success": true,
+          "released": true
+        },
+        "newLogin": {
+          "code": "SESSION_GRANTED",
+          "valid": true,
+          "status": "SESSION_GRANTED",
+          "allowed": true,
+          "active_session_id": "bbbb2222-2222-4222-8222-222222222222",
+          "inactivity_minutes": 60,
+          "last_presence_check_at": "2026-11-17T16:20:01+00:00",
+          "last_qualified_activity_at": "2026-11-17T16:20:01+00:00"
+        }
+      }
+    },
+    {
+      "test": 9,
+      "name": "Novo login após expiração",
+      "status": "PASS",
+      "details": {
+        "code": "SESSION_GRANTED",
+        "valid": true,
+        "status": "SESSION_GRANTED",
+        "allowed": true,
+        "active_session_id": "cccc3333-3333-4333-8333-333333333333",
+        "inactivity_minutes": 60,
+        "last_presence_check_at": "2026-11-17T17:20:01+00:00",
+        "last_qualified_activity_at": "2026-11-17T17:20:01+00:00"
+      }
+    },
+    {
+      "test": 10,
+      "name": "Vinte logins concorrentes",
+      "status": "PASS",
+      "details": {
+        "totalConcurrent": 20,
+        "grantedCount": 1,
+        "alreadyActiveCount": 19,
+        "winningSessionId": "00000000-0000-4000-8000-000000000002"
+      }
+    },
+    {
+      "test": 11,
+      "name": "JWT antigo rejeitado (RLS & RPCs)",
+      "status": "PASS",
+      "details": {
+        "activeSessionReadWrite": "ALLOWED",
+        "oldReleasedJwtS1": "BLOCKED_RLS_AND_RPC",
+        "oldExpiredJwtS2": "BLOCKED_RLS_AND_RPC",
+        "secondaryUnregisteredJwtS4": "BLOCKED_RLS_AND_RPC"
+      }
+    },
+    {
+      "test": 12,
+      "name": "Falha de RPC com comportamento fail-closed",
+      "status": "PASS",
+      "details": {
+        "missingSessionIdClaim": "SESSION_GUARD_UNAVAILABLE",
+        "unauthenticatedCaller": "SESSION_GUARD_UNAVAILABLE",
+        "failClosedEnforced": true
+      }
+    },
+    {
+      "test": 13,
+      "name": "Preservação dos dados Prometheus",
+      "status": "PASS",
+      "details": {
+        "prometheusDbCountsBeforeRollback": {
+          "prostheses": 1,
+          "participants": 2,
+          "weekly_submissions": 2,
+          "anatomical_knowledge_prometheus": 1
+        },
+        "prometheusDbCountsAfterRollback": {
+          "prostheses": 1,
+          "participants": 2,
+          "weekly_submissions": 2,
+          "session_guard_events": 36,
+          "user_active_sessions": 3
+        },
+        "prometheusPort5173Untouched": true
+      }
+    }
+  ]
+}

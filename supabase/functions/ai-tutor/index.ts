@@ -847,7 +847,7 @@ export async function handleAiTutorRequest(
 
   const effectiveLicenseTier = (profile as any).license_tier || (isDemoAccount ? "demo" : "student");
   const isSessionGuardActive = Boolean(
-    (profile as any).session_guard_enabled === true ||
+    (profile as any).session_guard_enabled !== false ||
     isDemoAccount
   );
 
@@ -857,7 +857,8 @@ export async function handleAiTutorRequest(
     if (!sessionId) {
       return jsonResponse({
         error: "Sessão inválida: identificador criptográfico de sessão ausente no token autenticado.",
-        code: "SESSION_TOKEN_INVALID"
+        code: "SESSION_GUARD_UNAVAILABLE",
+        reason: "SESSION_TOKEN_INVALID"
       }, 401, cors);
     }
 
@@ -876,30 +877,52 @@ export async function handleAiTutorRequest(
     }
 
     const limit = Array.isArray(limitData) ? limitData[0] : limitData;
-    if (limit && limit.allowed === false) {
+    if (!limit || limit.code === "SESSION_GUARD_UNAVAILABLE") {
+      return jsonResponse({
+        error: "Serviço de validação de sessão temporariamente indisponível.",
+        code: "SESSION_GUARD_UNAVAILABLE"
+      }, 503, cors);
+    }
+
+    if (limit.allowed === false) {
+      if (limit.code === "SESSION_ALREADY_ACTIVE" || limit.other_device_active) {
+        return jsonResponse({
+          error: "Acesso recusado: já existe uma sessão ativa nesta conta. A primeira sessão tem prioridade.",
+          code: "SESSION_ALREADY_ACTIVE",
+          other_device_active: true
+        }, 403, cors);
+      }
       if (limit.code === "SESSION_DISPLACED" || limit.displaced) {
         return jsonResponse({
-          error: "Sessão encerrada porque outro dispositivo iniciou acesso nesta conta.",
-          code: "SESSION_DISPLACED",
+          error: "Sessão inativa: outra sessão detém a titularidade desta conta.",
+          code: "SESSION_ALREADY_ACTIVE",
           displaced: true
         }, 403, cors);
       }
       if (limit.code === "SESSION_EXPIRED_INACTIVITY" || limit.expired) {
         return jsonResponse({
-          error: "Sessão expirada por inatividade. Faça login novamente.",
+          error: "Sessão expirada após 60 minutos de inatividade. Faça login novamente.",
           code: "SESSION_EXPIRED_INACTIVITY",
           expired: true
+        }, 401, cors);
+      }
+      if (limit.code === "SESSION_RELEASED" || limit.released) {
+        return jsonResponse({
+          error: "Sessão encerrada voluntariamente por logout. Faça login novamente.",
+          code: "SESSION_RELEASED",
+          released: true
         }, 401, cors);
       }
       if (limit.code === "SESSION_ID_MISMATCH") {
         return jsonResponse({
           error: "Identificador de sessão incompatível com o token autenticado.",
-          code: "SESSION_ID_MISMATCH"
+          code: "SESSION_REVOKED",
+          reason: "SESSION_ID_MISMATCH"
         }, 403, cors);
       }
-      if (limit.code === "SESSION_REVOKED") {
+      if (limit.code === "SESSION_REVOKED" || limit.code === "NO_ACTIVE_SESSION" || limit.revoked) {
         return jsonResponse({
-          error: "Sessão revogada previamente. Faça login novamente.",
+          error: "Sessão revogada ou encerrada. Faça login novamente.",
           code: "SESSION_REVOKED"
         }, 401, cors);
       }

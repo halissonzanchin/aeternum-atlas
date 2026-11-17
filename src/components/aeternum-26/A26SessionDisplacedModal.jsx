@@ -7,54 +7,32 @@ export function A26SessionDisplacedModal({ onReauthenticate, onLogout }) {
     isDisplaced,
     isExpired,
     displacementDetails,
-    pendingTransfer,
-    confirmPendingTransfer,
-    cancelPendingTransfer,
     dismiss
   } = useSessionGuard();
 
-  if (!isDisplaced && !isExpired && !pendingTransfer) return null;
+  if (!isDisplaced && !isExpired) return null;
 
-  if (pendingTransfer) {
-    return (
-      <A26Modal
-        open={true}
-        title="Confirmar Troca de Dispositivo"
-        description="Você já possui uma sessão ativa em outro equipamento. Deseja transferir o acesso para este navegador?"
-        onClose={cancelPendingTransfer}
-        closeLabel="Cancelar"
-        className="a26-session-guard-modal"
-        actions={
-          <>
-            <A26Button variant="ghost" onClick={cancelPendingTransfer}>
-              Cancelar
-            </A26Button>
-            <A26Button variant="primary" onClick={confirmPendingTransfer}>
-              Transferir para este dispositivo
-            </A26Button>
-          </>
-        }
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px", fontSize: "13px", lineHeight: "1.5", color: "rgba(255,255,255,0.85)" }}>
-          <p>
-            A política de sessão única desconectará o dispositivo anterior.
-          </p>
-          <div style={{ padding: "10px 14px", borderRadius: "10px", background: "rgba(59, 130, 246, 0.12)", border: "1px solid rgba(59, 130, 246, 0.3)", color: "#93c5fd", fontSize: "12px" }}>
-            <strong>Transferências restantes hoje:</strong> {pendingTransfer.transfers_remaining} de {pendingTransfer.max_transfers}.
-          </div>
-        </div>
-      </A26Modal>
-    );
-  }
+  const code = displacementDetails?.code || "";
+  const isTimeout =
+    isExpired ||
+    code === "SESSION_EXPIRED_INACTIVITY" ||
+    code === "SESSION_RELEASED" ||
+    code === "SESSION_REVOKED" ||
+    displacementDetails?.reason === "inactivity_timeout";
 
-  const isTimeout = isExpired || displacementDetails?.reason === "inactivity_timeout";
-  const title = isTimeout
-    ? "Sessão Expirada por Inatividade"
-    : "Sessão Ativa em Outro Dispositivo";
+  const isUnavailable = code === "SESSION_GUARD_UNAVAILABLE";
 
-  const description = isTimeout
-    ? "Sua sessão foi encerrada automaticamente para preservar a segurança da conta após um período sem atividade."
-    : "Outro equipamento ou navegador iniciou acesso com esta conta. Para proteger seus dados acadêmicos e aplicar a política de sessão única, o acesso neste dispositivo foi suspenso.";
+  const title = isUnavailable
+    ? "Validação de Sessão Indisponível"
+    : isTimeout
+      ? "Sessão Encerrada"
+      : "Sessão Ativa em Outro Dispositivo";
+
+  const description = isUnavailable
+    ? "Não foi possível validar sua sessão no momento. Por segurança (fail-closed), o acesso foi interrompido."
+    : isTimeout
+      ? "Sua sessão foi encerrada automaticamente para preservar a segurança da conta após um período sem atividade."
+      : "Esta conta já possui uma sessão ativa em outro equipamento ou navegador. Pela política de prioridade da primeira sessão, novas conexões simultâneas não são permitidas.";
 
   const handleReconnect = () => {
     if (typeof onReauthenticate === "function") {
@@ -83,10 +61,10 @@ export function A26SessionDisplacedModal({ onReauthenticate, onLogout }) {
       actions={
         <>
           <A26Button variant="ghost" onClick={handleExit}>
-            Encerrar sessão
+            Encerrar
           </A26Button>
           <A26Button variant="primary" onClick={handleReconnect}>
-            Fazer login novamente
+            Voltar ao login
           </A26Button>
         </>
       }
@@ -94,14 +72,9 @@ export function A26SessionDisplacedModal({ onReauthenticate, onLogout }) {
       <div style={{ display: "flex", flexDirection: "column", gap: "12px", fontSize: "13px", lineHeight: "1.5", color: "rgba(255,255,255,0.85)" }}>
         <p>
           {isTimeout
-            ? "Reconecte-se com suas credenciais para continuar seus estudos anatômicos de onde parou."
-            : "A política de sessão única impede o compartilhamento indevido de contas e assegura a consistência das inferências do cérebro científico TutorEngine."}
+            ? "Autentique-se novamente com suas credenciais para retomar seus estudos anatômicos."
+            : "A primeira sessão autenticada mantém prioridade absoluta enquanto estiver ativa. Para acessar neste dispositivo, encerre primeiro a sessão no dispositivo original."}
         </p>
-        {!isTimeout && (
-          <div style={{ padding: "10px 14px", borderRadius: "10px", background: "rgba(239, 68, 68, 0.12)", border: "1px solid rgba(239, 68, 68, 0.3)", color: "#fca5a5", fontSize: "12px" }}>
-            <strong>Atenção:</strong> Se você não iniciou este novo acesso, recomendamos trocar sua senha imediatamente para proteger sua licença.
-          </div>
-        )}
       </div>
     </A26Modal>
   );
