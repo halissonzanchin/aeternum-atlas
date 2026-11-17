@@ -284,6 +284,20 @@ export const atlasAITutorService = {
         };
       }
 
+      // Check session guard authorization before initiating network call
+      const guardState = sessionGuardService.getState();
+      if (guardState.isDisplaced || guardState.isExpired || guardState.isUnavailable) {
+        return {
+          mode: "error",
+          code: guardState.displacementDetails?.code || "SESSION_NOT_AUTHORIZED",
+          message: guardState.displacementDetails?.error || "Acesso acadêmico não autorizado nesta sessão.",
+          source: null
+        };
+      }
+
+      // Record qualified AI tutor interaction
+      sessionGuardService.recordQualifiedActivity("ai_tutor_query");
+
       const baseUrl = isLocalAtlas
         ? localBridgeUrl
         : (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))

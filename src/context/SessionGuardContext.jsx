@@ -4,12 +4,13 @@ import { sessionGuardService } from "../services/session/sessionGuardService";
 const SessionGuardContext = createContext({
   isDisplaced: false,
   isExpired: false,
+  isUnavailable: false,
+  isAuthorized: false,
   displacementDetails: null,
   pendingTransfer: null,
-  transferStats: { transfersToday: 0, maxTransfers: 5, transfersRemaining: 5 },
   confirmPendingTransfer: async () => {},
   cancelPendingTransfer: () => {},
-  reconnect: async () => {},
+  retryValidation: async () => {},
   dismiss: () => {}
 });
 
@@ -28,10 +29,14 @@ export function SessionGuardProvider({ children, onLogout }) {
   }, []);
 
   const dismiss = () => {
-    sessionGuardService.revokeSession();
+    sessionGuardService.reset();
     if (typeof onLogout === "function") {
       onLogout();
     }
+  };
+
+  const retryValidation = async () => {
+    return sessionGuardService.retryValidation();
   };
 
   const confirmPendingTransfer = async () => {
@@ -47,6 +52,7 @@ export function SessionGuardProvider({ children, onLogout }) {
     ...guardState,
     confirmPendingTransfer,
     cancelPendingTransfer,
+    retryValidation,
     dismiss
   };
 

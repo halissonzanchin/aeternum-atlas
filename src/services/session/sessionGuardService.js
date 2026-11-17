@@ -75,6 +75,7 @@ export function isQualifiedActivityType(activityType) {
 class SessionGuardService {
   constructor() {
     this.currentSessionId = null;
+    this.isAuthorizedSession = false;
     this.status = null;
     this.presenceInterval = null;
     this.listeners = new Set();
@@ -106,6 +107,7 @@ class SessionGuardService {
   getState() {
     return {
       status: this.status,
+      isAuthorized: this.isAuthorizedSession,
       isDisplaced: this.isDisplaced,
       isExpired: this.isExpired,
       isUnavailable: this.isUnavailable,
@@ -118,12 +120,15 @@ class SessionGuardService {
 
   notifyAlreadyActive(details = {}) {
     this.status = SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE;
+    this.isAuthorizedSession = false;
+    this.currentSessionId = null;
     this.isDisplaced = true;
     this.isExpired = false;
+    this.isUnavailable = false;
     this.displacementDetails = {
       code: SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE,
       reason: "session_already_active",
-      error: details.error || "Já existe uma sessão ativa nesta conta. A primeira sessão permanece preservada."
+      error: details.error || "Esta conta já possui uma sessão ativa em outro dispositivo. Para proteger seus dados acadêmicos, não é permitido iniciar um segundo acesso simultâneo."
     };
     this.stopMonitoring();
     this.notify(this.getState());
@@ -132,7 +137,10 @@ class SessionGuardService {
   notifyDisplaced(details = {}) {
     const code = details.code || SESSION_GUARD_STATES.SESSION_ALREADY_ACTIVE;
     this.status = code;
+    this.isAuthorizedSession = false;
+    this.currentSessionId = null;
     this.isDisplaced = true;
+    this.isUnavailable = false;
     this.displacementDetails = {
       code,
       reason: details.reason || "session_already_active",
@@ -145,11 +153,14 @@ class SessionGuardService {
   notifyExpired(details = {}) {
     const code = details.code || SESSION_GUARD_STATES.SESSION_EXPIRED_INACTIVITY;
     this.status = code;
+    this.isAuthorizedSession = false;
+    this.currentSessionId = null;
     this.isExpired = true;
+    this.isUnavailable = false;
     this.displacementDetails = {
       code,
       reason: details.reason || "inactivity_timeout",
-      error: details.error || "Sessão encerrada após período de inatividade."
+      error: details.error || "Seu acesso foi encerrado após 60 minutos sem atividade para proteger sua conta e manter a disponibilidade da plataforma."
     };
     this.stopMonitoring();
     this.notify(this.getState());
@@ -157,14 +168,28 @@ class SessionGuardService {
 
   notifyUnavailable(details = {}) {
     this.status = SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE;
+    this.isAuthorizedSession = false;
     this.isUnavailable = true;
-    this.isDisplaced = true;
+    this.isDisplaced = false;
+    this.isExpired = false;
     this.displacementDetails = {
       code: SESSION_GUARD_STATES.SESSION_GUARD_UNAVAILABLE,
       reason: details.reason || "session_guard_unavailable",
-      error: details.error || "Serviço de validação de sessão temporariamente indisponível. Acesso bloqueado por segurança."
+      error: details.error || "Estamos com uma indisponibilidade temporária na validação da sessão. Tente novamente em instantes."
     };
     this.stopMonitoring();
+    this.notify(this.getState());
+  }
+
+  reset() {
+    this.stopMonitoring();
+    this.status = null;
+    this.isAuthorizedSession = false;
+    this.currentSessionId = null;
+    this.isDisplaced = false;
+    this.isExpired = false;
+    this.isUnavailable = false;
+    this.displacementDetails = null;
     this.notify(this.getState());
   }
 
@@ -285,6 +310,8 @@ class SessionGuardService {
       this.status = code === SESSION_GUARD_STATES.SESSION_GRANTED
         ? SESSION_GUARD_STATES.SESSION_GRANTED
         : SESSION_GUARD_STATES.SESSION_VALID;
+      this.isAuthorizedSession = true;
+      this.currentSessionId = sessionId;
       this.isDisplaced = false;
       this.isExpired = false;
       this.isUnavailable = false;
@@ -479,14 +506,18 @@ class SessionGuardService {
   async revokeSession(reason = "user_logout") {
     this.stopMonitoring();
     const sessionId = this.currentSessionId;
+    const wasAuthorized = this.isAuthorizedSession;
     this.currentSessionId = null;
+    this.isAuthorizedSession = false;
     this.status = SESSION_GUARD_STATES.SESSION_RELEASED;
     this.isDisplaced = false;
     this.isExpired = false;
     this.isUnavailable = false;
     this.displacementDetails = null;
 
-    if (sessionId) {
+    // CRITICAL: Only invoke server revoke RPC if this client actually holds an authorized active session!
+    // Refused second logins or unvalidated sessions must NEVER touch the server's active session!
+    if (wasAuthorized && sessionId) {
       try {
         await supabase.rpc("revoke_active_session", {
           p_session_id: sessionId,
@@ -497,6 +528,22 @@ class SessionGuardService {
       }
     }
     this.notify(this.getState());
+  }
+
+  async retryValidation() {
+    this.isUnavailable = false;
+    this.notify(this.getState());
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (!sessionData?.session) {
+        this.notifyUnavailable({ reason: "missing_access_token" });
+        return { valid: false, allowed: false };
+      }
+      return this.registerOrConfirmSession(sessionData.session);
+    } catch (err) {
+      this.notifyUnavailable({ error: err?.message });
+      return { valid: false, allowed: false };
+    }
   }
 }
 
