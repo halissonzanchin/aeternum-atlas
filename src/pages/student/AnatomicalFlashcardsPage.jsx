@@ -69,7 +69,7 @@ const DEFAULT_TOPIC_BY_LANG = {
 export default function AnatomicalFlashcardsPage({ user }) {
   const { t, language } = useLanguage();
   const langKey = ["pt", "es", "en", "de"].includes(language) ? language : "pt";
-  const { connectionMode, openTutor } = useAtlasAITutorSession();
+  const { connectionMode, openTutor, sendMessage } = useAtlasAITutorSession();
   const userId = user?.id || "student-default";
 
   // Generator Config State (NotebookLM Pattern)
@@ -166,7 +166,8 @@ export default function AnatomicalFlashcardsPage({ user }) {
         topic: selectedTopic,
         difficulty,
         cardCount,
-        language: langKey
+        language: langKey,
+        sendTutorMessage: typeof sendMessage === "function" ? sendMessage : null
       });
       setActiveDeck(generated);
       setGenerationNotice(generated.generationNotice || "");
@@ -376,9 +377,9 @@ export default function AnatomicalFlashcardsPage({ user }) {
       {!activeDeck && (
         <A26Surface material="regular" className="a26-generator-surface p-6 space-y-6">
           <div className="a26-flashcard-trustline" aria-live="polite">
-            <span className={`a26-flashcard-status-dot is-${connectionMode || "offline"}`} aria-hidden="true" />
+            <span className={`a26-flashcard-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")}`} aria-hidden="true" />
             <strong>{t("flashcards.trustlineCurated", { defaultValue: "Banco curado disponível" })}</strong>
-            <span>{connectionMode === "online" ? t("flashcards.trustlineOnline", { defaultValue: "Tutor IA online para temas personalizados" }) : t("flashcards.trustlineOffline", { defaultValue: "Tutor IA indisponível; temas curados continuam funcionando" })}</span>
+            <span>{(connectionMode === "online" || connectionMode === "live") ? t("flashcards.trustlineOnline", { defaultValue: "Tutor IA online para temas personalizados" }) : t("flashcards.trustlineOffline", { defaultValue: "Tutor IA indisponível; temas curados continuam funcionando" })}</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>

@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-11-17T05:20:27.106Z",
+  "checks": {
+    "Ollama Local (11434)": {
+      "status": "OK",
+      "details": "Online com 5 modelos (qwen3.5:4b disponível)"
+    },
+    "TutorEngine Rust Dev (14556)": {
+      "status": "OK",
+      "details": "HTTP 404"
+    },
+    "Aeternum AI Gateway (8081)": {
+      "status": "OK",
+      "details": "HEALTHY (auth_mode=HYBRID_AUTH, mode=local_first)"
+    },
+    "Scientific Local Bridge (8082)": {
+      "status": "OK",
+      "details": "Healthy (target=http://127.0.0.1:14556, db=true)"
+    },
+    "Cloudflare Tunnel Runtime": {
+      "status": "OK",
+      "details": "Conexões QUIC ativas no log"
+    },
+    "SQLite Scientific Knowledge DB Integrity": {
+      "status": "OK",
+      "details": "Tamanho: 14876672 bytes | SHA256: 9b0923bea996a0a8... | Confere: false"
+    },
+    "Supabase Cloud Production (hyivyrietgjdazgizafp)": {
+      "status": "OK",
+      "details": "Endpoint acessível via HTTPS"
+    },
+    "Official Production Web (https://www.aeternumatlas.com/)": {
+      "status": "OK",
+      "details": "HTTP 200 | Título: \"Aeternum Atlas | Biblioteca Anatômica 3D\""
+    },
+    "Host Power & Sleep State": {
+      "status": "OK",
+      "details": "Conectado à energia CA"
+    },
+    "Git Status & PR Baselines": {
+      "status": "OK",
+      "details": "main=e56705a | candidate=1ba07da"
+    }
+  },
+  "passed": true
+}

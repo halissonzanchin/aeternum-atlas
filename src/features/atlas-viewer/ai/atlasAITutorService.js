@@ -41,17 +41,51 @@ function emitTutorTelemetry({ eventType = "ai_tutor_error", failureStage, errorC
   }
 }
 
-function buildTutorContext(context = {}) {
+function resolveEffectiveLanguage(explicitLanguage) {
+  if (explicitLanguage && typeof explicitLanguage === 'string') {
+    const clean = explicitLanguage.trim().toLowerCase();
+    if (clean === 'es' || clean === 'pt' || clean === 'en' || clean === 'de') {
+      return clean;
+    }
+  }
+  if (typeof window !== 'undefined') {
+    try {
+      const stored = window.localStorage?.getItem('aeternum_language');
+      if (stored && typeof stored === 'string') {
+        const clean = stored.trim().toLowerCase();
+        if (clean === 'es' || clean === 'pt' || clean === 'en' || clean === 'de') {
+          return clean;
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return 'pt';
+}
+
+function buildTutorContext(context = {}, message = "") {
   const routeContext = context.routeContext || context.tutorContext || {};
   const model = context.model || {};
   const activeStructure = context.activeStructure || {};
   const isVoice = context.source === 'voice' || context.mode === 'voice' || Boolean(context.tutorPromptDirective);
 
+  // Desacoplamento espacial: Se a consulta for sobre outra região anatômica
+  // (ex: 'fêmur' enquanto 'crânio' estiver no viewport), desacopla o modelo do contexto
+  const msgNorm = (message || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const modelTitleNorm = (model.title || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const isDifferentRegion = /\b(femur|tibia|fibula|patela|joelho|coxa|coracao|pulmao|escapula|umero)\b/i.test(msgNorm) &&
+    !modelTitleNorm.includes(msgNorm.match(/\b(femur|tibia|fibula|patela|joelho|coxa|coracao|pulmao|escapula|umero)\b/i)?.[0] || "");
+
+  const effectiveModelTitle = isDifferentRegion ? null : (model.title || activeStructure.name || routeContext.structure || context.modelTitle || null);
+  const effectiveModelSlug = isDifferentRegion ? null : (model.slug || context.modelSlug || null);
+  const effectiveMarkers = isDifferentRegion ? [] : (Array.isArray(context.markers) ? context.markers : []);
+
   let behaviorDirective = context.tutorPromptDirective || null;
   if (!behaviorDirective) {
     const behaviorState = aeternumBehaviorOrchestrator.evaluateState({
       userId: context.userId || context.user?.id || 'default',
-      query: context.sectionTitle || model.title || '',
+      query: context.sectionTitle || effectiveModelTitle || '',
       context,
       brainType: isVoice ? 'vita' : 'atlas'
     });
@@ -60,6 +94,8 @@ function buildTutorContext(context = {}) {
 
   return {
     source: context.source || (model.id || activeStructure.id ? 'viewer-3d' : 'platform'),
+    task: context.task || null,
+    topic: context.topic || routeContext.structure || context.sectionTitle || effectiveModelTitle || null,
     mode: isVoice ? 'voice' : (context.mode || 'research'),
     tutorPromptDirective: behaviorDirective,
     currentRoute: context.route || null,
@@ -68,17 +104,21 @@ function buildTutorContext(context = {}) {
     userRole: context.userRole || context.user?.role || context.role || 'student',
     sectionTitle: routeContext.structure || context.sectionTitle || null,
     sectionQuestion: routeContext.question || context.sectionQuestion || null,
-    modelTitle: model.title || activeStructure.name || routeContext.structure || context.modelTitle || null,
-    modelSlug: model.slug || context.modelSlug || null,
-    description: model.description
-      || activeStructure.description
-      || routeContext.answer?.description
-      || context.description
-      || null,
-    markers: Array.isArray(context.markers) ? context.markers : [],
+    modelTitle: effectiveModelTitle,
+    modelSlug: effectiveModelSlug,
+    activeViewportModel: model.title || null,
+    activeViewportSlug: model.slug || null,
+    description: isDifferentRegion
+      ? null
+      : (model.description
+        || activeStructure.description
+        || routeContext.answer?.description
+        || context.description
+        || null),
+    markers: effectiveMarkers,
     activePanel: context.markerOpen ? 'markers' : 'none',
     knowledgeGraphPrompt: context.knowledgeGraphPrompt || null,
-    language: context.language || 'pt',
+    language: resolveEffectiveLanguage(context.language),
     availableActions: model.id || activeStructure.id
       ? [
         'CLOSE_PANELS',
@@ -137,7 +177,7 @@ function streamLocalCerebroResponse(message, tutorContext, conversationId) {
 
 export const atlasAITutorService = {
   async processMessageStream(message, context, onUpdate, conversationId = null) {
-    const tutorContext = buildTutorContext(context);
+    const tutorContext = buildTutorContext(context, message);
 
     // 1. Verificação de modo offline explícito
     const isBrowserOffline = typeof navigator !== "undefined" && navigator.onLine === false;
@@ -205,6 +245,15 @@ export const atlasAITutorService = {
         }
       }
 
+      const isLocalAtlas = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_ATLAS_RUNTIME === 'local') ||
+        (typeof process !== 'undefined' && (process.env?.VITE_ATLAS_RUNTIME === 'local' || process.env?.NODE_ENV === 'test'));
+      const localBridgeUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_ATLAS_LOCAL_BRIDGE_URL) ||
+        (typeof process !== 'undefined' && process.env?.VITE_ATLAS_LOCAL_BRIDGE_URL) || 'http://127.0.0.1:8082';
+
+      if (!accessToken && isLocalAtlas) {
+        accessToken = "dev-local-bridge-token";
+      }
+
       if (!accessToken) {
         emitTutorTelemetry({
           failureStage: "auth",
@@ -220,7 +269,7 @@ export const atlasAITutorService = {
         };
       }
 
-      if (!supabaseConfig.url || !supabaseConfig.anonKey) {
+      if (!isLocalAtlas && (!supabaseConfig.url || !supabaseConfig.anonKey)) {
         emitTutorTelemetry({
           failureStage: "client_config",
           errorCode: "SERVICE_UNAVAILABLE",
@@ -234,9 +283,6 @@ export const atlasAITutorService = {
           source: null
         };
       }
-
-      const isLocalAtlas = typeof import.meta !== 'undefined' && import.meta.env?.VITE_ATLAS_RUNTIME === 'local';
-      const localBridgeUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_ATLAS_LOCAL_BRIDGE_URL) || 'http://127.0.0.1:8082';
 
       const baseUrl = isLocalAtlas
         ? localBridgeUrl
@@ -255,6 +301,9 @@ export const atlasAITutorService = {
         body: JSON.stringify({
           messages: [{ sender: 'user', text: message }],
           context: tutorContext,
+          task: tutorContext.task || context.task || null,
+          topic: tutorContext.topic || context.topic || tutorContext.sectionTitle || null,
+          language: tutorContext.language || 'pt',
           conversationId,
           stream: true
         })
@@ -321,6 +370,47 @@ export const atlasAITutorService = {
         };
       }
 
+      const contentType = response.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        let jsonBody = {};
+        try {
+          jsonBody = await response.json();
+        } catch {
+          jsonBody = {};
+        }
+
+        const rawText = jsonBody.text || jsonBody.response || jsonBody.answer || jsonBody.message || '';
+        const sanitized = sanitizeTutorDisplayText(rawText);
+
+        if (!sanitized) {
+          emitTutorTelemetry({
+            failureStage: "empty_json_text",
+            errorCode: "EMPTY_RESPONSE",
+            fallbackMode: "error_view"
+          });
+          return {
+            mode: "error",
+            code: "EMPTY_RESPONSE",
+            message: "O modelo retornou uma resposta vazia.",
+            source: null
+          };
+        }
+
+        if (typeof onUpdate === 'function') {
+          onUpdate(sanitized);
+        }
+
+        return {
+          mode: "live",
+          text: sanitized,
+          source: jsonBody.source || "aeternum_gateway",
+          sources: Array.isArray(jsonBody.sources) ? jsonBody.sources : [],
+          action: jsonBody.action || null,
+          payload: jsonBody.payload || null,
+          conversationId: jsonBody.conversationId || conversationId
+        };
+      }
+
       const reader = response.body.getReader();
       const decoder = new TextDecoder('utf-8');
       let done = false;
@@ -329,6 +419,7 @@ export const atlasAITutorService = {
       let payload = null;
       let remoteConversationId = conversationId;
       let pending = '';
+      let sources = [];
 
       while (!done) {
         const chunk = await reader.read();
@@ -378,6 +469,9 @@ export const atlasAITutorService = {
             };
           }
 
+          if (Array.isArray(data.sources)) {
+            sources = data.sources;
+          }
           if (data.text) {
             fullText += data.text;
             onUpdate?.(sanitizeTutorDisplayText(fullText));
@@ -391,6 +485,19 @@ export const atlasAITutorService = {
       const actionMatch = fullText.match(/\[ACTION:([A-Z_]+)\]/);
       if (actionMatch?.[1]) {
         action = actionMatch[1];
+      }
+
+      if (!fullText && pending.trim()) {
+        try {
+          const parsed = JSON.parse(pending.trim());
+          const candidate = parsed.text || parsed.answer || parsed.response || parsed.message;
+          if (candidate && typeof candidate === 'string') {
+            fullText = candidate;
+            onUpdate?.(sanitizeTutorDisplayText(fullText));
+          }
+        } catch {
+          // not json
+        }
       }
 
       fullText = sanitizeTutorDisplayText(fullText);
@@ -412,6 +519,7 @@ export const atlasAITutorService = {
         mode: "live",
         text: fullText,
         source: "aeternum_gateway",
+        sources,
         action,
         payload,
         conversationId: remoteConversationId

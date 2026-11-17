@@ -544,8 +544,8 @@ function StudentAITutorStudio() {
         />
         <A26Metric
           label={t("aiTutorStudio.sessionState", { defaultValue: "Estado da sessão" })}
-          value={connectionMode === "online" ? t("aiTutorStudio.sessionSynchronized", { defaultValue: "Sincronizada" }) : t("aiTutorStudio.sessionLocal", { defaultValue: "Neste dispositivo" })}
-          detail={connectionMode === "online" ? t("aiTutorStudio.sessionSyncedDetail", { defaultValue: "Conversa associada à conta autenticada" }) : t("aiTutorStudio.sessionLocalDetail", { defaultValue: "Persistência remota indisponível nesta sessão" })}
+          value={(connectionMode === "online" || connectionMode === "live") ? t("aiTutorStudio.sessionSynchronized", { defaultValue: "Sincronizada" }) : t("aiTutorStudio.sessionLocal", { defaultValue: "Neste dispositivo" })}
+          detail={(connectionMode === "online" || connectionMode === "live") ? t("aiTutorStudio.sessionSyncedDetail", { defaultValue: "Conversa associada à conta autenticada" }) : t("aiTutorStudio.sessionLocalDetail", { defaultValue: "Persistência remota indisponível nesta sessão" })}
           tone="gold"
         />
         <A26Metric

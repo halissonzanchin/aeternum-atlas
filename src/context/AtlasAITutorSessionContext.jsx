@@ -225,6 +225,8 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         remoteConversationId = conversations?.[0]?.id || null;
       }
 
+      if (!remoteConversationId || cancelled) return;
+
       const { data: remoteMessages, error: messagesError } = await client
         .from("ai_messages")
         .select("id, role, content, created_at")
@@ -347,6 +349,66 @@ export function AtlasAITutorSessionProvider({ children, user }) {
         });
         setConnectionMode(response.mode || "live");
         if (response.conversationId) setConversationId(response.conversationId);
+
+        // Persistência soberana de memória conversacional em ai_conversations e ai_messages
+        if (user?.id && isSupabaseConfigured()) {
+          void (async () => {
+            try {
+              const client = getSupabaseClient();
+              let currentConvId = conversationId || response.conversationId;
+              if (!currentConvId) {
+                const { data: convData, error: convError } = await client
+                  .from("ai_conversations")
+                  .insert({
+                    user_id: user.id,
+                    institution_id: user.institution_id || null,
+                    title: enrichedContext.sectionTitle || normalizedText.slice(0, 60),
+                    context: enrichedContext
+                  })
+                  .select("id")
+                  .maybeSingle();
+                if (convError) {
+                  console.error("[Atlas AI Session] Erro ao criar conversa no Supabase:", convError);
+                  return;
+                }
+                if (convData?.id) {
+                  currentConvId = convData.id;
+                  setConversationId(currentConvId);
+                }
+              }
+
+              if (currentConvId) {
+                const { error: msgError } = await client.from("ai_messages").insert([
+                  {
+                    conversation_id: currentConvId,
+                    user_id: user.id,
+                    role: "user",
+                    content: normalizedText,
+                    metadata: { context: enrichedContext, channel: "text", clientMessageId: userMessage.id }
+                  },
+                  {
+                    conversation_id: currentConvId,
+                    user_id: user.id,
+                    role: "assistant",
+                    content: sanitizeTutorDisplayText(response.text),
+                    metadata: {
+                      source: response.source || "aeternum_gateway",
+                      action: response.action || null,
+                      payload: response.payload ?? null,
+                      citations: response.citations || [],
+                      clientMessageId: aiMessageId
+                    }
+                  }
+                ]);
+                if (msgError) {
+                  console.error("[Atlas AI Session] Erro ao gravar mensagens no Supabase:", msgError);
+                }
+              }
+            } catch (err) {
+              console.warn("[Atlas AI Session] Falha ao persistir turno de conversa:", err);
+            }
+          })();
+        }
       }
       return response;
     } catch (error) {

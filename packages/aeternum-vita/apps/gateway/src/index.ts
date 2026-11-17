@@ -66,7 +66,8 @@ const gateway = new AeternumAIGateway({
   host,
   authMode,
   mode: gatewayMode,
-  router
+  router,
+  requestTimeoutMs: Number(process.env.AETERNUM_AI_GATEWAY_TIMEOUT_MS) || 65000
 });
 
 gateway.start().then(() => {

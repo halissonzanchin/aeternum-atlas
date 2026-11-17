@@ -2,8 +2,8 @@ import {
   getAccessLogs as getProgressAccessLogs,
   markModelAsStudied,
   toggleFavoriteModel
-} from "../progressService";
-import { migrateLegacyTelemetryStorage, readStorage, removeStorage, storageKeys, writeStorage } from "../storage/storageService";
+} from "../progressService.js";
+import { migrateLegacyTelemetryStorage, readStorage, removeStorage, storageKeys, writeStorage } from "../storage/storageService.js";
 
 export const eventTypes = [
   "login",

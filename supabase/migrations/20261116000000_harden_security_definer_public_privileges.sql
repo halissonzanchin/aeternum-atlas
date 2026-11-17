@@ -108,10 +108,11 @@ GRANT EXECUTE ON FUNCTION public.match_vita_sovereign_knowledge(text, text[], te
 -- ------------------------------------------------------------------------------
 DO $$
 BEGIN
-  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'security_events') THEN
-    INSERT INTO public.security_events (event_type, details, created_at)
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'audit_logs') THEN
+    INSERT INTO public.audit_logs (action, target_table, metadata, created_at)
     VALUES (
       'security_definer_hardening_applied',
+      'routines',
       jsonb_build_object(
         'migration', '20261116000000_harden_security_definer_public_privileges.sql',
         'revoked_count', 13,

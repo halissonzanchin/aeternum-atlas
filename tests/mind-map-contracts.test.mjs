@@ -33,14 +33,14 @@ test("normalizador aceita Markdown controlado e produz uma árvore segura e úni
   assert.ok(lines.slice(1).every((line) => /^\s+\S/.test(line)));
 });
 
-test("geração usa a sessão autenticada do Tutor com contexto do mapa mental", async () => {
+test("geração usa a sessão autenticada do Tutor com contexto do mapa mental (suporta live e online)", async () => {
   const calls = [];
   const result = await generateAuthenticatedMindMap({
     topic: "Plexo braquial",
     sendTutorMessage: async (request) => {
       calls.push(request);
       return {
-        mode: "online",
+        mode: "live",
         conversationId: "conversation-1",
         text: `Plexo braquial
  Raízes
@@ -55,11 +55,21 @@ test("geração usa a sessão autenticada do Tutor com contexto do mapa mental",
     }
   });
 
-  assert.equal(result.mode, "online");
+  assert.equal(result.mode, "live");
   assert.equal(result.conversationId, "conversation-1");
   assert.equal(calls[0].context.source, "mind-map");
   assert.equal(calls[0].context.route, "/mind-map");
   assert.match(calls[0].contextLabel, /Plexo braquial/);
+});
+
+test("normalizador extrai hierarquia válida a partir de prosa científica do TutorEngine", () => {
+  const scientificProse = `O plexo braquial é uma rede nervosa complexa formada pela união das raízes cervicais C5 a T1, que se organiza em ramos motores e sensitivos para o membro superior. Suas estruturas principais incluem o nervo axilar, mediano, ulnar e radial, todos derivados diretamente deste plexo [SRC-MOORE-2018]. A inervação do ombro é exclusiva do nervo axilar, enquanto a mão recebe aporte sensitivo e motor distribuído entre os nervos mediano e ulnar. A relevância clínica deste sistema reside na sua vulnerabilidade durante cirurgias torácicas ou traumas no pescoço [PAS-AUTH-P18-020].`;
+  const outline = normalizeMindMapOutline(scientificProse, "Plexo braquial");
+  const lines = outline.split("\n");
+  assert.equal(lines[0], "Plexo braquial");
+  assert.ok(lines.length >= 10, "Deve conter pelo menos 10 nós");
+  const children = lines.filter((l) => /^\s+\S/.test(l));
+  assert.ok(children.length >= 8, "Deve conter pelo menos 8 filhos");
 });
 
 test("prompt do mapa impõe formato hierárquico e evita referências fabricadas", () => {

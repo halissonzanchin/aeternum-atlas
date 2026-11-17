@@ -1,6 +1,6 @@
-import { supabase } from "../lib/supabase";
-import { getLocalModelAnnotations } from "../data/localModels";
-import { isSupabaseConfigured } from "./supabase/supabaseClient";
+import { supabase } from "../lib/supabase.js";
+import { getLocalModelAnnotations } from "../data/localModels.js";
+import { isSupabaseConfigured } from "./supabase/supabaseClient.js";
 
 function normalizeAnnotation(row = {}) {
   return {
