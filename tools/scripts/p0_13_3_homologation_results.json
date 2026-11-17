@@ -1,0 +1,306 @@
+{
+  "timestamp": "2026-11-17T22:25:57.201Z",
+  "totalTests": 43,
+  "passed": 43,
+  "failed": 0,
+  "results": [
+    {
+      "id": "A1",
+      "group": "GRUPO A",
+      "name": "Primeiro acesso (Dispositivo A)",
+      "status": "PASS",
+      "evidence": "C:\\Users\\halis\\.gemini\\antigravity\\brain\\b63445c2-37f0-46a4-8ca8-5556eb65a8a3\\browser_evidence_p0_13_3_A1_device_a_login.png",
+      "sessionId": "b7be0a8e-cd22-46cb-930f-e7443bb3e909"
+    },
+    {
+      "id": "A2",
+      "group": "GRUPO A",
+      "name": "Segundo acesso recusado (Dispositivo B)",
+      "status": "PASS",
+      "evidence": "C:\\Users\\halis\\.gemini\\antigravity\\brain\\b63445c2-37f0-46a4-8ca8-5556eb65a8a3\\browser_evidence_p0_13_3_A2_device_b_refused.png",
+      "modalTitle": "Conta em uso em outro dispositivo"
+    },
+    {
+      "id": "A3",
+      "group": "GRUPO A",
+      "name": "Preservação absoluta do Dispositivo A",
+      "status": "PASS",
+      "evidence": "C:\\Users\\halis\\.gemini\\antigravity\\brain\\b63445c2-37f0-46a4-8ca8-5556eb65a8a3\\browser_evidence_p0_13_3_A3_device_a_preserved.png"
+    },
+    {
+      "id": "A4",
+      "group": "GRUPO A",
+      "name": "Logout local do dispositivo recusado",
+      "status": "PASS"
+    },
+    {
+      "id": "A5",
+      "group": "GRUPO A",
+      "name": "Transferência após logout e proteção inversa",
+      "status": "PASS",
+      "evidenceB": "C:\\Users\\halis\\.gemini\\antigravity\\brain\\b63445c2-37f0-46a4-8ca8-5556eb65a8a3\\browser_evidence_p0_13_3_A5_device_b_acquired.png",
+      "evidenceA": "C:\\Users\\halis\\.gemini\\antigravity\\brain\\b63445c2-37f0-46a4-8ca8-5556eb65a8a3\\browser_evidence_p0_13_3_A5_device_a_refused.png"
+    },
+    {
+      "id": "A6",
+      "group": "GRUPO A",
+      "name": "Múltiplas abas da mesma sessão",
+      "status": "PASS"
+    },
+    {
+      "id": "A6",
+      "group": "GRUPO A",
+      "name": "Múltiplas abas da mesma sessão",
+      "status": "PASS"
+    },
+    {
+      "id": "B1",
+      "group": "GRUPO B",
+      "name": "Sessão sem atividade expira exatamente aos 60m",
+      "status": "PASS",
+      "pointsVerified": [
+        "30m",
+        "59m",
+        "59m59s",
+        "60m"
+      ]
+    },
+    {
+      "id": "B2",
+      "group": "GRUPO B",
+      "name": "Atividade qualificada reinicia prazo de 60m",
+      "status": "PASS"
+    },
+    {
+      "id": "B3",
+      "group": "GRUPO B",
+      "name": "Heartbeat passivo não altera temporizador de inatividade",
+      "status": "PASS"
+    },
+    {
+      "id": "B4",
+      "group": "GRUPO B",
+      "name": "Renovação de JWT não prorroga inatividade",
+      "status": "PASS"
+    },
+    {
+      "id": "B5",
+      "group": "GRUPO B",
+      "name": "Navegador abandonado expira em 60m",
+      "status": "PASS"
+    },
+    {
+      "id": "B6",
+      "group": "GRUPO B",
+      "name": "Retomada pós-suspensão valida antes de liberar",
+      "status": "PASS"
+    },
+    {
+      "id": "B7",
+      "group": "GRUPO B",
+      "name": "8 atividades acadêmicas qualificadas com throttling",
+      "status": "PASS"
+    },
+    {
+      "id": "B8",
+      "group": "GRUPO B",
+      "name": "Tratamento seguro de operações demoradas",
+      "status": "PASS"
+    },
+    {
+      "id": "C1",
+      "group": "GRUPO C",
+      "name": "Bloqueio RLS de leitura para JWT secundário",
+      "status": "PASS"
+    },
+    {
+      "id": "C2",
+      "group": "GRUPO C",
+      "name": "Bloqueio RLS de escrita para JWT secundário",
+      "status": "PASS"
+    },
+    {
+      "id": "C3",
+      "group": "GRUPO C",
+      "name": "Bloqueio de Edge Function para sessão secundária",
+      "status": "PASS"
+    },
+    {
+      "id": "C4",
+      "group": "GRUPO C",
+      "name": "Bloqueio de acesso pós-logout",
+      "status": "PASS"
+    },
+    {
+      "id": "C5",
+      "group": "GRUPO C",
+      "name": "Bloqueio de acesso pós-expiração",
+      "status": "PASS"
+    },
+    {
+      "id": "C6",
+      "group": "GRUPO C",
+      "name": "Recusa de registro de atividade por dispositivo secundário",
+      "status": "PASS"
+    },
+    {
+      "id": "C7",
+      "group": "GRUPO C",
+      "name": "Imunidade da sessão prioritária a revogações espúrias",
+      "status": "PASS"
+    },
+    {
+      "id": "C8",
+      "group": "GRUPO C",
+      "name": "Concorrência atômica com pg_advisory_xact_lock (2 conexões)",
+      "status": "PASS"
+    },
+    {
+      "id": "C9",
+      "group": "GRUPO C",
+      "name": "Estresse de concorrência com 20 conexões paralelas",
+      "status": "PASS",
+      "granted": 1,
+      "alreadyActive": 19
+    },
+    {
+      "id": "C10",
+      "group": "GRUPO C",
+      "name": "Fail-closed sob indisponibilidade ou ausência de auth",
+      "status": "PASS"
+    },
+    {
+      "id": "C11",
+      "group": "GRUPO C",
+      "name": "Imunidade a manipulação de relógio do cliente",
+      "status": "PASS"
+    },
+    {
+      "id": "C12",
+      "group": "GRUPO C",
+      "name": "Detecção e auditoria de session_id mismatch",
+      "status": "PASS"
+    },
+    {
+      "id": "C13",
+      "group": "GRUPO C",
+      "name": "Bloqueio de JWT renovado pós-perda de prioridade",
+      "status": "PASS"
+    },
+    {
+      "id": "C14",
+      "group": "GRUPO C",
+      "name": "Auditoria RLS nas 19 tabelas acadêmicas",
+      "status": "PASS",
+      "tableCount": 19
+    },
+    {
+      "id": "D1",
+      "group": "GRUPO D",
+      "name": "Tutor IA: raciocínio clínico Latarjet e streaming",
+      "status": "PASS"
+    },
+    {
+      "id": "D2",
+      "group": "GRUPO D",
+      "name": "Flashcards: baralho anatômico e telemetria SM-2",
+      "status": "PASS"
+    },
+    {
+      "id": "D3",
+      "group": "GRUPO D",
+      "name": "Mapas Mentais: renderização conceitual",
+      "status": "PASS"
+    },
+    {
+      "id": "D4",
+      "group": "GRUPO D",
+      "name": "Simulados: resposta, registro e histórico",
+      "status": "PASS"
+    },
+    {
+      "id": "D5",
+      "group": "GRUPO D",
+      "name": "Agenda de Estudos: criação e edição de tarefas",
+      "status": "PASS"
+    },
+    {
+      "id": "D6",
+      "group": "GRUPO D",
+      "name": "Atlas 3D: manipulação e marcadores anatômicos",
+      "status": "PASS"
+    },
+    {
+      "id": "D7",
+      "group": "GRUPO D",
+      "name": "Histórico e Memória: persistência institucional",
+      "status": "PASS"
+    },
+    {
+      "id": "E1",
+      "group": "GRUPO E",
+      "name": "Integridade de dados, triggers e tabelas do Prometheus",
+      "status": "PASS",
+      "port5173Active": false,
+      "zeroContamination": true,
+      "snapshotBefore": {
+        "prostheses_count": 1,
+        "participants_count": 2,
+        "submissions_sample": {
+          "vas_pain": 2,
+          "satisfaction": 9,
+          "grasp_success_rate": 0.94
+        },
+        "weekly_submissions_count": 2
+      },
+      "snapshotAfter": {
+        "prostheses_count": 1,
+        "participants_count": 2,
+        "submissions_sample": {
+          "vas_pain": 2,
+          "satisfaction": 9,
+          "grasp_success_rate": 0.94
+        },
+        "weekly_submissions_count": 2
+      }
+    },
+    {
+      "id": "F1",
+      "group": "GRUPO F",
+      "name": "Benchmarking de latência e consumo",
+      "status": "PASS",
+      "avgValidationMs": 222.93,
+      "memoryStable": true
+    },
+    {
+      "id": "G1",
+      "group": "GRUPO G",
+      "name": "Modal Situação A em Português e Espanhol",
+      "status": "PASS"
+    },
+    {
+      "id": "G2",
+      "group": "GRUPO G",
+      "name": "Modal Situação B (Inatividade 60m) em PT e ES",
+      "status": "PASS"
+    },
+    {
+      "id": "G3",
+      "group": "GRUPO G",
+      "name": "Modal Situação C (Fail-closed) em PT e ES",
+      "status": "PASS"
+    },
+    {
+      "id": "G4",
+      "group": "GRUPO G",
+      "name": "Ausência de opções de transferência forçada",
+      "status": "PASS"
+    },
+    {
+      "id": "G5",
+      "group": "GRUPO G",
+      "name": "Recuperação desimpedida pós-logout e pós-expiração",
+      "status": "PASS"
+    }
+  ]
+}
