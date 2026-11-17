@@ -510,7 +510,7 @@ async function executeGatewayLLMCall(
         messages: formattedMessages,
         systemInstruction: sysInstructionText,
         temperature: 0.25,
-        maxTokens: 1024,
+        maxTokens: 4096,
         metadata: contextMetadata
       }),
       signal: AbortSignal.timeout(DEFAULT_GATEWAY_TIMEOUT_MS)
@@ -528,7 +528,7 @@ async function executeGatewayLLMCall(
               messages: formattedMessages,
               systemInstruction: sysInstructionText,
               temperature: 0.25,
-              maxTokens: 1024,
+              maxTokens: 4096,
               metadata: contextMetadata
             }),
             signal: AbortSignal.timeout(DEFAULT_GATEWAY_TIMEOUT_MS)
