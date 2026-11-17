@@ -552,6 +552,8 @@ async function executeGatewayLLMCall(
           }
         } catch {}
       }
+      const errBody = await response.text().catch(() => "");
+      console.error(`[ai-tutor] Gateway error HTTP ${response.status}:`, errBody);
       return {
         text: "",
         latencyMs,
@@ -559,7 +561,7 @@ async function executeGatewayLLMCall(
         provider: "aeternum-gateway",
         model: "gateway",
         success: false,
-        canonicalReason: `GATEWAY_HTTP_${response.status}`
+        canonicalReason: `GATEWAY_HTTP_${response.status} (${endpoint}): ${errBody.slice(0, 200)}`
       };
     }
 

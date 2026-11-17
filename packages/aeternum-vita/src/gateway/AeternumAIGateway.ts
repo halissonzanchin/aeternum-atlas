@@ -43,7 +43,7 @@ export class AeternumAIGateway {
       router: config.router,
       version: config.version || "1.0.0",
       mode: config.mode || "local_first",
-      requestTimeoutMs: config.requestTimeoutMs || 35000,
+      requestTimeoutMs: config.requestTimeoutMs || Number(process.env.AETERNUM_AI_GATEWAY_TIMEOUT_MS) || 65000,
       maxJsonBodyBytes: config.maxJsonBodyBytes || 1024 * 1024, // 1MB
       maxAudioBodyBytes: config.maxAudioBodyBytes || 10 * 1024 * 1024, // 10MB
       logger: config.logger || new SafeGatewayLogger()

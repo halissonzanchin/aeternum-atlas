@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-11-17T05:21:03.527Z",
+  "projectRef": "hyivyrietgjdazgizafp",
+  "git_main_head": "e56705ae34ead5a3db9e6816920fbc50f95b84bc",
+  "git_candidate_head": "1ba07da482d08099570641b11717c5c9a0fcc92d",
+  "prometheus_inventory": {
+    "participants": 8,
+    "prosthesis_changes": 1,
+    "prosthesis_manufacturing_specs": 3,
+    "weekly_submissions": 4,
+    "submission_domain_scores": 4
+  },
+  "edge_functions": {
+    "ai-tutor": {
+      "id": "2514d5de-d83d-477d-b089-8e407212775f",
+      "version": 54,
+      "status": "ACTIVE",
+      "updated_at": 1793765885503
+    },
+    "voice-token": {
+      "id": "c1331690-1471-417e-b46f-1ba6c864bb70",
+      "version": 18,
+      "status": "ACTIVE",
+      "updated_at": 1787595164164
+    }
+  },
+  "demo_user_columns": [
+    "id",
+    "institution_id",
+    "name",
+    "email",
+    "role",
+    "status",
+    "avatar_url",
+    "last_login",
+    "created_at",
+    "updated_at"
+  ],
+  "demo_user_license_tier": null,
+  "demo_user_session_guard_enabled": null
+}
