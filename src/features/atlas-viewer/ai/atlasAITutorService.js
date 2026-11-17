@@ -11,6 +11,7 @@ import { cerebroAtlasAI } from '../../../services/cerebro-aeternum/cerebroAetern
 import { cerebroAeternumVita } from '../../../services/cerebro-vita/cerebroAeternumVita.js';
 import { aeternumBehaviorOrchestrator } from '../../../services/ai/aeternumBehaviorOrchestrator.js';
 import { trackEvent } from '../../../services/analytics/analyticsService.js';
+import { sessionGuardService } from '../../../services/session/sessionGuardService.js';
 
 const ACTION_TOKEN_PATTERN = /\[ACTION:([A-Z_]+)\]/g;
 const PARTIAL_ACTION_TOKEN_PATTERN = /\[ACTION(?::[A-Z_]*)?$/i;
@@ -271,11 +272,17 @@ export const atlasAITutorService = {
         let messageText = errorBody.error || "O Atlas não conseguiu acessar o modelo agora. Tente novamente.";
 
         if (response.status === 401) {
-          code = "AUTH_EXPIRED_OR_INVALID";
+          code = errorBody.code || "AUTH_EXPIRED_OR_INVALID";
           messageText = errorBody.error || "Sua sessão expirou. Entre novamente para continuar.";
+          if (errorBody.code === "SESSION_EXPIRED_INACTIVITY" || errorBody.expired) {
+            sessionGuardService.notifyExpired(errorBody);
+          }
         } else if (response.status === 403) {
-          code = "FORBIDDEN";
+          code = errorBody.code || "FORBIDDEN";
           messageText = errorBody.error || "Acesso não autorizado para esta funcionalidade.";
+          if (errorBody.code === "SESSION_DISPLACED" || errorBody.displaced) {
+            sessionGuardService.notifyDisplaced(errorBody);
+          }
         } else if (response.status === 429) {
           code = "RATE_LIMITED";
           messageText = errorBody.error || "Seu limite de mensagens foi atingido. Tente novamente mais tarde.";

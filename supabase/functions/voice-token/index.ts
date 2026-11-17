@@ -101,6 +101,20 @@ function bearerToken(req: Request): string {
   return match?.[1]?.trim() || "";
 }
 
+function extractSessionIdFromBearer(jwt: string): string | null {
+  try {
+    const parts = jwt.split(".");
+    if (parts.length < 2) return null;
+    const base64Url = parts[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonStr = atob(base64);
+    const parsed = JSON.parse(jsonStr);
+    return parsed.session_id || null;
+  } catch {
+    return null;
+  }
+}
+
 async function shortHash(value: string): Promise<string> {
   const bytes = new TextEncoder().encode(value);
   const digest = await crypto.subtle.digest("SHA-256", bytes);
@@ -168,7 +182,7 @@ Deno.serve(async (req: Request) => {
 
     const { data: profile, error: profileError } = await adminClient
       .from("users")
-      .select("id, status, name, role")
+      .select("id, status, name, role, license_tier, session_guard_enabled")
       .eq("id", userId)
       .maybeSingle();
 
@@ -204,6 +218,58 @@ Deno.serve(async (req: Request) => {
         error: "O recurso VoiceStudio não está habilitado para esta conta. Acesso restrito a participantes autorizados do programa piloto.",
         code: "VOICESTUDIO_NOT_PERMITTED"
       }, 403);
+    }
+
+    // ==========================================
+    // FAIL-CLOSED SESSION GUARD VALIDATION (P0.3 Hardened)
+    // ==========================================
+    const isSessionGuardActive = Boolean(
+      (profile as any).session_guard_enabled === true ||
+      (profile as any).license_tier === "demo" ||
+      profile.role === "demo"
+    );
+
+    const sessionId = extractSessionIdFromBearer(accessToken);
+    if (isSessionGuardActive) {
+      if (!sessionId) {
+        return jsonResponse(req, {
+          error: "Sessão inválida: claim criptográfico session_id ausente no token autenticado.",
+          code: "SESSION_TOKEN_INVALID"
+        }, 401);
+      }
+
+      const { data: sessionData, error: sessionError } = await userClient.rpc("validate_session_guard", {
+        p_session_id: sessionId,
+        p_touch_activity: true
+      });
+
+      if (sessionError) {
+        return jsonResponse(req, {
+          error: "Serviço de validação de sessão temporariamente indisponível.",
+          code: "SESSION_GUARD_UNAVAILABLE"
+        }, 503);
+      }
+
+      if (sessionData && sessionData.valid === false) {
+        if (sessionData.code === "SESSION_DISPLACED" || sessionData.displaced) {
+          return jsonResponse(req, {
+            error: "Sessão encerrada porque outro dispositivo iniciou acesso nesta conta.",
+            code: "SESSION_DISPLACED",
+            displaced: true
+          }, 403);
+        }
+        if (sessionData.code === "SESSION_EXPIRED_INACTIVITY" || sessionData.expired) {
+          return jsonResponse(req, {
+            error: "Sessão expirada por inatividade. Faça login novamente.",
+            code: "SESSION_EXPIRED_INACTIVITY",
+            expired: true
+          }, 401);
+        }
+        return jsonResponse(req, {
+          error: sessionData.error || "Acesso de sessão negado.",
+          code: sessionData.code || "SESSION_DENIED"
+        }, 403);
+      }
     }
 
     // ==========================================
