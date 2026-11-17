@@ -441,7 +441,7 @@ export async function logoutUser() {
   }
   await sessionGuardService.revokeSession("user_logout");
   clearAuthProfile();
-  await supabase.auth.signOut({ scope: "local" });
+  await supabase.auth.signOut();
 }
 
 export function getCurrentUser() {
