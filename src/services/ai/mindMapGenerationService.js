@@ -196,7 +196,12 @@ export async function generateAuthenticatedMindMap({ topic, sendTutorMessage }) 
   });
 
   if (!isTutorSuccess(response)) {
-    throw new Error("O Tutor IA precisa de uma sessão autenticada e conexão ativa para gerar o mapa.");
+    const errorMsg = response?.message || (response?.code === "SESSION_ALREADY_ACTIVE"
+      ? "Esta conta já possui uma sessão ativa em outro dispositivo. Encerre o outro acesso para gerar o mapa mental."
+      : "O Tutor IA precisa de uma sessão autenticada e conexão ativa para gerar o mapa.");
+    const err = new Error(errorMsg);
+    if (response?.code) err.code = response.code;
+    throw err;
   }
 
   const outline = normalizeMindMapOutline(response.text, normalizedTopic);

@@ -324,11 +324,11 @@ export function AtlasAITutorSessionProvider({ children, user }) {
       );
 
       if (response.mode === "error") {
-        if (response.code === "FORBIDDEN") {
+        if (response.code === "FORBIDDEN" || response.code === "SESSION_ALREADY_ACTIVE" || response.code === "SESSION_DISPLACED") {
           setConversationId(null);
         }
         updateMessage(aiMessageId, {
-          text: response.message || "",
+          text: response.message || "Acesso acadêmico indisponível no momento.",
           mode: "error",
           code: response.code || "SERVICE_UNAVAILABLE",
           source: null,
