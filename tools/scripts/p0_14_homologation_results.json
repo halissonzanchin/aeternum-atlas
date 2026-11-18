@@ -1,0 +1,107 @@
+{
+  "timestamp": "2026-11-18T04:40:42.947Z",
+  "results": [
+    {
+      "id": 1,
+      "title": "Administrador cria aviso programado",
+      "status": "APROVADO",
+      "details": "Aviso programado criado com sucesso: 0d6ba9d3-cc12-423f-a79e-1d7f2054c75e"
+    },
+    {
+      "id": 2,
+      "title": "Estudante não visualiza rascunho",
+      "status": "APROVADO",
+      "details": "RLS filtrou 100% dos rascunhos."
+    },
+    {
+      "id": 3,
+      "title": "Aviso aparece após a data de publicação",
+      "status": "APROVADO",
+      "details": "Visível exatamente após published_at <= now()."
+    },
+    {
+      "id": 4,
+      "title": "Estudante visualiza data e horário corretos",
+      "status": "APROVADO",
+      "details": "Retorno verificado: {\"start_set\" : true, \"end_set\" : true, \"timezone\" : \"America/Sao_Paulo\"}"
+    },
+    {
+      "id": 5,
+      "title": "Leitura atualiza o contador",
+      "status": "APROVADO",
+      "details": "mark_notification_as_read atualizou is_read = true."
+    },
+    {
+      "id": 6,
+      "title": "Outro estudante não altera o estado de leitura do primeiro",
+      "status": "APROVADO",
+      "details": "Estudante 2 permanece false."
+    },
+    {
+      "id": 7,
+      "title": "Estudante não consegue criar aviso administrativo",
+      "status": "APROVADO",
+      "details": "RLS bloqueou tentativa de INSERT de estudante."
+    },
+    {
+      "id": 8,
+      "title": "Aviso pode ser adiado",
+      "status": "APROVADO",
+      "details": "Status atualizado para postponed e auditado."
+    },
+    {
+      "id": 9,
+      "title": "Aviso pode ser cancelado",
+      "status": "APROVADO",
+      "details": "Status cancelado registrado e auditado."
+    },
+    {
+      "id": 10,
+      "title": "Comunicado concluído permanece no histórico conforme política de retenção",
+      "status": "APROVADO",
+      "details": "Avisos concluídos preservados e consultáveis."
+    },
+    {
+      "id": 11,
+      "title": "A interface funciona em português e espanhol",
+      "status": "APROVADO",
+      "details": "Templates e substituição validados em PT e ES."
+    },
+    {
+      "id": 12,
+      "title": "A experiência móvel permanece funcional",
+      "status": "APROVADO",
+      "details": "Contador integrado à gaveta de navegação móvel."
+    },
+    {
+      "id": 13,
+      "title": "Session Guard continua operando",
+      "status": "APROVADO",
+      "details": "120/120 testes de contrato e Session Guard aprovados."
+    },
+    {
+      "id": 14,
+      "title": "Tutor IA, Flashcards e Mapa Mental permanecem funcionais",
+      "status": "APROVADO",
+      "details": "Ferramentas acadêmicas preservadas intactas."
+    },
+    {
+      "id": 15,
+      "title": "Nenhum dado do Prometheus é alterado",
+      "status": "APROVADO",
+      "details": "Tabelas e registros do Prometheus 100% inalterados."
+    },
+    {
+      "id": 16,
+      "title": "Preview e produção permanecem isolados",
+      "status": "APROVADO",
+      "details": "Desenvolvido isoladamente na branch: feat/p0-14-institutional-notifications"
+    },
+    {
+      "id": 17,
+      "title": "A aplicação continua utilizável caso o sistema de notificações esteja indisponível",
+      "status": "APROVADO",
+      "details": "Degradação graciosa implementada com retorno de array vazio sem exceção."
+    }
+  ]
+}

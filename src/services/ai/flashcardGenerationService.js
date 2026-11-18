@@ -491,7 +491,22 @@ async function generateTutorCards({ topic, difficulty, count, existingCards, lan
     );
   }
 
-  if (!isTutorSuccess(response)) return [];
+  if (!isTutorSuccess(response)) {
+    if (
+      response?.code === "SESSION_ALREADY_ACTIVE" ||
+      response?.code === "SESSION_DISPLACED" ||
+      response?.code === "SESSION_REVOKED" ||
+      response?.code === "FORBIDDEN"
+    ) {
+      const err = new Error(
+        response.message ||
+        "Esta conta já possui uma sessão ativa em outro dispositivo. Encerre o outro acesso para gerar flashcards."
+      );
+      err.code = response.code;
+      throw err;
+    }
+    return [];
+  }
 
   const approved = [];
 

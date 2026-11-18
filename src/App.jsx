@@ -32,6 +32,7 @@ import { useLanguage } from "./context/LanguageContext";
 import AtlasAITutor from "./features/dashboard/components/AtlasAITutor";
 import { AtlasAITutorSessionProvider } from "./context/AtlasAITutorSessionContext";
 import { AuthProvider } from "./context/AuthContext";
+import { InstitutionalNotificationProvider } from "./context/InstitutionalNotificationContext";
 import { SessionGuardProvider } from "./context/SessionGuardContext";
 import { A26SessionDisplacedModal } from "./components/aeternum-26";
 import { useAccountLearningSession } from "./hooks/useAccountLearningSession";
@@ -246,43 +247,45 @@ export default function App() {
   return (
     <SessionGuardProvider onLogout={handleLogout}>
       <AuthProvider user={user}>
-        <AtlasAITutorSessionProvider key={tutorSessionIdentity} user={user}>
-          <GlobalErrorBoundary>
-            {content}
-            {showGlobalTutor ? (
-              <AtlasAITutor path={path} />
-            ) : null}
-            <A26SessionDisplacedModal
-              onReauthenticate={() => { handleLogout(); navigate("/login"); }}
-              onLogout={handleLogout}
-              onRetry={async () => {
-                const res = await sessionGuardService.retryValidation();
-                if (res?.allowed) {
-                  navigate(path);
-                }
-              }}
-            />
-            <Modal
-              open={Boolean(modal)}
-              title={modal?.title}
-              onClose={() => setModal(null)}
-              actions={<Button variant="teal" onClick={() => { setModal(null); navigate("/license"); }}>{modal?.action}</Button>}
-            >
-              {modal?.body}
-            </Modal>
-            {toast ? (
-              <A26Surface
-                material="opaque"
-                tone="teal"
-                className="a26-toast"
-                role="status"
-                aria-live="polite"
+        <InstitutionalNotificationProvider user={user}>
+          <AtlasAITutorSessionProvider key={tutorSessionIdentity} user={user}>
+            <GlobalErrorBoundary>
+              {content}
+              {showGlobalTutor ? (
+                <AtlasAITutor path={path} />
+              ) : null}
+              <A26SessionDisplacedModal
+                onReauthenticate={() => { handleLogout(); navigate("/login"); }}
+                onLogout={handleLogout}
+                onRetry={async () => {
+                  const res = await sessionGuardService.retryValidation();
+                  if (res?.allowed) {
+                    navigate(path);
+                  }
+                }}
+              />
+              <Modal
+                open={Boolean(modal)}
+                title={modal?.title}
+                onClose={() => setModal(null)}
+                actions={<Button variant="teal" onClick={() => { setModal(null); navigate("/license"); }}>{modal?.action}</Button>}
               >
-                {toast}
-              </A26Surface>
-            ) : null}
-          </GlobalErrorBoundary>
-        </AtlasAITutorSessionProvider>
+                {modal?.body}
+              </Modal>
+              {toast ? (
+                <A26Surface
+                  material="opaque"
+                  tone="teal"
+                  className="a26-toast"
+                  role="status"
+                  aria-live="polite"
+                >
+                  {toast}
+                </A26Surface>
+              ) : null}
+            </GlobalErrorBoundary>
+          </AtlasAITutorSessionProvider>
+        </InstitutionalNotificationProvider>
       </AuthProvider>
     </SessionGuardProvider>
   );
