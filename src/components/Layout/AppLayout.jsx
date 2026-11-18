@@ -19,10 +19,14 @@ import {
   shellNavigationForRole
 } from "./shellNavigation";
 import { searchGlobalContent } from "../../services/globalSearchService";
+import { useInstitutionalNotifications } from "../../context/InstitutionalNotificationContext";
+import NotificationCenterDropdown from "../Notifications/NotificationCenterDropdown";
+import MaintenanceAlertBanner from "../Notifications/MaintenanceAlertBanner";
 
 export default function AppLayout({ user, path, navigate, onLogout, children }) {
   const { t } = useLanguage();
   const { theme, toggleTheme, isLight } = useTheme();
+  const { unreadCount } = useInstitutionalNotifications();
   const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -319,29 +323,31 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
             </div>
 
             <div className="a26-shell__control-anchor">
-              <A26IconButton
-                ref={notificationsTriggerRef}
-                label={t("settings.notificationCenter")}
-                icon="note"
-                aria-expanded={notificationsOpen}
-                onClick={() => {
-                  setNotificationsOpen(value => !value);
-                  setProfileOpen(false);
-                }}
-              />
-              <A26Popover
+              <div className="a26-notification-trigger">
+                <A26IconButton
+                  ref={notificationsTriggerRef}
+                  label={t("settings.notificationCenter")}
+                  icon="note"
+                  aria-expanded={notificationsOpen}
+                  onClick={() => {
+                    setNotificationsOpen(value => !value);
+                    setProfileOpen(false);
+                  }}
+                />
+                {unreadCount > 0 ? (
+                  <span className="a26-notification-badge" aria-label={`${unreadCount} ${t("publicHome.notifications")}`}>
+                    {unreadCount > 9 ? "9+" : unreadCount}
+                  </span>
+                ) : null}
+              </div>
+              <NotificationCenterDropdown
                 open={notificationsOpen}
-                label={t("settings.notificationCenter")}
                 onClose={({ reason } = {}) => {
                   setNotificationsOpen(false);
                   if (reason === "escape") window.requestAnimationFrame(() => notificationsTriggerRef.current?.focus());
                 }}
-                className="a26-shell__popover"
-              >
-                <span className="a26-kicker">{t("settings.notificationCenter")}</span>
-                <h2>{t("settings.noNotifications")}</h2>
-                <p>{t("settings.notificationText")}</p>
-              </A26Popover>
+                triggerRef={notificationsTriggerRef}
+              />
             </div>
 
             <A26IconButton
@@ -394,6 +400,8 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
           </div>
         </A26Surface>
 
+        <MaintenanceAlertBanner />
+
         <main className="a26-shell__content" id="a26-shell-content" tabIndex="-1">
           {children}
         </main>
@@ -442,7 +450,7 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
           <span className="a26-shell__avatar" aria-hidden="true">{user?.name?.[0] || "A"}</span>
           <div>
             <strong>{user?.name || t("common.appName")}</strong>
-            <small>{roleLabel} · {t("settings.noNotifications")}</small>
+            <small>{roleLabel} · {unreadCount > 0 ? `${unreadCount} ${t("publicHome.notifications")}` : t("settings.noNotifications")}</small>
           </div>
           {profileItem ? (
             <A26Button variant="liquid" onClick={() => goTo(profileItem.href)}>

@@ -142,6 +142,16 @@ export function getAdminNavigationItemByPath(pathname) {
 }
 
 export function adminSectionFromPath(pathname, fallback = "overview") {
+  if (
+    pathname === "/super-admin/announcements" ||
+    pathname === "/admin/announcements" ||
+    pathname === "/super-admin/comunicados" ||
+    pathname === "/admin/comunicados" ||
+    pathname === "/institution-admin/announcements" ||
+    pathname === "/institution-admin/comunicados"
+  ) {
+    return "announcements";
+  }
   return getAdminNavigationItemByPath(pathname)?.id || fallback;
 }
 
