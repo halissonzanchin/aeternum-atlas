@@ -61,13 +61,17 @@
   font-size: 0.75rem;
   margin-top: 6px;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .a26-metric-tile__detail {
   color: rgba(255, 255, 255, 0.65);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  word-break: normal;
+  overflow-wrap: break-word;
+  flex: 1 1 120px;
+  min-width: 0;
 }
 
 .a26-metric-tile__badge {
@@ -76,6 +80,8 @@
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.02em;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .a26-metric-tile__badge--verified {
@@ -98,4 +104,14 @@
 .a26-metric-tile__trend {
   color: #80cbc4;
   font-weight: 600;
+}
+
+@media (max-width: 360px) {
+  .a26-metric-tile {
+    padding: 14px 14px;
+    min-height: 110px;
+  }
+  .a26-metric-tile__value {
+    font-size: 1.5rem;
+  }
 }

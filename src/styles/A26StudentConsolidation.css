@@ -54,7 +54,9 @@ body:has(.a26-shell) #root {
 .models-page-aog,
 .models-catalog,
 .anatomical-quizzes-page,
-.a26-ai-tutor-studio-hub {
+.a26-ai-tutor-studio-hub,
+.evolution-panel-container,
+.academic-evolution-dashboard {
   min-width: 0;
   max-width: 100%;
   padding-bottom: clamp(120px, 16vh, 160px);

@@ -29,48 +29,58 @@ export default function A26AcademicReviewPanel({
       <div className="a26-review-panel__content">
         {hasPending ? (
           <div className="a26-review-item is-alert">
-            <span className="a26-review-item__icon" aria-hidden="true">
-              <LineIcon name="reset" />
-            </span>
-            <div className="a26-review-item__info">
-              <strong>{pendingReviewsCount} {pendingReviewsCount === 1 ? "revisão agendada" : "revisões agendadas"} para hoje</strong>
-              <p>Revisar no intervalo ideal do SM-2 consolida a fixação anatômica na memória de longo prazo.</p>
+            <div className="a26-review-item__body">
+              <span className="a26-review-item__icon" aria-hidden="true">
+                <LineIcon name="reset" />
+              </span>
+              <div className="a26-review-item__info">
+                <strong>{pendingReviewsCount} {pendingReviewsCount === 1 ? "revisão agendada" : "revisões agendadas"} para hoje</strong>
+                <p>Revisar no intervalo ideal do SM-2 consolida a fixação anatômica na memória de longo prazo.</p>
+              </div>
             </div>
             {onStartReview ? (
-              <A26Button variant="primary" size="small" onClick={onStartReview}>
-                Iniciar Revisão
-              </A26Button>
+              <div className="a26-review-item__actions">
+                <A26Button variant="primary" size="small" onClick={onStartReview}>
+                  Iniciar Revisão
+                </A26Button>
+              </div>
             ) : null}
           </div>
         ) : (
           <div className="a26-review-item is-clean">
-            <span className="a26-review-item__icon" aria-hidden="true">
-              <LineIcon name="check" />
-            </span>
-            <div className="a26-review-item__info">
-              <strong>Todas as revisões espaçadas estão em dia</strong>
-              <p>Nenhum cartão pendente para hoje. Excelente momento para dissecar novas peças cadavéricas.</p>
+            <div className="a26-review-item__body">
+              <span className="a26-review-item__icon" aria-hidden="true">
+                <LineIcon name="check" />
+              </span>
+              <div className="a26-review-item__info">
+                <strong>Todas as revisões espaçadas estão em dia</strong>
+                <p>Nenhum cartão pendente para hoje. Excelente momento para dissecar novas peças cadavéricas.</p>
+              </div>
             </div>
             {onOpenExplorer ? (
-              <A26Button variant="liquid" size="small" onClick={onOpenExplorer}>
-                Explorar Modelos 3D
-              </A26Button>
+              <div className="a26-review-item__actions">
+                <A26Button variant="liquid" size="small" onClick={onOpenExplorer}>
+                  Explorar Modelos 3D
+                </A26Button>
+              </div>
             ) : null}
           </div>
         )}
 
         {hasWeak ? (
           <div className="a26-review-item is-suggestion">
-            <span className="a26-review-item__icon" aria-hidden="true">
-              <LineIcon name="spark" />
-            </span>
-            <div className="a26-review-item__info">
-              <strong>Foco sugerido: {weakSystems[0].systemName}</strong>
-              <p>
-                {weakSystems[0].quizAccuracy !== null
-                  ? `Acurácia em simulados está em ${weakSystems[0].quizAccuracy}%. Recomendamos nova rodada de dissecção virtual.`
-                  : `Menor cobertura de estruturas inspecionadas (${weakSystems[0].explorationCoveragePercent}%).`}
-              </p>
+            <div className="a26-review-item__body">
+              <span className="a26-review-item__icon" aria-hidden="true">
+                <LineIcon name="spark" />
+              </span>
+              <div className="a26-review-item__info">
+                <strong>Foco sugerido: {weakSystems[0].systemName}</strong>
+                <p>
+                  {weakSystems[0].quizAccuracy !== null
+                    ? `Acurácia em simulados está em ${weakSystems[0].quizAccuracy}%. Recomendamos nova rodada de dissecção virtual.`
+                    : `Menor cobertura de estruturas inspecionadas (${weakSystems[0].explorationCoveragePercent}%).`}
+                </p>
+              </div>
             </div>
           </div>
         ) : null}
