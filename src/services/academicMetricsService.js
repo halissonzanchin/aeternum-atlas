@@ -487,7 +487,7 @@ export function calculateAnatomicalMasteryBySystem({
     if (m.isActive === false) continue;
     const sys = getSystemEntry(m.system || m.category || "Sistema Geral");
     sys.modelsCount++;
-    sys.structuresTotal += Number(m.annotationsCount || m.markersCount || 10);
+    sys.structuresTotal += Number(m.annotationsCount || m.markersCount || 0);
   }
 
   // Preencher exploração 3D

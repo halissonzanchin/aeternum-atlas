@@ -1,27 +1,27 @@
 -- ==============================================================================
--- AETERNUM ATLAS — MISSÃO MASTER P0.16
+-- AETERNUM ATLAS — MISSÃO MASTER P0.17
 -- MIGRATION: 20261118120000_p0_16_academic_metrics_expansion.sql
 -- 
 -- EXPANSÃO DE SCHEMA: Telemetria Acadêmica Canônica, Persistência Multi-Dispositivo
--- de Modelos e Flashcards, Tríade de Maestria por Sistema e RPCs Agregadoras.
+-- de Modelos e Flashcards, Tríade de Desempenho por Sistema e RPCs Agregadoras.
 -- 
--- AMBIENTE: Desenvolvimento / Homologação (NÃO APLICAR DIRETAMENTE EM PRODUÇÃO).
--- PADRÃO ARQUITETURAL: Expand/Contract (Fase Expand Não-Destrutiva).
+-- PADRÃO ARQUITETURAL: Expand/Contract (Fase Expand Aditiva e Não-Destrutiva).
+-- PADRÃO DE SEGURANÇA: Zero Trust, RLS Multi-Tenant, FIRST SESSION WINS Guard
+-- e Interval Union Matemático via PostgreSQL range_agg.
 -- ==============================================================================
 
 -- 1. TABELA CANÔNICA DE PROGRESSO EM MODELOS ANATÔMICOS
--- Substitui a dependência frágil de localStorage ('aeternum_completed_models', 'aeternum_favorites')
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.user_model_progress (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-    institution_id UUID,
+    institution_id UUID REFERENCES public.institutions(id) ON DELETE SET NULL,
     model_id TEXT NOT NULL,
     system_id TEXT NOT NULL DEFAULT 'Geral',
-    active_study_seconds INTEGER NOT NULL DEFAULT 0,
+    active_study_seconds INTEGER NOT NULL DEFAULT 0 CHECK (active_study_seconds >= 0),
     structures_explored JSONB NOT NULL DEFAULT '[]'::jsonb,
-    structures_explored_count INTEGER NOT NULL DEFAULT 0,
-    structures_total_count INTEGER NOT NULL DEFAULT 0,
+    structures_explored_count INTEGER NOT NULL DEFAULT 0 CHECK (structures_explored_count >= 0),
+    structures_total_count INTEGER NOT NULL DEFAULT 0 CHECK (structures_total_count >= 0),
     is_favorite BOOLEAN NOT NULL DEFAULT FALSE,
     is_completed BOOLEAN NOT NULL DEFAULT FALSE,
     completed_at TIMESTAMPTZ,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS public.user_model_progress (
 
 -- Comentários semânticos
 COMMENT ON TABLE public.user_model_progress IS 'Progresso de exploração, dissecção e favoritos do estudante em modelos anatômicos 3D';
-COMMENT ON COLUMN public.user_model_progress.structures_explored IS 'Array JSON de identificadores ou índices de anotações inspecionadas no modelo';
+COMMENT ON COLUMN public.user_model_progress.structures_explored IS 'Array JSON de identificadores de anotações validadas inspecionadas no modelo';
 COMMENT ON COLUMN public.user_model_progress.is_completed IS 'Indica se o modelo atendeu aos critérios objetivos de conclusão (tempo ativo + cobertura)';
 
 -- Índices de alta performance
@@ -51,21 +51,20 @@ CREATE INDEX IF NOT EXISTS idx_user_model_progress_last_access
 
 
 -- 2. TABELA CANÔNICA DE REVISÕES LONGITUDINAIS DE FLASHCARDS (SRS)
--- Registra o histórico longitudinal do algoritmo SM-2 para comprovação científica de retenção
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.user_flashcard_reviews (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-    institution_id UUID,
+    institution_id UUID REFERENCES public.institutions(id) ON DELETE SET NULL,
     card_id TEXT NOT NULL,
     deck_id TEXT NOT NULL DEFAULT 'default',
     topic TEXT NOT NULL DEFAULT 'Anatomia Geral',
     system_id TEXT DEFAULT 'Geral',
-    rating TEXT NOT NULL, -- 'again', 'hard', 'good', 'easy'
+    rating TEXT NOT NULL CHECK (rating IN ('again', 'hard', 'good', 'easy')),
     is_correct BOOLEAN NOT NULL,
-    repetitions INTEGER NOT NULL DEFAULT 0,
-    ease_factor NUMERIC(4,2) NOT NULL DEFAULT 2.50,
-    interval_days INTEGER NOT NULL DEFAULT 1,
+    repetitions INTEGER NOT NULL DEFAULT 0 CHECK (repetitions >= 0),
+    ease_factor NUMERIC(4,2) NOT NULL DEFAULT 2.50 CHECK (ease_factor >= 1.30 AND ease_factor <= 3.50),
+    interval_days INTEGER NOT NULL DEFAULT 1 CHECK (interval_days >= 0),
     next_review_at TIMESTAMPTZ NOT NULL,
     reviewed_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -73,18 +72,19 @@ CREATE TABLE IF NOT EXISTS public.user_flashcard_reviews (
 
 COMMENT ON TABLE public.user_flashcard_reviews IS 'Histórico longitudinal de revisões espaçadas de flashcards (algoritmo SM-2)';
 
--- Índices de consulta longitudinal
+-- Índices de consulta longitudinal e deduplicação de estado recente
 CREATE INDEX IF NOT EXISTS idx_user_flashcard_reviews_user_id 
     ON public.user_flashcard_reviews(user_id);
 
-CREATE INDEX IF NOT EXISTS idx_user_flashcard_reviews_user_topic 
-    ON public.user_flashcard_reviews(user_id, topic);
+CREATE INDEX IF NOT EXISTS idx_user_flashcard_reviews_user_card_latest 
+    ON public.user_flashcard_reviews(user_id, card_id, reviewed_at DESC, created_at DESC);
 
 CREATE INDEX IF NOT EXISTS idx_user_flashcard_reviews_user_next 
     ON public.user_flashcard_reviews(user_id, next_review_at);
 
 
 -- 3. POLÍTICAS DE SEGURANÇA POR LINHA (ROW LEVEL SECURITY - RLS)
+-- Integradas com First Session Wins (is_current_jwt_session_active) e Escopo Multi-Tenant
 -- ------------------------------------------------------------------------------
 ALTER TABLE public.user_model_progress ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_flashcard_reviews ENABLE ROW LEVEL SECURITY;
@@ -94,45 +94,72 @@ DROP POLICY IF EXISTS user_model_progress_select_own ON public.user_model_progre
 CREATE POLICY user_model_progress_select_own ON public.user_model_progress
     FOR SELECT TO authenticated
     USING (
-        auth.uid() = user_id 
-        OR (auth.role() = 'service_role')
-        OR (public.is_admin_user() AND (institution_id IS NULL OR institution_id = public.get_current_user_institution_id()))
+        (auth.role() = 'service_role' OR public.is_current_jwt_session_active())
+        AND (
+            auth.uid() = user_id 
+            OR (public.is_admin_user() AND (institution_id IS NULL OR institution_id = public.get_current_user_institution_id()))
+        )
     );
 
 DROP POLICY IF EXISTS user_model_progress_insert_own ON public.user_model_progress;
 CREATE POLICY user_model_progress_insert_own ON public.user_model_progress
     FOR INSERT TO authenticated
-    WITH CHECK (auth.uid() = user_id OR auth.role() = 'service_role');
+    WITH CHECK (
+        (auth.role() = 'service_role' OR public.is_current_jwt_session_active())
+        AND auth.uid() = user_id
+    );
 
 DROP POLICY IF EXISTS user_model_progress_update_own ON public.user_model_progress;
 CREATE POLICY user_model_progress_update_own ON public.user_model_progress
     FOR UPDATE TO authenticated
-    USING (auth.uid() = user_id OR auth.role() = 'service_role')
-    WITH CHECK (auth.uid() = user_id OR auth.role() = 'service_role');
+    USING (
+        (auth.role() = 'service_role' OR public.is_current_jwt_session_active())
+        AND auth.uid() = user_id
+    )
+    WITH CHECK (
+        (auth.role() = 'service_role' OR public.is_current_jwt_session_active())
+        AND auth.uid() = user_id
+    );
 
 DROP POLICY IF EXISTS user_model_progress_delete_own ON public.user_model_progress;
 CREATE POLICY user_model_progress_delete_own ON public.user_model_progress
     FOR DELETE TO authenticated
-    USING (auth.uid() = user_id OR auth.role() = 'service_role');
+    USING (
+        (auth.role() = 'service_role' OR public.is_current_jwt_session_active())
+        AND (auth.uid() = user_id OR public.is_super_admin_user())
+    );
 
 -- Políticas para user_flashcard_reviews
 DROP POLICY IF EXISTS user_flashcard_reviews_select_own ON public.user_flashcard_reviews;
 CREATE POLICY user_flashcard_reviews_select_own ON public.user_flashcard_reviews
     FOR SELECT TO authenticated
     USING (
-        auth.uid() = user_id 
-        OR (auth.role() = 'service_role')
-        OR (public.is_admin_user() AND (institution_id IS NULL OR institution_id = public.get_current_user_institution_id()))
+        (auth.role() = 'service_role' OR public.is_current_jwt_session_active())
+        AND (
+            auth.uid() = user_id 
+            OR (public.is_admin_user() AND (institution_id IS NULL OR institution_id = public.get_current_user_institution_id()))
+        )
     );
 
 DROP POLICY IF EXISTS user_flashcard_reviews_insert_own ON public.user_flashcard_reviews;
 CREATE POLICY user_flashcard_reviews_insert_own ON public.user_flashcard_reviews
     FOR INSERT TO authenticated
-    WITH CHECK (auth.uid() = user_id OR auth.role() = 'service_role');
+    WITH CHECK (
+        (auth.role() = 'service_role' OR public.is_current_jwt_session_active())
+        AND auth.uid() = user_id
+    );
+
+DROP POLICY IF EXISTS user_flashcard_reviews_delete_own ON public.user_flashcard_reviews;
+CREATE POLICY user_flashcard_reviews_delete_own ON public.user_flashcard_reviews
+    FOR DELETE TO authenticated
+    USING (
+        (auth.role() = 'service_role' OR public.is_current_jwt_session_active())
+        AND (auth.uid() = user_id OR public.is_super_admin_user())
+    );
 
 
 -- 4. RPC: SINCRONIZAÇÃO ATÔMICA DE PROGRESSO DE MODELO
--- Permite que o cliente web sincronize status sem sobrescrever dados mais recentes
+-- Protegida por First Session Wins, Bounded Checks contra manipulação e Concorrência
 -- ------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION public.sync_student_model_progress(
     p_model_id TEXT,
@@ -157,19 +184,34 @@ DECLARE
     v_fav BOOLEAN;
     v_comp BOOLEAN;
     v_comp_at TIMESTAMPTZ;
+    v_clean_active_sec INTEGER;
+    v_clean_total_count INTEGER;
 BEGIN
-    IF v_uid IS NULL THEN
-        RAISE EXCEPTION 'Autenticação necessária para sincronizar progresso acadêmico.';
+    IF auth.role() <> 'service_role' THEN
+        IF v_uid IS NULL THEN
+            RAISE EXCEPTION 'Autenticação necessária para sincronizar progresso acadêmico.' USING ERRCODE = '42501';
+        END IF;
+
+        -- Proteção de Sessão: FIRST SESSION WINS & Inatividade
+        IF NOT public.is_current_jwt_session_active() THEN
+            RAISE EXCEPTION 'Acesso negado: sessão inativa ou sobreposta por outro dispositivo (First Session Wins).' 
+            USING ERRCODE = '42501';
+        END IF;
     END IF;
+
+    -- Sanitização e Limites de Integridade (máximo 4 horas por sync e 2000 estruturas)
+    v_clean_active_sec := LEAST(GREATEST(0, COALESCE(p_additional_active_seconds, 0)), 14400);
+    v_clean_total_count := LEAST(GREATEST(0, COALESCE(p_structures_total_count, 0)), 2000);
 
     SELECT institution_id INTO v_inst_id FROM public.users WHERE id = v_uid;
 
-    -- Obter registro existente se houver
+    -- Obter registro existente com Lock de Linha (FOR UPDATE) para prevenir corrida concorrente
     SELECT * INTO v_existing FROM public.user_model_progress 
-    WHERE user_id = v_uid AND model_id = p_model_id;
+    WHERE user_id = v_uid AND model_id = p_model_id
+    FOR UPDATE;
 
     IF FOUND THEN
-        -- Fundir estruturas exploradas
+        -- Fundir estruturas exploradas sem duplicatas
         SELECT jsonb_agg(DISTINCT elem) INTO v_merged_structures
         FROM (
             SELECT jsonb_array_elements_text(v_existing.structures_explored) AS elem
@@ -190,10 +232,10 @@ BEGIN
         UPDATE public.user_model_progress
         SET 
             system_id = COALESCE(NULLIF(p_system_id, ''), v_existing.system_id),
-            active_study_seconds = v_existing.active_study_seconds + GREATEST(0, p_additional_active_seconds),
+            active_study_seconds = v_existing.active_study_seconds + v_clean_active_sec,
             structures_explored = v_merged_structures,
             structures_explored_count = v_explored_count,
-            structures_total_count = GREATEST(v_existing.structures_total_count, p_structures_total_count),
+            structures_total_count = GREATEST(v_existing.structures_total_count, v_clean_total_count),
             is_favorite = v_fav,
             is_completed = v_comp,
             completed_at = v_comp_at,
@@ -206,7 +248,8 @@ BEGIN
             'model_id', p_model_id,
             'is_favorite', v_fav,
             'is_completed', v_comp,
-            'structures_explored_count', v_explored_count
+            'structures_explored_count', v_explored_count,
+            'active_study_seconds', v_existing.active_study_seconds + v_clean_active_sec
         );
     ELSE
         -- Inserção de novo registro
@@ -241,10 +284,10 @@ BEGIN
             v_inst_id,
             p_model_id,
             COALESCE(NULLIF(p_system_id, ''), 'Geral'),
-            GREATEST(0, p_additional_active_seconds),
+            v_clean_active_sec,
             v_merged_structures,
             v_explored_count,
-            GREATEST(0, p_structures_total_count),
+            v_clean_total_count,
             v_fav,
             v_comp,
             v_comp_at,
@@ -256,15 +299,19 @@ BEGIN
             'model_id', p_model_id,
             'is_favorite', v_fav,
             'is_completed', v_comp,
-            'structures_explored_count', v_explored_count
+            'structures_explored_count', v_explored_count,
+            'active_study_seconds', v_clean_active_sec
         );
     END IF;
 END;
 $$;
 
+REVOKE ALL ON FUNCTION public.sync_student_model_progress FROM public, anon;
+GRANT EXECUTE ON FUNCTION public.sync_student_model_progress TO authenticated, service_role;
+
 
 -- 5. RPC: RESUMO ACADÊMICO CONSOLIDADO (SINGLE ROUNDTRIP)
--- Executa toda a agregação no servidor em menos de 50ms, evitando transferir milhares de linhas ao cliente
+-- Executa agregação no servidor com união de intervalos e isolamento institucional
 -- ------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION public.get_student_academic_summary(
     p_user_id UUID DEFAULT auth.uid(),
@@ -295,22 +342,71 @@ DECLARE
     v_data_state TEXT := 'SEM_HISTORICO';
     v_systems JSONB;
 BEGIN
-    IF v_uid IS NULL THEN
-        RAISE EXCEPTION 'Acesso negado: sessão não autenticada.';
+    IF auth.role() <> 'service_role' THEN
+        IF v_uid IS NULL THEN
+            RAISE EXCEPTION 'Acesso negado: sessão não autenticada.' USING ERRCODE = '42501';
+        END IF;
+
+        -- Proteção de Sessão: FIRST SESSION WINS
+        IF NOT public.is_current_jwt_session_active() THEN
+            RAISE EXCEPTION 'Acesso negado: sessão inativa ou sobreposta por outro dispositivo.' USING ERRCODE = '42501';
+        END IF;
+
+        -- Validação de isolamento entre estudantes e escopo institucional
+        IF v_target_user <> v_uid THEN
+            IF NOT public.is_admin_user() THEN
+                RAISE EXCEPTION 'Acesso negado: não é permitido visualizar métricas de outro estudante.' USING ERRCODE = '42501';
+            END IF;
+
+            -- Administrador Institucional só pode consultar estudantes da sua própria instituição
+            IF NOT public.is_super_admin_user() THEN
+                DECLARE
+                    v_caller_inst UUID := public.get_current_user_institution_id();
+                    v_target_inst UUID;
+                BEGIN
+                    SELECT institution_id INTO v_target_inst FROM public.users WHERE id = v_target_user;
+                    IF v_caller_inst IS NULL OR v_target_inst IS NULL OR v_caller_inst <> v_target_inst THEN
+                        RAISE EXCEPTION 'Acesso negado: administrador institucional não possui escopo sobre estudante de outra instituição.' USING ERRCODE = '42501';
+                    END IF;
+                END;
+            END IF;
+        END IF;
     END IF;
 
-    -- Validação de isolamento entre estudantes
-    IF v_target_user <> v_uid AND NOT public.is_admin_user() THEN
-        RAISE EXCEPTION 'Acesso negado: não é permitido visualizar métricas de outro estudante.';
+    IF v_target_user IS NULL THEN
+        RAISE EXCEPTION 'Usuário de destino não informado.' USING ERRCODE = '42501';
     END IF;
 
-    -- 1. Tempo ativo deduplicado e sessões
+    -- 1. Tempo ativo deduplicado por união matemática de intervalos (Interval Union via range_agg)
+    WITH session_ranges AS (
+        SELECT 
+            tstzrange(
+                session_start, 
+                session_start + make_interval(secs => LEAST(active_seconds, 14400))
+            ) AS r,
+            scope
+        FROM public.viewer_learning_sessions
+        WHERE user_id = v_target_user
+          AND session_start >= v_cutoff
+          AND (status <> 'abandoned' OR active_seconds > 0)
+          AND active_seconds > 0
+    ),
+    merged_ranges AS (
+        SELECT range_agg(r) AS mr FROM session_ranges
+    )
     SELECT 
-        COALESCE(SUM(active_seconds), 0),
+        COALESCE((
+            SELECT SUM(EXTRACT(EPOCH FROM (upper(un) - lower(un))))::integer 
+            FROM unnest(mr) AS un
+        ), 0)
+    INTO v_total_active_seconds
+    FROM merged_ranges;
+
+    -- Contagem de sessões válidas por escopo
+    SELECT 
         COUNT(CASE WHEN scope = 'account' THEN 1 END),
         COUNT(CASE WHEN scope = 'viewer' THEN 1 END)
     INTO 
-        v_total_active_seconds,
         v_account_sessions_count,
         v_viewer_sessions_count
     FROM public.viewer_learning_sessions
@@ -328,19 +424,27 @@ BEGIN
     FROM public.user_model_progress
     WHERE user_id = v_target_user;
 
-    -- 3. Flashcards e SRS
+    -- 3. Flashcards e SRS (Revisões totais e pendências deduplicadas pela revisão mais recente de cada card)
     SELECT 
         COUNT(*),
-        COUNT(CASE WHEN is_correct THEN 1 END),
-        COUNT(CASE WHEN next_review_at <= now() THEN 1 END)
+        COUNT(CASE WHEN is_correct THEN 1 END)
     INTO 
         v_flashcards_answered,
-        v_flashcards_correct,
-        v_pending_reviews
+        v_flashcards_correct
     FROM public.user_flashcard_reviews
     WHERE user_id = v_target_user;
 
-    -- 4. Simulados (viewer_quiz_results + anatomical_quiz_attempts)
+    SELECT COUNT(*)
+    INTO v_pending_reviews
+    FROM (
+        SELECT DISTINCT ON (card_id) card_id, next_review_at
+        FROM public.user_flashcard_reviews
+        WHERE user_id = v_target_user
+        ORDER BY card_id, reviewed_at DESC, created_at DESC
+    ) latest_reviews
+    WHERE next_review_at <= now();
+
+    -- 4. Simulados deduplicados por ID único entre fontes
     SELECT 
         COALESCE(COUNT(*), 0),
         COALESCE(SUM(total_questions), 0),
@@ -351,7 +455,7 @@ BEGIN
         v_quiz_hits
     FROM (
         SELECT id, total_questions, score FROM public.viewer_quiz_results WHERE user_id = v_target_user
-        UNION ALL
+        UNION
         SELECT id, total_questions, score FROM public.anatomical_quiz_attempts WHERE user_id = v_target_user
     ) q;
 
@@ -421,3 +525,6 @@ BEGIN
     );
 END;
 $$;
+
+REVOKE ALL ON FUNCTION public.get_student_academic_summary FROM public, anon;
+GRANT EXECUTE ON FUNCTION public.get_student_academic_summary TO authenticated, service_role;
