@@ -193,8 +193,42 @@ function checkIpBurstGuard(ip: string, maxReqs = 60, windowMs = 60_000): { allow
 }
 
 // =========================================================================
-// QUALIFIED ANATOMICAL RETRIEVAL (AUTHORITY LAYER 3)
+// QUALIFIED ANATOMICAL RETRIEVAL & SYNONYM ONTOLOGY (AUTHORITY LAYER 3)
 // =========================================================================
+
+export const ANATOMICAL_SYNONYM_MAP: Record<string, string[]> = {
+  "arteria gonadal": ["artéria testicular", "artéria ovárica", "artérias testiculares", "artérias ováricas", "artéria gonadal"],
+  "arterias gonadais": ["artéria testicular", "artéria ovárica", "artérias testiculares", "artérias ováricas", "artérias gonadais"],
+  "arteria testicular": ["artérias gonadais", "artéria testicular", "artéria ovárica", "vasos testiculares"],
+  "arterias testiculares": ["artérias gonadais", "artéria testicular", "artérias testiculares"],
+  "arteria ovarica": ["artérias gonadais", "artéria ovárica", "artéria testicular", "vasos ováricos"],
+  "arterias ovaricas": ["artérias gonadais", "artéria ovárica", "artérias ováricas"],
+  "arterias testiculares e ovaricas": ["artérias gonadais", "artéria testicular", "artéria ovárica"],
+  "plexo braquial": ["plexo braquial", "plexus brachialis", "troncos do plexo braquial", "fascículos do plexo braquial"],
+  "poligono de willis": ["círculo arterial do cérebro", "polígono de willis", "circulus arteriosus cerebri"],
+  "circulo arterial do cerebro": ["círculo arterial do cérebro", "polígono de willis"],
+  "arteria carotida interna": ["carótida interna", "artéria carótida interna", "sifão carotídeo"],
+  "arteria carotida comum": ["carótida comum", "artéria carótida comum", "bifurcação carotídea"],
+  "arteria subclavia": ["artéria subclávia", "tronco tireocervical"],
+  "arteria vertebral": ["artéria vertebral", "artéria basilar"],
+  "nervo vago": ["nervo vago", "décimo par craniano", "nervus vagus", "nc x"],
+  "nervo frenico": ["nervo frênico", "inervação diafragma"],
+  "nervo isquiatico": ["nervo isquiático", "nervo ciático", "nervus ischiadicus"],
+  "nervo ciatico": ["nervo isquiático", "nervo ciático", "nervus ischiadicus"],
+  "nervo mediano": ["nervo mediano", "nervus medianus", "túnel do carpo"],
+  "ducto coledoco": ["ducto colédoco", "via biliar principal", "ductus choledochus"],
+  "feixe vasculonervoso": ["feixe neurovascular", "bainha carotídea", "feixe vasculonervoso"]
+};
+
+export function normalizeAnatomicalKey(text: string): string {
+  return String(text || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 export function extractSearchTerms(prompt: string): string[] {
   const stopwords = new Set([
@@ -202,7 +236,9 @@ export function extractSearchTerms(prompt: string): string[] {
     "por", "que", "porque", "para", "com", "sem", "uma", "um", "umas", "uns", "dos", "das", "do", "da",
     "de", "em", "no", "na", "nos", "nas", "ao", "aos", "a", "o", "os", "as", "e", "ou", "se", "me", "diga",
     "mostre", "descreva", "detalhe", "apresente", "resuma", "sintetize", "ola", "oi", "bom", "dia", "boa", "tarde", "noite",
-    "segundo", "atlas", "aeternum", "por favor", "base", "fontes"
+    "segundo", "atlas", "aeternum", "por favor", "base", "fontes", "variacoes", "variações", "anatomicas", "anatômicas",
+    "documentadas", "pontos", "pulso", "correlacoes", "correlações", "cirurgico", "cirúrgico", "hemodinamicas", "hemodinâmicas",
+    "gerar", "flashcards", "cartoes", "cartões", "nivel", "nível", "facil", "fácil", "medio", "médio", "dificil", "difícil"
   ]);
   return prompt
     .toLowerCase()
@@ -211,6 +247,57 @@ export function extractSearchTerms(prompt: string): string[] {
     .replace(/[^a-z0-9\s]/g, " ")
     .split(/\s+/)
     .filter(t => t.length > 2 && !stopwords.has(t));
+}
+
+export function decomposeTopic(rawTopic: string): {
+  nuclearTopic: string;
+  subtopics: string[];
+  searchQueries: string[];
+} {
+  const clean = String(rawTopic || "").trim();
+  if (!clean) return { nuclearTopic: "", subtopics: [], searchQueries: [] };
+
+  const segments = clean
+    .split(/[-—–:;|/()\n]+/)
+    .map(s => s.trim())
+    .filter(s => s.length > 0);
+
+  const rawNuclear = segments[0] || clean;
+  const nuclearTopic = rawNuclear
+    .replace(/^(visao geral|estudo sobre|anatomia da|anatomia do|morfologia da|morfologia do)\s+/i, "")
+    .trim();
+
+  const subtopics = segments.slice(1);
+  const queries: string[] = [];
+
+  if (nuclearTopic) {
+    queries.push(nuclearTopic);
+  }
+
+  const normKey = normalizeAnatomicalKey(nuclearTopic);
+  for (const [key, synList] of Object.entries(ANATOMICAL_SYNONYM_MAP)) {
+    if (normKey.includes(key) || key.includes(normKey)) {
+      for (const syn of synList) {
+        if (!queries.includes(syn)) queries.push(syn);
+      }
+    }
+  }
+
+  const nuclearTerms = extractSearchTerms(nuclearTopic);
+  if (nuclearTerms.length >= 2 && nuclearTerms.length <= 3) {
+    const joined = nuclearTerms.join(" ");
+    if (!queries.includes(joined)) queries.push(joined);
+  }
+
+  for (const sub of subtopics) {
+    const subTerms = extractSearchTerms(sub).slice(0, 2);
+    if (subTerms.length > 0 && nuclearTerms.length > 0) {
+      const combined = `${nuclearTerms.slice(0, 2).join(" ")} ${subTerms.join(" ")}`;
+      if (!queries.includes(combined)) queries.push(combined);
+    }
+  }
+
+  return { nuclearTopic, subtopics, searchQueries: queries };
 }
 
 async function retrieveKnowledge(
@@ -223,38 +310,46 @@ async function retrieveKnowledge(
 ): Promise<{ sources: KnowledgeRow[]; method: string }> {
   const searchQueries: string[] = [];
 
-  // 1. Topic-first prioritization (P0.3):
-  // When prompt contains long instructions or JSON schemas, scientificTopic preserves
-  // high-precision anatomical search terms without instruction stopword pollution.
+  // 1. Topic-first prioritization with robust anatomical decomposition (P0.18.A):
   if (scientificTopic && scientificTopic.trim()) {
-    const cleanTopic = scientificTopic.trim();
-    const topicTerms = extractSearchTerms(cleanTopic);
-    if (topicTerms.length > 0) {
-      searchQueries.push(topicTerms.join(" "));
+    const decomp = decomposeTopic(scientificTopic);
+    for (const q of decomp.searchQueries) {
+      if (!searchQueries.includes(q)) searchQueries.push(q);
     }
-    if (!searchQueries.includes(cleanTopic)) {
-      searchQueries.push(cleanTopic);
+  }
+
+  // 2. Prompt nuclear extraction:
+  const promptDecomp = decomposeTopic(prompt);
+  if (promptDecomp.nuclearTopic && !searchQueries.includes(promptDecomp.nuclearTopic) && promptDecomp.nuclearTopic.length <= 80) {
+    searchQueries.push(promptDecomp.nuclearTopic);
+  }
+  for (const q of promptDecomp.searchQueries) {
+    if (!searchQueries.includes(q) && searchQueries.length < 8) {
+      searchQueries.push(q);
     }
   }
 
   const terms = extractSearchTerms(prompt);
-  if (terms.length > 0) {
+  if (terms.length > 0 && terms.length <= 3) {
     const joined = terms.join(" ");
-    if (!searchQueries.includes(joined)) {
-      searchQueries.push(joined);
-    }
-    if (terms.length > 2) {
-      const head3 = terms.slice(0, 3).join(" ");
-      if (!searchQueries.includes(head3)) searchQueries.push(head3);
-      const tail3 = terms.slice(-3).join(" ");
-      if (!searchQueries.includes(tail3)) searchQueries.push(tail3);
-    }
-  }
-  if (!searchQueries.includes(prompt) && prompt.length <= 200) {
-    searchQueries.push(prompt);
+    if (!searchQueries.includes(joined)) searchQueries.push(joined);
   }
 
+  // Target entities if specified
+  if (Array.isArray(targetEntities)) {
+    for (const ent of targetEntities) {
+      const cleanEnt = String(ent || "").trim();
+      if (cleanEnt && !searchQueries.includes(cleanEnt)) {
+        searchQueries.push(cleanEnt);
+      }
+    }
+  }
+
+  const deduplicatedChunks = new Map<string, KnowledgeRow>();
+  let primaryMethod = "none";
+
   for (const q of searchQueries) {
+    if (deduplicatedChunks.size >= MAX_KNOWLEDGE_RESULTS) break;
     try {
       // 1. Dedicated Sovereign Hybrid Multi-Stage Retrieval RPC (Authoritative Staging Path)
       const { data: sovData, error: sovError } = await adminClient.rpc("match_vita_sovereign_knowledge", {
@@ -263,57 +358,63 @@ async function retrieveKnowledge(
         match_count: MAX_KNOWLEDGE_RESULTS
       });
       if (!sovError && Array.isArray(sovData) && sovData.length > 0) {
-        const rows: KnowledgeRow[] = sovData.map((d: any) => ({
-          id: d.id,
-          book_title: d.book_title || "Aeternum Atlas Sovereign Anatomical Knowledge Base",
-          chapter_title: d.metadata?.chapter || d.metadata?.topic || d.chapter_title,
-          page_number: d.page_number,
-          content: d.content,
-          similarity: d.lexical_rank,
-          lexical_rank: d.lexical_rank,
-          source_file: d.source_file,
-          source_sha256: d.source_sha256,
-          retrieval_stage: d.retrieval_stage,
-          metadata: d.metadata
-        }));
-        return { sources: rows, method: "sovereign-hybrid-rpc" };
+        primaryMethod = "sovereign-hybrid-rpc";
+        for (const d of sovData) {
+          const dedupeKey = d.id || `${d.source_sha256 || d.source_file || d.book_title}-${d.page_number || 0}-${d.chunk_index || 0}`;
+          if (!deduplicatedChunks.has(dedupeKey)) {
+            deduplicatedChunks.set(dedupeKey, {
+              id: d.id,
+              book_title: d.book_title || "Aeternum Atlas Sovereign Anatomical Knowledge Base",
+              chapter_title: d.metadata?.chapter || d.metadata?.topic || d.chapter_title,
+              page_number: d.page_number,
+              content: d.content,
+              similarity: d.lexical_rank,
+              lexical_rank: d.lexical_rank,
+              source_file: d.source_file,
+              source_sha256: d.source_sha256,
+              retrieval_stage: d.retrieval_stage,
+              metadata: d.metadata
+            });
+            if (deduplicatedChunks.size >= MAX_KNOWLEDGE_RESULTS) break;
+          }
+        }
       }
 
-      // 2. FTS match fallback
-      const { data: ftsData, error: ftsError } = await adminClient.rpc("match_vita_anatomical_knowledge", {
-        search_query: q,
-        match_count: MAX_KNOWLEDGE_RESULTS
-      });
-      if (!ftsError && Array.isArray(ftsData) && ftsData.length > 0) {
-        const rows: KnowledgeRow[] = ftsData.map((d: any) => ({
-          id: d.id,
-          book_title: d.book_title || "Aeternum Atlas Anatomical Knowledge",
-          chapter_title: d.chapter_title || d.topic,
-          page_number: d.page_number,
-          content: d.content,
-          similarity: d.similarity || d.lexical_rank,
-          lexical_rank: d.lexical_rank,
-          source_file: d.source_file,
-          source_sha256: d.source_sha256,
-          metadata: d.metadata
-        }));
-        return { sources: rows, method: "postgresql-fts" };
+      // 2. FTS match fallback if more chunks needed
+      if (deduplicatedChunks.size < MAX_KNOWLEDGE_RESULTS) {
+        const { data: ftsData, error: ftsError } = await adminClient.rpc("match_vita_anatomical_knowledge", {
+          search_query: q,
+          match_count: MAX_KNOWLEDGE_RESULTS
+        });
+        if (!ftsError && Array.isArray(ftsData) && ftsData.length > 0) {
+          if (primaryMethod === "none") primaryMethod = "postgresql-fts";
+          for (const d of ftsData) {
+            const dedupeKey = d.id || `${d.source_sha256 || d.source_file || d.book_title}-${d.page_number || 0}-${d.chunk_index || 0}`;
+            if (!deduplicatedChunks.has(dedupeKey)) {
+              deduplicatedChunks.set(dedupeKey, {
+                id: d.id,
+                book_title: d.book_title || "Aeternum Atlas Anatomical Knowledge",
+                chapter_title: d.chapter_title || d.topic,
+                page_number: d.page_number,
+                content: d.content,
+                similarity: d.similarity || d.lexical_rank,
+                lexical_rank: d.lexical_rank,
+                source_file: d.source_file,
+                source_sha256: d.source_sha256,
+                metadata: d.metadata
+              });
+              if (deduplicatedChunks.size >= MAX_KNOWLEDGE_RESULTS) break;
+            }
+          }
+        }
       }
-
-      // RECONCILIAÇÃO ARQUITETURAL CANÔNICA (P0.1):
-      // A RPC legada `match_anatomical_knowledge(vector, double precision, integer)`
-      // exigia embedding vetorial e operava sobre tabela sem rastreabilidade de proveniência SHA-256.
-      // Na arquitetura soberana (Fase R3), a recuperação autorizada é estritamente conduzida por:
-      // 1. `match_vita_sovereign_knowledge(search_query, target_entities, match_count)` (fontes homologadas)
-      // 2. `match_vita_anatomical_knowledge(search_query, match_count)` (FTS canônico soberano)
-      // É expressamente proibido realizar fallback silencioso para RPCs legadas com assinaturas
-      // divergentes ou para fontes sem proveniência, versão e licença verificadas.
-      // Se nenhuma fonte autorizada for encontrada, o Evidence Gate aciona abstenção controlada.
     } catch (err) {
       console.warn("[ai-tutor] knowledge retrieval query error for query", q, err);
     }
   }
-  return { sources: [], method: "none" };
+
+  const rows = Array.from(deduplicatedChunks.values());
+  return { sources: rows, method: rows.length > 0 ? primaryMethod : "none" };
 }
 
 // =========================================================================
