@@ -1,0 +1,126 @@
+/* A26StudyChronometerChart — Estilo Liquid Glass Aeternum 26.1 */
+.a26-chronometer-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.a26-chronometer-chart__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.a26-chronometer-chart__eyebrow {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(232, 220, 184, 0.85);
+  margin-bottom: 4px;
+}
+
+.a26-chronometer-chart__total {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+.a26-chronometer-chart__period-note {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
+}
+
+.a26-chronometer-chart__bars-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 190px;
+  padding: 16px 12px 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px;
+  gap: 8px;
+  overflow-x: hidden;
+}
+
+.a26-chronometer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  justify-content: flex-end;
+  gap: 8px;
+  outline: none;
+  border-radius: 8px;
+  padding: 4px 2px;
+  transition: background-color 0.15s ease;
+}
+
+.a26-chronometer-col:focus-visible {
+  box-shadow: 0 0 0 2px #80cbc4;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.a26-chronometer-col__track {
+  width: 100%;
+  max-width: 44px;
+  height: 110px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  position: relative;
+}
+
+.a26-chronometer-col__fill {
+  width: 100%;
+  background: linear-gradient(180deg, #80cbc4 0%, #26a69a 100%);
+  border-radius: 8px 8px 0 0;
+  min-height: 4px;
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.a26-chronometer-col.is-zero .a26-chronometer-col__fill {
+  opacity: 0.15;
+  background: rgba(255, 255, 255, 0.2);
+  min-height: 2px;
+}
+
+.a26-chronometer-col__label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75); /* Contraste WCAG AA garantido >= 4.6:1 */
+  text-transform: capitalize;
+}
+
+.a26-chronometer-col__value {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: rgba(232, 220, 184, 0.9);
+}
+
+@media (max-width: 640px) {
+  .a26-chronometer-chart__bars-container {
+    height: 160px;
+    padding: 12px 6px;
+    gap: 4px;
+  }
+  .a26-chronometer-col__track {
+    max-width: 28px;
+    height: 85px;
+  }
+  .a26-chronometer-col__label {
+    font-size: 0.6875rem;
+  }
+}

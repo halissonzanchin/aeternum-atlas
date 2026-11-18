@@ -336,7 +336,7 @@ function renderPrivatePage(path, context) {
   if (path === "/settings") return <Settings user={user} onLogout={onLogout} notify={notify} />;
   if (path === "/history") return <StudentLearningPage section="history" user={user} navigate={navigate} />;
   if (path === "/favorites") return <StudentLearningPage section="favorites" user={user} navigate={navigate} />;
-  if (path === "/progress") return <StudentLearningPage section="progress" user={user} navigate={navigate} />;
+  if (path === "/student/progress" || path === "/progress") return <StudentLearningPage section="progress" user={user} navigate={navigate} />;
   if (path === "/study-agenda") return <StudyAgendaPage navigate={navigate} />;
   if (path === "/flashcards") return <AnatomicalFlashcardsPage user={user} navigate={navigate} />;
   if (path === "/quizzes") return <AnatomicalQuizzesPage navigate={navigate} />;

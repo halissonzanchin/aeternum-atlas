@@ -1,0 +1,105 @@
+/* A26AcademicReviewPanel — Estilo Liquid Glass Aeternum 26.1 */
+.a26-review-panel {
+  padding: 20px 24px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.a26-review-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.a26-review-panel__eyebrow {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(232, 220, 184, 0.85);
+  margin-bottom: 2px;
+}
+
+.a26-review-panel__title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.a26-review-panel__srs-badge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(171, 71, 188, 0.22);
+  color: #ce93d8;
+  border: 1px solid rgba(206, 147, 216, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.a26-review-panel__content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.a26-review-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.a26-review-item.is-alert {
+  border-color: rgba(255, 179, 0, 0.3);
+  background: rgba(255, 179, 0, 0.04);
+}
+
+.a26-review-item.is-clean {
+  border-color: rgba(38, 166, 154, 0.25);
+  background: rgba(38, 166, 154, 0.04);
+}
+
+.a26-review-item__icon {
+  font-size: 1.375rem;
+  opacity: 0.9;
+}
+
+.a26-review-item.is-alert .a26-review-item__icon {
+  color: #ffe082;
+}
+
+.a26-review-item.is-clean .a26-review-item__icon {
+  color: #80cbc4;
+}
+
+.a26-review-item.is-suggestion .a26-review-item__icon {
+  color: #ce93d8;
+}
+
+.a26-review-item__info {
+  flex: 1;
+}
+
+.a26-review-item__info strong {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.a26-review-item__info p {
+  margin: 2px 0 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.65);
+}
