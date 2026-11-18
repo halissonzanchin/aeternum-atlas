@@ -135,3 +135,18 @@
     font-size: 0.625rem;
   }
 }
+
+@media (max-width: 360px) {
+  .a26-chronometer-chart__bars-container {
+    height: 140px;
+    padding: 8px 4px;
+    gap: 2px;
+  }
+  .a26-chronometer-col {
+    min-width: 18px;
+  }
+  .a26-chronometer-col__track {
+    max-width: 22px;
+    height: 65px;
+  }
+}

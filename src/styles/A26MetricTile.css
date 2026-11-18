@@ -105,3 +105,13 @@
   color: #80cbc4;
   font-weight: 600;
 }
+
+@media (max-width: 360px) {
+  .a26-metric-tile {
+    padding: 14px 14px;
+    min-height: 110px;
+  }
+  .a26-metric-tile__value {
+    font-size: 1.5rem;
+  }
+}

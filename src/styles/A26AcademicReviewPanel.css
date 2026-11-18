@@ -80,7 +80,7 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  flex: 1 1 220px;
+  flex: 1 1 180px;
   min-width: 0;
 }
 
@@ -159,5 +159,14 @@
   .a26-review-item__actions .a26-btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .a26-review-panel {
+    padding: 14px 14px;
+  }
+  .a26-review-item {
+    padding: 10px 12px;
   }
 }
