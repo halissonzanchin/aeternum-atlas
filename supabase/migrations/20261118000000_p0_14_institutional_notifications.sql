@@ -354,6 +354,9 @@ BEGIN
         );
         RETURN NEW;
     ELSIF TG_OP = 'DELETE' THEN
+        -- Em AFTER DELETE o registro em institutional_notifications ja foi removido.
+        -- O uso de NULL em notification_id preserva a integridade referencial com ON DELETE SET NULL,
+        -- gravando o id original em details->deleted_id e mantendo o historico perene e inexpugnavel.
         INSERT INTO public.notification_audit_log (
             notification_id,
             notification_title,
@@ -362,12 +365,13 @@ BEGIN
             actor_role,
             details
         ) VALUES (
-            OLD.id,
+            NULL,
             OLD.title,
             'deleted',
             v_actor_id,
             coalesce(v_actor_role, auth.role()),
             jsonb_build_object(
+                'deleted_id', OLD.id,
                 'deleted_status', OLD.status,
                 'deleted_type', OLD.type,
                 'deleted_at', now()
