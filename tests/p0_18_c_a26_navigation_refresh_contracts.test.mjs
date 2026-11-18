@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const shellCss = await readFile(new URL("../src/styles/A26Shell.css", import.meta.url), "utf8");
-const appLayout = await readFile(new URL("../src/components/layout/AppLayout.jsx", import.meta.url), "utf8");
+const appLayout = await readFile(new URL("../src/components/Layout/AppLayout.jsx", import.meta.url), "utf8");
 const sidebar = await readFile(new URL("../src/components/Sidebar/Sidebar.jsx", import.meta.url), "utf8");
 
 test("P0.18.C — Sidebar exhibits A26.3 curvilinear fluid frosted crystal geometry", () => {
