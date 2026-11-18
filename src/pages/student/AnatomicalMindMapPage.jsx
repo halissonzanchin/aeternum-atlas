@@ -126,6 +126,9 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const [generationError, setGenerationError] = useState("");
   const [generationNotice, setGenerationNotice] = useState("");
   const [activeNode, setActiveNode] = useState(null);
+  const [zoomPercent, setZoomPercent] = useState(100);
+  const [minimapVisible, setMinimapVisible] = useState(true);
+  const [viewportRect, setViewportRect] = useState({ normX: 0, normY: 0, normW: 1, normH: 1 });
   const { sendMessage, openTutor, connectionMode } = useAtlasAITutorSession();
 
   const svgRef = useRef(null);
@@ -136,10 +139,13 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const zoomBehaviorRef = useRef(null);
   const rootDataRef = useRef(null);
   const nodeIdSeqRef = useRef(0);
+  const treeBoundsRef = useRef({ minX: 0, maxX: 100, minY: 0, maxY: 100, nodes: [] });
+  const userHasPannedOrZoomedRef = useRef(false);
 
   const fitGraphToViewport = (animated = true) => {
     if (!svgRef.current || !gZoomRef.current || !rootDataRef.current || !zoomBehaviorRef.current) return;
     try {
+      userHasPannedOrZoomedRef.current = false;
       const svgEl = svgRef.current;
       const svgRect = svgEl.getBoundingClientRect();
       const W = svgRect.width || svgEl.clientWidth || 900;
@@ -186,14 +192,15 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       const padLeft = 36;
       const padRight = 44;
       const padTop = 58; // Space below topbar toolbar controls
-      const padBottom = Math.max(42, marinaOverlapH > 0 ? marinaOverlapH + 18 : 42); // Safe exclusion zone above Marina
+      const padBottom = Math.max(48, marinaOverlapH > 0 ? marinaOverlapH + 24 : 48); // Safe exclusion zone above Marina
 
       const availW = Math.max(200, W - padLeft - padRight);
       const availH = Math.max(200, H - padTop - padBottom);
 
       const rawScale = Math.min(availW / graphWidth, availH / graphHeight);
-      // Calibrated scale: comfortable scale ceiling up to 1.45, preserving margins without miniature clustering
-      const scale = Math.min(1.45, Math.max(0.35, rawScale * 0.98));
+      // Calibrated scale (P0.18.B): comfortable ceiling up to 1.45, with lower floor down to 0.08
+      // to ensure comprehensive trees fit 100% browser viewport without cutoff
+      const scale = Math.min(1.45, Math.max(0.08, rawScale * 0.94));
 
       const fittedW = graphWidth * scale;
       const fittedH = graphHeight * scale;
@@ -227,9 +234,67 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       } else {
         d3.select(svgEl).call(zoomBehaviorRef.current.transform, transform);
       }
+      setZoomPercent(Math.round(scale * 100));
     } catch (err) {
       console.warn("fitGraphToViewport calculation error:", err);
     }
+  };
+
+  const zoomTo100 = () => {
+    if (!svgRef.current || !zoomBehaviorRef.current) return;
+    userHasPannedOrZoomedRef.current = true;
+    const svgEl = svgRef.current;
+    const W = svgEl.clientWidth || 900;
+    const H = svgEl.clientHeight || 650;
+    const root = rootDataRef.current;
+    const rootX = root ? root.y : 0;
+    const rootY = root ? root.x : 0;
+    const tx = W / 3 - rootX;
+    const ty = H / 2 - rootY;
+    const transform = d3.zoomIdentity.translate(tx, ty).scale(1.0);
+    d3.select(svgEl).transition().duration(380).ease(d3.easeCubicOut).call(zoomBehaviorRef.current.transform, transform);
+    setZoomPercent(100);
+  };
+
+  const centerRoot = () => {
+    if (!svgRef.current || !zoomBehaviorRef.current) return;
+    userHasPannedOrZoomedRef.current = true;
+    const svgEl = svgRef.current;
+    const W = svgEl.clientWidth || 900;
+    const H = svgEl.clientHeight || 650;
+    const currentTransform = d3.zoomTransform(svgEl);
+    const k = currentTransform.k;
+    const root = rootDataRef.current;
+    const rootX = root ? root.y : 0;
+    const rootY = root ? root.x : 0;
+    const tx = W / 3 - k * rootX;
+    const ty = H / 2 - k * rootY;
+    const transform = d3.zoomIdentity.translate(tx, ty).scale(k);
+    d3.select(svgEl).transition().duration(380).ease(d3.easeCubicOut).call(zoomBehaviorRef.current.transform, transform);
+  };
+
+  const handleMinimapClick = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = (e.clientX - rect.left) / rect.width;
+    const clickY = (e.clientY - rect.top) / rect.height;
+    const tb = treeBoundsRef.current;
+    if (!tb || !svgRef.current || !zoomBehaviorRef.current) return;
+    const gw = Math.max(10, tb.maxX - tb.minX);
+    const gh = Math.max(10, tb.maxY - tb.minY);
+    const targetTreeX = tb.minX + clickX * gw;
+    const targetTreeY = tb.minY + clickY * gh;
+    const W = svgRef.current.clientWidth || 900;
+    const H = svgRef.current.clientHeight || 650;
+    const currentTransform = d3.zoomTransform(svgRef.current);
+    const k = currentTransform.k;
+    const tx = W / 2 - k * targetTreeX;
+    const ty = H / 2 - k * targetTreeY;
+    userHasPannedOrZoomedRef.current = true;
+    d3.select(svgRef.current)
+      .transition()
+      .duration(320)
+      .ease(d3.easeCubicOut)
+      .call(zoomBehaviorRef.current.transform, d3.zoomIdentity.translate(tx, ty).scale(k));
   };
 
   const fitToView = (duration = 380) => fitGraphToViewport(duration > 0);
@@ -261,7 +326,73 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isFullscreen]);
 
-  // ResizeObserver on canvas container element to keep view perfectly fitted on actual container resize
+  // Keyboard pan & zoom navigation listener
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable) {
+        return;
+      }
+      if (!svgRef.current || !zoomBehaviorRef.current) return;
+      const svgSel = d3.select(svgRef.current);
+      const panStep = 75;
+
+      switch (e.key) {
+        case "ArrowLeft":
+          e.preventDefault();
+          userHasPannedOrZoomedRef.current = true;
+          svgSel.transition().duration(140).call(zoomBehaviorRef.current.translateBy, panStep, 0);
+          break;
+        case "ArrowRight":
+          e.preventDefault();
+          userHasPannedOrZoomedRef.current = true;
+          svgSel.transition().duration(140).call(zoomBehaviorRef.current.translateBy, -panStep, 0);
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          userHasPannedOrZoomedRef.current = true;
+          svgSel.transition().duration(140).call(zoomBehaviorRef.current.translateBy, 0, panStep);
+          break;
+        case "ArrowDown":
+          e.preventDefault();
+          userHasPannedOrZoomedRef.current = true;
+          svgSel.transition().duration(140).call(zoomBehaviorRef.current.translateBy, 0, -panStep);
+          break;
+        case "+":
+        case "=":
+          e.preventDefault();
+          userHasPannedOrZoomedRef.current = true;
+          svgSel.transition().duration(180).call(zoomBehaviorRef.current.scaleBy, 1.3);
+          break;
+        case "-":
+        case "_":
+          e.preventDefault();
+          userHasPannedOrZoomedRef.current = true;
+          svgSel.transition().duration(180).call(zoomBehaviorRef.current.scaleBy, 1 / 1.3);
+          break;
+        case "0":
+        case "f":
+        case "F":
+          e.preventDefault();
+          fitGraphToViewport(true);
+          break;
+        case "1":
+          e.preventDefault();
+          zoomTo100();
+          break;
+        case "r":
+        case "R":
+          e.preventDefault();
+          centerRoot();
+          break;
+        default:
+          break;
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // ResizeObserver on canvas container element to keep view fitted on significant container resize without wiping user manual inspection
   useEffect(() => {
     if (!canvasWrapRef.current) return;
     let lastW = 0;
@@ -269,10 +400,12 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const cr = entry.contentRect;
-        if (Math.abs(cr.width - lastW) > 3 || Math.abs(cr.height - lastH) > 3) {
+        if (Math.abs(cr.width - lastW) > 20 || Math.abs(cr.height - lastH) > 20) {
           lastW = cr.width;
           lastH = cr.height;
-          fitGraphToViewport(false);
+          if (!userHasPannedOrZoomedRef.current) {
+            fitGraphToViewport(false);
+          }
         }
       }
     });
@@ -296,6 +429,24 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     root.each((d) => {
       d.y = d.depth === 0 ? 0 : d.depth === 1 ? 230 : 230 + (d.depth - 1) * 290;
     });
+
+    // Compute tree bounds and mini nodes for minimap (P0.18.B)
+    const allDesc = root.descendants();
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    const miniNodes = [];
+    for (const d of allDesc) {
+      const x = d.y;
+      const y = d.x;
+      if (x < minX) minX = x;
+      if (x + d.w > maxX) maxX = x + d.w;
+      if (y - 17 < minY) minY = y - 17;
+      if (y + 17 > maxY) maxY = y + 17;
+      miniNodes.push({ x, y, w: d.w, color: d.color, depth: d.depth });
+    }
+    treeBoundsRef.current = { minX, maxX, minY, maxY, nodes: miniNodes };
 
     const transition = gZoomRef.current.transition().duration(duration);
 
@@ -468,9 +619,32 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
     const zoomBehavior = d3
       .zoom()
-      .scaleExtent([0.25, 2.5])
+      .scaleExtent([0.05, 3.5])
       .on("zoom", (event) => {
-        gZoom.attr("transform", event.transform);
+        const transform = event.transform;
+        gZoom.attr("transform", transform);
+        setZoomPercent(Math.round(transform.k * 100));
+        userHasPannedOrZoomedRef.current = true;
+
+        const tb = treeBoundsRef.current;
+        if (tb && svgRef.current) {
+          const svgW = svgRef.current.clientWidth || 900;
+          const svgH = svgRef.current.clientHeight || 650;
+          const viewX0 = (0 - transform.x) / transform.k;
+          const viewY0 = (0 - transform.y) / transform.k;
+          const viewW = svgW / transform.k;
+          const viewH = svgH / transform.k;
+
+          const gw = Math.max(10, tb.maxX - tb.minX);
+          const gh = Math.max(10, tb.maxY - tb.minY);
+
+          setViewportRect({
+            normX: Math.max(0, Math.min(1, (viewX0 - tb.minX) / gw)),
+            normY: Math.max(0, Math.min(1, (viewY0 - tb.minY) / gh)),
+            normW: Math.max(0.08, Math.min(1, viewW / gw)),
+            normH: Math.max(0.08, Math.min(1, viewH / gh))
+          });
+        }
       });
 
     zoomBehaviorRef.current = zoomBehavior;
@@ -748,17 +922,53 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
           </div>
 
           <div className="zoom-controls">
-            <A26Button variant="liquid" aria-label="Aproximar zoom"
-              onClick={() => d3.select(svgRef.current).transition().duration(200).call(zoomBehaviorRef.current.scaleBy, 1.3)}
+            <A26Button
+              variant="liquid"
+              aria-label="Aproximar zoom (+)"
+              title="Aproximar zoom (+)"
+              onClick={() => {
+                userHasPannedOrZoomedRef.current = true;
+                d3.select(svgRef.current).transition().duration(200).call(zoomBehaviorRef.current.scaleBy, 1.3);
+              }}
             >
               +
             </A26Button>
-            <A26Button variant="liquid" aria-label="Afastar zoom"
-              onClick={() => d3.select(svgRef.current).transition().duration(200).call(zoomBehaviorRef.current.scaleBy, 1 / 1.3)}
+            <button
+              type="button"
+              className="zoom-percentage-btn"
+              onClick={zoomTo100}
+              title="Zoom 100% (Tamanho real — Atalho: 1)"
+              aria-label={`Zoom atual ${zoomPercent}%. Clique para definir 100%.`}
+            >
+              {zoomPercent}%
+            </button>
+            <A26Button
+              variant="liquid"
+              aria-label="Afastar zoom (−)"
+              title="Afastar zoom (−)"
+              onClick={() => {
+                userHasPannedOrZoomedRef.current = true;
+                d3.select(svgRef.current).transition().duration(200).call(zoomBehaviorRef.current.scaleBy, 1 / 1.3);
+              }}
             >
               −
             </A26Button>
-            <A26IconButton label={t("mindMap.centerView", { defaultValue: "Centralizar vista" })} icon="reset" onClick={() => fitToView(450)} />
+            <A26IconButton
+              label="Ajustar à tela (Atalho: 0)"
+              icon="reset"
+              onClick={() => fitGraphToViewport(true)}
+            />
+            <A26IconButton
+              label="Centralizar raiz (Atalho: R)"
+              icon="target"
+              onClick={centerRoot}
+            />
+            <A26IconButton
+              label={minimapVisible ? "Ocultar minimapa" : "Mostrar minimapa"}
+              icon="isolate"
+              className={minimapVisible ? "active-tool" : ""}
+              onClick={() => setMinimapVisible((v) => !v)}
+            />
             <A26IconButton
               label={isFullscreen ? t("mindMap.exitFullscreen", { defaultValue: "Sair da tela cheia" }) : t("mindMap.enterFullscreen", { defaultValue: "Usar tela cheia" })}
               icon="fullscreen"
@@ -770,10 +980,50 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
         <div className="mindmap-canvas-stage">
           <svg id="canvas" ref={svgRef} role="img" aria-label="Mapa mental anatômico interativo" />
+          {minimapVisible && treeBoundsRef.current?.nodes?.length > 0 && (
+            <div
+              className="mindmap-minimap"
+              onClick={handleMinimapClick}
+              title="Minimapa de Navegação — Clique para centrar a visão"
+              role="region"
+              aria-label="Minimapa de navegação anatômica"
+            >
+              <svg viewBox="0 0 140 85" className="mindmap-minimap__svg">
+                {treeBoundsRef.current.nodes.map((n, idx) => {
+                  const tb = treeBoundsRef.current;
+                  const gw = Math.max(1, tb.maxX - tb.minX);
+                  const gh = Math.max(1, tb.maxY - tb.minY);
+                  const nx = ((n.x - tb.minX) / gw) * 124 + 8;
+                  const ny = ((n.y - tb.minY) / gh) * 69 + 8;
+                  return (
+                    <circle
+                      key={idx}
+                      cx={nx}
+                      cy={ny}
+                      r={n.depth === 0 ? 3.5 : 2}
+                      fill={n.color || "#4fd8c9"}
+                      opacity={0.85}
+                    />
+                  );
+                })}
+                <rect
+                  className="minimap-viewport-indicator"
+                  x={viewportRect.normX * 124 + 8}
+                  y={viewportRect.normY * 69 + 8}
+                  width={Math.min(124, Math.max(12, viewportRect.normW * 124))}
+                  height={Math.min(69, Math.max(10, viewportRect.normH * 69))}
+                />
+              </svg>
+              <div className="mindmap-minimap__badge">
+                <span>{zoomPercent}%</span>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="mindmap-hint">
-          {isFullscreen ? t("mindMap.fullscreenExitHint", { defaultValue: "Pressione Esc para sair da tela cheia · " }) : ""}{t("mindMap.canvasHint", { defaultValue: "arraste para mover · roda do mouse para zoom · clique num nó para recolher/expandir os filhos" })}
+          {isFullscreen ? t("mindMap.fullscreenExitHint", { defaultValue: "Pressione Esc para sair da tela cheia · " }) : ""}
+          Arraste para mover · Roda do mouse ou + / − para zoom · 0 para ajustar à tela · 1 para 100% · Setas para navegar
         </div>
 
         {activeNode ? (
