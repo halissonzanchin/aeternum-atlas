@@ -270,6 +270,7 @@ export function A26Modal({ open, title, description, children, actions, onClose,
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={description ? descriptionId : undefined}
+        data-a26-floating="true"
       >
         <header className="a26-modal__header">
           <div>
@@ -286,7 +287,7 @@ export function A26Modal({ open, title, description, children, actions, onClose,
   ), document.body);
 }
 
-export function A26Popover({ open, label, children, onClose, className = "" }) {
+export function A26Popover({ open, label, children, onClose, className = "", material = "frosted" }) {
   useEffect(() => {
     if (!open) return undefined;
     const handleEscape = (event) => {
@@ -300,10 +301,11 @@ export function A26Popover({ open, label, children, onClose, className = "" }) {
 
   return (
     <A26Surface
-      material="regular"
+      material={material}
       className={joinClasses("a26-popover", className)}
       role="dialog"
       aria-label={label}
+      data-a26-floating="true"
     >
       {children}
     </A26Surface>
