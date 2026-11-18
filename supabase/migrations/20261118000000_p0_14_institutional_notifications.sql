@@ -5,8 +5,9 @@
 --              - Modelagem completa de avisos de manutenção, melhorias e comunicados.
 --              - RLS granular com isolamento estrito entre administradores e estudantes.
 --              - Rastreamento de leitura individual por estudante (user_notification_reads).
---              - Trilha de auditoria administrativa (notification_audit_log).
---              - Filtros por público-alvo e instituição sem expor dados privados.
+--              - Trilha de auditoria administrativa permanente (notification_audit_log).
+--              - Filtros por público-alvo e instituição com isolamento multi-tenant real.
+--              - Validação de Session Guard (FIRST SESSION WINS) e visibilidade nas RPCs.
 --              - Armazenamento em UTC com suporte a fuso horário administrativo.
 -- Pre-conditions: 20261117210000_p0_13_1_first_session_wins_inactivity_60m.sql applied.
 -- Rollback Plan: supabase/rollback-plans/rollback_20261118000000_p0_14_institutional_notifications.sql
@@ -104,10 +105,12 @@ CREATE INDEX IF NOT EXISTS idx_user_notif_reads_user
 
 -- ------------------------------------------------------------------------------
 -- 3. TABELA DE AUDITORIA ADMINISTRATIVA: notification_audit_log
+--    ON DELETE SET NULL: preserva a integridade do histórico mesmo se um comunicado for excluído.
 -- ------------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.notification_audit_log (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-    notification_id uuid NOT NULL REFERENCES public.institutional_notifications(id) ON DELETE CASCADE,
+    notification_id uuid REFERENCES public.institutional_notifications(id) ON DELETE SET NULL,
+    notification_title text,
     action text NOT NULL CHECK (action IN (
         'created',
         'updated',
@@ -212,6 +215,33 @@ BEGIN
 END;
 $$;
 
+-- Multi-Tenant: Verifica se o usuário pode gerenciar um comunicado específico.
+-- Superadmins gerenciam comunicados globais e de qualquer instituição.
+-- Administradores institucionais gerenciam apenas comunicados de sua própria instituição.
+CREATE OR REPLACE FUNCTION public.can_manage_notification(p_institution_id uuid)
+RETURNS boolean
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, auth, pg_temp
+STABLE
+AS $$
+DECLARE
+    v_user_inst_id uuid;
+BEGIN
+    IF auth.role() = 'service_role' OR public.is_super_admin_user() THEN
+        RETURN true;
+    END IF;
+
+    IF public.is_admin_user() THEN
+        v_user_inst_id := public.get_current_user_institution_id();
+        -- Administrador de instituição só pode gerenciar comunicados com escopo explícito da sua instituição
+        RETURN p_institution_id IS NOT NULL AND v_user_inst_id IS NOT NULL AND p_institution_id = v_user_inst_id;
+    END IF;
+
+    RETURN false;
+END;
+$$;
+
 -- ------------------------------------------------------------------------------
 -- 5. TRIGGERS: TIMESTAMPS (BEFORE) E AUDITORIA (AFTER)
 -- ------------------------------------------------------------------------------
@@ -247,7 +277,7 @@ CREATE TRIGGER trg_institutional_notifications_timestamps
     FOR EACH ROW
     EXECUTE FUNCTION public.trg_institutional_notifications_timestamps();
 
--- Trigger AFTER para registrar na trilha de auditoria após commit de chave primária
+-- Trigger AFTER para registrar na trilha de auditoria (INSERT, UPDATE, DELETE)
 CREATE OR REPLACE FUNCTION public.trg_institutional_notifications_audit()
 RETURNS trigger
 LANGUAGE plpgsql
@@ -259,6 +289,8 @@ DECLARE
     v_actor_role text;
     v_action text;
 BEGIN
+    SELECT u.role INTO v_actor_role FROM public.users u WHERE u.id = v_actor_id;
+
     IF TG_OP = 'INSERT' THEN
         v_action := CASE
             WHEN NEW.status = 'published' THEN 'published'
@@ -266,16 +298,16 @@ BEGIN
             ELSE 'created'
         END;
 
-        SELECT u.role INTO v_actor_role FROM public.users u WHERE u.id = v_actor_id;
-
         INSERT INTO public.notification_audit_log (
             notification_id,
+            notification_title,
             action,
             actor_id,
             actor_role,
             details
         ) VALUES (
             NEW.id,
+            NEW.title,
             v_action,
             v_actor_id,
             coalesce(v_actor_role, auth.role()),
@@ -298,16 +330,16 @@ BEGIN
             ELSE 'updated'
         END;
 
-        SELECT u.role INTO v_actor_role FROM public.users u WHERE u.id = v_actor_id;
-
         INSERT INTO public.notification_audit_log (
             notification_id,
+            notification_title,
             action,
             actor_id,
             actor_role,
             details
         ) VALUES (
             NEW.id,
+            NEW.title,
             v_action,
             v_actor_id,
             coalesce(v_actor_role, auth.role()),
@@ -321,6 +353,27 @@ BEGIN
             )
         );
         RETURN NEW;
+    ELSIF TG_OP = 'DELETE' THEN
+        INSERT INTO public.notification_audit_log (
+            notification_id,
+            notification_title,
+            action,
+            actor_id,
+            actor_role,
+            details
+        ) VALUES (
+            OLD.id,
+            OLD.title,
+            'deleted',
+            v_actor_id,
+            coalesce(v_actor_role, auth.role()),
+            jsonb_build_object(
+                'deleted_status', OLD.status,
+                'deleted_type', OLD.type,
+                'deleted_at', now()
+            )
+        );
+        RETURN OLD;
     END IF;
     RETURN NEW;
 END;
@@ -328,7 +381,7 @@ $$;
 
 DROP TRIGGER IF EXISTS trg_institutional_notifications_audit ON public.institutional_notifications;
 CREATE TRIGGER trg_institutional_notifications_audit
-    AFTER INSERT OR UPDATE ON public.institutional_notifications
+    AFTER INSERT OR UPDATE OR DELETE ON public.institutional_notifications
     FOR EACH ROW
     EXECUTE FUNCTION public.trg_institutional_notifications_audit();
 
@@ -339,14 +392,39 @@ ALTER TABLE public.institutional_notifications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_notification_reads ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.notification_audit_log ENABLE ROW LEVEL SECURITY;
 
--- institutional_notifications: Administradores têm controle total
-DROP POLICY IF EXISTS admin_all_institutional_notifications ON public.institutional_notifications;
-CREATE POLICY admin_all_institutional_notifications
+-- institutional_notifications: Administradores gerenciam comunicados de acordo com o escopo multi-tenant
+DROP POLICY IF EXISTS admin_select_institutional_notifications ON public.institutional_notifications;
+CREATE POLICY admin_select_institutional_notifications
     ON public.institutional_notifications
-    FOR ALL
+    FOR SELECT
     TO authenticated
-    USING (public.is_admin_user())
-    WITH CHECK (public.is_admin_user());
+    USING (
+        public.is_super_admin_user()
+        OR (public.is_admin_user() AND (institution_id IS NULL OR institution_id = public.get_current_user_institution_id()))
+    );
+
+DROP POLICY IF EXISTS admin_insert_institutional_notifications ON public.institutional_notifications;
+CREATE POLICY admin_insert_institutional_notifications
+    ON public.institutional_notifications
+    FOR INSERT
+    TO authenticated
+    WITH CHECK (public.can_manage_notification(institution_id));
+
+DROP POLICY IF EXISTS admin_update_institutional_notifications ON public.institutional_notifications;
+CREATE POLICY admin_update_institutional_notifications
+    ON public.institutional_notifications
+    FOR UPDATE
+    TO authenticated
+    USING (public.can_manage_notification(institution_id))
+    WITH CHECK (public.can_manage_notification(institution_id));
+
+-- Exclusão física restrita a superadministradores (preserva auditoria por ON DELETE SET NULL)
+DROP POLICY IF EXISTS admin_delete_institutional_notifications ON public.institutional_notifications;
+CREATE POLICY admin_delete_institutional_notifications
+    ON public.institutional_notifications
+    FOR DELETE
+    TO authenticated
+    USING (public.is_super_admin_user());
 
 -- institutional_notifications: Estudantes e Professores autenticados (somente leitura autorizada)
 DROP POLICY IF EXISTS authenticated_read_notifications ON public.institutional_notifications;
@@ -423,7 +501,7 @@ CREATE POLICY user_delete_own_notification_reads
     TO authenticated
     USING (user_id = auth.uid() OR public.is_super_admin_user());
 
--- notification_audit_log: Visível apenas para administradores
+-- notification_audit_log: Visível apenas para administradores autorizados
 DROP POLICY IF EXISTS admin_read_notification_audit ON public.notification_audit_log;
 CREATE POLICY admin_read_notification_audit
     ON public.notification_audit_log
@@ -435,7 +513,7 @@ CREATE POLICY admin_read_notification_audit
 -- 7. FUNÇÕES RPC PARA CONSUMO SEGURO PELO FRONTEND
 -- ------------------------------------------------------------------------------
 
--- Marcar notificação como lida
+-- Marcar notificação como lida com validação estrita de visibilidade e Session Guard
 CREATE OR REPLACE FUNCTION public.mark_notification_as_read(
     p_notification_id uuid
 )
@@ -446,17 +524,52 @@ SET search_path = public, auth, pg_temp
 AS $$
 DECLARE
     v_uid uuid := auth.uid();
+    v_is_active boolean := true;
 BEGIN
     IF v_uid IS NULL THEN
-        RAISE EXCEPTION 'UNAUTHORIZED: Autenticação obrigatória';
+        RAISE EXCEPTION 'UNAUTHORIZED: Autenticação obrigatória' USING errcode = '42501';
     END IF;
 
-    -- Garante que a notificação existe e está acessível ao usuário
+    -- Session Guard: Não permite marcação por sessões secundárias recusadas ou expiradas
+    IF NOT public.is_admin_user() AND auth.role() <> 'service_role' THEN
+        BEGIN
+            v_is_active := public.is_current_jwt_session_active();
+        EXCEPTION WHEN undefined_function THEN
+            v_is_active := true; -- Fallback seguro em ambientes sem Session Guard
+        END;
+
+        IF NOT v_is_active THEN
+            RAISE EXCEPTION 'SESSION_GUARD_REFUSED: Sessão inativa ou expirada pelo First Session Wins' USING errcode = '42501';
+        END IF;
+    END IF;
+
+    -- Garante que a notificação existe e está realmente visível/elegível para este usuário
     IF NOT EXISTS (
-        SELECT 1 FROM public.institutional_notifications
-        WHERE id = p_notification_id
+        SELECT 1 FROM public.institutional_notifications n
+        WHERE n.id = p_notification_id
+          AND (
+              public.is_super_admin_user()
+              OR (
+                  n.status IN ('published', 'in_progress', 'completed', 'postponed', 'cancelled')
+                  AND n.published_at IS NOT NULL
+                  AND n.published_at <= now()
+                  AND (
+                      n.target_audience = 'all'
+                      OR (n.target_audience = 'students' AND EXISTS (
+                          SELECT 1 FROM public.users u WHERE u.id = v_uid AND u.role = 'student'
+                      ))
+                      OR (n.target_audience = 'teachers' AND EXISTS (
+                          SELECT 1 FROM public.users u WHERE u.id = v_uid AND u.role = 'teacher'
+                      ))
+                      OR (n.target_audience = 'institution_admins' AND EXISTS (
+                          SELECT 1 FROM public.users u WHERE u.id = v_uid AND u.role IN ('institution_admin', 'admin', 'super_admin')
+                      ))
+                      OR (n.target_audience = 'specific_institution' AND n.institution_id = public.get_current_user_institution_id())
+                  )
+              )
+          )
     ) THEN
-        RETURN jsonb_build_object('success', false, 'error', 'Notificação não encontrada');
+        RETURN jsonb_build_object('success', false, 'error', 'Notificação não encontrada ou não disponível para este usuário');
     END IF;
 
     INSERT INTO public.user_notification_reads (user_id, notification_id, read_at)
@@ -478,9 +591,23 @@ AS $$
 DECLARE
     v_uid uuid := auth.uid();
     v_count integer := 0;
+    v_is_active boolean := true;
 BEGIN
     IF v_uid IS NULL THEN
-        RAISE EXCEPTION 'UNAUTHORIZED: Autenticação obrigatória';
+        RAISE EXCEPTION 'UNAUTHORIZED: Autenticação obrigatória' USING errcode = '42501';
+    END IF;
+
+    -- Session Guard: Não permite bypass por sessões secundárias recusadas ou expiradas
+    IF NOT public.is_admin_user() AND auth.role() <> 'service_role' THEN
+        BEGIN
+            v_is_active := public.is_current_jwt_session_active();
+        EXCEPTION WHEN undefined_function THEN
+            v_is_active := true;
+        END;
+
+        IF NOT v_is_active THEN
+            RAISE EXCEPTION 'SESSION_GUARD_REFUSED: Sessão inativa ou expirada pelo First Session Wins' USING errcode = '42501';
+        END IF;
     END IF;
 
     WITH eligible AS (
@@ -519,7 +646,7 @@ BEGIN
 END;
 $$;
 
--- Buscar feed do estudante com status de leitura computado
+-- Buscar feed do estudante com status de leitura computado e validação Session Guard
 CREATE OR REPLACE FUNCTION public.get_student_notifications(
     p_limit integer DEFAULT 50,
     p_offset integer DEFAULT 0
@@ -550,9 +677,23 @@ STABLE
 AS $$
 DECLARE
     v_uid uuid := auth.uid();
+    v_is_active boolean := true;
 BEGIN
     IF v_uid IS NULL THEN
-        RAISE EXCEPTION 'UNAUTHORIZED: Autenticação obrigatória';
+        RAISE EXCEPTION 'UNAUTHORIZED: Autenticação obrigatória' USING errcode = '42501';
+    END IF;
+
+    -- Session Guard: Não permite leitura por sessões secundárias recusadas ou expiradas
+    IF NOT public.is_admin_user() AND auth.role() <> 'service_role' THEN
+        BEGIN
+            v_is_active := public.is_current_jwt_session_active();
+        EXCEPTION WHEN undefined_function THEN
+            v_is_active := true;
+        END;
+
+        IF NOT v_is_active THEN
+            RAISE EXCEPTION 'SESSION_GUARD_REFUSED: Sessão inativa ou expirada pelo First Session Wins' USING errcode = '42501';
+        END IF;
     END IF;
 
     RETURN QUERY
@@ -624,6 +765,7 @@ GRANT SELECT ON TABLE public.notification_audit_log TO authenticated;
 GRANT EXECUTE ON FUNCTION public.is_admin_user() TO authenticated, anon;
 GRANT EXECUTE ON FUNCTION public.is_super_admin_user() TO authenticated, anon;
 GRANT EXECUTE ON FUNCTION public.get_current_user_institution_id() TO authenticated;
+GRANT EXECUTE ON FUNCTION public.can_manage_notification(uuid) TO authenticated;
 GRANT EXECUTE ON FUNCTION public.mark_notification_as_read(uuid) TO authenticated;
 GRANT EXECUTE ON FUNCTION public.mark_all_notifications_as_read() TO authenticated;
 GRANT EXECUTE ON FUNCTION public.get_student_notifications(integer, integer) TO authenticated;
