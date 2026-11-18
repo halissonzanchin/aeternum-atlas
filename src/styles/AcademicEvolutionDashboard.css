@@ -4,6 +4,7 @@
   flex-direction: column;
   gap: 24px;
   width: 100%;
+  padding-bottom: clamp(40px, 6vh, 80px);
 }
 
 .academic-evolution-header {
@@ -66,14 +67,14 @@
   color: #ffe082;
 }
 
-/* Grid de Métricas (Zona A) */
+/* Grid de Métricas (Zona A) — Adaptativo e Resiliente ao Zoom */
 .academic-metrics-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1380px) {
   .academic-metrics-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -85,14 +86,14 @@
   }
 }
 
-/* Grid Bipolar (Zona B & D) */
+/* Grid Bipolar (Zona B & D) — Equilíbrio Óptico e Quebra Segura */
 .academic-bipolar-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  grid-template-columns: 1.45fr 1fr;
   gap: 20px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1240px) {
   .academic-bipolar-grid {
     grid-template-columns: 1fr;
   }
@@ -131,7 +132,7 @@
 
 .academic-systems-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 16px;
 }
 

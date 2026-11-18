@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  container-type: inline-size;
+  container-name: review-panel;
 }
 
 .a26-review-panel__header {
@@ -42,6 +44,8 @@
   border: 1px solid rgba(206, 147, 216, 0.35);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .a26-review-panel__content {
@@ -53,7 +57,9 @@
 .a26-review-item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 14px;
+  flex-wrap: wrap;
   padding: 14px 16px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.03);
@@ -70,9 +76,19 @@
   background: rgba(38, 166, 154, 0.04);
 }
 
+.a26-review-item__body {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
 .a26-review-item__icon {
   font-size: 1.375rem;
   opacity: 0.9;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .a26-review-item.is-alert .a26-review-item__icon {
@@ -89,6 +105,7 @@
 
 .a26-review-item__info {
   flex: 1;
+  min-width: 0;
 }
 
 .a26-review-item__info strong {
@@ -96,10 +113,51 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #FFFFFF;
+  line-height: 1.35;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 .a26-review-item__info p {
-  margin: 2px 0 0;
+  margin: 3px 0 0;
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.65);
+  line-height: 1.4;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.a26-review-item__actions {
+  flex-shrink: 0;
+}
+
+.a26-review-item__actions button,
+.a26-review-item__actions .a26-btn {
+  white-space: nowrap;
+}
+
+/* Quando o painel for estreito (notebooks ou telas compactas), o botão desce para largura total limpa */
+@container review-panel (max-width: 440px) {
+  .a26-review-item__actions {
+    width: 100%;
+    margin-top: 4px;
+  }
+  .a26-review-item__actions button,
+  .a26-review-item__actions .a26-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Fallback para visualizações estreitas */
+@media (max-width: 480px) {
+  .a26-review-item__actions {
+    width: 100%;
+    margin-top: 4px;
+  }
+  .a26-review-item__actions button,
+  .a26-review-item__actions .a26-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

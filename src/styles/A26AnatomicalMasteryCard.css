@@ -15,21 +15,25 @@
 
 .a26-mastery-card__header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .a26-mastery-card__title-group {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
+  flex: 1 1 160px;
 }
 
 .a26-mastery-card__icon {
   font-size: 1.5rem;
   color: #80cbc4;
   opacity: 0.9;
+  flex-shrink: 0;
 }
 
 .a26-mastery-card__title {
@@ -38,6 +42,8 @@
   font-weight: 600;
   color: #FFFFFF;
   letter-spacing: -0.01em;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 .a26-mastery-card__subtitle {
@@ -52,6 +58,8 @@
   border-radius: 999px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .a26-mastery-card__badge.is-consolidated {
@@ -130,9 +138,13 @@
   margin-top: 4px;
   padding-top: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .a26-mastery-card__state-note {
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.55);
+  flex: 1 1 160px;
+  line-height: 1.35;
 }
