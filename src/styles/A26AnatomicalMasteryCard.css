@@ -1,0 +1,138 @@
+/* A26AnatomicalMasteryCard — Estilo Liquid Glass Aeternum 26.1 */
+.a26-mastery-card {
+  padding: 20px 22px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.a26-mastery-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.a26-mastery-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.a26-mastery-card__title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.a26-mastery-card__icon {
+  font-size: 1.5rem;
+  color: #80cbc4;
+  opacity: 0.9;
+}
+
+.a26-mastery-card__title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+.a26-mastery-card__subtitle {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.a26-mastery-card__badge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.a26-mastery-card__badge.is-consolidated {
+  background: rgba(38, 166, 154, 0.22);
+  color: #80cbc4;
+  border: 1px solid rgba(128, 203, 196, 0.4);
+}
+
+.a26-mastery-card__badge.is-forming {
+  background: rgba(255, 179, 0, 0.2);
+  color: #ffe082;
+  border: 1px solid rgba(255, 224, 130, 0.4);
+}
+
+.a26-mastery-card__badge.is-unstarted {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.a26-mastery-card__triad {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.a26-triad-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.a26-triad-row__header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+}
+
+.a26-triad-row__label {
+  color: rgba(232, 220, 184, 0.9);
+  font-weight: 500;
+}
+
+.a26-triad-row__value {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+.a26-triad-row__track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.a26-triad-row__bar {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.a26-triad-row__bar--teal {
+  background: linear-gradient(90deg, #26a69a, #80cbc4);
+}
+
+.a26-triad-row__bar--coral {
+  background: linear-gradient(90deg, #ff7043, #ffab91);
+}
+
+.a26-mastery-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.a26-mastery-card__state-note {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}

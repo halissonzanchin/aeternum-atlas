@@ -187,6 +187,9 @@ export default function Dashboard({ user, navigate }) {
       </section>
 
       <EvolutionPanel
+        user={user}
+        models={activeModels}
+        navigate={navigate}
         stats={stats}
         systemProgress={systemProgress}
         studySeriesByPeriod={studySeriesByPeriod}

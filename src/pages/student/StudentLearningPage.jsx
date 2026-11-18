@@ -19,6 +19,7 @@ import { getFavoriteModels } from "../../services/progressService";
 import { useAtlasAITutorSession } from "../../context/AtlasAITutorSessionContext";
 import AtlasAIConversation from "../../features/atlas-viewer/ai/AtlasAIConversation";
 import SocraticClinicalCaseModal from "../../features/dashboard/components/SocraticClinicalCaseModal";
+import AcademicEvolutionDashboard from "../../features/dashboard/components/AcademicEvolutionDashboard";
 import "./StudentLearningPage.css";
 
 const sectionDefinitions = Object.freeze({
@@ -115,8 +116,8 @@ const sectionDefinitions = Object.freeze({
   },
   "academic-reports": {
     icon: "reset",
-    titleKey: "modules.academicReportsTitle",
-    textKey: "modules.academicReportsText",
+    titleKey: "studentHome.evolutionTitle",
+    textKey: "studentHome.evolutionSubtitle",
     kind: "progress",
     nextPath: "/history"
   },
@@ -328,29 +329,25 @@ export default function StudentLearningPage({ section, user, navigate }) {
 
     if (definition.kind === "progress") {
       return (
-        <>
-          <div className="a26-daily-metrics">
-            <A26Metric label={labels.accessCount} value={stats.totalAccesses} detail={labels.source} tone="teal" />
-            <A26Metric label={labels.studied} value={stats.studiedModels} detail={`${stats.progressPercent}%`} />
-            <A26Metric label={labels.favorites} value={stats.favorites} detail={labels.source} tone="gold" />
-            <A26Metric label={labels.totalTime} value={minutesLabel(stats.totalStudyMinutes, language)} detail={labels.source} />
-          </div>
-          {progressBySystem.length ? (
-            <A26Card className="a26-daily-progress">
-              <h2>{labels.progressBySystem}</h2>
-              <div>
-                {progressBySystem.map(item => (
-                  <article key={item.system}>
-                    <header><strong>{item.system}</strong><span>{item.studied}/{item.total}</span></header>
-                    <div className="a26-daily-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={item.percent}>
-                      <span style={{ width: `${item.percent}%` }} />
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </A26Card>
-          ) : renderEmpty(labels.noHistory, labels.noHistoryBody)}
-        </>
+        <div className="a26-student-progress-experience">
+          <AcademicEvolutionDashboard
+            user={user}
+            models={models}
+            sessions={telemetry?.sessions || []}
+            events={telemetry?.events || []}
+            quizResults={telemetry?.quizResults || []}
+            syncStatus={telemetry?.synchronized ? "verified" : "local"}
+            syncError={telemetry?.syncError}
+            navigate={navigate}
+            t={t}
+          />
+          {!modelsLoading && !models.length ? (
+            <A26EmptyState
+              title={labels.noHistory}
+              text={labels.noHistoryBody}
+            />
+          ) : null}
+        </div>
       );
     }
 

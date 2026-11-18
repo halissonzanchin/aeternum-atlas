@@ -1,0 +1,101 @@
+/* A26MetricTile — Estilo Liquid Glass Aeternum 26.1 */
+.a26-metric-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 20px;
+  min-height: 130px;
+  border-radius: 18px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.a26-metric-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.a26-metric-tile__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.a26-metric-tile__label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(232, 220, 184, 0.85); /* Tom ouro lunar / marfim com contraste >= 5.5:1 */
+}
+
+.a26-metric-tile__icon {
+  font-size: 1.25rem;
+  opacity: 0.85;
+}
+
+.a26-metric-tile__body {
+  margin: 6px 0;
+}
+
+.a26-metric-tile__value {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+.a26-metric-tile__unit {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.a26-metric-tile__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  margin-top: 6px;
+  gap: 8px;
+}
+
+.a26-metric-tile__detail {
+  color: rgba(255, 255, 255, 0.65);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.a26-metric-tile__badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.a26-metric-tile__badge--verified {
+  background: rgba(38, 166, 154, 0.22);
+  color: #80cbc4;
+  border: 1px solid rgba(128, 203, 196, 0.35);
+}
+
+.a26-metric-tile__badge--pending {
+  background: rgba(255, 179, 0, 0.2);
+  color: #ffe082;
+  border: 1px solid rgba(255, 224, 130, 0.35);
+}
+
+.a26-metric-tile__badge--unavailable {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.a26-metric-tile__trend {
+  color: #80cbc4;
+  font-weight: 600;
+}
