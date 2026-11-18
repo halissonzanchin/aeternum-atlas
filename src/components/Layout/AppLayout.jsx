@@ -213,10 +213,11 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
               {normalizedQuery ? (
                 <A26Surface
                   id="a26-shell-search-results"
-                  material="regular"
+                  material="frosted"
                   className="a26-shell__search-results"
                   role="listbox"
                   aria-label={t("shell.searchResults")}
+                  data-a26-floating="true"
                 >
                   {hasAnyResults ? (
                     <>

@@ -79,11 +79,12 @@ export default function LanguageSelector({ compact = false, onOpen }) {
       {open ? (
         <A26Surface
           ref={menuRef}
-          material="regular"
+          material="frosted"
           className="language-selector__menu"
           role="menu"
           aria-label={t("language.changeLanguage")}
           data-testid="a26-language-menu"
+          data-a26-floating="true"
         >
           {availableLanguages.map(item => (
             <button

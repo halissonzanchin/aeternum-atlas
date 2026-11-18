@@ -467,6 +467,9 @@
   width: min(330px, calc(100vw - 28px));
   max-width: min(330px, calc(100vw - 28px));
   z-index: calc(var(--a26-z-navigation) + 3);
+  border-radius: var(--a26-radius-card);
+  border-color: var(--a26-material-frosted-border);
+  box-shadow: var(--a26-material-frosted-shadow);
 }
 
 .a26-shell__popover h2 {

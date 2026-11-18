@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars -- o parser ESLint atual não contabiliza identificadores usados apenas em JSX */
 import { forwardRef, useCallback, useRef } from "react";
 
-const MATERIALS = new Set(["clear", "regular", "substantial", "opaque"]);
+const MATERIALS = new Set(["clear", "regular", "substantial", "opaque", "frosted"]);
 const TONES = new Set(["neutral", "teal", "gold", "danger"]);
 
 const A26Surface = forwardRef(function A26Surface({
