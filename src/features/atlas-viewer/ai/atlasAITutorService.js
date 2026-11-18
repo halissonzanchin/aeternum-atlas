@@ -433,6 +433,7 @@ export const atlasAITutorService = {
           mode: "live",
           text: sanitized,
           source: jsonBody.source || "aeternum_gateway",
+          knowledgeState: jsonBody.knowledgeState || response.headers.get("x-aeternum-knowledge-state") || null,
           sources: Array.isArray(jsonBody.sources) ? jsonBody.sources : [],
           action: jsonBody.action || null,
           payload: jsonBody.payload || null,
@@ -449,6 +450,7 @@ export const atlasAITutorService = {
       let remoteConversationId = conversationId;
       let pending = '';
       let sources = [];
+      let knowledgeState = response.headers.get("x-aeternum-knowledge-state") || null;
 
       while (!done) {
         const chunk = await reader.read();
@@ -498,6 +500,9 @@ export const atlasAITutorService = {
             };
           }
 
+          if (data.knowledgeState) {
+            knowledgeState = data.knowledgeState;
+          }
           if (Array.isArray(data.sources)) {
             sources = data.sources;
           }
@@ -548,6 +553,7 @@ export const atlasAITutorService = {
         mode: "live",
         text: fullText,
         source: "aeternum_gateway",
+        knowledgeState,
         sources,
         action,
         payload,

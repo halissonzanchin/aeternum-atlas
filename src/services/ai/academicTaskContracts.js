@@ -43,11 +43,27 @@ export function isTutorModeActive(mode) {
 }
 
 /**
- * Valida se uma resposta do serviço de IA foi bem-sucedida e contém texto.
+ * Identifica se a resposta do Tutor corresponde a uma recusa/abstenção científica
+ * por evidência anatômica insuficiente nas fontes soberanas (Evidence Gate).
+ */
+export function isEvidenceInsufficient(response) {
+  if (!response || typeof response !== "object") return false;
+  if (response.knowledgeState === "INSUFFICIENT_EVIDENCE") return true;
+  if (response.code === ACADEMIC_ERROR_CODES.ANATOMICAL_EVIDENCE_INSUFFICIENT) return true;
+  const text = String(response.text || response.message || "").trim();
+  return /Evidência anatômica insuficiente nas fontes soberanas/i.test(text);
+}
+
+/**
+ * Valida se uma resposta do serviço de IA foi bem-sucedida, operacional e contém conteúdo anatômico válido.
+ * Rejeita expressamente abstenções por insuficiência de evidência ou estados degradados.
  */
 export function isTutorSuccess(response) {
   if (!response || typeof response !== "object") return false;
-  return isTutorModeActive(response.mode) && Boolean(response.text && String(response.text).trim());
+  if (!isTutorModeActive(response.mode)) return false;
+  if (isEvidenceInsufficient(response)) return false;
+  if (response.code && response.code !== "SUCCESS") return false;
+  return Boolean(response.text && String(response.text).trim());
 }
 
 /**

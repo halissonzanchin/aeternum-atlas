@@ -1,4 +1,9 @@
-import { isTutorSuccess, validateMindMapSchema } from "./academicTaskContracts.js";
+import {
+  isTutorSuccess,
+  isEvidenceInsufficient,
+  validateMindMapSchema,
+  ACADEMIC_ERROR_CODES
+} from "./academicTaskContracts.js";
 
 const MAX_NODES = 40;
 const MAX_DEPTH = 4;
@@ -121,6 +126,12 @@ export function normalizeMindMapOutline(rawText, topicFallback = "") {
     .replace(/```/g, "")
     .replace(/\r/g, "");
 
+  if (isEvidenceInsufficient({ text: source })) {
+    const err = new Error("Evidência anatômica insuficiente nas fontes soberanas do Aeternum Atlas para sintetizar este mapa mental.");
+    err.code = ACADEMIC_ERROR_CODES.ANATOMICAL_EVIDENCE_INSUFFICIENT;
+    throw err;
+  }
+
   const parsed = source
     .split("\n")
     .map((originalLine) => {
@@ -196,9 +207,37 @@ export async function generateAuthenticatedMindMap({ topic, sendTutorMessage }) 
   });
 
   if (!isTutorSuccess(response)) {
-    const errorMsg = response?.message || (response?.code === "SESSION_ALREADY_ACTIVE"
-      ? "Esta conta já possui uma sessão ativa em outro dispositivo. Encerre o outro acesso para gerar o mapa mental."
-      : "O Tutor IA precisa de uma sessão autenticada e conexão ativa para gerar o mapa.");
+    if (
+      response?.code === "SESSION_ALREADY_ACTIVE" ||
+      response?.code === "SESSION_DISPLACED" ||
+      response?.code === "SESSION_REVOKED" ||
+      response?.code === "FORBIDDEN"
+    ) {
+      const err = new Error(
+        response.message ||
+        "Esta conta já possui uma sessão ativa em outro dispositivo. Encerre o outro acesso para gerar o mapa mental."
+      );
+      err.code = response.code;
+      throw err;
+    }
+
+    if (isEvidenceInsufficient(response)) {
+      const err = new Error(
+        "Evidência anatômica insuficiente nas fontes soberanas do Aeternum Atlas para sintetizar este mapa mental com precisão. Especifique a estrutura anatômica de interesse ou explore uma região cadastrada no atlas."
+      );
+      err.code = ACADEMIC_ERROR_CODES.ANATOMICAL_EVIDENCE_INSUFFICIENT;
+      throw err;
+    }
+
+    if (response?.code === "AI_GATEWAY_UNAVAILABLE" || response?.code === "GATEWAY_UNAVAILABLE") {
+      const err = new Error(
+        "O serviço de inferência soberana (TutorEngine) está temporariamente inacessível. Verifique o status da IA local ou tente novamente em instantes."
+      );
+      err.code = ACADEMIC_ERROR_CODES.TUTOR_GATEWAY_UNAVAILABLE;
+      throw err;
+    }
+
+    const errorMsg = response?.message || "O Tutor IA não conseguiu sintetizar o mapa mental no momento.";
     const err = new Error(errorMsg);
     if (response?.code) err.code = response.code;
     throw err;

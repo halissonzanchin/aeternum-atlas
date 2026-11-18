@@ -4,7 +4,12 @@ import {
   selectCuratedFlashcards
 } from "../../data/anatomicalFlashcardBank.js";
 import { atlasAITutorService } from "../../features/atlas-viewer/ai/atlasAITutorService.js";
-import { isTutorSuccess, validateFlashcardSchema } from "./academicTaskContracts.js";
+import {
+  isTutorSuccess,
+  isEvidenceInsufficient,
+  validateFlashcardSchema,
+  ACADEMIC_ERROR_CODES
+} from "./academicTaskContracts.js";
 
 const CARD_COUNTS = Object.freeze({ few: 5, standard: 10, many: 20 });
 
@@ -505,6 +510,31 @@ async function generateTutorCards({ topic, difficulty, count, existingCards, lan
       err.code = response.code;
       throw err;
     }
+
+    if (isEvidenceInsufficient(response)) {
+      const err = new Error(
+        "Evidência anatômica insuficiente nas fontes soberanas do Aeternum Atlas para sintetizar este tema com precisão. Especifique a estrutura anatômica de interesse (ex: artéria testicular, origem e trajeto) ou consulte um tema curado."
+      );
+      err.code = ACADEMIC_ERROR_CODES.ANATOMICAL_EVIDENCE_INSUFFICIENT;
+      throw err;
+    }
+
+    if (response?.code === "AI_GATEWAY_UNAVAILABLE" || response?.code === "GATEWAY_UNAVAILABLE") {
+      const err = new Error(
+        "O serviço de inferência soberana (TutorEngine) está temporariamente inacessível. Verifique o status da IA local ou tente novamente em instantes."
+      );
+      err.code = ACADEMIC_ERROR_CODES.TUTOR_GATEWAY_UNAVAILABLE;
+      throw err;
+    }
+
+    if (response?.code === "RATE_LIMITED") {
+      const err = new Error(
+        response.message || "Seu limite de requisições foi atingido. Aguarde um instante para continuar gerando flashcards."
+      );
+      err.code = ACADEMIC_ERROR_CODES.RATE_LIMITED;
+      throw err;
+    }
+
     return [];
   }
 
@@ -627,10 +657,10 @@ export async function generateAnatomicalFlashcards({
   const cards = deduplicateCards([...curatedCards, ...tutorCards]).slice(0, requestedCount);
   if (!cards.length) {
     const errorEmpty = {
-      pt: "O Tutor IA não conseguiu gerar um baralho confiável agora. Tente novamente quando a conexão estiver disponível ou escolha um tema curado.",
-      es: "El Tutor IA no pudo generar una baraja confiable ahora. Inténtalo de nuevo cuando la conexión esté disponible o elige un tema curado.",
-      en: "The AI Tutor could not generate a reliable deck at this time. Please try again when connection is available or select a curated topic.",
-      de: "Der KI-Tutor konnte derzeit kein zuverlässiges Deck generieren. Bitte versuchen Sie es später erneut oder wählen Sie ein kuratiertes Thema."
+      pt: "Não foi possível gerar flashcards anatômicos validados para este tema no momento. Tente especificar melhor a estrutura anatômica (ex: origem, trajeto e ramos) ou selecione um tema curado do acervo.",
+      es: "No fue posible generar flashcards anatómicos validados para este tema en este momento. Intente especificar mejor la estructura anatómica o seleccione un tema curado.",
+      en: "Could not generate validated anatomical flashcards for this topic at this time. Please specify the anatomical structure more clearly or select a curated topic.",
+      de: "Für dieses Thema konnten derzeit keine validierten anatomischen Lernkarten generiert werden. Bitte spezifizieren Sie die Struktur genauer oder wählen Sie ein kuratiertes Thema."
     };
     throw new Error(errorEmpty[langKey] || errorEmpty.pt);
   }
