@@ -52,6 +52,7 @@
   box-sizing: border-box;
   padding: 0.85rem;
   overflow: hidden;
+  overscroll-behavior: contain;
   border-radius: 1.5rem;
   transition: opacity 220ms ease, transform 260ms cubic-bezier(.2,.8,.2,1), padding 220ms ease;
 }
@@ -60,6 +61,7 @@
 .mindmap-sidebar.a26-sidebar {
   width: 100%;
   max-width: 100%;
+  min-height: 0 !important;
 }
 
 .mindmap-canvas-wrap,
@@ -88,15 +90,17 @@
   border: 1px solid rgba(97, 237, 228, 0.22);
   border-radius: 0.95rem;
   flex-shrink: 0;
+  min-width: 0;
 }
 
 .mindmap-tab-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
+  gap: 0.35rem;
+  min-width: 0;
   height: 2.15rem;
-  padding: 0 0.55rem;
+  padding: 0 0.45rem;
   font: 600 0.74rem/1 var(--font-inter, Inter, sans-serif);
   color: var(--a26-color-text-muted, #94a3b8);
   background: transparent;
@@ -106,6 +110,7 @@
   white-space: nowrap;
   transition: all 180ms ease;
   user-select: none;
+  overflow: hidden;
 }
 
 .mindmap-tab-btn:hover {
@@ -120,13 +125,25 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 10px rgba(97, 237, 228, 0.14);
 }
 
+.mindmap-tab-btn .mindmap-tab-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .mindmap-tab-badge {
-  display: inline-block;
-  padding: 0.1rem 0.38rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.15rem;
+  height: 1.15rem;
+  padding: 0 0.25rem;
   font: 700 0.62rem/1 "JetBrains Mono", Consolas, monospace;
   color: var(--mindmap-teal, #61ede4);
   background: rgba(97, 237, 228, 0.14);
   border-radius: 999px;
+  flex-shrink: 0;
 }
 
 /* Tab Panels */
@@ -167,20 +184,142 @@
   border-top: 1px solid rgba(97, 237, 228, 0.12);
 }
 
+/* Tab Panel: AI Generation (3-Region Ergonomic Architecture) */
 .mindmap-tab-panel--ai {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mindmap-tab-panel--ai .mindmap-ai-composer,
+.mindmap-ai-composer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  padding: 0.75rem 0.85rem;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Region 1: Header / State */
+.mindmap-ai-header {
+  flex-shrink: 0;
+  margin-bottom: 0.5rem;
+}
+
+.mindmap-ai-composer__status {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #b6c5c8;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.mindmap-status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #d7ac63;
+  box-shadow: 0 0 0.8rem rgba(215, 172, 99, 0.58);
+}
+
+.mindmap-status-dot.is-online {
+  background: #65e3ad;
+  box-shadow: 0 0 0.85rem rgba(101, 227, 173, 0.66);
+}
+
+/* Region 2: Central Scrollable Content */
+.mindmap-ai-scrollable-content {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color: rgba(97, 237, 228, 0.35) transparent;
 }
 
-.mindmap-tab-panel--ai .mindmap-ai-composer {
-  flex: 1;
-  min-height: 0;
+.mindmap-ai-scrollable-content .a26-field {
+  gap: 0.35rem;
+}
+
+.mindmap-ai-scrollable-content .a26-field__control {
+  font-size: 0.82rem;
+}
+
+.mindmap-generation-notice {
+  margin: 0;
+  color: #86dcc4;
+  font-size: 0.73rem;
+  line-height: 1.4;
+  padding: 0.35rem 0.5rem;
+  background: rgba(101, 227, 173, 0.1);
+  border: 1px solid rgba(101, 227, 173, 0.25);
+  border-radius: 0.5rem;
+}
+
+/* Region 3: Bottom Persistent Actions */
+.mindmap-ai-actions {
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  padding: 0.85rem;
-  border-radius: 1.25rem;
+  gap: 0.45rem;
+  padding-top: 0.55rem;
+  margin-top: auto;
+  border-top: 1px solid rgba(97, 237, 228, 0.14);
+}
+
+.mindmap-ai-actions > .a26-button {
+  width: 100%;
+  min-height: 2.35rem;
+}
+
+/* Low-height Viewport Adaptation (<= 600px height) */
+@media (max-height: 600px) {
+  .a26-mindmap-page {
+    padding: 0.35rem;
+    gap: 0.45rem;
+  }
+  .mindmap-sidebar {
+    padding: 0.5rem 0.65rem;
+    gap: 0.35rem;
+    border-radius: 1rem;
+    min-height: 0 !important;
+  }
+  .mindmap-tab-btn {
+    min-height: 1.95rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.72rem;
+  }
+  .mindmap-ai-header {
+    margin-bottom: 0.25rem;
+  }
+  .mindmap-ai-actions {
+    padding-top: 0.35rem;
+    gap: 0.3rem;
+  }
+  .mindmap-ai-actions > .a26-button {
+    min-height: 2rem;
+    font-size: 0.78rem;
+  }
+  .mindmap-ai-footer-link {
+    font-size: 0.7rem;
+  }
 }
 
 .mindmap-sidebar-head {
@@ -221,52 +360,6 @@
   color: var(--a26-text-secondary, #aab6ba);
   font-size: 0.86rem;
   line-height: 1.55;
-}
-
-.mindmap-ai-composer {
-  display: grid;
-  gap: 0.8rem;
-  padding: 0.85rem;
-  border-radius: 1.3rem;
-}
-
-.mindmap-ai-composer__status {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: #b6c5c8;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.075em;
-  text-transform: uppercase;
-}
-
-.mindmap-status-dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 999px;
-  background: #d7ac63;
-  box-shadow: 0 0 0.8rem rgba(215, 172, 99, 0.58);
-}
-
-.mindmap-status-dot.is-online {
-  background: #65e3ad;
-  box-shadow: 0 0 0.85rem rgba(101, 227, 173, 0.66);
-}
-
-.mindmap-ai-composer .a26-field {
-  gap: 0.42rem;
-}
-
-.mindmap-ai-composer .a26-button {
-  width: 100%;
-}
-
-.mindmap-generation-notice {
-  margin: 0;
-  color: #86dcc4;
-  font-size: 0.75rem;
-  line-height: 1.45;
 }
 
 .mindmap-outline-box {
@@ -478,7 +571,11 @@
   display: block;
 }
 
-/* Container Queries for Topbar Adaptive Collapsing */
+.mode-btn-short {
+  display: none;
+}
+
+/* Container Queries for Topbar Adaptive Ergonomics */
 @container mindmap-canvas (max-width: 860px) {
   .topbar-desktop-actions,
   .zoom-desktop-tools {
@@ -486,18 +583,109 @@
   }
 }
 
-@container mindmap-canvas (min-width: 861px) {
+@container mindmap-canvas (max-width: 580px) {
+  .mindmap-topbar {
+    gap: 0.2rem;
+    padding: 0.2rem 0.3rem;
+    margin: 0.25rem;
+  }
+  .mindmap-mode-toggle {
+    padding: 2px;
+    gap: 2px;
+  }
+  .mindmap-mode-btn {
+    height: 1.85rem;
+    padding: 0 0.35rem;
+    font-size: 0.65rem;
+  }
+  .mindmap-mode-btn .mode-btn-full {
+    display: none !important;
+  }
+  .mindmap-mode-btn .mode-btn-short {
+    display: inline !important;
+  }
+  .zoom-controls {
+    gap: 0.15rem;
+  }
+  .zoom-percentage-btn {
+    display: none !important;
+  }
+  .zoom-controls > .a26-button:not(.a26-icon-button),
+  .zoom-controls > .a26-icon-button {
+    width: 1.85rem !important;
+    min-width: 1.85rem !important;
+    height: 1.85rem !important;
+    min-height: 1.85rem !important;
+    font-size: 0.85rem;
+    padding: 0 !important;
+  }
+}
+
+@container mindmap-canvas (max-width: 360px) {
+  .mindmap-topbar {
+    gap: 0.1rem;
+    padding: 0.1rem 0.15rem;
+    margin: 0.1rem;
+  }
+  .mindmap-mode-toggle {
+    padding: 1px;
+    gap: 1px;
+  }
+  .mindmap-mode-btn {
+    height: 1.7rem;
+    padding: 0 0.15rem;
+    font-size: 0.58rem;
+    letter-spacing: -0.02em;
+  }
+  .zoom-controls {
+    gap: 0.1rem;
+  }
+  .zoom-controls > .a26-button:not(.a26-icon-button),
+  .zoom-controls > .a26-icon-button {
+    width: 1.55rem !important;
+    min-width: 1.55rem !important;
+    height: 1.55rem !important;
+    min-height: 1.55rem !important;
+    font-size: 0.75rem;
+  }
+  .topbar-left-group > .a26-icon-button {
+    width: 1.65rem !important;
+    min-width: 1.65rem !important;
+    height: 1.65rem !important;
+    min-height: 1.65rem !important;
+  }
+}
+
+@container mindmap-canvas (min-width: 861px) and (max-width: 1179px) {
   .topbar-desktop-actions {
     display: flex !important;
   }
   .zoom-desktop-tools {
     display: flex !important;
   }
+  .topbar-export-group .export-btn-full {
+    display: none !important;
+  }
+  .topbar-export-group .export-btn-short {
+    display: inline !important;
+  }
+  .mindmap-topbar {
+    gap: 0.3rem;
+    padding: 0.28rem 0.45rem;
+  }
 }
 
-@media (max-width: 1366px) {
-  .a26-mindmap-page:not(.sidebar-collapsed) .topbar-desktop-actions,
-  .a26-mindmap-page:not(.sidebar-collapsed) .zoom-desktop-tools {
+@container mindmap-canvas (min-width: 1180px) {
+  .topbar-desktop-actions {
+    display: flex !important;
+  }
+  .zoom-desktop-tools {
+    display: flex !important;
+  }
+  .topbar-export-group .export-btn-full {
+    display: inline;
+  }
+  .topbar-export-group .export-btn-short {
     display: none;
   }
 }
@@ -1182,6 +1370,49 @@
     height: 2.2rem;
     min-height: 2.2rem;
     font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .mindmap-topbar {
+    margin: 0.25rem;
+    padding: 0.25rem 0.35rem;
+    gap: 0.25rem;
+  }
+  .mindmap-mode-toggle {
+    padding: 2px;
+    gap: 2px;
+  }
+  .mindmap-mode-btn {
+    height: 1.85rem;
+    padding: 0 0.35rem;
+    font-size: 0.65rem;
+  }
+  .zoom-controls {
+    gap: 0.2rem;
+  }
+  .zoom-controls > .a26-button:not(.a26-icon-button),
+  .zoom-controls > .a26-icon-button {
+    width: 1.85rem;
+    min-width: 1.85rem;
+    height: 1.85rem;
+    min-height: 1.85rem;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .mindmap-mode-btn {
+    padding: 0 0.25rem;
+    font-size: 0.6rem;
+  }
+  .zoom-controls > .a26-button:not(.a26-icon-button),
+  .zoom-controls > .a26-icon-button {
+    width: 1.7rem;
+    min-width: 1.7rem;
+    height: 1.7rem;
+    min-height: 1.7rem;
+    font-size: 0.78rem;
   }
 }
 
