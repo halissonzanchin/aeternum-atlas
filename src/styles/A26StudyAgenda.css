@@ -85,7 +85,7 @@
   border: 1px solid var(--a26-color-border);
   border-radius: 999px;
   color: var(--a26-color-text-subtle);
-  font-size: 0.68rem;
+  font-size: var(--a26-text-badge-size, 0.71875rem);
   font-weight: 800;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -172,7 +172,7 @@
 .a26-mini-calendar__nav button:first-child svg { transform: rotate(180deg); }
 .a26-mini-calendar__weekdays,
 .a26-mini-calendar__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
-.a26-mini-calendar__weekdays { margin: 14px 0 7px; color: var(--a26-color-text-subtle); font-size: 0.65rem; font-weight: 800; text-align: center; }
+.a26-mini-calendar__weekdays { margin: 14px 0 7px; color: var(--a26-color-text-subtle); font-size: var(--a26-text-badge-size, 0.71875rem); font-weight: 800; text-align: center; }
 .a26-mini-day {
   display: grid;
   place-items: center;
@@ -191,7 +191,7 @@
 .a26-sidebar-layers,
 .a26-sidebar-systems { display: grid; gap: 10px; }
 .a26-sidebar-section-title { margin: 0; color: var(--a26-color-text-muted); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
-.a26-sync-live-badge { color: var(--a26-color-teal); font-size: 0.66rem; font-weight: 800; text-transform: uppercase; }
+.a26-sync-live-badge { color: var(--a26-color-teal); font-size: var(--a26-text-badge-size, 0.71875rem); font-weight: 800; text-transform: uppercase; }
 .a26-teacher-card { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 12px; border-radius: 15px; }
 .a26-teacher-avatar { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; background: rgb(255 255 255 / 0.05); }
 .a26-teacher-info { min-width: 0; }

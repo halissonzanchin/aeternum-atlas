@@ -71,8 +71,9 @@ body:has(.a26-shell) #root {
 }
 
 .a26-shell .student-study-hero h1 {
-  font-size: clamp(2.8rem, 4.05vw, 4.45rem);
-  line-height: 0.98;
+  font-size: var(--a26-text-display-size, clamp(1.625rem, 2.2vw, 1.875rem));
+  line-height: var(--a26-text-display-line-height, 1.15);
+  font-weight: 700;
 }
 
 /* O dashboard ainda recebe regras legadas de globals.css.  Estes seletores
@@ -227,9 +228,9 @@ body:has(.a26-shell) #root {
 }
 
 .models-hero-aog__copy { max-width: 930px; }
-.models-hero-aog__eyebrow { margin: 0 0 12px; color: var(--a26-color-teal-strong); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; }
-.models-hero-aog h1 { margin: 0; color: var(--a26-color-text); font: 500 clamp(2.65rem, 3.9vw, 4.25rem)/1 var(--a26-type-display); letter-spacing: 0.035em; text-transform: uppercase; text-wrap: balance; overflow-wrap: normal; word-break: normal; }
-.models-hero-aog__copy > p:last-child { max-width: 760px; margin: 18px 0 0; color: var(--a26-color-text-muted); font-size: 1.08rem; line-height: 1.65; }
+.models-hero-aog__eyebrow { margin: 0 0 8px; color: var(--a26-color-teal-strong); font-size: var(--a26-text-kicker-size, 0.6875rem); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.models-hero-aog h1 { margin: 0; color: var(--a26-color-text); font-family: var(--a26-type-display); font-size: var(--a26-text-display-size, clamp(1.625rem, 2.2vw, 1.875rem)); line-height: 1.15; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; text-wrap: balance; overflow-wrap: normal; word-break: normal; }
+.models-hero-aog__copy > p:last-child { max-width: 760px; margin: 14px 0 0; color: var(--a26-color-text-muted); font-size: var(--a26-text-body-size, 0.875rem); line-height: 1.55; }
 
 .models-hero-aog__badge {
   display: flex;
@@ -327,7 +328,16 @@ body:has(.a26-shell) #root {
 /* Perfil */
 .a26-profile-page { display: grid; gap: 24px; width: min(100%, 1180px); margin-inline: auto; padding-bottom: 64px; }
 .a26-profile-hero { padding-block: 12px 22px; border-bottom: 1px solid var(--a26-color-border); }
-.a26-profile-hero h1 { margin: 6px 0 10px; color: var(--a26-color-text); font: 500 clamp(2.8rem, 6vw, 5rem)/1 var(--a26-type-display); text-transform: uppercase; }
+.a26-profile-hero h1 {
+  margin: 6px 0 10px;
+  color: var(--a26-color-text);
+  font-family: var(--a26-type-display);
+  font-size: var(--a26-text-display-size, clamp(1.85rem, 2.5vw, 2.4rem));
+  font-weight: 500;
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
 .a26-theme-light .a26-profile-hero h1 { color: var(--a26-color-text); }
 .a26-profile-hero > p:last-child { max-width: 760px; margin: 0; color: var(--a26-color-text-muted); line-height: 1.65; }
 .a26-profile-card { padding: clamp(22px, 4vw, 38px); border-radius: var(--a26-radius-panel); }
@@ -360,13 +370,13 @@ body:has(.a26-shell) #root {
 }
 .a26-ai-tutor-studio-toolbar { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 12px; padding: 12px; }
 .a26-ai-tutor-studio-toolbar .a26-field { min-width: 0; }
-.a26-ai-tutor-studio-toolbar .a26-field__label { display: block; margin: 0 0 7px 4px; overflow: hidden; color: var(--a26-color-text-subtle); font-size: 0.7rem; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+.a26-ai-tutor-studio-toolbar .a26-field__label { display: block; margin: 0 0 7px 4px; overflow: hidden; color: var(--a26-color-text-subtle); font-size: var(--a26-text-label-size, 0.78125rem); line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
 .a26-daily-tutor-hub-card { display: flex; flex-direction: column; min-height: 680px; padding: clamp(18px, 3vw, 28px); border-radius: var(--a26-radius-panel); }
 .a26-tutor-fullpage-chat { flex: 1; min-height: 520px; }
 
 /* Agenda: títulos e métricas mantêm escala editorial sem quebrar palavras. */
 .a26-shell .study-agenda-hero h1 {
-  font-size: clamp(2.35rem, 3.65vw, 4rem);
+  font-size: var(--a26-text-display-size, clamp(1.85rem, 2.5vw, 2.4rem));
 }
 
 .a26-shell .a26-weekly-quick-stats {

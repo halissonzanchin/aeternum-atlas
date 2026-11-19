@@ -41,11 +41,13 @@
 }
 
 .a26-metric-tile__value {
-  font-size: 1.875rem;
+  font-size: var(--a26-text-metric-size, 1.5625rem);
   font-weight: 700;
   line-height: 1.15;
   color: #FFFFFF;
   letter-spacing: -0.02em;
+  font-feature-settings: "tnum" 1, "cv01" 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .a26-metric-tile__unit {
