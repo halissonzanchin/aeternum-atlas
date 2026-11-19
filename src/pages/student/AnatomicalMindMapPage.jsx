@@ -7,6 +7,7 @@ import {
   A26IconButton,
   A26Modal,
   A26PageHeader,
+  A26Popover,
   A26Sidebar,
   A26Surface,
   A26Toolbar
@@ -90,11 +91,11 @@ const measurementCtx = measurementCanvas ? measurementCanvas.getContext("2d") : 
 
 function estimateWidth(text, depth = 1) {
   if (measurementCtx) {
-    measurementCtx.font = depth === 0 ? "700 14px Inter, system-ui, sans-serif" : "500 12.5px Inter, system-ui, sans-serif";
+    measurementCtx.font = depth === 0 ? "700 14.5px Inter, system-ui, sans-serif" : "600 12.8px Inter, system-ui, sans-serif";
     const measured = measurementCtx.measureText(text).width;
-    return Math.max(90, Math.ceil(measured) + (depth === 0 ? 48 : 34));
+    return Math.max(90, Math.ceil(measured) + (depth === 0 ? 52 : 36));
   }
-  return Math.max(90, Math.ceil(text.length * (depth === 0 ? 9.5 : 8.2)) + (depth === 0 ? 48 : 34));
+  return Math.max(90, Math.ceil(text.length * (depth === 0 ? 10 : 8.5)) + (depth === 0 ? 52 : 36));
 }
 
 function assignColors(node, color) {
@@ -120,6 +121,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const [outlineText, setOutlineText] = useState(DEFAULT_OUTLINE);
   const [isOutlineEditorOpen, setIsOutlineEditorOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => typeof window !== "undefined" && (window.innerWidth <= 1300 || window.innerHeight <= 700));
+  const [sidebarTab, setSidebarTab] = useState("structure"); // "structure" | "ai"
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [viewMode, setViewMode] = useState("reading"); // "reading" | "overview" (Section 7)
   const [aiPrompt, setAiPrompt] = useState("");
@@ -129,9 +131,13 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const [activeNode, setActiveNode] = useState(null);
   const [zoomPercent, setZoomPercent] = useState(100);
   const [minimapVisible, setMinimapVisible] = useState(true);
+  const [minimapExpanded, setMinimapExpanded] = useState(false);
+  const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const [treeBounds, setTreeBounds] = useState(null);
   const [viewportRect, setViewportRect] = useState({ normX: 0, normY: 0, normW: 1, normH: 1 });
   const { sendMessage, openTutor, connectionMode } = useAtlasAITutorSession();
+
+  const nodeCount = outlineText.split("\n").filter((l) => l.trim().length > 0).length;
 
   const svgRef = useRef(null);
   const canvasWrapRef = useRef(null);
@@ -180,11 +186,11 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       const graphHeight = maxY - minY;
       if (graphWidth <= 0 || graphHeight <= 0) return;
 
-      // Real clean padding (zero fictitious 200px constraints, Section 4)
+      // Real clean padding
       const padLeft = 32;
-      const padRight = 36;
+      const padRight = 48;
       const padTop = 48;
-      const padBottom = 32;
+      const padBottom = 48;
 
       const availW = Math.max(50, W - padLeft - padRight);
       const availH = Math.max(50, H - padTop - padBottom);
@@ -208,22 +214,34 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         const fittedH = graphHeight * scale;
         tx = padLeft + (availW - fittedW) / 2 - scale * minX;
         ty = padTop + (availH - fittedH) / 2 - scale * minY;
+      }
 
-        // Localized Marina clearance (only adjusts ty if bottom-right nodes collide with Marina's corner)
-        const marinaEl = document.querySelector(".upe-ai-trigger");
-        if (marinaEl) {
-          const mRect = marinaEl.getBoundingClientRect();
-          if (mRect.top < svgRect.bottom && mRect.right > svgRect.left) {
-            const marinaLeftInSvg = W - (svgRect.right - mRect.left) - 12;
-            const marinaTopInSvg = H - (svgRect.bottom - mRect.top) - 12;
-            for (const d of descendants) {
-              const nodeRight = tx + scale * (d.depth === 0 ? d.y + d.w / 2 : d.y + d.w + 14);
-              const nodeBottom = ty + scale * (d.x + 19);
-              if (nodeRight > marinaLeftInSvg && nodeBottom > marinaTopInSvg) {
-                const overlapY = nodeBottom - marinaTopInSvg;
-                ty = Math.max(padTop - scale * minY, ty - overlapY - 8);
-                break;
-              }
+      // Localized Marina clearance (guarantees bottom-right nodes never collide with Marina's floating trigger)
+      const marinaEl = document.querySelector(".upe-ai-trigger");
+      if (marinaEl) {
+        const mRect = marinaEl.getBoundingClientRect();
+        if (mRect.top < svgRect.bottom && mRect.right > svgRect.left) {
+          const marinaLeftInSvg = W - (svgRect.right - mRect.left) - 16;
+          const marinaTopInSvg = H - (svgRect.bottom - mRect.top) - 16;
+          let maxOverlapY = 0;
+          let maxOverlapX = 0;
+          for (const d of descendants) {
+            const nodeRight = tx + scale * (d.depth === 0 ? d.y + d.w / 2 : d.y + d.w + 14);
+            const nodeBottom = ty + scale * (d.x + 19);
+            if (nodeRight > marinaLeftInSvg && nodeBottom > marinaTopInSvg) {
+              const overlapY = nodeBottom - marinaTopInSvg;
+              if (overlapY > maxOverlapY) maxOverlapY = overlapY;
+              const overlapX = nodeRight - marinaLeftInSvg;
+              if (overlapX > maxOverlapX) maxOverlapX = overlapX;
+            }
+          }
+          if (maxOverlapY > 0) {
+            if (targetMode === "overview") {
+              ty = Math.max(padTop - scale * minY, ty - maxOverlapY - 14);
+            }
+            if (maxOverlapX > 0) {
+              const minTx = padLeft + (root.w / 2) * scale;
+              tx = Math.max(minTx, tx - maxOverlapX - 18);
             }
           }
         }
@@ -405,7 +423,15 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         case "f":
         case "F":
           e.preventDefault();
-          fitGraphToViewport(true);
+          setViewMode("overview");
+          userHasPannedOrZoomedRef.current = false;
+          fitGraphToViewport(true, { mode: "overview" });
+          break;
+        case "2":
+          e.preventDefault();
+          setViewMode("reading");
+          userHasPannedOrZoomedRef.current = false;
+          fitGraphToViewport(true, { mode: "reading" });
           break;
         case "1":
           e.preventDefault();
@@ -416,12 +442,29 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
           e.preventDefault();
           centerRoot();
           break;
+        case "m":
+        case "M":
+          e.preventDefault();
+          setMinimapExpanded((prev) => !prev);
+          break;
         default:
           break;
       }
     };
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    if (typeof window !== "undefined") {
+      window.__setMindMapMode = (mode) => {
+        setViewMode(mode);
+        userHasPannedOrZoomedRef.current = false;
+        fitGraphToViewport(true, { mode });
+      };
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      if (typeof window !== "undefined") {
+        delete window.__setMindMapMode;
+      }
+    };
   }, []);
 
   // ResizeObserver on canvas container element to keep view fitted on significant container resize without wiping user manual inspection
@@ -429,12 +472,27 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     if (!canvasWrapRef.current) return;
     let lastW = 0;
     let lastH = 0;
+    let lastDpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
+
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const cr = entry.contentRect;
-        if (Math.abs(cr.width - lastW) > 15 || Math.abs(cr.height - lastH) > 15) {
+        const currentDpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
+        const dprChanged = Math.abs(currentDpr - lastDpr) > 0.05;
+        const sizeDeltaW = Math.abs(cr.width - lastW);
+        const sizeDeltaH = Math.abs(cr.height - lastH);
+        const sizeChanged = sizeDeltaW > 15 || sizeDeltaH > 15;
+
+        if (sizeChanged || dprChanged) {
           lastW = cr.width;
           lastH = cr.height;
+          lastDpr = currentDpr;
+
+          // When native zoom (DPR) or major layout restructuring occurs, re-anchor view
+          if (dprChanged || sizeDeltaW > 100 || sizeDeltaH > 100) {
+            userHasPannedOrZoomedRef.current = false;
+          }
+
           if (!userHasPannedOrZoomedRef.current) {
             fitGraphToViewport(false, { mode: viewMode });
           }
@@ -584,8 +642,9 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       .attr("x", (d) => (d.depth === 0 ? 0 : 10))
       .attr("y", 1)
       .attr("text-anchor", (d) => (d.depth === 0 ? "middle" : "start"))
-      .attr("font-size", (d) => (d.depth === 0 ? 14 : 12.5))
-      .attr("font-weight", (d) => (d.depth === 0 ? 700 : 500))
+      .attr("font-size", (d) => (d.depth === 0 ? 14.5 : 12.8))
+      .attr("font-weight", (d) => (d.depth === 0 ? 700 : 600))
+      .attr("letter-spacing", "-0.01em")
       .text((d) => d.data.name);
 
     // Fold indicator group for collapsed nodes
@@ -728,6 +787,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       });
       setOutlineText(result.outline);
       setGenerationNotice("Mapa gerado pelo Tutor IA e vinculado ao seu histórico autenticado.");
+      setSidebarTab("structure");
     } catch (error) {
       setGenerationError(error?.message || "Não foi possível gerar o mapa com o Tutor IA.");
     } finally {
@@ -878,78 +938,147 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     >
       <div className={`a26-mindmap-page fade-in-up ${sidebarCollapsed ? "sidebar-collapsed" : ""} ${isFullscreen ? "is-fullscreen" : ""}`}>
         <A26Sidebar label={t("mindMap.title", { defaultValue: "Editor do mapa mental" })} className={`mindmap-sidebar ${sidebarCollapsed ? "collapsed" : ""}`}>
-        <A26Surface material="clear" tone="teal" className="mindmap-ai-composer">
-          <div className="mindmap-ai-composer__status">
-            <span className={`mindmap-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")}`} aria-hidden="true" />
-            <span>{(connectionMode === "online" || connectionMode === "live") ? t("mindMap.tutorOnline", { defaultValue: "Tutor IA autenticado" }) : t("mindMap.tutorOffline", { defaultValue: "Tutor IA requer conexão" })}</span>
-          </div>
-          <A26Field
-            label={t("mindMap.topicLabel", { defaultValue: "Tema anatômico" })}
-            placeholder={t("mindMap.topicPlaceholder", { defaultValue: "Esboço IA (ex: Sistema Renal...)" })}
-            value={aiPrompt}
-            onChange={(e) => setAiPrompt(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !isGenerating) void handleGenerateAI();
-            }}
-            error={generationError}
-            hint={!generationError ? t("mindMap.topicHint", { defaultValue: "A geração fica vinculada ao histórico seguro do Tutor IA." }) : undefined}
-          />
-          <A26Button
-            variant="primary"
-            icon={<LineIcon name="spark" className="h-5 w-5" />}
-            onClick={() => void handleGenerateAI()}
-            disabled={isGenerating || aiPrompt.trim().length < 3}
-            loading={isGenerating}
-          >
-            {isGenerating ? t("mindMap.structuring", { defaultValue: "Estruturando" }) : t("mindMap.generateButton", { defaultValue: "Gerar com Tutor IA" })}
-          </A26Button>
-          {generationNotice ? <p className="mindmap-generation-notice" role="status">{generationNotice}</p> : null}
-        </A26Surface>
-
-        <div className="mindmap-outline-box">
-          <div className="mindmap-outline-heading">
-            <div>
-              <strong id="mindmap-outline-label">{t("mindMap.editableStructure", { defaultValue: "Estrutura editável" })}</strong>
-              <span>{t("mindMap.compactPreview", { defaultValue: "Prévia compacta do esboço" })}</span>
-            </div>
-            <A26Button
-              variant="secondary"
-              className="mindmap-outline-expand"
-              icon={<LineIcon name="fullscreen" className="h-4 w-4" />}
-              aria-haspopup="dialog"
-              aria-expanded={isOutlineEditorOpen}
-              onClick={() => setIsOutlineEditorOpen(true)}
+          <div className="mindmap-sidebar-nav" role="tablist" aria-label={t("mindMap.editorNav", { defaultValue: "Navegação do editor" })}>
+            <button
+              type="button"
+              role="tab"
+              id="tab-structure"
+              aria-selected={sidebarTab === "structure"}
+              aria-controls="panel-structure"
+              className={`mindmap-tab-btn ${sidebarTab === "structure" ? "is-active" : ""}`}
+              onClick={() => setSidebarTab("structure")}
             >
-              {t("mindMap.expandButton", { defaultValue: "Ampliar" })}
-            </A26Button>
+              <LineIcon name="layers" className="h-4 w-4" />
+              <span>{t("mindMap.editableStructure", { defaultValue: "Estrutura" })}</span>
+              <span className="mindmap-tab-badge">{nodeCount}</span>
+            </button>
+            <button
+              type="button"
+              role="tab"
+              id="tab-ai"
+              aria-selected={sidebarTab === "ai"}
+              aria-controls="panel-ai"
+              className={`mindmap-tab-btn ${sidebarTab === "ai" ? "is-active" : ""}`}
+              onClick={() => setSidebarTab("ai")}
+            >
+              <LineIcon name="spark" className="h-4 w-4" />
+              <span>{t("mindMap.generateWithAi", { defaultValue: "Gerar com IA" })}</span>
+              <span className={`mindmap-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")}`} />
+            </button>
           </div>
-          <textarea
-            className="a26-field__control"
-            aria-labelledby="mindmap-outline-label"
-            aria-describedby="mindmap-outline-hint"
-            spellCheck="false"
-            value={outlineText}
-            onChange={(e) => setOutlineText(e.target.value)}
-          />
-          <small id="mindmap-outline-hint" className="a26-field__hint">
-            {t("mindMap.outlineHint", { defaultValue: "Um espaço adicional representa um novo nível hierárquico." })}
-          </small>
-        </div>
 
-        <div className="mindmap-sidebar-actions">
-          <A26Button variant="primary" icon={<LineIcon name="layers" className="h-5 w-5" />} onClick={renderFromOutline}>
-            {t("mindMap.renderMap", { defaultValue: "Renderizar mapa" })}
-          </A26Button>
-          <div className="mindmap-btn-row">
-            <A26Button variant="secondary" onClick={handleExpandAll}>
-              {t("mindMap.expandAll", { defaultValue: "Expandir tudo" })}
-            </A26Button>
-            <A26Button variant="secondary" onClick={handleCollapseAll}>
-              {t("mindMap.collapseAll", { defaultValue: "Recolher tudo" })}
-            </A26Button>
-          </div>
-        </div>
-      </A26Sidebar>
+          {sidebarTab === "structure" ? (
+            <div
+              role="tabpanel"
+              id="panel-structure"
+              aria-labelledby="tab-structure"
+              className="mindmap-tab-panel mindmap-tab-panel--structure"
+            >
+              <div className="mindmap-outline-box">
+                <div className="mindmap-outline-heading">
+                  <div>
+                    <strong id="mindmap-outline-label">{t("mindMap.editableStructure", { defaultValue: "Estrutura editável" })}</strong>
+                    <span>{t("mindMap.compactPreview", { defaultValue: "Indentação define hierarquia" })}</span>
+                  </div>
+                  <A26Button
+                    variant="secondary"
+                    className="mindmap-outline-expand"
+                    icon={<LineIcon name="fullscreen" className="h-4 w-4" />}
+                    aria-haspopup="dialog"
+                    aria-expanded={isOutlineEditorOpen}
+                    onClick={() => setIsOutlineEditorOpen(true)}
+                  >
+                    {t("mindMap.expandButton", { defaultValue: "Ampliar" })}
+                  </A26Button>
+                </div>
+                <textarea
+                  className="a26-field__control"
+                  aria-labelledby="mindmap-outline-label"
+                  aria-describedby="mindmap-outline-hint"
+                  spellCheck="false"
+                  value={outlineText}
+                  onChange={(e) => setOutlineText(e.target.value)}
+                />
+                <small id="mindmap-outline-hint" className="a26-field__hint">
+                  {t("mindMap.outlineHint", { defaultValue: "Um espaço adicional representa um novo nível hierárquico." })}
+                </small>
+              </div>
+
+              <div className="mindmap-sidebar-actions">
+                <A26Button variant="primary" icon={<LineIcon name="layers" className="h-5 w-5" />} onClick={renderFromOutline}>
+                  {t("mindMap.renderMap", { defaultValue: "Renderizar mapa" })}
+                </A26Button>
+                <div className="mindmap-btn-row">
+                  <A26Button variant="secondary" onClick={handleExpandAll}>
+                    {t("mindMap.expandAll", { defaultValue: "Expandir tudo" })}
+                  </A26Button>
+                  <A26Button variant="secondary" onClick={handleCollapseAll}>
+                    {t("mindMap.collapseAll", { defaultValue: "Recolher tudo" })}
+                  </A26Button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div
+              role="tabpanel"
+              id="panel-ai"
+              aria-labelledby="tab-ai"
+              className="mindmap-tab-panel mindmap-tab-panel--ai"
+            >
+              <A26Surface material="clear" tone="teal" className="mindmap-ai-composer">
+                <div className="mindmap-ai-composer__status">
+                  <span className={`mindmap-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")}`} aria-hidden="true" />
+                  <span>{(connectionMode === "online" || connectionMode === "live") ? t("mindMap.tutorOnline", { defaultValue: "Tutor IA autenticado" }) : t("mindMap.tutorOffline", { defaultValue: "Tutor IA requer conexão" })}</span>
+                </div>
+                <A26Field
+                  label={t("mindMap.topicLabel", { defaultValue: "Tema anatômico" })}
+                  placeholder={t("mindMap.topicPlaceholder", { defaultValue: "Esboço IA (ex: Sistema Renal...)" })}
+                  value={aiPrompt}
+                  onChange={(e) => setAiPrompt(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !isGenerating) void handleGenerateAI();
+                  }}
+                  error={generationError}
+                  hint={!generationError ? t("mindMap.topicHint", { defaultValue: "A geração fica vinculada ao histórico seguro do Tutor IA." }) : undefined}
+                />
+                <div className="mindmap-ai-suggestions">
+                  <span className="mindmap-ai-suggestions__label">{t("mindMap.quickSuggestions", { defaultValue: "Sugestões rápidas:" })}</span>
+                  <div className="mindmap-ai-suggestions__list">
+                    {["Sistema Cardiovascular", "Polígono de Willis", "Plexo Braquial", "Trato Digestório"].map((suggestion) => (
+                      <button
+                        key={suggestion}
+                        type="button"
+                        className="mindmap-suggestion-chip"
+                        onClick={() => setAiPrompt(suggestion)}
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <A26Button
+                  variant="primary"
+                  icon={<LineIcon name="spark" className="h-5 w-5" />}
+                  onClick={() => void handleGenerateAI()}
+                  disabled={isGenerating || aiPrompt.trim().length < 3}
+                  loading={isGenerating}
+                >
+                  {isGenerating ? t("mindMap.structuring", { defaultValue: "Estruturando" }) : t("mindMap.generateButton", { defaultValue: "Gerar com Tutor IA" })}
+                </A26Button>
+                {generationNotice ? <p className="mindmap-generation-notice" role="status">{generationNotice}</p> : null}
+                <div className="mindmap-ai-footer-link">
+                  <button
+                    type="button"
+                    className="mindmap-link-btn"
+                    onClick={() => setSidebarTab("structure")}
+                  >
+                    {t("mindMap.goToStructureEditor", { defaultValue: "← Ver editor de estrutura" })}
+                  </button>
+                </div>
+              </A26Surface>
+            </div>
+          )}
+        </A26Sidebar>
 
       <A26Surface as="main" material="regular" tone="teal" className="mindmap-canvas-wrap" ref={canvasWrapRef}>
         <A26Toolbar label={t("mindMap.title", { defaultValue: "Ferramentas do mapa mental" })} className="mindmap-topbar">
@@ -985,7 +1114,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
                 {t("mindMap.overviewMode", { defaultValue: "Visão Geral" })}
               </button>
             </div>
-            <div className="topbar-export-group">
+            <div className="topbar-desktop-actions topbar-export-group">
               <A26IconButton
                 label={t("mindMap.expandAll", { defaultValue: "Expandir todos os ramos" })}
                 icon="layers"
@@ -1052,66 +1181,207 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
                 fitGraphToViewport(true, { mode: "overview" });
               }}
             />
-            <A26IconButton
-              label="Centralizar raiz (Atalho: R)"
-              icon="target"
-              onClick={centerRoot}
-            />
-            <A26IconButton
-              label={minimapVisible ? "Ocultar minimapa" : "Mostrar minimapa"}
-              icon="compass"
-              className={minimapVisible ? "active-tool" : ""}
-              onClick={() => setMinimapVisible((v) => !v)}
-            />
-            <A26IconButton
-              label={isFullscreen ? t("mindMap.exitFullscreen", { defaultValue: "Sair da tela cheia" }) : t("mindMap.enterFullscreen", { defaultValue: "Usar tela cheia" })}
-              icon="fullscreen"
-              className={isFullscreen ? "active-fullscreen" : ""}
-              onClick={() => setIsFullscreen((prev) => !prev)}
-            />
+            <div className="zoom-desktop-tools">
+              <A26IconButton
+                label="Centralizar raiz (Atalho: R)"
+                icon="target"
+                onClick={centerRoot}
+              />
+              <A26IconButton
+                label={minimapVisible ? (minimapExpanded ? "Minimizar minimapa" : "Expandir minimapa") : "Mostrar minimapa"}
+                icon="tools"
+                className={minimapExpanded ? "active-tool" : ""}
+                onClick={() => setMinimapExpanded((v) => !v)}
+              />
+              <A26IconButton
+                label={isFullscreen ? t("mindMap.exitFullscreen", { defaultValue: "Sair da tela cheia" }) : t("mindMap.enterFullscreen", { defaultValue: "Usar tela cheia" })}
+                icon="fullscreen"
+                className={isFullscreen ? "active-fullscreen" : ""}
+                onClick={() => setIsFullscreen((prev) => !prev)}
+              />
+            </div>
+            <div className="mindmap-more-menu-wrap">
+              <A26IconButton
+                label="Mais opções e exportação"
+                icon="settings"
+                className={`mindmap-more-btn ${isMoreMenuOpen ? "active-tool" : ""}`}
+                aria-haspopup="dialog"
+                aria-expanded={isMoreMenuOpen}
+                onClick={() => setIsMoreMenuOpen((v) => !v)}
+              />
+              <A26Popover
+                open={isMoreMenuOpen}
+                label="Mais opções do mapa mental"
+                onClose={() => setIsMoreMenuOpen(false)}
+                className="mindmap-more-popover"
+              >
+                <div className="mindmap-more-menu">
+                  <div className="mindmap-more-section">
+                    <span className="mindmap-more-section__title">Navegação e Ramos</span>
+                    <button
+                      type="button"
+                      className="mindmap-more-item"
+                      onClick={() => {
+                        centerRoot();
+                        setIsMoreMenuOpen(false);
+                      }}
+                    >
+                      <LineIcon name="target" className="h-4 w-4" />
+                      <span>Centralizar raiz</span>
+                      <kbd>R</kbd>
+                    </button>
+                    <button
+                      type="button"
+                      className="mindmap-more-item"
+                      onClick={() => {
+                        handleExpandAll();
+                        setIsMoreMenuOpen(false);
+                      }}
+                    >
+                      <LineIcon name="layers" className="h-4 w-4" />
+                      <span>Expandir todos os ramos</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="mindmap-more-item"
+                      onClick={() => {
+                        handleCollapseAll();
+                        setIsMoreMenuOpen(false);
+                      }}
+                    >
+                      <LineIcon name="isolate" className="h-4 w-4" />
+                      <span>Recolher todos os ramos</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="mindmap-more-item"
+                      onClick={() => {
+                        setMinimapExpanded((prev) => !prev);
+                        setIsMoreMenuOpen(false);
+                      }}
+                    >
+                      <LineIcon name="tools" className="h-4 w-4" />
+                      <span>{minimapExpanded ? "Minimizar minimapa" : "Expandir minimapa"}</span>
+                      <kbd>M</kbd>
+                    </button>
+                  </div>
+
+                  <div className="mindmap-more-section">
+                    <span className="mindmap-more-section__title">Exportação</span>
+                    <button
+                      type="button"
+                      className="mindmap-more-item"
+                      onClick={() => {
+                        handleExportPNG();
+                        setIsMoreMenuOpen(false);
+                      }}
+                    >
+                      <LineIcon name="image" className="h-4 w-4" />
+                      <span>Exportar imagem (PNG)</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="mindmap-more-item"
+                      onClick={() => {
+                        handleExportPDF();
+                        setIsMoreMenuOpen(false);
+                      }}
+                    >
+                      <LineIcon name="download" className="h-4 w-4" />
+                      <span>Exportar documento (PDF)</span>
+                    </button>
+                  </div>
+
+                  <div className="mindmap-more-section">
+                    <span className="mindmap-more-section__title">Visualização</span>
+                    <button
+                      type="button"
+                      className="mindmap-more-item"
+                      onClick={() => {
+                        setIsFullscreen((prev) => !prev);
+                        setIsMoreMenuOpen(false);
+                      }}
+                    >
+                      <LineIcon name="fullscreen" className="h-4 w-4" />
+                      <span>{isFullscreen ? "Sair da tela cheia" : "Tela cheia"}</span>
+                      <kbd>Esc</kbd>
+                    </button>
+                  </div>
+                </div>
+              </A26Popover>
+            </div>
           </div>
         </A26Toolbar>
 
         <div className="mindmap-canvas-stage">
           <svg id="canvas" ref={svgRef} role="img" aria-label="Mapa mental anatômico interativo" />
           {minimapVisible && ((treeBounds?.nodes?.length > 0) || (treeBoundsRef.current?.nodes?.length > 0)) && (
-            <div
-              className="mindmap-minimap"
-              onClick={handleMinimapClick}
-              title="Minimapa de Navegação — Clique para centrar a visão"
-              role="region"
-              aria-label="Minimapa de navegação anatômica"
-            >
-              <svg viewBox="0 0 140 85" className="mindmap-minimap__svg">
-                {((treeBounds?.nodes) || treeBoundsRef.current.nodes).map((n, idx) => {
-                  const tb = treeBounds || treeBoundsRef.current;
-                  const gw = Math.max(1, tb.maxX - tb.minX);
-                  const gh = Math.max(1, tb.maxY - tb.minY);
-                  const nx = ((n.x - tb.minX) / gw) * 124 + 8;
-                  const ny = ((n.y - tb.minY) / gh) * 69 + 8;
-                  return (
-                    <circle
-                      key={idx}
-                      cx={nx}
-                      cy={ny}
-                      r={n.depth === 0 ? 3.5 : 2}
-                      fill={n.color || "#4fd8c9"}
-                      opacity={0.85}
-                    />
-                  );
-                })}
-                <rect
-                  className="minimap-viewport-indicator"
-                  x={Math.max(8, Math.min(132, viewportRect.normX * 124 + 8))}
-                  y={Math.max(8, Math.min(77, viewportRect.normY * 69 + 8))}
-                  width={Math.min(124, Math.max(12, viewportRect.normW * 124))}
-                  height={Math.min(69, Math.max(10, viewportRect.normH * 69))}
-                />
-              </svg>
-              <div className="mindmap-minimap__badge">
-                <span>{zoomPercent}%</span>
+            minimapExpanded ? (
+              <div
+                className="mindmap-minimap is-expanded"
+                onClick={handleMinimapClick}
+                title="Minimapa de Navegação — Clique para centrar a visão"
+                role="region"
+                aria-label="Minimapa de navegação anatômica"
+              >
+                <div className="mindmap-minimap__header">
+                  <span className="mindmap-minimap__title">Minimapa</span>
+                  <button
+                    type="button"
+                    className="mindmap-minimap__minimize-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setMinimapExpanded(false);
+                    }}
+                    aria-label="Minimizar minimapa"
+                    title="Minimizar (Atalho: M)"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <svg viewBox="0 0 140 85" className="mindmap-minimap__svg">
+                  {((treeBounds?.nodes) || treeBoundsRef.current.nodes).map((n, idx) => {
+                    const tb = treeBounds || treeBoundsRef.current;
+                    const gw = Math.max(1, tb.maxX - tb.minX);
+                    const gh = Math.max(1, tb.maxY - tb.minY);
+                    const nx = ((n.x - tb.minX) / gw) * 124 + 8;
+                    const ny = ((n.y - tb.minY) / gh) * 69 + 8;
+                    return (
+                      <circle
+                        key={idx}
+                        cx={nx}
+                        cy={ny}
+                        r={n.depth === 0 ? 3.5 : 2}
+                        fill={n.color || "#4fd8c9"}
+                        opacity={0.85}
+                      />
+                    );
+                  })}
+                  <rect
+                    className="minimap-viewport-indicator"
+                    x={Math.max(8, Math.min(132, viewportRect.normX * 124 + 8))}
+                    y={Math.max(8, Math.min(77, viewportRect.normY * 69 + 8))}
+                    width={Math.min(124, Math.max(12, viewportRect.normW * 124))}
+                    height={Math.min(69, Math.max(10, viewportRect.normH * 69))}
+                  />
+                </svg>
+                <div className="mindmap-minimap__badge">
+                  <span>{zoomPercent}%</span>
+                </div>
               </div>
-            </div>
+            ) : (
+              <button
+                type="button"
+                className="mindmap-minimap-pill"
+                onClick={() => setMinimapExpanded(true)}
+                title="Expandir minimapa (Atalho: M)"
+                aria-label="Minimapa de navegação anatômica. Clique para expandir."
+              >
+                <LineIcon name="tools" className="h-3.5 w-3.5" />
+                <span className="minimap-pill-label">Minimapa</span>
+                <span className="minimap-pill-badge">{zoomPercent}%</span>
+              </button>
+            )
           )}
         </div>
 
