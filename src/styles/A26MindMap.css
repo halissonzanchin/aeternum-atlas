@@ -661,7 +661,13 @@
     display: flex !important;
   }
   .zoom-desktop-tools {
-    display: flex !important;
+    display: none !important;
+  }
+  .mindmap-mode-btn .mode-btn-full {
+    display: none !important;
+  }
+  .mindmap-mode-btn .mode-btn-short {
+    display: inline !important;
   }
   .topbar-export-group .export-btn-full {
     display: none !important;
@@ -672,6 +678,12 @@
   .mindmap-topbar {
     gap: 0.3rem;
     padding: 0.28rem 0.45rem;
+  }
+}
+
+@container mindmap-canvas (min-width: 1040px) and (max-width: 1179px) {
+  .zoom-desktop-tools {
+    display: flex !important;
   }
 }
 
