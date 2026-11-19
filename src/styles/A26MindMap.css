@@ -431,11 +431,47 @@
   background: rgba(97, 237, 228, 0.12) !important;
 }
 
+.mindmap-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  background: rgba(4, 18, 22, 0.94);
+  border: 1px solid rgba(97, 237, 228, 0.28);
+  border-radius: 0.85rem;
+  gap: 3px;
+}
+
+.mindmap-mode-btn {
+  height: 2.05rem;
+  padding: 0 0.65rem;
+  font: 600 0.72rem/1 var(--font-inter, Inter, sans-serif);
+  color: var(--a26-color-text-muted, #94a3b8);
+  background: transparent;
+  border: none;
+  border-radius: 0.65rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 180ms ease;
+  user-select: none;
+}
+
+.mindmap-mode-btn:hover {
+  color: var(--a26-text-primary, #f4f7f7);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mindmap-mode-btn.is-active {
+  color: #03090c;
+  background: var(--mindmap-teal, #61ede4);
+  box-shadow: 0 0 12px rgba(97, 237, 228, 0.35);
+  font-weight: 700;
+}
+
 .mindmap-minimap {
   position: absolute;
   bottom: 4.8rem;
   right: 1.25rem;
-  z-index: 15;
+  z-index: 30;
   width: 150px;
   height: 95px;
   border-radius: 0.85rem;
@@ -1126,4 +1162,29 @@
   background: rgba(241, 245, 249, 0.8) !important;
   border-color: rgba(148, 163, 184, 0.35) !important;
 }
+
+/* ============================================================
+   AETERNUM 26.3 VIEWPORT CALIBRATION & SHORT SCREEN OPTIMIZATIONS
+   ============================================================ */
+@media (max-height: 768px) {
+  .a26-feature-shell--canvas .a26-feature-shell__header-slot {
+    padding-block: 6px;
+  }
+  .a26-feature-shell--canvas .a26-page-header__description {
+    display: none;
+  }
+  .a26-feature-shell--canvas .a26-page-header__title {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 1300px) {
+  .topbar-export-group .export-btn-full {
+    display: none;
+  }
+  .topbar-export-group .export-btn-short {
+    display: inline;
+  }
+}
+
 
