@@ -119,8 +119,9 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const { t } = useLanguage();
   const [outlineText, setOutlineText] = useState(DEFAULT_OUTLINE);
   const [isOutlineEditorOpen, setIsOutlineEditorOpen] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => typeof window !== "undefined" && window.innerWidth <= 1100);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => typeof window !== "undefined" && (window.innerWidth <= 1300 || window.innerHeight <= 700));
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [viewMode, setViewMode] = useState("reading"); // "reading" | "overview" (Section 7)
   const [aiPrompt, setAiPrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationError, setGenerationError] = useState("");
@@ -128,6 +129,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const [activeNode, setActiveNode] = useState(null);
   const [zoomPercent, setZoomPercent] = useState(100);
   const [minimapVisible, setMinimapVisible] = useState(true);
+  const [treeBounds, setTreeBounds] = useState(null);
   const [viewportRect, setViewportRect] = useState({ normX: 0, normY: 0, normW: 1, normH: 1 });
   const { sendMessage, openTutor, connectionMode } = useAtlasAITutorSession();
 
@@ -141,11 +143,12 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const nodeIdSeqRef = useRef(0);
   const treeBoundsRef = useRef({ minX: 0, maxX: 100, minY: 0, maxY: 100, nodes: [] });
   const userHasPannedOrZoomedRef = useRef(false);
+  const isProgrammaticZoomRef = useRef(false);
 
-  const fitGraphToViewport = (animated = true) => {
+  const fitGraphToViewport = (animated = true, options = {}) => {
     if (!svgRef.current || !gZoomRef.current || !rootDataRef.current || !zoomBehaviorRef.current) return;
     try {
-      userHasPannedOrZoomedRef.current = false;
+      const targetMode = options.mode || viewMode;
       const svgEl = svgRef.current;
       const svgRect = svgEl.getBoundingClientRect();
       const W = svgRect.width || svgEl.clientWidth || 900;
@@ -177,52 +180,56 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       const graphHeight = maxY - minY;
       if (graphWidth <= 0 || graphHeight <= 0) return;
 
-      // Marina Orb safe area clearance (bottom-right fixed overlay)
-      const marinaEl = document.querySelector(".upe-ai-trigger");
-      let marinaOverlapH = 0;
-      let marinaOverlapW = 0;
-      if (marinaEl) {
-        const mRect = marinaEl.getBoundingClientRect();
-        if (mRect.top < svgRect.bottom && mRect.right > svgRect.left) {
-          marinaOverlapH = Math.max(0, svgRect.bottom - mRect.top);
-          marinaOverlapW = Math.max(0, svgRect.right - mRect.left);
-        }
-      }
+      // Real clean padding (zero fictitious 200px constraints, Section 4)
+      const padLeft = 32;
+      const padRight = 36;
+      const padTop = 48;
+      const padBottom = 32;
 
-      const padLeft = 36;
-      const padRight = 44;
-      const padTop = 58; // Space below topbar toolbar controls
-      const padBottom = Math.max(48, marinaOverlapH > 0 ? marinaOverlapH + 24 : 48); // Safe exclusion zone above Marina
-
-      const availW = Math.max(200, W - padLeft - padRight);
-      const availH = Math.max(200, H - padTop - padBottom);
+      const availW = Math.max(50, W - padLeft - padRight);
+      const availH = Math.max(50, H - padTop - padBottom);
 
       const rawScale = Math.min(availW / graphWidth, availH / graphHeight);
-      // Calibrated scale (P0.18.B): comfortable ceiling up to 1.45, with lower floor down to 0.08
-      // to ensure comprehensive trees fit 100% browser viewport without cutoff
-      const scale = Math.min(1.45, Math.max(0.08, rawScale * 0.94));
 
-      const fittedW = graphWidth * scale;
-      const fittedH = graphHeight * scale;
+      let scale;
+      let tx;
+      let ty;
 
-      let tx = padLeft + (availW - fittedW) / 2 - scale * minX;
-      let ty = padTop + (availH - fittedH) / 2 - scale * minY;
+      if (targetMode === "reading") {
+        // MODO LEITURA: Guarantees 100% human-legible label scale (>= 0.85 floor, up to 1.15)
+        scale = Math.max(0.85, Math.min(1.15, rawScale));
+        // Center root node vertically with clean left padding so branches spread rightwards
+        tx = padLeft + Math.min(100, availW * 0.12) - scale * minX;
+        ty = H / 2 - scale * root.x;
+      } else {
+        // VISÃO GERAL: Fits full macro architecture to available canvas
+        scale = Math.min(1.35, Math.max(0.08, rawScale * 0.94));
+        const fittedW = graphWidth * scale;
+        const fittedH = graphHeight * scale;
+        tx = padLeft + (availW - fittedW) / 2 - scale * minX;
+        ty = padTop + (availH - fittedH) / 2 - scale * minY;
 
-      // Dynamic Marina exclusion: ensure bottom-right leaf nodes don't collide with Marina Orb
-      if (marinaOverlapH > 0 && marinaOverlapW > 0) {
-        const marinaLeftInSvg = W - marinaOverlapW - 12;
-        const marinaTopInSvg = H - marinaOverlapH - 12;
-        for (const d of descendants) {
-          const nodeRight = tx + scale * (d.depth === 0 ? d.y + d.w / 2 : d.y + d.w + 14);
-          const nodeBottom = ty + scale * (d.x + 19);
-          if (nodeRight > marinaLeftInSvg && nodeBottom > marinaTopInSvg) {
-            const overlapY = nodeBottom - marinaTopInSvg;
-            ty = Math.max(padTop - scale * minY, ty - overlapY - 8);
-            break;
+        // Localized Marina clearance (only adjusts ty if bottom-right nodes collide with Marina's corner)
+        const marinaEl = document.querySelector(".upe-ai-trigger");
+        if (marinaEl) {
+          const mRect = marinaEl.getBoundingClientRect();
+          if (mRect.top < svgRect.bottom && mRect.right > svgRect.left) {
+            const marinaLeftInSvg = W - (svgRect.right - mRect.left) - 12;
+            const marinaTopInSvg = H - (svgRect.bottom - mRect.top) - 12;
+            for (const d of descendants) {
+              const nodeRight = tx + scale * (d.depth === 0 ? d.y + d.w / 2 : d.y + d.w + 14);
+              const nodeBottom = ty + scale * (d.x + 19);
+              if (nodeRight > marinaLeftInSvg && nodeBottom > marinaTopInSvg) {
+                const overlapY = nodeBottom - marinaTopInSvg;
+                ty = Math.max(padTop - scale * minY, ty - overlapY - 8);
+                break;
+              }
+            }
           }
         }
       }
 
+      isProgrammaticZoomRef.current = true;
       const transform = d3.zoomIdentity.translate(tx, ty).scale(scale);
 
       if (animated) {
@@ -230,35 +237,47 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
           .transition()
           .duration(380)
           .ease(d3.easeCubicOut)
-          .call(zoomBehaviorRef.current.transform, transform);
+          .call(zoomBehaviorRef.current.transform, transform)
+          .on("end", () => {
+            isProgrammaticZoomRef.current = false;
+          });
       } else {
         d3.select(svgEl).call(zoomBehaviorRef.current.transform, transform);
+        isProgrammaticZoomRef.current = false;
       }
       setZoomPercent(Math.round(scale * 100));
     } catch (err) {
       console.warn("fitGraphToViewport calculation error:", err);
+      isProgrammaticZoomRef.current = false;
     }
   };
 
   const zoomTo100 = () => {
     if (!svgRef.current || !zoomBehaviorRef.current) return;
-    userHasPannedOrZoomedRef.current = true;
     const svgEl = svgRef.current;
     const W = svgEl.clientWidth || 900;
     const H = svgEl.clientHeight || 650;
     const root = rootDataRef.current;
     const rootX = root ? root.y : 0;
     const rootY = root ? root.x : 0;
-    const tx = W / 3 - rootX;
-    const ty = H / 2 - rootY;
-    const transform = d3.zoomIdentity.translate(tx, ty).scale(1.0);
-    d3.select(svgEl).transition().duration(380).ease(d3.easeCubicOut).call(zoomBehaviorRef.current.transform, transform);
+    const scale = 1.0;
+    const tx = Math.max(48, Math.min(140, W * 0.14)) - scale * rootX;
+    const ty = H / 2 - scale * rootY;
+    const transform = d3.zoomIdentity.translate(tx, ty).scale(scale);
+    isProgrammaticZoomRef.current = true;
+    d3.select(svgEl)
+      .transition()
+      .duration(380)
+      .ease(d3.easeCubicOut)
+      .call(zoomBehaviorRef.current.transform, transform)
+      .on("end", () => {
+        isProgrammaticZoomRef.current = false;
+      });
     setZoomPercent(100);
   };
 
   const centerRoot = () => {
     if (!svgRef.current || !zoomBehaviorRef.current) return;
-    userHasPannedOrZoomedRef.current = true;
     const svgEl = svgRef.current;
     const W = svgEl.clientWidth || 900;
     const H = svgEl.clientHeight || 650;
@@ -267,22 +286,35 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     const root = rootDataRef.current;
     const rootX = root ? root.y : 0;
     const rootY = root ? root.x : 0;
-    const tx = W / 3 - k * rootX;
+    const tx = Math.max(48, Math.min(140, W * 0.14)) - k * rootX;
     const ty = H / 2 - k * rootY;
     const transform = d3.zoomIdentity.translate(tx, ty).scale(k);
-    d3.select(svgEl).transition().duration(380).ease(d3.easeCubicOut).call(zoomBehaviorRef.current.transform, transform);
+    isProgrammaticZoomRef.current = true;
+    d3.select(svgEl)
+      .transition()
+      .duration(380)
+      .ease(d3.easeCubicOut)
+      .call(zoomBehaviorRef.current.transform, transform)
+      .on("end", () => {
+        isProgrammaticZoomRef.current = false;
+      });
   };
 
   const handleMinimapClick = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const clickX = (e.clientX - rect.left) / rect.width;
-    const clickY = (e.clientY - rect.top) / rect.height;
+    const relX = (e.clientX - rect.left) / rect.width;
+    const relY = (e.clientY - rect.top) / rect.height;
     const tb = treeBoundsRef.current;
     if (!tb || !svgRef.current || !zoomBehaviorRef.current) return;
     const gw = Math.max(10, tb.maxX - tb.minX);
     const gh = Math.max(10, tb.maxY - tb.minY);
-    const targetTreeX = tb.minX + clickX * gw;
-    const targetTreeY = tb.minY + clickY * gh;
+    // Exact mapping accounting for the 8px padding inside the 140x85 viewBox
+    const vbX = relX * 140;
+    const vbY = relY * 85;
+    const normX = Math.max(0, Math.min(1, (vbX - 8) / 124));
+    const normY = Math.max(0, Math.min(1, (vbY - 8) / 69));
+    const targetTreeX = tb.minX + normX * gw;
+    const targetTreeY = tb.minY + normY * gh;
     const W = svgRef.current.clientWidth || 900;
     const H = svgRef.current.clientHeight || 650;
     const currentTransform = d3.zoomTransform(svgRef.current);
@@ -400,24 +432,24 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const cr = entry.contentRect;
-        if (Math.abs(cr.width - lastW) > 20 || Math.abs(cr.height - lastH) > 20) {
+        if (Math.abs(cr.width - lastW) > 15 || Math.abs(cr.height - lastH) > 15) {
           lastW = cr.width;
           lastH = cr.height;
           if (!userHasPannedOrZoomedRef.current) {
-            fitGraphToViewport(false);
+            fitGraphToViewport(false, { mode: viewMode });
           }
         }
       }
     });
     observer.observe(canvasWrapRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [viewMode]);
 
   const updateTree = (source) => {
     if (!rootDataRef.current || !gZoomRef.current) return;
     const duration = 320;
-    const dx = 46;
-    const dy = 280;
+    const dx = 44;
+    const dy = 200;
 
     const treeLayout = d3.tree().nodeSize([dx, dy]);
 
@@ -426,11 +458,25 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     const links = root.links();
 
     treeLayout(root);
+
+    // Compute dynamic horizontal level spacing based on actual label widths (Section 6)
+    const maxWByDepth = {};
     root.each((d) => {
-      d.y = d.depth === 0 ? 0 : d.depth === 1 ? 230 : 230 + (d.depth - 1) * 290;
+      maxWByDepth[d.depth] = Math.max(maxWByDepth[d.depth] || 0, d.w || 120);
     });
 
-    // Compute tree bounds and mini nodes for minimap (P0.18.B)
+    const depthOffsets = [0];
+    depthOffsets[1] = Math.round((maxWByDepth[0] || 150) / 2 + 58);
+    for (let dep = 2; dep <= 8; dep++) {
+      const prevMaxW = maxWByDepth[dep - 1] || 140;
+      depthOffsets[dep] = depthOffsets[dep - 1] + prevMaxW + 52;
+    }
+
+    root.each((d) => {
+      d.y = depthOffsets[d.depth] ?? (depthOffsets[1] + (d.depth - 1) * 200);
+    });
+
+    // Compute tree bounds and mini nodes for minimap (P0.18.B & P0.18.7)
     const allDesc = root.descendants();
     let minX = Infinity;
     let maxX = -Infinity;
@@ -446,7 +492,9 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
       if (y + 17 > maxY) maxY = y + 17;
       miniNodes.push({ x, y, w: d.w, color: d.color, depth: d.depth });
     }
-    treeBoundsRef.current = { minX, maxX, minY, maxY, nodes: miniNodes };
+    const newBounds = { minX, maxX, minY, maxY, nodes: miniNodes };
+    treeBoundsRef.current = newBounds;
+    setTreeBounds(newBounds);
 
     const transition = gZoomRef.current.transition().duration(duration);
 
@@ -599,8 +647,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
     rootDataRef.current = r;
     updateTree(r);
-    fitGraphToViewport(false);
-    setTimeout(() => fitGraphToViewport(true), 120);
+    fitGraphToViewport(false, { mode: viewMode });
+    setTimeout(() => fitGraphToViewport(true, { mode: viewMode }), 120);
   };
 
   // Initialize D3 Canvas
@@ -624,7 +672,11 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
         const transform = event.transform;
         gZoom.attr("transform", transform);
         setZoomPercent(Math.round(transform.k * 100));
-        userHasPannedOrZoomedRef.current = true;
+
+        // ONLY mark as user manual pan/zoom when there is an authentic user input event! (Section 5)
+        if (event.sourceEvent && !isProgrammaticZoomRef.current) {
+          userHasPannedOrZoomedRef.current = true;
+        }
 
         const tb = treeBoundsRef.current;
         if (tb && svgRef.current) {
@@ -907,7 +959,43 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
               icon="menu"
               onClick={() => setSidebarCollapsed((v) => !v)}
             />
+            <div className="mindmap-mode-toggle" role="group" aria-label={t("mindMap.viewMode", { defaultValue: "Modo de visualização" })}>
+              <button
+                type="button"
+                className={`mindmap-mode-btn ${viewMode === "reading" ? "is-active" : ""}`}
+                onClick={() => {
+                  setViewMode("reading");
+                  userHasPannedOrZoomedRef.current = false;
+                  fitGraphToViewport(true, { mode: "reading" });
+                }}
+                title={t("mindMap.readingModeHint", { defaultValue: "Modo Leitura — Rótulos 100% legíveis e navegação livre" })}
+              >
+                {t("mindMap.readingMode", { defaultValue: "Modo Leitura" })}
+              </button>
+              <button
+                type="button"
+                className={`mindmap-mode-btn ${viewMode === "overview" ? "is-active" : ""}`}
+                onClick={() => {
+                  setViewMode("overview");
+                  userHasPannedOrZoomedRef.current = false;
+                  fitGraphToViewport(true, { mode: "overview" });
+                }}
+                title={t("mindMap.overviewModeHint", { defaultValue: "Visão Geral — Enquadra a árvore completa na tela" })}
+              >
+                {t("mindMap.overviewMode", { defaultValue: "Visão Geral" })}
+              </button>
+            </div>
             <div className="topbar-export-group">
+              <A26IconButton
+                label={t("mindMap.expandAll", { defaultValue: "Expandir todos os ramos" })}
+                icon="layers"
+                onClick={handleExpandAll}
+              />
+              <A26IconButton
+                label={t("mindMap.collapseAll", { defaultValue: "Recolher todos os ramos" })}
+                icon="isolate"
+                onClick={handleCollapseAll}
+              />
               <A26Button variant="secondary" onClick={handleExportPNG} title={t("mindMap.exportPng", { defaultValue: "Imagem (PNG)" })} className="topbar-export-btn">
                 <LineIcon name="image" className="h-3.5 w-3.5 mr-1 inline" />
                 <span className="export-btn-full">{t("mindMap.exportPng", { defaultValue: "Imagem (PNG)" })}</span>
@@ -936,8 +1024,11 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
             <button
               type="button"
               className="zoom-percentage-btn"
-              onClick={zoomTo100}
-              title="Zoom 100% (Tamanho real — Atalho: 1)"
+              onClick={() => {
+                setViewMode("reading");
+                zoomTo100();
+              }}
+              title="Zoom 100% (Tamanho de leitura — Atalho: 1)"
               aria-label={`Zoom atual ${zoomPercent}%. Clique para definir 100%.`}
             >
               {zoomPercent}%
@@ -954,9 +1045,12 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
               −
             </A26Button>
             <A26IconButton
-              label="Ajustar à tela (Atalho: 0)"
+              label="Ajustar à tela (Visão Geral — Atalho: 0)"
               icon="reset"
-              onClick={() => fitGraphToViewport(true)}
+              onClick={() => {
+                setViewMode("overview");
+                fitGraphToViewport(true, { mode: "overview" });
+              }}
             />
             <A26IconButton
               label="Centralizar raiz (Atalho: R)"
@@ -965,7 +1059,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
             />
             <A26IconButton
               label={minimapVisible ? "Ocultar minimapa" : "Mostrar minimapa"}
-              icon="isolate"
+              icon="compass"
               className={minimapVisible ? "active-tool" : ""}
               onClick={() => setMinimapVisible((v) => !v)}
             />
@@ -980,7 +1074,7 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
         <div className="mindmap-canvas-stage">
           <svg id="canvas" ref={svgRef} role="img" aria-label="Mapa mental anatômico interativo" />
-          {minimapVisible && treeBoundsRef.current?.nodes?.length > 0 && (
+          {minimapVisible && ((treeBounds?.nodes?.length > 0) || (treeBoundsRef.current?.nodes?.length > 0)) && (
             <div
               className="mindmap-minimap"
               onClick={handleMinimapClick}
@@ -989,8 +1083,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
               aria-label="Minimapa de navegação anatômica"
             >
               <svg viewBox="0 0 140 85" className="mindmap-minimap__svg">
-                {treeBoundsRef.current.nodes.map((n, idx) => {
-                  const tb = treeBoundsRef.current;
+                {((treeBounds?.nodes) || treeBoundsRef.current.nodes).map((n, idx) => {
+                  const tb = treeBounds || treeBoundsRef.current;
                   const gw = Math.max(1, tb.maxX - tb.minX);
                   const gh = Math.max(1, tb.maxY - tb.minY);
                   const nx = ((n.x - tb.minX) / gw) * 124 + 8;
@@ -1008,8 +1102,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
                 })}
                 <rect
                   className="minimap-viewport-indicator"
-                  x={viewportRect.normX * 124 + 8}
-                  y={viewportRect.normY * 69 + 8}
+                  x={Math.max(8, Math.min(132, viewportRect.normX * 124 + 8))}
+                  y={Math.max(8, Math.min(77, viewportRect.normY * 69 + 8))}
                   width={Math.min(124, Math.max(12, viewportRect.normW * 124))}
                   height={Math.min(69, Math.max(10, viewportRect.normH * 69))}
                 />
