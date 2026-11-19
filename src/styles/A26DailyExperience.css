@@ -35,8 +35,11 @@
 .anatomical-quizzes-header h1 {
   margin: 6px 0 9px;
   color: var(--a26-color-text);
-  font: 500 clamp(2rem, 4vw, 3.8rem)/1 var(--a26-type-display);
-  letter-spacing: -0.035em;
+  font-family: var(--a26-type-display);
+  font-size: var(--a26-text-display-size, clamp(1.85rem, 2.5vw, 2.4rem));
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
 }
 
 .teacher-hero > div:first-child > p:last-child,
@@ -69,7 +72,7 @@
 .teacher-profile-chip small {
   overflow: hidden;
   color: var(--a26-color-text-subtle);
-  font-size: 0.7rem;
+  font-size: var(--a26-text-label-size, 0.78125rem);
   letter-spacing: 0.08em;
   text-overflow: ellipsis;
   text-transform: uppercase;

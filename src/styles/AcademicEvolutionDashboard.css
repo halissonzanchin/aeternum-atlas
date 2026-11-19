@@ -17,7 +17,7 @@
 
 .academic-evolution-title {
   margin: 4px 0 2px;
-  font-size: 1.625rem;
+  font-size: var(--a26-text-h1-size, 1.5625rem);
   font-weight: 700;
   color: #FFFFFF;
   letter-spacing: -0.02em;
@@ -25,12 +25,12 @@
 
 @media (max-width: 360px) {
   .academic-evolution-title {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
   }
 }
 
 .academic-evolution-subtitle {
-  font-size: 0.875rem;
+  font-size: var(--a26-text-body-size, 0.875rem);
   color: rgba(255, 255, 255, 0.65);
   display: block;
   max-width: 720px;

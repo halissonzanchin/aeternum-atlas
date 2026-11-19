@@ -92,59 +92,77 @@
   --a26-type-body: var(--a26-font-sans);
   --a26-type-mono: var(--a26-font-mono);
 
-  /* Semantic Typography Scale */
-  --a26-text-display-size: clamp(2.25rem, 4vw, 3.25rem);
+  /* Semantic Typography Scale — Aeternum 26.4 Calibrated */
+  --a26-text-display-size: clamp(1.625rem, 2.2vw, 1.875rem);
   --a26-text-display-line-height: 1.15;
   --a26-text-display-weight: 700;
-  --a26-text-display-tracking: 0.04em;
+  --a26-text-display-tracking: 0.03em;
 
-  --a26-text-h1-size: clamp(1.75rem, 3vw, 2.25rem);
+  --a26-text-h1-size: clamp(1.375rem, 1.8vw, 1.5rem);
   --a26-text-h1-line-height: 1.25;
   --a26-text-h1-weight: 700;
+  --a26-text-h1-tracking: -0.015em;
 
-  --a26-text-h2-size: clamp(1.35rem, 2.2vw, 1.65rem);
+  --a26-text-h2-size: 1.2rem;
   --a26-text-h2-line-height: 1.3;
   --a26-text-h2-weight: 600;
+  --a26-text-h2-tracking: -0.01em;
 
-  --a26-text-h3-size: 1.2rem;
+  --a26-text-h3-size: 1.0625rem;
   --a26-text-h3-line-height: 1.35;
   --a26-text-h3-weight: 600;
 
-  --a26-text-card-title-size: 1.1rem;
+  --a26-text-card-title-size: 1rem;
   --a26-text-card-title-line-height: 1.4;
-  --a26-text-card-title-weight: 700;
+  --a26-text-card-title-weight: 600;
 
-  --a26-text-body-size: 0.95rem;
-  --a26-text-body-line-height: 1.55;
+  --a26-text-body-academic-size: 0.96875rem;
+  --a26-text-body-academic-line-height: 1.58;
+  --a26-text-body-academic-weight: 400;
+
+  --a26-text-body-size: 0.875rem;
+  --a26-text-body-line-height: 1.48;
   --a26-text-body-weight: 400;
 
-  --a26-text-body-sm-size: 0.84rem;
-  --a26-text-body-sm-line-height: 1.45;
+  --a26-text-body-sm-size: 0.8125rem;
+  --a26-text-body-sm-line-height: 1.42;
   --a26-text-body-sm-weight: 400;
+
+  --a26-text-nav-size: 0.84375rem;
+  --a26-text-nav-line-height: 1.2;
+  --a26-text-nav-weight: 500;
+
+  --a26-text-header-size: 0.84375rem;
+  --a26-text-header-line-height: 1.2;
+  --a26-text-header-weight: 600;
 
   --a26-text-caption-size: 0.75rem;
   --a26-text-caption-line-height: 1.4;
   --a26-text-caption-weight: 500;
 
-  --a26-text-kicker-size: 0.7rem;
+  --a26-text-kicker-size: 0.6875rem;
   --a26-text-kicker-line-height: 1.3;
-  --a26-text-kicker-weight: 800;
-  --a26-text-kicker-tracking: 0.16em;
+  --a26-text-kicker-weight: 700;
+  --a26-text-kicker-tracking: 0.08em;
 
-  --a26-text-button-size: 0.88rem;
+  --a26-text-button-size: 0.875rem;
   --a26-text-button-line-height: 1.25;
   --a26-text-button-weight: 600;
 
-  --a26-text-input-size: 0.94rem;
-  --a26-text-input-line-height: 1.4;
+  --a26-text-input-size: 0.9375rem;
+  --a26-text-input-line-height: 1.45;
   --a26-text-input-weight: 400;
 
+  --a26-text-label-size: 0.8125rem;
+  --a26-text-label-line-height: 1.35;
+  --a26-text-label-weight: 500;
+
   --a26-text-metadata-size: 0.75rem;
-  --a26-text-metadata-line-height: 1.4;
+  --a26-text-metadata-line-height: 1.35;
   --a26-text-metadata-weight: 500;
 
-  --a26-text-metric-size: 1.8rem;
-  --a26-text-metric-line-height: 1.1;
+  --a26-text-metric-size: 1.5625rem;
+  --a26-text-metric-line-height: 1.15;
   --a26-text-metric-weight: 700;
 
   /* Semantic Color Foundation - DARK (Default) */
@@ -320,6 +338,12 @@ body.a26-theme-light,
   line-height: var(--a26-text-card-title-line-height);
   font-weight: var(--a26-text-card-title-weight);
 }
+.a26-type-body-academic {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-body-academic-size);
+  line-height: var(--a26-text-body-academic-line-height);
+  font-weight: var(--a26-text-body-academic-weight);
+}
 .a26-type-body {
   font-family: var(--a26-font-sans);
   font-size: var(--a26-text-body-size);
@@ -331,6 +355,12 @@ body.a26-theme-light,
   font-size: var(--a26-text-body-sm-size);
   line-height: var(--a26-text-body-sm-line-height);
   font-weight: var(--a26-text-body-sm-weight);
+}
+.a26-type-label {
+  font-family: var(--a26-font-sans);
+  font-size: var(--a26-text-label-size);
+  line-height: var(--a26-text-label-line-height);
+  font-weight: var(--a26-text-label-weight);
 }
 .a26-type-caption {
   font-family: var(--a26-font-sans);
@@ -1017,8 +1047,9 @@ body.a26-theme-light,
 
 .a26-field__label {
   color: var(--a26-color-text);
-  font-size: 0.84rem;
-  font-weight: 720;
+  font-size: var(--a26-text-label-size, 0.8125rem);
+  font-weight: var(--a26-text-label-weight, 500);
+  line-height: var(--a26-text-label-line-height, 1.35);
 }
 
 .a26-field__control,
@@ -1035,12 +1066,22 @@ select.a26-select {
   color: var(--a26-color-text);
   padding: var(--a26-input-padding, 10px 16px);
   font-family: var(--a26-font-sans);
-  font-size: var(--a26-text-input-size, 0.94rem);
+  font-size: var(--a26-text-input-size, 0.9375rem);
+  line-height: var(--a26-text-input-line-height, 1.45);
   outline: none;
   box-sizing: border-box;
   transition: border-color var(--a26-motion-response) ease,
               box-shadow var(--a26-motion-response) ease,
               background var(--a26-motion-response) ease;
+}
+
+@media (max-width: 768px) {
+  .a26-field__control,
+  input.a26-input,
+  select.a26-select,
+  textarea.a26-field__control {
+    font-size: 16px;
+  }
 }
 
 .a26-field__control:focus,

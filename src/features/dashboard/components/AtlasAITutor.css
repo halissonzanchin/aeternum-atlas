@@ -40,14 +40,15 @@
 }
 
 .upe-ai-trigger strong {
-  font-size: 0.86rem;
+  font-size: var(--a26-text-button-size, 0.875rem);
+  font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 .upe-ai-trigger small {
-  color: rgba(157, 214, 209, 0.58);
-  font-size: 0.61rem;
-  letter-spacing: 0.08em;
+  color: rgba(157, 214, 209, 0.75);
+  font-size: var(--a26-text-caption-size, 0.75rem);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -171,23 +172,23 @@
 .upe-ai-panel__header h2 {
   margin: 3px 0 0;
   color: #f2f1eb;
-  font-size: 1rem;
-  font-weight: 720;
+  font-size: var(--a26-text-card-title-size, 1rem);
+  font-weight: 600;
 }
 
 .upe-ai-panel__header p {
   margin: 4px 0 0;
-  color: rgba(177, 208, 204, 0.54);
-  font-size: 0.67rem;
+  color: rgba(177, 208, 204, 0.7);
+  font-size: var(--a26-text-caption-size, 0.75rem);
 }
 
 .upe-ai-panel__eyebrow,
 .upe-ai-response__label,
 .upe-ai-context > span {
   color: #5edbd4;
-  font-size: 0.58rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-size: var(--a26-text-kicker-size, 0.6875rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -241,15 +242,16 @@
 .upe-ai-context strong {
   display: block;
   margin-top: 6px;
-  font-size: 0.8rem;
+  font-size: var(--a26-text-body-size, 0.875rem);
+  font-weight: 600;
 }
 
 .upe-ai-context p,
 .upe-ai-response > p {
   margin: 7px 0 0;
-  color: rgba(225, 234, 231, 0.7);
-  font-size: 0.77rem;
-  line-height: 1.58;
+  color: rgba(225, 234, 231, 0.82);
+  font-size: var(--a26-text-body-size, 0.875rem);
+  line-height: 1.55;
 }
 
 .upe-ai-response {
@@ -279,13 +281,14 @@
 
 .upe-ai-clinical-note strong {
   color: rgba(233, 209, 145, 0.88);
-  font-size: 0.68rem;
+  font-size: var(--a26-text-caption-size, 0.75rem);
+  font-weight: 600;
 }
 
 .upe-ai-clinical-note p {
   margin: 4px 0 0;
-  color: rgba(221, 229, 226, 0.64);
-  font-size: 0.7rem;
+  color: rgba(221, 229, 226, 0.75);
+  font-size: var(--a26-text-caption-size, 0.75rem);
   line-height: 1.48;
 }
 
