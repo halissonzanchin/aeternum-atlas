@@ -30,9 +30,9 @@ export default function A26FeatureShell({
           {toolbar}
         </div>
       )}
-      <main className="a26-feature-shell__body">
+      <div className="a26-feature-shell__body">
         {children}
-      </main>
+      </div>
     </div>
   );
 }

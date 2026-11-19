@@ -48,6 +48,14 @@ body:has(.a26-shell) #root {
   scrollbar-gutter: stable;
 }
 
+.a26-shell__content.a26-shell__content--canvas,
+.a26-shell__content:has(.a26-feature-shell--canvas) {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  scrollbar-gutter: auto;
+  overscroll-behavior: none;
+}
+
 .a26-student-dashboard,
 .study-agenda-page,
 .a26-daily-page,

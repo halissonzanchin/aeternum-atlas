@@ -23,7 +23,7 @@ import { useInstitutionalNotifications } from "../../context/InstitutionalNotifi
 import NotificationCenterDropdown from "../Notifications/NotificationCenterDropdown";
 import MaintenanceAlertBanner from "../Notifications/MaintenanceAlertBanner";
 
-export default function AppLayout({ user, path, navigate, onLogout, children }) {
+export default function AppLayout({ user, path, navigate, onLogout, isCanvas, children }) {
   const { t } = useLanguage();
   const { theme, toggleTheme, isLight } = useTheme();
   const { unreadCount } = useInstitutionalNotifications();
@@ -36,6 +36,13 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
   const controlsRef = useRef(null);
   const notificationsTriggerRef = useRef(null);
   const profileTriggerRef = useRef(null);
+
+  const isCanvasRoute = Boolean(
+    isCanvas ||
+    path === "/mind-map" ||
+    path?.startsWith("/mind-map") ||
+    path === "/canvas"
+  );
 
   const items = useMemo(
     () => shellNavigationForRole(user?.role, path, t),
@@ -403,7 +410,11 @@ export default function AppLayout({ user, path, navigate, onLogout, children }) 
 
         <MaintenanceAlertBanner />
 
-        <main className="a26-shell__content" id="a26-shell-content" tabIndex="-1">
+        <main
+          className={`a26-shell__content${isCanvasRoute ? " a26-shell__content--canvas" : ""}`}
+          id="a26-shell-content"
+          tabIndex="-1"
+        >
           {children}
         </main>
 
