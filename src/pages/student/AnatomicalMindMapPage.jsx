@@ -948,8 +948,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
               className={`mindmap-tab-btn ${sidebarTab === "structure" ? "is-active" : ""}`}
               onClick={() => setSidebarTab("structure")}
             >
-              <LineIcon name="layers" className="h-4 w-4" />
-              <span>{t("mindMap.editableStructure", { defaultValue: "Estrutura" })}</span>
+              <LineIcon name="layers" className="h-4 w-4 shrink-0" />
+              <span className="mindmap-tab-text">{t("mindMap.editableStructure", { defaultValue: "Estrutura" })}</span>
               <span className="mindmap-tab-badge">{nodeCount}</span>
             </button>
             <button
@@ -961,9 +961,9 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
               className={`mindmap-tab-btn ${sidebarTab === "ai" ? "is-active" : ""}`}
               onClick={() => setSidebarTab("ai")}
             >
-              <LineIcon name="spark" className="h-4 w-4" />
-              <span>{t("mindMap.generateWithAi", { defaultValue: "Gerar com IA" })}</span>
-              <span className={`mindmap-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")}`} />
+              <LineIcon name="spark" className="h-4 w-4 shrink-0" />
+              <span className="mindmap-tab-text">{t("mindMap.generateWithAi", { defaultValue: "Gerar com IA" })}</span>
+              <span className={`mindmap-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")} shrink-0`} />
             </button>
           </div>
 
@@ -1026,54 +1026,65 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
               className="mindmap-tab-panel mindmap-tab-panel--ai"
             >
               <A26Surface material="clear" tone="teal" className="mindmap-ai-composer">
-                <div className="mindmap-ai-composer__status">
-                  <span className={`mindmap-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")}`} aria-hidden="true" />
-                  <span>{(connectionMode === "online" || connectionMode === "live") ? t("mindMap.tutorOnline", { defaultValue: "Tutor IA autenticado" }) : t("mindMap.tutorOffline", { defaultValue: "Tutor IA requer conexão" })}</span>
-                </div>
-                <A26Field
-                  label={t("mindMap.topicLabel", { defaultValue: "Tema anatômico" })}
-                  placeholder={t("mindMap.topicPlaceholder", { defaultValue: "Esboço IA (ex: Sistema Renal...)" })}
-                  value={aiPrompt}
-                  onChange={(e) => setAiPrompt(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && !isGenerating) void handleGenerateAI();
-                  }}
-                  error={generationError}
-                  hint={!generationError ? t("mindMap.topicHint", { defaultValue: "A geração fica vinculada ao histórico seguro do Tutor IA." }) : undefined}
-                />
-                <div className="mindmap-ai-suggestions">
-                  <span className="mindmap-ai-suggestions__label">{t("mindMap.quickSuggestions", { defaultValue: "Sugestões rápidas:" })}</span>
-                  <div className="mindmap-ai-suggestions__list">
-                    {["Sistema Cardiovascular", "Polígono de Willis", "Plexo Braquial", "Trato Digestório"].map((suggestion) => (
-                      <button
-                        key={suggestion}
-                        type="button"
-                        className="mindmap-suggestion-chip"
-                        onClick={() => setAiPrompt(suggestion)}
-                      >
-                        {suggestion}
-                      </button>
-                    ))}
+                {/* Região Superior — Estado */}
+                <div className="mindmap-ai-header">
+                  <div className="mindmap-ai-composer__status">
+                    <span className={`mindmap-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")}`} aria-hidden="true" />
+                    <span>{(connectionMode === "online" || connectionMode === "live") ? t("mindMap.tutorOnline", { defaultValue: "Tutor IA autenticado" }) : t("mindMap.tutorOffline", { defaultValue: "Tutor IA requer conexão" })}</span>
                   </div>
                 </div>
-                <A26Button
-                  variant="primary"
-                  icon={<LineIcon name="spark" className="h-5 w-5" />}
-                  onClick={() => void handleGenerateAI()}
-                  disabled={isGenerating || aiPrompt.trim().length < 3}
-                  loading={isGenerating}
-                >
-                  {isGenerating ? t("mindMap.structuring", { defaultValue: "Estruturando" }) : t("mindMap.generateButton", { defaultValue: "Gerar com Tutor IA" })}
-                </A26Button>
-                {generationNotice ? <p className="mindmap-generation-notice" role="status">{generationNotice}</p> : null}
-                <div className="mindmap-ai-footer-link">
-                  <button
-                    type="button"
-                    className="mindmap-link-btn"
-                    onClick={() => setSidebarTab("structure")}
+
+                {/* Região Central — Conteúdo Rolável */}
+                <div className="mindmap-ai-scrollable-content" tabIndex={0} role="region" aria-label={t("mindMap.aiFormRegion", { defaultValue: "Formulário de geração anatômica" })}>
+                  <A26Field
+                    label={t("mindMap.topicLabel", { defaultValue: "Tema anatômico" })}
+                    placeholder={t("mindMap.topicPlaceholder", { defaultValue: "Esboço IA (ex: Sistema Renal...)" })}
+                    value={aiPrompt}
+                    onChange={(e) => setAiPrompt(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !isGenerating) void handleGenerateAI();
+                    }}
+                    error={generationError}
+                    hint={!generationError ? t("mindMap.topicHint", { defaultValue: "A geração fica vinculada ao histórico seguro do Tutor IA." }) : undefined}
+                  />
+                  <div className="mindmap-ai-suggestions">
+                    <span className="mindmap-ai-suggestions__label">{t("mindMap.quickSuggestions", { defaultValue: "Sugestões rápidas:" })}</span>
+                    <div className="mindmap-ai-suggestions__list">
+                      {["Sistema Cardiovascular", "Polígono de Willis", "Plexo Braquial", "Trato Digestório"].map((suggestion) => (
+                        <button
+                          key={suggestion}
+                          type="button"
+                          className="mindmap-suggestion-chip"
+                          onClick={() => setAiPrompt(suggestion)}
+                        >
+                          {suggestion}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  {generationNotice ? <p className="mindmap-generation-notice" role="status">{generationNotice}</p> : null}
+                </div>
+
+                {/* Região Inferior — Ações Persistentes */}
+                <div className="mindmap-ai-actions">
+                  <A26Button
+                    variant="primary"
+                    icon={<LineIcon name="spark" className="h-5 w-5" />}
+                    onClick={() => void handleGenerateAI()}
+                    disabled={isGenerating || aiPrompt.trim().length < 3}
+                    loading={isGenerating}
                   >
-                    {t("mindMap.goToStructureEditor", { defaultValue: "← Ver editor de estrutura" })}
-                  </button>
+                    {isGenerating ? t("mindMap.structuring", { defaultValue: "Estruturando" }) : t("mindMap.generateButton", { defaultValue: "Gerar com Tutor IA" })}
+                  </A26Button>
+                  <div className="mindmap-ai-footer-link">
+                    <button
+                      type="button"
+                      className="mindmap-link-btn"
+                      onClick={() => setSidebarTab("structure")}
+                    >
+                      {t("mindMap.goToStructureEditor", { defaultValue: "← Ver editor de estrutura" })}
+                    </button>
+                  </div>
                 </div>
               </A26Surface>
             </div>
@@ -1099,7 +1110,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
                 }}
                 title={t("mindMap.readingModeHint", { defaultValue: "Modo Leitura — Rótulos 100% legíveis e navegação livre" })}
               >
-                {t("mindMap.readingMode", { defaultValue: "Modo Leitura" })}
+                <span className="mode-btn-full">{t("mindMap.readingMode", { defaultValue: "Modo Leitura" })}</span>
+                <span className="mode-btn-short">Leitura</span>
               </button>
               <button
                 type="button"
@@ -1111,7 +1123,8 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
                 }}
                 title={t("mindMap.overviewModeHint", { defaultValue: "Visão Geral — Enquadra a árvore completa na tela" })}
               >
-                {t("mindMap.overviewMode", { defaultValue: "Visão Geral" })}
+                <span className="mode-btn-full">{t("mindMap.overviewMode", { defaultValue: "Visão Geral" })}</span>
+                <span className="mode-btn-short">Visão</span>
               </button>
             </div>
             <div className="topbar-desktop-actions topbar-export-group">
