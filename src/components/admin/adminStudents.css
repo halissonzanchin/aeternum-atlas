@@ -353,6 +353,17 @@
   overflow: auto;
 }
 
+.student-history-modal .admin-modal-header,
+.admin-student-modal .admin-modal-header {
+  position: sticky;
+  top: -20px;
+  z-index: 20;
+  background: rgba(8, 20, 24, 0.98);
+  padding: 16px 20px;
+  margin: -20px -20px 20px -20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .student-history-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));

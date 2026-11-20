@@ -432,38 +432,261 @@
   white-space: nowrap;
 }
 
+/* =============================================================================
+   AETERNUM ATLAS — P0.18.13-A: ARQUITETURA ERGONÔMICA DO MODAL EXPANDIDO
+   4 Regiões Verticais: Header -> Descrição -> Área Editável (Flex) -> Footer
+   ============================================================================= */
+
 .a26-modal.mindmap-editor-modal {
+  display: flex;
+  flex-direction: column;
   width: min(58rem, calc(100vw - 2rem));
-  max-height: min(52rem, calc(100dvh - 2rem));
-  overflow-y: auto;
+  height: min(44rem, calc(100dvh - 3rem));
+  max-height: min(44rem, calc(100dvh - 3rem));
+  padding: 1.5rem 1.75rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: var(--a26-radius-panel, 20px);
+  border: 1px solid var(--a26-material-frosted-border, rgba(218, 251, 248, 0.22));
+  box-shadow:
+    0 24px 64px -12px rgba(0, 0, 0, 0.8),
+    0 8px 24px -6px rgba(0, 0, 0, 0.5),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.2);
 }
 
+/* Região 1: Header */
+.mindmap-editor-modal .a26-modal__header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--a26-space-4, 1rem);
+  margin: 0;
+  padding: 0;
+}
+
+.mindmap-editor-modal .a26-modal__header h2 {
+  margin: 0.15rem 0 0;
+  font-family: var(--a26-type-display, "Space Grotesk", sans-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--a26-color-text, #f0fdfa);
+}
+
+.mindmap-editor-modal .a26-modal__header .a26-kicker {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--a26-color-teal, #52d8cd);
+  font-weight: 700;
+}
+
+/* Região 2: Descrição */
+.mindmap-editor-modal .a26-modal__description {
+  flex: 0 0 auto;
+  margin: 0.4rem 0 0.75rem 0;
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--a26-color-text-muted, #94a3b8);
+}
+
+/* Região 3: Área Editável (Flexível / Elástica) */
 .mindmap-editor-modal .a26-modal__content {
+  flex: 1 1 auto;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-.mindmap-expanded-editor,
-.mindmap-expanded-editor .a26-field {
-  display: grid;
+.mindmap-editor-modal .mindmap-expanded-editor {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
   min-height: 0;
+  height: 100%;
 }
 
-.mindmap-expanded-editor .a26-field {
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: 0.55rem;
+.mindmap-editor-modal .mindmap-expanded-editor .a26-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  margin: 0;
+  gap: 0.35rem;
 }
 
-.mindmap-expanded-editor textarea.a26-field__control {
+.mindmap-editor-modal .mindmap-expanded-editor .a26-field__label {
+  flex: 0 0 auto;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--a26-color-text, #e2f4f2);
+  letter-spacing: 0.01em;
+}
+
+.mindmap-editor-modal .mindmap-expanded-editor textarea.a26-field__control {
+  flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
-  min-height: clamp(20rem, 52dvh, 34rem);
-  resize: vertical;
+  height: 100%;
+  resize: none;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: auto;
   white-space: pre;
   tab-size: 1;
-  color: #e5eeee;
-  font: 500 0.88rem/1.7 "JetBrains Mono", Consolas, monospace;
-  background: rgba(1, 10, 13, 0.72);
+  font: 500 0.875rem/1.65 "JetBrains Mono", Consolas, monospace;
+  color: var(--a26-color-text, #e5eeee);
+  background: rgba(2, 12, 16, 0.68);
+  border: 1px solid rgba(82, 216, 205, 0.2);
+  border-radius: var(--a26-input-radius, 12px);
+  padding: 0.85rem 1rem;
   scrollbar-gutter: stable;
-  scrollbar-color: rgba(82, 216, 205, 0.55) transparent;
+  scrollbar-color: rgba(82, 216, 205, 0.5) transparent;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: border-color var(--a26-motion-response, 180ms) ease,
+              box-shadow var(--a26-motion-response, 180ms) ease;
+}
+
+.mindmap-editor-modal .mindmap-expanded-editor textarea.a26-field__control:focus {
+  border-color: rgba(82, 216, 205, 0.6);
+  box-shadow: 0 0 0 3px rgba(82, 216, 205, 0.15), inset 0 2px 6px rgba(0, 0, 0, 0.35);
+  outline: none;
+}
+
+.mindmap-editor-modal .mindmap-expanded-editor .a26-field__hint {
+  flex: 0 0 auto;
+  font-size: 0.75rem;
+  color: var(--a26-color-text-muted, #64748b);
+  margin-top: 0.2rem;
+  line-height: 1.4;
+}
+
+/* Região 4: Footer de Ações (Fixo e Ancorado) */
+.mindmap-editor-modal .a26-modal__actions {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.85rem 0 0 0;
+  padding: 0;
+}
+
+.mindmap-editor-modal .a26-modal__actions .a26-button {
+  min-height: 42px;
+}
+
+/* Adaptação Light Liquid Glass */
+.a26-theme-light .a26-modal.mindmap-editor-modal {
+  border-color: rgba(15, 118, 110, 0.25);
+  box-shadow:
+    0 24px 64px -12px rgba(15, 23, 42, 0.15),
+    0 8px 24px -6px rgba(15, 23, 42, 0.08),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.9);
+}
+
+.a26-theme-light .mindmap-editor-modal .a26-modal__header h2 {
+  color: #0f172a;
+}
+
+.a26-theme-light .mindmap-editor-modal .a26-modal__header .a26-kicker {
+  color: #0f766e;
+}
+
+.a26-theme-light .mindmap-editor-modal .a26-modal__description {
+  color: #475569;
+}
+
+.a26-theme-light .mindmap-editor-modal .mindmap-expanded-editor .a26-field__label {
+  color: #0f172a;
+}
+
+.a26-theme-light .mindmap-editor-modal .mindmap-expanded-editor textarea.a26-field__control {
+  background: rgba(255, 255, 255, 0.94);
+  color: #0f172a;
+  border-color: rgba(148, 163, 184, 0.45);
+  box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.06);
+  scrollbar-color: rgba(15, 118, 110, 0.45) transparent;
+}
+
+.a26-theme-light .mindmap-editor-modal .mindmap-expanded-editor textarea.a26-field__control:focus {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.18), inset 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+.a26-theme-light .mindmap-editor-modal .mindmap-expanded-editor .a26-field__hint {
+  color: #64748b;
+}
+
+/* Responsividade Mobile e Viewports Compactos */
+@media (max-width: 640px) {
+  .a26-modal.mindmap-editor-modal {
+    width: calc(100vw - 1.5rem);
+    height: calc(100dvh - 1.5rem);
+    max-height: calc(100dvh - 1.5rem);
+    padding: 1.1rem 1.1rem;
+    border-radius: 16px;
+  }
+
+  .mindmap-editor-modal .a26-modal__header h2 {
+    font-size: 1.1rem;
+  }
+
+  .mindmap-editor-modal .a26-modal__description {
+    font-size: 0.8125rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mindmap-editor-modal .a26-modal__actions {
+    flex-direction: column-reverse;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .mindmap-editor-modal .a26-modal__actions .a26-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Salvaguarda para Viewports com Altura Extrema Reduzida (< 480px) */
+@media (max-height: 480px) {
+  .a26-modal.mindmap-editor-modal {
+    height: auto;
+    max-height: calc(100dvh - 1rem);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mindmap-editor-modal .a26-modal__content {
+    flex: 0 0 auto;
+    overflow: visible;
+  }
+
+  .mindmap-editor-modal .mindmap-expanded-editor {
+    flex: 0 0 auto;
+    height: auto;
+  }
+
+  .mindmap-editor-modal .mindmap-expanded-editor .a26-field {
+    flex: 0 0 auto;
+    height: auto;
+  }
+
+  .mindmap-editor-modal .mindmap-expanded-editor textarea.a26-field__control {
+    flex: 0 0 auto;
+    min-height: 120px;
+    height: 130px;
+  }
 }
 
 .mindmap-sidebar-actions {

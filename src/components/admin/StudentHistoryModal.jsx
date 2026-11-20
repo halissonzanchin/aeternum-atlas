@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Card from "../Card/Card";
 import StudentRadarChart from "./StudentRadarChart";
 import StudentWeeklyEvolutionChart from "./StudentWeeklyEvolutionChart";
@@ -13,6 +14,14 @@ export default function StudentHistoryModal({
   onExportHistory,
   onPrintStudent
 }) {
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === "Escape") onClose?.();
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   if (!student) return null;
 
   const meta = performanceMeta(student.performanceScore);

@@ -204,12 +204,23 @@ export function A26SegmentedControl({ label, options, value, onChange, className
   );
 }
 
-export function A26Modal({ open, title, description, children, actions, onClose, closeLabel = "Fechar", className = "" }) {
+export function A26Modal({
+  open,
+  title,
+  description,
+  children,
+  actions,
+  onClose,
+  closeLabel = "Fechar",
+  className = "",
+  layout = "auto"
+}) {
   const titleId = useId();
   const descriptionId = useId();
   const dialogRef = useRef(null);
   const previousFocusRef = useRef(null);
   const onCloseRef = useRef(onClose);
+  const isContained = layout === "contained" || (layout === "auto" && Boolean(actions));
 
   useEffect(() => {
     onCloseRef.current = onClose;
@@ -265,12 +276,13 @@ export function A26Modal({ open, title, description, children, actions, onClose,
         ref={dialogRef}
         as="section"
         material="substantial"
-        className={joinClasses("a26-modal", className)}
+        className={joinClasses("a26-modal", isContained ? "a26-modal--contained" : "", className)}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={description ? descriptionId : undefined}
         data-a26-floating="true"
+        data-a26-layout={isContained ? "contained" : "scrollable"}
       >
         <header className="a26-modal__header">
           <div>

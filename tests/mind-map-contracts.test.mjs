@@ -113,7 +113,7 @@ test("estrutura editável oferece editor ampliado sem redimensionar o canvas", (
   assert.match(pageSource, /className="mindmap-editor-modal"/);
   assert.match(pageSource, /t\(["']mindMap\.applyAndRender["']/);
   assert.match(cssSource, /\.a26-modal\.mindmap-editor-modal\s*\{[\s\S]*?width:\s*min\(58rem, calc\(100vw - 2rem\)\)/);
-  assert.match(cssSource, /\.mindmap-expanded-editor textarea\.a26-field__control\s*\{[\s\S]*?min-height:\s*clamp\(20rem, 52dvh, 34rem\)/);
+  assert.match(cssSource, /\.mindmap-expanded-editor textarea\.a26-field__control\s*\{[\s\S]*?overflow-y:\s*auto/);
 });
 
 test("modal mantém o editor focado durante alterações sucessivas", () => {
