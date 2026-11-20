@@ -197,6 +197,7 @@ function checkIpBurstGuard(ip: string, maxReqs = 60, windowMs = 60_000): { allow
 // =========================================================================
 
 export const ANATOMICAL_SYNONYM_MAP: Record<string, string[]> = {
+  // Preservado da P0.18.A para 100% de retrocompatibilidade
   "arteria gonadal": ["artéria testicular", "artéria ovárica", "artérias testiculares", "artérias ováricas", "artéria gonadal"],
   "arterias gonadais": ["artéria testicular", "artéria ovárica", "artérias testiculares", "artérias ováricas", "artérias gonadais"],
   "arteria testicular": ["artérias gonadais", "artéria testicular", "artéria ovárica", "vasos testiculares"],
@@ -206,18 +207,78 @@ export const ANATOMICAL_SYNONYM_MAP: Record<string, string[]> = {
   "arterias testiculares e ovaricas": ["artérias gonadais", "artéria testicular", "artéria ovárica"],
   "plexo braquial": ["plexo braquial", "plexus brachialis", "troncos do plexo braquial", "fascículos do plexo braquial"],
   "poligono de willis": ["círculo arterial do cérebro", "polígono de willis", "circulus arteriosus cerebri"],
-  "circulo arterial do cerebro": ["círculo arterial do cérebro", "polígono de willis"],
+  "circulo arterial do cerebro": ["círculo arterial do cérebro", "polígono de willis", "circulus arteriosus cerebri"],
+  "circulus arteriosus cerebri": ["círculo arterial do cérebro", "circulus arteriosus cerebri", "polígono de willis"],
+  "circulus arteriosus": ["círculo arterial do cérebro", "circulus arteriosus cerebri", "polígono de willis"],
   "arteria carotida interna": ["carótida interna", "artéria carótida interna", "sifão carotídeo"],
   "arteria carotida comum": ["carótida comum", "artéria carótida comum", "bifurcação carotídea"],
-  "arteria subclavia": ["artéria subclávia", "tronco tireocervical"],
+  "arteria carotida": ["artéria carótida", "arteria carotida", "bifurcação carotídea"],
+  "arteria subclavia": ["artéria subclávia", "tronco tireocervical", "arteria subclavia"],
   "arteria vertebral": ["artéria vertebral", "artéria basilar"],
+  "arteria femoral": ["artéria femoral", "arteria femoral", "trígono femoral"],
+  "arteria aorta": ["artéria aorta", "aorta", "arco aórtico"],
+  "veia cava": ["veia cava", "vena cava"],
+
+  // Neuroanatomia
   "nervo vago": ["nervo vago", "décimo par craniano", "nervus vagus", "nc x"],
-  "nervo frenico": ["nervo frênico", "inervação diafragma"],
+  "nervus vagus": ["nervo vago", "nervus vagus", "nc x"],
+  "nervo frenico": ["nervo frênico", "nervus phrenicus", "inervação diafragma"],
+  "nervus phrenicus": ["nervo frênico", "nervus phrenicus"],
   "nervo isquiatico": ["nervo isquiático", "nervo ciático", "nervus ischiadicus"],
   "nervo ciatico": ["nervo isquiático", "nervo ciático", "nervus ischiadicus"],
+  "nervus ischiadicus": ["nervo isquiático", "nervo ciático", "nervus ischiadicus"],
   "nervo mediano": ["nervo mediano", "nervus medianus", "túnel do carpo"],
+  "nervus medianus": ["nervo mediano", "nervus medianus", "túnel do carpo"],
+  "nervo radial": ["nervo radial", "nervus radialis"],
+  "nervus radialis": ["nervo radial", "nervus radialis"],
+  "nervo ulnar": ["nervo ulnar", "nervus ulnaris", "nervio cubital"],
+  "nervus ulnaris": ["nervo ulnar", "nervus ulnaris"],
+
+  // Miologia
+  "biceps braquial": ["bíceps braquial", "músculo bíceps braquial", "musculus biceps brachii"],
+  "musculo biceps braquial": ["bíceps braquial", "músculo bíceps braquial", "musculus biceps brachii"],
+  "musculus biceps brachii": ["bíceps braquial", "músculo bíceps braquial", "musculus biceps brachii"],
+  "triceps braquial": ["tríceps braquial", "músculo tríceps braquial", "triceps brachii"],
+  "trapezio": ["músculo trapézio", "trapézio", "trapezius"],
+  "musculo trapezio": ["músculo trapézio", "trapézio", "trapezius"],
+  "deltoide": ["músculo deltoide", "deltoide", "deltoideus"],
+  "musculo deltoide": ["músculo deltoide", "deltoide", "deltoideus"],
+  "peitoral maior": ["músculo peitoral maior", "peitoral maior", "pectoral mayor", "pectoralis major"],
+  "pectoral mayor": ["músculo peitoral maior", "peitoral maior", "pectoral mayor", "pectoralis major"],
+  "quadriceps": ["músculo quadríceps femoral", "quadríceps femoral", "quadriceps femoris"],
+
+  // Osteologia
+  "escapula": ["escápula", "omóplato", "omoplata", "scapula"],
+  "omoplata": ["escápula", "omóplato", "scapula"],
+  "clavicula": ["clavícula", "clavicula"],
+  "umero": ["úmero", "humerus"],
+  "femur": ["fêmur", "femur"],
+  "tibia": ["tíbia", "tibia"],
+  "fibula": ["fíbula", "perônio", "fibula"],
+  "cranio": ["crânio", "cranium", "calvária"],
+
+  // Órgãos & Vísceras
+  "figado": ["fígado", "hígado", "hepar"],
+  "estomago": ["estômago", "estómago", "gaster"],
+  "rim": ["rim", "rins", "riñón", "ren"],
+  "rins": ["rim", "rins", "riñones", "renes"],
+  "pulmao": ["pulmão", "pulmões", "pulmón", "pulmo"],
+  "tireoide": ["glândula tireoide", "tireoide", "tiroides", "glandula thyroidea"],
+  "glandula tireoide": ["glândula tireoide", "tireoide", "tiroides"],
   "ducto coledoco": ["ducto colédoco", "via biliar principal", "ductus choledochus"],
-  "feixe vasculonervoso": ["feixe neurovascular", "bainha carotídea", "feixe vasculonervoso"]
+  "feixe vasculonervoso": ["feixe neurovascular", "bainha carotídea", "feixe vasculonervoso"],
+
+  // Topografia & Estruturas Clínicas
+  "tunel do carpo": ["túnel do carpo", "nervo mediano", "retináculo dos flexores", "canal carpiano"],
+  "sindrome do tunel do carpo": ["túnel do carpo", "nervo mediano", "retináculo dos flexores"],
+  "fossa cubital": ["fossa cubital", "fossa antecubital"],
+  "fossa antecubital": ["fossa cubital", "fossa antecubital"],
+  "trigono femoral": ["trígono femoral", "triângulo de scarpa", "fossa oval"],
+  "triangulo de scarpa": ["trígono femoral", "triângulo de scarpa"],
+  "bainha dos retos": ["bainha dos músculos retos", "bainha do reto do abdome", "linha arqueada"],
+  "linha arqueada": ["bainha dos músculos retos", "linha arqueada", "linha alba"],
+  "ligamento inguinal": ["ligamento inguinal", "ligamentum inguinale"],
+  "ligamentum inguinale": ["ligamento inguinal", "ligamentum inguinale"]
 };
 
 export function normalizeAnatomicalKey(text: string): string {
@@ -232,21 +293,103 @@ export function normalizeAnatomicalKey(text: string): string {
 
 export function extractSearchTerms(prompt: string): string[] {
   const stopwords = new Set([
+    // Português
     "explique", "explica", "fale", "falar", "sobre", "quais", "qual", "quem", "como", "onde", "quando",
     "por", "que", "porque", "para", "com", "sem", "uma", "um", "umas", "uns", "dos", "das", "do", "da",
     "de", "em", "no", "na", "nos", "nas", "ao", "aos", "a", "o", "os", "as", "e", "ou", "se", "me", "diga",
     "mostre", "descreva", "detalhe", "apresente", "resuma", "sintetize", "ola", "oi", "bom", "dia", "boa", "tarde", "noite",
     "segundo", "atlas", "aeternum", "por favor", "base", "fontes", "variacoes", "variações", "anatomicas", "anatômicas",
     "documentadas", "pontos", "pulso", "correlacoes", "correlações", "cirurgico", "cirúrgico", "hemodinamicas", "hemodinâmicas",
-    "gerar", "flashcards", "cartoes", "cartões", "nivel", "nível", "facil", "fácil", "medio", "médio", "dificil", "difícil"
+    "gerar", "flashcards", "cartoes", "cartões", "nivel", "nível", "facil", "fácil", "medio", "médio", "dificil", "difícil",
+    "funcao", "funções", "estrutura", "estruturas", "relacao", "relações", "sao", "são",
+    // Espanhol
+    "cuales", "cual", "como", "donde", "cuando", "porque",
+    "las", "los", "del", "uno", "este", "esta", "describa", "hable", "segun", "entre", "hacia",
+    "desde", "sus", "acerca", "funciones", "inserciones", "insercion"
   ]);
-  return prompt
+  return String(prompt || "")
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9\s]/g, " ")
     .split(/\s+/)
-    .filter(t => t.length > 2 && !stopwords.has(t));
+    .filter((t) => t.length > 2 && !stopwords.has(t));
+}
+
+function matchAnatomicalWord(normText: string, key: string): boolean {
+  const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const regex = new RegExp(`(?:^|\\s)${escaped}(?:\\s|$)`);
+  return regex.test(normText);
+}
+
+export function extractAnatomicalEntities(text: string): Array<{ key: string; primary: string; synonyms: string[] }> {
+  const norm = normalizeAnatomicalKey(text);
+  const matched: Array<{ key: string; primary: string; synonyms: string[] }> = [];
+
+  for (const [key, synList] of Object.entries(ANATOMICAL_SYNONYM_MAP)) {
+    if (matchAnatomicalWord(norm, key)) {
+      matched.push({
+        key,
+        primary: synList[0],
+        synonyms: synList
+      });
+    }
+  }
+
+  const prefixRegex = /\b(musculo|arteria|veia|nervo|ducto|ligamento|osso|articulacao|trigono|fossa|bainha)\s+([a-z]+(?:\s+[a-z]+)?)\b/g;
+  let match: RegExpExecArray | null;
+  while ((match = prefixRegex.exec(norm)) !== null) {
+    const fullPhrase = `${match[1]} ${match[2]}`.trim();
+    if (!matched.some((e) => e.key === fullPhrase || e.key.includes(match[2]))) {
+      matched.push({
+        key: fullPhrase,
+        primary: fullPhrase,
+        synonyms: [fullPhrase]
+      });
+    }
+  }
+
+  matched.sort((a, b) => b.key.length - a.key.length);
+  return matched;
+}
+
+export function buildCalibratedSearchQueries(prompt: string, scientificTopic = "", targetEntities: string[] = []): string[] {
+  const queries: string[] = [];
+  const combinedText = `${scientificTopic} ${prompt}`.trim();
+  const entities = extractAnatomicalEntities(combinedText);
+  const terms = extractSearchTerms(combinedText);
+
+  if (entities.length > 0) {
+    for (const ent of entities.slice(0, 2)) {
+      const entWords = new Set(ent.key.split(/\s+/));
+      const modifiers = terms.filter((t) => !entWords.has(t)).slice(0, 2);
+
+      if (modifiers.length > 0) {
+        queries.push(`${ent.primary} ${modifiers.join(" ")}`);
+      }
+      queries.push(ent.primary);
+      if (ent.synonyms.length > 1 && ent.synonyms[1] !== ent.primary) {
+        queries.push(ent.synonyms[1]);
+      }
+    }
+  } else {
+    if (terms.length >= 2) {
+      queries.push(terms.slice(0, 3).join(" "));
+    } else if (terms.length === 1) {
+      queries.push(terms[0]);
+    }
+  }
+
+  if (Array.isArray(targetEntities)) {
+    for (const ent of targetEntities) {
+      const cleanEnt = String(ent || "").trim();
+      if (cleanEnt && !queries.includes(cleanEnt)) {
+        queries.push(cleanEnt);
+      }
+    }
+  }
+
+  return Array.from(new Set(queries.map((q) => q.trim()).filter((q) => q.length > 2))).slice(0, 5);
 }
 
 export function decomposeTopic(rawTopic: string): {
@@ -276,7 +419,7 @@ export function decomposeTopic(rawTopic: string): {
 
   const normKey = normalizeAnatomicalKey(nuclearTopic);
   for (const [key, synList] of Object.entries(ANATOMICAL_SYNONYM_MAP)) {
-    if (normKey.includes(key) || key.includes(normKey)) {
+    if (matchAnatomicalWord(normKey, key) || (normKey.length > 3 && key.includes(normKey))) {
       for (const syn of synList) {
         if (!queries.includes(syn)) queries.push(syn);
       }
@@ -297,6 +440,13 @@ export function decomposeTopic(rawTopic: string): {
     }
   }
 
+  if (queries.length === 0) {
+    const calibrated = buildCalibratedSearchQueries(clean, nuclearTopic);
+    for (const cq of calibrated) {
+      if (!queries.includes(cq)) queries.push(cq);
+    }
+  }
+
   return { nuclearTopic, subtopics, searchQueries: queries };
 }
 
@@ -308,42 +458,8 @@ async function retrieveKnowledge(
   deps: AiTutorDependencies,
   scientificTopic = ""
 ): Promise<{ sources: KnowledgeRow[]; method: string }> {
-  const searchQueries: string[] = [];
-
-  // 1. Topic-first prioritization with robust anatomical decomposition (P0.18.A):
-  if (scientificTopic && scientificTopic.trim()) {
-    const decomp = decomposeTopic(scientificTopic);
-    for (const q of decomp.searchQueries) {
-      if (!searchQueries.includes(q)) searchQueries.push(q);
-    }
-  }
-
-  // 2. Prompt nuclear extraction:
-  const promptDecomp = decomposeTopic(prompt);
-  if (promptDecomp.nuclearTopic && !searchQueries.includes(promptDecomp.nuclearTopic) && promptDecomp.nuclearTopic.length <= 80) {
-    searchQueries.push(promptDecomp.nuclearTopic);
-  }
-  for (const q of promptDecomp.searchQueries) {
-    if (!searchQueries.includes(q) && searchQueries.length < 8) {
-      searchQueries.push(q);
-    }
-  }
-
-  const terms = extractSearchTerms(prompt);
-  if (terms.length > 0 && terms.length <= 3) {
-    const joined = terms.join(" ");
-    if (!searchQueries.includes(joined)) searchQueries.push(joined);
-  }
-
-  // Target entities if specified
-  if (Array.isArray(targetEntities)) {
-    for (const ent of targetEntities) {
-      const cleanEnt = String(ent || "").trim();
-      if (cleanEnt && !searchQueries.includes(cleanEnt)) {
-        searchQueries.push(cleanEnt);
-      }
-    }
-  }
+  // Use Calibrated Multi-Stage Search Query Generator (P0.19-B)
+  const searchQueries = buildCalibratedSearchQueries(prompt, scientificTopic, targetEntities);
 
   const deduplicatedChunks = new Map<string, KnowledgeRow>();
   let primaryMethod = "none";
