@@ -269,6 +269,8 @@ export const ANATOMICAL_SYNONYM_MAP: Record<string, string[]> = {
   "feixe vasculonervoso": ["feixe neurovascular", "bainha carotídea", "feixe vasculonervoso"],
 
   // Topografia & Estruturas Clínicas
+  "trigono carotico": ["trígono carotídeo", "trígono carótico", "trigonum caroticum", "bainha carotídea"],
+  "trigono carotideo": ["trígono carotídeo", "trígono carótico", "trigonum caroticum", "bainha carotídea"],
   "tunel do carpo": ["túnel do carpo", "nervo mediano", "retináculo dos flexores", "canal carpiano"],
   "sindrome do tunel do carpo": ["túnel do carpo", "nervo mediano", "retináculo dos flexores"],
   "fossa cubital": ["fossa cubital", "fossa antecubital"],
@@ -278,7 +280,32 @@ export const ANATOMICAL_SYNONYM_MAP: Record<string, string[]> = {
   "bainha dos retos": ["bainha dos músculos retos", "bainha do reto do abdome", "linha arqueada"],
   "linha arqueada": ["bainha dos músculos retos", "linha arqueada", "linha alba"],
   "ligamento inguinal": ["ligamento inguinal", "ligamentum inguinale"],
-  "ligamentum inguinale": ["ligamento inguinal", "ligamentum inguinale"]
+  "ligamentum inguinale": ["ligamento inguinal", "ligamentum inguinale"],
+  "trigono de hesselbach": ["trígono inguinal", "trígono de hesselbach", "fóvea inguinal medial"],
+  "trigono inguinal": ["trígono inguinal", "trígono de hesselbach", "fóvea inguinal medial"],
+  "forame omental": ["forame omental", "forame epiploico", "forame de winslow", "hiato de winslow"],
+  "forame de winslow": ["forame omental", "forame de winslow", "foramen omentale"],
+  "trigono de calot": ["trígono de calot", "trígono cisto-hepático", "trígono hepatobiliar"],
+  "trigono cisto-hepatico": ["trígono de calot", "trígono cisto-hepático", "trígono hepatobiliar"],
+  "ducto toracico": ["ducto torácico", "cisterna do quilo", "ductus thoracicus"],
+  "cisterna do quilo": ["cisterna do quilo", "ducto torácico", "cisterna chyli"],
+  "arteria lusoria": ["artéria subclávia direita aberrante", "arteria lusoria", "arco aórtico"],
+  "rim em ferradura": ["rim em ferradura", "rins em ferradura", "fusão renal"],
+  "diverticulo de meckel": ["divertículo de meckel", "ducto onfalomesentérico", "ducto vitelino"],
+  "arteria coronaria": ["artéria coronária", "coronária esquerda", "coronária direita", "interventricular anterior"],
+  "arteria coronaria esquerda": ["artéria coronária esquerda", "ramo interventricular anterior", "ramo circunflexo"],
+  "arteria coronaria direita": ["artéria coronária direita", "ramo interventricular posterior", "ramo marginal direito"],
+  "manguito rotador": ["manguito rotador", "supraespinal", "infraespinal", "subescapular", "redondo menor"],
+  "pata de ganso": ["pata de ganso", "pes anserinus", "sartório", "grácil", "semitendíneo"],
+  "pes anserinus": ["pata de ganso", "pes anserinus", "sartório", "grácil", "semitendíneo"],
+  "esfenoide": ["osso esfenoide", "sela túrcica", "asa maior do esfenoide"],
+  "osso esfenoide": ["osso esfenoide", "sela túrcica", "asa maior do esfenoide"],
+  "temporal": ["osso temporal", "porção petrosa", "processo mastoide"],
+  "osso temporal": ["osso temporal", "porção petrosa", "processo mastoide"],
+  "etmoide": ["osso etmoide", "lâmina crivosa", "crista galli"],
+  "osso etmoide": ["osso etmoide", "lâmina crivosa", "crista galli"],
+  "atlas": ["vértebra atlas", "primeira vértebra cervical", "c1"],
+  "axis": ["vértebra áxis", "dente do áxis", "processo odontoide", "c2"]
 };
 
 export function normalizeAnatomicalKey(text: string): string {

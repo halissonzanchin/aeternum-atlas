@@ -12,20 +12,6 @@ import { loadLocalCloudEnv } from "../../../src/providers/cloud/localSecretLoade
 
 loadLocalCloudEnv();
 
-import { AeternumAIGateway } from "../../../src/gateway/index.ts";
-import { ProviderRouter } from "../../../src/providers/router/index.ts";
-import {
-  OllamaLLMProvider,
-  SpeachesSTTProvider,
-  SpeachesTTSProvider,
-  GeminiLLMProvider,
-  DeepgramSTTProvider,
-  CartesiaTTSProvider
-} from "../../../src/providers/index.ts";
-import { loadLocalCloudEnv } from "../../../src/providers/cloud/localSecretLoader.ts";
-
-loadLocalCloudEnv();
-
 const gatewayMode = (process.env.AETERNUM_AI_GATEWAY_MODE || "local_first").toLowerCase();
 
 const routerConfig = gatewayMode === "cloud_only"
