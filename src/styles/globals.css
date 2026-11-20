@@ -1400,9 +1400,7 @@ button {
   justify-content: space-between;
   gap: 1rem;
   padding: 0.9rem 1.4rem;
-  background: rgba(14, 28, 34, 0.95);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(14, 28, 34, 0.98);
 }
 
 .theory-quiz-commandbar p,
