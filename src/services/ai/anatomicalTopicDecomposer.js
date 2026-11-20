@@ -125,8 +125,10 @@ export function extractSearchTerms(prompt) {
     .filter((t) => t.length > 2 && !stopwords.has(t));
 }
 
-function matchAnatomicalWord(normText, key) {
-  const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function matchAnatomicalWord(text, key) {
+  const normText = normalizeAnatomicalKey(text);
+  const normKey = normalizeAnatomicalKey(key);
+  const escaped = normKey.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const regex = new RegExp(`(?:^|\\s)${escaped}(?:\\s|$)`);
   return regex.test(normText);
 }

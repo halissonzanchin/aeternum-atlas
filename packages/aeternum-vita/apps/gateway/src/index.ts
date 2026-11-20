@@ -42,7 +42,7 @@ const routerConfig = gatewayMode === "cloud_only"
     }
   : {
       llm: {
-        primary: new OllamaLLMProvider({ modelId: "qwen2.5:3b" }),
+        primary: new OllamaLLMProvider({ modelId: process.env.AETERNUM_LOCAL_MODEL || "qwen3.5:4b" }),
         fallback: new GeminiLLMProvider({ modelId: "gemini-3.7-flash" })
       },
       stt: {

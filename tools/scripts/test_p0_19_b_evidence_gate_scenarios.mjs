@@ -1,7 +1,7 @@
 import { getMgmtToken } from "./supabase_admin_helper.mjs";
 import { buildCalibratedSearchQueries } from "./calibrated_retrieval.mjs";
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+// Strict TLS using Windows System Root CA store
 
 // Exact replica of evaluateEvidenceSufficiency from supabase/functions/ai-tutor/index.ts
 function evaluateEvidenceSufficiency(sources, canonicalFacts = [], graphPrompt = "") {

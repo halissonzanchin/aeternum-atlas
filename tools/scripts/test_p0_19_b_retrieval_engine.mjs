@@ -1,6 +1,6 @@
 import { getMgmtToken } from "./supabase_admin_helper.mjs";
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+// Strict TLS using Windows System Root CA store
 
 // --- Enhanced Ontology & Term Extraction ---
 export const ENHANCED_ANATOMICAL_SYNONYM_MAP = {

@@ -1,7 +1,7 @@
 import { getMgmtToken } from "./supabase_admin_helper.mjs";
 import fs from "fs";
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+// Strict TLS using Windows System Root CA store
 
 // --- LEGACY EXTRACTION FUNCTIONS (Exact copy from supabase/functions/ai-tutor/index.ts) ---
 function legacyExtractSearchTerms(prompt) {

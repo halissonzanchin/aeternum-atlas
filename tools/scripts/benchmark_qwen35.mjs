@@ -1,6 +1,6 @@
 import { execSync } from "child_process";
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+// Strict TLS using Windows System Root CA store
 
 async function benchmarkModel(modelName) {
   console.log(`\n=== BENCHMARKING MODEL: ${modelName} ===`);
