@@ -6,12 +6,12 @@ const shellCss = await readFile(new URL("../src/styles/A26Shell.css", import.met
 const appLayout = await readFile(new URL("../src/components/Layout/AppLayout.jsx", import.meta.url), "utf8");
 const sidebar = await readFile(new URL("../src/components/Sidebar/Sidebar.jsx", import.meta.url), "utf8");
 
-test("P0.18.C — Sidebar exhibits A26.3 curvilinear fluid frosted crystal geometry", () => {
-  // Must have 1.25rem right-side border radius eliminating rigid 90-deg angles
+test("P0.18.C / P0.18.14.A — Sidebar exhibits A26 continuous vertical divider and bottom-right curvilinear geometry", () => {
+  // Must have 1.25rem bottom-right border radius while keeping top-right flush (0 0 1.25rem 0) for seamless topbar union
   assert.match(
     shellCss,
-    /\.a26-shell__sidebar\s*\{[^}]*border-radius:\s*0\s+1\.25rem\s+1\.25rem\s+0;/s,
-    "Sidebar must have curvilinear border-radius (0 1.25rem 1.25rem 0)"
+    /\.a26-shell__sidebar\s*\{[^}]*border-radius:\s*0\s+0\s+1\.25rem\s+0;/s,
+    "Sidebar must have continuous vertical seam border-radius (0 0 1.25rem 0)"
   );
   // Must have lateral ambient glow box-shadow
   assert.match(
@@ -21,12 +21,18 @@ test("P0.18.C — Sidebar exhibits A26.3 curvilinear fluid frosted crystal geome
   );
 });
 
-test("P0.18.C — Topbar canopy exhibits A26.3 curvilinear lower border and optical material variables", () => {
-  // Must have 1.25rem bottom border radius eliminating rigid bottom corners
+test("P0.18.C / P0.18.14.A — Topbar canopy exhibits A26 continuous junction with sidebar and optical material variables", () => {
+  // In desktop, topbar bottom-left corner meets sidebar at a clean 90-degree seam (0 0 1.25rem 0)
   assert.match(
     shellCss,
-    /\.a26-shell__topbar\s*\{[^}]*border-radius:\s*0\s+0\s+1\.25rem\s+1\.25rem;/s,
-    "Topbar must have curvilinear bottom border radius (0 0 1.25rem 1.25rem)"
+    /\.a26-shell__topbar\s*\{[^}]*border-radius:\s*0\s+0\s+1\.25rem\s+0;/s,
+    "Topbar must have seamless junction border-radius in desktop (0 0 1.25rem 0)"
+  );
+  // On mobile viewports, topbar preserves symmetrical lower border curvature
+  assert.match(
+    shellCss,
+    /@media\s*\(max-width:\s*1023px\)[\s\S]*?\.a26-shell__topbar\s*\{[^}]*border-radius:\s*0\s+0\s+1\.25rem\s+1\.25rem;/s,
+    "Topbar must preserve symmetrical bottom border radius on mobile"
   );
   // Must preserve official A26 material variables and shadow
   assert.match(
