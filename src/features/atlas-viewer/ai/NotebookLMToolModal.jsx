@@ -14,6 +14,17 @@ export default function NotebookLMToolModal({
   const [difficulty, setDifficulty] = useState("medium");
   const [customTopic, setCustomTopic] = useState("");
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose?.();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   const toolTitles = {
     report: "📝 Criar Relatório & Guia de Estudo",
     quiz: "🧪 Teste Personalizado (Simulado)",
@@ -54,10 +65,18 @@ export default function NotebookLMToolModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-blackDeep/80 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-xl p-6 bg-surfaceDark/95 border border-glassBorder rounded-2xl shadow-2xl backdrop-blur-xl text-clinicalWhite">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-blackDeep/80 backdrop-blur-md animate-fade-in"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose?.();
+      }}
+    >
+      <div
+        className="relative w-full max-w-xl max-h-[min(88dvh,640px)] flex flex-col p-6 bg-surfaceDark/95 border border-glassBorder rounded-2xl shadow-2xl backdrop-blur-xl text-clinicalWhite overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-glassBorder/40">
+        <div className="flex items-center justify-between pb-4 border-b border-glassBorder/40 flex-shrink-0">
           <div className="flex items-center gap-2">
             <h3 className="text-lg font-bold text-amber-300 font-serif">
               {toolTitles[toolType] || "Ferramenta NotebookLM"}
@@ -73,7 +92,7 @@ export default function NotebookLMToolModal({
         </div>
 
         {/* Form Body */}
-        <div className="mt-4 space-y-4">
+        <div className="mt-4 space-y-4 flex-1 min-h-0 overflow-y-auto pr-1">
           {/* Seleção de Fonte */}
           <div>
             <label className="block text-xs uppercase tracking-wider text-textMuted mb-2">
@@ -207,7 +226,7 @@ export default function NotebookLMToolModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-glassBorder/40">
+        <div className="flex items-center justify-end gap-3 mt-4 pt-4 border-t border-glassBorder/40 flex-shrink-0">
           <button
             type="button"
             onClick={onClose}

@@ -155,14 +155,42 @@ body:has(.a26-shell) #root {
 .upe-ai-panel:not(.upe-ai-panel--positioned) {
   position: fixed !important;
   z-index: 99999 !important;
-  top: 102px !important;
+  top: clamp(68px, 11vh, 102px) !important;
   right: clamp(18px, 2vw, 30px) !important;
-  bottom: 116px !important;
+  bottom: clamp(74px, 12vh, 116px) !important;
   left: auto !important;
   margin: 0 !important;
   transform: none !important;
   width: min(460px, calc(100vw - 36px));
   pointer-events: auto !important;
+}
+
+@media (max-height: 720px) {
+  #upe-ai-panel.upe-ai-panel:not(.upe-ai-panel--positioned),
+  .upe-ai-panel:not(.upe-ai-panel--positioned) {
+    top: 64px !important;
+    bottom: 68px !important;
+  }
+}
+
+@media (max-height: 560px) {
+  #upe-ai-panel.upe-ai-panel:not(.upe-ai-panel--positioned),
+  .upe-ai-panel:not(.upe-ai-panel--positioned) {
+    top: 48px !important;
+    bottom: 48px !important;
+  }
+}
+
+@media (max-width: 720px) {
+  #upe-ai-panel.upe-ai-panel:not(.upe-ai-panel--positioned),
+  .upe-ai-panel:not(.upe-ai-panel--positioned) {
+    top: auto !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 102px !important;
+    width: auto !important;
+    max-height: calc(100dvh - 126px) !important;
+  }
 }
 
 #upe-ai-panel.upe-ai-panel.is-expanded,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import LineIcon from "../../../components/icons/LineIcon";
 import { A26Button } from "../../../components/aeternum-26";
@@ -18,6 +18,18 @@ export default function SocraticClinicalCaseModal({
   const [specialty, setSpecialty] = useState("ortopedia");
   const [difficulty, setDifficulty] = useState("clinico");
   const [useCurrentModel, setUseCurrentModel] = useState(Boolean(currentModelTitle));
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose?.();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen || typeof document === "undefined") return null;
 
@@ -64,7 +76,7 @@ export default function SocraticClinicalCaseModal({
         </div>
 
         {/* Modal Body */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="a26-socratic-modal-body">
           {/* 1. Escolha da Especialidade */}
           <div>
             <span className="a26-socratic-section-title">{t("socraticModal.selectSpecialty")}</span>

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import LineIcon from "../../icons/LineIcon";
 import { useLanguage } from "../../../context/LanguageContext";
 import { A26Button, A26Surface } from "../../aeternum-26";
@@ -5,6 +6,17 @@ import { openAgendaEventInTutor } from "../../../services/agendaTutorContext";
 
 export default function AgendaPopoverModal({ event, onClose, onComplete, onEdit, onDelete, navigate }) {
   const { t } = useLanguage();
+
+  useEffect(() => {
+    if (!event) return;
+    function handleKeyDown(e) {
+      if (e.key === "Escape") {
+        onClose?.();
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [event, onClose]);
 
   if (!event) return null;
 
