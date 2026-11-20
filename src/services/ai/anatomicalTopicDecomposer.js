@@ -150,8 +150,10 @@ export function extractAnatomicalEntities(text) {
   const prefixRegex = /\b(musculo|arteria|veia|nervo|ducto|ligamento|osso|articulacao|trigono|fossa|bainha)\s+([a-z]+(?:\s+[a-z]+)?)\b/g;
   let match;
   while ((match = prefixRegex.exec(norm)) !== null) {
-    const fullPhrase = `${match[1]} ${match[2]}`.trim();
-    if (!matched.some((e) => e.key === fullPhrase || e.key.includes(match[2]))) {
+    const anatomicalPrefix = match[1];
+    const specificTerm = match[2];
+    const fullPhrase = `${anatomicalPrefix} ${specificTerm}`.trim();
+    if (!matched.some((e) => e.key === fullPhrase || e.key.includes(specificTerm))) {
       matched.push({
         key: fullPhrase,
         primary: fullPhrase,
