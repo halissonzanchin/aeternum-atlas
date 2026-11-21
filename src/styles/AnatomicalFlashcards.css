@@ -978,11 +978,35 @@ body:has(.a26-flashcard-player-container) .upe-ai-trigger {
     min-height: 56px !important;
     width: 56px !important;
     height: 56px !important;
-    padding: 6px !important;
-    border-radius: 9999px !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 50% !important;
     justify-content: center !important;
+    align-items: center !important;
     right: 14px !important;
     bottom: 14px !important;
+  }
+  body:has(.a26-flashcards-container) .upe-ai-trigger:hover,
+  body:has(.a26-flashcards-container) .upe-ai-trigger:focus-visible,
+  body:has(.a26-flashcard-player-container) .upe-ai-trigger:hover,
+  body:has(.a26-flashcard-player-container) .upe-ai-trigger:focus-visible {
+    border: none !important;
+    outline: none;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: scale(1.05);
+  }
+  body:has(.a26-flashcards-container) .upe-ai-trigger > .a26-surface__refract,
+  body:has(.a26-flashcards-container) .upe-ai-trigger > .a26-surface__spectrum,
+  body:has(.a26-flashcards-container) .upe-ai-trigger > .a26-surface__specular,
+  body:has(.a26-flashcards-container) .upe-ai-trigger > .a26-surface__grain,
+  body:has(.a26-flashcard-player-container) .upe-ai-trigger > .a26-surface__refract,
+  body:has(.a26-flashcard-player-container) .upe-ai-trigger > .a26-surface__spectrum,
+  body:has(.a26-flashcard-player-container) .upe-ai-trigger > .a26-surface__specular,
+  body:has(.a26-flashcard-player-container) .upe-ai-trigger > .a26-surface__grain {
+    display: none !important;
   }
 }
 

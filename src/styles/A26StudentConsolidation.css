@@ -130,7 +130,7 @@ body:has(.a26-shell) #root {
 
 /* Tutor persistente & Painel Flutuante:
    Garantia estrita de overlay fixo sem deslocar o documento nem criar segunda rolagem. */
-.upe-ai-trigger.a26-surface:not(.is-draggable) {
+.upe-ai-trigger.a26-surface:not(.is-draggable):not(.is-orb-only) {
   position: fixed !important;
   top: auto !important;
   right: clamp(18px, 2vw, 30px) !important;
@@ -140,6 +140,20 @@ body:has(.a26-shell) #root {
   transform: none !important;
   z-index: 99999 !important;
   background: var(--a26-material-regular-bg);
+}
+
+.upe-ai-trigger.a26-surface.is-orb-only:not(.is-draggable) {
+  position: fixed !important;
+  top: auto !important;
+  right: clamp(18px, 2vw, 30px) !important;
+  bottom: clamp(18px, 2vw, 30px) !important;
+  left: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+  z-index: 99999 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .upe-ai-trigger.a26-surface {
