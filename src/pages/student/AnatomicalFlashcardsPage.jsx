@@ -123,7 +123,11 @@ export default function AnatomicalFlashcardsPage({ user }) {
   useEffect(() => {
     return () => {
       if (abortControllerRef.current) {
-        try { abortControllerRef.current.abort(); } catch {}
+        try {
+          abortControllerRef.current.abort();
+        } catch (abortErr) {
+          console.debug("Flashcards abort cleanup notice:", abortErr);
+        }
       }
       if (generationAbortTimerRef.current) {
         clearTimeout(generationAbortTimerRef.current);
@@ -182,7 +186,11 @@ export default function AnatomicalFlashcardsPage({ user }) {
 
     // 1. Abort any previous pending generation
     if (abortControllerRef.current) {
-      try { abortControllerRef.current.abort(); } catch {}
+      try {
+        abortControllerRef.current.abort();
+      } catch (abortErr) {
+        console.debug("Previous flashcard generation abort notice:", abortErr);
+      }
     }
     const currentSeq = ++generationSeqRef.current;
     const controller = new AbortController();
@@ -195,7 +203,11 @@ export default function AnatomicalFlashcardsPage({ user }) {
     const timeoutPromise = new Promise((_, reject) => {
       generationAbortTimerRef.current = setTimeout(() => {
         if (generationSeqRef.current !== currentSeq) return;
-        try { controller.abort(); } catch {}
+        try {
+          controller.abort();
+        } catch (abortErr) {
+          console.debug("Flashcards timeout abort notice:", abortErr);
+        }
         const timeoutMsg = {
           pt: "O serviço de inferência com Qwen 3.5 4B no Gateway local está ocupado ou demorou para responder (limite de 35s). Seus parâmetros foram preservados. Você pode tentar novamente ou utilizar o banco curado.",
           es: "El servicio de inferencia con Qwen 3.5 4B en el Gateway local está ocupado. Sus parámetros fueron preservados. Intente nuevamente o use el banco curado.",
