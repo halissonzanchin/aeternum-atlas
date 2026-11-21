@@ -263,7 +263,8 @@ export function AtlasAITutorSessionProvider({ children, user }) {
   const sendMessage = useCallback(async ({
     text,
     context = {},
-    contextLabel = "Plataforma Aeternum Atlas"
+    contextLabel = "Plataforma Aeternum Atlas",
+    signal = null
   } = {}) => {
     const normalizedText = String(text ?? draftRef.current).trim();
     if (!normalizedText || thinkingRef.current) return null;
@@ -320,7 +321,8 @@ export function AtlasAITutorSessionProvider({ children, user }) {
           mode: "live",
           isStreaming: true
         }),
-        conversationId
+        conversationId,
+        { signal }
       );
 
       if (response.mode === "error") {

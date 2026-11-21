@@ -95,6 +95,8 @@ export default function AnatomicalFlashcardsPage({ user }) {
   const [isDeckSaved, setIsDeckSaved] = useState(false);
   const [scheduledNotice, setScheduledNotice] = useState("");
   const generationAbortTimerRef = useRef(null);
+  const abortControllerRef = useRef(null);
+  const generationSeqRef = useRef(0);
 
   const quickTopicChips = QUICK_TOPIC_CHIPS_BY_LANG[langKey] || QUICK_TOPIC_CHIPS_BY_LANG.pt;
   const currentCard = activeDeck?.cards?.[currentIndex];
@@ -117,9 +119,12 @@ export default function AnatomicalFlashcardsPage({ user }) {
     setSavedDecks(getSavedDecks(userId));
   }, [userId]);
 
-  // Clear abort timer on unmount
+  // Clear abort controller and timer on unmount
   useEffect(() => {
     return () => {
+      if (abortControllerRef.current) {
+        try { abortControllerRef.current.abort(); } catch {}
+      }
       if (generationAbortTimerRef.current) {
         clearTimeout(generationAbortTimerRef.current);
       }
@@ -175,12 +180,22 @@ export default function AnatomicalFlashcardsPage({ user }) {
     setScheduledNotice("");
     setIsConfigDrawerOpen(false);
 
+    // 1. Abort any previous pending generation
+    if (abortControllerRef.current) {
+      try { abortControllerRef.current.abort(); } catch {}
+    }
+    const currentSeq = ++generationSeqRef.current;
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     if (generationAbortTimerRef.current) {
       clearTimeout(generationAbortTimerRef.current);
     }
 
     const timeoutPromise = new Promise((_, reject) => {
       generationAbortTimerRef.current = setTimeout(() => {
+        if (generationSeqRef.current !== currentSeq) return;
+        try { controller.abort(); } catch {}
         const timeoutMsg = {
           pt: "O serviço de inferência com Qwen 3.5 4B no Gateway local está ocupado ou demorou para responder (limite de 35s). Seus parâmetros foram preservados. Você pode tentar novamente ou utilizar o banco curado.",
           es: "El servicio de inferencia con Qwen 3.5 4B en el Gateway local está ocupado. Sus parámetros fueron preservados. Intente nuevamente o use el banco curado.",
@@ -199,10 +214,13 @@ export default function AnatomicalFlashcardsPage({ user }) {
         difficulty,
         cardCount,
         language: langKey,
-        sendTutorMessage: typeof sendMessage === "function" ? sendMessage : null
+        sendTutorMessage: typeof sendMessage === "function" ? sendMessage : null,
+        signal: controller.signal
       });
 
       const generated = await Promise.race([generationPromise, timeoutPromise]);
+      if (generationSeqRef.current !== currentSeq) return;
+
       if (generationAbortTimerRef.current) {
         clearTimeout(generationAbortTimerRef.current);
         generationAbortTimerRef.current = null;
@@ -211,14 +229,17 @@ export default function AnatomicalFlashcardsPage({ user }) {
       setActiveDeck(generated);
       setGenerationNotice(generated.generationNotice || "");
     } catch (err) {
+      if (generationSeqRef.current !== currentSeq) return;
       console.error("Erro ao gerar flashcards:", err);
       setGenerationError(err?.message || "Não foi possível gerar o baralho agora.");
     } finally {
-      if (generationAbortTimerRef.current) {
-        clearTimeout(generationAbortTimerRef.current);
-        generationAbortTimerRef.current = null;
+      if (generationSeqRef.current === currentSeq) {
+        if (generationAbortTimerRef.current) {
+          clearTimeout(generationAbortTimerRef.current);
+          generationAbortTimerRef.current = null;
+        }
+        setIsGenerating(false);
       }
-      setIsGenerating(false);
     }
   }
 
@@ -811,7 +832,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
                   <span className="a26-flashcard-citation">{currentCard.topic}</span>
                 </div>
 
-                <div className="a26-flashcard-body">
+                <div className={`a26-flashcard-body ${(currentCard.front?.length || 0) > 130 || currentCard.front?.includes("\n") ? "is-long-content" : ""}`}>
                   {currentCard.imageUrl && (
                     <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
                   )}
@@ -832,7 +853,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
                   <span className="a26-flashcard-citation">{currentCard.sourceCitation}</span>
                 </div>
 
-                <div className="a26-flashcard-body">
+                <div className={`a26-flashcard-body ${((currentCard.back?.length || 0) + (currentCard.explanation?.length || 0) > 130 || currentCard.back?.includes("\n")) ? "is-long-content" : ""}`}>
                   <p className="a26-flashcard-text a26-flashcard-answer-text">{currentCard.back}</p>
                   {currentCard.explanation ? (
                     <p className="a26-flashcard-explanation">{currentCard.explanation}</p>

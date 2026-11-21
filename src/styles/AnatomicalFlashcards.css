@@ -12,19 +12,19 @@
 
 /* Compact Shell & Container Spacing during Active Flashcard Study */
 .a26-shell__content:has(.a26-flashcard-player-container) {
-  padding: clamp(8px, 1.2vh, 14px) clamp(14px, 2vw, 24px);
-  padding-bottom: clamp(10px, 1.5vh, 18px);
+  padding: 4px clamp(12px, 1.8vw, 20px);
+  padding-bottom: 4px;
 }
 
 .a26-flashcards-container:has(.a26-flashcard-player-container) {
-  gap: clamp(6px, 1vh, 12px);
+  gap: 4px;
   padding-bottom: 0;
 }
 
 /* Compact Feature Shell when Study Player is active */
 .a26-feature-shell:has(.a26-flashcard-player-container) {
-  padding-block: clamp(6px, 1vh, 12px);
-  gap: clamp(6px, 1vh, 10px);
+  padding-block: 2px;
+  gap: 2px;
 }
 
 .a26-feature-shell:has(.a26-flashcard-player-container) .a26-page-header {
@@ -154,9 +154,9 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px 14px;
+  gap: 6px 12px;
   width: 100%;
-  padding: 8px 16px;
+  padding: 5px 14px;
   border-radius: 14px;
   border: 1px solid rgba(92, 232, 223, 0.2);
   background: rgba(2, 18, 22, 0.7);
@@ -275,9 +275,9 @@
 .a26-flashcard-3d-wrapper {
   position: relative;
   width: 100%;
-  height: clamp(195px, 30vh, 260px);
-  min-height: 195px;
-  max-height: 280px;
+  height: clamp(168px, 25vh, 230px);
+  min-height: 168px;
+  max-height: 240px;
   cursor: pointer;
   transform-style: preserve-3d;
   transition: transform 0.52s cubic-bezier(0.2, 0.85, 0.32, 1.15);
@@ -299,8 +299,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: clamp(6px, 1.4vh, 12px);
-  padding: clamp(12px, 2.2vh, 20px) clamp(16px, 2.8vw, 24px);
+  gap: clamp(4px, 1.2vh, 10px);
+  padding: clamp(10px, 1.8vh, 18px) clamp(16px, 2.5vw, 24px);
   border-radius: 20px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -335,11 +335,20 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: clamp(4px, 1.2vh, 10px);
+  gap: clamp(4px, 1vh, 8px);
   width: 100%;
   margin-block: auto;
   overflow-y: auto;
+  max-height: 100%;
   padding-inline: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(92, 232, 223, 0.4) transparent;
+}
+
+.a26-flashcard-body.is-long-content {
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
 }
 
 .a26-flashcard-img {
@@ -354,22 +363,38 @@
 .a26-flashcard-text {
   max-width: 660px;
   margin: 0;
-  font-size: clamp(1.05rem, 2vw, 1.28rem);
+  font-size: clamp(1.02rem, 1.8vw, 1.22rem);
   line-height: 1.35;
   color: var(--a26-color-text-bright, #fff);
   font-weight: 600;
   text-wrap: balance;
+  white-space: pre-line;
+}
+
+.a26-flashcard-body.is-long-content .a26-flashcard-text {
+  text-align: left;
+  font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+  line-height: 1.42;
+  text-wrap: pretty;
 }
 
 .a26-flashcard-answer-text {
   max-width: 660px;
   margin: 0;
-  font-size: clamp(1.1rem, 2.2vw, 1.38rem);
+  font-size: clamp(1.05rem, 2vw, 1.28rem);
   line-height: 1.32;
   color: #5ce8df;
   font-weight: 700;
   text-shadow: 0 0 16px rgba(92, 232, 223, 0.22);
   text-wrap: balance;
+  white-space: pre-line;
+}
+
+.a26-flashcard-body.is-long-content .a26-flashcard-answer-text {
+  text-align: left;
+  font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+  line-height: 1.42;
+  text-wrap: pretty;
 }
 
 .a26-flashcard-explanation {
@@ -378,8 +403,13 @@
   color: var(--a26-color-text-muted);
   font-size: clamp(0.8rem, 1.1vw, 0.88rem);
   line-height: 1.42;
-  max-height: clamp(60px, 10vh, 95px);
-  overflow-y: auto;
+  white-space: pre-line;
+}
+
+.a26-flashcard-body.is-long-content .a26-flashcard-explanation {
+  text-align: left;
+  font-size: clamp(0.82rem, 1.2vw, 0.92rem);
+  line-height: 1.4;
 }
 
 .a26-flashcard-footer {
@@ -470,18 +500,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
-  max-width: 440px;
+  max-width: 390px;
   margin-inline: auto;
-  padding: 4px;
+  padding: 2px;
   z-index: 10;
   flex-shrink: 0;
 }
 
 .a26-anki-controls .a26-button:first-child,
 .a26-anki-controls .a26-button:last-child {
-  min-width: 40px;
+  min-width: 36px;
 }
 
 /* ============================================================

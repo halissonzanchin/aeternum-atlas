@@ -176,7 +176,7 @@ function streamLocalCerebroResponse(message, tutorContext, conversationId) {
 }
 
 export const atlasAITutorService = {
-  async processMessageStream(message, context, onUpdate, conversationId = null) {
+  async processMessageStream(message, context, onUpdate, conversationId = null, options = {}) {
     const tutorContext = buildTutorContext(context, message);
 
     // 1. Verificação de modo offline explícito
@@ -312,7 +312,11 @@ export const atlasAITutorService = {
           'Authorization': `Bearer ${accessToken}`,
           'apikey': supabaseConfig.anonKey
         },
-        signal: AbortSignal.timeout(45000),
+        signal: options?.signal
+          ? (typeof AbortSignal.any === "function"
+              ? AbortSignal.any([options.signal, AbortSignal.timeout(45000)])
+              : options.signal)
+          : AbortSignal.timeout(45000),
         body: JSON.stringify({
           messages: [{ sender: 'user', text: message }],
           context: tutorContext,
@@ -566,9 +570,11 @@ export const atlasAITutorService = {
       let code = "NETWORK_ERROR";
       let messageText = "Falha de conexão com a rede.";
 
-      if (/timeout|aborted/i.test(errStr)) {
-        code = "TIMEOUT";
-        messageText = "Tempo limite de resposta excedido. Tente novamente.";
+      if (/timeout|aborted/i.test(errStr) || error?.name === "AbortError" || options?.signal?.aborted) {
+        code = options?.signal?.aborted ? "REQUEST_ABORTED" : "TIMEOUT";
+        messageText = options?.signal?.aborted
+          ? "Operação cancelada ou substituída por nova requisição."
+          : "Tempo limite de resposta excedido. Tente novamente.";
       } else if (/malformed|syntax|json/i.test(errStr)) {
         code = "MALFORMED_STREAM";
         messageText = "Erro na transmissão da resposta do modelo.";

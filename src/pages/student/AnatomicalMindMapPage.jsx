@@ -150,6 +150,17 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
   const treeBoundsRef = useRef({ minX: 0, maxX: 100, minY: 0, maxY: 100, nodes: [] });
   const userHasPannedOrZoomedRef = useRef(false);
   const isProgrammaticZoomRef = useRef(false);
+  const abortControllerRef = useRef(null);
+  const generationSeqRef = useRef(0);
+
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+        abortControllerRef.current = null;
+      }
+    };
+  }, []);
 
   const fitGraphToViewport = (animated = true, options = {}) => {
     if (!svgRef.current || !gZoomRef.current || !rootDataRef.current || !zoomBehaviorRef.current) return;
@@ -776,35 +787,62 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
 
   const handleGenerateAI = async () => {
     if (!aiPrompt.trim()) return;
+
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+    const currentSeq = ++generationSeqRef.current;
+
     setIsGenerating(true);
     setGenerationError("");
     setGenerationNotice("");
 
     const timeoutPromise = new Promise((_, reject) => {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
+        controller.abort();
         const err = new Error(
           "O serviço de inferência com Qwen 3.5 4B no Gateway local está ocupado ou demorou para responder (limite de 35s). Seus parâmetros foram preservados. Tente novamente."
         );
         err.code = "AI_GATEWAY_TIMEOUT";
         reject(err);
       }, 35000);
+      controller.signal.addEventListener("abort", () => clearTimeout(timer));
     });
 
     try {
       const result = await Promise.race([
         generateAuthenticatedMindMap({
           topic: aiPrompt,
-          sendTutorMessage: sendMessage
+          sendTutorMessage: sendMessage,
+          signal: controller.signal
         }),
         timeoutPromise
       ]);
+
+      if (generationSeqRef.current !== currentSeq) {
+        return;
+      }
+
       setOutlineText(result.outline);
       setGenerationNotice("Mapa gerado pelo Tutor IA e vinculado ao seu histórico autenticado.");
       setSidebarTab("structure");
     } catch (error) {
+      if (generationSeqRef.current !== currentSeq) {
+        return;
+      }
+      if (error?.name === "AbortError" || controller.signal.aborted) {
+        if (error?.code !== "AI_GATEWAY_TIMEOUT") {
+          return;
+        }
+      }
       setGenerationError(error?.message || "Não foi possível gerar o mapa com o Tutor IA.");
     } finally {
-      setIsGenerating(false);
+      if (generationSeqRef.current === currentSeq) {
+        setIsGenerating(false);
+        abortControllerRef.current = null;
+      }
     }
   };
 
