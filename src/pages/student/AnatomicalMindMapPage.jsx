@@ -780,11 +780,24 @@ export default function AnatomicalMindMapPage({ user, navigate }) {
     setGenerationError("");
     setGenerationNotice("");
 
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => {
+        const err = new Error(
+          "O serviço de inferência com Qwen 3.5 4B no Gateway local está ocupado ou demorou para responder (limite de 35s). Seus parâmetros foram preservados. Tente novamente."
+        );
+        err.code = "AI_GATEWAY_TIMEOUT";
+        reject(err);
+      }, 35000);
+    });
+
     try {
-      const result = await generateAuthenticatedMindMap({
-        topic: aiPrompt,
-        sendTutorMessage: sendMessage
-      });
+      const result = await Promise.race([
+        generateAuthenticatedMindMap({
+          topic: aiPrompt,
+          sendTutorMessage: sendMessage
+        }),
+        timeoutPromise
+      ]);
       setOutlineText(result.outline);
       setGenerationNotice("Mapa gerado pelo Tutor IA e vinculado ao seu histórico autenticado.");
       setSidebarTab("structure");

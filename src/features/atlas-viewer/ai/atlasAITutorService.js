@@ -312,6 +312,7 @@ export const atlasAITutorService = {
           'Authorization': `Bearer ${accessToken}`,
           'apikey': supabaseConfig.anonKey
         },
+        signal: AbortSignal.timeout(45000),
         body: JSON.stringify({
           messages: [{ sender: 'user', text: message }],
           context: tutorContext,

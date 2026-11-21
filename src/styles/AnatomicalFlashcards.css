@@ -1,28 +1,50 @@
-/* Flashcards Anatômicos — Aeternum 26.1 */
+/* Flashcards Anatômicos — Aeternum 26.1 Liquid Glass */
 
 .a26-flashcards-container {
   display: flex;
   flex-direction: column;
-  gap: clamp(18px, 2.2vw, 28px);
+  gap: clamp(10px, 1.4vh, 18px);
   width: min(100%, 1280px);
   margin-inline: auto;
-  padding-bottom: clamp(120px, 16vh, 160px);
+  padding-bottom: clamp(60px, 10vh, 90px);
   color: var(--a26-color-text);
+}
+
+/* Compact Shell & Container Spacing during Active Flashcard Study */
+.a26-shell__content:has(.a26-flashcard-player-container) {
+  padding: clamp(8px, 1.2vh, 14px) clamp(14px, 2vw, 24px);
+  padding-bottom: clamp(10px, 1.5vh, 18px);
+}
+
+.a26-flashcards-container:has(.a26-flashcard-player-container) {
+  gap: clamp(6px, 1vh, 12px);
+  padding-bottom: 0;
+}
+
+/* Compact Feature Shell when Study Player is active */
+.a26-feature-shell:has(.a26-flashcard-player-container) {
+  padding-block: clamp(6px, 1vh, 12px);
+  gap: clamp(6px, 1vh, 10px);
+}
+
+.a26-feature-shell:has(.a26-flashcard-player-container) .a26-page-header {
+  padding: 0;
+  margin-bottom: 0;
 }
 
 .a26-flashcards-hero {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  padding: clamp(22px, 3vw, 36px);
-  min-height: 136px;
+  gap: 20px;
+  padding: clamp(18px, 2.5vw, 30px);
+  min-height: 100px;
 }
 
 .a26-flashcards-hero h1 {
-  margin: 6px 0 4px;
+  margin: 4px 0 2px;
   font-family: var(--a26-font-display, Georgia, serif);
-  font-size: var(--a26-text-display-size, clamp(1.625rem, 2.2vw, 1.875rem));
+  font-size: var(--a26-text-display-size, clamp(1.4rem, 2vw, 1.75rem));
   line-height: var(--a26-text-display-line-height, 1.15);
   font-weight: 700;
   color: var(--a26-color-gold-soft, #dfc57f);
@@ -31,13 +53,18 @@
 
 .a26-flashcards-hero p {
   max-width: 780px;
-  line-height: 1.55;
+  line-height: 1.5;
+  font-size: 0.92rem;
 }
+
+/* ============================================================
+   GENERATOR CONFIG SURFACE (NotebookLM Pattern)
+   ============================================================ */
 
 .a26-generator-surface {
   display: grid;
-  gap: 24px;
-  padding: clamp(22px, 3vw, 34px);
+  gap: 18px;
+  padding: clamp(18px, 2.5vw, 30px);
 }
 
 .a26-flashcard-trustline {
@@ -46,7 +73,7 @@
   flex-wrap: wrap;
   gap: 8px 12px;
   color: var(--a26-color-text-muted);
-  font-size: .78rem;
+  font-size: 0.78rem;
 }
 
 .a26-flashcard-trustline strong {
@@ -58,19 +85,19 @@
   height: 8px;
   border-radius: 50%;
   background: #d5b765;
-  box-shadow: 0 0 14px rgba(213, 183, 101, .55);
+  box-shadow: 0 0 14px rgba(213, 183, 101, 0.55);
 }
 
 .a26-flashcard-status-dot.is-online {
   background: #5ce8df;
-  box-shadow: 0 0 14px rgba(92, 232, 223, .62);
+  box-shadow: 0 0 14px rgba(92, 232, 223, 0.62);
 }
 
 .a26-chips-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding-right: clamp(120px, 22vw, 320px);
+  padding-right: clamp(20px, 15vw, 240px);
 }
 
 .a26-generator-actions {
@@ -78,30 +105,35 @@
   align-items: center;
   justify-content: flex-start;
   gap: 12px;
-  padding-top: 8px;
-  padding-right: clamp(120px, 22vw, 320px);
+  padding-top: 6px;
+  padding-right: clamp(20px, 15vw, 240px);
 }
 
 .a26-quick-chip.a26-button {
-  min-height: 38px;
-  padding: 7px 13px;
-  font-size: .8rem;
+  min-height: 36px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
 }
 
 .a26-generation-message {
   margin: 0;
-  padding: 11px 14px;
-  border-inline-start: 2px solid rgba(92, 232, 223, .7);
+  padding: 10px 14px;
+  border-inline-start: 2px solid rgba(92, 232, 223, 0.7);
   color: var(--a26-color-text-muted);
-  background: rgba(92, 232, 223, .045);
-  font-size: .8rem;
+  background: rgba(92, 232, 223, 0.045);
+  font-size: 0.8rem;
   line-height: 1.5;
+  border-radius: 0 8px 8px 0;
 }
 
 .a26-generation-message.is-error {
-  border-color: rgba(251, 113, 133, .8);
+  border-color: rgba(251, 113, 133, 0.8);
   color: #fda4af;
-  background: rgba(244, 63, 94, .06);
+  background: rgba(244, 63, 94, 0.06);
+}
+
+.a26-generation-error-box {
+  border-radius: 14px;
 }
 
 .a26-saved-deck {
@@ -109,49 +141,152 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px;
+  padding: 12px 14px;
   cursor: pointer;
 }
+
+/* ============================================================
+   ACTIVE DECK COMPACT BAR & PARAMETERS DRAWER
+   ============================================================ */
+
+.a26-flashcard-active-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(92, 232, 223, 0.2);
+  background: rgba(2, 18, 22, 0.7);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.a26-deck-status-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.a26-deck-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.a26-deck-chip--difficulty {
+  background: rgba(213, 183, 101, 0.15);
+  border: 1px solid rgba(213, 183, 101, 0.4);
+  color: #dfc57f;
+}
+
+.a26-deck-chip--mode {
+  background: rgba(92, 232, 223, 0.12);
+  border: 1px solid rgba(92, 232, 223, 0.35);
+  color: #5ce8df;
+}
+
+.a26-deck-source-tag {
+  font-size: 0.7rem;
+  color: var(--a26-color-text-muted);
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.a26-deck-status-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.a26-deck-counter-label {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 0.76rem;
+  color: var(--a26-color-text-muted);
+}
+
+.a26-deck-counter-label strong {
+  font-size: 0.92rem;
+  color: #5ce8df;
+  font-family: monospace;
+}
+
+.a26-deck-progress-track {
+  position: relative;
+  width: 120px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(92, 232, 223, 0.15);
+}
+
+.a26-deck-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #5ce8df, #d5b765);
+  border-radius: 999px;
+  transition: width 0.35s cubic-bezier(0.2, 0.85, 0.32, 1.2);
+}
+
+.a26-deck-config-drawer {
+  border-radius: 16px;
+  border: 1px solid rgba(92, 232, 223, 0.22);
+  background: rgba(3, 24, 28, 0.85);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4);
+  animation: a26-drawer-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes a26-drawer-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   FLASHCARD PLAYER & UNIFIED 3D STAGE (In-Place Flip)
+   ============================================================ */
 
 .a26-flashcard-player-container {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  width: min(100%, 860px);
+  align-items: center;
+  justify-content: center;
+  gap: clamp(4px, 0.9vh, 10px);
+  width: min(100%, 640px);
   margin-inline: auto;
 }
 
-.a26-player-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
+.a26-flashcard-stage {
+  position: relative;
   width: 100%;
-  padding: 14px 20px;
-  border-radius: 20px;
-}
-
-.a26-player-meta h2 {
-  margin: 0;
-  font-size: clamp(0.95rem, 2vw, 1.15rem);
-  color: var(--a26-color-gold-soft, #dfc57f);
-  word-break: break-word;
-  line-height: 1.35;
+  perspective: 1200px;
 }
 
 .a26-flashcard-3d-wrapper {
   position: relative;
   width: 100%;
-  min-height: 430px;
+  height: clamp(195px, 30vh, 260px);
+  min-height: 195px;
+  max-height: 280px;
   cursor: pointer;
   transform-style: preserve-3d;
-  transition: transform .58s cubic-bezier(.16, 1, .3, 1);
+  transition: transform 0.52s cubic-bezier(0.2, 0.85, 0.32, 1.15);
   outline: none;
 }
 
 .a26-flashcard-3d-wrapper:focus-visible {
-  border-radius: 26px;
-  box-shadow: 0 0 0 3px rgba(92, 232, 223, .3);
+  border-radius: 20px;
+  box-shadow: 0 0 0 3px rgba(92, 232, 223, 0.35);
 }
 
 .a26-flashcard-3d-wrapper.is-flipped {
@@ -164,9 +299,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 24px;
-  padding: clamp(24px, 4vw, 38px);
-  border-radius: 26px;
+  gap: clamp(6px, 1.4vh, 12px);
+  padding: clamp(12px, 2.2vh, 20px) clamp(16px, 2.8vw, 24px);
+  border-radius: 20px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
@@ -176,46 +311,22 @@
   transform: rotateY(180deg);
 }
 
-.a26-flashcard-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  width: 100%;
-  padding-top: 14px;
-  border-top: 1px solid rgba(155, 245, 237, 0.12);
-  margin-top: auto;
-  z-index: 5;
-}
-
-.a26-flashcard-tutor-btn.a26-button {
-  min-height: 36px;
-  padding: 6px 14px;
-  font-size: 0.82rem;
-  white-space: nowrap;
-  background: linear-gradient(135deg, rgba(92, 232, 223, 0.18), rgba(213, 183, 101, 0.14));
-  border: 1px solid rgba(92, 232, 223, 0.35);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-  transition: all 0.2s ease;
-}
-
-.a26-flashcard-tutor-btn.a26-button:hover {
-  background: linear-gradient(135deg, rgba(92, 232, 223, 0.32), rgba(213, 183, 101, 0.25));
-  border-color: rgba(92, 232, 223, 0.6);
-  transform: translateY(-1px);
-}
-
 .a26-flashcard-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .a26-flashcard-citation {
   color: var(--a26-color-text-muted);
-  font-size: .78rem;
+  font-size: 0.74rem;
   text-align: right;
+  max-width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .a26-flashcard-body {
@@ -224,96 +335,180 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 15px;
+  gap: clamp(4px, 1.2vh, 10px);
   width: 100%;
   margin-block: auto;
+  overflow-y: auto;
+  padding-inline: 4px;
 }
 
 .a26-flashcard-img {
-  max-width: min(100%, 360px);
-  max-height: 210px;
+  max-width: min(100%, 280px);
+  max-height: clamp(80px, 13vh, 120px);
   object-fit: contain;
-  border-radius: 16px;
-  border: 1px solid rgba(92, 232, 223, .24);
+  border-radius: 12px;
+  border: 1px solid rgba(92, 232, 223, 0.24);
+  flex-shrink: 0;
 }
 
 .a26-flashcard-text {
-  max-width: 680px;
+  max-width: 660px;
   margin: 0;
-  font-size: var(--a26-text-h2-size, 1.2rem);
-  line-height: var(--a26-text-h2-line-height, 1.35);
+  font-size: clamp(1.05rem, 2vw, 1.28rem);
+  line-height: 1.35;
   color: var(--a26-color-text-bright, #fff);
   font-weight: 600;
   text-wrap: balance;
 }
 
-.a26-flashcard-explanation {
+.a26-flashcard-answer-text {
   max-width: 660px;
   margin: 0;
+  font-size: clamp(1.1rem, 2.2vw, 1.38rem);
+  line-height: 1.32;
+  color: #5ce8df;
+  font-weight: 700;
+  text-shadow: 0 0 16px rgba(92, 232, 223, 0.22);
+  text-wrap: balance;
+}
+
+.a26-flashcard-explanation {
+  max-width: 640px;
+  margin: 0;
   color: var(--a26-color-text-muted);
-  font-size: var(--a26-text-body-academic-size, 0.96875rem);
-  line-height: var(--a26-text-body-academic-line-height, 1.58);
+  font-size: clamp(0.8rem, 1.1vw, 0.88rem);
+  line-height: 1.42;
+  max-height: clamp(60px, 10vh, 95px);
+  overflow-y: auto;
+}
+
+.a26-flashcard-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding-top: 8px;
+  border-top: 1px solid rgba(155, 245, 237, 0.12);
+  margin-top: auto;
+  z-index: 5;
+  flex-shrink: 0;
 }
 
 .a26-flashcard-hint {
   color: var(--a26-color-text-muted);
-  font-size: var(--a26-text-caption-size, 0.75rem);
-  letter-spacing: .02em;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.a26-flashcard-tutor-btn.a26-button {
+  min-height: 30px;
+  padding: 4px 10px;
+  font-size: 0.76rem;
+  white-space: nowrap;
+  background: linear-gradient(135deg, rgba(92, 232, 223, 0.18), rgba(213, 183, 101, 0.14));
+  border: 1px solid rgba(92, 232, 223, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.a26-flashcard-tutor-btn.a26-button:hover {
+  background: linear-gradient(135deg, rgba(92, 232, 223, 0.32), rgba(213, 183, 101, 0.25));
+  border-color: rgba(92, 232, 223, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Standalone Feedback Overlay */
 .a26-feedback-overlay {
   position: absolute;
-  z-index: 20;
+  z-index: 30;
   top: 50%;
   left: 50%;
   display: grid;
   place-items: center;
   width: max-content;
   max-width: calc(100% - 48px);
-  min-height: 54px;
-  padding: 13px 20px;
+  min-height: 48px;
+  padding: 10px 18px;
   border: 1px solid;
   border-radius: 999px;
   transform: translate(-50%, -50%);
-  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-size: clamp(0.92rem, 1.8vw, 1.15rem);
   font-weight: 750;
   pointer-events: none;
-  animation: a26-flashcard-feedback-in .22s ease both;
+  animation: a26-flashcard-feedback-in 0.22s ease both;
 }
 
 .a26-feedback-overlay.is-correct {
   color: #6ee7b7;
-  background: rgba(3, 31, 25, .94);
-  border-color: rgba(52, 211, 153, .7);
-  box-shadow: 0 16px 44px rgba(0, 0, 0, .42), 0 0 24px rgba(16, 185, 129, .15);
+  background: rgba(3, 31, 25, 0.94);
+  border-color: rgba(52, 211, 153, 0.7);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.42), 0 0 24px rgba(16, 185, 129, 0.15);
 }
 
 .a26-feedback-overlay.is-wrong {
   color: #fda4af;
-  background: rgba(40, 8, 18, .94);
-  border-color: rgba(251, 113, 133, .72);
-  box-shadow: 0 16px 44px rgba(0, 0, 0, .42), 0 0 24px rgba(244, 63, 94, .13);
+  background: rgba(40, 8, 18, 0.94);
+  border-color: rgba(251, 113, 133, 0.72);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.42), 0 0 24px rgba(244, 63, 94, 0.13);
 }
+
+@keyframes a26-flashcard-feedback-in {
+  from { opacity: 0; transform: translate(-50%, -45%) scale(0.94); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ============================================================
+   ANKI SM-2 RATING CONTROLS (Ergonomic & Centered)
+   ============================================================ */
 
 .a26-anki-controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  width: max-content;
-  max-width: 100%;
+  gap: 8px;
+  width: 100%;
+  max-width: 440px;
   margin-inline: auto;
-  padding: 8px;
+  padding: 4px;
+  z-index: 10;
+  flex-shrink: 0;
 }
 
 .a26-anki-controls .a26-button:first-child,
 .a26-anki-controls .a26-button:last-child {
-  min-width: 48px;
+  min-width: 40px;
 }
 
+/* ============================================================
+   MARINA FLOATING TUTOR GUARANTEED CLEARANCE
+   ============================================================ */
+
+body:has(.a26-flashcard-player-container) .upe-ai-trigger {
+  z-index: 40;
+  right: 14px !important;
+  bottom: 14px !important;
+}
+
+@media (max-width: 900px) {
+  body:has(.a26-flashcard-player-container) .upe-ai-trigger {
+    transform: scale(0.86);
+    transform-origin: bottom right;
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+/* ============================================================
+   PERFORMANCE REPORT & SPACING
+   ============================================================ */
+
 .a26-performance-report-card {
-  padding: clamp(24px, 4vw, 38px);
+  padding: clamp(20px, 3.5vw, 34px);
   text-align: center;
 }
 
@@ -321,27 +516,27 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  margin-block: 24px;
+  margin-block: 20px;
 }
 
 .a26-topics-mastery-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 18px;
   text-align: left;
 }
 
 .a26-topic-column {
-  padding: 18px;
-  border: 1px solid rgba(92, 232, 223, .13);
+  padding: 16px;
+  border: 1px solid rgba(92, 232, 223, 0.13);
   border-radius: 16px;
-  background: rgba(2, 15, 18, .45);
+  background: rgba(2, 15, 18, 0.45);
 }
 
 .a26-topic-column h3 {
   margin: 0 0 10px;
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
 
 .a26-topic-column ul {
@@ -349,96 +544,80 @@
   padding: 0;
   list-style: none;
   color: var(--a26-color-text-muted);
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .a26-topic-column li + li {
   margin-top: 6px;
 }
 
-@keyframes a26-flashcard-feedback-in {
-  from { opacity: 0; transform: translate(-50%, -45%) scale(.94); }
-  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
+/* ============================================================
+   RESPONSIVE DESIGN & MARINA CLEARANCE SAFEGUARDS
+   ============================================================ */
 
-@media (max-width: 760px) {
-  .a26-flashcards-hero {
+@media (max-width: 900px) {
+  .a26-flashcard-active-bar {
+    flex-direction: column;
     align-items: flex-start;
-    flex-direction: column;
-    padding: 20px 16px;
-    border-radius: 22px;
+    gap: 8px;
   }
 
-  .a26-player-meta {
-    align-items: stretch;
-    flex-direction: column;
-    padding: 14px 16px;
-    border-radius: 18px;
-    gap: 10px;
-  }
-
-  .a26-player-meta > div:first-child {
+  .a26-deck-status-center {
     width: 100%;
-  }
-
-  .a26-player-meta h2 {
-    font-size: 1.02rem;
-    word-break: break-word;
-  }
-
-  .a26-player-meta .flex.items-center.gap-3 {
     justify-content: space-between;
-    width: 100%;
+  }
+
+  .a26-deck-progress-track {
+    flex: 1;
+    max-width: none;
   }
 
   .a26-flashcard-3d-wrapper {
-    min-height: 440px;
+    height: clamp(260px, 44vh, 340px);
   }
 
-  .a26-flashcard-header,
-  .a26-topics-mastery-list {
-    grid-template-columns: 1fr;
-  }
-
-  .a26-flashcard-header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .a26-flashcard-citation {
-    text-align: left;
-  }
-
-  .a26-report-metrics-grid {
-    grid-template-columns: 1fr;
+  .a26-flashcard-player-container {
+    padding-bottom: clamp(60px, 10vh, 90px);
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .a26-flashcards-container {
-    gap: 14px;
-    padding-bottom: 28px;
+    gap: 10px;
+    padding-bottom: 80px;
   }
 
   .a26-flashcard-face {
-    padding: 18px 16px;
-    border-radius: 20px;
+    padding: 12px 12px;
+    border-radius: 16px;
   }
 
   .a26-anki-controls {
     width: 100%;
-    gap: 8px;
+    gap: 6px;
   }
 
   .a26-anki-controls .a26-button {
-    font-size: 0.76rem;
-    padding-inline: 8px;
+    font-size: 0.72rem;
+    padding-inline: 6px;
+  }
+
+  .a26-flashcard-header,
+  .a26-topics-mastery-list,
+  .a26-report-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .a26-flashcard-citation {
+    text-align: left;
+    max-width: 100%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .a26-flashcard-3d-wrapper,
-  .a26-feedback-overlay {
+  .a26-feedback-overlay,
+  .a26-deck-config-drawer {
     transition: none;
     animation: none;
   }
@@ -524,7 +703,36 @@
   color: #be123c !important;
 }
 
-/* Saved Decks */
+/* Active Bar & Drawer */
+.a26-theme-light .a26-flashcard-active-bar {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .a26-deck-chip--difficulty {
+  background: rgba(213, 183, 101, 0.2) !important;
+  color: #854d0e !important;
+  border-color: rgba(213, 183, 101, 0.5) !important;
+}
+
+.a26-theme-light .a26-deck-chip--mode {
+  background: rgba(15, 118, 110, 0.12) !important;
+  color: #0f766e !important;
+  border-color: rgba(15, 118, 110, 0.35) !important;
+}
+
+.a26-theme-light .a26-deck-config-drawer {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08) !important;
+}
+
+.a26-theme-light .a26-deck-progress-track {
+  background: rgba(15, 23, 42, 0.08) !important;
+  border-color: rgba(148, 163, 184, 0.3) !important;
+}
+
 .a26-theme-light .a26-saved-deck {
   background: rgba(255, 255, 255, 0.85) !important;
   border: 1px solid rgba(148, 163, 184, 0.3) !important;
@@ -539,28 +747,21 @@
 }
 
 /* Flashcard Player & 3D Cards */
-.a26-theme-light .a26-player-meta {
-  background: rgba(255, 255, 255, 0.9) !important;
-  border: 1px solid rgba(148, 163, 184, 0.35) !important;
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05), inset 0 1px 0 #ffffff !important;
-}
-
-.a26-theme-light .a26-player-meta h2,
-.a26-theme-light .a26-player-meta .text-agedGold {
-  color: #0f172a !important;
-  font-weight: 700 !important;
-}
-
 .a26-theme-light .a26-flashcard-face {
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(244, 250, 253, 0.94)) !important;
   border: 1px solid rgba(255, 255, 255, 0.95) !important;
-  border-radius: 26px !important;
+  border-radius: 20px !important;
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1), inset 0 2px 0 #ffffff !important;
 }
 
 .a26-theme-light .a26-flashcard-text {
   color: #0f172a !important;
   font-weight: 700 !important;
+}
+
+.a26-theme-light .a26-flashcard-answer-text {
+  color: #0f766e !important;
+  text-shadow: none !important;
 }
 
 .a26-theme-light .a26-flashcard-explanation {
@@ -630,4 +831,3 @@
 .a26-theme-light .a26-topic-column ul {
   color: #334155 !important;
 }
-
