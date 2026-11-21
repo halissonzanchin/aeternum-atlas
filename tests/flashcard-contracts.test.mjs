@@ -372,14 +372,15 @@ test("P0.20-F.4: resolveOllamaReasoningParams aplica reasoning_effort=none por r
     { reasoning_effort: "none", think: false }
   );
 
-  // 2. Síntese ancorada em evidências RAG injetadas -> reasoning_effort: "none", think: false
+  // 2. Pergunta científica complexa com fontes RAG (Tutor IA / Casos Socráticos / Simulados)
+  // NÃO desativa o raciocínio apenas pela presença de fontes RAG: preserva raciocínio padrão ({})
   assert.deepEqual(
     resolveOllamaReasoningParams({
       systemInstruction: "FONTES DE EVIDÊNCIA QUALIFICADA:\n- [SRC-MOORE-7TH-BR] Forame Jugular...",
       messages: [{ role: "user", content: "Explique a Síndrome de Vernet." }],
       metadata: { source: "atlas-ai-tutor", retrieved_source_count: 3 }
     }),
-    { reasoning_effort: "none", think: false }
+    {}
   );
 
   // 3. Consulta aberta sem evidências RAG pré-injetadas -> preserva raciocínio padrão do Qwen 3.5 4B ({})

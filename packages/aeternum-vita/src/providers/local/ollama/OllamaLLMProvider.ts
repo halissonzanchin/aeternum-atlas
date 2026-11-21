@@ -66,18 +66,6 @@ export function resolveOllamaReasoningParams(
     return { reasoning_effort: "none", think: false };
   }
 
-  const retrievedSourceCount = Number(meta.retrieved_source_count ?? 0);
-  const canonicalFactsCount = Number(meta.canonical_facts_count ?? 0);
-  const hasInjectedEvidence =
-    retrievedSourceCount > 0 ||
-    canonicalFactsCount > 0 ||
-    sys.includes("FONTES DE EVIDÊNCIA QUALIFICADA") ||
-    sys.includes("MEMÓRIA CANÔNICA SOBERANA");
-
-  if (hasInjectedEvidence) {
-    return { reasoning_effort: "none", think: false };
-  }
-
   return {};
 }
 
