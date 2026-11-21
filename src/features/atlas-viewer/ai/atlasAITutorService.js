@@ -314,9 +314,9 @@ export const atlasAITutorService = {
         },
         signal: options?.signal
           ? (typeof AbortSignal.any === "function"
-              ? AbortSignal.any([options.signal, AbortSignal.timeout(45000)])
+              ? AbortSignal.any([options.signal, AbortSignal.timeout(95000)])
               : options.signal)
-          : AbortSignal.timeout(45000),
+          : AbortSignal.timeout(95000),
         body: JSON.stringify({
           messages: [{ sender: 'user', text: message }],
           context: tutorContext,

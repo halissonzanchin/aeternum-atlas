@@ -8,17 +8,22 @@ import {
 } from "../src/data/anatomicalFlashcardBank.js";
 import {
   CANONICAL_SOURCES_REGISTRY,
+  FLASHCARD_GENERATION_MODES,
   decomposeTopicDynamically,
   generateAnatomicalFlashcards,
+  normalizeGenerationMode,
   resolveSourceCitation,
   validateFlashcardCorrespondence
 } from "../src/services/ai/flashcardGenerationService.js";
+import esbuild from "esbuild";
 
 const serviceSource = await readFile(new URL("../src/services/ai/flashcardGenerationService.js", import.meta.url), "utf8");
 const pageSource = await readFile(new URL("../src/pages/student/AnatomicalFlashcardsPage.jsx", import.meta.url), "utf8");
+const configuratorSource = await readFile(new URL("../src/components/student/FlashcardDeckConfigurator.jsx", import.meta.url), "utf8");
 const tutorSource = await readFile(new URL("../src/features/dashboard/components/AtlasAITutor.jsx", import.meta.url), "utf8");
 const repetitionSource = await readFile(new URL("../src/services/ai/flashcardSpacedRepetitionService.js", import.meta.url), "utf8");
 const cssSource = await readFile(new URL("../src/styles/AnatomicalFlashcards.css", import.meta.url), "utf8");
+const ollamaProviderSource = await readFile(new URL("../packages/aeternum-vita/src/providers/local/ollama/OllamaLLMProvider.ts", import.meta.url), "utf8");
 
 test("banco editorial cobre seis temas e três dificuldades sem repetir perguntas", () => {
   assert.equal(ANATOMICAL_FLASHCARD_TOPICS.length, 6);
@@ -248,4 +253,161 @@ test("gerador diferencia solicitado, gerado, validado e rejeitado com aviso hone
   assert.match(deck.generationNotice, /Foram preparados 3 cartões únicos validados dos 10 solicitados/);
   assert.match(deck.generationNotice, /Não duplicamos perguntas/);
 });
+
+test("P0.20-F: normalizeGenerationMode padroniza curated, tutor e hybrid sem rotular banco curado como Híbrido", () => {
+  assert.equal(normalizeGenerationMode("curated"), FLASHCARD_GENERATION_MODES.CURATED);
+  assert.equal(normalizeGenerationMode("curado"), FLASHCARD_GENERATION_MODES.CURATED);
+  assert.equal(normalizeGenerationMode("editorial"), FLASHCARD_GENERATION_MODES.CURATED);
+  assert.equal(normalizeGenerationMode("tutor"), FLASHCARD_GENERATION_MODES.TUTOR);
+  assert.equal(normalizeGenerationMode("tutor_ia"), FLASHCARD_GENERATION_MODES.TUTOR);
+  assert.equal(normalizeGenerationMode("hybrid"), FLASHCARD_GENERATION_MODES.HYBRID);
+  assert.equal(normalizeGenerationMode("híbrido"), FLASHCARD_GENERATION_MODES.HYBRID);
+
+  assert.doesNotMatch(pageSource, /activeDeck\.generationMode === "curado"/);
+  assert.match(pageSource, /normalizeGenerationMode\(activeDeck\.generationMode/);
+});
+
+test("P0.20-F: AbortSignal é propagado desde o primeiro lote e aborta imediatamente sem vazamento", async () => {
+  const controller = new AbortController();
+  let receivedSignals = 0;
+
+  const mockSender = async (payload = {}) => {
+    if (payload.signal) receivedSignals += 1;
+    controller.abort();
+    if (payload.signal?.aborted) {
+      const err = new Error("Aborted by user");
+      err.name = "AbortError";
+      throw err;
+    }
+    return { mode: "live", status: 200, text: "[]" };
+  };
+
+  await assert.rejects(
+    () =>
+      generateAnatomicalFlashcards({
+        topic: "Clavícula e Ombro",
+        difficulty: "Médio",
+        cardCount: "few",
+        preferTutorOnly: true,
+        sendTutorMessage: mockSender,
+        signal: controller.signal
+      }),
+    (err) => err.name === "AbortError"
+  );
+  assert.equal(receivedSignals, 1);
+});
+
+test("P0.20-F: geração progressiva emite estágios reais e preserva lotes validados se um lote posterior falhar", async () => {
+  const stages = [];
+  let callCount = 0;
+
+  const mockSender = async () => {
+    callCount += 1;
+    if (callCount === 1) {
+      return {
+        mode: "live",
+        status: 200,
+        text: JSON.stringify([
+          {
+            front: "Quais são os troncos primários que compõem o Plexo Braquial no trígono posterior do pescoço?",
+            back: "Os troncos superior (C5-C6), médio (C7) e inferior (C8-T1) formam a porção supraclavicular do plexo braquial.",
+            explanation: "Emergem no hiato interescalênico entre os músculos escalenos anterior e médio.",
+            learningObjective: "Troncos primários do plexo braquial",
+            sourceCitation: "[SRC-MOORE-7TH-BR]"
+          },
+          {
+            front: "Qual fascículo do Plexo Braquial origina diretamente os nervos radial e axilar?",
+            back: "O fascículo posterior, formado pela união das divisões posteriores dos três troncos, origina os nervos radial e axilar.",
+            explanation: "Posiciona-se posteriormente à segunda porção da artéria axilar.",
+            learningObjective: "Fascículo posterior do plexo braquial",
+            sourceCitation: "[SRC-MOORE-2018]"
+          }
+        ])
+      };
+    }
+    throw new Error("Timeout simulado no lote 2");
+  };
+
+  const deck = await generateAnatomicalFlashcards({
+    topic: "Plexo Braquial",
+    difficulty: "Médio",
+    cardCount: "standard",
+    preferTutorOnly: true,
+    sendTutorMessage: mockSender,
+    onProgress: (p) => stages.push(p.stage)
+  });
+
+  assert.equal(deck.generationMode, "tutor");
+  assert.equal(deck.cards.length, 2);
+  assert.equal(deck.isPartial, true);
+  assert.ok(stages.includes("preparing_evidence"));
+  assert.ok(stages.includes("generating_batch"));
+  assert.ok(stages.includes("validating_content"));
+  assert.ok(stages.includes("batch_completed"));
+  assert.ok(stages.includes("partial_complete"));
+});
+
+test("P0.20-F: FlashcardDeckConfigurator separa seleção de chip da geração e mantém Ajustar Baralho fora do fluxo vertical", () => {
+  assert.match(configuratorSource, /onClick=\{\(\) => onTopicChange\?\.\(chip\)\}/);
+  assert.doesNotMatch(configuratorSource, /onClick=\{\(\) => handleGenerate/);
+  assert.match(configuratorSource, /Padrão: Médio/);
+  assert.match(configuratorSource, /a26-configurator-popover-layer/);
+  assert.match(cssSource, /\.a26-configurator-popover-anchor\s*\{[\s\S]*?position:\s*fixed/);
+});
+
+test("P0.20-F.4: resolveOllamaReasoningParams aplica reasoning_effort=none por requisição/tarefa e preserva raciocínio padrão em consultas abertas sem RAG", () => {
+  assert.match(ollamaProviderSource, /resolveOllamaReasoningParams\(request,\s*this\.reasoningPolicy\)/);
+
+  const fnMatch = ollamaProviderSource.match(/export function resolveOllamaReasoningParams[\s\S]*?^}/m);
+  assert.ok(fnMatch, "resolveOllamaReasoningParams deve estar exportada em OllamaLLMProvider.ts");
+  const { code } = esbuild.transformSync(fnMatch[0].replace(/^export\s+/, ""), { loader: "ts" });
+  const resolveOllamaReasoningParams = new Function(`${code}; return resolveOllamaReasoningParams;`)();
+
+  // 1. Tarefa estruturada (Flashcards / Mapas Mentais) -> reasoning_effort: "none", think: false
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      messages: [{ role: "user", content: "Gerar 5 flashcards" }],
+      metadata: { task: "generate_flashcards" }
+    }),
+    { reasoning_effort: "none", think: false }
+  );
+
+  // 2. Pergunta científica complexa com fontes RAG (Tutor IA / Casos Socráticos / Simulados)
+  // NÃO desativa o raciocínio apenas pela presença de fontes RAG: preserva raciocínio padrão ({})
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      systemInstruction: "FONTES DE EVIDÊNCIA QUALIFICADA:\n- [SRC-MOORE-7TH-BR] Forame Jugular...",
+      messages: [{ role: "user", content: "Explique a Síndrome de Vernet." }],
+      metadata: { source: "atlas-ai-tutor", retrieved_source_count: 3 }
+    }),
+    {}
+  );
+
+  // 3. Consulta aberta sem evidências RAG pré-injetadas -> preserva raciocínio padrão do Qwen 3.5 4B ({})
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      messages: [{ role: "user", content: "Qual nervo inerva o músculo serrátil anterior?" }],
+      metadata: { source: "open-scientific-query", retrieved_source_count: 0, canonical_facts_count: 0 }
+    }),
+    {}
+  );
+
+  // 4. Override explícito por requisição (metadata.think = true / metadata.reasoningEffort)
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      systemInstruction: "FONTES DE EVIDÊNCIA QUALIFICADA",
+      messages: [{ role: "user", content: "Caso complexo com raciocínio explícito" }],
+      metadata: { think: true }
+    }),
+    {}
+  );
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      messages: [{ role: "user", content: "Consulta rápida" }],
+      metadata: { reasoningEffort: "none" }
+    }),
+    { reasoning_effort: "none", think: false }
+  );
+});
+
 
