@@ -12,20 +12,6 @@ import { loadLocalCloudEnv } from "../../../src/providers/cloud/localSecretLoade
 
 loadLocalCloudEnv();
 
-import { AeternumAIGateway } from "../../../src/gateway/index.ts";
-import { ProviderRouter } from "../../../src/providers/router/index.ts";
-import {
-  OllamaLLMProvider,
-  SpeachesSTTProvider,
-  SpeachesTTSProvider,
-  GeminiLLMProvider,
-  DeepgramSTTProvider,
-  CartesiaTTSProvider
-} from "../../../src/providers/index.ts";
-import { loadLocalCloudEnv } from "../../../src/providers/cloud/localSecretLoader.ts";
-
-loadLocalCloudEnv();
-
 const gatewayMode = (process.env.AETERNUM_AI_GATEWAY_MODE || "local_first").toLowerCase();
 
 const routerConfig = gatewayMode === "cloud_only"
@@ -42,7 +28,7 @@ const routerConfig = gatewayMode === "cloud_only"
     }
   : {
       llm: {
-        primary: new OllamaLLMProvider({ modelId: "qwen2.5:3b" }),
+        primary: new OllamaLLMProvider({ modelId: process.env.AETERNUM_LOCAL_MODEL || "qwen3.5:4b" }),
         fallback: new GeminiLLMProvider({ modelId: "gemini-3.7-flash" })
       },
       stt: {

@@ -27,7 +27,7 @@ export class OllamaLLMProvider implements LLMProvider {
 
   constructor(config: OllamaProviderConfig = {}) {
     this.baseUrl = config.baseUrl || "http://localhost:11434";
-    this.modelId = config.modelId || "qwen2.5:3b";
+    this.modelId = config.modelId || process.env.AETERNUM_LOCAL_MODEL || "qwen3.5:4b";
     this.defaultTemperature = config.defaultTemperature ?? 0.7;
     this.apiKey = config.apiKey;
 
