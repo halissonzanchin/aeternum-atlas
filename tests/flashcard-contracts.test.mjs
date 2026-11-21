@@ -15,6 +15,7 @@ import {
   resolveSourceCitation,
   validateFlashcardCorrespondence
 } from "../src/services/ai/flashcardGenerationService.js";
+import esbuild from "esbuild";
 
 const serviceSource = await readFile(new URL("../src/services/ai/flashcardGenerationService.js", import.meta.url), "utf8");
 const pageSource = await readFile(new URL("../src/pages/student/AnatomicalFlashcardsPage.jsx", import.meta.url), "utf8");
@@ -22,6 +23,7 @@ const configuratorSource = await readFile(new URL("../src/components/student/Fla
 const tutorSource = await readFile(new URL("../src/features/dashboard/components/AtlasAITutor.jsx", import.meta.url), "utf8");
 const repetitionSource = await readFile(new URL("../src/services/ai/flashcardSpacedRepetitionService.js", import.meta.url), "utf8");
 const cssSource = await readFile(new URL("../src/styles/AnatomicalFlashcards.css", import.meta.url), "utf8");
+const ollamaProviderSource = await readFile(new URL("../packages/aeternum-vita/src/providers/local/ollama/OllamaLLMProvider.ts", import.meta.url), "utf8");
 
 test("banco editorial cobre seis temas e três dificuldades sem repetir perguntas", () => {
   assert.equal(ANATOMICAL_FLASHCARD_TOPICS.length, 6);
@@ -352,4 +354,59 @@ test("P0.20-F: FlashcardDeckConfigurator separa seleção de chip da geração e
   assert.match(configuratorSource, /a26-configurator-popover-layer/);
   assert.match(cssSource, /\.a26-configurator-popover-anchor\s*\{[\s\S]*?position:\s*fixed/);
 });
+
+test("P0.20-F.4: resolveOllamaReasoningParams aplica reasoning_effort=none por requisição/tarefa e preserva raciocínio padrão em consultas abertas sem RAG", () => {
+  assert.match(ollamaProviderSource, /resolveOllamaReasoningParams\(request,\s*this\.reasoningPolicy\)/);
+
+  const fnMatch = ollamaProviderSource.match(/export function resolveOllamaReasoningParams[\s\S]*?^}/m);
+  assert.ok(fnMatch, "resolveOllamaReasoningParams deve estar exportada em OllamaLLMProvider.ts");
+  const { code } = esbuild.transformSync(fnMatch[0].replace(/^export\s+/, ""), { loader: "ts" });
+  const resolveOllamaReasoningParams = new Function(`${code}; return resolveOllamaReasoningParams;`)();
+
+  // 1. Tarefa estruturada (Flashcards / Mapas Mentais) -> reasoning_effort: "none", think: false
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      messages: [{ role: "user", content: "Gerar 5 flashcards" }],
+      metadata: { task: "generate_flashcards" }
+    }),
+    { reasoning_effort: "none", think: false }
+  );
+
+  // 2. Síntese ancorada em evidências RAG injetadas -> reasoning_effort: "none", think: false
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      systemInstruction: "FONTES DE EVIDÊNCIA QUALIFICADA:\n- [SRC-MOORE-7TH-BR] Forame Jugular...",
+      messages: [{ role: "user", content: "Explique a Síndrome de Vernet." }],
+      metadata: { source: "atlas-ai-tutor", retrieved_source_count: 3 }
+    }),
+    { reasoning_effort: "none", think: false }
+  );
+
+  // 3. Consulta aberta sem evidências RAG pré-injetadas -> preserva raciocínio padrão do Qwen 3.5 4B ({})
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      messages: [{ role: "user", content: "Qual nervo inerva o músculo serrátil anterior?" }],
+      metadata: { source: "open-scientific-query", retrieved_source_count: 0, canonical_facts_count: 0 }
+    }),
+    {}
+  );
+
+  // 4. Override explícito por requisição (metadata.think = true / metadata.reasoningEffort)
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      systemInstruction: "FONTES DE EVIDÊNCIA QUALIFICADA",
+      messages: [{ role: "user", content: "Caso complexo com raciocínio explícito" }],
+      metadata: { think: true }
+    }),
+    {}
+  );
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      messages: [{ role: "user", content: "Consulta rápida" }],
+      metadata: { reasoningEffort: "none" }
+    }),
+    { reasoning_effort: "none", think: false }
+  );
+});
+
 

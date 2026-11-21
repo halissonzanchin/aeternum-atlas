@@ -11,11 +11,74 @@ import {
 import { executeProviderJson, executeProviderFetchSession } from "../utils/fetchWithTimeout.ts";
 import { buildProviderUrl } from "../utils/url.ts";
 
+export type OllamaReasoningPolicy = "auto" | "none" | "default";
+
 export interface OllamaProviderConfig {
   baseUrl?: string;
   modelId?: string;
   defaultTemperature?: number;
   apiKey?: string;
+  reasoningPolicy?: OllamaReasoningPolicy;
+}
+
+export function resolveOllamaReasoningParams(
+  request: LLMRequest,
+  policy: OllamaReasoningPolicy = "auto"
+): { reasoning_effort?: string; think?: boolean } {
+  const meta = (request.metadata || {}) as Record<string, unknown>;
+
+  if (typeof meta.reasoningEffort === "string") {
+    if (meta.reasoningEffort === "none") {
+      return { reasoning_effort: "none", think: false };
+    }
+    if (meta.reasoningEffort === "default") {
+      return {};
+    }
+    return { reasoning_effort: meta.reasoningEffort };
+  }
+
+  if (typeof meta.think === "boolean") {
+    return meta.think ? {} : { reasoning_effort: "none", think: false };
+  }
+
+  if (policy === "none") {
+    return { reasoning_effort: "none", think: false };
+  }
+  if (policy === "default") {
+    return {};
+  }
+
+  const task = String(meta.task || "").toLowerCase();
+  const source = String(meta.source || "").toLowerCase();
+  const sys = String(request.systemInstruction || "");
+  const lastUserMsg = String(request.messages?.at(-1)?.content || "");
+
+  const isStructuredTask =
+    task === "generate_flashcards" ||
+    task === "generate_mind_map" ||
+    source === "flashcards" ||
+    source === "mind-map" ||
+    sys.includes("Modo de saída — Flashcards Anatômicos") ||
+    sys.includes("Modo de saída — Mapa Mental Anatômico") ||
+    lastUserMsg.includes("Formato do JSON:");
+
+  if (isStructuredTask) {
+    return { reasoning_effort: "none", think: false };
+  }
+
+  const retrievedSourceCount = Number(meta.retrieved_source_count ?? 0);
+  const canonicalFactsCount = Number(meta.canonical_facts_count ?? 0);
+  const hasInjectedEvidence =
+    retrievedSourceCount > 0 ||
+    canonicalFactsCount > 0 ||
+    sys.includes("FONTES DE EVIDÊNCIA QUALIFICADA") ||
+    sys.includes("MEMÓRIA CANÔNICA SOBERANA");
+
+  if (hasInjectedEvidence) {
+    return { reasoning_effort: "none", think: false };
+  }
+
+  return {};
 }
 
 export class OllamaLLMProvider implements LLMProvider {
@@ -24,12 +87,14 @@ export class OllamaLLMProvider implements LLMProvider {
   private readonly modelId: string;
   private readonly defaultTemperature: number;
   private readonly apiKey?: string;
+  private readonly reasoningPolicy: OllamaReasoningPolicy;
 
   constructor(config: OllamaProviderConfig = {}) {
     this.baseUrl = config.baseUrl || "http://localhost:11434";
-    this.modelId = config.modelId || process.env.AETERNUM_LOCAL_MODEL || "qwen3.5:4b";
+    this.modelId = config.modelId || process.env.ATLAS_TARGET_MODEL || process.env.AETERNUM_LOCAL_MODEL || "qwen3.5:4b";
     this.defaultTemperature = config.defaultTemperature ?? 0.7;
     this.apiKey = config.apiKey;
+    this.reasoningPolicy = config.reasoningPolicy || (process.env.ATLAS_OLLAMA_REASONING_POLICY as OllamaReasoningPolicy) || "auto";
 
     this.metadata = {
       id: "ollama-local",
@@ -112,6 +177,7 @@ export class OllamaLLMProvider implements LLMProvider {
       messages.push({ role: msg.role, content: msg.content });
     }
 
+    const reasoningParams = resolveOllamaReasoningParams(request, this.reasoningPolicy);
     const payload = {
       model: this.modelId,
       messages,
@@ -119,8 +185,7 @@ export class OllamaLLMProvider implements LLMProvider {
       max_tokens: request.maxTokens,
       top_p: request.topP,
       stop: request.stopSequences,
-      reasoning_effort: "none",
-      think: false,
+      ...reasoningParams,
       stream: false
     };
 
@@ -185,6 +250,7 @@ export class OllamaLLMProvider implements LLMProvider {
       messages.push({ role: msg.role, content: msg.content });
     }
 
+    const reasoningParams = resolveOllamaReasoningParams(request, this.reasoningPolicy);
     const payload = {
       model: this.modelId,
       messages,
@@ -192,8 +258,7 @@ export class OllamaLLMProvider implements LLMProvider {
       max_tokens: request.maxTokens,
       top_p: request.topP,
       stop: request.stopSequences,
-      reasoning_effort: "none",
-      think: false,
+      ...reasoningParams,
       stream: true
     };
 
