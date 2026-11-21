@@ -59,17 +59,38 @@ public class CredManager {
 
 export async function runSupabaseSql(sql, projectRef = "hyivyrietgjdazgizafp") {
   const token = getMgmtToken();
-  const res = await fetch(`https://api.supabase.com/v1/projects/${projectRef}/database/query`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query: sql })
-  });
-  if (!res.ok) {
-    const errText = await res.text();
-    throw new Error(`Supabase SQL Error HTTP ${res.status}: ${errText}`);
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const res = await fetch(`https://api.supabase.com/v1/projects/${projectRef}/database/query`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query: sql })
+      });
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`Supabase SQL Error HTTP ${res.status}: ${errText}`);
+      }
+      return await res.json();
+    } catch (err) {
+      if (attempt === 3) throw err;
+      await new Promise(r => setTimeout(r, 1000 * attempt));
+    }
   }
-  return await res.json();
 }
+
+let cachedAnonKey = null;
+
+export async function getAnonKey(projectRef = "hyivyrietgjdazgizafp") {
+  if (cachedAnonKey) return cachedAnonKey;
+  const token = getMgmtToken();
+  const res = await fetch(`https://api.supabase.com/v1/projects/${projectRef}/api-keys`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  const keys = await res.json();
+  cachedAnonKey = keys.find(k => k.name === "anon" || k.tags === "anon")?.api_key || "";
+  return cachedAnonKey;
+}
+

@@ -187,7 +187,7 @@ export function buildMindMapTutorPrompt(topic) {
   return `${FORMAT_INSTRUCTIONS}\n\nTEMA: ${normalizedTopic}`;
 }
 
-export async function generateAuthenticatedMindMap({ topic, sendTutorMessage }) {
+export async function generateAuthenticatedMindMap({ topic, sendTutorMessage, signal = null }) {
   if (typeof sendTutorMessage !== "function") {
     throw new Error("A sessão autenticada do Tutor IA não está disponível.");
   }
@@ -203,7 +203,8 @@ export async function generateAuthenticatedMindMap({ topic, sendTutorMessage }) 
       sectionQuestion: "Gerar esboço hierárquico para mapa mental anatômico",
       availableActions: []
     },
-    contextLabel: `Mapa mental · ${normalizedTopic}`
+    contextLabel: `Mapa mental · ${normalizedTopic}`,
+    signal
   });
 
   if (!isTutorSuccess(response)) {

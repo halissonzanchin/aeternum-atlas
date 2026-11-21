@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import LineIcon from "../../components/icons/LineIcon";
 import { useLanguage } from "../../context/LanguageContext";
 import { useAtlasAITutorSession } from "../../context/AtlasAITutorSessionContext";
@@ -14,6 +14,7 @@ import {
   A26Toolbar
 } from "../../components/aeternum-26";
 import { generateAnatomicalFlashcards } from "../../services/ai/flashcardGenerationService";
+import { selectCuratedFlashcards } from "../../data/anatomicalFlashcardBank";
 import {
   recordCardReview,
   getSavedDecks,
@@ -80,18 +81,22 @@ export default function AnatomicalFlashcardsPage({ user }) {
   const [generationError, setGenerationError] = useState("");
   const [generationNotice, setGenerationNotice] = useState("");
 
-  // Deck & Player State (Anki Pattern)
+  // Deck & Player State (Anki Pattern - Single Unified Flashcard)
   const [activeDeck, setActiveDeck] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [feedbackState, setFeedbackState] = useState(null); // "correct" | "wrong" | null
   const [sessionResults, setSessionResults] = useState([]); // [{ card, result: "correct" | "wrong" }]
   const [isFinished, setIsFinished] = useState(false);
+  const [isConfigDrawerOpen, setIsConfigDrawerOpen] = useState(false);
 
   // Saved Decks Collection State
   const [savedDecks, setSavedDecks] = useState([]);
   const [isDeckSaved, setIsDeckSaved] = useState(false);
   const [scheduledNotice, setScheduledNotice] = useState("");
+  const generationAbortTimerRef = useRef(null);
+  const abortControllerRef = useRef(null);
+  const generationSeqRef = useRef(0);
 
   const quickTopicChips = QUICK_TOPIC_CHIPS_BY_LANG[langKey] || QUICK_TOPIC_CHIPS_BY_LANG.pt;
   const currentCard = activeDeck?.cards?.[currentIndex];
@@ -114,7 +119,23 @@ export default function AnatomicalFlashcardsPage({ user }) {
     setSavedDecks(getSavedDecks(userId));
   }, [userId]);
 
-  // Keyboard Hotkeys Listener (Anki Style: Space = Flip, 1 = Wrong, 2 = Correct, E = Explain)
+  // Clear abort controller and timer on unmount
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        try {
+          abortControllerRef.current.abort();
+        } catch (abortErr) {
+          console.debug("Flashcards abort cleanup notice:", abortErr);
+        }
+      }
+      if (generationAbortTimerRef.current) {
+        clearTimeout(generationAbortTimerRef.current);
+      }
+    };
+  }, []);
+
+  // Keyboard Hotkeys Listener (Anki Style: Space/Enter = Flip, 1 = Wrong, 2 = Correct, E = Explain)
   useEffect(() => {
     function handleKeyDown(e) {
       if (!activeDeck || isFinished) return;
@@ -122,7 +143,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
 
       if (e.code === "Space" || e.code === "Enter") {
         e.preventDefault();
-        setIsFlipped(prev => !prev);
+        setIsFlipped((prev) => !prev);
       } else if (e.key === "1" || e.code === "ArrowLeft") {
         e.preventDefault();
         handleRateCard("wrong");
@@ -151,6 +172,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
       setGenerationError(errorMsg[langKey] || errorMsg.pt);
       return;
     }
+
     setIsGenerating(true);
     setGenerationError("");
     setGenerationNotice("");
@@ -160,22 +182,114 @@ export default function AnatomicalFlashcardsPage({ user }) {
     setIsFlipped(false);
     setIsDeckSaved(false);
     setScheduledNotice("");
+    setIsConfigDrawerOpen(false);
+
+    // 1. Abort any previous pending generation
+    if (abortControllerRef.current) {
+      try {
+        abortControllerRef.current.abort();
+      } catch (abortErr) {
+        console.debug("Previous flashcard generation abort notice:", abortErr);
+      }
+    }
+    const currentSeq = ++generationSeqRef.current;
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    if (generationAbortTimerRef.current) {
+      clearTimeout(generationAbortTimerRef.current);
+    }
+
+    const timeoutPromise = new Promise((_, reject) => {
+      generationAbortTimerRef.current = setTimeout(() => {
+        if (generationSeqRef.current !== currentSeq) return;
+        try {
+          controller.abort();
+        } catch (abortErr) {
+          console.debug("Flashcards timeout abort notice:", abortErr);
+        }
+        const timeoutMsg = {
+          pt: "O serviço de inferência com Qwen 3.5 4B no Gateway local está ocupado ou demorou para responder (limite de 35s). Seus parâmetros foram preservados. Você pode tentar novamente ou utilizar o banco curado.",
+          es: "El servicio de inferencia con Qwen 3.5 4B en el Gateway local está ocupado. Sus parámetros fueron preservados. Intente nuevamente o use el banco curado.",
+          en: "The local Qwen 3.5 4B inference service is busy. Your settings are preserved. Please try again or load the curated bank.",
+          de: "Der lokale Qwen 3.5 4B Inferenzdienst ist ausgelastet. Ihre Eingaben wurden gespeichert. Bitte erneut versuchen oder kuratierte Karten nutzen."
+        };
+        const err = new Error(timeoutMsg[langKey] || timeoutMsg.pt);
+        err.code = "AI_GATEWAY_TIMEOUT";
+        reject(err);
+      }, 35000);
+    });
 
     try {
-      const generated = await generateAnatomicalFlashcards({
+      const generationPromise = generateAnatomicalFlashcards({
         topic: selectedTopic,
         difficulty,
         cardCount,
         language: langKey,
-        sendTutorMessage: typeof sendMessage === "function" ? sendMessage : null
+        sendTutorMessage: typeof sendMessage === "function" ? sendMessage : null,
+        signal: controller.signal
       });
+
+      const generated = await Promise.race([generationPromise, timeoutPromise]);
+      if (generationSeqRef.current !== currentSeq) return;
+
+      if (generationAbortTimerRef.current) {
+        clearTimeout(generationAbortTimerRef.current);
+        generationAbortTimerRef.current = null;
+      }
+
       setActiveDeck(generated);
       setGenerationNotice(generated.generationNotice || "");
     } catch (err) {
+      if (generationSeqRef.current !== currentSeq) return;
       console.error("Erro ao gerar flashcards:", err);
       setGenerationError(err?.message || "Não foi possível gerar o baralho agora.");
     } finally {
-      setIsGenerating(false);
+      if (generationSeqRef.current === currentSeq) {
+        if (generationAbortTimerRef.current) {
+          clearTimeout(generationAbortTimerRef.current);
+          generationAbortTimerRef.current = null;
+        }
+        setIsGenerating(false);
+      }
+    }
+  }
+
+  function handleLoadCuratedFallback() {
+    const requested = cardCount === "few" ? 5 : cardCount === "standard" ? 10 : 20;
+    let curatedSelection = selectCuratedFlashcards({
+      topic: topicInput,
+      difficulty,
+      count: requested
+    });
+
+    if (!curatedSelection?.cards?.length) {
+      curatedSelection = selectCuratedFlashcards({
+        topic: "Clavícula e Ombro",
+        difficulty,
+        count: requested
+      });
+    }
+
+    if (curatedSelection?.cards?.length) {
+      setActiveDeck({
+        id: `curated-${Date.now()}`,
+        title: `Flashcards: ${curatedSelection.matchedTopic?.title || topicInput}`,
+        topic: curatedSelection.matchedTopic?.title || topicInput,
+        system: curatedSelection.matchedTopic?.system || "Anatomia Humana",
+        difficulty,
+        sources: ["SRC-MOORE-7TH-BR", "SRC-TA2-2019"],
+        requestedCount: requested,
+        generatedCount: curatedSelection.cards.length,
+        validatedCount: curatedSelection.cards.length,
+        rejectedCount: 0,
+        isPartial: curatedSelection.cards.length < requested,
+        generationMode: "curated",
+        generationNotice: "Baralho curado do acervo editorial Aeternum 26.1 (100% verificado sem duplicatas).",
+        cards: curatedSelection.cards
+      });
+      setGenerationError("");
+      setIsConfigDrawerOpen(false);
     }
   }
 
@@ -217,11 +331,11 @@ export default function AnatomicalFlashcardsPage({ user }) {
       setIsFlipped(false);
 
       if (currentIndex + 1 < activeDeck.cards.length) {
-        setCurrentIndex(prev => prev + 1);
+        setCurrentIndex((prev) => prev + 1);
       } else {
         setIsFinished(true);
         // Telemetry on deck completion
-        const correctCount = updatedResults.filter(r => r.result === "correct").length;
+        const correctCount = updatedResults.filter((r) => r.result === "correct").length;
         const total = updatedResults.length;
         recordLearningEvent({
           user,
@@ -289,6 +403,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
     setIsFinished(false);
     setSessionResults([]);
     setIsDeckSaved(true);
+    setIsConfigDrawerOpen(false);
   }
 
   function handleExplainWithAI(card) {
@@ -316,7 +431,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
   }
 
   function handleRestartWrongOnly() {
-    const wrongCards = sessionResults.filter(r => r.result === "wrong").map(r => r.card);
+    const wrongCards = sessionResults.filter((r) => r.result === "wrong").map((r) => r.card);
     if (!wrongCards.length) return;
 
     const suffixMap = {
@@ -335,22 +450,23 @@ export default function AnatomicalFlashcardsPage({ user }) {
     setIsFlipped(false);
     setIsFinished(false);
     setSessionResults([]);
+    setIsConfigDrawerOpen(false);
   }
 
   const performanceStats = useMemo(() => {
     if (!sessionResults.length) return { rate: 0, correct: 0, wrong: 0 };
-    const correct = sessionResults.filter(r => r.result === "correct").length;
+    const correct = sessionResults.filter((r) => r.result === "correct").length;
     const wrong = sessionResults.length - correct;
     const rate = Math.round((correct / sessionResults.length) * 100);
     return { rate, correct, wrong };
   }, [sessionResults]);
 
   const masteredTopics = useMemo(() => {
-    return Array.from(new Set(sessionResults.filter(r => r.result === "correct").map(r => r.card.topic)));
+    return Array.from(new Set(sessionResults.filter((r) => r.result === "correct").map((r) => r.card.topic)));
   }, [sessionResults]);
 
   const reviewTopics = useMemo(() => {
-    return Array.from(new Set(sessionResults.filter(r => r.result === "wrong").map(r => r.card.topic)));
+    return Array.from(new Set(sessionResults.filter((r) => r.result === "wrong").map((r) => r.card.topic)));
   }, [sessionResults]);
 
   return (
@@ -359,28 +475,65 @@ export default function AnatomicalFlashcardsPage({ user }) {
       className="a26-flashcards-container"
       header={
         <A26PageHeader
-          eyebrow={t("flashcards.kicker", { defaultValue: "Revisão Ativa & Repetição Espaçada SM-2" })}
-          title={t("flashcards.title", { defaultValue: "Flashcards Anatômicos Inteligentes" })}
-          description={t("flashcards.subtitle", { defaultValue: "Combine um banco anatômico curado, repetição espaçada e o Tutor IA autenticado em baralhos sem perguntas duplicadas." })}
+          variant={activeDeck && !isFinished ? "compact" : "standard"}
+          eyebrow={activeDeck ? (activeDeck.system || t("flashcards.kicker", { defaultValue: "Revisão Ativa & Repetição Espaçada SM-2" })) : t("flashcards.kicker", { defaultValue: "Revisão Ativa & Repetição Espaçada SM-2" })}
+          title={activeDeck ? activeDeck.title : t("flashcards.title", { defaultValue: "Flashcards Anatômicos Inteligentes" })}
+          description={activeDeck ? null : t("flashcards.subtitle", { defaultValue: "Combine um banco anatômico curado, repetição espaçada e o Tutor IA autenticado em baralhos sem perguntas duplicadas." })}
           primaryAction={
             activeDeck ? (
-              <A26Button variant="liquid" onClick={() => setActiveDeck(null)} icon={<LineIcon name="reset" />}>
-                {t("flashcards.newDeck", { defaultValue: "Novo Baralho" })}
-              </A26Button>
+              <div className="flex items-center gap-2">
+                <A26Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsConfigDrawerOpen((prev) => !prev)}
+                  icon={<LineIcon name="settings" />}
+                  title={isConfigDrawerOpen ? "Recolher parâmetros" : "Expandir parâmetros"}
+                >
+                  ⚙️ {isConfigDrawerOpen ? t("actions.close", { defaultValue: "Ocultar Parâmetros" }) : t("actions.configure", { defaultValue: "Ajustar Baralho" })}
+                </A26Button>
+                {!isDeckSaved && (
+                  <A26Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleSaveCurrentDeck}
+                    icon={<LineIcon name="bookmark" />}
+                  >
+                    ⭐ {t("actions.save", { defaultValue: "Salvar" })}
+                  </A26Button>
+                )}
+                <A26Button
+                  variant="liquid"
+                  size="sm"
+                  onClick={() => {
+                    setActiveDeck(null);
+                    setIsConfigDrawerOpen(false);
+                  }}
+                  icon={<LineIcon name="reset" />}
+                >
+                  {t("flashcards.newDeck", { defaultValue: "Novo Baralho" })}
+                </A26Button>
+              </div>
             ) : null
           }
         />
       }
     >
-
       {/* Mode 1: Generator Modal & Config (NotebookLM Pattern) */}
       {!activeDeck && (
         <A26Surface material="regular" className="a26-generator-surface p-6 space-y-6">
           <div className="a26-flashcard-trustline" aria-live="polite">
-            <span className={`a26-flashcard-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")}`} aria-hidden="true" />
+            <span
+              className={`a26-flashcard-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")}`}
+              aria-hidden="true"
+            />
             <strong>{t("flashcards.trustlineCurated", { defaultValue: "Banco curado disponível" })}</strong>
-            <span>{(connectionMode === "online" || connectionMode === "live") ? t("flashcards.trustlineOnline", { defaultValue: "Tutor IA online para temas personalizados" }) : t("flashcards.trustlineOffline", { defaultValue: "Tutor IA indisponível; temas curados continuam funcionando" })}</span>
+            <span>
+              {(connectionMode === "online" || connectionMode === "live")
+                ? t("flashcards.trustlineOnline", { defaultValue: "Tutor IA online para temas personalizados (Qwen 3.5 4B)" })
+                : t("flashcards.trustlineOffline", { defaultValue: "Tutor IA offline; temas curados continuam funcionando plenamente" })}
+            </span>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="text-xs uppercase tracking-wider text-agedGold font-semibold block mb-2">
@@ -420,7 +573,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
             <A26Field
               label={t("flashcards.topicFieldLabel", { defaultValue: "Tema anatômico" })}
               value={topicInput}
-              onChange={e => setTopicInput(e.target.value)}
+              onChange={(e) => setTopicInput(e.target.value)}
               placeholder={t("flashcards.topicPlaceholder", { defaultValue: "Digite o assunto (ex: Vértebras Cervicais, Fêmur, Artéria Coronária...)" })}
               error={generationError || undefined}
               className="w-full"
@@ -428,7 +581,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
           </div>
 
           <div className="a26-chips-wrapper flex flex-wrap gap-2">
-            {quickTopicChips.map(chip => (
+            {quickTopicChips.map((chip) => (
               <A26Button
                 key={chip}
                 type="button"
@@ -444,8 +597,45 @@ export default function AnatomicalFlashcardsPage({ user }) {
             ))}
           </div>
 
-          {generationError ? <p className="a26-generation-message is-error" role="alert">{generationError}</p> : null}
-          {generationNotice ? <p className="a26-generation-message" aria-live="polite">{generationNotice}</p> : null}
+          {generationError ? (
+            <div className="a26-generation-error-box p-4 rounded-xl border border-rose-500/40 bg-rose-950/30 space-y-3" role="alert">
+              <div className="flex items-start gap-3">
+                <span className="text-rose-400 text-lg">⚠️</span>
+                <div className="space-y-1">
+                  <h4 className="text-sm font-semibold text-rose-300">
+                    {t("flashcards.errorTitle", { defaultValue: "Aviso de Disponibilidade Operacional" })}
+                  </h4>
+                  <p className="text-xs text-rose-200/90 leading-relaxed">
+                    {generationError}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 pt-1">
+                <A26Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => handleGenerateDeck()}
+                  loading={isGenerating}
+                  icon={<LineIcon name="reset" />}
+                >
+                  {t("actions.retry", { defaultValue: "Tentar Novamente" })}
+                </A26Button>
+                <A26Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleLoadCuratedFallback}
+                >
+                  📚 {t("flashcards.loadCurated", { defaultValue: "Usar Banco Curado Aeternum" })}
+                </A26Button>
+              </div>
+            </div>
+          ) : null}
+
+          {generationNotice ? (
+            <p className="a26-generation-message" aria-live="polite">
+              {generationNotice}
+            </p>
+          ) : null}
 
           <div className="a26-generator-actions flex items-center justify-start gap-3 pt-2">
             <A26Button
@@ -462,9 +652,11 @@ export default function AnatomicalFlashcardsPage({ user }) {
           {savedDecks.length > 0 && (
             <div className="pt-6 border-t border-glassBorder/40">
               <span className="a26-kicker">{t("flashcards.savedDecksTitle", { defaultValue: "Minha Coleção de Baralhos Salvos" })}</span>
-              <h3 className="text-base font-bold text-agedGold mb-3">{t("flashcards.savedDecksTitle", { defaultValue: "Meus Baralhos Salvos" })} ({savedDecks.length})</h3>
+              <h3 className="text-base font-bold text-agedGold mb-3">
+                {t("flashcards.savedDecksTitle", { defaultValue: "Meus Baralhos Salvos" })} ({savedDecks.length})
+              </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                {savedDecks.map(deck => (
+                {savedDecks.map((deck) => (
                   <A26Card
                     key={deck.id || deck.title}
                     material="clear"
@@ -495,30 +687,137 @@ export default function AnatomicalFlashcardsPage({ user }) {
         </A26Surface>
       )}
 
-      {/* Mode 2: Interactive 3D Player (Anki Pattern with Image Occlusion & Hotkeys) */}
+      {/* Mode 2: Interactive 3D Player - Single Unified Flashcard with Flip in Place */}
       {activeDeck && !isFinished && currentCard && (
         <div className="a26-flashcard-player-container">
-          <A26Toolbar label={t("flashcards.title", { defaultValue: "Informações do baralho" })} className="a26-player-meta">
-            <div>
-              <h2 className="text-lg font-bold text-agedGold">{activeDeck.title}</h2>
-              <span className="text-xs text-textMuted">{t("flashcards.sourcePrefix", { defaultValue: "Origem:" })} {currentCard.sourceCitation}</span>
-            </div>
-            <div className="flex items-center gap-3">
-              {!isDeckSaved && (
-                <A26Button variant="ghost" onClick={handleSaveCurrentDeck} icon={<LineIcon name="bookmark" />}>
-                  ⭐ {t("actions.save", { defaultValue: "Salvar" })}
-                </A26Button>
-              )}
-              <span className="a26-card-counter font-mono text-sm">
-                {currentIndex + 1} / {activeDeck.cards.length}
+          {/* Active Deck Status Bar */}
+          <div className="a26-flashcard-active-bar" role="region" aria-label="Progresso e status do baralho">
+            <div className="a26-deck-status-left">
+              <span className="a26-deck-chip a26-deck-chip--difficulty">
+                {activeDeck.difficulty}
               </span>
+              <span className="a26-deck-chip a26-deck-chip--mode">
+                {activeDeck.generationMode === "curado"
+                  ? "Curado"
+                  : activeDeck.generationMode === "tutor"
+                    ? "Tutor IA (Qwen 3.5 4B)"
+                    : "Híbrido"}
+              </span>
+              {currentCard.sourceCitation && (
+                <span className="a26-deck-source-tag" title={currentCard.sourceCitation}>
+                  {currentCard.sourceCitation}
+                </span>
+              )}
             </div>
-          </A26Toolbar>
 
-          {generationNotice ? <p className="a26-generation-message" aria-live="polite">{generationNotice}</p> : null}
+            <div className="a26-deck-status-center">
+              <div className="a26-deck-counter-label">
+                <span>{t("flashcards.cardProgress", { defaultValue: "Card" })}</span>
+                <strong>{currentIndex + 1}</strong>
+                <span>/ {activeDeck.cards.length}</span>
+              </div>
+              <div
+                className="a26-deck-progress-track"
+                role="progressbar"
+                aria-valuenow={currentIndex + 1}
+                aria-valuemin={1}
+                aria-valuemax={activeDeck.cards.length}
+              >
+                <div
+                  className="a26-deck-progress-fill"
+                  style={{ width: `${Math.round(((currentIndex + 1) / activeDeck.cards.length) * 100)}%` }}
+                />
+              </div>
+            </div>
+          </div>
 
-          {/* 3D Stage Container with Standalone Feedback Overlay */}
-          <div className="relative w-full">
+          {/* Compact Parameters Drawer (Accordion) */}
+          {isConfigDrawerOpen && (
+            <A26Surface material="regular" className="a26-deck-config-drawer p-4 space-y-4 w-full">
+              <div className="flex items-center justify-between border-b border-glassBorder/40 pb-2">
+                <h3 className="text-xs uppercase tracking-wider text-agedGold font-semibold">
+                  {t("flashcards.configureTitle", { defaultValue: "Ajustar Parâmetros do Baralho" })}
+                </h3>
+                <button
+                  type="button"
+                  className="text-textMuted hover:text-textMain text-xs"
+                  onClick={() => setIsConfigDrawerOpen(false)}
+                >
+                  ✕ {t("actions.close", { defaultValue: "Fechar" })}
+                </button>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs text-textMuted font-medium block mb-1">
+                    {t("flashcards.difficultyLabel", { defaultValue: "Nível de Dificuldade" })}
+                  </label>
+                  <A26SegmentedControl
+                    options={[
+                      { label: t("flashcards.easy", { defaultValue: "Fácil" }), value: "Fácil" },
+                      { label: t("flashcards.medium", { defaultValue: "Médio" }), value: "Médio" },
+                      { label: t("flashcards.hard", { defaultValue: "Difícil" }), value: "Difícil" }
+                    ]}
+                    value={difficulty}
+                    onChange={setDifficulty}
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-textMuted font-medium block mb-1">
+                    {t("flashcards.cardCountLabel", { defaultValue: "Número de Cards" })}
+                  </label>
+                  <A26SegmentedControl
+                    options={[
+                      { label: t("flashcards.fewCards", { defaultValue: "Até 5" }), value: "few" },
+                      { label: t("flashcards.standardCards", { defaultValue: "Até 10" }), value: "standard" },
+                      { label: t("flashcards.manyCards", { defaultValue: "Até 20" }), value: "many" }
+                    ]}
+                    value={cardCount}
+                    onChange={setCardCount}
+                  />
+                </div>
+              </div>
+              <div className="flex items-center justify-between gap-3 pt-2">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs text-textMuted">Tópicos:</span>
+                  {quickTopicChips.slice(0, 3).map((chip) => (
+                    <button
+                      key={chip}
+                      type="button"
+                      className="text-[11px] px-2 py-1 rounded-lg bg-teal-900/30 text-teal-300 border border-teal-500/20 hover:bg-teal-800/40"
+                      onClick={() => {
+                        setTopicInput(chip);
+                        handleGenerateDeck(chip);
+                        setIsConfigDrawerOpen(false);
+                      }}
+                    >
+                      {chip}
+                    </button>
+                  ))}
+                </div>
+                <A26Button
+                  variant="primary"
+                  size="sm"
+                  loading={isGenerating}
+                  onClick={() => {
+                    handleGenerateDeck();
+                    setIsConfigDrawerOpen(false);
+                  }}
+                  icon={<LineIcon name="spark" />}
+                >
+                  {t("actions.refresh", { defaultValue: "Regerar Baralho" })}
+                </A26Button>
+              </div>
+            </A26Surface>
+          )}
+
+          {generationNotice ? (
+            <p className="a26-generation-message w-full" aria-live="polite">
+              {generationNotice}
+            </p>
+          ) : null}
+
+          {/* Unified 3D Flashcard Stage */}
+          <div className="a26-flashcard-stage">
             {feedbackState === "correct" && (
               <div className="a26-feedback-overlay is-correct pointer-events-none z-50">
                 <span>{t("flashcards.correctButton", { defaultValue: "Entendido! ✓" })}</span>
@@ -530,28 +829,28 @@ export default function AnatomicalFlashcardsPage({ user }) {
               </div>
             )}
 
-            {/* 3D Flip Card Container */}
+            {/* Single Unified 3D Flip Card */}
             <div
               className={`a26-flashcard-3d-wrapper ${isFlipped ? "is-flipped" : ""}`}
-              onClick={() => setIsFlipped(!isFlipped)}
+              onClick={() => setIsFlipped((prev) => !prev)}
               onKeyDown={(event) => {
                 if (["Enter", " "].includes(event.key)) {
                   event.preventDefault();
-                  setIsFlipped(prev => !prev);
+                  setIsFlipped((prev) => !prev);
                 }
               }}
               role="button"
               tabIndex={0}
               aria-label={isFlipped ? t("flashcards.hideAnswer", { defaultValue: "Mostrar pergunta" }) : t("flashcards.showAnswer", { defaultValue: "Mostrar resposta" })}
             >
-              {/* Front Side - Minimal & Clean (NotebookLM Pattern) */}
+              {/* Front Side: Minimal & Balanced Pergunta */}
               <A26Surface material="regular" tone="teal" className="a26-flashcard-face a26-flashcard-face--front">
                 <div className="a26-flashcard-header">
                   <span className="a26-kicker">{t("flashcards.frontSide", { defaultValue: "Frente" })}</span>
                   <span className="a26-flashcard-citation">{currentCard.topic}</span>
                 </div>
 
-                <div className="a26-flashcard-body">
+                <div className={`a26-flashcard-body ${(currentCard.front?.length || 0) > 130 || currentCard.front?.includes("\n") ? "is-long-content" : ""}`}>
                   {currentCard.imageUrl && (
                     <img src={currentCard.imageUrl} alt={currentCard.topic} className="a26-flashcard-img" />
                   )}
@@ -559,24 +858,30 @@ export default function AnatomicalFlashcardsPage({ user }) {
                 </div>
 
                 <div className="a26-flashcard-footer">
-                  <span className="a26-flashcard-hint">{t("flashcards.flipCardHint", { defaultValue: "Espaço ou Enter para virar · 1 (Erro) · 2 (Acerto) · E (Explicar)" })}</span>
+                  <span className="a26-flashcard-hint">
+                    {t("flashcards.flipCardHint", { defaultValue: "Espaço ou Enter para virar · 1 (Erro) · 2 (Acerto) · E (Explicar)" })}
+                  </span>
                 </div>
               </A26Surface>
 
-              {/* Back Side - Direct Answer & Tutor AI Action */}
+              {/* Back Side: Resposta Anatômica + Tutor IA */}
               <A26Surface material="regular" tone="gold" className="a26-flashcard-face a26-flashcard-face--back">
                 <div className="a26-flashcard-header">
                   <span className="a26-kicker text-agedGold">{t("flashcards.backSide", { defaultValue: "Verso · Resposta" })}</span>
                   <span className="a26-flashcard-citation">{currentCard.sourceCitation}</span>
                 </div>
 
-                <div className="a26-flashcard-body">
-                  <p className="a26-flashcard-text text-teal-300 font-bold text-xl">{currentCard.back}</p>
-                  {currentCard.explanation ? <p className="a26-flashcard-explanation">{currentCard.explanation}</p> : null}
+                <div className={`a26-flashcard-body ${((currentCard.back?.length || 0) + (currentCard.explanation?.length || 0) > 130 || currentCard.back?.includes("\n")) ? "is-long-content" : ""}`}>
+                  <p className="a26-flashcard-text a26-flashcard-answer-text">{currentCard.back}</p>
+                  {currentCard.explanation ? (
+                    <p className="a26-flashcard-explanation">{currentCard.explanation}</p>
+                  ) : null}
                 </div>
 
                 <div className="a26-flashcard-footer">
-                  <span className="a26-flashcard-hint">{t("flashcards.flipCardHint", { defaultValue: "Avalie seu conhecimento abaixo" })}</span>
+                  <span className="a26-flashcard-hint">
+                    {t("flashcards.flipCardHint", { defaultValue: "Avalie sua retenção abaixo" })}
+                  </span>
                   <A26Button
                     type="button"
                     variant="liquid"
@@ -595,13 +900,13 @@ export default function AnatomicalFlashcardsPage({ user }) {
             </div>
           </div>
 
-          {/* Anki Rating Controls */}
+          {/* Anki SM-2 Navigation & Rating Controls */}
           <A26Toolbar label={t("flashcards.title", { defaultValue: "Avaliação do cartão" })} className="a26-anki-controls">
             <A26Button
               type="button"
               variant="ghost"
               aria-label={t("agenda.previous", { defaultValue: "Cartão anterior" })}
-              onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
+              onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
               disabled={currentIndex === 0}
             >
               ‹
@@ -629,7 +934,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
               type="button"
               variant="ghost"
               aria-label={t("agenda.next", { defaultValue: "Próximo cartão" })}
-              onClick={() => setCurrentIndex(prev => Math.min(activeDeck.cards.length - 1, prev + 1))}
+              onClick={() => setCurrentIndex((prev) => Math.min(activeDeck.cards.length - 1, prev + 1))}
               disabled={currentIndex === activeDeck.cards.length - 1}
             >
               ›
@@ -658,7 +963,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
               <h3>🟢 {t("flashcards.masteredTopics", { defaultValue: "Tópicos Dominados" })}</h3>
               {masteredTopics.length ? (
                 <ul>
-                  {masteredTopics.map(topic => <li key={topic}>{topic}</li>)}
+                  {masteredTopics.map((topic) => <li key={topic}>{topic}</li>)}
                 </ul>
               ) : (
                 <p className="text-xs text-textMuted">—</p>
@@ -669,7 +974,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
               <h3>🔴 {t("flashcards.reviewTopics", { defaultValue: "Tópicos para Revisar" })}</h3>
               {reviewTopics.length ? (
                 <ul>
-                  {reviewTopics.map(topic => <li key={topic}>{topic}</li>)}
+                  {reviewTopics.map((topic) => <li key={topic}>{topic}</li>)}
                 </ul>
               ) : (
                 <p className="text-xs text-textMuted">—</p>
@@ -694,7 +999,13 @@ export default function AnatomicalFlashcardsPage({ user }) {
               📅 {t("flashcards.scheduleReview", { defaultValue: "Agendar Próxima Revisão" })}
             </A26Button>
 
-            <A26Button variant="liquid" onClick={() => setActiveDeck(null)}>
+            <A26Button
+              variant="liquid"
+              onClick={() => {
+                setActiveDeck(null);
+                setIsConfigDrawerOpen(false);
+              }}
+            >
               ✨ {t("flashcards.newDeck", { defaultValue: "Novo Baralho" })}
             </A26Button>
           </div>

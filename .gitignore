@@ -86,3 +86,6 @@ scripts/test_aeternum_*.cjs
 supabase/functions/ai-tutor/dist.js
 .agents/
 tools/quality-lab/
+.edge_profile*/
+edge_*_profile/
+edge_p0_20_automation_profile/

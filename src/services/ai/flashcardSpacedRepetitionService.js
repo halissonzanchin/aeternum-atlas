@@ -53,7 +53,14 @@ function normalizeSavedDeck(deck, deckIndex = 0) {
   };
 }
 
-export function getCardRepetitionData(userId = "default", cardId = "") {
+export function getCardRepetitionData(userIdOrOptions = "default", cardIdParam = "") {
+  let userId = userIdOrOptions;
+  let cardId = cardIdParam;
+  if (typeof userIdOrOptions === "object" && userIdOrOptions !== null) {
+    userId = userIdOrOptions.userId || "default";
+    cardId = userIdOrOptions.cardId || "";
+  }
+
   try {
     const raw = localStorage.getItem(`${STORAGE_KEY_PREFIX}:${userId}`);
     if (!raw) return getDefaultCardData(cardId);
@@ -65,7 +72,16 @@ export function getCardRepetitionData(userId = "default", cardId = "") {
   }
 }
 
-export function recordCardReview(userId = "default", cardId = "", rating = "good") {
+export function recordCardReview(userIdOrOptions = "default", cardIdParam = "", ratingParam = "good") {
+  let userId = userIdOrOptions;
+  let cardId = cardIdParam;
+  let rating = ratingParam;
+  if (typeof userIdOrOptions === "object" && userIdOrOptions !== null) {
+    userId = userIdOrOptions.userId || "default";
+    cardId = userIdOrOptions.cardId || "";
+    rating = userIdOrOptions.rating || "good";
+  }
+
   // Rating values: 'again' (1), 'hard' (2), 'good' (4), 'easy' (5)
   const current = getCardRepetitionData(userId, cardId);
   let { repetitions, easeFactor, interval } = current;

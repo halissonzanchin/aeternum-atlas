@@ -8,13 +8,21 @@ export default defineConfig({
     host: "0.0.0.0",
     proxy: {
       "/functions/v1": {
-        target: "http://127.0.0.1:54321",
-        changeOrigin: true
+        target: "https://hyivyrietgjdazgizafp.supabase.co",
+        changeOrigin: true,
+        secure: true
       }
     }
   },
   preview: {
-    port: 4173,
-    host: "0.0.0.0"
+    port: 5173,
+    host: "0.0.0.0",
+    proxy: {
+      "/functions/v1": {
+        target: "https://hyivyrietgjdazgizafp.supabase.co",
+        changeOrigin: true,
+        secure: true
+      }
+    }
   }
 });

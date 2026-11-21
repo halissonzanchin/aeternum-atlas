@@ -465,7 +465,7 @@ function buildTutorPrompt({ topic, difficulty, count, existingCards, language = 
   ].join("\n");
 }
 
-async function generateTutorCards({ topic, difficulty, count, existingCards, language = "pt", sendTutorMessage = null, ledger = null }) {
+async function generateTutorCards({ topic, difficulty, count, existingCards, language = "pt", sendTutorMessage = null, ledger = null, signal = null }) {
   if (count <= 0) return [];
   const prompt = buildTutorPrompt({ topic, difficulty, count, existingCards, language });
   let response;
@@ -480,7 +480,8 @@ async function generateTutorCards({ topic, difficulty, count, existingCards, lan
         sectionTitle: topic,
         sectionQuestion: `Gerar ${count} flashcards de nível ${difficulty} no idioma ${language}`,
         language
-      }
+      },
+      signal
     });
   } else {
     response = await atlasAITutorService.processMessageStream(
@@ -492,7 +493,10 @@ async function generateTutorCards({ topic, difficulty, count, existingCards, lan
         sectionTitle: topic,
         sectionQuestion: `Gerar ${count} flashcards de nível ${difficulty} no idioma ${language}`,
         language
-      }
+      },
+      null,
+      null,
+      { signal }
     );
   }
 
@@ -581,7 +585,8 @@ export async function generateAnatomicalFlashcards({
   difficulty = "Médio",
   cardCount = "standard",
   language = "pt",
-  sendTutorMessage = null
+  sendTutorMessage = null,
+  signal = null
 } = {}) {
   const requestedCount = CARD_COUNTS[cardCount] || CARD_COUNTS.standard;
   const cleanTopic = String(topic || "").trim();
@@ -645,7 +650,8 @@ export async function generateAnatomicalFlashcards({
           existingCards: [...curatedCards, ...tutorCards],
           language: langKey,
           sendTutorMessage,
-          ledger: auditLedger
+          ledger: auditLedger,
+          signal
         });
         if (subBatch.length > 0) {
           tutorCards = deduplicateCards([...tutorCards, ...subBatch]);
