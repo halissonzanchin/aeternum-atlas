@@ -10,7 +10,7 @@ export default defineConfig({
       "/functions/v1": {
         target: "https://hyivyrietgjdazgizafp.supabase.co",
         changeOrigin: true,
-        secure: false
+        secure: true
       }
     }
   },
@@ -21,7 +21,7 @@ export default defineConfig({
       "/functions/v1": {
         target: "https://hyivyrietgjdazgizafp.supabase.co",
         changeOrigin: true,
-        secure: false
+        secure: true
       }
     }
   }
