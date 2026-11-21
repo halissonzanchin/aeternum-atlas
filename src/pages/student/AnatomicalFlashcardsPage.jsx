@@ -6,14 +6,17 @@ import {
   A26Button,
   A26Card,
   A26FeatureShell,
-  A26Field,
   A26Metric,
   A26PageHeader,
-  A26SegmentedControl,
   A26Surface,
   A26Toolbar
 } from "../../components/aeternum-26";
-import { generateAnatomicalFlashcards } from "../../services/ai/flashcardGenerationService";
+import FlashcardDeckConfigurator from "../../components/student/FlashcardDeckConfigurator";
+import {
+  generateAnatomicalFlashcards,
+  normalizeGenerationMode,
+  FLASHCARD_GENERATION_MODES
+} from "../../services/ai/flashcardGenerationService";
 import { selectCuratedFlashcards } from "../../data/anatomicalFlashcardBank";
 import {
   recordCardReview,
@@ -28,34 +31,34 @@ import "../../styles/AnatomicalFlashcards.css";
 const QUICK_TOPIC_CHIPS_BY_LANG = {
   pt: [
     "Clavícula e Ombro",
-    "Úmero e Braço",
+    "Plexo Braquial",
+    "Ramificações da Artéria Maxilar",
     "Vértebras Cervicais",
     "Fêmur e Osteologia",
-    "Vascularização do Coração",
     "Pares Cranianos"
   ],
   es: [
     "Clavícula y Hombro",
-    "Húmero y Brazo",
+    "Plexo Braquial",
+    "Ramas de la Arteria Maxilar",
     "Vértebras Cervicales",
     "Fémur y Osteología",
-    "Vascularización del Corazón",
     "Pares Craneales"
   ],
   en: [
     "Clavicle and Shoulder",
-    "Humerus and Arm",
+    "Brachial Plexus",
+    "Maxillary Artery Branches",
     "Cervical Vertebrae",
     "Femur and Osteology",
-    "Heart Vascularization",
     "Cranial Nerves"
   ],
   de: [
     "Schlüsselbein und Schulter",
-    "Oberarmknochen und Arm",
+    "Plexus brachialis",
+    "Äste der Arteria maxillaris",
     "Halswirbel",
     "Femur und Osteologie",
-    "Herzgefäßversorgung",
     "Hirnnerven"
   ]
 };
@@ -67,21 +70,48 @@ const DEFAULT_TOPIC_BY_LANG = {
   de: "Schlüsselbein und Schulter"
 };
 
+function resolveOperationTimeoutMs(cardCountKey) {
+  if (cardCountKey === "few") return 95000;
+  if (cardCountKey === "standard") return 180000;
+  return 300000;
+}
+
+function resolveRequestedCardCount(cardCountKey) {
+  if (cardCountKey === "few") return 5;
+  if (cardCountKey === "standard") return 10;
+  return 20;
+}
+
+function resolveCountKeyFromNumber(num) {
+  if (num <= 5) return "few";
+  if (num <= 10) return "standard";
+  return "many";
+}
+
 export default function AnatomicalFlashcardsPage({ user }) {
   const { t, language } = useLanguage();
   const langKey = ["pt", "es", "en", "de"].includes(language) ? language : "pt";
-  const { connectionMode, openTutor, sendMessage } = useAtlasAITutorSession();
+  const { connectionMode, openTutor } = useAtlasAITutorSession();
   const userId = user?.id || "student-default";
 
-  // Generator Config State (NotebookLM Pattern)
+  // Initial Configurator State
   const [topicInput, setTopicInput] = useState(() => DEFAULT_TOPIC_BY_LANG[langKey] || "Clavícula e Ombro");
-  const [cardCount, setCardCount] = useState("many"); // few | standard | many
-  const [difficulty, setDifficulty] = useState("Difícil");
+  const [cardCount, setCardCount] = useState("few"); // few (5) | standard (10) | many (20)
+  const [difficulty, setDifficulty] = useState("Médio");
+
+  // Popover Draft Configurator State (Isolated from active study session)
+  const [draftTopic, setDraftTopic] = useState(() => DEFAULT_TOPIC_BY_LANG[langKey] || "Clavícula e Ombro");
+  const [draftCardCount, setDraftCardCount] = useState("few");
+  const [draftDifficulty, setDraftDifficulty] = useState("Médio");
+
+  // Generation & Availability State (Separated Validation vs Operational Error)
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generationError, setGenerationError] = useState("");
+  const [generationProgress, setGenerationProgress] = useState(null);
+  const [validationError, setValidationError] = useState("");
+  const [operationalError, setOperationalError] = useState("");
   const [generationNotice, setGenerationNotice] = useState("");
 
-  // Deck & Player State (Anki Pattern - Single Unified Flashcard)
+  // Deck & Player State (Single Unified 3D Flashcard)
   const [activeDeck, setActiveDeck] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -135,10 +165,360 @@ export default function AnatomicalFlashcardsPage({ user }) {
     };
   }, []);
 
+  const handleOpenAdjustPopover = useCallback(() => {
+    if (!isConfigDrawerOpen && activeDeck) {
+      setDraftTopic(activeDeck.topic || topicInput);
+      setDraftDifficulty(activeDeck.difficulty || difficulty);
+      setDraftCardCount(resolveCountKeyFromNumber(activeDeck.requestedCount || activeDeck.cards?.length || 5));
+      setValidationError("");
+    }
+    setIsConfigDrawerOpen((prev) => !prev);
+  }, [isConfigDrawerOpen, activeDeck, topicInput, difficulty]);
+
+  const handleCancelGeneration = useCallback(() => {
+    generationSeqRef.current += 1;
+    if (abortControllerRef.current) {
+      try {
+        abortControllerRef.current.abort();
+      } catch (abortErr) {
+        console.debug("Flashcard generation manual abort:", abortErr);
+      }
+      abortControllerRef.current = null;
+    }
+    if (generationAbortTimerRef.current) {
+      clearTimeout(generationAbortTimerRef.current);
+      generationAbortTimerRef.current = null;
+    }
+    setIsGenerating(false);
+    setGenerationProgress(null);
+    const cancelNotices = {
+      pt: "Geração cancelada. Seus parâmetros e estudo em andamento foram preservados.",
+      es: "Generación cancelada. Tus parámetros y estudio en curso fueron preservados.",
+      en: "Generation cancelled. Your parameters and active study progress were preserved.",
+      de: "Generierung abgebrochen. Ihre Parameter und Ihr Lernfortschritt blieben erhalten."
+    };
+    setGenerationNotice(cancelNotices[langKey] || cancelNotices.pt);
+  }, [langKey]);
+
+  async function handleGenerateDeck({
+    customTopic = null,
+    customDifficulty = null,
+    customCardCount = null,
+    fromPopover = false
+  } = {}) {
+    const selectedTopic = String(customTopic !== null ? customTopic : (fromPopover ? draftTopic : topicInput) || "").trim();
+    const selectedDifficulty = customDifficulty || (fromPopover ? draftDifficulty : difficulty);
+    const selectedCardCount = customCardCount || (fromPopover ? draftCardCount : cardCount);
+
+    if (!selectedTopic) {
+      const errorMsg = {
+        pt: "Informe um tema anatômico válido antes de gerar o baralho.",
+        es: "Ingresa un tema anatómico válido antes de generar la baraja.",
+        en: "Please enter a valid anatomical topic before generating the deck.",
+        de: "Bitte geben Sie ein gültiges anatomisches Thema ein, bevor Sie das Deck generieren."
+      };
+      setValidationError(errorMsg[langKey] || errorMsg.pt);
+      return;
+    }
+
+    setValidationError("");
+    setOperationalError("");
+    setGenerationNotice("");
+    setIsGenerating(true);
+
+    const requestedNum = resolveRequestedCardCount(selectedCardCount);
+    setGenerationProgress({
+      stage: "preparing_evidence",
+      completedCount: 0,
+      requestedCount: requestedNum,
+      batchIndex: 1,
+      totalBatches: Math.max(1, Math.ceil(requestedNum / 5))
+    });
+
+    // Abort any previous pending generation
+    if (abortControllerRef.current) {
+      try {
+        abortControllerRef.current.abort();
+      } catch (abortErr) {
+        console.debug("Previous flashcard generation abort notice:", abortErr);
+      }
+    }
+    const currentSeq = ++generationSeqRef.current;
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    if (generationAbortTimerRef.current) {
+      clearTimeout(generationAbortTimerRef.current);
+    }
+
+    const timeoutMs = resolveOperationTimeoutMs(selectedCardCount);
+    const timeoutSec = Math.round(timeoutMs / 1000);
+
+    const timeoutPromise = new Promise((_, reject) => {
+      generationAbortTimerRef.current = setTimeout(() => {
+        if (generationSeqRef.current !== currentSeq) return;
+        try {
+          controller.abort();
+        } catch (abortErr) {
+          console.debug("Flashcards timeout abort notice:", abortErr);
+        }
+        const timeoutMsg = {
+          pt: `O serviço de inferência com Qwen 3.5 4B no Gateway local está ocupado ou excedeu o tempo da operação (${timeoutSec}s). Seus parâmetros e estudo atual foram preservados. Você pode tentar novamente ou utilizar o banco curado.`,
+          es: `El servicio de inferencia con Qwen 3.5 4B en el Gateway local está ocupado (${timeoutSec}s). Tus parámetros y estudio actual fueron preservados. Intenta nuevamente o usa el banco curado.`,
+          en: `The local Qwen 3.5 4B inference service is busy or exceeded the operation window (${timeoutSec}s). Your settings and study progress are preserved. Try again or use the curated bank.`,
+          de: `Der lokale Qwen 3.5 4B Inferenzdienst ist ausgelastet (${timeoutSec}s). Ihre Parameter und Ihr Lernfortschritt blieben erhalten. Bitte erneut versuchen oder kuratierte Datenbank nutzen.`
+        };
+        const err = new Error(timeoutMsg[langKey] || timeoutMsg.pt);
+        err.code = "AI_GATEWAY_TIMEOUT";
+        reject(err);
+      }, timeoutMs);
+    });
+
+    try {
+      const generationPromise = generateAnatomicalFlashcards({
+        topic: selectedTopic,
+        difficulty: selectedDifficulty,
+        cardCount: selectedCardCount,
+        language: langKey,
+        preferTutorOnly: true,
+        signal: controller.signal,
+        onProgress: (prog) => {
+          if (generationSeqRef.current !== currentSeq) return;
+          setGenerationProgress(prog);
+        }
+      });
+
+      const generated = await Promise.race([generationPromise, timeoutPromise]);
+      if (generationSeqRef.current !== currentSeq) return;
+
+      if (generationAbortTimerRef.current) {
+        clearTimeout(generationAbortTimerRef.current);
+        generationAbortTimerRef.current = null;
+      }
+
+      // Sync active parameters only after validated generation succeeds
+      setTopicInput(selectedTopic);
+      setDifficulty(selectedDifficulty);
+      setCardCount(selectedCardCount);
+      setDraftTopic(selectedTopic);
+      setDraftDifficulty(selectedDifficulty);
+      setDraftCardCount(selectedCardCount);
+
+      setActiveDeck(generated);
+      if (typeof window !== "undefined") {
+        window.__A26_ACTIVE_FLASHCARD_DECK__ = generated;
+      }
+      setCurrentIndex(0);
+      setIsFlipped(false);
+      setIsFinished(false);
+      setSessionResults([]);
+      setIsDeckSaved(false);
+      setScheduledNotice("");
+      setGenerationNotice(generated.generationNotice || "");
+      setIsConfigDrawerOpen(false);
+    } catch (err) {
+      if (generationSeqRef.current !== currentSeq) return;
+      if (err?.code === "REQUEST_ABORTED" || err?.name === "AbortError") {
+        return;
+      }
+      console.error("Erro operacional ao gerar flashcards:", err);
+      if (err?.code === "INVALID_TOPIC") {
+        setValidationError(err?.message || "Informe um tema anatômico válido.");
+      } else {
+        setOperationalError(
+          err?.message ||
+          "O serviço de inferência local (Qwen 3.5 4B) não pôde concluir a geração agora. Seus parâmetros e estudo atual foram preservados."
+        );
+      }
+    } finally {
+      if (generationSeqRef.current === currentSeq) {
+        if (generationAbortTimerRef.current) {
+          clearTimeout(generationAbortTimerRef.current);
+          generationAbortTimerRef.current = null;
+        }
+        setIsGenerating(false);
+        setGenerationProgress(null);
+      }
+    }
+  }
+
+  function handleLoadCuratedFallback({ fromPopover = false } = {}) {
+    const selectedTopic = String((fromPopover ? draftTopic : topicInput) || "").trim() || DEFAULT_TOPIC_BY_LANG[langKey];
+    const selectedDifficulty = fromPopover ? draftDifficulty : difficulty;
+    const selectedCardCount = fromPopover ? draftCardCount : cardCount;
+    const requested = resolveRequestedCardCount(selectedCardCount);
+
+    // Abort any running AI generation so a late response never overwrites the curated deck
+    generationSeqRef.current += 1;
+    if (abortControllerRef.current) {
+      try {
+        abortControllerRef.current.abort();
+      } catch {
+        // ignore abort error
+      }
+      abortControllerRef.current = null;
+    }
+    if (generationAbortTimerRef.current) {
+      clearTimeout(generationAbortTimerRef.current);
+      generationAbortTimerRef.current = null;
+    }
+    setIsGenerating(false);
+    setGenerationProgress(null);
+
+    let curatedSelection = selectCuratedFlashcards({
+      topic: selectedTopic,
+      difficulty: selectedDifficulty,
+      count: requested,
+      language: langKey
+    });
+
+    if (!curatedSelection?.cards?.length) {
+      curatedSelection = selectCuratedFlashcards({
+        topic: "Clavícula e Ombro",
+        difficulty: selectedDifficulty,
+        count: requested,
+        language: langKey
+      });
+    }
+
+    if (curatedSelection?.cards?.length) {
+      const matchedTitle = curatedSelection.matchedTopic?.title || selectedTopic;
+      const cards = curatedSelection.cards;
+      const isPartial = cards.length < requested;
+      const curatedNotices = {
+        pt: isPartial
+          ? `Banco editorial curado Aeternum 26.1: ${cards.length} cartões disponíveis de até ${requested} solicitados (sem duplicação artificial).`
+          : `Baralho curado do acervo editorial Aeternum 26.1 (${cards.length} cartões verificados sem duplicatas).`,
+        es: isPartial
+          ? `Banco curado Aeternum 26.1: ${cards.length} tarjetas disponibles de hasta ${requested} solicitadas.`
+          : `Baraja curada del banco editorial Aeternum 26.1 (${cards.length} tarjetas verificadas).`,
+        en: isPartial
+          ? `Aeternum 26.1 curated bank: ${cards.length} cards available of up to ${requested} requested (no artificial duplication).`
+          : `Curated deck from Aeternum 26.1 editorial bank (${cards.length} verified cards).`,
+        de: isPartial
+          ? `Kuratierte Datenbank Aeternum 26.1: ${cards.length} Karten verfügbar von bis zu ${requested} angeforderten.`
+          : `Kuratiertes Deck aus der Aeternum 26.1 Datenbank (${cards.length} geprüfte Karten).`
+      };
+
+      setTopicInput(matchedTitle);
+      setDifficulty(selectedDifficulty);
+      setCardCount(selectedCardCount);
+      setDraftTopic(matchedTitle);
+      setDraftDifficulty(selectedDifficulty);
+      setDraftCardCount(selectedCardCount);
+
+      setActiveDeck({
+        id: `curated-${Date.now()}`,
+        title: `Flashcards: ${matchedTitle}`,
+        topic: matchedTitle,
+        system: curatedSelection.matchedTopic?.system || "Anatomia Humana",
+        difficulty: selectedDifficulty,
+        sources: ["SRC-MOORE-7TH-BR", "SRC-TA2-2019"],
+        requestedCount: requested,
+        generatedCount: cards.length,
+        validatedCount: cards.length,
+        tutorGeneratedCount: 0,
+        curatedIncludedCount: cards.length,
+        rejectedCount: 0,
+        isPartial,
+        generationMode: FLASHCARD_GENERATION_MODES.CURATED,
+        generationNotice: curatedNotices[langKey] || curatedNotices.pt,
+        cards
+      });
+      setCurrentIndex(0);
+      setIsFlipped(false);
+      setIsFinished(false);
+      setSessionResults([]);
+      setIsDeckSaved(false);
+      setValidationError("");
+      setOperationalError("");
+      setGenerationNotice(curatedNotices[langKey] || curatedNotices.pt);
+      setIsConfigDrawerOpen(false);
+    }
+  }
+
+  const handleRateCard = useCallback((rating) => {
+    if (!currentCard || feedbackState) return;
+
+    setFeedbackState(rating);
+
+    recordCardReview({
+      userId,
+      cardId: currentCard.id,
+      rating,
+      topic: currentCard.topic,
+      difficulty: currentCard.difficulty || activeDeck?.difficulty
+    });
+
+    recordLearningEvent({
+      user,
+      eventType: "flashcard_reviewed",
+      eventData: {
+        cardId: currentCard.id,
+        topic: currentCard.topic,
+        rating,
+        difficulty: currentCard.difficulty || activeDeck?.difficulty,
+        source: currentCard.sourceCitation
+      }
+    });
+
+    const newResult = { card: currentCard, result: rating };
+    const updatedResults = [...sessionResults, newResult];
+    setSessionResults(updatedResults);
+
+    setTimeout(() => {
+      setFeedbackState(null);
+      setIsFlipped(false);
+
+      if (currentIndex + 1 < activeDeck.cards.length) {
+        setCurrentIndex((prev) => prev + 1);
+      } else {
+        setIsFinished(true);
+        const correctCount = updatedResults.filter((r) => r.result === "correct").length;
+        const total = updatedResults.length;
+        recordLearningEvent({
+          user,
+          eventType: "flashcard_deck_completed",
+          eventData: {
+            deckTitle: activeDeck.title,
+            topic: activeDeck.topic,
+            totalCards: total,
+            correctCount,
+            scorePercent: total ? Math.round((correctCount / total) * 100) : 0
+          }
+        });
+      }
+    }, 320);
+  }, [currentCard, feedbackState, userId, activeDeck, user, sessionResults, currentIndex]);
+
+  function handleExplainWithAI(card) {
+    if (!card) return;
+    const promptMap = {
+      pt: `Estou estudando o Flashcard de Anatomia sobre "${card.topic}". Pergunta: "${card.front}". Resposta: "${card.back}". Pode me explicar com detalhes anatômicos e clínicos como se eu estivesse em uma aula prática?`,
+      es: `Estoy estudiando el Flashcard de Anatomía sobre "${card.topic}". Pregunta: "${card.front}". Respuesta: "${card.back}". ¿Podrías explicarme con detalles anatómicos y clínicos como si estuviéramos en una clase práctica?`,
+      en: `I am studying the Anatomy Flashcard on "${card.topic}". Question: "${card.front}". Answer: "${card.back}". Could you explain this with anatomical and clinical details as if in a practical anatomy lab?`,
+      de: `Ich lerne mit der Anatomie-Karteikarte über "${card.topic}". Frage: "${card.front}". Antwort: "${card.back}". Könnten Sie mir das mit anatomischen und klinischen Details wie in einem praktischen Präparierkurs erklären?`
+    };
+    const prompt = promptMap[langKey] || promptMap.pt;
+    openTutor({
+      prompt,
+      context: {
+        source: "flashcards",
+        route: "/flashcards",
+        topic: card.topic,
+        difficulty: card.difficulty || activeDeck?.difficulty,
+        cardId: card.id,
+        learningObjective: card.learningObjective || null,
+        language: langKey
+      },
+      contextLabel: `Flashcards · ${card.topic}`
+    });
+  }
+
   // Keyboard Hotkeys Listener (Anki Style: Space/Enter = Flip, 1 = Wrong, 2 = Correct, E = Explain)
   useEffect(() => {
     function handleKeyDown(e) {
-      if (!activeDeck || isFinished) return;
+      if (!activeDeck || isFinished || isConfigDrawerOpen) return;
       if (["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
 
       if (e.code === "Space" || e.code === "Enter") {
@@ -158,199 +538,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeDeck, currentIndex, isFinished, currentCard, feedbackState]);
-
-  async function handleGenerateDeck(customTopic) {
-    const selectedTopic = customTopic || topicInput;
-    if (!String(selectedTopic || "").trim()) {
-      const errorMsg = {
-        pt: "Informe um tema anatômico antes de gerar o baralho.",
-        es: "Ingresa un tema anatómico antes de generar la baraja.",
-        en: "Please enter an anatomical topic before generating the deck.",
-        de: "Bitte geben Sie ein anatomisches Thema ein, bevor Sie das Deck generieren."
-      };
-      setGenerationError(errorMsg[langKey] || errorMsg.pt);
-      return;
-    }
-
-    setIsGenerating(true);
-    setGenerationError("");
-    setGenerationNotice("");
-    setIsFinished(false);
-    setSessionResults([]);
-    setCurrentIndex(0);
-    setIsFlipped(false);
-    setIsDeckSaved(false);
-    setScheduledNotice("");
-    setIsConfigDrawerOpen(false);
-
-    // 1. Abort any previous pending generation
-    if (abortControllerRef.current) {
-      try {
-        abortControllerRef.current.abort();
-      } catch (abortErr) {
-        console.debug("Previous flashcard generation abort notice:", abortErr);
-      }
-    }
-    const currentSeq = ++generationSeqRef.current;
-    const controller = new AbortController();
-    abortControllerRef.current = controller;
-
-    if (generationAbortTimerRef.current) {
-      clearTimeout(generationAbortTimerRef.current);
-    }
-
-    const timeoutPromise = new Promise((_, reject) => {
-      generationAbortTimerRef.current = setTimeout(() => {
-        if (generationSeqRef.current !== currentSeq) return;
-        try {
-          controller.abort();
-        } catch (abortErr) {
-          console.debug("Flashcards timeout abort notice:", abortErr);
-        }
-        const timeoutMsg = {
-          pt: "O serviço de inferência com Qwen 3.5 4B no Gateway local está ocupado ou demorou para responder (limite de 35s). Seus parâmetros foram preservados. Você pode tentar novamente ou utilizar o banco curado.",
-          es: "El servicio de inferencia con Qwen 3.5 4B en el Gateway local está ocupado. Sus parámetros fueron preservados. Intente nuevamente o use el banco curado.",
-          en: "The local Qwen 3.5 4B inference service is busy. Your settings are preserved. Please try again or load the curated bank.",
-          de: "Der lokale Qwen 3.5 4B Inferenzdienst ist ausgelastet. Ihre Eingaben wurden gespeichert. Bitte erneut versuchen oder kuratierte Karten nutzen."
-        };
-        const err = new Error(timeoutMsg[langKey] || timeoutMsg.pt);
-        err.code = "AI_GATEWAY_TIMEOUT";
-        reject(err);
-      }, 35000);
-    });
-
-    try {
-      const generationPromise = generateAnatomicalFlashcards({
-        topic: selectedTopic,
-        difficulty,
-        cardCount,
-        language: langKey,
-        sendTutorMessage: typeof sendMessage === "function" ? sendMessage : null,
-        signal: controller.signal
-      });
-
-      const generated = await Promise.race([generationPromise, timeoutPromise]);
-      if (generationSeqRef.current !== currentSeq) return;
-
-      if (generationAbortTimerRef.current) {
-        clearTimeout(generationAbortTimerRef.current);
-        generationAbortTimerRef.current = null;
-      }
-
-      setActiveDeck(generated);
-      setGenerationNotice(generated.generationNotice || "");
-    } catch (err) {
-      if (generationSeqRef.current !== currentSeq) return;
-      console.error("Erro ao gerar flashcards:", err);
-      setGenerationError(err?.message || "Não foi possível gerar o baralho agora.");
-    } finally {
-      if (generationSeqRef.current === currentSeq) {
-        if (generationAbortTimerRef.current) {
-          clearTimeout(generationAbortTimerRef.current);
-          generationAbortTimerRef.current = null;
-        }
-        setIsGenerating(false);
-      }
-    }
-  }
-
-  function handleLoadCuratedFallback() {
-    const requested = cardCount === "few" ? 5 : cardCount === "standard" ? 10 : 20;
-    let curatedSelection = selectCuratedFlashcards({
-      topic: topicInput,
-      difficulty,
-      count: requested
-    });
-
-    if (!curatedSelection?.cards?.length) {
-      curatedSelection = selectCuratedFlashcards({
-        topic: "Clavícula e Ombro",
-        difficulty,
-        count: requested
-      });
-    }
-
-    if (curatedSelection?.cards?.length) {
-      setActiveDeck({
-        id: `curated-${Date.now()}`,
-        title: `Flashcards: ${curatedSelection.matchedTopic?.title || topicInput}`,
-        topic: curatedSelection.matchedTopic?.title || topicInput,
-        system: curatedSelection.matchedTopic?.system || "Anatomia Humana",
-        difficulty,
-        sources: ["SRC-MOORE-7TH-BR", "SRC-TA2-2019"],
-        requestedCount: requested,
-        generatedCount: curatedSelection.cards.length,
-        validatedCount: curatedSelection.cards.length,
-        rejectedCount: 0,
-        isPartial: curatedSelection.cards.length < requested,
-        generationMode: "curated",
-        generationNotice: "Baralho curado do acervo editorial Aeternum 26.1 (100% verificado sem duplicatas).",
-        cards: curatedSelection.cards
-      });
-      setGenerationError("");
-      setIsConfigDrawerOpen(false);
-    }
-  }
-
-  const handleRateCard = useCallback((rating) => {
-    if (!currentCard || feedbackState) return;
-
-    // Trigger visual punch feedback
-    setFeedbackState(rating);
-
-    // Save SM-2 Spaced Repetition Progress
-    recordCardReview({
-      userId,
-      cardId: currentCard.id,
-      rating,
-      topic: currentCard.topic,
-      difficulty: currentCard.difficulty || activeDeck?.difficulty
-    });
-
-    // Record learning event telemetry
-    recordLearningEvent({
-      user,
-      eventType: "flashcard_reviewed",
-      eventData: {
-        cardId: currentCard.id,
-        topic: currentCard.topic,
-        rating,
-        difficulty: currentCard.difficulty || activeDeck?.difficulty,
-        source: currentCard.sourceCitation
-      }
-    });
-
-    const newResult = { card: currentCard, result: rating };
-    const updatedResults = [...sessionResults, newResult];
-    setSessionResults(updatedResults);
-
-    // Animate to next card after 320ms feedback delay
-    setTimeout(() => {
-      setFeedbackState(null);
-      setIsFlipped(false);
-
-      if (currentIndex + 1 < activeDeck.cards.length) {
-        setCurrentIndex((prev) => prev + 1);
-      } else {
-        setIsFinished(true);
-        // Telemetry on deck completion
-        const correctCount = updatedResults.filter((r) => r.result === "correct").length;
-        const total = updatedResults.length;
-        recordLearningEvent({
-          user,
-          eventType: "flashcard_deck_completed",
-          eventData: {
-            deckTitle: activeDeck.title,
-            topic: activeDeck.topic,
-            totalCards: total,
-            correctCount,
-            scorePercent: total ? Math.round((correctCount / total) * 100) : 0
-          }
-        });
-      }
-    }, 320);
-  }, [currentCard, feedbackState, userId, activeDeck, user, sessionResults, currentIndex]);
+  }, [activeDeck, currentIndex, isFinished, isConfigDrawerOpen, currentCard, handleRateCard]);
 
   function handleSaveCurrentDeck() {
     if (!activeDeck) return;
@@ -397,37 +585,23 @@ export default function AnatomicalFlashcardsPage({ user }) {
   }
 
   function handleLoadSavedDeck(deck) {
-    setActiveDeck(deck);
+    generationSeqRef.current += 1;
+    const normalizedMode = normalizeGenerationMode(deck.generationMode, {
+      tutorCount: deck.tutorGeneratedCount,
+      curatedCount: deck.curatedIncludedCount
+    });
+    setActiveDeck({
+      ...deck,
+      generationMode: normalizedMode
+    });
     setCurrentIndex(0);
     setIsFlipped(false);
     setIsFinished(false);
     setSessionResults([]);
     setIsDeckSaved(true);
+    setValidationError("");
+    setOperationalError("");
     setIsConfigDrawerOpen(false);
-  }
-
-  function handleExplainWithAI(card) {
-    if (!card) return;
-    const promptMap = {
-      pt: `Estou estudando o Flashcard de Anatomia sobre "${card.topic}". Pergunta: "${card.front}". Resposta: "${card.back}". Pode me explicar com detalhes anatômicos e clínicos como se eu estivesse em uma aula prática?`,
-      es: `Estoy estudiando el Flashcard de Anatomía sobre "${card.topic}". Pregunta: "${card.front}". Respuesta: "${card.back}". ¿Podrías explicarme con detalles anatómicos y clínicos como si estuviéramos en una clase práctica?`,
-      en: `I am studying the Anatomy Flashcard on "${card.topic}". Question: "${card.front}". Answer: "${card.back}". Could you explain this with anatomical and clinical details as if in a practical anatomy lab?`,
-      de: `Ich lerne mit der Anatomie-Karteikarte über "${card.topic}". Frage: "${card.front}". Antwort: "${card.back}". Könnten Sie mir das mit anatomischen und klinischen Details wie in einem praktischen Präparierkurs erklären?`
-    };
-    const prompt = promptMap[langKey] || promptMap.pt;
-    openTutor({
-      prompt,
-      context: {
-        source: "flashcards",
-        route: "/flashcards",
-        topic: card.topic,
-        difficulty: card.difficulty || activeDeck?.difficulty,
-        cardId: card.id,
-        learningObjective: card.learningObjective || null,
-        language: langKey
-      },
-      contextLabel: `Flashcards · ${card.topic}`
-    });
   }
 
   function handleRestartWrongOnly() {
@@ -469,27 +643,97 @@ export default function AnatomicalFlashcardsPage({ user }) {
     return Array.from(new Set(sessionResults.filter((r) => r.result === "wrong").map((r) => r.card.topic)));
   }, [sessionResults]);
 
+  const normalizedActiveMode = useMemo(() => {
+    if (!activeDeck) return FLASHCARD_GENERATION_MODES.CURATED;
+    return normalizeGenerationMode(activeDeck.generationMode, {
+      tutorCount: activeDeck.tutorGeneratedCount,
+      curatedCount: activeDeck.curatedIncludedCount
+    });
+  }, [activeDeck]);
+
+  const activeModeLabel = useMemo(() => {
+    const labels = {
+      pt: {
+        [FLASHCARD_GENERATION_MODES.CURATED]: "Curado",
+        [FLASHCARD_GENERATION_MODES.TUTOR]: "Tutor IA",
+        [FLASHCARD_GENERATION_MODES.HYBRID]: "Híbrido"
+      },
+      es: {
+        [FLASHCARD_GENERATION_MODES.CURATED]: "Curado",
+        [FLASHCARD_GENERATION_MODES.TUTOR]: "Tutor IA",
+        [FLASHCARD_GENERATION_MODES.HYBRID]: "Híbrido"
+      },
+      en: {
+        [FLASHCARD_GENERATION_MODES.CURATED]: "Curated",
+        [FLASHCARD_GENERATION_MODES.TUTOR]: "AI Tutor",
+        [FLASHCARD_GENERATION_MODES.HYBRID]: "Hybrid"
+      },
+      de: {
+        [FLASHCARD_GENERATION_MODES.CURATED]: "Kuratiert",
+        [FLASHCARD_GENERATION_MODES.TUTOR]: "KI-Tutor",
+        [FLASHCARD_GENERATION_MODES.HYBRID]: "Hybrid"
+      }
+    };
+    const set = labels[langKey] || labels.pt;
+    return set[normalizedActiveMode] || set[FLASHCARD_GENERATION_MODES.CURATED];
+  }, [normalizedActiveMode, langKey]);
+
+  const activeAvailabilitySummary = useMemo(() => {
+    if (!activeDeck?.cards?.length) return "";
+    const available = activeDeck.cards.length;
+    const requested = activeDeck.requestedCount || available;
+    if (langKey === "es") {
+      return available < requested
+        ? `${available} tarjetas disponibles de hasta ${requested} solicitadas`
+        : `${available} tarjetas disponibles`;
+    }
+    if (langKey === "en") {
+      return available < requested
+        ? `${available} cards available of up to ${requested} requested`
+        : `${available} cards available`;
+    }
+    if (langKey === "de") {
+      return available < requested
+        ? `${available} Karten verfügbar von bis zu ${requested} angeforderten`
+        : `${available} Karten verfügbar`;
+    }
+    return available < requested
+      ? `${available} cartões disponíveis de até ${requested} solicitados`
+      : `${available} cartões disponíveis`;
+  }, [activeDeck, langKey]);
+
+  const hasActiveStudyProgress = Boolean(activeDeck && (currentIndex > 0 || sessionResults.length > 0 || isFlipped));
+  const hasPendingPopoverChanges = Boolean(
+    activeDeck && (
+      String(draftTopic || "").trim() !== String(activeDeck.topic || "").trim() ||
+      draftDifficulty !== activeDeck.difficulty ||
+      resolveRequestedCardCount(draftCardCount) !== (activeDeck.requestedCount || activeDeck.cards?.length)
+    )
+  );
+
   return (
     <A26FeatureShell
       variant="tool"
       className="a26-flashcards-container"
       header={
         <A26PageHeader
-          variant={activeDeck && !isFinished ? "compact" : "standard"}
+          variant="compact"
           eyebrow={activeDeck ? (activeDeck.system || t("flashcards.kicker", { defaultValue: "Revisão Ativa & Repetição Espaçada SM-2" })) : t("flashcards.kicker", { defaultValue: "Revisão Ativa & Repetição Espaçada SM-2" })}
           title={activeDeck ? activeDeck.title : t("flashcards.title", { defaultValue: "Flashcards Anatômicos Inteligentes" })}
-          description={activeDeck ? null : t("flashcards.subtitle", { defaultValue: "Combine um banco anatômico curado, repetição espaçada e o Tutor IA autenticado em baralhos sem perguntas duplicadas." })}
+          description={null}
           primaryAction={
             activeDeck ? (
               <div className="flex items-center gap-2">
                 <A26Button
-                  variant="ghost"
+                  variant={isConfigDrawerOpen ? "liquid" : "ghost"}
                   size="sm"
-                  onClick={() => setIsConfigDrawerOpen((prev) => !prev)}
+                  onClick={handleOpenAdjustPopover}
                   icon={<LineIcon name="settings" />}
-                  title={isConfigDrawerOpen ? "Recolher parâmetros" : "Expandir parâmetros"}
+                  aria-expanded={isConfigDrawerOpen}
+                  aria-haspopup="dialog"
+                  title={isConfigDrawerOpen ? "Fechar painel de parâmetros" : "Ajustar parâmetros do baralho"}
                 >
-                  ⚙️ {isConfigDrawerOpen ? t("actions.close", { defaultValue: "Ocultar Parâmetros" }) : t("actions.configure", { defaultValue: "Ajustar Baralho" })}
+                  ⚙️ {isConfigDrawerOpen ? t("actions.close", { defaultValue: "Fechar Ajuste" }) : t("actions.configure", { defaultValue: "Ajustar Baralho" })}
                 </A26Button>
                 {!isDeckSaved && (
                   <A26Button
@@ -505,8 +749,11 @@ export default function AnatomicalFlashcardsPage({ user }) {
                   variant="liquid"
                   size="sm"
                   onClick={() => {
+                    handleCancelGeneration();
                     setActiveDeck(null);
                     setIsConfigDrawerOpen(false);
+                    setValidationError("");
+                    setOperationalError("");
                   }}
                   icon={<LineIcon name="reset" />}
                 >
@@ -518,176 +765,38 @@ export default function AnatomicalFlashcardsPage({ user }) {
         />
       }
     >
-      {/* Mode 1: Generator Modal & Config (NotebookLM Pattern) */}
+      {/* Mode 1: Modern Proportional Initial Configurator */}
       {!activeDeck && (
-        <A26Surface material="regular" className="a26-generator-surface p-6 space-y-6">
-          <div className="a26-flashcard-trustline" aria-live="polite">
-            <span
-              className={`a26-flashcard-status-dot is-${(connectionMode === "online" || connectionMode === "live") ? "online" : (connectionMode || "offline")}`}
-              aria-hidden="true"
-            />
-            <strong>{t("flashcards.trustlineCurated", { defaultValue: "Banco curado disponível" })}</strong>
-            <span>
-              {(connectionMode === "online" || connectionMode === "live")
-                ? t("flashcards.trustlineOnline", { defaultValue: "Tutor IA online para temas personalizados (Qwen 3.5 4B)" })
-                : t("flashcards.trustlineOffline", { defaultValue: "Tutor IA offline; temas curados continuam funcionando plenamente" })}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="text-xs uppercase tracking-wider text-agedGold font-semibold block mb-2">
-                {t("flashcards.cardCountLabel", { defaultValue: "Número de Cards" })}
-              </label>
-              <A26SegmentedControl
-                options={[
-                  { label: t("flashcards.fewCards", { defaultValue: "Até 5" }), value: "few" },
-                  { label: t("flashcards.standardCards", { defaultValue: "Até 10" }), value: "standard" },
-                  { label: t("flashcards.manyCards", { defaultValue: "Até 20" }), value: "many" }
-                ]}
-                value={cardCount}
-                onChange={setCardCount}
-              />
-            </div>
-
-            <div>
-              <label className="text-xs uppercase tracking-wider text-agedGold font-semibold block mb-2">
-                {t("flashcards.difficultyLabel", { defaultValue: "Nível de Dificuldade" })}
-              </label>
-              <A26SegmentedControl
-                options={[
-                  { label: t("flashcards.easy", { defaultValue: "Fácil" }), value: "Fácil" },
-                  { label: t("flashcards.medium", { defaultValue: "Médio (padrão)" }), value: "Médio" },
-                  { label: t("flashcards.hard", { defaultValue: "Difícil" }), value: "Difícil" }
-                ]}
-                value={difficulty}
-                onChange={setDifficulty}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="text-xs uppercase tracking-wider text-agedGold font-semibold block mb-2">
-              {t("flashcards.topicPromptLabel", { defaultValue: "Qual deve ser o tema?" })}
-            </label>
-            <A26Field
-              label={t("flashcards.topicFieldLabel", { defaultValue: "Tema anatômico" })}
-              value={topicInput}
-              onChange={(e) => setTopicInput(e.target.value)}
-              placeholder={t("flashcards.topicPlaceholder", { defaultValue: "Digite o assunto (ex: Vértebras Cervicais, Fêmur, Artéria Coronária...)" })}
-              error={generationError || undefined}
-              className="w-full"
-            />
-          </div>
-
-          <div className="a26-chips-wrapper flex flex-wrap gap-2">
-            {quickTopicChips.map((chip) => (
-              <A26Button
-                key={chip}
-                type="button"
-                variant="ghost"
-                className="a26-quick-chip"
-                onClick={() => {
-                  setTopicInput(chip);
-                  handleGenerateDeck(chip);
-                }}
-              >
-                + {chip}
-              </A26Button>
-            ))}
-          </div>
-
-          {generationError ? (
-            <div className="a26-generation-error-box p-4 rounded-xl border border-rose-500/40 bg-rose-950/30 space-y-3" role="alert">
-              <div className="flex items-start gap-3">
-                <span className="text-rose-400 text-lg">⚠️</span>
-                <div className="space-y-1">
-                  <h4 className="text-sm font-semibold text-rose-300">
-                    {t("flashcards.errorTitle", { defaultValue: "Aviso de Disponibilidade Operacional" })}
-                  </h4>
-                  <p className="text-xs text-rose-200/90 leading-relaxed">
-                    {generationError}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 pt-1">
-                <A26Button
-                  variant="primary"
-                  size="sm"
-                  onClick={() => handleGenerateDeck()}
-                  loading={isGenerating}
-                  icon={<LineIcon name="reset" />}
-                >
-                  {t("actions.retry", { defaultValue: "Tentar Novamente" })}
-                </A26Button>
-                <A26Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleLoadCuratedFallback}
-                >
-                  📚 {t("flashcards.loadCurated", { defaultValue: "Usar Banco Curado Aeternum" })}
-                </A26Button>
-              </div>
-            </div>
-          ) : null}
-
-          {generationNotice ? (
-            <p className="a26-generation-message" aria-live="polite">
-              {generationNotice}
-            </p>
-          ) : null}
-
-          <div className="a26-generator-actions flex items-center justify-start gap-3 pt-2">
-            <A26Button
-              variant="primary"
-              onClick={() => handleGenerateDeck()}
-              loading={isGenerating}
-              icon={<LineIcon name="spark" />}
-            >
-              {isGenerating ? t("flashcards.generating", { defaultValue: "Gerando baralho anatômico..." }) : t("flashcards.generateButton", { defaultValue: "Gerar Baralho com IA" })}
-            </A26Button>
-          </div>
-
-          {/* Saved Decks Section */}
-          {savedDecks.length > 0 && (
-            <div className="pt-6 border-t border-glassBorder/40">
-              <span className="a26-kicker">{t("flashcards.savedDecksTitle", { defaultValue: "Minha Coleção de Baralhos Salvos" })}</span>
-              <h3 className="text-base font-bold text-agedGold mb-3">
-                {t("flashcards.savedDecksTitle", { defaultValue: "Meus Baralhos Salvos" })} ({savedDecks.length})
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                {savedDecks.map((deck) => (
-                  <A26Card
-                    key={deck.id || deck.title}
-                    material="clear"
-                    interactive
-                    className="a26-saved-deck"
-                    onClick={() => handleLoadSavedDeck(deck)}
-                  >
-                    <div>
-                      <h4 className="text-sm font-semibold text-textMain line-clamp-1">{deck.title}</h4>
-                      <span className="text-[11px] text-emerald-400">{deck.cards?.length} cards · {deck.difficulty}</span>
-                    </div>
-                    <button
-                      type="button"
-                      title={t("flashcards.deleteDeck", { defaultValue: "Excluir baralho da coleção" })}
-                      className="p-1.5 text-textMuted hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDeleteSavedDeck(deck);
-                      }}
-                    >
-                      <LineIcon name="trash" />
-                    </button>
-                  </A26Card>
-                ))}
-              </div>
-            </div>
-          )}
-        </A26Surface>
+        <FlashcardDeckConfigurator
+          mode="initial"
+          open
+          langKey={langKey}
+          connectionMode={connectionMode}
+          topicValue={topicInput}
+          onTopicChange={(val) => {
+            setTopicInput(val);
+            if (validationError) setValidationError("");
+          }}
+          cardCountValue={cardCount}
+          onCardCountChange={setCardCount}
+          difficultyValue={difficulty}
+          onDifficultyChange={setDifficulty}
+          quickTopicChips={quickTopicChips}
+          isGenerating={isGenerating}
+          generationProgress={generationProgress}
+          validationError={validationError}
+          operationalError={operationalError}
+          generationNotice={generationNotice}
+          onGenerateAI={() => handleGenerateDeck({ fromPopover: false })}
+          onUseCurated={() => handleLoadCuratedFallback({ fromPopover: false })}
+          onCancelGeneration={handleCancelGeneration}
+          savedDecks={savedDecks}
+          onLoadSavedDeck={handleLoadSavedDeck}
+          onDeleteSavedDeck={handleDeleteSavedDeck}
+        />
       )}
 
-      {/* Mode 2: Interactive 3D Player - Single Unified Flashcard with Flip in Place */}
+      {/* Mode 2: Interactive 3D Player — Single Unified Flashcard with Flip in Place */}
       {activeDeck && !isFinished && currentCard && (
         <div className="a26-flashcard-player-container">
           {/* Active Deck Status Bar */}
@@ -696,12 +805,14 @@ export default function AnatomicalFlashcardsPage({ user }) {
               <span className="a26-deck-chip a26-deck-chip--difficulty">
                 {activeDeck.difficulty}
               </span>
-              <span className="a26-deck-chip a26-deck-chip--mode">
-                {activeDeck.generationMode === "curado"
-                  ? "Curado"
-                  : activeDeck.generationMode === "tutor"
-                    ? "Tutor IA (Qwen 3.5 4B)"
-                    : "Híbrido"}
+              <span
+                className={`a26-deck-chip a26-deck-chip--mode is-mode-${normalizedActiveMode}`}
+                data-generation-mode={normalizedActiveMode}
+              >
+                {activeModeLabel}
+              </span>
+              <span className="a26-deck-availability-tag" title={activeAvailabilitySummary}>
+                {activeAvailabilitySummary}
               </span>
               {currentCard.sourceCitation && (
                 <span className="a26-deck-source-tag" title={currentCard.sourceCitation}>
@@ -731,92 +842,42 @@ export default function AnatomicalFlashcardsPage({ user }) {
             </div>
           </div>
 
-          {/* Compact Parameters Drawer (Accordion) */}
-          {isConfigDrawerOpen && (
-            <A26Surface material="regular" className="a26-deck-config-drawer p-4 space-y-4 w-full">
-              <div className="flex items-center justify-between border-b border-glassBorder/40 pb-2">
-                <h3 className="text-xs uppercase tracking-wider text-agedGold font-semibold">
-                  {t("flashcards.configureTitle", { defaultValue: "Ajustar Parâmetros do Baralho" })}
-                </h3>
-                <button
-                  type="button"
-                  className="text-textMuted hover:text-textMain text-xs"
-                  onClick={() => setIsConfigDrawerOpen(false)}
-                >
-                  ✕ {t("actions.close", { defaultValue: "Fechar" })}
-                </button>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-xs text-textMuted font-medium block mb-1">
-                    {t("flashcards.difficultyLabel", { defaultValue: "Nível de Dificuldade" })}
-                  </label>
-                  <A26SegmentedControl
-                    options={[
-                      { label: t("flashcards.easy", { defaultValue: "Fácil" }), value: "Fácil" },
-                      { label: t("flashcards.medium", { defaultValue: "Médio" }), value: "Médio" },
-                      { label: t("flashcards.hard", { defaultValue: "Difícil" }), value: "Difícil" }
-                    ]}
-                    value={difficulty}
-                    onChange={setDifficulty}
-                  />
-                </div>
-                <div>
-                  <label className="text-xs text-textMuted font-medium block mb-1">
-                    {t("flashcards.cardCountLabel", { defaultValue: "Número de Cards" })}
-                  </label>
-                  <A26SegmentedControl
-                    options={[
-                      { label: t("flashcards.fewCards", { defaultValue: "Até 5" }), value: "few" },
-                      { label: t("flashcards.standardCards", { defaultValue: "Até 10" }), value: "standard" },
-                      { label: t("flashcards.manyCards", { defaultValue: "Até 20" }), value: "many" }
-                    ]}
-                    value={cardCount}
-                    onChange={setCardCount}
-                  />
-                </div>
-              </div>
-              <div className="flex items-center justify-between gap-3 pt-2">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-xs text-textMuted">Tópicos:</span>
-                  {quickTopicChips.slice(0, 3).map((chip) => (
-                    <button
-                      key={chip}
-                      type="button"
-                      className="text-[11px] px-2 py-1 rounded-lg bg-teal-900/30 text-teal-300 border border-teal-500/20 hover:bg-teal-800/40"
-                      onClick={() => {
-                        setTopicInput(chip);
-                        handleGenerateDeck(chip);
-                        setIsConfigDrawerOpen(false);
-                      }}
-                    >
-                      {chip}
-                    </button>
-                  ))}
-                </div>
-                <A26Button
-                  variant="primary"
-                  size="sm"
-                  loading={isGenerating}
-                  onClick={() => {
-                    handleGenerateDeck();
-                    setIsConfigDrawerOpen(false);
-                  }}
-                  icon={<LineIcon name="spark" />}
-                >
-                  {t("actions.refresh", { defaultValue: "Regerar Baralho" })}
-                </A26Button>
-              </div>
-            </A26Surface>
+          {/* Floating Adjust Deck Popover / Mobile Bottom Sheet (Never Displaces 3D Card!) */}
+          <FlashcardDeckConfigurator
+            mode="popover"
+            open={isConfigDrawerOpen}
+            langKey={langKey}
+            connectionMode={connectionMode}
+            topicValue={draftTopic}
+            onTopicChange={(val) => {
+              setDraftTopic(val);
+              if (validationError) setValidationError("");
+            }}
+            cardCountValue={draftCardCount}
+            onCardCountChange={setDraftCardCount}
+            difficultyValue={draftDifficulty}
+            onDifficultyChange={setDraftDifficulty}
+            quickTopicChips={quickTopicChips}
+            isGenerating={isGenerating}
+            generationProgress={generationProgress}
+            validationError={validationError}
+            operationalError={operationalError}
+            generationNotice={generationNotice}
+            hasActiveStudyProgress={hasActiveStudyProgress}
+            hasPendingChanges={hasPendingPopoverChanges}
+            onGenerateAI={() => handleGenerateDeck({ fromPopover: true })}
+            onUseCurated={() => handleLoadCuratedFallback({ fromPopover: true })}
+            onCancelGeneration={handleCancelGeneration}
+            onClose={() => setIsConfigDrawerOpen(false)}
+          />
+
+          {scheduledNotice && (
+            <div className="p-2.5 bg-emerald-950/90 border border-emerald-500/50 rounded-xl text-xs font-mono text-emerald-300 text-center w-full">
+              {scheduledNotice}
+            </div>
           )}
 
-          {generationNotice ? (
-            <p className="a26-generation-message w-full" aria-live="polite">
-              {generationNotice}
-            </p>
-          ) : null}
-
-          {/* Unified 3D Flashcard Stage */}
+          {/* Preserved 3D Flashcard Stage (Approved In-Place Flip Mechanism) */}
           <div className="a26-flashcard-stage">
             {feedbackState === "correct" && (
               <div className="a26-feedback-overlay is-correct pointer-events-none z-50">
@@ -935,7 +996,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
               variant="ghost"
               aria-label={t("agenda.next", { defaultValue: "Próximo cartão" })}
               onClick={() => setCurrentIndex((prev) => Math.min(activeDeck.cards.length - 1, prev + 1))}
-              disabled={currentIndex === activeDeck.cards.length - 1}
+              disabled={currentIndex >= activeDeck.cards.length - 1}
             >
               ›
             </A26Button>
@@ -943,39 +1004,35 @@ export default function AnatomicalFlashcardsPage({ user }) {
         </div>
       )}
 
-      {/* Mode 3: Performance Results Report & Spaced Repetition Agenda Sync */}
-      {isFinished && (
+      {/* Mode 3: Final Performance Report & Spaced Repetition Scheduling */}
+      {activeDeck && isFinished && (
         <A26Card material="substantial" tone="teal" className="a26-performance-report-card">
           <span className="a26-kicker">{t("flashcards.kicker", { defaultValue: "Relatório de Desempenho e Repetição Espaçada SM-2" })}</span>
           <h2 className="text-2xl font-bold text-agedGold">{t("flashcards.congratulations", { defaultValue: "Parabéns! Revisão Concluída" })}</h2>
           <p className="text-sm text-textMuted max-w-xl mx-auto">
-            {t("flashcards.reviewSummary", { defaultValue: "Os dados deste teste foram gravados na memória da sua conta e o intervalo de repetição espaçada foi atualizado." })}
+            {t("flashcards.reportSubtitle", { defaultValue: "Seus resultados foram registrados no motor de repetição espaçada SM-2 e na telemetria acadêmica." })}
           </p>
 
           <div className="a26-report-metrics-grid">
-            <A26Metric label={t("flashcards.accuracyRate", { defaultValue: "Taxa de acerto" })} value={`${performanceStats.rate}%`} tone={performanceStats.rate >= 70 ? "teal" : "gold"} />
-            <A26Metric label={t("flashcards.correctButton", { defaultValue: "Cartões acertados" })} value={performanceStats.correct} tone="teal" />
-            <A26Metric label={t("flashcards.wrongButton", { defaultValue: "Cartões a reforçar" })} value={performanceStats.wrong} tone="gold" />
+            <A26Metric label={t("flashcards.retentionRate", { defaultValue: "Taxa de Retenção" })} value={`${performanceStats.rate}%`} tone="teal" />
+            <A26Metric label={t("flashcards.masteredCards", { defaultValue: "Cartões Dominados" })} value={String(performanceStats.correct)} tone="teal" />
+            <A26Metric label={t("flashcards.needsReview", { defaultValue: "Para Revisar" })} value={String(performanceStats.wrong)} tone="gold" />
           </div>
 
           <div className="a26-topics-mastery-list">
             <div className="a26-topic-column is-strong">
-              <h3>🟢 {t("flashcards.masteredTopics", { defaultValue: "Tópicos Dominados" })}</h3>
+              <h3 className="text-emerald-400 font-semibold">✓ {t("flashcards.strongTopics", { defaultValue: "Conceitos Consolidados" })}</h3>
               {masteredTopics.length ? (
-                <ul>
-                  {masteredTopics.map((topic) => <li key={topic}>{topic}</li>)}
-                </ul>
+                <ul>{masteredTopics.map((topic) => <li key={topic}>• {topic}</li>)}</ul>
               ) : (
                 <p className="text-xs text-textMuted">—</p>
               )}
             </div>
 
             <div className="a26-topic-column is-weak">
-              <h3>🔴 {t("flashcards.reviewTopics", { defaultValue: "Tópicos para Revisar" })}</h3>
+              <h3 className="text-rose-400 font-semibold">! {t("flashcards.weakTopics", { defaultValue: "Prioridade de Revisão" })}</h3>
               {reviewTopics.length ? (
-                <ul>
-                  {reviewTopics.map((topic) => <li key={topic}>{topic}</li>)}
-                </ul>
+                <ul>{reviewTopics.map((topic) => <li key={topic}>• {topic}</li>)}</ul>
               ) : (
                 <p className="text-xs text-textMuted">—</p>
               )}
@@ -990,23 +1047,25 @@ export default function AnatomicalFlashcardsPage({ user }) {
 
           <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
             {performanceStats.wrong > 0 && (
-              <A26Button variant="primary" onClick={handleRestartWrongOnly} icon={<LineIcon name="reset" />}>
-                🔄 {t("flashcards.restartWrongOnly", { defaultValue: "Revisar Somente Erros" })} ({performanceStats.wrong})
+              <A26Button variant="primary" onClick={handleRestartWrongOnly}>
+                🔄 {t("flashcards.reviewErrorsOnly", { defaultValue: `Revisar Apenas Erros (${performanceStats.wrong})` })}
               </A26Button>
             )}
-
-            <A26Button variant="ghost" onClick={() => handleScheduleReview(1)} icon={<LineIcon name="calendar" />}>
-              📅 {t("flashcards.scheduleReview", { defaultValue: "Agendar Próxima Revisão" })}
+            <A26Button variant="liquid" onClick={() => handleScheduleReview(1)}>
+              📅 {t("flashcards.scheduleTomorrow", { defaultValue: "Agendar Revisão (Amanhã)" })}
             </A26Button>
-
+            <A26Button variant="ghost" onClick={handleSaveCurrentDeck} disabled={isDeckSaved}>
+              ⭐ {isDeckSaved ? t("flashcards.saved", { defaultValue: "Salvo na Coleção" }) : t("flashcards.saveDeck", { defaultValue: "Salvar Baralho" })}
+            </A26Button>
             <A26Button
-              variant="liquid"
+              variant="ghost"
               onClick={() => {
                 setActiveDeck(null);
-                setIsConfigDrawerOpen(false);
+                setIsFinished(false);
+                setSessionResults([]);
               }}
             >
-              ✨ {t("flashcards.newDeck", { defaultValue: "Novo Baralho" })}
+              {t("flashcards.newDeck", { defaultValue: "Novo Baralho" })}
             </A26Button>
           </div>
         </A26Card>

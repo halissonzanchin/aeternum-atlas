@@ -119,6 +119,8 @@ export class OllamaLLMProvider implements LLMProvider {
       max_tokens: request.maxTokens,
       top_p: request.topP,
       stop: request.stopSequences,
+      reasoning_effort: "none",
+      think: false,
       stream: false
     };
 
@@ -190,6 +192,8 @@ export class OllamaLLMProvider implements LLMProvider {
       max_tokens: request.maxTokens,
       top_p: request.topP,
       stop: request.stopSequences,
+      reasoning_effort: "none",
+      think: false,
       stream: true
     };
 
