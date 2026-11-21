@@ -22,23 +22,27 @@ const e2eEmail = "atlas-e2e-ai-tutor@aeternumatlas.com";
 const e2ePassword = getCredential("AeternumAtlas:AutomationTestAccount");
 const e2eUserId = "825b2496-ecec-4b67-8343-f8aa3578c224";
 
+async function releaseAutomationSession(reason = "teardown_p0_20_h1_automacao") {
+  try {
+    await runSupabaseSql(`
+      SELECT public.admin_reset_user_session(
+        '${e2eUserId}'::uuid,
+        '${reason}'
+      ) as result;
+    `);
+    console.log(`[TEARDOWN] Sessão da conta de automação liberada via admin_reset_user_session (${reason}).`);
+  } catch (e) {
+    console.warn(`[TEARDOWN] Aviso na liberação da sessão de automação:`, e.message);
+  }
+}
+
 async function runHomologation() {
   console.log("=== INICIANDO HOMOLOGAÇÃO ROBUSTA DA ESFERA DE CRISTAL (P0.20-H.1) ===");
 
   // 1. SEGURANÇA E FIRST_SESSION_WINS:
   // Executa exclusivamente o reset administrativo autorizado para a conta de automação.
   // JAMAIS executa 'DELETE FROM user_active_sessions'.
-  try {
-    await runSupabaseSql(`
-      SELECT public.admin_reset_user_session(
-        '${e2eUserId}'::uuid,
-        'homologacao_p0_20_h1_automacao'
-      ) as result;
-    `);
-    console.log("Sessão da conta de automação liberada via admin_reset_user_session com auditoria.");
-  } catch (e) {
-    console.warn("Aviso na liberação da sessão de automação:", e.message);
-  }
+  await releaseAutomationSession("setup_p0_20_h1_automacao");
 
   let browser = null;
 
@@ -209,64 +213,121 @@ async function runHomologation() {
 
       console.log("Métricas de Hover no modo compacto:", JSON.stringify(hoverStyles, null, 2));
 
-      // Teste de Foco Acessível (:focus-visible)
-      await page.evaluate(() => {
-        const tr = document.querySelector(".upe-ai-trigger");
-        if (tr) tr.focus();
-      });
+      // Teste de Foco Acessível via Navegação por Teclado (:focus-visible)
+      console.log("\nAplicando foco acessível por teclado no trigger compacto...");
+      // Simula navegação por teclado (API nativa de foco do Puppeteer)
+      await page.focus(".upe-ai-trigger");
+      // Pressiona Shift para registrar a modalidade de teclado e engajar :focus-visible
+      await page.keyboard.press("Shift");
       await new Promise(r => setTimeout(r, 400));
-      await compactTrigger.screenshot({ path: path.join(ARTIFACTS_DIR, "p0_20_h1_focus_compact.png") });
 
-      const focusStyles = await page.evaluate(() => {
+      const focusValidation = await page.evaluate(() => {
         const tr = document.querySelector(".upe-ai-trigger");
         const st = window.getComputedStyle(tr);
+        const rect = tr.getBoundingClientRect();
         return {
+          isFocused: document.activeElement === tr,
+          isFocusVisible: tr.matches(":focus-visible"),
           outline: st.outlineStyle + " " + st.outlineWidth + " " + st.outlineColor,
           outlineOffset: st.outlineOffset,
           borderRadius: st.borderRadius,
-          boxShadow: st.boxShadow
+          boxShadow: st.boxShadow,
+          width: rect.width,
+          height: rect.height,
+          ratio: (rect.width / rect.height).toFixed(4),
+          circular: Math.abs(rect.width - rect.height) < 0.2,
+          touchSafe: rect.width >= 44 && rect.height >= 44
         };
       });
 
-      console.log("Métricas de Foco Acessível:", JSON.stringify(focusStyles, null, 2));
+      console.log("Validação de Foco Acessível por Teclado (:focus-visible):", JSON.stringify(focusValidation, null, 2));
+
+      if (!focusValidation.isFocused || !focusValidation.isFocusVisible) {
+        throw new Error("Falha na validação de foco: trigger não ativou :focus-visible por teclado.");
+      }
+
+      await compactTrigger.screenshot({ path: path.join(ARTIFACTS_DIR, "p0_20_h1_focus_compact.png") });
     }
 
-    // 8. MEDIÇÃO DE ZOOM REAL vs DENSIDADE DE PIXELS (DPR)
-    console.log("\n--- HOMOLOGANDO ZOOM REAL vs DENSIDADE DE PIXELS ---");
+    // 8. MEDIÇÃO RIGOROSA: DPR vs CSS ZOOM vs ZOOM NATIVO DO NAVEGADOR
+    console.log("\n--- HOMOLOGANDO DPR vs CSS ZOOM vs ZOOM NATIVO DO NAVEGADOR ---");
 
-    // A. Densidade de pixels (Retina / 2x DPR)
+    // A. Densidade de Pixels (HiDPI / Retina DPR = 2.0)
+    // Mede a fidelidade subpixel mantendo as dimensões de layout invariantes (56x56px)
     await page.setViewport({ width: 1277, height: 653, deviceScaleFactor: 2.0 });
     const dpr2Metrics = await page.evaluate(() => {
       const orb = document.querySelector(".aeternum-ai-orb-root");
       const r = orb.getBoundingClientRect();
-      return { width: r.width, height: r.height, ratio: r.width / r.height, dpr: window.devicePixelRatio };
+      return {
+        type: "PixelDensity_HiDPI",
+        dpr: window.devicePixelRatio,
+        layoutWidth: r.width,
+        layoutHeight: r.height,
+        ratio: (r.width / r.height).toFixed(4)
+      };
     });
-    console.log("Métricas 2x DPR:", dpr2Metrics);
+    console.log("Métricas A - Densidade de Pixels (DPR 2.0):", dpr2Metrics);
 
-    // B. Zoom real de navegador a 125%
+    // B. Propriedade CSS 'zoom' a 125% (Escala de layout declarativa CSS)
+    // Altera a geometria da árvore de layout CSS (56px * 1.25 = 70px)
     await page.evaluate(() => {
       document.documentElement.style.zoom = "1.25";
     });
-    await new Promise(r => setTimeout(r, 500));
-    await page.screenshot({ path: path.join(ARTIFACTS_DIR, "p0_20_h_after_home_1277x653_zoom125.png") });
+    await new Promise(r => setTimeout(r, 400));
+    await page.screenshot({ path: path.join(ARTIFACTS_DIR, "p0_20_h_after_home_1277x653_css_zoom125.png") });
+    // Preserva compatibilidade com o nome do artefato anterior
+    fs.copyFileSync(
+      path.join(ARTIFACTS_DIR, "p0_20_h_after_home_1277x653_css_zoom125.png"),
+      path.join(ARTIFACTS_DIR, "p0_20_h_after_home_1277x653_zoom125.png")
+    );
 
-    const zoom125Metrics = await page.evaluate(() => {
+    const cssZoomMetrics = await page.evaluate(() => {
       const tr = document.querySelector(".upe-ai-trigger");
       const r = tr.getBoundingClientRect();
       return {
-        touchTargetWidth: r.width,
-        touchTargetHeight: r.height,
-        ratio: r.width / r.height,
+        type: "CSS_Zoom_Property",
+        cssZoomApplied: document.documentElement.style.zoom,
+        renderedWidth: r.width,
+        renderedHeight: r.height,
+        ratio: (r.width / r.height).toFixed(4),
         touchSafe: r.width >= 44 && r.height >= 44,
         perfectCircle: Math.abs(r.width - r.height) < 0.2
       };
     });
-    console.log("Métricas Zoom Real 125%:", zoom125Metrics);
+    console.log("Métricas B - Propriedade CSS zoom (1.25):", cssZoomMetrics);
 
-    // Restaurar zoom
+    // Restaura propriedade CSS zoom antes do teste de zoom nativo
     await page.evaluate(() => {
       document.documentElement.style.zoom = "1.0";
     });
+    await new Promise(r => setTimeout(r, 200));
+
+    // C. Zoom Nativo do Navegador / Escala de Visualização (Page Scale Factor 125% via CDP)
+    // Injeta a ampliação nativa de viewport do motor Chromium sem recorrer à propriedade CSS zoom
+    const cdp = await page.target().createCDPSession();
+    await cdp.send("Emulation.setPageScaleFactor", { pageScaleFactor: 1.25 });
+    await new Promise(r => setTimeout(r, 500));
+    await page.screenshot({ path: path.join(ARTIFACTS_DIR, "p0_20_h_after_home_1277x653_native_zoom125.png") });
+
+    const nativeZoomMetrics = await page.evaluate(() => {
+      const tr = document.querySelector(".upe-ai-trigger");
+      const r = tr.getBoundingClientRect();
+      const visualScale = window.visualViewport ? window.visualViewport.scale : null;
+      return {
+        type: "Native_Browser_CDP_PageScaleFactor",
+        visualViewportScale: visualScale,
+        clientRectWidth: r.width,
+        clientRectHeight: r.height,
+        ratio: (r.width / r.height).toFixed(4),
+        touchSafe: r.width >= 44 && r.height >= 44,
+        perfectCircle: Math.abs(r.width - r.height) < 0.2
+      };
+    });
+    console.log("Métricas C - Zoom Nativo do Navegador (PageScale 1.25 via CDP):", nativeZoomMetrics);
+
+    // Restaura escala nativa do navegador via CDP
+    await cdp.send("Emulation.setPageScaleFactor", { pageScaleFactor: 1.0 });
+    await cdp.detach();
 
     // 9. VALIDAÇÃO NAS RESOLUÇÕES CANÔNICAS
     const viewports = [
@@ -295,10 +356,32 @@ async function runHomologation() {
 
     console.log("\n=== HOMOLOGAÇÃO P0.20-H.1 FINALIZADA COM SUCESSO INTEGRAL ===");
   } finally {
+    // 1. Tentar logout regular na interface se o navegador ainda estiver aberto e ativo
     if (browser) {
-      await browser.close();
-      console.log("Navegador Edge finalizado.");
+      try {
+        const pages = await browser.pages();
+        if (pages.length > 0) {
+          const p = pages[0];
+          await p.evaluate(() => {
+            const btns = Array.from(document.querySelectorAll("button"));
+            const logout = btns.find(b => b.textContent && b.textContent.includes("Sair"));
+            if (logout) logout.click();
+          });
+          await new Promise(r => setTimeout(r, 600));
+        }
+      } catch (_) {}
+
+      try {
+        await browser.close();
+        console.log("Navegador Edge finalizado.");
+      } catch (e) {
+        console.warn("Aviso ao fechar navegador:", e.message);
+      }
     }
+
+    // 2. Teardown administrativo autorizado no banco (garante zero sessões órfãs mesmo em caso de erro)
+    // Preserva FIRST_SESSION_WINS e nunca usa DELETE na tabela de sessões
+    await releaseAutomationSession("teardown_p0_20_h1_automacao");
   }
 }
 
