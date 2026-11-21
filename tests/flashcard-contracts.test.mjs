@@ -408,6 +408,15 @@ test("P0.20-F.4: resolveOllamaReasoningParams aplica reasoning_effort=none por r
     }),
     { reasoning_effort: "none", think: false }
   );
+
+  // 5. Diretriz explícita de síntese sem reflexões preliminares ou metacognição
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      systemInstruction: "- Seja conciso e direto. Inicie imediatamente a resposta final solicitada sem reflexões preliminares ou metacognição.",
+      messages: [{ role: "user", content: "Quais nervos passam pelo forame jugular?" }]
+    }),
+    { reasoning_effort: "none", think: false }
+  );
 });
 
 

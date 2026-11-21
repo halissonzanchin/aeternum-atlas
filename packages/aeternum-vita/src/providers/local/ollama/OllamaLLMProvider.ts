@@ -60,6 +60,7 @@ export function resolveOllamaReasoningParams(
     source === "mind-map" ||
     sys.includes("Modo de saída — Flashcards Anatômicos") ||
     sys.includes("Modo de saída — Mapa Mental Anatômico") ||
+    sys.includes("sem reflexões preliminares ou metacognição") ||
     lastUserMsg.includes("Formato do JSON:");
 
   if (isStructuredTask) {
