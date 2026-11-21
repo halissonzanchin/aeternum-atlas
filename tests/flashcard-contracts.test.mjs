@@ -434,6 +434,15 @@ test("P0.20-F.4: resolveOllamaReasoningParams aplica reasoning_effort=none por r
     }),
     { reasoning_effort: "none", think: false }
   );
+
+  // 7. Tarefa desconhecida ou não estruturada preserva raciocínio padrão ({}) (P0.20-F.8)
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      messages: [{ role: "user", content: "Explique a vascularização da língua" }],
+      metadata: { task: "unknown_task", source: "atlas-ai-tutor" }
+    }),
+    {}
+  );
 });
 
 
