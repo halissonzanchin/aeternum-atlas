@@ -217,6 +217,8 @@ export const ANATOMICAL_SYNONYM_MAP: Record<string, string[]> = {
   "arteria vertebral": ["artéria vertebral", "artéria basilar"],
   "arteria femoral": ["artéria femoral", "arteria femoral", "trígono femoral"],
   "arteria aorta": ["artéria aorta", "aorta", "arco aórtico"],
+  "arteria maxilar": ["artéria maxilar", "arteria maxilar"],
+  "maxilar": ["artéria maxilar", "nervo maxilar", "maxila"],
   "veia cava": ["veia cava", "vena cava"],
 
   // Neuroanatomia
@@ -318,29 +320,32 @@ export function normalizeAnatomicalKey(text: string): string {
     .trim();
 }
 
+export const ANATOMICAL_STOPWORDS = new Set([
+  // Português
+  "explique", "explica", "fale", "falar", "sobre", "quais", "qual", "quem", "como", "onde", "quando",
+  "por", "que", "porque", "para", "com", "sem", "uma", "um", "umas", "uns", "dos", "das", "do", "da",
+  "de", "em", "no", "na", "nos", "nas", "ao", "aos", "a", "o", "os", "as", "e", "ou", "se", "me", "diga",
+  "mostre", "descreva", "detalhe", "apresente", "resuma", "sintetize", "ola", "oi", "bom", "dia", "boa", "tarde", "noite",
+  "segundo", "atlas", "aeternum", "por favor", "base", "fontes", "variacoes", "variações", "anatomicas", "anatômicas",
+  "documentadas", "pontos", "pulso", "correlacoes", "correlações", "cirurgico", "cirúrgico", "hemodinamicas", "hemodinâmicas",
+  "gerar", "flashcards", "cartoes", "cartões", "nivel", "nível", "facil", "fácil", "medio", "médio", "dificil", "difícil",
+  "funcao", "funções", "estrutura", "estruturas", "relacao", "relações", "sao", "são",
+  // Prompt modifiers
+  "principais", "principal", "incluindo", "suas", "seus", "ramos", "raizes", "raízes",
+  // Espanhol
+  "cuales", "cual", "como", "donde", "cuando", "porque",
+  "las", "los", "del", "uno", "este", "esta", "describa", "hable", "segun", "entre", "hacia",
+  "desde", "sus", "acerca", "funciones", "inserciones", "insercion"
+]);
+
 export function extractSearchTerms(prompt: string): string[] {
-  const stopwords = new Set([
-    // Português
-    "explique", "explica", "fale", "falar", "sobre", "quais", "qual", "quem", "como", "onde", "quando",
-    "por", "que", "porque", "para", "com", "sem", "uma", "um", "umas", "uns", "dos", "das", "do", "da",
-    "de", "em", "no", "na", "nos", "nas", "ao", "aos", "a", "o", "os", "as", "e", "ou", "se", "me", "diga",
-    "mostre", "descreva", "detalhe", "apresente", "resuma", "sintetize", "ola", "oi", "bom", "dia", "boa", "tarde", "noite",
-    "segundo", "atlas", "aeternum", "por favor", "base", "fontes", "variacoes", "variações", "anatomicas", "anatômicas",
-    "documentadas", "pontos", "pulso", "correlacoes", "correlações", "cirurgico", "cirúrgico", "hemodinamicas", "hemodinâmicas",
-    "gerar", "flashcards", "cartoes", "cartões", "nivel", "nível", "facil", "fácil", "medio", "médio", "dificil", "difícil",
-    "funcao", "funções", "estrutura", "estruturas", "relacao", "relações", "sao", "são",
-    // Espanhol
-    "cuales", "cual", "como", "donde", "cuando", "porque",
-    "las", "los", "del", "uno", "este", "esta", "describa", "hable", "segun", "entre", "hacia",
-    "desde", "sus", "acerca", "funciones", "inserciones", "insercion"
-  ]);
   return String(prompt || "")
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9\s]/g, " ")
     .split(/\s+/)
-    .filter((t) => t.length > 2 && !stopwords.has(t));
+    .filter((t) => t.length > 2 && !ANATOMICAL_STOPWORDS.has(t));
 }
 
 function matchAnatomicalWord(text: string, key: string): boolean {
@@ -369,9 +374,12 @@ export function extractAnatomicalEntities(text: string): Array<{ key: string; pr
   let match: RegExpExecArray | null;
   while ((match = prefixRegex.exec(norm)) !== null) {
     const anatomicalPrefix = match[1];
-    const specificTerm = match[2];
+    const rawSpecific = match[2];
+    const filteredWords = rawSpecific.split(/\s+/).filter((w) => !ANATOMICAL_STOPWORDS.has(w));
+    if (filteredWords.length === 0) continue;
+    const specificTerm = filteredWords.join(" ");
     const fullPhrase = `${anatomicalPrefix} ${specificTerm}`.trim();
-    if (!matched.some((e) => e.key === fullPhrase || e.key.includes(specificTerm))) {
+    if (!matched.some((e) => e.key === fullPhrase || e.key === specificTerm)) {
       matched.push({
         key: fullPhrase,
         primary: fullPhrase,
@@ -397,6 +405,9 @@ export function buildCalibratedSearchQueries(prompt: string, scientificTopic = "
 
       if (modifiers.length > 0) {
         queries.push(`${ent.primary} ${modifiers.join(" ")}`);
+        if (modifiers.length > 1) {
+          queries.push(`${ent.primary} ${modifiers[0]}`);
+        }
       }
       queries.push(ent.primary);
       if (ent.synonyms.length > 1 && ent.synonyms[1] !== ent.primary) {
