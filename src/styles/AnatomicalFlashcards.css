@@ -524,12 +524,18 @@ body:has(.a26-flashcard-player-container) .upe-ai-trigger {
   bottom: 14px !important;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
+  body:has(.a26-flashcard-player-container) .upe-ai-trigger > span:last-child {
+    display: none !important;
+  }
   body:has(.a26-flashcard-player-container) .upe-ai-trigger {
-    transform: scale(0.86);
-    transform-origin: bottom right;
-    right: 12px;
-    bottom: 12px;
+    min-width: 56px !important;
+    min-height: 56px !important;
+    padding: 6px !important;
+    border-radius: 9999px !important;
+    justify-content: center !important;
+    right: 12px !important;
+    bottom: 12px !important;
   }
 }
 

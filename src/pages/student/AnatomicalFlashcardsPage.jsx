@@ -257,11 +257,19 @@ export default function AnatomicalFlashcardsPage({ user }) {
 
   function handleLoadCuratedFallback() {
     const requested = cardCount === "few" ? 5 : cardCount === "standard" ? 10 : 20;
-    const curatedSelection = selectCuratedFlashcards({
+    let curatedSelection = selectCuratedFlashcards({
       topic: topicInput,
       difficulty,
       count: requested
     });
+
+    if (!curatedSelection?.cards?.length) {
+      curatedSelection = selectCuratedFlashcards({
+        topic: "Clavícula e Ombro",
+        difficulty,
+        count: requested
+      });
+    }
 
     if (curatedSelection?.cards?.length) {
       setActiveDeck({
@@ -282,8 +290,6 @@ export default function AnatomicalFlashcardsPage({ user }) {
       });
       setGenerationError("");
       setIsConfigDrawerOpen(false);
-    } else {
-      setGenerationError("Nenhum baralho curado encontrado para este termo exato. Tente 'Fêmur', 'Clavícula' ou 'Vértebras'.");
     }
   }
 
