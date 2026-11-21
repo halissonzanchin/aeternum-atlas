@@ -8,6 +8,7 @@ import {
   isTutorSuccess,
   isEvidenceInsufficient,
   validateFlashcardSchema,
+  validateAnatomicalScientificFacts,
   ACADEMIC_ERROR_CODES
 } from "./academicTaskContracts.js";
 
@@ -416,7 +417,68 @@ function sanitizeTutorCard(entry, { topic, difficulty, index, language = "pt", d
     return { candidate, error: { valid: false, reason: "SCHEMA_VIOLATION", details: schema?.errors?.join("; ") || "Violação de schema" } };
   }
 
+  // Validação adicional de exatidão científica e regras anatômicas canônicas determinísticas
+  const scientific = validateAnatomicalScientificFacts(candidate, nuclearTopic);
+  if (!scientific.valid) {
+    return {
+      candidate,
+      error: {
+        valid: false,
+        reason: scientific.reason || "SCIENTIFIC_CONTRADICTION_CONFIRMED",
+        details: scientific.details || "Contradição anatômica fática confirmada"
+      }
+    };
+  }
+
+  candidate.scientificStatus = "SCIENTIFIC_VALIDATED";
+  candidate.validatedByTutor = true;
+  candidate.scientificReviewNeeded = false;
+  candidate.quarantine = false;
+
   return { card: candidate, error: null };
+}
+
+/**
+ * Validação completa de acurácia científica para flashcards existentes ou gerados.
+ * Combina Schema, Pertinência Temática e Fatos Anatômicos Determinísticos.
+ */
+export function validateFlashcardScientificAccuracy(card, topic = "") {
+  const schemaRes = validateFlashcardSchema(card);
+  if (!schemaRes?.valid) {
+    return { valid: false, reason: "SCHEMA_VIOLATION", details: schemaRes?.errors?.join("; ") || "Schema inválido", quarantine: true };
+  }
+  const correspondenceRes = validateFlashcardCorrespondence(card, topic);
+  if (!correspondenceRes?.valid) {
+    return { valid: false, reason: correspondenceRes.reason, details: correspondenceRes.details, quarantine: false };
+  }
+  const scientificRes = validateAnatomicalScientificFacts(card, topic);
+  if (!scientificRes?.valid) {
+    return {
+      valid: false,
+      reason: scientificRes.reason || "SCIENTIFIC_CONTRADICTION_CONFIRMED",
+      details: scientificRes.details,
+      contradictions: scientificRes.contradictions || [],
+      quarantine: true
+    };
+  }
+  return { valid: true, reason: null, details: "Aprovado com validação científica integral" };
+}
+
+/**
+ * Aplica quarentena científica sem apagar o cartão nem descartar histórico acadêmico ou SM-2.
+ */
+export function applyScientificQuarantine(card, validationResult = {}) {
+  if (!card || typeof card !== "object") return card;
+  return {
+    ...card,
+    quarantine: true,
+    scientificReviewNeeded: true,
+    scientificStatus: "QUARANTINED",
+    validatedByTutor: false,
+    quarantineReason: validationResult.details || "Contradição anatômica confirmada aguardando revisão científica",
+    contradictions: validationResult.contradictions || [],
+    quarantinedAt: new Date().toISOString()
+  };
 }
 
 function extractCardsFromScientificProse(topic, rawText, { difficulty = "Médio", count = 5, language = "pt" } = {}) {

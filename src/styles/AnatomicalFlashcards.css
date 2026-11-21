@@ -639,6 +639,36 @@
   text-overflow: ellipsis;
 }
 
+.a26-deck-quarantine-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #ffb86c;
+  background: rgba(255, 184, 108, 0.12);
+  border: 1px solid rgba(255, 184, 108, 0.28);
+  padding: 1px 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.a26-flashcard-quarantine-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background: rgba(255, 184, 108, 0.08);
+  border: 1px solid rgba(255, 184, 108, 0.25);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: #ffcf96;
+}
+
+.a26-quarantine-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
 .a26-deck-status-center {
   display: flex;
   align-items: center;

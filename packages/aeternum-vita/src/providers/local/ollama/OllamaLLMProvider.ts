@@ -52,10 +52,20 @@ export function resolveOllamaReasoningParams(
   const source = String(meta.source || "").toLowerCase();
   const sys = String(request.systemInstruction || "");
 
+  // An explanation of a flashcard requires full clinical and anatomical reasoning.
+  // Never disable reasoning when task is explain_flashcard.
+  if (
+    task === "explain_flashcard" ||
+    source === "flashcard-explanation" ||
+    sys.includes("Explicação Didática e Rigor Anatômico de Flashcard")
+  ) {
+    return {};
+  }
+
   const isStructuredTask =
     task === "generate_flashcards" ||
     task === "generate_mind_map" ||
-    source === "flashcards" ||
+    (source === "flashcards" && task !== "explain_flashcard") ||
     source === "mind-map" ||
     sys.includes("Modo de saída — Flashcards Anatômicos") ||
     sys.includes("Modo de saída — Mapa Mental Anatômico");

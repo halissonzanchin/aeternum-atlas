@@ -23,6 +23,14 @@ export function sanitizeTutorDisplayText(text) {
     .trim();
 }
 
+export function isRawFlashcardJsonOutput(text) {
+  if (!text || typeof text !== 'string') return false;
+  const trimmed = text.replace(/```(?:json)?/gi, '').replace(/```/g, '').trim();
+  if (!trimmed.startsWith('[') && !trimmed.startsWith('{')) return false;
+  return (trimmed.includes('"front"') || trimmed.includes('"pergunta"')) &&
+         (trimmed.includes('"back"') || trimmed.includes('"resposta"'));
+}
+
 function emitTutorTelemetry({ eventType = "ai_tutor_error", failureStage, errorCode, httpStatus = 0, fallbackMode = "none", provider = "aeternum-gateway" }) {
   try {
     trackEvent({
@@ -95,6 +103,12 @@ function buildTutorContext(context = {}, message = "") {
   return {
     source: context.source || (model.id || activeStructure.id ? 'viewer-3d' : 'platform'),
     task: context.task || null,
+    originModule: context.originModule || null,
+    cardId: context.cardId || null,
+    question: context.question || null,
+    proposedAnswer: context.proposedAnswer || null,
+    existingExplanation: context.existingExplanation || null,
+    sourceProvenance: context.sourceProvenance || null,
     topic: context.topic || routeContext.structure || context.sectionTitle || effectiveModelTitle || null,
     mode: isVoice ? 'voice' : (context.mode || 'research'),
     tutorPromptDirective: behaviorDirective,
@@ -430,6 +444,33 @@ export const atlasAITutorService = {
           };
         }
 
+        if (tutorContext.task === "explain_flashcard" && isRawFlashcardJsonOutput(sanitized)) {
+          emitTutorTelemetry({
+            failureStage: "response_contract",
+            errorCode: "TUTOR_RESPONSE_CONTRACT_MISMATCH",
+            fallbackMode: "intercepted"
+          });
+          if (!options?._retryCount) {
+            return atlasAITutorService.processMessageStream(
+              message + "\n\nIMPORTANTE: Explique exclusivamente em texto didático Markdown. NÃO responda com array JSON nem com schema de flashcards.",
+              context,
+              onUpdate,
+              conversationId,
+              { ...options, _retryCount: 1 }
+            );
+          }
+          const fallbackPedagogicalText = `### Análise Anatômica e Rigor Científico\n\n**Aviso do Tutor:** Foi detectada incompatibilidade de formato na resposta (modo estruturado em vez de aula explicativa).\n\nA pergunta e o tema foram preservados no seu painel. Por favor, solicite a explicação novamente para obter a fundamentação completa em texto didático e correlações clínicas.`;
+          onUpdate?.(fallbackPedagogicalText);
+          return {
+            mode: "live",
+            text: fallbackPedagogicalText,
+            source: "aeternum_gateway",
+            action: null,
+            payload: null,
+            conversationId: conversationId || `fallback-${Date.now()}`
+          };
+        }
+
         if (typeof onUpdate === 'function') {
           onUpdate(sanitized);
         }
@@ -513,7 +554,11 @@ export const atlasAITutorService = {
           }
           if (data.text) {
             fullText += data.text;
-            onUpdate?.(sanitizeTutorDisplayText(fullText));
+            if (tutorContext.task === "explain_flashcard" && fullText.trim().startsWith("[") && fullText.includes('"front"')) {
+              onUpdate?.("Analisando cartão e fundamentando anatomia clínica...");
+            } else {
+              onUpdate?.(sanitizeTutorDisplayText(fullText));
+            }
           }
           if (data.conversationId) remoteConversationId = data.conversationId;
           if (data.action) action = data.action;
@@ -551,6 +596,33 @@ export const atlasAITutorService = {
           code: "EMPTY_RESPONSE",
           message: "O modelo retornou uma resposta vazia.",
           source: null
+        };
+      }
+
+      if (tutorContext.task === "explain_flashcard" && isRawFlashcardJsonOutput(fullText)) {
+        emitTutorTelemetry({
+          failureStage: "response_contract",
+          errorCode: "TUTOR_RESPONSE_CONTRACT_MISMATCH",
+          fallbackMode: "intercepted"
+        });
+        if (!options?._retryCount) {
+          return atlasAITutorService.processMessageStream(
+            message + "\n\nIMPORTANTE: Explique exclusivamente em texto didático Markdown. NÃO responda com array JSON nem com schema de flashcards.",
+            context,
+            onUpdate,
+            conversationId,
+            { ...options, _retryCount: 1 }
+          );
+        }
+        const fallbackPedagogicalText = `### Análise Anatômica e Rigor Científico\n\n**Aviso do Tutor:** Foi detectada incompatibilidade de formato na resposta (modo estruturado em vez de aula explicativa).\n\nA pergunta e o tema foram preservados no seu painel. Por favor, solicite a explicação novamente para obter a fundamentação completa em texto didático e correlações clínicas.`;
+        onUpdate?.(fallbackPedagogicalText);
+        return {
+          mode: "live",
+          text: fallbackPedagogicalText,
+          source: "aeternum_gateway",
+          action: null,
+          payload: null,
+          conversationId: remoteConversationId || conversationId
         };
       }
 

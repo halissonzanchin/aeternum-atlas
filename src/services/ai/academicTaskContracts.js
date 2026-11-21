@@ -6,6 +6,7 @@
 
 export const ACADEMIC_TASK_TYPES = Object.freeze({
   GENERATE_FLASHCARDS: "generate_flashcards",
+  EXPLAIN_FLASHCARD: "explain_flashcard",
   GENERATE_MIND_MAP: "generate_mind_map",
   GENERATE_ANATOMICAL_QUIZ: "generate_anatomical_quiz",
   EXPLAIN_ANATOMICAL_STRUCTURE: "explain_anatomical_structure",
@@ -31,7 +32,10 @@ export const ACADEMIC_ERROR_CODES = Object.freeze({
   MIND_MAP_SCHEMA_INVALID: "MIND_MAP_SCHEMA_INVALID",
   STUDY_PERSISTENCE_FAILED: "STUDY_PERSISTENCE_FAILED",
   RATE_LIMITED: "RATE_LIMITED",
-  AUTH_REQUIRED: "AUTH_REQUIRED"
+  AUTH_REQUIRED: "AUTH_REQUIRED",
+  SCIENTIFIC_CONTRADICTION_CONFIRMED: "SCIENTIFIC_CONTRADICTION_CONFIRMED",
+  ANATOMICAL_PREMISE_REJECTED: "ANATOMICAL_PREMISE_REJECTED",
+  SCIENTIFIC_REVIEW_REQUIRED: "SCIENTIFIC_REVIEW_REQUIRED"
 });
 
 /**
@@ -114,3 +118,78 @@ export function validateMindMapSchema(outlineText) {
     rootLabel: lines[0].trim()
   };
 }
+
+/**
+ * Validação de Rigor Científico e Fatos Anatômicos Canônicos.
+ * Camada adicional independente da validação de schema textual.
+ * Aplica regras determinísticas para o Plexo Braquial e estruturas de alto risco científico.
+ */
+export function validateAnatomicalScientificFacts(cardOrContent, topic = "") {
+  if (!cardOrContent) return { valid: false, reason: "EMPTY_CONTENT", contradictions: [] };
+
+  const front = typeof cardOrContent === "object" ? String(cardOrContent.front || "") : "";
+  const back = typeof cardOrContent === "object" ? String(cardOrContent.back || "") : "";
+  const explanation = typeof cardOrContent === "object" ? String(cardOrContent.explanation || "") : "";
+  const combinedText = `${front} ${back} ${explanation} ${typeof cardOrContent === "string" ? cardOrContent : ""}`
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  const topicNorm = String(topic || (typeof cardOrContent === "object" ? cardOrContent.topic : ""))
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  const isBrachialPlexus = /plexo\s+braquial|brachial\s+plexus/.test(topicNorm) || /plexo\s+braquial|brachial\s+plexus/.test(combinedText);
+
+  if (isBrachialPlexus) {
+    const contradictions = [];
+
+    // Falácia 1: Quatro troncos no plexo braquial (o plexo tem exatamente 3 troncos: superior, médio e inferior)
+    if (/\b(4|quatro)\s+troncos\b/i.test(combinedText) || /\bquarto\s+tronco\b/i.test(combinedText)) {
+      contradictions.push("Afirmação de 4 troncos no plexo braquial (o plexo braquial é formado estritamente por 3 troncos: superior, médio e inferior).");
+    }
+
+    // Falácia 2: Tronco costocervical apresentado como tronco nervoso do plexo braquial
+    if (/tronco\s+costocervical.*(?:tronco\s+nervoso|plexo\s+braquial|nervo)/i.test(combinedText) ||
+        /(?:plexo\s+braquial|tronco\s+nervoso).*tronco\s+costocervical/i.test(combinedText)) {
+      contradictions.push("Classificação do tronco costocervical como tronco nervoso do plexo braquial (o tronco costocervical é um ramo arterial da artéria subclávia, não um tronco nervoso).");
+    }
+
+    // Falácia 3: Inervação motora do trapézio atribuída ao fascículo lateral ou plexo braquial
+    if (/trap[eé]zio.*(?:fasc[ií]culo\s+lateral|cord[aã]o\s+lateral|plexo\s+braquial.*motor)/i.test(combinedText) ||
+        /(?:fasc[ií]culo\s+lateral|cord[aã]o\s+lateral).*inerva[cç][aã]o\s+motora.*trap[eé]zio/i.test(combinedText)) {
+      contradictions.push("Atribuição da inervação motora do trapézio ao fascículo lateral ou plexo braquial (a inervação motora do trapézio provém do nervo acessório [XI par craniano]; ramos C3-C4 do plexo cervical conduzem propriocepção).");
+    }
+
+    // Falácia 4: Erb-Duchenne associada à lesão do fascículo lateral
+    if (/erb[- ]duchenne.*(?:fasc[ií]culo\s+lateral|cord[aã]o\s+lateral)/i.test(combinedText) ||
+        /(?:fasc[ií]culo\s+lateral|cord[aã]o\s+lateral).*erb[- ]duchenne/i.test(combinedText)) {
+      contradictions.push("Associação da paralisia de Erb-Duchenne à lesão do fascículo lateral (a paralisia de Erb-Duchenne decorre classicamente de lesão do tronco superior [C5–C6]).");
+    }
+
+    // Falácia 5: Três divisões confundidas como fascículos
+    if (/tr[eê]s\s+divis[oõ]es\s+(?:formam|constituem|s[aã]o)\s+os\s+fasc[ií]culos/i.test(combinedText) ||
+        /divis[oõ]es.*(?:lateral,\s*medial\s*e\s*posterior)/i.test(combinedText)) {
+      contradictions.push("Confusão de nomenclatura: 3 divisões atribuídas como fascículos (o plexo possui 6 divisões [3 anteriores e 3 posteriores] que se organizam em 3 fascículos: lateral, posterior e medial).");
+    }
+
+    if (contradictions.length > 0) {
+      return {
+        valid: false,
+        status: "CONTRADICTION_CONFIRMED",
+        reason: ACADEMIC_ERROR_CODES.SCIENTIFIC_CONTRADICTION_CONFIRMED,
+        contradictions,
+        details: contradictions.join(" ")
+      };
+    }
+  }
+
+  return {
+    valid: true,
+    status: "SCIENTIFIC_VALIDATED",
+    reason: null,
+    contradictions: []
+  };
+}
+
