@@ -51,7 +51,6 @@ export function resolveOllamaReasoningParams(
   const task = String(meta.task || "").toLowerCase();
   const source = String(meta.source || "").toLowerCase();
   const sys = String(request.systemInstruction || "");
-  const lastUserMsg = String(request.messages?.at(-1)?.content || "");
 
   const isStructuredTask =
     task === "generate_flashcards" ||
@@ -59,8 +58,7 @@ export function resolveOllamaReasoningParams(
     source === "flashcards" ||
     source === "mind-map" ||
     sys.includes("Modo de saída — Flashcards Anatômicos") ||
-    sys.includes("Modo de saída — Mapa Mental Anatômico") ||
-    lastUserMsg.includes("Formato do JSON:");
+    sys.includes("Modo de saída — Mapa Mental Anatômico");
 
   if (isStructuredTask) {
     return { reasoning_effort: "none", think: false };
