@@ -517,7 +517,7 @@ export default function AnatomicalFlashcardsPage({ user }) {
         learningObjective: card.learningObjective || null,
         language: langKey
       },
-      contextLabel: `Explicação · ${card.topic}`
+      contextLabel: `Flashcards · ${card.topic}`
     });
   }
 
