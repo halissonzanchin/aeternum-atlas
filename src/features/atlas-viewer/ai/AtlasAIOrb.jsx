@@ -59,6 +59,16 @@ export default function AtlasAIOrb({
 
     let isRunning = true;
     let time = 0;
+    let lastTimestamp = 0;
+
+    const mediaQuery = typeof window !== "undefined" && window.matchMedia
+      ? window.matchMedia("(prefers-reduced-motion: reduce)")
+      : null;
+    let prefersReducedMotion = mediaQuery ? mediaQuery.matches : false;
+    const handleMotionChange = (e) => {
+      prefersReducedMotion = e.matches;
+    };
+    mediaQuery?.addEventListener("change", handleMotionChange);
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
@@ -139,8 +149,13 @@ export default function AtlasAIOrb({
       }
     ];
 
-    const render = () => {
+    const render = (timestamp) => {
       if (!isRunning) return;
+
+      if (!lastTimestamp) lastTimestamp = timestamp || performance.now();
+      const currentNow = timestamp || performance.now();
+      const dt = Math.min((currentNow - lastTimestamp) / 1000, 0.1);
+      lastTimestamp = currentNow;
 
       const w = canvas.width;
       const h = canvas.height;
@@ -153,6 +168,14 @@ export default function AtlasAIOrb({
 
       const currentState = stateRef.current.state;
       const currentIntensity = stateRef.current.intensity;
+
+      // Expose internal state on dataset for inspection and test harnesses
+      if (canvas.dataset.orbState !== currentState) {
+        canvas.dataset.orbState = currentState;
+      }
+      if (canvas.dataset.orbIntensity !== String(currentIntensity)) {
+        canvas.dataset.orbIntensity = String(currentIntensity);
+      }
 
       let speedMult = 1.0;
       let ampMult = 1.0;
@@ -171,7 +194,12 @@ export default function AtlasAIOrb({
         ampMult = 0.5;
       }
 
-      time += 0.020 * speedMult;
+      // Delta-time based pacing with prefers-reduced-motion fallback
+      if (prefersReducedMotion) {
+        time += dt * 0.15 * speedMult;
+      } else {
+        time += dt * 1.20 * speedMult;
+      }
 
       ctx.save();
 
@@ -388,6 +416,7 @@ export default function AtlasAIOrb({
     return () => {
       isRunning = false;
       window.removeEventListener("resize", resize);
+      mediaQuery?.removeEventListener("change", handleMotionChange);
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
   }, [size]);

@@ -79,12 +79,21 @@
   user-select: none;
 }
 
-.upe-ai-trigger.is-orb-only:hover,
-.upe-ai-trigger.is-orb-only:focus-visible {
+.upe-ai-trigger.is-orb-only:hover {
   border: none !important;
   outline: none;
   background: transparent !important;
   box-shadow: none !important;
+  transform: scale(1.05);
+}
+
+.upe-ai-trigger.is-orb-only:focus-visible {
+  border: none !important;
+  outline: 2px solid rgba(46, 213, 202, 0.9) !important;
+  outline-offset: 4px !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: 0 0 16px rgba(46, 213, 202, 0.4) !important;
   transform: scale(1.05);
 }
 

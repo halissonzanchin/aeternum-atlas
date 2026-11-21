@@ -98,3 +98,13 @@
            drop-shadow(0 0 14px rgba(46, 213, 202, 0.25));
   }
 }
+
+/* Accessibility: Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .aeternum-ai-orb-root {
+    transition: none !important;
+  }
+  .aeternum-ai-orb-root.state-listening {
+    animation: none !important;
+  }
+}
