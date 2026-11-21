@@ -1530,8 +1530,18 @@ export async function handleAiTutorRequest(
     sysInstructionText += "\n\nModo de saída — Flashcards Anatômicos:\nResponda SOMENTE com um array JSON válido contendo os objetos flashcard [{\"front\": \"...\", \"back\": \"...\", \"explanation\": \"...\", \"learningObjective\": \"...\"}], sem introdução, sem conclusão e sem blocos Markdown.";
   }
 
+  const effectiveTask =
+    cleanText(payload.task || context.task || task, 60) ||
+    (context.source === "flashcards" ? "generate_flashcards" :
+     context.source === "mind-map" ? "generate_mind_map" :
+     context.source === "anatomical_quiz" ? "anatomical_quiz" :
+     context.source === "socratic_case" ? "socratic_case" : "tutor_ia");
+
+  const effectiveSource = cleanText(context.source || payload.source || "atlas-ai-tutor", 60);
+
   const contextMeta = {
-    source: "atlas-ai-tutor",
+    source: effectiveSource,
+    task: effectiveTask,
     role: String(profile.role || "student"),
     user_id: userId,
     institution_id: profile.institution_id,

@@ -409,11 +409,28 @@ test("P0.20-F.4: resolveOllamaReasoningParams aplica reasoning_effort=none por r
     { reasoning_effort: "none", think: false }
   );
 
-  // 5. Diretriz explícita de síntese sem reflexões preliminares ou metacognição
+  // 5. Consulta com diretriz de síntese compartilhada NÃO desativa o raciocínio do Qwen (P0.20-F.7)
   assert.deepEqual(
     resolveOllamaReasoningParams({
       systemInstruction: "- Seja conciso e direto. Inicie imediatamente a resposta final solicitada sem reflexões preliminares ou metacognição.",
-      messages: [{ role: "user", content: "Quais nervos passam pelo forame jugular?" }]
+      messages: [{ role: "user", content: "Quais nervos passam pelo forame jugular?" }],
+      metadata: { task: "tutor_ia", source: "atlas-ai-tutor" }
+    }),
+    {}
+  );
+
+  // 6. Cabeçalho oficial de modo de saída estruturado em sysInstruction ativa reasoning_effort=none
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      systemInstruction: "Modo de saída — Flashcards Anatômicos:\nResponda SOMENTE com um array JSON válido",
+      messages: [{ role: "user", content: "Clavícula e Ombro" }]
+    }),
+    { reasoning_effort: "none", think: false }
+  );
+  assert.deepEqual(
+    resolveOllamaReasoningParams({
+      systemInstruction: "Modo de saída — Mapa Mental Anatômico:\nResponda SOMENTE com o esboço hierárquico",
+      messages: [{ role: "user", content: "Artéria coronária esquerda" }]
     }),
     { reasoning_effort: "none", think: false }
   );
