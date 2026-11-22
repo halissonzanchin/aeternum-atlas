@@ -430,7 +430,8 @@ function sanitizeTutorCard(entry, { topic, difficulty, index, language = "pt", d
     };
   }
 
-  candidate.scientificStatus = "SCIENTIFIC_VALIDATED";
+  candidate.scientificStatus = scientific.status || "SCHEMA_AND_TOPIC_VALIDATED";
+  candidate.validationCoverage = scientific.coverage || "general_syntax_only";
   candidate.validatedByTutor = true;
   candidate.scientificReviewNeeded = false;
   candidate.quarantine = false;
@@ -461,7 +462,15 @@ export function validateFlashcardScientificAccuracy(card, topic = "") {
       quarantine: true
     };
   }
-  return { valid: true, reason: null, details: "Aprovado com validação científica integral" };
+  return {
+    valid: true,
+    status: scientificRes.status || "SCHEMA_AND_TOPIC_VALIDATED",
+    coverage: scientificRes.coverage || "general_syntax_only",
+    reason: null,
+    details: scientificRes.status === "CANONICAL_FACTS_VERIFIED"
+      ? "Aprovado com validação de fatos anatômicos canônicos"
+      : "Aprovado com validação de schema e pertinência temática"
+  };
 }
 
 /**

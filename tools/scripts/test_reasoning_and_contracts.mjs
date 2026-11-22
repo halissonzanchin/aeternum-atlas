@@ -1,4 +1,4 @@
-import { resolveOllamaReasoningParams } from "../../packages/aeternum-vita/src/providers/local/ollama/OllamaLLMProvider.ts";
+import { resolveOllamaReasoningParams } from "./ollama_reasoning_helper.mjs";
 import {
   validateAnatomicalScientificFacts,
   validateFlashcardSchema,
@@ -106,6 +106,19 @@ const correctCard = {
 };
 const correctValidation = validateAnatomicalScientificFacts(correctCard, "Plexo Braquial");
 assert(correctValidation.valid, "Cartão canônico correto sobre Plexo Braquial é APROVADO cientificamente");
+assert(correctValidation.status === "CANONICAL_FACTS_VERIFIED", "Plexo braquial correto recebe status CANONICAL_FACTS_VERIFIED");
+assert(correctValidation.coverage === "domain_rule_verified", "Plexo braquial correto recebe coverage domain_rule_verified");
+
+const liverCard = {
+  front: "Quais são os limites anatômicos dos lobos hepáticos funcionais?",
+  back: "Os lobos hepáticos direito e esquerdo funcionais são divididos pela fissura sagital principal (linha de Cantlie).",
+  explanation: "A linha de Cantlie estende-se da fossa da vesícula biliar até a margem esquerda da veia cava inferior.",
+  topic: "Anatomia Hepática"
+};
+const liverValidation = validateAnatomicalScientificFacts(liverCard, "Anatomia Hepática");
+assert(liverValidation.valid, "Cartão válido sobre Anatomia Hepática é aprovado");
+assert(liverValidation.status === "SCHEMA_AND_TOPIC_VALIDATED", "Tópico sem regras específicas de domínio recebe status SCHEMA_AND_TOPIC_VALIDATED");
+assert(liverValidation.coverage === "general_syntax_only", "Tópico sem regras específicas de domínio recebe coverage general_syntax_only");
 
 // 4. QUARENTENA CIENTÍFICA (applyScientificQuarantine)
 console.log("\n--- 4. Sistema de Quarentena Científica ---");

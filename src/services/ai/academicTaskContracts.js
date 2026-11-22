@@ -178,16 +178,26 @@ export function validateAnatomicalScientificFacts(cardOrContent, topic = "") {
       return {
         valid: false,
         status: "CONTRADICTION_CONFIRMED",
+        coverage: "domain_rule_verified",
         reason: ACADEMIC_ERROR_CODES.SCIENTIFIC_CONTRADICTION_CONFIRMED,
         contradictions,
         details: contradictions.join(" ")
       };
     }
+
+    return {
+      valid: true,
+      status: "CANONICAL_FACTS_VERIFIED",
+      coverage: "domain_rule_verified",
+      reason: null,
+      contradictions: []
+    };
   }
 
   return {
     valid: true,
-    status: "SCIENTIFIC_VALIDATED",
+    status: "SCHEMA_AND_TOPIC_VALIDATED",
+    coverage: "general_syntax_only",
     reason: null,
     contradictions: []
   };
