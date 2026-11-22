@@ -35,13 +35,10 @@
   inset: 0;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 60%, rgba(46, 213, 202, 0.06) 100%),
-    rgba(10, 28, 34, 0.25);
+    radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 60%, rgba(46, 213, 202, 0.04) 100%),
+    rgba(10, 24, 32, 0.16);
   -webkit-backdrop-filter: blur(8px) saturate(180%) brightness(1.05);
   backdrop-filter: blur(8px) saturate(180%) brightness(1.05);
-  box-shadow:
-    inset 0 1.5px 2px rgba(255, 255, 255, 0.45),
-    inset 0 -1.5px 3px rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
 
@@ -62,22 +59,20 @@
   display: block;
 }
 
-/* Liquid Glass Specular Crescent Reflection */
+/* Liquid Glass Specular Optical Pass */
 .atlas-ai-orb__lens {
   z-index: 2;
-  background:
-    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.12) 25%, transparent 55%),
-    radial-gradient(ellipse at 70% 80%, rgba(46, 213, 202, 0.12) 0%, transparent 40%);
-  mix-blend-mode: screen;
+  background: transparent;
+  pointer-events: none;
 }
 
-/* Thin Physical Glass Rim */
+/* Single Unified Physical Glass Rim — delicate rasante optical highlight */
 .atlas-ai-orb__rim {
   z-index: 3;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   box-shadow:
-    inset 0 1px 1.5px rgba(255, 255, 255, 0.6),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.20);
   opacity: 0.85;
 }
 
@@ -101,5 +96,15 @@
     transform: scale(1.05);
     filter: drop-shadow(0 4px 16px rgba(0, 150, 255, 0.3))
            drop-shadow(0 0 14px rgba(46, 213, 202, 0.25));
+  }
+}
+
+/* Accessibility: Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .aeternum-ai-orb-root {
+    transition: none !important;
+  }
+  .aeternum-ai-orb-root.state-listening {
+    animation: none !important;
   }
 }
