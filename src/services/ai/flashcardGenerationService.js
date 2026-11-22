@@ -8,6 +8,7 @@ import {
   isTutorSuccess,
   isEvidenceInsufficient,
   validateFlashcardSchema,
+  validateAnatomicalScientificFacts,
   ACADEMIC_ERROR_CODES
 } from "./academicTaskContracts.js";
 
@@ -416,7 +417,87 @@ function sanitizeTutorCard(entry, { topic, difficulty, index, language = "pt", d
     return { candidate, error: { valid: false, reason: "SCHEMA_VIOLATION", details: schema?.errors?.join("; ") || "Violação de schema" } };
   }
 
+  // Validação adicional de exatidão científica e regras anatômicas canônicas determinísticas
+  const scientific = validateAnatomicalScientificFacts(candidate, nuclearTopic);
+  if (!scientific.valid) {
+    return {
+      candidate,
+      error: {
+        valid: false,
+        reason: scientific.reason || "SCIENTIFIC_CONTRADICTION_CONFIRMED",
+        details: scientific.details || "Contradição anatômica fática confirmada"
+      }
+    };
+  }
+
+  candidate.scientificStatus = scientific.status || "SCHEMA_AND_TOPIC_VALIDATED";
+  candidate.validationCoverage = scientific.coverage || "general_syntax_only";
+  candidate.schemaValidated = true;
+  candidate.validatedByTutor = scientific.status === "CANONICAL_FACTS_VERIFIED";
+  candidate.scientificReviewNeeded = scientific.status === "SCIENTIFIC_REVIEW_REQUIRED";
+  candidate.verifiedFacts = scientific.verifiedFacts || [];
+  candidate.quarantine = false;
+
   return { card: candidate, error: null };
+}
+
+/**
+ * Validação completa de acurácia científica para flashcards existentes ou gerados.
+ * Combina Schema, Pertinência Temática e Fatos Anatômicos Determinísticos.
+ */
+export function validateFlashcardScientificAccuracy(card, topic = "") {
+  const schemaRes = validateFlashcardSchema(card);
+  if (!schemaRes?.valid) {
+    return { valid: false, reason: "SCHEMA_VIOLATION", details: schemaRes?.errors?.join("; ") || "Schema inválido", quarantine: true };
+  }
+  const correspondenceRes = validateFlashcardCorrespondence(card, topic);
+  if (!correspondenceRes?.valid) {
+    return { valid: false, reason: correspondenceRes.reason, details: correspondenceRes.details, quarantine: false };
+  }
+  const scientificRes = validateAnatomicalScientificFacts(card, topic);
+  if (!scientificRes?.valid) {
+    return {
+      valid: false,
+      reason: scientificRes.reason || "SCIENTIFIC_CONTRADICTION_CONFIRMED",
+      details: scientificRes.details,
+      contradictions: scientificRes.contradictions || [],
+      quarantine: true
+    };
+  }
+  return {
+    valid: true,
+    status: scientificRes.status || "SCHEMA_AND_TOPIC_VALIDATED",
+    coverage: scientificRes.coverage || "general_syntax_only",
+    reason: null,
+    verifiedFacts: scientificRes.verifiedFacts || [],
+    unverifiedFacts: scientificRes.unverifiedFacts || [],
+    details: scientificRes.details || (
+      scientificRes.status === "CANONICAL_FACTS_VERIFIED"
+        ? `Aprovado com validação de fatos anatômicos canônicos (${scientificRes.verifiedFacts?.length || 0} proposições)`
+        : scientificRes.status === "PARTIALLY_VERIFIED"
+          ? `Parcialmente verificado (${scientificRes.verifiedFacts?.length || 0} confirmadas, ${scientificRes.unverifiedFacts?.length || 0} pendentes)`
+          : scientificRes.status === "SCIENTIFIC_REVIEW_REQUIRED"
+            ? "Requer revisão científica: sem proposições canônicas confirmadas no domínio"
+            : "Aprovado com validação de schema e pertinência temática"
+    )
+  };
+}
+
+/**
+ * Aplica quarentena científica sem apagar o cartão nem descartar histórico acadêmico ou SM-2.
+ */
+export function applyScientificQuarantine(card, validationResult = {}) {
+  if (!card || typeof card !== "object") return card;
+  return {
+    ...card,
+    quarantine: true,
+    scientificReviewNeeded: true,
+    scientificStatus: "QUARANTINED",
+    validatedByTutor: false,
+    quarantineReason: validationResult.details || "Contradição anatômica confirmada aguardando revisão científica",
+    contradictions: validationResult.contradictions || [],
+    quarantinedAt: new Date().toISOString()
+  };
 }
 
 function extractCardsFromScientificProse(topic, rawText, { difficulty = "Médio", count = 5, language = "pt" } = {}) {

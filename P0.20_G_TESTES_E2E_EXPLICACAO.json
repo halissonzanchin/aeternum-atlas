@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "mission": "P0.20-G",
+    "target": "Flashcards Contextual Explanation Routing and Scientific Accuracy",
+    "model": "qwen3.5:4b",
+    "timestamp": "2026-11-21T21:14:08.469Z"
+  },
+  "tests": {
+    "T1_incident_reproduction": {
+      "pass": true,
+      "durationSeconds": 48.8,
+      "length": 1994,
+      "reasoningParams": {},
+      "rejects4Trunks": true,
+      "rejectsCostocervical": true,
+      "mentions3Trunks": true,
+      "noRawJson": true,
+      "sample": "# VERIFICAÇÃO CRÍTICA E ANALÍSE ANATÔMICA DO FLASHCARD\n\n## 1. Verificação Crítica de Premissas Falsas\n\n**O cartão contém erros anatômicos graves que devem ser rejeitados imediatamente.** As seguintes premissas estão incorretas conforme a Terminologia Anatomica Internacional (TA2) e as fontes canônicas:\n\n*   **Erro 1:** Não existem \"quatro troncos\" do plexo braquial. Existe estritamente **três troncos** (superior, médio e inferior). O chamado \"tronco costocervical\" é um ramo da **artéria subclávi",
+      "fullOutput": "# VERIFICAÇÃO CRÍTICA E ANALÍSE ANATÔMICA DO FLASHCARD\n\n## 1. Verificação Crítica de Premissas Falsas\n\n**O cartão contém erros anatômicos graves que devem ser rejeitados imediatamente.** As seguintes premissas estão incorretas conforme a Terminologia Anatomica Internacional (TA2) e as fontes canônicas:\n\n*   **Erro 1:** Não existem \"quatro troncos\" do plexo braquial. Existe estritamente **três troncos** (superior, médio e inferior). O chamado \"tronco costocervical\" é um ramo da **artéria subclávia**, não uma estrutura do plexo braquial.\n*   **Erro 2:** O fascículo lateral do plexo braquial **não inerva o músculo trapézio**. A inervação motora do trapézio provém exclusivamente do Nervo Acessório (CN XI).\n*   **Erro 3:** A paralisia de Erb-Duchenne resulta da lesão do **tronco superior ou raízes C5-C6**, não da lesão isolada do fascículo lateral, embora a sintomatologia sobreponha-se frequentemente.\n\n---\n\n## 2. Anatomia Detalhada: Morfologia e Formação\n\n### Origem e Estrutura (Raízes)\nO plexo braquial é composto pela união dos **ramos anteriores dos nervos espinais C5, C6, C7, C8 e T1**.\n*   **Nomenclatura:** Raízes (Roots).\n*   **Localização:** Pescoço.\n\n### Formação dos Troncos\nAs raízes unem-se para formar estritamente **três troncos**:\n1.  **Tronco Superior (C5-C6)**\n2.  **Tronco Médio (C7)**\n3.  **Tronco Inferior (C8-T1)**\n\n*Nota:* O \"tronco costocervical\" mencionado no cartão refere-se à artéria do mesmo nome, ramo da subclávia (não arterial, não nervoso). Ele não integra o plexo braquial e não forma fascículos.\n\n### Formação dos Fascículos\nCada tronco divide-se em divisões anterior e posterior ao passar pelo canal cervicoaxilar, originando **três cordas ou fascículos** que se unem para formar os nervos terminais:\n1.  **Fascículo Lateral** (relacionado à parte lateral da artéria axilar).\n2.  **Fascículo Medial** (relacionado à parte medial da artéria axilar).\n3.  **Fascículo Posterior** (relacionado à parte posterior da artéria axilar).\n\n---\n\n## 3. Relações"
+    },
+    "T2_didactic_format": {
+      "pass": true,
+      "noJsonMarkers": true,
+      "hasMarkdownStructure": true
+    },
+    "T3_structured_generation_preserved": {
+      "pass": true,
+      "durationSeconds": 12.98,
+      "length": 2558,
+      "isJsonOutput": true,
+      "reasoningDisabled": true,
+      "sample": "[{\"front\":\"Clavícula (Osso)\", \"back\":\"Osso longo, S1-S3, que atua como ponte rígida entre o esterno e a escápula.\", \"explanation\":\"A clavícula é um osso longo curto com formato de arco. Ela possui dua"
+    },
+    "T4_anatomical_accuracy": {
+      "pass": true,
+      "rootsVerified": true,
+      "costocervicalRejected": true
+    },
+    "T5_clinical_correlations": {
+      "pass": true,
+      "erbDuchenneUpperTrunk": true,
+      "trapeziusSpinalAccessory": true
+    },
+    "T6_sources_provenance": {
+      "pass": true,
+      "containsCanonicalSource": true
+    },
+    "T7_streaming_and_interceptor": {
+      "pass": true,
+      "jsonDetectedByInterceptor": true,
+      "displayTextClean": true
+    },
+    "T8_history_and_quarantine": {
+      "pass": true,
+      "quarantineApplied": true,
+      "sm2HistoryPreserved": true
+    },
+    "T9_multilingual_contracts": {
+      "pass": true,
+      "supportedLanguages": [
+        "pt",
+        "es",
+        "en",
+        "de"
+      ]
+    },
+    "T10_regression_multitool": {
+      "pass": true,
+      "matrixChecked": [
+        "tutor_ia->default",
+        "generate_flashcards->none",
+        "generate_mind_map->none",
+        "anatomical_quiz->default",
+        "socratic_case->default",
+        "explain_flashcard->default"
+      ]
+    }
+  },
+  "gates": {
+    "ROUTING-GO": true,
+    "SCIENTIFIC-GO": true,
+    "OUTPUT-GO": true,
+    "CITATION-GO": true,
+    "STREAMING-GO": true,
+    "REGRESSION-GO": true,
+    "RELEASE-GO": true
+  }
+}

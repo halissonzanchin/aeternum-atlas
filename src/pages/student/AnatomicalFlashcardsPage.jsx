@@ -494,20 +494,26 @@ export default function AnatomicalFlashcardsPage({ user }) {
   function handleExplainWithAI(card) {
     if (!card) return;
     const promptMap = {
-      pt: `Estou estudando o Flashcard de Anatomia sobre "${card.topic}". Pergunta: "${card.front}". Resposta: "${card.back}". Pode me explicar com detalhes anatômicos e clínicos como se eu estivesse em uma aula prática?`,
-      es: `Estoy estudiando el Flashcard de Anatomía sobre "${card.topic}". Pregunta: "${card.front}". Respuesta: "${card.back}". ¿Podrías explicarme con detalles anatómicos y clínicos como si estuviéramos en una clase práctica?`,
-      en: `I am studying the Anatomy Flashcard on "${card.topic}". Question: "${card.front}". Answer: "${card.back}". Could you explain this with anatomical and clinical details as if in a practical anatomy lab?`,
-      de: `Ich lerne mit der Anatomie-Karteikarte über "${card.topic}". Frage: "${card.front}". Antwort: "${card.back}". Könnten Sie mir das mit anatomischen und klinischen Details wie in einem praktischen Präparierkurs erklären?`
+      pt: `Estou estudando o Flashcard sobre "${card.topic}".\nPergunta do cartão: "${card.front}"\nResposta proposta pelo cartão: "${card.back}"\nExplicação do cartão: "${card.explanation || ''}"\n\nPor favor, analise cientificamente este cartão como um professor de anatomia: verifique se a resposta proposta e a explicação estão corretas ou se contêm premissas falsas, aponte eventuais erros com rigor anatômico e me explique com detalhes a morfologia, relações topográficas e correlações clínicas pertinentes.`,
+      es: `Estoy estudiando el Flashcard sobre "${card.topic}".\nPregunta de la tarjeta: "${card.front}"\nRespuesta propuesta por la tarjeta: "${card.back}"\nExplicación de la tarjeta: "${card.explanation || ''}"\n\nPor favor, analiza científicamente esta tarjeta como un profesor de anatomía: verifica si la respuesta propuesta y la explicación son correctas o si contienen premisas falsas, señala cualquier error con rigor anatómico y explícame con detalle la morfología, relaciones topográficas y correlaciones clínicas pertinentes.`,
+      en: `I am studying the Flashcard on "${card.topic}".\nCard Question: "${card.front}"\nProposed Answer on Card: "${card.back}"\nCard Explanation: "${card.explanation || ''}"\n\nPlease scientifically analyze this flashcard as an anatomy professor: verify whether the proposed answer and explanation are correct or contain false premises, point out any errors with anatomical rigor, and explain in detail the relevant morphology, topographical relationships, and clinical correlations.`,
+      de: `Ich lerne mit der Karteikarte über "${card.topic}".\nFrage der Karte: "${card.front}"\nVorgeschlagene Antwort auf der Karte: "${card.back}"\nErklärung der Karte: "${card.explanation || ''}"\n\nBitte analysieren Sie diese Karteikarte wissenschaftlich wie ein Anatomieprofessor: Überprüfen Sie, ob die vorgeschlagene Antwort und Erklärung korrekt sind oder falsche Prämissen enthalten, weisen Sie mit anatomischer Strenge auf etwaige Fehler hin und erklären Sie ausführlich die relevante Morphologie, topografische Beziehungen und klinische Korrelationen.`
     };
     const prompt = promptMap[langKey] || promptMap.pt;
     openTutor({
       prompt,
       context: {
-        source: "flashcards",
+        task: "explain_flashcard",
+        source: "flashcard-explanation",
+        originModule: "flashcards",
         route: "/flashcards",
         topic: card.topic,
         difficulty: card.difficulty || activeDeck?.difficulty,
         cardId: card.id,
+        question: card.front,
+        proposedAnswer: card.back,
+        existingExplanation: card.explanation || null,
+        sourceProvenance: card.sourceCitation || card.provenance || card.source || null,
         learningObjective: card.learningObjective || null,
         language: langKey
       },
@@ -819,6 +825,11 @@ export default function AnatomicalFlashcardsPage({ user }) {
                   {currentCard.sourceCitation}
                 </span>
               )}
+              {currentCard.quarantine && (
+                <span className="a26-deck-quarantine-tag" title={currentCard.quarantineReason || "Sob revisão científica"}>
+                  ⚠️ {t("flashcards.quarantineBadge", { defaultValue: "Sob Revisão Científica" })}
+                </span>
+              )}
             </div>
 
             <div className="a26-deck-status-center">
@@ -933,6 +944,12 @@ export default function AnatomicalFlashcardsPage({ user }) {
                 </div>
 
                 <div className={`a26-flashcard-body ${((currentCard.back?.length || 0) + (currentCard.explanation?.length || 0) > 130 || currentCard.back?.includes("\n")) ? "is-long-content" : ""}`}>
+                  {currentCard.quarantine && (
+                    <div className="a26-flashcard-quarantine-notice">
+                      <span className="a26-quarantine-icon">⚠️</span>
+                      <span>{t("flashcards.quarantineNotice", { defaultValue: "Contradição anatômica fática detectada. Use 'Explicar com Tutor IA' para visualizar a anatomia canônica corrigida." })}</span>
+                    </div>
+                  )}
                   <p className="a26-flashcard-text a26-flashcard-answer-text">{currentCard.back}</p>
                   {currentCard.explanation ? (
                     <p className="a26-flashcard-explanation">{currentCard.explanation}</p>

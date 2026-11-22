@@ -1308,10 +1308,12 @@ export async function handleAiTutorRequest(
   const task = cleanText(payload.task || context.task, 80);
   const topic = cleanText(payload.topic || context.topic || context.sectionTitle, 180);
   const graphPrompt = cleanText(context.knowledgeGraphPrompt, 4000);
+  const rawCandidateTaskEarly = cleanText(payload.task || context.task || task, 60).toLowerCase();
   const isGenerationTask = Boolean(
-    task === "generate_flashcards" ||
+    (task === "generate_flashcards" || context.source === "flashcards") &&
+    rawCandidateTaskEarly !== "explain_flashcard" &&
+    context.source !== "flashcard-explanation" ||
     task === "generate_mind_map" ||
-    context.source === "flashcards" ||
     context.source === "mind-map"
   );
 
@@ -1347,10 +1349,11 @@ export async function handleAiTutorRequest(
   const safeEngineLatencyMs = parseFloat((performance.now() - tSafeStart).toFixed(2));
 
   // Branch 1: DETERMINISTIC_CANONICAL -> Direct Response (EXTERNAL_LLM_CALLS = 0)
-  // NOTE (P0.2): For academic structured generation tasks (flashcards, mind maps),
-  // canonical facts must be synthesized into the structured target schema by the Gateway/TutorEngine.
-  // Do not short-circuit with a raw single-prose-paragraph response when isGenerationTask is true.
-  if (safeResult.status === "DETERMINISTIC_CANONICAL" && !isGenerationTask) {
+  // NOTE (P0.2): For academic structured generation tasks (flashcards, mind maps)
+  // and deep flashcard explanations, canonical facts must be processed and synthesized
+  // by the Gateway/TutorEngine. Do not short-circuit with a raw single-prose-paragraph.
+  const isDirectBypassTask = isGenerationTask || rawCandidateTaskEarly === "explain_flashcard";
+  if (safeResult.status === "DETERMINISTIC_CANONICAL" && !isDirectBypassTask) {
     const totalLatencyMs = Math.round(performance.now() - tStart);
     const respHeaders = {
       ...cors,
@@ -1524,14 +1527,9 @@ export async function handleAiTutorRequest(
     graphPrompt
   );
 
-  if (context.source === "mind-map" || payload.task === "generate_mind_map" || task === "generate_mind_map") {
-    sysInstructionText += "\n\nModo de saída — Mapa Mental Anatômico:\nResponda SOMENTE com o esboço hierárquico solicitado.";
-  } else if (context.source === "flashcards" || payload.task === "generate_flashcards" || task === "generate_flashcards") {
-    sysInstructionText += "\n\nModo de saída — Flashcards Anatômicos:\nResponda SOMENTE com um array JSON válido contendo os objetos flashcard [{\"front\": \"...\", \"back\": \"...\", \"explanation\": \"...\", \"learningObjective\": \"...\"}], sem introdução, sem conclusão e sem blocos Markdown.";
-  }
-
   const ALLOWED_OPERATIONAL_TASKS = new Set([
     "generate_flashcards",
+    "explain_flashcard",
     "generate_mind_map",
     "tutor_ia",
     "anatomical_quiz",
@@ -1540,6 +1538,7 @@ export async function handleAiTutorRequest(
 
   const rawCandidateTask = cleanText(payload.task || context.task || task, 60).toLowerCase();
   const taskFromSource =
+    (context.source === "flashcard-explanation" || rawCandidateTask === "explain_flashcard") ? "explain_flashcard" :
     context.source === "flashcards" ? "generate_flashcards" :
     context.source === "mind-map" ? "generate_mind_map" :
     context.source === "anatomical_quiz" ? "anatomical_quiz" :
@@ -1548,6 +1547,28 @@ export async function handleAiTutorRequest(
   const effectiveTask = ALLOWED_OPERATIONAL_TASKS.has(rawCandidateTask)
     ? rawCandidateTask
     : (taskFromSource || "tutor_ia");
+
+  if (effectiveTask === "generate_mind_map") {
+    sysInstructionText += "\n\nModo de saída — Mapa Mental Anatômico:\nResponda SOMENTE com o esboço hierárquico solicitado.";
+  } else if (effectiveTask === "generate_flashcards") {
+    sysInstructionText += "\n\nModo de saída — Flashcards Anatômicos:\nResponda SOMENTE com um array JSON válido contendo os objetos flashcard [{\"front\": \"...\", \"back\": \"...\", \"explanation\": \"...\", \"learningObjective\": \"...\"}], sem introdução, sem conclusão e sem blocos Markdown.";
+  } else if (effectiveTask === "explain_flashcard") {
+    sysInstructionText += `\n\nModo de saída — Explicação Didática e Rigor Anatômico de Flashcard:
+Você está atuando como Professor Titular de Anatomia Humana analisando criticamente um Flashcard de estudo anatômico.
+DIRETRIZES DE EXPLICAÇÃO:
+1. TRATE A RESPOSTA E A EXPLICAÇÃO DO CARTÃO COMO PROPOSIÇÕES A VERIFICAR, NUNCA COMO VERDADES CANÔNICAS.
+2. VERIFICAÇÃO CRÍTICA OBRIGATÓRIA: Se a resposta ou explicação do cartão contiver qualquer erro fático ou premissa anatômica falsa (por exemplo: número incorreto de raízes, troncos ou fascículos; confusão entre artérias e nervos, como o tronco costocervical arterial; inervação motora atribuída incorretamente, como o trapézio; ou correlações clínicas equivocadas como Erb-Duchenne ligada ao fascículo lateral em vez do tronco superior), REJEITE O ERRO EXPLICITAMENTE de forma pedagógica e profissional logo no início.
+3. ESTRUTURA DA RESPOSTA (em Markdown fluido e didático, adaptável à estrutura):
+   - **Estrutura Estudada**: Nome canônico sob Terminologia Anatomica Internacional (TA2).
+   - **Correção Conceitual**: Confirmação da correção ou refutação clara e justificada de premissas falsas do cartão.
+   - **Anatomia Detalhada**: Origem, formação, trajeto, sintopia (relações espaciais e vasculares) e ramificações.
+   - **Relações Funcionais**: Suprimento motor, sensitivo e/ou vascular exato.
+   - **Correlação Clínica**: Consequências biomecânicas ou neurológicas de lesões estruturais (ex: síndromes clássicas).
+   - **Síntese para Revisão**: Pontos fundamentais para fixação do estudante.
+   - **Referências Bibliográficas**: Cite apenas fontes efetivamente recuperadas e pertinentes ao tema.
+4. PROIBIÇÃO ABSOLUTA DE JSON: NUNCA responda com blocos JSON, arrays de flashcards [ { "front": ... } ], ou caracteres de código como '}]'. Responda exclusivamente em texto Markdown fluido e acadêmico.
+5. Inicie a resposta diretamente em prosa acadêmica concisa e estruturada, sem divagações preliminares ou metacognição.`;
+  }
 
   const effectiveSource = cleanText(context.source || payload.source || "atlas-ai-tutor", 60);
 

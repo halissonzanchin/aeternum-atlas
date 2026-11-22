@@ -52,10 +52,20 @@ export function resolveOllamaReasoningParams(
   const source = String(meta.source || "").toLowerCase();
   const sys = String(request.systemInstruction || "");
 
+  // An explanation of a flashcard requires full clinical and anatomical reasoning.
+  // Never disable reasoning when task is explain_flashcard.
+  if (
+    task === "explain_flashcard" ||
+    source === "flashcard-explanation" ||
+    sys.includes("Explicação Didática e Rigor Anatômico de Flashcard")
+  ) {
+    return {};
+  }
+
   const isStructuredTask =
     task === "generate_flashcards" ||
     task === "generate_mind_map" ||
-    source === "flashcards" ||
+    (source === "flashcards" && task !== "explain_flashcard") ||
     source === "mind-map" ||
     sys.includes("Modo de saída — Flashcards Anatômicos") ||
     sys.includes("Modo de saída — Mapa Mental Anatômico");
@@ -65,6 +75,26 @@ export function resolveOllamaReasoningParams(
   }
 
   return {};
+}
+
+export function resolveOllamaOptions(
+  request: LLMRequest
+): { num_ctx: number; num_predict: number } {
+  const meta = (request.metadata || {}) as Record<string, unknown>;
+  const task = String(meta.task || "").toLowerCase();
+  const source = String(meta.source || "").toLowerCase();
+  const sys = String(request.systemInstruction || "");
+
+  const isDeepExplanation =
+    task === "explain_flashcard" ||
+    source === "flashcard-explanation" ||
+    sys.includes("Explicação Didática e Rigor Anatômico de Flashcard");
+
+  const explicitCtx = typeof meta.num_ctx === "number" ? meta.num_ctx : null;
+  const num_ctx = explicitCtx || (isDeepExplanation ? 8192 : 4096);
+  const num_predict = request.maxTokens || (isDeepExplanation ? 4096 : 2048);
+
+  return { num_ctx, num_predict };
 }
 
 export class OllamaLLMProvider implements LLMProvider {
@@ -153,24 +183,41 @@ export class OllamaLLMProvider implements LLMProvider {
 
   async generate(request: LLMRequest, context?: ProviderExecutionContext): Promise<LLMResponse> {
     const start = performance.now();
-    const url = buildProviderUrl(this.baseUrl, "/v1/chat/completions");
+    const url = buildProviderUrl(this.baseUrl, "/api/chat");
+
+    const task = String(request.metadata?.task || "").toLowerCase();
+    const source = String(request.metadata?.source || "").toLowerCase();
+    const isExplanation =
+      task === "explain_flashcard" ||
+      source === "flashcard-explanation" ||
+      Boolean(request.systemInstruction && request.systemInstruction.includes("Explicação Didática e Rigor Anatômico de Flashcard"));
 
     const messages = [];
     if (request.systemInstruction) {
-      messages.push({ role: "system", content: request.systemInstruction });
+      let sys = request.systemInstruction;
+      if (isExplanation && !sys.includes("sem divagações preliminares")) {
+        sys += "\n\nDIRETRIZ DE EXECUÇÃO OBRIGATÓRIA:\nInicie a resposta imediatamente com rigor anatômico e concisão acadêmica estruturada em Markdown, sem divagações preliminares ou reflexões metacognitivas.";
+      }
+      messages.push({ role: "system", content: sys });
     }
     for (const msg of request.messages) {
       messages.push({ role: msg.role, content: msg.content });
     }
 
+    const options = resolveOllamaOptions(request);
     const reasoningParams = resolveOllamaReasoningParams(request, this.reasoningPolicy);
+    const ollamaOptions: Record<string, unknown> = {
+      temperature: request.temperature ?? this.defaultTemperature,
+      top_p: request.topP,
+      stop: request.stopSequences,
+      num_ctx: options.num_ctx,
+      num_predict: options.num_predict
+    };
+
     const payload = {
       model: this.modelId,
       messages,
-      temperature: request.temperature ?? this.defaultTemperature,
-      max_tokens: request.maxTokens,
-      top_p: request.topP,
-      stop: request.stopSequences,
+      options: ollamaOptions,
       ...reasoningParams,
       stream: false
     };
@@ -193,57 +240,89 @@ export class OllamaLLMProvider implements LLMProvider {
       context
     );
 
-    const choice = data?.choices?.[0];
-    if (!choice || typeof choice.message?.content !== "string") {
+    if (!data || !data.message) {
       throw new ProviderInvalidResponseError("Formato de resposta inesperado do Ollama.", this.metadata.id);
     }
 
-    const rawReason = String(choice.finish_reason || "stop").toLowerCase();
+    const rawContent = (data.message.content || "").trim();
+    const sanitizedContent = rawContent
+      .replace(/<think>[\s\S]*?<\/think>/gi, "")
+      .replace(/<think>[\s\S]*$/gi, "")
+      .replace(/<\/think>/gi, "")
+      .trim();
+
+    if (!sanitizedContent) {
+      throw new ProviderInvalidResponseError(
+        "Resposta final vazia: modelo gerou apenas reflexão preliminar sem emitir a resposta visível.",
+        this.metadata.id
+      );
+    }
+
+    const rawReason = String(data.done_reason || (data.done ? "stop" : "unknown")).toLowerCase();
     let finishReason: "stop" | "length" | "content_filter" | "unknown" = "stop";
     if (rawReason === "length") finishReason = "length";
     else if (rawReason === "content_filter") finishReason = "content_filter";
-    else if (rawReason !== "stop") finishReason = "unknown";
+    else if (rawReason === "stop") finishReason = "stop";
+    else finishReason = "unknown";
 
     const totalDurationMs = Math.round(performance.now() - start);
 
     return {
-      text: choice.message.content,
+      text: sanitizedContent,
       providerId: this.metadata.id,
       modelId: data?.model || this.modelId,
       finishReason,
-      usage: data?.usage
-        ? {
-            promptTokens: Number(data.usage.prompt_tokens || 0),
-            completionTokens: Number(data.usage.completion_tokens || 0),
-            totalTokens: Number(data.usage.total_tokens || 0)
-          }
-        : undefined,
+      usage: {
+        promptTokens: Number(data?.prompt_eval_count || 0),
+        completionTokens: Number(data?.eval_count || 0),
+        totalTokens: Number(data?.prompt_eval_count || 0) + Number(data?.eval_count || 0)
+      },
       latency: {
         totalDurationMs
       },
-      metadata: request.metadata
+      metadata: {
+        ...request.metadata,
+        truncated: finishReason === "length"
+      }
     };
   }
 
   async *stream(request: LLMRequest, context?: ProviderExecutionContext): AsyncIterable<LLMStreamChunk> {
-    const url = buildProviderUrl(this.baseUrl, "/v1/chat/completions");
+    const url = buildProviderUrl(this.baseUrl, "/api/chat");
+
+    const task = String(request.metadata?.task || "").toLowerCase();
+    const source = String(request.metadata?.source || "").toLowerCase();
+    const isExplanation =
+      task === "explain_flashcard" ||
+      source === "flashcard-explanation" ||
+      Boolean(request.systemInstruction && request.systemInstruction.includes("Explicação Didática e Rigor Anatômico de Flashcard"));
 
     const messages = [];
     if (request.systemInstruction) {
-      messages.push({ role: "system", content: request.systemInstruction });
+      let sys = request.systemInstruction;
+      if (isExplanation && !sys.includes("sem divagações preliminares")) {
+        sys += "\n\nDIRETRIZ DE EXECUÇÃO OBRIGATÓRIA:\nInicie a resposta imediatamente com rigor anatômico e concisão acadêmica estruturada em Markdown, sem divagações preliminares ou reflexões metacognitivas.";
+      }
+      messages.push({ role: "system", content: sys });
     }
     for (const msg of request.messages) {
       messages.push({ role: msg.role, content: msg.content });
     }
 
+    const options = resolveOllamaOptions(request);
     const reasoningParams = resolveOllamaReasoningParams(request, this.reasoningPolicy);
+    const ollamaOptions: Record<string, unknown> = {
+      temperature: request.temperature ?? this.defaultTemperature,
+      top_p: request.topP,
+      stop: request.stopSequences,
+      num_ctx: options.num_ctx,
+      num_predict: options.num_predict
+    };
+
     const payload = {
       model: this.modelId,
       messages,
-      temperature: request.temperature ?? this.defaultTemperature,
-      max_tokens: request.maxTokens,
-      top_p: request.topP,
-      stop: request.stopSequences,
+      options: ollamaOptions,
       ...reasoningParams,
       stream: true
     };
@@ -295,38 +374,31 @@ export class OllamaLLMProvider implements LLMProvider {
 
         for (const line of lines) {
           const trimmed = line.trim();
-          if (!trimmed || trimmed.startsWith(":")) continue;
-          if (trimmed === "data: [DONE]") {
-            yield { deltaText: "", isComplete: true, finishReason: "stop" };
+          if (!trimmed) continue;
+          let parsed: any;
+          try {
+            parsed = JSON.parse(trimmed);
+          } catch {
+            continue;
+          }
+
+          if (parsed.done) {
+            const rawReason = String(parsed.done_reason || "stop").toLowerCase();
+            let finishReason: "stop" | "length" | "content_filter" | "unknown" = "stop";
+            if (rawReason === "length") finishReason = "length";
+            else if (rawReason === "content_filter") finishReason = "content_filter";
+            yield { deltaText: "", isComplete: true, finishReason };
             return;
           }
-          if (trimmed.startsWith("data: ")) {
-            const jsonStr = trimmed.slice(6);
-            let parsed: any;
-            try {
-              parsed = JSON.parse(jsonStr);
-            } catch {
-              throw new ProviderInvalidResponseError(
-                `Chunk SSE inválido no stream do Ollama: ${jsonStr.slice(0, 50)}`,
-                this.metadata.id
-              );
-            }
-            const delta = parsed?.choices?.[0]?.delta?.content || "";
-            const finish = parsed?.choices?.[0]?.finish_reason;
-            if (delta) {
-              yield { deltaText: delta, isComplete: false };
-            }
-            if (finish) {
-              yield {
-                deltaText: "",
-                isComplete: true,
-                finishReason: finish === "length" ? "length" : "stop"
-              };
-              return;
-            }
+
+          const delta = parsed.message?.content || "";
+          if (delta) {
+            yield { deltaText: delta, isComplete: false };
           }
         }
       }
+
+      yield { deltaText: "", isComplete: true, finishReason: "stop" };
     } finally {
       session.cleanup();
       reader.releaseLock();
