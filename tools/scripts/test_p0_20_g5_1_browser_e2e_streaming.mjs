@@ -1,4 +1,4 @@
-// Certificação E2E no Navegador com Streaming SSE (P0.20-G.5.1)
+// Certificação E2E no Navegador com Streaming SSE e Recuperação de Sessão (P0.20-G.5.2)
 // Alvo: http://localhost:5174 (Branch perf/p0-20-g5-local-ai-latency)
 // Edge Function: ai-tutor-staging (v4) -> Gateway -> Qwen 3.5 4B (RTX 4050)
 if (process.env.NODE_TLS_REJECT_UNAUTHORIZED === "0") {
@@ -22,17 +22,22 @@ const EDGE_PATH = process.env.EDGE_PATH || (
     : "/usr/bin/google-chrome"
 );
 
-const PROFILE_DIR = path.join(os.tmpdir(), "aeternum_edge_g5_1_streaming_profile");
+const PROFILE_DIR = path.join(os.tmpdir(), "aeternum_edge_g5_2_streaming_profile");
 const ARTIFACTS_DIR = "C:/Users/halis/.gemini/antigravity/brain/b63445c2-37f0-46a4-8ca8-5556eb65a8a3";
 
 const e2eEmail = "atlas-e2e-ai-tutor@aeternumatlas.com";
 const e2ePassword = getCredential("AeternumAtlas:AutomationTestAccount");
 const e2eUserId = "825b2496-ecec-4b67-8343-f8aa3578c224";
 
-async function releaseAutomationSession(reason = "teardown_g5_1_verification") {
+async function releaseAutomationSession(reason = "teardown_g5_2_verification") {
   try {
     await runSupabaseSql(`SELECT public.admin_reset_user_session('${e2eUserId}'::uuid, '${reason}');`);
     await runSupabaseSql(`UPDATE public.ai_rate_limits SET request_count = 0 WHERE user_id = '${e2eUserId}'::uuid;`);
+    if (reason.startsWith("setup_")) {
+      await runSupabaseSql(`DELETE FROM public.ai_messages WHERE user_id = '${e2eUserId}'::uuid;`);
+      await runSupabaseSql(`DELETE FROM public.ai_conversations WHERE user_id = '${e2eUserId}'::uuid;`);
+      console.log(`[SETUP] Mensagens e conversas de teste anteriores limpas com sucesso.`);
+    }
     console.log(`[TEARDOWN] Sessão liberada e rate limit resetado (${reason}).`);
   } catch (e) {
     console.warn(`[TEARDOWN] Aviso na liberação de sessão:`, e.message);
@@ -41,14 +46,14 @@ async function releaseAutomationSession(reason = "teardown_g5_1_verification") {
 
 async function runBrowserStreamingE2E() {
   console.log("================================================================================");
-  console.log("=== AETERNUM ATLAS: CERTIFICAÇÃO E2E NO NAVEGADOR COM STREAMING SSE (G.5.1) ===");
+  console.log("=== AETERNUM ATLAS: CERTIFICAÇÃO E2E NO NAVEGADOR COM STREAMING SSE (G.5.2) ===");
   console.log("=== Frontend: http://localhost:5174 (Branch perf/p0-20-g5-local-ai-latency)  ===");
   console.log("=== Interceptação: ai-tutor -> ai-tutor-staging (v4)                         ===");
   console.log("================================================================================\n");
 
   const results = {
     testDate: new Date().toISOString(),
-    mission: "P0.20-G.5.1 Browser Streaming E2E Verification",
+    mission: "P0.20-G.5.2 Browser Streaming & Session Recovery Verification",
     environment: "Local Vite (Branch perf/p0-20-g5-local-ai-latency) -> ai-tutor-staging",
     checks: {},
     streamingDeltas: [],
@@ -57,12 +62,22 @@ async function runBrowserStreamingE2E() {
 
   let testFailed = false;
   let browser = null;
+  const testStartTime = new Date().toISOString();
 
   try {
-    console.log("[Etapa 0] Limpeza de sessão anterior...");
-    await releaseAutomationSession("setup_g5_1_browser_verification");
+    console.log("[Etapa 0] Limpeza de sessão anterior e registro de timestamp...");
+    await releaseAutomationSession("setup_g5_2_browser_verification");
+    if (fs.existsSync(PROFILE_DIR)) {
+      try {
+        fs.rmSync(PROFILE_DIR, { recursive: true, force: true });
+        console.log("   Perfil temporário do navegador limpo.");
+      } catch (e) {
+        console.warn("   Aviso na limpeza do perfil:", e.message);
+      }
+    }
+    console.log(`   Timestamp de Início do Teste: ${testStartTime}`);
 
-    console.log("[Etapa 1] Inicializando Microsoft Edge via Puppeteer...");
+    console.log("\n[Etapa 1] Inicializando Microsoft Edge via Puppeteer...");
     browser = await puppeteer.launch({
       executablePath: EDGE_PATH,
       headless: "new",
@@ -133,6 +148,9 @@ async function runBrowserStreamingE2E() {
     console.log("\n[Etapa 3] Navegando para http://localhost:5174/flashcards...");
     await page.goto("http://localhost:5174/flashcards", { waitUntil: "networkidle2", timeout: 25000 });
     await page.waitForSelector(".a26-flashcards-container, .a26-flashcard-inner, .a26-generator-surface", { timeout: 15000 });
+    await page.evaluate((uid) => {
+      window.localStorage.removeItem(`aeternum_atlas_ai_session:${uid}`);
+    }, e2eUserId);
     await new Promise(r => setTimeout(r, 1500));
 
     const playerPresent = await page.$(".a26-flashcard-player-container, .a26-flashcard-inner");
@@ -168,7 +186,7 @@ async function runBrowserStreamingE2E() {
     await explainBtn.click();
 
     // Aguardar abertura do painel
-    await page.waitForSelector(".upe-ai-panel, .a26-ai-tutor-drawer, .atlas-ai-tutor-panel", { timeout: 15000 });
+    await page.waitForSelector("#upe-ai-panel, .upe-ai-panel, .a26-ai-tutor-drawer, .atlas-ai-tutor-panel", { timeout: 15000 });
     console.log("   Painel do Tutor IA aberto.");
 
     // Monitorar o fluxo de streaming progressivo
@@ -193,13 +211,7 @@ async function runBrowserStreamingE2E() {
         const hasLiveDockStatus = Boolean(document.querySelector(".atlas-ai-live-dock__status"));
         const hasThinkingRow = Boolean(document.querySelector(".atlas-viewer-ai-thinking"));
         const isThinking = Boolean(hasLiveDockStatus || hasThinkingRow || orbState === "thinking" || orbState === "speaking");
-        return {
-          text,
-          orbState,
-          isThinking,
-          hasLiveDockStatus,
-          hasThinkingRow
-        };
+        return { text, orbState, isThinking, hasLiveDockStatus, hasThinkingRow };
       });
 
       const currentLen = state.text.length;
@@ -234,7 +246,7 @@ async function runBrowserStreamingE2E() {
     await page.screenshot({ path: streamScreenshotPath });
     console.log(`   Screenshot da resposta final capturado: ${streamScreenshotPath}`);
 
-    // Validações
+    // Validações de integridade textual e científica
     const noRawJson = !isRawFlashcardJsonOutput(latestText);
     const noReasoning = !latestText.includes("<think>") && !latestText.includes("</think>");
     const hasLength = latestText.length >= 300;
@@ -259,45 +271,169 @@ async function runBrowserStreamingE2E() {
     fs.writeFileSync(textArtifactPath, latestText, "utf8");
     console.log(`   Texto da resposta persistido em: ${textArtifactPath}`);
 
-    // Aguardar 6s adicionais com o navegador aberto para a persistência assíncrona no Supabase
+    // Aguardar 6s com navegador ativo para confirmação da persistência assíncrona no Supabase
     console.log("   Aguardando 6s com navegador ativo para confirmação da persistência no Supabase...");
     await new Promise(r => setTimeout(r, 6000));
 
-    // 6. Verificar persistência soberana no banco
-    console.log("\n[Etapa 6] Verificando persistência no Supabase...");
-    const dbRows = await runSupabaseSql(`
-      SELECT id, role, char_length(content) as len, created_at
-      FROM public.ai_messages
-      WHERE user_id = '${e2eUserId}'::uuid
-      ORDER BY created_at DESC
-      LIMIT 5;
-    `);
-    console.log("   Últimas mensagens no Supabase para conta E2E:", dbRows);
+    // =========================================================================
+    // ETAPA 6: VERIFICAÇÃO RIGOROSA DE PERSISTÊNCIA (CONVERSA E MENSAGEM ESPECÍFICA)
+    // Exigência G.5.2: Identificar a conversa EFETIVAMENTE criada neste teste.
+    // Comprovar conteúdo, usuário e correspondência exata.
+    // =========================================================================
+    console.log("\n[Etapa 6] Verificando persistência soberana da conversa específica no Supabase...");
 
-    const hasAssistant = Array.isArray(dbRows) && dbRows.some(r => r.role === "assistant" && r.len >= 100);
-    console.log(`   Persistência no banco confirmada: ${hasAssistant ? "PASS" : "FAIL"}`);
-    results.checks.persistence = { passed: hasAssistant };
-    if (!hasAssistant) testFailed = true;
+    let matchedRow = null;
+    for (let attempt = 1; attempt <= 6; attempt++) {
+      const specificDbRows = await runSupabaseSql(`
+        SELECT 
+          c.id as conversation_id,
+          c.title,
+          c.created_at as conv_created_at,
+          m.id as message_id,
+          m.role,
+          m.content,
+          m.created_at as msg_created_at
+        FROM public.ai_conversations c
+        JOIN public.ai_messages m ON m.conversation_id = c.id
+        WHERE c.user_id = '${e2eUserId}'::uuid
+          AND m.role = 'assistant'
+        ORDER BY m.created_at DESC
+        LIMIT 1;
+      `);
 
-    // 7. Teste de Recuperação de Sessão (FIRST_SESSION_WINS e Session Guard)
-    console.log("\n[Etapa 7] Testando recuperação de sessão e histórico do Tutor...");
+      if (Array.isArray(specificDbRows) && specificDbRows.length > 0) {
+        matchedRow = specificDbRows[0];
+        console.log(`   Tentativa ${attempt}: Conversa e mensagem localizadas com sucesso!`);
+        break;
+      }
+      console.log(`   Tentativa ${attempt}: Aguardando inserção assíncrona no Supabase (2s)...`);
+      await new Promise(r => setTimeout(r, 2000));
+    }
+
+    if (!matchedRow) {
+      console.error("   [ERRO DE PERSISTÊNCIA] Nenhuma mensagem de assistente criada APÓS o início do teste foi encontrada!");
+      results.checks.persistence = { passed: false, error: "Nenhuma conversa/mensagem recente localizada no banco." };
+      testFailed = true;
+    } else {
+      const dbContent = (matchedRow.content || "").trim();
+      // Normalizar texto removendo formatação markdown e badges de UI para comparação robusta
+      const normalizeText = (s) => s.replace(/\*\*/g, "").replace(/^(HISTÓRICO SINCRONIZADO|RESPOSTA DO ATLAS|RESPOSTA CONTEXTUAL|\s)+/gi, "").trim();
+      const cleanDb = normalizeText(dbContent);
+      const cleanLatest = normalizeText(latestText);
+      const contentMatches = cleanDb.includes(cleanLatest.slice(0, 80)) || cleanLatest.includes(cleanDb.slice(0, 80));
+      const hasSubstantialLength = dbContent.length >= 300;
+
+      console.log(`   ID da Conversa Criada: ${matchedRow.conversation_id}`);
+      console.log(`   ID da Mensagem Gerada: ${matchedRow.message_id}`);
+      console.log(`   Tamanho no Banco: ${dbContent.length} caracteres`);
+      console.log(`   Correspondência de Conteúdo com Navegador: ${contentMatches ? "SIM (PASS)" : "NÃO (FAIL)"}`);
+
+      const persistencePassed = contentMatches && hasSubstantialLength;
+      results.checks.persistence = {
+        passed: persistencePassed,
+        conversationId: matchedRow.conversation_id,
+        messageId: matchedRow.message_id,
+        dbContentLength: dbContent.length,
+        contentMatches
+      };
+      if (!persistencePassed) testFailed = true;
+    }
+
+    // =========================================================================
+    // ETAPA 7: TESTE EVIDENCIADO DE RECUPERAÇÃO DE SESSÃO PÓS-RELOAD (G.5.2)
+    // Verificar:
+    // - Autenticação preservada.
+    // - Conversa correta recuperada.
+    // - Mensagem gerada presente no DOM.
+    // - Conteúdo correspondente ao resultado original.
+    // - Política FIRST_SESSION_WINS respeitada.
+    // =========================================================================
+    console.log("\n[Etapa 7] Testando recuperação completa de sessão pós-reload...");
+
     await page.reload({ waitUntil: "networkidle2" });
     await new Promise(r => setTimeout(r, 2000));
 
-    // Reabrir tutor e verificar se histórico ou estado persiste
-    const recoveredHistory = await page.evaluate(() => {
-      const msgs = document.querySelectorAll(".atlas-viewer-ai-message-row.is-ai");
-      return msgs.length;
+    // 7.1 Verificar autenticação preservada no localStorage
+    const authStorage = await page.evaluate(() => {
+      const raw = localStorage.getItem("sb-hyivyrietgjdazgizafp-auth-token");
+      if (!raw) return { authenticated: false };
+      try {
+        const parsed = JSON.parse(raw);
+        return { authenticated: Boolean(parsed.access_token), userEmail: parsed.user?.email };
+      } catch {
+        return { authenticated: false };
+      }
     });
-    console.log(`   Recuperação pós-reload verificada: Sessão ativa mantida sem colisão.`);
-    results.checks.sessionRecovery = { passed: true };
+    console.log(`   7.1 Autenticação Preservada: ${authStorage.authenticated ? "SIM (" + authStorage.userEmail + ")" : "NÃO"}`);
+
+    // 7.2 Verificar ausência de aviso de colisão FIRST_SESSION_WINS
+    const isDisplaced = await page.evaluate(() => {
+      const modal = document.querySelector(".a26-session-displaced-modal, [data-session-displaced='true']");
+      return Boolean(modal);
+    });
+    console.log(`   7.2 FIRST_SESSION_WINS Respeitado (sem colisão): ${!isDisplaced ? "SIM (PASS)" : "FALHA"}`);
+
+    // 7.3 Verificar se a mensagem original está presente no DOM ou ao reabrir o tutor
+    let recoveredText = "";
+    let recoveredRowFound = false;
+
+    // Verificar se o painel está aberto ou se precisamos abri-lo
+    const isPanelVisible = await page.$eval("#upe-ai-panel, .upe-ai-panel", el => el.offsetParent !== null).catch(() => false);
+    if (!isPanelVisible) {
+      console.log("   Reabrindo painel do Tutor para inspecionar histórico...");
+      // Reabrir via botão do flashcard ou dock
+      const reOpenBtn = await page.$(".a26-flashcard-tutor-btn, .atlas-ai-live-dock, .upe-ai-trigger");
+      if (reOpenBtn) {
+        await reOpenBtn.click();
+        await new Promise(r => setTimeout(r, 1500));
+      }
+    }
+
+    const recoveredData = await page.evaluate(() => {
+      const rows = document.querySelectorAll(".atlas-viewer-ai-message-row.is-ai");
+      const texts = Array.from(rows).map(r => (r.innerText || r.textContent || "").trim());
+      return { rowCount: rows.length, texts };
+    });
+
+    console.log(`   Mensagens do Assistente encontradas no DOM pós-reload: ${recoveredData.rowCount}`);
+    if (recoveredData.texts.length > 0) {
+      recoveredText = recoveredData.texts[recoveredData.texts.length - 1];
+      recoveredRowFound = recoveredText.includes(latestText.slice(0, 80)) || latestText.includes(recoveredText.slice(0, 80));
+      console.log(`   7.3 Correspondência da mensagem recuperada: ${recoveredRowFound ? "SIM (PASS)" : "NÃO (FAIL)"}`);
+    }
+
+    // 7.4 Verificar tabela de sessões ativas
+    const activeSessions = await runSupabaseSql(`
+      SELECT session_id, status, created_at, last_active_at
+      FROM public.user_active_sessions
+      WHERE user_id = '${e2eUserId}'::uuid
+        AND LOWER(status) = 'active'
+      ORDER BY last_active_at DESC
+      LIMIT 1;
+    `);
+    const hasActiveSessionInDb = Array.isArray(activeSessions) && activeSessions.length > 0;
+    console.log(`   7.4 Registro de Sessão Ativa confirmado no banco: ${hasActiveSessionInDb ? "SIM (PASS)" : "NÃO (FAIL)"}`);
+
+    const sessionRecoveryPassed = authStorage.authenticated && !isDisplaced && recoveredRowFound && hasActiveSessionInDb;
+    console.log(`   Resultado Geral Session Recovery: ${sessionRecoveryPassed ? "PASS" : "FAIL"}`);
+
+    results.checks.sessionRecovery = {
+      passed: sessionRecoveryPassed,
+      authenticated: authStorage.authenticated,
+      firstSessionWinsRespected: !isDisplaced,
+      recoveredMessageFound: recoveredRowFound,
+      recoveredChars: recoveredText.length,
+      hasActiveSessionInDb
+    };
+
+    if (!sessionRecoveryPassed) testFailed = true;
 
     const overallSuccess = !testFailed;
     results.overallSuccess = overallSuccess;
 
-    const reportArtifactPath = path.join(ARTIFACTS_DIR, "P0.20_G5_1_BROWSER_E2E_REPORT.json");
+    const reportArtifactPath = path.join(ARTIFACTS_DIR, "P0.20_G5_2_BROWSER_E2E_REPORT.json");
     fs.writeFileSync(reportArtifactPath, JSON.stringify(results, null, 2), "utf8");
-    console.log(`   Relatório E2E persistido em: ${reportArtifactPath}`);
+    console.log(`\n   Relatório E2E completo persistido em: ${reportArtifactPath}`);
 
     console.log("\n================================================================================");
     console.log(`RESULTADO DA CERTIFICAÇÃO NO NAVEGADOR: ${overallSuccess ? "PASS (100% CONFORME)" : "FAIL"}`);
@@ -307,7 +443,7 @@ async function runBrowserStreamingE2E() {
 
   } finally {
     if (browser) await browser.close().catch(() => {});
-    await releaseAutomationSession("teardown_g5_1_browser_final");
+    await releaseAutomationSession("teardown_g5_2_browser_final");
   }
 }
 
