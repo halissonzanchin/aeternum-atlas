@@ -108,17 +108,63 @@ const correctValidation = validateAnatomicalScientificFacts(correctCard, "Plexo 
 assert(correctValidation.valid, "Cartão canônico correto sobre Plexo Braquial é APROVADO cientificamente");
 assert(correctValidation.status === "CANONICAL_FACTS_VERIFIED", "Plexo braquial correto recebe status CANONICAL_FACTS_VERIFIED");
 assert(correctValidation.coverage === "domain_rule_verified", "Plexo braquial correto recebe coverage domain_rule_verified");
+assert(correctValidation.verifiedFacts.length >= 2, `Identificados ${correctValidation.verifiedFacts.length} fatos canônicos verificados`);
+
+// Teste de Negação / Refutação Didática (não existem quatro troncos):
+const refutingCard = {
+  front: "O plexo braquial possui quatro troncos?",
+  back: "Não, é falso afirmar isso. O plexo braquial possui estritamente três troncos: superior, médio e inferior; não existem quatro troncos nem tronco costocervical no plexo.",
+  explanation: "O tronco costocervical é uma artéria ramo da subclávia, não uma estrutura nervosa.",
+  topic: "Plexo Braquial"
+};
+const refutingValidation = validateAnatomicalScientificFacts(refutingCard, "Plexo Braquial");
+assert(refutingValidation.valid, "Refutação didática explícita de erro não é tratada como contradição");
+assert(refutingValidation.contradictions.length === 0, "Zero contradições em cartão que refuta ativamente o erro");
+assert(refutingValidation.status === "CANONICAL_FACTS_VERIFIED", "Cartão com refutação e afirmação dos 3 troncos é CANONICAL_FACTS_VERIFIED");
+
+// Teste de Contagem Incorreta Alternativa (cinco troncos):
+const fiveTrunkCard = {
+  front: "Quantos troncos formam o plexo braquial?",
+  back: "O plexo braquial é composto por cinco troncos distintos ao longo do pescoço.",
+  explanation: "Cada tronco origina-se de uma raiz cervical independente.",
+  topic: "Plexo Braquial"
+};
+const fiveTrunkValidation = validateAnatomicalScientificFacts(fiveTrunkCard, "Plexo Braquial");
+assert(!fiveTrunkValidation.valid, "Afirmação positiva de cinco troncos é REJEITADA como contradição");
+assert(fiveTrunkValidation.status === "CONTRADICTION_CONFIRMED", "Cinco troncos recebe status CONTRADICTION_CONFIRMED");
+
+// Teste de Cartão no Domínio sem Fatos Canônicos Específicos:
+const genericDomainCard = {
+  front: "O que é o plexo braquial em termos gerais?",
+  back: "É uma complexa rede de nervos que fornece inervação motora e sensitiva para todo o membro superior.",
+  explanation: "Origina-se no pescoço e transita para a axila através do canal cervicoaxilar.",
+  topic: "Plexo Braquial"
+};
+const genericDomainValidation = validateAnatomicalScientificFacts(genericDomainCard, "Plexo Braquial");
+assert(genericDomainValidation.valid, "Cartão geral de domínio sem contradições é aceito");
+assert(genericDomainValidation.status === "SCIENTIFIC_REVIEW_REQUIRED", "Cartão sem fatos canônicos específicos recebe SCIENTIFIC_REVIEW_REQUIRED");
+assert(genericDomainValidation.coverage === "domain_unverified_propositions", "Coverage classificada honestamente como domain_unverified_propositions");
 
 const liverCard = {
   front: "Quais são os limites anatômicos dos lobos hepáticos funcionais?",
   back: "Os lobos hepáticos direito e esquerdo funcionais são divididos pela fissura sagital principal (linha de Cantlie).",
-  explanation: "A linha de Cantlie estende-se da fossa da vesícula biliar até a margem esquerda da veia cava inferior.",
+  explanation: "A linha de Cantlie estende-se da fossa da vesícula biliar até a margem esquerda da veia cava inferior na anatomia hepática.",
   topic: "Anatomia Hepática"
 };
 const liverValidation = validateAnatomicalScientificFacts(liverCard, "Anatomia Hepática");
 assert(liverValidation.valid, "Cartão válido sobre Anatomia Hepática é aprovado");
 assert(liverValidation.status === "SCHEMA_AND_TOPIC_VALIDATED", "Tópico sem regras específicas de domínio recebe status SCHEMA_AND_TOPIC_VALIDATED");
 assert(liverValidation.coverage === "general_syntax_only", "Tópico sem regras específicas de domínio recebe coverage general_syntax_only");
+
+// Teste de Taxonomia na Validação Completa (validateFlashcardScientificAccuracy):
+const accCanonical = validateFlashcardScientificAccuracy(correctCard, "Plexo Braquial");
+assert(accCanonical.valid && accCanonical.status === "CANONICAL_FACTS_VERIFIED", "Acurácia completa confirma CANONICAL_FACTS_VERIFIED");
+
+const accGeneric = validateFlashcardScientificAccuracy(genericDomainCard, "Plexo Braquial");
+assert(accGeneric.valid && accGeneric.status === "SCIENTIFIC_REVIEW_REQUIRED", "Acurácia completa confirma SCIENTIFIC_REVIEW_REQUIRED para domínio sem fatos verificados");
+
+const accLiver = validateFlashcardScientificAccuracy(liverCard, "Anatomia Hepática");
+assert(accLiver.valid && accLiver.status === "SCHEMA_AND_TOPIC_VALIDATED", "Acurácia completa confirma SCHEMA_AND_TOPIC_VALIDATED para outros tópicos");
 
 // 4. QUARENTENA CIENTÍFICA (applyScientificQuarantine)
 console.log("\n--- 4. Sistema de Quarentena Científica ---");

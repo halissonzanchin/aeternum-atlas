@@ -181,6 +181,10 @@ export class OllamaLLMProvider implements LLMProvider {
       max_tokens: request.maxTokens,
       top_p: request.topP,
       stop: request.stopSequences,
+      options: {
+        num_ctx: 8192,
+        num_predict: request.maxTokens || 4096
+      },
       ...reasoningParams,
       stream: false
     };
@@ -204,9 +208,13 @@ export class OllamaLLMProvider implements LLMProvider {
     );
 
     const choice = data?.choices?.[0];
-    if (!choice || typeof choice.message?.content !== "string") {
+    const msg = choice?.message;
+    if (!choice || !msg || (typeof msg.content !== "string" && typeof msg.reasoning !== "string")) {
       throw new ProviderInvalidResponseError("Formato de resposta inesperado do Ollama.", this.metadata.id);
     }
+
+    const rawContent = (msg.content || "").trim();
+    const extractedText = (rawContent.length > 0 ? rawContent : (msg.reasoning || "")).trim();
 
     const rawReason = String(choice.finish_reason || "stop").toLowerCase();
     let finishReason: "stop" | "length" | "content_filter" | "unknown" = "stop";
@@ -217,7 +225,7 @@ export class OllamaLLMProvider implements LLMProvider {
     const totalDurationMs = Math.round(performance.now() - start);
 
     return {
-      text: choice.message.content,
+      text: extractedText,
       providerId: this.metadata.id,
       modelId: data?.model || this.modelId,
       finishReason,
@@ -254,6 +262,10 @@ export class OllamaLLMProvider implements LLMProvider {
       max_tokens: request.maxTokens,
       top_p: request.topP,
       stop: request.stopSequences,
+      options: {
+        num_ctx: 8192,
+        num_predict: request.maxTokens || 4096
+      },
       ...reasoningParams,
       stream: true
     };

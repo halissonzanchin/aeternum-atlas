@@ -432,8 +432,10 @@ function sanitizeTutorCard(entry, { topic, difficulty, index, language = "pt", d
 
   candidate.scientificStatus = scientific.status || "SCHEMA_AND_TOPIC_VALIDATED";
   candidate.validationCoverage = scientific.coverage || "general_syntax_only";
-  candidate.validatedByTutor = true;
-  candidate.scientificReviewNeeded = false;
+  candidate.schemaValidated = true;
+  candidate.validatedByTutor = scientific.status === "CANONICAL_FACTS_VERIFIED";
+  candidate.scientificReviewNeeded = scientific.status === "SCIENTIFIC_REVIEW_REQUIRED";
+  candidate.verifiedFacts = scientific.verifiedFacts || [];
   candidate.quarantine = false;
 
   return { card: candidate, error: null };
@@ -467,9 +469,12 @@ export function validateFlashcardScientificAccuracy(card, topic = "") {
     status: scientificRes.status || "SCHEMA_AND_TOPIC_VALIDATED",
     coverage: scientificRes.coverage || "general_syntax_only",
     reason: null,
+    verifiedFacts: scientificRes.verifiedFacts || [],
     details: scientificRes.status === "CANONICAL_FACTS_VERIFIED"
-      ? "Aprovado com validação de fatos anatômicos canônicos"
-      : "Aprovado com validação de schema e pertinência temática"
+      ? `Aprovado com validação de fatos anatômicos canônicos (${scientificRes.verifiedFacts?.length || 0} proposições)`
+      : scientificRes.status === "SCIENTIFIC_REVIEW_REQUIRED"
+        ? "Requer revisão científica: sem proposições canônicas confirmadas no domínio"
+        : "Aprovado com validação de schema e pertinência temática"
   };
 }
 
