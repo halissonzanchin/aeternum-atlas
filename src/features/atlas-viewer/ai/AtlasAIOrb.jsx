@@ -59,6 +59,16 @@ export default function AtlasAIOrb({
 
     let isRunning = true;
     let time = 0;
+    let lastTimestamp = 0;
+
+    const mediaQuery = typeof window !== "undefined" && window.matchMedia
+      ? window.matchMedia("(prefers-reduced-motion: reduce)")
+      : null;
+    let prefersReducedMotion = mediaQuery ? mediaQuery.matches : false;
+    const handleMotionChange = (e) => {
+      prefersReducedMotion = e.matches;
+    };
+    mediaQuery?.addEventListener("change", handleMotionChange);
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
@@ -74,212 +84,327 @@ export default function AtlasAIOrb({
     resize();
     window.addEventListener("resize", resize);
 
-    // 4 Elongated Harmonic iOS 9 Wave Ribbons (Cyan/Blue, Magenta, Mint, Orchid)
-    const waves = [
+    // 5 Major Volumetric Flowing Siri Ribbons (Matching Apple Siri Ribbon Lobes)
+    const STEPS = 80;
+    const att = (x) => {
+      const k = 2.4;
+      return Math.pow(k / (k + x * x), 2.2);
+    };
+
+    const ribbons = [
       {
-        color: "0, 150, 255",   // Electric Azure Blue
-        speed: 1.1,
-        frequency: 2.2,
-        phase: 0.0,
-        amp: 0.85,
-        verse: 1
-      },
-      {
-        color: "255, 50, 130",  // Ruby Magenta Pink
-        speed: 1.35,
-        frequency: 2.6,
-        phase: 1.4,
-        amp: 0.75,
-        verse: -1
-      },
-      {
-        color: "40, 230, 175",  // Turquoise Mint
+        name: "magenta-top",
+        baseAngle: -Math.PI * 0.45, // pointing high up (~80 deg)
+        span: 1.62,
+        maxAmp: 0.36,
+        thickness: 0.54,
+        freq: 1.1,
         speed: 0.95,
-        frequency: 1.9,
-        phase: 2.8,
-        amp: 0.8,
-        verse: 1
+        phase: 0.3,
+        color: "255, 45, 145"
       },
       {
-        color: "180, 85, 255",  // Royal Orchid Violet
-        speed: 1.2,
-        frequency: 2.4,
-        phase: 4.1,
-        amp: 0.65,
-        verse: -1
+        name: "turquoise-right",
+        baseAngle: 0.06, // horizontal right (~3 deg)
+        span: 1.70,
+        maxAmp: 0.30,
+        thickness: 0.50,
+        freq: 1.2,
+        speed: 0.85,
+        phase: 1.8,
+        color: "35, 240, 190"
+      },
+      {
+        name: "azure-left",
+        baseAngle: Math.PI * 0.82, // down-left (~148 deg)
+        span: 1.66,
+        maxAmp: 0.32,
+        thickness: 0.52,
+        freq: 1.15,
+        speed: 1.05,
+        phase: 3.2,
+        color: "0, 160, 255"
+      },
+      {
+        name: "orchid-upperleft",
+        baseAngle: -Math.PI * 0.80, // up-left (~-144 deg)
+        span: 1.52,
+        maxAmp: 0.28,
+        thickness: 0.48,
+        freq: 1.25,
+        speed: 0.90,
+        phase: 4.5,
+        color: "190, 70, 255"
+      },
+      {
+        name: "magenta-droplet",
+        baseAngle: Math.PI * 0.58, // down-right (~104 deg)
+        span: 1.52,
+        maxAmp: 0.26,
+        thickness: 0.44,
+        freq: 1.3,
+        speed: 1.15,
+        phase: 5.6,
+        color: "255, 60, 160"
       }
     ];
 
-    // Cauchy Global Attenuation Envelope: (K / (K + x^2))^2.5
-    const ATT_K = 3.2;
-    const attenuation = (x) => {
-      const d = ATT_K + x * x;
-      return Math.pow(ATT_K / d, 2.5);
-    };
-
-    const render = () => {
+    const render = (timestamp) => {
       if (!isRunning) return;
+
+      if (!lastTimestamp) lastTimestamp = timestamp || performance.now();
+      const currentNow = timestamp || performance.now();
+      const dt = Math.min((currentNow - lastTimestamp) / 1000, 0.1);
+      lastTimestamp = currentNow;
 
       const w = canvas.width;
       const h = canvas.height;
       const cx = w / 2;
       const cy = h / 2;
-      const radius = Math.min(w, h) * 0.47;
+      // Precisely align canvas sphere with container boundary (0.5px margin for subpixel anti-aliasing)
+      const radius = Math.min(w, h) * 0.492;
 
       ctx.clearRect(0, 0, w, h);
 
       const currentState = stateRef.current.state;
       const currentIntensity = stateRef.current.intensity;
 
+      // Expose internal state on dataset for inspection and test harnesses
+      if (canvas.dataset.orbState !== currentState) {
+        canvas.dataset.orbState = currentState;
+      }
+      if (canvas.dataset.orbIntensity !== String(currentIntensity)) {
+        canvas.dataset.orbIntensity = String(currentIntensity);
+      }
+
       let speedMult = 1.0;
       let ampMult = 1.0;
 
       if (currentState === "listening") {
         speedMult = 1.5;
-        ampMult = 1.2;
+        ampMult = 1.25;
       } else if (currentState === "thinking") {
-        speedMult = 2.2;
-        ampMult = 1.05;
+        speedMult = 2.0;
+        ampMult = 1.1;
       } else if (currentState === "speaking") {
         speedMult = 1.7;
-        ampMult = 1.3;
+        ampMult = 1.35;
+      } else if (currentState === "offline") {
+        speedMult = 0.4;
+        ampMult = 0.5;
       }
 
-      time += 0.022 * speedMult;
+      // Delta-time based pacing with prefers-reduced-motion fallback
+      if (prefersReducedMotion) {
+        time += dt * 0.15 * speedMult;
+      } else {
+        time += dt * 1.20 * speedMult;
+      }
 
       ctx.save();
 
-      // Circular clipping for the liquid glass sphere
+      // 1. Circular clipping for the liquid glass sphere
       ctx.beginPath();
       ctx.arc(cx, cy, radius, 0, Math.PI * 2);
       ctx.clip();
 
-      // 1. Transparent Liquid Glass Substrate (Aeternum 26 - Translucent Refractive Core)
+      // 2. Translucent Midnight Liquid Glass Core Substrate
       const liquidGlassGrad = ctx.createRadialGradient(
-        cx - radius * 0.25,
-        cy - radius * 0.3,
-        radius * 0.05,
+        cx,
+        cy,
+        0,
         cx,
         cy,
         radius
       );
-      liquidGlassGrad.addColorStop(0, "rgba(255, 255, 255, 0.08)");
-      liquidGlassGrad.addColorStop(0.65, "rgba(40, 180, 200, 0.03)");
-      liquidGlassGrad.addColorStop(0.92, "rgba(100, 200, 230, 0.08)");
-      liquidGlassGrad.addColorStop(1, "rgba(200, 240, 255, 0.16)");
+      liquidGlassGrad.addColorStop(0, "rgba(14, 24, 52, 0.15)");
+      liquidGlassGrad.addColorStop(0.60, "rgba(8, 16, 38, 0.30)");
+      liquidGlassGrad.addColorStop(0.90, "rgba(10, 20, 48, 0.55)");
+      liquidGlassGrad.addColorStop(1.0, "rgba(16, 32, 70, 0.75)");
 
       ctx.fillStyle = liquidGlassGrad;
       ctx.fill();
 
-      // 2. Harmonic iOS 9 Siri Light Ribbons (Flowing Horizontally across the Sphere)
+      // 3. Volumetric Internal Ambient Color Haze (Diffuse Color Glow inside glass)
+      // Upper dome: Rich, warm magenta/fuchsia ambient glow
+      const topHaze = ctx.createRadialGradient(
+        cx,
+        cy - radius * 0.35,
+        radius * 0.05,
+        cx,
+        cy - radius * 0.15,
+        radius * 0.88
+      );
+      topHaze.addColorStop(0, "rgba(255, 50, 160, 0.52)");
+      topHaze.addColorStop(0.40, "rgba(195, 35, 185, 0.32)");
+      topHaze.addColorStop(0.75, "rgba(110, 20, 140, 0.12)");
+      topHaze.addColorStop(1.0, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = topHaze;
+      ctx.fill();
+
+      // Lower dome: Electric cyan/azure ambient glow
+      const botHaze = ctx.createRadialGradient(
+        cx - radius * 0.10,
+        cy + radius * 0.35,
+        radius * 0.05,
+        cx,
+        cy + radius * 0.15,
+        radius * 0.85
+      );
+      botHaze.addColorStop(0, "rgba(0, 150, 255, 0.44)");
+      botHaze.addColorStop(0.45, "rgba(0, 225, 215, 0.25)");
+      botHaze.addColorStop(0.75, "rgba(15, 75, 170, 0.10)");
+      botHaze.addColorStop(1.0, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = botHaze;
+      ctx.fill();
+
+      // 4. Volumetric Flowing Siri Ribbons
       ctx.save();
       ctx.globalCompositeOperation = "screen";
 
-      const GRAPH_STEPS = 64;
-      const waveSpan = radius * 1.88;
-      const maxAmplitude = radius * 0.36 * ampMult * currentIntensity;
+      ribbons.forEach((rib) => {
+        const angle = rib.baseAngle + 0.06 * Math.sin(time * 0.7 + rib.phase);
+        const cosA = Math.cos(angle);
+        const sinA = Math.sin(angle);
+        const perpX = -sinA;
+        const perpY = cosA;
 
-      waves.forEach((wave) => {
-        const currentPhase = time * wave.speed + wave.phase;
+        const currentPhase = time * rib.speed + rib.phase;
+        const halfSpan = (radius * rib.span) / 2;
+        const maxAmp = radius * rib.maxAmp * ampMult * currentIntensity;
+        const baseThick = radius * rib.thickness;
 
-        // Draw symmetrical flowing ribbon (top and bottom lobes)
-        for (const sign of [1, -1]) {
-          ctx.beginPath();
+        const topPoints = [];
+        const botPoints = [];
+        const spinePoints = [];
 
-          for (let i = -GRAPH_STEPS; i <= GRAPH_STEPS; i++) {
-            const normX = (i / GRAPH_STEPS) * 3.0; // range -3 to +3
-            const x = cx + (i / GRAPH_STEPS) * (waveSpan / 2);
+        for (let i = -STEPS; i <= STEPS; i++) {
+          const normU = (i / STEPS) * 2.6;
+          const u = (i / STEPS) * halfSpan;
 
-            const s1 = Math.sin(wave.verse * normX * wave.frequency - currentPhase);
-            const s2 = 0.3 * Math.sin(normX * 4.2 + time * 1.5);
-            const att = attenuation(normX * 1.3);
+          const envelope = att(normU);
+          const wave = Math.sin(normU * rib.freq - currentPhase) * maxAmp * envelope;
+          const thick = baseThick * envelope * (0.70 + 0.30 * Math.cos(normU * 1.1));
 
-            const yOffset = (s1 + s2) * att * maxAmplitude * wave.amp;
-            const y = cy - sign * yOffset;
+          const cxSlice = cx + u * cosA + wave * perpX;
+          const cySlice = cy + u * sinA + wave * perpY;
 
-            if (i === -GRAPH_STEPS) {
-              ctx.moveTo(x, y);
-            } else {
-              ctx.lineTo(x, y);
-            }
-          }
+          spinePoints.push({ x: cxSlice, y: cySlice });
 
-          ctx.closePath();
+          topPoints.push({
+            x: cxSlice + (thick / 2) * perpX,
+            y: cySlice + (thick / 2) * perpY
+          });
 
-          // Smooth horizontal fade for natural light feathering
-          const ribbonGrad = ctx.createLinearGradient(
-            cx - waveSpan / 2,
-            cy,
-            cx + waveSpan / 2,
-            cy
-          );
-          ribbonGrad.addColorStop(0, `rgba(${wave.color}, 0)`);
-          ribbonGrad.addColorStop(0.2, `rgba(${wave.color}, 0.35)`);
-          ribbonGrad.addColorStop(0.5, `rgba(${wave.color}, 0.65)`);
-          ribbonGrad.addColorStop(0.8, `rgba(${wave.color}, 0.35)`);
-          ribbonGrad.addColorStop(1, `rgba(${wave.color}, 0)`);
-
-          ctx.fillStyle = ribbonGrad;
-          ctx.fill();
+          botPoints.push({
+            x: cxSlice - (thick / 2) * perpX,
+            y: cySlice - (thick / 2) * perpY
+          });
         }
+
+        // Draw volumetric ribbon body
+        ctx.beginPath();
+        ctx.moveTo(topPoints[0].x, topPoints[0].y);
+        for (let i = 1; i < topPoints.length; i++) {
+          ctx.lineTo(topPoints[i].x, topPoints[i].y);
+        }
+        for (let i = botPoints.length - 1; i >= 0; i--) {
+          ctx.lineTo(botPoints[i].x, botPoints[i].y);
+        }
+        ctx.closePath();
+
+        const ribGrad = ctx.createLinearGradient(
+          cx - halfSpan * cosA,
+          cy - halfSpan * sinA,
+          cx + halfSpan * cosA,
+          cy + halfSpan * sinA
+        );
+        ribGrad.addColorStop(0, "rgba(" + rib.color + ", 0)");
+        ribGrad.addColorStop(0.30, "rgba(" + rib.color + ", 0.50)");
+        ribGrad.addColorStop(0.50, "rgba(" + rib.color + ", 0.88)");
+        ribGrad.addColorStop(0.70, "rgba(" + rib.color + ", 0.50)");
+        ribGrad.addColorStop(1.0, "rgba(" + rib.color + ", 0)");
+
+        ctx.fillStyle = ribGrad;
+        ctx.fill();
+
+        // Central crease highlight line across nexus
+        ctx.beginPath();
+        ctx.moveTo(spinePoints[0].x, spinePoints[0].y);
+        for (let i = 1; i < spinePoints.length; i++) {
+          ctx.lineTo(spinePoints[i].x, spinePoints[i].y);
+        }
+
+        const spineGrad = ctx.createLinearGradient(
+          cx - halfSpan * cosA,
+          cy - halfSpan * sinA,
+          cx + halfSpan * cosA,
+          cy + halfSpan * sinA
+        );
+        spineGrad.addColorStop(0, "rgba(255, 255, 255, 0)");
+        spineGrad.addColorStop(0.38, "rgba(255, 255, 255, 0.35)");
+        spineGrad.addColorStop(0.50, "rgba(255, 255, 255, 0.95)");
+        spineGrad.addColorStop(0.62, "rgba(255, 255, 255, 0.35)");
+        spineGrad.addColorStop(1.0, "rgba(255, 255, 255, 0)");
+
+        ctx.strokeStyle = spineGrad;
+        ctx.lineWidth = Math.max(1.0, radius * 0.022);
+        ctx.stroke();
       });
 
-      // 3. Central Fine White Laser Beam
-      const coreLaserGrad = ctx.createLinearGradient(
-        cx - waveSpan / 2,
-        cy,
-        cx + waveSpan / 2,
-        cy
-      );
-      coreLaserGrad.addColorStop(0, "rgba(255, 255, 255, 0)");
-      coreLaserGrad.addColorStop(0.25, "rgba(255, 255, 255, 0.45)");
-      coreLaserGrad.addColorStop(0.5, "rgba(255, 255, 255, 0.85)");
-      coreLaserGrad.addColorStop(0.75, "rgba(255, 255, 255, 0.45)");
-      coreLaserGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
+      // 5. Radiant Center Star Nexus (Pure glowing white star at intersection)
+      const coreGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 0.46);
+      coreGrad.addColorStop(0, "rgba(255, 255, 255, 1.0)");
+      coreGrad.addColorStop(0.18, "rgba(250, 255, 255, 0.95)");
+      coreGrad.addColorStop(0.38, "rgba(220, 250, 255, 0.52)");
+      coreGrad.addColorStop(0.68, "rgba(180, 230, 255, 0.16)");
+      coreGrad.addColorStop(1.0, "rgba(0, 0, 0, 0)");
 
+      ctx.fillStyle = coreGrad;
       ctx.beginPath();
-      for (let i = -GRAPH_STEPS; i <= GRAPH_STEPS; i++) {
-        const normX = (i / GRAPH_STEPS) * 3.0;
-        const x = cx + (i / GRAPH_STEPS) * (waveSpan / 2);
-        const wave = 0.08 * maxAmplitude * Math.sin(normX * 3.4 - time * 2.2) * attenuation(normX * 1.5);
-        const y = cy + wave;
-
-        if (i === -GRAPH_STEPS) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      }
-      ctx.strokeStyle = coreLaserGrad;
-      ctx.lineWidth = Math.max(1.0, radius * 0.035);
-      ctx.stroke();
+      ctx.arc(cx, cy, radius * 0.46, 0, Math.PI * 2);
+      ctx.fill();
 
       ctx.restore(); // Restore from screen compositeOperation
 
-      // 4. Specular Crescent Glass Reflection (Liquid Glass Optic Crescent)
-      const specularGrad = ctx.createRadialGradient(
-        cx - radius * 0.3,
-        cy - radius * 0.32,
-        0,
-        cx - radius * 0.3,
-        cy - radius * 0.32,
-        radius * 0.75
+      // 6. Internal Specular Glass Crescent Reflection (Apple Curved Optical Reflection)
+      const crescentGrad = ctx.createRadialGradient(
+        cx,
+        cy - radius * 0.88,
+        radius * 0.02,
+        cx,
+        cy - radius * 0.52,
+        radius * 0.80
       );
-      specularGrad.addColorStop(0, "rgba(255, 255, 255, 0.65)");
-      specularGrad.addColorStop(0.2, "rgba(255, 255, 255, 0.2)");
-      specularGrad.addColorStop(0.52, "rgba(255, 255, 255, 0)");
+      crescentGrad.addColorStop(0, "rgba(255, 255, 255, 0.58)");
+      crescentGrad.addColorStop(0.22, "rgba(255, 255, 255, 0.22)");
+      crescentGrad.addColorStop(0.55, "rgba(255, 255, 255, 0.04)");
+      crescentGrad.addColorStop(1.0, "rgba(255, 255, 255, 0)");
 
-      ctx.fillStyle = specularGrad;
+      ctx.save();
+      ctx.fillStyle = crescentGrad;
       ctx.beginPath();
-      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.ellipse(cx, cy - radius * 0.46, radius * 0.74, radius * 0.36, -0.05, 0, Math.PI * 2);
       ctx.fill();
+      ctx.restore();
 
-      // 5. Delicate Crystal Edge Stroke
+      // 7. Single Unified Photorealistic Conic Glass Rim
+      ctx.save();
+      const rimGrad = ctx.createConicGradient(-Math.PI / 2, cx, cy);
+      rimGrad.addColorStop(0.00, "rgba(255, 55, 155, 0.45)");   // Top: Fuchsia
+      rimGrad.addColorStop(0.20, "rgba(255, 255, 255, 0.88)");  // Top-Right: Crisp White Specular
+      rimGrad.addColorStop(0.38, "rgba(35, 235, 185, 0.55)");   // Right/Bottom-Right: Turquoise
+      rimGrad.addColorStop(0.55, "rgba(30, 90, 210, 0.35)");    // Bottom: Deep Indigo
+      rimGrad.addColorStop(0.72, "rgba(0, 155, 255, 0.50)");    // Bottom-Left: Electric Azure
+      rimGrad.addColorStop(0.88, "rgba(175, 65, 255, 0.45)");   // Upper-Left: Orchid
+      rimGrad.addColorStop(1.00, "rgba(255, 55, 155, 0.45)");   // Back to Top Fuchsia
+
       ctx.beginPath();
       ctx.arc(cx, cy, radius - 0.5, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
-      ctx.lineWidth = Math.max(0.8, radius * 0.025);
+      ctx.strokeStyle = rimGrad;
+      ctx.lineWidth = Math.max(1.0, radius * 0.016);
       ctx.stroke();
+      ctx.restore();
 
       ctx.restore(); // Restore clipping
 
@@ -291,6 +416,7 @@ export default function AtlasAIOrb({
     return () => {
       isRunning = false;
       window.removeEventListener("resize", resize);
+      mediaQuery?.removeEventListener("change", handleMotionChange);
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
   }, [size]);
