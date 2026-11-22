@@ -1,7 +1,6 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 import fs from "node:fs";
 import path from "node:path";
-import { resolveOllamaReasoningParams } from "./ollama_reasoning_helper.mjs";
+import { resolveOllamaReasoningParams, resolveOllamaOptions } from "./ollama_reasoning_helper.mjs";
 import {
   validateAnatomicalScientificFacts,
   validateFlashcardSchema,
@@ -54,7 +53,8 @@ DIRETRIZES DE EXPLICAÇÃO:
    - **Correlação Clínica**: Consequências biomecânicas ou neurológicas de lesões estruturais (ex: síndromes clássicas).
    - **Síntese para Revisão**: Pontos fundamentais para fixação do estudante.
    - **Referências Bibliográficas**: Cite expressamente as fontes canônicas e identificadores recuperados (ex: [SRC-MOORE-7TH-BR], [FAT-BRACHIAL-TRUNKS], [FAT-BRACHIAL-ROOTS]).
-4. PROIBIÇÃO ABSOLUTA DE JSON: NUNCA responda com blocos JSON, arrays de flashcards [ { "front": ... } ], ou caracteres de código como '}]'. Responda exclusivamente em texto Markdown fluido e acadêmico.`;
+4. PROIBIÇÃO ABSOLUTA DE JSON: NUNCA responda com blocos JSON, arrays de flashcards [ { "front": ... } ], ou caracteres de código como '}]'. Responda exclusivamente em texto Markdown fluido e acadêmico.
+5. Inicie a resposta diretamente em prosa acadêmica concisa e estruturada, sem divagações preliminares ou metacognição.`;
 
 const RAG_SOURCES_BRACHIAL_PLEXUS = `\n\n=== MEMÓRIA CANÔNICA SOBERANA (AUTORIDADE MÁXIMA) ===
 [Fato Canônico 1] FAT-BRACHIAL-ROOTS: O plexo braquial é formado pela união dos ramos anteriores dos nervos espinais C5, C6, C7, C8 e T1 (5 raízes).
@@ -74,6 +74,8 @@ async function callOllamaInference({ systemInstruction, prompt, task, source, ti
   };
   const reasoningParams = resolveOllamaReasoningParams(req);
 
+  const options = resolveOllamaOptions(req);
+
   const body = {
     model: MODEL,
     messages: [
@@ -81,11 +83,8 @@ async function callOllamaInference({ systemInstruction, prompt, task, source, ti
       { role: "user", content: prompt }
     ],
     temperature: 0.3,
-    max_tokens: 4096,
-    options: {
-      num_ctx: 8192,
-      num_predict: 4096
-    },
+    max_tokens: options.num_predict,
+    options,
     stream: false,
     ...reasoningParams
   };
@@ -106,11 +105,20 @@ async function callOllamaInference({ systemInstruction, prompt, task, source, ti
     const durationMs = Math.round(performance.now() - t0);
     const data = await res.json();
     const msg = data.choices?.[0]?.message || {};
-    const content = ((msg.content && msg.content.trim().length > 0) ? msg.content : (msg.reasoning || "")).trim();
+    const rawContent = (msg.content || "").trim();
+    const sanitizedContent = rawContent
+      .replace(/<think>[\s\S]*?<\/think>/gi, "")
+      .replace(/<think>[\s\S]*$/gi, "")
+      .replace(/<\/think>/gi, "")
+      .trim();
+    const content = sanitizedContent;
+    const choice = data.choices?.[0] || {};
+    const finishReason = choice.finish_reason || "stop";
     return {
       success: res.ok && content.length > 0,
       status: res.status,
       content,
+      finishReason,
       durationMs,
       durationSeconds: parseFloat((durationMs / 1000).toFixed(2)),
       reasoningParams,
@@ -152,7 +160,7 @@ Pergunta do cartão: "Quais são os quatro troncos do plexo braquial?"
 Resposta proposta pelo cartão: "O plexo braquial é composto por quatro troncos: superior, médio, inferior e tronco costocervical. O fascículo lateral inerva o trapézio e sua lesão causa paralisia de Erb-Duchenne."
 Explicação do cartão: "O tronco costocervical integra o plexo braquial e divide-se em 3 divisões que formam os fascículos."
 
-Por favor, analise cientificamente este cartão como um professor de anatomia com concisão e precisão acadêmica: verifique se a resposta proposta e a explicação estão corretas ou se contêm premissas falsas, aponte eventuais erros com rigor anatômico e me explique com detalhes a morfologia, relações topográficas e correlações clínicas pertinentes, citando expressamente as fontes canônicas e evidências [SRC-MOORE-7TH-BR] e [FAT-BRACHIAL-TRUNKS].`;
+Por favor, analise cientificamente este cartão como um professor de anatomia com concisão e precisão acadêmica: verifique se a resposta proposta e a explicação estão corretas ou se contêm premissas falsas, aponte eventuais erros com rigor anatômico e me explique com detalhes a morfologia, relações topográficas e correlações clínicas pertinentes, estruturando a resposta com seções em Markdown (ex: **Correção Conceitual:**, **Anatomia Detalhada:**) e citando expressamente as fontes canônicas e evidências [SRC-MOORE-7TH-BR] e [FAT-BRACHIAL-TRUNKS].`;
 
   const sysInstructionT1 = `Você é o Atlas AI Tutor da plataforma Aeternum Atlas 26.1, especializado em educação anatômica rigorosa.
 HIERARQUIA NÃO-NEGOCIÁVEL: MEMÓRIA CANÔNICA tem autoridade máxima.
@@ -165,7 +173,9 @@ DIRETRIZES ESSENCIAIS:
 2. Explique os fatos canônicos com detalhes: raízes anteriores C5-T1, os 3 troncos, as 6 divisões e os 3 fascículos.
 3. Aborde as correlações clínicas: paralisia de Erb-Duchenne associada ao tronco superior (C5-C6) e a inervação motora do músculo trapézio exclusivamente pelo nervo acessório (NC XI).
 4. Cite expressamente as evidências e fontes canônicas [SRC-MOORE-7TH-BR] e [FAT-BRACHIAL-TRUNKS].
-5. PROIBIÇÃO DE JSON: Responda exclusivamente em texto Markdown fluido e acadêmico, sem blocos ou arrays JSON.`;
+5. PROIBIÇÃO DE JSON: Responda exclusivamente em texto Markdown fluido e acadêmico, sem blocos ou arrays JSON.
+6. Estruture com seções em Markdown usando negrito ou cabeçalhos (ex: **Correção Conceitual:**, **Anatomia Detalhada:**, **Correlação Clínica:**).
+7. Inicie a resposta diretamente em prosa acadêmica concisa e estruturada, sem divagações preliminares ou metacognição.`;
   const t1Res = await callOllamaInference({
     systemInstruction: sysInstructionT1,
     prompt: incidentCardPrompt,
@@ -408,7 +418,7 @@ DIRETRIZES ESSENCIAIS:
     },
     {
       lang: "de",
-      instruction: "Sie sind der Atlas AI Tutor. Antworten Sie direkt auf Deutsch ohne vorangehende Denkprozesse.",
+      instruction: "Sie sind der Atlas AI Tutor. Antworten Sie direkt auf Deutsch: nennen Sie kurz die drei Trunci des Plexus brachialis.",
       prompt: "Wie viele Trunci hat der Plexus brachialis? Nennen Sie die drei Trunci auf Deutsch.",
       check: (t) => /trunc|st[aä]mm|drei|3/i.test(t)
     }
@@ -432,7 +442,7 @@ DIRETRIZES ESSENCIAIS:
     };
     if (!res.success || !vocabPass) t9AllPass = false;
     console.log(`    [${item.lang.toUpperCase()}] (${res.durationSeconds}s, vocab: ${vocabPass}): "${res.content.trim().slice(0, 70)}..."`);
-    await sleep(2000);
+    await sleep(3500);
   }
 
   results.tests.T9_multilingual_contracts = {
@@ -492,6 +502,14 @@ DIRETRIZES ESSENCIAIS:
 
   fs.writeFileSync(RESULTS_FILE, JSON.stringify(results, null, 2), "utf8");
   console.log(`Resultados gravados em: ${RESULTS_FILE}`);
+
+  if (!results.gates["RELEASE-GO"]) {
+    console.error("ERRO: Um ou mais gates oficiais foram reprovados (RELEASE-NO-GO).");
+    process.exit(1);
+  }
 }
 
-runTestSuite().catch(console.error);
+runTestSuite().catch(err => {
+  console.error("ERRO FATAL NA EXECUÇÃO DA BATERIA:", err);
+  process.exit(1);
+});

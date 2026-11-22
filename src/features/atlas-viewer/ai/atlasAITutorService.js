@@ -18,6 +18,9 @@ const PARTIAL_ACTION_TOKEN_PATTERN = /\[ACTION(?::[A-Z_]*)?$/i;
 
 export function sanitizeTutorDisplayText(text) {
   return String(text || '')
+    .replace(/<think>[\s\S]*?<\/think>/gi, '')
+    .replace(/<think>[\s\S]*$/gi, '')
+    .replace(/<\/think>/gi, '')
     .replace(ACTION_TOKEN_PATTERN, '')
     .replace(PARTIAL_ACTION_TOKEN_PATTERN, '')
     .trim();

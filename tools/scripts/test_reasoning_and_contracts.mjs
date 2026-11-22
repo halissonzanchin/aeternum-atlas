@@ -1,4 +1,4 @@
-import { resolveOllamaReasoningParams } from "./ollama_reasoning_helper.mjs";
+import { resolveOllamaReasoningParams, resolveOllamaOptions } from "./ollama_reasoning_helper.mjs";
 import {
   validateAnatomicalScientificFacts,
   validateFlashcardSchema,
@@ -66,6 +66,15 @@ const reqTutor = {
 const resTutor = resolveOllamaReasoningParams(reqTutor);
 assert(Object.keys(resTutor).length === 0, "tutor_ia padrão preserva raciocínio ({})");
 
+// Teste de Opções e Orçamento de Contexto (Context Window Calibration):
+const optStructured = resolveOllamaOptions({ metadata: { task: "generate_flashcards" } });
+assert(optStructured.num_ctx === 4096, "generate_flashcards recebe num_ctx calibrado em 4096 (economia de VRAM)");
+assert(optStructured.num_predict === 2048, "generate_flashcards recebe num_predict calibrado em 2048");
+
+const optDeep = resolveOllamaOptions({ metadata: { task: "explain_flashcard" } });
+assert(optDeep.num_ctx === 8192, "explain_flashcard recebe num_ctx expandido em 8192");
+assert(optDeep.num_predict === 4096, "explain_flashcard recebe num_predict calibrado em 4096");
+
 // 2. DETECÇÃO DE SAÍDA JSON BRUTA (isRawFlashcardJsonOutput)
 console.log("\n--- 2. Interceptor de Formato (isRawFlashcardJsonOutput) ---");
 
@@ -132,6 +141,17 @@ const fiveTrunkCard = {
 const fiveTrunkValidation = validateAnatomicalScientificFacts(fiveTrunkCard, "Plexo Braquial");
 assert(!fiveTrunkValidation.valid, "Afirmação positiva de cinco troncos é REJEITADA como contradição");
 assert(fiveTrunkValidation.status === "CONTRADICTION_CONFIRMED", "Cinco troncos recebe status CONTRADICTION_CONFIRMED");
+
+// Teste de Falácia das Três Divisões do Plexo Braquial:
+const threeDivCard = {
+  front: "Quantas divisões tem o plexo braquial e como se organizam?",
+  back: "O plexo braquial divide-se em 3 divisões principais que formam diretamente os três fascículos.",
+  explanation: "As 3 divisões principais distribuem-se na axila.",
+  topic: "Plexo Braquial"
+};
+const threeDivValidation = validateAnatomicalScientificFacts(threeDivCard, "Plexo Braquial");
+assert(!threeDivValidation.valid, "Afirmação positiva de 3 divisões é REJEITADA como contradição (canônico: 6 divisões)");
+assert(threeDivValidation.status === "CONTRADICTION_CONFIRMED", "Três divisões recebe status CONTRADICTION_CONFIRMED");
 
 // Teste de Cartão no Domínio sem Fatos Canônicos Específicos:
 const genericDomainCard = {

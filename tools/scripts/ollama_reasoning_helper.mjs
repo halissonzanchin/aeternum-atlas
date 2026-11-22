@@ -54,3 +54,21 @@ export function resolveOllamaReasoningParams(request, policy = "auto") {
 
   return {};
 }
+
+export function resolveOllamaOptions(request) {
+  const meta = (request.metadata || {});
+  const task = String(meta.task || "").toLowerCase();
+  const source = String(meta.source || "").toLowerCase();
+  const sys = String(request.systemInstruction || "");
+
+  const isDeepExplanation =
+    task === "explain_flashcard" ||
+    source === "flashcard-explanation" ||
+    sys.includes("Explicação Didática e Rigor Anatômico de Flashcard");
+
+  const explicitCtx = typeof meta.num_ctx === "number" ? meta.num_ctx : null;
+  const num_ctx = explicitCtx || (isDeepExplanation ? 8192 : 4096);
+  const num_predict = request.maxTokens || (isDeepExplanation ? 4096 : 2048);
+
+  return { num_ctx, num_predict };
+}

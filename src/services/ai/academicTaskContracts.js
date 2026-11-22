@@ -213,11 +213,11 @@ export function validateAnatomicalScientificFacts(cardOrContent, topic = "") {
       contradictions.push("Associação da paralisia de Erb-Duchenne à lesão do fascículo lateral (a paralisia de Erb-Duchenne decorre classicamente de lesão do tronco superior [C5–C6]).");
     }
 
-    // Falácia 5: Três divisões confundidas como formadoras diretas sem a estrutura das 6 divisões
-    const threeDivisionsRegex = /(?:tr[eê]s|3)\s+divis[oõ]es\s+(?:formam|constituem|s[aã]o)\s+os\s+fasc[ií]culos/i;
-    const sixDivisionsException = /(?:6|seis|3\s+anteriores.*3\s+posteriores)/i;
+    // Falácia 5: Três divisões atribuídas ao plexo braquial ou como formadoras diretas sem a estrutura canônica das 6 divisões
+    const threeDivisionsRegex = /(?:(?:tr[eê]s|3)\s+divis[oõ]es\s+(?:formam|constituem|s[aã]o|do\s+plexo|principais)|divide-se\s+em\s+(?:3|tr[eê]s)\s+divis[oõ]es)/i;
+    const sixDivisionsException = /(?:6|seis|3\s+anteriores.*3\s+posteriores|cada\s+tronco.*duas\s+divis[oõ]es)/i;
     if (isPositiveAssertion(combinedText, threeDivisionsRegex, { exceptionRegex: sixDivisionsException })) {
-      contradictions.push("Confusão de nomenclatura: 3 divisões atribuídas como fascículos (o plexo possui 6 divisões [3 anteriores e 3 posteriores] que se organizam em 3 fascículos: lateral, posterior e medial).");
+      contradictions.push("Confusão de nomenclatura: 3 divisões atribuídas ao plexo braquial (o plexo possui estritamente 6 divisões [3 anteriores e 3 posteriores], resultantes da bifurcação dos 3 troncos).");
     }
 
     if (contradictions.length > 0) {

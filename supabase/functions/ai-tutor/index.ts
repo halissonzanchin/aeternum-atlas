@@ -1349,10 +1349,11 @@ export async function handleAiTutorRequest(
   const safeEngineLatencyMs = parseFloat((performance.now() - tSafeStart).toFixed(2));
 
   // Branch 1: DETERMINISTIC_CANONICAL -> Direct Response (EXTERNAL_LLM_CALLS = 0)
-  // NOTE (P0.2): For academic structured generation tasks (flashcards, mind maps),
-  // canonical facts must be synthesized into the structured target schema by the Gateway/TutorEngine.
-  // Do not short-circuit with a raw single-prose-paragraph response when isGenerationTask is true.
-  if (safeResult.status === "DETERMINISTIC_CANONICAL" && !isGenerationTask) {
+  // NOTE (P0.2): For academic structured generation tasks (flashcards, mind maps)
+  // and deep flashcard explanations, canonical facts must be processed and synthesized
+  // by the Gateway/TutorEngine. Do not short-circuit with a raw single-prose-paragraph.
+  const isDirectBypassTask = isGenerationTask || rawCandidateTaskEarly === "explain_flashcard";
+  if (safeResult.status === "DETERMINISTIC_CANONICAL" && !isDirectBypassTask) {
     const totalLatencyMs = Math.round(performance.now() - tStart);
     const respHeaders = {
       ...cors,
@@ -1565,7 +1566,8 @@ DIRETRIZES DE EXPLICAÇÃO:
    - **Correlação Clínica**: Consequências biomecânicas ou neurológicas de lesões estruturais (ex: síndromes clássicas).
    - **Síntese para Revisão**: Pontos fundamentais para fixação do estudante.
    - **Referências Bibliográficas**: Cite apenas fontes efetivamente recuperadas e pertinentes ao tema.
-4. PROIBIÇÃO ABSOLUTA DE JSON: NUNCA responda com blocos JSON, arrays de flashcards [ { "front": ... } ], ou caracteres de código como '}]'. Responda exclusivamente em texto Markdown fluido e acadêmico.`;
+4. PROIBIÇÃO ABSOLUTA DE JSON: NUNCA responda com blocos JSON, arrays de flashcards [ { "front": ... } ], ou caracteres de código como '}]'. Responda exclusivamente em texto Markdown fluido e acadêmico.
+5. Inicie a resposta diretamente em prosa acadêmica concisa e estruturada, sem divagações preliminares ou metacognição.`;
   }
 
   const effectiveSource = cleanText(context.source || payload.source || "atlas-ai-tutor", 60);
