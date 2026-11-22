@@ -1,4 +1,7 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+// Script de auditoria legado P0.20-G.3. Executa estritamente com validação TLS completa (ZERO bypass).
+if (process.env.NODE_TLS_REJECT_UNAUTHORIZED === "0") {
+  throw new Error("VIOLAÇÃO DE SEGURANÇA: NODE_TLS_REJECT_UNAUTHORIZED=0 é expressamente proibido no Aeternum Atlas.");
+}
 import fs from "node:fs";
 import { runSupabaseSql, getMgmtToken } from "./supabase_admin_helper.mjs";
 import { getCredential } from "./get_cred_helper.mjs";

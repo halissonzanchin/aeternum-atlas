@@ -520,6 +520,7 @@ export const atlasAITutorService = {
       const reader = response.body.getReader();
       const decoder = new TextDecoder('utf-8');
       let done = false;
+      let receivedDoneMarker = false;
       let fullText = '';
       let action = null;
       let payload = null;
@@ -540,6 +541,7 @@ export const atlasAITutorService = {
           if (!line.startsWith('data: ')) continue;
           const dataText = line.slice(6).trim();
           if (dataText === '[DONE]') {
+            receivedDoneMarker = true;
             done = true;
             break;
           }
@@ -625,6 +627,20 @@ export const atlasAITutorService = {
           mode: "error",
           code: "EMPTY_RESPONSE",
           message: "O modelo retornou uma resposta vazia.",
+          source: null
+        };
+      }
+
+      if (!receivedDoneMarker && !options?._noStreamMarkers) {
+        emitTutorTelemetry({
+          failureStage: "stream_truncated_no_done_marker",
+          errorCode: "STREAM_TRUNCATED",
+          fallbackMode: "error_view"
+        });
+        return {
+          mode: "error",
+          code: "STREAM_TRUNCATED",
+          message: "A transmissão da resposta acadêmica foi interrompida antes da conclusão.",
           source: null
         };
       }

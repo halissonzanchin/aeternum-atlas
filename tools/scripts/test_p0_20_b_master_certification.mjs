@@ -1,4 +1,7 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+// Master Certification P0.20-B - Executa com validação TLS padrão e CAs do sistema.
+if (process.env.NODE_TLS_REJECT_UNAUTHORIZED === "0") {
+  throw new Error("VIOLAÇÃO DE SEGURANÇA: NODE_TLS_REJECT_UNAUTHORIZED=0 é expressamente proibido no Aeternum Atlas.");
+}
 
 import puppeteer from "puppeteer-core";
 import fs from "fs";

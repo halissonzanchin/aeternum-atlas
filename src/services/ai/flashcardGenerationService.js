@@ -470,11 +470,16 @@ export function validateFlashcardScientificAccuracy(card, topic = "") {
     coverage: scientificRes.coverage || "general_syntax_only",
     reason: null,
     verifiedFacts: scientificRes.verifiedFacts || [],
-    details: scientificRes.status === "CANONICAL_FACTS_VERIFIED"
-      ? `Aprovado com validação de fatos anatômicos canônicos (${scientificRes.verifiedFacts?.length || 0} proposições)`
-      : scientificRes.status === "SCIENTIFIC_REVIEW_REQUIRED"
-        ? "Requer revisão científica: sem proposições canônicas confirmadas no domínio"
-        : "Aprovado com validação de schema e pertinência temática"
+    unverifiedFacts: scientificRes.unverifiedFacts || [],
+    details: scientificRes.details || (
+      scientificRes.status === "CANONICAL_FACTS_VERIFIED"
+        ? `Aprovado com validação de fatos anatômicos canônicos (${scientificRes.verifiedFacts?.length || 0} proposições)`
+        : scientificRes.status === "PARTIALLY_VERIFIED"
+          ? `Parcialmente verificado (${scientificRes.verifiedFacts?.length || 0} confirmadas, ${scientificRes.unverifiedFacts?.length || 0} pendentes)`
+          : scientificRes.status === "SCIENTIFIC_REVIEW_REQUIRED"
+            ? "Requer revisão científica: sem proposições canônicas confirmadas no domínio"
+            : "Aprovado com validação de schema e pertinência temática"
+    )
   };
 }
 

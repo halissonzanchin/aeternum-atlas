@@ -2,6 +2,8 @@ import { resolveOllamaReasoningParams, resolveOllamaOptions } from "./ollama_rea
 import {
   validateAnatomicalScientificFacts,
   validateFlashcardSchema,
+  validateCitationProvenance,
+  isTutorSuccess,
   ACADEMIC_ERROR_CODES
 } from "../../src/services/ai/academicTaskContracts.js";
 import {
@@ -176,9 +178,27 @@ assert(liverValidation.valid, "Cartão válido sobre Anatomia Hepática é aprov
 assert(liverValidation.status === "SCHEMA_AND_TOPIC_VALIDATED", "Tópico sem regras específicas de domínio recebe status SCHEMA_AND_TOPIC_VALIDATED");
 assert(liverValidation.coverage === "general_syntax_only", "Tópico sem regras específicas de domínio recebe coverage general_syntax_only");
 
+// Teste de Conteúdo Parcialmente Verificado (P0.20-G.4.1):
+// Apenas 1 proposição isolada (raízes C5-T1) sem confirmar a arquitetura troncular
+const partialCard = {
+  front: "Quais são as raízes que formam a rede nervosa do membro superior?",
+  back: "A rede nervosa do membro superior origina-se a partir dos ramos anteriores das raízes espinhais de C5 a T1.",
+  explanation: "Estas raízes emergem dos forames intervertebrais cervicais e torácico superior.",
+  topic: "Plexo Braquial"
+};
+const partialValidation = validateAnatomicalScientificFacts(partialCard, "Plexo Braquial");
+assert(partialValidation.valid, "Cartão parcial é válido");
+assert(partialValidation.status === "PARTIALLY_VERIFIED", "Confirmação de apenas uma proposição recebe PARTIALLY_VERIFIED e NÃO CANONICAL_FACTS_VERIFIED");
+assert(partialValidation.coverage === "domain_partially_verified", "Coverage classificada como domain_partially_verified");
+assert(partialValidation.verifiedFacts.length === 1, "Exatamente 1 fato canônico verificado registrado");
+assert(partialValidation.unverifiedFacts.length > 0, "Proposições não verificadas são expressamente registradas");
+
 // Teste de Taxonomia na Validação Completa (validateFlashcardScientificAccuracy):
 const accCanonical = validateFlashcardScientificAccuracy(correctCard, "Plexo Braquial");
 assert(accCanonical.valid && accCanonical.status === "CANONICAL_FACTS_VERIFIED", "Acurácia completa confirma CANONICAL_FACTS_VERIFIED");
+
+const accPartial = validateFlashcardScientificAccuracy(partialCard, "Plexo Braquial");
+assert(accPartial.valid && accPartial.status === "PARTIALLY_VERIFIED", "Acurácia completa confirma PARTIALLY_VERIFIED para cartão com cobertura parcial");
 
 const accGeneric = validateFlashcardScientificAccuracy(genericDomainCard, "Plexo Braquial");
 assert(accGeneric.valid && accGeneric.status === "SCIENTIFIC_REVIEW_REQUIRED", "Acurácia completa confirma SCIENTIFIC_REVIEW_REQUIRED para domínio sem fatos verificados");
@@ -194,6 +214,47 @@ assert(quarantined.quarantine === true, "Cartão marcado com quarantine: true");
 assert(quarantined.scientificStatus === "QUARANTINED", "Status definido como QUARANTINED");
 assert(quarantined.scientificReviewNeeded === true, "scientificReviewNeeded: true");
 assert(quarantined.front === incidentCard.front, "Texto original do estudante preservado para auditoria e SM-2");
+
+// 5. VALIDAÇÃO DE PROVENIÊNCIA E CORRESPONDÊNCIA DE CITAÇÕES (P0.20-G.4.1)
+console.log("\n--- 5. Validação de Proveniência e Correspondência de Citações ---");
+
+const mockRetrievedSources = [
+  {
+    id: "src-moore-01",
+    bookTitle: "Moore — Anatomia Orientada para a Clínica (8ª Edição)",
+    pageNumber: 720,
+    content: "O plexo braquial é formado pela união dos ramos anteriores dos nervos C5 a T1. Três troncos se formam: superior, médio e inferior, que atravessam o canal cervicoaxilar."
+  },
+  {
+    id: "src-latarjet-01",
+    bookTitle: "Latarjet & Ruiz Liard — Anatomia Humana (5ª Edição)",
+    pageNumber: 642,
+    content: "Tronco superior resulta de C5 e C6. A artéria subclávia dá origem ao tronco costocervical, que é um ramo arterial e não elemento nervoso do plexo."
+  }
+];
+
+const compliantText = "Segundo Moore (Anatomia Orientada para a Clínica) e Latarjet, o plexo braquial é composto por três troncos que se bifurcam no canal cervicoaxilar. O tronco costocervical origina-se da artéria subclávia.";
+const provenanceValid = validateCitationProvenance(compliantText, mockRetrievedSources);
+assert(provenanceValid.valid, "Citações correspondentes às fontes RAG recuperadas são APROVADAS");
+assert(provenanceValid.status === "CITATION_PROVENANCE_VERIFIED", "Status CITATION_PROVENANCE_VERIFIED emitido");
+assert(provenanceValid.matchedSources.length >= 2, "Identificadas 2 fontes canônicas com correspondência");
+assert(provenanceValid.evidencePassagesMatched.length > 0, "Passagens de evidência dos chunks confirmadas no texto");
+
+const hallucinatedCitationText = "Conforme descrito por Netter em seu atlas e também Sobotta, o plexo braquial tem três troncos.";
+const provenanceHallucinated = validateCitationProvenance(hallucinatedCitationText, mockRetrievedSources);
+assert(!provenanceHallucinated.valid, "Citações de obras não recuperadas pelo RAG (Netter/Sobotta) são REJEITADAS");
+assert(provenanceHallucinated.unmatchedCitations.length > 0, "Identificadas citações não fundamentadas nas evidências RAG");
+
+const noCitationText = "O plexo braquial tem três troncos e inerva o membro superior sem qualquer referência a autores.";
+const provenanceNone = validateCitationProvenance(noCitationText, mockRetrievedSources);
+assert(!provenanceNone.valid, "Texto sem citações canônicas é reprovado na validação de proveniência");
+
+// 6. CONTRATO DE RESPOSTAS TRUNCADAS E INCOMPLETAS
+console.log("\n--- 6. Contrato de Respostas Truncadas e Incompletas ---");
+assert(!isTutorSuccess({ mode: "live", text: "Texto truncado...", finishReason: "length" }), "isTutorSuccess REJEITA resposta com finishReason: length");
+assert(!isTutorSuccess({ mode: "live", text: "Texto truncado...", truncated: true }), "isTutorSuccess REJEITA resposta com truncated: true");
+assert(!isTutorSuccess({ mode: "live", text: "" }), "isTutorSuccess REJEITA resposta vazia");
+assert(isTutorSuccess({ mode: "live", text: "Resposta didática completa sobre anatomia do plexo braquial.", finishReason: "stop" }), "isTutorSuccess APROVA resposta completa");
 
 console.log(`\n========================================`);
 console.log(`TOTAL: ${passed}/${total} testes aprovados.`);
