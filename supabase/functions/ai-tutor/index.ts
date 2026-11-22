@@ -34,6 +34,7 @@ export type KnowledgeRow = {
 export interface GatewayLLMResult {
   text: string;
   latencyMs: number;
+  firstTokenMs?: number;
   status: number;
   provider: string;
   model: string;
@@ -739,9 +740,14 @@ async function executeGatewayLLMCall(
   prompt: string,
   contextMetadata: Record<string, unknown>,
   fetchFn: typeof fetch = fetch,
-  extraHeaders: Record<string, string> = {}
+  extraHeaders: Record<string, string> = {},
+  clientSignal?: AbortSignal,
+  onProgressChunk?: (chunk: string) => void
 ): Promise<GatewayLLMResult> {
-  const endpoint = `${gatewayUrl.replace(/\/$/, "")}/v1/llm/generate`;
+  const cleanGatewayUrl = gatewayUrl.replace(/\/$/, "");
+  const streamEndpoint = `${cleanGatewayUrl}/v1/llm/stream`;
+  const generateEndpoint = `${cleanGatewayUrl}/v1/llm/generate`;
+
   const formattedMessages: Array<{ role: "user" | "assistant" | "system"; content: string }> = [];
   
   for (const m of priorHistory) {
@@ -760,19 +766,120 @@ async function executeGatewayLLMCall(
     ...extraHeaders
   };
 
+  const isExplanation = String(contextMetadata.task || "").toLowerCase() === "explain_flashcard";
+  // P0.20-G.5: Calibração de inferência (temperatura 0.1 acelera convergência e previne alucinações; 3500 tokens garante profundidade)
+  const temperature = isExplanation ? 0.1 : 0.25;
+  const maxTokens = isExplanation ? 3500 : 4096;
+
+  const combinedSignal = clientSignal
+    ? (typeof AbortSignal.any === "function"
+        ? AbortSignal.any([clientSignal, AbortSignal.timeout(DEFAULT_GATEWAY_TIMEOUT_MS)])
+        : clientSignal)
+    : AbortSignal.timeout(DEFAULT_GATEWAY_TIMEOUT_MS);
+
   const start = performance.now();
+  const requestBody = JSON.stringify({
+    messages: formattedMessages,
+    systemInstruction: sysInstructionText,
+    temperature,
+    maxTokens,
+    metadata: contextMetadata
+  });
+
+  // Tentar primeiro streaming SSE via /v1/llm/stream (mantém pacotes ativos pelo túnel Cloudflare sem timeout 524)
   try {
-    const response = await fetchFn(endpoint, {
+    const streamRes = await fetchFn(streamEndpoint, {
+      method: "POST",
+      headers: { ...headers, "Accept": "text/event-stream" },
+      body: requestBody,
+      signal: combinedSignal
+    });
+
+    if (streamRes.ok && streamRes.body) {
+      const reader = streamRes.body.getReader();
+      const decoder = new TextDecoder();
+      let streamBuffer = "";
+      let accumulatedText = "";
+      let firstTokenMs: number | null = null;
+      let streamProvider = PRIMARY_TUTOR_PROVIDER;
+      let streamModel = PRIMARY_TUTOR_MODEL;
+
+      let streamFinished = false;
+      while (!streamFinished) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        streamBuffer += decoder.decode(value, { stream: true });
+        const lines = streamBuffer.split("\n");
+        streamBuffer = lines.pop() || "";
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed || !trimmed.startsWith("data: ")) continue;
+          const dataPart = trimmed.slice(6);
+          if (dataPart === "[DONE]") {
+            streamFinished = true;
+            break;
+          }
+          try {
+            const parsed = JSON.parse(dataPart);
+            if (parsed.deltaText) {
+              if (firstTokenMs === null) {
+                firstTokenMs = Math.round(performance.now() - start);
+              }
+              accumulatedText += parsed.deltaText;
+              if (onProgressChunk) onProgressChunk(parsed.deltaText);
+            }
+            if (parsed.providerId) streamProvider = parsed.providerId;
+            if (parsed.modelId) streamModel = parsed.modelId;
+          } catch {}
+        }
+      }
+
+      if (streamBuffer.trim()) {
+        for (const line of streamBuffer.split("\n")) {
+          const trimmed = line.trim();
+          if (!trimmed || !trimmed.startsWith("data: ")) continue;
+          const dataPart = trimmed.slice(6);
+          if (dataPart === "[DONE]") break;
+          try {
+            const parsed = JSON.parse(dataPart);
+            if (parsed.deltaText) {
+              accumulatedText += parsed.deltaText;
+            }
+          } catch {}
+        }
+      }
+
+      if (accumulatedText.trim().length > 0) {
+        const totalDuration = Math.round(performance.now() - start);
+        return {
+          text: accumulatedText.trim(),
+          latencyMs: totalDuration,
+          firstTokenMs: firstTokenMs ?? totalDuration,
+          status: 200,
+          provider: streamProvider,
+          model: streamModel,
+          primaryProvider: streamProvider,
+          primaryModel: streamModel,
+          fallbackUsed: false,
+          attemptCount: 1,
+          success: true,
+          canonicalReason: "SUCCESS"
+        };
+      }
+    }
+  } catch (streamErr: any) {
+    if (combinedSignal?.aborted) throw streamErr;
+    console.warn("[ai-tutor] Streaming gateway fallback para unary generate:", streamErr?.message);
+  }
+
+  // Fallback para chamada unária /v1/llm/generate
+  try {
+    const response = await fetchFn(generateEndpoint, {
       method: "POST",
       headers,
-      body: JSON.stringify({
-        messages: formattedMessages,
-        systemInstruction: sysInstructionText,
-        temperature: 0.25,
-        maxTokens: 4096,
-        metadata: contextMetadata
-      }),
-      signal: AbortSignal.timeout(DEFAULT_GATEWAY_TIMEOUT_MS)
+      body: requestBody,
+      signal: combinedSignal
     });
 
     const latencyMs = Math.round(performance.now() - start);
@@ -780,17 +887,11 @@ async function executeGatewayLLMCall(
       if (response.status === 503 || response.status === 504) {
         await new Promise((r) => setTimeout(r, 1000));
         try {
-          const retryRes = await fetchFn(endpoint, {
+          const retryRes = await fetchFn(generateEndpoint, {
             method: "POST",
             headers,
-            body: JSON.stringify({
-              messages: formattedMessages,
-              systemInstruction: sysInstructionText,
-              temperature: 0.25,
-              maxTokens: 4096,
-              metadata: contextMetadata
-            }),
-            signal: AbortSignal.timeout(DEFAULT_GATEWAY_TIMEOUT_MS)
+            body: requestBody,
+            signal: combinedSignal
           });
           if (retryRes.ok) {
             const data = await retryRes.json();
@@ -822,7 +923,7 @@ async function executeGatewayLLMCall(
         provider: "aeternum-gateway",
         model: "gateway",
         success: false,
-        canonicalReason: `GATEWAY_HTTP_${response.status} (${endpoint}): ${errBody.slice(0, 200)}`
+        canonicalReason: `GATEWAY_HTTP_${response.status} (${generateEndpoint}): ${errBody.slice(0, 200)}`
       };
     }
 
@@ -1317,6 +1418,29 @@ export async function handleAiTutorRequest(
     context.source === "mind-map"
   );
 
+  const ALLOWED_OPERATIONAL_TASKS = new Set([
+    "generate_flashcards",
+    "explain_flashcard",
+    "generate_mind_map",
+    "tutor_ia",
+    "anatomical_quiz",
+    "socratic_case"
+  ]);
+
+  const rawCandidateTask = cleanText(payload.task || context.task || task, 60).toLowerCase();
+  const taskFromSource =
+    (context.source === "flashcard-explanation" || rawCandidateTask === "explain_flashcard") ? "explain_flashcard" :
+    context.source === "flashcards" ? "generate_flashcards" :
+    context.source === "mind-map" ? "generate_mind_map" :
+    context.source === "anatomical_quiz" ? "anatomical_quiz" :
+    context.source === "socratic_case" ? "socratic_case" : "";
+
+  const effectiveTask = ALLOWED_OPERATIONAL_TASKS.has(rawCandidateTask)
+    ? rawCandidateTask
+    : (taskFromSource || "tutor_ia");
+
+  const effectiveSource = cleanText(context.source || payload.source || "atlas-ai-tutor", 60);
+
   const priorHistory: MessageRow[] = [];
   if (messages.length > 1) {
     for (let i = 0; i < messages.length - 1; i++) {
@@ -1462,7 +1586,258 @@ export async function handleAiTutorRequest(
   }
 
   // =========================================================================
-  // 7. QUALIFIED ANATOMICAL RETRIEVAL (AUTHORITY LAYER 3)
+  // FRENTE 1: STREAMING SSE PROGRESSIVO COM TELEMETRIA EM TEMPO REAL (P0.20-G.5)
+  // =========================================================================
+  const wantStream = payload.stream === true || req.headers.get("accept")?.includes("text/event-stream");
+  if (wantStream) {
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      async start(controller) {
+        const sendEvent = (obj: any) => {
+          try {
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify(obj)}\n\n`));
+          } catch {}
+        };
+
+        try {
+          // Evento 1: Notificação imediata de conexão ativa (TTFE < 0.2s)
+          sendEvent({
+            type: "progress",
+            stage: "init",
+            message: "Atlas AI Tutor conectado. Iniciando processamento acadêmico...",
+            timestamp: new Date().toISOString()
+          });
+
+          // Evento 2: Recuperação de Conhecimento Canônico no Acervo RAG
+          sendEvent({
+            type: "progress",
+            stage: "retrieval",
+            message: "Consultando literatura anatômica canônica no acervo..."
+          });
+
+          const tRagStart = performance.now();
+          const { sources, method: ragMethod } = await retrieveKnowledge(
+            adminClient,
+            geminiKey,
+            prompt,
+            safeResult.matched_entities,
+            deps,
+            topic
+          );
+          const ragLatencyMs = parseFloat((performance.now() - tRagStart).toFixed(2));
+
+          const evidenceCheck = evaluateEvidenceSufficiency(sources, safeResult.facts_used, graphPrompt);
+          if (!evidenceCheck.sufficient) {
+            const totalLatencyMs = Math.round(performance.now() - tStart);
+            sendEvent({
+              source: "aeternum-evidence-gate",
+              model: "deterministic-evidence-gate",
+              knowledgeState: "INSUFFICIENT_EVIDENCE",
+              safeEngineHit: false,
+              aiCalls: 0,
+              latencyMs: totalLatencyMs,
+              retrievalCount: sources.length
+            });
+            sendEvent({ text: "Evidência anatômica insuficiente nas fontes soberanas do Aeternum Atlas para sintetizar esta estrutura com precisão." });
+            controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+            controller.close();
+            return;
+          }
+
+          if (!gatewayUrl || !gatewayToken) {
+            sendEvent({
+              error: "Tutor IA temporariamente indisponível (Gateway não configurado).",
+              code: "AI_GATEWAY_UNAVAILABLE"
+            });
+            controller.close();
+            return;
+          }
+
+          // Evento 3: RAG concluído, iniciando raciocínio clínico e síntese anatômica
+          sendEvent({
+            type: "progress",
+            stage: "reasoning",
+            message: "Atlas AI Tutor estruturando análise anatômica e correlações clínicas...",
+            sourcesCount: sources.length,
+            sources: sources.map(s => ({
+              id: s.id,
+              bookTitle: s.book_title,
+              pageNumber: s.page_number,
+              chapterTitle: s.chapter_title
+            }))
+          });
+
+          let sysInstructionText = buildSynthesisPrompt(
+            prompt,
+            String(profile.role || "student"),
+            safeResult.facts_used,
+            sources,
+            String(profile.name || ""),
+            graphPrompt
+          );
+
+          if (effectiveTask === "generate_mind_map") {
+            sysInstructionText += "\n\nModo de saída — Mapa Mental Anatômico:\nResponda SOMENTE com o esboço hierárquico solicitado.";
+          } else if (effectiveTask === "generate_flashcards") {
+            sysInstructionText += "\n\nModo de saída — Flashcards Anatômicos:\nResponda SOMENTE com um array JSON válido contendo os objetos flashcard [{\"front\": \"...\", \"back\": \"...\", \"explanation\": \"...\", \"learningObjective\": \"...\"}], sem introdução, sem conclusão e sem blocos Markdown.";
+          } else if (effectiveTask === "explain_flashcard") {
+            sysInstructionText += `\n\nModo de saída — Explicação Didática e Rigor Anatômico de Flashcard:
+Você está atuando como Professor Titular de Anatomia Humana analisando criticamente um Flashcard de estudo anatômico.
+DIRETRIZES DE EXPLICAÇÃO:
+1. TRATE A RESPOSTA E A EXPLICAÇÃO DO CARTÃO COMO PROPOSIÇÕES A VERIFICAR, NUNCA COMO VERDADES CANÔNICAS.
+2. VERIFICAÇÃO CRÍTICA OBRIGATÓRIA: Se a resposta ou explicação do cartão contiver qualquer erro fático ou premissa anatômica falsa (por exemplo: número incorreto de raízes, troncos ou fascículos; confusão entre artérias e nervos, como o tronco costocervical arterial; inervação motora atribuída incorretamente, como o trapézio; ou correlações clínicas equivocadas como Erb-Duchenne ligada ao fascículo lateral em vez do tronco superior), REJEITE O ERRO EXPLICITAMENTE de forma pedagógica e profissional logo no início.
+3. ESTRUTURA DA RESPOSTA (em Markdown fluido e didático, adaptável à estrutura):
+   - **Estrutura Estudada**: Nome canônico sob Terminologia Anatomica Internacional (TA2).
+   - **Correção Conceitual**: Confirmação da correção ou refutação clara e justificada de premissas falsas do cartão.
+   - **Anatomia Detalhada**: Origem, formação, trajeto, sintopia (relações espaciais e vasculares) e ramificações.
+   - **Relações Funcionais**: Suprimento motor, sensitivo e/ou vascular exato.
+   - **Correlação Clínica**: Consequências biomecânicas ou neurológicas de lesões estruturais (ex: síndromes clássicas).
+   - **Síntese para Revisão**: Pontos fundamentais para fixação do estudante.
+   - **Referências Bibliográficas**: Cite apenas fontes efetivamente recuperadas e pertinentes ao tema.
+4. PROIBIÇÃO ABSOLUTA DE JSON: NUNCA responda com blocos JSON, arrays de flashcards [ { "front": ... } ], ou caracteres de código como '}]'. Responda exclusivamente em texto Markdown fluido e acadêmico.
+5. Inicie a resposta diretamente em prosa acadêmica concisa e estruturada, sem divagações preliminares ou metacognição.`;
+          }
+
+          const contextMeta = {
+            source: effectiveSource,
+            task: effectiveTask,
+            role: String(profile.role || "student"),
+            user_id: userId,
+            institution_id: profile.institution_id,
+            retrieved_source_count: sources.length,
+            canonical_facts_count: safeResult.facts_used.length
+          };
+
+          const tGatewayStart = performance.now();
+          let gatewayResult: GatewayLLMResult = await executeGatewayLLMCall(
+            gatewayUrl,
+            gatewayToken,
+            sysInstructionText,
+            priorHistory,
+            prompt,
+            contextMeta,
+            deps.fetchFn || fetch,
+            gatewayHeaders,
+            req.signal
+          );
+          let gatewayLatencyMs = parseFloat((performance.now() - tGatewayStart).toFixed(2));
+
+          if (!gatewayResult.success || !gatewayResult.text.trim()) {
+            sendEvent({
+              error: "Tutor IA temporariamente indisponível. Falha na comunicação com o Gateway soberano.",
+              code: "AI_GATEWAY_UNAVAILABLE",
+              gatewayStatus: gatewayResult.status,
+              canonicalReason: gatewayResult.canonicalReason
+            });
+            controller.close();
+            return;
+          }
+
+          // Evento 4: Validação Científica Rigorosa (Authority Layer 5)
+          sendEvent({
+            type: "progress",
+            stage: "validating",
+            message: "Validando integridade científica e fontes canônicas..."
+          });
+
+          const tValStart = performance.now();
+          let validation = validateResponseContent(gatewayResult.text, safeResult.facts_used, sources);
+          if (!validation.valid) {
+            const tRetryStart = performance.now();
+            gatewayResult = await executeGatewayLLMCall(
+              gatewayUrl,
+              gatewayToken,
+              sysInstructionText + "\nATENÇÃO: Sua resposta anterior violou restrições de segurança ou premissa. Corrija rigorosamente.",
+              priorHistory,
+              prompt,
+              contextMeta,
+              deps.fetchFn || fetch,
+              gatewayHeaders,
+              req.signal
+            );
+            gatewayLatencyMs += parseFloat((performance.now() - tRetryStart).toFixed(2));
+            if (gatewayResult.success && gatewayResult.text.trim()) {
+              validation = validateResponseContent(gatewayResult.text, safeResult.facts_used, sources);
+            }
+          }
+          const validatorLatencyMs = parseFloat((performance.now() - tValStart).toFixed(2));
+
+          if (!validation.valid) {
+            sendEvent({
+              error: "A resposta gerada não atendeu aos critérios estritos de segurança e validação anatômica do Aeternum Atlas.",
+              code: "RESPONSE_VALIDATION_FAILED",
+              reason: validation.reason
+            });
+            controller.close();
+            return;
+          }
+
+          // Resposta cientificamente validada: transmissão de metadados e chunks de texto
+          const totalLatencyMs = Math.round(performance.now() - tStart);
+          const finalText = sanitizeAssistantContent(gatewayResult.text);
+          const knowledgeState = safeResult.facts_used.length > 0
+            ? "CANONICAL_PLUS_SYNTHESIS"
+            : "SOURCE_GROUNDED_SYNTHESIS";
+
+          sendEvent({
+            source: gatewayResult.provider,
+            model: gatewayResult.model,
+            knowledgeState,
+            safeEngineHit: false,
+            aiCalls: 1,
+            latencyMs: totalLatencyMs,
+            retrievalCount: sources.length,
+            retrievalMethod: ragMethod,
+            sources: sources.map(s => ({
+              id: s.id,
+              bookTitle: s.book_title,
+              pageNumber: s.page_number,
+              chapterTitle: s.chapter_title,
+              sourceFile: s.source_file,
+              sourceSha256: s.source_sha256
+            }))
+          });
+
+          const chunkSize = 160;
+          for (let offset = 0; offset < finalText.length; offset += chunkSize) {
+            if (req.signal.aborted) break;
+            sendEvent({ text: finalText.slice(offset, offset + chunkSize) });
+          }
+
+          // Confirmação explícita de validação científica e encerramento limpo
+          sendEvent({
+            type: "validation",
+            valid: true,
+            verifiedFacts: safeResult.facts_used
+          });
+
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.close();
+        } catch (streamErr: any) {
+          try {
+            sendEvent({
+              error: streamErr?.message || "Erro inesperado na transmissão acadêmica.",
+              code: "STREAM_ERROR"
+            });
+            controller.close();
+          } catch {}
+        }
+      }
+    });
+
+    return new Response(stream, {
+      headers: {
+        ...cors,
+        "Content-Type": "text/event-stream; charset=utf-8",
+        "Cache-Control": "no-store",
+        "X-Aeternum-Safe-Engine": "MISS",
+        "X-Aeternum-Knowledge-State": "STREAMING_PROGRESSIVE"
+      }
+    });
+  }
+
+  // =========================================================================
+  // 7. QUALIFIED ANATOMICAL RETRIEVAL (AUTHORITY LAYER 3 - MODO SÍNCRONO/JSON)
   // =========================================================================
   const tRagStart = performance.now();
   const { sources, method: ragMethod } = await retrieveKnowledge(
@@ -1527,27 +1902,6 @@ export async function handleAiTutorRequest(
     graphPrompt
   );
 
-  const ALLOWED_OPERATIONAL_TASKS = new Set([
-    "generate_flashcards",
-    "explain_flashcard",
-    "generate_mind_map",
-    "tutor_ia",
-    "anatomical_quiz",
-    "socratic_case"
-  ]);
-
-  const rawCandidateTask = cleanText(payload.task || context.task || task, 60).toLowerCase();
-  const taskFromSource =
-    (context.source === "flashcard-explanation" || rawCandidateTask === "explain_flashcard") ? "explain_flashcard" :
-    context.source === "flashcards" ? "generate_flashcards" :
-    context.source === "mind-map" ? "generate_mind_map" :
-    context.source === "anatomical_quiz" ? "anatomical_quiz" :
-    context.source === "socratic_case" ? "socratic_case" : "";
-
-  const effectiveTask = ALLOWED_OPERATIONAL_TASKS.has(rawCandidateTask)
-    ? rawCandidateTask
-    : (taskFromSource || "tutor_ia");
-
   if (effectiveTask === "generate_mind_map") {
     sysInstructionText += "\n\nModo de saída — Mapa Mental Anatômico:\nResponda SOMENTE com o esboço hierárquico solicitado.";
   } else if (effectiveTask === "generate_flashcards") {
@@ -1569,8 +1923,6 @@ DIRETRIZES DE EXPLICAÇÃO:
 4. PROIBIÇÃO ABSOLUTA DE JSON: NUNCA responda com blocos JSON, arrays de flashcards [ { "front": ... } ], ou caracteres de código como '}]'. Responda exclusivamente em texto Markdown fluido e acadêmico.
 5. Inicie a resposta diretamente em prosa acadêmica concisa e estruturada, sem divagações preliminares ou metacognição.`;
   }
-
-  const effectiveSource = cleanText(context.source || payload.source || "atlas-ai-tutor", 60);
 
   const contextMeta = {
     source: effectiveSource,
@@ -1686,42 +2038,6 @@ DIRETRIZES DE EXPLICAÇÃO:
     "X-Aeternum-Latency-Validator": String(validatorLatencyMs),
     "X-Aeternum-Latency-Total": String(totalLatencyMs)
   };
-
-  // Return SSE stream if client requested stream
-  const wantStream = payload.stream === true || req.headers.get("accept")?.includes("text/event-stream");
-  if (wantStream) {
-    const encoder = new TextEncoder();
-    const stream = new ReadableStream({
-      start(controller) {
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify({
-          source: gatewayResult.provider,
-          model: gatewayResult.model,
-          knowledgeState,
-          safeEngineHit: false,
-          aiCalls: 1,
-          latencyMs: totalLatencyMs,
-          retrievalCount: sources.length,
-          retrievalMethod: ragMethod,
-          sources: sources.map(s => ({
-            id: s.id,
-            bookTitle: s.book_title,
-            pageNumber: s.page_number,
-            chapterTitle: s.chapter_title,
-            sourceFile: s.source_file,
-            sourceSha256: s.source_sha256
-          }))
-        })}\n\n`));
-        for (let offset = 0; offset < finalText.length; offset += 200) {
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: finalText.slice(offset, offset + 200) })}\n\n`));
-        }
-        controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-        controller.close();
-      }
-    });
-    return new Response(stream, {
-      headers: { ...respHeaders, "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-store" }
-    });
-  }
 
   return jsonResponse({
     text: finalText,
