@@ -7,6 +7,41 @@
 import { supabase } from "../../lib/supabase.js";
 
 /**
+ * Obtém o status público do Programa Beta (abertura de inscrições e capacidade de vagas).
+ * Chamada pública via RPC get_beta_program_public_status.
+ */
+export async function getBetaProgramPublicStatus() {
+  try {
+    const { data, error } = await supabase.rpc("get_beta_program_public_status");
+    if (error) throw error;
+    return {
+      success: true,
+      data: data || {
+        registration_open: false,
+        batch: "batch_1_30",
+        capacity_total: 30,
+        approved_count: 0,
+        remaining_slots: 30,
+        launch_notice: "Inscrições abrem na primeira semana de dezembro de 2026"
+      }
+    };
+  } catch (err) {
+    return {
+      success: false,
+      error: err.message,
+      data: {
+        registration_open: false,
+        batch: "batch_1_30",
+        capacity_total: 30,
+        approved_count: 0,
+        remaining_slots: 30,
+        launch_notice: "Inscrições abrem na primeira semana de dezembro de 2026"
+      }
+    };
+  }
+}
+
+/**
  * Validação client-side para pré-checagem dos campos de candidatura.
  */
 export function validateBetaApplication(values) {

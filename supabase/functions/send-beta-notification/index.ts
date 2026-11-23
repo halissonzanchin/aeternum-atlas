@@ -9,6 +9,19 @@ const corsHeaders = {
 const ADMIN_RECIPIENT = "aeternumatlas@gmail.com";
 const RESEND_API_URL = "https://api.resend.com/emails";
 
+/**
+ * Sanitiza valores inseridos no corpo HTML do e-mail para impedir injeção de tags ou scripts.
+ */
+function escapeHtml(value: unknown): string {
+  if (value === null || value === undefined) return "";
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -16,131 +29,164 @@ serve(async (req) => {
 
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
-    const resendApiKey = Deno.env.get("RESEND_API_KEY") ?? "";
+    const supabaseServiceKey = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "").trim();
+    const legacyServiceKey = (Deno.env.get("LEGACY_SERVICE_ROLE_KEY") ?? "").trim();
+    const resendApiKey = (Deno.env.get("RESEND_API_KEY") ?? "").trim();
+    const anonKey = (Deno.env.get("SUPABASE_ANON_KEY") ?? "").trim();
+    const legacyAnonKey = (Deno.env.get("LEGACY_ANON_KEY") ?? "").trim();
 
-    if (!supabaseUrl || !supabaseServiceKey) {
+    if (!supabaseUrl || (!supabaseServiceKey && !legacyServiceKey)) {
       throw new Error("Missing Supabase configuration in environment.");
     }
 
-    // 1. AUTENTICAÇÃO ESTREITA: Apenas service_role ou chamada autorizada pode disparar o envio
-    const authHeader = req.headers.get("Authorization");
-    let isServiceRole = false;
+    // 1. AUTENTICAÇÃO CRIPTOGRAFICAMENTE VALIDADA (Zero decodificação arbitrária via atob)
+    const authHeader = req.headers.get("Authorization") ?? "";
+    const reqApiKey = (req.headers.get("apikey") ?? "").trim();
+    const token = authHeader.replace(/^Bearer\s+/i, "").trim() || reqApiKey;
 
-    if (authHeader) {
-      const token = authHeader.replace("Bearer ", "").trim();
-      if (supabaseServiceKey && (token === supabaseServiceKey || authHeader.includes(supabaseServiceKey))) {
-        isServiceRole = true;
-      } else {
-        try {
-          const parts = token.split(".");
-          if (parts.length === 3) {
-            const payload = JSON.parse(atob(parts[1]));
-            if (payload.role === "service_role") {
-              isServiceRole = true;
-            }
-          }
-        } catch {
-          // Ignore
+    if (!token) {
+      return new Response(JSON.stringify({
+        error: "Unauthorized: Missing authorization credentials.",
+        code: "AUTH_MISSING"
+      }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Rejeição estrita da chave anônima pública (novo formato ou formato legado)
+    if (
+      (anonKey && (token === anonKey || reqApiKey === anonKey)) ||
+      (legacyAnonKey && (token === legacyAnonKey || reqApiKey === legacyAnonKey))
+    ) {
+      return new Response(JSON.stringify({
+        error: "Unauthorized: Anonymous public key is not permitted to trigger administrative notifications.",
+        code: "ANON_KEY_REJECTED"
+      }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const activeAdminKey = supabaseServiceKey || legacyServiceKey;
+    const supabaseAdmin = createClient(supabaseUrl, activeAdminKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+
+    let isAuthorized = false;
+    let authActor = "unknown";
+
+    // Verificação 1: Chamada interna de serviço com chave service_role autêntica (novo formato ou formato legado)
+    if (
+      (supabaseServiceKey && (token === supabaseServiceKey || authHeader.includes(supabaseServiceKey))) ||
+      (legacyServiceKey && (token === legacyServiceKey || authHeader.includes(legacyServiceKey)))
+    ) {
+      isAuthorized = true;
+      authActor = "service_role";
+    }
+
+    // Verificação 2: Validação criptográfica de JWT de administrador via Supabase Auth
+    if (!isAuthorized) {
+      // getUser() envia o token ao Auth Server do Supabase, que valida matematicamente a assinatura
+      // e o tempo de expiração do JWT. Tokens forjados ou expirados falham com erro.
+      const { data: authData, error: authErr } = await supabaseAdmin.auth.getUser(token);
+
+      if (!authErr && authData?.user?.id) {
+        const userId = authData.user.id;
+        const { data: profile, error: profErr } = await supabaseAdmin
+          .from("users")
+          .select("role")
+          .eq("id", userId)
+          .single();
+
+        if (!profErr && profile && ["admin", "super_admin", "institution_admin"].includes(profile.role)) {
+          isAuthorized = true;
+          authActor = `admin_user:${userId}`;
         }
       }
     }
 
-    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    });
-
-    if (!isServiceRole) {
-      // Verificar se é admin autenticado
-      if (!authHeader) {
-        return new Response(JSON.stringify({ error: "Unauthorized" }), {
-          status: 401,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-
-      const userClient = createClient(supabaseUrl, Deno.env.get("SUPABASE_ANON_KEY") ?? "", {
-        global: { headers: { Authorization: authHeader } },
+    if (!isAuthorized) {
+      return new Response(JSON.stringify({
+        error: "Forbidden: Operation requires administrative or verified internal service privileges.",
+        code: "AUTH_FORBIDDEN"
+      }), {
+        status: 403,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
-      const { data: { user }, error: userErr } = await userClient.auth.getUser();
-      if (userErr || !user) {
-        return new Response(JSON.stringify({ error: "Unauthorized" }), {
-          status: 401,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-
-      const { data: profile } = await supabaseAdmin
-        .from("users")
-        .select("role")
-        .eq("id", user.id)
-        .single();
-
-      if (!profile || !["admin", "super_admin", "institution_admin"].includes(profile.role)) {
-        return new Response(JSON.stringify({ error: "Forbidden: Admin access required." }), {
-          status: 403,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
     }
 
-    // 2. EXTRAÇÃO DE PAYLOAD OU CONSUMO DA FILA
-    let notificationId: string | null = null;
-    let applicationId: string | null = null;
+    // 2. EXTRAÇÃO DE PARÂMETROS OU RESERVA ATÔMICA DA FILA (FOR UPDATE SKIP LOCKED)
+    let explicitNotificationId: string | null = null;
+    let explicitApplicationId: string | null = null;
 
     if (req.method === "POST") {
       try {
         const body = await req.json();
-        notificationId = body.notification_id || null;
-        applicationId = body.application_id || null;
+        explicitNotificationId = body.notification_id || null;
+        explicitApplicationId = body.application_id || null;
       } catch {
-        // Sem payload, consome próximo da fila
+        // Chamada sem corpo (ex: trigger cron periódico)
       }
     }
 
-    // Buscar item na fila
-    let queueQuery = supabaseAdmin
-      .from("beta_email_notifications")
-      .select("*")
-      .in("status", ["queued", "failed"])
-      .lt("attempts", 5);
+    let claimedItem: any = null;
 
-    if (notificationId) {
-      queueQuery = queueQuery.eq("id", notificationId);
-    } else if (applicationId) {
-      queueQuery = queueQuery.eq("application_id", applicationId);
+    if (explicitNotificationId) {
+      // Reserva direta pelo ID da notificação
+      const { data, error } = await supabaseAdmin
+        .from("beta_email_notifications")
+        .update({
+          status: "processing",
+          attempts: 1,
+          last_attempt_at: new Date().toISOString()
+        })
+        .eq("id", explicitNotificationId)
+        .select()
+        .single();
+      if (!error && data) claimedItem = data;
+    } else if (explicitApplicationId) {
+      // Reserva pelo ID da candidatura
+      const { data, error } = await supabaseAdmin
+        .from("beta_email_notifications")
+        .update({
+          status: "processing",
+          attempts: 1,
+          last_attempt_at: new Date().toISOString()
+        })
+        .eq("application_id", explicitApplicationId)
+        .select()
+        .single();
+      if (!error && data) claimedItem = data;
+    } else {
+      // Consumo atômico da fila via RPC com SKIP LOCKED
+      const { data: claimedRows, error: claimErr } = await supabaseAdmin.rpc("claim_next_beta_email_notification");
+      if (claimErr) throw claimErr;
+      if (claimedRows && claimedRows.length > 0) {
+        claimedItem = claimedRows[0];
+      }
     }
 
-    const { data: queueItems, error: queueErr } = await queueQuery.order("created_at", { ascending: true }).limit(1);
-
-    if (queueErr) throw queueErr;
-    if (!queueItems || queueItems.length === 0) {
+    if (!claimedItem) {
       return new Response(JSON.stringify({
         success: true,
-        message: "Nenhuma notificação pendente na fila.",
+        message: "Nenhuma notificação pendente na fila para processamento.",
+        queue_status: "idle",
+        actor: authActor
       }), {
         status: 200,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    const item = queueItems[0];
-
-    // Marcar como 'processing' e incrementar tentativa (Idempotência atômica)
-    await supabaseAdmin
-      .from("beta_email_notifications")
-      .update({
-        status: "processing",
-        attempts: item.attempts + 1,
-        last_attempt_at: new Date().toISOString(),
-      })
-      .eq("id", item.id);
+    const itemNotificationId = claimedItem.notification_id || claimedItem.id;
+    const itemApplicationId = claimedItem.app_id || claimedItem.application_id;
 
     // 3. CONSULTAR DADOS COMPLETOS DA CANDIDATURA
     const { data: appData, error: appErr } = await supabaseAdmin
       .from("beta_applications")
       .select("id, protocol_number, full_name, email, institution_name, course, academic_term, student_group, primary_device, motivation, created_at, status")
-      .eq("id", item.application_id)
+      .eq("id", itemApplicationId)
       .single();
 
     if (appErr || !appData) {
@@ -148,11 +194,11 @@ serve(async (req) => {
         .from("beta_email_notifications")
         .update({
           status: "failed",
-          error_message: `Candidatura ${item.application_id} não localizada no banco.`,
+          error_message: `Candidatura ${itemApplicationId} não localizada no banco.`,
         })
-        .eq("id", item.id);
+        .eq("id", itemNotificationId);
 
-      throw new Error(`Candidatura ${item.application_id} não localizada.`);
+      throw new Error(`Candidatura ${itemApplicationId} não localizada.`);
     }
 
     const formattedDate = new Date(appData.created_at).toLocaleString("pt-BR", {
@@ -161,16 +207,27 @@ serve(async (req) => {
       timeStyle: "medium",
     });
 
+    // Destinatário SEMPRE fixo e imutável
     const subject = `[AETERNUM ATLAS | BETA] Nova candidatura — ${appData.full_name}`;
     const adminLink = "https://www.aeternumatlas.com/super-admin/programa-beta";
 
-    // 4. CORPO DO E-MAIL SEGUNDO DIRETRIZ 4
-    const htmlBody = `
-<!DOCTYPE html>
+    // 4. CORPO DO E-MAIL COM SANITIZAÇÃO COMPLETA CONTRA INJEÇÃO HTML
+    const safeName = escapeHtml(appData.full_name);
+    const safeEmail = escapeHtml(appData.email);
+    const safeInst = escapeHtml(appData.institution_name);
+    const safeCourse = escapeHtml(appData.course);
+    const safeTerm = escapeHtml(appData.academic_term);
+    const safeGroup = escapeHtml(appData.student_group || "");
+    const safeDevice = escapeHtml(appData.primary_device);
+    const safeProtocol = escapeHtml(appData.protocol_number || "PENDENTE");
+    const safeMotivation = escapeHtml(appData.motivation);
+    const safeFormattedDate = escapeHtml(formattedDate);
+
+    const htmlBody = `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>${subject}</title>
+  <title>${escapeHtml(subject)}</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0b1319; color: #e2e8f0; margin: 0; padding: 24px; }
     .container { max-width: 600px; margin: 0 auto; background: #0f1c24; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 16px; padding: 32px; }
@@ -191,61 +248,66 @@ serve(async (req) => {
     <div class="header">
       <span class="badge">Operação El Dorado · Notificação Oficial</span>
       <h1>Nova Candidatura ao Programa de Teste Beta</h1>
-      <div>Protocolo: <span class="protocol">${appData.protocol_number || "PENDENTE"}</span></div>
+      <div>Protocolo: <span class="protocol">${safeProtocol}</span></div>
     </div>
 
     <div class="field-group">
       <div class="field-label">Candidato</div>
-      <div class="field-value">${appData.full_name} &lt;${appData.email}&gt;</div>
+      <div class="field-value">${safeName} &lt;${safeEmail}&gt;</div>
     </div>
 
     <div class="field-group">
       <div class="field-label">Universidade / Instituição</div>
-      <div class="field-value">${appData.institution_name}</div>
+      <div class="field-value">${safeInst}</div>
     </div>
 
     <div class="field-group">
       <div class="field-label">Curso e Período</div>
-      <div class="field-value">${appData.course} — ${appData.academic_term}${appData.student_group ? ` (${appData.student_group})` : ""}</div>
+      <div class="field-value">${safeCourse} — ${safeTerm}${safeGroup ? ` (${safeGroup})` : ""}</div>
     </div>
 
     <div class="field-group">
       <div class="field-label">Dispositivo de Acesso</div>
-      <div class="field-value">${appData.primary_device}</div>
+      <div class="field-value">${safeDevice}</div>
     </div>
 
     <div class="field-group">
       <div class="field-label">Data e Horário do Registro</div>
-      <div class="field-value">${formattedDate} (Horário de Brasília)</div>
+      <div class="field-value">${safeFormattedDate} (Horário de Brasília)</div>
     </div>
 
     <div class="field-group">
-      <div class="field-label">Situação Atual</div>
-      <div class="field-value" style="color: #fbbf24;">Aguardando Análise Manual do Operador</div>
+      <div class="field-label">Status Inicial</div>
+      <div class="field-value"><strong style="color: #fbbf24;">Aguardando análise</strong> (Meta inicial: 30 vagas convidadas)</div>
     </div>
 
     <div class="field-group">
-      <div class="field-label">Motivação Apresentada</div>
-      <div class="motivation-box">${appData.motivation}</div>
+      <div class="field-label">Motivação Declarada pelo Estudante</div>
+      <div class="motivation-box">"${safeMotivation}"</div>
     </div>
 
-    <a href="${adminLink}" class="cta-button" target="_blank">Acessar Painel de Avaliação Administrativa</a>
+    <div>
+      <a href="${adminLink}" class="cta-button" target="_blank" rel="noopener noreferrer">Acessar Painel de Triagem Beta</a>
+    </div>
 
     <div class="footer">
-      <strong>Aviso de Confidencialidade e Governança:</strong> Este comunicado destina-se exclusivamente à equipe de coordenação da Aeternum Atlas (aeternumatlas@gmail.com). A aprovação de vagas é de responsabilidade manual exclusiva do operador. Nenhuma conta de usuário ou sessão de IA é provisionada de forma automática.
+      Esta é uma notificação institucional automática gerada pela plataforma Aeternum Atlas.<br>
+      A seleção para o Programa Beta da Operação El Dorado ocorre na primeira semana de dezembro de 2026.<br>
+      Destinatário exclusivo: ${ADMIN_RECIPIENT}
     </div>
   </div>
 </body>
-</html>
-    `;
+</html>`;
 
     const textBody = `
-AETERNUM ATLAS — OPERAÇÃO EL DORADO
-NOTIFICAÇÃO ADMINISTRATIVA DE CANDIDATURA BETA
+============================================================
+AETERNUM ATLAS — OPERAÇÃO EL DORADO (PROGRAMA DE TESTE BETA)
+NOVA CANDIDATURA PROTOCOLADA
+============================================================
 
 Protocolo: ${appData.protocol_number || "PENDENTE"}
-Data: ${formattedDate} (Horário de Brasília)
-Situação: Aguardando Análise Manual do Operador
+Data/Hora: ${formattedDate} (BRT)
+Status Inicial: Aguardando análise
 
 DADOS DO CANDIDATO:
 - Nome Completo: ${appData.full_name}
@@ -264,21 +326,21 @@ ${adminLink}
 Aviso: A seleção de participantes da primeira turma (meta: 30 vagas) é estritamente manual pelo operador.
     `;
 
-    // 5. ENVIO REAL VIA RESEND (SE CONFIGURADO)
+    // 5. ENVIO REAL VIA RESEND (SE CONFIGURADO) OU DIAGNÓSTICO HONESTO
     if (!resendApiKey) {
-      const errorMsg = "BLOCKED: Provedor de e-mail (Resend) não configurado. Defina a secret RESEND_API_KEY no Supabase para habilitar o envio real.";
+      const errorMsg = "BLOCKED: EMAIL_DELIVERY_BLOCKED_EXTERNAL_CONFIGURATION - Provedor de e-mail (Resend) não configurado. Defina a secret RESEND_API_KEY no Supabase para habilitar o envio real.";
       await supabaseAdmin
         .from("beta_email_notifications")
         .update({
           status: "failed",
           error_message: errorMsg,
         })
-        .eq("id", item.id);
+        .eq("id", itemNotificationId);
 
       return new Response(JSON.stringify({
         success: false,
         status: "BLOCKED",
-        code: "MISSING_RESEND_API_KEY",
+        code: "EMAIL_DELIVERY_BLOCKED_EXTERNAL_CONFIGURATION",
         message: errorMsg,
         protocol: appData.protocol_number,
         recipient: ADMIN_RECIPIENT,
@@ -288,7 +350,7 @@ Aviso: A seleção de participantes da primeira turma (meta: 30 vagas) é estrit
       });
     }
 
-    // Remetente autenticado: preferir domínio próprio verificado, fallback para sandbox Resend
+    // Remetente autenticado
     const sender = Deno.env.get("RESEND_SENDER_EMAIL") || "Aeternum Atlas <notificacoes@aeternumatlas.com>";
 
     const emailPayload = {
@@ -319,11 +381,11 @@ Aviso: A seleção de participantes da primeira turma (meta: 30 vagas) é estrit
           error_message: `Resend API Error (HTTP ${resendRes.status}): ${errDetail}`,
           provider_response: resendData,
         })
-        .eq("id", item.id);
+        .eq("id", itemNotificationId);
 
       return new Response(JSON.stringify({
         success: false,
-        status: "FAIL",
+        status: "FAILED",
         error: errDetail,
         code: "PROVIDER_ERROR",
         recipient: ADMIN_RECIPIENT,
@@ -333,21 +395,22 @@ Aviso: A seleção de participantes da primeira turma (meta: 30 vagas) é estrit
       });
     }
 
-    // 6. GRAVAR SUCESSO DO PROVEDOR NO BANCO
+    // 6. GRAVAR SUCESSO DE ACEITE DO PROVEDOR NO BANCO (Status 'sent', NÃO 'delivered')
     await supabaseAdmin
       .from("beta_email_notifications")
       .update({
         status: "sent",
         sent_at: new Date().toISOString(),
+        provider: "resend",
         provider_message_id: resendData.id,
         provider_response: resendData,
         error_message: null,
       })
-      .eq("id", item.id);
+      .eq("id", itemNotificationId);
 
     return new Response(JSON.stringify({
       success: true,
-      status: "DELIVERED",
+      status: "SENT",
       provider_message_id: resendData.id,
       protocol: appData.protocol_number,
       recipient: ADMIN_RECIPIENT,

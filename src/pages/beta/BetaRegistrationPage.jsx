@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars -- identificadores usados no escopo JSX */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthExperienceShell from "../../components/AuthExperienceShell/AuthExperienceShell";
 import LanguageSelector from "../../components/LanguageSelector";
 import LineIcon from "../../components/icons/LineIcon";
 import { A26Button, A26Card, A26Field, A26IconButton } from "../../components/aeternum-26";
-import { submitBetaApplication } from "../../services/beta/betaRegistrationService";
+import { submitBetaApplication, getBetaProgramPublicStatus } from "../../services/beta/betaRegistrationService";
 import { useLanguage } from "../../context/LanguageContext";
 import { useTheme } from "../../context/ThemeContext";
 
@@ -42,6 +42,27 @@ export default function BetaRegistrationPage({ navigate }) {
   const [loading, setLoading] = useState(false);
   const [submissionResult, setSubmissionResult] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [programStatus, setProgramStatus] = useState({
+    registration_open: false,
+    batch: "batch_1_30",
+    capacity_total: 30,
+    approved_count: 0,
+    remaining_slots: 30,
+    launch_notice: "Inscrições abrem na primeira semana de dezembro de 2026"
+  });
+  const [statusLoading, setStatusLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+    getBetaProgramPublicStatus().then(res => {
+      if (mounted && res?.data) {
+        setProgramStatus(res.data);
+      }
+    }).finally(() => {
+      if (mounted) setStatusLoading(false);
+    });
+    return () => { mounted = false; };
+  }, []);
 
   function update(event) {
     const { name, value, type, checked } = event.target;
@@ -59,6 +80,11 @@ export default function BetaRegistrationPage({ navigate }) {
   async function submit(event) {
     event.preventDefault();
     if (loading) return;
+
+    if (!programStatus.registration_open) {
+      setErrorMessage("As inscrições serão abertas oficialmente na primeira semana de dezembro de 2026. A plataforma está em modo de pré-lançamento para inspeção prévia.");
+      return;
+    }
 
     setLoading(true);
     setErrorMessage("");
@@ -197,12 +223,33 @@ export default function BetaRegistrationPage({ navigate }) {
           Acesso experimental pioneiro a modelos cadavéricos 3D e ao ecossistema acadêmico.
         </p>
 
-        {/* Banner Informativo de Transparência */}
-        <div className="mt-4 p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-200/90 leading-relaxed">
-          <strong>Aviso de Capacidade e Convocação:</strong> A abertura oficial está programada para a <strong>primeira semana de dezembro de 2026</strong>,
-          com limite inicial de <strong>30 estudantes convidados</strong> na primeira fase. A submissão da candidatura registra seu interesse e perfil acadêmico,
-          mas <u>não garante aprovação ou acesso imediato</u>. Candidaturas excedentes integrarão a lista de espera para as fases subsequentes (até 50 e 100 participantes).
-        </div>
+        {/* Banner Informativo / Modo Pré-Lançamento */}
+        {!programStatus.registration_open ? (
+          <div className="mt-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200/90 leading-relaxed flex items-start gap-3">
+            <span className="text-base select-none">⏳</span>
+            <div>
+              <p className="font-semibold text-amber-300">
+                FASE DE PRÉ-LANÇAMENTO · INSCRIÇÕES EM BREVE
+              </p>
+              <p className="mt-1">
+                A abertura oficial das inscrições ocorrerá na <strong>primeira semana de dezembro de 2026</strong> para a <strong>Turma 1 (limite de 30 vagas convidadas)</strong>.
+                Você pode visualizar antecipadamente todos os requisitos e campos de qualificação abaixo. O formulário será habilitado automaticamente assim que as inscrições forem abertas.
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="mt-4 p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-200/90 leading-relaxed flex items-start gap-3">
+            <span className="text-base select-none">✨</span>
+            <div>
+              <p className="font-semibold text-cyan-300">
+                INSCRIÇÕES ABERTAS · PRIMEIRA TURMA ({programStatus.remaining_slots || 30} VAGAS RESTANTES)
+              </p>
+              <p className="mt-1">
+                A submissão da candidatura registra seu interesse acadêmico. A seleção priorizará alunos de graduação em saúde para a primeira turma (30 participantes). Candidaturas excedentes integrarão a lista de espera.
+              </p>
+            </div>
+          </div>
+        )}
 
         <form className="atlas-auth-form atlas-auth-form--registration mt-6" onSubmit={submit} noValidate>
           {/* 1. Nome Completo */}
@@ -382,8 +429,15 @@ export default function BetaRegistrationPage({ navigate }) {
 
           {/* Ações */}
           <div className="atlas-auth-actions atlas-auth-form__full mt-6">
-            <A26Button variant="primary" type="submit" loading={loading}>
-              SOLICITAR PARTICIPAÇÃO BETA
+            <A26Button
+              variant="primary"
+              type="submit"
+              loading={loading}
+              disabled={!programStatus.registration_open || loading}
+            >
+              {programStatus.registration_open
+                ? "SOLICITAR PARTICIPAÇÃO BETA"
+                : "INSCRIÇÕES EM BREVE (DEZEMBRO 2026)"}
             </A26Button>
             <A26Button variant="liquid" type="button" onClick={() => navigate("/login")}>
               Já possui conta institucional? Entrar
