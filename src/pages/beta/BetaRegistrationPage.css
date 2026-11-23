@@ -44,7 +44,6 @@
   box-shadow:
     0 32px 80px rgba(0, 0, 0, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
-  backdrop-filter: blur(28px) saturate(140%) !important;
   scrollbar-width: thin;
   scrollbar-color: rgba(127, 247, 244, 0.2) transparent;
 }
@@ -214,7 +213,6 @@
   box-shadow:
     0 32px 80px rgba(0, 0, 0, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
-  backdrop-filter: blur(28px) saturate(140%) !important;
   padding: clamp(24px, 3.2vw, 44px) !important;
 }
 
