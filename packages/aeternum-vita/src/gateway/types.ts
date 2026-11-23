@@ -1,6 +1,13 @@
 import { ProviderRouter, RouteMetadata } from "../providers/router/index.ts";
+import { ConcurrencyQueue, ConcurrencyQueueConfig } from "./middleware/concurrency.ts";
 
-export type GatewayAuthMode = "INTERNAL_DEV" | "SUPABASE_JWT" | "DISABLED" | "BEARER_TOKEN";
+export type GatewayAuthMode =
+  | "INTERNAL_DEV"
+  | "SUPABASE_JWT"
+  | "DISABLED"
+  | "BEARER_TOKEN"
+  | "CLOUDFLARE_ACCESS"
+  | "HYBRID_AUTH";
 
 export interface GatewayLogger {
   info(event: string, meta?: Record<string, unknown>): void;
@@ -19,6 +26,9 @@ export interface GatewayConfig {
   maxJsonBodyBytes?: number;
   maxAudioBodyBytes?: number;
   logger?: GatewayLogger;
+  concurrency?: ConcurrencyQueueConfig;
+  concurrencyQueue?: ConcurrencyQueue;
+  disableAudioRoutes?: boolean;
 }
 
 export interface GatewayHealthResponse {
@@ -34,6 +44,12 @@ export interface GatewayHealthResponse {
     stt_cloud: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
     tts_local: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
     tts_cloud: "HEALTHY" | "DEGRADED" | "UNAVAILABLE";
+  };
+  concurrency?: {
+    activeCount: number;
+    queueLength: number;
+    maxConcurrent: number;
+    maxQueueSize: number;
   };
 }
 
