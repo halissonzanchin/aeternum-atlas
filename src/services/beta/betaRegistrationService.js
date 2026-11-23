@@ -224,3 +224,77 @@ export async function getBetaCapacitySummary() {
     };
   }
 }
+
+/**
+ * Exporta candidaturas para formato CSV estruturado e compatível com Microsoft Excel
+ * (com UTF-8 BOM e delimitador ';' para correta abertura no Excel pt-BR).
+ */
+export function exportBetaApplicationsCsv(applications) {
+  if (!applications || !applications.length) return false;
+
+  const headers = [
+    "Protocolo",
+    "Data Submissão",
+    "Nome Completo",
+    "E-mail",
+    "Instituição",
+    "Curso",
+    "Período/Ano",
+    "Turma/Grupo",
+    "Matrícula",
+    "Dispositivo",
+    "País",
+    "Como Conheceu",
+    "Motivação",
+    "Status",
+    "Lote",
+    "Notas de Revisão",
+    "Data Avaliação",
+    "Avaliador"
+  ];
+
+  const escapeCsv = (val) => {
+    if (val === null || val === undefined) return '""';
+    const str = String(val).replace(/"/g, '""');
+    return `"${str}"`;
+  };
+
+  const rows = applications.map(app => [
+    escapeCsv(app.protocol_number || "N/A"),
+    escapeCsv(app.created_at ? new Date(app.created_at).toLocaleString("pt-BR") : ""),
+    escapeCsv(app.full_name),
+    escapeCsv(app.email),
+    escapeCsv(app.institution_name),
+    escapeCsv(app.course),
+    escapeCsv(app.academic_term),
+    escapeCsv(app.student_group || ""),
+    escapeCsv(app.student_id_number || ""),
+    escapeCsv(app.primary_device || ""),
+    escapeCsv(app.country || "Brasil"),
+    escapeCsv(app.referral_source || ""),
+    escapeCsv(app.motivation || ""),
+    escapeCsv(app.status),
+    escapeCsv(app.batch || "batch_1_30"),
+    escapeCsv(app.review_notes || ""),
+    escapeCsv(app.reviewed_at ? new Date(app.reviewed_at).toLocaleString("pt-BR") : ""),
+    escapeCsv(app.reviewed_by || "")
+  ]);
+
+  const csvContent = "\uFEFF" + [
+    headers.join(";"),
+    ...rows.map(row => row.join(";"))
+  ].join("\r\n");
+
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  const now = new Date().toISOString().slice(0, 10);
+  link.setAttribute("href", url);
+  link.setAttribute("download", `aeternum_atlas_candidatos_beta_${now}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+  return true;
+}
+

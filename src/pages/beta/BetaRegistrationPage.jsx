@@ -110,17 +110,22 @@ export default function BetaRegistrationPage({ navigate }) {
           </div>
 
           <div className="mt-6 p-6 rounded-2xl bg-white/[0.03] border border-white/10 space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
               <div>
                 <span className="text-xs uppercase tracking-wider text-textMuted">Candidato</span>
                 <p className="text-base font-semibold text-text">{values.fullName}</p>
                 <p className="text-xs text-textMuted">{values.email}</p>
               </div>
-              <div className="text-right">
-                <span className="text-xs uppercase tracking-wider text-textMuted">Status Inicial</span>
-                <div>
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                    PENDENTE DE REVISÃO
+              <div className="text-left sm:text-right">
+                <span className="text-xs uppercase tracking-wider text-textMuted">Número de Protocolo</span>
+                <div className="mt-1">
+                  <span className="inline-flex items-center px-3 py-1 rounded-lg text-sm font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm">
+                    {submissionResult?.protocol_number || "BETA-2026-PROTOCOL"}
+                  </span>
+                </div>
+                <div className="mt-1.5">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                    AGUARDANDO ANÁLISE
                   </span>
                 </div>
               </div>

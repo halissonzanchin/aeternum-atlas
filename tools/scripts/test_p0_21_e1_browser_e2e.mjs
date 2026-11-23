@@ -9,7 +9,7 @@ import { runSupabaseSql } from "./supabase_admin_helper.mjs";
 
 const EDGE_PATH = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const ARTIFACT_DIR = "C:/Users/halis/.gemini/antigravity/brain/b63445c2-37f0-46a4-8ca8-5556eb65a8a3";
-const LOCAL_URL = "http://localhost:5174";
+const LOCAL_URL = process.env.VITE_DEV_URL || "http://localhost:5173";
 const TEST_EMAIL = `isabela.rocha.${Date.now()}@med.unicamp.br`;
 
 async function runBrowserE2E() {

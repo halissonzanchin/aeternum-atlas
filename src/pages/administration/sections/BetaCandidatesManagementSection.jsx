@@ -11,6 +11,7 @@ import {
 } from "../../../components/aeternum-26";
 import LineIcon from "../../../components/icons/LineIcon";
 import {
+  exportBetaApplicationsCsv,
   getBetaCapacitySummary,
   listBetaApplications,
   reviewBetaApplication
@@ -111,6 +112,11 @@ export default function BetaCandidatesManagementSection() {
     }
   }
 
+  function handleExportCsv() {
+    if (!applications || !applications.length) return;
+    exportBetaApplicationsCsv(applications);
+  }
+
   return (
     <section className="space-y-6" data-testid="a26-beta-candidates-section">
       {/* Top Header */}
@@ -122,9 +128,19 @@ export default function BetaCandidatesManagementSection() {
             Triagem, avaliação acadêmica e controle de capacidade dos candidatos (Meta: 30 estudantes na 1ª turma).
           </p>
         </div>
-        <A26Button variant="liquid" onClick={loadData} icon={<LineIcon name="refresh" />}>
-          Atualizar Lista
-        </A26Button>
+        <div className="flex items-center gap-3">
+          <A26Button
+            variant="secondary"
+            onClick={handleExportCsv}
+            icon={<LineIcon name="download" />}
+            disabled={applications.length === 0}
+          >
+            Exportar para Excel (CSV)
+          </A26Button>
+          <A26Button variant="liquid" onClick={loadData} icon={<LineIcon name="refresh" />}>
+            Atualizar Lista
+          </A26Button>
+        </div>
       </div>
 
       {/* Métricas de Capacidade e Lotes (7 Indicadores Canônicos) */}
@@ -241,8 +257,13 @@ export default function BetaCandidatesManagementSection() {
                       <td className="py-3 px-4">
                         <div className="font-semibold text-text">{app.full_name}</div>
                         <div className="text-[11px] text-textMuted">{app.email}</div>
-                        <div className="text-[10px] text-textMuted/70 mt-0.5">
-                          {new Date(app.created_at).toLocaleDateString("pt-BR", { hour: "2-digit", minute: "2-digit" })}
+                        <div className="flex items-center gap-1.5 mt-1">
+                          <span className="font-mono text-[10px] font-semibold text-cyan-300 bg-cyan-950/60 px-1.5 py-0.5 rounded border border-cyan-800/40">
+                            {app.protocol_number || "BETA-2026-N/A"}
+                          </span>
+                          <span className="text-[10px] text-textMuted/70">
+                            {new Date(app.created_at).toLocaleDateString("pt-BR", { hour: "2-digit", minute: "2-digit" })}
+                          </span>
                         </div>
                       </td>
                       <td className="py-3 px-4">
@@ -288,6 +309,10 @@ export default function BetaCandidatesManagementSection() {
           <div className="space-y-4 text-xs">
             <div className="p-3 rounded-lg bg-white/5 border border-white/10 space-y-2">
               <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <span className="text-textMuted block">Número de Protocolo:</span>
+                  <span className="text-cyan-300 font-mono font-bold text-xs">{selectedApp.protocol_number || "BETA-2026-N/A"}</span>
+                </div>
                 <div>
                   <span className="text-textMuted block">E-mail:</span>
                   <span className="text-text font-medium">{selectedApp.email}</span>
