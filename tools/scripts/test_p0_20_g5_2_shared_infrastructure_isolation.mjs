@@ -23,6 +23,15 @@ function readGatewayToken() {
   return getCredential("AeternumAtlas:GatewaySecret") || "";
 }
 
+function readLocalTestSecret() {
+  try {
+    const c = fs.readFileSync("C:\\Users\\halis\\.cloudflared\\.gateway.env", "utf8");
+    const m = c.match(/AETERNUM_GATEWAY_LOCAL_TEST_SECRET=(.*)/);
+    if (m) return m[1].trim().replace(/^['"]|['"]$/g, "");
+  } catch {}
+  return process.env.AETERNUM_GATEWAY_LOCAL_TEST_SECRET || "";
+}
+
 function getGpuStats() {
   try {
     const raw = execSync("nvidia-smi --query-gpu=memory.used,memory.total,temperature.gpu,utilization.gpu --format=csv,noheader,nounits", { encoding: "utf8" });
@@ -67,6 +76,16 @@ async function main() {
   if (!token) {
     throw new Error("Token de autenticação do Gateway não encontrado.");
   }
+  const localTestSecret = readLocalTestSecret();
+  if (!localTestSecret) {
+    throw new Error("Segredo de teste local do Gateway (AETERNUM_GATEWAY_LOCAL_TEST_SECRET) não encontrado.");
+  }
+
+  const gwHeaders = {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`,
+    "x-aeternum-local-test-secret": localTestSecret
+  };
 
   // -------------------------------------------------------------------------
   // GATEWAY TEST 1: Compatibilidade e Não-Regressão da Rota Unária (/v1/llm/generate)
@@ -78,10 +97,7 @@ async function main() {
   try {
     const res = await fetch(`${GATEWAY_LOCAL_URL}/v1/llm/generate`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
+      headers: gwHeaders,
       body: JSON.stringify({
         messages: [
           { role: "system", content: "Você é um assistente anatômico conciso." },
@@ -127,10 +143,7 @@ async function main() {
     reqAStartTime = performance.now();
     const res = await fetch(`${GATEWAY_LOCAL_URL}/v1/llm/generate`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
+      headers: gwHeaders,
       body: JSON.stringify({
         messages: [
           { role: "system", content: "Você é um tutor de anatomia conciso. Responda em 1 frase." },
@@ -157,10 +170,7 @@ async function main() {
     reqBStartTime = performance.now();
     const res = await fetch(`${GATEWAY_LOCAL_URL}/v1/llm/generate`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
+      headers: gwHeaders,
       body: JSON.stringify({
         messages: [
           { role: "system", content: "Você é um tutor de anatomia conciso. Responda em 1 frase." },
@@ -226,7 +236,7 @@ async function main() {
 
   const makeShortReq = (id) => fetch(`${GATEWAY_LOCAL_URL}/v1/llm/generate`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+    headers: gwHeaders,
     body: JSON.stringify({
       messages: [{ role: "user", content: `Fila #${id}: inervação do deltoide em 3 palavras.` }],
       temperature: 0.1,
@@ -285,7 +295,7 @@ async function main() {
 
   const abortedPromise = fetch(`${GATEWAY_LOCAL_URL}/v1/llm/generate`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+    headers: gwHeaders,
     body: JSON.stringify({
       messages: [{ role: "user", content: "Explicação anatômica longa que será cancelada." }],
       temperature: 0.1,
@@ -308,7 +318,7 @@ async function main() {
   const t0Recovery = performance.now();
   const recRes = await fetch(`${GATEWAY_LOCAL_URL}/v1/llm/generate`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+    headers: gwHeaders,
     body: JSON.stringify({
       messages: [{ role: "user", content: "Verificação imediata pós-cancelamento." }],
       temperature: 0.1,
@@ -371,68 +381,91 @@ async function main() {
     console.warn("   [AVISO] Credencial AeternumAtlas:AutomationTestAccount ausente.");
     results.checks.qa_session_lifecycle = { status: "BLOCKED", reason: "Credential missing" };
   } else {
-    // Reset limpo EXCLUSIVO da conta de testes (zero impacto em estudantes)
-    await runSupabaseSql(`DELETE FROM public.user_active_sessions WHERE user_id = '${QA_USER_ID}';`);
+    // Reset administrativo autorizado da conta QA (procedimento canônico seguro, zero mutação direta)
+    console.log("   Executando reset administrativo autorizado da conta QA (admin_reset_user_session)...");
+    const preReset = await runSupabaseSql(`
+      SELECT public.admin_reset_user_session(
+        '${QA_USER_ID}'::uuid,
+        'p0_20_g5_2_authorized_pre_audit_reset'
+      ) as result;
+    `);
+    console.log("   Resultado do reset administrativo inicial:", JSON.stringify(preReset?.[0]?.result || preReset));
 
-    // Cliente 1 (Sessão Titular)
-    const client1 = createClient(SUPABASE_URL, anonKey, { auth: { autoRefreshToken: false, persistSession: false } });
-    const { data: auth1, error: authErr1 } = await client1.auth.signInWithPassword({ email: QA_EMAIL, password: qaPassword });
-    if (authErr1) throw new Error("Erro login titular QA: " + authErr1.message);
+    try {
+      // Cliente 1 (Sessão Titular)
+      const client1 = createClient(SUPABASE_URL, anonKey, { auth: { autoRefreshToken: false, persistSession: false } });
+      const { data: auth1, error: authErr1 } = await client1.auth.signInWithPassword({ email: QA_EMAIL, password: qaPassword });
+      if (authErr1) throw new Error("Erro login titular QA: " + authErr1.message);
 
-    const session1Id = extractSessionId(auth1.session.access_token);
-    console.log(`   Login 1 (Titular) autenticado. Session ID: ${session1Id}`);
+      const session1Id = extractSessionId(auth1.session.access_token);
+      console.log(`   Login 1 (Titular) autenticado. Session ID: ${session1Id}`);
 
-    const { data: rpc1 } = await client1.rpc("register_or_transfer_session", {
-      p_session_id: session1Id,
-      p_device_fingerprint: "audit_fp_device_primary",
-      p_confirm_transfer: false,
-      p_metadata: { audit: "p0_20_g5_2_primary" }
-    });
+      const { data: rpc1 } = await client1.rpc("register_or_transfer_session", {
+        p_session_id: session1Id,
+        p_device_fingerprint: "audit_fp_device_primary",
+        p_confirm_transfer: false,
+        p_metadata: { audit: "p0_20_g5_2_primary" }
+      });
 
-    qaPersistencePassed = rpc1?.allowed === true && rpc1?.status === "SESSION_GRANTED";
-    console.log(`   Registro Sessão 1 (Titular): status=${rpc1?.status}, allowed=${rpc1?.allowed} -> ${qaPersistencePassed ? "PASS" : "FAIL"}`);
+      qaPersistencePassed = rpc1?.allowed === true && rpc1?.status === "SESSION_GRANTED";
+      console.log(`   Registro Sessão 1 (Titular): status=${rpc1?.status}, allowed=${rpc1?.allowed} -> ${qaPersistencePassed ? "PASS" : "FAIL"}`);
 
-    // Cliente 2 (Tentativa de Segunda Sessão Concorrente da Mesma Conta)
-    const client2 = createClient(SUPABASE_URL, anonKey, { auth: { autoRefreshToken: false, persistSession: false } });
-    const { data: auth2, error: authErr2 } = await client2.auth.signInWithPassword({ email: QA_EMAIL, password: qaPassword });
-    if (authErr2) throw new Error("Erro login concorrente QA: " + authErr2.message);
+      // Cliente 2 (Tentativa de Segunda Sessão Concorrente da Mesma Conta)
+      const client2 = createClient(SUPABASE_URL, anonKey, { auth: { autoRefreshToken: false, persistSession: false } });
+      const { data: auth2, error: authErr2 } = await client2.auth.signInWithPassword({ email: QA_EMAIL, password: qaPassword });
+      if (authErr2) throw new Error("Erro login concorrente QA: " + authErr2.message);
 
-    const session2Id = extractSessionId(auth2.session.access_token);
-    console.log(`   Login 2 (Concorrente) autenticado. Session ID: ${session2Id}`);
+      const session2Id = extractSessionId(auth2.session.access_token);
+      console.log(`   Login 2 (Concorrente) autenticado. Session ID: ${session2Id}`);
 
-    const { data: rpc2 } = await client2.rpc("register_or_transfer_session", {
-      p_session_id: session2Id,
-      p_device_fingerprint: "audit_fp_device_secondary",
-      p_confirm_transfer: false,
-      p_metadata: { audit: "p0_20_g5_2_secondary" }
-    });
+      const { data: rpc2 } = await client2.rpc("register_or_transfer_session", {
+        p_session_id: session2Id,
+        p_device_fingerprint: "audit_fp_device_secondary",
+        p_confirm_transfer: false,
+        p_metadata: { audit: "p0_20_g5_2_secondary" }
+      });
 
-    firstSessionWinsBlockedSecond = rpc2?.allowed === false && rpc2?.status === "SESSION_ALREADY_ACTIVE" && rpc2?.other_device_active === true;
-    console.log(`   Tentativa Sessão 2 sob FIRST_SESSION_WINS: status=${rpc2?.status}, allowed=${rpc2?.allowed}, other_device_active=${rpc2?.other_device_active} -> ${firstSessionWinsBlockedSecond ? "BLOQUEIO CONFIRMADO (PASS)" : "FALHA"}`);
+      firstSessionWinsBlockedSecond = rpc2?.allowed === false && rpc2?.status === "SESSION_ALREADY_ACTIVE" && rpc2?.other_device_active === true;
+      console.log(`   Tentativa Sessão 2 sob FIRST_SESSION_WINS: status=${rpc2?.status}, allowed=${rpc2?.allowed}, other_device_active=${rpc2?.other_device_active} -> ${firstSessionWinsBlockedSecond ? "BLOQUEIO CONFIRMADO (PASS)" : "FALHA"}`);
 
-    // Confirmar que o titular session1Id permanece inalterado como a sessão ativa no banco
-    const qaRowInDb = await runSupabaseSql(`SELECT session_id, status FROM public.user_active_sessions WHERE user_id = '${QA_USER_ID}';`);
-    primaryPreservedInDb = qaRowInDb[0]?.session_id === session1Id && qaRowInDb[0]?.status === "active";
-    console.log(`   Titular (Sessão 1) preservado como sessão ativa no banco: ${primaryPreservedInDb ? "SIM (PASS)" : "FALHA"}`);
+      // Confirmar que o titular session1Id permanece inalterado como a sessão ativa no banco
+      const qaRowInDb = await runSupabaseSql(`SELECT session_id, status FROM public.user_active_sessions WHERE user_id = '${QA_USER_ID}';`);
+      primaryPreservedInDb = qaRowInDb[0]?.session_id === session1Id && qaRowInDb[0]?.status === "active";
+      console.log(`   Titular (Sessão 1) preservado como sessão ativa no banco: ${primaryPreservedInDb ? "SIM (PASS)" : "FALHA"}`);
 
-    // Titular continua ativo navegando
-    const { data: rpc3 } = await client1.rpc("register_or_transfer_session", {
-      p_session_id: session1Id,
-      p_device_fingerprint: "audit_fp_device_primary",
-      p_confirm_transfer: false,
-      p_metadata: { audit: "p0_20_g5_2_heartbeat" }
-    });
-    const heartbeatPassed = rpc3?.allowed === true && rpc3?.status === "SESSION_VALID";
-    console.log(`   Heartbeat Titular Preservado: status=${rpc3?.status}, allowed=${rpc3?.allowed} -> ${heartbeatPassed ? "PASS" : "FAIL"}`);
+      // Titular continua ativo navegando
+      const { data: rpc3 } = await client1.rpc("register_or_transfer_session", {
+        p_session_id: session1Id,
+        p_device_fingerprint: "audit_fp_device_primary",
+        p_confirm_transfer: false,
+        p_metadata: { audit: "p0_20_g5_2_heartbeat" }
+      });
+      const heartbeatPassed = rpc3?.allowed === true && rpc3?.status === "SESSION_VALID";
+      console.log(`   Heartbeat Titular Preservado: status=${rpc3?.status}, allowed=${rpc3?.allowed} -> ${heartbeatPassed ? "PASS" : "FAIL"}`);
 
-    qaSessionDetails = {
-      session1Id,
-      session2Id,
-      rpc1Status: rpc1?.status,
-      rpc2Status: rpc2?.status,
-      primaryPreservedInDb,
-      heartbeatPassed
-    };
+      qaSessionDetails = {
+        session1Id,
+        session2Id,
+        rpc1Status: rpc1?.status,
+        rpc2Status: rpc2?.status,
+        primaryPreservedInDb,
+        heartbeatPassed
+      };
+    } finally {
+      // Teardown administrativo seguro da conta QA no bloco finally
+      console.log("\n   Executando teardown administrativo da conta QA no bloco finally...");
+      try {
+        const postTeardown = await runSupabaseSql(`
+          SELECT public.admin_reset_user_session(
+            '${QA_USER_ID}'::uuid,
+            'p0_20_g5_2_authorized_post_audit_teardown'
+          ) as result;
+        `);
+        console.log("   Teardown administrativo pós-auditoria concluído:", JSON.stringify(postTeardown?.[0]?.result || postTeardown));
+      } catch (tdErr) {
+        console.warn("   [AVISO] Falha no teardown administrativo pós-auditoria:", tdErr.message);
+      }
+    }
   }
 
   // Snapshot Posterior (S_after)

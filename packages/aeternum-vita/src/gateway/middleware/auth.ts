@@ -514,6 +514,29 @@ export function validateGatewayAuth(
       };
     }
 
+    // Invariante de Segurança P0: O socket de loopback (127.0.0.1) NÃO é prova suficiente
+    // de origem local confiável, pois o Cloudflare Tunnel (cloudflared) também encaminha conexões
+    // no listener local.
+    //
+    // Portanto:
+    // 1. O tráfego operacional SEMPRE exige autenticação dupla (Cloudflare Access + Bearer Token).
+    // 2. Testes locais e diagnósticos automatizados exigem uma estratégia explícita, isolada
+    //    e autenticada via segredo dedicado de teste local (x-aeternum-local-test-secret),
+    //    sendo terminantemente vedados em ambiente de produção (NODE_ENV=production) ou quando
+    //    houver cabeçalhos de túnel/proxy público.
+
+    const localTestSecret = (
+      process.env.AETERNUM_GATEWAY_LOCAL_TEST_SECRET ||
+      process.env.ATLAS_LOCAL_TEST_SECRET ||
+      ""
+    ).trim();
+
+    const rawTestHeader = String(
+      req.headers["x-aeternum-local-test-secret"] ||
+      req.headers["x-atlas-local-test-secret"] ||
+      ""
+    ).trim();
+
     const remoteAddress = req.socket.remoteAddress || "";
     const isLoopback =
       remoteAddress === "127.0.0.1" ||
@@ -521,18 +544,31 @@ export function validateGatewayAuth(
       remoteAddress === "::ffff:127.0.0.1" ||
       remoteAddress === "localhost";
 
-    if (!isLoopback || hasCloudflareHeaders) {
-      const cfCheck = validateCloudflareAccessLayer(req);
-      if (!cfCheck.valid) {
-        return {
-          authenticated: false,
-          error: `Falha na validação de autenticação híbrida (${cfCheck.error || "Cloudflare Access inválido"}).`
-        };
-      }
-      return { authenticated: true, userId: `hybrid_${cfCheck.userId}` };
+    const isLocalTestAuthorized = Boolean(
+      localTestSecret &&
+      !isSyntheticOrPlaceholderAccessCredential(localTestSecret) &&
+      rawTestHeader &&
+      safeConstantTimeCompare(rawTestHeader, localTestSecret) &&
+      isLoopback &&
+      !hasCloudflareHeaders &&
+      nodeEnv !== "production"
+    );
+
+    if (isLocalTestAuthorized) {
+      return { authenticated: true, userId: "hybrid_authorized_local_test" };
     }
 
-    return { authenticated: true, userId: "hybrid_local_loopback" };
+    // Tráfego Operacional e Requisições Não-Autorizadas:
+    // Validação estrita e mandatória da Camada Cloudflare Access (Fail-Closed)
+    const cfCheck = validateCloudflareAccessLayer(req);
+    if (!cfCheck.valid) {
+      return {
+        authenticated: false,
+        error: `Falha na validação de autenticação híbrida (${cfCheck.error || "Cloudflare Access inválido"}).`
+      };
+    }
+
+    return { authenticated: true, userId: `hybrid_${cfCheck.userId}` };
   }
 
   // 5. Em modo SUPABASE_JWT: verificação criptográfica obrigatória
