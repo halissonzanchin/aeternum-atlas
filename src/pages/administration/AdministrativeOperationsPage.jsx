@@ -29,6 +29,7 @@ import {
   createAdministrationSystemRows
 } from "./administrationDecisionModel";
 import AnnouncementsManagementSection from "./sections/AnnouncementsManagementSection";
+import BetaCandidatesManagementSection from "./sections/BetaCandidatesManagementSection";
 import "./administrativeOperations.css";
 
 const PERIOD_OPTIONS = [
@@ -41,6 +42,7 @@ const SECTION_META = {
   overview: ["Centro operacional", "Resumo, exceções e próximos passos com escopo verificável."],
   institution: ["Instituição", "Contrato, capacidade e responsáveis visíveis ao papel autenticado."],
   students: ["Alunos da instituição", "Cadastros, estados de acesso e atividade observada no tenant."],
+  beta_candidates: ["Programa Beta (Operação El Dorado)", "Triagem, avaliação acadêmica e controle de capacidade dos candidatos ao beta."],
   import_students: ["Importar alunos", "Operação pausada até a publicação do contrato acadêmico canônico."],
   announcements: ["Gestão de Comunicados e Atualizações", "Programação e publicação de manutenções técnicas e avisos aos estudantes."],
   analytics: ["Analytics operacionais", "Uso, estabilidade e eventos derivados das fontes autorizadas."],
@@ -717,6 +719,8 @@ export default function AdministrativeOperationsPage({ user, section = "overview
     content = <><SectionHeader scope={scope} section={current} /><A26EmptyState title="Importação acadêmica pausada" text="O importador legado dependia de tabelas que não pertencem ao esquema autorizado atual. Nenhum arquivo será processado até a publicação do contrato acadêmico canônico." /></>;
   } else if (current === "announcements") {
     content = <AnnouncementsManagementSection scope={scope} data={data} notify={notify} />;
+  } else if (current === "beta_candidates") {
+    content = <BetaCandidatesManagementSection />;
   } else {
     content = <><SectionHeader scope={scope} section={current} /><A26EmptyState title="Módulo sem contrato ativo" text="A rota existe, mas ainda não possui uma operação verificável para este papel." /></>;
   }

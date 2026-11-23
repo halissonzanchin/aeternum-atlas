@@ -1537,6 +1537,7 @@ export const pt = {
     "atlasCertification": "Fluxo de certificação",
     "digitalTwins": "Gêmeos digitais",
     "announcements": "Comunicados e atualizações",
+    "betaCandidates": "Programa Beta (El Dorado)",
     "aeternum26Foundation": "Fundação Aeternum 26",
     "description": "Painel geral para gerir instituições, licenças, contratos e relatórios de faturamento B2B.",
     "activeInstitutions": "Instituições ativas",

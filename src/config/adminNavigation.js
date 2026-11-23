@@ -152,6 +152,18 @@ export function adminSectionFromPath(pathname, fallback = "overview") {
   ) {
     return "announcements";
   }
+  if (
+    pathname === "/super-admin/programa-beta" ||
+    pathname === "/admin/programa-beta" ||
+    pathname === "/super-admin/beta" ||
+    pathname === "/admin/beta" ||
+    pathname === "/super-admin/candidatos-beta" ||
+    pathname === "/admin/candidatos-beta" ||
+    pathname === "/institution-admin/programa-beta" ||
+    pathname === "/institution-admin/beta"
+  ) {
+    return "beta_candidates";
+  }
   return getAdminNavigationItemByPath(pathname)?.id || fallback;
 }
 

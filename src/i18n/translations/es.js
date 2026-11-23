@@ -1543,6 +1543,7 @@ export const es = {
     "atlasCertification": "Fluxo de certificação",
     "digitalTwins": "Gemelos digitales",
     "announcements": "Comunicados y actualizaciones",
+    "betaCandidates": "Programa Beta (El Dorado)",
     "aeternum26Foundation": "Fundação Aeternum 26",
     "description": "Panel general para gestionar instituciones, licencias, contratos y reportes de facturación B2B.",
     "activeInstitutions": "Instituciones activas",
