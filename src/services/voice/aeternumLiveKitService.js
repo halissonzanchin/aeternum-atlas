@@ -27,7 +27,7 @@ function connectionError(message, code) {
 export async function requestVitaConnection({ tutorId, context3d, idempotencyKey, signal } = {}) {
   if (!isVitaVoiceEnabled()) {
     throw connectionError(
-      "O recurso VoiceStudio não está disponível para esta conta de demonstração institucional.",
+      "O recurso VoiceStudio não está habilitado para esta conta. Acesso restrito a participantes autorizados do programa piloto.",
       "VOICESTUDIO_NOT_PERMITTED"
     );
   }
