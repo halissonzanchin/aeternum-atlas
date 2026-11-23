@@ -217,11 +217,12 @@ async function runHomologation() {
 
   // TEST 7: Bloqueio Estrito do VoiceStudio para a Conta Demo
   console.log("--- TESTE 7: Bloqueio do VoiceStudio para a Conta Demo ---");
-  // 7a. Client-side Config Guard
+  // 7a. Client-side Config Guard (Fail-closed Deny-by-default, P0.20-S.1)
   const { isVitaVoiceEnabled } = await import("../../src/services/voice/aeternumVitaConfig.js");
   const voiceEnabledForDemo = isVitaVoiceEnabled({ email: DEMO_EMAIL, role: "student" });
   const voiceEnabledForStandard = isVitaVoiceEnabled({ email: "student@aeternumatlas.com", role: "student" });
-  const clientGatePass = !voiceEnabledForDemo && voiceEnabledForStandard;
+  const voiceEnabledForEntitledPilot = isVitaVoiceEnabled({ email: "pilot@aeternumatlas.com", role: "student", app_metadata: { voice_enabled: true } });
+  const clientGatePass = !voiceEnabledForDemo && !voiceEnabledForStandard && voiceEnabledForEntitledPilot;
 
   // 7b. Client Service Exception
   let serviceBlocked = false;

@@ -94,3 +94,16 @@ export async function getAnonKey(projectRef = "hyivyrietgjdazgizafp") {
   return cachedAnonKey;
 }
 
+let cachedServiceRoleKey = null;
+
+export async function getServiceRoleKey(projectRef = "hyivyrietgjdazgizafp") {
+  if (cachedServiceRoleKey) return cachedServiceRoleKey;
+  const token = getMgmtToken();
+  const res = await fetch(`https://api.supabase.com/v1/projects/${projectRef}/api-keys`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  const keys = await res.json();
+  cachedServiceRoleKey = keys.find(k => k.name === "service_role" || k.tags === "service_role")?.api_key || "";
+  return cachedServiceRoleKey;
+}
+

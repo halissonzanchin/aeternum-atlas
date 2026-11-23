@@ -84,7 +84,8 @@ function profileToAppUser(profile, authUser = null) {
     accessStatus: "acesso_institucional",
     licenseStatus: "Ativa",
     subscriptionStatus: "active",
-    subscriptionPlan: "Licença institucional"
+    subscriptionPlan: "Licença institucional",
+    app_metadata: authUser?.app_metadata || profile?.app_metadata || {}
   });
 }
 
