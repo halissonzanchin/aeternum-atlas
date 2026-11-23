@@ -211,6 +211,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
           .maybeSingle();
         if (!convCheck) {
           remoteConversationId = null;
+          setConversationId(null);
         }
       }
 
@@ -403,7 +404,7 @@ export function AtlasAITutorSessionProvider({ children, user }) {
                   }
                 ]);
                 if (msgError) {
-                  console.error("[Atlas AI Session] Erro ao gravar mensagens no Supabase:", msgError);
+                  console.error("[Atlas AI Session] Erro ao gravar mensagens no Supabase:", JSON.stringify(msgError));
                 }
               }
             } catch (err) {

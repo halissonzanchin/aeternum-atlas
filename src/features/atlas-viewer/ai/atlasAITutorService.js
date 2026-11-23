@@ -578,6 +578,20 @@ export const atlasAITutorService = {
             };
           }
 
+          if (data.type === "progress") {
+            if (typeof options?.onProgress === "function") {
+              try { options.onProgress(data); } catch (_e) { /* ignore progress callback error */ }
+            }
+            continue;
+          }
+
+          if (data.type === "validation") {
+            if (typeof options?.onValidation === "function") {
+              try { options.onValidation(data); } catch (_e) { /* ignore validation callback error */ }
+            }
+            continue;
+          }
+
           if (data.knowledgeState) {
             knowledgeState = data.knowledgeState;
           }
