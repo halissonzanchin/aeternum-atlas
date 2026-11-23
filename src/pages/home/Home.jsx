@@ -215,16 +215,24 @@ export default function Home({ navigate }) {
         </nav>
 
         <div className="public-actions">
-          <span className="public-desktop-language"><LanguageSelector compact /></span>
-          <span className="public-mobile-language"><LanguageSelector compact /></span>
-          <A26Button variant="secondary" className="public-beta-button" onClick={() => navigate("/programa-beta")}>
-            PROGRAMA BETA
-          </A26Button>
-          <A26Button variant="liquid" aria-label={t("auth.login")} onClick={() => navigate("/login")}>
+          <span className="public-header-language"><LanguageSelector compact /></span>
+          <A26Button
+            variant="liquid"
+            className="public-login-button"
+            aria-label={t("auth.login")}
+            onClick={() => navigate("/login")}
+          >
             <span className="public-login-full">{t("auth.login").toUpperCase()}</span>
             <span className="public-login-short">{t("auth.loginShort").toUpperCase()}</span>
           </A26Button>
-          <A26Button variant="primary" onClick={() => navigate("/register")}>{t("auth.register").toUpperCase()}</A26Button>
+          <A26Button
+            variant="primary"
+            className="public-beta-cta"
+            aria-label="Programa Beta"
+            onClick={() => navigate("/programa-beta")}
+          >
+            PROGRAMA BETA
+          </A26Button>
         </div>
       </A26Surface>
 

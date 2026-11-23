@@ -67,20 +67,48 @@
 }
 
 .cinematic-home .public-actions {
+  display: flex;
+  align-items: center;
   flex-wrap: nowrap;
-  gap: 8px;
+  gap: 10px;
 }
 
-.cinematic-home .public-actions > button {
+.cinematic-home .public-header-language {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.cinematic-home .public-login-button {
   min-height: 44px;
-  padding-inline: 17px;
+  padding-inline: 18px;
   font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   white-space: nowrap;
+  border-radius: 999px;
 }
 
-.cinematic-home .public-actions > button:last-child {
-  min-width: 132px;
-  box-shadow: 0 12px 30px rgba(47, 184, 181, 0.16);
+.cinematic-home .public-beta-cta {
+  min-height: 44px;
+  min-width: 144px;
+  padding-inline: 22px;
+  font-size: 0.76rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #56e5df, #2cb5b2) !important;
+  box-shadow: 0 12px 30px rgba(47, 184, 181, 0.22) !important;
+  color: #041417 !important;
+  border: 1px solid rgba(86, 229, 223, 0.4) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cinematic-home .public-beta-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(47, 184, 181, 0.36) !important;
+  filter: brightness(1.05);
 }
 
 .cinematic-home .home-hero.cinematic-home-hero.aeternum-hero {
@@ -176,27 +204,29 @@
 
   .cinematic-home .public-actions {
     display: flex;
+    align-items: center;
     width: auto;
     min-width: 0;
-    gap: 5px;
+    gap: 6px;
   }
 
-  .cinematic-home .public-mobile-language {
-    flex: 0 0 38px;
+  .cinematic-home .public-header-language {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
   }
 
-  .cinematic-home .public-actions > button {
-    flex: 1 1 auto;
-    min-width: 0;
-    min-height: 44px;
-    padding-inline: 9px;
-    font-size: 0.65rem;
-    line-height: 1;
+  .cinematic-home .public-login-button {
+    min-height: 40px;
+    padding-inline: 11px;
+    font-size: 0.68rem;
   }
 
-  .cinematic-home .public-actions > button:last-child {
-    grid-column: auto;
-    min-width: 0;
+  .cinematic-home .public-beta-cta {
+    min-width: 116px !important;
+    min-height: 40px !important;
+    padding-inline: 14px !important;
+    font-size: 0.68rem !important;
   }
 
   .cinematic-home .home-hero.cinematic-home-hero.aeternum-hero {
@@ -269,12 +299,63 @@
   }
 }
 
-@media (max-width: 410px) {
-  .cinematic-home .public-mobile-language {
+@media (max-width: 480px) {
+  .cinematic-home .cinematic-public-header {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+
+  .cinematic-home .public-actions {
+    gap: 5px;
+  }
+
+  .cinematic-home .public-login-button {
+    padding-inline: 9px;
+    font-size: 0.64rem;
+  }
+
+  .cinematic-home .public-login-full {
     display: none;
   }
 
-  .cinematic-home .public-actions > button {
-    font-size: 0.61rem;
+  .cinematic-home .public-login-short {
+    display: inline;
+  }
+
+  .cinematic-home .public-beta-cta {
+    min-width: 100px !important;
+    padding-inline: 10px !important;
+    font-size: 0.64rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .cinematic-home .cinematic-public-header {
+    padding: 4px 6px;
+    gap: 4px;
+  }
+
+  .cinematic-home .brand-lockup {
+    width: 36px;
+    max-width: 36px;
+  }
+
+  .cinematic-home .brand-lockup .aeternum-logo--md .aeternum-logo__symbol-wrap {
+    width: 34px !important;
+  }
+
+  .cinematic-home .public-actions {
+    gap: 4px;
+  }
+
+  .cinematic-home .public-login-button {
+    padding-inline: 6px;
+    font-size: 0.6rem;
+  }
+
+  .cinematic-home .public-beta-cta {
+    min-width: 88px !important;
+    padding-inline: 8px !important;
+    font-size: 0.6rem !important;
   }
 }

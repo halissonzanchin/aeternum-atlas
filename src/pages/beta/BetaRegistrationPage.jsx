@@ -7,6 +7,7 @@ import { A26Button, A26Card, A26Field, A26IconButton } from "../../components/ae
 import { submitBetaApplication, getBetaProgramPublicStatus } from "../../services/beta/betaRegistrationService";
 import { useLanguage } from "../../context/LanguageContext";
 import { useTheme } from "../../context/ThemeContext";
+import "./BetaRegistrationPage.css";
 
 const DEVICE_OPTIONS = [
   "Desktop / Notebook (Windows)",
@@ -112,11 +113,11 @@ export default function BetaRegistrationPage({ navigate }) {
   // Estado de Sucesso
   if (submissionResult) {
     return (
-      <AuthExperienceShell wide>
-        <A26Card className="atlas-auth-card atlas-auth-card--registration" data-testid="a26-beta-success">
+      <AuthExperienceShell wide variant="beta">
+        <A26Card className="atlas-auth-card atlas-auth-card--beta" data-testid="a26-beta-success">
           <div className="atlas-auth-card__topline">
             <span>{t("auth.secureAccess")}</span>
-            <div className="atlas-auth-card__topline-actions flex items-center gap-2">
+            <div className="atlas-auth-card__topline-actions">
               <A26IconButton
                 label={isLight ? "Alternar para Dark Liquid Glass" : "Alternar para Light Liquid Glass"}
                 icon={isLight ? "moon" : "sun"}
@@ -128,9 +129,9 @@ export default function BetaRegistrationPage({ navigate }) {
           </div>
 
           <div className="mt-8 text-center sm:text-left">
-            <span className="eyebrow" style={{ color: "#38bdf8" }}>OPERAÇÃO EL DORADO · REGISTRO PROTOCOLADO</span>
-            <h1 className="display-title mt-2">CANDIDATURA RECEBIDA COM SUCESSO</h1>
-            <p className="mt-4 text-textMuted max-w-2xl leading-relaxed">
+            <span className="beta-hero-eyebrow">OPERAÇÃO EL DORADO · REGISTRO PROTOCOLADO</span>
+            <h1 className="beta-hero-title mt-2">CANDIDATURA RECEBIDA COM SUCESSO</h1>
+            <p className="beta-hero-desc mt-3">
               Sua solicitação de participação no <strong>Programa de Teste Beta da Aeternum Atlas</strong> foi registrada com sucesso sob o protocolo institucional.
             </p>
           </div>
@@ -185,11 +186,11 @@ export default function BetaRegistrationPage({ navigate }) {
             </div>
           </div>
 
-          <div className="atlas-auth-actions atlas-auth-form__full mt-8">
-            <A26Button variant="primary" onClick={() => navigate("/")}>
+          <div className="beta-actions-container mt-8">
+            <A26Button variant="primary" className="beta-submit-button" onClick={() => navigate("/")}>
               VOLTAR À PÁGINA INICIAL
             </A26Button>
-            <A26Button variant="liquid" onClick={() => navigate("/login")}>
+            <A26Button variant="liquid" className="beta-login-link-button" onClick={() => navigate("/login")}>
               ACESSAR PORTAL DO ESTUDANTE
             </A26Button>
           </div>
@@ -200,11 +201,11 @@ export default function BetaRegistrationPage({ navigate }) {
 
   // Formulário de Candidatura
   return (
-    <AuthExperienceShell wide>
-      <A26Card className="atlas-auth-card atlas-auth-card--registration" data-testid="a26-beta-registration">
+    <AuthExperienceShell wide variant="beta">
+      <A26Card className="atlas-auth-card atlas-auth-card--beta" data-testid="a26-beta-registration">
         <div className="atlas-auth-card__topline">
           <span>{t("auth.secureAccess")}</span>
-          <div className="atlas-auth-card__topline-actions flex items-center gap-2">
+          <div className="atlas-auth-card__topline-actions">
             <A26IconButton
               label={isLight ? "Alternar para Dark Liquid Glass (Modo Escuro)" : "Alternar para Light Liquid Glass (Modo Claro)"}
               icon={isLight ? "moon" : "sun"}
@@ -216,42 +217,42 @@ export default function BetaRegistrationPage({ navigate }) {
           </div>
         </div>
 
-        <p className="eyebrow" style={{ color: "#38bdf8" }}>OPERAÇÃO EL DORADO · ABERTURA DEZEMBRO 2026</p>
-        <h1 className="display-title">PROGRAMA DE TESTE BETA</h1>
-        <p className="mt-3 max-w-2xl text-textMuted leading-relaxed">
+        <span className="beta-hero-eyebrow">OPERAÇÃO EL DORADO · ABERTURA DEZEMBRO 2026</span>
+        <h1 className="beta-hero-title">PROGRAMA DE TESTE BETA</h1>
+        <p className="beta-hero-desc">
           Participe do processo seletivo para a primeira turma de estudantes no ambiente imersivo da Aeternum Atlas.
           Acesso experimental pioneiro a modelos cadavéricos 3D e ao ecossistema acadêmico.
         </p>
 
         {/* Banner Informativo / Modo Pré-Lançamento */}
         {!programStatus.registration_open ? (
-          <div className="mt-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200/90 leading-relaxed flex items-start gap-3">
-            <span className="text-base select-none">⏳</span>
+          <div className="beta-prelaunch-banner" role="status">
+            <span className="beta-prelaunch-banner__icon">⏳</span>
             <div>
-              <p className="font-semibold text-amber-300">
+              <p className="beta-prelaunch-banner__title">
                 FASE DE PRÉ-LANÇAMENTO · INSCRIÇÕES EM BREVE
               </p>
-              <p className="mt-1">
+              <p className="beta-prelaunch-banner__text">
                 A abertura oficial das inscrições ocorrerá na <strong>primeira semana de dezembro de 2026</strong> para a <strong>Turma 1 (limite de 30 vagas convidadas)</strong>.
                 Você pode visualizar antecipadamente todos os requisitos e campos de qualificação abaixo. O formulário será habilitado automaticamente assim que as inscrições forem abertas.
               </p>
             </div>
           </div>
         ) : (
-          <div className="mt-4 p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-200/90 leading-relaxed flex items-start gap-3">
-            <span className="text-base select-none">✨</span>
+          <div className="beta-active-banner" role="status">
+            <span className="beta-prelaunch-banner__icon">✨</span>
             <div>
-              <p className="font-semibold text-cyan-300">
+              <p className="beta-active-banner__title">
                 INSCRIÇÕES ABERTAS · PRIMEIRA TURMA ({programStatus.remaining_slots || 30} VAGAS RESTANTES)
               </p>
-              <p className="mt-1">
+              <p className="beta-active-banner__text">
                 A submissão da candidatura registra seu interesse acadêmico. A seleção priorizará alunos de graduação em saúde para a primeira turma (30 participantes). Candidaturas excedentes integrarão a lista de espera.
               </p>
             </div>
           </div>
         )}
 
-        <form className="atlas-auth-form atlas-auth-form--registration mt-6" onSubmit={submit} noValidate>
+        <form className="beta-registration-form" onSubmit={submit} noValidate>
           {/* 1. Nome Completo */}
           <A26Field
             label="Nome Completo *"
@@ -351,11 +352,11 @@ export default function BetaRegistrationPage({ navigate }) {
             name="referralSource"
             value={values.referralSource}
             onChange={update}
-            placeholder="Ex: Professor de Anatomia, Colega de Turma, Instagram, etc."
+            placeholder="Ex: Professor de Anatomia, Colega de Turma, etc."
           />
 
           {/* 11. Motivação (Textarea em largura total) */}
-          <div className="atlas-auth-form__full">
+          <div className="beta-field-full">
             <A26Field
               as="textarea"
               label="Motivação para Participar do Programa Beta *"
@@ -363,26 +364,25 @@ export default function BetaRegistrationPage({ navigate }) {
               name="motivation"
               value={values.motivation}
               onChange={update}
-              rows={4}
+              rows={3}
               placeholder="Descreva por que você deseja participar do teste beta, como utiliza a anatomia no seu aprendizado e o que espera da plataforma Aeternum Atlas..."
             />
           </div>
 
-          {/* Consentimentos e Informações de Privacidade (Separados) */}
-          <div className="atlas-auth-form__full space-y-3 pt-4 border-t border-white/10">
-            <p className="text-xs font-semibold uppercase tracking-wider text-textMuted">
+          {/* Consentimentos e Informações de Privacidade (LGPD) */}
+          <div className="beta-consent-container">
+            <p className="beta-consent-title">
               Consentimentos e Privacidade (LGPD)
             </p>
 
-            <label className="atlas-auth-consent flex items-start gap-3 cursor-pointer">
+            <label className="beta-consent-tile">
               <input
                 name="privacyConsent"
                 type="checkbox"
                 checked={values.privacyConsent}
                 onChange={update}
-                className="mt-1"
               />
-              <span className="text-xs leading-relaxed text-textMuted">
+              <span className="beta-consent-tile__text">
                 <strong>Tratamento de Dados:</strong> Concordo com o tratamento dos meus dados pessoais e acadêmicos para finalidade exclusiva de avaliação, seleção, comunicação e participação no Programa de Teste Beta da Aeternum Atlas.
               </span>
             </label>
@@ -390,15 +390,14 @@ export default function BetaRegistrationPage({ navigate }) {
               <p className="a26-field__error text-xs text-red-400" role="alert">{errors.privacyConsent}</p>
             )}
 
-            <label className="atlas-auth-consent flex items-start gap-3 cursor-pointer">
+            <label className="beta-consent-tile">
               <input
                 name="termsConsent"
                 type="checkbox"
                 checked={values.termsConsent}
                 onChange={update}
-                className="mt-1"
               />
-              <span className="text-xs leading-relaxed text-textMuted">
+              <span className="beta-consent-tile__text">
                 <strong>Condições do Programa Beta:</strong> Declaro que estou ciente de que as vagas da primeira turma são limitadas (30 participantes) e que esta inscrição <u>não garante aprovação nem acesso imediato</u>.
               </span>
             </label>
@@ -406,15 +405,14 @@ export default function BetaRegistrationPage({ navigate }) {
               <p className="a26-field__error text-xs text-red-400" role="alert">{errors.termsConsent}</p>
             )}
 
-            <label className="atlas-auth-consent flex items-start gap-3 cursor-pointer">
+            <label className="beta-consent-tile">
               <input
                 name="communicationConsent"
                 type="checkbox"
                 checked={values.communicationConsent}
                 onChange={update}
-                className="mt-1"
               />
-              <span className="text-xs leading-relaxed text-textMuted">
+              <span className="beta-consent-tile__text">
                 <strong>Comunicações:</strong> Autorizo o recebimento de e-mails sobre o status da candidatura, orientações de teste e atualizações do programa beta.
               </span>
             </label>
@@ -422,24 +420,30 @@ export default function BetaRegistrationPage({ navigate }) {
 
           {/* Mensagem Geral de Erro */}
           {errorMessage && (
-            <p className="a26-auth-message atlas-auth-form__full is-error" role="status">
+            <p className="a26-auth-message beta-field-full is-error" role="status">
               {errorMessage}
             </p>
           )}
 
           {/* Ações */}
-          <div className="atlas-auth-actions atlas-auth-form__full mt-6">
+          <div className="beta-actions-container">
             <A26Button
               variant="primary"
               type="submit"
               loading={loading}
               disabled={!programStatus.registration_open || loading}
+              className={`beta-submit-button${!programStatus.registration_open ? " beta-submit-button--prelaunch" : ""}`}
             >
               {programStatus.registration_open
                 ? "SOLICITAR PARTICIPAÇÃO BETA"
                 : "INSCRIÇÕES EM BREVE (DEZEMBRO 2026)"}
             </A26Button>
-            <A26Button variant="liquid" type="button" onClick={() => navigate("/login")}>
+            <A26Button
+              variant="liquid"
+              type="button"
+              className="beta-login-link-button"
+              onClick={() => navigate("/login")}
+            >
               Já possui conta institucional? Entrar
             </A26Button>
           </div>
