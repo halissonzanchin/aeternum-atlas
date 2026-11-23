@@ -4,7 +4,12 @@ import LineIcon from "../icons/LineIcon";
 import { A26Surface } from "../aeternum-26";
 import { useLanguage } from "../../context/LanguageContext";
 
-export default function AuthExperienceShell({ children, wide = false }) {
+export default function AuthExperienceShell({
+  children,
+  wide = false,
+  variant = "default",
+  className = ""
+}) {
   const { t } = useLanguage();
 
   const capabilities = [
@@ -25,13 +30,35 @@ export default function AuthExperienceShell({ children, wide = false }) {
     }
   ];
 
+  const pageClasses = [
+    "atlas-auth-page",
+    variant === "beta" ? "atlas-auth-page--beta" : "",
+    className
+  ].filter(Boolean).join(" ");
+
+  const shellClasses = [
+    "atlas-auth-shell",
+    wide ? "atlas-auth-shell--wide" : "",
+    variant === "beta" ? "atlas-auth-shell--beta" : ""
+  ].filter(Boolean).join(" ");
+
+  const storyClasses = [
+    "atlas-auth-story",
+    variant === "beta" ? "atlas-auth-story--beta" : ""
+  ].filter(Boolean).join(" ");
+
+  const slotClasses = [
+    "atlas-auth-panel-slot",
+    variant === "beta" ? "atlas-auth-panel-slot--beta" : ""
+  ].filter(Boolean).join(" ");
+
   return (
-    <main className="atlas-auth-page">
-      <div className={`atlas-auth-shell${wide ? " atlas-auth-shell--wide" : ""}`}>
+    <main className={pageClasses}>
+      <div className={shellClasses}>
         <A26Surface
           as="section"
           material="regular"
-          className="atlas-auth-story"
+          className={storyClasses}
           aria-label={t("common.appName")}
           data-testid="a26-auth-story"
         >
@@ -70,7 +97,7 @@ export default function AuthExperienceShell({ children, wide = false }) {
           </div>
         </A26Surface>
 
-        <div className="atlas-auth-panel-slot">
+        <div className={slotClasses}>
           {children}
         </div>
       </div>
