@@ -1,6 +1,6 @@
 -- ==============================================================================
--- AETERNUM ATLAS — P0.21-E.1: OPERAÇÃO EL DORADO (PROGRAMA DE TESTE BETA)
--- Schema, RLS, Indexes, and RPC Functions for public.beta_applications
+-- AETERNUM ATLAS — P0.21-E.1 / P0.21-E.1.1: OPERAÇÃO EL DORADO (PROGRAMA DE TESTE BETA)
+-- Schema, RLS, Indexes, Hardened Privileges, Anti-Abuse and Safe RPC Functions
 -- ==============================================================================
 
 -- 1. Criação da Tabela de Candidaturas Beta
@@ -50,25 +50,14 @@ ON public.beta_applications (batch);
 CREATE INDEX IF NOT EXISTS idx_beta_applications_created_at 
 ON public.beta_applications (created_at DESC);
 
--- 3. Habilitação de RLS e Políticas de Segurança Estritas
+-- 3. Habilitação de RLS e Políticas de Segurança Estritas (Fail-Closed)
 ALTER TABLE public.beta_applications ENABLE ROW LEVEL SECURITY;
 
+-- Remover políticas permissivas ou que exponham dados a anon / candidatos
 DROP POLICY IF EXISTS "Public can submit beta applications" ON public.beta_applications;
-CREATE POLICY "Public can submit beta applications"
-ON public.beta_applications
-FOR INSERT
-TO anon, authenticated
-WITH CHECK (
-    status = 'pending' AND
-    privacy_consent = true AND
-    terms_consent = true AND
-    char_length(trim(full_name)) >= 3 AND
-    char_length(trim(email)) >= 5 AND
-    char_length(trim(institution_name)) >= 2 AND
-    char_length(trim(course)) >= 2 AND
-    char_length(trim(motivation)) >= 10
-);
+DROP POLICY IF EXISTS "Candidates can view own beta application" ON public.beta_applications;
 
+-- Apenas administradores autenticados podem visualizar as candidaturas completas
 DROP POLICY IF EXISTS "Admins can view all beta applications" ON public.beta_applications;
 CREATE POLICY "Admins can view all beta applications"
 ON public.beta_applications
@@ -82,15 +71,7 @@ USING (
     )
 );
 
-DROP POLICY IF EXISTS "Candidates can view own beta application" ON public.beta_applications;
-CREATE POLICY "Candidates can view own beta application"
-ON public.beta_applications
-FOR SELECT
-TO authenticated
-USING (
-    user_id = auth.uid() OR lower(trim(email)) = lower(trim(auth.jwt()->>'email'))
-);
-
+-- Apenas administradores autenticados podem atualizar candidaturas
 DROP POLICY IF EXISTS "Admins can update beta applications" ON public.beta_applications;
 CREATE POLICY "Admins can update beta applications"
 ON public.beta_applications
@@ -111,7 +92,62 @@ WITH CHECK (
     )
 );
 
--- 4. Função RPC Atômica para Submissão Segura
+-- 4. Revogação de Privilégios Diretos de Inserção e Manipulação
+REVOKE ALL ON public.beta_applications FROM PUBLIC, anon;
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON public.beta_applications FROM authenticated;
+GRANT SELECT, UPDATE ON public.beta_applications TO authenticated;
+GRANT ALL ON public.beta_applications TO service_role;
+
+-- 5. RPC para Consulta Segura e Limitada da Própria Candidatura (Sem expor dados admin)
+CREATE OR REPLACE FUNCTION public.get_my_beta_application_status()
+RETURNS JSONB
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+DECLARE
+    v_user_email TEXT;
+    v_record RECORD;
+BEGIN
+    IF auth.uid() IS NULL THEN
+        RETURN jsonb_build_object('success', false, 'code', 'UNAUTHENTICATED', 'message', 'Autenticação necessária.');
+    END IF;
+
+    SELECT email INTO v_user_email FROM auth.users WHERE id = auth.uid();
+
+    SELECT id, full_name, email, institution_name, course, academic_term, status, batch, created_at
+    INTO v_record
+    FROM public.beta_applications
+    WHERE user_id = auth.uid() OR lower(trim(email)) = lower(trim(v_user_email))
+    ORDER BY created_at DESC
+    LIMIT 1;
+
+    IF NOT FOUND THEN
+        RETURN jsonb_build_object('success', false, 'code', 'NOT_FOUND', 'message', 'Nenhuma candidatura vinculada a esta conta.');
+    END IF;
+
+    -- Retorna estritamente dados acadêmicos e status sem vazar review_notes, decision_history ou auditoria
+    RETURN jsonb_build_object(
+        'success', true,
+        'data', jsonb_build_object(
+            'id', v_record.id,
+            'full_name', v_record.full_name,
+            'email', v_record.email,
+            'institution_name', v_record.institution_name,
+            'course', v_record.course,
+            'academic_term', v_record.academic_term,
+            'status', v_record.status,
+            'batch', v_record.batch,
+            'created_at', v_record.created_at
+        )
+    );
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.get_my_beta_application_status() FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.get_my_beta_application_status() TO authenticated, service_role;
+
+-- 6. RPC Reforçada: Submissão Segura com Anti-Abuso, Rate Limiting e Validação
 CREATE OR REPLACE FUNCTION public.submit_beta_application(
     p_full_name TEXT,
     p_email TEXT,
@@ -144,10 +180,10 @@ DECLARE
     v_clean_term TEXT;
     v_clean_motivation TEXT;
     v_existing_id UUID;
-    v_existing_status TEXT;
     v_app_id UUID;
-    v_current_count INT;
+    v_approved_count INT;
     v_assigned_batch TEXT := 'batch_1_30';
+    v_recent_attempts INT;
 BEGIN
     -- Sanitização e normalização
     v_clean_email := lower(trim(p_email));
@@ -157,7 +193,23 @@ BEGIN
     v_clean_term := trim(p_academic_term);
     v_clean_motivation := trim(p_motivation);
 
-    -- Validação de Consentimentos Obrigatórios
+    -- Proteção Anti-Abuso / Rate Limiting (Máx 5 submissões por hash IP nos últimos 15 min)
+    IF p_ip_hash IS NOT NULL AND p_ip_hash <> '' THEN
+        SELECT COUNT(*) INTO v_recent_attempts
+        FROM public.beta_applications
+        WHERE ip_hash = p_ip_hash
+        AND created_at >= (timezone('utc'::text, now()) - INTERVAL '15 minutes');
+
+        IF v_recent_attempts >= 5 THEN
+            RETURN jsonb_build_object(
+                'success', false,
+                'code', 'RATE_LIMIT_EXCEEDED',
+                'message', 'Limite de requisições excedido. Por favor, aguarde alguns minutos antes de tentar novamente.'
+            );
+        END IF;
+    END IF;
+
+    -- Validação de Consentimentos Obrigatórios (LGPD)
     IF p_privacy_consent IS NOT TRUE OR p_terms_consent IS NOT TRUE THEN
         RETURN jsonb_build_object(
             'success', false,
@@ -191,8 +243,8 @@ BEGIN
         RETURN jsonb_build_object('success', false, 'code', 'INVALID_MOTIVATION', 'message', 'Apresente uma breve motivação (mínimo de 10 caracteres).');
     END IF;
 
-    -- Verificação de Duplicidade
-    SELECT id, status INTO v_existing_id, v_existing_status
+    -- Verificação de Duplicidade (Prevenção de enumeração sem vazar dados)
+    SELECT id INTO v_existing_id
     FROM public.beta_applications
     WHERE lower(trim(email)) = v_clean_email;
 
@@ -200,22 +252,24 @@ BEGIN
         RETURN jsonb_build_object(
             'success', false,
             'code', 'ALREADY_REGISTERED',
-            'message', 'Este e-mail já possui uma candidatura registrada no Programa Beta da Aeternum Atlas.',
-            'status', v_existing_status
+            'message', 'Esta candidatura já foi registrada anteriormente sob o protocolo do Programa Beta.'
         );
     END IF;
 
-    -- Lógica de Lote por Capacidade (Meta 30 -> 50 -> 100)
-    SELECT COUNT(*) INTO v_current_count FROM public.beta_applications;
-    IF v_current_count < 30 THEN
+    -- Atribuição de Lote Inicial (Todas as inscrições entram para triagem no Lote 1)
+    SELECT COUNT(*) INTO v_approved_count 
+    FROM public.beta_applications 
+    WHERE status IN ('approved', 'invited') AND batch = 'batch_1_30';
+
+    IF v_approved_count < 30 THEN
         v_assigned_batch := 'batch_1_30';
-    ELSIF v_current_count < 50 THEN
+    ELSIF v_approved_count < 50 THEN
         v_assigned_batch := 'batch_2_50';
     ELSE
         v_assigned_batch := 'batch_3_100';
     END IF;
 
-    -- Inserção na Tabela de Candidaturas
+    -- Inserção Atômica com Campos Administrativos RIGOROSAMENTE Protegidos
     INSERT INTO public.beta_applications (
         full_name,
         email,
@@ -230,6 +284,10 @@ BEGIN
         motivation,
         status,
         batch,
+        priority_score,
+        review_notes,
+        reviewed_at,
+        reviewed_by,
         privacy_consent,
         terms_consent,
         communication_consent,
@@ -251,8 +309,12 @@ BEGIN
         COALESCE(NULLIF(trim(p_primary_device), ''), 'Desktop Windows'),
         trim(p_referral_source),
         v_clean_motivation,
-        'pending',
-        v_assigned_batch,
+        'pending',              -- Forçado no servidor
+        v_assigned_batch,       -- Forçado no servidor
+        0,                      -- Forçado no servidor
+        NULL,                   -- Forçado no servidor
+        NULL,                   -- Forçado no servidor
+        NULL,                   -- Forçado no servidor
         p_privacy_consent,
         p_terms_consent,
         COALESCE(p_communication_consent, false),
@@ -292,10 +354,9 @@ BEGIN
             )
         );
     EXCEPTION WHEN OTHERS THEN
-        -- Telemetria opcional não deve abortar o cadastro
     END;
 
-    -- Notificação Administrativa
+    -- Notificação Institucional Interna para Administradores
     BEGIN
         INSERT INTO public.institutional_notifications (
             title,
@@ -324,7 +385,6 @@ BEGIN
             )
         );
     EXCEPTION WHEN OTHERS THEN
-        -- Preserva integridade da transação
     END;
 
     RETURN jsonb_build_object(
@@ -337,7 +397,10 @@ BEGIN
 END;
 $$;
 
--- 5. Função RPC Administrativa para Avaliação
+REVOKE ALL ON FUNCTION public.submit_beta_application(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, BOOLEAN, BOOLEAN, BOOLEAN, TEXT, TEXT, TEXT) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.submit_beta_application(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, BOOLEAN, BOOLEAN, BOOLEAN, TEXT, TEXT, TEXT) TO anon, authenticated, service_role;
+
+-- 7. RPC de Avaliação Administrativa com Controle Rígido de Capacidade de Vagas
 CREATE OR REPLACE FUNCTION public.admin_review_beta_application(
     p_application_id UUID,
     p_new_status TEXT,
@@ -352,10 +415,12 @@ AS $$
 DECLARE
     v_is_admin BOOLEAN := false;
     v_current_app RECORD;
+    v_target_batch TEXT;
+    v_approved_count INT;
     v_updated_history JSONB;
 BEGIN
-    -- Verificar privilégios administrativos
-    IF (COALESCE(auth.jwt()->>'role', current_setting('request.jwt.claim.role', true)) = 'service_role') THEN
+    -- Verificação de Privilégio Administrativo
+    IF (current_user IN ('postgres', 'supabase_admin') OR COALESCE(auth.jwt()->>'role', current_setting('request.jwt.claim.role', true)) = 'service_role') THEN
         v_is_admin := true;
     ELSE
         SELECT (role IN ('admin', 'super_admin', 'institution_admin')) INTO v_is_admin
@@ -364,10 +429,10 @@ BEGIN
     END IF;
 
     IF v_is_admin IS NOT TRUE THEN
-        RETURN jsonb_build_object('success', false, 'code', 'UNAUTHORIZED', 'message', 'Acesso restrito a administradores.');
+        RETURN jsonb_build_object('success', false, 'code', 'UNAUTHORIZED', 'message', 'Acesso restrito a administradores autorizados.');
     END IF;
 
-    -- Validar novo status
+    -- Validar novo status permitido
     IF p_new_status NOT IN ('pending', 'under_review', 'approved', 'waitlisted', 'rejected', 'invited') THEN
         RETURN jsonb_build_object('success', false, 'code', 'INVALID_STATUS', 'message', 'Status administrativo inválido.');
     END IF;
@@ -381,15 +446,45 @@ BEGIN
         RETURN jsonb_build_object('success', false, 'code', 'NOT_FOUND', 'message', 'Candidatura não localizada.');
     END IF;
 
-    -- Anexar ao histórico de decisões
+    v_target_batch := COALESCE(p_batch, v_current_app.batch, 'batch_1_30');
+
+    -- CONTROLE RÍGIDO DE CAPACIDADE: Bloquear aprovação acima da cota homologada
+    IF p_new_status IN ('approved', 'invited') AND v_current_app.status NOT IN ('approved', 'invited') THEN
+        SELECT COUNT(*) INTO v_approved_count
+        FROM public.beta_applications
+        WHERE status IN ('approved', 'invited')
+        AND batch = v_target_batch;
+
+        IF v_target_batch = 'batch_1_30' AND v_approved_count >= 30 THEN
+            RETURN jsonb_build_object(
+                'success', false,
+                'code', 'CAPACITY_EXCEEDED',
+                'message', 'A capacidade máxima do Lote 1 (30 vagas aprovadas) foi atingida. Expansão para Lote 2 requer homologação operacional.'
+            );
+        ELSIF v_target_batch = 'batch_2_50' AND v_approved_count >= 50 THEN
+            RETURN jsonb_build_object(
+                'success', false,
+                'code', 'CAPACITY_EXCEEDED',
+                'message', 'A capacidade máxima do Lote 2 (50 vagas aprovadas) foi atingida. Expansão para Lote 3 requer homologação operacional.'
+            );
+        ELSIF v_target_batch = 'batch_3_100' AND v_approved_count >= 100 THEN
+            RETURN jsonb_build_object(
+                'success', false,
+                'code', 'CAPACITY_EXCEEDED',
+                'message', 'A capacidade máxima do Lote 3 (100 vagas aprovadas) foi atingida.'
+            );
+        END IF;
+    END IF;
+
+    -- Anexar ao histórico auditado de decisões
     v_updated_history := COALESCE(v_current_app.decision_history, '[]'::jsonb) || jsonb_build_array(
         jsonb_build_object(
             'from_status', v_current_app.status,
             'to_status', p_new_status,
             'actor_id', auth.uid(),
             'notes', p_review_notes,
-            'timestamp', timezone('utc'::text, now()),
-            'batch', COALESCE(p_batch, v_current_app.batch)
+            'batch', v_target_batch,
+            'timestamp', timezone('utc'::text, now())
         )
     );
 
@@ -399,7 +494,7 @@ BEGIN
         review_notes = COALESCE(p_review_notes, review_notes),
         reviewed_at = timezone('utc'::text, now()),
         reviewed_by = auth.uid(),
-        batch = COALESCE(p_batch, batch),
+        batch = v_target_batch,
         decision_history = v_updated_history,
         updated_at = timezone('utc'::text, now())
     WHERE id = p_application_id;
@@ -408,13 +503,11 @@ BEGIN
         'success', true,
         'application_id', p_application_id,
         'status', p_new_status,
+        'batch', v_target_batch,
         'message', 'Avaliação da candidatura registrada com sucesso.'
     );
 END;
 $$;
 
--- 6. Concessão de Privilégios
-GRANT SELECT, INSERT ON public.beta_applications TO anon, authenticated;
-GRANT ALL ON public.beta_applications TO service_role;
-GRANT EXECUTE ON FUNCTION public.submit_beta_application TO anon, authenticated, service_role;
-GRANT EXECUTE ON FUNCTION public.admin_review_beta_application TO authenticated, service_role;
+REVOKE ALL ON FUNCTION public.admin_review_beta_application(UUID, TEXT, TEXT, TEXT) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.admin_review_beta_application(UUID, TEXT, TEXT, TEXT) TO authenticated, service_role;

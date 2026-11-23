@@ -127,29 +127,49 @@ export default function BetaCandidatesManagementSection() {
         </A26Button>
       </div>
 
-      {/* Métricas de Capacidade e Lotes */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <A26Metric
-          label="Total de Candidatos"
-          value={capacity?.total || 0}
-          icon={<LineIcon name="users" />}
-        />
-        <A26Metric
-          label="Aprovados 1ª Turma"
-          value={`${capacity?.batch1Approved || 0} / 30`}
-          trend={capacity?.batch1Approved >= 30 ? "Vagas Preenchidas" : `${capacity?.batch1Remaining || 30} vagas restantes`}
-          icon={<LineIcon name="checkCircle" />}
-        />
-        <A26Metric
-          label="Lista de Espera"
-          value={capacity?.waitlisted || 0}
-          icon={<LineIcon name="clock" />}
-        />
-        <A26Metric
-          label="Pendentes de Revisão"
-          value={capacity?.pending || 0}
-          icon={<LineIcon name="clipboardCheck" />}
-        />
+      {/* Métricas de Capacidade e Lotes (7 Indicadores Canônicos) */}
+      <div className="space-y-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <A26Metric
+            label="Total de Candidaturas"
+            value={capacity?.total || 0}
+            icon={<LineIcon name="layers" />}
+          />
+          <A26Metric
+            label="Candidaturas Pendentes"
+            value={capacity?.pending || 0}
+            icon={<LineIcon name="clipboardCheck" />}
+          />
+          <A26Metric
+            label="Em Análise"
+            value={capacity?.under_review || 0}
+            icon={<LineIcon name="eye" />}
+          />
+          <A26Metric
+            label="Vagas Aprovadas (1ª Turma)"
+            value={`${capacity?.batch1Approved || 0} / 30`}
+            trend={capacity?.batch1Approved >= 30 ? "Capacidade Esgotada" : `${capacity?.batch1Remaining || 30} vagas restantes`}
+            icon={<LineIcon name="target" />}
+          />
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <A26Metric
+            label="Lista de Espera"
+            value={capacity?.waitlisted || 0}
+            icon={<LineIcon name="clock" />}
+          />
+          <A26Metric
+            label="Convites Enviados"
+            value={capacity?.invited || 0}
+            icon={<LineIcon name="send" />}
+          />
+          <A26Metric
+            label="Contas Ativadas"
+            value={capacity?.activated || 0}
+            trend="Provisionamento formal"
+            icon={<LineIcon name="user" />}
+          />
+        </div>
       </div>
 
       {/* Barra de Filtros e Busca */}

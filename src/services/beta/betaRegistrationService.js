@@ -163,12 +163,13 @@ export async function reviewBetaApplication(applicationId, newStatus, reviewNote
 
 /**
  * Obtém sumário de capacidade e lotes do Programa Beta.
+ * Métricas: Total, Pendentes, Em Análise, Aprovadas, Lista de Espera, Convites Enviados, Contas Ativadas.
  */
 export async function getBetaCapacitySummary() {
   try {
     const { data, error } = await supabase
       .from("beta_applications")
-      .select("status, batch");
+      .select("status, batch, user_id, email");
 
     if (error) throw error;
 
@@ -180,6 +181,7 @@ export async function getBetaCapacitySummary() {
       waitlisted: 0,
       rejected: 0,
       invited: 0,
+      activated: 0,
       batch1Approved: 0,
       batch1Cap: 30,
       batch2Cap: 50,
@@ -190,8 +192,11 @@ export async function getBetaCapacitySummary() {
       if (summary[item.status] !== undefined) {
         summary[item.status]++;
       }
-      if (item.status === "approved" && item.batch === "batch_1_30") {
+      if ((item.status === "approved" || item.status === "invited") && item.batch === "batch_1_30") {
         summary.batch1Approved++;
+      }
+      if (item.user_id) {
+        summary.activated++;
       }
     }
 
@@ -209,6 +214,7 @@ export async function getBetaCapacitySummary() {
         waitlisted: 0,
         rejected: 0,
         invited: 0,
+        activated: 0,
         batch1Approved: 0,
         batch1Cap: 30,
         batch2Cap: 50,
