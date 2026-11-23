@@ -217,6 +217,9 @@ export default function Home({ navigate }) {
         <div className="public-actions">
           <span className="public-desktop-language"><LanguageSelector compact /></span>
           <span className="public-mobile-language"><LanguageSelector compact /></span>
+          <A26Button variant="secondary" className="public-beta-button" onClick={() => navigate("/programa-beta")}>
+            PROGRAMA BETA
+          </A26Button>
           <A26Button variant="liquid" aria-label={t("auth.login")} onClick={() => navigate("/login")}>
             <span className="public-login-full">{t("auth.login").toUpperCase()}</span>
             <span className="public-login-short">{t("auth.loginShort").toUpperCase()}</span>
@@ -274,6 +277,7 @@ export default function Home({ navigate }) {
           <button onClick={() => navigate("/models")}>{t("navigation.models3d")}</button>
           <button onClick={() => navigate("/atlas")}>{t("navigation.anatomicalAtlas")}</button>
           <button onClick={() => navigate("/courses")}>{t("navigation.courses")}</button>
+          <button onClick={() => navigate("/programa-beta")}>Programa Beta</button>
         </nav>
         <div className="p3-footer-status">
           <span aria-hidden="true" />

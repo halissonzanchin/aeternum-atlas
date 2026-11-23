@@ -9,6 +9,7 @@ import { isAdminPath, isPrivatePath } from "./utils/accessControl";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import BetaRegistrationPage from "./pages/beta/BetaRegistrationPage";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Atlas from "./pages/atlas/Atlas";
 import Models from "./pages/models/Models";
@@ -173,6 +174,7 @@ export default function App() {
     if (path === "/") return <Home navigate={navigate} />;
     if (path === "/login") return <Login navigate={navigate} onAuth={handleAuth} />;
     if (path === "/register") return <Register navigate={navigate} onAuth={handleAuth} />;
+    if (path === "/programa-beta" || path === "/beta") return <BetaRegistrationPage navigate={navigate} />;
 
     if (!authReady && (isPrivatePath(path) || isAdminPath(path))) {
       if (user) {

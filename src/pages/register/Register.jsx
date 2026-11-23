@@ -181,6 +181,7 @@ export default function Register({ navigate, onAuth }) {
           <div className="atlas-auth-actions atlas-auth-form__full">
             <A26Button variant="primary" type="submit" loading={loading}>{t("auth.createInstitutionalAccess")}</A26Button>
             <A26Button variant="liquid" type="button" onClick={() => navigate("/login")}>{t("auth.alreadyHaveAccount")}</A26Button>
+            <A26Button variant="liquid" type="button" onClick={() => navigate("/programa-beta")}>Candidatura Programa Beta</A26Button>
           </div>
         </form>
       </A26Card>

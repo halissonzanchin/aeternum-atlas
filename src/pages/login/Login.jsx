@@ -161,6 +161,7 @@ export default function Login({ navigate, onAuth }) {
             {t("auth.forgotPassword")}
           </A26Button>
           <A26Button className="atlas-auth-secondary" variant="liquid" onClick={() => navigate("/register")}>{t("auth.newAccount")}</A26Button>
+          <A26Button className="atlas-auth-secondary" variant="liquid" onClick={() => navigate("/programa-beta")}>Programa Beta</A26Button>
         </div>
       </A26Card>
     </AuthExperienceShell>
