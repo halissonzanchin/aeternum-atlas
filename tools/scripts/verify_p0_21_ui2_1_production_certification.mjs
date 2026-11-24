@@ -179,8 +179,8 @@ async function runBrowserSuite() {
 
   const finalReport = {
     timestamp: new Date().toISOString(),
-    baselineCommit: "58558e62209339c4d14b4708fac753dba6632050",
-    pr: "https://github.com/halissonzanchin/aeternum-atlas/pull/47",
+    baselineCommit: "18ca977af14e471fb6e7fb7014a1ba80951cc764",
+    pr: "https://github.com/halissonzanchin/aeternum-atlas/pull/48",
     httpResults,
     orbitalMath,
     zoomMatrixHome: [],
