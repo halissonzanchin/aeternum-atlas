@@ -646,7 +646,9 @@
 
 @media (min-width: 1121px) and (max-width: 1420px) {
   .cinematic-home .a26-public-header {
-    grid-template-columns: 250px minmax(0, 1fr) 330px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-inline: 28px;
   }
 
@@ -1308,7 +1310,9 @@ body:has(.atlas-auth-page) #root {
   }
 
   .cinematic-home .a26-public-header {
-    grid-template-columns: minmax(180px, 1fr) auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .cinematic-home .a26-public-header .public-home-nav {
@@ -1527,7 +1531,9 @@ body:has(.atlas-auth-page) #root {
   .cinematic-home .a26-public-header {
     min-height: 72px;
     padding: 9px 12px;
-    grid-template-columns: minmax(112px, 1fr) auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 8px;
   }
 

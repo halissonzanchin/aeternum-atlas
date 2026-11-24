@@ -24,12 +24,13 @@
   overflow: visible !important;
 }
 
-/* Left Column · Institutional Panel (Sticky, Unified, Zero Gaps) */
+/* Left Column · Institutional Panel (Natural Document Flow, Unified Container, Zero Nested Scroll) */
 .atlas-auth-story--beta {
-  position: sticky !important;
-  top: 24px !important;
-  max-height: calc(100vh - 48px) !important;
-  overflow-y: auto !important;
+  position: relative !important;
+  top: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: flex-start !important;
@@ -44,17 +45,6 @@
   box-shadow:
     0 32px 80px rgba(0, 0, 0, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(127, 247, 244, 0.2) transparent;
-}
-
-.atlas-auth-story--beta::-webkit-scrollbar {
-  width: 4px;
-}
-
-.atlas-auth-story--beta::-webkit-scrollbar-thumb {
-  background: rgba(127, 247, 244, 0.25);
-  border-radius: 4px;
 }
 
 .atlas-auth-story--beta .atlas-auth-brand {

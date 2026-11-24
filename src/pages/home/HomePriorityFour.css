@@ -1,9 +1,11 @@
 /* Premium direction: editorial clinical interface and quieter navigation. */
 @media (min-width: 1181px) {
   .cinematic-home .cinematic-public-header {
-    grid-template-columns: minmax(230px, 0.75fr) minmax(540px, 1.2fr) minmax(260px, 0.8fr);
-    gap: clamp(18px, 2vw, 28px);
-    padding-inline: clamp(24px, 2.7vw, 72px);
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: clamp(14px, 1.8vw, 28px);
+    padding-inline: clamp(20px, 2.5vw, 64px);
     background: rgba(1, 8, 11, 0.76);
   }
 
@@ -20,7 +22,7 @@
   .cinematic-home .public-home-nav-button {
     position: relative;
     min-height: 44px;
-    padding-inline: clamp(12px, 1.25vw, 22px);
+    padding-inline: clamp(10px, 1vw, 16px);
     border-radius: var(--a26-radius-floating);
     color: rgba(235, 240, 238, 0.72);
     background:
@@ -623,12 +625,15 @@
 
 @media (max-width: 1420px) and (min-width: 1181px) {
   .cinematic-home .cinematic-public-header {
-    grid-template-columns: 250px 1fr 330px;
-    padding-inline: 28px;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding-inline: 24px;
+    gap: 16px;
   }
 
   .cinematic-home .public-home-nav-button {
-    padding-inline: 11px;
+    padding-inline: 10px;
     font-size: 0.68rem;
   }
 

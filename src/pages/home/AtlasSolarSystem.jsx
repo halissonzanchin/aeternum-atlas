@@ -7,11 +7,11 @@ const PLANETS = [
     titleKey: "publicHome.heroFeatures.models.title",
     descriptionKey: "publicHome.primaryModuleDescription",
     path: "/models",
-    radius: "clamp(108px, 7.8vw, 120px)",
-    angle: 326,
-    duration: "43s",
+    radius: "clamp(120px, 8.8vw, 128px)",
+    angle: 0,
+    duration: "60s",
     direction: "normal",
-    delay: "-11s"
+    delay: "0s"
   },
   {
     id: "systems",
@@ -19,11 +19,11 @@ const PLANETS = [
     titleKey: "publicHome.heroFeatures.atlas.title",
     descriptionKey: "publicHome.modules.atlas",
     path: "/atlas",
-    radius: "clamp(128px, 9.5vw, 146px)",
-    angle: 56,
-    duration: "61s",
-    direction: "reverse",
-    delay: "-23s"
+    radius: "clamp(120px, 8.8vw, 128px)",
+    angle: 180,
+    duration: "60s",
+    direction: "normal",
+    delay: "0s"
   },
   {
     id: "content",
@@ -31,11 +31,11 @@ const PLANETS = [
     titleKey: "publicHome.heroFeatures.content.title",
     descriptionKey: "publicHome.modules.content",
     path: "/courses",
-    radius: "clamp(168px, 12.7vw, 190px)",
-    angle: 142,
-    duration: "83s",
-    direction: "normal",
-    delay: "-37s"
+    radius: "clamp(202px, 15vw, 218px)",
+    angle: 45,
+    duration: "90s",
+    direction: "reverse",
+    delay: "0s"
   },
   {
     id: "courses",
@@ -43,11 +43,11 @@ const PLANETS = [
     titleKey: "navigation.courses",
     descriptionKey: "publicHome.modules.courses",
     path: "/courses",
-    radius: "clamp(148px, 11.2vw, 168px)",
-    angle: 220,
-    duration: "54s",
-    direction: "normal",
-    delay: "-7s"
+    radius: "clamp(202px, 15vw, 218px)",
+    angle: 165,
+    duration: "90s",
+    direction: "reverse",
+    delay: "0s"
   },
   {
     id: "access",
@@ -55,11 +55,11 @@ const PLANETS = [
     titleKey: "publicHome.institutionalAccessTitle",
     descriptionKey: "publicHome.institutionalAccessText",
     path: "/register",
-    radius: "clamp(184px, 13.8vw, 208px)",
-    angle: 288,
-    duration: "104s",
+    radius: "clamp(202px, 15vw, 218px)",
+    angle: 285,
+    duration: "90s",
     direction: "reverse",
-    delay: "-49s"
+    delay: "0s"
   }
 ];
 
