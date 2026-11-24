@@ -56,7 +56,7 @@ export default function Home({ navigate }) {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 1140 && mobileMenuOpen) {
+      if (window.innerWidth > 1180 && mobileMenuOpen) {
         setMobileMenuOpen(false);
       }
     };
