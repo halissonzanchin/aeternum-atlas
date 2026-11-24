@@ -639,86 +639,316 @@ body:has(.atlas-auth-page--beta) #root,
   }
 }
 
-/* Light Mode Overrides (Aeternum 26 Light Liquid Glass) */
+/* ==========================================================================
+   Light Mode Overrides (Aeternum 26.1 Light Liquid Glass · Estilo iOS 27)
+   Frosted Translucent Lenses, Calibrated Sage Tint & Strict WCAG AA Accessibility
+   ========================================================================== */
+
+/* Left Story Panel · Frosted Translucent Glass with Specular Bevel */
 .a26-theme-light .atlas-auth-story--beta {
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(240, 249, 250, 0.8)),
-    rgba(255, 255, 255, 0.88) !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08), inset 0 1px 0 #ffffff !important;
+    linear-gradient(155deg, rgba(255, 255, 255, 0.94) 0%, rgba(240, 248, 245, 0.88) 100%),
+    radial-gradient(circle at 12% 0%, rgba(15, 118, 110, 0.08), transparent 50%),
+    rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(15, 118, 110, 0.15) !important;
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.08),
+    inset 0 1.5px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(15, 118, 110, 0.06) !important;
 }
 
-.a26-theme-light .atlas-auth-story--beta .atlas-auth-brand strong,
-.a26-theme-light .atlas-auth-story--beta .atlas-auth-story-title,
-.a26-theme-light .atlas-auth-story--beta .atlas-auth-capability strong {
-  color: #0f172a;
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-brand {
+  border-bottom: 1px solid rgba(15, 118, 110, 0.14) !important;
 }
 
-.a26-theme-light .atlas-auth-story--beta .atlas-auth-brand span,
-.a26-theme-light .atlas-auth-story--beta .atlas-auth-story-copy p,
-.a26-theme-light .atlas-auth-story--beta .atlas-auth-capability p {
-  color: #475569;
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-brand strong {
+  color: #0f172a !important;
+}
+
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-brand span {
+  color: #475569 !important;
+}
+
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-kicker {
+  color: #0f766e !important;
+}
+
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-story-title {
+  color: #0f172a !important;
+  text-shadow: none !important;
+}
+
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-story-copy p {
+  color: #334155 !important;
 }
 
 .a26-theme-light .atlas-auth-story--beta .atlas-auth-capability {
-  background: rgba(0, 0, 0, 0.02);
-  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(240, 248, 245, 0.6) !important;
+  border: 1px solid rgba(15, 118, 110, 0.14) !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
 }
 
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-capability:hover {
+  background: rgba(240, 248, 245, 0.9) !important;
+  border-color: rgba(15, 118, 110, 0.28) !important;
+}
+
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-capability__icon {
+  background: rgba(15, 118, 110, 0.08) !important;
+  border: 1px solid rgba(15, 118, 110, 0.2) !important;
+  color: #0f766e !important;
+}
+
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-capability strong {
+  color: #0f172a !important;
+}
+
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-capability p {
+  color: #475569 !important;
+}
+
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-status {
+  background: rgba(15, 118, 110, 0.07) !important;
+  border: 1px solid rgba(15, 118, 110, 0.2) !important;
+}
+
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-status strong {
+  color: #0f766e !important;
+}
+
+.a26-theme-light .atlas-auth-story--beta .atlas-auth-status small {
+  color: #475569 !important;
+}
+
+/* Right Card · Frosted Translucent Glass */
 .a26-theme-light .atlas-auth-card--beta {
   background:
-    linear-gradient(155deg, rgba(255, 255, 255, 0.95), rgba(240, 249, 250, 0.8)),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.94) 0%, rgba(240, 248, 245, 0.88) 100%),
+    radial-gradient(circle at 92% 0%, rgba(15, 118, 110, 0.08), transparent 45%),
     rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08), inset 0 1px 0 #ffffff !important;
+  border: 1px solid rgba(15, 118, 110, 0.15) !important;
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.08),
+    inset 0 1.5px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(15, 118, 110, 0.06) !important;
+}
+
+.a26-theme-light .atlas-auth-card--beta .atlas-auth-card__topline {
+  border-bottom: 1px solid rgba(15, 118, 110, 0.12) !important;
+}
+
+.a26-theme-light .atlas-auth-card--beta .atlas-auth-card__topline > span {
+  color: #0f766e !important;
+}
+
+.a26-theme-light .beta-hero-eyebrow {
+  color: #0f766e !important;
 }
 
 .a26-theme-light .beta-hero-title {
-  color: #0f172a;
+  color: #0f172a !important;
+  text-shadow: none !important;
 }
 
 .a26-theme-light .beta-hero-desc {
-  color: #475569;
+  color: #334155 !important;
 }
 
+/* Pre-Launch Banner · High Contrast Warm Amber Frosted Glass (WCAG AA >= 4.5:1) */
+.a26-theme-light .beta-prelaunch-banner,
+.a26-theme-light .atlas-auth-card--beta .beta-prelaunch-banner {
+  background:
+    linear-gradient(135deg, rgba(254, 243, 199, 0.78) 0%, rgba(255, 251, 235, 0.88) 100%),
+    rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(217, 119, 6, 0.38) !important;
+  box-shadow:
+    0 8px 24px rgba(180, 83, 9, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+.a26-theme-light .beta-prelaunch-banner__icon,
+.a26-theme-light .atlas-auth-card--beta .beta-prelaunch-banner__icon {
+  filter: drop-shadow(0 1px 2px rgba(180, 83, 9, 0.2));
+}
+
+.a26-theme-light .beta-prelaunch-banner .beta-prelaunch-banner__title,
+.a26-theme-light .atlas-auth-card--beta .beta-prelaunch-banner p.beta-prelaunch-banner__title {
+  color: #92400e !important;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.a26-theme-light .beta-prelaunch-banner .beta-prelaunch-banner__text,
+.a26-theme-light .atlas-auth-card--beta .beta-prelaunch-banner p.beta-prelaunch-banner__text {
+  color: #451a03 !important;
+}
+
+.a26-theme-light .beta-prelaunch-banner .beta-prelaunch-banner__text strong,
+.a26-theme-light .atlas-auth-card--beta .beta-prelaunch-banner p.beta-prelaunch-banner__text strong {
+  color: #78350f !important;
+  font-weight: 700;
+}
+
+/* Active Banner (When Registration Opens) */
+.a26-theme-light .beta-active-banner,
+.a26-theme-light .atlas-auth-card--beta .beta-active-banner {
+  background:
+    linear-gradient(135deg, rgba(204, 251, 241, 0.75) 0%, rgba(240, 253, 250, 0.88) 100%),
+    rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(15, 118, 110, 0.32) !important;
+  box-shadow:
+    0 8px 24px rgba(15, 118, 110, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+.a26-theme-light .beta-active-banner .beta-active-banner__title,
+.a26-theme-light .atlas-auth-card--beta .beta-active-banner p.beta-active-banner__title {
+  color: #0f766e !important;
+  font-weight: 800;
+}
+
+.a26-theme-light .beta-active-banner .beta-active-banner__text,
+.a26-theme-light .atlas-auth-card--beta .beta-active-banner p.beta-active-banner__text {
+  color: #134e4a !important;
+}
+
+.a26-theme-light .beta-active-banner .beta-active-banner__text strong,
+.a26-theme-light .atlas-auth-card--beta .beta-active-banner p.beta-active-banner__text strong {
+  color: #042f2e !important;
+  font-weight: 700;
+}
+
+/* Form Controls & High-Legibility Placeholders (Matching Operator Reference) */
 .a26-theme-light .beta-registration-form .a26-field__label {
-  color: #1e293b;
+  color: #0f172a !important;
 }
 
 .a26-theme-light .beta-registration-form .a26-field__control,
-.a26-theme-light .beta-registration-form select.a26-field__control {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.16);
-  color: #0f172a;
+.a26-theme-light .beta-registration-form select.a26-field__control,
+.a26-theme-light .beta-registration-form textarea.a26-field__control {
+  background: rgba(235, 244, 241, 0.78) !important;
+  border: 1px solid rgba(15, 118, 110, 0.18) !important;
+  color: #0f172a !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(15, 23, 42, 0.04),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5) !important;
+}
+
+.a26-theme-light .beta-registration-form .a26-field__control:hover,
+.a26-theme-light .beta-registration-form select.a26-field__control:hover,
+.a26-theme-light .beta-registration-form textarea.a26-field__control:hover {
+  background: rgba(240, 248, 245, 0.92) !important;
+  border-color: rgba(15, 118, 110, 0.35) !important;
+}
+
+.a26-theme-light .beta-registration-form .a26-field__control:focus,
+.a26-theme-light .beta-registration-form select.a26-field__control:focus,
+.a26-theme-light .beta-registration-form textarea.a26-field__control:focus {
+  background: #ffffff !important;
+  border-color: #0f766e !important;
+  box-shadow:
+    0 0 0 3px rgba(15, 118, 110, 0.16),
+    inset 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+.a26-theme-light .beta-registration-form .a26-field__control::placeholder,
+.a26-theme-light .beta-registration-form select.a26-field__control::placeholder,
+.a26-theme-light .beta-registration-form textarea.a26-field__control::placeholder {
+  color: #475569 !important;
+  opacity: 1 !important;
 }
 
 .a26-theme-light .beta-registration-form select.a26-field__control option {
-  background: #ffffff;
-  color: #0f172a;
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* LGPD Consent Section */
+.a26-theme-light .beta-consent-container {
+  border-top: 1px solid rgba(15, 118, 110, 0.14) !important;
+}
+
+.a26-theme-light .beta-consent-title,
+.a26-theme-light .atlas-auth-card--beta p.beta-consent-title {
+  color: #0f766e !important;
 }
 
 .a26-theme-light .beta-consent-tile {
-  background: rgba(0, 0, 0, 0.02);
-  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(240, 248, 245, 0.55) !important;
+  border: 1px solid rgba(15, 118, 110, 0.14) !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02) !important;
+}
+
+.a26-theme-light .beta-consent-tile:hover {
+  background: rgba(240, 248, 245, 0.85) !important;
+  border-color: rgba(15, 118, 110, 0.28) !important;
+}
+
+.a26-theme-light .beta-consent-tile--required {
+  border-left: 3px solid #0f766e !important;
+}
+
+.a26-theme-light .beta-consent-tile input[type="checkbox"] {
+  accent-color: #0f766e !important;
 }
 
 .a26-theme-light .beta-consent-tile__text {
-  color: #475569;
+  color: #334155 !important;
 }
 
 .a26-theme-light .beta-consent-tile__text strong {
-  color: #0f172a;
+  color: #0f172a !important;
 }
 
+/* Pre-Launch Disabled & Secondary Action Buttons */
 .a26-theme-light .beta-submit-button--prelaunch {
-  background: rgba(217, 119, 6, 0.12) !important;
-  border-color: rgba(217, 119, 6, 0.5) !important;
-  color: #b45309 !important;
-  box-shadow: 0 8px 24px rgba(217, 119, 6, 0.12) !important;
+  background:
+    linear-gradient(135deg, rgba(254, 243, 199, 0.78) 0%, rgba(253, 230, 138, 0.65) 100%),
+    rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(217, 119, 6, 0.45) !important;
+  color: #78350f !important;
+  box-shadow:
+    0 6px 20px rgba(180, 83, 9, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
 }
 
 .a26-theme-light .beta-login-link-button {
-  background: rgba(0, 0, 0, 0.03);
-  border-color: rgba(0, 0, 0, 0.1);
-  color: #475569;
+  background: rgba(240, 248, 245, 0.65) !important;
+  border: 1px solid rgba(15, 118, 110, 0.2) !important;
+  color: #0f766e !important;
+  box-shadow:
+    0 2px 8px rgba(15, 23, 42, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+.a26-theme-light .beta-login-link-button:hover {
+  background: rgba(240, 248, 245, 0.95) !important;
+  border-color: #0f766e !important;
+  color: #115e59 !important;
+}
+
+/* Success State Badges in Light Mode */
+.a26-theme-light [data-testid="a26-beta-success"] .bg-white\/\[0\.03\] {
+  background-color: rgba(240, 248, 245, 0.6) !important;
+  border-color: rgba(15, 118, 110, 0.15) !important;
+}
+
+.a26-theme-light [data-testid="a26-beta-success"] .border-white\/10 {
+  border-color: rgba(15, 118, 110, 0.12) !important;
+}
+
+.a26-theme-light [data-testid="a26-beta-success"] .border-white\/5 {
+  border-color: rgba(15, 118, 110, 0.08) !important;
+}
+
+.a26-theme-light [data-testid="a26-beta-success"] .bg-cyan-500\/20 {
+  background-color: rgba(15, 118, 110, 0.1) !important;
+  color: #0f766e !important;
+  border-color: rgba(15, 118, 110, 0.3) !important;
+}
+
+.a26-theme-light [data-testid="a26-beta-success"] .bg-amber-500\/20 {
+  background-color: rgba(217, 119, 6, 0.1) !important;
+  color: #92400e !important;
+  border-color: rgba(217, 119, 6, 0.3) !important;
 }
