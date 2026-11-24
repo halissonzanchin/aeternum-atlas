@@ -3,6 +3,7 @@ import AeternumLogo from "../AeternumLogo";
 import LineIcon from "../icons/LineIcon";
 import { A26Surface } from "../aeternum-26";
 import { useLanguage } from "../../context/LanguageContext";
+import AuroraVeilBackground from "../AuroraVeilBackground/AuroraVeilBackground";
 
 export default function AuthExperienceShell({
   children,
@@ -54,6 +55,7 @@ export default function AuthExperienceShell({
 
   return (
     <main className={pageClasses}>
+      {variant === "beta" && <AuroraVeilBackground />}
       <div className={shellClasses}>
         <A26Surface
           as="section"
