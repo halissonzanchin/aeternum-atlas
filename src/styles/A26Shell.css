@@ -1631,6 +1631,81 @@ body:has(.atlas-auth-page--beta) #root,
   }
 }
 
+/* ==========================================================================
+   Universal Mobile & Height-Guarded Auth Recovery (P0.21-MOBILE.1)
+   Supports Portrait & Landscape Smartphones (<= 600px height) and Compact Tablets
+   ========================================================================== */
+@media (max-width: 899px), (max-height: 600px) {
+  .atlas-auth-page {
+    padding:
+      max(12px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(20px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left));
+    place-items: start center;
+    overflow-y: auto;
+  }
+
+  .atlas-auth-shell:not(.atlas-auth-shell--beta),
+  .atlas-auth-shell--wide {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    min-height: auto;
+    gap: 12px;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .atlas-auth-story:not(.atlas-auth-story--beta) {
+    min-height: 0 !important;
+    padding: 14px 10px;
+    gap: 12px;
+    border-right: 0 !important;
+    overflow: visible;
+  }
+
+  .atlas-auth-story:not(.atlas-auth-story--beta) .atlas-auth-story-copy,
+  .atlas-auth-story:not(.atlas-auth-story--beta) .atlas-auth-capabilities,
+  .atlas-auth-story:not(.atlas-auth-story--beta) .atlas-auth-status {
+    display: none !important;
+  }
+
+  .atlas-auth-card {
+    padding: clamp(20px, 4vw, 32px);
+  }
+
+  .atlas-auth-panel-slot:not(.atlas-auth-panel-slot--beta) {
+    padding: 0;
+    background: transparent;
+  }
+
+  .atlas-auth-card--login.a26-surface {
+    overflow: visible;
+    border-radius: 28px;
+  }
+
+  .atlas-auth-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .atlas-auth-actions .a26-button {
+    width: 100%;
+  }
+
+  .atlas-auth-card--login .a26-field__control,
+  .atlas-auth-card--registration .a26-field__control,
+  .atlas-auth-form input,
+  .atlas-auth-form select,
+  .atlas-auth-form textarea {
+    font-size: 16px !important;
+  }
+}
+
 .a26-auth-message {
   margin: 0;
   border: 1px solid var(--a26-color-border);

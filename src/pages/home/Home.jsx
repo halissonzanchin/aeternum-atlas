@@ -3,8 +3,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import AeternumLogo from "../../components/AeternumLogo";
 import LanguageSelector from "../../components/LanguageSelector";
 import LineIcon from "../../components/icons/LineIcon";
-import { A26Button, A26Card, A26Surface } from "../../components/aeternum-26";
+import { A26Button, A26Card, A26IconButton, A26Surface } from "../../components/aeternum-26";
 import { useLanguage } from "../../context/LanguageContext";
+import { useTheme } from "../../context/ThemeContext";
 import AtlasSolarSystem from "./AtlasSolarSystem";
 import ParticleMeshBackground from "./ParticleMeshBackground";
 import "./HomePriorityOne.css";
@@ -22,6 +23,7 @@ const headerNavItems = [
 
 export default function Home({ navigate }) {
   const { t } = useLanguage();
+  const { toggleTheme, isLight } = useTheme();
   const heroRef = useRef(null);
   const reducedMotionRef = useRef(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -311,6 +313,45 @@ export default function Home({ navigate }) {
                 {t(labelKey)}
               </A26Button>
             ))}
+          </div>
+
+          <div className="public-mobile-nav-divider" />
+
+          <div className="public-mobile-nav-actions">
+            <A26Button
+              variant="liquid"
+              className="public-mobile-nav-action-btn public-mobile-login"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                navigate("/login");
+              }}
+            >
+              {t("auth.loginShort").toUpperCase()}
+            </A26Button>
+            <A26Button
+              variant="primary"
+              className="public-mobile-nav-action-btn public-mobile-beta"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                navigate("/programa-beta");
+              }}
+            >
+              PROGRAMA BETA
+            </A26Button>
+          </div>
+
+          <div className="public-mobile-nav-controls">
+            <span>PREFERÊNCIAS</span>
+            <div className="flex items-center gap-2">
+              <A26IconButton
+                label={isLight ? "Alternar para Dark Liquid Glass (Modo Escuro)" : "Alternar para Light Liquid Glass (Modo Claro)"}
+                icon={isLight ? "moon" : "sun"}
+                className="atlas-auth-theme-toggle"
+                aria-label={isLight ? "Alternar para Dark Liquid Glass (Modo Escuro)" : "Alternar para Light Liquid Glass (Modo Claro)"}
+                onClick={toggleTheme}
+              />
+              <LanguageSelector compact />
+            </div>
           </div>
         </A26Surface>
       )}

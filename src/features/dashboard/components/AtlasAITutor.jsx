@@ -13,9 +13,10 @@ import useDraggableTutorOrb, {
   getTutorPanelStyle
 } from "../../atlas-viewer/ai/useDraggableTutorOrb";
 import { getAtlasTutorContext } from "./atlasAITutorContext";
+import { isAcademicTutorAuthorizedRoute } from "../../../utils/accessControl";
 import "./AtlasAITutor.css";
 
-export default function AtlasAITutor({
+function AtlasAITutorImpl({
   path = "/student/home",
   sphereOnly = false,
   draggable = false
@@ -368,4 +369,12 @@ export default function AtlasAITutor({
     </>,
     document.body
   );
+}
+
+export default function AtlasAITutor(props) {
+  const path = props?.path || "/student/home";
+  if (!isAcademicTutorAuthorizedRoute(path, true, true)) {
+    return null;
+  }
+  return <AtlasAITutorImpl {...props} path={path} />;
 }

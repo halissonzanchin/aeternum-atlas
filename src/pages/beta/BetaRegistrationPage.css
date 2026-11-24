@@ -607,35 +607,78 @@ body:has(.atlas-auth-page--beta) #root,
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 899px), (max-height: 600px) {
   .atlas-auth-page--beta {
-    padding: 16px 12px 32px !important;
+    padding:
+      max(16px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(32px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left)) !important;
+    overflow-x: hidden !important;
   }
 
   .atlas-auth-card--beta {
-    padding: 22px 18px !important;
-    border-radius: 22px !important;
+    padding: clamp(18px, 4vw, 28px) clamp(14px, 3.5vw, 24px) !important;
+    border-radius: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   .atlas-auth-story--beta {
-    padding: 22px 18px !important;
-    border-radius: 22px !important;
-    gap: 16px !important;
+    padding: 16px 14px !important;
+    border-radius: 20px !important;
+    gap: 12px !important;
+    position: static !important;
+    max-height: none !important;
+    top: auto !important;
+  }
+
+  .atlas-auth-story--beta .atlas-auth-brand {
+    justify-content: center !important;
+    padding-bottom: 10px !important;
+  }
+
+  .atlas-auth-story--beta .atlas-auth-story-copy p,
+  .atlas-auth-story--beta .atlas-auth-capabilities,
+  .atlas-auth-story--beta .atlas-auth-status {
+    display: none !important;
+  }
+
+  .atlas-auth-story--beta .atlas-auth-story-title {
+    font-size: 1.25rem !important;
+    text-align: center !important;
+  }
+
+  .atlas-auth-story--beta .atlas-auth-kicker {
+    text-align: center !important;
   }
 
   .beta-registration-form {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     gap: 14px;
     margin-top: 18px;
   }
 
-  .beta-hero-title {
-    font-size: 1.7rem;
+  /* Prevenção de Auto-Zoom no WebKit / iOS Safari (font-size >= 16px) */
+  .beta-registration-form .a26-field__control,
+  .beta-registration-form select.a26-field__control {
+    font-size: 16px !important;
   }
 
-  .beta-prelaunch-banner {
-    padding: 14px;
-    gap: 10px;
+  .beta-hero-title {
+    font-size: clamp(1.4rem, 6vw, 1.85rem) !important;
+  }
+
+  .beta-prelaunch-banner,
+  .beta-active-banner {
+    padding: 14px !important;
+    gap: 10px !important;
+  }
+
+  .beta-consent-label {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    word-break: break-word !important;
   }
 }
 

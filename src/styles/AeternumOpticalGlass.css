@@ -845,6 +845,9 @@
     rgb(2 9 13 / 0.54);
 }
 
+.atlas-auth-card,
+.atlas-auth-card.a26-card,
+.atlas-auth-card.a26-surface,
 .atlas-auth-card.atlas-crystal-surface {
   max-height: calc(100dvh - 116px);
   padding: clamp(28px, 4vw, 48px);
@@ -855,6 +858,9 @@
   scrollbar-width: thin;
 }
 
+.atlas-auth-card--registration,
+.atlas-auth-card--registration.a26-card,
+.atlas-auth-card--registration.a26-surface,
 .atlas-auth-card--registration.atlas-crystal-surface {
   max-height: calc(100dvh - 100px);
 }
@@ -1606,6 +1612,9 @@
     padding: 28px;
   }
 
+  .atlas-auth-card,
+  .atlas-auth-card.a26-card,
+  .atlas-auth-card.a26-surface,
   .atlas-auth-card.atlas-crystal-surface {
     max-height: calc(100dvh - 84px);
     padding: 30px 32px;
@@ -1867,6 +1876,12 @@
     background: transparent;
   }
 
+  .atlas-auth-card,
+  .atlas-auth-card.a26-card,
+  .atlas-auth-card.a26-surface,
+  .atlas-auth-card--registration,
+  .atlas-auth-card--registration.a26-card,
+  .atlas-auth-card--registration.a26-surface,
   .atlas-auth-card.atlas-crystal-surface,
   .atlas-auth-card--registration.atlas-crystal-surface {
     width: 100%;
@@ -1878,6 +1893,100 @@
 
   .atlas-auth-card .display-title {
     font-size: clamp(2.6rem, 14vw, 4.2rem);
+  }
+}
+
+/* ==========================================================================
+   Mobile & Responsive Architecture Guard (P0.21-MOBILE.1)
+   Unifies Portrait Smartphones, Landscape Smartphones (<= 600px height),
+   and Compact Tablets (< 900px width) into focused single-column Hero Card
+   ========================================================================== */
+@media (max-width: 899px), (max-height: 600px) {
+  .atlas-auth-page {
+    display: block !important;
+    min-height: 100dvh;
+    padding:
+      max(14px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(20px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left)) !important;
+    overflow-y: auto !important;
+  }
+
+  .atlas-auth-shell:not(.atlas-auth-shell--beta),
+  .atlas-auth-shell--wide {
+    display: block !important;
+    width: 100% !important;
+    max-width: 540px !important;
+    margin: 0 auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .atlas-auth-story:not(.atlas-auth-story--beta) {
+    display: block !important;
+    min-height: 0 !important;
+    padding: 12px 8px 18px !important;
+    overflow: visible !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .atlas-auth-story:not(.atlas-auth-story--beta)::before,
+  .atlas-auth-story:not(.atlas-auth-story--beta)::after {
+    display: none !important;
+  }
+
+  .atlas-auth-story:not(.atlas-auth-story--beta) .atlas-auth-story-copy,
+  .atlas-auth-story:not(.atlas-auth-story--beta) .atlas-auth-capabilities,
+  .atlas-auth-story:not(.atlas-auth-story--beta) .atlas-auth-status {
+    display: none !important;
+  }
+
+  .atlas-auth-brand {
+    justify-content: center !important;
+  }
+
+  .atlas-auth-panel-slot:not(.atlas-auth-panel-slot--beta) {
+    display: block !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  .atlas-auth-card,
+  .atlas-auth-card.a26-card,
+  .atlas-auth-card.a26-surface,
+  .atlas-auth-card--registration,
+  .atlas-auth-card--registration.a26-card,
+  .atlas-auth-card--registration.a26-surface,
+  .atlas-auth-card.atlas-crystal-surface,
+  .atlas-auth-card--registration.atlas-crystal-surface {
+    width: 100% !important;
+    max-width: 520px !important;
+    margin: 0 auto !important;
+    max-height: none !important;
+    padding: clamp(20px, 4vw, 36px) clamp(16px, 3.5vw, 28px) !important;
+    overflow: visible !important;
+    border-radius: 28px !important;
+  }
+
+  .atlas-auth-card .display-title {
+    font-size: clamp(2.2rem, 9vw, 3.4rem) !important;
+  }
+
+  /* Prevenção de Auto-Zoom no WebKit / iOS Safari (font-size >= 16px) */
+  .atlas-auth-card input,
+  .atlas-auth-card select,
+  .atlas-auth-card textarea,
+  .atlas-auth-card .a26-field__control {
+    font-size: 16px !important;
   }
 }
 
