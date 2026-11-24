@@ -671,6 +671,21 @@ body:has(.atlas-auth-page) #root {
   min-height: 100%;
   overflow-x: clip;
   overflow-y: visible;
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Beta Page Specific Core Alignment */
+html:has(.atlas-auth-page--beta),
+body:has(.atlas-auth-page--beta) {
+  background-color: #010609 !important;
+  background-image: none !important;
+}
+
+body:has(.atlas-auth-page--beta) #root,
+#root:has(.atlas-auth-page--beta) {
+  animation: none !important;
+  transform: none !important;
 }
 
 .atlas-auth-page {
@@ -691,7 +706,7 @@ body:has(.atlas-auth-page) #root {
   place-items: center;
 }
 
-.atlas-auth-page::before {
+.atlas-auth-page:not(.atlas-auth-page--beta)::before {
   position: fixed;
   z-index: -1;
   inset: 0;
@@ -851,7 +866,7 @@ body:has(.atlas-auth-page) #root {
   font-size: 13px;
 }
 
-.atlas-auth-panel-slot {
+.atlas-auth-panel-slot:not(.atlas-auth-panel-slot--beta) {
   min-width: 0;
   display: grid;
   align-items: center;

@@ -663,7 +663,7 @@
   place-items: center;
 }
 
-.atlas-auth-shell {
+.atlas-auth-shell:not(.atlas-auth-shell--beta) {
   display: grid;
   width: min(1220px, 100%);
   min-height: min(760px, calc(100dvh - 72px));
@@ -835,7 +835,7 @@
   text-transform: uppercase;
 }
 
-.atlas-auth-panel-slot {
+.atlas-auth-panel-slot:not(.atlas-auth-panel-slot--beta) {
   display: grid;
   min-width: 0;
   place-items: center;
