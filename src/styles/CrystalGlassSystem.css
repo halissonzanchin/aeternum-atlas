@@ -49,7 +49,7 @@
 
 /* Ambient depth sits behind all application surfaces. */
 .atlas-crystal-app,
-.atlas-auth-page,
+.atlas-auth-page:not(.atlas-auth-page--beta),
 .atlas-crystal-viewer {
   isolation: isolate;
   background:
@@ -59,7 +59,7 @@
 }
 
 .atlas-crystal-app::before,
-.atlas-auth-page::before,
+.atlas-auth-page:not(.atlas-auth-page--beta)::before,
 .atlas-crystal-viewer::before {
   content: "";
   position: fixed;
@@ -444,13 +444,13 @@
 }
 
 /* Login and registration become a focused piece of glass, not a floating card. */
-.atlas-auth-page {
+.atlas-auth-page:not(.atlas-auth-page--beta) {
   position: relative;
   overflow: hidden;
   padding: clamp(20px, 5vw, 64px);
 }
 
-.atlas-auth-page::after {
+.atlas-auth-page:not(.atlas-auth-page--beta)::after {
   content: "";
   position: fixed;
   z-index: -1;

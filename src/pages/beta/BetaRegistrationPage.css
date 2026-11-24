@@ -4,6 +4,20 @@
    Harmonious Column Proportions, Cormorant Garamond Serif & Calibrated UI
    ========================================================================== */
 
+/* Document & Root Unification for Pure Aurora Veil Continuity */
+html:has(.atlas-auth-page--beta),
+body:has(.atlas-auth-page--beta) {
+  background-color: #010609 !important;
+  background-image: none !important;
+}
+
+body:has(.atlas-auth-page--beta) #root,
+#root:has(.atlas-auth-page--beta),
+.atlas-auth-page--beta {
+  transform: none !important;
+  animation: none !important;
+}
+
 /* Layout Shell overrides for Beta */
 .atlas-auth-page--beta {
   position: relative !important;
@@ -17,9 +31,11 @@
   overflow-x: hidden !important;
 }
 
-/* Eliminate legacy fixed blur to free GPU and give pure transmission to Aurora Veil */
-.atlas-auth-page--beta::before {
+/* Eliminate legacy pseudo-elements to free GPU and guarantee pure transmission */
+.atlas-auth-page--beta::before,
+.atlas-auth-page--beta::after {
   display: none !important;
+  content: none !important;
 }
 
 .atlas-auth-shell--beta {
@@ -34,6 +50,12 @@
   border: none !important;
   box-shadow: none !important;
   overflow: visible !important;
+}
+
+.atlas-auth-shell--beta::before,
+.atlas-auth-shell--beta::after {
+  display: none !important;
+  content: none !important;
 }
 
 /* ==========================================================================
@@ -213,8 +235,12 @@
    Right Column · Dedicated Beta Card (Aeternum 26 Liquid Glass)
    ========================================================================== */
 .atlas-auth-panel-slot--beta {
-  min-width: 0;
-  width: 100%;
+  min-width: 0 !important;
+  width: 100% !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .atlas-auth-card--beta {
@@ -555,7 +581,7 @@
 }
 
 /* ==========================================================================
-   Responsive Breakpoints
+   Responsive Breakpoints & Height Guards
    Smooth universal adaptation across 320px to 4K Ultrawide
    ========================================================================== */
 @media (max-width: 1080px) {
@@ -568,6 +594,16 @@
     position: static !important;
     max-height: none !important;
     top: auto !important;
+  }
+}
+
+/* Disable sticky float when available viewport height cannot fit the full story panel */
+@media (max-height: 759px) {
+  .atlas-auth-story--beta {
+    position: static !important;
+    max-height: none !important;
+    top: auto !important;
+    align-self: start !important;
   }
 }
 

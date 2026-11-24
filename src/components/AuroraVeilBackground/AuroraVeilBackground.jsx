@@ -92,7 +92,7 @@ float auroraRibbon(vec2 uv, float t, float ribbonX, float ribbonWidth, float wav
   shimmer *= 0.82 + 0.18 * sin(t * 1.4 + phase * 1.1 + uv.x * 5.2);
 
   // Full-viewport vertical envelope with gentle, silky edge falloffs
-  float verticalFade = smoothstep(-0.55, -0.38, uv.y) * smoothstep(0.55, 0.38, uv.y);
+  float verticalFade = smoothstep(-0.62, -0.42, uv.y) * smoothstep(0.62, 0.42, uv.y);
   float detail = noise(vec2(uv.x * 5.2, uv.y * 8.5 + t * 0.38 + phase));
   detail = 0.65 + 0.35 * detail;
 

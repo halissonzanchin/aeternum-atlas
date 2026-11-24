@@ -164,6 +164,13 @@ button {
   overflow-x: hidden;
   animation: fadeInUp 420ms ease both;
 }
+
+/* Neutralize transform containing block for fixed overlays on auth and beta experiences */
+body:has(.atlas-auth-page) #root,
+#root:has(.atlas-auth-page) {
+  animation: none !important;
+  transform: none !important;
+}
 .viewer-shell {
   height: 100vh;
   min-height: 100vh;
