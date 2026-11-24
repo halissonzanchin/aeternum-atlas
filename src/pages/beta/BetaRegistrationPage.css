@@ -1,6 +1,6 @@
 /* ==========================================================================
    Aeternum Atlas · Beta Registration Page (Operação El Dorado)
-   Refinamento Premium P0.21-UI.3 Master: Aurora Veil + Liquid Glass
+   Refinamento Premium P0.21-UI.4: Expansão Total Aurora Veil + Liquid Glass
    Harmonious Column Proportions, Cormorant Garamond Serif & Calibrated UI
    ========================================================================== */
 
@@ -9,12 +9,17 @@
   position: relative !important;
   isolation: isolate !important;
   min-height: 100vh !important;
-  padding: clamp(24px, 4vw, 56px) clamp(16px, 3.5vw, 48px) !important;
+  padding: clamp(24px, 3.5vw, 56px) clamp(16px, 3vw, 44px) !important;
   display: flex !important;
   justify-content: center !important;
   align-items: flex-start !important;
   background: transparent !important;
   overflow-x: hidden !important;
+}
+
+/* Eliminate legacy fixed blur to free GPU and give pure transmission to Aurora Veil */
+.atlas-auth-page--beta::before {
+  display: none !important;
 }
 
 .atlas-auth-shell--beta {
@@ -24,7 +29,7 @@
   display: grid !important;
   grid-template-columns: minmax(360px, 420px) minmax(0, 1fr) !important;
   align-items: start !important;
-  gap: clamp(24px, 3vw, 44px) !important;
+  gap: clamp(24px, 2.8vw, 40px) !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -34,27 +39,30 @@
 /* ==========================================================================
    Left Column · Compact Institutional Story (Aeternum 26 Liquid Glass)
    Natural Document Flow, Unified Proportions, Zero Internal Scroll
+   Sticky Float alongside form on Desktop viewports
    ========================================================================== */
 .atlas-auth-story--beta {
-  position: relative !important;
-  top: auto !important;
+  position: sticky !important;
+  top: clamp(20px, 2.5vw, 36px) !important;
+  align-self: start !important;
   height: auto !important;
   max-height: none !important;
   overflow: visible !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: flex-start !important;
-  gap: 20px !important;
+  gap: clamp(16px, 1.8vw, 22px) !important;
   padding: clamp(24px, 2.6vw, 36px) !important;
   border-radius: 28px !important;
-  border: 1px solid rgba(127, 247, 244, 0.2) !important;
+  border: 1px solid rgba(127, 247, 244, 0.22) !important;
   background:
-    linear-gradient(155deg, rgba(255, 255, 255, 0.05), transparent 45%),
-    radial-gradient(circle at 12% 0%, rgba(86, 229, 223, 0.1), transparent 50%),
-    rgba(2, 12, 16, 0.82) !important;
+    linear-gradient(155deg, rgba(255, 255, 255, 0.07), transparent 45%),
+    radial-gradient(circle at 12% 0%, rgba(86, 229, 223, 0.14), transparent 50%),
+    rgba(2, 12, 18, 0.68) !important;
   box-shadow:
-    0 32px 80px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    0 32px 80px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(86, 229, 223, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
 }
 
 /* Brand Header */
@@ -118,84 +126,78 @@
 .atlas-auth-story--beta .atlas-auth-capabilities {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 2px;
+  gap: 12px;
 }
 
 .atlas-auth-story--beta .atlas-auth-capability {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 13px 16px;
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: start;
+  gap: 12px;
+  padding: 12px 14px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.028);
+  background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(127, 247, 244, 0.14);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .atlas-auth-story--beta .atlas-auth-capability:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.045);
   border-color: rgba(127, 247, 244, 0.28);
-  transform: translateX(3px);
+  transform: translateY(-1px);
 }
 
 .atlas-auth-story--beta .atlas-auth-capability__icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  border-radius: 10px;
   background: rgba(86, 229, 223, 0.1);
+  border: 1px solid rgba(127, 247, 244, 0.2);
   color: #56e5df;
-  border: 1px solid rgba(86, 229, 223, 0.24);
+  flex-shrink: 0;
 }
 
 .atlas-auth-story--beta .atlas-auth-capability strong {
-  display: block;
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: #f0fdfa;
+  display: block;
   margin-bottom: 2px;
 }
 
 .atlas-auth-story--beta .atlas-auth-capability p {
   font-size: 0.74rem;
-  line-height: 1.45;
-  color: rgba(220, 238, 236, 0.65);
+  line-height: 1.48;
+  color: rgba(220, 238, 236, 0.7);
   margin: 0;
 }
 
-/* Secure Access Status Capsule */
+/* Institutional Status Footer */
 .atlas-auth-story--beta .atlas-auth-status {
-  margin-top: 4px;
-  padding: 13px 18px;
-  border-radius: 16px;
-  background: rgba(86, 229, 223, 0.06);
-  border: 1px solid rgba(86, 229, 223, 0.24);
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(86, 229, 223, 0.06);
+  border: 1px solid rgba(127, 247, 244, 0.2);
+  margin-top: 4px;
 }
 
-.atlas-auth-story--beta .atlas-auth-status > span {
-  width: 9px;
-  height: 9px;
-  min-width: 9px;
+.atlas-auth-story--beta .atlas-auth-status-dot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #56e5df;
-  box-shadow: 0 0 10px #56e5df, 0 0 20px rgba(86, 229, 223, 0.5);
-  animation: pulse-dot 2.5s infinite ease-in-out;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.55; transform: scale(0.88); }
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  flex-shrink: 0;
 }
 
 .atlas-auth-story--beta .atlas-auth-status strong {
-  font-size: 0.81rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: #56e5df;
   display: block;
@@ -218,13 +220,14 @@
 .atlas-auth-card--beta {
   width: 100%;
   border-radius: 28px !important;
-  border: 1px solid rgba(127, 247, 244, 0.2) !important;
+  border: 1px solid rgba(127, 247, 244, 0.22) !important;
   background:
-    linear-gradient(155deg, rgba(255, 255, 255, 0.05), transparent 42%),
-    radial-gradient(circle at 92% 0%, rgba(86, 229, 223, 0.09), transparent 45%),
-    rgba(2, 12, 16, 0.82) !important;
+    linear-gradient(155deg, rgba(255, 255, 255, 0.06), transparent 45%),
+    radial-gradient(circle at 92% 0%, rgba(86, 229, 223, 0.12), transparent 45%),
+    rgba(2, 12, 18, 0.72) !important;
   box-shadow:
-    0 32px 80px rgba(0, 0, 0, 0.5),
+    0 32px 80px rgba(0, 0, 0, 0.55),
+    0 0 50px rgba(86, 229, 223, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
   padding: clamp(24px, 3.2vw, 44px) !important;
 }
@@ -449,36 +452,39 @@
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.12em;
+  color: #56e5df;
   text-transform: uppercase;
-  color: rgba(127, 247, 244, 0.85);
-  margin: 0 0 4px;
+  margin-bottom: 2px;
 }
 
 .beta-consent-tile {
   display: flex;
   align-items: flex-start;
-  gap: 13px;
-  padding: 13px 18px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(127, 247, 244, 0.1);
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(127, 247, 244, 0.12);
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s;
-  user-select: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .beta-consent-tile:hover {
-  background: rgba(255, 255, 255, 0.045);
+  background: rgba(255, 255, 255, 0.04);
   border-color: rgba(127, 247, 244, 0.24);
 }
 
+.beta-consent-tile--required {
+  border-left: 3px solid #56e5df;
+}
+
 .beta-consent-tile input[type="checkbox"] {
-  width: 17px;
-  height: 17px;
-  min-width: 17px;
-  margin-top: 2px;
+  width: 18px;
+  height: 18px;
   accent-color: #56e5df;
+  margin-top: 2px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .beta-consent-tile__text {
@@ -492,12 +498,12 @@
 }
 
 /* Actions Section */
-.beta-actions-container {
+.beta-form-actions {
   grid-column: 1 / -1;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 18px;
+  gap: 14px;
 }
 
 .beta-submit-button {
@@ -550,8 +556,9 @@
 
 /* ==========================================================================
    Responsive Breakpoints
+   Smooth universal adaptation across 320px to 4K Ultrawide
    ========================================================================== */
-@media (max-width: 1024px) {
+@media (max-width: 1080px) {
   .atlas-auth-shell--beta {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -566,7 +573,7 @@
 
 @media (max-width: 680px) {
   .atlas-auth-page--beta {
-    padding: 16px 12px 32px;
+    padding: 16px 12px 32px !important;
   }
 
   .atlas-auth-card--beta {
