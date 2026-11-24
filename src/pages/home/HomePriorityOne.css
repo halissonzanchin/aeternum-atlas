@@ -230,7 +230,7 @@
   min-width: 246px;
 }
 
-@media (max-width: 1140px) {
+@media (max-width: 1180px) {
   .cinematic-home .cinematic-public-header {
     display: flex;
     justify-content: space-between;
