@@ -42,6 +42,7 @@ export default function BetaCandidatesManagementSection() {
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [showSynthetic, setShowSynthetic] = useState(false);
   const [selectedApp, setSelectedApp] = useState(null);
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [reviewStatus, setReviewStatus] = useState("approved");
@@ -54,7 +55,7 @@ export default function BetaCandidatesManagementSection() {
     setLoading(true);
     try {
       const [listRes, capRes] = await Promise.all([
-        listBetaApplications({ status: statusFilter, search: searchTerm }),
+        listBetaApplications({ status: statusFilter, search: searchTerm, includeSynthetic: showSynthetic }),
         getBetaCapacitySummary()
       ]);
 
@@ -69,7 +70,7 @@ export default function BetaCandidatesManagementSection() {
 
   useEffect(() => {
     loadData();
-  }, [statusFilter]);
+  }, [statusFilter, showSynthetic]);
 
   function handleSearchSubmit(e) {
     e.preventDefault();
@@ -114,7 +115,7 @@ export default function BetaCandidatesManagementSection() {
 
   function handleExportCsv() {
     if (!applications || !applications.length) return;
-    exportBetaApplicationsCsv(applications);
+    exportBetaApplicationsCsv(applications, { excludeSynthetic: !showSynthetic });
   }
 
   return (
@@ -129,6 +130,13 @@ export default function BetaCandidatesManagementSection() {
           </p>
         </div>
         <div className="flex items-center gap-3">
+          <A26Button
+            variant="secondary"
+            onClick={() => setShowSynthetic(prev => !prev)}
+            icon={<LineIcon name={showSynthetic ? "eyeOff" : "eye"} />}
+          >
+            {showSynthetic ? "Ocultar Auditoria" : "Registros de Auditoria"}
+          </A26Button>
           <A26Button
             variant="secondary"
             onClick={handleExportCsv}
@@ -278,12 +286,16 @@ export default function BetaCandidatesManagementSection() {
                         {app.primary_device}
                       </td>
                       <td className="py-3 px-4">
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold border ${badge.color}`}>
-                          {badge.label}
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold border ${
+                          app.batch === "synthetic_test"
+                            ? "bg-purple-500/20 text-purple-300 border-purple-500/30"
+                            : badge.color
+                        }`}>
+                          {app.batch === "synthetic_test" ? "Auditoria Sintética" : badge.label}
                         </span>
                       </td>
                       <td className="py-3 px-4 text-textMuted font-mono text-[11px]">
-                        {app.batch === "batch_1_30" ? "1ª Turma (30)" : app.batch}
+                        {app.batch === "batch_1_30" ? "1ª Turma (30)" : app.batch === "synthetic_test" ? "Isolado (Auditoria)" : app.batch}
                       </td>
                       <td className="py-3 px-4 text-right">
                         <A26Button variant="secondary" onClick={() => openReview(app)}>

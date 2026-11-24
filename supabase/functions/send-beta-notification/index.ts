@@ -116,7 +116,7 @@ serve(async (req) => {
       });
     }
 
-    // 2. EXTRAÇÃO DE PARÂMETROS OU RESERVA ATÔMICA DA FILA (FOR UPDATE SKIP LOCKED)
+    // 2. EXTRAÇÃO DE PARÂMETROS E RESERVA ATÔMICA DA FILA (FOR UPDATE SKIP LOCKED UNIFICADO - v10)
     let explicitNotificationId: string | null = null;
     let explicitApplicationId: string | null = null;
 
@@ -130,48 +130,31 @@ serve(async (req) => {
       }
     }
 
-    let claimedItem: any = null;
-
+    const rpcParams: Record<string, string> = {};
     if (explicitNotificationId) {
-      // Reserva direta pelo ID da notificação
-      const { data, error } = await supabaseAdmin
-        .from("beta_email_notifications")
-        .update({
-          status: "processing",
-          attempts: 1,
-          last_attempt_at: new Date().toISOString()
-        })
-        .eq("id", explicitNotificationId)
-        .select()
-        .single();
-      if (!error && data) claimedItem = data;
+      rpcParams.p_notification_id = explicitNotificationId;
     } else if (explicitApplicationId) {
-      // Reserva pelo ID da candidatura
-      const { data, error } = await supabaseAdmin
-        .from("beta_email_notifications")
-        .update({
-          status: "processing",
-          attempts: 1,
-          last_attempt_at: new Date().toISOString()
-        })
-        .eq("application_id", explicitApplicationId)
-        .select()
-        .single();
-      if (!error && data) claimedItem = data;
-    } else {
-      // Consumo atômico da fila via RPC com SKIP LOCKED
-      const { data: claimedRows, error: claimErr } = await supabaseAdmin.rpc("claim_next_beta_email_notification");
-      if (claimErr) throw claimErr;
-      if (claimedRows && claimedRows.length > 0) {
-        claimedItem = claimedRows[0];
-      }
+      rpcParams.p_application_id = explicitApplicationId;
+    }
+
+    // Chamada atômica unificada com FOR UPDATE SKIP LOCKED
+    const { data: claimedRows, error: claimErr } = await supabaseAdmin.rpc(
+      "claim_next_beta_email_notification",
+      rpcParams
+    );
+    if (claimErr) throw claimErr;
+
+    let claimedItem: any = null;
+    if (claimedRows && claimedRows.length > 0) {
+      claimedItem = claimedRows[0];
     }
 
     if (!claimedItem) {
       return new Response(JSON.stringify({
         success: true,
-        message: "Nenhuma notificação pendente na fila para processamento.",
+        message: "Nenhuma notificação elegível na fila para processamento (ou já em processamento concorrente/enviada).",
         queue_status: "idle",
+        version: "v10",
         actor: authActor
       }), {
         status: 200,
@@ -366,6 +349,7 @@ Aviso: A seleção de participantes da primeira turma (meta: 30 vagas) é estrit
       headers: {
         "Authorization": `Bearer ${resendApiKey}`,
         "Content-Type": "application/json",
+        "Idempotency-Key": `beta-notification-${itemNotificationId}`,
       },
       body: JSON.stringify(emailPayload),
     });
@@ -388,6 +372,7 @@ Aviso: A seleção de participantes da primeira turma (meta: 30 vagas) é estrit
         status: "FAILED",
         error: errDetail,
         code: "PROVIDER_ERROR",
+        version: "v10",
         recipient: ADMIN_RECIPIENT,
       }), {
         status: 502,
@@ -411,6 +396,7 @@ Aviso: A seleção de participantes da primeira turma (meta: 30 vagas) é estrit
     return new Response(JSON.stringify({
       success: true,
       status: "SENT",
+      version: "v10",
       provider_message_id: resendData.id,
       protocol: appData.protocol_number,
       recipient: ADMIN_RECIPIENT,
