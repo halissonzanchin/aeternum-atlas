@@ -136,13 +136,18 @@ export async function submitBetaApplication(formData) {
 
 /**
  * Consulta candidaturas ao Programa Beta (Acesso exclusivo para administradores).
+ * Permite isolamento opcional de registros sintéticos de auditoria técnica.
  */
-export async function listBetaApplications({ status = null, search = "", limit = 50, offset = 0 } = {}) {
+export async function listBetaApplications({ status = null, search = "", limit = 50, offset = 0, includeSynthetic = false } = {}) {
   try {
     let query = supabase
       .from("beta_applications")
       .select("*", { count: "exact" })
       .order("created_at", { ascending: false });
+
+    if (!includeSynthetic) {
+      query = query.neq("batch", "synthetic_test").not("source_origin", "ilike", "%synthetic%");
+    }
 
     if (status && status !== "all") {
       query = query.eq("status", status);
@@ -204,12 +209,16 @@ export async function getBetaCapacitySummary() {
   try {
     const { data, error } = await supabase
       .from("beta_applications")
-      .select("status, batch, user_id, email");
+      .select("status, batch, user_id, email, source_origin");
 
     if (error) throw error;
 
+    const legitimateData = data.filter(item => item.batch !== "synthetic_test" && !item.source_origin?.includes("synthetic"));
+    const syntheticCount = data.length - legitimateData.length;
+
     const summary = {
-      total: data.length,
+      total: legitimateData.length,
+      syntheticTotal: syntheticCount,
       pending: 0,
       under_review: 0,
       approved: 0,
@@ -223,7 +232,7 @@ export async function getBetaCapacitySummary() {
       batch3Cap: 100
     };
 
-    for (const item of data) {
+    for (const item of legitimateData) {
       if (summary[item.status] !== undefined) {
         summary[item.status]++;
       }
@@ -243,6 +252,7 @@ export async function getBetaCapacitySummary() {
       success: false,
       summary: {
         total: 0,
+        syntheticTotal: 0,
         pending: 0,
         under_review: 0,
         approved: 0,
@@ -264,8 +274,12 @@ export async function getBetaCapacitySummary() {
  * Exporta candidaturas para formato CSV estruturado e compatível com Microsoft Excel
  * (com UTF-8 BOM e delimitador ';' para correta abertura no Excel pt-BR).
  */
-export function exportBetaApplicationsCsv(applications) {
-  if (!applications || !applications.length) return false;
+export function exportBetaApplicationsCsv(applications, { excludeSynthetic = true } = {}) {
+  const filtered = excludeSynthetic
+    ? applications.filter(app => app.batch !== "synthetic_test" && !app.source_origin?.includes("synthetic"))
+    : applications;
+
+  if (!filtered || !filtered.length) return false;
 
   const headers = [
     "Protocolo",
@@ -294,7 +308,7 @@ export function exportBetaApplicationsCsv(applications) {
     return `"${str}"`;
   };
 
-  const rows = applications.map(app => [
+  const rows = filtered.map(app => [
     escapeCsv(app.protocol_number || "N/A"),
     escapeCsv(app.created_at ? new Date(app.created_at).toLocaleString("pt-BR") : ""),
     escapeCsv(app.full_name),
