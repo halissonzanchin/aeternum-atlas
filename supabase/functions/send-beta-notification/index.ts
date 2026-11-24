@@ -208,7 +208,7 @@ serve(async (req) => {
     });
 
     // Destinatário SEMPRE fixo e imutável
-    const subject = `[AETERNUM ATLAS | BETA] Nova candidatura — ${appData.full_name}`;
+    const subject = `[AETERNUM ATLAS | OPERAÇÃO EL DORADO] Nova candidatura Beta — ${appData.full_name}`;
     const adminLink = "https://www.aeternumatlas.com/super-admin/programa-beta";
 
     // 4. CORPO DO E-MAIL COM SANITIZAÇÃO COMPLETA CONTRA INJEÇÃO HTML
