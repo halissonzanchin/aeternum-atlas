@@ -27,6 +27,42 @@ export default function Home({ navigate }) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
   const [headerScrolled, setHeaderScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef(null);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handlePointerDown = (event) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target) &&
+        !event.target.closest(".public-mobile-nav-toggle")
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1140 && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -231,10 +267,53 @@ export default function Home({ navigate }) {
             aria-label="Programa Beta"
             onClick={() => navigate("/programa-beta")}
           >
-            PROGRAMA BETA
+            <span className="public-beta-cta-full">PROGRAMA BETA</span>
+            <span className="public-beta-cta-short">BETA</span>
           </A26Button>
+          <button
+            type="button"
+            className="public-mobile-nav-toggle"
+            aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="public-mobile-nav-drawer"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+          >
+            <LineIcon name={mobileMenuOpen ? "close" : "menu"} className="h-5 w-5" />
+          </button>
         </div>
       </A26Surface>
+
+      {mobileMenuOpen && (
+        <A26Surface
+          id="public-mobile-nav-drawer"
+          ref={mobileMenuRef}
+          as="nav"
+          material="frosted"
+          className="public-mobile-nav-drawer"
+          aria-label="Navegação móvel"
+        >
+          <div className="public-mobile-nav-list">
+            {headerNavItems.map(([labelKey, icon, target]) => (
+              <A26Button
+                key={labelKey}
+                variant="liquid"
+                className="public-mobile-nav-item"
+                icon={<LineIcon name={icon} />}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  if (target.startsWith("#")) {
+                    document.querySelector(target)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    return;
+                  }
+                  navigate(target);
+                }}
+              >
+                {t(labelKey)}
+              </A26Button>
+            ))}
+          </div>
+        </A26Surface>
+      )}
 
       <section
         id="home-hero"
