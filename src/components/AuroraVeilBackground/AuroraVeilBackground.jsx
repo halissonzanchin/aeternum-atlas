@@ -1,5 +1,5 @@
 /**
- * Aurora Veil Background · Aeternum Atlas
+ * Aurora Veil Background · Aeternum Atlas (Expansão Total P0.21-UI.4)
  * 
  * Based on Radiant Shaders: Aurora Veil by Paul Bakaus (MIT License)
  * Source: https://github.com/pbakaus/radiant / https://radiant-shaders.com/shader/aurora-veil
@@ -22,12 +22,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  * 
- * Art Direction & Customization for Aeternum Atlas:
- * - Deep Obsidian-Navy background (#010609)
- * - Luminous ribbons in Emerald, Teal, and Cyan with subtle celestial Gold reflections
- * - Tuned gentle speed (0.16) and low luminous intensity (0.38) for reading comfort
- * - Battery-saving auto-pause via document.hidden and prefers-reduced-motion support
- * - Capped DPR (1.25) to protect GPU performance on 4K/retina displays
+ * Art Direction & Customization for Aeternum Atlas (P0.21-UI.4 Total Expansion):
+ * - Deep Obsidian-Navy cosmos (#010609)
+ * - Panoramic 7-ribbon cosmic curtain spanning the full viewport width and height
+ * - Luminous Emerald, Cyan-Teal, Electric Cyan, and refined Celestial Gold reflections
+ * - Volumetric ambient plasma mist ensuring zero dark empty voids in the periphery
+ * - Scroll parallax integration (u_scroll) providing majestic atmospheric continuity
+ * - Zero artificial ice ground cutoffs: continuous full-viewport draping
+ * - Tuned gentle speed (0.16) and calibrated luminous intensity (0.42) for reading comfort
+ * - Battery-saving auto-pause via visibilitychange and prefers-reduced-motion support
+ * - Capped DPR (1.25) protecting GPU performance on 4K / Retina displays
+ * - pointer-events: none ensuring zero interference with form fields
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -46,9 +51,10 @@ uniform float u_time;
 uniform vec2 u_res;
 uniform float u_auroraSpeed;
 uniform float u_auroraIntensity;
+uniform float u_scroll;
 
 #define PI 3.14159265359
-#define NUM_BG_STARS 90
+#define NUM_BG_STARS 95
 
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
@@ -69,24 +75,25 @@ float noise(vec2 p) {
   return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
 }
 
-float auroraRibbon(vec2 uv, float t, float ribbonX, float ribbonWidth, float waveFreq, float waveAmp, float phase) {
-  float centerX = ribbonX + sin(t * 0.15 + phase) * 0.22;
-  float wave1 = sin(uv.y * waveFreq + t * 0.75 + phase) * waveAmp;
-  float wave2 = sin(uv.y * waveFreq * 2.2 + t * 1.1 + phase * 1.7) * waveAmp * 0.5;
-  float wave3 = sin(uv.y * waveFreq * 0.45 + t * 0.3 + phase * 0.6) * waveAmp * 1.1;
+float auroraRibbon(vec2 uv, float t, float ribbonX, float ribbonWidth, float waveFreq, float waveAmp, float phase, float scrollDelta) {
+  float centerX = ribbonX + sin(t * 0.14 + phase) * 0.22;
+  float wave1 = sin(uv.y * waveFreq + t * 0.72 + phase + scrollDelta) * waveAmp;
+  float wave2 = sin(uv.y * waveFreq * 2.1 + t * 1.05 + phase * 1.7 - scrollDelta * 0.5) * waveAmp * 0.5;
+  float wave3 = sin(uv.y * waveFreq * 0.45 + t * 0.28 + phase * 0.6) * waveAmp * 1.1;
   float waveOffset = wave1 + wave2 + wave3;
 
   float dx = uv.x - (centerX + waveOffset);
   float ribbon = exp(-dx * dx / (ribbonWidth * ribbonWidth));
 
-  float brightBand = 0.5 + 0.5 * sin(uv.y * 2.5 + t * 0.6 + phase * 2.0);
-  brightBand *= 0.5 + 0.5 * sin(uv.y * 4.8 - t * 0.75 + phase);
+  float brightBand = 0.5 + 0.5 * sin(uv.y * 2.4 + t * 0.55 + phase * 2.0 + scrollDelta);
+  brightBand *= 0.5 + 0.5 * sin(uv.y * 4.6 - t * 0.70 + phase);
 
-  float shimmer = 0.75 + 0.25 * sin(t * 2.2 + phase * 3.0 + uv.y * 7.0);
-  shimmer *= 0.82 + 0.18 * sin(t * 1.5 + phase * 1.1 + uv.x * 5.5);
+  float shimmer = 0.76 + 0.24 * sin(t * 2.1 + phase * 3.0 + uv.y * 6.5);
+  shimmer *= 0.82 + 0.18 * sin(t * 1.4 + phase * 1.1 + uv.x * 5.2);
 
-  float verticalFade = smoothstep(-0.35, -0.05, uv.y) * smoothstep(0.72, 0.32, uv.y);
-  float detail = noise(vec2(uv.x * 5.5, uv.y * 9.0 + t * 0.4 + phase));
+  // Full-viewport vertical envelope with gentle, silky edge falloffs
+  float verticalFade = smoothstep(-0.55, -0.38, uv.y) * smoothstep(0.55, 0.38, uv.y);
+  float detail = noise(vec2(uv.x * 5.2, uv.y * 8.5 + t * 0.38 + phase));
   detail = 0.65 + 0.35 * detail;
 
   return ribbon * brightBand * verticalFade * detail * shimmer;
@@ -97,155 +104,145 @@ float bgStars(vec2 uv, float t) {
   for (int i = 0; i < NUM_BG_STARS; i++) {
     float fi = float(i);
     vec2 pos = vec2(
-      hash1(fi * 17.31 + 100.0) * 2.8 - 1.4,
-      hash1(fi * 11.97 + 200.0) * 1.4 - 0.3
+      hash1(fi * 17.31 + 100.0) * 3.2 - 1.6,
+      hash1(fi * 11.97 + 200.0) * 1.2 - 0.6
     );
     float d = length(uv - pos);
     float twinkleSpeed = 0.4 + hash1(fi * 3.3 + 300.0) * 1.8;
     float twinkle = 0.3 + 0.7 * sin(t * twinkleSpeed + fi * 2.7);
     twinkle = max(twinkle, 0.0);
     twinkle *= twinkle;
-    float size = 0.0007 + hash1(fi * 5.5 + 400.0) * 0.0018;
-    float brightness = 0.35 + hash1(fi * 7.7 + 500.0) * 0.55;
+    float size = 0.0006 + hash1(fi * 5.5 + 400.0) * 0.0016;
+    float brightness = 0.32 + hash1(fi * 7.7 + 500.0) * 0.55;
     stars += smoothstep(size, 0.0, d) * twinkle * brightness;
   }
   return stars;
 }
 
-float hexDist(vec2 p) {
-  p = abs(p);
-  return max(p.x + p.y * 0.577350269, p.y * 1.154700538);
-}
-
-float crystalPattern(vec2 uv, float t) {
-  float scale = 11.0;
-  vec2 p = uv * scale;
-  vec2 r = vec2(1.0, 1.732);
-  vec2 h = r * 0.5;
-  vec2 a = mod(p, r) - h;
-  vec2 b = mod(p - h, r) - h;
-  vec2 gv = (dot(a, a) < dot(b, b)) ? a : b;
-  float hd = hexDist(gv);
-  float edge = smoothstep(0.44, 0.39, hd) - smoothstep(0.39, 0.34, hd);
-  float angle = atan(gv.y, gv.x);
-  float branch = abs(sin(angle * 3.0));
-  float branchLine = smoothstep(0.04, 0.0, abs(branch - 0.5) * hd);
-  branchLine *= smoothstep(0.0, 0.15, hd) * smoothstep(0.44, 0.24, hd);
-  float crystal = edge * 0.55 + branchLine * 0.35;
-  float shimmer = 0.75 + 0.25 * sin(t * 0.18 + hash(floor(p / r)) * 6.28);
-  return crystal * shimmer;
-}
-
 void main() {
-  vec2 uv = (gl_FragCoord.xy - u_res * 0.5) / min(u_res.x, u_res.y);
+  vec2 st = gl_FragCoord.xy / u_res.xy;
+  vec2 ndc = st * 2.0 - 1.0;
+  float aspect = u_res.x / u_res.y;
+
+  // Adaptive coordinates: responsive on widescreen and portrait without clipping
+  vec2 uv = vec2(ndc.x * max(aspect * 0.5, 0.55), ndc.y * 0.5);
   float t = u_time * u_auroraSpeed;
+  float scrollDelta = u_scroll * 0.00035;
 
   // 1. Deep Obsidian-Navy Void (#010609)
   vec3 col = vec3(0.004, 0.008, 0.015);
-  col += vec3(0.006, 0.014, 0.022) * smoothstep(0.5, -0.3, uv.y);
+  col += vec3(0.006, 0.014, 0.022) * smoothstep(0.5, -0.4, uv.y);
 
-  // 2. Background Stars
+  // 2. Cosmic Background Stars
   float starField = bgStars(uv, u_time);
-  vec3 starColor = vec3(0.85, 0.92, 0.95);
+  vec3 starColor = vec3(0.85, 0.92, 0.96);
   col += starColor * starField;
 
-  // 3. Aeternum Aurora Ribbons (Emerald, Teal, Cyan, Gold Accents)
-  // Ribbon 1: Primary Cyan-Teal Curtain
-  float r1 = auroraRibbon(uv, t, 0.0, 0.24, 2.4, 0.26, 0.0);
+  // 3. Volumetric Ambient Plasma Mist (Eliminates dead voids anywhere on screen)
+  float mistNoise = noise(vec2(uv.x * 2.2 + t * 0.12, uv.y * 1.8 - t * 0.08));
+  vec3 ambientMist = mix(
+    vec3(0.008, 0.045, 0.042),
+    vec3(0.014, 0.038, 0.052),
+    st.x
+  ) * (0.65 + 0.35 * mistNoise) * (0.85 + 0.15 * sin(t * 0.45 + st.y * 2.5));
+  col += ambientMist * u_auroraIntensity * 1.25;
+
+  // 4. Panoramic 7-Ribbon Cosmic Curtain System (Full Width & Full Height)
+  float span = max(aspect * 0.5, 0.65);
+
+  // Ribbon 1: Far Left Curtain (Shines behind left institutional column)
+  float r1 = auroraRibbon(uv, t, -span * 0.74, 0.28, 2.1, 0.28, 0.5, scrollDelta);
   vec3 r1color = mix(
-    vec3(0.08, 0.85, 0.76), // vibrant cyan-teal
-    vec3(0.06, 0.72, 0.54), // emerald-teal
-    0.5 + 0.5 * sin(uv.y * 3.2 + t * 0.25)
+    vec3(0.06, 0.78, 0.72), // cyan-teal
+    vec3(0.04, 0.62, 0.52), // emerald-teal
+    0.5 + 0.5 * sin(uv.y * 3.0 + t * 0.22)
   );
 
-  // Ribbon 2: Secondary Vivid Emerald Curtain
-  float r2 = auroraRibbon(uv, t * 0.88, 0.32, 0.19, 2.7, 0.22, 2.1);
+  // Ribbon 2: Left Core Curtain (Vibrant Emerald behind institutional story)
+  float r2 = auroraRibbon(uv, t * 0.92, -span * 0.42, 0.22, 2.5, 0.24, 2.1, scrollDelta);
   vec3 r2color = mix(
-    vec3(0.07, 0.86, 0.48), // emerald green
-    vec3(0.12, 0.78, 0.38), // jade green
-    0.5 + 0.5 * sin(uv.y * 3.8 - t * 0.35 + 1.0)
+    vec3(0.07, 0.88, 0.52), // vivid emerald
+    vec3(0.12, 0.76, 0.40), // deep jade
+    0.5 + 0.5 * sin(uv.y * 3.6 - t * 0.32 + 1.0)
   );
 
-  // Ribbon 3: Celestial Gold & Amber Accent (Subtle horizon warmth)
-  float r3 = auroraRibbon(uv, t * 0.72, -0.28, 0.15, 2.9, 0.20, 4.3);
+  // Ribbon 3: Left-Center Horizon Accent (Celestial Gold & Warm Amber)
+  float r3 = auroraRibbon(uv, t * 0.76, -span * 0.14, 0.18, 2.7, 0.20, 3.8, scrollDelta);
   vec3 r3color = mix(
-    vec3(0.82, 0.68, 0.32), // refined gold
-    vec3(0.74, 0.54, 0.22), // warm amber
-    0.5 + 0.5 * sin(uv.y * 4.5 + t * 0.2 + 2.0)
+    vec3(0.84, 0.70, 0.34), // refined gold
+    vec3(0.72, 0.52, 0.20), // warm amber
+    0.5 + 0.5 * sin(uv.y * 4.2 + t * 0.2 + 2.0)
   );
 
-  // Ribbon 4: Wide Deep Teal Background Veil
-  float r4 = auroraRibbon(uv, t * 0.58, 0.14, 0.32, 1.7, 0.32, 1.0);
+  // Ribbon 4: Center-Right Curtain (Electric Cyan behind form core)
+  float r4 = auroraRibbon(uv, t * 0.86, +span * 0.16, 0.25, 2.2, 0.26, 1.2, scrollDelta);
   vec3 r4color = mix(
-    vec3(0.04, 0.52, 0.44), // deep teal
-    vec3(0.03, 0.42, 0.32), // deep forest cyan
+    vec3(0.12, 0.88, 0.94), // electric cyan
+    vec3(0.08, 0.72, 0.86), // sky cyan
+    0.5 + 0.5 * sin(uv.y * 3.4 + t * 0.28)
+  );
+
+  // Ribbon 5: Right Core Curtain (Emerald-Cyan behind form fields)
+  float r5 = auroraRibbon(uv, t * 1.04, +span * 0.46, 0.21, 2.6, 0.22, 4.7, scrollDelta);
+  vec3 r5color = mix(
+    vec3(0.06, 0.84, 0.56), // emerald green
+    vec3(0.05, 0.68, 0.48), // mint teal
+    0.5 + 0.5 * sin(uv.y * 4.0 - t * 0.38 + 2.5)
+  );
+
+  // Ribbon 6: Far Right Viewport Drape (Atmospheric frame)
+  float r6 = auroraRibbon(uv, t * 0.66, +span * 0.76, 0.26, 1.9, 0.28, 5.9, scrollDelta);
+  vec3 r6color = mix(
+    vec3(0.09, 0.76, 0.82), // deep cyan
+    vec3(0.05, 0.58, 0.65), // ocean teal
+    0.5 + 0.5 * sin(uv.y * 2.8 + t * 0.18)
+  );
+
+  // Ribbon 7: Vast Broad Background Veil (Undulating bioluminescent depth)
+  float r7 = auroraRibbon(uv, t * 0.52, 0.0, span * 0.88, 1.5, 0.32, 0.0, scrollDelta * 0.5);
+  vec3 r7color = mix(
+    vec3(0.03, 0.44, 0.40), // deep celestial teal
+    vec3(0.02, 0.36, 0.30), // deep emerald void
     0.5 + 0.5 * sin(uv.y * 2.0 + t * 0.12)
   );
 
-  // Ribbon 5: Electric Cyan High-energy Streak
-  float r5 = auroraRibbon(uv, t * 1.05, -0.08, 0.09, 3.4, 0.16, 5.7);
-  vec3 r5color = mix(
-    vec3(0.18, 0.92, 0.96), // electric cyan
-    vec3(0.10, 0.75, 0.88), // sky cyan
-    0.5 + 0.5 * sin(uv.y * 5.5 + t * 0.45 + 3.0)
-  );
+  // Layered Intensity Synthesis (Calibrated for premium comfort and optical transmission)
+  float i1 = r1 * 1.25 * u_auroraIntensity;
+  float i2 = r2 * 1.15 * u_auroraIntensity;
+  float i3 = r3 * 0.70 * u_auroraIntensity;
+  float i4 = r4 * 1.20 * u_auroraIntensity;
+  float i5 = r5 * 1.05 * u_auroraIntensity;
+  float i6 = r6 * 0.95 * u_auroraIntensity;
+  float i7 = r7 * 0.55 * u_auroraIntensity;
 
-  // Intensity Layering (Calibrated for reading comfort)
-  float i1 = r1 * 1.3 * u_auroraIntensity;
-  float i2 = r2 * 1.0 * u_auroraIntensity;
-  float i3 = r3 * 0.65 * u_auroraIntensity;
-  float i4 = r4 * 0.45 * u_auroraIntensity;
-  float i5 = r5 * 0.7 * u_auroraIntensity;
+  vec3 auroraLight = r1color * i1 +
+                     r2color * i2 +
+                     r3color * i3 +
+                     r4color * i4 +
+                     r5color * i5 +
+                     r6color * i6 +
+                     r7color * i7;
 
-  vec3 auroraLight = r1color * i1 + r2color * i2 + r3color * i3 + r4color * i4 + r5color * i5;
-
-  // Gentle Breathing Pulse
-  float pulse = 0.88 + 0.12 * sin(t * 0.75) * sin(t * 0.48 + 1.0);
+  // Gentle Organic Pulse
+  float pulse = 0.90 + 0.10 * sin(t * 0.72) * sin(t * 0.45 + 1.0);
   auroraLight *= pulse;
 
-  // Atmospheric Glow
-  float glowY = smoothstep(-0.3, 0.0, uv.y) * smoothstep(0.72, 0.22, uv.y);
-  float totalAurora = i1 + i2 + i3 + i4 + i5;
-  vec3 atmosphericGlow = vec3(0.03, 0.12, 0.10) * glowY * min(totalAurora, 2.0) * 0.35;
+  // Volumetric Atmospheric Glow across whole screen
+  float totalAurora = i1 + i2 + i3 + i4 + i5 + i6 + i7;
+  vec3 atmosphericGlow = vec3(0.035, 0.13, 0.12) * min(totalAurora, 2.5) * 0.38;
 
   col += auroraLight + atmosphericGlow;
 
-  // Dim stars under aurora light
+  // Dim stars under intense aurora ribbons
   col -= starColor * starField * clamp(totalAurora * 0.45, 0.0, 1.0);
 
-  // 4. Ground Ice Crystal Frost & Horizon Reflection
-  float groundLine = -0.38;
-  float groundFade = smoothstep(groundLine + 0.04, groundLine - 0.16, uv.y);
-
-  if (groundFade > 0.001) {
-    float perspY = max(0.001, groundLine - uv.y);
-    vec2 crystalUV = vec2(uv.x / (perspY * 2.0 + 0.5), 1.0 / (perspY * 3.0));
-    crystalUV.x += t * 0.015;
-    float crystal = crystalPattern(crystalUV, u_time);
-    vec3 iceColor = vec3(0.02, 0.04, 0.07);
-    vec3 iceCrystalColor = vec3(0.08, 0.15, 0.20);
-    vec3 iceSurface = mix(iceColor, iceCrystalColor, crystal * 0.45);
-
-    vec2 reflUV = vec2(uv.x, -uv.y - groundLine * 2.0);
-    float rr1 = auroraRibbon(reflUV, t, 0.0, 0.26, 2.4, 0.26, 0.0) * 0.25;
-    float rr2 = auroraRibbon(reflUV, t * 0.88, 0.32, 0.20, 2.7, 0.22, 2.1) * 0.18;
-    vec3 reflectionColor = (r1color * rr1 + r2color * rr2) * u_auroraIntensity * pulse;
-
-    float reflStrength = smoothstep(0.25, 0.0, perspY) * 0.55;
-    float sparkle = pow(crystal, 3.0) * reflStrength;
-    vec3 sparkleColor = vec3(0.85, 0.78, 0.60) * sparkle * 0.25;
-
-    iceSurface += reflectionColor * reflStrength + sparkleColor;
-    col = mix(col, iceSurface, groundFade);
-  }
-
-  // 5. Subtle Vignette
-  float dist = length(uv * vec2(0.68, 0.88));
-  float vignette = 1.0 - smoothstep(0.48, 1.45, dist);
-  col *= 0.72 + vignette * 0.28;
+  // Subtle Peripheral Optical Falloff
+  float dist = length(ndc * vec2(0.55, 0.75));
+  float vignette = 1.0 - smoothstep(0.65, 1.45, dist);
+  col *= 0.82 + vignette * 0.18;
 
   col = max(col, vec3(0.0));
-  col = pow(col, vec3(0.94, 0.96, 0.98));
+  col = pow(col, vec3(0.95, 0.97, 0.98));
 
   gl_FragColor = vec4(col, 1.0);
 }
@@ -260,20 +257,23 @@ export default function AuroraVeilBackground() {
     if (!canvas) return;
 
     // Check prefers-reduced-motion
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let prefersReducedMotion = motionQuery.matches;
 
-    // Initialize WebGL with alpha and low power consumption
+    // Cap DPR to 1.25 for peak performance and battery conservation
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+
     let gl = null;
     try {
       gl = canvas.getContext("webgl", {
-        alpha: true,
+        alpha: false,
         antialias: false,
         depth: false,
         stencil: false,
         preserveDrawingBuffer: false,
-        powerPreference: "low-power"
-      }) || canvas.getContext("experimental-webgl");
-    } catch (e) {
+        powerPreference: "high-performance"
+      });
+    } catch {
       gl = null;
     }
 
@@ -328,68 +328,82 @@ export default function AuroraVeilBackground() {
 
     const uTime = gl.getUniformLocation(program, "u_time");
     const uRes = gl.getUniformLocation(program, "u_res");
-    const uAuroraSpeed = gl.getUniformLocation(program, "u_auroraSpeed");
-    const uAuroraIntensity = gl.getUniformLocation(program, "u_auroraIntensity");
+    const uSpeed = gl.getUniformLocation(program, "u_auroraSpeed");
+    const uIntensity = gl.getUniformLocation(program, "u_auroraIntensity");
+    const uScroll = gl.getUniformLocation(program, "u_scroll");
 
-    // Tuned art parameters
-    const auroraSpeed = 0.16;
-    const auroraIntensity = 0.38;
+    // Calibrated atmospheric constants
+    gl.uniform1f(uSpeed, 0.16);
+    gl.uniform1f(uIntensity, 0.42);
+    if (uScroll) gl.uniform1f(uScroll, 0.0);
 
-    // Cap DPR to 1.25 for background atmosphere to preserve battery & GPU
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
-    let needsResize = true;
     let animFrameId = null;
-    let isTabVisible = !document.hidden;
+    let isPaused = false;
+    let currentScroll = 0;
+    const startTime = performance.now();
 
     function resize() {
-      needsResize = false;
-      const w = Math.round(canvas.clientWidth * dpr);
-      const h = Math.round(canvas.clientHeight * dpr);
-      if (canvas.width !== w || canvas.height !== h) {
-        canvas.width = w;
-        canvas.height = h;
-        gl.viewport(0, 0, w, h);
-        gl.uniform2f(uRes, canvas.width, canvas.height);
-      }
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(uRes, canvas.width, canvas.height);
     }
 
     function renderFrame(now) {
-      if (needsResize) resize();
+      if (isPaused) return;
 
-      const timeVal = prefersReduced ? 1.2 : now * 0.001;
-      gl.uniform1f(uTime, timeVal);
-      gl.uniform1f(uAuroraSpeed, auroraSpeed);
-      gl.uniform1f(uAuroraIntensity, auroraIntensity);
+      const elapsed = (now - startTime) * 0.001;
+      gl.uniform1f(uTime, elapsed);
+      if (uScroll) gl.uniform1f(uScroll, currentScroll);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
 
-      // If reduced motion is requested, render once and stop loop
-      if (!prefersReduced && isTabVisible) {
+      if (!prefersReducedMotion) {
         animFrameId = requestAnimationFrame(renderFrame);
       }
     }
 
-    const handleResize = () => {
-      needsResize = true;
-    };
-
-    const handleVisibility = () => {
-      isTabVisible = !document.hidden;
-      if (isTabVisible && !prefersReduced && !animFrameId) {
-        animFrameId = requestAnimationFrame(renderFrame);
-      } else if (!isTabVisible && animFrameId) {
-        cancelAnimationFrame(animFrameId);
-        animFrameId = null;
+    function handleResize() {
+      resize();
+      if (prefersReducedMotion) {
+        renderFrame(performance.now());
       }
-    };
+    }
 
-    window.addEventListener("resize", handleResize);
+    function handleScroll() {
+      currentScroll = window.scrollY || document.documentElement.scrollTop || 0;
+      if (prefersReducedMotion) {
+        renderFrame(performance.now());
+      }
+    }
+
+    function handleVisibility() {
+      if (document.hidden) {
+        isPaused = true;
+        if (animFrameId) {
+          cancelAnimationFrame(animFrameId);
+          animFrameId = null;
+        }
+      } else {
+        isPaused = false;
+        if (!prefersReducedMotion && !animFrameId) {
+          animFrameId = requestAnimationFrame(renderFrame);
+        }
+      }
+    }
+
+    window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     document.addEventListener("visibilitychange", handleVisibility);
 
     resize();
+    currentScroll = window.scrollY || document.documentElement.scrollTop || 0;
     animFrameId = requestAnimationFrame(renderFrame);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("visibilitychange", handleVisibility);
       if (animFrameId) cancelAnimationFrame(animFrameId);
       if (buffer) gl.deleteBuffer(buffer);
