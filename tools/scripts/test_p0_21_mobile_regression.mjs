@@ -162,9 +162,10 @@ export function assertBetaMetrics(vp, metrics, failures = []) {
       failures.push(`${vp.name} /programa-beta: iOS WebKit auto-zoom risk - input font size < 16px (name=${metrics.nameFontSize})`);
     }
   }
-  if (!metrics.prelaunchBannerVisible) {
+  // Deterministic state validation: requires either prelaunch banner (closed state) or active banner (open state)
+  if (!metrics.prelaunchBannerVisible && !metrics.activeBannerVisible) {
     pass = false;
-    failures.push(`${vp.name} /programa-beta: Pre-launch banner not visible!`);
+    failures.push(`${vp.name} /programa-beta: Neither pre-launch nor active registration banner is visible!`);
   }
   return pass;
 }
@@ -278,6 +279,17 @@ class PlaywrightEngine {
       hasTouch: defaultVp.hasTouch
     });
     this.page = await this.context.newPage();
+    // Strict Read-Only Guard: Prevent any write mutations to Supabase during responsive tests
+    if (this.page.route) {
+      await this.page.route("**/supabase.co/**", (route) => {
+        const method = route.request().method();
+        if (["POST", "PUT", "PATCH", "DELETE"].includes(method)) {
+          console.warn(`[READ-ONLY SAFEGUARD] Aborting mutation request to Supabase: ${method} ${route.request().url()}`);
+          return route.abort("blockedbyclient");
+        }
+        return route.continue();
+      });
+    }
     return this.page;
   }
 
@@ -299,6 +311,17 @@ class PuppeteerEngine {
 
   async init(defaultVp) {
     this.page = await this.browser.newPage();
+    // Strict Read-Only Guard: Prevent any write mutations to Supabase during responsive tests
+    await this.page.setRequestInterception(true);
+    this.page.on("request", (req) => {
+      const url = req.url();
+      const method = req.method();
+      if (url.includes("supabase.co") && ["POST", "PUT", "PATCH", "DELETE"].includes(method)) {
+        console.warn(`[READ-ONLY SAFEGUARD] Aborting mutation request to Supabase: ${method} ${url}`);
+        return req.abort("blockedbyclient");
+      }
+      return req.continue();
+    });
     await this.page.setViewport({
       width: defaultVp.width,
       height: defaultVp.height,
@@ -444,8 +467,9 @@ async function main() {
         const orb = document.querySelector(".atlas-ai-orb");
         const marinaBadge = document.querySelector(".atlas-ai-orb__badge");
 
-        // Check prelaunch banner
+        // Check prelaunch banner and active banner for deterministic verification
         const prelaunchBanner = document.querySelector(".beta-prelaunch-banner");
+        const activeBanner = document.querySelector(".beta-active-banner");
 
         return {
           scrollWidth,
@@ -453,7 +477,8 @@ async function main() {
           hasHorizontalOverflow,
           nameFontSize,
           tutorMounted: Boolean(tutor || orb || marinaBadge),
-          prelaunchBannerVisible: Boolean(prelaunchBanner)
+          prelaunchBannerVisible: Boolean(prelaunchBanner),
+          activeBannerVisible: Boolean(activeBanner)
         };
       });
 

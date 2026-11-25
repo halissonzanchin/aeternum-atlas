@@ -168,8 +168,37 @@ function runSimulatedFailureChecks() {
     console.log(`[BLOCKED 7/12] Simulated Beta Tutor Leak: ${failures[0]}`);
   }
 
-  // 8. PROGRAMA BETA: Missing Prelaunch Banner
+  // 8. PROGRAMA BETA: Missing Both Pre-Launch and Active Banners
   {
+    // Deterministic state validation: Closed state passes
+    const closedFailures = [];
+    const closedMetrics = {
+      hasHorizontalOverflow: false,
+      scrollWidth: 390,
+      clientWidth: 390,
+      tutorMounted: false,
+      nameFontSize: "16px",
+      prelaunchBannerVisible: true,
+      activeBannerVisible: false
+    };
+    assert.equal(assertBetaMetrics(mobileVp, closedMetrics, closedFailures), true, "Deterministic closed state must pass");
+    assert.equal(closedFailures.length, 0);
+
+    // Deterministic state validation: Open state passes
+    const openFailures = [];
+    const openMetrics = {
+      hasHorizontalOverflow: false,
+      scrollWidth: 390,
+      clientWidth: 390,
+      tutorMounted: false,
+      nameFontSize: "16px",
+      prelaunchBannerVisible: false,
+      activeBannerVisible: true
+    };
+    assert.equal(assertBetaMetrics(mobileVp, openMetrics, openFailures), true, "Deterministic open state must pass");
+    assert.equal(openFailures.length, 0);
+
+    // Failure check: Neither banner visible fails assertion
     const failures = [];
     const metrics = {
       hasHorizontalOverflow: false,
@@ -177,13 +206,14 @@ function runSimulatedFailureChecks() {
       clientWidth: 390,
       tutorMounted: false,
       nameFontSize: "16px",
-      prelaunchBannerVisible: false // MISSING
+      prelaunchBannerVisible: false,
+      activeBannerVisible: false // NEITHER VISIBLE
     };
     const pass = assertBetaMetrics(mobileVp, metrics, failures);
-    assert.equal(pass, false, "Missing prelaunch banner must fail assertion");
-    assert.ok(failures.some(f => f.includes("Pre-launch banner not visible")), "Must record banner failure");
+    assert.equal(pass, false, "Missing both banners must fail assertion");
+    assert.ok(failures.some(f => f.includes("Neither pre-launch nor active registration banner is visible")), "Must record banner failure");
     caughtViolations++;
-    console.log(`[BLOCKED 8/12] Simulated Missing Banner: ${failures[0]}`);
+    console.log(`[BLOCKED 8/12] Simulated Missing Banner (Both Closed & Open Absent): ${failures[0]}`);
   }
 
   // 9. HOME: Atlas 360° Typography Break (Wrapped text)

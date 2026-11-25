@@ -57,6 +57,8 @@ jobs:
         run: npm run test:webkit
         env:
           ARTIFACT_DIR: ./test-artifacts/webkit
+      - name: Verify Simulated Responsive Regressions (12 Failure Classes)
+        run: npm run test:responsive:simulated
       - name: Upload Responsive Test Artifacts
         if: always()
         uses: actions/upload-artifact@v4
