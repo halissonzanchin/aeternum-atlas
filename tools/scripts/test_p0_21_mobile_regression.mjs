@@ -266,6 +266,27 @@ class BrowserRunner {
   }
 }
 
+// Exportable deterministic fixtures for testing closed vs open states without database mutation
+export const BETA_STATUS_FIXTURES = {
+  closed: {
+    registration_open: false,
+    capacity_total: 30,
+    remaining_slots: 30,
+    approved_count: 0,
+    banner_text: "Inscrições em breve"
+  },
+  open: {
+    registration_open: true,
+    capacity_total: 30,
+    remaining_slots: 30,
+    approved_count: 0,
+    banner_text: "Inscrições abertas"
+  }
+};
+
+// URL regex covering all Supabase subdomains
+export const SUPABASE_URL_PATTERN = /^https?:\/\/[a-z0-9-]+\.supabase\.co\/.*/;
+
 class PlaywrightEngine {
   constructor(browser, engineName) {
     this.browser = browser;
@@ -279,12 +300,28 @@ class PlaywrightEngine {
       hasTouch: defaultVp.hasTouch
     });
     this.page = await this.context.newPage();
-    // Strict Read-Only Guard: Prevent any write mutations to Supabase during responsive tests
+    // Strict Read-Only Guard & Independent Fixtures for Supabase
     if (this.page.route) {
-      await this.page.route("**/supabase.co/**", (route) => {
-        const method = route.request().method();
+      await this.page.route(SUPABASE_URL_PATTERN, (route) => {
+        const req = route.request();
+        const url = req.url();
+        const method = req.method();
+
+        // 1. Independent fixture for Beta Program status (deterministic, zero DB mutations)
+        if (url.includes("/rpc/get_beta_program_public_status")) {
+          const fixture = process.env.TEST_BETA_STATE === "open"
+            ? BETA_STATUS_FIXTURES.open
+            : BETA_STATUS_FIXTURES.closed;
+          return route.fulfill({
+            status: 200,
+            contentType: "application/json",
+            body: JSON.stringify(fixture)
+          });
+        }
+
+        // 2. Strict Read-Only Guard: Prevent any write mutations to Supabase during responsive tests
         if (["POST", "PUT", "PATCH", "DELETE"].includes(method)) {
-          console.warn(`[READ-ONLY SAFEGUARD] Aborting mutation request to Supabase: ${method} ${route.request().url()}`);
+          console.warn(`[READ-ONLY SAFEGUARD] Aborting mutation request to Supabase: ${method} ${url}`);
           return route.abort("blockedbyclient");
         }
         return route.continue();
@@ -311,14 +348,30 @@ class PuppeteerEngine {
 
   async init(defaultVp) {
     this.page = await this.browser.newPage();
-    // Strict Read-Only Guard: Prevent any write mutations to Supabase during responsive tests
+    // Strict Read-Only Guard & Independent Fixtures for Supabase
     await this.page.setRequestInterception(true);
     this.page.on("request", (req) => {
       const url = req.url();
       const method = req.method();
-      if (url.includes("supabase.co") && ["POST", "PUT", "PATCH", "DELETE"].includes(method)) {
-        console.warn(`[READ-ONLY SAFEGUARD] Aborting mutation request to Supabase: ${method} ${url}`);
-        return req.abort("blockedbyclient");
+
+      if (SUPABASE_URL_PATTERN.test(url)) {
+        // 1. Independent fixture for Beta Program status (deterministic, zero DB mutations)
+        if (url.includes("/rpc/get_beta_program_public_status")) {
+          const fixture = process.env.TEST_BETA_STATE === "open"
+            ? BETA_STATUS_FIXTURES.open
+            : BETA_STATUS_FIXTURES.closed;
+          return req.respond({
+            status: 200,
+            contentType: "application/json",
+            body: JSON.stringify(fixture)
+          });
+        }
+
+        // 2. Strict Read-Only Guard: Prevent any write mutations to Supabase during responsive tests
+        if (["POST", "PUT", "PATCH", "DELETE"].includes(method)) {
+          console.warn(`[READ-ONLY SAFEGUARD] Aborting mutation request to Supabase: ${method} ${url}`);
+          return req.abort("blockedbyclient");
+        }
       }
       return req.continue();
     });
