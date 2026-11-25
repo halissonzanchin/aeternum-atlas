@@ -917,21 +917,47 @@ body:has(.atlas-auth-page--beta) #root,
 }
 
 .atlas-auth-password .a26-field__control {
-  padding-right: 96px;
+  padding-right: 48px;
 }
 
 .atlas-auth-password__toggle {
   position: absolute;
-  right: 8px;
-  bottom: 6px;
-  min-width: 76px;
-  min-height: 44px;
+  right: 10px;
+  bottom: 7px;
+  width: 36px;
+  height: 36px;
+  min-width: 0;
+  min-height: 0;
   border: 0;
-  border-radius: 12px;
-  background: rgb(92 232 223 / 0.08);
-  color: var(--a26-color-teal);
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(127, 247, 244, 0.7);
   cursor: pointer;
-  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: none;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+}
+
+.atlas-auth-password__toggle svg,
+.atlas-auth-password__toggle .line-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  margin: 0 auto;
+}
+
+.atlas-auth-password__toggle:hover,
+.atlas-auth-password__toggle:focus-visible {
+  color: #7ff7f4;
+  background: rgba(127, 247, 244, 0.12);
+  outline: none;
+}
+
+.atlas-auth-password__toggle:active {
+  transform: scale(0.94);
 }
 
 .atlas-auth-actions {
@@ -1013,8 +1039,12 @@ body:has(.atlas-auth-page--beta) #root,
     0 34px 84px rgb(0 0 0 / 0.32),
     0 0 44px rgb(66 220 212 / 0.045);
   isolation: isolate;
-  padding: clamp(28px, 4vw, 48px);
+  padding: clamp(24px, 2.5vw, 36px) clamp(24px, 3vw, 42px);
   border-radius: 32px;
+  max-height: none !important;
+  overflow: visible !important;
+  overflow-y: visible !important;
+  height: auto !important;
   background:
     linear-gradient(145deg, rgb(255 255 255 / 0.105), transparent 32%),
     radial-gradient(ellipse 22% 18% at var(--a26-pointer-x) var(--a26-pointer-y), rgb(92 232 223 / 0.075), transparent 100%),
@@ -1153,41 +1183,49 @@ body:has(.atlas-auth-page--beta) #root,
 }
 
 .atlas-auth-card--login .atlas-auth-password__toggle {
-  bottom: 6px;
-  min-height: 44px;
-  overflow: hidden;
-  border: 1px solid rgb(191 249 244 / 0.12);
-  background:
-    linear-gradient(145deg, rgb(255 255 255 / 0.105), transparent 38%),
-    rgb(7 29 34 / 0.72);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.11),
-    inset 0 -1px 0 rgb(223 197 127 / 0.18);
+  position: absolute;
+  bottom: 7px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  min-width: 0;
+  min-height: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(127, 247, 244, 0.7);
+  box-shadow: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
   transition:
     color 180ms ease,
-    border-color 180ms ease,
-    background 180ms ease,
-    box-shadow 220ms ease,
+    background-color 180ms ease,
     transform 180ms ease;
+}
+
+.atlas-auth-card--login .atlas-auth-password__toggle svg,
+.atlas-auth-card--login .atlas-auth-password__toggle .line-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  margin: 0 auto;
 }
 
 .atlas-auth-card--login .atlas-auth-password__toggle:hover,
 .atlas-auth-card--login .atlas-auth-password__toggle:focus-visible,
 .atlas-auth-card--login .atlas-auth-password__toggle[aria-pressed="true"] {
-  border-color: rgb(92 232 223 / 0.42);
+  border-color: transparent;
   outline: none;
-  background:
-    linear-gradient(145deg, rgb(255 255 255 / 0.16), transparent 38%),
-    rgb(8 38 43 / 0.84);
-  color: #fff;
-  box-shadow:
-    0 0 22px rgb(92 232 223 / 0.1),
-    inset 0 1px 0 rgb(255 255 255 / 0.18),
-    inset 0 -1px 0 rgb(223 197 127 / 0.58);
+  background: rgba(127, 247, 244, 0.12);
+  color: #7ff7f4;
+  box-shadow: none;
 }
 
 .atlas-auth-card--login .atlas-auth-password__toggle:active {
-  transform: scale(0.97);
+  transform: scale(0.94);
 }
 
 .atlas-auth-card--login .atlas-auth-submit {
@@ -2423,17 +2461,22 @@ body:has(.atlas-auth-page--beta) #root,
     inset 0 1px 0 #ffffff !important;
 }
 
-.a26-theme-light .atlas-auth-password__toggle {
+.a26-theme-light .atlas-auth-password__toggle,
+.a26-theme-light .atlas-auth-card--login .atlas-auth-password__toggle {
   background: transparent !important;
   border: 0 !important;
+  box-shadow: none !important;
   color: #0f766e !important;
 }
 
 .a26-theme-light .atlas-auth-password__toggle:hover,
-.a26-theme-light .atlas-auth-password__toggle:focus-visible {
+.a26-theme-light .atlas-auth-password__toggle:focus-visible,
+.a26-theme-light .atlas-auth-card--login .atlas-auth-password__toggle:hover,
+.a26-theme-light .atlas-auth-card--login .atlas-auth-password__toggle:focus-visible {
   background: rgba(15, 118, 110, 0.08) !important;
   color: #0d9488 !important;
   outline: none !important;
+  box-shadow: none !important;
 }
 
 .a26-theme-light .atlas-auth-forgot-link {
