@@ -98,10 +98,16 @@
 
 .cinematic-home .p4-orbit-core {
   z-index: 4;
-  width: 30%;
+  width: 36%;
   max-width: none;
-  padding: 0;
+  padding: 6px 4px;
   overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   border: 1px solid rgba(118, 218, 210, 0.2);
   background:
     radial-gradient(circle at 45% 32%, rgba(41, 121, 119, 0.18), transparent 36%),
@@ -134,29 +140,54 @@
     0 26px 76px rgba(0, 0, 0, 0.34);
 }
 
-.cinematic-home .p4-orbit-core > span {
-  color: rgba(106, 220, 212, 0.65);
-  font-size: 0.48rem;
+.cinematic-home .p4-orbit-core > span,
+.cinematic-home .p4-orbit-core .p4-core-top {
+  display: block;
+  white-space: nowrap !important;
+  color: rgba(106, 220, 212, 0.75);
+  font-size: clamp(0.48rem, 1vw, 0.65rem);
   font-weight: 800;
   letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin: 0;
 }
 
-.cinematic-home .p4-orbit-core > strong {
-  margin: 10px 0 7px;
+.cinematic-home .p4-orbit-core > strong,
+.cinematic-home .p4-orbit-core .p4-core-title {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  margin: 2px 0;
   color: #eeeae0;
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(3.1rem, 3.55vw, 4.55rem);
+  font-size: clamp(2.1rem, 4.2vw, 4.2rem);
   font-weight: 400;
-  letter-spacing: -0.065em;
-  line-height: 0.76;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  font-variant-numeric: tabular-nums;
 }
 
-.cinematic-home .p4-orbit-core > small {
-  color: rgba(220, 190, 105, 0.68);
-  font-size: 0.48rem;
+.cinematic-home .p4-orbit-core .p4-unit-nowrap {
+  display: inline-block;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+}
+
+.cinematic-home .p4-orbit-core > small,
+.cinematic-home .p4-orbit-core .p4-core-bottom {
+  display: block;
+  white-space: nowrap !important;
+  color: rgba(220, 190, 105, 0.8);
+  font-size: clamp(0.42rem, 0.85vw, 0.55rem);
   font-weight: 800;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  line-height: 1.1;
+  margin: 2px 0 0 0;
 }
 
 .cinematic-home .p4-planet-slot {
@@ -646,6 +677,34 @@
 
   .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-interface-orbit {
     transform: translate(-50%, -50%) scale(0.72);
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-orbit-core {
+    width: 38% !important;
+    padding: 6px 2px !important;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-orbit-core > strong,
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-orbit-core .p4-core-title {
+    font-size: clamp(1.85rem, 5.2vw, 2.75rem) !important;
+    line-height: 0.85 !important;
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-orbit-core > span,
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-orbit-core .p4-core-top {
+    font-size: 0.46rem !important;
+    letter-spacing: 0.18em !important;
+    white-space: nowrap !important;
+  }
+
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-orbit-core > small,
+  .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-orbit-core .p4-core-bottom {
+    font-size: 0.42rem !important;
+    letter-spacing: 0.1em !important;
+    white-space: nowrap !important;
   }
 
   .cinematic-home #home-hero.home-hero.cinematic-home-hero.aeternum-hero .p4-atlas-interface.has-selection .p4-interface-orbit {

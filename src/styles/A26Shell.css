@@ -935,10 +935,74 @@ body:has(.atlas-auth-page--beta) #root,
 }
 
 .atlas-auth-actions {
-  margin-top: 20px;
+  margin-top: 14px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
+}
+
+.atlas-auth-forgot-link {
+  display: block;
+  width: fit-content;
+  margin: 14px auto 0;
+  background: transparent;
+  border: 0;
+  color: rgba(220, 238, 236, 0.72);
+  font-size: 0.84rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.atlas-auth-forgot-link:hover,
+.atlas-auth-forgot-link:focus-visible {
+  color: #7ff7f4;
+  text-decoration: underline;
+  outline: none;
+}
+
+.atlas-auth-divider {
+  width: 100%;
+  height: 1px;
+  margin: 20px 0 16px;
+  background: linear-gradient(90deg, transparent, rgba(127, 247, 244, 0.15), transparent);
+}
+
+.atlas-auth-footer-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.atlas-auth-footer-link {
+  flex: 1;
+  text-align: center;
+  padding: 10px 14px;
+  min-height: 44px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(220, 238, 236, 0.85);
+  background: rgba(127, 247, 244, 0.05);
+  border: 1px solid rgba(127, 247, 244, 0.15);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.atlas-auth-footer-link:hover,
+.atlas-auth-footer-link:focus-visible {
+  background: rgba(127, 247, 244, 0.12);
+  border-color: rgba(127, 247, 244, 0.35);
+  color: #ffffff;
+  outline: none;
 }
 
 /* Aeternum 26 authentication glass: the same optical language used by the public toolbar. */
@@ -1648,24 +1712,49 @@ body:has(.atlas-auth-page--beta) #root,
 
   .atlas-auth-shell:not(.atlas-auth-shell--beta),
   .atlas-auth-shell--wide {
-    grid-template-columns: minmax(0, 1fr) !important;
-    width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-    min-height: auto;
-    gap: 12px;
-    overflow: visible;
-    border: 0;
-    background: transparent;
-    box-shadow: none;
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    width: 100% !important;
+    max-width: 480px !important;
+    margin: 0 auto !important;
+    min-height: auto !important;
+    gap: 0 !important;
+    overflow: hidden !important;
+    border-radius: 32px !important;
+    border: 1px solid rgba(127, 247, 244, 0.22) !important;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(127, 247, 244, 0.08), transparent 50%),
+      linear-gradient(175deg, rgba(8, 24, 30, 0.94), rgba(3, 12, 16, 0.98)) !important;
+    box-shadow:
+      0 32px 80px -16px rgba(0, 0, 0, 0.65),
+      0 0 0 1px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(220, 250, 246, 0.16) !important;
   }
 
-  .atlas-auth-story:not(.atlas-auth-story--beta) {
+  .atlas-auth-story:not(.atlas-auth-story--beta),
+  .atlas-auth-story--beta {
     min-height: 0 !important;
-    padding: 14px 10px;
-    gap: 12px;
-    border-right: 0 !important;
-    overflow: visible;
+    padding: 24px 20px 16px !important;
+    gap: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid rgba(127, 247, 244, 0.12) !important;
+    overflow: visible !important;
+  }
+
+  .atlas-auth-story:not(.atlas-auth-story--beta)::before,
+  .atlas-auth-story:not(.atlas-auth-story--beta)::after,
+  .atlas-auth-story--beta::before,
+  .atlas-auth-story--beta::after,
+  .atlas-auth-story:not(.atlas-auth-story--beta) > .a26-surface__refract,
+  .atlas-auth-story:not(.atlas-auth-story--beta) > .a26-surface__spectrum,
+  .atlas-auth-story:not(.atlas-auth-story--beta) > .a26-surface__specular,
+  .atlas-auth-story:not(.atlas-auth-story--beta) > .a26-surface__noise,
+  .atlas-auth-story:not(.atlas-auth-story--beta) > .a26-surface__grain {
+    display: none !important;
   }
 
   .atlas-auth-story:not(.atlas-auth-story--beta) .atlas-auth-story-copy,
@@ -1674,27 +1763,210 @@ body:has(.atlas-auth-page--beta) #root,
     display: none !important;
   }
 
-  .atlas-auth-card {
-    padding: clamp(20px, 4vw, 32px);
+  .atlas-auth-brand {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 10px !important;
+  }
+
+  .atlas-auth-brand > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .atlas-auth-brand strong {
+    font-family: "Cinzel", "Cormorant Garamond", Georgia, serif !important;
+    font-size: 1.15rem !important;
+    letter-spacing: 0.18em !important;
+    color: #dfc16e !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+  }
+
+  .atlas-auth-brand span {
+    font-size: 0.65rem !important;
+    letter-spacing: 0.22em !important;
+    color: rgba(127, 247, 244, 0.8) !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
   }
 
   .atlas-auth-panel-slot:not(.atlas-auth-panel-slot--beta) {
-    padding: 0;
-    background: transparent;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .atlas-auth-card {
+    padding: 20px 24px 28px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  .atlas-auth-card::before,
+  .atlas-auth-card::after,
+  .atlas-auth-card > .a26-surface__refract,
+  .atlas-auth-card > .a26-surface__spectrum,
+  .atlas-auth-card > .a26-surface__specular,
+  .atlas-auth-card > .a26-surface__noise,
+  .atlas-auth-card > .a26-surface__grain {
+    display: none !important;
   }
 
   .atlas-auth-card--login.a26-surface {
-    overflow: visible;
-    border-radius: 28px;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 
-  .atlas-auth-actions {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
+  .atlas-auth-card .eyebrow {
+    font-size: 0.72rem !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase !important;
+    color: #5ce1e6 !important;
+    font-weight: 700 !important;
+    margin-top: 8px !important;
   }
 
-  .atlas-auth-actions .a26-button {
-    width: 100%;
+  .atlas-auth-card .display-title {
+    font-family: "Cormorant Garamond", Georgia, serif !important;
+    font-size: clamp(2rem, 5.2vw, 2.5rem) !important;
+    color: #f5f2eb !important;
+    font-weight: 400 !important;
+    line-height: 1.1 !important;
+    margin: 4px 0 6px !important;
+  }
+
+  .atlas-auth-card p.text-textMuted {
+    font-size: 0.88rem !important;
+    color: rgba(220, 235, 235, 0.72) !important;
+    margin-bottom: 20px !important;
+  }
+
+  .atlas-auth-password {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .atlas-auth-password .a26-field__control {
+    padding-right: 48px !important;
+  }
+
+  .atlas-auth-password__toggle {
+    position: absolute !important;
+    right: 12px !important;
+    bottom: 8px !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    color: rgba(127, 247, 244, 0.7) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    transition: color 0.2s ease, background-color 0.2s ease !important;
+  }
+
+  .atlas-auth-password__toggle:hover,
+  .atlas-auth-password__toggle:focus-visible {
+    color: #7ff7f4 !important;
+    background: rgba(127, 247, 244, 0.1) !important;
+    outline: none !important;
+  }
+
+  .atlas-auth-submit {
+    width: 100% !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    margin-top: 10px !important;
+    border-radius: 9999px !important;
+    font-weight: 800 !important;
+    font-size: 0.88rem !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    background: linear-gradient(135deg, #2dd4bf 0%, #0d9488 100%) !important;
+    color: #022026 !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 8px 24px -4px rgba(45, 212, 191, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  }
+
+  .atlas-auth-forgot-link {
+    display: block !important;
+    width: fit-content !important;
+    margin: 14px auto 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    color: rgba(220, 238, 236, 0.72) !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
+    transition: color 0.2s ease !important;
+  }
+
+  .atlas-auth-forgot-link:hover,
+  .atlas-auth-forgot-link:focus-visible {
+    color: #7ff7f4 !important;
+    text-decoration: underline !important;
+    outline: none !important;
+  }
+
+  .atlas-auth-divider {
+    width: 100% !important;
+    height: 1px !important;
+    margin: 20px 0 16px !important;
+    background: linear-gradient(90deg, transparent, rgba(127, 247, 244, 0.15), transparent) !important;
+  }
+
+  .atlas-auth-footer-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+  }
+
+  .atlas-auth-footer-link {
+    flex: 1 !important;
+    text-align: center !important;
+    padding: 10px 14px !important;
+    min-height: 42px !important;
+    border-radius: 12px !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    color: rgba(220, 238, 236, 0.82) !important;
+    background: rgba(127, 247, 244, 0.04) !important;
+    border: 1px solid rgba(127, 247, 244, 0.12) !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .atlas-auth-footer-link:hover,
+  .atlas-auth-footer-link:focus-visible {
+    background: rgba(127, 247, 244, 0.1) !important;
+    border-color: rgba(127, 247, 244, 0.28) !important;
+    color: #ffffff !important;
+    outline: none !important;
   }
 
   .atlas-auth-card--login .a26-field__control,
@@ -2134,17 +2406,42 @@ body:has(.atlas-auth-page--beta) #root,
 }
 
 .a26-theme-light .atlas-auth-password__toggle {
-  background: rgba(241, 245, 249, 0.95) !important;
-  background-color: #f1f5f9 !important;
+  background: transparent !important;
+  border: 0 !important;
   color: #0f766e !important;
-  border: 1px solid rgba(15, 118, 110, 0.25) !important;
 }
 
-.a26-theme-light .atlas-auth-password__toggle:hover {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
+.a26-theme-light .atlas-auth-password__toggle:hover,
+.a26-theme-light .atlas-auth-password__toggle:focus-visible {
+  background: rgba(15, 118, 110, 0.08) !important;
   color: #0d9488 !important;
-  border-color: #0f766e !important;
+  outline: none !important;
+}
+
+.a26-theme-light .atlas-auth-forgot-link {
+  color: #475569 !important;
+}
+
+.a26-theme-light .atlas-auth-forgot-link:hover,
+.a26-theme-light .atlas-auth-forgot-link:focus-visible {
+  color: #0f766e !important;
+}
+
+.a26-theme-light .atlas-auth-divider {
+  background: linear-gradient(90deg, transparent, rgba(15, 118, 110, 0.15), transparent) !important;
+}
+
+.a26-theme-light .atlas-auth-footer-link {
+  color: #0f766e !important;
+  background: rgba(15, 118, 110, 0.04) !important;
+  border-color: rgba(15, 118, 110, 0.15) !important;
+}
+
+.a26-theme-light .atlas-auth-footer-link:hover,
+.a26-theme-light .atlas-auth-footer-link:focus-visible {
+  background: rgba(15, 118, 110, 0.1) !important;
+  border-color: rgba(15, 118, 110, 0.3) !important;
+  color: #115e59 !important;
 }
 
 .a26-theme-light .atlas-auth-card p {

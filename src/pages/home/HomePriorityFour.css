@@ -254,28 +254,53 @@
 }
 
 .cinematic-home .p4-orbit-core span,
-.cinematic-home .p4-orbit-core small {
-  max-width: 15ch;
-  color: rgba(108, 225, 220, 0.68);
-  font-size: 0.54rem;
+.cinematic-home .p4-orbit-core .p4-core-top {
+  display: block;
+  white-space: nowrap !important;
+  color: rgba(108, 225, 220, 0.75);
+  font-size: clamp(0.48rem, 1vw, 0.65rem);
   font-weight: 800;
-  letter-spacing: 0.16em;
-  line-height: 1.5;
+  letter-spacing: 0.22em;
+  line-height: 1.1;
   text-transform: uppercase;
+  margin: 0;
 }
 
-.cinematic-home .p4-orbit-core strong {
-  margin: 11px 0 7px;
+.cinematic-home .p4-orbit-core strong,
+.cinematic-home .p4-orbit-core .p4-core-title {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  margin: 2px 0;
   color: #e9e5da;
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(3.5rem, 4vw, 5.4rem);
+  font-size: clamp(2.1rem, 4vw, 4.4rem);
   font-weight: 400;
-  letter-spacing: -0.05em;
-  line-height: 0.8;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  font-variant-numeric: tabular-nums;
 }
 
-.cinematic-home .p4-orbit-core small {
-  color: rgba(223, 193, 110, 0.68);
+.cinematic-home .p4-orbit-core .p4-unit-nowrap {
+  display: inline-block;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+}
+
+.cinematic-home .p4-orbit-core small,
+.cinematic-home .p4-orbit-core .p4-core-bottom {
+  display: block;
+  white-space: nowrap !important;
+  color: rgba(223, 193, 110, 0.8);
+  font-size: clamp(0.42rem, 0.85vw, 0.55rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin: 2px 0 0 0;
 }
 
 .cinematic-home .p4-planet-slot {

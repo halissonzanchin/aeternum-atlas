@@ -2,6 +2,7 @@
 import { useState } from "react";
 import AuthExperienceShell from "../../components/AuthExperienceShell/AuthExperienceShell";
 import LanguageSelector from "../../components/LanguageSelector";
+import LineIcon from "../../components/icons/LineIcon";
 import { A26Button, A26Card, A26Field, A26IconButton } from "../../components/aeternum-26";
 import { getRedirectPathForUser, loginUser, requestPasswordRecovery } from "../../services/auth/authService";
 import { validateLogin } from "../../utils/validators";
@@ -136,7 +137,8 @@ export default function Login({ navigate, onAuth }) {
               aria-pressed={showPassword}
               aria-label={showPassword ? t("auth.hidePassword") : t("auth.showPassword")}
             >
-              {showPassword ? t("auth.hidePassword") : t("auth.showPassword")}
+              <LineIcon name={showPassword ? "eye-off" : "eye"} className="h-4 w-4" />
+              <span className="sr-only">{showPassword ? t("auth.hidePassword") : t("auth.showPassword")}</span>
             </button>
             {errors.password ? <small className="a26-field__error" role="alert">{errors.password}</small> : null}
           </label>
@@ -149,19 +151,31 @@ export default function Login({ navigate, onAuth }) {
           <A26Button className="atlas-auth-submit" variant="liquid" type="submit" loading={loading}>
             {t("auth.loginShort")}
           </A26Button>
-        </form>
-        <div className="atlas-auth-actions">
-          <A26Button
-            className="atlas-auth-secondary"
-            variant="liquid"
+          <button
             type="button"
-            loading={recoveryLoading}
+            className="atlas-auth-forgot-link"
+            disabled={recoveryLoading}
             onClick={handleForgotPassword}
           >
-            {t("auth.forgotPassword")}
+            {recoveryLoading ? t("common.loading") : t("auth.forgotPassword")}
+          </button>
+        </form>
+        <div className="atlas-auth-divider" />
+        <div className="atlas-auth-actions atlas-auth-footer-row">
+          <A26Button
+            className="atlas-auth-secondary atlas-auth-footer-link"
+            variant="ghost"
+            onClick={() => navigate("/register")}
+          >
+            {t("auth.newAccount")}
           </A26Button>
-          <A26Button className="atlas-auth-secondary" variant="liquid" onClick={() => navigate("/register")}>{t("auth.newAccount")}</A26Button>
-          <A26Button className="atlas-auth-secondary" variant="liquid" onClick={() => navigate("/programa-beta")}>Programa Beta</A26Button>
+          <A26Button
+            className="atlas-auth-secondary atlas-auth-footer-link"
+            variant="ghost"
+            onClick={() => navigate("/programa-beta")}
+          >
+            Programa Beta
+          </A26Button>
         </div>
       </A26Card>
     </AuthExperienceShell>

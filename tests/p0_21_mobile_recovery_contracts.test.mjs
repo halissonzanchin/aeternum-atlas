@@ -172,3 +172,53 @@ test("P0.21-MOBILE.1 — Security Hardening & Headers Contract", async (t) => {
     assert.match(getHeader("Strict-Transport-Security"), /max-age=63072000/);
   });
 });
+
+test("P0.21-MOBILE.1.1 — Atlas 360° Indivisible Typography Contract", async (t) => {
+  await t.test("AtlasSolarSystem.jsx wraps 360° in an indivisible unit with semantic hooks", () => {
+    const jsxPath = path.join(rootDir, "src/pages/home/AtlasSolarSystem.jsx");
+    const content = fs.readFileSync(jsxPath, "utf-8");
+    assert.match(content, /p4-unit-nowrap/, "AtlasSolarSystem must include p4-unit-nowrap hook");
+    assert.match(content, /<span className="p4-unit-nowrap">360°<\/span>/, "360° must be wrapped as an unbroken span unit");
+    assert.match(content, /p4-core-title/, "Central core must provide p4-core-title hook");
+    assert.match(content, /p4-core-top/, "Central core must provide p4-core-top hook");
+    assert.match(content, /p4-core-bottom/, "Central core must provide p4-core-bottom hook");
+  });
+
+  await t.test("AtlasSolarSystemPremium.css and HomePriorityFour.css enforce white-space: nowrap !important and tabular-nums", () => {
+    const premiumPath = path.join(rootDir, "src/pages/home/AtlasSolarSystemPremium.css");
+    const p4Path = path.join(rootDir, "src/pages/home/HomePriorityFour.css");
+    const premiumContent = fs.readFileSync(premiumPath, "utf-8");
+    const p4Content = fs.readFileSync(p4Path, "utf-8");
+
+    assert.match(premiumContent, /white-space:\s*nowrap\s*!important/);
+    assert.match(premiumContent, /font-variant-numeric:\s*tabular-nums/);
+    assert.match(p4Content, /white-space:\s*nowrap\s*!important/);
+    assert.match(p4Content, /font-variant-numeric:\s*tabular-nums/);
+  });
+});
+
+test("P0.21-MOBILE.1.1 — Unified Mobile Liquid Glass Card Architecture Contract", async (t) => {
+  await t.test("Login.jsx defines primary submit, centered recovery link, divider, and side-by-side footer links", () => {
+    const loginPath = path.join(rootDir, "src/pages/login/Login.jsx");
+    const content = fs.readFileSync(loginPath, "utf-8");
+
+    assert.match(content, /atlas-auth-submit/, "Must define primary submit button");
+    assert.match(content, /atlas-auth-forgot-link/, "Must define centered recovery link");
+    assert.match(content, /atlas-auth-divider/, "Must define hairline divider");
+    assert.match(content, /atlas-auth-footer-row/, "Must define side-by-side footer action row");
+    assert.match(content, /atlas-auth-footer-link/, "Must define footer action links");
+    assert.match(content, /LineIcon name=\{showPassword \? "eye-off" : "eye"\}/, "Must use integrated eye/eye-off icon toggle");
+  });
+
+  await t.test("A26Shell.css and AeternumOpticalGlass.css unify mobile auth into a single continuous Liquid Glass card", () => {
+    const shellPath = path.join(rootDir, "src/styles/A26Shell.css");
+    const glassPath = path.join(rootDir, "src/styles/AeternumOpticalGlass.css");
+    const shellContent = fs.readFileSync(shellPath, "utf-8");
+    const glassContent = fs.readFileSync(glassPath, "utf-8");
+
+    assert.match(shellContent, /border-radius:\s*32px\s*!important/);
+    assert.match(shellContent, /border-bottom:\s*1px solid rgba\(127,\s*247,\s*244,\s*0\.12\)\s*!important/);
+    assert.match(glassContent, /border-radius:\s*32px\s*!important/);
+    assert.match(glassContent, /border-bottom:\s*1px solid rgba\(127,\s*247,\s*244,\s*0\.12\)\s*!important/);
+  });
+});
