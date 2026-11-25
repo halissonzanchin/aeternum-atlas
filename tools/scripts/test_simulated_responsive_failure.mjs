@@ -12,7 +12,9 @@ import assert from "node:assert/strict";
 import {
   assertLoginMetrics,
   assertBetaMetrics,
-  assertHomeMetrics
+  assertHomeMetrics,
+  BETA_STATUS_FIXTURES,
+  SUPABASE_URL_PATTERN
 } from "./test_p0_21_mobile_regression.mjs";
 
 const mobileVp = { name: "iPhone 14/15 (Portrait)", width: 390, height: 844, isMobile: true, hasTouch: true };
@@ -294,6 +296,26 @@ function runSimulatedFailureChecks() {
     assert.ok(failures.some(f => f.includes("FAIL-CLOSED VIOLATION")), "Must record home tutor breach");
     caughtViolations++;
     console.log(`[BLOCKED 12/12] Simulated Home Tutor Leak: ${failures[0]}`);
+  }
+
+  // 13. P0.21-E.6 QUALITY GATE INTEGRITY: Regex Coverage & Deterministic Fixtures
+  {
+    // A. Verify Supabase regex matches valid subdomains
+    assert.ok(SUPABASE_URL_PATTERN.test("https://hyivyrietgjdazgizafp.supabase.co/rest/v1/rpc/get_beta_program_public_status"));
+    assert.ok(SUPABASE_URL_PATTERN.test("https://hutohshswppahipgcwio.supabase.co/functions/v1/ai-tutor"));
+    assert.ok(SUPABASE_URL_PATTERN.test("http://my-project-123.supabase.co/rest/v1/beta_applications"));
+    assert.ok(!SUPABASE_URL_PATTERN.test("https://google.com/search"));
+    assert.ok(!SUPABASE_URL_PATTERN.test("https://aeternumatlas.com/api/test"));
+
+    // B. Verify independent fixtures contract (zero production database mutation)
+    assert.equal(BETA_STATUS_FIXTURES.closed.registration_open, false);
+    assert.equal(BETA_STATUS_FIXTURES.closed.capacity_total, 30);
+    assert.equal(BETA_STATUS_FIXTURES.closed.remaining_slots, 30);
+    assert.equal(BETA_STATUS_FIXTURES.open.registration_open, true);
+    assert.equal(BETA_STATUS_FIXTURES.open.capacity_total, 30);
+    assert.equal(BETA_STATUS_FIXTURES.open.remaining_slots, 30);
+
+    console.log(`[VERIFIED 13] Supabase Subdomain Regex & Deterministic Open/Closed Fixtures validated.`);
   }
 
   console.log(`\nSUCCESS: All ${caughtViolations}/12 simulated responsive violations were accurately intercepted.`);
