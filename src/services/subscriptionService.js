@@ -1,4 +1,4 @@
-import { getUserInstitutionId, isActiveUser, normalizeRole, ROLES } from "./permissions/permissionService";
+import { getUserInstitutionId, isActiveUser, normalizeRole, ROLES } from "./permissions/permissionService.js";
 
 export function getSubscriptionStatus(user) {
   if (!user) return "cancelled";

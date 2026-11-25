@@ -79,6 +79,8 @@ export const routeAccessRules = [
   { prefix: "/", public: true, exact: true },
   { prefix: "/login", public: true },
   { prefix: "/register", public: true },
+  { prefix: "/programa-beta", public: true },
+  { prefix: "/beta", public: true },
   { prefix: "/dashboard", roles: [ROLES.STUDENT, ROLES.TEACHER, ROLES.COORDINATOR, ROLES.RECTOR, ROLES.INSTITUTION_ADMIN, ROLES.SUPER_ADMIN] },
   { prefix: "/student", roles: [ROLES.STUDENT] },
   { prefix: "/professor", roles: [ROLES.TEACHER, ROLES.SUPER_ADMIN] },

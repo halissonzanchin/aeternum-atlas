@@ -5,7 +5,7 @@ import Modal from "./components/Modal/Modal";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { A26Button, A26Card, A26ErrorState, A26LoadingState, A26Surface } from "./components/aeternum-26";
 import { getCurrentUser, logoutUser, restoreAuthSession } from "./services/auth/authService";
-import { isAdminPath, isPrivatePath } from "./utils/accessControl";
+import { isAdminPath, isAcademicTutorAuthorizedRoute, isPrivatePath } from "./utils/accessControl";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
@@ -240,21 +240,18 @@ export default function App() {
     return <NotFound navigate={navigate} />;
   }, [authReady, path, user, t]);
 
-  const isPublicRoute = path === "/" || path === "/login" || path === "/register";
-  const usesDedicatedViewerTutor = path.startsWith("/viewer/") || path.startsWith("/teacher/viewer/");
-  const usesLegacyViewerRedirect = path.startsWith("/atlas-viewer/");
-  const showGlobalTutor = authReady && Boolean(user) && !isPublicRoute && !usesDedicatedViewerTutor && !usesLegacyViewerRedirect;
+  const showGlobalTutor = isAcademicTutorAuthorizedRoute(path, user, authReady);
   const tutorSessionIdentity = user?.id || user?.email || "anonymous";
 
   return (
     <SessionGuardProvider onLogout={handleLogout}>
-      <AuthProvider user={user}>
+      <AuthProvider user={user} authReady={authReady}>
         <InstitutionalNotificationProvider user={user}>
           <AtlasAITutorSessionProvider key={tutorSessionIdentity} user={user}>
             <GlobalErrorBoundary>
               {content}
               {showGlobalTutor ? (
-                <AtlasAITutor path={path} />
+                <AtlasAITutor path={path} user={user} authReady={authReady} />
               ) : null}
               <A26SessionDisplacedModal
                 onReauthenticate={() => { handleLogout(); navigate("/login"); }}

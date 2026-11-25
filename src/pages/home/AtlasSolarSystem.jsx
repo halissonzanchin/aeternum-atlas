@@ -87,9 +87,11 @@ export default function AtlasSolarSystem({ t, onExplore }) {
         <span className="p4-orbit-ring p4-orbit-ring--middle" />
         <span className="p4-orbit-ring p4-orbit-ring--inner" />
         <button type="button" className="p4-orbit-core" onClick={() => onExplore("/atlas")}>
-          <span>ATLAS</span>
-          <strong>360°</strong>
-          <small>{t("publicHome.corePrompt")}</small>
+          <span className="p4-core-top">ATLAS</span>
+          <strong className="p4-core-title">
+            <span className="p4-unit-nowrap">360°</span>
+          </strong>
+          <small className="p4-core-bottom">{t("publicHome.corePrompt")}</small>
         </button>
 
         {PLANETS.map((planet) => {

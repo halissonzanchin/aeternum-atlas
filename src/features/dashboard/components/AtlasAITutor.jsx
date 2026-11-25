@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { A26IconButton, A26Surface, AeternumSiriScreenOverlay } from "../../../components/aeternum-26";
 import { useLanguage } from "../../../context/LanguageContext";
+import { useAuth } from "../../../context/AuthContext";
 import { useAtlasAITutorSession } from "../../../context/AtlasAITutorSessionContext";
 import { getTutorForLanguage } from "../../../services/voice/aeternumTutorCatalog";
 import { isVitaVoiceEnabled } from "../../../services/voice/aeternumVitaConfig";
@@ -13,9 +14,10 @@ import useDraggableTutorOrb, {
   getTutorPanelStyle
 } from "../../atlas-viewer/ai/useDraggableTutorOrb";
 import { getAtlasTutorContext } from "./atlasAITutorContext";
+import { isAcademicTutorAuthorizedRoute } from "../../../utils/accessControl";
 import "./AtlasAITutor.css";
 
-export default function AtlasAITutor({
+function AtlasAITutorImpl({
   path = "/student/home",
   sphereOnly = false,
   draggable = false
@@ -368,4 +370,16 @@ export default function AtlasAITutor({
     </>,
     document.body
   );
+}
+
+export default function AtlasAITutor(props) {
+  const auth = useAuth();
+  const path = props?.path || (typeof window !== "undefined" ? window.location.pathname : "/student/home");
+  const user = props?.user !== undefined ? props.user : auth?.user;
+  const authReady = props?.authReady !== undefined ? props.authReady : auth?.authReady;
+
+  if (!isAcademicTutorAuthorizedRoute(path, user, authReady)) {
+    return null;
+  }
+  return <AtlasAITutorImpl {...props} path={path} />;
 }

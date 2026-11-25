@@ -607,35 +607,145 @@ body:has(.atlas-auth-page--beta) #root,
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 899px), (max-height: 600px) {
   .atlas-auth-page--beta {
-    padding: 16px 12px 32px !important;
+    padding:
+      max(16px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(32px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left)) !important;
+    overflow-x: hidden !important;
   }
 
-  .atlas-auth-card--beta {
-    padding: 22px 18px !important;
-    border-radius: 22px !important;
+  .atlas-auth-shell--wide {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    width: 100% !important;
+    max-width: 520px !important;
+    margin: 0 auto !important;
+    min-height: auto !important;
+    gap: 0 !important;
+    overflow: hidden !important;
+    border-radius: 32px !important;
+    border: 1px solid rgba(127, 247, 244, 0.22) !important;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(127, 247, 244, 0.08), transparent 50%),
+      linear-gradient(175deg, rgba(8, 24, 30, 0.94), rgba(3, 12, 16, 0.98)) !important;
+    box-shadow:
+      0 32px 80px -16px rgba(0, 0, 0, 0.65),
+      0 0 0 1px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(220, 250, 246, 0.16) !important;
   }
 
   .atlas-auth-story--beta {
-    padding: 22px 18px !important;
-    border-radius: 22px !important;
-    gap: 16px !important;
+    padding: 24px 20px 16px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid rgba(127, 247, 244, 0.12) !important;
+    gap: 0 !important;
+    position: static !important;
+    max-height: none !important;
+    top: auto !important;
+  }
+
+  .atlas-auth-story--beta::before,
+  .atlas-auth-story--beta::after,
+  .atlas-auth-story--beta > .a26-surface__refract,
+  .atlas-auth-story--beta > .a26-surface__spectrum,
+  .atlas-auth-story--beta > .a26-surface__specular,
+  .atlas-auth-story--beta > .a26-surface__noise,
+  .atlas-auth-story--beta > .a26-surface__grain {
+    display: none !important;
+  }
+
+  .atlas-auth-story--beta .atlas-auth-brand {
+    justify-content: center !important;
+    padding-bottom: 0 !important;
+  }
+
+  .atlas-auth-story--beta .atlas-auth-story-copy,
+  .atlas-auth-story--beta .atlas-auth-capabilities,
+  .atlas-auth-story--beta .atlas-auth-status {
+    display: none !important;
+  }
+
+  .atlas-auth-panel-slot--beta {
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .atlas-auth-card--beta {
+    position: static !important;
+    padding: 20px 24px 32px !important;
+    border-radius: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .atlas-auth-card--beta .atlas-auth-card__topline {
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    border: none !important;
+    border-bottom: none !important;
+    z-index: 20 !important;
+    gap: 8px !important;
+  }
+
+  .atlas-auth-card--beta .atlas-auth-card__topline > span {
+    display: none !important;
+  }
+
+  .atlas-auth-card--beta::before,
+  .atlas-auth-card--beta::after,
+  .atlas-auth-card--beta > .a26-surface__refract,
+  .atlas-auth-card--beta > .a26-surface__spectrum,
+  .atlas-auth-card--beta > .a26-surface__specular,
+  .atlas-auth-card--beta > .a26-surface__noise,
+  .atlas-auth-card--beta > .a26-surface__grain {
+    display: none !important;
   }
 
   .beta-registration-form {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     gap: 14px;
     margin-top: 18px;
   }
 
-  .beta-hero-title {
-    font-size: 1.7rem;
+  /* Prevenção de Auto-Zoom no WebKit / iOS Safari (font-size >= 16px) */
+  .beta-registration-form .a26-field__control,
+  .beta-registration-form select.a26-field__control {
+    font-size: 16px !important;
   }
 
-  .beta-prelaunch-banner {
-    padding: 14px;
-    gap: 10px;
+  .beta-hero-title {
+    font-size: clamp(1.4rem, 6vw, 1.85rem) !important;
+  }
+
+  .beta-prelaunch-banner,
+  .beta-active-banner {
+    padding: 14px !important;
+    gap: 10px !important;
+    border: 1px solid rgba(220, 190, 105, 0.4) !important;
+    background: rgba(220, 190, 105, 0.06) !important;
+    border-radius: 16px !important;
+  }
+
+  .beta-consent-label {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    word-break: break-word !important;
   }
 }
 
@@ -731,6 +841,38 @@ body:has(.atlas-auth-page--beta) #root,
     0 24px 60px rgba(15, 23, 42, 0.08),
     inset 0 1.5px 0.5px rgba(255, 255, 255, 0.95),
     inset 0 -1px 0 rgba(15, 118, 110, 0.06) !important;
+}
+
+@media (max-width: 899px), (max-height: 600px) {
+  .a26-theme-light .atlas-auth-shell--wide {
+    position: relative !important;
+    background: linear-gradient(175deg, rgba(255, 255, 255, 0.92), rgba(240, 246, 249, 0.88)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12), inset 0 1px 0 #ffffff !important;
+  }
+
+  .a26-theme-light .atlas-auth-story--beta {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(15, 118, 110, 0.12) !important;
+    box-shadow: none !important;
+  }
+
+  .a26-theme-light .atlas-auth-card--beta {
+    position: static !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .a26-theme-light .atlas-auth-card--beta .atlas-auth-card__topline {
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+    border: none !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+  }
 }
 
 .a26-theme-light .atlas-auth-card--beta .atlas-auth-card__topline {

@@ -188,6 +188,62 @@
   color: rgba(235, 245, 243, 0.88);
 }
 
+.cinematic-home .public-mobile-nav-divider {
+  height: 1px;
+  background: rgba(127, 247, 244, 0.12);
+  margin: 10px 0;
+}
+
+.cinematic-home .public-mobile-nav-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.cinematic-home .public-mobile-nav-action-btn {
+  width: 100% !important;
+  justify-content: center !important;
+  min-height: 44px !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  border-radius: 12px !important;
+}
+
+.cinematic-home .public-mobile-nav-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(127, 247, 244, 0.1);
+}
+
+.cinematic-home .public-mobile-nav-controls > span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(220, 238, 236, 0.6);
+}
+
+/* Light Mode Overrides for Drawer */
+.a26-theme-light .cinematic-home .public-mobile-nav-drawer {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(15, 118, 110, 0.18) !important;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12), inset 0 1px 0 #ffffff !important;
+}
+
+.a26-theme-light .cinematic-home .public-mobile-nav-item {
+  color: #0f172a !important;
+}
+
+.a26-theme-light .cinematic-home .public-mobile-nav-divider,
+.a26-theme-light .cinematic-home .public-mobile-nav-controls {
+  border-color: rgba(15, 118, 110, 0.14) !important;
+  background-color: rgba(15, 118, 110, 0.14) !important;
+}
+
 .cinematic-home .public-beta-cta:hover {
   transform: translateY(-1px);
   box-shadow: 0 16px 36px rgba(47, 184, 181, 0.36) !important;
