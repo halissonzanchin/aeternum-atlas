@@ -1712,6 +1712,7 @@ body:has(.atlas-auth-page--beta) #root,
 
   .atlas-auth-shell:not(.atlas-auth-shell--beta),
   .atlas-auth-shell--wide {
+    position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     grid-template-columns: none !important;
@@ -1803,11 +1804,28 @@ body:has(.atlas-auth-page--beta) #root,
   }
 
   .atlas-auth-card {
+    position: static !important;
     padding: 20px 24px 28px !important;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
     border-radius: 0 !important;
+  }
+
+  .atlas-auth-card__topline {
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    border: none !important;
+    border-bottom: none !important;
+    z-index: 20 !important;
+    gap: 8px !important;
+  }
+
+  .atlas-auth-card__topline > span {
+    display: none !important;
   }
 
   .atlas-auth-card::before,

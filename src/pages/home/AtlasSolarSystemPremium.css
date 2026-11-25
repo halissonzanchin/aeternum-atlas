@@ -173,6 +173,13 @@
 
 .cinematic-home .p4-orbit-core .p4-unit-nowrap {
   display: inline-block;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  color: inherit !important;
+  font-weight: inherit !important;
+  letter-spacing: inherit !important;
+  line-height: inherit !important;
+  text-transform: none !important;
   white-space: nowrap !important;
   word-break: keep-all !important;
 }

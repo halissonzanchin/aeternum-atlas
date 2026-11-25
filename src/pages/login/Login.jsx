@@ -167,7 +167,7 @@ export default function Login({ navigate, onAuth }) {
             variant="ghost"
             onClick={() => navigate("/register")}
           >
-            {t("auth.newAccount")}
+            {t("auth.createAccount")}
           </A26Button>
           <A26Button
             className="atlas-auth-secondary atlas-auth-footer-link"

@@ -1915,6 +1915,7 @@
 
   .atlas-auth-shell:not(.atlas-auth-shell--beta),
   .atlas-auth-shell--wide {
+    position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
@@ -2013,6 +2014,7 @@
   .atlas-auth-card--registration.a26-surface,
   .atlas-auth-card.atlas-crystal-surface,
   .atlas-auth-card--registration.atlas-crystal-surface {
+    position: static !important;
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
@@ -2025,6 +2027,22 @@
     box-shadow: none !important;
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
+  }
+
+  .atlas-auth-card__topline {
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    border: none !important;
+    border-bottom: none !important;
+    z-index: 20 !important;
+    gap: 8px !important;
+  }
+
+  .atlas-auth-card__topline > span {
+    display: none !important;
   }
 
   .atlas-auth-card::before,

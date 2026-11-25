@@ -377,15 +377,24 @@ async function main() {
 
       if (vp.name === "iPhone 14/15 (Portrait)" || vp.name === "Desktop Laptop") {
         const cleanName = vp.name.toLowerCase().replace(/[^a-z0-9]/g, "_");
-        const shotPath = path.join(artifactDir, `p0_21_screenshot_home_${cleanName}.png`);
-        await page.screenshot({ path: shotPath, fullPage: false });
-        console.log(`Saved screenshot: ${shotPath}`);
 
         if (vp.name === "iPhone 14/15 (Portrait)") {
+          // Take drawer screenshot while open
           const drawerShotPath = path.join(artifactDir, "p0_21_screenshot_home_mobile_drawer.png");
           await page.screenshot({ path: drawerShotPath, fullPage: false });
           console.log(`Saved drawer screenshot: ${drawerShotPath}`);
+
+          // Close drawer to photograph unobstructed Home Hero
+          await page.evaluate(() => {
+            const toggle = document.querySelector(".public-mobile-nav-toggle");
+            if (toggle) toggle.click();
+          });
+          await new Promise(r => setTimeout(r, 400));
         }
+
+        const shotPath = path.join(artifactDir, `p0_21_screenshot_home_${cleanName}.png`);
+        await page.screenshot({ path: shotPath, fullPage: false });
+        console.log(`Saved screenshot: ${shotPath}`);
 
         const coreEl = await page.$(".p4-orbit-core");
         if (coreEl) {

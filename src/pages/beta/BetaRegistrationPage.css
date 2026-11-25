@@ -618,6 +618,7 @@ body:has(.atlas-auth-page--beta) #root,
   }
 
   .atlas-auth-shell--wide {
+    position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     grid-template-columns: none !important;
@@ -680,6 +681,7 @@ body:has(.atlas-auth-page--beta) #root,
   }
 
   .atlas-auth-card--beta {
+    position: static !important;
     padding: 20px 24px 32px !important;
     border-radius: 0 !important;
     border: none !important;
@@ -687,6 +689,22 @@ body:has(.atlas-auth-page--beta) #root,
     box-shadow: none !important;
     width: 100% !important;
     max-width: 100% !important;
+  }
+
+  .atlas-auth-card--beta .atlas-auth-card__topline {
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    border: none !important;
+    border-bottom: none !important;
+    z-index: 20 !important;
+    gap: 8px !important;
+  }
+
+  .atlas-auth-card--beta .atlas-auth-card__topline > span {
+    display: none !important;
   }
 
   .atlas-auth-card--beta::before,
@@ -827,19 +845,33 @@ body:has(.atlas-auth-page--beta) #root,
 
 @media (max-width: 899px), (max-height: 600px) {
   .a26-theme-light .atlas-auth-shell--wide {
+    position: relative !important;
     background: linear-gradient(175deg, rgba(255, 255, 255, 0.92), rgba(240, 246, 249, 0.88)) !important;
     border: 1px solid rgba(255, 255, 255, 0.8) !important;
     box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12), inset 0 1px 0 #ffffff !important;
   }
 
   .a26-theme-light .atlas-auth-story--beta {
+    background: transparent !important;
+    border: none !important;
     border-bottom: 1px solid rgba(15, 118, 110, 0.12) !important;
+    box-shadow: none !important;
   }
 
   .a26-theme-light .atlas-auth-card--beta {
+    position: static !important;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
+  }
+
+  .a26-theme-light .atlas-auth-card--beta .atlas-auth-card__topline {
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+    border: none !important;
+    border-bottom: none !important;
+    padding: 0 !important;
   }
 }
 
