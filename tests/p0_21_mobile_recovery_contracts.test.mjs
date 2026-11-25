@@ -82,14 +82,54 @@ test("P0.21-MOBILE.1 — Fail-Closed Isolation of Atlas AI (Marina Orb)", async 
     }
   });
 
-  await t.test("AtlasAITutor component has in-depth fail-closed guard", () => {
+  await t.test("AtlasAITutor component has in-depth fail-closed guard with dynamic auth and session state", () => {
     const tutorPath = path.join(rootDir, "src/features/dashboard/components/AtlasAITutor.jsx");
     const content = fs.readFileSync(tutorPath, "utf-8");
     assert.match(
       content,
-      /if\s*\(!isAcademicTutorAuthorizedRoute\(path,\s*true,\s*true\)\)\s*\{\s*return null;\s*\}/,
-      "AtlasAITutor must guard itself against mounting on unauthorized routes"
+      /if\s*\(!isAcademicTutorAuthorizedRoute\(path,\s*user,\s*authReady\)\)\s*\{\s*return null;\s*\}/,
+      "AtlasAITutor must guard itself dynamically using real session and authentication state"
     );
+    assert.doesNotMatch(
+      content,
+      /isAcademicTutorAuthorizedRoute\(path,\s*true,\s*true\)/,
+      "AtlasAITutor must not use hardcoded true, true booleans for authentication"
+    );
+  });
+
+  await t.test("explicit fail-closed tests: authenticated user on beta, session restoration, refresh, and route transitions", () => {
+    const studentUser = { id: "student-101", email: "student@aeternumatlas.com", role: "student" };
+    const adminUser = { id: "admin-202", email: "admin@aeternumatlas.com", role: "super_admin" };
+
+    // 1. Authenticated user accessing Programa Beta or other pre-launch / auth routes
+    assert.equal(isAcademicTutorAuthorizedRoute("/programa-beta", studentUser, true), false);
+    assert.equal(isAcademicTutorAuthorizedRoute("/beta", studentUser, true), false);
+    assert.equal(isAcademicTutorAuthorizedRoute("/programa-beta/formulario", studentUser, true), false);
+    assert.equal(isAcademicTutorAuthorizedRoute("/login", studentUser, true), false);
+    assert.equal(isAcademicTutorAuthorizedRoute("/", studentUser, true), false);
+    assert.equal(isAcademicTutorAuthorizedRoute("/register", studentUser, true), false);
+
+    // Also true for super_admin
+    assert.equal(isAcademicTutorAuthorizedRoute("/programa-beta", adminUser, true), false);
+    assert.equal(isAcademicTutorAuthorizedRoute("/", adminUser, true), false);
+
+    // 2. Session restoration in-flight (authReady = false): even with user in localStorage, tutor must NOT mount
+    assert.equal(isAcademicTutorAuthorizedRoute("/student/home", studentUser, false), false);
+    assert.equal(isAcademicTutorAuthorizedRoute("/flashcards", studentUser, false), false);
+
+    // 3. Session restoration failed / anonymous visitor: authReady = true, user = null
+    assert.equal(isAcademicTutorAuthorizedRoute("/student/home", null, true), false);
+    assert.equal(isAcademicTutorAuthorizedRoute("/flashcards", null, true), false);
+
+    // 4. Session restoration succeeded: authReady = true, user valid
+    assert.equal(isAcademicTutorAuthorizedRoute("/student/home", studentUser, true), true);
+    assert.equal(isAcademicTutorAuthorizedRoute("/flashcards", studentUser, true), true);
+
+    // 5. Route transitions (e.g., student browses from /student/home to /programa-beta, then back)
+    const routeHistory = ["/student/home", "/programa-beta", "/flashcards", "/login", "/student/home"];
+    const expected = [true, false, true, false, true];
+    const actual = routeHistory.map(r => isAcademicTutorAuthorizedRoute(r, studentUser, true));
+    assert.deepEqual(actual, expected, "Tutor must mount on academic routes and unmount on non-academic routes during navigation");
   });
 });
 
@@ -169,6 +209,8 @@ test("P0.21-MOBILE.1 — Security Hardening & Headers Contract", async (t) => {
     assert.equal(getHeader("Referrer-Policy"), "strict-origin-when-cross-origin");
     assert.equal(getHeader("X-Frame-Options"), "SAMEORIGIN");
     assert.match(getHeader("Permissions-Policy"), /camera=\(\)/);
+    assert.match(getHeader("Permissions-Policy"), /microphone=\(self\)/);
+    assert.match(getHeader("Permissions-Policy"), /geolocation=\(\)/);
     assert.match(getHeader("Strict-Transport-Security"), /max-age=63072000/);
   });
 });

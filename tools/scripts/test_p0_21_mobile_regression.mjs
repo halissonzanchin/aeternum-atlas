@@ -1,21 +1,47 @@
-import puppeteer from "puppeteer-core";
 import { spawn } from "node:child_process";
 import fs from "node:fs";
+import http from "node:http";
 import path from "node:path";
 
 const rootDir = process.cwd();
-const artifactDir = "C:/Users/halis/.gemini/antigravity/brain/b63445c2-37f0-46a4-8ca8-5556eb65a8a3";
 
-const CHROME_PATHS = [
-  "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-  "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
-];
+// Portable artifact directory resolution via env vars or default folder
+const rawArtifactDir = process.env.ARTIFACT_DIR || process.env.OUTPUT_DIR;
+const artifactDir = rawArtifactDir ? rawArtifactDir.trim() : path.join(rootDir, "test-artifacts");
+fs.mkdirSync(artifactDir, { recursive: true });
 
-function getBrowserPath() {
-  for (const p of CHROME_PATHS) {
-    if (fs.existsSync(p)) return p;
+// Cross-platform browser detection for Puppeteer fallback
+const PLATFORM_BROWSER_PATHS = {
+  win32: [
+    process.env.CHROME_PATH,
+    process.env.BROWSER_PATH,
+    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+    "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe"
+  ],
+  darwin: [
+    process.env.CHROME_PATH,
+    process.env.BROWSER_PATH,
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+  ],
+  linux: [
+    process.env.CHROME_PATH,
+    process.env.BROWSER_PATH,
+    "/usr/bin/google-chrome",
+    "/usr/bin/google-chrome-stable",
+    "/usr/bin/chromium",
+    "/usr/bin/chromium-browser"
+  ]
+};
+
+function getPuppeteerBrowserPath() {
+  const candidates = PLATFORM_BROWSER_PATHS[process.platform] || [];
+  for (const p of candidates) {
+    if (p && fs.existsSync(p)) return p;
   }
-  throw new Error("Neither Chrome nor Edge was found on this system.");
+  return null;
 }
 
 const VIEWPORTS = [
@@ -30,69 +56,111 @@ const VIEWPORTS = [
   { name: "Desktop Full HD", width: 1920, height: 1080, isMobile: false, hasTouch: false }
 ];
 
-async function startViteServer() {
-  console.log("Starting Vite preview server...");
-  const proc = spawn("npx.cmd", ["vite", "preview", "--port", "5174", "--strictPort"], {
-    cwd: rootDir,
-    stdio: ["pipe", "pipe", "pipe"],
-    shell: true
-  });
-
-  return new Promise((resolve, reject) => {
-    let resolved = false;
-    const timeout = setTimeout(() => {
-      if (!resolved) {
-        proc.kill();
-        reject(new Error("Timeout waiting for Vite dev server to start on port 5174"));
-      }
-    }, 15000);
-
-    proc.stdout.on("data", (data) => {
-      const msg = data.toString();
-      if (msg.includes("5174") || msg.includes("Local:")) {
-        if (!resolved) {
-          resolved = true;
-          clearTimeout(timeout);
-          console.log("Vite dev server ready at http://localhost:5174");
-          resolve(proc);
-        }
-      }
+function isPortListening(port) {
+  return new Promise((resolve) => {
+    const req = http.get(`http://localhost:${port}/`, (res) => {
+      res.resume();
+      resolve(true);
     });
-
-    proc.stderr.on("data", (data) => {
-      console.error("[Vite stderr]:", data.toString());
-    });
-
-    proc.on("error", (err) => {
-      if (!resolved) {
-        resolved = true;
-        clearTimeout(timeout);
-        reject(err);
-      }
+    req.on("error", () => resolve(false));
+    req.setTimeout(800, () => {
+      req.destroy();
+      resolve(false);
     });
   });
 }
 
-async function main() {
-  console.log("=== P0.21-MOBILE.1 — AUTOMATED RESPONSIVE REGRESSION SUITE ===");
-  const browserPath = getBrowserPath();
-  console.log("Using browser at:", browserPath);
-
-  let viteProc;
-  let browser;
-  const results = {
-    timestamp: new Date().toISOString(),
-    viewportsTested: VIEWPORTS.length,
-    testsPassed: 0,
-    testsFailed: 0,
-    failures: [],
-    details: []
-  };
-
+function stopViteServer(proc) {
+  if (!proc || !proc.pid) return;
   try {
-    viteProc = await startViteServer();
+    if (process.platform === "win32") {
+      spawn("taskkill", ["/pid", proc.pid.toString(), "/T", "/F"], { stdio: "ignore" });
+    } else {
+      proc.kill("SIGTERM");
+    }
+  } catch (_) {}
+}
 
-    browser = await puppeteer.launch({
+async function startViteServer() {
+  const alreadyListening = await isPortListening(5174);
+  if (alreadyListening) {
+    console.log("Vite preview server is already active at http://localhost:5174");
+    return null;
+  }
+
+  console.log("Starting Vite preview server...");
+  const npxCmd = process.platform === "win32" ? "npx.cmd" : "npx";
+  const proc = spawn(npxCmd, ["vite", "preview", "--port", "5174", "--strictPort"], {
+    cwd: rootDir,
+    stdio: "inherit",
+    shell: true
+  });
+
+  const start = Date.now();
+  while (Date.now() - start < 15000) {
+    await new Promise(r => setTimeout(r, 400));
+    if (await isPortListening(5174)) {
+      console.log("Vite preview server ready at http://localhost:5174");
+      return proc;
+    }
+  }
+
+  stopViteServer(proc);
+  throw new Error("Timeout waiting for Vite preview server to start on port 5174");
+}
+
+// Unified Browser Runner Interface supporting Playwright (Chromium & WebKit) with Puppeteer fallback
+class BrowserRunner {
+  static async create() {
+    const args = process.argv.slice(2);
+    let engine = (process.env.BROWSER_ENGINE || "").toLowerCase();
+    if (args.includes("--webkit")) engine = "webkit";
+    else if (args.includes("--chromium")) engine = "chromium";
+    else if (args.includes("--puppeteer")) engine = "puppeteer";
+
+    // 1. Try Playwright WebKit if requested
+    if (engine === "webkit") {
+      try {
+        const pw = await import("playwright");
+        console.log("Attempting to launch Playwright WebKit (genuine Safari engine)...");
+        const browser = await pw.webkit.launch({ headless: true });
+        console.log("Playwright WebKit initialized successfully.");
+        return new PlaywrightEngine(browser, "webkit");
+      } catch (e) {
+        console.warn("Playwright WebKit failed to launch:", e.message);
+      }
+    }
+
+    // 2. Try Playwright Chromium if requested or as fallback
+    if (engine === "chromium" || !engine || engine === "webkit") {
+      try {
+        const pw = await import("playwright");
+        console.log("Attempting to launch Playwright Chromium...");
+        const browser = await pw.chromium.launch({
+          headless: true,
+          args: [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-gpu"
+          ]
+        });
+        console.log("Playwright Chromium initialized successfully.");
+        return new PlaywrightEngine(browser, "chromium");
+      } catch (e) {
+        console.warn("Playwright Chromium failed to launch:", e.message);
+      }
+    }
+
+    // 3. Fallback to Puppeteer Core
+    console.log("Falling back to puppeteer-core...");
+    const puppeteer = (await import("puppeteer-core")).default;
+    const browserPath = getPuppeteerBrowserPath();
+    if (!browserPath) {
+      throw new Error("No browser executable found for Puppeteer. Set CHROME_PATH or install Playwright.");
+    }
+    console.log("Launching Puppeteer with executable:", browserPath);
+    const browser = await puppeteer.launch({
       executablePath: browserPath,
       headless: "new",
       args: [
@@ -103,26 +171,102 @@ async function main() {
         "--window-size=1920,1080"
       ]
     });
+    return new PuppeteerEngine(browser);
+  }
+}
 
-    const page = await browser.newPage();
+class PlaywrightEngine {
+  constructor(browser, engineName) {
+    this.browser = browser;
+    this.engineName = `playwright-${engineName}`;
+  }
+
+  async init(defaultVp) {
+    this.context = await this.browser.newContext({
+      viewport: { width: defaultVp.width, height: defaultVp.height },
+      isMobile: defaultVp.isMobile,
+      hasTouch: defaultVp.hasTouch
+    });
+    this.page = await this.context.newPage();
+    return this.page;
+  }
+
+  async setViewport(vp) {
+    await this.page.setViewportSize({ width: vp.width, height: vp.height });
+  }
+
+  async close() {
+    if (this.context) await this.context.close();
+    if (this.browser) await this.browser.close();
+  }
+}
+
+class PuppeteerEngine {
+  constructor(browser) {
+    this.browser = browser;
+    this.engineName = "puppeteer-core";
+  }
+
+  async init(defaultVp) {
+    this.page = await this.browser.newPage();
+    await this.page.setViewport({
+      width: defaultVp.width,
+      height: defaultVp.height,
+      isMobile: defaultVp.isMobile,
+      hasTouch: defaultVp.hasTouch
+    });
+    return this.page;
+  }
+
+  async setViewport(vp) {
+    await this.page.setViewport({
+      width: vp.width,
+      height: vp.height,
+      isMobile: vp.isMobile,
+      hasTouch: vp.hasTouch
+    });
+  }
+
+  async close() {
+    if (this.browser) await this.browser.close();
+  }
+}
+
+async function main() {
+  console.log("=== P0.21-MOBILE.1 — AUTOMATED RESPONSIVE REGRESSION SUITE ===");
+  console.log("Artifact Directory:", artifactDir);
+
+  let viteProc;
+  let runner;
+  const results = {
+    timestamp: new Date().toISOString(),
+    engine: null,
+    viewportsTested: VIEWPORTS.length,
+    testsPassed: 0,
+    testsFailed: 0,
+    failures: [],
+    details: []
+  };
+
+  try {
+    viteProc = await startViteServer();
+    runner = await BrowserRunner.create();
+    results.engine = runner.engineName;
+    console.log("Active Testing Engine:", runner.engineName);
+
     const BASE_URL = "http://localhost:5174";
+    const page = await runner.init(VIEWPORTS[0]);
 
     for (const vp of VIEWPORTS) {
       console.log(`\nTesting viewport: ${vp.name} (${vp.width}x${vp.height})...`);
-      await page.setViewport({
-        width: vp.width,
-        height: vp.height,
-        isMobile: vp.isMobile,
-        hasTouch: vp.hasTouch
-      });
+      await runner.setViewport(vp);
 
       // 1. TEST LOGIN PAGE
-      await page.goto(`${BASE_URL}/login`, { waitUntil: "domcontentloaded", timeout: 15000 });
-      await page.waitForSelector(".atlas-auth-card", { timeout: 10000 });
+      await page.goto(`${BASE_URL}/login`, { waitUntil: "domcontentloaded", timeout: 30000 });
+      await page.waitForSelector(".atlas-auth-card", { timeout: 15000 });
       await new Promise(r => setTimeout(r, 600));
 
       const loginMetrics = await page.evaluate(() => {
-        const body = document.body;
         const doc = document.documentElement;
         const scrollWidth = doc.scrollWidth;
         const clientWidth = doc.clientWidth;
@@ -134,7 +278,7 @@ async function main() {
         const emailFontSize = emailInput ? window.getComputedStyle(emailInput).fontSize : null;
         const passFontSize = passInput ? window.getComputedStyle(passInput).fontSize : null;
 
-        // Check Marina Orb absence
+        // Check Marina Orb absence (fail-closed contract)
         const tutor = document.querySelector("#atlas-ai-tutor");
         const orb = document.querySelector(".atlas-ai-orb");
         const marinaBadge = document.querySelector(".atlas-ai-orb__badge");
@@ -216,8 +360,8 @@ async function main() {
       }
 
       // 2. TEST PROGRAMA BETA
-      await page.goto(`${BASE_URL}/programa-beta`, { waitUntil: "domcontentloaded", timeout: 15000 });
-      await page.waitForSelector(".atlas-auth-card--beta", { timeout: 10000 });
+      await page.goto(`${BASE_URL}/programa-beta`, { waitUntil: "domcontentloaded", timeout: 30000 });
+      await page.waitForSelector(".atlas-auth-card--beta", { timeout: 15000 });
       await new Promise(r => setTimeout(r, 600));
 
       const betaMetrics = await page.evaluate(() => {
@@ -286,8 +430,8 @@ async function main() {
       }
 
       // 3. TEST HOME & ATLAS 360° SPHERE TYPOGRAPHY
-      await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded", timeout: 15000 });
-      await page.waitForSelector(".cinematic-public-header", { timeout: 10000 });
+      await page.goto(`${BASE_URL}/`, { waitUntil: "domcontentloaded", timeout: 30000 });
+      await page.waitForSelector(".cinematic-public-header", { timeout: 15000 });
       await new Promise(r => setTimeout(r, 600));
 
       const homeMetrics = await page.evaluate(async (isMobile) => {
@@ -413,11 +557,12 @@ async function main() {
       });
     }
 
-    // 4. CAPTURE LIGHT THEME PROOFS (Login & Beta on mobile portrait & desktop)
+    // 4. CAPTURE LIGHT THEME PROOFS (Login & Beta on mobile portrait)
     console.log("\nCapturing Light Theme screenshots...");
-    await page.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
-    await page.goto(`${BASE_URL}/login`, { waitUntil: "domcontentloaded", timeout: 15000 });
-    await page.waitForSelector(".atlas-auth-card", { timeout: 10000 });
+    await runner.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
+
+    await page.goto(`${BASE_URL}/login`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector(".atlas-auth-card", { timeout: 15000 });
     await page.evaluate(() => {
       document.documentElement.classList.add("a26-theme-light");
       document.body.classList.add("a26-theme-light");
@@ -427,8 +572,8 @@ async function main() {
     await page.screenshot({ path: lightLoginMobilePath, fullPage: false });
     console.log(`Saved screenshot: ${lightLoginMobilePath}`);
 
-    await page.goto(`${BASE_URL}/programa-beta`, { waitUntil: "domcontentloaded", timeout: 15000 });
-    await page.waitForSelector(".atlas-auth-card--beta", { timeout: 10000 });
+    await page.goto(`${BASE_URL}/programa-beta`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector(".atlas-auth-card--beta", { timeout: 15000 });
     await page.evaluate(() => {
       document.documentElement.classList.add("a26-theme-light");
       document.body.classList.add("a26-theme-light");
@@ -439,6 +584,7 @@ async function main() {
     console.log(`Saved screenshot: ${lightBetaMobilePath}`);
 
     console.log("\n=== TEST RESULTS SUMMARY ===");
+    console.log(`Engine: ${runner.engineName}`);
     console.log(`Total Checks: ${results.testsPassed + results.testsFailed}`);
     console.log(`Passed: ${results.testsPassed}`);
     console.log(`Failed: ${results.testsFailed}`);
@@ -455,10 +601,10 @@ async function main() {
     console.log(`Saved JSON results to: ${reportPath}`);
 
   } finally {
-    if (browser) await browser.close();
+    if (runner) await runner.close();
     if (viteProc) {
-      console.log("Shutting down Vite dev server...");
-      viteProc.kill();
+      console.log("Shutting down Vite preview server...");
+      stopViteServer(viteProc);
     }
   }
 

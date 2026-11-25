@@ -245,13 +245,13 @@ export default function App() {
 
   return (
     <SessionGuardProvider onLogout={handleLogout}>
-      <AuthProvider user={user}>
+      <AuthProvider user={user} authReady={authReady}>
         <InstitutionalNotificationProvider user={user}>
           <AtlasAITutorSessionProvider key={tutorSessionIdentity} user={user}>
             <GlobalErrorBoundary>
               {content}
               {showGlobalTutor ? (
-                <AtlasAITutor path={path} />
+                <AtlasAITutor path={path} user={user} authReady={authReady} />
               ) : null}
               <A26SessionDisplacedModal
                 onReauthenticate={() => { handleLogout(); navigate("/login"); }}

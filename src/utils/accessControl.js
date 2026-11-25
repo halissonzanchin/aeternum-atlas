@@ -28,7 +28,7 @@ export function isAdminPath(path) {
  * (/, /login, /register, /programa-beta, etc.), independente do estado de autenticação.
  */
 export function isAcademicTutorAuthorizedRoute(pathname, user, authReady) {
-  if (!authReady || !user) return false;
+  if (!authReady || !user || (!user.id && !user.email)) return false;
   const path = (pathname || "").split("?")[0].toLowerCase();
 
   // Bloqueio absoluto fail-closed em todas as rotas públicas, de autenticação e pré-lançamento
