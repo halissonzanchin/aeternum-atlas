@@ -36,3 +36,33 @@ jobs:
           deno-version: v2.x
       - run: deno check --config supabase/functions/ai-tutor/deno.json supabase/functions/ai-tutor/index.ts
 
+  responsive-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Install Playwright Browsers with OS Dependencies
+        run: npx playwright install --with-deps chromium webkit
+      - name: Run Responsive Regression Suite (Chromium)
+        run: npm run test:responsive
+        env:
+          ARTIFACT_DIR: ./test-artifacts/chromium
+      - name: Run Responsive Regression Suite (WebKit)
+        run: npm run test:webkit
+        env:
+          ARTIFACT_DIR: ./test-artifacts/webkit
+      - name: Verify Simulated Responsive Regressions (12 Failure Classes)
+        run: npm run test:responsive:simulated
+      - name: Upload Responsive Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: responsive-regression-artifacts-${{ github.sha }}
+          path: ./test-artifacts/
+          if-no-files-found: warn

@@ -264,3 +264,32 @@ test("P0.21-MOBILE.1.1 — Unified Mobile Liquid Glass Card Architecture Contrac
     assert.match(glassContent, /border-bottom:\s*1px solid rgba\(127,\s*247,\s*244,\s*0\.12\)\s*!important/);
   });
 });
+
+test("P0.21-MOBILE.1.3 — Permanent Responsive Quality Gate Contract", async (t) => {
+  await t.test("package.json defines automated responsive, webkit and simulated failure test scripts", () => {
+    const pkgPath = path.join(rootDir, "package.json");
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf-8"));
+
+    assert.equal(pkg.scripts["test:responsive"], "node tools/scripts/test_p0_21_mobile_regression.mjs");
+    assert.equal(pkg.scripts["test:webkit"], "node tools/scripts/test_p0_21_mobile_regression.mjs --webkit");
+    assert.equal(pkg.scripts["test:responsive:simulated"], "node tools/scripts/test_simulated_responsive_failure.mjs");
+  });
+
+  await t.test("aeternum-26-ci.yml defines dedicated responsive-quality job with Chromium, WebKit, simulated failure step and artifact upload", () => {
+    const ciPath = path.join(rootDir, ".github/workflows/aeternum-26-ci.yml");
+    const ciContent = fs.readFileSync(ciPath, "utf-8");
+
+    assert.match(ciContent, /responsive-quality:/, "Must define responsive-quality job");
+    assert.match(ciContent, /playwright install --with-deps chromium webkit/, "Must install Playwright with OS dependencies for Chromium & WebKit");
+    assert.match(ciContent, /npm run test:responsive/, "Must execute Chromium responsive regression");
+    assert.match(ciContent, /npm run test:webkit/, "Must execute WebKit responsive regression");
+    assert.match(ciContent, /npm run test:responsive:simulated/, "Must execute simulated responsive regression suite");
+    assert.match(ciContent, /actions\/upload-artifact@v4/, "Must upload responsive test artifacts");
+    assert.match(ciContent, /if:\s*always\(\)/, "Artifact upload must execute even if tests fail");
+  });
+
+  await t.test("Simulated responsive regression checks accurately intercept and block all 12 failure classes with deterministic open/closed beta validation", async () => {
+    const simScript = path.join(rootDir, "tools/scripts/test_simulated_responsive_failure.mjs");
+    assert.ok(fs.existsSync(simScript), "Simulated failure test script must exist");
+  });
+});

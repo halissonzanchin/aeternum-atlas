@@ -2,6 +2,7 @@ import { spawn } from "node:child_process";
 import fs from "node:fs";
 import http from "node:http";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const rootDir = process.cwd();
 
@@ -76,7 +77,11 @@ function stopViteServer(proc) {
     if (process.platform === "win32") {
       spawn("taskkill", ["/pid", proc.pid.toString(), "/T", "/F"], { stdio: "ignore" });
     } else {
-      proc.kill("SIGTERM");
+      try {
+        process.kill(-proc.pid, "SIGTERM");
+      } catch {
+        proc.kill("SIGTERM");
+      }
     }
   } catch (_) {}
 }
@@ -93,7 +98,8 @@ async function startViteServer() {
   const proc = spawn(npxCmd, ["vite", "preview", "--port", "5174", "--strictPort"], {
     cwd: rootDir,
     stdio: "inherit",
-    shell: true
+    shell: process.platform === "win32",
+    detached: process.platform !== "win32"
   });
 
   const start = Date.now();
@@ -107,6 +113,86 @@ async function startViteServer() {
 
   stopViteServer(proc);
   throw new Error("Timeout waiting for Vite preview server to start on port 5174");
+}
+
+// Exportable assertion functions for automated regression and simulated failure verification
+export function assertLoginMetrics(vp, metrics, failures = []) {
+  let pass = true;
+  if (metrics.hasHorizontalOverflow) {
+    pass = false;
+    failures.push(`${vp.name} /login: Horizontal overflow detected (scrollWidth=${metrics.scrollWidth}, clientWidth=${metrics.clientWidth})`);
+  }
+  if (metrics.tutorMounted) {
+    pass = false;
+    failures.push(`${vp.name} /login: FAIL-CLOSED VIOLATION - Marina Orb / Tutor mounted on public login route!`);
+  }
+  if (vp.isMobile) {
+    const emailPx = parseFloat(metrics.emailFontSize || "0");
+    const passPx = parseFloat(metrics.passFontSize || "0");
+    if (emailPx < 15.5 || passPx < 15.5) {
+      pass = false;
+      failures.push(`${vp.name} /login: iOS WebKit auto-zoom risk - input font size < 16px (email=${metrics.emailFontSize}, pass=${metrics.passFontSize})`);
+    }
+    if (!metrics.hasSubmitBtn || !metrics.hasForgotLink || !metrics.hasFooterRow) {
+      pass = false;
+      failures.push(`${vp.name} /login: Mobile unified hierarchy incomplete (submit, recovery link or footer row missing)!`);
+    }
+  }
+  if (!metrics.cardVisible) {
+    pass = false;
+    failures.push(`${vp.name} /login: Login card not visible in viewport!`);
+  }
+  return pass;
+}
+
+export function assertBetaMetrics(vp, metrics, failures = []) {
+  let pass = true;
+  if (metrics.hasHorizontalOverflow) {
+    pass = false;
+    failures.push(`${vp.name} /programa-beta: Horizontal overflow detected (scrollWidth=${metrics.scrollWidth}, clientWidth=${metrics.clientWidth})`);
+  }
+  if (metrics.tutorMounted) {
+    pass = false;
+    failures.push(`${vp.name} /programa-beta: FAIL-CLOSED VIOLATION - Marina Orb / Tutor mounted on beta page!`);
+  }
+  if (vp.isMobile) {
+    const namePx = parseFloat(metrics.nameFontSize || "0");
+    if (namePx < 15.5) {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: iOS WebKit auto-zoom risk - input font size < 16px (name=${metrics.nameFontSize})`);
+    }
+  }
+  // Deterministic state validation: requires either prelaunch banner (closed state) or active banner (open state)
+  if (!metrics.prelaunchBannerVisible && !metrics.activeBannerVisible) {
+    pass = false;
+    failures.push(`${vp.name} /programa-beta: Neither pre-launch nor active registration banner is visible!`);
+  }
+  return pass;
+}
+
+export function assertHomeMetrics(vp, metrics, failures = []) {
+  let pass = true;
+  if (metrics.hasHorizontalOverflow) {
+    pass = false;
+    failures.push(`${vp.name} / (Home): Horizontal overflow detected`);
+  }
+  if (metrics.tutorMounted) {
+    pass = false;
+    failures.push(`${vp.name} / (Home): FAIL-CLOSED VIOLATION - Marina Orb mounted on home!`);
+  }
+  if (!metrics.is360Unbroken || !metrics.isSingleLine) {
+    pass = false;
+    failures.push(`${vp.name} / (Home): Atlas 360° typography wrapped or broken! (text="${metrics.coreStrongText}", singleLine=${metrics.isSingleLine})`);
+  }
+  if (!metrics.fitsInCore) {
+    pass = false;
+    failures.push(`${vp.name} / (Home): Atlas 360° overflow outside central sphere bounds!`);
+  }
+  if (vp.isMobile && (!metrics.drawerTested || !metrics.drawerHasLogin || !metrics.drawerHasBeta || !metrics.drawerHasControls)) {
+    pass = false;
+    failures.push(`${vp.name} / (Home): Mobile nav drawer missing feature parity items!`);
+  }
+  return pass;
 }
 
 // Unified Browser Runner Interface supporting Playwright (Chromium & WebKit) with Puppeteer fallback
@@ -127,12 +213,13 @@ class BrowserRunner {
         console.log("Playwright WebKit initialized successfully.");
         return new PlaywrightEngine(browser, "webkit");
       } catch (e) {
-        console.warn("Playwright WebKit failed to launch:", e.message);
+        console.error("Playwright WebKit failed to launch:", e.message);
+        throw e;
       }
     }
 
-    // 2. Try Playwright Chromium if requested or as fallback
-    if (engine === "chromium" || !engine || engine === "webkit") {
+    // 2. Try Playwright Chromium if requested or as default
+    if (engine === "chromium" || !engine) {
       try {
         const pw = await import("playwright");
         console.log("Attempting to launch Playwright Chromium...");
@@ -148,6 +235,10 @@ class BrowserRunner {
         console.log("Playwright Chromium initialized successfully.");
         return new PlaywrightEngine(browser, "chromium");
       } catch (e) {
+        if (engine === "chromium") {
+          console.error("Playwright Chromium failed to launch:", e.message);
+          throw e;
+        }
         console.warn("Playwright Chromium failed to launch:", e.message);
       }
     }
@@ -188,6 +279,17 @@ class PlaywrightEngine {
       hasTouch: defaultVp.hasTouch
     });
     this.page = await this.context.newPage();
+    // Strict Read-Only Guard: Prevent any write mutations to Supabase during responsive tests
+    if (this.page.route) {
+      await this.page.route("**/supabase.co/**", (route) => {
+        const method = route.request().method();
+        if (["POST", "PUT", "PATCH", "DELETE"].includes(method)) {
+          console.warn(`[READ-ONLY SAFEGUARD] Aborting mutation request to Supabase: ${method} ${route.request().url()}`);
+          return route.abort("blockedbyclient");
+        }
+        return route.continue();
+      });
+    }
     return this.page;
   }
 
@@ -209,6 +311,17 @@ class PuppeteerEngine {
 
   async init(defaultVp) {
     this.page = await this.browser.newPage();
+    // Strict Read-Only Guard: Prevent any write mutations to Supabase during responsive tests
+    await this.page.setRequestInterception(true);
+    this.page.on("request", (req) => {
+      const url = req.url();
+      const method = req.method();
+      if (url.includes("supabase.co") && ["POST", "PUT", "PATCH", "DELETE"].includes(method)) {
+        console.warn(`[READ-ONLY SAFEGUARD] Aborting mutation request to Supabase: ${method} ${url}`);
+        return req.abort("blockedbyclient");
+      }
+      return req.continue();
+    });
     await this.page.setViewport({
       width: defaultVp.width,
       height: defaultVp.height,
@@ -316,32 +429,7 @@ async function main() {
       });
 
       // Assertions for Login
-      let loginPass = true;
-      if (loginMetrics.hasHorizontalOverflow) {
-        loginPass = false;
-        results.failures.push(`${vp.name} /login: Horizontal overflow detected (scrollWidth=${loginMetrics.scrollWidth}, clientWidth=${loginMetrics.clientWidth})`);
-      }
-      if (loginMetrics.tutorMounted) {
-        loginPass = false;
-        results.failures.push(`${vp.name} /login: FAIL-CLOSED VIOLATION - Marina Orb / Tutor mounted on public login route!`);
-      }
-      if (vp.isMobile) {
-        const emailPx = parseFloat(loginMetrics.emailFontSize || "0");
-        const passPx = parseFloat(loginMetrics.passFontSize || "0");
-        if (emailPx < 15.5 || passPx < 15.5) {
-          loginPass = false;
-          results.failures.push(`${vp.name} /login: iOS WebKit auto-zoom risk - input font size < 16px (email=${loginMetrics.emailFontSize}, pass=${loginMetrics.passFontSize})`);
-        }
-        if (!loginMetrics.hasSubmitBtn || !loginMetrics.hasForgotLink || !loginMetrics.hasFooterRow) {
-          loginPass = false;
-          results.failures.push(`${vp.name} /login: Mobile unified hierarchy incomplete (submit, recovery link or footer row missing)!`);
-        }
-      }
-      if (!loginMetrics.cardVisible) {
-        loginPass = false;
-        results.failures.push(`${vp.name} /login: Login card not visible in viewport!`);
-      }
-
+      const loginPass = assertLoginMetrics(vp, loginMetrics, results.failures);
       if (loginPass) results.testsPassed++;
       else results.testsFailed++;
 
@@ -379,8 +467,9 @@ async function main() {
         const orb = document.querySelector(".atlas-ai-orb");
         const marinaBadge = document.querySelector(".atlas-ai-orb__badge");
 
-        // Check prelaunch banner
+        // Check prelaunch banner and active banner for deterministic verification
         const prelaunchBanner = document.querySelector(".beta-prelaunch-banner");
+        const activeBanner = document.querySelector(".beta-active-banner");
 
         return {
           scrollWidth,
@@ -388,31 +477,13 @@ async function main() {
           hasHorizontalOverflow,
           nameFontSize,
           tutorMounted: Boolean(tutor || orb || marinaBadge),
-          prelaunchBannerVisible: Boolean(prelaunchBanner)
+          prelaunchBannerVisible: Boolean(prelaunchBanner),
+          activeBannerVisible: Boolean(activeBanner)
         };
       });
 
-      let betaPass = true;
-      if (betaMetrics.hasHorizontalOverflow) {
-        betaPass = false;
-        results.failures.push(`${vp.name} /programa-beta: Horizontal overflow detected (scrollWidth=${betaMetrics.scrollWidth}, clientWidth=${betaMetrics.clientWidth})`);
-      }
-      if (betaMetrics.tutorMounted) {
-        betaPass = false;
-        results.failures.push(`${vp.name} /programa-beta: FAIL-CLOSED VIOLATION - Marina Orb / Tutor mounted on beta page!`);
-      }
-      if (vp.isMobile) {
-        const namePx = parseFloat(betaMetrics.nameFontSize || "0");
-        if (namePx < 15.5) {
-          betaPass = false;
-          results.failures.push(`${vp.name} /programa-beta: iOS WebKit auto-zoom risk - input font size < 16px (name=${betaMetrics.nameFontSize})`);
-        }
-      }
-      if (!betaMetrics.prelaunchBannerVisible) {
-        betaPass = false;
-        results.failures.push(`${vp.name} /programa-beta: Pre-launch banner not visible!`);
-      }
-
+      // Assertions for Programa Beta
+      const betaPass = assertBetaMetrics(vp, betaMetrics, results.failures);
       if (betaPass) results.testsPassed++;
       else results.testsFailed++;
 
@@ -494,28 +565,8 @@ async function main() {
         };
       }, vp.isMobile);
 
-      let homePass = true;
-      if (homeMetrics.hasHorizontalOverflow) {
-        homePass = false;
-        results.failures.push(`${vp.name} / (Home): Horizontal overflow detected`);
-      }
-      if (homeMetrics.tutorMounted) {
-        homePass = false;
-        results.failures.push(`${vp.name} / (Home): FAIL-CLOSED VIOLATION - Marina Orb mounted on home!`);
-      }
-      if (!homeMetrics.is360Unbroken || !homeMetrics.isSingleLine) {
-        homePass = false;
-        results.failures.push(`${vp.name} / (Home): Atlas 360° typography wrapped or broken! (text="${homeMetrics.coreStrongText}", singleLine=${homeMetrics.isSingleLine})`);
-      }
-      if (!homeMetrics.fitsInCore) {
-        homePass = false;
-        results.failures.push(`${vp.name} / (Home): Atlas 360° overflow outside central sphere bounds!`);
-      }
-      if (vp.isMobile && (!homeMetrics.drawerTested || !homeMetrics.drawerHasLogin || !homeMetrics.drawerHasBeta || !homeMetrics.drawerHasControls)) {
-        homePass = false;
-        results.failures.push(`${vp.name} / (Home): Mobile nav drawer missing feature parity items!`);
-      }
-
+      // Assertions for Home
+      const homePass = assertHomeMetrics(vp, homeMetrics, results.failures);
       if (homePass) results.testsPassed++;
       else results.testsFailed++;
 
@@ -611,7 +662,10 @@ async function main() {
   process.exit(results.failures.length > 0 ? 1 : 0);
 }
 
-main().catch(err => {
-  console.error("Test execution failed:", err);
-  process.exit(1);
-});
+const isMainModule = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (isMainModule) {
+  main().catch(err => {
+    console.error("Test execution failed:", err);
+    process.exit(1);
+  });
+}
