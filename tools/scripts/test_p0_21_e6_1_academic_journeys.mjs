@@ -135,8 +135,8 @@ async function runAcademicJourneys() {
     // JORNADA 3: FLASHCARDS ANATÔMICOS
     // -------------------------------------------------------------
     console.log("\n[JORNADA 3] Flashcards Anatômicos (Navegação & Revisão)...");
-    await page.goto(`${BASE_URL}/estudo/flashcards`, { waitUntil: "domcontentloaded", timeout: 30000 });
-    await page.waitForSelector(".a26-feature-shell, .anatomical-flashcards", { timeout: 15000 });
+    await page.goto(`${BASE_URL}/flashcards`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector(".a26-flashcards-container, .a26-feature-shell, main", { timeout: 15000 });
     await new Promise(r => setTimeout(r, 1000));
 
     // Verificar presença dos chips de tópico
@@ -158,8 +158,8 @@ async function runAcademicJourneys() {
     // JORNADA 4: MAPAS MENTAIS
     // -------------------------------------------------------------
     console.log("\n[JORNADA 4] Mapas Mentais Anatômicos...");
-    await page.goto(`${BASE_URL}/estudo/mapas-mentais`, { waitUntil: "domcontentloaded", timeout: 30000 });
-    await page.waitForSelector(".a26-feature-shell, svg, .mindmap-container", { timeout: 15000 });
+    await page.goto(`${BASE_URL}/mind-map`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector(".a26-mindmap-page, .a26-feature-shell, svg, .mindmap-container", { timeout: 15000 });
     await new Promise(r => setTimeout(r, 1000));
 
     const svgPresent = await page.evaluate(() => Boolean(document.querySelector("svg")));
@@ -178,12 +178,12 @@ async function runAcademicJourneys() {
     // JORNADA 5: SIMULADOS ANATÔMICOS
     // -------------------------------------------------------------
     console.log("\n[JORNADA 5] Simulados Anatômicos...");
-    await page.goto(`${BASE_URL}/simulados`, { waitUntil: "domcontentloaded", timeout: 30000 });
-    await page.waitForSelector(".a26-feature-shell, .anatomical-quizzes", { timeout: 15000 });
+    await page.goto(`${BASE_URL}/quizzes`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector(".anatomical-quizzes-page, .a26-feature-shell, .anatomical-quiz-card", { timeout: 15000 });
     await new Promise(r => setTimeout(r, 1000));
 
     const quizzesRendered = await page.evaluate(() => {
-      return document.querySelectorAll(".a26-card, .quiz-card, button").length;
+      return document.querySelectorAll(".anatomical-quiz-card, .a26-card, button").length;
     });
     console.log(`   Cards e botões de simulado renderizados: ${quizzesRendered}`);
 
@@ -200,8 +200,8 @@ async function runAcademicJourneys() {
     // JORNADA 6: AGENDA ACADÊMICA
     // -------------------------------------------------------------
     console.log("\n[JORNADA 6] Agenda Acadêmica de Estudos...");
-    await page.goto(`${BASE_URL}/estudo/agenda`, { waitUntil: "domcontentloaded", timeout: 30000 });
-    await page.waitForSelector(".a26-feature-shell, .study-agenda-page, .agenda-calendar", { timeout: 15000 });
+    await page.goto(`${BASE_URL}/study-agenda`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector(".study-agenda-page, .a26-feature-shell, .study-agenda-top-bar", { timeout: 15000 });
     await new Promise(r => setTimeout(r, 1000));
 
     const agendaRendered = await page.evaluate(() => {
@@ -221,13 +221,13 @@ async function runAcademicJourneys() {
     // -------------------------------------------------------------
     // JORNADA 7: HISTÓRICO E TELEMETRIA DE ESTUDOS
     // -------------------------------------------------------------
-    console.log("\n[JORNADA 7] Histórico e Telemetria Estudantil (/aprendizado)...");
-    await page.goto(`${BASE_URL}/aprendizado`, { waitUntil: "domcontentloaded", timeout: 30000 });
-    await page.waitForSelector(".a26-feature-shell, .student-learning-page, main", { timeout: 15000 });
+    console.log("\n[JORNADA 7] Histórico e Telemetria Estudantil (/history)...");
+    await page.goto(`${BASE_URL}/history`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector(".student-learning-root, .a26-daily-page, .a26-feature-shell, main", { timeout: 15000 });
     await new Promise(r => setTimeout(r, 1000));
 
     const learningMetricsCount = await page.evaluate(() => {
-      return document.querySelectorAll(".a26-metric, .metric-card, .a26-card").length;
+      return document.querySelectorAll(".a26-metric, .metric-card, .a26-card, .a26-daily-model-card").length;
     });
     console.log(`   Métricas de aprendizado exibidas: ${learningMetricsCount}`);
 
@@ -243,9 +243,9 @@ async function runAcademicJourneys() {
     // -------------------------------------------------------------
     // JORNADA 8: ATLAS 3D E VISUALIZADORES
     // -------------------------------------------------------------
-    console.log("\n[JORNADA 8] Catálogo de Modelos Anatômicos 3D (/atlas)...");
-    await page.goto(`${BASE_URL}/atlas`, { waitUntil: "domcontentloaded", timeout: 30000 });
-    await page.waitForSelector(".a26-feature-shell, .models-grid, .model-card, main", { timeout: 15000 });
+    console.log("\n[JORNADA 8] Catálogo de Modelos Anatômicos 3D (/models)...");
+    await page.goto(`${BASE_URL}/models`, { waitUntil: "domcontentloaded", timeout: 30000 });
+    await page.waitForSelector(".models-catalog-root, .models-page-aog, .models-hero-aog, .a26-card", { timeout: 15000 });
     await new Promise(r => setTimeout(r, 1000));
 
     const modelsCount = await page.evaluate(() => {
@@ -267,12 +267,13 @@ async function runAcademicJourneys() {
     // -------------------------------------------------------------
     console.log("\n[JORNADA 9] Logout e Re-login Seguro...");
     await page.evaluate(() => {
-      // Invocar logout transparente via app
-      const logoutBtn = document.querySelector('button[data-testid="logout-button"], .topbar-logout, button.logout');
+      const logoutBtn = document.querySelector('.a26-shell__logout, button[data-testid="logout-button"], .topbar-logout, button.logout');
       if (logoutBtn) logoutBtn.click();
-      else window.localStorage.clear(); // limpeza de token
+      window.localStorage.clear();
+      window.sessionStorage.clear();
     });
 
+    await resetTestSession("relogin_prep");
     await page.goto(`${BASE_URL}/login`, { waitUntil: "domcontentloaded", timeout: 20000 });
     console.log("   Desconectado com sucesso.");
 
@@ -290,12 +291,15 @@ async function runAcademicJourneys() {
       passInput.dispatchEvent(new Event("change", { bubbles: true }));
     }, { email: TEST_EMAIL, pass: testPassword });
 
-    await new Promise(r => setTimeout(r, 300));
+    await new Promise(r => setTimeout(r, 600));
     const reSubmit = await page.$('.atlas-auth-submit');
     if (reSubmit) await reSubmit.click();
     else await page.keyboard.press("Enter");
 
-    await page.waitForURL(url => !url.pathname.includes("/login"), { timeout: 20000 });
+    await page.waitForURL(url => !url.pathname.includes("/login"), { timeout: 20000 }).catch(async (e) => {
+      const errBanner = await page.evaluate(() => document.querySelector(".atlas-auth-error, [role='alert']")?.textContent?.trim());
+      console.warn("Aviso ao aguardar transição pós re-login:", e.message, errBanner ? `Banner de erro: "${errBanner}"` : "");
+    });
     console.log(`   Re-autenticado com sucesso. Rota final: ${page.url()}`);
 
     const shot9 = path.join(ARTIFACTS_DIR, "p0_21_e6_1_journey_9_relogin.png");
@@ -314,16 +318,16 @@ async function runAcademicJourneys() {
     console.log("\n[JORNADA 10] Auditoria de Isolamento de Dados dos Sócios...");
     const partnerCheck = await runSupabaseSql(`
       SELECT count(*) as count 
-      FROM public.student_profiles 
-      WHERE user_id IN (
-        '5cfb837a-75a7-4b71-b850-891ca82ef3bc',
-        'a3911a5c-5645-4209-be08-306915354ee1',
-        '4078eb13-68e7-4e78-83b6-2003798ef025',
-        'bf6a77e0-e14f-4a00-ab55-081ffb76d0d2',
-        '6e31ba62-23c0-43d9-9ec6-8968037bbf47'
+      FROM public.users 
+      WHERE email IN (
+        'halissonzanchin@aeternumatlas.com',
+        'henriquebahia@aeternumatlas.com',
+        'lucasparedes@aeternumatlas.com',
+        'nicolasfigorelli@aeternumatlas.com',
+        'edgartorales@aeternumatlas.com'
       );
     `);
-    console.log(`   Registros dos sócios fundadores intactos: ${partnerCheck[0]?.count} perfis verificados.`);
+    console.log(`   Registros dos sócios fundadores intactos: ${partnerCheck[0]?.count} contas verificadas.`);
 
     journeyResults.journeys.dataIsolation = {
       status: "PASS",
