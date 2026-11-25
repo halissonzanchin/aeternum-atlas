@@ -3,6 +3,9 @@ node_modules/
 .pnp
 .pnp.js
 
+# Test artifacts
+test-artifacts/
+
 # Production builds
 dist/
 build/
