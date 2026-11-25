@@ -162,10 +162,32 @@ export function assertBetaMetrics(vp, metrics, failures = []) {
       failures.push(`${vp.name} /programa-beta: iOS WebKit auto-zoom risk - input font size < 16px (name=${metrics.nameFontSize})`);
     }
   }
-  // Deterministic state validation: requires either prelaunch banner (closed state) or active banner (open state)
-  if (!metrics.prelaunchBannerVisible && !metrics.activeBannerVisible) {
-    pass = false;
-    failures.push(`${vp.name} /programa-beta: Neither pre-launch nor active registration banner is visible!`);
+  // Deterministic state validation: requires specific banner depending on TEST_BETA_STATE
+  const expectedState = (process.env.TEST_BETA_STATE || "").toLowerCase();
+  if (expectedState === "open") {
+    if (!metrics.activeBannerVisible) {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: Expected active registration banner (.beta-active-banner) in open state, but not visible!`);
+    }
+    if (metrics.prelaunchBannerVisible) {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: Pre-launch banner (.beta-prelaunch-banner) should NOT be visible when registrations are open!`);
+    }
+  } else if (expectedState === "closed") {
+    if (!metrics.prelaunchBannerVisible) {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: Expected pre-launch banner (.beta-prelaunch-banner) in closed state, but not visible!`);
+    }
+    if (metrics.activeBannerVisible) {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: Active registration banner (.beta-active-banner) should NOT be visible when registrations are closed!`);
+    }
+  } else {
+    // Fallback: at least one banner must be visible
+    if (!metrics.prelaunchBannerVisible && !metrics.activeBannerVisible) {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: Neither pre-launch nor active registration banner is visible!`);
+    }
   }
   return pass;
 }
