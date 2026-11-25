@@ -172,7 +172,10 @@ function runSimulatedFailureChecks() {
 
   // 8. PROGRAMA BETA: Missing Both Pre-Launch and Active Banners
   {
-    // Deterministic state validation: Closed state passes
+    const oldEnv = process.env.TEST_BETA_STATE;
+
+    // Deterministic state validation: Closed state passes with prelaunch banner
+    process.env.TEST_BETA_STATE = "closed";
     const closedFailures = [];
     const closedMetrics = {
       hasHorizontalOverflow: false,
@@ -186,7 +189,8 @@ function runSimulatedFailureChecks() {
     assert.equal(assertBetaMetrics(mobileVp, closedMetrics, closedFailures), true, "Deterministic closed state must pass");
     assert.equal(closedFailures.length, 0);
 
-    // Deterministic state validation: Open state passes
+    // Deterministic state validation: Open state passes with active banner
+    process.env.TEST_BETA_STATE = "open";
     const openFailures = [];
     const openMetrics = {
       hasHorizontalOverflow: false,
@@ -200,7 +204,13 @@ function runSimulatedFailureChecks() {
     assert.equal(assertBetaMetrics(mobileVp, openMetrics, openFailures), true, "Deterministic open state must pass");
     assert.equal(openFailures.length, 0);
 
+    // State mismatch check: Open state with prelaunch banner must fail
+    const mismatchFailures = [];
+    assert.equal(assertBetaMetrics(mobileVp, closedMetrics, mismatchFailures), false, "Mismatched banner in open state must fail");
+    assert.ok(mismatchFailures.some(f => f.includes("Expected active registration banner (.beta-active-banner) in open state")));
+
     // Failure check: Neither banner visible fails assertion
+    delete process.env.TEST_BETA_STATE;
     const failures = [];
     const metrics = {
       hasHorizontalOverflow: false,
@@ -216,6 +226,9 @@ function runSimulatedFailureChecks() {
     assert.ok(failures.some(f => f.includes("Neither pre-launch nor active registration banner is visible")), "Must record banner failure");
     caughtViolations++;
     console.log(`[BLOCKED 8/12] Simulated Missing Banner (Both Closed & Open Absent): ${failures[0]}`);
+
+    if (oldEnv) process.env.TEST_BETA_STATE = oldEnv;
+    else delete process.env.TEST_BETA_STATE;
   }
 
   // 9. HOME: Atlas 360° Typography Break (Wrapped text)

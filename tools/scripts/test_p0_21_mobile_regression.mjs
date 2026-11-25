@@ -162,10 +162,32 @@ export function assertBetaMetrics(vp, metrics, failures = []) {
       failures.push(`${vp.name} /programa-beta: iOS WebKit auto-zoom risk - input font size < 16px (name=${metrics.nameFontSize})`);
     }
   }
-  // Deterministic state validation: requires either prelaunch banner (closed state) or active banner (open state)
-  if (!metrics.prelaunchBannerVisible && !metrics.activeBannerVisible) {
-    pass = false;
-    failures.push(`${vp.name} /programa-beta: Neither pre-launch nor active registration banner is visible!`);
+  // Deterministic state validation: requires specific banner depending on TEST_BETA_STATE
+  const expectedState = (process.env.TEST_BETA_STATE || "").toLowerCase();
+  if (expectedState === "open") {
+    if (!metrics.activeBannerVisible) {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: Expected active registration banner (.beta-active-banner) in open state, but not visible!`);
+    }
+    if (metrics.prelaunchBannerVisible) {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: Pre-launch banner (.beta-prelaunch-banner) should NOT be visible when registrations are open!`);
+    }
+  } else if (expectedState === "closed") {
+    if (!metrics.prelaunchBannerVisible) {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: Expected pre-launch banner (.beta-prelaunch-banner) in closed state, but not visible!`);
+    }
+    if (metrics.activeBannerVisible) {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: Active registration banner (.beta-active-banner) should NOT be visible when registrations are closed!`);
+    }
+  } else {
+    // Fallback: at least one banner must be visible
+    if (!metrics.prelaunchBannerVisible && !metrics.activeBannerVisible) {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: Neither pre-launch nor active registration banner is visible!`);
+    }
   }
   return pass;
 }
@@ -503,7 +525,11 @@ async function main() {
       // 2. TEST PROGRAMA BETA
       await page.goto(`${BASE_URL}/programa-beta`, { waitUntil: "domcontentloaded", timeout: 30000 });
       await page.waitForSelector(".atlas-auth-card--beta", { timeout: 15000 });
-      await new Promise(r => setTimeout(r, 600));
+      const expectedBannerSelector = (process.env.TEST_BETA_STATE || "").toLowerCase() === "open"
+        ? ".beta-active-banner"
+        : ".beta-prelaunch-banner";
+      await page.waitForSelector(expectedBannerSelector, { timeout: 8000 }).catch(() => {});
+      await new Promise(r => setTimeout(r, 400));
 
       const betaMetrics = await page.evaluate(() => {
         const doc = document.documentElement;
