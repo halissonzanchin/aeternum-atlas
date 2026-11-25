@@ -525,7 +525,11 @@ async function main() {
       // 2. TEST PROGRAMA BETA
       await page.goto(`${BASE_URL}/programa-beta`, { waitUntil: "domcontentloaded", timeout: 30000 });
       await page.waitForSelector(".atlas-auth-card--beta", { timeout: 15000 });
-      await new Promise(r => setTimeout(r, 600));
+      const expectedBannerSelector = (process.env.TEST_BETA_STATE || "").toLowerCase() === "open"
+        ? ".beta-active-banner"
+        : ".beta-prelaunch-banner";
+      await page.waitForSelector(expectedBannerSelector, { timeout: 8000 }).catch(() => {});
+      await new Promise(r => setTimeout(r, 400));
 
       const betaMetrics = await page.evaluate(() => {
         const doc = document.documentElement;
