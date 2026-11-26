@@ -1,5 +1,3 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
 /**
  * Aeternum Atlas — P0.21-E.6.1
  * Certificação E2E das Jornadas Acadêmicas na Interface Real
@@ -7,6 +5,8 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
  * Executa testes reais automatizados no navegador (Playwright Chromium) simulando a
  * experiência completa do aluno: Login, Atlas IA, Flashcards, Mapas Mentais,
  * Simulados, Agenda, Modelos 3D, Logout/Relogin e Isolamento de Dados.
+ *
+ * Validação TLS estrita mantida (zero bypass).
  */
 
 import fs from "node:fs";

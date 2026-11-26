@@ -197,11 +197,11 @@ runTest("Conta de Demonstração é classificada como 'demo'", () => {
   );
 });
 
-runTest("Participante Beta externo é classificado como 'beta' SOMENTE quando aprovado/ativado na fonte autorizada", () => {
-  // 1. Candidato pendente NÃO é beta ativo (R1-03: sem confundir candidatura com acesso)
+runTest("Participante Beta externo é classificado como 'beta' SOMENTE quando 'activated' na fonte autorizada", () => {
+  // 1. Candidato pendente NÃO é beta ativo (sem confundir candidatura com acesso)
   const pendingApplicant = { id: "beta-cand-pending", email: "pendente@ufpe.br", name: "Candidato Pendente" };
   const pendingCategory = classifyStudentAccount(pendingApplicant, {
-    betaApplications: [{ email: "pendente@ufpe.br", status: "pending", batch: "batch_1_30" }]
+    betaApplications: [{ email: "pendente@ufpe.br", status: "pending", batch: "batch_1_30", source_origin: "web" }]
   });
   assert.strictEqual(
     pendingCategory.key,
@@ -209,15 +209,47 @@ runTest("Participante Beta externo é classificado como 'beta' SOMENTE quando ap
     "Candidatura pendente NÃO deve classificar como beta ativo"
   );
 
-  // 2. Participante aprovado/ativado É classificado como 'beta'
-  const approvedCandidate = { id: "beta-cand-approved", email: "aprovado@ufpe.br", name: "Candidato Aprovado" };
-  const approvedCategory = classifyStudentAccount(approvedCandidate, {
-    verifiedBetaUserIds: new Set(["beta-cand-approved"])
+  // 2. Candidato apenas aprovado ou convidado NÃO é participante ativo (deve aguardar ativação)
+  const approvedOnly = { id: "beta-cand-approved", email: "aprovado@ufpe.br", name: "Candidato Aprovado Sem Ativação" };
+  const approvedCategory = classifyStudentAccount(approvedOnly, {
+    betaApplications: [{ email: "aprovado@ufpe.br", status: "approved", batch: "batch_1_30", source_origin: "web" }]
   });
   assert.strictEqual(
     approvedCategory.key,
+    STUDENT_ACCOUNT_CATEGORIES.UNCLASSIFIED.key,
+    "Candidato aprovado mas não ativado NÃO deve ser considerado participante ativo"
+  );
+
+  const invitedOnly = { id: "beta-cand-invited", email: "convidado@ufpe.br", name: "Candidato Convidado Sem Ativação" };
+  const invitedCategory = classifyStudentAccount(invitedOnly, {
+    betaApplications: [{ email: "convidado@ufpe.br", status: "invited", batch: "batch_1_30", source_origin: "web" }]
+  });
+  assert.strictEqual(
+    invitedCategory.key,
+    STUDENT_ACCOUNT_CATEGORIES.UNCLASSIFIED.key,
+    "Candidato convidado mas não ativado NÃO deve ser considerado participante ativo"
+  );
+
+  // 3. Candidato com status 'activated' na fonte autorizada É classificado como 'beta'
+  const activatedCandidate = { id: "beta-cand-activated", email: "ativado@ufpe.br", name: "Participante Beta Ativado" };
+  const activatedCategory = classifyStudentAccount(activatedCandidate, {
+    activatedBetaUserIds: new Set(["beta-cand-activated"])
+  });
+  assert.strictEqual(
+    activatedCategory.key,
     STUDENT_ACCOUNT_CATEGORIES.EXTERNAL_BETA.key,
-    "Participante aprovado/ativado deve ser 'beta'"
+    "Participante formalmente ativado na fonte autorizada deve ser 'beta'"
+  );
+
+  // 4. Quarentena sintética: lote synthetic_test NÃO é classificado como participante real
+  const syntheticApplicant = { id: "beta-synth", email: "synth@test.com", name: "Candidato Sintético" };
+  const syntheticCategory = classifyStudentAccount(syntheticApplicant, {
+    betaApplications: [{ email: "synth@test.com", status: "activated", batch: "synthetic_test", source_origin: "test" }]
+  });
+  assert.strictEqual(
+    syntheticCategory.key,
+    STUDENT_ACCOUNT_CATEGORIES.UNCLASSIFIED.key,
+    "Candidatura de quarentena sintética NÃO deve ser classificada como participante real"
   );
 });
 
@@ -550,8 +582,11 @@ runTest("Declaração explícita de cobertura e limites de consulta (R1-02)", ()
   assert.strictEqual(payload.sourceCoverage.limits.viewerSessionsLimit, 5000);
   assert.strictEqual(payload.sourceCoverage.limits.platformEventsLimit, 2000);
   assert.strictEqual(payload.sourceCoverage.observedCounts.viewerSessions, 15);
-  assert.strictEqual(payload.sourceCoverage.coverageStatus, "complete");
+  assert.strictEqual(payload.sourceCoverage.coverageStatus, "observed_sample");
   assert.strictEqual(typeof payload.sourceCoverage.limitationNotice, "string");
+  assert.ok(payload.betaOperations, "Payload deve conter 'betaOperations'");
+  assert.strictEqual(payload.betaOperations.scopeReviewRequiredInAdm23, true);
+  assert.strictEqual(payload.betaOperations.registrationOpen, false);
 });
 
 // -----------------------------------------------------------------------------
@@ -685,6 +720,30 @@ runTest("Workflow de CI do GitHub Actions exige validação estrita de TLS (sem 
     false,
     "CI GitHub Actions NÃO DEVE conter bypass de TLS"
   );
+});
+
+runTest("Scripts de teste ativos e serviços de produção NÃO possuem bypass de TLS", () => {
+  const criticalFiles = [
+    "tools/scripts/test_p0_21_mobile_regression.mjs",
+    "tools/scripts/test_p0_21_e6_1_academic_journeys.mjs",
+    "src/services/admin/institutionDashboardService.js",
+    "src/services/auth/authService.js"
+  ];
+
+  criticalFiles.forEach(file => {
+    const fullPath = path.resolve(file);
+    if (fs.existsSync(fullPath)) {
+      const content = fs.readFileSync(fullPath, "utf-8");
+      const hasBypass = content.includes('NODE_TLS_REJECT_UNAUTHORIZED = "0"') ||
+                        content.includes("NODE_TLS_REJECT_UNAUTHORIZED = '0'") ||
+                        content.includes('NODE_TLS_REJECT_UNAUTHORIZED="0"');
+      assert.strictEqual(
+        hasBypass,
+        false,
+        `Arquivo ${file} NÃO DEVE conter bypass de TLS (NODE_TLS_REJECT_UNAUTHORIZED=0)`
+      );
+    }
+  });
 });
 
 console.log("\n===============================================================================");

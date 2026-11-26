@@ -67,18 +67,21 @@ export function classifyStudentAccount(user, options = {}) {
     return STUDENT_ACCOUNT_CATEGORIES.DEMO;
   }
 
-  // 4. Participante Beta Externo (El Dorado) - Exige aprovação e ativação comprovadas na fonte autorizada
-  // Candidatura pendente NÃO confere acesso acadêmico nem classificação como Beta ativo.
-  const isVerifiedBeta = Boolean(
-    options?.verifiedBetaUserIds?.has(userId) ||
-    options?.verifiedBetaEmails?.has(email) ||
+  // 4. Participante Beta Externo Ativo (El Dorado) - Exige status 'activated' comprovado na fonte autorizada
+  // DIRETRIZ P0.21-ADM.2.2: Distinguir approved, invited e activated.
+  // Candidatos 'approved' ou 'invited' ainda não são participantes ativos na plataforma.
+  // Quarentena sintética preservada via verificação de batch e source_origin.
+  const isActivatedBeta = Boolean(
+    options?.activatedBetaUserIds?.has(userId) ||
+    options?.activatedBetaEmails?.has(email) ||
     (Array.isArray(options?.betaApplications) && options.betaApplications.some(app =>
       (app.user_id === userId || (app.email || "").toLowerCase().trim() === email) &&
-      ["approved", "activated", "invited"].includes(app.status) &&
-      app.batch !== "synthetic_test"
+      app.status === "activated" &&
+      app.batch !== "synthetic_test" &&
+      app.source_origin !== "synthetic_test"
     ))
   );
-  if (isVerifiedBeta) {
+  if (isActivatedBeta) {
     return STUDENT_ACCOUNT_CATEGORIES.EXTERNAL_BETA;
   }
 
@@ -1096,7 +1099,9 @@ export function buildDashboardPayload({
   const mostAccessedContent = mostAccessedModelsData[0]?.title || EMPTY_TEXT;
   const lastUpdated = new Date();
 
-  // DIRETRIZ R1-02: Transparência e declaração de limitações de consulta/paginação
+  // DIRETRIZ P0.21-ADM.2.2: Transparência e integridade na amostragem PostgREST
+  // Não declarar cobertura completa apenas porque a contagem é inferior ao limite;
+  // total comprovado requer agregação analítica dedicada (programada para ADM.2.4).
   const sourceCoverage = {
     isLimitBounded: logs.length >= 5000 || events.length >= 2000,
     limits: {
@@ -1113,11 +1118,26 @@ export function buildDashboardPayload({
       classes: academicClasses.length,
       memberships: classStudents.length
     },
-    coverageStatus: logs.length >= 5000 ? "limit_bounded" : "complete",
+    coverageStatus: logs.length >= 5000 ? "limit_bounded" : "observed_sample",
     limitationNotice: logs.length >= 5000
       ? "Limite de 5.000 sessões atingido. Totais históricos exigem agregação analítica ou paginação."
-      : "Cobertura total dos registros observados."
+      : "Amostragem limitada aos registros observados no escopo PostgREST. Confirmação analítica integral programada para ADM.2.4."
   };
+
+  const defaultBetaSummary = {
+    status: "available",
+    error: null,
+    totalApplications: 0,
+    pending: 0,
+    approved: 0,
+    invited: 0,
+    activated: 0,
+    maxCapacity: 30,
+    availableSlots: 30,
+    registrationOpen: false,
+    scopeReviewRequiredInAdm23: true
+  };
+  const betaOperations = options?.betaOperationsSummary || defaultBetaSummary;
 
   return {
     source,
@@ -1125,6 +1145,7 @@ export function buildDashboardPayload({
     selectedInstitutionId: selectedInstitution?.id || null,
     lastUpdated: lastUpdated.toISOString(),
     institutions,
+    betaOperations,
     institution: {
       ...displayInstitution,
       registeredStudents,
@@ -1382,20 +1403,32 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     loadInstitutionRows("academic_classes", queryInstitutionId, "id, institution_id, teacher_id, name, course, semester, status, created_at, updated_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadInstitutionRows("academic_class_students", queryInstitutionId, "id, institution_id, class_id, student_id, created_at", { allowGlobal, orderBy: "created_at", limit: 5000 }),
     loadAnalyticsViews(queryInstitutionId),
-    loadInstitutionRows("beta_applications", null, "id, email, user_id, status, batch", { allowGlobal: true, limit: 1000 })
+    loadInstitutionRows("beta_applications", null, "id, email, user_id, status, batch, source_origin", { allowGlobal: true, limit: 1000 })
   ]);
 
-  const verifiedBetaUserIds = new Set(
-    (betaAppsResult?.rows || [])
-      .filter(b => b.user_id && ["approved", "activated", "invited"].includes(b.status) && b.batch !== "synthetic_test")
-      .map(b => b.user_id)
+  const realBetaApps = (betaAppsResult?.rows || []).filter(
+    b => b.batch !== "synthetic_test" && b.source_origin !== "synthetic_test"
   );
-  const verifiedBetaEmails = new Set(
-    (betaAppsResult?.rows || [])
-      .filter(b => ["approved", "activated", "invited"].includes(b.status) && b.batch !== "synthetic_test")
-      .map(b => (b.email || "").toLowerCase().trim())
-      .filter(Boolean)
+  const activatedBetaUserIds = new Set(
+    realBetaApps.filter(b => b.user_id && b.status === "activated").map(b => b.user_id)
   );
+  const activatedBetaEmails = new Set(
+    realBetaApps.filter(b => b.status === "activated").map(b => (b.email || "").toLowerCase().trim()).filter(Boolean)
+  );
+
+  const betaOperationsSummary = {
+    status: betaAppsResult?.error ? "query_error" : "available",
+    error: betaAppsResult?.error ? String(betaAppsResult.error) : null,
+    totalApplications: realBetaApps.length,
+    pending: realBetaApps.filter(b => b.status === "pending" || b.status === "under_review").length,
+    approved: realBetaApps.filter(b => b.status === "approved").length,
+    invited: realBetaApps.filter(b => b.status === "invited").length,
+    activated: realBetaApps.filter(b => b.status === "activated").length,
+    maxCapacity: 30,
+    availableSlots: Math.max(0, 30 - realBetaApps.filter(b => b.status === "activated").length),
+    registrationOpen: false, // beta_registration_open = false strictly preserved
+    scopeReviewRequiredInAdm23: true
+  };
 
   const subjectsResult = {
     rows: [],
@@ -1457,9 +1490,10 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     profile,
     profilesError: profilesResult.error,
     options: {
-      verifiedBetaUserIds,
-      verifiedBetaEmails,
-      betaApplications: betaAppsResult?.rows || []
+      activatedBetaUserIds,
+      activatedBetaEmails,
+      betaOperationsSummary,
+      betaApplications: realBetaApps
     }
   });
 }
