@@ -7,36 +7,88 @@ const STUDENT_ROLES = new Set(["student", "aluno"]);
 const EMPTY_TEXT = "Nenhum dado encontrado";
 
 export const STUDENT_ACCOUNT_CATEGORIES = {
-  FOUNDER: { key: "founder", label: "Equipe Fundadora / Homologação Interna" },
-  QA: { key: "qa", label: "Homologação Técnica / QA" },
-  DEMO: { key: "demo", label: "Demonstração Institucional" },
-  EXTERNAL_BETA: { key: "external_beta", label: "Candidato Beta Externo (El Dorado)" },
-  COMMERCIAL: { key: "commercial", label: "Estudante Comercial / Institucional" }
+  FOUNDER: { key: "founder", label: "Homologação Interna (Fundadores)", badgeTone: "amber" },
+  QA: { key: "qa", label: "Automação / QA", badgeTone: "purple" },
+  DEMO: { key: "demo", label: "Demonstração Institucional", badgeTone: "blue" },
+  EXTERNAL_BETA: { key: "beta", label: "Programa Beta (El Dorado)", badgeTone: "teal" },
+  COMMERCIAL: { key: "commercial", label: "Aluno Comercial / Institucional", badgeTone: "emerald" },
+  UNCLASSIFIED: { key: "unclassified", label: "Não Classificado", badgeTone: "neutral" }
 };
+
+const FOUNDER_IDS = new Set([
+  "a3911a5c-a3d0-4318-9d45-f6be6ac38fb4", // Halisson
+  "a0168021-b8a2-4c35-8eab-c80240c10e07", // Victor
+  "f2591fae-8c18-4eb7-a97d-ae5ae90c5b34", // Nicolas
+  "e9931f64-4de9-46fc-9e56-6705345406cb", // Lucas
+  "9f1cede4-3672-461b-bbe8-391dd59c988d", // Edgar
+  "19f44fd4-cba0-4a35-95c7-b1c5e3e9c5a0"  // Admin
+]);
 
 const FOUNDER_EMAILS = new Set([
   "halissonzanchin@aeternumatlas.com",
+  "halisson@aeternumatlas.com",
+  "halisson.paz@gmail.com",
   "henriquebahia@aeternumatlas.com",
+  "victor@aeternumatlas.com",
   "nicolasfigorelli@aeternumatlas.com",
+  "nicolas@aeternumatlas.com",
   "lucasparedes@aeternumatlas.com",
-  "edgartorales@aeternumatlas.com"
+  "lucas@aeternumatlas.com",
+  "edgartorales@aeternumatlas.com",
+  "edgar@aeternumatlas.com"
 ]);
 
-export function classifyStudentAccount(user) {
+export function classifyStudentAccount(user, options = {}) {
   const email = (user?.email || "").toLowerCase().trim();
-  if (FOUNDER_EMAILS.has(email)) {
+  const userId = user?.id;
+
+  // 1. Equipe Fundadora / Homologação Interna (identificadores estáveis: UUIDs canônicos ou e-mails exatos dos sócios)
+  if (FOUNDER_IDS.has(userId) || FOUNDER_EMAILS.has(email)) {
     return STUDENT_ACCOUNT_CATEGORIES.FOUNDER;
   }
-  if (email.includes("qa.") || email.includes("-qa-") || email.includes("e2e") || email.includes("test")) {
+
+  // 2. Homologação Técnica / QA / E2E
+  if (
+    email.startsWith("qa.") ||
+    email.includes("-qa-") ||
+    email === "qa.voice.p0@aeternumatlas.com" ||
+    email === "atlas-e2e-ai-tutor@aeternumatlas.com" ||
+    email.startsWith("test.")
+  ) {
     return STUDENT_ACCOUNT_CATEGORIES.QA;
   }
-  if (email.includes("demo.")) {
+
+  // 3. Demonstração Institucional
+  if (
+    email === "demo.institucional@aeternumatlas.com" ||
+    email === "demo@aeternumatlas.com" ||
+    userId === "5cfb837a-5ce3-4113-8f4a-dcdd9b8bf43f"
+  ) {
     return STUDENT_ACCOUNT_CATEGORIES.DEMO;
   }
-  if (user?.is_beta_candidate || user?.license_tier === "beta_external") {
+
+  // 4. Candidato Beta Externo (El Dorado) com fonte autorizada
+  const isBeta = Boolean(
+    options?.betaCandidateEmails?.has(email) ||
+    options?.betaUserIds?.has(userId) ||
+    user?.is_beta_candidate ||
+    user?.license_tier === "beta_external"
+  );
+  if (isBeta) {
     return STUDENT_ACCOUNT_CATEGORIES.EXTERNAL_BETA;
   }
-  return STUDENT_ACCOUNT_CATEGORIES.COMMERCIAL;
+
+  // 5. Aluno Comercial / Institucional (Exige comprovação explícita de vínculo comercial/institucional ativo)
+  const isCommercial = Boolean(
+    options?.hasCommercialLink === true ||
+    options?.enrolledStudentIds?.has(userId)
+  );
+  if (isCommercial) {
+    return STUDENT_ACCOUNT_CATEGORIES.COMMERCIAL;
+  }
+
+  // 6. Não Classificado (ausência de evidência comprovada)
+  return STUDENT_ACCOUNT_CATEGORIES.UNCLASSIFIED;
 }
 
 export const CANONICAL_MODEL_METADATA = {
@@ -756,8 +808,8 @@ function buildBlockedAccessLogs(events, users) {
     });
 }
 
-function buildStudentRows({ users, profiles, logs, models }) {
-  const profileByUserId = new Map(profiles.map(profile => [profile.user_id, profile]));
+export function buildStudentRows({ users, profiles = [], logs = [], models = [], profilesError = null, options = {} }) {
+  const profileByUserId = new Map((profiles || []).map(profile => [profile.user_id, profile]));
   const titleByModel = modelTitleMap(models);
   const logsByUser = new Map();
 
@@ -771,7 +823,15 @@ function buildStudentRows({ users, profiles, logs, models }) {
   return users
     .filter(user => isStudentRole(user.role))
     .map(user => {
-      const profile = profileByUserId.get(user.id) || {};
+      const profile = profileByUserId.get(user.id);
+      const isProfileMissing = !profile;
+      const profileStatus = profilesError ? "query_error" : (isProfileMissing ? "missing_profile" : "available");
+      const profileStatusLabel = profilesError
+        ? "Falha na consulta"
+        : isProfileMissing
+          ? "Não cadastrado"
+          : "Disponível";
+
       const userLogs = (logsByUser.get(user.id) || []).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       const modelCounts = new Map();
       const totalStudyMinutes = Math.round(userLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0) / 60);
@@ -787,20 +847,21 @@ function buildStudentRows({ users, profiles, logs, models }) {
         studiedModels * 3
       ));
 
-      const accountCategory = classifyStudentAccount(user);
-      const isProfileMissing = !profile.id && !profile.user_id;
+      const accountCategory = classifyStudentAccount(user, options);
 
       return {
         id: user.id,
         institutionId: user.institution_id || "",
         name: user.name || user.email || "Aluno",
         email: user.email || "-",
-        registration: profile.registration_number || (accountCategory.key === "founder" ? "MED-FUNDADOR" : "PENDENTE"),
-        course: profile.course || "Medicina",
-        semester: profile.semester || (accountCategory.key === "founder" ? "1º Semestre (Homologação)" : "1º Semestre"),
+        registration: profile?.registration_number || "—",
+        course: profile?.course || "—",
+        semester: profile?.semester || "—",
+        profileStatus,
+        profileStatusLabel,
         status: normalizeStudentStatus(user.status),
         createdAt: datePart(user.created_at),
-        lastAccess: userLogs[0]?.created_at || profile.last_access_at || user.last_login || "",
+        lastAccess: userLogs[0]?.created_at || profile?.last_access_at || user.last_login || "",
         totalAccesses: userLogs.length,
         totalStudyMinutes,
         mostViewedContent: mostViewedModelId ? titleByModel.get(mostViewedModelId) || mostViewedModelId : "-",
@@ -938,7 +999,8 @@ function buildDashboardPayload({
   quality,
   source,
   profile,
-  sessionMetrics = {}
+  sessionMetrics = {},
+  profilesError = null
 }) {
   const scopeInstitutions = scope === "global"
     ? institutions
@@ -960,16 +1022,30 @@ function buildDashboardPayload({
   const activeStudents = activeStudentUsers.length;
   const inactiveStudents = Math.max(registeredStudents - activeStudents, 0);
   const contractedCapacity = sumInstitutionCapacity(scopeInstitutions);
-  const maxRevenue = sumInstitutionMaxRevenue(scopeInstitutions);
   const pricePerStudent = scope === "tenant" ? numberOrZero(selectedInstitution?.pricePerStudent) : 0;
-  const estimatedRevenue = calculateEstimatedRevenue({ institutions: scopeInstitutions, activeStudentUsers });
+  const contractedRevenue = (contractedCapacity > 0 && pricePerStudent > 0)
+    ? contractedCapacity * pricePerStudent
+    : null;
+  const financialStatus = contractedRevenue !== null ? "configured" : "not_configured";
+
   const now = new Date();
   const currentMonthLogs = logs.filter(log => isSameLocalMonth(toDate(log.created_at), now));
   const todayLogs = logs.filter(log => isSameLocalDay(toDate(log.created_at), now));
   const totalStudySecondsFromLogs = currentMonthLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
-  const usageSummary = views.usageSummary || {};
-  const mostAccessedModelsData = buildMostAccessedModels({ logs, models, popularity: views.modelPopularity });
-  const students = buildStudentRows({ users, profiles, logs, models });
+  
+  // Fonte canônica para modelos mais acessados deriva diretamente das sessões e do catálogo
+  const mostAccessedModelsData = buildMostAccessedModels({ logs, models, popularity: [] });
+  
+  const enrolledStudentIds = new Set(classStudents.map(cs => cs.student_id).filter(Boolean));
+  const students = buildStudentRows({
+    users,
+    profiles,
+    logs,
+    models,
+    profilesError,
+    options: { enrolledStudentIds, institutions: scopeInstitutions }
+  });
+
   const studentHistoryByUser = buildStudentHistoryByUser({ students, logs, models });
   const dailyAccess = buildDailyAccess(logs, events);
   const hourlyUsage = buildHourlyUsage(logs, events);
@@ -978,16 +1054,19 @@ function buildDashboardPayload({
   const platformIncidents = buildIncidents(events);
   const blockedAccessLogs = buildBlockedAccessLogs(events, users);
   const platformHealthData = buildPlatformHealth(events);
-  const totalEvents = numberOrZero(usageSummary.total_events) || logs.length + events.length;
-  const totalModelViews = numberOrZero(usageSummary.total_model_views) || logs.filter(log => log.action === "view_model").length;
-  const totalStudySeconds = numberOrZero(usageSummary.total_study_seconds) || totalStudySecondsFromLogs;
-  const uniqueActiveUsers = numberOrZero(usageSummary.unique_users) || new Set(logs.map(log => log.user_id).filter(Boolean)).size;
+  
+  // Métricas canônicas certificadas
+  const totalEvents = logs.length + events.length;
+  const totalModelViews = logs.filter(log => log.action === "view_model").length;
+  const totalStudySeconds = totalStudySecondsFromLogs;
+  const uniqueActiveUsers = new Set(logs.map(log => log.user_id).filter(Boolean)).size;
+  
   const lastHourUsers = new Set([
     ...logs.filter(log => isWithinLastMinutes(toDate(log.created_at), 60)).map(log => log.user_id),
     ...events.filter(event => isWithinLastMinutes(toDate(event.created_at), 60)).map(event => event.user_id)
   ].filter(Boolean)).size;
 
-  const averageSessionMinutes = Math.round((numberOrZero(usageSummary.avg_duration_seconds) || (totalModelViews ? totalStudySeconds / totalModelViews : 0)) / 60);
+  const averageSessionMinutes = Math.round((totalModelViews ? totalStudySeconds / totalModelViews : 0) / 60);
   const occupancyRate = contractedCapacity ? (registeredStudents / contractedCapacity) * 100 : 0;
   const mostAccessedContent = mostAccessedModelsData[0]?.title || EMPTY_TEXT;
   const lastUpdated = new Date();
@@ -1012,12 +1091,17 @@ function buildDashboardPayload({
       activeStudents,
       inactiveStudents,
       occupancyRate,
-      estimatedRevenue,
-      maxRevenue,
-      lostRevenue: Math.max(maxRevenue - estimatedRevenue, 0)
+      contractedRevenue,
+      financialStatus,
+      estimatedRevenue: contractedRevenue,
+      maxRevenue: contractedRevenue,
+      lostRevenue: null
     },
     overviewMetrics: {
-      activeNow: lastHourUsers || uniqueActiveUsers,
+      activeNow: null,
+      activeNowState: "unavailable",
+      activeNowDescription: "Requer telemetria de presença instantânea em tempo real (heartbeat <= 5 min)",
+      recentActivity1h: lastHourUsers,
       accessesToday: todayLogs.length,
       accessesThisMonth: totalModelViews,
       totalStudyHoursThisMonth: Math.round(totalStudySeconds / 3600),
@@ -1037,7 +1121,10 @@ function buildDashboardPayload({
     sessionMetrics,
     analytics: {
       snapshot: {
-        activeUsersNow: lastHourUsers || uniqueActiveUsers,
+        activeUsersNow: null,
+        activeUsersNowState: "unavailable",
+        activeUsersNowDescription: "Requer telemetria de presença instantânea em tempo real (heartbeat <= 5 min)",
+        recentActivity1h: lastHourUsers,
         accessesToday: todayLogs.length,
         accessesThisMonth: totalModelViews,
         totalStudyHoursThisMonth: Math.round(totalStudySeconds / 3600),
@@ -1294,7 +1381,8 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     quality,
     sessionMetrics,
     source: "supabase",
-    profile
+    profile,
+    profilesError: profilesResult.error
   });
 }
 

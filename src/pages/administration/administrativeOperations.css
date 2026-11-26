@@ -572,6 +572,12 @@
   color: var(--a26-color-text, #f1f5f9);
 }
 
+.admin26-pill--unclassified {
+  background: rgba(148, 163, 184, 0.12);
+  border-color: rgba(148, 163, 184, 0.28);
+  color: #94a3b8;
+}
+
 .admin26-coverage__grid .is-not_implemented strong {
   color: var(--a26-color-text-subtle, #94a3b8);
 }
