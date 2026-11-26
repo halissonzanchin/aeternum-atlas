@@ -4,7 +4,7 @@ import AuthExperienceShell from "../../components/AuthExperienceShell/AuthExperi
 import LanguageSelector from "../../components/LanguageSelector";
 import LineIcon from "../../components/icons/LineIcon";
 import { A26Button, A26Card, A26Field, A26IconButton } from "../../components/aeternum-26";
-import { getRedirectPathForUser, loginUser, requestPasswordRecovery } from "../../services/auth/authService";
+import { getRedirectPathForUser, loginUser, requestPasswordRecovery, updateCurrentUserPassword } from "../../services/auth/authService";
 import { validateLogin } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
 import { useTheme } from "../../context/ThemeContext";
@@ -13,12 +13,24 @@ export default function Login({ navigate, onAuth }) {
   const { t } = useLanguage();
   const { toggleTheme, isLight } = useTheme();
   const [values, setValues] = useState({ email: "", password: "" });
+  const [resetValues, setResetValues] = useState({ password: "", confirmPassword: "" });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const [recoveryStatus, setRecoveryStatus] = useState(null);
   const [recoveryLoading, setRecoveryLoading] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
+  const [resetSuccess, setResetSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const isResetMode = typeof window !== "undefined"
+    ? (() => {
+        const search = new URLSearchParams(window.location.search);
+        const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+        return search.get("mode") === "reset-password" || hash.get("type") === "recovery";
+      })()
+    : false;
 
   const redirectTarget = typeof window !== "undefined"
     ? (() => {
@@ -84,6 +96,39 @@ export default function Login({ navigate, onAuth }) {
     }
   }
 
+  function updateReset(event) {
+    const { name, value } = event.target;
+    setResetValues(current => ({ ...current, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+    }
+  }
+
+  async function submitResetPassword(event) {
+    event.preventDefault();
+    if (resetLoading) return;
+    setMessage("");
+    if (!resetValues.password || resetValues.password.length < 8) {
+      setErrors({ password: "A nova senha deve ter pelo menos 8 caracteres." });
+      return;
+    }
+    if (resetValues.password !== resetValues.confirmPassword) {
+      setErrors({ confirmPassword: "As senhas não coincidem." });
+      return;
+    }
+
+    setResetLoading(true);
+    try {
+      await updateCurrentUserPassword(resetValues.password);
+      setResetSuccess(true);
+      setMessage("");
+    } catch (err) {
+      setMessage(err.message || t("auth.passwordUpdateError") || "Não foi possível atualizar a senha.");
+    } finally {
+      setResetLoading(false);
+    }
+  }
+
   return (
     <AuthExperienceShell>
       <A26Card
@@ -106,60 +151,156 @@ export default function Login({ navigate, onAuth }) {
             <LanguageSelector compact />
           </div>
         </div>
-        <p className="eyebrow mt-8">{t("auth.accessAccount")}</p>
-        <h1 className="display-title">{t("auth.loginShort")}</h1>
-        <p className="mt-4 max-w-md text-textMuted">{t("auth.loginDescription")}</p>
-        <form className="atlas-auth-form" onSubmit={submit} noValidate>
-          <A26Field
-            label={t("auth.email")}
-            error={errors.email}
-            name="email"
-            type="email"
-            value={values.email}
-            onChange={update}
-            autoComplete="email"
-          />
-          <label className="a26-field atlas-auth-password">
-            <span className="a26-field__label">{t("auth.password")}</span>
-            <input
-              className="a26-field__control"
-              name="password"
-              type={showPassword ? "text" : "password"}
-              value={values.password}
-              onChange={update}
-              autoComplete="current-password"
-              aria-invalid={Boolean(errors.password)}
-            />
-            <button
-              type="button"
-              className="atlas-auth-password__toggle"
-              onClick={() => setShowPassword(!showPassword)}
-              aria-pressed={showPassword}
-              aria-label={showPassword ? t("auth.hidePassword") : t("auth.showPassword")}
-            >
-              <LineIcon name={showPassword ? "eye-off" : "eye"} className="h-4 w-4" />
-              <span className="sr-only">{showPassword ? t("auth.hidePassword") : t("auth.showPassword")}</span>
-            </button>
-            {errors.password ? <small className="a26-field__error" role="alert">{errors.password}</small> : null}
-          </label>
-          {message ? <p className="a26-auth-message is-error" role="alert">{message}</p> : null}
-          {recoveryStatus ? (
-            <p className={`a26-auth-message ${recoveryStatus.type === "success" ? "is-success" : "is-error"}`} role="alert">
-              {recoveryStatus.text}
+        {isResetMode ? (
+          <>
+            <p className="eyebrow mt-8">Recuperação Institucional</p>
+            <h1 className="display-title">Definir Nova Senha</h1>
+            <p className="mt-4 max-w-md text-textMuted">
+              Defina uma nova senha segura para restaurar o acesso à sua conta.
             </p>
-          ) : null}
-          <A26Button className="atlas-auth-submit" variant="liquid" type="submit" loading={loading}>
-            {t("auth.loginShort")}
-          </A26Button>
-          <button
-            type="button"
-            className="atlas-auth-forgot-link"
-            disabled={recoveryLoading}
-            onClick={handleForgotPassword}
-          >
-            {recoveryLoading ? t("common.loading") : t("auth.forgotPassword")}
-          </button>
-        </form>
+            {resetSuccess ? (
+              <div className="atlas-auth-form mt-6">
+                <p className="a26-auth-message is-success" role="alert">
+                  Senha redefinida com sucesso! Você já pode entrar com sua nova credencial.
+                </p>
+                <A26Button
+                  className="atlas-auth-submit mt-4"
+                  variant="liquid"
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      window.history.replaceState({}, document.title, "/login");
+                    }
+                    navigate("/login");
+                  }}
+                >
+                  Ir para o Login
+                </A26Button>
+              </div>
+            ) : (
+              <form className="atlas-auth-form" onSubmit={submitResetPassword} noValidate>
+                <label className="a26-field atlas-auth-password">
+                  <span className="a26-field__label">Nova Senha</span>
+                  <input
+                    className="a26-field__control"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    value={resetValues.password}
+                    onChange={updateReset}
+                    autoComplete="new-password"
+                    aria-invalid={Boolean(errors.password)}
+                  />
+                  <button
+                    type="button"
+                    className="atlas-auth-password__toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-pressed={showPassword}
+                    aria-label={showPassword ? t("auth.hidePassword") : t("auth.showPassword")}
+                  >
+                    <LineIcon name={showPassword ? "eye-off" : "eye"} className="h-4 w-4" />
+                    <span className="sr-only">{showPassword ? t("auth.hidePassword") : t("auth.showPassword")}</span>
+                  </button>
+                  {errors.password ? <small className="a26-field__error" role="alert">{errors.password}</small> : null}
+                </label>
+                <label className="a26-field atlas-auth-password">
+                  <span className="a26-field__label">{t("auth.confirmPassword") || "Confirmar senha"}</span>
+                  <input
+                    className="a26-field__control"
+                    name="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
+                    value={resetValues.confirmPassword}
+                    onChange={updateReset}
+                    autoComplete="new-password"
+                    aria-invalid={Boolean(errors.confirmPassword)}
+                  />
+                  <button
+                    type="button"
+                    className="atlas-auth-password__toggle"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    aria-pressed={showConfirmPassword}
+                    aria-label={showConfirmPassword ? t("auth.hidePassword") : t("auth.showPassword")}
+                  >
+                    <LineIcon name={showConfirmPassword ? "eye-off" : "eye"} className="h-4 w-4" />
+                    <span className="sr-only">{showConfirmPassword ? t("auth.hidePassword") : t("auth.showPassword")}</span>
+                  </button>
+                  {errors.confirmPassword ? <small className="a26-field__error" role="alert">{errors.confirmPassword}</small> : null}
+                </label>
+                {message ? <p className="a26-auth-message is-error" role="alert">{message}</p> : null}
+                <A26Button className="atlas-auth-submit" variant="liquid" type="submit" loading={resetLoading}>
+                  Salvar Nova Senha
+                </A26Button>
+                <button
+                  type="button"
+                  className="atlas-auth-forgot-link"
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      window.history.replaceState({}, document.title, "/login");
+                    }
+                    navigate("/login");
+                  }}
+                >
+                  Voltar ao login
+                </button>
+              </form>
+            )}
+          </>
+        ) : (
+          <>
+            <p className="eyebrow mt-8">{t("auth.accessAccount")}</p>
+            <h1 className="display-title">{t("auth.loginShort")}</h1>
+            <p className="mt-4 max-w-md text-textMuted">{t("auth.loginDescription")}</p>
+            <form className="atlas-auth-form" onSubmit={submit} noValidate>
+              <A26Field
+                label={t("auth.email")}
+                error={errors.email}
+                name="email"
+                type="email"
+                value={values.email}
+                onChange={update}
+                autoComplete="email"
+              />
+              <label className="a26-field atlas-auth-password">
+                <span className="a26-field__label">{t("auth.password")}</span>
+                <input
+                  className="a26-field__control"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  value={values.password}
+                  onChange={update}
+                  autoComplete="current-password"
+                  aria-invalid={Boolean(errors.password)}
+                />
+                <button
+                  type="button"
+                  className="atlas-auth-password__toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-pressed={showPassword}
+                  aria-label={showPassword ? t("auth.hidePassword") : t("auth.showPassword")}
+                >
+                  <LineIcon name={showPassword ? "eye-off" : "eye"} className="h-4 w-4" />
+                  <span className="sr-only">{showPassword ? t("auth.hidePassword") : t("auth.showPassword")}</span>
+                </button>
+                {errors.password ? <small className="a26-field__error" role="alert">{errors.password}</small> : null}
+              </label>
+              {message ? <p className="a26-auth-message is-error" role="alert">{message}</p> : null}
+              {recoveryStatus ? (
+                <p className={`a26-auth-message ${recoveryStatus.type === "success" ? "is-success" : "is-error"}`} role="alert">
+                  {recoveryStatus.text}
+                </p>
+              ) : null}
+              <A26Button className="atlas-auth-submit" variant="liquid" type="submit" loading={loading}>
+                {t("auth.loginShort")}
+              </A26Button>
+              <button
+                type="button"
+                className="atlas-auth-forgot-link"
+                disabled={recoveryLoading}
+                onClick={handleForgotPassword}
+              >
+                {recoveryLoading ? t("common.loading") : t("auth.forgotPassword")}
+              </button>
+            </form>
+          </>
+        )}
         <div className="atlas-auth-divider" />
         <div className="atlas-auth-actions atlas-auth-footer-row">
           <A26Button
