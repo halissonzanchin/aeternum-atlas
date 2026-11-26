@@ -1,10 +1,81 @@
-import { supabase } from "../../lib/supabase";
-import { normalizeRole, ROLES } from "../permissions/permissionService";
-import { isSupabaseConfigured } from "../supabase/supabaseClient";
+import { supabase } from "../../lib/supabase.js";
+import { normalizeRole, ROLES } from "../permissions/permissionService.js";
+import { isSupabaseConfigured } from "../supabase/supabaseClient.js";
 
 const ACTIVE_STATUSES = new Set(["active", "ativo"]);
 const STUDENT_ROLES = new Set(["student", "aluno"]);
 const EMPTY_TEXT = "Nenhum dado encontrado";
+
+export const STUDENT_ACCOUNT_CATEGORIES = {
+  FOUNDER: { key: "founder", label: "Equipe Fundadora / Homologação Interna" },
+  QA: { key: "qa", label: "Homologação Técnica / QA" },
+  DEMO: { key: "demo", label: "Demonstração Institucional" },
+  EXTERNAL_BETA: { key: "external_beta", label: "Candidato Beta Externo (El Dorado)" },
+  COMMERCIAL: { key: "commercial", label: "Estudante Comercial / Institucional" }
+};
+
+const FOUNDER_EMAILS = new Set([
+  "halissonzanchin@aeternumatlas.com",
+  "henriquebahia@aeternumatlas.com",
+  "nicolasfigorelli@aeternumatlas.com",
+  "lucasparedes@aeternumatlas.com",
+  "edgartorales@aeternumatlas.com"
+]);
+
+export function classifyStudentAccount(user) {
+  const email = (user?.email || "").toLowerCase().trim();
+  if (FOUNDER_EMAILS.has(email)) {
+    return STUDENT_ACCOUNT_CATEGORIES.FOUNDER;
+  }
+  if (email.includes("qa.") || email.includes("-qa-") || email.includes("e2e") || email.includes("test")) {
+    return STUDENT_ACCOUNT_CATEGORIES.QA;
+  }
+  if (email.includes("demo.")) {
+    return STUDENT_ACCOUNT_CATEGORIES.DEMO;
+  }
+  if (user?.is_beta_candidate || user?.license_tier === "beta_external") {
+    return STUDENT_ACCOUNT_CATEGORIES.EXTERNAL_BETA;
+  }
+  return STUDENT_ACCOUNT_CATEGORIES.COMMERCIAL;
+}
+
+export const CANONICAL_MODEL_METADATA = {
+  "035701b7-a49f-4f3f-a0fc-b335675745be": {
+    title: "Corte Sagital do Crânio Humano — Modelo Superficial 3D",
+    system: "Sistema Nervoso Central",
+    region: "Cabeça e Pescoço"
+  },
+  "2c57a03b-2c77-4119-b8bb-676ea59e9190": {
+    title: "Corte Sagital do Crânio Humano — Modelo Superficial 3D",
+    system: "Sistema Nervoso Central",
+    region: "Cabeça e Pescoço"
+  },
+  "corte-sagital-cranio-humano-superficial": {
+    title: "Corte Sagital do Crânio Humano — Modelo Superficial 3D",
+    system: "Sistema Nervoso Central",
+    region: "Cabeça e Pescoço"
+  },
+  "abb93126-c9be-4938-8eca-161f56864781": {
+    title: "Coração Humano — Modelo Superficial 3D",
+    system: "Sistema Cardiovascular",
+    region: "Tórax"
+  },
+  "coracao-humano-superficial": {
+    title: "Coração Humano — Modelo Superficial 3D",
+    system: "Sistema Cardiovascular",
+    region: "Tórax"
+  },
+  "coracao-edicao-morgue": {
+    title: "Coração Humano — Edição Especial Morgue",
+    system: "Sistema Cardiovascular",
+    region: "Tórax"
+  },
+  "corte-sagital-sistema-reprodutor-feminino": {
+    title: "Corte Sagital da Pelve Feminina / Sistema Reprodutor",
+    system: "Sistema Reprodutor",
+    region: "Pelve"
+  }
+};
 
 function numberOrZero(value) {
   const numeric = Number(value);
@@ -525,7 +596,8 @@ function buildSystemStudyTime(logs, models) {
 
   logs.forEach(log => {
     const model = modelById.get(log.model_id);
-    const system = model?.anatomical_system || "Não classificado";
+    const canonicalMeta = CANONICAL_MODEL_METADATA[log.model_id] || {};
+    const system = model?.anatomical_system || canonicalMeta.system || "Não classificado";
     totals.set(system, (totals.get(system) || 0) + numberOrZero(log.duration_seconds));
   });
 
@@ -614,7 +686,17 @@ function buildPlatformErrors(events) {
 }
 
 function modelTitleMap(models) {
-  return new Map(models.map(model => [model.id, model.title || model.slug || "Modelo 3D"]));
+  const map = new Map();
+  Object.entries(CANONICAL_MODEL_METADATA).forEach(([id, meta]) => {
+    map.set(id, meta.title);
+  });
+  models.forEach(model => {
+    map.set(model.id, model.title || model.slug || map.get(model.id) || "Modelo 3D");
+    if (model.slug) {
+      map.set(model.slug, model.title || model.slug);
+    }
+  });
+  return map;
 }
 
 function buildMostAccessedModelsForAnalytics(mostAccessedModels) {
@@ -705,14 +787,17 @@ function buildStudentRows({ users, profiles, logs, models }) {
         studiedModels * 3
       ));
 
+      const accountCategory = classifyStudentAccount(user);
+      const isProfileMissing = !profile.id && !profile.user_id;
+
       return {
         id: user.id,
         institutionId: user.institution_id || "",
         name: user.name || user.email || "Aluno",
         email: user.email || "-",
-        registration: profile.registration_number || "-",
+        registration: profile.registration_number || (accountCategory.key === "founder" ? "MED-FUNDADOR" : "PENDENTE"),
         course: profile.course || "Medicina",
-        semester: profile.semester || "Institucional",
+        semester: profile.semester || (accountCategory.key === "founder" ? "1º Semestre (Homologação)" : "1º Semestre"),
         status: normalizeStudentStatus(user.status),
         createdAt: datePart(user.created_at),
         lastAccess: userLogs[0]?.created_at || profile.last_access_at || user.last_login || "",
@@ -723,7 +808,11 @@ function buildStudentRows({ users, profiles, logs, models }) {
         performanceScore,
         sessions: userLogs.length,
         completedModels: studiedModels,
-        viewedContents: Array.from(modelCounts.keys()).map(modelId => titleByModel.get(modelId) || modelId)
+        viewedContents: Array.from(modelCounts.keys()).map(modelId => titleByModel.get(modelId) || modelId),
+        accountCategory,
+        accountCategoryKey: accountCategory.key,
+        accountCategoryLabel: accountCategory.label,
+        isProfileMissing
       };
     });
 }
@@ -806,13 +895,14 @@ function calculateEstimatedRevenue({ institutions, activeStudentUsers }) {
   }, 0);
 }
 
-function buildGovernanceQuality({ profile, results, views }) {
+export function buildGovernanceQuality({ profile, results, views }) {
   const tables = Object.fromEntries(
     Object.entries(results).map(([key, result]) => [
       key,
       {
         rows: result?.rows?.length || 0,
-        state: result?.error ? "unavailable" : result?.rows?.length ? "observed" : "empty"
+        state: result?.state || (result?.error ? "unavailable" : result?.rows?.length ? "observed" : "empty"),
+        description: result?.description || null
       }
     ])
   );
@@ -847,7 +937,8 @@ function buildDashboardPayload({
   academicSubjects = [],
   quality,
   source,
-  profile
+  profile,
+  sessionMetrics = {}
 }) {
   const scopeInstitutions = scope === "global"
     ? institutions
@@ -943,6 +1034,7 @@ function buildDashboardPayload({
     students,
     studentHistoryByUser,
     quality,
+    sessionMetrics,
     analytics: {
       snapshot: {
         activeUsersNow: lastHourUsers || uniqueActiveUsers,
@@ -1148,14 +1240,17 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
   const subjectsResult = {
     rows: [],
     count: 0,
-    error: new Error("public.academic_subjects não integra o esquema acadêmico autorizado atual.")
+    state: "not_implemented",
+    description: "public.academic_subjects não integra o esquema acadêmico autorizado atual. Disciplinas organizadas via academic_classes."
   };
+
+  const allViewerSessions = viewerSessionsResult.rows.map(normalizeViewerSession);
+  const viewer3dSessions = allViewerSessions.filter(session => (session.metadata?.scope || "viewer") === "viewer");
+  const accountPortalSessions = allViewerSessions.filter(session => (session.metadata?.scope || "viewer") === "account");
 
   const logsResult = {
     ...viewerSessionsResult,
-    rows: viewerSessionsResult.rows
-      .filter(session => (session.scope || "viewer") === "viewer")
-      .map(normalizeViewerSession)
+    rows: viewer3dSessions
   };
 
   const quality = buildGovernanceQuality({
@@ -1173,6 +1268,16 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     }
   });
 
+  const sessionMetrics = {
+    canonicalSource: "viewer_learning_sessions",
+    totalSessionsCount: allViewerSessions.length,
+    viewer3dSessionsCount: viewer3dSessions.length,
+    accountPortalSessionsCount: accountPortalSessions.length,
+    totalActiveStudySeconds: allViewerSessions.reduce((sum, s) => sum + numberOrZero(s.duration_seconds), 0),
+    viewer3dActiveStudySeconds: viewer3dSessions.reduce((sum, s) => sum + numberOrZero(s.duration_seconds), 0),
+    accountActiveStudySeconds: accountPortalSessions.reduce((sum, s) => sum + numberOrZero(s.duration_seconds), 0)
+  };
+
   return buildDashboardPayload({
     scope: scopeInfo.scope,
     selectedInstitution: scopeInfo.institution,
@@ -1187,6 +1292,7 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     classStudents: classStudentsResult.rows,
     academicSubjects: subjectsResult.rows,
     quality,
+    sessionMetrics,
     source: "supabase",
     profile
   });

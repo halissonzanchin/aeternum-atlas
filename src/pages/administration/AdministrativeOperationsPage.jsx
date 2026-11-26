@@ -161,6 +161,15 @@ function SourceNotice({ state, data }) {
   );
 }
 
+function formatTableState(item) {
+  if (item.state === "not_implemented") return "Não implementado";
+  if (item.state === "not_configured") return "Não configurado";
+  if (item.state === "unauthorized") return "Não autorizado";
+  if (item.state === "unavailable") return "Indisponível";
+  if (item.state === "empty") return "0 linha(s) (vazio)";
+  return `${number(item.rows)} linha(s)`;
+}
+
 function Coverage({ quality, source, scope }) {
   const tables = Object.entries(quality?.tables || {});
   return (
@@ -177,7 +186,7 @@ function Coverage({ quality, source, scope }) {
         {tables.map(([key, item]) => (
           <div key={key} className={`is-${item.state}`}>
             <span>{COVERAGE_LABELS[key] || key}</span>
-            <strong>{item.state === "unavailable" ? "Indisponível" : `${number(item.rows)} linha(s)`}</strong>
+            <strong>{formatTableState(item)}</strong>
           </div>
         ))}
       </div>
@@ -361,6 +370,15 @@ function StudentsSection({ scope, data, query, onInspect, onReview, onExport, ca
         rows={rows}
         columns={[
           { key: "name", label: "Aluno" },
+          {
+            key: "accountCategory",
+            label: "Classificação",
+            render: (row) => (
+              <span className={`admin26-pill admin26-pill--${row.accountCategoryKey || "commercial"}`}>
+                {row.accountCategoryLabel || "Estudante"}
+              </span>
+            )
+          },
           { key: "email", label: "E-mail" },
           { key: "course", label: "Curso" },
           { key: "status", label: "Status" },
@@ -372,7 +390,17 @@ function StudentsSection({ scope, data, query, onInspect, onReview, onExport, ca
         onInspect={(row) => onInspect({
           title: row.name || "Aluno",
           subtitle: "Contexto institucional",
-          fields: [["E-mail", row.email], ["Status", row.status], ["Curso", row.course], ["Acessos", row.totalAccesses], ["Minutos de estudo", row.totalStudyMinutes]],
+          fields: [
+            ["Classificação", row.accountCategoryLabel || "Estudante"],
+            ["E-mail", row.email],
+            ["Status", row.status],
+            ["Curso", row.course],
+            ["Semestre", row.semester || "Não informado"],
+            ["Matrícula", row.registration || "Pendente"],
+            ["Perfil em banco", row.isProfileMissing ? "Pendente de sincronização" : "Ativo"],
+            ["Acessos", row.totalAccesses],
+            ["Minutos de estudo", row.totalStudyMinutes]
+          ],
           actions: canReview && ["pending", "pendente"].includes(String(row.status || "").toLowerCase())
             ? <><A26Button onClick={() => onReview(row, "reject")} variant="danger">Rejeitar</A26Button><A26Button onClick={() => onReview(row, "approve")} variant="primary">Aprovar</A26Button></>
             : null
@@ -522,18 +550,58 @@ function BillingSection({ scope, data }) {
   const price = Number(institution.pricePerStudent || 0);
   const registered = Number(data?.stats?.registeredStudents || 0);
   const active = Number(data?.stats?.activeStudents || 0);
-  const available = capacity > 0 && price > 0;
+  const hasContractualParams = capacity > 0 && price > 0;
+  const unitPrice = price || 45; // Preço de referência para projeções comerciais
+
   return (
     <>
       <SectionHeader scope={scope} section="billing" />
+      <div className="admin26-card-heading">
+        <div>
+          <h2>1. Faturamento Contratual (MRR Base)</h2>
+          <p>Parâmetros institucionais registrados no contrato ativo.</p>
+        </div>
+      </div>
       <MetricGrid metrics={[
-        { label: "Capacidade", value: capacity ? number(capacity) : "—", detail: capacity ? "Licenças informadas" : "Não informada" },
-        { label: "Alunos cadastrados visíveis", value: number(registered), detail: "Escopo da política atual" },
-        { label: "Alunos ativos visíveis", value: number(active), detail: "Base observada" },
-        { label: "Valor unitário", value: price ? money(price) : "—", detail: price ? "Preço informado" : "Não informado" },
-        { label: "Estimativa mensal", value: available ? money(active * price) : "—", detail: available ? "Ativos visíveis × preço" : "Base contratual incompleta" }
+        { label: "Capacidade contratada", value: capacity ? number(capacity) : "0 vagas", detail: capacity ? "Licenças contratadas" : "Em homologação institucional" },
+        { label: "Valor unitário contratual", value: price ? money(price) : "R$ 0,00", detail: price ? "Tarifado por aluno" : "Sem tarifação ativa" },
+        { label: "MRR Contratual", value: hasContractualParams ? money(capacity * price) : "R$ 0,00", detail: hasContractualParams ? "Capacidade × valor unitário" : "Contrato em fase piloto" }
       ]} />
-      {!available ? <A26EmptyState title="Base de faturamento incompleta" text="A plataforma não estimou receita sem capacidade e preço unitário confirmados." /> : null}
+
+      <div className="admin26-card-heading" style={{ marginTop: "var(--a26-space-4)" }}>
+        <div>
+          <h2>2. Faturamento Realizado Observado</h2>
+          <p>Valores derivados dos estudantes ativamente observados no tenant.</p>
+        </div>
+      </div>
+      <MetricGrid metrics={[
+        { label: "Alunos cadastrados", value: number(registered), detail: "Cadastros no tenant" },
+        { label: "Alunos ativos", value: number(active), detail: "Base ativa verificada" },
+        { label: "Realizado mensal observado", value: (active > 0 && price > 0) ? money(active * price) : "R$ 0,00", detail: (active > 0 && price > 0) ? "Alunos ativos × preço" : "Homologação sem faturamento direto" }
+      ]} />
+
+      <div className="admin26-card-heading" style={{ marginTop: "var(--a26-space-4)" }}>
+        <div>
+          <h2>3. Projeções Comerciais de Escala (Simulação B2B)</h2>
+          <p>Modelagem de expansão institucional baseada no plano comercial Aeternum Atlas.</p>
+        </div>
+      </div>
+      <MetricGrid metrics={[
+        { label: "Projeção 100 licenças", value: money(100 * unitPrice), detail: `100 alunos × ${money(unitPrice)}` },
+        { label: "Projeção 300 licenças", value: money(300 * unitPrice), detail: `300 alunos × ${money(unitPrice)} (Referência Piloto)` },
+        { label: "Projeção 500 licenças", value: money(500 * unitPrice), detail: `500 alunos × ${money(unitPrice)}` }
+      ]} />
+
+      {!hasContractualParams ? (
+        <A26Card className="admin26-detail-notice" style={{ marginTop: "var(--a26-space-4)" }}>
+          <strong>Nota de Governança Financeira (ADM.2.1)</strong>
+          <p>
+            O tenant atual opera sob licença institucional de homologação interna. Nenhum valor de faturamento
+            é debitado ou contabilizado como receita realizada sem contrato comercial auditado.
+            A implementação da conciliação bancária avançada e gateways de pagamento está programada para a fase ADM.2.6.
+          </p>
+        </A26Card>
+      ) : null}
     </>
   );
 }
