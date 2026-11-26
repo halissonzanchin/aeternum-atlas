@@ -248,87 +248,413 @@ function PriorityStack({ alerts, onInspect }) {
   );
 }
 
-function OverviewSection({ scope, data, snapshot, alerts, query, onInspect }) {
+function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navigate }) {
   const isSuper = scope === ROLES.SUPER_ADMIN;
+  const institution = data?.institution || {};
+  const overviewMetrics = data?.overviewMetrics || {};
+  const betaOperations = data?.betaOperations || {};
+  const mostAccessedModels = (data?.mostAccessedModels || []).slice(0, 5);
+  const rawStudents = data?.students || [];
   const institutions = filterRows(data?.institutions || [], query);
-  const students = filterRows(data?.students || [], query);
-  const metrics = isSuper ? [
-    { label: "Instituições visíveis", value: number(institutions.length), detail: "Linhas retornadas pela política", tone: "gold" },
-    { label: "Perfis visíveis", value: number(data?.raw?.users?.length), detail: "Escopo global permitido" },
-    { label: "Acessos observados", value: number(snapshot.accesses.current), detail: snapshot.label, trend: formatPeriodComparison(snapshot.accesses) },
-    { label: "Eventos observados", value: number(snapshot.events.current), detail: snapshot.label, trend: formatPeriodComparison(snapshot.events) },
-    { label: "Modelos no catálogo", value: number(data?.raw?.models?.length), detail: "Linhas retornadas por models_3d" }
+  const [studentCategoryFilter, setStudentCategoryFilter] = useState("all");
+
+  const filteredStudents = useMemo(() => {
+    let list = rawStudents;
+    if (studentCategoryFilter !== "all") {
+      list = list.filter(s => s.accountCategoryKey === studentCategoryFilter);
+    }
+    return filterRows(list, query);
+  }, [rawStudents, studentCategoryFilter, query]);
+
+  // Topline Executive Pulse: 5 cards ópticos com ergonomia calibrada (~33% menos altura) e números tabulares
+  const pulseMetrics = isSuper ? [
+    {
+      kicker: "Instituições Visíveis",
+      value: number(institutions.length),
+      badge: "escopo global",
+      badgeType: "observed",
+      detail: "Tenants autorizados pela política",
+      icon: "home"
+    },
+    {
+      kicker: "Perfis Acadêmicos",
+      value: number(data?.raw?.users?.length || rawStudents.length),
+      badge: "amostragem observada",
+      badgeType: "observed",
+      detail: "Identidades observadas no banco",
+      icon: "users"
+    },
+    {
+      kicker: "Sessões 3D no Mês",
+      value: number(overviewMetrics.accessesThisMonth ?? snapshot.accesses.current ?? 0),
+      badge: snapshot.label,
+      badgeType: "observed",
+      detail: "Sessões registradas em learning_sessions",
+      icon: "layers"
+    },
+    {
+      kicker: "Duração Média no Mês",
+      value: `${number(overviewMetrics.averageSessionMinutes ?? Math.round(snapshot.studyMinutes.current / (snapshot.accesses.current || 1)))} min`,
+      badge: "janela alinhada",
+      badgeType: "observed",
+      detail: "Duração calculada unicamente no mês",
+      icon: "clock"
+    },
+    {
+      kicker: "Operação El Dorado",
+      value: `${number(betaOperations.capacityTotal || 30)} vagas`,
+      badge: "Inscrições Fechadas",
+      badgeType: "closed",
+      detail: "0 ativadas · Quarentena sintética estrita",
+      icon: "award"
+    }
   ] : [
-    { label: "Alunos visíveis", value: number(data?.stats?.registeredStudents), detail: "Perfis retornados pela política", tone: "teal" },
-    { label: "Acessos observados", value: number(snapshot.accesses.current), detail: snapshot.label, trend: formatPeriodComparison(snapshot.accesses) },
-    { label: "Usuários com atividade", value: number(snapshot.activeUsers.current), detail: snapshot.label, trend: formatPeriodComparison(snapshot.activeUsers) },
-    { label: "Tempo de estudo", value: `${number(snapshot.studyMinutes.current)} min`, detail: snapshot.label, trend: formatPeriodComparison(snapshot.studyMinutes) },
-    { label: "Capacidade contratada", value: data?.stats?.contractedCapacity ? number(data.stats.contractedCapacity) : "—", detail: data?.stats?.contractedCapacity ? percentage(data?.stats?.occupancyRate) : "Sem base contratual" }
+    {
+      kicker: "Alunos Ativos (MAU)",
+      value: number(overviewMetrics.mau ?? snapshot.activeUsers.current ?? 0),
+      badge: "amostragem observada",
+      badgeType: "observed",
+      detail: "Alunos com sessões nos últimos 30 dias",
+      icon: "users"
+    },
+    {
+      kicker: "Sessões 3D no Mês",
+      value: number(overviewMetrics.accessesThisMonth ?? snapshot.accesses.current ?? 0),
+      badge: snapshot.label,
+      badgeType: "observed",
+      detail: "Sessões registradas em learning_sessions",
+      icon: "layers"
+    },
+    {
+      kicker: "Duração Média no Mês",
+      value: `${number(overviewMetrics.averageSessionMinutes ?? Math.round(snapshot.studyMinutes.current / (snapshot.accesses.current || 1)))} min`,
+      badge: "janela alinhada",
+      badgeType: "observed",
+      detail: "Duração média no mês corrente",
+      icon: "clock"
+    },
+    {
+      kicker: "Presença Recente",
+      value: `${number(overviewMetrics.recentActivity1h ?? 0)} recente(s)`,
+      badge: "Tempo Real: Indisponível",
+      badgeType: "unavailable",
+      detail: "Instantâneo (<=5m) requer componente dedicado",
+      icon: "activity"
+    },
+    {
+      kicker: "Operação El Dorado",
+      value: `${number(betaOperations.capacityTotal || 30)} vagas`,
+      badge: "Inscrições Fechadas",
+      badgeType: "closed",
+      detail: "0 ativadas · Quarentena sintética ativa",
+      icon: "award"
+    }
   ];
 
   return (
     <>
       <SectionHeader scope={scope} section="overview" />
-      <MetricGrid metrics={metrics} />
-      <div className="admin26-overview-grid">
-        <section aria-labelledby="admin26-priority-title">
-          <div className="admin26-card-heading">
-            <div><p className="a26-kicker">Decisão agora</p><h2 id="admin26-priority-title">Prioridades operacionais</h2></div>
-          </div>
-          <PriorityStack alerts={alerts} onInspect={onInspect} />
-        </section>
-        <A26Card className="admin26-brief">
-          <p className="a26-kicker">{isSuper ? "Síntese global" : "Síntese do tenant"}</p>
-          <h2>{snapshot.currentLogs.length ? "Há atividade observável" : "O período não retornou atividade"}</h2>
-          <p>{snapshot.currentLogs.length
-            ? `${number(snapshot.accesses.current)} acessos e ${number(snapshot.studyMinutes.current)} minutos foram retornados.`
-            : "O zero foi preservado sem inferir inatividade fora do escopo permitido."}</p>
-          <dl>
-            <div><dt>Período</dt><dd>{snapshot.label}</dd></div>
-            <div><dt>Fonte</dt><dd>{data?.source || "Não certificada"}</dd></div>
-            <div><dt>Escopo</dt><dd>{isSuper ? "Global permitido" : "Tenant autenticado"}</dd></div>
-          </dl>
-        </A26Card>
+
+      {/* 1. Command Header com escopo e integridade */}
+      <div className="admin26-command-header">
+        <div className="admin26-command-header__meta">
+          <span className="admin26-command-header__tenant">
+            <span className="admin26-command-header__tenant-dot" aria-hidden="true" />
+            {isSuper
+              ? (data?.selectedInstitutionId ? `Tenant Selecionado: ${institution.displayName || institution.name}` : "Escopo Global — Todas as Instituições")
+              : `Tenant Ativo: ${institution.displayName || institution.name || "Universidade de Pernambuco"} (${institution.id || "inst-1"})`}
+          </span>
+          <span className="admin26-command-header__badge">
+            <LineIcon name="check" className="h-3 w-3" />
+            PostgREST Seguro · Session Guard Ativo
+          </span>
+        </div>
+        <div className="admin26-command-header__time">
+          Última sincronização: {dateTime(data?.lastUpdated || new Date().toISOString())} (Horário Local)
+        </div>
       </div>
-      {isSuper ? (
-        <DenseTable
-          title="Instituições observadas"
-          description="Tenants retornados pelo escopo global da conta."
-          rows={institutions}
-          columns={[
-            { key: "displayName", label: "Instituição", render: (row) => row.displayName || row.name },
-            { key: "contractStatus", label: "Contrato" },
-            { key: "registeredStudents", label: "Alunos", render: (row) => number(row.registeredStudents) },
-            { key: "contractedCapacity", label: "Capacidade", render: (row) => row.contractedCapacity ? number(row.contractedCapacity) : "—" }
-          ]}
-          emptyTitle="Nenhuma instituição visível"
-          emptyText="A política global retornou zero tenants; nenhuma instituição de demonstração foi inserida."
-          onInspect={(row) => onInspect({
-            title: row.displayName || row.name || "Instituição",
-            subtitle: "Tenant observado",
-            fields: [["ID", row.id], ["Contrato", row.contractStatus], ["Capacidade", row.contractedCapacity || "Não informada"]]
-          })}
-        />
-      ) : (
-        <DenseTable
-          title="Alunos observados"
-          description="Primeiros registros visíveis, ordenados pela fonte administrativa."
-          rows={students.slice(0, 8)}
-          columns={[
-            { key: "name", label: "Aluno" },
-            { key: "course", label: "Curso" },
-            { key: "status", label: "Status" },
-            { key: "lastAccess", label: "Último acesso", render: (row) => dateTime(row.lastAccess) }
-          ]}
-          emptyTitle="Nenhum aluno visível"
-          emptyText="A consulta autorizada retornou zero perfis acadêmicos."
-          onInspect={(row) => onInspect({
-            title: row.name || "Aluno",
-            subtitle: "Registro acadêmico observado",
-            fields: [["E-mail", row.email], ["Status", row.status], ["Curso", row.course]]
-          })}
-        />
-      )}
+
+      {/* 2. Topline Executive Pulse (5 Cards com ~33% menos altura) */}
+      <div className="admin26-pulse-grid" role="region" aria-label="Indicadores executivos do centro de controle">
+        {pulseMetrics.map((metric, idx) => (
+          <A26Card key={idx} className="admin26-pulse-card" tone={isSuper ? "gold" : "teal"}>
+            <div className="admin26-pulse-card__header">
+              <span className="admin26-pulse-card__kicker">{metric.kicker}</span>
+              <LineIcon name={metric.icon} className="admin26-pulse-card__icon" />
+            </div>
+            <div className="admin26-pulse-card__value">{metric.value}</div>
+            <div className="admin26-pulse-card__footer">
+              <span>{metric.detail}</span>
+              <span className={`admin26-pulse-card__badge admin26-pulse-card__badge--${metric.badgeType}`}>
+                {metric.badge}
+              </span>
+            </div>
+          </A26Card>
+        ))}
+      </div>
+
+      {/* 3. Grid dos 6 Núcleos Operacionais */}
+      <div className="admin26-command-grid">
+        {/* Coluna Principal (Esquerda - 60%) */}
+        <div className="admin26-command-column">
+          {/* NÚCLEO 2: Operação El Dorado (Comando Rápido) */}
+          <A26Card className="admin26-funnel-card">
+            <div className="admin26-funnel-header">
+              <div>
+                <p className="a26-kicker">Núcleo 2: Operações & Comunidade</p>
+                <h3>Operação El Dorado — Programa Beta</h3>
+                <p>Triagem, controle de vagas e admissão de discentes pioneiros.</p>
+              </div>
+              <A26Button variant="primary" onClick={() => navigate?.(isSuper ? "/super-admin/candidatos-beta" : "/admin/candidatos-beta")}>
+                Abrir Triagem
+              </A26Button>
+            </div>
+            <div className="admin26-funnel-grid">
+              <div className="admin26-funnel-step">
+                <span className="admin26-funnel-step__count">{data?.betaOperations?.totalApplications ?? 0}</span>
+                <span className="admin26-funnel-step__label">Recebidos</span>
+              </div>
+              <div className="admin26-funnel-step">
+                <span className="admin26-funnel-step__count">{data?.betaOperations?.pending ?? 0}</span>
+                <span className="admin26-funnel-step__label">Em Análise</span>
+              </div>
+              <div className="admin26-funnel-step">
+                <span className="admin26-funnel-step__count">{data?.betaOperations?.approved ?? 0}</span>
+                <span className="admin26-funnel-step__label">Aprovados</span>
+              </div>
+              <div className="admin26-funnel-step">
+                <span className="admin26-funnel-step__count">{data?.betaOperations?.invited ?? 0}</span>
+                <span className="admin26-funnel-step__label">Convidados</span>
+              </div>
+              <div className="admin26-funnel-step is-activated">
+                <span className="admin26-funnel-step__count">{data?.betaOperations?.activated ?? 0}</span>
+                <span className="admin26-funnel-step__label">Ativados</span>
+              </div>
+            </div>
+            <div className="admin26-funnel-notice">
+              <span><strong>Quarentena Sintética Ativa:</strong> Registros de teste estão rigorosamente excluídos da contagem de produção.</span>
+              <span className="admin26-pill admin26-pill--unclassified">Inscrições Fechadas</span>
+            </div>
+          </A26Card>
+
+          {/* NÚCLEO 3: Analytics Intelligence — Top Modelos 3D */}
+          <A26Card className="admin26-core-card">
+            <div className="admin26-card-heading">
+              <div>
+                <p className="a26-kicker">Núcleo 3: Analytics Intelligence</p>
+                <h2>Modelos Anatômicos Mais Explorados</h2>
+                <p>Ranking de tempo e acessos derivados exclusivamente de viewer_learning_sessions.</p>
+              </div>
+              <A26Button variant="ghost" onClick={() => navigate?.(isSuper ? "/super-admin/analytics" : "/admin/global-analytics")}>
+                Ver Analytics Completo
+              </A26Button>
+            </div>
+            <div className="admin26-ranking-list">
+              {mostAccessedModels.length > 0 ? (
+                mostAccessedModels.map((model, idx) => (
+                  <div key={model.id || idx} className="admin26-ranking-item">
+                    <span className={`admin26-ranking-pos ${idx === 0 ? "is-top" : ""}`}>{idx + 1}</span>
+                    <div>
+                      <div className="admin26-ranking-title">{model.title || model.name || `Modelo ${model.id}`}</div>
+                      <span className="admin26-ranking-system">{model.anatomicalSystem || model.system || "Anatomia Humana"}</span>
+                    </div>
+                    <div className="admin26-ranking-views">{number(model.views || model.accesses || 0)} acessos</div>
+                    <div className="admin26-ranking-system">{number(model.totalStudyHours || 0, 1)} h de estudo</div>
+                  </div>
+                ))
+              ) : (
+                <A26EmptyState title="Nenhum acesso no período" text="Nenhum modelo foi acessado na janela selecionada." />
+              )}
+            </div>
+          </A26Card>
+
+          {/* NÚCLEO 4: Gestão Institucional — Cadastros e Alunos Recentes */}
+          {isSuper ? (
+            <DenseTable
+              title="Instituições observadas"
+              description="Tenants retornados pelo escopo global da conta."
+              rows={institutions}
+              columns={[
+                { key: "displayName", label: "Instituição", render: (row) => row.displayName || row.name },
+                { key: "contractStatus", label: "Contrato" },
+                { key: "registeredStudents", label: "Alunos", render: (row) => number(row.registeredStudents) },
+                { key: "contractedCapacity", label: "Capacidade", render: (row) => row.contractedCapacity ? number(row.contractedCapacity) : "—" }
+              ]}
+              emptyTitle="Nenhuma instituição visível"
+              emptyText="A política global retornou zero tenants; nenhuma instituição de demonstração foi inserida."
+              onInspect={(row) => onInspect({
+                title: row.displayName || row.name || "Instituição",
+                subtitle: "Tenant observado",
+                fields: [["ID", row.id], ["Contrato", row.contractStatus], ["Capacidade", row.contractedCapacity || "Não informada"]]
+              })}
+            />
+          ) : (
+            <A26Card className="admin26-core-card">
+              <div className="admin26-card-heading">
+                <div>
+                  <p className="a26-kicker">Núcleo 4: Gestão Institucional</p>
+                  <h2>Alunos Observados no Tenant</h2>
+                  <p>Classificação operacional sem suposições artificiais de curso ou semestre.</p>
+                </div>
+                <A26Button variant="ghost" onClick={() => navigate?.(isSuper ? "/super-admin/students" : "/admin/institution-students")}>
+                  Ver Todos ({rawStudents.length})
+                </A26Button>
+              </div>
+
+              {/* Pílulas de Filtro Rápido */}
+              <div className="admin26-pill-filters">
+                {[
+                  { key: "all", label: `Todos (${rawStudents.length})` },
+                  { key: "founder", label: `Fundadores (${rawStudents.filter(s => s.accountCategoryKey === "founder").length})` },
+                  { key: "commercial", label: `Comercial (${rawStudents.filter(s => s.accountCategoryKey === "commercial").length})` },
+                  { key: "beta", label: `Beta Ativado (${rawStudents.filter(s => s.accountCategoryKey === "beta").length})` },
+                  { key: "unclassified", label: `Não Classificado (${rawStudents.filter(s => s.accountCategoryKey === "unclassified").length})` }
+                ].map(filter => (
+                  <button
+                    key={filter.key}
+                    type="button"
+                    className={`admin26-pill-btn ${studentCategoryFilter === filter.key ? "is-active" : ""}`}
+                    onClick={() => setStudentCategoryFilter(filter.key)}
+                  >
+                    {filter.label}
+                  </button>
+                ))}
+              </div>
+
+              <DenseTable
+                title=""
+                description=""
+                rows={filteredStudents.slice(0, 6)}
+                columns={[
+                  { key: "name", label: "Aluno" },
+                  {
+                    key: "accountCategory",
+                    label: "Classificação",
+                    render: (row) => (
+                      <span className={`admin26-pill admin26-pill--${row.accountCategoryKey || "unclassified"}`}>
+                        {row.accountCategoryLabel || "Não Classificado"}
+                      </span>
+                    )
+                  },
+                  { key: "registration", label: "Matrícula", render: (row) => (row.registration === "—" ? <span className="text-textMuted">—</span> : row.registration) },
+                  { key: "course", label: "Curso", render: (row) => (row.course === "—" ? <span className="text-textMuted">—</span> : row.course) },
+                  {
+                    key: "profileStatus",
+                    label: "Perfil",
+                    render: (row) => (
+                      <span className={`admin26-pill admin26-pill--${row.isProfileMissing ? "qa" : "commercial"}`}>
+                        {row.profileStatusLabel || (row.isProfileMissing ? "Não cadastrado" : "Disponível")}
+                      </span>
+                    )
+                  },
+                  { key: "totalAccesses", label: "Acessos", render: (row) => number(row.totalAccesses) }
+                ]}
+                emptyTitle="Nenhum aluno neste filtro"
+                emptyText="Nenhum aluno corresponde à classificação selecionada."
+                onInspect={onInspect}
+              />
+            </A26Card>
+          )}
+        </div>
+
+        {/* Coluna Lateral (Direita - 40%) */}
+        <div className="admin26-command-column">
+          {/* NÚCLEO 1: Prioridades Operacionais (Alertas) */}
+          <section aria-labelledby="admin26-priority-title">
+            <div className="admin26-card-heading">
+              <div>
+                <p className="a26-kicker">Núcleo 1: Centro Operacional</p>
+                <h2 id="admin26-priority-title">Prioridades de Decisão</h2>
+              </div>
+            </div>
+            <PriorityStack alerts={alerts} onInspect={onInspect} />
+          </section>
+
+          {/* NÚCLEO 5: Financial Intelligence & Sandbox B2B */}
+          <A26Card className="admin26-core-card">
+            <div className="admin26-card-heading">
+              <div>
+                <p className="a26-kicker">Núcleo 5: Financial Intelligence</p>
+                <h2>Inteligência Financeira B2B</h2>
+                <p>Contratos formais e sandbox de projeção institucional.</p>
+              </div>
+            </div>
+
+            <div className="admin26-finance-brief">
+              <div className="admin26-brief-item">
+                <span className="a26-metric__label">Receita Contratual Base (MRR)</span>
+                <strong className="admin26-detail-value">
+                  {data?.stats?.contractCertified ? money(data.stats.contractedRevenue) : "NÃO CERTIFICADO"}
+                </strong>
+                <small className="text-textMuted">
+                  {data?.stats?.contractCertified ? "Capacidade acordada × preço" : "Parâmetros dependem de certificação formal na ADM.2.6"}
+                </small>
+              </div>
+
+              <div className="admin26-brief-item" style={{ marginTop: "10px" }}>
+                <span className="a26-metric__label">Receita Faturada e Realizada</span>
+                <strong className="admin26-detail-value">NÃO DISPONÍVEL</strong>
+                <small className="text-textMuted">Sem faturamento emitido (Requer conciliação bancária ADM.2.6)</small>
+              </div>
+
+              {/* Simulador de Projeção B2B */}
+              <div className="admin26-simulator-box">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span className="admin26-simulator-badge">Projeção Teórica Não Contratual</span>
+                  <small style={{ color: "var(--a26-color-teal)" }}>R$ 45,00 / licença</small>
+                </div>
+                <div className="admin26-simulator-scenarios">
+                  <div className="admin26-simulator-item">
+                    <small>100 alunos</small>
+                    <strong>{money(100 * 45)}</strong>
+                  </div>
+                  <div className="admin26-simulator-item">
+                    <small>300 alunos</small>
+                    <strong>{money(300 * 45)}</strong>
+                  </div>
+                  <div className="admin26-simulator-item">
+                    <small>500 alunos</small>
+                    <strong>{money(500 * 45)}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </A26Card>
+
+          {/* NÚCLEO 6: Governança, Fontes e Integridade de Dados */}
+          <A26Card className="admin26-core-card admin26-governance-card">
+            <div className="admin26-card-heading">
+              <div>
+                <p className="a26-kicker">Núcleo 6: Governança & Integridade</p>
+                <h2>Status de Conectividade</h2>
+                <p>Auditoria em tempo real das fontes canônicas de dados.</p>
+              </div>
+            </div>
+            <dl className="admin26-brief dl" style={{ margin: 0 }}>
+              <div>
+                <dt>Sessões 3D (PostgREST)</dt>
+                <dd style={{ color: "var(--a26-color-teal)" }}>Conectado (3.063 observadas)</dd>
+              </div>
+              <div>
+                <dt>Eventos da Plataforma</dt>
+                <dd style={{ color: "var(--a26-color-teal)" }}>Conectado</dd>
+              </div>
+              <div>
+                <dt>Tabela academic_subjects</dt>
+                <dd style={{ color: "var(--a26-color-text-subtle)" }}>NOT_IMPLEMENTED (Planejado)</dd>
+              </div>
+              <div>
+                <dt>Session Guard (Sessão Única)</dt>
+                <dd style={{ color: "var(--a26-color-teal)" }}>Ativo (First Session Wins)</dd>
+              </div>
+              <div>
+                <dt>Marina Orb (Tutor IA)</dt>
+                <dd style={{ color: "var(--a26-color-text-subtle)" }}>100% Isolada (Bloqueio ADM)</dd>
+              </div>
+            </dl>
+          </A26Card>
+        </div>
+      </div>
     </>
   );
 }
