@@ -1393,8 +1393,7 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     modelsResult,
     classesResult,
     classStudentsResult,
-    views,
-    betaAppsResult
+    views
   ] = await Promise.all([
     loadStudentProfilesByUsers(studentUserIds),
     loadInstitutionRows("viewer_learning_sessions", queryInstitutionId, "id, institution_id, user_id, model_id, scope, active_seconds, idle_seconds, status, session_start, created_at", { allowGlobal, orderBy: "session_start", limit: 5000 }),
@@ -1402,33 +1401,21 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     loadInstitutionRows("models_3d", queryInstitutionId, "id, institution_id, title, slug, anatomical_system, anatomical_region, status, created_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadInstitutionRows("academic_classes", queryInstitutionId, "id, institution_id, teacher_id, name, course, semester, status, created_at, updated_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadInstitutionRows("academic_class_students", queryInstitutionId, "id, institution_id, class_id, student_id, created_at", { allowGlobal, orderBy: "created_at", limit: 5000 }),
-    loadAnalyticsViews(queryInstitutionId),
-    loadInstitutionRows("beta_applications", null, "id, email, user_id, status, batch, source_origin", { allowGlobal: true, limit: 1000 })
+    loadAnalyticsViews(queryInstitutionId)
   ]);
 
-  const realBetaApps = (betaAppsResult?.rows || []).filter(
-    b => b.batch !== "synthetic_test" && b.source_origin !== "synthetic_test"
-  );
-  const activatedBetaUserIds = new Set(
-    realBetaApps.filter(b => b.user_id && b.status === "activated").map(b => b.user_id)
-  );
-  const activatedBetaEmails = new Set(
-    realBetaApps.filter(b => b.status === "activated").map(b => (b.email || "").toLowerCase().trim()).filter(Boolean)
-  );
-
+  // DIRETRIZ P0.21-ADM.2.2: Desabilitar consulta direta a beta_applications na visão geral
+  // para preservar o isolamento de escopo institucional. Certificação integral na ADM.2.3.
   const betaOperationsSummary = {
-    status: betaAppsResult?.error ? "query_error" : "available",
-    error: betaAppsResult?.error ? String(betaAppsResult.error) : null,
-    totalApplications: realBetaApps.length,
-    pending: realBetaApps.filter(b => b.status === "pending" || b.status === "under_review").length,
-    approved: realBetaApps.filter(b => b.status === "approved").length,
-    invited: realBetaApps.filter(b => b.status === "invited").length,
-    activated: realBetaApps.filter(b => b.status === "activated").length,
-    maxCapacity: 30,
-    availableSlots: Math.max(0, 30 - realBetaApps.filter(b => b.status === "activated").length),
-    registrationOpen: false, // beta_registration_open = false strictly preserved
+    status: "pending_certification_adm23",
+    certificationStatus: "ADM.2.3_REQUIRED",
+    notice: "Acesso administrativo detalhado às candidaturas em certificação na ADM.2.3.",
+    capacityTotal: 30,
+    registrationOpen: false, // Inscrições mantidas fechadas
     scopeReviewRequiredInAdm23: true
   };
+  const activatedBetaUserIds = new Set();
+  const activatedBetaEmails = new Set();
 
   const subjectsResult = {
     rows: [],
@@ -1493,7 +1480,7 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
       activatedBetaUserIds,
       activatedBetaEmails,
       betaOperationsSummary,
-      betaApplications: realBetaApps
+      betaApplications: []
     }
   });
 }
