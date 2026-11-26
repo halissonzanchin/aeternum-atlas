@@ -236,7 +236,9 @@ export default function Login({ navigate, onAuth }) {
       if (supabase) {
         try {
           await supabase.auth.signOut({ scope: "local" });
-        } catch (_) {}
+        } catch (err) {
+          console.warn("Falha ao encerrar sessão temporária pós-reset:", err);
+        }
       }
       setResetSuccess(true);
       setMessage("");
