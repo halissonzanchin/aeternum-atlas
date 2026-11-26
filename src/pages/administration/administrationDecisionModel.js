@@ -1,10 +1,24 @@
+import { CANONICAL_MODEL_METADATA } from "../../services/admin/institutionDashboardService.js";
+
 function numeric(value) {
   const result = Number(value);
   return Number.isFinite(result) ? result : 0;
 }
 
 function modelMap(data) {
-  return new Map((data?.raw?.models || []).map((model) => [model.id, model]));
+  const map = new Map();
+  // Popula previamente com metadados canônicos conhecidos
+  Object.entries(CANONICAL_MODEL_METADATA).forEach(([id, meta]) => {
+    map.set(id, { id, title: meta.title, name: meta.title, anatomical_system: meta.system });
+  });
+  // Sobrescreve com dados do banco retornados na query
+  (data?.raw?.models || []).forEach((model) => {
+    map.set(model.id, model);
+    if (model.slug) {
+      map.set(model.slug, model);
+    }
+  });
+  return map;
 }
 
 export function createAdministrationSystemRows(data, snapshot) {

@@ -1,10 +1,10 @@
-import { isAdminRouteActive } from "../../config/adminNavigation";
-import { navigationForRole } from "../../config/roleNavigation";
+import { isAdminRouteActive } from "../../config/adminNavigation.js";
+import { navigationForRole } from "../../config/roleNavigation.js";
 
 export function iconForShellRoute(href = "") {
   if (href.includes("favorite")) return "favorite";
   if (href.includes("history")) return "clock";
-  if (href.includes("profile")) return "user";
+  if (href.includes("profile") || href.includes("beta") || href.includes("candidatos")) return "user";
   if (href.includes("setting") || href.includes("help")) return "settings";
   if (href.includes("video") || href.includes("lesson")) return "camera";
   if (href.includes("course") || href.includes("guide") || href.includes("report")) return "note";
@@ -26,7 +26,44 @@ export function roleTranslationKey(role = "") {
 }
 
 export function shellNavigationForRole(role, path, t) {
-  return navigationForRole(role).map(item => {
+  const baseItems = navigationForRole(role);
+  const normalizedRole = String(role || "").toLowerCase();
+  const isAdmin = ["super_admin", "admin", "institution_admin"].includes(normalizedRole);
+
+  const rawItems = [...baseItems];
+
+  if (isAdmin) {
+    const isSuper = normalizedRole === "super_admin";
+    const betaPath = isSuper ? "/super-admin/candidatos-beta" : "/admin/candidatos-beta";
+    const betaItem = {
+      id: "beta_candidates",
+      label: "Operação El Dorado",
+      labelKey: "adminNavigation.betaCandidates",
+      sidebarLabel: "Operação El Dorado",
+      sidebarLabelKey: "adminNavigation.betaCandidates",
+      path: betaPath,
+      aliases: [
+        "/super-admin/candidatos-beta",
+        "/super-admin/beta-candidates",
+        "/super-admin/programa-beta",
+        "/admin/candidatos-beta",
+        "/admin/beta-candidates",
+        "/admin/programa-beta",
+        "/institution-admin/candidatos-beta",
+        "/institution-admin/beta-candidates",
+        "/institution-admin/programa-beta"
+      ]
+    };
+
+    const studentsIndex = rawItems.findIndex(it => (Array.isArray(it) ? it[0].includes("student") : it.id === "students"));
+    if (studentsIndex >= 0) {
+      rawItems.splice(studentsIndex + 1, 0, betaItem);
+    } else {
+      rawItems.push(betaItem);
+    }
+  }
+
+  return rawItems.map(item => {
     const administrative = !Array.isArray(item);
     const href = administrative ? item.path : item[0];
     const labelKey = administrative

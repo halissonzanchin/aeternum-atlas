@@ -161,6 +161,15 @@ function SourceNotice({ state, data }) {
   );
 }
 
+function formatTableState(item) {
+  if (item.state === "not_implemented") return "Não implementado";
+  if (item.state === "not_configured") return "Não configurado";
+  if (item.state === "unauthorized") return "Não autorizado";
+  if (item.state === "unavailable") return "Indisponível";
+  if (item.state === "empty") return "0 linha(s) (vazio)";
+  return `${number(item.rows)} linha(s)`;
+}
+
 function Coverage({ quality, source, scope }) {
   const tables = Object.entries(quality?.tables || {});
   return (
@@ -177,7 +186,7 @@ function Coverage({ quality, source, scope }) {
         {tables.map(([key, item]) => (
           <div key={key} className={`is-${item.state}`}>
             <span>{COVERAGE_LABELS[key] || key}</span>
-            <strong>{item.state === "unavailable" ? "Indisponível" : `${number(item.rows)} linha(s)`}</strong>
+            <strong>{formatTableState(item)}</strong>
           </div>
         ))}
       </div>
@@ -361,8 +370,28 @@ function StudentsSection({ scope, data, query, onInspect, onReview, onExport, ca
         rows={rows}
         columns={[
           { key: "name", label: "Aluno" },
+          {
+            key: "accountCategory",
+            label: "Classificação",
+            render: (row) => (
+              <span className={`admin26-pill admin26-pill--${row.accountCategoryKey || "unclassified"}`}>
+                {row.accountCategoryLabel || "Não Classificado"}
+              </span>
+            )
+          },
           { key: "email", label: "E-mail" },
-          { key: "course", label: "Curso" },
+          { key: "registration", label: "Matrícula", render: (row) => (row.registration === "—" ? <span className="text-textMuted">—</span> : row.registration) },
+          { key: "course", label: "Curso", render: (row) => (row.course === "—" ? <span className="text-textMuted">—</span> : row.course) },
+          { key: "semester", label: "Semestre", render: (row) => (row.semester === "—" ? <span className="text-textMuted">—</span> : row.semester) },
+          {
+            key: "profileStatus",
+            label: "Perfil",
+            render: (row) => (
+              <span className={`admin26-pill admin26-pill--${row.isProfileMissing ? "qa" : "commercial"}`}>
+                {row.profileStatusLabel || (row.isProfileMissing ? "Não cadastrado" : "Disponível")}
+              </span>
+            )
+          },
           { key: "status", label: "Status" },
           { key: "totalAccesses", label: "Acessos", render: (row) => number(row.totalAccesses) },
           { key: "lastAccess", label: "Último acesso", render: (row) => dateTime(row.lastAccess) }
@@ -372,7 +401,17 @@ function StudentsSection({ scope, data, query, onInspect, onReview, onExport, ca
         onInspect={(row) => onInspect({
           title: row.name || "Aluno",
           subtitle: "Contexto institucional",
-          fields: [["E-mail", row.email], ["Status", row.status], ["Curso", row.course], ["Acessos", row.totalAccesses], ["Minutos de estudo", row.totalStudyMinutes]],
+          fields: [
+            ["Classificação", row.accountCategoryLabel || "Não Classificado"],
+            ["E-mail", row.email],
+            ["Status", row.status],
+            ["Status do perfil", row.profileStatusLabel || (row.isProfileMissing ? "Não cadastrado" : "Disponível")],
+            ["Matrícula", row.registration || "—"],
+            ["Curso", row.course || "—"],
+            ["Semestre", row.semester || "—"],
+            ["Acessos", row.totalAccesses],
+            ["Minutos de estudo", row.totalStudyMinutes]
+          ],
           actions: canReview && ["pending", "pendente"].includes(String(row.status || "").toLowerCase())
             ? <><A26Button onClick={() => onReview(row, "reject")} variant="danger">Rejeitar</A26Button><A26Button onClick={() => onReview(row, "approve")} variant="primary">Aprovar</A26Button></>
             : null
@@ -447,17 +486,32 @@ function ReturnSection({ scope, data }) {
   const institution = data?.institution || {};
   const capacity = Number(data?.stats?.contractedCapacity || institution.contractedCapacity || 0);
   const price = Number(institution.pricePerStudent || 0);
-  const active = Number(data?.stats?.activeStudents || 0);
-  const financial = capacity > 0 && price > 0;
+  const hasContract = capacity > 0 && price > 0;
+
   return (
     <>
       <SectionHeader scope={scope} section="roi" />
       <MetricGrid metrics={[
-        { label: "Capacidade contratada", value: capacity ? number(capacity) : "—", detail: capacity ? "Licenças informadas" : "Sem base contratual" },
-        { label: "Receita mensal observável", value: financial ? money(active * price) : "—", detail: financial ? "Ativos visíveis × preço informado" : "Preço ou capacidade ausente" },
-        { label: "Receita máxima contratual", value: financial ? money(capacity * price) : "—", detail: financial ? "Capacidade × preço informado" : "Sem base verificável" }
+        {
+          label: "Capacidade contratada",
+          value: capacity > 0 ? `${number(capacity)} licenças` : "NÃO CONFIGURADO",
+          detail: capacity > 0 ? "Licenças acordadas" : "Sem base contratual no tenant"
+        },
+        {
+          label: "Receita contratual",
+          value: (data?.stats?.contractCertified && hasContract) ? money(capacity * price) : "NÃO CERTIFICADO",
+          detail: data?.stats?.contractCertified ? "Capacidade × preço contratual certificado" : "Parâmetros contratuais não certificados (Requer ADM.2.6)"
+        },
+        {
+          label: "Receita realizada",
+          value: "NÃO DISPONÍVEL",
+          detail: "Sem faturamento emitido (Requer ADM.2.6)"
+        }
       ]} />
-      <A26EmptyState title="ROI não inferido" text="Impacto pedagógico, economia laboratorial, payback e margem exigem custos e resultados confirmados. Nenhuma dessas medidas foi estimada a partir de cliques ou tempo de uso." />
+      <A26EmptyState
+        title="ROI não inferido"
+        text="Impacto pedagógico, economia laboratorial, payback e margem exigem custos e resultados comprovados. Nenhuma dessas medidas foi estimada a partir de cliques ou tempo de uso."
+      />
     </>
   );
 }
@@ -522,18 +576,96 @@ function BillingSection({ scope, data }) {
   const price = Number(institution.pricePerStudent || 0);
   const registered = Number(data?.stats?.registeredStudents || 0);
   const active = Number(data?.stats?.activeStudents || 0);
-  const available = capacity > 0 && price > 0;
+  const hasContractualParams = capacity > 0 && price > 0;
+  const simulationPrice = 45; // Premissa explícita para projeção comercial
+
   return (
     <>
       <SectionHeader scope={scope} section="billing" />
+
+      {/* 1. Receita Contratada (MRR Base) */}
+      <div className="admin26-card-heading">
+        <div>
+          <h2>1. Receita Contratada (MRR Base)</h2>
+          <p>Valores formalmente acordados no contrato institucional ativo.</p>
+        </div>
+      </div>
       <MetricGrid metrics={[
-        { label: "Capacidade", value: capacity ? number(capacity) : "—", detail: capacity ? "Licenças informadas" : "Não informada" },
-        { label: "Alunos cadastrados visíveis", value: number(registered), detail: "Escopo da política atual" },
-        { label: "Alunos ativos visíveis", value: number(active), detail: "Base observada" },
-        { label: "Valor unitário", value: price ? money(price) : "—", detail: price ? "Preço informado" : "Não informado" },
-        { label: "Estimativa mensal", value: available ? money(active * price) : "—", detail: available ? "Ativos visíveis × preço" : "Base contratual incompleta" }
+        {
+          label: "Capacidade contratada",
+          value: capacity > 0 ? `${number(capacity)} licenças` : "NÃO CONFIGURADO",
+          detail: capacity > 0 ? "Licenças sob contrato" : "Sem base de capacidade no tenant"
+        },
+        {
+          label: "Valor unitário contratual",
+          value: price > 0 ? money(price) : "NÃO CONFIGURADO",
+          detail: price > 0 ? "Preço acordado por aluno (BRL)" : "Sem tarifação ativa no tenant"
+        },
+        {
+          label: "MRR Contratual Base",
+          value: (data?.stats?.contractCertified && hasContractualParams) ? money(capacity * price) : "NÃO CERTIFICADO",
+          detail: data?.stats?.contractCertified ? "Capacidade × valor unitário certificado" : "Requer certificação contratual de licenças faturáveis na ADM.2.6"
+        }
       ]} />
-      {!available ? <A26EmptyState title="Base de faturamento incompleta" text="A plataforma não estimou receita sem capacidade e preço unitário confirmados." /> : null}
+
+      {/* 2. Receita Faturada e Recebida */}
+      <div className="admin26-card-heading" style={{ marginTop: "var(--a26-space-4)" }}>
+        <div>
+          <h2>2. Receita Faturada e Recebida</h2>
+          <p>Registros financeiros de faturamento emitido e conciliação bancária.</p>
+        </div>
+      </div>
+      <MetricGrid metrics={[
+        {
+          label: "Receita faturada no ciclo",
+          value: "NÃO CONFIGURADO",
+          detail: "Sem faturas emitidas no ciclo atual (Tenant em homologação)"
+        },
+        {
+          label: "Receita recebida (liquidada)",
+          value: "NÃO DISPONÍVEL",
+          detail: "Requer conciliação bancária / gateway — Planejado para ADM.2.6"
+        },
+        {
+          label: "Base de alunos ativa",
+          value: `${number(active)} ativo(s) de ${number(registered)}`,
+          detail: "Estudantes verificados no tenant"
+        }
+      ]} />
+
+      {/* 3. Projeções Comerciais de Escala (Simulação B2B) */}
+      <div className="admin26-card-heading" style={{ marginTop: "var(--a26-space-4)" }}>
+        <div>
+          <h2>3. Projeções Comerciais de Escala (Simulação B2B)</h2>
+          <p>Modelagem de expansão institucional — Premissa explícita de simulação: {money(simulationPrice)} / licença.</p>
+        </div>
+      </div>
+      <MetricGrid metrics={[
+        {
+          label: "Cenário 100 licenças (Simulado)",
+          value: money(100 * simulationPrice),
+          detail: `100 alunos × ${money(simulationPrice)} (Projeção)`
+        },
+        {
+          label: "Cenário 300 licenças (Simulado)",
+          value: money(300 * simulationPrice),
+          detail: `300 alunos × ${money(simulationPrice)} (Referência Piloto)`
+        },
+        {
+          label: "Cenário 500 licenças (Simulado)",
+          value: money(500 * simulationPrice),
+          detail: `500 alunos × ${money(simulationPrice)} (Projeção)`
+        }
+      ]} />
+
+      <A26Card className="admin26-detail-notice" style={{ marginTop: "var(--a26-space-4)" }}>
+        <strong>Nota de Governança Financeira (P0.21-ADM.2.1-R1)</strong>
+        <p>
+          Este painel distingue estritamente entre Receita Contratada, Receita Faturada, Receita Recebida e Projeções Simuladas.
+          Valores de faturamento não são inferidos a partir do número de alunos ativos. A integração com gateways de pagamento
+          e conciliação contábil formal está reservada para a etapa ADM.2.6.
+        </p>
+      </A26Card>
     </>
   );
 }

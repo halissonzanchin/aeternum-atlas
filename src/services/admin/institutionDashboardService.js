@@ -1,10 +1,141 @@
-import { supabase } from "../../lib/supabase";
-import { normalizeRole, ROLES } from "../permissions/permissionService";
-import { isSupabaseConfigured } from "../supabase/supabaseClient";
+import { supabase } from "../../lib/supabase.js";
+import { normalizeRole, ROLES } from "../permissions/permissionService.js";
+import { isSupabaseConfigured } from "../supabase/supabaseClient.js";
 
 const ACTIVE_STATUSES = new Set(["active", "ativo"]);
 const STUDENT_ROLES = new Set(["student", "aluno"]);
 const EMPTY_TEXT = "Nenhum dado encontrado";
+
+export const STUDENT_ACCOUNT_CATEGORIES = {
+  FOUNDER: { key: "founder", label: "Homologação Interna (Fundadores)", badgeTone: "amber" },
+  QA: { key: "qa", label: "Automação / QA", badgeTone: "purple" },
+  DEMO: { key: "demo", label: "Demonstração Institucional", badgeTone: "blue" },
+  EXTERNAL_BETA: { key: "beta", label: "Programa Beta (El Dorado)", badgeTone: "teal" },
+  COMMERCIAL: { key: "commercial", label: "Aluno Comercial / Institucional", badgeTone: "emerald" },
+  UNCLASSIFIED: { key: "unclassified", label: "Não Classificado", badgeTone: "neutral" }
+};
+
+const FOUNDER_IDS = new Set([
+  "a3911a5c-a3d0-4318-9d45-f6be6ac38fb4", // Halisson
+  "a0168021-b8a2-4c35-8eab-c80240c10e07", // Victor
+  "f2591fae-8c18-4eb7-a97d-ae5ae90c5b34", // Nicolas
+  "e9931f64-4de9-46fc-9e56-6705345406cb", // Lucas
+  "9f1cede4-3672-461b-bbe8-391dd59c988d", // Edgar
+  "19f44fd4-cba0-4a35-95c7-b1c5e3e9c5a0"  // Admin
+]);
+
+const FOUNDER_EMAILS = new Set([
+  "halissonzanchin@aeternumatlas.com",
+  "halisson@aeternumatlas.com",
+  "halisson.paz@gmail.com",
+  "henriquebahia@aeternumatlas.com",
+  "victor@aeternumatlas.com",
+  "nicolasfigorelli@aeternumatlas.com",
+  "nicolas@aeternumatlas.com",
+  "lucasparedes@aeternumatlas.com",
+  "lucas@aeternumatlas.com",
+  "edgartorales@aeternumatlas.com",
+  "edgar@aeternumatlas.com"
+]);
+
+export function classifyStudentAccount(user, options = {}) {
+  const email = (user?.email || "").toLowerCase().trim();
+  const userId = user?.id;
+
+  // 1. Equipe Fundadora / Homologação Interna (identificadores estáveis: UUIDs canônicos ou e-mails exatos dos sócios)
+  if (FOUNDER_IDS.has(userId) || FOUNDER_EMAILS.has(email)) {
+    return STUDENT_ACCOUNT_CATEGORIES.FOUNDER;
+  }
+
+  // 2. Homologação Técnica / QA / E2E
+  if (
+    email.startsWith("qa.") ||
+    email.includes("-qa-") ||
+    email === "qa.voice.p0@aeternumatlas.com" ||
+    email === "atlas-e2e-ai-tutor@aeternumatlas.com" ||
+    email.startsWith("test.")
+  ) {
+    return STUDENT_ACCOUNT_CATEGORIES.QA;
+  }
+
+  // 3. Demonstração Institucional
+  if (
+    email === "demo.institucional@aeternumatlas.com" ||
+    email === "demo@aeternumatlas.com" ||
+    userId === "5cfb837a-5ce3-4113-8f4a-dcdd9b8bf43f"
+  ) {
+    return STUDENT_ACCOUNT_CATEGORIES.DEMO;
+  }
+
+  // 4. Participante Beta Externo Ativo (El Dorado) - Exige status 'activated' comprovado na fonte autorizada
+  // DIRETRIZ P0.21-ADM.2.2: Distinguir approved, invited e activated.
+  // Candidatos 'approved' ou 'invited' ainda não são participantes ativos na plataforma.
+  // Quarentena sintética preservada via verificação de batch e source_origin.
+  const isActivatedBeta = Boolean(
+    options?.activatedBetaUserIds?.has(userId) ||
+    options?.activatedBetaEmails?.has(email) ||
+    (Array.isArray(options?.betaApplications) && options.betaApplications.some(app =>
+      (app.user_id === userId || (app.email || "").toLowerCase().trim() === email) &&
+      app.status === "activated" &&
+      app.batch !== "synthetic_test" &&
+      app.source_origin !== "synthetic_test"
+    ))
+  );
+  if (isActivatedBeta) {
+    return STUDENT_ACCOUNT_CATEGORIES.EXTERNAL_BETA;
+  }
+
+  // 5. Aluno Comercial / Institucional (Exige comprovação explícita de vínculo comercial/contratual faturável ativo)
+  // DIRETRIZ R1-03: Matrícula acadêmica em turma (academic_class_students) NÃO é comprovação financeira.
+  const isVerifiedCommercial = Boolean(
+    options?.verifiedCommercialStudentIds?.has(userId) ||
+    (options?.hasCommercialContract === true && options?.commercialStudentIds?.has(userId))
+  );
+  if (isVerifiedCommercial) {
+    return STUDENT_ACCOUNT_CATEGORIES.COMMERCIAL;
+  }
+
+  // 6. Não Classificado (ausência de comprovação documental ou autorização confirmada)
+  return STUDENT_ACCOUNT_CATEGORIES.UNCLASSIFIED;
+}
+
+export const CANONICAL_MODEL_METADATA = {
+  "035701b7-a49f-4f3f-a0fc-b335675745be": {
+    title: "Corte Sagital do Crânio Humano — Modelo Superficial 3D",
+    system: "Sistema Nervoso Central",
+    region: "Cabeça e Pescoço"
+  },
+  "2c57a03b-2c77-4119-b8bb-676ea59e9190": {
+    title: "Corte Sagital do Crânio Humano — Modelo Superficial 3D",
+    system: "Sistema Nervoso Central",
+    region: "Cabeça e Pescoço"
+  },
+  "corte-sagital-cranio-humano-superficial": {
+    title: "Corte Sagital do Crânio Humano — Modelo Superficial 3D",
+    system: "Sistema Nervoso Central",
+    region: "Cabeça e Pescoço"
+  },
+  "abb93126-c9be-4938-8eca-161f56864781": {
+    title: "Coração Humano — Modelo Superficial 3D",
+    system: "Sistema Cardiovascular",
+    region: "Tórax"
+  },
+  "coracao-humano-superficial": {
+    title: "Coração Humano — Modelo Superficial 3D",
+    system: "Sistema Cardiovascular",
+    region: "Tórax"
+  },
+  "coracao-edicao-morgue": {
+    title: "Coração Humano — Edição Especial Morgue",
+    system: "Sistema Cardiovascular",
+    region: "Tórax"
+  },
+  "corte-sagital-sistema-reprodutor-feminino": {
+    title: "Corte Sagital da Pelve Feminina / Sistema Reprodutor",
+    system: "Sistema Reprodutor",
+    region: "Pelve"
+  }
+};
 
 function numberOrZero(value) {
   const numeric = Number(value);
@@ -436,7 +567,7 @@ function aggregateUsageSummary(rows) {
   };
 }
 
-async function loadAnalyticsViews(institutionId) {
+export async function loadAnalyticsViews(institutionId) {
   const summaryQuery = institutionId
     ? supabase.from("institution_usage_summary").select("*").eq("institution_id", institutionId)
     : supabase.from("institution_usage_summary").select("*");
@@ -456,6 +587,8 @@ async function loadAnalyticsViews(institutionId) {
   ]);
 
   return {
+    isLegacySource: true,
+    sourceTable: "public.model_access_logs",
     usageSummary: aggregateUsageSummary(usageSummary.data),
     modelPopularity: Array.isArray(popularitySummary.data) ? popularitySummary.data : [],
     userEngagement: Array.isArray(engagementSummary.data) ? engagementSummary.data : [],
@@ -525,7 +658,8 @@ function buildSystemStudyTime(logs, models) {
 
   logs.forEach(log => {
     const model = modelById.get(log.model_id);
-    const system = model?.anatomical_system || "Não classificado";
+    const canonicalMeta = CANONICAL_MODEL_METADATA[log.model_id] || {};
+    const system = model?.anatomical_system || canonicalMeta.system || "Não classificado";
     totals.set(system, (totals.get(system) || 0) + numberOrZero(log.duration_seconds));
   });
 
@@ -614,7 +748,17 @@ function buildPlatformErrors(events) {
 }
 
 function modelTitleMap(models) {
-  return new Map(models.map(model => [model.id, model.title || model.slug || "Modelo 3D"]));
+  const map = new Map();
+  Object.entries(CANONICAL_MODEL_METADATA).forEach(([id, meta]) => {
+    map.set(id, meta.title);
+  });
+  models.forEach(model => {
+    map.set(model.id, model.title || model.slug || map.get(model.id) || "Modelo 3D");
+    if (model.slug) {
+      map.set(model.slug, model.title || model.slug);
+    }
+  });
+  return map;
 }
 
 function buildMostAccessedModelsForAnalytics(mostAccessedModels) {
@@ -674,8 +818,8 @@ function buildBlockedAccessLogs(events, users) {
     });
 }
 
-function buildStudentRows({ users, profiles, logs, models }) {
-  const profileByUserId = new Map(profiles.map(profile => [profile.user_id, profile]));
+export function buildStudentRows({ users, profiles = [], logs = [], models = [], profilesError = null, options = {} }) {
+  const profileByUserId = new Map((profiles || []).map(profile => [profile.user_id, profile]));
   const titleByModel = modelTitleMap(models);
   const logsByUser = new Map();
 
@@ -689,7 +833,15 @@ function buildStudentRows({ users, profiles, logs, models }) {
   return users
     .filter(user => isStudentRole(user.role))
     .map(user => {
-      const profile = profileByUserId.get(user.id) || {};
+      const profile = profileByUserId.get(user.id);
+      const isProfileMissing = !profile;
+      const profileStatus = profilesError ? "query_error" : (isProfileMissing ? "missing_profile" : "available");
+      const profileStatusLabel = profilesError
+        ? "Falha na consulta"
+        : isProfileMissing
+          ? "Não cadastrado"
+          : "Disponível";
+
       const userLogs = (logsByUser.get(user.id) || []).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       const modelCounts = new Map();
       const totalStudyMinutes = Math.round(userLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0) / 60);
@@ -705,17 +857,21 @@ function buildStudentRows({ users, profiles, logs, models }) {
         studiedModels * 3
       ));
 
+      const accountCategory = classifyStudentAccount(user, options);
+
       return {
         id: user.id,
         institutionId: user.institution_id || "",
         name: user.name || user.email || "Aluno",
         email: user.email || "-",
-        registration: profile.registration_number || "-",
-        course: profile.course || "Medicina",
-        semester: profile.semester || "Institucional",
+        registration: profile?.registration_number || "—",
+        course: profile?.course || "—",
+        semester: profile?.semester || "—",
+        profileStatus,
+        profileStatusLabel,
         status: normalizeStudentStatus(user.status),
         createdAt: datePart(user.created_at),
-        lastAccess: userLogs[0]?.created_at || profile.last_access_at || user.last_login || "",
+        lastAccess: userLogs[0]?.created_at || profile?.last_access_at || user.last_login || "",
         totalAccesses: userLogs.length,
         totalStudyMinutes,
         mostViewedContent: mostViewedModelId ? titleByModel.get(mostViewedModelId) || mostViewedModelId : "-",
@@ -723,7 +879,11 @@ function buildStudentRows({ users, profiles, logs, models }) {
         performanceScore,
         sessions: userLogs.length,
         completedModels: studiedModels,
-        viewedContents: Array.from(modelCounts.keys()).map(modelId => titleByModel.get(modelId) || modelId)
+        viewedContents: Array.from(modelCounts.keys()).map(modelId => titleByModel.get(modelId) || modelId),
+        accountCategory,
+        accountCategoryKey: accountCategory.key,
+        accountCategoryLabel: accountCategory.label,
+        isProfileMissing
       };
     });
 }
@@ -788,31 +948,31 @@ function sumInstitutionCapacity(institutions) {
   return institutions.reduce((sum, institution) => sum + numberOrZero(institution.contractedCapacity), 0);
 }
 
-function sumInstitutionMaxRevenue(institutions) {
-  return institutions.reduce((sum, institution) => (
-    sum + numberOrZero(institution.contractedCapacity) * numberOrZero(institution.pricePerStudent)
-  ), 0);
+export function calculateContractedRevenue({ institutions = [], selectedInstitution = null, scope = "tenant" } = {}) {
+  const scopeInstitutions = scope === "global" ? institutions : (selectedInstitution ? [selectedInstitution] : []);
+  const contractedCapacity = sumInstitutionCapacity(scopeInstitutions);
+  const pricePerStudent = scope === "tenant" ? numberOrZero(selectedInstitution?.pricePerStudent) : 0;
+  const isCertified = Boolean(selectedInstitution?.contractCertified === true && selectedInstitution?.contractStatus === "active");
+
+  return {
+    contractedCapacity,
+    pricePerStudent,
+    contractCertified: isCertified,
+    currency: "BRL",
+    currencySymbol: "R$",
+    contractedRevenue: isCertified && contractedCapacity > 0 && pricePerStudent > 0 ? contractedCapacity * pricePerStudent : null,
+    financialStatus: isCertified ? "configured" : "not_configured"
+  };
 }
 
-function calculateEstimatedRevenue({ institutions, activeStudentUsers }) {
-  const priceByInstitution = new Map(institutions.map(institution => [
-    institution.id,
-    numberOrZero(institution.pricePerStudent)
-  ]));
-
-  return activeStudentUsers.reduce((sum, user) => {
-    const unitPrice = priceByInstitution.get(user.institution_id) || 0;
-    return sum + unitPrice;
-  }, 0);
-}
-
-function buildGovernanceQuality({ profile, results, views }) {
+export function buildGovernanceQuality({ profile, results, views }) {
   const tables = Object.fromEntries(
     Object.entries(results).map(([key, result]) => [
       key,
       {
         rows: result?.rows?.length || 0,
-        state: result?.error ? "unavailable" : result?.rows?.length ? "observed" : "empty"
+        state: result?.state || (result?.error ? "unavailable" : result?.rows?.length ? "observed" : "empty"),
+        description: result?.description || null
       }
     ])
   );
@@ -832,22 +992,25 @@ function buildGovernanceQuality({ profile, results, views }) {
   };
 }
 
-function buildDashboardPayload({
+export function buildDashboardPayload({
   scope,
   selectedInstitution,
-  institutions,
-  users,
-  profiles,
-  logs,
-  events,
-  models,
-  views,
+  institutions = [],
+  users = [],
+  profiles = [],
+  logs = [],
+  events = [],
+  models = [],
+  views = {},
   academicClasses = [],
   classStudents = [],
   academicSubjects = [],
   quality,
   source,
-  profile
+  profile,
+  sessionMetrics = {},
+  profilesError = null,
+  options = {}
 }) {
   const scopeInstitutions = scope === "global"
     ? institutions
@@ -869,16 +1032,51 @@ function buildDashboardPayload({
   const activeStudents = activeStudentUsers.length;
   const inactiveStudents = Math.max(registeredStudents - activeStudents, 0);
   const contractedCapacity = sumInstitutionCapacity(scopeInstitutions);
-  const maxRevenue = sumInstitutionMaxRevenue(scopeInstitutions);
   const pricePerStudent = scope === "tenant" ? numberOrZero(selectedInstitution?.pricePerStudent) : 0;
-  const estimatedRevenue = calculateEstimatedRevenue({ institutions: scopeInstitutions, activeStudentUsers });
+
+  // DIRETRIZ R1-04: Contrato requer validação de status ativo e certificação formal de termos e moeda.
+  const isContractCertified = Boolean(selectedInstitution?.contractCertified === true && selectedInstitution?.contractStatus === "active");
+  const contractedRevenue = isContractCertified && contractedCapacity > 0 && pricePerStudent > 0
+    ? contractedCapacity * pricePerStudent
+    : null;
+  const financialStatus = isContractCertified ? "configured" : "not_configured";
+
   const now = new Date();
   const currentMonthLogs = logs.filter(log => isSameLocalMonth(toDate(log.created_at), now));
   const todayLogs = logs.filter(log => isSameLocalDay(toDate(log.created_at), now));
-  const totalStudySecondsFromLogs = currentMonthLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
-  const usageSummary = views.usageSummary || {};
-  const mostAccessedModelsData = buildMostAccessedModels({ logs, models, popularity: views.modelPopularity });
-  const students = buildStudentRows({ users, profiles, logs, models });
+
+  // DIRETRIZ R1-02: Alinhamento temporal rigoroso entre numerador e denominador
+  // 1. Mês corrente:
+  const currentMonthModelViews = currentMonthLogs.filter(log => log.action === "view_model").length;
+  const currentMonthStudySeconds = currentMonthLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
+  const currentMonthAverageSessionMinutes = Math.round((currentMonthModelViews ? currentMonthStudySeconds / currentMonthModelViews : 0) / 60);
+
+  // 2. Histórico carregado (All-time dos registros disponíveis no escopo):
+  const totalModelViews = logs.filter(log => log.action === "view_model").length;
+  const allTimeStudySeconds = logs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
+  const allTimeAverageSessionMinutes = Math.round((totalModelViews ? allTimeStudySeconds / totalModelViews : 0) / 60);
+
+  // 3. Hoje:
+  const todayModelViews = todayLogs.filter(log => log.action === "view_model").length;
+  const todayStudySeconds = todayLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
+
+  // Fonte canônica para modelos mais acessados deriva diretamente das sessões e do catálogo
+  const mostAccessedModelsData = buildMostAccessedModels({ logs, models, popularity: [] });
+
+  const enrolledStudentIds = new Set(classStudents.map(cs => cs.student_id).filter(Boolean));
+  const students = buildStudentRows({
+    users,
+    profiles,
+    logs,
+    models,
+    profilesError,
+    options: {
+      ...options,
+      enrolledStudentIds,
+      institutions: scopeInstitutions
+    }
+  });
+
   const studentHistoryByUser = buildStudentHistoryByUser({ students, logs, models });
   const dailyAccess = buildDailyAccess(logs, events);
   const hourlyUsage = buildHourlyUsage(logs, events);
@@ -887,19 +1085,59 @@ function buildDashboardPayload({
   const platformIncidents = buildIncidents(events);
   const blockedAccessLogs = buildBlockedAccessLogs(events, users);
   const platformHealthData = buildPlatformHealth(events);
-  const totalEvents = numberOrZero(usageSummary.total_events) || logs.length + events.length;
-  const totalModelViews = numberOrZero(usageSummary.total_model_views) || logs.filter(log => log.action === "view_model").length;
-  const totalStudySeconds = numberOrZero(usageSummary.total_study_seconds) || totalStudySecondsFromLogs;
-  const uniqueActiveUsers = numberOrZero(usageSummary.unique_users) || new Set(logs.map(log => log.user_id).filter(Boolean)).size;
+
+  // Métricas canônicas certificadas
+  const totalEvents = logs.length + events.length;
+  const uniqueActiveUsers = new Set(logs.map(log => log.user_id).filter(Boolean)).size;
+
   const lastHourUsers = new Set([
     ...logs.filter(log => isWithinLastMinutes(toDate(log.created_at), 60)).map(log => log.user_id),
     ...events.filter(event => isWithinLastMinutes(toDate(event.created_at), 60)).map(event => event.user_id)
   ].filter(Boolean)).size;
 
-  const averageSessionMinutes = Math.round((numberOrZero(usageSummary.avg_duration_seconds) || (totalModelViews ? totalStudySeconds / totalModelViews : 0)) / 60);
   const occupancyRate = contractedCapacity ? (registeredStudents / contractedCapacity) * 100 : 0;
   const mostAccessedContent = mostAccessedModelsData[0]?.title || EMPTY_TEXT;
   const lastUpdated = new Date();
+
+  // DIRETRIZ P0.21-ADM.2.2: Transparência e integridade na amostragem PostgREST
+  // Não declarar cobertura completa apenas porque a contagem é inferior ao limite;
+  // total comprovado requer agregação analítica dedicada (programada para ADM.2.4).
+  const sourceCoverage = {
+    isLimitBounded: logs.length >= 5000 || events.length >= 2000,
+    limits: {
+      viewerSessionsLimit: 5000,
+      platformEventsLimit: 2000,
+      modelsLimit: 1000,
+      classesLimit: 1000,
+      membershipsLimit: 5000
+    },
+    observedCounts: {
+      viewerSessions: logs.length,
+      platformEvents: events.length,
+      models: models.length,
+      classes: academicClasses.length,
+      memberships: classStudents.length
+    },
+    coverageStatus: logs.length >= 5000 ? "limit_bounded" : "observed_sample",
+    limitationNotice: logs.length >= 5000
+      ? "Limite de 5.000 sessões atingido. Totais históricos exigem agregação analítica ou paginação."
+      : "Amostragem limitada aos registros observados no escopo PostgREST. Confirmação analítica integral programada para ADM.2.4."
+  };
+
+  const defaultBetaSummary = {
+    status: "available",
+    error: null,
+    totalApplications: 0,
+    pending: 0,
+    approved: 0,
+    invited: 0,
+    activated: 0,
+    maxCapacity: 30,
+    availableSlots: 30,
+    registrationOpen: false,
+    scopeReviewRequiredInAdm23: true
+  };
+  const betaOperations = options?.betaOperationsSummary || defaultBetaSummary;
 
   return {
     source,
@@ -907,6 +1145,7 @@ function buildDashboardPayload({
     selectedInstitutionId: selectedInstitution?.id || null,
     lastUpdated: lastUpdated.toISOString(),
     institutions,
+    betaOperations,
     institution: {
       ...displayInstitution,
       registeredStudents,
@@ -921,17 +1160,33 @@ function buildDashboardPayload({
       activeStudents,
       inactiveStudents,
       occupancyRate,
-      estimatedRevenue,
-      maxRevenue,
-      lostRevenue: Math.max(maxRevenue - estimatedRevenue, 0)
+      contractCertified: isContractCertified,
+      contractedRevenue,
+      financialStatus,
+      currency: "BRL",
+      currencySymbol: "R$",
+      indicativeCapacityValue: (contractedCapacity > 0 && pricePerStudent > 0) ? contractedCapacity * pricePerStudent : null,
+      financialDisclaimer: "Módulo financeiro avançado com conciliação bancária e certificação de contratos previsto para a fase ADM.2.6.",
+      estimatedRevenue: null,
+      maxRevenue: null,
+      lostRevenue: null
     },
+    sourceCoverage,
     overviewMetrics: {
-      activeNow: lastHourUsers || uniqueActiveUsers,
-      accessesToday: todayLogs.length,
-      accessesThisMonth: totalModelViews,
-      totalStudyHoursThisMonth: Math.round(totalStudySeconds / 3600),
+      activeNow: null,
+      activeNowState: "unavailable",
+      activeNowDescription: "Requer telemetria de presença instantânea em tempo real (heartbeat <= 5 min)",
+      recentActivity1h: lastHourUsers,
+      accessesToday: todayModelViews,
+      accessesThisMonth: currentMonthModelViews,
+      totalStudyHoursThisMonth: Math.round(currentMonthStudySeconds / 3600),
       mostAccessedContent,
-      averageSessionMinutes,
+      averageSessionMinutes: currentMonthAverageSessionMinutes,
+      allTimeMetrics: {
+        totalModelViews,
+        totalStudyHours: Math.round(allTimeStudySeconds / 3600),
+        averageSessionMinutes: allTimeAverageSessionMinutes
+      },
       returnRate: 0,
       completionRate: 0,
       peakHour: "-",
@@ -943,13 +1198,17 @@ function buildDashboardPayload({
     students,
     studentHistoryByUser,
     quality,
+    sessionMetrics,
     analytics: {
       snapshot: {
-        activeUsersNow: lastHourUsers || uniqueActiveUsers,
-        accessesToday: todayLogs.length,
-        accessesThisMonth: totalModelViews,
-        totalStudyHoursThisMonth: Math.round(totalStudySeconds / 3600),
-        averageSessionMinutes,
+        activeUsersNow: null,
+        activeUsersNowState: "unavailable",
+        activeUsersNowDescription: "Requer telemetria de presença instantânea em tempo real (heartbeat <= 5 min)",
+        recentActivity1h: lastHourUsers,
+        accessesToday: todayModelViews,
+        accessesThisMonth: currentMonthModelViews,
+        totalStudyHoursThisMonth: Math.round(currentMonthStudySeconds / 3600),
+        averageSessionMinutes: currentMonthAverageSessionMinutes,
         returningUserRate: 0,
         modelCompletionRate: 0,
         platformStatus: platformHealthData.status,
@@ -1145,17 +1404,33 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     loadAnalyticsViews(queryInstitutionId)
   ]);
 
+  // DIRETRIZ P0.21-ADM.2.2: Desabilitar consulta direta a beta_applications na visão geral
+  // para preservar o isolamento de escopo institucional. Certificação integral na ADM.2.3.
+  const betaOperationsSummary = {
+    status: "pending_certification_adm23",
+    certificationStatus: "ADM.2.3_REQUIRED",
+    notice: "Acesso administrativo detalhado às candidaturas em certificação na ADM.2.3.",
+    capacityTotal: 30,
+    registrationOpen: false, // Inscrições mantidas fechadas
+    scopeReviewRequiredInAdm23: true
+  };
+  const activatedBetaUserIds = new Set();
+  const activatedBetaEmails = new Set();
+
   const subjectsResult = {
     rows: [],
     count: 0,
-    error: new Error("public.academic_subjects não integra o esquema acadêmico autorizado atual.")
+    state: "not_implemented",
+    description: "public.academic_subjects não integra o esquema acadêmico autorizado atual. Disciplinas organizadas via academic_classes."
   };
+
+  const allViewerSessions = viewerSessionsResult.rows.map(normalizeViewerSession);
+  const viewer3dSessions = allViewerSessions.filter(session => (session.metadata?.scope || "viewer") === "viewer");
+  const accountPortalSessions = allViewerSessions.filter(session => (session.metadata?.scope || "viewer") === "account");
 
   const logsResult = {
     ...viewerSessionsResult,
-    rows: viewerSessionsResult.rows
-      .filter(session => (session.scope || "viewer") === "viewer")
-      .map(normalizeViewerSession)
+    rows: viewer3dSessions
   };
 
   const quality = buildGovernanceQuality({
@@ -1173,6 +1448,16 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     }
   });
 
+  const sessionMetrics = {
+    canonicalSource: "viewer_learning_sessions",
+    totalSessionsCount: allViewerSessions.length,
+    viewer3dSessionsCount: viewer3dSessions.length,
+    accountPortalSessionsCount: accountPortalSessions.length,
+    totalActiveStudySeconds: allViewerSessions.reduce((sum, s) => sum + numberOrZero(s.duration_seconds), 0),
+    viewer3dActiveStudySeconds: viewer3dSessions.reduce((sum, s) => sum + numberOrZero(s.duration_seconds), 0),
+    accountActiveStudySeconds: accountPortalSessions.reduce((sum, s) => sum + numberOrZero(s.duration_seconds), 0)
+  };
+
   return buildDashboardPayload({
     scope: scopeInfo.scope,
     selectedInstitution: scopeInfo.institution,
@@ -1187,8 +1472,16 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     classStudents: classStudentsResult.rows,
     academicSubjects: subjectsResult.rows,
     quality,
+    sessionMetrics,
     source: "supabase",
-    profile
+    profile,
+    profilesError: profilesResult.error,
+    options: {
+      activatedBetaUserIds,
+      activatedBetaEmails,
+      betaOperationsSummary,
+      betaApplications: []
+    }
   });
 }
 

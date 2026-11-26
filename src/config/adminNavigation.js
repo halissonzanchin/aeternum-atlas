@@ -159,8 +159,12 @@ export function adminSectionFromPath(pathname, fallback = "overview") {
     pathname === "/admin/beta" ||
     pathname === "/super-admin/candidatos-beta" ||
     pathname === "/admin/candidatos-beta" ||
+    pathname === "/super-admin/beta-candidates" ||
+    pathname === "/admin/beta-candidates" ||
     pathname === "/institution-admin/programa-beta" ||
-    pathname === "/institution-admin/beta"
+    pathname === "/institution-admin/beta" ||
+    pathname === "/institution-admin/candidatos-beta" ||
+    pathname === "/institution-admin/beta-candidates"
   ) {
     return "beta_candidates";
   }

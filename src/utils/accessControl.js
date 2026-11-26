@@ -46,6 +46,20 @@ export function isAcademicTutorAuthorizedRoute(pathname, user, authReady) {
     return false;
   }
 
+  // Bloqueio absoluto em todas as rotas administrativas, de gestão institucional e super-admin (P0.21-ADM.2.1)
+  if (
+    path === "/admin" ||
+    path.startsWith("/admin/") ||
+    path === "/super-admin" ||
+    path.startsWith("/super-admin/") ||
+    path === "/institution" ||
+    path.startsWith("/institution/") ||
+    path === "/institution-admin" ||
+    path.startsWith("/institution-admin/")
+  ) {
+    return false;
+  }
+
   // Visualizadores 3D dedicados operam seu próprio ciclo de vida de tutor
   if (
     path.startsWith("/viewer/") ||
@@ -63,9 +77,6 @@ export function isAcademicTutorAuthorizedRoute(pathname, user, authReady) {
     path.startsWith("/professor/") ||
     path.startsWith("/coordinator/") ||
     path.startsWith("/rector/") ||
-    path.startsWith("/institution/") ||
-    path.startsWith("/super-admin/") ||
-    path.startsWith("/admin/") ||
     path === "/models" ||
     path.startsWith("/models/") ||
     path.startsWith("/model/") ||

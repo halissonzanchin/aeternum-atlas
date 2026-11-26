@@ -527,3 +527,66 @@
     color: #111;
   }
 }
+
+/* P0.21-ADM.2.1: Classificação de Contas & Estados de Cobertura */
+.admin26-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border: 1px solid var(--a26-color-border, rgba(255, 255, 255, 0.1));
+  background: var(--a26-material-surface-bg, rgba(255, 255, 255, 0.05));
+}
+
+.admin26-pill--founder {
+  background: rgba(14, 165, 233, 0.15);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+
+.admin26-pill--qa {
+  background: rgba(234, 179, 8, 0.15);
+  border-color: rgba(250, 204, 21, 0.4);
+  color: #facc15;
+}
+
+.admin26-pill--demo {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: rgba(192, 132, 252, 0.4);
+  color: #c084fc;
+}
+
+.admin26-pill--beta {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(52, 211, 153, 0.4);
+  color: #34d399;
+}
+
+.admin26-pill--commercial {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--a26-color-text, #f1f5f9);
+}
+
+.admin26-pill--unclassified {
+  background: rgba(148, 163, 184, 0.12);
+  border-color: rgba(148, 163, 184, 0.28);
+  color: #94a3b8;
+}
+
+.admin26-coverage__grid .is-not_implemented strong {
+  color: var(--a26-color-text-subtle, #94a3b8);
+}
+
+.admin26-coverage__grid .is-empty strong {
+  color: var(--a26-color-text-muted, #64748b);
+}
+
+.admin26-coverage__grid .is-unauthorized strong {
+  color: var(--a26-color-danger, #ef4444);
+}
+

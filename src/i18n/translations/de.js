@@ -81,7 +81,8 @@ export const de = {
     "route": "Aktuelle Route"
   },
   "adminNavigation": {
-    "institutionStudents": "Studierende der Institution"
+    "institutionStudents": "Studierende der Institution",
+    "betaCandidates": "Operation El Dorado"
   },
   "auth": {
     "secureAccess": "Sicherer Zugang",
