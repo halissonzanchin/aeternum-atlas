@@ -452,6 +452,15 @@ export function getCurrentUser() {
 }
 
 export async function restoreAuthSession() {
+  if (typeof window !== "undefined") {
+    const isResetFlow = new URLSearchParams(window.location.search).get("mode") === "reset-password" ||
+                        window.location.hash.includes("type=recovery");
+    if (isResetFlow) {
+      // Do not bind recovery tokens to application session guard
+      return null;
+    }
+  }
+
   const { data, error } = await supabase.auth.getUser();
 
   if (error || !data?.user) {

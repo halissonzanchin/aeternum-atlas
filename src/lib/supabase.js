@@ -7,3 +7,32 @@ const supabaseUrl = (typeof import.meta !== "undefined" && import.meta.env?.VITE
 const supabaseAnonKey = (typeof import.meta !== "undefined" && import.meta.env?.VITE_SUPABASE_ANON_KEY) || process.env.VITE_SUPABASE_ANON_KEY || DEFAULT_ANON_KEY;
 
 export const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
+
+
+let _isRecoveryEventFired = false;
+let _recoveryUserId = null;
+
+if (supabase) {
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === "PASSWORD_RECOVERY") {
+      _isRecoveryEventFired = true;
+      _recoveryUserId = session?.user?.id || null;
+    } else if (event === "SIGNED_OUT") {
+      _isRecoveryEventFired = false;
+      _recoveryUserId = null;
+    }
+  });
+}
+
+export function isPasswordRecoveryContextValid() {
+  return _isRecoveryEventFired && Boolean(_recoveryUserId);
+}
+
+export function getRecoveryContextUserId() {
+  return _recoveryUserId;
+}
+
+export function markRecoveryContextConsumed() {
+  _isRecoveryEventFired = false;
+  _recoveryUserId = null;
+}
