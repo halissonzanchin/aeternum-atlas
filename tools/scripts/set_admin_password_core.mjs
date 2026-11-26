@@ -40,15 +40,34 @@ export async function executeAdminPasswordReset({
     // 1. Verificação prévia de correspondência de identidade (UUID, E-mail e Papel)
     console.log(`[PRE-CHECK] Validando identidade do alvo: ${targetUuid}...`);
     const { data: userData, error: userError } = await adminClient.auth.admin.getUserById(targetUuid);
-    if (userError || !userData?.user) {
-      console.error(`[ERRO_IDENTIDADE] Usuário com UUID ${targetUuid} não encontrado no Supabase Auth:`, userError?.message);
+    if (userError) {
+      const isDbError = userError.status === 500 ||
+        userError.message?.toLowerCase().includes("database") ||
+        userError.message?.toLowerCase().includes("scan error") ||
+        userError.code === "unexpected_failure";
+      const isNotFound = userError.status === 404 || userError.message?.toLowerCase().includes("not found");
+
+      if (isDbError) {
+        console.error(`[ERRO_BANCO_AUTH] Falha interna do Supabase Auth ao carregar usuário: ${userError.message} (status: ${userError.status})`);
+        return { success: false, code: "AUTH_DATABASE_ERROR", error: userError.message, steps };
+      } else if (isNotFound) {
+        console.error(`[ERRO_IDENTIDADE] Usuário não encontrado no Supabase Auth: ${userError.message}`);
+        return { success: false, code: "USER_NOT_FOUND", error: userError.message, steps };
+      } else {
+        console.error(`[ERRO_AUTH_API] Falha na API Supabase Auth: ${userError.message}`);
+        return { success: false, code: "AUTH_API_ERROR", error: userError.message, steps };
+      }
+    }
+
+    if (!userData?.user) {
+      console.error(`[ERRO_IDENTIDADE] Usuário com UUID ${targetUuid} não retornado pelo Supabase Auth.`);
       return { success: false, code: "USER_NOT_FOUND", steps };
     }
 
     const user = userData.user;
-    if (user.email?.toLowerCase() !== expectedEmail.toLowerCase()) {
-      console.error(`[ERRO_CORRESPONDENCIA] Divergência de e-mail! Esperado: ${expectedEmail}, Encontrado: ${user.email}`);
-      return { success: false, code: "EMAIL_MISMATCH", steps };
+    if (user.id !== targetUuid || user.email?.toLowerCase() !== expectedEmail.toLowerCase()) {
+      console.error(`[ERRO_CORRESPONDENCIA] Divergência de identidade! UUID: ${user.id} vs ${targetUuid}, E-mail: ${user.email} vs ${expectedEmail}`);
+      return { success: false, code: "IDENTITY_MISMATCH", steps };
     }
 
     // Validar papel administrativo (em public.users e app_metadata)
@@ -60,11 +79,11 @@ export async function executeAdminPasswordReset({
       // Exigência estrita de correspondência canônica na execução de produção
       if (targetUuid !== CANONICAL_ADMIN_UUID) {
         console.error(`[ERRO_IDENTIDADE] Produção rejeitada: UUID ${targetUuid} não corresponde ao canônico ${CANONICAL_ADMIN_UUID}.`);
-        return { success: false, code: "UUID_NOT_CANONICAL", steps };
+        return { success: false, code: "IDENTITY_MISMATCH", steps };
       }
       if (expectedEmail.toLowerCase() !== CANONICAL_ADMIN_EMAIL.toLowerCase() || user.email?.toLowerCase() !== CANONICAL_ADMIN_EMAIL.toLowerCase()) {
         console.error(`[ERRO_IDENTIDADE] Produção rejeitada: e-mail ${user.email} não corresponde ao canônico ${CANONICAL_ADMIN_EMAIL}.`);
-        return { success: false, code: "EMAIL_NOT_CANONICAL", steps };
+        return { success: false, code: "IDENTITY_MISMATCH", steps };
       }
       if (publicRole !== "admin" || authRole !== "admin") {
         console.error(`[ERRO_AUTORIZACAO] Produção rejeitada: papel 'admin' não confirmado em ambas as fontes (public: ${publicRole}, auth: ${authRole}).`);
@@ -136,31 +155,38 @@ export async function executeAdminPasswordReset({
       return { success: false, code: "SESSION_REVOCATION_FAILED", error: sessionRevErr.message, steps };
     }
 
-    // ETAPA 3: Invalidação Real de Tokens de Recuperação (Sem retornar o conteúdo do token)
+    // ETAPA 3: Invalidação Real de Tokens de Recuperação e Normalização GoTrue
     console.log("\n[ETAPA 3/4] Verificando estado do token de recuperação no banco de dados...");
     const tokenCheckRows = await runSupabaseSql(`
-      SELECT (recovery_token IS NULL OR recovery_token = '') as is_token_cleared, (recovery_sent_at IS NULL) as is_sent_null
+      SELECT
+        (recovery_token IS NULL) as is_token_null,
+        (recovery_token = '') as is_token_empty,
+        (recovery_sent_at IS NULL) as is_sent_null
       FROM auth.users
       WHERE id = '${targetUuid}';
     `);
 
-    const isTokenCleared = tokenCheckRows[0]?.is_token_cleared === true;
-    if (!isTokenCleared) {
-      console.log("  -> Token residual detectado. Executando invalidação definitiva...");
+    const isTokenNull = tokenCheckRows[0]?.is_token_null === true;
+    const isTokenEmpty = tokenCheckRows[0]?.is_token_empty === true;
+
+    // Se o token for NULL (incompatível com GoTrue) ou tiver qualquer valor residual diferente de '', normaliza para string vazia
+    if (isTokenNull || !isTokenEmpty) {
+      console.log("  -> Normalizando token para GoTrue empty string e invalidando ciclo...");
       await runSupabaseSql(`
         UPDATE auth.users SET recovery_token = '', recovery_sent_at = NULL WHERE id = '${targetUuid}';
       `);
       const recheck = await runSupabaseSql(`
-        SELECT (recovery_token IS NULL OR recovery_token = '') as is_token_cleared FROM auth.users WHERE id = '${targetUuid}';
+        SELECT (recovery_token = '') as is_token_empty, (recovery_token IS NULL) as is_token_null
+        FROM auth.users WHERE id = '${targetUuid}';
       `);
-      if (recheck[0]?.is_token_cleared !== true) {
-        console.error("[FALHA_ETAPA_3] Falha na invalidação do token de recuperação residual.");
+      if (recheck[0]?.is_token_empty !== true || recheck[0]?.is_token_null === true) {
+        console.error("[FALHA_ETAPA_3] Falha na normalização/invalidação do token de recuperação residual.");
         return { success: false, code: "RECOVERY_TOKEN_NOT_INVALIDATED", steps };
       }
     }
 
     steps.recoveryTokenInvalidated = true;
-    console.log("  -> [TOKEN INVALIDADO] Verificação real concluída: recovery_token desativado e comprovado ausente (conteúdo protegido).");
+    console.log("  -> [TOKEN INVALIDADO] Verificação real concluída: recovery_token normalizado em string vazia e comprovado inativo (conteúdo protegido).");
 
     // ETAPA 4: Validação Final Concluída com Verificação Rigorosa do SignOut
     console.log("\n[ETAPA 4/4] Executando validação final de autenticação com a nova credencial...");

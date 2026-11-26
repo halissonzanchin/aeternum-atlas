@@ -1,6 +1,6 @@
 ﻿# ==============================================================================
 # Aeternum Atlas — Secure Administrative Password Reset
-# P0.21-ADM.1.1: Local Zero-Exposure Password Update for admin@aeternumatlas.com
+# P0.21-ADM.1.2: Local Zero-Exposure Password Update for admin@aeternumatlas.com
 # ==============================================================================
 
 [CmdletBinding()]
