@@ -60,6 +60,9 @@ async function run() {
   const publicClient = createClient(SUPABASE_URL, anonKey, {
     auth: { autoRefreshToken: false, persistSession: false }
   });
+  const secondaryClient = createClient(SUPABASE_URL, anonKey, {
+    auth: { autoRefreshToken: false, persistSession: false }
+  });
 
   const serverProc = await ensureVitePreview();
   const browser = await chromium.launch({ headless: true });
@@ -68,6 +71,7 @@ async function run() {
   const testEmail = `test_homolog_recovery_${Date.now()}@aeternumatlas.med.br`;
   const initialPassword = `InitPass_${Date.now()}!A1`;
   const nextPassword = `NewSecurePass_${Date.now()}!Z9`;
+  let session2RefreshToken = null;
 
   const results = {
     scenario1_directAccessFailClosed: false,
@@ -153,6 +157,26 @@ async function run() {
       VALUES ('${testUserId}', '${testEmail}', 'Test Homolog User', 'admin', 'active', '11111111-1111-1111-1111-111111111111')
       ON CONFLICT (id) DO UPDATE SET status = 'active';
     `);
+
+    // ----------------------------------------------------
+    // Setup Independent Session 2 for Global Revocation Proof
+    // ----------------------------------------------------
+    console.log("\n[Setup: Session 2] Establishing independent second session for revocation proof...");
+    const { data: s2Data, error: s2Err } = await secondaryClient.auth.signInWithPassword({
+      email: testEmail,
+      password: initialPassword
+    });
+    if (s2Err || !s2Data?.session?.refresh_token) {
+      throw new Error(`Precondition Failed: Could not establish independent second session: ${s2Err?.message}`);
+    }
+    session2RefreshToken = s2Data.session.refresh_token;
+
+    // Verify Session 2 is actively recognized prior to recovery
+    const { data: preResetUser, error: preResetErr } = await secondaryClient.auth.getUser(s2Data.session.access_token);
+    if (preResetErr || !preResetUser?.user || preResetUser.user.id !== testUserId) {
+      throw new Error(`Precondition Failed: Second session not active before reset: ${preResetErr?.message}`);
+    }
+    console.log("  -> PASS: Independent Session 2 verified ACTIVE prior to recovery.");
 
     // ----------------------------------------------------
     // Scenario 3 (ADM-01): Authenticated session with artificial recovery parameter
@@ -282,28 +306,50 @@ async function run() {
     await page.screenshot({ path: shotPath, fullPage: false });
     console.log("  -> Saved screenshot to:", shotPath);
 
-    // Prove actual session termination via client API
-    const clientSession = await page.evaluate(async () => {
-      if (!window.__atlas_supabase) return null;
-      const { data } = await window.__atlas_supabase.auth.getSession();
-      return data?.session;
-    });
-
-    // Check localStorage auth token
-    const storedAuthToken = await page.evaluate(() => {
+    // 1. Prove browser localStorage cleanup
+    const isBrowserStorageCleaned = await page.evaluate(() => {
       const keys = Object.keys(window.localStorage);
-      const authKey = keys.find(k => k.includes("auth-token"));
-      return authKey ? window.localStorage.getItem(authKey) : null;
+      const authKeys = keys.filter(k => k.includes("auth-token") || k.includes("supabase.auth"));
+      for (const k of authKeys) {
+        const val = window.localStorage.getItem(k);
+        if (val && val !== "null" && val !== "undefined" && val !== "{}") {
+          try {
+            const parsed = JSON.parse(val);
+            if (parsed.access_token || parsed.currentSession) return false;
+          } catch (_) {}
+        }
+      }
+      return true;
     });
 
-    console.log("  -> Supabase client getSession() result:", clientSession ? "ACTIVE_SESSION (ERROR)" : "NULL (REVOKED)");
-    console.log("  -> LocalStorage auth token presence:", storedAuthToken ? "TOKEN_PRESENT (inspecting)" : "CLEARED");
+    if (!isBrowserStorageCleaned) {
+      throw new Error("Scenario 6 failed: Browser storage still contains active auth tokens after global signOut!");
+    }
+    console.log("  -> Browser storage cleanup verified: all active session tokens cleared.");
 
-    if (successTitle === "Senha Redefinida" && successMsg.includes("com sucesso") && clientSession === null) {
+    // 2. Prove global session revocation using the independent Session 2
+    console.log("  -> Proving global session revocation via independent Session 2 refresh token...");
+    const { data: refRes, error: refErr } = await secondaryClient.auth.refreshSession({
+      refresh_token: session2RefreshToken
+    });
+
+    if (!refErr) {
+      throw new Error("Security Violation: Independent Session 2 was able to refresh token after password reset and global signOut!");
+    }
+    const isExpectedRevocationError = refErr.message.includes("Refresh Token Not Found") ||
+      refErr.message.includes("Invalid Refresh Token") ||
+      refErr.status === 400;
+
+    if (!isExpectedRevocationError) {
+      throw new Error(`Unexpected revocation response on Session 2: ${refErr.message} (status ${refErr.status})`);
+    }
+    console.log(`  -> PROVEN: Independent Session 2 refresh blocked (${refErr.message}).`);
+
+    if (successTitle === "Senha Redefinida" && successMsg.includes("com sucesso") && isBrowserStorageCleaned && Boolean(refErr)) {
       results.scenario6_passwordResetAndSessionRevocation = true;
-      console.log("  -> PASS: Password updated, UI confirmed, and client session proven revoked (getSession() === null).");
+      console.log("  -> PASS: Password updated, UI confirmed, browser storage cleared, and independent session proven revoked.");
     } else {
-      throw new Error(`Scenario 6 failed: session not revoked or success message absent (clientSession=${clientSession})`);
+      throw new Error("Scenario 6 failed: revocation verification criteria not met.");
     }
 
     // ----------------------------------------------------
@@ -369,18 +415,22 @@ async function run() {
         console.warn("  -> Warning deleting from auth.users:", delAuthErr.message);
       }
 
-      // Prove deletion from public.users
+      // Prove deletion from public.users: must specifically equal 0 rows
       const publicRows = await runSupabaseSql(`SELECT count(*)::int as count FROM public.users WHERE id = '${testUserId}';`);
-      const publicCount = publicRows[0]?.count ?? -1;
+      const publicCount = publicRows[0]?.count;
+      if (publicCount !== 0) {
+        throw new Error(`Cleanup failed: user ${testUserId} still exists in public.users (count=${publicCount})`);
+      }
 
-      // Prove deletion from auth.users
+      // Prove deletion from auth.users: must specifically return HTTP 404 / User not found (not arbitrary error)
       const { data: authUserCheck, error: authCheckErr } = await adminClient.auth.admin.getUserById(testUserId);
+      const isSpecificallyNotFound = (authCheckErr?.status === 404 || authCheckErr?.message?.includes("User not found")) && !authUserCheck?.user;
 
-      if (publicCount === 0 && (!authUserCheck?.user || Boolean(authCheckErr))) {
+      if (isSpecificallyNotFound) {
         results.cleanupCompleted = true;
-        console.log("  -> PROVEN: Test user completely eliminated from both public.users and auth.users.");
+        console.log("  -> PROVEN: Test user completely eliminated from both public.users and auth.users (verified HTTP 404 / User not found).");
       } else {
-        throw new Error(`Cleanup failed: user still exists (publicCount=${publicCount}, authUserExists=${Boolean(authUserCheck?.user)})`);
+        throw new Error(`Cleanup failed: user still exists or unverified error (status=${authCheckErr?.status}, message=${authCheckErr?.message})`);
       }
     }
     await browser.close();

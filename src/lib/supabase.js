@@ -8,9 +8,6 @@ const supabaseAnonKey = (typeof import.meta !== "undefined" && import.meta.env?.
 
 export const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
 
-if (typeof window !== "undefined" && supabase) {
-  window.__atlas_supabase = supabase;
-}
 
 let _isRecoveryEventFired = false;
 let _recoveryUserId = null;

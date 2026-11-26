@@ -22,6 +22,9 @@ $securePass2 = Read-Host "Confirme a nova senha" -AsSecureString
 $bstr1 = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securePass1)
 $bstr2 = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securePass2)
 
+$plainPass1 = $null
+$plainPass2 = $null
+
 try {
     $plainPass1 = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr1)
     $plainPass2 = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr2)
@@ -36,68 +39,40 @@ try {
         exit 1
     }
 
-    Write-Host "`nObtendo credencial de gerenciamento do cofre local..." -ForegroundColor Yellow
-    $nodeScript = @"
-import { getServiceRoleKey, runSupabaseSql } from './tools/scripts/supabase_admin_helper.mjs';
-import { createClient } from '@supabase/supabase-js';
-
-const newPassword = process.env.AETERNUM_ADMIN_PASS;
-if (!newPassword || newPassword.length < 8) {
-  process.exit(1);
-}
-
-const serviceKey = await getServiceRoleKey();
-const adminClient = createClient('https://hyivyrietgjdazgizafp.supabase.co', serviceKey, {
-  auth: { autoRefreshToken: false, persistSession: false }
-});
-
-const ADMIN_UUID = '19f44fd4-cba0-4a35-95c7-b1c5e3e9c5a0';
-
-// 1. Atualizar senha da conta administrativa canônica
-const { data, error } = await adminClient.auth.admin.updateUserById(ADMIN_UUID, {
-  password: newPassword
-});
-
-if (error) {
-  console.error('ERRO:', error.message);
-  process.exit(1);
-}
-
-// 2. Revogar sessões ativas da conta administrativa no Supabase Auth e em user_active_sessions
-try {
-  await runSupabaseSql(`
-    UPDATE public.user_active_sessions
-    SET status = 'revoked', revoked_at = NOW(), revoked_reason = 'admin_password_reset'
-    WHERE user_id = '\${ADMIN_UUID}' AND status = 'active';
-
-    DELETE FROM auth.sessions WHERE user_id = '\${ADMIN_UUID}';
-    UPDATE auth.users SET recovery_token = NULL, recovery_sent_at = NULL WHERE id = '\${ADMIN_UUID}';
-  `);
-} catch (revError) {
-  console.warn('Aviso ao revogar sessões no banco:', revError.message);
-}
-
-console.log('SUCCESS');
-"@
-
+    Write-Host "`nIniciando execução segura de redefinição..." -ForegroundColor Yellow
     $env:AETERNUM_ADMIN_PASS = $plainPass1
-    $output = node --use-system-ca --input-type=module -e "$nodeScript"
-    $env:AETERNUM_ADMIN_PASS = $null
 
-    if ($output -match "SUCCESS") {
-        Write-Host "`n[SUCESSO] A senha de admin@aeternumatlas.com foi redefinida com segurança!" -ForegroundColor Green
-        Write-Host "[REVOGAÇÃO] Todas as sessões anteriores foram revogadas com sucesso." -ForegroundColor Green
-        Write-Host "[SEGURANÇA] Zero exposição: nenhuma credencial foi impressa em logs, tela ou terminal." -ForegroundColor Green
-        Write-Host "[ACESSO] Você já pode efetuar login em https://www.aeternumatlas.com/login" -ForegroundColor Green
+    $coreScriptPath = Join-Path -Path $PSScriptRoot -ChildPath "set_admin_password_core.mjs"
+    if (-not (Test-Path $coreScriptPath)) {
+        # Fallback to relative path if run from repo root
+        $coreScriptPath = "tools/scripts/set_admin_password_core.mjs"
+    }
+
+    & node --use-system-ca $coreScriptPath
+    $exitCode = $LASTEXITCODE
+
+    if ($exitCode -eq 0) {
+        Write-Host "`n=================================================================" -ForegroundColor Green
+        Write-Host " [SUCESSO] Operação P0.21-ADM.1.1 Concluída com Êxito!" -ForegroundColor Green
+        Write-Host "=================================================================" -ForegroundColor Green
+        Write-Host " [GATE 1/4] Senha redefinida no Supabase Auth (admin.updateUserById)." -ForegroundColor Green
+        Write-Host " [GATE 2/4] Sessões anteriores e refresh tokens revogados globalmente." -ForegroundColor Green
+        Write-Host " [GATE 3/4] Token de recuperação invalidado e ciclo encerrado." -ForegroundColor Green
+        Write-Host " [GATE 4/4] Validação final de autenticação aprovada com a nova credencial." -ForegroundColor Green
+        Write-Host " [SEGURANÇA] Zero exposição: nenhuma credencial foi impressa em logs ou terminal." -ForegroundColor Green
+        Write-Host " [ACESSO] Você já pode efetuar login em https://www.aeternumatlas.com/login" -ForegroundColor Green
     } else {
-        Write-Error "Falha ao atualizar a senha no Supabase Auth: $output"
+        Write-Error "Falha na execução do procedimento (Código de saída Node: $exitCode). Nenhuma alteração foi homologada como bem-sucedida."
+        exit $exitCode
     }
 
 } finally {
-    # Zero memory
-    [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr1)
-    [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr2)
+    # Zero sensitive memory immediately
+    if ($bstr1) { [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr1) }
+    if ($bstr2) { [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr2) }
     $plainPass1 = $null
     $plainPass2 = $null
     $env:AETERNUM_ADMIN_PASS = $null
+    Remove-Item env:AETERNUM_ADMIN_PASS -ErrorAction SilentlyContinue
+    [System.GC]::Collect()
 }

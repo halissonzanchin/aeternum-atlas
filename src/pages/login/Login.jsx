@@ -253,7 +253,10 @@ export default function Login({ navigate, onAuth }) {
       // ADM-02: Revogação global de todas as sessões anteriores para a identidade recuperada
       const { error: signOutError } = await supabase.auth.signOut({ scope: "global" });
       if (signOutError) {
-        console.warn("Aviso ao revogar sessões pós-redefinição:", signOutError.message);
+        markRecoveryContextConsumed();
+        throw new Error(
+          `A senha foi atualizada, mas a revogação global das sessões anteriores não foi confirmada (${signOutError.message}). Por segurança, solicite novo encerramento de sessão.`
+        );
       }
 
       markRecoveryContextConsumed();
