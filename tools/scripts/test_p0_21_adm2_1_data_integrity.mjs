@@ -1,16 +1,18 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
 import { isAcademicTutorAuthorizedRoute } from "../../src/utils/accessControl.js";
 import {
   adminSectionFromPath,
-  getAdminNavigationItems,
-  adminNavigationItems
+  getAdminNavigationItems
 } from "../../src/config/adminNavigation.js";
 import { shellNavigationForRole } from "../../src/components/Layout/shellNavigation.js";
 import {
   classifyStudentAccount,
   buildStudentRows,
+  buildDashboardPayload,
+  calculateContractedRevenue,
   STUDENT_ACCOUNT_CATEGORIES,
-  CANONICAL_MODEL_METADATA,
   buildGovernanceQuality
 } from "../../src/services/admin/institutionDashboardService.js";
 
@@ -80,12 +82,12 @@ runTest("Marina Orb é BLOQUEADA em todas as rotas administrativas e institucion
     "/institution-admin/students"
   ];
 
-  for (const path of adminPaths) {
-    const isAuthorized = isAcademicTutorAuthorizedRoute(path, mockAdmin, true);
+  for (const p of adminPaths) {
+    const isAuthorized = isAcademicTutorAuthorizedRoute(p, mockAdmin, true);
     assert.strictEqual(
       isAuthorized,
       false,
-      `A rota administrativa '${path}' DEVE bloquear a Marina Orb (retornou true)`
+      `A rota administrativa '${p}' DEVE bloquear a Marina Orb (retornou true)`
     );
   }
 });
@@ -113,12 +115,12 @@ runTest("Marina Orb permanece 100% PRESERVADA nas rotas acadêmicas autorizadas"
     "/lessons/anatomia-1"
   ];
 
-  for (const path of academicPaths) {
-    const isAuthorized = isAcademicTutorAuthorizedRoute(path, mockStudent, true);
+  for (const p of academicPaths) {
+    const isAuthorized = isAcademicTutorAuthorizedRoute(p, mockStudent, true);
     assert.strictEqual(
       isAuthorized,
       true,
-      `A rota acadêmica '${path}' DEVE permitir a Marina Orb (retornou false)`
+      `A rota acadêmica '${p}' DEVE permitir a Marina Orb (retornou false)`
     );
   }
 });
@@ -134,18 +136,18 @@ runTest("Marina Orb permanece bloqueada em rotas públicas e pré-cadastrais", (
     "/recovery"
   ];
 
-  for (const path of publicPaths) {
-    const isAuthorized = isAcademicTutorAuthorizedRoute(path, mockAdmin, true);
+  for (const p of publicPaths) {
+    const isAuthorized = isAcademicTutorAuthorizedRoute(p, mockAdmin, true);
     assert.strictEqual(
       isAuthorized,
       false,
-      `A rota pública '${path}' DEVE bloquear a Marina Orb`
+      `A rota pública '${p}' DEVE bloquear a Marina Orb`
     );
   }
 });
 
 // -----------------------------------------------------------------------------
-// GATE 2: CLASSIFICAÇÃO OPERACIONAL RIGOROSA
+// GATE 2: CLASSIFICAÇÃO OPERACIONAL RIGOROSA & DIRETRIZ R1-03
 // -----------------------------------------------------------------------------
 console.log("\n--- GATE 2: Classificação Operacional Rigorosa ---");
 
@@ -195,39 +197,51 @@ runTest("Conta de Demonstração é classificada como 'demo'", () => {
   );
 });
 
-runTest("Participante Beta externo é classificado como 'beta' via fonte autorizada", () => {
-  const betaCandidate = { id: "beta-uuid-1", email: "candidato@medicina.ufpe.br", name: "Candidato El Dorado" };
-  const category = classifyStudentAccount(betaCandidate, {
-    betaCandidateEmails: new Set(["candidato@medicina.ufpe.br"])
+runTest("Participante Beta externo é classificado como 'beta' SOMENTE quando aprovado/ativado na fonte autorizada", () => {
+  // 1. Candidato pendente NÃO é beta ativo (R1-03: sem confundir candidatura com acesso)
+  const pendingApplicant = { id: "beta-cand-pending", email: "pendente@ufpe.br", name: "Candidato Pendente" };
+  const pendingCategory = classifyStudentAccount(pendingApplicant, {
+    betaApplications: [{ email: "pendente@ufpe.br", status: "pending", batch: "batch_1_30" }]
   });
   assert.strictEqual(
-    category.key,
+    pendingCategory.key,
+    STUDENT_ACCOUNT_CATEGORIES.UNCLASSIFIED.key,
+    "Candidatura pendente NÃO deve classificar como beta ativo"
+  );
+
+  // 2. Participante aprovado/ativado É classificado como 'beta'
+  const approvedCandidate = { id: "beta-cand-approved", email: "aprovado@ufpe.br", name: "Candidato Aprovado" };
+  const approvedCategory = classifyStudentAccount(approvedCandidate, {
+    verifiedBetaUserIds: new Set(["beta-cand-approved"])
+  });
+  assert.strictEqual(
+    approvedCategory.key,
     STUDENT_ACCOUNT_CATEGORIES.EXTERNAL_BETA.key,
-    "Participante com candidatura aprovada deve ser classificado como 'beta'"
+    "Participante aprovado/ativado deve ser 'beta'"
   );
 });
 
-runTest("Aluno com vínculo comprovado é classificado como 'commercial'", () => {
-  const commercialStudent = { id: "std-comm-1", email: "aluno.upe@upe.br", name: "Aluno Regular UPE" };
-  const category = classifyStudentAccount(commercialStudent, {
-    enrolledStudentIds: new Set(["std-comm-1"])
-  });
-  assert.strictEqual(
-    category.key,
-    STUDENT_ACCOUNT_CATEGORIES.COMMERCIAL.key,
-    "Aluno matriculado em turma de instituição ativa deve ser 'commercial'"
-  );
-});
-
-runTest("Conta estudantil sem comprovação institucional é classificada como 'unclassified'", () => {
-  const orphanStudent = { id: "orphan-1", email: "desconhecido@gmail.com", name: "Usuário Sem Vínculo" };
-  const category = classifyStudentAccount(orphanStudent, {
-    enrolledStudentIds: new Set()
+runTest("Matrícula acadêmica em turma NÃO é considerada vínculo comercial (R1-03)", () => {
+  const studentWithClassOnly = { id: "std-acad-only", email: "aluno.turma@upe.br", name: "Aluno Matriculado Sem Contrato" };
+  const category = classifyStudentAccount(studentWithClassOnly, {
+    enrolledStudentIds: new Set(["std-acad-only"]) // Apenas vínculo com turma acadêmica
   });
   assert.strictEqual(
     category.key,
     STUDENT_ACCOUNT_CATEGORIES.UNCLASSIFIED.key,
-    "Conta sem vínculo comprovado DEVE ser 'unclassified' (não presumir commercial)"
+    "Matrícula em turma acadêmica NÃO constitui vínculo comercial — deve ser 'unclassified'"
+  );
+});
+
+runTest("Aluno com contrato comercial formalmente comprovado é classificado como 'commercial'", () => {
+  const commercialStudent = { id: "std-comm-verified", email: "aluno.pago@instituicao.edu.br", name: "Aluno com Licença Comercial" };
+  const category = classifyStudentAccount(commercialStudent, {
+    verifiedCommercialStudentIds: new Set(["std-comm-verified"])
+  });
+  assert.strictEqual(
+    category.key,
+    STUDENT_ACCOUNT_CATEGORIES.COMMERCIAL.key,
+    "Aluno com licença comercial faturável comprovada deve ser 'commercial'"
   );
 });
 
@@ -247,7 +261,7 @@ runTest("Perfil ausente NÃO recebe dados presumidos (MED-FUNDADOR, Medicina, 1�
 
   const rows = buildStudentRows({
     users: [userWithoutProfile],
-    profiles: [], // sem linha em student_profiles
+    profiles: [],
     logs: [],
     models: [],
     profilesError: null
@@ -318,61 +332,232 @@ runTest("Perfil real existente preserva integralmente os dados do banco", () => 
 });
 
 // -----------------------------------------------------------------------------
-// GATE 4: INTELIGÊNCIA FINANCEIRA VERIFICÁVEL & 4 TIERS
+// GATE 4: INTELIGÊNCIA FINANCEIRA VERIFICÁVEL & DIRETRIZ R1-04
 // -----------------------------------------------------------------------------
-console.log("\n--- GATE 4: Inteligência Financeira Verificável ---");
+console.log("\n--- GATE 4: Inteligência Financeira Verificável (R1-04) ---");
 
-runTest("Ausência de dados financeiros retorna 'NÃO CONFIGURADO', sem presumir zero ou inventar preços", () => {
-  const emptyInstitution = {
-    contractedCapacity: 0,
-    pricePerStudent: 0
+runTest("Contrato não certificado retorna status 'not_configured' e receita nula via calculateContractedRevenue", () => {
+  const uncertifiedInstitution = {
+    id: "inst-1",
+    contractedCapacity: 200,
+    pricePerStudent: 45,
+    contractCertified: false,
+    contractStatus: "pilot"
   };
-  const hasContractualParams = emptyInstitution.contractedCapacity > 0 && emptyInstitution.pricePerStudent > 0;
-  assert.strictEqual(hasContractualParams, false, "Tenant sem contrato não possui parâmetros contratuais");
+
+  const result = calculateContractedRevenue({
+    selectedInstitution: uncertifiedInstitution,
+    scope: "tenant"
+  });
+
+  assert.strictEqual(result.contractedRevenue, null, "Contrato não certificado DEVE ter receita contratada null");
+  assert.strictEqual(result.financialStatus, "not_configured", "Status financeiro deve ser 'not_configured'");
+  assert.strictEqual(result.currency, "BRL", "Moeda contratual oficial deve ser BRL");
+  assert.strictEqual(result.currencySymbol, "R$", "Símbolo da moeda deve ser R$");
 });
 
-runTest("Faturamento não infere receita a partir de 'activeStudents * price'", () => {
-  // A verificação garante que a fórmula active * price foi desacoplada de faturamento realizado
-  const activeStudents = 5;
-  const price = 45;
-  const invoicedRevenueState = "not_configured";
-  const receivedRevenueState = "not_available";
+runTest("buildDashboardPayload não infere faturamento a partir de 'activeStudents * price' nem apresenta receita sem contrato", () => {
+  const student1 = { id: "s-1", role: "student", status: "active", institution_id: "inst-test" };
+  const student2 = { id: "s-2", role: "student", status: "active", institution_id: "inst-test" };
 
-  assert.strictEqual(invoicedRevenueState, "not_configured", "Receita faturada deve ser NÃO CONFIGURADO");
-  assert.strictEqual(receivedRevenueState, "not_available", "Receita recebida deve ser NÃO DISPONÍVEL");
-});
+  const payload = buildDashboardPayload({
+    scope: "tenant",
+    selectedInstitution: {
+      id: "inst-test",
+      contractedCapacity: 100,
+      pricePerStudent: 45,
+      contractCertified: false // Piloto / não certificado
+    },
+    institutions: [],
+    users: [student1, student2],
+    profiles: [],
+    logs: [],
+    events: [],
+    models: []
+  });
 
-// -----------------------------------------------------------------------------
-// GATE 5: PRESENÇA ONLINE EM TEMPO REAL SEM FALLBACK HISTÓRICO
-// -----------------------------------------------------------------------------
-console.log("\n--- GATE 5: Presença Online em Tempo Real ---");
-
-runTest("Presença online instantânea NÃO utiliza fallbacks históricos (lastHourUsers ou uniqueActiveUsers)", () => {
-  const lastHourUsers = 12;
-  const uniqueActiveUsers = 45;
+  // Validação real da implementação da função:
+  assert.strictEqual(payload.stats.contractedRevenue, null, "Receita contratada não certificada deve ser null");
+  assert.strictEqual(payload.stats.estimatedRevenue, null, "Receita estimada deve ser null");
+  assert.strictEqual(payload.stats.lostRevenue, null, "Receita perdida deve ser null");
+  assert.strictEqual(payload.stats.financialStatus, "not_configured", "Status financeiro deve ser 'not_configured'");
+  assert.strictEqual(payload.stats.currency, "BRL", "Moeda deve ser explicitamente BRL");
   
-  // O valor de presença instantânea na ausência de telemetria em tempo real deve ser null / unavailable
-  const onlinePresence = null;
-  assert.strictEqual(onlinePresence, null, "Presença instantânea na ausência de heartbeat dedicado deve ser null");
-  assert.notStrictEqual(onlinePresence, lastHourUsers, "NUNCA deve fazer fallback para lastHourUsers");
-  assert.notStrictEqual(onlinePresence, uniqueActiveUsers, "NUNCA deve fazer fallback para uniqueActiveUsers");
+  // PROVA DE REGRESSÃO: garante que o cálculo 2 alunos * R$ 45 = R$ 90 NÃO é retornado
+  assert.notStrictEqual(payload.stats.estimatedRevenue, 2 * 45, "NUNCA deve inferir faturamento de activeStudents * price");
 });
 
 // -----------------------------------------------------------------------------
-// GATE 6: FONTES ANALÍTICAS & ISOLAMENTO DE VIEWS LEGADAS
+// GATE 5: PRESENÇA ONLINE EM TEMPO REAL SEM FALLBACK HISTÓRICO (R1-01)
 // -----------------------------------------------------------------------------
-console.log("\n--- GATE 6: Fontes Analíticas & Isolamento de Views Legadas ---");
+console.log("\n--- GATE 5: Presença Online em Tempo Real (R1-01) ---");
 
-runTest("Fonte canônica de sessões de estudo é 'viewer_learning_sessions' (não 'model_access_logs')", () => {
-  const canonicalTable = "viewer_learning_sessions";
-  const legacyTable = "model_access_logs";
-  assert.notStrictEqual(canonicalTable, legacyTable);
+runTest("buildDashboardPayload retorna null para activeNow na ausência de heartbeat dedicado", () => {
+  const now = new Date();
+  const pastLog1 = {
+    id: "l-1",
+    user_id: "u-1",
+    action: "view_model",
+    duration_seconds: 300,
+    created_at: new Date(now.getTime() - 15 * 60 * 1000).toISOString() // 15 min atrás
+  };
+  const pastLog2 = {
+    id: "l-2",
+    user_id: "u-2",
+    action: "view_model",
+    duration_seconds: 600,
+    created_at: new Date(now.getTime() - 40 * 60 * 1000).toISOString() // 40 min atrás
+  };
+
+  const payload = buildDashboardPayload({
+    scope: "global",
+    institutions: [],
+    users: [],
+    profiles: [],
+    logs: [pastLog1, pastLog2],
+    events: [],
+    models: []
+  });
+
+  // Teste REAL chamando buildDashboardPayload:
+  assert.strictEqual(payload.overviewMetrics.activeNow, null, "activeNow deve ser estritamente null");
+  assert.strictEqual(payload.overviewMetrics.activeNowState, "unavailable");
+  assert.strictEqual(payload.analytics.snapshot.activeUsersNow, null, "activeUsersNow deve ser estritamente null");
+  assert.strictEqual(payload.overviewMetrics.recentActivity1h, 2, "recentActivity1h deve registrar 2 usuários na última hora");
+
+  // PROVA DE REGRESSÃO: comprova que activeNow NÃO é igual a recentActivity1h nem a uniqueActiveUsers
+  assert.notStrictEqual(payload.overviewMetrics.activeNow, payload.overviewMetrics.recentActivity1h);
+  assert.notStrictEqual(payload.analytics.snapshot.activeUsersNow, payload.overviewMetrics.recentActivity1h);
 });
 
 // -----------------------------------------------------------------------------
-// GATE 7: NAVEGAÇÃO DA OPERAÇÃO EL DORADO NO SHELL RENDERIZADO
+// GATE 6: FONTES ANALÍTICAS CANÔNICAS (R1-01)
 // -----------------------------------------------------------------------------
-console.log("\n--- GATE 7: Navegação da Operação El Dorado ---");
+console.log("\n--- GATE 6: Fontes Analíticas Canônicas (R1-01) ---");
+
+runTest("buildDashboardPayload deriva métricas exclusivamente de logs reais e ignora views legadas agregadas", () => {
+  const now = new Date();
+  const realLog1 = {
+    id: "real-1",
+    user_id: "u-real",
+    action: "view_model",
+    duration_seconds: 120,
+    created_at: now.toISOString()
+  };
+  const realLog2 = {
+    id: "real-2",
+    user_id: "u-real",
+    action: "view_model",
+    duration_seconds: 180,
+    created_at: now.toISOString()
+  };
+
+  // View legada simulando dados artificiais inflados
+  const fakeLegacyViews = {
+    usageSummary: {
+      total_model_views: 99999,
+      total_study_seconds: 8888888,
+      unique_users: 7777
+    }
+  };
+
+  const payload = buildDashboardPayload({
+    scope: "global",
+    institutions: [],
+    users: [],
+    profiles: [],
+    logs: [realLog1, realLog2],
+    events: [],
+    models: [],
+    views: fakeLegacyViews
+  });
+
+  // Comprova que as métricas são derivadas dos logs reais (2 acessos), NÃO da view legada (99999 acessos)
+  assert.strictEqual(payload.overviewMetrics.accessesThisMonth, 2, "Acessos do mês devem vir dos logs reais (2)");
+  assert.notStrictEqual(payload.overviewMetrics.accessesThisMonth, 99999, "NUNCA deve ler de views legadas");
+  assert.strictEqual(payload.overviewMetrics.totalStudyHoursThisMonth, 0, "300 segundos = 0 horas arredondadas");
+  assert.notStrictEqual(payload.overviewMetrics.totalStudyHoursThisMonth, Math.round(8888888 / 3600));
+});
+
+// -----------------------------------------------------------------------------
+// GATE 7: CONSISTÊNCIA TEMPORAL DE PERÍODOS (DIRETRIZ R1-02)
+// -----------------------------------------------------------------------------
+console.log("\n--- GATE 7: Consistência Temporal de Períodos (R1-02) ---");
+
+runTest("buildDashboardPayload alinha rigorosamente numerador e denominador na duração média do mês", () => {
+  const now = new Date();
+  
+  // 1. Sessão de 60 dias atrás (mês anterior)
+  const lastMonthDate = new Date(now);
+  lastMonthDate.setMonth(now.getMonth() - 2);
+  const oldLog = {
+    id: "old-log",
+    user_id: "u-old",
+    action: "view_model",
+    duration_seconds: 36000, // 10 horas
+    created_at: lastMonthDate.toISOString()
+  };
+
+  // 2. Duas sessões deste mês: 600s + 600s = 1200s (20 minutos total, média 10 min/sessão)
+  const currentLog1 = {
+    id: "curr-1",
+    user_id: "u-curr",
+    action: "view_model",
+    duration_seconds: 600,
+    created_at: now.toISOString()
+  };
+  const currentLog2 = {
+    id: "curr-2",
+    user_id: "u-curr",
+    action: "view_model",
+    duration_seconds: 600,
+    created_at: now.toISOString()
+  };
+
+  const payload = buildDashboardPayload({
+    scope: "global",
+    institutions: [],
+    users: [],
+    profiles: [],
+    logs: [oldLog, currentLog1, currentLog2],
+    events: [],
+    models: []
+  });
+
+  // Mês corrente deve conter EXATAMENTE 2 acessos e média de 10 minutos (1200s / 2 / 60)
+  assert.strictEqual(payload.overviewMetrics.accessesThisMonth, 2, "Acessos do mês devem contabilizar apenas sessões do mês corrente (2)");
+  assert.strictEqual(payload.overviewMetrics.averageSessionMinutes, 10, "Duração média do mês deve ser 10 minutos (1200s / 2 sessões / 60)");
+
+  // PROVA DE REGRESSÃO: garante que a duração média NÃO divide o tempo do mês por todas as sessões históricas (1200s / 3 sessões = 6.6 min)
+  assert.notStrictEqual(payload.overviewMetrics.averageSessionMinutes, Math.round((1200 / 3) / 60));
+
+  // Métricas all-time preservadas separadamente
+  assert.strictEqual(payload.overviewMetrics.allTimeMetrics.totalModelViews, 3, "Total histórico deve registrar 3 acessos");
+});
+
+runTest("Declaração explícita de cobertura e limites de consulta (R1-02)", () => {
+  const payload = buildDashboardPayload({
+    scope: "global",
+    institutions: [],
+    users: [],
+    profiles: [],
+    logs: Array.from({ length: 15 }, (_, i) => ({ id: `l-${i}`, created_at: new Date().toISOString() })),
+    events: [],
+    models: []
+  });
+
+  assert.ok(payload.sourceCoverage, "Payload deve conter o objeto 'sourceCoverage'");
+  assert.strictEqual(payload.sourceCoverage.limits.viewerSessionsLimit, 5000);
+  assert.strictEqual(payload.sourceCoverage.limits.platformEventsLimit, 2000);
+  assert.strictEqual(payload.sourceCoverage.observedCounts.viewerSessions, 15);
+  assert.strictEqual(payload.sourceCoverage.coverageStatus, "complete");
+  assert.strictEqual(typeof payload.sourceCoverage.limitationNotice, "string");
+});
+
+// -----------------------------------------------------------------------------
+// GATE 8: NAVEGAÇÃO DA OPERAÇÃO EL DORADO NO SHELL RENDERIZADO
+// -----------------------------------------------------------------------------
+console.log("\n--- GATE 8: Navegação da Operação El Dorado ---");
 
 runTest("Operação El Dorado É RENDERIZADA no menu do shell para Super Admin e Admin", () => {
   const t = (k) => k;
@@ -421,9 +606,9 @@ runTest("adminSectionFromPath resolve todas as rotas e aliases canônicos da Ope
 });
 
 // -----------------------------------------------------------------------------
-// GATE 8: PRESERVAÇÃO RIGOROSA DOS CONTRATOS HISTÓRICOS
+// GATE 9: PRESERVAÇÃO RIGOROSA DOS CONTRATOS HISTÓRICOS
 // -----------------------------------------------------------------------------
-console.log("\n--- GATE 8: Preservação de Contratos Históricos ---");
+console.log("\n--- GATE 9: Preservação de Contratos Históricos ---");
 
 runTest("getAdminNavigationItems preserva contagens contratuais exatas (12 admin, 14 super-admin)", () => {
   const adminNav = getAdminNavigationItems("/admin");
@@ -433,9 +618,9 @@ runTest("getAdminNavigationItems preserva contagens contratuais exatas (12 admin
 });
 
 // -----------------------------------------------------------------------------
-// GATE 9: TAXONOMIA DE GOVERNANÇA & ESTADOS DE COBERTURA
+// GATE 10: TAXONOMIA DE GOVERNANÇA & ESTADOS DE COBERTURA
 // -----------------------------------------------------------------------------
-console.log("\n--- GATE 9: Taxonomia de Governança & Estados de Cobertura ---");
+console.log("\n--- GATE 10: Taxonomia de Governança & Estados de Cobertura ---");
 
 runTest("Tabela 'academic_subjects' como 'not_implemented' NÃO degrada a governança", () => {
   const cleanResults = {
@@ -480,6 +665,26 @@ runTest("Falha operacional real em tabela canônica É capturada como 'unavailab
 
   assert.strictEqual(quality.status, "partial");
   assert.ok(quality.unavailable.includes("users"));
+});
+
+// -----------------------------------------------------------------------------
+// GATE 11: AUDITORIA DE SEGURANÇA OPERACIONAL & VALIDAÇÃO TLS
+// -----------------------------------------------------------------------------
+console.log("\n--- GATE 11: Auditoria de Segurança & Validação Estrita de TLS ---");
+
+runTest("Workflow de CI do GitHub Actions exige validação estrita de TLS (sem bypass)", () => {
+  const ciPath = path.resolve(".github/workflows/aeternum-26-ci.yml");
+  const ciContent = fs.readFileSync(ciPath, "utf-8");
+  assert.strictEqual(
+    ciContent.includes("NODE_TLS_REJECT_UNAUTHORIZED: '0'"),
+    false,
+    "CI GitHub Actions NÃO DEVE conter bypass de TLS"
+  );
+  assert.strictEqual(
+    ciContent.includes('NODE_TLS_REJECT_UNAUTHORIZED: "0"'),
+    false,
+    "CI GitHub Actions NÃO DEVE conter bypass de TLS"
+  );
 });
 
 console.log("\n===============================================================================");

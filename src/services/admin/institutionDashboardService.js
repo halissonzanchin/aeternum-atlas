@@ -67,27 +67,32 @@ export function classifyStudentAccount(user, options = {}) {
     return STUDENT_ACCOUNT_CATEGORIES.DEMO;
   }
 
-  // 4. Candidato Beta Externo (El Dorado) com fonte autorizada
-  const isBeta = Boolean(
-    options?.betaCandidateEmails?.has(email) ||
-    options?.betaUserIds?.has(userId) ||
-    user?.is_beta_candidate ||
-    user?.license_tier === "beta_external"
+  // 4. Participante Beta Externo (El Dorado) - Exige aprovação e ativação comprovadas na fonte autorizada
+  // Candidatura pendente NÃO confere acesso acadêmico nem classificação como Beta ativo.
+  const isVerifiedBeta = Boolean(
+    options?.verifiedBetaUserIds?.has(userId) ||
+    options?.verifiedBetaEmails?.has(email) ||
+    (Array.isArray(options?.betaApplications) && options.betaApplications.some(app =>
+      (app.user_id === userId || (app.email || "").toLowerCase().trim() === email) &&
+      ["approved", "activated", "invited"].includes(app.status) &&
+      app.batch !== "synthetic_test"
+    ))
   );
-  if (isBeta) {
+  if (isVerifiedBeta) {
     return STUDENT_ACCOUNT_CATEGORIES.EXTERNAL_BETA;
   }
 
-  // 5. Aluno Comercial / Institucional (Exige comprovação explícita de vínculo comercial/institucional ativo)
-  const isCommercial = Boolean(
-    options?.hasCommercialLink === true ||
-    options?.enrolledStudentIds?.has(userId)
+  // 5. Aluno Comercial / Institucional (Exige comprovação explícita de vínculo comercial/contratual faturável ativo)
+  // DIRETRIZ R1-03: Matrícula acadêmica em turma (academic_class_students) NÃO é comprovação financeira.
+  const isVerifiedCommercial = Boolean(
+    options?.verifiedCommercialStudentIds?.has(userId) ||
+    (options?.hasCommercialContract === true && options?.commercialStudentIds?.has(userId))
   );
-  if (isCommercial) {
+  if (isVerifiedCommercial) {
     return STUDENT_ACCOUNT_CATEGORIES.COMMERCIAL;
   }
 
-  // 6. Não Classificado (ausência de evidência comprovada)
+  // 6. Não Classificado (ausência de comprovação documental ou autorização confirmada)
   return STUDENT_ACCOUNT_CATEGORIES.UNCLASSIFIED;
 }
 
@@ -559,7 +564,7 @@ function aggregateUsageSummary(rows) {
   };
 }
 
-async function loadAnalyticsViews(institutionId) {
+export async function loadAnalyticsViews(institutionId) {
   const summaryQuery = institutionId
     ? supabase.from("institution_usage_summary").select("*").eq("institution_id", institutionId)
     : supabase.from("institution_usage_summary").select("*");
@@ -579,6 +584,8 @@ async function loadAnalyticsViews(institutionId) {
   ]);
 
   return {
+    isLegacySource: true,
+    sourceTable: "public.model_access_logs",
     usageSummary: aggregateUsageSummary(usageSummary.data),
     modelPopularity: Array.isArray(popularitySummary.data) ? popularitySummary.data : [],
     userEngagement: Array.isArray(engagementSummary.data) ? engagementSummary.data : [],
@@ -938,22 +945,21 @@ function sumInstitutionCapacity(institutions) {
   return institutions.reduce((sum, institution) => sum + numberOrZero(institution.contractedCapacity), 0);
 }
 
-function sumInstitutionMaxRevenue(institutions) {
-  return institutions.reduce((sum, institution) => (
-    sum + numberOrZero(institution.contractedCapacity) * numberOrZero(institution.pricePerStudent)
-  ), 0);
-}
+export function calculateContractedRevenue({ institutions = [], selectedInstitution = null, scope = "tenant" } = {}) {
+  const scopeInstitutions = scope === "global" ? institutions : (selectedInstitution ? [selectedInstitution] : []);
+  const contractedCapacity = sumInstitutionCapacity(scopeInstitutions);
+  const pricePerStudent = scope === "tenant" ? numberOrZero(selectedInstitution?.pricePerStudent) : 0;
+  const isCertified = Boolean(selectedInstitution?.contractCertified === true && selectedInstitution?.contractStatus === "active");
 
-function calculateEstimatedRevenue({ institutions, activeStudentUsers }) {
-  const priceByInstitution = new Map(institutions.map(institution => [
-    institution.id,
-    numberOrZero(institution.pricePerStudent)
-  ]));
-
-  return activeStudentUsers.reduce((sum, user) => {
-    const unitPrice = priceByInstitution.get(user.institution_id) || 0;
-    return sum + unitPrice;
-  }, 0);
+  return {
+    contractedCapacity,
+    pricePerStudent,
+    contractCertified: isCertified,
+    currency: "BRL",
+    currencySymbol: "R$",
+    contractedRevenue: isCertified && contractedCapacity > 0 && pricePerStudent > 0 ? contractedCapacity * pricePerStudent : null,
+    financialStatus: isCertified ? "configured" : "not_configured"
+  };
 }
 
 export function buildGovernanceQuality({ profile, results, views }) {
@@ -983,16 +989,16 @@ export function buildGovernanceQuality({ profile, results, views }) {
   };
 }
 
-function buildDashboardPayload({
+export function buildDashboardPayload({
   scope,
   selectedInstitution,
-  institutions,
-  users,
-  profiles,
-  logs,
-  events,
-  models,
-  views,
+  institutions = [],
+  users = [],
+  profiles = [],
+  logs = [],
+  events = [],
+  models = [],
+  views = {},
   academicClasses = [],
   classStudents = [],
   academicSubjects = [],
@@ -1000,7 +1006,8 @@ function buildDashboardPayload({
   source,
   profile,
   sessionMetrics = {},
-  profilesError = null
+  profilesError = null,
+  options = {}
 }) {
   const scopeInstitutions = scope === "global"
     ? institutions
@@ -1023,19 +1030,36 @@ function buildDashboardPayload({
   const inactiveStudents = Math.max(registeredStudents - activeStudents, 0);
   const contractedCapacity = sumInstitutionCapacity(scopeInstitutions);
   const pricePerStudent = scope === "tenant" ? numberOrZero(selectedInstitution?.pricePerStudent) : 0;
-  const contractedRevenue = (contractedCapacity > 0 && pricePerStudent > 0)
+
+  // DIRETRIZ R1-04: Contrato requer validação de status ativo e certificação formal de termos e moeda.
+  const isContractCertified = Boolean(selectedInstitution?.contractCertified === true && selectedInstitution?.contractStatus === "active");
+  const contractedRevenue = isContractCertified && contractedCapacity > 0 && pricePerStudent > 0
     ? contractedCapacity * pricePerStudent
     : null;
-  const financialStatus = contractedRevenue !== null ? "configured" : "not_configured";
+  const financialStatus = isContractCertified ? "configured" : "not_configured";
 
   const now = new Date();
   const currentMonthLogs = logs.filter(log => isSameLocalMonth(toDate(log.created_at), now));
   const todayLogs = logs.filter(log => isSameLocalDay(toDate(log.created_at), now));
-  const totalStudySecondsFromLogs = currentMonthLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
-  
+
+  // DIRETRIZ R1-02: Alinhamento temporal rigoroso entre numerador e denominador
+  // 1. Mês corrente:
+  const currentMonthModelViews = currentMonthLogs.filter(log => log.action === "view_model").length;
+  const currentMonthStudySeconds = currentMonthLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
+  const currentMonthAverageSessionMinutes = Math.round((currentMonthModelViews ? currentMonthStudySeconds / currentMonthModelViews : 0) / 60);
+
+  // 2. Histórico carregado (All-time dos registros disponíveis no escopo):
+  const totalModelViews = logs.filter(log => log.action === "view_model").length;
+  const allTimeStudySeconds = logs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
+  const allTimeAverageSessionMinutes = Math.round((totalModelViews ? allTimeStudySeconds / totalModelViews : 0) / 60);
+
+  // 3. Hoje:
+  const todayModelViews = todayLogs.filter(log => log.action === "view_model").length;
+  const todayStudySeconds = todayLogs.reduce((sum, log) => sum + numberOrZero(log.duration_seconds), 0);
+
   // Fonte canônica para modelos mais acessados deriva diretamente das sessões e do catálogo
   const mostAccessedModelsData = buildMostAccessedModels({ logs, models, popularity: [] });
-  
+
   const enrolledStudentIds = new Set(classStudents.map(cs => cs.student_id).filter(Boolean));
   const students = buildStudentRows({
     users,
@@ -1043,7 +1067,11 @@ function buildDashboardPayload({
     logs,
     models,
     profilesError,
-    options: { enrolledStudentIds, institutions: scopeInstitutions }
+    options: {
+      ...options,
+      enrolledStudentIds,
+      institutions: scopeInstitutions
+    }
   });
 
   const studentHistoryByUser = buildStudentHistoryByUser({ students, logs, models });
@@ -1054,22 +1082,42 @@ function buildDashboardPayload({
   const platformIncidents = buildIncidents(events);
   const blockedAccessLogs = buildBlockedAccessLogs(events, users);
   const platformHealthData = buildPlatformHealth(events);
-  
+
   // Métricas canônicas certificadas
   const totalEvents = logs.length + events.length;
-  const totalModelViews = logs.filter(log => log.action === "view_model").length;
-  const totalStudySeconds = totalStudySecondsFromLogs;
   const uniqueActiveUsers = new Set(logs.map(log => log.user_id).filter(Boolean)).size;
-  
+
   const lastHourUsers = new Set([
     ...logs.filter(log => isWithinLastMinutes(toDate(log.created_at), 60)).map(log => log.user_id),
     ...events.filter(event => isWithinLastMinutes(toDate(event.created_at), 60)).map(event => event.user_id)
   ].filter(Boolean)).size;
 
-  const averageSessionMinutes = Math.round((totalModelViews ? totalStudySeconds / totalModelViews : 0) / 60);
   const occupancyRate = contractedCapacity ? (registeredStudents / contractedCapacity) * 100 : 0;
   const mostAccessedContent = mostAccessedModelsData[0]?.title || EMPTY_TEXT;
   const lastUpdated = new Date();
+
+  // DIRETRIZ R1-02: Transparência e declaração de limitações de consulta/paginação
+  const sourceCoverage = {
+    isLimitBounded: logs.length >= 5000 || events.length >= 2000,
+    limits: {
+      viewerSessionsLimit: 5000,
+      platformEventsLimit: 2000,
+      modelsLimit: 1000,
+      classesLimit: 1000,
+      membershipsLimit: 5000
+    },
+    observedCounts: {
+      viewerSessions: logs.length,
+      platformEvents: events.length,
+      models: models.length,
+      classes: academicClasses.length,
+      memberships: classStudents.length
+    },
+    coverageStatus: logs.length >= 5000 ? "limit_bounded" : "complete",
+    limitationNotice: logs.length >= 5000
+      ? "Limite de 5.000 sessões atingido. Totais históricos exigem agregação analítica ou paginação."
+      : "Cobertura total dos registros observados."
+  };
 
   return {
     source,
@@ -1091,22 +1139,33 @@ function buildDashboardPayload({
       activeStudents,
       inactiveStudents,
       occupancyRate,
+      contractCertified: isContractCertified,
       contractedRevenue,
       financialStatus,
-      estimatedRevenue: contractedRevenue,
-      maxRevenue: contractedRevenue,
+      currency: "BRL",
+      currencySymbol: "R$",
+      indicativeCapacityValue: (contractedCapacity > 0 && pricePerStudent > 0) ? contractedCapacity * pricePerStudent : null,
+      financialDisclaimer: "Módulo financeiro avançado com conciliação bancária e certificação de contratos previsto para a fase ADM.2.6.",
+      estimatedRevenue: null,
+      maxRevenue: null,
       lostRevenue: null
     },
+    sourceCoverage,
     overviewMetrics: {
       activeNow: null,
       activeNowState: "unavailable",
       activeNowDescription: "Requer telemetria de presença instantânea em tempo real (heartbeat <= 5 min)",
       recentActivity1h: lastHourUsers,
-      accessesToday: todayLogs.length,
-      accessesThisMonth: totalModelViews,
-      totalStudyHoursThisMonth: Math.round(totalStudySeconds / 3600),
+      accessesToday: todayModelViews,
+      accessesThisMonth: currentMonthModelViews,
+      totalStudyHoursThisMonth: Math.round(currentMonthStudySeconds / 3600),
       mostAccessedContent,
-      averageSessionMinutes,
+      averageSessionMinutes: currentMonthAverageSessionMinutes,
+      allTimeMetrics: {
+        totalModelViews,
+        totalStudyHours: Math.round(allTimeStudySeconds / 3600),
+        averageSessionMinutes: allTimeAverageSessionMinutes
+      },
       returnRate: 0,
       completionRate: 0,
       peakHour: "-",
@@ -1125,10 +1184,10 @@ function buildDashboardPayload({
         activeUsersNowState: "unavailable",
         activeUsersNowDescription: "Requer telemetria de presença instantânea em tempo real (heartbeat <= 5 min)",
         recentActivity1h: lastHourUsers,
-        accessesToday: todayLogs.length,
-        accessesThisMonth: totalModelViews,
-        totalStudyHoursThisMonth: Math.round(totalStudySeconds / 3600),
-        averageSessionMinutes,
+        accessesToday: todayModelViews,
+        accessesThisMonth: currentMonthModelViews,
+        totalStudyHoursThisMonth: Math.round(currentMonthStudySeconds / 3600),
+        averageSessionMinutes: currentMonthAverageSessionMinutes,
         returningUserRate: 0,
         modelCompletionRate: 0,
         platformStatus: platformHealthData.status,
@@ -1313,7 +1372,8 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     modelsResult,
     classesResult,
     classStudentsResult,
-    views
+    views,
+    betaAppsResult
   ] = await Promise.all([
     loadStudentProfilesByUsers(studentUserIds),
     loadInstitutionRows("viewer_learning_sessions", queryInstitutionId, "id, institution_id, user_id, model_id, scope, active_seconds, idle_seconds, status, session_start, created_at", { allowGlobal, orderBy: "session_start", limit: 5000 }),
@@ -1321,8 +1381,21 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     loadInstitutionRows("models_3d", queryInstitutionId, "id, institution_id, title, slug, anatomical_system, anatomical_region, status, created_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadInstitutionRows("academic_classes", queryInstitutionId, "id, institution_id, teacher_id, name, course, semester, status, created_at, updated_at", { allowGlobal, orderBy: "created_at", limit: 1000 }),
     loadInstitutionRows("academic_class_students", queryInstitutionId, "id, institution_id, class_id, student_id, created_at", { allowGlobal, orderBy: "created_at", limit: 5000 }),
-    loadAnalyticsViews(queryInstitutionId)
+    loadAnalyticsViews(queryInstitutionId),
+    loadInstitutionRows("beta_applications", null, "id, email, user_id, status, batch", { allowGlobal: true, limit: 1000 })
   ]);
+
+  const verifiedBetaUserIds = new Set(
+    (betaAppsResult?.rows || [])
+      .filter(b => b.user_id && ["approved", "activated", "invited"].includes(b.status) && b.batch !== "synthetic_test")
+      .map(b => b.user_id)
+  );
+  const verifiedBetaEmails = new Set(
+    (betaAppsResult?.rows || [])
+      .filter(b => ["approved", "activated", "invited"].includes(b.status) && b.batch !== "synthetic_test")
+      .map(b => (b.email || "").toLowerCase().trim())
+      .filter(Boolean)
+  );
 
   const subjectsResult = {
     rows: [],
@@ -1382,7 +1455,12 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     sessionMetrics,
     source: "supabase",
     profile,
-    profilesError: profilesResult.error
+    profilesError: profilesResult.error,
+    options: {
+      verifiedBetaUserIds,
+      verifiedBetaEmails,
+      betaApplications: betaAppsResult?.rows || []
+    }
   });
 }
 

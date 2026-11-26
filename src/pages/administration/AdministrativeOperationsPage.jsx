@@ -499,8 +499,8 @@ function ReturnSection({ scope, data }) {
         },
         {
           label: "Receita contratual",
-          value: hasContract ? money(capacity * price) : "NÃO CONFIGURADO",
-          detail: hasContract ? "Capacidade × preço contratual" : "Parâmetros não configurados"
+          value: (data?.stats?.contractCertified && hasContract) ? money(capacity * price) : "NÃO CERTIFICADO",
+          detail: data?.stats?.contractCertified ? "Capacidade × preço contratual certificado" : "Parâmetros contratuais não certificados (Requer ADM.2.6)"
         },
         {
           label: "Receita realizada",
@@ -599,12 +599,12 @@ function BillingSection({ scope, data }) {
         {
           label: "Valor unitário contratual",
           value: price > 0 ? money(price) : "NÃO CONFIGURADO",
-          detail: price > 0 ? "Preço acordado por aluno" : "Sem tarifação ativa no tenant"
+          detail: price > 0 ? "Preço acordado por aluno (BRL)" : "Sem tarifação ativa no tenant"
         },
         {
           label: "MRR Contratual Base",
-          value: hasContractualParams ? money(capacity * price) : "NÃO CONFIGURADO",
-          detail: hasContractualParams ? "Capacidade × valor unitário" : "Contrato institucional em homologação / piloto"
+          value: (data?.stats?.contractCertified && hasContractualParams) ? money(capacity * price) : "NÃO CERTIFICADO",
+          detail: data?.stats?.contractCertified ? "Capacidade × valor unitário certificado" : "Requer certificação contratual de licenças faturáveis na ADM.2.6"
         }
       ]} />
 
