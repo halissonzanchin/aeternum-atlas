@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars -- o parser ESLint atual não contabiliza identificadores usados apenas em JSX */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import AuthExperienceShell from "../../components/AuthExperienceShell/AuthExperienceShell";
 import LanguageSelector from "../../components/LanguageSelector";
 import LineIcon from "../../components/icons/LineIcon";
@@ -8,7 +8,7 @@ import { getRedirectPathForUser, loginUser, requestPasswordRecovery, updateCurre
 import { validateLogin } from "../../utils/validators";
 import { useLanguage } from "../../context/LanguageContext";
 import { useTheme } from "../../context/ThemeContext";
-import { supabase } from "../../lib/supabase";
+import { getRecoveryContextUserId, isPasswordRecoveryContextValid, markRecoveryContextConsumed, supabase } from "../../lib/supabase";
 
 export default function Login({ navigate, onAuth }) {
   const { t } = useLanguage();
@@ -28,8 +28,6 @@ export default function Login({ navigate, onAuth }) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const verifiedRecoveryRef = useRef(false);
-
   const isResetModeIntent = typeof window !== "undefined"
     ? (() => {
         const search = new URLSearchParams(window.location.search);
@@ -43,11 +41,14 @@ export default function Login({ navigate, onAuth }) {
       setResetChecking(false);
       setResetSessionValid(false);
       setResetSessionError("");
-      verifiedRecoveryRef.current = false;
+      markRecoveryContextConsumed();
       return;
     }
 
-    if (verifiedRecoveryRef.current) {
+    if (isPasswordRecoveryContextValid()) {
+      setResetSessionValid(true);
+      setResetSessionError("");
+      setResetChecking(false);
       return;
     }
 
@@ -59,7 +60,6 @@ export default function Login({ navigate, onAuth }) {
     const hashError = hashParams.get("error");
     const hashErrorCode = hashParams.get("error_code");
     const hashErrorDesc = hashParams.get("error_description");
-    const isRecoveryHash = hashParams.get("type") === "recovery" || hashStr.includes("type=recovery");
 
     // 1. Error detected in hash from Supabase redirect
     if (hashError || hashErrorCode) {
@@ -73,8 +73,8 @@ export default function Login({ navigate, onAuth }) {
       return;
     }
 
-    // 2. Direct access without recovery token in hash and without verified session: fail-closed immediately
-    if (!isRecoveryHash && !hashParams.has("access_token") && !verifiedRecoveryRef.current) {
+    // 2. Direct access without recovery token in hash: fail-closed immediately (rejects artificial #type=recovery)
+    if (!hashParams.has("access_token")) {
       setResetChecking(false);
       setResetSessionValid(false);
       setResetSessionError("Sessão de recuperação ausente ou link expirado. Solicite um novo link para redefinir sua senha.");
@@ -90,39 +90,38 @@ export default function Login({ navigate, onAuth }) {
 
     let isMounted = true;
 
-    // 3. Listen for PASSWORD_RECOVERY or SIGNED_IN event from Supabase Auth
+    // 3. Listen specifically for PASSWORD_RECOVERY event from Supabase Auth
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       if (!isMounted) return;
-      if ((event === "PASSWORD_RECOVERY" || (event === "SIGNED_IN" && isRecoveryHash)) && session) {
-        verifiedRecoveryRef.current = true;
+      if (event === "PASSWORD_RECOVERY" && session) {
         setResetSessionValid(true);
         setResetSessionError("");
         setResetChecking(false);
       }
     });
 
-    // 4. Query current session if already processed
+    // 4. Query current session if already processed by GoTrue
     supabase.auth.getSession().then(({ data, error }) => {
       if (!isMounted) return;
-      if (verifiedRecoveryRef.current) return;
+      if (isPasswordRecoveryContextValid()) {
+        setResetSessionValid(true);
+        setResetSessionError("");
+        setResetChecking(false);
+        return;
+      }
 
       if (error) {
         setResetSessionValid(false);
         setResetSessionError(error.message || "Sessão de recuperação inválida ou expirada.");
         setResetChecking(false);
-      } else if (data?.session && isRecoveryHash) {
-        verifiedRecoveryRef.current = true;
-        setResetSessionValid(true);
-        setResetSessionError("");
-        setResetChecking(false);
-      } else if (!isRecoveryHash && !hashParams.has("access_token")) {
+      } else if (!data?.session) {
         setResetSessionValid(false);
         setResetSessionError("Sessão de recuperação ausente ou link expirado. Solicite um novo link para redefinir sua senha.");
         setResetChecking(false);
       }
     }).catch(err => {
       if (!isMounted) return;
-      if (verifiedRecoveryRef.current) return;
+      if (isPasswordRecoveryContextValid()) return;
       setResetSessionValid(false);
       setResetSessionError(err?.message || "Erro ao verificar integridade da sessão.");
       setResetChecking(false);
@@ -131,7 +130,7 @@ export default function Login({ navigate, onAuth }) {
     // 5. Fallback safety timeout (2.5 seconds max)
     const timer = setTimeout(() => {
       if (!isMounted) return;
-      if (!verifiedRecoveryRef.current) {
+      if (!isPasswordRecoveryContextValid()) {
         setResetSessionValid(false);
         setResetSessionError("Tempo limite esgotado para validar o link de recuperação. Solicite um novo link.");
         setResetChecking(false);
@@ -221,6 +220,7 @@ export default function Login({ navigate, onAuth }) {
     event.preventDefault();
     if (resetLoading) return;
     setMessage("");
+
     if (!resetValues.password || resetValues.password.length < 8) {
       setErrors({ password: "A nova senha deve ter pelo menos 8 caracteres." });
       return;
@@ -230,16 +230,33 @@ export default function Login({ navigate, onAuth }) {
       return;
     }
 
+    // ADM-01: Revalidação estrita da sessão de recuperação no momento da redefinição
+    if (!isPasswordRecoveryContextValid()) {
+      setMessage("Contexto de recuperação ausente ou expirado. Solicite um novo link de redefinição.");
+      return;
+    }
+
+    if (!supabase) {
+      setMessage("Serviço de autenticação temporariamente indisponível.");
+      return;
+    }
+
     setResetLoading(true);
     try {
-      await updateCurrentUserPassword(resetValues.password);
-      if (supabase) {
-        try {
-          await supabase.auth.signOut({ scope: "local" });
-        } catch (err) {
-          console.warn("Falha ao encerrar sessão temporária pós-reset:", err);
-        }
+      const { data: userData, error: userError } = await supabase.auth.getUser();
+      if (userError || !userData?.user || userData.user.id !== getRecoveryContextUserId()) {
+        throw new Error("Identidade de recuperação inválida ou expirada. Solicite um novo link.");
       }
+
+      await updateCurrentUserPassword(resetValues.password);
+
+      // ADM-02: Revogação global de todas as sessões anteriores para a identidade recuperada
+      const { error: signOutError } = await supabase.auth.signOut({ scope: "global" });
+      if (signOutError) {
+        console.warn("Aviso ao revogar sessões pós-redefinição:", signOutError.message);
+      }
+
+      markRecoveryContextConsumed();
       setResetSuccess(true);
       setMessage("");
     } catch (err) {

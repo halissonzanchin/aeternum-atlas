@@ -72,11 +72,12 @@ async function run() {
   const results = {
     scenario1_directAccessFailClosed: false,
     scenario2_expiredTamperedHashFailClosed: false,
-    scenario3_validSessionFormRendered: false,
-    scenario4_validationRulesEnforced: false,
-    scenario5_passwordResetAndSessionRevocation: false,
-    scenario6_reusedLinkInvalidation: false,
-    scenario7_postResetLoginSuccess: false,
+    scenario3_authenticatedSessionArtificialRecoveryRejected: false,
+    scenario4_validSessionFormRendered: false,
+    scenario5_validationRulesEnforced: false,
+    scenario6_passwordResetAndSessionRevocation: false,
+    scenario7_reusedLinkInvalidation: false,
+    scenario8_postResetLoginSuccess: false,
     cleanupCompleted: false
   };
 
@@ -154,9 +155,48 @@ async function run() {
     `);
 
     // ----------------------------------------------------
-    // Scenario 3: Authentic Recovery Session Flow
+    // Scenario 3 (ADM-01): Authenticated session with artificial recovery parameter
     // ----------------------------------------------------
-    console.log("\n[Scenario 3] Generating authentic recovery link for disposable test user...");
+    console.log("\n[Scenario 3] Testing authenticated user attempting /login?mode=reset-password#type=recovery...");
+    const { data: authSessionData, error: authSessionErr } = await publicClient.auth.signInWithPassword({
+      email: testEmail,
+      password: initialPassword
+    });
+    if (authSessionErr || !authSessionData?.session) {
+      throw new Error(`Failed to establish session for test user: ${authSessionErr?.message}`);
+    }
+
+    const page3 = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    await page3.goto("http://localhost:5174/login", { waitUntil: "networkidle" });
+    await page3.evaluate((session) => {
+      window.localStorage.setItem("sb-hyivyrietgjdazgizafp-auth-token", JSON.stringify(session));
+    }, authSessionData.session);
+
+    // Navigate with artificial hash #type=recovery (without valid OTP GoTrue exchange)
+    await page3.goto("http://localhost:5174/login?mode=reset-password#type=recovery", { waitUntil: "networkidle" });
+    await page3.waitForSelector(".atlas-auth-card--login", { timeout: 10000 });
+
+    const passwordInputsScenario3 = await page3.$$('input[name="password"], input[name="confirmPassword"]');
+    const displayTitleScenario3 = await page3.$eval(".display-title", el => el.textContent.trim());
+    const errorMessageScenario3 = await page3.$eval('[data-testid="recovery-session-error"]', el => el.textContent.trim());
+
+    if (
+      passwordInputsScenario3.length === 0 &&
+      displayTitleScenario3 === "Link Inválido ou Expirado" &&
+      errorMessageScenario3.includes("Sessão de recuperação ausente")
+    ) {
+      results.scenario3_authenticatedSessionArtificialRecoveryRejected = true;
+      console.log("  -> PASS: Authenticated user with artificial recovery hash rejected immediately (0 password fields rendered).");
+    } else {
+      throw new Error(`Scenario 3 failed: Authenticated session was incorrectly allowed to see reset form! (inputs=${passwordInputsScenario3.length}, title=${displayTitleScenario3})`);
+    }
+    await page3.close();
+    await publicClient.auth.signOut();
+
+    // ----------------------------------------------------
+    // Scenario 4: Authentic Recovery Session Flow
+    // ----------------------------------------------------
+    console.log("\n[Scenario 4] Generating authentic recovery link for disposable test user...");
     const { data: linkData, error: linkErr } = await adminClient.auth.admin.generateLink({
       type: "recovery",
       email: testEmail,
@@ -190,18 +230,18 @@ async function run() {
     const toggles = await page.$$(".atlas-auth-password__toggle");
 
     if (resetTitle === "Definir Nova Senha" && newPassField && confirmPassField && toggles.length === 2) {
-      results.scenario3_validSessionFormRendered = true;
+      results.scenario4_validSessionFormRendered = true;
       console.log("  -> PASS: Valid recovery session established and password reset form rendered.");
       const toggleBox = await toggles[0].boundingBox();
       console.log(`  -> Password toggle dimensions: ${Math.round(toggleBox.width)}x${Math.round(toggleBox.height)}px`);
     } else {
-      throw new Error(`Scenario 3 failed: title=${resetTitle}`);
+      throw new Error(`Scenario 4 failed: title=${resetTitle}`);
     }
 
     // ----------------------------------------------------
-    // Scenario 4: Password Validation Rules (<8 chars, mismatch)
+    // Scenario 5: Password Validation Rules (<8 chars, mismatch)
     // ----------------------------------------------------
-    console.log("\n[Scenario 4] Testing client password validations...");
+    console.log("\n[Scenario 5] Testing client password validations...");
     // 1. Short password (< 8 chars)
     await newPassField.fill("Short1");
     await page.click('button.atlas-auth-submit');
@@ -218,16 +258,16 @@ async function run() {
     console.log("  -> Mismatch password validation error:", mismatchErr);
 
     if (shortErr.includes("8 caracteres") && mismatchErr.includes("não coincidem")) {
-      results.scenario4_validationRulesEnforced = true;
+      results.scenario5_validationRulesEnforced = true;
       console.log("  -> PASS: Validation rules (<8 chars, mismatch) strictly enforced.");
     } else {
-      throw new Error("Scenario 4 failed: validation messages not as expected.");
+      throw new Error("Scenario 5 failed: validation messages not as expected.");
     }
 
     // ----------------------------------------------------
-    // Scenario 5: Successful Password Reset Execution
+    // Scenario 6 (ADM-02): Successful Password Reset Execution & Explicit Session Revocation
     // ----------------------------------------------------
-    console.log("\n[Scenario 5] Executing successful password reset...");
+    console.log("\n[Scenario 6] Executing successful password reset and proving session revocation...");
     await newPassField.fill(nextPassword);
     await confirmPassField.fill(nextPassword);
     await page.click('button.atlas-auth-submit');
@@ -242,17 +282,34 @@ async function run() {
     await page.screenshot({ path: shotPath, fullPage: false });
     console.log("  -> Saved screenshot to:", shotPath);
 
-    if (successTitle === "Senha Redefinida" && successMsg.includes("com sucesso")) {
-      results.scenario5_passwordResetAndSessionRevocation = true;
-      console.log("  -> PASS: Password updated and recovery session revoked locally.");
+    // Prove actual session termination via client API
+    const clientSession = await page.evaluate(async () => {
+      if (!window.__atlas_supabase) return null;
+      const { data } = await window.__atlas_supabase.auth.getSession();
+      return data?.session;
+    });
+
+    // Check localStorage auth token
+    const storedAuthToken = await page.evaluate(() => {
+      const keys = Object.keys(window.localStorage);
+      const authKey = keys.find(k => k.includes("auth-token"));
+      return authKey ? window.localStorage.getItem(authKey) : null;
+    });
+
+    console.log("  -> Supabase client getSession() result:", clientSession ? "ACTIVE_SESSION (ERROR)" : "NULL (REVOKED)");
+    console.log("  -> LocalStorage auth token presence:", storedAuthToken ? "TOKEN_PRESENT (inspecting)" : "CLEARED");
+
+    if (successTitle === "Senha Redefinida" && successMsg.includes("com sucesso") && clientSession === null) {
+      results.scenario6_passwordResetAndSessionRevocation = true;
+      console.log("  -> PASS: Password updated, UI confirmed, and client session proven revoked (getSession() === null).");
     } else {
-      throw new Error("Scenario 5 failed: success screen not shown.");
+      throw new Error(`Scenario 6 failed: session not revoked or success message absent (clientSession=${clientSession})`);
     }
 
     // ----------------------------------------------------
-    // Scenario 6: Reused Recovery Link
+    // Scenario 7 (ADM-03): Reused Recovery Link
     // ----------------------------------------------------
-    console.log("\n[Scenario 6] Verifying reused action link is rejected...");
+    console.log("\n[Scenario 7] Verifying reused action link is rejected...");
     const reuseRes = await fetch(rawActionLink, { redirect: "manual" });
     const reuseTarget = reuseRes.headers.get("location");
     console.log("  -> Reused action link HTTP status:", reuseRes.status);
@@ -260,27 +317,26 @@ async function run() {
       await page.goto(reuseTarget, { waitUntil: "networkidle" });
       await page.waitForSelector(".atlas-auth-card--login", { timeout: 10000 });
       await new Promise(r => setTimeout(r, 1000));
-      const isErrorOrNormal = await page.$eval(".display-title", el => el.textContent.trim());
+      const isErrorOrNormal = await page.$eval(".display-title", el => el.textContent.trim()).catch(() => "unknown");
       const passFieldsAfterReuse = await page.$$('input[name="password"], input[name="confirmPassword"]');
       console.log("  -> Reused link screen display title:", isErrorOrNormal);
       console.log("  -> Password input fields count on reuse:", passFieldsAfterReuse.length);
 
-      if (passFieldsAfterReuse.length === 0 || isErrorOrNormal !== "Definir Nova Senha") {
-        results.scenario6_reusedLinkInvalidation = true;
-        console.log("  -> PASS: Reused recovery link did not render password reset form.");
+      if (passFieldsAfterReuse.length === 0 && isErrorOrNormal !== "Definir Nova Senha") {
+        results.scenario7_reusedLinkInvalidation = true;
+        console.log("  -> PASS: Reused recovery link did not render password reset form (0 inputs mounted).");
       } else {
-        results.scenario6_reusedLinkInvalidation = true;
-        console.log("  -> PASS: Reused recovery link handled securely.");
+        throw new Error(`Scenario 7 FAILED: Reused recovery link allowed reset form display! (inputs=${passFieldsAfterReuse.length}, title="${isErrorOrNormal}")`);
       }
     } else {
-      results.scenario6_reusedLinkInvalidation = true;
+      results.scenario7_reusedLinkInvalidation = true;
       console.log("  -> PASS: Reused recovery link rejected directly by server (HTTP " + reuseRes.status + ").");
     }
 
     // ----------------------------------------------------
-    // Scenario 7: Subsequent Login with New Password
+    // Scenario 8: Subsequent Login with New Password
     // ----------------------------------------------------
-    console.log("\n[Scenario 7] Verifying login with updated password...");
+    console.log("\n[Scenario 8] Verifying login with updated password...");
     // 1. Initial password should now fail
     const { data: failLogin, error: failErr } = await publicClient.auth.signInWithPassword({
       email: testEmail,
@@ -300,16 +356,32 @@ async function run() {
       throw new Error(`Login with new password failed: ${succErr?.message}`);
     }
     console.log("  -> New password login successfully established session for user:", successLogin.user.id);
-    results.scenario7_postResetLoginSuccess = true;
+    results.scenario8_postResetLoginSuccess = true;
     console.log("  -> PASS: Post-reset login verified successfully.");
 
+    await page.close();
   } finally {
     if (testUserId) {
       console.log("\n[Cleanup] Deleting disposable test user id:", testUserId);
       await runSupabaseSql(`DELETE FROM public.users WHERE id = '${testUserId}';`);
-      await adminClient.auth.admin.deleteUser(testUserId);
-      results.cleanupCompleted = true;
-      console.log("  -> Disposable test user deleted cleanly.");
+      const { error: delAuthErr } = await adminClient.auth.admin.deleteUser(testUserId);
+      if (delAuthErr) {
+        console.warn("  -> Warning deleting from auth.users:", delAuthErr.message);
+      }
+
+      // Prove deletion from public.users
+      const publicRows = await runSupabaseSql(`SELECT count(*)::int as count FROM public.users WHERE id = '${testUserId}';`);
+      const publicCount = publicRows[0]?.count ?? -1;
+
+      // Prove deletion from auth.users
+      const { data: authUserCheck, error: authCheckErr } = await adminClient.auth.admin.getUserById(testUserId);
+
+      if (publicCount === 0 && (!authUserCheck?.user || Boolean(authCheckErr))) {
+        results.cleanupCompleted = true;
+        console.log("  -> PROVEN: Test user completely eliminated from both public.users and auth.users.");
+      } else {
+        throw new Error(`Cleanup failed: user still exists (publicCount=${publicCount}, authUserExists=${Boolean(authUserCheck?.user)})`);
+      }
     }
     await browser.close();
     stopVite(serverProc);
@@ -320,7 +392,7 @@ async function run() {
 
   const allPassed = Object.values(results).every(v => v === true);
   if (allPassed) {
-    console.log("\n>>> ALL 7 RECOVERY SCENARIOS PASSED 100% <<<");
+    console.log("\n>>> ALL 8 RECOVERY SCENARIOS PASSED 100% <<<");
     process.exit(0);
   } else {
     console.error("\n>>> SOME SCENARIOS FAILED <<<");
