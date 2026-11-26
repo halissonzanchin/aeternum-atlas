@@ -311,7 +311,70 @@ function runSimulatedFailureChecks() {
     console.log(`[BLOCKED 12/12] Simulated Home Tutor Leak: ${failures[0]}`);
   }
 
-  // 13. P0.21-E.6 QUALITY GATE INTEGRITY: Regex Coverage & Deterministic Fixtures
+  // 13. P0.21-MOBILE.1.4: Simulated Desktop Login Double Scroll / Card Clamping
+  {
+    const failures = [];
+    const metrics = {
+      hasHorizontalOverflow: false,
+      scrollWidth: 1366,
+      clientWidth: 1366,
+      tutorMounted: false,
+      cardVisible: true,
+      cardOverflowY: "auto", // REGRESSION (internal card scrollbar on desktop)
+      toggleWidth: 36,
+      hasSubmitBtn: true,
+      hasForgotLink: true,
+      hasFooterRow: true
+    };
+    const pass = assertLoginMetrics(desktopVp, metrics, failures);
+    assert.equal(pass, false, "Desktop card internal overflow-y must fail assertion");
+    assert.ok(failures.some(f => f.includes("Double scrollbar risk")), "Must record double scrollbar failure");
+    caughtViolations++;
+    console.log(`[BLOCKED 13/15] Simulated Desktop Login Double Scroll: ${failures[0]}`);
+  }
+
+  // 14. P0.21-MOBILE.1.4: Simulated Password Toggle Over-size / Misalignment (> 44px)
+  {
+    const failures = [];
+    const metrics = {
+      hasHorizontalOverflow: false,
+      scrollWidth: 1366,
+      clientWidth: 1366,
+      tutorMounted: false,
+      cardVisible: true,
+      cardOverflowY: "visible",
+      toggleWidth: 76, // REGRESSION (legacy oversized text button)
+      hasSubmitBtn: true,
+      hasForgotLink: true,
+      hasFooterRow: true
+    };
+    const pass = assertLoginMetrics(desktopVp, metrics, failures);
+    assert.equal(pass, false, "Oversized password toggle must fail assertion");
+    assert.ok(failures.some(f => f.includes("Password toggle button exceeds icon dimensions")), "Must record toggle dimensions failure");
+    caughtViolations++;
+    console.log(`[BLOCKED 14/15] Simulated Password Toggle Over-size: ${failures[0]}`);
+  }
+
+  // 15. P0.21-MOBILE.1.4: Simulated Desktop Beta Card Clamping / Double Scroll
+  {
+    const failures = [];
+    const metrics = {
+      hasHorizontalOverflow: false,
+      scrollWidth: 1366,
+      clientWidth: 1366,
+      tutorMounted: false,
+      prelaunchBannerVisible: true,
+      activeBannerVisible: false,
+      betaCardOverflowY: "auto" // REGRESSION (internal scrollbar on beta card)
+    };
+    const pass = assertBetaMetrics(desktopVp, metrics, failures);
+    assert.equal(pass, false, "Desktop beta card internal overflow-y must fail assertion");
+    assert.ok(failures.some(f => f.includes("Double scrollbar / displaced surface risk")), "Must record beta double scroll failure");
+    caughtViolations++;
+    console.log(`[BLOCKED 15/15] Simulated Desktop Beta Card Clamping: ${failures[0]}`);
+  }
+
+  // 16. P0.21-E.6 QUALITY GATE INTEGRITY: Regex Coverage & Deterministic Fixtures
   {
     // A. Verify Supabase regex matches valid subdomains
     assert.ok(SUPABASE_URL_PATTERN.test("https://hyivyrietgjdazgizafp.supabase.co/rest/v1/rpc/get_beta_program_public_status"));
@@ -328,10 +391,10 @@ function runSimulatedFailureChecks() {
     assert.equal(BETA_STATUS_FIXTURES.open.capacity_total, 30);
     assert.equal(BETA_STATUS_FIXTURES.open.remaining_slots, 30);
 
-    console.log(`[VERIFIED 13] Supabase Subdomain Regex & Deterministic Open/Closed Fixtures validated.`);
+    console.log(`[VERIFIED 16] Supabase Subdomain Regex & Deterministic Open/Closed Fixtures validated.`);
   }
 
-  console.log(`\nSUCCESS: All ${caughtViolations}/12 simulated responsive violations were accurately intercepted.`);
+  console.log(`\nSUCCESS: All ${caughtViolations}/15 simulated responsive violations were accurately intercepted.`);
   console.log("Quality Gate Integrity: DETERMINISTIC FAIL-CLOSED (100% REGRESSION PREVENTION)");
 }
 

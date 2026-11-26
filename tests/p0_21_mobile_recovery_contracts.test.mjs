@@ -293,3 +293,59 @@ test("P0.21-MOBILE.1.3 — Permanent Responsive Quality Gate Contract", async (t
     assert.ok(fs.existsSync(simScript), "Simulated failure test script must exist");
   });
 });
+
+test("P0.21-MOBILE.1.4 — Desktop Optical Geometry Recovery & Password Toggle Contracts", async (t) => {
+  await t.test("AeternumOpticalGlass.css enforces max-height: none and overflow: visible on desktop auth card", () => {
+    const cssPath = path.join(rootDir, "src/styles/AeternumOpticalGlass.css");
+    const content = fs.readFileSync(cssPath, "utf-8");
+
+    assert.match(
+      content,
+      /\.atlas-auth-card[\s\S]*?max-height:\s*none;[\s\S]*?overflow:\s*visible;/,
+      "AeternumOpticalGlass.css must eliminate card height clamping to prevent double scroll and optical cut-through"
+    );
+  });
+
+  await t.test("A26Shell.css enforces max-height: none and overflow: visible on login card", () => {
+    const shellPath = path.join(rootDir, "src/styles/A26Shell.css");
+    const content = fs.readFileSync(shellPath, "utf-8");
+
+    assert.match(
+      content,
+      /\.atlas-auth-card--login\.a26-surface[\s\S]*?max-height:\s*none\s*!important;[\s\S]*?overflow:\s*visible\s*!important;/,
+      "A26Shell.css must enforce full card expansion for login"
+    );
+  });
+
+  await t.test("BetaRegistrationPage.css enforces max-height: none and overflow: visible on desktop beta card in Dark and Light themes", () => {
+    const betaPath = path.join(rootDir, "src/pages/beta/BetaRegistrationPage.css");
+    const content = fs.readFileSync(betaPath, "utf-8");
+
+    assert.match(
+      content,
+      /\.atlas-auth-card--beta[\s\S]*?max-height:\s*none\s*!important;[\s\S]*?overflow:\s*visible\s*!important;/,
+      "BetaRegistrationPage.css must allow beta card to expand to full form height on desktop"
+    );
+    assert.match(
+      content,
+      /\.a26-theme-light\s+\.atlas-auth-card--beta[\s\S]*?max-height:\s*none\s*!important;[\s\S]*?overflow:\s*visible\s*!important;/,
+      "Light mode must also expand beta card to full form height on desktop"
+    );
+  });
+
+  await t.test("A26Shell.css specifies calibrated 36x36px centered icon button for password toggle in Dark and Light themes", () => {
+    const shellPath = path.join(rootDir, "src/styles/A26Shell.css");
+    const content = fs.readFileSync(shellPath, "utf-8");
+
+    assert.match(
+      content,
+      /\.atlas-auth-password__toggle[\s\S]*?width:\s*36px;[\s\S]*?height:\s*36px;[\s\S]*?display:\s*inline-flex;[\s\S]*?align-items:\s*center;[\s\S]*?justify-content:\s*center;/,
+      "Must define 36x36px centered inline-flex toggle button"
+    );
+    assert.match(
+      content,
+      /\.a26-theme-light\s+\.atlas-auth-password__toggle[\s\S]*?color:\s*#0f766e\s*!important;/,
+      "Light mode must provide calibrated high-contrast teal icon"
+    );
+  });
+});

@@ -137,6 +137,16 @@ export function assertLoginMetrics(vp, metrics, failures = []) {
       pass = false;
       failures.push(`${vp.name} /login: Mobile unified hierarchy incomplete (submit, recovery link or footer row missing)!`);
     }
+  } else {
+    // Desktop Optical Geometry Assertions (P0.21-MOBILE.1.4)
+    if (metrics.cardOverflowY === "auto" || metrics.cardOverflowY === "scroll") {
+      pass = false;
+      failures.push(`${vp.name} /login: Double scrollbar risk - desktop card has internal overflow-y: ${metrics.cardOverflowY}`);
+    }
+    if (metrics.toggleWidth && metrics.toggleWidth > 44) {
+      pass = false;
+      failures.push(`${vp.name} /login: Password toggle button exceeds icon dimensions (width=${metrics.toggleWidth}px, max expected 40px)`);
+    }
   }
   if (!metrics.cardVisible) {
     pass = false;
@@ -160,6 +170,12 @@ export function assertBetaMetrics(vp, metrics, failures = []) {
     if (namePx < 15.5) {
       pass = false;
       failures.push(`${vp.name} /programa-beta: iOS WebKit auto-zoom risk - input font size < 16px (name=${metrics.nameFontSize})`);
+    }
+  } else {
+    // Desktop Optical Geometry Assertions (P0.21-MOBILE.1.4)
+    if (metrics.betaCardOverflowY === "auto" || metrics.betaCardOverflowY === "scroll") {
+      pass = false;
+      failures.push(`${vp.name} /programa-beta: Double scrollbar / displaced surface risk - desktop beta card has internal overflow-y: ${metrics.betaCardOverflowY}`);
     }
   }
   // Deterministic state validation: requires specific banner depending on TEST_BETA_STATE
@@ -484,6 +500,10 @@ async function main() {
         const shellRadius = shell ? window.getComputedStyle(shell).borderRadius : null;
         const storyBorderBottom = story ? window.getComputedStyle(story).borderBottomWidth : null;
 
+        const cardComputed = card ? window.getComputedStyle(card) : null;
+        const cardOverflowY = cardComputed ? cardComputed.overflowY : null;
+        const toggleWidth = passToggle ? passToggle.offsetWidth : null;
+
         return {
           scrollWidth,
           clientWidth,
@@ -494,12 +514,14 @@ async function main() {
           cardVisible: Boolean(cardRect && cardRect.width > 0 && cardRect.height > 0),
           cardWidth: cardRect?.width,
           cardHeight: cardRect?.height,
+          cardOverflowY,
           shellRadius,
           storyBorderBottom,
           hasSubmitBtn: Boolean(submitBtn),
           hasForgotLink: Boolean(forgotLink),
           hasFooterRow: Boolean(footerRow),
-          hasPassToggle: Boolean(passToggle)
+          hasPassToggle: Boolean(passToggle),
+          toggleWidth
         };
       });
 
@@ -550,6 +572,10 @@ async function main() {
         const prelaunchBanner = document.querySelector(".beta-prelaunch-banner");
         const activeBanner = document.querySelector(".beta-active-banner");
 
+        const betaCard = document.querySelector(".atlas-auth-card--beta");
+        const betaCardComputed = betaCard ? window.getComputedStyle(betaCard) : null;
+        const betaCardOverflowY = betaCardComputed ? betaCardComputed.overflowY : null;
+
         return {
           scrollWidth,
           clientWidth,
@@ -557,7 +583,8 @@ async function main() {
           nameFontSize,
           tutorMounted: Boolean(tutor || orb || marinaBadge),
           prelaunchBannerVisible: Boolean(prelaunchBanner),
-          activeBannerVisible: Boolean(activeBanner)
+          activeBannerVisible: Boolean(activeBanner),
+          betaCardOverflowY
         };
       });
 
