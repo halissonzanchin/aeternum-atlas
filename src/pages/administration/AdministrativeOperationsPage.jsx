@@ -285,9 +285,27 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
   const institutions = filterRows(data?.institutions || [], query);
   const [studentCategoryFilter, setStudentCategoryFilter] = useState("all");
 
-  const guardState = sessionGuardService?.getState?.() || {};
-  const isGuardActive = guardState?.isAuthorized || guardState?.status === "AUTHORIZED" || (data?.source === "supabase" && !guardState?.isUnavailable);
-  const isGuardUnavailable = guardState?.isUnavailable === true;
+  const [guardState, setGuardState] = useState(() => sessionGuardService?.getState?.() || {});
+
+  useEffect(() => {
+    if (typeof sessionGuardService?.subscribe === "function") {
+      return sessionGuardService.subscribe((next) => setGuardState({ ...next }));
+    }
+  }, []);
+
+  const isGuardActive = Boolean(
+    guardState?.isAuthorized ||
+    guardState?.status === "AUTHORIZED" ||
+    guardState?.status === "SESSION_VALID" ||
+    guardState?.status === "SESSION_GRANTED"
+  );
+  const isGuardUnavailable = Boolean(
+    guardState?.isUnavailable === true ||
+    guardState?.status === "UNAVAILABLE"
+  );
+
+  const isLogsUnavailable = data?.quality?.tables?.activityLogs?.state === "unavailable";
+  const isEventsUnavailable = data?.quality?.tables?.platformEvents?.state === "unavailable";
 
   const filteredStudents = useMemo(() => {
     let list = rawStudents;
@@ -333,7 +351,7 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
     },
     {
       kicker: "Operação El Dorado",
-      value: betaOperations.capacityTotal ? `Capacidade: ${number(betaOperations.capacityTotal)}` : "—",
+      value: "Capacidade: 30",
       badge: betaOperations.registrationOpen === false
         ? "Inscrições Fechadas"
         : betaOperations.registrationOpen === true
@@ -376,7 +394,7 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
     },
     {
       kicker: "Presença Recente",
-      value: `${number(overviewMetrics.recentActivity1h ?? 0)} recente(s)`,
+      value: overviewMetrics.recentActivity1h != null ? `${number(overviewMetrics.recentActivity1h)} recente(s)` : "—",
       badge: "Tempo Real: Indisponível",
       badgeType: "unavailable",
       detail: "Instantâneo (<=5m) requer componente dedicado",
@@ -384,7 +402,7 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
     },
     {
       kicker: "Operação El Dorado",
-      value: betaOperations.capacityTotal ? `Capacidade: ${number(betaOperations.capacityTotal)}` : "—",
+      value: "Capacidade: 30",
       badge: betaOperations.registrationOpen === false
         ? "Inscrições Fechadas"
         : betaOperations.registrationOpen === true
@@ -546,22 +564,30 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
             <div className="admin26-trend-section">
               <div className="admin26-trend-header">
                 <span className="admin26-trend-title">Sessões 3D ao Longo do Tempo ({snapshot.label})</span>
-                <span className="admin26-trend-comparison">{formatPeriodComparison(snapshot.accesses)}</span>
+                <span className="admin26-trend-comparison">
+                  {isLogsUnavailable ? "Indisponível na fonte" : formatPeriodComparison(snapshot.accesses)}
+                </span>
               </div>
-              <div className="admin26-trend-chart" role="img" aria-label={`Sessões observadas nos ${snapshot.days} dias selecionados`}>
-                {createGovernanceSeries(snapshot).map((item, idx, arr) => {
-                  const max = Math.max(...arr.map((i) => i.accesses), 1);
-                  return (
-                    <div key={item.id} className="admin26-trend-column">
-                      <span className="admin26-trend-value">{number(item.accesses)}</span>
-                      <span className="admin26-trend-track">
-                        <span style={{ height: `${Math.max((item.accesses / max) * 100, item.accesses ? 8 : 2)}%` }} />
-                      </span>
-                      <small className="admin26-trend-label">{item.label}</small>
-                    </div>
-                  );
-                })}
-              </div>
+              {isLogsUnavailable ? (
+                <div style={{ padding: "28px 16px", textAlign: "center", color: "var(--a26-color-text-muted)" }}>
+                  <p style={{ margin: 0, fontSize: "0.875rem" }}>Curva temporal indisponível devido a falha na consulta de sessões.</p>
+                </div>
+              ) : (
+                <div className="admin26-trend-chart" role="img" aria-label={`Sessões observadas nos ${snapshot.days} dias selecionados`}>
+                  {createGovernanceSeries(snapshot).map((item, idx, arr) => {
+                    const max = Math.max(...arr.map((i) => i.accesses), 1);
+                    return (
+                      <div key={item.id} className="admin26-trend-column">
+                        <span className="admin26-trend-value">{number(item.accesses)}</span>
+                        <span className="admin26-trend-track">
+                          <span style={{ height: `${Math.max((item.accesses / max) * 100, item.accesses ? 8 : 2)}%` }} />
+                        </span>
+                        <small className="admin26-trend-label">{item.label}</small>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Sub-título Ranking Anatômico */}
@@ -570,7 +596,11 @@ function OverviewSection({ scope, data, snapshot, alerts, query, onInspect, navi
             </div>
 
             <div className="admin26-ranking-list">
-              {mostAccessedModels.length > 0 ? (
+              {isLogsUnavailable ? (
+                <div style={{ padding: "20px 16px", textAlign: "center", color: "var(--a26-color-text-muted)" }}>
+                  <p style={{ margin: 0, fontSize: "0.875rem" }}>Ranking anatômico indisponível devido a falha na consulta de sessões.</p>
+                </div>
+              ) : mostAccessedModels.length > 0 ? (
                 mostAccessedModels.map((model, idx) => (
                   <div key={model.id || idx} className="admin26-ranking-item">
                     <span className={`admin26-ranking-pos ${idx === 0 ? "is-top" : ""}`}>{idx + 1}</span>

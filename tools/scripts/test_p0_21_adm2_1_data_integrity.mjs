@@ -1035,6 +1035,58 @@ runTest("buildDashboardPayload DEVE retornar null em métricas e coverage quando
     "partial_unavailable",
     "coverageStatus DEVE ser 'partial_unavailable' quando houver falha de consulta"
   );
+  assert.strictEqual(
+    payload.overviewMetrics.recentActivity1h,
+    null,
+    "recentActivity1h DEVE ser null quando activityLogs falhar, impedindo zero falso"
+  );
+});
+
+// =============================================================================
+// GATE 22: SANEAMENTO RESIDUAL ADM.2.2-R3 (RELEASE FREEZE)
+// =============================================================================
+console.log("\n--- GATE 22: Saneamento Residual ADM.2.2-R3 (Release Freeze) ---");
+
+runTest("AdministrativeOperationsPage.jsx NÃO deve inferir Session Guard de data.source === 'supabase'", () => {
+  const filePath = path.resolve(process.cwd(), "src/pages/administration/AdministrativeOperationsPage.jsx");
+  const content = fs.readFileSync(filePath, "utf-8");
+
+  assert.ok(
+    !content.includes('data?.source === "supabase" && !guardState?.isUnavailable'),
+    "NÃO deve inferir autorização do Session Guard a partir da origem Supabase"
+  );
+  assert.ok(
+    content.includes("sessionGuardService.subscribe"),
+    "DEVE utilizar subscrição reativa do sessionGuardService"
+  );
+  assert.ok(
+    content.includes("isLogsUnavailable"),
+    "DEVE verificar isLogsUnavailable para impedir zeros falsos em curva temporal e ranking"
+  );
+});
+
+runTest("Operação El Dorado deve preservar capacidade 30 e availableSlots nulo antes da ADM.2.3", () => {
+  const servicePath = path.resolve(process.cwd(), "src/services/admin/institutionDashboardService.js");
+  const content = fs.readFileSync(servicePath, "utf-8");
+
+  assert.ok(
+    content.includes("capacityTotal: 30"),
+    "Capacidade total planejada DEVE ser 30"
+  );
+  assert.ok(
+    content.includes("availableSlots: null"),
+    "availableSlots DEVE ser null antes da certificação de candidaturas na ADM.2.3"
+  );
+});
+
+runTest("Suíte E2E de controle administrativo deve isolar conexões externas não autorizadas", () => {
+  const testScriptPath = path.resolve(process.cwd(), "tools/scripts/test_p0_21_adm2_2_control_center.mjs");
+  const content = fs.readFileSync(testScriptPath, "utf-8");
+
+  assert.ok(
+    content.includes('route.abort("blockedbyclient")'),
+    "DEVE conter regra de bloqueio de conexões externas não autorizadas via blockedbyclient"
+  );
 });
 
 console.log("\n===============================================================================");

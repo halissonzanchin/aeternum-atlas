@@ -155,6 +155,22 @@ async function setupSupabaseMockRoutes(page, user, options = {}) {
     }
   };
 
+  // Bloqueio rigoroso de conexões externas não autorizadas: apenas localhost e rotas sintéticas são permitidas
+  await page.route(url => {
+    const u = url.href || url.toString();
+    if (u.startsWith(BASE_URL) || u.startsWith("http://localhost:") || u.startsWith("http://127.0.0.1:")) {
+      return false;
+    }
+    if (u.includes("/auth/v1/") || u.includes("/rest/v1/") || u.includes("supabase.co")) {
+      return false;
+    }
+    return true;
+  }, route => {
+    const blockedUrl = route.request().url();
+    console.warn(`[SECURITY GUARD] Conexão externa não autorizada bloqueada no teste: ${blockedUrl}`);
+    return route.abort("blockedbyclient");
+  });
+
   await page.route("**/auth/v1/**", route => {
     const url = route.request().url();
     if (url.includes("/user") || url.includes("/session")) {
@@ -582,10 +598,30 @@ async function run() {
     const unavailDur = await unavailPage.locator('.admin26-pulse-card:has-text("Duração Média no Mês") .admin26-pulse-card__value').innerText();
     assert.strictEqual(unavailDur.trim(), "—", `Com fonte indisponível, Duração Média DEVE exibir '—' (encontrado: ${unavailDur})`);
 
+    // Presença Recente deve exibir "—" (sem coagir para 0 com falha de consulta)
+    const unavailRecent = await unavailPage.locator('.admin26-pulse-card:has-text("Presença Recente") .admin26-pulse-card__value').innerText();
+    assert.strictEqual(unavailRecent.trim(), "—", `Com fonte indisponível, Presença Recente DEVE exibir '—' (encontrado: ${unavailRecent})`);
+
+    // Operação El Dorado deve exibir Capacidade: 30
+    const unavailElDoradoCard = await unavailPage.locator('.admin26-pulse-card:has-text("Operação El Dorado") .admin26-pulse-card__value').innerText();
+    assert.strictEqual(unavailElDoradoCard.trim(), "Capacidade: 30", `Operação El Dorado DEVE exibir 'Capacidade: 30' (encontrado: ${unavailElDoradoCard})`);
+
+    // Curva Temporal não deve renderizar colunas falsas de zero
+    const trendText = await unavailPage.locator(".admin26-trend-section").innerText();
+    assert.ok(trendText.toLowerCase().includes("indisponível"), "Curva temporal deve explicitar indisponibilidade na fonte");
+    assert.ok(trendText.includes("Curva temporal indisponível devido a falha na consulta de sessões."), "Curva temporal deve exibir aviso de indisponibilidade");
+    const trendColumns = await unavailPage.locator(".admin26-trend-column").count();
+    assert.strictEqual(trendColumns, 0, "Curva temporal não deve renderizar colunas gráficas de valor zero em falha de consulta");
+
+    // Ranking Anatômico não deve renderizar aviso falso de 'Nenhum acesso no período'
+    const rankingText = await unavailPage.locator(".admin26-ranking-list").innerText();
+    assert.ok(rankingText.toLowerCase().includes("indisponível"), "Ranking anatômico deve explicitar indisponibilidade na fonte");
+    assert.ok(rankingText.includes("Ranking anatômico indisponível devido a falha na consulta de sessões."), "Ranking anatômico deve exibir aviso de indisponibilidade");
+
     // Núcleo 6 deve reportar "Indisponível (Falha na consulta)"
     const unavailGovText = await unavailPage.locator(".admin26-governance-card").innerText();
     assert.ok(unavailGovText.includes("Indisponível (Falha na consulta)"), "Núcleo 6 deve reportar falha na consulta para Sessões 3D");
-    console.log("[PASS] Fonte indisponível exibe '—' e 'Indisponível (Falha na consulta)', sem coerção para zero.");
+    console.log("[PASS] Fonte indisponível exibe '—', avisos explícitos e bloqueio de zeros falsos.");
     await unavailContext.close();
 
     // =========================================================================

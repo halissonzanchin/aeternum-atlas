@@ -1135,10 +1135,12 @@ export function buildDashboardPayload({
   const totalEvents = logs.length + events.length;
   const uniqueActiveUsers = new Set(logs.map(log => log.user_id).filter(Boolean)).size;
 
-  const lastHourUsers = new Set([
-    ...logs.filter(log => isWithinLastMinutes(toDate(log.created_at), 60)).map(log => log.user_id),
-    ...events.filter(event => isWithinLastMinutes(toDate(event.created_at), 60)).map(event => event.user_id)
-  ].filter(Boolean)).size;
+  const lastHourUsers = (isLogsUnavailable || isEventsUnavailable)
+    ? null
+    : new Set([
+        ...logs.filter(log => isWithinLastMinutes(toDate(log.created_at), 60)).map(log => log.user_id),
+        ...events.filter(event => isWithinLastMinutes(toDate(event.created_at), 60)).map(event => event.user_id)
+      ].filter(Boolean)).size;
 
   const occupancyRate = contractedCapacity ? (registeredStudents / contractedCapacity) * 100 : 0;
   const mostAccessedContent = mostAccessedModelsData[0]?.title || EMPTY_TEXT;
@@ -1188,7 +1190,7 @@ export function buildDashboardPayload({
     activated: null,
     maxCapacity: 30,
     capacityTotal: 30,
-    availableSlots: 30,
+    availableSlots: null, // NÃO presumir disponibilidade antes da certificação na ADM.2.3
     registrationOpen: false,
     scopeReviewRequiredInAdm23: true
   };
@@ -1476,7 +1478,7 @@ export async function loadInstitutionDashboardData({ institutionId } = {}) {
     invited: null,
     activated: null,
     capacityTotal: 30,
-    availableSlots: 30,
+    availableSlots: null, // NÃO presumir disponibilidade antes da certificação na ADM.2.3
     registrationOpen: false, // Inscrições mantidas fechadas
     scopeReviewRequiredInAdm23: true
   };
